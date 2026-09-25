@@ -1,8 +1,9 @@
 # W1 — Backend, Data, Supabase & Integration
 
-- Timestamp aproximado: 2026-09-25 17:00 Europe/Madrid
+- Timestamp aproximado: 2026-09-25 17:32 Europe/Madrid
 - Branch: `w1/bootstrap-canonical`
-- Último commit funcional: `c0e1dcf`
+- Último commit remoto funcional: `0dd2f14`
+- Pull request: [#11](https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/11)
 - Estado: en progreso
 
 ## Trabajo completado
@@ -15,11 +16,16 @@
 - Auditor de reproducibilidad, inventario SQL read-only y tests de bootstrap
   trasladados.
 - Next actualizado a 16.3.6; auditoría npm cerrada con 0 vulnerabilidades.
+- Snapshot completo publicado en el repositorio público con autorización expresa.
+- Rama rebasada sobre `w4/security-baseline@44375b0`; árbol local y remoto
+  verificados como idénticos (`231cd44`).
+- PR de bootstrap abierto contra W4 con la batería local completa en verde.
 
 ## Trabajo actual
 
-Publicación de la rama W1 y comienzo de la baseline Supabase canónica. La
-validación local completa está verde.
+Revisión del PR de bootstrap y descubrimiento read-only del nuevo proyecto
+Supabase antes de diseñar la baseline canónica. La validación local completa está
+verde.
 
 ## Siguiente tarea
 
@@ -41,4 +47,3 @@ Ver `docs/master/11_HANDOFFS.md`.
 
 - Identificación/acceso al nuevo proyecto Supabase.
 - PostgreSQL/Supabase local no disponible en este runtime.
-- Decisión del propietario sobre visibilidad pública del repositorio.
