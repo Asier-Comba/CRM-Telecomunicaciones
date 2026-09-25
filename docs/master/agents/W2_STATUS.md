@@ -3,8 +3,8 @@
 - Updated: 2026-09-25
 - Branch: `w2/frontend-bootstrap-readiness`
 - Base: `w4/security-baseline` at `4ef9a5a`
-- Delivered commit: `63be72d` (`docs(w2): define frontend bootstrap contract`)
-- Remote checkpoint: `fd4ce63` on `origin/w2/frontend-bootstrap-readiness`
+- Latest delivery commit: `a23dd21` (`docs(w2): specify customer 360 experience`)
+- Last verified remote checkpoint: `3142e01` on `origin/w2/frontend-bootstrap-readiness`
 - Draft PR: `#8` targeting `w4/security-baseline`
 - State: bootstrap readiness in progress; canonical application not published yet
 
