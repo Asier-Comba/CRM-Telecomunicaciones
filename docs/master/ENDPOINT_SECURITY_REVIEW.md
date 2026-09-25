@@ -1,5 +1,18 @@
 # Endpoint security review
 
+## Executable inventory gate
+
+W4 now discovers sensitive route handlers with `scripts/ci/check-sensitive-routes.mjs` and requires
+their trust-boundary metadata in `.security/sensitive-routes.json`. The gate rejects unregistered
+status/test/debug/admin/QA/internal/webhook/callback/agent/assistant-confirmation paths and direct
+privileged/service-role usage. It also rejects production-enabled test/debug/QA routes, unbounded
+outbound effects and privileged clients without stronger tenant binding and explicit review.
+
+Negative-control tests prove the failure cases. Against W1 head `61848cf`, the gate identified 24
+unregistered sensitive routes, including the already documented n8n, assistant, agent, debug,
+callback/webhook and service-role surfaces. Registration alone is not acceptance: runtime auth,
+zero-outbound-call denial tests, rate limits and cross-tenant attacks remain required.
+
 Reviewed source: `w1/bootstrap-canonical@61848cf` on 2026-09-25. The endpoint implementations relevant to this review are unchanged from the first application bootstrap.
 
 This is a static review of the reconstructed application. It is not production approval. Runtime assertions remain blocked until the canonical schema and isolated test environment exist.

@@ -43,6 +43,14 @@ Required implementation evidence:
 
 ## API and browser baseline
 
+Sensitive API routes are inventory-controlled by `.security/sensitive-routes.json` and
+`scripts/ci/check-sensitive-routes.mjs`. CI discovers route handlers with high-risk path
+names (status/test/debug/admin/QA/internal/webhook/callback/agent/assistant confirmation)
+or privileged/service-role client usage. Every discovered route must declare its owner,
+exposure, authentication mechanism, tenant binding, rate limiting, production state,
+outbound effects and completed security review. The registry is evidence for review; it
+does not replace runtime authorization or adversarial tests.
+
 - Strict input schemas and bounded pagination/body sizes.
 - Per-user and per-workspace rate limits on authentication, search, imports, webhooks and assistant actions.
 - CORS allowlist per environment; no credentialed wildcard origin.
