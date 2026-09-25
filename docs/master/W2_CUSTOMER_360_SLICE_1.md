@@ -239,6 +239,10 @@ Before implementation W2 requires non-customer fixtures for:
 
 Fixture values must be synthetic and carry no production/customer data.
 
+The transport-neutral acceptance scenarios are versioned in
+`docs/master/fixtures/W2_CUSTOMER_DASHBOARD_UI_STATE_FIXTURES.json`. They test W2
+state semantics only and must not be treated as a W1 API schema.
+
 ## 12. Tests
 
 ### Contract/adapter

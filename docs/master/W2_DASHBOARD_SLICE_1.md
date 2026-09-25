@@ -201,6 +201,10 @@ Required synthetic scenarios:
 - unknown source state handled neutrally;
 - long labels at 320 px.
 
+The transport-neutral acceptance scenarios are versioned in
+`docs/master/fixtures/W2_CUSTOMER_DASHBOARD_UI_STATE_FIXTURES.json`. They test W2
+state semantics only and must not be treated as a W1 API schema.
+
 ## 11. Tests
 
 ### Contract/adapter

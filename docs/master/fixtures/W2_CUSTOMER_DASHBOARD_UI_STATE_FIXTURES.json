@@ -1,0 +1,266 @@
+{
+  "$comment": "W2 presentation-state acceptance fixtures only. This file is not a W1 transport contract and contains no production or customer data.",
+  "version": 1,
+  "stateVocabulary": [
+    "loading",
+    "ready",
+    "empty",
+    "stale",
+    "retryable_error",
+    "terminal_error",
+    "forbidden"
+  ],
+  "customer360": [
+    {
+      "id": "c360-route-loading",
+      "routeState": "loading",
+      "sections": {},
+      "assertions": [
+        "identity and attention geometry is reserved",
+        "one polite loading status is exposed",
+        "no zero, empty or business-state claim is rendered",
+        "skeleton children are hidden from assistive technology"
+      ]
+    },
+    {
+      "id": "c360-complete-authorized",
+      "routeState": "ready",
+      "sections": {
+        "identity": "ready",
+        "primaryContact": "ready",
+        "nextTask": "ready",
+        "nextMeeting": "ready",
+        "activeContracts": "ready",
+        "nearestPermanence": "ready",
+        "nearestRenewal": "ready",
+        "alerts": "ready"
+      },
+      "requiredContractRequirements": [
+        "W1-C360-01",
+        "W1-C360-02",
+        "W1-C360-03",
+        "W1-C360-04",
+        "W1-C360-05",
+        "W1-C360-06",
+        "W1-C360-07",
+        "W1-C360-08",
+        "W1-C360-09",
+        "W1-C360-10",
+        "W1-C360-11",
+        "W1-C360-12",
+        "W1-C360-13",
+        "W1-C360-14"
+      ],
+      "assertions": [
+        "the company identity is the only page h1",
+        "every visible action is capability-driven",
+        "entity destinations use typed route descriptors",
+        "status, severity and urgency do not rely on color alone"
+      ]
+    },
+    {
+      "id": "c360-authorized-empty-attention",
+      "routeState": "ready",
+      "sections": {
+        "identity": "ready",
+        "primaryContact": "empty",
+        "nextTask": "empty",
+        "nextMeeting": "empty",
+        "activeContracts": "empty",
+        "nearestPermanence": "empty",
+        "nearestRenewal": "empty",
+        "alerts": "empty"
+      },
+      "assertions": [
+        "empty copy appears only after complete successful results",
+        "none, not-applicable and unknown are not collapsed",
+        "create or assign actions appear only with explicit capabilities"
+      ]
+    },
+    {
+      "id": "c360-partial-renewal-failure",
+      "routeState": "ready",
+      "sections": {
+        "identity": "ready",
+        "primaryContact": "ready",
+        "nextTask": "ready",
+        "nextMeeting": "ready",
+        "activeContracts": "ready",
+        "nearestPermanence": "ready",
+        "nearestRenewal": "retryable_error",
+        "alerts": "ready"
+      },
+      "assertions": [
+        "successful sections remain visible and interactive",
+        "renewal exposes a scoped safe retry",
+        "no aggregate count or no-renewal claim is shown",
+        "raw provider or database errors never render or enter client logs"
+      ]
+    },
+    {
+      "id": "c360-stale-after-refresh-failure",
+      "routeState": "ready",
+      "sections": {
+        "identity": "ready",
+        "primaryContact": "ready",
+        "nextTask": "stale",
+        "nextMeeting": "stale",
+        "activeContracts": "ready",
+        "nearestPermanence": "ready",
+        "nearestRenewal": "stale",
+        "alerts": "stale"
+      },
+      "assertions": [
+        "known safe content remains visible",
+        "freshness and refresh failure are announced without focus theft",
+        "stale content is never presented as current"
+      ]
+    },
+    {
+      "id": "c360-forbidden-safe-route",
+      "routeState": "forbidden",
+      "sections": {},
+      "assertions": [
+        "the response does not disclose cross-tenant entity existence",
+        "no customer reference or sensitive field is logged client-side",
+        "a safe parent destination is available"
+      ]
+    },
+    {
+      "id": "c360-permission-removed-in-session",
+      "routeState": "ready",
+      "sections": {
+        "identity": "ready",
+        "primaryContact": "forbidden",
+        "nextTask": "ready",
+        "nextMeeting": "ready",
+        "activeContracts": "ready",
+        "nearestPermanence": "ready",
+        "nearestRenewal": "ready",
+        "alerts": "ready"
+      },
+      "assertions": [
+        "contact methods and actions disappear without stale disclosure",
+        "server denial remains authoritative",
+        "focus stays in a valid nearby location"
+      ]
+    }
+  ],
+  "dashboard": [
+    {
+      "id": "dashboard-route-loading",
+      "routeState": "loading",
+      "widgets": {},
+      "assertions": [
+        "command-center geometry is stable",
+        "one polite loading status is exposed",
+        "no count, metric, empty-day or risk claim is rendered"
+      ]
+    },
+    {
+      "id": "dashboard-complete-work-queues",
+      "routeState": "ready",
+      "widgets": {
+        "tasks": "ready",
+        "meetings": "ready",
+        "renewals": "ready",
+        "permanence": "ready",
+        "opportunities": "ready"
+      },
+      "requiredContractRequirements": [
+        "W1-DASH-01",
+        "W1-DASH-02",
+        "W1-DASH-03",
+        "W1-DASH-04",
+        "W1-DASH-05",
+        "W1-DASH-06",
+        "W1-DASH-TASKS",
+        "W1-DASH-MEETINGS",
+        "W1-DASH-RENEWALS",
+        "W1-DASH-PERMANENCE",
+        "W1-DASH-OPPORTUNITIES"
+      ],
+      "assertions": [
+        "scope, operational window and freshness are visible",
+        "queues use W1 ordering semantics and stable tie-breakers",
+        "rows navigate through typed route descriptors",
+        "no locally derived KPI, risk, priority or percentage is shown"
+      ]
+    },
+    {
+      "id": "dashboard-successful-clear-day",
+      "routeState": "ready",
+      "widgets": {
+        "tasks": "empty",
+        "meetings": "empty",
+        "renewals": "empty",
+        "permanence": "empty",
+        "opportunities": "empty"
+      },
+      "assertions": [
+        "each empty claim is scoped to its successful complete query",
+        "the page does not invent an all-clear aggregate claim",
+        "useful actions appear only when permitted"
+      ]
+    },
+    {
+      "id": "dashboard-partial-renewal-failure",
+      "routeState": "ready",
+      "widgets": {
+        "tasks": "ready",
+        "meetings": "ready",
+        "renewals": "retryable_error",
+        "permanence": "ready",
+        "opportunities": "ready"
+      },
+      "assertions": [
+        "today and other queues remain usable",
+        "renewals exposes a scoped safe retry",
+        "renewal totals and no-renewal claims are omitted",
+        "the route does not collapse into a global error"
+      ]
+    },
+    {
+      "id": "dashboard-stale-after-refresh-failure",
+      "routeState": "ready",
+      "widgets": {
+        "tasks": "stale",
+        "meetings": "stale",
+        "renewals": "stale",
+        "permanence": "stale",
+        "opportunities": "stale"
+      },
+      "assertions": [
+        "known safe rows remain visible",
+        "freshness and refresh failure are exposed accessibly",
+        "refresh does not reset reading position"
+      ]
+    },
+    {
+      "id": "dashboard-bounded-incomplete-result",
+      "routeState": "ready",
+      "widgets": {
+        "tasks": "ready",
+        "meetings": "ready",
+        "renewals": "ready",
+        "permanence": "ready",
+        "opportunities": "ready"
+      },
+      "assertions": [
+        "visible rows do not imply a complete total",
+        "more-results navigation is explicit when permitted",
+        "no false zero or complete-scope copy is rendered"
+      ]
+    },
+    {
+      "id": "dashboard-scope-permission-removed",
+      "routeState": "forbidden",
+      "widgets": {},
+      "assertions": [
+        "cached team-scope data is not retained visibly",
+        "the response does not reveal unauthorized customer or team data",
+        "the user can return to a safe authorized destination"
+      ]
+    }
+  ]
+}
