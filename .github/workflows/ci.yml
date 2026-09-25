@@ -35,6 +35,8 @@ jobs:
           bash scripts/ci/test-supabase-security.sh
           node scripts/ci/test-sensitive-routes.mjs
           node scripts/ci/check-sensitive-routes.mjs
+          node scripts/ci/test-restore-evidence.mjs
+          node scripts/ci/validate-restore-evidence.mjs
 
   secret-scan:
     name: Secret scan

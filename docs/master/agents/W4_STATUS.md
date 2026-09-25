@@ -34,6 +34,7 @@ Last verified: 2026-09-25 (UTC)
 - Static endpoint review of the W1 application, including auth, debug/test routes, n8n and service-role trust boundaries.
 - Executable sensitive-route registry gate with negative controls. It identifies 24 routes at W1 `61848cf` and 22 at candidate `4936a08` requiring explicit auth, tenant, rate-limit, production and side-effect review.
 - Explicit W2 frontend security answers covering protected navigation, membership invalidation, browser telemetry, PII/copy policy, assistant READ rendering and minimum QA evidence.
+- Machine-validated restore evidence with negative controls for production targets, RPO/RTO arithmetic, asset completeness, tenant tests, integration disablement, reviewer separation and secret-bearing fields.
 
 ## Findings and gates
 
@@ -57,7 +58,7 @@ Last verified: 2026-09-25 (UTC)
 
 Resolved baseline work: the four Actions upgrades were integrated with verified immutable SHAs, checkout credentials were disabled, baseline self-tests passed and superseded Dependabot branches were removed automatically. W3's current branch passes its own 13-test quality gate, but those tests do not cover Issue `#10`.
 
-W4 push CI run `#44` is green at `bec6b2c`, including the new sensitive-route negative controls, Supabase checks, migration policy, secret scan and baseline gates.
+W4 push CI run `#46` is green at `4b957bd`, including the sensitive-route negative controls, Supabase checks, migration policy, secret scan and baseline gates. The restore-evidence gate added after that checkpoint passes locally; no restore exercise is claimed yet.
 
 Resolved W1 finding: `W1-QA-001` (clean checkout missing `supabase/migrations`) is fixed at `61848cf`; W4 reproduced the complete non-strict quality gate from a disposable worktree.
 

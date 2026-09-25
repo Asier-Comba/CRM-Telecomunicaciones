@@ -31,3 +31,17 @@ Quarterly and before commercial launch:
 8. Destroy the disposable environment through the approved operator process.
 
 A backup is not release evidence until this procedure has succeeded.
+
+## Machine-verifiable evidence
+
+Completed exercises are stored as JSON files under `ops/restore-evidence/` and validated with
+`node scripts/ci/validate-restore-evidence.mjs`. Evidence must describe a non-production isolated
+restore, synthetic or explicitly approved anonymized data, disabled outbound integrations, no
+restored plaintext secrets, all four assets restored and checksum-verified, successful auth,
+tenant-isolation, forward-migration and critical-smoke checks, separated operator/reviewer roles,
+and RPO/RTO calculated from UTC timestamps.
+
+The validator accepts only safe evidence identifiers, not raw logs, URLs, credentials or customer
+content. An empty evidence directory is allowed during bootstrap but explicitly reports that the
+release claim is unproven. Commercial-release approval requires at least one passing exercise whose
+source snapshot and recovery targets match the intended production policy.
