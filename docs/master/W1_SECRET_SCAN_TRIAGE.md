@@ -4,7 +4,7 @@
 - Owner: W1
 - Rama limpia: `w1/bootstrap-sanitized`
 - Baseline: `w4/security-baseline@44375b0`
-- Estado: saneado; validación reproducible final pendiente
+- Estado: saneado; gate local completo verde
 
 ## Resultado del triage
 
@@ -39,5 +39,6 @@ no hereda esos commits.
 ## Evidencia de validación
 
 - Scan del árbol tracked saneado: **PASS**.
-- Scan de historia completa del rango W1 nuevo: pendiente del HEAD definitivo.
+- Scan de historia completa del rango W1 nuevo: **PASS**, seis commits y cero
+  hallazgos.
 - Gate desde clon limpio remoto: pendiente de publicación de la rama nueva.

@@ -3,7 +3,7 @@
 - Timestamp: 2026-09-25
 - Branch: `w1/bootstrap-sanitized`
 - Baseline: `w4/security-baseline@44375b0`
-- Estado: P0 en validación reproducible
+- Estado: gate local completo verde; clean-clone remoto pendiente
 
 ## Trabajo completado
 
@@ -15,10 +15,12 @@
   única autoridad y `profiles.workspace_id` solo una preferencia.
 - Contratos de presentación/API `telecom.v0` publicados en `c545dbb` para
   customer/company, contracts, services/lines y dashboard.
+- Gate local completo verde: instalación reproducible, lint, typecheck, 12 tests,
+  build, audit (0 vulnerabilidades), guardrails W4, migration policy y Secret
+  Scan de toda la historia W1 (0 hallazgos).
 
 ## Trabajo actual
 
-- Ejecutar gate completo y Secret Scan sobre toda la historia nueva.
 - Repetir el gate desde clon limpio remoto.
 - Publicar PR sustituto y cerrar #11 solo después de CI verde.
 
