@@ -4,7 +4,8 @@
 - Branch: `w2/frontend-bootstrap-readiness`
 - Base: `w4/security-baseline` at `4ef9a5a`
 - Delivered commit: `63be72d` (`docs(w2): define frontend bootstrap contract`)
-- Remote checkpoint: `e1bb767` on `origin/w2/frontend-bootstrap-readiness`
+- Remote checkpoint: `fd4ce63` on `origin/w2/frontend-bootstrap-readiness`
+- Draft PR: `#8` targeting `w4/security-baseline`
 - State: bootstrap readiness in progress; canonical application not published yet
 
 ## Done
@@ -16,6 +17,7 @@
 - Classified the previous frontend work for selective adaptation instead of blind cherry-picking.
 - Defined the frontend bootstrap and migration contract in `docs/master/W2_FRONTEND_BOOTSTRAP.md`.
 - Published and SHA-verified `origin/w2/frontend-bootstrap-readiness` in the canonical repository.
+- Opened draft PR `#8` for review without assuming or merging into a future `main`.
 
 ## Doing
 
