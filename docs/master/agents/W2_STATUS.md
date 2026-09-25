@@ -4,7 +4,7 @@
 - Branch: `w2/frontend-bootstrap-readiness`
 - Base: `w4/security-baseline` at `4ef9a5a`
 - Latest delivery commit: `a23dd21` (`docs(w2): specify customer 360 experience`)
-- Last verified remote checkpoint: `3142e01` on `origin/w2/frontend-bootstrap-readiness`
+- Last verified remote checkpoint: `e1703b8` on `origin/w2/frontend-bootstrap-readiness`
 - Draft PR: `#8` targeting `w4/security-baseline`
 - State: bootstrap readiness in progress; canonical application not published yet
 
@@ -19,6 +19,7 @@
 - Defined testable product/UX acceptance criteria in `docs/master/W2_UX_ACCEPTANCE.md`.
 - Reviewed W3 `AssistantResponse` at `97e64d3` and published the structured UI handoff in `W2_HANDOFF_W3_ASSISTANT_UI.md`.
 - Defined the Customer 360 information architecture, section state model and exact W1 presentation needs in `docs/master/W2_CUSTOMER_360_SPEC.md`.
+- Converted the historical god-component audit into the P0/P1/P2 migration inventory in `docs/master/W2_HISTORICAL_UI_MIGRATION.md`.
 - Published and SHA-verified `origin/w2/frontend-bootstrap-readiness` in the canonical repository.
 - Opened draft PR `#8` for review without assuming or merging into a future `main`.
 
@@ -27,6 +28,7 @@
 - Preparing feature boundaries, validation expectations and the smallest safe migration slices for the canonical base.
 - Coordinating the assistant renderer contract with W3 without duplicating planner or authorization logic.
 - Monitoring `w1/bootstrap-canonical`; it exists but still matches the W4 baseline and has no W1 status/application commits.
+- W4 validated W2 CI at `3142e01`; W3 advanced only its PR/CI evidence and has not changed the reviewed UI contract.
 
 ## Next
 
