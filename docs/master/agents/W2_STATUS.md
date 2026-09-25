@@ -3,7 +3,7 @@
 - Updated: 2026-09-25
 - Branch: `w2/frontend-bootstrap-readiness`
 - Base: `w4/security-baseline` at `4ef9a5a`
-- Latest delivery commit: `0e3c2bb` (`docs(w2): define UI foundation contract`)
+- Latest delivery commit: `058d591` (`docs(w2): specify dashboard command center`)
 - Last verified remote checkpoint: `5528c10` on `origin/w2/frontend-bootstrap-readiness`
 - Draft PR: `#8` targeting `w4/security-baseline`
 - State: bootstrap readiness in progress; canonical application not published yet
