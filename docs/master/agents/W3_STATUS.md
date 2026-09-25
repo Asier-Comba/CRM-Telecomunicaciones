@@ -15,6 +15,7 @@ Pull request: `#9` targeting `w4/security-baseline`
 ## Implemented
 
 - Framework-independent typed capability contracts.
+- Deterministic structured-plan validation with registered capabilities, bounded acyclic goals and one final write maximum.
 - Closed-schema validation and rejection of model/client tenant selectors.
 - Server-only actor/workspace execution context.
 - Deterministic permission, confirmation and idempotency gates.
