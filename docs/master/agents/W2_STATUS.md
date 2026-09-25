@@ -3,7 +3,7 @@
 - Updated: 2026-09-25
 - Branch: `w2/frontend-bootstrap-readiness`
 - Base: `w4/security-baseline` at `4ef9a5a`
-- Latest delivery commit: `a23dd21` (`docs(w2): specify customer 360 experience`)
+- Latest delivery commit: `0e3c2bb` (`docs(w2): define UI foundation contract`)
 - Last verified remote checkpoint: `3defba9` on `origin/w2/frontend-bootstrap-readiness`
 - Draft PR: `#8` targeting `w4/security-baseline`
 - State: bootstrap readiness in progress; canonical application not published yet
