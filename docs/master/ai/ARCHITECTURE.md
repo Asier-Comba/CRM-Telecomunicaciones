@@ -23,11 +23,15 @@ The model may propose a capability and arguments. It cannot choose a workspace, 
 - `validatePlan` bounds the LLM plan to four registered goals, rejects tenant selectors and cycles, and permits at most one final write.
 - `AssistantRuntime` validates closed inputs, permissions, tenant selectors, confirmations and idempotency before a handler runs.
 - Workspace and actor are supplied only through server-created `ExecutionContext`.
-- Confirmation proofs are bound to actor, workspace, capability, canonical arguments and expiry.
-- Writes require idempotency. Replays return the stored structured result.
+- Server-issued opaque confirmations are bound to actor, workspace, capability, canonical arguments and a five-minute expiry; consume/cancel are one-time transitions.
+- Writes reserve idempotency atomically before effects. Replays return the stored structured result and changed arguments conflict.
+- Capability outputs are recursively validated against closed, bounded schemas before presentation.
+- Unknown and unauthorized capabilities have one indistinguishable external denial; audit preserves the internal reason.
 - Audit events contain identifiers and outcomes, not prompts, arguments, outputs, tokens or provider errors.
-- `AssistantResponse` gives W2 bounded entity, table, follow-up, confirmation and navigation blocks without parsing Markdown.
-- The eval catalog covers the required semantic and adversarial categories. Telecom-dependent cases are explicitly blocked until W1 publishes contracts.
+- `AssistantResponse` v1 gives W2 bounded entity, table, follow-up, confirmation, notice and navigation blocks without parsing Markdown.
+- Streaming has a separate envelope; only the validated final event may carry structured interactive blocks.
+- UI navigation and entity references require an injected closed taxonomy owned by W1.
+- The eval catalog covers the required semantic and adversarial categories; `eval-metrics.ts` aggregates capability, argument, entity, grounding, action, hallucination, latency, token and cost measures. Telecom-dependent cases are explicitly blocked until W1 publishes contracts.
 
 ## Supabase boundary
 
@@ -48,7 +52,7 @@ Every production capability must declare:
 
 - stable dotted name and description;
 - closed input schema;
-- bounded structured output description;
+- bounded closed output schema;
 - required permission;
 - access class (`READ`, `SAFE_WRITE`, `SENSITIVE_WRITE`, `IRREVERSIBLE`);
 - confirmation policy;
@@ -61,7 +65,7 @@ W1 owns the telecom entity and field contracts. W3 will not publish telecom hand
 ## Next increments
 
 1. Consume W1 status and map real telecom entities into adapters.
-2. Add semantic planner structured-output schema and model routing telemetry.
-3. Add confirmation issuance/storage with one-time consumption.
+2. Add semantic planner model routing telemetry and provider adapters behind the validated plan boundary.
+3. Implement durable confirmation and atomic idempotency stores against W1's published data/auth boundary.
 4. Add cross-tenant integration tests against the W1 Supabase test project.
 5. Version n8n workflows only after the corresponding capability contract is stable.
