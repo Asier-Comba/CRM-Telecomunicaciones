@@ -4,9 +4,9 @@
 - Branch: `w2/frontend-bootstrap-readiness`
 - Base: `w4/security-baseline` at `4ef9a5a`
 - Latest delivery commit: `058d591` (`docs(w2): specify dashboard command center`)
-- Last verified remote checkpoint: `b6f0070` on `origin/w2/frontend-bootstrap-readiness`
+- Last verified remote checkpoint: `981c591` on `origin/w2/frontend-bootstrap-readiness`
 - Draft PR: `#8` targeting `w4/security-baseline`
-- State: bootstrap readiness in progress; canonical application not published yet
+- State: application bootstrap inspected; canonical telecom integration gate not yet passed
 
 ## Done
 
@@ -22,6 +22,8 @@
 - Converted the historical god-component audit into the P0/P1/P2 migration inventory in `docs/master/W2_HISTORICAL_UI_MIGRATION.md`.
 - Defined semantic tokens, primitive behavior, navigation and test boundaries in `docs/master/W2_UI_FOUNDATION.md`.
 - Defined the dashboard Command Center composition, data projections and metric admission gate in `docs/master/W2_DASHBOARD_COMMAND_CENTER.md`.
+- Reviewed W1 bootstrap `0dd2f14`; application/configuration are present but canonical migrations and first telecom data contracts are still absent.
+- Defined W3 response consumption, renderer boundaries, confirmation gates and test fixtures in `docs/master/W2_ASSISTANT_RENDERER_SPEC.md`.
 - Published and SHA-verified `origin/w2/frontend-bootstrap-readiness` in the canonical repository.
 - Opened draft PR `#8` for review without assuming or merging into a future `main`.
 
@@ -29,13 +31,13 @@
 
 - Preparing feature boundaries, validation expectations and the smallest safe migration slices for the canonical base.
 - Coordinating the assistant renderer contract with W3 without duplicating planner or authorization logic.
-- Monitoring `w1/bootstrap-canonical`; it exists but still matches the W4 baseline and has no W1 status/application commits.
-- W4 reviewed W2 through `3defba9` with no product-security blocker; W3's plan validator at `9ef926b` does not change the reviewed UI response contract.
+- Holding integration until W1 satisfies the exact gate in `W2_HANDOFF_W1_CANONICAL_GATE.md`.
+- Incorporating W4's assistant confirmation, idempotency and closed-output findings into the W2 renderer contract.
 
 ## Next
 
-1. Rebase this branch onto the canonical W1 base when it is published.
-2. Inspect its App Router, design primitives and data contracts before moving source code.
+1. Re-review W1 when it publishes canonical migrations and customer/contract/dashboard contracts.
+2. Rebase/replay this branch only after W1 meets the gate and W4 accepts the integration base.
 3. Adapt the accessible field, loading/error primitives and dashboard feature boundary as separate tested commits.
 4. Implement Customer 360 identity and attention as the first W1-backed vertical slice.
 5. Apply the acceptance contract and collect responsive/accessibility evidence.
@@ -45,7 +47,7 @@
 
 ### W1
 
-- Canonical base branch and supported Node/package-manager versions.
+- Exact accepted integration commit and supported Node/package-manager versions.
 - Authenticated workspace/user presentation contract for the shell.
 - Versioned read models for company/customer, contacts, assignee, services, lines, operator, contracts, permanence and renewal.
 - Pagination, search, filter, loading, error and empty semantics for list endpoints.
@@ -66,14 +68,14 @@
 
 ## Handoffs
 
-- **W2 → W1:** publish the canonical application branch and the first stable customer/contract/dashboard read contracts. W2 will adapt components after reviewing those contracts.
-- **W2 → W3:** v1 reviewed at `97e64d3`; respond to `W2_HANDOFF_W3_ASSISTANT_UI.md` before W2 integrates confirmation or streaming UI.
+- **W2 → W1:** close `W2_HANDOFF_W1_CANONICAL_GATE.md`; app bootstrap alone is insufficient while canonical migrations and telecom contracts are absent.
+- **W2 → W3:** v1 reviewed through `9ef926b`; respond to `W2_HANDOFF_W3_ASSISTANT_UI.md` before W2 integrates confirmation or streaming UI.
 - **W2 → W4:** the frontend will preserve server-side authorization boundaries, avoid sensitive client logs and add responsive/accessibility evidence to PRs.
 
 ## Blockers
 
-- No canonical application exists in this repository yet; adding a standalone Next.js scaffold would create an incompatible parallel product.
-- `w1/bootstrap-canonical` exists but still points to the W4 baseline; no W1 status, app or data contract is published yet.
+- W1 now has a Next.js application bootstrap, but `supabase/migrations` is empty and the telecom model/customer-contract-dashboard contracts remain unpublished.
+- W4 has not accepted W1 `0dd2f14` as the canonical integration base.
 - W3 has published a usable v1 UI contract; the additive integration questions are now explicit rather than blocking all presentation work.
 - The historical repository is read-only and is not a delivery target.
 
@@ -84,4 +86,4 @@
 - `bash scripts/ci/test-guardrails.sh`
 - GitHub PR `#8` checks at `b6f0070`: migration policy, baseline guardrails, secret scan, dependency review and Node quality gate passed; critical Playwright correctly skipped because no application exists.
 
-Application typecheck, lint, unit tests and build are not applicable until the canonical Node project is committed.
+Application typecheck, lint, unit tests and build remain inapplicable on this documentation-only branch until it is safely rebased onto the accepted canonical application.

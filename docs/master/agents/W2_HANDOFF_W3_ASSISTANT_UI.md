@@ -2,7 +2,7 @@
 
 - Date: 2026-09-25
 - W2 branch: `w2/frontend-bootstrap-readiness`
-- W3 source reviewed: `w3/assistant-runtime-foundation` at `97e64d3`
+- W3 source reviewed: `w3/assistant-runtime-foundation` at `9ef926b`
 - Current contract: `src/assistant/ui-contract.ts`
 - Status: v1 is usable for presentation design; additive clarifications requested before product integration
 
@@ -23,6 +23,10 @@ The following v1 blocks map cleanly to frontend responsibilities:
 | `meta` | Request correlation and partial-result feedback; never normal user copy |
 
 W2 accepts the current bounds of 50 entities, 20 columns, 100 rows and 6 follow-ups as transport ceilings. The UI may render lower display limits and expose deliberate expansion/pagination.
+
+The structured-plan validator added through `9ef926b` is compatible with this boundary and does not change the UI response shape. The detailed consumption design now lives in `docs/master/W2_ASSISTANT_RENDERER_SPEC.md`.
+
+W4's P0 findings on server-issued confirmations and atomic idempotency, plus its P1 finding on closed output schemas, are explicit production integration gates. W2 will not expose an enabled mutation confirmation control until they are resolved and accepted.
 
 ## Status-to-UI mapping
 
