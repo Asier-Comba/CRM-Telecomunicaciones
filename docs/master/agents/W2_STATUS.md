@@ -3,7 +3,7 @@
 - Updated: 2026-09-25
 - Branch: `w2/frontend-bootstrap-readiness`
 - Base: `w4/security-baseline` at `4ef9a5a`
-- Commit: pending first W2 commit
+- Commit: `63be72d` (`docs(w2): define frontend bootstrap contract`)
 - State: bootstrap readiness in progress; canonical application not published yet
 
 ## Done
