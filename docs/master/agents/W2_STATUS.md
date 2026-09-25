@@ -16,6 +16,7 @@
 - Preserved the previous W2 work locally outside the historical repository.
 - Classified the previous frontend work for selective adaptation instead of blind cherry-picking.
 - Defined the frontend bootstrap and migration contract in `docs/master/W2_FRONTEND_BOOTSTRAP.md`.
+- Defined testable product/UX acceptance criteria in `docs/master/W2_UX_ACCEPTANCE.md`.
 - Published and SHA-verified `origin/w2/frontend-bootstrap-readiness` in the canonical repository.
 - Opened draft PR `#8` for review without assuming or merging into a future `main`.
 
@@ -29,7 +30,8 @@
 1. Rebase this branch onto the canonical W1 base when it is published.
 2. Inspect its App Router, design primitives and data contracts before moving source code.
 3. Adapt the accessible field, loading/error primitives and dashboard feature boundary as separate tested commits.
-4. Build the telecom command center only from W1-backed data; do not invent metrics.
+4. Apply the acceptance contract to the first vertical slice and collect responsive/accessibility evidence.
+5. Build the telecom command center only from W1-backed data; do not invent metrics.
 
 ## Required contracts
 
