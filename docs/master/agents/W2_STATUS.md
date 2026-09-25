@@ -4,7 +4,7 @@
 - Branch: `w2/frontend-bootstrap-readiness`
 - Base: `w4/security-baseline` at `4ef9a5a`
 - Latest delivery commit: `eee2de5` (`docs(w2): audit bootstrap UI foundation`)
-- Last verified remote checkpoint: `06861e3` on `origin/w2/frontend-bootstrap-readiness`
+- Last verified remote checkpoint: `00edb20` on `origin/w2/frontend-bootstrap-readiness`
 - Draft PR: `#8` targeting `w4/security-baseline`
 - State: application bootstrap inspected; canonical telecom integration gate not yet passed
 
@@ -25,6 +25,7 @@
 - Reviewed W1 bootstrap `0dd2f14`; application/configuration are present but canonical migrations and first telecom data contracts are still absent.
 - Defined W3 response consumption, renderer boundaries, confirmation gates and test fixtures in `docs/master/W2_ASSISTANT_RENDERER_SPEC.md`.
 - Audited the W1 bootstrap primitives/shell and published the exact P0/P1 refactor sequence in `docs/master/W2_BOOTSTRAP_UI_GAP_PLAN.md`.
+- Cross-walked the bootstrap client type/page into safe Customer 360 migration slices in `docs/master/W2_CUSTOMER_360_BOOTSTRAP_CROSSWALK.md`.
 - Published and SHA-verified `origin/w2/frontend-bootstrap-readiness` in the canonical repository.
 - Opened draft PR `#8` for review without assuming or merging into a future `main`.
 
