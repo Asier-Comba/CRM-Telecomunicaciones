@@ -9,11 +9,12 @@ privileged/service-role usage. It also rejects production-enabled test/debug/QA 
 outbound effects and privileged clients without stronger tenant binding and explicit review.
 
 Negative-control tests prove the failure cases. Against W1 head `61848cf`, the gate identified 24
-unregistered sensitive routes, including the already documented n8n, assistant, agent, debug,
-callback/webhook and service-role surfaces. Registration alone is not acceptance: runtime auth,
-zero-outbound-call denial tests, rate limits and cross-tenant attacks remain required.
+unregistered sensitive routes. Revalidation against candidate head `4936a08` identifies 22: the
+team routes no longer directly use the privileged client, but n8n, assistant, agent, debug,
+callback/webhook and other service-role surfaces remain. Registration alone is not acceptance:
+runtime auth, zero-outbound-call denial tests, rate limits and cross-tenant attacks remain required.
 
-Reviewed source: `w1/bootstrap-canonical@61848cf` on 2026-09-25. The endpoint implementations relevant to this review are unchanged from the first application bootstrap.
+Reviewed source: `w1/bootstrap-canonical@61848cf` and `w1/bootstrap-sanitized@4936a08` on 2026-09-25.
 
 This is a static review of the reconstructed application. It is not production approval. Runtime assertions remain blocked until the canonical schema and isolated test environment exist.
 
@@ -27,7 +28,7 @@ This is a static review of the reconstructed application. It is not production a
 | `/api/agent/tool` | shared `AGENT_TOOL_SECRET` | caller `workspace_id` + explicit filters | P0: credential is global, not tenant-bound |
 | `/api/agent/action` | shared `AGENT_TOOL_SECRET` | caller `workspace_id` + explicit filters | P0: service role plus global credential |
 | `/api/agent/automation` | shared `AGENT_TOOL_SECRET` | caller `workspace_id` + explicit filters | P0: service role plus global credential |
-| `/api/team/users/**` | Supabase user session | `profiles.role` and `profiles.workspace_id` | P0: ambiguous with `workspace_members.role` |
+| `/api/team/users/**` | Supabase user session | active `workspace_members` selection at `4936a08` | progress accepted; database-backed A/B and race tests still required |
 | `/api/debug/auth-session` | disabled in production; session lookup in development | profile workspace | acceptable only with both development gates |
 | `/api/debug/google-calendar-connection` | disabled in production; session lookup in development | profile workspace | write probe must remain doubly gated and non-production |
 | Meta WhatsApp webhook | Meta HMAC in production | connection mapping during processing | runtime cross-workspace mapping test required |

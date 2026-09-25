@@ -11,10 +11,10 @@ Last verified: 2026-09-25 (UTC)
 
 ## Current repository state
 
-- `w1/bootstrap-canonical@61848cf` contains a real Next.js application and its first canonical tenant-identity migration; it is no longer a placeholder. Draft PR `#11` requests bootstrap review.
-- A clean worktree now passes install, lint (three warnings), typecheck, seven tests, production build and dependency audit. The earlier missing-directory QA finding is resolved.
-- W1 is not yet an accepted canonical release base: Secret Scan run `#31` fails on tracked legacy values, 32 relations/views and two RPCs remain missing, schema/application identity contracts disagree, and RLS has only static regex evidence.
-- W2 head `eabb342` remains documentation-only and now publishes Customer 360, dashboard and assistant READ slice specifications plus synthetic fixtures; draft PR `#8` makes no runtime or data changes. CI run `#40` is green.
+- `w1/bootstrap-sanitized@4936a08` is the newest W1 candidate; the prior `w1/bootstrap-canonical@61848cf` and draft PR `#11` remain superseded-but-open until W1 completes a safe replacement flow.
+- A clean worktree at the new candidate passes install, lint (three warnings), typecheck, 12 tests, production build and dependency audit. Team routes now use an active-membership resolver and telecom v0 read contracts exist.
+- W1 is not yet sanitized or canonical: the three exact historical webhook-secret values remain in the current tree/reachable history, 32 relations/views and two RPCs remain missing, onboarding and many active routes still disagree with the identity schema, and RLS has only static regex evidence.
+- W2 head `d1df763` remains documentation/fixtures only and now adds Customer 360/dashboard UI-state acceptance fixtures; draft PR `#8` makes no runtime or data changes. CI run `#43` is green.
 - W3 head `7be1e8f` adds eval metrics without changing the vulnerable runtime/contracts; draft PR `#9` remains blocked by W4 `CHANGES_REQUESTED` plus Issue `#10`.
 - There is still no `main`, reproducible Supabase schema, accepted RLS policy set or approved product release base.
 - W1, W2 and W3 may continue safely in their own branches. PR `#8` remains documentation-only; PR `#9` may receive fixes but cannot merge until Issue `#10` is fully evidenced.
@@ -32,7 +32,7 @@ Last verified: 2026-09-25 (UTC)
 - Static Supabase migration security checks with negative-control self-tests.
 - Versioned cross-tenant adversarial matrix ready to bind to the W1 schema and non-production environment.
 - Static endpoint review of the W1 application, including auth, debug/test routes, n8n and service-role trust boundaries.
-- Executable sensitive-route registry gate with negative controls. Its first attack against W1 identified 24 routes requiring explicit auth, tenant, rate-limit, production and side-effect review.
+- Executable sensitive-route registry gate with negative controls. It identifies 24 routes at W1 `61848cf` and 22 at candidate `4936a08` requiring explicit auth, tenant, rate-limit, production and side-effect review.
 - Explicit W2 frontend security answers covering protected navigation, membership invalidation, browser telemetry, PII/copy policy, assistant READ rendering and minimum QA evidence.
 
 ## Findings and gates
@@ -40,7 +40,7 @@ Last verified: 2026-09-25 (UTC)
 | Severity | Evidence | Risk | Affected component | Required fix | Acceptance criteria |
 |---|---|---|---|---|---|
 | P0 | W1 has one canonical identity migration, but strict audit still reports 32 missing relations/views and two missing RPCs | Auth, full RLS, grants and clean database recovery are not reproducible | Database/release | W1 completes and tests the canonical migration chain | Zero-to-head migration and strict drift audit pass; W4 RLS/tenant matrix is green |
-| P0 | PR `#11` CI run `#31` fails Secret Scan; current legacy documentation contains three assigned webhook-secret values | Public Git history retains credentials after ordinary deletion and establishes unsafe handling | Secrets/repository history | Redact current tree, purge introduced history and retain rotation proof out-of-band | Full-history scan passes and no reachable PR commit contains the values |
+| P0 | PR `#11` CI run `#31` fails Secret Scan; candidate `4936a08` retains the identical legacy-document blob and all three exact values in its current tree/history | Public Git history retains credentials and the branch's clean-triage claim is false | Secrets/repository history | Replace values, rebuild/purge reachable history and retain rotation proof out-of-band | Full-history scan passes and no reachable candidate commit contains the values |
 | P0 | Canonical migration removes `profiles.role`, but active routes still read/write it; onboarding writes absent `plan`/`role` columns and omits required `slug` | Core onboarding/team flows fail and declared membership authorization is not implemented in the app | Schema/API authorization | Align queries and use one active-membership resolver; provision atomically | Clean-DB onboarding and team tests pass; role/removal/switch tests fail closed; no active `profiles.role` use |
 | P0 | Anonymous `/api/automations/n8n/status` returns internal base URL and `/test` can call an external workflow with server credentials | Reconnaissance, resource exhaustion and external effects without authentication | API/n8n | Remove in production or add admin/internal auth, rate limit, safe output and production deny | Denied requests make zero outbound calls; production cannot run test workflows |
 | P0 | Service-role agent routes use one global secret and trust caller-supplied `workspace_id` | One leaked/misused credential crosses every tenant while bypassing RLS | Agent/n8n APIs | Use scoped service principals and derive authorized workspaces server-side | A-scoped credential cannot access or affect B under read, write, replay or concurrency attacks |
@@ -57,14 +57,14 @@ Last verified: 2026-09-25 (UTC)
 
 Resolved baseline work: the four Actions upgrades were integrated with verified immutable SHAs, checkout credentials were disabled, baseline self-tests passed and superseded Dependabot branches were removed automatically. W3's current branch passes its own 13-test quality gate, but those tests do not cover Issue `#10`.
 
-W4 push CI run `#39` is green at `27e1e42`, including the expanded Supabase security self-tests, migration policy, secret scan and baseline gates. The sensitive-route gate added after that checkpoint passes locally with all negative controls.
+W4 push CI run `#44` is green at `bec6b2c`, including the new sensitive-route negative controls, Supabase checks, migration policy, secret scan and baseline gates.
 
 Resolved W1 finding: `W1-QA-001` (clean checkout missing `supabase/migrations`) is fixed at `61848cf`; W4 reproduced the complete non-strict quality gate from a disposable worktree.
 
 ## Latest cross-work review
 
-- **W1:** head `61848cf` fixes the clean-checkout gate and adds a well-directed membership-first migration that passes W4 static SQL checks. Draft PR `#11` is still blocked by failing secret scan, schema/application contract mismatch, incomplete drift, static-only RLS evidence and the previously identified exposed/internal endpoints. Evidence and criteria are in `docs/master/HANDOFF_W1_SECURITY.md`, `docs/master/ENDPOINT_SECURITY_REVIEW.md` and Issue `#12`.
-- **W2:** draft PR `#8` remains documentation/bootstrap only and preserves server-side authorization as the boundary. Head `eabb342` adds Customer 360, dashboard and assistant READ specifications plus synthetic fixtures; it keeps mutation UI disabled, rejects arbitrary model URLs and browser workspace authority, and still waits for W1 acceptance. CI run `#40` is green. W4 found no new blocker and answered all 15 requested frontend gates in `docs/master/HANDOFF_W2_SECURITY.md`.
+- **W1:** candidate `4936a08` improves team membership authorization and passes the non-strict clean-checkout quality gate. It remains blocked: the supposedly sanitized tree retains the exact historical values; strict drift is unchanged; onboarding/current-user and many routes still use removed or non-authoritative profile/workspace fields; 22 sensitive routes are unregistered; RLS is unexecuted. Evidence and criteria are in `docs/master/HANDOFF_W1_SECURITY.md`, `docs/master/ENDPOINT_SECURITY_REVIEW.md` and Issue `#12`.
+- **W2:** draft PR `#8` remains documentation/bootstrap only and preserves server-side authorization as the boundary. Head `d1df763` adds synthetic UI-state acceptance fixtures; it keeps mutation UI disabled, rejects arbitrary model URLs and browser workspace authority, and still waits for W1 acceptance. CI run `#43` is green. W4 found no new blocker and answered all 15 requested frontend gates in `docs/master/HANDOFF_W2_SECURITY.md`.
 - **W3:** head `7be1e8f` adds eval metrics only; the runtime and contract Git blobs are identical to `9ef926b`. The prior attack remains valid: an invented confirmation succeeded and one key across 20 concurrent requests produced 20 successes/handler executions. Draft PR `#9` retains W4 `CHANGES_REQUESTED`; no CI run exists for the newest head yet. Exact criteria remain in `docs/master/HANDOFF_W3_SECURITY.md` and Issue `#10`.
 
 ## Integration plan after W1 closes canonical blockers

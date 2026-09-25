@@ -112,3 +112,36 @@ This is no longer a placeholder. It contains a real Next.js application, `packag
 - **Affected component:** tenant identity migration and helpers.
 - **Fix:** apply migrations from zero in ephemeral/local Supabase or isolated staging and run the W4 tenant matrix with real principals.
 - **Acceptance criteria:** migration application plus negative-control, anonymous, A/B, suspended, removed and multi-workspace tests are reproducible in CI or an approved heavy gate.
+
+## Revalidation of `w1/bootstrap-sanitized`
+
+Reviewed head: `4936a08` on 2026-09-25.
+
+### Improvements accepted as progress
+
+- The branch starts from the W4 baseline rather than inheriting the prior W1 commits.
+- Team-user routes now resolve an active `workspace_members` row and validate a requested
+  workspace against the caller's memberships. Pure resolver tests include invalid, absent and
+  multi-workspace selection plus role-assignment restrictions.
+- Telecom v0 read contracts are versioned.
+- A disposable checkout passes `npm ci`, lint with three warnings, typecheck, 12 tests, production
+  build and high-severity dependency audit. The canonical migration passes W4's static SQL scan.
+
+### Blockers still open
+
+- **`W1-SECRET-001` is not resolved:** the legacy migration-plan document has the same Git blob
+  (`aa9b9a6c…`) as the prior branch. A value-redacted exact-match check confirms all three previously
+  reported webhook-secret values remain in the current tree and reachable history. The claim of zero
+  real/historical credentials in `W1_SECRET_SCAN_TRIAGE.md` is therefore not accepted. No values were
+  emitted during verification.
+- Strict schema audit still reports 32 missing relations/views and two missing RPCs.
+- The team API improvement is not an application-wide resolver migration. Assistant, inbox,
+  calendar, reports, n8n and other routes still derive workspace/role from `profiles`; the current
+  user mapper still reads removed `role` and `trial_status` fields.
+- Onboarding still inserts absent `workspaces.plan`, omits mandatory `slug`, upserts removed
+  `profiles.role`, treats membership creation as secondary and performs compensating operations
+  instead of one atomic transaction.
+- W4's route gate finds 22 unregistered sensitive/privileged routes on this head.
+- RLS tests remain SQL-regex tests; no database-backed A/B attack evidence exists.
+
+This branch may continue receiving fixes, but it is not a sanitized or canonical merge candidate yet.
