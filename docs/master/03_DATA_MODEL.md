@@ -73,3 +73,8 @@ El diseño deberá normalizar clientes/contactos, cuentas telecom, contratos,
 servicios/líneas, operadores/planes, términos/permanencias, ventanas de renovación,
 oportunidades, incidencias, actividad, documentos e importaciones. Fechas y reglas
 de permanencia no vivirán únicamente en JSON.
+
+Los primeros contratos de presentación/API ya están publicados como
+`telecom.v0` en `W1_DATA_CONTRACTS_V0.md` y
+`src/lib/contracts/telecom-v0.ts`. Sus nombres y semántica son estables para W2 y
+W3, pero no implican todavía DDL, policies o endpoints desplegados.

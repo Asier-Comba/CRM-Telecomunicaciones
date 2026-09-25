@@ -45,3 +45,21 @@ ACTION REQUIRED:
 BLOCKERS: aceptación de W4 de la migración tenant/RLS. El proyecto Supabase nuevo
 permanece expresamente no tocable; no se aplicará ninguna migración sin plan de
 apply/rollback y autorización humana posterior.
+
+## HANDOFF FROM W1 TO W2/W3 — contratos Telecom v0
+
+CONTRACT: `docs/master/W1_DATA_CONTRACTS_V0.md` y
+`src/lib/contracts/telecom-v0.ts`
+
+WHAT CHANGED: se estabilizan los read models de customer/company, telecom
+contract, services/lines y dashboard, incluida la semántica explícita de
+frescura, vacío y error. El esquema físico continúa marcado DRAFT.
+
+ACTION REQUIRED:
+
+- W2 debe señalar únicamente los campos que bloqueen su primera slice Cliente
+  360; cualquier extensión incompatible se versionará.
+- W3 debe adaptar capabilities a estos contratos y devolver incompatibilidades,
+  sin derivar roles o schema desde prompts/payloads.
+- W4 debe verificar que el scope `workspace_id` y los datos sensibles reservados
+  respetan la baseline de seguridad antes de aprobar DDL de dominio.
