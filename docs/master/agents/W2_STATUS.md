@@ -3,15 +3,15 @@
 - Updated: 2026-09-25
 - Branch: `w2/frontend-bootstrap-readiness`
 - Base: `w4/security-baseline` at `4ef9a5a`
-- Latest delivery commit: `e02a4e7` (`docs(w2): map Customer 360 bootstrap gaps`)
-- Last verified remote checkpoint: `5337319` on `origin/w2/frontend-bootstrap-readiness`
+- Latest delivery commit: `0e70ed9` (`docs(w2): prepare assistant read UI slice`)
+- Last verified remote checkpoint: `a3a5b81` on `origin/w2/frontend-bootstrap-readiness`
 - Draft PR: `#8` targeting `w4/security-baseline`
 - State: application bootstrap inspected; canonical telecom integration gate not yet passed
 
 ## Done
 
 - Verified the only writable remote is `Asier-Comba/CRM-Telecomunicaciones`.
-- Confirmed the repository currently has no `main`, application code, package manifest or W1/W3 branch.
+- Confirmed the initial repository skeleton had no `main` or application before W1 published its bootstrap branch.
 - Read and accepted the W4 security, release, observability and CI gates.
 - Preserved the previous W2 work locally outside the historical repository.
 - Classified the previous frontend work for selective adaptation instead of blind cherry-picking.
@@ -27,6 +27,9 @@
 - Audited the W1 bootstrap primitives/shell and published the exact P0/P1 refactor sequence in `docs/master/W2_BOOTSTRAP_UI_GAP_PLAN.md`.
 - Cross-walked the bootstrap client type/page into safe Customer 360 migration slices in `docs/master/W2_CUSTOMER_360_BOOTSTRAP_CROSSWALK.md`.
 - Reviewed W1 `61848cf`: canonical tenant identity/RLS now exists, while telecom domain/read contracts and W4 base acceptance remain open.
+- Prepared the exact Customer 360 Identity + Attention implementation slice in `docs/master/W2_CUSTOMER_360_SLICE_1.md`.
+- Prepared Dashboard Command Center slice 1 with per-widget source/state/navigation/freshness requirements in `docs/master/W2_DASHBOARD_SLICE_1.md`.
+- Split assistant UX into READ versus W4-gated mutation work and published READ fixtures in `docs/master/W2_ASSISTANT_READ_UI_SLICE.md`.
 - Published and SHA-verified `origin/w2/frontend-bootstrap-readiness` in the canonical repository.
 - Opened draft PR `#8` for review without assuming or merging into a future `main`.
 
@@ -38,15 +41,17 @@
 - Incorporating W4's assistant confirmation, idempotency and closed-output findings into the W2 renderer contract.
 - Preparing the first tested UI-foundation commits against the concrete W1 bootstrap component surface without modifying it prematurely.
 - Monitoring W1 PR `#11`: it remains draft/unreviewed and its `61848cf` Secret scan check currently fails.
+- Asking W3 to mark the stable READ subset and validate W2's synthetic fixtures; Issue `#10` keeps mutation UI excluded.
+- Asking W4 to close the auth/logging/PII questions in `W2_HANDOFF_W4_FRONTEND_GATES.md` before runtime integration.
 
 ## Next
 
 1. Re-review W1 when it publishes canonical migrations and customer/contract/dashboard contracts.
 2. Rebase/replay this branch only after W1 meets the gate and W4 accepts the integration base.
-3. Adapt the accessible field, loading/error primitives and dashboard feature boundary as separate tested commits.
-4. Implement Customer 360 identity and attention as the first W1-backed vertical slice.
-5. Apply the acceptance contract and collect responsive/accessibility evidence.
-6. Build the telecom command center only from W1-backed data; do not invent metrics.
+3. Adapt the accessible field and loading/error primitives as separate tested commits.
+4. Implement Dashboard slice 1 from `W2_DASHBOARD_SLICE_1.md` against W1-backed projections.
+5. Implement Customer 360 Identity + Attention from `W2_CUSTOMER_360_SLICE_1.md`.
+6. Apply the acceptance contract and collect responsive/accessibility evidence.
 
 ## Required contracts
 
@@ -70,11 +75,12 @@
 - Confirm which branch is the integration base until protected `main` exists.
 - Confirm the canonical unit/component test runner once the Node app lands.
 - Review auth, RLS, sensitive logs and assistant confirmations as release gates, not frontend responsibilities.
+- Respond to `W2_HANDOFF_W4_FRONTEND_GATES.md` on route authorization, browser telemetry, PII masking and evidence requirements.
 
 ## Handoffs
 
-- **W2 → W1:** close `W2_HANDOFF_W1_CANONICAL_GATE.md`; app bootstrap alone is insufficient while canonical migrations and telecom contracts are absent.
-- **W2 → W3:** v1 reviewed through `9ef926b`; respond to `W2_HANDOFF_W3_ASSISTANT_UI.md` before W2 integrates confirmation or streaming UI.
+- **W2 → W1:** close `W2_HANDOFF_W1_CANONICAL_GATE.md`; app plus tenant identity remain insufficient while customer/contract/dashboard contracts and W4 acceptance are absent.
+- **W2 → W3:** READ candidate reviewed through `7be1e8f`; mark the stable subset and respond to `W2_HANDOFF_W3_ASSISTANT_UI.md` before W2 integrates streaming or any confirmation UI.
 - **W2 → W4:** the frontend will preserve server-side authorization boundaries, avoid sensitive client logs and add responsive/accessibility evidence to PRs.
 
 ## Blockers
