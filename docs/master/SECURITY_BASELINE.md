@@ -67,3 +67,14 @@ Required implementation evidence:
 | P0 | Branch protection cannot be configured with current non-admin repository permission | Direct/unchecked changes could reach `main` | Owner enables ruleset after `main` exists; require PR, review and W4 checks |
 | P1 | No application schema/code was available | Tenant isolation and endpoint exposure are unknown | W1/W2/W3 land through PRs with the evidence defined here |
 | P1 | No staging, backup/restore or observability configuration was available | Release and recovery claims are unverified | Implement and execute the staging/DR runbooks before commercial release |
+
+## Repository security settings gate
+
+The Node quality job enforces a high-severity package audit once a Node project exists. Differential Dependency Review additionally requires GitHub Dependency Graph to be enabled by a repository administrator. Until that setting exists, CI reports a warning instead of making every pull request impossible to merge.
+
+Owner acceptance criteria:
+
+1. Enable Dependency Graph in repository security settings.
+2. Set repository variable `DEPENDENCY_REVIEW_ENABLED=true`.
+3. Verify the Dependency Review job runs on a test pull request and rejects an introduced high-severity dependency.
+4. Add the working check to the future protected-branch ruleset.

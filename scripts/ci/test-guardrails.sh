@@ -21,7 +21,10 @@ assert_fails() {
 (
   cd "$tmp_root"
   rm -f package.json package-lock.json pnpm-lock.yaml
-  bash "$repo_root/scripts/ci/detect-project.sh" | grep -q 'node_project=false'
+  project_output="$tmp_root/github-output"
+  GITHUB_OUTPUT="$project_output" bash "$repo_root/scripts/ci/detect-project.sh"
+  grep -q '^node_project=false$' "$project_output"
+  grep -q '^playwright=false$' "$project_output"
 )
 
 assert_fails env PLAYWRIGHT_TARGET=production ALLOW_PRODUCTION_TESTS=false \
