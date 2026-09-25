@@ -169,3 +169,8 @@ Open/introduced review findings:
 
 The endpoint changes are useful but do not close the service-principal, assistant-confirmation,
 secret-history, schema-drift, onboarding or database-backed RLS gates.
+
+Draft PR `#13` head `75c2103` adds documentation only after `9f633cd`. Its CI run `#50` is green,
+but the exact-value/blob verification is unchanged. A passing generic scanner does not supersede
+direct evidence that the values remain tracked and reachable. W4 submitted `CHANGES_REQUESTED` on
+the current PR head.

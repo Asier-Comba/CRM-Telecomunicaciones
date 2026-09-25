@@ -102,3 +102,38 @@ PR `#9` remains blocked until the following tests are committed, reproducible an
 5. Output containing a foreign workspace resource is rejected by the scoped adapter before serialization.
 
 W4 will rerun these tests and independent forged-proof, replay, concurrency and cross-workspace attacks. The `CHANGES_REQUESTED` review is removed only after reproducible evidence at the current PR head.
+
+## Revalidation at `w3/assistant-runtime-foundation@190a615`
+
+### Core fixes accepted
+
+- Caller-created confirmation claims were replaced by server-issued opaque IDs bound to actor,
+  workspace, capability and canonical argument digest with expiry and one-time consume/cancel.
+- Idempotency now exposes an atomic `reserve` boundary before the handler and binds actor,
+  workspace, capability and digest.
+- Capability resource authorization is deterministic and server-side; unknown and forbidden
+  capabilities share one external denial.
+- Input/output schemas are recursive, closed and bounded. The clean branch passes lint, typecheck,
+  27 tests, build and dependency audit; GitHub CI run `#56` is green.
+- W4 independently raced 20 distinct valid confirmation IDs using one idempotency key. Exactly one
+  handler execution and one success occurred; the other 19 requests returned in-progress.
+
+The original invented-proof and in-process concurrent-double-execution exploits are therefore closed
+for the framework core. This does not approve production mutation integration.
+
+### Issue #10 items still open
+
+- Stores remain interfaces plus in-memory test doubles. No durable W1-backed adapter proves atomic
+  consume/reserve across processes, restarts or database failures.
+- W4 forced idempotency completion to fail after the handler effect. The effect executed once, the
+  response became `idempotency_commit_failed`, and retry remained `idempotency_in_progress` forever.
+  A durable outbox/reconciliation/lease or other deterministic recovery transition is still absent.
+- A confirmation cancellation store failure escapes as a rejected promise rather than a bounded
+  safe result and audit outcome.
+- Closed property schemas do not prevent secret material inside an allowed string. A synthetic
+  `Authorization: Bearer ...` value in an allowed `note` field passed validation. Source-specific
+  projection/redaction is mandatory; add high-confidence value detection as defense in depth.
+- The durable adapter suite must include store failure before handler, handler failure transitions,
+  audit/store outage, crash/restart, replay, concurrency and cross-actor/workspace attacks.
+
+PR `#9` remains `CHANGES_REQUESTED`. W3 may continue safely on its branch.
