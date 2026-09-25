@@ -35,13 +35,27 @@ export type AssistantEvalCase = {
   status: 'executable' | 'blocked_on_w1_contract'
 }
 
+function exactKeys(value: Record<string, unknown>, allowed: readonly string[]): boolean {
+  const allowedKeys = new Set(allowed)
+  return Object.keys(value).every((key) => allowedKeys.has(key))
+}
+
 export function validateEvalCase(value: unknown): value is AssistantEvalCase {
   if (!value || typeof value !== 'object' || Array.isArray(value)) return false
   const candidate = value as Partial<AssistantEvalCase>
-  if (typeof candidate.id !== 'string' || !EVAL_CATEGORIES.includes(candidate.category as EvalCategory)) return false
-  if (!Array.isArray(candidate.turns) || candidate.turns.length === 0) return false
-  if (!candidate.turns.every((turn) => turn && ['user', 'assistant'].includes(turn.role) && typeof turn.content === 'string')) return false
-  if (!candidate.expected || !['read', 'write', 'clarify', 'deny'].includes(candidate.expected.mode)) return false
+  if (!exactKeys(candidate as Record<string, unknown>, ['id', 'category', 'turns', 'expected', 'status'])) return false
+  if (typeof candidate.id !== 'string' || !/^[a-z0-9][a-z0-9-]{2,99}$/.test(candidate.id)) return false
+  if (!EVAL_CATEGORIES.includes(candidate.category as EvalCategory)) return false
+  if (!Array.isArray(candidate.turns) || candidate.turns.length === 0 || candidate.turns.length > 12) return false
+  if (!candidate.turns.every((turn) => {
+    if (!turn || typeof turn !== 'object' || Array.isArray(turn)) return false
+    if (!exactKeys(turn as unknown as Record<string, unknown>, ['role', 'content'])) return false
+    return ['user', 'assistant'].includes(turn.role) && typeof turn.content === 'string' && turn.content.length > 0 && turn.content.length <= 4_000
+  })) return false
+  if (!candidate.expected || typeof candidate.expected !== 'object' || Array.isArray(candidate.expected)) return false
+  if (!exactKeys(candidate.expected as unknown as Record<string, unknown>, ['mode', 'capabilityHint', 'grounded', 'confirmation', 'tenantIsolation'])) return false
+  if (!['read', 'write', 'clarify', 'deny'].includes(candidate.expected.mode)) return false
+  if (candidate.expected.capabilityHint !== null && (typeof candidate.expected.capabilityHint !== 'string' || candidate.expected.capabilityHint.length > 200)) return false
   if (typeof candidate.expected.grounded !== 'boolean' || typeof candidate.expected.tenantIsolation !== 'boolean') return false
   if (!['none', 'required'].includes(candidate.expected.confirmation)) return false
   return candidate.status === 'executable' || candidate.status === 'blocked_on_w1_contract'

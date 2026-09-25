@@ -1,4 +1,4 @@
-export const CAPABILITY_CONTRACT_VERSION = 1 as const
+export const CAPABILITY_CONTRACT_VERSION = 2 as const
 
 export type AccessClass = 'READ' | 'SAFE_WRITE' | 'SENSITIVE_WRITE' | 'IRREVERSIBLE'
 export type ConfirmationPolicy = 'none' | 'preview_confirm'
@@ -21,14 +21,17 @@ export type ResultStatus =
 export type JsonScalar = string | number | boolean | null
 export type StructuredValue = JsonScalar | StructuredValue[] | { [key: string]: StructuredValue }
 
-export type PropertySchema =
-  | { type: 'string'; minLength?: number; maxLength?: number; enum?: readonly string[] }
+export type ValueSchema =
+  | { type: 'string'; minLength?: number; maxLength: number; enum?: readonly string[] }
   | { type: 'number'; minimum?: number; maximum?: number }
   | { type: 'boolean' }
+  | { type: 'null' }
+  | { type: 'array'; items: ValueSchema; maxItems: number }
+  | ObjectSchema
 
 export type ObjectSchema = {
   type: 'object'
-  properties: Readonly<Record<string, PropertySchema>>
+  properties: Readonly<Record<string, ValueSchema>>
   required: readonly string[]
   additionalProperties: false
 }
@@ -41,8 +44,16 @@ export type ExecutionContext = {
   now: Date
 }
 
+export type AuthorizationDecision =
+  | { allowed: true }
+  | { allowed: false; reason: 'resource_not_accessible' | 'policy_denied' }
+
 export type CapabilityHandler<I extends Record<string, unknown>, O extends StructuredValue> = {
   bivarianceHack(context: ExecutionContext, input: I): Promise<O>
+}['bivarianceHack']
+
+export type ResourceAuthorizer<I extends Record<string, unknown>> = {
+  bivarianceHack(context: ExecutionContext, input: I): Promise<AuthorizationDecision>
 }['bivarianceHack']
 
 export type CapabilityDefinition<
@@ -53,7 +64,7 @@ export type CapabilityDefinition<
   name: string
   description: string
   inputSchema: ObjectSchema
-  outputDescription: string
+  outputSchema: ValueSchema
   permission: string
   accessClass: AccessClass
   confirmationPolicy: ConfirmationPolicy
@@ -62,35 +73,69 @@ export type CapabilityDefinition<
     source: 'server_context'
     modelMayChooseWorkspace: false
   }
+  authorize: ResourceAuthorizer<I>
   handler: CapabilityHandler<I, O>
 }
 
-export type ConfirmationProof = {
-  actionId: string
+export type ConfirmationBinding = {
   actorId: string
   workspaceId: string
   capability: string
   argumentsDigest: string
+}
+
+export type ConfirmationIssue = {
+  confirmationId: string
   expiresAt: string
+}
+
+export type ConfirmationDecision =
+  | { status: 'consumed' | 'cancelled' }
+  | { status: 'not_found' | 'expired' | 'already_used' | 'binding_mismatch' }
+
+export interface ConfirmationStore {
+  issue(binding: ConfirmationBinding, expiresAt: Date): Promise<ConfirmationIssue>
+  consume(confirmationId: string, binding: ConfirmationBinding, now: Date): Promise<ConfirmationDecision>
+  cancel(confirmationId: string, binding: ConfirmationBinding, now: Date): Promise<ConfirmationDecision>
 }
 
 export type CapabilityRequest = {
   capability: string
   input: Record<string, unknown>
   idempotencyKey?: string
-  confirmation?: ConfirmationProof
+  confirmationId?: string
 }
 
 export type CapabilityResult = {
   status: ResultStatus
   capability: string
   data?: StructuredValue
-  error?: { code: string; message: string }
+  error?: { code: string; message: string; retryable: boolean }
   confirmation?: {
+    confirmationId: string
     capability: string
-    argumentsDigest: string
+    expiresAt: string
   }
   replayed?: boolean
+}
+
+export type IdempotencyBinding = ConfirmationBinding
+
+export type IdempotencyInspection =
+  | { status: 'empty' }
+  | { status: 'in_progress' }
+  | { status: 'conflict' }
+  | { status: 'replay'; result: CapabilityResult }
+
+export type IdempotencyReservation =
+  | { status: 'reserved'; reservationId: string }
+  | Exclude<IdempotencyInspection, { status: 'empty' }>
+
+export interface IdempotencyStore {
+  inspect(binding: IdempotencyBinding, key: string): Promise<IdempotencyInspection>
+  reserve(binding: IdempotencyBinding, key: string): Promise<IdempotencyReservation>
+  complete(reservationId: string, result: CapabilityResult): Promise<void>
+  fail(reservationId: string, result: CapabilityResult): Promise<void>
 }
 
 export type AuditEvent = {
@@ -101,13 +146,10 @@ export type AuditEvent = {
   capability: string
   accessClass: AccessClass | 'UNKNOWN'
   status: ResultStatus
+  reasonCode: string
+  confirmationState: 'not_applicable' | 'issued' | 'accepted' | 'rejected'
+  idempotencyState: 'not_applicable' | 'reserved' | 'replayed' | 'conflict' | 'in_progress'
   durationMs: number
-  replayed: boolean
-}
-
-export interface IdempotencyStore {
-  get(workspaceId: string, capability: string, key: string): Promise<CapabilityResult | null>
-  put(workspaceId: string, capability: string, key: string, result: CapabilityResult): Promise<void>
 }
 
 export interface AuditSink {
