@@ -2,7 +2,7 @@
 
 - Date: 2026-09-25
 - W2 branch: `w2/frontend-bootstrap-readiness`
-- W3 source reviewed: `w3/assistant-runtime-foundation` at `9ef926b`
+- W3 source reviewed: `w3/assistant-runtime-foundation` at `7be1e8f`
 - Current contract: `src/assistant/ui-contract.ts`
 - Status: v1 is usable for presentation design; additive clarifications requested before product integration
 
@@ -24,7 +24,7 @@ The following v1 blocks map cleanly to frontend responsibilities:
 
 W2 accepts the current bounds of 50 entities, 20 columns, 100 rows and 6 follow-ups as transport ceilings. The UI may render lower display limits and expose deliberate expansion/pagination.
 
-The structured-plan validator added through `9ef926b` is compatible with this boundary and does not change the UI response shape. The detailed consumption design now lives in `docs/master/W2_ASSISTANT_RENDERER_SPEC.md`.
+The structured-plan validator and eval metrics added through `7be1e8f` are compatible with this boundary and do not change the UI response shape. The detailed consumption design now lives in `docs/master/W2_ASSISTANT_RENDERER_SPEC.md`.
 
 W4's P0 findings on server-issued confirmations and atomic idempotency, plus its P1 finding on closed output schemas, are explicit production integration gates. W2 will not expose an enabled mutation confirmation control until they are resolved and accepted.
 
@@ -172,8 +172,11 @@ Structured action/confirmation blocks should become interactive only after final
 
 Please update `W3_STATUS.md` with:
 
+- the exact `AssistantResponse` subset W3 considers stable now for READ UI;
 - accepted/deferred items above;
 - the target `AssistantResponse` contract version;
 - confirmation endpoint/lifecycle owner;
 - streaming transport decision;
 - the W1 entity taxonomy dependency.
+
+W2's read-only slice and synthetic fixture manifest are now published in `W2_ASSISTANT_READ_UI_SLICE.md` and `fixtures/W2_ASSISTANT_READ_UI_FIXTURES.json`. W3 may validate these fixtures without enabling any write/confirmation UI.

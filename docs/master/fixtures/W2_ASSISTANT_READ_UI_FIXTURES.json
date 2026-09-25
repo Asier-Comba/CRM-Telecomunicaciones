@@ -1,0 +1,184 @@
+{
+  "description": "Synthetic W2 READ assistant fixtures against the current W3 AssistantResponse candidate. No production or customer data.",
+  "w3ReviewedCommit": "7be1e8f",
+  "mutationFixturesExcluded": true,
+  "cases": [
+    {
+      "id": "success-answer-only",
+      "expected": "accept",
+      "response": {
+        "answer": "He encontrado información disponible para tu consulta.",
+        "status": "SUCCESS",
+        "grounded": true,
+        "blocks": {},
+        "meta": {
+          "requestId": "fixture-read-001",
+          "partial": false
+        }
+      }
+    },
+    {
+      "id": "empty-with-refinement",
+      "expected": "accept",
+      "response": {
+        "answer": "No hay resultados en el alcance actual.",
+        "status": "EMPTY",
+        "grounded": true,
+        "blocks": {
+          "followUps": [
+            {
+              "label": "Ampliar búsqueda",
+              "prompt": "Amplía la búsqueda al siguiente periodo disponible.",
+              "kind": "refine"
+            }
+          ]
+        },
+        "meta": {
+          "requestId": "fixture-read-002",
+          "partial": false
+        }
+      }
+    },
+    {
+      "id": "partial-table",
+      "expected": "accept",
+      "response": {
+        "answer": "Estos son los resultados disponibles; la lista no está completa.",
+        "status": "PARTIAL",
+        "grounded": true,
+        "blocks": {
+          "table": {
+            "columns": [
+              { "key": "item", "label": "Resultado", "format": "text" },
+              { "key": "state", "label": "Estado", "format": "status" }
+            ],
+            "rows": [
+              { "item": "Ejemplo sintético A", "state": "Pendiente" },
+              { "item": "Ejemplo sintético B", "state": "Revisado" }
+            ],
+            "truncated": true
+          }
+        },
+        "meta": {
+          "requestId": "fixture-read-003",
+          "partial": true
+        }
+      }
+    },
+    {
+      "id": "unknown-entity-safe-fallback",
+      "expected": "accept-without-navigation",
+      "response": {
+        "answer": "He encontrado una referencia que todavía no tiene ruta registrada.",
+        "status": "SUCCESS",
+        "grounded": true,
+        "blocks": {
+          "entities": [
+            {
+              "entityType": "__contract_requirement_entity_type__",
+              "entityId": "fixture-entity-001",
+              "label": "Entidad sintética",
+              "subtitle": "Sin navegación hasta cerrar la taxonomía"
+            }
+          ]
+        },
+        "meta": {
+          "requestId": "fixture-read-004",
+          "partial": false
+        }
+      }
+    },
+    {
+      "id": "forbidden-safe-notice",
+      "expected": "accept",
+      "response": {
+        "answer": "No tienes permiso para consultar este contenido.",
+        "status": "FORBIDDEN",
+        "grounded": true,
+        "blocks": {},
+        "meta": {
+          "requestId": "fixture-read-005",
+          "partial": false
+        }
+      }
+    },
+    {
+      "id": "ungrounded-evidence-omitted",
+      "expected": "accept-hide-evidence",
+      "response": {
+        "answer": "No puedo verificar completamente esta respuesta.",
+        "status": "PARTIAL",
+        "grounded": false,
+        "blocks": {
+          "entities": [
+            {
+              "entityType": "__contract_requirement_entity_type__",
+              "entityId": "fixture-entity-002",
+              "label": "Referencia no verificada"
+            }
+          ]
+        },
+        "meta": {
+          "requestId": "fixture-read-006",
+          "partial": true
+        }
+      }
+    },
+    {
+      "id": "action-follow-up-not-executable",
+      "expected": "accept-with-action-disabled",
+      "response": {
+        "answer": "Puedo preparar una acción, pero las escrituras están bloqueadas.",
+        "status": "SUCCESS",
+        "grounded": true,
+        "blocks": {
+          "followUps": [
+            {
+              "label": "Preparar acción",
+              "prompt": "Prepara una vista previa sin ejecutar cambios.",
+              "kind": "action"
+            }
+          ]
+        },
+        "meta": {
+          "requestId": "fixture-read-007",
+          "partial": false
+        }
+      }
+    },
+    {
+      "id": "secret-like-key-rejected",
+      "expected": "reject",
+      "response": {
+        "answer": "Este payload debe rechazarse.",
+        "status": "SUCCESS",
+        "grounded": true,
+        "blocks": {
+          "table": {
+            "columns": [
+              { "key": "secret", "label": "No permitido", "format": "text" }
+            ],
+            "rows": [
+              { "secret": "synthetic-redacted-value" }
+            ],
+            "truncated": false
+          }
+        },
+        "meta": {
+          "requestId": "fixture-read-008",
+          "partial": false
+        }
+      }
+    },
+    {
+      "id": "invalid-envelope-rejected",
+      "expected": "reject",
+      "response": {
+        "answer": "Falta el bloque meta requerido.",
+        "status": "SUCCESS",
+        "grounded": true,
+        "blocks": {}
+      }
+    }
+  ]
+}
