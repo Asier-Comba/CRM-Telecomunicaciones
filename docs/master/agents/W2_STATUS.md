@@ -4,7 +4,7 @@
 - Branch: `w2/frontend-bootstrap-readiness`
 - Base: `w4/security-baseline` at `4ef9a5a`
 - Latest delivery commit: `058d591` (`docs(w2): specify dashboard command center`)
-- Last verified remote checkpoint: `5528c10` on `origin/w2/frontend-bootstrap-readiness`
+- Last verified remote checkpoint: `b6f0070` on `origin/w2/frontend-bootstrap-readiness`
 - Draft PR: `#8` targeting `w4/security-baseline`
 - State: bootstrap readiness in progress; canonical application not published yet
 
@@ -82,5 +82,6 @@
 - `bash scripts/ci/detect-project.sh`
 - `bash scripts/ci/check-migrations.sh`
 - `bash scripts/ci/test-guardrails.sh`
+- GitHub PR `#8` checks at `b6f0070`: migration policy, baseline guardrails, secret scan, dependency review and Node quality gate passed; critical Playwright correctly skipped because no application exists.
 
 Application typecheck, lint, unit tests and build are not applicable until the canonical Node project is committed.
