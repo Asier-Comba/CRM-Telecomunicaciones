@@ -18,7 +18,7 @@ function fixture(files, routes = []) {
     writeFileSync(target, contents)
   }
   mkdirSync(resolve(root, '.security'), { recursive: true })
-  writeFileSync(resolve(root, '.security/sensitive-routes.json'), JSON.stringify({ version: 1, routes }))
+  writeFileSync(resolve(root, '.security/sensitive-routes.json'), JSON.stringify({ version: 2, routes }))
   return root
 }
 
@@ -37,6 +37,7 @@ function secure(path, overrides = {}) {
     productionEnabled: true,
     outboundSideEffects: false,
     securityReviewed: true,
+    reviewRef: 'commit:bec6b2c',
     ...overrides,
   }
 }
@@ -57,20 +58,40 @@ try {
 
   const internalPath = 'src/app/api/internal/sync/route.ts'
   root = fixture(
-    { [internalPath]: 'const key = process.env.SUPABASE_SERVICE_ROLE_KEY; export async function POST() {}' },
+    { [internalPath]: 'const key = process.env.SUPABASE_SERVICE_ROLE_KEY; export async function POST(req) { verifyScopedServicePrincipal(req) }' },
     [secure(internalPath, { outboundSideEffects: true })],
   )
   assert.equal(run(root).status, 0, 'scoped and reviewed privileged route may pass')
 
   root = fixture(
-    { [internalPath]: 'const key = process.env.SUPABASE_SERVICE_ROLE_KEY; export async function POST() {}' },
+    { [internalPath]: 'const key = process.env.SUPABASE_SERVICE_ROLE_KEY; export async function POST(req) { verifyScopedServicePrincipal(req) }' },
     [secure(internalPath, { tenantBinding: 'session-membership' })],
   )
   assert.notEqual(run(root).status, 0, 'service role cannot rely only on session membership')
 
+  const legacyAgentPath = 'src/app/api/agent/tool/route.ts'
+  root = fixture(
+    { [legacyAgentPath]: 'const key = process.env.AGENT_TOOL_SECRET; export async function POST() {}' },
+    [secure(legacyAgentPath)],
+  )
+  assert.notEqual(run(root).status, 0, 'a global agent secret cannot be declared tenant-scoped')
+
+  const confirmPath = 'src/app/api/assistant/confirm/route.ts'
+  root = fixture(
+    { [confirmPath]: 'export async function POST() { return db.from("tasks").insert({}) }' },
+    [secure(confirmPath, { exposure: 'authenticated', authentication: 'session', tenantBinding: 'resource-derived' })],
+  )
+  assert.notEqual(run(root).status, 0, 'hidden writes and missing session auth must fail')
+
+  root = fixture(
+    { [testPath]: 'export async function POST() { return new Response() }' },
+    [secure(testPath, { productionEnabled: false })],
+  )
+  assert.notEqual(run(root).status, 0, 'a manifest-only production deny must fail')
+
   const webhookPath = 'app/api/webhooks/provider/route.ts'
   root = fixture(
-    { [webhookPath]: 'export async function POST() {}' },
+    { [webhookPath]: 'export async function POST(req) { return verifyWebhookSignature(req) }' },
     [secure(webhookPath, {
       exposure: 'provider-callback',
       authentication: 'signed-webhook',

@@ -11,9 +11,9 @@ Last verified: 2026-09-25 (UTC)
 
 ## Current repository state
 
-- `w1/bootstrap-sanitized@4936a08` is the newest W1 candidate; the prior `w1/bootstrap-canonical@61848cf` and draft PR `#11` remain superseded-but-open until W1 completes a safe replacement flow.
+- `w1/bootstrap-sanitized@9f633cd` is the newest W1 candidate; the prior `w1/bootstrap-canonical@61848cf` and draft PR `#11` remain superseded-but-open until W1 completes a safe replacement flow.
 - A clean worktree at the new candidate passes install, lint (three warnings), typecheck, 12 tests, production build and dependency audit. Team routes now use an active-membership resolver and telecom v0 read contracts exist.
-- W1 is not yet sanitized or canonical: the three exact historical webhook-secret values remain in the current tree/reachable history, 32 relations/views and two RPCs remain missing, onboarding and many active routes still disagree with the identity schema, and RLS has only static regex evidence.
+- W1 is not yet sanitized or canonical: the three exact historical webhook-secret values remain in the current tree/reachable history, 32 relations/views and two RPCs remain missing, onboarding and many active routes still disagree with the identity schema, and RLS has only static regex evidence. The latest route registry also makes review/auth/side-effect/production claims that contradict source.
 - W2 head `d1df763` remains documentation/fixtures only and now adds Customer 360/dashboard UI-state acceptance fixtures; draft PR `#8` makes no runtime or data changes. CI run `#43` is green.
 - W3 head `7be1e8f` adds eval metrics without changing the vulnerable runtime/contracts; draft PR `#9` remains blocked by W4 `CHANGES_REQUESTED` plus Issue `#10`.
 - There is still no `main`, reproducible Supabase schema, accepted RLS policy set or approved product release base.
@@ -32,7 +32,7 @@ Last verified: 2026-09-25 (UTC)
 - Static Supabase migration security checks with negative-control self-tests.
 - Versioned cross-tenant adversarial matrix ready to bind to the W1 schema and non-production environment.
 - Static endpoint review of the W1 application, including auth, debug/test routes, n8n and service-role trust boundaries.
-- Executable sensitive-route registry gate with negative controls. It identifies 24 routes at W1 `61848cf` and 22 at candidate `4936a08` requiring explicit auth, tenant, rate-limit, production and side-effect review.
+- Executable sensitive-route registry gate v2 with negative controls. It identifies 24 routes at W1 `61848cf` and 22 in the sanitized branch; v2 cross-checks review refs, global agent secrets, writes, runtime production denies and auth/signature claims instead of trusting manifest labels.
 - Explicit W2 frontend security answers covering protected navigation, membership invalidation, browser telemetry, PII/copy policy, assistant READ rendering and minimum QA evidence.
 - Machine-validated restore evidence with negative controls for production targets, RPO/RTO arithmetic, asset completeness, tenant tests, integration disablement, reviewer separation and secret-bearing fields.
 
@@ -64,7 +64,7 @@ Resolved W1 finding: `W1-QA-001` (clean checkout missing `supabase/migrations`) 
 
 ## Latest cross-work review
 
-- **W1:** candidate `4936a08` improves team membership authorization and passes the non-strict clean-checkout quality gate. It remains blocked: the supposedly sanitized tree retains the exact historical values; strict drift is unchanged; onboarding/current-user and many routes still use removed or non-authoritative profile/workspace fields; 22 sensitive routes are unregistered; RLS is unexecuted. Evidence and criteria are in `docs/master/HANDOFF_W1_SECURITY.md`, `docs/master/ENDPOINT_SECURITY_REVIEW.md` and Issue `#12`.
+- **W1:** candidate `9f633cd` improves team membership authorization, protects n8n status/test, removes the n8n URL response, adds selected rate limits and passes 15 bootstrap tests. It remains blocked: the supposedly sanitized tree retains the exact historical values; strict drift is unchanged; onboarding/current-user and many routes still use removed or non-authoritative profile/workspace fields; registry v1 passes contradictory source claims; RLS is unexecuted. Evidence and criteria are in `docs/master/HANDOFF_W1_SECURITY.md`, `docs/master/ENDPOINT_SECURITY_REVIEW.md` and Issue `#12`.
 - **W2:** draft PR `#8` remains documentation/bootstrap only and preserves server-side authorization as the boundary. Head `d1df763` adds synthetic UI-state acceptance fixtures; it keeps mutation UI disabled, rejects arbitrary model URLs and browser workspace authority, and still waits for W1 acceptance. CI run `#43` is green. W4 found no new blocker and answered all 15 requested frontend gates in `docs/master/HANDOFF_W2_SECURITY.md`.
 - **W3:** head `7be1e8f` adds eval metrics only; the runtime and contract Git blobs are identical to `9ef926b`. The prior attack remains valid: an invented confirmation succeeded and one key across 20 concurrent requests produced 20 successes/handler executions. Draft PR `#9` retains W4 `CHANGES_REQUESTED`; no CI run exists for the newest head yet. Exact criteria remain in `docs/master/HANDOFF_W3_SECURITY.md` and Issue `#10`.
 

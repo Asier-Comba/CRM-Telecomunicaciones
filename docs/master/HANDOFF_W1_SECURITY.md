@@ -145,3 +145,27 @@ Reviewed head: `4936a08` on 2026-09-25.
 - RLS tests remain SQL-regex tests; no database-backed A/B attack evidence exists.
 
 This branch may continue receiving fixes, but it is not a sanitized or canonical merge candidate yet.
+
+### Follow-up at `9f633cd`
+
+Accepted progress:
+
+- `/api/automations/n8n/status` now resolves an active workspace manager before its network probe
+  and no longer returns the n8n base URL.
+- `/api/automations/n8n/test` now authenticates a workspace manager, rate-limits by actor/workspace
+  and binds the payload workspace to the resolved caller.
+- Real WhatsApp sends gained an actor/workspace rate-limit guard.
+
+Open/introduced review findings:
+
+- The exact three historical values and legacy blob remain unchanged; `W1-SECRET-001` is still P0.
+- Registry v1 passes while declarations contradict source. Agent routes are labelled scoped/signed
+  although they still use global `AGENT_TOOL_SECRET` and caller `workspace_id`; agent and assistant
+  write handlers are labelled as having no side effects; multiple routes are labelled production-
+  disabled without an enforceable runtime deny; all 22 entries self-assert `securityReviewed=true`
+  without a W4 review reference.
+- W4 registry v2 rejects legacy global agent secrets, undeclared writes, missing runtime production
+  denies, unsupported auth/signature claims and review assertions without an issue/PR/commit ref.
+
+The endpoint changes are useful but do not close the service-principal, assistant-confirmation,
+secret-history, schema-drift, onboarding or database-backed RLS gates.

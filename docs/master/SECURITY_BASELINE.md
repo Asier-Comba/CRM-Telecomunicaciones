@@ -48,8 +48,10 @@ Sensitive API routes are inventory-controlled by `.security/sensitive-routes.jso
 names (status/test/debug/admin/QA/internal/webhook/callback/agent/assistant confirmation)
 or privileged/service-role client usage. Every discovered route must declare its owner,
 exposure, authentication mechanism, tenant binding, rate limiting, production state,
-outbound effects and completed security review. The registry is evidence for review; it
-does not replace runtime authorization or adversarial tests.
+outbound effects and completed security review. Registry v2 requires a W4 review reference and
+cross-checks high-risk claims against source: legacy global agent secrets, undeclared writes,
+manifest-only production disables, missing session auth and unsigned webhook claims fail CI. The
+registry is evidence for review; it does not replace runtime authorization or adversarial tests.
 
 - Strict input schemas and bounded pagination/body sizes.
 - Per-user and per-workspace rate limits on authentication, search, imports, webhooks and assistant actions.

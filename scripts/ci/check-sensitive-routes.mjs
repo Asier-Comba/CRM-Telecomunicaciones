@@ -44,10 +44,10 @@ for (const absolute of routeFiles) {
   const reasons = []
   if (pathRisk.test(path)) reasons.push('sensitive path')
   if (serviceRoleRisk.test(source)) reasons.push('privileged/service-role client')
-  if (reasons.length) sensitive.set(path, { reasons })
+  if (reasons.length) sensitive.set(path, { reasons, source })
 }
 
-let registry = { version: 1, routes: [] }
+let registry = { version: 2, routes: [] }
 const errors = []
 if (existsSync(registryPath)) {
   try {
@@ -59,8 +59,8 @@ if (existsSync(registryPath)) {
   fail(errors, '.security/sensitive-routes.json is required when sensitive routes exist')
 }
 
-if (registry.version !== 1 || !Array.isArray(registry.routes)) {
-  fail(errors, 'sensitive route registry must have version=1 and a routes array')
+if (registry.version !== 2 || !Array.isArray(registry.routes)) {
+  fail(errors, 'sensitive route registry must have version=2 and a routes array')
 }
 
 const entries = new Map()
@@ -81,6 +81,13 @@ for (const [path, finding] of sensitive) {
   }
 
   if (typeof entry.owner !== 'string' || !entry.owner.trim()) fail(errors, `${path}: owner is required`)
+  if (entry.securityReviewed === true) {
+    if (typeof entry.reviewRef !== 'string' || !/^(?:issue|pr):#[1-9][0-9]*$|^commit:[0-9a-f]{7,40}$/.test(entry.reviewRef)) {
+      fail(errors, `${path}: securityReviewed=true requires a W4 issue, PR or commit reviewRef`)
+    }
+  } else if (entry.reviewRef !== 'pending') {
+    fail(errors, `${path}: unreviewed routes require reviewRef=pending`)
+  }
   for (const field of ['exposure', 'authentication', 'tenantBinding']) {
     if (!allowed[field].has(entry[field])) fail(errors, `${path}: invalid or missing ${field}`)
   }
@@ -102,6 +109,28 @@ for (const [path, finding] of sensitive) {
     if (entry.tenantBinding === 'session-membership') {
       fail(errors, `${path}: privileged client cannot rely only on session membership; bind a signed scope or authorized resource`)
     }
+  }
+
+  const source = finding.source
+  if (/AGENT_TOOL_SECRET/.test(source)) {
+    fail(errors, `${path}: legacy global AGENT_TOOL_SECRET cannot satisfy a scoped-service-principal declaration`)
+  }
+  const hasWrite = /\.(?:insert|update|upsert|delete)\s*\(|auth\.admin\.|triggerN8nWorkflow\s*\(|sendWhatsAppMessage\s*\(/.test(source)
+  if (hasWrite && !entry.outboundSideEffects) {
+    fail(errors, `${path}: source performs writes/external actions but outboundSideEffects=false`)
+  }
+  if (!entry.productionEnabled) {
+    const hasProductionDeny = /(?:NODE_ENV|APP_ENV|VERCEL_ENV)[\s\S]{0,100}production|(?:assert|require|deny|block|is)[A-Za-z]*Production/.test(source)
+    if (!hasProductionDeny) fail(errors, `${path}: productionEnabled=false requires an enforceable runtime production deny`)
+  }
+  if (entry.authentication === 'session' && !/(?:auth\.getUser\s*\(|resolveCaller\s*\(|requireSession\s*\(|getAuthenticated)/.test(source)) {
+    fail(errors, `${path}: session declaration has no recognized server-side authentication call`)
+  }
+  if (entry.authentication === 'scoped-service-principal' && !/(?:verify|require|resolve)[A-Za-z]*(?:Scoped|ServicePrincipal|SignedScope)/.test(source)) {
+    fail(errors, `${path}: scoped-service-principal declaration has no recognized scoped-principal verification`)
+  }
+  if (entry.authentication === 'signed-webhook' && !/(?:signature|hmac|verifyToken|timingSafeEqual|verifyWebhook)/i.test(source)) {
+    fail(errors, `${path}: signed-webhook declaration has no recognized signature verification`)
   }
 }
 

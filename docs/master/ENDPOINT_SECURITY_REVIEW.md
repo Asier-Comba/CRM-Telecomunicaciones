@@ -14,6 +14,12 @@ team routes no longer directly use the privileged client, but n8n, assistant, ag
 callback/webhook and other service-role surfaces remain. Registration alone is not acceptance:
 runtime auth, zero-outbound-call denial tests, rate limits and cross-tenant attacks remain required.
 
+W1 head `9f633cd` demonstrated why registry declarations are not enough: registry v1 passed while
+claiming scoped signed principals for routes that still use global `AGENT_TOOL_SECRET`, marking
+write-capable agent/confirmation handlers as having no side effects, and marking test routes
+production-disabled without a runtime deny. W4 registry v2 now rejects those contradictions and
+requires a W4 issue/PR/commit review reference before `securityReviewed=true` is accepted.
+
 Reviewed source: `w1/bootstrap-canonical@61848cf` and `w1/bootstrap-sanitized@4936a08` on 2026-09-25.
 
 This is a static review of the reconstructed application. It is not production approval. Runtime assertions remain blocked until the canonical schema and isolated test environment exist.
