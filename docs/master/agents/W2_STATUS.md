@@ -18,6 +18,7 @@
 - Defined the frontend bootstrap and migration contract in `docs/master/W2_FRONTEND_BOOTSTRAP.md`.
 - Defined testable product/UX acceptance criteria in `docs/master/W2_UX_ACCEPTANCE.md`.
 - Reviewed W3 `AssistantResponse` at `97e64d3` and published the structured UI handoff in `W2_HANDOFF_W3_ASSISTANT_UI.md`.
+- Defined the Customer 360 information architecture, section state model and exact W1 presentation needs in `docs/master/W2_CUSTOMER_360_SPEC.md`.
 - Published and SHA-verified `origin/w2/frontend-bootstrap-readiness` in the canonical repository.
 - Opened draft PR `#8` for review without assuming or merging into a future `main`.
 
@@ -32,8 +33,9 @@
 1. Rebase this branch onto the canonical W1 base when it is published.
 2. Inspect its App Router, design primitives and data contracts before moving source code.
 3. Adapt the accessible field, loading/error primitives and dashboard feature boundary as separate tested commits.
-4. Apply the acceptance contract to the first vertical slice and collect responsive/accessibility evidence.
-5. Build the telecom command center only from W1-backed data; do not invent metrics.
+4. Implement Customer 360 identity and attention as the first W1-backed vertical slice.
+5. Apply the acceptance contract and collect responsive/accessibility evidence.
+6. Build the telecom command center only from W1-backed data; do not invent metrics.
 
 ## Required contracts
 
@@ -44,6 +46,7 @@
 - Versioned read models for company/customer, contacts, assignee, services, lines, operator, contracts, permanence and renewal.
 - Pagination, search, filter, loading, error and empty semantics for list endpoints.
 - Dashboard query/read model with source-backed tasks, meetings, renewals, permanence alerts and opportunities.
+- Customer 360 presentation needs and action semantics detailed in `docs/master/W2_CUSTOMER_360_SPEC.md`.
 
 ### W3
 
