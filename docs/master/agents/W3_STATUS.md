@@ -2,6 +2,7 @@
 
 Updated: 2026-09-25
 Branch: `w3/assistant-runtime-foundation`
+Pull request: `#9` targeting `w4/security-baseline`
 
 ## Current state
 
@@ -22,6 +23,7 @@ Branch: `w3/assistant-runtime-foundation`
 - Structured UI response contract for W2.
 - Versioned 18-category assistant eval catalog.
 - Unit/adversarial tests for tenant injection, permission denial, confirmation binding and write replay.
+- Remote branch tree verified identical to local commit `e2d7505` before this status-only follow-up.
 
 ## Historical decisions
 
@@ -63,3 +65,15 @@ Review the runtime invariants and adversarial tests. Confirmation issuance/persi
 - The repository currently has no `main` branch and defaults to `w4/security-baseline`.
 - No W1/W2 status files or application/data contracts are present.
 - No test Supabase environment or credentials are configured; no live RLS claim is made.
+- GitHub Dependency Review is blocked by repository configuration: Dependency Graph is not enabled. W4/repository owner must enable it; W3 will not change repository security settings.
+
+## Validation evidence
+
+- `npm run lint`: pass.
+- `npm run typecheck`: pass.
+- `npm run test`: 9/9 pass.
+- `npm run build`: pass.
+- `bash scripts/ci/test-guardrails.sh`: pass.
+- `npm audit --audit-level=high`: 0 vulnerabilities.
+- PR merge ref against W4 commit `f72e432`: baseline guardrails pass locally.
+- GitHub CI: quality, migration policy and secret scan pass. Dependency Review remains externally blocked as noted above.
