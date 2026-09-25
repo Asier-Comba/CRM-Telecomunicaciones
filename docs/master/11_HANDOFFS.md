@@ -9,7 +9,7 @@
 
 CONTRACT: Bootstrap del repositorio canónico
 
-COMMIT: pendiente del primer commit en `w1/bootstrap-canonical`
+COMMIT: `c0e1dcf`
 
 WHAT CHANGED: El snapshot funcional histórico se ha trasladado al repositorio
 Telecom sobre la baseline W4. El SQL inmobiliario es ahora evidencia legacy y no

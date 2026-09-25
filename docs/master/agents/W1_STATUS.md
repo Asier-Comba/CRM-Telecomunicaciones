@@ -2,7 +2,7 @@
 
 - Timestamp aproximado: 2026-09-25 17:00 Europe/Madrid
 - Branch: `w1/bootstrap-canonical`
-- Último commit: pendiente del primer commit de bootstrap
+- Último commit funcional: `c0e1dcf`
 - Estado: en progreso
 
 ## Trabajo completado
@@ -14,6 +14,7 @@
 - Migraciones inmobiliarias aisladas como legacy.
 - Auditor de reproducibilidad, inventario SQL read-only y tests de bootstrap
   trasladados.
+- Next actualizado a 16.3.6; auditoría npm cerrada con 0 vulnerabilidades.
 
 ## Trabajo actual
 
