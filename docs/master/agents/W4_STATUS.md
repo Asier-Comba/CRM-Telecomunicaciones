@@ -49,7 +49,7 @@ Resolved this cycle: the four Actions upgrades were integrated with verified imm
 
 - **W1:** branch exists as a coordination placeholder only. W4 remains blocked from schema, RLS, migration and role-model review until W1 publishes real content.
 - **W2:** draft PR `#8` is documentation-only, preserves server-side authorization as the boundary and correctly waits for W1 contracts. Its first CI run exposed two baseline defects: runner-aware guardrail output handling and unavailable Dependency Review configuration. W4 fixed both on the base branch; W2 must refresh the PR merge base and obtain a green run. No product-security blocker found; rebase onto the future canonical base remains required.
-- **W3:** head `97e64d3` now publishes status/architecture, preserves the baseline ignore policy and passes the current quality gate. The typed registry, closed input schemas, server-context tenant contract, permission check, audit shape and representative eval catalog are useful foundations. Assistant mutations remain a P0 release gate because confirmation and idempotency can currently be bypassed; detailed evidence is in `docs/master/HANDOFF_W3_SECURITY.md`.
+- **W3:** head `97e64d3` now publishes status/architecture, preserves the baseline ignore policy and passes the current quality gate. The typed registry, closed input schemas, server-context tenant contract, permission check, audit shape and representative eval catalog are useful foundations. Assistant mutations remain a P0 release gate because confirmation and idempotency can currently be bypassed; detailed evidence is in `docs/master/HANDOFF_W3_SECURITY.md` and GitHub issue `#10`.
 
 ## Integration plan after W1 publishes the base
 
