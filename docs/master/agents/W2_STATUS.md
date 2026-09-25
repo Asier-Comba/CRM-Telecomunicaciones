@@ -3,7 +3,7 @@
 - Updated: 2026-09-25
 - Branch: `w2/frontend-bootstrap-readiness`
 - Base: `w4/security-baseline` at `4ef9a5a`
-- Latest delivery commit: `058d591` (`docs(w2): specify dashboard command center`)
+- Latest delivery commit: `e42a875` (`docs(w2): define assistant renderer gates`)
 - Last verified remote checkpoint: `981c591` on `origin/w2/frontend-bootstrap-readiness`
 - Draft PR: `#8` targeting `w4/security-baseline`
 - State: application bootstrap inspected; canonical telecom integration gate not yet passed
