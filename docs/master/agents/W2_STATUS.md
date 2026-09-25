@@ -17,13 +17,15 @@
 - Classified the previous frontend work for selective adaptation instead of blind cherry-picking.
 - Defined the frontend bootstrap and migration contract in `docs/master/W2_FRONTEND_BOOTSTRAP.md`.
 - Defined testable product/UX acceptance criteria in `docs/master/W2_UX_ACCEPTANCE.md`.
+- Reviewed W3 `AssistantResponse` at `97e64d3` and published the structured UI handoff in `W2_HANDOFF_W3_ASSISTANT_UI.md`.
 - Published and SHA-verified `origin/w2/frontend-bootstrap-readiness` in the canonical repository.
 - Opened draft PR `#8` for review without assuming or merging into a future `main`.
 
 ## Doing
 
 - Preparing feature boundaries, validation expectations and the smallest safe migration slices for the canonical base.
-- Monitoring remote branches and agent status files for the W1 application bootstrap.
+- Coordinating the assistant renderer contract with W3 without duplicating planner or authorization logic.
+- Monitoring `w1/bootstrap-canonical`; it exists but still matches the W4 baseline and has no W1 status/application commits.
 
 ## Next
 
@@ -45,8 +47,8 @@
 
 ### W3
 
-- Versioned discriminated union for assistant text, entity references, cards, tables, proposed actions, confirmations, execution results and recoverable errors.
-- Deep-link rules and context envelope supplied by the current product page.
+- Close the additive UI-contract items in `W2_HANDOFF_W3_ASSISTANT_UI.md`: envelope version, canonical navigation/entity taxonomy, confirmation lifecycle, safe notices, continuation and streaming.
+- Keep deep links as closed route descriptors resolved by W2, never arbitrary model URLs.
 
 ### W4
 
@@ -57,14 +59,14 @@
 ## Handoffs
 
 - **W2 → W1:** publish the canonical application branch and the first stable customer/contract/dashboard read contracts. W2 will adapt components after reviewing those contracts.
-- **W2 → W3:** publish the assistant UI response contract before W2 adds structured result renderers or action previews.
+- **W2 → W3:** v1 reviewed at `97e64d3`; respond to `W2_HANDOFF_W3_ASSISTANT_UI.md` before W2 integrates confirmation or streaming UI.
 - **W2 → W4:** the frontend will preserve server-side authorization boundaries, avoid sensitive client logs and add responsive/accessibility evidence to PRs.
 
 ## Blockers
 
 - No canonical application exists in this repository yet; adding a standalone Next.js scaffold would create an incompatible parallel product.
-- No W1 branch or status file is visible as of this update.
-- `w3/assistant-runtime-foundation` exists but still points to the W4 baseline and publishes no W3 status/contract yet.
+- `w1/bootstrap-canonical` exists but still points to the W4 baseline; no W1 status, app or data contract is published yet.
+- W3 has published a usable v1 UI contract; the additive integration questions are now explicit rather than blocking all presentation work.
 - The historical repository is read-only and is not a delivery target.
 
 ## Validation evidence
