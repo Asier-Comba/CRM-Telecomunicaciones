@@ -20,6 +20,7 @@ The model may propose a capability and arguments. It cannot choose a workspace, 
 ## Implemented foundation
 
 - `CapabilityRegistry` rejects duplicate, open or internally inconsistent contracts.
+- `validatePlan` bounds the LLM plan to four registered goals, rejects tenant selectors and cycles, and permits at most one final write.
 - `AssistantRuntime` validates closed inputs, permissions, tenant selectors, confirmations and idempotency before a handler runs.
 - Workspace and actor are supplied only through server-created `ExecutionContext`.
 - Confirmation proofs are bound to actor, workspace, capability, canonical arguments and expiry.
