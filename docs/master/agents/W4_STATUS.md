@@ -11,12 +11,13 @@ Last verified: 2026-09-25 (UTC)
 
 ## Current repository state
 
-- The repository still has no canonical application base, `main`, `package.json`, `app/`, Supabase schema or product migrations.
-- `w1/bootstrap-canonical` now exists but still points exactly to W4 commit `f72e432`; it contains no canonical application or W1 status yet.
-- W2 published documentation and `W2_STATUS.md` on `w2/frontend-bootstrap-readiness`; draft PR `#8` targets the W4 baseline and makes no runtime or data changes.
-- W3 published a TypeScript assistant control-plane foundation, nine tests, architecture notes and `W3_STATUS.md` on `w3/assistant-runtime-foundation`; PR `#9` targets the W4 baseline.
-- `docs/master/agents/W1_STATUS.md` does not yet exist. This is an absence of coordination evidence, not a claim that W1 has done nothing.
-- The Project chats confirm that W1 must first reconstruct the real Supabase schema and publish a reproducible base; W2 and W3 are intentionally blocked from inventing tenant entities or mutating production.
+- `w1/bootstrap-canonical@61848cf` contains a real Next.js application and its first canonical tenant-identity migration; it is no longer a placeholder. Draft PR `#11` requests bootstrap review.
+- A clean worktree now passes install, lint (three warnings), typecheck, seven tests, production build and dependency audit. The earlier missing-directory QA finding is resolved.
+- W1 is not yet an accepted canonical release base: Secret Scan run `#31` fails on tracked legacy values, 32 relations/views and two RPCs remain missing, schema/application identity contracts disagree, and RLS has only static regex evidence.
+- W2 head `eabb342` remains documentation-only and now publishes Customer 360, dashboard and assistant READ slice specifications plus synthetic fixtures; draft PR `#8` makes no runtime or data changes. CI run `#40` is green.
+- W3 head `7be1e8f` adds eval metrics without changing the vulnerable runtime/contracts; draft PR `#9` remains blocked by W4 `CHANGES_REQUESTED` plus Issue `#10`.
+- There is still no `main`, reproducible Supabase schema, accepted RLS policy set or approved product release base.
+- W1, W2 and W3 may continue safely in their own branches. PR `#8` remains documentation-only; PR `#9` may receive fixes but cannot merge until Issue `#10` is fully evidenced.
 - The original local and remote W4 copies had identical trees but unrelated histories. The remote baseline is now a clean linear history at `f72e432`; the earlier local history remains under a local safety ref and no baseline content was lost.
 
 ## Implemented baseline
@@ -28,32 +29,47 @@ Last verified: 2026-09-25 (UTC)
 - Executable baseline self-tests, SHA-pinned GitHub Actions and checkout credential persistence disabled.
 - Dependabot configuration and PR security checklist.
 - Versioned policies for tenant isolation, assistant tools, staging/release, backup/restore and observability.
+- Static Supabase migration security checks with negative-control self-tests.
+- Versioned cross-tenant adversarial matrix ready to bind to the W1 schema and non-production environment.
+- Static endpoint review of the W1 application, including auth, debug/test routes, n8n and service-role trust boundaries.
+- Executable sensitive-route registry gate with negative controls. Its first attack against W1 identified 24 routes requiring explicit auth, tenant, rate-limit, production and side-effect review.
+- Explicit W2 frontend security answers covering protected navigation, membership invalidation, browser telemetry, PII/copy policy, assistant READ rendering and minimum QA evidence.
 
 ## Findings and gates
 
 | Severity | Evidence | Risk | Affected component | Required fix | Acceptance criteria |
 |---|---|---|---|---|---|
-| P0 | No canonical application/schema branch or `main` exists | Auth, RLS and migrations cannot be validated; publishing the W4 skeleton as product history would create the wrong base | Repository/release | W1 publishes the reviewed canonical base; W4 reviews it before integration | Base contains the real app and schema provenance; W1 status records drift decision; W4 tenant/RLS review passes |
+| P0 | W1 has one canonical identity migration, but strict audit still reports 32 missing relations/views and two missing RPCs | Auth, full RLS, grants and clean database recovery are not reproducible | Database/release | W1 completes and tests the canonical migration chain | Zero-to-head migration and strict drift audit pass; W4 RLS/tenant matrix is green |
+| P0 | PR `#11` CI run `#31` fails Secret Scan; current legacy documentation contains three assigned webhook-secret values | Public Git history retains credentials after ordinary deletion and establishes unsafe handling | Secrets/repository history | Redact current tree, purge introduced history and retain rotation proof out-of-band | Full-history scan passes and no reachable PR commit contains the values |
+| P0 | Canonical migration removes `profiles.role`, but active routes still read/write it; onboarding writes absent `plan`/`role` columns and omits required `slug` | Core onboarding/team flows fail and declared membership authorization is not implemented in the app | Schema/API authorization | Align queries and use one active-membership resolver; provision atomically | Clean-DB onboarding and team tests pass; role/removal/switch tests fail closed; no active `profiles.role` use |
+| P0 | Anonymous `/api/automations/n8n/status` returns internal base URL and `/test` can call an external workflow with server credentials | Reconnaissance, resource exhaustion and external effects without authentication | API/n8n | Remove in production or add admin/internal auth, rate limit, safe output and production deny | Denied requests make zero outbound calls; production cannot run test workflows |
+| P0 | Service-role agent routes use one global secret and trust caller-supplied `workspace_id` | One leaked/misused credential crosses every tenant while bypassing RLS | Agent/n8n APIs | Use scoped service principals and derive authorized workspaces server-side | A-scoped credential cannot access or affect B under read, write, replay or concurrency attacks |
+| P0 | Existing `/api/assistant/confirm` executes caller-supplied actions without server-issued one-time proof or atomic idempotency | Authenticated clients can fabricate, replay or race assistant mutations | Assistant API | Integrate W3 only after Issue `#10` is satisfied | Exact confirmation, idempotency, output-schema and cross-workspace suite passes |
+| P0 | Privileged routes use `profiles.role` while `workspace_members.role` is also the documented tenant role | Stale/disagreeing roles can create tenant privilege escalation | Authorization | Adopt one membership-backed workspace authorization resolver | Role disagreement, removal and workspace-switch tests fail closed |
 | P0 | Current permissions do not include repository administration | Required-PR and required-check rules cannot yet be enforced | GitHub governance | Repository owner enables a ruleset after the canonical `main` exists | Direct pushes to `main` blocked; review plus required W4 checks enforced; admin bypass audited |
-| P1 | No executable Supabase schema/RLS or server API exists in this repository | Cross-tenant isolation is unproven | Data/API/storage | W1 publishes schema and policies; W4 adds two-workspace adversarial tests | Workspace A cannot list/read/create/update/delete B data through DB, API, storage, imports or assistant tools |
+| P1 | The reconstructed app has no executable cross-tenant schema/API/storage test matrix | Cross-tenant isolation is unproven despite explicit filters in several routes | Data/API/storage | W1 publishes schema and W4 binds the adversarial plan to real fixtures | Workspace A cannot list/read/create/update/delete B data through DB, API, storage, imports or assistant tools |
 | P1 | Staging, backup jobs and a completed restore test do not yet exist | Recovery and safe release claims are unverified | Platform/DR | Provision isolated staging and run a documented non-production restore exercise | Evidence records scope, timestamp, RPO/RTO result and recovery owner without secrets |
 | P0 | W3 confirmation objects are accepted solely by matching caller-supplied fields; no server issuance proof or one-time lookup exists | A caller can fabricate a valid-looking confirmation and bypass the human confirmation boundary | Assistant mutations | Replace caller-trusted proof with a short-lived, server-issued, one-time confirmation record or authenticated token | Tampered, invented, expired, replayed, cross-actor and cross-workspace confirmations all fail; only a server-issued confirmation succeeds once |
 | P0 | Two concurrent W3 requests with the same idempotency key both executed the handler in an adversarial test | Retried/concurrent writes can duplicate external or database effects | Assistant mutations | Atomically reserve the key before execution and bind it to actor/workspace/capability/argument digest | Concurrency test executes the handler once; changed arguments conflict; crash/retry behavior is deterministic |
 | P1 | W3 output protection relies on a partial secret-key denylist and capability handlers have no enforced output schema | Sensitive provider fields could reach assistant/UI output under unrecognized names | Assistant output | Validate every capability output against a closed, bounded schema and redact at source | Tests reject extra keys, credentials and oversized/nested output without relying on a small regex list |
 | P1 | PR `#8` proved Dependency Review unsupported because repository Dependency Graph is disabled; W4 lacks admin permission | Enforcing the unavailable action would block every PR, while skipping it permanently would lose dependency-diff protection | GitHub security settings/CI | Owner enables Dependency Graph and sets repository variable `DEPENDENCY_REVIEW_ENABLED=true`; npm audit remains enforced meanwhile for Node projects | Dependency Review executes on a test PR and rejects a high-severity introduced dependency |
-| P2 | W1 status file is absent | Security review may discover schema and auth contracts late | Coordination | W1 publishes its status before the first product PR | Status identifies branch/PR, schema provenance, drift decision, role model and security-sensitive changes |
+| P1 | One legacy `SECURITY DEFINER` migration lacks an empty `search_path` | Verbatim promotion could introduce object-shadowing privilege escalation | Migration reconstruction | Recreate and test the function rather than copying legacy SQL | Static check plus invocation/authorization tests pass |
 
-Resolved this cycle: the four Actions upgrades were integrated with verified immutable SHAs, checkout credentials were disabled, baseline self-tests passed and the superseded Dependabot branches were removed automatically. W3 added the previously missing lint implementation in `e4f168d`; a clean W4 execution of `node-quality-gate.sh` now passes lint, typecheck, nine tests, build and dependency audit.
+Resolved baseline work: the four Actions upgrades were integrated with verified immutable SHAs, checkout credentials were disabled, baseline self-tests passed and superseded Dependabot branches were removed automatically. W3's current branch passes its own 13-test quality gate, but those tests do not cover Issue `#10`.
+
+W4 push CI run `#39` is green at `27e1e42`, including the expanded Supabase security self-tests, migration policy, secret scan and baseline gates. The sensitive-route gate added after that checkpoint passes locally with all negative controls.
+
+Resolved W1 finding: `W1-QA-001` (clean checkout missing `supabase/migrations`) is fixed at `61848cf`; W4 reproduced the complete non-strict quality gate from a disposable worktree.
 
 ## Latest cross-work review
 
-- **W1:** branch exists as a coordination placeholder only. W4 remains blocked from schema, RLS, migration and role-model review until W1 publishes real content.
-- **W2:** draft PR `#8` is documentation-only, preserves server-side authorization as the boundary and correctly waits for W1 contracts. Its first CI run exposed two baseline defects: runner-aware guardrail output handling and unavailable Dependency Review configuration. W4 fixed both; CI run `#13` on W2 head `3142e01` completed successfully, including secret scan, migration policy and baseline guardrails. Later Customer 360/migration documentation through `3defba9` was checked for auth, storage, assistant-context and sensitive-log assumptions; no product-security blocker was found. The newest head still needs its own CI evidence and eventual rebase onto the W1 base.
-- **W3:** head `9ef926b` adds a bounded registered-capability plan validator and tests; this is compatible with the control-plane direction but does not change the mutation findings. Earlier head `65fbeb1` passed CI run `#15`. W4 requested changes on PR `#9`: assistant mutations remain a P0 release gate because confirmation and idempotency can currently be bypassed. Detailed evidence is in `docs/master/HANDOFF_W3_SECURITY.md` and GitHub issue `#10`; the newest head still needs CI evidence.
+- **W1:** head `61848cf` fixes the clean-checkout gate and adds a well-directed membership-first migration that passes W4 static SQL checks. Draft PR `#11` is still blocked by failing secret scan, schema/application contract mismatch, incomplete drift, static-only RLS evidence and the previously identified exposed/internal endpoints. Evidence and criteria are in `docs/master/HANDOFF_W1_SECURITY.md`, `docs/master/ENDPOINT_SECURITY_REVIEW.md` and Issue `#12`.
+- **W2:** draft PR `#8` remains documentation/bootstrap only and preserves server-side authorization as the boundary. Head `eabb342` adds Customer 360, dashboard and assistant READ specifications plus synthetic fixtures; it keeps mutation UI disabled, rejects arbitrary model URLs and browser workspace authority, and still waits for W1 acceptance. CI run `#40` is green. W4 found no new blocker and answered all 15 requested frontend gates in `docs/master/HANDOFF_W2_SECURITY.md`.
+- **W3:** head `7be1e8f` adds eval metrics only; the runtime and contract Git blobs are identical to `9ef926b`. The prior attack remains valid: an invented confirmation succeeded and one key across 20 concurrent requests produced 20 successes/handler executions. Draft PR `#9` retains W4 `CHANGES_REQUESTED`; no CI run exists for the newest head yet. Exact criteria remain in `docs/master/HANDOFF_W3_SECURITY.md` and Issue `#10`.
 
-## Integration plan after W1 publishes the base
+## Integration plan after W1 closes canonical blockers
 
-1. Fetch and review the W1 base, schema provenance and migration history without changing it.
+1. Re-review W1 from a clean checkout after its QA, migration and authorization fixes.
 2. Create a new `w4/security-integration` branch from the accepted canonical base.
 3. Apply the W4 baseline as reviewed content commits; do not merge the unrelated skeleton history into product history.
 4. Resolve package-manager, scripts, migration-path and Playwright contracts against the real application.
