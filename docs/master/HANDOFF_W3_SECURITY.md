@@ -24,14 +24,14 @@ Risk: prompt injection or hallucinated identifiers could cross tenant boundaries
 
 ## Review of `w3/assistant-runtime-foundation`
 
-Reviewed head: `9ef926b` on 2026-09-25. The new structured-plan validator is bounded and registry-backed, but the mutation runtime remains unchanged from `2ecd254` and does not resolve Issue `#10`.
+Reviewed head: `7be1e8f` on 2026-09-25. The newer eval metrics do not change the mutation runtime or contracts (their Git blob IDs are identical to `9ef926b`), so Issue `#10` remains unresolved.
 
 W3 may continue developing the isolated foundation. The findings below block merging or enabling assistant mutations; they do not block unrelated W1/W2 work.
 
 ### W3-SEC-001 — forgeable confirmation proof
 
 - **Severity:** P0 release blocker for assistant mutations.
-- **Evidence:** `confirmationMatches` only compares fields supplied in `CapabilityRequest.confirmation`; it does not verify a signature, query a server-issued record or consume `actionId`. The existing success test constructs the full proof in the caller. Against head `9ef926b`, W4 supplied an invented, never-issued `actionId` with matching fields; all 20 concurrent requests returned `SUCCESS`.
+- **Evidence:** `confirmationMatches` only compares fields supplied in `CapabilityRequest.confirmation`; it does not verify a signature, query a server-issued record or consume `actionId`. The existing success test constructs the full proof in the caller. Against the unchanged runtime reviewed through `7be1e8f`, W4 supplied an invented, never-issued `actionId` with matching fields; all 20 concurrent requests returned `SUCCESS`.
 - **Risk:** a client, prompt-injected planner or replay can fabricate the approval object and bypass explicit human confirmation.
 - **Affected component:** `src/assistant/contracts.ts`, `src/assistant/runtime.ts`.
 - **Fix:** issue an opaque high-entropy confirmation server-side or authenticate the complete payload; persist its actor, workspace, capability, canonical arguments, short expiry and state; consume it atomically on execution.
@@ -40,7 +40,7 @@ W3 may continue developing the isolated foundation. The findings below block mer
 ### W3-SEC-002 — non-atomic idempotency
 
 - **Severity:** P0 release blocker for assistant mutations.
-- **Evidence:** the runtime performs `get`, executes the handler, then performs `put`. Against head `9ef926b`, an adversarial `Promise.all` of 20 requests using the same workspace/capability/key executed the handler 20 times and returned 20 `SUCCESS` results. A `put` failure after a real side effect is caught as `INTERNAL_ERROR`, leaving a retry able to repeat the effect.
+- **Evidence:** the runtime performs `get`, executes the handler, then performs `put`. Against the runtime unchanged through `7be1e8f`, an adversarial `Promise.all` of 20 requests using the same workspace/capability/key executed the handler 20 times and returned 20 `SUCCESS` results. A `put` failure after a real side effect is caught as `INTERNAL_ERROR`, leaving a retry able to repeat the effect.
 - **Risk:** concurrent requests, timeouts or partial failures can duplicate contracts, messages, billing operations or external automation.
 - **Affected component:** `IdempotencyStore`, `AssistantRuntime.execute`, future handlers.
 - **Fix:** atomically reserve a unique key before the effect, store pending/completed/failed state and bind the reservation to actor, workspace, capability and arguments digest. Use a transaction or durable outbox where the side effect requires it.
@@ -50,7 +50,7 @@ W3 may continue developing the isolated foundation. The findings below block mer
 
 - **Previous severity:** P1.
 - **Evidence:** at head `2ecd254`, clean `npm run lint` failed because `scripts/lint.mjs` was absent. W3 added the source lint gate in `e4f168d`.
-- **Verification:** at reviewed head `9ef926b`, a clean `bash scripts/ci/node-quality-gate.sh` passed lint, typecheck, thirteen tests, build and dependency audit.
+- **Verification:** at `9ef926b`, a clean `bash scripts/ci/node-quality-gate.sh` passed lint, typecheck, thirteen tests, build and dependency audit. `7be1e8f` adds only eval metrics; no new CI run was available at the time of this review.
 - **Remaining hardening:** add a negative lint fixture/rule test when the canonical application adopts its final lint stack.
 
 ### W3-SEC-004 — output policy is denylist-based

@@ -1,6 +1,6 @@
 # Endpoint security review
 
-Reviewed source: `w1/bootstrap-canonical@0dd2f14` on 2026-09-25.
+Reviewed source: `w1/bootstrap-canonical@61848cf` on 2026-09-25. The endpoint implementations relevant to this review are unchanged from the first application bootstrap.
 
 This is a static review of the reconstructed application. It is not production approval. Runtime assertions remain blocked until the canonical schema and isolated test environment exist.
 

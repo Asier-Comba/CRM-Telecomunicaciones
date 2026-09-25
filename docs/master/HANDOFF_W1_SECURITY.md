@@ -22,23 +22,20 @@ Risk: tenant data could be exposed or authorization could diverge between `profi
 
 ## Review of `w1/bootstrap-canonical`
 
-Reviewed head: `0dd2f14` on 2026-09-25.
+Reviewed heads: `0dd2f14` and `61848cf` on 2026-09-25.
 
 This is no longer a placeholder. It contains a real Next.js application, `package.json`, CRM modules, Supabase historical evidence, bootstrap provenance, telecom data-model candidates and `W1_STATUS.md`. W1 may continue reconstruction in its branch. It is not yet an acceptable canonical database or release base.
 
-### W1-QA-001 — clean checkout does not pass the claimed gate
+### W1-QA-001 — clean checkout gate
 
-- **Severity:** P0 canonical-promotion blocker.
+- **Status:** resolved at `61848cf`.
 - **Evidence:** in a clean checkout of `0dd2f14`, `npm ci` completed, lint emitted three warnings, typecheck passed, and all three tests failed because `scripts/audit-supabase-reproducibility.mjs` calls `readdir` on the untracked, absent `supabase/migrations` directory. Creating that empty directory only in the disposable audit clone made tests and build pass.
-- **Risk:** local-only filesystem state creates false green evidence and CI cannot reproduce W1's reported validation.
-- **Affected component:** bootstrap tests and Supabase reproducibility auditor.
-- **Fix:** make the auditor treat an absent canonical migration directory deterministically, or track a non-executable placeholder outside the migration glob; run the complete gate from a clean clone.
-- **Acceptance criteria:** a fresh clone at the reviewed head passes install, lint policy, `tsc --noEmit`, tests, build and audit without manual directory creation.
+- **Resolution evidence:** a fresh disposable worktree at `61848cf` passed reproducible install, lint with three warnings, typecheck, seven tests, production build and dependency audit without manual directory preparation. The strict schema audit still fails intentionally because the schema is incomplete.
 
 ### W1-DATA-001 — no reproducible canonical schema
 
 - **Severity:** P0 release blocker.
-- **Evidence:** `supabase/migrations` has zero versioned migrations. After creating the missing directory in the disposable clone, the strict audit reported 35 missing relations/views and two missing RPCs; four assistant relations have no tracked DDL. `npm run audit:supabase-repro:strict` correctly failed.
+- **Evidence:** `61848cf` adds the first canonical tenant-identity migration, which passes W4's static SQL security scanner. The strict audit still reports 32 missing relations/views and two missing RPCs; four assistant relations have no tracked DDL. `npm run audit:supabase-repro:strict` correctly fails.
 - **Risk:** auth, tenant isolation, RLS, grants, storage and application startup cannot be recreated or independently verified.
 - **Affected component:** PostgreSQL/Supabase and every data-backed route.
 - **Fix:** publish an ordered canonical baseline and forward migrations, then validate them against a clean non-production database.
@@ -88,3 +85,30 @@ This is no longer a placeholder. It contains a real Next.js application, `packag
 - **Affected component:** legacy migration evidence.
 - **Fix:** do not promote legacy SQL verbatim; recreate the function with empty `search_path`, fully qualified objects, explicit authorization and minimal execute grants.
 - **Acceptance criteria:** the canonical replacement passes static checks plus anonymous, ordinary-user and cross-workspace invocation tests.
+
+### W1-SECRET-001 — tracked historical secret values
+
+- **Severity:** P0 merge blocker.
+- **Evidence:** GitHub CI run `#31` fails the Secret Scan job at `61848cf`. A value-redacted local review confirms that `docs/archive/legacy/VPS_MIGRATION_PLAN.md` contains assigned values for `N8N_WEBHOOK_SECRET`, `META_WEBHOOK_VERIFY_TOKEN` and `NOWCRM_WEBHOOK_SECRET` in the current tree. No values were printed or copied into findings.
+- **Risk:** the repository is public; even rotated values normalize unsafe secret handling and remain recoverable from Git history after a normal deletion commit.
+- **Affected component:** repository history and legacy documentation.
+- **Fix:** replace values with placeholders, purge the introduced blobs/commits from the W1 branch before merge, keep rotation evidence out of Git and rerun full-history scanning. Do not add an allowlist for real-looking credentials merely because they are rotated.
+- **Acceptance criteria:** current tree and reachable PR history contain no secret value; full-history Secret Scan is green; affected credentials are confirmed rotated through an out-of-band record.
+
+### W1-CONTRACT-001 — canonical identity schema and active application disagree
+
+- **Severity:** P0 canonical-promotion blocker.
+- **Evidence:** the migration intentionally removes `profiles.role` and makes active `workspace_members` the only authorization source. Active team/current-user routes still select, insert and update `profiles.role` and `trial_status`. The onboarding route inserts `workspaces.plan`, omits the new required `workspaces.slug`, and upserts the removed profile role.
+- **Risk:** onboarding and team administration fail against the canonical schema; authorization code does not implement the declared tenant boundary.
+- **Affected component:** onboarding, current-user/session resolution, team administration and integration admin checks.
+- **Fix:** add one server-side active-membership resolver, migrate every privileged route to it, and align all inserts/selects with the canonical columns. Provision workspace/profile/membership atomically through a reviewed transaction or RPC.
+- **Acceptance criteria:** generated/database types match all active queries; onboarding succeeds atomically on a clean database; duplicate/race rollback is safe; suspended/removed/multi-workspace/role-disagreement tests fail closed; no active code reads or writes `profiles.role`.
+
+### W1-RLS-TEST-001 — RLS evidence is static only
+
+- **Severity:** P1 before canonical approval; P0 before production.
+- **Evidence:** the seven green bootstrap tests inspect SQL text with regular expressions. No PostgreSQL/Supabase instance applies the migration or executes authenticated A/B CRUD and RPC attacks.
+- **Risk:** syntax, grants, owner bypass, policy recursion and real JWT behavior can differ from the textual expectation.
+- **Affected component:** tenant identity migration and helpers.
+- **Fix:** apply migrations from zero in ephemeral/local Supabase or isolated staging and run the W4 tenant matrix with real principals.
+- **Acceptance criteria:** migration application plus negative-control, anonymous, A/B, suspended, removed and multi-workspace tests are reproducible in CI or an approved heavy gate.
