@@ -1,7 +1,38 @@
-node_modules/
-dist/
+# Local environment and secret material
 .env
 .env.*
 !.env.example
+!.env.*.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+credentials*.json
+service-account*.json
+
+# Dependencies and build output
+node_modules/
+.pnpm-store/
+.yarn/cache/
+dist/
+build/
+.next/
 coverage/
+playwright-report/
+test-results/
 *.log
+
+# Supabase and local tooling
+.supabase/
+supabase/.temp/
+.vercel/
+.netlify/
+
+# Editors and operating systems
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
