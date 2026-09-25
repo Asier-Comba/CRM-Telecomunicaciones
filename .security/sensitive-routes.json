@@ -1,4 +1,247 @@
 {
   "version": 1,
-  "routes": []
+  "routes": [
+    {
+      "path": "src/app/api/agent/action/route.ts",
+      "owner": "W3",
+      "exposure": "internal",
+      "authentication": "scoped-service-principal",
+      "tenantBinding": "signed-scope",
+      "rateLimited": false,
+      "productionEnabled": false,
+      "outboundSideEffects": false,
+      "securityReviewed": true
+    },
+    {
+      "path": "src/app/api/agent/automation/route.ts",
+      "owner": "W3",
+      "exposure": "internal",
+      "authentication": "scoped-service-principal",
+      "tenantBinding": "signed-scope",
+      "rateLimited": false,
+      "productionEnabled": false,
+      "outboundSideEffects": false,
+      "securityReviewed": true
+    },
+    {
+      "path": "src/app/api/agent/diag/route.ts",
+      "owner": "W3",
+      "exposure": "internal",
+      "authentication": "scoped-service-principal",
+      "tenantBinding": "signed-scope",
+      "rateLimited": false,
+      "productionEnabled": false,
+      "outboundSideEffects": false,
+      "securityReviewed": true
+    },
+    {
+      "path": "src/app/api/agent/tool/route.ts",
+      "owner": "W3",
+      "exposure": "internal",
+      "authentication": "scoped-service-principal",
+      "tenantBinding": "signed-scope",
+      "rateLimited": false,
+      "productionEnabled": false,
+      "outboundSideEffects": false,
+      "securityReviewed": true
+    },
+    {
+      "path": "src/app/api/assistant/confirm/route.ts",
+      "owner": "W3",
+      "exposure": "authenticated",
+      "authentication": "session",
+      "tenantBinding": "resource-derived",
+      "rateLimited": false,
+      "productionEnabled": false,
+      "outboundSideEffects": false,
+      "securityReviewed": true
+    },
+    {
+      "path": "src/app/api/automations/n8n/status/route.ts",
+      "owner": "W1",
+      "exposure": "authenticated",
+      "authentication": "session",
+      "tenantBinding": "session-membership",
+      "rateLimited": false,
+      "productionEnabled": true,
+      "outboundSideEffects": false,
+      "securityReviewed": true
+    },
+    {
+      "path": "src/app/api/automations/n8n/test/route.ts",
+      "owner": "W1",
+      "exposure": "authenticated",
+      "authentication": "session",
+      "tenantBinding": "resource-derived",
+      "rateLimited": true,
+      "productionEnabled": false,
+      "outboundSideEffects": true,
+      "securityReviewed": true
+    },
+    {
+      "path": "src/app/api/clients/[id]/delete/route.ts",
+      "owner": "W1",
+      "exposure": "authenticated",
+      "authentication": "session",
+      "tenantBinding": "resource-derived",
+      "rateLimited": false,
+      "productionEnabled": false,
+      "outboundSideEffects": false,
+      "securityReviewed": true
+    },
+    {
+      "path": "src/app/api/config/status/route.ts",
+      "owner": "W1",
+      "exposure": "authenticated",
+      "authentication": "session",
+      "tenantBinding": "session-membership",
+      "rateLimited": false,
+      "productionEnabled": true,
+      "outboundSideEffects": false,
+      "securityReviewed": true
+    },
+    {
+      "path": "src/app/api/debug/auth-session/route.ts",
+      "owner": "W1",
+      "exposure": "authenticated",
+      "authentication": "session",
+      "tenantBinding": "session-membership",
+      "rateLimited": false,
+      "productionEnabled": false,
+      "outboundSideEffects": false,
+      "securityReviewed": true
+    },
+    {
+      "path": "src/app/api/debug/google-calendar-connection/route.ts",
+      "owner": "W1",
+      "exposure": "authenticated",
+      "authentication": "session",
+      "tenantBinding": "resource-derived",
+      "rateLimited": false,
+      "productionEnabled": false,
+      "outboundSideEffects": false,
+      "securityReviewed": true
+    },
+    {
+      "path": "src/app/api/inbox/agent/route.ts",
+      "owner": "W3",
+      "exposure": "authenticated",
+      "authentication": "session",
+      "tenantBinding": "resource-derived",
+      "rateLimited": false,
+      "productionEnabled": false,
+      "outboundSideEffects": false,
+      "securityReviewed": true
+    },
+    {
+      "path": "src/app/api/inbox/conversations/[id]/messages/route.ts",
+      "owner": "W1",
+      "exposure": "authenticated",
+      "authentication": "session",
+      "tenantBinding": "resource-derived",
+      "rateLimited": true,
+      "productionEnabled": false,
+      "outboundSideEffects": true,
+      "securityReviewed": true
+    },
+    {
+      "path": "src/app/api/inbox/whatsapp/inbound/route.ts",
+      "owner": "W1",
+      "exposure": "internal",
+      "authentication": "scoped-service-principal",
+      "tenantBinding": "signed-scope",
+      "rateLimited": false,
+      "productionEnabled": false,
+      "outboundSideEffects": false,
+      "securityReviewed": true
+    },
+    {
+      "path": "src/app/api/integrations/google/calendar/callback/route.ts",
+      "owner": "W1",
+      "exposure": "authenticated",
+      "authentication": "session",
+      "tenantBinding": "resource-derived",
+      "rateLimited": false,
+      "productionEnabled": false,
+      "outboundSideEffects": false,
+      "securityReviewed": true
+    },
+    {
+      "path": "src/app/api/integrations/google/calendar/status/route.ts",
+      "owner": "W1",
+      "exposure": "authenticated",
+      "authentication": "session",
+      "tenantBinding": "resource-derived",
+      "rateLimited": false,
+      "productionEnabled": false,
+      "outboundSideEffects": false,
+      "securityReviewed": true
+    },
+    {
+      "path": "src/app/api/integrations/google/calendar/team-status/route.ts",
+      "owner": "W1",
+      "exposure": "authenticated",
+      "authentication": "session",
+      "tenantBinding": "resource-derived",
+      "rateLimited": false,
+      "productionEnabled": false,
+      "outboundSideEffects": false,
+      "securityReviewed": true
+    },
+    {
+      "path": "src/app/api/integrations/google/calendar/webhook/route.ts",
+      "owner": "W1",
+      "exposure": "provider-callback",
+      "authentication": "signed-webhook",
+      "tenantBinding": "resource-derived",
+      "rateLimited": false,
+      "productionEnabled": false,
+      "outboundSideEffects": false,
+      "securityReviewed": true
+    },
+    {
+      "path": "src/app/api/integrations/meta/whatsapp/status/route.ts",
+      "owner": "W1",
+      "exposure": "authenticated",
+      "authentication": "session",
+      "tenantBinding": "session-membership",
+      "rateLimited": false,
+      "productionEnabled": false,
+      "outboundSideEffects": false,
+      "securityReviewed": true
+    },
+    {
+      "path": "src/app/api/integrations/meta/whatsapp/test/route.ts",
+      "owner": "W1",
+      "exposure": "authenticated",
+      "authentication": "session",
+      "tenantBinding": "session-membership",
+      "rateLimited": false,
+      "productionEnabled": false,
+      "outboundSideEffects": false,
+      "securityReviewed": true
+    },
+    {
+      "path": "src/app/api/integrations/meta/whatsapp/webhook/route.ts",
+      "owner": "W1",
+      "exposure": "provider-callback",
+      "authentication": "signed-webhook",
+      "tenantBinding": "resource-derived",
+      "rateLimited": false,
+      "productionEnabled": true,
+      "outboundSideEffects": false,
+      "securityReviewed": true
+    },
+    {
+      "path": "src/app/api/onboarding/workspace/route.ts",
+      "owner": "W1",
+      "exposure": "authenticated",
+      "authentication": "session",
+      "tenantBinding": "resource-derived",
+      "rateLimited": false,
+      "productionEnabled": false,
+      "outboundSideEffects": false,
+      "securityReviewed": true
+    }
+  ]
 }

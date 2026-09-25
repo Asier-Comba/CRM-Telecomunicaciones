@@ -29,6 +29,7 @@ import { createServerClient } from '@supabase/ssr'
 import { createClient as createServiceClient, type SupabaseClient } from '@supabase/supabase-js'
 import { cookies } from 'next/headers'
 import { sendWhatsAppMessage, type MetaSendResult } from '@/lib/meta-whatsapp'
+import { checkRateLimit } from '@/lib/assistant-guard'
 
 export const runtime = 'nodejs'
 
@@ -146,6 +147,9 @@ export async function POST(req: NextRequest, ctx: { params: Promise<{ id: string
 
   const requestedMode: 'send' | 'draft' = body.mode === 'send' ? 'send' : 'draft'
   const isAi = body.isAi === true
+  if (requestedMode === 'send' && !checkRateLimit(`inbox-send:${user.id}:${workspaceId}`, 20)) {
+    return NextResponse.json({ ok: false, error: 'Demasiados envíos. Espera un minuto.' }, { status: 429 })
+  }
 
   const convRes = await supabase
     .from('conversations')

@@ -1,9 +1,22 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { checkN8nStatus, triggerN8nWorkflow } from '@/lib/n8n-client'
+import { checkRateLimit } from '@/lib/assistant-guard'
+import { resolveCaller } from '@/app/api/team/users/_helpers'
 
 export const runtime = 'nodejs'
 
-export async function POST() {
+export async function POST(req: NextRequest) {
+  const caller = await resolveCaller(req)
+  if ('error' in caller) {
+    return NextResponse.json({ error: caller.error, code: caller.code }, { status: caller.status })
+  }
+  if (!caller.canManageMembers) {
+    return NextResponse.json({ error: 'No tienes permisos para probar automatizaciones.' }, { status: 403 })
+  }
+  if (!checkRateLimit(`n8n-test:${caller.userId}:${caller.workspaceId}`, 3)) {
+    return NextResponse.json({ error: 'Demasiadas pruebas. Espera un minuto.' }, { status: 429 })
+  }
+
   const n8nStatus = await checkN8nStatus()
 
   if (!n8nStatus.ok) {
@@ -22,6 +35,7 @@ export async function POST() {
     event_type: 'test_flow',
     source: 'nowcrm',
     mode: 'test',
+    workspace_id: caller.workspaceId,
     timestamp: new Date().toISOString(),
   })
 

@@ -18,6 +18,8 @@
 - Gate local completo verde: instalación reproducible, lint, typecheck, 12 tests,
   build, audit (0 vulnerabilidades), guardrails W4, migration policy y Secret
   Scan de toda la historia W1 (0 hallazgos).
+- Baseline W4 `bec6b2c` integrada por merge no destructivo; 22 rutas sensibles
+  registradas y las no aceptadas continúan deshabilitadas para producción.
 
 ## Trabajo actual
 

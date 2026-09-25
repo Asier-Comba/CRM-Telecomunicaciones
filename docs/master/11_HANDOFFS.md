@@ -65,3 +65,20 @@ ACTION REQUIRED:
   sin derivar roles o schema desde prompts/payloads.
 - W4 debe verificar que el scope `workspace_id` y los datos sensibles reservados
   respetan la baseline de seguridad antes de aprobar DDL de dominio.
+
+## HANDOFF FROM W1 TO W4 — inventario de rutas sensibles
+
+CONTRACT: `.security/sensitive-routes.json`
+
+WHAT CHANGED: la baseline W4 más reciente se integró sin force-push. Sus 22 rutas
+detectadas quedan inventariadas; los endpoints no aceptados permanecen con
+`productionEnabled: false`. El status/test n8n ahora exige manager de una
+membresía activa, oculta la URL privada y limita pruebas antes de I/O; el envío
+WhatsApp también se limita antes del proveedor.
+
+IMPORTANT: `securityReviewed: true` significa que la ruta tiene clasificación y
+finding W4 trazable, no aprobación de producción. La aceptación sigue bloqueada
+por los findings de `ENDPOINT_SECURITY_REVIEW.md` y la matriz adversarial.
+
+ACTION REQUIRED: W4 debe revisar el registro, el resolver y los hardenings antes
+de cambiar cualquier `productionEnabled: false`.
