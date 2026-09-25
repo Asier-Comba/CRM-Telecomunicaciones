@@ -14,7 +14,7 @@ Last verified: 2026-09-25 (UTC)
 - The repository still has no canonical application base, `main`, `package.json`, `app/`, Supabase schema or product migrations.
 - `w1/bootstrap-canonical` now exists but still points exactly to W4 commit `f72e432`; it contains no canonical application or W1 status yet.
 - W2 published documentation and `W2_STATUS.md` on `w2/frontend-bootstrap-readiness`; draft PR `#8` targets the W4 baseline and makes no runtime or data changes.
-- W3 published a TypeScript assistant control-plane foundation, nine tests, architecture notes and `W3_STATUS.md` on `w3/assistant-runtime-foundation`; no W3 PR is visible yet.
+- W3 published a TypeScript assistant control-plane foundation, nine tests, architecture notes and `W3_STATUS.md` on `w3/assistant-runtime-foundation`; PR `#9` targets the W4 baseline.
 - `docs/master/agents/W1_STATUS.md` does not yet exist. This is an absence of coordination evidence, not a claim that W1 has done nothing.
 - The Project chats confirm that W1 must first reconstruct the real Supabase schema and publish a reproducible base; W2 and W3 are intentionally blocked from inventing tenant entities or mutating production.
 - The original local and remote W4 copies had identical trees but unrelated histories. The remote baseline is now a clean linear history at `f72e432`; the earlier local history remains under a local safety ref and no baseline content was lost.
@@ -49,7 +49,7 @@ Resolved this cycle: the four Actions upgrades were integrated with verified imm
 
 - **W1:** branch exists as a coordination placeholder only. W4 remains blocked from schema, RLS, migration and role-model review until W1 publishes real content.
 - **W2:** draft PR `#8` is documentation-only, preserves server-side authorization as the boundary and correctly waits for W1 contracts. Its first CI run exposed two baseline defects: runner-aware guardrail output handling and unavailable Dependency Review configuration. W4 fixed both; CI run `#13` on W2 head `3142e01` completed successfully, including secret scan, migration policy and baseline guardrails. Dependency Review reported the expected readiness warning and remains pending owner configuration. No product-security blocker found; rebase onto the future canonical base remains required.
-- **W3:** head `97e64d3` now publishes status/architecture, preserves the baseline ignore policy and passes the current quality gate. The typed registry, closed input schemas, server-context tenant contract, permission check, audit shape and representative eval catalog are useful foundations. Assistant mutations remain a P0 release gate because confirmation and idempotency can currently be bypassed; detailed evidence is in `docs/master/HANDOFF_W3_SECURITY.md` and GitHub issue `#10`.
+- **W3:** head `65fbeb1` publishes status/architecture, preserves the baseline ignore policy and passed CI run `#15`. The typed registry, closed input schemas, server-context tenant contract, permission check, audit shape and representative eval catalog are useful foundations. W4 requested changes on PR `#9`: assistant mutations remain a P0 release gate because confirmation and idempotency can currently be bypassed. Detailed evidence is in `docs/master/HANDOFF_W3_SECURITY.md` and GitHub issue `#10`.
 
 ## Integration plan after W1 publishes the base
 
