@@ -1,34 +1,29 @@
-// Shared helpers for /api/team/users routes.
+// Shared server-only authorization helpers for /api/team/users.
 //
-// Authorisation model — verified against `docs/supabase/costadelsol_schema_v1.sql`:
-//   - profiles.role ∈ {'nowlabs_admin','client_admin','member'} (CHECK constraint)
-//   - INSERT on profiles is revoked from `authenticated` → profile rows can
-//     only be created server-side with SUPABASE_SERVICE_ROLE_KEY.
-//   - UPDATE on profiles is column-grained from the cookie session
-//     (email/full_name/metadata/updated_at only); role and workspace_id
-//     mutations must go through service_role.
-//   - DELETE on profiles is restricted to nowlabs_admin.
-//
-// Every route in this folder MUST:
-//   1. Authenticate the request via the cookie-bound Supabase client.
-//   2. Resolve the caller's `profiles.role` + `profiles.workspace_id`.
-//   3. Enforce role checks (workspace_admin → list/invite/edit;
-//      nowlabs_admin → cross-workspace; member → forbidden).
-//   4. Pin `workspace_id` to the caller's workspace — never trust the body.
-//   5. Block role-escalation (client_admin assigning nowlabs_admin, etc.).
-//   6. Use the service-role client (from `@/lib/supabase-admin`) ONLY for the
-//      privileged write itself, after all checks have passed.
+// Tenant authorization comes exclusively from an active workspace_members row.
+// profiles.workspace_id is a non-authorizing default-workspace preference.
 
 import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
+import type { NextRequest } from 'next/server'
+import {
+  canAssignRole,
+  canManageMembers,
+  canManageTarget,
+  isWorkspaceRole,
+  selectActiveMembership,
+  type ActiveMembership,
+  type WorkspaceRole,
+} from '@/lib/workspace-roles'
 
-export type ProfileRole = 'nowlabs_admin' | 'client_admin' | 'member'
-
-export const PROFILE_ROLES: readonly ProfileRole[] = ['nowlabs_admin', 'client_admin', 'member'] as const
-
-export function isValidRole(value: unknown): value is ProfileRole {
-  return typeof value === 'string' && (PROFILE_ROLES as readonly string[]).includes(value)
+export {
+  canAssignRole,
+  canManageMembers,
+  canManageTarget,
+  isWorkspaceRole,
+  selectActiveMembership,
 }
+export type { ActiveMembership, WorkspaceRole }
 
 export async function buildUserSupabase() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL?.trim()
@@ -48,75 +43,97 @@ export async function buildUserSupabase() {
 export type Caller = {
   userId: string
   email: string
+  membershipId: string
   workspaceId: string
-  role: ProfileRole
-  isNowlabsAdmin: boolean
-  isWorkspaceAdmin: boolean
+  role: WorkspaceRole
+  canManageMembers: boolean
 }
 
-export type CallerError = { error: string; status: 401 | 403 | 500 | 503 }
+export type CallerError = {
+  error: string
+  status: 400 | 401 | 403 | 409 | 500 | 503
+  code?: string
+}
 
-/**
- * Authenticate the caller and resolve their `role` + `workspace_id` from
- * `profiles`. Returns either a fully-typed `Caller` or an error envelope.
- *
- * - 401 if there is no Supabase session.
- * - 403 if the user has no profile row or no workspace assigned. This is the
- *   "Tu usuario no está vinculado a un workspace" path; we do NOT auto-create
- *   profiles here.
- */
-export async function resolveCaller(): Promise<Caller | CallerError> {
+export async function resolveCaller(req?: NextRequest): Promise<Caller | CallerError> {
   const supabase = await buildUserSupabase()
-  if (!supabase) return { error: 'Supabase no configurado', status: 503 }
+  if (!supabase) return { error: 'Supabase no configurado', status: 503, code: 'supabase_unconfigured' }
 
   const { data: userData, error: userErr } = await supabase.auth.getUser()
-  if (userErr || !userData.user) return { error: 'No autenticado', status: 401 }
+  if (userErr || !userData.user) return { error: 'No autenticado', status: 401, code: 'unauthenticated' }
 
-  const { data: profile, error: profileErr } = await supabase
-    .from('profiles')
-    .select('id, email, workspace_id, role')
-    .eq('id', userData.user.id)
-    .maybeSingle()
+  const [{ data: profile, error: profileErr }, { data: membershipRows, error: membershipErr }] = await Promise.all([
+    supabase
+      .from('profiles')
+      .select('id, email, workspace_id')
+      .eq('id', userData.user.id)
+      .maybeSingle(),
+    supabase
+      .from('workspace_members')
+      .select('id, workspace_id, role, status, created_at')
+      .eq('user_id', userData.user.id)
+      .eq('status', 'active')
+      .order('created_at', { ascending: true }),
+  ])
 
-  if (profileErr) return { error: 'No se pudo resolver el perfil del usuario', status: 500 }
-  if (!profile || !profile.workspace_id) {
-    return { error: 'Tu usuario no está vinculado a un workspace. Contacta con el responsable interno.', status: 403 }
+  if (profileErr || membershipErr) {
+    return { error: 'No se pudo resolver la membresía del usuario', status: 500, code: 'membership_lookup_failed' }
   }
 
-  const role = (isValidRole(profile.role) ? profile.role : 'member') as ProfileRole
-  const isNowlabsAdmin = role === 'nowlabs_admin'
-  const isWorkspaceAdmin = isNowlabsAdmin || role === 'client_admin'
+  const memberships: ActiveMembership[] = (membershipRows ?? [])
+    .filter((row) => isWorkspaceRole(row.role) && row.status === 'active')
+    .map((row) => ({
+      id: String(row.id),
+      workspace_id: String(row.workspace_id),
+      role: row.role as WorkspaceRole,
+      status: 'active',
+      created_at: typeof row.created_at === 'string' ? row.created_at : null,
+    }))
+
+  const requestedWorkspaceId = req?.headers.get('x-workspace-id')?.trim() || null
+  const preferredWorkspaceId = typeof profile?.workspace_id === 'string' ? profile.workspace_id : null
+  const selection = selectActiveMembership(memberships, requestedWorkspaceId, preferredWorkspaceId)
+
+  if (!selection.membership) {
+    if (selection.error === 'invalid_workspace') {
+      return { error: 'x-workspace-id inválido', status: 400, code: selection.error }
+    }
+    if (selection.error === 'not_a_member') {
+      return { error: 'No perteneces al workspace solicitado', status: 403, code: selection.error }
+    }
+    return {
+      error: memberships.length === 0
+        ? 'Tu usuario no tiene una membresía activa.'
+        : 'Selecciona un workspace activo mediante x-workspace-id.',
+      status: memberships.length === 0 ? 403 : 409,
+      code: selection.error,
+    }
+  }
 
   return {
-    userId: String(profile.id),
-    email: String(profile.email ?? userData.user.email ?? ''),
-    workspaceId: String(profile.workspace_id),
-    role,
-    isNowlabsAdmin,
-    isWorkspaceAdmin,
+    userId: userData.user.id,
+    email: String(profile?.email ?? userData.user.email ?? ''),
+    membershipId: selection.membership.id,
+    workspaceId: selection.membership.workspace_id,
+    role: selection.membership.role,
+    canManageMembers: canManageMembers(selection.membership.role),
   }
 }
 
-/** Whether `assigner` is allowed to set the target role `nextRole`. */
-export function canAssignRole(assigner: Caller, nextRole: ProfileRole): boolean {
-  // nowlabs_admin can assign any role.
-  if (assigner.isNowlabsAdmin) return true
-  // client_admin can assign client_admin / member but NOT nowlabs_admin.
-  if (assigner.role === 'client_admin') return nextRole === 'client_admin' || nextRole === 'member'
-  // member can assign nothing.
-  return false
-}
-
-export function shapeProfile(row: Record<string, unknown>) {
+export function shapeMember(
+  profile: Record<string, unknown>,
+  membership: Record<string, unknown>,
+) {
   return {
-    id: String(row.id ?? ''),
-    email: typeof row.email === 'string' ? row.email : null,
-    full_name: typeof row.full_name === 'string' ? row.full_name : null,
-    role: typeof row.role === 'string' ? row.role : 'member',
-    workspace_id: typeof row.workspace_id === 'string' ? row.workspace_id : null,
-    trial_status: typeof row.trial_status === 'string' ? row.trial_status : null,
-    created_at: typeof row.created_at === 'string' ? row.created_at : null,
-    updated_at: typeof row.updated_at === 'string' ? row.updated_at : null,
+    id: String(profile.id ?? membership.user_id ?? ''),
+    membership_id: String(membership.id ?? ''),
+    email: typeof profile.email === 'string' ? profile.email : null,
+    full_name: typeof profile.full_name === 'string' ? profile.full_name : null,
+    role: isWorkspaceRole(membership.role) ? membership.role : 'viewer',
+    membership_status: membership.status === 'active' ? 'active' : 'suspended',
+    workspace_id: typeof membership.workspace_id === 'string' ? membership.workspace_id : null,
+    created_at: typeof membership.created_at === 'string' ? membership.created_at : null,
+    updated_at: typeof membership.updated_at === 'string' ? membership.updated_at : null,
   }
 }
 
