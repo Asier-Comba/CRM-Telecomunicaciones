@@ -3,7 +3,8 @@
 - Updated: 2026-09-25
 - Branch: `w2/frontend-bootstrap-readiness`
 - Base: `w4/security-baseline` at `4ef9a5a`
-- Commit: `63be72d` (`docs(w2): define frontend bootstrap contract`)
+- Delivered commit: `63be72d` (`docs(w2): define frontend bootstrap contract`)
+- Remote checkpoint: `e1bb767` on `origin/w2/frontend-bootstrap-readiness`
 - State: bootstrap readiness in progress; canonical application not published yet
 
 ## Done
@@ -14,6 +15,7 @@
 - Preserved the previous W2 work locally outside the historical repository.
 - Classified the previous frontend work for selective adaptation instead of blind cherry-picking.
 - Defined the frontend bootstrap and migration contract in `docs/master/W2_FRONTEND_BOOTSTRAP.md`.
+- Published and SHA-verified `origin/w2/frontend-bootstrap-readiness` in the canonical repository.
 
 ## Doing
 
@@ -57,7 +59,8 @@
 ## Blockers
 
 - No canonical application exists in this repository yet; adding a standalone Next.js scaffold would create an incompatible parallel product.
-- No W1 or W3 status file/branch is visible as of this update.
+- No W1 branch or status file is visible as of this update.
+- `w3/assistant-runtime-foundation` exists but still points to the W4 baseline and publishes no W3 status/contract yet.
 - The historical repository is read-only and is not a delivery target.
 
 ## Validation evidence
