@@ -4,7 +4,7 @@
 - Branch: `w2/frontend-bootstrap-readiness`
 - Base: `w4/security-baseline` at `4ef9a5a`
 - Latest delivery commit: `0e3c2bb` (`docs(w2): define UI foundation contract`)
-- Last verified remote checkpoint: `3defba9` on `origin/w2/frontend-bootstrap-readiness`
+- Last verified remote checkpoint: `5528c10` on `origin/w2/frontend-bootstrap-readiness`
 - Draft PR: `#8` targeting `w4/security-baseline`
 - State: bootstrap readiness in progress; canonical application not published yet
 
@@ -21,6 +21,7 @@
 - Defined the Customer 360 information architecture, section state model and exact W1 presentation needs in `docs/master/W2_CUSTOMER_360_SPEC.md`.
 - Converted the historical god-component audit into the P0/P1/P2 migration inventory in `docs/master/W2_HISTORICAL_UI_MIGRATION.md`.
 - Defined semantic tokens, primitive behavior, navigation and test boundaries in `docs/master/W2_UI_FOUNDATION.md`.
+- Defined the dashboard Command Center composition, data projections and metric admission gate in `docs/master/W2_DASHBOARD_COMMAND_CENTER.md`.
 - Published and SHA-verified `origin/w2/frontend-bootstrap-readiness` in the canonical repository.
 - Opened draft PR `#8` for review without assuming or merging into a future `main`.
 
@@ -29,7 +30,7 @@
 - Preparing feature boundaries, validation expectations and the smallest safe migration slices for the canonical base.
 - Coordinating the assistant renderer contract with W3 without duplicating planner or authorization logic.
 - Monitoring `w1/bootstrap-canonical`; it exists but still matches the W4 baseline and has no W1 status/application commits.
-- W4 validated W2 CI at `3142e01`; W3 advanced only its PR/CI evidence and has not changed the reviewed UI contract.
+- W4 reviewed W2 through `3defba9` with no product-security blocker; W3's plan validator at `9ef926b` does not change the reviewed UI response contract.
 
 ## Next
 
@@ -49,6 +50,7 @@
 - Versioned read models for company/customer, contacts, assignee, services, lines, operator, contracts, permanence and renewal.
 - Pagination, search, filter, loading, error and empty semantics for list endpoints.
 - Dashboard query/read model with source-backed tasks, meetings, renewals, permanence alerts and opportunities.
+- Dashboard envelope and section projections detailed in `docs/master/W2_DASHBOARD_COMMAND_CENTER.md`.
 - Customer 360 presentation needs and action semantics detailed in `docs/master/W2_CUSTOMER_360_SPEC.md`.
 
 ### W3
