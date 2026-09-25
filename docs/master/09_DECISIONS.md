@@ -34,3 +34,19 @@ reconstruir, pero no son fuente suficiente por sí solos.
 Las 28 migraciones inmobiliarias pasan a `supabase/legacy-migrations`. Solo los SQL
 con nombre canónico creados y validados en `supabase/migrations` podrán aplicarse al
 nuevo proyecto Supabase.
+
+## D-006 — Una sola fuente de autorización tenant
+
+`workspace_members` es la única fuente de roles tenant. Los roles canónicos son
+`owner`, `admin`, `member` y `viewer`; solo una membresía `active` concede acceso.
+`profiles` no contiene rol. Su `workspace_id` es una preferencia de workspace por
+compatibilidad y nunca autoriza una operación: servidor, RLS y herramientas deben
+volver a comprobar la membresía activa.
+
+La migración histórica queda mapeada así: `client_admin` → `admin`, `comercial` →
+`member`, `solo_lectura` → `viewer`. `nowlabs_admin` no se migra automáticamente a
+ningún privilegio global o tenant; requiere decisión explícita por workspace.
+
+Los clientes autenticados solo leen workspaces/membresías. Altas, cambios de rol,
+suspensiones y bajas se ejecutarán por servicios server-side estrechos; no se
+conceden mutaciones directas sobre esas tablas.
