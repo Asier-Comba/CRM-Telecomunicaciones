@@ -137,3 +137,7 @@ for the framework core. This does not approve production mutation integration.
   audit/store outage, crash/restart, replay, concurrency and cross-actor/workspace attacks.
 
 PR `#9` remains `CHANGES_REQUESTED`. W3 may continue safely on its branch.
+
+Head `a57641a` changes documentation only. Its statement that Dependency Review now passes is
+misleading: in CI run `#56`, the job wrapper passed but `Review dependency changes` was skipped;
+only the readiness-report step ran. This does not close the Dependency Graph/repository-variable gate.
