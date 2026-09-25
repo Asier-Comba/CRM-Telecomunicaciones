@@ -1,0 +1,12 @@
+title = "CRM Telecom secret scanning"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Only synthetic examples and generated test output may be ignored"
+paths = [
+  '''(^|/)\.env(\..+)?\.example$''',
+  '''(^|/)test-results/''',
+  '''(^|/)playwright-report/'''
+]
