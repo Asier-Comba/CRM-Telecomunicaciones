@@ -4,7 +4,7 @@
 - Branch: `w2/frontend-bootstrap-readiness`
 - Base: `w4/security-baseline` at `4ef9a5a`
 - Latest delivery commit: `e42a875` (`docs(w2): define assistant renderer gates`)
-- Last verified remote checkpoint: `981c591` on `origin/w2/frontend-bootstrap-readiness`
+- Last verified remote checkpoint: `06861e3` on `origin/w2/frontend-bootstrap-readiness`
 - Draft PR: `#8` targeting `w4/security-baseline`
 - State: application bootstrap inspected; canonical telecom integration gate not yet passed
 
@@ -24,6 +24,7 @@
 - Defined the dashboard Command Center composition, data projections and metric admission gate in `docs/master/W2_DASHBOARD_COMMAND_CENTER.md`.
 - Reviewed W1 bootstrap `0dd2f14`; application/configuration are present but canonical migrations and first telecom data contracts are still absent.
 - Defined W3 response consumption, renderer boundaries, confirmation gates and test fixtures in `docs/master/W2_ASSISTANT_RENDERER_SPEC.md`.
+- Audited the W1 bootstrap primitives/shell and published the exact P0/P1 refactor sequence in `docs/master/W2_BOOTSTRAP_UI_GAP_PLAN.md`.
 - Published and SHA-verified `origin/w2/frontend-bootstrap-readiness` in the canonical repository.
 - Opened draft PR `#8` for review without assuming or merging into a future `main`.
 
@@ -33,6 +34,7 @@
 - Coordinating the assistant renderer contract with W3 without duplicating planner or authorization logic.
 - Holding integration until W1 satisfies the exact gate in `W2_HANDOFF_W1_CANONICAL_GATE.md`.
 - Incorporating W4's assistant confirmation, idempotency and closed-output findings into the W2 renderer contract.
+- Preparing the first tested UI-foundation commits against the concrete W1 bootstrap component surface without modifying it prematurely.
 
 ## Next
 
