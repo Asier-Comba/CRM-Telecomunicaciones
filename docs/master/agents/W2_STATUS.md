@@ -3,8 +3,8 @@
 - Updated: 2026-09-25
 - Branch: `w2/frontend-bootstrap-readiness`
 - Base: `w4/security-baseline` at `4ef9a5a`
-- Latest delivery commit: `0e70ed9` (`docs(w2): prepare assistant read UI slice`)
-- Last verified remote checkpoint: `a3a5b81` on `origin/w2/frontend-bootstrap-readiness`
+- Latest delivery commit: `eabb342` (`docs(w2): coordinate frontend integration gates`)
+- Last verified remote checkpoint: `eabb342` on `origin/w2/frontend-bootstrap-readiness`
 - Draft PR: `#8` targeting `w4/security-baseline`
 - State: application bootstrap inspected; canonical telecom integration gate not yet passed
 
@@ -30,6 +30,9 @@
 - Prepared the exact Customer 360 Identity + Attention implementation slice in `docs/master/W2_CUSTOMER_360_SLICE_1.md`.
 - Prepared Dashboard Command Center slice 1 with per-widget source/state/navigation/freshness requirements in `docs/master/W2_DASHBOARD_SLICE_1.md`.
 - Split assistant UX into READ versus W4-gated mutation work and published READ fixtures in `docs/master/W2_ASSISTANT_READ_UI_SLICE.md`.
+- Published the W4 auth/logging/PII frontend gate questions and refreshed the W3 READ-contract handoff against `7be1e8f`.
+- Synced the `eabb342` milestone and open W1/W3/W4 requests in the existing accessible `CRM TELECOM-MASTER` handoff thread; the shared `W2 listo para UI` conversation remains inaccessible to this session.
+- Reviewed W4 `27e1e42`: no W2 runtime/security blocker was found; server-side workspace resolution, protected navigation, security headers and error/PII handling remain explicit integration review gates.
 - Published and SHA-verified `origin/w2/frontend-bootstrap-readiness` in the canonical repository.
 - Opened draft PR `#8` for review without assuming or merging into a future `main`.
 
@@ -43,11 +46,12 @@
 - Monitoring W1 PR `#11`: it remains draft/unreviewed and its `61848cf` Secret scan check currently fails.
 - Asking W3 to mark the stable READ subset and validate W2's synthetic fixtures; Issue `#10` keeps mutation UI excluded.
 - Asking W4 to close the auth/logging/PII questions in `W2_HANDOFF_W4_FRONTEND_GATES.md` before runtime integration.
+- Tracking W4 `27e1e42`; it does not accept W1 as an integration base and keeps the canonical migration, authorization and secret-scan gates open.
 
 ## Next
 
 1. Re-review W1 when it publishes canonical migrations and customer/contract/dashboard contracts.
-2. Rebase/replay this branch only after W1 meets the gate and W4 accepts the integration base.
+2. Create a new W2 branch from the accepted W1 commit, then selectively transport reusable W2 work without a blind rebase.
 3. Adapt the accessible field and loading/error primitives as separate tested commits.
 4. Implement Dashboard slice 1 from `W2_DASHBOARD_SLICE_1.md` against W1-backed projections.
 5. Implement Customer 360 Identity + Attention from `W2_CUSTOMER_360_SLICE_1.md`.
@@ -95,7 +99,7 @@
 - `bash scripts/ci/detect-project.sh`
 - `bash scripts/ci/check-migrations.sh`
 - `bash scripts/ci/test-guardrails.sh`
-- GitHub PR `#8` checks at `b6f0070`: migration policy, baseline guardrails, secret scan, dependency review and Node quality gate passed; critical Playwright correctly skipped because no application exists.
+- GitHub PR `#8` checks at `eabb342`: migration policy, baseline guardrails, secret scan, dependency review and Node quality gate passed; critical Playwright correctly skipped because no application exists.
 - GitHub PR `#11` read-only review at `61848cf`: quality, migration, guardrails and dependency checks pass; Secret scan fails and no review is recorded, so W2 integration remains blocked.
 
-Application typecheck, lint, unit tests and build remain inapplicable on this documentation-only branch until it is safely rebased onto the accepted canonical application.
+Application typecheck, lint, unit tests and build remain inapplicable on this documentation-only branch until the reusable work is selectively transported onto a new branch from the accepted canonical application.
