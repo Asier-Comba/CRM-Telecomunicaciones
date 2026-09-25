@@ -4,6 +4,7 @@ Updated: 2026-09-25
 Branch: `w3/assistant-runtime-foundation`
 Pull request: `#9` targeting `w4/security-baseline` — **DRAFT, do not merge**
 Latest local delivery: `3440ff6` (`feat(assistant): harden control plane contracts`)
+Last verified remote checkpoint: `190a615`; local and remote trees matched at `cd1e4030`.
 
 ## Isolation gate
 
@@ -67,7 +68,7 @@ Do not migrate as architecture: regex as intent engine, duplicated planner/detec
 
 - W1 canonical telecom migrations, role model, workspace resolution and service contracts are not yet published/accepted.
 - No test Supabase environment is available; W3 makes no live RLS claim.
-- Dependency Review remains blocked only because repository Dependency Graph is disabled. The repository owner/W4 must enable it and set `DEPENDENCY_REVIEW_ENABLED=true`; W3 has not bypassed the control.
+- The prior Dependency Graph block no longer reproduces on PR #9: the latest Dependency Review job passed. W3 did not change repository settings or bypass the control.
 - PR #9 remains draft by explicit coordination decision.
 
 ## Validation evidence
@@ -78,3 +79,4 @@ Do not migrate as architecture: regex as intent engine, duplicated planner/detec
 - `npm run build`: pass.
 - `bash scripts/ci/test-guardrails.sh`: pass.
 - `npm audit --audit-level=high`: 0 vulnerabilities.
+- GitHub PR #9: 5 successful checks, 1 expected skipped check; all checks passed while the PR remains draft.
