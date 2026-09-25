@@ -32,6 +32,7 @@ jobs:
         run: |
           bash -n scripts/ci/*.sh
           bash scripts/ci/test-guardrails.sh
+          bash scripts/ci/test-supabase-security.sh
 
   secret-scan:
     name: Secret scan
@@ -75,10 +76,12 @@ jobs:
         with:
           fetch-depth: 0
           persist-credentials: false
-      - name: Validate migration naming and immutability
+      - name: Validate migration and Supabase security policy
         env:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
-        run: bash scripts/ci/check-migrations.sh
+        run: |
+          bash scripts/ci/check-migrations.sh
+          bash scripts/ci/check-supabase-security.sh
 
   quality:
     name: Lint, types, tests, build
