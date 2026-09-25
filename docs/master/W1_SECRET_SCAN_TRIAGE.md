@@ -3,8 +3,8 @@
 - Fecha: 2026-09-25
 - Owner: W1
 - Rama limpia: `w1/bootstrap-sanitized`
-- Baseline: `w4/security-baseline@44375b0`
-- Estado: saneado; gate local completo verde
+- Baseline actual integrada: `w4/security-baseline@bec6b2c`
+- Estado: saneado; gate local y clean-clone remoto verdes
 
 ## Resultado del triage
 
@@ -39,6 +39,6 @@ no hereda esos commits.
 ## Evidencia de validación
 
 - Scan del árbol tracked saneado: **PASS**.
-- Scan de historia completa del rango W1 nuevo: **PASS**, seis commits y cero
+- Scan de historia completa del rango W1 nuevo hasta HEAD: **PASS**, cero
   hallazgos.
-- Gate desde clon limpio remoto: pendiente de publicación de la rama nueva.
+- Gate desde clon limpio remoto `9f633cd`: **PASS**.

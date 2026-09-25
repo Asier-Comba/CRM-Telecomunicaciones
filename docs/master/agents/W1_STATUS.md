@@ -2,8 +2,9 @@
 
 - Timestamp: 2026-09-25
 - Branch: `w1/bootstrap-sanitized`
-- Baseline: `w4/security-baseline@44375b0`
-- Estado: gate local completo verde; clean-clone remoto pendiente
+- Baseline: `w4/security-baseline@bec6b2c`
+- PR: [#13](https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/13) (draft)
+- Estado: gate local y clean-clone remoto verdes; CI GitHub pendiente
 
 ## Trabajo completado
 
@@ -15,7 +16,8 @@
   única autoridad y `profiles.workspace_id` solo una preferencia.
 - Contratos de presentación/API `telecom.v0` publicados en `69b7d50` para
   customer/company, contracts, services/lines y dashboard.
-- Gate local completo verde: instalación reproducible, lint, typecheck, 12 tests,
+- Gate local y clon remoto limpio verdes en `9f633cd`: instalación reproducible,
+  lint, typecheck, 15 tests,
   build, audit (0 vulnerabilidades), guardrails W4, migration policy y Secret
   Scan de toda la historia W1 (0 hallazgos).
 - Baseline W4 `bec6b2c` integrada por merge no destructivo; 22 rutas sensibles
@@ -23,8 +25,9 @@
 
 ## Trabajo actual
 
-- Repetir el gate desde clon limpio remoto.
-- Publicar PR sustituto y cerrar #11 solo después de CI verde.
+- Esperar CI de PR #13 y corregir cualquier discrepancia reproducible.
+- Cerrar #11 como superseded solo después de CI verde en #13.
+- Solicitar revisión W4; Supabase continúa sin tocar.
 
 ## Siguiente tarea segura
 
@@ -42,8 +45,8 @@ de cerrar la evidencia P0.
 
 ## Handoffs
 
-Ver `docs/master/11_HANDOFFS.md`. W2, W3 y W4 requieren notificación con el commit
-publicado definitivo.
+Ver `docs/master/11_HANDOFFS.md`. El head funcional validado y publicado es
+`9f633cd`.
 
 ## Blockers
 

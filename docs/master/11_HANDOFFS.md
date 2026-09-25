@@ -1,6 +1,6 @@
 # 11 — Handoffs
 
-- Versión: 0.4
+- Versión: 0.5
 - Fecha: 2026-09-25
 - Owner: W1
 - Estado: abierto
@@ -10,6 +10,10 @@
 CONTRACT: Bootstrap del repositorio canónico
 
 COMMIT: `85695ab` (snapshot saneado; rama `w1/bootstrap-sanitized`)
+
+HEAD VALIDADO: `9f633cd`
+
+PR: [#13](https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/13)
 
 WHAT CHANGED: El snapshot funcional histórico se ha trasladado al repositorio
 Telecom sobre la baseline W4. El SQL inmobiliario es ahora evidencia legacy y no
