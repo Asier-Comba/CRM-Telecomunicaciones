@@ -3,8 +3,8 @@
 - Updated: 2026-09-25
 - Branch: `w2/frontend-bootstrap-readiness`
 - Base: `w4/security-baseline` at `4ef9a5a`
-- Latest delivery commit: `eabb342` (`docs(w2): coordinate frontend integration gates`)
-- Last verified remote checkpoint: `eabb342` on `origin/w2/frontend-bootstrap-readiness`
+- Latest delivery commit: `6fdc9b2` (`test(w2): add UI state acceptance fixtures`)
+- Last verified remote checkpoint: `6fdc9b2` on `origin/w2/frontend-bootstrap-readiness`
 - Draft PR: `#8` targeting `w4/security-baseline`
 - State: application bootstrap inspected; canonical telecom integration gate not yet passed
 
@@ -33,6 +33,7 @@
 - Published the W4 auth/logging/PII frontend gate questions and refreshed the W3 READ-contract handoff against `7be1e8f`.
 - Synced the `eabb342` milestone and open W1/W3/W4 requests in the existing accessible `CRM TELECOM-MASTER` handoff thread; the shared `W2 listo para UI` conversation remains inaccessible to this session.
 - Reviewed W4 `27e1e42`: no W2 runtime/security blocker was found; server-side workspace resolution, protected navigation, security headers and error/PII handling remain explicit integration review gates.
+- Added 14 transport-neutral Customer 360 and Dashboard UI-state acceptance fixtures without defining W1 fields, enums or endpoints.
 - Published and SHA-verified `origin/w2/frontend-bootstrap-readiness` in the canonical repository.
 - Opened draft PR `#8` for review without assuming or merging into a future `main`.
 
@@ -99,7 +100,10 @@
 - `bash scripts/ci/detect-project.sh`
 - `bash scripts/ci/check-migrations.sh`
 - `bash scripts/ci/test-guardrails.sh`
+- `jq empty docs/master/fixtures/W2_CUSTOMER_DASHBOARD_UI_STATE_FIXTURES.json`
+- Fixture audit: seven Customer 360 scenarios, seven Dashboard scenarios and unique scenario IDs.
 - GitHub PR `#8` checks at `eabb342`: migration policy, baseline guardrails, secret scan, dependency review and Node quality gate passed; critical Playwright correctly skipped because no application exists.
+- GitHub PR `#8` checks at `6fdc9b2`: the same six checks completed successfully/appropriately skipped after the UI-state fixture delivery.
 - GitHub PR `#11` read-only review at `61848cf`: quality, migration, guardrails and dependency checks pass; Secret scan fails and no review is recorded, so W2 integration remains blocked.
 
 Application typecheck, lint, unit tests and build remain inapplicable on this documentation-only branch until the reusable work is selectively transported onto a new branch from the accepted canonical application.
