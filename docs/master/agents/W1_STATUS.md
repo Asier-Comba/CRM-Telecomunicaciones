@@ -1,43 +1,54 @@
 # W1 — Backend, Data, Supabase & Integration
 
-- Timestamp aproximado: 2026-09-25 17:00 Europe/Madrid
-- Branch: `w1/bootstrap-canonical`
-- Último commit: pendiente del primer commit de bootstrap
-- Estado: en progreso
+- Timestamp: 2026-09-25
+- Branch: `w1/bootstrap-sanitized`
+- Baseline: `w4/security-baseline@44375b0`
+- Estado: P0 en validación reproducible
 
 ## Trabajo completado
 
-- Repositorio correcto y permisos GitHub verificados.
-- Histórico configurado como `upstream-readonly` con push deshabilitado.
-- Baseline W4 preservada.
-- Snapshot histórico funcional seleccionado y trasladado.
-- Migraciones inmobiliarias aisladas como legacy.
-- Auditor de reproducibilidad, inventario SQL read-only y tests de bootstrap
-  trasladados.
+- Snapshot funcional reconstruido con historia W1 limpia en `e7d5b43`.
+- Nueve hallazgos Secret Scan clasificados: siete falsos positivos y dos
+  fixtures dummy; cero credenciales reales/históricas.
+- Primera migración tenant/RLS versionada offline en `00cd745`; no aplicada.
+- Resolver multi-workspace publicado en `bf4b362`: `workspace_members` es la
+  única autoridad y `profiles.workspace_id` solo una preferencia.
+- Contratos de presentación/API `telecom.v0` publicados en `c545dbb` para
+  customer/company, contracts, services/lines y dashboard.
 
 ## Trabajo actual
 
-Publicación de la rama W1 y comienzo de la baseline Supabase canónica. La
-validación local completa está verde.
+- Ejecutar gate completo y Secret Scan sobre toda la historia nueva.
+- Repetir el gate desde clon limpio remoto.
+- Publicar PR sustituto y cerrar #11 solo después de CI verde.
 
-## Siguiente tarea
+## Siguiente tarea segura
 
-Crear la primera migración canónica multi-tenant y su matriz RLS después de cerrar
-el contrato de roles y disponer de una base vacía para pruebas.
+Continuar el modelo normalizado telecom offline, empezando por
+customers/contacts/contracts/services/lines y permanencias explícitas, después
+de cerrar la evidencia P0.
 
 ## Contratos publicados
 
-- `docs/master/03_DATA_MODEL.md`: drift y contrato agentic observado.
-- `docs/master/BOOTSTRAP_PROVENANCE.md`: procedencia y límites del bootstrap.
-- `scripts/audit-supabase-reproducibility.mjs`: gate estático.
-- `scripts/audit-supabase-live-schema.sql`: inventario read-only del catálogo.
+- `docs/master/W1_TENANT_AUTHORIZATION.md`
+- `docs/master/W1_DATA_CONTRACTS_V0.md`
+- `src/lib/workspace-roles.ts`
+- `src/lib/contracts/telecom-v0.ts`
+- `docs/master/W1_SECRET_SCAN_TRIAGE.md`
 
 ## Handoffs
 
-Ver `docs/master/11_HANDOFFS.md`.
+Ver `docs/master/11_HANDOFFS.md`. W2, W3 y W4 requieren notificación con el commit
+publicado definitivo.
 
 ## Blockers
 
-- Identificación/acceso al nuevo proyecto Supabase.
-- PostgreSQL/Supabase local no disponible en este runtime.
-- Decisión del propietario sobre visibilidad pública del repositorio.
+- Revisión y aceptación W4 de la migración tenant/RLS.
+- Autorización humana posterior para cualquier apply a Supabase.
+- PostgreSQL/Supabase local no disponible; la validación actual es estática y de
+  build/tests.
+
+## Guardas activas
+
+- El proyecto Supabase nuevo permanece no tocable.
+- Sin merge y sin despliegue.

@@ -51,6 +51,8 @@ apply/rollback y autorización humana posterior.
 CONTRACT: `docs/master/W1_DATA_CONTRACTS_V0.md` y
 `src/lib/contracts/telecom-v0.ts`
 
+COMMIT: `c545dbb`
+
 WHAT CHANGED: se estabilizan los read models de customer/company, telecom
 contract, services/lines y dashboard, incluida la semántica explícita de
 frescura, vacío y error. El esquema físico continúa marcado DRAFT.
