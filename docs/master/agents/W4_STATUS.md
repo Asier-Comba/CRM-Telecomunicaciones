@@ -14,7 +14,7 @@ Last verified: 2026-09-25 (UTC)
 - `w1/bootstrap-canonical@61848cf` contains a real Next.js application and its first canonical tenant-identity migration; it is no longer a placeholder. Draft PR `#11` requests bootstrap review.
 - A clean worktree now passes install, lint (three warnings), typecheck, seven tests, production build and dependency audit. The earlier missing-directory QA finding is resolved.
 - W1 is not yet an accepted canonical release base: Secret Scan run `#31` fails on tracked legacy values, 32 relations/views and two RPCs remain missing, schema/application identity contracts disagree, and RLS has only static regex evidence.
-- W2 head `65282c8` remains documentation-only and now explicitly tracks the W1 canonical gate; draft PR `#8` makes no runtime or data changes.
+- W2 head `a3a5b81` remains documentation-only and now records the failed W1 canonical integration gate; draft PR `#8` makes no runtime or data changes.
 - W3 head `7be1e8f` adds eval metrics without changing the vulnerable runtime/contracts; draft PR `#9` remains blocked by W4 `CHANGES_REQUESTED` plus Issue `#10`.
 - There is still no `main`, reproducible Supabase schema, accepted RLS policy set or approved product release base.
 - W1, W2 and W3 may continue safely in their own branches. PR `#8` remains documentation-only; PR `#9` may receive fixes but cannot merge until Issue `#10` is fully evidenced.
@@ -55,12 +55,14 @@ Last verified: 2026-09-25 (UTC)
 
 Resolved baseline work: the four Actions upgrades were integrated with verified immutable SHAs, checkout credentials were disabled, baseline self-tests passed and superseded Dependabot branches were removed automatically. W3's current branch passes its own 13-test quality gate, but those tests do not cover Issue `#10`.
 
+W4 push CI run `#38` is green at `c53ee05`, including the expanded Supabase security self-tests, migration policy, secret scan and baseline gates.
+
 Resolved W1 finding: `W1-QA-001` (clean checkout missing `supabase/migrations`) is fixed at `61848cf`; W4 reproduced the complete non-strict quality gate from a disposable worktree.
 
 ## Latest cross-work review
 
 - **W1:** head `61848cf` fixes the clean-checkout gate and adds a well-directed membership-first migration that passes W4 static SQL checks. Draft PR `#11` is still blocked by failing secret scan, schema/application contract mismatch, incomplete drift, static-only RLS evidence and the previously identified exposed/internal endpoints. Evidence and criteria are in `docs/master/HANDOFF_W1_SECURITY.md`, `docs/master/ENDPOINT_SECURITY_REVIEW.md` and Issue `#12`.
-- **W2:** draft PR `#8` remains documentation/bootstrap only and preserves server-side authorization as the boundary. Head `65282c8` adds assistant-renderer, bootstrap-gap and Customer 360 crosswalk documentation, explicitly includes W4's confirmation/idempotency gates, and still waits for W1 acceptance. No new runtime change or W2 security blocker was found; the new head has no CI run yet.
+- **W2:** draft PR `#8` remains documentation/bootstrap only and preserves server-side authorization as the boundary. Head `a3a5b81` adds assistant-renderer, bootstrap-gap and Customer 360 crosswalk documentation, explicitly includes W4's confirmation/idempotency gates, records W1's failed integration gate, and still waits for W1 acceptance. CI run `#37` is green; no runtime change or W2 security blocker was found.
 - **W3:** head `7be1e8f` adds eval metrics only; the runtime and contract Git blobs are identical to `9ef926b`. The prior attack remains valid: an invented confirmation succeeded and one key across 20 concurrent requests produced 20 successes/handler executions. Draft PR `#9` retains W4 `CHANGES_REQUESTED`; no CI run exists for the newest head yet. Exact criteria remain in `docs/master/HANDOFF_W3_SECURITY.md` and Issue `#10`.
 
 ## Integration plan after W1 closes canonical blockers
