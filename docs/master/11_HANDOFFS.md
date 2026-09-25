@@ -9,7 +9,7 @@
 
 CONTRACT: Bootstrap del repositorio canónico
 
-COMMIT: `e7d5b43` (snapshot saneado; rama `w1/bootstrap-sanitized`)
+COMMIT: `85695ab` (snapshot saneado; rama `w1/bootstrap-sanitized`)
 
 WHAT CHANGED: El snapshot funcional histórico se ha trasladado al repositorio
 Telecom sobre la baseline W4. El SQL inmobiliario es ahora evidencia legacy y no
@@ -51,7 +51,7 @@ apply/rollback y autorización humana posterior.
 CONTRACT: `docs/master/W1_DATA_CONTRACTS_V0.md` y
 `src/lib/contracts/telecom-v0.ts`
 
-COMMIT: `c545dbb`
+COMMIT: `69b7d50`
 
 WHAT CHANGED: se estabilizan los read models de customer/company, telecom
 contract, services/lines y dashboard, incluida la semántica explícita de

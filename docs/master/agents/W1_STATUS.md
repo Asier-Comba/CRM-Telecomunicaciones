@@ -7,13 +7,13 @@
 
 ## Trabajo completado
 
-- Snapshot funcional reconstruido con historia W1 limpia en `e7d5b43`.
+- Snapshot funcional reconstruido con historia W1 limpia en `85695ab`.
 - Nueve hallazgos Secret Scan clasificados: siete falsos positivos y dos
   fixtures dummy; cero credenciales reales/históricas.
-- Primera migración tenant/RLS versionada offline en `00cd745`; no aplicada.
-- Resolver multi-workspace publicado en `bf4b362`: `workspace_members` es la
+- Primera migración tenant/RLS versionada offline en `a1f7cc3`; no aplicada.
+- Resolver multi-workspace publicado en `e549aff`: `workspace_members` es la
   única autoridad y `profiles.workspace_id` solo una preferencia.
-- Contratos de presentación/API `telecom.v0` publicados en `c545dbb` para
+- Contratos de presentación/API `telecom.v0` publicados en `69b7d50` para
   customer/company, contracts, services/lines y dashboard.
 - Gate local completo verde: instalación reproducible, lint, typecheck, 12 tests,
   build, audit (0 vulnerabilidades), guardrails W4, migration policy y Secret

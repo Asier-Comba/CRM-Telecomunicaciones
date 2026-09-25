@@ -26,7 +26,7 @@ hallazgo de clase A, no hay acción humana de rotación o purga por credencial.
 1. Se preservó un safety ref únicamente local del bootstrap anterior.
 2. Se creó una rama nueva desde la baseline W4, sin reescribir ni forzar la rama
    publicada.
-3. El primer commit W1 contiene ya el snapshot saneado (`e7d5b43`).
+3. El primer commit W1 contiene ya el snapshot saneado (`85695ab`).
 4. Migración, resolver y contratos se reaplican como commits posteriores
    auditables.
 5. El PR anterior solo se cerrará como superseded cuando la rama nueva pase CI y
