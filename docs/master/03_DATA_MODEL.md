@@ -9,14 +9,20 @@
 
 ## Migraciones canónicas
 
-`supabase/migrations` está vacío al inicio del bootstrap. Las 28 migraciones del
-CRM inmobiliario se conservan bajo `supabase/legacy-migrations` como evidencia y
-no se aplican automáticamente al proyecto nuevo.
+`20260925153500_core_tenant_identity.sql` define la primera base canónica:
+`workspaces`, `profiles`, `workspace_members`, helpers de membresía y RLS. La única
+fuente de autorización tenant es una membresía `active`; `profiles.workspace_id`
+es solo una preferencia compatible y `profiles` no contiene rol.
+
+Las 28 migraciones del CRM inmobiliario se conservan bajo
+`supabase/legacy-migrations` como evidencia y no se aplican automáticamente al
+proyecto nuevo.
 
 ## Drift confirmado
 
-`npm run audit:supabase-repro` detecta 35 relaciones/vistas y dos RPC usados por
-el código sin creación canónica: `delete_client_cascade` y
+`npm run audit:supabase-repro` detectaba inicialmente 35 relaciones/vistas y dos
+RPC usados por el código sin creación canónica. Tras la primera migración quedan
+32 relaciones/vistas y los RPC `delete_client_cascade` y
 `reserve_invoice_number`.
 Entre ellas están `assistant_actions`, `assistant_findings`,
 `assistant_automation_rules` y `assistant_automation_runs`; las migraciones incluso

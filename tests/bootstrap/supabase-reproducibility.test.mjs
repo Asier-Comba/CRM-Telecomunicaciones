@@ -20,6 +20,10 @@ test('the known Supabase drift remains explicit', () => {
   const report = JSON.parse(result.stdout)
   assert.equal(report.reproducible, false)
   assert.deepEqual(
+    report.createdRelations,
+    ['profiles', 'workspace_members', 'workspaces'],
+  )
+  assert.deepEqual(
     report.unresolvedRelations.map(({ name }) => name),
     [
       'assistant_actions',
@@ -62,6 +66,9 @@ test('the live inventory query contains no write statement', async () => {
 
   assert.ok(relationBlock)
   assert.ok(functionBlock)
-  assert.deepEqual(names(relationBlock), report.missingRelations.map(({ name }) => name))
+  assert.deepEqual(
+    names(relationBlock),
+    [...report.createdRelations, ...report.missingRelations.map(({ name }) => name)].sort(),
+  )
   assert.deepEqual(names(functionBlock), report.missingFunctions.map(({ name }) => name))
 })
