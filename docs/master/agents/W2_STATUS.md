@@ -37,6 +37,7 @@
 - Holding integration until W1 satisfies the exact gate in `W2_HANDOFF_W1_CANONICAL_GATE.md`.
 - Incorporating W4's assistant confirmation, idempotency and closed-output findings into the W2 renderer contract.
 - Preparing the first tested UI-foundation commits against the concrete W1 bootstrap component surface without modifying it prematurely.
+- Monitoring W1 PR `#11`: it remains draft/unreviewed and its `61848cf` Secret scan check currently fails.
 
 ## Next
 
@@ -79,7 +80,7 @@
 ## Blockers
 
 - W1 now has a Next.js application and canonical tenant-identity migration, but customer/contract/dashboard contracts remain unpublished.
-- W4 has not accepted W1 PR `#11` / `61848cf` as the canonical integration base.
+- W4 has not accepted W1 PR `#11` / `61848cf` as the canonical integration base; the PR is unreviewed and Secret scan is failing.
 - W3 has published a usable v1 UI contract; the additive integration questions are now explicit rather than blocking all presentation work.
 - The historical repository is read-only and is not a delivery target.
 
@@ -89,5 +90,6 @@
 - `bash scripts/ci/check-migrations.sh`
 - `bash scripts/ci/test-guardrails.sh`
 - GitHub PR `#8` checks at `b6f0070`: migration policy, baseline guardrails, secret scan, dependency review and Node quality gate passed; critical Playwright correctly skipped because no application exists.
+- GitHub PR `#11` read-only review at `61848cf`: quality, migration, guardrails and dependency checks pass; Secret scan fails and no review is recorded, so W2 integration remains blocked.
 
 Application typecheck, lint, unit tests and build remain inapplicable on this documentation-only branch until it is safely rebased onto the accepted canonical application.
