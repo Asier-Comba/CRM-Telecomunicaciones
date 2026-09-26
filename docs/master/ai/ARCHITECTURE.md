@@ -19,13 +19,13 @@ The model may propose a capability and arguments. It cannot choose a workspace, 
 
 ## Implemented foundation
 
-- `CapabilityRegistry` rejects duplicate, open or internally inconsistent contracts.
+- `CapabilityRegistry` rejects duplicate, open or internally inconsistent contracts. Contract v3 requires every handler to project its raw provider result into an explicit DTO before validation.
 - `validatePlan` bounds the LLM plan to four registered goals, rejects tenant selectors and cycles, and permits at most one final write.
 - `AssistantRuntime` validates closed inputs, permissions, tenant selectors, confirmations and idempotency before a handler runs.
 - Workspace and actor are supplied only through server-created `ExecutionContext`.
 - Server-issued opaque confirmations are bound to actor, workspace, capability, canonical arguments and a five-minute expiry; consume/cancel are one-time transitions.
-- Writes reserve idempotency atomically before effects. Replays return the stored structured result and changed arguments conflict.
-- Capability outputs are recursively validated against closed, bounded schemas before presentation.
+- Writes reserve idempotency atomically before effects. Reservations carry a five-minute lease: a completion of unknown outcome remains pending during the lease and becomes `reconciliation_required` afterwards; it is never re-executed automatically. Replays return the stored structured result and changed arguments conflict.
+- Capability outputs are projected at source, recursively validated against closed, bounded schemas and scanned for high-confidence secret values before presentation. Structural/key checks remain the primary boundary; value scanning is defense in depth.
 - Unknown and unauthorized capabilities have one indistinguishable external denial; audit preserves the internal reason.
 - Audit events contain identifiers and outcomes, not prompts, arguments, outputs, tokens or provider errors.
 - `AssistantResponse` v1 gives W2 bounded entity, table, follow-up, confirmation, notice and navigation blocks without parsing Markdown.
@@ -46,6 +46,8 @@ The core does not instantiate a Supabase client and does not claim RLS coverage.
 
 Authorization must never use user-editable metadata. Service-role credentials, if an adapter genuinely needs them, remain in a narrow server-only module and every resource ownership check is repeated there.
 
+The lease/reconciliation state is a runtime contract, not a durable implementation claim. A production adapter must persist reservations and confirmations across processes and restart, and needs an operator/outbox reconciliation path that can mark the observed terminal result without repeating the effect.
+
 ## Capability publication checklist
 
 Every production capability must declare:
@@ -53,6 +55,7 @@ Every production capability must declare:
 - stable dotted name and description;
 - closed input schema;
 - bounded closed output schema;
+- explicit provider-to-DTO output projector and high-confidence value scan policy;
 - required permission;
 - access class (`READ`, `SAFE_WRITE`, `SENSITIVE_WRITE`, `IRREVERSIBLE`);
 - confirmation policy;
