@@ -31,10 +31,15 @@ const populated = () => {
   }).state
   state = transitionTenantBoundary(state, {
     type: 'sensitive_surface_opened',
+    tenantEpoch: epochA,
   }).state
-  state = transitionTenantBoundary(state, { type: 'preview_started' }).state
+  state = transitionTenantBoundary(state, {
+    type: 'preview_started',
+    tenantEpoch: epochA,
+  }).state
   state = transitionTenantBoundary(state, {
     type: 'assistant_entity_refs_received',
+    tenantEpoch: epochA,
     refs: ['entity-a'],
   }).state
   return state
@@ -59,6 +64,7 @@ test('every access-loss signal purges all tenant-sensitive browser state', () =>
       tenantEpoch: null,
       protectedData: null,
       pendingRequests: [],
+      consumedRequests: [],
       sensitiveSurfaceOpen: false,
       previewActive: false,
       assistantEntityRefs: [],
@@ -126,4 +132,92 @@ test('unknown or already completed request responses are ignored', () => {
     data: 'unexpected',
   }).state
   assert.deepEqual(next, state)
+})
+
+test('access-lost is absorbing for late or unrelated grants', () => {
+  const revoked = transitionTenantBoundary(populated(), {
+    type: 'security_boundary_changed',
+    reason: 'access_revoked',
+  }).state
+
+  const late = transitionTenantBoundary(revoked, {
+    type: 'access_granted',
+    tenantEpoch: epochA,
+  }).state
+  assert.deepEqual(late, revoked)
+})
+
+test('active epoch cannot be replaced without an explicit purging boundary', () => {
+  const active = populated()
+  const injected = transitionTenantBoundary(active, {
+    type: 'access_granted',
+    tenantEpoch: epochB,
+  }).state
+
+  assert.deepEqual(injected, active)
+})
+
+test('late sensitive events from tenant A cannot reopen state in tenant B', () => {
+  let state = transitionTenantBoundary(populated(), {
+    type: 'security_boundary_changed',
+    reason: 'workspace_switched',
+    nextTenantEpoch: epochB,
+  }).state
+  state = transitionTenantBoundary(state, {
+    type: 'access_granted',
+    tenantEpoch: epochB,
+  }).state
+
+  for (const event of [
+    { type: 'sensitive_surface_opened', tenantEpoch: epochA },
+    { type: 'preview_started', tenantEpoch: epochA },
+    {
+      type: 'assistant_entity_refs_received',
+      tenantEpoch: epochA,
+      refs: ['tenant-a-entity'],
+    },
+  ] as const) {
+    state = transitionTenantBoundary(state, event).state
+  }
+
+  assert.equal(state.sensitiveSurfaceOpen, false)
+  assert.equal(state.previewActive, false)
+  assert.deepEqual(state.assistantEntityRefs, [])
+})
+
+test('aborted and failed requests are consumed and never resurrect data', () => {
+  for (const type of [
+    'protected_request_aborted',
+    'protected_request_failed',
+  ] as const) {
+    let state = transitionTenantBoundary(initialTenantBoundaryState<string>(), {
+      type: 'access_granted',
+      tenantEpoch: epochA,
+    }).state
+    state = transitionTenantBoundary(state, {
+      type: 'protected_request_started',
+      tenantEpoch: epochA,
+      requestRef: requestA,
+    }).state
+    state = transitionTenantBoundary(state, {
+      type,
+      tenantEpoch: epochA,
+      requestRef: requestA,
+    }).state
+    const late = transitionTenantBoundary(state, {
+      type: 'protected_request_resolved',
+      tenantEpoch: epochA,
+      requestRef: requestA,
+      data: 'late-data',
+    }).state
+    const reused = transitionTenantBoundary(late, {
+      type: 'protected_request_started',
+      tenantEpoch: epochA,
+      requestRef: requestA,
+    }).state
+
+    assert.equal(reused.protectedData, null)
+    assert.deepEqual(reused.pendingRequests, [])
+    assert.deepEqual(reused.consumedRequests, [requestA])
+  }
 })

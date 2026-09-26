@@ -23,6 +23,7 @@ export type TenantBoundaryState<T> = {
   tenantEpoch: TenantEpoch | null
   protectedData: T | null
   pendingRequests: readonly ProtectedRequestRef[]
+  consumedRequests: readonly ProtectedRequestRef[]
   sensitiveSurfaceOpen: boolean
   previewActive: boolean
   assistantEntityRefs: readonly string[]
@@ -42,9 +43,18 @@ export type TenantBoundaryEvent<T> =
       requestRef: ProtectedRequestRef
       data: T
     }
-  | { type: 'sensitive_surface_opened' }
-  | { type: 'preview_started' }
-  | { type: 'assistant_entity_refs_received'; refs: readonly string[] }
+  | {
+      type: 'protected_request_aborted' | 'protected_request_failed'
+      tenantEpoch: TenantEpoch
+      requestRef: ProtectedRequestRef
+    }
+  | { type: 'sensitive_surface_opened'; tenantEpoch: TenantEpoch }
+  | { type: 'preview_started'; tenantEpoch: TenantEpoch }
+  | {
+      type: 'assistant_entity_refs_received'
+      tenantEpoch: TenantEpoch
+      refs: readonly string[]
+    }
   | {
       type: 'security_boundary_changed'
       reason: TenantBoundaryReason
@@ -75,6 +85,7 @@ const emptyProtectedState = <T>(
   tenantEpoch,
   protectedData: null,
   pendingRequests: [],
+  consumedRequests: [],
   sensitiveSurfaceOpen: false,
   previewActive: false,
   assistantEntityRefs: [],
@@ -121,6 +132,12 @@ export function transitionTenantBoundary<T>(
   }
 
   if (event.type === 'access_granted') {
+    if (
+      current.phase !== 'reauthorizing' ||
+      (current.tenantEpoch !== null && current.tenantEpoch !== event.tenantEpoch)
+    ) {
+      return { state: current, effects: [] }
+    }
     return {
       state: emptyProtectedState('active', event.tenantEpoch),
       effects: [],
@@ -135,7 +152,9 @@ export function transitionTenantBoundary<T>(
     case 'protected_request_started':
       if (
         event.tenantEpoch !== current.tenantEpoch ||
-        current.pendingRequests.includes(event.requestRef)
+        current.pendingRequests.includes(event.requestRef) ||
+        current.consumedRequests.includes(event.requestRef) ||
+        current.pendingRequests.length >= 128
       ) {
         return { state: current, effects: [] }
       }
@@ -160,17 +179,52 @@ export function transitionTenantBoundary<T>(
           pendingRequests: current.pendingRequests.filter(
             (request) => request !== event.requestRef,
           ),
+          consumedRequests: [...current.consumedRequests, event.requestRef].slice(
+            -256,
+          ),
+        },
+        effects: [],
+      }
+    case 'protected_request_aborted':
+    case 'protected_request_failed':
+      if (
+        event.tenantEpoch !== current.tenantEpoch ||
+        !current.pendingRequests.includes(event.requestRef)
+      ) {
+        return { state: current, effects: [] }
+      }
+      return {
+        state: {
+          ...current,
+          pendingRequests: current.pendingRequests.filter(
+            (request) => request !== event.requestRef,
+          ),
+          consumedRequests: [...current.consumedRequests, event.requestRef].slice(
+            -256,
+          ),
         },
         effects: [],
       }
     case 'sensitive_surface_opened':
+      if (event.tenantEpoch !== current.tenantEpoch) {
+        return { state: current, effects: [] }
+      }
       return {
         state: { ...current, sensitiveSurfaceOpen: true },
         effects: [],
       }
     case 'preview_started':
+      if (event.tenantEpoch !== current.tenantEpoch) {
+        return { state: current, effects: [] }
+      }
       return { state: { ...current, previewActive: true }, effects: [] }
     case 'assistant_entity_refs_received':
+      if (
+        event.tenantEpoch !== current.tenantEpoch ||
+        event.refs.length > 100
+      ) {
+        return { state: current, effects: [] }
+      }
       return {
         state: { ...current, assistantEntityRefs: [...event.refs] },
         effects: [],
