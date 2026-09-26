@@ -3,10 +3,10 @@
 - Updated: 2026-09-26
 - Branch: `w2/frontend-bootstrap-readiness`
 - Audit-trail base: `w4/security-baseline` at `4ef9a5a`
-- Latest delivery commit: `3712fe4` (`feat(w2): guard assistant read sessions`)
-- Last verified remote checkpoint: `3712fe4` on `origin/w2/frontend-bootstrap-readiness`
+- Latest delivery commit: `8653f0e` (`feat(w2): define accessible large-account behavior`)
+- Last verified remote checkpoint: `8653f0e` on `origin/w2/frontend-bootstrap-readiness`
 - Draft PR: `#8` targeting `w4/security-baseline`
-- State: W1 `telecom.v0` contracts published; runtime integration remains blocked by W4 rejection of PR `#13`
+- State: W1 `w1/canonical-v3@32f0112` / draft PR `#14` has green CI and fixes suspended-workspace authorization, but W4 has not published an accepted frontend-integration SHA
 
 ## Done
 
@@ -55,22 +55,31 @@
 - Consumed W3 `c6e869e` `OperationStatusEnvelope` v1 with an exact runtime parser and operation-correlated mutation UI; writes remain release-disabled and the browser can only refresh server-authorized pending/review status.
 - Added parsed Contract, Service, Line, Permanence and Renewal presentation models from published W1 `telecom.v0`; visual identifiers stay hidden, foreign scope fails closed and completeness remains explicitly unknown.
 - Added an Assistant READ session reducer covering validated-final controls, partial grounded answers, interruption, malformed final, entity disappearance, permission change, revocation, expired continuation, stale results and late events.
+- Added one closed frontend error taxonomy with fixed safe copy, retry policy, bounded opaque correlation and existence-private denial mapping.
+- Added a reusable collection envelope that distinguishes unsupported, unavailable, not-authorized, error, empty, partial, stale and ready; only fresh complete zero-item evidence may claim empty.
+- Added the 14-area Customer 360 composition. Published identity/portfolio types are consumable now; unpublished Attention and standalone task/meeting/renewal/permanence projections are compile-time unsupported instead of guessed.
+- Added a tenant-safe cache key and request controller. Epoch, authenticated scope, transport/presentation versions, resource namespace, entity and projection must all match at commit time; purge, abort, supersession and ABA reuse are tested.
+- Closed late-grant, cross-epoch sensitive-event and aborted-request resurrection paths in the tenant boundary state machine.
+- Added an executable W3 READ v1 parser/render model covering malformed blocks, tables, continuations, entity taxonomy, safe notices, prompt-only follow-ups and strict confirmation expiry. Confirmation interaction remains release-disabled.
+- Hardened assistant session/operation races: streams require a matching local request, security terminal states are absorbing, status is ignored before submit acceptance and older status cannot regress the current operation.
+- Added bounded large-account rendering with truthful totals/partiality, fresh-only remote continuation and a virtual-window policy.
+- Added executable loading/refresh/stale announcements plus access-loss focus semantics; revocation now focuses a safe heading and never restores focus to protected UI.
 - Published and SHA-verified `origin/w2/frontend-bootstrap-readiness` in the canonical repository.
 - Opened draft PR `#8` for review without assuming or merging into a future `main`.
 
 ## Doing
 
 - Holding Customer Attention (`nextTask`, `nextMeeting`, alerts and activity) as explicit `unsupported` states until W1 publishes that projection; no fields or endpoint have been invented.
-- Preparing closed route descriptors, accessibility assertions and responsive evidence contracts for immediate transport to the accepted base.
+- Preparing executable overlay focus, data-view semantics, search/form state and drift-manifest gates for immediate transport to the accepted base.
 - Holding integration until W1 satisfies the exact gate in `W2_HANDOFF_W1_CANONICAL_GATE.md`.
-- Applying W4's PII field-capability and not-found parity requirements; the runtime JSON/date P1 at `5cb872c` is addressed by `64c9f8e` and tenant invalidation by `068e1a6`.
-- Monitoring superseding W1 PR `#13` at `75c2103`; CI is green, but W4 has `CHANGES_REQUESTED` and explicitly rejects it as sanitized/canonical.
+- Applying W4's PII field-capability and not-found parity requirements; runtime JSON/date, tenant cache/races and access-loss focus now have executable evidence.
+- Monitoring W1 draft PR `#14` at `32f0112`; CI is green, but W4 has not yet issued `ACCEPTED INTEGRATION BASE: <SHA>`.
 - Keeping assistant mutation/confirmation UI release-disabled while Issue `#10` remains open; W3's stable status projection is consumed without reconciliation, workspace selection or blind retry.
 
 ## Next
 
-1. Add the W1 Customer Attention adapter only after tasks/meetings/alerts/activity fields are published.
-2. Transport the now-executable parsers/state machines selectively when W4 names an accepted integration SHA.
+1. Make overlay focus, semantic data view, search/form state and drift manifest executable.
+2. Add the W1 Customer Attention adapter only after tasks/meetings/alerts/activity fields are published.
 3. Review every W1 contract delta for missing fields, ambiguity, breaking changes or acceptance.
 4. When W4 names an accepted W1 SHA, create `w2/ui-integration-v1` from it and selectively transport reusable W2 artifacts.
 5. Implement primitives/accessibility, shell, dashboard boundary and Customer 360 Identity + Attention as separate tested commits.
@@ -80,7 +89,7 @@
 ### W1
 
 - Exact W4-accepted integration SHA and clean canonical migration chain.
-- Accepted application-wide tenant resolver and shell/session presentation projection; current team-only adoption is insufficient.
+- The `canonical-v3` server tenant resolver is accepted by W2 as the tenant-scope boundary only. Runtime integration still needs resource-level Customer/Dashboard reads, cache epoch/invalidation and a minimal shell/session capability projection; browser role/state is never authority.
 - Customer attention projection for tasks, meetings, alerts and recent activity; `CustomerCompanyV0` currently covers identity/contact/assignee only.
 - Contract/service collections with completeness, pagination and freshness semantics for Customer 360.
 - Dashboard item discriminators and widget-specific fields; generic `DashboardItemV0.status: string` is not exhaustive enough for status/urgency claims.
@@ -102,15 +111,14 @@
 
 ## Handoffs
 
-- **W2 → W1:** `telecom.v0` is accepted as a presentation starting point; `W2_REVIEW_W1_TELECOM_V0.md` records the minimum additive fields and ambiguities required before action-rich Customer 360 and Dashboard implementation.
+- **W2 → W1:** `telecom.v0` and `resolveTenantContext` are accepted as presentation and tenant-scope starting points. The resolver is not a Customer/Dashboard resource read contract; Attention, completeness/freshness, cache epoch and action capabilities remain required.
 - **W2 → W3:** READ v1 and `OperationStatusEnvelope` v1 are accepted; W2 neither constructs `operationRef` nor reconciles/retries writes, and mutation release stays blocked.
-- **W2 → W4:** runtime `unknown` parsing, strict dates, tenant purge/late-response rejection and operation correlation now have executable synthetic evidence; runtime application QA still waits for the accepted base.
+- **W2 → W4:** runtime `unknown` parsing, strict dates, tenant cache/write fences, absorbing revocation, safe focus, malformed assistant blocks and operation correlation now have executable synthetic evidence; runtime application QA still waits for the accepted base.
 
 ## Blockers
 
-- W1 PR `#13` supersedes PR `#11` operationally, but W4 rejects `75c2103` as sanitized/canonical: historical values remain reachable, strict schema drift fails, tenant resolution is not application-wide and RLS evidence is static.
-- W4 `48cfd14` proves an additional P0 in the tenant helpers carried by `75c2103`: active memberships remain authorizing when the owning workspace is suspended.
-- W4 has not named any SHA apt for frontend integration; therefore `w2/ui-integration-v1` must not yet be created.
+- W1 PR `#14` supersedes the rejected PRs and fixes the suspended-workspace helper path with green secret/history CI; database-only RLS/drift gates and W4 independent acceptance remain open.
+- W4 has not named any SHA apt for frontend integration; therefore `w2/ui-integration-v1` must not yet be created even though `w1/canonical-v3@32f0112` exists.
 - `telecom.v0` lacks several Customer 360 attention/action and widget-specific semantics required for final UI implementation.
 - W3 `c6e869e` publishes durable interfaces/conformance and stronger value scanning, but Issue `#10` remains open because no accepted-base database-backed adapter exists.
 - The historical repository is read-only and is not a delivery target.
@@ -125,7 +133,7 @@
 - GitHub PR `#8` checks at `eabb342`: migration policy, baseline guardrails, secret scan, dependency review and Node quality gate passed; critical Playwright correctly skipped because no application exists.
 - GitHub PR `#8` checks at `6fdc9b2`: the same six checks completed successfully/appropriately skipped after the UI-state fixture delivery.
 - GitHub PR `#13` at `75c2103`: six checks pass/skip appropriately, but W4 review is `CHANGES_REQUESTED`; generic Secret Scan green does not override W4's direct reachable-history evidence.
-- `node --experimental-strip-types --test docs/master/contracts/*.test.ts`: 84/84 pass.
+- `node --experimental-strip-types --test docs/master/contracts/*.test.ts`: 136/136 pass at `8653f0e`.
 - GitHub PR `#8` at `283c14d`: six checks pass/skip appropriately; W4's merged-baseline guardrail job executed all six W2 contract-test files, including route-ID and telemetry negatives, and reported documentation contract tests passed.
 - W4 `106848a`: PR `#13` is explicitly not an accepted integration base; docs-contract CI is now enforced and the route-ID finding has been fixed by W2.
 - W3 `874259e`: stable READ subset and nine-case compatibility matrix published; Issue `#10` remains open for durable mutation integration.
@@ -137,5 +145,11 @@
 - Tenant/operation evidence at `068e1a6`: seven boundary reasons purge tenant data, A→B late responses are ignored, `OperationStatusEnvelope` v1 is closed and frozen, and stale operation events cannot regress a newer/terminal state.
 - Portfolio evidence at `63bb7cd`: Contract/Service/Line parsers reject malformed, foreign and impossible-date data; empty, hidden identifier, unknown completeness, permanence and renewal semantics stay distinct.
 - Assistant READ evidence at `3712fe4`: structured controls remain disabled until a matching validated final; revocation/permission/entity/continuation/stale and late-stream cases fail closed.
+- Frontend error taxonomy evidence at `9ce9d10`: arbitrary database/provider/stack detail is removed and entity existence denials have one external state.
+- Customer 360 composition evidence at `13369ba`: eight collection-result states, truthful empty/completeness selectors and all 14 product areas without invented W1 fields.
+- Tenant race evidence at `483cdb8`: cache identity includes epoch/scope/versions/namespace/entity/projection and commit-time fences reject switch, purge, abort, supersession and ABA races.
+- Assistant renderer evidence at `dc6e18c`: malformed optional blocks, tables, taxonomy, continuation, secret-like text and impossible confirmation expiry reject before rendering; session and operation races are correlated.
+- Large-account/a11y evidence at `8653f0e`: DOM windows remain bounded, partial sources never expose false totals, stale cursors are disabled and access loss emits safe focus/announcement effects.
+- W1 live delta `w1/canonical-v3@32f0112`: `telecom.v0` is unchanged; PR `#14` CI is green, but no W4 review/accepted integration SHA exists.
 
 Application typecheck, lint, unit tests and build remain inapplicable on this documentation-only branch until the reusable work is selectively transported onto a new branch from the accepted canonical application.

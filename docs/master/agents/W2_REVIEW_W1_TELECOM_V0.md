@@ -54,3 +54,16 @@
 5. Publish closed safe error codes and workspace operational time-zone/window semantics.
 
 Until these additions land, W2 accepts `telecom.v0` for adapter and fixture preparation, not for final action-rich Customer 360 or Dashboard implementation.
+
+## Live delta — `w1/canonical-v3@32f0112`
+
+| Classification | Delta |
+| --- | --- |
+| ADDED | Server tenant resolver now requires both active workspace and active membership; W2 accepts it as the tenant-scope boundary. |
+| REMOVED | None in `telecom.v0`. |
+| BREAKING | None in `telecom.v0`. |
+| AMBIGUOUS | Resource-level Customer/Dashboard reads, cache epoch/invalidation, capability projection and safe client error-code mapping remain unpublished. The browser identity provider is UX context, not authorization. |
+| ACCEPTED | Existing Customer, Contract, Service/Line and Dashboard v0 presentation fields remain accepted without inferring SQL, writes, completeness or permission. |
+
+This delta does not accept PR `#14` as an integration base; only W4 can name
+that SHA after its independent gate.
