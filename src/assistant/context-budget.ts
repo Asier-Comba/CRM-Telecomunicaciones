@@ -48,7 +48,11 @@ function projectRow(row: GroundedRow): GroundedRow {
 export function budgetContext(sections: readonly ContextSection[], maxBytes: number): ContextBudgetResult {
   if (!Number.isSafeInteger(maxBytes) || maxBytes < 1 || maxBytes > 1024 * 1024 || sections.length > 64
     || new Set(sections.map(section => section.id)).size !== sections.length
-    || sections.some(section => !isSafeEvidenceText(section.id, 160) || !CONTEXT_PRIORITIES.includes(section.priority))) {
+    || sections.some(section => !isSafeEvidenceText(section.id, 160) || !CONTEXT_PRIORITIES.includes(section.priority)
+      || !section.evidence || !Array.isArray(section.evidence.rows)
+      || !Number.isSafeInteger(section.evidence.projected_count)
+      || section.evidence.projected_count !== section.evidence.rows.length
+      || (section.evidence.availability !== 'available' && section.evidence.rows.length !== 0))) {
     return { ok: false, code: 'invalid_context' }
   }
   const context: BudgetedContext = { trust: 'untrusted_crm_data', sections: [], omitted_sections: sections.length, truncated: sections.length > 0 }

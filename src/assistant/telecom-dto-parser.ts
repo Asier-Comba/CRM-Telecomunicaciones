@@ -10,6 +10,9 @@ export type TelecomDtoPolicy = {
   /** Server-owned binding; never derive this authority from the DTO being validated. */
   binding?: { kind: EntityKindV1; id: string; fieldClass?: string; allowedActions?: readonly string[] }
   authorizeReference?: (reference: Readonly<{ kind: EntityKindV1; id: string }>) => boolean | Promise<boolean>
+  /** Trusted live authorization generation and clock; captured once and checked after each await. */
+  currentScopeEpoch?: () => string
+  currentNow?: () => string
 }
 export type TelecomDtoParseResult = { ok: true; value: Readonly<JsonObject> } | { ok: false; code: 'INVALID_DTO' | 'UNVERIFIED_REFERENCE' }
 type Check = (v: JsonValue) => boolean
@@ -47,7 +50,7 @@ function snapshot(input: unknown, depth = 0, budget = { nodes: 0, chars: 0 }): J
   const descriptors = Object.getOwnPropertyDescriptors(input)
   if (Reflect.ownKeys(input).length !== Object.keys(descriptors).length || Object.keys(descriptors).length > 40) throw new Error('keys')
   const out: JsonObject = Object.create(null)
-  for (const [key, field] of Object.entries(descriptors)) { if (!field.enumerable || !('value' in field) || ['__proto__', 'constructor', 'prototype'].includes(key)) throw new Error('field'); out[key] = snapshot(field.value, depth + 1, budget) }
+  for (const [key, field] of Object.entries(descriptors)) { budget.chars += key.length; if (key.length > 160 || budget.chars > 131072 || !field.enumerable || !('value' in field) || ['__proto__', 'constructor', 'prototype'].includes(key)) throw new Error('field'); out[key] = snapshot(field.value, depth + 1, budget) }
   return out
 }
 function freezeJson(value: JsonValue): void {
@@ -61,16 +64,37 @@ function customerConsistent(value: JsonValue, expected: string): boolean {
 
 export async function parseTelecomDto(kind: TelecomDtoKind, input: unknown, policy: TelecomDtoPolicy): Promise<TelecomDtoParseResult> {
   try {
-    if (!str(policy.scopeEpoch, 160) || !instant(policy.now)) return { ok: false, code: 'INVALID_DTO' }
-    const value = snapshot(input)
+    const scopeEpoch = policy.scopeEpoch
+    const now = policy.now
+    if (!str(scopeEpoch, 160) || !instant(now)) return { ok: false, code: 'INVALID_DTO' }
+    const binding = policy.binding ? Object.freeze({ ...policy.binding, ...(policy.binding.allowedActions ? { allowedActions: Object.freeze([...policy.binding.allowedActions]) } : {}) }) : undefined
     const authorizeReference = policy.authorizeReference
+    const currentScopeEpoch = policy.currentScopeEpoch
+    const currentNow = policy.currentNow
+    let lastNowMs = Date.parse(now)
+    let earliestCapabilityExpiry = Infinity
+    const authorityCurrent = (): boolean => {
+      const liveEpoch = currentScopeEpoch ? currentScopeEpoch() : scopeEpoch
+      const liveNow = currentNow ? currentNow() : now
+      if (!instant(liveNow)) return false
+      const liveNowMs = Date.parse(liveNow)
+      const originalBinding = policy.binding
+      const bindingUnchanged = binding === undefined ? originalBinding === undefined : originalBinding !== undefined && originalBinding.kind === binding.kind && originalBinding.id === binding.id && originalBinding.fieldClass === binding.fieldClass && (binding.allowedActions === undefined ? originalBinding.allowedActions === undefined : originalBinding.allowedActions !== undefined && originalBinding.allowedActions.length === binding.allowedActions.length && binding.allowedActions.every((action, index) => originalBinding.allowedActions![index] === action))
+      if (liveEpoch !== scopeEpoch || policy.scopeEpoch !== scopeEpoch || policy.now !== now || policy.authorizeReference !== authorizeReference || policy.currentScopeEpoch !== currentScopeEpoch || policy.currentNow !== currentNow || !bindingUnchanged || liveNowMs < lastNowMs || liveNowMs >= earliestCapabilityExpiry) return false
+      lastNowMs = liveNowMs
+      return true
+    }
+    if (!authorityCurrent()) return { ok: false, code: 'UNVERIFIED_REFERENCE' }
+    const value = snapshot(input)
     const references = new Map<string, Readonly<{ kind: EntityKindV1; id: string }>>()
     const entityId = (kind: EntityKindV1): Check => (v) => { if (!id(v) || typeof v !== 'string') return false; references.set(`${kind}:${v}`, Object.freeze({ kind, id: v })); return true }
     const ref = (expected?: EntityKindV1): Check => (v) => record(v) && isEntityKindV1(v.kind) && (!expected || v.kind === expected) && object({ kind: en(v.kind), id: entityId(v.kind), display_name: (x) => str(x) })(v)
-    const scope = { contract_version: en('telecom.v1'), scope_epoch: en(policy.scopeEpoch) }
+    const scope = { contract_version: en('telecom.v1'), scope_epoch: en(scopeEpoch) }
     const cap = (allowed: string[], owner?: { kind: EntityKindV1; id: string }, field?: string): Check => (v) => {
       if (!record(v) || !object({ ref: id, action: en(...allowed), target: (target) => record(target) && isEntityKindV1(target.kind) && object({ kind: en(target.kind), id: entityId(target.kind), field_class: en('tax_identifier', 'contact_email', 'contact_phone', 'contract_reference', 'line_identifier', 'document_metadata') }, ['field_class'])(target) && (!owner || (target.kind === owner.kind && target.id === owner.id)) && (field ? target.field_class === field : target.field_class === undefined), expires_at: instant })(v)) return false
-      return typeof v.expires_at === 'string' && Date.parse(v.expires_at) > Date.parse(policy.now)
+      if (typeof v.expires_at !== 'string' || Date.parse(v.expires_at) <= lastNowMs) return false
+      earliestCapabilityExpiry = Math.min(earliestCapabilityExpiry, Date.parse(v.expires_at))
+      return true
     }
     const protectedField = (field: string, owner: { kind: EntityKindV1; id: string }): Check => (v) => record(v) && (v.visibility === 'masked'
       ? object({ field_class: en(field), visibility: en('masked'), masked_text: (x) => str(x), reveal_capability: cap(['reveal'], owner, field) })(v)
@@ -80,7 +104,6 @@ export async function parseTelecomDto(kind: TelecomDtoKind, input: unknown, poli
     const checks: Record<string, Check> = Object.create(null)
     checks.entity_ref = ref()
     checks.safe_error = error
-    const binding = policy.binding
     const validBinding = binding && isEntityKindV1(binding.kind) && id(binding.id)
     checks.capability_ref = (v) => Boolean(validBinding && binding?.allowedActions?.length && binding.allowedActions.every((a) => ['edit', 'reveal', 'copy', 'complete', 'join', 'navigate'].includes(a)) && cap([...binding.allowedActions], binding, binding.fieldClass)(v))
     checks.protected_field = (v) => Boolean(validBinding && binding?.fieldClass && ['tax_identifier', 'contact_email', 'contact_phone', 'contract_reference', 'line_identifier', 'document_metadata'].includes(binding.fieldClass) && entityId(binding.kind)(binding.id) && protectedField(binding.fieldClass, binding)(v))
@@ -117,7 +140,7 @@ export async function parseTelecomDto(kind: TelecomDtoKind, input: unknown, poli
     const attention = object({ ...scope, customer_id: entityId('customer'), generated_at: instant, next_task: collection(checks.task), next_meeting: collection(checks.meeting), nearest_renewal: collection(checks.renewal), nearest_permanence: collection(checks.permanence), alerts: collection(checks.alert), recent_activity: collection(checks.activity) })
     checks.attention = (v) => attention(v) && record(v) && typeof v.customer_id === 'string' && customerConsistent(v, v.customer_id)
     checks.summary = (v) => object({ ...scope, customer: checks.customer!, contracts: collection(checks.contract!), services: collection(checks.service!), lines: collection(checks.line!), attention: checks.attention! })(v) && record(v) && record(v.customer!) && record(v.attention!) && typeof v.customer.id === 'string' && v.customer.id === v.attention.customer_id && customerConsistent(v, v.customer.id)
-    checks.dashboard = (v) => object({ ...scope, generated_at: instant, scope: object({ audience: en('personal', 'team', 'workspace'), timezone, scope_epoch: en(policy.scopeEpoch) }), window: object({ starts_at: instant, ends_at: instant }), today: collection((x) => record(x) && (x.kind === 'task' ? checks.task!(x) : x.kind === 'meeting' && checks.meeting!(x))), tasks: collection(checks.task!), meetings: collection(checks.meeting!), renewals: collection(checks.renewal!), permanence_alerts: collection(checks.permanence!), opportunities: collection(checks.opportunity!) })(v) && record(v) && ordered(v.window!, 'starts_at', 'ends_at', true)
+    checks.dashboard = (v) => object({ ...scope, generated_at: instant, scope: object({ audience: en('personal', 'team', 'workspace'), timezone, scope_epoch: en(scopeEpoch) }), window: object({ starts_at: instant, ends_at: instant }), today: collection((x) => record(x) && (x.kind === 'task' ? checks.task!(x) : x.kind === 'meeting' && checks.meeting!(x))), tasks: collection(checks.task!), meetings: collection(checks.meeting!), renewals: collection(checks.renewal!), permanence_alerts: collection(checks.permanence!), opportunities: collection(checks.opportunity!) })(v) && record(v) && ordered(v.window!, 'starts_at', 'ends_at', true)
     let check = checks[kind]
     if (kind.startsWith('collection:')) { const item = checks[kind.slice(11)]; if (item && ['customer', 'contract', 'service', 'line', 'task', 'meeting', 'renewal', 'permanence', 'opportunity', 'alert', 'activity'].includes(kind.slice(11))) check = collection(item) }
     if (kind.startsWith('readone:')) {
@@ -126,7 +149,10 @@ export async function parseTelecomDto(kind: TelecomDtoKind, input: unknown, poli
     }
     if (!check || !check(value) || !record(value)) return { ok: false, code: 'INVALID_DTO' }
     if (references.size && !authorizeReference) return { ok: false, code: 'UNVERIFIED_REFERENCE' }
-    for (const reference of references.values()) { if (!authorizeReference || await authorizeReference(reference) !== true) return { ok: false, code: 'UNVERIFIED_REFERENCE' } }
+    for (const reference of references.values()) {
+      if (!authorityCurrent() || !authorizeReference || await authorizeReference(reference) !== true || !authorityCurrent()) return { ok: false, code: 'UNVERIFIED_REFERENCE' }
+    }
+    if (!authorityCurrent()) return { ok: false, code: 'UNVERIFIED_REFERENCE' }
     freezeJson(value)
     return { ok: true, value }
   } catch { return { ok: false, code: 'INVALID_DTO' } }

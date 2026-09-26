@@ -75,4 +75,9 @@ export class SessionReferenceStore {
       if (entry.scope.actorId === scope.actorId && entry.scope.workspaceId === scope.workspaceId && entry.scope.sessionId === scope.sessionId) this.#entries.delete(handle)
     }
   }
+  revokeEntity(scope: ReferenceScope, kind: EntityKindV1, id: string): void {
+    for (const [handle, entry] of this.#entries) {
+      if (sameScope(entry.scope, scope) && entry.type === 'entity' && entry.entity.kind === kind && entry.entity.id === id) this.#entries.delete(handle)
+    }
+  }
 }
