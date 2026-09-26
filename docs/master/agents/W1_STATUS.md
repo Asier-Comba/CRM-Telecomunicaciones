@@ -3,7 +3,7 @@
 - Updated: 2026-09-26
 - Branch: `w1/canonical-v2`
 - Baseline: `w4/security-baseline@10ee3aa`
-- State: clean-history reconstruction in progress; no merge, deploy or Supabase apply
+- State: clean-history checkpoint validated locally; GitHub publication awaits login
 
 ## Current checkpoint
 
@@ -24,6 +24,8 @@
 - Lint, typecheck, 19 bootstrap tests, production build, sensitive-route gate and
   observability gate pass locally. Strict drift remains red by design with 29
   unresolved relations/views and one RPC.
+- A clean exported checkout of `54f1cf6` independently passes install, lint,
+  typecheck, the same 19 tests and a 20-route production build.
 - Supabase has not been contacted or mutated.
 
 ## Intentionally disabled
@@ -42,7 +44,8 @@ idempotency where applicable and W4 review are implemented and tested.
 
 ## Open gates
 
-- Full-history and clean-clone validation of this new branch.
+- Publish `w1/canonical-v2` after GitHub authentication is available, then let
+  CI/W4 independently repeat the full-history scan.
 - Complete canonical Telecom schema; strict drift audit remains intentionally red.
 - Database-backed zero-to-head and A/B RLS attack tests in isolated infrastructure.
 - W4 review and explicit human authorization before any Supabase apply.
