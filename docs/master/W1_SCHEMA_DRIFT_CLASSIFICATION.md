@@ -11,17 +11,18 @@
 ## Avance en `w1/telecom-domain-v1`
 
 La medición 29+1 describe el schema remoto observado y no cambia porque esta
-rama no se ha aplicado. Sin embargo, cuatro de esas relaciones ya tienen DDL
-canónico nuevo y pruebas estructurales: `activities`, `calendar_events`,
-`opportunities` y `tasks`. Quedan 25 relaciones/vistas + 1 RPC sin DDL canónico
-equivalente; `clients` se reemplaza deliberadamente por `customers`/`contacts`
-y no se recreará como tabla legacy.
+rama no se ha aplicado. Sin embargo, seis de esas relaciones ya tienen DDL
+canónico nuevo o reemplazo explícito y pruebas estructurales: `activities`,
+`calendar_events`, `entity_files` (reemplazada por `documents`),
+`opportunities`, `service_cases` y `tasks`. Quedan 23 relaciones/vistas + 1 RPC
+sin DDL canónico equivalente; `clients` se reemplaza deliberadamente por
+`customers`/`contacts` y no se recreará como tabla legacy.
 
-Además existen diez relaciones Telecom nuevas que no copian nombres legacy:
+Además existen once relaciones Telecom nuevas que no copian nombres legacy:
 `customers`, `contacts`, `telecom_operators`, `telecom_plans`,
 `telecom_plan_versions`, `telecom_contracts`, `telecom_services`,
-`telecom_lines`, `telecom_commitments` y `telecom_renewals`. Ninguna está
-aplicada remotamente.
+`telecom_lines`, `telecom_commitments`, `telecom_renewals` y `documents`.
+Ninguna está aplicada remotamente.
 
 ## Resumen
 
@@ -42,7 +43,7 @@ aplicada remotamente.
 | `automation_workflows` | CORE REQUIRED | P3: configuración de automatización neutral al proveedor | W2; revisión W4 |
 | `calendar_events` | CORE REQUIRED | CANONICAL READY: reunión tenant, lifecycle/fechas/timezone estrictos; runtime DB pendiente | W2 dashboard; W3 reads |
 | `conversations` | CORE REQUIRED | P2: hilo de atención con canal/estado definidos | W2 Customer Attention |
-| `entity_files` | CORE REQUIRED | P2: metadatos Storage con policies separadas por bucket/path | W2 PII/copy |
+| `entity_files` | CORE REQUIRED | CANONICAL READY: reemplazada por `documents`, target con FK explícita y path tenant; contenido/Storage policy aún pendiente | W2 PII/copy |
 | `integrations` | CORE REQUIRED | P3: estado/configuración no secreta; secretos fuera de filas cliente | W4 review |
 | `invoice_items` | CORE REQUIRED | P3: líneas de factura tras aceptar el contrato billing | W2 dashboard |
 | `invoices` | CORE REQUIRED | P3: facturación tenant; numeración durable y monetaria exacta | RPC asociado |
@@ -56,7 +57,7 @@ aplicada remotamente.
 | `workspace_templates` | CORE REQUIRED | P3: plantillas tenant, sin payload ejecutable privilegiado | W2 |
 | `clients` | TELECOM REQUIRED | P1: reemplazar por `customers`/`companies` + `contacts`; compatibilidad solo mediante adapter/view explícita | `telecom.v0` W2/W3 |
 | `opportunities` | TELECOM REQUIRED | CANONICAL READY: stages y oportunidad comercial Telecom sin campos inmobiliarios; runtime DB pendiente | customers/contracts |
-| `service_cases` | TELECOM REQUIRED | P2: incidencia/gestión de servicio con taxonomía Telecom | services/lines |
+| `service_cases` | TELECOM REQUIRED | CANONICAL READY: incidencia Telecom ligada estrictamente a customer/contract/service/line; runtime DB pendiente | services/lines |
 | `agent_action_logs` | ASSISTANT INFRA | P3: auditoría append-only tras definir actor/effect/outbox | W3 durable infra |
 | `assistant_actions` | ASSISTANT INFRA | P3: reserva/confirmación/idempotencia durable | Issue #10 / W3 |
 | `assistant_agent_memory` | ASSISTANT INFRA | P3: memoria limitada, con retención y source projection | W3 |
@@ -102,7 +103,7 @@ aplicada remotamente.
 
 - No existe Supabase aislado autorizado en esta sesión; no se ejecutó apply.
 - El plan zero-to-head y el harness SQL están preparados, pero todavía deben
-  ejecutarse sobre PostgreSQL aislado. La matriz de lectura cubre las 15
+  ejecutarse sobre PostgreSQL aislado. La matriz de lectura cubre las 17
   relaciones para A/B/C, suspendido, removed, anónimo y multi-workspace; las
   mutaciones representativas cubren owner/admin/member/viewer, DELETE sin
   policy, cambio de tenant, upsert y FK compuesta cross-tenant.
