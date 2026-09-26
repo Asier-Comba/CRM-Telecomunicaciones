@@ -305,14 +305,14 @@ export function transitionMutationUi(
   event: MutationUiEvent,
 ): MutationUiState {
   if (event.type === 'access_revoked') return { status: 'access_revoked' }
+  if (current.status === 'access_revoked') return current
   if (event.type === 'release_gate_changed') {
     return event.gate.status === 'accepted'
       ? { status: 'idle', acceptedSha: event.gate.acceptedSha }
       : { status: 'release_disabled', reason: event.gate.reason }
   }
   if (
-    current.status === 'release_disabled' ||
-    current.status === 'access_revoked'
+    current.status === 'release_disabled'
   ) {
     return current
   }
@@ -360,9 +360,15 @@ export function transitionMutationUi(
       : current
   }
   if (event.type === 'operation_status_received') {
-    return event.envelope.operationRef === operationRef
-      ? stateFromEnvelope(event.envelope)
-      : current
+    if (
+      (current.status !== 'pending' && current.status !== 'review_required') ||
+      event.envelope.operationRef !== operationRef ||
+      (current.updatedAt !== undefined &&
+        event.envelope.updatedAt <= current.updatedAt)
+    ) {
+      return current
+    }
+    return stateFromEnvelope(event.envelope)
   }
   if (event.type === 'server_expired') {
     return event.operationRef === operationRef &&

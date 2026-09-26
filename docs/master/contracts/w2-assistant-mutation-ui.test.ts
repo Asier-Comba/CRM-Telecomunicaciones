@@ -43,6 +43,7 @@ const previewReady = () => {
 const statusEnvelope = (
   status: OperationStatusEnvelopeV1['status'],
   operationRef = operationA,
+  updatedAt = '2026-09-26T10:06:00Z',
 ): OperationStatusEnvelopeV1 => {
   const polling = status === 'pending' || status === 'review_required'
   const failed = status === 'failed_retryable' || status === 'failed_terminal'
@@ -51,7 +52,7 @@ const statusEnvelope = (
     operationRef,
     status,
     terminal: status === 'succeeded' || failed,
-    updatedAt: '2026-09-26T10:06:00Z',
+    updatedAt,
     resultAvailable: status === 'succeeded',
     ...(polling ? { nextPollAfterMs: 2_000 } : {}),
     ...(failed
@@ -99,6 +100,13 @@ test('access revocation clears every operation and transport intent', () => {
   })
   assert.deepEqual(revoked, { status: 'access_revoked' })
   assert.equal(toConfirmationTransportIntent(revoked), null)
+  assert.deepEqual(
+    transitionMutationUi(revoked, {
+      type: 'release_gate_changed',
+      gate: { status: 'accepted', acceptedSha: 'late-sha' },
+    }),
+    revoked,
+  )
 })
 
 test('pending and review states allow status refresh only', () => {
@@ -140,7 +148,11 @@ test('a stale same-operation event cannot regress a terminal result', () => {
   const submitting = transitionMutationUi(previewReady(), {
     type: 'confirm_requested',
   })
-  const succeeded = transitionMutationUi(submitting, {
+  const pending = transitionMutationUi(submitting, {
+    type: 'server_submit_accepted',
+    operationRef: operationA,
+  })
+  const succeeded = transitionMutationUi(pending, {
     type: 'operation_status_received',
     envelope: statusEnvelope('succeeded'),
   })
@@ -155,12 +167,50 @@ test('failed_retryable is terminal UI state and never retries the write', () => 
   const submitting = transitionMutationUi(previewReady(), {
     type: 'confirm_requested',
   })
-  const failed = transitionMutationUi(submitting, {
+  const pending = transitionMutationUi(submitting, {
+    type: 'server_submit_accepted',
+    operationRef: operationA,
+  })
+  const failed = transitionMutationUi(pending, {
     type: 'operation_status_received',
     envelope: statusEnvelope('failed_retryable'),
   })
   assert.equal(failed.status, 'failed_retryable')
   assert.equal(toConfirmationTransportIntent(failed), null)
+})
+
+test('operation status is ignored until submit acceptance', () => {
+  const submitting = transitionMutationUi(previewReady(), {
+    type: 'confirm_requested',
+  })
+  const injected = transitionMutationUi(submitting, {
+    type: 'operation_status_received',
+    envelope: statusEnvelope('succeeded'),
+  })
+  assert.deepEqual(injected, submitting)
+})
+
+test('older same-operation status cannot regress a non-terminal state', () => {
+  const submitting = transitionMutationUi(previewReady(), {
+    type: 'confirm_requested',
+  })
+  const pending = transitionMutationUi(submitting, {
+    type: 'server_submit_accepted',
+    operationRef: operationA,
+  })
+  const review = transitionMutationUi(pending, {
+    type: 'operation_status_received',
+    envelope: statusEnvelope(
+      'review_required',
+      operationA,
+      '2026-09-26T10:08:00Z',
+    ),
+  })
+  const stale = transitionMutationUi(review, {
+    type: 'operation_status_received',
+    envelope: statusEnvelope('pending', operationA, '2026-09-26T10:07:00Z'),
+  })
+  assert.deepEqual(stale, review)
 })
 
 test('operation-status parser accepts W3 v1 and returns detached frozen data', () => {

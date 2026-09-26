@@ -12,12 +12,17 @@ const requestA = 'assistant-request-a' as AssistantRequestRef
 const requestB = 'assistant-request-b' as AssistantRequestRef
 const cursorA = 'assistant-cursor-a' as AssistantContinuationRef
 
-const streaming = () =>
-  transitionAssistantRead(initialAssistantReadState<{ answer: string }>(), {
+const streaming = () => {
+  const requesting = transitionAssistantRead(
+    initialAssistantReadState<{ answer: string }>(),
+    { type: 'request_requested', requestRef: requestA },
+  )
+  return transitionAssistantRead(requesting, {
     type: 'stream_started',
     requestRef: requestA,
     sequence: 0,
   })
+}
 
 test('streaming text never enables structured controls', () => {
   const state = transitionAssistantRead(streaming(), {
@@ -166,4 +171,42 @@ test('stream interruption keeps validated delta text but never controls', () => 
     text: 'Texto parcial validado',
     structuredControlsEnabled: false,
   })
+})
+
+test('unsolicited or late stream starts cannot replace the active request', () => {
+  const initial = initialAssistantReadState<{ answer: string }>()
+  const unsolicited = transitionAssistantRead(initial, {
+    type: 'stream_started',
+    requestRef: requestA,
+    sequence: 0,
+  })
+  assert.deepEqual(unsolicited, initial)
+
+  const active = streaming()
+  const late = transitionAssistantRead(active, {
+    type: 'stream_started',
+    requestRef: requestB,
+    sequence: 0,
+  })
+  assert.deepEqual(late, active)
+})
+
+test('security terminal states cannot be resurrected by a new stream event', () => {
+  for (const type of [
+    'permission_changed',
+    'entity_disappeared',
+    'access_revoked',
+  ] as const) {
+    const terminal = transitionAssistantRead(streaming(), { type })
+    const requested = transitionAssistantRead(terminal, {
+      type: 'request_requested',
+      requestRef: requestB,
+    })
+    const started = transitionAssistantRead(requested, {
+      type: 'stream_started',
+      requestRef: requestB,
+      sequence: 0,
+    })
+    assert.deepEqual(started, terminal)
+  }
 })

@@ -20,6 +20,11 @@ export type ValidatedAssistantFinal<T> = {
 export type AssistantReadState<T> =
   | { status: 'idle' }
   | {
+      status: 'requesting'
+      requestRef: AssistantRequestRef
+      structuredControlsEnabled: false
+    }
+  | {
       status: 'streaming'
       requestRef: AssistantRequestRef
       lastSequence: number
@@ -47,6 +52,7 @@ export type AssistantReadState<T> =
   | { status: 'stale'; structuredControlsEnabled: false }
 
 export type AssistantReadEvent<T> =
+  | { type: 'request_requested'; requestRef: AssistantRequestRef }
   | {
       type: 'stream_started'
       requestRef: AssistantRequestRef
@@ -100,14 +106,35 @@ export function transitionAssistantRead<T>(
   if (event.type === 'access_revoked') {
     return { status: 'access_revoked', structuredControlsEnabled: false }
   }
+  if (
+    current.status === 'access_revoked' ||
+    current.status === 'permission_changed' ||
+    current.status === 'entity_disappeared'
+  ) {
+    return current
+  }
   if (event.type === 'permission_changed') {
     return { status: 'permission_changed', structuredControlsEnabled: false }
   }
   if (event.type === 'entity_disappeared') {
     return { status: 'entity_disappeared', structuredControlsEnabled: false }
   }
+  if (event.type === 'request_requested') {
+    return {
+      status: 'requesting',
+      requestRef: event.requestRef,
+      structuredControlsEnabled: false,
+    }
+  }
   if (event.type === 'stream_started') {
-    if (!Number.isSafeInteger(event.sequence) || event.sequence < 0) return current
+    if (
+      current.status !== 'requesting' ||
+      current.requestRef !== event.requestRef ||
+      !Number.isSafeInteger(event.sequence) ||
+      event.sequence < 0
+    ) {
+      return current
+    }
     return {
       status: 'streaming',
       requestRef: event.requestRef,
