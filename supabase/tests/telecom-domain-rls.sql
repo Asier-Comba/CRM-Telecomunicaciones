@@ -26,7 +26,8 @@ begin
   foreach relation_name in array array[
     'customers','contacts','telecom_operators','telecom_plans','telecom_plan_versions',
     'telecom_contracts','telecom_services','telecom_lines','telecom_commitments',
-    'telecom_renewals','opportunity_stages','opportunities','tasks','calendar_events','activities'
+    'telecom_renewals','opportunity_stages','opportunities','tasks','calendar_events','activities',
+    'service_cases','documents'
   ] loop
     foreach workspace in array allowed_workspaces loop
       execute format('select count(*) from public.%I where workspace_id = $1', relation_name)
@@ -53,7 +54,8 @@ begin
   foreach relation_name in array array[
     'customers','contacts','telecom_operators','telecom_plans','telecom_plan_versions',
     'telecom_contracts','telecom_services','telecom_lines','telecom_commitments',
-    'telecom_renewals','opportunity_stages','opportunities','tasks','calendar_events','activities'
+    'telecom_renewals','opportunity_stages','opportunities','tasks','calendar_events','activities',
+    'service_cases','documents'
   ] loop
     execute format('select count(*) from public.%I', relation_name) into visible_count;
     if visible_count <> 0 then
@@ -209,6 +211,33 @@ insert into public.activities (id, workspace_id, customer_id, activity_kind, sum
   ('74000000-0000-0000-0000-000000000002', '20000000-0000-0000-0000-000000000002', '40000000-0000-0000-0000-000000000002', 'system', 'system.imported', 'system', 'system', 'synthetic:event:b', now(), '10000000-0000-0000-0000-000000000003'),
   ('74000000-0000-0000-0000-000000000003', '20000000-0000-0000-0000-000000000003', '40000000-0000-0000-0000-000000000005', 'system', 'system.imported', 'system', 'system', 'synthetic:event:c', now(), null);
 
+insert into public.service_cases (
+  id, workspace_id, customer_id, contract_id, service_id, line_id,
+  case_type, title, status, priority, due_on, assigned_user_id, created_by_user_id
+) values
+  ('75000000-0000-0000-0000-000000000001', '20000000-0000-0000-0000-000000000001', '40000000-0000-0000-0000-000000000001', '60000000-0000-0000-0000-000000000001', '61000000-0000-0000-0000-000000000001', '62000000-0000-0000-0000-000000000001', 'technical', 'Synthetic Case A', 'open', 'high', current_date + 5, '10000000-0000-0000-0000-000000000001', '10000000-0000-0000-0000-000000000001'),
+  ('75000000-0000-0000-0000-000000000002', '20000000-0000-0000-0000-000000000002', '40000000-0000-0000-0000-000000000002', '60000000-0000-0000-0000-000000000002', '61000000-0000-0000-0000-000000000002', '62000000-0000-0000-0000-000000000002', 'billing', 'Synthetic Case B', 'open', 'normal', current_date + 10, '10000000-0000-0000-0000-000000000003', '10000000-0000-0000-0000-000000000003'),
+  ('75000000-0000-0000-0000-000000000003', '20000000-0000-0000-0000-000000000003', '40000000-0000-0000-0000-000000000005', '60000000-0000-0000-0000-000000000003', '61000000-0000-0000-0000-000000000003', '62000000-0000-0000-0000-000000000003', 'portability', 'Synthetic Case C', 'open', 'normal', current_date + 15, null, '10000000-0000-0000-0000-000000000004');
+
+insert into public.documents (
+  id, workspace_id, customer_id, document_kind, file_name, media_type,
+  size_bytes, sha256_hex, storage_path, created_by_user_id
+) values
+  ('76000000-0000-0000-0000-000000000001', '20000000-0000-0000-0000-000000000001', '40000000-0000-0000-0000-000000000001', 'contract', 'synthetic-a.pdf', 'application/pdf', 100, repeat('a', 64), '20000000-0000-0000-0000-000000000001/documents/76000000-0000-0000-0000-000000000001/77000000-0000-0000-0000-000000000001', '10000000-0000-0000-0000-000000000001'),
+  ('76000000-0000-0000-0000-000000000002', '20000000-0000-0000-0000-000000000002', '40000000-0000-0000-0000-000000000002', 'service', 'synthetic-b.pdf', 'application/pdf', 200, repeat('b', 64), '20000000-0000-0000-0000-000000000002/documents/76000000-0000-0000-0000-000000000002/77000000-0000-0000-0000-000000000002', '10000000-0000-0000-0000-000000000003'),
+  ('76000000-0000-0000-0000-000000000003', '20000000-0000-0000-0000-000000000003', '40000000-0000-0000-0000-000000000005', 'incident', 'synthetic-c.pdf', 'application/pdf', 300, repeat('c', 64), '20000000-0000-0000-0000-000000000003/documents/76000000-0000-0000-0000-000000000003/77000000-0000-0000-0000-000000000003', '10000000-0000-0000-0000-000000000004');
+
+insert into public.documents (
+  id, workspace_id, customer_id, contract_id, service_id, line_id,
+  service_case_id, opportunity_id, document_kind, file_name, media_type,
+  storage_path, created_by_user_id
+) values
+  ('76000000-0000-0000-0000-000000000010', '20000000-0000-0000-0000-000000000001', null, '60000000-0000-0000-0000-000000000001', null, null, null, null, 'contract', 'contract-target.pdf', 'application/pdf', '20000000-0000-0000-0000-000000000001/documents/76000000-0000-0000-0000-000000000010/77000000-0000-0000-0000-000000000010', '10000000-0000-0000-0000-000000000001'),
+  ('76000000-0000-0000-0000-000000000011', '20000000-0000-0000-0000-000000000001', null, null, '61000000-0000-0000-0000-000000000001', null, null, null, 'service', 'service-target.pdf', 'application/pdf', '20000000-0000-0000-0000-000000000001/documents/76000000-0000-0000-0000-000000000011/77000000-0000-0000-0000-000000000011', '10000000-0000-0000-0000-000000000001'),
+  ('76000000-0000-0000-0000-000000000012', '20000000-0000-0000-0000-000000000001', null, null, null, '62000000-0000-0000-0000-000000000001', null, null, 'service', 'line-target.pdf', 'application/pdf', '20000000-0000-0000-0000-000000000001/documents/76000000-0000-0000-0000-000000000012/77000000-0000-0000-0000-000000000012', '10000000-0000-0000-0000-000000000001'),
+  ('76000000-0000-0000-0000-000000000013', '20000000-0000-0000-0000-000000000001', null, null, null, null, '75000000-0000-0000-0000-000000000001', null, 'incident', 'case-target.pdf', 'application/pdf', '20000000-0000-0000-0000-000000000001/documents/76000000-0000-0000-0000-000000000013/77000000-0000-0000-0000-000000000013', '10000000-0000-0000-0000-000000000001'),
+  ('76000000-0000-0000-0000-000000000014', '20000000-0000-0000-0000-000000000001', null, null, null, null, null, '71000000-0000-0000-0000-000000000001', 'general', 'opportunity-target.pdf', 'application/pdf', '20000000-0000-0000-0000-000000000001/documents/76000000-0000-0000-0000-000000000014/77000000-0000-0000-0000-000000000014', '10000000-0000-0000-0000-000000000001');
+
 -- Domain raw grants remain closed in migrations. Temporary transactional grants
 -- expose policies to authenticated/anon roles solely for this RLS harness.
 grant select on table
@@ -216,14 +245,14 @@ grant select on table
   public.telecom_plan_versions, public.telecom_contracts, public.telecom_services,
   public.telecom_lines, public.telecom_commitments, public.telecom_renewals,
   public.opportunity_stages, public.opportunities, public.tasks,
-  public.calendar_events, public.activities
+  public.calendar_events, public.activities, public.service_cases, public.documents
 to anon, authenticated;
 grant insert, update, delete on table
   public.customers, public.contacts, public.telecom_operators, public.telecom_plans,
   public.telecom_plan_versions, public.telecom_contracts, public.telecom_services,
   public.telecom_lines, public.telecom_commitments, public.telecom_renewals,
   public.opportunity_stages, public.opportunities, public.tasks,
-  public.calendar_events, public.activities
+  public.calendar_events, public.activities, public.service_cases, public.documents
 to authenticated;
 
 set local role authenticated;
@@ -306,6 +335,105 @@ begin
   exception when sqlstate '55000' then denied := true;
   end;
   if not denied then raise exception 'tenant identity mutation was not denied'; end if;
+end;
+$$;
+
+do $$
+declare denied boolean := false;
+begin
+  begin
+    update public.documents
+       set customer_id = null,
+           contract_id = '60000000-0000-0000-0000-000000000001'
+     where id = '76000000-0000-0000-0000-000000000001';
+  exception when sqlstate '55000' then denied := true;
+  end;
+  if not denied then raise exception 'document retarget was not denied'; end if;
+end;
+$$;
+
+do $$
+declare bad_path text; denied boolean;
+begin
+  foreach bad_path in array array[
+    '20000000-0000-0000-0000-000000000002/documents/76100000-0000-0000-0000-000000000001/77100000-0000-0000-0000-000000000001',
+    '20000000-0000-0000-0000-000000000001/documents/76100000-0000-0000-0000-000000000001/%2e%2e',
+    '20000000-0000-0000-0000-000000000001/documents/76100000-0000-0000-0000-000000000001/'
+  ] loop
+    denied := false;
+    begin
+      insert into public.documents (
+        id, workspace_id, customer_id, document_kind, file_name, storage_path, created_by_user_id
+      ) values (
+        '76100000-0000-0000-0000-000000000001',
+        '20000000-0000-0000-0000-000000000001',
+        '40000000-0000-0000-0000-000000000001',
+        'general', 'invalid-path.pdf', bad_path,
+        '10000000-0000-0000-0000-000000000001'
+      );
+    exception when sqlstate '23514' then denied := true;
+    end;
+    if not denied then raise exception 'invalid document path was not denied: %', bad_path; end if;
+  end loop;
+end;
+$$;
+
+do $$
+declare denied boolean := false;
+begin
+  begin
+    insert into public.service_cases (
+      workspace_id, customer_id, contract_id, case_type, title, created_by_user_id
+    ) values (
+      '20000000-0000-0000-0000-000000000001',
+      '40000000-0000-0000-0000-000000000001',
+      '60000000-0000-0000-0000-000000000002',
+      'technical', 'Cross Tenant Case Denied',
+      '10000000-0000-0000-0000-000000000001'
+    );
+  exception when sqlstate '23514' then denied := true;
+  end;
+  if not denied then raise exception 'cross-scope service case was not denied'; end if;
+end;
+$$;
+
+do $$
+declare denied boolean := false;
+begin
+  begin
+    insert into public.service_cases (
+      workspace_id, customer_id, case_type, title, assigned_user_id, created_by_user_id
+    ) values (
+      '20000000-0000-0000-0000-000000000001',
+      '40000000-0000-0000-0000-000000000001',
+      'technical', 'Foreign Assignee Denied',
+      '10000000-0000-0000-0000-000000000003',
+      '10000000-0000-0000-0000-000000000001'
+    );
+  exception when sqlstate '23514' then denied := true;
+  end;
+  if not denied then raise exception 'foreign service-case assignee was not denied'; end if;
+end;
+$$;
+
+do $$
+declare denied boolean := false;
+begin
+  begin
+    insert into public.service_cases (
+      workspace_id, customer_id, case_type, title, status,
+      created_at, resolved_at, closed_at, created_by_user_id
+    ) values (
+      '20000000-0000-0000-0000-000000000001',
+      '40000000-0000-0000-0000-000000000001',
+      'technical', 'Invalid Chronology Denied', 'closed',
+      now() - interval '2 hours', now() - interval '1 hour',
+      now() - interval '90 minutes',
+      '10000000-0000-0000-0000-000000000001'
+    );
+  exception when sqlstate '23514' then denied := true;
+  end;
+  if not denied then raise exception 'invalid service-case chronology was not denied'; end if;
 end;
 $$;
 
