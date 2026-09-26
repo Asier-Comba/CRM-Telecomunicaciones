@@ -21,7 +21,16 @@ test('the known Supabase drift remains explicit', () => {
   assert.equal(report.reproducible, false)
   assert.deepEqual(
     report.createdRelations,
-    ['contacts', 'customers', 'profiles', 'workspace_members', 'workspaces'],
+    [
+      'contacts',
+      'customers',
+      'profiles',
+      'telecom_operators',
+      'telecom_plan_versions',
+      'telecom_plans',
+      'workspace_members',
+      'workspaces',
+    ],
   )
   assert.equal(report.historicalSqlFiles, 0)
   assert.deepEqual(
