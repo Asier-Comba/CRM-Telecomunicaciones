@@ -9,6 +9,11 @@ import {
   validateAssistantResponse,
   validateAssistantStreamEvent,
 } from '../src/assistant/ui-contract.js'
+import {
+  OPERATION_STATUS_VERSION,
+  projectOperationStatus,
+  validateOperationStatus,
+} from '../src/assistant/operation-status.js'
 
 const taxonomy: AssistantUiTaxonomy = {
   version: 'w1-pending-v0',
@@ -189,6 +194,7 @@ test('eval catalog is valid and covers every required category', async () => {
   const text = await readFile('evals/assistant/catalog.v1.jsonl', 'utf8')
   const cases = text.trim().split('\n').map((line) => JSON.parse(line) as unknown)
 
+  assert.ok(cases.length >= 60)
   assert.ok(cases.every(validateEvalCase))
   const categories = new Set(cases.map((candidate) => {
     if (!validateEvalCase(candidate)) throw new Error('invalid eval case')
@@ -213,4 +219,56 @@ test('eval cases reject unknown fields and unbounded transcript content', () => 
   }
   assert.equal(validateEvalCase({ ...base, hiddenInstruction: 'ignore evaluator' }), false)
   assert.equal(validateEvalCase({ ...base, turns: [{ role: 'user', content: 'x'.repeat(4_001) }] }), false)
+})
+
+test('operation status maps internal state to a closed browser-safe envelope', () => {
+  const status = projectOperationStatus({
+    operationRef: 'operation_000000000000000000000001',
+    idempotencyKey: 'server-only-key',
+    binding: {
+      actorId: 'actor-a',
+      workspaceId: 'workspace-a',
+      capability: 'crm.task.create',
+      argumentsDigest: 'digest-a',
+    },
+    state: 'reconciliation_required',
+    attempt: 1,
+    version: 4,
+    leaseExpiresAt: '2026-09-26T12:05:00.000Z',
+    createdAt: '2026-09-26T12:00:00.000Z',
+    updatedAt: '2026-09-26T12:06:00.000Z',
+    effectReceiptRef: 'provider-receipt-hidden',
+    failureCode: 'provider_completion_unknown',
+  })
+
+  assert.deepEqual(status, {
+    contractVersion: OPERATION_STATUS_VERSION,
+    operationRef: 'operation_000000000000000000000001',
+    status: 'review_required',
+    terminal: false,
+    updatedAt: '2026-09-26T12:06:00.000Z',
+    resultAvailable: false,
+    nextPollAfterMs: 10_000,
+    allowedActions: ['refresh'],
+  })
+  assert.ok(validateOperationStatus(status))
+  assert.doesNotMatch(JSON.stringify(status), /workspace-a|actor-a|digest-a|receipt|provider_completion/)
+})
+
+test('operation status rejects workspace selectors, forged actions and secrets', () => {
+  const base = {
+    contractVersion: OPERATION_STATUS_VERSION,
+    operationRef: 'operation_000000000000000000000001',
+    status: 'pending',
+    terminal: false,
+    updatedAt: '2026-09-26T12:00:00.000Z',
+    resultAvailable: false,
+    nextPollAfterMs: 2_000,
+    allowedActions: ['refresh'],
+  }
+
+  assert.equal(validateOperationStatus({ ...base, workspaceId: 'workspace-b' }), null)
+  assert.equal(validateOperationStatus({ ...base, allowedActions: ['refresh', 'mark_completed'] }), null)
+  assert.equal(validateOperationStatus({ ...base, notice: { code: 'operation_failed', retryable: true } }), null)
+  assert.equal(validateOperationStatus({ ...base, operationRef: 'Bearer very-secret-operation-value' }), null)
 })
