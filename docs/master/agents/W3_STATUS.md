@@ -3,69 +3,98 @@
 - Updated: 2026-09-26
 - Branch: `w3/assistant-runtime-foundation`
 - Pull request: `#9` targeting `w4/security-baseline` — **DRAFT, do not merge**
-Latest code checkpoint: `d510bed` (`feat(assistant): add reconciliation and output boundaries`)
+- Latest code checkpoint before this status: `90d670c`
 
 ## Isolation gate
 
-The W3 foundation remains isolated. It will not be merged, rebased onto the product candidate or wired into application routes until there is one W1 base accepted for integration with telecom contracts and a reviewed workspace/authorization boundary.
+The W3 foundation remains isolated. It will not be merged or wired into application routes until W4 publishes an `ACCEPTED INTEGRATION BASE` with the W1 workspace/authorization boundary. PR #9 remains draft.
 
-W3 read `w1/bootstrap-sanitized@75c2103`, including W1's `telecom.v0` read contracts and membership resolver. This is useful published input, but it is not yet an accepted canonical base: W4 has `CHANGES_REQUESTED`, reports secret-history/schema/auth discrepancies and has not accepted its RLS evidence. W3 therefore did not invent adapters or register production telecom capabilities in this cycle.
+W3 re-read `w1/bootstrap-sanitized@75c2103`, `w2/frontend-bootstrap-readiness@d1df763`, `w4/security-baseline@e33a07f`, PR #9 and Issues #10/#12. W1 has published stable `telecom.v0` presentation/read DTOs, but its SQL/domain implementation remains draft and W4 has not accepted the branch as an integration base. No production adapter, Supabase mutation, route wiring, merge or deployment was performed.
 
 ## Delivered in this cycle
 
-- Capability contract version 3 requires explicit raw-provider-to-DTO output projection and a declared high-confidence secret-value scan policy.
-- Projected outputs still traverse recursive closed/bounded schemas; secret material in otherwise allowed strings is rejected before model/UI exposure.
-- Idempotency reservations now carry a five-minute lease. Unknown post-effect completion remains pending during the lease, then fails closed as `reconciliation_required`; it is never re-executed automatically.
-- Confirmation cancellation-store failure returns a bounded retryable result and redacted audit reason.
-- Audit-sink failure returns a bounded retryable result. A completed write remains replayable and is not executed twice on retry.
-- W2's nine READ fixtures were reconciled into `evals/ui/assistant-read-contract.v1.json` and execute in the unit suite.
-- Stable READ UI scope and strict decisions for taxonomy, truncated tables, ungrounded evidence and prompt-only follow-ups are documented for W2.
-- W4 receives an updated review handoff that distinguishes framework behavior from still-missing durable/cross-process evidence.
+### Secret-value boundary
 
-## Adversarial evidence
+- High-confidence value scanning now rejects bare Bearer/Basic credentials, authorization headers, AWS keys/session values, API/OAuth/access/refresh tokens, client secrets, passwords, session/cookie values, OpenAI/GitHub/Slack tokens, JWTs and private-key markers.
+- Eighteen negative fixtures and ten telecom business-text controls cover the balance between leakage prevention and false positives.
 
-The 37-test suite now includes:
+### Durable operation contract
 
-- prompt injection, hallucinated capabilities and invalid structured plans;
-- nested workspace selectors, arbitrary SQL/URL-shaped arguments and forged resource IDs;
-- unknown-versus-unauthorized non-enumeration;
-- invented, altered, expired, cancelled, replayed and cross-tenant confirmations;
-- twenty concurrent duplicate writes with one effect;
-- twenty distinct valid confirmations raced under one idempotency key with one effect;
-- reservation-store failure before the handler with zero effects;
-- post-effect completion uncertainty, lease expiry, explicit reconciliation and replay without a second effect;
-- cross-actor idempotency conflict and independent cross-workspace operation;
-- cancellation-store and audit-sink outages;
-- output projection failures, unknown/sensitive keys, secret values and oversized output;
-- all nine W2 READ response compatibility decisions.
+- Versioned interfaces define durable confirmation, idempotency and outbox records with explicit state machines and optimistic versions.
+- Confirmation and idempotency bindings include actor, server-resolved workspace, capability and canonical argument digest.
+- Idempotency states distinguish reservation, execution, observed effect, completion, retryable/terminal failure and reconciliation requirement.
+- The outbox carries only an allowlisted dispatcher name plus an opaque server command reference; it cannot carry arbitrary browser URLs or provider payloads.
+- A reusable adapter conformance harness covers 20-way atomic races, binding conflicts, store outage, retry, restart replay, post-effect uncertainty and one-effect outbox dispatch.
+- The included reference adapter validates the contract/harness only. It is in-memory and is **not** a production persistence claim.
+
+### Authorized reconciliation
+
+- Reconciliation accepts a four-field closed request containing only an opaque operation reference, expected version, requested outcome and evidence reason.
+- It requires `assistant:operation:reconcile`, server-authenticated actor/workspace context, exact workspace ownership and exact record version.
+- A server verifier must prove an observed effect or verified absence; browser-supplied results and extra fields are rejected.
+- Applied transitions use read-after-write verification and emit a redacted audit event. Inconclusive verification cannot force a terminal state.
+
+### W2 operation status
+
+- `OperationStatusEnvelope` v1 maps internal durable states to five public states: `pending`, `review_required`, `succeeded`, `failed_retryable`, `failed_terminal`.
+- It exposes no workspace/actor IDs, idempotency key, argument digest, receipt, provider error or stored result.
+- The only browser action is `refresh` while non-terminal. The browser cannot reconcile, retry, select a workspace or mark success.
+- Full consumption guidance is in `W3_HANDOFF_W2_UI.md`.
+
+### Telecom catalog and model routing
+
+- A 13-entry semantic catalog maps customer, contract, commitment, renewal, service/line and dashboard-derived reads to exact W1 `telecom.v0` DTO references.
+- All read entries are `mapped_no_adapter`; task/meeting writes are `blocked_on_w1_write_contract`. No operator/plan entity schema or handler was invented.
+- The eval catalog now contains 63 cases across 45 semantic, failure and adversarial categories.
+- Model routing uses measurable plan/result signals and configurable provider model IDs. Simple structured work, complex planning and long grounded summaries use separate lanes with bounded fallback, latency/token/cost telemetry and no prompt payload in telemetry.
+
+## Current evidence
+
+- `npm run lint`: pass (22 TypeScript files).
+- `npm run typecheck`: pass.
+- `npm test`: 62/62 pass.
+- `npm run build`: pass through the test build.
+- Eval catalog: 63/63 schema-valid cases; every required category represented.
+- W2 compatibility matrix: 9/9 expected accept/reject decisions pass.
+
+New direct tests include:
+
+- bare secret values plus benign telecom controls;
+- atomic confirmation/idempotency/outbox races;
+- replay after simulated process restart;
+- post-effect uncertainty to `reconciliation_required`;
+- authorized, unauthorized, cross-workspace, inconclusive and tampered reconciliation;
+- browser-safe operation status projection;
+- W1-contract catalog mapping with blocked writes;
+- bounded model fallback and cost telemetry.
 
 ## Cross-work coordination
 
 ### W1
 
-Read the latest sanitized candidate and its published tenant/telecom v0 material. No capability adapter was connected because the branch remains a rejected candidate rather than the accepted base requested by the isolation gate. Once W1/W4 publish the accepted commit, W3 will map exact service/read-model contracts instead of copying conceptual eval names.
+Consumed only published `telecom.v0` read DTOs. Catalog entries remain disconnected until W4 accepts the W1 base and W1 publishes actual reader/service and write contracts. The durable conformance suite is ready for a future adapter without assuming its tables.
 
 ### W2
 
-Read `origin/w2/frontend-bootstrap-readiness@d1df763`. `AssistantResponse` v1 READ envelope, safe notices, tables, prompt-only follow-ups and final-event streaming are stable. Entity/navigation blocks remain conditional on the injected W1 taxonomy. Mutation controls remain disabled. Detailed alignment is in `W3_HANDOFF_W2_UI.md` and `W3_REVIEW_W2_READ_FIXTURES.md`.
+`AssistantResponse` v1 READ rendering remains stable. `OperationStatusEnvelope` v1 is now stable for opaque operation polling. Mutation execution remains disabled; `review_required` is display/poll only. W2 must not construct operation refs, retry operations or submit reconciliation outcomes.
 
 ### W4
 
-Read `origin/w4/security-baseline@e33a07f` and its latest assistant revalidation. The three independent framework findings—stuck completion state, uncaught cancellation outage and secret material in allowed values—are addressed with direct tests. Durable stores, crash/restart/outbox behavior, live RLS and production authentication remain open release gates and are not claimed.
+The live Issue #10 review on 2026-09-26 accepted the previous core fixes and narrowed the remaining P0 to durable adapter/outbox/restart and authorized reconciliation evidence. This cycle supplies contracts, a reusable conformance suite, a reference implementation and the reconciliation service, but does not claim a production durable adapter. W4 review is requested against `W3_HANDOFF_W4_SECURITY.md` and `W3_DURABLE_ADAPTER_CONFORMANCE.md`.
 
-## Known blockers
+## Open release gates
 
-- W1 has published a candidate identity/telecom v0 design, but W4 has not accepted a canonical integration base, schema/RLS chain or authorization evidence.
-- No durable confirmation/idempotency adapter or cross-process/restart test environment exists.
-- No test Supabase environment is available; W3 makes no live RLS claim.
-- Dependency Review is still a repository-owner configuration blocker: the job wrapper is green while the actual dependency-review step is skipped. The owner must enable Dependency Graph and `DEPENDENCY_REVIEW_ENABLED=true`. W3 will not bypass this control; npm audit remains additive evidence only.
-- PR #9 remains draft and `CHANGES_REQUESTED`; it must not be merged.
+- No W4-accepted W1 integration base exists.
+- No database-backed durable confirmation/idempotency/outbox adapter exists; cross-process/database-restart atomicity remains unproven.
+- No live Supabase/RLS or production authentication evidence exists.
+- W1 has no published write contracts for tasks/meetings or sensitive telecom mutations.
+- Dependency Review remains an owner configuration blocker when its step is skipped because Dependency Graph is disabled. The owner must enable Dependency Graph and `DEPENDENCY_REVIEW_ENABLED=true`; W3 will not bypass the control.
+- PR #9 remains draft and must not merge.
 
-## Validation evidence
+## Next safe work
 
-- `npm run lint`: pass (12 TypeScript files).
-- `npm run typecheck`: pass.
-- `npm test`: 37/37 pass.
-- `npm run build`: pass through the test build plus the final gate.
-- W2 compatibility matrix: 9/9 expected accept/reject decisions pass.
-- No merge, deployment, Supabase mutation or production action performed.
+1. Have W4 review the durable interfaces, conformance harness and server reconciliation boundary.
+2. Register the accepted W1-backed adapter in the conformance suite after an integration base exists.
+3. Bind catalog entries to real scoped readers only after their service contracts are published.
+4. Run the 63-case eval set through real planner candidates and record quality/latency/token/cost observations before selecting concrete production models.
+5. Audit/version n8n workflows only after the related capability contract and W4 infrastructure handoff exist.

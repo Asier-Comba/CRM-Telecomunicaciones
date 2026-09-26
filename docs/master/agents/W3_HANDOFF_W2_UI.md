@@ -3,6 +3,8 @@
 Status: stable READ foundation contract; telecom taxonomy remains blocked on an accepted W1 base.
 Contract: `AssistantResponse` version `1` in `src/assistant/ui-contract.ts`.
 
+Operation status: version `1` in `src/assistant/operation-status.ts`.
+
 ## Stable READ subset
 
 W3 considers the following version-1 subset stable for W2 READ rendering:
@@ -27,6 +29,18 @@ W2 can render these validated structures without parsing Markdown:
 - separate streaming events: `started`, bounded `answer_delta`, `final`, `cancelled`, `failed`.
 
 Structured blocks become interactive only from the validated `final` event. Delta events contain text only.
+
+## Stable operation-status subset
+
+W2 may also consume the closed `OperationStatusEnvelope` for an operation reference already returned by the server. It exposes only:
+
+- an opaque `operationRef`;
+- public state: `pending`, `review_required`, `succeeded`, `failed_retryable` or `failed_terminal`;
+- `terminal`, `resultAvailable`, `updatedAt` and a bounded polling interval when applicable;
+- a safe notice for failed operations;
+- exactly one browser action, `refresh`, and only while work is pending or under server-side review.
+
+It never exposes workspace/actor IDs, idempotency keys, argument digests, provider receipts, internal failure text or stored results. The status lookup must authorize the opaque reference against the server-resolved workspace before projection. The browser cannot submit a reconciliation result, mark an operation complete, choose a workspace or manufacture a retry. `review_required` means the UI may keep polling and show a neutral review message; only the authorized server reconciliation service can resolve it.
 
 ## Confirmation lifecycle
 
