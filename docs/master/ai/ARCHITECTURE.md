@@ -28,10 +28,15 @@ The model may propose a capability and arguments. It cannot choose a workspace, 
 - Capability outputs are projected at source, recursively validated against closed, bounded schemas and scanned for high-confidence secret values before presentation. Structural/key checks remain the primary boundary; value scanning is defense in depth.
 - Unknown and unauthorized capabilities have one indistinguishable external denial; audit preserves the internal reason.
 - Audit events contain identifiers and outcomes, not prompts, arguments, outputs, tokens or provider errors.
+- `DurableConfirmationStore`, `DurableIdempotencyStore` and `DurableOutbox` define the production persistence boundary and explicit state machines. A reusable conformance harness tests atomic races, restart replay and post-effect uncertainty; the included in-memory adapter is reference evidence only.
+- `AuthorizedReconciliationService` requires a server permission, server-resolved workspace, exact version and independently verified provider/read-after-write evidence before resolving uncertainty.
 - `AssistantResponse` v1 gives W2 bounded entity, table, follow-up, confirmation, notice and navigation blocks without parsing Markdown.
+- `OperationStatusEnvelope` v1 exposes only an opaque operation reference, public status and safe polling metadata; the browser cannot reconcile or force a terminal result.
 - Streaming has a separate envelope; only the validated final event may carry structured interactive blocks.
 - UI navigation and entity references require an injected closed taxonomy owned by W1.
-- The eval catalog covers the required semantic and adversarial categories; `eval-metrics.ts` aggregates capability, argument, entity, grounding, action, hallucination, latency, token and cost measures. Telecom-dependent cases are explicitly blocked until W1 publishes contracts.
+- The 63-case eval catalog covers 45 semantic, failure and adversarial categories; `eval-metrics.ts` aggregates capability, argument, entity, grounding, action, hallucination, latency, token and cost measures. Telecom-dependent cases remain blocked until real readers/adapters exist.
+- `telecom-catalog.ts` maps semantic read capabilities to exact W1 `telecom.v0` DTO references but deliberately registers no production handlers. Writes remain blocked on unpublished W1 write contracts.
+- Model routing is provider-configurable and driven by bounded measurable signals such as context size, entity ambiguity, structured-output failures, goal count and grounded result volume. It does not use language regex as an intent engine.
 
 ## Supabase boundary
 
@@ -63,12 +68,12 @@ Every production capability must declare:
 - server tenant scope;
 - safe error and audit behavior.
 
-W1 owns the telecom entity and field contracts. W3 will not publish telecom handlers until those contracts exist. Conceptual hints in the eval dataset are not production capability names.
+W1 owns telecom entity/field and service contracts. W3 has published a semantic catalog against stable `telecom.v0` presentation DTOs, but will not publish handlers until the accepted base exposes scoped readers. Catalog availability flags are authoritative; a mapped name is not an executable tool.
 
 ## Next increments
 
-1. Consume W1 status and map real telecom entities into adapters.
-2. Add semantic planner model routing telemetry and provider adapters behind the validated plan boundary.
-3. Implement durable confirmation and atomic idempotency stores against W1's published data/auth boundary.
-4. Add cross-tenant integration tests against the W1 Supabase test project.
-5. Version n8n workflows only after the corresponding capability contract is stable.
+1. Obtain W4 review of the durable contract, conformance harness and reconciliation boundary.
+2. Implement and register a durable adapter only on W4's accepted W1 integration base.
+3. Bind catalog entries to W1 scoped readers and run live cross-tenant tests.
+4. Benchmark configured model candidates with the 63-case eval set before choosing production routing.
+5. Version n8n workflows only after the corresponding capability contract and W4 infrastructure handoff are stable.
