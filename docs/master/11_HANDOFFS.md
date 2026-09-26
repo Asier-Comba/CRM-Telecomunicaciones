@@ -16,7 +16,7 @@ Domain update (`w1/telecom-domain-v1`, dependent on PR #14):
 - never infer raw-table access: customer/contact/operator/plan tables have no
   authenticated grants.
 
-Snapshot revisado: `w2/frontend-bootstrap-readiness@13369ba`.
+Snapshot revisado: `w2/frontend-bootstrap-readiness@db8ab41`.
 
 The stable presentation contracts remain `telecom.v0` in
 `W1_DATA_CONTRACTS_V0.md` and `src/lib/contracts/telecom-v0.ts`. The current
