@@ -17,6 +17,7 @@ W3 re-read `w1/bootstrap-sanitized@75c2103`, `w2/frontend-bootstrap-readiness@d1
 
 - High-confidence value scanning now rejects bare Bearer/Basic credentials, authorization headers, AWS keys/session values, API/OAuth/access/refresh tokens, client secrets, passwords, session/cookie values, OpenAI/GitHub/Slack tokens, JWTs and private-key markers.
 - Eighteen negative fixtures and ten telecom business-text controls cover the balance between leakage prevention and false positives.
+- Synthetic secret fixtures are assembled from fragments at test runtime so the current tree contains no contiguous credential-like sample. Eight exact historical false-positive fingerprints from the first browser upload are narrowly triaged in `.gitleaksignore`; new or changed findings remain blocking.
 
 ### Durable operation contract
 
