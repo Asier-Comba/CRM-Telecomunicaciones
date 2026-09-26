@@ -112,3 +112,26 @@ test('route descriptor identifiers are bounded opaque references', () => {
     false,
   )
 })
+
+test('route descriptor identifiers reject path, query and control syntax', () => {
+  for (const taskId of [
+    'task/other',
+    '../task',
+    'task?workspace=other',
+    'task#fragment',
+    'task%2Fother',
+    'task other',
+    'task\nother',
+    'task\\other',
+  ]) {
+    assert.equal(isAppRouteDescriptor({ kind: 'task', taskId }), false, taskId)
+  }
+
+  assert.equal(
+    isAppRouteDescriptor({
+      kind: 'task',
+      taskId: '018f2c31-73ef-7f6b-b56a-0242ac120002',
+    }),
+    true,
+  )
+})

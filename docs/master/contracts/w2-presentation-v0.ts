@@ -186,8 +186,15 @@ const hasOnlyKeys = (
   allowed: readonly string[],
 ): boolean => Object.keys(value).every((key) => allowed.includes(key))
 
+/**
+ * Candidate shared route-ID grammar. It deliberately excludes separators,
+ * percent-encoding, query/fragment markers, whitespace and control characters.
+ * W1 may narrow this further when it publishes the canonical ID grammar.
+ */
+const SAFE_ROUTE_ID = /^[A-Za-z0-9][A-Za-z0-9._~-]{0,255}$/
+
 const isOpaqueIdValue = (value: unknown): value is OpaqueId =>
-  typeof value === 'string' && value.length > 0 && value.length <= 256
+  typeof value === 'string' && SAFE_ROUTE_ID.test(value)
 
 export function isAppRouteDescriptor(
   value: unknown,
