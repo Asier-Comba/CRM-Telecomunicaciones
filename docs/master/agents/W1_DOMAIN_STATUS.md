@@ -36,6 +36,8 @@
   but no database repository adapter or route is live.
 - Contract references and line identifiers remain deliberately unbacked until
   protected storage and reveal/copy auditing are defined.
+- Offline W3 durable, import/audit, scoped service-principal and zero-to-head
+  plans are published without creating premature tables or remote state.
 - Canonical roles are owner/admin/member/viewer; “manager” means admin in
   product prose. No database service principal exists yet.
 

@@ -61,6 +61,11 @@ is mapped offline in `W1_W3_DURABLE_DATA_MAPPING.md`; no table or write is
 created before W4 accepts the base and the conformance plan can run on an
 isolated database.
 
+Import/audit and future scoped integration-principal boundaries are specified
+in `W1_IMPORT_AUDIT_FOUNDATION.md`. This is not permission to publish writes;
+plaintext staging payloads, global integration secrets and caller-selected
+tenants remain prohibited.
+
 The current W1 `telecom.v0` read types may back W3's thirteen read capabilities
 through a W1 adapter. Task/meeting mutations remain blocked: W1 has not
 published a canonical write contract, and historical action routes are absent.
