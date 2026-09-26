@@ -1,7 +1,19 @@
 # W3 → W2 handoff — Assistant UI contract
 
-Status: stable foundation contract; telecom taxonomy remains blocked on W1.
+Status: stable READ foundation contract; telecom taxonomy remains blocked on an accepted W1 base.
 Contract: `AssistantResponse` version `1` in `src/assistant/ui-contract.ts`.
+
+## Stable READ subset
+
+W3 considers the following version-1 subset stable for W2 READ rendering:
+
+- the complete envelope: `contractVersion`, `answer`, `status`, `grounded`, closed `blocks` and closed `meta`;
+- statuses produced by READ execution, including safe failures and partial/ambiguous states;
+- `notice`, `table`, prompt-only `followUps`, and text-only streaming deltas;
+- `entities` and `navigation` only when validated against an injected W1-owned taxonomy;
+- structured blocks only in a validated `final` stream event.
+
+Confirmation-card shape is stable as a transport contract, but mutation UI remains disabled until W4 accepts durable confirmation/idempotency adapters. Page-context input and canonical telecom navigation values are deferred to the accepted W1 application contract.
 
 ## Safe to consume now
 
@@ -49,3 +61,16 @@ Until then:
 ## Compatibility rule
 
 Reject unknown contract versions and unknown fields. Additive changes that require new fields will publish a new contract version or a documented compatibility change before W2 consumes them.
+
+## W2 fixture review
+
+W3 reviewed W2 fixture source `d1df763` and committed an executable compatibility matrix at `evals/ui/assistant-read-contract.v1.json`.
+
+- W2 accept fixtures need the required `contractVersion: 1` and matching `meta.taxonomyVersion`.
+- A truncated table needs a `continuation` descriptor.
+- An entity absent from the injected taxonomy is rejected; it is not silently downgraded.
+- Evidence blocks on `grounded: false` are rejected; W2 must not accept then hide an invalid server envelope.
+- `followUps.kind: "action"` is rejected. Follow-ups are prompt-only `suggestion`/`refine` controls.
+- Secret-bearing keys/values and incomplete envelopes are rejected.
+
+All nine reconciled decisions execute in the unit suite. W2 can copy the accepted synthetic cases without enabling writes.

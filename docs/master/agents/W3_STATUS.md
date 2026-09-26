@@ -1,82 +1,71 @@
 # W3 status — AI, assistant and integrations
 
-Updated: 2026-09-25
-Branch: `w3/assistant-runtime-foundation`
-Pull request: `#9` targeting `w4/security-baseline` — **DRAFT, do not merge**
-Latest local delivery: `3440ff6` (`feat(assistant): harden control plane contracts`)
-Last verified remote checkpoint: `190a615`; local and remote trees matched at `cd1e4030`.
+- Updated: 2026-09-26
+- Branch: `w3/assistant-runtime-foundation`
+- Pull request: `#9` targeting `w4/security-baseline` — **DRAFT, do not merge**
+Latest code checkpoint: `d510bed` (`feat(assistant): add reconciliation and output boundaries`)
 
 ## Isolation gate
 
-The W3 foundation remains intentionally isolated. It will not be rebased, merged or wired into the imported application until W1 publishes and W4 accepts all of:
+The W3 foundation remains isolated. It will not be merged, rebased onto the product candidate or wired into application routes until there is one W1 base accepted for integration with telecom contracts and a reviewed workspace/authorization boundary.
 
-- a canonical integration base;
-- canonical telecom entity/service contracts;
-- workspace membership and authorization contracts;
-- the corresponding testable schema/RLS boundary.
-
-W1 now publishes `W1_STATUS.md` and PR `#11` with the historical application bootstrap. Its own data-model document still marks telecom design as pending, canonical migrations are empty, and workspace/auth contracts are not published. Therefore the gate is not satisfied and W3 has not adapted conceptual telecom capabilities.
+W3 read `w1/bootstrap-sanitized@75c2103`, including W1's `telecom.v0` read contracts and membership resolver. This is useful published input, but it is not yet an accepted canonical base: W4 has `CHANGES_REQUESTED`, reports secret-history/schema/auth discrepancies and has not accepted its RLS evidence. W3 therefore did not invent adapters or register production telecom capabilities in this cycle.
 
 ## Delivered in this cycle
 
-- Capability contract version 2 with recursive closed input/output schemas, deterministic resource authorizers, tenant policy, risk class, confirmation and idempotency contracts.
-- Server-issued opaque confirmations bound to actor, workspace, capability and canonical argument digest, with five-minute expiry and one-time consume/cancel transitions.
-- Atomic idempotency reservation interface before write effects, deterministic in-progress/conflict/replay behavior and persisted terminal failure behavior.
-- Identical external response for unknown and unauthorized capabilities; distinct reasons are retained only in redacted audit events.
-- Recursive size/depth/property validation, prototype-key safety and rejection of credential-like schema fields.
-- `AssistantResponse` contract version 1 with closed taxonomy injection, notices, exact table descriptors, ISO currency semantics, row identity, continuation, non-mutating follow-ups and opaque confirmation cards.
-- Separate streaming envelope; structured controls appear only in the validated final event.
-- Eval catalog expanded from 18 to 27 cases, including arbitrary SQL/HTTP requests, forged IDs, invented/tampered confirmations, duplicate writes and hallucination pressure.
-- Deterministic eval aggregation for capability, arguments, entity, grounding, action success, hallucination, latency, tokens and cost.
-- Stable handoffs published in `W3_HANDOFF_W2_UI.md` and `W3_HANDOFF_W4_SECURITY.md`.
+- Capability contract version 3 requires explicit raw-provider-to-DTO output projection and a declared high-confidence secret-value scan policy.
+- Projected outputs still traverse recursive closed/bounded schemas; secret material in otherwise allowed strings is rejected before model/UI exposure.
+- Idempotency reservations now carry a five-minute lease. Unknown post-effect completion remains pending during the lease, then fails closed as `reconciliation_required`; it is never re-executed automatically.
+- Confirmation cancellation-store failure returns a bounded retryable result and redacted audit reason.
+- Audit-sink failure returns a bounded retryable result. A completed write remains replayable and is not executed twice on retry.
+- W2's nine READ fixtures were reconciled into `evals/ui/assistant-read-contract.v1.json` and execute in the unit suite.
+- Stable READ UI scope and strict decisions for taxonomy, truncated tables, ungrounded evidence and prompt-only follow-ups are documented for W2.
+- W4 receives an updated review handoff that distinguishes framework behavior from still-missing durable/cross-process evidence.
 
-## Adversarial coverage
+## Adversarial evidence
 
-The 27-test suite includes:
+The 37-test suite now includes:
 
-- prompt injection and hallucinated capabilities;
-- nested workspace/tenant selectors and forged resource IDs;
-- unknown versus unauthorized capability non-enumeration;
-- malformed structured plans, arbitrary SQL/URL fields, dependency cycles and multiple writes;
-- invented, changed, expired, cancelled, replayed and cross-actor/workspace confirmations;
-- twenty concurrent requests with one idempotency key executing the handler once;
-- changed arguments under a reused idempotency key;
-- unknown, credential-bearing, oversized and structurally invalid outputs;
-- UI version/taxonomy/table/continuation/follow-up/stream validation.
+- prompt injection, hallucinated capabilities and invalid structured plans;
+- nested workspace selectors, arbitrary SQL/URL-shaped arguments and forged resource IDs;
+- unknown-versus-unauthorized non-enumeration;
+- invented, altered, expired, cancelled, replayed and cross-tenant confirmations;
+- twenty concurrent duplicate writes with one effect;
+- twenty distinct valid confirmations raced under one idempotency key with one effect;
+- reservation-store failure before the handler with zero effects;
+- post-effect completion uncertainty, lease expiry, explicit reconciliation and replay without a second effect;
+- cross-actor idempotency conflict and independent cross-workspace operation;
+- cancellation-store and audit-sink outages;
+- output projection failures, unknown/sensitive keys, secret values and oversized output;
+- all nine W2 READ response compatibility decisions.
 
 ## Cross-work coordination
 
 ### W1
 
-Read `origin/w1/bootstrap-canonical@3e21e32`, `W1_STATUS.md`, `03_DATA_MODEL.md` and `11_HANDOFFS.md`. The bootstrap is useful provenance, not yet the telecom/auth contract required for integration. W3 will read and map published contracts rather than infer schema from historical code.
+Read the latest sanitized candidate and its published tenant/telecom v0 material. No capability adapter was connected because the branch remains a rejected candidate rather than the accepted base requested by the isolation gate. Once W1/W4 publish the accepted commit, W3 will map exact service/read-model contracts instead of copying conceptual eval names.
 
 ### W2
 
-Read `origin/w2/frontend-bootstrap-readiness@06861e3` and its assistant handoff/spec. All additive requests that are independent of W1 are addressed in response contract v1. Canonical `module` and `entityType` values remain an explicit W1 dependency. W3 owns server confirmation lifecycle; an HTTP endpoint adapter is deferred until the accepted app/auth base exists.
+Read `origin/w2/frontend-bootstrap-readiness@d1df763`. `AssistantResponse` v1 READ envelope, safe notices, tables, prompt-only follow-ups and final-event streaming are stable. Entity/navigation blocks remain conditional on the injected W1 taxonomy. Mutation controls remain disabled. Detailed alignment is in `W3_HANDOFF_W2_UI.md` and `W3_REVIEW_W2_READ_FIXTURES.md`.
 
 ### W4
 
-Read `origin/w4/security-baseline@44375b0`, `W4_STATUS.md` and the detailed security handoff. The P0 confirmation and idempotency findings and P1 output/enumeration findings are fixed in the framework-independent core and have adversarial unit evidence. Durable stores, live RLS and auth integration remain release gates and are not claimed.
-
-## Historical migration decisions
-
-Retain as concepts: semantic structured planning, typed capability ontology, scoped readers, preview/confirmation/idempotency, reference-only conversation memory, read-after-write verification and eval-driven changes.
-
-Do not migrate as architecture: regex as intent engine, duplicated planner/detector paths, n8n as semantic brain, arbitrary SQL/HTTP tools, model-selected workspace or UI behavior inferred from Markdown.
+Read `origin/w4/security-baseline@e33a07f` and its latest assistant revalidation. The three independent framework findings—stuck completion state, uncaught cancellation outage and secret material in allowed values—are addressed with direct tests. Durable stores, crash/restart/outbox behavior, live RLS and production authentication remain open release gates and are not claimed.
 
 ## Known blockers
 
-- W1 canonical telecom migrations, role model, workspace resolution and service contracts are not yet published/accepted.
+- W1 has published a candidate identity/telecom v0 design, but W4 has not accepted a canonical integration base, schema/RLS chain or authorization evidence.
+- No durable confirmation/idempotency adapter or cross-process/restart test environment exists.
 - No test Supabase environment is available; W3 makes no live RLS claim.
-- The prior Dependency Graph block no longer reproduces on PR #9: the latest Dependency Review job passed. W3 did not change repository settings or bypass the control.
-- PR #9 remains draft by explicit coordination decision.
+- Dependency Review is still a repository-owner configuration blocker: the job wrapper is green while the actual dependency-review step is skipped. The owner must enable Dependency Graph and `DEPENDENCY_REVIEW_ENABLED=true`. W3 will not bypass this control; npm audit remains additive evidence only.
+- PR #9 remains draft and `CHANGES_REQUESTED`; it must not be merged.
 
 ## Validation evidence
 
 - `npm run lint`: pass (12 TypeScript files).
 - `npm run typecheck`: pass.
-- `npm test`: 27/27 pass.
-- `npm run build`: pass.
-- `bash scripts/ci/test-guardrails.sh`: pass.
-- `npm audit --audit-level=high`: 0 vulnerabilities.
-- GitHub PR #9: 5 successful checks, 1 expected skipped check; all checks passed while the PR remains draft.
+- `npm test`: 37/37 pass.
+- `npm run build`: pass through the test build plus the final gate.
+- W2 compatibility matrix: 9/9 expected accept/reject decisions pass.
+- No merge, deployment, Supabase mutation or production action performed.
