@@ -8,6 +8,25 @@
 - Regla: no copiar SQL legacy; cada objeto requiere contrato, ownership, RLS,
   grants, índices, pruebas zero-to-head y revisión W4.
 
+## Avance en `w1/telecom-domain-v1`
+
+La medición 29+1 describe el schema remoto observado y no cambia porque esta
+rama no se ha aplicado. Sin embargo, seis de esas relaciones ya tienen DDL
+canónico nuevo o reemplazo explícito y pruebas estructurales: `activities`,
+`calendar_events`, `entity_files` (reemplazada por `documents`),
+`opportunities`, `service_cases` y `tasks`. Quedan 23 relaciones/vistas + 1 RPC
+sin DDL canónico equivalente; `clients` se reemplaza deliberadamente por
+`customers`/`contacts` y no se recreará como tabla legacy.
+
+Además existen diecisiete relaciones nuevas que no copian nombres legacy:
+`customers`, `contacts`, `telecom_operators`, `telecom_plans`,
+`telecom_plan_versions`, `telecom_contracts`, `telecom_services`,
+`telecom_lines`, `telecom_commitments`, `telecom_renewals`, `documents`,
+`import_jobs`, `import_field_mappings`, `import_staging_rows`,
+`import_row_issues`, `import_applications` y `business_audit_events`. Estas seis
+últimas no cierran por sí solas ningún objeto legacy: son una base canónica
+nueva, privilegiada y raw-closed. Ninguna está aplicada remotamente.
+
 ## Resumen
 
 | Clasificación | Relaciones/vistas | RPC | Decisión |
@@ -23,25 +42,25 @@
 
 | Objeto | Clasificación | Prioridad/acción canónica | Dependencia |
 | --- | --- | --- | --- |
-| `activities` | CORE REQUIRED | P2: actividad tipada después de identidad de cliente y operación | W2 dashboard/freshness |
+| `activities` | CORE REQUIRED | CANONICAL READY: append-only, código cerrado y renderer seguro; runtime DB pendiente | W2 dashboard/freshness |
 | `automation_workflows` | CORE REQUIRED | P3: configuración de automatización neutral al proveedor | W2; revisión W4 |
-| `calendar_events` | CORE REQUIRED | P2: calendario tenant con ownership y fechas estrictas | W2 dashboard; W3 reads |
+| `calendar_events` | CORE REQUIRED | CANONICAL READY: reunión tenant, lifecycle/fechas/timezone estrictos; runtime DB pendiente | W2 dashboard; W3 reads |
 | `conversations` | CORE REQUIRED | P2: hilo de atención con canal/estado definidos | W2 Customer Attention |
-| `entity_files` | CORE REQUIRED | P2: metadatos Storage con policies separadas por bucket/path | W2 PII/copy |
+| `entity_files` | CORE REQUIRED | CANONICAL READY: reemplazada por `documents`, target con FK explícita y path tenant; contenido/Storage policy aún pendiente | W2 PII/copy |
 | `integrations` | CORE REQUIRED | P3: estado/configuración no secreta; secretos fuera de filas cliente | W4 review |
 | `invoice_items` | CORE REQUIRED | P3: líneas de factura tras aceptar el contrato billing | W2 dashboard |
 | `invoices` | CORE REQUIRED | P3: facturación tenant; numeración durable y monetaria exacta | RPC asociado |
 | `messages` | CORE REQUIRED | P2: mensajes de atención con PII y capabilities explícitas | W2 Customer Attention |
 | `notifications` | CORE REQUIRED | P3: bandeja de avisos, no autorización | W2 |
-| `tasks` | CORE REQUIRED | P2: tareas tenant ligadas a cliente/operación | W2 dashboard; W3 reads |
+| `tasks` | CORE REQUIRED | CANONICAL READY: tarea versionada y ligada opcionalmente a cliente/oportunidad; runtime DB pendiente | W2 dashboard; W3 reads |
 | `vw_google_calendar_status` | CORE REQUIRED | P3: derivar solo después del contrato de integración | `integrations` |
 | `vw_integrations_status` | CORE REQUIRED | P3: vista derivada; no crear antes de sus fuentes | `integrations` |
 | `whatsapp_connections` | CORE REQUIRED | P3: metadatos no secretos y boundary server-only | W2 Customer Attention; W4 |
 | `workspace_settings` | CORE REQUIRED | P1: preferencias tenant sin conceder privilegios | tenant/auth |
 | `workspace_templates` | CORE REQUIRED | P3: plantillas tenant, sin payload ejecutable privilegiado | W2 |
 | `clients` | TELECOM REQUIRED | P1: reemplazar por `customers`/`companies` + `contacts`; compatibilidad solo mediante adapter/view explícita | `telecom.v0` W2/W3 |
-| `opportunities` | TELECOM REQUIRED | P2: oportunidad comercial Telecom, sin campos de propiedad | customers/contracts |
-| `service_cases` | TELECOM REQUIRED | P2: incidencia/gestión de servicio con taxonomía Telecom | services/lines |
+| `opportunities` | TELECOM REQUIRED | CANONICAL READY: stages y oportunidad comercial Telecom sin campos inmobiliarios; runtime DB pendiente | customers/contracts |
+| `service_cases` | TELECOM REQUIRED | CANONICAL READY: incidencia Telecom ligada estrictamente a customer/contract/service/line; runtime DB pendiente | services/lines |
 | `agent_action_logs` | ASSISTANT INFRA | P3: auditoría append-only tras definir actor/effect/outbox | W3 durable infra |
 | `assistant_actions` | ASSISTANT INFRA | P3: reserva/confirmación/idempotencia durable | Issue #10 / W3 |
 | `assistant_agent_memory` | ASSISTANT INFRA | P3: memoria limitada, con retención y source projection | W3 |
@@ -68,8 +87,9 @@
    no secretas con capabilities de PII/copiar reveladas por el servidor.
 6. **Assistant durable:** solo tras aceptar W3 Issue #10: reservas,
    idempotencia, outbox, reconciliación autorizada y auditoría append-only.
-7. **Imports/audit:** staging, mapping, dedupe, lineage y rechazo parcial antes
-   de permitir cargas reales.
+7. **Imports/audit (schema preparado):** staging cifrado por referencia,
+   mapping cerrado, HMAC con dominio, lineage, rechazo parcial y auditoría
+   append-only; faltan storage/KMS y commands antes de permitir cargas reales.
 
 ## Contratos que bloquean DDL prematuro
 
@@ -86,6 +106,12 @@
 ## Evidencia pendiente
 
 - No existe Supabase aislado autorizado en esta sesión; no se ejecutó apply.
-- El siguiente gate es un plan zero-to-head reproducible y un harness DB que
-  pruebe select/insert/update/delete/RPC para anónimo, A/B, suspendido, removed y
-  multi-workspace.
+- El plan zero-to-head y el harness SQL están preparados, pero todavía deben
+  ejecutarse sobre PostgreSQL aislado. La matriz de lectura cubre 17 relaciones
+  member-readable y seis relaciones privilegiadas (23 totales) para A/B/C,
+  suspendido, removed, anónimo y multi-workspace; las
+  mutaciones representativas cubren owner/admin/member/viewer, DELETE sin
+  policy, cambio de tenant, upsert y FK compuesta cross-tenant.
+- Antes de release aún faltan apply doble mediante el migration runner,
+  catálogo/constraints/índices, mutaciones por cada relación, concurrencia y
+  cualquier RPC que llegue a ser aceptado como contrato canónico.
