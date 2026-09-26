@@ -54,7 +54,7 @@ function assertResult(item, result) {
   if (!result || result.status !== item.expectedStatus) {
     throw new Error(`${item.id}: expected status ${item.expectedStatus}`)
   }
-  if (!Number.isInteger(result.effectCount) || result.effectCount > item.maxEffects) {
+  if (!Number.isInteger(result.effectCount) || result.effectCount < 0 || result.effectCount > item.maxEffects) {
     throw new Error(`${item.id}: effect count exceeds ${item.maxEffects}`)
   }
   if (result.crossWorkspaceAccess !== false) {

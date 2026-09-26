@@ -1,26 +1,17 @@
 # CRM Telecom — system state
 
-Verified: 2026-09-26 UTC
+Verified 2026-09-26 UTC. No accepted canonical base; no main creation or merge authorization.
 
-| Area | Verified head/state | Release consequence |
+| Area | Current verified state | Gate |
 |---|---|---|
-| Accepted base | None | No `main`, integration base, staging deploy or production release |
-| W1 | `w1/bootstrap-canonical@61848cf`, PR #11 draft/changes requested | Real Next.js app and first identity migration exist; P0 secret history, suspended-workspace authorization, schema/app drift and incomplete schema remain |
-| W2 | `w2/frontend-bootstrap-readiness@0dcbdd6`, PR #8 draft | READ/presentation contracts may continue; route-ID and telemetry gaps are fixed; runtime JSON parsing hardening and accepted W1 remain |
-| W3 | `w3/assistant-runtime-foundation@874259e`, PR #9 draft/changes requested | Framework reconciliation/outage findings are fixed; mutation release still lacks durable cross-process stores, recovery and accepted-base integration |
-| W4 | Latest implementation `fe6060f`, CI #88 green; status-only follow-up also green | Audit trail only; preserve it and later transport reviewed controls onto the accepted W1 base |
-| Staging | Not provisioned | No isolated environment or staging acceptance evidence |
-| Production | Untouched | No deploy, DNS, data, secrets or infrastructure mutation |
+| W1 PR14 | 32f0112 real app; quality22/22/build pass; SQL onboarding42702 fails | Correct SQL and rerun identity/RLS; history scan acceptance pending |
+| W1 PR15 | e65f1e8 nine migrations apply; domain trigger42703 fails | Domain SQL and nested READ output boundary |
+| W2 PR8 | db8ab41;179 official tests;7 W4 probes | Fix expiry/revocation; READ/bootstrap may continue |
+| W3 PR9 | c6e869e;62 official tests;5 W4 probes | Issue10 durable mutation evidence; reflection/audit P1 |
+| W4 | baseline5cb872c preserved; night-shift-v3 review/harness | No promotion directly to main |
+| Staging | Unprovisioned | No staging/restore acceptance |
+| Production | Untouched | No deployment, data, DNS or infrastructure change |
 
-## Open P0/P1
-
-- **P0:** no accepted canonical application/schema/auth/RLS base; PR #11 Secret Scan fails.
-- **P0:** suspended `workspaces` remain authorized when membership is active.
-- **P0:** 32 relations/views and two RPCs remain missing from canonical migrations; onboarding/routes disagree with the identity schema.
-- **P0:** assistant mutations lack durable atomic stores, crash/restart evidence, scoped service principals and authorized reconciliation.
-- **P1:** W2 Dashboard/Customer transport seams rely on TypeScript shapes and accept normalized impossible dates.
-- **P1:** W3 output-value defense misses bare Bearer and AWS credential-assignment variants.
-- **P1:** Dependency Review is configured but action-skipped until repository Dependency Graph is enabled.
-- **P1:** isolated staging and a successful non-production restore exercise do not exist.
-
-Machine-readable release state: `.security/release-gates.json`.
+Reproduction tests assert defects, not secure outcomes. SQL uses disposable PostgreSQL18.3/PGlite, not remote Supabase or multiprocess.
+Detailed evidence and fixed findings: agents/W4_STATUS.md.
+Executable gate source: .security/release-gates.json.
