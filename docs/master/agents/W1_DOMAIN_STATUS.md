@@ -13,21 +13,34 @@
 - Raw customer/contact relations have no browser grants; PII remains behind the
   future capability-aware reader.
 - Provider-neutral operators, plans and immutable non-overlapping plan versions.
+- Contracts, services, lines, explicit commitments and renewal windows with
+  tenant-composite integrity and clock-derived commercial states.
+- Opportunities, tasks, meetings and append-only activity codes. Tenant and
+  creator identity are immutable; task versions are server-managed; activity
+  text is rendered from a closed code catalog rather than stored free text.
 - `telecom.v1` read contract with truthful collection envelopes,
-  `CustomerAttentionV1`, `DashboardV1`, protected fields and 14 READ services.
+  full portfolio DTOs, `CustomerAttentionV1`, `DashboardV1`, protected fields,
+  bounded filters and 14 READ services.
+- `AuthorizedTelecomReadServiceV1` now centralizes closed-input validation,
+  per-operation authorization, scope-epoch checks and safe error reduction.
+  Its injected persistence repository is still unimplemented.
 - Structural tests include negative controls and cumulative raw-grant checks.
 
 ## Evidence and limits
 
-- 32/32 bootstrap/domain tests pass through the schema/catalog checkpoint.
-- Telecom v1 contract tests: 6/6; typecheck and lint pass.
+- Targeted portfolio/operations/contracts/read-boundary tests pass; the exact
+  full-suite count is recorded in PR #15 CI rather than duplicated here.
 - PostgreSQL/Docker/Supabase CLI are unavailable locally. No zero-to-head or
   JWT/RLS runtime claim is made.
-- Raw A→A is intentionally denied until a server-owned reader/command exists.
+- Raw A→A is intentionally denied. The server orchestration boundary exists,
+  but no database repository adapter or route is live.
+- Contract references and line identifiers remain deliberately unbacked until
+  protected storage and reveal/copy auditing are defined.
 - Canonical roles are owner/admin/member/viewer; “manager” means admin in
   product prose. No database service principal exists yet.
 
 ## Next
 
-Contracts/services/lines, permanence/renewal schema, then scoped read-model
-implementation. Any W4 finding on PR #14 interrupts this branch.
+Implement the database-backed v1 read repository only after an isolated
+zero-to-head database can prove SQL/RLS behavior. Continue import/audit and W3
+durable mapping offline. Any W4 finding on PR #14 interrupts this branch.

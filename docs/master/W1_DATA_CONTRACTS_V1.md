@@ -4,7 +4,7 @@
 - Source: `src/lib/contracts/telecom-v1.ts`
 - Base: `w1/canonical-v3@32f0112`
 - Consumer snapshots: W2 `db8ab41`; W3 `c6e869e`
-- Status: contract published on dependent domain branch; readers not implemented
+- Status: contract and authorized service boundary published; DB adapter not implemented
 
 ## Compatibility
 
@@ -23,10 +23,16 @@ return v1.
 - Safe errors contain a closed code and optional opaque correlation only.
 - Dashboard items are discriminated; there is no generic `status: string`.
 - `workspace_id` is server context, never a read input from browser/model.
+- Inputs are closed at runtime; unknown keys, invalid enums, invalid windows and
+  caller-selected workspace fields fail before authorization or persistence.
+- Every repository response must match both `telecom.v1` and the request
+  `scope_epoch`; a mismatch fails closed as access revoked.
 
 ## Published projections
 
 - `CustomerCompanyV1`
+- `TelecomContractV1`, `TelecomServiceV1`, `TelecomLineV1`
+- `CustomerSummaryV1`
 - `CustomerAttentionV1`: task, meeting, renewal, permanence, alerts, activity
 - `DashboardV1`: today, tasks, meetings, renewals, permanence, opportunities
 - `CollectionEnvelopeV1<T>`
@@ -38,5 +44,11 @@ The catalog exports 14 READ operations. This intentionally includes
 `opportunity.list`: live W3 has that capability, so the earlier “13” count was
 not exact. Task/meeting writes remain blocked.
 
-No runtime reader, raw-table grant, Supabase apply or production claim is part
-of this contract commit.
+`src/lib/server/telecom-read-service-v1.ts` is the runtime orchestration
+boundary: it authorizes exact operations and calls an injected repository. It
+does not query tables and no repository adapter, route, raw-table grant,
+Supabase apply or production claim exists yet.
+
+Activity summaries are rendered only from the closed map in
+`src/lib/server/activity-summary-v1.ts`; unknown codes produce a constant safe
+fallback and never echo stored or caller-provided text.
