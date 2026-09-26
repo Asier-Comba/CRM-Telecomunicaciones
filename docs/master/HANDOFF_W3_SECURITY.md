@@ -141,3 +141,30 @@ PR `#9` remains `CHANGES_REQUESTED`. W3 may continue safely on its branch.
 Head `a57641a` changes documentation only. Its statement that Dependency Review now passes is
 misleading: in CI run `#56`, the job wrapper passed but `Review dependency changes` was skipped;
 only the readiness-report step ran. This does not close the Dependency Graph/repository-variable gate.
+
+## Revalidation at `w3/assistant-runtime-foundation@874259e`
+
+W4 accepts as fixed in the framework core:
+
+- lease expiry transitions to `reconciliation_required`, including the exact expiry boundary;
+- post-effect completion uncertainty and persistent failure-store outage never trigger a second effect;
+- cancellation-store and audit-sink failures return bounded results;
+- completed writes replay without another effect after an audit failure;
+- cross-actor/workspace isolation, replay and both 20-way races pass.
+
+Evidence: clean branch quality gate and 37/37 tests; five additional temporary W4 attacks produced
+42/42 total. The old stuck-forever, uncaught-cancel and labelled Bearer findings are closed and must
+not be reported as current defects.
+
+Current release blockers only:
+
+- **P0:** no durable store adapter, database atomic consume/reserve, cross-process/restart suite,
+  durable outbox or authorized/audited reconciliation entry point exists. The in-memory test
+  reconciles by directly calling `complete()`.
+- **P1:** a bare `Bearer <opaque>` value and an `AWS_SECRET_ACCESS_KEY=<opaque>` assignment inside
+  an allowed DTO string still pass. Explicit source projection is accepted and remains mandatory;
+  extend high-confidence fixtures as defense in depth.
+- Dependency Review remains action-skipped in CI #67.
+
+PR #9 remains draft and `CHANGES_REQUESTED` for this reduced scope. W3 is not blocked from continued
+foundation or READ work.

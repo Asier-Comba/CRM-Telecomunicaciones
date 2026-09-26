@@ -1,8 +1,8 @@
 # W4 → W2 security handoff
 
-- Date: 2026-09-25
-- W2 reviewed head: `eabb342`
-- W2 CI evidence: run `#40` green
+- Date: 2026-09-26
+- W2 reviewed head: `9f2ab64`
+- W2 CI evidence: run `#69` green; Node quality/docs contract tests were skipped
 - Scope: frontend authorization, browser telemetry, PII and assistant READ UI
 - Gate: policy is ready; runtime integration still waits for an accepted W1 base
 
@@ -80,3 +80,14 @@
 These decisions authorize W2 to continue specifications and synthetic fixtures. They do not approve
 runtime integration, W1's current authorization implementation, assistant mutations or production
 telemetry. Any exception requires a new versioned finding with risk and acceptance criteria.
+
+## Current W4 review
+
+- Accepted: access revocation discards protected presentation state; READ v1 fixtures align with W3
+  `874259e`; arbitrary URL descriptor kinds and executable follow-ups are rejected; mutation UI is
+  excluded. W2 may continue this work independently.
+- Before runtime transport, constrain opaque route IDs to a shared safe grammar or prove mandatory
+  encoding in every route builder. W4 reproduced acceptance of path/query/control-bearing IDs.
+- W4 reproduced 14/14 local contract tests, but CI #69 did not execute them because no `package.json`
+  exists. The W4 baseline now includes a lightweight docs-contract runner.
+- W1 acceptance/shared taxonomy remain integration dependencies, not W2 security defects.
