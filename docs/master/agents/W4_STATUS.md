@@ -1,6 +1,6 @@
 # W4 — Security, QA, DevOps and release status
 
-Last verified: 2026-09-25 (UTC)
+Last verified: 2026-09-26 (UTC)
 
 ## Scope and repository boundary
 
@@ -35,6 +35,7 @@ Last verified: 2026-09-25 (UTC)
 - Executable sensitive-route registry gate v2 with negative controls. It identifies 24 routes at W1 `61848cf` and 22 in the sanitized branch; v2 cross-checks review refs, global agent secrets, writes, runtime production denies and auth/signature claims instead of trusting manifest labels.
 - Explicit W2 frontend security answers covering protected navigation, membership invalidation, browser telemetry, PII/copy policy, assistant READ rendering and minimum QA evidence.
 - Machine-validated restore evidence with negative controls for production targets, RPO/RTO arithmetic, asset completeness, tenant tests, integration disablement, reviewer separation and secret-bearing fields.
+- Executable observability safety policy and source scanner with negative controls for environment dumps, auth/cookie headers, body/payload logging, raw AI content and imported rows.
 
 ## Findings and gates
 
@@ -58,7 +59,7 @@ Last verified: 2026-09-25 (UTC)
 
 Resolved baseline work: the four Actions upgrades were integrated with verified immutable SHAs, checkout credentials were disabled, baseline self-tests passed and superseded Dependabot branches were removed automatically. At W3 `190a615`, the original caller-fabricated confirmation and in-process double-execution findings are closed in the framework core; production acceptance remains blocked by the durable integration items above.
 
-W4 push CI run `#55` is green at `c977390`, including sensitive-route registry v2, restore-evidence controls, Supabase checks, migration policy, secret scan and baseline gates. No restore exercise is claimed yet.
+W4 push CI run `#59` is green at `e33a07f`, including sensitive-route registry v2, restore-evidence controls, Supabase checks, migration policy, secret scan and baseline gates. No restore exercise is claimed yet. On 2026-09-26, a fresh fetch confirmed no newer W1/W2/W3 heads; W4 then added an observability source-safety gate pending CI evidence.
 
 Resolved W1 finding: `W1-QA-001` (clean checkout missing `supabase/migrations`) is fixed at `61848cf`; W4 reproduced the complete non-strict quality gate from a disposable worktree.
 

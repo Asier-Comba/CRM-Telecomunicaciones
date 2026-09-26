@@ -36,3 +36,12 @@ Never log access/refresh tokens, cookies, authorization headers, API keys, raw p
 - assistant mutation failures/confirmation bypass attempt
 
 Alert payloads use counts and identifiers, not sensitive content.
+
+## Executable guardrail
+
+CI validates `.security/observability-policy.json` and scans production Node/TypeScript
+source for high-confidence unsafe log calls. The gate rejects environment dumps,
+authorization/cookie headers, request or response bodies, raw prompts/model output,
+import rows and unbounded payload serialization. Negative controls prove each class
+fails. This scanner is defense in depth: application code must still project events
+into the structured envelope and redact at the source.
