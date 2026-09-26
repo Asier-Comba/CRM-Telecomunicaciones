@@ -3,8 +3,8 @@
 - Updated: 2026-09-26
 - Branch: `w2/frontend-bootstrap-readiness`
 - Audit-trail base: `w4/security-baseline` at `4ef9a5a`
-- Latest delivery commit: `ffb9eb1` (`feat(w2): adapt telecom dashboard presentation`)
-- Last verified remote checkpoint: `ffb9eb1` on `origin/w2/frontend-bootstrap-readiness`
+- Latest delivery commit: `7937cbb` (`fix(w2): detach and bound client telemetry`)
+- Last verified remote checkpoint: `7937cbb` on `origin/w2/frontend-bootstrap-readiness`
 - Draft PR: `#8` targeting `w4/security-baseline`
 - State: W1 `telecom.v0` contracts published; runtime integration remains blocked by W4 rejection of PR `#13`
 
@@ -48,6 +48,8 @@
 - Incorporated W4 `106848a` immediately: closed route IDs now reject path, query, fragment, percent-encoding, whitespace and control syntax while retaining URL-safe opaque IDs.
 - Added a closed browser-telemetry validator that rejects customer/workspace/entity IDs, URLs, prompts, answers, payloads, provider details and unknown codes before vendor integration exists.
 - Added an executable W1 `telecom.v0` → W2 Dashboard adapter candidate: it preserves section freshness/errors, fails closed on unknown statuses and unsafe IDs, redacts provider errors, avoids false completeness and does not invent renewal/permanence deep links.
+- Added an executable Customer 360 identity adapter candidate: it verifies the server-resolved workspace, distinguishes missing from unauthorized sensitive fields, strips raw CIF/email/phone values and keeps unpublished attention sections explicitly unsupported rather than falsely empty.
+- Incorporated W4 `48cfd14`: browser telemetry now returns a detached frozen projection, admits only catalogued/bounded contract versions and rejects mutation, oversized, secret-shaped and non-finite variants.
 - Published and SHA-verified `origin/w2/frontend-bootstrap-readiness` in the canonical repository.
 - Opened draft PR `#8` for review without assuming or merging into a future `main`.
 
@@ -56,7 +58,7 @@
 - Extending the `telecom.v0` presentation seam without copying backend rows into components; Dashboard v0 is covered and Customer 360 attention remains blocked on the missing W1 projection.
 - Preparing closed route descriptors, accessibility assertions and responsive evidence contracts for immediate transport to the accepted base.
 - Holding integration until W1 satisfies the exact gate in `W2_HANDOFF_W1_CANONICAL_GATE.md`.
-- Applying W4's browser telemetry allowlist, PII field-capability policy, not-found parity and membership-invalidation requirements to W2 artifacts.
+- Applying W4's PII field-capability, not-found parity and membership/workspace invalidation requirements to W2 artifacts; the `48cfd14` telemetry P1 is fixed at `7937cbb`.
 - Monitoring superseding W1 PR `#13` at `75c2103`; CI is green, but W4 has `CHANGES_REQUESTED` and explicitly rejects it as sanitized/canonical.
 - Keeping assistant mutation/confirmation UI release-disabled while Issue `#10` remains open; preview architecture may be specified but not wired.
 
@@ -101,6 +103,7 @@
 ## Blockers
 
 - W1 PR `#13` supersedes PR `#11` operationally, but W4 rejects `75c2103` as sanitized/canonical: historical values remain reachable, strict schema drift fails, tenant resolution is not application-wide and RLS evidence is static.
+- W4 `48cfd14` proves an additional P0 in the tenant helpers carried by `75c2103`: active memberships remain authorizing when the owning workspace is suspended.
 - W4 has not named any SHA apt for frontend integration; therefore `w2/ui-integration-v1` must not yet be created.
 - `telecom.v0` lacks several Customer 360 attention/action and widget-specific semantics required for final UI implementation.
 - W3 READ UI can advance, but Issue `#10` remains open for durable mutation safety and output-value redaction.
@@ -116,10 +119,13 @@
 - GitHub PR `#8` checks at `eabb342`: migration policy, baseline guardrails, secret scan, dependency review and Node quality gate passed; critical Playwright correctly skipped because no application exists.
 - GitHub PR `#8` checks at `6fdc9b2`: the same six checks completed successfully/appropriately skipped after the UI-state fixture delivery.
 - GitHub PR `#13` at `75c2103`: six checks pass/skip appropriately, but W4 review is `CHANGES_REQUESTED`; generic Secret Scan green does not override W4's direct reachable-history evidence.
-- `node --experimental-strip-types --test docs/master/contracts/*.test.ts`: 42/42 pass.
+- `node --experimental-strip-types --test docs/master/contracts/*.test.ts`: 51/51 pass.
 - GitHub PR `#8` at `283c14d`: six checks pass/skip appropriately; W4's merged-baseline guardrail job executed all six W2 contract-test files, including route-ID and telemetry negatives, and reported documentation contract tests passed.
 - W4 `106848a`: PR `#13` is explicitly not an accepted integration base; docs-contract CI is now enforced and the route-ID finding has been fixed by W2.
 - W3 `874259e`: stable READ subset and nine-case compatibility matrix published; Issue `#10` remains open for durable mutation integration.
 - Dashboard adapter fixture evidence at `ffb9eb1`: six synthetic cases cover bounded completeness, closed task navigation, non-interactive renewal IDs, unknown status/ID rejection, source-error redaction and invalid freshness.
+- Customer identity adapter evidence at `b559a54`: seven synthetic cases cover PII omission, missing-vs-hidden semantics, partial unsupported sections, cross-workspace denial, primary-contact ambiguity/absence and invalid IDs/freshness.
+- W4 `48cfd14` adds an executable tenant-isolation harness and identifies workspace suspension as a P0 W1 blocker; inspection confirms the same helper gap remains in `w1/bootstrap-sanitized@75c2103`.
+- Telemetry adversarial evidence at `7937cbb`: detached/frozen output plus unregistered, oversized, secret-shaped and non-finite version negatives pass in the 51-test suite.
 
 Application typecheck, lint, unit tests and build remain inapplicable on this documentation-only branch until the reusable work is selectively transported onto a new branch from the accepted canonical application.
