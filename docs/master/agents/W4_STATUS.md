@@ -59,7 +59,7 @@ Last verified: 2026-09-26 (UTC)
 
 Resolved baseline work: the four Actions upgrades were integrated with verified immutable SHAs, checkout credentials were disabled, baseline self-tests passed and superseded Dependabot branches were removed automatically. At W3 `190a615`, the original caller-fabricated confirmation and in-process double-execution findings are closed in the framework core; production acceptance remains blocked by the durable integration items above.
 
-W4 push CI run `#59` is green at `e33a07f`, including sensitive-route registry v2, restore-evidence controls, Supabase checks, migration policy, secret scan and baseline gates. No restore exercise is claimed yet. On 2026-09-26, a fresh fetch confirmed no newer W1/W2/W3 heads; W4 then added an observability source-safety gate pending CI evidence.
+W4 push CI run `#60` is green at `4b8d716`, including the new observability source-safety gate, sensitive-route registry v2, restore-evidence controls, Supabase checks, migration policy, secret scan and baseline gates. The observability scanner also passed a read-only audit of all 265 production source files and 177 log calls in W1 `75c2103`. No restore exercise is claimed yet. On 2026-09-26, a fresh fetch confirmed no newer W1/W2/W3 heads.
 
 Resolved W1 finding: `W1-QA-001` (clean checkout missing `supabase/migrations`) is fixed at `61848cf`; W4 reproduced the complete non-strict quality gate from a disposable worktree.
 
