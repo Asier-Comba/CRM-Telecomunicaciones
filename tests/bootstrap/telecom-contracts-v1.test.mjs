@@ -25,9 +25,13 @@ test('read operation catalog includes the live W3 opportunity capability', () =>
 })
 
 test('collections distinguish source, permission, completeness and freshness', () => {
+  assert.match(source, /type VersionedScopeV1/)
+  assert.match(source, /contract_version: typeof TELECOM_CONTRACT_VERSION_V1/)
+  assert.match(source, /scope_epoch: string/)
   assert.match(source, /source_state: 'available'/)
   assert.match(source, /kind: 'partial'; has_more: true/)
-  assert.match(source, /kind: 'fresh' \| 'stale'; as_of:/)
+  assert.match(source, /kind: 'stale'; as_of: IsoDateTimeV1; notice:/)
+  assert.match(source, /reason: 'contract_not_published'/)
   assert.match(source, /source_state: 'not_authorized'/)
   assert.match(source, /items: null/)
 })
@@ -38,6 +42,9 @@ test('base readers cannot return revealed PII', () => {
   assert.match(customer, /tax_identifier: ProtectedFieldV1/)
   assert.doesNotMatch(customer, /RevealedFieldV1/)
   assert.match(source, /Only a short-lived, reauthorized reveal operation/)
+  assert.match(source, /field_class: FieldClassV1/)
+  assert.match(source, /visibility: 'masked'[\s\S]*reveal_capability: CapabilityRefV1/)
+  assert.match(source, /export type RevealedFieldV1<[\s\S]*reveal_capability: CapabilityRefV1/)
 })
 
 test('attention and dashboard use discriminated closed items', () => {
@@ -46,6 +53,23 @@ test('attention and dashboard use discriminated closed items', () => {
   assert.match(source, /recent_activity: CollectionEnvelopeV1<ActivityItemV1>/)
   assert.match(source, /export type DashboardItemV1 =/)
   assert.doesNotMatch(source, /status: string/)
+  assert.match(source, /export type NavigationTargetV1/)
+  assert.match(source, /destination: NavigationTargetV1 \| null/)
+  assert.match(source, /customer: EntityRefV1 \| null/)
+})
+
+test('customer summary and portfolio readers return full typed projections', () => {
+  assert.match(source, /export type CustomerSummaryV1/)
+  assert.match(source, /contracts: CollectionEnvelopeV1<TelecomContractV1>/)
+  assert.match(source, /services: CollectionEnvelopeV1<TelecomServiceV1>/)
+  assert.match(source, /lines: CollectionEnvelopeV1<TelecomLineV1>/)
+  assert.match(source, /Promise<ReadOneResponseV1<CustomerSummaryV1>>/)
+  assert.match(source, /Promise<CollectionEnvelopeV1<TelecomContractV1>>/)
+  assert.match(source, /Promise<CollectionEnvelopeV1<TelecomServiceV1>>/)
+  assert.match(source, /Promise<CollectionEnvelopeV1<TelecomLineV1>>/)
+  assert.match(source, /export type ReadOneResponseV1<T>/)
+  assert.match(source, /Promise<ReadOneResponseV1<CustomerCompanyV1>>/)
+  assert.match(source, /Promise<ReadOneResponseV1<TelecomContractV1>>/)
 })
 
 test('read inputs do not carry caller-selected workspace identifiers', () => {
