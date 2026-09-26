@@ -149,9 +149,9 @@ export type FieldClassV1 =
 export type CapabilityActionV1 =
   | 'edit' | 'reveal' | 'copy' | 'complete' | 'join' | 'navigate'
 
-export type CapabilityRefV1 = {
+export type CapabilityRefV1<A extends CapabilityActionV1 = CapabilityActionV1> = {
   ref: string
-  action: CapabilityActionV1
+  action: A
   target: { kind: EntityKindV1; id: string; field_class?: FieldClassV1 }
   expires_at: IsoDateTimeV1
 }
@@ -190,7 +190,7 @@ export type CustomerCompanyV1 = {
   status: 'active' | 'inactive' | 'archived'
   assigned_user: EntityRefV1 | null
   primary_contact: EntityRefV1 | null
-  capabilities: readonly CapabilityRefV1[]
+  capabilities: readonly CapabilityRefV1<'edit' | 'navigate'>[]
 }
 
 export type TelecomContractV1 = {
@@ -207,7 +207,7 @@ export type TelecomContractV1 = {
   end_date: IsoDateV1 | null
   cancelled_at: IsoDateTimeV1 | null
   assigned_user: EntityRefV1 | null
-  capabilities: readonly CapabilityRefV1[]
+  capabilities: readonly CapabilityRefV1<'edit' | 'navigate'>[]
 }
 
 export type TelecomServiceV1 = {
@@ -223,7 +223,7 @@ export type TelecomServiceV1 = {
   status: 'pending' | 'active' | 'suspended' | 'ended' | 'cancelled'
   activated_on: IsoDateV1 | null
   ended_on: IsoDateV1 | null
-  capabilities: readonly CapabilityRefV1[]
+  capabilities: readonly CapabilityRefV1<'edit' | 'navigate'>[]
 }
 
 export type TelecomLineV1 = {
@@ -235,7 +235,7 @@ export type TelecomLineV1 = {
   status: 'pending' | 'active' | 'suspended' | 'ended' | 'cancelled'
   activated_on: IsoDateV1 | null
   ended_on: IsoDateV1 | null
-  capabilities: readonly CapabilityRefV1[]
+  capabilities: readonly CapabilityRefV1<'edit' | 'navigate'>[]
 }
 
 export type NavigationTargetV1 =
@@ -247,42 +247,44 @@ export type NavigationTargetV1 =
   | { kind: 'meeting'; meeting_id: string }
   | { kind: 'opportunity'; opportunity_id: string }
 
-type AttentionBaseV1 = {
+type AttentionBaseV1<A extends CapabilityActionV1> = {
   id: string
   customer: EntityRefV1 | null
   title: string
-  relevant_at: IsoDateTimeV1 | null
   destination: NavigationTargetV1 | null
-  capabilities: readonly CapabilityRefV1[]
+  capabilities: readonly CapabilityRefV1<A>[]
 }
 
-export type TaskItemV1 = AttentionBaseV1 & {
+export type TaskItemV1 = AttentionBaseV1<'complete' | 'edit' | 'navigate'> & {
   kind: 'task'
   status: 'pending' | 'in_progress' | 'completed' | 'cancelled'
   priority: 'low' | 'normal' | 'high' | null
+  due_at: IsoDateTimeV1 | null
   assignee: EntityRefV1 | null
   version: number
 }
 
-export type MeetingItemV1 = AttentionBaseV1 & {
+export type MeetingItemV1 = AttentionBaseV1<'join' | 'edit' | 'navigate'> & {
   kind: 'meeting'
   status: 'scheduled' | 'completed' | 'cancelled' | 'no_show'
   starts_at: IsoDateTimeV1
-  ends_at: IsoDateTimeV1
+  ends_at: IsoDateTimeV1 | null
   all_day: boolean
   timezone: string
+  channel: 'in_person' | 'phone' | 'video' | 'other'
   assignee: EntityRefV1 | null
 }
 
-export type RenewalItemV1 = AttentionBaseV1 & {
+export type RenewalItemV1 = AttentionBaseV1<'edit' | 'navigate'> & {
   kind: 'renewal'
   contract: EntityRefV1
   status: 'upcoming' | 'overdue' | 'completed' | 'dismissed' | 'not_applicable'
+  target_on: IsoDateV1
   opens_on: IsoDateV1 | null
   closes_on: IsoDateV1 | null
 }
 
-export type PermanenceItemV1 = AttentionBaseV1 & {
+export type PermanenceItemV1 = AttentionBaseV1<'navigate'> & {
   kind: 'permanence'
   contract: EntityRefV1
   service: EntityRefV1 | null
@@ -292,29 +294,33 @@ export type PermanenceItemV1 = AttentionBaseV1 & {
   reason_code: 'minimum_term' | 'device' | 'subsidy' | 'discount' | 'other'
 }
 
-export type OpportunityItemV1 = AttentionBaseV1 & {
+export type OpportunityItemV1 = AttentionBaseV1<'edit' | 'navigate'> & {
   kind: 'opportunity'
   stage: EntityRefV1
+  status: 'open' | 'won' | 'lost' | 'cancelled'
   next_follow_up_at: IsoDateTimeV1 | null
+  follow_up_state: 'none' | 'scheduled' | 'overdue'
+  amount: { minor_units: number; currency: string } | null
   owner: EntityRefV1 | null
 }
 
-export type AlertItemV1 = AttentionBaseV1 & {
+export type AlertItemV1 = AttentionBaseV1<'navigate'> & {
   kind: 'alert'
   alert_class: 'renewal' | 'permanence' | 'task' | 'meeting' | 'incident'
   urgency: 'low' | 'normal' | 'high' | null
+  raised_at: IsoDateTimeV1
 }
 
 export type ActivityItemV1 = {
   id: string
   kind: 'activity'
-  customer: EntityRefV1
+  customer: EntityRefV1 | null
   activity_kind: 'created' | 'updated' | 'contacted' | 'status_changed' | 'system'
   safe_summary: string
   occurred_at: IsoDateTimeV1
   actor: EntityRefV1 | null
   targets: readonly EntityRefV1[]
-  capabilities: readonly CapabilityRefV1[]
+  capabilities: readonly CapabilityRefV1<'navigate'>[]
 }
 
 export type CustomerAttentionV1 = {
@@ -382,27 +388,88 @@ export type ReadOneResponseV1<T> = VersionedScopeV1 & (
       error: null
     }
   | {
-      result: 'not_found' | 'not_authorized' | 'unavailable' | 'error'
+      result: 'not_found' | 'not_authorized'
+      data: null
+      freshness: null
+      error: null
+    }
+  | {
+      result: 'unavailable'
       data: null
       freshness: null
       error: SafeErrorV1 | null
     }
+  | {
+      result: 'error'
+      data: null
+      freshness: null
+      error: SafeErrorV1
+    }
 )
+
+export type CustomerSearchInputV1 = ListInputV1 & {
+  query: string
+  assigned_user_id?: string
+  status?: CustomerCompanyV1['status']
+}
+
+export type ContractListInputV1 = ListInputV1 & {
+  customer_id?: string
+  operator_id?: string
+  assignee_id?: string
+  status?: TelecomContractV1['status']
+  commitment_from?: IsoDateV1
+  commitment_to?: IsoDateV1
+}
+
+export type ServiceListInputV1 = ListInputV1 & {
+  customer_id?: string
+  contract_id?: string
+  operator_id?: string
+  status?: TelecomServiceV1['status']
+}
+
+export type LineListInputV1 = ListInputV1 & {
+  customer_id?: string
+  service_id?: string
+  status?: TelecomLineV1['status']
+}
+
+export type WindowedListInputV1 = ListInputV1 & {
+  customer_id?: string
+  from?: IsoDateV1
+  to?: IsoDateV1
+}
+
+export type TaskListInputV1 = WindowedListInputV1 & {
+  assignee_id?: string
+  status?: TaskItemV1['status']
+}
+
+export type MeetingListInputV1 = WindowedListInputV1 & {
+  assignee_id?: string
+  status?: MeetingItemV1['status']
+}
+
+export type OpportunityListInputV1 = WindowedListInputV1 & {
+  owner_id?: string
+  status?: OpportunityItemV1['status']
+}
 
 /** Inputs never contain workspace_id; context is resolved and authorized first. */
 export interface TelecomReadServiceV1 {
-  customerSearch(context: ServerReadContextV1, input: ListInputV1 & { query: string }): Promise<CollectionEnvelopeV1<CustomerCompanyV1>>
+  customerSearch(context: ServerReadContextV1, input: CustomerSearchInputV1): Promise<CollectionEnvelopeV1<CustomerCompanyV1>>
   customerGet(context: ServerReadContextV1, input: { customer_id: string }): Promise<ReadOneResponseV1<CustomerCompanyV1>>
   customerSummary(context: ServerReadContextV1, input: { customer_id: string }): Promise<ReadOneResponseV1<CustomerSummaryV1>>
-  contractList(context: ServerReadContextV1, input: ListInputV1 & { customer_id?: string }): Promise<CollectionEnvelopeV1<TelecomContractV1>>
+  contractList(context: ServerReadContextV1, input: ContractListInputV1): Promise<CollectionEnvelopeV1<TelecomContractV1>>
   contractGet(context: ServerReadContextV1, input: { contract_id: string }): Promise<ReadOneResponseV1<TelecomContractV1>>
-  serviceList(context: ServerReadContextV1, input: ListInputV1 & { customer_id?: string }): Promise<CollectionEnvelopeV1<TelecomServiceV1>>
-  lineList(context: ServerReadContextV1, input: ListInputV1 & { customer_id?: string }): Promise<CollectionEnvelopeV1<TelecomLineV1>>
-  renewalList(context: ServerReadContextV1, input: ListInputV1 & { customer_id?: string }): Promise<CollectionEnvelopeV1<RenewalItemV1>>
-  permanenceList(context: ServerReadContextV1, input: ListInputV1 & { customer_id?: string }): Promise<CollectionEnvelopeV1<PermanenceItemV1>>
-  taskList(context: ServerReadContextV1, input: ListInputV1 & { customer_id?: string }): Promise<CollectionEnvelopeV1<TaskItemV1>>
-  meetingList(context: ServerReadContextV1, input: ListInputV1 & { customer_id?: string }): Promise<CollectionEnvelopeV1<MeetingItemV1>>
-  activityList(context: ServerReadContextV1, input: ListInputV1 & { customer_id?: string }): Promise<CollectionEnvelopeV1<ActivityItemV1>>
-  opportunityList(context: ServerReadContextV1, input: ListInputV1 & { customer_id?: string }): Promise<CollectionEnvelopeV1<OpportunityItemV1>>
+  serviceList(context: ServerReadContextV1, input: ServiceListInputV1): Promise<CollectionEnvelopeV1<TelecomServiceV1>>
+  lineList(context: ServerReadContextV1, input: LineListInputV1): Promise<CollectionEnvelopeV1<TelecomLineV1>>
+  renewalList(context: ServerReadContextV1, input: WindowedListInputV1): Promise<CollectionEnvelopeV1<RenewalItemV1>>
+  permanenceList(context: ServerReadContextV1, input: WindowedListInputV1): Promise<CollectionEnvelopeV1<PermanenceItemV1>>
+  taskList(context: ServerReadContextV1, input: TaskListInputV1): Promise<CollectionEnvelopeV1<TaskItemV1>>
+  meetingList(context: ServerReadContextV1, input: MeetingListInputV1): Promise<CollectionEnvelopeV1<MeetingItemV1>>
+  activityList(context: ServerReadContextV1, input: WindowedListInputV1): Promise<CollectionEnvelopeV1<ActivityItemV1>>
+  opportunityList(context: ServerReadContextV1, input: OpportunityListInputV1): Promise<CollectionEnvelopeV1<OpportunityItemV1>>
   dashboardGet(context: ServerReadContextV1, input: { audience: 'personal' | 'team' | 'workspace' }): Promise<ReadOneResponseV1<DashboardV1>>
 }
