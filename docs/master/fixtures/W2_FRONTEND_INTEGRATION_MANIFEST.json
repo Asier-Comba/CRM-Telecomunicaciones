@@ -74,6 +74,13 @@
       "dependencies": ["collection-envelope"]
     },
     {
+      "id": "data-view",
+      "source": "docs/master/contracts/w2-data-view.ts",
+      "category": "presentation",
+      "targetHint": "src/features/shared/data-view.ts",
+      "dependencies": ["collection-envelope"]
+    },
+    {
       "id": "search-controller",
       "source": "docs/master/contracts/w2-search-controller.ts",
       "category": "feature",
@@ -119,7 +126,8 @@
         "accessibility-state",
         "overlay-focus",
         "sensitive-field",
-        "large-collection"
+        "large-collection",
+        "data-view"
       ]
     },
     {
