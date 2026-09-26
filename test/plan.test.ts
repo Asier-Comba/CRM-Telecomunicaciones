@@ -23,6 +23,7 @@ function capability(name: string, accessClass: CapabilityDefinition['accessClass
       required: ['ok'],
       additionalProperties: false,
     },
+    outputPolicy: { sourceProjection: 'explicit_dto', sensitiveValueScan: 'high_confidence' },
     permission: `${name}:execute`,
     accessClass,
     confirmationPolicy: accessClass === 'SENSITIVE_WRITE' || accessClass === 'IRREVERSIBLE' ? 'preview_confirm' : 'none',
@@ -30,6 +31,7 @@ function capability(name: string, accessClass: CapabilityDefinition['accessClass
     tenantScope: { source: 'server_context', modelMayChooseWorkspace: false },
     authorize: async () => ({ allowed: true }),
     handler: async () => ({ ok: true }),
+    projectOutput: (raw) => raw as { ok: boolean },
   }
 }
 

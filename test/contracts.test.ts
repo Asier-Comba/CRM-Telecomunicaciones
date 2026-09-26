@@ -167,6 +167,24 @@ test('streaming keeps structured blocks in the validated final event', () => {
   }, taxonomy))
 })
 
+test('W2 READ fixture matrix matches the versioned W3 validation decisions', async () => {
+  const fixture = JSON.parse(await readFile('evals/ui/assistant-read-contract.v1.json', 'utf8')) as {
+    taxonomy: { version: string; modules: string[]; entityTypes: string[] }
+    cases: Array<{ id: string; expected: 'accept' | 'reject'; response: unknown }>
+  }
+  const fixtureTaxonomy: AssistantUiTaxonomy = {
+    version: fixture.taxonomy.version,
+    modules: new Set(fixture.taxonomy.modules),
+    entityTypes: new Set(fixture.taxonomy.entityTypes),
+  }
+
+  assert.equal(fixture.cases.length, 9)
+  for (const fixtureCase of fixture.cases) {
+    const accepted = validateAssistantResponse(fixtureCase.response, fixtureTaxonomy) !== null
+    assert.equal(accepted, fixtureCase.expected === 'accept', fixtureCase.id)
+  }
+})
+
 test('eval catalog is valid and covers every required category', async () => {
   const text = await readFile('evals/assistant/catalog.v1.jsonl', 'utf8')
   const cases = text.trim().split('\n').map((line) => JSON.parse(line) as unknown)

@@ -29,6 +29,7 @@ function sameBinding(left: ConfirmationBinding, right: ConfirmationBinding): boo
 
 class MemoryConfirmations implements ConfirmationStore {
   readonly records = new Map<string, { binding: ConfirmationBinding; expiresAt: Date; state: 'pending' | 'consumed' | 'cancelled' }>()
+  failCancel = false
   #sequence = 0
 
   async issue(binding: ConfirmationBinding, expiresAt: Date): Promise<ConfirmationIssue> {
@@ -43,6 +44,7 @@ class MemoryConfirmations implements ConfirmationStore {
   }
 
   async cancel(confirmationId: string, binding: ConfirmationBinding, now: Date): Promise<ConfirmationDecision> {
+    if (this.failCancel) throw new Error('confirmation_store_unavailable')
     return this.#transition(confirmationId, binding, now, 'cancelled')
   }
 
@@ -65,12 +67,15 @@ class MemoryConfirmations implements ConfirmationStore {
 type IdempotencyRecord = {
   binding: IdempotencyBinding
   reservationId: string
+  leaseExpiresAt: Date
   state: 'pending' | 'completed'
   result?: CapabilityResult
 }
 
 class AtomicMemoryIdempotency implements IdempotencyStore {
   readonly records = new Map<string, IdempotencyRecord>()
+  failReserve = false
+  failCompleteOnce = false
   #sequence = 0
 
   #recordKey(binding: IdempotencyBinding, key: string): string {
@@ -80,30 +85,39 @@ class AtomicMemoryIdempotency implements IdempotencyStore {
   #decision(
     record: IdempotencyRecord,
     binding: IdempotencyBinding,
+    now: Date,
   ): Exclude<IdempotencyInspection, { status: 'empty' }> {
     if (!sameBinding(record.binding, binding)) return { status: 'conflict' }
-    if (record.state === 'pending') return { status: 'in_progress' }
+    if (record.state === 'pending' && record.leaseExpiresAt.getTime() <= now.getTime()) {
+      return { status: 'reconciliation_required', reservationId: record.reservationId }
+    }
+    if (record.state === 'pending') return { status: 'in_progress', leaseExpiresAt: record.leaseExpiresAt.toISOString() }
     if (!record.result) throw new Error('completed_idempotency_without_result')
     return { status: 'replay', result: record.result }
   }
 
-  async inspect(binding: IdempotencyBinding, key: string): Promise<IdempotencyInspection> {
+  async inspect(binding: IdempotencyBinding, key: string, now: Date): Promise<IdempotencyInspection> {
     const record = this.records.get(this.#recordKey(binding, key))
-    return record ? this.#decision(record, binding) : { status: 'empty' }
+    return record ? this.#decision(record, binding, now) : { status: 'empty' }
   }
 
-  async reserve(binding: IdempotencyBinding, key: string): Promise<IdempotencyReservation> {
+  async reserve(binding: IdempotencyBinding, key: string, now: Date, leaseExpiresAt: Date): Promise<IdempotencyReservation> {
+    if (this.failReserve) throw new Error('idempotency_store_unavailable')
     const recordKey = this.#recordKey(binding, key)
     const existing = this.records.get(recordKey)
-    if (existing) return this.#decision(existing, binding)
+    if (existing) return this.#decision(existing, binding, now)
 
     this.#sequence += 1
     const reservationId = `reservation-${this.#sequence}`
-    this.records.set(recordKey, { binding, reservationId, state: 'pending' })
-    return { status: 'reserved', reservationId }
+    this.records.set(recordKey, { binding, reservationId, leaseExpiresAt, state: 'pending' })
+    return { status: 'reserved', reservationId, leaseExpiresAt: leaseExpiresAt.toISOString() }
   }
 
   async complete(reservationId: string, result: CapabilityResult): Promise<void> {
+    if (this.failCompleteOnce) {
+      this.failCompleteOnce = false
+      throw new Error('idempotency_completion_unknown')
+    }
     this.#finish(reservationId, result)
   }
 
@@ -121,8 +135,13 @@ class AtomicMemoryIdempotency implements IdempotencyStore {
 
 class MemoryAudit implements AuditSink {
   readonly events: AuditEvent[] = []
+  failOnce = false
 
   async emit(event: AuditEvent): Promise<void> {
+    if (this.failOnce) {
+      this.failOnce = false
+      throw new Error('audit_unavailable')
+    }
     this.events.push(event)
   }
 }
@@ -152,6 +171,7 @@ function readCapability(handler: CapabilityDefinition['handler'] = async () => (
       required: ['count'],
       additionalProperties: false,
     },
+    outputPolicy: { sourceProjection: 'explicit_dto', sensitiveValueScan: 'high_confidence' },
     permission: 'customer:read',
     accessClass: 'READ',
     confirmationPolicy: 'none',
@@ -159,6 +179,7 @@ function readCapability(handler: CapabilityDefinition['handler'] = async () => (
     tenantScope: { source: 'server_context', modelMayChooseWorkspace: false },
     authorize: async () => ({ allowed: true }),
     handler,
+    projectOutput: (raw) => raw as { count: number },
   }
 }
 
@@ -179,6 +200,7 @@ function sensitiveCapability(counter: { value: number }): CapabilityDefinition {
       required: ['updated'],
       additionalProperties: false,
     },
+    outputPolicy: { sourceProjection: 'explicit_dto', sensitiveValueScan: 'high_confidence' },
     permission: 'contract:update',
     accessClass: 'SENSITIVE_WRITE',
     confirmationPolicy: 'preview_confirm',
@@ -191,6 +213,7 @@ function sensitiveCapability(counter: { value: number }): CapabilityDefinition {
       counter.value += 1
       return { updated: true }
     },
+    projectOutput: (raw) => raw as { updated: boolean },
   }
 }
 
@@ -211,6 +234,7 @@ function safeWriteCapability(counter: { value: number }): CapabilityDefinition {
       required: ['created'],
       additionalProperties: false,
     },
+    outputPolicy: { sourceProjection: 'explicit_dto', sensitiveValueScan: 'high_confidence' },
     permission: 'task:create',
     accessClass: 'SAFE_WRITE',
     confirmationPolicy: 'none',
@@ -222,21 +246,33 @@ function safeWriteCapability(counter: { value: number }): CapabilityDefinition {
       counter.value += 1
       return { created: true }
     },
+    projectOutput: (raw) => raw as { created: boolean },
   }
 }
 
-function runtimeWith(...capabilities: CapabilityDefinition[]) {
+function runtimeWithDependencies(
+  capabilities: CapabilityDefinition[],
+  dependencies: {
+    audit?: MemoryAudit
+    confirmations?: MemoryConfirmations
+    idempotency?: AtomicMemoryIdempotency
+  } = {},
+) {
   const registry = new CapabilityRegistry()
   capabilities.forEach((capability) => registry.register(capability))
-  const audit = new MemoryAudit()
-  const confirmations = new MemoryConfirmations()
-  const idempotency = new AtomicMemoryIdempotency()
+  const audit = dependencies.audit ?? new MemoryAudit()
+  const confirmations = dependencies.confirmations ?? new MemoryConfirmations()
+  const idempotency = dependencies.idempotency ?? new AtomicMemoryIdempotency()
   return {
     runtime: new AssistantRuntime({ registry, confirmations, idempotency, audit }),
     audit,
     confirmations,
     idempotency,
   }
+}
+
+function runtimeWith(...capabilities: CapabilityDefinition[]) {
+  return runtimeWithDependencies(capabilities)
 }
 
 test('executes a grounded read with server context and closed output', async () => {
@@ -422,6 +458,27 @@ test('executes twenty concurrent duplicate writes exactly once', async () => {
   assert.equal(results.filter((result) => result.error?.code === 'idempotency_in_progress').length, 19)
 })
 
+test('executes concurrent confirmed duplicates exactly once even with distinct valid confirmations', async () => {
+  const counter = { value: 0 }
+  const { runtime } = runtimeWith(sensitiveCapability(counter))
+  const request = {
+    capability: 'crm.contract.update',
+    input: { contractId: 'contract-1' },
+    idempotencyKey: 'idem-key-00000001',
+  }
+  const previews = await Promise.all(Array.from({ length: 20 }, () => runtime.execute(context, request)))
+  const confirmationIds = previews.map((preview) => preview.confirmation?.confirmationId ?? '')
+
+  const results = await Promise.all(confirmationIds.map((confirmationId) => runtime.execute(context, {
+    ...request,
+    confirmationId,
+  })))
+
+  assert.equal(counter.value, 1)
+  assert.equal(results.filter((result) => result.status === 'SUCCESS').length, 1)
+  assert.equal(results.filter((result) => result.error?.code === 'idempotency_in_progress').length, 19)
+})
+
 test('replays a completed write and conflicts on changed arguments', async () => {
   const counter = { value: 0 }
   const { runtime } = runtimeWith(safeWriteCapability(counter))
@@ -447,6 +504,118 @@ test('replays a completed write and conflicts on changed arguments', async () =>
   assert.equal(counter.value, 1)
 })
 
+test('does not execute when the idempotency reservation store is unavailable', async () => {
+  const counter = { value: 0 }
+  const idempotency = new AtomicMemoryIdempotency()
+  idempotency.failReserve = true
+  const { runtime } = runtimeWithDependencies([safeWriteCapability(counter)], { idempotency })
+
+  const result = await runtime.execute(context, {
+    capability: 'crm.task.create',
+    input: { title: 'Llamar a ACME' },
+    idempotencyKey: 'idem-key-00000001',
+  })
+
+  assert.equal(result.error?.code, 'idempotency_unavailable')
+  assert.equal(counter.value, 0)
+})
+
+test('moves an uncertain completion to reconciliation after its lease and never re-executes it', async () => {
+  const counter = { value: 0 }
+  const idempotency = new AtomicMemoryIdempotency()
+  idempotency.failCompleteOnce = true
+  const { runtime } = runtimeWithDependencies([safeWriteCapability(counter)], { idempotency })
+  const request = {
+    capability: 'crm.task.create',
+    input: { title: 'Llamar a ACME' },
+    idempotencyKey: 'idem-key-00000001',
+  }
+
+  const uncertain = await runtime.execute(context, request)
+  const pending = await runtime.execute(context, request)
+  const expired = await runtime.execute({ ...context, now: new Date('2026-09-25T12:06:00.000Z') }, request)
+
+  assert.equal(uncertain.error?.code, 'idempotency_commit_failed')
+  assert.equal(pending.error?.code, 'idempotency_in_progress')
+  assert.equal(expired.error?.code, 'idempotency_reconciliation_required')
+  assert.equal(counter.value, 1)
+
+  const reservationId = [...idempotency.records.values()][0]?.reservationId ?? ''
+  await idempotency.complete(reservationId, {
+    status: 'SUCCESS',
+    capability: 'crm.task.create',
+    data: { created: true },
+  })
+  const reconciled = await runtime.execute({ ...context, now: new Date('2026-09-25T12:07:00.000Z') }, request)
+  assert.equal(reconciled.status, 'SUCCESS')
+  assert.equal(reconciled.replayed, true)
+  assert.equal(counter.value, 1)
+})
+
+test('scopes idempotency by tenant and refuses cross-actor replay', async () => {
+  const counter = { value: 0 }
+  const { runtime } = runtimeWith(safeWriteCapability(counter))
+  const request = {
+    capability: 'crm.task.create',
+    input: { title: 'Llamar a ACME' },
+    idempotencyKey: 'idem-key-00000001',
+  }
+
+  const first = await runtime.execute(context, request)
+  const crossActor = await runtime.execute({ ...context, actorId: 'user-b' }, request)
+  const otherTenant = await runtime.execute({ ...context, workspaceId: 'workspace-b' }, request)
+
+  assert.equal(first.status, 'SUCCESS')
+  assert.equal(crossActor.error?.code, 'idempotency_conflict')
+  assert.equal(otherTenant.status, 'SUCCESS')
+  assert.equal(counter.value, 2)
+})
+
+test('returns a safe cancellation error when the confirmation store fails', async () => {
+  const counter = { value: 0 }
+  const confirmations = new MemoryConfirmations()
+  const { runtime, audit } = runtimeWithDependencies([sensitiveCapability(counter)], { confirmations })
+  const input = { contractId: 'contract-1' }
+  const preview = await runtime.execute(context, {
+    capability: 'crm.contract.update',
+    input,
+    idempotencyKey: 'idem-key-00000001',
+  })
+  confirmations.failCancel = true
+
+  const result = await runtime.cancelConfirmation(context, {
+    capability: 'crm.contract.update',
+    input,
+    confirmationId: preview.confirmation?.confirmationId ?? '',
+  })
+
+  assert.equal(result.status, 'UNAVAILABLE')
+  assert.equal(result.error?.code, 'confirmation_unavailable')
+  assert.equal(audit.events.at(-1)?.reasonCode, 'confirmation_cancel_unavailable')
+  assert.equal(counter.value, 0)
+})
+
+test('returns a safe audit error and replays a completed write without a duplicate effect', async () => {
+  const counter = { value: 0 }
+  const audit = new MemoryAudit()
+  audit.failOnce = true
+  const { runtime } = runtimeWithDependencies([safeWriteCapability(counter)], { audit })
+  const request = {
+    capability: 'crm.task.create',
+    input: { title: 'Llamar a ACME' },
+    idempotencyKey: 'idem-key-00000001',
+  }
+
+  const unavailable = await runtime.execute(context, request)
+  const replay = await runtime.execute(context, request)
+
+  assert.equal(unavailable.status, 'UNAVAILABLE')
+  assert.equal(unavailable.error?.code, 'audit_unavailable')
+  assert.equal(replay.status, 'SUCCESS')
+  assert.equal(replay.replayed, true)
+  assert.equal(counter.value, 1)
+})
+
 test('rejects unknown, credential-bearing and oversized output', async () => {
   const extraField = readCapability(async () => ({ count: 1, accessToken: 'not-allowed' }))
   const { runtime } = runtimeWith(extraField)
@@ -466,6 +635,45 @@ test('rejects unknown, credential-bearing and oversized output', async () => {
   const oversizedRuntime = runtimeWith(oversized).runtime
   const tooLarge = await oversizedRuntime.execute(context, { capability: 'crm.customer.search', input: { query: 'ACME' } })
   assert.equal(tooLarge.error?.code, 'invalid_capability_output')
+})
+
+test('rejects secret material hidden in an allowed output value', async () => {
+  const capability = readCapability(async () => ({ note: 'Authorization: Bearer very-secret-token-value' }))
+  capability.outputSchema = {
+    type: 'object',
+    properties: { note: { type: 'string', maxLength: 200 } },
+    required: ['note'],
+    additionalProperties: false,
+  }
+  capability.projectOutput = (raw) => raw as { note: string }
+  const { runtime, audit } = runtimeWith(capability)
+
+  const result = await runtime.execute(context, { capability: 'crm.customer.search', input: { query: 'ACME' } })
+
+  assert.equal(result.error?.code, 'invalid_capability_output')
+  assert.equal(audit.events[0]?.reasonCode, 'sensitive_output_value')
+})
+
+test('projects raw provider output into an explicit DTO before validation', async () => {
+  const capability = readCapability(async () => ({ count: 1, authorization: 'Bearer provider-secret-value' }))
+  capability.projectOutput = (raw) => ({ count: (raw as { count: number }).count })
+  const { runtime } = runtimeWith(capability)
+
+  const result = await runtime.execute(context, { capability: 'crm.customer.search', input: { query: 'ACME' } })
+
+  assert.equal(result.status, 'SUCCESS')
+  assert.deepEqual(result.data, { count: 1 })
+})
+
+test('maps output projection failures to a closed error', async () => {
+  const capability = readCapability(async () => ({ count: 1 }))
+  capability.projectOutput = () => { throw new Error('provider_shape_changed') }
+  const { runtime } = runtimeWith(capability)
+
+  const result = await runtime.execute(context, { capability: 'crm.customer.search', input: { query: 'ACME' } })
+
+  assert.equal(result.status, 'INTERNAL_ERROR')
+  assert.equal(result.error?.code, 'output_projection_failed')
 })
 
 test('registry rejects unsafe policy and sensitive schema keys', () => {
