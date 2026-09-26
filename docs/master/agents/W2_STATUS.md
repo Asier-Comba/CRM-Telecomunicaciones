@@ -3,8 +3,8 @@
 - Updated: 2026-09-26
 - Branch: `w2/frontend-bootstrap-readiness`
 - Audit-trail base: `w4/security-baseline` at `4ef9a5a`
-- Latest delivery commit: `4cad98a` (`feat(w2): model gated assistant mutation UI`)
-- Last verified remote checkpoint: `4cad98a` on `origin/w2/frontend-bootstrap-readiness`
+- Latest delivery commit: `3b06531` (`fix(w2): constrain closed route identifiers`)
+- Last verified remote checkpoint: `3b06531` on `origin/w2/frontend-bootstrap-readiness`
 - Draft PR: `#8` targeting `w4/security-baseline`
 - State: W1 `telecom.v0` contracts published; runtime integration remains blocked by W4 rejection of PR `#13`
 
@@ -45,6 +45,7 @@
 - Added a machine-checked responsive/accessibility/visual QA matrix for 320/375/768/1024/1440 px and synthetic state coverage.
 - Added a semantic design-token and primitive contract without locking concrete values before the accepted Tailwind/theme base.
 - Added an architecture-only assistant mutation state machine: blocked by default, exact opaque confirmation reuse, expiry/cancel/conflict/failure and status-only reconciliation.
+- Incorporated W4 `106848a` immediately: closed route IDs now reject path, query, fragment, percent-encoding, whitespace and control syntax while retaining URL-safe opaque IDs.
 - Published and SHA-verified `origin/w2/frontend-bootstrap-readiness` in the canonical repository.
 - Opened draft PR `#8` for review without assuming or merging into a future `main`.
 
@@ -113,9 +114,9 @@
 - GitHub PR `#8` checks at `eabb342`: migration policy, baseline guardrails, secret scan, dependency review and Node quality gate passed; critical Playwright correctly skipped because no application exists.
 - GitHub PR `#8` checks at `6fdc9b2`: the same six checks completed successfully/appropriately skipped after the UI-state fixture delivery.
 - GitHub PR `#13` at `75c2103`: six checks pass/skip appropriately, but W4 review is `CHANGES_REQUESTED`; generic Secret Scan green does not override W4's direct reachable-history evidence.
-- `node --experimental-strip-types --test docs/master/contracts/*.test.ts`: 30/30 pass.
-- GitHub PR `#8` at `4cad98a`: six checks pass/skip appropriately; PR remains open, draft, unmerged and clean.
-- W4 `10ee3aa`: PR `#13` is explicitly not an accepted integration base; observability policy now rejects raw payload/body/AI/import logging and W2 has no new runtime blocker.
+- `node --experimental-strip-types --test docs/master/contracts/*.test.ts`: 31/31 pass.
+- GitHub PR `#8` at `3b06531`: six checks pass/skip appropriately; W4's merged-baseline guardrail job executed all five W2 contract-test files, including the route-ID negatives, and reported documentation contract tests passed.
+- W4 `106848a`: PR `#13` is explicitly not an accepted integration base; docs-contract CI is now enforced and the route-ID finding has been fixed by W2.
 - W3 `874259e`: stable READ subset and nine-case compatibility matrix published; Issue `#10` remains open for durable mutation integration.
 
 Application typecheck, lint, unit tests and build remain inapplicable on this documentation-only branch until the reusable work is selectively transported onto a new branch from the accepted canonical application.
