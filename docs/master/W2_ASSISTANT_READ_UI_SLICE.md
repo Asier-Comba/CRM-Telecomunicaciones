@@ -2,9 +2,9 @@
 
 - Owner: W2
 - Date: 2026-09-25
-- W3 source reviewed: `w3/assistant-runtime-foundation` at `7be1e8f`
+- W3 source reviewed: `w3/assistant-runtime-foundation` at `874259e`
 - W4 gate: Issue `#10` remains open; all mutation/confirmation UI is excluded
-- Status: read-only renderer blueprint and fixtures ready
+- Status: stable READ v1 subset reconciled; renderer/stream fixtures ready
 
 ## 1. Scope split
 
@@ -12,14 +12,14 @@
 
 - answer summaries;
 - safe notices/statuses;
-- entity references with generic fallback;
+- entity references validated against an injected closed taxonomy;
 - structured tables;
 - card/list presentation derived from entity/table blocks;
 - closed navigation descriptors once W3/W1 publish them;
 - suggestion/refinement follow-ups;
 - partial results;
 - atomic loading, cancellation and retry;
-- future streaming states defined as a contract requirement.
+- text-only streaming with controls activated only from a validated final event.
 
 ### Excluded — release-gated mutation UI
 
@@ -31,22 +31,24 @@
 
 W4 Issue `#10` must be closed with accepted confirmation/idempotency/output-schema evidence before mutation UI begins.
 
-## 2. Current stable-candidate subset
+## 2. Stable READ v1 subset
 
-W3 `7be1e8f` did not change `src/assistant/ui-contract.ts`; it added eval metrics only. W2 asks W3 to explicitly mark the stable READ subset, but can prepare against these current candidates:
+W3 `874259e` explicitly marks the READ subset stable and executes the nine W2 compatibility decisions in its own test suite:
 
 | Surface | READ UI decision |
 | --- | --- |
 | `answer` | Render as safe text/restricted Markdown summary |
 | `status` | Map to notice/empty/partial/error presentation |
 | `grounded` | Gate evidence-like entity/table presentation |
-| `blocks.entities` | Generic reference cards/list; navigation waits for taxonomy |
+| `blocks.entities` | Render only after W3 validates them against the injected taxonomy; unknown entity types reject the envelope |
 | `blocks.table` | Responsive table/card preview after strict validation |
-| `blocks.followUps` | Enable only `suggestion` and `refine` as prompt sends |
+| `blocks.followUps` | Enable only validated `suggestion` and `refine`; any executable kind rejects the envelope |
 | `blocks.navigation` | Disabled until closed descriptor registry exists |
 | `meta.requestId` | Safe correlation only; never primary user content |
 | `meta.partial` | Persistent partial-result notice |
-| `blocks.confirmation` | Not rendered as executable UI in slice A |
+| `blocks.confirmation` | Shape is transport-stable but not rendered as executable UI while Issue `#10` is open |
+
+The renderer receives either a fully validated response or a safe transport/error state. It never repairs, hides selected invalid fields or downgrades an invalid W3 envelope locally.
 
 ## 3. Component tree
 
@@ -74,16 +76,16 @@ AssistantReadResponse
 
 | ID | `CONTRACT_REQUIREMENT` | Needed from W3/W1 |
 | --- | --- | --- |
-| W3-READ-01 | Envelope version | Explicit `contractVersion` and unsupported-version behavior |
-| W3-READ-02 | Stable subset | W3 declares fields/statuses/blocks stable for READ UI |
-| W3-READ-03 | Exact validation | Closed keys and bounded validation for entities, table, follow-ups, navigation and structured values |
+| W3-READ-01 | Envelope version | Closed: `contractVersion: 1`; unknown versions reject |
+| W3-READ-02 | Stable subset | Closed at `874259e` for envelope, READ statuses, notice/table/follow-ups and text streaming |
+| W3-READ-03 | Exact validation | Closed in W3 validator; W2 consumes validated output only |
 | W3-READ-04 | Entity taxonomy | W1-aligned closed entity types or versioned registry |
 | W3-READ-05 | Navigation descriptor | Closed modules/entities/views with no arbitrary URL |
-| W3-READ-06 | Table identity | Stable row/entity reference, currency semantics and continuation when truncated |
-| W3-READ-07 | Safe notice | Bounded code, retryability and user-safe detail |
-| W3-READ-08 | Follow-up semantics | `suggestion`/`refine` prompt-send contract; `action` excluded from READ slice |
+| W3-READ-06 | Table identity | Closed: optional declared unique identity, explicit currency and mandatory continuation when truncated |
+| W3-READ-07 | Safe notice | Closed bounded code/retryability/title/detail |
+| W3-READ-08 | Follow-up semantics | Closed: prompt-only `suggestion`/`refine`; executable kinds reject |
 | W3-READ-09 | Page context | Closed bounded reference envelope; server re-read/reauthorization |
-| W3-READ-10 | Streaming | Event envelope and final-validation boundary, or explicit atomic-only decision |
+| W3-READ-10 | Streaming | Closed: started, text-only delta, validated final, cancelled and failed notice |
 
 ## 5. Rendering rules
 
@@ -115,7 +117,7 @@ Confirmation-specific statuses are not actionable in READ slice A.
 - Display validated label/subtitle.
 - Treat ID as opaque and do not show it normally.
 - Use a neutral icon/type label until W1 taxonomy exists.
-- Unknown entity type remains non-interactive and explicitly unsupported.
+- Unknown entity type rejects the transport envelope against the injected taxonomy; it never reaches a fallback card.
 - Once W3-READ-04/05 close, route through the W2 registry and reauthorize at destination.
 - Cards are a W2 visual treatment of `EntityReference`; no new transport card schema is assumed.
 
@@ -127,7 +129,7 @@ Confirmation-specific statuses are not actionable in READ slice A.
 - Never guess row identity/destination from an arbitrary cell.
 - Currency requires explicit currency semantics; numbers are otherwise numbers/text.
 - `truncated=true` shows incomplete-results notice; continuation requires W3-READ-06.
-- Unknown format degrades to validated safe text, never raw object JSON.
+- Unknown formats reject at validation; W2 never receives raw object JSON to degrade locally.
 
 ### Navigation
 
@@ -140,7 +142,7 @@ Confirmation-specific statuses are not actionable in READ slice A.
 
 - Only `suggestion` and `refine` are enabled.
 - Activation sends the visible prompt through the normal read request path.
-- `action` renders disabled/informational or is omitted until mutation gates close.
+- Any executable/action follow-up is invalid READ v1 input and rejects the envelope.
 - A follow-up never silently changes data.
 
 ## 6. Loading and streaming contract
@@ -158,9 +160,9 @@ idle -> sending -> validating -> ready | empty | partial | error
 - Structured blocks appear only after final W3 validation.
 - Retry retains the user's prompt/context reference safely.
 
-### Future streaming requirement
+### Stable streaming boundary
 
-Until W3-READ-10 exists, W2 does not infer streaming from partial JSON/chunks. A future transport must distinguish:
+W3-READ-10 now distinguishes:
 
 - start;
 - safe answer-text delta;
@@ -170,13 +172,13 @@ Until W3-READ-10 exists, W2 does not infer streaming from partial JSON/chunks. A
 - terminal failure;
 - completed.
 
-Token-by-token text is not announced to screen readers. Entity/table/navigation controls activate only after the final structured envelope validates.
+Token-by-token text is not announced to screen readers. Delta events contain text only. Entity/table/navigation controls activate only after the final structured envelope validates; interruption never promotes accumulated text into structured evidence.
 
 ## 7. Partial and ungrounded results
 
 - `meta.partial=true` or `PARTIAL` always produces a visible limitation.
 - Valid blocks remain usable; invalid blocks reject the response rather than render partially trusted data.
-- When `grounded=false`, answer text may display with a neutral limitation, but entity/table evidence is omitted until W3 explicitly defines safe degraded semantics.
+- When `grounded=false`, answer text may display with a neutral limitation only when the validated envelope has no entity/table evidence. Ungrounded evidence makes the source envelope invalid; W2 does not accept then hide it.
 - A partial table does not show a total unless W3 provides a trustworthy total/continuation contract.
 
 ## 8. Responsive and accessibility
@@ -208,16 +210,16 @@ Fixture manifest: `docs/master/fixtures/W2_ASSISTANT_READ_UI_FIXTURES.json`.
 
 - Accept every valid READ status/block fixture.
 - Reject missing envelope parts, unsupported version, secret-like keys and invalid row values.
-- Prove unknown entity/navigation descriptors cannot produce a URL.
+- Prove unknown entity/navigation descriptors reject and cannot produce a URL.
 - Prove mutation/confirmation blocks cannot enable a write control in slice A.
-- Exhaustively map W3 statuses or use a neutral unsupported fallback.
+- Exhaustively map W3 READ statuses; unsupported statuses fail validation into the safe invalid-response boundary.
 
 ### Component tests
 
 - Answer-only, empty, partial, forbidden, unavailable and invalid-response states.
-- Entity generic fallback and later registry-backed navigation.
+- Registry-backed entity presentation plus invalid/unknown taxonomy rejection.
 - Table desktop/card compact representation and truncated notice.
-- Suggestion/refine send, action-disabled behavior and duplicate prevention.
+- Suggestion/refine send, executable-follow-up rejection and duplicate prevention.
 - Keyboard order, accessible names, live status and reduced motion.
 
 ### Integration tests after accepted base
@@ -230,7 +232,7 @@ Fixture manifest: `docs/master/fixtures/W2_ASSISTANT_READ_UI_FIXTURES.json`.
 
 ## 11. Definition of done
 
-- W3 explicitly marks the READ subset/version stable.
+- W3 READ subset/version remains compatible with the executable W2/W3 fixture matrix.
 - W3-READ-01 through 10 are closed or deliberately deferred with safe fallback.
 - W4 accepts read-output validation/logging/PII behavior.
 - Confirmation/mutation UI remains absent or non-actionable while Issue `#10` is open.

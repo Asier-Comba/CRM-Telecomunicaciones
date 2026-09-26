@@ -1,19 +1,28 @@
 {
-  "description": "Synthetic W2 READ assistant fixtures against the current W3 AssistantResponse candidate. No production or customer data.",
-  "w3ReviewedCommit": "7be1e8f",
+  "description": "Synthetic W2 READ fixtures reconciled with W3 AssistantResponse v1. No production or customer data.",
+  "contractVersion": 1,
+  "w3ReviewedCommit": "874259e",
+  "w3CompatibilityMatrix": "evals/ui/assistant-read-contract.v1.json",
   "mutationFixturesExcluded": true,
+  "taxonomy": {
+    "version": "w1-pending-v0",
+    "modules": ["customers", "tasks"],
+    "entityTypes": ["customer", "task"]
+  },
   "cases": [
     {
       "id": "success-answer-only",
       "expected": "accept",
       "response": {
+        "contractVersion": 1,
         "answer": "He encontrado información disponible para tu consulta.",
         "status": "SUCCESS",
         "grounded": true,
         "blocks": {},
         "meta": {
           "requestId": "fixture-read-001",
-          "partial": false
+          "partial": false,
+          "taxonomyVersion": "w1-pending-v0"
         }
       }
     },
@@ -21,6 +30,7 @@
       "id": "empty-with-refinement",
       "expected": "accept",
       "response": {
+        "contractVersion": 1,
         "answer": "No hay resultados en el alcance actual.",
         "status": "EMPTY",
         "grounded": true,
@@ -35,14 +45,16 @@
         },
         "meta": {
           "requestId": "fixture-read-002",
-          "partial": false
+          "partial": false,
+          "taxonomyVersion": "w1-pending-v0"
         }
       }
     },
     {
-      "id": "partial-table",
+      "id": "partial-table-with-continuation",
       "expected": "accept",
       "response": {
+        "contractVersion": 1,
         "answer": "Estos son los resultados disponibles; la lista no está completa.",
         "status": "PARTIAL",
         "grounded": true,
@@ -56,19 +68,22 @@
               { "item": "Ejemplo sintético A", "state": "Pendiente" },
               { "item": "Ejemplo sintético B", "state": "Revisado" }
             ],
-            "truncated": true
+            "truncated": true,
+            "continuation": { "cursor": "opaque-page-2", "total": 8 }
           }
         },
         "meta": {
           "requestId": "fixture-read-003",
-          "partial": true
+          "partial": true,
+          "taxonomyVersion": "w1-pending-v0"
         }
       }
     },
     {
-      "id": "unknown-entity-safe-fallback",
-      "expected": "accept-without-navigation",
+      "id": "unknown-entity-rejected-by-taxonomy",
+      "expected": "reject",
       "response": {
+        "contractVersion": 1,
         "answer": "He encontrado una referencia que todavía no tiene ruta registrada.",
         "status": "SUCCESS",
         "grounded": true,
@@ -77,14 +92,14 @@
             {
               "entityType": "__contract_requirement_entity_type__",
               "entityId": "fixture-entity-001",
-              "label": "Entidad sintética",
-              "subtitle": "Sin navegación hasta cerrar la taxonomía"
+              "label": "Entidad sintética"
             }
           ]
         },
         "meta": {
           "requestId": "fixture-read-004",
-          "partial": false
+          "partial": false,
+          "taxonomyVersion": "w1-pending-v0"
         }
       }
     },
@@ -92,27 +107,36 @@
       "id": "forbidden-safe-notice",
       "expected": "accept",
       "response": {
+        "contractVersion": 1,
         "answer": "No tienes permiso para consultar este contenido.",
         "status": "FORBIDDEN",
         "grounded": true,
-        "blocks": {},
+        "blocks": {
+          "notice": {
+            "code": "capability_forbidden",
+            "retryable": false,
+            "title": "Acceso no disponible"
+          }
+        },
         "meta": {
           "requestId": "fixture-read-005",
-          "partial": false
+          "partial": false,
+          "taxonomyVersion": "w1-pending-v0"
         }
       }
     },
     {
-      "id": "ungrounded-evidence-omitted",
-      "expected": "accept-hide-evidence",
+      "id": "ungrounded-evidence-rejected",
+      "expected": "reject",
       "response": {
+        "contractVersion": 1,
         "answer": "No puedo verificar completamente esta respuesta.",
         "status": "PARTIAL",
         "grounded": false,
         "blocks": {
           "entities": [
             {
-              "entityType": "__contract_requirement_entity_type__",
+              "entityType": "customer",
               "entityId": "fixture-entity-002",
               "label": "Referencia no verificada"
             }
@@ -120,14 +144,16 @@
         },
         "meta": {
           "requestId": "fixture-read-006",
-          "partial": true
+          "partial": true,
+          "taxonomyVersion": "w1-pending-v0"
         }
       }
     },
     {
-      "id": "action-follow-up-not-executable",
-      "expected": "accept-with-action-disabled",
+      "id": "executable-follow-up-rejected",
+      "expected": "reject",
       "response": {
+        "contractVersion": 1,
         "answer": "Puedo preparar una acción, pero las escrituras están bloqueadas.",
         "status": "SUCCESS",
         "grounded": true,
@@ -142,7 +168,8 @@
         },
         "meta": {
           "requestId": "fixture-read-007",
-          "partial": false
+          "partial": false,
+          "taxonomyVersion": "w1-pending-v0"
         }
       }
     },
@@ -150,6 +177,7 @@
       "id": "secret-like-key-rejected",
       "expected": "reject",
       "response": {
+        "contractVersion": 1,
         "answer": "Este payload debe rechazarse.",
         "status": "SUCCESS",
         "grounded": true,
@@ -166,7 +194,8 @@
         },
         "meta": {
           "requestId": "fixture-read-008",
-          "partial": false
+          "partial": false,
+          "taxonomyVersion": "w1-pending-v0"
         }
       }
     },
@@ -174,11 +203,122 @@
       "id": "invalid-envelope-rejected",
       "expected": "reject",
       "response": {
-        "answer": "Falta el bloque meta requerido.",
+        "answer": "Falta la versión y el bloque meta requerido.",
         "status": "SUCCESS",
         "grounded": true,
         "blocks": {}
       }
+    }
+  ],
+  "streamCases": [
+    {
+      "id": "text-stream-final-response",
+      "expected": "accept",
+      "events": [
+        {
+          "contractVersion": 1,
+          "sequence": 0,
+          "type": "started",
+          "requestId": "fixture-stream-001"
+        },
+        {
+          "contractVersion": 1,
+          "sequence": 1,
+          "type": "answer_delta",
+          "text": "He encontrado resultados."
+        },
+        {
+          "contractVersion": 1,
+          "sequence": 2,
+          "type": "final",
+          "response": {
+            "contractVersion": 1,
+            "answer": "He encontrado resultados.",
+            "status": "SUCCESS",
+            "grounded": true,
+            "blocks": {},
+            "meta": {
+              "requestId": "fixture-stream-001",
+              "partial": false,
+              "taxonomyVersion": "w1-pending-v0"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "stream-interruption-safe-failure",
+      "expected": "accept-with-interruption-notice",
+      "events": [
+        {
+          "contractVersion": 1,
+          "sequence": 0,
+          "type": "started",
+          "requestId": "fixture-stream-002"
+        },
+        {
+          "contractVersion": 1,
+          "sequence": 1,
+          "type": "answer_delta",
+          "text": "Resultado parcial no finalizado."
+        },
+        {
+          "contractVersion": 1,
+          "sequence": 2,
+          "type": "failed",
+          "notice": {
+            "code": "stream_interrupted",
+            "retryable": true,
+            "title": "Respuesta interrumpida"
+          }
+        }
+      ]
+    },
+    {
+      "id": "structured-delta-rejected",
+      "expected": "reject",
+      "events": [
+        {
+          "contractVersion": 1,
+          "sequence": 0,
+          "type": "answer_delta",
+          "text": "No debe activar controles.",
+          "entities": []
+        }
+      ]
+    },
+    {
+      "id": "cancelled-stream",
+      "expected": "accept-cancelled",
+      "events": [
+        {
+          "contractVersion": 1,
+          "sequence": 0,
+          "type": "started",
+          "requestId": "fixture-stream-003"
+        },
+        {
+          "contractVersion": 1,
+          "sequence": 1,
+          "type": "cancelled"
+        }
+      ]
+    }
+  ],
+  "clientStateCases": [
+    {
+      "id": "stale-continuation-after-taxonomy-change",
+      "given": {
+        "cursor": "opaque-page-2",
+        "validatedTaxonomyVersion": "w1-pending-v0",
+        "currentTaxonomyVersion": "w1-accepted-v1"
+      },
+      "expected": "disable-continuation-and-request-fresh-read",
+      "assertions": [
+        "the browser does not rewrite or replay the stale cursor automatically",
+        "the cursor is never treated as authorization",
+        "no existing structured block becomes interactive under the new taxonomy"
+      ]
     }
   ]
 }
