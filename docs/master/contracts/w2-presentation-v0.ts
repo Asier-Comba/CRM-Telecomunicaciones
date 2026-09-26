@@ -247,6 +247,7 @@ export function isAppRouteDescriptor(
 }
 
 export type SensitiveField<T> =
+  | { visibility: 'not_available' }
   | { visibility: 'hidden' }
   | { visibility: 'masked'; value: T }
   | {
