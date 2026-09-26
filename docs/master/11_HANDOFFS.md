@@ -6,6 +6,14 @@
 
 ## W1 → W2
 
+Domain update (`w1/telecom-domain-v1`, dependent on PR #14):
+
+- consume `src/lib/contracts/telecom-v1.ts` as a separate v1 parser;
+- `CustomerAttentionV1`, `DashboardV1`, envelopes and field capabilities are
+  now contract-complete but have no live reader yet;
+- never infer raw-table access: customer/contact/operator/plan tables have no
+  authenticated grants.
+
 Snapshot revisado: `w2/frontend-bootstrap-readiness@13369ba`.
 
 The stable presentation contracts remain `telecom.v0` in
@@ -28,6 +36,11 @@ active. `profiles.workspace_id` is a preference and is accepted only when it
 matches that authorized pair.
 
 ## W1 → W3
+
+Domain update: `TELECOM_V1_READ_OPERATIONS` publishes 14 READ boundaries,
+including `opportunity.list` plus the requested activity split. Map these in a
+new W3 catalog version; do not mutate the existing v1 catalog. Task/meeting
+writes remain blocked.
 
 Snapshot revisado: `w3/assistant-runtime-foundation@c6e869e`.
 
