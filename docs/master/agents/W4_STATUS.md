@@ -48,16 +48,17 @@ Added disposable real PostgreSQL runner and pinned lockfile, branch-specific adv
 Fixed evidence-validator null/primitive crashes and rejection of negative assistant effect counts; negative controls added.
 Machine-readable release state: .security/release-gates.json.
 Production untouched. Staging unprovisioned. No main/merge/deploy/settings/DNS/remote DB operation.
-Synthetic embedded snapshot/restore self-test passes checksum/data/RLS; no application/Storage/n8n/commercial DR exercise claimed. Project sync is optional and currently unverified; GitHub holds handoffs.
+Synthetic embedded snapshot/restore self-test passes checksum/data/RLS; no application/Storage/n8n/commercial DR exercise claimed. Project sync attempted: signed-in browser lists CRM TELECOM-MASTER and its chats, but opening the observed MASTER chat via UI and direct observed URL redirects home. No chat contents read or checkpoint sent; GitHub holds handoffs. No login failure or bot block is inferred.
 
 ## Latest implementation checkpoint
 
 PR16 draft on w4/night-shift-v3, commit b595249; CI132 passed disposable PostgreSQL controls, secret scan, baseline/migration checks. Dependency Review and Playwright skipped for documented prerequisites. Baseline5cb872c remains untouched.
+Follow-up e8906ff also passed CI134, including the snapshot/restore self-test and dependency audit (0 vulnerabilities). This is the latest verified implementation checkpoint; later documentation-only commits do not replace its evidence.
 Local diagnostic patches (not W1 commits): named profiles_pkey resolves onboarding and passes retry/suspension; separating both shared-trigger table branches allows full domain SQL fixture to complete. W1 must publish reviewed forward corrections before those gates can be accepted.
 Infrastructure decision draft covers stage options, weighted criteria, environment separation and provisional recovery targets without asserting deployment/provider capabilities.
 
 ## Next safe work
 
-Rerun SQL after W1 fixes; native isolated PostgreSQL integration and database process races when available.
-Integrate reviewed controls only after accepted base. Complete history scan, safe harness expansion and infra design.
-Refetch after each block and review deltas. Human approval remains required for production/critical permissions.
+Rerun SQL after W1 publishes fixes; bind native database process races to W3's durable adapter when implemented. API/Storage/JWT/effect-provider acceptance needs actual nonproduction adapters/resources, not synthetic stand-ins.
+Integrate reviewed controls only after accepted base. Infra decision, local harness expansion, executable SQL, snapshot self-test and current-head handoffs are prepared. Real staging/Hostinger/n8n inventory and full restore remain externally gated; no credentials requested in chat.
+Refetch after each block and review deltas. Human approval remains required for production/critical permissions. Project navigation failure is nonblocking for GitHub work.
