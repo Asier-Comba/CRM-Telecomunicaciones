@@ -58,6 +58,21 @@ Ownership:
 - A W1-backed repository/query adapter maps canonical contracts into W2 view models.
 - Server authorization is authoritative even when a UI action is absent or disabled.
 
+### Server/client boundary
+
+| Boundary | Runtime | Responsibility |
+| --- | --- | --- |
+| `Customer360Page` | Server Component | Read route params; resolve authenticated workspace through W1; request authorized projections; emit safe metadata |
+| `CustomerRouteBoundary` | Server Component | Apply identical external not-found/unauthorized behavior; never serialize protected data after denial |
+| `mapCustomer360Presentation` | Server-only adapter | Validate `telecom.v0`/attention contracts; strip server-only workspace fields; apply reveal/mask capability state; create W2 view models |
+| Identity and attention cards | Server Components by default | Render semantic, non-interactive content and closed navigation descriptors |
+| `SectionRetryControl` | Small Client Component | Request a scoped refresh; preserve focus and existing safe content; consume no raw Supabase rows |
+| `SensitiveFieldControl` | Small Client Component | Reveal/copy only through server-issued field capability; never infer access from role or DOM state |
+| Action/overflow menu | Small Client Component | Keyboard interaction and intent emission only; server reauthorizes every destination/mutation |
+| Assistant entry | Client Component | Attach only the accepted bounded page-context reference; READ UI remains separate from Customer data fetching |
+
+The route/page file must not become a client component. No presentational component imports Supabase, cookies, service-role clients or W1 database types. Authorization-sensitive responses are private/no-store or actor/workspace keyed exactly as W1/W4 approve; a denial after membership change clears protected client state before navigation.
+
 ## 3. View-model seam
 
 W2 will define the final TypeScript view model only after W1 publishes contracts. The adapter must satisfy these conceptual slots:

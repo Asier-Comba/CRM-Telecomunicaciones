@@ -3,8 +3,8 @@
 - Updated: 2026-09-26
 - Branch: `w2/frontend-bootstrap-readiness`
 - Audit-trail base: `w4/security-baseline` at `4ef9a5a`
-- Latest delivery commit: `6fdc9b2` (`test(w2): add UI state acceptance fixtures`)
-- Last verified remote checkpoint: `d1df763` on `origin/w2/frontend-bootstrap-readiness`
+- Latest delivery commit: `9f2ab64` (`test(w2): align assistant READ fixtures with W3`)
+- Last verified remote checkpoint: `9f2ab64` on `origin/w2/frontend-bootstrap-readiness`
 - Draft PR: `#8` targeting `w4/security-baseline`
 - State: W1 `telecom.v0` contracts published; runtime integration remains blocked by W4 rejection of PR `#13`
 
@@ -36,14 +36,17 @@
 - Added 14 transport-neutral Customer 360 and Dashboard UI-state acceptance fixtures without defining W1 fields, enums or endpoints.
 - Reviewed superseding W1 candidate `w1/bootstrap-sanitized@75c2103`, PR `#13`, `telecom.v0` contracts and tenant authorization contract.
 - Accepted W1's customer/company, contract, service/line and dashboard types as a stable presentation starting point; SQL/domain implementation remains draft.
-- Read W4 `e33a07f` and its 15 explicit frontend security decisions in `HANDOFF_W2_SECURITY.md`.
-- Read W3 `a57641a`: `AssistantResponse` v1 READ structures are stable; canonical entity/module taxonomy remains a W1 dependency and mutation release remains gated by Issue `#10`.
+- Read W4 through `10ee3aa`, including its 15 explicit frontend security decisions and executable observability-safety gate.
+- Read W3 `874259e`: `AssistantResponse` v1 READ structures are stable; canonical entity/module taxonomy remains a W1 dependency and mutation release remains gated by Issue `#10`.
+- Added an executable, transport-neutral W2 presentation contract with closed route descriptors, sensitive-field states and fail-closed section transitions.
+- Reconciled all nine assistant READ cases with W3's executable matrix and added streaming interruption/cancellation plus stale-continuation fixtures.
+- Published the concrete W1 `telecom.v0` acceptance/missing-field/ambiguity review in `W2_REVIEW_W1_TELECOM_V0.md`.
 - Published and SHA-verified `origin/w2/frontend-bootstrap-readiness` in the canonical repository.
 - Opened draft PR `#8` for review without assuming or merging into a future `main`.
 
 ## Doing
 
-- Translating `telecom.v0` into exact W2 candidate presentation interfaces and adapter/state-machine fixtures without copying backend rows into components.
+- Extending the `telecom.v0` presentation seam with adapter fixtures without copying backend rows into components.
 - Preparing closed route descriptors, accessibility assertions and responsive evidence contracts for immediate transport to the accepted base.
 - Holding integration until W1 satisfies the exact gate in `W2_HANDOFF_W1_CANONICAL_GATE.md`.
 - Applying W4's browser telemetry allowlist, PII field-capability policy, not-found parity and membership-invalidation requirements to W2 artifacts.
@@ -84,7 +87,7 @@
 
 ## Handoffs
 
-- **W2 → W1:** `telecom.v0` is accepted as a presentation starting point; the exact missing/ambiguous fields above must be resolved before Customer 360 and action-rich Dashboard implementation.
+- **W2 → W1:** `telecom.v0` is accepted as a presentation starting point; `W2_REVIEW_W1_TELECOM_V0.md` records the minimum additive fields and ambiguities required before action-rich Customer 360 and Dashboard implementation.
 - **W2 → W3:** READ v1 is accepted for renderer preparation; W2 will not hardcode entity taxonomy or enable confirmation actions while W1/W4 gates remain open.
 - **W2 → W4:** all 15 frontend security answers are accepted as binding defaults; runtime evidence will cover telemetry, PII, authorization invalidation, keyboard, axe and responsive states.
 
@@ -106,7 +109,9 @@
 - GitHub PR `#8` checks at `eabb342`: migration policy, baseline guardrails, secret scan, dependency review and Node quality gate passed; critical Playwright correctly skipped because no application exists.
 - GitHub PR `#8` checks at `6fdc9b2`: the same six checks completed successfully/appropriately skipped after the UI-state fixture delivery.
 - GitHub PR `#13` at `75c2103`: six checks pass/skip appropriately, but W4 review is `CHANGES_REQUESTED`; generic Secret Scan green does not override W4's direct reachable-history evidence.
-- W4 `e33a07f`: PR `#13` is explicitly not an accepted integration base; W2 has no new runtime blocker.
-- W3 `a57641a`: six checks pass/skip appropriately; Issue `#10` remains open with two W4 evidence comments.
+- `node --experimental-strip-types --test docs/master/contracts/*.test.ts`: 14/14 pass.
+- GitHub PR `#8` at `9f2ab64`: six checks pass/skip appropriately; PR remains open, draft, unmerged and clean.
+- W4 `10ee3aa`: PR `#13` is explicitly not an accepted integration base; observability policy now rejects raw payload/body/AI/import logging and W2 has no new runtime blocker.
+- W3 `874259e`: stable READ subset and nine-case compatibility matrix published; Issue `#10` remains open for durable mutation integration.
 
 Application typecheck, lint, unit tests and build remain inapplicable on this documentation-only branch until the reusable work is selectively transported onto a new branch from the accepted canonical application.

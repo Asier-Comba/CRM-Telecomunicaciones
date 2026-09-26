@@ -1,0 +1,128 @@
+{
+  "description": "W2 responsive, accessibility and visual QA matrix. Synthetic scenarios only; no production or anonymized customer rows.",
+  "version": 1,
+  "syntheticOnly": true,
+  "viewports": [
+    { "width": 320, "mode": "compact" },
+    { "width": 375, "mode": "compact" },
+    { "width": 768, "mode": "intermediate" },
+    { "width": 1024, "mode": "wide" },
+    { "width": 1440, "mode": "wide" }
+  ],
+  "surfaces": {
+    "customer360": {
+      "requiredScenarios": [
+        "normal",
+        "empty",
+        "partial",
+        "loading",
+        "error",
+        "forbidden_safe",
+        "stale",
+        "long_text",
+        "large_account",
+        "no_contracts",
+        "multiple_renewals"
+      ],
+      "keyboardPaths": [
+        "identity-to-primary-action",
+        "section-retry-and-return",
+        "overflow-open-navigate-close",
+        "sensitive-copy-capability-denied"
+      ],
+      "screenReaderAssertions": [
+        "one-page-h1",
+        "logical-section-headings",
+        "identity-description-list",
+        "status-not-color-only",
+        "scoped-loading-announcement",
+        "scoped-retry-result-announcement",
+        "contextual-action-names"
+      ]
+    },
+    "dashboard": {
+      "requiredScenarios": [
+        "normal",
+        "empty",
+        "partial",
+        "loading",
+        "error",
+        "forbidden_safe",
+        "stale",
+        "long_text",
+        "large_account",
+        "no_contracts",
+        "multiple_renewals"
+      ],
+      "keyboardPaths": [
+        "scope-filter-to-first-queue",
+        "widget-retry-and-return",
+        "queue-item-to-typed-destination",
+        "skip-widget-without-losing-order"
+      ],
+      "screenReaderAssertions": [
+        "one-page-h1",
+        "logical-widget-headings",
+        "queues-use-list-or-semantic-table",
+        "freshness-has-visible-label",
+        "empty-not-announced-before-success",
+        "partial-widget-does-not-collapse-route",
+        "contextual-row-action-names"
+      ]
+    },
+    "assistantRead": {
+      "requiredScenarios": [
+        "read_success",
+        "partial",
+        "unknown_descriptor_rejected",
+        "forbidden_safe_notice",
+        "safe_notice",
+        "stream_interruption",
+        "stale_continuation",
+        "cancelled",
+        "invalid_envelope"
+      ],
+      "keyboardPaths": [
+        "prompt-to-send",
+        "answer-to-follow-up",
+        "table-scroll-region",
+        "retry-after-stream-failure"
+      ],
+      "screenReaderAssertions": [
+        "response-order-is-dom-order",
+        "one-completion-announcement",
+        "deltas-not-announced-token-by-token",
+        "structured-controls-only-after-final",
+        "table-headers-preserved-in-card-alternative",
+        "unsupported-navigation-not-interactive"
+      ]
+    }
+  },
+  "commonAssertions": [
+    "no-page-level-horizontal-overflow",
+    "visible-focus",
+    "touch-targets-remain-operable",
+    "reduced-motion-respected",
+    "loading-skeletons-hidden-from-assistive-technology",
+    "errors-contain-no-provider-or-database-detail",
+    "forbidden-and-not-found-do-not-leak-entity-existence",
+    "masked-sensitive-fields-never-appear-in-client-logs",
+    "actions-remain-capability-driven",
+    "server-denial-remains-authoritative"
+  ],
+  "visualReview": {
+    "densityQuestions": [
+      "next-action-visible-within-first-viewport",
+      "critical-attention-precedes-secondary-detail",
+      "empty-states-do-not-dominate-layout",
+      "long-labels-wrap-without-obscuring-status",
+      "bounded-lists-disclose-more-results-without-false-total"
+    ],
+    "evidence": {
+      "screenshotsUseSyntheticFixturesOnly": true,
+      "sensitiveFailureScreenshots": "disabled-until-automatic-redaction-is-proven",
+      "requiredThemes": ["light"],
+      "requiredInputModes": ["keyboard", "touch", "pointer"]
+    }
+  }
+}

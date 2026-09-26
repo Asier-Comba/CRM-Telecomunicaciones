@@ -28,6 +28,20 @@ DashboardRoute
 
 The route owns viewer/date/filter URL state. Widgets own presentation and scoped retry. W1 query adapters own remote data/cache behavior. Shared UI primitives own only generic state/layout.
 
+### Server/client boundary
+
+| Boundary | Runtime | Responsibility |
+| --- | --- | --- |
+| `DashboardPage` | Server Component | Resolve viewer/workspace/scope and operational day; fetch the authorized read model |
+| `mapDashboardPresentation` | Server-only adapter | Validate W1 sections, strip `workspace_id`, map closed statuses/capabilities and preserve independent failures |
+| Command Center header/widgets | Server Components by default | Render scope, window, freshness and semantic lists/tables without local business derivation |
+| Scope/date filters | Small Client Component | Write authorized filter intent to the URL; server reload resolves scope again |
+| Widget retry/refresh | Small Client Component | Refresh one boundary, retain safe stale rows and expose progress/focus behavior |
+| Queue row actions | Small Client Component only when needed | Emit typed navigation/action intent; never authorize or derive risk locally |
+| Assistant entry | Client Component | Attach bounded dashboard context only after W3 page-context contract is accepted |
+
+The page remains server-first. Widgets do not call Supabase directly and do not share one global client loading state. Authorization-sensitive responses are never shared-cacheable; membership removal or workspace switch must discard protected client state on the next server denial.
+
 ## 3. Slice envelope requirements
 
 | ID | `CONTRACT_REQUIREMENT` | Needed semantics |
