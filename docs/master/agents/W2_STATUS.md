@@ -3,8 +3,8 @@
 - Updated: 2026-09-26
 - Branch: `w2/frontend-bootstrap-readiness`
 - Audit-trail base: `w4/security-baseline` at `4ef9a5a`
-- Latest delivery commit: `3b06531` (`fix(w2): constrain closed route identifiers`)
-- Last verified remote checkpoint: `3b06531` on `origin/w2/frontend-bootstrap-readiness`
+- Latest delivery commit: `283c14d` (`feat(w2): enforce client telemetry allowlist`)
+- Last verified remote checkpoint: `283c14d` on `origin/w2/frontend-bootstrap-readiness`
 - Draft PR: `#8` targeting `w4/security-baseline`
 - State: W1 `telecom.v0` contracts published; runtime integration remains blocked by W4 rejection of PR `#13`
 
@@ -46,6 +46,7 @@
 - Added a semantic design-token and primitive contract without locking concrete values before the accepted Tailwind/theme base.
 - Added an architecture-only assistant mutation state machine: blocked by default, exact opaque confirmation reuse, expiry/cancel/conflict/failure and status-only reconciliation.
 - Incorporated W4 `106848a` immediately: closed route IDs now reject path, query, fragment, percent-encoding, whitespace and control syntax while retaining URL-safe opaque IDs.
+- Added a closed browser-telemetry validator that rejects customer/workspace/entity IDs, URLs, prompts, answers, payloads, provider details and unknown codes before vendor integration exists.
 - Published and SHA-verified `origin/w2/frontend-bootstrap-readiness` in the canonical repository.
 - Opened draft PR `#8` for review without assuming or merging into a future `main`.
 
@@ -114,8 +115,8 @@
 - GitHub PR `#8` checks at `eabb342`: migration policy, baseline guardrails, secret scan, dependency review and Node quality gate passed; critical Playwright correctly skipped because no application exists.
 - GitHub PR `#8` checks at `6fdc9b2`: the same six checks completed successfully/appropriately skipped after the UI-state fixture delivery.
 - GitHub PR `#13` at `75c2103`: six checks pass/skip appropriately, but W4 review is `CHANGES_REQUESTED`; generic Secret Scan green does not override W4's direct reachable-history evidence.
-- `node --experimental-strip-types --test docs/master/contracts/*.test.ts`: 31/31 pass.
-- GitHub PR `#8` at `3b06531`: six checks pass/skip appropriately; W4's merged-baseline guardrail job executed all five W2 contract-test files, including the route-ID negatives, and reported documentation contract tests passed.
+- `node --experimental-strip-types --test docs/master/contracts/*.test.ts`: 36/36 pass.
+- GitHub PR `#8` at `283c14d`: six checks pass/skip appropriately; W4's merged-baseline guardrail job executed all six W2 contract-test files, including route-ID and telemetry negatives, and reported documentation contract tests passed.
 - W4 `106848a`: PR `#13` is explicitly not an accepted integration base; docs-contract CI is now enforced and the route-ID finding has been fixed by W2.
 - W3 `874259e`: stable READ subset and nine-case compatibility matrix published; Issue `#10` remains open for durable mutation integration.
 
