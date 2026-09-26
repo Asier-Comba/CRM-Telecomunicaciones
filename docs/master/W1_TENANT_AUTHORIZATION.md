@@ -1,15 +1,16 @@
 # W1 — Contrato de autorización tenant
 
-- Versión: 0.1
+- Versión: 0.2
 - Fecha: 2026-09-26
 - Owner: W1; revisión requerida W4
-- Estado: resolver canónico publicado; rutas privilegiadas legacy deshabilitadas
+- Estado: workspace activo + membresía activa implementados; rutas privilegiadas legacy deshabilitadas
 
 ## Fuente de verdad
 
-La autorización tenant se deriva exclusivamente de una fila `active` en
-`workspace_members`. `profiles.workspace_id` es una preferencia de selección para
-clientes compatibles y no concede acceso. `profiles` no tiene columna de rol.
+La autorización tenant exige simultáneamente `workspaces.status = 'active'` y una
+fila `workspace_members.status = 'active'`. `profiles.workspace_id` es una
+preferencia de selección para clientes compatibles y no concede acceso.
+`profiles` no tiene columna de rol.
 
 | Rol | Lectura tenant | Mutación CRM | Gestionar miembros | Asignar roles |
 | --- | --- | --- | --- | --- |
@@ -24,7 +25,7 @@ autoriza a omitir RLS, ownership de recurso o validación de entrada.
 ## Resolución server-side
 
 1. Validar la sesión con `auth.getUser()`.
-2. Leer únicamente membresías `active` del usuario autenticado.
+2. Leer únicamente membresías `active` cuyo workspace también esté `active`.
 3. Si existe `x-workspace-id`, validar formato UUID y pertenencia activa.
 4. Sin header, aceptar `profiles.workspace_id` solo si coincide con una membresía
    activa.
@@ -34,7 +35,8 @@ autoriza a omitir RLS, ownership de recurso o validación de entrada.
 7. Acotar cualquier consulta o mutación al `workspace_id` resuelto.
 
 Un header inventado devuelve `403`; un UUID inválido devuelve `400`; una membresía
-suspendida o borrada deja de autorizar inmediatamente.
+suspendida/borrada o un workspace suspendido deja de autorizar inmediatamente.
+En usuarios multi-workspace, suspender A no afecta al B activo.
 
 ## Gestión de equipo (contrato; endpoint aún deshabilitado)
 
@@ -60,7 +62,12 @@ suspendida o borrada deja de autorizar inmediatamente.
 ## Deuda abierta P0
 
 Los endpoints históricos que dependían de `profiles.role`, un secreto global o
-un `workspace_id` del caller no se importaron a la rama canónica v2. Solo podrán
+un `workspace_id` del caller no se importaron a la rama canónica v3. Solo podrán
 reaparecer usando `src/lib/server/tenant-context.ts` y pruebas de dos
 usuarios/dos workspaces. Ninguna migración se aplicará antes de revisión W4,
 plan de rollback y autorización humana.
+
+La corrección de suspensión está cubierta por tests estáticos/puros y por el
+harness W4 (owner/manager, servicio y A suspendido/B activo). La aceptación final
+sigue requiriendo aplicar zero-to-head en infraestructura aislada y ejecutar los
+ataques RLS reales; no se afirma esa evidencia todavía.

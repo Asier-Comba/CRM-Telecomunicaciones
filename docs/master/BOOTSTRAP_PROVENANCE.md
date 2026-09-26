@@ -2,7 +2,7 @@
 
 - Updated: 2026-09-26
 - Owner: W1
-- Canonical candidate: `w1/canonical-v2`
+- Canonical candidate: `w1/canonical-v3`
 
 ## Repository boundary
 
@@ -11,7 +11,8 @@ historical `iazticontact/crm-inmobiliario-demo` repository is read-only.
 
 ## Reconstruction boundary
 
-This branch starts at `w4/security-baseline@10ee3aa`. It does not merge,
+This branch starts at `w4/security-baseline@5cb872c`. It cherry-picks only the two
+locally validated `canonical-v2` reconstruction commits; it does not merge,
 cherry-pick or otherwise make commits from `w1/bootstrap-canonical` or
 `w1/bootstrap-sanitized` reachable.
 
@@ -26,4 +27,5 @@ deliberately not imported:
 
 W4 CI, security policies and documentation remain from the current baseline and
 take precedence. The canonical migration directory contains only reviewed W1
-tenant/onboarding migrations. Supabase has not been accessed.
+tenant/onboarding and active-workspace authorization migrations. Supabase has
+not been accessed.

@@ -2,7 +2,7 @@
 
 - Versión: 0.1
 - Fecha: 2026-09-26
-- Base: `w4/security-baseline@10ee3aa`
+- Base: `w4/security-baseline@5cb872c`
 - Owner: W1
 - Estado: baseline observada
 - Supersedes: ninguno

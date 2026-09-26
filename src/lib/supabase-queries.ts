@@ -524,6 +524,14 @@ export type WorkspaceMember = { id: string; name: string; email: string | null; 
 export async function listWorkspaceProfiles(workspaceId: string): Promise<WorkspaceMember[]> {
   const supabase = getSupabaseBrowserClient()
   if (!supabase || !workspaceId) return []
+  const { data: activeWorkspace, error: workspaceError } = await supabase
+    .from('workspaces')
+    .select('id')
+    .eq('id', workspaceId)
+    .eq('status', 'active')
+    .maybeSingle()
+  if (workspaceError || !activeWorkspace) return []
+
   const { data: memberships, error: membershipError } = await supabase
     .from('workspace_members')
     .select('user_id, role')
@@ -686,9 +694,10 @@ async function resolveWorkspaceIdentityUncached(): Promise<ResolvedWorkspaceCont
 
   const { data: membershipRows, error: membershipError } = await supabase
     .from('workspace_members')
-    .select('id, workspace_id, role, status, created_at')
+    .select('id, workspace_id, role, status, created_at, workspace:workspaces!inner(status)')
     .eq('user_id', user.id)
     .eq('status', 'active')
+    .eq('workspace.status', 'active')
     .order('created_at', { ascending: true })
 
   if (membershipError) {
@@ -733,17 +742,34 @@ async function resolveWorkspaceIdentityUncached(): Promise<ResolvedWorkspaceCont
     .from('workspaces')
     .select('*')
     .eq('id', workspaceId)
+    .eq('status', 'active')
     .maybeSingle()
+
+  if (workspaceError || !workspace || (workspace as WorkspaceRecord).status !== 'active') {
+    return {
+      user,
+      profile,
+      membership: null,
+      workspaceRole: null,
+      workspace: null,
+      workspaceId: null,
+      resolvedWorkspaceId: null,
+      error: workspaceError?.message ?? 'Workspace is not active',
+      profileLookupMethod: profileResult.profileLookupMethod,
+      profileByIdError: profileResult.profileByIdError ?? null,
+      profileByEmailError: profileResult.profileByEmailError ?? null,
+    }
+  }
 
   return {
     user,
     profile,
     membership,
     workspaceRole: membership.role,
-    workspace: workspace ? (workspace as WorkspaceRecord) : null,
+    workspace: workspace as WorkspaceRecord,
     workspaceId,
     resolvedWorkspaceId: workspaceId,
-    error: workspaceError?.message ?? null,
+    error: null,
     profileLookupMethod: profileResult.profileLookupMethod,
     profileByIdError: profileResult.profileByIdError ?? null,
     profileByEmailError: profileResult.profileByEmailError ?? null,

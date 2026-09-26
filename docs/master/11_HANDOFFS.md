@@ -2,7 +2,7 @@
 
 - Updated: 2026-09-26
 - Owner: W1
-- Branch: `w1/canonical-v2`
+- Branch: `w1/canonical-v3`
 
 ## W1 → W2
 
@@ -11,9 +11,9 @@ The stable presentation contracts remain `telecom.v0` in
 branch is not yet an accepted integration base. W2 must not infer physical
 tables or authorization from the UI snapshot.
 
-The identity shell now exposes only an active membership role
-`owner|admin|member|viewer`. `profiles.workspace_id` is a preference and is
-accepted only when it matches an active membership.
+The identity shell exposes a role only when both workspace and membership are
+active. `profiles.workspace_id` is a preference and is accepted only when it
+matches that authorized pair.
 
 ## W1 → W3
 
@@ -24,7 +24,7 @@ arbitrary SQL/HTTP or global agent credential is enabled.
 
 ## W1 → W4
 
-Review the new history from `w4/security-baseline@10ee3aa`. The reconstruction
+Review the new history from `w4/security-baseline@5cb872c`. The reconstruction
 does not contain the prior W1 commits, archived infrastructure documents,
 legacy migrations, live-patch scripts or privileged historical routes.
 
@@ -32,7 +32,9 @@ Review targets:
 
 1. full-history value-redacted secret evidence and clean-clone gates;
 2. tenant resolver fail-closed behavior;
-3. `20260926120000_atomic_workspace_onboarding.sql` grants, transaction and retry semantics;
-4. real database RLS attacks once isolated infrastructure is authorized.
+3. `20260926143000_enforce_active_workspace_authorization.sql`, including all
+   five helpers, membership policy and suspended-onboarding denial;
+4. the 28-case tenant harness and real database RLS attacks once isolated
+   infrastructure is authorized.
 
 No migration has been applied and no production system has been touched.

@@ -37,9 +37,10 @@ export async function resolveTenantContext(req?: NextRequest): Promise<TenantCon
     supabase.from('profiles').select('email, workspace_id').eq('id', userData.user.id).maybeSingle(),
     supabase
       .from('workspace_members')
-      .select('id, workspace_id, role, status, created_at')
+      .select('id, workspace_id, role, status, created_at, workspace:workspaces!inner(status)')
       .eq('user_id', userData.user.id)
       .eq('status', 'active')
+      .eq('workspace.status', 'active')
       .order('created_at', { ascending: true }),
   ])
 

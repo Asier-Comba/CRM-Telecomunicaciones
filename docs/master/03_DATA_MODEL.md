@@ -1,8 +1,8 @@
 # 03 — Modelo de datos
 
-- Versión: 0.1
+- Versión: 0.2
 - Fecha: 2026-09-26
-- Base: `w4/security-baseline@10ee3aa`
+- Base: `w4/security-baseline@5cb872c`
 - Owner: W1
 - Estado: reconstrucción P0; diseño telecom pendiente
 - Supersedes: ninguno
@@ -11,16 +11,22 @@
 
 `20260925153500_core_tenant_identity.sql` define la primera base canónica:
 `workspaces`, `profiles`, `workspace_members`, helpers de membresía y RLS. La única
-fuente de autorización tenant es una membresía `active`; `profiles.workspace_id`
-es solo una preferencia compatible y `profiles` no contiene rol.
+fuente de rol tenant es la membresía; `profiles.workspace_id` es solo una
+preferencia compatible y `profiles` no contiene rol.
 
-Las migraciones del CRM inmobiliario no forman parte de la rama canónica v2. No
+Las migraciones del CRM inmobiliario no forman parte de la rama canónica v3. No
 se aplican, auditan como baseline ni se mantienen como dependencia implícita.
 
 `20260926120000_atomic_workspace_onboarding.sql` añade el único camino de alta:
 un RPC autenticado y transaccional crea workspace+slug, owner membership y
 preferencia de perfil. Los reintentos se serializan por identidad y devuelven la
 membresía activa existente.
+
+`20260926143000_enforce_active_workspace_authorization.sql` es una corrección
+forward-only: exige workspace y membresía activos en los cinco helpers RLS,
+recrea la policy de lectura de membresías y hace que onboarding rechace un
+workspace suspendido en vez de crear un tenant alternativo. Las migraciones
+anteriores permanecen inmutables.
 
 ## Drift confirmado
 

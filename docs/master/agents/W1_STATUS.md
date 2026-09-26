@@ -1,31 +1,31 @@
 # W1 — Backend, Data, Supabase & Integration
 
 - Updated: 2026-09-26
-- Branch: `w1/canonical-v2`
-- Baseline: `w4/security-baseline@10ee3aa`
-- State: clean-history checkpoint validated locally; GitHub publication awaits login
+- Branch: `w1/canonical-v3`
+- Baseline: `w4/security-baseline@5cb872c`
+- State: W4-integrated checkpoint; suspended-workspace P0 fixed in code, publication pending
 
 ## Current checkpoint
 
-- Reconstructed from the latest W4 baseline without inheriting either prior W1
-  branch history.
+- Reconstructed from W4 `5cb872c` without inheriting either prior W1 branch
+  history. Local safety refs preserve the prior `canonical-v2` checkpoint.
 - Imported the buildable application, canonical tenant migration, membership
   resolver, Telecom v0 contracts and bootstrap tests only.
 - Excluded `docs/archive`, legacy migrations, live-patch/QA scripts, n8n workflow
   artifacts and all historical privileged API routes.
-- Added one server-side tenant resolver backed exclusively by active
-  `workspace_members`; `profiles.workspace_id` remains a non-authorizing UX
-  preference.
-- Updated browser identity display to select only an active membership and to
-  derive its role from that membership.
+- Server and browser tenant resolvers now require both an active membership and
+  `workspaces.status = 'active'`; `profiles.workspace_id` remains a
+  non-authorizing UX preference.
+- Added a forward-only authorization migration that redefines all five tenant
+  helpers, denies membership/manager visibility for suspended workspaces and
+  prevents onboarding from bypassing a suspended tenant.
 - Added atomic authenticated onboarding through `provision_workspace`: workspace,
   slug, owner membership and profile preference commit in one transaction;
   retries serialize per user and return the existing active membership.
-- Lint, typecheck, 19 bootstrap tests, production build, sensitive-route gate and
-  observability gate pass locally. Strict drift remains red by design with 29
-  unresolved relations/views and one RPC.
-- A clean exported checkout of `54f1cf6` independently passes install, lint,
-  typecheck, the same 19 tests and a 20-route production build.
+- Lint, typecheck, 22 bootstrap tests, the 28-case W4 tenant harness, all
+  transportable W4 Node gates and a 20-route production build pass locally.
+  Strict drift remains red by design with 29 unresolved relations/views and one
+  RPC.
 - Supabase has not been contacted or mutated.
 
 ## Intentionally disabled
@@ -44,13 +44,14 @@ idempotency where applicable and W4 review are implemented and tested.
 
 ## Open gates
 
-- Publish `w1/canonical-v2` after GitHub authentication is available, then let
-  CI/W4 independently repeat the full-history scan.
+- Validate from a clean checkout, publish `w1/canonical-v3`, then let CI/W4
+  independently repeat the full-history and Linux shell gates.
 - Complete canonical Telecom schema; strict drift audit remains intentionally red.
 - Database-backed zero-to-head and A/B RLS attack tests in isolated infrastructure.
 - W4 review and explicit human authorization before any Supabase apply.
 
 ## Next safe work
 
-Publish the first normalized Telecom domain migration (customers/companies and
-contacts) with workspace scope, RLS, indexes and executable contract tests.
+Obtain W4 revalidation of the suspended-workspace repair, then publish the first
+normalized Telecom domain migration (customers/companies and contacts) with
+workspace scope, RLS, indexes and executable contract tests.

@@ -1,8 +1,17 @@
 import assert from 'node:assert/strict'
-import { readFile } from 'node:fs/promises'
+import { readdir, readFile } from 'node:fs/promises'
 import test from 'node:test'
 
-const sql = await readFile('supabase/migrations/20260926120000_atomic_workspace_onboarding.sql', 'utf8')
+const migrationPaths = (await readdir('supabase/migrations'))
+  .filter((name) => name.endsWith('.sql'))
+  .sort()
+const migrationSql = (await Promise.all(
+  migrationPaths.map((name) => readFile(`supabase/migrations/${name}`, 'utf8')),
+)).join('\n')
+const definitions = [...migrationSql.matchAll(
+  /create or replace function public\.provision_workspace\([\s\S]*?\n\$\$;/g,
+)]
+const sql = definitions.at(-1)?.[0] ?? ''
 const route = await readFile('src/app/api/onboarding/workspace/route.ts', 'utf8')
 
 test('onboarding is one authenticated transaction with an owner membership', () => {
@@ -13,7 +22,7 @@ test('onboarding is one authenticated transaction with an owner membership', () 
   assert.match(sql, /insert into public\.workspaces/)
   assert.match(sql, /insert into public\.workspace_members[\s\S]*'owner', 'active'/)
   assert.match(sql, /insert into public\.profiles/)
-  assert.match(sql, /grant execute on function public\.provision_workspace\(text, text\) to authenticated/)
+  assert.match(migrationSql, /grant execute on function public\.provision_workspace\(text, text\) to authenticated/)
 })
 
 test('retry returns an existing active membership before inserting', () => {
@@ -21,6 +30,9 @@ test('retry returns an existing active membership before inserting', () => {
   const insert = sql.indexOf('insert into public.workspaces')
   assert.ok(lookup >= 0 && lookup < insert)
   assert.match(sql, /select v_workspace\.id[\s\S]*false/)
+  assert.match(sql, /join public\.workspaces as w/)
+  assert.match(sql, /w\.status = 'active'/)
+  assert.match(sql, /workspace suspended/)
 })
 
 test('the route authenticates and delegates to the canonical RPC', () => {
@@ -28,5 +40,6 @@ test('the route authenticates and delegates to the canonical RPC', () => {
   const rpc = route.indexOf("supabase.rpc('provision_workspace'")
   assert.ok(auth >= 0 && auth < rpc)
   assert.match(route, /slug_taken/)
+  assert.match(route, /workspace_suspended/)
   assert.doesNotMatch(route, /SUPABASE_SERVICE_ROLE_KEY|getSupabaseAdminClient/)
 })

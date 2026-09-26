@@ -35,12 +35,24 @@ export type MembershipCandidate = {
   role?: unknown
   status?: unknown
   created_at?: unknown
+  workspace?: unknown
+}
+
+function hasActiveWorkspace(value: unknown) {
+  const workspace = Array.isArray(value) ? value[0] : value
+  return Boolean(
+    workspace &&
+    typeof workspace === 'object' &&
+    'status' in workspace &&
+    (workspace as { status?: unknown }).status === 'active',
+  )
 }
 
 export function normalizeActiveMemberships(rows: MembershipCandidate[]): ActiveMembership[] {
   return rows
     .filter((row) => (
       row.status === 'active' &&
+      hasActiveWorkspace(row.workspace) &&
       typeof row.id === 'string' &&
       typeof row.workspace_id === 'string' &&
       isWorkspaceRole(row.role)

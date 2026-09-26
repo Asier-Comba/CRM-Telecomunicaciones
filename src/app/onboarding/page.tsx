@@ -33,9 +33,10 @@ export default function OnboardingPage() {
 
       const { data: memberships } = await supabase
         .from('workspace_members')
-        .select('id')
+        .select('id, workspace:workspaces!inner(status)')
         .eq('user_id', data.session.user.id)
         .eq('status', 'active')
+        .eq('workspace.status', 'active')
         .limit(1)
       if (!mounted) return
       if (memberships?.length) { router.replace('/dashboard'); return }

@@ -1,9 +1,20 @@
 import assert from 'node:assert/strict'
-import { readFile } from 'node:fs/promises'
+import { readdir, readFile } from 'node:fs/promises'
 import test from 'node:test'
 
-const migrationPath = 'supabase/migrations/20260925153500_core_tenant_identity.sql'
-const sql = await readFile(migrationPath, 'utf8')
+const migrationPaths = (await readdir('supabase/migrations'))
+  .filter((name) => name.endsWith('.sql'))
+  .sort()
+const sql = (await Promise.all(
+  migrationPaths.map((name) => readFile(`supabase/migrations/${name}`, 'utf8')),
+)).join('\n')
+
+function latestFunction(name) {
+  const matches = [...sql.matchAll(
+    new RegExp(`create or replace function public\\.${name}\\([\\s\\S]*?\\n\\$\\$;`, 'g'),
+  )]
+  return matches.at(-1)?.[0]
+}
 
 test('workspace membership is the only tenant role source', () => {
   const profilesBlock = sql.match(
@@ -31,14 +42,22 @@ test('tenant helpers fail closed on inactive or absent membership', () => {
     'has_workspace_role',
     'shares_workspace_with',
   ]) {
-    const block = sql.match(
-      new RegExp(`create or replace function public\\.${helper}\\([\\s\\S]*?\\n\\$\\$;`),
-    )?.[0]
+    const block = latestFunction(helper)
     assert.ok(block, `${helper} must be defined`)
     assert.match(block, /security definer/)
     assert.match(block, /set search_path = ''/)
-    assert.match(block, /status = 'active'/)
+    assert.match(block, /wm\.status = 'active'|mine\.status = 'active'/)
+    assert.match(block, /join public\.workspaces as w/)
+    assert.match(block, /w\.status = 'active'/)
   }
+})
+
+test('membership visibility and manager privileges require an active workspace', () => {
+  const latestPolicy = sql.lastIndexOf('create policy workspace_members_select_self_or_admin')
+  assert.ok(latestPolicy >= 0)
+  const policy = sql.slice(latestPolicy, sql.indexOf(';', latestPolicy) + 1)
+  assert.match(policy, /user_id = auth\.uid\(\) and public\.is_workspace_member\(workspace_id\)/)
+  assert.match(policy, /public\.has_workspace_role/)
 })
 
 test('authenticated users cannot mutate workspaces or memberships directly', () => {

@@ -48,12 +48,17 @@ export async function POST(req: Request) {
 
   if (error) {
     const duplicate = error.code === '23505'
+    const suspended = error.code === '42501' && error.message?.includes('workspace suspended')
     return NextResponse.json(
       {
-        error: duplicate ? 'Ese identificador de workspace ya está en uso.' : 'No se pudo crear el workspace.',
-        code: duplicate ? 'slug_taken' : 'onboarding_failed',
+        error: duplicate
+          ? 'Ese identificador de workspace ya está en uso.'
+          : suspended
+            ? 'El workspace asociado está suspendido.'
+            : 'No se pudo crear el workspace.',
+        code: duplicate ? 'slug_taken' : suspended ? 'workspace_suspended' : 'onboarding_failed',
       },
-      { status: duplicate ? 409 : 500 },
+      { status: duplicate ? 409 : suspended ? 403 : 500 },
     )
   }
 
