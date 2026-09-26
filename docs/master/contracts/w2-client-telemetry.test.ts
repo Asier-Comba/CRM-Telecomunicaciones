@@ -4,6 +4,7 @@ import test from 'node:test'
 import { validateClientTelemetry } from './w2-client-telemetry.ts'
 
 const vocabulary = {
+  contractVersions: new Set<string | number>([1, 'assistant.v1']),
   statusCodes: new Set(['success', 'invalid_response', 'forbidden']),
   blockKinds: new Set(['answer', 'notice', 'table']),
 }
@@ -20,10 +21,10 @@ const validEnvelope = {
 }
 
 test('accepts the exact W4 browser telemetry allowlist', () => {
-  assert.deepEqual(
-    validateClientTelemetry(validEnvelope, vocabulary),
-    validEnvelope,
-  )
+  const result = validateClientTelemetry(validEnvelope, vocabulary)
+  assert.deepEqual(result, validEnvelope)
+  assert.notEqual(result, validEnvelope)
+  assert.equal(Object.isFrozen(result), true)
 })
 
 test('rejects customer, entity, workspace and URL identifiers', () => {
@@ -100,5 +101,64 @@ test('requires bounded opaque correlation and trusted build labels', () => {
       vocabulary,
     ),
     null,
+  )
+})
+
+test('returns a detached projection that caller mutation cannot alter', () => {
+  const callerOwned = { ...validEnvelope }
+  const result = validateClientTelemetry(callerOwned, vocabulary)
+  assert.notEqual(result, null)
+
+  callerOwned.statusCode = 'forbidden'
+  callerOwned.correlationId = 'changedCorrelation_123456'
+
+  assert.equal(result?.statusCode, 'success')
+  assert.equal(result?.correlationId, 'fixtureCorrelation_123456')
+})
+
+test('rejects unregistered, oversized, secret-shaped and non-finite versions', () => {
+  assert.equal(
+    validateClientTelemetry(
+      { ...validEnvelope, contractVersion: 2 },
+      vocabulary,
+    ),
+    null,
+  )
+
+  const unsafeVersions = [
+    Number.NaN,
+    Number.POSITIVE_INFINITY,
+    10_000,
+    'v1',
+    'x'.repeat(512),
+    'AKIAIOSFODNN7EXAMPLE',
+    'Bearer-secret-value',
+  ]
+
+  const permissiveVocabulary = {
+    ...vocabulary,
+    contractVersions: new Set<string | number>([
+      ...vocabulary.contractVersions,
+      ...unsafeVersions,
+    ]),
+  }
+
+  for (const contractVersion of unsafeVersions) {
+    assert.equal(
+      validateClientTelemetry(
+        { ...validEnvelope, contractVersion },
+        permissiveVocabulary,
+      ),
+      null,
+      String(contractVersion),
+    )
+  }
+
+  assert.equal(
+    validateClientTelemetry(
+      { ...validEnvelope, contractVersion: 'assistant.v1' },
+      vocabulary,
+    )?.contractVersion,
+    'assistant.v1',
   )
 })
