@@ -562,7 +562,9 @@ test('authorized reconciliation completes only after verified effect and read-af
       data: { taskRef: 'task-opaque-000000000001' },
     },
   })
-  const service = new AuthorizedReconciliationService({ store: adapter.idempotency, verifier, audit })
+  const service = new AuthorizedReconciliationService({ store: adapter.idempotency, verifier, audit,
+    outputSchemas: new Map([[reconciliationBinding.capability, { type: 'object', properties: { taskRef: { type: 'string', minLength: 1, maxLength: 160 } }, required: ['taskRef'], additionalProperties: false }]]),
+  })
 
   const result = await service.reconcile(authorizedActor, {
     operationRef: pending.operationRef,

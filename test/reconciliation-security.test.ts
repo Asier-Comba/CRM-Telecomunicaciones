@@ -1,6 +1,7 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { AuthorizedReconciliationService } from '../src/assistant/reconciliation.js'
+import type { ValueSchema } from '../src/assistant/contracts.js'
 import type {
   DurableIdempotencyRecord, DurableIdempotencyStore, ReconciliationActor,
   ReconciliationVerification, ReconciliationVerifier,
@@ -24,11 +25,13 @@ const request = {
 const success: ReconciliationVerification = {
   outcome: 'effect_applied', result: { status: 'SUCCESS', capability: 'crm.task.create', data: { taskRef: 'task-a' } },
 }
+const outputSchema: ValueSchema = { type: 'object', properties: { taskRef: { type: 'string', minLength: 1, maxLength: 160 } }, required: ['taskRef'], additionalProperties: false }
 
 function fixture(options: {
   initial?: DurableIdempotencyRecord
   readBack?: (record: DurableIdempotencyRecord) => DurableIdempotencyRecord
   verifier?: ReconciliationVerifier
+  noSchema?: boolean
 } = {}) {
   let calls = 0
   let transitions = 0
@@ -47,6 +50,7 @@ function fixture(options: {
   const service = new AuthorizedReconciliationService({
     store, verifier: options.verifier ?? { async verify() { return structuredClone(success) } },
     audit: { async emit() {} },
+    outputSchemas: options.noSchema ? new Map() : new Map([['crm.task.create', outputSchema]]),
   })
   return { service, calls: () => calls, transitions: () => transitions }
 }
@@ -112,4 +116,18 @@ test('verifier cannot mutate the previously authorized request and binding', asy
   const result = await f.service.reconcile(actor, { ...request }, now)
   assert.equal(result.status, 'SUCCESS')
   assert.equal(result.operationRef, record.operationRef)
+})
+
+test('W4 regression: capability-specific verifier data is validated before any transition', async () => {
+  for (const data of [
+    { arbitrary_private_field: 'SYNTHETIC_INTERNAL_DETAIL' }, {}, { taskRef: 42 },
+    { taskRef: 'task-a', extra: 'private' }, null, ['task-a'], { taskRef: 'x'.repeat(161) },
+  ]) {
+    const f = fixture({ verifier: { async verify() { return { outcome: 'effect_applied', result: { status: 'SUCCESS', capability: 'crm.task.create', data } } } } })
+    assert.equal((await f.service.reconcile(actor, request, now)).status, 'CONFLICT')
+    assert.equal(f.transitions(), 0)
+  }
+  const missing = fixture({ noSchema: true })
+  assert.equal((await missing.service.reconcile(actor, request, now)).status, 'CONFLICT')
+  assert.equal(missing.transitions(), 0)
 })
