@@ -47,6 +47,33 @@ begin
 end;
 $$;
 
+create function pg_temp.assert_privileged_visibility(
+  allowed_workspaces uuid[], denied_workspaces uuid[], p_context text
+) returns void language plpgsql set search_path = '' as $$
+declare relation_name text; workspace uuid; visible_count bigint;
+begin
+  foreach relation_name in array array[
+    'import_jobs','import_field_mappings','import_staging_rows',
+    'import_row_issues','import_applications','business_audit_events'
+  ] loop
+    foreach workspace in array allowed_workspaces loop
+      execute format('select count(*) from public.%I where workspace_id = $1', relation_name)
+        into visible_count using workspace;
+      if visible_count < 1 then
+        raise exception '% cannot read privileged workspace % in %', p_context, workspace, relation_name;
+      end if;
+    end loop;
+    foreach workspace in array denied_workspaces loop
+      execute format('select count(*) from public.%I where workspace_id = $1', relation_name)
+        into visible_count using workspace;
+      if visible_count <> 0 then
+        raise exception '% can read denied privileged workspace % in %', p_context, workspace, relation_name;
+      end if;
+    end loop;
+  end loop;
+end;
+$$;
+
 create function pg_temp.assert_no_domain_rows(p_context text)
 returns void language plpgsql set search_path = '' as $$
 declare relation_name text; visible_count bigint;
@@ -55,7 +82,8 @@ begin
     'customers','contacts','telecom_operators','telecom_plans','telecom_plan_versions',
     'telecom_contracts','telecom_services','telecom_lines','telecom_commitments',
     'telecom_renewals','opportunity_stages','opportunities','tasks','calendar_events','activities',
-    'service_cases','documents'
+    'service_cases','documents','import_jobs','import_field_mappings','import_staging_rows',
+    'import_row_issues','import_applications','business_audit_events'
   ] loop
     execute format('select count(*) from public.%I', relation_name) into visible_count;
     if visible_count <> 0 then
@@ -238,6 +266,291 @@ insert into public.documents (
   ('76000000-0000-0000-0000-000000000013', '20000000-0000-0000-0000-000000000001', null, null, null, null, '75000000-0000-0000-0000-000000000001', null, 'incident', 'case-target.pdf', 'application/pdf', '20000000-0000-0000-0000-000000000001/documents/76000000-0000-0000-0000-000000000013/77000000-0000-0000-0000-000000000013', '10000000-0000-0000-0000-000000000001'),
   ('76000000-0000-0000-0000-000000000014', '20000000-0000-0000-0000-000000000001', null, null, null, null, null, '71000000-0000-0000-0000-000000000001', 'general', 'opportunity-target.pdf', 'application/pdf', '20000000-0000-0000-0000-000000000001/documents/76000000-0000-0000-0000-000000000014/77000000-0000-0000-0000-000000000014', '10000000-0000-0000-0000-000000000001');
 
+-- Import/audit fixtures exercise the real lifecycle so trigger invariants are part
+-- of the database harness, not bypassed by inserting terminal rows directly.
+insert into public.import_jobs (
+  id, workspace_id, import_kind, source_file_ref_id, source_file_digest_hmac,
+  digest_key_version, mapping_schema_version, idempotency_key_id, total_rows, created_by_user_id
+) values
+  ('80000000-0000-0000-0000-000000000001', '20000000-0000-0000-0000-000000000001', 'customers', '86000000-0000-0000-0000-000000000001', repeat('a', 64), 1, 1, '89000000-0000-0000-0000-000000000001', 2, '10000000-0000-0000-0000-000000000001'),
+  ('80000000-0000-0000-0000-000000000002', '20000000-0000-0000-0000-000000000002', 'customers', '86000000-0000-0000-0000-000000000002', repeat('b', 64), 1, 1, '89000000-0000-0000-0000-000000000002', 2, '10000000-0000-0000-0000-000000000003'),
+  ('80000000-0000-0000-0000-000000000003', '20000000-0000-0000-0000-000000000003', 'customers', '86000000-0000-0000-0000-000000000003', repeat('c', 64), 1, 1, '89000000-0000-0000-0000-000000000003', 2, '10000000-0000-0000-0000-000000000004');
+
+update public.import_jobs set status = 'mapping';
+
+insert into public.import_field_mappings (
+  id, workspace_id, import_job_id, source_column_ordinal,
+  target_field_code, created_by_user_id
+) values
+  ('81000000-0000-0000-0000-000000000001', '20000000-0000-0000-0000-000000000001', '80000000-0000-0000-0000-000000000001', 0, 'legal_name', '10000000-0000-0000-0000-000000000001'),
+  ('81000000-0000-0000-0000-000000000002', '20000000-0000-0000-0000-000000000002', '80000000-0000-0000-0000-000000000002', 0, 'legal_name', '10000000-0000-0000-0000-000000000003'),
+  ('81000000-0000-0000-0000-000000000003', '20000000-0000-0000-0000-000000000003', '80000000-0000-0000-0000-000000000003', 0, 'legal_name', '10000000-0000-0000-0000-000000000004');
+
+update public.import_jobs set status = 'validating';
+
+insert into public.import_staging_rows (
+  id, workspace_id, import_job_id, source_row_number, row_digest_hmac, encrypted_payload_ref_id
+) values
+  ('82000000-0000-0000-0000-000000000001', '20000000-0000-0000-0000-000000000001', '80000000-0000-0000-0000-000000000001', 1, repeat('a', 64), '87000000-0000-0000-0000-000000000001'),
+  ('82000000-0000-0000-0000-000000000002', '20000000-0000-0000-0000-000000000001', '80000000-0000-0000-0000-000000000001', 2, repeat('b', 64), '87000000-0000-0000-0000-000000000002'),
+  ('82000000-0000-0000-0000-000000000003', '20000000-0000-0000-0000-000000000002', '80000000-0000-0000-0000-000000000002', 1, repeat('c', 64), '87000000-0000-0000-0000-000000000003'),
+  ('82000000-0000-0000-0000-000000000004', '20000000-0000-0000-0000-000000000002', '80000000-0000-0000-0000-000000000002', 2, repeat('d', 64), '87000000-0000-0000-0000-000000000004'),
+  ('82000000-0000-0000-0000-000000000005', '20000000-0000-0000-0000-000000000003', '80000000-0000-0000-0000-000000000003', 1, repeat('e', 64), '87000000-0000-0000-0000-000000000005'),
+  ('82000000-0000-0000-0000-000000000006', '20000000-0000-0000-0000-000000000003', '80000000-0000-0000-0000-000000000003', 2, repeat('f', 64), '87000000-0000-0000-0000-000000000006');
+
+update public.import_staging_rows
+   set validation_state = case when source_row_number = 1 then 'valid' else 'invalid' end,
+       validated_at = now();
+
+insert into public.import_row_issues (
+  id, workspace_id, import_job_id, staging_row_id, severity,
+  issue_code, field_code, message_template_code
+) values
+  ('83000000-0000-0000-0000-000000000001', '20000000-0000-0000-0000-000000000001', '80000000-0000-0000-0000-000000000001', '82000000-0000-0000-0000-000000000002', 'error', 'required_missing', 'legal_name', 'import.required_missing'),
+  ('83000000-0000-0000-0000-000000000002', '20000000-0000-0000-0000-000000000002', '80000000-0000-0000-0000-000000000002', '82000000-0000-0000-0000-000000000004', 'error', 'required_missing', 'legal_name', 'import.required_missing'),
+  ('83000000-0000-0000-0000-000000000003', '20000000-0000-0000-0000-000000000003', '80000000-0000-0000-0000-000000000003', '82000000-0000-0000-0000-000000000006', 'error', 'required_missing', 'legal_name', 'import.required_missing');
+
+update public.import_jobs
+   set status = 'ready', valid_rows = 1, invalid_rows = 1, checkpoint_rows_processed = 2;
+update public.import_jobs set status = 'applying';
+
+insert into public.import_applications (
+  id, workspace_id, import_job_id, staging_row_id, customer_id,
+  operation_ref_id, applied_by_user_id
+) values
+  ('84000000-0000-0000-0000-000000000001', '20000000-0000-0000-0000-000000000001', '80000000-0000-0000-0000-000000000001', '82000000-0000-0000-0000-000000000001', '40000000-0000-0000-0000-000000000001', '88000000-0000-0000-0000-000000000001', '10000000-0000-0000-0000-000000000001'),
+  ('84000000-0000-0000-0000-000000000002', '20000000-0000-0000-0000-000000000002', '80000000-0000-0000-0000-000000000002', '82000000-0000-0000-0000-000000000003', '40000000-0000-0000-0000-000000000002', '88000000-0000-0000-0000-000000000002', '10000000-0000-0000-0000-000000000003'),
+  ('84000000-0000-0000-0000-000000000003', '20000000-0000-0000-0000-000000000003', '80000000-0000-0000-0000-000000000003', '82000000-0000-0000-0000-000000000005', '40000000-0000-0000-0000-000000000005', '88000000-0000-0000-0000-000000000003', '10000000-0000-0000-0000-000000000004');
+
+update public.import_jobs
+   set status = 'completed', applied_rows = 1, completed_at = now();
+
+insert into public.business_audit_events (
+  id, workspace_id, actor_kind, actor_ref_id, action_code,
+  target_kind, target_id, outcome, occurred_at
+) values
+  ('85000000-0000-0000-0000-000000000001', '20000000-0000-0000-0000-000000000001', 'system', '8a000000-0000-0000-0000-000000000001', 'import.completed.v1', 'import_job', '80000000-0000-0000-0000-000000000001', 'succeeded', now()),
+  ('85000000-0000-0000-0000-000000000002', '20000000-0000-0000-0000-000000000002', 'system', '8a000000-0000-0000-0000-000000000002', 'import.completed.v1', 'import_job', '80000000-0000-0000-0000-000000000002', 'succeeded', now()),
+  ('85000000-0000-0000-0000-000000000003', '20000000-0000-0000-0000-000000000003', 'system', '8a000000-0000-0000-0000-000000000003', 'import.completed.v1', 'import_job', '80000000-0000-0000-0000-000000000003', 'succeeded', now());
+
+insert into public.business_audit_events (
+  id, workspace_id, actor_kind, actor_ref_id, action_code,
+  target_kind, target_id, outcome, occurred_at, recorded_at
+) values (
+  '85000000-0000-0000-0000-000000000004', '20000000-0000-0000-0000-000000000001',
+  'system', '8a000000-0000-0000-0000-000000000001', 'import.completed.v1', 'import_job',
+  '80000000-0000-0000-0000-000000000001', 'succeeded', '2020-01-01T00:00:00Z',
+  '2020-01-01T00:00:00Z'
+);
+select pg_temp.assert_true(
+  (select recorded_at > now() - interval '1 minute'
+     from public.business_audit_events
+    where id = '85000000-0000-0000-0000-000000000004'),
+  'audit recorded_at was not assigned by the database clock'
+);
+
+do $$
+declare denied boolean := false;
+begin
+  begin
+    insert into public.business_audit_events (
+      workspace_id, actor_kind, actor_ref_id, action_code, target_kind,
+      target_id, outcome, occurred_at
+    ) values (
+      '20000000-0000-0000-0000-000000000001', 'system',
+      '8a000000-0000-0000-0000-000000000001', 'import.completed.v1', 'import_job',
+      '80000000-0000-0000-0000-000000000002', 'succeeded', now()
+    );
+  exception when sqlstate '23514' then denied := true;
+  end;
+  if not denied then raise exception 'cross-workspace successful audit target was not denied'; end if;
+end;
+$$;
+
+do $$
+declare denied boolean := false;
+begin
+  begin
+    insert into public.business_audit_events (
+      workspace_id, actor_kind, actor_ref_id, action_code, target_kind,
+      target_id, outcome, occurred_at, prior_event_id
+    ) values (
+      '20000000-0000-0000-0000-000000000001', 'system',
+      '8a000000-0000-0000-0000-000000000001', 'import.completed.v1', 'import_job',
+      '80000000-0000-0000-0000-000000000001', 'succeeded',
+      now() - interval '1 day', '85000000-0000-0000-0000-000000000001'
+    );
+  exception when sqlstate '23514' then denied := true;
+  end;
+  if not denied then raise exception 'backwards audit correction chain was not denied'; end if;
+end;
+$$;
+
+do $$
+declare denied boolean := false;
+begin
+  begin
+    update public.import_staging_rows
+       set applied_at = applied_at + interval '1 second'
+     where id = '82000000-0000-0000-0000-000000000001';
+  exception when sqlstate '55000' then denied := true;
+  end;
+  if not denied then raise exception 'applied staging timestamp rewrite was not denied'; end if;
+end;
+$$;
+
+insert into public.import_jobs (
+  id, workspace_id, import_kind, source_file_ref_id, source_file_digest_hmac,
+  digest_key_version, mapping_schema_version, idempotency_key_id, total_rows, created_by_user_id
+) values (
+  '80000000-0000-0000-0000-000000000010', '20000000-0000-0000-0000-000000000001',
+  'customers', '86000000-0000-0000-0000-000000000010', repeat('d', 64), 1, 1, '89000000-0000-0000-0000-000000000010', 1,
+  '10000000-0000-0000-0000-000000000001'
+);
+do $$
+declare denied boolean := false;
+begin
+  begin
+    update public.import_jobs
+       set status = 'failed', valid_rows = 1, checkpoint_rows_processed = 1,
+           failure_code = 'system_failure'
+     where id = '80000000-0000-0000-0000-000000000010';
+  exception when sqlstate '55000' then denied := true;
+  end;
+  if not denied then raise exception 'fabricated terminal import counters were not denied'; end if;
+end;
+$$;
+
+insert into public.import_jobs (
+  id, workspace_id, import_kind, source_file_ref_id, source_file_digest_hmac,
+  digest_key_version, mapping_schema_version, idempotency_key_id, total_rows, created_by_user_id
+) values (
+  '80000000-0000-0000-0000-000000000011', '20000000-0000-0000-0000-000000000001',
+  'customers', '86000000-0000-0000-0000-000000000011', repeat('e', 64), 1, 1, '89000000-0000-0000-0000-000000000011', 1,
+  '10000000-0000-0000-0000-000000000001'
+);
+update public.import_jobs set status = 'mapping'
+ where id = '80000000-0000-0000-0000-000000000011';
+update public.import_jobs set status = 'validating'
+ where id = '80000000-0000-0000-0000-000000000011';
+insert into public.import_staging_rows (
+  id, workspace_id, import_job_id, source_row_number, row_digest_hmac, encrypted_payload_ref_id
+) values (
+  '82000000-0000-0000-0000-000000000011', '20000000-0000-0000-0000-000000000001',
+  '80000000-0000-0000-0000-000000000011', 1, repeat('1', 64), '87000000-0000-0000-0000-000000000011'
+);
+do $$
+declare denied boolean := false;
+begin
+  begin
+    update public.import_jobs set status = 'ready'
+     where id = '80000000-0000-0000-0000-000000000011';
+  exception when sqlstate '55000' then denied := true;
+  end;
+  if not denied then raise exception 'ready import with pending validation was not denied'; end if;
+end;
+$$;
+
+do $$
+declare denied boolean := false;
+begin
+  begin
+    update public.import_jobs set total_rows = 2
+     where id = '80000000-0000-0000-0000-000000000011';
+  exception when sqlstate '55000' then denied := true;
+  end;
+  if not denied then raise exception 'declared import total changed after validation started'; end if;
+end;
+$$;
+
+do $$
+declare denied boolean := false;
+begin
+  begin
+    insert into public.import_staging_rows (
+      id, workspace_id, import_job_id, source_row_number, row_digest_hmac,
+      encrypted_payload_ref_id, validation_state, validated_at
+    ) values (
+      '82000000-0000-0000-0000-000000000021', '20000000-0000-0000-0000-000000000001',
+      '80000000-0000-0000-0000-000000000011', 1, repeat('2', 64),
+      '87000000-0000-0000-0000-000000000021', 'valid', now()
+    );
+  exception when sqlstate '55000' then denied := true;
+  end;
+  if not denied then raise exception 'non-pending staging insert was not denied'; end if;
+end;
+$$;
+
+do $$
+declare denied boolean := false;
+begin
+  begin
+    insert into public.import_row_issues (
+      id, workspace_id, import_job_id, staging_row_id, severity,
+      issue_code, field_code, message_template_code
+    ) values (
+      '83000000-0000-0000-0000-000000000031', '20000000-0000-0000-0000-000000000001',
+      '80000000-0000-0000-0000-000000000001', '82000000-0000-0000-0000-000000000002',
+      'error', 'required_missing', 'legal_name', 'import.required_missing'
+    );
+  exception when sqlstate '55000' then denied := true;
+  end;
+  if not denied then raise exception 'post-terminal import issue was not denied'; end if;
+end;
+$$;
+
+do $$
+declare denied boolean := false;
+begin
+  begin
+    delete from public.import_staging_rows
+     where id = '82000000-0000-0000-0000-000000000001';
+  exception when sqlstate '55000' then denied := true;
+  end;
+  if not denied then raise exception 'staging ledger delete was not denied'; end if;
+end;
+$$;
+
+do $$
+declare denied boolean := false;
+begin
+  begin
+    delete from public.import_jobs
+     where id = '80000000-0000-0000-0000-000000000001';
+  exception when sqlstate '55000' then denied := true;
+  end;
+  if not denied then raise exception 'import job delete was not denied'; end if;
+end;
+$$;
+
+insert into public.import_jobs (
+  id, workspace_id, import_kind, source_file_ref_id, source_file_digest_hmac,
+  digest_key_version, mapping_schema_version, idempotency_key_id, total_rows, created_by_user_id
+) values (
+  '80000000-0000-0000-0000-000000000012', '20000000-0000-0000-0000-000000000001',
+  'customers', '86000000-0000-0000-0000-000000000012', repeat('f', 64), 1, 1, '89000000-0000-0000-0000-000000000012', 0,
+  '10000000-0000-0000-0000-000000000001'
+);
+update public.import_jobs set status = 'mapping'
+ where id = '80000000-0000-0000-0000-000000000012';
+update public.import_jobs set status = 'validating'
+ where id = '80000000-0000-0000-0000-000000000012';
+update public.import_jobs set status = 'ready'
+ where id = '80000000-0000-0000-0000-000000000012';
+update public.import_jobs set status = 'applying'
+ where id = '80000000-0000-0000-0000-000000000012';
+do $$
+declare denied boolean := false;
+begin
+  begin
+    update public.import_jobs set status = 'completed', completed_at = now()
+     where id = '80000000-0000-0000-0000-000000000012';
+  exception when sqlstate '23514' then denied := true;
+  end;
+  if not denied then raise exception 'completed import with null checkpoint was not denied'; end if;
+end;
+$$;
+
 -- Domain raw grants remain closed in migrations. Temporary transactional grants
 -- expose policies to authenticated/anon roles solely for this RLS harness.
 grant select on table
@@ -245,7 +558,9 @@ grant select on table
   public.telecom_plan_versions, public.telecom_contracts, public.telecom_services,
   public.telecom_lines, public.telecom_commitments, public.telecom_renewals,
   public.opportunity_stages, public.opportunities, public.tasks,
-  public.calendar_events, public.activities, public.service_cases, public.documents
+  public.calendar_events, public.activities, public.service_cases, public.documents,
+  public.import_jobs, public.import_field_mappings, public.import_staging_rows,
+  public.import_row_issues, public.import_applications, public.business_audit_events
 to anon, authenticated;
 grant insert, update, delete on table
   public.customers, public.contacts, public.telecom_operators, public.telecom_plans,
@@ -260,6 +575,11 @@ select set_config('request.jwt.claim.sub', '10000000-0000-0000-0000-000000000001
 select set_config('request.jwt.claims', '{"sub":"10000000-0000-0000-0000-000000000001","role":"authenticated"}', true);
 
 select pg_temp.assert_domain_visibility(
+  array['20000000-0000-0000-0000-000000000001'::uuid],
+  array['20000000-0000-0000-0000-000000000002'::uuid, '20000000-0000-0000-0000-000000000003'::uuid],
+  'owner A'
+);
+select pg_temp.assert_privileged_visibility(
   array['20000000-0000-0000-0000-000000000001'::uuid],
   array['20000000-0000-0000-0000-000000000002'::uuid, '20000000-0000-0000-0000-000000000003'::uuid],
   'owner A'
@@ -448,6 +768,11 @@ set local role authenticated;
 select set_config('request.jwt.claim.sub', '10000000-0000-0000-0000-000000000002', true);
 select set_config('request.jwt.claims', '{"sub":"10000000-0000-0000-0000-000000000002","role":"authenticated"}', true);
 select pg_temp.assert_true((select count(*) from public.customers) >= 1, 'member A cannot read workspace A');
+select pg_temp.assert_privileged_visibility(
+  array[]::uuid[],
+  array['20000000-0000-0000-0000-000000000001'::uuid, '20000000-0000-0000-0000-000000000002'::uuid, '20000000-0000-0000-0000-000000000003'::uuid],
+  'member A'
+);
 
 do $$
 declare denied boolean := false;
@@ -472,6 +797,11 @@ insert into public.customers (
   'legal_entity', 'Admin A Allowed Insert', 'lead', 'active', 'manual',
   '10000000-0000-0000-0000-000000000007'
 );
+select pg_temp.assert_privileged_visibility(
+  array['20000000-0000-0000-0000-000000000001'::uuid],
+  array['20000000-0000-0000-0000-000000000002'::uuid, '20000000-0000-0000-0000-000000000003'::uuid],
+  'admin A'
+);
 
 reset role;
 set local role authenticated;
@@ -480,6 +810,11 @@ select set_config('request.jwt.claims', '{"sub":"10000000-0000-0000-0000-0000000
 select pg_temp.assert_domain_visibility(
   array['20000000-0000-0000-0000-000000000001'::uuid, '20000000-0000-0000-0000-000000000002'::uuid],
   array['20000000-0000-0000-0000-000000000003'::uuid],
+  'multi-workspace actor'
+);
+select pg_temp.assert_privileged_visibility(
+  array[]::uuid[],
+  array['20000000-0000-0000-0000-000000000001'::uuid, '20000000-0000-0000-0000-000000000002'::uuid, '20000000-0000-0000-0000-000000000003'::uuid],
   'multi-workspace actor'
 );
 do $$

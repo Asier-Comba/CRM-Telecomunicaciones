@@ -15,6 +15,8 @@ const relations = [
   'telecom_lines', 'telecom_commitments', 'telecom_renewals',
   'opportunity_stages', 'opportunities', 'tasks', 'calendar_events', 'activities',
   'service_cases', 'documents',
+  'import_jobs', 'import_field_mappings', 'import_staging_rows',
+  'import_row_issues', 'import_applications', 'business_audit_events',
 ]
 
 test('database harness is test-only, transactional and synthetic', () => {
@@ -43,7 +45,10 @@ test('database harness seeds every relation and covers the full read isolation m
     assert.match(sql, new RegExp(`'${relation}'`))
   }
   assert.match(sql, /assert_domain_visibility/)
+  assert.match(sql, /assert_privileged_visibility/)
   assert.match(sql, /assert_no_domain_rows/)
+  assert.match(sql, /'member A'/)
+  assert.match(sql, /'admin A'/)
   assert.match(sql, /multi-workspace actor/)
   assert.match(sql, /suspended workspace/)
   assert.match(sql, /suspended membership/)
@@ -67,6 +72,23 @@ test('database harness covers representative authorization and tenant attacks', 
   assert.match(sql, /cross-scope service case was not denied/)
   assert.match(sql, /foreign service-case assignee was not denied/)
   assert.match(sql, /invalid service-case chronology was not denied/)
+  assert.match(sql, /update public\.import_jobs set status = 'mapping'/)
+  assert.match(sql, /update public\.import_jobs set status = 'validating'/)
+  assert.match(sql, /update public\.import_jobs[\s\S]*set status = 'ready'/)
+  assert.match(sql, /update public\.import_jobs set status = 'applying'/)
+  assert.match(sql, /update public\.import_jobs[\s\S]*status = 'completed'/)
+  assert.match(sql, /fabricated terminal import counters were not denied/)
+  assert.match(sql, /ready import with pending validation was not denied/)
+  assert.match(sql, /declared import total changed after validation started/)
+  assert.match(sql, /non-pending staging insert was not denied/)
+  assert.match(sql, /post-terminal import issue was not denied/)
+  assert.match(sql, /staging ledger delete was not denied/)
+  assert.match(sql, /import job delete was not denied/)
+  assert.match(sql, /completed import with null checkpoint was not denied/)
+  assert.match(sql, /applied staging timestamp rewrite was not denied/)
+  assert.match(sql, /audit recorded_at was not assigned by the database clock/)
+  assert.match(sql, /cross-workspace successful audit target was not denied/)
+  assert.match(sql, /backwards audit correction chain was not denied/)
 })
 
 test('temporary grants and fixtures cannot survive the harness', () => {
