@@ -26,6 +26,9 @@
   transportable W4 Node gates and a 20-route production build pass locally.
   Strict drift remains red by design with 29 unresolved relations/views and one
   RPC.
+- A clean exported checkout of `d21339f` independently passed a fresh dependency
+  install, lint, typecheck, 22/22 tests, the W4 tenant/assistant/security gates
+  and the same 20-route production build.
 - Supabase has not been contacted or mutated.
 
 ## Intentionally disabled
