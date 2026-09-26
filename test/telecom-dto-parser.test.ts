@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
-import { parseTelecomDto, type TelecomDtoKind, type JsonObject, type JsonValue } from '../src/assistant/telecom-dto-parser.js'
+import { parseTelecomDto, type TelecomDtoKind, type TelecomDtoPolicy, type JsonObject, type JsonValue } from '../src/assistant/telecom-dto-parser.js'
 
 const now = '2026-09-27T10:00:00Z'
 const scope = { contract_version: 'telecom.v1', scope_epoch: 'scope_epoch_00000001' }
@@ -170,4 +170,35 @@ test('deep scalar replacement and required-field deletion mutations fail across 
     }
   }
   assert.ok(mutations > 800, `executed ${mutations} structural mutations`)
+})
+
+test('authorization awaits reject policy epoch/time/binding/action mutations before any DTO escapes', async () => {
+  const changes: ((policy: TelecomDtoPolicy) => void)[] = [
+    (p) => { p.scopeEpoch = 'epoch_foreign_0000001' },
+    (p) => { p.now = '2026-09-27T10:01:00Z' },
+    (p) => { p.binding!.id = 'customer_foreign_0000001' },
+    (p) => { p.binding!.fieldClass = 'contact_phone' },
+    (p) => { (p.binding!.allowedActions as string[]).push('copy') },
+    (p) => { p.authorizeReference = () => true },
+  ]
+  for (const change of changes) {
+    const policy: TelecomDtoPolicy = { scopeEpoch: scope.scope_epoch, now, binding: { kind: 'customer', id: identifier('customer'), fieldClass: 'tax_identifier', allowedActions: ['reveal'] } }
+    policy.authorizeReference = async () => { change(policy); return true }
+    assert.deepEqual(await parseTelecomDto('capability_ref', cap('customer', 'reveal', 'tax_identifier'), policy), { ok: false, code: 'UNVERIFIED_REFERENCE' })
+  }
+})
+
+test('live scope revocation and capability expiry during asynchronous authorization fail closed', async () => {
+  let epoch = scope.scope_epoch
+  let calls = 0
+  const revoked = await parseTelecomDto('summary', fixtures.summary, { scopeEpoch: scope.scope_epoch, now, currentScopeEpoch: () => epoch, authorizeReference: async () => { calls++; epoch = 'epoch_revoked_0000001'; return true } })
+  assert.deepEqual(revoked, { ok: false, code: 'UNVERIFIED_REFERENCE' })
+  assert.equal(calls, 1)
+  let liveNow = now
+  const expired = await parseTelecomDto('customer', fixtures.customer, { ...allow, currentNow: () => liveNow, authorizeReference: async () => { liveNow = '2026-09-27T10:05:00Z'; return true } })
+  assert.deepEqual(expired, { ok: false, code: 'UNVERIFIED_REFERENCE' })
+  const beforeExpiry = await parseTelecomDto('customer', fixtures.customer, { ...allow, currentScopeEpoch: () => scope.scope_epoch, currentNow: () => '2026-09-27T10:04:59.999Z' })
+  assert.equal(beforeExpiry.ok, true)
+  assert.equal((await parseTelecomDto('collection:customer', collection([]), { ...allow, currentScopeEpoch: () => 'wrong_epoch' })).ok, false)
+  assert.equal((await parseTelecomDto('customer', fixtures.customer, { ...allow, currentNow: () => 'invalid' })).ok, false)
 })

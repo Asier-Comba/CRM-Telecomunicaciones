@@ -12,6 +12,17 @@ function section(id: string, priority: ContextSection['priority'], count: number
   } }
 }
 
+test('inconsistent source counts cannot become evidence of absence', () => {
+  for (const count of [25, -1, NaN]) {
+    const source = section('invalid', 'relevance', 0)
+    source.evidence.projected_count = count
+    assert.equal(budgetContext([source], 4000).ok, false)
+  }
+  const denied = section('denied', 'relevance', 1)
+  denied.evidence.availability = 'not_authorized'
+  assert.equal(budgetContext([denied], 4000).ok, false)
+})
+
 test('context retains relevance before attention, portfolio and activity under a hard UTF-8 byte budget', () => {
   const large = [section('activity', 'activity', 1000, 'activity'), section('lines', 'portfolio', 500), section('contracts', 'portfolio', 100, 'contract'), section('tasks', 'attention', 2, 'task'), section('customer', 'relevance', 1, 'customer')]
   const result = budgetContext(large, 7000)
