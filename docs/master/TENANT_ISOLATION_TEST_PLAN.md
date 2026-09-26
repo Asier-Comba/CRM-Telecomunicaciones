@@ -1,5 +1,12 @@
 # Tenant isolation adversarial test plan
 
+The executable adapter contract is in `scripts/security/tenant-isolation-harness.mjs`; its versioned
+matrix is `.security/tenant-isolation-cases.json`. CI runs the complete matrix against a secure
+reference adapter and proves negative controls for anonymous access, cross-tenant resource use,
+removed/suspended membership, service-principal scope, role escalation and list leakage. W1 must
+bind the same adapter contract to DB/API/storage behavior in a non-production environment; the
+reference adapter is not live RLS evidence.
+
 Status: executable design pending the W1 canonical schema and non-production Supabase project.
 
 ## Invariant

@@ -1,8 +1,8 @@
 # W4 → W2 security handoff
 
 - Date: 2026-09-26
-- W2 reviewed head: `9f2ab64`
-- W2 CI evidence: run `#69` green; Node quality/docs contract tests were skipped
+- W2 reviewed head: `43ce9b5`
+- W2 test evidence: 36/36 official contract tests pass; two W4 telemetry adversarial tests fail
 - Scope: frontend authorization, browser telemetry, PII and assistant READ UI
 - Gate: policy is ready; runtime integration still waits for an accepted W1 base
 
@@ -86,8 +86,12 @@ telemetry. Any exception requires a new versioned finding with risk and acceptan
 - Accepted: access revocation discards protected presentation state; READ v1 fixtures align with W3
   `874259e`; arbitrary URL descriptor kinds and executable follow-ups are rejected; mutation UI is
   excluded. W2 may continue this work independently.
-- Before runtime transport, constrain opaque route IDs to a shared safe grammar or prove mandatory
-  encoding in every route builder. W4 reproduced acceptance of path/query/control-bearing IDs.
-- W4 reproduced 14/14 local contract tests, but CI #69 did not execute them because no `package.json`
-  exists. The W4 baseline now includes a lightweight docs-contract runner.
+- Fixed at `3b06531`: opaque route IDs now reject path, query, fragment, percent-encoding,
+  whitespace and control syntax.
+- The telemetry validator closes field names and explicit content classes, but returns caller-owned
+  mutable input and accepts unbounded arbitrary string/number `contractVersion` values. Return a
+  detached exact projection; close/bound the version; add mutation, oversized, secret-shaped and
+  non-finite negative tests before attaching a sink.
+- W4 reproduced 36/36 official local contract tests. The W4 baseline docs runner now executes these
+  tests even though the branch intentionally has no `package.json`.
 - W1 acceptance/shared taxonomy remain integration dependencies, not W2 security defects.

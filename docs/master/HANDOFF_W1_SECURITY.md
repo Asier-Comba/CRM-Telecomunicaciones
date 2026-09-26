@@ -113,6 +113,15 @@ This is no longer a placeholder. It contains a real Next.js application, `packag
 - **Fix:** apply migrations from zero in ephemeral/local Supabase or isolated staging and run the W4 tenant matrix with real principals.
 - **Acceptance criteria:** migration application plus negative-control, anonymous, A/B, suspended, removed and multi-workspace tests are reproducible in CI or an approved heavy gate.
 
+### W1-AUTH-002 — workspace suspension is not enforced
+
+- **Severity:** P0 canonical-promotion blocker.
+- **Evidence:** at `61848cf`, all five membership helpers require an active membership but none joins `public.workspaces` or requires its status to be active. A disposable W4 assertion covering every helper fails immediately. The existing “inactive” test proves membership status only.
+- **Risk:** a suspended company retains tenant reads and every RLS/RPC decision delegated to these helpers while memberships remain active.
+- **Affected component:** tenant identity migration, RLS helpers and lifecycle tests.
+- **Fix:** require both active membership and active workspace in all helpers, including both membership sides of `shares_workspace_with`; keep suspension recovery on an audited privileged path.
+- **Acceptance criteria:** a real database test proves suspended A cannot list/read/write/invoke tenant RPCs, active B is unaffected, and reactivation is explicit and audited.
+
 ## Revalidation of `w1/bootstrap-sanitized`
 
 Reviewed head: `4936a08` on 2026-09-25.

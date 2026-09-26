@@ -1,0 +1,64 @@
+{
+  "version": 1,
+  "principals": {
+    "anonymous": { "kind": "anonymous" },
+    "member_a": {
+      "kind": "user",
+      "actorId": "user-member-a",
+      "memberships": [{ "workspaceId": "workspace-a", "role": "member", "status": "active" }]
+    },
+    "manager_a": {
+      "kind": "user",
+      "actorId": "user-manager-a",
+      "memberships": [{ "workspaceId": "workspace-a", "role": "manager", "status": "active" }]
+    },
+    "suspended_a": {
+      "kind": "user",
+      "actorId": "user-suspended-a",
+      "memberships": [{ "workspaceId": "workspace-a", "role": "manager", "status": "suspended" }]
+    },
+    "removed_a": {
+      "kind": "user",
+      "actorId": "user-removed-a",
+      "memberships": [{ "workspaceId": "workspace-a", "role": "manager", "status": "removed" }]
+    },
+    "multi_ab": {
+      "kind": "user",
+      "actorId": "user-multi-ab",
+      "memberships": [
+        { "workspaceId": "workspace-a", "role": "member", "status": "active" },
+        { "workspaceId": "workspace-b", "role": "viewer", "status": "active" }
+      ]
+    },
+    "service_a": {
+      "kind": "service",
+      "principalId": "service-a",
+      "workspaceIds": ["workspace-a"],
+      "actions": ["list", "read", "create", "update"]
+    }
+  },
+  "cases": [
+    { "id": "anonymous-list", "tags": ["anonymous", "list"], "principal": "anonymous", "action": "list", "workspaceId": "workspace-a", "resourceWorkspaceId": null, "expected": { "allowed": false, "visibleWorkspaceIds": [] } },
+    { "id": "anonymous-read", "tags": ["anonymous", "read"], "principal": "anonymous", "action": "read", "workspaceId": "workspace-a", "resourceWorkspaceId": "workspace-a", "expected": { "allowed": false, "visibleWorkspaceIds": [] } },
+    { "id": "anonymous-create", "tags": ["anonymous", "write"], "principal": "anonymous", "action": "create", "workspaceId": "workspace-a", "resourceWorkspaceId": "workspace-a", "expected": { "allowed": false, "visibleWorkspaceIds": [] } },
+    { "id": "member-a-read-a", "tags": ["workspace-a", "member", "read"], "principal": "member_a", "action": "read", "workspaceId": "workspace-a", "resourceWorkspaceId": "workspace-a", "expected": { "allowed": true, "visibleWorkspaceIds": [] } },
+    { "id": "member-a-create-a", "tags": ["workspace-a", "member", "write"], "principal": "member_a", "action": "create", "workspaceId": "workspace-a", "resourceWorkspaceId": "workspace-a", "expected": { "allowed": true, "visibleWorkspaceIds": [] } },
+    { "id": "member-a-read-b", "tags": ["workspace-b", "cross-tenant", "read"], "principal": "member_a", "action": "read", "workspaceId": "workspace-a", "resourceWorkspaceId": "workspace-b", "expected": { "allowed": false, "visibleWorkspaceIds": [] } },
+    { "id": "member-a-update-b", "tags": ["workspace-b", "cross-tenant", "write"], "principal": "member_a", "action": "update", "workspaceId": "workspace-a", "resourceWorkspaceId": "workspace-b", "expected": { "allowed": false, "visibleWorkspaceIds": [] } },
+    { "id": "manager-a-manage-members", "tags": ["manager", "role"], "principal": "manager_a", "action": "manage_members", "workspaceId": "workspace-a", "resourceWorkspaceId": "workspace-a", "expected": { "allowed": true, "visibleWorkspaceIds": [] } },
+    { "id": "member-a-manage-members", "tags": ["member", "role"], "principal": "member_a", "action": "manage_members", "workspaceId": "workspace-a", "resourceWorkspaceId": "workspace-a", "expected": { "allowed": false, "visibleWorkspaceIds": [] } },
+    { "id": "suspended-a-read", "tags": ["suspended", "lifecycle"], "principal": "suspended_a", "action": "read", "workspaceId": "workspace-a", "resourceWorkspaceId": "workspace-a", "expected": { "allowed": false, "visibleWorkspaceIds": [] } },
+    { "id": "removed-a-read", "tags": ["removed", "lifecycle"], "principal": "removed_a", "action": "read", "workspaceId": "workspace-a", "resourceWorkspaceId": "workspace-a", "expected": { "allowed": false, "visibleWorkspaceIds": [] } },
+    { "id": "multi-workspace-ambiguous", "tags": ["multi-workspace", "fail-closed"], "principal": "multi_ab", "action": "read", "workspaceId": null, "resourceWorkspaceId": "workspace-a", "expected": { "allowed": false, "visibleWorkspaceIds": [] } },
+    { "id": "multi-workspace-explicit-a", "tags": ["multi-workspace", "workspace-a"], "principal": "multi_ab", "action": "read", "workspaceId": "workspace-a", "resourceWorkspaceId": "workspace-a", "expected": { "allowed": true, "visibleWorkspaceIds": [] } },
+    { "id": "multi-workspace-viewer-b-read", "tags": ["multi-workspace", "workspace-b", "viewer"], "principal": "multi_ab", "action": "read", "workspaceId": "workspace-b", "resourceWorkspaceId": "workspace-b", "expected": { "allowed": true, "visibleWorkspaceIds": [] } },
+    { "id": "multi-workspace-viewer-b-write", "tags": ["multi-workspace", "workspace-b", "viewer", "write"], "principal": "multi_ab", "action": "update", "workspaceId": "workspace-b", "resourceWorkspaceId": "workspace-b", "expected": { "allowed": false, "visibleWorkspaceIds": [] } },
+    { "id": "service-a-read-a", "tags": ["service-principal", "workspace-a", "read"], "principal": "service_a", "action": "read", "workspaceId": "workspace-a", "resourceWorkspaceId": "workspace-a", "expected": { "allowed": true, "visibleWorkspaceIds": [] } },
+    { "id": "service-a-write-a", "tags": ["service-principal", "workspace-a", "write"], "principal": "service_a", "action": "update", "workspaceId": "workspace-a", "resourceWorkspaceId": "workspace-a", "expected": { "allowed": true, "visibleWorkspaceIds": [] } },
+    { "id": "service-a-read-b", "tags": ["service-principal", "workspace-b", "cross-tenant"], "principal": "service_a", "action": "read", "workspaceId": "workspace-b", "resourceWorkspaceId": "workspace-b", "expected": { "allowed": false, "visibleWorkspaceIds": [] } },
+    { "id": "service-a-write-b", "tags": ["service-principal", "workspace-b", "cross-tenant", "write"], "principal": "service_a", "action": "update", "workspaceId": "workspace-b", "resourceWorkspaceId": "workspace-b", "expected": { "allowed": false, "visibleWorkspaceIds": [] } },
+    { "id": "member-a-list-a", "tags": ["workspace-a", "list"], "principal": "member_a", "action": "list", "workspaceId": "workspace-a", "resourceWorkspaceId": null, "expected": { "allowed": true, "visibleWorkspaceIds": ["workspace-a"] } },
+    { "id": "multi-list-b", "tags": ["multi-workspace", "workspace-b", "list"], "principal": "multi_ab", "action": "list", "workspaceId": "workspace-b", "resourceWorkspaceId": null, "expected": { "allowed": true, "visibleWorkspaceIds": ["workspace-b"] } },
+    { "id": "service-list-a", "tags": ["service-principal", "workspace-a", "list"], "principal": "service_a", "action": "list", "workspaceId": "workspace-a", "resourceWorkspaceId": null, "expected": { "allowed": true, "visibleWorkspaceIds": ["workspace-a"] } }
+  ]
+}
