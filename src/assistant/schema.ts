@@ -1,6 +1,6 @@
 import type { ObjectSchema, ValueSchema } from './contracts.js'
 
-const TENANT_KEYS = new Set(['workspace', 'workspaceId', 'workspace_id', 'tenant', 'tenantId', 'tenant_id'])
+const TENANT_KEYS = new Set(['workspace', 'workspaceid', 'tenant', 'tenantid'])
 const SENSITIVE_KEY = /token|secret|password|passwd|cookie|authorization|api[-_]?key|session/i
 const DEFAULT_MAX_DEPTH = 6
 const DEFAULT_MAX_BYTES = 64 * 1024
@@ -18,11 +18,34 @@ const HIGH_CONFIDENCE_SECRET = [
 
 export type ValidationResult = { ok: true } | { ok: false; code: string }
 
-export function containsTenantSelector(value: unknown): boolean {
-  if (Array.isArray(value)) return value.some(containsTenantSelector)
-  if (!value || typeof value !== 'object') return false
+/** Bound recursion and never invoke accessors/toJSON at an untrusted boundary.
+ * Cyclic, exotic and excessively deep input is a blocking signal, not a reason
+ * to throw before the runtime can produce a safe denial/audit event.
+ */
+function scanData(value: unknown, keyMatch: (key: string) => boolean, stringMatch: (value: string) => boolean): boolean {
+  const ancestors = new WeakSet<object>()
+  let nodes = 0
+  const visit = (item: unknown, depth: number): boolean => {
+    if (++nodes > 10000 || depth > 32) return true
+    if (typeof item === 'string') return stringMatch(item)
+    if (item === null || typeof item === 'boolean') return false
+    if (typeof item === 'number') return !Number.isFinite(item)
+    if (typeof item !== 'object') return true
+    if (ancestors.has(item) || Object.getOwnPropertySymbols(item).length) return true
+    if (!Array.isArray(item) && ![Object.prototype, null].includes(Object.getPrototypeOf(item))) return true
+    ancestors.add(item)
+    for (const [key, field] of Object.entries(Object.getOwnPropertyDescriptors(item))) {
+      if (Array.isArray(item) && key === 'length') continue
+      if (!('value' in field) || !field.enumerable || keyMatch(key) || visit(field.value, depth + 1)) return true
+    }
+    ancestors.delete(item)
+    return false
+  }
+  try { return visit(value, 0) } catch { return true }
+}
 
-  return Object.entries(value).some(([key, nested]) => TENANT_KEYS.has(key) || containsTenantSelector(nested))
+export function containsTenantSelector(value: unknown): boolean {
+  return scanData(value, key => TENANT_KEYS.has(key.replace(/[_-]/g, '').toLowerCase()), () => false)
 }
 
 export function schemaContainsSensitiveKey(schema: ValueSchema): boolean {
@@ -32,14 +55,12 @@ export function schemaContainsSensitiveKey(schema: ValueSchema): boolean {
 }
 
 export function containsHighConfidenceSecret(value: unknown): boolean {
-  if (typeof value === 'string') return HIGH_CONFIDENCE_SECRET.some((pattern) => pattern.test(value))
-  if (Array.isArray(value)) return value.some(containsHighConfidenceSecret)
-  if (!value || typeof value !== 'object') return false
-  return Object.values(value).some(containsHighConfidenceSecret)
+  return scanData(value, () => false, text => HIGH_CONFIDENCE_SECRET.some(pattern => pattern.test(text)))
 }
 
 function encodedBytes(value: unknown): number | null {
   try {
+    if (scanData(value, () => false, () => false)) return null
     return Buffer.byteLength(JSON.stringify(value), 'utf8')
   } catch {
     return null
