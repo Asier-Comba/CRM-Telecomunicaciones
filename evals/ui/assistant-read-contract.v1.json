@@ -1,0 +1,159 @@
+{
+  "description": "Transport-neutral READ fixtures reconciled with W2 at d1df763. Synthetic data only.",
+  "contractVersion": 1,
+  "source": {
+    "work": "W2",
+    "commit": "d1df763",
+    "fixture": "docs/master/fixtures/W2_ASSISTANT_READ_UI_FIXTURES.json"
+  },
+  "taxonomy": {
+    "version": "w1-pending-v0",
+    "modules": ["customers", "tasks"],
+    "entityTypes": ["customer", "task"]
+  },
+  "cases": [
+    {
+      "id": "success-answer-only",
+      "expected": "accept",
+      "response": {
+        "contractVersion": 1,
+        "answer": "He encontrado información disponible para tu consulta.",
+        "status": "SUCCESS",
+        "grounded": true,
+        "blocks": {},
+        "meta": { "requestId": "fixture-read-001", "partial": false, "taxonomyVersion": "w1-pending-v0" }
+      }
+    },
+    {
+      "id": "empty-with-refinement",
+      "expected": "accept",
+      "response": {
+        "contractVersion": 1,
+        "answer": "No hay resultados en el alcance actual.",
+        "status": "EMPTY",
+        "grounded": true,
+        "blocks": {
+          "followUps": [
+            { "label": "Ampliar búsqueda", "prompt": "Amplía la búsqueda al siguiente periodo disponible.", "kind": "refine" }
+          ]
+        },
+        "meta": { "requestId": "fixture-read-002", "partial": false, "taxonomyVersion": "w1-pending-v0" }
+      }
+    },
+    {
+      "id": "partial-table-with-continuation",
+      "expected": "accept",
+      "response": {
+        "contractVersion": 1,
+        "answer": "Estos son los resultados disponibles; la lista no está completa.",
+        "status": "PARTIAL",
+        "grounded": true,
+        "blocks": {
+          "table": {
+            "columns": [
+              { "key": "item", "label": "Resultado", "format": "text" },
+              { "key": "state", "label": "Estado", "format": "status" }
+            ],
+            "rows": [
+              { "item": "Ejemplo sintético A", "state": "Pendiente" },
+              { "item": "Ejemplo sintético B", "state": "Revisado" }
+            ],
+            "truncated": true,
+            "continuation": { "cursor": "opaque-page-2", "total": 8 }
+          }
+        },
+        "meta": { "requestId": "fixture-read-003", "partial": true, "taxonomyVersion": "w1-pending-v0" }
+      }
+    },
+    {
+      "id": "unknown-entity-rejected-by-taxonomy",
+      "expected": "reject",
+      "response": {
+        "contractVersion": 1,
+        "answer": "He encontrado una referencia que todavía no tiene ruta registrada.",
+        "status": "SUCCESS",
+        "grounded": true,
+        "blocks": {
+          "entities": [
+            { "entityType": "__contract_requirement_entity_type__", "entityId": "fixture-entity-001", "label": "Entidad sintética" }
+          ]
+        },
+        "meta": { "requestId": "fixture-read-004", "partial": false, "taxonomyVersion": "w1-pending-v0" }
+      }
+    },
+    {
+      "id": "forbidden-safe-notice",
+      "expected": "accept",
+      "response": {
+        "contractVersion": 1,
+        "answer": "No tienes permiso para consultar este contenido.",
+        "status": "FORBIDDEN",
+        "grounded": true,
+        "blocks": {
+          "notice": { "code": "capability_forbidden", "retryable": false, "title": "Acceso no disponible" }
+        },
+        "meta": { "requestId": "fixture-read-005", "partial": false, "taxonomyVersion": "w1-pending-v0" }
+      }
+    },
+    {
+      "id": "ungrounded-evidence-rejected",
+      "expected": "reject",
+      "response": {
+        "contractVersion": 1,
+        "answer": "No puedo verificar completamente esta respuesta.",
+        "status": "PARTIAL",
+        "grounded": false,
+        "blocks": {
+          "entities": [
+            { "entityType": "customer", "entityId": "fixture-entity-002", "label": "Referencia no verificada" }
+          ]
+        },
+        "meta": { "requestId": "fixture-read-006", "partial": true, "taxonomyVersion": "w1-pending-v0" }
+      }
+    },
+    {
+      "id": "executable-follow-up-rejected",
+      "expected": "reject",
+      "response": {
+        "contractVersion": 1,
+        "answer": "Puedo preparar una acción, pero las escrituras están bloqueadas.",
+        "status": "SUCCESS",
+        "grounded": true,
+        "blocks": {
+          "followUps": [
+            { "label": "Preparar acción", "prompt": "Prepara una vista previa sin ejecutar cambios.", "kind": "action" }
+          ]
+        },
+        "meta": { "requestId": "fixture-read-007", "partial": false, "taxonomyVersion": "w1-pending-v0" }
+      }
+    },
+    {
+      "id": "secret-like-key-rejected",
+      "expected": "reject",
+      "response": {
+        "contractVersion": 1,
+        "answer": "Este payload debe rechazarse.",
+        "status": "SUCCESS",
+        "grounded": true,
+        "blocks": {
+          "table": {
+            "columns": [{ "key": "secret", "label": "No permitido", "format": "text" }],
+            "rows": [{ "secret": "synthetic-redacted-value" }],
+            "truncated": false
+          }
+        },
+        "meta": { "requestId": "fixture-read-008", "partial": false, "taxonomyVersion": "w1-pending-v0" }
+      }
+    },
+    {
+      "id": "invalid-envelope-rejected",
+      "expected": "reject",
+      "response": {
+        "answer": "Falta la versión y el bloque meta requerido.",
+        "status": "SUCCESS",
+        "grounded": true,
+        "blocks": {}
+      }
+    }
+  ]
+}
