@@ -163,3 +163,37 @@ test('rejects route-bearing customer identifiers and invalid freshness', () => {
   })
   assert.equal(badFreshnessResult.ok, false)
 })
+
+test('never throws for malformed, extra, nested-invalid or oversized JSON', () => {
+  const missing = customer() as unknown as Record<string, unknown>
+  delete missing.legal_name
+  const extra = { ...customer(), workspace_selector: 'workspace-foreign' }
+  const invalidNested = {
+    ...customer(),
+    contacts: [{ ...customer().contacts[0], is_primary: 'yes' }],
+  }
+  const unknownEnum = { ...customer(), lifecycle: 'unknown' }
+  const oversized = { ...customer(), display_name: 'x'.repeat(201) }
+
+  for (const candidate of [
+    null,
+    [],
+    {},
+    missing,
+    extra,
+    invalidNested,
+    unknownEnum,
+    oversized,
+  ]) {
+    assert.doesNotThrow(() => adaptCustomerTelecomV0(candidate, context))
+    assert.equal(adaptCustomerTelecomV0(candidate, context).ok, false)
+  }
+})
+
+test('rejects impossible source calendar timestamps', () => {
+  const result = adaptCustomerTelecomV0(customer(), {
+    ...context,
+    sourceUpdatedAt: '2026-02-31T10:00:00Z',
+  })
+  assert.equal(result.ok, false)
+})

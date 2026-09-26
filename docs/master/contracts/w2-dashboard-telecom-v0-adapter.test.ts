@@ -48,7 +48,12 @@ const input = (): DashboardReadModelV0Input => ({
   opportunities: emptySection,
 })
 
-const context = { scopeLabel: 'Mi cartera', windowLabel: 'Hoy', statusCatalog }
+const context = {
+  serverWorkspaceId: 'workspace-synthetic-1',
+  scopeLabel: 'Mi cartera',
+  windowLabel: 'Hoy',
+  statusCatalog,
+}
 
 test('adapts stable v0 states without claiming complete pagination', () => {
   const result = adaptDashboardTelecomV0(input(), context)
@@ -165,4 +170,89 @@ test('rejects malformed freshness timestamps at the boundary', () => {
       retryable: false,
     },
   })
+})
+
+test('never throws for malformed runtime JSON and rejects global shape failures', () => {
+  const missingField = input() as unknown as Record<string, unknown>
+  delete missingField.generated_at
+  const extraField = { ...input(), raw_url: '/workspace/foreign' }
+  const wrongNestedType = { ...input(), meetings: 'not-a-section' }
+  const badWorkspaceId = { ...input(), workspace_id: '../foreign' }
+  const oversized = {
+    ...input(),
+    tasks: {
+      ...(input().tasks as object),
+      state: 'ready',
+      items: Array.from({ length: 201 }, (_, index) => ({
+        id: `task-${index}`,
+        customer_id: null,
+        title: 'Tarea sintética',
+        due_at: null,
+        status: 'pending',
+      })),
+      source_updated_at: timestamp,
+      error: null,
+    },
+  }
+
+  for (const candidate of [
+    null,
+    [],
+    {},
+    missingField,
+    extraField,
+    wrongNestedType,
+    badWorkspaceId,
+    oversized,
+  ]) {
+    assert.doesNotThrow(() => adaptDashboardTelecomV0(candidate, context))
+    const result = adaptDashboardTelecomV0(candidate, context)
+    if (candidate === wrongNestedType || candidate === oversized) {
+      assert.equal(result.ok, true)
+    } else {
+      assert.equal(result.ok, false)
+    }
+  }
+})
+
+test('one malformed item rejects its section and preserves valid widgets', () => {
+  const source = input() as unknown as Record<string, unknown>
+  source.tasks = {
+    state: 'ready',
+    items: Array.from({ length: 50 }, (_, index) => ({
+      id: index === 24 ? '../foreign-task' : `task-synthetic-${index}`,
+      customer_id: null,
+      title: `Seguimiento ${index}`,
+      due_at: '2026-09-26T10:00:00Z',
+      status: 'pending',
+    })),
+    source_updated_at: timestamp,
+    error: null,
+  }
+
+  const result = adaptDashboardTelecomV0(source, context)
+  assert.equal(result.ok, true)
+  if (!result.ok) return
+  assert.equal(result.page.data.tasks.status, 'error')
+  assert.equal(result.page.data.meetings.status, 'empty')
+})
+
+test('rejects impossible section dates without Date normalization', () => {
+  const source = input()
+  if (source.tasks.state !== 'ready') return
+  source.tasks.items[0].due_at = '2026-02-31T10:00:00Z'
+
+  const result = adaptDashboardTelecomV0(source, context)
+  assert.equal(result.ok, true)
+  if (!result.ok) return
+  assert.equal(result.page.data.tasks.status, 'error')
+})
+
+test('denies a response outside the server-resolved workspace', () => {
+  const result = adaptDashboardTelecomV0(input(), {
+    ...context,
+    serverWorkspaceId: 'workspace-foreign',
+  })
+  assert.equal(result.ok, false)
+  if (!result.ok) assert.equal(result.error.code, 'forbidden')
 })
