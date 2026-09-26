@@ -3,8 +3,8 @@
 - Updated: 2026-09-26
 - Branch: `w2/frontend-bootstrap-readiness`
 - Audit-trail base: `w4/security-baseline` at `4ef9a5a`
-- Latest delivery commit: `7937cbb` (`fix(w2): detach and bound client telemetry`)
-- Last verified remote checkpoint: `7937cbb` on `origin/w2/frontend-bootstrap-readiness`
+- Latest delivery commit: `3712fe4` (`feat(w2): guard assistant read sessions`)
+- Last verified remote checkpoint: `3712fe4` on `origin/w2/frontend-bootstrap-readiness`
 - Draft PR: `#8` targeting `w4/security-baseline`
 - State: W1 `telecom.v0` contracts published; runtime integration remains blocked by W4 rejection of PR `#13`
 
@@ -50,22 +50,27 @@
 - Added an executable W1 `telecom.v0` → W2 Dashboard adapter candidate: it preserves section freshness/errors, fails closed on unknown statuses and unsafe IDs, redacts provider errors, avoids false completeness and does not invent renewal/permanence deep links.
 - Added an executable Customer 360 identity adapter candidate: it verifies the server-resolved workspace, distinguishes missing from unauthorized sensitive fields, strips raw CIF/email/phone values and keeps unpublished attention sections explicitly unsupported rather than falsely empty.
 - Incorporated W4 `48cfd14`: browser telemetry now returns a detached frozen projection, admits only catalogued/bounded contract versions and rejects mutation, oversized, secret-shaped and non-finite variants.
+- Incorporated W4 `5cb872c`: Dashboard and Customer now enter through closed `unknown` parsers, reject impossible calendar dates without `Date` normalization and isolate malformed Dashboard sections deterministically.
+- Added one tenant boundary state machine for switch, suspension, membership removal, session invalidation, logout and role downgrade; it purges protected caches/data, aborts pending work, closes sensitive UI, cancels previews and ignores old-epoch responses.
+- Consumed W3 `c6e869e` `OperationStatusEnvelope` v1 with an exact runtime parser and operation-correlated mutation UI; writes remain release-disabled and the browser can only refresh server-authorized pending/review status.
+- Added parsed Contract, Service, Line, Permanence and Renewal presentation models from published W1 `telecom.v0`; visual identifiers stay hidden, foreign scope fails closed and completeness remains explicitly unknown.
+- Added an Assistant READ session reducer covering validated-final controls, partial grounded answers, interruption, malformed final, entity disappearance, permission change, revocation, expired continuation, stale results and late events.
 - Published and SHA-verified `origin/w2/frontend-bootstrap-readiness` in the canonical repository.
 - Opened draft PR `#8` for review without assuming or merging into a future `main`.
 
 ## Doing
 
-- Extending the `telecom.v0` presentation seam without copying backend rows into components; Dashboard v0 is covered and Customer 360 attention remains blocked on the missing W1 projection.
+- Holding Customer Attention (`nextTask`, `nextMeeting`, alerts and activity) as explicit `unsupported` states until W1 publishes that projection; no fields or endpoint have been invented.
 - Preparing closed route descriptors, accessibility assertions and responsive evidence contracts for immediate transport to the accepted base.
 - Holding integration until W1 satisfies the exact gate in `W2_HANDOFF_W1_CANONICAL_GATE.md`.
-- Applying W4's PII field-capability, not-found parity and membership/workspace invalidation requirements to W2 artifacts; the `48cfd14` telemetry P1 is fixed at `7937cbb`.
+- Applying W4's PII field-capability and not-found parity requirements; the runtime JSON/date P1 at `5cb872c` is addressed by `64c9f8e` and tenant invalidation by `068e1a6`.
 - Monitoring superseding W1 PR `#13` at `75c2103`; CI is green, but W4 has `CHANGES_REQUESTED` and explicitly rejects it as sanitized/canonical.
-- Keeping assistant mutation/confirmation UI release-disabled while Issue `#10` remains open; preview architecture may be specified but not wired.
+- Keeping assistant mutation/confirmation UI release-disabled while Issue `#10` remains open; W3's stable status projection is consumed without reconciliation, workspace selection or blind retry.
 
 ## Next
 
-1. Publish candidate TypeScript presentation interfaces, closed navigation descriptors and UI state machines against `telecom.v0`.
-2. Expand fixture-driven acceptance for Customer 360, Dashboard and Assistant READ interruption/continuation states.
+1. Add the W1 Customer Attention adapter only after tasks/meetings/alerts/activity fields are published.
+2. Transport the now-executable parsers/state machines selectively when W4 names an accepted integration SHA.
 3. Review every W1 contract delta for missing fields, ambiguity, breaking changes or acceptance.
 4. When W4 names an accepted W1 SHA, create `w2/ui-integration-v1` from it and selectively transport reusable W2 artifacts.
 5. Implement primitives/accessibility, shell, dashboard boundary and Customer 360 Identity + Attention as separate tested commits.
@@ -85,6 +90,7 @@
 ### W3
 
 - Keep the stable v1 READ subset and streaming final-event rule compatible while W2 builds the renderer seam.
+- Keep `OperationStatusEnvelope` v1 stable; W2 accepts its five public states and refresh-only pending/review action.
 - Publish canonical module/entity taxonomy only after W1 route/entity taxonomy is accepted.
 - Keep deep links as closed descriptors resolved by W2; unknown descriptors remain non-interactive.
 
@@ -97,8 +103,8 @@
 ## Handoffs
 
 - **W2 → W1:** `telecom.v0` is accepted as a presentation starting point; `W2_REVIEW_W1_TELECOM_V0.md` records the minimum additive fields and ambiguities required before action-rich Customer 360 and Dashboard implementation.
-- **W2 → W3:** READ v1 is accepted for renderer preparation; W2 will not hardcode entity taxonomy or enable confirmation actions while W1/W4 gates remain open.
-- **W2 → W4:** all 15 frontend security answers are accepted as binding defaults; runtime evidence will cover telemetry, PII, authorization invalidation, keyboard, axe and responsive states.
+- **W2 → W3:** READ v1 and `OperationStatusEnvelope` v1 are accepted; W2 neither constructs `operationRef` nor reconciles/retries writes, and mutation release stays blocked.
+- **W2 → W4:** runtime `unknown` parsing, strict dates, tenant purge/late-response rejection and operation correlation now have executable synthetic evidence; runtime application QA still waits for the accepted base.
 
 ## Blockers
 
@@ -106,7 +112,7 @@
 - W4 `48cfd14` proves an additional P0 in the tenant helpers carried by `75c2103`: active memberships remain authorizing when the owning workspace is suspended.
 - W4 has not named any SHA apt for frontend integration; therefore `w2/ui-integration-v1` must not yet be created.
 - `telecom.v0` lacks several Customer 360 attention/action and widget-specific semantics required for final UI implementation.
-- W3 READ UI can advance, but Issue `#10` remains open for durable mutation safety and output-value redaction.
+- W3 `c6e869e` publishes durable interfaces/conformance and stronger value scanning, but Issue `#10` remains open because no accepted-base database-backed adapter exists.
 - The historical repository is read-only and is not a delivery target.
 
 ## Validation evidence
@@ -119,7 +125,7 @@
 - GitHub PR `#8` checks at `eabb342`: migration policy, baseline guardrails, secret scan, dependency review and Node quality gate passed; critical Playwright correctly skipped because no application exists.
 - GitHub PR `#8` checks at `6fdc9b2`: the same six checks completed successfully/appropriately skipped after the UI-state fixture delivery.
 - GitHub PR `#13` at `75c2103`: six checks pass/skip appropriately, but W4 review is `CHANGES_REQUESTED`; generic Secret Scan green does not override W4's direct reachable-history evidence.
-- `node --experimental-strip-types --test docs/master/contracts/*.test.ts`: 51/51 pass.
+- `node --experimental-strip-types --test docs/master/contracts/*.test.ts`: 84/84 pass.
 - GitHub PR `#8` at `283c14d`: six checks pass/skip appropriately; W4's merged-baseline guardrail job executed all six W2 contract-test files, including route-ID and telemetry negatives, and reported documentation contract tests passed.
 - W4 `106848a`: PR `#13` is explicitly not an accepted integration base; docs-contract CI is now enforced and the route-ID finding has been fixed by W2.
 - W3 `874259e`: stable READ subset and nine-case compatibility matrix published; Issue `#10` remains open for durable mutation integration.
@@ -127,5 +133,9 @@
 - Customer identity adapter evidence at `b559a54`: seven synthetic cases cover PII omission, missing-vs-hidden semantics, partial unsupported sections, cross-workspace denial, primary-contact ambiguity/absence and invalid IDs/freshness.
 - W4 `48cfd14` adds an executable tenant-isolation harness and identifies workspace suspension as a P0 W1 blocker; inspection confirms the same helper gap remains in `w1/bootstrap-sanitized@75c2103`.
 - Telemetry adversarial evidence at `7937cbb`: detached/frozen output plus unregistered, oversized, secret-shaped and non-finite version negatives pass in the 51-test suite.
+- Runtime boundary evidence at `64c9f8e`: null/array/missing/extra/wrong/nested/oversized DTOs never throw; strict leap-day/calendar/timezone cases and a 50-row malformed-section policy pass.
+- Tenant/operation evidence at `068e1a6`: seven boundary reasons purge tenant data, A→B late responses are ignored, `OperationStatusEnvelope` v1 is closed and frozen, and stale operation events cannot regress a newer/terminal state.
+- Portfolio evidence at `63bb7cd`: Contract/Service/Line parsers reject malformed, foreign and impossible-date data; empty, hidden identifier, unknown completeness, permanence and renewal semantics stay distinct.
+- Assistant READ evidence at `3712fe4`: structured controls remain disabled until a matching validated final; revocation/permission/entity/continuation/stale and late-stream cases fail closed.
 
 Application typecheck, lint, unit tests and build remain inapplicable on this documentation-only branch until the reusable work is selectively transported onto a new branch from the accepted canonical application.

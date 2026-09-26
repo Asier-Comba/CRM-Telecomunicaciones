@@ -2,8 +2,16 @@
 
 - Date: 2026-09-25
 - W2 branch: `w2/frontend-bootstrap-readiness`
-- W4 source reviewed: `w4/security-baseline` at `99b4cbb`
-- Status: known gates incorporated; response requested before runtime integration
+- W4 source reviewed: `w4/security-baseline` at `5cb872c`
+- Status: policy accepted and transport-neutral findings addressed; runtime integration still blocked on W1
+
+## 2026-09-26 implementation evidence
+
+- `64c9f8e`: external Dashboard/Customer DTOs now start as `unknown`, pass closed parsers, reject impossible calendar dates and never throw on malformed JSON. Dashboard policy rejects only the malformed section; it never silently drops an item.
+- `068e1a6`: suspension/removal/session loss/revocation/logout purge all protected browser state. Workspace switch and role downgrade purge then require server reauthorization; old-epoch responses cannot repopulate data.
+- `068e1a6`: W3 operation status is exact, detached, strict-date validated and correlated by server-issued `operationRef`; stale/late events and blind write retries are rejected.
+- `63bb7cd`: contract/service/line DTOs have separate closed parsers and presentation models; foreign scope fails closed, display identifiers remain hidden and pagination completeness is not fabricated.
+- Application-level axe, focus, responsive and Playwright evidence remains correctly deferred until W4 publishes an accepted W1 integration SHA.
 
 ## Known W4 gates already accepted by W2
 

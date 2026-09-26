@@ -2,9 +2,17 @@
 
 - Date: 2026-09-25
 - W2 branch: `w2/frontend-bootstrap-readiness`
-- W3 source reviewed: `w3/assistant-runtime-foundation` at `7be1e8f`
+- W3 source reviewed: `w3/assistant-runtime-foundation` at `c6e869e`
 - Current contract: `src/assistant/ui-contract.ts`
-- Status: v1 is usable for presentation design; additive clarifications requested before product integration
+- Status: `AssistantResponse` v1 READ and `OperationStatusEnvelope` v1 accepted; mutation release remains blocked
+
+## 2026-09-26 live delta — accepted
+
+- W3 resolved the earlier envelope, follow-up, streaming, continuation and READ taxonomy-validation questions without opening arbitrary URLs or executable follow-ups.
+- W2 consumes `OperationStatusEnvelope` v1 as an exact closed runtime contract at `068e1a6`: opaque `operationRef`, five public states, strict terminal/result consistency and `refresh` only for `pending`/`review_required`.
+- W2 never creates or changes an operation reference, submits reconciliation, selects a workspace, marks completion or retries a write. Late/mismatched operation events are ignored; terminal states cannot regress.
+- `review_required` is neutral display plus server-authorized status refresh. Issue `#10` and the release gate still disable actual mutation UI.
+- Remaining W1 dependency: accepted canonical entity/module/route taxonomy. W2 does not hardcode the telecom semantic catalog as navigation authority.
 
 ## Accepted W3 foundation
 
