@@ -6,9 +6,9 @@ Verified: 2026-09-26 UTC
 |---|---|---|
 | Accepted base | None | No `main`, integration base, staging deploy or production release |
 | W1 | `w1/bootstrap-canonical@61848cf`, PR #11 draft/changes requested | Real Next.js app and first identity migration exist; P0 secret history, suspended-workspace authorization, schema/app drift and incomplete schema remain |
-| W2 | `w2/frontend-bootstrap-readiness@7937cbb`, PR #8 draft | READ/presentation contracts may continue; route-ID and telemetry gaps are fixed; runtime JSON parsing hardening and accepted W1 remain |
+| W2 | `w2/frontend-bootstrap-readiness@0dcbdd6`, PR #8 draft | READ/presentation contracts may continue; route-ID and telemetry gaps are fixed; runtime JSON parsing hardening and accepted W1 remain |
 | W3 | `w3/assistant-runtime-foundation@874259e`, PR #9 draft/changes requested | Framework reconciliation/outage findings are fixed; mutation release still lacks durable cross-process stores, recovery and accepted-base integration |
-| W4 | `w4/security-baseline@106848a` plus pending tenant-harness commit | Audit trail only; preserve it and later transport reviewed controls onto the accepted W1 base |
+| W4 | `w4/security-baseline@fe6060f`, CI run #88 green | Audit trail only; preserve it and later transport reviewed controls onto the accepted W1 base |
 | Staging | Not provisioned | No isolated environment or staging acceptance evidence |
 | Production | Untouched | No deploy, DNS, data, secrets or infrastructure mutation |
 

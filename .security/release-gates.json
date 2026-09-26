@@ -17,7 +17,7 @@
       "requires": [],
       "evidenceRequired": ["accepted_sha", "clean_history", "schema_rebuild", "auth_alignment", "live_rls_matrix"],
       "evidenceSatisfied": [],
-      "evidenceRefs": ["issue:#12", "pr:#13"]
+      "evidenceRefs": ["pr:#11", "commit:61848cf"]
     },
     {
       "id": "frontend.read",
@@ -27,8 +27,8 @@
       "status": "pending",
       "requires": ["base.canonical"],
       "evidenceRequired": ["presentation_contract", "assistant_read_matrix", "safe_route_ids", "runtime_security_tests"],
-      "evidenceSatisfied": ["presentation_contract", "assistant_read_matrix"],
-      "evidenceRefs": ["pr:#8", "commit:9f2ab64"]
+      "evidenceSatisfied": ["presentation_contract", "assistant_read_matrix", "safe_route_ids"],
+      "evidenceRefs": ["pr:#8", "commit:7937cbb"]
     },
     {
       "id": "assistant.mutations",
@@ -48,9 +48,9 @@
       "owners": ["W4"],
       "status": "passed",
       "requires": [],
-      "evidenceRequired": ["guardrails", "secret_scan", "migration_policy", "observability_scan"],
-      "evidenceSatisfied": ["guardrails", "secret_scan", "migration_policy", "observability_scan"],
-      "evidenceRefs": ["commit:10ee3aa", "run:#61"]
+      "evidenceRequired": ["guardrails", "secret_scan", "migration_policy", "observability_scan", "tenant_harness", "assistant_harness", "staging_evidence_schema", "restore_evidence_schema"],
+      "evidenceSatisfied": ["guardrails", "secret_scan", "migration_policy", "observability_scan", "tenant_harness", "assistant_harness", "staging_evidence_schema", "restore_evidence_schema"],
+      "evidenceRefs": ["commit:fe6060f", "run:#88"]
     },
     {
       "id": "ci.dependency_review",
@@ -83,7 +83,7 @@
       "requires": ["base.canonical", "frontend.read", "ci.baseline"],
       "evidenceRequired": ["separate_supabase", "separate_storage", "separate_n8n", "separate_oauth", "production_deny", "smoke_results"],
       "evidenceSatisfied": [],
-      "evidenceRefs": ["doc:docs/master/RELEASE_STAGING.md"]
+      "evidenceRefs": ["doc:docs/master/RELEASE_STAGING.md", "commit:1a6d6e4"]
     },
     {
       "id": "recovery.restore",
@@ -94,7 +94,7 @@
       "requires": ["staging.isolated"],
       "evidenceRequired": ["postgres_restore", "storage_restore", "n8n_restore", "configuration_restore", "tenant_smoke", "rpo_rto_met"],
       "evidenceSatisfied": [],
-      "evidenceRefs": ["doc:docs/master/BACKUP_DR.md"]
+      "evidenceRefs": ["doc:docs/master/BACKUP_DR.md", "commit:fe6060f"]
     },
     {
       "id": "release.production",
