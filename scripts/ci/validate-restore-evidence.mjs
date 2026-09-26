@@ -48,7 +48,10 @@ function utcMillis(value, field, errors) {
     return Number.NaN
   }
   const parsed = Date.parse(value)
-  if (!Number.isFinite(parsed)) errors.push(`${field}: invalid timestamp`)
+  const canonical = value.includes('.') ? value : value.replace('Z', '.000Z')
+  if (!Number.isFinite(parsed) || new Date(parsed).toISOString() !== canonical) {
+    errors.push(`${field}: invalid calendar timestamp`)
+  }
   return parsed
 }
 

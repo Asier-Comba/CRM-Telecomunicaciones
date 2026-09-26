@@ -42,6 +42,8 @@ jobs:
           node scripts/ci/check-sensitive-routes.mjs
           node scripts/ci/test-restore-evidence.mjs
           node scripts/ci/validate-restore-evidence.mjs
+          node scripts/ci/test-staging-evidence.mjs
+          node scripts/ci/validate-staging-evidence.mjs
           node scripts/ci/test-observability.mjs
           node scripts/ci/check-observability.mjs
           node scripts/ci/test-release-gates.mjs

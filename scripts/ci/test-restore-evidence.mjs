@@ -52,6 +52,7 @@ try {
   assert.notEqual(run(valid({ environment: 'production' })).status, 0, 'production restore tests must fail')
   assert.notEqual(run(valid({ integrationsDisabled: false })).status, 0, 'live integrations must fail')
   assert.notEqual(run(valid({ reportedRtoMinutes: 89 })).status, 0, 'invented RTO must fail')
+  assert.notEqual(run(valid({ startedAt: '2026-02-30T10:00:00Z' })).status, 0, 'impossible date must fail')
   assert.notEqual(run(valid({ targetRtoMinutes: 60 })).status, 0, 'missed RTO target must fail')
   assert.notEqual(run(valid({ checks: { ...valid().checks, tenantIsolation: false } })).status, 0, 'failed tenant attack must fail')
   assert.notEqual(run(valid({ assets: { ...valid().assets, storage: { ...valid().assets.storage, verified: false } } })).status, 0, 'unverified asset must fail')

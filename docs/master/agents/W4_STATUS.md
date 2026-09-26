@@ -40,6 +40,7 @@ Last verified: 2026-09-26 (UTC)
 - Lightweight documentation-contract test runner so W2/W3 transport-neutral TypeScript tests execute even before a product `package.json` exists.
 - Executable 22-case tenant-isolation harness spanning anonymous, A/B, removed, suspended, multi-workspace, service-principal and role scenarios, with six mutation-style negative controls.
 - Executable 18-case assistant-security adapter contract covering confirmations, tenant scope, 20-way races, replay, restart/reconciliation, store/audit outages, secret outputs and arbitrary SQL/URL targets, with eight mutation-style negative controls.
+- Machine-validated staging-candidate evidence requiring an immutable artifact, synthetic data, separate Supabase/Storage/n8n/OAuth resources, a non-shared managed secret boundary, production-deny guards and nine smoke/security checks. Impossible calendar dates are rejected in staging and restore evidence.
 
 ## Findings and gates
 

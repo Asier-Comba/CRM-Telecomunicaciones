@@ -44,3 +44,17 @@ Never share service-role keys, database passwords, signing secrets or persistent
 - No test, seed or evaluation command resolves a production hostname/project ID.
 - Logs expose correlation ID and deployment version without sensitive payloads.
 - Alerts and rollback/forward-fix owner are identified.
+
+## Machine-verifiable staging evidence
+
+Each tested candidate records a value-redacted JSON document under
+`ops/staging-evidence/`. `node scripts/ci/validate-staging-evidence.mjs` requires
+an immutable Git SHA and artifact digest, synthetic data, distinct staging-only
+Supabase/Storage/n8n/OAuth references, a managed secret boundary with no
+production sharing, explicit production-write/destructive-test/seed/assistant
+guards, and all nine smoke/security checks. The validator permits no production
+environment, credentials, URLs, customer content or raw logs.
+
+An empty directory is allowed during bootstrap but means the staging gate is
+unproven. Evidence is valid only for its exact candidate SHA and artifact digest;
+rebuilding or changing configuration requires a new record.
