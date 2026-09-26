@@ -7,9 +7,12 @@ const DEFAULT_MAX_BYTES = 64 * 1024
 const own = (value: object, key: string): boolean => Object.prototype.hasOwnProperty.call(value, key)
 const HIGH_CONFIDENCE_SECRET = [
   /-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----/,
-  /\b(?:authorization|proxy-authorization)\s*:\s*(?:bearer|basic)\s+[A-Za-z0-9+/_=.-]{8,}/i,
-  /\b(?:api[_-]?key|access[_-]?token|client[_-]?secret|password|passwd)\s*[:=]\s*["']?[A-Za-z0-9+/_=.-]{8,}/i,
-  /\b(?:sk-(?:proj-)?[A-Za-z0-9_-]{16,}|gh[pousr]_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}|xox[baprs]-[A-Za-z0-9-]{16,})\b/,
+  /\b(?:authorization|proxy-authorization)\s*(?::|=)?\s*(?:bearer|basic)\s+[A-Za-z0-9+/_=.-]{12,}/i,
+  /\bbearer\s+[A-Za-z0-9._~+/-]{16,}={0,2}\b/i,
+  /\bbasic\s+(?=[A-Za-z0-9+/=]{16,}\b)(?=[A-Za-z0-9+/=]*[0-9+/=])[A-Za-z0-9+/]{14,}={0,2}\b/i,
+  /\b(?:aws_(?:secret_access_key|access_key_id|session_token)|x-api-key|api[ _-]?key|oauth[ _-]?(?:access|refresh)[ _-]?token|access[ _-]?token|refresh[ _-]?token|client[ _-]?secret|password|passwd|session[ _-]?(?:id|token))\s*[:=]\s*["']?[A-Za-z0-9+/_=.-]{12,}/i,
+  /\b(?:set-cookie|cookie)\s*:\s*[^\s;,=]+=[A-Za-z0-9+/_=.%:-]{12,}/i,
+  /\b(?:sk-(?:(?:proj|svcacct)-)?[A-Za-z0-9_-]{16,}|gh[pousr]_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}|xox[baprs]-[A-Za-z0-9-]{16,})\b/,
   /\beyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{8,}\b/,
 ]
 
