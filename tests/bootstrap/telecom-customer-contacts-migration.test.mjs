@@ -75,8 +75,8 @@ test('both domain tables force RLS and fail closed through active-workspace help
     assert.match(sql, new RegExp(`alter table public\\.${relation} enable row level security`))
     assert.match(sql, new RegExp(`alter table public\\.${relation} force row level security`))
     assert.match(sql, new RegExp(`create policy ${relation}_select_active_member`))
-    assert.match(sql, new RegExp(`create policy ${relation}_insert_manager`))
-    assert.match(sql, new RegExp(`create policy ${relation}_update_manager`))
+    assert.match(sql, new RegExp(`create policy ${relation}_insert_owner_admin`))
+    assert.match(sql, new RegExp(`create policy ${relation}_update_owner_admin`))
   }
   assert.match(sql, /public\.is_workspace_member\(workspace_id\)/)
   assert.match(sql, /public\.has_workspace_role\(workspace_id, array\['owner', 'admin'\]::text\[\]\)/)
@@ -90,8 +90,10 @@ test('raw tables stay closed until capability-aware readers and commands exist',
   }
   assert.doesNotMatch(
     allSql,
-    /grant\s+(?:select|insert|update|delete|all)[^;]*on\s+table\s+public\.(?:customers|contacts)\s+to\s+(?:public|anon|authenticated)/i,
+    /grant\s+(?:select|insert|update|delete|all)[^;]*on\s+(?:table\s+)?public\.(?:customers|contacts)\s+to\s+(?:public|anon|authenticated)/i,
   )
+  assert.doesNotMatch(allSql, /grant\s+[^;]*on\s+all\s+tables\s+in\s+schema\s+public\s+to\s+(?:public|anon|authenticated)/i)
+  assert.doesNotMatch(allSql, /alter\s+default\s+privileges[^;]*grant\s+[^;]*on\s+tables\s+to\s+(?:public|anon|authenticated)/i)
 })
 
 test('the migration documents the capability boundary for sensitive fields', () => {

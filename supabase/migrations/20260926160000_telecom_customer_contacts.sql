@@ -158,7 +158,7 @@ create policy customers_select_active_member
   to authenticated
   using (public.is_workspace_member(workspace_id));
 
-create policy customers_insert_manager
+create policy customers_insert_owner_admin
   on public.customers
   for insert
   to authenticated
@@ -168,7 +168,7 @@ create policy customers_insert_manager
     and (archived_by_user_id is null or archived_by_user_id = auth.uid())
   );
 
-create policy customers_update_manager
+create policy customers_update_owner_admin
   on public.customers
   for update
   to authenticated
@@ -184,7 +184,7 @@ create policy contacts_select_active_member
   to authenticated
   using (public.is_workspace_member(workspace_id));
 
-create policy contacts_insert_manager
+create policy contacts_insert_owner_admin
   on public.contacts
   for insert
   to authenticated
@@ -194,7 +194,7 @@ create policy contacts_insert_manager
     and (archived_by_user_id is null or archived_by_user_id = auth.uid())
   );
 
-create policy contacts_update_manager
+create policy contacts_update_owner_admin
   on public.contacts
   for update
   to authenticated
