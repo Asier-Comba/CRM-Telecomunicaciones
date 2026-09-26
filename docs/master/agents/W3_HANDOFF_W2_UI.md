@@ -1,6 +1,23 @@
 # W3 → W2 handoff — Assistant UI contract
 
-## telecom.v1 checkpoint
+## Iteration 3.1 — current stable handoff
+
+`AssistantResponse` v1 and `OperationStatusEnvelope` v1 remain unchanged. No new
+browser transport, navigation taxonomy, mutation handler or interactive control
+is enabled. Read graph outcomes and structured claims are backend intermediate
+types; do not consume them as an undocumented UI v2.
+
+Ambiguous reads require an explicit selection. Server-issued choice frames bind
+order, entity kind, source turn, actor/workspace/session/epoch and expiry. Ordinal
+or all selections must be resolved and reauthorized server-side; browser ordering
+cannot redefine a frame. A route adapter is still pending acceptance.
+
+Display partial, stale, unavailable and denied states faithfully. A budgeted row
+count is not a total; omitted rows cannot become evidence of absence. Only checked
+claims may feed a grounded final answer. This checkpoint does not provide a live
+LLM presenter. Continue using the stable READ structures below.
+
+## Previous telecom.v1 checkpoint
 
 Consumed W2 `db8ab41` and W1 `e65f1e8`. `AssistantResponse` v1 and
 `OperationStatusEnvelope` v1 remain unchanged. W1's exact 18 entity kinds now

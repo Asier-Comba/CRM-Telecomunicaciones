@@ -1,6 +1,57 @@
 # W3 status — AI, assistant and integrations
 
-## Current checkpoint — telecom.v1 independent foundation
+## Current checkpoint — iteration 3.1
+
+Verified 2026-09-26 UTC / 2026-09-27 Europe/Madrid. PR #9 remains Draft,
+unmerged and disconnected from application routes. Local evidence: lint of 61
+TypeScript files, typecheck/build and **384/384 tests pass**.
+
+Latest inspected W1: canonical `32f0112`, telecom.v1 `e65f1e8`; W2 `db8ab41`;
+W4 night-shift-v3 `fa7f889`, PR #16 and live Issue #10. No accepted integration
+base. W1 PR #14/#15 SQL defects and W4's import-ledger bypass remain upstream
+findings, not changes made by W3.
+
+Delivered beyond remote checkpoint `91b4b3e`:
+
+- Reconciliation now requires a registered per-capability output schema before
+  completing an observed effect. Missing schema and arbitrary private fields fail
+  closed. This addresses W4's new P1 candidate; independent review is pending.
+- Full unknown-input telecom.v1 DTO parser with closed nested shapes, references,
+  protected fields, capability ownership/actions/expiry and scope fences across
+  awaits. Over 1,600 deterministic structural mutations exercise rejection.
+- A server-only read boundary maps all 14 published operations, authorizes input
+  references and requested audience before reads, parses output, reauthorizes
+  returned references and minimizes model-visible selection data. No live adapter.
+- Bounded acyclic read plans and executor; dependencies never auto-select ambiguous,
+  partial, stale or denied results. Multi-turn ordinal/all selections reauthorize
+  and recheck revocation/expiry after awaits. Production requires live scope/clock
+  resolvers; in-memory handles are not durable memory.
+- Structured factual claims bind exact source/operation/entity/value. Context
+  budgets preserve partiality and reject inconsistent source counts. Semantic
+  injection text remains untrusted data; this is not an arbitrary prose verifier.
+- 122 executable reference semantic scenarios and 610 claim probes, separate from
+  85 structured-input fixtures and the legacy 63-case catalog. No LLM was called;
+  these numbers do not measure natural-language model accuracy.
+- Provider-neutral benchmark and routing v2 measure separate plan/policy/grounding
+  judgments, latency, reported token usage/fallback and configured cost estimates.
+  No model vendor or price was selected without live evidence.
+- Atomic reconciliation candidate, durable mapping manifest and crash matrix;
+  typed service-principal/integration ingress with no external dispatch.
+- Descriptor-based bounded structural scanning rejects cycles/accessors/deep
+  payloads; regressions cover revocation during authorization and false emptiness.
+
+**Remaining release gates:** the existing separate transition/audit service can
+still lose the original audit event on sink failure. The new atomic interface and
+Map simulations do not repair that service or prove database durability. Real
+transactional adapter, process races/restarts, kill-after-effect, RLS/auth and live
+provider evidence remain required. Writes remain disabled. Dependency Review's
+owner configuration gate remains intact; no CI bypass or production changes.
+
+Stable UI v1 contracts are unchanged. Current handoffs are W3_HANDOFF_W2_UI.md
+and W3_HANDOFF_W4_SECURITY.md. Technical detail: ai/W3_ITERATION_31.md,
+W3_ATOMIC_RECONCILIATION_CANDIDATE.md and W3_EFFECT_TRANSACTION_MATRIX.md.
+
+## Archived checkpoint — telecom.v1 independent foundation
 
 Verified 2026-09-26 UTC. PR #9 is still **Draft; do not merge**. Writes and route
 integration remain disabled. No production, remote database or infrastructure changes.

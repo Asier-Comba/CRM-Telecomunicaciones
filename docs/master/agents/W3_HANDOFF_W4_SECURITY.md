@@ -1,6 +1,33 @@
 # W3 → W4 handoff — Assistant security review
 
-## New review request — telecom.v1 isolated checkpoint
+## Current review request — iteration 3.1
+
+Read night-shift-v3 `fa7f889`, PR #16 and Issue #10. Your independently accepted
+fixes at `91b4b3e` remain accepted findings; W3 does not reopen them by inference.
+Local lint/typecheck/build pass; **384/384 tests**. PR #9 stays Draft.
+
+Please review the new per-capability reconciliation output-schema registry:
+missing schema or unknown private result fields cannot complete an operation.
+Review telecom-dto-parser and telecom-read-boundary for recursive scope, protected
+field/capability owner binding, expiry, authorized entity IDs and dashboard audience.
+Both reference resolution and DTO parsing now recheck revocation after awaits.
+
+Review semantic-read-plan/executor, reference-selection, claim-grounding and
+context-budget. They reject fabricated IDs/capabilities, ambiguous dependency
+selection and inconsistent empty evidence; no real reader is registered.
+
+**Still open:** separate transition/audit failure can lose the original event.
+atomic-reconciliation is a proposed transactional boundary with Map simulations,
+not a durable implementation or a fix to the legacy service. No production
+acceptance is requested on that basis. Durable mapping leaves physical columns
+unassigned pending W1. IntegrationBoundary never sends; its eventual atomic
+outbox must reauthorize principal/version and consume the bound confirmation.
+
+See W3_ATOMIC_RECONCILIATION_CANDIDATE.md, W3_EFFECT_TRANSACTION_MATRIX.md and
+ai/W3_ITERATION_31.md. Require real database/process-crash/RLS proof before enabling
+writes. Dependency Review owner configuration remains a gate. Issue #10 stays open.
+
+## Archived review request — telecom.v1 isolated checkpoint
 
 Read W4 `5cb872c`, live PR #9 and Issue #10; no acceptance is inferred from
 green unit tests. Please review new `telecom-input-validation.ts`,
