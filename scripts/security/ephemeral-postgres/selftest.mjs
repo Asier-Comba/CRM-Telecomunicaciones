@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict'
+import { createHash } from 'node:crypto'
 import { PGlite } from '@electric-sql/pglite'
 
 // Runner negative controls only. This miniature schema is NOT the CRM schema.
@@ -51,4 +52,20 @@ try {
   assert.deepEqual((await db.query("update records set payload='changed' returning id")).rows.map(x=>x.id),['a'])
   await assert.rejects(db.query("update records set workspace='B' where id='a'"), { code:'42501' })
   console.log('Disposable PostgreSQL self-test: 11 scope cases and 3 write controls PASS (synthetic harness only)')
+  await db.exec('reset role')
+  const snapshot = await db.dumpDataDir()
+  const bytes = await snapshot.arrayBuffer()
+  const checksum = createHash('sha256').update(new Uint8Array(bytes)).digest('hex')
+  const copy = new Blob([bytes])
+  assert.equal(createHash('sha256').update(new Uint8Array(await copy.arrayBuffer())).digest('hex'), checksum)
+  const recovered = new PGlite({ loadDataDir: copy })
+  try {
+    assert.equal((await recovered.query('select count(*)::int as n from records')).rows[0].n, 3)
+    await recovered.exec('set role authenticated')
+    await recovered.query("select set_config('test.actor','memberA',false),set_config('test.workspace','B',false)")
+    assert.equal((await recovered.query('select * from records')).rows.length,0)
+    await recovered.query("select set_config('test.workspace','A',false)")
+    assert.deepEqual((await recovered.query('select id,payload from records')).rows,[{id:'a',payload:'changed'}])
+    console.log('Synthetic embedded database snapshot/restore: checksum, data and RLS PASS; not commercial DR evidence')
+  } finally { await recovered.close() }
 } finally { await db.close() }

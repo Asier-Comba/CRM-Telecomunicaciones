@@ -1,0 +1,61 @@
+diff --git a/supabase/migrations/20260926162000_telecom_contract_service_portfolio.sql b/supabase/migrations/20260926162000_telecom_contract_service_portfolio.sql
+index 6c7fc21..29edade 100644
+--- a/supabase/migrations/20260926162000_telecom_contract_service_portfolio.sql
++++ b/supabase/migrations/20260926162000_telecom_contract_service_portfolio.sql
+@@ -183,7 +183,8 @@ create or replace function public.validate_telecom_plan_operator()
+ returns trigger language plpgsql security definer set search_path = '' as $$
+ begin
+   if new.plan_version_id is not null then
+-    if tg_table_name = 'telecom_contracts' and not exists (
++    if tg_table_name = 'telecom_contracts' then
++    if not exists (
+       select 1 from public.telecom_plan_versions pv
+       join public.telecom_plans p on p.id = pv.plan_id and p.workspace_id = pv.workspace_id
+       where pv.id = new.plan_version_id and pv.workspace_id = new.workspace_id
+@@ -193,7 +194,9 @@ begin
+     ) then
+       raise exception using errcode = '23514', message = 'plan version is invalid for contract';
+     end if;
+-    if tg_table_name = 'telecom_services' and not exists (
++    end if;
++    if tg_table_name = 'telecom_services' then
++    if not exists (
+       select 1 from public.telecom_plan_versions pv
+       join public.telecom_plans p on p.id = pv.plan_id and p.workspace_id = pv.workspace_id
+       where pv.id = new.plan_version_id and pv.workspace_id = new.workspace_id
+@@ -205,6 +208,7 @@ begin
+     ) then
+       raise exception using errcode = '23514', message = 'plan version is invalid for service';
+     end if;
++    end if;
+   end if;
+   return new;
+ end;
+diff --git a/supabase/migrations/20260926165000_import_audit_foundation.sql b/supabase/migrations/20260926165000_import_audit_foundation.sql
+index 2bafda8..11ecc3c 100644
+--- a/supabase/migrations/20260926165000_import_audit_foundation.sql
++++ b/supabase/migrations/20260926165000_import_audit_foundation.sql
+@@ -435,17 +435,20 @@ begin
+     or new.created_at is distinct from old.created_at then
+     raise exception using errcode = '55000', message = 'import child identity is immutable';
+   end if;
+-  if tg_table_name = 'import_field_mappings'
+-    and new.created_by_user_id is distinct from old.created_by_user_id then
++  if tg_table_name = 'import_field_mappings' then
++  if new.created_by_user_id is distinct from old.created_by_user_id then
+     raise exception using errcode = '55000', message = 'mapping creator is immutable';
+   end if;
+-  if tg_table_name = 'import_staging_rows' and (
++  end if;
++  if tg_table_name = 'import_staging_rows' then
++  if (
+     new.source_row_number is distinct from old.source_row_number
+     or new.row_digest_hmac is distinct from old.row_digest_hmac
+     or new.encrypted_payload_ref_id is distinct from old.encrypted_payload_ref_id
+   ) then
+     raise exception using errcode = '55000', message = 'staging row binding is immutable';
+   end if;
++  end if;
+   return new;
+ end;
+ $$;

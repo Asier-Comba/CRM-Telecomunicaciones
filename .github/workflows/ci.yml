@@ -40,6 +40,9 @@ jobs:
       - name: Test disposable RLS harness
         working-directory: scripts/security/ephemeral-postgres
         run: npm test
+      - name: Audit embedded database dependency
+        working-directory: scripts/security/ephemeral-postgres
+        run: npm audit --audit-level=high
       - name: Execute product SQL when integrated
         run: |
           if [ -d supabase/migrations ]; then

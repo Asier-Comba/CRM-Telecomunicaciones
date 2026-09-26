@@ -10,3 +10,9 @@ Use disposable worktrees at the recorded exact commits; never copy them to produ
 - `pr15-import-adversarial.sql`: optional injection into the domain SQL harness, guarded by synthetic test environment. NOT reached on current PR15 because its official SQL script fails first. The probe tests privileged insert invariants, not browser access.
 
 Convert vulnerable assertions into rejection/secure-state expectations when the owner supplies fixes; rerun original positive controls. Preserve original fixtures as historical evidence if superseded.
+
+## Latest delta
+
+- W3@91b4b3e: use w3-v1-adversarial.patch instead of old patch;173 official+6 W4 probes. Reflection test now expects rejection marker; new verifier-data probe demonstrates missing capability-specific result schema.
+- pr14-onboarding-candidate.patch and pr15-trigger-candidate.patch are diagnostic edits ONLY for disposable worktrees. They demonstrate minimal fixes, not deployable migration history. W1 should ship forward migrations. Candidate identity and full domain SQL pass after these edits.
+- pr15-import-standalone.sql reproduces initial completed/fabricated counters against UNMODIFIED e65f1e8, independent of trigger failures in the larger fixture. Run it as the SQL argument to the embedded runner. Its PASS means the defect exists, not secure acceptance. Trusted/privileged insert invariant only; browser access remains denied.

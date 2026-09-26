@@ -1,0 +1,13 @@
+diff --git a/supabase/migrations/20260926143000_enforce_active_workspace_authorization.sql b/supabase/migrations/20260926143000_enforce_active_workspace_authorization.sql
+index 7ff934e..8b0e107 100644
+--- a/supabase/migrations/20260926143000_enforce_active_workspace_authorization.sql
++++ b/supabase/migrations/20260926143000_enforce_active_workspace_authorization.sql
+@@ -199,7 +199,7 @@ begin
+   select u.id, v_workspace.id, u.email
+     from auth.users as u
+    where u.id = v_user_id
+-  on conflict (id) do update
++  on conflict on constraint profiles_pkey do update
+     set workspace_id = excluded.workspace_id,
+         email = coalesce(public.profiles.email, excluded.email),
+         updated_at = pg_catalog.now();

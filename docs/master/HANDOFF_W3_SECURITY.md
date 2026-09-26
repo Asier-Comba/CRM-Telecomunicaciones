@@ -1,5 +1,7 @@
 # W3 handoff — assistant control plane
 
+> Current review: see W4_REVIEW_2026-09-26.md and agents/W4_STATUS.md. Earlier SHA-specific findings below are an audit trail, not current blockers unless revalidated there.
+
 The reusable acceptance adapter now lives in
 `scripts/security/assistant-security-harness.mjs`, backed by the 18-case matrix
 `.security/assistant-security-cases.json`. CI proves eight mutation-style negative
