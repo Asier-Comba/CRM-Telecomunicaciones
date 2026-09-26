@@ -1,5 +1,12 @@
 # W3 handoff — assistant control plane
 
+The reusable acceptance adapter now lives in
+`scripts/security/assistant-security-harness.mjs`, backed by the 18-case matrix
+`.security/assistant-security-cases.json`. CI proves eight mutation-style negative
+controls. This is a contract harness, not evidence that the W3 in-memory runtime
+or a production route has passed it; W3 must bind a durable implementation on
+the accepted application base.
+
 Severity: **P0 release gate for assistant mutations**
 Evidence: the repository contained no agent/tool implementation at W4 baseline creation.
 Risk: prompt injection or hallucinated identifiers could cross tenant boundaries, invoke arbitrary integrations or perform unconfirmed writes.

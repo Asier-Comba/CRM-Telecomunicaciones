@@ -1,8 +1,8 @@
 # W4 → W2 security handoff
 
 - Date: 2026-09-26
-- W2 reviewed head: `43ce9b5`
-- W2 test evidence: 36/36 official contract tests pass; two W4 telemetry adversarial tests fail
+- W2 reviewed head: `7937cbb`
+- W2 test evidence: 51/51 official contract tests pass
 - Scope: frontend authorization, browser telemetry, PII and assistant READ UI
 - Gate: policy is ready; runtime integration still waits for an accepted W1 base
 
@@ -88,10 +88,12 @@ telemetry. Any exception requires a new versioned finding with risk and acceptan
   excluded. W2 may continue this work independently.
 - Fixed at `3b06531`: opaque route IDs now reject path, query, fragment, percent-encoding,
   whitespace and control syntax.
-- The telemetry validator closes field names and explicit content classes, but returns caller-owned
-  mutable input and accepts unbounded arbitrary string/number `contractVersion` values. Return a
-  detached exact projection; close/bound the version; add mutation, oversized, secret-shaped and
-  non-finite negative tests before attaching a sink.
-- W4 reproduced 36/36 official local contract tests. The W4 baseline docs runner now executes these
+- Fixed at `7937cbb`: telemetry returns a frozen detached projection, uses a trusted closed version
+  vocabulary and rejects oversized, secret-shaped and non-finite versions.
+- Dashboard and Customer adapters protect PII and unknown domain semantics, but both trust
+  TypeScript input shapes at the runtime transport boundary. Null/malformed JSON can throw and the
+  shared timestamp check accepts normalized impossible dates. Parse `unknown` through one closed
+  runtime schema and add no-throw/wrong-shape/strict-calendar negative tests.
+- W4 reproduced 51/51 official local contract tests. The W4 baseline docs runner now executes these
   tests even though the branch intentionally has no `package.json`.
 - W1 acceptance/shared taxonomy remain integration dependencies, not W2 security defects.
