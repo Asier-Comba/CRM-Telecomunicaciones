@@ -5,6 +5,13 @@ const SENSITIVE_KEY = /token|secret|password|passwd|cookie|authorization|api[-_]
 const DEFAULT_MAX_DEPTH = 6
 const DEFAULT_MAX_BYTES = 64 * 1024
 const own = (value: object, key: string): boolean => Object.prototype.hasOwnProperty.call(value, key)
+const HIGH_CONFIDENCE_SECRET = [
+  /-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----/,
+  /\b(?:authorization|proxy-authorization)\s*:\s*(?:bearer|basic)\s+[A-Za-z0-9+/_=.-]{8,}/i,
+  /\b(?:api[_-]?key|access[_-]?token|client[_-]?secret|password|passwd)\s*[:=]\s*["']?[A-Za-z0-9+/_=.-]{8,}/i,
+  /\b(?:sk-(?:proj-)?[A-Za-z0-9_-]{16,}|gh[pousr]_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}|xox[baprs]-[A-Za-z0-9-]{16,})\b/,
+  /\beyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{8,}\b/,
+]
 
 export type ValidationResult = { ok: true } | { ok: false; code: string }
 
@@ -19,6 +26,13 @@ export function schemaContainsSensitiveKey(schema: ValueSchema): boolean {
   if (schema.type === 'array') return schemaContainsSensitiveKey(schema.items)
   if (schema.type !== 'object') return false
   return Object.entries(schema.properties).some(([key, nested]) => SENSITIVE_KEY.test(key) || schemaContainsSensitiveKey(nested))
+}
+
+export function containsHighConfidenceSecret(value: unknown): boolean {
+  if (typeof value === 'string') return HIGH_CONFIDENCE_SECRET.some((pattern) => pattern.test(value))
+  if (Array.isArray(value)) return value.some(containsHighConfidenceSecret)
+  if (!value || typeof value !== 'object') return false
+  return Object.values(value).some(containsHighConfidenceSecret)
 }
 
 function encodedBytes(value: unknown): number | null {

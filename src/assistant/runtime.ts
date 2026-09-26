@@ -17,9 +17,10 @@ import type {
   ResultStatus,
 } from './contracts.js'
 import { CapabilityRegistry } from './registry.js'
-import { containsTenantSelector, validateObject, validateValue } from './schema.js'
+import { containsHighConfidenceSecret, containsTenantSelector, validateObject, validateValue } from './schema.js'
 
 const CONFIRMATION_TTL_MS = 5 * 60 * 1000
+const IDEMPOTENCY_LEASE_MS = 5 * 60 * 1000
 const IDEMPOTENCY_KEY = /^[A-Za-z0-9_-]{16,128}$/
 
 type RuntimeDependencies = {
@@ -77,6 +78,14 @@ function idempotencyResult(
   }
   if (decision.status === 'in_progress') {
     return failure(capability, 'CONFLICT', 'idempotency_in_progress', 'La operación ya está en curso.', true)
+  }
+  if (decision.status === 'reconciliation_required') {
+    return failure(
+      capability,
+      'UNAVAILABLE',
+      'idempotency_reconciliation_required',
+      'La operación necesita reconciliación antes de continuar.',
+    )
   }
   return null
 }
@@ -167,7 +176,7 @@ export class AssistantRuntime {
     if (write && request.idempotencyKey) {
       let inspection: IdempotencyInspection
       try {
-        inspection = await this.#idempotency.inspect(operationBinding, request.idempotencyKey)
+        inspection = await this.#idempotency.inspect(operationBinding, request.idempotencyKey, context.now)
       } catch {
         const result = failure(definition.name, 'UNAVAILABLE', 'idempotency_unavailable', 'No se pudo verificar la operación.', true)
         return this.#finish(context, definition.name, definition.accessClass, result, startedAt, {
@@ -244,7 +253,12 @@ export class AssistantRuntime {
     if (write && request.idempotencyKey) {
       let reservation: IdempotencyReservation
       try {
-        reservation = await this.#idempotency.reserve(operationBinding, request.idempotencyKey)
+        reservation = await this.#idempotency.reserve(
+          operationBinding,
+          request.idempotencyKey,
+          context.now,
+          new Date(context.now.getTime() + IDEMPOTENCY_LEASE_MS),
+        )
       } catch {
         const result = failure(definition.name, 'UNAVAILABLE', 'idempotency_unavailable', 'No se pudo reservar la operación.', true)
         return this.#finish(context, definition.name, definition.accessClass, result, startedAt, {
@@ -265,11 +279,20 @@ export class AssistantRuntime {
 
     let result: CapabilityResult
     try {
-      const data = await definition.handler(context, request.input)
+      const raw = await definition.handler(context, request.input)
+      let data
+      try {
+        data = definition.projectOutput(raw)
+      } catch {
+        result = failure(definition.name, 'INTERNAL_ERROR', 'output_projection_failed', 'La operación devolvió un resultado no válido.')
+        trace.reasonCode = 'output_projection_failed'
+        if (reservationId) await this.#idempotency.fail(reservationId, result)
+        return this.#finish(context, definition.name, definition.accessClass, result, startedAt, trace)
+      }
       const outputValidation = validateValue(definition.outputSchema, data)
-      if (!outputValidation.ok) {
+      if (!outputValidation.ok || containsHighConfidenceSecret(data)) {
         result = failure(definition.name, 'INTERNAL_ERROR', 'invalid_capability_output', 'La operación devolvió un resultado no válido.')
-        trace.reasonCode = outputValidation.code
+        trace.reasonCode = outputValidation.ok ? 'sensitive_output_value' : outputValidation.code
         if (reservationId) await this.#idempotency.fail(reservationId, result)
         return this.#finish(context, definition.name, definition.accessClass, result, startedAt, trace)
       }
@@ -282,6 +305,7 @@ export class AssistantRuntime {
         } catch {
           result = failure(definition.name, 'INTERNAL_ERROR', 'idempotency_commit_failed', 'La operación requiere reconciliación.')
           trace.reasonCode = 'idempotency_commit_failed'
+          trace.idempotencyState = 'reconciliation_required'
         }
       }
     } catch {
@@ -317,11 +341,20 @@ export class AssistantRuntime {
       })
     }
     const digest = argumentsDigest(request.input)
-    const decision = await this.#confirmations.cancel(
-      request.confirmationId,
-      binding(context, definition.name, digest),
-      context.now,
-    )
+    let decision
+    try {
+      decision = await this.#confirmations.cancel(
+        request.confirmationId,
+        binding(context, definition.name, digest),
+        context.now,
+      )
+    } catch {
+      const result = failure(definition.name, 'UNAVAILABLE', 'confirmation_unavailable', 'No se pudo cancelar la confirmación.', true)
+      return this.#finish(context, definition.name, definition.accessClass, result, startedAt, {
+        ...trace,
+        reasonCode: 'confirmation_cancel_unavailable',
+      })
+    }
     if (decision.status !== 'cancelled') {
       const result = failure(definition.name, 'INVALID_CONFIRMATION', 'invalid_confirmation', 'La confirmación no es válida o ha caducado.')
       return this.#finish(context, definition.name, definition.accessClass, result, startedAt, {
@@ -348,19 +381,23 @@ export class AssistantRuntime {
     startedAt: number,
     trace: TraceState,
   ): Promise<CapabilityResult> {
-    await this.#audit.emit({
-      event: 'assistant.capability.completed',
-      requestId: context.requestId,
-      actorId: context.actorId,
-      workspaceId: context.workspaceId,
-      capability,
-      accessClass,
-      status: result.status,
-      reasonCode: trace.reasonCode,
-      confirmationState: trace.confirmationState,
-      idempotencyState: trace.idempotencyState,
-      durationMs: Math.max(0, Date.now() - startedAt),
-    })
+    try {
+      await this.#audit.emit({
+        event: 'assistant.capability.completed',
+        requestId: context.requestId,
+        actorId: context.actorId,
+        workspaceId: context.workspaceId,
+        capability,
+        accessClass,
+        status: result.status,
+        reasonCode: trace.reasonCode,
+        confirmationState: trace.confirmationState,
+        idempotencyState: trace.idempotencyState,
+        durationMs: Math.max(0, Date.now() - startedAt),
+      })
+    } catch {
+      return failure(result.capability, 'UNAVAILABLE', 'audit_unavailable', 'No se pudo registrar la operación.', true)
+    }
     return result
   }
 }

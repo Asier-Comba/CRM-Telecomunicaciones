@@ -50,6 +50,13 @@ function assertContract(definition: CapabilityDefinition): void {
   if (!definition.permission.trim()) throw new Error('missing_capability_permission')
   if (definition.inputSchema.additionalProperties !== false) throw new Error('open_input_schema_forbidden')
   if (typeof definition.authorize !== 'function') throw new Error('missing_resource_authorizer')
+  if (typeof definition.projectOutput !== 'function') throw new Error('missing_output_projector')
+  if (
+    definition.outputPolicy.sourceProjection !== 'explicit_dto' ||
+    definition.outputPolicy.sensitiveValueScan !== 'high_confidence'
+  ) {
+    throw new Error('invalid_output_policy')
+  }
   assertBoundedSchema(definition.inputSchema)
   assertBoundedSchema(definition.outputSchema)
   if (schemaContainsSensitiveKey(definition.inputSchema) || schemaContainsSensitiveKey(definition.outputSchema)) {
@@ -75,7 +82,7 @@ function assertContract(definition: CapabilityDefinition): void {
 export class CapabilityRegistry {
   readonly #definitions = new Map<string, CapabilityDefinition>()
 
-  register<I extends Record<string, unknown>, O extends StructuredValue>(definition: CapabilityDefinition<I, O>): void {
+  register<I extends Record<string, unknown>, R, O extends StructuredValue>(definition: CapabilityDefinition<I, R, O>): void {
     assertContract(definition)
     if (this.#definitions.has(definition.name)) throw new Error('duplicate_capability')
     this.#definitions.set(definition.name, definition as CapabilityDefinition)

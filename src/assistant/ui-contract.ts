@@ -1,4 +1,5 @@
 import type { JsonScalar, ResultStatus } from './contracts.js'
+import { containsHighConfidenceSecret } from './schema.js'
 
 export const ASSISTANT_RESPONSE_VERSION = 1 as const
 const TABLE_FORMATS = new Set(['text', 'number', 'currency', 'date', 'datetime', 'status'])
@@ -226,6 +227,7 @@ export function validateAssistantResponse(value: unknown, taxonomy?: AssistantUi
   if (blocks.notice && !validNotice(blocks.notice)) return null
   if (taxonomy && meta.taxonomyVersion !== taxonomy.version) return null
   if (SENSITIVE_KEY.test(JSON.stringify(response))) return null
+  if (containsHighConfidenceSecret(response)) return null
   return response as AssistantResponse
 }
 

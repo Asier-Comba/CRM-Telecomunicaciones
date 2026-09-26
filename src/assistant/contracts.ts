@@ -1,4 +1,4 @@
-export const CAPABILITY_CONTRACT_VERSION = 2 as const
+export const CAPABILITY_CONTRACT_VERSION = 3 as const
 
 export type AccessClass = 'READ' | 'SAFE_WRITE' | 'SENSITIVE_WRITE' | 'IRREVERSIBLE'
 export type ConfirmationPolicy = 'none' | 'preview_confirm'
@@ -48,8 +48,12 @@ export type AuthorizationDecision =
   | { allowed: true }
   | { allowed: false; reason: 'resource_not_accessible' | 'policy_denied' }
 
-export type CapabilityHandler<I extends Record<string, unknown>, O extends StructuredValue> = {
-  bivarianceHack(context: ExecutionContext, input: I): Promise<O>
+export type CapabilityHandler<I extends Record<string, unknown>, R> = {
+  bivarianceHack(context: ExecutionContext, input: I): Promise<R>
+}['bivarianceHack']
+
+export type OutputProjector<R, O extends StructuredValue> = {
+  bivarianceHack(raw: R): O
 }['bivarianceHack']
 
 export type ResourceAuthorizer<I extends Record<string, unknown>> = {
@@ -58,6 +62,7 @@ export type ResourceAuthorizer<I extends Record<string, unknown>> = {
 
 export type CapabilityDefinition<
   I extends Record<string, unknown> = Record<string, unknown>,
+  R = unknown,
   O extends StructuredValue = StructuredValue,
 > = {
   contractVersion: typeof CAPABILITY_CONTRACT_VERSION
@@ -65,6 +70,10 @@ export type CapabilityDefinition<
   description: string
   inputSchema: ObjectSchema
   outputSchema: ValueSchema
+  outputPolicy: {
+    sourceProjection: 'explicit_dto'
+    sensitiveValueScan: 'high_confidence'
+  }
   permission: string
   accessClass: AccessClass
   confirmationPolicy: ConfirmationPolicy
@@ -74,7 +83,8 @@ export type CapabilityDefinition<
     modelMayChooseWorkspace: false
   }
   authorize: ResourceAuthorizer<I>
-  handler: CapabilityHandler<I, O>
+  handler: CapabilityHandler<I, R>
+  projectOutput: OutputProjector<R, O>
 }
 
 export type ConfirmationBinding = {
@@ -123,17 +133,18 @@ export type IdempotencyBinding = ConfirmationBinding
 
 export type IdempotencyInspection =
   | { status: 'empty' }
-  | { status: 'in_progress' }
+  | { status: 'in_progress'; leaseExpiresAt: string }
+  | { status: 'reconciliation_required'; reservationId: string }
   | { status: 'conflict' }
   | { status: 'replay'; result: CapabilityResult }
 
 export type IdempotencyReservation =
-  | { status: 'reserved'; reservationId: string }
+  | { status: 'reserved'; reservationId: string; leaseExpiresAt: string }
   | Exclude<IdempotencyInspection, { status: 'empty' }>
 
 export interface IdempotencyStore {
-  inspect(binding: IdempotencyBinding, key: string): Promise<IdempotencyInspection>
-  reserve(binding: IdempotencyBinding, key: string): Promise<IdempotencyReservation>
+  inspect(binding: IdempotencyBinding, key: string, now: Date): Promise<IdempotencyInspection>
+  reserve(binding: IdempotencyBinding, key: string, now: Date, leaseExpiresAt: Date): Promise<IdempotencyReservation>
   complete(reservationId: string, result: CapabilityResult): Promise<void>
   fail(reservationId: string, result: CapabilityResult): Promise<void>
 }
@@ -148,7 +159,7 @@ export type AuditEvent = {
   status: ResultStatus
   reasonCode: string
   confirmationState: 'not_applicable' | 'issued' | 'accepted' | 'rejected'
-  idempotencyState: 'not_applicable' | 'reserved' | 'replayed' | 'conflict' | 'in_progress'
+  idempotencyState: 'not_applicable' | 'reserved' | 'replayed' | 'conflict' | 'in_progress' | 'reconciliation_required'
   durationMs: number
 }
 
