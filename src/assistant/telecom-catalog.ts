@@ -1,277 +1,63 @@
-import type { AccessClass, ConfirmationPolicy, ObjectSchema } from './contracts.js'
-
-export const TELECOM_CAPABILITY_CATALOG_VERSION = 'w3.telecom-capabilities.v1' as const
-
-export type TelecomCapabilityAvailability =
-  | 'mapped_no_adapter'
-  | 'blocked_on_w1_write_contract'
-
-export type TelecomOutputSchemaRef =
-  | 'telecom.v0#CustomerCompanyV0'
-  | 'telecom.v0#CustomerCompanyV0[]'
-  | 'telecom.v0#TelecomContractV0'
-  | 'telecom.v0#TelecomContractV0[]'
-  | 'telecom.v0#ServiceLineV0[]'
-  | 'telecom.v0#DashboardReadModelV0'
-  | 'telecom.v0#DashboardItemV0[]'
-  | 'telecom.write-contract#Task'
-  | 'telecom.write-contract#Meeting'
-
+/** Descriptor-only projection of W1 telecom.v1. No executable or live adapters. */
+export const TELECOM_CAPABILITY_CATALOG_VERSION = 'w3.telecom-capabilities.v2' as const
+export type TelecomInputField =
+  | { type: 'string'; minLength: number; maxLength: number; enum?: readonly string[]; format?: 'date'; nullable?: true }
+  | { type: 'integer'; minimum: number; maximum: number }
+export type TelecomInputSchema = {
+  type: 'object'; properties: Readonly<Record<string, TelecomInputField>>
+  required: readonly string[]; additionalProperties: false
+}
 export type TelecomCapabilityDescriptor = {
-  name: string
-  description: string
-  sourceContract: 'telecom.v0' | 'unpublished'
-  availability: TelecomCapabilityAvailability
-  inputSchema: ObjectSchema
-  outputSchema: {
-    sourceProjection: 'w1_contract_dto'
-    ref: TelecomOutputSchemaRef
-  }
-  authorization: {
-    permission: string
-    resourceAuthorization: 'required'
-  }
-  tenantScope: {
-    source: 'server_context'
-    modelMayChooseWorkspace: false
-  }
-  accessClass: AccessClass
-  confirmationPolicy: ConfirmationPolicy
-  idempotency: 'not_applicable' | 'required'
-  errors: readonly [
-    'INVALID_INPUT',
-    'FORBIDDEN',
-    'NOT_FOUND',
-    'AMBIGUOUS',
-    'PARTIAL',
-    'UNAVAILABLE',
-  ]
+  name: string; operation: string; serviceMethod: string; description: string
+  sourceContract: 'telecom.v1'
+  implementationState: 'published_contract_no_live_adapter'
+  availability: 'published_contract_no_live_adapter'
+  inputSchema: TelecomInputSchema
+  outputSchema: { sourceProjection: 'w1_contract_dto'; ref: string }
+  authorization: { operation: string; authorizer: 'TelecomReadAuthorizerV1'; resourceAuthorization: 'required' }
+  tenantScope: { source: 'server_context'; modelMayChooseWorkspace: false }
+  accessClass: 'READ'; confirmationPolicy: 'none'; idempotency: 'not_applicable'
+  errors: readonly string[]
 }
-
-const errors = [
-  'INVALID_INPUT',
-  'FORBIDDEN',
-  'NOT_FOUND',
-  'AMBIGUOUS',
-  'PARTIAL',
-  'UNAVAILABLE',
-] as const
-
-const tenantScope = {
-  source: 'server_context',
-  modelMayChooseWorkspace: false,
-} as const
-
 const id = { type: 'string', minLength: 16, maxLength: 160 } as const
-const query = { type: 'string', minLength: 1, maxLength: 200 } as const
-const cursor = { type: 'string', minLength: 16, maxLength: 256 } as const
-const limit = { type: 'number', minimum: 1, maximum: 100 } as const
-const isoDate = { type: 'string', minLength: 10, maxLength: 10 } as const
-
-function readCapability(
-  descriptor: Omit<TelecomCapabilityDescriptor, 'sourceContract' | 'availability' | 'tenantScope' | 'accessClass' | 'confirmationPolicy' | 'idempotency' | 'errors'>,
-): TelecomCapabilityDescriptor {
+const date = { type: 'string', minLength: 10, maxLength: 10, format: 'date' } as const
+const page = {
+  limit: { type: 'integer', minimum: 1, maximum: 100 },
+  continuation: { type: 'string', minLength: 16, maxLength: 256, nullable: true },
+} as const
+const window = { customer_id: id, from: date, to: date }
+const status = (...values: string[]): TelecomInputField => ({ type: 'string', minLength: 1, maxLength: Math.max(...values.map((v) => v.length)), enum: values })
+const errors = ['unauthorized', 'not_found', 'forbidden', 'validation', 'conflict', 'rate_limited', 'temporary_unavailable', 'stale', 'access_revoked', 'internal_safe'] as const
+function descriptor(operation: string, serviceMethod: string, description: string, properties: Record<string, TelecomInputField>, required: string[], output: string): TelecomCapabilityDescriptor {
   return {
-    ...descriptor,
-    sourceContract: 'telecom.v0',
-    availability: 'mapped_no_adapter',
-    tenantScope,
-    accessClass: 'READ',
-    confirmationPolicy: 'none',
-    idempotency: 'not_applicable',
-    errors,
+    name: `crm.${operation}`, operation, serviceMethod, description,
+    sourceContract: 'telecom.v1', implementationState: 'published_contract_no_live_adapter', availability: 'published_contract_no_live_adapter',
+    inputSchema: { type: 'object', properties, required, additionalProperties: false },
+    outputSchema: { sourceProjection: 'w1_contract_dto', ref: `telecom.v1#${output}` },
+    authorization: { operation, authorizer: 'TelecomReadAuthorizerV1', resourceAuthorization: 'required' },
+    tenantScope: { source: 'server_context', modelMayChooseWorkspace: false },
+    accessClass: 'READ', confirmationPolicy: 'none', idempotency: 'not_applicable', errors,
   }
 }
-
-function blockedWriteCapability(
-  descriptor: Omit<TelecomCapabilityDescriptor, 'sourceContract' | 'availability' | 'tenantScope' | 'accessClass' | 'confirmationPolicy' | 'idempotency' | 'errors'>,
-): TelecomCapabilityDescriptor {
-  return {
-    ...descriptor,
-    sourceContract: 'unpublished',
-    availability: 'blocked_on_w1_write_contract',
-    tenantScope,
-    accessClass: 'SAFE_WRITE',
-    confirmationPolicy: 'none',
-    idempotency: 'required',
-    errors,
-  }
+function list(operation: string, method: string, description: string, properties: Record<string, TelecomInputField>, output: string, required: string[] = []): TelecomCapabilityDescriptor {
+  return descriptor(operation, method, description, { ...page, ...properties }, ['limit', 'continuation', ...required], `CollectionEnvelopeV1<${output}>`)
 }
-
 export const TELECOM_CAPABILITY_CATALOG: readonly TelecomCapabilityDescriptor[] = [
-  readCapability({
-    name: 'crm.customer.search',
-    description: 'Search customers by bounded name or tax identifier within the server-resolved workspace.',
-    inputSchema: {
-      type: 'object',
-      properties: {
-        query,
-        assignedUserId: id,
-        status: { type: 'string', maxLength: 16, enum: ['active', 'inactive', 'archived'] },
-        limit,
-        cursor,
-      },
-      required: ['query'],
-      additionalProperties: false,
-    },
-    outputSchema: { sourceProjection: 'w1_contract_dto', ref: 'telecom.v0#CustomerCompanyV0[]' },
-    authorization: { permission: 'crm.customer.read', resourceAuthorization: 'required' },
-  }),
-  readCapability({
-    name: 'crm.customer.get',
-    description: 'Read one authorized customer using an opaque customer reference.',
-    inputSchema: {
-      type: 'object',
-      properties: { customerId: id },
-      required: ['customerId'],
-      additionalProperties: false,
-    },
-    outputSchema: { sourceProjection: 'w1_contract_dto', ref: 'telecom.v0#CustomerCompanyV0' },
-    authorization: { permission: 'crm.customer.read', resourceAuthorization: 'required' },
-  }),
-  readCapability({
-    name: 'crm.customer.summary',
-    description: 'Compose an authorized customer summary from published customer, contract and service read models.',
-    inputSchema: {
-      type: 'object',
-      properties: { customerId: id },
-      required: ['customerId'],
-      additionalProperties: false,
-    },
-    outputSchema: { sourceProjection: 'w1_contract_dto', ref: 'telecom.v0#CustomerCompanyV0' },
-    authorization: { permission: 'crm.customer.read', resourceAuthorization: 'required' },
-  }),
-  readCapability({
-    name: 'crm.contract.search',
-    description: 'Search contracts using bounded customer, operator, assignee, lifecycle and date filters.',
-    inputSchema: {
-      type: 'object',
-      properties: {
-        customerId: id,
-        operatorId: id,
-        assigneeId: id,
-        lifecycle: { type: 'string', maxLength: 16, enum: ['draft', 'active', 'renewal_due', 'ended', 'cancelled'] },
-        commitmentFrom: isoDate,
-        commitmentTo: isoDate,
-        limit,
-        cursor,
-      },
-      required: [],
-      additionalProperties: false,
-    },
-    outputSchema: { sourceProjection: 'w1_contract_dto', ref: 'telecom.v0#TelecomContractV0[]' },
-    authorization: { permission: 'crm.contract.read', resourceAuthorization: 'required' },
-  }),
-  readCapability({
-    name: 'crm.contract.get',
-    description: 'Read one authorized telecom contract using an opaque contract reference.',
-    inputSchema: {
-      type: 'object',
-      properties: { contractId: id },
-      required: ['contractId'],
-      additionalProperties: false,
-    },
-    outputSchema: { sourceProjection: 'w1_contract_dto', ref: 'telecom.v0#TelecomContractV0' },
-    authorization: { permission: 'crm.contract.read', resourceAuthorization: 'required' },
-  }),
-  readCapability({
-    name: 'crm.commitment.expiring',
-    description: 'List contracts whose published commitment end date falls inside a bounded date window.',
-    inputSchema: {
-      type: 'object',
-      properties: { from: isoDate, to: isoDate, customerId: id, limit, cursor },
-      required: ['from', 'to'],
-      additionalProperties: false,
-    },
-    outputSchema: { sourceProjection: 'w1_contract_dto', ref: 'telecom.v0#TelecomContractV0[]' },
-    authorization: { permission: 'crm.contract.read', resourceAuthorization: 'required' },
-  }),
-  readCapability({
-    name: 'crm.renewal.upcoming',
-    description: 'List contracts with a published renewal window intersecting a bounded date range.',
-    inputSchema: {
-      type: 'object',
-      properties: { from: isoDate, to: isoDate, customerId: id, limit, cursor },
-      required: ['from', 'to'],
-      additionalProperties: false,
-    },
-    outputSchema: { sourceProjection: 'w1_contract_dto', ref: 'telecom.v0#TelecomContractV0[]' },
-    authorization: { permission: 'crm.contract.read', resourceAuthorization: 'required' },
-  }),
-  readCapability({
-    name: 'crm.service.search',
-    description: 'List authorized services or lines using published telecom.v0 filters.',
-    inputSchema: {
-      type: 'object',
-      properties: {
-        customerId: id,
-        contractId: id,
-        operatorId: id,
-        kind: { type: 'string', maxLength: 7, enum: ['service', 'line'] },
-        status: { type: 'string', maxLength: 10, enum: ['pending', 'active', 'suspended', 'cancelled'] },
-        limit,
-        cursor,
-      },
-      required: [],
-      additionalProperties: false,
-    },
-    outputSchema: { sourceProjection: 'w1_contract_dto', ref: 'telecom.v0#ServiceLineV0[]' },
-    authorization: { permission: 'crm.service.read', resourceAuthorization: 'required' },
-  }),
-  readCapability({
-    name: 'crm.dashboard.get',
-    description: 'Read the complete published dashboard with independent section freshness and errors.',
-    inputSchema: { type: 'object', properties: {}, required: [], additionalProperties: false },
-    outputSchema: { sourceProjection: 'w1_contract_dto', ref: 'telecom.v0#DashboardReadModelV0' },
-    authorization: { permission: 'crm.dashboard.read', resourceAuthorization: 'required' },
-  }),
-  ...(['task', 'meeting', 'opportunity'] as const).map((kind): TelecomCapabilityDescriptor => readCapability({
-    name: `crm.${kind}.list`,
-    description: `Read the ${kind} section from the published dashboard without fabricating missing detail.`,
-    inputSchema: {
-      type: 'object',
-      properties: { dueFrom: isoDate, dueTo: isoDate, customerId: id, limit },
-      required: [],
-      additionalProperties: false,
-    },
-    outputSchema: { sourceProjection: 'w1_contract_dto', ref: 'telecom.v0#DashboardItemV0[]' },
-    authorization: { permission: `crm.${kind}.read`, resourceAuthorization: 'required' },
-  })),
-  blockedWriteCapability({
-    name: 'crm.task.create',
-    description: 'Create a task only after W1 publishes a canonical write contract and adapter boundary.',
-    inputSchema: {
-      type: 'object',
-      properties: {
-        customerId: id,
-        title: { type: 'string', minLength: 1, maxLength: 200 },
-        dueAt: { type: 'string', minLength: 20, maxLength: 40 },
-      },
-      required: ['title', 'dueAt'],
-      additionalProperties: false,
-    },
-    outputSchema: { sourceProjection: 'w1_contract_dto', ref: 'telecom.write-contract#Task' },
-    authorization: { permission: 'crm.task.create', resourceAuthorization: 'required' },
-  }),
-  blockedWriteCapability({
-    name: 'crm.meeting.create',
-    description: 'Create a meeting only after W1 publishes a canonical write and participant contract.',
-    inputSchema: {
-      type: 'object',
-      properties: {
-        customerId: id,
-        title: { type: 'string', minLength: 1, maxLength: 200 },
-        startsAt: { type: 'string', minLength: 20, maxLength: 40 },
-        durationMinutes: { type: 'number', minimum: 5, maximum: 480 },
-      },
-      required: ['title', 'startsAt', 'durationMinutes'],
-      additionalProperties: false,
-    },
-    outputSchema: { sourceProjection: 'w1_contract_dto', ref: 'telecom.write-contract#Meeting' },
-    authorization: { permission: 'crm.meeting.create', resourceAuthorization: 'required' },
-  }),
-] as const
-
+  list('customer.search', 'customerSearch', 'Search authorized customers by bounded query, assigned user and status.', { query: { type: 'string', minLength: 1, maxLength: 200 }, assigned_user_id: id, status: status('active', 'inactive', 'archived') }, 'CustomerCompanyV1', ['query']),
+  descriptor('customer.get', 'customerGet', 'Read one authorized customer; protected fields remain masked.', { customer_id: id }, ['customer_id'], 'ReadOneResponseV1<CustomerCompanyV1>'),
+  descriptor('customer.summary', 'customerSummary', 'Read a customer summary with independent collection completeness and attention.', { customer_id: id }, ['customer_id'], 'ReadOneResponseV1<CustomerSummaryV1>'),
+  list('contract.list', 'contractList', 'List authorized contracts with commitment date bounds.', { customer_id: id, operator_id: id, assignee_id: id, status: status('draft', 'active', 'ended', 'cancelled'), commitment_from: date, commitment_to: date }, 'TelecomContractV1'),
+  descriptor('contract.get', 'contractGet', 'Read one authorized telecom contract.', { contract_id: id }, ['contract_id'], 'ReadOneResponseV1<TelecomContractV1>'),
+  list('service.list', 'serviceList', 'List services separately from their lines.', { customer_id: id, contract_id: id, operator_id: id, status: status('pending', 'active', 'suspended', 'ended', 'cancelled') }, 'TelecomServiceV1'),
+  list('line.list', 'lineList', 'List authorized lines with protected identifiers.', { customer_id: id, service_id: id, status: status('pending', 'active', 'suspended', 'ended', 'cancelled') }, 'TelecomLineV1'),
+  list('renewal.list', 'renewalList', 'List renewal items within date bounds.', window, 'RenewalItemV1'),
+  list('permanence.list', 'permanenceList', 'List permanence items within date bounds.', window, 'PermanenceItemV1'),
+  list('task.list', 'taskList', 'List tasks by customer, assignee, date and status.', { ...window, assignee_id: id, status: status('pending', 'in_progress', 'completed', 'cancelled') }, 'TaskItemV1'),
+  list('meeting.list', 'meetingList', 'List meetings by customer, assignee, date and status.', { ...window, assignee_id: id, status: status('scheduled', 'completed', 'cancelled', 'no_show') }, 'MeetingItemV1'),
+  list('activity.list', 'activityList', 'List authorized safe activity summaries within date bounds.', window, 'ActivityItemV1'),
+  list('opportunity.list', 'opportunityList', 'List opportunities by customer, owner, date and status.', { ...window, owner_id: id, status: status('open', 'won', 'lost', 'cancelled') }, 'OpportunityItemV1'),
+  descriptor('dashboard.get', 'dashboardGet', 'Read independently authorized dashboard sections; audience never chooses a workspace.', { audience: status('personal', 'team', 'workspace') }, ['audience'], 'ReadOneResponseV1<DashboardV1>'),
+]
 export function telecomCapability(name: string): TelecomCapabilityDescriptor | null {
   return TELECOM_CAPABILITY_CATALOG.find((candidate) => candidate.name === name) ?? null
 }

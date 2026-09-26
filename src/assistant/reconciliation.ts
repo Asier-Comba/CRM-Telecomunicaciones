@@ -10,10 +10,25 @@ import type {
   ReconciliationVerifier,
 } from './durable-contracts.js'
 import { validOperationRef } from './durable-contracts.js'
+import { containsHighConfidenceSecret } from './schema.js'
 
 const RECONCILE_PERMISSION = 'assistant:operation:reconcile'
 const REQUESTED_OUTCOMES = new Set(['completed', 'failed_retryable', 'failed_terminal'])
 const REASONS = new Set(['read_after_write', 'provider_receipt', 'verified_effect_absence'])
+
+function safeVerifiedResult(value: unknown, capability: string): boolean {
+  try {
+    if (!value || typeof value !== 'object' || Array.isArray(value)) return false
+    const result = value as Record<string, unknown>
+    if (result.status !== 'SUCCESS' || result.capability !== capability ||
+      Object.keys(result).some((key) => !['status', 'capability', 'data'].includes(key))) return false
+    const encoded = JSON.stringify(value)
+    if (Buffer.byteLength(encoded, 'utf8') > 64 * 1024) return false
+    return !containsHighConfidenceSecret(JSON.parse(encoded))
+  } catch {
+    return false
+  }
+}
 
 export type ReconciliationServiceResult = {
   status: 'SUCCESS' | 'FORBIDDEN' | 'CONFLICT' | 'INVALID_INPUT' | 'UNAVAILABLE'
@@ -36,7 +51,7 @@ function isReconciliationRequest(value: unknown): value is ReconciliationRequest
     return false
   }
   return typeof record.operationRef === 'string' && validOperationRef(record.operationRef) &&
-    Number.isInteger(record.expectedVersion) && Number(record.expectedVersion) >= 1 &&
+    Number.isSafeInteger(record.expectedVersion) && Number(record.expectedVersion) >= 1 &&
     typeof record.requestedOutcome === 'string' && REQUESTED_OUTCOMES.has(record.requestedOutcome) &&
     typeof record.reason === 'string' && REASONS.has(record.reason)
 }
@@ -115,13 +130,10 @@ export class AuthorizedReconciliationService {
     now: Date,
   ): Promise<ReconciliationServiceResult> {
     if (!isReconciliationRequest(value)) {
-      const operationRef = value && typeof value === 'object' && !Array.isArray(value) &&
-        typeof (value as Record<string, unknown>).operationRef === 'string'
-        ? String((value as Record<string, unknown>).operationRef).slice(0, 200)
-        : 'invalid_operation_reference'
-      return failure('INVALID_INPUT', operationRef, 'invalid_reconciliation_request')
+      // Never reflect arbitrary browser input (including credentials) in errors.
+      return failure('INVALID_INPUT', 'invalid_operation_reference', 'invalid_reconciliation_request')
     }
-    const request = value
+    const request = { ...value }
     if (!actor.permissions.has(RECONCILE_PERMISSION)) {
       return this.#finish(actor, request, 'denied', 'reconciliation_forbidden', failure(
         'FORBIDDEN',
@@ -141,7 +153,7 @@ export class AuthorizedReconciliationService {
         true,
       ))
     }
-    if (!record || record.binding.workspaceId !== actor.workspaceId) {
+    if (!record || record.operationRef !== request.operationRef || record.binding.workspaceId !== actor.workspaceId) {
       return this.#finish(actor, request, 'denied', 'reconciliation_forbidden', failure(
         'FORBIDDEN',
         request.operationRef,
@@ -156,9 +168,13 @@ export class AuthorizedReconciliationService {
       ))
     }
 
+    // Preserve the checked identity across the verifier await, including buggy
+    // adapters/verifiers that mutate objects handed to them.
+    const binding = { ...record.binding }
+    const idempotencyKey = record.idempotencyKey
     let verification
     try {
-      verification = await this.#verifier.verify(record, request)
+      verification = await this.#verifier.verify(structuredClone(record), { ...request })
     } catch {
       return this.#finish(actor, request, 'unavailable', 'reconciliation_verification_unavailable', failure(
         'UNAVAILABLE',
@@ -167,7 +183,10 @@ export class AuthorizedReconciliationService {
         true,
       ))
     }
-    const verifiedResolution = resolution(request, verification)
+    const verifiedResolution = verification && typeof verification === 'object' &&
+      (verification.outcome !== 'effect_applied' ||
+        safeVerifiedResult(verification.result, binding.capability))
+      ? resolution(request, verification) : null
     if (!verifiedResolution) {
       return this.#finish(actor, request, 'inconclusive', 'reconciliation_inconclusive', failure(
         'CONFLICT',
@@ -213,7 +232,17 @@ export class AuthorizedReconciliationService {
       ))
     }
     const terminalState = expectedState(verifiedResolution)
-    if (!verifiedRecord || verifiedRecord.state !== terminalState || verifiedRecord.version !== transition.record.version) {
+    const matchesIdentity = (candidate: DurableIdempotencyRecord): boolean =>
+      candidate.operationRef === request.operationRef &&
+      candidate.binding.workspaceId === binding.workspaceId &&
+      candidate.binding.actorId === binding.actorId &&
+      candidate.binding.capability === binding.capability &&
+      candidate.binding.argumentsDigest === binding.argumentsDigest &&
+      candidate.idempotencyKey === idempotencyKey
+    if (!verifiedRecord || !matchesIdentity(verifiedRecord) || !matchesIdentity(transition.record) ||
+      verifiedRecord.state !== terminalState || transition.record.state !== terminalState ||
+      !Number.isSafeInteger(verifiedRecord.version) || verifiedRecord.version <= request.expectedVersion ||
+      verifiedRecord.version !== transition.record.version) {
       return this.#finish(actor, request, 'unavailable', 'reconciliation_read_after_write_failed', failure(
         'UNAVAILABLE',
         request.operationRef,
