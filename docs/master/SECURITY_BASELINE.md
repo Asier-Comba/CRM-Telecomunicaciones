@@ -80,7 +80,7 @@ registry is evidence for review; it does not replace runtime authorization or ad
 
 ## Repository security settings gate
 
-The Node quality job enforces a high-severity package audit once a Node project exists. Differential Dependency Review additionally requires GitHub Dependency Graph to be enabled by a repository administrator. Until that setting exists, CI reports a warning instead of making every pull request impossible to merge.
+The Node quality job enforces a high-severity package audit once a Node project exists. Differential Dependency Review additionally requires GitHub Dependency Graph to be enabled by a repository administrator. Until that setting exists, its job is visibly skipped rather than producing a misleading green check; the machine-readable release gate remains blocked.
 
 Owner acceptance criteria:
 

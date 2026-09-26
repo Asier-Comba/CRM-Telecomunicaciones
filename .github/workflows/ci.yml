@@ -17,6 +17,7 @@ concurrency:
 
 env:
   CI: "true"
+  NEXT_TELEMETRY_DISABLED: "1"
 
 jobs:
   baseline-guardrails:
@@ -66,18 +67,14 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   dependency-review:
-    name: Dependency review
-    if: github.event_name == 'pull_request'
+    name: Dependency review (Dependency Graph required)
+    if: github.event_name == 'pull_request' && vars.DEPENDENCY_REVIEW_ENABLED == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
       contents: read
     steps:
-      - name: Report repository readiness
-        if: vars.DEPENDENCY_REVIEW_ENABLED != 'true'
-        run: echo "::warning::Dependency review is pending repository Dependency Graph enablement; package audit remains enforced by the quality gate."
       - name: Review dependency changes
-        if: vars.DEPENDENCY_REVIEW_ENABLED == 'true'
         uses: actions/dependency-review-action@a1d282b36b6f3519aa1f3fc636f609c47dddb294 # v5.0.0
         with:
           fail-on-severity: high

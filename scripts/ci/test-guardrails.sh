@@ -52,4 +52,15 @@ if [[ "$checkout_count" -ne "$credential_guard_count" ]]; then
   exit 1
 fi
 
+if grep -q 'DEPENDENCY_REVIEW_ENABLED !=' "$repo_root/.github/workflows/ci.yml"; then
+  echo "Disabled Dependency Review must not report a misleading successful job" >&2
+  exit 1
+fi
+
+grep -q "github.event_name == 'pull_request' && vars.DEPENDENCY_REVIEW_ENABLED == 'true'" \
+  "$repo_root/.github/workflows/ci.yml" || {
+    echo "Dependency Review must execute only when repository support is enabled" >&2
+    exit 1
+  }
+
 echo "Guardrail self-tests passed"
