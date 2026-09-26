@@ -1,0 +1,150 @@
+{
+  "version": "w2.integration-manifest.v1",
+  "sourceBranch": "w2/frontend-bootstrap-readiness",
+  "transportPolicy": "selective_copy_from_accepted_sha_only",
+  "units": [
+    {
+      "id": "runtime-validation",
+      "source": "docs/master/contracts/w2-runtime-validation.ts",
+      "category": "boundary",
+      "targetHint": "src/features/shared/runtime-validation.ts",
+      "dependencies": []
+    },
+    {
+      "id": "error-taxonomy",
+      "source": "docs/master/contracts/w2-error-taxonomy.ts",
+      "category": "boundary",
+      "targetHint": "src/features/shared/error-taxonomy.ts",
+      "dependencies": ["runtime-validation"]
+    },
+    {
+      "id": "collection-envelope",
+      "source": "docs/master/contracts/w2-collection-envelope.ts",
+      "category": "presentation",
+      "targetHint": "src/features/shared/collection-envelope.ts",
+      "dependencies": ["runtime-validation", "error-taxonomy"]
+    },
+    {
+      "id": "tenant-boundary",
+      "source": "docs/master/contracts/w2-tenant-boundary.ts",
+      "category": "security",
+      "targetHint": "src/features/auth/tenant-boundary.ts",
+      "dependencies": []
+    },
+    {
+      "id": "tenant-cache",
+      "source": "docs/master/contracts/w2-tenant-cache.ts",
+      "category": "security",
+      "targetHint": "src/features/auth/tenant-cache.ts",
+      "dependencies": ["runtime-validation", "tenant-boundary"]
+    },
+    {
+      "id": "accessibility-state",
+      "source": "docs/master/contracts/w2-accessibility-state.ts",
+      "category": "accessibility",
+      "targetHint": "src/features/shared/accessibility-state.ts",
+      "dependencies": []
+    },
+    {
+      "id": "overlay-focus",
+      "source": "docs/master/contracts/w2-overlay-focus.ts",
+      "category": "accessibility",
+      "targetHint": "src/features/shared/overlay-focus.ts",
+      "dependencies": ["runtime-validation"]
+    },
+    {
+      "id": "sensitive-field",
+      "source": "docs/master/contracts/w2-sensitive-field.ts",
+      "category": "security",
+      "targetHint": "src/features/shared/sensitive-field.ts",
+      "dependencies": ["runtime-validation"]
+    },
+    {
+      "id": "customer-360-composition",
+      "source": "docs/master/contracts/w2-customer-360-composition.ts",
+      "category": "feature",
+      "targetHint": "src/features/customers/customer-360-composition.ts",
+      "dependencies": ["collection-envelope"]
+    },
+    {
+      "id": "large-collection",
+      "source": "docs/master/contracts/w2-large-collection.ts",
+      "category": "presentation",
+      "targetHint": "src/features/shared/large-collection.ts",
+      "dependencies": ["collection-envelope"]
+    },
+    {
+      "id": "data-view",
+      "source": "docs/master/contracts/w2-data-view.ts",
+      "category": "presentation",
+      "targetHint": "src/features/shared/data-view.ts",
+      "dependencies": ["collection-envelope"]
+    },
+    {
+      "id": "search-controller",
+      "source": "docs/master/contracts/w2-search-controller.ts",
+      "category": "feature",
+      "targetHint": "src/features/search/search-controller.ts",
+      "dependencies": ["runtime-validation", "tenant-boundary"]
+    },
+    {
+      "id": "form-controller",
+      "source": "docs/master/contracts/w2-form-controller.ts",
+      "category": "feature",
+      "targetHint": "src/features/shared/form-controller.ts",
+      "dependencies": ["error-taxonomy", "tenant-boundary"]
+    },
+    {
+      "id": "assistant-read-renderer",
+      "source": "docs/master/contracts/w2-assistant-read-renderer.ts",
+      "category": "feature",
+      "targetHint": "src/features/assistant/read-renderer.ts",
+      "dependencies": ["runtime-validation"]
+    },
+    {
+      "id": "assistant-read-session",
+      "source": "docs/master/contracts/w2-assistant-read-session.ts",
+      "category": "feature",
+      "targetHint": "src/features/assistant/read-session.ts",
+      "dependencies": ["assistant-read-renderer"]
+    },
+    {
+      "id": "connectivity-state",
+      "source": "docs/master/contracts/w2-connectivity-state.ts",
+      "category": "security",
+      "targetHint": "src/features/shared/connectivity-state.ts",
+      "dependencies": ["runtime-validation", "tenant-boundary"]
+    }
+  ],
+  "slices": [
+    {
+      "id": "primitives-accessibility",
+      "unitIds": [
+        "runtime-validation",
+        "error-taxonomy",
+        "collection-envelope",
+        "accessibility-state",
+        "overlay-focus",
+        "sensitive-field",
+        "large-collection",
+        "data-view"
+      ]
+    },
+    {
+      "id": "tenant-shell",
+      "unitIds": ["tenant-boundary", "tenant-cache", "connectivity-state"]
+    },
+    {
+      "id": "customer-360-identity-attention",
+      "unitIds": ["customer-360-composition", "form-controller"]
+    },
+    {
+      "id": "assistant-read",
+      "unitIds": ["assistant-read-renderer", "assistant-read-session"]
+    },
+    {
+      "id": "global-search",
+      "unitIds": ["search-controller"]
+    }
+  ]
+}
