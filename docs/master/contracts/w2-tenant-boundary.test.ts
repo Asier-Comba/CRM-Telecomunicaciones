@@ -78,6 +78,8 @@ test('every access-loss signal purges all tenant-sensitive browser state', () =>
       'clear_assistant_entity_references',
       'disable_tenant_actions',
       'render_access_lost',
+      'focus_access_lost_heading',
+      'announce_access_lost_assertively',
     ])
   }
 })

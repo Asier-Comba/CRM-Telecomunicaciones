@@ -70,6 +70,8 @@ export type TenantBoundaryEffect =
   | 'clear_assistant_entity_references'
   | 'disable_tenant_actions'
   | 'render_access_lost'
+  | 'focus_access_lost_heading'
+  | 'announce_access_lost_assertively'
   | 'request_server_reauthorization'
 
 export type TenantBoundaryTransition<T> = {
@@ -104,9 +106,13 @@ const boundaryEffects = (
   'cancel_mutation_preview',
   'clear_assistant_entity_references',
   'disable_tenant_actions',
-  phase === 'access_lost'
-    ? 'render_access_lost'
-    : 'request_server_reauthorization',
+  ...(phase === 'access_lost'
+    ? ([
+        'render_access_lost',
+        'focus_access_lost_heading',
+        'announce_access_lost_assertively',
+      ] as const)
+    : (['request_server_reauthorization'] as const)),
 ]
 
 /**
