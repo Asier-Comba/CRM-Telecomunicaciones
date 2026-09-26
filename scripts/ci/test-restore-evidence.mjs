@@ -31,6 +31,8 @@ function valid(overrides = {}) {
       evidenceId: `restore/${name}-check`,
     }])),
     checks: { authBootstrap: true, tenantIsolation: true, migrationForward: true, criticalSmoke: true },
+    backupControls: { encrypted: true, separateFailureDomain: true, retentionVerified: true, accessReviewCurrent: true },
+    restoreControls: { productionTargetDenied: true, disposableTarget: true, outboundNetworkDenied: true, destructiveCommandsScoped: true },
     operatorRole: 'platform_operator',
     reviewerRole: 'security_reviewer',
     result: 'passed',
@@ -56,6 +58,8 @@ try {
   assert.notEqual(run(valid({ targetRtoMinutes: 60 })).status, 0, 'missed RTO target must fail')
   assert.notEqual(run(valid({ checks: { ...valid().checks, tenantIsolation: false } })).status, 0, 'failed tenant attack must fail')
   assert.notEqual(run(valid({ assets: { ...valid().assets, storage: { ...valid().assets.storage, verified: false } } })).status, 0, 'unverified asset must fail')
+  assert.notEqual(run(valid({ backupControls: { ...valid().backupControls, encrypted: false } })).status, 0, 'unencrypted backup evidence must fail')
+  assert.notEqual(run(valid({ restoreControls: { ...valid().restoreControls, productionTargetDenied: false } })).status, 0, 'production-capable restore target must fail')
   assert.notEqual(run({ ...valid(), databasePassword: 'forbidden-even-in-test' }).status, 0, 'secret-bearing fields must fail')
   console.log('Restore evidence negative-control tests passed')
 } finally {

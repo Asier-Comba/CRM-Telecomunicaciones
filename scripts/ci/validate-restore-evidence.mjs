@@ -12,7 +12,7 @@ const allowedRootKeys = new Set([
   'version', 'exerciseId', 'environment', 'dataClassification', 'startedAt', 'completedAt',
   'sourceSnapshotAt', 'targetRpoMinutes', 'targetRtoMinutes', 'reportedRpoMinutes',
   'reportedRtoMinutes', 'integrationsDisabled', 'secretsRestored', 'assets', 'checks',
-  'operatorRole', 'reviewerRole', 'result', 'evidenceRefs',
+  'backupControls', 'restoreControls', 'operatorRole', 'reviewerRole', 'result', 'evidenceRefs',
 ])
 
 function collectFiles() {
@@ -133,6 +133,25 @@ function validate(file) {
   if (exactKeys(doc.checks, new Set(requiredChecks), 'checks', errors)) {
     for (const check of requiredChecks) {
       if (doc.checks[check] !== true) errors.push(`checks.${check}: must be true`)
+    }
+  }
+
+  const requiredBackupControls = new Set([
+    'encrypted', 'separateFailureDomain', 'retentionVerified', 'accessReviewCurrent',
+  ])
+  if (exactKeys(doc.backupControls, requiredBackupControls, 'backupControls', errors)) {
+    for (const field of requiredBackupControls) {
+      if (doc.backupControls[field] !== true) errors.push(`backupControls.${field}: must be true`)
+    }
+  }
+
+  const requiredRestoreControls = new Set([
+    'productionTargetDenied', 'disposableTarget', 'outboundNetworkDenied',
+    'destructiveCommandsScoped',
+  ])
+  if (exactKeys(doc.restoreControls, requiredRestoreControls, 'restoreControls', errors)) {
+    for (const field of requiredRestoreControls) {
+      if (doc.restoreControls[field] !== true) errors.push(`restoreControls.${field}: must be true`)
     }
   }
 

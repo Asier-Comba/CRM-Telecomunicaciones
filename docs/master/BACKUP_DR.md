@@ -39,7 +39,10 @@ Completed exercises are stored as JSON files under `ops/restore-evidence/` and v
 restore, synthetic or explicitly approved anonymized data, disabled outbound integrations, no
 restored plaintext secrets, all four assets restored and checksum-verified, successful auth,
 tenant-isolation, forward-migration and critical-smoke checks, separated operator/reviewer roles,
-and RPO/RTO calculated from UTC timestamps.
+and RPO/RTO calculated from strict UTC timestamps. It must also prove that source backups were
+encrypted, retained as intended, stored in a separate failure domain and covered by a current access
+review. The restore target must be disposable, unable to target production, network-denied for
+outbound integrations and constrained so destructive commands cannot escape the exercise scope.
 
 The validator accepts only safe evidence identifiers, not raw logs, URLs, credentials or customer
 content. An empty evidence directory is allowed during bootstrap but explicitly reports that the

@@ -41,6 +41,8 @@ Last verified: 2026-09-26 (UTC)
 - Executable 22-case tenant-isolation harness spanning anonymous, A/B, removed, suspended, multi-workspace, service-principal and role scenarios, with six mutation-style negative controls.
 - Executable 18-case assistant-security adapter contract covering confirmations, tenant scope, 20-way races, replay, restart/reconciliation, store/audit outages, secret outputs and arbitrary SQL/URL targets, with eight mutation-style negative controls.
 - Machine-validated staging-candidate evidence requiring an immutable artifact, synthetic data, separate Supabase/Storage/n8n/OAuth resources, a non-shared managed secret boundary, production-deny guards and nine smoke/security checks. Impossible calendar dates are rejected in staging and restore evidence.
+- Restore evidence now also proves encrypted backups, separate failure domain, retention/access review and a disposable production-denied/network-denied target with scoped destructive commands.
+- A value-redacted Hostinger/VPS/n8n read-only inventory procedure is ready for the later human login; it includes explicit no-mutation and secret/PII stop conditions.
 
 ## Findings and gates
 
