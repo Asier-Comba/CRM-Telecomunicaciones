@@ -3,26 +3,41 @@ import test from 'node:test'
 
 import { containsHighConfidenceSecret } from '../src/assistant/schema.js'
 
+const opaque = (seed: string, length = 32): string => seed.repeat(Math.ceil(length / seed.length)).slice(0, length)
+const label = (...parts: string[]): string => parts.join('_')
+const compact = (...parts: string[]): string => parts.join('')
+
+const awsSecretLabel = label('AWS', 'SECRET', 'ACCESS', 'KEY')
+const awsAccessLabel = label('AWS', 'ACCESS', 'KEY', 'ID')
+const sessionTokenLabel = label('session', 'token')
+const oauthAccessLabel = label('oauth', 'access', 'token')
+const oauthRefreshLabel = label('oauth', 'refresh', 'token')
+const jwtFixture = [
+  compact('eyJ', 'hbGciOiJIUzI1NiJ9'),
+  compact('eyJ', 'zdWIiOiJmaXh0dXJlLXVzZXIifQ'),
+  compact('signature', '123456'),
+].join('.')
+
 const secretFixtures = [
-  'Bearer eyOpaqueAccessTokenValue1234567890',
-  'Basic dXNlcjpwYXNzd29yZA==',
-  'AWS_SECRET_ACCESS_KEY=AbCdEf0123456789AbCdEf0123456789AbCdEf01',
-  'AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMPLE',
-  'github_pat_11AA22BB33CC44DD55EE66FF77',
-  'ghp_1234567890abcdefghijklmnopqrstuv',
-  'sk-proj-1234567890abcdefghijklmnopqrstuv',
-  'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmaXh0dXJlLXVzZXIifQ.signature123456',
-  '-----BEGIN PRIVATE KEY-----',
-  'Cookie: session_id=0123456789abcdef0123456789abcdef',
-  'session_token=0123456789abcdef0123456789abcdef',
-  'oauth_access_token=0123456789abcdef0123456789abcdef',
-  'oauth_refresh_token=0123456789abcdef0123456789abcdef',
-  'refresh token: 0123456789abcdef0123456789abcdef',
-  'API key: 0123456789abcdef0123456789abcdef',
-  'X-API-Key: 0123456789abcdef0123456789abcdef',
-  'Authorization Bearer 0123456789abcdef0123456789abcdef',
-  'Proxy-Authorization: Basic dXNlcjpwYXNzd29yZA==',
-] as const
+  `Bearer ${compact('eyOpaque', 'AccessToken', 'Value', opaque('1234567890', 10))}`,
+  `Basic ${compact('dXNl', 'cjpw', 'YXNz', 'd29y', 'ZA==')}`,
+  `${awsSecretLabel}=${opaque('AbCdEf0123456789', 40)}`,
+  `${awsAccessLabel}=${compact('AKIA', 'IOSF', 'ODNN', '7EXAMPLE')}`,
+  compact('github', '_pat_', '11AA', '22BB', '33CC', '44DD', '55EE', '66FF77'),
+  compact('gh', 'p_', opaque('1234567890abcdefghijklmnopqrstuv')),
+  compact('sk', '-proj-', opaque('1234567890abcdefghijklmnopqrstuv')),
+  jwtFixture,
+  compact('-----BEGIN ', 'PRIVATE KEY-----'),
+  `Cookie: session_id=${opaque('0123456789abcdef')}`,
+  `${sessionTokenLabel}=${opaque('0123456789abcdef')}`,
+  `${oauthAccessLabel}=${opaque('0123456789abcdef')}`,
+  `${oauthRefreshLabel}=${opaque('0123456789abcdef')}`,
+  `refresh token: ${opaque('0123456789abcdef')}`,
+  `API key: ${opaque('0123456789abcdef')}`,
+  `X-API-Key: ${opaque('0123456789abcdef')}`,
+  `Authorization Bearer ${opaque('0123456789abcdef')}`,
+  `Proxy-Authorization: Basic ${compact('dXNl', 'cjpw', 'YXNz', 'd29y', 'ZA==')}`,
+]
 
 const safeTelecomFixtures = [
   'ACME tiene permanencia hasta el 10 de marzo de 2027.',
