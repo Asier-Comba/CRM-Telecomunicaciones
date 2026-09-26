@@ -73,12 +73,8 @@ const forbidden = (): SafeUiError => ({
 })
 
 const unsupportedSection = <T>(): SectionState<T> => ({
-  status: 'error',
-  error: {
-    code: 'unsupported_contract',
-    message: 'Esta sección todavía no está disponible.',
-    retryable: false,
-  },
+  status: 'unsupported',
+  reason: 'contract_not_published',
 })
 
 const hiddenWhenPresent = <T>(value: T | null): SensitiveField<T> =>

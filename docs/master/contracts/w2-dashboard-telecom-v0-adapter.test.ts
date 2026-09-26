@@ -55,7 +55,7 @@ const context = {
   statusCatalog,
 }
 
-test('adapts stable v0 states without claiming complete pagination', () => {
+test('adapts stable v0 states without claiming known pagination', () => {
   const result = adaptDashboardTelecomV0(input(), context)
 
   assert.equal(result.ok, true)
@@ -64,10 +64,7 @@ test('adapts stable v0 states without claiming complete pagination', () => {
   assert.equal(result.page.data.tasks.status, 'ready')
   if (result.page.data.tasks.status !== 'ready') return
 
-  assert.deepEqual(result.page.data.tasks.completeness, {
-    kind: 'bounded',
-    hasMore: true,
-  })
+  assert.deepEqual(result.page.data.tasks.completeness, { kind: 'unknown' })
   assert.equal(result.page.data.tasks.data[0]?.customer, null)
   assert.deepEqual(result.page.data.tasks.data[0]?.destination, {
     kind: 'task',

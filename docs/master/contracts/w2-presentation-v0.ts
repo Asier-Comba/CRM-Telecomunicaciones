@@ -37,6 +37,7 @@ export type SafeUiError = {
 
 export type CollectionCompleteness =
   | { kind: 'complete' }
+  | { kind: 'unknown' }
   | {
       kind: 'bounded'
       hasMore: boolean
@@ -45,6 +46,8 @@ export type CollectionCompleteness =
 
 export type SectionState<T> =
   | { status: 'loading' }
+  | { status: 'unsupported'; reason: 'contract_not_published' }
+  | { status: 'unavailable'; error: SafeUiError }
   | {
       status: 'ready'
       data: T
@@ -67,6 +70,13 @@ export type SectionState<T> =
       updatedAt: IsoDateTime
       completeness: CollectionCompleteness
       refreshError: SafeUiError
+    }
+  | {
+      status: 'partial'
+      data: T
+      updatedAt: IsoDateTime
+      completeness: CollectionCompleteness
+      notice: SafeUiError
     }
   | {
       status: 'error'
@@ -110,6 +120,7 @@ export function transitionSection<T>(
     case 'load_started':
       if (
         current.status === 'ready' ||
+        current.status === 'partial' ||
         current.status === 'refreshing' ||
         current.status === 'stale'
       ) {

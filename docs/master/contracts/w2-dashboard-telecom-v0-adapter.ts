@@ -367,7 +367,7 @@ const adaptReadyItems = (
     status: 'ready',
     data: items,
     updatedAt: section.source_updated_at,
-    completeness: { kind: 'bounded', hasMore: true },
+    completeness: { kind: 'unknown' },
   }
 }
 

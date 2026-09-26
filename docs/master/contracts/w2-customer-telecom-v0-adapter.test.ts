@@ -94,10 +94,10 @@ test('keeps missing attention projections unavailable rather than falsely empty'
     result.page.data.alerts,
     result.page.data.recentActivity,
   ]) {
-    assert.equal(section.status, 'error')
-    if (section.status === 'error') {
-      assert.equal(section.error.code, 'unsupported_contract')
-    }
+    assert.deepEqual(section, {
+      status: 'unsupported',
+      reason: 'contract_not_published',
+    })
   }
 })
 
