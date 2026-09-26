@@ -1,0 +1,399 @@
+\set ON_ERROR_STOP on
+
+-- Destructive fixture setup is allowed only on an explicitly marked test DB.
+do $$
+begin
+  if current_setting('app.environment', true) is distinct from 'test' then
+    raise exception using errcode = '42501', message = 'refusing to run outside app.environment=test';
+  end if;
+end;
+$$;
+
+begin;
+
+create function pg_temp.assert_true(value boolean, p_message text)
+returns void language plpgsql set search_path = '' as $$
+begin
+  if value is not true then raise exception using message = p_message; end if;
+end;
+$$;
+
+create function pg_temp.assert_domain_visibility(
+  allowed_workspaces uuid[], denied_workspaces uuid[], p_context text
+) returns void language plpgsql set search_path = '' as $$
+declare relation_name text; workspace uuid; visible_count bigint;
+begin
+  foreach relation_name in array array[
+    'customers','contacts','telecom_operators','telecom_plans','telecom_plan_versions',
+    'telecom_contracts','telecom_services','telecom_lines','telecom_commitments',
+    'telecom_renewals','opportunity_stages','opportunities','tasks','calendar_events','activities'
+  ] loop
+    foreach workspace in array allowed_workspaces loop
+      execute format('select count(*) from public.%I where workspace_id = $1', relation_name)
+        into visible_count using workspace;
+      if visible_count < 1 then
+        raise exception '% cannot read allowed workspace % in %', p_context, workspace, relation_name;
+      end if;
+    end loop;
+    foreach workspace in array denied_workspaces loop
+      execute format('select count(*) from public.%I where workspace_id = $1', relation_name)
+        into visible_count using workspace;
+      if visible_count <> 0 then
+        raise exception '% can read denied workspace % in %', p_context, workspace, relation_name;
+      end if;
+    end loop;
+  end loop;
+end;
+$$;
+
+create function pg_temp.assert_no_domain_rows(p_context text)
+returns void language plpgsql set search_path = '' as $$
+declare relation_name text; visible_count bigint;
+begin
+  foreach relation_name in array array[
+    'customers','contacts','telecom_operators','telecom_plans','telecom_plan_versions',
+    'telecom_contracts','telecom_services','telecom_lines','telecom_commitments',
+    'telecom_renewals','opportunity_stages','opportunities','tasks','calendar_events','activities'
+  ] loop
+    execute format('select count(*) from public.%I', relation_name) into visible_count;
+    if visible_count <> 0 then
+      raise exception '% leaked rows in %', p_context, relation_name;
+    end if;
+  end loop;
+end;
+$$;
+
+-- Synthetic identities only. The transaction, grants and fixtures are rolled back.
+insert into auth.users (
+  id, instance_id, aud, role, email, encrypted_password, email_confirmed_at,
+  raw_app_meta_data, raw_user_meta_data, created_at, updated_at
+) values
+  ('10000000-0000-0000-0000-000000000001', '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated', 'owner-a@example.invalid', '', now(), '{"provider":"email","providers":["email"]}', '{}', now(), now()),
+  ('10000000-0000-0000-0000-000000000002', '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated', 'member-a@example.invalid', '', now(), '{"provider":"email","providers":["email"]}', '{}', now(), now()),
+  ('10000000-0000-0000-0000-000000000003', '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated', 'owner-b@example.invalid', '', now(), '{"provider":"email","providers":["email"]}', '{}', now(), now()),
+  ('10000000-0000-0000-0000-000000000004', '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated', 'owner-c@example.invalid', '', now(), '{"provider":"email","providers":["email"]}', '{}', now(), now()),
+  ('10000000-0000-0000-0000-000000000005', '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated', 'removed@example.invalid', '', now(), '{"provider":"email","providers":["email"]}', '{}', now(), now()),
+  ('10000000-0000-0000-0000-000000000006', '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated', 'multi@example.invalid', '', now(), '{"provider":"email","providers":["email"]}', '{}', now(), now()),
+  ('10000000-0000-0000-0000-000000000007', '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated', 'admin-a@example.invalid', '', now(), '{"provider":"email","providers":["email"]}', '{}', now(), now()),
+  ('10000000-0000-0000-0000-000000000008', '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated', 'suspended-member-a@example.invalid', '', now(), '{"provider":"email","providers":["email"]}', '{}', now(), now());
+
+insert into public.workspaces (id, name, slug, status) values
+  ('20000000-0000-0000-0000-000000000001', 'Synthetic Workspace A', 'synthetic-workspace-a', 'active'),
+  ('20000000-0000-0000-0000-000000000002', 'Synthetic Workspace B', 'synthetic-workspace-b', 'active'),
+  ('20000000-0000-0000-0000-000000000003', 'Synthetic Workspace C', 'synthetic-workspace-c', 'suspended');
+
+insert into public.workspace_members (id, workspace_id, user_id, role, status) values
+  ('30000000-0000-0000-0000-000000000001', '20000000-0000-0000-0000-000000000001', '10000000-0000-0000-0000-000000000001', 'owner', 'active'),
+  ('30000000-0000-0000-0000-000000000002', '20000000-0000-0000-0000-000000000001', '10000000-0000-0000-0000-000000000002', 'member', 'active'),
+  ('30000000-0000-0000-0000-000000000003', '20000000-0000-0000-0000-000000000002', '10000000-0000-0000-0000-000000000003', 'owner', 'active'),
+  ('30000000-0000-0000-0000-000000000004', '20000000-0000-0000-0000-000000000003', '10000000-0000-0000-0000-000000000004', 'owner', 'active'),
+  ('30000000-0000-0000-0000-000000000005', '20000000-0000-0000-0000-000000000001', '10000000-0000-0000-0000-000000000006', 'viewer', 'active'),
+  ('30000000-0000-0000-0000-000000000006', '20000000-0000-0000-0000-000000000002', '10000000-0000-0000-0000-000000000006', 'member', 'active'),
+  ('30000000-0000-0000-0000-000000000007', '20000000-0000-0000-0000-000000000001', '10000000-0000-0000-0000-000000000007', 'admin', 'active'),
+  ('30000000-0000-0000-0000-000000000008', '20000000-0000-0000-0000-000000000001', '10000000-0000-0000-0000-000000000008', 'member', 'suspended'),
+  ('30000000-0000-0000-0000-000000000009', '20000000-0000-0000-0000-000000000001', '10000000-0000-0000-0000-000000000005', 'member', 'active');
+
+insert into public.customers (id, workspace_id, account_kind, legal_name, lifecycle, status, source, created_by_user_id) values
+  ('40000000-0000-0000-0000-000000000001', '20000000-0000-0000-0000-000000000001', 'legal_entity', 'Synthetic Customer A', 'customer', 'active', 'manual', '10000000-0000-0000-0000-000000000001'),
+  ('40000000-0000-0000-0000-000000000002', '20000000-0000-0000-0000-000000000002', 'legal_entity', 'Synthetic Customer B', 'customer', 'active', 'manual', '10000000-0000-0000-0000-000000000003'),
+  ('40000000-0000-0000-0000-000000000003', '20000000-0000-0000-0000-000000000001', 'legal_entity', 'Synthetic Customer No Contacts', 'prospect', 'active', 'manual', '10000000-0000-0000-0000-000000000001'),
+  ('40000000-0000-0000-0000-000000000004', '20000000-0000-0000-0000-000000000001', 'legal_entity', 'Synthetic Large Customer', 'customer', 'active', 'import', '10000000-0000-0000-0000-000000000001'),
+  ('40000000-0000-0000-0000-000000000005', '20000000-0000-0000-0000-000000000003', 'legal_entity', 'Synthetic Customer C', 'customer', 'active', 'manual', '10000000-0000-0000-0000-000000000004');
+
+insert into public.contacts (id, workspace_id, customer_id, display_name, is_primary, status, created_by_user_id) values
+  ('41000000-0000-0000-0000-000000000001', '20000000-0000-0000-0000-000000000001', '40000000-0000-0000-0000-000000000001', 'Synthetic Primary A', true, 'active', '10000000-0000-0000-0000-000000000001'),
+  ('41000000-0000-0000-0000-000000000002', '20000000-0000-0000-0000-000000000002', '40000000-0000-0000-0000-000000000002', 'Synthetic Primary B', true, 'active', '10000000-0000-0000-0000-000000000003'),
+  ('41000000-0000-0000-0000-000000000003', '20000000-0000-0000-0000-000000000001', '40000000-0000-0000-0000-000000000001', 'Synthetic Secondary A', false, 'active', '10000000-0000-0000-0000-000000000001'),
+  ('41000000-0000-0000-0000-000000000004', '20000000-0000-0000-0000-000000000003', '40000000-0000-0000-0000-000000000005', 'Synthetic Primary C', true, 'active', '10000000-0000-0000-0000-000000000004');
+
+insert into public.telecom_operators (id, workspace_id, code, display_name, created_by_user_id) values
+  ('50000000-0000-0000-0000-000000000001', '20000000-0000-0000-0000-000000000001', 'synthetic-a', 'Synthetic Operator A', '10000000-0000-0000-0000-000000000001'),
+  ('50000000-0000-0000-0000-000000000002', '20000000-0000-0000-0000-000000000002', 'synthetic-b', 'Synthetic Operator B', '10000000-0000-0000-0000-000000000003'),
+  ('50000000-0000-0000-0000-000000000003', '20000000-0000-0000-0000-000000000003', 'synthetic-c', 'Synthetic Operator C', '10000000-0000-0000-0000-000000000004');
+
+insert into public.telecom_plans (id, workspace_id, operator_id, code, display_name, service_kind, created_by_user_id) values
+  ('51000000-0000-0000-0000-000000000001', '20000000-0000-0000-0000-000000000001', '50000000-0000-0000-0000-000000000001', 'mobile-a', 'Synthetic Mobile A', 'mobile', '10000000-0000-0000-0000-000000000001'),
+  ('51000000-0000-0000-0000-000000000002', '20000000-0000-0000-0000-000000000002', '50000000-0000-0000-0000-000000000002', 'mobile-b', 'Synthetic Mobile B', 'mobile', '10000000-0000-0000-0000-000000000003'),
+  ('51000000-0000-0000-0000-000000000003', '20000000-0000-0000-0000-000000000003', '50000000-0000-0000-0000-000000000003', 'mobile-c', 'Synthetic Mobile C', 'mobile', '10000000-0000-0000-0000-000000000004');
+
+insert into public.telecom_plan_versions (id, workspace_id, plan_id, version_number, valid_from, currency, recurring_amount_minor, created_by_user_id) values
+  ('52000000-0000-0000-0000-000000000001', '20000000-0000-0000-0000-000000000001', '51000000-0000-0000-0000-000000000001', 1, '2026-01-01', 'EUR', 2500, '10000000-0000-0000-0000-000000000001'),
+  ('52000000-0000-0000-0000-000000000002', '20000000-0000-0000-0000-000000000002', '51000000-0000-0000-0000-000000000002', 1, '2026-01-01', 'EUR', 2600, '10000000-0000-0000-0000-000000000003'),
+  ('52000000-0000-0000-0000-000000000003', '20000000-0000-0000-0000-000000000003', '51000000-0000-0000-0000-000000000003', 1, '2026-01-01', 'EUR', 2700, '10000000-0000-0000-0000-000000000004');
+
+insert into public.telecom_contracts (id, workspace_id, customer_id, operator_id, plan_version_id, status, start_date, assigned_user_id, created_by_user_id) values
+  ('60000000-0000-0000-0000-000000000001', '20000000-0000-0000-0000-000000000001', '40000000-0000-0000-0000-000000000001', '50000000-0000-0000-0000-000000000001', '52000000-0000-0000-0000-000000000001', 'active', '2026-02-01', '10000000-0000-0000-0000-000000000001', '10000000-0000-0000-0000-000000000001'),
+  ('60000000-0000-0000-0000-000000000002', '20000000-0000-0000-0000-000000000002', '40000000-0000-0000-0000-000000000002', '50000000-0000-0000-0000-000000000002', '52000000-0000-0000-0000-000000000002', 'active', '2026-02-01', '10000000-0000-0000-0000-000000000003', '10000000-0000-0000-0000-000000000003'),
+  ('60000000-0000-0000-0000-000000000003', '20000000-0000-0000-0000-000000000003', '40000000-0000-0000-0000-000000000005', '50000000-0000-0000-0000-000000000003', '52000000-0000-0000-0000-000000000003', 'active', '2026-02-01', null, '10000000-0000-0000-0000-000000000004');
+
+insert into public.telecom_contracts (
+  id, workspace_id, customer_id, operator_id, plan_version_id, status,
+  start_date, assigned_user_id, source, created_by_user_id
+)
+select
+  md5('synthetic-contract-' || g)::uuid,
+  '20000000-0000-0000-0000-000000000001',
+  '40000000-0000-0000-0000-000000000004',
+  '50000000-0000-0000-0000-000000000001',
+  '52000000-0000-0000-0000-000000000001',
+  'active', '2026-02-01', '10000000-0000-0000-0000-000000000001',
+  'import', '10000000-0000-0000-0000-000000000001'
+from generate_series(1, 105) as series(g);
+
+insert into public.telecom_services (id, workspace_id, customer_id, contract_id, operator_id, plan_version_id, service_kind, display_name, status, activated_on, created_by_user_id) values
+  ('61000000-0000-0000-0000-000000000001', '20000000-0000-0000-0000-000000000001', '40000000-0000-0000-0000-000000000001', '60000000-0000-0000-0000-000000000001', '50000000-0000-0000-0000-000000000001', '52000000-0000-0000-0000-000000000001', 'mobile', 'Synthetic Service A', 'active', '2026-02-01', '10000000-0000-0000-0000-000000000001'),
+  ('61000000-0000-0000-0000-000000000002', '20000000-0000-0000-0000-000000000002', '40000000-0000-0000-0000-000000000002', '60000000-0000-0000-0000-000000000002', '50000000-0000-0000-0000-000000000002', '52000000-0000-0000-0000-000000000002', 'mobile', 'Synthetic Service B', 'active', '2026-02-01', '10000000-0000-0000-0000-000000000003'),
+  ('61000000-0000-0000-0000-000000000003', '20000000-0000-0000-0000-000000000003', '40000000-0000-0000-0000-000000000005', '60000000-0000-0000-0000-000000000003', '50000000-0000-0000-0000-000000000003', '52000000-0000-0000-0000-000000000003', 'mobile', 'Synthetic Service C', 'active', '2026-02-01', '10000000-0000-0000-0000-000000000004');
+
+insert into public.telecom_services (
+  id, workspace_id, customer_id, contract_id, operator_id, plan_version_id,
+  service_kind, display_name, status, activated_on, created_by_user_id
+)
+select
+  md5('synthetic-service-' || g)::uuid,
+  '20000000-0000-0000-0000-000000000001',
+  '40000000-0000-0000-0000-000000000004',
+  md5('synthetic-contract-' || g)::uuid,
+  '50000000-0000-0000-0000-000000000001',
+  '52000000-0000-0000-0000-000000000001',
+  'mobile', 'Synthetic Bulk Service ' || g, 'active', '2026-02-01',
+  '10000000-0000-0000-0000-000000000001'
+from generate_series(1, 105) as series(g);
+
+insert into public.telecom_lines (id, workspace_id, service_id, status, activated_on, created_by_user_id) values
+  ('62000000-0000-0000-0000-000000000001', '20000000-0000-0000-0000-000000000001', '61000000-0000-0000-0000-000000000001', 'active', '2026-02-01', '10000000-0000-0000-0000-000000000001'),
+  ('62000000-0000-0000-0000-000000000002', '20000000-0000-0000-0000-000000000002', '61000000-0000-0000-0000-000000000002', 'active', '2026-02-01', '10000000-0000-0000-0000-000000000003'),
+  ('62000000-0000-0000-0000-000000000003', '20000000-0000-0000-0000-000000000003', '61000000-0000-0000-0000-000000000003', 'active', '2026-02-01', '10000000-0000-0000-0000-000000000004');
+
+insert into public.telecom_lines (id, workspace_id, service_id, status, activated_on, created_by_user_id)
+select
+  md5('synthetic-line-' || g || '-' || line_number)::uuid,
+  '20000000-0000-0000-0000-000000000001',
+  md5('synthetic-service-' || g)::uuid,
+  'active', '2026-02-01', '10000000-0000-0000-0000-000000000001'
+from generate_series(1, 105) as contracts(g)
+cross join generate_series(1, 3) as lines(line_number);
+
+insert into public.telecom_commitments (id, workspace_id, contract_id, service_id, commitment_kind, starts_on, ends_on, reason_code, created_by_user_id) values
+  ('63000000-0000-0000-0000-000000000001', '20000000-0000-0000-0000-000000000001', '60000000-0000-0000-0000-000000000001', '61000000-0000-0000-0000-000000000001', 'minimum_term', current_date - 300, current_date + 30, 'minimum_term', '10000000-0000-0000-0000-000000000001'),
+  ('63000000-0000-0000-0000-000000000002', '20000000-0000-0000-0000-000000000002', '60000000-0000-0000-0000-000000000002', '61000000-0000-0000-0000-000000000002', 'minimum_term', '2026-02-01', '2027-02-01', 'minimum_term', '10000000-0000-0000-0000-000000000003'),
+  ('63000000-0000-0000-0000-000000000003', '20000000-0000-0000-0000-000000000003', '60000000-0000-0000-0000-000000000003', '61000000-0000-0000-0000-000000000003', 'minimum_term', '2026-02-01', '2027-02-01', 'minimum_term', '10000000-0000-0000-0000-000000000004');
+
+insert into public.telecom_renewals (id, workspace_id, contract_id, target_on, opens_on, closes_on, created_by_user_id) values
+  ('64000000-0000-0000-0000-000000000001', '20000000-0000-0000-0000-000000000001', '60000000-0000-0000-0000-000000000001', current_date + 20, current_date - 5, current_date + 20, '10000000-0000-0000-0000-000000000001'),
+  ('64000000-0000-0000-0000-000000000002', '20000000-0000-0000-0000-000000000002', '60000000-0000-0000-0000-000000000002', '2027-02-01', '2026-12-01', '2027-02-01', '10000000-0000-0000-0000-000000000003'),
+  ('64000000-0000-0000-0000-000000000003', '20000000-0000-0000-0000-000000000003', '60000000-0000-0000-0000-000000000003', '2027-03-01', '2027-01-01', '2027-03-01', '10000000-0000-0000-0000-000000000004');
+
+insert into public.opportunity_stages (id, workspace_id, code, display_name, position, created_by_user_id) values
+  ('70000000-0000-0000-0000-000000000001', '20000000-0000-0000-0000-000000000001', 'qualified', 'Synthetic Qualified A', 10, '10000000-0000-0000-0000-000000000001'),
+  ('70000000-0000-0000-0000-000000000002', '20000000-0000-0000-0000-000000000002', 'qualified', 'Synthetic Qualified B', 10, '10000000-0000-0000-0000-000000000003'),
+  ('70000000-0000-0000-0000-000000000003', '20000000-0000-0000-0000-000000000003', 'qualified', 'Synthetic Qualified C', 10, '10000000-0000-0000-0000-000000000004');
+
+insert into public.opportunities (id, workspace_id, customer_id, stage_id, title, owner_user_id, next_follow_up_at, created_by_user_id) values
+  ('71000000-0000-0000-0000-000000000001', '20000000-0000-0000-0000-000000000001', '40000000-0000-0000-0000-000000000001', '70000000-0000-0000-0000-000000000001', 'Synthetic Opportunity A', '10000000-0000-0000-0000-000000000001', '2026-10-01T09:00:00Z', '10000000-0000-0000-0000-000000000001'),
+  ('71000000-0000-0000-0000-000000000002', '20000000-0000-0000-0000-000000000002', '40000000-0000-0000-0000-000000000002', '70000000-0000-0000-0000-000000000002', 'Synthetic Opportunity B', '10000000-0000-0000-0000-000000000003', '2026-10-01T09:00:00Z', '10000000-0000-0000-0000-000000000003'),
+  ('71000000-0000-0000-0000-000000000003', '20000000-0000-0000-0000-000000000003', '40000000-0000-0000-0000-000000000005', '70000000-0000-0000-0000-000000000003', 'Synthetic Opportunity C', null, '2026-10-01T09:00:00Z', '10000000-0000-0000-0000-000000000004');
+
+insert into public.tasks (id, workspace_id, customer_id, opportunity_id, title, due_at, assigned_user_id, created_by_user_id) values
+  ('72000000-0000-0000-0000-000000000001', '20000000-0000-0000-0000-000000000001', '40000000-0000-0000-0000-000000000001', '71000000-0000-0000-0000-000000000001', 'Synthetic Task A', '2026-10-02T09:00:00Z', '10000000-0000-0000-0000-000000000001', '10000000-0000-0000-0000-000000000001'),
+  ('72000000-0000-0000-0000-000000000002', '20000000-0000-0000-0000-000000000002', '40000000-0000-0000-0000-000000000002', '71000000-0000-0000-0000-000000000002', 'Synthetic Task B', '2026-10-02T09:00:00Z', '10000000-0000-0000-0000-000000000003', '10000000-0000-0000-0000-000000000003'),
+  ('72000000-0000-0000-0000-000000000003', '20000000-0000-0000-0000-000000000003', '40000000-0000-0000-0000-000000000005', '71000000-0000-0000-0000-000000000003', 'Synthetic Task C', '2026-10-02T09:00:00Z', null, '10000000-0000-0000-0000-000000000004');
+
+insert into public.calendar_events (id, workspace_id, customer_id, opportunity_id, title, starts_at, ends_at, timezone, assigned_user_id, created_by_user_id) values
+  ('73000000-0000-0000-0000-000000000001', '20000000-0000-0000-0000-000000000001', '40000000-0000-0000-0000-000000000001', '71000000-0000-0000-0000-000000000001', 'Synthetic Meeting A', '2026-10-03T09:00:00Z', '2026-10-03T10:00:00Z', 'Europe/Madrid', '10000000-0000-0000-0000-000000000001', '10000000-0000-0000-0000-000000000001'),
+  ('73000000-0000-0000-0000-000000000002', '20000000-0000-0000-0000-000000000002', '40000000-0000-0000-0000-000000000002', '71000000-0000-0000-0000-000000000002', 'Synthetic Meeting B', '2026-10-03T09:00:00Z', '2026-10-03T10:00:00Z', 'Europe/Madrid', '10000000-0000-0000-0000-000000000003', '10000000-0000-0000-0000-000000000003'),
+  ('73000000-0000-0000-0000-000000000003', '20000000-0000-0000-0000-000000000003', '40000000-0000-0000-0000-000000000005', '71000000-0000-0000-0000-000000000003', 'Synthetic Meeting C', '2026-10-03T09:00:00Z', '2026-10-03T10:00:00Z', 'Europe/Madrid', null, '10000000-0000-0000-0000-000000000004');
+
+insert into public.activities (id, workspace_id, customer_id, activity_kind, summary_code, actor_kind, source, source_event_ref, occurred_at, created_by_user_id) values
+  ('74000000-0000-0000-0000-000000000001', '20000000-0000-0000-0000-000000000001', '40000000-0000-0000-0000-000000000001', 'system', 'system.imported', 'system', 'system', 'synthetic:event:a', now(), '10000000-0000-0000-0000-000000000001'),
+  ('74000000-0000-0000-0000-000000000002', '20000000-0000-0000-0000-000000000002', '40000000-0000-0000-0000-000000000002', 'system', 'system.imported', 'system', 'system', 'synthetic:event:b', now(), '10000000-0000-0000-0000-000000000003'),
+  ('74000000-0000-0000-0000-000000000003', '20000000-0000-0000-0000-000000000003', '40000000-0000-0000-0000-000000000005', 'system', 'system.imported', 'system', 'system', 'synthetic:event:c', now(), null);
+
+-- Domain raw grants remain closed in migrations. Temporary transactional grants
+-- expose policies to authenticated/anon roles solely for this RLS harness.
+grant select on table
+  public.customers, public.contacts, public.telecom_operators, public.telecom_plans,
+  public.telecom_plan_versions, public.telecom_contracts, public.telecom_services,
+  public.telecom_lines, public.telecom_commitments, public.telecom_renewals,
+  public.opportunity_stages, public.opportunities, public.tasks,
+  public.calendar_events, public.activities
+to anon, authenticated;
+grant insert, update, delete on table
+  public.customers, public.contacts, public.telecom_operators, public.telecom_plans,
+  public.telecom_plan_versions, public.telecom_contracts, public.telecom_services,
+  public.telecom_lines, public.telecom_commitments, public.telecom_renewals,
+  public.opportunity_stages, public.opportunities, public.tasks,
+  public.calendar_events, public.activities
+to authenticated;
+
+set local role authenticated;
+select set_config('request.jwt.claim.sub', '10000000-0000-0000-0000-000000000001', true);
+select set_config('request.jwt.claims', '{"sub":"10000000-0000-0000-0000-000000000001","role":"authenticated"}', true);
+
+select pg_temp.assert_domain_visibility(
+  array['20000000-0000-0000-0000-000000000001'::uuid],
+  array['20000000-0000-0000-0000-000000000002'::uuid, '20000000-0000-0000-0000-000000000003'::uuid],
+  'owner A'
+);
+
+insert into public.customers (
+  id, workspace_id, account_kind, legal_name, lifecycle, status, source, created_by_user_id
+) values (
+  '40000000-0000-0000-0000-000000000010', '20000000-0000-0000-0000-000000000001',
+  'legal_entity', 'Owner A Allowed Insert', 'lead', 'active', 'manual',
+  '10000000-0000-0000-0000-000000000001'
+);
+
+do $$
+declare denied boolean := false;
+begin
+  begin
+    insert into public.customers (workspace_id, account_kind, legal_name, lifecycle, status, source, created_by_user_id)
+    values ('20000000-0000-0000-0000-000000000002', 'legal_entity', 'Cross Tenant Denied', 'lead', 'active', 'manual', '10000000-0000-0000-0000-000000000001');
+  exception when sqlstate '42501' then denied := true;
+  end;
+  if not denied then raise exception 'cross-tenant insert was not denied by RLS'; end if;
+end;
+$$;
+
+do $$
+declare denied boolean := false;
+begin
+  begin
+    insert into public.customers (
+      id, workspace_id, account_kind, legal_name, lifecycle, status, source, created_by_user_id
+    ) values (
+      '40000000-0000-0000-0000-000000000002', '20000000-0000-0000-0000-000000000002',
+      'legal_entity', 'Cross Tenant Upsert Denied', 'customer', 'active', 'manual',
+      '10000000-0000-0000-0000-000000000001'
+    ) on conflict (id) do update set legal_name = excluded.legal_name;
+  exception when sqlstate '42501' then denied := true;
+  end;
+  if not denied then raise exception 'cross-tenant upsert was not denied by RLS'; end if;
+end;
+$$;
+
+do $$
+declare denied boolean := false;
+begin
+  begin
+    insert into public.contacts (
+      workspace_id, customer_id, display_name, status, created_by_user_id
+    ) values (
+      '20000000-0000-0000-0000-000000000001',
+      '40000000-0000-0000-0000-000000000002',
+      'Cross Tenant Parent Denied', 'active',
+      '10000000-0000-0000-0000-000000000001'
+    );
+  exception when sqlstate '23503' then denied := true;
+  end;
+  if not denied then raise exception 'cross-tenant composite parent was not denied by FK'; end if;
+end;
+$$;
+
+delete from public.customers where id = '40000000-0000-0000-0000-000000000001';
+select pg_temp.assert_true(
+  (select count(*) from public.customers where id = '40000000-0000-0000-0000-000000000001') = 1,
+  'delete without policy removed a row'
+);
+
+do $$
+declare denied boolean := false;
+begin
+  begin
+    update public.tasks set workspace_id = '20000000-0000-0000-0000-000000000002'
+     where id = '72000000-0000-0000-0000-000000000001';
+  exception when sqlstate '55000' then denied := true;
+  end;
+  if not denied then raise exception 'tenant identity mutation was not denied'; end if;
+end;
+$$;
+
+reset role;
+select pg_temp.assert_true(
+  (select legal_name from public.customers where id = '40000000-0000-0000-0000-000000000002') = 'Synthetic Customer B',
+  'cross-tenant upsert changed workspace B'
+);
+
+reset role;
+set local role authenticated;
+select set_config('request.jwt.claim.sub', '10000000-0000-0000-0000-000000000002', true);
+select set_config('request.jwt.claims', '{"sub":"10000000-0000-0000-0000-000000000002","role":"authenticated"}', true);
+select pg_temp.assert_true((select count(*) from public.customers) >= 1, 'member A cannot read workspace A');
+
+do $$
+declare denied boolean := false;
+begin
+  begin
+    insert into public.customers (workspace_id, account_kind, legal_name, lifecycle, status, source, created_by_user_id)
+    values ('20000000-0000-0000-0000-000000000001', 'legal_entity', 'Member Write Denied', 'lead', 'active', 'manual', '10000000-0000-0000-0000-000000000002');
+  exception when sqlstate '42501' then denied := true;
+  end;
+  if not denied then raise exception 'member insert was not denied'; end if;
+end;
+$$;
+
+reset role;
+set local role authenticated;
+select set_config('request.jwt.claim.sub', '10000000-0000-0000-0000-000000000007', true);
+select set_config('request.jwt.claims', '{"sub":"10000000-0000-0000-0000-000000000007","role":"authenticated"}', true);
+insert into public.customers (
+  id, workspace_id, account_kind, legal_name, lifecycle, status, source, created_by_user_id
+) values (
+  '40000000-0000-0000-0000-000000000011', '20000000-0000-0000-0000-000000000001',
+  'legal_entity', 'Admin A Allowed Insert', 'lead', 'active', 'manual',
+  '10000000-0000-0000-0000-000000000007'
+);
+
+reset role;
+set local role authenticated;
+select set_config('request.jwt.claim.sub', '10000000-0000-0000-0000-000000000006', true);
+select set_config('request.jwt.claims', '{"sub":"10000000-0000-0000-0000-000000000006","role":"authenticated"}', true);
+select pg_temp.assert_domain_visibility(
+  array['20000000-0000-0000-0000-000000000001'::uuid, '20000000-0000-0000-0000-000000000002'::uuid],
+  array['20000000-0000-0000-0000-000000000003'::uuid],
+  'multi-workspace actor'
+);
+do $$
+declare denied boolean := false;
+begin
+  begin
+    insert into public.customers (workspace_id, account_kind, legal_name, lifecycle, status, source, created_by_user_id)
+    values ('20000000-0000-0000-0000-000000000001', 'legal_entity', 'Viewer Write Denied', 'lead', 'active', 'manual', '10000000-0000-0000-0000-000000000006');
+  exception when sqlstate '42501' then denied := true;
+  end;
+  if not denied then raise exception 'viewer insert was not denied'; end if;
+end;
+$$;
+
+reset role;
+set local role authenticated;
+select set_config('request.jwt.claim.sub', '10000000-0000-0000-0000-000000000004', true);
+select set_config('request.jwt.claims', '{"sub":"10000000-0000-0000-0000-000000000004","role":"authenticated"}', true);
+select pg_temp.assert_no_domain_rows('suspended workspace');
+
+reset role;
+set local role authenticated;
+select set_config('request.jwt.claim.sub', '10000000-0000-0000-0000-000000000008', true);
+select set_config('request.jwt.claims', '{"sub":"10000000-0000-0000-0000-000000000008","role":"authenticated"}', true);
+select pg_temp.assert_no_domain_rows('suspended membership');
+
+reset role;
+set local role authenticated;
+select set_config('request.jwt.claim.sub', '10000000-0000-0000-0000-000000000005', true);
+select set_config('request.jwt.claims', '{"sub":"10000000-0000-0000-0000-000000000005","role":"authenticated"}', true);
+select pg_temp.assert_true((select count(*) from public.customers) >= 1, 'membership fixture was not active before removal');
+reset role;
+delete from public.workspace_members
+where id = '30000000-0000-0000-0000-000000000009';
+set local role authenticated;
+select pg_temp.assert_no_domain_rows('removed membership with stale JWT');
+
+reset role;
+set local role anon;
+select set_config('request.jwt.claim.sub', '', true);
+select set_config('request.jwt.claims', '{"role":"anon"}', true);
+select pg_temp.assert_no_domain_rows('anonymous access');
+
+reset role;
+rollback;

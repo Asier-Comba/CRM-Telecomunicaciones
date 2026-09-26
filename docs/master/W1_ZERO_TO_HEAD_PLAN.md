@@ -23,10 +23,45 @@ load synthetic A/B/C tenant fixtures.
 
 Required attacks cover anonymous, active owner/admin/member/viewer, removed
 membership, suspended workspace, multi-workspace actor and the future scoped
-service principal. For every tenant table test SELECT/INSERT/UPDATE/DELETE,
-cross-tenant FK attempts, tenant/creator mutation and concurrency invariants.
+service principal. The current slice tests the complete 15-relation read matrix
+plus representative INSERT/UPDATE/DELETE/upsert and cross-tenant FK attacks.
+The final gate must extend mutation coverage to every mutable tenant relation
+and prove tenant/creator mutation plus concurrency invariants.
 Plan ranges, primary contacts, renewals, task versions, activity targets and
 outbox/idempotency races receive dedicated concurrent tests.
+
+`supabase/tests/telecom-domain-rls.sql` now supplies the first executable DB
+slice. Run it only after applying the manifest to an isolated database:
+
+```powershell
+$env:TELECOM_TEST_DB_HOST = '127.0.0.1'
+$env:TELECOM_TEST_DB_PORT = '5432'
+$env:TELECOM_TEST_DB_NAME = 'telecom_test'
+$env:TELECOM_TEST_DB_USER = 'postgres'
+$env:TELECOM_TEST_DB_PASSWORD = '<PASSWORD>'
+pnpm test:db:rls
+```
+
+The target must be a disposable Supabase-compatible database already
+bootstrapped with the Supabase roles and `auth` schema, named with an `_test`
+suffix, with the canonical manifest applied zero-to-head. The connection role
+must be local superuser (recommended: disposable local `postgres`) or
+explicitly hold `BYPASSRLS`, privileges on `auth.users` and the tested objects,
+plus permission to `SET ROLE` to `authenticated`/`anon`. Ownership alone is
+insufficient because the domain tables use `FORCE ROW LEVEL SECURITY`; the
+runner checks the superuser/BYPASSRLS condition server-side before fixtures.
+The normal Supabase local database named `postgres` does not meet this
+isolation contract: clone/bootstrap a separate `telecom_test` database or use
+the equivalent ephemeral CI image first.
+
+The runner accepts only discrete connection settings, refuses non-loopback
+hosts and database names without `_test`, removes inherited libpq overrides,
+keeps the password out of process arguments and performs the same host/name
+checks server-side before marking the session `app.environment=test`. The SQL
+checks that marker again, uses only synthetic `.invalid` identities, makes
+policy-testing grants transactionally and ends with `ROLLBACK`. It is prepared
+evidence, not a green runtime claim until the command executes successfully on
+isolated PostgreSQL after zero-to-head migration apply.
 
 ## Restore strategy
 
