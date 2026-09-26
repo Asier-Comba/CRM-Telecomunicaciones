@@ -1,5 +1,25 @@
 # W3 → W2 handoff — Assistant UI contract
 
+## telecom.v1 checkpoint
+
+Consumed W2 `db8ab41` and W1 `e65f1e8`. `AssistantResponse` v1 and
+`OperationStatusEnvelope` v1 remain unchanged. W1's exact 18 entity kinds now
+live in `src/assistant/entity-kinds.ts`; module/navigation routes are NOT inferred
+from that list. Inject only route taxonomy accepted by W1/W4.
+
+Collection grounding preserves available/unsupported/unavailable/not-authorized/
+error, partiality and stale timestamps. Only fresh authorized complete zero-item
+collections permit an empty claim. A bounded projected row count is never the
+total customer/service/line count. Customer Attention sections stay independent.
+
+Session and continuation references are server-issued ephemeral handles. Never
+manufacture a handle or derive one from a raw ID; never reuse across a changed
+scope epoch, operation, filter or page size. The reference store is backend-only;
+there is no new browser transport or enabled mutation action in this checkpoint.
+Full boundaries: `docs/master/ai/W3_TELECOM_V1_INTEGRATION.md`.
+
+## Existing stable contract (unchanged)
+
 Status: stable READ foundation contract; telecom taxonomy remains blocked on an accepted W1 base.
 Contract: `AssistantResponse` version `1` in `src/assistant/ui-contract.ts`.
 

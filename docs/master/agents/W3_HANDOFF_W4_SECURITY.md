@@ -1,5 +1,36 @@
 # W3 → W4 handoff — Assistant security review
 
+## New review request — telecom.v1 isolated checkpoint
+
+Read W4 `5cb872c`, live PR #9 and Issue #10; no acceptance is inferred from
+green unit tests. Please review new `telecom-input-validation.ts`,
+`session-references.ts`, `grounding.ts`, `durable-compatibility.ts` and the
+identity-bound reconciliation changes. Full suite: 173/173, lint/typecheck green.
+
+Mandatory integration boundaries and unresolved issues:
+
+- No model/client-selected scope; reference issuance only from validated
+  authorized reader output; every resolution reauthorizes the resource.
+- Session store is ephemeral, bounded per instance, and NOT durable memory.
+  Use session-scoped allocation or introduce per-scope quotas before sharing a
+  singleton; one session can otherwise exhaust the shared capacity.
+- Grounding is an explicit safe projection, NOT a complete W1 DTO parser.
+  Full output schema validation remains a required future adapter gate.
+- W1 dashboard audience permission needs explicit review: its authorizer receives
+  operation/context, not the requested audience. Do not equate valid enum with
+  permission to see a team/workspace dashboard.
+- Durable mapping is offline only. Confirmation CAS contract, operation/outbox
+  atomicity, safe-result reference storage and transactional reconciliation audit
+  remain unresolved. Operation lookup must be workspace-scoped, since W1's
+  candidate uniqueness is `(workspace_id, operation_ref)`.
+- No PostgreSQL/RLS/multiprocess/restart evidence or live provider execution.
+  Reference-adapter simulated restart is not a durable database claim.
+
+No CI bypass, ignore-list expansion, production action or permission widening.
+PR #9 remains Draft and Issue #10 remains open for production evidence.
+
+## Previous checkpoint details
+
 Status: previous core findings accepted in live Issue #10 review; review requested for new durable contract, conformance harness, reconciliation service and secret-value coverage.
 
 Scope:

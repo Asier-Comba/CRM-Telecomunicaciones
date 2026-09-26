@@ -1,5 +1,53 @@
 # W3 status — AI, assistant and integrations
 
+## Current checkpoint — telecom.v1 independent foundation
+
+Verified 2026-09-26 UTC. PR #9 is still **Draft; do not merge**. Writes and route
+integration remain disabled. No production, remote database or infrastructure changes.
+
+Read live W1 `w1/canonical-v3@32f0112`, `w1/telecom-domain-v1@e65f1e8`
+(PR #15), W2 `db8ab41`, W4 `5cb872c`, PR #9 and Issue #10. W4's
+SYSTEM_STATE still describes older W1/W2/W3 snapshots: it is not evidence that
+old findings remain in the new W1 canonical branch. No accepted integration SHA
+has been published in the sources inspected.
+
+Delivered:
+
+- Exact 14 READ operation descriptors from W1 telecom.v1; all marked
+  `published_contract_no_live_adapter`. No executable adapter registration.
+- Closed inputs, bounded pagination/IDs/enums, Gregorian calendar validation,
+  ordered date ranges and over 4,000 nested tenant-selector rejection checks.
+- Exact frozen 18-kind W1 entity taxonomy. Kind validity never grants access.
+- Server-issued ephemeral entity and continuation references: actor/workspace/
+  session/epoch/expiry/provenance binding and exact operation/filter binding.
+  These hold no business values; a fresh authorized read is still required.
+- Bounded collection grounding projection with truthful completeness/freshness,
+  protected-field masking and no cursor/reveal capability/provider error leakage.
+  It requires validated authorized W1 DTOs upstream; it is not a full DTO parser.
+- Reconciliation identity verification after writes, verifier mutation isolation,
+  safe-integer versions and closed bounded verifier success envelope.
+- W1 durable mapping compatibility assertions with unresolved transaction/API
+  gaps explicitly recorded; no database adapter or durability claim.
+- 85 new executable structured-input fixtures (37 accepted, 48 rejected) with
+  Spanish intent prompts. Existing 63 semantic scenarios are retained.
+
+Evidence: lint (34 TypeScript files), typecheck and build pass; **173/173 tests**
+pass, including 85 individual structured-input cases. This is **not** an LLM
+semantic benchmark, a live authorization test, or a production readiness claim.
+
+Stable W2 contracts remain `AssistantResponse` v1 and `OperationStatusEnvelope`
+v1, unchanged. Integration notes: `docs/master/ai/W3_TELECOM_V1_INTEGRATION.md`.
+W4 review request is recorded in `W3_HANDOFF_W4_SECURITY.md`; no gate is cleared
+by W3. Dependency Review remains an owner configuration gate if Dependency Graph
+is disabled; no workflow or control was weakened in this checkpoint.
+
+Next independent work: full W1 DTO parsing at the future adapter seam, semantic
+plan/reference binding and multi-turn eval execution, then measured provider
+benchmarks. Concrete model selection, live readers and durable adapters require
+their explicit integration gates. Shared Project is secondary, never authority.
+
+## Archived previous checkpoint — telecom.v0 (superseded above)
+
 - Updated: 2026-09-26
 - Branch: `w3/assistant-runtime-foundation`
 - Pull request: `#9` targeting `w4/security-baseline` — **DRAFT, do not merge**
