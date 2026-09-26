@@ -10,21 +10,22 @@ import type {
   ReconciliationVerifier,
 } from './durable-contracts.js'
 import { validOperationRef } from './durable-contracts.js'
-import { containsHighConfidenceSecret } from './schema.js'
+import { containsHighConfidenceSecret, validateValue } from './schema.js'
+import type { ValueSchema } from './contracts.js'
 
 const RECONCILE_PERMISSION = 'assistant:operation:reconcile'
 const REQUESTED_OUTCOMES = new Set(['completed', 'failed_retryable', 'failed_terminal'])
 const REASONS = new Set(['read_after_write', 'provider_receipt', 'verified_effect_absence'])
 
-function safeVerifiedResult(value: unknown, capability: string): boolean {
+function safeVerifiedResult(value: unknown, capability: string, schema: ValueSchema | undefined): boolean {
   try {
-    if (!value || typeof value !== 'object' || Array.isArray(value)) return false
+    if (!schema || !value || typeof value !== 'object' || Array.isArray(value)) return false
     const result = value as Record<string, unknown>
     if (result.status !== 'SUCCESS' || result.capability !== capability ||
       Object.keys(result).some((key) => !['status', 'capability', 'data'].includes(key))) return false
     const encoded = JSON.stringify(value)
     if (Buffer.byteLength(encoded, 'utf8') > 64 * 1024) return false
-    return !containsHighConfidenceSecret(JSON.parse(encoded))
+    return validateValue(schema, result.data).ok && !containsHighConfidenceSecret(JSON.parse(encoded))
   } catch {
     return false
   }
@@ -41,6 +42,10 @@ type ReconciliationDependencies = {
   store: DurableIdempotencyStore
   verifier: ReconciliationVerifier
   audit: ReconciliationAuditSink
+  /** Server-registered capability output schemas. Missing entry blocks completion.
+   * Never populate this map from a verifier, model, request or provider payload.
+   */
+  outputSchemas?: ReadonlyMap<string, ValueSchema>
 }
 
 function isReconciliationRequest(value: unknown): value is ReconciliationRequest {
@@ -117,11 +122,13 @@ export class AuthorizedReconciliationService {
   readonly #store: DurableIdempotencyStore
   readonly #verifier: ReconciliationVerifier
   readonly #audit: ReconciliationAuditSink
+  readonly #outputSchemas: ReadonlyMap<string, ValueSchema>
 
   constructor(dependencies: ReconciliationDependencies) {
     this.#store = dependencies.store
     this.#verifier = dependencies.verifier
     this.#audit = dependencies.audit
+    this.#outputSchemas = new Map([...dependencies.outputSchemas ?? []].map(([name, schema]) => [name, structuredClone(schema)]))
   }
 
   async reconcile(
@@ -174,7 +181,7 @@ export class AuthorizedReconciliationService {
     const idempotencyKey = record.idempotencyKey
     let verification
     try {
-      verification = await this.#verifier.verify(structuredClone(record), { ...request })
+      verification = structuredClone(await this.#verifier.verify(structuredClone(record), { ...request }))
     } catch {
       return this.#finish(actor, request, 'unavailable', 'reconciliation_verification_unavailable', failure(
         'UNAVAILABLE',
@@ -185,7 +192,7 @@ export class AuthorizedReconciliationService {
     }
     const verifiedResolution = verification && typeof verification === 'object' &&
       (verification.outcome !== 'effect_applied' ||
-        safeVerifiedResult(verification.result, binding.capability))
+        safeVerifiedResult(verification.result, binding.capability, this.#outputSchemas.get(binding.capability)))
       ? resolution(request, verification) : null
     if (!verifiedResolution) {
       return this.#finish(actor, request, 'inconclusive', 'reconciliation_inconclusive', failure(
