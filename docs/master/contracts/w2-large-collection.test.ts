@@ -83,6 +83,7 @@ test('remote continuation appears only after local authorized items are visible'
   assert.equal(first.action.kind, 'show_more_local')
   assert.equal(second.action.kind, 'load_more_remote')
   assert.deepEqual(second.total, { kind: 'unknown' })
+  assert.equal(second.retainTriggerFocus, true)
 })
 
 test('stale or unauthorized collections never expose continuation actions', () => {

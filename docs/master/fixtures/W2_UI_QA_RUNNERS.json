@@ -1,0 +1,41 @@
+{
+  "version": "w2.ui-qa-runners.v1",
+  "scope": "transport-neutral-contract-evidence",
+  "assertions": [
+    {
+      "id": "dialog-tab-loop-and-restore",
+      "sourceTest": "docs/master/contracts/w2-overlay-focus.test.ts",
+      "testTitle": "Tab and Shift+Tab wrap within the overlay"
+    },
+    {
+      "id": "access-revoked-focus-safe-heading",
+      "sourceTest": "docs/master/contracts/w2-overlay-focus.test.ts",
+      "testTitle": "access revocation closes and focuses safe heading without opener restore"
+    },
+    {
+      "id": "loading-status-named-by-section",
+      "sourceTest": "docs/master/contracts/w2-accessibility-state.test.ts",
+      "testTitle": "announcements are scoped, atomic and deduplicable per request"
+    },
+    {
+      "id": "stale-announced-once",
+      "sourceTest": "docs/master/contracts/w2-accessibility-state.test.ts",
+      "testTitle": "stale retains content and announces once without moving focus"
+    },
+    {
+      "id": "pagination-load-more-retains-focus",
+      "sourceTest": "docs/master/contracts/w2-large-collection.test.ts",
+      "testTitle": "remote continuation appears only after local authorized items are visible"
+    },
+    {
+      "id": "sensitive-reveal-revoke-scrubs",
+      "sourceTest": "docs/master/contracts/w2-sensitive-field.test.ts",
+      "testTitle": "reveal then revoke scrubs raw value and capabilities from state"
+    },
+    {
+      "id": "assistant-stream-does-not-move-focus",
+      "sourceTest": "docs/master/contracts/w2-assistant-read-session.test.ts",
+      "testTitle": "streaming text never enables structured controls"
+    }
+  ]
+}

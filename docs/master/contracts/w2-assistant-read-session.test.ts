@@ -33,6 +33,7 @@ test('streaming text never enables structured controls', () => {
   })
   assert.equal(state.status, 'streaming')
   assert.equal(state.structuredControlsEnabled, false)
+  assert.equal('focusTarget' in state, false)
 })
 
 test('structured controls appear only after matching validated grounded final', () => {
