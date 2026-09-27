@@ -2,8 +2,9 @@ import test from 'node:test'
 import assert from 'node:assert/strict'
 import { AuthorizedReconciliationService } from '../src/assistant/reconciliation.js'
 import type { ValueSchema } from '../src/assistant/contracts.js'
+import type { ReconciliationPersistence } from '../src/assistant/durable-db-contract.js'
 import type {
-  DurableIdempotencyRecord, DurableIdempotencyStore, ReconciliationActor,
+  DurableIdempotencyRecord, ReconciliationActor,
   ReconciliationVerification, ReconciliationVerifier,
 } from '../src/assistant/durable-contracts.js'
 
@@ -32,25 +33,28 @@ function fixture(options: {
   readBack?: (record: DurableIdempotencyRecord) => DurableIdempotencyRecord
   verifier?: ReconciliationVerifier
   noSchema?: boolean
+  authorizeResult?: () => Promise<boolean>
+  noResultAuthorizer?: boolean
 } = {}) {
   let calls = 0
   let transitions = 0
   let current = structuredClone(options.initial ?? record)
   const store = {
-    async inspectByOperationRef() {
+    async loadAuthorizedOperation() {
       calls++
       return calls > 1 && options.readBack ? options.readBack(structuredClone(current)) : structuredClone(current)
     },
-    async applyAuthorizedReconciliation() {
+    async commitVerifiedReconciliation(command) {
       transitions++
       current = { ...current, state: 'completed', version: 5 }
-      return { status: 'applied', record: structuredClone(current) }
+      return { status: 'applied', record: structuredClone(current), eventRef: command.eventRef, auditIntentPersisted: true }
     },
-  } as unknown as DurableIdempotencyStore
+  } satisfies ReconciliationPersistence
   const service = new AuthorizedReconciliationService({
-    store, verifier: options.verifier ?? { async verify() { return structuredClone(success) } },
+    persistence: store, verifier: options.verifier ?? { async verify() { return structuredClone(success) } },
     audit: { async emit() {} },
     outputSchemas: options.noSchema ? new Map() : new Map([['crm.task.create', outputSchema]]),
+    ...(options.noResultAuthorizer ? {} : { authorizeResult: options.authorizeResult ?? (async () => true) }),
   })
   return { service, calls: () => calls, transitions: () => transitions }
 }
@@ -130,4 +134,26 @@ test('W4 regression: capability-specific verifier data is validated before any t
   const missing = fixture({ noSchema: true })
   assert.equal((await missing.service.reconcile(actor, request, now)).status, 'CONFLICT')
   assert.equal(missing.transitions(), 0)
+})
+
+test('foreign resource references and missing result authorization have zero transitions', async () => {
+  for (const options of [{ authorizeResult: async () => false }, { noResultAuthorizer: true }, { authorizeResult: async () => { throw new Error('denied') } }]) {
+    const f = fixture(options)
+    assert.equal((await f.service.reconcile(actor, request, now)).status, 'FORBIDDEN')
+    assert.equal(f.transitions(), 0)
+  }
+})
+
+test('unsafe nested verifier structures reject before getters, serialization or mutation', async () => {
+  let getters = 0
+  const accessor = Object.defineProperty({}, 'taskRef', { enumerable: true, get() { getters++; return 'task-a' } })
+  const cyclic: Record<string, unknown> = {}; cyclic.self = cyclic
+  for (const data of [accessor, cyclic, { taskRef: 'task-a', workspace_id: 'foreign' },
+    { taskRef: 'task-a', nested: { WorkspaceId: 'foreign' } }, Object.assign(Object.create({ private: true }), { taskRef: 'task-a' }),
+    { taskRef: 'task-a', [Symbol('private')]: 'detail' }, { taskRef: 'x'.repeat(65537) }]) {
+    const f = fixture({ verifier: { async verify() { return { outcome: 'effect_applied', result: { status: 'SUCCESS', capability: 'crm.task.create', data } } as ReconciliationVerification } } })
+    assert.equal((await f.service.reconcile(actor, request, now)).status, 'CONFLICT')
+    assert.equal(f.transitions(), 0)
+  }
+  assert.equal(getters, 0)
 })

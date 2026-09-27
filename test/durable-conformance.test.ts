@@ -29,6 +29,7 @@ import type {
   ReconciliationVerifier,
 } from '../src/assistant/durable-contracts.js'
 import { AuthorizedReconciliationService } from '../src/assistant/reconciliation.js'
+import type { ReconciliationPersistence, VerifiedReconciliationCommit, ReconciliationCommitDecision } from '../src/assistant/durable-db-contract.js'
 import {
   type DurableAdapterHarness,
   type DurableFaultPoint,
@@ -55,6 +56,7 @@ type ReferenceBacking = {
   outboxSequence: number
   outboxByOperation: Map<string, DurableOutboxRecord>
   outboxByRef: Map<string, DurableOutboxRecord>
+  auditIntents: Map<string, ReconciliationAuditEvent>
 }
 
 function createBacking(): ReferenceBacking {
@@ -67,6 +69,7 @@ function createBacking(): ReferenceBacking {
     outboxSequence: 0,
     outboxByOperation: new Map(),
     outboxByRef: new Map(),
+    auditIntents: new Map(),
   }
 }
 
@@ -146,6 +149,39 @@ class ReferenceConfirmationStore implements DurableConfirmationStore {
 
 class ReferenceIdempotencyStore implements DurableIdempotencyStore {
   constructor(private readonly backing: ReferenceBacking, private readonly faults: Faults) {}
+
+  get auditIntents(): readonly ReconciliationAuditEvent[] { return [...this.backing.auditIntents.values()].map(copy) }
+
+  async loadAuthorizedOperation(actor: ReconciliationActor, ref: string, now: Date): Promise<DurableIdempotencyRecord | null> {
+    if (!actor.permissions.has('assistant:operation:reconcile')) return null
+    const record = this.backing.idempotencyByRef.get(ref)
+    if (!record || record.binding.workspaceId !== actor.workspaceId) return null
+    this.#expire(record, now)
+    return copy(record)
+  }
+
+  /** Synchronous Map transaction model only; NOT a W2 persistence adapter. */
+  async commitVerifiedReconciliation(command: VerifiedReconciliationCommit): Promise<ReconciliationCommitDecision> {
+    const current = this.backing.idempotencyByRef.get(command.operationRef)
+    if (!current) return { status: 'not_found' }
+    if (!command.actor.permissions.has('assistant:operation:reconcile') || command.actor.workspaceId !== current.binding.workspaceId) return { status: 'forbidden' }
+    if (!sameBinding(current.binding, command.binding) || current.idempotencyKey !== command.idempotencyKey) return { status: 'binding_mismatch' }
+    if (current.version !== command.expectedVersion) return { status: 'version_conflict' }
+    if (current.state !== 'reconciliation_required') return { status: 'invalid_transition' }
+    const staged = copy(current)
+    staged.state = command.resolution.outcome
+    staged.version++
+    staged.updatedAt = command.now.toISOString()
+    if (command.resolution.outcome === 'completed') staged.result = copy(command.resolution.result)
+    else staged.failureCode = command.resolution.failureCode
+    const intent = copy(command.auditIntent)
+    const auditKey = JSON.stringify([command.actor.workspaceId, command.eventRef])
+    if (this.backing.auditIntents.has(auditKey)) return { status: 'version_conflict' }
+    // No await or throwing IO between staged commit assignments.
+    Object.assign(current, staged)
+    this.backing.auditIntents.set(auditKey, intent)
+    return { status: 'applied', record: copy(current), eventRef: command.eventRef, auditIntentPersisted: true }
+  }
 
   async reserve(
     binding: IdempotencyBinding,
@@ -562,7 +598,8 @@ test('authorized reconciliation completes only after verified effect and read-af
       data: { taskRef: 'task-opaque-000000000001' },
     },
   })
-  const service = new AuthorizedReconciliationService({ store: adapter.idempotency, verifier, audit,
+  const service = new AuthorizedReconciliationService({ persistence: adapter.idempotency as DurableIdempotencyStore & ReconciliationPersistence, verifier, audit,
+    authorizeResult: async () => true,
     outputSchemas: new Map([[reconciliationBinding.capability, { type: 'object', properties: { taskRef: { type: 'string', minLength: 1, maxLength: 160 } }, required: ['taskRef'], additionalProperties: false }]]),
   })
 
@@ -580,7 +617,7 @@ test('authorized reconciliation completes only after verified effect and read-af
   })
   assert.equal(verifier.calls, 1)
   assert.equal((await adapter.idempotency.inspectByOperationRef(pending.operationRef, reconciliationNow))?.state, 'completed')
-  assert.deepEqual(audit.events.map((event) => event.decision), ['completed'])
+  assert.deepEqual((adapter.idempotency as ReferenceIdempotencyStore).auditIntents.map((event) => event.decision), ['completed'])
   assert.doesNotMatch(JSON.stringify(audit.events), /task-opaque|provider_completion_unknown/)
 })
 
@@ -589,7 +626,7 @@ test('reconciliation denies missing permission and cross-workspace operation ref
   const pending = await operationRequiringReconciliation(adapter)
   const audit = new ReconciliationAudit()
   const verifier = new StaticVerifier({ outcome: 'effect_absent' })
-  const service = new AuthorizedReconciliationService({ store: adapter.idempotency, verifier, audit })
+  const service = new AuthorizedReconciliationService({ persistence: adapter.idempotency as DurableIdempotencyStore & ReconciliationPersistence, verifier, audit })
   const request = {
     operationRef: pending.operationRef,
     expectedVersion: pending.version,
@@ -620,7 +657,7 @@ test('reconciliation rejects browser-supplied outcome data and malformed plans b
   const pending = await operationRequiringReconciliation(adapter)
   const audit = new ReconciliationAudit()
   const verifier = new StaticVerifier({ outcome: 'effect_absent' })
-  const service = new AuthorizedReconciliationService({ store: adapter.idempotency, verifier, audit })
+  const service = new AuthorizedReconciliationService({ persistence: adapter.idempotency as DurableIdempotencyStore & ReconciliationPersistence, verifier, audit })
 
   const forged = await service.reconcile(authorizedActor, {
     operationRef: pending.operationRef,
@@ -647,7 +684,7 @@ test('inconclusive verification cannot force a terminal reconciliation state', a
   const pending = await operationRequiringReconciliation(adapter)
   const audit = new ReconciliationAudit()
   const service = new AuthorizedReconciliationService({
-    store: adapter.idempotency,
+    persistence: adapter.idempotency as DurableIdempotencyStore & ReconciliationPersistence,
     verifier: new StaticVerifier({ outcome: 'inconclusive' }),
     audit,
   })
@@ -670,7 +707,7 @@ test('verified effect absence permits bounded retryable reconciliation', async (
   const pending = await operationRequiringReconciliation(adapter)
   const audit = new ReconciliationAudit()
   const service = new AuthorizedReconciliationService({
-    store: adapter.idempotency,
+    persistence: adapter.idempotency as DurableIdempotencyStore & ReconciliationPersistence,
     verifier: new StaticVerifier({ outcome: 'effect_absent' }),
     audit,
   })
@@ -688,13 +725,13 @@ test('verified effect absence permits bounded retryable reconciliation', async (
   assert.equal(record?.failureCode, 'effect_absence_verified_retryable')
 })
 
-test('audit outage returns bounded uncertainty after an applied reconciliation', async () => {
+test('audit delivery outage cannot erase original committed reconciliation intent', async () => {
   const adapter = harness()
   const pending = await operationRequiringReconciliation(adapter)
   const audit = new ReconciliationAudit()
   audit.fail = true
   const service = new AuthorizedReconciliationService({
-    store: adapter.idempotency,
+    persistence: adapter.idempotency as DurableIdempotencyStore & ReconciliationPersistence,
     verifier: new StaticVerifier({ outcome: 'effect_absent' }),
     audit,
   })
@@ -706,7 +743,8 @@ test('audit outage returns bounded uncertainty after an applied reconciliation',
     reason: 'verified_effect_absence',
   }, reconciliationNow)
 
-  assert.equal(result.status, 'UNAVAILABLE')
-  assert.equal(result.error?.code, 'reconciliation_audit_unavailable')
+  assert.equal(result.status, 'SUCCESS')
+  assert.equal((adapter.idempotency as ReferenceIdempotencyStore).auditIntents.length, 1)
+  assert.equal((adapter.idempotency as ReferenceIdempotencyStore).auditIntents[0]?.decision, 'failed_terminal')
   assert.equal((await adapter.idempotency.inspectByOperationRef(pending.operationRef, reconciliationNow))?.state, 'failed_terminal')
 })
