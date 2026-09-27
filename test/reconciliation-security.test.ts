@@ -33,6 +33,7 @@ function fixture(options: {
   readBack?: (record: DurableIdempotencyRecord) => DurableIdempotencyRecord
   verifier?: ReconciliationVerifier
   noSchema?: boolean
+  schema?: ValueSchema
   authorizeResult?: () => Promise<boolean>
   noResultAuthorizer?: boolean
 } = {}) {
@@ -53,7 +54,7 @@ function fixture(options: {
   const service = new AuthorizedReconciliationService({
     persistence: store, verifier: options.verifier ?? { async verify() { return structuredClone(success) } },
     audit: { async emit() {} },
-    outputSchemas: options.noSchema ? new Map() : new Map([['crm.task.create', outputSchema]]),
+    outputSchemas: options.noSchema ? new Map() : new Map([[current.binding.capability, options.schema ?? outputSchema]]),
     ...(options.noResultAuthorizer ? {} : { authorizeResult: options.authorizeResult ?? (async () => true) }),
   })
   return { service, calls: () => calls, transitions: () => transitions }
@@ -156,4 +157,25 @@ test('unsafe nested verifier structures reject before getters, serialization or 
     assert.equal(f.transitions(), 0)
   }
   assert.equal(getters, 0)
+})
+
+test('both current mutating framework fixtures obey the same zero-transition output gate', async () => {
+  // Synthetic definitions from runtime.test.ts, NOT published telecom write DTOs.
+  for (const [capability, field] of [['crm.task.create', 'created'], ['crm.contract.update', 'updated']] as const) {
+    const initial = { ...record, binding: { ...record.binding, capability } }
+    const schema: ValueSchema = { type: 'object', properties: { [field]: { type: 'boolean' } }, required: [field], additionalProperties: false }
+    const good = { [field]: true }
+    for (const data of [{}, { [field]: 'true' }, { ...good, unknown: 1 }, { ...good, private_field: 'detail' },
+      { ...good, workspaceId: 'foreign' }, { [field]: 'x'.repeat(70_000) }, { [field]: { nested: true } }]) {
+      const f = fixture({ initial, schema, verifier: { async verify() { return { outcome: 'effect_applied', result: { status: 'SUCCESS', capability, data } } } } })
+      assert.equal((await f.service.reconcile(actor, request, now)).status, 'CONFLICT')
+      assert.equal(f.transitions(), 0)
+    }
+    const verifier: ReconciliationVerifier = { async verify() { return { outcome: 'effect_applied', result: { status: 'SUCCESS', capability, data: good } } } }
+    const valid = fixture({ initial, schema, verifier })
+    assert.equal((await valid.service.reconcile(actor, request, now)).status, 'SUCCESS')
+    const foreign = fixture({ initial, schema, verifier, authorizeResult: async () => false })
+    assert.equal((await foreign.service.reconcile(actor, request, now)).status, 'FORBIDDEN')
+    assert.equal(foreign.transitions(), 0)
+  }
 })

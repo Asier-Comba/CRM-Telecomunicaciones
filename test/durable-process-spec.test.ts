@@ -17,5 +17,5 @@ test('portable process oracle rejects duplicate effects, missing audit and forei
   assert.equal(validateDurableObservation('cross_workspace_lookup', good), false)
   assert.equal(validateDurableObservation('cross_workspace_lookup', { ...good, executionAuthorizations: 0, effectCount: 0, originalAuditIntents: 0, deliveredOriginalEvents: 0, state: 'reconciliation_required' }), true)
   assert.equal(new Set(DURABLE_PROCESS_SCENARIOS.map(s => s.id)).size, DURABLE_PROCESS_SCENARIOS.length)
-  assert.equal(DURABLE_PROCESS_SCENARIOS.filter(s => s.workers === 20).length, 2)
+  assert.equal(DURABLE_PROCESS_SCENARIOS.filter(s => s.workers === 20).length, 3)
 })
