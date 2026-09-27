@@ -10,6 +10,10 @@ const domainRunner = await readFile(
   'scripts/security/ephemeral-postgres/domain.mjs',
   'utf8',
 )
+const onboardingRunner = await readFile(
+  'scripts/security/ephemeral-postgres/onboarding.mjs',
+  'utf8',
+)
 
 const functionBlock = (name) => migration.match(
   new RegExp(`create or replace function public\\.${name}\\(\\)[\\s\\S]*?\\n\\$\\$;`),
@@ -58,4 +62,6 @@ test('embedded domain runner is local, zero-to-head and transactional', () => {
   assert.match(domainRunner, /telecom-domain-rls\.sql/)
   assert.match(domainRunner, /fixture must end with rollback/)
   assert.doesNotMatch(domainRunner, /DATABASE_URL|https?:\/\//)
+  assert.match(onboardingRunner, /btree_gist/)
+  assert.match(onboardingRunner, /extensions: \{ pgcrypto, btree_gist \}/)
 })

@@ -268,15 +268,77 @@ insert into public.documents (
 
 -- Import/audit fixtures exercise the real lifecycle so trigger invariants are part
 -- of the database harness, not bypassed by inserting terminal rows directly.
+do $$
+declare denied boolean := false;
+begin
+  begin
+    insert into public.import_jobs (
+      id, workspace_id, import_kind, source_file_ref_id, source_file_digest_hmac,
+      digest_key_version, mapping_schema_version, idempotency_key_id,
+      status, total_rows, valid_rows, applied_rows, checkpoint_rows_processed,
+      completed_at, created_by_user_id
+    ) values (
+      '80000000-0000-0000-0000-000000000090', '20000000-0000-0000-0000-000000000001',
+      'customers', '86000000-0000-0000-0000-000000000090', repeat('9', 64),
+      1, 1, '89000000-0000-0000-0000-000000000090',
+      'completed', 99, 99, 99, 99, now(),
+      '10000000-0000-0000-0000-000000000001'
+    );
+  exception when sqlstate '55000' then denied := true;
+  end;
+  if not denied then raise exception 'terminal import insert was not denied'; end if;
+end;
+$$;
+
+do $$
+declare denied boolean := false;
+begin
+  begin
+    insert into public.import_jobs (
+      id, workspace_id, import_kind, source_file_ref_id, source_file_digest_hmac,
+      digest_key_version, mapping_schema_version, idempotency_key_id,
+      total_rows, created_by_user_id
+    ) values (
+      '80000000-0000-0000-0000-000000000091', '20000000-0000-0000-0000-000000000001',
+      'customers', '86000000-0000-0000-0000-000000000091', repeat('8', 64),
+      1, 1, '89000000-0000-0000-0000-000000000091', 1,
+      '10000000-0000-0000-0000-000000000001'
+    );
+  exception when sqlstate '55000' then denied := true;
+  end;
+  if not denied then raise exception 'fabricated import insert counters were not denied'; end if;
+end;
+$$;
+
+do $$
+declare denied boolean := false;
+begin
+  begin
+    insert into public.import_jobs (
+      id, workspace_id, import_kind, source_file_ref_id, source_file_digest_hmac,
+      digest_key_version, mapping_schema_version, idempotency_key_id,
+      completed_at, created_by_user_id
+    ) values (
+      '80000000-0000-0000-0000-000000000092', '20000000-0000-0000-0000-000000000001',
+      'customers', '86000000-0000-0000-0000-000000000092', repeat('7', 64),
+      1, 1, '89000000-0000-0000-0000-000000000092', now(),
+      '10000000-0000-0000-0000-000000000001'
+    );
+  exception when sqlstate '55000' then denied := true;
+  end;
+  if not denied then raise exception 'completed_at on import insert was not denied'; end if;
+end;
+$$;
+
 insert into public.import_jobs (
   id, workspace_id, import_kind, source_file_ref_id, source_file_digest_hmac,
   digest_key_version, mapping_schema_version, idempotency_key_id, total_rows, created_by_user_id
 ) values
-  ('80000000-0000-0000-0000-000000000001', '20000000-0000-0000-0000-000000000001', 'customers', '86000000-0000-0000-0000-000000000001', repeat('a', 64), 1, 1, '89000000-0000-0000-0000-000000000001', 2, '10000000-0000-0000-0000-000000000001'),
-  ('80000000-0000-0000-0000-000000000002', '20000000-0000-0000-0000-000000000002', 'customers', '86000000-0000-0000-0000-000000000002', repeat('b', 64), 1, 1, '89000000-0000-0000-0000-000000000002', 2, '10000000-0000-0000-0000-000000000003'),
-  ('80000000-0000-0000-0000-000000000003', '20000000-0000-0000-0000-000000000003', 'customers', '86000000-0000-0000-0000-000000000003', repeat('c', 64), 1, 1, '89000000-0000-0000-0000-000000000003', 2, '10000000-0000-0000-0000-000000000004');
+  ('80000000-0000-0000-0000-000000000001', '20000000-0000-0000-0000-000000000001', 'customers', '86000000-0000-0000-0000-000000000001', repeat('a', 64), 1, 1, '89000000-0000-0000-0000-000000000001', 0, '10000000-0000-0000-0000-000000000001'),
+  ('80000000-0000-0000-0000-000000000002', '20000000-0000-0000-0000-000000000002', 'customers', '86000000-0000-0000-0000-000000000002', repeat('b', 64), 1, 1, '89000000-0000-0000-0000-000000000002', 0, '10000000-0000-0000-0000-000000000003'),
+  ('80000000-0000-0000-0000-000000000003', '20000000-0000-0000-0000-000000000003', 'customers', '86000000-0000-0000-0000-000000000003', repeat('c', 64), 1, 1, '89000000-0000-0000-0000-000000000003', 0, '10000000-0000-0000-0000-000000000004');
 
-update public.import_jobs set status = 'mapping';
+update public.import_jobs set status = 'mapping', total_rows = 2;
 
 insert into public.import_field_mappings (
   id, workspace_id, import_job_id, source_column_ordinal,
@@ -311,7 +373,8 @@ insert into public.import_row_issues (
   ('83000000-0000-0000-0000-000000000003', '20000000-0000-0000-0000-000000000003', '80000000-0000-0000-0000-000000000003', '82000000-0000-0000-0000-000000000006', 'error', 'required_missing', 'legal_name', 'import.required_missing');
 
 update public.import_jobs
-   set status = 'ready', valid_rows = 1, invalid_rows = 1, checkpoint_rows_processed = 2;
+   set valid_rows = 1, invalid_rows = 1, checkpoint_rows_processed = 2;
+update public.import_jobs set status = 'ready';
 update public.import_jobs set status = 'applying';
 
 insert into public.import_applications (
@@ -404,7 +467,7 @@ insert into public.import_jobs (
   digest_key_version, mapping_schema_version, idempotency_key_id, total_rows, created_by_user_id
 ) values (
   '80000000-0000-0000-0000-000000000010', '20000000-0000-0000-0000-000000000001',
-  'customers', '86000000-0000-0000-0000-000000000010', repeat('d', 64), 1, 1, '89000000-0000-0000-0000-000000000010', 1,
+  'customers', '86000000-0000-0000-0000-000000000010', repeat('d', 64), 1, 1, '89000000-0000-0000-0000-000000000010', 0,
   '10000000-0000-0000-0000-000000000001'
 );
 do $$
@@ -412,7 +475,7 @@ declare denied boolean := false;
 begin
   begin
     update public.import_jobs
-       set status = 'failed', valid_rows = 1, checkpoint_rows_processed = 1,
+       set status = 'failed', total_rows = 1, valid_rows = 1, checkpoint_rows_processed = 1,
            failure_code = 'system_failure'
      where id = '80000000-0000-0000-0000-000000000010';
   exception when sqlstate '55000' then denied := true;
@@ -426,10 +489,10 @@ insert into public.import_jobs (
   digest_key_version, mapping_schema_version, idempotency_key_id, total_rows, created_by_user_id
 ) values (
   '80000000-0000-0000-0000-000000000011', '20000000-0000-0000-0000-000000000001',
-  'customers', '86000000-0000-0000-0000-000000000011', repeat('e', 64), 1, 1, '89000000-0000-0000-0000-000000000011', 1,
+  'customers', '86000000-0000-0000-0000-000000000011', repeat('e', 64), 1, 1, '89000000-0000-0000-0000-000000000011', 0,
   '10000000-0000-0000-0000-000000000001'
 );
-update public.import_jobs set status = 'mapping'
+update public.import_jobs set status = 'mapping', total_rows = 1
  where id = '80000000-0000-0000-0000-000000000011';
 update public.import_jobs set status = 'validating'
  where id = '80000000-0000-0000-0000-000000000011';
