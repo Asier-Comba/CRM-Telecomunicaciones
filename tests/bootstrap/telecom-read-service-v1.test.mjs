@@ -13,13 +13,13 @@ const context = {
 }
 const input = { limit: 20, continuation: null }
 
-function collection(scopeEpoch = context.scope_epoch) {
+function collection(scopeEpoch = context.scope_epoch, items = []) {
   return {
     contract_version: 'telecom.v1',
     scope_epoch: scopeEpoch,
     source_state: 'available',
     permission: 'authorized',
-    items: [],
+    items,
     completeness: { kind: 'complete' },
     continuation: null,
     freshness: { kind: 'fresh', as_of: '2026-09-26T00:00:00Z' },
@@ -38,7 +38,31 @@ function readOne(scopeEpoch = context.scope_epoch) {
   }
 }
 
-function harness({ allowed = true, listResult = collection(), oneResult = readOne(), throws = false } = {}) {
+function task(id = '33333333-3333-3333-3333-333333333333') {
+  return {
+    id,
+    kind: 'task',
+    customer: null,
+    title: 'Synthetic follow-up',
+    destination: null,
+    capabilities: [],
+    status: 'pending',
+    priority: 'normal',
+    due_at: '2026-09-28T09:00:00Z',
+    assignee: null,
+    version: 1,
+  }
+}
+
+function harness({
+  allowed = true,
+  referencesAllowed = true,
+  capabilitiesAllowed = true,
+  current = true,
+  listResult = collection(),
+  oneResult = readOne(),
+  throws = false,
+} = {}) {
   const calls = []
   const repository = new Proxy({}, {
     get: (_target, property) => async (ctx, value) => {
@@ -52,6 +76,10 @@ function harness({ allowed = true, listResult = collection(), oneResult = readOn
       calls.push({ layer: 'authorizer', operation, ctx })
       return allowed
     },
+    async authorizeReference() { return referencesAllowed },
+    async authorizeCapability() { return capabilitiesAllowed },
+    isCurrent() { return current },
+    now() { return '2026-09-27T12:00:00Z' },
   }
   return { service: new AuthorizedTelecomReadServiceV1(repository, authorizer), calls }
 }
@@ -109,11 +137,97 @@ test('closed enums and bounded dates are validated before authorization', async 
   assert.equal(calls.length, 0)
 })
 
+test('strict calendar validation rejects rollover dates before persistence', async () => {
+  for (const value of [
+    '2026-02-30', '2025-02-29', '2026-13-01', '2026-00-10',
+    '2026-04-31', '2026-99-99', '2026-01-00', '2026-01-32',
+  ]) {
+    const { service, calls } = harness()
+    const result = await service.taskList(context, { ...input, from: value, to: value })
+    assert.equal(result.error.code, 'validation', value)
+    assert.equal(calls.length, 0, value)
+  }
+})
+
+test('strict calendar validation accepts a real leap day and stale past date', async () => {
+  for (const value of ['2024-02-29', '2020-01-01']) {
+    const { service, calls } = harness()
+    const result = await service.taskList(context, { ...input, from: value, to: value })
+    assert.equal(result.source_state, 'available', value)
+    assert.equal(calls.filter(({ layer }) => layer === 'repository').length, 1, value)
+  }
+})
+
 test('repository scope/version mismatch fails closed', async () => {
   const { service } = harness({ listResult: collection('another-scope') })
   const result = await service.activityList(context, input)
   assert.equal(result.source_state, 'error')
   assert.equal(result.error.code, 'access_revoked')
+})
+
+test('malformed runtime JSON is rejected deterministically without throwing', async () => {
+  const cases = [
+    null,
+    [],
+    {},
+    { ...collection(), private_internal_field: 'SYNTHETIC_PRIVATE_VALUE' },
+    { ...collection(), permission: 7 },
+    { ...collection(), source_state: 'invented' },
+    { ...collection(), items: [{ ...task(), status: 'invented' }] },
+    { ...collection(), items: Array.from({ length: 101 }, (_, index) => task(`33333333-3333-3333-3333-${String(index).padStart(12, '0')}`)) },
+  ]
+  for (const value of cases) {
+    const { service } = harness({ listResult: value })
+    const result = await service.taskList(context, input)
+    assert.equal(result.source_state, 'error')
+    assert.equal(result.error.code, 'internal_safe')
+  }
+})
+
+test('one malformed item rejects the whole section rather than silently dropping it', async () => {
+  const value = collection(context.scope_epoch, [task(), { ...task('44444444-4444-4444-4444-444444444444'), scope_epoch: 'foreign-scope-0001' }])
+  const { service } = harness({ listResult: value })
+  const result = await service.taskList(context, input)
+  assert.equal(result.source_state, 'error')
+  assert.equal(result.items, null)
+})
+
+test('nested references and capabilities are reauthorized server-side', async () => {
+  const customer = { kind: 'customer', id: '44444444-4444-4444-4444-444444444444', display_name: 'Synthetic customer' }
+  const referenced = task()
+  referenced.customer = customer
+  const deniedReference = harness({ listResult: collection(context.scope_epoch, [referenced]), referencesAllowed: false })
+  assert.equal((await deniedReference.service.taskList(context, input)).error.code, 'access_revoked')
+
+  const withCapability = task()
+  withCapability.capabilities = [{
+    ref: 'capability-ref-0001',
+    action: 'complete',
+    target: { kind: 'task', id: withCapability.id },
+    expires_at: '2026-09-28T12:00:00Z',
+  }]
+  const deniedCapability = harness({ listResult: collection(context.scope_epoch, [withCapability]), capabilitiesAllowed: false })
+  assert.equal((await deniedCapability.service.taskList(context, input)).error.code, 'access_revoked')
+})
+
+test('unsafe repository error details and malformed timestamps never cross the boundary', async () => {
+  const unsafe = {
+    ...collection(),
+    source_state: 'error',
+    permission: 'unknown',
+    items: null,
+    completeness: null,
+    continuation: null,
+    freshness: null,
+    error: { code: 'internal_safe', retryable: false, message: 'SYNTHETIC_PRIVATE_PROVIDER_DETAIL' },
+  }
+  const malformedTimestamp = collection(context.scope_epoch, [{ ...task(), due_at: '2026-09-28T09:00:00+25:00' }])
+  for (const value of [unsafe, malformedTimestamp]) {
+    const { service } = harness({ listResult: value })
+    const result = await service.taskList(context, input)
+    assert.equal(result.error.code, 'internal_safe')
+    assert.doesNotMatch(JSON.stringify(result), /SYNTHETIC_PRIVATE_PROVIDER_DETAIL/)
+  }
 })
 
 test('repository errors are reduced to safe codes', async () => {
@@ -125,7 +239,9 @@ test('repository errors are reduced to safe codes', async () => {
 })
 
 test('the service is a repository boundary, not a raw table client', () => {
-  assert.match(source, /type TelecomReadRepositoryV1 = TelecomReadServiceV1/)
+  assert.match(source, /Promise<unknown>/)
+  assert.match(source, /parseTelecomCollectionV1/)
+  assert.match(source, /parseTelecomReadOneV1/)
   assert.match(source, /createTelecomReadContextV1/)
   assert.doesNotMatch(source, /\.from\(|createClient|service_role|x-workspace-id/)
 })

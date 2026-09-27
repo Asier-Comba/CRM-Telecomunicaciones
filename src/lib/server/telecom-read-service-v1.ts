@@ -1,11 +1,13 @@
 import type {
   ActivityItemV1,
+  CapabilityRefV1,
   CollectionEnvelopeV1,
   ContractListInputV1,
   CustomerCompanyV1,
   CustomerSearchInputV1,
   CustomerSummaryV1,
   DashboardV1,
+  EntityKindV1,
   LineListInputV1,
   MeetingItemV1,
   MeetingListInputV1,
@@ -26,16 +28,38 @@ import type {
   WindowedListInputV1,
 } from '../contracts/telecom-v1'
 import type { TenantContext } from './tenant-context'
+import {
+  isStrictCalendarDateV1,
+  parseTelecomCollectionV1,
+  parseTelecomReadOneV1,
+  type TelecomRuntimePolicyV1,
+} from './telecom-runtime-v1.ts'
 
 export interface TelecomReadAuthorizerV1 {
   authorize(context: ServerReadContextV1, operation: TelecomV1ReadOperation): Promise<boolean>
+  authorizeReference(
+    context: ServerReadContextV1,
+    reference: Readonly<{ kind: EntityKindV1; id: string }>,
+  ): Promise<boolean>
+  authorizeCapability(
+    context: ServerReadContextV1,
+    capability: Readonly<CapabilityRefV1>,
+  ): Promise<boolean>
+  isCurrent(context: ServerReadContextV1): boolean
+  now(): string
 }
 
 /**
  * Persistence adapter boundary. Implementations run server-side and receive the
  * already resolved workspace context; route/body inputs never provide it.
  */
-export type TelecomReadRepositoryV1 = TelecomReadServiceV1
+export type TelecomReadRepositoryV1 = {
+  [Operation in keyof TelecomReadServiceV1]: TelecomReadServiceV1[Operation] extends (
+    ...args: infer Arguments
+  ) => Promise<unknown>
+    ? (...args: Arguments) => Promise<unknown>
+    : never
+}
 
 type CollectionInput = { limit: number; continuation: string | null }
 const CONTRACT_VERSION = 'telecom.v1' as const
@@ -59,12 +83,11 @@ export function createTelecomReadContextV1(
 }
 
 function validContext(context: ServerReadContextV1): boolean {
-  return typeof context.actor_id === 'string' && typeof context.workspace_id === 'string' && typeof context.scope_epoch === 'string' &&
-    Boolean(context.actor_id.trim() && context.workspace_id.trim() && context.scope_epoch.trim())
+  return validId(context.actor_id) && validId(context.workspace_id) && validId(context.scope_epoch)
 }
 
 function validId(value: unknown): value is string {
-  return typeof value === 'string' && value.length >= 16 && value.length <= 160
+  return typeof value === 'string' && value.length >= 16 && value.length <= 160 && /^[A-Za-z0-9][A-Za-z0-9_.:-]*$/.test(value)
 }
 
 function closedInput(input: unknown, allowedKeys: readonly string[]): input is Record<string, unknown> {
@@ -82,11 +105,10 @@ function validOptionalIds(input: Record<string, unknown>, keys: readonly string[
 }
 
 function validDateBounds(input: Record<string, unknown>, fromKey: string, toKey: string): boolean {
-  const isoDate = /^\d{4}-\d{2}-\d{2}$/
   const from = input[fromKey]
   const to = input[toKey]
-  if (from !== undefined && (typeof from !== 'string' || !isoDate.test(from))) return false
-  if (to !== undefined && (typeof to !== 'string' || !isoDate.test(to))) return false
+  if (from !== undefined && !isStrictCalendarDateV1(from)) return false
+  if (to !== undefined && !isStrictCalendarDateV1(to)) return false
   return typeof from !== 'string' || typeof to !== 'string' || from <= to
 }
 
@@ -127,13 +149,6 @@ function oneFailure<T>(
   } as ReadOneResponseV1<T>
 }
 
-function hasExpectedScope(
-  value: { contract_version: string; scope_epoch: string },
-  context: ServerReadContextV1,
-): boolean {
-  return value.contract_version === CONTRACT_VERSION && value.scope_epoch === context.scope_epoch
-}
-
 export class AuthorizedTelecomReadServiceV1 implements TelecomReadServiceV1 {
   readonly #repository: TelecomReadRepositoryV1
   readonly #authorizer: TelecomReadAuthorizerV1
@@ -143,13 +158,30 @@ export class AuthorizedTelecomReadServiceV1 implements TelecomReadServiceV1 {
     this.#authorizer = authorizer
   }
 
+  #runtimePolicy(context: ServerReadContextV1): TelecomRuntimePolicyV1 {
+    return {
+      scopeEpoch: context.scope_epoch,
+      now: this.#authorizer.now(),
+      isCurrent: () => {
+        try { return this.#authorizer.isCurrent(context) } catch { return false }
+      },
+      currentNow: () => this.#authorizer.now(),
+      authorizeReference: (reference) => this.#authorizer.authorizeReference(context, reference),
+      authorizeCapability: (capability) => this.#authorizer.authorizeCapability(context, capability),
+    }
+  }
+
+  #current(context: ServerReadContextV1): boolean {
+    try { return this.#authorizer.isCurrent(context) } catch { return false }
+  }
+
   async #collection<T>(
     operation: TelecomV1ReadOperation,
     context: ServerReadContextV1,
     input: CollectionInput,
     allowedKeys: readonly string[],
     validate: (input: Record<string, unknown>) => boolean,
-    read: () => Promise<CollectionEnvelopeV1<T>>,
+    read: () => Promise<unknown>,
   ): Promise<CollectionEnvelopeV1<T>> {
     if (!validContext(context)) return collectionFailure(context, 'not_authorized', null)
     if (!validCollectionInput(input, allowedKeys) || !validate(input)) return collectionFailure(context, 'error', invalid)
@@ -159,10 +191,12 @@ export class AuthorizedTelecomReadServiceV1 implements TelecomReadServiceV1 {
     } catch {
       return collectionFailure(context, 'error', unavailable)
     }
-    if (!authorized) return collectionFailure(context, 'not_authorized', null)
+    if (!authorized || !this.#current(context)) return collectionFailure(context, 'not_authorized', null)
     try {
-      const result = await read()
-      return hasExpectedScope(result, context) ? result : collectionFailure(context, 'error', revoked)
+      const result: unknown = await read()
+      if (!this.#current(context)) return collectionFailure(context, 'error', revoked)
+      const parsed = await parseTelecomCollectionV1<T>(operation, result, this.#runtimePolicy(context))
+      return parsed.ok ? parsed.value : collectionFailure(context, 'error', parsed.code === 'access_revoked' ? revoked : internal)
     } catch {
       return collectionFailure(context, 'error', internal)
     }
@@ -174,7 +208,7 @@ export class AuthorizedTelecomReadServiceV1 implements TelecomReadServiceV1 {
     input: Record<string, unknown>,
     allowedKeys: readonly string[],
     id: string | null,
-    read: () => Promise<ReadOneResponseV1<T>>,
+    read: () => Promise<unknown>,
   ): Promise<ReadOneResponseV1<T>> {
     if (!validContext(context)) return oneFailure(context, 'not_authorized', null)
     if (!closedInput(input, allowedKeys) || (id !== null && !validId(id))) return oneFailure(context, 'error', invalid)
@@ -184,17 +218,19 @@ export class AuthorizedTelecomReadServiceV1 implements TelecomReadServiceV1 {
     } catch {
       return oneFailure(context, 'error', unavailable)
     }
-    if (!authorized) return oneFailure(context, 'not_authorized', null)
+    if (!authorized || !this.#current(context)) return oneFailure(context, 'not_authorized', null)
     try {
-      const result = await read()
-      return hasExpectedScope(result, context) ? result : oneFailure(context, 'error', revoked)
+      const result: unknown = await read()
+      if (!this.#current(context)) return oneFailure(context, 'error', revoked)
+      const parsed = await parseTelecomReadOneV1<T>(operation, result, this.#runtimePolicy(context))
+      return parsed.ok ? parsed.value : oneFailure(context, 'error', parsed.code === 'access_revoked' ? revoked : internal)
     } catch {
       return oneFailure(context, 'error', internal)
     }
   }
 
   customerSearch(context: ServerReadContextV1, input: CustomerSearchInputV1) {
-    return this.#collection('customer.search', context, input,
+    return this.#collection<CustomerCompanyV1>('customer.search', context, input,
       ['query', 'assigned_user_id', 'status', 'limit', 'continuation'],
       (value) => typeof value.query === 'string' && value.query.trim().length >= 1 && value.query.length <= 200 &&
         validOptionalIds(value, ['assigned_user_id']) && validEnum(value, 'status', ['active', 'inactive', 'archived']),
