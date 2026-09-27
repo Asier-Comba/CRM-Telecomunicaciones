@@ -23,6 +23,8 @@ test('onboarding is one authenticated transaction with an owner membership', () 
   assert.match(sql, /insert into public\.workspace_members[\s\S]*'owner', 'active'/)
   assert.match(sql, /insert into public\.profiles/)
   assert.match(migrationSql, /grant execute on function public\.provision_workspace\(text, text\) to authenticated/)
+  assert.match(sql, /on conflict on constraint profiles_pkey do update/)
+  assert.doesNotMatch(sql, /on conflict\s*\(id\)/)
 })
 
 test('retry returns an existing active membership before inserting', () => {
