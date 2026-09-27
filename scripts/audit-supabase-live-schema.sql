@@ -21,6 +21,7 @@ target_relations(name) as (
     ('contacts'),
     ('conversations'),
     ('customers'),
+    ('documents'),
     ('entity_files'),
     ('inbox_agent_settings'),
     ('integrations'),

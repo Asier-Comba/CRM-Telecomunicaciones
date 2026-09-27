@@ -14,6 +14,7 @@ const relations = [
   'telecom_plan_versions', 'telecom_contracts', 'telecom_services',
   'telecom_lines', 'telecom_commitments', 'telecom_renewals',
   'opportunity_stages', 'opportunities', 'tasks', 'calendar_events', 'activities',
+  'service_cases', 'documents',
 ]
 
 test('database harness is test-only, transactional and synthetic', () => {
@@ -30,6 +31,9 @@ test('database harness is test-only, transactional and synthetic', () => {
   assert.match(sql, /cross join generate_series\(1, 3\)/)
   assert.match(sql, /current_date \+ 20/)
   assert.match(sql, /current_date \+ 30/)
+  for (const target of ['customer_id', 'contract_id', 'service_id', 'line_id', 'service_case_id', 'opportunity_id']) {
+    assert.match(sql, new RegExp(`public\\.documents \\([\\s\\S]*${target}`))
+  }
   assert.doesNotMatch(sql, /service_role|supabase\.co|https?:\/\//i)
 })
 
@@ -58,6 +62,11 @@ test('database harness covers representative authorization and tenant attacks', 
   assert.match(sql, /tenant identity mutation was not denied/)
   assert.match(sql, /member insert was not denied/)
   assert.match(sql, /viewer insert was not denied/)
+  assert.match(sql, /document retarget was not denied/)
+  assert.match(sql, /invalid document path was not denied/)
+  assert.match(sql, /cross-scope service case was not denied/)
+  assert.match(sql, /foreign service-case assignee was not denied/)
+  assert.match(sql, /invalid service-case chronology was not denied/)
 })
 
 test('temporary grants and fixtures cannot survive the harness', () => {
