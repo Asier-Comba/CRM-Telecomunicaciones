@@ -30,6 +30,7 @@ target_relations(name) as (
     ('n8n_flows'),
     ('n8n_trigger_logs'),
     ('notifications'),
+    ('opportunity_stages'),
     ('opportunities'),
     ('profiles'),
     ('properties'),

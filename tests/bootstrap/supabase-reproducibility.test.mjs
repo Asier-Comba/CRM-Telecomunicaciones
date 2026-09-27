@@ -22,9 +22,14 @@ test('the known Supabase drift remains explicit', () => {
   assert.deepEqual(
     report.createdRelations,
     [
+      'activities',
+      'calendar_events',
       'contacts',
       'customers',
+      'opportunities',
+      'opportunity_stages',
       'profiles',
+      'tasks',
       'telecom_commitments',
       'telecom_contracts',
       'telecom_lines',
