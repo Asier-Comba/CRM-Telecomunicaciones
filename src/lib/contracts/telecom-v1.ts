@@ -48,7 +48,7 @@ export type IsoDateTimeV1 = string
 
 export type EntityKindV1 =
   | 'user' | 'customer' | 'contact' | 'operator' | 'plan'
-  | 'contract' | 'service' | 'line'
+  | 'contract' | 'service' | 'line' | 'commitment'
   | 'permanence' | 'renewal' | 'opportunity'
   | 'opportunity_stage' | 'task' | 'meeting' | 'activity'
   | 'document' | 'incident'
@@ -60,7 +60,7 @@ export type EntityRefV1 = {
 }
 
 export type SafeErrorCodeV1 =
-  | 'not_found' | 'forbidden' | 'validation' | 'conflict'
+  | 'unauthorized' | 'not_found' | 'forbidden' | 'validation' | 'conflict'
   | 'rate_limited' | 'temporary_unavailable' | 'stale'
   | 'access_revoked' | 'internal_safe'
 
@@ -70,18 +70,51 @@ export type SafeErrorV1 = {
   correlation_id?: string
 }
 
-export type CollectionEnvelopeV1<T> =
+type VersionedScopeV1 = {
+  contract_version: typeof TELECOM_CONTRACT_VERSION_V1
+  scope_epoch: string
+}
+
+export type CollectionEnvelopeV1<T> = VersionedScopeV1 & (
+  | {
+      source_state: 'available'
+      permission: 'authorized'
+      items: readonly T[]
+      completeness: { kind: 'complete' }
+      continuation: null
+      freshness: { kind: 'fresh'; as_of: IsoDateTimeV1 }
+      error: null
+    }
+  | {
+      source_state: 'available'
+      permission: 'authorized'
+      items: readonly T[]
+      completeness: { kind: 'partial'; has_more: true }
+      continuation: string | null
+      freshness: { kind: 'fresh'; as_of: IsoDateTimeV1 }
+      error: null
+    }
   | {
       source_state: 'available'
       permission: 'authorized'
       items: readonly T[]
       completeness: { kind: 'complete' } | { kind: 'partial'; has_more: true }
-      continuation: string | null
-      freshness: { kind: 'fresh' | 'stale'; as_of: IsoDateTimeV1 }
+      continuation: null
+      freshness: { kind: 'stale'; as_of: IsoDateTimeV1; notice: SafeErrorV1 | null }
       error: null
     }
   | {
-      source_state: 'unsupported' | 'unavailable'
+      source_state: 'unsupported'
+      reason: 'contract_not_published'
+      permission: 'unknown'
+      items: null
+      completeness: null
+      continuation: null
+      freshness: null
+      error: null
+    }
+  | {
+      source_state: 'unavailable'
       permission: 'unknown'
       items: null
       completeness: null
@@ -107,6 +140,7 @@ export type CollectionEnvelopeV1<T> =
       freshness: null
       error: SafeErrorV1
     }
+)
 
 export type FieldClassV1 =
   | 'tax_identifier' | 'contact_email' | 'contact_phone'
@@ -124,25 +158,29 @@ export type CapabilityRefV1 = {
 
 /** Base readers never return a revealed value. */
 export type ProtectedFieldV1 =
-  | { visibility: 'not_available' }
-  | { visibility: 'hidden' }
+  | { field_class: FieldClassV1; visibility: 'not_available' }
+  | { field_class: FieldClassV1; visibility: 'hidden' }
   | {
+      field_class: FieldClassV1
       visibility: 'masked'
       masked_text: string
-      reveal_capability: CapabilityRefV1 | null
+      reveal_capability: CapabilityRefV1
     }
 
 /** Only a short-lived, reauthorized reveal operation may return this shape. */
 export type RevealedFieldV1<T> = {
+  field_class: FieldClassV1
   visibility: 'revealed'
   masked_text: string
   revealed_value: T
+  reveal_capability: CapabilityRefV1
   copy_capability: CapabilityRefV1 | null
   expires_at: IsoDateTimeV1
 }
 
 export type CustomerCompanyV1 = {
   contract_version: typeof TELECOM_CONTRACT_VERSION_V1
+  scope_epoch: string
   id: string
   account_kind: 'legal_entity' | 'sole_trader'
   legal_name: string
@@ -155,12 +193,66 @@ export type CustomerCompanyV1 = {
   capabilities: readonly CapabilityRefV1[]
 }
 
-type AttentionBaseV1 = {
+export type TelecomContractV1 = {
+  contract_version: typeof TELECOM_CONTRACT_VERSION_V1
+  scope_epoch: string
   id: string
   customer: EntityRefV1
+  operator: EntityRefV1
+  plan: EntityRefV1 | null
+  external_reference: ProtectedFieldV1
+  status: 'draft' | 'active' | 'ended' | 'cancelled'
+  start_date: IsoDateV1
+  signed_date: IsoDateV1 | null
+  end_date: IsoDateV1 | null
+  cancelled_at: IsoDateTimeV1 | null
+  assigned_user: EntityRefV1 | null
+  capabilities: readonly CapabilityRefV1[]
+}
+
+export type TelecomServiceV1 = {
+  contract_version: typeof TELECOM_CONTRACT_VERSION_V1
+  scope_epoch: string
+  id: string
+  customer: EntityRefV1
+  contract: EntityRefV1
+  operator: EntityRefV1
+  plan: EntityRefV1 | null
+  service_kind: 'mobile' | 'fiber' | 'fixed_voice' | 'data_connectivity' | 'other'
+  display_name: string
+  status: 'pending' | 'active' | 'suspended' | 'ended' | 'cancelled'
+  activated_on: IsoDateV1 | null
+  ended_on: IsoDateV1 | null
+  capabilities: readonly CapabilityRefV1[]
+}
+
+export type TelecomLineV1 = {
+  contract_version: typeof TELECOM_CONTRACT_VERSION_V1
+  scope_epoch: string
+  id: string
+  service: EntityRefV1
+  identifier: ProtectedFieldV1
+  status: 'pending' | 'active' | 'suspended' | 'ended' | 'cancelled'
+  activated_on: IsoDateV1 | null
+  ended_on: IsoDateV1 | null
+  capabilities: readonly CapabilityRefV1[]
+}
+
+export type NavigationTargetV1 =
+  | { kind: 'customer'; customer_id: string }
+  | { kind: 'contract'; contract_id: string }
+  | { kind: 'service'; service_id: string }
+  | { kind: 'line'; line_id: string }
+  | { kind: 'task'; task_id: string }
+  | { kind: 'meeting'; meeting_id: string }
+  | { kind: 'opportunity'; opportunity_id: string }
+
+type AttentionBaseV1 = {
+  id: string
+  customer: EntityRefV1 | null
   title: string
   relevant_at: IsoDateTimeV1 | null
-  destination: EntityRefV1
+  destination: NavigationTargetV1 | null
   capabilities: readonly CapabilityRefV1[]
 }
 
@@ -197,7 +289,7 @@ export type PermanenceItemV1 = AttentionBaseV1 & {
   status: 'upcoming' | 'active' | 'ended' | 'cancelled'
   starts_on: IsoDateV1
   ends_on: IsoDateV1
-  reason_code: string
+  reason_code: 'minimum_term' | 'device' | 'subsidy' | 'discount' | 'other'
 }
 
 export type OpportunityItemV1 = AttentionBaseV1 & {
@@ -227,6 +319,7 @@ export type ActivityItemV1 = {
 
 export type CustomerAttentionV1 = {
   contract_version: typeof TELECOM_CONTRACT_VERSION_V1
+  scope_epoch: string
   customer_id: string
   generated_at: IsoDateTimeV1
   next_task: CollectionEnvelopeV1<TaskItemV1>
@@ -237,12 +330,23 @@ export type CustomerAttentionV1 = {
   recent_activity: CollectionEnvelopeV1<ActivityItemV1>
 }
 
+export type CustomerSummaryV1 = {
+  contract_version: typeof TELECOM_CONTRACT_VERSION_V1
+  scope_epoch: string
+  customer: CustomerCompanyV1
+  contracts: CollectionEnvelopeV1<TelecomContractV1>
+  services: CollectionEnvelopeV1<TelecomServiceV1>
+  lines: CollectionEnvelopeV1<TelecomLineV1>
+  attention: CustomerAttentionV1
+}
+
 export type DashboardItemV1 =
   | TaskItemV1 | MeetingItemV1 | RenewalItemV1
   | PermanenceItemV1 | OpportunityItemV1
 
 export type DashboardV1 = {
   contract_version: typeof TELECOM_CONTRACT_VERSION_V1
+  scope_epoch: string
   generated_at: IsoDateTimeV1
   scope: {
     audience: 'personal' | 'team' | 'workspace'
@@ -270,20 +374,35 @@ export type ListInputV1 = {
   continuation: string | null
 }
 
+export type ReadOneResponseV1<T> = VersionedScopeV1 & (
+  | {
+      result: 'found'
+      data: T
+      freshness: { kind: 'fresh' | 'stale'; as_of: IsoDateTimeV1 }
+      error: null
+    }
+  | {
+      result: 'not_found' | 'not_authorized' | 'unavailable' | 'error'
+      data: null
+      freshness: null
+      error: SafeErrorV1 | null
+    }
+)
+
 /** Inputs never contain workspace_id; context is resolved and authorized first. */
 export interface TelecomReadServiceV1 {
   customerSearch(context: ServerReadContextV1, input: ListInputV1 & { query: string }): Promise<CollectionEnvelopeV1<CustomerCompanyV1>>
-  customerGet(context: ServerReadContextV1, input: { customer_id: string }): Promise<CustomerCompanyV1>
-  customerSummary(context: ServerReadContextV1, input: { customer_id: string }): Promise<CustomerAttentionV1>
-  contractList(context: ServerReadContextV1, input: ListInputV1 & { customer_id?: string }): Promise<CollectionEnvelopeV1<EntityRefV1>>
-  contractGet(context: ServerReadContextV1, input: { contract_id: string }): Promise<EntityRefV1>
-  serviceList(context: ServerReadContextV1, input: ListInputV1 & { customer_id?: string }): Promise<CollectionEnvelopeV1<EntityRefV1>>
-  lineList(context: ServerReadContextV1, input: ListInputV1 & { customer_id?: string }): Promise<CollectionEnvelopeV1<EntityRefV1>>
+  customerGet(context: ServerReadContextV1, input: { customer_id: string }): Promise<ReadOneResponseV1<CustomerCompanyV1>>
+  customerSummary(context: ServerReadContextV1, input: { customer_id: string }): Promise<ReadOneResponseV1<CustomerSummaryV1>>
+  contractList(context: ServerReadContextV1, input: ListInputV1 & { customer_id?: string }): Promise<CollectionEnvelopeV1<TelecomContractV1>>
+  contractGet(context: ServerReadContextV1, input: { contract_id: string }): Promise<ReadOneResponseV1<TelecomContractV1>>
+  serviceList(context: ServerReadContextV1, input: ListInputV1 & { customer_id?: string }): Promise<CollectionEnvelopeV1<TelecomServiceV1>>
+  lineList(context: ServerReadContextV1, input: ListInputV1 & { customer_id?: string }): Promise<CollectionEnvelopeV1<TelecomLineV1>>
   renewalList(context: ServerReadContextV1, input: ListInputV1 & { customer_id?: string }): Promise<CollectionEnvelopeV1<RenewalItemV1>>
   permanenceList(context: ServerReadContextV1, input: ListInputV1 & { customer_id?: string }): Promise<CollectionEnvelopeV1<PermanenceItemV1>>
   taskList(context: ServerReadContextV1, input: ListInputV1 & { customer_id?: string }): Promise<CollectionEnvelopeV1<TaskItemV1>>
   meetingList(context: ServerReadContextV1, input: ListInputV1 & { customer_id?: string }): Promise<CollectionEnvelopeV1<MeetingItemV1>>
   activityList(context: ServerReadContextV1, input: ListInputV1 & { customer_id?: string }): Promise<CollectionEnvelopeV1<ActivityItemV1>>
   opportunityList(context: ServerReadContextV1, input: ListInputV1 & { customer_id?: string }): Promise<CollectionEnvelopeV1<OpportunityItemV1>>
-  dashboardGet(context: ServerReadContextV1, input: { audience: 'personal' | 'team' | 'workspace' }): Promise<DashboardV1>
+  dashboardGet(context: ServerReadContextV1, input: { audience: 'personal' | 'team' | 'workspace' }): Promise<ReadOneResponseV1<DashboardV1>>
 }
