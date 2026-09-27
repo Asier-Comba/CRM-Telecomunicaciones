@@ -1,0 +1,84 @@
+diff --git a/test/reconciliation-atomic-runtime.test.ts b/test/reconciliation-atomic-runtime.test.ts
+index acc1f77..8bab10a 100644
+--- a/test/reconciliation-atomic-runtime.test.ts
++++ b/test/reconciliation-atomic-runtime.test.ts
+@@ -74,3 +74,79 @@ test('concurrent reconcilers commit one original intent and reauthorize at commi
+   assert.notEqual((await runtime.reconcile(actor, request, now)).status, 'SUCCESS')
+   assert.equal(revoked.memory.commits, 0)
+ })
++
++test('W4 delta: missing or wrong atomic intent acknowledgement cannot claim success', async () => {
++  for (const mode of ['missing', 'false', 'wrong-event'] as const) {
++    const port = new ReferencePort(backing())
++    const persistence: ReconciliationPersistence = {
++      loadAuthorizedOperation: (...args) => port.loadAuthorizedOperation(args[0], args[1]),
++      async commitVerifiedReconciliation(cmd) {
++        const applied = await port.commitVerifiedReconciliation(cmd)
++        assert.equal(applied.status, 'applied')
++        const bad = { ...applied } as unknown as Record<string, unknown>
++        if (mode === 'missing') delete bad.auditIntentPersisted
++        if (mode === 'false') bad.auditIntentPersisted = false
++        if (mode === 'wrong-event') bad.eventRef = 'wrong-event'
++        return bad as unknown as ReconciliationCommitDecision
++      },
++    }
++    const runtime = new AuthorizedReconciliationService({ persistence, verifier: { async verify() { return { outcome: 'effect_absent' } } }, audit: { async emit() {} } })
++    assert.equal((await runtime.reconcile(actor, request, now)).status, 'UNAVAILABLE')
++  }
++})
++
++test('W4 delta: sink outage plus lost reply preserves original intent across retry', async () => {
++  const memory = backing(); const port = new ReferencePort(memory); port.crash = 'after_commit'
++  const runtime = service(port, { async emit() { throw new Error('sink_down') } })
++  assert.equal((await runtime.reconcile(actor, request, now)).status, 'UNAVAILABLE')
++  const original = structuredClone([...memory.intents.values()][0])
++  assert.equal((await service(new ReferencePort(memory)).reconcile(actor, request, now)).status, 'CONFLICT')
++  assert.equal(memory.commits, 1)
++  assert.deepEqual([...memory.intents.values()], [original])
++})
++
++test('W4 delta: missing false throwing and nonboolean result authorization deny completion', async () => {
++  for (const authorizer of [undefined, async () => false, async () => { throw new Error('outage') }, async () => 'yes' as unknown as boolean]) {
++    const port = new ReferencePort(backing())
++    const runtime = new AuthorizedReconciliationService({
++      persistence: port, verifier: { async verify() { return { outcome: 'effect_applied', result: { status: 'SUCCESS', capability: initial.binding.capability, data: 'opaque-ref' } } } },
++      audit: { async emit() {} }, outputSchemas: new Map([[initial.binding.capability, { type: 'string', maxLength: 100 }]]), ...(authorizer ? { authorizeResult: authorizer } : {}),
++    })
++    const response = await runtime.reconcile(actor, { ...request, requestedOutcome: 'completed', reason: 'provider_receipt' }, now)
++    assert.equal(response.status, 'FORBIDDEN'); assert.equal(port.memory.commits, 0)
++  }
++})
++
++test('W4 delta: authorized scalar result receives original binding and current principal', async () => {
++  const port = new ReferencePort(backing()); let checked = 0
++  const runtime = new AuthorizedReconciliationService({
++    persistence: port, verifier: { async verify() { return { outcome: 'effect_applied', result: { status: 'SUCCESS', capability: initial.binding.capability, data: 'opaque-ref' } } } },
++    audit: { async emit() {} }, outputSchemas: new Map([[initial.binding.capability, { type: 'string', maxLength: 100 }]]),
++    authorizeResult: async (principal, operation, result) => {
++      assert.equal(principal.actorId, actor.actorId); assert.deepEqual(operation.binding, initial.binding); assert.equal(result.data, 'opaque-ref'); checked++; return true
++    },
++  })
++  assert.equal((await runtime.reconcile(actor, { ...request, requestedOutcome: 'completed', reason: 'provider_receipt' }, now)).status, 'SUCCESS')
++  assert.equal(checked, 1); assert.equal(port.memory.commits, 1)
++})
++
++test('W4 delta: foreign actor denied by persistence and foreign workspace never commit', async () => {
++  for (const principal of [{ ...actor, actorId: 'forbidden-actor' }, { ...actor, workspaceId: 'workspace-b' }]) {
++    const port = new ReferencePort(backing())
++    const persistence: ReconciliationPersistence = {
++      async loadAuthorizedOperation(current, ref) { return current.actorId === actor.actorId ? port.loadAuthorizedOperation(current, ref) : null },
++      commitVerifiedReconciliation: cmd => port.commitVerifiedReconciliation(cmd),
++    }
++    const runtime = new AuthorizedReconciliationService({ persistence, verifier: { async verify() { throw new Error('must_not_run') } }, audit: { async emit() {} } })
++    assert.equal((await runtime.reconcile(principal, request, now)).status, 'FORBIDDEN'); assert.equal(port.memory.commits, 0)
++  }
++})
++
++test('W4 delta: twenty reconcilers with failed sink preserve exactly one committed intent', async () => {
++  const port = new ReferencePort(backing())
++  const runtime = service(port, { async emit() { throw new Error('sink_down') } })
++  const results = await Promise.all(Array.from({ length: 20 }, () => runtime.reconcile(actor, request, now)))
++  assert.equal(results.filter(result => result.status === 'SUCCESS').length, 1)
++  assert.equal(results.filter(result => result.status === 'UNAVAILABLE').length, 19)
++  assert.equal(port.memory.commits, 1); assert.equal(port.memory.intents.size, 1)
++})

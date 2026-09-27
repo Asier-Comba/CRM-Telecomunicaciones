@@ -18,3 +18,7 @@ Iteration4.2: w3-reconciliation-v42.test.ts belongs in W3@489eed2/test/ (384 off
 - W3@91b4b3e: use w3-v1-adversarial.patch instead of old patch;173 official+6 W4 probes. Reflection test now expects rejection marker; new verifier-data probe demonstrates missing capability-specific result schema.
 - pr14-onboarding-candidate.patch and pr15-trigger-candidate.patch are diagnostic edits ONLY for disposable worktrees. They demonstrate minimal fixes, not deployable migration history. W1 should ship forward migrations. Candidate identity and full domain SQL pass after these edits.
 - pr15-import-standalone.sql reproduces initial completed/fabricated counters against UNMODIFIED e65f1e8, independent of trigger failures in the larger fixture. Run it as the SQL argument to the embedded runner. Its PASS means the defect exists, not secure acceptance. Trusted/privileged insert invariant only; browser access remains denied.
+
+### Atomic runtime seam at W3 515e0d4
+
+`w3-atomic-seam-v42.patch` appends six W4 tests to the official reconciliation suite. Apply only in a disposable checkout of515e0d439e705ecc9c9c13140ed14b4d8f565246, then run lint/typecheck/test/build.397 tests pass (391 official+6 W4). This confirms the revised atomic persistence interface and reference-model behavior, not native transaction/durability/outbox delivery. See W4_ITERATION_4_2.md for exact scope.

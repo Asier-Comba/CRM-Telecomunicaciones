@@ -39,3 +39,15 @@ PGlite execution is real embedded SQL, one process with synthetic claims. Native
 
 Portability signals and synthetic seed limitations: W4_PORTABILITY_AUDIT.md. W4 baseline remains5cb872c; current work stays on w4/night-shift-v3/PR16. Production untouched.
 Prepared native durability case/report contract and negative controls in W4_NATIVE_DURABILITY_SUITE.md. Its synthetic report self-test is explicitly not a native database run; no adapter exists yet to bind. Cross-Work communication remains exclusively GitHub.
+
+## W3 review update — 515e0d439e705ecc9c9c13140ed14b4d8f565246
+
+Lint/types/build pass; 391 official tests plus six independent W4 attacks =397/397.
+Fixture `tests/security/review-fixtures/w3-atomic-seam-v42.patch` applies to that exact head. Covers atomic audit acknowledgment, sink outage/lost reply, result authorization failure, principal/binding, cross-actor/workspace and20-way race. These are reference-process proofs only.
+Old state-only commit/separate audit emission and unscoped result seam are FIXED; do not repeat their old reproduction against this interface. Actual native transaction/outbox/restart acceptance remains pending under Issue10.
+P2: `validateDurableObservation('not_a_scenario', validCompletedObservation)` accepts an unknown ID. Require runtime allowlist and negative test. This cannot substitute for real driver evidence.
+Published PR9 comment5857101921 and Issue10 comment5857106058. W4 CI155@80b1a63 completed successfully. W3 driver scaffold reviewed, no native adapter provided/executed.
+
+## W2 takeover checkpoint — 00fc9327e6f157d539f46bd396f3cbaece02dd46
+
+Replay remains in progress. This head descends from accepted6b0e30e and preserves original branches. Independent detached execution applies all9 migrations but official domain SQL still stops42703 (`NEW.service_kind`). Stored14-case READ/date acceptance matrix gives3PASS/11FAIL. These reproduce inherited original defects, not newly introduced takeover regressions. Wait for actual W2 fixes before evaluating them as corrected. No W2_STATUS/new takeover PR observed at this checkpoint.
