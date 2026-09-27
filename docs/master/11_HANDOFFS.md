@@ -64,9 +64,11 @@ created before W4 accepts the base and the conformance plan can run on an
 isolated database.
 
 Import/audit and future scoped integration-principal boundaries are specified
-in `W1_IMPORT_AUDIT_FOUNDATION.md`. This is not permission to publish writes;
-plaintext staging payloads, global integration secrets and caller-selected
-tenants remain prohibited.
+in `W1_IMPORT_AUDIT_FOUNDATION.md`. The six forced-RLS import/audit relations
+are now canonical schema, but there is no upload/apply command or generic writer.
+Terminal jobs are replayed by UUID idempotency rather than resumed. This is not
+permission to publish writes; plaintext staging payloads, global integration
+secrets and caller-selected tenants remain prohibited.
 
 The current W1 `telecom.v0` read types may back W3's thirteen read capabilities
 through a W1 adapter. Task/meeting mutations remain blocked: W1 has not
@@ -86,8 +88,9 @@ Review targets:
    five helpers, membership policy and suspended-onboarding denial;
 4. the 28-case tenant harness and real database RLS attacks once isolated
    infrastructure is authorized;
-5. dependent PR #15's 17-relation domain harness and support-domain migration,
-   without treating it as part of the frozen PR #14 review target.
+5. dependent PR #15's 23-relation harness (17 member domain + 6 privileged),
+   support-domain migration and `20260926165000_import_audit_foundation.sql`,
+   without treating them as part of the frozen PR #14 review target.
 
 Publication evidence: draft PR #14 is open from `w1/canonical-v3`; its Linux CI
 run passed baseline, lint/types/tests/build, migration policy and secret scan.

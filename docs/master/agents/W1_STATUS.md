@@ -25,20 +25,28 @@
   retries serialize per user and return the existing active membership.
 - The domain branch now contains normalized customers/contacts, operator/plan
   versions, contracts/services/lines, commitments/renewals, commercial
-  operations, service cases and protected document metadata. All 17 raw domain
-  relations use forced RLS, active-workspace membership policies and explicit
-  revokes.
+  operations, service cases, protected document metadata and a six-relation
+  import/business-audit foundation. All 23 raw relations use forced RLS and
+  explicit revokes; the six import/audit relations are visible only to active
+  owner/admin roles while ordinary members retain the 17-relation domain view.
+- Import jobs now have a monotonic, terminal lifecycle, durable aggregate
+  verification, phase/row locks, domain-separated versioned HMACs, random UUID
+  idempotency, explicit target FKs and append-only ledgers. Successful audit
+  targets are workspace-checked, codes are closed and refs cannot carry free
+  text. Upload/storage/KMS and command adapters remain intentionally absent.
 - `telecom.v1` publishes typed read DTOs/envelopes and an authorized server
   boundary for 14 W2/W3 read operations. The concrete DB repository/routes are
   not live and raw table grants remain closed.
-- A transactional synthetic DB harness covers the 17-relation A/B/C read
-  matrix, owner/admin/member/viewer, suspended/removed/anonymous actors and
-  representative mutation attacks. Its launcher refuses non-loopback or
+- A transactional synthetic DB harness covers the 23-relation A/B/C read
+  matrix (17 member domain + 6 privileged), owner/admin/member/viewer,
+  suspended/removed/anonymous actors and representative mutation, import and
+  audit attacks. Its launcher refuses non-loopback or
   non-test targets, but no PostgreSQL runtime is installed here, so DB evidence
   is not claimed green.
-- A clean exported checkout of `d21339f` independently passed a fresh dependency
-  install, lint, typecheck, 22/22 tests, the W4 tenant/assistant/security gates
-  and the same 20-route production build.
+- The current local branch passes lint, typecheck, 80/80 bootstrap tests and the
+  20-route production build. The import/audit migration also received an
+  independent static adversarial review with no remaining P0/P1; PostgreSQL
+  runtime execution remains explicitly pending.
 - Supabase has not been contacted or mutated.
 - Draft PR #14 is published and its Linux CI passed baseline, application,
   migration-policy and secret-scan jobs. PRs #11 and #13 were closed unmerged
@@ -74,6 +82,8 @@ idempotency where applicable and W4 review are implemented and tested.
   in authorized isolated Supabase infrastructure.
 - Complete the remaining deliberately classified canonical schema; strict drift
   audit remains intentionally red.
+- Run the new import/audit lifecycle, concurrency and target-lineage attacks on
+  isolated PostgreSQL; static/harness-source tests are not runtime DB evidence.
 - Follow the exhaustive 29+1 drift classification; legacy property and provider-
   specific n8n objects are retirement targets, not migration sources.
 - Database-backed zero-to-head and A/B RLS attack tests in isolated infrastructure.

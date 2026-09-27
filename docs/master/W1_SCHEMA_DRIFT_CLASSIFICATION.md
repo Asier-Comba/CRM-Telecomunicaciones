@@ -18,11 +18,14 @@ canónico nuevo o reemplazo explícito y pruebas estructurales: `activities`,
 sin DDL canónico equivalente; `clients` se reemplaza deliberadamente por
 `customers`/`contacts` y no se recreará como tabla legacy.
 
-Además existen once relaciones Telecom nuevas que no copian nombres legacy:
+Además existen diecisiete relaciones nuevas que no copian nombres legacy:
 `customers`, `contacts`, `telecom_operators`, `telecom_plans`,
 `telecom_plan_versions`, `telecom_contracts`, `telecom_services`,
-`telecom_lines`, `telecom_commitments`, `telecom_renewals` y `documents`.
-Ninguna está aplicada remotamente.
+`telecom_lines`, `telecom_commitments`, `telecom_renewals`, `documents`,
+`import_jobs`, `import_field_mappings`, `import_staging_rows`,
+`import_row_issues`, `import_applications` y `business_audit_events`. Estas seis
+últimas no cierran por sí solas ningún objeto legacy: son una base canónica
+nueva, privilegiada y raw-closed. Ninguna está aplicada remotamente.
 
 ## Resumen
 
@@ -84,8 +87,9 @@ Ninguna está aplicada remotamente.
    no secretas con capabilities de PII/copiar reveladas por el servidor.
 6. **Assistant durable:** solo tras aceptar W3 Issue #10: reservas,
    idempotencia, outbox, reconciliación autorizada y auditoría append-only.
-7. **Imports/audit:** staging, mapping, dedupe, lineage y rechazo parcial antes
-   de permitir cargas reales.
+7. **Imports/audit (schema preparado):** staging cifrado por referencia,
+   mapping cerrado, HMAC con dominio, lineage, rechazo parcial y auditoría
+   append-only; faltan storage/KMS y commands antes de permitir cargas reales.
 
 ## Contratos que bloquean DDL prematuro
 
@@ -103,8 +107,9 @@ Ninguna está aplicada remotamente.
 
 - No existe Supabase aislado autorizado en esta sesión; no se ejecutó apply.
 - El plan zero-to-head y el harness SQL están preparados, pero todavía deben
-  ejecutarse sobre PostgreSQL aislado. La matriz de lectura cubre las 17
-  relaciones para A/B/C, suspendido, removed, anónimo y multi-workspace; las
+  ejecutarse sobre PostgreSQL aislado. La matriz de lectura cubre 17 relaciones
+  member-readable y seis relaciones privilegiadas (23 totales) para A/B/C,
+  suspendido, removed, anónimo y multi-workspace; las
   mutaciones representativas cubren owner/admin/member/viewer, DELETE sin
   policy, cambio de tenant, upsert y FK compuesta cross-tenant.
 - Antes de release aún faltan apply doble mediante el migration runner,
