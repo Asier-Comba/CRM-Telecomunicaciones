@@ -19,6 +19,9 @@ is 30s per worker; logs contain only closed results, not environment/provider er
 
 - `metadata = {contract:'assistant.durable-process.v1',backend:'native_postgres',disposable:true}`.
   W4 verifies environment independently; metadata alone proves nothing.
+- `connectWorker(): Promise<number>` opens that worker's independent native DB
+  connection and queries `pg_backend_pid()`. The SAME connection performs execute;
+  report/backend IDs are checked for20 distinct values before releasing the barrier.
 - `setupScenario(id): Promise<string>` creates a unique synthetic fixture namespace,
   active workspaces A/B, originator, other actor, scoped reconciliation principal,
   registered fake dispatcher and separate durable synthetic effect ledger. Return
@@ -30,6 +33,9 @@ is 30s per worker; logs contain only closed results, not environment/provider er
   Only the winner may perform the registered synthetic effect.
 - `inspectScenario(fixture): Promise<DurableObservation>` queries DB and the
   independent effect ledger, including original audit intent/content identity.
+- `inspectBoundary(fixture)` returns measured `atomicCommitVerified:true` and
+  `orphanOutboxCount:0` only after rollback injections/independent connection checks
+  in atomic_operation_outbox. W4 reviews the actual observations, not just flags.
 - `cleanupScenario(fixture)` removes only this harness's disposable data.
 
 Credentials/configuration use W2's approved local environment. Do not send real
@@ -42,6 +48,8 @@ server code, not model-selected code. W4 reviews driver and SQL before executing
 |---|---|---|
 | reserve_race | no operation; 20 processes same binding/key call reserve + fenced start | one authorization; one registered synthetic effect; persist completion/audit |
 | confirmation_race | one issued confirmation; same binding/key; 20 atomic confirm/reserve/enqueue calls | consume once, one operation/outbox; replay does not grant dispatch |
+| reconciliation_race | seed one effect/authorization and reconciliation_required;20 reconcilers | one reconciliation winner/intent, never a new effect |
+| atomic_operation_outbox | inject rollback before op+outbox commit, then one valid enqueue | independent visibility proves no orphan; recover dispatches once |
 | crash_before_reservation | no operation; stop at barrier immediately before reserve | new process reserves and executes once |
 | crash_after_reservation | commit reserved; barrier before granting execution | new process reauthorizes/fences start, executes once |
 | kill_after_effect | executing, registered effect receipt committed in independent ledger; barrier before operation completion | new process verifies receipt, reconciles; no second effect |
@@ -77,6 +85,20 @@ requirements. W4 should add database restart (not only application restart),
 lease-fence stale ack, lost audit acknowledgement and altered-event-ref content
 tests as engine-specific checks. This runner does not replace RLS/PostgREST/Storage
 or arbitrary provider reliability testing.
+
+## Alignment with independent W4 suite
+
+Read W4 `80b1a63` / `W4_NATIVE_DURABILITY_SUITE.md`. Its report validator remains
+the independent gate; W3 runner supplies execution orchestration, not replacement
+acceptance. W2 should reuse one native fixture/driver implementation for both.
+Three20-way races now include reconciliation and verify native backend identities.
+The lease test asserts reconciliation_required BEFORE explicit verified recovery;
+W4's final lease assertion applies to that cutpoint, not to W3's later drain stage.
+Atomic op/outbox rollback and pending original audit are checked before recovery.
+Map W3 underscore IDs to W4 hyphen IDs (reserve/confirmation/reconciliation-race-20,
+restart-after-reservation/effect, kill-after-effect, lease-expiration,
+atomic-operation-outbox, audit-outage, cross-workspace/actor). W3 additionally tests
+changed digest, revoked principal, before-reservation crash and outbox ack loss.
 
 Publish exact W2/W3/W4 SHAs, native PostgreSQL version, redacted fixture config,
 runner report, actual kill checkpoints, independent effect/audit evidence and CI

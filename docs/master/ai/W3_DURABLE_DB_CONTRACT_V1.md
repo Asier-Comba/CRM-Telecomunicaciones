@@ -47,6 +47,10 @@ not expire reserved automatically. W2 must fence start/recovery of reserved work
 a reserved record itself grants no effect authority. Persist versions and attempts
 as positive safe integers; increment version exactly once per committed transition.
 Use authoritative server/DB time, never a caller-selected clock or lease duration.
+Current AssistantRuntime confirmation TTL and idempotency lease are both300000ms
+(five minutes); confirmation expiry must never exceed that server-issued bound.
+Runtime idempotency keys match `[A-Za-z0-9_-]{16,128}`; operation refs match
+`[A-Za-z0-9_-]{24,200}`. Persist opaque high-entropy IDs, not sequential test IDs.
 
 ## Digest and uniqueness
 
