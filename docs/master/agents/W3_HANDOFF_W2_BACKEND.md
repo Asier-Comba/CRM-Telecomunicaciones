@@ -37,3 +37,9 @@ READ CHECK: scripts/check-telecom-contract.mjs compares exact pinned DTO source 
 all14 service signatures; ai/W3_TELECOM_V1_COMPATIBILITY_42.json records observed
 takeover snapshot. A missing DTO while replay is in progress is a dependency, not
 a claim that W2 removed an accepted contract. No live reader is registered yet.
+
+Verified replay checkpoint `afe0a3a73650147ca8e3417533a79cf673f518ec`: entire DTO
+source hash and all14 signatures identical to e65f1e8. Parser/read-boundary22/22
+tests pass against the identical contract. Old service implementation is also
+unchanged, including its previously reviewed gaps. No live repository validation
+or acceptance is inferred. Publish hardened service/factory SHA before wiring.

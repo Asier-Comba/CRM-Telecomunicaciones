@@ -13,6 +13,10 @@ W4 independently verified the capability output-schema fix at W3 `489eed2`
 (384 official + 12 W4 tests); opaque ID ownership still needs authorization.
 Old domain `e65f1e8` remains unaccepted. W2 takeover branch appeared and is replaying
 domain work; latest exact checked snapshot is in ai/W3_TELECOM_V1_COMPATIBILITY_42.json.
+At takeover `afe0a3a`, full telecom.v1 source and all14 signatures are identical to
+e65f1e8; parser/read-boundary22/22 pass. Service implementation is still identical
+to the unaccepted original; no real adapter is registered. Intermediate replay
+snapshots with missing/narrower DTOs are superseded, not current regressions.
 
 Delivered candidate changes:
 
@@ -28,13 +32,16 @@ Delivered candidate changes:
   src/assistant/durable-db-contract.ts. No schema, migration or SQL authored by W3.
 - Executable native-process acceptance runner: 20-worker startup barriers,
   SIGKILL checkpoints, fresh-process recovery and closed effect/audit oracle.
+  Aligned with W4 native suite at80b1a63: three races (including reconciliation),
+  distinct pg_backend_pid identities, atomic op/outbox and lease/audit cutpoints.
   W2 supplies native PostgreSQL driver; W4 executes independently. Missing driver
   fails explicitly. No database acceptance or actual process race is claimed yet.
 - Exact-SHA telecom.v1 signature/source comparison script. Missing or changed DTOs
   block integration; existing full parser/read boundary remains disconnected.
 
-Evidence: lint/typecheck/build and **391/391 tests pass** after the new shared
-runtime/oracle cases; JS runner syntax checks pass. First published checkpoint
+Evidence: lint/typecheck/build and **393/393 tests pass** after the new shared
+runtime/oracle cases; JS runner syntax checks and a real child-process SIGKILL
+protocol test pass (synthetic driver; not DB acceptance). First published checkpoint
 `3c2d736` passed PR CI (4 successful, 2 skipped). Final checkpoint evidence follows
 in PR #9. Skipped Dependency Review remains an owner configuration gate, no bypass.
 
