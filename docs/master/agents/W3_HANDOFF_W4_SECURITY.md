@@ -2,6 +2,11 @@
 
 ## Current review request — iteration 4.2
 
+Update: W4 af02abc independently accepts seam/result authorization at W3 515e0d4
+(391+6 tests). Keep only native durability gate open. P2 unknown scenario acceptance
+in the report oracle has a candidate runtime allowlist fix + regression in this
+checkpoint; please independently recheck. W2 handoff now also published on PR17.
+
 Acknowledged live W4 verification: schema P1 FIXED at489eed2; canonical base
 6b0e30e accepted for composition, not staging/production. Those are not open
 findings by inertia. New CANDIDATE FIX at runtime abd5336/tests3c2d736 replaces

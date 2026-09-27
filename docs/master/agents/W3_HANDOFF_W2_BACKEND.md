@@ -1,7 +1,7 @@
 # W3 → W2 backend takeover — iteration 4.2
 
 W3 DURABLE DB CONTRACT READY. Canonical communication: Issue #10 and PR #9;
-copy this handoff to W2 takeover PR when published. W1 history and W2 frontend
+published on W2 takeover PR #17 as well. W1 history and W2 frontend
 db8ab41 remain preserved. Exact W4 accepted composition base: 6b0e30e.
 
 DOC: ../ai/W3_DURABLE_DB_CONTRACT_V1.md
@@ -43,3 +43,8 @@ source hash and all14 signatures identical to e65f1e8. Parser/read-boundary22/22
 tests pass against the identical contract. Old service implementation is also
 unchanged, including its previously reviewed gaps. No live repository validation
 or acceptance is inferred. Publish hardened service/factory SHA before wiring.
+
+PR17 replay head c3b1f9fe10c31d46d9c4a5a9862ad7f1a3c16fb6 checked again: same
+full DTO source and14 signatures, same unaccepted original service. The machine
+report now pins this PR head. W2's PR description places hardened service and
+DB-backed readers in its next work; they are not delivered in checkpoint A.

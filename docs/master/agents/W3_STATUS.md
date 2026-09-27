@@ -47,6 +47,10 @@ in PR #9. Skipped Dependency Review remains an owner configuration gate, no bypa
 
 Candidate runtime abstraction removes the separate state/terminal-audit call path;
 this is NOT a durable DB implementation or W4 acceptance of end-to-end writes.
+W4 independently verified the new seam/result authorization at515e0d4 (391 official
++6 W4 cases): prior core findings FIXED, Issue10 now remains for native durable
+evidence. W4's P2 unknown-scenario oracle finding is addressed by explicit runtime
+scenario allowlisting with a regression; independent recheck requested.
 Reference Maps prove only in-process contract behavior. DB atomicity, multiprocess
 restart/kill-after-effect and authorization still block mutations. No routes,
 provider effects, production, merges, Supabase changes or UI v1 changes.
