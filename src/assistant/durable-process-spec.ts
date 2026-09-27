@@ -2,6 +2,8 @@
 export const DURABLE_PROCESS_SCENARIOS = [
   { id: 'reserve_race', workers: 20, action: 'reserve_and_start', recover: true },
   { id: 'confirmation_race', workers: 20, action: 'confirm_reserve_enqueue', recover: true },
+  { id: 'reconciliation_race', workers: 20, action: 'reconcile', recover: true },
+  { id: 'atomic_operation_outbox', workers: 1, action: 'rollback_then_enqueue', recover: true },
   { id: 'crash_before_reservation', workers: 1, action: 'execute', killAt: 'before_reservation', recover: true },
   { id: 'crash_after_reservation', workers: 1, action: 'execute', killAt: 'after_reservation', recover: true },
   { id: 'kill_after_effect', workers: 1, action: 'execute', killAt: 'after_effect_before_completion', recover: true },
