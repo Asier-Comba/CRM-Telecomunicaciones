@@ -13,6 +13,7 @@
 5. `20260926161000_telecom_operator_plan_catalog.sql`
 6. `20260926162000_telecom_contract_service_portfolio.sql`
 7. `20260926163000_telecom_commercial_operations.sql`
+8. `20260926164000_telecom_service_cases_documents.sql`
 
 ## Isolated database gate
 
@@ -23,7 +24,7 @@ load synthetic A/B/C tenant fixtures.
 
 Required attacks cover anonymous, active owner/admin/member/viewer, removed
 membership, suspended workspace, multi-workspace actor and the future scoped
-service principal. The current slice tests the complete 15-relation read matrix
+service principal. The current slice tests the complete 17-relation read matrix
 plus representative INSERT/UPDATE/DELETE/upsert and cross-tenant FK attacks.
 The final gate must extend mutation coverage to every mutable tenant relation
 and prove tenant/creator mutation plus concurrency invariants.
