@@ -22,3 +22,8 @@ Iteration4.2: w3-reconciliation-v42.test.ts belongs in W3@489eed2/test/ (384 off
 ### Atomic runtime seam at W3 515e0d4
 
 `w3-atomic-seam-v42.patch` appends six W4 tests to the official reconciliation suite. Apply only in a disposable checkout of515e0d439e705ecc9c9c13140ed14b4d8f565246, then run lint/typecheck/test/build.397 tests pass (391 official+6 W4). This confirms the revised atomic persistence interface and reference-model behavior, not native transaction/durability/outbox delivery. See W4_ITERATION_4_2.md for exact scope.
+
+### PR17 forward-trigger acceptance
+
+At4fb8619, inject `shared-trigger-v42.sql` as the THIRD runner argument after official `supabase/tests/telecom-domain-rls.sql`: four positive record-shape updates and four denied workspace rewrites PASS. The full official domain SQL also passes.
+`import-initialization-v42.sql` is standalone: use as SECOND runner argument in a separate disposable invocation. It creates its own identities, so do not inject it into the official domain fixture. At4fb8619 it still reports three unmet initialization cases.

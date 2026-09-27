@@ -62,3 +62,8 @@ Replay remains in progress. This head descends from accepted6b0e30e and preserve
 
 W3@fd45ef81898f870d6ded5bedf705a98a50461f19: runtime scenario allowlist now rejects unknown IDs. Build and2 targeted official tests pass. Independent regression rejects unknown, empty, null, undefined, object, number and wrong-case scenario IDs; valid reserve_race remains accepted. P2 FIXED, published PR9 comment5857166548. Previous full393+6 run applies toc804acd; only this delta was retested. Issue10 native evidence remains pending.
 W4 CI169@f25d584 passes. No native postgres/psql/docker executable found in this runtime; embedded SQL remains explicitly separate from native database/process evidence. No credentials or remote database operation.
+
+## PR17 trigger repair — 4fb8619a439e9936c59af8e0673442ede21a8a07
+
+Forward migration branches by table before record-specific field access; historic SQL unchanged and execution grants revoked. All11 migrations, full official domain SQL,3 focused migration tests PASS. Independent `shared-trigger-v42.sql` additionally proves positive UPDATE on contracts/services/service_cases/documents and denies four workspace rewrites. This closes42703; it is embedded SQL evidence, not live Auth/Storage.
+Standalone `import-initialization-v42.sql` still fails nonzero_counters/applied_without_staging/fabricated_finalization; other3 cases match acceptance. Run it as the SECOND SQL argument, not as injection into official fixtures (which reuse synthetic IDs). READ code unchanged. Handoff: PR17 comment5857196083. W4 CI174@840ce6d PASS.
