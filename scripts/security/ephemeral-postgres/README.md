@@ -3,6 +3,12 @@
 Run `npm ci --ignore-scripts --no-audit --no-fund` in this directory and then
 `npm run test:onboarding -- /absolute/path/to/repository`.
 
+Run `npm run test:domain -- /absolute/path/to/repository` to apply the same
+zero-to-head chain with `pgcrypto` and `btree_gist`, then execute the committed
+transactional `supabase/tests/telecom-domain-rls.sql` assertions. The SQL fixture
+must end in `ROLLBACK`; the runner removes psql-only meta commands before local
+execution.
+
 Every invocation creates a fresh in-memory PostgreSQL-compatible PGlite 0.5.8
 database, installs the canonical migrations verbatim, creates only synthetic
 auth users and closes the database. It has no database URL or remote credentials.

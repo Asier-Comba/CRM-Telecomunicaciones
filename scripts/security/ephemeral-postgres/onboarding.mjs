@@ -3,10 +3,11 @@ import { readdir, readFile } from 'node:fs/promises'
 import { resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { PGlite } from '@electric-sql/pglite'
+import { btree_gist } from '@electric-sql/pglite/contrib/btree_gist'
 import { pgcrypto } from '@electric-sql/pglite/contrib/pgcrypto'
 
 const root = resolve(process.argv[2] ?? fileURLToPath(new URL('../../..', import.meta.url)))
-const db = new PGlite({ extensions: { pgcrypto } })
+const db = new PGlite({ extensions: { pgcrypto, btree_gist } })
 const users = {
   owner: '10000000-0000-0000-0000-000000000001',
   removed: '10000000-0000-0000-0000-000000000002',
