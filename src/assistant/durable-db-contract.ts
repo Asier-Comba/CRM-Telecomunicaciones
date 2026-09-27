@@ -1,4 +1,4 @@
-import type { IdempotencyBinding } from './contracts.js'
+import type { AuditEvent, CapabilityResult, IdempotencyBinding } from './contracts.js'
 import { DURABLE_MAPPING_MANIFEST } from './durable-mapping-manifest.js'
 import {
   CONFIRMATION_STATES, IDEMPOTENCY_STATES, OUTBOX_STATES,
@@ -72,6 +72,12 @@ export interface DurableDatabasePort extends ReconciliationPersistence {
   }): Promise<DurableReserveDecision | { status: 'invalid_confirmation' | 'forbidden' }>
   startExecution(actor: ReconciliationActor, operationRef: string, binding: IdempotencyBinding, expectedVersion: number): Promise<DurableMutationDecision>
   transitionToReconciliation(actor: ReconciliationActor, operationRef: string, binding: IdempotencyBinding, expectedVersion: number, reasonCode: string): Promise<DurableMutationDecision>
-  claimOutbox(actor: ReconciliationActor, outboxRef: string, expectedVersion: number): Promise<OutboxMutationDecision & { claimFence?: string }>
+  completeOperationWithAuditIntent(actor: ReconciliationActor, command: {
+    operationRef: string; binding: IdempotencyBinding; expectedVersion: number
+    result: CapabilityResult; eventRef: string; auditIntent: AuditEvent
+  }): Promise<DurableMutationDecision>
+  claimOutbox(actor: ReconciliationActor, outboxRef: string, expectedVersion: number): Promise<
+    (Extract<OutboxMutationDecision, { status: 'applied' }> & { claimFence: string }) | Exclude<OutboxMutationDecision, { status: 'applied' }>
+  >
   ackOutbox(actor: ReconciliationActor, outboxRef: string, expectedVersion: number, claimFence: string, receiptRef: string): Promise<OutboxMutationDecision>
 }

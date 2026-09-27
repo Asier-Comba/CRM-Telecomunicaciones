@@ -246,6 +246,7 @@ export class AuthorizedReconciliationService {
       ))
     }
     if (transition.status !== 'applied') {
+      if (['forbidden', 'not_found', 'binding_mismatch'].includes(transition.status)) return this.#finish(actor, request, 'denied', 'reconciliation_forbidden', failure('FORBIDDEN', request.operationRef, 'reconciliation_forbidden'))
       return this.#finish(actor, request, 'conflict', `reconciliation_${transition.status}`, failure(
         'CONFLICT',
         request.operationRef,
