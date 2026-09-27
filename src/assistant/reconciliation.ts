@@ -1,7 +1,6 @@
 import type {
   DurableIdempotencyRecord,
   DurableIdempotencyState,
-  DurableIdempotencyStore,
   ReconciliationActor,
   ReconciliationAuditEvent,
   ReconciliationAuditSink,
@@ -10,8 +9,10 @@ import type {
   ReconciliationVerifier,
 } from './durable-contracts.js'
 import { validOperationRef } from './durable-contracts.js'
-import { containsHighConfidenceSecret, validateValue } from './schema.js'
-import type { ValueSchema } from './contracts.js'
+import { containsHighConfidenceSecret, containsTenantSelector, validateValue } from './schema.js'
+import type { CapabilityResult, ValueSchema } from './contracts.js'
+import type { ReconciliationPersistence } from './durable-db-contract.js'
+import { createHash } from 'node:crypto'
 
 const RECONCILE_PERMISSION = 'assistant:operation:reconcile'
 const REQUESTED_OUTCOMES = new Set(['completed', 'failed_retryable', 'failed_terminal'])
@@ -23,6 +24,7 @@ function safeVerifiedResult(value: unknown, capability: string, schema: ValueSch
     const result = value as Record<string, unknown>
     if (result.status !== 'SUCCESS' || result.capability !== capability ||
       Object.keys(result).some((key) => !['status', 'capability', 'data'].includes(key))) return false
+    if (containsHighConfidenceSecret(value) || containsTenantSelector(result.data)) return false
     const encoded = JSON.stringify(value)
     if (Buffer.byteLength(encoded, 'utf8') > 64 * 1024) return false
     return validateValue(schema, result.data).ok && !containsHighConfidenceSecret(JSON.parse(encoded))
@@ -39,16 +41,22 @@ export type ReconciliationServiceResult = {
 }
 
 type ReconciliationDependencies = {
-  store: DurableIdempotencyStore
+  persistence: ReconciliationPersistence
   verifier: ReconciliationVerifier
   audit: ReconciliationAuditSink
   /** Server-registered capability output schemas. Missing entry blocks completion.
    * Never populate this map from a verifier, model, request or provider payload.
    */
   outputSchemas?: ReadonlyMap<string, ValueSchema>
+  /** Mandatory for observed-effect completion, including scalar/opaque IDs.
+   * Check references against the original operation workspace and current
+   * principal. A valid output shape alone does not prove resource ownership.
+   */
+  authorizeResult?: (actor: ReconciliationActor, record: DurableIdempotencyRecord, result: CapabilityResult) => Promise<boolean>
 }
 
 function isReconciliationRequest(value: unknown): value is ReconciliationRequest {
+  if (containsHighConfidenceSecret(value)) return false
   if (!value || typeof value !== 'object' || Array.isArray(value)) return false
   const record = value as Record<string, unknown>
   const keys = Object.keys(record)
@@ -119,20 +127,22 @@ function expectedState(result: ReconciliationResolution): 'completed' | 'failed_
 }
 
 export class AuthorizedReconciliationService {
-  readonly #store: DurableIdempotencyStore
+  readonly #persistence: ReconciliationPersistence
   readonly #verifier: ReconciliationVerifier
   readonly #audit: ReconciliationAuditSink
   readonly #outputSchemas: ReadonlyMap<string, ValueSchema>
+  readonly #authorizeResult: ReconciliationDependencies['authorizeResult']
 
   constructor(dependencies: ReconciliationDependencies) {
-    this.#store = dependencies.store
+    this.#persistence = dependencies.persistence
     this.#verifier = dependencies.verifier
     this.#audit = dependencies.audit
     this.#outputSchemas = new Map([...dependencies.outputSchemas ?? []].map(([name, schema]) => [name, structuredClone(schema)]))
+    this.#authorizeResult = dependencies.authorizeResult
   }
 
   async reconcile(
-    actor: ReconciliationActor,
+    actorInput: ReconciliationActor,
     value: unknown,
     now: Date,
   ): Promise<ReconciliationServiceResult> {
@@ -141,6 +151,9 @@ export class AuthorizedReconciliationService {
       return failure('INVALID_INPUT', 'invalid_operation_reference', 'invalid_reconciliation_request')
     }
     const request = { ...value }
+    const actor = { ...actorInput, permissions: new Set(actorInput.permissions) }
+    now = new Date(now.getTime())
+    if (!Number.isFinite(now.getTime())) return failure('INVALID_INPUT', 'invalid_operation_reference', 'invalid_reconciliation_time')
     if (!actor.permissions.has(RECONCILE_PERMISSION)) {
       return this.#finish(actor, request, 'denied', 'reconciliation_forbidden', failure(
         'FORBIDDEN',
@@ -151,7 +164,7 @@ export class AuthorizedReconciliationService {
 
     let record: DurableIdempotencyRecord | null
     try {
-      record = await this.#store.inspectByOperationRef(request.operationRef, now)
+      record = await this.#persistence.loadAuthorizedOperation(actor, request.operationRef, now)
     } catch {
       return this.#finish(actor, request, 'unavailable', 'reconciliation_store_unavailable', failure(
         'UNAVAILABLE',
@@ -181,7 +194,11 @@ export class AuthorizedReconciliationService {
     const idempotencyKey = record.idempotencyKey
     let verification
     try {
-      verification = structuredClone(await this.#verifier.verify(structuredClone(record), { ...request }))
+      const raw = await this.#verifier.verify(structuredClone(record), { ...request })
+      // Reject getters, cycles, exotic prototypes and secret values BEFORE cloning.
+      if (containsHighConfidenceSecret(raw) || !raw || typeof raw !== 'object' ||
+        Object.keys(raw).sort().join(',') !== (raw.outcome === 'effect_applied' ? 'outcome,result' : 'outcome')) return this.#finish(actor, request, 'inconclusive', 'reconciliation_inconclusive', failure('CONFLICT', request.operationRef, 'reconciliation_inconclusive'))
+      verification = structuredClone(raw)
     } catch {
       return this.#finish(actor, request, 'unavailable', 'reconciliation_verification_unavailable', failure(
         'UNAVAILABLE',
@@ -202,15 +219,24 @@ export class AuthorizedReconciliationService {
       ))
     }
 
+    if (verifiedResolution.outcome === 'completed') {
+      let authorized = false
+      try {
+        authorized = await this.#authorizeResult?.(structuredClone(actor), structuredClone(record), structuredClone(verifiedResolution.result)) === true
+      } catch { authorized = false }
+      if (!authorized) return this.#finish(actor, request, 'denied', 'reconciliation_result_forbidden', failure('FORBIDDEN', request.operationRef, 'reconciliation_result_forbidden'))
+    }
+
     let transition
+    const terminalState = expectedState(verifiedResolution)
+    const eventRef = createHash('sha256').update(JSON.stringify([actor.workspaceId, request.operationRef, request.expectedVersion])).digest('hex')
     try {
-      transition = await this.#store.applyAuthorizedReconciliation(
-        request.operationRef,
-        actor.workspaceId,
-        request.expectedVersion,
-        verifiedResolution,
-        now,
-      )
+      transition = await this.#persistence.commitVerifiedReconciliation({
+        actor: structuredClone(actor), operationRef: request.operationRef,
+        expectedVersion: request.expectedVersion, binding: { ...binding }, idempotencyKey,
+        resolution: structuredClone(verifiedResolution), eventRef,
+        auditIntent: auditEvent(actor, request, terminalState, 'reconciliation_applied'), now,
+      })
     } catch {
       return this.#finish(actor, request, 'unavailable', 'reconciliation_store_unavailable', failure(
         'UNAVAILABLE',
@@ -229,7 +255,7 @@ export class AuthorizedReconciliationService {
 
     let verifiedRecord: DurableIdempotencyRecord | null
     try {
-      verifiedRecord = await this.#store.inspectByOperationRef(request.operationRef, now)
+      verifiedRecord = await this.#persistence.loadAuthorizedOperation(actor, request.operationRef, now)
     } catch {
       return this.#finish(actor, request, 'unavailable', 'reconciliation_read_after_write_unavailable', failure(
         'UNAVAILABLE',
@@ -238,7 +264,6 @@ export class AuthorizedReconciliationService {
         true,
       ))
     }
-    const terminalState = expectedState(verifiedResolution)
     const matchesIdentity = (candidate: DurableIdempotencyRecord): boolean =>
       candidate.operationRef === request.operationRef &&
       candidate.binding.workspaceId === binding.workspaceId &&
@@ -246,7 +271,8 @@ export class AuthorizedReconciliationService {
       candidate.binding.capability === binding.capability &&
       candidate.binding.argumentsDigest === binding.argumentsDigest &&
       candidate.idempotencyKey === idempotencyKey
-    if (!verifiedRecord || !matchesIdentity(verifiedRecord) || !matchesIdentity(transition.record) ||
+    if (transition.auditIntentPersisted !== true || transition.eventRef !== eventRef ||
+      !verifiedRecord || !matchesIdentity(verifiedRecord) || !matchesIdentity(transition.record) ||
       verifiedRecord.state !== terminalState || transition.record.state !== terminalState ||
       !Number.isSafeInteger(verifiedRecord.version) || verifiedRecord.version <= request.expectedVersion ||
       verifiedRecord.version !== transition.record.version) {
@@ -258,11 +284,12 @@ export class AuthorizedReconciliationService {
       ))
     }
 
-    return this.#finish(actor, request, terminalState, 'reconciliation_applied', {
+    // Success relies on durable audit intent, never availability of delivery sink.
+    return {
       status: 'SUCCESS',
       operationRef: request.operationRef,
       state: terminalState,
-    })
+    }
   }
 
   async #finish(
