@@ -1,6 +1,26 @@
 # W3 → W4 handoff — Assistant security review
 
-## Current review request — iteration 3.1
+## Current review request — iteration 4.2
+
+Acknowledged live W4 verification: schema P1 FIXED at489eed2; canonical base
+6b0e30e accepted for composition, not staging/production. Those are not open
+findings by inertia. New CANDIDATE FIX at runtime abd5336/tests3c2d736 replaces
+separate transition/terminal audit with mandatory atomic persistence port.
+
+Repro targets: audit sink down after committed reconciliation now leaves original
+intent and reports success without calling sink; lost commit response retains
+intent; retry conflict cannot erase it; precommit failure changes nothing. In-memory
+reference only. Inspect current port for full binding/key/version and current
+transaction authorization. No state-only fallback. Opaque output IDs now require
+authorizeResult; missing callback fails closed. Unsafe structures reject pre-clone.
+
+Please independently re-run old audit-loss reproduction against the new required
+port and verify rejection receipts/fake auditIntentPersisted flags. Real W2 DB
+driver must pass scripts/durable-process-acceptance.mjs; W4 owns independent
+native process/DB crash proof. See ai/W3_DURABLE_DB_CONTRACT_V1.md and
+ai/W3_DURABLE_PROCESS_ACCEPTANCE_V1.md. Issue10 remains open; writes disabled.
+
+## Archived review request — iteration 3.1
 
 Read night-shift-v3 `fa7f889`, PR #16 and Issue #10. Your independently accepted
 fixes at `91b4b3e` remain accepted findings; W3 does not reopen them by inference.

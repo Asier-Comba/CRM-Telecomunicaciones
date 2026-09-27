@@ -1,6 +1,50 @@
 # W3 status — AI, assistant and integrations
 
-## Current checkpoint — iteration 3.1
+## Current checkpoint — iteration 4.2
+
+2026-09-27. W2 temporarily owns Backend/Data/Supabase and DB implementation.
+W3 owns assistant/runtime contracts only. Issue #10 is the canonical coordination
+thread; all technical handoffs are versioned here. PR #9 remains Draft/unmerged.
+
+Live W4 PR14 review accepts exact canonical base
+`6b0e30e7444de57100e4d983b3564a0c3b336b2c` for composition (CAN_INTEGRATE YES,
+CAN_STAGE NO, CAN_PRODUCE NO). Do not repeat the old onboarding blocker.
+W4 independently verified the capability output-schema fix at W3 `489eed2`
+(384 official + 12 W4 tests); opaque ID ownership still needs authorization.
+Old domain `e65f1e8` remains unaccepted. W2 takeover branch appeared and is replaying
+domain work; latest exact checked snapshot is in ai/W3_TELECOM_V1_COMPATIBILITY_42.json.
+
+Delivered candidate changes:
+
+- AuthorizedReconciliationService requires ReconciliationPersistence; no fallback
+  to state-only reconciliation. One adapter call carries verified resolution,
+  immutable binding/key/version, current principal and stable original audit intent.
+  Successful completion no longer waits on the external audit sink.
+- Result-reference authorization is required in addition to registered closed
+  schemas. Missing callback, foreign IDs, getters/cycles/private/oversized structures
+  reject before commit. W2 must repeat current authorization under its DB lock.
+- Exact DB contract + machine-readable states/fields/uniqueness/transactions and
+  SDK-free adapter interface in ai/W3_DURABLE_DB_CONTRACT_V1.md and
+  src/assistant/durable-db-contract.ts. No schema, migration or SQL authored by W3.
+- Executable native-process acceptance runner: 20-worker startup barriers,
+  SIGKILL checkpoints, fresh-process recovery and closed effect/audit oracle.
+  W2 supplies native PostgreSQL driver; W4 executes independently. Missing driver
+  fails explicitly. No database acceptance or actual process race is claimed yet.
+- Exact-SHA telecom.v1 signature/source comparison script. Missing or changed DTOs
+  block integration; existing full parser/read boundary remains disconnected.
+
+Evidence: lint/typecheck/build and **391/391 tests pass** after the new shared
+runtime/oracle cases; JS runner syntax checks pass. First published checkpoint
+`3c2d736` passed PR CI (4 successful, 2 skipped). Final checkpoint evidence follows
+in PR #9. Skipped Dependency Review remains an owner configuration gate, no bypass.
+
+Candidate runtime abstraction removes the separate state/terminal-audit call path;
+this is NOT a durable DB implementation or W4 acceptance of end-to-end writes.
+Reference Maps prove only in-process contract behavior. DB atomicity, multiprocess
+restart/kill-after-effect and authorization still block mutations. No routes,
+provider effects, production, merges, Supabase changes or UI v1 changes.
+
+## Archived checkpoint — iteration 3.1
 
 Verified 2026-09-26 UTC / 2026-09-27 Europe/Madrid. PR #9 remains Draft,
 unmerged and disconnected from application routes. Local evidence: lint of 61
