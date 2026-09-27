@@ -24,6 +24,7 @@ const active = new Set()
 function launch(job) {
   const child = fork(workerPath, [modulePath], { stdio: ['ignore', 'ignore', 'ignore', 'ipc'] })
   active.add(child)
+  const identity = { clientPid: child.pid, backendPid: undefined }
   let release
   const ready = new Promise(resolve => { release = resolve })
   let reached = false
@@ -31,7 +32,7 @@ function launch(job) {
   const result = new Promise((resolve, reject) => {
     const timer = setTimeout(() => { child.kill('SIGKILL'); reject(new Error('worker_timeout')) }, 30000)
     child.on('message', message => {
-      if (message.type === 'ready') release()
+      if (message.type === 'ready') { identity.backendPid = message.backendPid; release() }
       if (message.type === 'checkpoint' && message.name === job.killAt) { reached = true; child.kill('SIGKILL') }
       if (message.type === 'result') { done = true; clearTimeout(timer); resolve(message.result) }
       if (message.type === 'error') { clearTimeout(timer); reject(new Error('worker_failed')) }
@@ -45,7 +46,7 @@ function launch(job) {
   })
   // Observe errors even if a worker dies before every peer reaches the barrier.
   void result.catch(() => {})
-  return { pid: child.pid, ready, start() { child.send(job) }, result }
+  return { identity, ready, start() { child.send(job) }, result }
 }
 
 const report = []
@@ -57,20 +58,40 @@ try {
     try {
       const jobs = Array.from({ length: scenario.workers }, () => launch({ fixture, scenario: scenario.id, action: scenario.action, ...('killAt' in scenario ? { killAt: scenario.killAt } : {}) }))
       await Promise.all(jobs.map(job => job.ready))
-      assert.equal(new Set(jobs.map(job => job.pid)).size, scenario.workers)
+      assert.equal(new Set(jobs.map(job => job.identity.clientPid)).size, scenario.workers)
+      assert.ok(jobs.every(job => Number.isSafeInteger(job.identity.backendPid) && job.identity.backendPid > 0))
+      assert.equal(new Set(jobs.map(job => job.identity.backendPid)).size, scenario.workers)
       jobs.forEach(job => job.start())
       const outcomes = await Promise.all(jobs.map(job => job.result))
       if ('killAt' in scenario) assert.equal(outcomes[0]?.killedAt, scenario.killAt)
       if (scenario.workers === 20) assert.equal(outcomes.filter(o => o?.authorization === 'granted').length, 1)
+      if (scenario.id === 'lease_expiry') {
+        assert.equal((await driver.inspectScenario(fixture)).state, 'reconciliation_required')
+      }
+      if (scenario.id === 'atomic_operation_outbox') {
+        const evidence = await driver.inspectBoundary(fixture)
+        assert.equal(evidence?.atomicCommitVerified, true)
+        assert.equal(evidence?.orphanOutboxCount, 0)
+      }
+      if (scenario.id === 'audit_delivery_outage') {
+        const beforeDrain = await driver.inspectScenario(fixture)
+        assert.equal(beforeDrain.originalAuditIntents, 1)
+        assert.equal(beforeDrain.pendingOriginalEvents, 1)
+        assert.equal(beforeDrain.deliveredOriginalEvents, 0)
+      }
+      const identities = jobs.map(job => job.identity)
       if (scenario.recover) {
         // Fresh independent process/connection after crash; adapter verifies receipt
         // or absence before any retry. Recovery includes draining the original audit.
         const recovery = launch({ fixture, scenario: scenario.id, action: 'recover_and_drain' })
         await recovery.ready; recovery.start(); await recovery.result
+        assert.ok(Number.isSafeInteger(recovery.identity.backendPid) && recovery.identity.backendPid > 0)
+        assert.ok(!identities.some(id => id.clientPid === recovery.identity.clientPid))
+        identities.push(recovery.identity)
       }
       const observation = await driver.inspectScenario(fixture)
       assert.equal(validateDurableObservation(scenario.id, observation), true, `invalid evidence: ${scenario.id}`)
-      report.push({ scenario: scenario.id, workers: scenario.workers, passed: true })
+      report.push({ scenario: scenario.id, workers: scenario.workers, identities, ...('killAt' in scenario ? { killedAt: scenario.killAt, signal: 'SIGKILL' } : {}), passed: true })
     } finally {
       const remaining = [...active]
       await Promise.all(remaining.map(child => new Promise(resolve => {
