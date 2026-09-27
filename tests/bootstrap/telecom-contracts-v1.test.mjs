@@ -56,6 +56,12 @@ test('attention and dashboard use discriminated closed items', () => {
   assert.match(source, /export type NavigationTargetV1/)
   assert.match(source, /destination: NavigationTargetV1 \| null/)
   assert.match(source, /customer: EntityRefV1 \| null/)
+  assert.doesNotMatch(source, /relevant_at:/)
+  assert.match(source, /due_at: IsoDateTimeV1 \| null/)
+  assert.match(source, /ends_at: IsoDateTimeV1 \| null/)
+  assert.match(source, /channel: 'in_person' \| 'phone' \| 'video' \| 'other'/)
+  assert.match(source, /follow_up_state: 'none' \| 'scheduled' \| 'overdue'/)
+  assert.match(source, /amount: \{ minor_units: number; currency: string \} \| null/)
 })
 
 test('customer summary and portfolio readers return full typed projections', () => {
@@ -70,6 +76,8 @@ test('customer summary and portfolio readers return full typed projections', () 
   assert.match(source, /export type ReadOneResponseV1<T>/)
   assert.match(source, /Promise<ReadOneResponseV1<CustomerCompanyV1>>/)
   assert.match(source, /Promise<ReadOneResponseV1<TelecomContractV1>>/)
+  assert.match(source, /CapabilityRefV1<A extends CapabilityActionV1/)
+  assert.match(source, /AttentionBaseV1<'join' \| 'edit' \| 'navigate'>/)
 })
 
 test('read inputs do not carry caller-selected workspace identifiers', () => {
@@ -77,4 +85,8 @@ test('read inputs do not carry caller-selected workspace identifiers', () => {
   assert.ok(service)
   assert.doesNotMatch(service, /input:[^\n]*workspace_id/)
   assert.match(source, /Inputs never contain workspace_id/)
+  assert.match(source, /export type ContractListInputV1/)
+  assert.match(source, /commitment_from\?: IsoDateV1/)
+  assert.match(source, /export type ServiceListInputV1/)
+  assert.match(source, /export type TaskListInputV1/)
 })
