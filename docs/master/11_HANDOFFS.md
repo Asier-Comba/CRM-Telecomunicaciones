@@ -9,8 +9,10 @@
 Domain update (`w1/telecom-domain-v1`, dependent on PR #14):
 
 - consume `src/lib/contracts/telecom-v1.ts` as a separate v1 parser;
-- `CustomerAttentionV1`, `DashboardV1`, envelopes and field capabilities are
-  now contract-complete but have no live reader yet;
+- `CustomerAttentionV1`, `CustomerSummaryV1`, `DashboardV1`, portfolio DTOs,
+  envelopes and field capabilities are contract-complete;
+- the authorized read-service boundary is available for adapter work, but its
+  database repository and routes are not live;
 - never infer raw-table access: customer/contact/operator/plan tables have no
   authenticated grants.
 
@@ -42,6 +44,11 @@ including `opportunity.list` plus the requested activity split. Map these in a
 new W3 catalog version; do not mutate the existing v1 catalog. Task/meeting
 writes remain blocked.
 
+Inputs now publish bounded portfolio/date/owner/assignee/status filters. The
+service rejects unknown properties and any caller-provided `workspace_id`,
+authorizes the exact operation before persistence and checks the returned
+scope epoch. W3 should target the v1 envelopes, never the repository directly.
+
 Snapshot revisado: `w3/assistant-runtime-foundation@c6e869e`.
 
 Use `src/lib/server/tenant-context.ts` as the W1 actor/workspace boundary.
@@ -49,9 +56,10 @@ Workspace identifiers from model output or request bodies cannot replace the
 resolved membership. Historical agent and confirmation routes are absent; no
 arbitrary SQL/HTTP or global agent credential is enabled.
 
-Assistant persistence remains classified, not implemented. W3 must provide the
-durable confirmation/idempotency/outbox contract and entity taxonomy before W1
-creates assistant tables or writes.
+Assistant persistence remains unimplemented. The reviewed W3 durable contract
+is mapped offline in `W1_W3_DURABLE_DATA_MAPPING.md`; no table or write is
+created before W4 accepts the base and the conformance plan can run on an
+isolated database.
 
 The current W1 `telecom.v0` read types may back W3's thirteen read capabilities
 through a W1 adapter. Task/meeting mutations remain blocked: W1 has not
