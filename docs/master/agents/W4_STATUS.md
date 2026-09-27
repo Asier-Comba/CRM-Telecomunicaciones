@@ -4,10 +4,10 @@ Verified2026-09-27 UTC. CAN_INTEGRATE YES; CAN_STAGE NO; CAN_PRODUCE NO.
 ACCEPTED INTEGRATION BASE: 6b0e30e7444de57100e4d983b3564a0c3b336b2c
 
 W1 onboarding42702 FIXED by reviewed forward migration. Clean quality22 tests/build/audit and both DB runners pass; CI148 secret scan passes.
-W2 Backend takeover observed at00fc932, descending from accepted6b0e30e with originals preserved; replay still in progress/no new PR observed. Original domainPR15 remains blocked on trigger/import/DTO/date defects; safe foundation composition allowed.
-W3@515e0d439e705ecc9c9c13140ed14b4d8f565246:391 official+6 independent W4 tests PASS; lint/types/build PASS. Previous reconciliation state-only/audit emission seam and result authorization gap FIXED. Missing/wrong atomic acknowledgment denies SUCCESS; 20-way race has one transition/intent in reference model.
+W2 Backend takeover reviewed atc3b1f9f, descending from accepted6b0e30e with originals preserved; PR17 open; all10 migrations apply but domain SQL42703 and READ/date3PASS/11FAIL persist. Original domainPR15 remains blocked on trigger/import/DTO/date defects; safe foundation composition allowed.
+W3@c804acd80f51dd285c8f6e488efa36a8d539e0eb:393 official+6 independent W4 tests PASS; lint/types/build PASS. Previous reconciliation state-only/audit emission seam and result authorization gap FIXED. Missing/wrong atomic acknowledgment denies SUCCESS; 20-way race has one transition/intent in reference model.
 Issue10 remains open ONLY for actual native durable adapter/transaction/process/recovery evidence. Map assertions are not DB evidence. P2 unknown scenario oracle acceptance reproduced; no new application P0/P1.
-W4 CI155@80b1a63 PASS. Fresh reviews published PR9 comment5857101921 and Issue10 comment5857106058.
+W4 CI161@af02abc PASS. PR17 handoff5857144732. Fresh reviews published PR9 comment5857101921 and Issue10 comment5857106058.
 W4 owns review/CI/harness/gates only. No product fixes pushed to W1/W2/W3. Production untouched; no main/merge/remote DB operations.
 Authoritative current detail: ../W4_ITERATION_4_2.md, ../SYSTEM_STATE.md, ../W4_PORTABILITY_AUDIT.md and .security/release-gates.json v2.
 All cross-Work findings published on exact GitHub PR/Issue with SHA/repro/acceptance. No Project sync in4.2.

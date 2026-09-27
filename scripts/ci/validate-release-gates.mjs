@@ -85,6 +85,13 @@ for (const [index, gate] of (Array.isArray(document.gates) ? document.gates : []
   if (gate.status === 'passed' && refs.length === 0) errors.push(`${path}: passed gate requires evidence references`)
 }
 
+// Never traverse dependencies or derive decisions from rejected structural input.
+if (errors.length) {
+  console.error('Release gate validation failed:')
+  errors.forEach((error) => console.error(`- ${error}`))
+  process.exit(1)
+}
+
 function visit(id, stack = new Set(), complete = new Set()) {
   if (complete.has(id)) return
   if (stack.has(id)) {

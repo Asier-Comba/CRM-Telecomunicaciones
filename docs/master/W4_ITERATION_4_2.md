@@ -51,3 +51,9 @@ Published PR9 comment5857101921 and Issue10 comment5857106058. W4 CI155@80b1a63 
 ## W2 takeover checkpoint — 00fc9327e6f157d539f46bd396f3cbaece02dd46
 
 Replay remains in progress. This head descends from accepted6b0e30e and preserves original branches. Independent detached execution applies all9 migrations but official domain SQL still stops42703 (`NEW.service_kind`). Stored14-case READ/date acceptance matrix gives3PASS/11FAIL. These reproduce inherited original defects, not newly introduced takeover regressions. Wait for actual W2 fixes before evaluating them as corrected. No W2_STATUS/new takeover PR observed at this checkpoint.
+
+## Subsequent exact-head reviews
+
+- W2 PR17@c3b1f9fe10c31d46d9c4a5a9862ad7f1a3c16fb6: topology accepted; all10 migrations apply; official domain SQL42703 persists; READ/date3PASS/11FAIL. Source-domain migrations and READ service identical to e65f1e8 except addition of fixed onboarding migration. Handoff5857144732 carries exact acceptance fixtures.
+- W3@c804acd80f51dd285c8f6e488efa36a8d539e0eb:393 official+6W4=399PASS; types/build pass. Reviewed runtime source delta adds distinct native backend PID requirements, explicit reconciliation20-way and operation/outbox cases, real observed SIGKILL checkpoint mechanics. Official worker protocol test uses synthetic backendID: process mechanics only. No real native adapter execution. Unknown-scenario oracle finding unchanged.
+- W4 CI161@af02abc success. Attacking our own release validator reproduced TypeError for malformed environment/dependency/evidence shapes; now structural rejection occurs before graph traversal/decision derivation. Five negative controls require controlled exit1 without stack trace. Three decisions unchanged. Assistant durable ownership updated to W2/W3/W4.
