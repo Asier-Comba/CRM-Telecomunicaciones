@@ -231,7 +231,28 @@ export class SupabaseTelecomReadRepositoryV1 implements TelecomReadRepositoryV1 
     }
   }
 
-  customerSummary(context: ServerReadContextV1) { return Promise.resolve(unavailableOne(context)) }
+  async customerSummary(context: ServerReadContextV1, input: { customer_id: string }): Promise<unknown> {
+    const response = await this.#client.rpc('telecom_v1_customer_summary', {
+      p_actor_id: context.actor_id,
+      p_workspace_id: context.workspace_id,
+      p_customer_id: input.customer_id,
+      p_scope_epoch: context.scope_epoch,
+    })
+    if (response.error !== null) throw new Error('customer summary unavailable')
+    const asOf = this.#now()
+    if (!isStrictInstantV1(asOf)) throw new Error('invalid repository clock')
+    if (response.data === null) {
+      return { contract_version: VERSION, scope_epoch: context.scope_epoch, result: 'not_found', data: null, freshness: null, error: null }
+    }
+    return {
+      contract_version: VERSION,
+      scope_epoch: context.scope_epoch,
+      result: 'found',
+      data: response.data,
+      freshness: { kind: 'fresh', as_of: asOf },
+      error: null,
+    }
+  }
   contractList(context: ServerReadContextV1) { return Promise.resolve(unavailableCollection(context)) }
   contractGet(context: ServerReadContextV1) { return Promise.resolve(unavailableOne(context)) }
   serviceList(context: ServerReadContextV1) { return Promise.resolve(unavailableCollection(context)) }

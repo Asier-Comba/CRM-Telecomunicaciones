@@ -28,7 +28,9 @@ function bytesToBase64Url(value: Uint8Array): string {
 
 function base64UrlToBytes(value: string): Uint8Array {
   if (!/^[A-Za-z0-9_-]+$/.test(value)) throw new Error('invalid cursor encoding')
-  return new Uint8Array(Buffer.from(value, 'base64url'))
+  const decoded = Buffer.from(value, 'base64url')
+  if (decoded.toString('base64url') !== value) throw new Error('non-canonical cursor encoding')
+  return new Uint8Array(decoded)
 }
 
 function toArrayBuffer(value: Uint8Array): ArrayBuffer {

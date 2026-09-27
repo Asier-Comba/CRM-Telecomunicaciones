@@ -58,6 +58,90 @@ insert into public.contacts (
   '10000000-0000-0000-0000-000000000001'
 );
 
+insert into public.telecom_operators (id, workspace_id, code, display_name, created_by_user_id)
+values (
+  '50000000-0000-0000-0000-000000000001', '20000000-0000-0000-0000-000000000001',
+  'synthetic-reader', 'Synthetic Operator', '10000000-0000-0000-0000-000000000001'
+);
+insert into public.telecom_plans (id, workspace_id, operator_id, code, display_name, service_kind, created_by_user_id)
+values (
+  '51000000-0000-0000-0000-000000000001', '20000000-0000-0000-0000-000000000001',
+  '50000000-0000-0000-0000-000000000001', 'synthetic-plan', 'Synthetic Plan', 'mobile',
+  '10000000-0000-0000-0000-000000000001'
+);
+insert into public.telecom_plan_versions (id, workspace_id, plan_id, version_number, valid_from, created_by_user_id)
+values (
+  '52000000-0000-0000-0000-000000000001', '20000000-0000-0000-0000-000000000001',
+  '51000000-0000-0000-0000-000000000001', 1, '2020-01-01',
+  '10000000-0000-0000-0000-000000000001'
+);
+insert into public.telecom_contracts (
+  id, workspace_id, customer_id, operator_id, plan_version_id, status,
+  start_date, assigned_user_id, created_by_user_id
+) values (
+  '60000000-0000-0000-0000-000000000001', '20000000-0000-0000-0000-000000000001',
+  '40000000-0000-0000-0000-000000000001', '50000000-0000-0000-0000-000000000001',
+  '52000000-0000-0000-0000-000000000001', 'active', current_date - 300,
+  '10000000-0000-0000-0000-000000000001', '10000000-0000-0000-0000-000000000001'
+);
+insert into public.telecom_services (
+  id, workspace_id, customer_id, contract_id, operator_id, plan_version_id,
+  service_kind, display_name, status, activated_on, created_by_user_id
+) values (
+  '61000000-0000-0000-0000-000000000001', '20000000-0000-0000-0000-000000000001',
+  '40000000-0000-0000-0000-000000000001', '60000000-0000-0000-0000-000000000001',
+  '50000000-0000-0000-0000-000000000001', '52000000-0000-0000-0000-000000000001',
+  'mobile', 'Synthetic Mobile Service', 'active', current_date - 300,
+  '10000000-0000-0000-0000-000000000001'
+);
+insert into public.telecom_lines (id, workspace_id, service_id, status, activated_on, created_by_user_id)
+values (
+  '62000000-0000-0000-0000-000000000001', '20000000-0000-0000-0000-000000000001',
+  '61000000-0000-0000-0000-000000000001', 'active', current_date - 300,
+  '10000000-0000-0000-0000-000000000001'
+);
+insert into public.telecom_commitments (
+  id, workspace_id, contract_id, service_id, commitment_kind, starts_on,
+  ends_on, reason_code, created_by_user_id
+) values (
+  '63000000-0000-0000-0000-000000000001', '20000000-0000-0000-0000-000000000001',
+  '60000000-0000-0000-0000-000000000001', '61000000-0000-0000-0000-000000000001',
+  'minimum_term', current_date - 300, current_date + 30, 'minimum_term',
+  '10000000-0000-0000-0000-000000000001'
+);
+insert into public.telecom_renewals (
+  id, workspace_id, contract_id, target_on, opens_on, closes_on, created_by_user_id
+) values (
+  '64000000-0000-0000-0000-000000000001', '20000000-0000-0000-0000-000000000001',
+  '60000000-0000-0000-0000-000000000001', current_date + 20,
+  current_date - 5, current_date + 20, '10000000-0000-0000-0000-000000000001'
+);
+insert into public.tasks (
+  id, workspace_id, customer_id, title, status, priority, due_at, assigned_user_id, created_by_user_id
+) values (
+  '72000000-0000-0000-0000-000000000001', '20000000-0000-0000-0000-000000000001',
+  '40000000-0000-0000-0000-000000000001', 'Synthetic Follow-up', 'pending', 'high',
+  now() + interval '1 day', '10000000-0000-0000-0000-000000000001',
+  '10000000-0000-0000-0000-000000000001'
+);
+insert into public.calendar_events (
+  id, workspace_id, customer_id, title, status, channel, starts_at, ends_at,
+  timezone, assigned_user_id, created_by_user_id
+) values (
+  '73000000-0000-0000-0000-000000000001', '20000000-0000-0000-0000-000000000001',
+  '40000000-0000-0000-0000-000000000001', 'Synthetic Meeting', 'scheduled', 'video',
+  now() + interval '2 days', now() + interval '2 days 1 hour', 'UTC',
+  '10000000-0000-0000-0000-000000000001', '10000000-0000-0000-0000-000000000001'
+);
+insert into public.activities (
+  id, workspace_id, customer_id, activity_kind, summary_code, actor_kind,
+  source, source_event_ref, occurred_at, created_by_user_id
+) values (
+  '74000000-0000-0000-0000-000000000001', '20000000-0000-0000-0000-000000000001',
+  '40000000-0000-0000-0000-000000000001', 'system', 'system.imported', 'system',
+  'system', 'synthetic:summary:1', now() - interval '1 hour', null
+);
+
 set local role authenticated;
 do $$
 declare denied boolean := false;
@@ -115,6 +199,46 @@ select pg_temp.assert_true(
     '40000000-0000-0000-0000-000000000003'
   ) is null,
   'customer get crossed the selected workspace'
+);
+
+do $$
+declare summary jsonb;
+begin
+  summary := public.telecom_v1_customer_summary(
+    '10000000-0000-0000-0000-000000000001',
+    '20000000-0000-0000-0000-000000000001',
+    '40000000-0000-0000-0000-000000000001',
+    'scope-epoch-0001'
+  );
+  if summary is null
+     or summary->>'scope_epoch' <> 'scope-epoch-0001'
+     or summary#>>'{customer,id}' <> '40000000-0000-0000-0000-000000000001'
+     or jsonb_array_length(summary#>'{contracts,items}') <> 1
+     or jsonb_array_length(summary#>'{services,items}') <> 1
+     or jsonb_array_length(summary#>'{lines,items}') <> 1
+     or jsonb_array_length(summary#>'{attention,next_task,items}') <> 1
+     or jsonb_array_length(summary#>'{attention,next_meeting,items}') <> 1
+     or jsonb_array_length(summary#>'{attention,nearest_renewal,items}') <> 1
+     or jsonb_array_length(summary#>'{attention,nearest_permanence,items}') <> 1
+     or jsonb_array_length(summary#>'{attention,recent_activity,items}') <> 1
+     or summary#>>'{attention,alerts,source_state}' <> 'unsupported'
+     or summary#>>'{customer,tax_identifier,visibility}' <> 'hidden' then
+    raise exception 'customer summary shape or populated sections are invalid';
+  end if;
+  if summary::text ~ 'SYNTHETIC-CIF-A|contact@example.invalid|\\+34-000-000-000' then
+    raise exception 'customer summary exposed protected source values';
+  end if;
+end;
+$$;
+
+select pg_temp.assert_true(
+  public.telecom_v1_customer_summary(
+    '10000000-0000-0000-0000-000000000001',
+    '20000000-0000-0000-0000-000000000001',
+    '40000000-0000-0000-0000-000000000003',
+    'scope-epoch-0001'
+  ) is null,
+  'customer summary crossed the selected workspace'
 );
 
 do $$

@@ -52,6 +52,39 @@ function customerRow(overrides = {}) {
   }
 }
 
+function available(items = [], scopeEpoch = context.scope_epoch) {
+  return {
+    contract_version: 'telecom.v1', scope_epoch: scopeEpoch,
+    source_state: 'available', permission: 'authorized', items,
+    completeness: { kind: 'complete' }, continuation: null,
+    freshness: { kind: 'fresh', as_of: NOW }, error: null,
+  }
+}
+
+function summaryData(scopeEpoch = context.scope_epoch) {
+  const customer = {
+    contract_version: 'telecom.v1', scope_epoch: scopeEpoch,
+    id: CUSTOMER_A, account_kind: 'legal_entity', legal_name: 'Synthetic Telecom Company',
+    trade_name: null, tax_identifier: { field_class: 'tax_identifier', visibility: 'hidden' },
+    lifecycle: 'customer', status: 'active', assigned_user: null, primary_contact: null, capabilities: [],
+  }
+  return {
+    contract_version: 'telecom.v1', scope_epoch: scopeEpoch, customer,
+    contracts: available([], scopeEpoch), services: available([], scopeEpoch), lines: available([], scopeEpoch),
+    attention: {
+      contract_version: 'telecom.v1', scope_epoch: scopeEpoch, customer_id: CUSTOMER_A, generated_at: NOW,
+      next_task: available([], scopeEpoch), next_meeting: available([], scopeEpoch),
+      nearest_renewal: available([], scopeEpoch), nearest_permanence: available([], scopeEpoch),
+      alerts: {
+        contract_version: 'telecom.v1', scope_epoch: scopeEpoch, source_state: 'unsupported',
+        reason: 'contract_not_published', permission: 'unknown', items: null,
+        completeness: null, continuation: null, freshness: null, error: null,
+      },
+      recent_activity: available([], scopeEpoch),
+    },
+  }
+}
+
 function authorizer(referenceCalls = []) {
   return {
     authorize: async () => true,
@@ -184,6 +217,47 @@ test('customer get returns found/not-found and reauthorizes returned references'
   found = false
   const missing = await service.customerGet(context, { customer_id: CUSTOMER_A })
   assert.equal(missing.result, 'not_found')
+})
+
+test('customer summary consumes the database read model and preserves section semantics', async () => {
+  let data = summaryData()
+  const calls = []
+  const rpc = {
+    async rpc(name, parameters) {
+      calls.push({ name, parameters })
+      return { data, error: null }
+    },
+  }
+  const repository = new SupabaseTelecomReadRepositoryV1(rpc, codec(), () => NOW)
+  const service = new AuthorizedTelecomReadServiceV1(repository, authorizer())
+  const result = await service.customerSummary(context, { customer_id: CUSTOMER_A })
+  assert.equal(result.result, 'found')
+  assert.equal(result.data.customer.id, CUSTOMER_A)
+  assert.equal(result.data.attention.alerts.source_state, 'unsupported')
+  assert.deepEqual(calls[0], {
+    name: 'telecom_v1_customer_summary',
+    parameters: {
+      p_actor_id: ACTOR_A,
+      p_workspace_id: WORKSPACE_A,
+      p_customer_id: CUSTOMER_A,
+      p_scope_epoch: context.scope_epoch,
+    },
+  })
+
+  data = null
+  assert.equal((await service.customerSummary(context, { customer_id: CUSTOMER_A })).result, 'not_found')
+})
+
+test('customer summary rejects a foreign nested scope as a safe response error', async () => {
+  const foreign = summaryData()
+  foreign.contracts.scope_epoch = 'scope-epoch-0002'
+  const rpc = { async rpc() { return { data: foreign, error: null } } }
+  const repository = new SupabaseTelecomReadRepositoryV1(rpc, codec(), () => NOW)
+  const service = new AuthorizedTelecomReadServiceV1(repository, authorizer())
+  const result = await service.customerSummary(context, { customer_id: CUSTOMER_A })
+  assert.equal(result.result, 'error')
+  assert.equal(result.error.code, 'internal_safe')
+  assert.equal(result.data, null)
 })
 
 test('malformed rows and provider errors collapse to safe service errors', async () => {
