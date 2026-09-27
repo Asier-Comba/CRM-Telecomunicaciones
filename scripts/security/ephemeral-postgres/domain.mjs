@@ -8,6 +8,7 @@ import { pgcrypto } from '@electric-sql/pglite/contrib/pgcrypto'
 
 const root = resolve(process.argv[2] ?? fileURLToPath(new URL('../../..', import.meta.url)))
 const fixturePath = resolve(root, 'supabase/tests/telecom-domain-rls.sql')
+const readerFixturePath = resolve(root, 'supabase/tests/telecom-server-read-rpc.sql')
 const db = new PGlite({ extensions: { pgcrypto, btree_gist } })
 
 try {
@@ -50,6 +51,11 @@ try {
   assert.match(fixture, /rollback;\s*$/i, 'domain fixture must end with rollback')
   await db.exec(fixture)
   console.log('TELECOM DOMAIN SQL ASSERTIONS PASS')
+
+  const readerFixture = (await readFile(readerFixturePath, 'utf8')).replace(/^\\.*$/gm, '')
+  assert.match(readerFixture, /rollback;\s*$/i, 'server reader fixture must end with rollback')
+  await db.exec(readerFixture)
+  console.log('TELECOM SERVER READ RPC ASSERTIONS PASS')
 } catch (error) {
   console.error('DISPOSABLE DOMAIN DB FAILURE', error.code, error.message)
   process.exitCode = 1
