@@ -1,4 +1,19 @@
-# W4 — Security, QA, DevOps and release status
+# W4 status — iteration4.2
+
+Verified2026-09-27 UTC. CAN_INTEGRATE YES; CAN_STAGE NO; CAN_PRODUCE NO.
+ACCEPTED INTEGRATION BASE: 6b0e30e7444de57100e4d983b3564a0c3b336b2c
+
+W1 onboarding42702 FIXED by reviewed forward migration. Clean quality22 tests/build/audit and both DB runners pass; CI148 secret scan passes.
+W2 Backend takeover now observed at541c4f4, descending from accepted6b0e30e with originals preserved; replay still in progress/no new PR observed. DomainPR15 remains blocked on trigger/import/DTO/date defects; safe foundation composition allowed.
+W3@489eed2:384 official+12 W4 tests pass. Capability-specific schema gap fixed; original audit-loss reproduction remains open; no durable DB adapter evidence.
+New W3@3c2d736 atomic persistence seam detected and review started; the preceding completed review applies to489eed2 only. Do not claim old audit-loss reproduction still succeeds unchanged on new seam; durable DB gate remains until real evidence.
+W4 owns review/CI/harness/gates only. No product fixes pushed to W1/W2/W3. Production untouched; no main/merge/remote DB operations.
+Authoritative current detail: ../W4_ITERATION_4_2.md, ../SYSTEM_STATE.md, ../W4_PORTABILITY_AUDIT.md and .security/release-gates.json v2.
+All cross-Work findings published on exact GitHub PR/Issue with SHA/repro/acceptance. No Project sync in4.2.
+Next: inspect actual W2 takeover topology/fixes on publication; run stored secure-acceptance cases and native durability adapter suite when implementation exists. Platform credentials/config/real Auth/PostgREST/Storage remain staging gates, not canonical composition blockers.
+
+## Archived iteration4.1 status — SHA-specific history, superseded above
+
 
 Verified 2026-09-26 UTC. Current work: `w4/night-shift-v3`.
 `w4/security-baseline@5cb872c` is preserved; never promote it directly to main.

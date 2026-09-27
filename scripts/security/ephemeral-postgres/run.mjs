@@ -42,7 +42,40 @@ try {
   assert.equal((await db.query('select * from public.current_workspace_ids()')).rows.length,0)
   assert.equal((await db.query('select * from public.workspaces')).rows.length,0)
   await assert.rejects(db.query("select * from public.provision_workspace('Bypass','bypass')"))
-  console.log('IDENTITY ONBOARDING/REPLAY/SUSPENSION PASS')
+  await db.exec('reset role')
+  const b='10000000-0000-0000-0000-000000000002'
+  const c='10000000-0000-0000-0000-000000000003'
+  await db.query('insert into auth.users(id,email) values($1,$2),($3,$4)',[b,'b@example.invalid',c,'c@example.invalid'])
+  await db.exec(`set role authenticated; select set_config('request.jwt.claim.sub','${b}',false);`)
+  const second=await db.query("select * from public.provision_workspace('Synthetic B','synthetic-b')")
+  assert.deepEqual((await db.query('select id from public.workspaces')).rows,[{id:second.rows[0].id}])
+  await db.exec(`select set_config('request.jwt.claim.sub','${a}',false);`)
+  assert.equal((await db.query('select id from public.workspaces')).rows.length,0)
+  await db.exec('reset role')
+  await db.query("insert into public.workspace_members(workspace_id,user_id,role,status) values($1,$2,'member','active')",[second.rows[0].id,a])
+  await db.exec('set role authenticated')
+  assert.deepEqual((await db.query('select id from public.workspaces')).rows,[{id:second.rows[0].id}])
+  await db.exec('reset role')
+  // Current schema represents removed membership by absence, not a status enum.
+  await db.query('delete from public.workspace_members where workspace_id=$1 and user_id=$2',[second.rows[0].id,a])
+  await db.exec('set role authenticated')
+  assert.equal((await db.query('select id from public.workspaces')).rows.length,0)
+  await db.exec(`select set_config('request.jwt.claim.sub','${c}',false);`)
+  await assert.rejects(db.query("select * from public.provision_workspace('Collision','synthetic-b')"),{code:'23505'})
+  await db.exec('reset role')
+  assert.equal((await db.query('select id from public.workspace_members where user_id=$1',[c])).rows.length,0)
+  assert.deepEqual((await db.query('select workspace_id from public.profiles where id=$1',[c])).rows,[{workspace_id:null}])
+  await db.exec(`create function pg_temp.reject_synthetic_profile() returns trigger language plpgsql as $$begin raise exception using errcode='23514',message='synthetic_profile_failure'; end$$;
+   create trigger w4_synthetic_profile_failure before insert on public.profiles for each row when (new.id='${c}'::uuid) execute function pg_temp.reject_synthetic_profile();
+   set role authenticated;`)
+  await assert.rejects(db.query("select * from public.provision_workspace('Rollback','synthetic-rollback')"),{code:'23514'})
+  await db.exec('reset role')
+  assert.equal((await db.query("select id from public.workspaces where slug='synthetic-rollback'")).rows.length,0)
+  assert.equal((await db.query('select id from public.workspace_members where user_id=$1',[c])).rows.length,0)
+  assert.deepEqual((await db.query('select workspace_id from public.profiles where id=$1',[c])).rows,[{workspace_id:null}])
+  await db.exec("set role anon; select set_config('request.jwt.claim.sub','',false);")
+  await assert.rejects(db.query("select * from public.provision_workspace('Anonymous','anonymous')"),{code:'42501'})
+  console.log('IDENTITY ONBOARDING/REPLAY/SUSPENSION/CROSS-TENANT/MULTI/REMOVED/COLLISION/ROLLBACK/ANON PASS')
  }
 } catch(e) { console.error('DB FAILURE',e.code,e.message); process.exitCode=1 }
 finally {await db.close()}

@@ -1,6 +1,6 @@
 {
-  "version": 1,
-  "acceptedBase": null,
+  "version": 2,
+  "acceptedBase": "6b0e30e7444de57100e4d983b3564a0c3b336b2c",
   "releaseDecision": "blocked",
   "environments": {
     "development": "active",
@@ -13,24 +13,30 @@
       "phase": "integration",
       "severity": "P0",
       "owners": [
-        "W1",
+        "W2",
         "W4"
       ],
-      "status": "blocked",
+      "status": "passed",
       "requires": [],
       "evidenceRequired": [
         "accepted_sha",
         "clean_history",
         "schema_rebuild",
         "auth_alignment",
-        "live_rls_matrix"
+        "independent_sql_identity_matrix"
       ],
-      "evidenceSatisfied": [],
+      "evidenceSatisfied": [
+        "accepted_sha",
+        "clean_history",
+        "schema_rebuild",
+        "auth_alignment",
+        "independent_sql_identity_matrix"
+      ],
       "evidenceRefs": [
         "pr:#14",
-        "commit:32f0112",
-        "pr:#15",
-        "commit:e65f1e8"
+        "commit:6b0e30e7444de57100e4d983b3564a0c3b336b2c",
+        "run:#148",
+        "doc:docs/master/W4_ITERATION_4_2.md"
       ]
     },
     {
@@ -89,7 +95,7 @@
       "evidenceRefs": [
         "issue:#10",
         "pr:#9",
-        "commit:91b4b3e"
+        "commit:489eed266d59f0b7df28e6f560ee527ea9fe69e7"
       ]
     },
     {
@@ -122,8 +128,9 @@
         "restore_evidence_schema"
       ],
       "evidenceRefs": [
-        "commit:fe6060f",
-        "run:#88"
+        "pr:#16",
+        "commit:e8906ff4cb23f5a9fad4e5a2b59dfe3116415c15",
+        "run:#134"
       ]
     },
     {
@@ -182,7 +189,8 @@
       "requires": [
         "base.canonical",
         "frontend.read",
-        "ci.baseline"
+        "ci.baseline",
+        "platform.auth_rls"
       ],
       "evidenceRequired": [
         "separate_supabase",
@@ -251,6 +259,35 @@
       ],
       "evidenceSatisfied": [],
       "evidenceRefs": []
+    },
+    {
+      "id": "platform.auth_rls",
+      "phase": "staging",
+      "severity": "P1",
+      "owners": [
+        "W2",
+        "W4"
+      ],
+      "status": "pending",
+      "requires": [
+        "base.canonical"
+      ],
+      "evidenceRequired": [
+        "real_auth_jwt",
+        "postgrest_role_tests",
+        "storage_private_policy",
+        "scoped_service_principal",
+        "environment_config_reproducible"
+      ],
+      "evidenceSatisfied": [],
+      "evidenceRefs": [
+        "doc:docs/master/W4_PORTABILITY_AUDIT.md"
+      ]
     }
-  ]
+  ],
+  "decisions": {
+    "CAN_INTEGRATE": "YES",
+    "CAN_STAGE": "NO",
+    "CAN_PRODUCE": "NO"
+  }
 }

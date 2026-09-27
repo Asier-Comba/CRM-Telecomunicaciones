@@ -13,6 +13,8 @@ Convert vulnerable assertions into rejection/secure-state expectations when the 
 
 ## Latest delta
 
+Iteration4.2: w3-reconciliation-v42.test.ts belongs in W3@489eed2/test/ (384 official+12 independent cases); all pass, including an explicitly labelled still-vulnerable audit-loss reproduction. domain-read-v42.test.mjs belongs in PR15@e65f1e8/tests/bootstrap/; it asserts secure behavior and currently has3 PASS/11 FAIL. import-initialization-v42.sql also asserts secure initialization, not vulnerable behavior. These are excluded from W4 baseline green self-tests. Use them as owner-fix acceptance probes.
+
 - W3@91b4b3e: use w3-v1-adversarial.patch instead of old patch;173 official+6 W4 probes. Reflection test now expects rejection marker; new verifier-data probe demonstrates missing capability-specific result schema.
 - pr14-onboarding-candidate.patch and pr15-trigger-candidate.patch are diagnostic edits ONLY for disposable worktrees. They demonstrate minimal fixes, not deployable migration history. W1 should ship forward migrations. Candidate identity and full domain SQL pass after these edits.
 - pr15-import-standalone.sql reproduces initial completed/fabricated counters against UNMODIFIED e65f1e8, independent of trigger failures in the larger fixture. Run it as the SQL argument to the embedded runner. Its PASS means the defect exists, not secure acceptance. Trusted/privileged insert invariant only; browser access remains denied.
