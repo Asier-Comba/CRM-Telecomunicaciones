@@ -1,0 +1,2021 @@
+'use client'
+
+// /opportunities — Cartera inmobiliaria (centro del CRM).
+//
+// Vista por defecto: Inmuebles (la cartera). Tabs visibles al cliente:
+// Inmuebles · Operaciones · Trámites. "Plantillas" y "Automatizaciones" son superficie
+// de operador (solo NEXT_PUBLIC_NOWLABS_INTERNAL). La ruta sigue siendo /opportunities
+// (sidebar "Cartera") para no romper enlaces.
+//
+// Lenguaje de producto: Inmueble (tabla properties) = activo gestionado; Operación = negocio
+// comercial; Trámite (tabla service_cases) = gestión/documentación. "Expediente" y "Pipeline"
+// no aparecen en la UI visible. Fotos/documentos de inmueble: pendiente (sin Storage) → ver
+// docs/REAL_ESTATE_MEDIA_AND_DOCUMENTS_ROADMAP.md (placeholder, sin upload falso).
+//
+// Lecturas: helpers workspace-scoped en vertical-queries.ts (RLS al fondo).
+// Escrituras: drawers laterales en src/components/VerticalForms.tsx — usan los
+// mismos helpers que crean (con activity log) las mismas entidades que crea
+// el Asistente IA desde el chat. Inline status/stage edit reescribe vía
+// updateOpportunityStage / updateServiceCaseStatus / updatePropertyStatus.
+
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import Link from 'next/link'
+import { motion } from 'framer-motion'
+import {
+  Target,
+  Building2,
+  Home,
+  FileText,
+  RefreshCcw,
+  Sparkles,
+  Plus,
+  PlayCircle,
+  Pencil,
+  Trash2,
+  MapPin,
+  Coins,
+  Check,
+  X,
+  Archive,
+  ChevronRight,
+  Search,
+  MoreVertical,
+  HelpCircle,
+} from 'lucide-react'
+import { toast } from 'sonner'
+import { PageHeader } from '@/components/PageHeader'
+import { Button } from '@/components/Button'
+import { Badge } from '@/components/Badge'
+import { SectionCard } from '@/components/SectionCard'
+import { EmptyState } from '@/components/EmptyState'
+import {
+  NewOpportunityDrawer,
+  NewServiceCaseDrawer,
+  NewPropertyDrawer,
+  SERVICE_CASE_STATUS_OPTIONS,
+  serviceCaseStatusLabel,
+} from '@/components/VerticalForms'
+import {
+  EditOpportunityDrawer,
+  EditServiceCaseDrawer,
+  EditPropertyDrawer,
+} from '@/components/VerticalEditForms'
+import { WorkspaceTemplatesPanel } from '@/components/WorkspaceTemplatesPanel'
+import { EntityDocumentsManager } from '@/components/EntityDocumentsManager'
+import { PropertyStatusBadge } from '@/components/PropertyStatusBadge'
+import { propertyMatchesFilters, sortPortfolio } from '@/lib/portfolio-filter'
+import { computeHonorarios } from '@/lib/invoicing/honorarios'
+import { loadInvoiceLinksForOpportunities, type OpportunityInvoiceLink } from '@/lib/invoicing/invoice-repo'
+import { INVOICE_STATUS_LABEL } from '@/lib/invoicing/types'
+import {
+  resolveCommissionState, summarizeCommissions, bucketInFilter,
+  COMMISSION_BUCKETS_ORDER, COMMISSION_BUCKET_LABEL, COMMISSION_BUCKET_DESCRIPTION, COMMISSION_BUCKET_STEP, COMMISSION_EMPTY_COPY,
+  type ChipTone, type CommissionFilter, type CommissionState,
+} from '@/lib/invoicing/commission-cta'
+import {
+  PROPERTY_OPERATION_LABEL,
+  PROPERTY_STATUS_META,
+  PROPERTY_TYPE_LABEL,
+  propLabel,
+  propNum,
+  propertyTypeText,
+  isRentalProperty,
+  sortPropertiesByStatus,
+  ACTIVE_STATUS_RANK,
+  HISTORY_STATUS_RANK,
+} from '@/lib/property-display'
+import { cn } from '@/lib/utils'
+import { DEMO_MODE_KEY, useCurrentUser } from '@/lib/current-user'
+import { featureFlags } from '@/lib/feature-flags'
+import { demoOpportunities, demoServiceCases, demoProperties } from '@/lib/demo/demo-real-estate'
+import { clients as demoClients } from '@/lib/mock-data'
+import { getClients } from '@/lib/supabase-queries'
+import { coverUrlsForProperties, documentCountsForEntities, deleteEntityFilesFor } from '@/lib/entity-files'
+import { ConfirmDialog } from '@/components/ConfirmDialog'
+import {
+  VERTICALS,
+  COMM_STATE_ORDER,
+  COMM_STATE_OPTIONS,
+  COMM_STATE_TONE,
+  commStateOf,
+  wonLabel,
+  stageForCommState,
+  getAutomationTemplatesForVertical,
+  AUTOMATION_TEMPLATES,
+  type CommState,
+  type VerticalKey,
+} from '@/lib/demo/vertical-templates'
+import {
+  listOpportunities,
+  listServiceCases,
+  listProperties,
+  updateOpportunityStage,
+  updateServiceCaseStatus,
+  updatePropertyStatus,
+  updateOpportunity,
+  deleteOpportunity,
+  deleteServiceCase,
+  deleteProperty,
+  type OpportunityRow,
+  type ServiceCaseRow,
+  type PropertyRow,
+} from '@/lib/vertical-queries'
+
+type VerticalTab = 'all' | VerticalKey
+type Subtab = 'pipeline' | 'cases' | 'properties' | 'commissions' | 'templates' | 'automations'
+
+const VERTICAL_TABS: Array<{ key: VerticalTab; label: string; description: string }> = [
+  { key: 'all',                    label: 'Todos',         description: 'Operativa completa del workspace.' },
+  { key: 'real_estate',            label: 'Inmobiliaria',  description: 'Captaciones, visitas y operaciones inmobiliarias.' },
+  { key: 'immigration',            label: 'Extranjería',   description: 'Trámites y gestiones de extranjería.' },
+  { key: 'professional_services',  label: 'Servicios',     description: 'Asesorías y servicios profesionales recurrentes.' },
+]
+
+// Orden comercial: Operaciones (negocio abierto) primero, luego Trámites (gestiones)
+// y Propiedades (cartera). "Plantillas" y "Automatizaciones" son superficie de operador:
+// se ocultan al cliente y solo aparecen con NEXT_PUBLIC_NOWLABS_INTERNAL=true (no aportan
+// al pack básico y confunden el módulo comercial).
+const ALL_SUBTABS: Array<{ key: Subtab; label: string; icon: React.ComponentType<{ className?: string }>; internal?: boolean }> = [
+  { key: 'properties',   label: 'Inmuebles',        icon: Building2 },
+  { key: 'pipeline',     label: 'Operaciones',      icon: Target },
+  { key: 'cases',        label: 'Trámites',         icon: FileText },
+  { key: 'commissions',  label: 'Comisiones',       icon: Coins },
+  { key: 'templates',    label: 'Plantillas',       icon: Sparkles, internal: true },
+  { key: 'automations',  label: 'Automatizaciones', icon: PlayCircle, internal: true },
+]
+
+const SUBTABS = ALL_SUBTABS.filter((tab) => !tab.internal || featureFlags.nowlabsInternal)
+
+// Clases por tono para el chip de estado y el botón de acción de Comisiones (matriz P45).
+const CHIP_TONE_CLS: Record<ChipTone, string> = {
+  amber: 'bg-amber-50 text-amber-700',
+  emerald: 'bg-emerald-50 text-emerald-700',
+  indigo: 'bg-indigo-50 text-indigo-700',
+  gray: 'bg-gray-100 text-gray-600',
+}
+const ACTION_TONE_CLS: Record<ChipTone, string> = {
+  amber: 'border-amber-200 bg-amber-50 text-amber-700 hover:bg-amber-100',
+  emerald: 'border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100',
+  indigo: 'border-indigo-200 bg-indigo-50 text-indigo-700 hover:bg-indigo-100',
+  gray: 'border-gray-200 bg-gray-50 text-gray-600 hover:bg-gray-100',
+}
+const CHIP_TONE_STRONG: Record<ChipTone, string> = {
+  amber: 'bg-amber-100 text-amber-800',
+  emerald: 'bg-emerald-100 text-emerald-800',
+  indigo: 'bg-indigo-100 text-indigo-800',
+  gray: 'bg-gray-100 text-gray-600',
+}
+// Pestañas/filtros de Comisiones (P46). «Por hacer» primero: responde «¿qué tengo que hacer ahora?».
+const COMMISSION_FILTER_TABS: Array<{ key: CommissionFilter; label: string }> = [
+  { key: 'todo', label: 'Por hacer' },
+  { key: 'facturadas', label: 'Facturadas' },
+  { key: 'cobradas', label: 'Cobradas' },
+  { key: 'potenciales', label: 'Potenciales' },
+  { key: 'todas', label: 'Todas' },
+]
+
+// Etapas terminales (cerradas): no cuentan como "operación abierta" ni suman valor potencial.
+const TERMINAL_STAGES = new Set(['won', 'lost', 'resolved', 'closed'])
+
+const SELECT_CLS =
+  'h-7 rounded-lg border border-gray-200 bg-white px-2 text-[11px] text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500'
+
+function formatCurrency(value: number | null, currency = 'EUR') {
+  if (value == null || !Number.isFinite(value)) return '—'
+  try {
+    return new Intl.NumberFormat('es-ES', { style: 'currency', currency, maximumFractionDigits: 0 }).format(value)
+  } catch {
+    return `${value} ${currency}`
+  }
+}
+
+function formatDate(value: string | null) {
+  if (!value) return null
+  try {
+    const d = new Date(value)
+    if (Number.isNaN(d.getTime())) return null
+    return d.toLocaleDateString('es-ES', { day: '2-digit', month: 'short' })
+  } catch { return null }
+}
+
+// Etiquetas/estados/orden de inmuebles → módulo compartido con la ficha (property-display).
+const cap = (s: string) => (s ? s.charAt(0).toUpperCase() + s.slice(1) : s)
+// Inmuebles cerrados (vendidos/alquilados/archivados) → histórico (no se borran). Función pura a nivel
+// de módulo para que las derivaciones memoizadas tengan dependencias estables.
+const isClosedProperty = (status: string | null) => status === 'sold' || status === 'rented' || status === 'archived'
+// Trámite finalizado (sale de la lista activa): completado (resolved) o cerrado.
+const isFinishedCase = (status: string | null) => status === 'resolved' || status === 'closed'
+const CASE_PRIO_RANK: Record<string, number> = { urgent: 0, high: 1, normal: 2, low: 3 }
+
+export default function OpportunitiesPage() {
+  const { currentUser, isLoading: userLoading } = useCurrentUser()
+
+  const [vertical, setVertical] = useState<VerticalTab>('all')
+  const [subtab, setSubtab] = useState<Subtab>('properties')
+  const [opportunities, setOpportunities] = useState<OpportunityRow[]>([])
+  const [invoiceLinks, setInvoiceLinks] = useState<Record<string, OpportunityInvoiceLink>>({})
+  const [cases, setCases] = useState<ServiceCaseRow[]>([])
+  const [properties, setProperties] = useState<PropertyRow[]>([])
+  const [clientNames, setClientNames] = useState<Record<string, string>>({})
+  const [coverUrls, setCoverUrls] = useState<Record<string, string>>({})
+  const [docCountByCase, setDocCountByCase] = useState<Record<string, number>>({})
+  // Borrado seguro (P6.8)
+  const [deleteOppTarget, setDeleteOppTarget] = useState<OpportunityRow | null>(null)
+  const [deleteCaseTarget, setDeleteCaseTarget] = useState<ServiceCaseRow | null>(null)
+  // Documentos de un trámite gestionables directamente desde la fila (sin abrir el drawer de edición).
+  const [docsCase, setDocsCase] = useState<ServiceCaseRow | null>(null)
+  const [blockedOppTarget, setBlockedOppTarget] = useState<OpportunityRow | null>(null)
+  const [highlightOpId, setHighlightOpId] = useState<string | null>(null)
+  const [closeOpp, setCloseOpp] = useState<OpportunityRow | null>(null)
+  // Reabrir una operación cerrada (Vendida/Alquilada) → confirmación guiada (reactiva el inmueble).
+  const [reopenOpp, setReopenOpp] = useState<{ opp: OpportunityRow; nextStage: string } | null>(null)
+  // Inmuebles: vista de cartera (activos / histórico / todos). Por defecto, solo activos.
+  const [propView, setPropView] = useState<'active' | 'history' | 'all'>('active')
+  // Cartera Pro (P19): búsqueda + filtros + orden sobre los inmuebles ya cargados (RLS, sin N+1).
+  const [propSearch, setPropSearch] = useState('')
+  const [propEstado, setPropEstado] = useState('')
+  const [propOperacion, setPropOperacion] = useState('')
+  const [propTipo, setPropTipo] = useState('')
+  const [propLocalidad, setPropLocalidad] = useState('')
+  const [propSort, setPropSort] = useState<'recientes' | 'precio_desc' | 'precio_asc' | 'localidad'>('recientes')
+  // Trámites: vista activos / finalizados / todos (P21). Por defecto, solo activos.
+  const [caseView, setCaseView] = useState<'active' | 'done' | 'all'>('active')
+  // Cambio de estado de un inmueble que lo pasa a histórico (vendido/alquilado/archivado) → confirma.
+  const [propStatusChange, setPropStatusChange] = useState<{ property: PropertyRow; nextStatus: string } | null>(null)
+  // Borrado seguro de inmueble: bloqueo si tiene operaciones; confirmación fuerte si no.
+  const [propToDelete, setPropToDelete] = useState<PropertyRow | null>(null)
+  const [propDeleteBlocked, setPropDeleteBlocked] = useState<{ property: PropertyRow; opsCount: number } | null>(null)
+  const [deletingProp, setDeletingProp] = useState(false)
+  // Comisiones (P46): filtro por estado del ciclo económico. «Por hacer» primero.
+  const [commFilter, setCommFilter] = useState<CommissionFilter>('todo')
+  const [undoCollectOpp, setUndoCollectOpp] = useState<OpportunityRow | null>(null) // deshacer cobro interno (confirmación)
+  const [rowMenuOpp, setRowMenuOpp] = useState<string | null>(null)                 // menú «Más» abierto por fila
+  const [showCommGuide, setShowCommGuide] = useState(false)                         // «¿Cómo funciona?»
+  // Registrar cobro de comisión (fecha + importe real opcional + nota opcional).
+  const [collectOpp, setCollectOpp] = useState<OpportunityRow | null>(null)
+  const [collectDate, setCollectDate] = useState('')
+  const [collectAmount, setCollectAmount] = useState('')
+  const [collectNote, setCollectNote] = useState('')
+  const [collectBusy, setCollectBusy] = useState(false)
+  const [deleteBusy, setDeleteBusy] = useState(false)
+  const [deleteError, setDeleteError] = useState<string | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [loadError, setLoadError] = useState('')
+
+  // Create drawers
+  const [openOpp, setOpenOpp] = useState(false)
+  const [openCase, setOpenCase] = useState(false)
+  const [openProp, setOpenProp] = useState(false)
+
+  // Edit drawers — only one open at a time.
+  const [editOpp, setEditOpp] = useState<OpportunityRow | null>(null)
+  const [editCase, setEditCase] = useState<ServiceCaseRow | null>(null)
+  const [editProp, setEditProp] = useState<PropertyRow | null>(null)
+
+  const workspaceId = currentUser?.workspaceId ?? null
+
+  const loadData = useCallback(async () => {
+    if (typeof window !== 'undefined' && window.localStorage.getItem(DEMO_MODE_KEY) === 'true') {
+      setOpportunities(demoOpportunities)
+      setCases(demoServiceCases)
+      setProperties(demoProperties)
+      setClientNames(Object.fromEntries(demoClients.map((c) => [c.id, c.name])))
+      setCoverUrls({}) // modo demo offline no tiene Storage real
+      setDocCountByCase({})
+      setLoadError('')
+      setLoading(false)
+      return
+    }
+    if (!workspaceId) {
+      setOpportunities([]); setCases([]); setProperties([]); setClientNames({}); setCoverUrls({}); setDocCountByCase({})
+      setLoading(false)
+      return
+    }
+    setLoading(true)
+    setLoadError('')
+    try {
+      // Una lectura agregada de clientes (no N+1) para resolver el nombre del cliente
+      // por operación/trámite. El resto son los listados workspace-scoped (RLS).
+      const [opps, srv, props, clientList] = await Promise.all([
+        listOpportunities(workspaceId).catch(() => []),
+        listServiceCases(workspaceId).catch(() => []),
+        listProperties(workspaceId).catch(() => []),
+        getClients(workspaceId).catch(() => []),
+      ])
+      setOpportunities(opps)
+      setCases(srv)
+      setProperties(props)
+      setClientNames(Object.fromEntries((clientList as { id: string; name: string }[]).map((c) => [c.id, c.name])))
+      // Portadas reales (Storage privado + signed URLs); no bloquea el render.
+      coverUrlsForProperties(workspaceId, props.map((p) => p.id)).then(setCoverUrls).catch(() => setCoverUrls({}))
+      // Nº de documentos por trámite (una lectura agregada, sin N+1).
+      documentCountsForEntities(workspaceId, 'service_case', srv.map((c) => c.id)).then(setDocCountByCase).catch(() => setDocCountByCase({}))
+    } catch (err) {
+      setLoadError(err instanceof Error ? err.message : 'Error cargando datos.')
+    } finally {
+      setLoading(false)
+    }
+  }, [workspaceId])
+
+  useEffect(() => {
+    if (userLoading) return
+    queueMicrotask(() => { void loadData() })
+  }, [userLoading, loadData])
+
+  const visibleOpportunities = useMemo(() => {
+    if (vertical === 'all') return opportunities
+    return opportunities.filter((o) => o.vertical === vertical)
+  }, [opportunities, vertical])
+
+  const visibleCases = useMemo(() => {
+    if (vertical === 'all') return cases
+    return cases.filter((c) => c.vertical === vertical)
+  }, [cases, vertical])
+
+  // Trámites: separar ACTIVOS de FINALIZADOS (P21) — los completados no ensucian la lista activa.
+  // Finalizado = resolved/closed. Activos ordenados: bloqueados primero → vencen antes → sin fecha al
+  // final → recientes; finalizados: más recientes primero.
+  const activeCasesList = useMemo(() => {
+    const list = visibleCases.filter((c) => !isFinishedCase(c.status))
+    return [...list].sort((a, b) => {
+      const ab = a.status === 'blocked' ? 0 : 1, bb = b.status === 'blocked' ? 0 : 1
+      if (ab !== bb) return ab - bb
+      const ad = a.due_date || '', bd = b.due_date || ''
+      if (ad && bd && ad !== bd) return ad < bd ? -1 : 1
+      if (ad && !bd) return -1
+      if (!ad && bd) return 1
+      return (CASE_PRIO_RANK[a.priority] ?? 2) - (CASE_PRIO_RANK[b.priority] ?? 2)
+    })
+  }, [visibleCases])
+  const doneCasesList = useMemo(() => {
+    return [...visibleCases.filter((c) => isFinishedCase(c.status))]
+      .sort((a, b) => String(b.updated_at ?? '').localeCompare(String(a.updated_at ?? '')))
+  }, [visibleCases])
+  const shownCases = caseView === 'done' ? doneCasesList : caseView === 'all' ? [...activeCasesList, ...doneCasesList] : activeCasesList
+
+  const visibleProperties = useMemo(() => {
+    if (vertical === 'all') return properties
+    if (vertical === 'real_estate') return properties
+    return [] // Properties only apply to real_estate today.
+  }, [properties, vertical])
+
+  // Vertical para la etiqueta del empty state cuando se filtra por una vertical concreta.
+  const verticalForPipeline: VerticalKey = useMemo(() => {
+    if (vertical !== 'all') return vertical as VerticalKey
+    const set = new Set<string>()
+    for (const o of opportunities) if (o.vertical) set.add(String(o.vertical))
+    return set.size === 1 ? (Array.from(set)[0] as VerticalKey) : 'real_estate'
+  }, [vertical, opportunities])
+
+  // El tablero agrupa por ESTADO COMERCIAL (5 buckets), no por etapa interna: simple y claro.
+  const opportunitiesByCommState = useMemo(() => {
+    const out: Record<CommState, OpportunityRow[]> = { new: [], managing: [], reserved: [], won: [], lost: [] }
+    for (const opp of visibleOpportunities) out[commStateOf(opp.stage)].push(opp)
+    return out
+  }, [visibleOpportunities])
+
+  const automationTemplates = useMemo(() => {
+    if (vertical === 'all') return AUTOMATION_TEMPLATES
+    return getAutomationTemplatesForVertical(vertical as VerticalKey)
+  }, [vertical])
+
+  const openOpportunities = useMemo(
+    () => visibleOpportunities.filter((o) => !TERMINAL_STAGES.has(o.stage)),
+    [visibleOpportunities],
+  )
+  const openValue = openOpportunities.reduce((sum, o) => sum + (o.value ?? 0), 0)
+  const activeCases = visibleCases.filter((c) => c.status !== 'closed' && c.status !== 'resolved').length
+  const clientNameOf = (id: string | null) => (id ? clientNames[id] ?? '' : '')
+
+  // Mapas para enlazar entidades (vínculos reales ya cargados, sin N+1).
+  const propertiesById = useMemo(() => Object.fromEntries(properties.map((p) => [p.id, p])), [properties])
+  const opportunitiesById = useMemo(() => Object.fromEntries(opportunities.map((o) => [o.id, o])), [opportunities])
+
+  // Permite aterrizar en una subpestaña concreta vía ?tab= (p. ej. returnTo desde Facturación → Comisiones).
+  useEffect(() => {
+    const t = new URLSearchParams(window.location.search).get('tab')
+    if (t && ['pipeline', 'cases', 'properties', 'commissions', 'templates', 'automations'].includes(t)) {
+      queueMicrotask(() => setSubtab(t as Subtab))
+    }
+  }, [])
+
+  // Facturas de honorarios vinculadas a operaciones (para mostrar «Facturar» vs «Factura vinculada»).
+  useEffect(() => {
+    if (!workspaceId || !opportunities.length) { queueMicrotask(() => setInvoiceLinks({})); return }
+    let cancelled = false
+    void loadInvoiceLinksForOpportunities(workspaceId, opportunities.map((o) => o.id)).then((m) => { if (!cancelled) setInvoiceLinks(m) })
+    return () => { cancelled = true }
+  }, [workspaceId, opportunities])
+  // ¿La operación es un alquiler (a efectos de comisión)? Lo es si el inmueble es de alquiler o si
+  // la operación lo declara en metadata.operation_kind.
+  const isRentalOpp = (opp: OpportunityRow): boolean => {
+    const kind = typeof opp.metadata?.operation_kind === 'string' ? opp.metadata.operation_kind : ''
+    if (kind === 'alquiler') return true
+    const p = opp.property_id ? propertiesById[opp.property_id] : undefined
+    return p?.operation_type === 'alquiler' || p?.operation_type === 'alquiler_opcion_compra'
+  }
+  // Comisión prevista (orientativa, control interno). Soporta 3 modelos vía
+  // metadata.commission_model: 'percent' (def.) · 'one_month' (1 mensualidad de alquiler) ·
+  // 'fixed' (importe en metadata.commission_fixed). Clave en alquiler %: la base es la renta ANUAL
+  // (valor potencial), no la mensualidad, para no producir cifras absurdas (3% de 1 mes).
+  const commissionOf = (opp: OpportunityRow): number | null => computeHonorarios({
+    value: opp.value ?? null,
+    commissionRate: opp.commission_rate ?? null,
+    propertyPrice: opp.property_id ? (propertiesById[opp.property_id]?.price ?? null) : null,
+    isRental: isRentalOpp(opp),
+    metadata: opp.metadata ?? null,
+  })
+  // Criterio de comisión, para la lista de Comisiones: "3%", "1 mensualidad" o "importe fijo".
+  const commissionBasisLabel = (opp: OpportunityRow): string => {
+    const model = typeof opp.metadata?.commission_model === 'string' ? opp.metadata.commission_model : 'percent'
+    if (model === 'one_month') return '1 mensualidad'
+    if (model === 'fixed') return 'importe fijo'
+    return opp.commission_rate ? `${opp.commission_rate}%` : ''
+  }
+  // Nº de operaciones por inmueble (vía metadata.property_id). Honesto: 0 si no hay enlace.
+  const opsCountByProperty = useMemo(() => {
+    const m: Record<string, number> = {}
+    for (const o of opportunities) {
+      const pid = o.property_id ?? (typeof o.metadata?.property_id === 'string' ? o.metadata.property_id : null)
+      if (typeof pid === 'string') m[pid] = (m[pid] ?? 0) + 1
+    }
+    return m
+  }, [opportunities])
+
+  // Inmuebles cerrados (vendidos/alquilados/archivados) → histórico (no se borran). "Activos" = todo
+  // lo que sigue en cartera. Orden: reservados → publicados → captación (activos); vendidos →
+  // alquilados → archivados (histórico), con updated_at como desempate.
+  const activeProperties = useMemo(() => visibleProperties.filter((p) => !isClosedProperty(p.status)), [visibleProperties])
+  const historyProperties = useMemo(() => visibleProperties.filter((p) => isClosedProperty(p.status)), [visibleProperties])
+  const soldArchivedCount = historyProperties.length
+  const activeSorted = useMemo(() => sortPropertiesByStatus(activeProperties, ACTIVE_STATUS_RANK), [activeProperties])
+  const historySorted = useMemo(() => sortPropertiesByStatus(historyProperties, HISTORY_STATUS_RANK), [historyProperties])
+  const shownProperties = useMemo(
+    () => (propView === 'history' ? historySorted : propView === 'all' ? [...activeSorted, ...historySorted] : activeSorted),
+    [propView, activeSorted, historySorted],
+  )
+
+  // Cartera Pro (P19): opciones de filtro derivadas de los inmuebles reales (solo lo que existe en la
+  // cartera) + predicado de búsqueda/filtros + orden. Todo client-side sobre datos ya cargados (RLS).
+  const propFilterOptions = useMemo(() => {
+    const localidades = new Set<string>(), tipos = new Set<string>(), operaciones = new Set<string>(), estados = new Set<string>()
+    for (const p of visibleProperties) {
+      if (p.city) localidades.add(p.city)
+      if (p.property_type) tipos.add(p.property_type)
+      if (p.operation_type) operaciones.add(p.operation_type)
+      if (p.status) estados.add(p.status)
+    }
+    return {
+      localidades: [...localidades].sort((a, b) => a.localeCompare(b, 'es')),
+      tipos: [...tipos].sort((a, b) => a.localeCompare(b, 'es')),
+      operaciones: [...operaciones].sort((a, b) => a.localeCompare(b, 'es')),
+      estados: [...estados].sort((a, b) => a.localeCompare(b, 'es')),
+    }
+  }, [visibleProperties])
+
+  const hasPropFilters = Boolean(propSearch.trim() || propEstado || propOperacion || propTipo || propLocalidad)
+  const clearPropFilters = () => { setPropSearch(''); setPropEstado(''); setPropOperacion(''); setPropTipo(''); setPropLocalidad('') }
+
+  const matchesPropFilters = useCallback((p: PropertyRow) => propertyMatchesFilters(p, {
+    search: propSearch, estado: propEstado, operacion: propOperacion, tipo: propTipo, localidad: propLocalidad,
+  }), [propEstado, propOperacion, propTipo, propLocalidad, propSearch])
+
+  const sortProps = useCallback((list: PropertyRow[]) => sortPortfolio(list, propSort), [propSort])
+
+  const displayedActive = useMemo(() => sortProps(activeSorted.filter(matchesPropFilters)), [activeSorted, matchesPropFilters, sortProps])
+  const displayedHistory = useMemo(() => sortProps(historySorted.filter(matchesPropFilters)), [historySorted, matchesPropFilters, sortProps])
+  const displayedProperties = useMemo(() => sortProps(shownProperties.filter(matchesPropFilters)), [shownProperties, matchesPropFilters, sortProps])
+
+  // Contador de "lo activo" por pestaña principal de Cartera (ayuda a la navegación).
+  const subtabCount: Partial<Record<Subtab, number>> = {
+    properties: activeProperties.length,
+    pipeline: openOpportunities.length,
+    cases: activeCasesList.length,
+  }
+
+  // KPIs de cartera (vista Inmuebles). "Valor de cartera activa" = suma de precios de los inmuebles
+  // activos (excluye el histórico vendido/alquilado): no es facturación ni ingresos.
+  const portfolioListed = activeProperties.filter((p) => p.status === 'listed' || p.status === 'available').length
+  const portfolioActiveValue = activeProperties.reduce((s, p) => s + (p.price ?? 0), 0)
+
+  // Módulo Comisiones (P46): control interno de honorarios por operación. Cada operación se clasifica en un
+  // BUCKET del ciclo económico (pendiente de facturar → facturada → cobrada / cobrada sin factura / potencial)
+  // vía `resolveCommissionState`, y se agrupa/filtra por ese estado. El estado es DERIVADO de la factura
+  // vinculada (invoiceLinks), sin sincronizaciones frágiles. El precio del inmueble nunca entra aquí.
+  type CommissionEntry = { o: OpportunityRow; honorarios: number; state: CommissionState }
+  const commissionEntries: CommissionEntry[] = visibleOpportunities
+    .filter((o) => commissionOf(o) != null)
+    .map((o) => ({
+      o,
+      honorarios: commissionOf(o) ?? 0,
+      state: resolveCommissionState({
+        closed: commStateOf(o.stage) === 'won',
+        commissionPaid: o.commission_status === 'cobrada',
+        hasInvoiceLink: !!invoiceLinks[o.id],
+        invoiceStatus: invoiceLinks[o.id]?.status ?? null,
+        invoicingEnabled: featureFlags.invoicing,
+        hasClient: !!o.client_id,
+      }),
+    }))
+  const commissionSummary = summarizeCommissions(commissionEntries.map((e) => ({ honorarios: e.honorarios, bucket: e.state.bucket })))
+  const filteredCommissionEntries = commissionEntries.filter((e) => bucketInFilter(e.state.bucket, commFilter))
+  // Filas visibles agrupadas por bucket, en orden de prioridad (lo que necesita acción, primero).
+  const commissionGroups = COMMISSION_BUCKETS_ORDER
+    .map((bucket) => ({ bucket, entries: filteredCommissionEntries.filter((e) => e.state.bucket === bucket) }))
+    .filter((g) => g.entries.length > 0)
+
+  // Verticales realmente presentes en los datos del workspace. Una inmobiliaria normal
+  // solo tiene `real_estate` → no se muestra el selector de verticales (UI mínima). El
+  // selector solo aparece cuando hay datos en más de una vertical (workspace mixto), y
+  // únicamente con las verticales presentes (sin "Extranjería"/"Servicios" vacíos).
+  const presentVerticals = useMemo(() => {
+    const s = new Set<string>()
+    for (const o of opportunities) if (o.vertical) s.add(String(o.vertical))
+    for (const c of cases) if (c.vertical) s.add(String(c.vertical))
+    if (properties.length) s.add('real_estate')
+    return s
+  }, [opportunities, cases, properties])
+
+  const showVerticalBar = presentVerticals.size > 1
+  const visibleVerticalTabs = useMemo(
+    () => VERTICAL_TABS.filter((t) => t.key === 'all' || presentVerticals.has(t.key)),
+    [presentVerticals],
+  )
+
+  // Las propiedades solo aplican a inmobiliaria. En verticales sin inmuebles se oculta la
+  // pestaña (y el KPI) para no mostrar "0 propiedades" sin contexto.
+  const verticalSupportsProperties = vertical === 'all' || vertical === 'real_estate'
+  const visibleSubtabs = useMemo(
+    () => SUBTABS.filter((t) => t.key !== 'properties' || verticalSupportsProperties),
+    [verticalSupportsProperties],
+  )
+  // Subtab efectivo: si el activo deja de ser visible (cambio de vertical), cae a Operaciones
+  // sin tocar estado en efecto (evita el lint set-state-in-effect).
+  const activeSubtab: Subtab = visibleSubtabs.some((t) => t.key === subtab) ? subtab : 'pipeline'
+
+  // Inline stage / status edits — optimistic + persisted.
+  async function handleOpportunityStage(opp: OpportunityRow, nextStage: string) {
+    // El selector trabaja por estado comercial: si el bucket no cambia (p. ej. una etapa
+    // legacy que ya mapea a «En gestión»), no reescribimos la etapa ni avisamos.
+    if (commStateOf(nextStage) === commStateOf(opp.stage)) return
+    // Reabrir una operación cerrada (Vendida/Alquilada) → confirmación guiada (reactiva el inmueble
+    // si estaba marcado como vendido/alquilado; conserva comisiones registradas).
+    if (commStateOf(opp.stage) === 'won' && commStateOf(nextStage) !== 'won') {
+      setReopenOpp({ opp, nextStage })
+      return
+    }
+    // Cerrar con inmueble vinculado → confirmación guiada (también marca el inmueble como
+    // vendido/alquilado, sin eliminar nada).
+    if (nextStage === 'won' && opp.property_id && propertiesById[opp.property_id]) {
+      setCloseOpp(opp)
+      return
+    }
+    await applyOpportunityStage(opp, nextStage)
+  }
+
+  // Confirmar reapertura: la operación deja de estar cerrada y, si su inmueble estaba marcado como
+  // vendido/alquilado, lo devolvemos a la cartera activa (Reservado si la operación pasa a Reserva,
+  // Publicado en el resto). No se borra nada; las comisiones registradas se conservan y el snapshot
+  // las recalcula por el estado actual (dejan de contar como cerradas mientras la operación esté abierta).
+  async function confirmReopenOpp() {
+    const data = reopenOpp
+    if (!data) { setReopenOpp(null); return }
+    const { opp, nextStage } = data
+    setReopenOpp(null)
+    const pid = opp.property_id
+    const prop = pid ? propertiesById[pid] : undefined
+    const reactivate = Boolean(pid && prop && (prop.status === 'sold' || prop.status === 'rented'))
+    const nextPropStatus = commStateOf(nextStage) === 'reserved' ? 'reserved' : 'listed'
+    if (reactivate && pid) {
+      setProperties((prev) => prev.map((p) => (p.id === pid ? { ...p, status: nextPropStatus } : p)))
+    }
+    await applyOpportunityStage(opp, nextStage)
+    if (reactivate && pid && !isDemo() && workspaceId) {
+      await updatePropertyStatus(workspaceId, pid, nextPropStatus).catch(() => {})
+    }
+  }
+
+  async function applyOpportunityStage(opp: OpportunityRow, nextStage: string) {
+    setOpportunities((prev) => prev.map((o) => (o.id === opp.id ? { ...o, stage: nextStage } : o)))
+    if (isDemo()) {
+      toast.info('Modo demo: cambio aplicado en pantalla (no se guarda).')
+      return
+    }
+    if (!workspaceId) { toast.error('Sin workspace activo.'); return }
+    const ok = await updateOpportunityStage(workspaceId, opp.id, nextStage)
+    if (!ok) {
+      toast.error('No se pudo cambiar el estado.')
+      void loadData()
+      return
+    }
+    toast.success('Operación actualizada')
+  }
+
+  // Confirmar cierre: marca la operación como Cerrada y el inmueble como Vendido (venta/compra/
+  // captación/inversión/valoración) o Alquilado (alquiler). No elimina nada.
+  async function confirmCloseOpp() {
+    const opp = closeOpp
+    if (!opp || !opp.property_id) { setCloseOpp(null); return }
+    const kind = typeof opp.metadata?.operation_kind === 'string' ? opp.metadata.operation_kind : ''
+    const propStatus = kind === 'alquiler' ? 'rented' : 'sold'
+    const pid = opp.property_id
+    setCloseOpp(null)
+    setProperties((prev) => prev.map((p) => (p.id === pid ? { ...p, status: propStatus } : p)))
+    await applyOpportunityStage(opp, 'won')
+    if (!isDemo() && workspaceId) {
+      await updatePropertyStatus(workspaceId, pid, propStatus).catch(() => {})
+    }
+  }
+
+  async function handleCaseStatus(row: ServiceCaseRow, nextStatus: string) {
+    if (nextStatus === row.status) return
+    setCases((prev) => prev.map((c) => (c.id === row.id ? { ...c, status: nextStatus } : c)))
+    if (typeof window !== 'undefined' && window.localStorage.getItem(DEMO_MODE_KEY) === 'true') {
+      toast.info('Modo demo: cambio aplicado en pantalla (no se guarda).')
+      return
+    }
+    if (!workspaceId) { toast.error('Sin workspace activo.'); return }
+    const ok = await updateServiceCaseStatus(workspaceId, row.id, nextStatus)
+    if (!ok) {
+      toast.error('No se pudo cambiar el estado del trámite.')
+      void loadData()
+      return
+    }
+    // Feedback discreto y honesto: al completar, el trámite pasa a «Finalizados» (no se pierde).
+    if (isFinishedCase(nextStatus) && !isFinishedCase(row.status)) {
+      toast.success('Trámite completado', { description: 'Lo encuentras en «Finalizados».' })
+    } else {
+      toast.success('Trámite actualizado')
+    }
+  }
+
+  // Pasar a histórico (vendido/alquilado/archivado) pide confirmación; el resto se aplica directo.
+  function requestPropertyStatus(row: PropertyRow, nextStatus: string) {
+    if (nextStatus === row.status) return
+    if (isClosedProperty(nextStatus)) { setPropStatusChange({ property: row, nextStatus }); return }
+    void handlePropertyStatus(row, nextStatus)
+  }
+
+  async function handlePropertyStatus(row: PropertyRow, nextStatus: string) {
+    if (nextStatus === row.status) return
+    setProperties((prev) => prev.map((p) => (p.id === row.id ? { ...p, status: nextStatus } : p)))
+    if (typeof window !== 'undefined' && window.localStorage.getItem(DEMO_MODE_KEY) === 'true') {
+      toast.info('Modo demo: cambio aplicado en pantalla (no se guarda).')
+      return
+    }
+    if (!workspaceId) { toast.error('Sin workspace activo.'); return }
+    const ok = await updatePropertyStatus(workspaceId, row.id, nextStatus)
+    if (!ok) {
+      toast.error('No se pudo cambiar el estado del inmueble.')
+      void loadData()
+      return
+    }
+    toast.success('Inmueble actualizado')
+  }
+
+  // Borrado seguro de inmueble. Si tiene operaciones vinculadas → bloqueo guiado (no se borra nada;
+  // mejor archivar). Si no → confirmación fuerte (se eliminan también fotos/documentos). Nunca borra
+  // clientes ni operaciones; las FKs son SET NULL pero la regla de negocio bloquea antes.
+  function requestDeleteProperty(row: PropertyRow, opsCount: number) {
+    if (opsCount > 0) { setPropDeleteBlocked({ property: row, opsCount }); return }
+    setPropToDelete(row)
+  }
+
+  async function confirmDeleteProperty() {
+    const row = propToDelete
+    if (!row) return
+    if (isDemo()) {
+      setProperties((prev) => prev.filter((p) => p.id !== row.id))
+      setPropToDelete(null)
+      toast.info('Modo demo: eliminado en pantalla (no se guarda).')
+      return
+    }
+    if (!workspaceId) { toast.error('Sin workspace activo.'); setPropToDelete(null); return }
+    setDeletingProp(true)
+    const ok = await deleteProperty(workspaceId, row.id)
+    setDeletingProp(false)
+    if (!ok) { toast.error('No se pudo eliminar el inmueble. Vuelve a intentarlo.'); return }
+    setProperties((prev) => prev.filter((p) => p.id !== row.id))
+    setPropToDelete(null)
+    toast.success('Inmueble eliminado')
+  }
+
+  // Portada de un inmueble cambiada desde el gestor de fotos → actualiza la card SIN recargar.
+  // Memoizado (estable) para no recrear el efecto de carga del PropertyPhotosManager.
+  const handleCoverChange = useCallback((pid: string, url: string | null) => {
+    setCoverUrls((prev) => {
+      if (url) return { ...prev, [pid]: url }
+      if (!(pid in prev)) return prev
+      const next = { ...prev }
+      delete next[pid]
+      return next
+    })
+  }, [])
+
+  // Nº de documentos de un trámite cambiado desde su drawer → actualiza el indicador sin recargar.
+  const handleDocCountChange = useCallback((caseId: string, count: number) => {
+    setDocCountByCase((prev) => ({ ...prev, [caseId]: count }))
+  }, [])
+
+  // Control interno de comisiones: revertir a pendiente (borra importe y fecha de cobro).
+  async function markCommissionPending(opp: OpportunityRow) {
+    setOpportunities((prev) => prev.map((o) => (o.id === opp.id
+      ? { ...o, commission_status: 'pendiente', commission_paid_at: null, commission_paid_amount: null }
+      : o)))
+    if (isDemo()) { toast.info('Modo demo: cambio en pantalla (no se guarda).'); return }
+    if (!workspaceId) { toast.error('Sin workspace activo.'); return }
+    const ok = await updateOpportunity(workspaceId, opp.id, { commissionStatus: 'pendiente', commissionPaidAt: null, commissionPaidAmount: null })
+    if (!ok) { toast.error('No se pudo actualizar la comisión.'); void loadData(); return }
+    toast.success('Cobro interno deshecho', { description: 'La comisión vuelve a estar pendiente. No modifica facturas emitidas.' })
+  }
+
+  // Abre el modal "Registrar cobro" con la comisión prevista y la fecha de hoy por defecto.
+  function openCollect(opp: OpportunityRow) {
+    setCollectOpp(opp)
+    setCollectDate(new Date().toISOString().slice(0, 10))
+    setCollectAmount(String(commissionOf(opp) ?? ''))
+    setCollectNote(typeof opp.metadata?.commission_note === 'string' ? opp.metadata.commission_note : '')
+  }
+
+  // Confirma el cobro: marca cobrada + fecha + importe real (opcional) + nota (opcional).
+  // El importe real y la nota se guardan como dato interno (NO es factura ni contabilidad).
+  async function submitCommissionCollection() {
+    const opp = collectOpp
+    if (!opp) return
+    const parsed = Number(collectAmount.replace(',', '.'))
+    const amount = Number.isFinite(parsed) && parsed > 0 ? Math.round(parsed) : (commissionOf(opp) ?? 0)
+    const note = collectNote.trim()
+    const nextMeta: Record<string, unknown> = { ...(opp.metadata ?? {}) }
+    if (note) nextMeta.commission_note = note
+    else delete nextMeta.commission_note
+    // Fecha elegida (a mediodía local para evitar desfase de zona horaria) o ahora si quedó vacía.
+    const nowIso = collectDate ? new Date(`${collectDate}T12:00:00`).toISOString() : new Date().toISOString()
+    setCollectBusy(true)
+    setOpportunities((prev) => prev.map((o) => (o.id === opp.id
+      ? { ...o, commission_status: 'cobrada', commission_paid_at: nowIso, commission_paid_amount: amount, metadata: nextMeta }
+      : o)))
+    if (isDemo()) { toast.info('Modo demo: cambio en pantalla (no se guarda).'); setCollectBusy(false); setCollectOpp(null); return }
+    if (!workspaceId) { toast.error('Sin workspace activo.'); setCollectBusy(false); return }
+    const ok = await updateOpportunity(workspaceId, opp.id, {
+      commissionStatus: 'cobrada', commissionPaidAt: nowIso, commissionPaidAmount: amount, metadata: nextMeta,
+    })
+    setCollectBusy(false)
+    if (!ok) { toast.error('No se pudo registrar el cobro.'); void loadData(); return }
+    setCollectOpp(null)
+    toast.success('Cobro interno registrado', { description: 'Falta crear la factura oficial para cerrar la operación.' })
+  }
+
+  function isDemo() {
+    return typeof window !== 'undefined' && window.localStorage.getItem(DEMO_MODE_KEY) === 'true'
+  }
+
+  // Operación: si tiene trámites vinculados, se BLOQUEA (la FK es SET NULL → borrar la
+  // desvincularía sin avisar). Si no, confirmación y borrado. No toca cliente ni inmueble.
+  function requestDeleteOpp(opp: OpportunityRow) {
+    const linked = cases.filter((c) => c.opportunity_id === opp.id).length
+    if (linked > 0) {
+      // No se borra: se guía al usuario a resolver los trámites primero (la FK es SET NULL,
+      // borrar la operación los desvincularía en silencio).
+      setBlockedOppTarget(opp)
+      return
+    }
+    setDeleteError(null)
+    setDeleteOppTarget(opp)
+  }
+
+  // "Ver trámites" desde el modal de bloqueo → va a Trámites y resalta los vinculados.
+  function viewLinkedTramites() {
+    const opp = blockedOppTarget
+    if (!opp) return
+    setHighlightOpId(opp.id)
+    setSubtab('cases')
+    setBlockedOppTarget(null)
+    toast.info('Revisa los trámites vinculados antes de eliminar la operación.')
+  }
+  async function confirmDeleteOpp() {
+    const target = deleteOppTarget
+    if (!target) return
+    if (isDemo()) {
+      setOpportunities((prev) => prev.filter((o) => o.id !== target.id))
+      toast.info('Modo demo: eliminado en pantalla (no se guarda).')
+      setDeleteOppTarget(null)
+      return
+    }
+    if (!workspaceId) { setDeleteError('Sin workspace activo.'); return }
+    setDeleteBusy(true); setDeleteError(null)
+    const ok = await deleteOpportunity(workspaceId, target.id)
+    setDeleteBusy(false)
+    if (!ok) { setDeleteError('No se pudo eliminar. Comprueba que tienes permisos de administrador.'); return }
+    setOpportunities((prev) => prev.filter((o) => o.id !== target.id))
+    toast.success('Operación eliminada')
+    setDeleteOppTarget(null)
+  }
+
+  // Trámite: confirmación (avisa de los documentos), borra primero sus documentos
+  // (Storage + metadata, sin huérfanos) y luego el trámite. No toca operación/cliente/inmueble.
+  function requestDeleteCase(c: ServiceCaseRow) {
+    setDeleteError(null)
+    setDeleteCaseTarget(c)
+  }
+  async function confirmDeleteCase() {
+    const target = deleteCaseTarget
+    if (!target) return
+    if (isDemo()) {
+      setCases((prev) => prev.filter((c) => c.id !== target.id))
+      toast.info('Modo demo: eliminado en pantalla (no se guarda).')
+      setDeleteCaseTarget(null)
+      return
+    }
+    if (!workspaceId) { setDeleteError('Sin workspace activo.'); return }
+    setDeleteBusy(true); setDeleteError(null)
+    try {
+      await deleteEntityFilesFor(workspaceId, 'service_case', target.id)
+      const ok = await deleteServiceCase(workspaceId, target.id)
+      if (!ok) { setDeleteError('No se pudo eliminar el trámite. Comprueba permisos de administrador.'); setDeleteBusy(false); return }
+      setCases((prev) => prev.filter((c) => c.id !== target.id))
+      setDocCountByCase((prev) => { const n = { ...prev }; delete n[target.id]; return n })
+      toast.success('Trámite eliminado')
+      setDeleteCaseTarget(null)
+    } catch {
+      setDeleteError('No se pudo eliminar el trámite.')
+    }
+    setDeleteBusy(false)
+  }
+
+  // Por defecto inmobiliaria (no 'general'): una inmobiliaria crea operaciones/trámites de
+  // real_estate salvo que esté filtrando explícitamente por otra vertical (workspace mixto).
+  const defaultVerticalForCreate: VerticalKey = vertical === 'all' ? 'real_estate' : (vertical as VerticalKey)
+
+  // Card de inmueble (premium). Acción principal: abrir la ficha; editar es secundario. Las cards
+  // del histórico (vendido/alquilado/archivado) llevan un estilo más apagado y un sello "Histórico".
+  const renderPropertyCard = (p: PropertyRow) => {
+    const beds = propNum(p, 'bedrooms', 'rooms')
+    const baths = propNum(p, 'bathrooms', 'baths')
+    const m2 = propNum(p, 'area_m2', 'm2')
+    const specs = [beds != null ? `${beds} hab` : '', baths != null ? `${baths} baños` : '', m2 != null ? `${m2} m²` : ''].filter(Boolean).join(' · ')
+    const refRaw = p.reference ?? p.metadata?.reference
+    const ref = typeof refRaw === 'string' ? refRaw : ''
+    const ops = opsCountByProperty[p.id] ?? 0
+    const owner = clientNameOf(p.client_id) || p.owner_name || ''
+    const isRent = isRentalProperty(p.operation_type)
+    const historical = isClosedProperty(p.status)
+    const fichaHref = `/opportunities/properties/${p.id}`
+    const statusOpts: { id: string; label: string }[] = [
+      { id: 'prospecting', label: 'En preparación' },
+      { id: 'listed', label: 'Publicado' },
+      { id: 'under_contract', label: 'Reservado' },
+      { id: isRent ? 'rented' : 'sold', label: isRent ? 'Alquilado' : 'Vendido' },
+      { id: 'archived', label: 'Archivado' },
+    ]
+    if (!statusOpts.some((o) => o.id === p.status)) {
+      statusOpts.unshift({ id: p.status, label: PROPERTY_STATUS_META[p.status]?.label ?? cap(p.status) })
+    }
+    return (
+      <li key={p.id} className={cn(
+        'flex flex-col overflow-hidden rounded-2xl border',
+        historical
+          ? 'border-gray-100 bg-gray-50/50'
+          : 'border-gray-100 bg-white shadow-sm shadow-gray-950/[0.03] transition-shadow hover:shadow-md hover:shadow-gray-950/[0.06]',
+      )}>
+        <Link href={fichaHref} className="block text-left" title="Ver ficha del inmueble">
+          {/* Portada real (Storage privado + signed URL) o placeholder elegante. */}
+          <div className="relative flex aspect-[16/10] items-center justify-center overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100">
+            {coverUrls[p.id]
+              ? <img src={coverUrls[p.id]} alt={p.title} loading="lazy" decoding="async" className={cn('absolute inset-0 h-full w-full object-cover', historical && 'opacity-90')} />
+              : <Home className="h-9 w-9 text-gray-300" />}
+            <div className="absolute left-2 top-2 flex flex-col items-start gap-1">
+              <span className="rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-semibold text-gray-700 shadow-sm ring-1 ring-black/[0.04]">{propLabel(PROPERTY_OPERATION_LABEL, p.operation_type) || 'Operación'}</span>
+              {historical && <span className="rounded-full bg-gray-900/75 px-2.5 py-1 text-[11px] font-semibold text-white shadow-sm">Histórico</span>}
+            </div>
+            <PropertyStatusBadge status={p.status} className="absolute right-2 top-2" />
+          </div>
+          <div className="p-3">
+            <p className="truncate text-sm font-semibold text-gray-900">{p.title}</p>
+            <p className="mt-0.5 truncate text-[11px] text-gray-400">{[ref ? `Ref. ${ref}` : '', propertyTypeText(p)].filter(Boolean).join(' · ') || '—'}</p>
+            {specs && <p className="mt-1 truncate text-[11px] text-gray-500">{specs}</p>}
+            <p className="mt-1.5 text-base font-bold text-gray-900">{p.price ? `${formatCurrency(p.price, p.currency ?? 'EUR')}${isRent ? '/mes' : ''}` : '—'}</p>
+            <p className="mt-0.5 flex items-center gap-1 truncate text-[11px] text-gray-500">
+              <MapPin className="h-3 w-3 shrink-0 text-gray-400" />
+              {[[p.city, p.area].filter(Boolean).join(', '), owner].filter(Boolean).join(' · ') || 'Sin ubicación'}
+            </p>
+            {ops > 0
+              ? <p className="mt-1.5 text-[11px] font-medium text-indigo-600">{ops} {ops === 1 ? 'operación vinculada' : 'operaciones vinculadas'}</p>
+              : <p className="mt-1.5 text-[11px] text-gray-300">Sin operaciones vinculadas</p>}
+          </div>
+        </Link>
+        <div className="mt-auto flex items-center gap-2 border-t border-gray-50 px-3 py-2">
+          <select aria-label="Cambiar estado" className={cn(SELECT_CLS, 'flex-1')} value={p.status} onChange={(e) => requestPropertyStatus(p, e.target.value)}>
+            {statusOpts.map((s) => <option key={s.id} value={s.id}>{s.label}</option>)}
+          </select>
+          <Link href={fichaHref} className="inline-flex h-7 shrink-0 items-center gap-1 rounded-lg bg-indigo-600 px-2.5 text-[11px] font-semibold text-white shadow-sm transition-colors hover:bg-indigo-700">
+            Ver ficha<ChevronRight className="h-3.5 w-3.5" />
+          </Link>
+          <button type="button" onClick={() => setEditProp(p)} title="Editar inmueble" className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border border-gray-200 bg-white text-gray-500 transition-colors hover:bg-gray-50 hover:text-gray-700">
+            <Pencil className="h-3.5 w-3.5" />
+          </button>
+          <button type="button" onClick={() => requestDeleteProperty(p, ops)} title="Eliminar inmueble" className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border border-gray-200 bg-white text-gray-400 transition-colors hover:border-rose-200 hover:bg-rose-50 hover:text-rose-600">
+            <Trash2 className="h-3.5 w-3.5" />
+          </button>
+        </div>
+      </li>
+    )
+  }
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 6 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+      className="space-y-5 pb-2"
+    >
+      <PageHeader
+        title="Cartera inmobiliaria"
+        description="Tus inmuebles, las operaciones comerciales y la documentación asociada."
+        action={
+          <div className="flex flex-wrap items-center gap-2">
+            <Button variant="ghost" size="sm" onClick={() => void loadData()} disabled={loading} title="Refrescar" aria-label="Refrescar" className="px-2">
+              <RefreshCcw className={cn('h-3.5 w-3.5', loading && 'animate-spin')} />
+            </Button>
+            {(() => {
+              // CTA por pestaña: el PRIMARIO es el "crear" de la vista activa; los otros van
+              // como secundarios discretos (a la izquierda). "Nuevo inmueble" solo protagoniza
+              // en Inmuebles, nunca en Operaciones/Trámites.
+              const actions = [
+                { key: 'properties', label: 'Nuevo inmueble', onClick: () => setOpenProp(true), show: verticalSupportsProperties },
+                { key: 'pipeline', label: 'Nueva operación', onClick: () => setOpenOpp(true), show: true },
+                { key: 'cases', label: 'Nuevo trámite', onClick: () => setOpenCase(true), show: true },
+              ].filter((a) => a.show)
+              const primaryKey = actions.some((a) => a.key === activeSubtab) ? activeSubtab : 'pipeline'
+              const ordered = [...actions.filter((a) => a.key !== primaryKey), ...actions.filter((a) => a.key === primaryKey)]
+              return ordered.map((a) => (
+                <Button key={a.key} variant={a.key === primaryKey ? 'primary' : 'secondary'} size="sm" onClick={a.onClick}>
+                  <Plus className="h-3.5 w-3.5" /> {a.label}
+                </Button>
+              ))
+            })()}
+          </div>
+        }
+      />
+
+      {/* Selector de vertical — solo en workspaces mixtos (datos en >1 vertical). Una
+          inmobiliaria normal no lo ve: experiencia mínima y sin "Extranjería"/"Servicios". */}
+      {showVerticalBar && (
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="text-[11px] font-medium text-gray-400">Área de negocio:</span>
+          <div className="flex flex-wrap items-center gap-1 rounded-2xl border border-gray-100 bg-white p-1 shadow-sm">
+            {visibleVerticalTabs.map((tab) => {
+              const active = vertical === tab.key
+              return (
+                <button
+                  key={tab.key}
+                  onClick={() => setVertical(tab.key)}
+                  title={tab.description}
+                  className={cn(
+                    'rounded-xl px-3 py-1.5 text-xs font-semibold transition-colors',
+                    active
+                      ? 'bg-indigo-600 text-white shadow-sm shadow-indigo-600/30'
+                      : 'text-gray-600 hover:bg-gray-50',
+                  )}
+                >
+                  {tab.label}
+                </button>
+              )
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* Navegación principal de Cartera (Inmuebles · Operaciones · Trámites · Comisiones). Es la
+          navegación clave de la sección: tamaño y contraste mayores, con contador de lo activo.
+          En móvil hace scroll horizontal limpio (sin apilarse). */}
+      <div className="-mx-1 flex items-center gap-1.5 overflow-x-auto rounded-2xl border border-gray-100 bg-white p-1.5 shadow-sm [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        {visibleSubtabs.map((tab) => {
+          const Icon = tab.icon
+          const active = activeSubtab === tab.key
+          const count = subtabCount[tab.key]
+          return (
+            <button
+              key={tab.key}
+              onClick={() => { setSubtab(tab.key); setHighlightOpId(null) }}
+              aria-current={active ? 'page' : undefined}
+              className={cn(
+                'inline-flex shrink-0 items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition-colors',
+                active
+                  ? 'bg-gray-900 text-white shadow-sm shadow-gray-900/20'
+                  : 'text-gray-600 hover:bg-gray-50',
+              )}
+            >
+              <Icon className="h-4 w-4" />
+              {tab.label}
+              {typeof count === 'number' && count > 0 && (
+                <span className={cn('rounded-full px-1.5 py-0.5 text-[10px] font-bold tabular-nums', active ? 'bg-white/20 text-white' : 'bg-gray-100 text-gray-500')}>{count}</span>
+              )}
+            </button>
+          )
+        })}
+      </div>
+
+      {loadError && (
+        <div className="rounded-xl border border-rose-100 bg-rose-50 px-3 py-2 text-xs text-rose-800">
+          {loadError}
+        </div>
+      )}
+
+      {/* KPI strip — contextual: cartera en la vista Inmuebles; comercial en el resto. */}
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        {activeSubtab === 'properties' ? (
+          <>
+            <KpiCard
+              icon={<Building2 className="h-4 w-4 text-indigo-600" />}
+              label="Inmuebles activos"
+              value={String(activeProperties.length)}
+              detail={soldArchivedCount > 0 ? `${visibleProperties.length} gestionados en total` : (activeProperties.length ? 'Disponibles o en gestión' : 'Sin inmuebles aún')}
+              title={soldArchivedCount > 0 ? `Total gestionado: ${visibleProperties.length} (${activeProperties.length} activos + ${soldArchivedCount} en histórico)` : undefined}
+              tone="border-indigo-100 bg-indigo-50/40"
+            />
+            <KpiCard
+              icon={<Home className="h-4 w-4 text-emerald-600" />}
+              label="En comercialización"
+              value={String(portfolioListed)}
+              detail={portfolioListed ? 'Publicados' : 'Ninguno publicado'}
+              tone="border-emerald-100 bg-emerald-50/40"
+            />
+            <KpiCard
+              icon={<Archive className="h-4 w-4 text-gray-500" />}
+              label="Histórico"
+              value={String(soldArchivedCount)}
+              detail={soldArchivedCount ? 'Vendidos / alquilados' : 'Nada cerrado aún'}
+              tone="border-gray-200 bg-gray-50/60"
+            />
+            <KpiCard
+              icon={<Sparkles className="h-4 w-4 text-sky-600" />}
+              label="Valor de cartera activa"
+              value={formatCurrency(portfolioActiveValue)}
+              detail="Precio listado activo"
+              tone="border-sky-100 bg-sky-50/40"
+            />
+          </>
+        ) : activeSubtab === 'commissions' ? (
+          <>
+            <KpiCard
+              icon={<FileText className="h-4 w-4 text-amber-600" />}
+              label="Pendiente de facturar"
+              value={commissionSummary.pendingInvoice > 0 ? formatCurrency(commissionSummary.pendingInvoice) : '—'}
+              detail="Honorarios cerrados sin factura"
+              tone="border-amber-100 bg-amber-50/40"
+            />
+            <KpiCard
+              icon={<Target className="h-4 w-4 text-indigo-600" />}
+              label="Facturado pendiente de cobro"
+              value={commissionSummary.billed > 0 ? formatCurrency(commissionSummary.billed) : '—'}
+              detail="Facturas emitidas no pagadas"
+              tone="border-indigo-100 bg-indigo-50/40"
+            />
+            <KpiCard
+              icon={<Check className="h-4 w-4 text-emerald-600" />}
+              label="Cobrado"
+              value={commissionSummary.collected > 0 ? formatCurrency(commissionSummary.collected) : '—'}
+              detail="Facturas pagadas o cobros registrados"
+              tone="border-emerald-100 bg-emerald-50/40"
+            />
+            <KpiCard
+              icon={<Sparkles className="h-4 w-4 text-sky-600" />}
+              label="Potencial abierto"
+              value={commissionSummary.potential > 0 ? formatCurrency(commissionSummary.potential) : '—'}
+              detail="Honorarios estimados no cerrados"
+              tone="border-sky-100 bg-sky-50/40"
+            />
+          </>
+        ) : (
+          <>
+            <KpiCard
+              icon={<Target className="h-4 w-4 text-indigo-600" />}
+              label="Operaciones abiertas"
+              value={String(openOpportunities.length)}
+              detail={visibleOpportunities.length ? `${visibleOpportunities.length} en total` : 'Sin operaciones aún'}
+              tone="border-indigo-100 bg-indigo-50/40"
+            />
+            <KpiCard
+              icon={<Sparkles className="h-4 w-4 text-emerald-600" />}
+              label="Valor potencial"
+              value={formatCurrency(openValue)}
+              detail={openOpportunities.length ? 'En operaciones abiertas' : 'Sin valor en seguimiento'}
+              tone="border-emerald-100 bg-emerald-50/40"
+            />
+            <KpiCard
+              icon={<FileText className="h-4 w-4 text-violet-600" />}
+              label="Trámites abiertos"
+              value={String(activeCases)}
+              detail={cases.length ? `${cases.length} en total` : 'Sin trámites'}
+              tone="border-violet-100 bg-violet-50/40"
+            />
+            <KpiCard
+              icon={<Building2 className="h-4 w-4 text-sky-600" />}
+              label="Inmuebles activos"
+              value={String(activeProperties.length)}
+              detail={soldArchivedCount ? `${soldArchivedCount} en histórico` : (activeProperties.length ? 'En cartera' : 'Sin inmuebles aún')}
+              tone="border-sky-100 bg-sky-50/40"
+            />
+          </>
+        )}
+      </div>
+
+      {/* PIPELINE */}
+      {activeSubtab === 'pipeline' && (
+        <SectionCard
+          title="Operaciones en seguimiento"
+          description="Agrupadas por estado comercial."
+          action={<Badge variant={visibleOpportunities.length ? 'indigo' : 'default'} dot>{visibleOpportunities.length} operaciones</Badge>}
+        >
+          {loading ? (
+            <div className="space-y-2.5 py-2">
+              {[0, 1, 2, 3].map((skeleton) => (
+                <div key={skeleton} className="h-12 w-full animate-pulse rounded-lg bg-slate-100" />
+              ))}
+            </div>
+          ) : visibleOpportunities.length === 0 ? (
+            <EmptyState
+              icon={<Target className="h-6 w-6 text-gray-300" />}
+              title={vertical === 'all' ? 'Todavía no hay operaciones' : `Sin operaciones en ${VERTICALS[verticalForPipeline].label.toLowerCase()}`}
+              description={vertical === 'all'
+                ? 'Cuando un cliente esté interesado en un inmueble, crea una operación para hacer el seguimiento comercial hasta el cierre.'
+                : 'No hay operaciones en este filtro. Vuelve a «Todos» o crea una nueva.'}
+              action={
+                <div className="flex flex-wrap items-center justify-center gap-2">
+                  <Button variant="primary" size="sm" onClick={() => setOpenOpp(true)}>
+                    <Plus className="h-3.5 w-3.5" /> Nueva operación
+                  </Button>
+                  {vertical === 'all' ? (
+                    <Link
+                      href="/clients"
+                      className="inline-flex h-8 items-center gap-1.5 rounded-lg border border-gray-200 bg-white px-3 text-xs font-medium text-gray-700 shadow-sm transition-colors hover:border-gray-300 hover:bg-gray-50"
+                    >
+                      Crear cliente
+                    </Link>
+                  ) : (
+                    <Button variant="secondary" size="sm" onClick={() => setVertical('all')}>Ver todas</Button>
+                  )}
+                </div>
+              }
+            />
+          ) : (
+            <div className="space-y-2">
+              {COMM_STATE_ORDER.map((state) => {
+                const items = opportunitiesByCommState[state]
+                if (items.length === 0) return null
+                const stateValue = items.reduce((s, o) => s + (o.value ?? 0), 0)
+                const stateLabel = COMM_STATE_OPTIONS.find((o) => o.id === state)?.label ?? state
+                return (
+                  <div key={state} className="rounded-xl border border-gray-100 bg-white p-3">
+                    <div className="mb-2 flex items-center justify-between gap-2">
+                      <span className={cn('shrink-0 rounded-full border px-2 py-0.5 text-[10px] font-semibold', COMM_STATE_TONE[state])}>{stateLabel}</span>
+                      <span className="shrink-0 text-[10px] font-medium text-gray-500">
+                        {items.length} {items.length !== 1 ? 'ops' : 'op'} · {formatCurrency(stateValue)}
+                      </span>
+                    </div>
+                    <ul className="space-y-1.5">
+                      {items.map((opp) => (
+                        <li key={opp.id} className="flex items-center justify-between gap-3 rounded-lg border border-gray-100 px-3 py-2 hover:bg-gray-50">
+                          <button
+                            type="button"
+                            onClick={() => setEditOpp(opp)}
+                            className="min-w-0 flex-1 text-left"
+                            title="Abrir detalle / editar"
+                          >
+                            <p className="truncate text-sm font-medium text-gray-900">{opp.title}</p>
+                            <p className="truncate text-[11px] text-gray-500">
+                              {[
+                                clientNameOf(opp.client_id),
+                                propertiesById[opp.property_id ?? String(opp.metadata?.property_id ?? '')]?.title || '',
+                              ].filter(Boolean).join(' · ') || 'Sin cliente ni inmueble vinculado'}
+                            </p>
+                          </button>
+                          <div className="flex shrink-0 items-center gap-2">
+                            {state === 'won' ? (
+                              <span className="rounded-full bg-emerald-50 px-1.5 py-0.5 text-[10px] font-semibold text-emerald-700">{wonLabel(typeof opp.metadata?.operation_kind === 'string' ? opp.metadata.operation_kind : null)}</span>
+                            ) : isRentalOpp(opp) ? (
+                              <span className="hidden rounded-full bg-sky-50 px-1.5 py-0.5 text-[10px] font-semibold text-sky-700 sm:inline">Alquiler</span>
+                            ) : null}
+                            <span className="text-xs font-semibold text-gray-700">{formatCurrency(opp.value, opp.currency ?? 'EUR')}</span>
+                            <select
+                              aria-label="Cambiar estado"
+                              className={SELECT_CLS}
+                              value={commStateOf(opp.stage)}
+                              onChange={(e) => void handleOpportunityStage(opp, stageForCommState(e.target.value as CommState))}
+                            >
+                              {COMM_STATE_OPTIONS.map((s) => (
+                                <option key={s.id} value={s.id}>{s.label}</option>
+                              ))}
+                            </select>
+                            <button
+                              type="button"
+                              onClick={() => setEditOpp(opp)}
+                              title="Editar operación"
+                              className="flex h-6 w-6 items-center justify-center rounded-md text-gray-400 hover:bg-indigo-50 hover:text-indigo-600"
+                            >
+                              <Pencil className="h-3 w-3" />
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => requestDeleteOpp(opp)}
+                              title="Eliminar operación"
+                              className="flex h-6 w-6 items-center justify-center rounded-md text-gray-400 hover:bg-red-50 hover:text-red-600"
+                            >
+                              <Trash2 className="h-3 w-3" />
+                            </button>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )
+              })}
+            </div>
+          )}
+        </SectionCard>
+      )}
+
+      {/* CASES */}
+      {activeSubtab === 'cases' && (
+        <SectionCard
+          title="Trámites"
+          description="Gestiones y documentación asociadas a clientes, inmuebles u operaciones."
+          action={
+            <div className="flex items-center gap-2">
+              {doneCasesList.length > 0 && (
+                <div className="inline-flex items-center rounded-lg border border-gray-200 bg-gray-50 p-0.5 text-[11px] font-medium">
+                  {([
+                    ['active', `Activos · ${activeCasesList.length}`],
+                    ['done', `Finalizados · ${doneCasesList.length}`],
+                    ['all', 'Todos'],
+                  ] as const).map(([key, label]) => (
+                    <button
+                      key={key}
+                      type="button"
+                      onClick={() => setCaseView(key)}
+                      className={cn('rounded-md px-2.5 py-1 transition-colors', caseView === key ? 'bg-white text-indigo-700 shadow-sm ring-1 ring-black/[0.04]' : 'text-gray-500 hover:text-gray-700')}
+                    >
+                      {label}
+                    </button>
+                  ))}
+                </div>
+              )}
+              <Badge variant={shownCases.length ? 'indigo' : 'default'} dot>{shownCases.length} {shownCases.length === 1 ? 'trámite' : 'trámites'}</Badge>
+            </div>
+          }
+        >
+          {highlightOpId && (
+            <div className="mb-3 flex items-center justify-between gap-2 rounded-lg border border-indigo-100 bg-indigo-50/60 px-3 py-2 text-xs text-indigo-800">
+              <span className="truncate">Trámites vinculados a «{opportunitiesById[highlightOpId]?.title ?? 'la operación'}».</span>
+              <button type="button" onClick={() => setHighlightOpId(null)} className="shrink-0 font-medium text-indigo-600 hover:text-indigo-700">Ver todos</button>
+            </div>
+          )}
+          {loading ? (
+            <div className="space-y-2.5 py-2">
+              {[0, 1, 2, 3].map((skeleton) => (
+                <div key={skeleton} className="h-12 w-full animate-pulse rounded-lg bg-slate-100" />
+              ))}
+            </div>
+          ) : visibleCases.length === 0 ? (
+            <EmptyState
+              icon={<FileText className="h-6 w-6 text-gray-300" />}
+              title="Sin trámites abiertos"
+              description={vertical === 'all'
+                ? 'Aquí aparecerán gestiones como documentación, contrato, tasación o financiación.'
+                : 'No hay trámites en este filtro. Vuelve a «Todos» o crea uno nuevo.'}
+              action={
+                <div className="flex flex-wrap items-center justify-center gap-2">
+                  <Button variant="primary" size="sm" onClick={() => setOpenCase(true)}>
+                    <Plus className="h-3.5 w-3.5" /> Nuevo trámite
+                  </Button>
+                  {vertical !== 'all' && (
+                    <Button variant="secondary" size="sm" onClick={() => setVertical('all')}>Ver todos</Button>
+                  )}
+                </div>
+              }
+            />
+          ) : shownCases.length === 0 ? (
+            <EmptyState
+              icon={<FileText className="h-6 w-6 text-gray-300" />}
+              title={caseView === 'done' ? 'Aún no hay trámites finalizados' : 'No hay trámites activos'}
+              description={caseView === 'done'
+                ? 'Cuando completes un trámite aparecerá aquí, sin perderse.'
+                : 'Todos tus trámites están finalizados. Cámbialo a «Finalizados» o crea uno nuevo.'}
+              action={
+                <div className="flex flex-wrap items-center justify-center gap-2">
+                  <Button variant="primary" size="sm" onClick={() => setOpenCase(true)}><Plus className="h-3.5 w-3.5" /> Nuevo trámite</Button>
+                  <Button variant="secondary" size="sm" onClick={() => setCaseView(caseView === 'done' ? 'active' : 'done')}>{caseView === 'done' ? 'Ver activos' : 'Ver finalizados'}</Button>
+                </div>
+              }
+            />
+          ) : (
+            <ul className="space-y-2">
+              {shownCases.map((c) => (
+                <li key={c.id} className={cn('rounded-xl border bg-white p-3 transition-shadow', highlightOpId && c.opportunity_id === highlightOpId ? 'border-indigo-300 ring-2 ring-indigo-200' : 'border-gray-100')}>
+                  <div className="flex items-center justify-between gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setEditCase(c)}
+                      className="min-w-0 flex-1 truncate text-left text-sm font-medium text-gray-900 hover:text-indigo-700"
+                      title="Editar trámite"
+                    >
+                      {c.title}
+                    </button>
+                    <div className="flex shrink-0 items-center gap-2">
+                      <select
+                        aria-label="Cambiar estado"
+                        className={SELECT_CLS}
+                        value={c.status}
+                        onChange={(e) => void handleCaseStatus(c, e.target.value)}
+                      >
+                        {(SERVICE_CASE_STATUS_OPTIONS.some((s) => s.id === c.status)
+                          ? SERVICE_CASE_STATUS_OPTIONS
+                          : [...SERVICE_CASE_STATUS_OPTIONS, { id: c.status, label: serviceCaseStatusLabel(c.status) }]
+                        ).map((s) => (
+                          <option key={s.id} value={s.id}>{s.label}</option>
+                        ))}
+                      </select>
+                      <button
+                        type="button"
+                        onClick={() => setEditCase(c)}
+                        title="Editar trámite"
+                        className="flex h-6 w-6 items-center justify-center rounded-md text-gray-400 hover:bg-indigo-50 hover:text-indigo-600"
+                      >
+                        <Pencil className="h-3 w-3" />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => requestDeleteCase(c)}
+                        title="Eliminar trámite"
+                        className="flex h-6 w-6 items-center justify-center rounded-md text-gray-400 hover:bg-red-50 hover:text-red-600"
+                      >
+                        <Trash2 className="h-3 w-3" />
+                      </button>
+                    </div>
+                  </div>
+                  <p className="mt-0.5 text-[11px] text-gray-500">
+                    {[
+                      clientNameOf(c.client_id),
+                      (c.opportunity_id ? opportunitiesById[c.opportunity_id]?.title : '') || '',
+                      c.case_type,
+                      c.priority !== 'normal' ? `prioridad ${c.priority}` : '',
+                      c.due_date ? `vence ${formatDate(c.due_date)}` : '',
+                    ].filter(Boolean).join(' · ')}
+                  </p>
+                  <div className="mt-1.5">
+                    {(docCountByCase[c.id] ?? 0) > 0 ? (
+                      <button
+                        type="button"
+                        onClick={() => setDocsCase(c)}
+                        title="Ver y gestionar documentos del trámite"
+                        className="inline-flex items-center gap-1.5 rounded-lg border border-indigo-100 bg-indigo-50 px-2 py-1 text-[11px] font-medium text-indigo-700 transition-colors hover:bg-indigo-100"
+                      >
+                        <FileText className="h-3.5 w-3.5" /> Ver documentos ({docCountByCase[c.id]})
+                      </button>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={() => setDocsCase(c)}
+                        title="Añadir un documento al trámite"
+                        className="inline-flex items-center gap-1.5 rounded-lg border border-dashed border-gray-200 bg-white px-2 py-1 text-[11px] font-medium text-gray-500 transition-colors hover:border-indigo-200 hover:bg-indigo-50/40 hover:text-indigo-600"
+                      >
+                        <Plus className="h-3.5 w-3.5" /> Añadir documento
+                      </button>
+                    )}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
+        </SectionCard>
+      )}
+
+      {/* INMUEBLES — vista principal de la cartera (cards premium) */}
+      {activeSubtab === 'properties' && (
+        <SectionCard
+          title="Inmuebles"
+          description={propView === 'history'
+            ? 'Histórico: vendidos, alquilados o archivados.'
+            : propView === 'all'
+              ? 'Cartera activa e histórico.'
+              : 'Cartera activa: inmuebles disponibles o en gestión.'}
+          action={
+            <div className="flex items-center gap-2">
+              {soldArchivedCount > 0 && (
+                <div className="inline-flex items-center rounded-lg border border-gray-200 bg-gray-50 p-0.5 text-[11px] font-medium">
+                  {([
+                    ['active', 'Activos'],
+                    ['history', `Histórico · ${soldArchivedCount}`],
+                    ['all', 'Todos'],
+                  ] as const).map(([key, label]) => (
+                    <button
+                      key={key}
+                      type="button"
+                      onClick={() => setPropView(key)}
+                      className={cn('rounded-md px-2.5 py-1 transition-colors', propView === key ? 'bg-white text-indigo-700 shadow-sm ring-1 ring-black/[0.04]' : 'text-gray-500 hover:text-gray-700')}
+                    >
+                      {label}
+                    </button>
+                  ))}
+                </div>
+              )}
+              <Badge variant={displayedProperties.length ? 'indigo' : 'default'} dot>{hasPropFilters ? `${displayedProperties.length} de ${shownProperties.length}` : `${displayedProperties.length} ${displayedProperties.length === 1 ? 'inmueble' : 'inmuebles'}`}</Badge>
+            </div>
+          }
+        >
+          {/* Buscador + filtros + orden (Cartera Pro, P19) — sobre datos ya cargados (RLS). */}
+          {!loading && visibleProperties.length > 0 && (
+            <div className="mb-4 flex flex-wrap items-center gap-2">
+              <div className="relative min-w-[180px] flex-1">
+                <Search className="pointer-events-none absolute left-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-gray-400" />
+                <input
+                  value={propSearch}
+                  onChange={(e) => setPropSearch(e.target.value)}
+                  placeholder="Buscar por título, localidad, contacto…"
+                  className="h-9 w-full rounded-lg border border-gray-200 bg-white pl-8 pr-3 text-sm placeholder:text-gray-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                />
+              </div>
+              <select aria-label="Filtrar por estado" value={propEstado} onChange={(e) => setPropEstado(e.target.value)} className={cn(SELECT_CLS, 'h-9 w-auto')}>
+                <option value="">Estado</option>
+                {propFilterOptions.estados.map((s) => <option key={s} value={s}>{PROPERTY_STATUS_META[s]?.label ?? cap(s)}</option>)}
+              </select>
+              <select aria-label="Filtrar por operación" value={propOperacion} onChange={(e) => setPropOperacion(e.target.value)} className={cn(SELECT_CLS, 'h-9 w-auto')}>
+                <option value="">Operación</option>
+                {propFilterOptions.operaciones.map((o) => <option key={o} value={o}>{propLabel(PROPERTY_OPERATION_LABEL, o) || cap(o)}</option>)}
+              </select>
+              <select aria-label="Filtrar por tipo" value={propTipo} onChange={(e) => setPropTipo(e.target.value)} className={cn(SELECT_CLS, 'h-9 w-auto')}>
+                <option value="">Tipo</option>
+                {propFilterOptions.tipos.map((t) => <option key={t} value={t}>{propLabel(PROPERTY_TYPE_LABEL, t) || cap(t)}</option>)}
+              </select>
+              {propFilterOptions.localidades.length > 1 && (
+                <select aria-label="Filtrar por localidad" value={propLocalidad} onChange={(e) => setPropLocalidad(e.target.value)} className={cn(SELECT_CLS, 'h-9 w-auto')}>
+                  <option value="">Localidad</option>
+                  {propFilterOptions.localidades.map((l) => <option key={l} value={l}>{l}</option>)}
+                </select>
+              )}
+              <select aria-label="Ordenar" value={propSort} onChange={(e) => setPropSort(e.target.value as typeof propSort)} className={cn(SELECT_CLS, 'h-9 w-auto')}>
+                <option value="recientes">Más recientes</option>
+                <option value="precio_desc">Precio: mayor a menor</option>
+                <option value="precio_asc">Precio: menor a mayor</option>
+                <option value="localidad">Localidad</option>
+              </select>
+              {hasPropFilters && (
+                <button type="button" onClick={clearPropFilters} className="inline-flex h-9 items-center gap-1 rounded-lg border border-gray-200 bg-white px-2.5 text-xs font-medium text-gray-600 transition-colors hover:bg-gray-50">
+                  <X className="h-3.5 w-3.5" /> Limpiar
+                </button>
+              )}
+            </div>
+          )}
+          {loading ? (
+            <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+              {[0, 1, 2].map((s) => <div key={s} className="h-56 w-full animate-pulse rounded-2xl bg-slate-100" />)}
+            </div>
+          ) : shownProperties.length === 0 ? (
+            visibleProperties.length > 0 ? (
+              <EmptyState
+                icon={<Building2 className="h-6 w-6 text-gray-300" />}
+                title={propView === 'history' ? 'Sin inmuebles en histórico' : 'No hay inmuebles activos'}
+                description={propView === 'history'
+                  ? 'Aquí aparecerán los inmuebles vendidos o alquilados. Todavía no has cerrado ninguno.'
+                  : 'Toda tu cartera está cerrada. Cambia a «Histórico» para ver los vendidos y alquilados, o registra un inmueble nuevo.'}
+                action={<Button variant="primary" size="sm" onClick={() => setOpenProp(true)}><Plus className="h-3.5 w-3.5" /> Nuevo inmueble</Button>}
+              />
+            ) : (
+              <EmptyState
+                icon={<Building2 className="h-6 w-6 text-gray-300" />}
+                title="Todavía no tienes inmuebles en cartera"
+                description="Empieza registrando una vivienda, local o terreno. Después podrás vincular clientes, visitas, operaciones y documentación."
+                action={
+                  <div className="flex flex-wrap items-center justify-center gap-2">
+                    <Button variant="primary" size="sm" onClick={() => setOpenProp(true)}>
+                      <Plus className="h-3.5 w-3.5" /> Nuevo inmueble
+                    </Button>
+                    <Link href="/clients" className="inline-flex h-8 items-center gap-1.5 rounded-lg border border-gray-200 bg-white px-3 text-xs font-medium text-gray-700 shadow-sm transition-colors hover:border-gray-300 hover:bg-gray-50">
+                      Crear cliente
+                    </Link>
+                  </div>
+                }
+              />
+            )
+          ) : displayedProperties.length === 0 ? (
+            <EmptyState
+              icon={<Search className="h-6 w-6 text-gray-300" />}
+              title="Ningún inmueble coincide con los filtros"
+              description="Prueba con otra localidad, estado u operación, o limpia los filtros para ver toda la cartera."
+              action={<Button variant="secondary" size="sm" onClick={clearPropFilters}><X className="h-3.5 w-3.5" /> Limpiar filtros</Button>}
+            />
+          ) : propView === 'all' ? (
+            <div className="space-y-5">
+              {displayedActive.length > 0 && (
+                <section>
+                  <p className="mb-2 text-[11px] font-semibold uppercase tracking-wide text-gray-500">Cartera activa · {displayedActive.length}</p>
+                  <ul className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">{displayedActive.map(renderPropertyCard)}</ul>
+                </section>
+              )}
+              {displayedHistory.length > 0 && (
+                <section>
+                  <p className="mb-2 text-[11px] font-semibold uppercase tracking-wide text-gray-400">Histórico · {displayedHistory.length}</p>
+                  <ul className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">{displayedHistory.map(renderPropertyCard)}</ul>
+                </section>
+              )}
+            </div>
+          ) : (
+            <ul className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+              {displayedProperties.map(renderPropertyCard)}
+            </ul>
+          )}
+        </SectionCard>
+      )}
+
+      {/* COMISIONES — control interno (no facturación fiscal). P46: flujo por estados + guía contextual. */}
+      {activeSubtab === 'commissions' && (
+        <SectionCard
+          title="Comisiones"
+          description="Control interno de honorarios por operación. Las facturas oficiales (IVA, PDF y cobro) se crean en Facturación."
+          action={
+            <button type="button" onClick={() => setShowCommGuide(true)} className="inline-flex items-center gap-1 text-[11px] font-medium text-indigo-600 hover:text-indigo-700">
+              <HelpCircle className="h-3.5 w-3.5" /> ¿Cómo funciona?
+            </button>
+          }
+        >
+          {/* Qué falta por hacer — resumen humano (no obliga a interpretar KPIs) */}
+          {!loading && commissionEntries.length > 0 && (
+            <div className="mb-3 rounded-xl border border-gray-100 bg-gray-50/70 p-3">
+              <p className="text-[11px] font-semibold text-gray-700">Qué falta por hacer</p>
+              {commissionSummary.todoCount === 0 ? (
+                <p className="mt-1 flex items-center gap-1.5 text-[11px] text-emerald-700"><Check className="h-3.5 w-3.5" /> Todo al día. No hay honorarios pendientes de facturar ni facturas pendientes de cobro.</p>
+              ) : (
+                <div className="mt-1.5 flex flex-wrap gap-x-4 gap-y-1 text-[11px] text-gray-600">
+                  {commissionSummary.pendingInvoiceCount > 0 && <span><b className="tabular-nums text-amber-700">{commissionSummary.pendingInvoiceCount}</b> pendiente{commissionSummary.pendingInvoiceCount === 1 ? '' : 's'} de facturar</span>}
+                  {commissionSummary.billedCount > 0 && <span><b className="tabular-nums text-indigo-700">{commissionSummary.billedCount}</b> factura{commissionSummary.billedCount === 1 ? '' : 's'} pendiente{commissionSummary.billedCount === 1 ? '' : 's'} de cobrar</span>}
+                  {commissionSummary.collectedNoInvoiceCount > 0 && <span><b className="tabular-nums text-emerald-700">{commissionSummary.collectedNoInvoiceCount}</b> cobro{commissionSummary.collectedNoInvoiceCount === 1 ? '' : 's'} interno{commissionSummary.collectedNoInvoiceCount === 1 ? '' : 's'} sin factura</span>}
+                  {commissionSummary.collectedCount > 0 && <span><b className="tabular-nums text-gray-500">{commissionSummary.collectedCount}</b> cerrada{commissionSummary.collectedCount === 1 ? '' : 's'} con factura</span>}
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Filtros por estado del ciclo */}
+          <div className="mb-3 flex gap-1 overflow-x-auto pb-0.5">
+            {COMMISSION_FILTER_TABS.map((tab) => {
+              const count = commissionEntries.filter((e) => bucketInFilter(e.state.bucket, tab.key)).length
+              const active = commFilter === tab.key
+              return (
+                <button key={tab.key} type="button" onClick={() => setCommFilter(tab.key)} className={cn('inline-flex shrink-0 items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-[11px] font-medium transition-colors', active ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200')}>
+                  {tab.label}
+                  <span className={cn('rounded-full px-1.5 text-[10px] tabular-nums', active ? 'bg-white/20 text-white' : 'bg-white text-gray-500')}>{count}</span>
+                </button>
+              )
+            })}
+          </div>
+
+          {loading ? (
+            <div className="space-y-2.5 py-2">{[0, 1, 2].map((s) => <div key={s} className="h-12 w-full animate-pulse rounded-lg bg-slate-100" />)}</div>
+          ) : commissionEntries.length === 0 ? (
+            <EmptyState
+              icon={<Coins className="h-6 w-6 text-gray-300" />}
+              title="Aún no hay operaciones con comisión"
+              description="Añade una «comisión pactada (%)» a tus operaciones para controlar aquí los honorarios y su estado de facturación y cobro."
+            />
+          ) : commissionGroups.length === 0 ? (
+            <EmptyState
+              icon={<Coins className="h-6 w-6 text-gray-300" />}
+              title={COMMISSION_EMPTY_COPY[commFilter].title}
+              description={COMMISSION_EMPTY_COPY[commFilter].description}
+            />
+          ) : (
+            <div className="space-y-4">
+              {commissionGroups.map((group) => (
+                <div key={group.bucket}>
+                  <div className="mb-1.5 flex items-center gap-2">
+                    <p className="text-[11px] font-semibold uppercase tracking-wide text-gray-500">{COMMISSION_BUCKET_LABEL[group.bucket]}</p>
+                    <span className="rounded-full bg-gray-100 px-1.5 text-[10px] font-semibold tabular-nums text-gray-500">{group.entries.length}</span>
+                  </div>
+                  <ul className="space-y-2">
+                    {group.entries.map(({ o, honorarios, state }) => {
+                      const invLink = invoiceLinks[o.id]
+                      const act = state.action
+                      const bucket = state.bucket
+                      const step = COMMISSION_BUCKET_STEP[bucket]
+                      const propTitle = o.property_id ? propertiesById[o.property_id]?.title : ''
+                      const kind = typeof o.metadata?.operation_kind === 'string' ? o.metadata.operation_kind : ''
+                      const kindLabel = kind ? (PROPERTY_OPERATION_LABEL[kind] ?? cap(kind)) : ''
+                      const note = typeof o.metadata?.commission_note === 'string' ? o.metadata.commission_note : ''
+                      const paid = o.commission_status === 'cobrada'
+                      const amount = paid ? (o.commission_paid_amount ?? honorarios) : honorarios
+                      const closed = bucket === 'collected'
+                      const isPending = bucket === 'pending_invoice'
+                      const hasMenu = state.canUndoInternalCollect || isPending
+                      const factUrl = `/facturacion?fromOpportunity=${o.id}&returnTo=${encodeURIComponent('/opportunities?tab=commissions')}`
+                      return (
+                        <li key={o.id} className="rounded-xl border border-gray-100 bg-white p-3">
+                          <div className="flex items-start justify-between gap-3">
+                            <button type="button" onClick={() => setEditOpp(o)} className="min-w-0 flex-1 text-left" title="Abrir operación">
+                              <p className="truncate text-sm font-medium text-gray-900">{o.title}</p>
+                              <p className="truncate text-[11px] text-gray-500">{[clientNameOf(o.client_id), propTitle, kindLabel, commissionBasisLabel(o)].filter(Boolean).join(' · ')}</p>
+                              <p className="mt-0.5 text-[11px] leading-snug text-gray-400">{COMMISSION_BUCKET_DESCRIPTION[bucket]}</p>
+                              {note && <p className="truncate text-[10px] text-gray-400">Nota: {note}</p>}
+                            </button>
+                            <div className="flex shrink-0 flex-col items-end gap-1">
+                              <p className="text-sm font-semibold text-gray-900">{formatCurrency(amount)}</p>
+                              <span className={cn('rounded-full px-2 py-0.5 text-[10px] font-semibold', closed ? CHIP_TONE_STRONG.emerald : CHIP_TONE_CLS[state.chip.tone])}>{closed ? 'Cerrado · cobrado' : state.chip.label}</span>
+                              {step && <span className="text-[9px] font-medium uppercase tracking-wide text-gray-400">{step}</span>}
+                            </div>
+                          </div>
+                          <div className="mt-2 flex items-center justify-end gap-2 border-t border-gray-50 pt-2">
+                            {act.kind === 'none' && bucket === 'potential' && <span className="mr-auto text-[11px] text-gray-400">Aún no cerrada · sin acción de factura</span>}
+                            {(act.kind === 'create' || act.kind === 'create_after_collect') && (
+                              <Link href={factUrl} title={act.helper ?? undefined} className="inline-flex h-7 items-center gap-1 rounded-lg border border-indigo-200 bg-indigo-50 px-2.5 text-[11px] font-semibold text-indigo-700 transition-colors hover:bg-indigo-100">
+                                <FileText className="h-3.5 w-3.5" /> {act.label}
+                              </Link>
+                            )}
+                            {act.kind === 'open_invoice' && (
+                              <Link href={factUrl} title={`${invLink?.display ?? 'Borrador'} · ${invLink ? INVOICE_STATUS_LABEL[invLink.status] : ''}`} className={cn('inline-flex h-7 items-center gap-1 rounded-lg border px-2.5 text-[11px] font-semibold transition-colors', ACTION_TONE_CLS[state.chip.tone])}>
+                                <FileText className="h-3.5 w-3.5" /> {act.label}
+                              </Link>
+                            )}
+                            {act.kind === 'requires_pro' && (
+                              <span title={act.helper ?? undefined} className="inline-flex h-7 cursor-default items-center gap-1 rounded-lg border border-gray-200 bg-gray-50 px-2.5 text-[11px] font-medium text-gray-500">
+                                <FileText className="h-3.5 w-3.5" /> {act.label}
+                              </span>
+                            )}
+                            {hasMenu && (
+                              <div className="relative">
+                                <button type="button" onClick={() => setRowMenuOpp(rowMenuOpp === o.id ? null : o.id)} title="Más acciones" aria-label="Más acciones" className="flex h-7 w-7 items-center justify-center rounded-lg border border-gray-200 bg-white text-gray-500 transition-colors hover:bg-gray-50"><MoreVertical className="h-3.5 w-3.5" /></button>
+                                {rowMenuOpp === o.id && (
+                                  <>
+                                    <div className="fixed inset-0 z-10" onClick={() => setRowMenuOpp(null)} />
+                                    <div className="absolute right-0 top-8 z-20 w-56 rounded-lg border border-gray-200 bg-white p-1 shadow-lg">
+                                      {isPending && (
+                                        <button type="button" onClick={() => { setRowMenuOpp(null); openCollect(o) }} className="flex w-full items-center gap-2 rounded-md px-2.5 py-2 text-left text-[12px] text-gray-700 hover:bg-gray-50"><Coins className="h-3.5 w-3.5 text-emerald-600" /> Registrar cobro interno</button>
+                                      )}
+                                      {state.canUndoInternalCollect && (
+                                        <button type="button" onClick={() => { setRowMenuOpp(null); setUndoCollectOpp(o) }} className="flex w-full items-center gap-2 rounded-md px-2.5 py-2 text-left text-[12px] text-red-600 hover:bg-red-50"><RefreshCcw className="h-3.5 w-3.5" /> Deshacer cobro interno</button>
+                                      )}
+                                    </div>
+                                  </>
+                                )}
+                              </div>
+                            )}
+                          </div>
+                        </li>
+                      )
+                    })}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          )}
+
+          <p className="mt-3 text-[11px] leading-snug text-gray-400">
+            <b className="font-medium text-gray-500">Comisiones</b> controla los honorarios de tus operaciones. Una comisión puede estar cobrada internamente y aun así necesitar factura oficial. Los documentos (factura, IVA, PDF y cobro) se crean en <b className="font-medium text-gray-500">Facturación</b>.
+          </p>
+        </SectionCard>
+      )}
+
+      {/* TEMPLATES */}
+      {activeSubtab === 'templates' && (
+        <WorkspaceTemplatesPanel workspaceId={workspaceId} vertical={vertical === 'all' ? 'all' : (vertical as VerticalKey)} />
+      )}
+
+      {/* AUTOMATIONS — only when the operator surface is on */}
+      {activeSubtab === 'automations' && featureFlags.nowlabsInternal && (
+        <SectionCard
+          title="Automatizaciones preparadas"
+          description="Catálogo listo. Se ejecutarán cuando conectes n8n + WhatsApp/Instagram real."
+          action={<Badge variant="warning" dot>requiere n8n</Badge>}
+        >
+          <ul className="grid gap-2 sm:grid-cols-2">
+            {automationTemplates.map((auto) => (
+              <li key={auto.id} className="rounded-xl border border-gray-100 bg-white p-3">
+                <div className="flex items-center justify-between gap-2">
+                  <p className="text-sm font-medium text-gray-900">{auto.name}</p>
+                  <span className="rounded-full border border-amber-100 bg-amber-50 px-1.5 py-0.5 text-[10px] font-semibold text-amber-700">Preparada</span>
+                </div>
+                <p className="mt-0.5 line-clamp-2 text-[11px] leading-snug text-gray-500">{auto.description}</p>
+                <div className="mt-1.5 flex flex-wrap items-center gap-1">
+                  {auto.requires.map((req) => (
+                    <span key={req} className="rounded-full border border-gray-100 bg-gray-50 px-1.5 py-0.5 text-[10px] text-gray-600">{req}</span>
+                  ))}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </SectionCard>
+      )}
+
+      {/* Create drawers */}
+      <NewOpportunityDrawer
+        open={openOpp}
+        onClose={() => setOpenOpp(false)}
+        workspaceId={workspaceId}
+        defaultVertical={defaultVerticalForCreate}
+        properties={properties}
+        showVerticalSelect={showVerticalBar}
+        onCreated={() => void loadData()}
+      />
+      <NewServiceCaseDrawer
+        open={openCase}
+        onClose={() => setOpenCase(false)}
+        workspaceId={workspaceId}
+        defaultVertical={defaultVerticalForCreate}
+        opportunities={opportunities}
+        properties={properties}
+        showVerticalSelect={showVerticalBar}
+        onCreated={() => void loadData()}
+      />
+      <NewPropertyDrawer
+        open={openProp}
+        onClose={() => setOpenProp(false)}
+        workspaceId={workspaceId}
+        onCreated={() => void loadData()}
+      />
+
+      {/* Edit drawers — keyed remount per entity from inside the wrappers. */}
+      <EditOpportunityDrawer
+        open={!!editOpp}
+        onClose={() => setEditOpp(null)}
+        workspaceId={workspaceId}
+        opportunity={editOpp}
+        showVerticalSelect={showVerticalBar}
+        properties={properties}
+        onUpdated={(row) => setOpportunities((prev) => prev.map((o) => (o.id === row.id ? row : o)))}
+      />
+      <EditServiceCaseDrawer
+        open={!!editCase}
+        onClose={() => setEditCase(null)}
+        workspaceId={workspaceId}
+        serviceCase={editCase}
+        showVerticalSelect={showVerticalBar}
+        onUpdated={(row) => setCases((prev) => prev.map((c) => (c.id === row.id ? row : c)))}
+        onDocCountChange={handleDocCountChange}
+      />
+      <EditPropertyDrawer
+        open={!!editProp}
+        onClose={() => setEditProp(null)}
+        workspaceId={workspaceId}
+        property={editProp}
+        onUpdated={(row) => setProperties((prev) => prev.map((p) => (p.id === row.id ? row : p)))}
+        onCoverChange={handleCoverChange}
+      />
+
+      {/* Cierre comercial (P6.11) — marca inmueble vendido/alquilado, sin borrar */}
+      <ConfirmDialog
+        open={!!closeOpp}
+        title={closeOpp && (typeof closeOpp.metadata?.operation_kind === 'string' ? closeOpp.metadata.operation_kind : '') === 'alquiler'
+          ? '¿Marcar la operación como alquilada?'
+          : '¿Marcar la operación como vendida?'}
+        description={closeOpp
+          ? (() => {
+              const kind = typeof closeOpp.metadata?.operation_kind === 'string' ? closeOpp.metadata.operation_kind : ''
+              const opLabel = kind === 'alquiler' ? 'alquilada' : 'vendida'
+              const propAction = kind === 'alquiler' ? 'alquilado' : 'vendido'
+              const prop = closeOpp.property_id ? propertiesById[closeOpp.property_id]?.title : ''
+              return `La operación quedará registrada como ${opLabel} y el inmueble${prop ? ` «${prop}»` : ''} se marcará como ${propAction} y saldrá de la cartera activa. No se elimina nada: queda en el histórico (comisión, documentos y trámites se conservan).`
+            })()
+          : ''}
+        confirmLabel={closeOpp && (typeof closeOpp.metadata?.operation_kind === 'string' ? closeOpp.metadata.operation_kind : '') === 'alquiler'
+          ? 'Marcar alquilada'
+          : 'Marcar vendida'}
+        cancelLabel="Cancelar"
+        onConfirm={() => void confirmCloseOpp()}
+        onCancel={() => setCloseOpp(null)}
+      />
+
+      {/* Reabrir operación cerrada (Vendida/Alquilada) → confirma, reactiva el inmueble, no borra nada */}
+      <ConfirmDialog
+        open={!!reopenOpp}
+        title="¿Reabrir esta operación?"
+        description={reopenOpp
+          ? (() => {
+              const prop = reopenOpp.opp.property_id ? propertiesById[reopenOpp.opp.property_id] : undefined
+              const willReactivate = prop && (prop.status === 'sold' || prop.status === 'rented')
+              return `La operación dejará de estar cerrada y volverá a aparecer como activa.${willReactivate ? ` El inmueble${prop?.title ? ` «${prop.title}»` : ''} saldrá del histórico y volverá a la cartera activa.` : ''} No se elimina nada: las comisiones registradas se conservan (déjalas en pendiente o cobrada según corresponda).`
+            })()
+          : ''}
+        confirmLabel="Reabrir operación"
+        cancelLabel="Cancelar"
+        onConfirm={() => void confirmReopenOpp()}
+        onCancel={() => setReopenOpp(null)}
+      />
+
+      {/* Inmueble → histórico (vendido/alquilado/archivado) desde la card: confirma, no borra nada */}
+      <ConfirmDialog
+        open={!!propStatusChange}
+        title={propStatusChange?.nextStatus === 'archived'
+          ? '¿Archivar inmueble?'
+          : propStatusChange?.nextStatus === 'rented'
+            ? '¿Marcar el inmueble como alquilado?'
+            : '¿Marcar el inmueble como vendido?'}
+        description={propStatusChange
+          ? `«${propStatusChange.property.title}» saldrá de la cartera activa y quedará en el histórico. No se elimina nada: se conservan fotos, documentos, operaciones y trámites.`
+          : ''}
+        confirmLabel={propStatusChange?.nextStatus === 'archived' ? 'Archivar' : propStatusChange?.nextStatus === 'rented' ? 'Marcar alquilado' : 'Marcar vendido'}
+        cancelLabel="Cancelar"
+        onConfirm={() => { if (propStatusChange) { void handlePropertyStatus(propStatusChange.property, propStatusChange.nextStatus); setPropStatusChange(null) } }}
+        onCancel={() => setPropStatusChange(null)}
+      />
+
+      {/* Borrado de inmueble BLOQUEADO: tiene operaciones vinculadas → mejor archivar. No borra nada. */}
+      <ConfirmDialog
+        open={!!propDeleteBlocked}
+        title="No puedes eliminar este inmueble"
+        description={propDeleteBlocked
+          ? `«${propDeleteBlocked.property.title}» tiene ${propDeleteBlocked.opsCount} ${propDeleteBlocked.opsCount === 1 ? 'operación vinculada' : 'operaciones vinculadas'}. Para conservar el histórico, archívalo; o revisa sus operaciones antes de eliminarlo. No se ha borrado nada.`
+          : ''}
+        confirmLabel="Ver operaciones"
+        cancelLabel="Cancelar"
+        onConfirm={() => { setSubtab('pipeline'); setPropDeleteBlocked(null) }}
+        onCancel={() => setPropDeleteBlocked(null)}
+      />
+
+      {/* Borrado de inmueble SIN operaciones: confirmación fuerte (borra también fotos/documentos). */}
+      <ConfirmDialog
+        open={!!propToDelete}
+        destructive
+        loading={deletingProp}
+        loadingLabel="Eliminando…"
+        title="¿Eliminar inmueble?"
+        description={propToDelete
+          ? `Se eliminará «${propToDelete.title}» y sus fotos y documentos asociados. Esta acción no se puede deshacer. No se elimina ningún cliente. Para conservar el histórico, normalmente es mejor archivar.`
+          : ''}
+        confirmLabel="Eliminar"
+        cancelLabel="Cancelar"
+        onConfirm={() => void confirmDeleteProperty()}
+        onCancel={() => { if (!deletingProp) setPropToDelete(null) }}
+      />
+
+      {/* Borrado seguro (P6.8/P6.9) */}
+      <ConfirmDialog
+        open={!!blockedOppTarget}
+        title="Esta operación tiene trámites vinculados"
+        description={blockedOppTarget
+          ? (() => {
+              const linked = cases.filter((c) => c.opportunity_id === blockedOppTarget.id)
+              const names = linked.slice(0, 3).map((c) => c.title).join(', ')
+              const more = linked.length > 3 ? ` y ${linked.length - 3} más` : ''
+              return `Para no perder documentación ni dejar gestiones sueltas, elimina o reasigna sus ${linked.length} trámite${linked.length === 1 ? '' : 's'} antes de borrar «${blockedOppTarget.title}». Vinculados: ${names}${more}.`
+            })()
+          : ''}
+        confirmLabel="Ver trámites"
+        cancelLabel="Cancelar"
+        onConfirm={viewLinkedTramites}
+        onCancel={() => setBlockedOppTarget(null)}
+      />
+      <ConfirmDialog
+        open={!!deleteOppTarget}
+        title="Eliminar operación"
+        description={deleteOppTarget ? `¿Eliminar «${deleteOppTarget.title}»? El cliente y el inmueble vinculados no se eliminan. Esta acción no se puede deshacer.` : ''}
+        confirmLabel="Eliminar"
+        loadingLabel="Eliminando…"
+        destructive
+        loading={deleteBusy}
+        error={deleteError}
+        onConfirm={() => void confirmDeleteOpp()}
+        onCancel={() => { if (!deleteBusy) { setDeleteOppTarget(null); setDeleteError(null) } }}
+      />
+      <ConfirmDialog
+        open={!!deleteCaseTarget}
+        title="Eliminar trámite"
+        description={deleteCaseTarget
+          ? `¿Eliminar «${deleteCaseTarget.title}»?${(docCountByCase[deleteCaseTarget.id] ?? 0) > 0 ? ` Se eliminarán también sus ${docCountByCase[deleteCaseTarget.id]} documento${docCountByCase[deleteCaseTarget.id] === 1 ? '' : 's'}.` : ''} Esta acción no se puede deshacer.`
+          : ''}
+        confirmLabel="Eliminar"
+        loadingLabel="Eliminando…"
+        destructive
+        loading={deleteBusy}
+        error={deleteError}
+        onConfirm={() => void confirmDeleteCase()}
+        onCancel={() => { if (!deleteBusy) { setDeleteCaseTarget(null); setDeleteError(null) } }}
+      />
+
+      {/* Documentos del trámite — acceso directo desde la fila (sin abrir el drawer de edición).
+          Reutiliza EntityDocumentsManager (Storage + RLS, sin service_role); el contador de la
+          fila se actualiza al instante vía handleDocCountChange. */}
+      {docsCase && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <button type="button" aria-label="Cerrar" className="absolute inset-0 bg-gray-950/40 backdrop-blur-[1px]" onClick={() => setDocsCase(null)} />
+          <div className="relative w-full max-w-lg rounded-2xl border border-gray-100 bg-white p-5 shadow-xl">
+            <div className="mb-3 flex items-start justify-between gap-3">
+              <div className="min-w-0">
+                <h3 className="truncate text-base font-semibold text-gray-900">{docsCase.title}</h3>
+                <p className="truncate text-[12px] text-gray-500">Documentos del trámite</p>
+              </div>
+              <button type="button" onClick={() => setDocsCase(null)} aria-label="Cerrar" className="shrink-0 rounded-lg p-1 text-gray-400 transition-colors hover:bg-gray-50 hover:text-gray-600"><X className="h-4 w-4" /></button>
+            </div>
+            <EntityDocumentsManager
+              workspaceId={workspaceId}
+              entityType="service_case"
+              entityId={docsCase.id}
+              onCountChange={handleDocCountChange}
+              title="Documentos del trámite"
+              description="Sube contratos, nota simple, tasaciones o justificantes vinculados a este trámite."
+            />
+          </div>
+        </div>
+      )}
+
+      {/* Registrar cobro de comisión — importe real opcional + nota opcional (control interno) */}
+      {collectOpp && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <button type="button" aria-label="Cerrar" className="absolute inset-0 bg-gray-950/40 backdrop-blur-[1px]" onClick={() => { if (!collectBusy) setCollectOpp(null) }} />
+          <div className="relative w-full max-w-md rounded-2xl border border-gray-100 bg-white p-5 shadow-xl">
+            <h3 className="text-base font-semibold text-gray-900">Registrar cobro interno</h3>
+            <p className="mt-0.5 text-[12px] text-gray-500">Guarda el cobro interno de esta comisión. No genera factura: para el documento oficial, créala en Facturación.</p>
+            <div className="mt-3 truncate rounded-lg bg-gray-50 px-3 py-2 text-[11px] text-gray-600">
+              <span className="font-medium text-gray-800">{collectOpp.title}</span> · comisión prevista {formatCurrency(commissionOf(collectOpp) ?? 0)}
+            </div>
+            <div className="mt-3 space-y-3">
+              <div>
+                <label className="mb-1 block text-[11px] font-medium text-gray-600">Fecha de cobro</label>
+                <input
+                  type="date"
+                  className={SELECT_CLS}
+                  value={collectDate}
+                  onChange={(e) => setCollectDate(e.target.value)}
+                />
+              </div>
+              <div>
+                <label className="mb-1 block text-[11px] font-medium text-gray-600">Importe cobrado (€) <span className="font-normal text-gray-400">· opcional</span></label>
+                <input
+                  type="number"
+                  inputMode="decimal"
+                  min="0"
+                  step="1"
+                  className={SELECT_CLS}
+                  value={collectAmount}
+                  onChange={(e) => setCollectAmount(e.target.value)}
+                  placeholder={String(commissionOf(collectOpp) ?? 0)}
+                />
+                <p className="mt-1 text-[10px] text-gray-400">Déjalo como está para usar la comisión prevista, o ajústalo al importe real cobrado.</p>
+              </div>
+              <div>
+                <label className="mb-1 block text-[11px] font-medium text-gray-600">Nota <span className="font-normal text-gray-400">· opcional</span></label>
+                <textarea
+                  rows={2}
+                  className={cn(SELECT_CLS, 'h-auto resize-none py-2')}
+                  value={collectNote}
+                  onChange={(e) => setCollectNote(e.target.value)}
+                  placeholder="Ej.: cobrado por transferencia."
+                />
+              </div>
+            </div>
+            <div className="mt-4 flex justify-end gap-2">
+              <button type="button" disabled={collectBusy} onClick={() => setCollectOpp(null)} className="inline-flex h-9 items-center rounded-lg border border-gray-200 bg-white px-3 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-50 disabled:opacity-50">Cancelar</button>
+              <button type="button" disabled={collectBusy} onClick={() => void submitCommissionCollection()} className="inline-flex h-9 items-center gap-1 rounded-lg border border-emerald-200 bg-emerald-50 px-3 text-sm font-medium text-emerald-700 transition-colors hover:bg-emerald-100 disabled:opacity-50"><Check className="h-4 w-4" /> {collectBusy ? 'Guardando…' : 'Registrar cobro interno'}</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Deshacer cobro interno — confirmación breve (solo control interno, no toca facturas) */}
+      {undoCollectOpp && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <button type="button" aria-label="Cerrar" className="absolute inset-0 bg-gray-950/40 backdrop-blur-[1px]" onClick={() => setUndoCollectOpp(null)} />
+          <div className="relative w-full max-w-sm rounded-2xl border border-gray-100 bg-white p-5 shadow-xl">
+            <h3 className="text-base font-semibold text-gray-900">Deshacer cobro interno</h3>
+            <p className="mt-1 text-[12px] leading-snug text-gray-500">Esto solo cambia el control interno de comisiones. No modifica facturas emitidas. La comisión volverá a estar pendiente.</p>
+            <div className="mt-2 truncate rounded-lg bg-gray-50 px-3 py-2 text-[11px] text-gray-600"><span className="font-medium text-gray-800">{undoCollectOpp.title}</span></div>
+            <div className="mt-4 flex justify-end gap-2">
+              <button type="button" onClick={() => setUndoCollectOpp(null)} className="inline-flex h-9 items-center rounded-lg border border-gray-200 bg-white px-3 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-50">Cancelar</button>
+              <button type="button" onClick={() => { const op = undoCollectOpp; setUndoCollectOpp(null); void markCommissionPending(op) }} className="inline-flex h-9 items-center gap-1 rounded-lg border border-red-200 bg-red-50 px-3 text-sm font-medium text-red-600 transition-colors hover:bg-red-100"><RefreshCcw className="h-4 w-4" /> Deshacer cobro</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ¿Cómo funciona? — guía rápida del ciclo comisión → factura → cobro */}
+      {showCommGuide && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <button type="button" aria-label="Cerrar" className="absolute inset-0 bg-gray-950/40 backdrop-blur-[1px]" onClick={() => setShowCommGuide(false)} />
+          <div className="relative w-full max-w-md rounded-2xl border border-gray-100 bg-white p-5 shadow-xl">
+            <div className="mb-3 flex items-start justify-between gap-3">
+              <h3 className="text-base font-semibold text-gray-900">¿Cómo funciona?</h3>
+              <button type="button" onClick={() => setShowCommGuide(false)} aria-label="Cerrar" className="shrink-0 rounded-lg p-1 text-gray-400 transition-colors hover:bg-gray-50 hover:text-gray-600"><X className="h-4 w-4" /></button>
+            </div>
+            <ol className="space-y-2 text-[13px] text-gray-700">
+              <li className="flex gap-2"><span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-indigo-100 text-[11px] font-semibold text-indigo-700">1</span> Cierra una operación y calcula sus honorarios (comisión pactada).</li>
+              <li className="flex gap-2"><span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-indigo-100 text-[11px] font-semibold text-indigo-700">2</span> Crea la factura de honorarios desde la operación.</li>
+              <li className="flex gap-2"><span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-indigo-100 text-[11px] font-semibold text-indigo-700">3</span> Emítela: se genera el PDF y queda pendiente de cobro.</li>
+              <li className="flex gap-2"><span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-indigo-100 text-[11px] font-semibold text-indigo-700">4</span> Márcala como cobrada en Facturación cuando recibas el pago.</li>
+            </ol>
+            <p className="mt-3 rounded-lg bg-amber-50 px-3 py-2 text-[11px] leading-snug text-amber-800">El IVA se aplica sobre tus honorarios, no sobre el precio del inmueble.</p>
+          </div>
+        </div>
+      )}
+    </motion.div>
+  )
+}
+
+function KpiCard(props: { icon: React.ReactNode; label: string; value: string; detail: string; tone: string; title?: string }) {
+  return (
+    <div title={props.title} className={cn('rounded-xl border p-4 shadow-sm shadow-gray-950/[0.02]', props.tone)}>
+      <div className="flex items-center justify-between">
+        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white shadow-sm ring-1 ring-black/[0.04]">{props.icon}</div>
+        <span className="text-[10px] font-semibold text-gray-500">{props.label}</span>
+      </div>
+      <p className="mt-2 text-xl font-bold text-gray-900">{props.value}</p>
+      <p className="mt-0.5 text-[11px] text-gray-500">{props.detail}</p>
+    </div>
+  )
+}
