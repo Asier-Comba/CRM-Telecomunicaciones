@@ -26,6 +26,7 @@ export type DurableObservation = {
  * plus an independent synthetic effect ledger. Never count client assertions.
  */
 export function validateDurableObservation(id: DurableProcessScenario, value: unknown): boolean {
+  if (!DURABLE_PROCESS_SCENARIOS.some(scenario => scenario.id === id)) return false
   if (!value || typeof value !== 'object' || Array.isArray(value)) return false
   const o = value as DurableObservation
   const numeric = ['operationCount', 'executionAuthorizations', 'effectCount', 'originalAuditIntents', 'deliveredOriginalEvents', 'pendingOriginalEvents', 'unauthorizedRows', 'forbiddenTransitions', 'unregisteredDispatches', 'automaticRedispatches'] as const
