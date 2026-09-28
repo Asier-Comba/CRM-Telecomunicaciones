@@ -2,20 +2,20 @@
 
 VERIFIED: 2026-09-28 UTC
 BRANCH: w5/backend-platform-v1, based on W2 8de57dc2f84634156655f6c79047d545bbb86a6c
-HEAD: Storage restriction checkpoint ab1290df8ab18c59ed91c4ced93d1a58d057790d; CI/platform handoff pending
+HEAD: native PostgreSQL 16 restore checkpoint b19ac8265fb9f4fc5e1bdbc513be0e16c0d0fe7c; platform handoff pending
 PR: #18 draft, stacked against w2/backend-takeover-v1
-CI: #207 PASS at durable schema checkpoint; new embedded DB job pending; Dependency Review skipped until repository owner enables Dependency Graph and DEPENDENCY_REVIEW_ENABLED=true
-POSTGRES: native PostgreSQL unavailable in this runner; native CI zero-to-head/restore drill added, result pending; embedded PGlite 23 migrations pass
+CI: #214 native PostgreSQL, embedded DB, migration policy, baseline and secret scan PASS; lint/types/tests/build was still running when recorded; Dependency Review skipped until repository owner enables Dependency Graph and DEPENDENCY_REVIEW_ENABLED=true
+POSTGRES: CI #214 PostgreSQL 16 native zero-to-head and synthetic pg_dump/pg_restore PASS (24 migrations); embedded PGlite 24 migrations pass
 SUPABASE_LOCAL: not exercised
 SUPABASE_REMOTE: untouched
 DB_READS: all 14 published operations wired to DB-backed scoped readers; dashboard personal/workspace populated, team unavailable until a team authority model exists; personal renewals/permanences reported unavailable because they lack personal attribution
-RLS: active membership/workspace checked in contract RPCs; embedded tenant denial probes pass; native RLS pending
+RLS: active membership/workspace checked in contract RPCs; embedded and native synthetic scope/denial fixtures pass
 STORAGE: private document and ZIP quarantine buckets versioned; document SELECT requires active owner/admin plus active metadata, ordinary member denied; no direct client writes; real Storage API untested
 DURABILITY: confirmation/operation/outbox tables, binding FKs, unique keys, forced RLS and recovery indexes drafted; W3 transaction adapter, audit/result storage and native process evidence absent; writes disabled
-BACKUP: synthetic PGlite restore passed; isolated native pg_dump/pg_restore CI drill pending; encryption, offsite and Storage object restore pending
+BACKUP: synthetic PGlite and isolated native pg_dump/pg_restore CI drills passed; encryption, offsite, Auth, Storage object and complete recovery pending
 PORTABILITY: versioned local config/guarded synthetic A/B seed and platform environment matrix; Storage stub exercises SQL policy only; no local Supabase Auth/PostgREST/Storage API evidence
-BLOCKERS: native PostgreSQL and Supabase local runtime absent; platform review W4 pending; no real customer data authorized
-NEXT 3: native PostgreSQL/Supabase Auth and Storage test; W3 durable DB adapter; encrypted native backup and object recovery
+BLOCKERS: Supabase local runtime absent; platform review W4 pending; no real customer data authorized
+NEXT 3: Supabase Auth and Storage API integration test; W3 durable DB adapter; encrypted offsite backup and full object recovery
 
 Portfolio readers use forward-only migrations with service-only grants, active membership
 checks, bounded keyset pages and redacted references. The existing read service
