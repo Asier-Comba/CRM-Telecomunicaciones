@@ -276,13 +276,47 @@ test('malformed rows and provider errors collapse to safe service errors', async
   }
 })
 
-test('published readers without a database projection report unavailable, never empty', async () => {
+test('contract readers use scoped RPCs and reject malformed or foreign projections', async () => {
+  const contract = {
+    contract_version: 'telecom.v1', scope_epoch: context.scope_epoch,
+    id: '60000000-0000-4000-8000-000000000001',
+    customer: { kind: 'customer', id: CUSTOMER_A, display_name: 'Synthetic Telecom Company' },
+    operator: { kind: 'operator', id: '50000000-0000-4000-8000-000000000001', display_name: 'Synthetic Operator' },
+    plan: null, external_reference: { field_class: 'contract_reference', visibility: 'not_available' },
+    status: 'active', start_date: '2026-01-01', signed_date: null, end_date: null,
+    cancelled_at: null, assigned_user: null, capabilities: [],
+  }
+  const calls = []
+  const rpc = { async rpc(name, args) {
+    calls.push({ name, args })
+    return { error: null, data: name === 'telecom_v1_contract_list'
+      ? { rows: [contract], has_more: false, next_created_at: null, next_id: null } : contract }
+  } }
+  const service = new AuthorizedTelecomReadServiceV1(
+    new SupabaseTelecomReadRepositoryV1(rpc, codec(), () => NOW), authorizer())
+  const list = await service.contractList(context, { limit: 1, continuation: null })
+  const one = await service.contractGet(context, { contract_id: contract.id })
+  assert.equal(list.source_state, 'available')
+  assert.equal(list.items[0].id, contract.id)
+  assert.equal(one.result, 'found')
+  assert.deepEqual(calls.map(({ name }) => name), ['telecom_v1_contract_list', 'telecom_v1_contract_get'])
+  assert.ok(calls.every(({ args }) => args.p_workspace_id === WORKSPACE_A && args.p_actor_id === ACTOR_A))
+  const bad = new AuthorizedTelecomReadServiceV1(
+    new SupabaseTelecomReadRepositoryV1({ async rpc() {
+      return { error: null, data: { ...contract, private_payload: 'SYNTHETIC_PRIVATE_VALUE' } }
+    } }, codec(), () => NOW), authorizer())
+  const rejected = await bad.contractGet(context, { contract_id: contract.id })
+  assert.equal(rejected.result, 'error')
+  assert.doesNotMatch(JSON.stringify(rejected), /SYNTHETIC_PRIVATE_VALUE/)
+})
+
+test('remaining readers without a database projection report unavailable, never empty', async () => {
   const rpc = { async rpc() { throw new Error('must not execute') } }
   const repository = new SupabaseTelecomReadRepositoryV1(rpc, codec(), () => NOW)
   const service = new AuthorizedTelecomReadServiceV1(repository, authorizer())
-  const contracts = await service.contractList(context, { limit: 20, continuation: null })
+  const services = await service.serviceList(context, { limit: 20, continuation: null })
   const dashboard = await service.dashboardGet(context, { audience: 'personal' })
-  assert.equal(contracts.source_state, 'unavailable')
-  assert.equal(contracts.items, null)
+  assert.equal(services.source_state, 'unavailable')
+  assert.equal(services.items, null)
   assert.equal(dashboard.result, 'unavailable')
 })

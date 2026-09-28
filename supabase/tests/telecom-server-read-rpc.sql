@@ -308,5 +308,41 @@ begin
 end;
 $$;
 
+do $$
+declare item jsonb; page jsonb; denied boolean := false;
+begin
+  item := public.telecom_v1_contract_get(
+    '10000000-0000-0000-0000-000000000001',
+    '20000000-0000-0000-0000-000000000001',
+    '60000000-0000-0000-0000-000000000001', 'scope-epoch-0001');
+  if item->>'id' <> '60000000-0000-0000-0000-000000000001'
+    or item#>>'{external_reference,visibility}' <> 'not_available'
+    or item#>>'{customer,display_name}' <> 'Synthetic Alpha Telecom' then
+    raise exception 'contract projection mismatch';
+  end if;
+  page := public.telecom_v1_contract_list(
+    '10000000-0000-0000-0000-000000000001',
+    '20000000-0000-0000-0000-000000000001', 'scope-epoch-0001',
+    null,null,null,'active',null,null,1,null,null);
+  if jsonb_array_length(page->'rows') <> 1 or (page->>'has_more')::boolean then
+    raise exception 'contract list page mismatch';
+  end if;
+  if public.telecom_v1_contract_get(
+    '10000000-0000-0000-0000-000000000001',
+    '20000000-0000-0000-0000-000000000001',
+    '60000000-0000-0000-0000-000000000002', 'scope-epoch-0001') is not null then
+    raise exception 'contract get leaked a foreign row';
+  end if;
+  begin
+    perform public.telecom_v1_contract_get(
+      '10000000-0000-0000-0000-000000000002',
+      '20000000-0000-0000-0000-000000000001',
+      '60000000-0000-0000-0000-000000000001', 'scope-epoch-0001');
+  exception when sqlstate '42501' then denied := true;
+  end;
+  if not denied then raise exception 'foreign actor accessed contracts'; end if;
+end;
+$$;
+
 reset role;
 rollback;

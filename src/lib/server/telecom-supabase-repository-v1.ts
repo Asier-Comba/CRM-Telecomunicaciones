@@ -1,5 +1,6 @@
 import type {
   CollectionEnvelopeV1,
+  ContractListInputV1,
   CustomerCompanyV1,
   CustomerSearchInputV1,
   ReadOneResponseV1,
@@ -253,8 +254,63 @@ export class SupabaseTelecomReadRepositoryV1 implements TelecomReadRepositoryV1 
       error: null,
     }
   }
-  contractList(context: ServerReadContextV1) { return Promise.resolve(unavailableCollection(context)) }
-  contractGet(context: ServerReadContextV1) { return Promise.resolve(unavailableOne(context)) }
+  async contractList(context: ServerReadContextV1, input: ContractListInputV1): Promise<unknown> {
+    const binding: TelecomCursorBindingV1 = {
+      actorId: context.actor_id, workspaceId: context.workspace_id, scopeEpoch: context.scope_epoch,
+      operation: 'contract.list',
+      filter: JSON.stringify([
+        input.customer_id ?? null, input.operator_id ?? null, input.assignee_id ?? null,
+        input.status ?? null, input.commitment_from ?? null, input.commitment_to ?? null, input.limit,
+      ]),
+    }
+    const cursor = input.continuation === null ? null : await this.#cursor.consume(binding, input.continuation)
+    if (input.continuation !== null && cursor === null) throw new Error('invalid contract continuation')
+    const response = await this.#client.rpc('telecom_v1_contract_list', {
+      p_actor_id: context.actor_id, p_workspace_id: context.workspace_id, p_scope_epoch: context.scope_epoch,
+      p_customer_id: input.customer_id ?? null, p_operator_id: input.operator_id ?? null,
+      p_assignee_id: input.assignee_id ?? null, p_status: input.status ?? null,
+      p_commitment_from: input.commitment_from ?? null, p_commitment_to: input.commitment_to ?? null,
+      p_limit: input.limit, p_after_created_at: cursor?.createdAt ?? null, p_after_id: cursor?.id ?? null,
+    })
+    if (response.error !== null || !record(response.data)
+      || !exact(response.data, ['rows', 'has_more', 'next_created_at', 'next_id'])
+      || !Array.isArray(response.data.rows) || response.data.rows.length > input.limit
+      || typeof response.data.has_more !== 'boolean') throw new Error('invalid contract list result')
+    const { rows, has_more: hasMore, next_created_at: nextCreatedAt, next_id: nextId } = response.data
+    if (hasMore && rows.length === 0
+      || hasMore !== (nextCreatedAt !== null && nextId !== null)
+      || nextCreatedAt !== null && !isStrictInstantV1(nextCreatedAt)
+      || nextId !== null && (typeof nextId !== 'string' || !UUID.test(nextId))) {
+      throw new Error('invalid contract continuation row')
+    }
+    const continuation = hasMore
+      ? await this.#cursor.issue(binding, { createdAt: nextCreatedAt as string, id: nextId as string }) : null
+    const asOf = this.#now()
+    if (!isStrictInstantV1(asOf)) throw new Error('invalid repository clock')
+    return {
+      contract_version: VERSION, scope_epoch: context.scope_epoch, source_state: 'available',
+      permission: 'authorized', items: rows,
+      completeness: hasMore ? { kind: 'partial', has_more: true } : { kind: 'complete' },
+      continuation, freshness: { kind: 'fresh', as_of: asOf }, error: null,
+    }
+  }
+
+  async contractGet(context: ServerReadContextV1, input: { contract_id: string }): Promise<unknown> {
+    const response = await this.#client.rpc('telecom_v1_contract_get', {
+      p_actor_id: context.actor_id, p_workspace_id: context.workspace_id,
+      p_scope_epoch: context.scope_epoch, p_contract_id: input.contract_id,
+    })
+    if (response.error !== null) throw new Error('contract get unavailable')
+    if (response.data === null) {
+      return { contract_version: VERSION, scope_epoch: context.scope_epoch, result: 'not_found', data: null, freshness: null, error: null }
+    }
+    const asOf = this.#now()
+    if (!isStrictInstantV1(asOf)) throw new Error('invalid repository clock')
+    return {
+      contract_version: VERSION, scope_epoch: context.scope_epoch, result: 'found',
+      data: response.data, freshness: { kind: 'fresh', as_of: asOf }, error: null,
+    }
+  }
   serviceList(context: ServerReadContextV1) { return Promise.resolve(unavailableCollection(context)) }
   lineList(context: ServerReadContextV1) { return Promise.resolve(unavailableCollection(context)) }
   renewalList(context: ServerReadContextV1) { return Promise.resolve(unavailableCollection(context)) }
