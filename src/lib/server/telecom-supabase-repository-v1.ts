@@ -3,8 +3,10 @@ import type {
   ContractListInputV1,
   CustomerCompanyV1,
   CustomerSearchInputV1,
+  LineListInputV1,
   ReadOneResponseV1,
   ServerReadContextV1,
+  ServiceListInputV1,
 } from '../contracts/telecom-v1'
 import type { TelecomCursorBindingV1, TelecomCursorCodecV1 } from './telecom-cursor-v1'
 import type { TelecomReadRepositoryV1 } from './telecom-read-service-v1'
@@ -311,8 +313,64 @@ export class SupabaseTelecomReadRepositoryV1 implements TelecomReadRepositoryV1 
       data: response.data, freshness: { kind: 'fresh', as_of: asOf }, error: null,
     }
   }
-  serviceList(context: ServerReadContextV1) { return Promise.resolve(unavailableCollection(context)) }
-  lineList(context: ServerReadContextV1) { return Promise.resolve(unavailableCollection(context)) }
+  async #portfolioPage(
+    context: ServerReadContextV1,
+    input: { limit: number; continuation: string | null },
+    operation: 'service.list' | 'line.list',
+    filter: readonly unknown[],
+    parameters: Record<string, unknown>,
+  ): Promise<unknown> {
+    const binding: TelecomCursorBindingV1 = {
+      actorId: context.actor_id, workspaceId: context.workspace_id, scopeEpoch: context.scope_epoch,
+      operation, filter: JSON.stringify([...filter, input.limit]),
+    }
+    const cursor = input.continuation === null ? null : await this.#cursor.consume(binding, input.continuation)
+    if (input.continuation !== null && cursor === null) throw new Error('invalid portfolio continuation')
+    const response = await this.#client.rpc(`telecom_v1_${operation === 'service.list' ? 'service' : 'line'}_list`, {
+      p_actor_id: context.actor_id, p_workspace_id: context.workspace_id, p_scope_epoch: context.scope_epoch,
+      ...parameters, p_limit: input.limit,
+      p_after_created_at: cursor?.createdAt ?? null, p_after_id: cursor?.id ?? null,
+    })
+    if (response.error !== null || !record(response.data)
+      || !exact(response.data, ['rows', 'has_more', 'next_created_at', 'next_id'])
+      || !Array.isArray(response.data.rows) || response.data.rows.length > input.limit
+      || typeof response.data.has_more !== 'boolean') throw new Error('invalid portfolio page')
+    const { rows, has_more: hasMore, next_created_at: nextCreatedAt, next_id: nextId } = response.data
+    if (hasMore && rows.length === 0
+      || hasMore !== (nextCreatedAt !== null && nextId !== null)
+      || nextCreatedAt !== null && !isStrictInstantV1(nextCreatedAt)
+      || nextId !== null && (typeof nextId !== 'string' || !UUID.test(nextId))) {
+      throw new Error('invalid portfolio cursor row')
+    }
+    const continuation = hasMore
+      ? await this.#cursor.issue(binding, { createdAt: nextCreatedAt as string, id: nextId as string }) : null
+    const asOf = this.#now()
+    if (!isStrictInstantV1(asOf)) throw new Error('invalid repository clock')
+    return {
+      contract_version: VERSION, scope_epoch: context.scope_epoch, source_state: 'available',
+      permission: 'authorized', items: rows,
+      completeness: hasMore ? { kind: 'partial', has_more: true } : { kind: 'complete' },
+      continuation, freshness: { kind: 'fresh', as_of: asOf }, error: null,
+    }
+  }
+
+  serviceList(context: ServerReadContextV1, input: ServiceListInputV1) {
+    return this.#portfolioPage(context, input, 'service.list', [
+      input.customer_id ?? null, input.contract_id ?? null, input.operator_id ?? null, input.status ?? null,
+    ], {
+      p_customer_id: input.customer_id ?? null, p_contract_id: input.contract_id ?? null,
+      p_operator_id: input.operator_id ?? null, p_status: input.status ?? null,
+    })
+  }
+
+  lineList(context: ServerReadContextV1, input: LineListInputV1) {
+    return this.#portfolioPage(context, input, 'line.list', [
+      input.customer_id ?? null, input.service_id ?? null, input.status ?? null,
+    ], {
+      p_customer_id: input.customer_id ?? null, p_service_id: input.service_id ?? null,
+      p_status: input.status ?? null,
+    })
+  }
   renewalList(context: ServerReadContextV1) { return Promise.resolve(unavailableCollection(context)) }
   permanenceList(context: ServerReadContextV1) { return Promise.resolve(unavailableCollection(context)) }
   taskList(context: ServerReadContextV1) { return Promise.resolve(unavailableCollection(context)) }

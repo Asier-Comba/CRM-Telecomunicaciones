@@ -344,5 +344,33 @@ begin
 end;
 $$;
 
+do $$
+declare services jsonb; lines jsonb; denied boolean := false;
+begin
+  services := public.telecom_v1_service_list(
+    '10000000-0000-0000-0000-000000000001',
+    '20000000-0000-0000-0000-000000000001', 'scope-epoch-0001',
+    '40000000-0000-0000-0000-000000000001',null,null,'active',1,null,null);
+  lines := public.telecom_v1_line_list(
+    '10000000-0000-0000-0000-000000000001',
+    '20000000-0000-0000-0000-000000000001', 'scope-epoch-0001',
+    '40000000-0000-0000-0000-000000000001',null,'active',1,null,null);
+  if jsonb_array_length(services->'rows') <> 1
+    or services#>>'{rows,0,display_name}' <> 'Synthetic Mobile Service'
+    or jsonb_array_length(lines->'rows') <> 1
+    or lines#>>'{rows,0,identifier,visibility}' <> 'not_available' then
+    raise exception 'portfolio service/line projection mismatch';
+  end if;
+  begin
+    perform public.telecom_v1_line_list(
+      '10000000-0000-0000-0000-000000000002',
+      '20000000-0000-0000-0000-000000000001', 'scope-epoch-0001',
+      null,null,null,1,null,null);
+  exception when sqlstate '42501' then denied := true;
+  end;
+  if not denied then raise exception 'foreign actor accessed lines'; end if;
+end;
+$$;
+
 reset role;
 rollback;
