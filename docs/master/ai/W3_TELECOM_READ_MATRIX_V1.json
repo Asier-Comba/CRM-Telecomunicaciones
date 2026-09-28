@@ -1,0 +1,685 @@
+[
+  {
+    "operation": "customer.search",
+    "capability": "crm.customer.search",
+    "serviceMethod": "customerSearch",
+    "expectedInput": {
+      "type": "object",
+      "properties": {
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "continuation": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 256,
+          "nullable": true
+        },
+        "query": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "assigned_user_id": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 160
+        },
+        "status": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 8,
+          "enum": [
+            "active",
+            "inactive",
+            "archived"
+          ]
+        }
+      },
+      "required": [
+        "limit",
+        "continuation",
+        "query"
+      ],
+      "additionalProperties": false
+    },
+    "expectedOutput": "telecom.v1#CollectionEnvelopeV1<CustomerCompanyV1>",
+    "parser": "collection:customer",
+    "semanticIntent": "Search authorized customers by bounded query, assigned user and status.",
+    "groundingProjection": "collection_evidence",
+    "integrationState": "repository_published_route_disabled",
+    "sourceSha": "8de57dc2f84634156655f6c79047d545bbb86a6c"
+  },
+  {
+    "operation": "customer.get",
+    "capability": "crm.customer.get",
+    "serviceMethod": "customerGet",
+    "expectedInput": {
+      "type": "object",
+      "properties": {
+        "customer_id": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 160
+        }
+      },
+      "required": [
+        "customer_id"
+      ],
+      "additionalProperties": false
+    },
+    "expectedOutput": "telecom.v1#ReadOneResponseV1<CustomerCompanyV1>",
+    "parser": "readone:customer",
+    "semanticIntent": "Read one authorized customer; protected fields remain masked.",
+    "groundingProjection": "collection_evidence",
+    "integrationState": "repository_published_route_disabled",
+    "sourceSha": "8de57dc2f84634156655f6c79047d545bbb86a6c"
+  },
+  {
+    "operation": "customer.summary",
+    "capability": "crm.customer.summary",
+    "serviceMethod": "customerSummary",
+    "expectedInput": {
+      "type": "object",
+      "properties": {
+        "customer_id": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 160
+        }
+      },
+      "required": [
+        "customer_id"
+      ],
+      "additionalProperties": false
+    },
+    "expectedOutput": "telecom.v1#ReadOneResponseV1<CustomerSummaryV1>",
+    "parser": "readone:summary",
+    "semanticIntent": "Read a customer summary with independent collection completeness and attention.",
+    "groundingProjection": "customer360_sections",
+    "integrationState": "repository_published_route_disabled",
+    "sourceSha": "8de57dc2f84634156655f6c79047d545bbb86a6c"
+  },
+  {
+    "operation": "contract.list",
+    "capability": "crm.contract.list",
+    "serviceMethod": "contractList",
+    "expectedInput": {
+      "type": "object",
+      "properties": {
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "continuation": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 256,
+          "nullable": true
+        },
+        "customer_id": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 160
+        },
+        "operator_id": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 160
+        },
+        "assignee_id": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 160
+        },
+        "status": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 9,
+          "enum": [
+            "draft",
+            "active",
+            "ended",
+            "cancelled"
+          ]
+        },
+        "commitment_from": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 10,
+          "format": "date"
+        },
+        "commitment_to": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 10,
+          "format": "date"
+        }
+      },
+      "required": [
+        "limit",
+        "continuation"
+      ],
+      "additionalProperties": false
+    },
+    "expectedOutput": "telecom.v1#CollectionEnvelopeV1<TelecomContractV1>",
+    "parser": "collection:contract",
+    "semanticIntent": "List authorized contracts with commitment date bounds.",
+    "groundingProjection": "collection_evidence",
+    "integrationState": "repository_unavailable",
+    "sourceSha": "8de57dc2f84634156655f6c79047d545bbb86a6c"
+  },
+  {
+    "operation": "contract.get",
+    "capability": "crm.contract.get",
+    "serviceMethod": "contractGet",
+    "expectedInput": {
+      "type": "object",
+      "properties": {
+        "contract_id": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 160
+        }
+      },
+      "required": [
+        "contract_id"
+      ],
+      "additionalProperties": false
+    },
+    "expectedOutput": "telecom.v1#ReadOneResponseV1<TelecomContractV1>",
+    "parser": "readone:contract",
+    "semanticIntent": "Read one authorized telecom contract.",
+    "groundingProjection": "collection_evidence",
+    "integrationState": "repository_unavailable",
+    "sourceSha": "8de57dc2f84634156655f6c79047d545bbb86a6c"
+  },
+  {
+    "operation": "service.list",
+    "capability": "crm.service.list",
+    "serviceMethod": "serviceList",
+    "expectedInput": {
+      "type": "object",
+      "properties": {
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "continuation": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 256,
+          "nullable": true
+        },
+        "customer_id": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 160
+        },
+        "contract_id": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 160
+        },
+        "operator_id": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 160
+        },
+        "status": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 9,
+          "enum": [
+            "pending",
+            "active",
+            "suspended",
+            "ended",
+            "cancelled"
+          ]
+        }
+      },
+      "required": [
+        "limit",
+        "continuation"
+      ],
+      "additionalProperties": false
+    },
+    "expectedOutput": "telecom.v1#CollectionEnvelopeV1<TelecomServiceV1>",
+    "parser": "collection:service",
+    "semanticIntent": "List services separately from their lines.",
+    "groundingProjection": "collection_evidence",
+    "integrationState": "repository_unavailable",
+    "sourceSha": "8de57dc2f84634156655f6c79047d545bbb86a6c"
+  },
+  {
+    "operation": "line.list",
+    "capability": "crm.line.list",
+    "serviceMethod": "lineList",
+    "expectedInput": {
+      "type": "object",
+      "properties": {
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "continuation": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 256,
+          "nullable": true
+        },
+        "customer_id": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 160
+        },
+        "service_id": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 160
+        },
+        "status": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 9,
+          "enum": [
+            "pending",
+            "active",
+            "suspended",
+            "ended",
+            "cancelled"
+          ]
+        }
+      },
+      "required": [
+        "limit",
+        "continuation"
+      ],
+      "additionalProperties": false
+    },
+    "expectedOutput": "telecom.v1#CollectionEnvelopeV1<TelecomLineV1>",
+    "parser": "collection:line",
+    "semanticIntent": "List authorized lines with protected identifiers.",
+    "groundingProjection": "collection_evidence",
+    "integrationState": "repository_unavailable",
+    "sourceSha": "8de57dc2f84634156655f6c79047d545bbb86a6c"
+  },
+  {
+    "operation": "renewal.list",
+    "capability": "crm.renewal.list",
+    "serviceMethod": "renewalList",
+    "expectedInput": {
+      "type": "object",
+      "properties": {
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "continuation": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 256,
+          "nullable": true
+        },
+        "customer_id": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 160
+        },
+        "from": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 10,
+          "format": "date"
+        },
+        "to": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 10,
+          "format": "date"
+        }
+      },
+      "required": [
+        "limit",
+        "continuation"
+      ],
+      "additionalProperties": false
+    },
+    "expectedOutput": "telecom.v1#CollectionEnvelopeV1<RenewalItemV1>",
+    "parser": "collection:renewal",
+    "semanticIntent": "List renewal items within date bounds.",
+    "groundingProjection": "collection_evidence",
+    "integrationState": "repository_unavailable",
+    "sourceSha": "8de57dc2f84634156655f6c79047d545bbb86a6c"
+  },
+  {
+    "operation": "permanence.list",
+    "capability": "crm.permanence.list",
+    "serviceMethod": "permanenceList",
+    "expectedInput": {
+      "type": "object",
+      "properties": {
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "continuation": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 256,
+          "nullable": true
+        },
+        "customer_id": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 160
+        },
+        "from": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 10,
+          "format": "date"
+        },
+        "to": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 10,
+          "format": "date"
+        }
+      },
+      "required": [
+        "limit",
+        "continuation"
+      ],
+      "additionalProperties": false
+    },
+    "expectedOutput": "telecom.v1#CollectionEnvelopeV1<PermanenceItemV1>",
+    "parser": "collection:permanence",
+    "semanticIntent": "List permanence items within date bounds.",
+    "groundingProjection": "collection_evidence",
+    "integrationState": "repository_unavailable",
+    "sourceSha": "8de57dc2f84634156655f6c79047d545bbb86a6c"
+  },
+  {
+    "operation": "task.list",
+    "capability": "crm.task.list",
+    "serviceMethod": "taskList",
+    "expectedInput": {
+      "type": "object",
+      "properties": {
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "continuation": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 256,
+          "nullable": true
+        },
+        "customer_id": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 160
+        },
+        "from": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 10,
+          "format": "date"
+        },
+        "to": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 10,
+          "format": "date"
+        },
+        "assignee_id": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 160
+        },
+        "status": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 11,
+          "enum": [
+            "pending",
+            "in_progress",
+            "completed",
+            "cancelled"
+          ]
+        }
+      },
+      "required": [
+        "limit",
+        "continuation"
+      ],
+      "additionalProperties": false
+    },
+    "expectedOutput": "telecom.v1#CollectionEnvelopeV1<TaskItemV1>",
+    "parser": "collection:task",
+    "semanticIntent": "List tasks by customer, assignee, date and status.",
+    "groundingProjection": "collection_evidence",
+    "integrationState": "repository_unavailable",
+    "sourceSha": "8de57dc2f84634156655f6c79047d545bbb86a6c"
+  },
+  {
+    "operation": "meeting.list",
+    "capability": "crm.meeting.list",
+    "serviceMethod": "meetingList",
+    "expectedInput": {
+      "type": "object",
+      "properties": {
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "continuation": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 256,
+          "nullable": true
+        },
+        "customer_id": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 160
+        },
+        "from": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 10,
+          "format": "date"
+        },
+        "to": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 10,
+          "format": "date"
+        },
+        "assignee_id": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 160
+        },
+        "status": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 9,
+          "enum": [
+            "scheduled",
+            "completed",
+            "cancelled",
+            "no_show"
+          ]
+        }
+      },
+      "required": [
+        "limit",
+        "continuation"
+      ],
+      "additionalProperties": false
+    },
+    "expectedOutput": "telecom.v1#CollectionEnvelopeV1<MeetingItemV1>",
+    "parser": "collection:meeting",
+    "semanticIntent": "List meetings by customer, assignee, date and status.",
+    "groundingProjection": "collection_evidence",
+    "integrationState": "repository_unavailable",
+    "sourceSha": "8de57dc2f84634156655f6c79047d545bbb86a6c"
+  },
+  {
+    "operation": "activity.list",
+    "capability": "crm.activity.list",
+    "serviceMethod": "activityList",
+    "expectedInput": {
+      "type": "object",
+      "properties": {
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "continuation": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 256,
+          "nullable": true
+        },
+        "customer_id": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 160
+        },
+        "from": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 10,
+          "format": "date"
+        },
+        "to": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 10,
+          "format": "date"
+        }
+      },
+      "required": [
+        "limit",
+        "continuation"
+      ],
+      "additionalProperties": false
+    },
+    "expectedOutput": "telecom.v1#CollectionEnvelopeV1<ActivityItemV1>",
+    "parser": "collection:activity",
+    "semanticIntent": "List authorized safe activity summaries within date bounds.",
+    "groundingProjection": "collection_evidence",
+    "integrationState": "repository_unavailable",
+    "sourceSha": "8de57dc2f84634156655f6c79047d545bbb86a6c"
+  },
+  {
+    "operation": "opportunity.list",
+    "capability": "crm.opportunity.list",
+    "serviceMethod": "opportunityList",
+    "expectedInput": {
+      "type": "object",
+      "properties": {
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "continuation": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 256,
+          "nullable": true
+        },
+        "customer_id": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 160
+        },
+        "from": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 10,
+          "format": "date"
+        },
+        "to": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 10,
+          "format": "date"
+        },
+        "owner_id": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 160
+        },
+        "status": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 9,
+          "enum": [
+            "open",
+            "won",
+            "lost",
+            "cancelled"
+          ]
+        }
+      },
+      "required": [
+        "limit",
+        "continuation"
+      ],
+      "additionalProperties": false
+    },
+    "expectedOutput": "telecom.v1#CollectionEnvelopeV1<OpportunityItemV1>",
+    "parser": "collection:opportunity",
+    "semanticIntent": "List opportunities by customer, owner, date and status.",
+    "groundingProjection": "collection_evidence",
+    "integrationState": "repository_unavailable",
+    "sourceSha": "8de57dc2f84634156655f6c79047d545bbb86a6c"
+  },
+  {
+    "operation": "dashboard.get",
+    "capability": "crm.dashboard.get",
+    "serviceMethod": "dashboardGet",
+    "expectedInput": {
+      "type": "object",
+      "properties": {
+        "audience": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 9,
+          "enum": [
+            "personal",
+            "team",
+            "workspace"
+          ]
+        }
+      },
+      "required": [
+        "audience"
+      ],
+      "additionalProperties": false
+    },
+    "expectedOutput": "telecom.v1#ReadOneResponseV1<DashboardV1>",
+    "parser": "readone:dashboard",
+    "semanticIntent": "Read independently authorized dashboard sections; audience never chooses a workspace.",
+    "groundingProjection": "dashboard_sections",
+    "integrationState": "repository_unavailable",
+    "sourceSha": "8de57dc2f84634156655f6c79047d545bbb86a6c"
+  }
+]
