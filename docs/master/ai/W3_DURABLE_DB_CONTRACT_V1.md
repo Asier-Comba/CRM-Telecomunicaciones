@@ -1,6 +1,6 @@
-# W3 durable database contract v1 — W2 implementation handoff
+# W3 durable database contract v1 — W5 implementation handoff
 
-Canonical discussion: Issue #10. W3 owns semantics/runtime; W2 owns schema,
+Canonical discussion: Issue #10. W3 owns semantics/runtime; W5 owns schema,
 SQL/RLS and durable implementation; W4 independently verifies. This document
 requests behavior, never authorizes deployment, routes or assistant writes.
 Machine contract: `src/assistant/durable-db-contract.ts`. Field inventory:
@@ -135,7 +135,7 @@ provider receipt/read-after-write or idempotent provider token to reconcile. If
 effect cannot be proven present or absent, keep reconciliation_required. Exactly
 once at arbitrary external providers is NOT promised.
 
-## W2 handoff / concrete questions
+## W5 handoff / concrete questions
 
 DO NOT IMPLEMENT raw SQL/HTTP planner tools, browser workspace authority, generic
 unvalidated JSON results, direct provider calls, permissive service-role bypass,
@@ -151,3 +151,25 @@ publish DTO fixtures and a type-compatible server factory at the same SHA.
 Acceptance runner and matrix: `scripts/durable-process-acceptance.mjs` and
 `src/assistant/durable-process-spec.ts`. W2 implements the local driver; W4 runs
 independently against disposable native PostgreSQL. No Map result clears the gate.
+
+## Iteration 5.0 clarifications (authoritative over earlier reference experiments)
+
+Owner transfer only: earlier mentions of W2 implementation now mean W5. Exact
+states, runtime digest and UI v1 are unchanged. No SQL or deployment is prescribed.
+
+| Question | Required behavior |
+|---|---|
+| Which interface is authoritative? | `ReconciliationPersistence` / `DurableDatabasePort` in `durable-db-contract.ts`. `atomic-reconciliation.ts` is an older reference experiment, not another production API. Its `replayed` decision and workspace-only worker calls do not replace the required scoped port. |
+| Confirmation versus operation | `DurableConfirmationRecord.operationRef` is a legacy name for the confirmation identity. Persist a separate immutable association to the operation when consumed. One confirmation cannot authorize two operations. For confirmation-required writes call `confirmReserveEnqueue` directly; do not compose public reserve then consume. An existing unassociated reservation is not evidence of confirmation. |
+| Confirmed retry | Same persisted confirmation/operation/command association, key and full binding returns `existing` after current authorization; it neither consumes another confirmation nor enqueues a second effect. Changed association/digest/actor/command conflicts. An unassociated reservation requires an explicit reviewed recovery policy before use; deny it in the first adapter. |
+| Worker claim fence | Durable monotonically increasing generation per outbox; the port's string fence is an opaque encoding. Persist worker identity, version and server lease. Ack requires exact current fence, owner and version; an expired/stale claim cannot authorize another effect. Database authority is not the supplied `now` argument. |
+| Dispatcher catalog | Server-owned and versioned, capability+command-schema bound, checked at enqueue and dispatch. Production catalog is empty until published mutation contracts and W4 acceptance. Test dispatchers are disposable fixtures, never permission to enable provider sends. |
+| Safe result | Persist capability output schema version + full immutable binding + operation identity + validated minimized value in the transition transaction. No standalone public result prewrite. Replay reauthorizes and revalidates using that version; missing/unsupported schema yields safe unavailable/reconciliation handling, never raw JSON. |
+| Audit identity | Reconciliation keeps exact SHA256(JSON([workspaceId,operationRef,expectedVersion])). Persist original event including requestId once. Lost-reply retries must retain it, not overwrite with the retry's requestId. Other transitions use separately registered server event identities; do not reuse a reconciliation ID for different content. |
+| Audit outbox | Every committed original transition audit intent has a same-transaction delivery record, including normal completion and confirmation/reservation. Audit delivery uses a separate current authorized worker/lease/fence; at-least-once delivery + sink dedup. The old reference audit worker's unclaimed batch/ack API is not the production implementation. |
+| Reconciliation replay | The current service may return CONFLICT for stale expectedVersion after a committed/lost reply. `applied` requires matching eventRef and `auditIntentPersisted:true`. Do not manufacture `replayed` as a new public success state. Read authorized status and drain the original event independently. |
+| Normal runtime integration | Current legacy `AssistantRuntime` stores are not an enabled durable write path. W5 supplies the port and driver; W3 connects the exact adapter; W4 validates before routes or first writes. Implementing only the old store interfaces cannot satisfy Issue10. |
+
+Pending W5 delivery: exact factory/module SHA, capability-schema registry and
+native PostgreSQL acceptance driver. W3 cannot execute native conformance until
+these exist. W4 alone accepts the evidence and decides Issue #10 closure.

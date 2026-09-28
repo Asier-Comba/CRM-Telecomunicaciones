@@ -50,7 +50,7 @@
     "semanticIntent": "Search authorized customers by bounded query, assigned user and status.",
     "groundingProjection": "collection_evidence",
     "integrationState": "repository_published_route_disabled",
-    "sourceSha": "8de57dc2f84634156655f6c79047d545bbb86a6c"
+    "sourceSha": "458a6fdd4b39e47cf9f508e8b1239a96bfa74281"
   },
   {
     "operation": "customer.get",
@@ -75,7 +75,7 @@
     "semanticIntent": "Read one authorized customer; protected fields remain masked.",
     "groundingProjection": "collection_evidence",
     "integrationState": "repository_published_route_disabled",
-    "sourceSha": "8de57dc2f84634156655f6c79047d545bbb86a6c"
+    "sourceSha": "458a6fdd4b39e47cf9f508e8b1239a96bfa74281"
   },
   {
     "operation": "customer.summary",
@@ -100,7 +100,7 @@
     "semanticIntent": "Read a customer summary with independent collection completeness and attention.",
     "groundingProjection": "customer360_sections",
     "integrationState": "repository_published_route_disabled",
-    "sourceSha": "8de57dc2f84634156655f6c79047d545bbb86a6c"
+    "sourceSha": "458a6fdd4b39e47cf9f508e8b1239a96bfa74281"
   },
   {
     "operation": "contract.list",
@@ -169,8 +169,8 @@
     "parser": "collection:contract",
     "semanticIntent": "List authorized contracts with commitment date bounds.",
     "groundingProjection": "collection_evidence",
-    "integrationState": "repository_unavailable",
-    "sourceSha": "8de57dc2f84634156655f6c79047d545bbb86a6c"
+    "integrationState": "repository_published_route_disabled",
+    "sourceSha": "458a6fdd4b39e47cf9f508e8b1239a96bfa74281"
   },
   {
     "operation": "contract.get",
@@ -194,8 +194,8 @@
     "parser": "readone:contract",
     "semanticIntent": "Read one authorized telecom contract.",
     "groundingProjection": "collection_evidence",
-    "integrationState": "repository_unavailable",
-    "sourceSha": "8de57dc2f84634156655f6c79047d545bbb86a6c"
+    "integrationState": "repository_published_route_disabled",
+    "sourceSha": "458a6fdd4b39e47cf9f508e8b1239a96bfa74281"
   },
   {
     "operation": "service.list",
@@ -253,8 +253,8 @@
     "parser": "collection:service",
     "semanticIntent": "List services separately from their lines.",
     "groundingProjection": "collection_evidence",
-    "integrationState": "repository_unavailable",
-    "sourceSha": "8de57dc2f84634156655f6c79047d545bbb86a6c"
+    "integrationState": "repository_published_route_disabled",
+    "sourceSha": "458a6fdd4b39e47cf9f508e8b1239a96bfa74281"
   },
   {
     "operation": "line.list",
@@ -307,8 +307,8 @@
     "parser": "collection:line",
     "semanticIntent": "List authorized lines with protected identifiers.",
     "groundingProjection": "collection_evidence",
-    "integrationState": "repository_unavailable",
-    "sourceSha": "8de57dc2f84634156655f6c79047d545bbb86a6c"
+    "integrationState": "repository_published_route_disabled",
+    "sourceSha": "458a6fdd4b39e47cf9f508e8b1239a96bfa74281"
   },
   {
     "operation": "renewal.list",
@@ -357,7 +357,7 @@
     "semanticIntent": "List renewal items within date bounds.",
     "groundingProjection": "collection_evidence",
     "integrationState": "repository_unavailable",
-    "sourceSha": "8de57dc2f84634156655f6c79047d545bbb86a6c"
+    "sourceSha": "458a6fdd4b39e47cf9f508e8b1239a96bfa74281"
   },
   {
     "operation": "permanence.list",
@@ -406,7 +406,7 @@
     "semanticIntent": "List permanence items within date bounds.",
     "groundingProjection": "collection_evidence",
     "integrationState": "repository_unavailable",
-    "sourceSha": "8de57dc2f84634156655f6c79047d545bbb86a6c"
+    "sourceSha": "458a6fdd4b39e47cf9f508e8b1239a96bfa74281"
   },
   {
     "operation": "task.list",
@@ -470,8 +470,8 @@
     "parser": "collection:task",
     "semanticIntent": "List tasks by customer, assignee, date and status.",
     "groundingProjection": "collection_evidence",
-    "integrationState": "repository_unavailable",
-    "sourceSha": "8de57dc2f84634156655f6c79047d545bbb86a6c"
+    "integrationState": "repository_published_route_disabled",
+    "sourceSha": "458a6fdd4b39e47cf9f508e8b1239a96bfa74281"
   },
   {
     "operation": "meeting.list",
@@ -535,8 +535,8 @@
     "parser": "collection:meeting",
     "semanticIntent": "List meetings by customer, assignee, date and status.",
     "groundingProjection": "collection_evidence",
-    "integrationState": "repository_unavailable",
-    "sourceSha": "8de57dc2f84634156655f6c79047d545bbb86a6c"
+    "integrationState": "repository_published_route_disabled",
+    "sourceSha": "458a6fdd4b39e47cf9f508e8b1239a96bfa74281"
   },
   {
     "operation": "activity.list",
@@ -584,8 +584,8 @@
     "parser": "collection:activity",
     "semanticIntent": "List authorized safe activity summaries within date bounds.",
     "groundingProjection": "collection_evidence",
-    "integrationState": "repository_unavailable",
-    "sourceSha": "8de57dc2f84634156655f6c79047d545bbb86a6c"
+    "integrationState": "repository_published_route_disabled",
+    "sourceSha": "458a6fdd4b39e47cf9f508e8b1239a96bfa74281"
   },
   {
     "operation": "opportunity.list",
@@ -649,8 +649,8 @@
     "parser": "collection:opportunity",
     "semanticIntent": "List opportunities by customer, owner, date and status.",
     "groundingProjection": "collection_evidence",
-    "integrationState": "repository_unavailable",
-    "sourceSha": "8de57dc2f84634156655f6c79047d545bbb86a6c"
+    "integrationState": "repository_published_route_disabled",
+    "sourceSha": "458a6fdd4b39e47cf9f508e8b1239a96bfa74281"
   },
   {
     "operation": "dashboard.get",
@@ -680,6 +680,6 @@
     "semanticIntent": "Read independently authorized dashboard sections; audience never chooses a workspace.",
     "groundingProjection": "dashboard_sections",
     "integrationState": "repository_unavailable",
-    "sourceSha": "8de57dc2f84634156655f6c79047d545bbb86a6c"
+    "sourceSha": "458a6fdd4b39e47cf9f508e8b1239a96bfa74281"
   }
 ]
