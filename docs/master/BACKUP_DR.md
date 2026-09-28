@@ -8,7 +8,7 @@ after a timed native PostgreSQL and Supabase recovery exercise.
 
 | Component | State | Evidence / next requirement |
 |---|---|---|
-| 18 migrations and synthetic A/B fixture | TESTED in disposable PGlite | Zero-to-head and scoped reader fixture; this is embedded PostgreSQL only |
+| 20 migrations and synthetic A/B fixture | TESTED in disposable PGlite | Zero-to-head and scoped reader fixture; this is embedded PostgreSQL only |
 | Synthetic in-memory PGlite snapshot/restore | TESTED, TEST ONLY | SHA-256, fresh embedded process, schema, rows and scoped read/foreign denial; no persisted or encrypted dump |
 | Native PostgreSQL logical backup/restore | PLANNED | `pg_dump`/restore in a new isolated database with checksums, manifest, migration head and post-restore RLS probes |
 | Supabase Auth users and platform settings | PROVIDER-DEPENDENT | Inventory and separate Auth recovery test; database-only dump cannot assert provider recovery |

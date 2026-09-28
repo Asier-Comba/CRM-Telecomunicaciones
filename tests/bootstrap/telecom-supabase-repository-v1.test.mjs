@@ -346,15 +346,34 @@ test('service and line reads are scoped, paged and parsed', async () => {
   assert.ok(calls.every(({ args }) => args.p_actor_id === ACTOR_A && args.p_workspace_id === WORKSPACE_A))
 })
 
-test('remaining readers without a database projection report unavailable, never empty', async () => {
+test('team dashboard stays unavailable until team membership is modeled', async () => {
   const rpc = { async rpc() { throw new Error('must not execute') } }
   const repository = new SupabaseTelecomReadRepositoryV1(rpc, codec(), () => NOW)
   const service = new AuthorizedTelecomReadServiceV1(repository, authorizer())
-  const renewals = await service.renewalList(context, { limit: 20, continuation: null })
-  const dashboard = await service.dashboardGet(context, { audience: 'personal' })
-  assert.equal(renewals.source_state, 'unavailable')
-  assert.equal(renewals.items, null)
+  const dashboard = await service.dashboardGet(context, { audience: 'team' })
   assert.equal(dashboard.result, 'unavailable')
+})
+
+test('personal dashboard admits scoped DB rows and reports unattributed sections unavailable', async () => {
+  const names = []
+  const rpc = { async rpc(name, args) {
+    names.push(name)
+    assert.equal(args.p_actor_id, ACTOR_A)
+    assert.equal(args.p_workspace_id, WORKSPACE_A)
+    if (name === 'telecom_v1_dashboard_authorize') return { data: true, error: null }
+    return { data: { rows: [], has_more: false, next_created_at: null, next_id: null }, error: null }
+  } }
+  const service = new AuthorizedTelecomReadServiceV1(
+    new SupabaseTelecomReadRepositoryV1(rpc, codec(), () => NOW), authorizer())
+  const result = await service.dashboardGet(context, { audience: 'personal' })
+  assert.equal(result.result, 'found')
+  assert.equal(result.data.scope.audience, 'personal')
+  assert.equal(result.data.renewals.source_state, 'unavailable')
+  assert.equal(result.data.permanence_alerts.source_state, 'unavailable')
+  assert.equal(result.data.tasks.source_state, 'available')
+  assert.equal(result.data.today.items.length, 0)
+  assert.equal(names[0], 'telecom_v1_dashboard_authorize')
+  assert.ok(!names.includes('telecom_v1_renewal_list'))
 })
 
 test('activity reader rejects a provider projection containing private fields', async () => {

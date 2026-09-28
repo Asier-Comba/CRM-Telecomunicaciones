@@ -423,5 +423,46 @@ begin
 end;
 $$;
 
+do $$
+declare renewals jsonb; permanence jsonb;
+begin
+  renewals := public.telecom_v1_renewal_list(
+    '10000000-0000-0000-0000-000000000001',
+    '20000000-0000-0000-0000-000000000001',
+    '40000000-0000-0000-0000-000000000001',null,null,1,null,null);
+  permanence := public.telecom_v1_permanence_list(
+    '10000000-0000-0000-0000-000000000001',
+    '20000000-0000-0000-0000-000000000001',
+    '40000000-0000-0000-0000-000000000001',null,null,1,null,null);
+  if jsonb_array_length(renewals->'rows') <> 1
+    or renewals#>>'{rows,0,status}' <> 'upcoming'
+    or jsonb_array_length(permanence->'rows') <> 1
+    or permanence#>>'{rows,0,status}' <> 'active' then
+    raise exception 'renewal/permanence projection mismatch';
+  end if;
+end;
+$$;
+
+do $$
+declare denied boolean := false;
+begin
+  if public.telecom_v1_dashboard_authorize(
+    '10000000-0000-0000-0000-000000000001',
+    '20000000-0000-0000-0000-000000000001','personal') is not true
+    or public.telecom_v1_dashboard_authorize(
+    '10000000-0000-0000-0000-000000000001',
+    '20000000-0000-0000-0000-000000000001','workspace') is not true then
+    raise exception 'authorized dashboard scope denied';
+  end if;
+  begin
+    perform public.telecom_v1_dashboard_authorize(
+      '10000000-0000-0000-0000-000000000002',
+      '20000000-0000-0000-0000-000000000001','workspace');
+  exception when sqlstate '42501' then denied := true;
+  end;
+  if not denied then raise exception 'foreign actor selected workspace dashboard'; end if;
+end;
+$$;
+
 reset role;
 rollback;

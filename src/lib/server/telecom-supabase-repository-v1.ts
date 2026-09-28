@@ -320,7 +320,8 @@ export class SupabaseTelecomReadRepositoryV1 implements TelecomReadRepositoryV1 
   async #portfolioPage(
     context: ServerReadContextV1,
     input: { limit: number; continuation: string | null },
-    operation: 'service.list' | 'line.list' | 'activity.list' | 'opportunity.list' | 'task.list' | 'meeting.list',
+    operation: 'service.list' | 'line.list' | 'activity.list' | 'opportunity.list'
+      | 'task.list' | 'meeting.list' | 'renewal.list' | 'permanence.list',
     filter: readonly unknown[],
     parameters: Record<string, unknown>,
   ): Promise<unknown> {
@@ -334,6 +335,7 @@ export class SupabaseTelecomReadRepositoryV1 implements TelecomReadRepositoryV1 
       'service.list': 'telecom_v1_service_list', 'line.list': 'telecom_v1_line_list',
       'activity.list': 'telecom_v1_activity_list', 'opportunity.list': 'telecom_v1_opportunity_list',
       'task.list': 'telecom_v1_task_list', 'meeting.list': 'telecom_v1_meeting_list',
+      'renewal.list': 'telecom_v1_renewal_list', 'permanence.list': 'telecom_v1_permanence_list',
     }[operation]
     const response = await this.#client.rpc(rpcName, {
       p_actor_id: context.actor_id, p_workspace_id: context.workspace_id,
@@ -384,8 +386,21 @@ export class SupabaseTelecomReadRepositoryV1 implements TelecomReadRepositoryV1 
       p_status: input.status ?? null,
     })
   }
-  renewalList(context: ServerReadContextV1) { return Promise.resolve(unavailableCollection(context)) }
-  permanenceList(context: ServerReadContextV1) { return Promise.resolve(unavailableCollection(context)) }
+  renewalList(context: ServerReadContextV1, input: WindowedListInputV1) {
+    return this.#portfolioPage(context, input, 'renewal.list', [
+      input.customer_id ?? null, input.from ?? null, input.to ?? null,
+    ], {
+      p_customer_id: input.customer_id ?? null, p_from: input.from ?? null, p_to: input.to ?? null,
+    })
+  }
+
+  permanenceList(context: ServerReadContextV1, input: WindowedListInputV1) {
+    return this.#portfolioPage(context, input, 'permanence.list', [
+      input.customer_id ?? null, input.from ?? null, input.to ?? null,
+    ], {
+      p_customer_id: input.customer_id ?? null, p_from: input.from ?? null, p_to: input.to ?? null,
+    })
+  }
   taskList(context: ServerReadContextV1, input: TaskListInputV1) {
     return this.#portfolioPage(context, input, 'task.list', [
       input.customer_id ?? null, input.from ?? null, input.to ?? null,
@@ -422,5 +437,57 @@ export class SupabaseTelecomReadRepositoryV1 implements TelecomReadRepositoryV1 
       p_owner_id: input.owner_id ?? null, p_status: input.status ?? null,
     })
   }
-  dashboardGet(context: ServerReadContextV1) { return Promise.resolve(unavailableOne(context)) }
+  async dashboardGet(context: ServerReadContextV1, input: { audience: 'personal' | 'team' | 'workspace' }): Promise<unknown> {
+    // There is no team-membership relation yet; never describe a workspace-wide
+    // projection as a team-specific dashboard.
+    if (input.audience === 'team') return unavailableOne(context)
+    const scope = await this.#client.rpc('telecom_v1_dashboard_authorize', {
+      p_actor_id: context.actor_id, p_workspace_id: context.workspace_id,
+      p_audience: input.audience,
+    })
+    if (scope.error !== null || scope.data !== true) throw new Error('dashboard scope unavailable')
+    const asOf = this.#now()
+    if (!isStrictInstantV1(asOf)) throw new Error('invalid repository clock')
+    const today = asOf.slice(0, 10)
+    const lastDay = new Date(Date.parse(asOf) + 30 * 24 * 60 * 60 * 1_000).toISOString().slice(0, 10)
+    const personal = input.audience === 'personal'
+    const base = { limit: 20, continuation: null, from: today, to: lastDay }
+    const taskInput = { ...base, ...(personal ? { assignee_id: context.actor_id } : {}) }
+    const meetingInput = { ...base, ...(personal ? { assignee_id: context.actor_id } : {}) }
+    const opportunityInput = { limit: 20, continuation: null, status: 'open' as const,
+      ...(personal ? { owner_id: context.actor_id } : {}) }
+    const [tasks, meetings, renewals, permanence, opportunities, todayTasks, todayMeetings] = await Promise.all([
+      this.taskList(context, taskInput), this.meetingList(context, meetingInput),
+      personal ? Promise.resolve(unavailableCollection(context)) : this.renewalList(context, base),
+      personal ? Promise.resolve(unavailableCollection(context)) : this.permanenceList(context, base),
+      this.opportunityList(context, opportunityInput),
+      this.taskList(context, { ...taskInput, from: today, to: today }),
+      this.meetingList(context, { ...meetingInput, from: today, to: today }),
+    ])
+    if (!record(todayTasks) || !record(todayMeetings)
+      || !Array.isArray(todayTasks.items) || !Array.isArray(todayMeetings.items)) {
+      throw new Error('invalid dashboard today rows')
+    }
+    const todayPartial = todayTasks.completeness !== null && record(todayTasks.completeness)
+      && todayTasks.completeness.kind === 'partial'
+      || todayMeetings.completeness !== null && record(todayMeetings.completeness)
+      && todayMeetings.completeness.kind === 'partial'
+    const todayCollection = {
+      contract_version: VERSION, scope_epoch: context.scope_epoch, source_state: 'available',
+      permission: 'authorized', items: [...todayTasks.items, ...todayMeetings.items],
+      completeness: todayPartial ? { kind: 'partial', has_more: true } : { kind: 'complete' },
+      continuation: null, freshness: { kind: 'fresh', as_of: asOf }, error: null,
+    }
+    return {
+      contract_version: VERSION, scope_epoch: context.scope_epoch, result: 'found',
+      data: {
+        contract_version: VERSION, scope_epoch: context.scope_epoch, generated_at: asOf,
+        scope: { audience: input.audience, timezone: 'UTC', scope_epoch: context.scope_epoch },
+        window: { starts_at: `${today}T00:00:00.000Z`, ends_at: `${lastDay}T23:59:59.999Z` },
+        today: todayCollection, tasks, meetings, renewals,
+        permanence_alerts: permanence, opportunities,
+      },
+      freshness: { kind: 'fresh', as_of: asOf }, error: null,
+    }
+  }
 }
