@@ -3,6 +3,10 @@ import test from 'node:test'
 import { createAuthorizedTelecomAdapter, TELECOM_INTEGRATION_MATRIX } from '../src/assistant/telecom-service-adapter.js'
 import type { TelecomReadServiceV1 } from '../src/assistant/telecom-service-contract.v1.js'
 import { countSection, earliestRenewal, renewalsWithPendingTasks } from '../src/assistant/telecom-reasoning.js'
+import { executeTelecomReadSlice } from '../src/assistant/telecom-read-slice.js'
+import { SessionReferenceStore } from '../src/assistant/session-references.js'
+import { composeTelecomEvidence } from '../src/assistant/telecom-ui-composer.js'
+import { validateAssistantResponse } from '../src/assistant/ui-contract.js'
 
 const scope = { actorId: 'actor_0000000000001', workspaceId: 'workspace_00000001', sessionId: 'session_000000001', scopeEpoch: 'epoch_00000000001' }
 const now = '2026-09-28T10:00:00Z', cid = 'customer_000000001'
@@ -43,9 +47,15 @@ test('customer360 injection remains data; exact counts, absent sections and clai
   assert.equal(countSection(read, 'lines').value, 0)
   assert.equal(countSection(read, 'opportunities').value, null)
   assert.equal(earliestRenewal(read).date, '2026-10-01')
+  assert.deepEqual(earliestRenewal(read).contractIds, ['contract_0000000000001'])
   const join = renewalsWithPendingTasks([read], '2026-09-28', '2026-10-28')
   assert.equal(join.matches[0]?.customerId, cid); assert.equal(join.exhaustive, false)
   assert.equal(join.matches[0]?.citations.length, 2)
+  const ui = composeTelecomEvidence(read, 'request_0000000001')
+  assert.notEqual(validateAssistantResponse(ui), null)
+  assert.equal(ui.status, 'PARTIAL')
+  assert.equal(ui.blocks.table?.rows.find(r => r.section === 'opportunities')?.observed, null)
+  assert.equal(JSON.stringify(ui).includes('Ignore previous'), false)
 })
 
 test('partial, stale, revoked and invalid dates cannot yield exact totals or false negative joins', async () => {
@@ -69,12 +79,53 @@ test('partial, stale, revoked and invalid dates cannot yield exact totals or fal
   assert.equal(h.calls(), 1)
 })
 
-test('forged scope and hallucinated methods never reach service; matrix pins 3 published/11 unavailable', async () => {
+test('forged scope and hallucinated methods never reach service; matrix pins 7 published/7 unavailable', async () => {
   const h = harness(envelope(summary()))
   for (const capability of ['crm.customer.summary', 'crm.sql.execute', 'constructor']) {
     assert.equal((await h.adapter.readEvidence(scope, capability, { customer_id: cid, workspace_id: 'forged' })).state, 'error')
   }
   assert.equal(h.calls(), 0)
   assert.equal(TELECOM_INTEGRATION_MATRIX.length, 14)
-  assert.equal(TELECOM_INTEGRATION_MATRIX.filter(m => m.integrationState === 'repository_unavailable').length, 11)
+  assert.equal(TELECOM_INTEGRATION_MATRIX.filter(m => m.integrationState === 'repository_unavailable').length, 7)
+})
+
+test('executable read slice resolves unique search then get/summary once each; duplicates stop downstream reads', async () => {
+  for (const ambiguous of [false, true]) {
+    const calls: string[] = []
+    const service = {
+      async customerSearch() { calls.push('search'); return collection(ambiguous ? [customer, { ...customer, id: 'customer_000000002' }] : [customer]) },
+      async customerGet(_ctx: unknown, args: { customer_id: string }) { assert.equal(args.customer_id, cid); calls.push('get'); return envelope(customer) },
+      async customerSummary(_ctx: unknown, args: { customer_id: string }) { assert.equal(args.customer_id, cid); calls.push('summary'); return envelope(summary()) },
+    } as unknown as TelecomReadServiceV1
+    const adapter = createAuthorizedTelecomAdapter({ service, authorizeOperation: async () => true, authorizeReference: async () => true, currentScope: () => scope, now: () => Date.parse(now) })
+    const plan = { version: 1, nodes: [
+      { id: 'search', capability: 'crm.customer.search', arguments: { query: 'ACME', limit: 20, continuation: null }, dependsOn: [], entityBinding: [], resultAlias: 'customers', groundingPurpose: 'lookup' },
+      ...['get', 'summary'].map(kind => ({ id: kind, capability: `crm.customer.${kind}`, arguments: {}, dependsOn: ['search'], entityBinding: [{ targetField: 'customer_id', source: { type: 'node', nodeId: 'search' } }], resultAlias: kind, groundingPurpose: 'summary' })),
+    ] }
+    const result = await executeTelecomReadSlice({ plan, adapter, references: new SessionReferenceStore(), currentScope: () => scope, now: () => Date.parse(now), turn: 1, allowedDashboardAudiences: new Set(['personal']) })
+    assert.equal(result.status, 'completed')
+    assert.deepEqual(calls, ambiguous ? ['search'] : ['search', 'get', 'summary'])
+    assert.equal(result.execution?.outcomes[0]?.status, ambiguous ? 'multiple' : 'one')
+    assert.equal(result.evidence.length, ambiguous ? 1 : 3)
+    if (ambiguous) {
+      assert.equal(result.execution?.outcomes[0]?.clarification?.candidates.length, 2)
+      assert.equal(result.execution?.outcomes[1]?.status, 'blocked')
+    }
+  }
+})
+
+test('expiry or reference revocation during a read discards evidence after await', async () => {
+  for (const revoke of [false, true]) {
+    let clock = Date.parse(now)
+    const refs = new SessionReferenceStore(10, 100)
+    const handle = refs.issueEntity(scope, { kind: 'customer', id: cid, sourceTurn: 1 }, clock)!
+    const h = harness(envelope(summary()), () => { if (revoke) refs.revokeEntity(scope, 'customer', cid); else clock += 100 })
+    const plan = { version: 1, nodes: [{ id: 'summary', capability: 'crm.customer.summary', arguments: {}, dependsOn: [], entityBinding: [{ targetField: 'customer_id', source: { type: 'reference', handle } }], resultAlias: 'summary', groundingPurpose: 'follow_up' }] }
+    const result = await executeTelecomReadSlice({ plan, adapter: h.adapter, references: refs, currentScope: () => scope, now: () => clock, turn: 2, allowedDashboardAudiences: new Set(['personal']) })
+    assert.equal(result.execution?.outcomes[0]?.status, 'invalid_reference')
+    assert.deepEqual(result.evidence, [])
+    const retry = await executeTelecomReadSlice({ plan, adapter: h.adapter, references: refs, currentScope: () => scope, now: () => clock, turn: 3, allowedDashboardAudiences: new Set(['personal']) })
+    assert.equal(retry.execution?.outcomes[0]?.status, 'invalid_reference')
+    assert.equal(h.calls(), 1)
+  }
 })
