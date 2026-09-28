@@ -356,3 +356,20 @@ test('remaining readers without a database projection report unavailable, never 
   assert.equal(renewals.items, null)
   assert.equal(dashboard.result, 'unavailable')
 })
+
+test('activity reader rejects a provider projection containing private fields', async () => {
+  const rpc = { async rpc(name, args) {
+    assert.equal(name, 'telecom_v1_activity_list')
+    assert.equal(args.p_workspace_id, WORKSPACE_A)
+    return { error: null, data: { rows: [{
+      id: '74000000-0000-4000-8000-000000000001', kind: 'activity', customer: null,
+      activity_kind: 'system', safe_summary: 'Importación registrada', occurred_at: NOW,
+      actor: null, targets: [], capabilities: [], private_detail: 'SYNTHETIC_PRIVATE_VALUE',
+    }], has_more: false, next_created_at: null, next_id: null } }
+  } }
+  const service = new AuthorizedTelecomReadServiceV1(
+    new SupabaseTelecomReadRepositoryV1(rpc, codec(), () => NOW), authorizer())
+  const result = await service.activityList(context, { limit: 1, continuation: null })
+  assert.equal(result.source_state, 'error')
+  assert.doesNotMatch(JSON.stringify(result), /SYNTHETIC_PRIVATE_VALUE/)
+})

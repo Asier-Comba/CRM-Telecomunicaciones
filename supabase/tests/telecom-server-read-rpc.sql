@@ -142,6 +142,19 @@ insert into public.activities (
   'system', 'synthetic:summary:1', now() - interval '1 hour', null
 );
 
+insert into public.opportunity_stages (id,workspace_id,code,display_name,position,created_by_user_id)
+values ('70000000-0000-0000-0000-000000000001',
+  '20000000-0000-0000-0000-000000000001','synthetic-stage','Synthetic Stage',1,
+  '10000000-0000-0000-0000-000000000001');
+insert into public.opportunities (
+  id,workspace_id,customer_id,stage_id,title,status,owner_user_id,next_follow_up_at,created_by_user_id
+) values ('71000000-0000-0000-0000-000000000001',
+  '20000000-0000-0000-0000-000000000001',
+  '40000000-0000-0000-0000-000000000001',
+  '70000000-0000-0000-0000-000000000001',
+  'Synthetic Opportunity','open','10000000-0000-0000-0000-000000000001',
+  now()+interval '1 day','10000000-0000-0000-0000-000000000001');
+
 set local role authenticated;
 do $$
 declare denied boolean := false;
@@ -369,6 +382,24 @@ begin
   exception when sqlstate '42501' then denied := true;
   end;
   if not denied then raise exception 'foreign actor accessed lines'; end if;
+end;
+$$;
+
+do $$
+declare activities jsonb; opportunities jsonb;
+begin
+  activities := public.telecom_v1_activity_list(
+    '10000000-0000-0000-0000-000000000001',
+    '20000000-0000-0000-0000-000000000001',null,null,null,1,null,null);
+  opportunities := public.telecom_v1_opportunity_list(
+    '10000000-0000-0000-0000-000000000001',
+    '20000000-0000-0000-0000-000000000001',null,null,null,null,'open',1,null,null);
+  if jsonb_array_length(activities->'rows') <> 1
+    or activities#>>'{rows,0,safe_summary}' <> 'Importación registrada'
+    or jsonb_array_length(opportunities->'rows') <> 1
+    or opportunities#>>'{rows,0,title}' <> 'Synthetic Opportunity' then
+    raise exception 'activity/opportunity projections mismatch';
+  end if;
 end;
 $$;
 

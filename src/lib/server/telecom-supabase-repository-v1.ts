@@ -4,9 +4,11 @@ import type {
   CustomerCompanyV1,
   CustomerSearchInputV1,
   LineListInputV1,
+  OpportunityListInputV1,
   ReadOneResponseV1,
   ServerReadContextV1,
   ServiceListInputV1,
+  WindowedListInputV1,
 } from '../contracts/telecom-v1'
 import type { TelecomCursorBindingV1, TelecomCursorCodecV1 } from './telecom-cursor-v1'
 import type { TelecomReadRepositoryV1 } from './telecom-read-service-v1'
@@ -316,7 +318,7 @@ export class SupabaseTelecomReadRepositoryV1 implements TelecomReadRepositoryV1 
   async #portfolioPage(
     context: ServerReadContextV1,
     input: { limit: number; continuation: string | null },
-    operation: 'service.list' | 'line.list',
+    operation: 'service.list' | 'line.list' | 'activity.list' | 'opportunity.list',
     filter: readonly unknown[],
     parameters: Record<string, unknown>,
   ): Promise<unknown> {
@@ -326,10 +328,18 @@ export class SupabaseTelecomReadRepositoryV1 implements TelecomReadRepositoryV1 
     }
     const cursor = input.continuation === null ? null : await this.#cursor.consume(binding, input.continuation)
     if (input.continuation !== null && cursor === null) throw new Error('invalid portfolio continuation')
-    const response = await this.#client.rpc(`telecom_v1_${operation === 'service.list' ? 'service' : 'line'}_list`, {
-      p_actor_id: context.actor_id, p_workspace_id: context.workspace_id, p_scope_epoch: context.scope_epoch,
+    const rpcName = {
+      'service.list': 'telecom_v1_service_list', 'line.list': 'telecom_v1_line_list',
+      'activity.list': 'telecom_v1_activity_list', 'opportunity.list': 'telecom_v1_opportunity_list',
+    }[operation]
+    const response = await this.#client.rpc(rpcName, {
+      p_actor_id: context.actor_id, p_workspace_id: context.workspace_id,
+      ...(operation === 'service.list' || operation === 'line.list' ? { p_scope_epoch: context.scope_epoch } : {}),
       ...parameters, p_limit: input.limit,
-      p_after_created_at: cursor?.createdAt ?? null, p_after_id: cursor?.id ?? null,
+      ...(operation === 'activity.list'
+        ? { p_after_occurred_at: cursor?.createdAt ?? null }
+        : { p_after_created_at: cursor?.createdAt ?? null }),
+      p_after_id: cursor?.id ?? null,
     })
     if (response.error !== null || !record(response.data)
       || !exact(response.data, ['rows', 'has_more', 'next_created_at', 'next_id'])
@@ -375,7 +385,22 @@ export class SupabaseTelecomReadRepositoryV1 implements TelecomReadRepositoryV1 
   permanenceList(context: ServerReadContextV1) { return Promise.resolve(unavailableCollection(context)) }
   taskList(context: ServerReadContextV1) { return Promise.resolve(unavailableCollection(context)) }
   meetingList(context: ServerReadContextV1) { return Promise.resolve(unavailableCollection(context)) }
-  activityList(context: ServerReadContextV1) { return Promise.resolve(unavailableCollection(context)) }
-  opportunityList(context: ServerReadContextV1) { return Promise.resolve(unavailableCollection(context)) }
+  activityList(context: ServerReadContextV1, input: WindowedListInputV1) {
+    return this.#portfolioPage(context, input, 'activity.list', [
+      input.customer_id ?? null, input.from ?? null, input.to ?? null,
+    ], {
+      p_customer_id: input.customer_id ?? null, p_from: input.from ?? null, p_to: input.to ?? null,
+    })
+  }
+
+  opportunityList(context: ServerReadContextV1, input: OpportunityListInputV1) {
+    return this.#portfolioPage(context, input, 'opportunity.list', [
+      input.customer_id ?? null, input.from ?? null, input.to ?? null,
+      input.owner_id ?? null, input.status ?? null,
+    ], {
+      p_customer_id: input.customer_id ?? null, p_from: input.from ?? null, p_to: input.to ?? null,
+      p_owner_id: input.owner_id ?? null, p_status: input.status ?? null,
+    })
+  }
   dashboardGet(context: ServerReadContextV1) { return Promise.resolve(unavailableOne(context)) }
 }
