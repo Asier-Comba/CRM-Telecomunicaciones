@@ -79,14 +79,14 @@ test('partial, stale, revoked and invalid dates cannot yield exact totals or fal
   assert.equal(h.calls(), 1)
 })
 
-test('forged scope and hallucinated methods never reach service; matrix pins 7 published/7 unavailable', async () => {
+test('forged scope and hallucinated methods never reach service; matrix pins 11 published/3 unavailable', async () => {
   const h = harness(envelope(summary()))
   for (const capability of ['crm.customer.summary', 'crm.sql.execute', 'constructor']) {
     assert.equal((await h.adapter.readEvidence(scope, capability, { customer_id: cid, workspace_id: 'forged' })).state, 'error')
   }
   assert.equal(h.calls(), 0)
   assert.equal(TELECOM_INTEGRATION_MATRIX.length, 14)
-  assert.equal(TELECOM_INTEGRATION_MATRIX.filter(m => m.integrationState === 'repository_unavailable').length, 7)
+  assert.equal(TELECOM_INTEGRATION_MATRIX.filter(m => m.integrationState === 'repository_unavailable').length, 3)
 })
 
 test('executable read slice resolves unique search then get/summary once each; duplicates stop downstream reads', async () => {
