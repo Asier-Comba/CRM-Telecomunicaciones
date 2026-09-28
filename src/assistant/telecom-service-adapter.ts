@@ -6,10 +6,11 @@ import { projectCollectionEvidence, type GroundingEntityKind, type CollectionEvi
 import type { ReferenceScope } from './session-references.js'
 import type { JsonObject } from './telecom-dto-parser.js'
 
-export const TELECOM_SOURCE_SHA = '79845673646556ef30485469a80b1c6151bac85e'
+export const TELECOM_SOURCE_SHA = '458a6fdd4b39e47cf9f508e8b1239a96bfa74281'
 export const TELECOM_CHECKPOINTS: Readonly<Record<string, readonly string[]>> = {
   '8de57dc2f84634156655f6c79047d545bbb86a6c': ['customer.search', 'customer.get', 'customer.summary'],
   '79845673646556ef30485469a80b1c6151bac85e': ['customer.search', 'customer.get', 'customer.summary', 'contract.list', 'contract.get', 'service.list', 'line.list'],
+  '458a6fdd4b39e47cf9f508e8b1239a96bfa74281': ['customer.search', 'customer.get', 'customer.summary', 'contract.list', 'contract.get', 'service.list', 'line.list', 'task.list', 'meeting.list', 'activity.list', 'opportunity.list'],
 }
 /** Snapshot is data only; availability does not grant execution permission. */
 export function telecomIntegrationMatrix(sourceSha: string) {
