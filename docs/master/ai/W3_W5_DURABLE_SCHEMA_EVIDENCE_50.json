@@ -1,0 +1,29 @@
+{
+  "sourceSha": "3370dc1f1517523e1fd9c3e77ae73552293ab59c",
+  "sourcePath": "supabase/migrations/20260927183000_assistant_durable_foundation.sql",
+  "evidence": "static_source_only_no_database",
+  "failureCodeCompatibility": {
+    "runtimeEmits": [
+      "effect_absence_verified_retryable",
+      "effect_absence_verified_terminal"
+    ],
+    "ddlAccepts": [
+      "temporary_unavailable",
+      "validation",
+      "conflict",
+      "access_revoked",
+      "internal_safe"
+    ],
+    "missing": [
+      "effect_absence_verified_retryable",
+      "effect_absence_verified_terminal"
+    ],
+    "compatible": false
+  },
+  "leaseMapping": {
+    "ddlAllowsNull": true,
+    "w3RecordRequiresTimestamp": true,
+    "explicitMappingRequired": true
+  },
+  "nativeDurabilityAccepted": false
+}
