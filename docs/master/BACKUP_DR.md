@@ -10,7 +10,7 @@ after a timed native PostgreSQL and Supabase recovery exercise.
 |---|---|---|
 | 23 migrations and synthetic A/B fixture | TESTED in disposable PGlite | Zero-to-head and scoped reader/Storage-policy/durable-schema fixture; this is embedded PostgreSQL only |
 | Synthetic in-memory PGlite snapshot/restore | TESTED, TEST ONLY | SHA-256, fresh embedded process, schema, rows and scoped read/foreign denial; no persisted or encrypted dump |
-| Native PostgreSQL logical backup/restore | PLANNED | `pg_dump`/restore in a new isolated database with checksums, manifest, migration head and post-restore RLS probes |
+| Native PostgreSQL logical backup/restore | AUTOMATED, RESULT PENDING | CI `scripts/security/native-postgres/test-zero-to-head.sh` uses disposable PostgreSQL 16, checksummed synthetic dump, new database, schema/rows/RLS/scope; no encryption/offsite |
 | Supabase Auth users and platform settings | PROVIDER-DEPENDENT | Inventory and separate Auth recovery test; database-only dump cannot assert provider recovery |
 | Storage objects | PLANNED | Separate object inventory, content hashes, copy/restore and orphan/missing-object reconciliation |
 | Backup encryption and offsite retention | PLANNED | Approved external KMS/secret, encryption before transfer, rotation and independent failure domain |
