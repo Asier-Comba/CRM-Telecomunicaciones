@@ -24,7 +24,8 @@ insert into auth.users (
   ('10000000-0000-0000-0000-000000000001', '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated', 'reader-a@example.invalid', '', now(), '{}', '{}', now(), now()),
   ('10000000-0000-0000-0000-000000000002', '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated', 'reader-b@example.invalid', '', now(), '{}', '{}', now(), now()),
   ('10000000-0000-0000-0000-000000000003', '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated', 'reader-suspended@example.invalid', '', now(), '{}', '{}', now(), now()),
-  ('10000000-0000-0000-0000-000000000004', '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated', 'reader-removed@example.invalid', '', now(), '{}', '{}', now(), now());
+  ('10000000-0000-0000-0000-000000000004', '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated', 'reader-removed@example.invalid', '', now(), '{}', '{}', now(), now()),
+  ('10000000-0000-0000-0000-000000000005', '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated', 'reader-member@example.invalid', '', now(), '{}', '{}', now(), now());
 
 insert into public.workspaces (id, name, slug, status) values
   ('20000000-0000-0000-0000-000000000001', 'Reader Workspace A', 'reader-workspace-a', 'active'),
@@ -35,6 +36,10 @@ insert into public.workspace_members (id, workspace_id, user_id, role, status) v
   ('30000000-0000-0000-0000-000000000001', '20000000-0000-0000-0000-000000000001', '10000000-0000-0000-0000-000000000001', 'owner', 'active'),
   ('30000000-0000-0000-0000-000000000002', '20000000-0000-0000-0000-000000000002', '10000000-0000-0000-0000-000000000002', 'owner', 'active'),
   ('30000000-0000-0000-0000-000000000003', '20000000-0000-0000-0000-000000000003', '10000000-0000-0000-0000-000000000003', 'owner', 'active');
+insert into public.workspace_members (id,workspace_id,user_id,role,status) values
+  ('30000000-0000-0000-0000-000000000005',
+  '20000000-0000-0000-0000-000000000001',
+  '10000000-0000-0000-0000-000000000005','member','active');
 
 update public.profiles
    set full_name = 'Synthetic Reader A'
@@ -490,6 +495,10 @@ select set_config('request.jwt.claim.sub','10000000-0000-0000-0000-000000000002'
 select pg_temp.assert_true(
   (select count(*)=0 from storage.objects where bucket_id='telecom-documents'),
   'foreign member can see private object');
+select set_config('request.jwt.claim.sub','10000000-0000-0000-0000-000000000005',true);
+select pg_temp.assert_true(
+  (select count(*)=0 from storage.objects where bucket_id='telecom-documents'),
+  'ordinary workspace member can see private object');
 reset role;
 set local role anon;
 select pg_temp.assert_true(
