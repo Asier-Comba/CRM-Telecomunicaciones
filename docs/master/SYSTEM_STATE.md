@@ -9,8 +9,8 @@ CAN_PRODUCE: NO
 INTEGRATION BASE SHA: 6b0e30e7444de57100e4d983b3564a0c3b336b2c
 W2 BACKEND HEAD: 8de57dc2f84634156655f6c79047d545bbb86a6c (PR17 backend slice accepted for composition)
 W3 HEAD: d29c1f455f123f1524b3786736d5ec300c9940ed (Issue10 native durability open)
-W4 HEAD: 834d5695a4117d9f8d5f47158cf164bd5cc5d240 (previous checkpoint; this file travels with the next W4 commit)
-W5: branch w5/backend-platform-v1 not present at review time
+W4 HEAD: 28950381549def76afab7f2ea41e5f0a5f13d1d2 (previous checkpoint; this file travels with the next W4 commit)
+W5 HEAD: 5f72864 (PR18 first scoped contract-reader checkpoint; no platform A–H evidence yet)
 
 OPEN P0: assistant native durable adapter/process/restart/outbox evidence (Issue10).
 OPEN P1: W2 frontend expiry/revocation/generation fences; platform Auth/PostgREST/Storage and scoped privileged execution; executable import replay adapter.

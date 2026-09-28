@@ -5,7 +5,7 @@ Accepted base:6b0e30e7444de57100e4d983b3564a0c3b336b2c.
 
 W2 PR17@8de57dc2f84634156655f6c79047d545bbb86a6c accepted for composition. CI180 green. PGlite/Node evidence: import creation6/6, lifecycle PASS, READ/date14/14, runtime/repository14/14, server-reader SQL plus independent suspended-member/workspace/anon attacks PASS. Old import-creation and READ/output/date P1s FIXED. Import same-key replay remains unproven because no executable command adapter exists.
 W3@d29c1f455f123f1524b3786736d5ec300c9940ed: Issue10 remains the only assistant P0, pending native durable adapter/process/restart/outbox evidence.
-W5 branch absent at this refresh; no platform review invented.
+W5 PR18@5f72864: first contract-reader delta passes15 migrations/server SQL and repository9/9 in PGlite/Node. No native PostgreSQL, Supabase/Auth/PostgREST/Storage, archive, durable adapter/process, or restore evidence; no stage gate movement. PR18 comment5869278566.
 service_role: new RPC grants are server-only and each call reauthorizes active actor/workspace; no live route/factory found. Global key exposure and real Auth/PostgREST remain staging gates. Prefer authenticated JWT/auth.uid() execution where viable.
 Dependency Review owner configuration remains open. Production untouched. GitHub evidence: PR17 comment5869245466.
 
