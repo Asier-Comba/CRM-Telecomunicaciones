@@ -2,13 +2,13 @@
 
 VERIFIED: 2026-09-28 UTC
 BRANCH: w5/backend-platform-v1, based on W2 8de57dc2f84634156655f6c79047d545bbb86a6c
-HEAD: checkpoint 3 published as 1f55b47371dc09e03eec66850a1c5b2b65083c25; checkpoint 4 pending
+HEAD: checkpoint 4 published as 3f20e64842d97cd2ef75ee6bb34e640291333e52; checkpoint 5 pending
 PR: #18 draft, stacked against w2/backend-takeover-v1
 CI: #189 in progress at checkpoint 3; local lint/typecheck, 116 bootstrap tests, audit (0 high), build baseline pass
-POSTGRES: native PostgreSQL unavailable in this runner; embedded PGlite zero-to-head 17 migrations and domain/server-read fixtures pass
+POSTGRES: native PostgreSQL unavailable in this runner; embedded PGlite zero-to-head 18 migrations and domain/server-read fixtures pass
 SUPABASE_LOCAL: not exercised
 SUPABASE_REMOTE: untouched
-DB_READS: customer.search/get/summary, contract.list/get, service.list, line.list, activity.list, opportunity.list implemented; five published READs still unavailable
+DB_READS: customer.search/get/summary, contract.list/get, service.list, line.list, activity.list, opportunity.list, task.list, meeting.list implemented; three published READs still unavailable
 RLS: active membership/workspace checked in contract RPCs; embedded tenant denial probes pass; native RLS pending
 STORAGE: not implemented
 DURABILITY: W3 PostgreSQL adapter not implemented; assistant writes disabled

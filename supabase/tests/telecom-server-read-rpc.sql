@@ -403,5 +403,25 @@ begin
 end;
 $$;
 
+do $$
+declare tasks jsonb; meetings jsonb;
+begin
+  tasks := public.telecom_v1_task_list(
+    '10000000-0000-0000-0000-000000000001',
+    '20000000-0000-0000-0000-000000000001',
+    '40000000-0000-0000-0000-000000000001',null,null,null,'pending',1,null,null);
+  meetings := public.telecom_v1_meeting_list(
+    '10000000-0000-0000-0000-000000000001',
+    '20000000-0000-0000-0000-000000000001',
+    '40000000-0000-0000-0000-000000000001',null,null,null,'scheduled',1,null,null);
+  if jsonb_array_length(tasks->'rows') <> 1
+    or tasks#>>'{rows,0,title}' <> 'Synthetic Follow-up'
+    or jsonb_array_length(meetings->'rows') <> 1
+    or meetings#>>'{rows,0,title}' <> 'Synthetic Meeting' then
+    raise exception 'task/meeting projection mismatch';
+  end if;
+end;
+$$;
+
 reset role;
 rollback;
