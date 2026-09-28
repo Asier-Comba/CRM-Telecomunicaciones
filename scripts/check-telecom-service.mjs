@@ -6,7 +6,7 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import ts from 'typescript'
-import { createAuthorizedTelecomAdapter, TELECOM_INTEGRATION_MATRIX } from '../dist/src/assistant/telecom-service-adapter.js'
+import { createAuthorizedTelecomAdapter, telecomIntegrationMatrix } from '../dist/src/assistant/telecom-service-adapter.js'
 
 const sha = process.argv[2]
 if (!/^[a-f0-9]{40}$/.test(sha ?? '')) { console.error('Expected exact source SHA'); process.exit(2) }
@@ -15,13 +15,14 @@ const source = name => execFileSync('git', ['show', `${sha}:src/lib/server/${nam
 try {
   const upstream = execFileSync('git', ['show', `${sha}:src/lib/contracts/telecom-v1.ts`], { encoding: 'utf8' })
   assert.equal(await readFile(new URL('../src/assistant/telecom-service-contract.v1.ts', import.meta.url), 'utf8'), upstream, 'pinned DTO source differs; review exact diff first')
-  for (const name of ['telecom-runtime-v1', 'telecom-read-service-v1', 'telecom-supabase-repository-v1']) {
+  for (const name of ['telecom-runtime-v1', 'telecom-read-service-v1', 'telecom-supabase-repository-v1', 'telecom-cursor-v1']) {
     const js = ts.transpileModule(source(name), { compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.ES2022 } }).outputText
       .replaceAll('./telecom-runtime-v1.ts', './telecom-runtime-v1.mjs')
     await writeFile(join(dir, `${name}.mjs`), js)
   }
   const { AuthorizedTelecomReadServiceV1 } = await import(pathToFileURL(join(dir, 'telecom-read-service-v1.mjs')))
   const { SupabaseTelecomReadRepositoryV1 } = await import(pathToFileURL(join(dir, 'telecom-supabase-repository-v1.mjs')))
+  const { AesGcmTelecomCursorCodecV1 } = await import(pathToFileURL(join(dir, 'telecom-cursor-v1.mjs')))
   const scope = { actorId: '10000000-0000-4000-8000-000000000001', workspaceId: '20000000-0000-4000-8000-000000000001', sessionId: 'session_synthetic_001', scopeEpoch: 'epoch_synthetic_0001' }
   const id = '40000000-0000-4000-8000-000000000001'
   const now = '2026-09-28T10:00:00.000Z'
@@ -29,22 +30,32 @@ try {
   const empty = () => ({ ...version, source_state: 'available', permission: 'authorized', items: [], completeness: { kind: 'complete' }, continuation: null, freshness: { kind: 'fresh', as_of: now }, error: null })
   const row = { id, account_kind: 'legal_entity', legal_name: 'ACME synthetic', trade_name: null, lifecycle: 'customer', status: 'active', assigned_user_id: null, assigned_user_name: null, primary_contact_id: null, primary_contact_name: null }
   const customer = { ...version, id, account_kind: row.account_kind, legal_name: row.legal_name, trade_name: null, lifecycle: 'customer', status: 'active', assigned_user: null, primary_contact: null, tax_identifier: { field_class: 'tax_identifier', visibility: 'hidden' }, capabilities: [] }
+  const ref = kind => ({ kind, id, display_name: kind })
+  const contract = { ...version, id, customer: ref('customer'), operator: ref('operator'), plan: null, external_reference: { field_class: 'contract_reference', visibility: 'not_available' }, status: 'active', start_date: '2026-01-01', signed_date: null, end_date: null, cancelled_at: null, assigned_user: null, capabilities: [] }
+  const serviceRow = { ...version, id, customer: ref('customer'), contract: ref('contract'), operator: ref('operator'), plan: null, service_kind: 'mobile', display_name: 'Synthetic mobile', status: 'active', activated_on: null, ended_on: null, capabilities: [] }
+  const lineRow = { ...version, id, service: ref('service'), identifier: { field_class: 'line_identifier', visibility: 'not_available' }, status: 'active', activated_on: null, ended_on: null, capabilities: [] }
   const summary = { ...version, customer, contracts: empty(), services: empty(), lines: empty(), attention: { ...version, customer_id: id, generated_at: now, next_task: empty(), next_meeting: empty(), nearest_renewal: empty(), nearest_permanence: empty(), recent_activity: empty(), alerts: { ...empty(), source_state: 'unsupported', reason: 'contract_not_published', permission: 'unknown', items: null, completeness: null, freshness: null } } }
   let mode = 'normal', calls = 0, current = { ...scope }
   const client = { async rpc(name, args) {
     calls++; assert.equal(args.p_workspace_id, scope.workspaceId); assert.equal(args.p_actor_id, scope.actorId)
     if (mode === 'outage') throw new Error('PRIVATE_PROVIDER_DETAIL')
     if (mode === 'revoke') current.scopeEpoch = 'epoch_revoked_00001'
-    if (name === 'telecom_v1_customer_search_rows') return { data: { rows: [row], has_more: false, next_created_at: null, next_id: null }, error: null }
+    if (name === 'telecom_v1_customer_search_rows') return { data: { rows: [row], has_more: mode === 'page', next_created_at: mode === 'page' ? now : null, next_id: mode === 'page' ? id : null }, error: null }
     if (name === 'telecom_v1_customer_get_row') return { data: mode === 'absent' ? null : row, error: null }
+    if (name === 'telecom_v1_contract_get') return { data: contract, error: null }
+    const portfolio = { telecom_v1_contract_list: contract, telecom_v1_service_list: serviceRow, telecom_v1_line_list: lineRow }
+    if (Object.hasOwn(portfolio, name)) return { data: { rows: [portfolio[name]], has_more: false, next_created_at: null, next_id: null }, error: null }
     assert.equal(name, 'telecom_v1_customer_summary')
     return { data: mode === 'foreign' ? { ...summary, scope_epoch: 'foreign_epoch_00001' } : summary, error: null }
   } }
-  const repository = new SupabaseTelecomReadRepositoryV1(client, { consume: async () => null, issue: async () => { throw new Error('unused') } }, () => now)
+  let clock = Date.parse(now)
+  const codec = new AesGcmTelecomCursorCodecV1(new Uint8Array(32).fill(7), { now: () => clock, ttlMs: 60_000 })
+  const repository = new SupabaseTelecomReadRepositoryV1(client, codec, () => now)
   const service = new AuthorizedTelecomReadServiceV1(repository, { authorize: async () => true, authorizeReference: async () => true, authorizeCapability: async () => true, isCurrent: c => c.scope_epoch === current.scopeEpoch, now: () => now })
-  const adapter = createAuthorizedTelecomAdapter({ service, authorizeOperation: async () => true, authorizeReference: async () => true, currentScope: () => current, now: () => Date.parse(now) })
+  const adapter = createAuthorizedTelecomAdapter({ service, authorizeOperation: async () => true, authorizeReference: async () => true, currentScope: () => current, now: () => Date.parse(now),
+    authorizeContinuation: async (s, capability, filters, token) => capability === 'crm.customer.search' && await codec.consume({ actorId: s.actorId, workspaceId: s.workspaceId, scopeEpoch: s.scopeEpoch, operation: 'customer.search', filter: JSON.stringify([filters.query.trim(), filters.status ?? null, filters.assigned_user_id ?? null, filters.limit]) }, token) !== null })
   const results = []
-  for (const mapping of TELECOM_INTEGRATION_MATRIX) {
+  for (const mapping of telecomIntegrationMatrix(sha)) {
     const input = mapping.operation === 'customer.search' ? { query: 'ACME', limit: 20, continuation: null }
       : ['customer.get', 'customer.summary'].includes(mapping.operation) ? { customer_id: id }
       : mapping.operation === 'contract.get' ? { contract_id: id }
@@ -61,9 +72,20 @@ try {
   const before = calls
   assert.equal((await adapter.readEvidence(scope, 'crm.customer.get', { customer_id: id, workspace_id: 'forged' })).state, 'error')
   assert.equal(calls, before)
+  mode = 'page'
+  const serverContext = { actor_id: scope.actorId, workspace_id: scope.workspaceId, principal_kind: 'user', scope_epoch: scope.scopeEpoch }
+  const first = await service.customerSearch(serverContext, { query: 'ACME', limit: 20, continuation: null })
+  assert.equal(first.completeness.kind, 'partial')
+  const nextInput = { query: 'ACME', limit: 20, continuation: first.continuation }
+  assert.equal((await adapter.readEvidence(scope, 'crm.customer.search', nextInput)).state, 'available')
+  const priorCalls = calls
+  assert.equal((await adapter.readEvidence(scope, 'crm.customer.search', { ...nextInput, query: 'other_filter' })).state, 'not_authorized')
+  clock += 60_000
+  assert.equal((await adapter.readEvidence(scope, 'crm.customer.search', nextInput)).state, 'not_authorized')
+  assert.equal(calls, priorCalls)
   for (const [scenario, capability, expected] of [['outage', 'get', 'error'], ['foreign', 'summary', 'error'], ['absent', 'get', 'not_found'], ['revoke', 'get', 'not_authorized']]) {
     mode = scenario
     assert.equal((await adapter.readEvidence(scope, `crm.customer.${capability}`, { customer_id: id })).state, expected, scenario)
   }
-  console.log(JSON.stringify({ sourceSha: sha, evidence: 'exact_source_synthetic_rpc_no_database', operations: results, negativeControls: ['forged_scope_zero_calls', 'provider_outage', 'foreign_epoch', 'absent_record', 'revocation'], pass: true }, null, 2))
+  console.log(JSON.stringify({ sourceSha: sha, evidence: 'exact_source_synthetic_rpc_no_database', operations: results, negativeControls: ['forged_scope_zero_calls', 'provider_outage', 'foreign_epoch', 'absent_record', 'revocation', 'changed_cursor_filter_zero_calls', 'expired_cursor_zero_calls'], pass: true }, null, 2))
 } finally { await rm(dir, { recursive: true, force: true }) }
