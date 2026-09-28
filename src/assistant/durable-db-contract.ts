@@ -8,7 +8,7 @@ import {
   type DurableMutationDecision, type ServerEffectCommand, type OutboxMutationDecision,
 } from './durable-contracts.js'
 
-/** Semantic contract only: W2 owns SQL, columns, RLS and the durable implementation. */
+/** Semantic contract only: W5 owns SQL, columns, RLS and the durable implementation. */
 export const DURABLE_DB_CONTRACT_V1 = {
   version: 'assistant.durable-db.v1',
   fields: DURABLE_MAPPING_MANIFEST,
@@ -59,8 +59,8 @@ export interface ReconciliationPersistence {
   commitVerifiedReconciliation(command: VerifiedReconciliationCommit): Promise<ReconciliationCommitDecision>
 }
 
-/** Server application seam for W2. No SDK, SQL, provider URL or browser token.
- * W2 may compose these methods over its internal service/RPC names. These are
+/** Server application seam for W5. No SDK, SQL, provider URL or browser token.
+ * W5 may compose these methods over its internal service/RPC names. These are
  * requested semantics, not evidence that a database implementation exists.
  */
 export interface DurableDatabasePort extends ReconciliationPersistence {

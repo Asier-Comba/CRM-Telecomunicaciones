@@ -2,7 +2,10 @@ import type { ReconciliationAuditEvent } from './durable-contracts.js'
 import { validOperationRef } from './durable-contracts.js'
 import { isSafeEvidenceText } from './context-budget.js'
 
-/** Candidate production boundary, NOT an implemented durable adapter.
+/** Historical reference-model boundary, NOT the production/runtime port.
+ * W5 must implement ReconciliationPersistence in durable-db-contract.ts.
+ * This experiment's safeResultRef/replayed/inspect/workspace-only worker API is
+ * not authorization or fenced durable delivery. Keep only for reference tests.
  * Precondition: server authorization, independent verification and registered
  * capability output validation succeeded. The transaction repeats tenant,
  * immutable binding and expected-version checks under the database lock.
