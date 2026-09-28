@@ -39,6 +39,8 @@ try {
   const meeting = { ...attention('meeting'), status: 'scheduled', starts_at: now, ends_at: null, all_day: false, timezone: 'Europe/Madrid', channel: 'video', assignee: null }
   const activity = { id, kind: 'activity', customer: ref('customer'), activity_kind: 'contacted', safe_summary: 'Synthetic call', occurred_at: now, actor: null, targets: [], capabilities: [] }
   const opportunity = { ...attention('opportunity'), stage: ref('opportunity_stage'), status: 'open', next_follow_up_at: null, follow_up_state: 'none', amount: null, owner: null }
+  const renewal = { ...attention('renewal'), contract: ref('contract'), status: 'upcoming', target_on: '2026-10-01', opens_on: null, closes_on: null }
+  const permanence = { ...attention('permanence'), contract: ref('contract'), service: null, status: 'active', starts_on: '2026-01-01', ends_on: '2026-12-31', reason_code: 'minimum_term' }
   const summary = { ...version, customer, contracts: empty(), services: empty(), lines: empty(), attention: { ...version, customer_id: id, generated_at: now, next_task: empty(), next_meeting: empty(), nearest_renewal: empty(), nearest_permanence: empty(), recent_activity: empty(), alerts: { ...empty(), source_state: 'unsupported', reason: 'contract_not_published', permission: 'unknown', items: null, completeness: null, freshness: null } } }
   let mode = 'normal', calls = 0, current = { ...scope }
   const client = { async rpc(name, args) {
@@ -48,8 +50,10 @@ try {
     if (name === 'telecom_v1_customer_search_rows') return { data: { rows: [row], has_more: mode === 'page', next_created_at: mode === 'page' ? now : null, next_id: mode === 'page' ? id : null }, error: null }
     if (name === 'telecom_v1_customer_get_row') return { data: mode === 'absent' ? null : row, error: null }
     if (name === 'telecom_v1_contract_get') return { data: contract, error: null }
+    if (name === 'telecom_v1_dashboard_authorize') return { data: true, error: null }
     const portfolio = { telecom_v1_contract_list: contract, telecom_v1_service_list: serviceRow, telecom_v1_line_list: lineRow,
-      telecom_v1_task_list: task, telecom_v1_meeting_list: meeting, telecom_v1_activity_list: activity, telecom_v1_opportunity_list: opportunity }
+      telecom_v1_task_list: task, telecom_v1_meeting_list: meeting, telecom_v1_activity_list: activity, telecom_v1_opportunity_list: opportunity,
+      telecom_v1_renewal_list: renewal, telecom_v1_permanence_list: permanence }
     if (Object.hasOwn(portfolio, name)) return { data: { rows: [portfolio[name]], has_more: false, next_created_at: null, next_id: null }, error: null }
     assert.equal(name, 'telecom_v1_customer_summary')
     return { data: mode === 'foreign' ? { ...summary, scope_epoch: 'foreign_epoch_00001' } : summary, error: null }
@@ -72,6 +76,17 @@ try {
       assert.equal(result.sections.alerts.availability, 'unsupported')
       assert.equal(result.sections.opportunities.availability, 'unsupported')
       assert.equal(result.sections.lines.can_assert_empty, true)
+    }
+    if (mapping.operation === 'dashboard.get' && result.state === 'available') {
+      assert.equal(result.calendar.timezone, 'UTC')
+      assert.equal(result.sections.today_tasks.rows.length, 1)
+      assert.equal(result.sections.today_meetings.rows.length, 1)
+      assert.equal(result.sections.renewals.availability, 'unavailable')
+      assert.equal(result.sections.permanence_alerts.availability, 'unavailable')
+      assert.equal((await adapter.readEvidence(scope, 'crm.dashboard.get', { audience: 'workspace' })).sections.renewals.availability, 'available')
+      const preTeam = calls
+      assert.equal((await adapter.readEvidence(scope, 'crm.dashboard.get', { audience: 'team' })).state, 'unavailable')
+      assert.equal(calls, preTeam)
     }
     results.push({ operation: mapping.operation, state: result.state })
   }
