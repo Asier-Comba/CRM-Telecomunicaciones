@@ -17,7 +17,7 @@ export function composeTelecomEvidence(read: ReadEvidence, requestId: string): A
   return {
     contractVersion: 1, answer: partial ? 'Estos son los datos disponibles; algunas secciones están incompletas o no se pueden confirmar.' : 'Datos verificados en las fuentes del CRM.',
     status: partial ? 'PARTIAL' : 'SUCCESS', grounded: true,
-    blocks: { table: {
+    blocks: { ...(read.calendar ? { notice: { code: 'calendar_source_timezone', retryable: false, title: 'Zona horaria de la fuente', detail: read.calendar.timezone } } : {}), table: {
       columns: [
         { key: 'section', label: 'Sección', format: 'text' }, { key: 'availability', label: 'Disponibilidad', format: 'status' },
         { key: 'observed', label: 'Registros recibidos', format: 'number' }, { key: 'completeness', label: 'Cobertura', format: 'status' },

@@ -6,11 +6,12 @@ import { projectCollectionEvidence, type GroundingEntityKind, type CollectionEvi
 import type { ReferenceScope } from './session-references.js'
 import type { JsonObject } from './telecom-dto-parser.js'
 
-export const TELECOM_SOURCE_SHA = '458a6fdd4b39e47cf9f508e8b1239a96bfa74281'
+export const TELECOM_SOURCE_SHA = '9f0e85130bfcfde8b8c60150bc2aa07f5e6b65fb'
 export const TELECOM_CHECKPOINTS: Readonly<Record<string, readonly string[]>> = {
   '8de57dc2f84634156655f6c79047d545bbb86a6c': ['customer.search', 'customer.get', 'customer.summary'],
   '79845673646556ef30485469a80b1c6151bac85e': ['customer.search', 'customer.get', 'customer.summary', 'contract.list', 'contract.get', 'service.list', 'line.list'],
   '458a6fdd4b39e47cf9f508e8b1239a96bfa74281': ['customer.search', 'customer.get', 'customer.summary', 'contract.list', 'contract.get', 'service.list', 'line.list', 'task.list', 'meeting.list', 'activity.list', 'opportunity.list'],
+  '9f0e85130bfcfde8b8c60150bc2aa07f5e6b65fb': ['customer.search', 'customer.get', 'customer.summary', 'contract.list', 'contract.get', 'service.list', 'line.list', 'task.list', 'meeting.list', 'activity.list', 'opportunity.list', 'renewal.list', 'permanence.list', 'dashboard.get'],
 }
 /** Snapshot is data only; availability does not grant execution permission. */
 export function telecomIntegrationMatrix(sourceSha: string) {
@@ -36,6 +37,7 @@ export type ReadEvidence = {
   state: 'available' | 'not_found' | 'not_authorized' | 'unavailable' | 'error'
   sections: Readonly<Record<string, CollectionEvidence>>
   relations: Readonly<Record<string, { customerId?: string; contractId?: string; serviceId?: string }>>
+  calendar?: { timezone: string; startsAt: string; endsAt: string }
 }
 const object = (v: unknown): v is JsonObject => !!v && typeof v === 'object' && !Array.isArray(v)
 const same = (a: ReferenceScope, b: ReferenceScope): boolean =>
@@ -67,6 +69,7 @@ export function createAuthorizedTelecomAdapter(deps: Dependencies) {
         if (state !== 'found' && state !== 'available') return failure(state === 'not_found' || state === 'not_authorized' || state === 'unavailable' ? state : 'error')
         const sections: Record<string, CollectionEvidence> = {}
         const relations: Record<string, { customerId?: string; contractId?: string; serviceId?: string }> = {}
+        let calendar: ReadEvidence['calendar']
         const add = (key: string, value: unknown, kind: GroundingEntityKind) => {
           const evidence = projectCollectionEvidence(value, kind, captured.scopeEpoch, 50)
           // Model context needs no protected identifiers, including masked ones.
@@ -106,11 +109,18 @@ export function createAuthorizedTelecomAdapter(deps: Dependencies) {
           add('alerts', object(data.attention) ? data.attention.alerts : unsupported, 'activity')
         } else if (capability === 'crm.dashboard.get' && object(dto.data)) {
           for (const [key, kind] of [['tasks', 'task'], ['meetings', 'meeting'], ['renewals', 'renewal'], ['permanence_alerts', 'permanence'], ['opportunities', 'opportunity']] as const) add(key, dto.data[key], kind)
+          const today = dto.data.today
+          if (object(today) && Array.isArray(today.items)) for (const kind of ['task', 'meeting'] as const) {
+            add(`today_${kind}s`, { ...today, items: today.items.filter(row => object(row) && row.kind === kind) }, kind)
+          }
+          if (object(dto.data.scope) && object(dto.data.window)) calendar = {
+            timezone: String(dto.data.scope.timezone), startsAt: String(dto.data.window.starts_at), endsAt: String(dto.data.window.ends_at),
+          }
         } else {
           const kind = TELECOM_READ_DTO_KINDS[capability]!.split(':')[1] as GroundingEntityKind
           add('items', dto.result === 'found' ? one(dto.data) : dto, kind)
         }
-        return { operation: capability, state: 'available', sections, relations }
+        return { operation: capability, state: 'available', sections, relations, ...(calendar ? { calendar } : {}) }
       } catch { return failure('error') }
     }
   async function readWithEvidence(scope: ReferenceScope, capability: string, input: unknown): Promise<{ selection: SafeReadResult; evidence: ReadEvidence }> {
