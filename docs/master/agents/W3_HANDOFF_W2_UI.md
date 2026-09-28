@@ -1,6 +1,23 @@
 # W3 → W2 handoff — Assistant UI contract
 
-## Iteration 3.1 — current stable handoff
+## Iteration 5.0 — current stable handoff
+
+W2 returns to frontend; W5 owns DB/services. UI v1 stays unchanged.
+`telecom-ui-composer.ts` emits a validated AssistantResponse v1 table from the
+authorized read slice: section, observed count, source descriptor, completeness,
+freshness and as-of; unavailable counts are null. Dashboard includes the source
+timezone as a notice (currently UTC, not implicitly Europe/Madrid). No new top-level
+citations field, model HTML, arbitrary URL or navigation permission is introduced.
+Structured disambiguation remains server-issued entity choices; opaque follow-up
+references must be resolved/reauthorized server-side. Expiry/revocation during
+await discards evidence. Routes and writes remain disabled.
+
+Exact source compatibility includes W5 9f0e851 (all14 methods), with team dashboard
+and personal unattributed renewal/permanence restrictions preserved. Local402 tests
+PASS. See W3_HANDOFF_W5_PLATFORM.md and W3_TELECOM_READ_MATRIX_V1.json. Candidate
+integration, not production approval; W4 independent review requested on PR9.
+
+## Archived iteration 3.1 handoff
 
 `AssistantResponse` v1 and `OperationStatusEnvelope` v1 remain unchanged. No new
 browser transport, navigation taxonomy, mutation handler or interactive control

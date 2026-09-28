@@ -1,6 +1,27 @@
 # W3 → W4 handoff — Assistant security review
 
-## Current review request — iteration 4.2
+## Current review request — iteration 5.0
+
+CANDIDATE INTEGRATION READY. W2 read slice8de57dc accepted by W4 for composition;
+W3 consumes exact W5 9f0e851 source (all14 readers) through SDK-free authorized
+service injection and its own closed parser. Evidence is synthetic RPC replay,
+not native PostgreSQL/Auth/RLS.402 local tests + lint/types/build PASS.
+
+Review single-read-per-node metadata/grounding, async scope/reference/clock fences,
+explicit ambiguity, denied-reference revocation, partial/exact count and renewal
+reasoning, hostile business text as data, closed live-eval protocol and stable UIv1.
+Dashboard UTC and team/personal attribution limitations remain visible. No routes,
+model-selected IDs/authority/SQL/URLs, provider effects or assistant writes.
+
+Prior output-schema, atomic runtime/result-auth and P2 unknown-scenario fixes were
+independently accepted (including fd45ef8 oracle review). Do not reopen historical
+findings by inertia. Issue10 remains native durable adapter/process/recovery gate.
+W5 has not published that adapter; updated durable contract resolves legacy API
+ambiguities but is not DB implementation. Only W4 decides acceptance/Issue10 close.
+Live eval NOT RUN: reviewed provider module/credentials absent.24 cases are authored
+synthetic references; stub tests never establish model accuracy.
+
+## Archived iteration 4.2 review request
 
 Update: W4 af02abc independently accepts seam/result authorization at W3 515e0d4
 (391+6 tests). Keep only native durability gate open. P2 unknown scenario acceptance
