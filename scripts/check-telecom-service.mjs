@@ -34,6 +34,11 @@ try {
   const contract = { ...version, id, customer: ref('customer'), operator: ref('operator'), plan: null, external_reference: { field_class: 'contract_reference', visibility: 'not_available' }, status: 'active', start_date: '2026-01-01', signed_date: null, end_date: null, cancelled_at: null, assigned_user: null, capabilities: [] }
   const serviceRow = { ...version, id, customer: ref('customer'), contract: ref('contract'), operator: ref('operator'), plan: null, service_kind: 'mobile', display_name: 'Synthetic mobile', status: 'active', activated_on: null, ended_on: null, capabilities: [] }
   const lineRow = { ...version, id, service: ref('service'), identifier: { field_class: 'line_identifier', visibility: 'not_available' }, status: 'active', activated_on: null, ended_on: null, capabilities: [] }
+  const attention = kind => ({ id, kind, customer: ref('customer'), title: 'Synthetic attention', destination: null, capabilities: [] })
+  const task = { ...attention('task'), status: 'pending', priority: 'normal', due_at: now, assignee: null, version: 1 }
+  const meeting = { ...attention('meeting'), status: 'scheduled', starts_at: now, ends_at: null, all_day: false, timezone: 'Europe/Madrid', channel: 'video', assignee: null }
+  const activity = { id, kind: 'activity', customer: ref('customer'), activity_kind: 'contacted', safe_summary: 'Synthetic call', occurred_at: now, actor: null, targets: [], capabilities: [] }
+  const opportunity = { ...attention('opportunity'), stage: ref('opportunity_stage'), status: 'open', next_follow_up_at: null, follow_up_state: 'none', amount: null, owner: null }
   const summary = { ...version, customer, contracts: empty(), services: empty(), lines: empty(), attention: { ...version, customer_id: id, generated_at: now, next_task: empty(), next_meeting: empty(), nearest_renewal: empty(), nearest_permanence: empty(), recent_activity: empty(), alerts: { ...empty(), source_state: 'unsupported', reason: 'contract_not_published', permission: 'unknown', items: null, completeness: null, freshness: null } } }
   let mode = 'normal', calls = 0, current = { ...scope }
   const client = { async rpc(name, args) {
@@ -43,7 +48,8 @@ try {
     if (name === 'telecom_v1_customer_search_rows') return { data: { rows: [row], has_more: mode === 'page', next_created_at: mode === 'page' ? now : null, next_id: mode === 'page' ? id : null }, error: null }
     if (name === 'telecom_v1_customer_get_row') return { data: mode === 'absent' ? null : row, error: null }
     if (name === 'telecom_v1_contract_get') return { data: contract, error: null }
-    const portfolio = { telecom_v1_contract_list: contract, telecom_v1_service_list: serviceRow, telecom_v1_line_list: lineRow }
+    const portfolio = { telecom_v1_contract_list: contract, telecom_v1_service_list: serviceRow, telecom_v1_line_list: lineRow,
+      telecom_v1_task_list: task, telecom_v1_meeting_list: meeting, telecom_v1_activity_list: activity, telecom_v1_opportunity_list: opportunity }
     if (Object.hasOwn(portfolio, name)) return { data: { rows: [portfolio[name]], has_more: false, next_created_at: null, next_id: null }, error: null }
     assert.equal(name, 'telecom_v1_customer_summary')
     return { data: mode === 'foreign' ? { ...summary, scope_epoch: 'foreign_epoch_00001' } : summary, error: null }
