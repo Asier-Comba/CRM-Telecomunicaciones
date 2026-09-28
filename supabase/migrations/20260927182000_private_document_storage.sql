@@ -46,6 +46,7 @@ returns boolean language sql stable security definer set search_path='' as $$
       and workspace.status='active'
       and member.user_id=auth.uid()
       and member.status='active'
+      and member.role in ('owner','admin')
   )
 $$;
 revoke all on function public.telecom_v1_can_read_document_object(text)
