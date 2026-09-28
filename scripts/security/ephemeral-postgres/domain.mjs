@@ -38,6 +38,7 @@ try {
     grant execute on function auth.uid() to anon, authenticated, service_role;
     set app.environment = 'test';
   `)
+  await db.exec(await readFile(resolve(root, 'scripts/security/ephemeral-postgres/storage-stub.sql'), 'utf8'))
 
   const migrations = (await readdir(resolve(root, 'supabase/migrations')))
     .filter((name) => name.endsWith('.sql'))

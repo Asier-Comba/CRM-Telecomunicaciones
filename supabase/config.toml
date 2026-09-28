@@ -22,3 +22,13 @@ additional_redirect_urls = ["http://127.0.0.1:3000/auth/callback"]
 [storage]
 enabled = true
 file_size_limit = "10MiB"
+
+[storage.buckets.telecom-documents]
+public = false
+file_size_limit = "10MiB"
+allowed_mime_types = ["application/pdf", "image/png", "image/jpeg"]
+
+[storage.buckets.telecom-import-quarantine]
+public = false
+file_size_limit = "10MiB"
+allowed_mime_types = ["application/zip"]

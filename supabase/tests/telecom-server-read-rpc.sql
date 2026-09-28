@@ -58,6 +58,22 @@ insert into public.contacts (
   '10000000-0000-0000-0000-000000000001'
 );
 
+insert into public.documents (
+  id,workspace_id,customer_id,document_kind,file_name,media_type,size_bytes,
+  storage_path,created_by_user_id
+) values (
+  '80000000-0000-0000-0000-000000000001',
+  '20000000-0000-0000-0000-000000000001',
+  '40000000-0000-0000-0000-000000000001','contract',
+  'synthetic.pdf','application/pdf',12,
+  '20000000-0000-0000-0000-000000000001/documents/80000000-0000-0000-0000-000000000001/81000000-0000-0000-0000-000000000001',
+  '10000000-0000-0000-0000-000000000001'
+);
+insert into storage.objects (id,bucket_id,name) values (
+  '81000000-0000-0000-0000-000000000001','telecom-documents',
+  '20000000-0000-0000-0000-000000000001/documents/80000000-0000-0000-0000-000000000001/81000000-0000-0000-0000-000000000001'
+);
+
 insert into public.telecom_operators (id, workspace_id, code, display_name, created_by_user_id)
 values (
   '50000000-0000-0000-0000-000000000001', '20000000-0000-0000-0000-000000000001',
@@ -464,5 +480,20 @@ begin
 end;
 $$;
 
+reset role;
+set local role authenticated;
+select set_config('request.jwt.claim.sub','10000000-0000-0000-0000-000000000001',true);
+select pg_temp.assert_true(
+  (select count(*)=1 from storage.objects where bucket_id='telecom-documents'),
+  'active member cannot see linked private object');
+select set_config('request.jwt.claim.sub','10000000-0000-0000-0000-000000000002',true);
+select pg_temp.assert_true(
+  (select count(*)=0 from storage.objects where bucket_id='telecom-documents'),
+  'foreign member can see private object');
+reset role;
+set local role anon;
+select pg_temp.assert_true(
+  (select count(*)=0 from storage.objects where bucket_id='telecom-documents'),
+  'anonymous can see private object');
 reset role;
 rollback;
