@@ -76,6 +76,34 @@ try {
   assert.equal(scoped.rows[0].b_hidden, true)
   console.log('SYNTHETIC A/B SEED SCOPE PASS')
 
+  const durableFixture = await readFile(resolve(root, 'supabase/tests/assistant-durable-foundation.sql'), 'utf8')
+  assert.match(durableFixture, /rollback;\s*$/i, 'durable fixture must end with rollback')
+  await db.exec(durableFixture)
+  console.log('ASSISTANT DURABLE SCHEMA INVARIANTS PASS')
+
+  await db.exec(`
+    insert into public.assistant_confirmations (
+      workspace_id,confirmation_ref,actor_id,capability,arguments_digest,expires_at
+    ) values (
+      'b2000000-0000-4000-8000-000000000001','confirmationSyntheticRef00001',
+      'a1000000-0000-4000-8000-000000000001','task.create',repeat('a',64),
+      now()+interval '4 minutes');
+    insert into public.assistant_operations (
+      workspace_id,operation_ref,actor_id,capability,idempotency_key,
+      arguments_digest,confirmation_ref
+    ) values (
+      'b2000000-0000-4000-8000-000000000001','operationSyntheticRef0000001',
+      'a1000000-0000-4000-8000-000000000001','task.create',
+      'idempotencySynthetic0001',repeat('a',64),'confirmationSyntheticRef00001');
+    insert into public.assistant_effect_outbox (
+      workspace_id,outbox_ref,operation_ref,actor_id,capability,
+      arguments_digest,dispatcher_key,command_ref
+    ) values (
+      'b2000000-0000-4000-8000-000000000001','outboxSyntheticRef000000001',
+      'operationSyntheticRef0000001','a1000000-0000-4000-8000-000000000001',
+      'task.create',repeat('a',64),'task.create','commandSyntheticRef00000001');
+  `)
+
   // Embedded-engine recovery probe only: this binary datadir is neither a
   // PostgreSQL logical backup nor an encrypted offsite Supabase backup.
   const snapshot = await db.dumpDataDir('none')
@@ -88,6 +116,8 @@ try {
       select
         (select count(*)::integer from public.customers) as customer_count,
         (select count(*)::integer from public.workspace_members) as member_count,
+        (select count(*)::integer from public.assistant_operations) as operation_count,
+        (select count(*)::integer from public.assistant_effect_outbox) as outbox_count,
         to_regclass('public.telecom_contracts') is not null as schema_present,
         jsonb_array_length(public.telecom_v1_customer_search_rows(
           'a1000000-0000-4000-8000-000000000001',
@@ -100,6 +130,7 @@ try {
     `)
     assert.deepEqual(verification.rows[0], {
       customer_count: 2, member_count: 2, schema_present: true,
+      operation_count: 1, outbox_count: 1,
       authorized_count: 1, foreign_hidden: true,
     })
     console.log(JSON.stringify({
@@ -107,7 +138,7 @@ try {
       migration_count: migrations.length,
       snapshot_sha256: sha256,
       snapshot_bytes: bytes.byteLength,
-      schema: 'pass', rows: 'pass', scoped_read: 'pass', foreign_denial: 'pass',
+      schema: 'pass', rows: 'pass', assistant_rows: 'pass', scoped_read: 'pass', foreign_denial: 'pass',
       production_backup: false,
     }))
   } finally {
