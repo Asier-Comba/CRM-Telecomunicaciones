@@ -2,7 +2,7 @@
 
 VERIFIED: 2026-09-28 UTC
 BRANCH: w5/backend-platform-v1, based on W2 8de57dc2f84634156655f6c79047d545bbb86a6c
-HEAD: checkpoint 1 published as 5f72864d54d914cd4ab71809643479c17aa8a999; checkpoint 2 pending
+HEAD: checkpoint 2 published as 79845673646556ef30485469a80b1c6151bac85e; checkpoint 3 pending
 PR: #18 draft, stacked against w2/backend-takeover-v1
 CI: pending; local lint/typecheck, 115 bootstrap tests, audit (0 high), build baseline pass
 POSTGRES: native PostgreSQL unavailable in this runner; embedded PGlite zero-to-head 16 migrations and domain/server-read fixtures pass
@@ -12,8 +12,8 @@ DB_READS: customer.search/get/summary, contract.list/get, service.list, line.lis
 RLS: active membership/workspace checked in contract RPCs; embedded tenant denial probes pass; native RLS pending
 STORAGE: not implemented
 DURABILITY: W3 PostgreSQL adapter not implemented; assistant writes disabled
-BACKUP: no tested commercial backup/restore
-PORTABILITY: no local Supabase Auth/PostgREST/Storage evidence
+BACKUP: synthetic PGlite snapshot/restore test only; native encrypted backup and Storage restore pending
+PORTABILITY: versioned local config and guarded synthetic A/B seed; no local Supabase Auth/PostgREST/Storage evidence
 BLOCKERS: native PostgreSQL and Supabase local runtime absent; platform review W4 pending; no real customer data authorized
 NEXT 3: complete portfolio readers; run native PostgreSQL scope tests; publish reproducible config/seed and recovery drill
 

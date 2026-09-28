@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict'
+import { createHash } from 'node:crypto'
 import { readFile, readdir } from 'node:fs/promises'
 import { resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -56,6 +57,61 @@ try {
   assert.match(readerFixture, /rollback;\s*$/i, 'server reader fixture must end with rollback')
   await db.exec(readerFixture)
   console.log('TELECOM SERVER READ RPC ASSERTIONS PASS')
+
+  const seed = await readFile(resolve(root, 'supabase/seeds/synthetic_portfolio.sql'), 'utf8')
+  await db.exec(seed)
+  const scoped = await db.query(`
+    select
+      jsonb_array_length(public.telecom_v1_customer_search_rows(
+        'a1000000-0000-4000-8000-000000000001',
+        'b2000000-0000-4000-8000-000000000001',
+        'Synthetic', null, null, 20, null, null)->'rows') as a_count,
+      public.telecom_v1_customer_get_row(
+        'a1000000-0000-4000-8000-000000000001',
+        'b2000000-0000-4000-8000-000000000001',
+        'd4000000-0000-4000-8000-000000000002') is null as b_hidden
+  `)
+  assert.equal(scoped.rows[0].a_count, 1)
+  assert.equal(scoped.rows[0].b_hidden, true)
+  console.log('SYNTHETIC A/B SEED SCOPE PASS')
+
+  // Embedded-engine recovery probe only: this binary datadir is neither a
+  // PostgreSQL logical backup nor an encrypted offsite Supabase backup.
+  const snapshot = await db.dumpDataDir('none')
+  const bytes = Buffer.from(await snapshot.arrayBuffer())
+  const sha256 = createHash('sha256').update(bytes).digest('hex')
+  assert.equal(createHash('sha256').update(bytes).digest('hex'), sha256)
+  const restored = new PGlite({ loadDataDir: snapshot, extensions: { pgcrypto, btree_gist } })
+  try {
+    const verification = await restored.query(`
+      select
+        (select count(*)::integer from public.customers) as customer_count,
+        (select count(*)::integer from public.workspace_members) as member_count,
+        to_regclass('public.telecom_contracts') is not null as schema_present,
+        jsonb_array_length(public.telecom_v1_customer_search_rows(
+          'a1000000-0000-4000-8000-000000000001',
+          'b2000000-0000-4000-8000-000000000001',
+          'Synthetic',null,null,20,null,null)->'rows') as authorized_count,
+        public.telecom_v1_customer_get_row(
+          'a1000000-0000-4000-8000-000000000001',
+          'b2000000-0000-4000-8000-000000000001',
+          'd4000000-0000-4000-8000-000000000002') is null as foreign_hidden
+    `)
+    assert.deepEqual(verification.rows[0], {
+      customer_count: 2, member_count: 2, schema_present: true,
+      authorized_count: 1, foreign_hidden: true,
+    })
+    console.log(JSON.stringify({
+      kind: 'synthetic_pglite_restore_test_only',
+      migration_count: migrations.length,
+      snapshot_sha256: sha256,
+      snapshot_bytes: bytes.byteLength,
+      schema: 'pass', rows: 'pass', scoped_read: 'pass', foreign_denial: 'pass',
+      production_backup: false,
+    }))
+  } finally {
+    await restored.close()
+  }
 } catch (error) {
   console.error('DISPOSABLE DOMAIN DB FAILURE', error.code, error.message)
   process.exitCode = 1
