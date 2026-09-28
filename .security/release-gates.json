@@ -40,6 +40,39 @@
       ]
     },
     {
+      "id": "backend.telecom_read",
+      "phase": "integration",
+      "severity": "P1",
+      "owners": [
+        "W2",
+        "W4"
+      ],
+      "status": "passed",
+      "requires": [
+        "base.canonical"
+      ],
+      "evidenceRequired": [
+        "import_initial_integrity",
+        "closed_runtime_parser",
+        "tenant_reader_matrix",
+        "cursor_scope_binding",
+        "privileged_rpc_reauthorization"
+      ],
+      "evidenceSatisfied": [
+        "import_initial_integrity",
+        "closed_runtime_parser",
+        "tenant_reader_matrix",
+        "cursor_scope_binding",
+        "privileged_rpc_reauthorization"
+      ],
+      "evidenceRefs": [
+        "pr:#17",
+        "commit:8de57dc2f84634156655f6c79047d545bbb86a6c",
+        "run:#180",
+        "doc:docs/master/SYSTEM_STATE.md"
+      ]
+    },
+    {
       "id": "frontend.read",
       "phase": "integration",
       "severity": "P1",

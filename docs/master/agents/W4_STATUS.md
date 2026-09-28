@@ -1,17 +1,13 @@
-# W4 status — iteration4.2
+# W4 status — iteration5.0
 
-Verified2026-09-27 UTC. CAN_INTEGRATE YES; CAN_STAGE NO; CAN_PRODUCE NO.
-ACCEPTED INTEGRATION BASE: 6b0e30e7444de57100e4d983b3564a0c3b336b2c
+Verified2026-09-28 UTC. CAN_INTEGRATE YES; CAN_STAGE NO; CAN_PRODUCE NO.
+Accepted base:6b0e30e7444de57100e4d983b3564a0c3b336b2c.
 
-W1 onboarding42702 FIXED by reviewed forward migration. Clean quality22 tests/build/audit and both DB runners pass; CI148 secret scan passes.
-W2 Backend takeover reviewed at4fb8619a439e9936c59af8e0673442ede21a8a07 (PR17), descending from accepted6b0e30e with originals preserved. All11 migrations+entire official SQL PASS; shared-trigger42703 FIXED. Four independent positive trigger updates/four scope rewrite denials PASS. Import3/6 cases still fail; READ/date code unchanged. Foundation composition allowed.
-W3@c804acd80f51dd285c8f6e488efa36a8d539e0eb:393 official+6 independent W4 tests PASS; lint/types/build PASS. Previous reconciliation state-only/audit emission seam and result authorization gap FIXED. Missing/wrong atomic acknowledgment denies SUCCESS; 20-way race has one transition/intent in reference model.
-Issue10 remains open ONLY for actual native durable adapter/transaction/process/recovery evidence. Map assertions are not DB evidence. P2 unknown scenario oracle FIXED atfd45ef81898f870d6ded5bedf705a98a50461f19: build,2 targeted official tests,7 independent invalid IDs+positive control PASS; PR9 comment5857166548. No new application P0/P1.
-W4 CI174@840ce6d PASS. PR17 repair handoff5857196083. Fresh reviews published PR9 comment5857101921 and Issue10 comment5857106058.
-W4 owns review/CI/harness/gates only. No product fixes pushed to W1/W2/W3. Production untouched; no main/merge/remote DB operations.
-Authoritative current detail: ../W4_ITERATION_4_2.md, ../SYSTEM_STATE.md, ../W4_PORTABILITY_AUDIT.md and .security/release-gates.json v2.
-All cross-Work findings published on exact GitHub PR/Issue with SHA/repro/acceptance. No Project sync in4.2.
-Next: inspect actual W2 takeover topology/fixes on publication; run stored secure-acceptance cases and native durability adapter suite when implementation exists. Platform credentials/config/real Auth/PostgREST/Storage remain staging gates, not canonical composition blockers.
+W2 PR17@8de57dc2f84634156655f6c79047d545bbb86a6c accepted for composition. CI180 green. PGlite/Node evidence: import creation6/6, lifecycle PASS, READ/date14/14, runtime/repository14/14, server-reader SQL plus independent suspended-member/workspace/anon attacks PASS. Old import-creation and READ/output/date P1s FIXED. Import same-key replay remains unproven because no executable command adapter exists.
+W3@d29c1f455f123f1524b3786736d5ec300c9940ed: Issue10 remains the only assistant P0, pending native durable adapter/process/restart/outbox evidence.
+W5 branch absent at this refresh; no platform review invented.
+service_role: new RPC grants are server-only and each call reauthorizes active actor/workspace; no live route/factory found. Global key exposure and real Auth/PostgREST remain staging gates. Prefer authenticated JWT/auth.uid() execution where viable.
+Dependency Review owner configuration remains open. Production untouched. GitHub evidence: PR17 comment5869245466.
 
 ## Archived iteration4.1 status — SHA-specific history, superseded above
 

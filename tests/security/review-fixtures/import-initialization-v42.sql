@@ -18,7 +18,7 @@ begin
   accepted:=true;
   begin
    execute 'insert into public.import_jobs(workspace_id,import_kind,source_file_ref_id,source_file_digest_hmac,digest_key_version,mapping_schema_version,idempotency_key_id,created_by_user_id,'||c.columns_sql||') values(''20000000-0000-0000-0000-000000000001'',''customers'',gen_random_uuid(),repeat(''a'',64),1,1,gen_random_uuid(),''10000000-0000-0000-0000-000000000001'','||c.values_sql||')';
-  exception when check_violation or raise_exception then accepted:=false;
+  exception when check_violation or raise_exception or object_not_in_prerequisite_state then accepted:=false;
   end;
   if accepted is distinct from c.should_accept then failures:=array_append(failures,c.label); end if;
  end loop;

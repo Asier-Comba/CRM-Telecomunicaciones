@@ -27,3 +27,7 @@ Iteration4.2: w3-reconciliation-v42.test.ts belongs in W3@489eed2/test/ (384 off
 
 At4fb8619, inject `shared-trigger-v42.sql` as the THIRD runner argument after official `supabase/tests/telecom-domain-rls.sql`: four positive record-shape updates and four denied workspace rewrites PASS. The full official domain SQL also passes.
 `import-initialization-v42.sql` is standalone: use as SECOND runner argument in a separate disposable invocation. It creates its own identities, so do not inject it into the official domain fixture. At4fb8619 it still reports three unmet initialization cases.
+
+### PR17 iteration5 acceptance
+
+At8de57dc, `import-initialization-v42.sql` accepts SQLSTATE55000 as the intended creation denial and passes6/6. `domain-read-v42.test.mjs` uses the current authorizer contract and passes14/14. Inject `telecom-reader-v5.sql` after `supabase/tests/telecom-server-read-rpc.sql`; it independently denies service-role reads for suspended member/workspace and denies anonymous execution. Evidence is PGlite/Node, not Supabase Auth/PostgREST.
