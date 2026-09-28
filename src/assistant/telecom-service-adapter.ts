@@ -1,21 +1,30 @@
 import type { TelecomReadServiceV1, ServerReadContextV1 } from './telecom-service-contract.v1.js'
 import { TELECOM_CAPABILITY_CATALOG } from './telecom-catalog.js'
-import { createTelecomReadBoundary, TELECOM_READ_DTO_KINDS, type TelecomReadBoundaryDependencies } from './telecom-read-boundary.js'
+import { createTelecomReadBoundary, projectValidatedTelecomMetadata, TELECOM_READ_DTO_KINDS, type ValidatedRead, type TelecomReadBoundaryDependencies } from './telecom-read-boundary.js'
+import type { SafeReadResult } from './semantic-read-executor.js'
 import { projectCollectionEvidence, type GroundingEntityKind, type CollectionEvidence } from './grounding.js'
 import type { ReferenceScope } from './session-references.js'
 import type { JsonObject } from './telecom-dto-parser.js'
 
-export const TELECOM_SOURCE_SHA = '8de57dc2f84634156655f6c79047d545bbb86a6c'
-const implemented = new Set(['customer.search', 'customer.get', 'customer.summary'])
+export const TELECOM_SOURCE_SHA = '79845673646556ef30485469a80b1c6151bac85e'
+export const TELECOM_CHECKPOINTS: Readonly<Record<string, readonly string[]>> = {
+  '8de57dc2f84634156655f6c79047d545bbb86a6c': ['customer.search', 'customer.get', 'customer.summary'],
+  '79845673646556ef30485469a80b1c6151bac85e': ['customer.search', 'customer.get', 'customer.summary', 'contract.list', 'contract.get', 'service.list', 'line.list'],
+}
 /** Snapshot is data only; availability does not grant execution permission. */
-export const TELECOM_INTEGRATION_MATRIX = TELECOM_CAPABILITY_CATALOG.map(c => ({
+export function telecomIntegrationMatrix(sourceSha: string) {
+  if (!Object.hasOwn(TELECOM_CHECKPOINTS, sourceSha)) throw new Error('unreviewed_checkpoint')
+  const implemented = new Set(TELECOM_CHECKPOINTS[sourceSha])
+  return TELECOM_CAPABILITY_CATALOG.map(c => ({
   operation: c.operation, capability: c.name, serviceMethod: c.serviceMethod,
   expectedInput: c.inputSchema, expectedOutput: c.outputSchema.ref,
   parser: TELECOM_READ_DTO_KINDS[c.name], semanticIntent: c.description,
   groundingProjection: c.operation === 'customer.summary' ? 'customer360_sections' : c.operation === 'dashboard.get' ? 'dashboard_sections' : 'collection_evidence',
   integrationState: implemented.has(c.operation) ? 'repository_published_route_disabled' : 'repository_unavailable',
-  sourceSha: TELECOM_SOURCE_SHA,
-}))
+    sourceSha,
+  }))
+}
+export const TELECOM_INTEGRATION_MATRIX = telecomIntegrationMatrix(TELECOM_SOURCE_SHA)
 
 type Dependencies = Omit<TelecomReadBoundaryDependencies, 'rawRead'> & {
   /** Must be AuthorizedTelecomReadServiceV1, NEVER its raw repository. */
@@ -25,6 +34,7 @@ export type ReadEvidence = {
   operation: string
   state: 'available' | 'not_found' | 'not_authorized' | 'unavailable' | 'error'
   sections: Readonly<Record<string, CollectionEvidence>>
+  relations: Readonly<Record<string, { customerId?: string; contractId?: string; serviceId?: string }>>
 }
 const object = (v: unknown): v is JsonObject => !!v && typeof v === 'object' && !Array.isArray(v)
 const same = (a: ReferenceScope, b: ReferenceScope): boolean =>
@@ -46,12 +56,8 @@ export function createAuthorizedTelecomAdapter(deps: Dependencies) {
     const call = deps.service[method] as (context: ServerReadContextV1, input: unknown) => Promise<unknown>
     return call.call(deps.service, context, input)
   } })
-  return {
-    reader: boundary.reader,
-    async readEvidence(scope: ReferenceScope, capability: string, input: unknown): Promise<ReadEvidence> {
-      const captured = { ...scope }
-      const read = await boundary.readDto(captured, capability, input)
-      const failure = (state: ReadEvidence['state']): ReadEvidence => ({ operation: capability, state, sections: {} })
+    function projectEvidence(captured: ReferenceScope, capability: string, read: ValidatedRead): ReadEvidence {
+      const failure = (state: ReadEvidence['state']): ReadEvidence => ({ operation: capability, state, sections: {}, relations: {} })
       try {
         if (!same(captured, deps.currentScope()) || read.status === 'forbidden') return failure('not_authorized')
         if (read.status !== 'ok') return failure('error')
@@ -59,10 +65,20 @@ export function createAuthorizedTelecomAdapter(deps: Dependencies) {
         const state = dto.result ?? dto.source_state
         if (state !== 'found' && state !== 'available') return failure(state === 'not_found' || state === 'not_authorized' || state === 'unavailable' ? state : 'error')
         const sections: Record<string, CollectionEvidence> = {}
+        const relations: Record<string, { customerId?: string; contractId?: string; serviceId?: string }> = {}
         const add = (key: string, value: unknown, kind: GroundingEntityKind) => {
           const evidence = projectCollectionEvidence(value, kind, captured.scopeEpoch, 50)
           // Model context needs no protected identifiers, including masked ones.
           evidence.rows = evidence.rows.map(row => ({ ...row, protected_fields: {} }))
+          if (object(value) && Array.isArray(value.items)) for (const row of value.items) {
+            if (!object(row) || typeof row.id !== 'string' || !evidence.rows.some(r => r.id === row.id)) continue
+            const links: { customerId?: string; contractId?: string; serviceId?: string } = {}
+            for (const [field, target] of [['customer', 'customerId'], ['contract', 'contractId'], ['service', 'serviceId']] as const) {
+              const ref = row[field]
+              if (object(ref) && typeof ref.id === 'string') links[target] = ref.id
+            }
+            relations[`${kind}:${row.id}`] = links
+          }
           if (object(dto.freshness) && dto.freshness.kind === 'stale') {
             evidence.freshness = 'stale'; evidence.can_assert_empty = false
           }
@@ -93,8 +109,22 @@ export function createAuthorizedTelecomAdapter(deps: Dependencies) {
           const kind = TELECOM_READ_DTO_KINDS[capability]!.split(':')[1] as GroundingEntityKind
           add('items', dto.result === 'found' ? one(dto.data) : dto, kind)
         }
-        return { operation: capability, state: 'available', sections }
+        return { operation: capability, state: 'available', sections, relations }
       } catch { return failure('error') }
+    }
+  async function readWithEvidence(scope: ReferenceScope, capability: string, input: unknown): Promise<{ selection: SafeReadResult; evidence: ReadEvidence }> {
+    const captured = { ...scope }
+    const read = await boundary.readDto(captured, capability, input)
+    const evidence = projectEvidence(captured, capability, read)
+    const selection: SafeReadResult = evidence.state === 'not_authorized' ? { status: 'forbidden' }
+      : read.status === 'ok' ? projectValidatedTelecomMetadata(capability, read.value, captured.scopeEpoch) : { status: 'failure' }
+    return { selection, evidence }
+  }
+  return {
+    reader: boundary.reader,
+    readWithEvidence,
+    async readEvidence(scope: ReferenceScope, capability: string, input: unknown): Promise<ReadEvidence> {
+      return (await readWithEvidence(scope, capability, input)).evidence
     },
   }
 }

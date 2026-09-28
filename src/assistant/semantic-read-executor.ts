@@ -21,6 +21,8 @@ export type ReadExecutionContext = {
    * Resolve the current server scope epoch before/after reads, never model state.
    */
   currentScope?: () => ReferenceScope
+  /** Live server clock; production slices always supply it. */
+  clock?: () => number
 }
 export type ReadNodeOutcome = {
   nodeId: string; resultAlias: string
@@ -55,6 +57,10 @@ export class SemanticReadExecutor {
     const scope = { ...context.scope }
     const currentTurn = context.currentTurn
     const now = context.now
+    const liveNow = (): number => {
+      const value = context.clock?.() ?? now
+      return Number.isSafeInteger(value) && value >= now ? value : Number.NaN
+    }
     const audiences = new Set(context.allowedDashboardAudiences)
     const currentScope = context.currentScope
     const unchangedScope = (): boolean => {
@@ -83,7 +89,7 @@ export class SemanticReadExecutor {
       for (const binding of node.entityBinding) {
         const kind = BINDING_KINDS[binding.targetField]!
         if (binding.source.type === 'reference') {
-          const entity = this.references.resolveEntity(binding.source.handle, scope, kind, currentTurn, now)
+          const entity = this.references.resolveEntity(binding.source.handle, scope, kind, currentTurn, liveNow())
           if (!entity) { outcome.status = 'invalid_reference'; bindingFailed = true; break }
           args[binding.targetField] = entity.id
         } else {
@@ -103,11 +109,20 @@ export class SemanticReadExecutor {
       try {
         result = await this.reader({ ...scope }, node.capability, { ...args })
         if (!unchangedScope()) return scopeChanged()
+        if (node.entityBinding.some(binding => binding.source.type === 'reference' && !this.references.resolveEntity(binding.source.handle, scope, BINDING_KINDS[binding.targetField]!, currentTurn, liveNow()))) {
+          outcome.status = 'invalid_reference'; continue
+        }
         if (!validResult(result, node.capability, scope.scopeEpoch)) continue
         result = structuredClone(result)
       } catch { continue }
       results.set(node.id, result)
-      if (result.status !== 'ok') { outcome.status = result.status; continue }
+      if (result.status !== 'ok') {
+        if (result.status === 'forbidden') for (const binding of node.entityBinding) {
+          const id = args[binding.targetField]
+          if (typeof id === 'string') this.references.revokeEntity(scope, BINDING_KINDS[binding.targetField]!, id)
+        }
+        outcome.status = result.status; continue
+      }
       if (node.capability === 'crm.dashboard.get') {
         outcome.status = result.freshness === 'stale' ? 'stale' : result.completeness === 'partial' ? 'partial' : 'read'
         continue
@@ -118,7 +133,7 @@ export class SemanticReadExecutor {
       if (outcome.status === 'multiple') {
         const candidates: NonNullable<ReadNodeOutcome['clarification']>['candidates'] = []
         for (const entity of result.entities) {
-          const reference = this.references.issueEntity(scope, { kind: entity.kind, id: entity.id, sourceTurn: currentTurn }, now)
+          const reference = this.references.issueEntity(scope, { kind: entity.kind, id: entity.id, sourceTurn: currentTurn }, liveNow())
           if (!reference) { candidates.length = 0; outcome.status = 'failure'; results.delete(node.id); break }
           candidates.push({ reference, kind: entity.kind, label: entity.label })
         }

@@ -104,7 +104,7 @@ export function createTelecomReadBoundary(deps: TelecomReadBoundaryDependencies)
     try {
       if (!sameScope(snapshot, deps.currentScope())) return { status: 'forbidden' }
       if (result.status !== 'ok') return result
-      return metadata(capability, result.value, snapshot.scopeEpoch)
+      return projectValidatedTelecomMetadata(capability, result.value, snapshot.scopeEpoch)
     } catch { return { status: 'failure' } }
   }
   return { readDto, reader }
@@ -121,7 +121,8 @@ function nestedState(value: JsonValue, state: { stale: boolean; partial: boolean
   }
   for (const child of Object.values(value)) nestedState(child, state)
 }
-function metadata(capability: string, dto: Readonly<JsonObject>, epoch: string): SafeReadResult {
+/** Server-internal projection. Caller MUST use the closed authorized DTO parser first. */
+export function projectValidatedTelecomMetadata(capability: string, dto: Readonly<JsonObject>, epoch: string): SafeReadResult {
   if (dto.source_state === 'not_authorized' || dto.result === 'not_authorized') return { status: 'forbidden' }
   if (['unsupported', 'unavailable', 'error'].includes(String(dto.source_state)) || ['unavailable', 'error'].includes(String(dto.result))) return { status: 'failure' }
   const flags = { stale: false, partial: false }

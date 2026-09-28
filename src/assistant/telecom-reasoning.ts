@@ -21,18 +21,19 @@ export function countSection(read: ReadEvidence, section: string): CountClaim {
 }
 
 export function earliestRenewal(read: ReadEvidence): {
-  date: string | null; renewalIds: string[]; certainty: 'exact' | 'among_returned' | 'unknown'; citations: EvidenceCitation[]
+  date: string | null; renewalIds: string[]; contractIds: string[]; certainty: 'exact' | 'among_returned' | 'unknown'; citations: EvidenceCitation[]
 } {
   const source = read.sections.nearest_renewal ?? read.sections.items
   const section = read.sections.nearest_renewal ? 'nearest_renewal' : 'items'
-  const unknown = { date: null, renewalIds: [], certainty: 'unknown' as const, citations: [] }
+  const unknown = { date: null, renewalIds: [], contractIds: [], certainty: 'unknown' as const, citations: [] }
   if (read.state !== 'available' || !usable(source)) return unknown
   const candidates = source.rows.filter(r => r.kind === 'renewal' && ['upcoming', 'overdue'].includes(String(r.fields.status)))
   const dates = candidates.map(r => r.fields.target_on).filter((x): x is string => typeof x === 'string')
   if (!dates.length || dates.length !== candidates.length) return unknown
   const date = dates.sort()[0]!
   const ids = candidates.filter(r => r.fields.target_on === date).map(r => r.id)
-  return { date, renewalIds: ids, certainty: complete(source) ? 'exact' : 'among_returned', citations: [cite(read, section, 'target_on', ids)] }
+  const contractIds = [...new Set(ids.map(id => read.relations[`renewal:${id}`]?.contractId).filter((id): id is string => typeof id === 'string'))]
+  return { date, renewalIds: ids, contractIds, certainty: complete(source) ? 'exact' : 'among_returned', citations: [cite(read, section, 'target_on', ids)] }
 }
 
 /** Bounded join over customer summaries supplied by authorized reads. Positive
