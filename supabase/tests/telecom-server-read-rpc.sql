@@ -24,7 +24,8 @@ insert into auth.users (
   ('10000000-0000-0000-0000-000000000001', '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated', 'reader-a@example.invalid', '', now(), '{}', '{}', now(), now()),
   ('10000000-0000-0000-0000-000000000002', '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated', 'reader-b@example.invalid', '', now(), '{}', '{}', now(), now()),
   ('10000000-0000-0000-0000-000000000003', '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated', 'reader-suspended@example.invalid', '', now(), '{}', '{}', now(), now()),
-  ('10000000-0000-0000-0000-000000000004', '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated', 'reader-removed@example.invalid', '', now(), '{}', '{}', now(), now());
+  ('10000000-0000-0000-0000-000000000004', '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated', 'reader-removed@example.invalid', '', now(), '{}', '{}', now(), now()),
+  ('10000000-0000-0000-0000-000000000005', '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated', 'reader-member@example.invalid', '', now(), '{}', '{}', now(), now());
 
 insert into public.workspaces (id, name, slug, status) values
   ('20000000-0000-0000-0000-000000000001', 'Reader Workspace A', 'reader-workspace-a', 'active'),
@@ -35,6 +36,10 @@ insert into public.workspace_members (id, workspace_id, user_id, role, status) v
   ('30000000-0000-0000-0000-000000000001', '20000000-0000-0000-0000-000000000001', '10000000-0000-0000-0000-000000000001', 'owner', 'active'),
   ('30000000-0000-0000-0000-000000000002', '20000000-0000-0000-0000-000000000002', '10000000-0000-0000-0000-000000000002', 'owner', 'active'),
   ('30000000-0000-0000-0000-000000000003', '20000000-0000-0000-0000-000000000003', '10000000-0000-0000-0000-000000000003', 'owner', 'active');
+insert into public.workspace_members (id,workspace_id,user_id,role,status) values
+  ('30000000-0000-0000-0000-000000000005',
+  '20000000-0000-0000-0000-000000000001',
+  '10000000-0000-0000-0000-000000000005','member','active');
 
 update public.profiles
    set full_name = 'Synthetic Reader A'
@@ -56,6 +61,22 @@ insert into public.contacts (
   '40000000-0000-0000-0000-000000000001', 'Synthetic Contact',
   'contact@example.invalid', '+34-000-000-000', true, 'active',
   '10000000-0000-0000-0000-000000000001'
+);
+
+insert into public.documents (
+  id,workspace_id,customer_id,document_kind,file_name,media_type,size_bytes,
+  storage_path,created_by_user_id
+) values (
+  '80000000-0000-0000-0000-000000000001',
+  '20000000-0000-0000-0000-000000000001',
+  '40000000-0000-0000-0000-000000000001','contract',
+  'synthetic.pdf','application/pdf',12,
+  '20000000-0000-0000-0000-000000000001/documents/80000000-0000-0000-0000-000000000001/81000000-0000-0000-0000-000000000001',
+  '10000000-0000-0000-0000-000000000001'
+);
+insert into storage.objects (id,bucket_id,name) values (
+  '81000000-0000-0000-0000-000000000001','telecom-documents',
+  '20000000-0000-0000-0000-000000000001/documents/80000000-0000-0000-0000-000000000001/81000000-0000-0000-0000-000000000001'
 );
 
 insert into public.telecom_operators (id, workspace_id, code, display_name, created_by_user_id)
@@ -141,6 +162,19 @@ insert into public.activities (
   '40000000-0000-0000-0000-000000000001', 'system', 'system.imported', 'system',
   'system', 'synthetic:summary:1', now() - interval '1 hour', null
 );
+
+insert into public.opportunity_stages (id,workspace_id,code,display_name,position,created_by_user_id)
+values ('70000000-0000-0000-0000-000000000001',
+  '20000000-0000-0000-0000-000000000001','synthetic-stage','Synthetic Stage',1,
+  '10000000-0000-0000-0000-000000000001');
+insert into public.opportunities (
+  id,workspace_id,customer_id,stage_id,title,status,owner_user_id,next_follow_up_at,created_by_user_id
+) values ('71000000-0000-0000-0000-000000000001',
+  '20000000-0000-0000-0000-000000000001',
+  '40000000-0000-0000-0000-000000000001',
+  '70000000-0000-0000-0000-000000000001',
+  'Synthetic Opportunity','open','10000000-0000-0000-0000-000000000001',
+  now()+interval '1 day','10000000-0000-0000-0000-000000000001');
 
 set local role authenticated;
 do $$
@@ -308,5 +342,167 @@ begin
 end;
 $$;
 
+do $$
+declare item jsonb; page jsonb; denied boolean := false;
+begin
+  item := public.telecom_v1_contract_get(
+    '10000000-0000-0000-0000-000000000001',
+    '20000000-0000-0000-0000-000000000001',
+    '60000000-0000-0000-0000-000000000001', 'scope-epoch-0001');
+  if item->>'id' <> '60000000-0000-0000-0000-000000000001'
+    or item#>>'{external_reference,visibility}' <> 'not_available'
+    or item#>>'{customer,display_name}' <> 'Synthetic Alpha Telecom' then
+    raise exception 'contract projection mismatch';
+  end if;
+  page := public.telecom_v1_contract_list(
+    '10000000-0000-0000-0000-000000000001',
+    '20000000-0000-0000-0000-000000000001', 'scope-epoch-0001',
+    null,null,null,'active',null,null,1,null,null);
+  if jsonb_array_length(page->'rows') <> 1 or (page->>'has_more')::boolean then
+    raise exception 'contract list page mismatch';
+  end if;
+  if public.telecom_v1_contract_get(
+    '10000000-0000-0000-0000-000000000001',
+    '20000000-0000-0000-0000-000000000001',
+    '60000000-0000-0000-0000-000000000002', 'scope-epoch-0001') is not null then
+    raise exception 'contract get leaked a foreign row';
+  end if;
+  begin
+    perform public.telecom_v1_contract_get(
+      '10000000-0000-0000-0000-000000000002',
+      '20000000-0000-0000-0000-000000000001',
+      '60000000-0000-0000-0000-000000000001', 'scope-epoch-0001');
+  exception when sqlstate '42501' then denied := true;
+  end;
+  if not denied then raise exception 'foreign actor accessed contracts'; end if;
+end;
+$$;
+
+do $$
+declare services jsonb; lines jsonb; denied boolean := false;
+begin
+  services := public.telecom_v1_service_list(
+    '10000000-0000-0000-0000-000000000001',
+    '20000000-0000-0000-0000-000000000001', 'scope-epoch-0001',
+    '40000000-0000-0000-0000-000000000001',null,null,'active',1,null,null);
+  lines := public.telecom_v1_line_list(
+    '10000000-0000-0000-0000-000000000001',
+    '20000000-0000-0000-0000-000000000001', 'scope-epoch-0001',
+    '40000000-0000-0000-0000-000000000001',null,'active',1,null,null);
+  if jsonb_array_length(services->'rows') <> 1
+    or services#>>'{rows,0,display_name}' <> 'Synthetic Mobile Service'
+    or jsonb_array_length(lines->'rows') <> 1
+    or lines#>>'{rows,0,identifier,visibility}' <> 'not_available' then
+    raise exception 'portfolio service/line projection mismatch';
+  end if;
+  begin
+    perform public.telecom_v1_line_list(
+      '10000000-0000-0000-0000-000000000002',
+      '20000000-0000-0000-0000-000000000001', 'scope-epoch-0001',
+      null,null,null,1,null,null);
+  exception when sqlstate '42501' then denied := true;
+  end;
+  if not denied then raise exception 'foreign actor accessed lines'; end if;
+end;
+$$;
+
+do $$
+declare activities jsonb; opportunities jsonb;
+begin
+  activities := public.telecom_v1_activity_list(
+    '10000000-0000-0000-0000-000000000001',
+    '20000000-0000-0000-0000-000000000001',null,null,null,1,null,null);
+  opportunities := public.telecom_v1_opportunity_list(
+    '10000000-0000-0000-0000-000000000001',
+    '20000000-0000-0000-0000-000000000001',null,null,null,null,'open',1,null,null);
+  if jsonb_array_length(activities->'rows') <> 1
+    or activities#>>'{rows,0,safe_summary}' <> 'Importación registrada'
+    or jsonb_array_length(opportunities->'rows') <> 1
+    or opportunities#>>'{rows,0,title}' <> 'Synthetic Opportunity' then
+    raise exception 'activity/opportunity projections mismatch';
+  end if;
+end;
+$$;
+
+do $$
+declare tasks jsonb; meetings jsonb;
+begin
+  tasks := public.telecom_v1_task_list(
+    '10000000-0000-0000-0000-000000000001',
+    '20000000-0000-0000-0000-000000000001',
+    '40000000-0000-0000-0000-000000000001',null,null,null,'pending',1,null,null);
+  meetings := public.telecom_v1_meeting_list(
+    '10000000-0000-0000-0000-000000000001',
+    '20000000-0000-0000-0000-000000000001',
+    '40000000-0000-0000-0000-000000000001',null,null,null,'scheduled',1,null,null);
+  if jsonb_array_length(tasks->'rows') <> 1
+    or tasks#>>'{rows,0,title}' <> 'Synthetic Follow-up'
+    or jsonb_array_length(meetings->'rows') <> 1
+    or meetings#>>'{rows,0,title}' <> 'Synthetic Meeting' then
+    raise exception 'task/meeting projection mismatch';
+  end if;
+end;
+$$;
+
+do $$
+declare renewals jsonb; permanence jsonb;
+begin
+  renewals := public.telecom_v1_renewal_list(
+    '10000000-0000-0000-0000-000000000001',
+    '20000000-0000-0000-0000-000000000001',
+    '40000000-0000-0000-0000-000000000001',null,null,1,null,null);
+  permanence := public.telecom_v1_permanence_list(
+    '10000000-0000-0000-0000-000000000001',
+    '20000000-0000-0000-0000-000000000001',
+    '40000000-0000-0000-0000-000000000001',null,null,1,null,null);
+  if jsonb_array_length(renewals->'rows') <> 1
+    or renewals#>>'{rows,0,status}' <> 'upcoming'
+    or jsonb_array_length(permanence->'rows') <> 1
+    or permanence#>>'{rows,0,status}' <> 'active' then
+    raise exception 'renewal/permanence projection mismatch';
+  end if;
+end;
+$$;
+
+do $$
+declare denied boolean := false;
+begin
+  if public.telecom_v1_dashboard_authorize(
+    '10000000-0000-0000-0000-000000000001',
+    '20000000-0000-0000-0000-000000000001','personal') is not true
+    or public.telecom_v1_dashboard_authorize(
+    '10000000-0000-0000-0000-000000000001',
+    '20000000-0000-0000-0000-000000000001','workspace') is not true then
+    raise exception 'authorized dashboard scope denied';
+  end if;
+  begin
+    perform public.telecom_v1_dashboard_authorize(
+      '10000000-0000-0000-0000-000000000002',
+      '20000000-0000-0000-0000-000000000001','workspace');
+  exception when sqlstate '42501' then denied := true;
+  end;
+  if not denied then raise exception 'foreign actor selected workspace dashboard'; end if;
+end;
+$$;
+
+reset role;
+set local role authenticated;
+select set_config('request.jwt.claim.sub','10000000-0000-0000-0000-000000000001',true);
+select pg_temp.assert_true(
+  (select count(*)=1 from storage.objects where bucket_id='telecom-documents'),
+  'active member cannot see linked private object');
+select set_config('request.jwt.claim.sub','10000000-0000-0000-0000-000000000002',true);
+select pg_temp.assert_true(
+  (select count(*)=0 from storage.objects where bucket_id='telecom-documents'),
+  'foreign member can see private object');
+select set_config('request.jwt.claim.sub','10000000-0000-0000-0000-000000000005',true);
+select pg_temp.assert_true(
+  (select count(*)=0 from storage.objects where bucket_id='telecom-documents'),
+  'ordinary workspace member can see private object');
+reset role;
+set local role anon;
+select pg_temp.assert_true(
+  (select count(*)=0 from storage.objects where bucket_id='telecom-documents'),
+  'anonymous can see private object');
 reset role;
 rollback;

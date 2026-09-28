@@ -1,18 +1,29 @@
 # Backup and disaster recovery baseline
 
-RPO target: 24 hours initially; 1 hour for database changes once paying customers are onboarded.
-RTO target: 8 hours initially; 4 hours after the first successful timed restore exercise.
+RPO/RTO: **not approved**. The previously proposed 24h/8h and 1h/4h tiers
+below are planning candidates; a human owner must select the service targets
+after a timed native PostgreSQL and Supabase recovery exercise.
 
-These are targets until a restore test produces evidence.
+## Current evidence (W5, 2026-09-28)
+
+| Component | State | Evidence / next requirement |
+|---|---|---|
+| 24 migrations and synthetic A/B fixture | TESTED in disposable PGlite | Zero-to-head and scoped reader/Storage-policy/durable-schema fixture; this is embedded PostgreSQL only |
+| Synthetic in-memory PGlite snapshot/restore | TESTED, TEST ONLY | SHA-256, fresh embedded process, schema, rows and scoped read/foreign denial; no persisted or encrypted dump |
+| Native PostgreSQL logical backup/restore | TESTED, TEST ONLY | CI #214 ran `scripts/security/native-postgres/test-zero-to-head.sh` on disposable PostgreSQL 16: checksummed synthetic dump, fresh database, schema/rows/RLS/scope passed; no encryption/offsite, Auth or real Storage objects |
+| Supabase Auth users and platform settings | PROVIDER-DEPENDENT | Inventory and separate Auth recovery test; database-only dump cannot assert provider recovery |
+| Storage objects | PLANNED | Separate object inventory, content hashes, copy/restore and orphan/missing-object reconciliation |
+| Backup encryption and offsite retention | PLANNED | Approved external KMS/secret, encryption before transfer, rotation and independent failure domain |
+| Traffic switch and recovery objectives | HUMAN DECISION | No production traffic switch is part of the synthetic drill |
 
 ## Scope and retention
 
 | Asset | Backup | Initial frequency | Retention | Access |
 |---|---|---|---|---|
-| PostgreSQL schema and data | Provider PITR where available plus encrypted logical backup | Daily; PITR continuous when enabled | 30 daily, 12 monthly | Two named production operators |
-| Supabase Storage | Versioned/copy backup including object metadata | Daily | 30 daily, 12 monthly | Two named production operators |
+| PostgreSQL schema and data | Provider PITR where available plus encrypted logical backup | Proposed daily; PITR continuous when enabled | Proposed 30 daily, 12 monthly | Two named production operators |
+| Supabase Storage | Versioned/copy backup including object metadata | Proposed daily | Proposed 30 daily, 12 monthly | Two named production operators |
 | Code/config | GitHub branches, tags and reviewed IaC | Every change | Repository history plus release tags | Repository roles |
-| n8n workflows | Encrypted export of workflows and non-secret configuration | After change and daily | 30 daily, 12 monthly | Integration operators |
+| n8n workflows | Encrypted export of workflows and non-secret configuration | Proposed after change and daily | Proposed 30 daily, 12 monthly | Integration operators |
 | Secrets | Secret-manager recovery/rotation procedure, not plaintext exports | Provider capability | Per provider policy | Break-glass operators |
 
 Backups must use a separate failure domain and encryption key policy from the primary service. Backup jobs emit metadata only: asset, timestamp, version, byte count/checksum and success/failure.

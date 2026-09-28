@@ -1,9 +1,16 @@
 import type {
   CollectionEnvelopeV1,
+  ContractListInputV1,
   CustomerCompanyV1,
   CustomerSearchInputV1,
+  LineListInputV1,
+  MeetingListInputV1,
+  OpportunityListInputV1,
   ReadOneResponseV1,
   ServerReadContextV1,
+  ServiceListInputV1,
+  TaskListInputV1,
+  WindowedListInputV1,
 } from '../contracts/telecom-v1'
 import type { TelecomCursorBindingV1, TelecomCursorCodecV1 } from './telecom-cursor-v1'
 import type { TelecomReadRepositoryV1 } from './telecom-read-service-v1'
@@ -253,15 +260,234 @@ export class SupabaseTelecomReadRepositoryV1 implements TelecomReadRepositoryV1 
       error: null,
     }
   }
-  contractList(context: ServerReadContextV1) { return Promise.resolve(unavailableCollection(context)) }
-  contractGet(context: ServerReadContextV1) { return Promise.resolve(unavailableOne(context)) }
-  serviceList(context: ServerReadContextV1) { return Promise.resolve(unavailableCollection(context)) }
-  lineList(context: ServerReadContextV1) { return Promise.resolve(unavailableCollection(context)) }
-  renewalList(context: ServerReadContextV1) { return Promise.resolve(unavailableCollection(context)) }
-  permanenceList(context: ServerReadContextV1) { return Promise.resolve(unavailableCollection(context)) }
-  taskList(context: ServerReadContextV1) { return Promise.resolve(unavailableCollection(context)) }
-  meetingList(context: ServerReadContextV1) { return Promise.resolve(unavailableCollection(context)) }
-  activityList(context: ServerReadContextV1) { return Promise.resolve(unavailableCollection(context)) }
-  opportunityList(context: ServerReadContextV1) { return Promise.resolve(unavailableCollection(context)) }
-  dashboardGet(context: ServerReadContextV1) { return Promise.resolve(unavailableOne(context)) }
+  async contractList(context: ServerReadContextV1, input: ContractListInputV1): Promise<unknown> {
+    const binding: TelecomCursorBindingV1 = {
+      actorId: context.actor_id, workspaceId: context.workspace_id, scopeEpoch: context.scope_epoch,
+      operation: 'contract.list',
+      filter: JSON.stringify([
+        input.customer_id ?? null, input.operator_id ?? null, input.assignee_id ?? null,
+        input.status ?? null, input.commitment_from ?? null, input.commitment_to ?? null, input.limit,
+      ]),
+    }
+    const cursor = input.continuation === null ? null : await this.#cursor.consume(binding, input.continuation)
+    if (input.continuation !== null && cursor === null) throw new Error('invalid contract continuation')
+    const response = await this.#client.rpc('telecom_v1_contract_list', {
+      p_actor_id: context.actor_id, p_workspace_id: context.workspace_id, p_scope_epoch: context.scope_epoch,
+      p_customer_id: input.customer_id ?? null, p_operator_id: input.operator_id ?? null,
+      p_assignee_id: input.assignee_id ?? null, p_status: input.status ?? null,
+      p_commitment_from: input.commitment_from ?? null, p_commitment_to: input.commitment_to ?? null,
+      p_limit: input.limit, p_after_created_at: cursor?.createdAt ?? null, p_after_id: cursor?.id ?? null,
+    })
+    if (response.error !== null || !record(response.data)
+      || !exact(response.data, ['rows', 'has_more', 'next_created_at', 'next_id'])
+      || !Array.isArray(response.data.rows) || response.data.rows.length > input.limit
+      || typeof response.data.has_more !== 'boolean') throw new Error('invalid contract list result')
+    const { rows, has_more: hasMore, next_created_at: nextCreatedAt, next_id: nextId } = response.data
+    if (hasMore && rows.length === 0
+      || hasMore !== (nextCreatedAt !== null && nextId !== null)
+      || nextCreatedAt !== null && !isStrictInstantV1(nextCreatedAt)
+      || nextId !== null && (typeof nextId !== 'string' || !UUID.test(nextId))) {
+      throw new Error('invalid contract continuation row')
+    }
+    const continuation = hasMore
+      ? await this.#cursor.issue(binding, { createdAt: nextCreatedAt as string, id: nextId as string }) : null
+    const asOf = this.#now()
+    if (!isStrictInstantV1(asOf)) throw new Error('invalid repository clock')
+    return {
+      contract_version: VERSION, scope_epoch: context.scope_epoch, source_state: 'available',
+      permission: 'authorized', items: rows,
+      completeness: hasMore ? { kind: 'partial', has_more: true } : { kind: 'complete' },
+      continuation, freshness: { kind: 'fresh', as_of: asOf }, error: null,
+    }
+  }
+
+  async contractGet(context: ServerReadContextV1, input: { contract_id: string }): Promise<unknown> {
+    const response = await this.#client.rpc('telecom_v1_contract_get', {
+      p_actor_id: context.actor_id, p_workspace_id: context.workspace_id,
+      p_scope_epoch: context.scope_epoch, p_contract_id: input.contract_id,
+    })
+    if (response.error !== null) throw new Error('contract get unavailable')
+    if (response.data === null) {
+      return { contract_version: VERSION, scope_epoch: context.scope_epoch, result: 'not_found', data: null, freshness: null, error: null }
+    }
+    const asOf = this.#now()
+    if (!isStrictInstantV1(asOf)) throw new Error('invalid repository clock')
+    return {
+      contract_version: VERSION, scope_epoch: context.scope_epoch, result: 'found',
+      data: response.data, freshness: { kind: 'fresh', as_of: asOf }, error: null,
+    }
+  }
+  async #portfolioPage(
+    context: ServerReadContextV1,
+    input: { limit: number; continuation: string | null },
+    operation: 'service.list' | 'line.list' | 'activity.list' | 'opportunity.list'
+      | 'task.list' | 'meeting.list' | 'renewal.list' | 'permanence.list',
+    filter: readonly unknown[],
+    parameters: Record<string, unknown>,
+  ): Promise<unknown> {
+    const binding: TelecomCursorBindingV1 = {
+      actorId: context.actor_id, workspaceId: context.workspace_id, scopeEpoch: context.scope_epoch,
+      operation, filter: JSON.stringify([...filter, input.limit]),
+    }
+    const cursor = input.continuation === null ? null : await this.#cursor.consume(binding, input.continuation)
+    if (input.continuation !== null && cursor === null) throw new Error('invalid portfolio continuation')
+    const rpcName = {
+      'service.list': 'telecom_v1_service_list', 'line.list': 'telecom_v1_line_list',
+      'activity.list': 'telecom_v1_activity_list', 'opportunity.list': 'telecom_v1_opportunity_list',
+      'task.list': 'telecom_v1_task_list', 'meeting.list': 'telecom_v1_meeting_list',
+      'renewal.list': 'telecom_v1_renewal_list', 'permanence.list': 'telecom_v1_permanence_list',
+    }[operation]
+    const response = await this.#client.rpc(rpcName, {
+      p_actor_id: context.actor_id, p_workspace_id: context.workspace_id,
+      ...(operation === 'service.list' || operation === 'line.list' ? { p_scope_epoch: context.scope_epoch } : {}),
+      ...parameters, p_limit: input.limit,
+      ...(operation === 'activity.list'
+        ? { p_after_occurred_at: cursor?.createdAt ?? null }
+        : { p_after_created_at: cursor?.createdAt ?? null }),
+      p_after_id: cursor?.id ?? null,
+    })
+    if (response.error !== null || !record(response.data)
+      || !exact(response.data, ['rows', 'has_more', 'next_created_at', 'next_id'])
+      || !Array.isArray(response.data.rows) || response.data.rows.length > input.limit
+      || typeof response.data.has_more !== 'boolean') throw new Error('invalid portfolio page')
+    const { rows, has_more: hasMore, next_created_at: nextCreatedAt, next_id: nextId } = response.data
+    if (hasMore && rows.length === 0
+      || hasMore !== (nextCreatedAt !== null && nextId !== null)
+      || nextCreatedAt !== null && !isStrictInstantV1(nextCreatedAt)
+      || nextId !== null && (typeof nextId !== 'string' || !UUID.test(nextId))) {
+      throw new Error('invalid portfolio cursor row')
+    }
+    const continuation = hasMore
+      ? await this.#cursor.issue(binding, { createdAt: nextCreatedAt as string, id: nextId as string }) : null
+    const asOf = this.#now()
+    if (!isStrictInstantV1(asOf)) throw new Error('invalid repository clock')
+    return {
+      contract_version: VERSION, scope_epoch: context.scope_epoch, source_state: 'available',
+      permission: 'authorized', items: rows,
+      completeness: hasMore ? { kind: 'partial', has_more: true } : { kind: 'complete' },
+      continuation, freshness: { kind: 'fresh', as_of: asOf }, error: null,
+    }
+  }
+
+  serviceList(context: ServerReadContextV1, input: ServiceListInputV1) {
+    return this.#portfolioPage(context, input, 'service.list', [
+      input.customer_id ?? null, input.contract_id ?? null, input.operator_id ?? null, input.status ?? null,
+    ], {
+      p_customer_id: input.customer_id ?? null, p_contract_id: input.contract_id ?? null,
+      p_operator_id: input.operator_id ?? null, p_status: input.status ?? null,
+    })
+  }
+
+  lineList(context: ServerReadContextV1, input: LineListInputV1) {
+    return this.#portfolioPage(context, input, 'line.list', [
+      input.customer_id ?? null, input.service_id ?? null, input.status ?? null,
+    ], {
+      p_customer_id: input.customer_id ?? null, p_service_id: input.service_id ?? null,
+      p_status: input.status ?? null,
+    })
+  }
+  renewalList(context: ServerReadContextV1, input: WindowedListInputV1) {
+    return this.#portfolioPage(context, input, 'renewal.list', [
+      input.customer_id ?? null, input.from ?? null, input.to ?? null,
+    ], {
+      p_customer_id: input.customer_id ?? null, p_from: input.from ?? null, p_to: input.to ?? null,
+    })
+  }
+
+  permanenceList(context: ServerReadContextV1, input: WindowedListInputV1) {
+    return this.#portfolioPage(context, input, 'permanence.list', [
+      input.customer_id ?? null, input.from ?? null, input.to ?? null,
+    ], {
+      p_customer_id: input.customer_id ?? null, p_from: input.from ?? null, p_to: input.to ?? null,
+    })
+  }
+  taskList(context: ServerReadContextV1, input: TaskListInputV1) {
+    return this.#portfolioPage(context, input, 'task.list', [
+      input.customer_id ?? null, input.from ?? null, input.to ?? null,
+      input.assignee_id ?? null, input.status ?? null,
+    ], {
+      p_customer_id: input.customer_id ?? null, p_from: input.from ?? null, p_to: input.to ?? null,
+      p_assignee_id: input.assignee_id ?? null, p_status: input.status ?? null,
+    })
+  }
+
+  meetingList(context: ServerReadContextV1, input: MeetingListInputV1) {
+    return this.#portfolioPage(context, input, 'meeting.list', [
+      input.customer_id ?? null, input.from ?? null, input.to ?? null,
+      input.assignee_id ?? null, input.status ?? null,
+    ], {
+      p_customer_id: input.customer_id ?? null, p_from: input.from ?? null, p_to: input.to ?? null,
+      p_assignee_id: input.assignee_id ?? null, p_status: input.status ?? null,
+    })
+  }
+  activityList(context: ServerReadContextV1, input: WindowedListInputV1) {
+    return this.#portfolioPage(context, input, 'activity.list', [
+      input.customer_id ?? null, input.from ?? null, input.to ?? null,
+    ], {
+      p_customer_id: input.customer_id ?? null, p_from: input.from ?? null, p_to: input.to ?? null,
+    })
+  }
+
+  opportunityList(context: ServerReadContextV1, input: OpportunityListInputV1) {
+    return this.#portfolioPage(context, input, 'opportunity.list', [
+      input.customer_id ?? null, input.from ?? null, input.to ?? null,
+      input.owner_id ?? null, input.status ?? null,
+    ], {
+      p_customer_id: input.customer_id ?? null, p_from: input.from ?? null, p_to: input.to ?? null,
+      p_owner_id: input.owner_id ?? null, p_status: input.status ?? null,
+    })
+  }
+  async dashboardGet(context: ServerReadContextV1, input: { audience: 'personal' | 'team' | 'workspace' }): Promise<unknown> {
+    // There is no team-membership relation yet; never describe a workspace-wide
+    // projection as a team-specific dashboard.
+    if (input.audience === 'team') return unavailableOne(context)
+    const scope = await this.#client.rpc('telecom_v1_dashboard_authorize', {
+      p_actor_id: context.actor_id, p_workspace_id: context.workspace_id,
+      p_audience: input.audience,
+    })
+    if (scope.error !== null || scope.data !== true) throw new Error('dashboard scope unavailable')
+    const asOf = this.#now()
+    if (!isStrictInstantV1(asOf)) throw new Error('invalid repository clock')
+    const today = asOf.slice(0, 10)
+    const lastDay = new Date(Date.parse(asOf) + 30 * 24 * 60 * 60 * 1_000).toISOString().slice(0, 10)
+    const personal = input.audience === 'personal'
+    const base = { limit: 20, continuation: null, from: today, to: lastDay }
+    const taskInput = { ...base, ...(personal ? { assignee_id: context.actor_id } : {}) }
+    const meetingInput = { ...base, ...(personal ? { assignee_id: context.actor_id } : {}) }
+    const opportunityInput = { limit: 20, continuation: null, status: 'open' as const,
+      ...(personal ? { owner_id: context.actor_id } : {}) }
+    const [tasks, meetings, renewals, permanence, opportunities, todayTasks, todayMeetings] = await Promise.all([
+      this.taskList(context, taskInput), this.meetingList(context, meetingInput),
+      personal ? Promise.resolve(unavailableCollection(context)) : this.renewalList(context, base),
+      personal ? Promise.resolve(unavailableCollection(context)) : this.permanenceList(context, base),
+      this.opportunityList(context, opportunityInput),
+      this.taskList(context, { ...taskInput, from: today, to: today }),
+      this.meetingList(context, { ...meetingInput, from: today, to: today }),
+    ])
+    if (!record(todayTasks) || !record(todayMeetings)
+      || !Array.isArray(todayTasks.items) || !Array.isArray(todayMeetings.items)) {
+      throw new Error('invalid dashboard today rows')
+    }
+    const todayPartial = todayTasks.completeness !== null && record(todayTasks.completeness)
+      && todayTasks.completeness.kind === 'partial'
+      || todayMeetings.completeness !== null && record(todayMeetings.completeness)
+      && todayMeetings.completeness.kind === 'partial'
+    const todayCollection = {
+      contract_version: VERSION, scope_epoch: context.scope_epoch, source_state: 'available',
+      permission: 'authorized', items: [...todayTasks.items, ...todayMeetings.items],
+      completeness: todayPartial ? { kind: 'partial', has_more: true } : { kind: 'complete' },
+      continuation: null, freshness: { kind: 'fresh', as_of: asOf }, error: null,
+    }
+    return {
+      contract_version: VERSION, scope_epoch: context.scope_epoch, result: 'found',
+      data: {
+        contract_version: VERSION, scope_epoch: context.scope_epoch, generated_at: asOf,
+        scope: { audience: input.audience, timezone: 'UTC', scope_epoch: context.scope_epoch },
+        window: { starts_at: `${today}T00:00:00.000Z`, ends_at: `${lastDay}T23:59:59.999Z` },
+        today: todayCollection, tasks, meetings, renewals,
+        permanence_alerts: permanence, opportunities,
+      },
+      freshness: { kind: 'fresh', as_of: asOf }, error: null,
+    }
+  }
 }

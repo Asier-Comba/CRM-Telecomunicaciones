@@ -122,6 +122,50 @@ jobs:
         if: steps.detect.outputs.node_project == 'true'
         run: bash scripts/ci/node-quality-gate.sh
 
+  embedded-db:
+    name: Embedded PGlite schema and scope fixtures
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Set up Node
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+      - name: Install isolated database harness
+        run: npm --prefix scripts/security/ephemeral-postgres ci
+      - name: Zero-to-head, RLS, readers, Storage policy and synthetic restore
+        run: |
+          npm run test:db:onboarding
+          npm run test:db:domain
+
+  native-postgres:
+    name: Native PostgreSQL zero-to-head and synthetic restore
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: synthetic-test-only
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Isolated native migration, tenant and restore drill
+        env:
+          TELECOM_NATIVE_TEST_CONTAINER: ${{ job.services.postgres.id }}
+        run: bash scripts/security/native-postgres/test-zero-to-head.sh
+
   critical-e2e:
     name: Critical Playwright
     needs: quality

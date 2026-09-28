@@ -23,6 +23,9 @@ test('the known Supabase drift remains explicit', () => {
     report.createdRelations,
     [
       'activities',
+      'assistant_confirmations',
+      'assistant_effect_outbox',
+      'assistant_operations',
       'business_audit_events',
       'calendar_events',
       'contacts',
