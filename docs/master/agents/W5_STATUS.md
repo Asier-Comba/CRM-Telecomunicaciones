@@ -4,7 +4,7 @@ VERIFIED: 2026-09-28 UTC
 BRANCH: w5/backend-platform-v1, based on W2 8de57dc2f84634156655f6c79047d545bbb86a6c
 HEAD: native PostgreSQL 16 restore checkpoint b19ac8265fb9f4fc5e1bdbc513be0e16c0d0fe7c; platform handoff pending
 PR: #18 draft, stacked against w2/backend-takeover-v1
-CI: #214 native PostgreSQL, embedded DB, migration policy, baseline and secret scan PASS; lint/types/tests/build was still running when recorded; Dependency Review skipped until repository owner enables Dependency Graph and DEPENDENCY_REVIEW_ENABLED=true
+CI: #214 native PostgreSQL, embedded DB, migration policy, baseline, secret scan and lint/types/tests/build PASS; Dependency Review skipped until repository owner enables Dependency Graph and DEPENDENCY_REVIEW_ENABLED=true
 POSTGRES: CI #214 PostgreSQL 16 native zero-to-head and synthetic pg_dump/pg_restore PASS (24 migrations); embedded PGlite 24 migrations pass
 SUPABASE_LOCAL: not exercised
 SUPABASE_REMOTE: untouched
