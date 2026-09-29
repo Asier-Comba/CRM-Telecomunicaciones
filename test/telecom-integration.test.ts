@@ -118,14 +118,36 @@ test('expiry or reference revocation during a read discards evidence after await
   for (const revoke of [false, true]) {
     let clock = Date.parse(now)
     const refs = new SessionReferenceStore(10, 100)
-    const handle = refs.issueEntity(scope, { kind: 'customer', id: cid, sourceTurn: 1 }, clock)!
+    const handle = refs.issueEntity(scope, { kind: 'customer', id: cid, sourceTurn: 1, sourceOperation: 'crm.customer.search' }, clock)!
     const h = harness(envelope(summary()), () => { if (revoke) refs.revokeEntity(scope, 'customer', cid); else clock += 100 })
     const plan = { version: 1, nodes: [{ id: 'summary', capability: 'crm.customer.summary', arguments: {}, dependsOn: [], entityBinding: [{ targetField: 'customer_id', source: { type: 'reference', handle } }], resultAlias: 'summary', groundingPurpose: 'follow_up' }] }
     const result = await executeTelecomReadSlice({ plan, adapter: h.adapter, references: refs, currentScope: () => scope, now: () => clock, turn: 2, allowedDashboardAudiences: new Set(['personal']) })
-    assert.equal(result.execution?.outcomes[0]?.status, 'invalid_reference')
+    assert.equal(revoke ? result.status : result.execution?.outcomes[0]?.status, revoke ? 'access_changed' : 'invalid_reference')
     assert.deepEqual(result.evidence, [])
     const retry = await executeTelecomReadSlice({ plan, adapter: h.adapter, references: refs, currentScope: () => scope, now: () => clock, turn: 3, allowedDashboardAudiences: new Set(['personal']) })
     assert.equal(retry.execution?.outcomes[0]?.status, 'invalid_reference')
     assert.equal(h.calls(), 1)
+  }
+})
+
+test('revocation fences unbound in-flight searches and prevents fresh reference issuance', async () => {
+  for (const target of ['session', 'entity', 'other_scope']) {
+    const refs = new SessionReferenceStore()
+    const service = { async customerSearch() {
+      if (target === 'session') refs.revokeSession(scope)
+      if (target === 'entity') refs.revokeEntity(scope, 'customer', cid)
+      if (target === 'other_scope') refs.revokeSession({ ...scope, workspaceId: 'other_workspace' })
+      return collection([customer, { ...customer, id: 'customer_000000002' }])
+    } } as unknown as TelecomReadServiceV1
+    const adapter = createAuthorizedTelecomAdapter({ service, authorizeOperation: async () => true, authorizeReference: async () => true, currentScope: () => scope, now: () => Date.parse(now) })
+    const plan = { version: 1, nodes: [{ id: 'search', capability: 'crm.customer.search', arguments: { query: 'ACME', limit: 20, continuation: null }, dependsOn: [], entityBinding: [], resultAlias: 'customers', groundingPurpose: 'lookup' }] }
+    const result = await executeTelecomReadSlice({ plan, adapter, references: refs, currentScope: () => scope, now: () => Date.parse(now), turn: 2, allowedDashboardAudiences: new Set(['personal']) })
+    assert.equal(result.status, target === 'other_scope' ? 'completed' : 'access_changed', target)
+    if (target !== 'other_scope') { assert.deepEqual(result.evidence, []); assert.equal(result.execution, null) }
+    else {
+      const candidates = result.execution?.outcomes[0]?.clarification?.candidates
+      assert.equal(candidates?.length, 2)
+      assert.equal(refs.resolveEntity(candidates![0]!.reference, scope, 'customer', 2, Date.parse(now))?.sourceOperation, 'crm.customer.search')
+    }
   }
 })

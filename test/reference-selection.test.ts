@@ -5,7 +5,7 @@ import { SessionReferenceStore } from '../src/assistant/session-references.js'
 const scope = { actorId: 'actor_a', workspaceId: 'workspace_a', sessionId: 'session_a', scopeEpoch: 'epoch_a' }
 function fixture() {
   const refs = new SessionReferenceStore(); const selections = new ConversationSelections(refs)
-  const handles = [1, 2, 3].map(n => refs.issueEntity(scope, { kind: 'customer', id: `customer_synthetic_${n}`, sourceTurn: 2 }, 100)!)
+  const handles = [1, 2, 3].map(n => refs.issueEntity(scope, { kind: 'customer', id: `customer_synthetic_${n}`, sourceTurn: 2, sourceOperation: 'crm.customer.search' }, 100)!)
   const frameRef = selections.remember(scope, 'customer', 2, handles, 100)!
   const context = { scope, turn: 3, now: 101, currentScope: () => scope, authorize: async () => true }
   return { refs, selections, handles, frameRef, context }
@@ -59,4 +59,12 @@ test('revocation or expiry during awaited authorization cannot resurrect a candi
     })
     assert.deepEqual(result, { status: 'access_changed' }, mode)
   }
+})
+
+test('ordinal frames reject mixed operation provenance and duplicate logical identities', () => {
+  const f = fixture()
+  const duplicate = f.refs.issueEntity(scope, { kind: 'customer', id: 'customer_synthetic_1', sourceTurn: 2, sourceOperation: 'crm.customer.search' }, 100)!
+  const summary = f.refs.issueEntity(scope, { kind: 'customer', id: 'customer_synthetic_4', sourceTurn: 2, sourceOperation: 'crm.customer.summary' }, 100)!
+  assert.equal(f.selections.remember(scope, 'customer', 2, [f.handles[0]!, duplicate], 100), null)
+  assert.equal(f.selections.remember(scope, 'customer', 2, [f.handles[0]!, summary], 100), null)
 })

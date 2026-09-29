@@ -3,7 +3,7 @@ import assert from 'node:assert/strict'
 import { SessionReferenceStore, type ReferenceScope } from '../src/assistant/session-references.js'
 
 const scope: ReferenceScope = { actorId: 'actor-a', workspaceId: 'workspace-a', sessionId: 'session-a', scopeEpoch: 'epoch-1' }
-const entity = { kind: 'customer' as const, id: 'customer_opaque_123', sourceTurn: 2 }
+const entity = { kind: 'customer' as const, id: 'customer_opaque_123', sourceTurn: 2, sourceOperation: 'crm.customer.search' }
 const filters = { limit: 20, continuation: null, customer_id: entity.id }
 
 test('entity handles bind every server scope dimension and entity kind', () => {
@@ -63,4 +63,28 @@ test('stale pages, arbitrary cursors, unbounded capacity and unknown operations 
   assert.ok(store.issueEntity(scope, entity, 200))
   assert.throws(() => new SessionReferenceStore(0), /invalid_reference_policy/)
   assert.throws(() => new SessionReferenceStore(1, 900_001), /invalid_reference_policy/)
+})
+
+test('reference provenance binds registered read operation to actual resource kind', () => {
+  const refs = new SessionReferenceStore()
+  for (const sourceOperation of ['crm.sql.execute', 'constructor', 'crm.contract.get', 'crm.dashboard.get', '']) {
+    assert.equal(refs.issueEntity(scope, { ...entity, sourceOperation }, 100), null)
+  }
+})
+
+test('in-flight guards are bounded, scope-isolated, invalidated and explicitly released', () => {
+  const refs = new SessionReferenceStore()
+  const guards = Array.from({ length: 128 }, () => refs.beginRead(scope)!)
+  assert.ok(guards.every(g => g.current()))
+  assert.equal(refs.beginRead(scope), null)
+  refs.revokeSession({ ...scope, actorId: 'other_actor' })
+  assert.ok(guards.every(g => g.current()))
+  refs.revokeEntity(scope, 'customer', entity.id)
+  assert.ok(guards.every(g => !g.current()))
+  guards.forEach(g => g.release())
+  const next = refs.beginRead(scope)!
+  assert.ok(next.current()) // fresh operation must freshly authorize, never cache auth
+  refs.revokeSession({ ...scope, scopeEpoch: 'new_epoch' })
+  assert.equal(next.current(), false)
+  next.release()
 })

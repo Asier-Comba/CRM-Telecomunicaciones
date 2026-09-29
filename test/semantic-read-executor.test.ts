@@ -46,7 +46,7 @@ test('zero, ambiguous, forbidden, partial, stale and failed prerequisite never i
 })
 test('selected server reference is scoped and still reauthorized by the reader', async () => {
   const references = new SessionReferenceStore()
-  const handle = references.issueEntity(context.scope, { kind: 'customer', id: customer.id, sourceTurn: 1 }, context.now)!
+  const handle = references.issueEntity(context.scope, { kind: 'customer', id: customer.id, sourceTurn: 1, sourceOperation: 'crm.customer.search' }, context.now)!
   const selected = { ...next, dependsOn: [], entityBinding: [{ targetField: 'customer_id', source: { type: 'reference', handle } }] }
   let calls = 0
   const executor = new SemanticReadExecutor(async () => { calls++; return { status: 'forbidden' } }, references)
