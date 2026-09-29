@@ -1,15 +1,17 @@
-# W3 status — iteration 5.0
+# W3 status — iteration6.0
 
-HEAD: published functional checkpoint cda6ff7108dd807fc95c6198e45e01f62a5ea436 on w3/assistant-runtime-foundation; authoritative current SHA is the commit containing this file (no self-referential SHA).
-PR: #9 DRAFT. No merge, deployment, routes or assistant writes enabled.
-TESTS: lint/typecheck/build PASS; 402/402 local tests PASS. Exact-source service/DTO replay PASS on W2 8de57dc2f84634156655f6c79047d545bbb86a6c and W5 9f0e85130bfcfde8b8c60150bc2aa07f5e6b65fb, all14 methods; synthetic RPC, not DB execution.
-LIVE_EVAL: NOT RUN. Provider-neutral executable runner +24 Spanish cases; missing reviewed W3_EVAL_PROVIDER_MODULE/model credentials. Stub unit tests are not model-quality evidence.
-READ_INTEGRATION: SDK-free authorized service adapter + single-read-per-node semantic slice. W5 all14 published readers at pinned SHA; team dashboard unavailable, personal renewal/permanence sections unavailable, calendar source UTC. Customer360 evidence, conservative joins/counts/earliest renewal, ambiguity and reference expiry/revocation controls. UI contract v1 unchanged.
-DURABLE_INTEGRATION: W5 3370dc1 relational foundation reviewed: failure-code CHECK excludes both W3 verified-absence codes; nullable lease requires explicit mapping. Review/probe versioned and sent to W5. Transaction adapter/driver still absent; no durability claim.
-BLOCKERS: live provider configuration for real model evaluation; native durable adapter/driver for Issue10 acceptance. Both scoped blockers; foundation work completed independently.
-W5_DEPENDENCY: PR18; fix durable code/lease mapping; exact transaction factory SHA and native driver. Contract clarifications in W3_DURABLE_DB_CONTRACT_V1.md and W3_HANDOFF_W5_PLATFORM.md. No W3 SQL.
-W4_GATE: earlier output-schema/atomic runtime/P2 oracle fixes independently accepted; new slice and multi-turn delta requested for review. Issue10 remains open; W4 decides acceptance.
-NEXT 3: consume next exact W5 read checkpoint; run configured live-provider eval; bind W5 native adapter and run conformance when published.
+HEAD: commit containing this file on w3/assistant-runtime-foundation; PR9 DRAFT. No merge/routes/writes/deploy.
+CI: functional checkpoint b9f3e4cd189ca72d5ad3f32909f8b259c7f4c843 has4 success/2 skipped in GitHub; final documentation/pin CI recorded on PR9. Dependency Review owner configuration remains unresolved; no bypass.
+TESTS:414/414 local deterministic tests PASS; lint/typecheck/build PASS. Source/IPC fixtures are not native DB or LLM quality evidence.
+W2_PLATFORM_SHA: w2/platform-closure-v1@a917bbb41ef8192344dc49737cd78fd52fe29649 (PR19, docs-only after implementation8e978e04d6f179fcad6aa624923a03dd3b54d092). C2 reviewed immediately; no adapter. W2 records native PG16 CI/restore PASS; W3 execution here is PGlite only.
+READ_INTEGRATION: all14 exact-source signatures/DTOs and authorized service/repository/cursor replay PASS with synthetic RPC. Text→injected semantic planner→closed read plan→authorized service→validated DTO→grounded UI v1 implemented without HTTP routes. Factual values carry source/entity/field/freshness; unknown/partial retained. UI v1 unchanged.
+LIVE_EVAL: NOT RUN. One external prerequisite: reviewed W3_EVAL_PROVIDER_MODULE with approved model and securely bound credentials; none configured. Historical n8n selector is not a compatible provider module.
+DURABLE_SCHEMA: C2 at8e978e0 corrects both exact failure codes and persists nonnull lease. W3 reran25 migrations/fixtures in PGlite plus both code round-trips, stable lease reads and NULL rejection: PASS. Static scanner marks forward DDL REVIEW_REQUIRED, not an obsolete effective-schema failure.
+DURABLE_ADAPTER: absent from reviewed tree; W2 owns physical implementation. W3 port/atomic audit semantics versioned; no schema authored.
+NATIVE_PROCESS: NOT RUN without W2 native driver. New explicit v2 acceptance protocol adds claim race, six rollback boundaries, fence attacks, commit/reply loss and original audit identity after lost sink ACK. No lowered W4 gate.
+SEMANTIC_QUALITY:31 compact authored Spanish cases, now covering newly available attention reads and opportunity-text injection. No live accuracy claim. Runtime tests prove deterministic boundaries, not natural-language interpretation.
+OPEN_MISMATCH: No remaining C2 code/lease storage mismatch. Native result/audit/transaction factory and acceptance evidence absent. W3 review published PR19/Issue10; independent gate unchanged.
+W4_GATE: independent review required; Issue10 OPEN, PR9 DRAFT. Prior accepted seam fixes remain; new revocation/turn/composer/process delta is CANDIDATE only.
+NEXT 3: review W2 next exact durable checkpoint; bind actual adapter/native v2 driver; run approved live provider when configured.
 
-Current artifacts: ../ai/W3_TELECOM_READ_MATRIX_V1.json; ../ai/W3_LIVE_SEMANTIC_EVAL_V1.md; W3_HANDOFF_W5_PLATFORM.md.
-Historical prose archived: ../ai/W3_STATUS_ARCHIVE_42.md.
+Current handoff: W3_HANDOFF_W2_PLATFORM.md. Prior status: ../ai/W3_STATUS_ARCHIVE_50.md.

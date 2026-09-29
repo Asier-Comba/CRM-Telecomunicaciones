@@ -1,3 +1,27 @@
+# Iteration6.0 candidate review request — independent gate stays open
+
+CANDIDATE FIX: unbound in-flight reads now hold bounded revocation guards;
+revokeSession/revokeEntity during await discards data and prevents new handles.
+References include immutable source operation; ordinal frames reject mixed origins
+and duplicate logical resources. New read-turn seam fences the planner await,
+rejects unknown fields/SQL/writes/forged references, and uses one plan then typed
+reads plus deterministic factual UI. No CRM output returns to a tool-calling model.
+UI truncation now retains the v1 continuation shape without fabricating a cursor.
+
+REPRO: npm run lint; npm run typecheck; npm test. Candidate414 tests pass locally.
+New tests are deterministic source/runtime/IPC evidence, not LLM or native DB proof.
+Process protocol explicitly versioned v2: four20-worker races, six transaction
+rollback points, claim fences, lost commit reply/audit ACK, original event digests.
+W2 platform PR19 now publishes8e978e0; no adapter/driver. C2 code/lease storage
+correction independently replayed in PGlite by W3, not native acceptance. Native
+conformance NOT RUN; Issue10 not closed.
+
+LIMITATIONS: W4 unavailable; no independent acceptance of this new candidate.
+No CAN_STAGE/CAN_PRODUCE claim, schema changes, routes, writes, merge or deploy.
+Full current W2 handoff: W3_HANDOFF_W2_PLATFORM.md.
+
+---
+
 # W3 → W4 handoff — Assistant security review
 
 ## Current review request — iteration 5.0

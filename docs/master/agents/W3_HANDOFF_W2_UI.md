@@ -1,3 +1,22 @@
+# Current iteration6.0 UI handoff
+
+`AssistantResponse` v1 and `OperationStatusEnvelope` unchanged.
+`runTelecomReadTurn` returns server-only `assistant.read-turn.v1` with an ordered
+array of existing UI v1 responses plus internal execution metadata; no route yet.
+Render coverage and factual detail responses together, in order. Factual table
+rows carry source operation/section, entity, field, value, freshness and as_of.
+Null is unknown; partial/stale/unsupported is not empty. Truncated output uses
+`continuation:{}` when there is no approved next page: never synthesize a cursor.
+Render business text as escaped plain text, never HTML/Markdown/instructions.
+Do not send internal execution metadata as authority or convert entity IDs into
+authorized navigation. Ambiguous dependent reads get an AMBIGUOUS response; server
+selection frames/opaque references remain subject to fresh authorization.
+SessionReferenceStore.issueEntity now requires sourceOperation; this is an internal
+server API change, not a UI v1 schema change. No writes/provider sends enabled.
+Current platform dependency: W3_HANDOFF_W2_PLATFORM.md.
+
+---
+
 # W3 → W2 handoff — Assistant UI contract
 
 ## Iteration 5.0 — current stable handoff
