@@ -1,0 +1,72 @@
+{
+  "sourceSha": "8de57dc2f84634156655f6c79047d545bbb86a6c",
+  "evidence": "exact_source_synthetic_rpc_no_database",
+  "operations": [
+    {
+      "operation": "customer.search",
+      "state": "available"
+    },
+    {
+      "operation": "customer.get",
+      "state": "available"
+    },
+    {
+      "operation": "customer.summary",
+      "state": "available"
+    },
+    {
+      "operation": "contract.list",
+      "state": "unavailable"
+    },
+    {
+      "operation": "contract.get",
+      "state": "unavailable"
+    },
+    {
+      "operation": "service.list",
+      "state": "unavailable"
+    },
+    {
+      "operation": "line.list",
+      "state": "unavailable"
+    },
+    {
+      "operation": "renewal.list",
+      "state": "unavailable"
+    },
+    {
+      "operation": "permanence.list",
+      "state": "unavailable"
+    },
+    {
+      "operation": "task.list",
+      "state": "unavailable"
+    },
+    {
+      "operation": "meeting.list",
+      "state": "unavailable"
+    },
+    {
+      "operation": "activity.list",
+      "state": "unavailable"
+    },
+    {
+      "operation": "opportunity.list",
+      "state": "unavailable"
+    },
+    {
+      "operation": "dashboard.get",
+      "state": "unavailable"
+    }
+  ],
+  "negativeControls": [
+    "forged_scope_zero_calls",
+    "provider_outage",
+    "foreign_epoch",
+    "absent_record",
+    "revocation",
+    "changed_cursor_filter_zero_calls",
+    "expired_cursor_zero_calls"
+  ],
+  "pass": true
+}
