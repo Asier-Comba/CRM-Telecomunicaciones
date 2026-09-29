@@ -1,3 +1,5 @@
+> Iteration 6.0: W2 owns the physical backend/platform and durable adapter; W3 owns this behavioral contract. W4 independent acceptance remains required while unavailable. Original audit intent **and delivery outbox** belong to every confirm/reserve/enqueue, completion and reconciliation transaction. The machine-readable transaction list now explicitly includes these existing requirements. Process protocol v2 is in W3_DURABLE_PROCESS_ACCEPTANCE_V2.md; durable states and UI v1 are unchanged.
+
 # W3 durable database contract v1 — W5 implementation handoff
 
 Canonical discussion: Issue #10. W3 owns semantics/runtime; W5 owns schema,

@@ -1,3 +1,5 @@
+> Historical v1 specification. The current runner requires `assistant.durable-process.v2`; see [W3_DURABLE_PROCESS_ACCEPTANCE_V2.md](W3_DURABLE_PROCESS_ACCEPTANCE_V2.md). No v1 driver is silently accepted as v2.
+
 # Native process/crash acceptance — W2 driver, W4 execution
 
 Run only in an explicitly disposable local native PostgreSQL environment after

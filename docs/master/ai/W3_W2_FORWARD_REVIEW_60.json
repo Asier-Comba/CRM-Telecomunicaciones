@@ -1,0 +1,100 @@
+{
+  "sourceSha": "8e978e04d6f179fcad6aa624923a03dd3b54d092",
+  "evidence": "static_source_only_no_database",
+  "nativeDurabilityAccepted": false,
+  "forwardMigrationsRequiringReview": [
+    "supabase/migrations/20260929212000_align_assistant_durable_contract.sql"
+  ],
+  "adapterChecks": {
+    "safeResultSchemaVersion": "requires_adapter",
+    "originalAuditEvent": "requires_adapter",
+    "transactionAuthorization": "requires_adapter"
+  },
+  "status": "review_required",
+  "foundation": {
+    "states": [
+      {
+        "table": "assistant_confirmations",
+        "declared": [
+          "issued",
+          "consumed",
+          "cancelled",
+          "expired"
+        ],
+        "expected": [
+          "issued",
+          "consumed",
+          "cancelled",
+          "expired"
+        ],
+        "compatible": true
+      },
+      {
+        "table": "assistant_operations",
+        "declared": [
+          "reserved",
+          "executing",
+          "effect_applied",
+          "completed",
+          "failed_retryable",
+          "failed_terminal",
+          "reconciliation_required"
+        ],
+        "expected": [
+          "reserved",
+          "executing",
+          "effect_applied",
+          "completed",
+          "failed_retryable",
+          "failed_terminal",
+          "reconciliation_required"
+        ],
+        "compatible": true
+      },
+      {
+        "table": "assistant_effect_outbox",
+        "declared": [
+          "pending",
+          "dispatching",
+          "delivered",
+          "failed_retryable",
+          "failed_terminal",
+          "reconciliation_required"
+        ],
+        "expected": [
+          "pending",
+          "dispatching",
+          "delivered",
+          "failed_retryable",
+          "failed_terminal",
+          "reconciliation_required"
+        ],
+        "compatible": true
+      }
+    ],
+    "digestCompatible": true,
+    "failureCodeCompatibility": {
+      "runtimeEmits": [
+        "effect_absence_verified_retryable",
+        "effect_absence_verified_terminal"
+      ],
+      "ddlAccepts": [
+        "temporary_unavailable",
+        "validation",
+        "conflict",
+        "access_revoked",
+        "internal_safe"
+      ],
+      "missing": [
+        "effect_absence_verified_retryable",
+        "effect_absence_verified_terminal"
+      ],
+      "compatible": false
+    },
+    "leaseMapping": {
+      "ddlAllowsNull": true,
+      "w3RecordRequiresTimestamp": true,
+      "explicitMappingRequired": true
+    }
+  }
+}
