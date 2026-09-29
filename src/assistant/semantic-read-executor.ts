@@ -1,5 +1,5 @@
 import { isSafeEvidenceText } from './context-budget.js'
-import { SessionReferenceStore, type ReferenceScope } from './session-references.js'
+import { SessionReferenceStore, type ReferenceScope, type ReferenceReadGuard } from './session-references.js'
 import type { EntityKindV1 } from './entity-kinds.js'
 import { BINDING_KINDS, READ_RESULT_KINDS, parseSemanticReadPlan } from './semantic-read-plan.js'
 import { validateTelecomInput } from './telecom-input-validation.js'
@@ -52,6 +52,11 @@ function validResult(value: SafeReadResult, capability: string, epoch: string): 
 export class SemanticReadExecutor {
   constructor(private readonly reader: SafeReader, private readonly references: SessionReferenceStore) {}
   async execute(value: unknown, context: ReadExecutionContext): Promise<ReadExecution> {
+    const guard = this.references.beginRead(context.scope)
+    if (!guard) return { status: 'invalid_plan', outcomes: [] }
+    try { return await this.executeGuarded(value, context, guard) } finally { guard.release() }
+  }
+  private async executeGuarded(value: unknown, context: ReadExecutionContext, guard: ReferenceReadGuard): Promise<ReadExecution> {
     const plan = parseSemanticReadPlan(value)
     if (!plan || !Number.isSafeInteger(context.currentTurn) || context.currentTurn < 0 || !Number.isSafeInteger(context.now) || context.now < 0) return { status: 'invalid_plan', outcomes: [] }
     const scope = { ...context.scope }
@@ -65,6 +70,7 @@ export class SemanticReadExecutor {
     const currentScope = context.currentScope
     const unchangedScope = (): boolean => {
       try {
+        if (!guard.current()) return false
         const live = currentScope ? currentScope() : context.scope
         return ['actorId', 'workspaceId', 'sessionId', 'scopeEpoch'].every(key =>
           scope[key as keyof ReferenceScope] === live[key as keyof ReferenceScope])
@@ -77,6 +83,7 @@ export class SemanticReadExecutor {
       const outcome: ReadNodeOutcome = { nodeId: node.id, resultAlias: node.resultAlias, status: 'failure' }
       outcomes.push(outcome)
       if (!unchangedScope()) return scopeChanged()
+      if (!Number.isSafeInteger(liveNow())) continue
       // Explicit prerequisites may only continue from fresh, complete evidence.
       if (node.dependsOn.some(id => {
         const previous = results.get(id)
@@ -109,6 +116,7 @@ export class SemanticReadExecutor {
       try {
         result = await this.reader({ ...scope }, node.capability, { ...args })
         if (!unchangedScope()) return scopeChanged()
+        if (!Number.isSafeInteger(liveNow())) continue
         if (node.entityBinding.some(binding => binding.source.type === 'reference' && !this.references.resolveEntity(binding.source.handle, scope, BINDING_KINDS[binding.targetField]!, currentTurn, liveNow()))) {
           outcome.status = 'invalid_reference'; continue
         }
@@ -133,7 +141,7 @@ export class SemanticReadExecutor {
       if (outcome.status === 'multiple') {
         const candidates: NonNullable<ReadNodeOutcome['clarification']>['candidates'] = []
         for (const entity of result.entities) {
-          const reference = this.references.issueEntity(scope, { kind: entity.kind, id: entity.id, sourceTurn: currentTurn }, liveNow())
+          const reference = this.references.issueEntity(scope, { kind: entity.kind, id: entity.id, sourceTurn: currentTurn, sourceOperation: node.capability }, liveNow())
           if (!reference) { candidates.length = 0; outcome.status = 'failure'; results.delete(node.id); break }
           candidates.push({ reference, kind: entity.kind, label: entity.label })
         }

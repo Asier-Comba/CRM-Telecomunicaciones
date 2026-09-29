@@ -1,6 +1,7 @@
 import { createHash, randomBytes } from 'node:crypto'
 import { isEntityKindV1, type EntityKindV1 } from './entity-kinds.js'
 import { validateTelecomInput } from './telecom-input-validation.js'
+import { READ_RESULT_KINDS } from './semantic-read-plan.js'
 
 /** Server-owned ephemeral references, NOT an authorization cache or CRM memory.
  * Call issue only with validated, authorized reader results. Resolve is followed
@@ -9,7 +10,8 @@ import { validateTelecomInput } from './telecom-input-validation.js'
 export type ReferenceScope = {
   actorId: string; workspaceId: string; sessionId: string; scopeEpoch: string
 }
-export type EntityReference = { kind: EntityKindV1; id: string; sourceTurn: number }
+export type EntityReference = { kind: EntityKindV1; id: string; sourceTurn: number; sourceOperation: string }
+export type ReferenceReadGuard = { current(): boolean; release(): void }
 type Binding = { scope: ReferenceScope; expiresAt: number }
 type Entry = Binding & (
   | { type: 'entity'; entity: EntityReference }
@@ -31,8 +33,22 @@ function filterDigest(operation: string, input: unknown): string | null {
 
 export class SessionReferenceStore {
   readonly #entries = new Map<string, Entry>()
+  readonly #reads = new Set<{ scope: ReferenceScope; valid: boolean }>()
   constructor(private readonly capacity = 500, private readonly ttlMs = 300_000) {
     if (!Number.isSafeInteger(capacity) || capacity < 1 || capacity > 10_000 || !Number.isSafeInteger(ttlMs) || ttlMs < 1 || ttlMs > 900_000) throw new Error('invalid_reference_policy')
+  }
+  /** In-flight revocation fence, not durable authorization. The server still
+   * reauthorizes every read. Bounded active tickets avoid unbounded tombstones.
+   * Callers MUST release in finally, including rejected/invalid plans.
+   */
+  beginRead(scope: ReferenceScope): ReferenceReadGuard | null {
+    if (!validScope(scope) || this.#reads.size >= 128) return null
+    const ticket = { scope: { ...scope }, valid: true }
+    this.#reads.add(ticket)
+    return {
+      current: () => ticket.valid,
+      release: () => { ticket.valid = false; this.#reads.delete(ticket) },
+    }
   }
   #issue(entry: Entry, now: number): string | null {
     if (!Number.isSafeInteger(now) || now < 0 || !validScope(entry.scope) || !Number.isSafeInteger(entry.expiresAt)) return null
@@ -52,8 +68,8 @@ export class SessionReferenceStore {
     return entry
   }
   issueEntity(scope: ReferenceScope, entity: EntityReference, now: number): string | null {
-    if (!entity || !isEntityKindV1(entity.kind) || !bounded(entity.id, 160) || entity.id.length < 16 || !Number.isSafeInteger(entity.sourceTurn) || entity.sourceTurn < 0) return null
-    return this.#issue({ type: 'entity', scope, entity: { kind: entity.kind, id: entity.id, sourceTurn: entity.sourceTurn }, expiresAt: now + this.ttlMs }, now)
+    if (!entity || !isEntityKindV1(entity.kind) || !Object.hasOwn(READ_RESULT_KINDS, entity.sourceOperation) || READ_RESULT_KINDS[entity.sourceOperation] !== entity.kind || !bounded(entity.id, 160) || entity.id.length < 16 || !Number.isSafeInteger(entity.sourceTurn) || entity.sourceTurn < 0) return null
+    return this.#issue({ type: 'entity', scope, entity: { kind: entity.kind, id: entity.id, sourceTurn: entity.sourceTurn, sourceOperation: entity.sourceOperation }, expiresAt: now + this.ttlMs }, now)
   }
   resolveEntity(handle: unknown, scope: ReferenceScope, expectedKind: EntityKindV1, currentTurn: number, now: number): EntityReference | null {
     const entry = this.#get(handle, scope, now)
@@ -71,11 +87,17 @@ export class SessionReferenceStore {
     return entry.cursor
   }
   revokeSession(scope: ReferenceScope): void {
+    for (const ticket of this.#reads) {
+      if (ticket.scope.actorId === scope.actorId && ticket.scope.workspaceId === scope.workspaceId && ticket.scope.sessionId === scope.sessionId) ticket.valid = false
+    }
     for (const [handle, entry] of this.#entries) {
       if (entry.scope.actorId === scope.actorId && entry.scope.workspaceId === scope.workspaceId && entry.scope.sessionId === scope.sessionId) this.#entries.delete(handle)
     }
   }
   revokeEntity(scope: ReferenceScope, kind: EntityKindV1, id: string): void {
+    // A pending search/summary may contain the revoked resource before its IDs
+    // are known. Conservatively discard in-flight reads in this exact scope.
+    for (const ticket of this.#reads) if (sameScope(ticket.scope, scope)) ticket.valid = false
     for (const [handle, entry] of this.#entries) {
       if (sameScope(entry.scope, scope) && entry.type === 'entity' && entry.entity.kind === kind && entry.entity.id === id) this.#entries.delete(handle)
     }

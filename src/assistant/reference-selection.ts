@@ -22,7 +22,8 @@ export class ConversationSelections {
   constructor(private readonly references: SessionReferenceStore) {}
   remember(scope: ReferenceScope, kind: EntityKindV1, turn: number, handles: readonly string[], now: number): string | null {
     if (!Number.isSafeInteger(now) || now < 0 || !Number.isSafeInteger(turn) || turn < 0 || handles.length < 1 || handles.length > 50 || new Set(handles).size !== handles.length) return null
-    if (handles.some(handle => this.references.resolveEntity(handle, scope, kind, turn, now)?.sourceTurn !== turn)) return null
+    const entities = handles.map(handle => this.references.resolveEntity(handle, scope, kind, turn, now))
+    if (entities.some(entity => entity?.sourceTurn !== turn) || new Set(entities.map(entity => entity?.sourceOperation)).size !== 1 || new Set(entities.map(entity => entity?.id)).size !== handles.length) return null
     for (const [key, frame] of this.#frames) if (frame.expiresAt <= now) this.#frames.delete(key)
     if (this.#frames.size >= 100) return null
     const key = `choice_${randomBytes(24).toString('base64url')}`

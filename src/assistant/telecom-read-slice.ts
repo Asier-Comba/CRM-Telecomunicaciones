@@ -18,8 +18,11 @@ export async function executeTelecomReadSlice(input: {
   allowedDashboardAudiences: ReadonlySet<'personal' | 'team' | 'workspace'>
 }) {
   const scope = { ...input.currentScope() }
+  const guard = input.references.beginRead(scope)
+  if (!guard) return { status: 'unavailable' as const, execution: null, evidence: [] }
   const evidence: Array<{ nodeRead: number; value: ReadEvidence }> = []
   const unchanged = () => {
+    if (!guard.current()) return false
     const current = input.currentScope()
     return current.actorId === scope.actorId && current.workspaceId === scope.workspaceId && current.sessionId === scope.sessionId && current.scopeEpoch === scope.scopeEpoch
   }
@@ -30,15 +33,18 @@ export async function executeTelecomReadSlice(input: {
     return read.selection
   }, input.references)
   try {
-    const execution = await executor.execute(input.plan, { scope, currentTurn: input.turn, now: input.now(), clock: input.now, currentScope: input.currentScope,
+    const startedAt = input.now()
+    const execution = await executor.execute(input.plan, { scope, currentTurn: input.turn, now: startedAt, clock: input.now, currentScope: input.currentScope,
       allowedDashboardAudiences: input.allowedDashboardAudiences })
     if (!unchanged()) return { status: 'access_changed' as const, execution: null, evidence: [] }
     const plan = parseSemanticReadPlan(input.plan)
     const live = input.now()
+    if (!Number.isSafeInteger(live) || live < startedAt) return { status: 'unavailable' as const, execution: null, evidence: [] }
     if (plan && plan.nodes.some(node => node.entityBinding.some(binding => binding.source.type === 'reference' && !input.references.resolveEntity(binding.source.handle, scope, BINDING_KINDS[binding.targetField]!, input.turn, live)))) {
       return { status: 'access_changed' as const, execution, evidence: [] }
     }
     const denied = execution.outcomes.some(o => ['invalid_reference', 'forbidden', 'failure'].includes(o.status))
     return { status: 'completed' as const, execution, evidence: denied ? [] : evidence }
   } catch { return { status: 'unavailable' as const, execution: null, evidence: [] } }
+  finally { guard.release() }
 }
