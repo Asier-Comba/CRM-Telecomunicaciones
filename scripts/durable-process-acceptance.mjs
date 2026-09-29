@@ -2,7 +2,7 @@ import { fork } from 'node:child_process'
 import { isAbsolute } from 'node:path'
 import { pathToFileURL, fileURLToPath } from 'node:url'
 import assert from 'node:assert/strict'
-import { DURABLE_PROCESS_SCENARIOS, validateDurableObservation } from '../dist/src/assistant/durable-process-spec.js'
+import { DURABLE_PROCESS_CONTRACT, DURABLE_PROCESS_SCENARIOS, validateDurableObservation, validateRollbackEvidence } from '../dist/src/assistant/durable-process-spec.js'
 
 // Usage after npm run build: node scripts/durable-process-acceptance.mjs /absolute/W2-driver.mjs
 // Driver receives credentials through its own approved local environment, never CLI JSON.
@@ -16,7 +16,7 @@ try { driver = await import(pathToFileURL(modulePath).href) } catch {
   console.error('adapter_load_failed'); process.exit(2)
 }
 if (!driver.metadata || Object.keys(driver.metadata).sort().join(',') !== 'backend,contract,disposable' ||
-  driver.metadata.contract !== 'assistant.durable-process.v1' || driver.metadata.backend !== 'native_postgres' || driver.metadata.disposable !== true) {
+  driver.metadata.contract !== DURABLE_PROCESS_CONTRACT || driver.metadata.backend !== 'native_postgres' || driver.metadata.disposable !== true) {
   console.error('disposable_native_postgres_driver_required'); process.exit(2)
 }
 const workerPath = fileURLToPath(new URL('./durable-process-worker.mjs', import.meta.url))
@@ -70,8 +70,22 @@ try {
       }
       if (scenario.id === 'atomic_operation_outbox') {
         const evidence = await driver.inspectBoundary(fixture)
-        assert.equal(evidence?.atomicCommitVerified, true)
-        assert.equal(evidence?.orphanOutboxCount, 0)
+        assert.equal(validateRollbackEvidence(evidence), true)
+      }
+      if (scenario.id === 'claim_fencing') {
+        const evidence = await driver.inspectBoundary(fixture)
+        assert.deepEqual(Object.keys(evidence).sort(), ['changedRows', 'currentFence', 'priorFence', 'rejected'])
+        assert.ok(Number.isSafeInteger(evidence.priorFence) && evidence.priorFence >= 1)
+        assert.ok(Number.isSafeInteger(evidence.currentFence) && evidence.currentFence > evidence.priorFence)
+        assert.deepEqual(evidence.rejected, ['expired_owner', 'stale_version', 'wrong_worker', 'wrong_workspace', 'wrong_operation', 'old_fence', 'future_fence'])
+        assert.equal(evidence.changedRows, 0)
+      }
+      if (['audit_ack_loss', 'audit_content_conflict', 'kill_after_transition'].includes(scenario.id)) {
+        const evidence = await driver.inspectBoundary(fixture)
+        assert.deepEqual(Object.keys(evidence).sort(), ['changedContentRejected', 'originalDigest', 'persistedDigest'])
+        assert.match(evidence.originalDigest, /^[a-f0-9]{64}$/)
+        assert.equal(evidence.persistedDigest, evidence.originalDigest)
+        assert.equal(evidence.changedContentRejected, true)
       }
       if (scenario.id === 'audit_delivery_outage') {
         const beforeDrain = await driver.inspectScenario(fixture)
@@ -100,7 +114,7 @@ try {
       await driver.cleanupScenario(fixture)
     }
   }
-  console.log(JSON.stringify({ contract: 'assistant.durable-process.v1', backend: 'native_postgres', scenarios: report }))
+  console.log(JSON.stringify({ contract: DURABLE_PROCESS_CONTRACT, backend: 'native_postgres', scenarios: report }))
 } catch {
   // Do not serialize raw adapter errors/observations, which may contain DSNs.
   console.error(JSON.stringify({ code: 'durable_acceptance_failed', completed: report }))
