@@ -5,7 +5,7 @@ import type { TelecomReadServiceV1 } from '../src/assistant/telecom-service-cont
 import { countSection, earliestRenewal, renewalsWithPendingTasks } from '../src/assistant/telecom-reasoning.js'
 import { executeTelecomReadSlice } from '../src/assistant/telecom-read-slice.js'
 import { SessionReferenceStore } from '../src/assistant/session-references.js'
-import { composeTelecomEvidence } from '../src/assistant/telecom-ui-composer.js'
+import { composeTelecomEvidence, composeTelecomFacts } from '../src/assistant/telecom-ui-composer.js'
 import { validateAssistantResponse } from '../src/assistant/ui-contract.js'
 
 const scope = { actorId: 'actor_0000000000001', workspaceId: 'workspace_00000001', sessionId: 'session_000000001', scopeEpoch: 'epoch_00000000001' }
@@ -56,6 +56,26 @@ test('customer360 injection remains data; exact counts, absent sections and clai
   assert.equal(ui.status, 'PARTIAL')
   assert.equal(ui.blocks.table?.rows.find(r => r.section === 'opportunities')?.observed, null)
   assert.equal(JSON.stringify(ui).includes('Ignore previous'), false)
+  const facts = composeTelecomFacts(read, 'request_0000000001')!
+  assert.ok(validateAssistantResponse(facts))
+  const date = facts.blocks.table?.rows.find(r => r.field === 'target_on')
+  assert.equal(date?.value, '2026-10-01')
+  assert.equal(date?.source, 'crm.customer.summary#nearest_renewal')
+})
+
+test('truncated factual and coverage tables preserve valid UI v1 without invented continuation', async () => {
+  const read = await harness(envelope(summary())).adapter.readEvidence(scope, 'crm.customer.summary', { customer_id: cid })
+  read.sections.customer!.truncated = true
+  const row = read.sections.customer!.rows[0]!
+  read.sections.customer!.rows = Array.from({ length: 30 }, (_, n) => ({ ...row, id: `customer_synthetic_${n}` }))
+  const coverage = composeTelecomEvidence(read, 'request_0000000001')
+  const facts = composeTelecomFacts(read, 'request_0000000001')!
+  assert.ok(validateAssistantResponse(coverage))
+  assert.ok(validateAssistantResponse(facts))
+  assert.equal(facts.status, 'PARTIAL')
+  assert.equal(facts.blocks.table?.rows.length, 50)
+  assert.equal(facts.blocks.table?.truncated, true)
+  assert.deepEqual(facts.blocks.table?.continuation, {})
 })
 
 test('partial, stale, revoked and invalid dates cannot yield exact totals or false negative joins', async () => {
