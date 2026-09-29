@@ -2,6 +2,7 @@ import { parseSemanticReadPlan } from './semantic-read-plan.js'
 import { verifyStructuredClaim, type ClaimEvidence } from './claim-grounding.js'
 import { runBenchmark, type BenchmarkCandidate, type BenchmarkRecord } from './provider-benchmark.js'
 import { TELECOM_CAPABILITY_CATALOG } from './telecom-catalog.js'
+import { TELECOM_SEMANTIC_POLICY } from './telecom-semantic-policy.js'
 
 export const SEMANTIC_METRICS = ['intent', 'toolSelection', 'argumentExtraction', 'referenceResolution', 'abstention', 'grounding', 'numericalFaithfulness', 'partiality', 'unsafeRejection', 'multiTurnCoherence'] as const
 export type SemanticMetric = typeof SEMANTIC_METRICS[number]
@@ -23,7 +24,8 @@ export const LIVE_EVAL_PROTOCOL = {
   planShape: { version: 1, nodes: [{ id: 'read', capability: 'registered READ', arguments: {}, dependsOn: [], entityBinding: [], resultAlias: 'result', groundingPurpose: 'lookup|summary|comparison|follow_up' }] },
   claimShape: 'kind:field|total|empty|calendar_days, evidenceId, operation, entityKind; field claims require entityId,field,value; total requires value; calendar_days requires entityId,field,calendarDate,value; stale requires exact as_of',
   bindingShape: 'entityBinding:[{targetField:customer_id|contract_id|service_id|operator_id|assigned_user_id|assignee_id|owner_id,source:{type:reference,handle:server_handle}}] or source:{type:node,nodeId:prior_node} with dependsOn including prior_node. IDs never appear in arguments.',
-  intentVocabulary: ['customer_search', 'customer_summary', 'contracts', 'lines', 'line_count', 'clarification', 'calendar_today', 'unsupported'],
+  intentVocabulary: [...TELECOM_SEMANTIC_POLICY.map(p => p.intent), 'line_count', 'clarification', 'unsupported'],
+  semanticPolicy: TELECOM_SEMANTIC_POLICY,
   capabilities: TELECOM_CAPABILITY_CATALOG.map(c => ({ name: c.name, description: c.description, input: c.inputSchema })),
 } as const
 const equal = (a: unknown, b: unknown): boolean => {

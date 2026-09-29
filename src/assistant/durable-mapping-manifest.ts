@@ -9,8 +9,8 @@ type SemanticMapping = {
 }
 const semantic = (meaning: string): SemanticMapping => ({ meaning, mapping: 'direct_semantics', physicalColumn: null })
 const binding = { meaning: 'Immutable server actor/workspace/capability/versioned argument digest; dedicated fields, not authority JSON', mapping: 'flatten_binding', physicalColumn: null } as const
-/** Semantic mapping only. W1 has proposed relations, not published physical
- * storage columns for these records. Null column names are intentional.
+/** Semantic mapping only. The W5 physical foundation is reviewed separately;
+ * W2 now owns its adapter. Null column names do not define physical storage.
  * `satisfies Record<keyof ...>` makes additions/removals fail compilation.
  */
 export const DURABLE_MAPPING_MANIFEST = {
@@ -22,7 +22,7 @@ export const DURABLE_MAPPING_MANIFEST = {
   confirmation: {
     candidateRelation: 'assistant_confirmations', states: CONFIRMATION_STATES,
     fields: {
-      operationRef: semantic('Opaque workspace-scoped operation identity'), binding,
+      operationRef: semantic('LEGACY FIELD NAME: opaque confirmation identity, NOT the logical operation; persist a separate immutable association during confirmReserveEnqueue'), binding,
       state: semantic('Exact W3 confirmation state'), version: semantic('Optimistic version'),
       issuedAt: semantic('Server issue timestamp'), expiresAt: semantic('Server maximum-bounded expiry'),
       updatedAt: semantic('Last committed transition timestamp'),
