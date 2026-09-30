@@ -3,7 +3,7 @@ import { readFile } from 'node:fs/promises'
 import test from 'node:test'
 
 const active = [
-  'src/lib/brand.ts', 'src/components/Sidebar.tsx', 'src/app/login/page.tsx',
+  'src/lib/brand.ts', 'src/components/Sidebar.tsx', 'src/app/login/page.tsx', 'src/components/Topbar.tsx',
   'src/app/(saas)/dashboard/page.tsx', 'src/app/(saas)/clients/page.tsx',
   'src/app/(saas)/clients/[id]/page.tsx', 'src/app/(saas)/opportunities/page.tsx',
   'src/app/(saas)/calendar/page.tsx', 'src/app/(saas)/assistant/page.tsx',
@@ -22,6 +22,12 @@ test('preview pages do not import mutation or external-effect modules', async ()
   for (const path of active.slice(3)) {
     const source = stripComments(await readFile(path, 'utf8'))
     assert.doesNotMatch(source, /create(?:Task|Client|Opportunity|Calendar)|update(?:Task|Client|Opportunity)|delete(?:Task|Client|Opportunity)|triggerN8n|callAgentTool|supabase-admin/)
+  }
+})
+
+test('server-rendered portfolio pages gate fixtures before rendering', async () => {
+  for (const path of active.filter(path => path.includes('(saas)') && !path.includes('/assistant/'))) {
+    assert.match(await readFile(path, 'utf8'), /if\s*\(!syntheticPreviewAllowed\(\)\)/, path)
   }
 })
 
