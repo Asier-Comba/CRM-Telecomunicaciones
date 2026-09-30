@@ -14,12 +14,12 @@ import { BRAND } from '@/lib/brand'
 const pageLabels: Record<string, { title: string; description: string }> = {
   '/dashboard':     { title: 'Dashboard',     description: 'Resumen del día y estado del negocio' },
   '/inbox':         { title: 'Inbox',         description: 'Conversaciones entrantes y borradores' },
-  '/assistant':     { title: 'Asistente IA',  description: 'Consulta el CRM y prepara acciones con confirmación' },
+  '/assistant':     { title: 'Asistente IA',  description: 'Consulta tu cartera en modo solo lectura' },
   '/assistant/findings': { title: 'Centro de incidencias', description: 'Hallazgos del Asistente sobre la calidad de tus datos' },
-  '/clients':       { title: 'Clientes',      description: 'Compradores, propietarios y leads' },
-  '/opportunities': { title: 'Cartera',       description: 'Inmuebles, operaciones y trámites' },
+  '/clients':       { title: 'Clientes',      description: 'Empresas, contratos y servicios telecom' },
+  '/opportunities': { title: 'Oportunidades', description: 'Seguimiento comercial telecom' },
   '/automations':   { title: 'Automatizaciones', description: 'Flujos internos' },
-  '/calendar':      { title: 'Calendario',    description: 'Visitas, asesorías y disponibilidad' },
+  '/calendar':      { title: 'Calendario',    description: 'Reuniones y tareas comerciales' },
   '/billing':       { title: 'Facturación',   description: 'Facturas e ingresos' },
   '/facturacion':   { title: 'Facturación',   description: 'Facturas: borradores, emisión y PDF' },
   '/settings':      { title: 'Configuración', description: 'Ajustes del CRM' },
@@ -50,14 +50,14 @@ export function Topbar({ onMenuClick }: { onMenuClick?: () => void }) {
   }, [])
 
   const runSearch = useCallback(async (q: string) => {
-    if (!currentUser.workspaceId || q.length < 2) { setSuggestions([]); return }
+    if (currentUser.isDemo || !currentUser.workspaceId || q.length < 2) { setSuggestions([]); return }
     try {
       const results = await searchClients(currentUser.workspaceId, q)
       setSuggestions(results.slice(0, 4))
     } catch {
       setSuggestions([])
     }
-  }, [currentUser.workspaceId])
+  }, [currentUser.workspaceId, currentUser.isDemo])
 
   useEffect(() => {
     const t = setTimeout(() => runSearch(query), 300)
