@@ -1,0 +1,47 @@
+{
+  "version": "w3.legacy-surface.v1",
+  "reviewed_base": "a917bbb41ef8192344dc49737cd78fd52fe29649",
+  "active_preview_policy": {
+    "KEEP_GENERIC": [
+      "src/components/AppShell.tsx",
+      "src/components/PageHeader.tsx",
+      "src/components/SectionCard.tsx",
+      "src/components/Badge.tsx",
+      "src/lib/contracts/telecom-v1.ts",
+      "src/lib/server/telecom-runtime-v1.ts",
+      "src/lib/server/telecom-read-service-v1.ts"
+    ],
+    "REPLACE_TELECOM": [
+      "src/lib/brand.ts",
+      "src/components/Sidebar.tsx",
+      "src/app/(saas)/dashboard/page.tsx",
+      "src/app/(saas)/clients/page.tsx",
+      "src/app/(saas)/clients/[id]/page.tsx",
+      "src/app/(saas)/opportunities/page.tsx",
+      "src/app/(saas)/calendar/page.tsx",
+      "src/app/(saas)/assistant/page.tsx",
+      "src/app/login/page.tsx"
+    ],
+    "HIDE_UNTIL_SUPPORTED": [
+      "src/app/(saas)/billing/page.tsx",
+      "src/app/(saas)/facturacion/page.tsx",
+      "src/app/(saas)/inbox/page.tsx",
+      "src/app/(saas)/automations/page.tsx"
+    ],
+    "DELETE_FROM_TELECOM_PATH": [
+      "src/app/(saas)/opportunities/properties/[id]/page.tsx",
+      "src/components/PropertyPhotosManager.tsx",
+      "src/components/PropertyStatusBadge.tsx",
+      "src/components/VerticalForms.tsx",
+      "src/components/VerticalEditForms.tsx"
+    ],
+    "HISTORICAL_ONLY": [
+      "src/lib/demo/demo-real-estate.ts",
+      "src/lib/real-estate-search.ts",
+      "src/lib/property-display.ts",
+      "src/lib/dashboard-snapshot.ts",
+      "src/lib/invoicing"
+    ]
+  },
+  "rule": "Legacy modules may remain tracked, but active telecom preview routes must not import or render them."
+}
