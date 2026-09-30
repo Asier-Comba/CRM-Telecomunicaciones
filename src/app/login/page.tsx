@@ -240,9 +240,9 @@ export default function LoginPage() {
             <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-gray-500">
               CRM telecom privado · uso autorizado
             </p>
-            <h1 className="mt-5 text-[2.4rem] font-semibold leading-[1.06] tracking-tight text-gray-950 xl:text-[2.9rem]">
+            <h2 className="mt-5 text-[2.4rem] font-semibold leading-[1.06] tracking-tight text-gray-950 xl:text-[2.9rem]">
               Gestiona clientes, contratos, líneas y oportunidades desde un solo lugar.
-            </h1>
+            </h2>
             <p className="mt-4 max-w-md text-sm leading-6 text-gray-600">
               CRM para distribuidores telecom: seguimiento comercial, tareas,
               calendario y asistente de consulta.
@@ -310,9 +310,9 @@ export default function LoginPage() {
               </div>
             </div>
 
-            <h2 className="text-[2rem] font-semibold leading-[1.1] tracking-tight text-gray-950 sm:text-[2.15rem]">
+            <h1 className="text-[2rem] font-semibold leading-[1.1] tracking-tight text-gray-950 sm:text-[2.15rem]">
               {mode === 'signin' ? 'Iniciar sesión' : 'Restablecer acceso'}
-            </h2>
+            </h1>
             <p className="mt-2 text-sm leading-6 text-gray-500">
               {mode === 'signin'
                 ? 'Introduce tus credenciales para acceder al CRM interno.'
