@@ -1,12 +1,62 @@
 'use client'
 
 import { useState } from 'react'
-import { Bot, Database, Send, ShieldCheck, Sparkles } from 'lucide-react'
+import { Bot, Send, ShieldCheck } from 'lucide-react'
 import { PageHeader } from '@/components/PageHeader'
 import { Badge } from '@/components/Badge'
+import type { AssistantResponse } from '@/assistant/ui-contract'
 
-type Reply={status:'OK'|'AMBIGUOUS'|'POLICY_BLOCK'|'INVALID_INPUT';answer:string;sources:Array<{operation:string;field:string;as_of:string}>}
-const prompts=['Dame el resumen del día','¿Qué permanencias terminan pronto?','¿Qué renovaciones tengo próximas?','¿Qué oportunidades están abiertas?','Resume Norte Telecom']
-export default function AssistantPage(){const[text,setText]=useState('');const[reply,setReply]=useState<Reply|null>(null);const[loading,setLoading]=useState(false)
-async function ask(value:string){if(loading)return;setText(value);setLoading(true);setReply(null);try{const response=await fetch('/api/assistant/read-preview',{method:'POST',headers:{'Content-Type':'application/json','x-request-id':crypto.randomUUID()},body:JSON.stringify({text:value})});const data=await response.json() as Reply;setReply(data)}catch{setReply({status:'INVALID_INPUT',answer:'No puedo consultar la vista ahora.',sources:[]})}finally{setLoading(false)}}
-return <div className="mx-auto max-w-5xl space-y-6"><PageHeader title="Asistente telecom" description="Consulta datos sintéticos mediante operaciones READ cerradas" action={<Badge variant="indigo" dot>Solo lectura</Badge>}/><div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"><div className="flex items-start gap-4"><div className="flex h-11 w-11 items-center justify-center rounded-xl bg-indigo-600 text-white"><Bot className="h-5 w-5"/></div><div><h2 className="font-semibold text-slate-950">¿Qué quieres consultar?</h2><p className="mt-1 text-sm text-slate-500">El entorno de preview usa un planificador determinista limitado. La evaluación con modelo real sigue pendiente.</p></div></div><div className="mt-5 flex flex-wrap gap-2">{prompts.map(item=><button key={item} onClick={()=>void ask(item)} className="rounded-full border border-indigo-100 bg-indigo-50 px-3 py-2 text-sm font-medium text-indigo-700 transition hover:bg-indigo-100">{item}</button>)}</div><form className="mt-5 flex gap-2" onSubmit={event=>{event.preventDefault();void ask(text)}}><label htmlFor="assistant-query" className="sr-only">Consulta al asistente</label><input id="assistant-query" value={text} onChange={event=>setText(event.target.value)} maxLength={500} placeholder="Ej.: ¿Cuántas líneas tiene Norte Telecom?" className="min-w-0 flex-1 rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"/><button disabled={loading||!text.trim()} className="inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-4 py-3 text-sm font-semibold text-white disabled:opacity-50"><Send className="h-4 w-4"/>{loading?'Consultando…':'Consultar'}</button></form></div>{reply&&<div aria-live="polite" className={`rounded-2xl border p-5 shadow-sm ${reply.status==='OK'?'border-emerald-200 bg-emerald-50/40':'border-amber-200 bg-amber-50/50'}`}><div className="flex gap-3"><Sparkles className="mt-0.5 h-5 w-5 text-indigo-600"/><div><p className="font-medium text-slate-950">{reply.answer}</p>{reply.sources.length>0&&<div className="mt-3 flex flex-wrap gap-2">{reply.sources.map((source,index)=><span key={`${source.operation}-${source.field}-${index}`} className="inline-flex items-center gap-1 rounded-lg bg-white px-2 py-1 text-xs text-slate-600 ring-1 ring-slate-200"><Database className="h-3 w-3"/>{source.operation} · {source.field}</span>)}</div>}</div></div></div>}<div className="grid gap-3 sm:grid-cols-3"><div className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-600"><ShieldCheck className="mb-2 h-5 w-5 text-emerald-600"/>El workspace no se acepta desde el texto.</div><div className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-600"><Database className="mb-2 h-5 w-5 text-indigo-600"/>Cada dato muestra operación y campo fuente.</div><div className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-600"><Bot className="mb-2 h-5 w-5 text-violet-600"/>Las escrituras y efectos están deshabilitados.</div></div></div>}
+type Reply = { contract: 'assistant.preview-read.v1'; responses: AssistantResponse[] }
+const prompts = ['Dame el resumen del día', '¿Qué permanencias terminan pronto?',
+  '¿Qué renovaciones tengo próximas?', '¿Qué oportunidades están abiertas?', 'Resume Norte Telecom']
+
+export default function AssistantPage() {
+  const [text, setText] = useState('')
+  const [reply, setReply] = useState<Reply | null>(null)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(false)
+
+  async function ask(value: string) {
+    if (loading) return
+    setText(value); setLoading(true); setReply(null); setError(false)
+    try {
+      const response = await fetch('/api/assistant/read-preview', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text: value }),
+      })
+      if (!response.ok) throw new Error('unavailable')
+      const data = await response.json() as Reply
+      if (data.contract !== 'assistant.preview-read.v1' || !Array.isArray(data.responses)) throw new Error('invalid_response')
+      setReply(data)
+    } catch { setError(true) } finally { setLoading(false) }
+  }
+
+  return (
+    <div className="mx-auto max-w-5xl space-y-6">
+      <PageHeader title="Asistente de cartera" description="Consulta clientes, contratos, líneas, renovaciones y tareas" action={<Badge variant="indigo" dot>Solo lectura</Badge>} />
+      <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <div className="flex items-start gap-4">
+          <Bot className="h-10 w-10 shrink-0 rounded-xl bg-indigo-50 p-2 text-indigo-600" />
+          <div><h2 className="font-semibold text-slate-950">Tu cartera, en una consulta</h2>
+            <p className="mt-1 text-sm text-slate-500">Demostración sintética con consultas predefinidas. No utiliza un modelo IA en vivo.</p></div>
+        </div>
+        <div className="mt-5 flex flex-wrap gap-2">
+          {prompts.map(prompt => <button key={prompt} disabled={loading} onClick={() => void ask(prompt)} className="rounded-full border border-indigo-100 bg-indigo-50 px-3 py-2 text-sm font-medium text-indigo-700 hover:bg-indigo-100 focus-visible:outline-2 focus-visible:outline-indigo-600 disabled:opacity-50">{prompt}</button>)}
+        </div>
+        <form className="mt-5 flex gap-2" onSubmit={event => { event.preventDefault(); void ask(text) }}>
+          <label htmlFor="assistant-query" className="sr-only">Consulta al asistente</label>
+          <input id="assistant-query" value={text} onChange={event => setText(event.target.value)} maxLength={500} placeholder="Ej.: ¿Cuántas líneas tiene Norte Telecom?" className="min-w-0 flex-1 rounded-xl border border-slate-200 px-4 py-3 text-sm focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-100" />
+          <button disabled={loading || !text.trim()} className="inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-3 py-3 text-sm font-semibold text-white disabled:opacity-50"><Send className="h-4 w-4" />{loading ? 'Consultando…' : 'Consultar'}</button>
+        </form>
+      </section>
+      <div aria-live="polite" aria-busy={loading} className="space-y-3">
+        {error && <p className="rounded-xl bg-amber-50 p-4 text-amber-900">No puedo consultar los datos ahora. Inténtalo de nuevo.</p>}
+        {reply?.responses.map((response, index) => <section key={index} className="overflow-hidden rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+          <div className="mb-3 flex flex-wrap items-center gap-2"><Badge variant={response.grounded ? 'success' : 'warning'}>{response.status}</Badge><p className="font-medium text-slate-950">{response.answer}</p></div>
+          {response.blocks.table && <div className="overflow-x-auto"><table className="w-full text-left text-sm"><thead><tr>{response.blocks.table.columns.filter(c => !['source', 'entity', 'as_of', 'freshness'].includes(c.key)).map(column => <th key={column.key} className="border-b p-2 text-slate-500">{column.label}</th>)}</tr></thead><tbody>{response.blocks.table.rows.map((row, rowIndex) => <tr key={rowIndex}>{response.blocks.table!.columns.filter(c => !['source', 'entity', 'as_of', 'freshness'].includes(c.key)).map(column => <td key={column.key} className="max-w-72 break-words border-b border-slate-100 p-2 text-slate-700">{row[column.key] === null ? 'No disponible' : String(row[column.key])}</td>)}</tr>)}</tbody></table></div>}
+          {response.meta.capability && <details className="mt-3 text-xs text-slate-500"><summary className="cursor-pointer font-medium">Fuentes CRM</summary><p className="mt-2">{response.meta.capability} · Datos sintéticos · {response.meta.partial ? 'Cobertura parcial' : 'Cobertura completa'}</p></details>}
+        </section>)}
+      </div>
+      <p className="flex items-center gap-2 text-sm text-slate-500"><ShieldCheck className="h-4 w-4 shrink-0 text-emerald-600" />Datos protegidos ocultos. Sin cambios ni envíos a servicios externos.</p>
+    </div>
+  )
+}
