@@ -31,3 +31,11 @@ At4fb8619, inject `shared-trigger-v42.sql` as the THIRD runner argument after of
 ### PR17 iteration5 acceptance
 
 At8de57dc, `import-initialization-v42.sql` accepts SQLSTATE55000 as the intended creation denial and passes6/6. `domain-read-v42.test.mjs` uses the current authorizer contract and passes14/14. Inject `telecom-reader-v5.sql` after `supabase/tests/telecom-server-read-rpc.sql`; it independently denies service-role reads for suspended member/workspace and denies anonymous execution. Evidence is PGlite/Node, not Supabase Auth/PostgREST.
+
+### Iteration6 exact preview/platform evidence
+
+At PR21 e374cedd / C2 a917bbb (identical migration tree), `durable-c2-v6.sql` injects into the seeded official durable fixture: both absence codes round-trip, persisted lease stable, NULL denied. `storage-policy-v6.sql` injects into domain fixture: owner/admin own linked only; member/foreign/orphan/quarantine/suspended/archive/anon denied. Evidence is PGlite SQL, not service APIs.
+
+`restore-acl-v6.sql` is explicitly a VULNERABILITY MODEL: pristine anonymous RPC denied, then simulated lost REVOKE permits anonymous actor impersonation. PASS means reproduction, NOT secure/native restore acceptance. Issue22 tracks the actual native post-restore ACL regression.
+
+Loopback HTTP and semantic probes are in scripts/security/review-preview-http.mjs and review-preview-semantic.mjs; see W4_ITERATION_6.md. Never run against hosted infrastructure.

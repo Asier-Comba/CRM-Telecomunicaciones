@@ -1,76 +1,34 @@
-# W4 status — iteration5.0
+# W4 — current independent audit status
 
-Verified2026-09-28 UTC. CAN_INTEGRATE YES; CAN_STAGE NO; CAN_PRODUCE NO.
-Accepted base:6b0e30e7444de57100e4d983b3564a0c3b336b2c.
+VERIFIED UTC: 2026-09-30
+BRANCH: w4/night-shift-v3 (this checkpoint)
+CAN_INTEGRATE: YES
+CAN_STAGE: NO
+CAN_PRODUCE: NO
+CAN_TEST_SYNTHETIC_PREVIEW: YES
 
-W2 PR17@8de57dc2f84634156655f6c79047d545bbb86a6c accepted for composition. CI180 green. PGlite/Node evidence: import creation6/6, lifecycle PASS, READ/date14/14, runtime/repository14/14, server-reader SQL plus independent suspended-member/workspace/anon attacks PASS. Old import-creation and READ/output/date P1s FIXED. Import same-key replay remains unproven because no executable command adapter exists.
-W3@d29c1f455f123f1524b3786736d5ec300c9940ed: Issue10 remains the only assistant P0, pending native durable adapter/process/restart/outbox evidence.
-W5 PR18@5f72864: first contract-reader delta passes15 migrations/server SQL and repository9/9 in PGlite/Node. No native PostgreSQL, Supabase/Auth/PostgREST/Storage, archive, durable adapter/process, or restore evidence; no stage gate movement. PR18 comment5869278566.
-service_role: new RPC grants are server-only and each call reauthorizes active actor/workspace; no live route/factory found. Global key exposure and real Auth/PostgREST remain staging gates. Prefer authenticated JWT/auth.uid() execution where viable.
-Dependency Review owner configuration remains open. Production untouched. GitHub evidence: PR17 comment5869245466.
+base: `6b0e30e7444de57100e4d983b3564a0c3b336b2c`
 
-## Archived iteration4.1 status — SHA-specific history, superseded above
+w2Backend: `8de57dc2f84634156655f6c79047d545bbb86a6c`
 
+w5Platform: `1c8b3e9fe0fba12d9bad6b313b46e8be7a574603`
 
-Verified 2026-09-26 UTC. Current work: `w4/night-shift-v3`.
-`w4/security-baseline@5cb872c` is preserved; never promote it directly to main.
-Only writable repository: Asier-Comba/CRM-Telecomunicaciones. Historical repository read-only.
+w2C2: `a917bbb41ef8192344dc49737cd78fd52fe29649`
 
-## Current evidence
+w3Foundation: `dc19ce65cbc89df92ae0496af2d358eea74e0493`
 
-| Work | Reviewed SHA | Result |
-|---|---|---|
-| W1 PR14 | 32f01120a0abd499a856dabc05fa1887456cff2f | Real application, 20 built routes. Clean install/lint/types/22 tests/build/audit pass. All 3 migrations apply, but authenticated onboarding fails SQLSTATE42702 ambiguous id. Not accepted canonical. |
-| W1 PR15 | e65f1e802fbcb63f9a1636689b85eb2aa135c592 | All 9 migrations apply. Domain SQL stops SQLSTATE42703 NEW.service_kind absent. 80 official bootstrap tests and 4 W4 reproduction/control probes pass, NOT a database acceptance result. |
-| W2 PR8 | db8ab41c4e8740aecacc17750ae0bcfaef5d31b5 | 179 official tests plus 7 W4 probes. Bootstrap/READ contract work may continue; expiry/revocation P1s need fixes. |
-| W3 PR9 | 91b4b3e83ad20bd27b39ff7df8b74e26c6daa8ab | 173 official tests plus 6 W4 probes; lint/types/build pass. Issue10 durable mutation gate remains. |
+preview: `e374cedd43331e4da6bf74b768c548ed08c62d92`
 
-Tests marked reproduction deliberately assert vulnerable behavior: green is evidence of reproduction, not acceptance.
-Database engine: disposable in-memory PGlite0.5.8/PostgreSQL18.3 with synthetic auth fixtures, pgcrypto and btree_gist.
-Not native multiprocess/PostgREST/Supabase, Storage, staging or restore evidence.
+PR21: accepted local synthetic READ composition; W4128 tests, lint/types/build, HTTP33/17, semantic7 deny-without-read PASS. CI2524/4 desktop/mobile artifact independently verified; local Chromium missing, API2/2 PASS. Production route/SSR/RSC/demo closure PASS. No live-model/real-auth evidence. Readiness doc top and PR body stale.
+PR19: C2 both exact absence-code roundtrips + stable nonnull lease PASS; no native runtime adapter/process claim.
+PR18: exact24-migration W4 PGlite domain/read/durable/restore PASS; unchanged Storage policy W4 owner/admin/member/A-B/suspension/archive/anon checks PASS. Native PG16 CI216/223/252 separately verified; no Supabase APIs.
+Issue10: OPEN P0, durable factory/dispatcher/safe-result/original audit-outbox/process-v2/restart/SIGKILL/one-effect evidence absent; writes blocked.
+Issue12: OPEN P1, real Auth/JWT/PostgREST/Storage and scoped execution/environment gates pending.
+Dependency Review: skipped; owner must enable Dependency Graph and DEPENDENCY_REVIEW_ENABLED, then execute review incl negative fixture. No bypass. General Critical Playwright skipped; dedicated preview suite passed.
+Staging: unprovisioned. Production: untouched. Storage/API/signed capabilities/ZIP ingestion: not accepted. Backup: native synthetic DB restore evidence accepted; commercial encrypted/offsite/object/Auth/config/n8n recovery pending. Enterprise identity/portability deliverables absent. Old W2 reveal/expiry/queued-event/mutation-ordering defects INACTIVE/FUTURE for current fixture path, not fixed.
+P2 preview-only: unbounded request.text buffering before size rejection; no production exposure. Client validates response outer shape only; full closed parser/generation fences required before real sensitive backend.
 
-## Findings and handoffs
+NEXT 3: exact durable adapter+native-v2 driver acceptance; isolated Supabase Auth/PostgREST/Storage tests; enterprise admin/2FA/secrets + full recovery evidence.
+Evidence and reproducible commands: docs/master/W4_ITERATION_6.md and .security/reviews/iteration-6.json. Earlier status archived in Git66650cbd989e9386ca2d1274bc4e8d83d448873d. Baseline preserved; no merge/main/deploy authorization exercised.
 
-- W1 P1: onboarding profile upsert ON CONFLICT(id) conflicts with RETURNS TABLE id. Use unambiguous named constraint and execute fresh/retry/suspension/rollback tests.
-- W1 P1: shared portfolio trigger references fields from another record type within a boolean expression. Separate PL/pgSQL branches before SQL preparation. Run entire domain RLS script.
-- W1 P1: READ service trusts outer envelope but passes nested foreign scope, unknown fields and raw repository error detail. Closed projection and nested scope validation required before integration.
-- W1 data validation: impossible calendar dates reach repository.
-- W1 P1 VERIFIED independently on unmodified e65f1e8: privileged INSERT can create a completed import with fabricated99 counters and no staging/application rows. Not a browser authorization bypass. Enforce initial state/counters in DB; standalone synthetic reproduction is versioned.
-- W2 P1: lexical ISO comparisons permit expired reveal/copy; revoked sensitive state/overlay can be reopened by queued prior events. Require numeric instants and authorization-generation fencing.
-- W2 P2: lexical mutation ordering; request-ID reuse after tombstone eviction; NaN collection window.
-- W3 operationRef reflection P1 FIXED at91b4b3e; constant invalid marker verified with regression test.
-- W3 P1: reconciliation verifier data accepts arbitrary private fields inside SUCCESS data; outer-envelope closure is not capability output-schema validation. Require per-capability parser before transition; no live leak claimed.
-- W3 P1/durable gate: audit outage after successful reconciliation loses original transition event; request retry only audits conflict. Transactional audit delivery needed.
-- W3 P0 mutation release: durable runtime-integrated adapter, atomic op/outbox, independent-process race/restart/kill-after-effect recovery and tenant authorization remain unproven. Reference Maps are not durable evidence.
-
-Published evidence: PR14 comment5850623326; PR15 comment5850642127; PR8 comment5850636565; Issue10 comment5850635726.
-Issue10 remains open. PR9 is not approved; W3 can continue foundation and fixes. W2 is not blocked for W1 ownership issues.
-
-## Fixed / superseded findings
-
-W3 framework confirmations, in-process 20-way reservation, reconciliation lease behavior, bounded outages, bare Bearer/AWS output variants fixed.
-W2 route IDs, telemetry projection, runtime parsing/impossible dates in transport adapters, identity correlation and stale stream fencing fixed.
-W1 helpers now require active workspace in reviewed source. End-to-end onboarding/suspension validation blocked by SQL error; do not repeat old helper finding as current.
-Old PR11/history findings are historical, not a diagnosis of reconstructed PR14. Independently inspected PR14 CI109: full-history Secret scan job108408686957 succeeded. Local reachable-object check found no old archive/known blob-prefix/env files. This is scanner evidence, never a guarantee of absence of every possible credential.
-
-## W4 independent implementation
-
-Existing CI, secret scan, dependency/migration policies, staging/restore validators and tenant/assistant matrices preserved.
-Added disposable real PostgreSQL runner and pinned lockfile, branch-specific adversarial reproduction artifacts.
-Fixed evidence-validator null/primitive crashes and rejection of negative assistant effect counts; negative controls added.
-Machine-readable release state: .security/release-gates.json.
-Production untouched. Staging unprovisioned. No main/merge/deploy/settings/DNS/remote DB operation.
-Synthetic embedded snapshot/restore self-test passes checksum/data/RLS; no application/Storage/n8n/commercial DR exercise claimed. Project sync attempted: signed-in browser lists CRM TELECOM-MASTER and its chats, but opening the observed MASTER chat via UI and direct observed URL redirects home. No chat contents read or checkpoint sent; GitHub holds handoffs. No login failure or bot block is inferred.
-
-## Latest implementation checkpoint
-
-PR16 draft on w4/night-shift-v3, commit b595249; CI132 passed disposable PostgreSQL controls, secret scan, baseline/migration checks. Dependency Review and Playwright skipped for documented prerequisites. Baseline5cb872c remains untouched.
-Follow-up e8906ff also passed CI134, including the snapshot/restore self-test and dependency audit (0 vulnerabilities). This is the latest verified implementation checkpoint; later documentation-only commits do not replace its evidence.
-Local diagnostic patches (not W1 commits): named profiles_pkey resolves onboarding and passes retry/suspension; separating both shared-trigger table branches allows full domain SQL fixture to complete. W1 must publish reviewed forward corrections before those gates can be accepted.
-Infrastructure decision draft covers stage options, weighted criteria, environment separation and provisional recovery targets without asserting deployment/provider capabilities.
-
-## Next safe work
-
-Rerun SQL after W1 publishes fixes; bind native database process races to W3's durable adapter when implemented. API/Storage/JWT/effect-provider acceptance needs actual nonproduction adapters/resources, not synthetic stand-ins.
-Integrate reviewed controls only after accepted base. Infra decision, local harness expansion, executable SQL, snapshot self-test and current-head handoffs are prepared. Real staging/Hostinger/n8n inventory and full restore remain externally gated; no credentials requested in chat.
-Refetch after each block and review deltas. Human approval remains required for production/critical permissions. Project navigation failure is nonblocking for GitHub work.
+P1 RESTORE-ACL-001 (Issue22): native drill uses --no-acl and postgres-only reader smoke; privilege recovery unproven. W4 ACL-loss model reproduces anonymous RPC access if REVOKE is omitted. Preserve/remap ACLs and prove restored anon/authenticated/service-role matrix before recovery acceptance; synthetic preview/composition unaffected.

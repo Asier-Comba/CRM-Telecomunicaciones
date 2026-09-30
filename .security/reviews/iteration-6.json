@@ -1,0 +1,61 @@
+{
+  "verifiedUtc": "2026-09-30",
+  "heads": {
+    "base": "6b0e30e7444de57100e4d983b3564a0c3b336b2c",
+    "w2Backend": "8de57dc2f84634156655f6c79047d545bbb86a6c",
+    "w5Platform": "1c8b3e9fe0fba12d9bad6b313b46e8be7a574603",
+    "w2C2": "a917bbb41ef8192344dc49737cd78fd52fe29649",
+    "w3Foundation": "dc19ce65cbc89df92ae0496af2d358eea74e0493",
+    "preview": "e374cedd43331e4da6bf74b768c548ed08c62d92"
+  },
+  "decisions": {
+    "CAN_INTEGRATE": "YES",
+    "CAN_STAGE": "NO",
+    "CAN_PRODUCE": "NO",
+    "CAN_TEST_SYNTHETIC_PREVIEW": "YES"
+  },
+  "independent": {
+    "nodeTests": 128,
+    "httpDevelopmentChecks": 33,
+    "httpProductionChecks": 17,
+    "semanticDeniedWithoutRepository": 7,
+    "pgliteMigrationsW5": 24,
+    "pgliteMigrationsC2": 25,
+    "storage": "sql_stub_pass",
+    "durableC2": "both_codes_stable_lease_null_rejected",
+    "browserLocal": "not_run_missing_executable"
+  },
+  "upstreamCI": {
+    "previewRun": 36702725962,
+    "browserArtifact": 11090996803,
+    "browserSha256": "f02c7d5282f9d1b258f0534b7fffed6b4acc9cbd1f272e05ceba2a8149495918",
+    "browserReport": {
+      "expected": 4,
+      "unexpected": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "projects": [
+        "desktop",
+        "mobile"
+      ]
+    },
+    "nativePostgres": "16_schema_synthetic_restore_pass",
+    "dependencyReview": "skipped",
+    "generalCriticalPlaywright": "skipped"
+  },
+  "openIssues": [
+    10,
+    12,
+    22
+  ],
+  "production": "untouched",
+  "findings": [
+    {
+      "id": "RESTORE-ACL-001",
+      "severity": "P1",
+      "component": "native synthetic restore script",
+      "evidence": "source plus PGlite ACL-loss model; native restored ACL matrix not run",
+      "gate": "recovery.restore"
+    }
+  ]
+}

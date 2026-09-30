@@ -2,6 +2,7 @@ import { PGlite } from '@electric-sql/pglite'
 import { pgcrypto } from '@electric-sql/pglite/contrib/pgcrypto'
 import { btree_gist } from '@electric-sql/pglite/contrib/btree_gist'
 import { readFile, readdir } from 'node:fs/promises'
+import { existsSync } from 'node:fs'
 import assert from 'node:assert/strict'
 const root = process.argv[2]
 const db = new PGlite({ extensions: { pgcrypto, btree_gist } })
@@ -13,6 +14,8 @@ try {
  grant usage on schema public,auth to anon,authenticated,service_role;
  grant execute on function auth.uid() to anon,authenticated,service_role;
  set app.environment='test';`)
+ const storageStub = root+'/scripts/security/ephemeral-postgres/storage-stub.sql'
+ if (existsSync(storageStub)) await db.exec(await readFile(storageStub,'utf8'))
  for (const f of (await readdir(root+'/supabase/migrations')).filter(x=>x.endsWith('.sql')).sort()) {
    await db.exec(await readFile(root+'/supabase/migrations/'+f,'utf8'))
    console.log('APPLIED '+f)

@@ -42,7 +42,7 @@ try {
   }
   assert.notEqual(run((value) => { value.releaseDecision = 'ready' }).status, 0, 'open P0 cannot be release-ready')
   assert.notEqual(run((value) => { value.gates.find((gate) => gate.id === 'ci.baseline').evidenceSatisfied = [] }).status, 0, 'passed gate requires complete evidence')
-  assert.notEqual(run((value) => { value.gates.find((gate) => gate.id === 'frontend.read').status = 'passed' }).status, 0, 'gate cannot pass before its dependency')
+  assert.notEqual(run((value) => { value.gates.find((gate) => gate.id === 'frontend.read').evidenceSatisfied = [] }).status, 0, 'frontend acceptance requires complete evidence')
   assert.notEqual(run((value) => { value.gates.find((gate) => gate.id === 'base.canonical').requires = ['release.production'] }).status, 0, 'dependency cycle must fail')
   assert.notEqual(run((value) => { value.gates[0].databasePassword = 'forbidden' }).status, 0, 'secret-bearing evidence fields must fail')
   console.log('Release gate negative-control tests passed')

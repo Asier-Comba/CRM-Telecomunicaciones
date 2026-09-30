@@ -68,8 +68,13 @@
       "evidenceRefs": [
         "pr:#17",
         "commit:8de57dc2f84634156655f6c79047d545bbb86a6c",
-        "run:#180",
-        "doc:docs/master/SYSTEM_STATE.md"
+        "pr:#18",
+        "commit:1c8b3e9fe0fba12d9bad6b313b46e8be7a574603",
+        "pr:#19",
+        "commit:a917bbb41ef8192344dc49737cd78fd52fe29649",
+        "run:#216",
+        "run:#223",
+        "doc:docs/master/W4_ITERATION_6.md"
       ]
     },
     {
@@ -80,7 +85,7 @@
         "W2",
         "W4"
       ],
-      "status": "pending",
+      "status": "passed",
       "requires": [
         "base.canonical"
       ],
@@ -93,11 +98,14 @@
       "evidenceSatisfied": [
         "presentation_contract",
         "assistant_read_matrix",
-        "safe_route_ids"
+        "safe_route_ids",
+        "runtime_security_tests"
       ],
       "evidenceRefs": [
-        "pr:#8",
-        "commit:db8ab41"
+        "pr:#21",
+        "commit:e374cedd43331e4da6bf74b768c548ed08c62d92",
+        "run:#252",
+        "doc:docs/master/W4_ITERATION_6.md"
       ]
     },
     {
@@ -129,7 +137,9 @@
       "evidenceRefs": [
         "issue:#10",
         "pr:#9",
-        "commit:515e0d439e705ecc9c9c13140ed14b4d8f565246"
+        "commit:dc19ce65cbc89df92ae0496af2d358eea74e0493",
+        "pr:#19",
+        "commit:a917bbb41ef8192344dc49737cd78fd52fe29649"
       ]
     },
     {
@@ -184,8 +194,8 @@
       ],
       "evidenceSatisfied": [],
       "evidenceRefs": [
-        "run:#67",
-        "run:#69"
+        "run:#252",
+        "doc:docs/master/W4_ITERATION_6.md"
       ]
     },
     {
@@ -257,12 +267,17 @@
         "n8n_restore",
         "configuration_restore",
         "tenant_smoke",
-        "rpo_rto_met"
+        "rpo_rto_met",
+        "restored_privilege_matrix"
       ],
       "evidenceSatisfied": [],
       "evidenceRefs": [
+        "run:#216",
+        "run:#223",
+        "run:#252",
+        "doc:docs/master/W4_ITERATION_6.md",
         "doc:docs/master/BACKUP_DR.md",
-        "commit:fe6060f"
+        "issue:#22"
       ]
     },
     {
@@ -315,7 +330,10 @@
       ],
       "evidenceSatisfied": [],
       "evidenceRefs": [
-        "doc:docs/master/W4_PORTABILITY_AUDIT.md"
+        "issue:#12",
+        "pr:#18",
+        "commit:1c8b3e9fe0fba12d9bad6b313b46e8be7a574603",
+        "doc:docs/master/W4_ITERATION_6.md"
       ]
     }
   ],
