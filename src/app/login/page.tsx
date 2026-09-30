@@ -10,6 +10,7 @@ import { cn } from '@/lib/utils'
 import { getSupabaseBrowserClient } from '@/lib/supabase'
 import { DEMO_MODE_KEY } from '@/lib/current-user'
 import { BRAND } from '@/lib/brand'
+import { featureFlags } from '@/lib/feature-flags'
 
 type AuthMode = 'signin' | 'forgot'
 type AuthFieldErrors = Partial<Record<'email' | 'password', string>>
@@ -390,7 +391,7 @@ export default function LoginPage() {
               </Button>
             </form>
 
-            {mode === 'signin' && (
+            {mode === 'signin' && featureFlags.demoData && (
               <div className="mt-6">
                 <div className="relative mb-4 flex items-center">
                   <div className="h-px flex-1 bg-gray-100" />
@@ -409,7 +410,7 @@ export default function LoginPage() {
                   <Building2 className="h-4 w-4" />
                   Ver demo telecom
                 </button>
-                <p className="mt-2 text-center text-[11px] text-gray-400">Entrarás en un entorno de ejemplo. No se guardan cambios reales.</p>
+                <p className="mt-2 text-center text-[11px] text-gray-400">Demo de desarrollo con datos sintéticos. No se guardan cambios reales.</p>
               </div>
             )}
 
