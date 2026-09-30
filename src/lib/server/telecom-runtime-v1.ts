@@ -287,7 +287,7 @@ function parseWithChecks(input: unknown, operation: TelecomV1ReadOperation, poli
 
       const customerConsistent = (value: JsonValue, expected: string): boolean => {
         if (!value || typeof value !== 'object') return true
-        if (record(value) && value.kind === 'customer' && value.id !== expected) return false
+        if (record(value) && value.kind === 'customer' && (value.id ?? value.customer_id) !== expected) return false
         return Object.values(value).every((child) => customerConsistent(child, expected))
       }
       checks.attention = (value) => closed({

@@ -84,6 +84,7 @@ const FLAG_DEFAULT: Record<FlagKey, boolean> = {
 }
 
 export function isFeatureEnabled(flag: FlagKey): boolean {
+  if (flag === 'demoData' && process.env.NODE_ENV === 'production') return false
   return readFlag(FLAG_ENV[flag], FLAG_DEFAULT[flag])
 }
 

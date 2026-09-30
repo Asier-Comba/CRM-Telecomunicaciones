@@ -10,6 +10,7 @@ import { cn } from '@/lib/utils'
 import { getSupabaseBrowserClient } from '@/lib/supabase'
 import { DEMO_MODE_KEY } from '@/lib/current-user'
 import { BRAND } from '@/lib/brand'
+import { featureFlags } from '@/lib/feature-flags'
 
 type AuthMode = 'signin' | 'forgot'
 type AuthFieldErrors = Partial<Record<'email' | 'password', string>>
@@ -237,21 +238,21 @@ export default function LoginPage() {
 
           <div className="relative max-w-xl">
             <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-gray-500">
-              CRM inmobiliario privado · uso autorizado
+              CRM telecom privado · uso autorizado
             </p>
-            <h1 className="mt-5 text-[2.4rem] font-semibold leading-[1.06] tracking-tight text-gray-950 xl:text-[2.9rem]">
-              Gestiona clientes, operaciones y citas desde un solo lugar.
-            </h1>
+            <h2 className="mt-5 text-[2.4rem] font-semibold leading-[1.06] tracking-tight text-gray-950 xl:text-[2.9rem]">
+              Gestiona clientes, contratos, líneas y oportunidades desde un solo lugar.
+            </h2>
             <p className="mt-4 max-w-md text-sm leading-6 text-gray-600">
-              CRM privado para inmobiliarias: seguimiento comercial, trámites,
-              tareas, calendario y asistente IA operativo.
+              CRM para distribuidores telecom: seguimiento comercial, tareas,
+              calendario y asistente de consulta.
             </p>
 
             <ul className="mt-7 space-y-3">
               {[
-                { icon: <Users className="h-4 w-4" />, text: 'Clientes y operaciones organizados' },
-                { icon: <Calendar className="h-4 w-4" />, text: 'Tareas, citas y trámites bajo control' },
-                { icon: <Bot className="h-4 w-4" />, text: 'Asistente IA para consultar y preparar acciones' },
+                { icon: <Users className="h-4 w-4" />, text: 'Clientes, contratos y líneas organizados' },
+                { icon: <Calendar className="h-4 w-4" />, text: 'Tareas y reuniones bajo control' },
+                { icon: <Bot className="h-4 w-4" />, text: 'Asistente IA para consultas fundamentadas' },
               ].map((b) => (
                 <li key={b.text} className="flex items-center gap-3">
                   <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gray-950 text-white">{b.icon}</span>
@@ -309,9 +310,9 @@ export default function LoginPage() {
               </div>
             </div>
 
-            <h2 className="text-[2rem] font-semibold leading-[1.1] tracking-tight text-gray-950 sm:text-[2.15rem]">
+            <h1 className="text-[2rem] font-semibold leading-[1.1] tracking-tight text-gray-950 sm:text-[2.15rem]">
               {mode === 'signin' ? 'Iniciar sesión' : 'Restablecer acceso'}
-            </h2>
+            </h1>
             <p className="mt-2 text-sm leading-6 text-gray-500">
               {mode === 'signin'
                 ? 'Introduce tus credenciales para acceder al CRM interno.'
@@ -327,7 +328,7 @@ export default function LoginPage() {
                     type="email"
                     value={email}
                     onChange={(event) => setEmail(event.target.value)}
-                    placeholder="nombre@inmobiliaria.com"
+                    placeholder="nombre@empresa.com"
                     autoComplete="email"
                     inputMode="email"
                     autoCapitalize="none"
@@ -390,7 +391,7 @@ export default function LoginPage() {
               </Button>
             </form>
 
-            {mode === 'signin' && (
+            {mode === 'signin' && featureFlags.demoData && (
               <div className="mt-6">
                 <div className="relative mb-4 flex items-center">
                   <div className="h-px flex-1 bg-gray-100" />
@@ -401,15 +402,15 @@ export default function LoginPage() {
                   type="button"
                   onClick={() => {
                     window.localStorage.setItem(DEMO_MODE_KEY, 'true')
-                    toast.success('Modo demo', { description: 'Datos de ejemplo de una inmobiliaria. Sin conexión a datos reales.' })
+                    toast.success('Modo demo', { description: 'Datos telecom sintéticos. Sin conexión a datos reales.' })
                     router.replace('/dashboard')
                   }}
                   className="flex h-12 w-full items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white text-sm font-semibold text-gray-800 transition hover:border-gray-900 hover:bg-gray-50"
                 >
                   <Building2 className="h-4 w-4" />
-                  Ver demo inmobiliaria
+                  Ver demo telecom
                 </button>
-                <p className="mt-2 text-center text-[11px] text-gray-400">Entrarás en un entorno de ejemplo. No se guardan cambios reales.</p>
+                <p className="mt-2 text-center text-[11px] text-gray-400">Demo de desarrollo con datos sintéticos. No se guardan cambios reales.</p>
               </div>
             )}
 

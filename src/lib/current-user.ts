@@ -167,7 +167,7 @@ export async function loadIdentity(): Promise<{ currentUser: CurrentUser | null;
     return { currentUser: offlineCurrentUser, context: null }
   }
   // Explicit demo mode (botón "Ver demo" en /login) takes priority over Supabase.
-  if (typeof window !== 'undefined' && window.localStorage.getItem(DEMO_MODE_KEY) === 'true') {
+  if (featureFlags.demoData && typeof window !== 'undefined' && window.localStorage.getItem(DEMO_MODE_KEY) === 'true') {
     return { currentUser: demoUser, context: null }
   }
   const supabase = getSupabaseBrowserClient()
