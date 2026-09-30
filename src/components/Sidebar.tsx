@@ -26,7 +26,7 @@ import { BRAND } from '@/lib/brand'
 const navItems: Array<{ href: string; label: string; icon: typeof LayoutDashboard; flag?: FlagKey; internal?: boolean; extra?: boolean; badge?: string }> = [
   { href: '/dashboard',     label: 'Dashboard',         icon: LayoutDashboard },
   { href: '/clients',       label: 'Clientes',          icon: Users },
-  { href: '/opportunities', label: 'Cartera',           icon: Building2,  flag: 'opportunities' },
+  { href: '/opportunities', label: 'Oportunidades',     icon: Building2,  flag: 'opportunities' },
   { href: '/calendar',      label: 'Calendario',        icon: Calendar,   flag: 'calendar' },
   { href: '/assistant',     label: 'Asistente IA',      icon: Bot,        flag: 'assistant' },
   // Operator-only routes kept in code but hidden from the client sidebar.
@@ -39,7 +39,7 @@ const navItems: Array<{ href: string; label: string; icon: typeof LayoutDashboar
   // Módulos extra — integrados con el CRM pero separados del core (P36A).
   // `invoicing` gatea el extra Facturación PRO: un clon sin contratar el módulo pone
   // NEXT_PUBLIC_ENABLE_INVOICING=false y desaparece de la navegación (P45).
-  { href: '/facturacion',   label: 'Facturación',       icon: Receipt,    flag: 'invoicing', extra: true, badge: 'PRO' },
+  { href: '/facturacion',   label: 'Facturación',       icon: Receipt,    flag: 'invoicing', extra: true, badge: 'PRO', internal: true },
 ]
 
 const visibleNavItems = navItems.filter((item) => {

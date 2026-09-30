@@ -34,7 +34,7 @@ export function AuthGate({ children }: { children: React.ReactNode }) {
 
       // Explicit demo mode (botón "Ver demo" en /login) concede acceso sin
       // Supabase. Solo muestra datos mock, nunca filas reales de un workspace.
-      if (window.localStorage.getItem(DEMO_MODE_KEY) === 'true' && mounted) {
+      if (DEMO_FALLBACK_ALLOWED && window.localStorage.getItem(DEMO_MODE_KEY) === 'true' && mounted) {
         setAllowed(true)
         return
       }
