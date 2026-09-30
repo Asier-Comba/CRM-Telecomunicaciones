@@ -54,8 +54,12 @@ export const previewRepository: TelecomReadRepositoryV1 = {
   async customerSummary(_context, input) {
     const data = customerPreview(input.customer_id)
     if (!data) return one(null)
+    const unavailable = { ...version, source_state: 'unavailable', permission: 'unknown', items: null,
+      completeness: null, continuation: null, freshness: null, error: null } as const
     return one({ ...version, customer: data.customer,
-      contracts: previewCollection(data.contracts), services: previewCollection(data.services), lines: previewCollection(data.lines),
+      contracts: data.portfolioAvailable ? previewCollection(data.contracts) : unavailable,
+      services: data.portfolioAvailable ? previewCollection(data.services) : unavailable,
+      lines: data.portfolioAvailable ? previewCollection(data.lines) : unavailable,
       attention: { ...version, customer_id: data.customer.id, generated_at: PREVIEW_AS_OF,
         next_task: previewCollection(data.tasks.slice(0, 1)), next_meeting: previewCollection(data.meetings.slice(0, 1)),
         nearest_renewal: previewCollection(data.renewals.slice(0, 1)), nearest_permanence: previewCollection(data.permanences.slice(0, 1)),

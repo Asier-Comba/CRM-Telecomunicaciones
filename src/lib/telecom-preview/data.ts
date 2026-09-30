@@ -121,6 +121,7 @@ export function customerPreview(id: string) {
   const serviceIds = new Set<string>(services.map(item => item.id))
   return {
     customer: record,
+    portfolioAvailable: id !== 'cust_demo_parcial_010',
     contracts,
     services,
     lines: previewLines.filter(item => serviceIds.has(item.service.id)),
