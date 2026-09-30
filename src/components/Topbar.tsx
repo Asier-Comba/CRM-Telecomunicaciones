@@ -83,7 +83,7 @@ export function Topbar({ onMenuClick }: { onMenuClick?: () => void }) {
           <Menu className="h-5 w-5" />
         </button>
         <div className="min-w-0">
-          <h1 className="truncate text-base font-semibold text-gray-950">{page.title}</h1>
+          <p className="truncate text-base font-semibold text-gray-950">{page.title}</p>
           {page.description && <p className="hidden truncate text-xs text-gray-400 sm:block">{page.description}</p>}
         </div>
       </div>
