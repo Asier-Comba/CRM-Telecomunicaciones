@@ -4,11 +4,14 @@ import { PageHeader } from '@/components/PageHeader'
 import { SectionCard } from '@/components/SectionCard'
 import { Badge } from '@/components/Badge'
 import { previewCustomers, previewMeetings, previewOpportunities, previewPermanences, previewRenewals, previewTasks } from '@/lib/telecom-preview/data'
+import { previewDate, urgencyLabel } from '@/lib/telecom-preview/presentation'
+import { syntheticPreviewAllowed } from '@/lib/telecom-preview/access'
 
-const date = (value: string) => new Intl.DateTimeFormat('es-ES', { day: '2-digit', month: 'short', timeZone: 'Europe/Madrid' }).format(new Date(`${value}T00:00:00Z`))
+const date = previewDate
 
 export default function DashboardPage() {
-  const activeCustomers = previewCustomers.filter(item => item.status === 'active').length
+  if (!syntheticPreviewAllowed()) return <PageHeader title="Dashboard telecom" description="Vista sintética no disponible en este entorno." />
+  const activeCustomers = previewCustomers.filter(item => item.status === 'active' && item.lifecycle === 'customer').length
   const openOpportunities = previewOpportunities.filter(item => item.status === 'open').length
   const pendingTasks = previewTasks.filter(item => item.status === 'pending' || item.status === 'in_progress').length
   const attention = [...previewRenewals, ...previewPermanences]
@@ -35,12 +38,12 @@ export default function DashboardPage() {
             {attention.map(item => (
               <div key={item.id} className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-slate-100 bg-slate-50/70 p-4">
                 <div><p className="font-medium text-slate-900">{item.title}</p><p className="mt-1 text-sm text-slate-500">{item.customer?.display_name ?? 'Cliente no disponible'}</p></div>
-                <div className="text-right"><Badge variant={item.kind === 'renewal' ? 'indigo' : 'warning'}>{item.kind === 'renewal' ? 'Renovación' : 'Permanencia'}</Badge><p className="mt-1 text-sm font-semibold text-slate-700">{date(item.kind === 'renewal' ? item.target_on : item.ends_on)}</p></div>
+                <div className="text-right"><Badge variant={item.kind === 'renewal' ? 'indigo' : 'warning'}>{item.kind === 'renewal' ? 'Renovación' : 'Permanencia'}</Badge><p className="mt-1 text-sm font-semibold text-slate-700">{date(item.kind === 'renewal' ? item.target_on : item.ends_on)}</p><p className="text-xs text-slate-500">{urgencyLabel(item.kind === 'renewal' ? item.target_on : item.ends_on)}</p></div>
               </div>
             ))}
           </div>
         </SectionCard>
-        <SectionCard title="Hoy" description="Tareas y reuniones separadas">
+        <SectionCard title="Agenda comercial" description="Tareas abiertas y reuniones · referencia 30 sep 2026">
           <div className="space-y-3">
             {previewTasks.map(item => <Link key={item.id} href={`/clients/${item.customer?.id}`} className="block rounded-xl border border-slate-100 p-3 hover:border-indigo-200"><div className="flex gap-3"><CheckSquare2 className="mt-0.5 h-4 w-4 text-indigo-500"/><div><p className="text-sm font-medium text-slate-900">{item.title}</p><p className="text-xs text-slate-500">{item.customer?.display_name}</p></div></div></Link>)}
             {previewMeetings.map(item => <Link key={item.id} href={`/clients/${item.customer?.id}`} className="block rounded-xl border border-slate-100 p-3 hover:border-indigo-200"><div className="flex gap-3"><Clock3 className="mt-0.5 h-4 w-4 text-sky-500"/><div><p className="text-sm font-medium text-slate-900">{item.title}</p><p className="text-xs text-slate-500">{new Date(item.starts_at).toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit',timeZone:'Europe/Madrid'})} · {item.customer?.display_name}</p></div></div></Link>)}
