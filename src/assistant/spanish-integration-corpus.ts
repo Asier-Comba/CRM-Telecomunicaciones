@@ -1,6 +1,6 @@
-import type { LiveSemanticCase } from './live-semantic-eval.js'
-import type { ClaimEvidence } from './claim-grounding.js'
-import { TELECOM_CAPABILITY_CATALOG } from './telecom-catalog.js'
+import type { LiveSemanticCase } from './live-semantic-eval.ts'
+import type { ClaimEvidence } from './claim-grounding.ts'
+import { TELECOM_CAPABILITY_CATALOG } from './telecom-catalog.ts'
 
 const customer = `ref_${'a'.repeat(32)}`, service = `ref_${'b'.repeat(32)}`, line = `ref_${'c'.repeat(32)}`
 const context = { calendarDate: '2026-09-28', timezone: 'Europe/Madrid', writesEnabled: false,

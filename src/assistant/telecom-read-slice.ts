@@ -1,7 +1,7 @@
-import { SemanticReadExecutor } from './semantic-read-executor.js'
-import { SessionReferenceStore, type ReferenceScope } from './session-references.js'
-import { createAuthorizedTelecomAdapter, type ReadEvidence } from './telecom-service-adapter.js'
-import { BINDING_KINDS, parseSemanticReadPlan } from './semantic-read-plan.js'
+import { SemanticReadExecutor } from './semantic-read-executor.ts'
+import { SessionReferenceStore, type ReferenceScope } from './session-references.ts'
+import { createAuthorizedTelecomAdapter, type ReadEvidence } from './telecom-service-adapter.ts'
+import { BINDING_KINDS, parseSemanticReadPlan } from './semantic-read-plan.ts'
 
 /** Executable, request-scoped READ-only product seam. Caller obtains the plan
  * from the semantic planner and context ONLY from authenticated server state.

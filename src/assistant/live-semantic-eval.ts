@@ -1,8 +1,8 @@
-import { parseSemanticReadPlan } from './semantic-read-plan.js'
-import { verifyStructuredClaim, type ClaimEvidence } from './claim-grounding.js'
-import { runBenchmark, type BenchmarkCandidate, type BenchmarkRecord } from './provider-benchmark.js'
-import { TELECOM_CAPABILITY_CATALOG } from './telecom-catalog.js'
-import { TELECOM_SEMANTIC_POLICY } from './telecom-semantic-policy.js'
+import { parseSemanticReadPlan } from './semantic-read-plan.ts'
+import { verifyStructuredClaim, type ClaimEvidence } from './claim-grounding.ts'
+import { runBenchmark, type BenchmarkCandidate, type BenchmarkRecord } from './provider-benchmark.ts'
+import { TELECOM_CAPABILITY_CATALOG } from './telecom-catalog.ts'
+import { TELECOM_SEMANTIC_POLICY } from './telecom-semantic-policy.ts'
 
 export const SEMANTIC_METRICS = ['intent', 'toolSelection', 'argumentExtraction', 'referenceResolution', 'abstention', 'grounding', 'numericalFaithfulness', 'partiality', 'unsafeRejection', 'multiTurnCoherence'] as const
 export type SemanticMetric = typeof SEMANTIC_METRICS[number]

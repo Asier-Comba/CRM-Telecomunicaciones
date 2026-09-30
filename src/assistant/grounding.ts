@@ -1,4 +1,4 @@
-import { containsHighConfidenceSecret } from './schema.js'
+import { containsHighConfidenceSecret } from './schema.ts'
 
 /** Minimal model-facing projection of W1 telecom.v1, not an auth or DTO parser.
  * Invoke only after the server reader has authorized and validated its DTO.

@@ -1,5 +1,5 @@
-import { telecomCapability } from './telecom-catalog.js'
-import { containsHighConfidenceSecret, type ValidationResult } from './schema.js'
+import { telecomCapability } from './telecom-catalog.ts'
+import { containsHighConfidenceSecret, type ValidationResult } from './schema.ts'
 
 /** Calendar validation, not Date.parse rollover. Relative dates are planner context work. */
 export function isCalendarDate(value: string): boolean {

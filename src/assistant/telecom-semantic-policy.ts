@@ -1,5 +1,5 @@
-import { TELECOM_CAPABILITY_CATALOG } from './telecom-catalog.js'
-import { BINDING_KINDS, READ_RESULT_KINDS } from './semantic-read-plan.js'
+import { TELECOM_CAPABILITY_CATALOG } from './telecom-catalog.ts'
+import { BINDING_KINDS, READ_RESULT_KINDS } from './semantic-read-plan.ts'
 
 const intent: Readonly<Record<string, readonly [string, string]>> = {
   'customer.search': ['customer_search', 'Nombre escrito por el usuario; conservar erratas, no inventar coincidencias ni IDs de comerciales.'],

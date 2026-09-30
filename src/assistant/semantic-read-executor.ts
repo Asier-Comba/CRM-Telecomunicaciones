@@ -1,8 +1,8 @@
-import { isSafeEvidenceText } from './context-budget.js'
-import { SessionReferenceStore, type ReferenceScope, type ReferenceReadGuard } from './session-references.js'
-import type { EntityKindV1 } from './entity-kinds.js'
-import { BINDING_KINDS, READ_RESULT_KINDS, parseSemanticReadPlan } from './semantic-read-plan.js'
-import { validateTelecomInput } from './telecom-input-validation.js'
+import { isSafeEvidenceText } from './context-budget.ts'
+import { SessionReferenceStore, type ReferenceScope, type ReferenceReadGuard } from './session-references.ts'
+import type { EntityKindV1 } from './entity-kinds.ts'
+import { BINDING_KINDS, READ_RESULT_KINDS, parseSemanticReadPlan } from './semantic-read-plan.ts'
+import { validateTelecomInput } from './telecom-input-validation.ts'
 
 export type SafeReadEntity = { kind: EntityKindV1; id: string; label: string }
 /** The injected adapter MUST freshly authorize operation/resources and project its

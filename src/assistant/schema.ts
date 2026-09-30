@@ -1,4 +1,4 @@
-import type { ObjectSchema, ValueSchema } from './contracts.js'
+import type { ObjectSchema, ValueSchema } from './contracts.ts'
 
 const TENANT_KEYS = new Set(['workspace', 'workspaceid', 'tenant', 'tenantid'])
 const SENSITIVE_KEY = /token|secret|password|passwd|cookie|authorization|api[-_]?key|session/i

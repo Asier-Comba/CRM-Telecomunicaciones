@@ -1,6 +1,6 @@
-import type { EntityKindV1 } from './entity-kinds.js'
-import { telecomCapability } from './telecom-catalog.js'
-import { validateTelecomInput } from './telecom-input-validation.js'
+import type { EntityKindV1 } from './entity-kinds.ts'
+import { telecomCapability } from './telecom-catalog.ts'
+import { validateTelecomInput } from './telecom-input-validation.ts'
 
 export type ReadBinding = { targetField: string; source: { type: 'node'; nodeId: string } | { type: 'reference'; handle: string } }
 export type SemanticReadNode = {

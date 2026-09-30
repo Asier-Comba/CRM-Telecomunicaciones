@@ -1,7 +1,7 @@
 import { createHash, randomBytes } from 'node:crypto'
-import { isEntityKindV1, type EntityKindV1 } from './entity-kinds.js'
-import { validateTelecomInput } from './telecom-input-validation.js'
-import { READ_RESULT_KINDS } from './semantic-read-plan.js'
+import { isEntityKindV1, type EntityKindV1 } from './entity-kinds.ts'
+import { validateTelecomInput } from './telecom-input-validation.ts'
+import { READ_RESULT_KINDS } from './semantic-read-plan.ts'
 
 /** Server-owned ephemeral references, NOT an authorization cache or CRM memory.
  * Call issue only with validated, authorized reader results. Resolve is followed

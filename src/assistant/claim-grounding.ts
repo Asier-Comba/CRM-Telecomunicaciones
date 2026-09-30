@@ -1,6 +1,6 @@
-import type { CollectionEvidence, GroundingEntityKind } from './grounding.js'
-import { isCalendarDate } from './telecom-input-validation.js'
-import { isSafeEvidenceText } from './context-budget.js'
+import type { CollectionEvidence, GroundingEntityKind } from './grounding.ts'
+import { isCalendarDate } from './telecom-input-validation.ts'
+import { isSafeEvidenceText } from './context-budget.ts'
 
 export type ClaimEvidence = { evidenceId: string; operation: string; entityKind: GroundingEntityKind; collection: CollectionEvidence }
 type ClaimBase = { evidenceId: string; operation: string; entityKind: GroundingEntityKind; as_of?: string }

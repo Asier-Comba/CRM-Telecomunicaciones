@@ -1,6 +1,6 @@
-import type { AssistantResponse } from './ui-contract.js'
-import type { ReadEvidence } from './telecom-service-adapter.js'
-import { isSafeEvidenceText } from './context-budget.js'
+import type { AssistantResponse } from './ui-contract.ts'
+import type { ReadEvidence } from './telecom-service-adapter.ts'
+import { isSafeEvidenceText } from './context-budget.ts'
 
 /** Deterministic v1 UI projection from the request's validated read evidence.
  * No new UI fields, model HTML, arbitrary URL or hidden navigation grant.

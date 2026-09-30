@@ -1,5 +1,5 @@
-import type { JsonScalar, ResultStatus } from './contracts.js'
-import { containsHighConfidenceSecret } from './schema.js'
+import type { JsonScalar, ResultStatus } from './contracts.ts'
+import { containsHighConfidenceSecret } from './schema.ts'
 
 export const ASSISTANT_RESPONSE_VERSION = 1 as const
 const TABLE_FORMATS = new Set(['text', 'number', 'currency', 'date', 'datetime', 'status'])

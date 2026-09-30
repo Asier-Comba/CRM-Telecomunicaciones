@@ -1,5 +1,5 @@
-import type { CollectionEvidence, GroundedRow } from './grounding.js'
-import { containsHighConfidenceSecret } from './schema.js'
+import type { CollectionEvidence, GroundedRow } from './grounding.ts'
+import { containsHighConfidenceSecret } from './schema.ts'
 
 /** Plain CRM text remains data. This is a transport constraint, not an LLM
  * injection detector: business text passing it never acquires instruction authority. */

@@ -1,9 +1,9 @@
-import { TELECOM_SEMANTIC_POLICY } from './telecom-semantic-policy.js'
-import { parseSemanticReadPlan } from './semantic-read-plan.js'
-import { executeTelecomReadSlice } from './telecom-read-slice.js'
-import { composeTelecomEvidence, composeTelecomFacts } from './telecom-ui-composer.js'
-import { validateAssistantResponse, type AssistantResponse } from './ui-contract.js'
-import type { EntityKindV1 } from './entity-kinds.js'
+import { TELECOM_SEMANTIC_POLICY } from './telecom-semantic-policy.ts'
+import { parseSemanticReadPlan } from './semantic-read-plan.ts'
+import { executeTelecomReadSlice } from './telecom-read-slice.ts'
+import { composeTelecomEvidence, composeTelecomFacts } from './telecom-ui-composer.ts'
+import { validateAssistantResponse, type AssistantResponse } from './ui-contract.ts'
+import type { EntityKindV1 } from './entity-kinds.ts'
 
 export type ReadPlannerInput = {
   protocol: 'assistant.read-planner.v1'

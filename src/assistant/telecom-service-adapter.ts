@@ -1,10 +1,10 @@
-import type { TelecomReadServiceV1, ServerReadContextV1 } from './telecom-service-contract.v1.js'
-import { TELECOM_CAPABILITY_CATALOG } from './telecom-catalog.js'
-import { createTelecomReadBoundary, projectValidatedTelecomMetadata, TELECOM_READ_DTO_KINDS, type ValidatedRead, type TelecomReadBoundaryDependencies } from './telecom-read-boundary.js'
-import type { SafeReadResult } from './semantic-read-executor.js'
-import { projectCollectionEvidence, type GroundingEntityKind, type CollectionEvidence } from './grounding.js'
-import type { ReferenceScope } from './session-references.js'
-import type { JsonObject } from './telecom-dto-parser.js'
+import type { TelecomReadServiceV1, ServerReadContextV1 } from './telecom-service-contract.v1.ts'
+import { TELECOM_CAPABILITY_CATALOG } from './telecom-catalog.ts'
+import { createTelecomReadBoundary, projectValidatedTelecomMetadata, TELECOM_READ_DTO_KINDS, type ValidatedRead, type TelecomReadBoundaryDependencies } from './telecom-read-boundary.ts'
+import type { SafeReadResult } from './semantic-read-executor.ts'
+import { projectCollectionEvidence, type GroundingEntityKind, type CollectionEvidence } from './grounding.ts'
+import type { ReferenceScope } from './session-references.ts'
+import type { JsonObject } from './telecom-dto-parser.ts'
 
 export const TELECOM_SOURCE_SHA = '8e978e04d6f179fcad6aa624923a03dd3b54d092'
 export const TELECOM_CHECKPOINTS: Readonly<Record<string, readonly string[]>> = {

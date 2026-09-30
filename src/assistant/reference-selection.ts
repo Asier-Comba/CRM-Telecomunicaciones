@@ -1,6 +1,6 @@
 import { randomBytes } from 'node:crypto'
-import { SessionReferenceStore, type EntityReference, type ReferenceScope } from './session-references.js'
-import type { EntityKindV1 } from './entity-kinds.js'
+import { SessionReferenceStore, type EntityReference, type ReferenceScope } from './session-references.ts'
+import type { EntityKindV1 } from './entity-kinds.ts'
 
 type Frame = { scope: ReferenceScope; kind: EntityKindV1; turn: number; handles: string[]; expiresAt: number }
 const same = (a: ReferenceScope, b: ReferenceScope): boolean => a.actorId === b.actorId && a.workspaceId === b.workspaceId && a.sessionId === b.sessionId && a.scopeEpoch === b.scopeEpoch

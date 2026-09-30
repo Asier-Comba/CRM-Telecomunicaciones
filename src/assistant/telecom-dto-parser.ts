@@ -1,6 +1,6 @@
-import { isEntityKindV1, type EntityKindV1 } from './entity-kinds.js'
-import { isCalendarDate } from './telecom-input-validation.js'
-import { containsHighConfidenceSecret } from './schema.js'
+import { isEntityKindV1, type EntityKindV1 } from './entity-kinds.ts'
+import { isCalendarDate } from './telecom-input-validation.ts'
+import { containsHighConfidenceSecret } from './schema.ts'
 
 export type JsonValue = null | boolean | number | string | JsonValue[] | JsonObject
 export type JsonObject = { [key: string]: JsonValue }
@@ -58,7 +58,7 @@ function freezeJson(value: JsonValue): void {
 }
 function customerConsistent(value: JsonValue, expected: string): boolean {
   if (!value || typeof value !== 'object') return true
-  if (record(value) && value.kind === 'customer' && value.id !== expected) return false
+  if (record(value) && value.kind === 'customer' && (value.id ?? value.customer_id) !== expected) return false
   return Object.values(value).every((child) => customerConsistent(child, expected))
 }
 

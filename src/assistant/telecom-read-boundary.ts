@@ -1,10 +1,10 @@
-import type { EntityKindV1 } from './entity-kinds.js'
-import { isSafeEvidenceText } from './context-budget.js'
-import { parseTelecomDto, type JsonObject, type JsonValue, type TelecomDtoKind } from './telecom-dto-parser.js'
-import { validateTelecomInput } from './telecom-input-validation.js'
-import { BINDING_KINDS, READ_RESULT_KINDS } from './semantic-read-plan.js'
-import type { ReferenceScope } from './session-references.js'
-import type { SafeReader, SafeReadResult, SafeReadEntity } from './semantic-read-executor.js'
+import type { EntityKindV1 } from './entity-kinds.ts'
+import { isSafeEvidenceText } from './context-budget.ts'
+import { parseTelecomDto, type JsonObject, type JsonValue, type TelecomDtoKind } from './telecom-dto-parser.ts'
+import { validateTelecomInput } from './telecom-input-validation.ts'
+import { BINDING_KINDS, READ_RESULT_KINDS } from './semantic-read-plan.ts'
+import type { ReferenceScope } from './session-references.ts'
+import type { SafeReader, SafeReadResult, SafeReadEntity } from './semantic-read-executor.ts'
 
 export const TELECOM_READ_DTO_KINDS: Readonly<Record<string, TelecomDtoKind>> = Object.freeze({
   'crm.customer.search': 'collection:customer', 'crm.customer.get': 'readone:customer',
