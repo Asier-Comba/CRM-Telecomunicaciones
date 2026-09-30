@@ -27,7 +27,7 @@ export default async function CustomerDetailPage({ params }: { params: Promise<{
         <p className="flex items-center gap-2 rounded-xl bg-slate-50 px-4 py-3 text-sm text-slate-600"><ShieldCheck className="h-4 w-4 text-emerald-600" />Datos protegidos ocultos</p>
       </header>
       <div className="grid grid-cols-3 gap-3">
-        {[['Contratos', data.contracts.length], ['Servicios', data.services.length], ['Líneas', data.lines.length]].map(([label, count]) => <div key={label} className="rounded-xl border border-slate-200 bg-white p-4"><p className="text-xs text-slate-500">{label}</p><p className="mt-1 text-2xl font-semibold text-slate-950">{count}</p></div>)}
+        {[['Contratos', data.contracts.length], ['Servicios', data.services.length], ['Líneas', data.lines.length]].map(([label, count]) => <div key={label} className="rounded-xl border border-slate-200 bg-white p-4"><p className="text-xs text-slate-500">{label}</p><p className="mt-1 text-2xl font-semibold text-slate-950">{data.portfolioAvailable ? count : '—'}</p>{!data.portfolioAvailable && <p className="text-xs text-amber-700">No disponible</p>}</div>)}
       </div>
       <SectionCard title="Contratos" description="Operador → contrato → servicios → líneas">
         <div className="space-y-5">
@@ -53,7 +53,7 @@ export default async function CustomerDetailPage({ params }: { params: Promise<{
               </div>
             </article>
           })}
-          {!data.contracts.length && empty}
+          {!data.contracts.length && (data.portfolioAvailable ? empty : <p className="text-sm text-amber-800">Información parcial: cartera no disponible. No significa que no tenga contratos.</p>)}
         </div>
       </SectionCard>
       <div className="grid gap-5 xl:grid-cols-2">
