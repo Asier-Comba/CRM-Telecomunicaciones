@@ -2,6 +2,15 @@
 
 ## Current checkpoint (supersedes historical evidence below)
 
+ACCEPTED SYNTHETIC BROWSER CHECKPOINT: `109d4e5`, CI `36702260040` / #251:
+7 successful jobs, 2 configuration-skipped jobs. Desktop+mobile journeys and both
+API tests PASS (4/4, zero retries); actual production fixture closure PASS. Reports,
+screenshots and traces retained. This supersedes the pending rerun notes below.
+USER_CAN_TEST=YES **local synthetic preview only** using the launcher below;
+CAN_STAGE=NO; CAN_PRODUCE=NO; no hosted preview/deployment/live-model evidence.
+Latest W2 platform status and Issue10 re-read: actual durable adapter/driver still
+absent; no new acceptance/ownership change. W4 independent acceptance still open.
+
 Updated 2026-09-30; Draft PR21, same branch/base. No main merge/deployment.
 Visible assistant now runs real W3 `runTelecomReadTurn`: bounded preview planner
 → validated semantic plan → typed read capability → W2 authorized telecom.v1
@@ -24,7 +33,7 @@ weakening tests. Rerun `36701647976` (`3ce23fe`) pending final result. Dedicated
 retains reports/screenshots/traces and runs build+production closure after E2E.
 Local browser download truncated; no local E2E success claimed.
 
-Gates: USER_CAN_TEST=NO until full browser acceptance; CAN_STAGE=NO;
+Gates before CI #251: USER_CAN_TEST=NO until full browser acceptance; CAN_STAGE=NO;
 CAN_PRODUCE=NO; Issue10 OPEN; writes OFF; durable adapter absent in this slice.
 Dependency Review configuration-skipped and original Critical Playwright skipped,
 neither counted as executed evidence. HOW_TO_RUN: Node24; npm ci;
