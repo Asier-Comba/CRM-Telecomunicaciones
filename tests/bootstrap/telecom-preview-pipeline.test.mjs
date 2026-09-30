@@ -38,6 +38,8 @@ test('visible preview uses the real read turn, validated DTOs and closed UI', ()
     }
     const ambiguous = await runPreviewRead('Resume Norte', 'test_request');
     assert.equal(ambiguous.responses[0].status, 'AMBIGUOUS');
+    const partial = await runPreviewRead('Resume Horizonte Datos Parciales Demo SL', 'test_request');
+    assert.ok(partial.responses.some(r => r.status === 'PARTIAL'));
     assert.equal(parseSemanticReadPlan({version:1,nodes:[{capability:'hallucinated'}]}), null);
   `], { stdio: 'pipe', timeout: 30_000 })
 })
