@@ -9,21 +9,21 @@
 
 export const BRAND = {
   /** Visible product name — titles, sidebar, login, topbar fallback. */
-  appName: 'CRM Inmobiliario',
+  appName: 'CRM Telecom',
   /** Short tagline / HTML meta description. */
-  appDescription: 'CRM para inmobiliarias: clientes, operaciones, agenda y Asistente IA',
+  appDescription: 'CRM comercial para distribuidores telecom: clientes, contratos, líneas y asistente IA',
   /** Neutral fallback label shown for a REAL workspace before its name resolves
    *  (never "Demo" — this is a real product). */
-  workspaceName: 'Tu inmobiliaria',
+  workspaceName: 'Tu empresa telecom',
   /** Name of the optional EXAMPLE/showcase environment (offline demo). Looks like
    *  a real agency on purpose, so the product never reads as a mockup. */
-  exampleWorkspaceName: 'Inmobiliaria Costa Azul',
+  exampleWorkspaceName: 'Telecom Demo Norte',
   /** Who the user should contact for support — neutral, no brand. */
   supportName: 'equipo técnico',
   /** Visible name of the in-app AI assistant (chat, titles, timeline). */
   assistantName: 'Asistente IA',
   /** One-line description of the assistant (headers, empty states). */
-  assistantDescription: 'Asistente IA del CRM para tu inmobiliaria',
+  assistantDescription: 'Asistente IA de consulta para tu CRM telecom',
   /**
    * Optional "powered by" / signature line. Empty string = hidden.
    * Kept neutral on purpose (no commercial brand yet).
