@@ -1,7 +1,7 @@
 VERIFIED: 2026-09-30 local build, 125 tests and HTTP smoke
 BRANCH: w3/telecom-readonly-integration-v1
 HEAD: commit containing this file
-CI: NOT RUN on GitHub integration branch
+CI: PR #21 — 6 PASS; Dependency Review SKIPPED (Dependency Graph); Critical Playwright SKIPPED
 MODE: development-only synthetic read-only preview
 USER_CAN_TEST: NO
 HOW_TO_RUN: copy .env.preview.example to .env.local; npm ci; npm run dev; open /login; choose Ver demo telecom
@@ -32,3 +32,7 @@ Evidence:
   request returns `POLICY_BLOCK`.
 - `npm run test:e2e:preview`: NOT RUN to page execution because Chromium was not
   installed and the official downloader returned a truncated zero-byte archive.
+- GitHub PR #21 CI: baseline guardrails, secret scan, migration policy,
+  lint/types/tests/build, embedded PGlite and native PostgreSQL restore PASS.
+  Dependency Review is skipped because Dependency Graph is not enabled; Critical
+  Playwright is skipped and therefore is not browser-execution evidence.
