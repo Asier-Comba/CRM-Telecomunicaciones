@@ -22,6 +22,15 @@ membership/access. Service-role calls are labeled privileged RPC evidence, never
 user RLS. Signed capabilities, scoped service principals, hosted APIs/SMTP/MFA and
 commercial recovery remain separate unmet gates.
 
+HTTP checkpoint `c0f7140fbd529d688d18ed0f2a84aac2693b2960` executed dedicated
+run36884540011 and CI258 successfully: 260 checks/10 Auth users, actual
+GoTrue2.197.0, PostgREST16.4, Storage1.79.28 and PostgreSQL15.19. A/B, revoked
+formerly authorized admins reusing valid JWTs, suspended workspace, member/viewer,
+14 server RPCs and private object read/list/write controls PASS. This records that
+exact SHA only; later forged-JWT/build-secret checks require their own CI evidence.
+Configuration inventory: scripts/security/supabase-local/config-inventory.json.
+Portability and enterprise identity requirements are separate companion contracts.
+
 Raw CLI output, credentials, JWTs, passwords and provider payloads never enter
 logs/artifacts. Only bounded stage/errors, versions/images, config hash, migration
 head and safe test summary are retained. Stack teardown affects only this fresh

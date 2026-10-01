@@ -68,6 +68,16 @@ export async function acceptance({ url, anon, service, db, command, report }) {
   check(multiIds.status === 200 && multiIds.json?.length === 2 && [wa, wb].every(w => multiIds.json.includes(w)), 'multi_memberships_not_profile_preference')
   const malformed = await http('/rest/v1/workspaces?id=eq.not-a-uuid', users.ownerA.token)
   check(malformed.status >= 400, 'malformed_rest_parameter')
+  const parts = users.ownerA.token.split('.')
+  const payload = JSON.parse(Buffer.from(parts[1], 'base64url').toString())
+  for (const forged of [
+    [parts[0], Buffer.from(JSON.stringify({ ...payload, sub: users.ownerB.id })).toString('base64url'), parts[2]].join('.'),
+    [parts[0], Buffer.from(JSON.stringify({ ...payload, role: 'service_role' })).toString('base64url'), parts[2]].join('.'),
+    [Buffer.from(JSON.stringify({ alg: 'none', typ: 'JWT' })).toString('base64url'), parts[1], ''].join('.'),
+  ]) {
+    const denied = await rpc('current_workspace_role', { p_workspace_id: wa }, forged)
+    check(denied.status === 401 || denied.status === 403, 'forged_jwt_rejected')
+  }
 
   // Application relations are deliberately server-only except identity projections.
   const tables = JSON.parse(sql(`select json_agg(c.relname order by c.relname) from pg_class c join pg_namespace n on n.oid=c.relnamespace

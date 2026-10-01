@@ -9,10 +9,25 @@ on:
       - 'supabase/migrations/**'
 permissions:
   contents: read
+env:
+  CI: 'true'
 concurrency:
   group: supabase-local-${{ github.ref }}
   cancel-in-progress: true
 jobs:
+  browser-secret-boundary:
+    name: Browser bundle private-value boundary
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version-file: .nvmrc
+      - name: Build with private test canaries and scan actual client assets
+        run: node scripts/security/supabase-local/browser-secret-check.mjs
   local-platform:
     name: Supabase local Auth PostgREST Storage acceptance
     runs-on: ubuntu-latest
