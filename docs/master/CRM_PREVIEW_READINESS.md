@@ -3,16 +3,29 @@ BRANCH: w3/telecom-readonly-integration-v1
 HEAD: commit containing this file
 CI: PR #21 — 6 PASS; Dependency Review SKIPPED (Dependency Graph); Critical Playwright SKIPPED
 MODE: development-only synthetic read-only preview
-USER_CAN_TEST: NO
+USER_CAN_TEST: YES
+LOCAL_SYNTHETIC_ONLY: YES
+CAN_STAGE: NO
+CAN_PRODUCE: NO
+W4_ACCEPTED_PREVIEW: e374cedd43331e4da6bf74b768c548ed08c62d92 / PR21 comment5917126784 / CI252
+W4_HARDENING: this branch is CANDIDATE IMPLEMENTED; OWNER REVIEW PENDING
 HOW_TO_RUN: Node24; npm ci; npm run preview:dev; open http://127.0.0.1:3107/login; choose Ver demo telecom
 TEST_DATA: synthetic telecom.v1 fixtures only
 SAFE_TO_CLICK: Dashboard, Clientes, Customer 360, Oportunidades, Calendario, Asistente READ
 DO_NOT_TEST: writes, external integrations, production data
-KNOWN_GAPS: browser executed in CI; rerun after duplicate-heading product fix pending; no live LLM provider or persistent follow-ups
+KNOWN_GAPS: no live LLM provider or persistent follow-ups; real Auth/PostgREST/Storage and durable writes pending
 SCREEN_FLOW: /login -> /dashboard -> /clients -> /clients/cust_demo_norte_0001 -> /opportunities -> /calendar -> /assistant
-NEXT_BLOCKER: full Chromium desktop/mobile journey and production-closure CI acceptance
+NEXT_BLOCKER: owner review of this hardening candidate; isolated Supabase and durability gates remain separate
 
-## Current iteration 7.1 (supersedes historical evidence below)
+## Current hardening candidate
+
+Original PR21 browser/production acceptance is independently confirmed by W4.
+This branch adds Node24 doctor/setup, Windows instructions, bounded request streams
+and W3 response validation. These changes need fresh CI and W2/W3 owner review.
+Use docs/master/PREVIEW_WINDOWS.md. Historical pending browser notes below are
+superseded for the original checkpoint, not evidence of this new candidate.
+
+## Historical iteration7.1 (supersedes historical evidence below)
 
 128 Node tests, lint/types/build and actual production-start closure PASS locally.
 Real W3 plan/runtime/grounding executes through W2 authorized telecom.v1 service

@@ -24,6 +24,16 @@ parte de la rama canónica v2.
 
 ## Desarrollo local
 
+### Preview telecom sintético
+
+En esta candidata de hardening: Node24, `npm run preview:setup -- --install --open`.
+Alternativa: `npm ci` y `npm run preview:dev`. Diagnóstico: `npm run preview:doctor`.
+No requiere `.env.local` ni credenciales. Abre la URL impresa en el mismo ordenador
+que ejecuta el comando. Guía [Windows / GitHub Desktop](docs/master/PREVIEW_WINDOWS.md).
+Datos sintéticos y solo lectura; candidata pendiente de revisión W2/W3, sin deploy.
+
+### Desarrollo con servicios configurados
+
 Requiere Node 24, fijado en `.nvmrc`.
 
 ```bash
