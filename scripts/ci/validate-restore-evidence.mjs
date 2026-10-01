@@ -79,7 +79,7 @@ function validate(file) {
   }
 
   walkKeys(doc, '$', errors)
-  exactKeys(doc, allowedRootKeys, '$', errors)
+  if (!exactKeys(doc, allowedRootKeys, '$', errors)) return errors.map(error => `${file}: ${error}`)
   if (doc.version !== 1) errors.push('version: must equal 1')
   if (typeof doc.exerciseId !== 'string' || !/^[a-z0-9][a-z0-9-]{5,79}$/.test(doc.exerciseId)) {
     errors.push('exerciseId: use a stable lowercase non-sensitive identifier')

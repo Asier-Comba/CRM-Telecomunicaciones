@@ -50,6 +50,12 @@ function run(doc) {
 }
 
 try {
+  for (const invalid of [null, [], true, 42, 'invalid']) {
+    const result = run(invalid)
+    assert.notEqual(result.status, 0)
+    assert.doesNotMatch(result.stderr, /TypeError|at validate/)
+    assert.match(result.stderr, /must be an object/)
+  }
   assert.equal(run(valid()).status, 0, 'complete non-production restore evidence must pass')
   assert.notEqual(run(valid({ environment: 'production' })).status, 0, 'production restore tests must fail')
   assert.notEqual(run(valid({ integrationsDisabled: false })).status, 0, 'live integrations must fail')

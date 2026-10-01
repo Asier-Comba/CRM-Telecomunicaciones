@@ -1,0 +1,68 @@
+diff --git a/test/durable-conformance.test.ts b/test/durable-conformance.test.ts
+index c096fbc..879ba82 100644
+--- a/test/durable-conformance.test.ts
++++ b/test/durable-conformance.test.ts
+@@ -482,6 +482,27 @@ function harness(backing = createBacking()): DurableAdapterHarness {
+ 
+ registerDurableAdapterConformance('reference durable adapter contract', async () => harness())
+ 
++test('W4: expired dispatch lease rejects delivery and automatic reclaim', async () => {
++  const adapter = harness()
++  const now = new Date('2026-09-26T10:00:00Z')
++  const lease = new Date('2026-09-26T10:05:00Z')
++  const binding = { actorId: 'a', workspaceId: 'a', capability: 'crm.task.create', argumentsDigest: 'a' }
++  const item = await adapter.outbox.enqueue('operation_000000000000000001', binding, { dispatcher: 'crm.task.create', commandRef: 'opaque-command' }, now)
++  const claim = await adapter.outbox.claim(item.outboxRef, item.version, 'worker-a', now, lease)
++  assert.equal(claim.status, 'applied')
++  if (claim.status !== 'applied') return
++  assert.equal((await adapter.outbox.recordDelivered(item.outboxRef, claim.record.version, 'receipt', lease)).status, 'version_conflict')
++  const expired = await adapter.outbox.inspect(item.outboxRef, lease)
++  assert.equal(expired?.state, 'reconciliation_required')
++  assert.equal((await adapter.outbox.claim(item.outboxRef, expired!.version, 'worker-b', lease, new Date(lease.getTime() + 1000))).status, 'invalid_transition')
++})
++
++test('W4 finding: reference outbox accepts orphan operations and arbitrary dispatchers', async () => {
++  const adapter = harness()
++  const item = await adapter.outbox.enqueue('missing-operation', { actorId: 'a', workspaceId: 'a', capability: 'crm.task.create', argumentsDigest: 'a' }, { dispatcher: 'unregistered.dispatcher', commandRef: 'not-validated' }, new Date())
++  assert.equal(item.state, 'pending')
++})
++
+ const reconciliationNow = new Date('2026-09-26T11:00:00.000Z')
+ const reconciliationLease = new Date('2026-09-26T11:05:00.000Z')
+ const reconciliationBinding: IdempotencyBinding = {
+@@ -708,3 +729,35 @@ test('audit outage returns bounded uncertainty after an applied reconciliation',
+   assert.equal(result.error?.code, 'reconciliation_audit_unavailable')
+   assert.equal((await adapter.idempotency.inspectByOperationRef(pending.operationRef, reconciliationNow))?.state, 'failed_terminal')
+ })
++
++test('W4: twenty reconciliation requests have exactly one CAS winner', async () => {
++  const adapter = harness()
++  const pending = await operationRequiringReconciliation(adapter)
++  const service = new AuthorizedReconciliationService({ store: adapter.idempotency, verifier: new StaticVerifier({ outcome: 'effect_absent' }), audit: new ReconciliationAudit() })
++  const request = { operationRef: pending.operationRef, expectedVersion: pending.version, requestedOutcome: 'failed_terminal', reason: 'verified_effect_absence' }
++  const responses = await Promise.all(Array.from({ length: 20 }, () => service.reconcile(authorizedActor, request, reconciliationNow)))
++  assert.equal(responses.filter((response) => response.status === 'SUCCESS').length, 1)
++  assert.equal(responses.filter((response) => response.status === 'CONFLICT').length, 19)
++})
++
++test('W4 finding: invalid operation reference is reflected without sanitization', async () => {
++  const adapter = harness()
++  const service = new AuthorizedReconciliationService({ store: adapter.idempotency, verifier: new StaticVerifier({ outcome: 'effect_absent' }), audit: new ReconciliationAudit() })
++  const unsafe = ['Bearer', 'SYNTHETIC'.repeat(8)].join(' ')
++  const response = await service.reconcile(authorizedActor, { operationRef: unsafe }, reconciliationNow)
++  assert.equal(response.status, 'INVALID_INPUT')
++  assert.equal(response.operationRef, unsafe)
++})
++
++test('W4 finding: reconciliation audit loss cannot recover by retry', async () => {
++  const adapter = harness()
++  const pending = await operationRequiringReconciliation(adapter)
++  const audit = new ReconciliationAudit()
++  const service = new AuthorizedReconciliationService({ store: adapter.idempotency, verifier: new StaticVerifier({ outcome: 'effect_absent' }), audit })
++  const request = { operationRef: pending.operationRef, expectedVersion: pending.version, requestedOutcome: 'failed_terminal', reason: 'verified_effect_absence' }
++  audit.fail = true
++  assert.equal((await service.reconcile(authorizedActor, request, reconciliationNow)).status, 'UNAVAILABLE')
++  audit.fail = false
++  assert.equal((await service.reconcile(authorizedActor, request, reconciliationNow)).status, 'CONFLICT')
++  assert.deepEqual(audit.events.map(event => event.decision), ['conflict'])
++})

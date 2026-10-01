@@ -1,5 +1,7 @@
 # W4 → W2 security handoff
 
+> Current review: see W4_REVIEW_2026-09-26.md and agents/W4_STATUS.md. Earlier SHA-specific findings below are an audit trail, not current blockers unless revalidated there.
+
 - Date: 2026-09-26
 - W2 reviewed head: `7937cbb`
 - W2 test evidence: 51/51 official contract tests pass

@@ -75,7 +75,7 @@ function validate(path) {
   let doc
   try { doc = JSON.parse(readFileSync(path, 'utf8')) } catch { return [`${path}: invalid JSON`] }
   walk(doc, '$', errors)
-  exactObject(doc, rootKeys, '$', errors)
+  if (!exactObject(doc, rootKeys, '$', errors)) return errors.map(error => `${path}: ${error}`)
   if (doc.version !== 1) errors.push('version: must equal 1')
   if (typeof doc.candidateSha !== 'string' || !/^[0-9a-f]{40}$/.test(doc.candidateSha)) errors.push('candidateSha: full Git SHA required')
   if (typeof doc.artifactDigest !== 'string' || !/^sha256:[0-9a-f]{64}$/.test(doc.artifactDigest)) errors.push('artifactDigest: sha256 digest required')

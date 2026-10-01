@@ -27,6 +27,7 @@ assert.equal(passed.length, matrix.cases.length)
 
 const mutations = [
   ['duplicate effect', 'race-confirm-20', { effectCount: 2 }],
+  ['negative effect count', 'race-confirm-20', { effectCount: -1 }],
   ['replay effect', 'replay-completed', { effectCount: 1 }],
   ['restart retry', 'restart-after-effect-before-complete', { automaticRetry: true }],
   ['cross-workspace', 'confirmation-cross-workspace', { crossWorkspaceAccess: true }],

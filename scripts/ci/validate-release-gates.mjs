@@ -7,7 +7,7 @@ const rootIndex = process.argv.indexOf('--root')
 const fileIndex = process.argv.indexOf('--file')
 const root = resolve(rootIndex >= 0 ? process.argv[rootIndex + 1] : process.cwd())
 const file = resolve(root, fileIndex >= 0 ? process.argv[fileIndex + 1] : '.security/release-gates.json')
-const rootKeys = new Set(['version', 'acceptedBase', 'releaseDecision', 'environments', 'gates'])
+const rootKeys = new Set(['version', 'acceptedBase', 'releaseDecision', 'decisions', 'environments', 'gates'])
 const gateKeys = new Set(['id', 'phase', 'severity', 'owners', 'status', 'requires', 'evidenceRequired', 'evidenceSatisfied', 'evidenceRefs'])
 const forbiddenKey = /(?:secret|password|credential|authorization|cookie|private.?key|access.?token|refresh.?token)/i
 const safeRef = /^(?:issue|pr|run):#[1-9][0-9]*$|^commit:[0-9a-f]{7,40}$|^doc:[A-Za-z0-9._/-]+$/
@@ -50,8 +50,11 @@ try {
 }
 
 walkKeys(document)
-exactKeys(document, rootKeys, '$')
-if (document.version !== 1) errors.push('$.version: must equal 1')
+if (!exactKeys(document, rootKeys, '$')) {
+  console.error('Release gate validation failed: root must be an object')
+  process.exit(1)
+}
+if (document.version !== 2) errors.push('$.version: must equal 2')
 if (document.acceptedBase !== null && !/^[0-9a-f]{40}$/.test(document.acceptedBase)) errors.push('$.acceptedBase: must be null or a full commit SHA')
 if (!['blocked', 'ready'].includes(document.releaseDecision)) errors.push('$.releaseDecision: invalid value')
 if (exactKeys(document.environments, new Set(['development', 'staging', 'production']), '$.environments')) {
@@ -64,7 +67,7 @@ if (!Array.isArray(document.gates) || document.gates.length === 0) errors.push('
 const gates = new Map()
 for (const [index, gate] of (Array.isArray(document.gates) ? document.gates : []).entries()) {
   const path = `$.gates[${index}]`
-  exactKeys(gate, gateKeys, path)
+  if (!exactKeys(gate, gateKeys, path)) continue
   if (typeof gate.id !== 'string' || !/^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)+$/.test(gate.id)) errors.push(`${path}.id: invalid stable identifier`)
   else if (gates.has(gate.id)) errors.push(`${path}.id: duplicate gate`)
   else gates.set(gate.id, gate)
@@ -80,6 +83,13 @@ for (const [index, gate] of (Array.isArray(document.gates) ? document.gates : []
   const refs = stringArray(gate.evidenceRefs, `${path}.evidenceRefs`, safeRef)
   if (gate.status === 'passed' && required.some((item) => !satisfied.includes(item))) errors.push(`${path}: passed gate lacks required evidence`)
   if (gate.status === 'passed' && refs.length === 0) errors.push(`${path}: passed gate requires evidence references`)
+}
+
+// Never traverse dependencies or derive decisions from rejected structural input.
+if (errors.length) {
+  console.error('Release gate validation failed:')
+  errors.forEach((error) => console.error(`- ${error}`))
+  process.exit(1)
 }
 
 function visit(id, stack = new Set(), complete = new Set()) {
@@ -115,6 +125,15 @@ const computedReady = Boolean(
   document.environments.staging === 'validated' &&
   document.environments.production !== 'untouched',
 )
+const computedIntegrate = Boolean(document.acceptedBase && gates.get('base.canonical')?.status === 'passed' && gates.get('ci.baseline')?.status === 'passed')
+const computedStage = Boolean(computedIntegrate && document.environments.staging === 'validated' && gates.get('platform.auth_rls')?.status === 'passed' && gates.get('staging.isolated')?.status === 'passed')
+if (exactKeys(document.decisions, new Set(['CAN_INTEGRATE', 'CAN_STAGE', 'CAN_PRODUCE']), '$.decisions')) {
+  if (document.decisions.CAN_INTEGRATE !== (computedIntegrate ? 'YES' : 'NO')) errors.push('CAN_INTEGRATE contradicts canonical/CI evidence')
+  const stage = computedStage ? 'YES' : document.environments.staging === 'isolated' ? 'PARTIAL' : 'NO'
+  if (document.decisions.CAN_STAGE !== stage) errors.push('CAN_STAGE contradicts platform/environment evidence')
+  if (document.decisions.CAN_PRODUCE !== (computedReady ? 'YES' : 'NO')) errors.push('CAN_PRODUCE contradicts production evidence')
+}
+if (computedIntegrate && !gates.get('base.canonical').evidenceRefs.includes(`commit:${document.acceptedBase}`)) errors.push('acceptedBase requires exact commit evidence reference')
 if ((document.releaseDecision === 'ready') !== computedReady) errors.push('$.releaseDecision: contradicts gate/environment evidence')
 if ([...gates.values()].some((gate) => gate.severity === 'P0' && gate.status !== 'passed') && document.releaseDecision !== 'blocked') {
   errors.push('$.releaseDecision: open P0 requires blocked')
@@ -127,4 +146,4 @@ if (errors.length) {
 }
 
 const passed = [...gates.values()].filter((gate) => gate.status === 'passed').length
-console.log(`Release gate validation passed (${passed}/${gates.size} gates passed; decision=${document.releaseDecision})`)
+console.log(`Release gate validation passed (${passed}/${gates.size}; CAN_INTEGRATE=${document.decisions.CAN_INTEGRATE}; CAN_STAGE=${document.decisions.CAN_STAGE}; CAN_PRODUCE=${document.decisions.CAN_PRODUCE})`)

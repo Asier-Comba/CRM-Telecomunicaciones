@@ -1,5 +1,7 @@
 # W1 handoff — schema, roles and RLS
 
+> Current review: see W4_REVIEW_2026-09-26.md and agents/W4_STATUS.md. Earlier SHA-specific findings below are an audit trail, not current blockers unless revalidated there.
+
 Severity: **P0 release gate**
 Evidence: the repository contained no schema or migrations at W4 baseline creation.
 Risk: tenant data could be exposed or authorization could diverge between `profiles.role` and `workspace_members.role`.

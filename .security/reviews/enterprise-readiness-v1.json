@@ -1,0 +1,109 @@
+{
+  "version": 1,
+  "verifiedUtc": "2026-10-01",
+  "candidate": {
+    "branch": "w4/enterprise-readiness-v1",
+    "sha": "7de856c7bae6ac08a9b8fb6cf0f91331bc472833",
+    "tree": "76804f2fd188408ef67fa8def41300c45f2c8566",
+    "pr": 26,
+    "parent": "9ae0766cce5e1174c16f2e5d04d741c5d146c27d",
+    "ownerReview": "pending",
+    "selfApproval": false
+  },
+  "execution": {
+    "environment": "LOCAL_SUPABASE_DOCKER",
+    "workflowRun": 36936714255,
+    "qualityRun": 36936714156,
+    "qualityCI": 269,
+    "testedMergeSha": "d970d1c2a78d487d6dcf4293e2647a57d3bd38c9",
+    "mergeTreeMatchesCandidate": true,
+    "structuralTests": 76,
+    "staticClientGraphFiles": 108,
+    "portabilityFiles": 233
+  },
+  "evidence": {
+    "environment": "LOCAL_SUPABASE_DOCKER",
+    "AUTH_EMAIL_LOCAL": "PASS",
+    "STORAGE_RECOVERY": "PASS",
+    "hosted_execution": "NOT_TESTED",
+    "EXTERNAL_SENDS": 0,
+    "cli": "2.119.0",
+    "sha": "d970d1c2a78d487d6dcf4293e2647a57d3bd38c9",
+    "config_sha256": "d1489665e8d01c53baeae89ddd8ac93a1dde986fb0e4a545212a8ad5da773dca",
+    "config_scope": "TEST_OVERLAY_NOT_APPROVED_PRODUCT_POLICY",
+    "service_images": [
+      "public.ecr.aws/supabase/gotrue:v2.197.0",
+      "public.ecr.aws/supabase/kong:2.8.1",
+      "public.ecr.aws/supabase/mailpit:v1.31.3",
+      "public.ecr.aws/supabase/postgres:15.19.0.002",
+      "public.ecr.aws/supabase/postgrest:v16.4",
+      "public.ecr.aws/supabase/storage-api:v1.79.28"
+    ],
+    "db": "15.19",
+    "migrations": 25,
+    "mail": {
+      "AUTH_EMAIL_LOCAL": "PASS",
+      "SIGNUP": "PASS",
+      "CONFIRMATION": "PASS",
+      "RESET": "PASS",
+      "INVITE": "PASS",
+      "REDIRECT_DENIALS": 8,
+      "SECRET_SCAN": "PASS",
+      "EXTERNAL_SENDS": 0,
+      "checks": 123,
+      "old_session_after_reset": "DENIED",
+      "account_enumeration": "RECOVERY_STATUS_ONLY_SIGNUP_PROVIDER_DEFINED",
+      "production_smtp": "NOT_TESTED"
+    },
+    "recovery": {
+      "RESULT": "PASS",
+      "OBJECTS_CREATED": 3,
+      "OBJECTS_EXPORTED": 3,
+      "OBJECTS_RESTORED": 3,
+      "HASH_MATCH": true,
+      "METADATA_MATCH": true,
+      "ORPHANS": 0,
+      "MISSING": 0,
+      "A_B": "PASS",
+      "REVOKED": "PASS",
+      "ARCHIVED": "PASS",
+      "checks": 42,
+      "scope": "LOCAL_SYNTHETIC_RECREATED_OBJECT_NAMESPACE",
+      "database_restore": "NOT_PERFORMED",
+      "offsite_backup": "NOT_TESTED",
+      "production_encryption": "NOT_TESTED",
+      "authenticated_identity_read_candidate": "PASS",
+      "server_reader_principal_migration": "NOT_IMPLEMENTED",
+      "quarantine_retention": "HUMAN_POLICY_REQUIRED"
+    },
+    "result": "PASS",
+    "teardown": "PASS"
+  },
+  "readiness": {
+    "enterpriseReadiness": "CANDIDATE_TESTED_NOT_ADOPTED",
+    "envContract": "PASS_STRUCTURE_ONLY",
+    "secretPolicy": "PASS_LITERAL_AND_BINDING_REFERENCE_GUARDS_NOT_VAULT_PROOF",
+    "companyBootstrap": "READY_UNPROVISIONED",
+    "stagingProbe": "NEGATIVE_TESTED_HOSTED_NOT_RUN",
+    "configDrift": "OFFLINE_ADAPTER_NO_MANAGEMENT_ACCESS",
+    "scopedPrincipal": "JWT_IDENTITY_READ_PASS_SERVER_PRINCIPAL_NOT_IMPLEMENTED",
+    "productionSmtp": "NOT_PROVISIONED_NOT_TESTED",
+    "realData": "BLOCKED_COMPANY_CUTOVER_REQUIRED"
+  },
+  "decisions": {
+    "CAN_INTEGRATE": "YES",
+    "CAN_TEST_SYNTHETIC_PREVIEW": "YES",
+    "CAN_STAGE": "NO",
+    "CAN_PRODUCE": "NO"
+  },
+  "issues": {
+    "10": "OPEN_WRITES_OFF",
+    "12": "OPEN_HOSTED_STAGING_SCOPED_IDENTITY_OPERATIONAL_CONFIG_HOSTED_SMOKE",
+    "22": "OPEN_OWNER_ADOPTION_PENDING"
+  },
+  "recoveryInvariant": {
+    "databaseRestoreIsStorageRestore": false,
+    "productionRequiresDatabaseAndStorageRecovery": true,
+    "localNamespaceRestoreIsCommercialDR": false
+  }
+}

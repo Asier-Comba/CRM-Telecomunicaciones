@@ -1,6 +1,6 @@
 {
-  "version": 1,
-  "acceptedBase": null,
+  "version": 2,
+  "acceptedBase": "6b0e30e7444de57100e4d983b3564a0c3b336b2c",
   "releaseDecision": "blocked",
   "environments": {
     "development": "active",
@@ -12,100 +12,357 @@
       "id": "base.canonical",
       "phase": "integration",
       "severity": "P0",
-      "owners": ["W1", "W4"],
-      "status": "blocked",
+      "owners": [
+        "W2",
+        "W4"
+      ],
+      "status": "passed",
       "requires": [],
-      "evidenceRequired": ["accepted_sha", "clean_history", "schema_rebuild", "auth_alignment", "live_rls_matrix"],
-      "evidenceSatisfied": [],
-      "evidenceRefs": ["pr:#11", "commit:61848cf"]
+      "evidenceRequired": [
+        "accepted_sha",
+        "clean_history",
+        "schema_rebuild",
+        "auth_alignment",
+        "independent_sql_identity_matrix"
+      ],
+      "evidenceSatisfied": [
+        "accepted_sha",
+        "clean_history",
+        "schema_rebuild",
+        "auth_alignment",
+        "independent_sql_identity_matrix"
+      ],
+      "evidenceRefs": [
+        "pr:#14",
+        "commit:6b0e30e7444de57100e4d983b3564a0c3b336b2c",
+        "run:#148",
+        "doc:docs/master/W4_ITERATION_4_2.md"
+      ]
+    },
+    {
+      "id": "backend.telecom_read",
+      "phase": "integration",
+      "severity": "P1",
+      "owners": [
+        "W2",
+        "W4"
+      ],
+      "status": "passed",
+      "requires": [
+        "base.canonical"
+      ],
+      "evidenceRequired": [
+        "import_initial_integrity",
+        "closed_runtime_parser",
+        "tenant_reader_matrix",
+        "cursor_scope_binding",
+        "privileged_rpc_reauthorization"
+      ],
+      "evidenceSatisfied": [
+        "import_initial_integrity",
+        "closed_runtime_parser",
+        "tenant_reader_matrix",
+        "cursor_scope_binding",
+        "privileged_rpc_reauthorization"
+      ],
+      "evidenceRefs": [
+        "pr:#17",
+        "commit:8de57dc2f84634156655f6c79047d545bbb86a6c",
+        "pr:#18",
+        "commit:1c8b3e9fe0fba12d9bad6b313b46e8be7a574603",
+        "pr:#19",
+        "commit:a917bbb41ef8192344dc49737cd78fd52fe29649",
+        "run:#216",
+        "run:#223",
+        "doc:docs/master/W4_ITERATION_6.md"
+      ]
     },
     {
       "id": "frontend.read",
       "phase": "integration",
       "severity": "P1",
-      "owners": ["W2", "W4"],
-      "status": "pending",
-      "requires": ["base.canonical"],
-      "evidenceRequired": ["presentation_contract", "assistant_read_matrix", "safe_route_ids", "runtime_security_tests"],
-      "evidenceSatisfied": ["presentation_contract", "assistant_read_matrix", "safe_route_ids"],
-      "evidenceRefs": ["pr:#8", "commit:7937cbb"]
+      "owners": [
+        "W2",
+        "W4"
+      ],
+      "status": "passed",
+      "requires": [
+        "base.canonical"
+      ],
+      "evidenceRequired": [
+        "presentation_contract",
+        "assistant_read_matrix",
+        "safe_route_ids",
+        "runtime_security_tests"
+      ],
+      "evidenceSatisfied": [
+        "presentation_contract",
+        "assistant_read_matrix",
+        "safe_route_ids",
+        "runtime_security_tests"
+      ],
+      "evidenceRefs": [
+        "pr:#21",
+        "commit:e374cedd43331e4da6bf74b768c548ed08c62d92",
+        "run:#252",
+        "doc:docs/master/W4_ITERATION_6.md"
+      ]
     },
     {
       "id": "assistant.mutations",
       "phase": "integration",
       "severity": "P0",
-      "owners": ["W3", "W4"],
+      "owners": [
+        "W2",
+        "W3",
+        "W4"
+      ],
       "status": "blocked",
-      "requires": ["base.canonical"],
-      "evidenceRequired": ["framework_controls", "durable_atomic_stores", "cross_process_race", "restart_reconciliation", "authorized_reconciliation", "output_value_defense", "live_tenant_authorization"],
-      "evidenceSatisfied": ["framework_controls"],
-      "evidenceRefs": ["issue:#10", "pr:#9", "commit:874259e"]
+      "requires": [
+        "base.canonical"
+      ],
+      "evidenceRequired": [
+        "framework_controls",
+        "durable_atomic_stores",
+        "cross_process_race",
+        "restart_reconciliation",
+        "authorized_reconciliation",
+        "output_value_defense",
+        "live_tenant_authorization"
+      ],
+      "evidenceSatisfied": [
+        "framework_controls",
+        "output_value_defense"
+      ],
+      "evidenceRefs": [
+        "issue:#10",
+        "pr:#9",
+        "commit:dc19ce65cbc89df92ae0496af2d358eea74e0493",
+        "pr:#19",
+        "commit:a917bbb41ef8192344dc49737cd78fd52fe29649"
+      ]
     },
     {
       "id": "ci.baseline",
       "phase": "integration",
       "severity": "P1",
-      "owners": ["W4"],
+      "owners": [
+        "W4"
+      ],
       "status": "passed",
       "requires": [],
-      "evidenceRequired": ["guardrails", "secret_scan", "migration_policy", "observability_scan", "tenant_harness", "assistant_harness", "staging_evidence_schema", "restore_evidence_schema"],
-      "evidenceSatisfied": ["guardrails", "secret_scan", "migration_policy", "observability_scan", "tenant_harness", "assistant_harness", "staging_evidence_schema", "restore_evidence_schema"],
-      "evidenceRefs": ["commit:fe6060f", "run:#88"]
+      "evidenceRequired": [
+        "guardrails",
+        "secret_scan",
+        "migration_policy",
+        "observability_scan",
+        "tenant_harness",
+        "assistant_harness",
+        "staging_evidence_schema",
+        "restore_evidence_schema"
+      ],
+      "evidenceSatisfied": [
+        "guardrails",
+        "secret_scan",
+        "migration_policy",
+        "observability_scan",
+        "tenant_harness",
+        "assistant_harness",
+        "staging_evidence_schema",
+        "restore_evidence_schema"
+      ],
+      "evidenceRefs": [
+        "pr:#16",
+        "commit:af02abc70ed6855924419e93fab6d020a7b3289a",
+        "run:#161"
+      ]
     },
     {
       "id": "ci.dependency_review",
       "phase": "integration",
       "severity": "P1",
-      "owners": ["W4", "REPOSITORY_OWNER"],
+      "owners": [
+        "W4",
+        "REPOSITORY_OWNER"
+      ],
       "status": "blocked",
       "requires": [],
-      "evidenceRequired": ["dependency_graph_enabled", "review_step_executed", "negative_dependency_fixture"],
+      "evidenceRequired": [
+        "dependency_graph_enabled",
+        "review_step_executed",
+        "negative_dependency_fixture"
+      ],
       "evidenceSatisfied": [],
-      "evidenceRefs": ["run:#67", "run:#69"]
+      "evidenceRefs": [
+        "run:#252",
+        "doc:docs/master/W4_ITERATION_6.md"
+      ]
     },
     {
       "id": "observability.runtime",
       "phase": "staging",
       "severity": "P1",
-      "owners": ["W4"],
+      "owners": [
+        "W4"
+      ],
       "status": "pending",
-      "requires": ["base.canonical", "ci.baseline"],
-      "evidenceRequired": ["structured_logger", "redaction_capture", "correlation_id", "release_version", "security_events"],
+      "requires": [
+        "base.canonical",
+        "ci.baseline"
+      ],
+      "evidenceRequired": [
+        "structured_logger",
+        "redaction_capture",
+        "correlation_id",
+        "release_version",
+        "security_events"
+      ],
       "evidenceSatisfied": [],
-      "evidenceRefs": ["doc:docs/master/OBSERVABILITY.md"]
+      "evidenceRefs": [
+        "doc:docs/master/OBSERVABILITY.md"
+      ]
     },
     {
       "id": "staging.isolated",
       "phase": "staging",
       "severity": "P1",
-      "owners": ["W4"],
+      "owners": [
+        "W4"
+      ],
       "status": "blocked",
-      "requires": ["base.canonical", "frontend.read", "ci.baseline"],
-      "evidenceRequired": ["separate_supabase", "separate_storage", "separate_n8n", "separate_oauth", "production_deny", "smoke_results"],
+      "requires": [
+        "base.canonical",
+        "frontend.read",
+        "ci.baseline",
+        "platform.auth_rls"
+      ],
+      "evidenceRequired": [
+        "separate_supabase",
+        "separate_storage",
+        "separate_n8n",
+        "separate_oauth",
+        "production_deny",
+        "smoke_results"
+      ],
       "evidenceSatisfied": [],
-      "evidenceRefs": ["doc:docs/master/RELEASE_STAGING.md", "commit:1a6d6e4"]
+      "evidenceRefs": [
+        "doc:docs/master/RELEASE_STAGING.md",
+        "commit:1a6d6e4",
+        "pr:#26",
+        "commit:7de856c7bae6ac08a9b8fb6cf0f91331bc472833",
+        "run:#36936714255",
+        "doc:.security/reviews/enterprise-readiness-v1.json"
+      ]
     },
     {
       "id": "recovery.restore",
       "phase": "staging",
       "severity": "P1",
-      "owners": ["W4"],
+      "owners": [
+        "W4"
+      ],
       "status": "blocked",
-      "requires": ["staging.isolated"],
-      "evidenceRequired": ["postgres_restore", "storage_restore", "n8n_restore", "configuration_restore", "tenant_smoke", "rpo_rto_met"],
+      "requires": [
+        "staging.isolated"
+      ],
+      "evidenceRequired": [
+        "postgres_restore",
+        "storage_restore",
+        "n8n_restore",
+        "configuration_restore",
+        "tenant_smoke",
+        "rpo_rto_met",
+        "restored_privilege_matrix"
+      ],
       "evidenceSatisfied": [],
-      "evidenceRefs": ["doc:docs/master/BACKUP_DR.md", "commit:fe6060f"]
+      "evidenceRefs": [
+        "run:#216",
+        "run:#223",
+        "run:#252",
+        "doc:docs/master/W4_ITERATION_6.md",
+        "doc:docs/master/BACKUP_DR.md",
+        "issue:#22",
+        "pr:#24",
+        "run:#36875077114",
+        "pr:#26",
+        "commit:7de856c7bae6ac08a9b8fb6cf0f91331bc472833",
+        "run:#36936714255",
+        "doc:.security/reviews/enterprise-readiness-v1.json"
+      ]
     },
     {
       "id": "release.production",
       "phase": "production",
       "severity": "P0",
-      "owners": ["W4", "HUMAN_APPROVER"],
+      "owners": [
+        "W4",
+        "HUMAN_APPROVER"
+      ],
       "status": "blocked",
-      "requires": ["base.canonical", "frontend.read", "assistant.mutations", "ci.baseline", "ci.dependency_review", "observability.runtime", "staging.isolated", "recovery.restore"],
-      "evidenceRequired": ["protected_main", "immutable_artifact", "staging_exit", "human_approval", "rollback_owner"],
+      "requires": [
+        "base.canonical",
+        "frontend.read",
+        "assistant.mutations",
+        "ci.baseline",
+        "ci.dependency_review",
+        "observability.runtime",
+        "staging.isolated",
+        "recovery.restore"
+      ],
+      "evidenceRequired": [
+        "protected_main",
+        "immutable_artifact",
+        "staging_exit",
+        "human_approval",
+        "rollback_owner"
+      ],
       "evidenceSatisfied": [],
       "evidenceRefs": []
+    },
+    {
+      "id": "platform.auth_rls",
+      "phase": "staging",
+      "severity": "P1",
+      "owners": [
+        "W2",
+        "W4"
+      ],
+      "status": "pending",
+      "requires": [
+        "base.canonical"
+      ],
+      "evidenceRequired": [
+        "real_auth_jwt",
+        "postgrest_role_tests",
+        "storage_private_policy",
+        "scoped_service_principal",
+        "environment_config_reproducible"
+      ],
+      "evidenceSatisfied": [
+        "real_auth_jwt",
+        "postgrest_role_tests",
+        "storage_private_policy"
+      ],
+      "evidenceRefs": [
+        "issue:#12",
+        "pr:#18",
+        "commit:1c8b3e9fe0fba12d9bad6b313b46e8be7a574603",
+        "doc:docs/master/W4_ITERATION_6.md",
+        "pr:#25",
+        "commit:9ae0766cce5e1174c16f2e5d04d741c5d146c27d",
+        "run:#36885605309",
+        "doc:docs/master/SUPABASE_LOCAL_ACCEPTANCE.md",
+        "doc:.security/reviews/supabase-local-v1.json",
+        "pr:#26",
+        "commit:7de856c7bae6ac08a9b8fb6cf0f91331bc472833",
+        "run:#36936714255",
+        "doc:.security/reviews/enterprise-readiness-v1.json"
+      ]
     }
-  ]
+  ],
+  "decisions": {
+    "CAN_INTEGRATE": "YES",
+    "CAN_STAGE": "NO",
+    "CAN_PRODUCE": "NO"
+  }
 }

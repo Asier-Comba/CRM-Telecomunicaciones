@@ -1,0 +1,3 @@
+# Unified-diff evidence contains literal single-space context-line markers.
+# Preserve valid patch syntax without flagging those markers as trailing blanks.
+tests/security/review-fixtures/*.patch whitespace=-blank-at-eol
