@@ -161,10 +161,16 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+      - name: Set up Node for privilege matrix
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version-file: .nvmrc
       - name: Isolated native migration, tenant and restore drill
         env:
           TELECOM_NATIVE_TEST_CONTAINER: ${{ job.services.postgres.id }}
-        run: bash scripts/security/native-postgres/test-zero-to-head.sh
+        run: |
+          node --test scripts/security/native-postgres/test-privilege-matrix.mjs
+          bash scripts/security/native-postgres/test-zero-to-head.sh
 
   critical-e2e:
     name: Critical Playwright
