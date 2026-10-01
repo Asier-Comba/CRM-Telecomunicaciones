@@ -1,0 +1,862 @@
+{
+  "version": 1,
+  "status": "CANDIDATE_UNAPPROVED",
+  "environments": {
+    "LOCAL": {
+      "resources": [
+        {
+          "name": "SUPABASE_PROJECT_REF",
+          "classification": "PUBLIC",
+          "consumer": "platform",
+          "requirement": "REQUIRED",
+          "provisioning": "AUTOMATED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "SUPABASE_URL",
+          "classification": "PUBLIC",
+          "consumer": "server/browser",
+          "requirement": "REQUIRED",
+          "provisioning": "AUTOMATED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "PUBLIC_APP_URL",
+          "classification": "PUBLIC",
+          "consumer": "browser/auth",
+          "requirement": "REQUIRED",
+          "provisioning": "AUTOMATED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "AUTH_REDIRECT_URLS",
+          "classification": "PUBLIC",
+          "consumer": "auth",
+          "requirement": "REQUIRED",
+          "provisioning": "AUTOMATED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "STORAGE_BUCKETS",
+          "classification": "PUBLIC",
+          "consumer": "storage",
+          "requirement": "REQUIRED",
+          "provisioning": "AUTOMATED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "SMTP_HOST",
+          "classification": "PUBLIC",
+          "consumer": "auth",
+          "requirement": "OPTIONAL",
+          "provisioning": "AUTOMATED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "SMTP_PORT",
+          "classification": "PUBLIC",
+          "consumer": "auth",
+          "requirement": "OPTIONAL",
+          "provisioning": "AUTOMATED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "SMTP_USER",
+          "classification": "SECRET",
+          "consumer": "auth",
+          "requirement": "OPTIONAL",
+          "provisioning": "AUTOMATED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": false
+        },
+        {
+          "name": "SMTP_PASSWORD",
+          "classification": "SECRET",
+          "consumer": "auth",
+          "requirement": "OPTIONAL",
+          "provisioning": "AUTOMATED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": false
+        },
+        {
+          "name": "SMTP_FROM",
+          "classification": "PUBLIC",
+          "consumer": "auth",
+          "requirement": "OPTIONAL",
+          "provisioning": "AUTOMATED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "AUTH_FROM_NAME",
+          "classification": "PUBLIC",
+          "consumer": "auth",
+          "requirement": "OPTIONAL",
+          "provisioning": "AUTOMATED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "OAUTH_CLIENT_ID",
+          "classification": "PUBLIC",
+          "consumer": "auth",
+          "requirement": "OPTIONAL",
+          "provisioning": "AUTOMATED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "OAUTH_CLIENT_SECRET",
+          "classification": "SECRET",
+          "consumer": "auth",
+          "requirement": "OPTIONAL",
+          "provisioning": "AUTOMATED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": false
+        },
+        {
+          "name": "N8N_INSTANCE_URL",
+          "classification": "PUBLIC",
+          "consumer": "integrations",
+          "requirement": "OPTIONAL",
+          "provisioning": "AUTOMATED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "N8N_CREDENTIAL",
+          "classification": "SECRET",
+          "consumer": "integrations",
+          "requirement": "OPTIONAL",
+          "provisioning": "AUTOMATED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": false
+        },
+        {
+          "name": "OPENAI_API_KEY",
+          "classification": "SECRET",
+          "consumer": "ai-server",
+          "requirement": "OPTIONAL",
+          "provisioning": "AUTOMATED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": false
+        },
+        {
+          "name": "BACKUP_DESTINATION",
+          "classification": "PUBLIC",
+          "consumer": "recovery",
+          "requirement": "OPTIONAL",
+          "provisioning": "AUTOMATED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "BACKUP_ENCRYPTION_KEY",
+          "classification": "SECRET",
+          "consumer": "recovery",
+          "requirement": "OPTIONAL",
+          "provisioning": "AUTOMATED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": false
+        },
+        {
+          "name": "SERVICE_PRINCIPAL_ID",
+          "classification": "PUBLIC",
+          "consumer": "server",
+          "requirement": "OPTIONAL",
+          "provisioning": "AUTOMATED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "SERVICE_PRINCIPAL_CREDENTIAL",
+          "classification": "SECRET",
+          "consumer": "server",
+          "requirement": "OPTIONAL",
+          "provisioning": "AUTOMATED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": false
+        },
+        {
+          "name": "MONITORING_DESTINATION",
+          "classification": "PUBLIC",
+          "consumer": "observability",
+          "requirement": "OPTIONAL",
+          "provisioning": "AUTOMATED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "DNS_DOMAIN",
+          "classification": "PUBLIC",
+          "consumer": "platform",
+          "requirement": "OPTIONAL",
+          "provisioning": "AUTOMATED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "SECRET_MANAGER_NAMESPACE",
+          "classification": "PUBLIC",
+          "consumer": "platform",
+          "requirement": "OPTIONAL",
+          "provisioning": "AUTOMATED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        }
+      ]
+    },
+    "DEV": {
+      "resources": [
+        {
+          "name": "SUPABASE_PROJECT_REF",
+          "classification": "PUBLIC",
+          "consumer": "platform",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "SUPABASE_URL",
+          "classification": "PUBLIC",
+          "consumer": "server/browser",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "PUBLIC_APP_URL",
+          "classification": "PUBLIC",
+          "consumer": "browser/auth",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "AUTH_REDIRECT_URLS",
+          "classification": "PUBLIC",
+          "consumer": "auth",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "STORAGE_BUCKETS",
+          "classification": "PUBLIC",
+          "consumer": "storage",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "SMTP_HOST",
+          "classification": "PUBLIC",
+          "consumer": "auth",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "SMTP_PORT",
+          "classification": "PUBLIC",
+          "consumer": "auth",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "SMTP_USER",
+          "classification": "SECRET",
+          "consumer": "auth",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": false
+        },
+        {
+          "name": "SMTP_PASSWORD",
+          "classification": "SECRET",
+          "consumer": "auth",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": false
+        },
+        {
+          "name": "SMTP_FROM",
+          "classification": "PUBLIC",
+          "consumer": "auth",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "AUTH_FROM_NAME",
+          "classification": "PUBLIC",
+          "consumer": "auth",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "OAUTH_CLIENT_ID",
+          "classification": "PUBLIC",
+          "consumer": "auth",
+          "requirement": "OPTIONAL",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "OAUTH_CLIENT_SECRET",
+          "classification": "SECRET",
+          "consumer": "auth",
+          "requirement": "OPTIONAL",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": false
+        },
+        {
+          "name": "N8N_INSTANCE_URL",
+          "classification": "PUBLIC",
+          "consumer": "integrations",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "N8N_CREDENTIAL",
+          "classification": "SECRET",
+          "consumer": "integrations",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": false
+        },
+        {
+          "name": "OPENAI_API_KEY",
+          "classification": "SECRET",
+          "consumer": "ai-server",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": false
+        },
+        {
+          "name": "BACKUP_DESTINATION",
+          "classification": "PUBLIC",
+          "consumer": "recovery",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "BACKUP_ENCRYPTION_KEY",
+          "classification": "SECRET",
+          "consumer": "recovery",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": false
+        },
+        {
+          "name": "SERVICE_PRINCIPAL_ID",
+          "classification": "PUBLIC",
+          "consumer": "server",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "SERVICE_PRINCIPAL_CREDENTIAL",
+          "classification": "SECRET",
+          "consumer": "server",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": false
+        },
+        {
+          "name": "MONITORING_DESTINATION",
+          "classification": "PUBLIC",
+          "consumer": "observability",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "DNS_DOMAIN",
+          "classification": "PUBLIC",
+          "consumer": "platform",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "SECRET_MANAGER_NAMESPACE",
+          "classification": "PUBLIC",
+          "consumer": "platform",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        }
+      ]
+    },
+    "STAGING": {
+      "resources": [
+        {
+          "name": "SUPABASE_PROJECT_REF",
+          "classification": "PUBLIC",
+          "consumer": "platform",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "SUPABASE_URL",
+          "classification": "PUBLIC",
+          "consumer": "server/browser",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "PUBLIC_APP_URL",
+          "classification": "PUBLIC",
+          "consumer": "browser/auth",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "AUTH_REDIRECT_URLS",
+          "classification": "PUBLIC",
+          "consumer": "auth",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "STORAGE_BUCKETS",
+          "classification": "PUBLIC",
+          "consumer": "storage",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "SMTP_HOST",
+          "classification": "PUBLIC",
+          "consumer": "auth",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "SMTP_PORT",
+          "classification": "PUBLIC",
+          "consumer": "auth",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "SMTP_USER",
+          "classification": "SECRET",
+          "consumer": "auth",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": false
+        },
+        {
+          "name": "SMTP_PASSWORD",
+          "classification": "SECRET",
+          "consumer": "auth",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": false
+        },
+        {
+          "name": "SMTP_FROM",
+          "classification": "PUBLIC",
+          "consumer": "auth",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "AUTH_FROM_NAME",
+          "classification": "PUBLIC",
+          "consumer": "auth",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "OAUTH_CLIENT_ID",
+          "classification": "PUBLIC",
+          "consumer": "auth",
+          "requirement": "OPTIONAL",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "OAUTH_CLIENT_SECRET",
+          "classification": "SECRET",
+          "consumer": "auth",
+          "requirement": "OPTIONAL",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": false
+        },
+        {
+          "name": "N8N_INSTANCE_URL",
+          "classification": "PUBLIC",
+          "consumer": "integrations",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "N8N_CREDENTIAL",
+          "classification": "SECRET",
+          "consumer": "integrations",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": false
+        },
+        {
+          "name": "OPENAI_API_KEY",
+          "classification": "SECRET",
+          "consumer": "ai-server",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": false
+        },
+        {
+          "name": "BACKUP_DESTINATION",
+          "classification": "PUBLIC",
+          "consumer": "recovery",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "BACKUP_ENCRYPTION_KEY",
+          "classification": "SECRET",
+          "consumer": "recovery",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": false
+        },
+        {
+          "name": "SERVICE_PRINCIPAL_ID",
+          "classification": "PUBLIC",
+          "consumer": "server",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "SERVICE_PRINCIPAL_CREDENTIAL",
+          "classification": "SECRET",
+          "consumer": "server",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": false
+        },
+        {
+          "name": "MONITORING_DESTINATION",
+          "classification": "PUBLIC",
+          "consumer": "observability",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "DNS_DOMAIN",
+          "classification": "PUBLIC",
+          "consumer": "platform",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "SECRET_MANAGER_NAMESPACE",
+          "classification": "PUBLIC",
+          "consumer": "platform",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        }
+      ]
+    },
+    "PROD": {
+      "resources": [
+        {
+          "name": "SUPABASE_PROJECT_REF",
+          "classification": "PUBLIC",
+          "consumer": "platform",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "SUPABASE_URL",
+          "classification": "PUBLIC",
+          "consumer": "server/browser",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "PUBLIC_APP_URL",
+          "classification": "PUBLIC",
+          "consumer": "browser/auth",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "AUTH_REDIRECT_URLS",
+          "classification": "PUBLIC",
+          "consumer": "auth",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "STORAGE_BUCKETS",
+          "classification": "PUBLIC",
+          "consumer": "storage",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "SMTP_HOST",
+          "classification": "PUBLIC",
+          "consumer": "auth",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "SMTP_PORT",
+          "classification": "PUBLIC",
+          "consumer": "auth",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "SMTP_USER",
+          "classification": "SECRET",
+          "consumer": "auth",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": false
+        },
+        {
+          "name": "SMTP_PASSWORD",
+          "classification": "SECRET",
+          "consumer": "auth",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": false
+        },
+        {
+          "name": "SMTP_FROM",
+          "classification": "PUBLIC",
+          "consumer": "auth",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "AUTH_FROM_NAME",
+          "classification": "PUBLIC",
+          "consumer": "auth",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "OAUTH_CLIENT_ID",
+          "classification": "PUBLIC",
+          "consumer": "auth",
+          "requirement": "OPTIONAL",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "OAUTH_CLIENT_SECRET",
+          "classification": "SECRET",
+          "consumer": "auth",
+          "requirement": "OPTIONAL",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": false
+        },
+        {
+          "name": "N8N_INSTANCE_URL",
+          "classification": "PUBLIC",
+          "consumer": "integrations",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "N8N_CREDENTIAL",
+          "classification": "SECRET",
+          "consumer": "integrations",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": false
+        },
+        {
+          "name": "OPENAI_API_KEY",
+          "classification": "SECRET",
+          "consumer": "ai-server",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": false
+        },
+        {
+          "name": "BACKUP_DESTINATION",
+          "classification": "PUBLIC",
+          "consumer": "recovery",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "BACKUP_ENCRYPTION_KEY",
+          "classification": "SECRET",
+          "consumer": "recovery",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": false
+        },
+        {
+          "name": "SERVICE_PRINCIPAL_ID",
+          "classification": "PUBLIC",
+          "consumer": "server",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "SERVICE_PRINCIPAL_CREDENTIAL",
+          "classification": "SECRET",
+          "consumer": "server",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": false
+        },
+        {
+          "name": "MONITORING_DESTINATION",
+          "classification": "PUBLIC",
+          "consumer": "observability",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "DNS_DOMAIN",
+          "classification": "PUBLIC",
+          "consumer": "platform",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        },
+        {
+          "name": "SECRET_MANAGER_NAMESPACE",
+          "classification": "PUBLIC",
+          "consumer": "platform",
+          "requirement": "REQUIRED",
+          "provisioning": "HUMAN_PROVISIONED",
+          "isolation": "ENVIRONMENT_UNIQUE",
+          "clientExposureAllowed": true
+        }
+      ]
+    }
+  },
+  "storageBuckets": [
+    "telecom-documents",
+    "telecom-import-quarantine"
+  ],
+  "rules": {
+    "prodDemoEnabled": false,
+    "prodMailTransport": "CUSTOM",
+    "minNamedAdmins": 2,
+    "sharedMachineSecrets": false,
+    "realDataRequiresCompanyCutover": true,
+    "databaseRestoreIsStorageRestore": false
+  }
+}

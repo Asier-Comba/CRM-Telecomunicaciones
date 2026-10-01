@@ -1,0 +1,289 @@
+{
+  "version": 1,
+  "status": "UNPROVISIONED",
+  "ownerDecision": null,
+  "paths": {
+    "A": "human-approved compatible organization transfer plus complete verification",
+    "B": "mandatory clean empty company project recreation"
+  },
+  "providers": [
+    {
+      "providerClass": "github",
+      "businessOwnerRole": "approved-business-owner",
+      "technicalAdminsTarget": 2,
+      "billingOwnerRole": "approved-billing-owner",
+      "recoveryOwnerRole": "independent-recovery-owner",
+      "environmentSeparation": true,
+      "mfaRequired": true,
+      "selectedProvider": null
+    },
+    {
+      "providerClass": "supabase",
+      "businessOwnerRole": "approved-business-owner",
+      "technicalAdminsTarget": 2,
+      "billingOwnerRole": "approved-billing-owner",
+      "recoveryOwnerRole": "independent-recovery-owner",
+      "environmentSeparation": true,
+      "mfaRequired": true,
+      "selectedProvider": null
+    },
+    {
+      "providerClass": "dns",
+      "businessOwnerRole": "approved-business-owner",
+      "technicalAdminsTarget": 2,
+      "billingOwnerRole": "approved-billing-owner",
+      "recoveryOwnerRole": "independent-recovery-owner",
+      "environmentSeparation": true,
+      "mfaRequired": true,
+      "selectedProvider": null
+    },
+    {
+      "providerClass": "human-email",
+      "businessOwnerRole": "approved-business-owner",
+      "technicalAdminsTarget": 2,
+      "billingOwnerRole": "approved-billing-owner",
+      "recoveryOwnerRole": "independent-recovery-owner",
+      "environmentSeparation": true,
+      "mfaRequired": true,
+      "selectedProvider": null
+    },
+    {
+      "providerClass": "auth-smtp",
+      "businessOwnerRole": "approved-business-owner",
+      "technicalAdminsTarget": 2,
+      "billingOwnerRole": "approved-billing-owner",
+      "recoveryOwnerRole": "independent-recovery-owner",
+      "environmentSeparation": true,
+      "mfaRequired": true,
+      "selectedProvider": null
+    },
+    {
+      "providerClass": "crm-communications",
+      "businessOwnerRole": "approved-business-owner",
+      "technicalAdminsTarget": 2,
+      "billingOwnerRole": "approved-billing-owner",
+      "recoveryOwnerRole": "independent-recovery-owner",
+      "environmentSeparation": true,
+      "mfaRequired": true,
+      "selectedProvider": null
+    },
+    {
+      "providerClass": "hosting",
+      "businessOwnerRole": "approved-business-owner",
+      "technicalAdminsTarget": 2,
+      "billingOwnerRole": "approved-billing-owner",
+      "recoveryOwnerRole": "independent-recovery-owner",
+      "environmentSeparation": true,
+      "mfaRequired": true,
+      "selectedProvider": null
+    },
+    {
+      "providerClass": "n8n",
+      "businessOwnerRole": "approved-business-owner",
+      "technicalAdminsTarget": 2,
+      "billingOwnerRole": "approved-billing-owner",
+      "recoveryOwnerRole": "independent-recovery-owner",
+      "environmentSeparation": true,
+      "mfaRequired": true,
+      "selectedProvider": null
+    },
+    {
+      "providerClass": "ai",
+      "businessOwnerRole": "approved-business-owner",
+      "technicalAdminsTarget": 2,
+      "billingOwnerRole": "approved-billing-owner",
+      "recoveryOwnerRole": "independent-recovery-owner",
+      "environmentSeparation": true,
+      "mfaRequired": true,
+      "selectedProvider": null
+    },
+    {
+      "providerClass": "monitoring",
+      "businessOwnerRole": "approved-business-owner",
+      "technicalAdminsTarget": 2,
+      "billingOwnerRole": "approved-billing-owner",
+      "recoveryOwnerRole": "independent-recovery-owner",
+      "environmentSeparation": true,
+      "mfaRequired": true,
+      "selectedProvider": null
+    },
+    {
+      "providerClass": "backup",
+      "businessOwnerRole": "approved-business-owner",
+      "technicalAdminsTarget": 2,
+      "billingOwnerRole": "approved-billing-owner",
+      "recoveryOwnerRole": "independent-recovery-owner",
+      "environmentSeparation": true,
+      "mfaRequired": true,
+      "selectedProvider": null
+    },
+    {
+      "providerClass": "secret-manager",
+      "businessOwnerRole": "approved-business-owner",
+      "technicalAdminsTarget": 2,
+      "billingOwnerRole": "approved-billing-owner",
+      "recoveryOwnerRole": "independent-recovery-owner",
+      "environmentSeparation": true,
+      "mfaRequired": true,
+      "selectedProvider": null
+    }
+  ],
+  "steps": [
+    {
+      "id": "owner",
+      "state": "PENDING",
+      "kind": "HUMAN_APPROVAL",
+      "evidenceRef": null
+    },
+    {
+      "id": "domain",
+      "state": "PENDING",
+      "kind": "HUMAN_APPROVAL",
+      "evidenceRef": null
+    },
+    {
+      "id": "organization",
+      "state": "PENDING",
+      "kind": "HUMAN_APPROVAL",
+      "evidenceRef": null
+    },
+    {
+      "id": "two-admins-mfa",
+      "state": "PENDING",
+      "kind": "HUMAN_APPROVAL",
+      "evidenceRef": null
+    },
+    {
+      "id": "region",
+      "state": "PENDING",
+      "kind": "HUMAN_APPROVAL",
+      "evidenceRef": null
+    },
+    {
+      "id": "billing",
+      "state": "PENDING",
+      "kind": "HUMAN_APPROVAL",
+      "evidenceRef": null
+    },
+    {
+      "id": "empty-staging-project",
+      "state": "PENDING",
+      "kind": "AUTOMATED_EVIDENCE",
+      "evidenceRef": null
+    },
+    {
+      "id": "config-inventory",
+      "state": "PENDING",
+      "kind": "AUTOMATED_EVIDENCE",
+      "evidenceRef": null
+    },
+    {
+      "id": "migrations",
+      "state": "PENDING",
+      "kind": "AUTOMATED_EVIDENCE",
+      "evidenceRef": null
+    },
+    {
+      "id": "auth-policy",
+      "state": "PENDING",
+      "kind": "HUMAN_APPROVAL",
+      "evidenceRef": null
+    },
+    {
+      "id": "private-storage",
+      "state": "PENDING",
+      "kind": "AUTOMATED_EVIDENCE",
+      "evidenceRef": null
+    },
+    {
+      "id": "scoped-server-identity",
+      "state": "PENDING",
+      "kind": "AUTOMATED_EVIDENCE",
+      "evidenceRef": null
+    },
+    {
+      "id": "secret-bindings",
+      "state": "PENDING",
+      "kind": "AUTOMATED_EVIDENCE",
+      "evidenceRef": null
+    },
+    {
+      "id": "smtp-provider-dns",
+      "state": "PENDING",
+      "kind": "HUMAN_APPROVAL",
+      "evidenceRef": null
+    },
+    {
+      "id": "network-ssl",
+      "state": "PENDING",
+      "kind": "AUTOMATED_EVIDENCE",
+      "evidenceRef": null
+    },
+    {
+      "id": "retention-rpo-rto",
+      "state": "PENDING",
+      "kind": "HUMAN_APPROVAL",
+      "evidenceRef": null
+    },
+    {
+      "id": "database-restore",
+      "state": "PENDING",
+      "kind": "AUTOMATED_EVIDENCE",
+      "evidenceRef": null
+    },
+    {
+      "id": "storage-restore",
+      "state": "PENDING",
+      "kind": "AUTOMATED_EVIDENCE",
+      "evidenceRef": null
+    },
+    {
+      "id": "synthetic-acceptance",
+      "state": "PENDING",
+      "kind": "AUTOMATED_EVIDENCE",
+      "evidenceRef": null
+    },
+    {
+      "id": "stage-approval",
+      "state": "PENDING",
+      "kind": "HUMAN_APPROVAL",
+      "evidenceRef": null
+    },
+    {
+      "id": "real-data-approval",
+      "state": "PENDING",
+      "kind": "HUMAN_APPROVAL",
+      "evidenceRef": null
+    }
+  ],
+  "recovery": {
+    "databaseAndObjectsSeparate": true,
+    "tiersUnapproved": [
+      "low-criticality",
+      "pilot",
+      "commercial-production"
+    ],
+    "keyCustodySeparateFromDestination": true,
+    "quarantineRetention": "HUMAN_POLICY_REQUIRED"
+  },
+  "externalState": [
+    "Auth identities",
+    "Storage bytes",
+    "Auth configuration",
+    "API and signing keys",
+    "OAuth",
+    "Edge Functions",
+    "network",
+    "SMTP",
+    "project settings"
+  ],
+  "retentionDecisions": [
+    "auth",
+    "business",
+    "documents",
+    "quarantine",
+    "audit",
+    "backups",
+    "logs"
+  ]
+}

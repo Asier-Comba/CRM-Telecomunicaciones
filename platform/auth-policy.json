@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "status": "PROPOSED_NOT_APPROVED",
+  "approvedPolicy": null,
+  "candidate": {
+    "emailConfirmation": true,
+    "passwordMinimumLength": 12,
+    "passwordRequirements": "lower_upper_letters_digits_symbols",
+    "otpExpirySeconds": 900,
+    "jwtExpirySeconds": 900,
+    "refreshTokenRotation": true,
+    "refreshReuseIntervalSeconds": 10,
+    "signupMode": "invite_only",
+    "anonymousSignIn": false,
+    "mfaReady": true,
+    "captchaReady": true,
+    "redirectPolicy": "EXACT_APPROVED_URLS",
+    "magicLinkEnabled": false
+  },
+  "humanDecisions": [
+    "signupMode",
+    "sessionDuration",
+    "passwordPolicy",
+    "mfaRollout",
+    "captchaRollout",
+    "retention"
+  ],
+  "localAcceptanceOverride": {
+    "signupEnabled": true,
+    "purpose": "synthetic confirmation lifecycle only",
+    "productionAdoption": false
+  }
+}
