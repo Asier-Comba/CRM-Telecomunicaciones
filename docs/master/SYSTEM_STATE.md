@@ -23,7 +23,7 @@ OPEN P0: Issue10 physical durable adapter/process/recovery/audit-outbox evidence
 OPEN P1: Issue12 local Auth/JWT/PostgREST/Storage candidate PASS; hosted/scoped privileged execution and enterprise environment readiness pending; Dependency Graph/review execution; staging and commercial DR.
 Historical W2 sensitive expiry/revocation/queued-event/timestamp/ABA/NaN defects are INACTIVE/FUTURE in current fixture UI, not proven fixed. Import same-key resume command remains unimplemented/unproven.
 
-Storage: private buckets, linked-object SQL isolation accepted; signed access/expiry/revocation/list controls/orphan cleanup/API/object recovery pending. ZIP: quarantine only; no ingestion validator/scanner/extraction accepted.
+Storage: private buckets, linked-object SQL isolation accepted; signed capabilities/expiry and operational orphan cleanup pending; actual local API policy and synthetic object recovery have candidate evidence. ZIP: quarantine only; no ingestion validator/scanner/extraction accepted.
 Backup: native synthetic pg_dump/checksum/fresh-db restore is real evidence; encrypted offsite production DB+Storage/Auth/config/n8n DR remains unproven.
 Supabase local Auth/PostgREST/Storage APIs were exercised by PR25 candidate; remote Supabase was NOT exercised. Local TOML targets PG15; native CI targets PG16. Staging unprovisioned; production untouched.
 
@@ -41,3 +41,22 @@ PR25 `9ae0766cce5e1174c16f2e5d04d741c5d146c27d`: CI259 + dedicated Supabase run3
 
 LOCAL PLATFORM CONTRACT PROVEN as candidate evidence; not hosted staging. platform.auth_rls remains pending: scoped/revocable service principals and approved environment configuration absent. Global service_role bypasses RLS; its tests prove function-internal actor reauthorization only. Signed document capabilities, ZIP ingestion, hosted SMTP/MFA/provider state and commercial DB/object/Auth/n8n DR remain unaccepted. Issue10 durable blocker unchanged.
 Portability and enterprise identity/secrets contracts + config inventory published in PR25. Dependency Review still requires owner to enable Dependency Graph and DEPENDENCY_REVIEW_ENABLED then run review/negative fixture; no bypass. Production untouched. CAN_STAGE=NO;CAN_PRODUCE=NO. Evidence: .security/reviews/supabase-local-v1.json.
+
+## W4 iteration6.3 — enterprise candidate, 2026-10-01
+
+PR26 `7de856c7bae6ac08a9b8fb6cf0f91331bc472833`, stacked on PR25; CI269 and dedicated run36936714255 PASS. Tested merge `d970d1c2a78d487d6dcf4293e2647a57d3bd38c9` has the identical candidate tree. PR23/24/25 unchanged; owner reviews pending.
+
+ENTERPRISE_READINESS: tested candidate, no operational adoption.
+SUPABASE_LOCAL: PR25 evidence preserved; enterprise test overlay uses CLI2.119.0/PG15.19/Auth2.197.0/PostgREST16.4/Storage1.79.28/Mailpit1.31.3.
+AUTH_EMAIL_LOCAL: PASS123 checks; signup/confirmation/reset/invite,8 unsafe redirects constrained, secrets absent,EXTERNAL_SENDS=0. Old login session denied after this tested reset; not a universal session-policy claim.
+SMTP_PRODUCTION: NOT_PROVISIONED/NOT_TESTED.
+ENV_CONTRACT / SECRET_POLICY: 76 adversarial tests PASS; client literal graph108 files and portability233 files PASS. Structural/reference guards, not vault provisioning evidence.
+STORAGE_RECOVERY: local synthetic namespace PASS42 checks;3 exports/restores,hash+metadata match,no missing/orphan,A/B/revoked/archived denial preserved. Not a new-environment DB restore,offsite backup or commercial DR. Database restore != Storage restore.
+COMPANY_BOOTSTRAP: machine ownership/environment/Auth/secrets checklist + runbook ready; human approval/provider state unset. Hosted read-only probe fails before network for PROD/missing approval/wrong ref; hosted execution NOT_TESTED.
+SCOPED_PRINCIPAL: user-JWT identity-read alternative PASS;14 server-reader principal migration remains NOT_IMPLEMENTED. No grants changed.
+ISSUE12: OPEN narrowed to hosted isolated staging,scoped/revocable server identity,operational enterprise configuration,hosted smoke. Signed document capabilities/ZIP ingestion remain separately unaccepted; no real data before company cutover.
+ISSUE22: OPEN PR24 owner adoption pending. ISSUE10: OPEN,writes OFF. Dependency Review owner configuration remains required; skip is not PASS.
+CAN_STAGE: NO
+CAN_PRODUCE: NO
+NEXT_3: W2/W5 exact-head owner review of PR24/25/26 + W3 PR23; approve company ownership/config and provision separate synthetic STAGING; implement/review scoped principal and collect hosted acceptance/commercial recovery (assistant durability separately #10).
+Evidence: `.security/reviews/enterprise-readiness-v1.json`. No main/merge/deploy,hosted writes,external mail,DNS,billing or real data.

@@ -25,10 +25,10 @@ PR18: exact24-migration W4 PGlite domain/read/durable/restore PASS; unchanged St
 Issue10: OPEN P0, durable factory/dispatcher/safe-result/original audit-outbox/process-v2/restart/SIGKILL/one-effect evidence absent; writes blocked.
 Issue12: OPEN P1; PR25 real local Auth/JWT/PostgREST/Storage candidate PASS; hosted/scoped execution/environment acceptance pending.
 Dependency Review: skipped; owner must enable Dependency Graph and DEPENDENCY_REVIEW_ENABLED, then execute review incl negative fixture. No bypass. General Critical Playwright skipped; dedicated preview suite passed.
-Staging: unprovisioned. Production: untouched. Storage/API/signed capabilities/ZIP ingestion: not accepted. Backup: native synthetic DB restore evidence accepted; commercial encrypted/offsite/object/Auth/config/n8n recovery pending. Enterprise identity/portability contracts supplied in PR25; operational adoption pending. Old W2 reveal/expiry/queued-event/mutation-ordering defects INACTIVE/FUTURE for current fixture path, not fixed.
+Staging: unprovisioned. Production: untouched. Local Storage/API policy and synthetic recovery: candidate PASS; signed capabilities/ZIP ingestion: not accepted. Backup: native synthetic DB restore evidence accepted; commercial encrypted/offsite/object/Auth/config/n8n recovery pending. Enterprise identity/portability contracts supplied in PR25; operational adoption pending. Old W2 reveal/expiry/queued-event/mutation-ordering defects INACTIVE/FUTURE for current fixture path, not fixed.
 P2 preview boundary: PR23 bounded request/closed response candidate passes CI255; W3 integration pending. Future sensitive-generation controls remain separately gated.
 
-NEXT 3: owner review/adoption of PR23/24/25; scoped principals + isolated hosted staging/enterprise credentials; exact durable adapter/native-v2 plus commercial recovery evidence.
+NEXT 3: owner review/adoption of PR23/24/25/26; scoped principals + isolated hosted staging/enterprise credentials; exact durable adapter/native-v2 plus commercial recovery evidence.
 Evidence and reproducible commands: docs/master/W4_ITERATION_6.md and .security/reviews/iteration-6.json. Earlier status archived in Git66650cbd989e9386ca2d1274bc4e8d83d448873d. Baseline preserved; no merge/main/deploy authorization exercised.
 
 P1 RESTORE-ACL-001 (Issue22): PR24 implements and executes native restored grants/role matrix and negative control; owner integration/independent review pending. Commercial recovery remains blocked; synthetic preview/composition unaffected.
@@ -41,3 +41,22 @@ PR25 `9ae0766cce5e1174c16f2e5d04d741c5d146c27d`: CI259 + dedicated Supabase run3
 
 LOCAL PLATFORM CONTRACT PROVEN as candidate evidence; not hosted staging. platform.auth_rls remains pending: scoped/revocable service principals and approved environment configuration absent. Global service_role bypasses RLS; its tests prove function-internal actor reauthorization only. Signed document capabilities, ZIP ingestion, hosted SMTP/MFA/provider state and commercial DB/object/Auth/n8n DR remain unaccepted. Issue10 durable blocker unchanged.
 Portability and enterprise identity/secrets contracts + config inventory published in PR25. Dependency Review still requires owner to enable Dependency Graph and DEPENDENCY_REVIEW_ENABLED then run review/negative fixture; no bypass. Production untouched. CAN_STAGE=NO;CAN_PRODUCE=NO. Evidence: .security/reviews/supabase-local-v1.json.
+
+## W4 iteration6.3 — enterprise candidate, 2026-10-01
+
+PR26 `7de856c7bae6ac08a9b8fb6cf0f91331bc472833`, stacked on PR25; CI269 and dedicated run36936714255 PASS. Tested merge `d970d1c2a78d487d6dcf4293e2647a57d3bd38c9` has the identical candidate tree. PR23/24/25 unchanged; owner reviews pending.
+
+ENTERPRISE_READINESS: tested candidate, no operational adoption.
+SUPABASE_LOCAL: PR25 evidence preserved; enterprise test overlay uses CLI2.119.0/PG15.19/Auth2.197.0/PostgREST16.4/Storage1.79.28/Mailpit1.31.3.
+AUTH_EMAIL_LOCAL: PASS123 checks; signup/confirmation/reset/invite,8 unsafe redirects constrained, secrets absent,EXTERNAL_SENDS=0. Old login session denied after this tested reset; not a universal session-policy claim.
+SMTP_PRODUCTION: NOT_PROVISIONED/NOT_TESTED.
+ENV_CONTRACT / SECRET_POLICY: 76 adversarial tests PASS; client literal graph108 files and portability233 files PASS. Structural/reference guards, not vault provisioning evidence.
+STORAGE_RECOVERY: local synthetic namespace PASS42 checks;3 exports/restores,hash+metadata match,no missing/orphan,A/B/revoked/archived denial preserved. Not a new-environment DB restore,offsite backup or commercial DR. Database restore != Storage restore.
+COMPANY_BOOTSTRAP: machine ownership/environment/Auth/secrets checklist + runbook ready; human approval/provider state unset. Hosted read-only probe fails before network for PROD/missing approval/wrong ref; hosted execution NOT_TESTED.
+SCOPED_PRINCIPAL: user-JWT identity-read alternative PASS;14 server-reader principal migration remains NOT_IMPLEMENTED. No grants changed.
+ISSUE12: OPEN narrowed to hosted isolated staging,scoped/revocable server identity,operational enterprise configuration,hosted smoke. Signed document capabilities/ZIP ingestion remain separately unaccepted; no real data before company cutover.
+ISSUE22: OPEN PR24 owner adoption pending. ISSUE10: OPEN,writes OFF. Dependency Review owner configuration remains required; skip is not PASS.
+CAN_STAGE: NO
+CAN_PRODUCE: NO
+NEXT_3: W2/W5 exact-head owner review of PR24/25/26 + W3 PR23; approve company ownership/config and provision separate synthetic STAGING; implement/review scoped principal and collect hosted acceptance/commercial recovery (assistant durability separately #10).
+Evidence: `.security/reviews/enterprise-readiness-v1.json`. No main/merge/deploy,hosted writes,external mail,DNS,billing or real data.
