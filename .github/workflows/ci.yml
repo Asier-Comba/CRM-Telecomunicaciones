@@ -52,6 +52,8 @@ jobs:
           node scripts/ci/run-doc-contract-tests.mjs
           node scripts/ci/test-tenant-isolation-harness.mjs
           node scripts/ci/test-assistant-security-harness.mjs
+          node --test tests/platform/*.test.mjs
+          node scripts/platform/client-secret-gate.mjs
 
   secret-scan:
     name: Secret scan
