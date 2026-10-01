@@ -49,11 +49,11 @@ try {
   stage = 'http_acceptance'
   if (existsSync('scripts/security/supabase-local/acceptance.mjs')) {
     const { acceptance } = await import('./acceptance.mjs')
-    Object.assign(evidence, await acceptance({ url, anon, service, db, command }))
+    Object.assign(evidence, await acceptance({ url, anon, service, db, command, report: evidence }))
   } else evidence.result = 'STACK_PROVEN_HTTP_ACCEPTANCE_PENDING'
 } catch (error) {
   evidence.result = 'FAIL'; evidence.failed_stage = stage
-  evidence.error = /^[A-Z_]+$/.test(error.message) ? error.message : 'BOUNDED_ACCEPTANCE_FAILURE'
+  evidence.error = /^[A-Z][A-Z0-9_]{0,180}$/.test(error.message) ? error.message : 'BOUNDED_ACCEPTANCE_FAILURE'
   process.exitCode = 1
 } finally {
   if (started) {
