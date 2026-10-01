@@ -1,0 +1,38 @@
+name: Enterprise local mail and recovery
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - '.github/workflows/enterprise-local.yml'
+      - 'scripts/platform/**'
+      - 'platform/auth-templates/**'
+permissions:
+  contents: read
+env:
+  CI: 'true'
+concurrency:
+  group: enterprise-local-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  local-mail-recovery:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version-file: .nvmrc
+      - uses: supabase/setup-cli@45a513f8c64c0bc8e0e3dfe572b5c95be85f6359
+        with:
+          version: 2.119.0
+      - name: Captured local Auth mail and synthetic recovery
+        run: node scripts/platform/run-enterprise-local.mjs
+      - name: Safe summary only
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: enterprise-local-safe-evidence
+          path: ${{ runner.temp }}/w4-enterprise-safe-evidence.json
+          retention-days: 7
