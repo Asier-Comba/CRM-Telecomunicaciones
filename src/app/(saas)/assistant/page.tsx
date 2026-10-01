@@ -4,15 +4,14 @@ import { useState } from 'react'
 import { Bot, Send, ShieldCheck } from 'lucide-react'
 import { PageHeader } from '@/components/PageHeader'
 import { Badge } from '@/components/Badge'
-import type { AssistantResponse } from '@/assistant/ui-contract'
+import { readPreviewReply, type PreviewReply } from '@/lib/telecom-preview/reply'
 
-type Reply = { contract: 'assistant.preview-read.v1'; responses: AssistantResponse[] }
 const prompts = ['Dame el resumen del día', '¿Qué permanencias terminan pronto?',
   '¿Qué renovaciones tengo próximas?', '¿Qué oportunidades están abiertas?', 'Resume Norte Telecom']
 
 export default function AssistantPage() {
   const [text, setText] = useState('')
-  const [reply, setReply] = useState<Reply | null>(null)
+  const [reply, setReply] = useState<PreviewReply | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
 
@@ -24,8 +23,8 @@ export default function AssistantPage() {
         method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text: value }),
       })
       if (!response.ok) throw new Error('unavailable')
-      const data = await response.json() as Reply
-      if (data.contract !== 'assistant.preview-read.v1' || !Array.isArray(data.responses)) throw new Error('invalid_response')
+      const data = await readPreviewReply(response)
+      if (!data) throw new Error('invalid_response')
       setReply(data)
     } catch { setError(true) } finally { setLoading(false) }
   }
