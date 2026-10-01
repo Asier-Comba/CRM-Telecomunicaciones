@@ -49,10 +49,17 @@ export async function storageRecovery({url,anon,service,db,command}) {
   }
   writeFileSync(join(backup,'manifest.json'),JSON.stringify(manifest),{mode:0o600})
   const activeA=manifest[0],activeB=manifest[1],archived=manifest[2]
+  const ownRole=await http('/rest/v1/rpc/current_workspace_role',users.ownerA.token,'POST',{p_workspace_id:wa})
+  const foreignRole=await http('/rest/v1/rpc/current_workspace_role',users.ownerA.token,'POST',{p_workspace_id:wb})
+  check(ownRole.status===200&&ownRole.json==='owner','JWT_IDENTITY_READ_OWN')
+  check(foreignRole.status===200&&foreignRole.json===null,'JWT_IDENTITY_READ_FOREIGN_DENIED')
+  check((await http('/rest/v1/rpc/current_workspace_role',users.ownerA.token,'POST',{p_workspace_id:wb,p_actor_id:users.ownerB.id})).status>=400,'JWT_CALLER_ACTOR_ARGUMENT_REJECTED')
   check((await http(objectUrl(activeA),users.ownerA.token)).status===200,'BEFORE_AUTHORIZED')
   check((await http(objectUrl(activeA),users.ownerB.token)).status>=400,'BEFORE_FOREIGN_DENIED')
   sql(`delete from public.workspace_members where user_id='${users.revokedA.id}';`)
   check((await http('/auth/v1/user',users.revokedA.token)).status===200,'REVOKED_JWT_STILL_VALID')
+  const revokedRole=await http('/rest/v1/rpc/current_workspace_role',users.revokedA.token,'POST',{p_workspace_id:wa})
+  check(revokedRole.status===200&&revokedRole.json===null,'JWT_IDENTITY_READ_REVOKED')
   // Recreate only this disposable synthetic object namespace; no DB restore claim.
   check((await http('/storage/v1/object/telecom-documents',service,'DELETE',{prefixes:manifest.map(x=>x.path)})).status===200,'REMOVE_SYNTHETIC_SOURCE')
   for(const x of manifest)check((await http(objectUrl(x))).status>=400,'EMPTY_OBJECT_STATE')
@@ -67,6 +74,6 @@ export async function storageRecovery({url,anon,service,db,command}) {
   check((await http(objectUrl(activeB),users.ownerB.token)).status===200,'RESTORED_B_ALLOWED')
   for(const [x,token]of [[activeA,users.ownerB.token],[activeB,users.ownerA.token],[activeA,anon],[activeA,users.revokedA.token],[archived,users.ownerA.token]])check((await http(objectUrl(x),token)).status>=400,'RESTORED_UNAUTHORIZED_DENIED')
   const bucket=await http('/storage/v1/bucket/telecom-documents');check(bucket.status===200&&bucket.json?.public===false,'BUCKET_STILL_PRIVATE')
-  return {RESULT:'PASS',OBJECTS_CREATED:manifest.length,OBJECTS_EXPORTED:manifest.length,OBJECTS_RESTORED:restored.length,HASH_MATCH:true,METADATA_MATCH:true,ORPHANS:0,MISSING:0,A_B:'PASS',REVOKED:'PASS',ARCHIVED:'PASS',checks,scope:'LOCAL_SYNTHETIC_RECREATED_OBJECT_NAMESPACE',database_restore:'NOT_PERFORMED',offsite_backup:'NOT_TESTED',production_encryption:'NOT_TESTED',quarantine_retention:'HUMAN_POLICY_REQUIRED'}
+  return {RESULT:'PASS',OBJECTS_CREATED:manifest.length,OBJECTS_EXPORTED:manifest.length,OBJECTS_RESTORED:restored.length,HASH_MATCH:true,METADATA_MATCH:true,ORPHANS:0,MISSING:0,A_B:'PASS',REVOKED:'PASS',ARCHIVED:'PASS',checks,scope:'LOCAL_SYNTHETIC_RECREATED_OBJECT_NAMESPACE',database_restore:'NOT_PERFORMED',offsite_backup:'NOT_TESTED',production_encryption:'NOT_TESTED',authenticated_identity_read_candidate:'PASS',server_reader_principal_migration:'NOT_IMPLEMENTED',quarantine_retention:'HUMAN_POLICY_REQUIRED'}
  } finally {rmSync(backup,{recursive:true,force:true})}
 }

@@ -30,3 +30,7 @@ test('client graph rejects transitive secrets, reexports, bracket access and ser
  writeFileSync(join(dir,'lib/secret.ts'),'export const x=1');assert.deepEqual(scanClientGraph(dir).errors,[])
  }finally{rmSync(dir,{recursive:true,force:true})}
 })
+test('client aliases follow actual src mapping',()=>{
+ const dir=mkdtempSync(join(tmpdir(),'w4-alias-'));mkdirSync(join(dir,'src/lib'),{recursive:true});mkdirSync(join(dir,'src/app'),{recursive:true})
+ try{writeFileSync(join(dir,'tsconfig.json'),JSON.stringify({compilerOptions:{paths:{'@/*':['./src/*']}}}));writeFileSync(join(dir,'src/app/page.tsx'),"'use client'; import { x } from '@/lib/private';");writeFileSync(join(dir,'src/lib/private.ts'),"export const x = process.env.SUPABASE_SERVICE_ROLE_KEY");assert.ok(scanClientGraph(dir).errors.includes('CLIENT_SECRET_REFERENCE'))}finally{rmSync(dir,{recursive:true,force:true})}
+})

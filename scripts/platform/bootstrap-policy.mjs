@@ -10,7 +10,7 @@ export function bootstrapContract(manifest) {
 }
 // Offline adapter for sanitized read-only Management API snapshots. No credentials,
 // provider response bodies or candidate policy approval are inferred from a diff.
-const fields=['site_url','uri_allow_list','disable_signup','mailer_autoconfirm','jwt_exp','security_refresh_token_rotation_enabled','password_min_length','mailer_otp_exp','smtp_host','smtp_port','smtp_admin_email','smtp_sender_name']
+const fields=['site_url','uri_allow_list','disable_signup','mailer_autoconfirm','jwt_exp','refresh_token_rotation_enabled','password_min_length','mailer_otp_exp','smtp_host','smtp_port','smtp_admin_email','smtp_sender_name']
 export function configDrift(approved,snapshot) {
  if(approved?.status!=='HUMAN_APPROVED'||!approved.settings||!snapshot||typeof snapshot!=='object')return {result:'FAIL',errors:['APPROVED_MANIFEST_REQUIRED']}
  const missing=fields.filter(k=>!Object.hasOwn(approved.settings,k)||!Object.hasOwn(snapshot,k)),different=fields.filter(k=>Object.hasOwn(approved.settings,k)&&Object.hasOwn(snapshot,k)&&JSON.stringify(approved.settings[k])!==JSON.stringify(snapshot[k]))
