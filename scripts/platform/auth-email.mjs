@@ -3,7 +3,7 @@ const api='http://127.0.0.1:54321', mail='http://127.0.0.1:54324', callback='htt
 export const redirectAttacks=['https://evil.example','//evil.example','http://%31%32%37.0.0.1:3000/auth/callback','http://127.0.0.1:3000@evil.example/auth/callback','http://127.0.0.1.evil.example:3000/auth/callback','javascript:alert(1)','data:text/html,hi','http://localhost:3000/auth/callback']
 export function authLink(link) {
   const u=new URL(link)
-  if(u.origin!==api || u.pathname!=='/auth/v1/verify' || u.username || u.password || u.hash)throw new Error('EMAIL_LINK_ORIGIN')
+  if(/[\\%\x00-\x20]/.test(link.split('?')[0]) || u.origin!==api || u.pathname!=='/auth/v1/verify' || u.username || u.password || u.hash)throw new Error('EMAIL_LINK_ORIGIN')
   const redirect=u.searchParams.get('redirect_to')
   if(redirect && !['http://127.0.0.1:3000',callback].includes(redirect))throw new Error('EMAIL_REDIRECT_OUTSIDE_ALLOWLIST')
   if([...u.searchParams.keys()].some(k=>!['token','type','redirect_to'].includes(k)) || !u.searchParams.get('token'))throw new Error('EMAIL_LINK_SHAPE')
@@ -26,7 +26,7 @@ export async function authEmail({anon,service,privateValues=[]}) {
     check(msg.To?.length===1 && msg.To[0].Address===email && email.endsWith('@example.invalid'),'SYNTHETIC_RECIPIENT')
     check(msg.Subject===subject,'SUBJECT');const html=msg.HTML||'',raw=JSON.stringify(msg)
     for(const value of [service,...privateValues])if(value&&value.length>8)check(!raw.includes(value),'PRIVATE_VALUE_ABSENT')
-    check(!html.includes('<script')&&!html.includes('raw_user_meta_data')&&!html.includes('workspace_id'),'MINIMAL_TEMPLATE')
+    check(!html.includes('<script')&&!html.includes('raw_user_meta_data')&&!html.includes('workspace_id')&&!html.includes('untrusted-ignored')&&!html.includes('<img'),'MINIMAL_TEMPLATE')
     const links=[...html.matchAll(/href="([^"]+)"/g)].map(m=>m[1].replaceAll('&amp;','&'))
     check(links.length===1,'ONE_ACTION_LINK');const u=authLink(links[0]);return u
    }
@@ -45,6 +45,7 @@ export async function authEmail({anon,service,privateValues=[]}) {
  const confirmed=await consume(await capture(signupEmail,'W4 confirmation'));check(!!confirmed.token&&!confirmed.error,'CONFIRMATION_COMPLETED')
  const login=await request('/auth/v1/token?grant_type=password',{email:signupEmail,password:initial});check(login.status===200&&!!login.json?.access_token,'CONFIRMED_LOGIN')
  const membership=await request('/rest/v1/workspace_members?select=workspace_id',undefined,login.json.access_token,'GET');check(membership.status===200&&membership.json?.length===0,'NO_TENANT_FROM_USER_METADATA')
+ await new Promise(r=>setTimeout(r,1100))
  check((await request('/auth/v1/recover?redirect_to='+encodeURIComponent(callback),{email:signupEmail})).status===200,'RESET_REQUEST')
  const recovery=await capture(signupEmail,'W4 recovery'), recoverySession=await consume(recovery);check(!!recoverySession.token&&!recoverySession.error,'RECOVERY_SESSION')
  const replacement=password();check((await request('/auth/v1/user',{password:replacement},recoverySession.token,'PUT')).status===200,'RESET_COMPLETED')
