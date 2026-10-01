@@ -1,5 +1,5 @@
 {
-  "verifiedUtc": "2026-09-30",
+  "verifiedUtc": "2026-10-01",
   "heads": {
     "base": "6b0e30e7444de57100e4d983b3564a0c3b336b2c",
     "w2Backend": "8de57dc2f84634156655f6c79047d545bbb86a6c",
@@ -54,8 +54,32 @@
       "id": "RESTORE-ACL-001",
       "severity": "P1",
       "component": "native synthetic restore script",
-      "evidence": "source plus PGlite ACL-loss model; native restored ACL matrix not run",
+      "evidence": "PR24 native PostgreSQL16 restored matrix and ACL-loss negative control PASS; independent W2/W5 owner adoption pending",
       "gate": "recovery.restore"
     }
-  ]
+  ],
+  "candidates": {
+    "preview": {
+      "sha": "6210a9d5af6766679b231954199bc77b07ad8559",
+      "pr": 23,
+      "ci": 255,
+      "result": "pass",
+      "ownerReview": "W3 pending"
+    },
+    "recoveryAcl": {
+      "sha": "a7fb1048c96c0571c64ddc4d3637701223a75dc8",
+      "pr": 24,
+      "ci": 256,
+      "result": "native privilege matrix pass",
+      "ownerReview": "W2/W5 pending"
+    },
+    "supabaseLocal": {
+      "sha": "9ae0766cce5e1174c16f2e5d04d741c5d146c27d",
+      "pr": 25,
+      "ci": 259,
+      "run": 36885605309,
+      "result": "263 checks and bundle boundary pass",
+      "ownerReview": "W2/W5 pending"
+    }
+  }
 }
