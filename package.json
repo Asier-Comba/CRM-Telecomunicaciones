@@ -18,7 +18,8 @@
     "platform:validate-env": "node scripts/platform/validate-env.mjs",
     "platform:policy-diff": "node scripts/platform/validate-env.mjs --policy-diff",
     "test:platform": "node --test tests/platform/*.test.mjs",
-    "platform:client-secrets": "node scripts/platform/client-secret-gate.mjs"
+    "platform:client-secrets": "node scripts/platform/client-secret-gate.mjs",
+    "platform:staging-probe": "node scripts/platform/staging-probe.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.10.2",
