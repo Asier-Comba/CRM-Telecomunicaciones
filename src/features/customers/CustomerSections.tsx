@@ -5,21 +5,290 @@ import { Unavailable, Status } from '@/features/product/ui'
 import { previewDate, urgencyLabel } from '@/lib/telecom-preview/presentation'
 import type { customerPreview } from '@/lib/telecom-preview/data'
 type Data = NonNullable<ReturnType<typeof customerPreview>>
-const empty=<p className="text-xs text-slate-500">Sin registros en la muestra disponible.</p>
+const empty = (
+  <p className="text-xs text-slate-500">
+    Sin registros en la muestra disponible.
+  </p>
+)
 export function customerPanels(data: Data) {
-  const contracts=<SectionCard title="Contratos" description="Operador → contrato → servicios → líneas">{!data.portfolioAvailable?<Unavailable title="Cartera no disponible">Información parcial. No significa que este cliente no tenga contratos.</Unavailable>:data.contracts.map(c=><article key={c.id} className="mb-4 overflow-hidden rounded-lg border border-slate-200"><div className="flex flex-wrap justify-between gap-2 bg-slate-50 px-4 py-3"><div><p className="text-sm font-semibold text-slate-900">{c.operator.display_name}</p><p className="text-xs text-slate-500">{c.plan?.display_name??'Plan no disponible'} · Alta {previewDate(c.start_date)}</p></div><Status value={c.status}/></div><div className="space-y-3 p-4">{data.services.filter(s=>s.contract.id===c.id).map(s=>{const lines=data.lines.filter(l=>l.service.id===s.id);return <div key={s.id} className="border-l-2 border-indigo-200 pl-3"><div className="flex justify-between gap-2"><p className="text-sm font-semibold text-slate-800">{s.display_name}</p><Badge variant="indigo">{lines.length} líneas</Badge></div><p className="mt-1 text-xs text-slate-500">{s.service_kind==='fiber'?'Fibra':'Móvil'} · {s.operator.display_name} · Identificadores ocultos</p><ul className="mt-2 grid gap-2 sm:grid-cols-3">{lines.map((l,i)=><li className="rounded bg-slate-50 p-2 text-xs" key={l.id}>Línea {i+1} · <Status value={l.status}/></li>)}</ul></div>})}</div></article>)}{data.portfolioAvailable&&!data.contracts.length&&empty}</SectionCard>
-  const services=<SectionCard title="Servicios">{!data.portfolioAvailable?<Unavailable/>:data.services.map(s=><div key={s.id} className="mb-2 flex flex-wrap justify-between gap-2 rounded-lg border border-slate-100 p-3"><div><p className="text-sm font-semibold text-slate-800">{s.display_name}</p><p className="text-xs text-slate-500">{s.operator.display_name} · {s.plan?.display_name??'Tarifa no disponible'}</p></div><Status value={s.status}/></div>)}{data.portfolioAvailable&&!data.services.length&&empty}</SectionCard>
-  const lines=<SectionCard title="Líneas" description="Identificadores protegidos; no hay revelado ni copia sin permiso">{!data.portfolioAvailable?<Unavailable/>:<div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">{data.lines.map((l,i)=><div key={l.id} className="rounded-lg border border-slate-200 p-3"><p className="text-sm font-semibold">Línea {i+1}</p><p className="my-2 text-xs text-slate-500">{l.service.display_name} · Identificador oculto</p><Status value={l.status}/></div>)}</div>}{data.portfolioAvailable&&!data.lines.length&&empty}</SectionCard>
-  const deadlines=<SectionCard title="Renovaciones y permanencia" description="Urgencia calculada al 30 sep 2026">{[...data.renewals,...data.permanences].map(item=>{const date=item.kind==='renewal'?item.target_on:item.ends_on;return <div key={item.id} className="mb-2 rounded-lg border border-amber-100 bg-amber-50/50 p-3"><p className="text-sm font-semibold text-slate-800">{item.title}</p><p className="mt-1 text-xs text-amber-800">{previewDate(date)} · {urgencyLabel(date)}</p></div>})}{!data.renewals.length&&!data.permanences.length&&<Unavailable title="Fechas no disponibles"/>}</SectionCard>
-  const tasks=<SectionCard title="Tareas y reuniones">{[...data.tasks,...data.meetings].map(t=><div key={t.id} className="mb-2 rounded-lg border border-slate-100 p-3"><p className="text-sm font-semibold text-slate-800">{t.title}</p><p className="mt-1 text-xs text-slate-500">{t.kind==='task'?'Tarea':'Reunión'} · {previewDate(t.kind==='task'?t.due_at:t.starts_at)}</p></div>)}{!data.tasks.length&&!data.meetings.length&&empty}<Link href="/calendar" className="text-xs font-semibold text-indigo-600">Abrir calendario</Link></SectionCard>
-  const opportunities=<SectionCard title="Oportunidades">{data.opportunities.map(o=><div key={o.id} className="mb-2 rounded-lg border p-3"><p className="text-sm font-semibold text-slate-800">{o.title}</p><p className="mt-1 text-xs text-slate-500">{o.stage.display_name} · {o.follow_up_state==='overdue'?'Necesita seguimiento':'Seguimiento programado'}</p></div>)}{!data.opportunities.length&&empty}<Link href="/opportunities" className="text-xs font-semibold text-indigo-600">Ver pipeline</Link></SectionCard>
-  const activity=<SectionCard title="Actividad reciente">{data.activity.map(a=><div key={a.id} className="mb-3 border-l-2 border-indigo-200 pl-3"><p className="text-sm text-slate-800">{a.safe_summary}</p><p className="text-xs text-slate-500">{previewDate(a.occurred_at)} · {a.actor?.display_name}</p></div>)}{!data.activity.length&&<Unavailable title="Actividad parcial"/>}</SectionCard>
+  const contracts = (
+    <SectionCard
+      title="Contratos"
+      description="Operador → contrato → servicios → líneas"
+    >
+      {!data.portfolioAvailable ? (
+        <Unavailable title="Cartera no disponible">
+          Información parcial. No significa que este cliente no tenga contratos.
+        </Unavailable>
+      ) : (
+        data.contracts.map((c) => (
+          <article
+            key={c.id}
+            className="mb-4 overflow-hidden rounded-lg border border-slate-200"
+          >
+            <div className="flex flex-wrap justify-between gap-2 bg-slate-50 px-4 py-3">
+              <div>
+                <p className="text-sm font-semibold text-slate-900">
+                  {c.operator.display_name}
+                </p>
+                <p className="text-xs text-slate-500">
+                  {c.plan?.display_name ?? 'Plan no disponible'} · Alta{' '}
+                  {previewDate(c.start_date)}
+                </p>
+              </div>
+              <Status value={c.status} />
+            </div>
+            <div className="space-y-3 p-4">
+              {data.services
+                .filter((s) => s.contract.id === c.id)
+                .map((s) => {
+                  const lines = data.lines.filter((l) => l.service.id === s.id)
+                  return (
+                    <div
+                      key={s.id}
+                      className="border-l-2 border-indigo-200 pl-3"
+                    >
+                      <div className="flex justify-between gap-2">
+                        <p className="text-sm font-semibold text-slate-800">
+                          {s.display_name}
+                        </p>
+                        <Badge variant="indigo">{lines.length} líneas</Badge>
+                      </div>
+                      <p className="mt-1 text-xs text-slate-500">
+                        {s.service_kind === 'fiber' ? 'Fibra' : 'Móvil'} ·{' '}
+                        {s.operator.display_name} · Identificadores ocultos
+                      </p>
+                      <ul className="mt-2 grid gap-2 sm:grid-cols-3">
+                        {lines.map((l, i) => (
+                          <li
+                            className="rounded bg-slate-50 p-2 text-xs"
+                            key={l.id}
+                          >
+                            Línea {i + 1} · <Status value={l.status} />
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )
+                })}
+            </div>
+          </article>
+        ))
+      )}
+      {data.portfolioAvailable && !data.contracts.length && empty}
+    </SectionCard>
+  )
+  const services = (
+    <SectionCard title="Servicios">
+      {!data.portfolioAvailable ? (
+        <Unavailable />
+      ) : (
+        data.services.map((s) => (
+          <div
+            key={s.id}
+            className="mb-2 flex flex-wrap justify-between gap-2 rounded-lg border border-slate-100 p-3"
+          >
+            <div>
+              <p className="text-sm font-semibold text-slate-800">
+                {s.display_name}
+              </p>
+              <p className="text-xs text-slate-500">
+                {s.operator.display_name} ·{' '}
+                {s.plan?.display_name ?? 'Tarifa no disponible'}
+              </p>
+            </div>
+            <Status value={s.status} />
+          </div>
+        ))
+      )}
+      {data.portfolioAvailable && !data.services.length && empty}
+    </SectionCard>
+  )
+  const lines = (
+    <SectionCard
+      title="Líneas"
+      description="Identificadores protegidos; no hay revelado ni copia sin permiso"
+    >
+      {!data.portfolioAvailable ? (
+        <Unavailable />
+      ) : (
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {data.lines.map((l, i) => (
+            <div key={l.id} className="rounded-lg border border-slate-200 p-3">
+              <p className="text-sm font-semibold">Línea {i + 1}</p>
+              <p className="my-2 text-xs text-slate-500">
+                {l.service.display_name} · Identificador oculto
+              </p>
+              <Status value={l.status} />
+            </div>
+          ))}
+        </div>
+      )}
+      {data.portfolioAvailable && !data.lines.length && empty}
+    </SectionCard>
+  )
+  const deadlines = (
+    <SectionCard
+      title="Renovaciones y permanencia"
+      description="Urgencia calculada al 30 sep 2026"
+    >
+      {[...data.renewals, ...data.permanences].map((item) => {
+        const date = item.kind === 'renewal' ? item.target_on : item.ends_on
+        return (
+          <div
+            key={item.id}
+            className="mb-2 rounded-lg border border-amber-100 bg-amber-50/50 p-3"
+          >
+            <p className="text-sm font-semibold text-slate-800">{item.title}</p>
+            <p className="mt-1 text-xs text-amber-800">
+              {previewDate(date)} · {urgencyLabel(date)}
+            </p>
+          </div>
+        )
+      })}
+      {!data.renewals.length && !data.permanences.length && (
+        <Unavailable title="Fechas no disponibles" />
+      )}
+    </SectionCard>
+  )
+  const tasks = (
+    <SectionCard title="Tareas y reuniones">
+      {[...data.tasks, ...data.meetings].map((t) => (
+        <div key={t.id} className="mb-2 rounded-lg border border-slate-100 p-3">
+          <p className="text-sm font-semibold text-slate-800">{t.title}</p>
+          <p className="mt-1 text-xs text-slate-500">
+            {t.kind === 'task' ? 'Tarea' : 'Reunión'} ·{' '}
+            {previewDate(t.kind === 'task' ? t.due_at : t.starts_at)}
+          </p>
+        </div>
+      ))}
+      {!data.tasks.length && !data.meetings.length && empty}
+      <Link href="/calendar" className="text-xs font-semibold text-indigo-600">
+        Abrir calendario
+      </Link>
+    </SectionCard>
+  )
+  const opportunities = (
+    <SectionCard title="Oportunidades">
+      {data.opportunities.map((o) => (
+        <div key={o.id} className="mb-2 rounded-lg border p-3">
+          <p className="text-sm font-semibold text-slate-800">{o.title}</p>
+          <p className="mt-1 text-xs text-slate-500">
+            {o.stage.display_name} ·{' '}
+            {o.follow_up_state === 'overdue'
+              ? 'Necesita seguimiento'
+              : 'Seguimiento programado'}
+          </p>
+        </div>
+      ))}
+      {!data.opportunities.length && empty}
+      <Link
+        href="/opportunities"
+        className="text-xs font-semibold text-indigo-600"
+      >
+        Ver pipeline
+      </Link>
+    </SectionCard>
+  )
+  const activity = (
+    <SectionCard title="Actividad reciente">
+      {data.activity.map((a) => (
+        <div key={a.id} className="mb-3 border-l-2 border-indigo-200 pl-3">
+          <p className="text-sm text-slate-800">{a.safe_summary}</p>
+          <p className="text-xs text-slate-500">
+            {previewDate(a.occurred_at)} · {a.actor?.display_name}
+          </p>
+        </div>
+      ))}
+      {!data.activity.length && <Unavailable title="Actividad parcial" />}
+    </SectionCard>
+  )
   return {
-    Resumen:<><div className="grid gap-4 xl:grid-cols-2"><SectionCard title="Resumen ejecutivo"><dl className="grid grid-cols-2 gap-4 text-xs">{[['Empresa',data.customer.trade_name??data.customer.legal_name],['Comercial',data.customer.assigned_user?.display_name??'Sin asignar'],['Próxima acción',data.tasks[0]?.title??'No disponible'],['CIF / contacto','Información protegida']].map(([k,v])=><div key={k}><dt className="text-slate-400">{k}</dt><dd className="mt-1 font-semibold text-slate-800">{v}</dd></div>)}</dl></SectionCard>{deadlines}</div>{contracts}<div className="grid gap-4 xl:grid-cols-2">{tasks}{activity}</div></>,
-    Contactos:<SectionCard title="Contactos"><Unavailable title="Contacto primario no disponible">La ficha exige una proyección autorizada de contactos. No se muestran teléfonos ni correos inferidos.</Unavailable></SectionCard>,
-    Contratos:contracts, Servicios:services, Líneas:lines, Renovaciones:deadlines, Permanencias:deadlines, Oportunidades:opportunities, Tareas:tasks, Reuniones:tasks,
-    Documentos:<SectionCard title="Documentos"><Unavailable title="Documentación pendiente de conexión">Contratos, propuestas, portabilidad e identificación empresarial se leerán con permisos de Storage. La subida está desactivada.</Unavailable></SectionCard>,
-    Facturación:<SectionCard title="Facturación del cliente"><Unavailable title="Facturas del cliente no disponibles">El módulo PRO ofrece un editor local de prueba. No se vinculan borradores locales como facturas reales de esta empresa.</Unavailable><Link href="/facturacion" className="mt-3 inline-block text-xs font-semibold text-indigo-600">Abrir Facturación PRO</Link></SectionCard>,
-    Actividad:activity, Comunicaciones:<SectionCard title="Comunicaciones"><Unavailable title="Canales sin conexión">Inbox requiere asociación cliente-conversación autorizada. No se habilitan envíos.</Unavailable></SectionCard>,
+    Resumen: (
+      <>
+        <div className="grid gap-4 xl:grid-cols-2">
+          <SectionCard title="Resumen ejecutivo">
+            <dl className="grid grid-cols-2 gap-4 text-xs">
+              {[
+                [
+                  'Empresa',
+                  data.customer.trade_name ?? data.customer.legal_name,
+                ],
+                [
+                  'Comercial',
+                  data.customer.assigned_user?.display_name ?? 'Sin asignar',
+                ],
+                ['Próxima acción', data.tasks[0]?.title ?? 'No disponible'],
+                ['CIF / contacto', 'Información protegida'],
+              ].map(([k, v]) => (
+                <div key={k}>
+                  <dt className="text-slate-400">{k}</dt>
+                  <dd className="mt-1 font-semibold text-slate-800">{v}</dd>
+                </div>
+              ))}
+            </dl>
+          </SectionCard>
+          {deadlines}
+        </div>
+        {contracts}
+        <div className="grid gap-4 xl:grid-cols-2">
+          {tasks}
+          {activity}
+        </div>
+      </>
+    ),
+    Contactos: (
+      <SectionCard title="Contactos">
+        <Unavailable title="Contacto primario no disponible">
+          La ficha exige una proyección autorizada de contactos. No se muestran
+          teléfonos ni correos inferidos.
+        </Unavailable>
+      </SectionCard>
+    ),
+    Contratos: contracts,
+    Servicios: services,
+    Líneas: lines,
+    Renovaciones: deadlines,
+    Permanencias: deadlines,
+    Oportunidades: opportunities,
+    Tareas: tasks,
+    Reuniones: tasks,
+    Documentos: (
+      <SectionCard title="Documentos">
+        <Unavailable title="Documentación pendiente de conexión">
+          Contratos, propuestas, portabilidad e identificación empresarial se
+          leerán con permisos de Storage. La subida está desactivada.
+        </Unavailable>
+        <Link
+          href="/documents"
+          className="mt-3 inline-block text-xs font-semibold text-indigo-600"
+        >
+          Abrir documentación
+        </Link>
+      </SectionCard>
+    ),
+    Facturación: (
+      <SectionCard title="Facturación del cliente">
+        <Unavailable title="Facturas del cliente no disponibles">
+          El módulo PRO ofrece un editor local de prueba. No se vinculan
+          borradores locales como facturas reales de esta empresa.
+        </Unavailable>
+        <Link
+          href="/facturacion"
+          className="mt-3 inline-block text-xs font-semibold text-indigo-600"
+        >
+          Abrir Facturación PRO
+        </Link>
+      </SectionCard>
+    ),
+    Actividad: activity,
+    Comunicaciones: (
+      <SectionCard title="Comunicaciones">
+        <Unavailable title="Canales sin conexión">
+          Inbox requiere asociación cliente-conversación autorizada. No se
+          habilitan envíos.
+        </Unavailable>
+      </SectionCard>
+    ),
   }
 }

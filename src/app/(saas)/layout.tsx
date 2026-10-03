@@ -5,11 +5,17 @@ import { WorkspaceIdentityProvider } from '@/components/WorkspaceIdentityProvide
 import { syntheticPreviewAllowed } from '@/lib/telecom-preview/access'
 import { searchItems } from '@/features/product/projections'
 
-export default function SaasLayout({ children }: { children: React.ReactNode }) {
+export default function SaasLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   return (
     <AuthGate>
       <WorkspaceIdentityProvider>
-        <AppShell search={syntheticPreviewAllowed() ? searchItems() : []}>{children}</AppShell>
+        <AppShell search={syntheticPreviewAllowed() ? searchItems() : []}>
+          {children}
+        </AppShell>
       </WorkspaceIdentityProvider>
     </AuthGate>
   )
