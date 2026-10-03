@@ -35,7 +35,7 @@ export class ProductServiceV1 {
   }
   async #read<T>(name: string, id: string, limit: number, after: string | null, parse: (value: unknown) => T | null) {
     const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
-    if (!uuid.test(id) || !Number.isInteger(limit) || limit < 1 || limit > 100 || (after !== null && !uuid.test(after)))
+    if (typeof id !== 'string' || !uuid.test(id) || !Number.isInteger(limit) || limit < 1 || limit > 100 || (after !== null && (typeof after !== 'string' || !uuid.test(after))))
       return { ok: false as const, error: 'validation' as const }
     try {
       const context = await this.#port.resolve()

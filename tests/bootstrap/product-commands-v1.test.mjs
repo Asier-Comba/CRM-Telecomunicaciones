@@ -59,3 +59,16 @@ test('contact editor validates closed PII fields, order, cursor and limit',()=>{
  for(const bad of [{...page,items:[{...row,raw_path:'private'}]},{...page,items:[row,row]},{...page,next_id:command},{...page,customer_id:id},{...page,items:[{...row,is_primary:true,status:'archived'}]}])assert.equal(parseContactEditorPageV1(command,1,null,bad),null)
  assert.equal(parseContactEditorPageV1(command,1,id,page),null)
 })
+test('editor rejects non-string IDs without invoking coercion',async()=>{
+ const {service,calls}=harness()
+ const hostile={toString(){throw Error('coercion must not run')}}
+ assert.deepEqual(await service.customerEditor(hostile),{ok:false,error:'validation'})
+ assert.deepEqual(await service.contactEditors(id,20,hostile),{ok:false,error:'validation'})
+ assert.equal(calls.length,0)
+})
+test('contact editor rejects accessor arrays without executing getter',()=>{
+ let calls=0;const items=[]
+ Object.defineProperty(items,'0',{enumerable:true,get(){calls++;throw Error('getter')}})
+ assert.equal(parseContactEditorPageV1(command,1,null,{contract_version:'product.v1',customer_id:command,items,next_id:null}),null)
+ assert.equal(calls,0)
+})

@@ -81,7 +81,9 @@ export function parseContactEditorPageV1(customerId: string, limit: number, afte
   try {
     if (!plain(value) || Object.keys(value).sort().join(',') !== 'contract_version,customer_id,items,next_id'
       || value.contract_version !== 'product.v1' || value.customer_id !== customerId
-      || !Array.isArray(value.items) || value.items.length > limit
+      || !Array.isArray(value.items) || Object.getPrototypeOf(value.items) !== Array.prototype
+      || Reflect.ownKeys(value.items).some(k => k !== 'length' && (typeof k !== 'string' || !/^(0|[1-9][0-9]*)$/.test(k) || Object.getOwnPropertyDescriptor(value.items, k)?.get !== undefined || Object.getOwnPropertyDescriptor(value.items, k)?.set !== undefined))
+      || value.items.length > limit
       || !(value.next_id === null || uuid(value.next_id))) return null
     let previous = after?.toLowerCase() ?? ''
     const items: import('../contracts/product-v1').ContactEditorV1[] = []

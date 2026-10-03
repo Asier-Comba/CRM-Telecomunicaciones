@@ -59,8 +59,9 @@ SQL fixture executes actual authenticated/anon/service roles, synthetic auth.uid
 A/B, stale version, changed-key arguments, replay, primary promotion, archive/restore,
 revocation/suspension, bounded editors and forced audit-failure rollback.
 PGlite is not real Supabase Auth/PostgREST or native process-race evidence.
+CI275 at bd996a9 passed native PostgreSQL16 fresh/restored grants and 27 migrations.
 Native CI also runs 20 separate psql create races, 20 CAS update races, replay and
-revocation in a separate disposable database; count native results only after CI.
+revocation in a separate disposable database; those native results passed in CI275. Final follow-up must keep them passing.
 
 Reviewed PR24 tests were selectively adopted, without merge, and the explicit
 function privilege manifest extended for product RPCs/helpers. Native restore
@@ -69,3 +70,8 @@ a deliberately unsafe no-ACL restore. Product fixtures execute fresh and restore
 Native bootstrap now places pgcrypto/btree_gist in the canonical extensions schema.
 PR25/26 remain unmerged; real local Supabase acceptance for new commands is pending.
 Issue10 assistant writes remain blocked; staging/production remain unauthorized.
+
+CI275 full quality job is red solely at the inherited all-dependency audit after
+lint/types/138 tests/build passed. Issue29 tracks GHSA-vfj7-8cjw-p6xm; no patched
+braces release currently recorded upstream. No gate bypass or incompatible
+ESLint downgrade was applied. Remaining product modules are not implemented.
