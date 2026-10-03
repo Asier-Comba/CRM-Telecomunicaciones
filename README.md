@@ -69,3 +69,20 @@ en `docs/master/agents/`.
 ## Licencia
 
 Propietario. Uso interno y para clientes autorizados.
+
+## Product rebuild preview
+
+La PR de producto `w2/product-rebuild-v1` añade Dashboard, Clientes y ficha 360,
+Cartera Telecom, oportunidades, calendario, asistente, Facturación PRO y
+configuración fiscal. Inbox, automatizaciones y documentos muestran el estado
+real de conexión. Para abrir la muestra sin credenciales de proveedores:
+
+```bash
+npm ci
+npm run preview:dev
+```
+
+Abre http://localhost:3107/login y pulsa **Ver demo telecom**. Los borradores y
+formularios son temporales. La emisión de facturas y las escrituras reales
+permanecen desactivadas. La matriz de capacidades, métricas, contratos pendientes
+y evidencia están en `docs/master/agents/W2_STATUS.md`.
