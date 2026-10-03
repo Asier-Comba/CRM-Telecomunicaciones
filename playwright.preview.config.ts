@@ -2,8 +2,11 @@ import { defineConfig, devices } from '@playwright/test'
 
 export default defineConfig({
   testDir: './tests/e2e-preview',
-  timeout: 45_000,
+  timeout: 180_000,
   fullyParallel: false,
+  // A single dev server compiles routes on demand; concurrent projects can
+  // trigger Fast Refresh while another page is navigating.
+  workers: 1,
   retries: 0,
   reporter: [['line'], ['html', { open: 'never' }]],
   use: { baseURL: 'http://127.0.0.1:3107', trace: 'retain-on-failure', screenshot: 'only-on-failure' },

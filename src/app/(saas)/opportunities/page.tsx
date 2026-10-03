@@ -1,9 +1,14 @@
-import Link from 'next/link'
-import { AlertCircle, ArrowUpRight, Target } from 'lucide-react'
 import { PageHeader } from '@/components/PageHeader'
-import { Badge } from '@/components/Badge'
-import { previewOpportunities } from '@/lib/telecom-preview/data'
 import { syntheticPreviewAllowed } from '@/lib/telecom-preview/access'
-
-const money=(minor:number,currency:string)=>new Intl.NumberFormat('es-ES',{style:'currency',currency}).format(minor/100)
-export default function OpportunitiesPage(){if(!syntheticPreviewAllowed())return <PageHeader title="Oportunidades" description="Vista sintética no disponible en este entorno."/>;return <div className="space-y-6"><PageHeader title="Oportunidades" description="Pipeline comercial telecom · solo lectura" action={<Badge variant="indigo">Sintético</Badge>}/><div className="grid gap-4 lg:grid-cols-2">{previewOpportunities.map(item=><Link href={`/clients/${item.customer?.id}`} key={item.id} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:border-indigo-200"><div className="flex items-start justify-between gap-4"><div className="flex gap-3"><div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600"><Target className="h-5 w-5"/></div><div><h2 className="font-semibold text-slate-950">{item.title}</h2><p className="text-sm text-slate-500">{item.customer?.display_name}</p></div></div><ArrowUpRight className="h-4 w-4 text-slate-400"/></div><div className="mt-5 flex flex-wrap items-center gap-2"><Badge variant="info">{item.stage.display_name}</Badge><Badge variant={item.follow_up_state==='overdue'?'warning':'success'}>{item.follow_up_state==='overdue'?'Necesita seguimiento':'Seguimiento programado'}</Badge>{item.amount?<span className="ml-auto text-sm font-semibold text-slate-700">{money(item.amount.minor_units,item.amount.currency)}</span>:<span className="ml-auto text-sm text-slate-500">Valor no disponible</span>}</div></Link>)}</div><div className="flex items-start gap-3 rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600"><AlertCircle className="mt-0.5 h-4 w-4"/>No hay acciones de creación, cambio de etapa o borrado en esta vista.</div></div>}
+import { previewOpportunities } from '@/lib/telecom-preview/data'
+import { Opportunities } from '@/features/opportunities/Opportunities'
+export default function OpportunitiesPage() {
+  if (!syntheticPreviewAllowed())
+    return (
+      <PageHeader
+        title="Oportunidades"
+        description="Vista sintética no disponible en este entorno."
+      />
+    )
+  return <Opportunities items={previewOpportunities} />
+}
