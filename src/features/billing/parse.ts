@@ -41,23 +41,23 @@ function toNumberEs(raw: string): number | null {
 const todayIso = () => '2026-09-30'
 function addDaysIso(base: string, days: number): string {
   const d = new Date(base)
-  d.setDate(d.getDate() + days)
+  d.setUTCDate(d.getUTCDate() + days)
   return d.toISOString().slice(0, 10)
 }
 function endOfMonthIso(base: string): string {
   const d = new Date(base)
-  return new Date(d.getFullYear(), d.getMonth() + 1, 0)
+  return new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + 1, 0))
     .toISOString()
     .slice(0, 10)
 }
 
 function parseAmount(text: string): number | null {
   const m = text.match(
-    /(\d{1,3}(?:[.\s]\d{3})*(?:[.,]\d+)?|\d+(?:[.,]\d+)?)\s*(?:€|eur(?:os)?|usd|dólares|gbp|libras)/i,
+    /(?<![\w.,])(-?\d+(?:[.\s]\d{3})*(?:[.,]\d+)?)\s*(?:€|eur(?:os)?|usd|dólares|gbp|libras)/i,
   )
   if (!m) {
     const m2 = text.match(
-      /(?:importe|precio|por|de)\s+(\d{1,3}(?:[.\s]\d{3})*(?:[.,]\d+)?|\d+(?:[.,]\d+)?)/i,
+      /(?:importe|precio|por|de)\s+(-?\d+(?:[.\s]\d{3})*(?:[.,]\d+)?)(?![\w.,])/i,
     )
     return m2 ? toNumberEs(m2[1]) : null
   }

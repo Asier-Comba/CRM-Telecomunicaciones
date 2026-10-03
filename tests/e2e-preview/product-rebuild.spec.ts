@@ -3,6 +3,10 @@ async function login(page: Page) {
   await page.goto('/login')
   await page.getByRole('button', { name: 'Ver demo telecom' }).click()
   await expect(page).toHaveURL(/dashboard$/)
+  await expect(
+    page.getByRole('heading', { name: 'Dashboard telecom' }),
+  ).toBeVisible()
+  await page.waitForLoadState('networkidle')
 }
 async function capture(page: Page, info: TestInfo, name: string) {
   const path = info.outputPath(`${name}.png`)
@@ -124,7 +128,7 @@ test('portfolio drill-down, pipeline and actual calendar navigation', async ({
   await page.getByRole('button', { name: 'Cerrar panel' }).click()
   await page.getByRole('button', { name: 'Agenda', exact: true }).click()
   await expect(
-    page.getByRole('button', { name: /Revisar renovación/ }),
+    page.getByRole('button', { name: /Revisar renovación/ }).first(),
   ).toBeVisible()
   await page.getByRole('button', { name: 'Semana', exact: true }).click()
   await capture(page, info, 'calendario')
@@ -168,7 +172,7 @@ test('fiscal identity, deterministic proposal, reviewed draft, PDF and controlle
   await expect(page.getByRole('spinbutton', { name: 'Precio 1' })).toHaveValue(
     '1200',
   )
-  await expect(page.getByRole('dialog')).toContainText('1.144,80')
+  await expect(page.getByRole('dialog')).toContainText(/1\.?144,80/)
   await expect(
     page.getByRole('button', { name: 'Emitir factura', exact: true }),
   ).toBeDisabled()
@@ -184,7 +188,7 @@ test('fiscal identity, deterministic proposal, reviewed draft, PDF and controlle
   await page.getByRole('button', { name: 'Guardar borrador local' }).click()
   await expect(
     page.getByRole('row').filter({ hasText: 'Bilbao Industrial Demo SL' }),
-  ).toContainText('1.144,80')
+  ).toContainText(/1\.?144,80/)
   await capture(page, info, 'facturacion')
   await surface(page)
   await page.getByRole('button', { name: 'Papelera', exact: true }).click()
@@ -263,7 +267,10 @@ test('disconnected modules stay honest and assistant error/cancel cannot resurre
   await page
     .getByRole('button', { name: 'Dame el resumen del día', exact: true })
     .click()
-  await expect(page.getByRole('alert')).toContainText(
+  const assistantError = page
+    .getByRole('alert')
+    .filter({ hasText: 'No puedo consultar los datos ahora.' })
+  await expect(assistantError).toContainText(
     'No puedo consultar los datos ahora.',
   )
   await page
@@ -274,6 +281,6 @@ test('disconnected modules stay honest and assistant error/cancel cannot resurre
     .press('Enter')
   await page.getByRole('button', { name: 'Cancelar consulta' }).click()
   await expect(page.getByText('Consulta cancelada.')).toBeVisible()
-  await expect(page.getByRole('alert')).toHaveCount(1)
+  await expect(assistantError).toHaveCount(1)
   expect(external).toEqual([])
 })

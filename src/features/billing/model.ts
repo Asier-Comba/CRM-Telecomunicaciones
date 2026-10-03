@@ -117,57 +117,66 @@ export function validateExtraction(
   value: unknown,
   customerIds: readonly string[],
 ) {
-  if (
-    !value ||
-    typeof value !== 'object' ||
-    Array.isArray(value) ||
-    Object.getPrototypeOf(value) !== Object.prototype
-  )
-    return null
-  const descriptors = Object.getOwnPropertyDescriptors(value)
-  if (Object.values(descriptors).some((d) => !('value' in d))) return null
-  const p = value as Record<string, unknown>,
-    keys = [
-      'customerId',
-      'concept',
-      'amount',
-      'vat',
-      'withholding',
-      'discount',
-      'currency',
-      'dueDate',
-    ]
-  if (Object.keys(p).sort().join(',') !== keys.sort().join(',')) return null
-  if (
-    typeof p.customerId !== 'string' ||
-    !customerIds.includes(p.customerId) ||
-    typeof p.concept !== 'string' ||
-    !p.concept.trim() ||
-    p.concept.length > 300
-  )
-    return null
-  if (
-    typeof p.amount !== 'number' ||
-    !Number.isFinite(p.amount) ||
-    p.amount <= 0 ||
-    p.amount > 10000000
-  )
-    return null
-  if (
-    ['vat', 'withholding', 'discount'].some(
-      (k) =>
-        typeof p[k] !== 'number' ||
-        !Number.isFinite(p[k]) ||
-        Number(p[k]) < 0 ||
-        Number(p[k]) > 100,
+  try {
+    if (
+      !value ||
+      typeof value !== 'object' ||
+      Array.isArray(value) ||
+      Object.getPrototypeOf(value) !== Object.prototype
     )
-  )
+      return null
+    const descriptors = Object.getOwnPropertyDescriptors(value)
+    if (Object.values(descriptors).some((d) => !('value' in d))) return null
+    const p = value as Record<string, unknown>,
+      keys = [
+        'customerId',
+        'concept',
+        'amount',
+        'vat',
+        'withholding',
+        'discount',
+        'currency',
+        'dueDate',
+      ]
+    if (
+      Reflect.ownKeys(p).some((key) => typeof key !== 'string') ||
+      Object.keys(p).sort().join(',') !== keys.sort().join(',')
+    )
+      return null
+    if (
+      typeof p.customerId !== 'string' ||
+      !customerIds.includes(p.customerId) ||
+      typeof p.concept !== 'string' ||
+      !p.concept.trim() ||
+      p.concept.length > 300
+    )
+      return null
+    if (
+      typeof p.amount !== 'number' ||
+      !Number.isFinite(p.amount) ||
+      p.amount <= 0 ||
+      p.amount > 10000000
+    )
+      return null
+    if (
+      ['vat', 'withholding', 'discount'].some(
+        (k) =>
+          typeof p[k] !== 'number' ||
+          !Number.isFinite(p[k]) ||
+          Number(p[k]) < 0 ||
+          Number(p[k]) > 100,
+      )
+    )
+      return null
+    if (
+      typeof p.currency !== 'string' ||
+      !['EUR', 'USD', 'GBP'].includes(p.currency) ||
+      (p.dueDate !== null &&
+        (typeof p.dueDate !== 'string' || !validDate(p.dueDate)))
+    )
+      return null
+    return { ...p }
+  } catch {
     return null
-  if (
-    !['EUR', 'USD', 'GBP'].includes(String(p.currency)) ||
-    (p.dueDate !== null &&
-      (typeof p.dueDate !== 'string' || !validDate(p.dueDate)))
-  )
-    return null
-  return { ...p }
+  }
 }

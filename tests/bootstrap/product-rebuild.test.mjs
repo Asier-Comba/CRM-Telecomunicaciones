@@ -185,6 +185,39 @@ test('invoice draft validation rejects fiscal, date, reference and numeric inval
     ).length,
   )
 })
+test('local parser preserves calendar dates across DST and rejects invalid amounts', () => {
+  const before = process.env.TZ
+  try {
+    for (const timezone of ['UTC', 'Europe/Madrid', 'America/New_York']) {
+      process.env.TZ = timezone
+      assert.equal(
+        parseInvoiceText(
+          'Factura por conectividad de 100 euros a fin de mes',
+          clients,
+          '2026-09-15',
+        ).draft.dueDate,
+        '2026-09-30',
+      )
+      assert.equal(
+        parseInvoiceText(
+          'Factura por conectividad de 100 euros a 2 días',
+          clients,
+          '2026-10-24',
+        ).draft.dueDate,
+        '2026-10-26',
+      )
+    }
+  } finally {
+    if (before === undefined) delete process.env.TZ
+    else process.env.TZ = before
+  }
+  for (const amount of ['-100', '10000001', '1e9'])
+    assert.equal(
+      parseInvoiceText(`Factura por conectividad de ${amount} euros`, clients)
+        .detected.amount,
+      null,
+    )
+})
 test('optional AI extraction is closed, bounded and cannot authorize emission', () => {
   const proposal = {
     customerId: clients[0].id,
@@ -212,6 +245,20 @@ test('optional AI extraction is closed, bounded and cannot authorize emission', 
     { ...proposal, dueDate: '2026-02-30' },
     { ...proposal, vat: 101 },
     Object.create(proposal),
+    {
+      ...proposal,
+      currency: {
+        toString() {
+          throw Error('must not coerce')
+        },
+      },
+    },
+    { ...proposal, [Symbol('hidden')]: true },
+    new Proxy(proposal, {
+      getPrototypeOf() {
+        throw Error('untrusted proxy')
+      },
+    }),
   ])
     assert.equal(
       validateExtraction(
