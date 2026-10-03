@@ -25,9 +25,23 @@ async function navigate(page: Page, name: string) {
     .click()
 }
 async function capture(page: Page, info: TestInfo, name: string) {
+  await expect(page.locator('[data-sonner-toast]')).toHaveCount(0)
+  const main = page.locator('#main-content')
+  await main.evaluate((node) => {
+    node.scrollTop = 0
+  })
   const path = info.outputPath(`${name}.png`)
-  await page.screenshot({ path, fullPage: true })
+  await page.screenshot({ path, fullPage: false })
   await info.attach(name, { path, contentType: 'image/png' })
+  await main.evaluate((node) => {
+    node.scrollTop = node.scrollHeight
+  })
+  const lower = info.outputPath(`${name}-lower.png`)
+  await page.screenshot({ path: lower, fullPage: false })
+  await info.attach(`${name}-lower`, { path: lower, contentType: 'image/png' })
+  await main.evaluate((node) => {
+    node.scrollTop = 0
+  })
 }
 
 test('complete synthetic read-only journey renders, hydrates and stays isolated', async ({

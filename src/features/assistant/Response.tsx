@@ -2,6 +2,23 @@
 import type { PreviewReply } from '@/lib/telecom-preview/reply'
 import { Badge } from '@/components/Badge'
 const hidden = new Set(['source', 'entity', 'as_of', 'freshness'])
+const labels: Record<string, string> = {
+  SUCCESS: 'Consulta completada',
+  PARTIAL: 'Información parcial',
+  UNAVAILABLE: 'No disponible',
+  DENIED: 'Acceso no disponible',
+  NEEDS_CLARIFICATION: 'Necesito más información',
+  tasks: 'Tareas',
+  meetings: 'Reuniones',
+  renewals: 'Renovaciones',
+  permanence_alerts: 'Permanencias',
+  available: 'Disponible',
+  unavailable: 'No disponible',
+  denied: 'Acceso no disponible',
+  complete: 'Completa',
+  partial: 'Parcial',
+  unknown: 'No determinada',
+}
 export function AssistantResponseView({ reply }: { reply: PreviewReply }) {
   return (
     <div className="space-y-3">
@@ -12,7 +29,7 @@ export function AssistantResponseView({ reply }: { reply: PreviewReply }) {
         >
           <div className="mb-3 flex flex-wrap items-center gap-2">
             <Badge variant={response.grounded ? 'success' : 'warning'}>
-              {response.status}
+              {labels[response.status] ?? 'Resultado de consulta'}
             </Badge>
             {response.meta.partial && (
               <Badge variant="warning">Cobertura parcial</Badge>
@@ -52,7 +69,8 @@ export function AssistantResponseView({ reply }: { reply: PreviewReply }) {
                           >
                             {row[c.key] === null
                               ? 'No disponible'
-                              : String(row[c.key])}
+                              : (labels[String(row[c.key])] ??
+                                String(row[c.key]))}
                           </td>
                         ))}
                     </tr>
@@ -77,9 +95,6 @@ export function AssistantResponseView({ reply }: { reply: PreviewReply }) {
                 {response.meta.partial
                   ? 'Cobertura parcial'
                   : 'Cobertura completa de esta lectura'}
-              </p>
-              <p className="mt-1 font-mono text-[10px]">
-                {response.meta.capability}
               </p>
             </details>
           )}

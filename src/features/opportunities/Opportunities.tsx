@@ -113,7 +113,7 @@ export function Opportunities({
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Buscar oportunidad o empresa"
-          className={`${control} min-w-0 flex-1`}
+          className={`${control} w-full min-w-0 sm:w-auto sm:flex-1`}
         />
         <select
           aria-label="Comercial de oportunidad"

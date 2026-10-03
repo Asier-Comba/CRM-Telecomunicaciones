@@ -199,7 +199,11 @@ export function Assistant({ context }: { context: AssistantContext | null }) {
               </p>
             </div>
           </header>
-          <div className="space-y-4 p-4" aria-live="polite" aria-busy={loading}>
+          <div
+            className="max-h-[55dvh] space-y-4 overflow-y-auto p-4"
+            aria-live="polite"
+            aria-busy={loading}
+          >
             {!thread.turns.length && (
               <div className="rounded-xl bg-slate-50 p-5">
                 <p className="text-base font-semibold text-slate-800">
@@ -248,7 +252,7 @@ export function Assistant({ context }: { context: AssistantContext | null }) {
             ))}
           </div>
           <form
-            className="sticky bottom-0 border-t bg-white p-3"
+            className="border-t bg-white p-3"
             onSubmit={(e) => {
               e.preventDefault()
               void ask(text)
@@ -285,8 +289,10 @@ export function Assistant({ context }: { context: AssistantContext | null }) {
               )}
             </div>
             <p className="mt-2 text-[10px] text-slate-400">
-              {new TextEncoder().encode(text).length}/500 bytes · No ejecuta
-              cambios ni envíos
+              {new TextEncoder().encode(text).length > 500
+                ? 'Acorta la consulta para continuar. '
+                : ''}
+              No ejecuta cambios ni envíos
             </p>
           </form>
         </section>

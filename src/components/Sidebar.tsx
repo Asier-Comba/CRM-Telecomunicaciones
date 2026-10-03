@@ -11,6 +11,7 @@ import {
   Zap,
   Bot,
   Receipt,
+  Files,
   Settings,
   X,
   LogOut,
@@ -31,6 +32,7 @@ const items = [
   ['/automations', 'Automatizaciones', Zap],
   ['/assistant', 'Asistente IA', Bot],
   ['/facturacion', 'Facturación PRO', Receipt],
+  ['/documents', 'Documentos', Files],
   ['/settings', 'Configuración', Settings],
 ] as const
 export function Sidebar({ onClose }: { onClose?: () => void } = {}) {
