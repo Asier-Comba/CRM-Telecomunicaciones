@@ -129,6 +129,8 @@ test('complete synthetic read-only journey renders, hydrates and stays isolated'
     name: 'Revisar renovación de la flota móvil',
     exact: true,
   })
+  await expect(page.getByRole('cell', { name: 'Tareas de hoy', exact: true })).toBeVisible()
+  await expect(page.getByRole('cell', { name: 'today_tasks', exact: true })).toHaveCount(0)
   await expect(taskFacts).toHaveCount(2)
   for (const fact of await taskFacts.all()) await expect(fact).toBeVisible()
   await checkSurface(page)
