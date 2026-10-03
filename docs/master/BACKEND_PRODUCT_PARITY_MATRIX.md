@@ -11,9 +11,9 @@ Implementation-level audit continues per module before porting behavior.
 | Historical capability / source | Classification | Current backend / next contract |
 |---|---|---|
 | Dashboard periods, team, revenue (`dashboard-snapshot.ts`) | TELECOM ADAPTATION | telecom.v1 dashboard is bounded attention only; product.v1 metrics/periods missing; revenue unavailable until billing source |
-| Company/client CRUD (`clients` pages) | BACKEND MISSING | customers schema/read exists; create/update/archive/restore with CAS next |
+| Company/client CRUD (`clients` pages) | IMPLEMENTED | product.v1 create/update/archive/restore/CAS editor; JWT owner/admin; transport review pending |
 | Client detail/contact/attention (`clients/[id]`) | TELECOM ADAPTATION | customer.summary exists; separate customer/contact/task/meeting commands |
-| Human contacts | BACKEND MISSING | distinct contacts table; closed PII-authorized commands needed |
+| Human contacts | IMPLEMENTED | product.v1 contact commands/primary/bounded PII editors; owner/admin; transport pending |
 | Cartera/property | NOT APPLICABLE | no property/buyer/seller/rental schema port |
 | Telecom portfolio | ALREADY EXISTS | contracts/services/lines/operators/plans/renewals/permanence reads; provenance-controlled commands missing |
 | Operations/pipeline | TELECOM ADAPTATION | opportunities/stages exist; controlled stage transition/history/CAS missing |
@@ -48,8 +48,8 @@ Implementation-level audit continues per module before porting behavior.
 
 | Contract | State | UI safe to enable |
 |---|---|---|
-| CUSTOMER_CREATE / CONTACT_CREATE | planned product.v1 authenticated JWT RPC + closed application service | no |
-| CUSTOMER_UPDATE / ARCHIVE / RESTORE | planned expected_version + command_id | no |
+| CUSTOMER_CREATE / CONTACT_CREATE | implemented product.v1 authenticated JWT RPC + closed application service | no |
+| CUSTOMER_UPDATE / ARCHIVE / RESTORE | implemented expected_version + command_id | no |
 | TASK_MUTATE / MEETING_MUTATE | planned canonical lifecycle + CAS | no |
 | CALENDAR_QUERY | planned bounded instant overlap range, stable pagination | no |
 | OPPORTUNITY_MUTATE | planned canonical stage ID and explicit transition | no |

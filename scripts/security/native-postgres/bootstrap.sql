@@ -4,8 +4,8 @@ create role authenticated;
 create role service_role bypassrls;
 create schema auth;
 create schema extensions;
-create extension if not exists pgcrypto;
-create extension if not exists btree_gist;
+create extension if not exists pgcrypto with schema extensions;
+create extension if not exists btree_gist with schema extensions;
 create table auth.users (
   id uuid primary key,
   instance_id uuid,
