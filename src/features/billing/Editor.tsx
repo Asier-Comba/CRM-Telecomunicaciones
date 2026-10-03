@@ -9,12 +9,13 @@ import {
 } from '@/lib/invoicing/calc'
 import type { InvoiceItem } from '@/lib/invoicing/types'
 import { buildInvoicePdfBytes } from './pdf'
-import { validateDraft, type InvoiceFormData } from './model'
+import { validateDraft, type InvoiceFormData, type InvoiceLink } from './model'
 import type { CompanyForm } from '@/features/settings/LocalCompany'
 const money = formatInvoiceCurrency
 export function InvoiceEditor({
   initial,
   customers,
+  links,
   issuer,
   warnings = [],
   onSave,
@@ -22,6 +23,7 @@ export function InvoiceEditor({
 }: {
   initial: InvoiceFormData
   customers: { id: string; name: string }[]
+  links: InvoiceLink[]
   issuer: CompanyForm
   warnings?: string[]
   onSave: (form: InvoiceFormData) => void
@@ -35,7 +37,14 @@ export function InvoiceEditor({
     key: K,
     value: InvoiceFormData[K],
   ) {
-    setForm({ ...form, [key]: value })
+    setForm({
+      ...form,
+      [key]: value,
+      ...(key === 'clientId'
+        ? { contractId: null, serviceId: null, opportunityId: null }
+        : {}),
+      ...(key === 'contractId' ? { serviceId: null } : {}),
+    })
     setReviewed(false)
   }
   function item(index: number, key: string, value: string | number) {
@@ -51,6 +60,7 @@ export function InvoiceEditor({
     const next = validateDraft(
       form,
       customers.map((c) => c.id),
+      links,
     )
     setErrors(next)
     if (!next.length && reviewed) onSave(structuredClone(form))
@@ -59,6 +69,7 @@ export function InvoiceEditor({
     const next = validateDraft(
       form,
       customers.map((c) => c.id),
+      links,
     )
     setErrors(next)
     if (next.length) return
@@ -74,6 +85,9 @@ export function InvoiceEditor({
         notes: `BORRADOR LOCAL DE DEMOSTRACIÓN · NO EMITIDO\n${form.notes}`,
         issuer: { ...issuer, legalName: issuer.legalName },
         customer: { name: client.name },
+        linkedOpportunity: links.find(
+          (l) => l.kind === 'opportunityId' && l.id === form.opportunityId,
+        )?.label,
         exchange:
           form.currency !== 'EUR'
             ? {
@@ -194,6 +208,45 @@ export function InvoiceEditor({
           </p>
         </div>
       </div>
+      <fieldset className="grid gap-2 rounded-lg border border-slate-200 p-3 sm:grid-cols-3">
+        <legend className="px-1 text-xs font-semibold text-slate-700">
+          Vínculos de prueba del cliente
+        </legend>
+        {(
+          [
+            ['opportunityId', 'Oportunidad'],
+            ['contractId', 'Contrato'],
+            ['serviceId', 'Servicio'],
+          ] as const
+        ).map(([kind, label]) => (
+          <label key={kind} className="min-w-0 text-xs text-slate-500">
+            {label}
+            <select
+              aria-label={`${label} de factura`}
+              className={`${control} mt-1 w-full`}
+              value={form[kind] ?? ''}
+              disabled={!form.clientId}
+              onChange={(e) => field(kind, e.target.value || null)}
+            >
+              <option value="">Sin vínculo</option>
+              {links
+                .filter(
+                  (l) =>
+                    l.kind === kind &&
+                    l.customerId === form.clientId &&
+                    (kind !== 'serviceId' ||
+                      !form.contractId ||
+                      l.contractId === form.contractId),
+                )
+                .map((l) => (
+                  <option key={l.id} value={l.id}>
+                    {l.label}
+                  </option>
+                ))}
+            </select>
+          </label>
+        ))}
+      </fieldset>
       {form.currency !== 'EUR' && (
         <div className="grid gap-2 sm:grid-cols-3">
           <label className="text-xs">

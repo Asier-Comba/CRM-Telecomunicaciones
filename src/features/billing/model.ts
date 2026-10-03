@@ -24,6 +24,13 @@ export type InvoiceFormData = {
   internalNotes: string
   items: InvoiceFormItem[]
 }
+export type InvoiceLink = {
+  kind: 'opportunityId' | 'contractId' | 'serviceId'
+  id: string
+  customerId: string
+  label: string
+  contractId?: string | null
+}
 export type Draft = {
   id: string
   form: InvoiceFormData
@@ -68,10 +75,29 @@ function validDate(value: string) {
 export function validateDraft(
   form: InvoiceFormData,
   customerIds: readonly string[],
+  links: readonly InvoiceLink[] = [],
 ): string[] {
   const errors: string[] = []
   if (!form.clientId || !customerIds.includes(form.clientId))
     errors.push('Selecciona un cliente de la muestra.')
+  if (
+    (['opportunityId', 'contractId', 'serviceId'] as const).some((kind) => {
+      const id = form[kind]
+      if (id === null) return false
+      const link = links.find(
+        (l) => l.kind === kind && l.id === id && l.customerId === form.clientId,
+      )
+      return (
+        !link ||
+        (kind === 'serviceId' &&
+          form.contractId !== null &&
+          link.contractId !== form.contractId)
+      )
+    })
+  )
+    errors.push(
+      'Los vínculos deben pertenecer al cliente y contrato seleccionados.',
+    )
   if (
     !validDate(form.issueDate) ||
     (form.dueDate !== null &&

@@ -1,6 +1,11 @@
 import { PageHeader } from '@/components/PageHeader'
 import { syntheticPreviewAllowed } from '@/lib/telecom-preview/access'
-import { previewCustomers } from '@/lib/telecom-preview/data'
+import {
+  previewCustomers,
+  previewContracts,
+  previewServices,
+  previewOpportunities,
+} from '@/lib/telecom-preview/data'
 import { Billing } from '@/features/billing/Billing'
 export default function InvoicingPage() {
   if (!syntheticPreviewAllowed())
@@ -12,6 +17,29 @@ export default function InvoicingPage() {
     )
   return (
     <Billing
+      links={[
+        ...previewContracts.map((c) => ({
+          kind: 'contractId' as const,
+          id: c.id,
+          customerId: c.customer.id,
+          label: `${c.operator.display_name} · ${c.plan?.display_name ?? 'Contrato'}`,
+        })),
+        ...previewServices.map((s) => ({
+          kind: 'serviceId' as const,
+          id: s.id,
+          customerId: s.customer.id,
+          label: s.display_name,
+          contractId: s.contract?.id ?? null,
+        })),
+        ...previewOpportunities
+          .filter((o) => o.customer !== null)
+          .map((o) => ({
+            kind: 'opportunityId' as const,
+            id: o.id,
+            customerId: o.customer!.id,
+            label: o.title,
+          })),
+      ]}
       customers={previewCustomers.map((c) => ({
         id: c.id,
         name: c.legal_name,

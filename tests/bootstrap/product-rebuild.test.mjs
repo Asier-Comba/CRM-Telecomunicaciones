@@ -218,6 +218,60 @@ test('local parser preserves calendar dates across DST and rejects invalid amoun
       null,
     )
 })
+test('draft reference selection cannot link another customer or contract', () => {
+  const form = blankForm()
+  form.clientId = clients[0].id
+  form.items[0].description = 'Conectividad'
+  const links = [
+    {
+      kind: 'contractId',
+      id: 'contract_a',
+      customerId: clients[0].id,
+      label: 'Contrato',
+    },
+    {
+      kind: 'serviceId',
+      id: 'service_a',
+      customerId: clients[0].id,
+      contractId: 'contract_a',
+      label: 'Servicio',
+    },
+    {
+      kind: 'serviceId',
+      id: 'service_other',
+      customerId: clients[0].id,
+      contractId: 'contract_b',
+      label: 'Otro contrato',
+    },
+    {
+      kind: 'opportunityId',
+      id: 'opportunity_foreign',
+      customerId: clients[1].id,
+      label: 'Otro cliente',
+    },
+  ]
+  const linked = { ...form, contractId: 'contract_a', serviceId: 'service_a' }
+  assert.deepEqual(
+    validateDraft(
+      linked,
+      clients.map((c) => c.id),
+      links,
+    ),
+    [],
+  )
+  for (const patch of [
+    { serviceId: 'service_other' },
+    { opportunityId: 'opportunity_foreign' },
+    { contractId: 'unknown' },
+  ])
+    assert.ok(
+      validateDraft(
+        { ...linked, ...patch },
+        clients.map((c) => c.id),
+        links,
+      ).some((e) => e.includes('vínculos')),
+    )
+})
 test('optional AI extraction is closed, bounded and cannot authorize emission', () => {
   const proposal = {
     customerId: clients[0].id,

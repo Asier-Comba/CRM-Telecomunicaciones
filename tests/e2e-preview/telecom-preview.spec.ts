@@ -154,7 +154,7 @@ test('complete synthetic read-only journey renders, hydrates and stays isolated'
       .click()
     await query.fill(attack)
     await query.press('Enter')
-    await expect(page.getByText('POLICY_BLOCK', { exact: true })).toBeVisible()
+    await expect(page.getByText('Operación no disponible', { exact: true })).toBeVisible()
     await expect(
       page.getByText(
         'Esa operación no está disponible en este asistente de consulta.',

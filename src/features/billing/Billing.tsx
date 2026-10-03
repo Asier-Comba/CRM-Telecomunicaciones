@@ -21,7 +21,12 @@ import {
 } from '@/lib/invoicing/calc'
 import { InvoiceEditor } from './Editor'
 import { PromptBuilder } from './PromptBuilder'
-import { blankForm, type InvoiceFormData, type Draft } from './model'
+import {
+  blankForm,
+  type InvoiceFormData,
+  type Draft,
+  type InvoiceLink,
+} from './model'
 import {
   useLocalCompany,
   type CompanyForm,
@@ -29,8 +34,10 @@ import {
 type LocalDraft = Draft & { issuer: CompanyForm }
 export function Billing({
   customers,
+  links,
 }: {
   customers: { id: string; name: string }[]
+  links: InvoiceLink[]
 }) {
   const { company } = useLocalCompany(),
     [drafts, setDrafts] = useState<LocalDraft[]>([]),
@@ -287,6 +294,7 @@ export function Billing({
           initial={edit.form}
           issuer={edit.issuer}
           customers={customers}
+          links={links}
           warnings={edit.warnings}
           onSave={save}
           onClose={() => setEdit(null)}

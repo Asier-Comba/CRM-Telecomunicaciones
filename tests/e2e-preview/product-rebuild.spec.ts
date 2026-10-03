@@ -109,7 +109,11 @@ test('portfolio drill-down, pipeline and actual calendar navigation', async ({
   await capture(page, info, 'cartera-telecom')
   await surface(page)
   await page.goto('/opportunities')
-  expect((await page.getByRole('textbox', { name: 'Buscar oportunidades' }).boundingBox())!.width).toBeGreaterThan(180)
+  expect(
+    (await page
+      .getByRole('textbox', { name: 'Buscar oportunidades' })
+      .boundingBox())!.width,
+  ).toBeGreaterThan(180)
   await page
     .getByRole('button', { name: /Migración de conectividad y móvil/ })
     .click()
@@ -184,6 +188,17 @@ test('fiscal identity, deterministic proposal, reviewed draft, PDF and controlle
   await expect(
     page.getByRole('combobox', { name: 'Cliente de factura' }),
   ).toHaveValue('cust_demo_bilbao_002')
+  await page
+    .getByRole('combobox', { name: 'Contrato de factura' })
+    .selectOption('contract_demo_bilbao02')
+  await page
+    .getByRole('combobox', { name: 'Servicio de factura' })
+    .selectOption('service_demo_bilbao_mobile')
+  await expect(
+    page
+      .getByRole('combobox', { name: 'Servicio de factura' })
+      .locator('option'),
+  ).toHaveCount(2)
   await expect(page.getByRole('spinbutton', { name: 'Precio 1' })).toHaveValue(
     '1200',
   )
@@ -297,5 +312,19 @@ test('disconnected modules stay honest and assistant error/cancel cannot resurre
   await page.getByRole('button', { name: 'Cancelar consulta' }).click()
   await expect(page.getByText('Consulta cancelada.')).toBeVisible()
   await expect(assistantError).toHaveCount(1)
+  await page.getByRole('button', { name: 'Renombrar', exact: true }).click()
+  await page
+    .getByRole('textbox', { name: 'Título de conversación' })
+    .fill('Prueba local revisada')
+  await page.getByRole('button', { name: 'Guardar título local' }).click()
+  await expect(
+    page.getByRole('heading', { name: 'Prueba local revisada' }),
+  ).toBeVisible()
+  await page
+    .getByRole('button', { name: 'Eliminar conversación', exact: true })
+    .click()
+  await page.getByRole('button', { name: 'Eliminar de esta sesión' }).click()
+  await expect(assistantError).toHaveCount(0)
+  await expect(page.getByText('Tu cartera, en una consulta')).toBeVisible()
   expect(external).toEqual([])
 })

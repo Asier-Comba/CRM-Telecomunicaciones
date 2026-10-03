@@ -7,6 +7,7 @@ const labels: Record<string, string> = {
   PARTIAL: 'Información parcial',
   UNAVAILABLE: 'No disponible',
   DENIED: 'Acceso no disponible',
+  POLICY_BLOCK: 'Operación no disponible',
   NEEDS_CLARIFICATION: 'Necesito más información',
   tasks: 'Tareas',
   meetings: 'Reuniones',

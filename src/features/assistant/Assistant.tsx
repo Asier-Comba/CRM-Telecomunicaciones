@@ -16,7 +16,7 @@ import {
   type PreviewReply,
 } from '@/lib/telecom-preview/reply'
 import { AssistantResponseView } from './Response'
-import { PreviewNotice, control, primary } from '@/features/product/ui'
+import { PreviewNotice, Drawer, control, primary } from '@/features/product/ui'
 export type AssistantContext = {
   id: string
   name: string
@@ -31,7 +31,7 @@ type Turn = {
   reply: PreviewReply | null
   error: boolean
 }
-type Thread = { id: number; title: string; turns: Turn[] }
+type Thread = { id: number; title: string; turns: Turn[]; renamed?: boolean }
 const prompts = [
   'Dame el resumen del día',
   '¿Qué permanencias terminan pronto?',
@@ -45,7 +45,9 @@ export function Assistant({ context }: { context: AssistantContext | null }) {
     ]),
     [active, setActive] = useState(1),
     [text, setText] = useState(''),
-    [loading, setLoading] = useState(false)
+    [loading, setLoading] = useState(false),
+    [manage, setManage] = useState<'rename' | 'delete' | null>(null),
+    [title, setTitle] = useState('')
   const controller = useRef<AbortController | null>(null),
     attempt = useRef(0),
     sequence = useRef(1),
@@ -92,7 +94,7 @@ export function Assistant({ context }: { context: AssistantContext | null }) {
         t.id === threadId
           ? {
               ...t,
-              title: t.turns.length ? t.title : value.slice(0, 45),
+              title: t.turns.length || t.renamed ? t.title : value.slice(0, 45),
               turns: [
                 ...t.turns.slice(-11),
                 { id, query: value, reply: null, error: false },
@@ -185,6 +187,20 @@ export function Assistant({ context }: { context: AssistantContext | null }) {
             Historial local temporal. Se elimina al salir de la página. Las
             consultas no transmiten un historial simulado.
           </p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            <button
+              className={control}
+              onClick={() => {
+                setTitle(thread.title)
+                setManage('rename')
+              }}
+            >
+              Renombrar
+            </button>
+            <button className={control} onClick={() => setManage('delete')}>
+              Eliminar conversación
+            </button>
+          </div>
         </aside>
         <section className="min-w-0 rounded-xl border border-slate-200 bg-white">
           <header className="flex items-center gap-3 border-b p-4">
@@ -354,6 +370,69 @@ export function Assistant({ context }: { context: AssistantContext | null }) {
           </div>
         </aside>
       </div>
+      {manage && (
+        <Drawer
+          title={
+            manage === 'rename'
+              ? 'Renombrar conversación local'
+              : 'Eliminar conversación local'
+          }
+          onClose={() => setManage(null)}
+        >
+          <p className="text-xs text-slate-500">
+            Esta acción afecta solo al historial temporal de esta página.
+          </p>
+          {manage === 'rename' ? (
+            <form
+              onSubmit={(e) => {
+                e.preventDefault()
+                if (!title.trim()) return
+                setThreads((prev) =>
+                  prev.map((t) =>
+                    t.id === active
+                      ? { ...t, title: title.trim(), renamed: true }
+                      : t,
+                  ),
+                )
+                setManage(null)
+              }}
+            >
+              <label className="block text-xs text-slate-500">
+                Título
+                <input
+                  aria-label="Título de conversación"
+                  maxLength={60}
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  className={`${control} my-2 w-full`}
+                />
+              </label>
+              <button className={primary} disabled={!title.trim()}>
+                Guardar título local
+              </button>
+            </form>
+          ) : (
+            <button
+              className={primary}
+              onClick={() => {
+                cancel()
+                const remaining = threads.filter((t) => t.id !== active)
+                const next = remaining[0]?.id ?? ++sequence.current
+                setThreads(
+                  remaining.length
+                    ? remaining
+                    : [{ id: next, title: 'Nueva conversación', turns: [] }],
+                )
+                setActive(next)
+                setText('')
+                setManage(null)
+              }}
+            >
+              Eliminar de esta sesión
+            </button>
+          )}
+        </Drawer>
+      )}
     </div>
   )
 }
