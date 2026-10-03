@@ -59,6 +59,13 @@ try {
   await db.exec(readerFixture)
   console.log('TELECOM SERVER READ RPC ASSERTIONS PASS')
 
+  await db.exec(await readFile(resolve(root, 'supabase/tests/product-customer-contact-commands.sql'), 'utf8'))
+  console.log('PRODUCT CUSTOMER/CONTACT JWT COMMAND ASSERTIONS PASS')
+  const privileges = await db.query(await readFile(resolve(root, 'scripts/security/native-postgres/privilege-snapshot.sql'), 'utf8'))
+  const manifest = JSON.parse(await readFile(resolve(root, 'scripts/security/native-postgres/function-privileges.json'), 'utf8'))
+  assert.deepEqual(privileges.rows[0].snapshot.functions, manifest.functions)
+  console.log('PRODUCT EXTENDED FUNCTION PRIVILEGE MANIFEST PASS')
+
   const seed = await readFile(resolve(root, 'supabase/seeds/synthetic_portfolio.sql'), 'utf8')
   await db.exec(seed)
   const scoped = await db.query(`
