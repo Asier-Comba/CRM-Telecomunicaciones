@@ -10,8 +10,9 @@ import { usePathname } from 'next/navigation'
 import { Sidebar } from '@/components/Sidebar'
 import { Topbar } from '@/components/Topbar'
 import { cn } from '@/lib/utils'
+import type { SearchItem } from '@/features/product/model'
 
-export function AppShell({ children }: { children: React.ReactNode }) {
+export function AppShell({ children, search = [] }: { children: React.ReactNode; search?: SearchItem[] }) {
   const [navOpen, setNavOpen] = useState(false)
   const pathname = usePathname()
 
@@ -33,6 +34,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="flex h-[100dvh] overflow-hidden bg-[linear-gradient(180deg,#f8fafc_0%,#f4f6fb_44%,#f7f8fb_100%)]">
+      <a href="#main-content" className="sr-only fixed left-3 top-2 z-[80] rounded bg-indigo-600 px-4 py-2 text-white focus:not-sr-only">Saltar al contenido</a>
       {/* Sidebar fijo — solo desktop (lg+) */}
       <div className="hidden h-full lg:flex">
         <Sidebar />
@@ -42,6 +44,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       <div
         className={cn('fixed inset-0 z-50 lg:hidden', navOpen ? '' : 'pointer-events-none')}
         aria-hidden={!navOpen}
+        inert={!navOpen}
       >
         {/* Overlay */}
         <div
@@ -67,8 +70,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
       {/* Columna principal — 100% del ancho en móvil */}
       <div className="flex min-w-0 flex-1 flex-col overflow-hidden">
-        <Topbar onMenuClick={() => setNavOpen(true)} />
-        <main className="relative flex-1 overflow-y-auto overflow-x-hidden p-4 pb-8 sm:p-5 xl:p-6 xl:pb-10">
+        <Topbar search={search} onMenuClick={() => setNavOpen(true)} />
+        <main id="main-content" tabIndex={-1} className="relative flex-1 overflow-y-auto overflow-x-hidden p-4 pb-8 sm:p-5 xl:p-6 xl:pb-10">
           <div className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-[radial-gradient(ellipse_at_top_left,rgba(99,102,241,0.12),transparent_42%),radial-gradient(ellipse_at_top_right,rgba(14,165,233,0.08),transparent_38%)]" />
           <div className="relative pb-2">{children}</div>
         </main>

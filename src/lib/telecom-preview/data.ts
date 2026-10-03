@@ -11,8 +11,8 @@ import type {
   TelecomServiceV1,
 } from '@/lib/contracts/telecom-v1'
 
-export const PREVIEW_SCOPE_EPOCH = 'preview-scope-2026-09-30'
-export const PREVIEW_AS_OF = '2026-09-30T07:00:00Z'
+import { PREVIEW_SCOPE_EPOCH } from './metadata'
+export { PREVIEW_SCOPE_EPOCH, PREVIEW_AS_OF } from './metadata'
 
 const ref = (kind: 'customer' | 'contract' | 'service' | 'operator' | 'plan' | 'user' | 'opportunity_stage', id: string, display_name: string) => ({ kind, id, display_name } as const)
 const hiddenTax = { field_class: 'tax_identifier', visibility: 'hidden' } as const

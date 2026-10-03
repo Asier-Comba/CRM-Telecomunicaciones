@@ -1,10 +1,9 @@
-import Link from 'next/link'
-import { CalendarDays, CheckSquare2, Clock3 } from 'lucide-react'
 import { PageHeader } from '@/components/PageHeader'
-import { SectionCard } from '@/components/SectionCard'
-import { Badge } from '@/components/Badge'
-import { previewMeetings, previewTasks } from '@/lib/telecom-preview/data'
 import { syntheticPreviewAllowed } from '@/lib/telecom-preview/access'
-
-const when=(value:string)=>new Intl.DateTimeFormat('es-ES',{dateStyle:'medium',timeStyle:'short',timeZone:'Europe/Madrid'}).format(new Date(value))
-export default function CalendarPage(){if(!syntheticPreviewAllowed())return <PageHeader title="Calendario y tareas" description="Vista sintética no disponible en este entorno."/>;return <div className="space-y-6"><PageHeader title="Calendario y tareas" description="Agenda comercial validada · sin acciones externas" action={<Badge variant="indigo">Solo lectura</Badge>}/><div className="grid gap-5 xl:grid-cols-2"><SectionCard title="Reuniones" description="Eventos con horario propio">{previewMeetings.map(item=><Link href={`/clients/${item.customer?.id}`} key={item.id} className="mb-3 flex gap-3 rounded-xl border border-slate-100 p-4 hover:border-sky-200"><CalendarDays className="mt-0.5 h-5 w-5 text-sky-500"/><div><p className="font-semibold text-slate-900">{item.title}</p><p className="text-sm text-slate-500">{item.customer?.display_name}</p><p className="mt-1 text-xs font-medium text-sky-700">{when(item.starts_at)} · {item.channel}</p></div></Link>)}</SectionCard><SectionCard title="Tareas" description="Pendientes de seguimiento">{previewTasks.map(item=><Link href={`/clients/${item.customer?.id}`} key={item.id} className="mb-3 flex gap-3 rounded-xl border border-slate-100 p-4 hover:border-indigo-200"><CheckSquare2 className="mt-0.5 h-5 w-5 text-indigo-500"/><div className="min-w-0"><div className="flex flex-wrap items-center gap-2"><p className="font-semibold text-slate-900">{item.title}</p><Badge variant={item.priority==='high'?'warning':'default'}>{item.priority??'normal'}</Badge></div><p className="text-sm text-slate-500">{item.customer?.display_name}</p><p className="mt-1 flex items-center gap-1 text-xs font-medium text-indigo-700"><Clock3 className="h-3 w-3"/>{item.due_at?when(item.due_at):'Sin fecha'}</p></div></Link>)}</SectionCard></div></div>}
+import { PREVIEW_AS_OF } from '@/lib/telecom-preview/metadata'
+import { calendarEntries } from '@/features/product/projections'
+import { Calendar } from '@/features/calendar/Calendar'
+export default function CalendarPage(){
+  if (!syntheticPreviewAllowed()) return <PageHeader title="Calendario y tareas" description="Vista sintética no disponible en este entorno."/>
+  return <Calendar entries={calendarEntries()} asOf={PREVIEW_AS_OF}/>
+}

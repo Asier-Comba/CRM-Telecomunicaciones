@@ -1,4 +1,4 @@
-import { PREVIEW_AS_OF } from './data'
+import { PREVIEW_AS_OF } from './metadata'
 
 export function previewDate(value: string | null | undefined): string {
   if (!value) return 'Sin fecha disponible'
