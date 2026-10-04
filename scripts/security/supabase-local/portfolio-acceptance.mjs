@@ -44,6 +44,21 @@ export async function portfolioAcceptance({rpc,sql,check,http,users,wa,wb,ca,url
  check((await invoke('get',{kind:'contract',id:c},users.ownerA,wb)).status===403,'portfolio_forged_workspace_denied')
  const label=await invoke('line.update_label',{command_id:randomUUID(),id:importLine,expected_version:1,display_name:'Imported human label'});check(label.status===200&&label.json.source==='import','portfolio_import_label_preserves_source')
  const deny=await invoke('line.transition',{command_id:randomUUID(),id:importLine,expected_version:2,status:'cancelled',effective_on:'2026-03-01'});check(deny.status===403&&deny.json.code==='42501','portfolio_import_status_denied')
+ // Explicit imported/integration children under manual ancestors must retain their authority boundary.
+ const explicitService=randomUUID(),explicitLine=randomUUID(),inheritedLine=randomUUID()
+ sql(`insert into public.telecom_services(id,workspace_id,customer_id,operator_id,contract_id,service_kind,display_name,source)values('${explicitService}','${wa}','${ca}','${operator}','${c}','mobile','Explicit imported synthetic','import');
+ insert into public.telecom_lines(id,workspace_id,service_id,source)values('${explicitLine}','${wa}','${s}','integration');
+ insert into public.telecom_lines(id,workspace_id,service_id)values('${inheritedLine}','${wa}','${explicitService}');`)
+ for(const [kind,id,source]of [['service',explicitService,'import'],['line',explicitLine,'integration'],['line',inheritedLine,'import']]){
+  const editor=await invoke('get',{kind,id},users.viewerA)
+  check(editor.status===200&&editor.json.record.source===source,'portfolio_explicit_'+kind+'_'+source+'_preserved')
+  const labelOp=kind+'.update_label',renamed=await invoke(labelOp,{command_id:randomUUID(),id,expected_version:1,display_name:'Provenance synthetic label'})
+  check(renamed.status===200&&renamed.json.source===source,'portfolio_explicit_'+kind+'_'+source+'_label_allowed')
+  const transition=await invoke(kind+'.transition',{command_id:randomUUID(),id,expected_version:2,status:'cancelled',effective_on:'2026-03-01'})
+  check(transition.status===403&&transition.json.code==='42501','portfolio_explicit_'+kind+'_'+source+'_lifecycle_denied')
+ }
+ const descendant=await invoke('line.create_manual',{command_id:randomUUID(),service_id:explicitService,display_name:'Forbidden manual descendant'})
+ check(descendant.status===403&&descendant.json.code==='42501','portfolio_explicit_import_manual_descendant_denied')
  sql(`update public.workspace_members set status='suspended'where workspace_id='${wa}'and user_id='${users.memberA.id}'`)
  check((await http('/auth/v1/user',users.memberA.token)).status===200,'portfolio_revoked_JWT_still_valid')
  for(const [op,input]of saved){const r=await invoke(op,input);check(r.status===403&&r.json.code==='42501','portfolio_each_family_revoked_replay')}
