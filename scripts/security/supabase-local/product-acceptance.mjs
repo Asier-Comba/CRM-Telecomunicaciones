@@ -1,7 +1,7 @@
 import { randomUUID } from 'node:crypto'
 import { createServerClient } from '@supabase/ssr'
 /** Actual Auth tokens and PostgREST, plus actual Next route/cookie transport. */
-export async function productAcceptance({rpc,sql,check,users,wa,wb,ca,url,anon,appUrl}) {
+export async function productAcceptance({rpc,sql,check,http,users,wa,wb,ca,url,anon,appUrl}) {
  const invoke=(name,input,u=users.memberA,w=wa)=>rpc('product_v1_'+name,{p_workspace_id:w,p_input:input},u.token)
  const base={command_id:randomUUID(),title:'Real JWT Synthetic task',customer_id:ca}
  const first=await invoke('task_create',base);check(first.status===200 && first.json?.version===1,'product_member_task_create')
@@ -44,7 +44,12 @@ export async function productAcceptance({rpc,sql,check,users,wa,wb,ca,url,anon,a
   return {status:r.status,json:await r.json()}
  }
  const httpInput={operation:'task.create',input:{command_id:randomUUID(),title:'Next transport Synthetic'}}
- const next=await app(httpInput);check(next.status===200 && next.json?.receipt?.status==='pending','product_actual_next_cookie_user_jwt_transport')
+ const membership=await http('/rest/v1/workspace_members?select=id,workspace_id,role,status,created_at,workspace:workspaces!inner(status)&user_id=eq.'+users.memberA.id+'&status=eq.active&workspace.status=eq.active',users.memberA.token)
+ check(membership.status===200 && membership.json?.length===1 && membership.json[0]?.workspace?.status==='active','product_actual_member_identity_join')
+ const next=await app(httpInput)
+ const safeError=['validation','access_denied','not_found','conflict','unavailable','internal_safe'].includes(next.json?.error)?next.json.error:'none'
+ check(next.status===200,'product_actual_next_status_'+next.status+'_'+safeError)
+ check(next.json?.receipt?.status==='pending','product_actual_next_cookie_user_jwt_transport')
  check(JSON.stringify((await app(httpInput)).json)===JSON.stringify(next.json),'product_actual_transport_replay')
  check((await app({...httpInput,input:{...httpInput.input,title:'Changed Next input'}})).status===409,'product_actual_transport_conflict_mapping')
  check((await app({...httpInput,actor_id:users.ownerA.id})).status===400,'product_actual_transport_authority_denied')

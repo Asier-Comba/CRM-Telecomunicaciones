@@ -115,7 +115,7 @@ export async function acceptance({ url, anon, service, db, command, report, appU
     check(r.status === 200 && r.json?.id === customer, 'multi_explicit_authorized_scope')
   }
   report.rpc = 'PASS'
-  const productResult=await productAcceptance({rpc,sql,check,users,wa,wb,ca,url,anon,appUrl})
+  const productResult=await productAcceptance({rpc,sql,check,http,users,wa,wb,ca,url,anon,appUrl})
   const workReadResult=await workReadAcceptance({rpc,sql,check,http,users,wa,wb,ca,url,anon,appUrl})
 
   const buckets = await http('/storage/v1/bucket', service)
