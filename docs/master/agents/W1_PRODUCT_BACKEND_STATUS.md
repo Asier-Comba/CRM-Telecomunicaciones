@@ -41,6 +41,18 @@ from one inherited DEV tooling advisory). Package/lock unchanged. npm audit
 --omit=dev local currently 0; does not replace the full gate. Issue29 open.
 FINAL_BOUNDARY_TESTS: 140 local tests after scalar-ID/accessor-array hardening;
 final CI result must be read on the published follow-up SHA.
-SESSION_SCOPE: B1-B2 complete as a Draft candidate. B3-B12 not implemented.
+SESSION_SCOPE: B1-B2 complete as a Draft candidate. B3 implemented as a candidate; B4-B12 remain in progress/pending.
 FULL_HISTORICAL_AUDIT: initial inventory only; deep audit continues per module.
 PARITY_PERCENTAGES: unmeasured; no claim of full parity or Superset readiness.
+
+## 2026-10-04 B3 checkpoint
+
+TASKS: create/update/start/complete/reopen/cancel; canonical states, CAS/idempotent JWT commands.
+CALENDAR: offset-aware meetings create/update/reschedule/complete/cancel/no_show; 93-day bounded overlap query with task and date-only renewal/permanence deadlines; filters and stable cursor.
+OPPORTUNITIES: normal manual commands, canonical stage graph, expected close/next action, same-customer normalized product links and bounded coded history.
+POLICY: owner/admin/member normal work writes; viewer read-only. B2 customer/contact policy unchanged. Raw tables/private helpers remain closed.
+CONTRACT: docs/master/PRODUCT_WORK_V1_CONTRACT.md; product.v1 types/service.
+DB: local 29 migrations + existing/B3 SQL + 102-function privilege manifest PASS; native fresh/restored/process checks added, published CI pending.
+SUPABASE_LOCAL: B3 actual Auth/JWT/PostgREST not yet executed; no UI permission inferred.
+ISSUE29: checked once 2026-10-04; registry latest braces remains3.0.3 and latest Next ESLint still uses fast-glob3.3.1. Keep open and keep full audit/lint gates.
+NEXT: publish/review B3 CI; dashboard v2/global search; exact billing + transport/local Supabase.

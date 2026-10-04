@@ -1,5 +1,8 @@
 import type { ProductOperationV1, ProductResultV1 } from '../contracts/product-v1'
 import { isProductOperationV1, parseProductInputV1, parseProductReceiptV1, PRODUCT_RPC_V1, parseCustomerEditorV1, parseContactEditorPageV1 } from './product-runtime-v1.ts'
+import { isWorkOperationV1 } from './product-work-runtime-v1.ts'
+import { isUuidV1 } from './product-work-runtime-v1.ts'
+import { parseCalendarInputV1,parseCalendarPageV1,parseWorkGetV1,parseStageCatalogV1 } from './product-query-runtime-v1.ts'
 export interface ProductUserPortV1 {
   /** Must resolve an authenticated session + active server-selected membership on each call. */
   resolve(): Promise<{ workspaceId: string; role: 'owner' | 'admin' | 'member' | 'viewer' } | null>
@@ -15,7 +18,7 @@ export class ProductServiceV1 {
       const input = parseProductInputV1(operation, unknownInput)
       if (input === null) return { ok: false, error: 'validation' }
       const context = await this.#port.resolve()
-      if (context === null || !['owner', 'admin'].includes(context.role)) return { ok: false, error: 'access_denied' }
+      if (context === null || !(isWorkOperationV1(operation) ? ['owner','admin','member'] : ['owner','admin']).includes(context.role)) return { ok: false, error: 'access_denied' }
       const response = await this.#port.rpc(PRODUCT_RPC_V1[operation], { p_workspace_id: context.workspaceId, p_input: input })
       if (response.error !== null) {
         const code = response.error.code
@@ -32,6 +35,30 @@ export class ProductServiceV1 {
   }
   async contactEditors(customerId: string, limit = 20, afterId: string | null = null) {
     return this.#read('product_v1_contact_editors', customerId, limit, afterId, value => parseContactEditorPageV1(customerId, limit, afterId, value))
+  }
+  async calendar(value: unknown) {
+    const input=parseCalendarInputV1(value)
+    if(input===null)return {ok:false as const,error:'validation' as const}
+    return this.#workRead('product_v1_calendar',{p_input:input},v=>parseCalendarPageV1(input,v))
+  }
+  async workGet(kind: 'task'|'meeting'|'opportunity',id: string) {
+    if(!['task','meeting','opportunity'].includes(kind)||!isUuidV1(id))return {ok:false as const,error:'validation' as const}
+    return this.#workRead('product_v1_work_get',{p_kind:kind,p_id:id},v=>parseWorkGetV1(kind,id,v))
+  }
+  async stageCatalog(limit=50,afterId: string|null=null) {
+    if(!Number.isInteger(limit)||limit<1||limit>100||(afterId!==null&&!isUuidV1(afterId)))return {ok:false as const,error:'validation' as const}
+    return this.#workRead('product_v1_stage_catalog',{p_limit:limit,p_after_id:afterId},v=>parseStageCatalogV1(limit,afterId,v))
+  }
+  async #workRead<T>(name: string,args:Record<string,unknown>,parse:(value:unknown)=>T|null) {
+    try{
+      const context=await this.#port.resolve()
+      if(context===null||!['owner','admin','member','viewer'].includes(context.role))return {ok:false as const,error:'access_denied' as const}
+      const r=await this.#port.rpc(name,{...args,p_workspace_id:context.workspaceId})
+      if(r.error!==null)return {ok:false as const,error:r.error.code==='42501'?'access_denied' as const:['22023','22P02','22007'].includes(r.error.code??'')?'validation' as const:'internal_safe' as const}
+      if(r.data===null)return {ok:false as const,error:'not_found' as const}
+      const data=parse(r.data)
+      return data===null?{ok:false as const,error:'internal_safe' as const}:{ok:true as const,data}
+    }catch{return {ok:false as const,error:'internal_safe' as const}}
   }
   async #read<T>(name: string, id: string, limit: number, after: string | null, parse: (value: unknown) => T | null) {
     const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i

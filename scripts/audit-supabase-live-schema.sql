@@ -45,6 +45,8 @@ target_relations(name) as (
     ('product_audit_events'),
     ('product_command_key'),
     ('product_commands'),
+  ('product_opportunity_history'),
+  ('product_opportunity_links'),
     ('profiles'),
     ('properties'),
     ('service_cases'),

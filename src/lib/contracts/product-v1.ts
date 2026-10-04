@@ -15,7 +15,7 @@ export type ContactFieldsV1 = {
   is_primary?: boolean
 }
 export type VersionedCommandV1 = { command_id: string; id: string; expected_version: number }
-export type ProductCommandInputsV1 = {
+export type ProductCommandInputsV1 = import('./product-work-v1').ProductWorkInputsV1 & {
   'customer.create': { command_id: string } & CustomerFieldsV1
   'customer.update': VersionedCommandV1 & Partial<CustomerFieldsV1>
   'customer.archive': VersionedCommandV1
@@ -32,19 +32,19 @@ export type ProductReceiptV1 = Readonly<{
   operation: ProductOperationV1
   id: string
   version: number
-  status: 'active' | 'inactive' | 'archived'
+  status: 'active' | 'inactive' | 'archived' | import('./product-work-v1').WorkStatusV1
 }>
 export type ProductErrorV1 = 'validation' | 'access_denied' | 'not_found' | 'conflict' | 'unavailable' | 'internal_safe'
 export type ProductResultV1 = { ok: true; receipt: ProductReceiptV1 } | { ok: false; error: ProductErrorV1 }
 export type CustomerEditorV1 = Readonly<{
   contract_version: 'product.v1'; id: string; version: number
   account_kind: CustomerFieldsV1['account_kind']; legal_name: string; trade_name: string | null
-  lifecycle: NonNullable<CustomerFieldsV1['lifecycle']>; status: ProductReceiptV1['status']
+  lifecycle: NonNullable<CustomerFieldsV1['lifecycle']>; status: 'active' | 'inactive' | 'archived'
   source: 'manual' | 'import' | 'integration'; assigned_user_id: string | null
 }>
 export type ContactEditorV1 = Readonly<{
   id: string; version: number; display_name: string; job_title: string | null
-  email: string | null; phone: string | null; is_primary: boolean; status: ProductReceiptV1['status']
+  email: string | null; phone: string | null; is_primary: boolean; status: 'active' | 'inactive' | 'archived'
 }>
 export type ContactEditorPageV1 = Readonly<{
   contract_version: 'product.v1'; customer_id: string; items: readonly ContactEditorV1[]; next_id: string | null

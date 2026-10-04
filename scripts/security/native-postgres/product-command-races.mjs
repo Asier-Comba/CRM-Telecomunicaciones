@@ -47,9 +47,27 @@ try {
  assert.equal(await sql(`select count(*) from public.product_audit_events where entity_id='${id}'`),'2')
  // A new psql process can recover the original receipt after concurrent edits.
  assert.deepEqual(JSON.parse(await sql(create())),receipts[0])
+ await sql(`insert into public.opportunity_stages(id,workspace_id,code,display_name,position) values('74000000-0000-4000-8000-000000000001','${workspace}','native-open','Synthetic Open',0)`)
+ const familyReplays=[]
+ for(const [i,family] of ['task','meeting','opportunity'].entries()){
+  const payload={command_id:`75000000-0000-4000-8000-${String(i+1).padStart(12,'0')}`,title:`Native ${family} race`,...(family==='meeting'?{starts_at:'2026-10-25T02:30:00+02:00',timezone:'Europe/Madrid'}:{}),...(family==='opportunity'?{customer_id:id,stage_id:'74000000-0000-4000-8000-000000000001'}:{})}
+  const invoke=(action,body)=>`begin;set local role authenticated;set local request.jwt.claim.sub='${actor}';select public.product_v1_${family}_${action}('${workspace}','${JSON.stringify(body)}'::jsonb);commit;`
+  const replaySql=invoke('create',payload);familyReplays.push(replaySql)
+  const attempts=await Promise.all(Array.from({length:20},()=>docker(args,replaySql)))
+  assert.ok(attempts.every(r=>r.code===0),`${family} create race`)
+  const result=JSON.parse(attempts[0].out.trim())
+  for(const attempt of attempts)assert.deepEqual(JSON.parse(attempt.out.trim()),result)
+  const edits=await Promise.all(Array.from({length:20},(_,j)=>docker([...args,'--set=VERBOSITY=sqlstate'],invoke('update',{command_id:`76000000-0000-4000-8000-${String((i+1)*100+j).padStart(12,'0')}`,id:result.id,expected_version:1,title:`Native ${family} CAS`}))))
+  assert.equal(edits.filter(r=>r.code===0).length,1,`${family} CAS winner`)
+  assert.equal(edits.filter(r=>r.code!==0&&/40001/.test(r.err)).length,19,`${family} CAS conflicts`)
+  assert.equal(await sql(`select count(*) from public.product_audit_events where entity_id='${result.id}'`),'2')
+  assert.deepEqual(JSON.parse(await sql(replaySql)),result)
+ }
  await sql(`delete from public.workspace_members where workspace_id='${workspace}' and user_id='${actor}'`)
  const revoked=await docker([...args,'--set=VERBOSITY=sqlstate'],create())
  assert.notEqual(revoked.code,0);assert.match(revoked.err,/42501/)
+ for(const replaySql of familyReplays){const revokedFamily=await docker([...args,'--set=VERBOSITY=sqlstate'],replaySql);assert.notEqual(revokedFamily.code,0);assert.match(revokedFamily.err,/42501/)}
+ console.log('B3 NATIVE PROCESS RACES PASS: task/meeting/opportunity each 20 creates + 20 CAS edits; one receipt/two audits; replay and revoked replay')
  console.log('PRODUCT NATIVE PROCESS RACES PASS: 20 identical creates / 20 distinct CAS updates / replay / changed-input conflict / revocation; one create and one update audit')
 } finally {
  const result=await docker(['dropdb','--force','-U','postgres',database])

@@ -1,8 +1,10 @@
 import type { ProductCommandInputsV1, ProductOperationV1, ProductReceiptV1 } from '../contracts/product-v1'
+import { WORK_RPC_V1, isWorkOperationV1, parseWorkInputV1, validWorkReceiptStatusV1 } from './product-work-runtime-v1.ts'
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
 const CUSTOMER = ['account_kind', 'legal_name', 'trade_name', 'lifecycle', 'assigned_user_id']
 const CONTACT = ['display_name', 'job_title', 'email', 'phone', 'is_primary']
 export const PRODUCT_RPC_V1 = {
+  ...WORK_RPC_V1,
   'customer.create': 'product_v1_customer_create', 'customer.update': 'product_v1_customer_update',
   'customer.archive': 'product_v1_customer_archive', 'customer.restore': 'product_v1_customer_restore',
   'contact.create': 'product_v1_contact_create', 'contact.update': 'product_v1_contact_update',
@@ -37,6 +39,7 @@ function field(key: string, value: unknown): boolean {
 }
 export function parseProductInputV1<O extends ProductOperationV1>(operation: O, value: unknown): ProductCommandInputsV1[O] | null {
   try {
+    if (isWorkOperationV1(operation)) return parseWorkInputV1(operation, value) as ProductCommandInputsV1[O] | null
     if (!isProductOperationV1(operation) || !plain(value)) return null
     const [entity, action] = operation.split('.')
     const fields = entity === 'customer' ? CUSTOMER : CONTACT
@@ -57,10 +60,12 @@ export function parseProductReceiptV1(operation: ProductOperationV1, input: Prod
       || value.contract_version !== 'product.v1' || value.operation !== operation
       || value.command_id !== input.command_id || !uuid(value.id)
       || !Number.isSafeInteger(value.version) || (value.version as number) < 1
-      || !['active', 'inactive', 'archived'].includes(value.status as string)
-      || (operation.endsWith('.archive') && value.status !== 'archived')
-      || (operation.endsWith('.restore') && value.status !== 'active')
-      || (operation.endsWith('.create') && (value.version !== 1 || value.status !== 'active'))
+      || (isWorkOperationV1(operation) ? !validWorkReceiptStatusV1(operation,value.status) : (
+        !['active', 'inactive', 'archived'].includes(value.status as string)
+        || (operation.endsWith('.archive') && value.status !== 'archived')
+        || (operation.endsWith('.restore') && value.status !== 'active')
+        || (operation.endsWith('.create') && value.status !== 'active')))
+      || (operation.endsWith('.create') && value.version !== 1)
       || ('id' in input && (value.id !== input.id || value.version !== input.expected_version + 1))) return null
     return Object.freeze({ ...value }) as ProductReceiptV1
   } catch { return null }
