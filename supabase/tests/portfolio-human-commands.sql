@@ -66,8 +66,8 @@ select pg_temp.p_deny('select public.portfolio_v1_get(''b7000000-0000-4000-8000-
 reset role;
 -- Regression: explicit nonmanual child provenance must survive a manual ancestor.
 -- These fixture inserts model trusted import/integration writers, never user grants.
-insert into public.telecom_services(id,workspace_id,customer_id,operator_id,contract_id,service_kind,source)
-select 'f7000000-0000-4000-8000-000000000010','b7000000-0000-4000-8000-000000000001','c7000000-0000-4000-8000-000000000001','d7000000-0000-4000-8000-000000000001',id,'mobile','import'
+insert into public.telecom_services(id,workspace_id,customer_id,operator_id,contract_id,service_kind,display_name,source)
+select 'f7000000-0000-4000-8000-000000000010','b7000000-0000-4000-8000-000000000001','c7000000-0000-4000-8000-000000000001','d7000000-0000-4000-8000-000000000001',id,'mobile','Imported explicit provenance','import'
 from p_saved where op='contract.create_manual';
 insert into public.telecom_lines(id,workspace_id,service_id,source)
 select 'f7000000-0000-4000-8000-000000000011','b7000000-0000-4000-8000-000000000001',id,'integration'
@@ -84,7 +84,7 @@ select pg_temp.p_deny('update public.telecom_services set source=''manual''where
 select pg_temp.p_deny('update public.telecom_lines set source=''manual''where id=''f7000000-0000-4000-8000-000000000011''','55000');
 set local role authenticated;
 select set_config('request.jwt.claim.sub','a7000000-0000-4000-8000-000000000001',true);
-do $declare w uuid:='b7000000-0000-4000-8000-000000000001';target uuid;begin
+do $$declare w uuid:='b7000000-0000-4000-8000-000000000001';target uuid;begin
  perform pg_temp.p_assert(public.portfolio_v1_service_update_label(w,jsonb_build_object('command_id',gen_random_uuid(),'id','f7000000-0000-4000-8000-000000000010','expected_version',1,'display_name','Import under manual'))->>'source'='import');
  perform pg_temp.p_deny(format('select public.portfolio_v1_service_transition(%L,%L)',w,jsonb_build_object('command_id',gen_random_uuid(),'id','f7000000-0000-4000-8000-000000000010','expected_version',2,'status','active','effective_on','2026-01-01')::text),'42501');
  perform pg_temp.p_deny(format('select public.portfolio_v1_line_create_manual(%L,%L)',w,jsonb_build_object('command_id',gen_random_uuid(),'service_id','f7000000-0000-4000-8000-000000000010','display_name','Forbidden child')::text),'42501');
@@ -93,7 +93,7 @@ do $declare w uuid:='b7000000-0000-4000-8000-000000000001';target uuid;begin
   perform pg_temp.p_deny(format('select public.portfolio_v1_line_transition(%L,%L)',w,jsonb_build_object('command_id',gen_random_uuid(),'id',target,'expected_version',2,'status','cancelled','effective_on','2026-01-01')::text),'42501');
  end loop;
  perform pg_temp.p_assert(public.portfolio_v1_get(w,'{"kind":"line","id":"f7000000-0000-4000-8000-000000000011"}')->'record'->>'source'='integration');
-end$;
+end$$;
 reset role;
 update public.workspace_members set status='suspended'where user_id='a7000000-0000-4000-8000-000000000001';
 set local role authenticated;select set_config('request.jwt.claim.sub','a7000000-0000-4000-8000-000000000001',true);
