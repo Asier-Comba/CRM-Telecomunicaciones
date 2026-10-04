@@ -1,25 +1,25 @@
 # W1 product backend status
 
-CURRENT_IMPLEMENTATION: product/work/dashboard/search + exact billing/PDF/review-only proposal + internal team + provenance-aware portfolio/deadlines + protected document metadata candidate.
+CURRENT_IMPLEMENTATION: product/work/dashboard/search + exact billing/PDF/review-only proposal + internal team + provenance-aware portfolio/deadlines + protected document metadata candidate tested.
 PR: #28 Draft; branch w1/product-backend-v1. No frontend, provider, AI write, production deployment or main merge.
-TESTED_EXECUTABLE: 261dfdfc89312562b0cad6adc3829fa2a8ed5022; protected document metadata extension pending exact-head acceptance.
-CATALOG:80 human operations; source/transport/privilege drift checked; no assistant registration. New invoice results owner/admin only; general safe search remains owner/admin/member/viewer.
+TESTED_EXECUTABLE: b5955fb1bb540036802b57e2e0644be221c8801c; evidence follow-up changes documentation/catalog only.
+CATALOG:80 human operations (62writes/18reads),51 individually exercised on real Supabase; source/transport/privilege drift checked; no assistant registration. New invoice results owner/admin only; general safe search remains owner/admin/member/viewer.
 CUSTOMERS/CONTACTS: CAS/replay/create/update/archive/restore and bounded editors, commercial member writes.
 WORK: tasks/meeting/calendar/opportunity commands and scoped editors, canonical stages/links/history.
 DASHBOARD: bounded assignment my/owner-admin workspace metrics and protected native-currency issued/paid/outstanding/overdue financial facts; team aggregate unavailable.
 BILLING: exact money, protected issuer/fiscal profiles, draft lifecycle, transactional numbered issue/frozen snapshots, paid/reversal, protected reads/PDF stream, normalized requires-review proposal saved=false.
 PORTFOLIO: manual contract/service/line creation/lifecycle; local assignment/labels preserve provenance; parent closure/child creation serialized. Renewal record/update/resolve/dismiss, permanence create/update/cancel, safe editors/CAS. Imported/integration facts remain read-only except explicit labels/assignment. Supersede unavailable.
-DOCUMENTS: protected metadata list/get and archive/restore candidate; object content/upload/signing workflow remains open.
+DOCUMENTS: protected metadata list/get and archive/restore candidate tested; object content/upload/signing workflow remains open.
 TEAM: protected roster/role/suspend/resume/remove and internal invitation intents/cancellation; no invitation email or Auth identity grants.
-TRANSPORT: ten default-off cookie USER-JWT product/billing/team/portfolio command/query routes plus protected PDF stream; strict canonical Host/Origin/body bounds. PRODUCT_V1_ENABLED and PRODUCT_V1_ORIGIN required. Server membership and auth.uid authority.
+TRANSPORT: ten default-off cookie USER-JWT product/billing/team/portfolio/document command/query routes plus protected PDF stream; strict canonical Host/Origin/body bounds. PRODUCT_V1_ENABLED and PRODUCT_V1_ORIGIN required. Server membership and auth.uid authority.
 DATASET:25 companies/50contacts/50contracts+services/400lines/100opportunities/150tasks/75meetings/50renewals+permanences/25activities;100 canonical billing invoices. No real identities or valid fiscal IDs.
-MEASURED_DB:39 immutable migrations/161-function native fresh/restored matrix, ACL-loss rejection,20-process family races incl renewal/permanence and parent closure versus child creation PASS at261dfdf, CI298/37223386613.
-MEASURED_SUPABASE: run19/37223386588 PASS489 checks, real Auth/JWT/PostgREST/Storage/Next SSR cookies, per-family races/revocation, browser boundary and teardown PASS at261dfdf. These are CI-isolated real local stacks, not production or a local executor Docker claim.
-QUALITY:197tests/lint/types/build PASS at261dfdf; full gate FAIL only inherited Issue29 audit5high. Skipped dependency review/critical Playwright are not passes. Document metadata candidate local201tests and40-migration embedded matrix are separately pending exact CI.
+MEASURED_DB:41 immutable migrations/168-function native fresh/restored matrix, ACL-loss rejection,20-process family races incl renewal/permanence and parent closure versus child creation PASS atb5955fb, CI302/37224799203.
+MEASURED_SUPABASE: run23/37224799063 PASS522 checks, real Auth/JWT/PostgREST/Storage/Next SSR cookies, per-family races/revocation, browser boundary and teardown PASS atb5955fb. These are CI-isolated real local stacks, not production or a local executor Docker claim.
+QUALITY:201tests/lint/types/build PASS atb5955fb; full gate FAIL only inherited Issue29 audit5high. Skipped dependency review/critical Playwright are not passes. Document lifecycle and explicit imported/integrated child provenance passed on the exact source.
 UI_SAFE: false pending W4/W2 review. W3/Issue10 future writes still require durable confirmation; not registered.
 OPEN: B8 document product workflow/import application adapter; B9 inbox/registered safe automations; private stored invoice objects/opaque references; text/audio parsing; advanced billing analytics; deadline supersede/team expiry refinement. General team dashboard metrics unavailable.
 PARITY: backend behavior percentages unmeasured; no full parity/Superset readiness claim.
-NEXT_3: document workflow with scoped safe server Storage adapter; import canonical validation/replay adapter; Inbox then bounded registered automations. Document metadata exact CI pending publication.
+NEXT_3: document workflow with scoped safe server Storage adapter; import canonical validation/replay adapter; Inbox then bounded registered automations.
 
 ## Historical B2 snapshot (superseded by current summary)
 
@@ -186,3 +186,11 @@ B4 deadlines db056e6 verified: native CI297/37222957599 PASS38migrations161funct
 B5 invoice search261dfdf verified: CI298/37223386613 native39migrations161functions/fresh/restored/density PASS; Supabase19/37223386588 PASS489checks including protected invoice number search and actual Next, browser and teardown PASS. Quality197tests/lint/types/build PASS; full audit remains Issue29 failure. Catalog records exact current measured source separately from new pending document operations.
 
 B8 protected metadata candidate: document.list/get_metadata/archive/restore, owner/admin, safe DTO without content locator/filename/hash, CAS/replay/redacted audit/atomic rollback. Archive/restore reuses existing private Storage active-metadata policy, no new client upload grants. Local201tests and40migrations168functions/embedded SQL fixture PASS; new native20-process and real Supabase object lifecycle/revocation/Next-cookie tests pending exact-head CI. Upload/finalize/signing/quarantine/import application workflows remain OPEN; no complete B8 claim.
+
+## Final recovered checkpoint
+
+Executableb5955fb1bb540036802b57e2e0644be221c8801c: CI302/37224799203 native41migrations168functions/fresh-restored privileges/ACL-loss rejection/per-family20process races PASS; embedded/migration/guardrail/secret jobs PASS. Quality201tests/lint/types/build PASS then inherited full audit5high FAIL; dependency review/critical Playwright skipped. Actual Supabase23/37224799063 PASS522checks,10Auth users, protected invoice search/document metadata/private byte lifecycle/races/valid-JWT revocation/real Next SSR cookies plus explicit child import/integration provenance; browser boundary/teardown PASS. Catalog80human operations/51individually exercised; all UI-safe=false. Normal actor/workspace/PII boundaries and W3/Issue10 unchanged. Evidence-only follow-up does not alter executable source.
+
+Preserved staged evidence before adopting concurrent24b244b/39f34cf/b5955fb. Published forward migration remains immutable; corrected concurrent fixture and real USERJWT explicit-provenance regressions accepted in remote CI. Local executor disconnected during this reconciliation, so no new local validation claimed. Previously measured556e65640/168/512 remains historical, not reassigned to the new head. Existing overwritten child provenance cannot be inferred and was not guessed or rewritten.
+
+OPEN: B8 upload/finalize/quarantine/signed access/import application adapter; B9 Inbox/registered automations; private invoice object/opaque references; text/audio parser/advanced analytics; deadline supersede and team expiry refinement. Full backend behavioral parity percentages unmeasured. Next3: secure document object workflow; canonical import validation/replay/apply adapter; Inbox and registered automations. PR28 Draft, no frontend activation/main merge/prod/real data/provider sends/assistant registration.
