@@ -73,3 +73,19 @@ Preserved unpublished work on local/w1-b5-preserved before adopting concurrent c
 ## B10 operational density and real-platform conflict mapping
 
 25 deterministic synthetic companies, 400 lines and mixed task/meeting/opportunity lifecycle facts added with exact authenticated dashboard counts, all312 calendar rows paginated in45 pages, bounded safe search and foreign tenant denial. Embedded31-migration fresh/restored checks PASS; native fresh/restored density and retained EXPLAIN plans queued on publication. Billing/documents/inbox density pending their product commands. Actual Supabase run5 on c444da1 exposed a harness expectation error at product_changed_input_conflict: direct PostgREST maps40001 to500; now requires exact status500+code40001, while actual Next changed replay must be409. This preserves backend SQL exceptions and the application conflict contract. CI284 nativePASS; quality170 tests/lint/types/buildPASS then Issue29 auditFAIL.
+
+## Billing checkpoint 2026-10-04
+
+BILLING: billing.v1 exact minor units/quantity_milli/bps; protected issuer/customer
+fiscal CAS; draft CRUD, atomic issue/unique number/frozen snapshots/audit/replay;
+issued immutability, paid/reversal, draft trash/restore; protected bounded reads
+and native-currency financial periods. Human owner/admin only.
+TRANSPORT: product/billing cookie + USER JWT routes default off.
+LOCAL:176 tests/lint/types/build,33 migrations,126-function manifest;200 SQL/BigInt vectors; billing
+scope/immutable/payment/rollback/read tests and embedded restore PASS.
+CI c5193dc: native PostgreSQL16 B2/B3 races/fresh/restored102 functions PASS;
+quality lint/types/167 tests/build PASS then inherited full audit FAIL (Issue29).
+Supabase acceptance exposed wrong raw-PostgREST HTTP conflict assumption; fixed
+assertion now checks SQLSTATE40001. New actual Next/billing evidence remains pending.
+BILLING_OPEN: private PDF objects/capabilities, proposals and advanced analytics.
+NEXT: dashboard v2/global search; exact-head native/Supabase evidence; catalog/fixtures.

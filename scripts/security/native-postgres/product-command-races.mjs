@@ -1,3 +1,4 @@
+import { randomUUID } from 'node:crypto'
 // Native independent-process evidence, only in the pinned disposable CI container.
 import assert from 'node:assert/strict'
 import { spawn, spawnSync } from 'node:child_process'
@@ -63,6 +64,32 @@ try {
   assert.equal(await sql(`select count(*) from public.product_audit_events where entity_id='${result.id}'`),'2')
   assert.deepEqual(JSON.parse(await sql(replaySql)),result)
  }
+
+ const billing=(name,input)=>`begin;set local role authenticated;set local request.jwt.claim.sub='${actor}';select public.billing_v1_${name}('${workspace}','${JSON.stringify(input)}'::jsonb);commit;`
+ const profile={legal_name:'Native Synthetic Fiscal',tax_id:'SYNTHETIC-NOT-VALID',address:'Synthetic Street 1',postal_code:'00000',city:'Synthetic',region:'Synthetic',country:'ES'}
+ await sql(billing('issuer_set',{command_id:randomUUID(),expected_version:0,profile,currency:'EUR',default_series:'A'}))
+ await sql(billing('customer_fiscal_set',{command_id:randomUUID(),customer_id:id,expected_version:0,profile}))
+ const draft={customer_id:id,issue_on:'2026-10-04',due_on:'2026-10-10',series:'A',currency:'EUR',lines:[{description:'Native Synthetic Line',quantity_milli:1000,unit_price_minor:10000,discount_bps:0,tax_bps:2100,withholding_bps:0}]}
+ const invoices=await Promise.all(Array.from({length:20},()=>sql(billing('invoice_create_draft',{command_id:randomUUID(),...draft}))))
+ const issued=await Promise.all(invoices.map(receipt=>docker(args,billing('invoice_issue',{command_id:randomUUID(),id:JSON.parse(receipt).id,expected_version:1}))))
+ assert.ok(issued.every(r=>r.code===0),'billing concurrent issue')
+ assert.deepEqual(issued.map(r=>JSON.parse(r.out.trim()).number.sequence).sort((a,b)=>a-b),Array.from({length:20},(_,i)=>i+1))
+ assert.equal(await sql(`select next_sequence from public.billing_series where workspace_id='${workspace}' and series='A' and year=2026`),'21')
+ const duplicateDraft=JSON.parse(await sql(billing('invoice_create_draft',{command_id:randomUUID(),...draft})))
+ const issueCommand={command_id:randomUUID(),id:duplicateDraft.id,expected_version:1}
+ const duplicates=await Promise.all(Array.from({length:20},()=>docker(args,billing('invoice_issue',issueCommand))))
+ assert.ok(duplicates.every(r=>r.code===0),'billing duplicate issue')
+ const issueReceipt=JSON.parse(duplicates[0].out.trim())
+ for(const result of duplicates)assert.deepEqual(JSON.parse(result.out.trim()),issueReceipt)
+ assert.equal(issueReceipt.number.sequence,21)
+ assert.equal(await sql(`select count(*) from public.product_audit_events where entity_id='${duplicateDraft.id}'`),'2')
+ const distinctDraft=JSON.parse(await sql(billing('invoice_create_draft',{command_id:randomUUID(),...draft})))
+ const competing=await Promise.all(Array.from({length:20},()=>docker([...args,'--set=VERBOSITY=sqlstate'],billing('invoice_issue',{command_id:randomUUID(),id:distinctDraft.id,expected_version:1}))))
+ assert.equal(competing.filter(r=>r.code===0).length,1)
+ assert.equal(competing.filter(r=>r.code!==0&&/40001/.test(r.err)).length,19)
+ assert.equal(await sql(`select next_sequence from public.billing_series where workspace_id='${workspace}' and series='A' and year=2026`),'23')
+ familyReplays.push(billing('invoice_issue',issueCommand))
+ console.log('BILLING NATIVE RACES PASS: 20 distinct simultaneous issues numbers1..20 / 20 identical issue retries one21 / 20 distinct same-draft attempts one22 and19 CAS conflicts /22 committed numbers')
  await sql(`delete from public.workspace_members where workspace_id='${workspace}' and user_id='${actor}'`)
  const revoked=await docker([...args,'--set=VERBOSITY=sqlstate'],create())
  assert.notEqual(revoked.code,0);assert.match(revoked.err,/42501/)

@@ -2,7 +2,7 @@ import 'server-only'
 import { createUserServerClient } from './supabase-user'
 import { resolveTenantContext } from './tenant-context'
 import { ProductServiceV1, type ProductUserPortV1 } from './product-service-v1'
-async function createProductUserPortV1(): Promise<ProductUserPortV1 | null> {
+export async function createProductUserPortV1(): Promise<ProductUserPortV1 | null> {
  const client=await createUserServerClient()
  if(client===null)return null
  return {

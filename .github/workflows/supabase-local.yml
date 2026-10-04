@@ -8,6 +8,8 @@ on:
       - 'supabase/config.toml'
       - 'src/lib/server/product-*.ts'
       - 'src/app/api/product/**'
+      - 'src/app/api/billing/**'
+      - 'src/lib/server/billing-*.ts'
       - 'supabase/migrations/**'
 permissions:
   contents: read

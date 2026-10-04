@@ -177,6 +177,7 @@ export async function acceptance({ url, anon, service, db, command, report, appU
     check(r.status === 200 && r.json?.length === 0, `business_revoked_${name}`)
     const role = await rpc('current_workspace_role', { p_workspace_id: u.workspace }, u.token)
     check(role.status === 200 && role.json === null, `role_revoked_${name}`)
+    check((await rpc('billing_v1_invoice_create_draft',{p_workspace_id:u.workspace,p_input:{}},u.token)).status>=400,`billing_valid_jwt_revoked_${name}`)
     check((await rpc('product_v1_task_create',{p_workspace_id:u.workspace,p_input:{command_id:randomUUID(),title:'Revoked Synthetic'}},u.token)).status>=400, `product_valid_jwt_revoked_${name}`)
     check((await reader(u, u.workspace, ca)).status >= 400, `server_actor_revoked_${name}`)
     check((await download(object, u.token)).status >= 400, `storage_revoked_${name}`)

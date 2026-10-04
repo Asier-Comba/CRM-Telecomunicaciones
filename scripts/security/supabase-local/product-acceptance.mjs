@@ -1,3 +1,4 @@
+import { billingAcceptance } from './billing-acceptance.mjs'
 import { randomUUID } from 'node:crypto'
 import { createServerClient } from '@supabase/ssr'
 /** Actual Auth tokens and PostgREST, plus actual Next route/cookie transport. */
@@ -54,5 +55,6 @@ export async function productAcceptance({rpc,sql,check,http,users,wa,wb,ca,url,a
  check((await app({...httpInput,input:{...httpInput.input,title:'Changed Next input'}})).status===409,'product_actual_transport_conflict_mapping')
  check((await app({...httpInput,actor_id:users.ownerA.id})).status===400,'product_actual_transport_authority_denied')
  check((await app(httpInput,'https://foreign.invalid')).status===403,'product_actual_transport_csrf')
- return {product_commands:'PASS',product_transport:'PASS',product_roles:'PASS',product_calendar_overlap:'PASS'}
+ const billingResult=await billingAcceptance({rpc,check,users,wa,wb,ca,url,anon,appUrl})
+ return {...billingResult,product_commands:'PASS',product_transport:'PASS',product_roles:'PASS',product_calendar_overlap:'PASS'}
 }

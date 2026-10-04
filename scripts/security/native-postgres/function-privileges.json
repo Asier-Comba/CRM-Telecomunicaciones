@@ -10,6 +10,182 @@
       "authenticated": true
     },
     {
+      "signature": "public.billing_v1_assert_scope(uuid)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": false,
+      "service_role": false
+    },
+    {
+      "signature": "public.billing_v1_calculate(jsonb)",
+      "definer": false,
+      "public": false,
+      "anon": false,
+      "authenticated": false,
+      "service_role": false
+    },
+    {
+      "signature": "public.billing_v1_command(uuid, text, jsonb)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": false,
+      "service_role": false
+    },
+    {
+      "signature": "public.billing_v1_configuration_get(uuid, jsonb)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": true,
+      "service_role": false
+    },
+    {
+      "signature": "public.billing_v1_customer_fiscal_set(uuid, jsonb)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": true,
+      "service_role": false
+    },
+    {
+      "signature": "public.billing_v1_finish(uuid, uuid, text, jsonb, uuid, bigint, text, jsonb)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": false,
+      "service_role": false
+    },
+    {
+      "signature": "public.billing_v1_invoice_create_draft(uuid, jsonb)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": true,
+      "service_role": false
+    },
+    {
+      "signature": "public.billing_v1_invoice_financial_summary(uuid, jsonb)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": true,
+      "service_role": false
+    },
+    {
+      "signature": "public.billing_v1_invoice_get(uuid, jsonb)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": true,
+      "service_role": false
+    },
+    {
+      "signature": "public.billing_v1_invoice_issue(uuid, jsonb)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": true,
+      "service_role": false
+    },
+    {
+      "signature": "public.billing_v1_invoice_list(uuid, jsonb)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": true,
+      "service_role": false
+    },
+    {
+      "signature": "public.billing_v1_invoice_mark_paid(uuid, jsonb)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": true,
+      "service_role": false
+    },
+    {
+      "signature": "public.billing_v1_invoice_restore(uuid, jsonb)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": true,
+      "service_role": false
+    },
+    {
+      "signature": "public.billing_v1_invoice_reverse_payment(uuid, jsonb)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": true,
+      "service_role": false
+    },
+    {
+      "signature": "public.billing_v1_invoice_summary(uuid, jsonb)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": true,
+      "service_role": false
+    },
+    {
+      "signature": "public.billing_v1_invoice_trash(uuid, jsonb)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": true,
+      "service_role": false
+    },
+    {
+      "signature": "public.billing_v1_invoice_update_draft(uuid, jsonb)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": true,
+      "service_role": false
+    },
+    {
+      "signature": "public.billing_v1_issuer_set(uuid, jsonb)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": true,
+      "service_role": false
+    },
+    {
+      "signature": "public.billing_v1_protect_invoice()",
+      "definer": false,
+      "public": false,
+      "anon": false,
+      "authenticated": false,
+      "service_role": false
+    },
+    {
+      "signature": "public.billing_v1_protect_line()",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": false,
+      "service_role": false
+    },
+    {
+      "signature": "public.billing_v1_read(uuid, text, jsonb)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": false,
+      "service_role": false
+    },
+    {
+      "signature": "public.billing_v1_validate(text, jsonb)",
+      "definer": false,
+      "public": false,
+      "anon": false,
+      "authenticated": false,
+      "service_role": false
+    },
+    {
       "anon": false,
       "public": false,
       "definer": true,

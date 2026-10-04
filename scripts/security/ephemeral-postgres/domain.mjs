@@ -2,7 +2,7 @@ import assert from 'node:assert/strict'
 import { createHash } from 'node:crypto'
 import { readFile, readdir } from 'node:fs/promises'
 import { resolve } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { fileURLToPath, pathToFileURL } from 'node:url'
 import { PGlite } from '@electric-sql/pglite'
 import { btree_gist } from '@electric-sql/pglite/contrib/btree_gist'
 import { pgcrypto } from '@electric-sql/pglite/contrib/pgcrypto'
@@ -70,6 +70,20 @@ try {
   const densityChecks = await readFile(resolve(root, 'supabase/tests/product-rich-density.sql'), 'utf8')
   await db.exec(richSeed.replace(/commit;\s*$/i, '') + densityChecks)
   console.log('PRODUCT RICH DENSITY COUNTS/CURSOR/SCOPE ASSERTIONS PASS (25 companies, 400 lines)')
+
+  await db.exec(await readFile(resolve(root,'supabase/tests/billing-exact-issue.sql'),'utf8'))
+  console.log('BILLING EXACT ISSUE/IMMUTABILITY/ROLLBACK PASS')
+  const {calculateBillingV1}=await import(pathToFileURL(resolve(root,'src/lib/server/billing-runtime-v1.ts')))
+  let vectorState=20261004
+  const draw=max=>{vectorState=(Math.imul(vectorState,1664525)+1013904223)>>>0;return vectorState%max}
+  for(let sample=0;sample<200;sample++){
+    const lines=Array.from({length:1+draw(50)},()=>({description:'Synthetic Differential',quantity_milli:1+draw(1000000),unit_price_minor:draw(1000000),discount_bps:draw(10001),tax_bps:draw(10001),withholding_bps:draw(10001)}))
+    const result=await db.query('select public.billing_v1_calculate($1::jsonb) as totals',[JSON.stringify(lines)])
+    const {lines:ignored,...totals}=result.rows[0].totals
+    assert.ok(ignored.length===lines.length)
+    assert.deepEqual(totals,calculateBillingV1(lines))
+  }
+  console.log('BILLING 200 DETERMINISTIC SQL/BigInt DIFFERENTIAL VECTORS PASS')
 
   const privileges = await db.query(await readFile(resolve(root, 'scripts/security/native-postgres/privilege-snapshot.sql'), 'utf8'))
   const manifest = JSON.parse(await readFile(resolve(root, 'scripts/security/native-postgres/function-privileges.json'), 'utf8'))
