@@ -46,6 +46,7 @@ run_fixture supabase/tests/telecom-domain-rls.sql
 run_fixture supabase/tests/telecom-server-read-rpc.sql
 run_fixture supabase/tests/product-customer-contact-commands.sql
 run_fixture supabase/tests/product-work-commands.sql
+run_fixture supabase/tests/product-dashboard-search.sql
 run_fixture supabase/seeds/synthetic_portfolio.sql
 run_fixture supabase/tests/assistant-durable-foundation.sql
 run_fixture supabase/seeds/synthetic_durable.sql
@@ -144,6 +145,7 @@ migration_head="$(basename "${migration}")"
 {
   printf "set app.environment = 'test';\n"
   cat "$repo_root/supabase/tests/product-work-commands.sql"
+  cat "$repo_root/supabase/tests/product-dashboard-search.sql"
 } | docker exec -i -u postgres "$container" psql -X -v ON_ERROR_STOP=1 -U postgres -d "$restore_db" > /dev/null
 
 node scripts/security/native-postgres/product-command-races.mjs

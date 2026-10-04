@@ -186,11 +186,27 @@
       "service_role": false
     },
     {
+      "signature": "public.product_v1_dashboard_v2(uuid, jsonb)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": true,
+      "service_role": false
+    },
+    {
       "signature": "public.product_v1_finish_command(uuid, uuid, text, jsonb, uuid, bigint, text, uuid)",
       "definer": true,
       "public": false,
       "anon": false,
       "authenticated": false,
+      "service_role": false
+    },
+    {
+      "signature": "public.product_v1_global_search(uuid, jsonb)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": true,
       "service_role": false
     },
     {

@@ -65,3 +65,7 @@ candidate; forward migration30 explicitly permits member normal customer/contact
 operations and authorized contact editors. No fiscal/team authority added.
 Local/CI evidence is refreshed after reconciliation; no prior duplicate29 migration
 claim substituted for the final tree. Continue dashboard/search/billing.
+
+## B5 dashboard/search continuation — 2026-10-04
+
+Preserved unpublished work on local/w1-b5-preserved before adopting concurrent c5193dc. B5 extends that user-JWT transport without a duplicate endpoint. Migration 20261004170000 adds bounded typed dashboard/search reads. Workspace dashboard explicitly requires owner/admin after normal commercial commands were opened to members; team and financial metrics remain unavailable. SQL/runtime regressions and actual Supabase SSR-cookie/race/revocation checks extend the existing harness. Embedded 31-migration/104-function fresh/restored checks and 170 Node tests pass. Build regenerated stale Next route declarations; types are rechecked before publication. Native and actual-platform B5 acceptance remain pending CI; inherited audit gate stays blocking. Contracts: docs/master/PRODUCT_DASHBOARD_TRANSPORT.md.

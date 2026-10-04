@@ -63,6 +63,8 @@ try {
   console.log('PRODUCT CUSTOMER/CONTACT JWT COMMAND ASSERTIONS PASS')
   await db.exec(await readFile(resolve(root, 'supabase/tests/product-work-commands.sql'), 'utf8'))
   console.log('PRODUCT TASK/CALENDAR/OPPORTUNITY ASSERTIONS PASS')
+  await db.exec(await readFile(resolve(root, 'supabase/tests/product-dashboard-search.sql'), 'utf8'))
+  console.log('PRODUCT DASHBOARD/SEARCH ASSERTIONS PASS')
   const privileges = await db.query(await readFile(resolve(root, 'scripts/security/native-postgres/privilege-snapshot.sql'), 'utf8'))
   const manifest = JSON.parse(await readFile(resolve(root, 'scripts/security/native-postgres/function-privileges.json'), 'utf8'))
   assert.deepEqual(privileges.rows[0].snapshot.functions, manifest.functions)

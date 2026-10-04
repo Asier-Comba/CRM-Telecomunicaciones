@@ -2,6 +2,7 @@ import type { ProductOperationV1, ProductResultV1 } from '../contracts/product-v
 import { isProductOperationV1, parseProductInputV1, parseProductReceiptV1, PRODUCT_RPC_V1, parseCustomerEditorV1, parseContactEditorPageV1 } from './product-runtime-v1.ts'
 import { isUuidV1 } from './product-work-runtime-v1.ts'
 import { parseCalendarInputV1,parseCalendarPageV1,parseWorkGetV1,parseStageCatalogV1 } from './product-query-runtime-v1.ts'
+import {parseDashboardInputV2,parseDashboardV2,parseGlobalSearchInputV1,parseGlobalSearchV1} from './product-dashboard-runtime-v2.ts'
 export interface ProductUserPortV1 {
   /** Must resolve an authenticated session + active server-selected membership on each call. */
   resolve(): Promise<{ workspaceId: string; role: 'owner' | 'admin' | 'member' | 'viewer' } | null>
@@ -48,12 +49,22 @@ export class ProductServiceV1 {
     if(!Number.isInteger(limit)||limit<1||limit>100||(afterId!==null&&!isUuidV1(afterId)))return {ok:false as const,error:'validation' as const}
     return this.#workRead('product_v1_stage_catalog',{p_limit:limit,p_after_id:afterId},v=>parseStageCatalogV1(limit,afterId,v))
   }
+  async dashboard(value:unknown) {
+    const input=parseDashboardInputV2(value)
+    if(input===null)return {ok:false as const,error:'validation' as const}
+    return this.#workRead('product_v1_dashboard_v2',{p_input:input},v=>parseDashboardV2(input,v))
+  }
+  async globalSearch(value:unknown) {
+    const input=parseGlobalSearchInputV1(value)
+    if(input===null)return {ok:false as const,error:'validation' as const}
+    return this.#workRead('product_v1_global_search',{p_input:input},v=>parseGlobalSearchV1(input,v))
+  }
   async #workRead<T>(name: string,args:Record<string,unknown>,parse:(value:unknown)=>T|null) {
     try{
       const context=await this.#port.resolve()
       if(context===null||!['owner','admin','member','viewer'].includes(context.role))return {ok:false as const,error:'access_denied' as const}
       const r=await this.#port.rpc(name,{...args,p_workspace_id:context.workspaceId})
-      if(r.error!==null)return {ok:false as const,error:r.error.code==='42501'?'access_denied' as const:['22023','22P02','22007'].includes(r.error.code??'')?'validation' as const:'internal_safe' as const}
+      if(r.error!==null)return {ok:false as const,error:r.error.code==='42501'?'access_denied' as const:r.error.code==='0A000'?'unavailable' as const:['22023','22P02','22007'].includes(r.error.code??'')?'validation' as const:'internal_safe' as const}
       if(r.data===null)return {ok:false as const,error:'not_found' as const}
       const data=parse(r.data)
       return data===null?{ok:false as const,error:'internal_safe' as const}:{ok:true as const,data}

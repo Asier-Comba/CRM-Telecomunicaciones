@@ -1,5 +1,6 @@
 import { randomBytes, randomUUID } from 'node:crypto'
 import { productAcceptance } from './product-acceptance.mjs'
+import { workReadAcceptance } from './work-read-acceptance.mjs'
 import { readFileSync } from 'node:fs'
 
 // No mock Auth, JWT, PostgREST or Storage. Only setup SQL runs as postgres.
@@ -115,6 +116,7 @@ export async function acceptance({ url, anon, service, db, command, report, appU
   }
   report.rpc = 'PASS'
   const productResult=await productAcceptance({rpc,sql,check,users,wa,wb,ca,url,anon,appUrl})
+  const workReadResult=await workReadAcceptance({rpc,sql,check,http,users,wa,wb,ca,url,anon,appUrl})
 
   const buckets = await http('/storage/v1/bucket', service)
   check(buckets.status === 200 && ['telecom-documents', 'telecom-import-quarantine'].every(id => buckets.json?.some(b => b.id === id && b.public === false)), 'private_buckets')
@@ -192,5 +194,5 @@ export async function acceptance({ url, anon, service, db, command, report, appU
   // Static source review supplements HTTP; service-role is not user RLS evidence.
   const repository = readFileSync('src/lib/server/telecom-supabase-repository-v1.ts', 'utf8')
   check(!repository.includes('NEXT_PUBLIC_SUPABASE_SERVICE_ROLE'), 'no_public_service_binding')
-  return { ...productResult, result: 'PASS', auth: 'PASS', jwt: 'PASS', postgrest: 'PASS', rpc: 'PASS', storage: 'PASS', cross_tenant: 'PASS', revocation: 'PASS', auth_users: Object.keys(users).length, checks: checks.length, status_codes: statuses, manager: 'NOT_CANONICAL', signed_access: 'NOT_IMPLEMENTED', auth_email_production: 'NOT_TESTED', mfa_production: 'NOT_TESTED', scoped_service_principal: 'NOT_IMPLEMENTED', remote_staging: 'NOT_TESTED' }
+  return { ...productResult, ...workReadResult, result: 'PASS', auth: 'PASS', jwt: 'PASS', postgrest: 'PASS', rpc: 'PASS', storage: 'PASS', cross_tenant: 'PASS', revocation: 'PASS', auth_users: Object.keys(users).length, checks: checks.length, status_codes: statuses, manager: 'NOT_CANONICAL', signed_access: 'NOT_IMPLEMENTED', auth_email_production: 'NOT_TESTED', mfa_production: 'NOT_TESTED', scoped_service_principal: 'NOT_IMPLEMENTED', remote_staging: 'NOT_TESTED' }
 }
