@@ -99,3 +99,9 @@ Canonical-origin repair reconciled on billing8d8acbc shared envelope: both produ
 ## Exact actual-platform acceptance d1345e0
 
 Supabase run9/37217995302 PASS:379 checks,33 migrations, actual Auth/JWT/PostgREST/Storage, real Next cookie product/billing routes, per-family20 HTTP create/CAS races, valid-JWT membership suspension, dashboard/search, billing exact snapshot/issuance/payment reads and clean teardown. Browser private-value boundary PASS. CI288 native fresh/restored126-function matrix/races/density PASS; quality still fails inherited audit only. Catalog records individually exercised operations rather than inferring every lifecycle operation from a family pass. Follow-up adds Host/config validation while preserving the published canonical-origin fix;180 local tests/types PASS and exact follow-up CI pending. UI-safe staysfalse pending W4/W2 review.
+
+## B10 billing density extension
+
+Added100 synthetic invoices through canonical billing.v1 commands (25draft/50issued including25overdue/25paid),25 explicitly invalid synthetic fiscal profiles and two issuers. Deterministic command keys; command-generated IDs/snapshots/numbers/audits. Verified A exact totals and72 unique issued numbers, protected fiscal search absence and added invoice aggregation EXPLAIN. Embedded33-migration/126-function fresh/restored and200 SQL/BigInt vectorsPASS. Native density checkpoint pending. Host-hardening checkpointdf530f3 native CI289PASS; actual Supabase run10 pending at last check. No production/UI activation.
+
+Exact Host-hardeningdf530f3 accepted: Supabase run10/37218310797 PASS379 checks and teardown; browser private-value boundaryPASS; CI289 native126-function fresh/restored/races/densityPASS. Catalog updated to that exact tested head; unexercised lifecycle operations remain individually untested and UI-safe remainsfalse. New billing-density files do not alter product transport or immutable migrations.

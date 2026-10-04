@@ -15,9 +15,17 @@ begin
   raise exception 'density assignment scope mismatch';
  end if;
  if jsonb_array_length(data->'recent_activity')<>8 then raise exception 'density actor activity mismatch'; end if;
+ data:=public.billing_v1_invoice_financial_summary(w,'{"period":"all"}');
+ if data->'currencies' <> '[{"currency":"EUR","issued_count":72,"issued_minor":10944,"paid_count":24,"paid_minor":3648,"outstanding_count":48,"outstanding_minor":7296,"overdue_count":24,"overdue_minor":3648}]'::jsonb then
+  raise exception 'density exact persisted financial totals mismatch: %',data->'currencies';
+ end if;
+ data:=public.billing_v1_invoice_list(w,'{"limit":100,"status":"draft"}');
+ if jsonb_array_length(data->'items')<>24 then raise exception 'density draft invoices missing'; end if;
  data:=public.product_v1_global_search(w,'{"query":"Synthetic","limit":50}');
  if jsonb_array_length(data->'items')<>30 then raise exception 'density search kind caps mismatch'; end if;
  if data::text ~ '(example.invalid|tax_identifier|phone|email)' then raise exception 'density search sensitive field leak'; end if;
+ data:=public.product_v1_global_search(w,'{"query":"SYNTHETIC-NOT-VALID","limit":50}');
+ if jsonb_array_length(data->'items')<>0 then raise exception 'density fiscal data entered global search'; end if;
  -- 144 tasks + 72 meetings + 48 renewal + 48 permanence = 312 unique items.
  -- Includes many equal instants across entity kinds to exercise compound keys.
  for iteration in 1..50 loop
@@ -37,6 +45,10 @@ begin
  exception when insufficient_privilege then null; end;
 end $$;
 reset role;
+do $$ begin
+ if (select count(*) from public.billing_invoices where workspace_id=md5('density.workspace.1')::uuid)<>96 then raise exception 'density invoice cardinality mismatch'; end if;
+ if (select count(distinct number_sequence) from public.billing_invoices where workspace_id=md5('density.workspace.1')::uuid)<>72 then raise exception 'density issued numbering collision'; end if;
+end $$;
 -- Transaction-level EXPLAIN prints aggregate timing/plan only, no PII or tokens.
 explain (analyze,buffers,format json)
  select id from public.tasks where workspace_id=md5('density.workspace.1')::uuid
@@ -46,4 +58,8 @@ explain (analyze,buffers,format json)
  select l.id from public.telecom_lines l join public.telecom_services s
  on s.workspace_id=l.workspace_id and s.id=l.service_id
  where l.workspace_id=md5('density.workspace.1')::uuid order by l.id limit 50;
+explain (analyze,buffers,format json)
+ select currency,count(*),sum(total_minor) from public.billing_invoices
+ where workspace_id=md5('density.workspace.1')::uuid and status in ('issued','paid')
+ group by currency;
 rollback;

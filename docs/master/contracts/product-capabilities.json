@@ -1,7 +1,7 @@
 {
   "catalog_version": "product.capabilities.v1",
   "as_of": "2026-10-04",
-  "implementation_head": "d1345e0a69e3716e1def2eb410e9da865907fac5",
+  "implementation_head": "df530f393a79e81c81f520b0b1f3e79cc7d43ab9",
   "evidence": {
     "native": {
       "run_id": 37216538207,
@@ -10,11 +10,12 @@
       "function_count": 104
     },
     "actual_supabase": {
-      "run_id": 37217995302,
-      "tested_head": "d1345e0a69e3716e1def2eb410e9da865907fac5",
+      "run_id": 37218310797,
+      "tested_head": "df530f393a79e81c81f520b0b1f3e79cc7d43ab9",
       "status": "PASS",
       "checks": 379,
-      "followup_host_hardening": "PENDING_EXACT_HEAD"
+      "teardown": "PASS",
+      "browser_private_values": "PASS"
     },
     "quality": {
       "tests": 180,
@@ -24,7 +25,7 @@
       "audit": "BLOCKED_Issue29"
     },
     "native_billing": {
-      "run_id": 37217995304,
+      "run_id": 37218310824,
       "status": "PASS",
       "migration_count": 33,
       "function_count": 126
@@ -69,7 +70,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "d1345e0a69e3716e1def2eb410e9da865907fac5"
+      "supabase_tested_head": "df530f393a79e81c81f520b0b1f3e79cc7d43ab9"
     },
     {
       "name": "task.update",
@@ -109,7 +110,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "d1345e0a69e3716e1def2eb410e9da865907fac5"
+      "supabase_tested_head": "df530f393a79e81c81f520b0b1f3e79cc7d43ab9"
     },
     {
       "name": "task.start",
@@ -305,7 +306,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "d1345e0a69e3716e1def2eb410e9da865907fac5"
+      "supabase_tested_head": "df530f393a79e81c81f520b0b1f3e79cc7d43ab9"
     },
     {
       "name": "meeting.update",
@@ -345,7 +346,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "d1345e0a69e3716e1def2eb410e9da865907fac5"
+      "supabase_tested_head": "df530f393a79e81c81f520b0b1f3e79cc7d43ab9"
     },
     {
       "name": "meeting.reschedule",
@@ -541,7 +542,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "d1345e0a69e3716e1def2eb410e9da865907fac5"
+      "supabase_tested_head": "df530f393a79e81c81f520b0b1f3e79cc7d43ab9"
     },
     {
       "name": "opportunity.update",
@@ -581,7 +582,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "d1345e0a69e3716e1def2eb410e9da865907fac5"
+      "supabase_tested_head": "df530f393a79e81c81f520b0b1f3e79cc7d43ab9"
     },
     {
       "name": "opportunity.change_stage",
@@ -699,7 +700,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "d1345e0a69e3716e1def2eb410e9da865907fac5"
+      "supabase_tested_head": "df530f393a79e81c81f520b0b1f3e79cc7d43ab9"
     },
     {
       "name": "opportunity.lose",
@@ -856,7 +857,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "d1345e0a69e3716e1def2eb410e9da865907fac5"
+      "supabase_tested_head": "df530f393a79e81c81f520b0b1f3e79cc7d43ab9"
     },
     {
       "name": "customer.update",
@@ -1013,7 +1014,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "d1345e0a69e3716e1def2eb410e9da865907fac5"
+      "supabase_tested_head": "df530f393a79e81c81f520b0b1f3e79cc7d43ab9"
     },
     {
       "name": "contact.update",
@@ -1205,7 +1206,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "safe_read_candidate_not_registered",
-      "supabase_tested_head": "d1345e0a69e3716e1def2eb410e9da865907fac5"
+      "supabase_tested_head": "df530f393a79e81c81f520b0b1f3e79cc7d43ab9"
     },
     {
       "name": "calendar.list",
@@ -1244,7 +1245,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "safe_read_candidate_not_registered",
-      "supabase_tested_head": "d1345e0a69e3716e1def2eb410e9da865907fac5"
+      "supabase_tested_head": "df530f393a79e81c81f520b0b1f3e79cc7d43ab9"
     },
     {
       "name": "work.get",
@@ -1365,7 +1366,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "safe_read_candidate_not_registered",
-      "supabase_tested_head": "d1345e0a69e3716e1def2eb410e9da865907fac5"
+      "supabase_tested_head": "df530f393a79e81c81f520b0b1f3e79cc7d43ab9"
     },
     {
       "name": "global.search",
@@ -1404,7 +1405,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "safe_read_candidate_not_registered",
-      "supabase_tested_head": "d1345e0a69e3716e1def2eb410e9da865907fac5"
+      "supabase_tested_head": "df530f393a79e81c81f520b0b1f3e79cc7d43ab9"
     },
     {
       "name": "issuer.set",
@@ -1442,7 +1443,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "d1345e0a69e3716e1def2eb410e9da865907fac5"
+      "supabase_tested_head": "df530f393a79e81c81f520b0b1f3e79cc7d43ab9"
     },
     {
       "name": "customer_fiscal.set",
@@ -1480,7 +1481,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "d1345e0a69e3716e1def2eb410e9da865907fac5"
+      "supabase_tested_head": "df530f393a79e81c81f520b0b1f3e79cc7d43ab9"
     },
     {
       "name": "invoice.create_draft",
@@ -1518,7 +1519,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "d1345e0a69e3716e1def2eb410e9da865907fac5"
+      "supabase_tested_head": "df530f393a79e81c81f520b0b1f3e79cc7d43ab9"
     },
     {
       "name": "invoice.update_draft",
@@ -1593,7 +1594,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "d1345e0a69e3716e1def2eb410e9da865907fac5"
+      "supabase_tested_head": "df530f393a79e81c81f520b0b1f3e79cc7d43ab9"
     },
     {
       "name": "invoice.mark_paid",
@@ -1631,7 +1632,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "d1345e0a69e3716e1def2eb410e9da865907fac5"
+      "supabase_tested_head": "df530f393a79e81c81f520b0b1f3e79cc7d43ab9"
     },
     {
       "name": "invoice.reverse_payment",
@@ -1780,7 +1781,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "protected_read_requires_fiscal_capability_not_registered",
-      "supabase_tested_head": "d1345e0a69e3716e1def2eb410e9da865907fac5"
+      "supabase_tested_head": "df530f393a79e81c81f520b0b1f3e79cc7d43ab9"
     },
     {
       "name": "invoice.summary",
@@ -1892,7 +1893,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "protected_read_requires_fiscal_capability_not_registered",
-      "supabase_tested_head": "d1345e0a69e3716e1def2eb410e9da865907fac5"
+      "supabase_tested_head": "df530f393a79e81c81f520b0b1f3e79cc7d43ab9"
     },
     {
       "name": "configuration.get",

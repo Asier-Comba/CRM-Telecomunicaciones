@@ -68,7 +68,8 @@ try {
   const richSeed = await readFile(resolve(root, 'supabase/seeds/synthetic_product.sql'), 'utf8')
   assert.match(richSeed, /commit;\s*$/i)
   const densityChecks = await readFile(resolve(root, 'supabase/tests/product-rich-density.sql'), 'utf8')
-  await db.exec(richSeed.replace(/commit;\s*$/i, '') + densityChecks)
+  const billingDensity = await readFile(resolve(root, 'supabase/seeds/synthetic_product_billing.sql'), 'utf8')
+  await db.exec(richSeed.replace(/commit;\s*$/i, '') + billingDensity + densityChecks)
   console.log('PRODUCT RICH DENSITY COUNTS/CURSOR/SCOPE ASSERTIONS PASS (25 companies, 400 lines)')
 
   await db.exec(await readFile(resolve(root,'supabase/tests/billing-exact-issue.sql'),'utf8'))
