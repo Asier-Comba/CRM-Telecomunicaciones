@@ -1,24 +1,25 @@
 # W1 product backend status
 
-CURRENT_IMPLEMENTATION: product/work/dashboard/search + exact billing/PDF/review-only proposal + internal team + provenance-aware portfolio and deadline candidates.
+CURRENT_IMPLEMENTATION: product/work/dashboard/search + exact billing/PDF/review-only proposal + internal team + provenance-aware portfolio/deadlines + protected document metadata candidate.
 PR: #28 Draft; branch w1/product-backend-v1. No frontend, provider, AI write, production deployment or main merge.
-TESTED_EXECUTABLE: db056e67111b7719e7072c2279b3c7459ef68a54; new protected invoice-search extension pending exact-head acceptance.
-CATALOG:76 human operations; source/transport/privilege drift checked; no assistant registration. New invoice results owner/admin only; general safe search remains owner/admin/member/viewer.
+TESTED_EXECUTABLE: 261dfdfc89312562b0cad6adc3829fa2a8ed5022; protected document metadata extension pending exact-head acceptance.
+CATALOG:80 human operations; source/transport/privilege drift checked; no assistant registration. New invoice results owner/admin only; general safe search remains owner/admin/member/viewer.
 CUSTOMERS/CONTACTS: CAS/replay/create/update/archive/restore and bounded editors, commercial member writes.
 WORK: tasks/meeting/calendar/opportunity commands and scoped editors, canonical stages/links/history.
 DASHBOARD: bounded assignment my/owner-admin workspace metrics and protected native-currency issued/paid/outstanding/overdue financial facts; team aggregate unavailable.
 BILLING: exact money, protected issuer/fiscal profiles, draft lifecycle, transactional numbered issue/frozen snapshots, paid/reversal, protected reads/PDF stream, normalized requires-review proposal saved=false.
 PORTFOLIO: manual contract/service/line creation/lifecycle; local assignment/labels preserve provenance; parent closure/child creation serialized. Renewal record/update/resolve/dismiss, permanence create/update/cancel, safe editors/CAS. Imported/integration facts remain read-only except explicit labels/assignment. Supersede unavailable.
+DOCUMENTS: protected metadata list/get and archive/restore candidate; object content/upload/signing workflow remains open.
 TEAM: protected roster/role/suspend/resume/remove and internal invitation intents/cancellation; no invitation email or Auth identity grants.
-TRANSPORT: eight default-off cookie USER-JWT product/billing/team/portfolio command/query routes plus protected PDF stream; strict canonical Host/Origin/body bounds. PRODUCT_V1_ENABLED and PRODUCT_V1_ORIGIN required. Server membership and auth.uid authority.
+TRANSPORT: ten default-off cookie USER-JWT product/billing/team/portfolio command/query routes plus protected PDF stream; strict canonical Host/Origin/body bounds. PRODUCT_V1_ENABLED and PRODUCT_V1_ORIGIN required. Server membership and auth.uid authority.
 DATASET:25 companies/50contacts/50contracts+services/400lines/100opportunities/150tasks/75meetings/50renewals+permanences/25activities;100 canonical billing invoices. No real identities or valid fiscal IDs.
-MEASURED_DB:38 immutable migrations/161-function native fresh/restored matrix, ACL-loss rejection,20-process family races incl renewal/permanence and parent closure versus child creation PASS atdb056e6, CI297/37222957599.
-MEASURED_SUPABASE: run18/37222957598 PASS483 checks, real Auth/JWT/PostgREST/Storage/Next SSR cookies, per-family races/revocation, browser boundary and teardown PASS atdb056e6. These are CI-isolated real local stacks, not production or a local executor Docker claim.
-QUALITY:195tests/lint/types/build PASS atdb056e6; full gate FAIL only inherited Issue29 audit5high. Skipped dependency review/critical Playwright are not passes. Invoice-search candidate local197tests and39-migration embedded matrix are separately pending exact CI.
+MEASURED_DB:39 immutable migrations/161-function native fresh/restored matrix, ACL-loss rejection,20-process family races incl renewal/permanence and parent closure versus child creation PASS at261dfdf, CI298/37223386613.
+MEASURED_SUPABASE: run19/37223386588 PASS489 checks, real Auth/JWT/PostgREST/Storage/Next SSR cookies, per-family races/revocation, browser boundary and teardown PASS at261dfdf. These are CI-isolated real local stacks, not production or a local executor Docker claim.
+QUALITY:197tests/lint/types/build PASS at261dfdf; full gate FAIL only inherited Issue29 audit5high. Skipped dependency review/critical Playwright are not passes. Document metadata candidate local201tests and40-migration embedded matrix are separately pending exact CI.
 UI_SAFE: false pending W4/W2 review. W3/Issue10 future writes still require durable confirmation; not registered.
 OPEN: B8 document product workflow/import application adapter; B9 inbox/registered safe automations; private stored invoice objects/opaque references; text/audio parsing; advanced billing analytics; deadline supersede/team expiry refinement. General team dashboard metrics unavailable.
 PARITY: backend behavior percentages unmeasured; no full parity/Superset readiness claim.
-NEXT_3: document workflow with scoped safe server Storage adapter; import canonical validation/replay adapter; Inbox then bounded registered automations. Invoice-search exact CI in progress.
+NEXT_3: document workflow with scoped safe server Storage adapter; import canonical validation/replay adapter; Inbox then bounded registered automations. Document metadata exact CI pending publication.
 
 ## Historical B2 snapshot (superseded by current summary)
 
@@ -181,3 +182,7 @@ B4 core497a558 verified: native CI296/37222106155 PASS37migrations150functions, 
 B4 follow-up candidate: contract.record_renewal; renewal.update/resolve/dismiss; permanence.create_manual/update/cancel; portfolio.get extends two deadline kinds, canonical windows/exclusion/dates/version/provenance. Local38migrations161function matrix + deadline SQL fixture PASS; exact native/Supabase results pending. Supersede remains unavailable, no closed/imported history rewrite. Catalog76 human operations; W3 unchanged, UI-safe=false. Next priorities: B8 documents/import adapter; B9 Inbox/automations; invoice search/private PDF access remains open. No new audit investigation beyond one registry check this session.
 
 B4 deadlines db056e6 verified: native CI297/37222957599 PASS38migrations161functions/fresh/restored/20process renewal+permanence races; actual Supabase run18/37222957598 PASS483checks/Next/deadline revocation/browser/teardown. Quality195tests/lint/types/build PASS, full audit Issue29 FAIL only. Follow-up B5 invoice-search candidate preserves literal caps/ranking, invoice number/draft label corpus only, owner/admin visibility, safe service output role guard; no fiscal/financial fields or text/notes in corpus. Local197tests,39migrations161functions/embedded density PASS; exact-head CI pending.
+
+B5 invoice search261dfdf verified: CI298/37223386613 native39migrations161functions/fresh/restored/density PASS; Supabase19/37223386588 PASS489checks including protected invoice number search and actual Next, browser and teardown PASS. Quality197tests/lint/types/build PASS; full audit remains Issue29 failure. Catalog records exact current measured source separately from new pending document operations.
+
+B8 protected metadata candidate: document.list/get_metadata/archive/restore, owner/admin, safe DTO without content locator/filename/hash, CAS/replay/redacted audit/atomic rollback. Archive/restore reuses existing private Storage active-metadata policy, no new client upload grants. Local201tests and40migrations168functions/embedded SQL fixture PASS; new native20-process and real Supabase object lifecycle/revocation/Next-cookie tests pending exact-head CI. Upload/finalize/signing/quarantine/import application workflows remain OPEN; no complete B8 claim.

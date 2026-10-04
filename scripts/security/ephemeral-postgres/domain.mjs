@@ -80,6 +80,8 @@ try {
   console.log('PORTFOLIO PROVENANCE/CAS/REPLAY/LIFECYCLE/REVOCATION/ROLLBACK PASS')
   await db.exec(await readFile(resolve(root,'supabase/tests/portfolio-deadline-commands.sql'),'utf8'))
   console.log('PORTFOLIO DEADLINE WINDOW/PROVENANCE/CAS/REPLAY/LIFECYCLE PASS')
+  await db.exec(await readFile(resolve(root,'supabase/tests/document-metadata-commands.sql'),'utf8'))
+  console.log('DOCUMENT METADATA/CAS/REPLAY/REVOCATION/STORAGE DENIAL/ROLLBACK PASS')
   const {calculateBillingV1}=await import(pathToFileURL(resolve(root,'src/lib/server/billing-runtime-v1.ts')))
   let vectorState=20261004
   const draw=max=>{vectorState=(Math.imul(vectorState,1664525)+1013904223)>>>0;return vectorState%max}

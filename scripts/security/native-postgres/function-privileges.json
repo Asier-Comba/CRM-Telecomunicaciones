@@ -210,6 +210,62 @@
       "authenticated": true
     },
     {
+      "signature": "public.document_v1_archive(uuid, jsonb)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": true,
+      "service_role": false
+    },
+    {
+      "signature": "public.document_v1_assert_scope(uuid)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": false,
+      "service_role": false
+    },
+    {
+      "signature": "public.document_v1_command(uuid, text, jsonb)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": false,
+      "service_role": false
+    },
+    {
+      "signature": "public.document_v1_get_metadata(uuid, jsonb)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": true,
+      "service_role": false
+    },
+    {
+      "signature": "public.document_v1_list(uuid, jsonb)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": true,
+      "service_role": false
+    },
+    {
+      "signature": "public.document_v1_restore(uuid, jsonb)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": true,
+      "service_role": false
+    },
+    {
+      "signature": "public.document_v1_safe_metadata(uuid, uuid)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": false,
+      "service_role": false
+    },
+    {
       "anon": false,
       "public": false,
       "definer": true,

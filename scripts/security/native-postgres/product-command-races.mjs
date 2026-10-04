@@ -133,6 +133,15 @@ try {
  }
  console.log('PORTFOLIO DEADLINE NATIVE RACES PASS: renewal/permanence each20 identical creates +20 CAS edits; revoked replay below')
  console.log('PORTFOLIO NATIVE RACES PASS: contract/service/line each20 identical creates +20 CAS edits; ancestor-first closure vs child creation5 races; revoked replay below')
+ const document=randomUUID(),object=randomUUID(),documentCommand=(op,input)=>`begin;set local role authenticated;set local request.jwt.claim.sub='${actor}';select public.document_v1_${op}('${workspace}','${JSON.stringify(input)}'::jsonb);commit;`
+ await sql(`insert into public.documents(id,workspace_id,customer_id,document_kind,file_name,storage_path)values('${document}','${workspace}','${id}','general','Sensitive Synthetic.pdf','${workspace}/documents/${document}/${object}')`)
+ const documentArchives=await Promise.all(Array.from({length:20},()=>docker([...args,'--set=VERBOSITY=sqlstate'],documentCommand('archive',{command_id:randomUUID(),id:document,expected_version:1}))))
+ assert.equal(documentArchives.filter(r=>r.code===0).length,1);assert.equal(documentArchives.filter(r=>r.code!==0&&/40001/.test(r.err)).length,19)
+ const restore={command_id:randomUUID(),id:document,expected_version:2},restoreSql=documentCommand('restore',restore);familyReplays.push(restoreSql)
+ const documentRestores=await Promise.all(Array.from({length:20},()=>docker(args,restoreSql)))
+ assert.ok(documentRestores.every(r=>r.code===0));const restoredDocument=JSON.parse(documentRestores[0].out.trim());for(const attempt of documentRestores)assert.deepEqual(JSON.parse(attempt.out.trim()),restoredDocument)
+ assert.equal(await sql(`select count(*)from public.product_audit_events where entity_id='${document}'`),'2')
+ console.log('DOCUMENT NATIVE RACES PASS:20 CAS archives one winner /20 identical restore replays /two audits; revoked replay below')
  await sql(`delete from public.workspace_members where workspace_id='${workspace}' and user_id='${actor}'`)
  const revoked=await docker([...args,'--set=VERBOSITY=sqlstate'],create())
  assert.notEqual(revoked.code,0);assert.match(revoked.err,/42501/)
