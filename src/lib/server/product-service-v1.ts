@@ -57,16 +57,16 @@ export class ProductServiceV1 {
   async globalSearch(value:unknown) {
     const input=parseGlobalSearchInputV1(value)
     if(input===null)return {ok:false as const,error:'validation' as const}
-    return this.#workRead('product_v1_global_search',{p_input:input},v=>parseGlobalSearchV1(input,v))
+    return this.#workRead('product_v1_global_search',{p_input:input},(v,role)=>{const data=parseGlobalSearchV1(input,v);return data?.items.some(x=>x.kind==='invoice')&&!['owner','admin'].includes(role)?null:data})
   }
-  async #workRead<T>(name: string,args:Record<string,unknown>,parse:(value:unknown)=>T|null) {
+  async #workRead<T>(name: string,args:Record<string,unknown>,parse:(value:unknown,role:string)=>T|null) {
     try{
       const context=await this.#port.resolve()
       if(context===null||!['owner','admin','member','viewer'].includes(context.role))return {ok:false as const,error:'access_denied' as const}
       const r=await this.#port.rpc(name,{...args,p_workspace_id:context.workspaceId})
       if(r.error!==null)return {ok:false as const,error:r.error.code==='42501'?'access_denied' as const:r.error.code==='0A000'?'unavailable' as const:['22023','22P02','22007'].includes(r.error.code??'')?'validation' as const:'internal_safe' as const}
       if(r.data===null)return {ok:false as const,error:'not_found' as const}
-      const data=parse(r.data)
+      const data=parse(r.data,context.role)
       return data===null?{ok:false as const,error:'internal_safe' as const}:{ok:true as const,data}
     }catch{return {ok:false as const,error:'internal_safe' as const}}
   }

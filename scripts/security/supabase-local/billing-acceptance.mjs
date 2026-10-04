@@ -32,5 +32,15 @@ export async function billingAcceptance({rpc,check,users,wa,wb,ca,url,anon,appUr
  check(pdf.status===200&&pdf.headers.get('content-type')==='application/pdf'&&pdf.headers.get('cache-control')==='no-store'&&new TextDecoder().decode(pdfBytes.slice(0,8)).startsWith('%PDF-'),'billing_actual_pdf_authorized_snapshot')
  const dashboard=await rpc('product_v1_dashboard_v2',{p_workspace_id:wa,p_input:{audience:'workspace',period:'all'}},users.ownerA.token)
  check(dashboard.status===200&&dashboard.json.financial_status==='available'&&dashboard.json.financial.currencies[0].paid_minor===152,'billing_actual_dashboard_finance')
- return {billing_pdf:'PASS',billing_dashboard:'PASS',billing_commands:'PASS',billing_snapshots:'PASS',billing_money:'PASS',billing_transport:'PASS'}
+ const searchInput={p_workspace_id:wa,p_input:{query:'A/2026/000001'}}
+ const ownerSearch=await rpc('product_v1_global_search',searchInput,users.ownerA.token)
+ check(ownerSearch.status===200&&ownerSearch.json.items.some(i=>i.kind==='invoice'&&i.id===draft.json.id&&i.status==='paid'),'billing_actual_invoice_search')
+ for(const u of [users.memberA,users.viewerA]){const r=await rpc('product_v1_global_search',searchInput,u.token);check(r.status===200&&!r.json.items.some(i=>i.kind==='invoice'),'billing_actual_commercial_invoice_search_hidden')}
+ const fiscal=await rpc('product_v1_global_search',{p_workspace_id:wa,p_input:{query:'SYNTHETIC-NOT-VALID'}},users.ownerA.token)
+ check(fiscal.status===200&&fiscal.json.items.length===0,'billing_actual_fiscal_not_search_corpus')
+ const privateKeys=['tax_id','total_minor','issuer','customer_fiscal','email','phone']
+ check(!privateKeys.some(k=>JSON.stringify(ownerSearch.json).includes(k)),'billing_actual_invoice_search_closed_DTO')
+ const nextSearch=await fetch(appUrl+'/api/product/v1/queries',{method:'POST',headers:{cookie,origin:appUrl,'content-type':'application/json'},body:JSON.stringify({operation:'global.search',input:{query:'A/2026/000001'}}),signal:AbortSignal.timeout(15000)})
+ check(nextSearch.status===200&&(await nextSearch.json()).data.items.some(i=>i.kind==='invoice'&&i.id===draft.json.id),'billing_actual_next_invoice_search')
+ return {billing_search:'PASS',billing_pdf:'PASS',billing_dashboard:'PASS',billing_commands:'PASS',billing_snapshots:'PASS',billing_money:'PASS',billing_transport:'PASS'}
 }

@@ -25,8 +25,9 @@ export function parseGlobalSearchInputV1(value:unknown):GlobalSearchInputV1|null
 export function parseGlobalSearchV1(input:GlobalSearchInputV1,value:unknown):GlobalSearchV1|null{
  try{const v=snapshotProductJsonV1(value);if(!isClosedObjectV1(v)||!keys(v,'contract_version,items')||v.contract_version!=='product.v1'||!Array.isArray(v.items)||v.items.length>(input.limit??20))return null
  const ids=new Set(),counts:Record<string,number>={}
- const status:Record<string,string[]>={customer:['active','inactive'],contact:['active','inactive'],contract:['draft','active','ended','cancelled'],service:['pending','active','suspended','ended','cancelled'],line:['pending','active','suspended','ended','cancelled'],opportunity:['open','won','lost']}
+ const status:Record<string,string[]>={customer:['active','inactive'],contact:['active','inactive'],contract:['draft','active','ended','cancelled'],service:['pending','active','suspended','ended','cancelled'],line:['pending','active','suspended','ended','cancelled'],opportunity:['open','won','lost'],invoice:['draft','issued','paid']}
  for(const r of v.items){if(!isClosedObjectV1(r)||!keys(r,'kind,id,customer_id,label,status')||!Object.hasOwn(status,r.kind as string)||!isUuidV1(r.id)||!isUuidV1(r.customer_id)||typeof r.label!=='string'||r.label.length<1||r.label.length>240||/[\u0000-\u001f\u007f-\u009f]/.test(r.label)||!r.label.toLowerCase().includes(input.query.toLowerCase())||!status[r.kind as string].includes(r.status as string)||ids.has(r.kind+':'+r.id))return null
+ if(r.kind==='invoice'&&(r.status==='draft'?!/^Factura borrador [A-Z0-9-]{1,8} [0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(r.label):!/^Factura [A-Z0-9-]{1,8}\/[0-9]{4}\/[0-9]{6,12}$/.test(r.label)))return null
  ids.add(r.kind+':'+r.id);counts[r.kind as string]=(counts[r.kind as string]??0)+1;if(counts[r.kind as string]>5)return null
  }
  return v as GlobalSearchV1

@@ -24,3 +24,17 @@ test('team absence maps to explicit unavailable and provider detail remains hidd
  const service=new ProductServiceV1({resolve:async()=>({workspaceId:'10000000-0000-4000-8000-000000000001',role:'member'}),rpc:async()=>({data:null,error:{code:'0A000',message:'private'}})})
  assert.deepEqual(await service.dashboard({audience:'team'}),{ok:false,error:'unavailable'})
 })
+test('invoice search accepts canonical numbered/draft labels and rejects fiscal fields and fabricated labels',()=>{
+ const r={kind:'invoice',id:'10000000-0000-4000-8000-000000000001',customer_id:'10000000-0000-4000-8000-000000000002',label:'Factura A/2026/000001',status:'paid'}
+ assert.ok(parseGlobalSearchV1({query:'a/2026'},{contract_version:'product.v1',items:[r]}))
+ assert.ok(parseGlobalSearchV1({query:'factura'},{contract_version:'product.v1',items:[{...r,label:'Factura A/2026/1000000'}]}))
+ assert.ok(parseGlobalSearchV1({query:'borrador'},{contract_version:'product.v1',items:[{...r,status:'draft',label:'Factura borrador A 2026-10-04'}]}))
+ for(const patch of [{tax_id:'secret'},{total_minor:100},{label:'Factura fiscal secret'},{status:'trashed'},{status:'draft'}])assert.equal(parseGlobalSearchV1({query:'factura'},{contract_version:'product.v1',items:[{...r,...patch}]}),null)
+})
+test('search service fails closed if a port returns invoice rows to a non-fiscal member',async()=>{
+ const invoice={kind:'invoice',id:'10000000-0000-4000-8000-000000000001',customer_id:'10000000-0000-4000-8000-000000000002',label:'Factura A/2026/000001',status:'issued'}
+ let role='member'
+ const service=new ProductServiceV1({resolve:async()=>({workspaceId:invoice.customer_id,role}),rpc:async()=>({data:{contract_version:'product.v1',items:[invoice]},error:null})})
+ assert.deepEqual(await service.globalSearch({query:'factura'}),{ok:false,error:'internal_safe'})
+ role='owner';assert.equal((await service.globalSearch({query:'factura'})).ok,true)
+})

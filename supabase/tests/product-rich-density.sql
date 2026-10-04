@@ -26,6 +26,9 @@ begin
  if data::text ~ '(example.invalid|tax_identifier|phone|email)' then raise exception 'density search sensitive field leak'; end if;
  data:=public.product_v1_global_search(w,'{"query":"SYNTHETIC-NOT-VALID","limit":50}');
  if jsonb_array_length(data->'items')<>0 then raise exception 'density fiscal data entered global search'; end if;
+ data:=public.product_v1_global_search(w,'{"query":"Factura","limit":50}');
+ if jsonb_array_length(data->'items')<>5 or exists(select 1 from jsonb_array_elements(data->'items')i where i->>'kind'<>'invoice' or i->>'customer_id'=md5('density.customer.2.1')::uuid::text)then raise exception 'density protected invoice search failed';end if;
+ if data::text~'(SYNTHETIC-NOT-VALID|tax_id|issuer_snapshot|total_minor)'then raise exception 'invoice search exposed fiscal facts';end if;
  -- 144 tasks + 72 meetings + 48 renewal + 48 permanence = 312 unique items.
  -- Includes many equal instants across entity kinds to exercise compound keys.
  for iteration in 1..50 loop
@@ -44,6 +47,8 @@ begin
   raise exception 'density cross-tenant search allowed';
  exception when insufficient_privilege then null; end;
 end $$;
+select set_config('request.jwt.claim.sub',md5('density.actor.1.3')::uuid::text,true);
+do $$begin if exists(select 1 from jsonb_array_elements(public.product_v1_global_search(md5('density.workspace.1')::uuid,'{"query":"Factura","limit":50}')->'items')x where x->>'kind'='invoice')then raise exception 'commercial invoice search leak';end if;end$$;
 reset role;
 do $$ begin
  if (select count(*) from public.billing_invoices where workspace_id=md5('density.workspace.1')::uuid)<>96 then raise exception 'density invoice cardinality mismatch'; end if;

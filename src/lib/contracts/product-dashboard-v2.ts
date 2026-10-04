@@ -7,4 +7,4 @@ export type DashboardV2={
  financial:Readonly<{currencies:readonly import('./billing-v1').BillingFinancialCurrencyV1[]}>|null;financial_status:'available'|'unavailable'
 }
 export type GlobalSearchInputV1={query:string;limit?:number}
-export type GlobalSearchV1={contract_version:'product.v1';items:readonly {kind:'customer'|'contact'|'contract'|'service'|'line'|'opportunity';id:string;customer_id:string;label:string;status:string}[]}
+export type GlobalSearchV1={contract_version:'product.v1';items:readonly {kind:'customer'|'contact'|'contract'|'service'|'line'|'opportunity'|'invoice';id:string;customer_id:string;label:string;status:string}[]}
