@@ -1,5 +1,27 @@
 # W1 product backend status
 
+CURRENT_IMPLEMENTATION: normal product.v1 + protected billing.v1 Draft candidate; tested source7ec1910; consolidated evidence below.
+PR: #28 Draft
+SOURCE: w2/platform-closure-v1@a917bbb41ef8192344dc49737cd78fd52fe29649
+CATALOG: docs/master/contracts/product-capabilities.json —51 registered human operations (37writes/14reads),22 individually exercised on tested7ec1910 in actual Supabase; no assistant registration.
+CUSTOMERS/CONTACTS: CAS/replay/create/update/archive/restore and bounded editors; active owner/admin/member, viewer denied for protected editors.
+TASKS: create/update/start/complete/reopen/cancel.
+CALENDAR: meeting create/update/reschedule/complete/cancel/no_show; bounded overlap/keyset query, tasks and date-only renewal/permanence deadlines.
+OPPORTUNITIES: canonical stage UUID/lifecycle, CAS/replay/assignment, expected close/next action, normalized customer-scoped portfolio links and coded history.
+DASHBOARD/SEARCH: typed bounded reads; assignment my scope, owner/admin workspace scope; team unavailable; owner/admin protected native-currency finance available, my scope follows invoice creator. Six-kind safe search excludes contact/fiscal/line identifiers.
+BILLING: owner/admin protected fiscal configuration, exact-money draft/update, atomic numbered issue/snapshots, paid/reversal, draft trash/restore, bounded protected reads and native-currency financial summaries.
+TRANSPORT: five cookie USER-JWT product/billing command/query/PDF routes; server-resolved membership, canonical Host/Origin binding, byte bounds, closed errors; default OFF PRODUCT_V1_ENABLED plus PRODUCT_V1_ORIGIN.
+DATASET:25 companies/50contacts/50contracts+services/400lines/100opportunities/150tasks/75meetings/50renewals+permanences/25activities;100 canonical billing invoices incl25draft/50issued/25paid. No real identities or valid fiscal IDs.
+DB:35 immutable migrations;128-function fresh/restored privilege manifest, ACL-loss negative control,20-process command/CAS/numbering races and native rich-density assertions PASS.
+SUPABASE: 7ec1910 actual local run14/37219664880 PASS389 checks, Auth/JWT/PostgREST/Storage/real Next SSR cookies/revocation/teardown; browser private-value boundaryPASS. Production untouched.
+QUALITY:183 tests/lint/types/build PASS; full gate FAIL at inherited Issue29 dev-tool audit. Skipped jobs are not passes.
+UI_SAFE: false pending W4/W2 review. No frontend activation, production deployment, main merge or assistant write registration.
+OPEN: portfolio product writes; document product workflow; private invoice objects/opaque references; inbox; automations; canonical teams; imports; proposals/advanced analytics. Invoice PDF streams from authorized fiscal snapshots; concurrent W1 continues remaining modules; preserve exact-head evidence and catalog drift check.
+PROPOSALS: read-only normalized invoice.propose accepted; requires_review=true/saved=false. Text/audio parsing remains unavailable.
+PARITY: percentages unmeasured; no full product parity or Superset acceptance claim.
+
+## Historical B2 snapshot (superseded by current summary)
+
 HEAD: B2 closed customer/contact checkpoint (see Git history)
 PR: #28 Draft
 SOURCE: w2/platform-closure-v1@a917bbb41ef8192344dc49737cd78fd52fe29649
@@ -120,3 +142,15 @@ Issue29 inherited braces, unchanged gate. Private stored PDF reference remains o
 Forward proposal candidate adds migration35/function128, normalized protected read,
 requires_review=true/saved=false; local 183 tests + PGlite/restore pass. This candidate
 still requires its own CI. W2_SAFE_TO_ENABLE=false; no frontend/AI/production changes.
+
+## Consolidated acceptance9fbcee6
+
+Actual Supabase run12/37219074369 PASS385 checks, including identity revocation with valid pre-suspension positive controls, strict42501/403 billing revocation and zero command-ledger residues. Native CI291/37219074384 fresh/restored126-function matrices,20-process commands/CAS/numbering and rich operational+billing densityPASS; embeddedPASS; browser private-value boundaryPASS. Quality180tests/lint/types/buildPASS then inherited full auditFAIL; dependency review/critical Playwright skipped. Current catalog records20 individually exercised operations among49; remaining lifecycle operations are not inferred tested from a family result. UI-safe staysfalse; exact tested code source9fbcee6, this documentation-only update changes no executable files.
+
+## Reconciled financial dashboard/PDF77c7893
+
+Adopted concurrent forward migration34 without modifying published migrations. Native CI292/37219306054 fresh/restored127-function matrix/races/densityPASS; quality182tests/lint/types/buildPASS then inherited full auditFAIL. Actual Supabase run13/37219306276 PASS387 checks, adding owner financial dashboard facts and real Next authorized snapshot PDF. Catalog now50 human operations,21 individually exercised; financial scope rules reflect invoice creator for my and all invoices for authorized workspace. PDF private object/opaque reference stillpending, UI-safefalse. Read-only visual QA rendered synthetic one-line and50-line/eight-page invoices with Poppler; inspected single/continuation/final pages, confirmed last line and76.00EUR total without clipping in those inspected pages. Temporary QA artifacts are not deliverables. No executable files changed by this documentation consolidation.
+
+## Final measured source7ec1910
+
+Read-only proposal candidate also accepted: actual Supabase run14/37219664880 PASS389 checks (normalized exact-money review proposal and member denial); native CI293/37219664908 fresh/restored35 migrations/128-function manifest/races/densityPASS. Quality183tests/lint/types/buildPASS then Issue29 full auditFAIL. Local183tests,35-migration/128-function embedded fresh/restored and200 billing vectorsPASS. Catalog51 operations (37writes/14reads),22 individually exercised; UI-safefalse. This final evidence edit changes only documentation, preserves concurrent implementation and does not claim complete B4/B8/B9 parity.

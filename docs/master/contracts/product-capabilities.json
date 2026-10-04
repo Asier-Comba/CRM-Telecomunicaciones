@@ -1,21 +1,25 @@
 {
   "catalog_version": "product.capabilities.v1",
   "as_of": "2026-10-04",
-  "implementation_head": "77c7893e2fcbeb18f322fae7b03a9742d0d18354",
+  "implementation_head": "7ec1910b9eec238c0d1b95455d3fff6eef74a7cc",
   "evidence": {
     "native": {
-      "run_id": 37216538207,
+      "run_id": 37219664908,
       "status": "PASS",
-      "migration_count": 31,
-      "function_count": 104
+      "migration_count": 35,
+      "function_count": 128
     },
     "actual_supabase": {
-      "run_id": 37219306276,
-      "tested_head": "77c7893e2fcbeb18f322fae7b03a9742d0d18354",
+      "run_id": 37219664880,
+      "tested_head": "7ec1910b9eec238c0d1b95455d3fff6eef74a7cc",
       "status": "PASS",
-      "checks": 387,
+      "checks": 389,
       "teardown": "PASS",
-      "browser_private_values": "PASS"
+      "browser_private_values": "PASS",
+      "identity_revocation": "PASS",
+      "invoice_pdf": "PASS",
+      "dashboard_financial": "PASS",
+      "invoice_propose": "PASS"
     },
     "quality": {
       "tests": 183,
@@ -26,11 +30,10 @@
       "scope": "local_pending_proposal_checkpoint"
     },
     "native_billing": {
-      "run_id": 37219306054,
-      "tested_head": "77c7893e2fcbeb18f322fae7b03a9742d0d18354",
+      "run_id": 37219664908,
       "status": "PASS",
-      "migration_count": 34,
-      "function_count": 127
+      "migration_count": 35,
+      "function_count": 128
     }
   },
   "operations": [
@@ -72,7 +75,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "a8e7a6e486a775d2c5289421b36206a12ecec8f6"
+      "supabase_tested_head": "7ec1910b9eec238c0d1b95455d3fff6eef74a7cc"
     },
     {
       "name": "task.update",
@@ -112,7 +115,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "a8e7a6e486a775d2c5289421b36206a12ecec8f6"
+      "supabase_tested_head": "7ec1910b9eec238c0d1b95455d3fff6eef74a7cc"
     },
     {
       "name": "task.start",
@@ -308,7 +311,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "a8e7a6e486a775d2c5289421b36206a12ecec8f6"
+      "supabase_tested_head": "7ec1910b9eec238c0d1b95455d3fff6eef74a7cc"
     },
     {
       "name": "meeting.update",
@@ -348,7 +351,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "a8e7a6e486a775d2c5289421b36206a12ecec8f6"
+      "supabase_tested_head": "7ec1910b9eec238c0d1b95455d3fff6eef74a7cc"
     },
     {
       "name": "meeting.reschedule",
@@ -544,7 +547,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "a8e7a6e486a775d2c5289421b36206a12ecec8f6"
+      "supabase_tested_head": "7ec1910b9eec238c0d1b95455d3fff6eef74a7cc"
     },
     {
       "name": "opportunity.update",
@@ -584,7 +587,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "a8e7a6e486a775d2c5289421b36206a12ecec8f6"
+      "supabase_tested_head": "7ec1910b9eec238c0d1b95455d3fff6eef74a7cc"
     },
     {
       "name": "opportunity.change_stage",
@@ -702,7 +705,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "a8e7a6e486a775d2c5289421b36206a12ecec8f6"
+      "supabase_tested_head": "7ec1910b9eec238c0d1b95455d3fff6eef74a7cc"
     },
     {
       "name": "opportunity.lose",
@@ -859,7 +862,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "a8e7a6e486a775d2c5289421b36206a12ecec8f6"
+      "supabase_tested_head": "7ec1910b9eec238c0d1b95455d3fff6eef74a7cc"
     },
     {
       "name": "customer.update",
@@ -1016,7 +1019,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "a8e7a6e486a775d2c5289421b36206a12ecec8f6"
+      "supabase_tested_head": "7ec1910b9eec238c0d1b95455d3fff6eef74a7cc"
     },
     {
       "name": "contact.update",
@@ -1208,7 +1211,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "safe_read_candidate_not_registered",
-      "supabase_tested_head": "a8e7a6e486a775d2c5289421b36206a12ecec8f6"
+      "supabase_tested_head": "7ec1910b9eec238c0d1b95455d3fff6eef74a7cc"
     },
     {
       "name": "calendar.list",
@@ -1247,7 +1250,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "safe_read_candidate_not_registered",
-      "supabase_tested_head": "a8e7a6e486a775d2c5289421b36206a12ecec8f6"
+      "supabase_tested_head": "7ec1910b9eec238c0d1b95455d3fff6eef74a7cc"
     },
     {
       "name": "work.get",
@@ -1343,7 +1346,12 @@
         "my": "active_membership",
         "workspace": "owner_or_admin",
         "team": "unavailable",
-        "financial": "unavailable"
+        "financial": {
+          "owner_admin": "available_native_currency",
+          "member_viewer": "unavailable",
+          "my": "invoice_created_by_actor",
+          "workspace": "workspace_invoices"
+        }
       },
       "idempotency": {
         "required": false,
@@ -1368,7 +1376,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "safe_read_candidate_not_registered",
-      "supabase_tested_head": "a8e7a6e486a775d2c5289421b36206a12ecec8f6"
+      "supabase_tested_head": "7ec1910b9eec238c0d1b95455d3fff6eef74a7cc"
     },
     {
       "name": "global.search",
@@ -1407,7 +1415,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "safe_read_candidate_not_registered",
-      "supabase_tested_head": "a8e7a6e486a775d2c5289421b36206a12ecec8f6"
+      "supabase_tested_head": "7ec1910b9eec238c0d1b95455d3fff6eef74a7cc"
     },
     {
       "name": "issuer.set",
@@ -1445,7 +1453,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "a8e7a6e486a775d2c5289421b36206a12ecec8f6"
+      "supabase_tested_head": "7ec1910b9eec238c0d1b95455d3fff6eef74a7cc"
     },
     {
       "name": "customer_fiscal.set",
@@ -1483,7 +1491,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "a8e7a6e486a775d2c5289421b36206a12ecec8f6"
+      "supabase_tested_head": "7ec1910b9eec238c0d1b95455d3fff6eef74a7cc"
     },
     {
       "name": "invoice.create_draft",
@@ -1521,7 +1529,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "a8e7a6e486a775d2c5289421b36206a12ecec8f6"
+      "supabase_tested_head": "7ec1910b9eec238c0d1b95455d3fff6eef74a7cc"
     },
     {
       "name": "invoice.update_draft",
@@ -1596,7 +1604,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "a8e7a6e486a775d2c5289421b36206a12ecec8f6"
+      "supabase_tested_head": "7ec1910b9eec238c0d1b95455d3fff6eef74a7cc"
     },
     {
       "name": "invoice.mark_paid",
@@ -1634,7 +1642,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "a8e7a6e486a775d2c5289421b36206a12ecec8f6"
+      "supabase_tested_head": "7ec1910b9eec238c0d1b95455d3fff6eef74a7cc"
     },
     {
       "name": "invoice.reverse_payment",
@@ -1783,7 +1791,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "protected_read_requires_fiscal_capability_not_registered",
-      "supabase_tested_head": "a8e7a6e486a775d2c5289421b36206a12ecec8f6"
+      "supabase_tested_head": "7ec1910b9eec238c0d1b95455d3fff6eef74a7cc"
     },
     {
       "name": "invoice.summary",
@@ -1895,7 +1903,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "protected_read_requires_fiscal_capability_not_registered",
-      "supabase_tested_head": "a8e7a6e486a775d2c5289421b36206a12ecec8f6"
+      "supabase_tested_head": "7ec1910b9eec238c0d1b95455d3fff6eef74a7cc"
     },
     {
       "name": "configuration.get",
@@ -1970,7 +1978,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "protected_read_requires_fiscal_capability_not_registered",
-      "supabase_tested_head": "df530f393a79e81c81f520b0b1f3e79cc7d43ab9",
+      "supabase_tested_head": "7ec1910b9eec238c0d1b95455d3fff6eef74a7cc",
       "storage_status": "private_object_and_opaque_reference_pending"
     },
     {
@@ -2004,12 +2012,12 @@
         "status": "implemented_default_off",
         "path": "/api/billing/v1/queries"
       },
-      "supabase_tested": false,
-      "supabase_status": "pending_exact_head_acceptance",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "protected_read_requires_fiscal_capability_not_registered",
-      "supabase_tested_head": "a8e7a6e486a775d2c5289421b36206a12ecec8f6"
+      "supabase_tested_head": "7ec1910b9eec238c0d1b95455d3fff6eef74a7cc"
     }
   ],
   "unavailable_modules": [
@@ -2020,7 +2028,7 @@
     "canonical_team_management",
     "product_import_workflow",
     "billing_private_pdf",
-    "proposals",
+    "text_audio_proposal_parser",
     "advanced_billing_analytics"
   ],
   "registration": "Human product contracts only; no assistant capability registration or deployment authorization."
