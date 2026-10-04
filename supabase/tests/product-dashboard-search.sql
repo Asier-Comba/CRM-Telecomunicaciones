@@ -20,7 +20,7 @@ do $$declare w uuid:='92000000-0000-4000-8000-000000000001';r jsonb;p text;begin
  perform pg_temp.ds_denied(format('select public.product_v1_global_search(%L,%L)',w,'{"query":"search","limit":51}'),'22023');
  perform pg_temp.ds_denied(format('select public.product_v1_global_search(%L,%L)',w,'{"query":"search","workspace_id":"92000000-0000-4000-8000-000000000002"}'),'22023');
  r:=public.product_v1_dashboard_v2(w,'{"audience":"my","period":"month","anchor_date":"2026-10-25"}');
- perform pg_temp.ds_assert(r->>'contract_version'='product.dashboard.v2' and r->'snapshot_counts'->>'customers'='1' and r->'snapshot_counts'->>'tasks'='1' and r->'period_counts'->>'tasks_due'='1' and r->'period'->>'start'='2026-10-01' and r->'period'->>'end_exclusive'='2026-11-01' and r->'financial'='null'::jsonb);
+ perform pg_temp.ds_assert(r->>'contract_version'='product.dashboard.v2' and r->'snapshot_counts'->>'customers'='1' and r->'snapshot_counts'->>'tasks'='1' and r->'period_counts'->>'tasks_due'='1' and r->'period'->>'start'='2026-10-01' and r->'period'->>'end_exclusive'='2026-11-01' and r->'financial'='null'::jsonb and r->>'financial_status'='unavailable');
  for p in select unnest(array['quarter','semester','year','all']) loop
   r:=public.product_v1_dashboard_v2(w,jsonb_build_object('period',p,'anchor_date','2026-10-25'));
   perform pg_temp.ds_assert(r->'snapshot_counts'->>'customers'='1');

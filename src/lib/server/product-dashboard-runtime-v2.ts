@@ -1,3 +1,4 @@
+import {validBillingFinancialCurrenciesV1} from './billing-query-runtime-v1.ts'
 import type {DashboardInputV2,DashboardV2,GlobalSearchInputV1,GlobalSearchV1} from '../contracts/product-dashboard-v2'
 import {snapshotProductJsonV1} from './product-query-runtime-v1.ts'
 import {isClosedObjectV1,isUuidV1} from './product-work-runtime-v1.ts'
@@ -7,7 +8,8 @@ export function parseDashboardInputV2(value:unknown):DashboardInputV2|null{
  try{const v=snapshotProductJsonV1(value);if(!isClosedObjectV1(v)||Object.keys(v).some(k=>!['audience','period','anchor_date'].includes(k))||('audience'in v&&!['my','workspace','team'].includes(v.audience as string))||('period'in v&&!['month','quarter','semester','year','all'].includes(v.period as string))||('anchor_date'in v&&!isStrictCalendarDateV1(v.anchor_date)))return null;return v as DashboardInputV2}catch{return null}
 }
 export function parseDashboardV2(input:DashboardInputV2,value:unknown):DashboardV2|null{
- try{const v=snapshotProductJsonV1(value);if(!isClosedObjectV1(v)||!keys(v,'contract_version,audience,period,snapshot_counts,period_counts,recent_activity,financial,financial_status')||v.contract_version!=='product.dashboard.v2'||v.audience!==(input.audience??'my')||v.financial!==null||v.financial_status!=='unavailable'||!isClosedObjectV1(v.period)||!keys(v.period,'kind,start,end_exclusive')||v.period.kind!==(input.period??'month'))return null
+ try{const v=snapshotProductJsonV1(value);if(!isClosedObjectV1(v)||!keys(v,'contract_version,audience,period,snapshot_counts,period_counts,recent_activity,financial,financial_status')||v.contract_version!=='product.dashboard.v2'||v.audience!==(input.audience??'my')||!['available','unavailable'].includes(v.financial_status as string)||!isClosedObjectV1(v.period)||!keys(v.period,'kind,start,end_exclusive')||v.period.kind!==(input.period??'month'))return null
+ if(v.financial_status==='unavailable'?v.financial!==null:!isClosedObjectV1(v.financial)||!keys(v.financial,'currencies')||!validBillingFinancialCurrenciesV1(v.financial.currencies))return null
  if(v.period.kind==='all'?(v.period.start!==null||v.period.end_exclusive!==null):(!isStrictCalendarDateV1(v.period.start)||!isStrictCalendarDateV1(v.period.end_exclusive)||v.period.start>=v.period.end_exclusive))return null
  const dimensions=[[v.snapshot_counts,'customers,contracts,services,lines,opportunities,tasks,meetings,renewals,permanences'],[v.period_counts,'customers_created,tasks_due,meetings_scheduled,renewals_due,permanences_due,opportunities_closed']]
  for(const [counts,fields] of dimensions){if(!isClosedObjectV1(counts)||!keys(counts,fields as string)||Object.values(counts).some(x=>typeof x!=='number'||!Number.isSafeInteger(x)||x<0||x>=1e15))return null}

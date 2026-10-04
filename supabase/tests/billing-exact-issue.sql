@@ -34,6 +34,7 @@ begin
  perform pg_temp.assert_b(not (public.billing_v1_invoice_summary(w,jsonb_build_object('id',id))->'invoice') ? 'issuer');
  perform pg_temp.assert_b(jsonb_array_length(public.billing_v1_invoice_list(w,'{"limit":1}')->'items')=1);
  perform pg_temp.assert_b(public.billing_v1_invoice_financial_summary(w,'{"period":"all"}')->'currencies'->0->>'issued_minor'='152');
+ perform pg_temp.assert_b(public.product_v1_dashboard_v2(w,'{"audience":"workspace","period":"all"}')->'financial'->'currencies'->0->>'issued_minor'='152');
  perform pg_temp.assert_b(public.billing_v1_configuration_get(w,jsonb_build_object('customer_id',c))->'customer'->'profile'->>'tax_id'='SYNTHETIC-NOT-VALID');
  perform pg_temp.assert_b(public.billing_v1_invoice_get(w,'{"id":"83000000-0000-4000-8000-000000000002"}') is null);
  perform public.billing_v1_issuer_set(w,jsonb_build_object('command_id',gen_random_uuid(),'expected_version',1,'profile',p||'{"legal_name":"New Synthetic Name"}','currency','EUR','default_series','A'));

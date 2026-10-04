@@ -54,8 +54,7 @@ export function parseBillingReadV1(q:BillingQueryV1,input:BillingQueriesV1[Billi
   if(v.next_id!==null&&(v.next_id!==last||v.items.length!==('limit' in input?input.limit??20:20)))return null
  }else if(q==='invoice.financial_summary'){
   if(!closed(v,'as_of,contract_version,currencies,from,operation,period,to')||v.period!==('period' in input?input.period??'month':'month')||!billingDateV1(v.as_of)||!array(v.currencies)||v.currencies.length>3||(v.period==='all'?v.from!==null||v.to!==null:!billingDateV1(v.from)||!billingDateV1(v.to)||(v.to as string)<=(v.from as string)))return null
-  let last=''
-  for(const row of v.currencies){if(!closed(row,'currency,issued_count,issued_minor,outstanding_count,outstanding_minor,overdue_count,overdue_minor,paid_count,paid_minor')||!['EUR','USD','GBP'].includes(row.currency as string)||(row.currency as string)<=last||Object.entries(row).some(([k,x])=>k!=='currency'&&!safe(x,Number.MAX_SAFE_INTEGER))||row.issued_minor!==(row.paid_minor as number)+(row.outstanding_minor as number)||(row.overdue_minor as number)>(row.outstanding_minor as number)||row.issued_count!==(row.paid_count as number)+(row.outstanding_count as number)||(row.overdue_count as number)>(row.outstanding_count as number))return null;last=row.currency as string}
+  if(!validBillingFinancialCurrenciesV1(v.currencies))return null
  }else{
   if(!closed(v,'contract_version,customer,issuer,operation'))return null
   if(v.customer!==null&&(!closed(v.customer,'profile,version')||!profile(v.customer.profile)||!integer(v.customer.version,1,999999999999999)))return null
@@ -63,4 +62,12 @@ export function parseBillingReadV1(q:BillingQueryV1,input:BillingQueriesV1[Billi
  }
  return Object.freeze({...v}) as BillingReadDataV1
  }catch{return null}
+}
+export function validBillingFinancialCurrenciesV1(rows:unknown):boolean {
+ try{
+ if(!array(rows)||rows.length>3)return false
+  let last=''
+  for(const row of rows){if(!closed(row,'currency,issued_count,issued_minor,outstanding_count,outstanding_minor,overdue_count,overdue_minor,paid_count,paid_minor')||!['EUR','USD','GBP'].includes(row.currency as string)||(row.currency as string)<=last||Object.entries(row).some(([k,x])=>k!=='currency'&&!safe(x,Number.MAX_SAFE_INTEGER))||row.issued_minor!==(row.paid_minor as number)+(row.outstanding_minor as number)||(row.overdue_minor as number)>(row.outstanding_minor as number)||row.issued_count!==(row.paid_count as number)+(row.outstanding_count as number)||(row.overdue_count as number)>(row.outstanding_count as number))return false;last=row.currency as string}
+ return true
+ }catch{return false}
 }

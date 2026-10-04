@@ -88,3 +88,19 @@ advanced monthly/top-customer analytics remain OPEN. No PDF storage implementati
 is implied by invoice.get snapshot availability. No UI/assistant/provider/production
 writes were enabled. Review-only proposals must use this closed contract; Issue10
 continues to block assistant actions.
+
+## Authoritative PDF and dashboard financial facts
+
+POST /api/billing/v1/pdf accepts only invoice.pdf({id}). Owner/admin authority,
+active membership and protected invoice.get run before deterministic PDF rendering.
+Fiscal data and issued lines come from frozen server snapshots; caller fiscal fields,
+HTML, logo URLs and totals are rejected. Drafts are clearly labelled without a fiscal
+number. Output is authenticated application/pdf with no-store; 50 lines paginate.
+Private object persistence and opaque document capability remain OPEN; this endpoint
+is a protected binary download, not completion of the private Storage workflow.
+
+Forward migration 20261004175000 adds actual issued/paid/outstanding/overdue native
+currency facts to product.dashboard.v2 for owner/admin. My scope filters invoice
+creator; workspace scope includes that workspace. Member/viewer financial state stays
+unavailable. Period filtering uses issue_on; current payment state is not historical
+revenue recognition. No FX sum or speculative forecast is reported.

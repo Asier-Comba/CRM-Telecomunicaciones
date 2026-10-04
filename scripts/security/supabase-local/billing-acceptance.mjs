@@ -23,5 +23,10 @@ export async function billingAcceptance({rpc,check,users,wa,wb,ca,url,anon,appUr
  const cookie=cookies.map(c=>c.name+'='+c.value).join('; ')
  const r=await fetch(appUrl+'/api/billing/v1/queries',{method:'POST',headers:{cookie,origin:appUrl,'content-type':'application/json'},body:JSON.stringify({operation:'invoice.get',input:{id:draft.json.id}}),signal:AbortSignal.timeout(15000)})
  check(r.status===200&&(await r.json()).data.invoice.totals.total_minor===152,'billing_actual_next_cookie_get')
- return {billing_commands:'PASS',billing_snapshots:'PASS',billing_money:'PASS',billing_transport:'PASS'}
+ const pdf=await fetch(appUrl+'/api/billing/v1/pdf',{method:'POST',headers:{cookie,origin:appUrl,'content-type':'application/json'},body:JSON.stringify({operation:'invoice.pdf',input:{id:draft.json.id}}),signal:AbortSignal.timeout(15000)})
+ const pdfBytes=new Uint8Array(await pdf.arrayBuffer())
+ check(pdf.status===200&&pdf.headers.get('content-type')==='application/pdf'&&pdf.headers.get('cache-control')==='no-store'&&new TextDecoder().decode(pdfBytes.slice(0,8)).startsWith('%PDF-'),'billing_actual_pdf_authorized_snapshot')
+ const dashboard=await rpc('product_v1_dashboard_v2',{p_workspace_id:wa,p_input:{audience:'workspace',period:'all'}},users.ownerA.token)
+ check(dashboard.status===200&&dashboard.json.financial_status==='available'&&dashboard.json.financial.currencies[0].paid_minor===152,'billing_actual_dashboard_finance')
+ return {billing_pdf:'PASS',billing_dashboard:'PASS',billing_commands:'PASS',billing_snapshots:'PASS',billing_money:'PASS',billing_transport:'PASS'}
 }

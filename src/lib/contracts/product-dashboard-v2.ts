@@ -4,7 +4,7 @@ export type DashboardV2={
  snapshot_counts:Readonly<Record<'customers'|'contracts'|'services'|'lines'|'opportunities'|'tasks'|'meetings'|'renewals'|'permanences',number>>
  period_counts:Readonly<Record<'customers_created'|'tasks_due'|'meetings_scheduled'|'renewals_due'|'permanences_due'|'opportunities_closed',number>>
  recent_activity:readonly {id:string;activity_kind:'created'|'updated'|'contacted'|'status_changed'|'system';summary_code:string;occurred_at:string;customer_id:string|null}[]
- financial:null;financial_status:'unavailable'
+ financial:Readonly<{currencies:readonly import('./billing-v1').BillingFinancialCurrencyV1[]}>|null;financial_status:'available'|'unavailable'
 }
 export type GlobalSearchInputV1={query:string;limit?:number}
 export type GlobalSearchV1={contract_version:'product.v1';items:readonly {kind:'customer'|'contact'|'contract'|'service'|'line'|'opportunity';id:string;customer_id:string;label:string;status:string}[]}

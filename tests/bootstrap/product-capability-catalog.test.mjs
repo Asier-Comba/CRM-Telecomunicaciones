@@ -13,7 +13,7 @@ test('capability catalog covers registered product transport and explicit RPC pr
  const reads=http.match(/!\[([^\]]+)\]\.includes\(op\)/)[1].match(/'[^']+'/g).map(x=>x.slice(1,-1))
  assert.deepEqual(catalog.operations.filter(o=>o.kind==='read'&&o.version!=='billing.v1').map(o=>o.name).sort(),reads.sort())
  assert.deepEqual(catalog.operations.filter(o=>o.kind==='write'&&o.version==='billing.v1').map(o=>o.name).sort(),Object.keys(BILLING_RPC_V1).sort())
- assert.deepEqual(catalog.operations.filter(o=>o.kind==='read'&&o.version==='billing.v1').map(o=>o.name).sort(),Object.keys(BILLING_QUERY_RPC_V1).sort())
+ assert.deepEqual(catalog.operations.filter(o=>o.kind==='read'&&o.version==='billing.v1'&&o.name!=='invoice.pdf').map(o=>o.name).sort(),Object.keys(BILLING_QUERY_RPC_V1).sort())
  assert.equal(new Set(catalog.operations.map(o=>o.name)).size,catalog.operations.length)
  const manifest=JSON.parse(read('scripts/security/native-postgres/function-privileges.json'))
  for(const operation of catalog.operations){

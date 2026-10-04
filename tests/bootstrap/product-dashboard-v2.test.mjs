@@ -15,6 +15,9 @@ test('dashboard separates snapshot and period counts; malformed/unknown finances
  for(const bad of [{workspace_id:'foreign'},{period:'yesterday'},{anchor_date:'2026-02-30'},{audience:'admin'},{period:5}])assert.equal(parseDashboardInputV2(bad),null)
  const r={contract_version:'product.dashboard.v2',audience:'my',period:{kind:'all',start:null,end_exclusive:null},snapshot_counts:Object.fromEntries(['customers','contracts','services','lines','opportunities','tasks','meetings','renewals','permanences'].map(k=>[k,0])),period_counts:Object.fromEntries(['customers_created','tasks_due','meetings_scheduled','renewals_due','permanences_due','opportunities_closed'].map(k=>[k,0])),recent_activity:[],financial:null,financial_status:'unavailable'}
  assert.ok(parseDashboardV2({period:'all'},r))
+ const currency={currency:'EUR',issued_minor:152,paid_minor:0,outstanding_minor:152,overdue_minor:0,issued_count:1,paid_count:0,outstanding_count:1,overdue_count:0}
+ assert.ok(parseDashboardV2({period:'all'},{...r,financial_status:'available',financial:{currencies:[currency]}}))
+ assert.equal(parseDashboardV2({period:'all'},{...r,financial_status:'available',financial:{currencies:[{...currency,issued_minor:153}]}}),null)
  for(const patch of [{financial:{revenue:0}},{snapshot_counts:{...r.snapshot_counts,customers:-1}},{period:{kind:'all',start:'2026-01-01',end_exclusive:null}},{audience:'workspace'}])assert.equal(parseDashboardV2({period:'all'},{...r,...patch}),null)
 })
 test('team absence maps to explicit unavailable and provider detail remains hidden',async()=>{
