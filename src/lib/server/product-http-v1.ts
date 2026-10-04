@@ -4,14 +4,16 @@ import type { ProductServiceV1 } from './product-service-v1'
 const headers = { 'Cache-Control': 'no-store', 'Content-Type': 'application/json; charset=utf-8', 'X-Content-Type-Options': 'nosniff' }
 export function productReplyV1(data: unknown, status = 200) { return Response.json(data, { status, headers }) }
 export const PRODUCT_HTTP_STATUS_V1 = { validation: 400, access_denied: 403, not_found: 404, conflict: 409, unavailable: 503, internal_safe: 500 } as const
-export async function readProductEnvelopeV1(request:Request,maxBytes=12288):Promise<Response|{operation:string;input:unknown}> {
+export async function readProductEnvelopeV1(request:Request,maxBytes=12288,expectedOrigin:string|undefined=process.env.PRODUCT_V1_ORIGIN):Promise<Response|{operation:string;input:unknown}> {
  try {
   if (request.method !== 'POST') return productReplyV1({ ok:false,error:'validation' },405)
-  const configuredOrigin=process.env.PRODUCT_V1_ORIGIN
-  if(process.env.NODE_ENV==='production'&&!configuredOrigin)return productReplyV1({ok:false,error:'unavailable'},503)
-  const expectedOrigin=configuredOrigin??new URL(request.url).origin
-  if(new URL(expectedOrigin).origin!==expectedOrigin)return productReplyV1({ok:false,error:'unavailable'},503)
-  if (request.headers.get('origin') !== expectedOrigin || (request.headers.has('sec-fetch-site') && request.headers.get('sec-fetch-site') !== 'same-origin')) return productReplyV1({ok:false,error:'access_denied'},403)
+  let canonical: URL
+  try {
+   if(!expectedOrigin)return productReplyV1({ok:false,error:'unavailable'},503)
+   canonical=new URL(expectedOrigin)
+   if(!['http:','https:'].includes(canonical.protocol)||canonical.origin!==expectedOrigin||canonical.username||canonical.password)return productReplyV1({ok:false,error:'unavailable'},503)
+  } catch {return productReplyV1({ok:false,error:'unavailable'},503)}
+  if (request.headers.get('host') !== canonical.host || request.headers.get('origin') !== expectedOrigin || (request.headers.has('sec-fetch-site') && request.headers.get('sec-fetch-site') !== 'same-origin')) return productReplyV1({ok:false,error:'access_denied'},403)
   if (!/^application\/json(?:\s*;\s*charset=utf-8)?$/i.test(request.headers.get('content-type') ?? '') || ![null,'identity'].includes(request.headers.get('content-encoding'))) return productReplyV1({ok:false,error:'validation'},415)
   const length=request.headers.get('content-length')
   if (length!==null && (!/^\d+$/.test(length) || Number(length)>maxBytes)) return productReplyV1({ok:false,error:'validation'},413)
@@ -26,9 +28,9 @@ export async function readProductEnvelopeV1(request:Request,maxBytes=12288):Prom
  }catch{return productReplyV1({ok:false,error:'internal_safe'},500)}
 }
 /** Streaming byte cap applies even when Content-Length is missing or false. */
-export async function productHttpV1(request: Request, kind: 'commands' | 'queries', factory: () => Promise<{ commands: ProductServiceV1 } | null>) {
+export async function productHttpV1(request: Request, kind: 'commands' | 'queries', factory: () => Promise<{ commands: ProductServiceV1 } | null>, expectedOrigin?: string) {
  try {
-  const envelope=await readProductEnvelopeV1(request)
+  const envelope=await readProductEnvelopeV1(request,12288,expectedOrigin)
   if(envelope instanceof Response)return envelope
   const value=envelope
   const op=value.operation

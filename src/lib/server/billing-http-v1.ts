@@ -2,9 +2,9 @@ import { readProductEnvelopeV1,productReplyV1,PRODUCT_HTTP_STATUS_V1 } from './p
 import { isBillingOperationV1 } from './billing-runtime-v1.ts'
 import { isBillingQueryV1 } from './billing-query-runtime-v1.ts'
 import type { BillingServiceV1 } from './billing-service-v1'
-export async function billingHttpV1(request:Request,kind:'commands'|'queries',factory:()=>Promise<BillingServiceV1|null>){
+export async function billingHttpV1(request:Request,kind:'commands'|'queries',factory:()=>Promise<BillingServiceV1|null>,expectedOrigin?:string){
  try{
-  const envelope=await readProductEnvelopeV1(request,65536);if(envelope instanceof Response)return envelope
+  const envelope=await readProductEnvelopeV1(request,65536,expectedOrigin);if(envelope instanceof Response)return envelope
   const {operation,input}=envelope
   if(kind==='commands'?!isBillingOperationV1(operation):!isBillingQueryV1(operation))return productReplyV1({ok:false,error:'validation'},400)
   const service=await factory();if(service===null)return productReplyV1({ok:false,error:'unavailable'},503)

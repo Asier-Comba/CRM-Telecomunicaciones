@@ -1,7 +1,7 @@
 {
   "catalog_version": "product.capabilities.v1",
   "as_of": "2026-10-04",
-  "implementation_head": "dd860a4ad852173fbb254e56caa6b598ef38111e",
+  "implementation_head": "d1345e0a69e3716e1def2eb410e9da865907fac5",
   "evidence": {
     "native": {
       "run_id": 37216538207,
@@ -10,15 +10,24 @@
       "function_count": 104
     },
     "actual_supabase": {
-      "run_id": 37216963729,
-      "status": "FAIL_NEXT_COOKIE_TRANSPORT_UNDER_DIAGNOSIS"
+      "run_id": 37217995302,
+      "tested_head": "d1345e0a69e3716e1def2eb410e9da865907fac5",
+      "status": "PASS",
+      "checks": 379,
+      "followup_host_hardening": "PENDING_EXACT_HEAD"
     },
     "quality": {
-      "tests": 170,
+      "tests": 180,
       "lint": "PASS",
       "types": "PASS",
       "build": "PASS",
       "audit": "BLOCKED_Issue29"
+    },
+    "native_billing": {
+      "run_id": 37217995304,
+      "status": "PASS",
+      "migration_count": 33,
+      "function_count": 126
     }
   },
   "operations": [
@@ -52,13 +61,15 @@
         "enable_flag": "PRODUCT_V1_ENABLED",
         "authority": "server_cookie_getUser_active_membership",
         "status": "implemented_default_off",
-        "path": "/api/product/v1/commands"
+        "path": "/api/product/v1/commands",
+        "origin_flag": "PRODUCT_V1_ORIGIN"
       },
-      "supabase_tested": false,
-      "supabase_status": "pending_exact_head_acceptance",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
-      "assistant_future": "durable_Issue10_confirmation_required_not_registered"
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "supabase_tested_head": "d1345e0a69e3716e1def2eb410e9da865907fac5"
     },
     {
       "name": "task.update",
@@ -90,13 +101,15 @@
         "enable_flag": "PRODUCT_V1_ENABLED",
         "authority": "server_cookie_getUser_active_membership",
         "status": "implemented_default_off",
-        "path": "/api/product/v1/commands"
+        "path": "/api/product/v1/commands",
+        "origin_flag": "PRODUCT_V1_ORIGIN"
       },
-      "supabase_tested": false,
-      "supabase_status": "pending_exact_head_acceptance",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
-      "assistant_future": "durable_Issue10_confirmation_required_not_registered"
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "supabase_tested_head": "d1345e0a69e3716e1def2eb410e9da865907fac5"
     },
     {
       "name": "task.start",
@@ -128,10 +141,11 @@
         "enable_flag": "PRODUCT_V1_ENABLED",
         "authority": "server_cookie_getUser_active_membership",
         "status": "implemented_default_off",
-        "path": "/api/product/v1/commands"
+        "path": "/api/product/v1/commands",
+        "origin_flag": "PRODUCT_V1_ORIGIN"
       },
       "supabase_tested": false,
-      "supabase_status": "pending_exact_head_acceptance",
+      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered"
@@ -166,10 +180,11 @@
         "enable_flag": "PRODUCT_V1_ENABLED",
         "authority": "server_cookie_getUser_active_membership",
         "status": "implemented_default_off",
-        "path": "/api/product/v1/commands"
+        "path": "/api/product/v1/commands",
+        "origin_flag": "PRODUCT_V1_ORIGIN"
       },
       "supabase_tested": false,
-      "supabase_status": "pending_exact_head_acceptance",
+      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered"
@@ -204,10 +219,11 @@
         "enable_flag": "PRODUCT_V1_ENABLED",
         "authority": "server_cookie_getUser_active_membership",
         "status": "implemented_default_off",
-        "path": "/api/product/v1/commands"
+        "path": "/api/product/v1/commands",
+        "origin_flag": "PRODUCT_V1_ORIGIN"
       },
       "supabase_tested": false,
-      "supabase_status": "pending_exact_head_acceptance",
+      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered"
@@ -242,10 +258,11 @@
         "enable_flag": "PRODUCT_V1_ENABLED",
         "authority": "server_cookie_getUser_active_membership",
         "status": "implemented_default_off",
-        "path": "/api/product/v1/commands"
+        "path": "/api/product/v1/commands",
+        "origin_flag": "PRODUCT_V1_ORIGIN"
       },
       "supabase_tested": false,
-      "supabase_status": "pending_exact_head_acceptance",
+      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered"
@@ -280,13 +297,15 @@
         "enable_flag": "PRODUCT_V1_ENABLED",
         "authority": "server_cookie_getUser_active_membership",
         "status": "implemented_default_off",
-        "path": "/api/product/v1/commands"
+        "path": "/api/product/v1/commands",
+        "origin_flag": "PRODUCT_V1_ORIGIN"
       },
-      "supabase_tested": false,
-      "supabase_status": "pending_exact_head_acceptance",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
-      "assistant_future": "durable_Issue10_confirmation_required_not_registered"
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "supabase_tested_head": "d1345e0a69e3716e1def2eb410e9da865907fac5"
     },
     {
       "name": "meeting.update",
@@ -318,13 +337,15 @@
         "enable_flag": "PRODUCT_V1_ENABLED",
         "authority": "server_cookie_getUser_active_membership",
         "status": "implemented_default_off",
-        "path": "/api/product/v1/commands"
+        "path": "/api/product/v1/commands",
+        "origin_flag": "PRODUCT_V1_ORIGIN"
       },
-      "supabase_tested": false,
-      "supabase_status": "pending_exact_head_acceptance",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
-      "assistant_future": "durable_Issue10_confirmation_required_not_registered"
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "supabase_tested_head": "d1345e0a69e3716e1def2eb410e9da865907fac5"
     },
     {
       "name": "meeting.reschedule",
@@ -356,10 +377,11 @@
         "enable_flag": "PRODUCT_V1_ENABLED",
         "authority": "server_cookie_getUser_active_membership",
         "status": "implemented_default_off",
-        "path": "/api/product/v1/commands"
+        "path": "/api/product/v1/commands",
+        "origin_flag": "PRODUCT_V1_ORIGIN"
       },
       "supabase_tested": false,
-      "supabase_status": "pending_exact_head_acceptance",
+      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered"
@@ -394,10 +416,11 @@
         "enable_flag": "PRODUCT_V1_ENABLED",
         "authority": "server_cookie_getUser_active_membership",
         "status": "implemented_default_off",
-        "path": "/api/product/v1/commands"
+        "path": "/api/product/v1/commands",
+        "origin_flag": "PRODUCT_V1_ORIGIN"
       },
       "supabase_tested": false,
-      "supabase_status": "pending_exact_head_acceptance",
+      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered"
@@ -432,10 +455,11 @@
         "enable_flag": "PRODUCT_V1_ENABLED",
         "authority": "server_cookie_getUser_active_membership",
         "status": "implemented_default_off",
-        "path": "/api/product/v1/commands"
+        "path": "/api/product/v1/commands",
+        "origin_flag": "PRODUCT_V1_ORIGIN"
       },
       "supabase_tested": false,
-      "supabase_status": "pending_exact_head_acceptance",
+      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered"
@@ -470,10 +494,11 @@
         "enable_flag": "PRODUCT_V1_ENABLED",
         "authority": "server_cookie_getUser_active_membership",
         "status": "implemented_default_off",
-        "path": "/api/product/v1/commands"
+        "path": "/api/product/v1/commands",
+        "origin_flag": "PRODUCT_V1_ORIGIN"
       },
       "supabase_tested": false,
-      "supabase_status": "pending_exact_head_acceptance",
+      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered"
@@ -508,13 +533,15 @@
         "enable_flag": "PRODUCT_V1_ENABLED",
         "authority": "server_cookie_getUser_active_membership",
         "status": "implemented_default_off",
-        "path": "/api/product/v1/commands"
+        "path": "/api/product/v1/commands",
+        "origin_flag": "PRODUCT_V1_ORIGIN"
       },
-      "supabase_tested": false,
-      "supabase_status": "pending_exact_head_acceptance",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
-      "assistant_future": "durable_Issue10_confirmation_required_not_registered"
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "supabase_tested_head": "d1345e0a69e3716e1def2eb410e9da865907fac5"
     },
     {
       "name": "opportunity.update",
@@ -546,13 +573,15 @@
         "enable_flag": "PRODUCT_V1_ENABLED",
         "authority": "server_cookie_getUser_active_membership",
         "status": "implemented_default_off",
-        "path": "/api/product/v1/commands"
+        "path": "/api/product/v1/commands",
+        "origin_flag": "PRODUCT_V1_ORIGIN"
       },
-      "supabase_tested": false,
-      "supabase_status": "pending_exact_head_acceptance",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
-      "assistant_future": "durable_Issue10_confirmation_required_not_registered"
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "supabase_tested_head": "d1345e0a69e3716e1def2eb410e9da865907fac5"
     },
     {
       "name": "opportunity.change_stage",
@@ -584,10 +613,11 @@
         "enable_flag": "PRODUCT_V1_ENABLED",
         "authority": "server_cookie_getUser_active_membership",
         "status": "implemented_default_off",
-        "path": "/api/product/v1/commands"
+        "path": "/api/product/v1/commands",
+        "origin_flag": "PRODUCT_V1_ORIGIN"
       },
       "supabase_tested": false,
-      "supabase_status": "pending_exact_head_acceptance",
+      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered"
@@ -622,10 +652,11 @@
         "enable_flag": "PRODUCT_V1_ENABLED",
         "authority": "server_cookie_getUser_active_membership",
         "status": "implemented_default_off",
-        "path": "/api/product/v1/commands"
+        "path": "/api/product/v1/commands",
+        "origin_flag": "PRODUCT_V1_ORIGIN"
       },
       "supabase_tested": false,
-      "supabase_status": "pending_exact_head_acceptance",
+      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered"
@@ -660,13 +691,15 @@
         "enable_flag": "PRODUCT_V1_ENABLED",
         "authority": "server_cookie_getUser_active_membership",
         "status": "implemented_default_off",
-        "path": "/api/product/v1/commands"
+        "path": "/api/product/v1/commands",
+        "origin_flag": "PRODUCT_V1_ORIGIN"
       },
-      "supabase_tested": false,
-      "supabase_status": "pending_exact_head_acceptance",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
-      "assistant_future": "durable_Issue10_confirmation_required_not_registered"
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "supabase_tested_head": "d1345e0a69e3716e1def2eb410e9da865907fac5"
     },
     {
       "name": "opportunity.lose",
@@ -698,10 +731,11 @@
         "enable_flag": "PRODUCT_V1_ENABLED",
         "authority": "server_cookie_getUser_active_membership",
         "status": "implemented_default_off",
-        "path": "/api/product/v1/commands"
+        "path": "/api/product/v1/commands",
+        "origin_flag": "PRODUCT_V1_ORIGIN"
       },
       "supabase_tested": false,
-      "supabase_status": "pending_exact_head_acceptance",
+      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered"
@@ -736,10 +770,11 @@
         "enable_flag": "PRODUCT_V1_ENABLED",
         "authority": "server_cookie_getUser_active_membership",
         "status": "implemented_default_off",
-        "path": "/api/product/v1/commands"
+        "path": "/api/product/v1/commands",
+        "origin_flag": "PRODUCT_V1_ORIGIN"
       },
       "supabase_tested": false,
-      "supabase_status": "pending_exact_head_acceptance",
+      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered"
@@ -774,10 +809,11 @@
         "enable_flag": "PRODUCT_V1_ENABLED",
         "authority": "server_cookie_getUser_active_membership",
         "status": "implemented_default_off",
-        "path": "/api/product/v1/commands"
+        "path": "/api/product/v1/commands",
+        "origin_flag": "PRODUCT_V1_ORIGIN"
       },
       "supabase_tested": false,
-      "supabase_status": "pending_exact_head_acceptance",
+      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered"
@@ -812,13 +848,15 @@
         "enable_flag": "PRODUCT_V1_ENABLED",
         "authority": "server_cookie_getUser_active_membership",
         "status": "implemented_default_off",
-        "path": "/api/product/v1/commands"
+        "path": "/api/product/v1/commands",
+        "origin_flag": "PRODUCT_V1_ORIGIN"
       },
-      "supabase_tested": false,
-      "supabase_status": "pending_exact_head_acceptance",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
-      "assistant_future": "durable_Issue10_confirmation_required_not_registered"
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "supabase_tested_head": "d1345e0a69e3716e1def2eb410e9da865907fac5"
     },
     {
       "name": "customer.update",
@@ -850,10 +888,11 @@
         "enable_flag": "PRODUCT_V1_ENABLED",
         "authority": "server_cookie_getUser_active_membership",
         "status": "implemented_default_off",
-        "path": "/api/product/v1/commands"
+        "path": "/api/product/v1/commands",
+        "origin_flag": "PRODUCT_V1_ORIGIN"
       },
       "supabase_tested": false,
-      "supabase_status": "pending_exact_head_acceptance",
+      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered"
@@ -888,10 +927,11 @@
         "enable_flag": "PRODUCT_V1_ENABLED",
         "authority": "server_cookie_getUser_active_membership",
         "status": "implemented_default_off",
-        "path": "/api/product/v1/commands"
+        "path": "/api/product/v1/commands",
+        "origin_flag": "PRODUCT_V1_ORIGIN"
       },
       "supabase_tested": false,
-      "supabase_status": "pending_exact_head_acceptance",
+      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered"
@@ -926,10 +966,11 @@
         "enable_flag": "PRODUCT_V1_ENABLED",
         "authority": "server_cookie_getUser_active_membership",
         "status": "implemented_default_off",
-        "path": "/api/product/v1/commands"
+        "path": "/api/product/v1/commands",
+        "origin_flag": "PRODUCT_V1_ORIGIN"
       },
       "supabase_tested": false,
-      "supabase_status": "pending_exact_head_acceptance",
+      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered"
@@ -964,13 +1005,15 @@
         "enable_flag": "PRODUCT_V1_ENABLED",
         "authority": "server_cookie_getUser_active_membership",
         "status": "implemented_default_off",
-        "path": "/api/product/v1/commands"
+        "path": "/api/product/v1/commands",
+        "origin_flag": "PRODUCT_V1_ORIGIN"
       },
-      "supabase_tested": false,
-      "supabase_status": "pending_exact_head_acceptance",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
-      "assistant_future": "durable_Issue10_confirmation_required_not_registered"
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "supabase_tested_head": "d1345e0a69e3716e1def2eb410e9da865907fac5"
     },
     {
       "name": "contact.update",
@@ -1002,10 +1045,11 @@
         "enable_flag": "PRODUCT_V1_ENABLED",
         "authority": "server_cookie_getUser_active_membership",
         "status": "implemented_default_off",
-        "path": "/api/product/v1/commands"
+        "path": "/api/product/v1/commands",
+        "origin_flag": "PRODUCT_V1_ORIGIN"
       },
       "supabase_tested": false,
-      "supabase_status": "pending_exact_head_acceptance",
+      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered"
@@ -1040,10 +1084,11 @@
         "enable_flag": "PRODUCT_V1_ENABLED",
         "authority": "server_cookie_getUser_active_membership",
         "status": "implemented_default_off",
-        "path": "/api/product/v1/commands"
+        "path": "/api/product/v1/commands",
+        "origin_flag": "PRODUCT_V1_ORIGIN"
       },
       "supabase_tested": false,
-      "supabase_status": "pending_exact_head_acceptance",
+      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered"
@@ -1078,10 +1123,11 @@
         "enable_flag": "PRODUCT_V1_ENABLED",
         "authority": "server_cookie_getUser_active_membership",
         "status": "implemented_default_off",
-        "path": "/api/product/v1/commands"
+        "path": "/api/product/v1/commands",
+        "origin_flag": "PRODUCT_V1_ORIGIN"
       },
       "supabase_tested": false,
-      "supabase_status": "pending_exact_head_acceptance",
+      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered"
@@ -1114,10 +1160,11 @@
         "enable_flag": "PRODUCT_V1_ENABLED",
         "authority": "server_cookie_getUser_active_membership",
         "status": "implemented_default_off",
-        "path": "/api/product/v1/queries"
+        "path": "/api/product/v1/queries",
+        "origin_flag": "PRODUCT_V1_ORIGIN"
       },
       "supabase_tested": false,
-      "supabase_status": "pending_exact_head_acceptance",
+      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "safe_read_candidate_not_registered"
@@ -1150,13 +1197,15 @@
         "enable_flag": "PRODUCT_V1_ENABLED",
         "authority": "server_cookie_getUser_active_membership",
         "status": "implemented_default_off",
-        "path": "/api/product/v1/queries"
+        "path": "/api/product/v1/queries",
+        "origin_flag": "PRODUCT_V1_ORIGIN"
       },
-      "supabase_tested": false,
-      "supabase_status": "pending_exact_head_acceptance",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
-      "assistant_future": "safe_read_candidate_not_registered"
+      "assistant_future": "safe_read_candidate_not_registered",
+      "supabase_tested_head": "d1345e0a69e3716e1def2eb410e9da865907fac5"
     },
     {
       "name": "calendar.list",
@@ -1187,13 +1236,15 @@
         "enable_flag": "PRODUCT_V1_ENABLED",
         "authority": "server_cookie_getUser_active_membership",
         "status": "implemented_default_off",
-        "path": "/api/product/v1/queries"
+        "path": "/api/product/v1/queries",
+        "origin_flag": "PRODUCT_V1_ORIGIN"
       },
-      "supabase_tested": false,
-      "supabase_status": "pending_exact_head_acceptance",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
-      "assistant_future": "safe_read_candidate_not_registered"
+      "assistant_future": "safe_read_candidate_not_registered",
+      "supabase_tested_head": "d1345e0a69e3716e1def2eb410e9da865907fac5"
     },
     {
       "name": "work.get",
@@ -1224,10 +1275,11 @@
         "enable_flag": "PRODUCT_V1_ENABLED",
         "authority": "server_cookie_getUser_active_membership",
         "status": "implemented_default_off",
-        "path": "/api/product/v1/queries"
+        "path": "/api/product/v1/queries",
+        "origin_flag": "PRODUCT_V1_ORIGIN"
       },
       "supabase_tested": false,
-      "supabase_status": "pending_exact_head_acceptance",
+      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "safe_read_candidate_not_registered"
@@ -1261,10 +1313,11 @@
         "enable_flag": "PRODUCT_V1_ENABLED",
         "authority": "server_cookie_getUser_active_membership",
         "status": "implemented_default_off",
-        "path": "/api/product/v1/queries"
+        "path": "/api/product/v1/queries",
+        "origin_flag": "PRODUCT_V1_ORIGIN"
       },
       "supabase_tested": false,
-      "supabase_status": "pending_exact_head_acceptance",
+      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "safe_read_candidate_not_registered"
@@ -1304,13 +1357,15 @@
         "enable_flag": "PRODUCT_V1_ENABLED",
         "authority": "server_cookie_getUser_active_membership",
         "status": "implemented_default_off",
-        "path": "/api/product/v1/queries"
+        "path": "/api/product/v1/queries",
+        "origin_flag": "PRODUCT_V1_ORIGIN"
       },
-      "supabase_tested": false,
-      "supabase_status": "pending_exact_head_acceptance",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
-      "assistant_future": "safe_read_candidate_not_registered"
+      "assistant_future": "safe_read_candidate_not_registered",
+      "supabase_tested_head": "d1345e0a69e3716e1def2eb410e9da865907fac5"
     },
     {
       "name": "global.search",
@@ -1341,23 +1396,552 @@
         "enable_flag": "PRODUCT_V1_ENABLED",
         "authority": "server_cookie_getUser_active_membership",
         "status": "implemented_default_off",
-        "path": "/api/product/v1/queries"
+        "path": "/api/product/v1/queries",
+        "origin_flag": "PRODUCT_V1_ORIGIN"
       },
-      "supabase_tested": false,
-      "supabase_status": "pending_exact_head_acceptance",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
-      "assistant_future": "safe_read_candidate_not_registered"
+      "assistant_future": "safe_read_candidate_not_registered",
+      "supabase_tested_head": "d1345e0a69e3716e1def2eb410e9da865907fac5"
+    },
+    {
+      "name": "issuer.set",
+      "version": "billing.v1",
+      "kind": "write",
+      "rpc": "billing_v1_issuer_set",
+      "input_type": "BillingInputsV1['issuer.set']",
+      "output_type": "{ok:true,receipt:BillingReceiptV1}|{ok:false,error:ProductErrorV1}",
+      "minimum_role": "admin",
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      },
+      "backend_status": "candidate_sql_native_tested",
+      "transport": {
+        "method": "POST",
+        "enabled_by_default": false,
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "server_cookie_getUser_active_membership",
+        "status": "implemented_default_off",
+        "path": "/api/billing/v1/commands"
+      },
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": false,
+      "ui_safe_status": "W4_and_W2_review_pending",
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "supabase_tested_head": "d1345e0a69e3716e1def2eb410e9da865907fac5"
+    },
+    {
+      "name": "customer_fiscal.set",
+      "version": "billing.v1",
+      "kind": "write",
+      "rpc": "billing_v1_customer_fiscal_set",
+      "input_type": "BillingInputsV1['customer_fiscal.set']",
+      "output_type": "{ok:true,receipt:BillingReceiptV1}|{ok:false,error:ProductErrorV1}",
+      "minimum_role": "admin",
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      },
+      "backend_status": "candidate_sql_native_tested",
+      "transport": {
+        "method": "POST",
+        "enabled_by_default": false,
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "server_cookie_getUser_active_membership",
+        "status": "implemented_default_off",
+        "path": "/api/billing/v1/commands"
+      },
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": false,
+      "ui_safe_status": "W4_and_W2_review_pending",
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "supabase_tested_head": "d1345e0a69e3716e1def2eb410e9da865907fac5"
+    },
+    {
+      "name": "invoice.create_draft",
+      "version": "billing.v1",
+      "kind": "write",
+      "rpc": "billing_v1_invoice_create_draft",
+      "input_type": "BillingInputsV1['invoice.create_draft']",
+      "output_type": "{ok:true,receipt:BillingReceiptV1}|{ok:false,error:ProductErrorV1}",
+      "minimum_role": "admin",
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "backend_status": "candidate_sql_native_tested",
+      "transport": {
+        "method": "POST",
+        "enabled_by_default": false,
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "server_cookie_getUser_active_membership",
+        "status": "implemented_default_off",
+        "path": "/api/billing/v1/commands"
+      },
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": false,
+      "ui_safe_status": "W4_and_W2_review_pending",
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "supabase_tested_head": "d1345e0a69e3716e1def2eb410e9da865907fac5"
+    },
+    {
+      "name": "invoice.update_draft",
+      "version": "billing.v1",
+      "kind": "write",
+      "rpc": "billing_v1_invoice_update_draft",
+      "input_type": "BillingInputsV1['invoice.update_draft']",
+      "output_type": "{ok:true,receipt:BillingReceiptV1}|{ok:false,error:ProductErrorV1}",
+      "minimum_role": "admin",
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      },
+      "backend_status": "candidate_sql_native_tested",
+      "transport": {
+        "method": "POST",
+        "enabled_by_default": false,
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "server_cookie_getUser_active_membership",
+        "status": "implemented_default_off",
+        "path": "/api/billing/v1/commands"
+      },
+      "supabase_tested": false,
+      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
+      "ui_safe": false,
+      "ui_safe_status": "W4_and_W2_review_pending",
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered"
+    },
+    {
+      "name": "invoice.issue",
+      "version": "billing.v1",
+      "kind": "write",
+      "rpc": "billing_v1_invoice_issue",
+      "input_type": "BillingInputsV1['invoice.issue']",
+      "output_type": "{ok:true,receipt:BillingReceiptV1}|{ok:false,error:ProductErrorV1}",
+      "minimum_role": "admin",
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      },
+      "backend_status": "candidate_sql_native_tested",
+      "transport": {
+        "method": "POST",
+        "enabled_by_default": false,
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "server_cookie_getUser_active_membership",
+        "status": "implemented_default_off",
+        "path": "/api/billing/v1/commands"
+      },
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": false,
+      "ui_safe_status": "W4_and_W2_review_pending",
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "supabase_tested_head": "d1345e0a69e3716e1def2eb410e9da865907fac5"
+    },
+    {
+      "name": "invoice.mark_paid",
+      "version": "billing.v1",
+      "kind": "write",
+      "rpc": "billing_v1_invoice_mark_paid",
+      "input_type": "BillingInputsV1['invoice.mark_paid']",
+      "output_type": "{ok:true,receipt:BillingReceiptV1}|{ok:false,error:ProductErrorV1}",
+      "minimum_role": "admin",
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      },
+      "backend_status": "candidate_sql_native_tested",
+      "transport": {
+        "method": "POST",
+        "enabled_by_default": false,
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "server_cookie_getUser_active_membership",
+        "status": "implemented_default_off",
+        "path": "/api/billing/v1/commands"
+      },
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": false,
+      "ui_safe_status": "W4_and_W2_review_pending",
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "supabase_tested_head": "d1345e0a69e3716e1def2eb410e9da865907fac5"
+    },
+    {
+      "name": "invoice.reverse_payment",
+      "version": "billing.v1",
+      "kind": "write",
+      "rpc": "billing_v1_invoice_reverse_payment",
+      "input_type": "BillingInputsV1['invoice.reverse_payment']",
+      "output_type": "{ok:true,receipt:BillingReceiptV1}|{ok:false,error:ProductErrorV1}",
+      "minimum_role": "admin",
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      },
+      "backend_status": "candidate_sql_native_tested",
+      "transport": {
+        "method": "POST",
+        "enabled_by_default": false,
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "server_cookie_getUser_active_membership",
+        "status": "implemented_default_off",
+        "path": "/api/billing/v1/commands"
+      },
+      "supabase_tested": false,
+      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
+      "ui_safe": false,
+      "ui_safe_status": "W4_and_W2_review_pending",
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered"
+    },
+    {
+      "name": "invoice.trash",
+      "version": "billing.v1",
+      "kind": "write",
+      "rpc": "billing_v1_invoice_trash",
+      "input_type": "BillingInputsV1['invoice.trash']",
+      "output_type": "{ok:true,receipt:BillingReceiptV1}|{ok:false,error:ProductErrorV1}",
+      "minimum_role": "admin",
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      },
+      "backend_status": "candidate_sql_native_tested",
+      "transport": {
+        "method": "POST",
+        "enabled_by_default": false,
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "server_cookie_getUser_active_membership",
+        "status": "implemented_default_off",
+        "path": "/api/billing/v1/commands"
+      },
+      "supabase_tested": false,
+      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
+      "ui_safe": false,
+      "ui_safe_status": "W4_and_W2_review_pending",
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered"
+    },
+    {
+      "name": "invoice.restore",
+      "version": "billing.v1",
+      "kind": "write",
+      "rpc": "billing_v1_invoice_restore",
+      "input_type": "BillingInputsV1['invoice.restore']",
+      "output_type": "{ok:true,receipt:BillingReceiptV1}|{ok:false,error:ProductErrorV1}",
+      "minimum_role": "admin",
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      },
+      "backend_status": "candidate_sql_native_tested",
+      "transport": {
+        "method": "POST",
+        "enabled_by_default": false,
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "server_cookie_getUser_active_membership",
+        "status": "implemented_default_off",
+        "path": "/api/billing/v1/commands"
+      },
+      "supabase_tested": false,
+      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
+      "ui_safe": false,
+      "ui_safe_status": "W4_and_W2_review_pending",
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered"
+    },
+    {
+      "name": "invoice.get",
+      "version": "billing.v1",
+      "kind": "read",
+      "rpc": "billing_v1_invoice_get",
+      "input_type": "BillingQueriesV1['invoice.get']",
+      "output_type": "BillingReadDataV1",
+      "minimum_role": "admin",
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "backend_status": "candidate_sql_native_tested",
+      "transport": {
+        "method": "POST",
+        "enabled_by_default": false,
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "server_cookie_getUser_active_membership",
+        "status": "implemented_default_off",
+        "path": "/api/billing/v1/queries"
+      },
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": false,
+      "ui_safe_status": "W4_and_W2_review_pending",
+      "assistant_future": "protected_read_requires_fiscal_capability_not_registered",
+      "supabase_tested_head": "d1345e0a69e3716e1def2eb410e9da865907fac5"
+    },
+    {
+      "name": "invoice.summary",
+      "version": "billing.v1",
+      "kind": "read",
+      "rpc": "billing_v1_invoice_summary",
+      "input_type": "BillingQueriesV1['invoice.summary']",
+      "output_type": "BillingReadDataV1",
+      "minimum_role": "admin",
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "backend_status": "candidate_sql_native_tested",
+      "transport": {
+        "method": "POST",
+        "enabled_by_default": false,
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "server_cookie_getUser_active_membership",
+        "status": "implemented_default_off",
+        "path": "/api/billing/v1/queries"
+      },
+      "supabase_tested": false,
+      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
+      "ui_safe": false,
+      "ui_safe_status": "W4_and_W2_review_pending",
+      "assistant_future": "protected_read_requires_fiscal_capability_not_registered"
+    },
+    {
+      "name": "invoice.list",
+      "version": "billing.v1",
+      "kind": "read",
+      "rpc": "billing_v1_invoice_list",
+      "input_type": "BillingQueriesV1['invoice.list']",
+      "output_type": "BillingReadDataV1",
+      "minimum_role": "admin",
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "backend_status": "candidate_sql_native_tested",
+      "transport": {
+        "method": "POST",
+        "enabled_by_default": false,
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "server_cookie_getUser_active_membership",
+        "status": "implemented_default_off",
+        "path": "/api/billing/v1/queries"
+      },
+      "supabase_tested": false,
+      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
+      "ui_safe": false,
+      "ui_safe_status": "W4_and_W2_review_pending",
+      "assistant_future": "protected_read_requires_fiscal_capability_not_registered"
+    },
+    {
+      "name": "invoice.financial_summary",
+      "version": "billing.v1",
+      "kind": "read",
+      "rpc": "billing_v1_invoice_financial_summary",
+      "input_type": "BillingQueriesV1['invoice.financial_summary']",
+      "output_type": "BillingReadDataV1",
+      "minimum_role": "admin",
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "backend_status": "candidate_sql_native_tested",
+      "transport": {
+        "method": "POST",
+        "enabled_by_default": false,
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "server_cookie_getUser_active_membership",
+        "status": "implemented_default_off",
+        "path": "/api/billing/v1/queries"
+      },
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": false,
+      "ui_safe_status": "W4_and_W2_review_pending",
+      "assistant_future": "protected_read_requires_fiscal_capability_not_registered",
+      "supabase_tested_head": "d1345e0a69e3716e1def2eb410e9da865907fac5"
+    },
+    {
+      "name": "configuration.get",
+      "version": "billing.v1",
+      "kind": "read",
+      "rpc": "billing_v1_configuration_get",
+      "input_type": "BillingQueriesV1['configuration.get']",
+      "output_type": "BillingReadDataV1",
+      "minimum_role": "admin",
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "backend_status": "candidate_sql_native_tested",
+      "transport": {
+        "method": "POST",
+        "enabled_by_default": false,
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "server_cookie_getUser_active_membership",
+        "status": "implemented_default_off",
+        "path": "/api/billing/v1/queries"
+      },
+      "supabase_tested": false,
+      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
+      "ui_safe": false,
+      "ui_safe_status": "W4_and_W2_review_pending",
+      "assistant_future": "protected_read_requires_fiscal_capability_not_registered"
     }
   ],
   "unavailable_modules": [
     "portfolio_product_writes",
-    "billing_product_commands",
     "document_product_workflow",
     "inbox_product_workflow",
     "automation_product_commands",
     "canonical_team_management",
-    "product_import_workflow"
+    "product_import_workflow",
+    "billing_private_pdf",
+    "proposals",
+    "advanced_billing_analytics"
   ],
   "registration": "Human product contracts only; no assistant capability registration or deployment authorization."
 }

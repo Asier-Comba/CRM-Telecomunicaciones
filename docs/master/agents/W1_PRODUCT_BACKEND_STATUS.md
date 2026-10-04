@@ -89,3 +89,13 @@ Supabase acceptance exposed wrong raw-PostgREST HTTP conflict assumption; fixed
 assertion now checks SQLSTATE40001. New actual Next/billing evidence remains pending.
 BILLING_OPEN: private PDF objects/capabilities, proposals and advanced analytics.
 NEXT: dashboard v2/global search; exact-head native/Supabase evidence; catalog/fixtures.
+
+## Actual Next canonical-origin repair
+
+Supabase run7 on f4faad8 isolated failure to Next403/access_denied. Reproduced on the real local built Next server: request Host127.0.0.1, route URLlocalhost; comparing Origin with internal request.url rejected the legitimate origin. Product HTTP now requires server PRODUCT_V1_ORIGIN and exact Host/Origin matching, never forwarded-host authority. Missing/malformed config fails503. 172 tests/lint/build/types PASS; native density CI285PASS with retained EXPLAIN plans. Actual corrected-platform acceptance queued; no UI-safe assertion or production enablement. Machine-readable catalog covers28 writes+7 reads and explicitly records pending/failed platform status.
+
+Canonical-origin repair reconciled on billing8d8acbc shared envelope: both product and billing routes require PRODUCT_V1_ORIGIN. Preserved billing65KiB versus product12KiB body bounds and protected billing owner/admin scope. Combined179 tests/lint/build/types PASS,33 migrations/126-function embedded fresh/restored PASS,200 SQL/BigInt billing vectors PASS. Catalog now contains49 human operations (28product writes+7reads,9billing writes+5reads); none registered as assistant tools or declared UI-safe.
+
+## Exact actual-platform acceptance d1345e0
+
+Supabase run9/37217995302 PASS:379 checks,33 migrations, actual Auth/JWT/PostgREST/Storage, real Next cookie product/billing routes, per-family20 HTTP create/CAS races, valid-JWT membership suspension, dashboard/search, billing exact snapshot/issuance/payment reads and clean teardown. Browser private-value boundary PASS. CI288 native fresh/restored126-function matrix/races/density PASS; quality still fails inherited audit only. Catalog records individually exercised operations rather than inferring every lifecycle operation from a family pass. Follow-up adds Host/config validation while preserving the published canonical-origin fix;180 local tests/types PASS and exact follow-up CI pending. UI-safe staysfalse pending W4/W2 review.

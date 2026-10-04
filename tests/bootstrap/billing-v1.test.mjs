@@ -3,7 +3,8 @@ import assert from 'node:assert/strict'
 import { calculateBillingV1,parseBillingInputV1,parseBillingReceiptV1,parseBillingLinesV1 } from '../../src/lib/server/billing-runtime-v1.ts'
 import { parseBillingQueryV1,parseBillingReadV1 } from '../../src/lib/server/billing-query-runtime-v1.ts'
 import { BillingServiceV1 } from '../../src/lib/server/billing-service-v1.ts'
-import { billingHttpV1 } from '../../src/lib/server/billing-http-v1.ts'
+import { billingHttpV1 as http } from '../../src/lib/server/billing-http-v1.ts'
+const billingHttpV1=(request,kind,factory)=>http(request,kind,factory,'http://localhost')
 const id='10000000-0000-4000-8000-000000000001'
 const line={description:'Synthetic',quantity_milli:1500,unit_price_minor:101,discount_bps:500,tax_bps:2100,withholding_bps:1500}
 const draft={command_id:id,customer_id:id,issue_on:'2026-10-04',due_on:null,series:'A',currency:'EUR',lines:[line]}
@@ -37,7 +38,7 @@ test('billing query bounds and actual-source aggregate identities reject inconsi
 })
 test('billing HTTP shares CSRF guard and bigger streaming cap but refuses generic product authority',async()=>{
  let calls=0;const factory=async()=>{calls++;return new BillingServiceV1({resolve:async()=>({workspaceId:id,role:'owner'}),rpc:async()=>({error:null,data:{contract_version:'billing.v1',command_id:id,operation:'invoice.create_draft',id,version:1,status:'draft',number:null}})})}
- const req=(body,origin='http://localhost')=>new Request('http://localhost/api/billing/v1/commands',{method:'POST',headers:{origin,'content-type':'application/json'},body:JSON.stringify(body)})
+ const req=(body,origin='http://localhost')=>new Request('http://localhost/api/billing/v1/commands',{method:'POST',headers:{host:'localhost',origin,'content-type':'application/json'},body:JSON.stringify(body)})
  assert.equal((await billingHttpV1(req({operation:'invoice.create_draft',input:draft}),'commands',factory)).status,200)
  assert.equal((await billingHttpV1(req({operation:'invoice.create_draft',input:draft},'https://foreign.invalid'),'commands',factory)).status,403)
  assert.equal((await billingHttpV1(req({operation:'customer.create',input:draft}),'commands',factory)).status,400)
