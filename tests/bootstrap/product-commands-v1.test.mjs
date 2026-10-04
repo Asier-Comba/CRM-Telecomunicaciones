@@ -19,7 +19,7 @@ test('normal command projects server workspace; receipt excludes PII and authori
 for(const key of ['workspace_id','created_by','actor_id','status','source','tax_identifier','storage_path']) test(`mass assignment ${key} denied before DB`,async()=>{
  const {service,calls}=harness();assert.deepEqual(await service.execute('customer.create',{...input,[key]:id}),{ok:false,error:'validation'});assert.equal(calls.length,0)
 })
-for(const role of ['viewer','member',null])test(`role ${role} cannot mutate`,async()=>{
+for(const role of ['viewer',null])test(`role ${role} cannot mutate`,async()=>{
  const {service,calls}=harness({role});assert.deepEqual(await service.execute('customer.create',input),{ok:false,error:'access_denied'});assert.equal(calls.length,0)
 })
 test('hostile values, malformed UUID, unknown operation and oversize fail closed',async()=>{
@@ -72,3 +72,5 @@ test('contact editor rejects accessor arrays without executing getter',()=>{
  assert.equal(parseContactEditorPageV1(command,1,null,{contract_version:'product.v1',customer_id:command,items,next_id:null}),null)
  assert.equal(calls,0)
 })
+
+test('member has explicit normal commercial capability',async()=>{const {service}=harness({role:'member'});assert.equal((await service.execute('customer.create',input)).ok,true)})

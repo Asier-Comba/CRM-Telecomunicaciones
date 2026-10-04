@@ -1,6 +1,5 @@
 import type { ProductOperationV1, ProductResultV1 } from '../contracts/product-v1'
 import { isProductOperationV1, parseProductInputV1, parseProductReceiptV1, PRODUCT_RPC_V1, parseCustomerEditorV1, parseContactEditorPageV1 } from './product-runtime-v1.ts'
-import { isWorkOperationV1 } from './product-work-runtime-v1.ts'
 import { isUuidV1 } from './product-work-runtime-v1.ts'
 import { parseCalendarInputV1,parseCalendarPageV1,parseWorkGetV1,parseStageCatalogV1 } from './product-query-runtime-v1.ts'
 export interface ProductUserPortV1 {
@@ -18,7 +17,7 @@ export class ProductServiceV1 {
       const input = parseProductInputV1(operation, unknownInput)
       if (input === null) return { ok: false, error: 'validation' }
       const context = await this.#port.resolve()
-      if (context === null || !(isWorkOperationV1(operation) ? ['owner','admin','member'] : ['owner','admin']).includes(context.role)) return { ok: false, error: 'access_denied' }
+      if (context === null || !['owner','admin','member'].includes(context.role)) return { ok: false, error: 'access_denied' }
       const response = await this.#port.rpc(PRODUCT_RPC_V1[operation], { p_workspace_id: context.workspaceId, p_input: input })
       if (response.error !== null) {
         const code = response.error.code
@@ -66,7 +65,7 @@ export class ProductServiceV1 {
       return { ok: false as const, error: 'validation' as const }
     try {
       const context = await this.#port.resolve()
-      if (context === null || !['owner', 'admin'].includes(context.role)) return { ok: false as const, error: 'access_denied' as const }
+      if (context === null || !['owner', 'admin', 'member'].includes(context.role)) return { ok: false as const, error: 'access_denied' as const }
       const response = await this.#port.rpc(name, { p_workspace_id: context.workspaceId, p_customer_id: id,
         ...(name === 'product_v1_contact_editors' ? { p_limit: limit, p_after_id: after } : {}) })
       if (response.error !== null) return { ok: false as const, error: response.error.code === '42501' ? 'access_denied' as const : 'internal_safe' as const }

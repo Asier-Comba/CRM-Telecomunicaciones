@@ -75,3 +75,19 @@ CI275 full quality job is red solely at the inherited all-dependency audit after
 lint/types/138 tests/build passed. Issue29 tracks GHSA-vfj7-8cjw-p6xm; no patched
 braces release currently recorded upstream. No gate bypass or incompatible
 ESLint downgrade was applied. Remaining product modules are not implemented.
+
+## Continuation 2026-10-04
+
+The concurrent published B3 ce8b1fd is adopted without duplicate migrations.
+Its exact work/calendar/stage/get contracts are authoritative in
+PRODUCT_WORK_V1_CONTRACT.md. Extra candidate transport: POST
+/api/product/v1/commands or /queries, closed {operation,input}, no-store,
+Origin and Fetch-Site checks, JSON identity encoding,12KiB streaming cap.
+Commands use registered product.v1 operations. Reads: calendar.list -> calendar(),
+work.get {kind,id} -> workGet(), opportunity.stages {limit?,after_id?} -> stageCatalog(),
+customer.editor {id}, contact.editors {customer_id,limit?,after_id?}.
+PRODUCT_V1_ENABLED=true enables routes (default unavailable).
+Forward migration30 extends normal customer/contact/editor capabilities to member;
+viewer keeps only work/calendar reads. Fiscal/team/integration scopes are unchanged.
+Actual Auth/JWT/PostgREST and Next cookie acceptance extends reviewed PR25 harness.
+Auth credentials are transient synthetic data; native/Supabase execution awaits CI.

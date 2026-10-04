@@ -56,3 +56,12 @@ DB: local 29 migrations + existing/B3 SQL + 102-function privilege manifest PASS
 SUPABASE_LOCAL: B3 actual Auth/JWT/PostgREST not yet executed; no UI permission inferred.
 ISSUE29: checked once 2026-10-04; registry latest braces remains3.0.3 and latest Next ESLint still uses fast-glob3.3.1. Keep open and keep full audit/lint gates.
 NEXT: publish/review B3 CI; dashboard v2/global search; exact billing + transport/local Supabase.
+
+## Concurrent checkpoint reconciliation
+
+Adopted ce8b1fd B3, preserved local duplicate implementation in safety branch.
+Additional transport/session/CSRF/byte bounds and real Supabase/Next harness
+candidate; forward migration30 explicitly permits member normal customer/contact
+operations and authorized contact editors. No fiscal/team authority added.
+Local/CI evidence is refreshed after reconciliation; no prior duplicate29 migration
+claim substituted for the final tree. Continue dashboard/search/billing.

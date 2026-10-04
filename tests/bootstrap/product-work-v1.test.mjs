@@ -17,13 +17,13 @@ for(const op of Object.keys(WORK_RPC_V1)){
   for(const bad of [{...input,workspace_id:id},{...input,status:'won'},{...input,version:5},{...input,command_id:[]},null,new Date(),new Proxy({},{getPrototypeOf(){throw Error('hostile')}})])assert.equal(parseProductInputV1(op,bad),null)
  })
 }
-test('member product policy enables work, preserves denied customer/contact and viewer',async()=>{
+test('member product policy enables work and identity while viewer remains denied',async()=>{
  for(const role of ['member','viewer']){
   let calls=0
-  const service=new ProductServiceV1({resolve:async()=>({workspaceId:id,role}),rpc:async()=>{calls++;return {error:null,data:{contract_version:'product.v1',command_id:command,operation:'task.create',id,version:1,status:'pending'}}}})
+  const service=new ProductServiceV1({resolve:async()=>({workspaceId:id,role}),rpc:async(name)=>{calls++;const customer=name==='product_v1_customer_create';return {error:null,data:{contract_version:'product.v1',command_id:command,operation:customer?'customer.create':'task.create',id,version:1,status:customer?'active':'pending'}}}})
   assert.equal((await service.execute('task.create',valid['task.create'])).ok,role==='member')
-  assert.equal((await service.execute('customer.create',{command_id:command,account_kind:'legal_entity',legal_name:'Synthetic'})).error,'access_denied')
-  assert.equal(calls,role==='member'?1:0)
+  assert.equal((await service.execute('customer.create',{command_id:command,account_kind:'legal_entity',legal_name:'Synthetic'})).ok,role==='member')
+  assert.equal(calls,role==='member'?2:0)
  }
 })
 test('strict instants distinguish fall DST offsets, reject rollover, missing offset and equal range',()=>{

@@ -1,0 +1,60 @@
+name: Supabase local acceptance
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - '.github/workflows/supabase-local.yml'
+      - 'scripts/security/supabase-local/**'
+      - 'supabase/config.toml'
+      - 'src/lib/server/product-*.ts'
+      - 'src/app/api/product/**'
+      - 'supabase/migrations/**'
+permissions:
+  contents: read
+env:
+  CI: 'true'
+concurrency:
+  group: supabase-local-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  browser-secret-boundary:
+    name: Browser bundle private-value boundary
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version-file: .nvmrc
+      - name: Build with private test canaries and scan actual client assets
+        run: node scripts/security/supabase-local/browser-secret-check.mjs
+  local-platform:
+    name: Supabase local Auth PostgREST Storage acceptance
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version-file: .nvmrc
+      - name: Install and build application transport
+        run: |
+          npm ci
+          npm run build
+      - name: Pinned official CLI
+        uses: supabase/setup-cli@45a513f8c64c0bc8e0e3dfe572b5c95be85f6359 # v3.0.1
+        with:
+          version: 2.119.0
+      - name: Disposable real-local stack and acceptance
+        run: node scripts/security/supabase-local/run-stack.mjs
+      - name: Retain safe summary only
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: supabase-local-safe-evidence
+          path: ${{ runner.temp }}/w4-supabase-safe-evidence.json
+          retention-days: 7

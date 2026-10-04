@@ -6,14 +6,14 @@ end $$;
 insert into auth.users(id,email) values
  ('61000000-0000-4000-8000-000000000001','owner-a@example.invalid'),
  ('61000000-0000-4000-8000-000000000002','owner-b@example.invalid'),
- ('61000000-0000-4000-8000-000000000003','member-a@example.invalid');
+ ('61000000-0000-4000-8000-000000000003','viewer-a@example.invalid');
 insert into public.workspaces(id,name,slug) values
  ('62000000-0000-4000-8000-000000000001','Synthetic Command A','synthetic-command-a'),
  ('62000000-0000-4000-8000-000000000002','Synthetic Command B','synthetic-command-b');
 insert into public.workspace_members(workspace_id,user_id,role) values
  ('62000000-0000-4000-8000-000000000001','61000000-0000-4000-8000-000000000001','owner'),
  ('62000000-0000-4000-8000-000000000002','61000000-0000-4000-8000-000000000002','admin'),
- ('62000000-0000-4000-8000-000000000001','61000000-0000-4000-8000-000000000003','member');
+ ('62000000-0000-4000-8000-000000000001','61000000-0000-4000-8000-000000000003','viewer');
 create function pg_temp.product_assert(ok boolean) returns void language plpgsql as $$
 begin if ok is not true then raise exception 'product assertion failed'; end if; end $$;
 create function pg_temp.product_denied(query text,code text) returns void language plpgsql as $$
