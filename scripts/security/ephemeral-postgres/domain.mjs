@@ -65,6 +65,12 @@ try {
   console.log('PRODUCT TASK/CALENDAR/OPPORTUNITY ASSERTIONS PASS')
   await db.exec(await readFile(resolve(root, 'supabase/tests/product-dashboard-search.sql'), 'utf8'))
   console.log('PRODUCT DASHBOARD/SEARCH ASSERTIONS PASS')
+  const richSeed = await readFile(resolve(root, 'supabase/seeds/synthetic_product.sql'), 'utf8')
+  assert.match(richSeed, /commit;\s*$/i)
+  const densityChecks = await readFile(resolve(root, 'supabase/tests/product-rich-density.sql'), 'utf8')
+  await db.exec(richSeed.replace(/commit;\s*$/i, '') + densityChecks)
+  console.log('PRODUCT RICH DENSITY COUNTS/CURSOR/SCOPE ASSERTIONS PASS (25 companies, 400 lines)')
+
   const privileges = await db.query(await readFile(resolve(root, 'scripts/security/native-postgres/privilege-snapshot.sql'), 'utf8'))
   const manifest = JSON.parse(await readFile(resolve(root, 'scripts/security/native-postgres/function-privileges.json'), 'utf8'))
   assert.deepEqual(privileges.rows[0].snapshot.functions, manifest.functions)

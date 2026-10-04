@@ -12,7 +12,7 @@ export async function workReadAcceptance({rpc,sql,check,http,users,wa,wb,ca,url,
   check(attempts.every(r=>r.status===200&&JSON.stringify(r.json)===JSON.stringify(attempts[0].json)),'work_'+family+'_20_http_replays')
   const id=attempts[0].json.id
   const edits=await Promise.all(Array.from({length:20},()=>rpc('product_v1_'+family+'_update',{p_workspace_id:wa,p_input:{command_id:key(),id,expected_version:1,title:'B5 CAS winner'}},users.memberA.token)))
-  check(edits.filter(r=>r.status===200).length===1&&edits.filter(r=>r.status===409&&r.json?.code==='40001').length===19,'work_'+family+'_20_http_CAS')
+  check(edits.filter(r=>r.status===200).length===1&&edits.filter(r=>r.status===500&&r.json?.code==='40001').length===19,'work_'+family+'_20_http_CAS')
   check(Number(sql(`select count(*) from public.product_audit_events where entity_id='${id}'`))===2,'work_'+family+'_atomic_audits')
   for(const u of [users.viewerA,users.ownerB])check((await rpc('product_v1_'+family+'_create',{p_workspace_id:wa,p_input:{...input,command_id:key()}},u.token)).status>=400,'work_'+family+'_role_foreign_denied')
  }

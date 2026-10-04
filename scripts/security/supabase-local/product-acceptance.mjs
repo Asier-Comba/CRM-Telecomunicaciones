@@ -6,10 +6,12 @@ export async function productAcceptance({rpc,sql,check,users,wa,wb,ca,url,anon,a
  const base={command_id:randomUUID(),title:'Real JWT Synthetic task',customer_id:ca}
  const first=await invoke('task_create',base);check(first.status===200 && first.json?.version===1,'product_member_task_create')
  check(JSON.stringify((await invoke('task_create',base)).json)===JSON.stringify(first.json),'product_task_replay')
- check((await invoke('task_create',{...base,title:'Changed'})).status===409,'product_changed_input_conflict')
+ const changed=await invoke('task_create',{...base,title:'Changed'})
+ check(changed.status===500 && changed.json?.code==='40001','product_changed_input_conflict')
  const update={command_id:randomUUID(),id:first.json.id,expected_version:1,title:'Real JWT Synthetic edit'}
  check((await invoke('task_update',update)).json?.version===2,'product_task_update')
- check((await invoke('task_update',{...update,command_id:randomUUID()})).status===409,'product_stale_conflict')
+ const stale=await invoke('task_update',{...update,command_id:randomUUID()})
+ check(stale.status===500 && stale.json?.code==='40001','product_stale_conflict')
  for(const u of [users.ownerA,users.adminA,users.memberA]) {
   const customer=await invoke('customer_create',{command_id:randomUUID(),account_kind:'legal_entity',legal_name:'Real JWT Synthetic '+u.role},u)
   check(customer.status===200 && customer.json?.version===1,'product_customer_role_'+u.role)
@@ -44,6 +46,7 @@ export async function productAcceptance({rpc,sql,check,users,wa,wb,ca,url,anon,a
  const httpInput={operation:'task.create',input:{command_id:randomUUID(),title:'Next transport Synthetic'}}
  const next=await app(httpInput);check(next.status===200 && next.json?.receipt?.status==='pending','product_actual_next_cookie_user_jwt_transport')
  check(JSON.stringify((await app(httpInput)).json)===JSON.stringify(next.json),'product_actual_transport_replay')
+ check((await app({...httpInput,input:{...httpInput.input,title:'Changed Next input'}})).status===409,'product_actual_transport_conflict_mapping')
  check((await app({...httpInput,actor_id:users.ownerA.id})).status===400,'product_actual_transport_authority_denied')
  check((await app(httpInput,'https://foreign.invalid')).status===403,'product_actual_transport_csrf')
  return {product_commands:'PASS',product_transport:'PASS',product_roles:'PASS',product_calendar_overlap:'PASS'}
