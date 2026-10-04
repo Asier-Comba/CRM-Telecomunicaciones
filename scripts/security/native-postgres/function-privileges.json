@@ -706,6 +706,86 @@
       "authenticated": true
     },
     {
+      "signature": "public.team_v1_assert_scope(uuid)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": false,
+      "service_role": false
+    },
+    {
+      "signature": "public.team_v1_command(uuid, text, jsonb)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": false,
+      "service_role": false
+    },
+    {
+      "signature": "public.team_v1_finish(uuid, uuid, text, jsonb, uuid, bigint, text)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": false,
+      "service_role": false
+    },
+    {
+      "signature": "public.team_v1_member_cancel_invite(uuid, jsonb)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": true,
+      "service_role": false
+    },
+    {
+      "signature": "public.team_v1_member_invite_intent(uuid, jsonb)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": true,
+      "service_role": false
+    },
+    {
+      "signature": "public.team_v1_member_list(uuid, jsonb)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": true,
+      "service_role": false
+    },
+    {
+      "signature": "public.team_v1_member_remove(uuid, jsonb)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": true,
+      "service_role": false
+    },
+    {
+      "signature": "public.team_v1_member_resume(uuid, jsonb)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": true,
+      "service_role": false
+    },
+    {
+      "signature": "public.team_v1_member_role_change(uuid, jsonb)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": true,
+      "service_role": false
+    },
+    {
+      "signature": "public.team_v1_member_suspend(uuid, jsonb)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": true,
+      "service_role": false
+    },
+    {
       "anon": false,
       "public": false,
       "definer": true,

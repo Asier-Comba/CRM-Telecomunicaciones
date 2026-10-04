@@ -154,3 +154,16 @@ Adopted concurrent forward migration34 without modifying published migrations. N
 ## Final measured source7ec1910
 
 Read-only proposal candidate also accepted: actual Supabase run14/37219664880 PASS389 checks (normalized exact-money review proposal and member denial); native CI293/37219664908 fresh/restored35 migrations/128-function manifest/races/densityPASS. Quality183tests/lint/types/buildPASS then Issue29 full auditFAIL. Local183tests,35-migration/128-function embedded fresh/restored and200 billing vectorsPASS. Catalog51 operations (37writes/14reads),22 individually exercised; UI-safefalse. This final evidence edit changes only documentation, preserves concurrent implementation and does not claim complete B4/B8/B9 parity.
+
+## Team internal candidate
+
+Forward migration36 adds protected team.v1 normal USERJWT commands and member.list;
+138-function manifest. Local187tests/lint/types/build + embedded fresh/restored
+36migrations PASS. SQL proves owner/self/admin restrictions, closed roles, CAS/replay,
+valid actor revocation and audit-cut atomic rollback. Actual HTTP harness adds20
+same-intent retries/20 distinct roster CAS attempts and real SSR-cookie Next calls;
+these new checks require candidate CI. Invitation intents never send email/create
+Auth users/grant membership. Owner transfer/invite acceptance remain open. Catalog
+58 human operations; new team operations individually Supabase-pending/UI-safefalse.
+B4/B8/inbox/automations/import adapters still not claimed complete. No frontend,
+AI, real data/provider, production or permission broadening to bypass Storage.

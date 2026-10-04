@@ -51,6 +51,7 @@ test('the known Supabase drift remains explicit', () => {
       'profiles',
       'service_cases',
       'tasks',
+      'team_invite_intents',
       'telecom_commitments',
       'telecom_contracts',
       'telecom_lines',

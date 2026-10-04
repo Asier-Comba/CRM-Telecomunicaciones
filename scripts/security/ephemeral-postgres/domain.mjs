@@ -74,6 +74,8 @@ try {
 
   await db.exec(await readFile(resolve(root,'supabase/tests/billing-exact-issue.sql'),'utf8'))
   console.log('BILLING EXACT ISSUE/IMMUTABILITY/ROLLBACK PASS')
+  await db.exec(await readFile(resolve(root,'supabase/tests/team-protected-management.sql'),'utf8'))
+  console.log('TEAM PROTECTED AUTHORITY/CAS/REPLAY/REVOCATION/AUDIT ROLLBACK PASS')
   const {calculateBillingV1}=await import(pathToFileURL(resolve(root,'src/lib/server/billing-runtime-v1.ts')))
   let vectorState=20261004
   const draw=max=>{vectorState=(Math.imul(vectorState,1664525)+1013904223)>>>0;return vectorState%max}

@@ -56,6 +56,7 @@ target_relations(name) as (
     ('properties'),
     ('service_cases'),
     ('tasks'),
+    ('team_invite_intents'),
     ('telecom_commitments'),
     ('telecom_contracts'),
     ('telecom_lines'),

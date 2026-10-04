@@ -2018,6 +2018,307 @@
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "protected_read_requires_fiscal_capability_not_registered",
       "supabase_tested_head": "7ec1910b9eec238c0d1b95455d3fff6eef74a7cc"
+    },
+    {
+      "name": "member.invite_intent",
+      "version": "team.v1",
+      "kind": "write",
+      "rpc": "team_v1_member_invite_intent",
+      "input_type": "TeamInputsV1['member.invite_intent']",
+      "output_type": "TeamReceiptV1",
+      "minimum_role": "admin",
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor",
+        "changed_replay": "conflict"
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "backend_status": "candidate_protected_internal_sql_tested",
+      "transport": {
+        "method": "POST",
+        "enabled_by_default": false,
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "server_cookie_getUser_active_membership",
+        "status": "implemented_default_off",
+        "path": "/api/team/v1/commands"
+      },
+      "supabase_tested": false,
+      "supabase_status": "pending_exact_head_acceptance",
+      "ui_safe": false,
+      "ui_safe_status": "W4_and_W2_review_pending",
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "supabase_tested_head": "a8e7a6e486a775d2c5289421b36206a12ecec8f6",
+      "review_pending": [
+        "W4",
+        "W2"
+      ]
+    },
+    {
+      "name": "member.role_change",
+      "version": "team.v1",
+      "kind": "write",
+      "rpc": "team_v1_member_role_change",
+      "input_type": "TeamInputsV1['member.role_change']",
+      "output_type": "TeamReceiptV1",
+      "minimum_role": "admin",
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor",
+        "changed_replay": "conflict"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      },
+      "backend_status": "candidate_protected_internal_sql_tested",
+      "transport": {
+        "method": "POST",
+        "enabled_by_default": false,
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "server_cookie_getUser_active_membership",
+        "status": "implemented_default_off",
+        "path": "/api/team/v1/commands"
+      },
+      "supabase_tested": false,
+      "supabase_status": "pending_exact_head_acceptance",
+      "ui_safe": false,
+      "ui_safe_status": "W4_and_W2_review_pending",
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "supabase_tested_head": "a8e7a6e486a775d2c5289421b36206a12ecec8f6",
+      "review_pending": [
+        "W4",
+        "W2"
+      ]
+    },
+    {
+      "name": "member.suspend",
+      "version": "team.v1",
+      "kind": "write",
+      "rpc": "team_v1_member_suspend",
+      "input_type": "TeamInputsV1['member.suspend']",
+      "output_type": "TeamReceiptV1",
+      "minimum_role": "admin",
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor",
+        "changed_replay": "conflict"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      },
+      "backend_status": "candidate_protected_internal_sql_tested",
+      "transport": {
+        "method": "POST",
+        "enabled_by_default": false,
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "server_cookie_getUser_active_membership",
+        "status": "implemented_default_off",
+        "path": "/api/team/v1/commands"
+      },
+      "supabase_tested": false,
+      "supabase_status": "pending_exact_head_acceptance",
+      "ui_safe": false,
+      "ui_safe_status": "W4_and_W2_review_pending",
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "supabase_tested_head": "a8e7a6e486a775d2c5289421b36206a12ecec8f6",
+      "review_pending": [
+        "W4",
+        "W2"
+      ]
+    },
+    {
+      "name": "member.resume",
+      "version": "team.v1",
+      "kind": "write",
+      "rpc": "team_v1_member_resume",
+      "input_type": "TeamInputsV1['member.resume']",
+      "output_type": "TeamReceiptV1",
+      "minimum_role": "admin",
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor",
+        "changed_replay": "conflict"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      },
+      "backend_status": "candidate_protected_internal_sql_tested",
+      "transport": {
+        "method": "POST",
+        "enabled_by_default": false,
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "server_cookie_getUser_active_membership",
+        "status": "implemented_default_off",
+        "path": "/api/team/v1/commands"
+      },
+      "supabase_tested": false,
+      "supabase_status": "pending_exact_head_acceptance",
+      "ui_safe": false,
+      "ui_safe_status": "W4_and_W2_review_pending",
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "supabase_tested_head": "a8e7a6e486a775d2c5289421b36206a12ecec8f6",
+      "review_pending": [
+        "W4",
+        "W2"
+      ]
+    },
+    {
+      "name": "member.remove",
+      "version": "team.v1",
+      "kind": "write",
+      "rpc": "team_v1_member_remove",
+      "input_type": "TeamInputsV1['member.remove']",
+      "output_type": "TeamReceiptV1",
+      "minimum_role": "admin",
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor",
+        "changed_replay": "conflict"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      },
+      "backend_status": "candidate_protected_internal_sql_tested",
+      "transport": {
+        "method": "POST",
+        "enabled_by_default": false,
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "server_cookie_getUser_active_membership",
+        "status": "implemented_default_off",
+        "path": "/api/team/v1/commands"
+      },
+      "supabase_tested": false,
+      "supabase_status": "pending_exact_head_acceptance",
+      "ui_safe": false,
+      "ui_safe_status": "W4_and_W2_review_pending",
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "supabase_tested_head": "a8e7a6e486a775d2c5289421b36206a12ecec8f6",
+      "review_pending": [
+        "W4",
+        "W2"
+      ]
+    },
+    {
+      "name": "member.cancel_invite",
+      "version": "team.v1",
+      "kind": "write",
+      "rpc": "team_v1_member_cancel_invite",
+      "input_type": "TeamInputsV1['member.cancel_invite']",
+      "output_type": "TeamReceiptV1",
+      "minimum_role": "admin",
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor",
+        "changed_replay": "conflict"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      },
+      "backend_status": "candidate_protected_internal_sql_tested",
+      "transport": {
+        "method": "POST",
+        "enabled_by_default": false,
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "server_cookie_getUser_active_membership",
+        "status": "implemented_default_off",
+        "path": "/api/team/v1/commands"
+      },
+      "supabase_tested": false,
+      "supabase_status": "pending_exact_head_acceptance",
+      "ui_safe": false,
+      "ui_safe_status": "W4_and_W2_review_pending",
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "supabase_tested_head": "a8e7a6e486a775d2c5289421b36206a12ecec8f6",
+      "review_pending": [
+        "W4",
+        "W2"
+      ]
+    },
+    {
+      "name": "member.list",
+      "version": "team.v1",
+      "kind": "read",
+      "rpc": "team_v1_member_list",
+      "input_type": "TeamListInputV1",
+      "output_type": "TeamListV1",
+      "minimum_role": "admin",
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null,
+        "changed_replay": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "backend_status": "candidate_protected_internal_sql_tested",
+      "transport": {
+        "method": "POST",
+        "enabled_by_default": false,
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "server_cookie_getUser_active_membership",
+        "status": "implemented_default_off",
+        "path": "/api/team/v1/queries"
+      },
+      "supabase_tested": false,
+      "supabase_status": "pending_exact_head_acceptance",
+      "ui_safe": false,
+      "ui_safe_status": "W4_and_W2_review_pending",
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "supabase_tested_head": "a8e7a6e486a775d2c5289421b36206a12ecec8f6",
+      "review_pending": [
+        "W4",
+        "W2"
+      ]
     }
   ],
   "unavailable_modules": [
