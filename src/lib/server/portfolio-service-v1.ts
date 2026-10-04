@@ -3,7 +3,7 @@ import type {PortfolioOperationV1} from '../contracts/portfolio-v1'
 import {PORTFOLIO_RPC_V1,parsePortfolioInputV1,parsePortfolioReceiptV1,parsePortfolioGetInputV1,parsePortfolioGetV1} from './portfolio-runtime-v1.ts'
 import type {ProductErrorV1} from '../contracts/product-v1'
 const failure=(error:ProductErrorV1)=>({ok:false as const,error})
-function dbError(code?:string):ProductErrorV1{return code==='42501'?'access_denied':code==='P0002'?'not_found':['40001','23505','40P01'].includes(code??'')?'conflict':['22023','22P02','23514','23503','22007'].includes(code??'')?'validation':'internal_safe'}
+function dbError(code?:string):ProductErrorV1{return code==='42501'?'access_denied':code==='P0002'?'not_found':['40001','23505','40P01','23P01'].includes(code??'')?'conflict':['22023','22P02','23514','23503','22007'].includes(code??'')?'validation':'internal_safe'}
 export class PortfolioServiceV1{
  readonly port:ProductUserPortV1
  constructor(port:ProductUserPortV1){this.port=port}

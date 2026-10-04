@@ -42,3 +42,24 @@ test('portfolio HTTP inherits exact Origin and rejects forged authority before d
  assert.equal((await portfolioHttpV1(request('provider.send',create),'commands',async()=>service,origin)).status,400)
  assert.equal(calls,1)
 })
+test('renewal window and permanence inputs preserve closed canonical dates and reasons',()=>{
+ const renewal={command_id,contract_id:id,target_on:'2027-01-01',opens_on:'2026-12-01',closes_on:'2027-01-31'}
+ assert.ok(parsePortfolioInputV1('contract.record_renewal',renewal))
+ assert.ok(parsePortfolioInputV1('contract.record_renewal',{...renewal,opens_on:null,closes_on:null}))
+ for(const patch of [{opens_on:null},{closes_on:'2026-12-31'},{target_on:'2027-02-30'},{source:'import'},{status:'completed'}])assert.equal(parsePortfolioInputV1('contract.record_renewal',{...renewal,...patch}),null)
+ const permanence={command_id,contract_id:id,commitment_kind:'minimum_term',starts_on:'2026-01-01',ends_on:'2027-01-01',reason_code:'manual_term'}
+ assert.ok(parsePortfolioInputV1('permanence.create_manual',permanence))
+ for(const patch of [{ends_on:'2025-12-31'},{reason_code:'Free form'},{commitment_kind:'billing'},{source:'manual'}])assert.equal(parsePortfolioInputV1('permanence.create_manual',{...permanence,...patch}),null)
+})
+test('deadline receipts use entity lifecycle and CAS instead of contractual state',()=>{
+ const r={contract_version:'portfolio.v1',operation:'contract.record_renewal',command_id,id,version:1,status:'open',source:'manual'}
+ assert.ok(parsePortfolioReceiptV1('contract.record_renewal',{command_id,contract_id:id,target_on:'2027-01-01',opens_on:null,closes_on:null},r))
+ const edit={command_id,id,expected_version:2,reason_code:'human_resolved'}
+ assert.ok(parsePortfolioReceiptV1('renewal.resolve',edit,{...r,operation:'renewal.resolve',version:3,status:'completed'}))
+ assert.equal(parsePortfolioReceiptV1('renewal.resolve',edit,{...r,operation:'renewal.resolve',version:3,status:'open'}),null)
+})
+test('deadline editors validate window bounds and immutable association',()=>{
+ const input={kind:'renewal',id},record={id,version:2,status:'open',source:'manual',contract_id:randomUUID(),target_on:'2027-01-01',opens_on:null,closes_on:null,reason_code:null},v={contract_version:'portfolio.v1',kind:'renewal',record}
+ assert.ok(parsePortfolioGetV1(input,v))
+ for(const patch of [{closes_on:'2027-01-01'},{contract_id:null},{reason_code:'secret arbitrary text'},{target_on:'2027-02-30'},{status:'active'}])assert.equal(parsePortfolioGetV1(input,{...v,record:{...record,...patch}}),null)
+})

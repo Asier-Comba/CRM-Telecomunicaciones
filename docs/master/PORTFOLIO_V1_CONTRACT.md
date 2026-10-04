@@ -29,3 +29,21 @@ Validation: closed fields, UUIDs, safe positive versions, date-only 1900–2199 
 Candidate evidence: local 192 Node tests,37-migration embedded PostgreSQL fresh/restored privilege matrix150functions and SQL provenance/CAS/replay/suspension/audit rollback fixture. Added native independent20-process create/CAS checks per family and parent closure/child creation races; added actual Auth/PostgREST20-request families, valid-JWT revocation and real Next SSR-cookie editor/write acceptance. These native/actual-platform additions remain pending exact published-head CI until separately recorded. UI-safe remains false pending W4/W2 review.
 
 Remaining B4: renewal/permanence record/update/resolve/dismiss/supersede and additional lifecycle history/read density. No archive alias disguises contractual cancellation. B8 document workflow/imports and B9 inbox/automations remain open; team has a separate concurrent candidate. No full behavioral parity percentage is claimed.
+
+## Renewal/permanence extension
+
+Seven additional manual commands extend the same routes, types, authentication, receipt, private audit and CAS/replay boundary:
+
+| Operation | Closed input beyond command_id | Behavior |
+|---|---|---|
+| contract.record_renewal | contract_id, target_on, opens_on, closes_on | Manual live contract only; opens/closes both null or ordered containing target; unique target and exclusion constraint prevent overlapping windows |
+| renewal.update | id, expected_version, target_on, opens_on, closes_on | Manual open record only; full bounded date replacement; closed/imported facts cannot be rewritten |
+| renewal.resolve | id, expected_version, reason_code | Open→completed; completion timestamp from server |
+| renewal.dismiss | id, expected_version, reason_code | Open→dismissed; dismissal timestamp from server |
+| permanence.create_manual | contract_id, commitment_kind, starts_on, ends_on, reason_code; optional service_id | Manual live contract; optional same-contract live manual service; ordered term at/after contract start |
+| permanence.update | id, expected_version, starts_on, ends_on, reason_code | Manual open administrative record only; identity/kind/link/source immutable |
+| permanence.cancel | id, expected_version, reason_code | Open→cancelled; server actor/time and closed coded reason |
+
+portfolio.get accepts renewal/permanence kinds and returns their authoritative versions, provenance, dates and closed reason codes. Existing product calendar DTO keeps its legacy null version for those kinds; obtain portfolio.get before editing. A contractual cancellation does not silently resolve or cancel deadlines; open manual deadlines may be explicitly resolved/dismissed/cancelled after parent closure. Date editing/new recording requires a live parent. Imported/integration deadlines are read-only. Supersede is unavailable; no invented alias erases historical facts.
+
+Forward migration1930 privately wraps the existing portfolio editor, preserves old fields/ACLs and extends coded creation activities to .create_manual and contract.record_renewal. Other product operations retain their existing activity classification. Private base editor is explicitly revoked and included in the privilege manifest. Candidate38migrations/161functions; new native/Supabase family races and revocation checks are pending exact published head. Previous core497a558: native CI296/37222106155 PASS; Supabase run17/37222106102 PASS457checks, browser boundary/teardown PASS; quality192tests/lint/types/build PASS then Issue29 audit FAIL.

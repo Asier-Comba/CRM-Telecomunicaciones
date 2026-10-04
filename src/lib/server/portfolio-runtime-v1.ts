@@ -8,6 +8,7 @@ const label=(v:unknown)=>typeof v==='string'&&v.trim().length>0&&v.length<=200&&
 const keys=(v:Record<string,unknown>,k:string)=>Object.keys(v).sort().join(',')===k.split(',').sort().join(',')
 const serviceKinds=['mobile','fiber','fixed_voice','data_connectivity','other']
 export const PORTFOLIO_RPC_V1={
+ 'contract.record_renewal':'portfolio_v1_contract_record_renewal','renewal.update':'portfolio_v1_renewal_update','renewal.resolve':'portfolio_v1_renewal_resolve','renewal.dismiss':'portfolio_v1_renewal_dismiss','permanence.create_manual':'portfolio_v1_permanence_create_manual','permanence.update':'portfolio_v1_permanence_update','permanence.cancel':'portfolio_v1_permanence_cancel',
  'contract.create_manual':'portfolio_v1_contract_create_manual','contract.update_allowed_metadata':'portfolio_v1_contract_update_allowed_metadata','contract.activate':'portfolio_v1_contract_activate','contract.cancel':'portfolio_v1_contract_cancel',
  'service.create_manual':'portfolio_v1_service_create_manual','service.update_label':'portfolio_v1_service_update_label','service.transition':'portfolio_v1_service_transition',
  'line.create_manual':'portfolio_v1_line_create_manual','line.update_label':'portfolio_v1_line_update_label','line.transition':'portfolio_v1_line_transition'
@@ -17,21 +18,26 @@ export function parsePortfolioInputV1<O extends PortfolioOperationV1>(op:O,value
  try{
   if(!isPortfolioOperationV1(op)||!plain(value)||!uuid(value.command_id))return null
   const required:Record<PortfolioOperationV1,string>={
+   'contract.record_renewal':'command_id,contract_id,target_on,opens_on,closes_on','renewal.update':'command_id,id,expected_version,target_on,opens_on,closes_on','renewal.resolve':'command_id,id,expected_version,reason_code','renewal.dismiss':'command_id,id,expected_version,reason_code','permanence.create_manual':'command_id,contract_id,commitment_kind,starts_on,ends_on,reason_code','permanence.update':'command_id,id,expected_version,starts_on,ends_on,reason_code','permanence.cancel':'command_id,id,expected_version,reason_code',
    'contract.create_manual':'command_id,customer_id,operator_id,start_date','contract.update_allowed_metadata':'command_id,id,expected_version,assigned_user_id','contract.activate':'command_id,id,expected_version,signed_date','contract.cancel':'command_id,id,expected_version',
    'service.create_manual':'command_id,contract_id,service_kind,display_name','service.update_label':'command_id,id,expected_version,display_name','service.transition':'command_id,id,expected_version,status,effective_on',
    'line.create_manual':'command_id,service_id,display_name','line.update_label':'command_id,id,expected_version,display_name','line.transition':'command_id,id,expected_version,status,effective_on'
   }
-  const req=required[op].split(','),optional=op==='contract.create_manual'?['plan_version_id','assigned_user_id']:op==='service.create_manual'?['plan_version_id']:[]
+  const req=required[op].split(','),optional=op==='contract.create_manual'?['plan_version_id','assigned_user_id']:op==='service.create_manual'?['plan_version_id']:op==='permanence.create_manual'?['service_id']:[]
   if(req.some(k=>!Object.hasOwn(value,k))||Object.keys(value).some(k=>![...req,...optional].includes(k)))return null
   for(const [k,v]of Object.entries(value)){
-   if(v===null){if(!['plan_version_id','assigned_user_id'].includes(k))return null}
+   if(v===null){if(!['plan_version_id','assigned_user_id','service_id','opens_on','closes_on'].includes(k))return null}
    else if(k.endsWith('_id')||k==='id'){if(!uuid(v))return null}
    else if(k==='expected_version'){if(!version(v))return null}
-   else if(['start_date','signed_date','effective_on'].includes(k)){if(!date(v))return null}
+   else if(['start_date','signed_date','effective_on','target_on','opens_on','closes_on','starts_on','ends_on'].includes(k)){if(!date(v))return null}
    else if(k==='display_name'){if(!label(v))return null}
    else if(k==='service_kind'){if(!serviceKinds.includes(v as string))return null}
+   else if(k==='reason_code'){if(typeof v!=='string'||!/^[a-z0-9][a-z0-9_-]{0,63}$/.test(v))return null}
+   else if(k==='commitment_kind'){if(!['minimum_term','device','subsidy','discount','other'].includes(v as string))return null}
    else if(k==='status'&&!['active','suspended','ended','cancelled'].includes(v as string))return null
   }
+  if(op==='contract.record_renewal'||op==='renewal.update'){if((value.opens_on===null)!==(value.closes_on===null)||value.opens_on!==null&&((value.opens_on as string)>(value.target_on as string)||(value.closes_on as string)<(value.target_on as string)))return null}
+  if(['permanence.create_manual','permanence.update'].includes(op)&&(value.ends_on as string)<(value.starts_on as string))return null
   return Object.freeze(Object.fromEntries(Object.entries(value).map(([k,v])=>[k,(k==='id'||k.endsWith('_id'))&&typeof v==='string'?v.toLowerCase():v])))as PortfolioInputsV1[O]
  }catch{return null}
 }
@@ -39,7 +45,8 @@ export function parsePortfolioReceiptV1(op:PortfolioOperationV1,input:PortfolioI
  try{
   if(!plain(value)||!keys(value,'contract_version,operation,command_id,id,version,status,source')||value.contract_version!=='portfolio.v1'||value.operation!==op||value.command_id!==input.command_id||!uuid(value.id)||!version(value.version)||!['manual','import','integration'].includes(value.source as string))return null
   if(value.version!==('expected_version'in input?input.expected_version+1:1)||'id'in input&&value.id!==input.id)return null
-  const status=op.endsWith('.create_manual')?(op.startsWith('contract.')?'draft':'pending'):op==='contract.activate'?'active':op==='contract.cancel'?'cancelled':'status'in input?input.status:null
+  const deadline=op==='contract.record_renewal'||op.startsWith('renewal.')||op.startsWith('permanence.')
+  const status=deadline?(op==='renewal.resolve'?'completed':op==='renewal.dismiss'?'dismissed':op==='permanence.cancel'?'cancelled':'open'):op.endsWith('.create_manual')?(op.startsWith('contract.')?'draft':'pending'):op==='contract.activate'?'active':op==='contract.cancel'?'cancelled':'status'in input?input.status:null
   const allowed=op.startsWith('contract.')?['draft','active','ended','cancelled']:['pending','active','suspended','ended','cancelled']
   if(status!==null?value.status!==status:!allowed.includes(value.status as string))return null
   if(!op.endsWith('update_label')&&op!=='contract.update_allowed_metadata'&&value.source!=='manual')return null
@@ -47,19 +54,23 @@ export function parsePortfolioReceiptV1(op:PortfolioOperationV1,input:PortfolioI
  }catch{return null}
 }
 export function parsePortfolioGetInputV1(v:unknown):PortfolioGetInputV1|null{
- try{if(!plain(v)||!keys(v,'kind,id')||!['contract','service','line'].includes(v.kind as string)||!uuid(v.id))return null;return Object.freeze({...v,id:v.id.toLowerCase()})as PortfolioGetInputV1}catch{return null}
+ try{if(!plain(v)||!keys(v,'kind,id')||!['contract','service','line','renewal','permanence'].includes(v.kind as string)||!uuid(v.id))return null;return Object.freeze({...v,id:v.id.toLowerCase()})as PortfolioGetInputV1}catch{return null}
 }
 export function parsePortfolioGetV1(input:PortfolioGetInputV1,value:unknown):PortfolioGetV1|null{
  try{
   const v=snapshotProductJsonV1(value)
   if(!plain(v)||!keys(v,'contract_version,kind,record')||v.contract_version!=='portfolio.v1'||v.kind!==input.kind||!plain(v.record))return null
-  const r=v.record,fields={contract:'id,version,status,source,customer_id,operator_id,plan_version_id,start_date,signed_date,end_date,assigned_user_id',service:'id,version,status,source,customer_id,contract_id,operator_id,plan_version_id,service_kind,display_name,activated_on,ended_on,status_effective_on',line:'id,version,status,source,service_id,display_name,activated_on,ended_on,status_effective_on'}[input.kind]
+  const r=v.record,fields={renewal:'id,version,status,source,contract_id,target_on,opens_on,closes_on,reason_code',permanence:'id,version,status,source,contract_id,service_id,commitment_kind,starts_on,ends_on,reason_code',contract:'id,version,status,source,customer_id,operator_id,plan_version_id,start_date,signed_date,end_date,assigned_user_id',service:'id,version,status,source,customer_id,contract_id,operator_id,plan_version_id,service_kind,display_name,activated_on,ended_on,status_effective_on',line:'id,version,status,source,service_id,display_name,activated_on,ended_on,status_effective_on'}[input.kind]
   if(!keys(r,fields)||r.id!==input.id||!version(r.version)||!['manual','import','integration'].includes(r.source as string))return null
   for(const[k,x]of Object.entries(r)){
-   if(k==='id'||k.endsWith('_id')){if(!uuid(x)&&!(x===null&&['plan_version_id','assigned_user_id'].includes(k)))return null}
-   if(['start_date','signed_date','end_date','activated_on','ended_on','status_effective_on'].includes(k)&&x!==null&&!date(x))return null
+   if(k==='id'||k.endsWith('_id')){if(!uuid(x)&&!(x===null&&['plan_version_id','assigned_user_id','service_id'].includes(k)))return null}
+   if(['start_date','signed_date','end_date','activated_on','ended_on','status_effective_on','target_on','opens_on','closes_on','starts_on','ends_on'].includes(k)&&x!==null&&!date(x))return null
   }
-  if(input.kind==='contract'){
+  if(input.kind==='renewal'){
+   if(!['open','completed','dismissed','not_applicable'].includes(r.status as string)||!date(r.target_on)||(r.opens_on===null)!==(r.closes_on===null)||r.opens_on!==null&&((r.opens_on as string)>(r.target_on as string)||(r.closes_on as string)<(r.target_on as string))||r.reason_code!==null&&(typeof r.reason_code!=='string'||!/^[a-z0-9][a-z0-9_-]{0,63}$/.test(r.reason_code)))return null
+  }else if(input.kind==='permanence'){
+   if(!['open','cancelled'].includes(r.status as string)||!date(r.starts_on)||!date(r.ends_on)||(r.ends_on as string)<(r.starts_on as string)||!['minimum_term','device','subsidy','discount','other'].includes(r.commitment_kind as string)||typeof r.reason_code!=='string'||!/^[a-z0-9][a-z0-9_-]{0,63}$/.test(r.reason_code))return null
+  }else if(input.kind==='contract'){
    if(!['draft','active','ended','cancelled'].includes(r.status as string)||!date(r.start_date)||r.end_date!==null&&(r.end_date as string)<(r.start_date as string)||r.status==='ended'&&r.end_date===null)return null
   }else{
    if(!['pending','active','suspended','ended','cancelled'].includes(r.status as string)||input.kind==='service'&&(!serviceKinds.includes(r.service_kind as string)||!label(r.display_name))||input.kind==='line'&&r.display_name!==null&&!label(r.display_name))return null

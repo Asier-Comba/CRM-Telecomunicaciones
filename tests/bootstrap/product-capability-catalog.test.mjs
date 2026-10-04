@@ -32,7 +32,7 @@ test('capability catalog covers registered product transport and explicit RPC pr
   if(operation.kind==='write'){
    assert.equal(operation.rpc,(operation.version==='billing.v1'?BILLING_RPC_V1:operation.version==='team.v1'?TEAM_RPC_V1:operation.version==='portfolio.v1'?PORTFOLIO_RPC_V1:PRODUCT_RPC_V1)[operation.name])
    assert.equal(operation.idempotency.key,'command_id')
-   assert.equal(operation.cas.required,operation.version==='billing.v1'?operation.name!=='invoice.create_draft':operation.version==='team.v1'?operation.name!=='member.invite_intent':operation.version==='portfolio.v1'?!operation.name.endsWith('.create_manual'):!operation.name.endsWith('.create'))
+   assert.equal(operation.cas.required,operation.version==='billing.v1'?operation.name!=='invoice.create_draft':operation.version==='team.v1'?operation.name!=='member.invite_intent':operation.version==='portfolio.v1'?(!operation.name.endsWith('.create_manual')&&operation.name!=='contract.record_renewal'):!operation.name.endsWith('.create'))
    assert.equal(operation.allowed_roles.includes('viewer'),false)
    assert.equal(operation.assistant_future,'durable_Issue10_confirmation_required_not_registered')
   }

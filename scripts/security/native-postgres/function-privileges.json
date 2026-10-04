@@ -290,6 +290,14 @@
       "service_role": false
     },
     {
+      "signature": "public.portfolio_v1_contract_record_renewal(uuid, jsonb)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": true,
+      "service_role": false
+    },
+    {
       "signature": "public.portfolio_v1_contract_update_allowed_metadata(uuid, jsonb)",
       "definer": true,
       "public": false,
@@ -298,11 +306,43 @@
       "service_role": false
     },
     {
+      "signature": "public.portfolio_v1_deadline_command(uuid, text, jsonb)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": false,
+      "service_role": false
+    },
+    {
+      "signature": "public.portfolio_v1_deadline_identity()",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": false,
+      "service_role": false
+    },
+    {
+      "signature": "public.portfolio_v1_deadline_validate(text, jsonb)",
+      "definer": false,
+      "public": false,
+      "anon": false,
+      "authenticated": false,
+      "service_role": false
+    },
+    {
       "signature": "public.portfolio_v1_get(uuid, jsonb)",
       "definer": true,
       "public": false,
       "anon": false,
       "authenticated": true,
+      "service_role": false
+    },
+    {
+      "signature": "public.portfolio_v1_get_portfolio_base(uuid, jsonb)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": false,
       "service_role": false
     },
     {
@@ -331,6 +371,54 @@
     },
     {
       "signature": "public.portfolio_v1_line_update_label(uuid, jsonb)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": true,
+      "service_role": false
+    },
+    {
+      "signature": "public.portfolio_v1_permanence_cancel(uuid, jsonb)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": true,
+      "service_role": false
+    },
+    {
+      "signature": "public.portfolio_v1_permanence_create_manual(uuid, jsonb)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": true,
+      "service_role": false
+    },
+    {
+      "signature": "public.portfolio_v1_permanence_update(uuid, jsonb)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": true,
+      "service_role": false
+    },
+    {
+      "signature": "public.portfolio_v1_renewal_dismiss(uuid, jsonb)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": true,
+      "service_role": false
+    },
+    {
+      "signature": "public.portfolio_v1_renewal_resolve(uuid, jsonb)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": true,
+      "service_role": false
+    },
+    {
+      "signature": "public.portfolio_v1_renewal_update(uuid, jsonb)",
       "definer": true,
       "public": false,
       "anon": false,

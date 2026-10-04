@@ -118,6 +118,20 @@ try {
   assert.equal(competing.filter(r=>r.code===0).length,1,'parent closure / child creation one winner')
   assert.equal(competing.filter(r=>r.code!==0&&/22023/.test(r.err)).length,1)
  }
+ for(const [family,op,fields,update,changes]of [
+  ['renewal','contract.record_renewal',{contract_id:contract,target_on:'2027-01-01',opens_on:null,closes_on:null},'renewal.update',{target_on:'2027-02-01',opens_on:null,closes_on:null}],
+  ['permanence','permanence.create_manual',{contract_id:contract,commitment_kind:'minimum_term',starts_on:'2026-01-01',ends_on:'2027-01-01',reason_code:'manual_term'},'permanence.update',{starts_on:'2026-01-01',ends_on:'2027-02-01',reason_code:'manual_amended'}]
+ ]){
+  const replaySql=portfolio(op,{command_id:randomUUID(),...fields});familyReplays.push(replaySql)
+  const attempts=await Promise.all(Array.from({length:20},()=>docker(args,replaySql)))
+  assert.ok(attempts.every(r=>r.code===0),`${family} deadline create race`)
+  const receipt=JSON.parse(attempts[0].out.trim());for(const attempt of attempts)assert.deepEqual(JSON.parse(attempt.out.trim()),receipt)
+  const edits=await Promise.all(Array.from({length:20},()=>docker([...args,'--set=VERBOSITY=sqlstate'],portfolio(update,{command_id:randomUUID(),id:receipt.id,expected_version:1,...changes}))))
+  assert.equal(edits.filter(r=>r.code===0).length,1,`${family} deadline CAS winner`)
+  assert.equal(edits.filter(r=>r.code!==0&&/40001/.test(r.err)).length,19)
+  assert.equal(await sql(`select count(*)from public.product_audit_events where entity_id='${receipt.id}'`),'2')
+ }
+ console.log('PORTFOLIO DEADLINE NATIVE RACES PASS: renewal/permanence each20 identical creates +20 CAS edits; revoked replay below')
  console.log('PORTFOLIO NATIVE RACES PASS: contract/service/line each20 identical creates +20 CAS edits; ancestor-first closure vs child creation5 races; revoked replay below')
  await sql(`delete from public.workspace_members where workspace_id='${workspace}' and user_id='${actor}'`)
  const revoked=await docker([...args,'--set=VERBOSITY=sqlstate'],create())

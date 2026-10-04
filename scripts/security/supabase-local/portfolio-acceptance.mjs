@@ -37,6 +37,7 @@ export async function portfolioAcceptance({rpc,sql,check,http,users,wa,wb,ca,url
  check((await invoke('contract.cancel',{command_id:randomUUID(),id:c,expected_version:3})).status===200,'portfolio_contract_cancel')
  for(const [kind,id]of [['contract',c],['service',s],['line',l]]){
   const get=await invoke('get',{kind,id},users.viewerA);check(get.status===200&&get.json.record.id===id,'portfolio_'+kind+'_safe_viewer_get')
+  const foreignScoped=await rpc('portfolio_v1_get',{p_workspace_id:wb,p_input:{kind,id}},users.ownerB.token);check(foreignScoped.status===200&&foreignScoped.json===null,'portfolio_'+kind+'_foreign_entity_hidden')
   const foreign=await invoke('get',{kind,id},users.ownerB);check(foreign.status===403&&foreign.json.code==='42501','portfolio_'+kind+'_foreign_denied')
  }
  for(const [op,input]of saved)check((await invoke(op,input,users.viewerA)).status===403,'portfolio_viewer_write_denied')
@@ -57,4 +58,42 @@ export async function portfolioAcceptance({rpc,sql,check,http,users,wa,wb,ca,url
  const get=await post('queries','portfolio.get',{kind:'line',id:l});check(get.status===200&&get.json.data.record.source==='manual','portfolio_real_next_editor')
  const next=await post('commands','line.update_label',{command_id:randomUUID(),id:l,expected_version:4,display_name:'Next Synthetic Label'});check(next.status===200&&next.json.receipt.version===5,'portfolio_real_next_command')
  return{portfolio_provenance:'PASS',portfolio_families:'PASS',portfolio_http_races:'PASS',portfolio_revocation:'PASS',portfolio_transport:'PASS'}
+}
+
+export async function portfolioDeadlineAcceptance({rpc,sql,check,http,users,wa,wb,ca,url,anon,appUrl}){
+ const invoke=(op,input,u=users.memberA)=>rpc('portfolio_v1_'+op.replace('.','_'),{p_workspace_id:wa,p_input:input},u.token)
+ const operator=randomUUID();sql(`insert into public.telecom_operators(id,workspace_id,code,display_name)values('${operator}','${wa}','deadline-synthetic','Deadline Synthetic')`)
+ const c=(await invoke('contract.create_manual',{command_id:randomUUID(),customer_id:ca,operator_id:operator,start_date:'2026-01-01'})).json.id,saved=[]
+ const runRace=async(op,input,update,fields)=>{
+  const creates=await Promise.all(Array.from({length:20},()=>invoke(op,input)))
+  check(creates.every(r=>r.status===200&&JSON.stringify(r.json)===JSON.stringify(creates[0].json)),'deadline_'+op+'_20_replays')
+  const id=creates[0].json.id;saved.push([op,input])
+  const edits=await Promise.all(Array.from({length:20},()=>invoke(update,{command_id:randomUUID(),id,expected_version:1,...fields})))
+  check(edits.filter(r=>r.status===200).length===1&&edits.filter(r=>r.status===500&&r.json.code==='40001').length===19,'deadline_'+op+'_20_CAS')
+  check(Number(sql(`select count(*)from public.product_audit_events where entity_id='${id}'`))===2,'deadline_'+op+'_two_audits')
+  return id
+ }
+ const renewal=await runRace('contract.record_renewal',{command_id:randomUUID(),contract_id:c,target_on:'2027-01-01',opens_on:'2026-12-01',closes_on:'2027-01-31'},'renewal.update',{target_on:'2027-02-01',opens_on:'2027-02-01',closes_on:'2027-02-28'})
+ const collision=await invoke('contract.record_renewal',{command_id:randomUUID(),contract_id:c,target_on:'2027-02-02',opens_on:'2027-02-01',closes_on:'2027-02-28'});check(collision.status===400&&collision.json.code==='23P01','deadline_canonical_overlap_denied')
+ check((await invoke('renewal.resolve',{command_id:randomUUID(),id:renewal,expected_version:2,reason_code:'human_resolved'})).json.status==='completed','deadline_resolve')
+ const second=await invoke('contract.record_renewal',{command_id:randomUUID(),contract_id:c,target_on:'2027-04-01',opens_on:null,closes_on:null})
+ check(second.status===200&&(await invoke('renewal.dismiss',{command_id:randomUUID(),id:second.json.id,expected_version:1,reason_code:'human_dismissed'})).json.status==='dismissed','deadline_dismiss')
+ const permanence=await runRace('permanence.create_manual',{command_id:randomUUID(),contract_id:c,commitment_kind:'minimum_term',starts_on:'2026-01-01',ends_on:'2027-01-01',reason_code:'manual_term'},'permanence.update',{starts_on:'2026-01-01',ends_on:'2027-02-01',reason_code:'manual_amended'})
+ check((await invoke('permanence.cancel',{command_id:randomUUID(),id:permanence,expected_version:2,reason_code:'human_cancelled'})).json.status==='cancelled','deadline_cancel')
+ for(const [kind,id]of [['renewal',renewal],['permanence',permanence]]){
+  const r=await invoke('get',{kind,id},users.viewerA);check(r.status===200&&r.json.record.version===3,'deadline_'+kind+'_safe_get')
+  const hidden=await rpc('portfolio_v1_get',{p_workspace_id:wb,p_input:{kind,id}},users.ownerB.token);check(hidden.status===200&&hidden.json===null,'deadline_'+kind+'_foreign_entity_hidden')
+  check((await invoke('get',{kind,id},users.ownerB)).status===403,'deadline_'+kind+'_foreign_denied')
+ }
+ for(const [op,input]of saved)check((await invoke(op,input,users.viewerA)).status===403,'deadline_viewer_write_denied')
+ sql(`update public.workspace_members set status='suspended'where workspace_id='${wa}'and user_id='${users.memberA.id}'`)
+ check((await http('/auth/v1/user',users.memberA.token)).status===200,'deadline_revoked_JWT_valid')
+ for(const [op,input]of saved){const r=await invoke(op,input);check(r.status===403&&r.json.code==='42501','deadline_each_family_revoked_replay')}
+ sql(`update public.workspace_members set status='active'where workspace_id='${wa}'and user_id='${users.memberA.id}'`)
+ const cookies=[],client=createServerClient(url,anon,{cookies:{getAll:()=>[],setAll:v=>cookies.push(...v)}})
+ check(!(await client.auth.setSession({access_token:users.memberA.token,refresh_token:users.memberA.refresh})).error,'deadline_real_cookie_session')
+ const cookie=cookies.map(c=>c.name+'='+c.value).join('; ')
+ const request=await fetch(appUrl+'/api/portfolio/v1/commands',{method:'POST',headers:{cookie,origin:appUrl,'content-type':'application/json'},body:JSON.stringify({operation:'contract.record_renewal',input:{command_id:randomUUID(),contract_id:c,target_on:'2027-06-01',opens_on:null,closes_on:null}}),signal:AbortSignal.timeout(15000)})
+ check(request.status===200&&(await request.json()).receipt.status==='open','deadline_real_next_record')
+ return{portfolio_deadlines:'PASS',deadline_http_races:'PASS',deadline_revocation:'PASS',deadline_transport:'PASS'}
 }
