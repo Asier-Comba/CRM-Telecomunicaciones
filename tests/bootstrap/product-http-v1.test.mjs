@@ -17,3 +17,14 @@ test('transport hides internals and exposes stable conflict/denial statuses',asy
  const denied=services();denied.commands=new ProductServiceV1({resolve:async()=>null,rpc:async()=>{throw Error('unused')}})
  assert.equal((await productHttpV1(req(input),'commands',async()=>denied)).status,403)
 })
+test('production origin uses explicit canonical binding across proxy URL and denies missing configuration',async()=>{
+ const oldEnv=process.env.NODE_ENV,oldOrigin=process.env.PRODUCT_V1_ORIGIN
+ try{
+  process.env.NODE_ENV='production';delete process.env.PRODUCT_V1_ORIGIN
+  assert.equal((await productHttpV1(req(input),'commands',async()=>services())).status,503)
+  process.env.PRODUCT_V1_ORIGIN='https://crm.example.invalid'
+  const request=new Request('http://internal:3108/api/product/v1/commands',{method:'POST',headers:{origin:'https://crm.example.invalid','content-type':'application/json'},body:JSON.stringify(input)})
+  assert.equal((await productHttpV1(request,'commands',async()=>services())).status,200)
+  assert.equal((await productHttpV1(req(input),'commands',async()=>services())).status,403)
+ }finally{if(oldEnv===undefined)delete process.env.NODE_ENV;else process.env.NODE_ENV=oldEnv;if(oldOrigin===undefined)delete process.env.PRODUCT_V1_ORIGIN;else process.env.PRODUCT_V1_ORIGIN=oldOrigin}
+})

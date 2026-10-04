@@ -7,7 +7,11 @@ export const PRODUCT_HTTP_STATUS_V1 = { validation: 400, access_denied: 403, not
 export async function readProductEnvelopeV1(request:Request,maxBytes=12288):Promise<Response|{operation:string;input:unknown}> {
  try {
   if (request.method !== 'POST') return productReplyV1({ ok:false,error:'validation' },405)
-  if (request.headers.get('origin') !== new URL(request.url).origin || (request.headers.has('sec-fetch-site') && request.headers.get('sec-fetch-site') !== 'same-origin')) return productReplyV1({ok:false,error:'access_denied'},403)
+  const configuredOrigin=process.env.PRODUCT_V1_ORIGIN
+  if(process.env.NODE_ENV==='production'&&!configuredOrigin)return productReplyV1({ok:false,error:'unavailable'},503)
+  const expectedOrigin=configuredOrigin??new URL(request.url).origin
+  if(new URL(expectedOrigin).origin!==expectedOrigin)return productReplyV1({ok:false,error:'unavailable'},503)
+  if (request.headers.get('origin') !== expectedOrigin || (request.headers.has('sec-fetch-site') && request.headers.get('sec-fetch-site') !== 'same-origin')) return productReplyV1({ok:false,error:'access_denied'},403)
   if (!/^application\/json(?:\s*;\s*charset=utf-8)?$/i.test(request.headers.get('content-type') ?? '') || ![null,'identity'].includes(request.headers.get('content-encoding'))) return productReplyV1({ok:false,error:'validation'},415)
   const length=request.headers.get('content-length')
   if (length!==null && (!/^\d+$/.test(length) || Number(length)>maxBytes)) return productReplyV1({ok:false,error:'validation'},413)

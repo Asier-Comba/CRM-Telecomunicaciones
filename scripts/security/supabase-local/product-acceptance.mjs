@@ -47,6 +47,7 @@ export async function productAcceptance({rpc,sql,check,http,users,wa,wb,ca,url,a
  const httpInput={operation:'task.create',input:{command_id:randomUUID(),title:'Next transport Synthetic'}}
  const membership=await http('/rest/v1/workspace_members?select=id,workspace_id,role,status,created_at,workspace:workspaces!inner(status)&user_id=eq.'+users.memberA.id+'&status=eq.active&workspace.status=eq.active',users.memberA.token)
  check(membership.status===200 && membership.json?.length===1 && membership.json[0]?.workspace?.status==='active','product_actual_member_identity_join')
+ const originProof=await app({operation:'unknown',input:{}});check(originProof.status===400,'product_actual_origin_before_auth_'+originProof.status)
  const next=await app(httpInput)
  const safeError=['validation','access_denied','not_found','conflict','unavailable','internal_safe'].includes(next.json?.error)?next.json.error:'none'
  check(next.status===200,'product_actual_next_status_'+next.status+'_'+safeError)
