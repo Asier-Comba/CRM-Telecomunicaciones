@@ -52,3 +52,16 @@ test('issued protected read accepts PostgreSQL microseconds and rejects snapshot
  assert.ok(parseBillingReadV1('invoice.get',{id},response))
  for(const patch of [{issuer:{...invoice.issuer,logo_url:'https://foreign.invalid'}},{lines:[{...line,total_minor:1}]},{issued_at:'2026-02-30T16:00:00.123456+00:00'}])assert.equal(parseBillingReadV1('invoice.get',{id},{...response,invoice:{...invoice,...patch}}),null)
 })
+
+
+test('normalized invoice proposal is bounded, computes exact totals and requires human review without saving',async()=>{
+ const {command_id:discarded,...candidate}=draft;void discarded
+ const input={source:'audio',draft:candidate}
+ assert.ok(parseBillingQueryV1('invoice.propose',input))
+ for(const patch of [{source:'model'},{draft},{transcript:'private'},{draft:{...candidate,total_minor:1}},{draft:{...candidate,lines:[{...line,quantity_milli:0.5}]}}])assert.equal(parseBillingQueryV1('invoice.propose',{...input,...patch}),null)
+ const data={contract_version:'billing.v1',operation:'invoice.propose',...input,totals:calculateBillingV1(candidate.lines),requires_review:true,saved:false}
+ assert.ok(parseBillingReadV1('invoice.propose',input,data))
+ for(const patch of [{saved:true},{requires_review:false},{draft:{...candidate,customer_id:'10000000-0000-4000-8000-000000000002'}},{totals:{...data.totals,total_minor:999}}])assert.equal(parseBillingReadV1('invoice.propose',input,{...data,...patch}),null)
+ let calls=0;const service=new BillingServiceV1({resolve:async()=>({workspaceId:id,role:'member'}),rpc:async()=>{calls++;throw Error('private')}})
+ assert.deepEqual(await service.read('invoice.propose',input),{ok:false,error:'access_denied'});assert.equal(calls,0)
+})

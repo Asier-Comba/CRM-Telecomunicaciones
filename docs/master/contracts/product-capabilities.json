@@ -1,7 +1,7 @@
 {
   "catalog_version": "product.capabilities.v1",
   "as_of": "2026-10-04",
-  "implementation_head": "a8e7a6e486a775d2c5289421b36206a12ecec8f6",
+  "implementation_head": "77c7893e2fcbeb18f322fae7b03a9742d0d18354",
   "evidence": {
     "native": {
       "run_id": 37216538207,
@@ -10,25 +10,27 @@
       "function_count": 104
     },
     "actual_supabase": {
-      "run_id": 37218693420,
-      "tested_head": "a8e7a6e486a775d2c5289421b36206a12ecec8f6",
+      "run_id": 37219306276,
+      "tested_head": "77c7893e2fcbeb18f322fae7b03a9742d0d18354",
       "status": "PASS",
-      "checks": 379,
+      "checks": 387,
       "teardown": "PASS",
       "browser_private_values": "PASS"
     },
     "quality": {
-      "tests": 180,
+      "tests": 183,
       "lint": "PASS",
       "types": "PASS",
       "build": "PASS",
-      "audit": "BLOCKED_Issue29"
+      "audit": "BLOCKED_Issue29",
+      "scope": "local_pending_proposal_checkpoint"
     },
     "native_billing": {
-      "run_id": 37218693413,
+      "run_id": 37219306054,
+      "tested_head": "77c7893e2fcbeb18f322fae7b03a9742d0d18354",
       "status": "PASS",
-      "migration_count": 33,
-      "function_count": 126
+      "migration_count": 34,
+      "function_count": 127
     }
   },
   "operations": [
@@ -1953,7 +1955,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_server_renderer_tested",
+      "backend_status": "candidate_authorized_server_renderer_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -1963,13 +1965,51 @@
         "status": "implemented_default_off",
         "path": "/api/billing/v1/pdf"
       },
-      "supabase_tested": false,
-      "supabase_status": "pending_exact_head_acceptance",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "protected_read_requires_fiscal_capability_not_registered",
       "supabase_tested_head": "df530f393a79e81c81f520b0b1f3e79cc7d43ab9",
       "storage_status": "private_object_and_opaque_reference_pending"
+    },
+    {
+      "name": "invoice.propose",
+      "version": "billing.v1",
+      "kind": "read",
+      "rpc": "billing_v1_invoice_propose",
+      "input_type": "BillingQueriesV1['invoice.propose']",
+      "output_type": "BillingReadDataV1",
+      "minimum_role": "admin",
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "backend_status": "candidate_normalized_validation_only",
+      "transport": {
+        "method": "POST",
+        "enabled_by_default": false,
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "server_cookie_getUser_active_membership",
+        "status": "implemented_default_off",
+        "path": "/api/billing/v1/queries"
+      },
+      "supabase_tested": false,
+      "supabase_status": "pending_exact_head_acceptance",
+      "ui_safe": false,
+      "ui_safe_status": "W4_and_W2_review_pending",
+      "assistant_future": "protected_read_requires_fiscal_capability_not_registered",
+      "supabase_tested_head": "a8e7a6e486a775d2c5289421b36206a12ecec8f6"
     }
   ],
   "unavailable_modules": [

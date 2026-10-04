@@ -19,7 +19,7 @@ export class BillingServiceV1 {
   const input=parseBillingQueryV1(q,value);if(input===null)return {ok:false as const,error:'validation' as const}
   try{const context=await this.port.resolve();if(context===null||!['owner','admin'].includes(context.role))return {ok:false as const,error:'access_denied' as const}
    const response=await this.port.rpc(BILLING_QUERY_RPC_V1[q],{p_workspace_id:context.workspaceId,p_input:input})
-   if(response.error)return {ok:false as const,error:response.error.code==='42501'?'access_denied' as const:'internal_safe' as const}
+   if(response.error)return {ok:false as const,error:response.error.code==='42501'?'access_denied' as const:response.error.code==='P0002'?'not_found' as const:['22023','22007','22008','22P02'].includes(response.error.code??'')?'validation' as const:'internal_safe' as const}
    if(response.data===null)return {ok:false as const,error:'not_found' as const}
    const data=parseBillingReadV1(q,input,response.data);return data===null?{ok:false as const,error:'internal_safe' as const}:{ok:true as const,data}
   }catch{return {ok:false as const,error:'internal_safe' as const}}

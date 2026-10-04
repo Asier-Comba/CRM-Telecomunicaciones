@@ -1,13 +1,20 @@
 import type { BillingQueryV1,BillingQueriesV1,BillingReadDataV1 } from '../contracts/billing-v1'
-import { billingDateV1,profile,array,text,integer,parseBillingLinesV1,calculateBillingV1 } from './billing-runtime-v1.ts'
+import { billingDateV1,profile,array,text,integer,parseBillingLinesV1,calculateBillingV1,parseBillingInputV1 } from './billing-runtime-v1.ts'
 import { isClosedObjectV1 as plain,isUuidV1 as uuid } from './product-work-runtime-v1.ts'
 import { isStrictInstantV1 } from './telecom-runtime-v1.ts'
-export const BILLING_QUERY_RPC_V1={'invoice.get':'billing_v1_invoice_get','invoice.summary':'billing_v1_invoice_summary','invoice.list':'billing_v1_invoice_list','invoice.financial_summary':'billing_v1_invoice_financial_summary','configuration.get':'billing_v1_configuration_get'} as const
-const keys={ 'invoice.get':['id'],'invoice.summary':['id'],'invoice.list':['customer_id','status','from','to','series','limit','after_id'],'invoice.financial_summary':['period'],'configuration.get':['customer_id'] }
+export const BILLING_QUERY_RPC_V1={'invoice.propose':'billing_v1_invoice_propose','invoice.get':'billing_v1_invoice_get','invoice.summary':'billing_v1_invoice_summary','invoice.list':'billing_v1_invoice_list','invoice.financial_summary':'billing_v1_invoice_financial_summary','configuration.get':'billing_v1_configuration_get'} as const
+const keys={ 'invoice.propose':['source','draft'], 'invoice.get':['id'],'invoice.summary':['id'],'invoice.list':['customer_id','status','from','to','series','limit','after_id'],'invoice.financial_summary':['period'],'configuration.get':['customer_id'] }
 const periods=['month','quarter','semester','year','all']
 export function isBillingQueryV1(v:unknown):v is BillingQueryV1{return typeof v==='string'&&Object.hasOwn(keys,v)}
 export function parseBillingQueryV1<Q extends BillingQueryV1>(q:Q,v:unknown):BillingQueriesV1[Q]|null {
  try{if(!isBillingQueryV1(q)||!plain(v)||Object.keys(v).some(k=>!keys[q].includes(k)))return null
+  if(q==='invoice.propose'){
+   if(Object.keys(v).sort().join(',')!=='draft,source'||!['manual','text','audio'].includes(v.source as string)||!plain(v.draft)||Object.hasOwn(v.draft,'command_id'))return null
+   const validated=parseBillingInputV1('invoice.create_draft',{...v.draft,command_id:'00000000-0000-4000-8000-000000000001'})
+   if(validated===null)return null
+   const {command_id:discarded,...draft}=validated;void discarded
+   return Object.freeze({source:v.source,draft:Object.freeze(draft)}) as BillingQueriesV1[Q]
+  }
   if(['invoice.get','invoice.summary'].includes(q)&&!uuid(v.id))return null
   for(const [k,x]of Object.entries(v)){
    if(k==='id'||k.endsWith('_id')){if(!uuid(x))return null}
@@ -45,7 +52,13 @@ function invoice(v:unknown,full=false):boolean {
 export function parseBillingReadV1(q:BillingQueryV1,input:BillingQueriesV1[BillingQueryV1],v:unknown):BillingReadDataV1|null {
  try{
  if(!plain(v)||v.contract_version!=='billing.v1'||v.operation!==q)return null
- if(q==='invoice.get'||q==='invoice.summary'){
+ if(q==='invoice.propose'){
+  if(!closed(v,'contract_version,draft,operation,requires_review,saved,source,totals')||!('draft'in input)||v.source!==input.source||v.requires_review!==true||v.saved!==false)return null
+  const parsed=parseBillingQueryV1('invoice.propose',{source:v.source,draft:v.draft})
+  if(!parsed)return null
+  const canonical=(x:unknown):string=>JSON.stringify(x,(_key,value)=>plain(value)?Object.fromEntries(Object.keys(value).sort().map(k=>[k,value[k]])):value)
+  if(canonical(parsed.draft)!==canonical(input.draft)||canonical(v.totals)!==canonical(calculateBillingV1(parsed.draft.lines)))return null
+ }else if(q==='invoice.get'||q==='invoice.summary'){
   if(!closed(v,'contract_version,invoice,operation')||!invoice(v.invoice,q==='invoice.get')||(v.invoice as Record<string,unknown>).id!==('id' in input?input.id:null))return null
  }else if(q==='invoice.list'){
   if(!closed(v,'contract_version,items,next_id,operation')||!array(v.items)||v.items.length>('limit' in input?input.limit??20:20))return null

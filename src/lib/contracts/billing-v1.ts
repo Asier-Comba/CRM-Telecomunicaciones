@@ -17,7 +17,9 @@ export type BillingInputsV1 = {
 }
 export type BillingOperationV1=keyof BillingInputsV1
 export type BillingReceiptV1=Readonly<{contract_version:'billing.v1';command_id:string;operation:BillingOperationV1;id:string;version:number;status:'profile'|'draft'|'trashed'|'issued'|'paid';number:Readonly<{series:string;year:number;sequence:number}>|null}>
+export type BillingProposalInputV1=Readonly<{source:'manual'|'text'|'audio';draft:BillingDraftV1}>
 export type BillingQueriesV1 = {
+ 'invoice.propose':BillingProposalInputV1
  'invoice.get':{id:string}
  'invoice.summary':{id:string}
  'invoice.list':{customer_id?:string;status?:'draft'|'trashed'|'issued'|'paid'|'overdue';from?:string;to?:string;series?:string;limit?:number;after_id?:string}
@@ -29,6 +31,7 @@ export type BillingInvoiceSummaryV1=Readonly<{id:string;version:number;status:'d
 export type BillingInvoiceV1=BillingInvoiceSummaryV1&Readonly<{lines:readonly BillingLineV1[];notes:string|null;contract_id:string|null;service_id:string|null;opportunity_id:string|null;issuer:(BillingProfileV1&{currency:'EUR'|'USD'|'GBP';default_series:string})|null;customer_fiscal:BillingProfileV1|null;issued_at:string|null;paid_at:string|null;fx:Readonly<{rate_micros:number;on:string;source:string}>|null}>
 export type BillingFinancialCurrencyV1=Readonly<{currency:'EUR'|'USD'|'GBP';issued_minor:number;paid_minor:number;outstanding_minor:number;overdue_minor:number;issued_count:number;paid_count:number;outstanding_count:number;overdue_count:number}>
 export type BillingReadDataV1=
+ Readonly<{contract_version:'billing.v1';operation:'invoice.propose';source:'manual'|'text'|'audio';draft:BillingDraftV1;totals:BillingTotalsV1;requires_review:true;saved:false}>|
  Readonly<{contract_version:'billing.v1';operation:'invoice.get';invoice:BillingInvoiceV1}>|
  Readonly<{contract_version:'billing.v1';operation:'invoice.summary';invoice:BillingInvoiceSummaryV1}>|
  Readonly<{contract_version:'billing.v1';operation:'invoice.list';items:readonly BillingInvoiceSummaryV1[];next_id:string|null}>|

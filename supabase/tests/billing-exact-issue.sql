@@ -6,11 +6,14 @@ insert into public.workspace_members(workspace_id,user_id,role) values ('8200000
 insert into public.customers(id,workspace_id,account_kind,legal_name) values ('83000000-0000-4000-8000-000000000001','82000000-0000-4000-8000-000000000001','legal_entity','Billing Synthetic'),('83000000-0000-4000-8000-000000000002','82000000-0000-4000-8000-000000000002','legal_entity','Foreign Synthetic');
 create function pg_temp.assert_b(ok boolean) returns void language plpgsql as $$begin if ok is not true then raise exception 'billing assertion';end if;end$$;
 create function pg_temp.deny_b(q text,c text) returns void language plpgsql as $$begin begin execute q;exception when others then if sqlstate=c then return;end if;raise;end;raise exception 'expected billing denial %',c;end$$;
+create function pg_temp.billing_counts() returns jsonb language sql security definer set search_path='' as $$
+ select jsonb_build_array((select count(*) from public.billing_invoices),(select count(*) from public.billing_invoice_lines),(select count(*) from public.billing_series),(select count(*) from public.product_commands),(select count(*) from public.product_audit_events))
+$$;
 create temp table billing_fixture(id uuid,version bigint);
 grant all on billing_fixture to authenticated;
 set local role authenticated;
 select set_config('request.jwt.claim.sub','81000000-0000-4000-8000-000000000001',true);
-do $$declare w uuid:='82000000-0000-4000-8000-000000000001';c uuid:='83000000-0000-4000-8000-000000000001';p jsonb;inp jsonb;receipt jsonb;id uuid;other uuid;lines jsonb;issue jsonb;
+do $$declare w uuid:='82000000-0000-4000-8000-000000000001';c uuid:='83000000-0000-4000-8000-000000000001';p jsonb;inp jsonb;receipt jsonb;id uuid;other uuid;lines jsonb;issue jsonb;before_counts jsonb;proposal jsonb;
 begin
  p:='{"legal_name":"Synthetic Fiscal","tax_id":"SYNTHETIC-NOT-VALID","address":"Synthetic Road 1","postal_code":"00000","city":"Synthetic","region":"Synthetic","country":"ES"}';
  receipt:=public.billing_v1_issuer_set(w,jsonb_build_object('command_id',gen_random_uuid(),'expected_version',0,'profile',p,'currency','EUR','default_series','A'));
@@ -19,6 +22,12 @@ begin
  perform pg_temp.assert_b(receipt->>'version'='1');
  lines:='[{"description":"Synthetic Fractional","quantity_milli":1500,"unit_price_minor":101,"discount_bps":500,"tax_bps":2100,"withholding_bps":1500}]';
  inp:=jsonb_build_object('command_id',gen_random_uuid(),'customer_id',c,'issue_on','2026-10-04','due_on','2026-10-10','series','A','currency','EUR','lines',lines);
+ before_counts:=pg_temp.billing_counts();
+ proposal:=public.billing_v1_invoice_propose(w,jsonb_build_object('source','audio','draft',inp-'command_id'));
+ perform pg_temp.assert_b(proposal->>'requires_review'='true' and proposal->>'saved'='false' and proposal->'totals'->>'total_minor'='152' and not proposal ? 'id');
+ perform pg_temp.assert_b(pg_temp.billing_counts()=before_counts);
+ perform pg_temp.deny_b(format('select public.billing_v1_invoice_propose(%L,%L)',w,jsonb_build_object('source','text','draft',(inp-'command_id')||'{"total_minor":1}')::text),'22023');
+ perform pg_temp.deny_b(format('select public.billing_v1_invoice_propose(%L,%L)',w,jsonb_build_object('source','text','draft',(inp-'command_id')||'{"customer_id":"83000000-0000-4000-8000-000000000002"}')::text),'P0002');
  receipt:=public.billing_v1_invoice_create_draft(w,inp);id:=(receipt->>'id')::uuid;
  perform pg_temp.assert_b(receipt=public.billing_v1_invoice_create_draft(w,inp));
  perform pg_temp.deny_b(format('select public.billing_v1_invoice_create_draft(%L,%L)',w,(inp||'{"total_minor":999}')::text),'22023');

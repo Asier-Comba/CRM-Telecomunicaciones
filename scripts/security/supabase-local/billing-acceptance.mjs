@@ -7,6 +7,10 @@ export async function billingAcceptance({rpc,check,users,wa,wb,ca,url,anon,appUr
  check((await invoke('customer_fiscal_set',{command_id:randomUUID(),customer_id:ca,expected_version:0,profile})).status===200,'billing_actual_fiscal')
  const lines=[{description:'HTTP Synthetic Fractional',quantity_milli:1500,unit_price_minor:101,discount_bps:500,tax_bps:2100,withholding_bps:1500}]
  const input={command_id:randomUUID(),customer_id:ca,issue_on:'2026-10-04',due_on:'2026-10-10',series:'A',currency:'EUR',lines}
+ const {command_id:ignored,...candidate}=input;void ignored
+ const proposed=await invoke('invoice_propose',{source:'text',draft:candidate})
+ check(proposed.status===200&&proposed.json.requires_review===true&&proposed.json.saved===false&&proposed.json.totals.total_minor===152,'billing_actual_normalized_proposal')
+ check((await invoke('invoice_list',{})).json.items.length===0,'billing_actual_proposal_no_invoice')
  const draft=await invoke('invoice_create_draft',input);check(draft.status===200&&draft.json.version===1,'billing_actual_draft')
  for(const u of [users.memberA,users.viewerA,users.ownerB])check((await invoke('invoice_create_draft',{...input,command_id:randomUUID()},u)).status>=400,'billing_actual_role_denied_'+u.role)
  check((await invoke('invoice_create_draft',input,users.ownerA,wb)).status>=400,'billing_actual_foreign_workspace_denied')

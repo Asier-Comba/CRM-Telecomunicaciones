@@ -109,3 +109,14 @@ Exact Host-hardeningdf530f3 accepted: Supabase run10/37218310797 PASS379 checks 
 ## Revocation negative-control strengthening
 
 Exact a8e7a6e CI290 native rich billing density/fresh-restored/126-function matrixPASS and Supabase run11PASS. Added explicit valid customer/contact creates before member suspension, then require403+42501 with the still-valid Auth JWT and zero new command-ledger rows. Billing admin positive control now uses the same valid draft shape as revoked admin/workspace tests; denials require403+42501 rather than accepting any error on an empty input. These stronger actual-platform assertions are pending their checkpoint CI; no backend permission changes.
+
+
+Billing/PDF checkpoint 77c7893: native CI37219306054 passes 34 zero-to-head migrations,
+127 function privileges, restored ACL negative control, 20-process numbering and CAS
+races. Real Supabase CI37219306276 passes 387 checks, official SSR cookies/Next PDF,
+authorized invoice snapshots and actual financial dashboard, teardown and browser
+private-value scan. Root lint/types/182 tests/build pass; full audit still fails
+Issue29 inherited braces, unchanged gate. Private stored PDF reference remains open.
+Forward proposal candidate adds migration35/function128, normalized protected read,
+requires_review=true/saved=false; local 183 tests + PGlite/restore pass. This candidate
+still requires its own CI. W2_SAFE_TO_ENABLE=false; no frontend/AI/production changes.

@@ -104,3 +104,13 @@ currency facts to product.dashboard.v2 for owner/admin. My scope filters invoice
 creator; workspace scope includes that workspace. Member/viewer financial state stays
 unavailable. Period filtering uses issue_on; current payment state is not historical
 revenue recognition. No FX sum or speculative forecast is reported.
+
+
+invoice.propose({source: manual|text|audio, draft: normalized BillingDraftV1})
+is a protected owner/admin query. It validates exactly the create_draft domain,
+canonical customer and optional telecom links, and returns exact totals plus
+requires_review:true/saved:false. It accepts neither raw transcript/audio nor a
+command_id, principal, fiscal snapshot, status, number or derived totals. It does
+not create invoice rows, lines, ledger, audit events or numbering counters. A
+reviewed explicit invoice.create_draft command is required to save afterward.
+No AI/model/provider registration was added.
