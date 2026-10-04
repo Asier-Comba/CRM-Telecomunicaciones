@@ -258,6 +258,118 @@
       "authenticated": false
     },
     {
+      "signature": "public.portfolio_v1_command(uuid, text, jsonb)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": false,
+      "service_role": false
+    },
+    {
+      "signature": "public.portfolio_v1_contract_activate(uuid, jsonb)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": true,
+      "service_role": false
+    },
+    {
+      "signature": "public.portfolio_v1_contract_cancel(uuid, jsonb)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": true,
+      "service_role": false
+    },
+    {
+      "signature": "public.portfolio_v1_contract_create_manual(uuid, jsonb)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": true,
+      "service_role": false
+    },
+    {
+      "signature": "public.portfolio_v1_contract_update_allowed_metadata(uuid, jsonb)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": true,
+      "service_role": false
+    },
+    {
+      "signature": "public.portfolio_v1_get(uuid, jsonb)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": true,
+      "service_role": false
+    },
+    {
+      "signature": "public.portfolio_v1_identity()",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": false,
+      "service_role": false
+    },
+    {
+      "signature": "public.portfolio_v1_line_create_manual(uuid, jsonb)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": true,
+      "service_role": false
+    },
+    {
+      "signature": "public.portfolio_v1_line_transition(uuid, jsonb)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": true,
+      "service_role": false
+    },
+    {
+      "signature": "public.portfolio_v1_line_update_label(uuid, jsonb)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": true,
+      "service_role": false
+    },
+    {
+      "signature": "public.portfolio_v1_service_create_manual(uuid, jsonb)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": true,
+      "service_role": false
+    },
+    {
+      "signature": "public.portfolio_v1_service_transition(uuid, jsonb)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": true,
+      "service_role": false
+    },
+    {
+      "signature": "public.portfolio_v1_service_update_label(uuid, jsonb)",
+      "definer": true,
+      "public": false,
+      "anon": false,
+      "authenticated": true,
+      "service_role": false
+    },
+    {
+      "signature": "public.portfolio_v1_validate(text, jsonb)",
+      "definer": false,
+      "public": false,
+      "anon": false,
+      "authenticated": false,
+      "service_role": false
+    },
+    {
       "signature": "public.product_v1_assert_scope(uuid, boolean)",
       "definer": true,
       "public": false,

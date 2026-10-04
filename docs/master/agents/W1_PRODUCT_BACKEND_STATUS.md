@@ -167,3 +167,11 @@ Auth users/grant membership. Owner transfer/invite acceptance remain open. Catal
 58 human operations; new team operations individually Supabase-pending/UI-safefalse.
 B4/B8/inbox/automations/import adapters still not claimed complete. No frontend,
 AI, real data/provider, production or permission broadening to bypass Storage.
+
+## B4 human portfolio continuation after execution recovery
+
+Adopted concurrent344df47 team candidate with fast-forward; no history rewrite. New portfolio.v1 slice adds10 human commands plus safe editor: manual contracts/activation/cancellation, scoped service/line creation, local labels/assignment and controlled status graph. Child provenance inherited/backfilled; immutable identity/source; imported/integration status denied. Ancestor-first locks prevent parent closure/child creation both committing, and status_effective_on prevents backdating transitions. Raw relations/helpers stay closed; two default-off cookie USER-JWT routes reuse strict Host/Origin. No line identifier write or AI/provider side effect.
+
+Local192 Node tests and37 migrations/150-function embedded fresh/restored privileges PASS, including provenance/CAS/replay/viewer/foreign/suspension and forced audit rollback. Native20process families plus parent-child races and actual Supabase/PostgREST/SSR-cookie checks added; exact published-head results pending. Catalog69 operations, new11 portfolio ops individually untested on actual Supabase until CI proves them. Existing7ec1910 baseline evidence remains historical and is not attributed to the new tree.
+
+Issue29 checked once in recovery session: braces3.0.3 remains latest; ESLint Next16.3.8 available but no patched braces release, no workaround or weakened gate adopted. B4 renewals/permanences, B8 documents/imports, B9 inbox/automation remain open. Contracts: docs/master/PORTFOLIO_V1_CONTRACT.md. UI-safe remains false, PR28 Draft.

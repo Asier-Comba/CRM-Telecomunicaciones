@@ -90,6 +90,35 @@ try {
  assert.equal(await sql(`select next_sequence from public.billing_series where workspace_id='${workspace}' and series='A' and year=2026`),'23')
  familyReplays.push(billing('invoice_issue',issueCommand))
  console.log('BILLING NATIVE RACES PASS: 20 distinct simultaneous issues numbers1..20 / 20 identical issue retries one21 / 20 distinct same-draft attempts one22 and19 CAS conflicts /22 committed numbers')
+ const portfolio=(op,input)=>`begin;set local role authenticated;set local request.jwt.claim.sub='${actor}';select public.portfolio_v1_${op.replace('.','_')}('${workspace}','${JSON.stringify(input)}'::jsonb);commit;`
+ const operator=randomUUID()
+ await sql(`insert into public.telecom_operators(id,workspace_id,code,display_name)values('${operator}','${workspace}','native-portfolio-race','Native Synthetic Operator')`)
+ let contract,service
+ for(const family of ['contract','service','line']){
+  const input={command_id:randomUUID(),...(family==='contract'?{customer_id:id,operator_id:operator,start_date:'2026-01-01'}:family==='service'?{contract_id:contract,service_kind:'mobile',display_name:'Native Synthetic Service'}:{service_id:service,display_name:'Native Synthetic Line'})}
+  const replaySql=portfolio(family+'.create_manual',input);familyReplays.push(replaySql)
+  const attempts=await Promise.all(Array.from({length:20},()=>docker(args,replaySql)))
+  assert.ok(attempts.every(r=>r.code===0),`${family} portfolio create race`)
+  const receipt=JSON.parse(attempts[0].out.trim())
+  for(const attempt of attempts)assert.deepEqual(JSON.parse(attempt.out.trim()),receipt)
+  if(family==='contract')contract=receipt.id;if(family==='service')service=receipt.id
+  const action=family==='contract'?'update_allowed_metadata':'update_label',fields=family==='contract'?{assigned_user_id:null}:{display_name:'Native Human Label'}
+  const edits=await Promise.all(Array.from({length:20},()=>docker([...args,'--set=VERBOSITY=sqlstate'],portfolio(family+'.'+action,{command_id:randomUUID(),id:receipt.id,expected_version:1,...fields}))))
+  assert.equal(edits.filter(r=>r.code===0).length,1,`${family} portfolio CAS winner`)
+  assert.equal(edits.filter(r=>r.code!==0&&/40001/.test(r.err)).length,19,`${family} portfolio CAS conflicts`)
+  assert.equal(await sql(`select count(*)from public.product_audit_events where entity_id='${receipt.id}'`),'2')
+ }
+ // Independent parent closure vs child creation must never both commit.
+ for(let i=0;i<5;i++){
+  const parent=JSON.parse(await sql(portfolio('contract.create_manual',{command_id:randomUUID(),customer_id:id,operator_id:operator,start_date:'2026-01-01'})))
+  const competing=await Promise.all([
+   docker([...args,'--set=VERBOSITY=sqlstate'],portfolio('contract.cancel',{command_id:randomUUID(),id:parent.id,expected_version:1})),
+   docker([...args,'--set=VERBOSITY=sqlstate'],portfolio('service.create_manual',{command_id:randomUUID(),contract_id:parent.id,service_kind:'mobile',display_name:'Concurrent Child'}))
+  ])
+  assert.equal(competing.filter(r=>r.code===0).length,1,'parent closure / child creation one winner')
+  assert.equal(competing.filter(r=>r.code!==0&&/22023/.test(r.err)).length,1)
+ }
+ console.log('PORTFOLIO NATIVE RACES PASS: contract/service/line each20 identical creates +20 CAS edits; ancestor-first closure vs child creation5 races; revoked replay below')
  await sql(`delete from public.workspace_members where workspace_id='${workspace}' and user_id='${actor}'`)
  const revoked=await docker([...args,'--set=VERBOSITY=sqlstate'],create())
  assert.notEqual(revoked.code,0);assert.match(revoked.err,/42501/)
