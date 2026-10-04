@@ -36,11 +36,16 @@ export async function workReadAcceptance({rpc,sql,check,http,users,wa,wb,ca,url,
  check(overlap.status===200&&overlap.json?.data?.items?.length===1,'work_next_overlap_runtime')
  // Same still-valid Auth JWT must deny every write family and both reads after
  // membership suspension. Restore only this disposable roster for W4 controls.
+ const identityInputs={customer:{account_kind:'legal_entity',legal_name:'Synthetic revocation control'},contact:{customer_id:ca,display_name:'Synthetic revocation control'}}
+ for(const [family,fields] of Object.entries(identityInputs))check((await rpc('product_v1_'+family+'_create',{p_workspace_id:wa,p_input:{...fields,command_id:key()}},users.memberA.token)).status===200,'identity_'+family+'_pre_revocation_allowed')
+ const ledgerBefore=Number(sql(`select count(*) from public.product_commands where workspace_id='${wa}' and actor_id='${users.memberA.id}'`))
  sql(`update public.workspace_members set status='suspended' where workspace_id='${wa}' and user_id='${users.memberA.id}'`)
  check((await http('/auth/v1/user',users.memberA.token)).status===200,'work_suspended_member_auth_jwt_valid')
  for(const [family,fields] of Object.entries(payloads))check((await rpc('product_v1_'+family+'_create',{p_workspace_id:wa,p_input:{...fields,command_id:key()}},users.memberA.token)).status===403,'work_'+family+'_valid_jwt_revoked')
+ for(const [family,fields] of Object.entries(identityInputs)){const denied=await rpc('product_v1_'+family+'_create',{p_workspace_id:wa,p_input:{...fields,command_id:key()}},users.memberA.token);check(denied.status===403&&denied.json?.code==='42501','identity_'+family+'_valid_jwt_revoked')}
+ check(Number(sql(`select count(*) from public.product_commands where workspace_id='${wa}' and actor_id='${users.memberA.id}'`))===ledgerBefore,'work_revocation_no_command_residue')
  check((await query('dashboard.get',{audience:'my'})).status===403,'work_next_dashboard_revoked')
  check((await query('global.search',{query:'Synthetic'})).status===403,'work_next_search_revoked')
  sql(`update public.workspace_members set status='active' where workspace_id='${wa}' and user_id='${users.memberA.id}'`)
- return {work_postgrest_20way_races:'PASS',work_revocation:'PASS',dashboard_v2:'PASS',global_search:'PASS',work_cookie_next_queries:'PASS'}
+ return {identity_revocation:'PASS',work_postgrest_20way_races:'PASS',work_revocation:'PASS',dashboard_v2:'PASS',global_search:'PASS',work_cookie_next_queries:'PASS'}
 }

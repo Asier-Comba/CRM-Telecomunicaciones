@@ -167,6 +167,8 @@ export async function acceptance({ url, anon, service, db, command, report, appU
       check((await download(object, service)).status === 200 && (await download(dest, service)).status >= 400, `client_${operation}_no_effect`)
     }
   }
+  const revokeDraft={command_id:randomUUID(),customer_id:ca,issue_on:'2026-10-04',due_on:null,series:'A',currency:'EUR',lines:[{description:'Synthetic revocation control',quantity_milli:1000,unit_price_minor:100,discount_bps:0,tax_bps:0,withholding_bps:0}]}
+  check((await rpc('billing_v1_invoice_create_draft',{p_workspace_id:wa,p_input:revokeDraft},users.adminA.token)).status===200,'billing_pre_revocation_valid_payload_allowed')
   sql(`delete from public.workspace_members where user_id='${users.removedA.id}';
     update public.workspace_members set status='suspended' where user_id='${users.suspendedA.id}';
     update public.workspaces set status='suspended' where id='${wc}';`)
@@ -177,7 +179,8 @@ export async function acceptance({ url, anon, service, db, command, report, appU
     check(r.status === 200 && r.json?.length === 0, `business_revoked_${name}`)
     const role = await rpc('current_workspace_role', { p_workspace_id: u.workspace }, u.token)
     check(role.status === 200 && role.json === null, `role_revoked_${name}`)
-    check((await rpc('billing_v1_invoice_create_draft',{p_workspace_id:u.workspace,p_input:{}},u.token)).status>=400,`billing_valid_jwt_revoked_${name}`)
+    const billingDenied=await rpc('billing_v1_invoice_create_draft',{p_workspace_id:u.workspace,p_input:{...revokeDraft,command_id:randomUUID()}},u.token)
+    check(billingDenied.status===403&&billingDenied.json?.code==='42501',`billing_valid_jwt_revoked_${name}`)
     check((await rpc('product_v1_task_create',{p_workspace_id:u.workspace,p_input:{command_id:randomUUID(),title:'Revoked Synthetic'}},u.token)).status>=400, `product_valid_jwt_revoked_${name}`)
     check((await reader(u, u.workspace, ca)).status >= 400, `server_actor_revoked_${name}`)
     check((await download(object, u.token)).status >= 400, `storage_revoked_${name}`)
