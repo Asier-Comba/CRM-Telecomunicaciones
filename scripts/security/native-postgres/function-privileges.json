@@ -1357,6 +1357,22 @@
       "anon": false,
       "public": false,
       "definer": true,
+      "signature": "public.provenance_v1_capture_manual()",
+      "service_role": false,
+      "authenticated": false
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": true,
+      "signature": "public.provenance_v1_get(uuid, jsonb)",
+      "service_role": false,
+      "authenticated": true
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.provision_workspace(text, text)",
       "service_role": false,
       "authenticated": true
@@ -1525,7 +1541,23 @@
       "anon": false,
       "public": false,
       "definer": true,
+      "signature": "public.team_v1_member_invite_list(uuid, jsonb)",
+      "service_role": false,
+      "authenticated": true
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.team_v1_member_list(uuid, jsonb)",
+      "service_role": false,
+      "authenticated": true
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": true,
+      "signature": "public.team_v1_member_reissue_invite(uuid, jsonb)",
       "service_role": false,
       "authenticated": true
     },

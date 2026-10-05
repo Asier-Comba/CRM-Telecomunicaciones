@@ -63,6 +63,7 @@ target_relations(name) as (
     ('opportunity_stages'),
     ('opportunities'),
     ('product_audit_events'),
+    ('product_manual_origin_proofs'),
     ('product_command_key'),
     ('product_commands'),
   ('product_opportunity_history'),
