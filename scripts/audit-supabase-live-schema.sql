@@ -31,6 +31,8 @@ target_relations(name) as (
     ('conversations'),
     ('customers'),
     ('documents'),
+    ('document_upload_intents'),
+    ('document_download_tickets'),
     ('entity_files'),
     ('inbox_agent_settings'),
     ('import_applications'),

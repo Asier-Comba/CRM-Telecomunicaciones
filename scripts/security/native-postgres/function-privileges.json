@@ -10,188 +10,188 @@
       "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.billing_v1_assert_scope(uuid)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": false,
-      "service_role": false
+      "service_role": false,
+      "authenticated": false
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": false,
       "signature": "public.billing_v1_calculate(jsonb)",
-      "definer": false,
-      "public": false,
-      "anon": false,
-      "authenticated": false,
-      "service_role": false
+      "service_role": false,
+      "authenticated": false
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.billing_v1_command(uuid, text, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": false,
-      "service_role": false
+      "service_role": false,
+      "authenticated": false
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.billing_v1_configuration_get(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.billing_v1_customer_fiscal_set(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.billing_v1_finish(uuid, uuid, text, jsonb, uuid, bigint, text, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": false,
-      "service_role": false
+      "service_role": false,
+      "authenticated": false
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.billing_v1_invoice_create_draft(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.billing_v1_invoice_financial_summary(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.billing_v1_invoice_get(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.billing_v1_invoice_issue(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.billing_v1_invoice_list(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.billing_v1_invoice_mark_paid(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.billing_v1_invoice_propose(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.billing_v1_invoice_restore(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.billing_v1_invoice_reverse_payment(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.billing_v1_invoice_summary(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.billing_v1_invoice_trash(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.billing_v1_invoice_update_draft(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.billing_v1_issuer_set(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": false,
       "signature": "public.billing_v1_protect_invoice()",
-      "definer": false,
-      "public": false,
-      "anon": false,
-      "authenticated": false,
-      "service_role": false
+      "service_role": false,
+      "authenticated": false
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.billing_v1_protect_line()",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": false,
-      "service_role": false
+      "service_role": false,
+      "authenticated": false
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.billing_v1_read(uuid, text, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": false,
-      "service_role": false
+      "service_role": false,
+      "authenticated": false
     },
     {
-      "signature": "public.billing_v1_validate(text, jsonb)",
-      "definer": false,
-      "public": false,
       "anon": false,
-      "authenticated": false,
-      "service_role": false
+      "public": false,
+      "definer": false,
+      "signature": "public.billing_v1_validate(text, jsonb)",
+      "service_role": false,
+      "authenticated": false
     },
     {
       "anon": false,
@@ -210,60 +210,116 @@
       "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
+      "signature": "public.document_content_v1_command(uuid, text, jsonb)",
+      "service_role": false,
+      "authenticated": false
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": true,
+      "signature": "public.document_content_v1_finalize_upload(uuid, jsonb)",
+      "service_role": false,
+      "authenticated": true
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": true,
+      "signature": "public.document_content_v1_manifest(uuid, jsonb)",
+      "service_role": false,
+      "authenticated": true
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": true,
+      "signature": "public.document_content_v1_pending_object(text)",
+      "service_role": false,
+      "authenticated": true
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": true,
+      "signature": "public.document_content_v1_request_download(uuid, jsonb)",
+      "service_role": false,
+      "authenticated": true
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": true,
+      "signature": "public.document_content_v1_request_upload(uuid, jsonb)",
+      "service_role": false,
+      "authenticated": true
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": false,
+      "signature": "public.document_content_v1_validate(text, jsonb)",
+      "service_role": false,
+      "authenticated": false
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.document_v1_archive(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.document_v1_assert_scope(uuid)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": false,
-      "service_role": false
+      "service_role": false,
+      "authenticated": false
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.document_v1_command(uuid, text, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": false,
-      "service_role": false
+      "service_role": false,
+      "authenticated": false
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.document_v1_get_metadata(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.document_v1_list(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.document_v1_restore(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
-      "signature": "public.document_v1_safe_metadata(uuid, uuid)",
-      "definer": true,
-      "public": false,
       "anon": false,
-      "authenticated": false,
-      "service_role": false
+      "public": false,
+      "definer": true,
+      "signature": "public.document_v1_safe_metadata(uuid, uuid)",
+      "service_role": false,
+      "authenticated": false
     },
     {
       "anon": false,
@@ -314,548 +370,548 @@
       "authenticated": false
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.portfolio_v1_command(uuid, text, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": false,
-      "service_role": false
+      "service_role": false,
+      "authenticated": false
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.portfolio_v1_contract_activate(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.portfolio_v1_contract_cancel(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.portfolio_v1_contract_create_manual(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.portfolio_v1_contract_record_renewal(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.portfolio_v1_contract_update_allowed_metadata(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.portfolio_v1_deadline_command(uuid, text, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": false,
-      "service_role": false
+      "service_role": false,
+      "authenticated": false
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.portfolio_v1_deadline_identity()",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": false,
-      "service_role": false
+      "service_role": false,
+      "authenticated": false
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": false,
       "signature": "public.portfolio_v1_deadline_validate(text, jsonb)",
-      "definer": false,
-      "public": false,
-      "anon": false,
-      "authenticated": false,
-      "service_role": false
+      "service_role": false,
+      "authenticated": false
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.portfolio_v1_get(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.portfolio_v1_get_portfolio_base(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": false,
-      "service_role": false
+      "service_role": false,
+      "authenticated": false
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.portfolio_v1_identity()",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": false,
-      "service_role": false
+      "service_role": false,
+      "authenticated": false
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.portfolio_v1_line_create_manual(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.portfolio_v1_line_transition(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.portfolio_v1_line_update_label(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.portfolio_v1_permanence_cancel(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.portfolio_v1_permanence_create_manual(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.portfolio_v1_permanence_update(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.portfolio_v1_renewal_dismiss(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.portfolio_v1_renewal_resolve(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.portfolio_v1_renewal_update(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.portfolio_v1_service_create_manual(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.portfolio_v1_service_transition(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.portfolio_v1_service_update_label(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": false,
       "signature": "public.portfolio_v1_validate(text, jsonb)",
-      "definer": false,
-      "public": false,
-      "anon": false,
-      "authenticated": false,
-      "service_role": false
+      "service_role": false,
+      "authenticated": false
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.product_v1_assert_scope(uuid, boolean)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": false,
-      "service_role": false
+      "service_role": false,
+      "authenticated": false
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.product_v1_assert_work_scope(uuid, boolean)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": false,
-      "service_role": false
+      "service_role": false,
+      "authenticated": false
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.product_v1_begin_command(uuid, uuid, text, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": false,
-      "service_role": false
+      "service_role": false,
+      "authenticated": false
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.product_v1_calendar(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.product_v1_contact_archive(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.product_v1_contact_create(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.product_v1_contact_editors(uuid, uuid, integer, uuid)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.product_v1_contact_restore(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.product_v1_contact_update(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.product_v1_customer_archive(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.product_v1_customer_create(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.product_v1_customer_editor(uuid, uuid)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.product_v1_customer_restore(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.product_v1_customer_update(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.product_v1_dashboard_v2(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.product_v1_dashboard_v2_base(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": false,
-      "service_role": false
+      "service_role": false,
+      "authenticated": false
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.product_v1_finish_command(uuid, uuid, text, jsonb, uuid, bigint, text, uuid)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": false,
-      "service_role": false
+      "service_role": false,
+      "authenticated": false
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.product_v1_global_search(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.product_v1_meeting_cancel(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.product_v1_meeting_complete(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.product_v1_meeting_create(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.product_v1_meeting_no_show(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.product_v1_meeting_reschedule(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.product_v1_meeting_update(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.product_v1_opportunity_archive(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.product_v1_opportunity_assign(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.product_v1_opportunity_change_stage(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.product_v1_opportunity_create(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.product_v1_opportunity_lose(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.product_v1_opportunity_reopen(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.product_v1_opportunity_update(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.product_v1_opportunity_win(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.product_v1_stage_catalog(uuid, uuid, integer)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.product_v1_task_cancel(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.product_v1_task_complete(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.product_v1_task_create(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.product_v1_task_reopen(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.product_v1_task_start(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.product_v1_task_update(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": false,
       "signature": "public.product_v1_validate_input(jsonb, text[], text[])",
-      "definer": false,
-      "public": false,
-      "anon": false,
-      "authenticated": false,
-      "service_role": false
+      "service_role": false,
+      "authenticated": false
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": false,
       "signature": "public.product_v1_validate_work_input(jsonb, text[], text[])",
-      "definer": false,
-      "public": false,
-      "anon": false,
-      "authenticated": false,
-      "service_role": false
+      "service_role": false,
+      "authenticated": false
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.product_v1_work_command(uuid, text, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": false,
-      "service_role": false
+      "service_role": false,
+      "authenticated": false
     },
     {
-      "signature": "public.product_v1_work_get(uuid, text, uuid)",
-      "definer": true,
-      "public": false,
       "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "public": false,
+      "definer": true,
+      "signature": "public.product_v1_work_get(uuid, text, uuid)",
+      "service_role": false,
+      "authenticated": true
     },
     {
       "anon": false,
@@ -962,84 +1018,84 @@
       "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.team_v1_assert_scope(uuid)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": false,
-      "service_role": false
+      "service_role": false,
+      "authenticated": false
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.team_v1_command(uuid, text, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": false,
-      "service_role": false
+      "service_role": false,
+      "authenticated": false
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.team_v1_finish(uuid, uuid, text, jsonb, uuid, bigint, text)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": false,
-      "service_role": false
+      "service_role": false,
+      "authenticated": false
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.team_v1_member_cancel_invite(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.team_v1_member_invite_intent(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.team_v1_member_list(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.team_v1_member_remove(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.team_v1_member_resume(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.team_v1_member_role_change(uuid, jsonb)",
-      "definer": true,
-      "public": false,
-      "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "service_role": false,
+      "authenticated": true
     },
     {
-      "signature": "public.team_v1_member_suspend(uuid, jsonb)",
-      "definer": true,
-      "public": false,
       "anon": false,
-      "authenticated": true,
-      "service_role": false
+      "public": false,
+      "definer": true,
+      "signature": "public.team_v1_member_suspend(uuid, jsonb)",
+      "service_role": false,
+      "authenticated": true
     },
     {
       "anon": false,

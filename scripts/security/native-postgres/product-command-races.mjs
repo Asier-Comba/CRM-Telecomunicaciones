@@ -142,6 +142,20 @@ try {
  assert.ok(documentRestores.every(r=>r.code===0));const restoredDocument=JSON.parse(documentRestores[0].out.trim());for(const attempt of documentRestores)assert.deepEqual(JSON.parse(attempt.out.trim()),restoredDocument)
  assert.equal(await sql(`select count(*)from public.product_audit_events where entity_id='${document}'`),'2')
  console.log('DOCUMENT NATIVE RACES PASS:20 CAS archives one winner /20 identical restore replays /two audits; revoked replay below')
+ const contentCommand=(op,input)=>`begin;set local role authenticated;set local request.jwt.claim.sub='${actor}';select public.document_content_v1_${op}('${workspace}','${JSON.stringify(input)}'::jsonb);commit;`
+ for(const sameKey of [true,false]){
+  const pending=JSON.parse(await sql(contentCommand('request_upload',{command_id:randomUUID(),target_kind:'customer',target_id:id,document_kind:'general',file_name:'Synthetic native.pdf',media_type:'application/pdf',size_bytes:32})))
+  const path=await sql(`select storage_path from public.documents where id='${pending.id}'`)
+  await sql(`insert into storage.objects(id,bucket_id,name,metadata)values('${randomUUID()}','telecom-documents','${path}','{"size":32,"mimetype":"application/pdf"}')`)
+  const input={command_id:randomUUID(),id:pending.id,expected_version:1},query=contentCommand('finalize_upload',input)
+  const attempts=await Promise.all(Array.from({length:20},()=>docker([...args,'--set=VERBOSITY=sqlstate'],sameKey?query:contentCommand('finalize_upload',{...input,command_id:randomUUID()}))))
+  assert.equal(attempts.filter(r=>r.code===0).length,sameKey?20:1)
+  if(sameKey){const first=JSON.parse(attempts[0].out.trim());for(const attempt of attempts)assert.deepEqual(JSON.parse(attempt.out.trim()),first);familyReplays.push(query)}
+  else assert.equal(attempts.filter(r=>r.code!==0&&/40001/.test(r.err)).length,19)
+  assert.equal(await sql(`select version from public.documents where id='${pending.id}'`),'2')
+  assert.equal(await sql(`select count(*)from public.product_audit_events where entity_id='${pending.id}'`),'2')
+ }
+ console.log('DOCUMENT CONTENT NATIVE RACES PASS:20 identical finalizations one receipt /20 distinct CAS finalizations one winner; one activation/two audits')
  await sql(`delete from public.workspace_members where workspace_id='${workspace}' and user_id='${actor}'`)
  const revoked=await docker([...args,'--set=VERBOSITY=sqlstate'],create())
  assert.notEqual(revoked.code,0);assert.match(revoked.err,/42501/)

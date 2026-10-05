@@ -35,6 +35,8 @@ test('the known Supabase drift remains explicit', () => {
       'calendar_events',
       'contacts',
       'customers',
+      'document_download_tickets',
+      'document_upload_intents',
       'documents',
       'import_applications',
       'import_field_mappings',

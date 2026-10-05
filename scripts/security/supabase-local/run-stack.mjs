@@ -48,7 +48,7 @@ try {
   evidence.zero_to_head = 'PASS'
   stage='app_transport_start'
   const appUrl='http://127.0.0.1:3108'
-  appServer=spawn(process.execPath,['node_modules/next/dist/bin/next','start','--hostname','127.0.0.1','--port','3108'],{stdio:'ignore',env:{...process.env,NEXT_PUBLIC_SUPABASE_URL:url,NEXT_PUBLIC_SUPABASE_ANON_KEY:anon,PRODUCT_V1_ENABLED:'true',PRODUCT_V1_ORIGIN:appUrl}})
+  appServer=spawn(process.execPath,['node_modules/next/dist/bin/next','start','--hostname','127.0.0.1','--port','3108'],{stdio:'ignore',env:{...process.env,NEXT_PUBLIC_SUPABASE_URL:url,NEXT_PUBLIC_SUPABASE_ANON_KEY:anon,PRODUCT_V1_ENABLED:'true',PRODUCT_DOCUMENT_CONTENT_ENABLED:'true',PRODUCT_V1_ORIGIN:appUrl}})
   let appReady=false
   for(let attempt=0;attempt<40;attempt++){try{const response=await fetch(appUrl+'/api/product/v1/commands',{method:'POST',signal:AbortSignal.timeout(1000)});if(response.status===403){appReady=true;break}}catch{}await new Promise(resolve=>setTimeout(resolve,250))}
   if(!appReady)throw new Error('APP_TRANSPORT_NOT_READY')
