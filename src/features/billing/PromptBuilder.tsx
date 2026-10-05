@@ -29,9 +29,10 @@ export function PromptBuilder({
   onGenerate,
 }: {
   customers: { id: string; name: string }[]
-  onGenerate: (result: InvoiceParseResult) => void
+  onGenerate: (result: InvoiceParseResult, source: 'text'|'audio') => void
 }) {
   const [text, setText] = useState(''),
+    [source,setSource] = useState<'text'|'audio'>('text'),
     [listening, setListening] = useState(false),
     [message, setMessage] = useState(''),
     rec = useRef<Speech | null>(null)
@@ -58,6 +59,7 @@ export function PromptBuilder({
     }
     const speech = new Ctor(),
       base = text ? `${text} ` : ''
+    setSource('audio')
     speech.lang = 'es-ES'
     speech.continuous = false
     speech.interimResults = true
@@ -95,7 +97,7 @@ export function PromptBuilder({
         maxLength={2000}
         rows={3}
         value={text}
-        onChange={(e) => setText(e.target.value)}
+        onChange={(e) => {setText(e.target.value);setSource('text')}}
         placeholder="Factura a Bilbao Industrial Demo SL por servicio de conectividad de 1.200 euros + IVA, vencimiento en 15 días"
         className={`${control} w-full`}
       />
@@ -117,7 +119,7 @@ export function PromptBuilder({
           type="button"
           disabled={!text.trim() || listening}
           className={primary}
-          onClick={() => onGenerate(parseInvoiceText(text, customers))}
+          onClick={() => onGenerate(parseInvoiceText(text, customers),source)}
         >
           <Wand2 className="h-4 w-4" />
           Generar propuesta

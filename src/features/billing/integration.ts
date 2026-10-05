@@ -1,6 +1,6 @@
-import type { InvoiceFormData } from './model'
+import type { InvoiceFormData } from './model.ts'
 import type { BillingDraftV1,BillingInvoiceV1 } from '@/lib/contracts/billing-v1'
-import { ProductUiError } from '@/features/product/integration/repository'
+import { ProductUiError } from '../product/integration/repository.ts'
 function scaled(value:number,places:number):number{
   const parts=String(value).split('.');if(!/^\d+$/.test(parts[0]) || parts.length>2 || parts[1] && (!/^\d+$/.test(parts[1]) || parts[1].length>places))throw new ProductUiError('validation')
   const n=Number(parts[0])*10**places+Number((parts[1]??'').padEnd(places,'0'));if(!Number.isSafeInteger(n))throw new ProductUiError('validation');return n

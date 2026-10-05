@@ -7,7 +7,13 @@ import {
   previewOpportunities,
 } from '@/lib/telecom-preview/data'
 import { Billing } from '@/features/billing/Billing'
-export default function InvoicingPage() {
+import { integratedLocalAllowed } from '@/features/product/integration/mode'
+import { IntegratedBilling } from '@/features/billing/IntegratedBilling'
+export default async function InvoicingPage({searchParams}:{searchParams:Promise<{invoice?:string}>}) {
+  if(integratedLocalAllowed()){
+    const {invoice}=await searchParams
+    return <IntegratedBilling initialInvoiceId={typeof invoice==='string'&&/^[0-9a-f-]{36}$/i.test(invoice)?invoice:undefined}/>
+  }
   if (!syntheticPreviewAllowed())
     return (
       <PageHeader
