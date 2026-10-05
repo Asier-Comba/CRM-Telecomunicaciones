@@ -208,6 +208,7 @@ export async function acceptance({ url, anon, service, db, command, report, appU
   // Static source review supplements HTTP; service-role is not user RLS evidence.
   const repository = readFileSync('src/lib/server/telecom-supabase-repository-v1.ts', 'utf8')
   check(!repository.includes('NEXT_PUBLIC_SUPABASE_SERVICE_ROLE'), 'no_public_service_binding')
+  Object.assign(report,{w1_backend_acceptance:'PASS',w1_backend_checks:checks.length})
   if (onProductUi) Object.assign(report, await onProductUi({ users, wa, ca, sql }))
   return { ...productResult, ...workReadResult, ...teamResult, ...portfolioResult, ...deadlineResult, ...documentResult, ...contentResult, result: 'PASS', auth: 'PASS', jwt: 'PASS', postgrest: 'PASS', rpc: 'PASS', storage: 'PASS', cross_tenant: 'PASS', revocation: 'PASS', auth_users: Object.keys(users).length, checks: checks.length, status_codes: statuses, manager: 'NOT_CANONICAL', signed_access: 'NOT_IMPLEMENTED', auth_email_production: 'NOT_TESTED', mfa_production: 'NOT_TESTED', scoped_service_principal: 'NOT_IMPLEMENTED', remote_staging: 'NOT_TESTED' }
 }

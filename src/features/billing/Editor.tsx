@@ -1,4 +1,5 @@
 'use client'
+import { invoicePreviewTotals } from './integration'
 import { useState } from 'react'
 import { Plus, Trash2, Download } from 'lucide-react'
 import { Drawer, control, primary } from '@/features/product/ui'
@@ -45,6 +46,7 @@ export function InvoiceEditor({
     [errors, setErrors] = useState<string[]>([]),
     [reviewed, setReviewed] = useState(false),
     totals = calculateInvoiceTotals(form.items)
+  const exact=integrated?invoicePreviewTotals(form):null
   function field<K extends keyof InvoiceFormData>(
     key: K,
     value: InvoiceFormData[K],
@@ -401,19 +403,20 @@ export function InvoiceEditor({
       </label>
       <dl className="space-y-2 rounded-xl bg-slate-50 p-4 text-sm">
         {[
-          ['Base imponible', totals.subtotal],
-          ['IVA', totals.taxTotal],
-          ['IRPF', totals.withholdingTotal],
-          ['Total', totals.total],
+          ['Base imponible', integrated?(exact?exact.subtotal_minor/100:null):totals.subtotal],
+          ['IVA', integrated?(exact?exact.tax_minor/100:null):totals.taxTotal],
+          ['IRPF', integrated?(exact?exact.withholding_minor/100:null):totals.withholdingTotal],
+          ['Total', integrated?(exact?exact.total_minor/100:null):totals.total],
         ].map(([k, v]) => (
           <div key={k} className="flex justify-between">
             <dt className="text-slate-500">{k}</dt>
             <dd className="font-semibold text-slate-900">
-              {money(Number(v), form.currency)}
+              {v===null?'—':money(Number(v), form.currency)}
             </dd>
           </div>
         ))}
       </dl>
+      {integrated&&!exact&&<p className="text-xs text-amber-800">Completa las líneas con cantidades e importes válidos para calcular la previsión exacta.</p>}
       {errors.length > 0 && (
         <div
           role="alert"

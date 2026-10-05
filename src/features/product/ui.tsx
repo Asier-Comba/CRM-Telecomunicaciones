@@ -177,7 +177,9 @@ export function Tabs({
   items,
   value,
   onChange,
+  prefix='',
 }: {
+  prefix?: string
   items: readonly string[]
   value: string
   onChange: (v: string) => void
@@ -193,8 +195,8 @@ export function Tabs({
           type="button"
           role="tab"
           aria-selected={value === item}
-          id={`tab-${item}`}
-          aria-controls={`panel-${item}`}
+          id={`${prefix}tab-${item}`}
+          aria-controls={`${prefix}panel-${item}`}
           tabIndex={value === item ? 0 : -1}
           key={item}
           onClick={() => onChange(item)}
@@ -210,7 +212,7 @@ export function Tabs({
                     : (i + (e.key === 'ArrowRight' ? 1 : -1) + items.length) %
                       items.length
               onChange(items[next])
-              document.getElementById(`tab-${items[next]}`)?.focus()
+              document.getElementById(`${prefix}tab-${items[next]}`)?.focus()
             }
           }}
           className={`whitespace-nowrap border-b-2 px-3 py-3 text-sm font-medium focus-visible:outline-2 focus-visible:outline-indigo-500 ${value === item ? 'border-indigo-600 text-indigo-700' : 'border-transparent text-slate-500 hover:text-slate-800'}`}

@@ -1,3 +1,4 @@
+import {calculateBillingV1} from '../../lib/server/billing-runtime-v1.ts'
 import type { InvoiceFormData } from './model.ts'
 import type { BillingDraftV1,BillingInvoiceV1 } from '@/lib/contracts/billing-v1'
 import { ProductUiError } from '../product/integration/repository.ts'
@@ -12,3 +13,5 @@ export function normalizedInvoice(form:InvoiceFormData):BillingDraftV1{
 export function invoiceForm(invoice:BillingInvoiceV1):InvoiceFormData{
   return {clientId:invoice.customer_id,opportunityId:invoice.opportunity_id,contractId:invoice.contract_id,serviceId:invoice.service_id,series:invoice.series,issueDate:invoice.issue_on,dueDate:invoice.due_on,currency:invoice.currency,exchangeRateToEur:invoice.fx?invoice.fx.rate_micros/1000000:null,exchangeRateDate:invoice.fx?.on??null,exchangeRateSource:invoice.fx?.source??'',notes:invoice.notes??'',internalNotes:'',items:invoice.lines.map((l,sortOrder)=>({description:l.description,quantity:l.quantity_milli/1000,unitPrice:l.unit_price_minor/100,discountRate:l.discount_bps/100,taxRate:l.tax_bps/100,withholdingRate:l.withholding_bps/100,sortOrder}))}
 }
+
+export function invoicePreviewTotals(form:InvoiceFormData){try{return calculateBillingV1(normalizedInvoice(form).lines)}catch{return null}}

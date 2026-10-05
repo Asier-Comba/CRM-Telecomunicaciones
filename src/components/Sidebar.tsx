@@ -21,6 +21,7 @@ import { useWorkspaceIdentity } from '@/components/WorkspaceIdentityProvider'
 import { getSupabaseBrowserClient } from '@/lib/supabase'
 import { clearWorkspaceIdentityCache } from '@/lib/supabase-queries'
 import { DEMO_MODE_KEY } from '@/lib/current-user'
+import { useProduct } from '@/features/product/integration/Provider'
 import { BRAND } from '@/lib/brand'
 const items = [
   ['/dashboard', 'Dashboard', LayoutDashboard],
@@ -36,6 +37,8 @@ const items = [
   ['/settings', 'Configuración', Settings],
 ] as const
 export function Sidebar({ onClose }: { onClose?: () => void } = {}) {
+  const {repository}=useProduct()
+  const integrated=repository.mode==='integrated_local'
   const pathname = usePathname(),
     router = useRouter(),
     { currentUser } = useWorkspaceIdentity()
@@ -109,10 +112,10 @@ export function Sidebar({ onClose }: { onClose?: () => void } = {}) {
       <div className="m-3 rounded-lg bg-indigo-50 px-3 py-3">
         <p className="flex gap-2 text-xs font-semibold text-indigo-800">
           <ShieldCheck className="h-4 w-4" />
-          Entorno de consulta
+          {integrated?'Integración local':'Entorno de consulta'}
         </p>
         <p className="mt-1 text-[11px] leading-4 text-indigo-600">
-          Las acciones que requieren conexión aparecen desactivadas.
+          {integrated?'Cambios guardados con permisos en la base de prueba.':'Las acciones que requieren conexión aparecen desactivadas.'}
         </p>
       </div>
       <div className="flex items-center gap-2 border-t border-slate-100 px-4 py-3">

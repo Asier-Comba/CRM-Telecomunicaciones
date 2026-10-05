@@ -1,55 +1,64 @@
-# W2 Product Rebuild 1.0 — delivery status
+# W2 Product Integration 3.0 — current consumer evidence
 
-Date: 2026-10-03. Branch: `w2/product-rebuild-v1`. Draft PR: https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/27. Target: `w4/preview-hardening-v1@6210a9d5af6766679b231954199bc77b07ad8559`, containing W3 PR21 and the W4 candidate launcher/request hardening. This PR is product work; it does not merge main or accept a release.
+2026-10-05. Branch w2/product-integration-v2; Draft PR30: https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/30, stacked on unchanged PR27@2878687. W1 normal merges consumed488647d and42176c744789a534daf4ea24c77ffc2cdbcd7c4c (verified document content executable eff8022). No main merge, deployment, production data or external effects.
 
-## Delivered scope
+## Actual integration and verification
 
-Dense shared shell with responsive modal navigation, safe cross-entity fixture search, eleven module entries and reusable tabs/drawers. Dashboard, Clients, fourteen-area Customer360, seven-tab telecom portfolio, opportunity pipeline/card/list views and real calendar week/month/agenda grids are functional typed read previews. Assistant has temporary threads with rename/delete, safe W3 output, sources/partiality, validated customer context and cancellation fencing. Invoice proposals, reviewed local drafts, real draft PDF bytes, tax/discount/FX editor, customer-scoped entity links and controlled trash lifecycle are functional local operations. Company/fiscal forms remain in memory. Inbox, automation catalog and document categories expose their actual readiness limits.
+Integrated local requires explicit integration/synthetic/product flags, nonproduction and canonical loopback URLs. Real SSR-cookie Auth getUser and current DB membership supply authority. One closed typed repository reuses W1 parsers, mounted immutable command IDs and editor expected_version; no fixture fallback or direct privileged browser RPC. Document content needs its additional default-off flag. W1 UI_SAFE remains false and W4 release review independent.
 
-All data shown by rebuilt modules are synthetic or unavailable. Backend effects and provider sends remain disabled. Frontend roles or fixture IDs never supply server authority.
+Latest executed browser head81fd8864964a760570870640e06a947480f34a04: Supabase39/run37311794867 reached W2 after568 backend checks;16 W2 independent journeys PASS/5 FAIL. Passed member/owner login, customer create/edit/archive/restore/reload, contact primary switching and no PII persistence, dashboard/search, task create/complete, meeting create/reschedule/cancel, manual service/line/renewal creation and imported-source read-only UI, metadata archive/restore, explicit prepare/upload/finalize/private download, eight screen families at1440/768/390 with no document overflow, viewer login/no-write controls.
 
-## Measured capability coverage
+Failed conflict fixture, revocation final-state assertion, opportunities, billing and team invite. Captures showed direct version assignment rejected by W1 automatic-version trigger; missing concurrent customer name blocked downstream journeys. Fixture now changes trade_name only. Team raced an editable invitation input against prior role completion; now disabled while running and closes confirmation after reload. These fixes are candidates until next-head browser rerun. All failed suites stay FAIL.
 
-The canonical register is `../PRODUCT_PARITY_STATUS.json` (244 rows, matching `../PRODUCT_PARITY_MATRIX.md`). Fully delivered means SYNTHETIC_IMPLEMENTED or LOCAL_IMPLEMENTED **within preview scope**. Partial rows count zero; disabled operations count zero. Platform implementation retained from W1/W5 does not count as new UI delivery. Four explicit property-domain exclusions are outside the denominator. The register mixes inherited capabilities and 31 marked telecom additions, so the scopes are explicit rather than claiming all rows originated in the old CRM.
+CI318/run37311794696:234 tests/types/lint/build and independent embedded/native fresh/restore, migration/secret/guardrail/Windows/preview/production fixture closure PASS. Quality fails only full npm audit (Issue29,5 inherited high findings). Dependency review/Critical Playwright SKIPPED, not passes. Browser private-value boundary PASS. Next source candidate passed235 local tests/types/lint before executor failure, including exact integer invoice preview rounding; fresh GitHub verification is required after recovery.
 
-| Required metric | Value | Definition / limit |
+## Metrics and all244 rows
+
+| Metric | Value | Scope |
 |---|---|---|
-| OLD_PRODUCT_PARITY | 47.4% | 99/209 applicable generic historical rows delivered in preview/local UX; live behavioral parity is not accepted |
-| TELECOM_SUPERSET | 54.8% | 17/31 explicitly marked telecom extension rows fully functional; remaining additions partial/blocked |
-| VISUAL_QUALITY | 80% | 8/10 review checks evidenced: shared shell, heading hierarchy, nine-screen desktop/mobile captures, controlled document width, responsive controls, labelled fields, visible unavailable/partial states and legacy-string absence. Old-rendering comparison and independent human approval remain unverified. This is acceptance-check coverage, not an aesthetic score |
-| INTERACTION_COMPLETENESS | 51.6% | 116/225 product UI capability rows fully functional within preview scope; not a count of routes or successful compilations |
-| BACKEND_WIRING | 0% | No rebuilt module is wired to an accepted live scoped data/mutation adapter; existing DB/runtime work is preserved separately |
-| SYNTHETIC_ONLY | 100% | Every rendered dataset in rebuilt modules is synthetic/local or explicitly unavailable |
-| REAL_WRITES | 0% | No server/domain/fiscal/provider writes enabled by this change; local form/draft state is not a real write |
-| AI_UI | 52.2% | 12/23 assistant UI rows delivered; live model, context transport, rich entity navigation/continuations and action contracts are incomplete |
-| BLOCKERS | Open | Unpatched dependency audit; scoped server identity Issue12; accepted per-module contracts; W3 action boundary Issue10; human visual acceptance |
+| OLD_PRODUCT_PARITY |47.4% (99/209)|Delivered useful generic preview/local UX; full integrated parity not accepted|
+| TELECOM_SUPERSET |54.8% (17/31)|Delivered preview telecom additions|
+| INTERACTION_COMPLETENESS |51.6% (116/225)|Complete preview/local capability rows; PARTIAL counts zero|
+| BACKEND_WIRING |34.5% (29/84)|Individually observed normal W1 operations through real Auth/cookie/UI against disposable Supabase|
+| REAL_LOCAL_WRITES |29.2% (19/65)|Distinct positively observed persisted local write operations; production writes0|
+| SYNTHETIC_ONLY |100% of data|Only synthetic test/preview data; integrated local has actual DB persistence|
+| AI_UI |52.2% (12/23)|Existing preview acceptance; new W3 UI handoff partial and integrated sender disabled|
+| VISUAL_QUALITY |Partial|Width acceptance8screen families/3widths; complete dialog/all requested family/human review pending|
 
-Counts: 85 synthetic implemented, 31 local implemented, 40 partial, 5 not implemented, 64 blocked, 15 preserved backend, 4 not applicable. Implementation classification is source-based plus executed module journeys; it does not claim exhaustive per-row browser tests. Microphone recognition has not been exercised. Full product parity is **not** declared.
+All244 rows independently retain frozen preview_status and integrated_local_status/evidence/limitations. Source-only or positive-only integration stays PARTIAL. Primary counts85 synthetic,31 local,71 partial,5 not implemented,33 blocked,15 preserved backend,4 excluded. Integrated review142 partial,53 not implemented,30 blocked,15 preserved backend,4 excluded. Complete integrated accepted rows0 until complete row/negative-role evidence. Operation coverage uses a different denominator from row completeness.
 
-## Executed validation and evidence
+## Family status
 
-Latest tested product code: `badfd676769540d6b43aaaec84aeacb551c8d388`. The final evidence commit changes documentation only.
+- Customers: persisted create/update/archive/restore and contact primary switching verified. Contact archive/restore newly consumed, pending browser. Full inventory/assignment partial.
+- Customer360:14 areas; actual protected company/contact/scoped agenda/document/billing panels. Full customer-bound active/opportunity inventories and transversal activity explicitly unavailable.
+- Calendar: actual bounded reads and task/meeting state commands; civil renewal/permanence editor. Task start/reopen and meeting update/no-show newly consumed. Provider sync/drag unavailable.
+- Opportunities: canonical UUID stages, manual create/edit/stage/win/lose/reopen/archive and bounded coded history. Browser lifecycle blocked by fixture; full inventory/assignment/new links partial.
+- Portfolio: actual manual service/line/renewal UI writes verified, source ancestry preserved. Manual contract/child/deadline commands wired; general operator/plan/assignment selectors and inventory partial.
+- Billing: protected issuer/fiscal profiles, exact normalization/server totals and integer preview, text/audio proposal review, drafts/explicit issue/paid/reverse/trash/restore/authorized PDF wired. Actual lifecycle/PDF visual verification pending; full links/FX/charts/top-clients partial.
+- Team: protected list/role/suspend/resume and owner/self protection. Role/status positives observed; full invite/cancel pending race-fix acceptance. Internal intentions only, no mail.
+- Documents: protected metadata and actual scoped pending Storage upload/explicit finalize/private download verified. Exact-target restore strengthening and browser ticket revocation/expiry pending. Scanner/hash attestation/preview/cleanup/import processing unavailable.
+- W3_UI_CONTRACT: typed closed refs/request/render/source/proposal/progress/cancel handoff and thread-search shell. Durable threads/stream/runtime parser/semantic provider work stays W3/Issue10; no normal integrated sender.
+- Inbox/automations/notifications/profile/subscription/reports: unimplemented or blocked per registry, no fake activation.
 
-Local Node24: 141/141 unit and behavior tests, lint, typecheck and production build PASS. Unit evidence includes filters, null versus zero, periods, calendar dates, DST, deterministic invoice calculation/parser, malicious extraction, PDF generation and cross-customer/contract invoice link rejection. Tests and screenshot journeys remain in the repository.
+## Top10 remaining
 
-Chromium acceptance: `badfd676769540d6b43aaaec84aeacb551c8d388`, run https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37128554151: 12/12 desktop/mobile tests PASS without retries, including invoice links, conversation rename/delete, Spanish summary labels, authority rejection and malformed/cancelled output. Production fixture closure PASS; Linux launcher and child/port cleanup PASS. Screenshot artifact: https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37128554151/artifacts/11275199353. ZIP SHA256 verified after download. The manifest selects 36 captures: nine screens, two devices, two scroll positions.
+1. Complete next-head CAS/revocation and actual owner/admin/member/viewer UI evidence.
+2. Opportunity and billing/PDF lifecycle acceptance.
+3. Authorized paginated customer-bound collections and full inventory.
+4. Operator/plan/responsible selectors and ancestry-aware links.
+5. Team invitation and protected attachment ticket revocation/expiry acceptance.
+6. Financial trends/top clients/full entity links and FX ergonomics.
+7. Inbox/internal automation/notification backend and consumer availability.
+8. W3 durable thread/stream/proposal contracts; sender remains disabled.
+9. Complete dialog/mobile/tablet and independent old/new visual review.
+10. W4-reviewed Issue29 dependency mitigation/release acceptance.
 
-CI baseline guardrails, secret scan, migration policy, embedded PGlite, native PostgreSQL and Windows launcher passed on run 37128554151. Dependency review and the separate Critical Playwright job are skipped by repository configuration/dependency gating; they are not reported as passes. The dedicated synthetic browser job supplies the executed browser evidence.
+## Next3
 
-CI quality executes lint/types/tests/build successfully but fails `npm audit` with five high findings through one inherited chain: `eslint-config-next -> @next/eslint-plugin-next -> fast-glob -> micromatch -> braces@3.0.3`. Advisory https://github.com/advisories/GHSA-vfj7-8cjw-p6xm reports no patched release at review time. No audit suppression, gate removal, forced downgrade or unreviewed dependency replacement was used. W4 must approve a compatible mitigation/update before this gate can pass.
+1. Recover a fresh execution workspace and verify the published recovery checkpoint in real-local CI.
+2. Review latest W1 fa779e1 (safe import-job management, processing blocked) separately before consumption; currently merged head remains42176c7.
+3. Complete available UI gaps, recalculate row acceptance from full behavior and finalize W3/PR evidence.
 
-Artifacts `synthetic-product-screenshots` and `synthetic-telecom-browser` retain seven days in the Actions run. Large binaries are not committed. The renewed capture helpers wait for temporary toasts, record upper/lower viewport positions and keep responsive overflow checks. `../PRODUCT_SCREENSHOT_MANIFEST.json` records the selected nine-screen evidence, viewport sizes and SHA256.
+## Execution recovery
 
-Local reproduction: Node24, `npm ci`, `npm run preview:dev`, open http://localhost:3107/login and select **Ver demo telecom**. Browser verification: `npx playwright install chromium`, `npm run test:e2e:preview`. Production closure: `npm run build`, `node scripts/preview-production-check.mjs`. In this executor Chromium download returned an empty archive; Chromium ran in GitHub CI instead. This does not affect the Windows/local setup contract already tested by CI.
-
-## Exact integration gaps and ownership
-
-- **W1/W5 / Issue12:** all fourteen candidate privileged readers exist, but the safely injectable scoped server principal is still missing. Actor/workspace arguments must be derived and membership checked server-side. Do not grant authenticated EXECUTE on caller-controlled privileged functions and do not wire a global service-role key. Need accepted factory and operations for contacts/reveal, fiscal identity, global search, CRUD, calendar edits, opportunity expected-close/products/history, invoices/numbering/PDF/storage, issuer configuration, document metadata and Inbox. Local presentation models are not backend DTOs.
-- **W3 / Issue10:** preserve the single existing `{text}` READ preview request and AssistantResponse. Need accepted transport for selected entities, persisted/renamed/deleted threads, rich entity blocks and closed navigation, choices/continuations, stream protocol, live model and authorised actions. No model can emit a fiscal invoice from these local drafts.
-- **W4:** review exact-head production fixture/SSR/RSC closure; unknown/malformed replies; stale response cancellation; local draft and issuer isolation; protected identifiers; missing/partial/denied semantics; desktop/mobile focus and scroll behavior; absent provider effects; and the unresolved npm audit gate. Candidate local Supabase evidence and inherited release manifests are not live UI acceptance.
-
-## Explicit remaining product gaps
-
-The missing backend does not excuse reporting a route as a complete capability. Financial analytics, fiscal customer snapshots, real invoice lifecycle, full tariff/stage catalogs, authorized reveal, team administration, notifications, persistence, file operations, provider Inbox and active automation execution remain incomplete. Profile, billing subscription and Reports have honest unavailable states rather than copied sample finances. Old/new code review and exceptions: `../PRODUCT_OLD_NEW_REVIEW.md`.
-
-CAN_MERGE / CAN_STAGE / CAN_PRODUCE: no acceptance claimed. Old reference and main remain unchanged. No deployment or real commercial data/provider effects performed.
+The original linked checkout lost its backing Git directory after local235-test validation. Then exec-server transport disconnected and recovery timed out. Source candidates were reconstructed against exact published81fd886 through GitHub with guarded edit anchors; source changes and evidence are preserved remotely. No exact local tree comparison or further local commands were possible. Fresh remote CI is the authority for the recovered tree; no complete delivery or release acceptance is claimed.
