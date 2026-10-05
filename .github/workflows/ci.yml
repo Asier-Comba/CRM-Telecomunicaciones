@@ -1,0 +1,262 @@
+name: CI
+
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches:
+      - main
+      - w4/security-baseline
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  CI: "true"
+  NEXT_TELEMETRY_DISABLED: "1"
+
+jobs:
+  baseline-guardrails:
+    name: Baseline guardrails
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Set up Node for repository guardrails
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 22.18.0
+      - name: Validate shell and safety contracts
+        run: |
+          bash -n scripts/ci/*.sh
+          bash scripts/ci/test-guardrails.sh
+          bash scripts/ci/test-supabase-security.sh
+          node scripts/ci/test-sensitive-routes.mjs
+          node scripts/ci/check-sensitive-routes.mjs
+          node scripts/ci/test-restore-evidence.mjs
+          node scripts/ci/validate-restore-evidence.mjs
+          node scripts/ci/test-staging-evidence.mjs
+          node scripts/ci/validate-staging-evidence.mjs
+          node scripts/ci/test-observability.mjs
+          node scripts/ci/check-observability.mjs
+          node scripts/ci/test-release-gates.mjs
+          node scripts/ci/validate-release-gates.mjs
+          node scripts/ci/test-doc-contracts.mjs
+          node scripts/ci/run-doc-contract-tests.mjs
+          node scripts/ci/test-tenant-isolation-harness.mjs
+          node scripts/ci/test-assistant-security-harness.mjs
+
+  secret-scan:
+    name: Secret scan
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout full history
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Scan repository history
+        uses: gitleaks/gitleaks-action@e0c47f4f8be36e29cdc102c57e68cb5cbf0e8d1e # v3.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  dependency-review:
+    name: Dependency review (Dependency Graph required)
+    if: github.event_name == 'pull_request' && vars.DEPENDENCY_REVIEW_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - name: Review dependency changes
+        uses: actions/dependency-review-action@a1d282b36b6f3519aa1f3fc636f609c47dddb294 # v5.0.0
+        with:
+          fail-on-severity: high
+
+  migration-policy:
+    name: Migration policy
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout full history
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Validate migration and Supabase security policy
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          bash scripts/ci/check-migrations.sh
+          bash scripts/ci/check-supabase-security.sh
+
+  quality:
+    name: Lint, types, tests, build
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    outputs:
+      node_project: ${{ steps.detect.outputs.node_project }}
+      playwright: ${{ steps.detect.outputs.playwright }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Detect project contract
+        id: detect
+        run: bash scripts/ci/detect-project.sh
+      - name: Set up Node
+        if: steps.detect.outputs.node_project == 'true'
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+      - name: Install, lint, typecheck, test and build
+        if: steps.detect.outputs.node_project == 'true'
+        run: bash scripts/ci/node-quality-gate.sh
+
+  embedded-db:
+    name: Embedded PGlite schema and scope fixtures
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Set up Node
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+      - name: Install isolated database harness
+        run: npm --prefix scripts/security/ephemeral-postgres ci
+      - name: Zero-to-head, RLS, readers, Storage policy and synthetic restore
+        run: |
+          npm run test:db:onboarding
+          npm run test:db:domain
+
+  native-postgres:
+    name: Native PostgreSQL zero-to-head and synthetic restore
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: synthetic-test-only
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Isolated native migration, tenant and restore drill
+        env:
+          TELECOM_NATIVE_TEST_CONTAINER: ${{ job.services.postgres.id }}
+        run: bash scripts/security/native-postgres/test-zero-to-head.sh
+      - name: Retain synthetic density query plans
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: product-density-query-plans
+          path: ${{ runner.temp }}/product-density-query-plans.jsonlog
+          retention-days: 7
+
+  preview-browser:
+    name: Synthetic telecom browser preview
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - name: Set up Node
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version-file: .nvmrc
+      - name: Install dependencies
+        run: npm ci
+      - name: Install Chromium (setup retry only)
+        run: npx playwright install --with-deps chromium || npx playwright install --with-deps chromium
+      - name: Browser journey (no test retries)
+        run: npm run test:e2e:preview
+      - name: Production fixture closure (explicit demo flag)
+        run: npm run build && node scripts/preview-production-check.mjs
+      - name: Local launcher and child cleanup
+        run: node scripts/preview-launch-check.mjs
+      - name: Retain synthetic browser evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: synthetic-telecom-browser
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7
+      - name: Retain reviewable screenshots separately
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: synthetic-product-screenshots
+          path: test-results/**/*.png
+          retention-days: 7
+
+  preview-windows:
+    name: Windows synthetic launcher (path with spaces)
+    runs-on: windows-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: CRM Telecom Test
+    steps:
+      - name: Checkout into path with spaces
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          path: CRM Telecom Test
+          persist-credentials: false
+      - name: Set up Node24
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 24
+      - name: Reproducible local dependencies
+        run: npm ci
+      - name: Preview doctor
+        run: npm run preview:doctor
+      - name: Setup ready, grounded READ and child cleanup
+        run: node scripts/preview-launch-check.mjs
+
+  critical-e2e:
+    name: Critical Playwright
+    needs: quality
+    if: needs.quality.outputs.playwright == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      APP_ENV: test
+      PLAYWRIGHT_TARGET: local
+      ALLOW_PRODUCTION_TESTS: "false"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Set up Node
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+      - name: Install dependencies
+        run: bash scripts/ci/install-node.sh
+      - name: Run critical non-production E2E
+        run: bash scripts/ci/run-critical-e2e.sh

@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "requiredEventFields": [
+    "timestamp",
+    "level",
+    "event",
+    "correlation_id",
+    "release",
+    "environment",
+    "outcome"
+  ],
+  "allowedLevels": ["debug", "info", "warn", "error"],
+  "forbiddenFields": [
+    "access_token",
+    "refresh_token",
+    "authorization",
+    "cookie",
+    "password",
+    "secret",
+    "api_key",
+    "service_role_key",
+    "database_url",
+    "raw_prompt",
+    "model_output",
+    "message_body",
+    "request_body",
+    "response_body",
+    "import_rows"
+  ],
+  "maxEventBytes": 16384,
+  "identifierPolicy": "pseudonymous-only"
+}

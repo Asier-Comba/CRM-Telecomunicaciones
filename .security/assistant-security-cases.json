@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "requiredParallelism": 20,
+  "cases": [
+    { "id": "confirmation-forged", "category": "confirmation", "expectedStatus": "denied", "maxEffects": 0, "requireBoundedError": true },
+    { "id": "confirmation-cross-actor", "category": "confirmation", "expectedStatus": "denied", "maxEffects": 0, "requireBoundedError": true },
+    { "id": "confirmation-cross-workspace", "category": "tenant", "expectedStatus": "denied", "maxEffects": 0, "requireBoundedError": true },
+    { "id": "confirmation-expired", "category": "confirmation", "expectedStatus": "denied", "maxEffects": 0, "requireBoundedError": true },
+    { "id": "race-confirm-20", "category": "concurrency", "parallelism": 20, "expectedStatus": "completed", "maxEffects": 1 },
+    { "id": "race-cross-actor-20", "category": "concurrency", "parallelism": 20, "expectedStatus": "completed", "maxEffects": 1 },
+    { "id": "replay-completed", "category": "replay", "expectedStatus": "completed", "maxEffects": 0 },
+    { "id": "lease-exact-expiry", "category": "recovery", "expectedStatus": "reconciliation_required", "maxEffects": 0, "forbidAutomaticRetry": true },
+    { "id": "restart-after-effect-before-complete", "category": "recovery", "expectedStatus": "reconciliation_required", "maxEffects": 0, "forbidAutomaticRetry": true },
+    { "id": "completion-store-outage", "category": "outage", "expectedStatus": "reconciliation_required", "maxEffects": 1, "requireBoundedError": true, "forbidAutomaticRetry": true },
+    { "id": "cancellation-store-outage", "category": "outage", "expectedStatus": "failed", "maxEffects": 0, "requireBoundedError": true },
+    { "id": "audit-sink-outage", "category": "outage", "expectedStatus": "reconciliation_required", "maxEffects": 1, "requireBoundedError": true, "forbidAutomaticRetry": true },
+    { "id": "output-bearer-value", "category": "output", "expectedStatus": "denied", "maxEffects": 0, "requireSecretFreeOutput": true },
+    { "id": "output-aws-secret-assignment", "category": "output", "expectedStatus": "denied", "maxEffects": 0, "requireSecretFreeOutput": true },
+    { "id": "tool-arbitrary-sql", "category": "tool", "expectedStatus": "denied", "maxEffects": 0, "forbidArbitraryTarget": true },
+    { "id": "tool-arbitrary-url", "category": "tool", "expectedStatus": "denied", "maxEffects": 0, "forbidArbitraryTarget": true },
+    { "id": "tool-hallucinated-resource-id", "category": "tenant", "expectedStatus": "denied", "maxEffects": 0, "requireBoundedError": true },
+    { "id": "idempotency-store-unavailable", "category": "outage", "expectedStatus": "failed", "maxEffects": 0, "requireBoundedError": true }
+  ]
+}
