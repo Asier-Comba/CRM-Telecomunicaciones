@@ -37,11 +37,11 @@ export function Kpis({
       {items.map((item) => (
         <div
           key={item.label}
-          className="rounded-xl border border-slate-200 bg-white px-4 py-3 shadow-sm"
+          className="min-w-0 rounded-xl border border-slate-200 bg-white px-4 py-3 shadow-sm"
         >
           <dt className="text-xs font-medium text-slate-500">{item.label}</dt>
           <dd
-            className={`mt-1 text-2xl font-bold tracking-tight ${item.tone ?? 'text-slate-950'}`}
+            className={`mt-1 break-words text-xl font-bold tracking-tight sm:text-2xl ${item.tone ?? 'text-slate-950'}`}
           >
             {item.value}
           </dd>
