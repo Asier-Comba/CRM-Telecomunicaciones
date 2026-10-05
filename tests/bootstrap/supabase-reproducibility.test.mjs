@@ -30,6 +30,8 @@ test('the known Supabase drift remains explicit', () => {
       'billing_invoice_lines',
       'billing_invoices',
       'billing_issuers',
+      'billing_private_pdf_artifacts',
+      'billing_private_pdf_jobs',
       'billing_series',
       'business_audit_events',
       'calendar_events',

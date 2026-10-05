@@ -47,6 +47,7 @@ run_fixture supabase/tests/telecom-server-read-rpc.sql
 run_fixture supabase/tests/product-customer-contact-commands.sql
 run_fixture supabase/tests/product-work-commands.sql
 run_fixture supabase/tests/billing-exact-issue.sql
+run_fixture supabase/tests/billing-private-pdf-artifacts.sql
 run_fixture supabase/tests/team-protected-management.sql
 run_fixture supabase/tests/portfolio-human-commands.sql
 run_fixture supabase/tests/portfolio-deadline-commands.sql
@@ -159,6 +160,7 @@ migration_head="$(basename "${migration}")"
   printf "set app.environment = 'test';\n"
   cat "$repo_root/supabase/tests/product-work-commands.sql"
   cat "$repo_root/supabase/tests/billing-exact-issue.sql"
+  cat "$repo_root/supabase/tests/billing-private-pdf-artifacts.sql"
   cat "$repo_root/supabase/tests/team-protected-management.sql"
   cat "$repo_root/supabase/tests/portfolio-human-commands.sql"
   cat "$repo_root/supabase/tests/portfolio-deadline-commands.sql"

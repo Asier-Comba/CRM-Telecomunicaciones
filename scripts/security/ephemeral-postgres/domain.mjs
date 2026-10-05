@@ -73,6 +73,8 @@ try {
   console.log('PRODUCT RICH DENSITY COUNTS/CURSOR/SCOPE ASSERTIONS PASS (25 companies, 400 lines)')
 
   await db.exec(await readFile(resolve(root,'supabase/tests/billing-exact-issue.sql'),'utf8'))
+  await db.exec(await readFile(resolve(root,'supabase/tests/billing-private-pdf-artifacts.sql'),'utf8'))
+  console.log('BILLING PRIVATE ARTIFACT CAS/REPLAY/IMMUTABILITY/ROLLBACK PASS')
   console.log('BILLING EXACT ISSUE/IMMUTABILITY/ROLLBACK PASS')
   await db.exec(await readFile(resolve(root,'supabase/tests/team-protected-management.sql'),'utf8'))
   console.log('TEAM PROTECTED AUTHORITY/CAS/REPLAY/REVOCATION/AUDIT ROLLBACK PASS')

@@ -3463,6 +3463,135 @@
         "W2"
       ],
       "supabase_tested_head": "eff802274f20d3612f1a36ca6335f99ca38f8c2c"
+    },
+    {
+      "name": "invoice.persist_private_pdf",
+      "version": "billing.artifact.v1",
+      "kind": "write",
+      "rpc": "billing_artifact_v1_attach",
+      "input_type": "BillingArtifactInputV1",
+      "output_type": "BillingArtifactReceiptV1",
+      "minimum_role": "admin",
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor",
+        "changed_replay": "conflict"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      },
+      "backend_status": "candidate_native_fixture_tested_actual_pending",
+      "transport": {
+        "method": "POST",
+        "enabled_by_default": false,
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "additional_enable_flag": "PRODUCT_DOCUMENT_CONTENT_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "server_cookie_getUser_active_membership",
+        "status": "implemented_default_off",
+        "path": "/api/billing/v1/private-pdf"
+      },
+      "supabase_tested": false,
+      "supabase_status": "PENDING_AT_CANDIDATE_HEAD",
+      "ui_safe": false,
+      "ui_safe_status": "W4_and_W2_review_pending",
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "review_pending": [
+        "W4",
+        "W2"
+      ]
+    },
+    {
+      "name": "invoice.private_pdf_reference",
+      "version": "billing.artifact.v1",
+      "kind": "read",
+      "rpc": "billing_artifact_v1_get",
+      "input_type": "{id:uuid}",
+      "output_type": "BillingArtifactReferenceV1",
+      "minimum_role": "admin",
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null,
+        "changed_replay": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "backend_status": "candidate_native_fixture_tested_actual_pending",
+      "transport": {
+        "method": "POST",
+        "enabled_by_default": false,
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "additional_enable_flag": "PRODUCT_DOCUMENT_CONTENT_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "server_cookie_getUser_active_membership",
+        "status": "implemented_default_off",
+        "path": "/api/billing/v1/private-pdf"
+      },
+      "supabase_tested": false,
+      "supabase_status": "PENDING_AT_CANDIDATE_HEAD",
+      "ui_safe": false,
+      "ui_safe_status": "W4_and_W2_review_pending",
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "review_pending": [
+        "W4",
+        "W2"
+      ]
+    },
+    {
+      "name": "invoice.private_pdf",
+      "version": "billing.artifact.v1",
+      "kind": "read",
+      "rpc": "billing_artifact_v1_get",
+      "input_type": "{id:uuid}",
+      "output_type": "verified_frozen_private_pdf_bytes",
+      "minimum_role": "admin",
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null,
+        "changed_replay": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "backend_status": "candidate_native_fixture_tested_actual_pending",
+      "transport": {
+        "method": "POST",
+        "enabled_by_default": false,
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "additional_enable_flag": "PRODUCT_DOCUMENT_CONTENT_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "server_cookie_getUser_active_membership",
+        "status": "implemented_default_off",
+        "path": "/api/billing/v1/private-pdf"
+      },
+      "supabase_tested": false,
+      "supabase_status": "PENDING_AT_CANDIDATE_HEAD",
+      "ui_safe": false,
+      "ui_safe_status": "W4_and_W2_review_pending",
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "review_pending": [
+        "W4",
+        "W2"
+      ]
     }
   ],
   "unavailable_modules": [
