@@ -1,6 +1,6 @@
 # Import job management v1 — partial C4, processing blocked
 
-Owner/admin only, active workspace and live membership rechecked on every call/replay, default-off `PRODUCT_V1_ENABLED`, normal SSR user client, canonical Host/Origin, bounded closed 4096-byte envelope at `POST /api/import/v1`. UI_SAFE=false; BACKEND_READY_FOR_W2_REVIEW:PENDING_ACTUAL_SUPABASE.
+Owner/admin only, active workspace and live membership rechecked on every call/replay, default-off `PRODUCT_V1_ENABLED`, normal SSR user client, canonical Host/Origin, bounded closed 4096-byte envelope at `POST /api/import/v1`. UI_SAFE=false; BACKEND_READY_FOR_W2_REVIEW:YES for management only.
 
 | Operation | Input | Behavior |
 | --- | --- | --- |
@@ -13,3 +13,5 @@ The forward migration extends the existing import_jobs rather than replacing the
 C4 remains blocked for begin/validate/apply/resume: approved encrypted-payload store/KMS/decrypt adapter, integrity-verified quarantine source ingest, and closed per-domain application adapter are absent. Those operation names are rejected and not registered in the capability catalog. No plaintext JSON fallback, guessed credential, service-role product identity, direct CSV-to-core writer, ZIP extractor, provider connection or AI write is added. Existing private-quarantine client-denial evidence remains valid; upload is not implemented. Missing dependencies are not presented as a successful import. Do not show an enabled Apply button from this management contract.
 
 Independent synthetic SQL fixture covers scope/role, cursor, closed DTOs, cancellation replay/CAS/terminal semantics, audit rollback and revocation; real disposable Supabase fixture observes the three operations individually through SSR plus twenty cancellation replays and live JWT revocation. Metadata-only fixture job setup is privileged synthetic setup and provides no evidence of encrypted staging or core application. Processing readiness remains BLOCKED even when management acceptance passes.
+
+Accepted evidence: `fa779e106096d332669a437e458b9c962d6a8798`, real Supabase40/run37312320545 PASS632 with browser-private-boundary and teardown PASS. Native CI319/run37312320553 fresh+restore44/186 PASS;212 Node/lint/types/build PASS except npm audit Issue29. All three management operations have individual observations. Processing remains blocked. W2 PR30 handoff comment5994873383.

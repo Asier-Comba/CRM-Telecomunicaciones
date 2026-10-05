@@ -1,20 +1,20 @@
 {
   "catalog_version": "product.capabilities.v1",
   "as_of": "2026-10-05",
-  "implementation_head": "78dd6402ead3b5035b09d2bb221b020dcbb0e922",
+  "implementation_head": "fa779e106096d332669a437e458b9c962d6a8798",
   "evidence": {
     "native": {
-      "run_id": 37310308922,
+      "run_id": 37312320553,
       "status": "PASS",
-      "migration_count": 43,
-      "function_count": 182,
-      "tested_head": "78dd6402ead3b5035b09d2bb221b020dcbb0e922"
+      "migration_count": 44,
+      "function_count": 186,
+      "tested_head": "fa779e106096d332669a437e458b9c962d6a8798"
     },
     "actual_supabase": {
-      "run_id": 37310308926,
-      "tested_head": "78dd6402ead3b5035b09d2bb221b020dcbb0e922",
+      "run_id": 37312320545,
+      "tested_head": "fa779e106096d332669a437e458b9c962d6a8798",
       "status": "PASS",
-      "checks": 609,
+      "checks": 632,
       "teardown": "PASS",
       "browser_private_values": "PASS",
       "identity_revocation": "PASS",
@@ -42,17 +42,20 @@
       "billing_private_artifact_storage": "PASS",
       "billing_private_artifact_integrity": "PASS",
       "billing_private_artifact_on_issue": "PASS",
-      "billing_private_artifact_revocation": "PASS"
+      "billing_private_artifact_revocation": "PASS",
+      "importjob_management": "PASS",
+      "importjob_processing": "BLOCKED_ENCRYPTED_STAGING_ADAPTER",
+      "importjob_quarantine_upload": "NOT_IMPLEMENTED"
     },
     "quality": {
-      "tests": 209,
+      "tests": 212,
       "lint": "PASS",
       "types": "PASS",
       "build": "PASS",
       "audit": "BLOCKED_Issue29",
-      "scope": "exact_78dd640_private_fiscal_artifact",
-      "tested_head": "78dd6402ead3b5035b09d2bb221b020dcbb0e922",
-      "run_id": 37310308922,
+      "scope": "exact_fa779e1_import_management",
+      "tested_head": "fa779e106096d332669a437e458b9c962d6a8798",
+      "run_id": 37312320553,
       "overall_ci": "FAIL",
       "critical_playwright": "SKIPPED",
       "dependency_review": "SKIPPED"
@@ -3623,7 +3626,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_actual_pending",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -3633,15 +3636,16 @@
         "status": "implemented_default_off",
         "path": "/api/import/v1"
       },
-      "supabase_tested": false,
-      "supabase_status": "PENDING_AT_CANDIDATE_HEAD",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
       "review_pending": [
         "W4",
         "W2"
-      ]
+      ],
+      "supabase_tested_head": "fa779e106096d332669a437e458b9c962d6a8798"
     },
     {
       "name": "importjob.get",
@@ -3665,7 +3669,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_actual_pending",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -3675,15 +3679,16 @@
         "status": "implemented_default_off",
         "path": "/api/import/v1"
       },
-      "supabase_tested": false,
-      "supabase_status": "PENDING_AT_CANDIDATE_HEAD",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
       "review_pending": [
         "W4",
         "W2"
-      ]
+      ],
+      "supabase_tested_head": "fa779e106096d332669a437e458b9c962d6a8798"
     },
     {
       "name": "importjob.list",
@@ -3707,7 +3712,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_actual_pending",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -3717,15 +3722,16 @@
         "status": "implemented_default_off",
         "path": "/api/import/v1"
       },
-      "supabase_tested": false,
-      "supabase_status": "PENDING_AT_CANDIDATE_HEAD",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
       "review_pending": [
         "W4",
         "W2"
-      ]
+      ],
+      "supabase_tested_head": "fa779e106096d332669a437e458b9c962d6a8798"
     }
   ],
   "unavailable_modules": [
