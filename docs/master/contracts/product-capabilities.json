@@ -1,20 +1,20 @@
 {
   "catalog_version": "product.capabilities.v1",
   "as_of": "2026-10-05",
-  "implementation_head": "b5955fb1bb540036802b57e2e0644be221c8801c",
+  "implementation_head": "eff802274f20d3612f1a36ca6335f99ca38f8c2c",
   "evidence": {
     "native": {
-      "run_id": 37224799203,
+      "run_id": 37306726804,
       "status": "PASS",
-      "migration_count": 41,
-      "function_count": 170,
-      "tested_head": "b5955fb1bb540036802b57e2e0644be221c8801c"
+      "migration_count": 42,
+      "function_count": 177,
+      "tested_head": "eff802274f20d3612f1a36ca6335f99ca38f8c2c"
     },
     "actual_supabase": {
-      "run_id": 37224799063,
-      "tested_head": "b5955fb1bb540036802b57e2e0644be221c8801c",
+      "run_id": 37306726843,
+      "tested_head": "eff802274f20d3612f1a36ca6335f99ca38f8c2c",
       "status": "PASS",
-      "checks": 522,
+      "checks": 568,
       "teardown": "PASS",
       "browser_private_values": "PASS",
       "identity_revocation": "PASS",
@@ -31,18 +31,23 @@
       "document_metadata": "PASS",
       "document_storage_lifecycle": "PASS",
       "document_revocation": "PASS",
-      "document_upload": "NOT_IMPLEMENTED",
-      "document_signed_access": "NOT_IMPLEMENTED"
+      "document_upload": "PASS",
+      "document_signed_access": "NOT_IMPLEMENTED",
+      "document_finalize": "PASS",
+      "document_proxy_download": "PASS",
+      "document_content_expiry": "PASS",
+      "document_content_scan": "NOT_IMPLEMENTED",
+      "document_content_verified_sha256": "NOT_IMPLEMENTED"
     },
     "quality": {
-      "tests": 201,
+      "tests": 205,
       "lint": "PASS",
       "types": "PASS",
       "build": "PASS",
       "audit": "BLOCKED_Issue29",
-      "scope": "exact_b5955fb_before_evidence_only_checkpoint",
-      "tested_head": "b5955fb1bb540036802b57e2e0644be221c8801c",
-      "run_id": 37224799203,
+      "scope": "exact_eff8022_document_content",
+      "tested_head": "eff802274f20d3612f1a36ca6335f99ca38f8c2c",
+      "run_id": 37306726804,
       "overall_ci": "FAIL",
       "critical_playwright": "SKIPPED",
       "dependency_review": "SKIPPED"
@@ -3305,7 +3310,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_sql_embedded_tested",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -3316,15 +3321,16 @@
         "status": "implemented_default_off",
         "path": "/api/document/v1/content/commands"
       },
-      "supabase_tested": false,
-      "supabase_status": "pending_exact_head_acceptance",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
       "review_pending": [
         "W4",
         "W2"
-      ]
+      ],
+      "supabase_tested_head": "eff802274f20d3612f1a36ca6335f99ca38f8c2c"
     },
     {
       "name": "document.finalize_upload",
@@ -3348,7 +3354,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_sql_embedded_tested",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -3359,15 +3365,16 @@
         "status": "implemented_default_off",
         "path": "/api/document/v1/content/commands"
       },
-      "supabase_tested": false,
-      "supabase_status": "pending_exact_head_acceptance",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
       "review_pending": [
         "W4",
         "W2"
-      ]
+      ],
+      "supabase_tested_head": "eff802274f20d3612f1a36ca6335f99ca38f8c2c"
     },
     {
       "name": "document.request_download",
@@ -3391,7 +3398,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_sql_embedded_tested",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -3402,15 +3409,16 @@
         "status": "implemented_default_off",
         "path": "/api/document/v1/content/commands"
       },
-      "supabase_tested": false,
-      "supabase_status": "pending_exact_head_acceptance",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
       "review_pending": [
         "W4",
         "W2"
-      ]
+      ],
+      "supabase_tested_head": "eff802274f20d3612f1a36ca6335f99ca38f8c2c"
     },
     {
       "name": "document.download",
@@ -3434,7 +3442,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_sql_embedded_tested",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -3445,15 +3453,16 @@
         "status": "implemented_default_off",
         "path": "/api/document/v1/content/download"
       },
-      "supabase_tested": false,
-      "supabase_status": "pending_exact_head_acceptance",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
       "review_pending": [
         "W4",
         "W2"
-      ]
+      ],
+      "supabase_tested_head": "eff802274f20d3612f1a36ca6335f99ca38f8c2c"
     }
   ],
   "unavailable_modules": [
