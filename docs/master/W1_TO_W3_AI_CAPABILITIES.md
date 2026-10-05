@@ -4,6 +4,19 @@ Human backend contracts are not assistant registrations. Issue10 remains open an
 
 Generic AI context excludes sensitive.get/reveal audit, contact methods, fiscal IDs/profiles/issuer snapshots, Inbox bodies, document/PDF bytes and names/paths/tickets/hashes, import plaintext/ciphertext/key references, private logos, invitations and raw audit rows. Existing editor DTOs may contain protected fields; do not treat their existing human authorization as generic model permission. Inbox metadata and automation definitions need a separately reviewed minimized adapter. New manual-origin proof applies only to new canonical creates; legacy source=manual remains unverified.
 
+## Existing telecom.v1 read contract (separate from the 129 product operations)
+
+The pre-existing reader contract remains [telecom-v1.ts](../../src/lib/contracts/telecom-v1.ts), with these 14 exact operations. This does not add product-catalog operations or register AI reads. Use the server read service with trusted user/workspace context and preserve scope_epoch, protected-field masking, partial/unavailable/not_authorized/error envelopes, cursor limits and revocation; never infer a revealed value from a masked field or capability reference.
+
+| Exact telecom.v1 operations | Required minimized boundary |
+|---|---|
+| customer.search, customer.get, customer.summary | Canonical identity/attention; no revealed tax/contact values; keep field capabilities masked. |
+| contract.list, contract.get, service.list, line.list | Safe source/version/display summaries; exclude contract references, MSISDN/SIM/circuit identifiers. |
+| renewal.list, permanence.list | Bounded dates/status/source; no invented legacy manual proof. |
+| task.list, meeting.list, opportunity.list | Bounded canonical IDs/statuses and ranges; no execution/provider synchronization. |
+| activity.list | Closed coded summaries only; no raw audit, message or document bodies. |
+| dashboard.get | Preserve discriminated/unavailable items; this telecom.v1 contract is distinct from product.dashboard.v2 dashboard.get and cannot promote its role/financial scope. |
+
 ## Human write contracts (91)
 
 | Operation | Contract | RPC | Input type | Roles | CAS | Future boundary |
