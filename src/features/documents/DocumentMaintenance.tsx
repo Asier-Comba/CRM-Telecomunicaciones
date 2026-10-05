@@ -9,7 +9,7 @@ import type {ExpiredDocumentPage} from '@/features/product/integration/document-
 import {control,primary,Drawer} from '@/features/product/ui'
 import {ConfirmDialog} from '@/components/ConfirmDialog'
 export function DocumentIntegrity({document:d,onVerified}:{document:DocumentMetadataV1;onVerified:()=>Promise<void>}){
- const {repository}=useProduct(),[busy,setBusy]=useState(false),[error,setError]=useState(''),[receipt,setReceipt]=useState<DocumentMaintenanceReceiptV1|null>(null)
+ const {repository}=useProduct(),[retry,setRetry]=useState(false),[busy,setBusy]=useState(false),[error,setError]=useState(''),[receipt,setReceipt]=useState<DocumentMaintenanceReceiptV1|null>(null)
  const pending=useRef<{download:DocumentContentInputsV1['document.request_download'];verify?:DocumentMaintenanceInputV1;receipt?:DocumentMaintenanceReceiptV1}|null>(null)
  async function verify(){if(busy)return;setBusy(true);setError('');try{
   pending.current??={download:Object.freeze({command_id:crypto.randomUUID(),id:d.id,expected_version:d.version})}
@@ -17,9 +17,9 @@ export function DocumentIntegrity({document:d,onVerified}:{document:DocumentMeta
   if(!p.verify){const ticket=await repository.contentCommand('document.request_download',p.download);if(!ticket.ticket_id)throw new ProductUiError('internal_safe');p.verify=Object.freeze({command_id:crypto.randomUUID(),id:d.id,expected_version:d.version,ticket_id:ticket.ticket_id})}
   p.receipt??=await repository.maintenance('document.verify_content',p.verify)
   const fresh=(await repository.document(d.id)).record;if(fresh.version<p.receipt.version||fresh.status!=='active')throw new ProductUiError('conflict')
-  await onVerified();setReceipt(p.receipt);pending.current=null
- }catch(e){setReceipt(null);setError(safeMessage(e));if(!(e instanceof ProductUiError&&e.code==='transport_uncertain')&&!pending.current?.receipt)pending.current=null}finally{setBusy(false)}}
- return <section className="mt-4 space-y-3 border-t pt-4"><h3 className="font-medium">Integridad del archivo</h3><p className="text-xs text-slate-500">El servidor compara los bytes privados y registra una prueba SHA-256 para esta versión. Sin análisis antivirus.</p>{error&&<p role="alert" className="text-red-700">{error}</p>}{receipt&&<p role="status" className="text-sm text-emerald-700">Integridad SHA-256 registrada · Versión {receipt.version} · Sin escanear</p>}<button className={control} disabled={busy||!!receipt} onClick={verify}>{busy?'Comprobando…':pending.current?'Reintentar comprobación exacta':'Verificar integridad privada'}</button></section>
+  await onVerified();setReceipt(p.receipt);pending.current=null;setRetry(false)
+ }catch(e){setReceipt(null);setError(safeMessage(e));if(!(e instanceof ProductUiError&&e.code==='transport_uncertain')&&!pending.current?.receipt)pending.current=null;setRetry(!!pending.current)}finally{setBusy(false)}}
+ return <section className="mt-4 space-y-3 border-t pt-4"><h3 className="font-medium">Integridad del archivo</h3><p className="text-xs text-slate-500">El servidor compara los bytes privados y registra una prueba SHA-256 para esta versión. Sin análisis antivirus.</p>{error&&<p role="alert" className="text-red-700">{error}</p>}{receipt&&<p role="status" className="text-sm text-emerald-700">Integridad SHA-256 registrada · Versión {receipt.version} · Sin escanear</p>}<button className={control} disabled={busy||!!receipt} onClick={verify}>{busy?'Comprobando…':retry?'Reintentar comprobación exacta':'Verificar integridad privada'}</button></section>
 }
 type CleanupIntent={operation:'document.cleanup_claim'|'document.cleanup_finish';input:DocumentMaintenanceInputV1;receipt?:DocumentMaintenanceReceiptV1}
 export function DocumentCleanup({onClose}:{onClose:()=>void}){
