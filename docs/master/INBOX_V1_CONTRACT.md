@@ -13,6 +13,6 @@ Commands: conversation.create_internal {command_id,assigned_user_id,customer_id,
 
 Receipts {contract_version:inbox.v1,operation,command_id,id,version,status}. Read markers return read/unread; conversation receipts return open/closed/archived. No content in receipt. no-store, bounded12KiB envelope, SSR-derived authority, safe coded errors. Unassigned conversation is owner/admin-only.
 
-Local candidate validation:45 migrations/204 function privileges fresh and embedded restore, SQL audit rollback/private immutable body/role/CAS fixture,216 Node tests and lint/types/build (record exact outcomes separately). Real disposable acceptance observes all13 operations and20 distinct CAS appends/20 marker replays, changed intent, role/foreign scope/revoked JWT and assignment removal. Not accepted until exact remote result.
+Validation at the recorded accepted source: native fresh/logical restore, immutable body/audit rollback/role/CAS fixtures and real disposable acceptance of all 13 operations, twenty distinct CAS appends and twenty marker replays, changed intent, foreign scope, revoked JWT and assignment removal.
 
 W3: future explicit bounded conversation-summary capability may reuse authorized get_thread; no blanket AI access. Normal writes are FUTURE_AI_ACTION_CANDIDATE only, Issue10 confirmation required, no assistant registration. W2 consumes exact parsers and server versions; does not infer external delivery or release readiness.

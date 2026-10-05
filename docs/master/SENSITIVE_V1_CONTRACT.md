@@ -11,6 +11,5 @@ Output {contract_version:sensitive.v1,operation:sensitive.get,entity_kind,entity
 
 Every successful requested read inserts a private append-only forced-RLS reveal audit: actor,workspace,entity,field categories,timestamp. No field values, labels or error payload. Audit failure aborts disclosure; failed/denied reads create no successful audit. CAS/command replay are inapplicable to this read; each successful fresh read has its own audit.
 
-Prepared remotely after local executor stopped responding.49 migrations/235 privilege functions and228 Node tests expected; NO local pass claimed. Native fresh/restored/embedded audit rollback and real SSR contact email/phone, fiscal ID, explicit role/tenant/revocation/request minimization/audit-failure tests published as candidates, await exact CI. No broad AI registration, provider or production action.
+Validation at the recorded accepted source uses remote native fresh/logical restore/embedded fixtures and real SSR contact email/phone/fiscal-ID calls, explicit role/tenant/revocation/request minimization and atomic audit-failure denial. No local execution pass is inferred from those remote results.
 
-Prior settings741eb44/run37351991972 accepted1121 real checks with private PNG flow/reference/archive and effective persisted notification optout.225 Node/lint/types/build and native48/233 PASS; full audit still5high Issue29.121 previously observed operations plus sensitive.get candidate=122.

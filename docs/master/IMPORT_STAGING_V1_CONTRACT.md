@@ -21,7 +21,7 @@ XLSX is unregistered; ZIP is blocked. Quarantine upload intent is a prepared int
 
 ## Evidence
 
-Node tests and real local Auth/PostgREST fixture are candidates until CI completes for this commit. Real fixture uses actual current membership and importjob_v1_get/cancel, a fresh disposable key/root, roundtrip, twenty immutable retries, foreign scope, forged grant, revoked JWT, canonical cancellation and exact terminal cleanup. It explicitly reports PASS_DISPOSABLE_ONLY, never normal production processing PASS. No new human product operation is registered by this block.
+Node tests and the real local Auth/PostgREST fixture are accepted at the recorded source. Real fixture uses actual current membership and importjob_v1_get/cancel, a fresh disposable key/root, roundtrip, twenty immutable retries, foreign scope, forged grant, revoked JWT, canonical cancellation and exact terminal cleanup. It explicitly reports PASS_DISPOSABLE_ONLY, never normal production processing PASS. No new human product operation is registered by this block.
 
 ## Remaining gate
 

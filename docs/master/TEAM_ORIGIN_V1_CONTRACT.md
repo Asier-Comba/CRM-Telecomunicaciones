@@ -11,4 +11,4 @@ provenance.get is current owner/admin only, uses a closed eight-kind registry, s
 
 Deadlines continue to use canonical renewal.resolve/dismiss or permanence.cancel and creation of a new record. Existing immutable audit retains the prior record and version. There is no destructive date-history overwrite or invented supersede state; a future supersede contract needs an explicit business decision.
 
-Coverage: Node contract tests; native and embedded fresh/restored fixture; real Supabase/Next-cookie per-operation observations including twenty replays, twenty distinct CAS writers, foreign scope, revoked still-valid JWT, preserved legacy confidence and one NEW proof. CI acceptance is recorded by commit in PR #28/#30 after completion. All ui_safe:false.
+Coverage: Node contract tests; native and embedded fresh/restored fixture; real Supabase/Next-cookie per-operation observations including twenty replays, twenty distinct CAS writers, foreign scope, revoked still-valid JWT, preserved legacy confidence and one NEW proof. Exact accepted source/run evidence is recorded above and in PR #28/#30. All ui_safe:false.
