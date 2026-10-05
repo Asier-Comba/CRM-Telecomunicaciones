@@ -27,3 +27,17 @@ test('scanner fixture never claims antivirus cleanliness or production readiness
  assert.equal(documentScannerReadinessV1(true).may_claim_clean,false);assert.throws(()=>createDisposableDocumentScannerV1({NODE_ENV:'production'}),/TEST_ONLY/)
  const scanner=createDisposableDocumentScannerV1({NODE_ENV:'test'});assert.equal((await scanner.scan(bytes)).status,'fixture_only');assert.equal((await scanner.scan(new TextEncoder().encode('SYNTHETIC_REJECT_FIXTURE'))).status,'rejected')
 })
+
+test('cleanup recovers only an authorized durable winner after DELETE eligibility changes',async()=>{
+ const i={command_id:id,id,expected_version:1},receipt={contract_version:'document.cleanup.v1',operation:'document.cleanup_finish',command_id:id,id,version:2,status:'archived'}
+ let calls=0,deletes=0,revoked=false
+ const port={resolve:async()=>({workspaceId:id,role:'owner'}),actor:async()=>id,witnessKey:()=>null,download:async()=>null,upload:async()=> 'denied',remove:async()=>{deletes++;return false},rpc:async name=>{
+  assert.equal(name,'document_cleanup_v1_prepare_finish');calls++
+  return calls%2===1?{data:{receipt:null,object_ref:id,version:1},error:null}:revoked?{data:null,error:{code:'42501'}}:{data:{receipt,object_ref:null,version:2},error:null}
+ }}
+ assert.deepEqual(await new DocumentMaintenanceServiceV1(port).execute('document.cleanup_finish',i),{ok:true,receipt})
+ assert.equal(calls,2);assert.equal(deletes,1)
+ revoked=true
+ assert.equal((await new DocumentMaintenanceServiceV1(port).execute('document.cleanup_finish',i)).error,'access_denied')
+ assert.equal(calls,4);assert.equal(deletes,2)
+})
