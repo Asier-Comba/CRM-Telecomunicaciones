@@ -48,6 +48,8 @@ test('the known Supabase drift remains explicit', () => {
       'inbox_conversations',
       'inbox_messages',
       'inbox_read_markers',
+      'internal_notifications',
+      'notification_centers',
       'opportunities',
       'opportunity_stages',
       'product_audit_events',

@@ -27,6 +27,8 @@ target_relations(name) as (
     ('inbox_conversations'),
     ('inbox_messages'),
     ('inbox_read_markers'),
+    ('internal_notifications'),
+    ('notification_centers'),
     ('billing_private_pdf_jobs'),
     ('billing_series'),
     ('business_audit_events'),
