@@ -47,11 +47,13 @@ run_fixture supabase/tests/telecom-server-read-rpc.sql
 run_fixture supabase/tests/product-customer-contact-commands.sql
 run_fixture supabase/tests/product-work-commands.sql
 run_fixture supabase/tests/billing-exact-issue.sql
+run_fixture supabase/tests/billing-private-pdf-artifacts.sql
 run_fixture supabase/tests/team-protected-management.sql
 run_fixture supabase/tests/portfolio-human-commands.sql
 run_fixture supabase/tests/portfolio-deadline-commands.sql
 run_fixture supabase/tests/document-metadata-commands.sql
 run_fixture supabase/tests/document-content-workflow.sql
+run_fixture supabase/tests/importjob-product-management.sql
 run_fixture supabase/tests/product-dashboard-search.sql
 # Density is rolled back so existing recovery sentinels remain exact.
 {
@@ -159,11 +161,13 @@ migration_head="$(basename "${migration}")"
   printf "set app.environment = 'test';\n"
   cat "$repo_root/supabase/tests/product-work-commands.sql"
   cat "$repo_root/supabase/tests/billing-exact-issue.sql"
+  cat "$repo_root/supabase/tests/billing-private-pdf-artifacts.sql"
   cat "$repo_root/supabase/tests/team-protected-management.sql"
   cat "$repo_root/supabase/tests/portfolio-human-commands.sql"
   cat "$repo_root/supabase/tests/portfolio-deadline-commands.sql"
   cat "$repo_root/supabase/tests/document-metadata-commands.sql"
   cat "$repo_root/supabase/tests/document-content-workflow.sql"
+  cat "$repo_root/supabase/tests/importjob-product-management.sql"
   cat "$repo_root/supabase/tests/product-dashboard-search.sql"
   sed '$d' "$repo_root/supabase/seeds/synthetic_product.sql"
   cat "$repo_root/supabase/seeds/synthetic_product_billing.sql"

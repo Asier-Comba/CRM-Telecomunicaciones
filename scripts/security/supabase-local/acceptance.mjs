@@ -1,5 +1,8 @@
 import { randomBytes, randomUUID } from 'node:crypto'
 import { productAcceptance } from './product-acceptance.mjs'
+import {individualOperationAcceptance}from './individual-operation-acceptance.mjs'
+import {importJobAcceptance}from './importjob-acceptance.mjs'
+import {billingArtifactAcceptance}from './billing-artifact-acceptance.mjs'
 import {documentContentAcceptance}from './document-content-acceptance.mjs'
 import {documentAcceptance}from './document-acceptance.mjs'
 import {portfolioAcceptance,portfolioDeadlineAcceptance}from './portfolio-acceptance.mjs'
@@ -36,7 +39,7 @@ export async function acceptance({ url, anon, service, db, command, report, appU
     check(claims.sub === id && claims.role === 'authenticated', `jwt_actor_${name}`)
     const verified = await http('/auth/v1/user', token)
     check(verified.status === 200 && verified.json?.id === id, `auth_verify_${name}`)
-    users[name] = { id, token, refresh:login.json.refresh_token, workspace, role, email, password }
+    users[name] = { id, token, refresh:login.json.refresh_token, workspace, role }
   }
   const identities = Object.values(users).map(u => `('${u.workspace}','${u.id}','${u.role}','active')`).join(',')
   sql(`begin;
@@ -120,6 +123,8 @@ export async function acceptance({ url, anon, service, db, command, report, appU
   }
   report.rpc = 'PASS'
   const productResult=await productAcceptance({rpc,sql,check,http,users,wa,wb,ca,url,anon,appUrl})
+  const importJobResult=await importJobAcceptance({rpc,sql,check,users,wa,wb,url,anon,appUrl})
+  const artifactResult=await billingArtifactAcceptance({rpc,sql,check,http,users,wa,wb,ca,url,anon,service,appUrl})
   const workReadResult=await workReadAcceptance({rpc,sql,check,http,users,wa,wb,ca,url,anon,appUrl})
 
   const portfolioResult=await portfolioAcceptance({rpc,sql,check,http,users,wa,wb,ca,url,anon,appUrl})
@@ -128,6 +133,7 @@ export async function acceptance({ url, anon, service, db, command, report, appU
   const documentResult=await documentAcceptance({rpc,sql,check,http,users,wa,wb,ca,url,anon,service,appUrl})
   const teamResult=await teamAcceptance({rpc,sql,check,http,users,wa,wb,url,anon,appUrl})
 
+  const individualResult=await individualOperationAcceptance({rpc,sql,check,users,wa,ca,url,anon,appUrl})
   const buckets = await http('/storage/v1/bucket', service)
   check(buckets.status === 200 && ['telecom-documents', 'telecom-import-quarantine'].every(id => buckets.json?.some(b => b.id === id && b.public === false)), 'private_buckets')
   const bytes = Buffer.from('Synthetic local acceptance text only. No customer document.\n')
@@ -210,5 +216,5 @@ export async function acceptance({ url, anon, service, db, command, report, appU
   check(!repository.includes('NEXT_PUBLIC_SUPABASE_SERVICE_ROLE'), 'no_public_service_binding')
   Object.assign(report,{w1_backend_acceptance:'PASS',w1_backend_checks:checks.length})
   if (onProductUi) Object.assign(report, await onProductUi({ users, wa, ca, sql }))
-  return { ...productResult, ...workReadResult, ...teamResult, ...portfolioResult, ...deadlineResult, ...documentResult, ...contentResult, result: 'PASS', auth: 'PASS', jwt: 'PASS', postgrest: 'PASS', rpc: 'PASS', storage: 'PASS', cross_tenant: 'PASS', revocation: 'PASS', auth_users: Object.keys(users).length, checks: checks.length, status_codes: statuses, manager: 'NOT_CANONICAL', signed_access: 'NOT_IMPLEMENTED', auth_email_production: 'NOT_TESTED', mfa_production: 'NOT_TESTED', scoped_service_principal: 'NOT_IMPLEMENTED', remote_staging: 'NOT_TESTED' }
+  return { ...productResult, ...workReadResult, ...teamResult, ...portfolioResult, ...deadlineResult, ...documentResult, ...individualResult,...importJobResult,...artifactResult,...contentResult, result: 'PASS', auth: 'PASS', jwt: 'PASS', postgrest: 'PASS', rpc: 'PASS', storage: 'PASS', cross_tenant: 'PASS', revocation: 'PASS', auth_users: Object.keys(users).length, checks: checks.length, status_codes: statuses, manager: 'NOT_CANONICAL', signed_access: 'NOT_IMPLEMENTED', auth_email_production: 'NOT_TESTED', mfa_production: 'NOT_TESTED', scoped_service_principal: 'NOT_IMPLEMENTED', remote_staging: 'NOT_TESTED' }
 }

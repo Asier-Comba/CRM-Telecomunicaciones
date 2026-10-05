@@ -73,6 +73,8 @@ try {
   console.log('PRODUCT RICH DENSITY COUNTS/CURSOR/SCOPE ASSERTIONS PASS (25 companies, 400 lines)')
 
   await db.exec(await readFile(resolve(root,'supabase/tests/billing-exact-issue.sql'),'utf8'))
+  await db.exec(await readFile(resolve(root,'supabase/tests/billing-private-pdf-artifacts.sql'),'utf8'))
+  console.log('BILLING PRIVATE ARTIFACT CAS/REPLAY/IMMUTABILITY/ROLLBACK PASS')
   console.log('BILLING EXACT ISSUE/IMMUTABILITY/ROLLBACK PASS')
   await db.exec(await readFile(resolve(root,'supabase/tests/team-protected-management.sql'),'utf8'))
   console.log('TEAM PROTECTED AUTHORITY/CAS/REPLAY/REVOCATION/AUDIT ROLLBACK PASS')
@@ -83,6 +85,7 @@ try {
   await db.exec(await readFile(resolve(root,'supabase/tests/document-metadata-commands.sql'),'utf8'))
   console.log('DOCUMENT METADATA/CAS/REPLAY/REVOCATION/STORAGE DENIAL/ROLLBACK PASS')
   await db.exec(await readFile(resolve(root,'supabase/tests/document-content-workflow.sql'),'utf8'))
+  await db.exec(await readFile(resolve(root,'supabase/tests/importjob-product-management.sql'),'utf8'))
   console.log('DOCUMENT CONTENT PENDING/OBJECT/TICKET/REVOCATION PASS')
   const {calculateBillingV1}=await import(pathToFileURL(resolve(root,'src/lib/server/billing-runtime-v1.ts')))
   let vectorState=20261004
