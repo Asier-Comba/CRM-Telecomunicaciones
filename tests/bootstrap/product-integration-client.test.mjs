@@ -34,3 +34,19 @@ test('browser fetch retains the global receiver instead of the repository instan
  const repository=new IntegratedLocalProductRepository(function(){assert.equal(this,globalThis);return Promise.resolve(Response.json({ok:false,error:'access_denied'},{status:403}))})
  await assert.rejects(repository.customer('10000000-0000-4000-8000-000000000001'),e=>e.code==='access_denied')
 })
+test('document upload parser rejects leaked locators and keeps finalization explicit',async()=>{
+ const id='10000000-0000-4000-8000-000000000001',file=new File(['synthetic'],'sample.png',{type:'image/png'})
+ for(const data of [{id,uploaded:true,finalized:true},{id,uploaded:true,finalized:false,path:'private-locator'}]){
+  const r=new IntegratedLocalProductRepository(async()=>Response.json({ok:true,data}));await assert.rejects(r.uploadDocument(id,file),e=>e.code==='internal_safe')
+ }
+ let uploaded=false
+ const r=new IntegratedLocalProductRepository(async(path,init)=>{assert.equal(path,'/api/document/v1/content/upload?id='+id);assert.equal(init.body,file);assert.equal(init.credentials,'same-origin');uploaded=true;return Response.json({ok:true,data:{id,uploaded:true,finalized:false}})})
+ await r.uploadDocument(id,file);assert.equal(uploaded,true)
+})
+test('document proxy download refuses unsafe content types and preserves revoked access denial',async()=>{
+ const id='10000000-0000-4000-8000-000000000001'
+ const unsafe=new IntegratedLocalProductRepository(async()=>new Response('<html>',{headers:{'Content-Type':'text/html'}}))
+ await assert.rejects(unsafe.downloadDocument(id,id),e=>e.code==='internal_safe')
+ const revoked=new IntegratedLocalProductRepository(async()=>Response.json({ok:false,error:'access_denied'},{status:403}))
+ await assert.rejects(revoked.downloadDocument(id,id),e=>e.code==='access_denied')
+})

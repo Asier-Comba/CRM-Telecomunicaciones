@@ -9,10 +9,10 @@ import {
 import { Billing } from '@/features/billing/Billing'
 import { integratedLocalAllowed } from '@/features/product/integration/mode'
 import { IntegratedBilling } from '@/features/billing/IntegratedBilling'
-export default async function InvoicingPage({searchParams}:{searchParams:Promise<{invoice?:string}>}) {
+export default async function InvoicingPage({searchParams}:{searchParams:Promise<{invoice?:string;customer?:string}>}) {
   if(integratedLocalAllowed()){
-    const {invoice}=await searchParams
-    return <IntegratedBilling initialInvoiceId={typeof invoice==='string'&&/^[0-9a-f-]{36}$/i.test(invoice)?invoice:undefined}/>
+    const {invoice,customer}=await searchParams
+    return <IntegratedBilling initialCustomerId={typeof customer==='string'&&/^[0-9a-f-]{36}$/i.test(customer)?customer:undefined} initialInvoiceId={typeof invoice==='string'&&/^[0-9a-f-]{36}$/i.test(invoice)?invoice:undefined}/>
   }
   if (!syntheticPreviewAllowed())
     return (

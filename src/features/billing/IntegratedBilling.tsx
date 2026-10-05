@@ -16,9 +16,9 @@ type Configuration=Extract<BillingReadDataV1,{operation:'configuration.get'}>
 type InvoicePage=Extract<BillingReadDataV1,{operation:'invoice.list'}>
 type Financial=Extract<BillingReadDataV1,{operation:'invoice.financial_summary'}>
 const money=(minor:number,currency:string)=>new Intl.NumberFormat('es-ES',{style:'currency',currency}).format(minor/100)
-export function IntegratedBilling({initialInvoiceId}:{initialInvoiceId?:string}){
+export function IntegratedBilling({initialInvoiceId,initialCustomerId}:{initialInvoiceId?:string;initialCustomerId?:string}){
   const {repository,role}=useProduct(),authorized=role==='owner'||role==='admin'
-  const [query,setQuery]=useState(''),[customers,setCustomers]=useState<{id:string;name:string}[]>([]),[customerId,setCustomerId]=useState(''),[status,setStatus]=useState(''),[period,setPeriod]=useState<Period>('month')
+  const [query,setQuery]=useState(''),[customers,setCustomers]=useState<{id:string;name:string}[]>([]),[customerId,setCustomerId]=useState(initialCustomerId??''),[status,setStatus]=useState(''),[period,setPeriod]=useState<Period>('month')
   const [page,setPage]=useState<InvoicePage|null>(null),[financial,setFinancial]=useState<Financial|null>(null),[configuration,setConfiguration]=useState<Configuration|null>(null),[invoice,setInvoice]=useState<BillingInvoiceV1|null>(null),[edit,setEdit]=useState<InvoiceFormData|null>(null),[fiscal,setFiscal]=useState<'issuer'|'customer'|null>(null)
   const [error,setError]=useState<unknown>(null),[message,setMessage]=useState(''),[busy,setBusy]=useState(false),[reload,setReload]=useState(0),[confirm,setConfirm]=useState<{operation:BillingOperationV1;input:BillingInputsV1[BillingOperationV1];label:string}|null>(null)
   const pending=useRef<{execute:()=>Promise<BillingReceiptV1>}|null>(null)
@@ -26,6 +26,7 @@ export function IntegratedBilling({initialInvoiceId}:{initialInvoiceId?:string})
   const loadInvoice=useCallback(async(id:string)=>{try{setInvoice((await repository.billing('invoice.get',{id})).invoice);setError(null)}catch(e){setInvoice(null);setError(e)}},[repository])
   useEffect(()=>{if(!authorized)return;let active=true;void Promise.all([repository.billing('invoice.list',{limit:50,...(status?{status:status as 'draft'|'issued'|'paid'|'trashed'|'overdue'}:{}),...(customerId?{customer_id:customerId}:{})}),repository.billing('invoice.financial_summary',{period}),repository.billing('configuration.get',customerId?{customer_id:customerId}:{})]).then(([p,f,c])=>{if(active){setPage(p);setFinancial(f);setConfiguration(c)}}).catch(e=>{if(active){setPage(null);setFinancial(null);setConfiguration(null);setError(e)}});return()=>{active=false}},[repository,authorized,customerId,status,period,reload])
   useEffect(()=>{if(!authorized||!initialInvoiceId)return;let current=true;void repository.billing('invoice.get',{id:initialInvoiceId}).then(v=>{if(current){setInvoice(v.invoice);setError(null)}}).catch(e=>{if(current){setInvoice(null);setError(e)}});return()=>{current=false}},[authorized,initialInvoiceId,repository])
+  useEffect(()=>{if(!authorized||!initialCustomerId)return;let current=true;void repository.customer(initialCustomerId).then(c=>{if(current)setCustomers([{id:c.id,name:c.trade_name??c.legal_name}])}).catch(e=>{if(current){setCustomerId('');setError(e)}});return()=>{current=false}},[authorized,initialCustomerId,repository])
   async function search(e:React.FormEvent){e.preventDefault();setBusy(true);setError(null);try{const result=await repository.search(query);setCustomers(result.items.filter(i=>i.kind==='customer').map(i=>({id:i.id,name:i.label})))}catch(e){setCustomers([]);setError(e)}finally{setBusy(false)}}
   async function execute(operation:BillingOperationV1,input:BillingInputsV1[BillingOperationV1]){
     if(busy)return;pending.current??={execute:()=>repository.billingCommand(operation,input)};return runPending()

@@ -1,3 +1,7 @@
+import type {DocumentContentInputsV1,DocumentContentOperationV1,DocumentContentReceiptV1} from '@/lib/contracts/document-content-v1'
+import {parseDocumentContentInputV1,parseDocumentContentReceiptV1} from '../../../lib/server/document-content-runtime-v1.ts'
+import type {PortfolioInputsV1,PortfolioOperationV1,PortfolioReceiptV1,PortfolioGetV1,PortfolioKindV1} from '@/lib/contracts/portfolio-v1'
+import {parsePortfolioInputV1,parsePortfolioReceiptV1,parsePortfolioGetV1} from '../../../lib/server/portfolio-runtime-v1.ts'
 import type { ProductCommandInputsV1, ProductOperationV1, ProductReceiptV1, CustomerEditorV1, ContactEditorPageV1, ProductErrorV1 } from '@/lib/contracts/product-v1'
 import type { DashboardInputV2, DashboardV2, GlobalSearchV1 } from '@/lib/contracts/product-dashboard-v2'
 import { parseProductInputV1, parseProductReceiptV1, parseCustomerEditorV1, parseContactEditorPageV1 } from '../../../lib/server/product-runtime-v1.ts'
@@ -36,6 +40,8 @@ export interface ProductRepository {
   calendar(input: CalendarInputV1): Promise<CalendarPageV1>
   work(kind: 'task'|'meeting'|'opportunity', id: string): Promise<WorkGetV1>
   stages():Promise<StageCatalogV1>
+  portfolio(kind:PortfolioKindV1,id:string):Promise<PortfolioGetV1>
+  portfolioCommand<O extends PortfolioOperationV1>(operation:O,input:PortfolioInputsV1[O]):Promise<PortfolioReceiptV1>
   team(): Promise<TeamListV1>
   teamCommand<O extends TeamOperationV1>(operation: O, input: TeamInputsV1[O]): Promise<TeamReceiptV1>
   documents(input: DocumentListInputV1): Promise<DocumentListV1>
@@ -44,6 +50,9 @@ export interface ProductRepository {
   billing<Q extends BillingQueryV1>(operation: Q,input:BillingQueriesV1[Q]):Promise<Extract<BillingReadDataV1,{operation:Q}>>
   billingCommand<O extends BillingOperationV1>(operation:O,input:BillingInputsV1[O]):Promise<BillingReceiptV1>
   invoicePdf(id:string):Promise<Blob>
+  contentCommand<O extends DocumentContentOperationV1>(operation:O,input:DocumentContentInputsV1[O]):Promise<DocumentContentReceiptV1>
+  uploadDocument(id:string,file:File):Promise<void>
+  downloadDocument(id:string,ticketId:string):Promise<Blob>
 }
 const errors: readonly string[] = ['validation','access_denied','not_found','conflict','unavailable','internal_safe']
 function object(v: unknown): v is Record<string, unknown> {
@@ -57,7 +66,7 @@ export class IntegratedLocalProductRepository implements ProductRepository {
   private async post<T>(kind: 'commands' | 'queries', operation: string, input: unknown, parse: (value: unknown) => T | null, family = 'product'): Promise<T> {
     let response: Response
     try {
-      response = await this.request(`/api/${family}/v1/${kind}`, {
+      response = await this.request(`/api/${family==='document-content'?'document/v1/content':family+'/v1'}/${kind}`, {
         method: 'POST', credentials: 'same-origin', cache: 'no-store',
         headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ operation, input }),
         signal: AbortSignal.timeout(15000),
@@ -88,6 +97,8 @@ export class IntegratedLocalProductRepository implements ProductRepository {
   search(query: string) { const input = { query: query.trim(), limit: 50 }; return this.post('queries','global.search',input,v => parseGlobalSearchV1(input,v)) }
   calendar(input: CalendarInputV1) { return this.post('queries','calendar.list',input,v=>parseCalendarPageV1(input,v)) }
   work(kind: 'task'|'meeting'|'opportunity', id: string) { return this.post('queries','work.get',{kind,id},v=>parseWorkGetV1(kind,id,v)) }
+  portfolio(kind:PortfolioKindV1,id:string){const input={kind,id};return this.post('queries','portfolio.get',input,v=>parsePortfolioGetV1(input,v),'portfolio')}
+  portfolioCommand<O extends PortfolioOperationV1>(operation:O,value:PortfolioInputsV1[O]){const input=parsePortfolioInputV1(operation,value);if(!input)return Promise.reject(new ProductUiError('validation'));return this.post('commands',operation,input,v=>parsePortfolioReceiptV1(operation,input,v),'portfolio')}
   stages(){const input={limit:100};return this.post('queries','opportunity.stages',input,v=>parseStageCatalogV1(100,null,v))}
   team() { const input={limit:100};return this.post('queries','member.list',input,v=>parseTeamListV1(input,v),'team') }
   teamCommand<O extends TeamOperationV1>(operation: O, value: TeamInputsV1[O]) {
@@ -107,6 +118,20 @@ export class IntegratedLocalProductRepository implements ProductRepository {
   billingCommand<O extends BillingOperationV1>(operation:O,value:BillingInputsV1[O]) {
     const input=parseBillingInputV1(operation,value);if(!input)return Promise.reject(new ProductUiError('validation'))
     return this.post('commands',operation,input,v=>parseBillingReceiptV1(operation,input,v),'billing')
+  }
+  contentCommand<O extends DocumentContentOperationV1>(operation:O,value:DocumentContentInputsV1[O]){const input=parseDocumentContentInputV1(operation,value);if(!input)return Promise.reject(new ProductUiError('validation'));return this.post('commands',operation,input,v=>parseDocumentContentReceiptV1(operation,input,v),'document-content')}
+  async uploadDocument(id:string,file:File){
+    if(!/^[0-9a-f-]{36}$/.test(id)||file.size<1||file.size>10485760||!['application/pdf','image/png','image/jpeg'].includes(file.type))throw new ProductUiError('validation')
+    let response:Response;try{response=await this.request(`/api/document/v1/content/upload?id=${id}`,{method:'POST',credentials:'same-origin',cache:'no-store',headers:{'Content-Type':file.type},body:file,signal:AbortSignal.timeout(60000)})}catch{throw new ProductUiError('transport_uncertain')}
+    let value:unknown;try{value=await response.json()}catch{throw new ProductUiError('internal_safe')}
+    if(object(value)&&value.ok===false&&Object.keys(value).sort().join(',')==='error,ok'&&errors.includes(value.error as string))throw new ProductUiError(value.error as ProductErrorV1)
+    if(!response.ok||!object(value)||Object.keys(value).sort().join(',')!=='data,ok'||value.ok!==true||!object(value.data)||Object.keys(value.data).sort().join(',')!=='finalized,id,uploaded'||value.data.id!==id||value.data.uploaded!==true||value.data.finalized!==false)throw new ProductUiError('internal_safe')
+  }
+  async downloadDocument(id:string,ticketId:string){
+    let response:Response;try{response=await this.request('/api/document/v1/content/download',{method:'POST',credentials:'same-origin',cache:'no-store',headers:{'Content-Type':'application/json'},body:JSON.stringify({operation:'document.download',input:{id,ticket_id:ticketId}}),signal:AbortSignal.timeout(60000)})}catch{throw new ProductUiError('transport_uncertain')}
+    if(!response.ok)throw new ProductUiError(response.status===403?'access_denied':response.status===404?'not_found':'internal_safe')
+    if(!['application/pdf','image/png','image/jpeg'].includes(response.headers.get('content-type')??''))throw new ProductUiError('internal_safe')
+    const blob=await response.blob();if(blob.size<1||blob.size>10485760)throw new ProductUiError('internal_safe');return blob
   }
   async invoicePdf(id:string){
     let response:Response
@@ -128,6 +153,8 @@ export class SyntheticProductRepository implements ProductRepository {
   calendar(_input: CalendarInputV1) { void _input; return this.unavailable<CalendarPageV1>() }
   work(_kind: 'task'|'meeting'|'opportunity', _id: string) { void _kind; void _id; return this.unavailable<WorkGetV1>() }
   stages(){return this.unavailable<StageCatalogV1>()}
+  portfolio(_kind:PortfolioKindV1,_id:string){void _kind;void _id;return this.unavailable<PortfolioGetV1>()}
+  portfolioCommand<O extends PortfolioOperationV1>(_operation:O,_input:PortfolioInputsV1[O]){void _operation;void _input;return this.unavailable<PortfolioReceiptV1>()}
   team() { return this.unavailable<TeamListV1>() }
   teamCommand<O extends TeamOperationV1>(_operation: O,_input:TeamInputsV1[O]) {void _operation;void _input;return this.unavailable<TeamReceiptV1>()}
   documents(_input:DocumentListInputV1) {void _input;return this.unavailable<DocumentListV1>()}
@@ -135,6 +162,9 @@ export class SyntheticProductRepository implements ProductRepository {
   documentCommand<O extends DocumentOperationV1>(_operation:O,_input:DocumentInputsV1[O]) {void _operation;void _input;return this.unavailable<DocumentReceiptV1>()}
   billing<Q extends BillingQueryV1>(_operation:Q,_input:BillingQueriesV1[Q]){void _operation;void _input;return this.unavailable<Extract<BillingReadDataV1,{operation:Q}>>()}
   billingCommand<O extends BillingOperationV1>(_operation:O,_input:BillingInputsV1[O]){void _operation;void _input;return this.unavailable<BillingReceiptV1>()}
+  contentCommand<O extends DocumentContentOperationV1>(_operation:O,_input:DocumentContentInputsV1[O]){void _operation;void _input;return this.unavailable<DocumentContentReceiptV1>()}
+  uploadDocument(_id:string,_file:File){void _id;void _file;return this.unavailable<void>()}
+  downloadDocument(_id:string,_ticketId:string){void _id;void _ticketId;return this.unavailable<Blob>()}
   invoicePdf(_id:string){void _id;return this.unavailable<Blob>()}
 }
 /** Keep in the mounted action/editor only. Never persist this object or contact PII. */
