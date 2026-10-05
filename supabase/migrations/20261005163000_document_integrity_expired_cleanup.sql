@@ -136,7 +136,7 @@ declare lim integer;rows jsonb;next_id uuid;begin
 end$$;
 revoke all on function public.document_cleanup_v1_expired_list(uuid,jsonb)from public,anon,authenticated,service_role;
 grant execute on function public.document_cleanup_v1_expired_list(uuid,jsonb)to authenticated;
-create or replace function public.document_content_v1_manifest(p_workspace_id uuid,p_input jsonb)returns jsonb language plpgsql security definer set search_path=''as $
+create or replace function public.document_content_v1_manifest(p_workspace_id uuid,p_input jsonb)returns jsonb language plpgsql security definer set search_path=''as $$
 declare actor uuid;d public.documents%rowtype;expiry timestamptz;begin
  actor:=public.document_v1_assert_scope(p_workspace_id);
  perform public.document_content_v1_validate(case when p_input?'ticket_id'then 'download_manifest'else 'upload_manifest'end,p_input);
@@ -150,7 +150,7 @@ declare actor uuid;d public.documents%rowtype;expiry timestamptz;begin
   if expiry is null or d.status<>'pending'then raise exception using errcode='42501',message='document_upload_denied';end if;
  end if;
  return jsonb_build_object('id',d.id,'object_ref',split_part(d.storage_path,'/',4)::uuid,'media_type',d.media_type,'size_bytes',d.size_bytes,'expires_at',expiry,'sha256',(select sha256 from public.document_content_integrity where workspace_id=p_workspace_id and document_id=d.id and object_ref=split_part(d.storage_path,'/',4)::uuid and size_bytes=d.size_bytes and media_type=d.media_type));
-end$;
+end$$;
 revoke all on function public.document_content_v1_manifest(uuid,jsonb)from public,anon,authenticated,service_role;
 grant execute on function public.document_content_v1_manifest(uuid,jsonb)to authenticated;
 

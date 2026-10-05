@@ -1,0 +1,583 @@
+{
+  "manifest_version": "crm.product.environment.v1",
+  "as_of": "2026-10-05",
+  "values_included": false,
+  "provider_activation_authorized": false,
+  "environments": [
+    "LOCALDEV",
+    "TEST",
+    "STAGING",
+    "PROD"
+  ],
+  "alternative_required_groups": [
+    {
+      "names": [
+        "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY",
+        "NEXT_PUBLIC_SUPABASE_ANON_KEY"
+      ],
+      "minimum_present": 1
+    }
+  ],
+  "entries": [
+    {
+      "name": "NEXT_PUBLIC_SUPABASE_URL",
+      "scope": "public_configuration",
+      "required": {
+        "LOCALDEV": true,
+        "TEST": true,
+        "STAGING": true,
+        "PROD": true
+      },
+      "secret": false,
+      "validator": "platform_url",
+      "purpose": "Canonical Auth/PostgREST/Storage endpoint; public does not confer authority",
+      "provider_class": "backend_platform",
+      "runtime_status": "implemented",
+      "required_when": null
+    },
+    {
+      "name": "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY",
+      "scope": "public_configuration",
+      "required": {
+        "LOCALDEV": false,
+        "TEST": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "secret": false,
+      "validator": "public_api_key",
+      "purpose": "Preferred public API key; user JWT supplies identity",
+      "provider_class": "backend_platform",
+      "runtime_status": "implemented",
+      "required_when": null
+    },
+    {
+      "name": "NEXT_PUBLIC_SUPABASE_ANON_KEY",
+      "scope": "public_configuration",
+      "required": {
+        "LOCALDEV": false,
+        "TEST": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "secret": false,
+      "validator": "public_api_key",
+      "purpose": "Legacy alternative public API key; never a service-role key",
+      "provider_class": "backend_platform",
+      "runtime_status": "implemented",
+      "required_when": null
+    },
+    {
+      "name": "NEXT_PUBLIC_APP_URL",
+      "scope": "public_configuration",
+      "required": {
+        "LOCALDEV": false,
+        "TEST": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "secret": false,
+      "validator": "origin_url",
+      "purpose": "Existing public application origin; not callback/provider verification",
+      "provider_class": "application",
+      "runtime_status": "implemented",
+      "required_when": null
+    },
+    {
+      "name": "NODE_ENV",
+      "scope": "server_runtime",
+      "required": {
+        "LOCALDEV": false,
+        "TEST": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "secret": false,
+      "validator": "node_mode",
+      "purpose": "Framework/test execution mode; test adapters deny production",
+      "provider_class": "runtime",
+      "runtime_status": "implemented",
+      "required_when": null
+    },
+    {
+      "name": "APP_ENV",
+      "scope": "server_runtime",
+      "required": {
+        "LOCALDEV": false,
+        "TEST": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "secret": false,
+      "validator": "app_environment",
+      "purpose": "Disposable/staging/production labeling for operational gates",
+      "provider_class": "runtime",
+      "runtime_status": "implemented",
+      "required_when": null
+    },
+    {
+      "name": "PRODUCT_V1_ENABLED",
+      "scope": "server_configuration",
+      "required": {
+        "LOCALDEV": false,
+        "TEST": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "secret": false,
+      "validator": "boolean",
+      "purpose": "Master default-off normal product transport",
+      "provider_class": "product",
+      "runtime_status": "implemented",
+      "required_when": null
+    },
+    {
+      "name": "PRODUCT_DOCUMENT_CONTENT_ENABLED",
+      "scope": "server_configuration",
+      "required": {
+        "LOCALDEV": false,
+        "TEST": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "secret": false,
+      "validator": "boolean",
+      "purpose": "Default-off protected upload/finalize/proxy content",
+      "provider_class": "product",
+      "runtime_status": "implemented",
+      "required_when": null
+    },
+    {
+      "name": "PRODUCT_DOCUMENT_MAINTENANCE_ENABLED",
+      "scope": "server_configuration",
+      "required": {
+        "LOCALDEV": false,
+        "TEST": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "secret": false,
+      "validator": "boolean",
+      "purpose": "Default-off protected observed-byte verification and exact expired cleanup",
+      "provider_class": "product",
+      "runtime_status": "implemented",
+      "required_when": null
+    },
+    {
+      "name": "PRODUCT_DOCUMENT_SCAN_REQUIRED",
+      "scope": "server_configuration",
+      "required": {
+        "LOCALDEV": false,
+        "TEST": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "secret": false,
+      "validator": "boolean",
+      "purpose": "Fail closed when a required production scanner is unavailable",
+      "provider_class": "product",
+      "runtime_status": "implemented",
+      "required_when": null
+    },
+    {
+      "name": "PRODUCT_V1_ORIGIN",
+      "scope": "server_configuration",
+      "required": {
+        "LOCALDEV": false,
+        "TEST": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "secret": false,
+      "validator": "origin_url",
+      "purpose": "Canonical Origin/Host validation on normal product mutations",
+      "provider_class": "product",
+      "runtime_status": "implemented",
+      "required_when": {
+        "name": "PRODUCT_V1_ENABLED",
+        "equals": "true"
+      }
+    },
+    {
+      "name": "PRODUCT_DOCUMENT_VERIFY_KEY_ID",
+      "scope": "server_private",
+      "required": {
+        "LOCALDEV": false,
+        "TEST": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "secret": false,
+      "validator": "uuid",
+      "purpose": "ID of explicitly installed private document witness verifier; not a Storage decryption key",
+      "provider_class": "document_integrity",
+      "runtime_status": "implemented",
+      "required_when": null
+    },
+    {
+      "name": "PRODUCT_DOCUMENT_VERIFY_KEY_HEX",
+      "scope": "server_private",
+      "required": {
+        "LOCALDEV": false,
+        "TEST": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "secret": true,
+      "validator": "hex32",
+      "purpose": "Purpose-specific document measurement MAC secret; pair with private DB verifier, never browser/audit",
+      "provider_class": "document_integrity",
+      "runtime_status": "implemented",
+      "required_when": null
+    },
+    {
+      "name": "IMPORT_STAGING_ADAPTER",
+      "scope": "disposable_test_only",
+      "required": {
+        "LOCALDEV": false,
+        "TEST": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "secret": false,
+      "validator": "disposable_adapter",
+      "purpose": "Select disposable-local only in an actual nonproduction test process",
+      "provider_class": "import_staging",
+      "runtime_status": "implemented",
+      "required_when": null
+    },
+    {
+      "name": "IMPORT_STAGING_TEST_KEY",
+      "scope": "disposable_test_only",
+      "required": {
+        "LOCALDEV": false,
+        "TEST": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "secret": true,
+      "validator": "hex32",
+      "purpose": "Fresh ephemeral 32-byte staging root key; no committed/default/plaintext fallback",
+      "provider_class": "import_staging",
+      "runtime_status": "implemented",
+      "required_when": {
+        "name": "IMPORT_STAGING_ADAPTER",
+        "equals": "disposable-local"
+      }
+    },
+    {
+      "name": "SUPABASE_SERVICE_ROLE_KEY",
+      "scope": "server_private",
+      "required": {
+        "LOCALDEV": false,
+        "TEST": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "secret": true,
+      "validator": "private_reference_or_key",
+      "purpose": "Existing private platform credential reserved outside normal user-JWT commands; no new generic worker authority",
+      "provider_class": "backend_platform",
+      "runtime_status": "reserved_future",
+      "required_when": null
+    },
+    {
+      "name": "OPENAI_API_KEY",
+      "scope": "server_private",
+      "required": {
+        "LOCALDEV": false,
+        "TEST": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "secret": true,
+      "validator": "private_reference_or_key",
+      "purpose": "Existing future AI provider placeholder; no registration/live execution",
+      "provider_class": "ai_provider",
+      "runtime_status": "reserved_future",
+      "required_when": null
+    },
+    {
+      "name": "META_WHATSAPP_ACCESS_TOKEN",
+      "scope": "server_private",
+      "required": {
+        "LOCALDEV": false,
+        "TEST": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "secret": true,
+      "validator": "private_reference_or_key",
+      "purpose": "Existing future provider token placeholder; no provider ingress/send",
+      "provider_class": "whatsapp",
+      "runtime_status": "reserved_future",
+      "required_when": null
+    },
+    {
+      "name": "META_APP_SECRET",
+      "scope": "server_private",
+      "required": {
+        "LOCALDEV": false,
+        "TEST": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "secret": true,
+      "validator": "private_reference_or_key",
+      "purpose": "Existing future signature verifier placeholder",
+      "provider_class": "whatsapp",
+      "runtime_status": "reserved_future",
+      "required_when": null
+    },
+    {
+      "name": "META_WEBHOOK_VERIFY_TOKEN",
+      "scope": "server_private",
+      "required": {
+        "LOCALDEV": false,
+        "TEST": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "secret": true,
+      "validator": "private_reference_or_key",
+      "purpose": "Existing future handshake placeholder; not a valid ingress adapter",
+      "provider_class": "whatsapp",
+      "runtime_status": "reserved_future",
+      "required_when": null
+    },
+    {
+      "name": "NOWCRM_WEBHOOK_SECRET",
+      "scope": "server_private",
+      "required": {
+        "LOCALDEV": false,
+        "TEST": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "secret": true,
+      "validator": "private_reference_or_key",
+      "purpose": "Existing future provider-neutral ingress seam; no activated endpoint",
+      "provider_class": "external_crm",
+      "runtime_status": "reserved_future",
+      "required_when": null
+    },
+    {
+      "name": "N8N_BASE_URL",
+      "scope": "server_private",
+      "required": {
+        "LOCALDEV": false,
+        "TEST": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "secret": false,
+      "validator": "https_url",
+      "purpose": "Existing future registered adapter endpoint; never caller arbitrary URL",
+      "provider_class": "n8n",
+      "runtime_status": "reserved_future",
+      "required_when": null
+    },
+    {
+      "name": "N8N_API_KEY",
+      "scope": "server_private",
+      "required": {
+        "LOCALDEV": false,
+        "TEST": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "secret": true,
+      "validator": "private_reference_or_key",
+      "purpose": "Existing future private adapter credential",
+      "provider_class": "n8n",
+      "runtime_status": "reserved_future",
+      "required_when": null
+    },
+    {
+      "name": "N8N_WEBHOOK_SECRET",
+      "scope": "server_private",
+      "required": {
+        "LOCALDEV": false,
+        "TEST": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "secret": true,
+      "validator": "private_reference_or_key",
+      "purpose": "Existing future signature material",
+      "provider_class": "n8n",
+      "runtime_status": "reserved_future",
+      "required_when": null
+    },
+    {
+      "name": "GOOGLE_CLIENT_ID",
+      "scope": "server_private",
+      "required": {
+        "LOCALDEV": false,
+        "TEST": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "secret": false,
+      "validator": "nonempty",
+      "purpose": "Existing future OAuth client metadata; not connection proof",
+      "provider_class": "google_calendar",
+      "runtime_status": "reserved_future",
+      "required_when": null
+    },
+    {
+      "name": "GOOGLE_CLIENT_SECRET",
+      "scope": "server_private",
+      "required": {
+        "LOCALDEV": false,
+        "TEST": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "secret": true,
+      "validator": "private_reference_or_key",
+      "purpose": "Existing future private OAuth credential",
+      "provider_class": "google_calendar",
+      "runtime_status": "reserved_future",
+      "required_when": null
+    },
+    {
+      "name": "GOOGLE_REDIRECT_URI",
+      "scope": "server_private",
+      "required": {
+        "LOCALDEV": false,
+        "TEST": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "secret": false,
+      "validator": "https_url",
+      "purpose": "Existing future callback inventory; exact approved production callback required",
+      "provider_class": "google_calendar",
+      "runtime_status": "reserved_future",
+      "required_when": null
+    },
+    {
+      "name": "SMTP_HOST",
+      "scope": "server_private",
+      "required": {
+        "LOCALDEV": false,
+        "TEST": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "secret": false,
+      "validator": "hostname",
+      "purpose": "Reserved production Auth SMTP configuration, independently managed in platform config",
+      "provider_class": "auth_mail",
+      "runtime_status": "reserved_future",
+      "required_when": null
+    },
+    {
+      "name": "SMTP_PORT",
+      "scope": "server_private",
+      "required": {
+        "LOCALDEV": false,
+        "TEST": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "secret": false,
+      "validator": "port",
+      "purpose": "Reserved production Auth SMTP port",
+      "provider_class": "auth_mail",
+      "runtime_status": "reserved_future",
+      "required_when": null
+    },
+    {
+      "name": "SMTP_USER",
+      "scope": "server_private",
+      "required": {
+        "LOCALDEV": false,
+        "TEST": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "secret": true,
+      "validator": "private_reference_or_key",
+      "purpose": "Reserved production Auth SMTP login/reference",
+      "provider_class": "auth_mail",
+      "runtime_status": "reserved_future",
+      "required_when": null
+    },
+    {
+      "name": "SMTP_PASSWORD",
+      "scope": "server_private",
+      "required": {
+        "LOCALDEV": false,
+        "TEST": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "secret": true,
+      "validator": "private_reference_or_key",
+      "purpose": "Reserved production Auth SMTP password/reference; no actual adapter installed",
+      "provider_class": "auth_mail",
+      "runtime_status": "reserved_future",
+      "required_when": null
+    },
+    {
+      "name": "AUTH_MAIL_FROM",
+      "scope": "server_private",
+      "required": {
+        "LOCALDEV": false,
+        "TEST": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "secret": false,
+      "validator": "email_address",
+      "purpose": "Reserved approved Auth sender address; domain verification still required",
+      "provider_class": "auth_mail",
+      "runtime_status": "reserved_future",
+      "required_when": null
+    },
+    {
+      "name": "CRM_MAIL_PROVIDER_REF",
+      "scope": "server_private",
+      "required": {
+        "LOCALDEV": false,
+        "TEST": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "secret": true,
+      "validator": "private_reference_or_key",
+      "purpose": "Reserved separate CRM transactional/commercial API adapter binding",
+      "provider_class": "crm_mail",
+      "runtime_status": "reserved_future",
+      "required_when": null
+    },
+    {
+      "name": "CRM_MAIL_FROM",
+      "scope": "server_private",
+      "required": {
+        "LOCALDEV": false,
+        "TEST": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "secret": false,
+      "validator": "email_address",
+      "purpose": "Reserved approved CRM sender address; distinct delivery channel",
+      "provider_class": "crm_mail",
+      "runtime_status": "reserved_future",
+      "required_when": null
+    }
+  ],
+  "configuration_artifacts": [
+    "supabase/config.toml",
+    "supabase/migrations",
+    "scripts/security/native-postgres/function-privileges.json",
+    "docs/master/contracts/product-capabilities.json"
+  ],
+  "production_import_ready": false,
+  "production_scanner_ready": false,
+  "auth_mail_ready": false,
+  "crm_mail_ready": false
+}
