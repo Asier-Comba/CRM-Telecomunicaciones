@@ -85,6 +85,7 @@ try {
   await db.exec(await readFile(resolve(root,'supabase/tests/document-metadata-commands.sql'),'utf8'))
   console.log('DOCUMENT METADATA/CAS/REPLAY/REVOCATION/STORAGE DENIAL/ROLLBACK PASS')
   await db.exec(await readFile(resolve(root,'supabase/tests/document-content-workflow.sql'),'utf8'))
+  await db.exec(await readFile(resolve(root,'supabase/tests/importjob-product-management.sql'),'utf8'))
   console.log('DOCUMENT CONTENT PENDING/OBJECT/TICKET/REVOCATION PASS')
   const {calculateBillingV1}=await import(pathToFileURL(resolve(root,'src/lib/server/billing-runtime-v1.ts')))
   let vectorState=20261004

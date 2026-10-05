@@ -1,6 +1,7 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import {readFileSync} from 'node:fs'
+import {IMPORTJOB_RPC_V1}from '../../src/lib/server/importjob-runtime-v1.ts'
 import {BILLING_ARTIFACT_RPC_V1}from '../../src/lib/server/billing-artifact-runtime-v1.ts'
 import {DOCUMENT_CONTENT_RPC_V1}from '../../src/lib/server/document-content-runtime-v1.ts'
 import {DOCUMENT_RPC_V1}from '../../src/lib/server/document-runtime-v1.ts'
@@ -28,6 +29,7 @@ test('capability catalog covers registered product transport and explicit RPC pr
  assert.deepEqual(catalog.operations.filter(o=>o.kind==='read'&&o.version==='document.v1').map(o=>o.name).sort(),['document.get_metadata','document.list'])
  assert.deepEqual(catalog.operations.filter(o=>o.kind==='write'&&o.version==='document.content.v1').map(o=>o.name).sort(),Object.keys(DOCUMENT_CONTENT_RPC_V1).sort())
  assert.deepEqual(catalog.operations.filter(o=>o.kind==='write'&&o.version==='billing.artifact.v1').map(o=>o.name).sort(),Object.keys(BILLING_ARTIFACT_RPC_V1).sort())
+ assert.deepEqual(catalog.operations.filter(o=>o.kind==='write'&&o.version==='importjob.v1').map(o=>o.name),Object.keys(IMPORTJOB_RPC_V1))
  const manifest=JSON.parse(read('scripts/security/native-postgres/function-privileges.json'))
  for(const operation of catalog.operations){
   const privilege=manifest.functions.find(f=>f.signature.startsWith('public.'+operation.rpc+'('))
@@ -37,7 +39,7 @@ test('capability catalog covers registered product transport and explicit RPC pr
   assert.equal(operation.transport.enabled_by_default,false)
   assert.ok(operation.input_type);assert.ok(operation.output_type)
   if(operation.kind==='write'){
-   assert.equal(operation.rpc,(operation.version==='billing.artifact.v1'?BILLING_ARTIFACT_RPC_V1:operation.version==='billing.v1'?BILLING_RPC_V1:operation.version==='team.v1'?TEAM_RPC_V1:operation.version==='portfolio.v1'?PORTFOLIO_RPC_V1:operation.version==='document.v1'?DOCUMENT_RPC_V1:operation.version==='document.content.v1'?DOCUMENT_CONTENT_RPC_V1:PRODUCT_RPC_V1)[operation.name])
+   assert.equal(operation.rpc,(operation.version==='importjob.v1'?IMPORTJOB_RPC_V1:operation.version==='billing.artifact.v1'?BILLING_ARTIFACT_RPC_V1:operation.version==='billing.v1'?BILLING_RPC_V1:operation.version==='team.v1'?TEAM_RPC_V1:operation.version==='portfolio.v1'?PORTFOLIO_RPC_V1:operation.version==='document.v1'?DOCUMENT_RPC_V1:operation.version==='document.content.v1'?DOCUMENT_CONTENT_RPC_V1:PRODUCT_RPC_V1)[operation.name])
    assert.equal(operation.idempotency.key,'command_id')
    assert.equal(operation.cas.required,operation.version==='billing.v1'?operation.name!=='invoice.create_draft':operation.version==='team.v1'?operation.name!=='member.invite_intent':operation.version==='portfolio.v1'?(!operation.name.endsWith('.create_manual')&&operation.name!=='contract.record_renewal'):operation.version==='document.content.v1'?operation.name!=='document.request_upload':!operation.name.endsWith('.create'))
    assert.equal(operation.allowed_roles.includes('viewer'),false)

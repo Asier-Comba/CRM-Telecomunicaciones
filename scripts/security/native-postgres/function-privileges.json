@@ -380,6 +380,38 @@
     {
       "anon": false,
       "public": false,
+      "definer": true,
+      "signature": "public.importjob_v1_cancel(uuid, jsonb)",
+      "service_role": false,
+      "authenticated": true
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": true,
+      "signature": "public.importjob_v1_get(uuid, jsonb)",
+      "service_role": false,
+      "authenticated": true
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": true,
+      "signature": "public.importjob_v1_list(uuid, jsonb)",
+      "service_role": false,
+      "authenticated": true
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": false,
+      "signature": "public.importjob_v1_metadata(import_jobs)",
+      "service_role": false,
+      "authenticated": false
+    },
+    {
+      "anon": false,
+      "public": false,
       "definer": false,
       "signature": "public.is_import_target_field_for_kind(text, text)",
       "service_role": false,

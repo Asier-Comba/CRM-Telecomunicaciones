@@ -1,6 +1,6 @@
 # Private frozen fiscal PDF v1 — candidate, default off
 
-C3 source checkpoint, 2026-10-05. BACKEND_READY_FOR_W2_REVIEW: PENDING_ACTUAL_SUPABASE. UI_SAFE: false. No provider, OAuth, public object, assistant registration or real customer data.
+C3 source checkpoint, 2026-10-05. BACKEND_READY_FOR_W2_REVIEW: YES (candidate). UI_SAFE: false. No provider, OAuth, public object, assistant registration or real customer data.
 
 ## Product contract
 
@@ -27,3 +27,5 @@ Artifact rows are append-only. A verified new revision can repair a corrupted ca
 ## Evidence boundaries
 
 Fresh embedded migration and independent synthetic SQL fixture cover issuance job, association/replay, payment replay, dual CAS, no financial mutation, immutable revision, audit rollback, member/revoked/anon/service-role denial. Node cases cover frozen bytes, corrupted bytes, forbidden caller inputs and optional failure. A real disposable Supabase fixture is committed for SSR on-issue processing, actual stored bytes, paid stability, role/tenant denials, archive/restore, privileged synthetic corruption rejected by the normal route, new revision repair, twenty completed replays and live revocation. Actual fixture results must be recorded at the published source SHA before any operation is marked individually proven. W2/W4 review remains required.
+
+Accepted executable evidence: `78dd6402ead3b5035b09d2bb221b020dcbb0e922`, actual Supabase38/run37310308926 PASS609 with all five private artifact reports PASS, browser-private-boundary PASS and teardown PASS. Native CI317/run37310308922 fresh+restore PASS43/182; quality209 Node/lint/types/build PASS and full npm audit remains blocked by Issue29. All three artifact operations have individual exact-head observations; UI_SAFE remains false. W2 handoff PR30 comment5994613403.

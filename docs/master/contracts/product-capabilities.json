@@ -1,20 +1,20 @@
 {
   "catalog_version": "product.capabilities.v1",
   "as_of": "2026-10-05",
-  "implementation_head": "eff802274f20d3612f1a36ca6335f99ca38f8c2c",
+  "implementation_head": "78dd6402ead3b5035b09d2bb221b020dcbb0e922",
   "evidence": {
     "native": {
-      "run_id": 37306726804,
+      "run_id": 37310308922,
       "status": "PASS",
-      "migration_count": 42,
-      "function_count": 177,
-      "tested_head": "eff802274f20d3612f1a36ca6335f99ca38f8c2c"
+      "migration_count": 43,
+      "function_count": 182,
+      "tested_head": "78dd6402ead3b5035b09d2bb221b020dcbb0e922"
     },
     "actual_supabase": {
-      "run_id": 37306726843,
-      "tested_head": "eff802274f20d3612f1a36ca6335f99ca38f8c2c",
+      "run_id": 37310308926,
+      "tested_head": "78dd6402ead3b5035b09d2bb221b020dcbb0e922",
       "status": "PASS",
-      "checks": 568,
+      "checks": 609,
       "teardown": "PASS",
       "browser_private_values": "PASS",
       "identity_revocation": "PASS",
@@ -37,17 +37,22 @@
       "document_proxy_download": "PASS",
       "document_content_expiry": "PASS",
       "document_content_scan": "NOT_IMPLEMENTED",
-      "document_content_verified_sha256": "NOT_IMPLEMENTED"
+      "document_content_verified_sha256": "NOT_IMPLEMENTED",
+      "billing_private_artifact": "PASS",
+      "billing_private_artifact_storage": "PASS",
+      "billing_private_artifact_integrity": "PASS",
+      "billing_private_artifact_on_issue": "PASS",
+      "billing_private_artifact_revocation": "PASS"
     },
     "quality": {
-      "tests": 205,
+      "tests": 209,
       "lint": "PASS",
       "types": "PASS",
       "build": "PASS",
       "audit": "BLOCKED_Issue29",
-      "scope": "exact_eff8022_document_content",
-      "tested_head": "eff802274f20d3612f1a36ca6335f99ca38f8c2c",
-      "run_id": 37306726804,
+      "scope": "exact_78dd640_private_fiscal_artifact",
+      "tested_head": "78dd6402ead3b5035b09d2bb221b020dcbb0e922",
+      "run_id": 37310308922,
       "overall_ci": "FAIL",
       "critical_playwright": "SKIPPED",
       "dependency_review": "SKIPPED"
@@ -3486,7 +3491,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_native_fixture_tested_actual_pending",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -3497,15 +3502,16 @@
         "status": "implemented_default_off",
         "path": "/api/billing/v1/private-pdf"
       },
-      "supabase_tested": false,
-      "supabase_status": "PENDING_AT_CANDIDATE_HEAD",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
       "review_pending": [
         "W4",
         "W2"
-      ]
+      ],
+      "supabase_tested_head": "78dd6402ead3b5035b09d2bb221b020dcbb0e922"
     },
     {
       "name": "invoice.private_pdf_reference",
@@ -3529,7 +3535,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_native_fixture_tested_actual_pending",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -3540,15 +3546,16 @@
         "status": "implemented_default_off",
         "path": "/api/billing/v1/private-pdf"
       },
-      "supabase_tested": false,
-      "supabase_status": "PENDING_AT_CANDIDATE_HEAD",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
       "review_pending": [
         "W4",
         "W2"
-      ]
+      ],
+      "supabase_tested_head": "78dd6402ead3b5035b09d2bb221b020dcbb0e922"
     },
     {
       "name": "invoice.private_pdf",
@@ -3572,7 +3579,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_native_fixture_tested_actual_pending",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -3582,6 +3589,133 @@
         "authority": "server_cookie_getUser_active_membership",
         "status": "implemented_default_off",
         "path": "/api/billing/v1/private-pdf"
+      },
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": false,
+      "ui_safe_status": "W4_and_W2_review_pending",
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "review_pending": [
+        "W4",
+        "W2"
+      ],
+      "supabase_tested_head": "78dd6402ead3b5035b09d2bb221b020dcbb0e922"
+    },
+    {
+      "name": "importjob.cancel",
+      "version": "importjob.v1",
+      "kind": "write",
+      "rpc": "importjob_v1_cancel",
+      "input_type": "ImportJobCancelInputV1",
+      "output_type": "ImportJobReceiptV1",
+      "minimum_role": "admin",
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor",
+        "changed_replay": "conflict"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      },
+      "backend_status": "candidate_actual_pending",
+      "transport": {
+        "method": "POST",
+        "enabled_by_default": false,
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "server_cookie_getUser_active_membership",
+        "status": "implemented_default_off",
+        "path": "/api/import/v1"
+      },
+      "supabase_tested": false,
+      "supabase_status": "PENDING_AT_CANDIDATE_HEAD",
+      "ui_safe": false,
+      "ui_safe_status": "W4_and_W2_review_pending",
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "review_pending": [
+        "W4",
+        "W2"
+      ]
+    },
+    {
+      "name": "importjob.get",
+      "version": "importjob.v1",
+      "kind": "read",
+      "rpc": "importjob_v1_get",
+      "input_type": "{id:uuid}",
+      "output_type": "ImportJobRecordV1",
+      "minimum_role": "admin",
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null,
+        "changed_replay": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "backend_status": "candidate_actual_pending",
+      "transport": {
+        "method": "POST",
+        "enabled_by_default": false,
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "server_cookie_getUser_active_membership",
+        "status": "implemented_default_off",
+        "path": "/api/import/v1"
+      },
+      "supabase_tested": false,
+      "supabase_status": "PENDING_AT_CANDIDATE_HEAD",
+      "ui_safe": false,
+      "ui_safe_status": "W4_and_W2_review_pending",
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "review_pending": [
+        "W4",
+        "W2"
+      ]
+    },
+    {
+      "name": "importjob.list",
+      "version": "importjob.v1",
+      "kind": "read",
+      "rpc": "importjob_v1_list",
+      "input_type": "ImportJobListInputV1",
+      "output_type": "bounded_importjob_records",
+      "minimum_role": "admin",
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null,
+        "changed_replay": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "backend_status": "candidate_actual_pending",
+      "transport": {
+        "method": "POST",
+        "enabled_by_default": false,
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "server_cookie_getUser_active_membership",
+        "status": "implemented_default_off",
+        "path": "/api/import/v1"
       },
       "supabase_tested": false,
       "supabase_status": "PENDING_AT_CANDIDATE_HEAD",
