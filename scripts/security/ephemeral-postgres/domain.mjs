@@ -95,6 +95,8 @@ try {
   console.log('AUTOMATIONS REGISTERED ACTION/DEDUPE/ROLLBACK PASS')
   await db.exec(await readFile(resolve(root,'supabase/tests/product-settings.sql'),'utf8'))
   console.log('SETTINGS SELF/COMPANY/REGISTRY/CAS/ROLLBACK PASS')
+  await db.exec(await readFile(resolve(root,'supabase/tests/requested-sensitive-reveal.sql'),'utf8'))
+  console.log('REQUESTED SENSITIVE REVEAL/ROLE/REDACTED AUDIT/ROLLBACK PASS')
   const {calculateBillingV1}=await import(pathToFileURL(resolve(root,'src/lib/server/billing-runtime-v1.ts')))
   let vectorState=20261004
   const draw=max=>{vectorState=(Math.imul(vectorState,1664525)+1013904223)>>>0;return vectorState%max}

@@ -128,6 +128,15 @@
       "native_functions": 226,
       "browser_private_values": "PASS",
       "teardown": "PASS"
+    },
+    "settings": {
+      "tested_head": "741eb44906e31bd6e77ed03c8874df2105cc8ec6",
+      "run_id": 37351991972,
+      "status": "PASS",
+      "checks": 1121,
+      "individually_observed": 5,
+      "browser_private_values": "PASS",
+      "teardown": "PASS"
     }
   },
   "operations": [
@@ -4983,7 +4992,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_pending_actual_supabase",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -4993,8 +5002,8 @@
         "status": "implemented_default_off",
         "path": "/api/settings/v1"
       },
-      "supabase_tested": false,
-      "supabase_status": "PENDING_ACTUAL_SUPABASE",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
@@ -5002,7 +5011,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": null
+      "supabase_tested_head": "741eb44906e31bd6e77ed03c8874df2105cc8ec6"
     },
     {
       "name": "settings.company_update",
@@ -5026,7 +5035,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_pending_actual_supabase",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -5036,8 +5045,8 @@
         "status": "implemented_default_off",
         "path": "/api/settings/v1"
       },
-      "supabase_tested": false,
-      "supabase_status": "PENDING_ACTUAL_SUPABASE",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
@@ -5045,7 +5054,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": null
+      "supabase_tested_head": "741eb44906e31bd6e77ed03c8874df2105cc8ec6"
     },
     {
       "name": "settings.profile_get",
@@ -5071,7 +5080,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_pending_actual_supabase",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -5081,8 +5090,8 @@
         "status": "implemented_default_off",
         "path": "/api/settings/v1"
       },
-      "supabase_tested": false,
-      "supabase_status": "PENDING_ACTUAL_SUPABASE",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
@@ -5090,7 +5099,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": null
+      "supabase_tested_head": "741eb44906e31bd6e77ed03c8874df2105cc8ec6"
     },
     {
       "name": "settings.company_get",
@@ -5116,7 +5125,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_pending_actual_supabase",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -5126,8 +5135,8 @@
         "status": "implemented_default_off",
         "path": "/api/settings/v1"
       },
-      "supabase_tested": false,
-      "supabase_status": "PENDING_ACTUAL_SUPABASE",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
@@ -5135,7 +5144,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": null
+      "supabase_tested_head": "741eb44906e31bd6e77ed03c8874df2105cc8ec6"
     },
     {
       "name": "settings.integrations",
@@ -5161,7 +5170,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_pending_actual_supabase",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -5171,8 +5180,8 @@
         "status": "implemented_default_off",
         "path": "/api/settings/v1"
       },
-      "supabase_tested": false,
-      "supabase_status": "PENDING_ACTUAL_SUPABASE",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
@@ -5180,13 +5189,66 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": null
+      "supabase_tested_head": "741eb44906e31bd6e77ed03c8874df2105cc8ec6"
+    },
+    {
+      "name": "sensitive.get",
+      "version": "sensitive.v1",
+      "kind": "read",
+      "rpc": "sensitive_v1_get",
+      "input_type": "SensitiveInputV1",
+      "output_type": "SensitiveResultV1",
+      "minimum_role": "member",
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member"
+      ],
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null,
+        "changed_replay": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "backend_status": "candidate_pending_actual_supabase",
+      "transport": {
+        "method": "POST",
+        "enabled_by_default": false,
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "server_cookie_getUser_active_membership",
+        "status": "implemented_default_off",
+        "path": "/api/sensitive/v1"
+      },
+      "supabase_tested": false,
+      "supabase_status": "PENDING_ACTUAL_SUPABASE",
+      "ui_safe": false,
+      "ui_safe_status": "W4_and_W2_review_pending",
+      "assistant_future": "excluded_sensitive_reveal_requires_explicit_privacy_gate",
+      "review_pending": [
+        "W4",
+        "W2"
+      ],
+      "supabase_tested_head": null,
+      "field_role_matrix": {
+        "contact": [
+          "owner",
+          "admin",
+          "member"
+        ],
+        "customer": [
+          "owner",
+          "admin"
+        ]
+      }
     }
   ],
   "unavailable_modules": [
-    "document_product_workflow",
     "product_import_workflow",
-    "billing_private_pdf",
     "text_audio_proposal_parser",
     "advanced_billing_analytics",
     "portfolio_deadline_supersede",

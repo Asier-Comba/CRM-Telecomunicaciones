@@ -1394,6 +1394,22 @@
       "authenticated": false
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
+      "signature": "public.sensitive_v1_get(uuid, jsonb)",
+      "service_role": false,
+      "authenticated": true
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": false,
+      "signature": "public.sensitive_v1_validate(jsonb)",
+      "service_role": false,
+      "authenticated": false
+    },
+    {
       "anon": true,
       "public": true,
       "definer": false,

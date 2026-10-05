@@ -29,6 +29,7 @@ target_relations(name) as (
     ('inbox_read_markers'),
     ('internal_notifications'),
     ('product_user_preferences'),
+    ('product_reveal_audit_events'),
     ('workspace_company_profiles'),
     ('internal_automations'),
     ('internal_automation_events'),

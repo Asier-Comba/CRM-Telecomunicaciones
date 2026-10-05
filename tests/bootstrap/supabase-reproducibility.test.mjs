@@ -60,6 +60,7 @@ test('the known Supabase drift remains explicit', () => {
       'product_commands',
       'product_opportunity_history',
       'product_opportunity_links',
+      'product_reveal_audit_events',
       'product_user_preferences',
       'profiles',
       'service_cases',
