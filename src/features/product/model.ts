@@ -1,7 +1,7 @@
 /** Presentation-only models. They confer no read, write or tenant authority. */
 export type SearchItem = {
   id: string
-  kind: 'customer' | 'contract' | 'service' | 'line' | 'opportunity'
+  kind: 'customer' | 'contact' | 'contract' | 'service' | 'line' | 'opportunity' | 'invoice'
   label: string
   detail: string
   customerId: string

@@ -11,3 +11,9 @@ Actual Supabase product UI journeys NOT_RUN. Inherited W1 522 checks are backend
 Configuration: use next dev with PRODUCT_LOCAL_INTEGRATION=true, PRODUCT_LOCAL_SYNTHETIC=true, PRODUCT_V1_ENABLED=true, PRODUCT_V1_ORIGIN=http://127.0.0.1:3109 and NEXT_PUBLIC_SUPABASE_URL=http://127.0.0.1:54321 plus local anon key. The authenticated identity must use @example.invalid. Do not enable demo or offline bypass flags. Misconfiguration displays unavailable and never falls back to fixtures. Next production runtime rejects integrated UI even on loopback.
 
 Pending: actual Supabase/browser customer journeys; complete Customer360; calendar; opportunity; portfolio; dashboard/search shell; billing; team/docs; W3 UI contract; screenshots and behavioral parity refresh. Issue29 is open; full audit remains enforced. No staging/production readiness or external effects.
+
+I4 partial: existing calendar widget consumes calendar.list with 93-day bound and explicit first-100 partiality. Task create/update/complete/cancel and meeting create/reschedule/complete/cancel use work.get CAS editor and command receipts. No dragging or deadline mutations. Task/meeting creation currently has no customer assignment control.
+
+I7 partial: real my/workspace dashboard with period/snapshot separation, native-currency financial authorization, unavailable team state and coded recent activity. Topbar and Ctrl/Cmd-K consume the seven-kind bounded global search. Invoice navigation is preparatory; billing integration is still pending.
+
+Validation: 225 Node tests, typecheck, lint and production build PASS at the earlier client checkpoint. First UI run37304343398 failed before customer creation because preceding backend workspace-revocation test intentionally suspended Synthetic A. UI harness now reactivates only that synthetic workspace after proving backend denial. New run pending. No product browser PASS or parity promotion yet.

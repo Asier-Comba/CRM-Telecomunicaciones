@@ -2,6 +2,8 @@ import type { ProductCommandInputsV1, ProductOperationV1, ProductReceiptV1, Cust
 import type { DashboardInputV2, DashboardV2, GlobalSearchV1 } from '@/lib/contracts/product-dashboard-v2'
 import { parseProductInputV1, parseProductReceiptV1, parseCustomerEditorV1, parseContactEditorPageV1 } from '../../../lib/server/product-runtime-v1.ts'
 import { parseDashboardV2, parseGlobalSearchV1 } from '../../../lib/server/product-dashboard-runtime-v2.ts'
+import type { CalendarInputV1, CalendarPageV1, WorkGetV1 } from '@/lib/contracts/product-queries-v1'
+import { parseCalendarPageV1, parseWorkGetV1 } from '../../../lib/server/product-query-runtime-v1.ts'
 
 export type UiError = ProductErrorV1 | 'transport_uncertain'
 export class ProductUiError extends Error {
@@ -24,6 +26,8 @@ export interface ProductRepository {
   contacts(customerId: string, after?: string | null): Promise<ContactEditorPageV1>
   dashboard(input: DashboardInputV2): Promise<DashboardV2>
   search(query: string): Promise<GlobalSearchV1>
+  calendar(input: CalendarInputV1): Promise<CalendarPageV1>
+  work(kind: 'task'|'meeting'|'opportunity', id: string): Promise<WorkGetV1>
 }
 const errors: readonly string[] = ['validation','access_denied','not_found','conflict','unavailable','internal_safe']
 function object(v: unknown): v is Record<string, unknown> {
@@ -66,6 +70,8 @@ export class IntegratedLocalProductRepository implements ProductRepository {
   }
   dashboard(input: DashboardInputV2) { return this.post('queries','dashboard.get',input,v => parseDashboardV2(input,v)) }
   search(query: string) { const input = { query: query.trim(), limit: 50 }; return this.post('queries','global.search',input,v => parseGlobalSearchV1(input,v)) }
+  calendar(input: CalendarInputV1) { return this.post('queries','calendar.list',input,v=>parseCalendarPageV1(input,v)) }
+  work(kind: 'task'|'meeting'|'opportunity', id: string) { return this.post('queries','work.get',{kind,id},v=>parseWorkGetV1(kind,id,v)) }
 }
 /** Preview never impersonates a successful persistent write. */
 export class SyntheticProductRepository implements ProductRepository {
@@ -76,6 +82,8 @@ export class SyntheticProductRepository implements ProductRepository {
   contacts(_id: string) { void _id; return this.unavailable<ContactEditorPageV1>() }
   dashboard(_input: DashboardInputV2) { void _input; return this.unavailable<DashboardV2>() }
   search(_query: string) { void _query; return this.unavailable<GlobalSearchV1>() }
+  calendar(_input: CalendarInputV1) { void _input; return this.unavailable<CalendarPageV1>() }
+  work(_kind: 'task'|'meeting'|'opportunity', _id: string) { void _kind; void _id; return this.unavailable<WorkGetV1>() }
 }
 /** Keep in the mounted action/editor only. Never persist this object or contact PII. */
 export function commandIntent<O extends ProductOperationV1>(operation: O, fields: Omit<ProductCommandInputsV1[O], 'command_id'>) {

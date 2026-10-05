@@ -3,7 +3,10 @@ import { syntheticPreviewAllowed } from '@/lib/telecom-preview/access'
 import { PREVIEW_AS_OF } from '@/lib/telecom-preview/metadata'
 import { calendarEntries } from '@/features/product/projections'
 import { Calendar } from '@/features/calendar/Calendar'
+import { integratedLocalAllowed } from '@/features/product/integration/mode'
+import { IntegratedCalendar } from '@/features/calendar/IntegratedCalendar'
 export default function CalendarPage() {
+  if(integratedLocalAllowed())return <IntegratedCalendar/>
   if (!syntheticPreviewAllowed())
     return (
       <PageHeader

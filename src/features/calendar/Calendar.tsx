@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { ChevronLeft, ChevronRight, Plus } from 'lucide-react'
 import { PageHeader } from '@/components/PageHeader'
@@ -49,9 +49,15 @@ function moveMonth(anchor: string, delta: number) {
 export function Calendar({
   entries,
   asOf,
+  onCreate,
+  onSelect,
+  onRange,
 }: {
   entries: CalendarEntry[]
   asOf: string
+  onCreate?: () => void
+  onSelect?: (entry: CalendarEntry) => void
+  onRange?: (anchor: string) => void
 }) {
   const today = asOf.slice(0, 10),
     [anchor, setAnchor] = useState(today),
@@ -59,6 +65,7 @@ export function Calendar({
     [owner, setOwner] = useState(''),
     [type, setType] = useState(''),
     [selected, setSelected] = useState<CalendarEntry | null>(null)
+  useEffect(()=>{onRange?.(anchor)},[anchor,onRange])
   const start = weekStart(anchor),
     days = Array.from({ length: 7 }, (_, i) => addDays(start, i)),
     month = monthDays(anchor),
@@ -81,7 +88,7 @@ export function Calendar({
   const event = (e: CalendarEntry) => (
     <button
       key={e.id}
-      onClick={() => setSelected(e)}
+      onClick={() => onSelect ? onSelect(e) : setSelected(e)}
       className={`mb-1 block w-full rounded border-l-2 p-1.5 text-left text-[10px] leading-4 ${colors[e.type]}`}
     >
       <span className="block font-semibold">
@@ -97,8 +104,9 @@ export function Calendar({
         description="Agenda, seguimiento y fechas de tu cartera"
         action={
           <button
-            disabled
-            title="Alta pendiente de contrato autorizado de calendario"
+            disabled={!onCreate}
+            onClick={onCreate}
+            title={onCreate ? 'Crear tarea o reunión local' : 'Alta pendiente de contrato autorizado de calendario'}
             className={primary}
           >
             <Plus className="h-4 w-4" />
