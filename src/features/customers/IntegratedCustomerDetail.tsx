@@ -14,15 +14,17 @@ export function IntegratedCustomerDetail({ id }: { id: string }) {
   const [customer,setCustomer] = useState<CustomerEditorV1|null>(null), [contacts,setContacts] = useState<ContactEditorPageV1|null>(null)
   const [error,setError] = useState(''), [edit,setEdit] = useState(false), [contact,setContact] = useState<ContactEditorV1|'new'|null>(null)
   const [confirm,setConfirm] = useState(false), [busy,setBusy] = useState(false), [message,setMessage] = useState('')
+  const [contactCursors,setContactCursors]=useState<string[]>([]),[contactRevision,setContactRevision]=useState(0),[contactsError,setContactsError]=useState('')
   const [area,setArea]=useState('Resumen')
   const archiveIntent = useRef<{execute:()=>Promise<ProductReceiptV1>}|null>(null)
   const canWrite = role !== null && role !== 'viewer'
   const load = useCallback(async()=>{
     setError('')
-    try { const [c,p] = await Promise.all([repository.customer(id),repository.contacts(id)]);setCustomer(c);setContacts(p) }
+    try {setCustomer(await repository.customer(id));setContacts(null);setContactCursors([]);setContactRevision(v=>v+1)}
     catch(e){setCustomer(null);setContacts(null);setError(safeMessage(e))}
   },[repository,id])
-  useEffect(()=>{let active=true; void (async()=>{try {const [c,p]=await Promise.all([repository.customer(id),repository.contacts(id)]);if(active){setCustomer(c);setContacts(p)}}catch(e){if(active)setError(safeMessage(e))}})();return()=>{active=false}},[repository,id])
+  useEffect(()=>{let active=true; void (async()=>{try {const c=await repository.customer(id);if(active)setCustomer(c)}catch(e){if(active)setError(safeMessage(e))}})();return()=>{active=false}},[repository,id])
+  useEffect(()=>{let active=true;void repository.contacts(id,contactCursors.at(-1)??null).then(v=>{if(active){setContacts(v);setContactsError('')}}).catch(e=>{if(active){setContacts(null);setContactsError(safeMessage(e))}});return()=>{active=false}},[repository,id,contactCursors,contactRevision])
   async function archive() {
     if(!customer || busy)return
     setBusy(true);setError('')
@@ -36,12 +38,13 @@ export function IntegratedCustomerDetail({ id }: { id: string }) {
     {error && <p role="alert" className="text-sm text-red-700">{error}</p>}
     {message && <p role="status" className="text-sm text-emerald-700">{message}</p>}
     {!customer ? <section className="rounded-xl border bg-white p-5"><p>{error?'Cliente no disponible':'Cargando cliente…'}</p><button className={control} onClick={load}>Volver a consultar</button></section> : <>
-      <header className="flex flex-wrap items-center justify-between gap-3 rounded-xl border bg-white p-5"><div><Status value={customer.status}/><h1 className="mt-2 text-2xl font-bold">{customer.legal_name}</h1><p className="text-sm text-slate-500">{customer.trade_name} · Origen: {customer.source}</p></div><div className="flex gap-2">{canWrite && customer.source==='manual' && <>{customer.status!=='archived'&&<button className={control} onClick={()=>setEdit(true)}>Editar cliente</button>}<button className={control} onClick={()=>{archiveIntent.current=null;setError('');setConfirm(true)}}>{customer.status==='archived'?'Restaurar cliente':'Archivar cliente'}</button></>}</div></header>
+      <header className="flex flex-wrap items-center justify-between gap-3 rounded-xl border bg-white p-5"><div><Status value={customer.status}/><h1 className="mt-2 text-2xl font-bold">{customer.legal_name}</h1><p className="text-sm text-slate-500">{customer.trade_name} · Origen: {{manual:'Manual',import:'Importado',integration:'Integración'}[customer.source]}</p></div><div className="flex gap-2">{canWrite && customer.source==='manual' && <>{customer.status!=='archived'&&<button className={control} onClick={()=>setEdit(true)}>Editar cliente</button>}<button className={control} onClick={()=>{archiveIntent.current=null;setError('');setConfirm(true)}}>{customer.status==='archived'?'Restaurar cliente':'Archivar cliente'}</button></>}</div></header>
       <Tabs prefix="customer360-" items={customerAreas} value={area} onChange={setArea}/><section role="tabpanel" id={`customer360-panel-${area}`} aria-labelledby={`customer360-tab-${area}`} className="space-y-4"><CustomerIntegratedPanels customer={customer} area={area}/>
       {(area==='Resumen'||area==='Contactos')&&<section className="rounded-xl border bg-white p-5"><div className="mb-4 flex items-center justify-between gap-3"><h2 className="font-semibold">Contactos</h2>{canWrite && customer.status!=='archived' && <button className={primary} onClick={()=>setContact('new')}>Añadir contacto</button>}</div><p className="mb-3 text-xs text-slate-500">Datos protegidos para esta sesión. No se guardan en el navegador.</p>
         {contacts?.items.map(c=><article key={c.id} className="flex flex-wrap items-center justify-between gap-3 border-t py-3"><div><h3 className="font-medium">{c.display_name}{c.is_primary?' · Principal':''}</h3><p className="text-sm text-slate-500">{c.job_title} · {c.email ?? 'Sin correo'} · {c.phone ?? 'Sin teléfono'}</p><Status value={c.status}/></div>{canWrite && <button className={control} onClick={()=>setContact(c)}>Editar contacto</button>}</article>)}
-        {!contacts?.items.length && <p className="text-sm text-slate-500">Sin contactos en esta página.</p>}
-        {contacts?.next_id && <button className={control} onClick={async()=>{try{setContacts(await repository.contacts(id,contacts.next_id))}catch(e){setError(safeMessage(e))}}}>Siguiente página de contactos</button>}
+        {contactsError&&<p role="alert" className="text-sm text-red-700">{contactsError}</p>}{!contacts&&!contactsError&&<p role="status" className="text-sm text-slate-500">Cargando contactos autorizados…</p>}
+        {contacts&&!contacts.items.length && <p className="text-sm text-slate-500">Sin contactos en esta página.</p>}
+        <div className="mt-4 flex flex-wrap items-center gap-3"><button className={control} disabled={!contacts||!contactCursors.length} onClick={()=>{setContacts(null);setContactsError('');setContactCursors(v=>v.slice(0,-1))}}>Página anterior de contactos</button><span className="text-xs text-slate-500">Página {contactCursors.length+1} · Hasta 20 contactos</span><button className={control} disabled={!contacts?.next_id} onClick={()=>{if(contacts?.next_id){setContactCursors(v=>[...v,contacts.next_id!]);setContacts(null);setContactsError('')}}}>Siguiente página de contactos</button></div>
       </section>}</section>
 
       {edit && <CustomerEditor customer={customer} onClose={()=>setEdit(false)} onSaved={async()=>{setEdit(false);setMessage('Cliente guardado.');await load()}} onReload={async()=>{setEdit(false);await load();setMessage('Versión actual recargada. Abre el editor para revisar los cambios.')}}/>}

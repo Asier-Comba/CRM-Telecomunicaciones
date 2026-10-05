@@ -17,7 +17,7 @@ import { parseProductInputV1, parseProductReceiptV1, parseCustomerEditorV1, pars
 import { parseDashboardV2, parseGlobalSearchV1 } from '../../../lib/server/product-dashboard-runtime-v2.ts'
 import type { CalendarInputV1, CalendarPageV1, WorkGetV1, StageCatalogV1 } from '@/lib/contracts/product-queries-v1'
 import { parseCalendarPageV1, parseWorkGetV1, parseStageCatalogV1 } from '../../../lib/server/product-query-runtime-v1.ts'
-import type { TeamInputsV1, TeamOperationV1, TeamReceiptV1, TeamListV1 } from '@/lib/contracts/team-v1'
+import type { TeamInputsV1, TeamOperationV1, TeamReceiptV1, TeamListV1, TeamListInputV1 } from '@/lib/contracts/team-v1'
 import type { DocumentInputsV1, DocumentOperationV1, DocumentReceiptV1, DocumentListInputV1, DocumentListV1, DocumentGetV1 } from '@/lib/contracts/document-v1'
 import { parseTeamInputV1, parseTeamReceiptV1, parseTeamListV1 } from '../../../lib/server/team-runtime-v1.ts'
 import { parseDocumentInputV1, parseDocumentReceiptV1, parseDocumentListV1, parseDocumentGetV1 } from '../../../lib/server/document-runtime-v1.ts'
@@ -56,7 +56,7 @@ export interface ProductRepository {
   stages():Promise<StageCatalogV1>
   portfolio(kind:PortfolioKindV1,id:string):Promise<PortfolioGetV1>
   portfolioCommand<O extends PortfolioOperationV1>(operation:O,input:PortfolioInputsV1[O]):Promise<PortfolioReceiptV1>
-  team(): Promise<TeamListV1>
+  team(input?:TeamListInputV1): Promise<TeamListV1>
   teamCommand<O extends TeamOperationV1>(operation: O, input: TeamInputsV1[O]): Promise<TeamReceiptV1>
   documents(input: DocumentListInputV1): Promise<DocumentListV1>
   document(id: string): Promise<DocumentGetV1>
@@ -129,7 +129,7 @@ export class IntegratedLocalProductRepository implements ProductRepository {
   portfolio(kind:PortfolioKindV1,id:string){const input={kind,id};return this.post('queries','portfolio.get',input,v=>parsePortfolioGetV1(input,v),'portfolio')}
   portfolioCommand<O extends PortfolioOperationV1>(operation:O,value:PortfolioInputsV1[O]){const input=parsePortfolioInputV1(operation,value);if(!input)return Promise.reject(new ProductUiError('validation'));return this.post('commands',operation,input,v=>parsePortfolioReceiptV1(operation,input,v),'portfolio')}
   stages(){const input={limit:100};return this.post('queries','opportunity.stages',input,v=>parseStageCatalogV1(100,null,v))}
-  team() { const input={limit:100};return this.post('queries','member.list',input,v=>parseTeamListV1(input,v),'team') }
+  team(input:TeamListInputV1={limit:100}) {return this.post('queries','member.list',input,v=>parseTeamListV1(input,v),'team') }
   teamCommand<O extends TeamOperationV1>(operation: O, value: TeamInputsV1[O]) {
     const input=parseTeamInputV1(operation,value);if(!input)return Promise.reject(new ProductUiError('validation'))
     return this.post('commands',operation,input,v=>parseTeamReceiptV1(operation,input,v),'team')
@@ -196,7 +196,7 @@ export class SyntheticProductRepository implements ProductRepository {
   stages(){return this.unavailable<StageCatalogV1>()}
   portfolio(_kind:PortfolioKindV1,_id:string){void _kind;void _id;return this.unavailable<PortfolioGetV1>()}
   portfolioCommand<O extends PortfolioOperationV1>(_operation:O,_input:PortfolioInputsV1[O]){void _operation;void _input;return this.unavailable<PortfolioReceiptV1>()}
-  team() { return this.unavailable<TeamListV1>() }
+  team(_input?:TeamListInputV1) {void _input;return this.unavailable<TeamListV1>() }
   teamCommand<O extends TeamOperationV1>(_operation: O,_input:TeamInputsV1[O]) {void _operation;void _input;return this.unavailable<TeamReceiptV1>()}
   documents(_input:DocumentListInputV1) {void _input;return this.unavailable<DocumentListV1>()}
   document(_id:string) {void _id;return this.unavailable<DocumentGetV1>()}

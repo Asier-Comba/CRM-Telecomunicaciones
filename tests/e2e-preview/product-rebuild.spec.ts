@@ -89,7 +89,7 @@ test('customer collection, partiality, keyboard tabs and global search', async (
   ).toBeVisible()
   const global = page.getByRole('combobox', { name: 'Búsqueda global' })
   await global.fill('Fibra sede')
-  await page.getByRole('link', { name: /Fibra sede principal/ }).click()
+  await page.getByRole('option', { name: /Fibra sede principal/ }).click()
   await expect(page).toHaveURL(/clients\/cust_demo_norte_0001$/)
   await surface(page)
 })
@@ -312,18 +312,22 @@ test('disconnected modules stay honest and assistant error/cancel cannot resurre
   await page.getByRole('button', { name: 'Cancelar consulta' }).click()
   await expect(page.getByText('Consulta cancelada.')).toBeVisible()
   await expect(assistantError).toHaveCount(1)
+  if((page.viewportSize()?.width??1440)<1280)await page.getByRole('tab',{name:'Conversaciones',exact:true}).click()
   await page.getByRole('button', { name: 'Renombrar', exact: true }).click()
   await page
     .getByRole('textbox', { name: 'Título de conversación' })
     .fill('Prueba local revisada')
   await page.getByRole('button', { name: 'Guardar título local' }).click()
+  if((page.viewportSize()?.width??1440)<1280)await page.getByRole('tab',{name:'Consulta',exact:true}).click()
   await expect(
     page.getByRole('heading', { name: 'Prueba local revisada' }),
   ).toBeVisible()
+  if((page.viewportSize()?.width??1440)<1280)await page.getByRole('tab',{name:'Conversaciones',exact:true}).click()
   await page
     .getByRole('button', { name: 'Eliminar conversación', exact: true })
     .click()
   await page.getByRole('button', { name: 'Eliminar de esta sesión' }).click()
+  if((page.viewportSize()?.width??1440)<1280)await page.getByRole('tab',{name:'Consulta',exact:true}).click()
   await expect(assistantError).toHaveCount(0)
   await expect(page.getByText('Tu cartera, en una consulta')).toBeVisible()
   expect(external).toEqual([])

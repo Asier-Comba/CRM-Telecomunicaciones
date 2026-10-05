@@ -11,9 +11,10 @@ import type { StageCatalogV1, WorkGetV1 } from '@/lib/contracts/product-queries-
 import type { OpportunityItemV1 } from '@/lib/contracts/telecom-v1'
 import type { ProductReceiptV1 } from '@/lib/contracts/product-v1'
 type Opportunity=Extract<WorkGetV1,{kind:'opportunity'}>
-export function IntegratedOpportunities({initialCreate=false}:{initialCreate?:boolean}){
+export function IntegratedOpportunities({initialCreate=false,initialId}:{initialCreate?:boolean;initialId?:string}){
   const {repository,role}=useProduct(),[query,setQuery]=useState(''),[customers,setCustomers]=useState<{id:string;name:string}[]>([]),[records,setRecords]=useState<Opportunity[]>([]),[stages,setStages]=useState<StageCatalogV1|null>(null),[error,setError]=useState(''),[busy,setBusy]=useState(false),[editor,setEditor]=useState<{record?:Opportunity}|null>(initialCreate&&role!==null&&role!=='viewer'?{}:null)
   useEffect(()=>{let current=true;void repository.stages().then(v=>{if(current)setStages(v)}).catch(e=>{if(current)setError(safeMessage(e))});return()=>{current=false}},[repository])
+  useEffect(()=>{if(!initialId)return;let current=true;void repository.work('opportunity',initialId).then(record=>{if(current&&record.kind==='opportunity'){setRecords([record]);setEditor({record})}}).catch(e=>{if(current)setError(safeMessage(e))});return()=>{current=false}},[initialId,repository])
   const search=useCallback(async()=>{setBusy(true);setError('');try{const data=await repository.search(query);setCustomers(data.items.filter(i=>i.kind==='customer').map(i=>({id:i.id,name:i.label})));const found=await Promise.all(data.items.filter(i=>i.kind==='opportunity').map(i=>repository.work('opportunity',i.id)));setRecords(found.filter((i):i is Opportunity=>i.kind==='opportunity'))}catch(e){setRecords([]);setError(safeMessage(e))}finally{setBusy(false)}},[repository,query])
   const [move,setMove]=useState<{id:string;stageId:string}|null>(null),[moveError,setMoveError]=useState<unknown>(null),[moveMessage,setMoveMessage]=useState(''),[movePending,setMovePending]=useState(false),[moveReceipt,setMoveReceipt]=useState(false)
   const pendingMove=useRef<{id:string;stageId:string;execute:()=>Promise<ProductReceiptV1>;receipt?:ProductReceiptV1}|null>(null)
@@ -46,7 +47,7 @@ function OpportunityEditor({record,stages,customers,canWrite,onClose,onSaved}:{r
       if(action==='assign'&&base)command=commandIntent('opportunity.assign',{...base,owner_user_id:assignee})
       else if(action==='archive'&&base)command=commandIntent('opportunity.archive',base)
       else if(action==='stage'&&base){if(!stage)throw new ProductUiError('validation');command=stage.outcome==='won'?commandIntent('opportunity.win',{...base,stage_id:stage.id}):stage.outcome==='lost'?commandIntent('opportunity.lose',{...base,stage_id:stage.id,close_reason_code:reason}):r?.status==='won'||r?.status==='lost'?commandIntent('opportunity.reopen',{...base,stage_id:stage.id}):commandIntent('opportunity.change_stage',{...base,stage_id:stage.id})}
-      else{if(amount&&!/^\d+(\.\d{1,2})?$/.test(amount))throw new ProductUiError('validation');const fields={title,amount_minor:amount?Math.round(Number(amount)*100):null,currency:currency as 'EUR'|'USD'|'GBP',expected_close_date:expectedClose||null,next_action:nextAction||null};command=base?commandIntent('opportunity.update',{...base,...fields}):commandIntent('opportunity.create',{...fields,customer_id:customerId,stage_id:stageId})}
+      else{if(amount&&!/^\d+(\.\d{1,2})?$/.test(amount))throw new ProductUiError('validation');const fields={title,amount_minor:amount?Math.round(Number(amount)*100):null,currency:amount?currency as 'EUR'|'USD'|'GBP':null,expected_close_date:expectedClose||null,next_action:nextAction||null};command=base?commandIntent('opportunity.update',{...base,...fields}):commandIntent('opportunity.create',{...fields,customer_id:customerId,stage_id:stageId})}
       pending.current={execute:()=>command.execute(repository)}
     }
     const receipt=await pending.current.execute();pending.current=null;await onSaved(receipt)

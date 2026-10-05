@@ -68,13 +68,14 @@ export function Calendar({
 }) {
   const today = asOf.slice(0, 10),
     [anchor, setAnchor] = useState(today),
-    [view, setView] = useState<'week' | 'month' | 'agenda'>('week'),
+    [view, setView] = useState<'day' | 'week' | 'month' | 'agenda'>('week'),
     [owner, setOwner] = useState(''),
     [type, setType] = useState(''),
     [selected, setSelected] = useState<CalendarEntry | null>(null)
   useEffect(()=>{onRange?.(anchor)},[anchor,onRange])
   const start = weekStart(anchor),
     days = Array.from({ length: 7 }, (_, i) => addDays(start, i)),
+    gridDays=view==='day'?[anchor]:days,
     month = monthDays(anchor),
     filtered = entries.filter(
       (e) => (!owner || e.owner === owner) && (!type || e.type === type),
@@ -84,7 +85,7 @@ export function Calendar({
     .filter((e) =>
       view === 'month'
         ? calendarDate(e.date).slice(0, 7) === anchor.slice(0, 7)
-        : calendarDate(e.date) >= start && calendarDate(e.date) <= days[6],
+        : view==='day'?calendarDate(e.date)===anchor:calendarDate(e.date) >= start && calendarDate(e.date) <= days[6],
     )
     .sort((a, b) => a.date.localeCompare(b.date))
   const monthLabel = new Intl.DateTimeFormat('es-ES', {
@@ -225,7 +226,7 @@ export function Calendar({
                   setAnchor(
                     view === 'month'
                       ? moveMonth(anchor, -1)
-                      : addDays(anchor, -7),
+                      : addDays(anchor, view==='day'?-1:-7),
                   )
                 }
               >
@@ -238,7 +239,7 @@ export function Calendar({
                   setAnchor(
                     view === 'month'
                       ? moveMonth(anchor, 1)
-                      : addDays(anchor, 7),
+                      : addDays(anchor, view==='day'?1:7),
                   )
                 }
               >
@@ -247,18 +248,18 @@ export function Calendar({
               <h2 className="text-sm font-semibold text-slate-800">
                 {view === 'month'
                   ? monthLabel
-                  : `${previewDate(start)} – ${previewDate(days[6])}`}
+                  : view==='day'?previewDate(anchor):`${previewDate(start)} – ${previewDate(days[6])}`}
               </h2>
             </div>
             <div className="flex rounded-lg bg-slate-100 p-1">
-              {(['week', 'month', 'agenda'] as const).map((v) => (
+              {(['day', 'week', 'month', 'agenda'] as const).map((v) => (
                 <button
                   aria-pressed={view === v}
                   onClick={() => setView(v)}
                   key={v}
                   className={`rounded px-3 py-1.5 text-xs font-medium ${view === v ? 'bg-white text-indigo-700 shadow-sm' : 'text-slate-500'}`}
                 >
-                  {v === 'week' ? 'Semana' : v === 'month' ? 'Mes' : 'Agenda'}
+                  {v==='day'?'Día':v === 'week' ? 'Semana' : v === 'month' ? 'Mes' : 'Agenda'}
                 </button>
               ))}
             </div>
@@ -302,10 +303,10 @@ export function Calendar({
             </div>
           ) : (
             <div className="overflow-x-auto">
-              <div className="min-w-[740px]">
-                <div className="grid grid-cols-[48px_repeat(7,1fr)] border-b border-slate-100">
+              <div className={view==='day'?'min-w-0':'min-w-[740px]'}>
+                <div className={`grid ${view==='day'?'grid-cols-[48px_minmax(0,1fr)]':'grid-cols-[48px_repeat(7,1fr)]'} border-b border-slate-100`}>
                   <span className="p-2 text-[10px] text-slate-400">Madrid</span>
-                  {days.map((day) => (
+                  {gridDays.map((day) => (
                     <div
                       className={`border-l border-slate-100 p-2 text-center text-xs font-semibold ${day === today ? 'bg-indigo-50 text-indigo-700' : 'text-slate-500'}`}
                       key={day}
@@ -318,11 +319,11 @@ export function Calendar({
                     </div>
                   ))}
                 </div>
-                <div className="grid grid-cols-[48px_repeat(7,1fr)] border-b border-slate-100">
+                <div className={`grid ${view==='day'?'grid-cols-[48px_minmax(0,1fr)]':'grid-cols-[48px_repeat(7,1fr)]'} border-b border-slate-100`}>
                   <span className="p-1 text-[9px] text-slate-400">
                     Todo el día
                   </span>
-                  {days.map((day) => (
+                  {gridDays.map((day) => (
                     <div
                       key={day}
                       className="min-h-10 border-l border-slate-100 p-1"
@@ -333,7 +334,7 @@ export function Calendar({
                     </div>
                   ))}
                 </div>
-                <div className="grid grid-cols-[48px_repeat(7,1fr)]">
+                <div className={`grid ${view==='day'?'grid-cols-[48px_minmax(0,1fr)]':'grid-cols-[48px_repeat(7,1fr)]'}`}>
                   <div>
                     {Array.from({ length: 12 }, (_, i) => (
                       <div
@@ -344,7 +345,7 @@ export function Calendar({
                       </div>
                     ))}
                   </div>
-                  {days.map((day) => (
+                  {gridDays.map((day) => (
                     <div
                       key={day}
                       className="relative border-l border-slate-100"

@@ -164,7 +164,7 @@ export function Customers({ rows, onCreate }: { rows: CustomerRow[]; onCreate?: 
             <span>Acciones masivas pendientes de autorización</span>
           </div>
         )}
-        <div className="overflow-x-auto">
+        <div className="relative max-w-full overflow-x-auto">
           <table className="w-full min-w-[1150px] text-left text-xs">
             <caption className="sr-only">
               Empresas y su cartera telecom. Datos protegidos ocultos.
