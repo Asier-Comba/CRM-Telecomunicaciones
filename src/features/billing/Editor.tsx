@@ -216,7 +216,7 @@ export function InvoiceEditor({
         </label>
         <div className="rounded-lg bg-slate-50 p-3">
           <p className="text-[10px] text-slate-400">
-            Emisor de prueba · snapshot al guardar
+            {integrated?'Emisor autorizado · datos fiscales congelados al emitir':'Emisor de prueba · snapshot al guardar'}
           </p>
           <p className="mt-1 text-xs font-semibold text-slate-700">
             {issuer.legalName || 'Emisor pendiente'}
