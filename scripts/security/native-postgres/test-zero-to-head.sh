@@ -57,6 +57,7 @@ run_fixture supabase/tests/importjob-product-management.sql
 run_fixture supabase/tests/internal-inbox-domain.sql
 run_fixture supabase/tests/personal-notifications.sql
 run_fixture supabase/tests/registered-automations.sql
+run_fixture supabase/tests/product-settings.sql
 run_fixture supabase/tests/product-dashboard-search.sql
 # Density is rolled back so existing recovery sentinels remain exact.
 {
@@ -174,6 +175,7 @@ migration_head="$(basename "${migration}")"
   cat "$repo_root/supabase/tests/internal-inbox-domain.sql"
   cat "$repo_root/supabase/tests/personal-notifications.sql"
   cat "$repo_root/supabase/tests/registered-automations.sql"
+  cat "$repo_root/supabase/tests/product-settings.sql"
   cat "$repo_root/supabase/tests/product-dashboard-search.sql"
   sed '$d' "$repo_root/supabase/seeds/synthetic_product.sql"
   cat "$repo_root/supabase/seeds/synthetic_product_billing.sql"
