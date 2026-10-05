@@ -1394,12 +1394,84 @@
       "authenticated": false
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
+      "signature": "public.sensitive_v1_get(uuid, jsonb)",
+      "service_role": false,
+      "authenticated": true
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": false,
+      "signature": "public.sensitive_v1_validate(jsonb)",
+      "service_role": false,
+      "authenticated": false
+    },
+    {
       "anon": true,
       "public": true,
       "definer": false,
       "signature": "public.set_updated_at()",
       "service_role": true,
       "authenticated": true
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": true,
+      "signature": "public.settings_v1_command(uuid, text, jsonb)",
+      "service_role": false,
+      "authenticated": false
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": true,
+      "signature": "public.settings_v1_company_get(uuid, jsonb)",
+      "service_role": false,
+      "authenticated": true
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": true,
+      "signature": "public.settings_v1_company_update(uuid, jsonb)",
+      "service_role": false,
+      "authenticated": true
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": true,
+      "signature": "public.settings_v1_integrations(uuid, jsonb)",
+      "service_role": false,
+      "authenticated": true
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": true,
+      "signature": "public.settings_v1_profile_get(uuid, jsonb)",
+      "service_role": false,
+      "authenticated": true
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": true,
+      "signature": "public.settings_v1_profile_update(uuid, jsonb)",
+      "service_role": false,
+      "authenticated": true
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": false,
+      "signature": "public.settings_v1_validate(text, jsonb)",
+      "service_role": false,
+      "authenticated": false
     },
     {
       "anon": false,

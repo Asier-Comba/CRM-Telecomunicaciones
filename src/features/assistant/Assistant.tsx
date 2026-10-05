@@ -183,6 +183,7 @@ export function Assistant({ context, selectedReferences = [], invoiceIntent = fa
               <button
                 key={t.id}
                 aria-pressed={active === t.id}
+                aria-label={`Abrir conversación: ${t.title}`}
                 onClick={() => {
                   cancel()
                   setActive(t.id)

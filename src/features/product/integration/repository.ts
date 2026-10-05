@@ -1,3 +1,9 @@
+import type {SettingsOperationV1,SettingsInputV1,ProductPreferencesV1,CompanyProfileV1} from '@/lib/contracts/settings-v1'
+import {parseSettingsInputV1,parseSettingsReceiptV1,parseSettingsReadV1} from '../../../lib/server/settings-runtime-v1.ts'
+import type {SensitiveInputV1,SensitiveResultV1} from '@/lib/contracts/sensitive-v1'
+import {parseSensitiveInputV1,parseSensitiveResultV1} from '../../../lib/server/sensitive-runtime-v1.ts'
+export type SettingsRead={contract_version:'settings.v1'}&({operation:'settings.profile_get';version:number;profile:ProductPreferencesV1}|{operation:'settings.company_get';version:number;profile:CompanyProfileV1}|{operation:'settings.integrations';integrations:{class:'google_calendar'|'auth_mail'|'crm_mail'|'whatsapp'|'n8n'|'ai_provider'|'storage';status:'not_configured'|'configured'|'unavailable'}[]})
+export type SettingsReceipt={contract_version:'settings.v1';operation:SettingsOperationV1;command_id:string;version:number}
 import type {NotificationOperationV1,NotificationInputV1,NotificationListInputV1} from '@/lib/contracts/notifications-v1'
 import {parseNotificationInputV1,parseNotificationReceiptV1,parseNotificationListInputV1,parseNotificationListV1,parseNotificationCountV1} from '../../../lib/server/notifications-runtime-v1.ts'
 import type {AutomationOperationV1,AutomationInputV1,AutomationReadInputV1,AutomationDefinitionV1} from '@/lib/contracts/automations-v1'
@@ -52,6 +58,9 @@ export function safeMessage(error: unknown) {
   return errorText[error instanceof ProductUiError ? error.code : 'internal_safe']
 }
 export interface ProductRepository {
+  settings<O extends SettingsRead['operation']>(operation:O):Promise<Extract<SettingsRead,{operation:O}>>
+  settingsCommand(operation:SettingsOperationV1,input:SettingsInputV1):Promise<SettingsReceipt>
+  sensitive(input:SensitiveInputV1):Promise<SensitiveResultV1>
   notifications(input:NotificationListInputV1):Promise<NotificationPage>
   notificationCount():Promise<NotificationCount>
   notificationCommand(operation:NotificationOperationV1,input:NotificationInputV1):Promise<NotificationReceipt>
@@ -104,6 +113,9 @@ export class IntegratedLocalProductRepository implements ProductRepository {
   readonly mode = 'integrated_local' as const
   private readonly request: typeof fetch
   constructor(request: typeof fetch = fetch) { this.request = request.bind(globalThis) }
+  settings<O extends SettingsRead['operation']>(operation:O){return this.post('queries',operation,{},v=>parseSettingsReadV1(operation,v) as Extract<SettingsRead,{operation:O}>|null,'settings','/api/settings/v1')}
+  settingsCommand(operation:SettingsOperationV1,value:SettingsInputV1){const input=parseSettingsInputV1(operation,value);if(!input)return Promise.reject(new ProductUiError('validation'));return this.post('commands',operation,input,v=>parseSettingsReceiptV1(operation,input,v) as SettingsReceipt|null,'settings','/api/settings/v1')}
+  sensitive(value:SensitiveInputV1){const input=parseSensitiveInputV1(value);if(!input)return Promise.reject(new ProductUiError('validation'));return this.post('queries','sensitive.get',input,v=>parseSensitiveResultV1(input,v),'sensitive','/api/sensitive/v1')}
   notifications(value:NotificationListInputV1){const input=parseNotificationListInputV1(value);if(!input)return Promise.reject(new ProductUiError('validation'));return this.post('queries','notification.list',input,v=>parseNotificationListV1(input,v),'notifications','/api/notifications/v1')}
   notificationCount(){return this.post('queries','notification.unread_count',{},v=>parseNotificationCountV1(v) as NotificationCount|null,'notifications','/api/notifications/v1')}
   notificationCommand(operation:NotificationOperationV1,value:NotificationInputV1){const input=parseNotificationInputV1(operation,value);if(!input)return Promise.reject(new ProductUiError('validation'));return this.post('commands',operation,input,v=>parseNotificationReceiptV1(operation,input,v) as NotificationReceipt|null,'notifications','/api/notifications/v1')}
@@ -203,6 +215,9 @@ export class IntegratedLocalProductRepository implements ProductRepository {
 export class SyntheticProductRepository implements ProductRepository {
   readonly mode = 'synthetic' as const
   private unavailable<T>(): Promise<T> { return Promise.reject(new ProductUiError('unavailable')) }
+  settings<O extends SettingsRead['operation']>(_operation:O){void _operation;return this.unavailable<Extract<SettingsRead,{operation:O}>>()}
+  settingsCommand(_operation:SettingsOperationV1,_input:SettingsInputV1){void _operation;void _input;return this.unavailable<SettingsReceipt>()}
+  sensitive(_input:SensitiveInputV1){void _input;return this.unavailable<SensitiveResultV1>()}
   notifications(_input:NotificationListInputV1){void _input;return this.unavailable<NotificationPage>()}
   notificationCount(){return this.unavailable<NotificationCount>()}
   notificationCommand(_operation:NotificationOperationV1,_input:NotificationInputV1){void _operation;void _input;return this.unavailable<NotificationReceipt>()}
