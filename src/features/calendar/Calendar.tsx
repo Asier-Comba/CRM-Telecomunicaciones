@@ -36,6 +36,13 @@ const time = (value: string) =>
     minute: '2-digit',
     timeZone: 'Europe/Madrid',
   }).format(new Date(value))
+/** Compact weekly cards share columns when their displayed footprints overlap. */
+function weekPositions(entries:CalendarEntry[]){
+ const rows=entries.map(entry=>{const parts=time(entry.date).split(':').map(Number);return{entry,top:Math.max(0,Math.min(11.25,parts[0]+parts[1]/60-8))*48}}).sort((a,b)=>a.top-b.top||a.entry.id.localeCompare(b.entry.id))
+ const groups:{end:number;columns:number[];rows:{entry:CalendarEntry;top:number;column:number}[]}[]=[]
+ for(const row of rows){let group=groups.at(-1);if(!group||row.top>=group.end){group={end:row.top+48,columns:[],rows:[]};groups.push(group)}let column=group.columns.findIndex(end=>end<=row.top);if(column<0)column=group.columns.length;group.columns[column]=row.top+48;group.end=Math.max(group.end,row.top+48);group.rows.push({...row,column})}
+ return groups.flatMap(group=>group.rows.map(row=>({...row,count:group.columns.length})))
+}
 function monthDays(anchor: string) {
   const first = anchor.slice(0, 7) + '-01',
     start = weekStart(first)
@@ -85,14 +92,15 @@ export function Calendar({
     year: 'numeric',
     timeZone: 'UTC',
   }).format(new Date(`${anchor}T12:00:00Z`))
-  const event = (e: CalendarEntry) => (
+  const event = (e: CalendarEntry, compact = false) => (
     <button
       key={e.id}
       data-calendar-id={e.id}
+      title={e.title}
       onClick={() => onSelect ? onSelect(e) : setSelected(e)}
-      className={`mb-1 block w-full rounded border-l-2 p-1.5 text-left text-[10px] leading-4 ${colors[e.type]}`}
+      className={`mb-1 block w-full rounded border-l-2 p-1.5 ${compact?'h-12 overflow-hidden':''} text-left text-[10px] leading-4 ${colors[e.type]}`}
     >
-      <span className="block font-semibold">
+      <span className={compact?'block truncate font-semibold':'block font-semibold'}>
         {e.allDay ? types[e.type] : time(e.date)} · {e.title}
       </span>
       <span className="block truncate opacity-80">{e.customer}</span>
@@ -287,7 +295,7 @@ export function Calendar({
                     </p>
                     {filtered
                       .filter((e) => calendarDate(e.date) === day)
-                      .map(event)}
+                      .map(e=>event(e))}
                   </div>
                 ))}
               </div>
@@ -321,7 +329,7 @@ export function Calendar({
                     >
                       {filtered
                         .filter((e) => e.allDay && calendarDate(e.date) === day)
-                        .map(event)}
+                        .map(e=>event(e))}
                     </div>
                   ))}
                 </div>
@@ -347,24 +355,7 @@ export function Calendar({
                           className="h-12 border-b border-slate-100"
                         />
                       ))}
-                      {filtered
-                        .filter(
-                          (e) => !e.allDay && calendarDate(e.date) === day,
-                        )
-                        .map((e) => {
-                          const parts = time(e.date).split(':').map(Number),
-                            hour = parts[0] + parts[1] / 60,
-                            top = Math.max(0, Math.min(11.25, hour - 8)) * 48
-                          return (
-                            <div
-                              key={e.id}
-                              className="absolute inset-x-1"
-                              style={{ top }}
-                            >
-                              {event(e)}
-                            </div>
-                          )
-                        })}
+                      {weekPositions(filtered.filter(e=>!e.allDay&&calendarDate(e.date)===day)).map(({entry,top,column,count})=><div key={entry.id} className="absolute" style={{top,left:`calc(${column/count*100}% + 2px)`,width:`calc(${100/count}% - 4px)`}}>{event(entry,true)}</div>)}
                     </div>
                   ))}
                 </div>
@@ -384,7 +375,7 @@ export function Calendar({
             .filter((e) => calendarDate(e.date) >= today)
             .sort((a, b) => a.date.localeCompare(b.date))
             .slice(0, 4)
-            .map(event)}
+            .map(e=>event(e))}
         </div>
       </div>
       {selected && (
