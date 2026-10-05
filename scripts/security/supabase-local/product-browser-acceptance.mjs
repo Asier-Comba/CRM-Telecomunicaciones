@@ -15,6 +15,11 @@ export async function productBrowserAcceptance({ users, wa, sql, url, anon }) {
     let ready=false
     for(let i=0;i<90;i++){try{const r=await fetch(origin+'/login',{signal:AbortSignal.timeout(1500)});if(r.ok){ready=true;break}}catch{}await new Promise(r=>setTimeout(r,500))}
     if(!ready)throw Error('W2_UI_SERVER_NOT_READY')
+    // Compile the dev HTTP handlers before timing user commands. Invalid operation never reaches a service or DB mutation.
+    for(const family of ['product','team','document'])for(const kind of ['commands','queries']){
+      const response=await fetch(`${origin}/api/${family}/v1/${kind}`,{method:'POST',headers:{origin,'content-type':'application/json'},body:JSON.stringify({operation:'warmup.invalid',input:{}}),signal:AbortSignal.timeout(120000)})
+      if(response.status!==400)throw Error('W2_UI_HANDLER_WARMUP_FAILED')
+    }
     browser=await chromium.launch();context=await browser.newContext({viewport:{width:1440,height:960},timezoneId:'Europe/Madrid'});page=await context.newPage();page.setDefaultTimeout(30000)
     // Prior backend revocation tests modify these memberships. Restore ONLY synthetic harness identities before UI journey.
     sql(`update public.workspaces set status='active' where id='${wa}'; update public.workspace_members set status='active' where user_id in ('${users.memberA.id}','${users.viewerA.id}') and workspace_id='${wa}'; update public.profiles set workspace_id='${wa}' where id in ('${users.memberA.id}','${users.viewerA.id}');`)
