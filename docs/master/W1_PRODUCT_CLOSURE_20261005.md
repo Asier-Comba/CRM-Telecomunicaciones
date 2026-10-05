@@ -1,21 +1,34 @@
-# W1 backend closure — live C1 map
+# W1 product closure checkpoint — 2026-10-05
 
-Sources read live2026-10-05: PR28@488647d, PR27@2878687, PR30@13b4666 (w2/product-integration-v2). Existing W1 executable b5955fb has41 migrations/170 functions/201 Node tests and actual Supabase23 PASS522. This continuation does not reimplement those families. Local unpublished attention alternative was preserved as a8e721a/w1/attention-preserved-20261005 before fetch; new worktree follows canonical remote history.
+Accepted executable source: f574b0c55951e6e357e4e91059fcfe64b1410b02. PR28 remains Draft; no main merge or deployment. All UI_SAFE flags remain false. This is a partial session checkpoint, not a claim that all C1–C12 modules are complete.
 
-W2's parity JSON in the new integration branch still contains historical preview statuses. These are consumer gaps, not proof that an accepted W1 operation is missing. No W2 parity file or frontend is edited here.
+Evidence: actual Supabase42/run37315671127 PASS801 with browser private-value boundary and teardown PASS. Native CI321/run37315670864 fresh/restored44 migrations/186 functions and embedded/secret/migration/baseline checks PASS. Quality212 Node/lint/types/build PASS; full npm audit still fails Issue29 with5 high vulnerabilities; critical Playwright/dependency review skipped. Catalog90 operations (67 writes,23 reads),90 individually observed. C11 contributes29 explicitly named cases with normal real SSR/Auth/JWT positives, denied principals/tenants, write replay/changed-intent/stale CAS; the fixture asserts the exact29-name set. Do not infer evidence from a family pass.
 
-| W2 PAR IDs | Backend direction |
-|---|---|
-| PAR-035/042 contacts | Existing contact.editors + canonical contact writes; handoff existing backend, no duplicate implementation |
-| PAR-043 sensitive reveal | Explicit requested-field/audited reveal capability still needed; no generic DTO expansion |
-| PAR-053/190 documents | Existing protected metadata list/get/archive/restore can be reviewed now |
-| PAR-200/201 private upload/download | New document.content.v1 candidate: scoped pending Storage INSERT, explicit finalize and30s proxy ticket; exact-head real acceptance pending |
-| PAR-072 imports | Closed lineage foundation exists; encrypted staging/KMS/quarantine/application adapter still absent |
-| PAR-101 calendar provider import/sync | No provider/OAuth access; publish status/cursor seam only |
-| PAR-172/173/176 inbox | Provider-neutral assignment/read/close/link and bounded thread domain still needed |
-| PAR-175/177/178 assisted reply/send/webhook | Future closed provider/signature/dedupe seam only; no external send/public webhook or AI registration |
-| PAR-179..189 automation | Registered definitions/internal actions/history needed; no arbitrary code/SQL/URL/n8n calls |
-| PAR-005/160 notifications | Self-recipient bounded center/unread/acknowledgement + deterministic source dedupe needed |
-| Settings profile/company/provider rows | Separate nonsecurity user preferences from owner/admin company/fiscal/integration configuration |
+## Live consumer map
 
-C2 candidate includes42 migrations/177 functions/205 Node tests, new explicit role matrix and unchanged metadata shapes. Scan/hash certification/cleanup/private invoice association remain open. Imports cannot use a plaintext payload fallback. Every new operation retains UI_SAFE=false until W2/W4 review. Handoffs are posted to PR30 after coherent checkpoints, with exact executable evidence and limitations.
+PR30 advanced from13b4666 to81fd8864964a760570870640e06a947480f34a04. Its PRODUCT_PARITY_STATUS.json remains the historical2026-10-03/ad3c06e5 matrix: metadata/upload/download/imports and inbox rows still show historical blocked statuses; notifications are absent and automation remains partial. These are consumer gaps, not proof that accepted W1 capabilities are missing. No frontend or consumer parity file is edited.
+
+| Area / W2 IDs | Published result or explicit gap |
+| --- | --- |
+| Contacts PAR-035/042 | Existing canonical editor/writes handed off; no duplicate implementation |
+| Sensitive PAR-043 | Requested-field audited reveal still missing; generic DTOs not expanded |
+| Documents PAR-053/190/200/201 | Metadata plus private request_upload/finalize/ticket-proxy download individually proven; owner/admin, default off; scan/hash certification/orphan cleanup open |
+| Billing PDF | Private immutable artifact reference, optional on-issue persistence, frozen fiscal projection; normal download verifies bytes; SQL reference alone remains untrusted candidate |
+| Imports PAR-072 | Existing canonical jobs safely get/list/cancel; begin/validate/apply/resume explicitly blocked by encrypted store/KMS/decrypt/quarantine/domain adapters; no plaintext fallback |
+| Calendar PAR-101 | Normal internal calendar exists; provider sync/OAuth status seam still missing |
+| Inbox PAR-172/173/176 | Internal domain SQL and embedded fixture drafted locally, but runtime/real acceptance unfinished and unpublished |
+| Inbox PAR-175/177/178 | No external send/public webhook/AI registration |
+| Automation PAR-179..189 | Registered internal definitions/effects/history not implemented |
+| Notifications PAR-005/160 | Self center/unread/acknowledgement and reliable source dedupe not implemented |
+| Settings | Existing fiscal configuration is not a company/user/profile/logo/provider-status contract; remaining gaps explicit |
+| Team/provenance refinements | Internal team management proven; expiry and verified NEW manual origin missing; legacy manual backfill never certified |
+
+## Operational boundary and continuation
+
+The local execution registry disconnected with environment_offline / Environment is not connected while completing Inbox tests. Inbox is not published or counted. GitHub and remote CI remained available, so the remaining29 existing-operation proofs were completed and accepted there. Details and the planned Inbox contract are preserved in INBOX_V1_UNPUBLISHED_CHECKPOINT.md; inspect existing local files before refreshing if execution returns. Do not overwrite canonical privilege186 with preparatory draft204 or register unfinished13 operations.
+
+C2/C3 and C4 management are BACKEND_READY_FOR_W2_REVIEW:YES (candidate), not release approved. Processing/import/provider gaps remain blocked. W2 handoffs are in PR30 comments5994185052,5994613403,5994873383 and5995251464; accepted C11 result follows the latter. W3 receives exact minimized reads and67 human write candidates only, with Issue10 durable immutable-intent confirmation/execution owned by W3. No assistant write, live model call, message/document/import body context or elevated product identity is introduced.
+
+Deadline supersede is not added for parity alone: existing cancellation/resolution plus a new renewal/permanence record keeps the historical fact; whether a distinct supersede relation is genuinely needed remains a product decision. Invite expiry can be internal without Auth email and remains a future implementation. New manual provenance must be verified prospectively through trusted creation evidence, never by retroactive certification of legacy source='manual'.
+
+See W1_PRODUCT_CLOSURE_20261005_STATUS.json for the exact requested status fields and next3 priorities.

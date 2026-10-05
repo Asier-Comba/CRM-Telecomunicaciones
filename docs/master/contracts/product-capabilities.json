@@ -1,20 +1,20 @@
 {
   "catalog_version": "product.capabilities.v1",
   "as_of": "2026-10-05",
-  "implementation_head": "fa779e106096d332669a437e458b9c962d6a8798",
+  "implementation_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02",
   "evidence": {
     "native": {
-      "run_id": 37312320553,
+      "run_id": 37315670864,
       "status": "PASS",
       "migration_count": 44,
       "function_count": 186,
-      "tested_head": "fa779e106096d332669a437e458b9c962d6a8798"
+      "tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
     },
     "actual_supabase": {
-      "run_id": 37312320545,
-      "tested_head": "fa779e106096d332669a437e458b9c962d6a8798",
+      "run_id": 37315671127,
+      "tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02",
       "status": "PASS",
-      "checks": 632,
+      "checks": 801,
       "teardown": "PASS",
       "browser_private_values": "PASS",
       "identity_revocation": "PASS",
@@ -45,7 +45,40 @@
       "billing_private_artifact_revocation": "PASS",
       "importjob_management": "PASS",
       "importjob_processing": "BLOCKED_ENCRYPTED_STAGING_ADAPTER",
-      "importjob_quarantine_upload": "NOT_IMPLEMENTED"
+      "importjob_quarantine_upload": "NOT_IMPLEMENTED",
+      "additional_individual_operations": [
+        "configuration.get",
+        "contact.archive",
+        "contact.restore",
+        "contact.update",
+        "customer.archive",
+        "customer.editor",
+        "customer.restore",
+        "customer.update",
+        "invoice.list",
+        "invoice.restore",
+        "invoice.reverse_payment",
+        "invoice.summary",
+        "invoice.trash",
+        "invoice.update_draft",
+        "meeting.cancel",
+        "meeting.complete",
+        "meeting.no_show",
+        "meeting.reschedule",
+        "opportunity.archive",
+        "opportunity.assign",
+        "opportunity.change_stage",
+        "opportunity.lose",
+        "opportunity.reopen",
+        "opportunity.stages",
+        "task.cancel",
+        "task.complete",
+        "task.reopen",
+        "task.start",
+        "work.get"
+      ],
+      "additional_individual_evidence": "PASS",
+      "additional_individual_count": 29
     },
     "quality": {
       "tests": 212,
@@ -53,9 +86,9 @@
       "types": "PASS",
       "build": "PASS",
       "audit": "BLOCKED_Issue29",
-      "scope": "exact_fa779e1_import_management",
-      "tested_head": "fa779e106096d332669a437e458b9c962d6a8798",
-      "run_id": 37312320553,
+      "scope": "exact_f574b0c_individual_operation_acceptance",
+      "tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02",
+      "run_id": 37315670864,
       "overall_ci": "FAIL",
       "critical_playwright": "SKIPPED",
       "dependency_review": "SKIPPED"
@@ -171,7 +204,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_sql_native_tested",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -181,11 +214,12 @@
         "path": "/api/product/v1/commands",
         "origin_flag": "PRODUCT_V1_ORIGIN"
       },
-      "supabase_tested": false,
-      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
-      "assistant_future": "durable_Issue10_confirmation_required_not_registered"
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
     },
     {
       "name": "task.complete",
@@ -210,7 +244,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_sql_native_tested",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -220,11 +254,12 @@
         "path": "/api/product/v1/commands",
         "origin_flag": "PRODUCT_V1_ORIGIN"
       },
-      "supabase_tested": false,
-      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
-      "assistant_future": "durable_Issue10_confirmation_required_not_registered"
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
     },
     {
       "name": "task.reopen",
@@ -249,7 +284,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_sql_native_tested",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -259,11 +294,12 @@
         "path": "/api/product/v1/commands",
         "origin_flag": "PRODUCT_V1_ORIGIN"
       },
-      "supabase_tested": false,
-      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
-      "assistant_future": "durable_Issue10_confirmation_required_not_registered"
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
     },
     {
       "name": "task.cancel",
@@ -288,7 +324,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_sql_native_tested",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -298,11 +334,12 @@
         "path": "/api/product/v1/commands",
         "origin_flag": "PRODUCT_V1_ORIGIN"
       },
-      "supabase_tested": false,
-      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
-      "assistant_future": "durable_Issue10_confirmation_required_not_registered"
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
     },
     {
       "name": "meeting.create",
@@ -407,7 +444,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_sql_native_tested",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -417,11 +454,12 @@
         "path": "/api/product/v1/commands",
         "origin_flag": "PRODUCT_V1_ORIGIN"
       },
-      "supabase_tested": false,
-      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
-      "assistant_future": "durable_Issue10_confirmation_required_not_registered"
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
     },
     {
       "name": "meeting.complete",
@@ -446,7 +484,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_sql_native_tested",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -456,11 +494,12 @@
         "path": "/api/product/v1/commands",
         "origin_flag": "PRODUCT_V1_ORIGIN"
       },
-      "supabase_tested": false,
-      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
-      "assistant_future": "durable_Issue10_confirmation_required_not_registered"
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
     },
     {
       "name": "meeting.cancel",
@@ -485,7 +524,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_sql_native_tested",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -495,11 +534,12 @@
         "path": "/api/product/v1/commands",
         "origin_flag": "PRODUCT_V1_ORIGIN"
       },
-      "supabase_tested": false,
-      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
-      "assistant_future": "durable_Issue10_confirmation_required_not_registered"
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
     },
     {
       "name": "meeting.no_show",
@@ -524,7 +564,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_sql_native_tested",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -534,11 +574,12 @@
         "path": "/api/product/v1/commands",
         "origin_flag": "PRODUCT_V1_ORIGIN"
       },
-      "supabase_tested": false,
-      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
-      "assistant_future": "durable_Issue10_confirmation_required_not_registered"
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
     },
     {
       "name": "opportunity.create",
@@ -643,7 +684,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_sql_native_tested",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -653,11 +694,12 @@
         "path": "/api/product/v1/commands",
         "origin_flag": "PRODUCT_V1_ORIGIN"
       },
-      "supabase_tested": false,
-      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
-      "assistant_future": "durable_Issue10_confirmation_required_not_registered"
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
     },
     {
       "name": "opportunity.assign",
@@ -682,7 +724,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_sql_native_tested",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -692,11 +734,12 @@
         "path": "/api/product/v1/commands",
         "origin_flag": "PRODUCT_V1_ORIGIN"
       },
-      "supabase_tested": false,
-      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
-      "assistant_future": "durable_Issue10_confirmation_required_not_registered"
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
     },
     {
       "name": "opportunity.win",
@@ -761,7 +804,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_sql_native_tested",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -771,11 +814,12 @@
         "path": "/api/product/v1/commands",
         "origin_flag": "PRODUCT_V1_ORIGIN"
       },
-      "supabase_tested": false,
-      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
-      "assistant_future": "durable_Issue10_confirmation_required_not_registered"
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
     },
     {
       "name": "opportunity.reopen",
@@ -800,7 +844,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_sql_native_tested",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -810,11 +854,12 @@
         "path": "/api/product/v1/commands",
         "origin_flag": "PRODUCT_V1_ORIGIN"
       },
-      "supabase_tested": false,
-      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
-      "assistant_future": "durable_Issue10_confirmation_required_not_registered"
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
     },
     {
       "name": "opportunity.archive",
@@ -839,7 +884,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_sql_native_tested",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -849,11 +894,12 @@
         "path": "/api/product/v1/commands",
         "origin_flag": "PRODUCT_V1_ORIGIN"
       },
-      "supabase_tested": false,
-      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
-      "assistant_future": "durable_Issue10_confirmation_required_not_registered"
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
     },
     {
       "name": "customer.create",
@@ -918,7 +964,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_sql_native_tested",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -928,11 +974,12 @@
         "path": "/api/product/v1/commands",
         "origin_flag": "PRODUCT_V1_ORIGIN"
       },
-      "supabase_tested": false,
-      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
-      "assistant_future": "durable_Issue10_confirmation_required_not_registered"
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
     },
     {
       "name": "customer.archive",
@@ -957,7 +1004,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_sql_native_tested",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -967,11 +1014,12 @@
         "path": "/api/product/v1/commands",
         "origin_flag": "PRODUCT_V1_ORIGIN"
       },
-      "supabase_tested": false,
-      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
-      "assistant_future": "durable_Issue10_confirmation_required_not_registered"
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
     },
     {
       "name": "customer.restore",
@@ -996,7 +1044,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_sql_native_tested",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -1006,11 +1054,12 @@
         "path": "/api/product/v1/commands",
         "origin_flag": "PRODUCT_V1_ORIGIN"
       },
-      "supabase_tested": false,
-      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
-      "assistant_future": "durable_Issue10_confirmation_required_not_registered"
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
     },
     {
       "name": "contact.create",
@@ -1075,7 +1124,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_sql_native_tested",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -1085,11 +1134,12 @@
         "path": "/api/product/v1/commands",
         "origin_flag": "PRODUCT_V1_ORIGIN"
       },
-      "supabase_tested": false,
-      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
-      "assistant_future": "durable_Issue10_confirmation_required_not_registered"
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
     },
     {
       "name": "contact.archive",
@@ -1114,7 +1164,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_sql_native_tested",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -1124,11 +1174,12 @@
         "path": "/api/product/v1/commands",
         "origin_flag": "PRODUCT_V1_ORIGIN"
       },
-      "supabase_tested": false,
-      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
-      "assistant_future": "durable_Issue10_confirmation_required_not_registered"
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
     },
     {
       "name": "contact.restore",
@@ -1153,7 +1204,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_sql_native_tested",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -1163,11 +1214,12 @@
         "path": "/api/product/v1/commands",
         "origin_flag": "PRODUCT_V1_ORIGIN"
       },
-      "supabase_tested": false,
-      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
-      "assistant_future": "durable_Issue10_confirmation_required_not_registered"
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
     },
     {
       "name": "customer.editor",
@@ -1190,7 +1242,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_sql_native_tested",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -1200,11 +1252,12 @@
         "path": "/api/product/v1/queries",
         "origin_flag": "PRODUCT_V1_ORIGIN"
       },
-      "supabase_tested": false,
-      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
-      "assistant_future": "safe_read_candidate_not_registered"
+      "assistant_future": "safe_read_candidate_not_registered",
+      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
     },
     {
       "name": "contact.editors",
@@ -1305,7 +1358,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_sql_native_tested",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -1315,11 +1368,12 @@
         "path": "/api/product/v1/queries",
         "origin_flag": "PRODUCT_V1_ORIGIN"
       },
-      "supabase_tested": false,
-      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
-      "assistant_future": "safe_read_candidate_not_registered"
+      "assistant_future": "safe_read_candidate_not_registered",
+      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
     },
     {
       "name": "opportunity.stages",
@@ -1343,7 +1397,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_sql_native_tested",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -1353,11 +1407,12 @@
         "path": "/api/product/v1/queries",
         "origin_flag": "PRODUCT_V1_ORIGIN"
       },
-      "supabase_tested": false,
-      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
-      "assistant_future": "safe_read_candidate_not_registered"
+      "assistant_future": "safe_read_candidate_not_registered",
+      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
     },
     {
       "name": "dashboard.get",
@@ -1590,7 +1645,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_sql_native_tested",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -1600,11 +1655,12 @@
         "status": "implemented_default_off",
         "path": "/api/billing/v1/commands"
       },
-      "supabase_tested": false,
-      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
-      "assistant_future": "durable_Issue10_confirmation_required_not_registered"
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
     },
     {
       "name": "invoice.issue",
@@ -1703,7 +1759,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_sql_native_tested",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -1713,11 +1769,12 @@
         "status": "implemented_default_off",
         "path": "/api/billing/v1/commands"
       },
-      "supabase_tested": false,
-      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
-      "assistant_future": "durable_Issue10_confirmation_required_not_registered"
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
     },
     {
       "name": "invoice.trash",
@@ -1740,7 +1797,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_sql_native_tested",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -1750,11 +1807,12 @@
         "status": "implemented_default_off",
         "path": "/api/billing/v1/commands"
       },
-      "supabase_tested": false,
-      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
-      "assistant_future": "durable_Issue10_confirmation_required_not_registered"
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
     },
     {
       "name": "invoice.restore",
@@ -1777,7 +1835,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_sql_native_tested",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -1787,11 +1845,12 @@
         "status": "implemented_default_off",
         "path": "/api/billing/v1/commands"
       },
-      "supabase_tested": false,
-      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
-      "assistant_future": "durable_Issue10_confirmation_required_not_registered"
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
     },
     {
       "name": "invoice.get",
@@ -1852,7 +1911,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_sql_native_tested",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -1862,11 +1921,12 @@
         "status": "implemented_default_off",
         "path": "/api/billing/v1/queries"
       },
-      "supabase_tested": false,
-      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
-      "assistant_future": "protected_read_requires_fiscal_capability_not_registered"
+      "assistant_future": "protected_read_requires_fiscal_capability_not_registered",
+      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
     },
     {
       "name": "invoice.list",
@@ -1889,7 +1949,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_sql_native_tested",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -1899,11 +1959,12 @@
         "status": "implemented_default_off",
         "path": "/api/billing/v1/queries"
       },
-      "supabase_tested": false,
-      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
-      "assistant_future": "protected_read_requires_fiscal_capability_not_registered"
+      "assistant_future": "protected_read_requires_fiscal_capability_not_registered",
+      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
     },
     {
       "name": "invoice.financial_summary",
@@ -1964,7 +2025,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_sql_native_tested",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -1974,11 +2035,12 @@
         "status": "implemented_default_off",
         "path": "/api/billing/v1/queries"
       },
-      "supabase_tested": false,
-      "supabase_status": "NOT_INDIVIDUALLY_EXERCISED",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
-      "assistant_future": "protected_read_requires_fiscal_capability_not_registered"
+      "assistant_future": "protected_read_requires_fiscal_capability_not_registered",
+      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
     },
     {
       "name": "invoice.pdf",

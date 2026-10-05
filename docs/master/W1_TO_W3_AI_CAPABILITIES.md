@@ -15,7 +15,9 @@ Human backend contracts are candidates for a W3-owned adapter, not assistant reg
 | Dashboard/search | product.dashboard.v2 dashboard.get; product.v1 global.search | Role/scope and unavailable financial/team states preserved; native currencies kept separate |
 | Billing | invoice.list/summary/financial_summary | Owner/admin only. invoice.get/configuration.get include fiscal material and must not enter generic AI context; a separately authorized minimized adapter is required |
 | Documents | document.v1 list/get_metadata | Owner/admin metadata only. No file name/path/hash/ticket/content retrieval to AI |
-| Inbox | Unavailable until provider-neutral product domain exists | Future safe metadata summary separate from authorized thread/body/provider event |
+| Private fiscal artifact | invoice.private_pdf_reference (billing.artifact.v1) | Owner/admin-only private UUID/status/renderer reference; never automatic PDF bytes, ticket or fiscal snapshot context |
+| Imports | importjob.get/list (importjob.v1) | Owner/admin-only minimized status/count/checkpoint; processing explicitly blocked; no file/HMAC/staging/ciphertext ref or raw issue value |
+| Inbox | Unavailable: internal domain draft is unpublished | Future separately authorized metadata summary; private body/provider event is excluded from generic model context |
 
 ## Nonmutating proposals
 
@@ -92,7 +94,17 @@ Every row below is FUTURE_AI_ACTION_CANDIDATE only. Confirmation must bind immut
 | document.request_upload | document.content.v1 | DocumentContentInputsV1['document.request_upload'] | owner, admin | FUTURE_AI_ACTION_CANDIDATE |
 | document.finalize_upload | document.content.v1 | DocumentContentInputsV1['document.finalize_upload'] | owner, admin | FUTURE_AI_ACTION_CANDIDATE |
 | document.request_download | document.content.v1 | DocumentContentInputsV1['document.request_download'] | owner, admin | FUTURE_AI_ACTION_CANDIDATE |
+| invoice.persist_private_pdf | billing.artifact.v1 | BillingArtifactInputV1 | owner, admin | FUTURE_AI_ACTION_CANDIDATE |
+| importjob.cancel | importjob.v1 | ImportJobCancelInputV1 | owner, admin | FUTURE_AI_ACTION_CANDIDATE |
 
 ## Evidence and availability
 
-Baseline executable b5955fb: real Supabase23 PASS522; native41 migrations/170 functions;201 tests/lint/types/build pass, full audit Issue29 fails. The catalog records per-operation observations; family-level pass is not blanket individual evidence. New document.content.v1 is a default-off candidate pending its own exact-head acceptance. No model access to document contents is authorized by this handoff. UI-safe remains false; backend readiness and AI/release approval are different decisions.
+Accepted executable source f574b0c55951e6e357e4e91059fcfe64b1410b02: actual Supabase42/run37315671127 PASS801; native fresh/restored44 migrations/186 functions;212 Node/lint/types/build PASS, full audit Issue29 remains blocked. Catalog90 operations;90 have individual exact-source observations. C11 adds29 explicitly named positive/denied/replay/changed-intent/stale-CAS observations through normal SSR routes and actual Auth/JWT. Its exact expected operation set is asserted in the fixture and published in the safe report. A family PASS is never blanket operation proof.
+
+Document content and private fiscal artifact are accepted default-off backend candidates: eff8022 real568 and78dd640 real609 respectively, carried forward by the632-check suite. W3 has no automatic binary-content capability. The private artifact reference is always verification_required:true; SQL association does not certify bytes. Normal fiscal download reauthorizes and verifies bytes against the regenerated frozen snapshot, but is not an AI-context permission. Native signedURL, antivirus and orphan cleanup are not implemented.
+
+Import job get/list/cancel management has real individual evidence. Begin/validate/apply/resume is not registered and remains blocked by encrypted staging store/KMS/decrypt, quarantine ingest and closed domain adapters. W3 must preserve processing_status=blocked_encrypted_staging_adapter and never fabricate an import success or use a plaintext fallback.
+
+User-facing document upload/finalize/download and fiscal/profile/team/import management are owner/admin only in this accepted source. Commercial owner/admin/member product commands have their explicit role matrices; a viewer is not authorized for protected editors/fiscal identities. The unimplemented requested-field sensitive-reveal capability must remain a gap, rather than extending generic DTOs.
+
+Every future write remains Issue10-confirmation-required and NOT_REGISTERED. W3 must bind human intent, actor/workspace, all relevant entity versions, operation/input digest and command_id in durable cross-process execution/replay/recovery. Browser confirmation or chat prose alone is not authorization. Preserve canonical receipts, partial/pending states, safe errors, current membership revocation and per-effect idempotency. No provider secret/configuration, live LLM, message body, document body or raw import value is passed to a model by this handoff. UI_SAFE=false for every catalog row; W1 backend review readiness is separate from AI/release approval.
