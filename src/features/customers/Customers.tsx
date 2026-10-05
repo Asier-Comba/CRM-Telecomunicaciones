@@ -14,6 +14,7 @@ import {
 } from '@/features/product/ui'
 import { filterCustomers, type CustomerRow } from '@/features/product/model'
 import { previewDate } from '@/lib/telecom-preview/presentation'
+import { useProduct } from '@/features/product/integration/Provider'
 const initial = {
   query: '',
   status: '',
@@ -22,6 +23,7 @@ const initial = {
   attention: '',
 }
 export function Customers({ rows, onCreate }: { rows: CustomerRow[]; onCreate?: () => void }) {
+  const integrated = useProduct().repository.mode === 'integrated_local'
   const [filters, setFilters] = useState(initial),
     [page, setPage] = useState(0),
     [sort, setSort] = useState<'name' | 'services' | 'renewal'>('name'),
@@ -80,17 +82,17 @@ export function Customers({ rows, onCreate }: { rows: CustomerRow[]; onCreate?: 
           { label: 'Empresas visibles', value: rows.length },
           {
             label: 'Clientes activos',
-            value: rows.filter(
+            value: integrated ? '—' : rows.filter(
               (r) => r.status === 'active' && r.lifecycle === 'customer',
             ).length,
           },
           {
             label: 'Con renovación',
-            value: rows.filter((r) => r.renewal).length,
+            value: integrated ? '—' : rows.filter((r) => r.renewal).length,
           },
           {
             label: 'Requieren seguimiento',
-            value: rows.filter((r) => r.nextAction).length,
+            value: integrated ? '—' : rows.filter((r) => r.nextAction).length,
           },
         ]}
       />

@@ -55,7 +55,11 @@ try {
   stage = 'http_acceptance'
   if (existsSync('scripts/security/supabase-local/acceptance.mjs')) {
     const { acceptance } = await import('./acceptance.mjs')
-    Object.assign(evidence, await acceptance({ url, anon, service, db, command, report: evidence, appUrl }))
+    const onProductUi = process.env.W2_PRODUCT_UI === 'true' ? async context => {
+      const { productBrowserAcceptance } = await import('./product-browser-acceptance.mjs')
+      return productBrowserAcceptance({ ...context, url, anon })
+    } : undefined
+    Object.assign(evidence, await acceptance({ url, anon, service, db, command, report: evidence, appUrl, onProductUi }))
   } else evidence.result = 'STACK_PROVEN_HTTP_ACCEPTANCE_PENDING'
 } catch (error) {
   evidence.result = 'FAIL'; evidence.failed_stage = stage

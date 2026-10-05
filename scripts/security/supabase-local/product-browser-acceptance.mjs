@@ -1,0 +1,40 @@
+import { spawn } from 'node:child_process'
+import { chromium, expect } from '@playwright/test'
+import { mkdirSync } from 'node:fs'
+import { resolve } from 'node:path'
+
+/** Real browser login and UI commands against the disposable Supabase stack. */
+export async function productBrowserAcceptance({ users, wa, sql, url, anon }) {
+  if (process.env.GITHUB_ACTIONS !== 'true' || url !== 'http://127.0.0.1:54321') throw Error('W2_UI_LOCAL_CI_ONLY')
+  const origin='http://127.0.0.1:3109'
+  const server=spawn(process.execPath,['node_modules/next/dist/bin/next','dev','--webpack','--hostname','127.0.0.1','--port','3109'],{stdio:'ignore',env:{...process.env,NODE_ENV:'development',PRODUCT_LOCAL_INTEGRATION:'true',PRODUCT_LOCAL_SYNTHETIC:'true',PRODUCT_V1_ENABLED:'true',PRODUCT_V1_ORIGIN:origin,NEXT_PUBLIC_SUPABASE_URL:url,NEXT_PUBLIC_SUPABASE_ANON_KEY:anon,NEXT_PUBLIC_ENABLE_DEMO_DATA:'false',NEXT_PUBLIC_FORCE_OFFLINE_DEV:'false',NEXT_TELEMETRY_DISABLED:'1'}})
+  let browser, context, page; const checks=[]
+  const screenshotDir=resolve(process.env.RUNNER_TEMP,'w2-product-ui');mkdirSync(screenshotDir,{recursive:true})
+  async function check(name, action){try{await action();checks.push(name)}catch{throw Error('W2_UI_'+name.toUpperCase())}}
+  try {
+    let ready=false
+    for(let i=0;i<90;i++){try{const r=await fetch(origin+'/login',{signal:AbortSignal.timeout(1500)});if(r.ok){ready=true;break}}catch{}await new Promise(r=>setTimeout(r,500))}
+    if(!ready)throw Error('W2_UI_SERVER_NOT_READY')
+    browser=await chromium.launch();context=await browser.newContext({viewport:{width:1440,height:960}});page=await context.newPage();page.setDefaultTimeout(30000)
+    // Prior backend revocation tests modify these memberships. Restore ONLY synthetic harness identities before UI journey.
+    sql(`update public.workspace_members set status='active' where user_id in ('${users.memberA.id}','${users.viewerA.id}') and workspace_id='${wa}'; update public.profiles set workspace_id='${wa}' where id in ('${users.memberA.id}','${users.viewerA.id}');`)
+    await check('real_browser_login',async()=>{await page.goto(origin+'/login');await page.locator('input[type="email"]').fill(users.memberA.email);await page.locator('input[type="password"]').fill(users.memberA.password);await page.getByRole('button',{name:'Iniciar sesión',exact:true}).click();await page.waitForURL('**/dashboard')})
+    await page.goto(origin+'/clients')
+    await check('customer_create',async()=>{await page.getByRole('button',{name:'Nuevo cliente',exact:true}).click();await page.getByLabel('Razón social').fill('W2 UI Synthetic Company');await page.getByRole('button',{name:'Guardar cliente',exact:true}).click();await expect(page.getByRole('heading',{name:'W2 UI Synthetic Company',exact:true})).toBeVisible()})
+    const id=new URL(page.url()).pathname.split('/').at(-1)
+    if(!/^[0-9a-f-]{36}$/.test(id))throw Error('W2_UI_INVALID_CREATED_ID')
+    await check('customer_edit_and_reload',async()=>{await page.getByRole('button',{name:'Editar cliente',exact:true}).click();await page.getByLabel('Nombre comercial').fill('W2 UI Synthetic Trade');await page.getByRole('button',{name:'Guardar cliente',exact:true}).click();await expect(page.getByRole('status').filter({hasText:'Cliente guardado.'})).toBeVisible();await page.reload();await expect(page.getByText('W2 UI Synthetic Trade',{exact:false})).toBeVisible()})
+    await check('contact_create_primary',async()=>{await page.getByRole('button',{name:'Añadir contacto',exact:true}).click();await page.getByLabel('Nombre del contacto').fill('W2 Synthetic Contact');await page.getByLabel('Correo del contacto').fill('w2-ui-contact@example.invalid');await page.getByLabel('Contacto principal',{exact:true}).check();await page.getByRole('button',{name:'Guardar contacto',exact:true}).click();await expect(page.getByText('W2 Synthetic Contact · Principal',{exact:true})).toBeVisible();await page.reload();await expect(page.getByText('W2 Synthetic Contact · Principal',{exact:true})).toBeVisible()})
+    await check('customer_archive_restore_persist',async()=>{await page.getByRole('button',{name:'Archivar cliente',exact:true}).click();await page.getByRole('dialog').getByRole('button',{name:'Confirmar',exact:true}).click();await expect(page.getByRole('button',{name:'Restaurar cliente',exact:true})).toBeVisible();await page.reload();await page.getByRole('button',{name:'Restaurar cliente',exact:true}).click();await page.getByRole('dialog').getByRole('button',{name:'Confirmar',exact:true}).click();await expect(page.getByRole('button',{name:'Archivar cliente',exact:true})).toBeVisible();await page.reload();await expect(page.getByRole('heading',{name:'W2 UI Synthetic Company',exact:true})).toBeVisible()})
+    await check('contact_pii_not_persisted',async()=>{const state=await page.evaluate(()=>({local:JSON.stringify({...localStorage}),session:JSON.stringify({...sessionStorage}),url:location.href}));if(Object.values(state).some(s=>s.includes('w2-ui-contact@example.invalid')))throw Error('PII_PERSISTED')})
+    await page.screenshot({path:resolve(screenshotDir,'customer360.png'),fullPage:true})
+    await check('stale_editor_conflict_no_overwrite',async()=>{await page.getByRole('button',{name:'Editar cliente',exact:true}).click();sql(`update public.customers set trade_name='W2 UI concurrent change',version=version+1 where id='${id}';`);await page.getByLabel('Nombre comercial').fill('Stale overwrite');await page.getByRole('button',{name:'Guardar cliente',exact:true}).click();await expect(page.getByRole('alert').filter({hasText:'El registro ha cambiado desde que lo abriste.'})).toBeVisible();await page.getByRole('button',{name:'Recargar y revisar',exact:true}).click();await expect(page.getByText('W2 UI concurrent change',{exact:false})).toBeVisible();if(sql(`select trade_name from public.customers where id='${id}'`) !== 'W2 UI concurrent change')throw Error('STALE_WRITE')})
+    await check('valid_jwt_revocation_denies_ui_write',async()=>{await page.getByRole('button',{name:'Editar cliente',exact:true}).click();await page.getByLabel('Nombre comercial').fill('Revoked overwrite');sql(`update public.workspace_members set status='suspended' where workspace_id='${wa}' and user_id='${users.memberA.id}';`);await page.getByRole('button',{name:'Guardar cliente',exact:true}).click();await expect(page.getByRole('alert').filter({hasText:'No tienes permiso para esta acción.'})).toBeVisible();if(sql(`select trade_name from public.customers where id='${id}'`)!=='W2 UI concurrent change')throw Error('REVOKED_WRITE')})
+    await context.close();context=await browser.newContext({viewport:{width:390,height:844}});page=await context.newPage();page.setDefaultTimeout(30000)
+    await check('viewer_login_no_write_controls',async()=>{await page.goto(origin+'/login');await page.locator('input[type="email"]').fill(users.viewerA.email);await page.locator('input[type="password"]').fill(users.viewerA.password);await page.getByRole('button',{name:'Iniciar sesión',exact:true}).click();await page.waitForURL('**/dashboard');await page.goto(origin+'/clients');await expect(page.getByRole('button',{name:'Nuevo cliente',exact:true})).toBeDisabled();await page.goto(origin+'/clients/'+id);await expect(page.getByRole('alert').filter({hasText:'No tienes permiso'})).toBeVisible();await expect(page.getByRole('button',{name:'Editar cliente',exact:true})).toHaveCount(0)})
+    return {w2_product_ui:'PASS',w2_product_ui_checks:checks,w2_product_ui_mode:'INTEGRATED_LOCAL_SYNTHETIC',w2_product_ui_auth:'REAL_BROWSER_PASSWORD_COOKIE',w2_product_ui_writes:'PERSISTED_SYNTHETIC_CUSTOMER_CONTACT',w2_product_ui_other_families:'NOT_RUN'}
+  } finally {
+    await context?.close().catch(()=>{});await browser?.close().catch(()=>{})
+    server.kill('SIGTERM');await new Promise(r=>{if(server.exitCode!==null)return r();server.once('exit',r);setTimeout(()=>{server.kill('SIGKILL');r()},5000).unref()})
+  }
+}
