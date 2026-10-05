@@ -9,10 +9,10 @@ import {
 import { Billing } from '@/features/billing/Billing'
 import { integratedLocalAllowed } from '@/features/product/integration/mode'
 import { IntegratedBilling } from '@/features/billing/IntegratedBilling'
-export default async function InvoicingPage({searchParams}:{searchParams:Promise<{invoice?:string;customer?:string}>}) {
+export default async function InvoicingPage({searchParams}:{searchParams:Promise<{invoice?:string;customer?:string;create?:string}>}) {
   if(integratedLocalAllowed()){
-    const {invoice,customer}=await searchParams
-    return <IntegratedBilling contentEnabled={process.env.PRODUCT_DOCUMENT_CONTENT_ENABLED==='true'} initialCustomerId={typeof customer==='string'&&/^[0-9a-f-]{36}$/i.test(customer)?customer:undefined} initialInvoiceId={typeof invoice==='string'&&/^[0-9a-f-]{36}$/i.test(invoice)?invoice:undefined}/>
+    const {invoice,customer,create}=await searchParams
+    return <IntegratedBilling key={create==='1'?'create':'list'} initialCreate={create==='1'} contentEnabled={process.env.PRODUCT_DOCUMENT_CONTENT_ENABLED==='true'} initialCustomerId={typeof customer==='string'&&/^[0-9a-f-]{36}$/i.test(customer)?customer:undefined} initialInvoiceId={typeof invoice==='string'&&/^[0-9a-f-]{36}$/i.test(invoice)?invoice:undefined}/>
   }
   if (!syntheticPreviewAllowed())
     return (

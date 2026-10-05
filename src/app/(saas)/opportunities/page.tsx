@@ -4,8 +4,8 @@ import { previewOpportunities } from '@/lib/telecom-preview/data'
 import { Opportunities } from '@/features/opportunities/Opportunities'
 import { integratedLocalAllowed } from '@/features/product/integration/mode'
 import { IntegratedOpportunities } from '@/features/opportunities/IntegratedOpportunities'
-export default function OpportunitiesPage() {
-  if(integratedLocalAllowed())return <IntegratedOpportunities/>
+export default async function OpportunitiesPage({searchParams}:{searchParams:Promise<{create?:string}>}) {
+  if(integratedLocalAllowed())return <IntegratedOpportunities key={(await searchParams).create??'list'} initialCreate={(await searchParams).create==='1'}/>
   if (!syntheticPreviewAllowed())
     return (
       <PageHeader

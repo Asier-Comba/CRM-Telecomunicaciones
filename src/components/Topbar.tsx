@@ -1,136 +1,31 @@
 'use client'
 import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
-import { Search, Menu, ShieldCheck } from 'lucide-react'
+import { Search, Menu, ShieldCheck, Building2, FileText, BriefcaseBusiness, Layers, ContactRound, Smartphone, Receipt, Plus, Bot } from 'lucide-react'
 import { fold, customerHref, type SearchItem } from '@/features/product/model'
 import { BRAND } from '@/lib/brand'
 import { useProduct } from '@/features/product/integration/Provider'
 import { safeMessage } from '@/features/product/integration/repository'
-export function Topbar({
-  onMenuClick,
-  search = [],
-}: {
-  onMenuClick?: () => void
-  search?: SearchItem[]
-}) {
-  const { repository } = useProduct(), integrated = repository.mode === 'integrated_local'
-  const [remote, setRemote] = useState<{query:string;items:SearchItem[];error:string;loading:boolean}>({query:'',items:[],error:'',loading:false})
-  const [query, setQuery] = useState(''),
-    [open, setOpen] = useState(false)
-  const ref = useRef<HTMLDivElement>(null)
-  const searchInput = useRef<HTMLInputElement>(null)
-  useEffect(() => {
-    const shortcut = (e: KeyboardEvent) => { if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); searchInput.current?.focus(); setOpen(true) } }
-    document.addEventListener('keydown',shortcut)
-    return () => document.removeEventListener('keydown',shortcut)
-  },[])
-  useEffect(() => {
-    if (!integrated || query.trim().length < 2) return
-    let current = true
-    const timer = setTimeout(async()=>{
-      setRemote({query,items:[],error:'',loading:true})
-      try { const data = await repository.search(query); if(current)setRemote({query,items:data.items.map(i=>({id:i.id,kind:i.kind,label:i.label,detail:i.status,customerId:i.customer_id})),error:'',loading:false}) }
-      catch(e){if(current)setRemote({query,items:[],error:safeMessage(e),loading:false})}
-    },250)
-    return ()=>{current=false;clearTimeout(timer)}
-  },[query,integrated,repository])
-  useEffect(() => {
-    const close = (e: MouseEvent) => {
-      if (!ref.current?.contains(e.target as Node)) setOpen(false)
-    }
-    document.addEventListener('mousedown', close)
-    return () => document.removeEventListener('mousedown', close)
-  }, [])
-  const results =
-    query.trim().length >= 2
-      ? (integrated ? remote.query === query ? remote.items : [] : search)
-          .filter((s) => fold(`${s.label} ${s.detail}`).includes(fold(query)))
-          .slice(0, 8)
-      : []
-  const labels = {
-    customer: 'Cliente',
-    contact: 'Contacto',
-    contract: 'Contrato',
-    service: 'Servicio',
-    line: 'Línea',
-    opportunity: 'Oportunidad',
-    invoice: 'Factura',
-  }
-  return (
-    <header className="relative z-30 flex h-16 shrink-0 items-center justify-between gap-3 border-b border-slate-200 bg-white px-4 sm:px-5">
-      <div className="flex min-w-0 items-center gap-2">
-        <button
-          onClick={onMenuClick}
-          aria-label="Abrir menú de navegación"
-          className="rounded-lg p-2 text-slate-600 hover:bg-slate-50 lg:hidden"
-        >
-          <Menu className="h-5 w-5" />
-        </button>
-        <span className="hidden text-sm font-semibold text-slate-700 sm:block">
-          {BRAND.appName}
-        </span>
-      </div>
-      <div ref={ref} className="relative w-full max-w-md">
-        <Search className="pointer-events-none absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
-        <input
-          ref={searchInput}
-          aria-label="Búsqueda global"
-          disabled={!integrated && !search.length}
-          maxLength={100}
-          value={query}
-          onChange={(e) => {
-            setQuery(e.target.value)
-            setOpen(true)
-          }}
-          onFocus={() => setOpen(true)}
-          onKeyDown={(e) => {
-            if (e.key === 'Escape') setOpen(false)
-          }}
-          placeholder={
-            integrated || search.length
-              ? 'Buscar empresa, contrato, servicio…'
-              : 'Búsqueda pendiente de conexión'
-          }
-          className="h-9 w-full rounded-lg border border-slate-200 bg-slate-50 pl-9 pr-3 text-sm outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-60"
-        />
-        {open && query.length >= 2 && (
-          <div
-            aria-label="Resultados de búsqueda"
-            className="absolute inset-x-0 top-full mt-2 max-h-80 overflow-y-auto rounded-xl border border-slate-200 bg-white p-1 shadow-xl"
-          >
-            <p className="px-3 py-2 text-[10px] font-semibold uppercase text-slate-400">
-              {integrated ? 'Resultados autorizados · base local' : 'Resultados sintéticos · abrir ficha del cliente'}
-            </p>
-            {results.map((r) => (
-              <Link
-                key={`${r.kind}-${r.id}`}
-                onClick={() => {
-                  setOpen(false)
-                  setQuery('')
-                }}
-                href={r.kind === 'invoice' ? `/facturacion?invoice=${r.id}` : customerHref(r.customerId) ?? '/clients'}
-                className="block rounded-lg px-3 py-2 hover:bg-indigo-50"
-              >
-                <p className="text-xs font-semibold text-slate-800">
-                  {r.label}
-                </p>
-                <p className="text-[11px] text-slate-500">
-                  {labels[r.kind]} · {r.detail}
-                </p>
-              </Link>
-            ))}
-            {!results.length && (
-              <p role="status" className="p-3 text-xs text-slate-500">
-                {integrated && remote.query === query && remote.error ? remote.error : integrated && (remote.query !== query || remote.loading) ? 'Consultando…' : 'Sin coincidencias en los datos disponibles.'}
-              </p>
-            )}
-          </div>
-        )}
-      </div>
-      <span className="hidden items-center gap-1.5 whitespace-nowrap text-xs text-slate-500 md:flex">
-        <ShieldCheck className="h-4 w-4 text-emerald-600" />
-        Acceso protegido
-      </span>
-    </header>
-  )
+const labels={customer:'Clientes',contact:'Contactos',contract:'Contratos',service:'Servicios',line:'Líneas',opportunity:'Oportunidades',invoice:'Facturas'}
+const icons={customer:Building2,contact:ContactRound,contract:FileText,service:Layers,line:Smartphone,opportunity:BriefcaseBusiness,invoice:Receipt}
+const order=['customer','contact','contract','service','line','opportunity','invoice']
+export function Topbar({onMenuClick,search=[]}:{onMenuClick?:()=>void;search?:SearchItem[]}){
+ const {repository,role}=useProduct(),integrated=repository.mode==='integrated_local'
+ const [remote,setRemote]=useState<{query:string;items:SearchItem[];error:string;loading:boolean}>({query:'',items:[],error:'',loading:false})
+ const [query,setQuery]=useState(''),[open,setOpen]=useState(false),[active,setActive]=useState(-1)
+ const ref=useRef<HTMLDivElement>(null),input=useRef<HTMLInputElement>(null)
+ function close(){setOpen(false);setActive(-1);setQuery('');setRemote({query:'',items:[],error:'',loading:false})}
+ useEffect(()=>{const shortcut=(e:KeyboardEvent)=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();input.current?.focus();setOpen(true)}};document.addEventListener('keydown',shortcut);return()=>document.removeEventListener('keydown',shortcut)},[])
+ useEffect(()=>{if(!integrated||!open||query.trim().length<2)return;let current=true;const timer=setTimeout(async()=>{if(!current)return;setRemote({query,items:[],error:'',loading:true});try{const data=await repository.search(query);if(current)setRemote({query,items:data.items.map(i=>({id:i.id,kind:i.kind,label:i.label,detail:i.status,customerId:i.customer_id})),error:'',loading:false})}catch(e){if(current)setRemote({query,items:[],error:safeMessage(e),loading:false})}},250);return()=>{current=false;clearTimeout(timer)}},[query,open,integrated,repository])
+ useEffect(()=>{const outside=(e:MouseEvent)=>{if(!ref.current?.contains(e.target as Node))setOpen(false)};document.addEventListener('mousedown',outside);return()=>document.removeEventListener('mousedown',outside)},[])
+ const results=(query.trim().length>=2?(integrated?remote.query===query?remote.items:[]:search.filter(s=>fold(`${s.label} ${s.detail}`).includes(fold(query)))):[]).slice(0,21).sort((a,b)=>order.indexOf(a.kind)-order.indexOf(b.kind))
+ const canWrite=integrated&&!!role&&role!=='viewer'
+ const commands=[...(canWrite?[{label:'Nuevo cliente',href:'/clients?create=1'},{label:'Nueva tarea',href:'/calendar?create=task'},{label:'Nueva reunión',href:'/calendar?create=meeting'},{label:'Nueva oportunidad',href:'/opportunities?create=1'}]:[]),...(integrated&&(role==='owner'||role==='admin')?[{label:'Nueva factura',href:'/facturacion?create=1'}]:[]),{label:'Abrir asistente',href:'/assistant'}].filter(c=>query.trim().length<2||fold(c.label).includes(fold(query)))
+ const options=[...results.map(r=>({label:r.label,detail:r.detail,group:labels[r.kind],href:r.kind==='invoice'?`/facturacion?invoice=${r.id}`:customerHref(r.customerId)??'/clients',Icon:icons[r.kind],key:`${r.kind}:${r.id}`})),...commands.map(c=>({...c,detail:'Abrir acción',group:'Acciones rápidas',Icon:c.href==='/assistant'?Bot:Plus,key:c.href}))]
+ const selected=active>=0&&active<options.length?active:-1
+ return <header className="relative z-30 flex h-16 shrink-0 items-center justify-between gap-3 border-b border-slate-200 bg-white px-4 sm:px-5"><div className="flex min-w-0 items-center gap-2"><button onClick={onMenuClick} aria-label="Abrir menú de navegación" className="rounded-lg p-2 text-slate-600 hover:bg-slate-50 lg:hidden"><Menu className="h-5 w-5"/></button><span className="hidden text-sm font-semibold text-slate-700 sm:block">{BRAND.appName}</span></div>
+  <div ref={ref} className="relative w-full max-w-lg"><Search className="pointer-events-none absolute left-3 top-2.5 h-4 w-4 text-slate-400"/><input ref={input} aria-label="Búsqueda global" role="combobox" aria-expanded={open} aria-controls="global-search-options" aria-autocomplete="list" aria-activedescendant={open&&selected>=0?`global-search-option-${selected}`:undefined} maxLength={100} value={query} onChange={e=>{setQuery(e.target.value);setActive(-1);setOpen(true)}} onFocus={()=>setOpen(true)} onKeyDown={e=>{if(e.key==='Escape'){e.preventDefault();close()}else if(['ArrowDown','ArrowUp','Home','End'].includes(e.key)&&open&&options.length){e.preventDefault();setActive(e.key==='Home'?0:e.key==='End'?options.length-1:(selected+(e.key==='ArrowDown'?1:-1)+options.length)%options.length)}else if(e.key==='Enter'&&selected>=0){e.preventDefault();document.getElementById(`global-search-option-${selected}`)?.click()}}} placeholder="Buscar o crear…" className="h-9 w-full rounded-lg border border-slate-200 bg-slate-50 pl-9 pr-14 text-sm outline-none focus:ring-2 focus:ring-indigo-500"/><kbd aria-hidden="true" className="pointer-events-none absolute right-2 top-2 rounded border border-slate-200 bg-white px-1.5 py-0.5 text-[10px] text-slate-400">⌘ K</kbd>
+   {open&&<div aria-label="Resultados de búsqueda" className="absolute inset-x-0 top-full mt-2 max-h-[65dvh] overflow-y-auto rounded-xl border border-slate-200 bg-white p-1 shadow-xl"><div id="global-search-options" role="listbox" aria-label="Buscar registros y acciones">{options.map((o,i)=><div key={o.key}>{(i===0||options[i-1].group!==o.group)&&<p className="px-3 pb-1 pt-3 text-[10px] font-semibold uppercase tracking-wide text-slate-400">{o.group}</p>}<Link id={`global-search-option-${i}`} role="option" aria-selected={selected===i} tabIndex={-1} href={o.href} onClick={close} onMouseEnter={()=>setActive(i)} className={`flex items-center gap-3 rounded-lg px-3 py-2 ${selected===i?'bg-indigo-50':'hover:bg-indigo-50'}`}><o.Icon aria-hidden="true" className="h-4 w-4 shrink-0 text-indigo-500"/><span className="min-w-0"><span className="block break-words text-xs font-semibold text-slate-800">{o.label}</span><span className="text-[11px] text-slate-500">{o.group} · {o.detail}</span></span></Link></div>)}</div>{integrated&&query.trim().length>=2&&remote.query===query&&remote.error&&<p role="alert" className="p-3 text-xs text-red-700">{remote.error}</p>}{query.trim().length>=2&&!results.length&&<p role="status" className="p-3 text-xs text-slate-500">{integrated&&(remote.query!==query||remote.loading)?'Consultando…':'Sin coincidencias en los datos disponibles.'}</p>}<p className="border-t px-3 py-2 text-[10px] text-slate-400">↑ ↓ Navegar · Intro Abrir · Esc Cerrar</p></div>}
+  </div><span className="hidden items-center gap-1.5 whitespace-nowrap text-xs text-slate-500 md:flex"><ShieldCheck className="h-4 w-4 text-emerald-600"/>{role?{owner:'Titular',admin:'Administrador',member:'Comercial',viewer:'Lectura'}[role]:'Acceso protegido'}</span>
+ </header>
 }

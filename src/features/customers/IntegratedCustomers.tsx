@@ -7,9 +7,9 @@ import { useProduct } from '@/features/product/integration/Provider'
 import { safeMessage } from '@/features/product/integration/repository'
 import { control, primary } from '@/features/product/ui'
 import type { CustomerRow } from '@/features/product/model'
-export function IntegratedCustomers() {
+export function IntegratedCustomers({initialCreate=false}:{initialCreate?:boolean}) {
   const { repository, role } = useProduct(), router = useRouter()
-  const [rows, setRows] = useState<CustomerRow[]>([]), [query,setQuery] = useState(''), [create,setCreate] = useState(false), [busy,setBusy] = useState(false), [error,setError] = useState('')
+  const [rows, setRows] = useState<CustomerRow[]>([]), [query,setQuery] = useState(''), [create,setCreate] = useState(initialCreate&&role!==null&&role!=='viewer'), [busy,setBusy] = useState(false), [error,setError] = useState('')
   async function search(e: React.FormEvent) {
     e.preventDefault(); setBusy(true); setError('')
     try {
