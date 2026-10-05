@@ -1,3 +1,8 @@
+import type {InboxInputV1,InboxOperationV1,InboxReceiptV1,InboxListInputV1,InboxThreadInputV1} from '@/lib/contracts/inbox-v1'
+import {parseInboxInputV1,parseInboxReceiptV1,parseInboxListInputV1,parseInboxListResultV1,parseInboxThreadInputV1,parseInboxThreadResultV1,parseInboxUnreadV1} from '../../../lib/server/inbox-runtime-v1.ts'
+export type InboxPage=NonNullable<ReturnType<typeof parseInboxListResultV1>>
+export type InboxThread=NonNullable<ReturnType<typeof parseInboxThreadResultV1>>
+export type InboxUnread=NonNullable<ReturnType<typeof parseInboxUnreadV1>>
 import type {ImportJobRecordV1,ImportJobListInputV1,ImportJobCancelInputV1,ImportJobReceiptV1} from '@/lib/contracts/importjob-v1'
 import {parseImportJobIdV1,parseImportJobListV1,parseImportJobCancelV1,parseImportJobGetResultV1,parseImportJobListResultV1,parseImportJobReceiptV1} from '../../../lib/server/importjob-runtime-v1.ts'
 import type {BillingArtifactInputV1,BillingArtifactReceiptV1,BillingArtifactReferenceV1} from '@/lib/contracts/billing-artifact-v1'
@@ -36,6 +41,10 @@ export function safeMessage(error: unknown) {
   return errorText[error instanceof ProductUiError ? error.code : 'internal_safe']
 }
 export interface ProductRepository {
+  inbox(input:InboxListInputV1):Promise<InboxPage>
+  inboxThread(input:InboxThreadInputV1):Promise<InboxThread>
+  inboxUnread():Promise<InboxUnread>
+  inboxCommand(operation:InboxOperationV1,input:InboxInputV1):Promise<InboxReceiptV1>
   readonly mode: 'synthetic' | 'integrated_local'
   command<O extends ProductOperationV1>(operation: O, input: ProductCommandInputsV1[O]): Promise<ProductReceiptV1>
   customer(id: string): Promise<CustomerEditorV1>
@@ -79,6 +88,10 @@ export class IntegratedLocalProductRepository implements ProductRepository {
   readonly mode = 'integrated_local' as const
   private readonly request: typeof fetch
   constructor(request: typeof fetch = fetch) { this.request = request.bind(globalThis) }
+  inbox(value:InboxListInputV1){const input=parseInboxListInputV1(value);if(!input)return Promise.reject(new ProductUiError('validation'));return this.post('queries','inbox.list',input,v=>parseInboxListResultV1(input,v),'inbox','/api/inbox/v1')}
+  inboxThread(value:InboxThreadInputV1){const input=parseInboxThreadInputV1(value);if(!input)return Promise.reject(new ProductUiError('validation'));return this.post('queries','inbox.get_thread',input,v=>parseInboxThreadResultV1(input,v),'inbox','/api/inbox/v1')}
+  inboxUnread(){return this.post('queries','inbox.unread_summary',{},parseInboxUnreadV1,'inbox','/api/inbox/v1')}
+  inboxCommand(operation:InboxOperationV1,value:InboxInputV1){const input=parseInboxInputV1(operation,value);if(!input)return Promise.reject(new ProductUiError('validation'));return this.post('commands',operation,input,v=>parseInboxReceiptV1(operation,input,v),'inbox','/api/inbox/v1')}
   private async post<T>(kind: 'commands' | 'queries', operation: string, input: unknown, parse: (value: unknown) => T | null, family = 'product', endpoint?: string): Promise<T> {
     let response: Response
     try {
@@ -169,6 +182,10 @@ export class IntegratedLocalProductRepository implements ProductRepository {
 export class SyntheticProductRepository implements ProductRepository {
   readonly mode = 'synthetic' as const
   private unavailable<T>(): Promise<T> { return Promise.reject(new ProductUiError('unavailable')) }
+  inbox(_input:InboxListInputV1){void _input;return this.unavailable<InboxPage>()}
+  inboxThread(_input:InboxThreadInputV1){void _input;return this.unavailable<InboxThread>()}
+  inboxUnread(){return this.unavailable<InboxUnread>()}
+  inboxCommand(_operation:InboxOperationV1,_input:InboxInputV1){void _operation;void _input;return this.unavailable<InboxReceiptV1>()}
   command<O extends ProductOperationV1>(_operation: O, _input: ProductCommandInputsV1[O]) { void _operation; void _input; return this.unavailable<ProductReceiptV1>() }
   customer(_id: string) { void _id; return this.unavailable<CustomerEditorV1>() }
   contacts(_id: string) { void _id; return this.unavailable<ContactEditorPageV1>() }

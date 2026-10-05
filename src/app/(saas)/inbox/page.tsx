@@ -1,7 +1,10 @@
 import { PageHeader } from '@/components/PageHeader'
 import { syntheticPreviewAllowed } from '@/lib/telecom-preview/access'
+import { integratedLocalAllowed } from '@/features/product/integration/mode'
+import { IntegratedInbox } from '@/features/inbox/IntegratedInbox'
 import { Inbox } from '@/features/inbox/Inbox'
 export default function InboxPage() {
+  if (integratedLocalAllowed()) return <IntegratedInbox/>
   if (!syntheticPreviewAllowed())
     return (
       <PageHeader

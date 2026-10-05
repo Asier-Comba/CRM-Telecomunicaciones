@@ -245,7 +245,7 @@ export function Drawer({
     <dialog
       ref={ref}
       aria-labelledby={id}
-      onCancel={onClose}
+      onCancel={(e) => { e.preventDefault(); onClose() }}
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose()
       }}

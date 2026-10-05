@@ -87,7 +87,7 @@ test('customer collection, partiality, keyboard tabs and global search', async (
   await expect(
     page.getByText('Empresa Norte Telecom SL', { exact: true }),
   ).toBeVisible()
-  const global = page.getByRole('textbox', { name: 'Búsqueda global' })
+  const global = page.getByRole('combobox', { name: 'Búsqueda global' })
   await global.fill('Fibra sede')
   await page.getByRole('link', { name: /Fibra sede principal/ }).click()
   await expect(page).toHaveURL(/clients\/cust_demo_norte_0001$/)

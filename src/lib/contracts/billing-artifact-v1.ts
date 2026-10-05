@@ -1,3 +1,0 @@
-export type BillingArtifactInputV1={command_id:string;id:string;expected_version:number;expected_artifact_version:number}
-export type BillingArtifactReceiptV1={contract_version:'billing.artifact.v1';operation:'invoice.persist_private_pdf';command_id:string;id:string;version:number;status:'stored_candidate';invoice_id:string;document_id:string;renderer_version:'billing.snapshot.pdf.v1';verification_required:true}
-export type BillingArtifactReferenceV1={contract_version:'billing.artifact.v1';operation:'invoice.private_pdf_reference';id:string;invoice_id:string;document_id:string;version:number;renderer_version:'billing.snapshot.pdf.v1';verification_required:true;document_status:'active'|'archived'}
