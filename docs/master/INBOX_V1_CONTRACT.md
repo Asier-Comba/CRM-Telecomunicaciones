@@ -1,6 +1,9 @@
 # Inbox v1 — internal conversations
 
-Source checkpoint candidate, default off, UI_SAFE=false, actual Supabase evidence pending. POST /api/inbox/v1 uses PRODUCT_V1_ENABLED and exact PRODUCT_V1_ORIGIN, current SSR getUser/workspace membership. Internal manual notes only; provider not_configured, external send and webhook unregistered.
+Current acceptance: c2a7390867d941a33b17509b3f4014f8356bb0c1, real run37361774116 (1,298 checks), native/quality37361774252 (53 migrations/247 privilege entries/243 Node tests). [Authoritative closure](W1_PRODUCT_CLOSURE_20261005.md) records the limits. Human backend only; UI_SAFE=false pending W2/W4.
+
+
+Accepted internal backend, default off, UI_SAFE=false; exact current evidence is recorded below. POST /api/inbox/v1 uses PRODUCT_V1_ENABLED and exact PRODUCT_V1_ORIGIN, current SSR getUser/workspace membership. Internal manual notes only; provider not_configured, external send and webhook unregistered.
 
 Owner/admin read all workspace conversations; member reads and uses assigned conversations, may create self-assigned conversations; viewer denied. Only owner/admin assign or change customer/contact linkage. Assignee must be active owner/admin/member in current workspace; customer/contact must be active and contact belongs to linked customer. Read and replay reauthorize current access; reassignment removes member body and receipt access.
 

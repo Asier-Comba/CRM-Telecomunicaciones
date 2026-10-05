@@ -1,5 +1,8 @@
 # Encrypted import staging v1
 
+Current acceptance: c2a7390867d941a33b17509b3f4014f8356bb0c1, real run37361774116 (1,298 checks), native/quality37361774252 (53 migrations/247 privilege entries/243 Node tests). [Authoritative closure](W1_PRODUCT_CLOSURE_20261005.md) records the limits. Disposable staging only; production import processing remains blocked.
+
+
 Prepared internal contracts; normal product import processing remains blocked. No begin/validate/apply/resume route is registered. No customer data is applied or persisted in plaintext.
 
 ## Provider contract

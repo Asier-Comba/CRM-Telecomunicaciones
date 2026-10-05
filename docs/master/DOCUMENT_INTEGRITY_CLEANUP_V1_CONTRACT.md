@@ -1,6 +1,9 @@
 # Server-observed document integrity and bounded pending cleanup
 
-Candidate default-off transport /api/document/v1/maintenance. Requires PRODUCT_V1_ENABLED plus PRODUCT_DOCUMENT_MAINTENANCE_ENABLED and same-origin protected cookie identity. Owner/admin only; current DB scope before all replays.
+Current acceptance: c2a7390867d941a33b17509b3f4014f8356bb0c1, real run37361774116 (1,298 checks), native/quality37361774252 (53 migrations/247 privilege entries/243 Node tests). [Authoritative closure](W1_PRODUCT_CLOSURE_20261005.md) records the limits. Human backend only; UI_SAFE=false pending W2/W4.
+
+
+Default-off transport /api/document/v1/maintenance. Requires PRODUCT_V1_ENABLED plus PRODUCT_DOCUMENT_MAINTENANCE_ENABLED and same-origin protected cookie identity. Owner/admin only; current DB scope before all replays.
 
 ## Integrity
 

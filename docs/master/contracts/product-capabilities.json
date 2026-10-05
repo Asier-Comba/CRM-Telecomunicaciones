@@ -1,51 +1,386 @@
 {
   "catalog_version": "product.capabilities.v1",
   "as_of": "2026-10-05",
-  "implementation_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02",
+  "implementation_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
   "evidence": {
     "native": {
-      "run_id": 37315670864,
+      "run_id": 37361774252,
       "status": "PASS",
-      "migration_count": 44,
-      "function_count": 186,
-      "tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
+      "migration_count": 53,
+      "function_count": 247,
+      "tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
+      "tested_checkout": "8f14da513a5c122e2de3542d19ecdbe6ba32e21b",
+      "tested_tree": "9442df0abfb48e48fbecb0c0d46f6146f6a28229",
+      "fresh": "PASS",
+      "logical_synthetic_restore": "PASS",
+      "privileges_roles_acl_loss_negative_control": "PASS",
+      "production_backup": false
     },
     "actual_supabase": {
-      "run_id": 37315671127,
-      "tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02",
-      "status": "PASS",
-      "checks": 801,
-      "teardown": "PASS",
-      "browser_private_values": "PASS",
-      "identity_revocation": "PASS",
-      "invoice_pdf": "PASS",
-      "dashboard_financial": "PASS",
-      "invoice_propose": "PASS",
-      "portfolio_provenance": "PASS",
-      "portfolio_races": "PASS",
-      "team_internal": "PASS",
-      "portfolio_deadlines": "PASS",
-      "deadline_revocation": "PASS",
+      "environment": "LOCAL_SUPABASE_DOCKER",
+      "result": "PASS",
+      "auth": "PASS",
+      "jwt": "PASS",
+      "postgrest": "PASS",
+      "rpc": "PASS",
+      "storage": "PASS",
+      "cli": "2.119.0",
+      "sha": "8f14da513a5c122e2de3542d19ecdbe6ba32e21b",
+      "config_sha256": "3fc22bba97e5114a7ee67cc90e514b8ec16eda0cb2c5817cf87784e8e4ab6e57",
+      "migration_head": "20261005164500_document_target_ancestry_serialization.sql",
+      "migration_count": 53,
+      "service_images": [
+        "public.ecr.aws/supabase/gotrue:v2.197.0",
+        "public.ecr.aws/supabase/kong:2.8.1",
+        "public.ecr.aws/supabase/postgres:15.19.0.002",
+        "public.ecr.aws/supabase/postgrest:v16.4",
+        "public.ecr.aws/supabase/storage-api:v1.79.28"
+      ],
+      "db": "15.19",
+      "zero_to_head": "PASS",
+      "auth_users": 10,
+      "status_codes": {
+        "table.activities.anon": 401,
+        "table.activities.A": 403,
+        "table.activities.B": 403,
+        "table.assistant_confirmations.anon": 401,
+        "table.assistant_confirmations.A": 403,
+        "table.assistant_confirmations.B": 403,
+        "table.assistant_effect_outbox.anon": 401,
+        "table.assistant_effect_outbox.A": 403,
+        "table.assistant_effect_outbox.B": 403,
+        "table.assistant_operations.anon": 401,
+        "table.assistant_operations.A": 403,
+        "table.assistant_operations.B": 403,
+        "table.billing_customer_profiles.anon": 401,
+        "table.billing_customer_profiles.A": 403,
+        "table.billing_customer_profiles.B": 403,
+        "table.billing_invoice_lines.anon": 401,
+        "table.billing_invoice_lines.A": 403,
+        "table.billing_invoice_lines.B": 403,
+        "table.billing_invoices.anon": 401,
+        "table.billing_invoices.A": 403,
+        "table.billing_invoices.B": 403,
+        "table.billing_issuers.anon": 401,
+        "table.billing_issuers.A": 403,
+        "table.billing_issuers.B": 403,
+        "table.billing_private_pdf_artifacts.anon": 401,
+        "table.billing_private_pdf_artifacts.A": 403,
+        "table.billing_private_pdf_artifacts.B": 403,
+        "table.billing_private_pdf_jobs.anon": 401,
+        "table.billing_private_pdf_jobs.A": 403,
+        "table.billing_private_pdf_jobs.B": 403,
+        "table.billing_series.anon": 401,
+        "table.billing_series.A": 403,
+        "table.billing_series.B": 403,
+        "table.business_audit_events.anon": 401,
+        "table.business_audit_events.A": 403,
+        "table.business_audit_events.B": 403,
+        "table.calendar_events.anon": 401,
+        "table.calendar_events.A": 403,
+        "table.calendar_events.B": 403,
+        "table.contacts.anon": 401,
+        "table.contacts.A": 403,
+        "table.contacts.B": 403,
+        "table.customers.anon": 401,
+        "table.customers.A": 403,
+        "table.customers.B": 403,
+        "table.document_cleanup_claims.anon": 401,
+        "table.document_cleanup_claims.A": 403,
+        "table.document_cleanup_claims.B": 403,
+        "table.document_content_integrity.anon": 401,
+        "table.document_content_integrity.A": 403,
+        "table.document_content_integrity.B": 403,
+        "table.document_download_tickets.anon": 401,
+        "table.document_download_tickets.A": 403,
+        "table.document_download_tickets.B": 403,
+        "table.document_integrity_verifiers.anon": 401,
+        "table.document_integrity_verifiers.A": 403,
+        "table.document_integrity_verifiers.B": 403,
+        "table.document_upload_intents.anon": 401,
+        "table.document_upload_intents.A": 403,
+        "table.document_upload_intents.B": 403,
+        "table.documents.anon": 401,
+        "table.documents.A": 403,
+        "table.documents.B": 403,
+        "table.import_applications.anon": 401,
+        "table.import_applications.A": 403,
+        "table.import_applications.B": 403,
+        "table.import_field_mappings.anon": 401,
+        "table.import_field_mappings.A": 403,
+        "table.import_field_mappings.B": 403,
+        "table.import_jobs.anon": 401,
+        "table.import_jobs.A": 403,
+        "table.import_jobs.B": 403,
+        "table.import_row_issues.anon": 401,
+        "table.import_row_issues.A": 403,
+        "table.import_row_issues.B": 403,
+        "table.import_staging_rows.anon": 401,
+        "table.import_staging_rows.A": 403,
+        "table.import_staging_rows.B": 403,
+        "table.inbox_conversations.anon": 401,
+        "table.inbox_conversations.A": 403,
+        "table.inbox_conversations.B": 403,
+        "table.inbox_messages.anon": 401,
+        "table.inbox_messages.A": 403,
+        "table.inbox_messages.B": 403,
+        "table.inbox_read_markers.anon": 401,
+        "table.inbox_read_markers.A": 403,
+        "table.inbox_read_markers.B": 403,
+        "table.internal_automation_events.anon": 401,
+        "table.internal_automation_events.A": 403,
+        "table.internal_automation_events.B": 403,
+        "table.internal_automation_runs.anon": 401,
+        "table.internal_automation_runs.A": 403,
+        "table.internal_automation_runs.B": 403,
+        "table.internal_automations.anon": 401,
+        "table.internal_automations.A": 403,
+        "table.internal_automations.B": 403,
+        "table.internal_notifications.anon": 401,
+        "table.internal_notifications.A": 403,
+        "table.internal_notifications.B": 403,
+        "table.notification_centers.anon": 401,
+        "table.notification_centers.A": 403,
+        "table.notification_centers.B": 403,
+        "table.opportunities.anon": 401,
+        "table.opportunities.A": 403,
+        "table.opportunities.B": 403,
+        "table.opportunity_stages.anon": 401,
+        "table.opportunity_stages.A": 403,
+        "table.opportunity_stages.B": 403,
+        "table.product_audit_events.anon": 401,
+        "table.product_audit_events.A": 403,
+        "table.product_audit_events.B": 403,
+        "table.product_command_key.anon": 401,
+        "table.product_command_key.A": 403,
+        "table.product_command_key.B": 403,
+        "table.product_commands.anon": 401,
+        "table.product_commands.A": 403,
+        "table.product_commands.B": 403,
+        "table.product_manual_origin_proofs.anon": 401,
+        "table.product_manual_origin_proofs.A": 403,
+        "table.product_manual_origin_proofs.B": 403,
+        "table.product_opportunity_history.anon": 401,
+        "table.product_opportunity_history.A": 403,
+        "table.product_opportunity_history.B": 403,
+        "table.product_opportunity_links.anon": 401,
+        "table.product_opportunity_links.A": 403,
+        "table.product_opportunity_links.B": 403,
+        "table.product_reveal_audit_events.anon": 401,
+        "table.product_reveal_audit_events.A": 403,
+        "table.product_reveal_audit_events.B": 403,
+        "table.product_user_preferences.anon": 401,
+        "table.product_user_preferences.A": 403,
+        "table.product_user_preferences.B": 403,
+        "table.profiles.anon": 401,
+        "table.profiles.A": 200,
+        "table.profiles.B": 200,
+        "table.service_cases.anon": 401,
+        "table.service_cases.A": 403,
+        "table.service_cases.B": 403,
+        "table.tasks.anon": 401,
+        "table.tasks.A": 403,
+        "table.tasks.B": 403,
+        "table.team_invite_intents.anon": 401,
+        "table.team_invite_intents.A": 403,
+        "table.team_invite_intents.B": 403,
+        "table.telecom_commitments.anon": 401,
+        "table.telecom_commitments.A": 403,
+        "table.telecom_commitments.B": 403,
+        "table.telecom_contracts.anon": 401,
+        "table.telecom_contracts.A": 403,
+        "table.telecom_contracts.B": 403,
+        "table.telecom_lines.anon": 401,
+        "table.telecom_lines.A": 403,
+        "table.telecom_lines.B": 403,
+        "table.telecom_operators.anon": 401,
+        "table.telecom_operators.A": 403,
+        "table.telecom_operators.B": 403,
+        "table.telecom_plan_versions.anon": 401,
+        "table.telecom_plan_versions.A": 403,
+        "table.telecom_plan_versions.B": 403,
+        "table.telecom_plans.anon": 401,
+        "table.telecom_plans.A": 403,
+        "table.telecom_plans.B": 403,
+        "table.telecom_renewals.anon": 401,
+        "table.telecom_renewals.A": 403,
+        "table.telecom_renewals.B": 403,
+        "table.telecom_services.anon": 401,
+        "table.telecom_services.A": 403,
+        "table.telecom_services.B": 403,
+        "table.workspace_company_profiles.anon": 401,
+        "table.workspace_company_profiles.A": 403,
+        "table.workspace_company_profiles.B": 403,
+        "table.workspace_members.anon": 401,
+        "table.workspace_members.A": 200,
+        "table.workspace_members.B": 200,
+        "table.workspaces.anon": 401,
+        "table.workspaces.A": 200,
+        "table.workspaces.B": 200,
+        "rpc.telecom_v1_activity_list.anon": 401,
+        "rpc.telecom_v1_activity_list.authenticated": 403,
+        "rpc.telecom_v1_contract_get.anon": 401,
+        "rpc.telecom_v1_contract_get.authenticated": 403,
+        "rpc.telecom_v1_contract_list.anon": 401,
+        "rpc.telecom_v1_contract_list.authenticated": 403,
+        "rpc.telecom_v1_customer_get_row.anon": 401,
+        "rpc.telecom_v1_customer_get_row.authenticated": 403,
+        "rpc.telecom_v1_customer_search_rows.anon": 401,
+        "rpc.telecom_v1_customer_search_rows.authenticated": 403,
+        "rpc.telecom_v1_customer_summary.anon": 401,
+        "rpc.telecom_v1_customer_summary.authenticated": 403,
+        "rpc.telecom_v1_dashboard_authorize.anon": 401,
+        "rpc.telecom_v1_dashboard_authorize.authenticated": 403,
+        "rpc.telecom_v1_line_list.anon": 401,
+        "rpc.telecom_v1_line_list.authenticated": 403,
+        "rpc.telecom_v1_meeting_list.anon": 401,
+        "rpc.telecom_v1_meeting_list.authenticated": 403,
+        "rpc.telecom_v1_opportunity_list.anon": 401,
+        "rpc.telecom_v1_opportunity_list.authenticated": 403,
+        "rpc.telecom_v1_permanence_list.anon": 401,
+        "rpc.telecom_v1_permanence_list.authenticated": 403,
+        "rpc.telecom_v1_renewal_list.anon": 401,
+        "rpc.telecom_v1_renewal_list.authenticated": 403,
+        "rpc.telecom_v1_service_list.anon": 401,
+        "rpc.telecom_v1_service_list.authenticated": 403,
+        "rpc.telecom_v1_task_list.anon": 401,
+        "rpc.telecom_v1_task_list.authenticated": 403,
+        "storage.download.anon": 400,
+        "storage.download.member": 400,
+        "storage.download.viewer": 400,
+        "storage.download.B": 400
+      },
+      "inbox": "PASS",
+      "inbox_operations_individually_observed": [
+        "conversation.archive",
+        "conversation.assign",
+        "conversation.close",
+        "conversation.create_internal",
+        "conversation.link_customer",
+        "conversation.mark_read",
+        "conversation.mark_unread",
+        "conversation.reopen",
+        "conversation.restore",
+        "inbox.get_thread",
+        "inbox.list",
+        "inbox.unread_summary",
+        "message.add_internal_note"
+      ],
+      "inbox_provider": "NOT_CONFIGURED",
+      "inbox_external_send": "NOT_IMPLEMENTED",
+      "notifications": "PASS",
+      "notification_dedupe": "PASS",
+      "notification_operations_individually_observed": [
+        "notification.list",
+        "notification.mark_all_read",
+        "notification.mark_read",
+        "notification.refresh",
+        "notification.unread_count"
+      ],
+      "notification_external_delivery": "NOT_IMPLEMENTED",
+      "automations": "PASS",
+      "automation_event_dedupe": "PASS",
+      "automation_failure_truth": "PASS",
+      "automation_operations_individually_observed": [
+        "automation.create",
+        "automation.disable",
+        "automation.enable",
+        "automation.get",
+        "automation.list",
+        "automation.process_pending",
+        "automation.run_history",
+        "automation.update"
+      ],
+      "automation_external_actions": "NOT_IMPLEMENTED",
+      "settings": "PASS",
+      "settings_private_logo": "PASS",
+      "settings_provider_truth": "PASS",
+      "settings_notification_preferences": "PASS",
+      "settings_operations_individually_observed": [
+        "settings.company_get",
+        "settings.company_update",
+        "settings.integrations",
+        "settings.profile_get",
+        "settings.profile_update"
+      ],
+      "settings_external_providers": "NOT_CONFIGURED",
+      "sensitive_reveal": "PASS",
+      "sensitive_reveal_audit": "PASS",
+      "sensitive_reveal_revocation": "PASS",
+      "sensitive_operations_individually_observed": [
+        "sensitive.get"
+      ],
+      "import_staging_disposable": "PASS_DISPOSABLE_ONLY",
+      "import_staging_crypto": "AES_256_GCM_EPHEMERAL_TEST_KEY",
+      "import_staging_scope": "REAL_AUTH_POSTGREST_CURRENT_MEMBERSHIP",
+      "import_processing_production": "BLOCKED_REGISTERED_KMS_SCOPED_WORKER_DOMAIN_ADAPTERS",
+      "import_xlsx": "UNREGISTERED",
+      "import_zip": "BLOCKED",
+      "team_invite_expiry": "PASS_INTERNAL_ONLY",
+      "team_invite_reissue": "PASS_CAS_REPLAY_CURRENT_SCOPE",
+      "verified_new_manual_origin": "PASS_NO_BACKFILL",
+      "team_origin_operations_individually_observed": [
+        "member.invite_list",
+        "member.reissue_invite",
+        "provenance.get"
+      ],
+      "document_target_ancestry": "PASS_ALL_SIX_NORMAL_TARGETS",
+      "document_service_integrity_cleanup": "PASS",
+      "document_verified_sha256": "PASS_SERVER_OBSERVED_BYTES_SIGNED_PRIVATE_VERIFIER",
+      "document_scanner": "UNAVAILABLE_NO_CLEAN_CLAIM",
+      "document_expired_pending_cleanup": "PASS_EXACT_SCOPED_OBJECT_ONLY",
+      "document_active_artifact_cleanup": "INELIGIBLE_RETAINED",
+      "document_maintenance_operations_individually_observed": [
+        "document.verify_content",
+        "document.cleanup_claim",
+        "document.cleanup_finish",
+        "document.expired_list"
+      ],
+      "portability_environment_manifest": "PASS_VALUE_FREE_34_NAMES",
+      "portability_runtime_preflight": "PASS_SYNTAX_NOT_PROVIDER_HEALTH",
+      "portability_storage_config_drift": "PASS_EXACT_CURRENT_PRIVATE_BUCKETS",
+      "portability_auth_config": "PASS_LOCAL_OAUTH_OFF_PRODUCTION_CALLBACKS_UNVERIFIED",
+      "portability_config_sha256": "3fc22bba97e5114a7ee67cc90e514b8ec16eda0cb2c5817cf87784e8e4ab6e57",
+      "auth_email_readiness": "NOT_CONFIGURED_PRODUCTION_UNVERIFIED",
+      "crm_email_readiness": "NOT_CONFIGURED_SEPARATE_ADAPTER",
       "billing_search": "PASS",
-      "portfolio_explicit_child_provenance": "PASS",
+      "billing_pdf": "PASS",
+      "billing_dashboard": "PASS",
+      "billing_commands": "PASS",
+      "billing_snapshots": "PASS",
+      "billing_money": "PASS",
+      "billing_transport": "PASS",
+      "product_commands": "PASS",
+      "product_transport": "PASS",
+      "product_roles": "PASS",
+      "product_calendar_overlap": "PASS",
+      "identity_revocation": "PASS",
+      "work_postgrest_20way_races": "PASS",
+      "work_revocation": "PASS",
+      "dashboard_v2": "PASS",
+      "global_search": "PASS",
+      "work_cookie_next_queries": "PASS",
+      "team_internal": "PASS",
+      "team_cas_replay": "PASS",
+      "team_revocation": "PASS",
+      "team_transport": "PASS",
+      "team_email_send": "NOT_IMPLEMENTED",
+      "portfolio_provenance": "PASS",
+      "portfolio_families": "PASS",
+      "portfolio_http_races": "PASS",
+      "portfolio_revocation": "PASS",
+      "portfolio_transport": "PASS",
+      "portfolio_deadlines": "PASS",
+      "deadline_http_races": "PASS",
+      "deadline_revocation": "PASS",
+      "deadline_transport": "PASS",
       "document_metadata": "PASS",
+      "document_cas_replay": "PASS",
       "document_storage_lifecycle": "PASS",
       "document_revocation": "PASS",
+      "document_transport": "PASS",
       "document_upload": "PASS",
       "document_signed_access": "NOT_IMPLEMENTED",
-      "document_finalize": "PASS",
-      "document_proxy_download": "PASS",
-      "document_content_expiry": "PASS",
-      "document_content_scan": "NOT_IMPLEMENTED",
-      "document_content_verified_sha256": "NOT_IMPLEMENTED",
-      "billing_private_artifact": "PASS",
-      "billing_private_artifact_storage": "PASS",
-      "billing_private_artifact_integrity": "PASS",
-      "billing_private_artifact_on_issue": "PASS",
-      "billing_private_artifact_revocation": "PASS",
-      "importjob_management": "PASS",
-      "importjob_processing": "BLOCKED_ENCRYPTED_STAGING_ADAPTER",
-      "importjob_quarantine_upload": "NOT_IMPLEMENTED",
       "additional_individual_operations": [
         "configuration.get",
         "contact.archive",
@@ -78,18 +413,53 @@
         "work.get"
       ],
       "additional_individual_evidence": "PASS",
-      "additional_individual_count": 29
+      "additional_individual_count": 29,
+      "importjob_management": "PASS",
+      "importjob_processing": "BLOCKED_ENCRYPTED_STAGING_ADAPTER",
+      "importjob_quarantine_upload": "NOT_IMPLEMENTED",
+      "billing_private_artifact": "PASS",
+      "billing_private_artifact_storage": "PASS",
+      "billing_private_artifact_integrity": "PASS",
+      "billing_private_artifact_on_issue": "PASS",
+      "billing_private_artifact_revocation": "PASS",
+      "document_finalize": "PASS",
+      "document_proxy_download": "PASS",
+      "document_content_revocation": "PASS",
+      "document_content_expiry": "PASS",
+      "document_content_transport": "PASS",
+      "document_content_scan": "NOT_IMPLEMENTED",
+      "document_content_verified_sha256": "NOT_IMPLEMENTED",
+      "cross_tenant": "PASS",
+      "revocation": "PASS",
+      "checks": 1298,
+      "manager": "NOT_CANONICAL",
+      "signed_access": "NOT_IMPLEMENTED",
+      "auth_email_production": "NOT_TESTED",
+      "mfa_production": "NOT_TESTED",
+      "scoped_service_principal": "NOT_IMPLEMENTED",
+      "remote_staging": "NOT_TESTED",
+      "teardown": "PASS",
+      "run_id": 37361774116,
+      "tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
+      "tested_checkout": "8f14da513a5c122e2de3542d19ecdbe6ba32e21b",
+      "tested_tree": "9442df0abfb48e48fbecb0c0d46f6146f6a28229",
+      "source_tree_matches_head": true,
+      "status": "PASS",
+      "browser_private_values": "PASS",
+      "operations_total": 129,
+      "operations_individually_proven": 129,
+      "writes": 91,
+      "reads": 38
     },
     "quality": {
-      "tests": 212,
+      "tests": 243,
       "lint": "PASS",
       "types": "PASS",
       "build": "PASS",
-      "audit": "BLOCKED_Issue29",
-      "scope": "exact_f574b0c_individual_operation_acceptance",
-      "tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02",
-      "run_id": 37315670864,
-      "overall_ci": "FAIL",
+      "audit": "BLOCKED_Issue29_5_HIGH",
+      "overall_ci": "FAIL_AUDIT_ONLY",
+      "tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
+      "run_id": 37361774252,
       "critical_playwright": "SKIPPED",
       "dependency_review": "SKIPPED"
     },
@@ -138,7 +508,36 @@
       "browser_private_values": "PASS",
       "teardown": "PASS"
     },
-    "team_origin_candidate_fixture": "scripts/security/supabase-local/team-origin-acceptance.mjs"
+    "team_origin": {
+      "tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
+      "run_id": 37361774116,
+      "status": "PASS",
+      "individually_observed": 3
+    },
+    "document_integrity_cleanup": {
+      "tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
+      "run_id": 37361774116,
+      "status": "PASS",
+      "individually_observed": 4,
+      "all_six_targets": "PASS",
+      "service_target_integrity_cleanup": "PASS",
+      "scanner": "UNAVAILABLE_NO_CLEAN_CLAIM"
+    },
+    "import_staging": {
+      "tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
+      "run_id": 37361774116,
+      "status": "PASS_DISPOSABLE_ONLY",
+      "normal_processing": "BLOCKED_ENCRYPTED_PROVIDER_SCOPED_WORKER_DOMAIN_APPLY"
+    },
+    "portability": {
+      "tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
+      "run_id": 37361774116,
+      "status": "PASS_LOCAL_CONFIG_AND_SYNTAX",
+      "hosted_staging": "NOT_TESTED",
+      "production": "NOT_TESTED",
+      "auth_mail": "NOT_CONFIGURED",
+      "crm_mail": "NOT_CONFIGURED"
+    }
   },
   "operations": [
     {
@@ -164,7 +563,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_sql_native_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -179,7 +578,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "b5955fb1bb540036802b57e2e0644be221c8801c"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "task.update",
@@ -204,7 +603,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_sql_native_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -219,7 +618,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "b5955fb1bb540036802b57e2e0644be221c8801c"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "task.start",
@@ -244,7 +643,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -259,7 +658,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "task.complete",
@@ -284,7 +683,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -299,7 +698,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "task.reopen",
@@ -324,7 +723,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -339,7 +738,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "task.cancel",
@@ -364,7 +763,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -379,7 +778,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "meeting.create",
@@ -404,7 +803,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_sql_native_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -419,7 +818,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "b5955fb1bb540036802b57e2e0644be221c8801c"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "meeting.update",
@@ -444,7 +843,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_sql_native_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -459,7 +858,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "b5955fb1bb540036802b57e2e0644be221c8801c"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "meeting.reschedule",
@@ -484,7 +883,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -499,7 +898,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "meeting.complete",
@@ -524,7 +923,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -539,7 +938,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "meeting.cancel",
@@ -564,7 +963,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -579,7 +978,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "meeting.no_show",
@@ -604,7 +1003,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -619,7 +1018,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "opportunity.create",
@@ -644,7 +1043,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_sql_native_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -659,7 +1058,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "b5955fb1bb540036802b57e2e0644be221c8801c"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "opportunity.update",
@@ -684,7 +1083,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_sql_native_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -699,7 +1098,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "b5955fb1bb540036802b57e2e0644be221c8801c"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "opportunity.change_stage",
@@ -724,7 +1123,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -739,7 +1138,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "opportunity.assign",
@@ -764,7 +1163,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -779,7 +1178,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "opportunity.win",
@@ -804,7 +1203,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_sql_native_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -819,7 +1218,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "b5955fb1bb540036802b57e2e0644be221c8801c"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "opportunity.lose",
@@ -844,7 +1243,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -859,7 +1258,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "opportunity.reopen",
@@ -884,7 +1283,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -899,7 +1298,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "opportunity.archive",
@@ -924,7 +1323,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -939,7 +1338,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "customer.create",
@@ -964,7 +1363,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_sql_native_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -979,7 +1378,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "b5955fb1bb540036802b57e2e0644be221c8801c"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "customer.update",
@@ -1004,7 +1403,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -1019,7 +1418,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "customer.archive",
@@ -1044,7 +1443,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -1059,7 +1458,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "customer.restore",
@@ -1084,7 +1483,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -1099,7 +1498,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "contact.create",
@@ -1124,7 +1523,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_sql_native_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -1139,7 +1538,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "b5955fb1bb540036802b57e2e0644be221c8801c"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "contact.update",
@@ -1164,7 +1563,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -1179,7 +1578,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "contact.archive",
@@ -1204,7 +1603,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -1219,7 +1618,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "contact.restore",
@@ -1244,7 +1643,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -1259,7 +1658,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "customer.editor",
@@ -1282,7 +1681,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -1297,7 +1696,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "safe_read_candidate_not_registered",
-      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "contact.editors",
@@ -1320,7 +1719,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_sql_native_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -1335,7 +1734,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "safe_read_candidate_not_registered",
-      "supabase_tested_head": "b5955fb1bb540036802b57e2e0644be221c8801c"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "calendar.list",
@@ -1359,7 +1758,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_sql_native_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -1374,7 +1773,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "safe_read_candidate_not_registered",
-      "supabase_tested_head": "b5955fb1bb540036802b57e2e0644be221c8801c"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "work.get",
@@ -1398,7 +1797,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -1413,7 +1812,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "safe_read_candidate_not_registered",
-      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "opportunity.stages",
@@ -1437,7 +1836,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -1452,7 +1851,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "safe_read_candidate_not_registered",
-      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "dashboard.get",
@@ -1487,7 +1886,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_sql_native_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -1502,7 +1901,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "safe_read_candidate_not_registered",
-      "supabase_tested_head": "b5955fb1bb540036802b57e2e0644be221c8801c"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "global.search",
@@ -1526,7 +1925,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_sql_native_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -1541,7 +1940,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "safe_read_candidate_not_registered",
-      "supabase_tested_head": "b5955fb1bb540036802b57e2e0644be221c8801c",
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
       "supabase_core_tested_head": "db056e67111b7719e7072c2279b3c7459ef68a54",
       "item_roles": {
         "invoice": [
@@ -1571,7 +1970,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_sql_native_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -1586,7 +1985,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "b5955fb1bb540036802b57e2e0644be221c8801c"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "customer_fiscal.set",
@@ -1609,7 +2008,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_sql_native_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -1624,7 +2023,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "b5955fb1bb540036802b57e2e0644be221c8801c"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "invoice.create_draft",
@@ -1647,7 +2046,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_sql_native_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -1662,7 +2061,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "b5955fb1bb540036802b57e2e0644be221c8801c"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "invoice.update_draft",
@@ -1685,7 +2084,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -1700,7 +2099,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "invoice.issue",
@@ -1723,7 +2122,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_sql_native_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -1738,7 +2137,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "b5955fb1bb540036802b57e2e0644be221c8801c"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "invoice.mark_paid",
@@ -1761,7 +2160,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_sql_native_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -1776,7 +2175,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "b5955fb1bb540036802b57e2e0644be221c8801c"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "invoice.reverse_payment",
@@ -1799,7 +2198,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -1814,7 +2213,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "invoice.trash",
@@ -1837,7 +2236,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -1852,7 +2251,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "invoice.restore",
@@ -1875,7 +2274,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -1890,7 +2289,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "invoice.get",
@@ -1913,7 +2312,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_sql_native_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -1928,7 +2327,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "protected_read_requires_fiscal_capability_not_registered",
-      "supabase_tested_head": "b5955fb1bb540036802b57e2e0644be221c8801c"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "invoice.summary",
@@ -1951,7 +2350,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -1966,7 +2365,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "protected_read_requires_fiscal_capability_not_registered",
-      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "invoice.list",
@@ -1989,7 +2388,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -2004,7 +2403,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "protected_read_requires_fiscal_capability_not_registered",
-      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "invoice.financial_summary",
@@ -2027,7 +2426,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_sql_native_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -2042,7 +2441,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "protected_read_requires_fiscal_capability_not_registered",
-      "supabase_tested_head": "b5955fb1bb540036802b57e2e0644be221c8801c"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "configuration.get",
@@ -2065,7 +2464,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -2080,7 +2479,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "protected_read_requires_fiscal_capability_not_registered",
-      "supabase_tested_head": "f574b0c55951e6e357e4e91059fcfe64b1410b02"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "invoice.pdf",
@@ -2103,7 +2502,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_authorized_server_renderer_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -2118,7 +2517,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "protected_read_requires_fiscal_capability_not_registered",
-      "supabase_tested_head": "b5955fb1bb540036802b57e2e0644be221c8801c",
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
       "storage_status": "private_object_and_opaque_reference_pending"
     },
     {
@@ -2142,7 +2541,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_normalized_validation_only",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -2157,7 +2556,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "protected_read_requires_fiscal_capability_not_registered",
-      "supabase_tested_head": "b5955fb1bb540036802b57e2e0644be221c8801c"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "member.invite_intent",
@@ -2181,7 +2580,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_protected_internal_sql_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -2196,7 +2595,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "b5955fb1bb540036802b57e2e0644be221c8801c",
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
       "review_pending": [
         "W4",
         "W2"
@@ -2224,7 +2623,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_protected_internal_sql_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -2239,7 +2638,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "b5955fb1bb540036802b57e2e0644be221c8801c",
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
       "review_pending": [
         "W4",
         "W2"
@@ -2267,7 +2666,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_protected_internal_sql_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -2282,7 +2681,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "b5955fb1bb540036802b57e2e0644be221c8801c",
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
       "review_pending": [
         "W4",
         "W2"
@@ -2310,7 +2709,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_protected_internal_sql_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -2325,7 +2724,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "b5955fb1bb540036802b57e2e0644be221c8801c",
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
       "review_pending": [
         "W4",
         "W2"
@@ -2353,7 +2752,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_protected_internal_sql_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -2368,7 +2767,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "b5955fb1bb540036802b57e2e0644be221c8801c",
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
       "review_pending": [
         "W4",
         "W2"
@@ -2396,7 +2795,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_protected_internal_sql_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -2411,7 +2810,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "b5955fb1bb540036802b57e2e0644be221c8801c",
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
       "review_pending": [
         "W4",
         "W2"
@@ -2439,7 +2838,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_protected_internal_sql_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -2454,7 +2853,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "b5955fb1bb540036802b57e2e0644be221c8801c",
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
       "review_pending": [
         "W4",
         "W2"
@@ -2483,7 +2882,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_provenance_sql_embedded_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -2498,7 +2897,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "b5955fb1bb540036802b57e2e0644be221c8801c"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "contract.update_allowed_metadata",
@@ -2523,7 +2922,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_provenance_sql_embedded_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -2538,7 +2937,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "b5955fb1bb540036802b57e2e0644be221c8801c"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "contract.activate",
@@ -2563,7 +2962,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_provenance_sql_embedded_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -2578,7 +2977,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "b5955fb1bb540036802b57e2e0644be221c8801c",
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
       "review_pending": [
         "W4",
         "W2",
@@ -2608,7 +3007,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_provenance_sql_embedded_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -2623,7 +3022,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "b5955fb1bb540036802b57e2e0644be221c8801c",
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
       "review_pending": [
         "W4",
         "W2",
@@ -2653,7 +3052,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_provenance_sql_embedded_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -2668,7 +3067,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "b5955fb1bb540036802b57e2e0644be221c8801c",
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
       "review_pending": [
         "W4",
         "W2",
@@ -2698,7 +3097,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_provenance_sql_embedded_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -2713,7 +3112,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "b5955fb1bb540036802b57e2e0644be221c8801c"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "service.transition",
@@ -2738,7 +3137,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_provenance_sql_embedded_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -2753,7 +3152,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "b5955fb1bb540036802b57e2e0644be221c8801c",
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
       "review_pending": [
         "W4",
         "W2",
@@ -2783,7 +3182,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_provenance_sql_embedded_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -2798,7 +3197,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "b5955fb1bb540036802b57e2e0644be221c8801c",
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
       "review_pending": [
         "W4",
         "W2",
@@ -2828,7 +3227,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_provenance_sql_embedded_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -2843,7 +3242,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "b5955fb1bb540036802b57e2e0644be221c8801c"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "line.transition",
@@ -2868,7 +3267,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_provenance_sql_embedded_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -2883,7 +3282,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "b5955fb1bb540036802b57e2e0644be221c8801c",
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
       "review_pending": [
         "W4",
         "W2",
@@ -2914,7 +3313,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_provenance_sql_embedded_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -2933,7 +3332,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "b5955fb1bb540036802b57e2e0644be221c8801c",
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
       "supabase_core_tested_head": "497a5587429e77c67c2feceb71c1a2d1e259bf57"
     },
     {
@@ -2959,7 +3358,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_manual_deadline_sql_embedded_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -2974,7 +3373,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "b5955fb1bb540036802b57e2e0644be221c8801c",
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
       "review_pending": [
         "W4",
         "W2",
@@ -3004,7 +3403,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_manual_deadline_sql_embedded_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -3019,7 +3418,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "b5955fb1bb540036802b57e2e0644be221c8801c"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "renewal.resolve",
@@ -3044,7 +3443,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_manual_deadline_sql_embedded_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -3059,7 +3458,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "b5955fb1bb540036802b57e2e0644be221c8801c"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "renewal.dismiss",
@@ -3084,7 +3483,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_manual_deadline_sql_embedded_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -3099,7 +3498,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "b5955fb1bb540036802b57e2e0644be221c8801c"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "permanence.create_manual",
@@ -3124,7 +3523,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_manual_deadline_sql_embedded_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -3139,7 +3538,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "b5955fb1bb540036802b57e2e0644be221c8801c",
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
       "review_pending": [
         "W4",
         "W2",
@@ -3169,7 +3568,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_manual_deadline_sql_embedded_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -3184,7 +3583,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "b5955fb1bb540036802b57e2e0644be221c8801c"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "permanence.cancel",
@@ -3209,7 +3608,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_manual_deadline_sql_embedded_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -3224,7 +3623,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "b5955fb1bb540036802b57e2e0644be221c8801c"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "document.archive",
@@ -3248,7 +3647,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_protected_metadata_sql_embedded_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -3267,7 +3666,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "b5955fb1bb540036802b57e2e0644be221c8801c"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "document.restore",
@@ -3291,7 +3690,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_protected_metadata_sql_embedded_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -3310,7 +3709,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "b5955fb1bb540036802b57e2e0644be221c8801c"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "document.list",
@@ -3334,7 +3733,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_protected_metadata_sql_embedded_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -3353,7 +3752,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "b5955fb1bb540036802b57e2e0644be221c8801c"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "document.get_metadata",
@@ -3377,7 +3776,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_protected_metadata_sql_embedded_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -3396,7 +3795,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "b5955fb1bb540036802b57e2e0644be221c8801c"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "document.request_upload",
@@ -3420,7 +3819,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -3440,7 +3839,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "eff802274f20d3612f1a36ca6335f99ca38f8c2c"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "document.finalize_upload",
@@ -3464,7 +3863,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -3484,7 +3883,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "eff802274f20d3612f1a36ca6335f99ca38f8c2c"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "document.request_download",
@@ -3508,7 +3907,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -3528,7 +3927,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "eff802274f20d3612f1a36ca6335f99ca38f8c2c"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "document.download",
@@ -3552,7 +3951,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -3572,7 +3971,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "eff802274f20d3612f1a36ca6335f99ca38f8c2c"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "invoice.persist_private_pdf",
@@ -3596,7 +3995,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -3616,7 +4015,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "78dd6402ead3b5035b09d2bb221b020dcbb0e922"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "invoice.private_pdf_reference",
@@ -3640,7 +4039,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -3660,7 +4059,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "78dd6402ead3b5035b09d2bb221b020dcbb0e922"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "invoice.private_pdf",
@@ -3684,7 +4083,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -3704,7 +4103,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "78dd6402ead3b5035b09d2bb221b020dcbb0e922"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "importjob.cancel",
@@ -3728,7 +4127,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -3747,7 +4146,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "fa779e106096d332669a437e458b9c962d6a8798"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "importjob.get",
@@ -3771,7 +4170,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -3790,7 +4189,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "fa779e106096d332669a437e458b9c962d6a8798"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "importjob.list",
@@ -3814,7 +4213,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -3833,7 +4232,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "fa779e106096d332669a437e458b9c962d6a8798"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "conversation.create_internal",
@@ -3858,7 +4257,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -3877,7 +4276,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "950d07eacab3323e14c9eb8671b7663d669bfc03"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "message.add_internal_note",
@@ -3902,7 +4301,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -3921,7 +4320,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "950d07eacab3323e14c9eb8671b7663d669bfc03"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "conversation.assign",
@@ -3945,7 +4344,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -3964,7 +4363,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "950d07eacab3323e14c9eb8671b7663d669bfc03"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "conversation.link_customer",
@@ -3988,7 +4387,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -4007,7 +4406,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "950d07eacab3323e14c9eb8671b7663d669bfc03"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "conversation.close",
@@ -4032,7 +4431,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -4051,7 +4450,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "950d07eacab3323e14c9eb8671b7663d669bfc03"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "conversation.reopen",
@@ -4076,7 +4475,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -4095,7 +4494,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "950d07eacab3323e14c9eb8671b7663d669bfc03"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "conversation.archive",
@@ -4120,7 +4519,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -4139,7 +4538,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "950d07eacab3323e14c9eb8671b7663d669bfc03"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "conversation.restore",
@@ -4164,7 +4563,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -4183,7 +4582,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "950d07eacab3323e14c9eb8671b7663d669bfc03"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "conversation.mark_read",
@@ -4208,7 +4607,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -4227,7 +4626,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "950d07eacab3323e14c9eb8671b7663d669bfc03"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "conversation.mark_unread",
@@ -4252,7 +4651,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -4271,7 +4670,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "950d07eacab3323e14c9eb8671b7663d669bfc03"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "inbox.list",
@@ -4296,7 +4695,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -4315,7 +4714,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "950d07eacab3323e14c9eb8671b7663d669bfc03"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "inbox.get_thread",
@@ -4340,7 +4739,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -4359,7 +4758,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "950d07eacab3323e14c9eb8671b7663d669bfc03"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "inbox.unread_summary",
@@ -4384,7 +4783,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -4403,7 +4802,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "950d07eacab3323e14c9eb8671b7663d669bfc03"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "notification.refresh",
@@ -4428,7 +4827,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -4447,7 +4846,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "e9f6217b28411ca562f47a0a16551bec6d4558cd"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "notification.mark_read",
@@ -4472,7 +4871,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -4491,7 +4890,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "e9f6217b28411ca562f47a0a16551bec6d4558cd"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "notification.mark_all_read",
@@ -4516,7 +4915,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -4535,7 +4934,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "e9f6217b28411ca562f47a0a16551bec6d4558cd"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "notification.list",
@@ -4560,7 +4959,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -4579,7 +4978,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "e9f6217b28411ca562f47a0a16551bec6d4558cd"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "notification.unread_count",
@@ -4604,7 +5003,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -4623,7 +5022,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "e9f6217b28411ca562f47a0a16551bec6d4558cd"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "automation.create",
@@ -4647,7 +5046,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -4666,7 +5065,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "be6abbb15d6b3544a2d417b064630bfd029196f0"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "automation.update",
@@ -4690,7 +5089,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -4709,7 +5108,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "be6abbb15d6b3544a2d417b064630bfd029196f0"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "automation.enable",
@@ -4733,7 +5132,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -4752,7 +5151,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "be6abbb15d6b3544a2d417b064630bfd029196f0"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "automation.disable",
@@ -4776,7 +5175,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -4795,7 +5194,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "be6abbb15d6b3544a2d417b064630bfd029196f0"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "automation.process_pending",
@@ -4819,7 +5218,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -4838,7 +5237,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "be6abbb15d6b3544a2d417b064630bfd029196f0"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "automation.list",
@@ -4862,7 +5261,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -4881,7 +5280,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "be6abbb15d6b3544a2d417b064630bfd029196f0"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "automation.get",
@@ -4905,7 +5304,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -4924,7 +5323,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "be6abbb15d6b3544a2d417b064630bfd029196f0"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "automation.run_history",
@@ -4948,7 +5347,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -4967,7 +5366,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "be6abbb15d6b3544a2d417b064630bfd029196f0"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "settings.profile_update",
@@ -4993,7 +5392,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -5012,7 +5411,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "741eb44906e31bd6e77ed03c8874df2105cc8ec6"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "settings.company_update",
@@ -5036,7 +5435,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -5055,7 +5454,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "741eb44906e31bd6e77ed03c8874df2105cc8ec6"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "settings.profile_get",
@@ -5081,7 +5480,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -5100,7 +5499,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "741eb44906e31bd6e77ed03c8874df2105cc8ec6"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "settings.company_get",
@@ -5126,7 +5525,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -5145,7 +5544,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "741eb44906e31bd6e77ed03c8874df2105cc8ec6"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "settings.integrations",
@@ -5171,7 +5570,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -5190,7 +5589,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "741eb44906e31bd6e77ed03c8874df2105cc8ec6"
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "sensitive.get",
@@ -5215,7 +5614,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_native_and_supabase_tested",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -5234,7 +5633,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "abd38166e85174e134c08e06066fb85a6db8b2aa",
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
       "field_role_matrix": {
         "contact": [
           "owner",
@@ -5269,7 +5668,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_pending_actual_supabase",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -5279,12 +5678,12 @@
         "status": "implemented_default_off",
         "path": "/api/team/v1/commands"
       },
-      "supabase_tested": false,
-      "supabase_status": "PENDING_ACTUAL_SUPABASE",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": null,
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
       "review_pending": [
         "W4",
         "W2"
@@ -5312,7 +5711,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_pending_actual_supabase",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -5322,12 +5721,12 @@
         "status": "implemented_default_off",
         "path": "/api/team/v1/queries"
       },
-      "supabase_tested": false,
-      "supabase_status": "PENDING_ACTUAL_SUPABASE",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": null,
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
       "review_pending": [
         "W4",
         "W2"
@@ -5355,7 +5754,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_pending_actual_supabase",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -5365,12 +5764,12 @@
         "status": "implemented_default_off",
         "path": "/api/provenance/v1"
       },
-      "supabase_tested": false,
-      "supabase_status": "PENDING_ACTUAL_SUPABASE",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": null,
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
       "review_pending": [
         "W4",
         "W2"
@@ -5398,7 +5797,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_pending_actual_supabase",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -5409,8 +5808,8 @@
         "status": "implemented_default_off",
         "path": "/api/document/v1/maintenance"
       },
-      "supabase_tested": false,
-      "supabase_status": "PENDING_ACTUAL_SUPABASE",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
@@ -5418,7 +5817,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": null
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "document.cleanup_claim",
@@ -5442,7 +5841,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_pending_actual_supabase",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -5453,8 +5852,8 @@
         "status": "implemented_default_off",
         "path": "/api/document/v1/maintenance"
       },
-      "supabase_tested": false,
-      "supabase_status": "PENDING_ACTUAL_SUPABASE",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
@@ -5462,7 +5861,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": null
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "document.cleanup_finish",
@@ -5486,7 +5885,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_pending_actual_supabase",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -5497,8 +5896,8 @@
         "status": "implemented_default_off",
         "path": "/api/document/v1/maintenance"
       },
-      "supabase_tested": false,
-      "supabase_status": "PENDING_ACTUAL_SUPABASE",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
@@ -5506,7 +5905,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": null
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
     },
     {
       "name": "document.expired_list",
@@ -5530,7 +5929,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_pending_actual_supabase",
+      "backend_status": "implemented_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -5540,12 +5939,12 @@
         "status": "implemented_default_off",
         "path": "/api/document/v1/maintenance"
       },
-      "supabase_tested": false,
-      "supabase_status": "PENDING_ACTUAL_SUPABASE",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": null,
+      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
       "review_pending": [
         "W4",
         "W2"

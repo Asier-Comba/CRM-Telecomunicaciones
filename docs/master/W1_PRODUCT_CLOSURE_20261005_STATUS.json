@@ -1,128 +1,38 @@
 {
-  "as_of": "2026-10-05",
-  "head_kind": "verified_executable_source",
-  "HEAD": "f574b0c55951e6e357e4e91059fcfe64b1410b02",
-  "PR": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/28",
-  "MIGRATIONS": 44,
-  "PRIVILEGE_FUNCTIONS": 186,
-  "NODE_TESTS": {
-    "count": 212,
-    "status": "PASS",
-    "lint": "PASS",
-    "types": "PASS",
-    "build": "PASS",
-    "native_run_id": 37315670864,
-    "overall_ci": "FAIL_Issue29",
-    "critical_playwright": "SKIPPED",
-    "dependency_review": "SKIPPED"
-  },
-  "SUPABASE_CHECKS": {
-    "count": 801,
-    "status": "PASS",
-    "run_id": 37315671127,
-    "browser_private_values": "PASS",
-    "teardown": "PASS"
-  },
-  "OPERATIONS_TOTAL": {
-    "count": 90,
-    "writes": 67,
-    "reads": 23
-  },
-  "OPERATIONS_INDIVIDUALLY_PROVEN": {
-    "count": 90,
-    "total": 90,
-    "method": "per_operation_exact_source_observation_not_family_inference"
-  },
-  "UI_SAFE": false,
-  "DOCUMENTS": {
-    "state": "PROVEN_CANDIDATE",
-    "storage": "private_pending_upload_finalize_authorized_proxy",
-    "roles": [
-      "owner",
-      "admin"
-    ],
-    "limits": [
-      "no_scanner",
-      "no_certified_payload_hash",
-      "no_signed_URL_minting",
-      "no_orphan_cleanup"
-    ]
-  },
-  "PRIVATE_PDF": {
-    "state": "PROVEN_CANDIDATE",
-    "on_issue": "optional_after_fiscal_commit_pending_job_on_failure",
-    "frozen_renderer": "billing.snapshot.pdf.v1",
-    "verification": "normal_download_length_and_SHA256_against_regenerated_frozen_bytes",
-    "reference": "stored_candidate_verification_required",
-    "limits": [
-      "no_background_worker",
-      "unlinked_object_cleanup_unimplemented"
-    ]
-  },
-  "IMPORTS": {
-    "management": "PROVEN_CANDIDATE_get_list_cancel",
-    "processing": "BLOCKED_ENCRYPTED_STAGING_ADAPTER",
-    "quarantine_upload": "NOT_IMPLEMENTED",
-    "begin_validate_apply_resume": "NOT_REGISTERED",
-    "plaintext_fallback": false
-  },
-  "INBOX": {
-    "state": "UNPUBLISHED_DRAFT",
-    "embedded_fixture": "LOCAL_PASS_204_FUNCTIONS_PREPARATORY",
-    "runtime_http": "NOT_FINISHED_environment_offline",
-    "counted_operations": 0
-  },
-  "AUTOMATIONS": "NOT_IMPLEMENTED",
-  "NOTIFICATIONS": "NOT_IMPLEMENTED",
-  "SETTINGS": "NOT_IMPLEMENTED_beyond_existing_configuration_and_fiscal_issuer",
-  "SENSITIVE_REVEAL": "NOT_IMPLEMENTED_requested_field_audited_capability",
-  "TEAM": {
-    "internal_management": "PROVEN_CANDIDATE",
-    "email_send": "NOT_IMPLEMENTED",
-    "invite_expiry": "NOT_IMPLEMENTED"
-  },
-  "PROVENANCE": {
-    "declared_source": "PRESERVED",
-    "legacy_manual_origin": "NOT_CERTIFIED",
-    "verified_new_manual_origin": "NOT_IMPLEMENTED",
-    "deadline_supersede": "NOT_IMPLEMENTED_existing_cancel_resolve_plus_new_record_preserves_history"
-  },
-  "W2_HANDOFFS": {
-    "pr": 30,
-    "live_head": "81fd8864964a760570870640e06a947480f34a04",
-    "comments": [
-      5994185052,
-      5994613403,
-      5994873383,
-      5995251464
-    ],
-    "readiness": "YES_only_proven_modules_candidate",
-    "consumer_parity": "historical_status_file_retained_no_frontend_edits"
-  },
-  "W3_HANDOFF": {
-    "file": "docs/master/W1_TO_W3_AI_CAPABILITIES.md",
-    "human_write_candidates": 67,
-    "assistant_registered": false,
-    "Issue10": "OPEN"
-  },
-  "ISSUE29": {
-    "state": "OPEN_full_npm_audit_blocks_CI",
-    "observed_high_vulnerabilities": 5,
-    "upstream_checked_once": true,
-    "suppression": false,
-    "downgrade": false
-  },
-  "ISSUE10": "OPEN_durable_confirmation_execution_owned_by_W3",
-  "EXECUTION_BLOCK": {
-    "code": "environment_offline",
-    "message": "Environment is not connected",
-    "local_workspace": "/workspace/scratch/79c9011f47a9/w1-closure",
-    "inbox_source_published": false,
-    "github_and_CI_continued": true
-  },
+  "HEAD": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
+  "PR": "Draft #28; w1/product-backend-v1; no merge/deploy",
+  "MIGRATIONS": 53,
+  "PRIVILEGE_FUNCTIONS": 247,
+  "NODE_TESTS": 243,
+  "SUPABASE_CHECKS": 1298,
+  "OPERATIONS_TOTAL": 129,
+  "OPERATIONS_PROVEN": 129,
+  "INBOX": "13 internal private operations; manual_internal only; no providers/send",
+  "AUTOMATIONS": "8 operations; future customer.created event; actual internal task.create/notification.create effects; registered actions only",
+  "NOTIFICATIONS": "5 self-center operations; bounded overdue refresh, dedupe and mark-read; preference respected",
+  "SETTINGS": "5 operations; own nonsecurity profile/preferences, distinct business profile/private logo and truthful 7 integration classes",
+  "SENSITIVE_REVEAL": "One requested-field read; contact email/phone owner/admin/member, fiscal ID owner/admin; atomic value-free audit; no generic AI",
+  "IMPORTS": "Encrypted disposable staging and safe bounded CSV proved; no normal validate/apply/resume; production encrypted provider/scoped worker/domain apply missing; XLSX blocked",
+  "DOCUMENT_HASH": "Server-observed bytes + private signed witness + immutable SHA256; normal download rejects same-size corruption",
+  "SCANNER": "Provider-neutral interface only; disposable synthetic reject fixture; production scanner unavailable, required mode fails closed; no clean claim",
+  "CLEANUP": "Exact leased object for pending intent expired ≥24h only; active/unlinked PDF artifacts retained",
+  "TEAM_EXPIRY": "Invite 7-day expiry/list/reissue CAS and replay; owner protections; no mail/Auth grant",
+  "PROVENANCE": "New canonical audit-linked manual proof for 8 entity kinds; no legacy backfill; child owns its own proof",
+  "REPORTS": "Existing bounded dashboard/search/native-currency billing aggregates; advanced historical analytics unavailable",
+  "PORTABILITY": "Value-free 34-name environment manifest, validation CLI; canonical rebuild/native synthetic restore and pinned real local checks; hosted staging/production untested",
+  "EMAIL_READINESS": "Auth SMTP and CRM delivery separate; both not configured; credentials/flags do not prove domain or delivery",
+  "W2_HANDOFF": "docs/master/W1_TO_W2_COMPLETION_20261005.md; service-target backend fix; 129 contracts ui_safe:false pending W2/W4",
+  "W3_HANDOFF": "docs/master/W1_TO_W3_AI_CAPABILITIES.md; 91 human writes +38 reads; future durable Issue10 confirmation; no registration",
+  "ISSUE29": "Still open; 5 high dependency findings, no known patched upstream in one requested check; no suppression/downgrade",
+  "ISSUE10": "Still open, W3-owned durable confirmation/dispatch/replay/recovery",
+  "TOP_REMAINING": [
+    "Production imports: encrypted staging/scoped worker/canonical import-source adapters",
+    "Real scanner, hosted staging/production readiness and separate verified mail/providers",
+    "W2/W4 UI review, Issue10 and Issue29; advanced reports; active PDF reachability cleanup"
+  ],
   "NEXT_3": [
-    "Restore execution and inspect/preserve unpublished Inbox work before canonical refresh; finish13 operations and real per-operation proof.",
-    "Implement registered internal automations and self notification center with deterministic source dedupe.",
-    "Complete nonsecurity settings/private logo/provider-status seams, requested-field audited sensitive reveal, invite expiry and verified NEW manual origins."
+    "W2/W4 consume exact accepted W1 contracts and verify UI/roles/revocation/document six-target flows",
+    "Implement production encrypted import provider + scoped worker and canonical apply/recovery in a separately authorized lane",
+    "W3 finish durable Issue10 protocol; resolve upstream Issue29 before production readiness"
   ]
 }

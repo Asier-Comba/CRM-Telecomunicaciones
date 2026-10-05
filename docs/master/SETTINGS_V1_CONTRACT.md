@@ -1,5 +1,8 @@
 # Product settings v1
 
+Current acceptance: c2a7390867d941a33b17509b3f4014f8356bb0c1, real run37361774116 (1,298 checks), native/quality37361774252 (53 migrations/247 privilege entries/243 Node tests). [Authoritative closure](W1_PRODUCT_CLOSURE_20261005.md) records the limits. Human backend only; UI_SAFE=false pending W2/W4.
+
+
 POST /api/settings/v1, default-off PRODUCT_V1_ENABLED / exact PRODUCT_V1_ORIGIN, current SSR membership on reads/replay. No browser actor/workspace/role/security fields. UI_SAFE=false.
 
 settings.profile_get {} returns own product display preferences and version0 initially: display_name nullable1..100, timezone validated IANA/UTC, locale es-ES/en-GB/en-US, notification_preferences:{in_app:boolean}. settings.profile_update {command_id,expected_version,profile} replaces these fields with CAS, HMAC replay and atomic value-free audit. owner/admin/member/viewer can update only their own preferences. These are product display preferences, independent of Auth/security identity and credentials. No password/email security operation. Server-selected active workspace authorizes the call; preference belongs to actual user, never browser-selected recipient.
