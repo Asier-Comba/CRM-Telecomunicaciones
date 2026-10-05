@@ -5801,8 +5801,8 @@
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
-        "enable_flag": "PRODUCT_V1_ENABLED_and_PRODUCT_DOCUMENT_MAINTENANCE_ENABLED",
-        "additional_enable_flag": "PRODUCT_DOCUMENT_CONTENT_ENABLED",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "additional_enable_flag": "PRODUCT_DOCUMENT_MAINTENANCE_ENABLED",
         "origin_flag": "PRODUCT_V1_ORIGIN",
         "authority": "server_cookie_getUser_active_membership",
         "status": "implemented_default_off",
@@ -5845,8 +5845,8 @@
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
-        "enable_flag": "PRODUCT_V1_ENABLED_and_PRODUCT_DOCUMENT_MAINTENANCE_ENABLED",
-        "additional_enable_flag": "PRODUCT_DOCUMENT_CONTENT_ENABLED",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "additional_enable_flag": "PRODUCT_DOCUMENT_MAINTENANCE_ENABLED",
         "origin_flag": "PRODUCT_V1_ORIGIN",
         "authority": "server_cookie_getUser_active_membership",
         "status": "implemented_default_off",
@@ -5889,8 +5889,8 @@
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
-        "enable_flag": "PRODUCT_V1_ENABLED_and_PRODUCT_DOCUMENT_MAINTENANCE_ENABLED",
-        "additional_enable_flag": "PRODUCT_DOCUMENT_CONTENT_ENABLED",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "additional_enable_flag": "PRODUCT_DOCUMENT_MAINTENANCE_ENABLED",
         "origin_flag": "PRODUCT_V1_ORIGIN",
         "authority": "server_cookie_getUser_active_membership",
         "status": "implemented_default_off",
@@ -5933,11 +5933,12 @@
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
-        "enable_flag": "PRODUCT_V1_ENABLED_and_PRODUCT_DOCUMENT_MAINTENANCE_ENABLED",
+        "enable_flag": "PRODUCT_V1_ENABLED",
         "origin_flag": "PRODUCT_V1_ORIGIN",
         "authority": "server_cookie_getUser_active_membership",
         "status": "implemented_default_off",
-        "path": "/api/document/v1/maintenance"
+        "path": "/api/document/v1/maintenance",
+        "additional_enable_flag": "PRODUCT_DOCUMENT_MAINTENANCE_ENABLED"
       },
       "supabase_tested": true,
       "supabase_status": "PASS_AT_RECORDED_HEAD",

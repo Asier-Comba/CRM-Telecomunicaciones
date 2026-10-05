@@ -17,6 +17,7 @@ import {BILLING_QUERY_RPC_V1} from '../../src/lib/server/billing-query-runtime-v
 import {PRODUCT_RPC_V1} from '../../src/lib/server/product-runtime-v1.ts'
 const read=p=>readFileSync(new URL('../../'+p,import.meta.url),'utf8')
 const catalog=JSON.parse(read('docs/master/contracts/product-capabilities.json'))
+const environmentNames=new Set(JSON.parse(read('docs/master/contracts/product-environment.json')).entries.map(e=>e.name))
 test('capability catalog covers registered product transport and explicit RPC privileges',()=>{
  const writes=catalog.operations.filter(o=>o.kind==='write'&&o.version==='product.v1')
  assert.deepEqual(writes.map(o=>o.name).sort(),Object.keys(PRODUCT_RPC_V1).sort())
@@ -46,6 +47,7 @@ test('capability catalog covers registered product transport and explicit RPC pr
   assert.equal(privilege.authenticated,true);assert.equal(privilege.anon,false)
   assert.equal(privilege.public,false);assert.equal(privilege.service_role,false)
   assert.equal(operation.transport.enabled_by_default,false)
+  for(const flag of [operation.transport.enable_flag,operation.transport.additional_enable_flag,operation.transport.origin_flag].filter(Boolean))assert.ok(environmentNames.has(flag),'undeclared transport environment flag: '+flag)
   assert.ok(operation.input_type);assert.ok(operation.output_type)
   if(operation.kind==='write'){
    assert.equal(operation.rpc,(['document.integrity.v1','document.cleanup.v1'].includes(operation.version)?DOCUMENT_MAINTENANCE_RPC_V1:operation.version==='settings.v1'?SETTINGS_RPC_V1:operation.version==='automations.v1'?AUTOMATIONS_RPC_V1:operation.version==='notifications.v1'?NOTIFICATIONS_RPC_V1:operation.version==='inbox.v1'?INBOX_RPC_V1:operation.version==='importjob.v1'?IMPORTJOB_RPC_V1:operation.version==='billing.artifact.v1'?BILLING_ARTIFACT_RPC_V1:operation.version==='billing.v1'?BILLING_RPC_V1:operation.version==='team.v1'?TEAM_RPC_V1:operation.version==='portfolio.v1'?PORTFOLIO_RPC_V1:operation.version==='document.v1'?DOCUMENT_RPC_V1:operation.version==='document.content.v1'?DOCUMENT_CONTENT_RPC_V1:PRODUCT_RPC_V1)[operation.name])
