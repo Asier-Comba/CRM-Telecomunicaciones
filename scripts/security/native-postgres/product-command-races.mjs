@@ -142,6 +142,21 @@ try {
   assert.equal(edits.filter(r=>r.code!==0&&/40001/.test(r.err)).length,19,`${family} portfolio CAS conflicts`)
   assert.equal(await sql(`select count(*)from public.product_audit_events where entity_id='${receipt.id}'`),'2')
  }
+ // Protected identifiers: independent psql processes, same-key receipts and distinct-key uniqueness.
+ const protectedLine=JSON.parse(await sql(portfolio('line.create_manual',{command_id:randomUUID(),service_id:service,display_name:'Native Synthetic Protected Line'})))
+ const ident=(op,input)=>`begin;set local role authenticated;set local request.jwt.claim.sub='${actor}';select public.identifier_v1_command('${workspace}','${op}','${JSON.stringify(input)}'::jsonb);commit;`
+ const protectedInput={command_id:randomUUID(),entity_kind:'line',entity_id:protectedLine.id,identifier_kind:'msisdn',canonical_value:'+12025550123'},protectedSQL=ident('identifier.create_manual',protectedInput)
+ const protectedReplays=await Promise.all(Array.from({length:20},()=>docker(args,protectedSQL)))
+ assert.ok(protectedReplays.every(r=>r.code===0),'identifier create replay race')
+ const protectedReceipt=JSON.parse(protectedReplays[0].out.trim());for(const r of protectedReplays)assert.deepEqual(JSON.parse(r.out.trim()),protectedReceipt)
+ familyReplays.push(protectedSQL)
+ const identifierEdits=await Promise.all(Array.from({length:20},()=>docker([...args,'--set=VERBOSITY=sqlstate'],ident('identifier.retire',{command_id:randomUUID(),id:protectedReceipt.id,expected_version:1}))))
+ assert.equal(identifierEdits.filter(r=>r.code===0).length,1);assert.equal(identifierEdits.filter(r=>r.code!==0&&/40001/.test(r.err)).length,19)
+ const identifierAssignments=await Promise.all(Array.from({length:20},()=>docker([...args,'--set=VERBOSITY=sqlstate'],ident('identifier.create_manual',{...protectedInput,command_id:randomUUID(),canonical_value:'+12025550124'}))))
+ assert.equal(identifierAssignments.filter(r=>r.code===0).length,1);assert.equal(identifierAssignments.filter(r=>r.code!==0&&/40001/.test(r.err)).length,19)
+ assert.equal(await sql(`select count(*)from public.telecom_identifiers where workspace_id='${workspace}'and line_id='${protectedLine.id}'`),'2')
+ assert.deepEqual(JSON.parse(await sql(protectedSQL)),protectedReceipt)
+ console.log('PROTECTED IDENTIFIER NATIVE RACES PASS:20 identical create receipts/20 retire CAS one winner/20 distinct assignments one winner/history retained/revoked replay below')
  // Independent parent closure vs child creation must never both commit.
  for(let i=0;i<5;i++){
   const parent=JSON.parse(await sql(portfolio('contract.create_manual',{command_id:randomUUID(),customer_id:id,operator_id:operator,start_date:'2026-01-01'})))

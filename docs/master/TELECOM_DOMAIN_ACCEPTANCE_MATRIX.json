@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "source_sha": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
-  "stage": "tel5_02_03_collection_catalog_read_candidate",
+  "source_sha": "e09ddf222b22e72150e7c27bf0d1b68f9ae4dd63",
+  "stage": "tel5_protected_identifiers_candidate",
   "exact_head_accepted": true,
   "no_ai_writes": true,
   "rows": [
@@ -10,22 +10,22 @@
       "requirement": "operator.list",
       "REQUIRED": true,
       "IMPLEMENTED": true,
-      "PROVEN": false,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "new_candidate_real_native_and_supabase_evidence_pending",
+      "BLOCKER": "W2_consumption_unproven",
       "existing_operation": null,
-      "notes": "Typed normal cookie route/closed DTO implemented; local Node and embedded behavior tested. Not PROVEN yet."
+      "notes": "Individually observed in real Auth cookie route; exact accepted source e09ddf2; native restore and private boundary PASS."
     },
     {
       "section": "Operators",
       "requirement": "operator.get",
       "REQUIRED": true,
       "IMPLEMENTED": true,
-      "PROVEN": false,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "new_candidate_real_native_and_supabase_evidence_pending",
+      "BLOCKER": "W2_consumption_unproven",
       "existing_operation": null,
-      "notes": "Typed normal cookie route/closed DTO implemented; local Node and embedded behavior tested. Not PROVEN yet."
+      "notes": "Individually observed in real Auth cookie route; exact accepted source e09ddf2; native restore and private boundary PASS."
     },
     {
       "section": "Operators",
@@ -76,22 +76,22 @@
       "requirement": "plan.list",
       "REQUIRED": true,
       "IMPLEMENTED": true,
-      "PROVEN": false,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "new_candidate_real_native_and_supabase_evidence_pending",
+      "BLOCKER": "W2_consumption_unproven",
       "existing_operation": null,
-      "notes": "Typed normal cookie route/closed DTO implemented; local Node and embedded behavior tested. Not PROVEN yet."
+      "notes": "Individually observed in real Auth cookie route; exact accepted source e09ddf2; native restore and private boundary PASS."
     },
     {
       "section": "Plans",
       "requirement": "plan.get",
       "REQUIRED": true,
       "IMPLEMENTED": true,
-      "PROVEN": false,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "new_candidate_real_native_and_supabase_evidence_pending",
+      "BLOCKER": "W2_consumption_unproven",
       "existing_operation": null,
-      "notes": "Typed normal cookie route/closed DTO implemented; local Node and embedded behavior tested. Not PROVEN yet."
+      "notes": "Individually observed in real Auth cookie route; exact accepted source e09ddf2; native restore and private boundary PASS."
     },
     {
       "section": "Plans",
@@ -131,22 +131,22 @@
       "requirement": "plan_version.list",
       "REQUIRED": true,
       "IMPLEMENTED": true,
-      "PROVEN": false,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "new_candidate_real_native_and_supabase_evidence_pending",
+      "BLOCKER": "W2_consumption_unproven",
       "existing_operation": null,
-      "notes": "Typed normal cookie route/closed DTO implemented; local Node and embedded behavior tested. Not PROVEN yet."
+      "notes": "Individually observed in real Auth cookie route; exact accepted source e09ddf2; native restore and private boundary PASS."
     },
     {
       "section": "Plan versions",
       "requirement": "plan_version.get",
       "REQUIRED": true,
       "IMPLEMENTED": true,
-      "PROVEN": false,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "new_candidate_real_native_and_supabase_evidence_pending",
+      "BLOCKER": "W2_consumption_unproven",
       "existing_operation": null,
-      "notes": "Typed normal cookie route/closed DTO implemented; local Node and embedded behavior tested. Not PROVEN yet."
+      "notes": "Individually observed in real Auth cookie route; exact accepted source e09ddf2; native restore and private boundary PASS."
     },
     {
       "section": "Plan versions",
@@ -197,11 +197,11 @@
       "requirement": "contract.list",
       "REQUIRED": true,
       "IMPLEMENTED": true,
-      "PROVEN": false,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "new_candidate_real_native_and_supabase_evidence_pending",
+      "BLOCKER": "W2_consumption_unproven",
       "existing_operation": null,
-      "notes": "Typed normal cookie route/closed DTO implemented; local Node and embedded behavior tested. Not PROVEN yet."
+      "notes": "Individually observed in real Auth cookie route; exact accepted source e09ddf2; native restore and private boundary PASS."
     },
     {
       "section": "Contracts",
@@ -230,11 +230,11 @@
       "requirement": "service.list",
       "REQUIRED": true,
       "IMPLEMENTED": true,
-      "PROVEN": false,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "new_candidate_real_native_and_supabase_evidence_pending",
+      "BLOCKER": "W2_consumption_unproven",
       "existing_operation": null,
-      "notes": "Typed normal cookie route/closed DTO implemented; local Node and embedded behavior tested. Not PROVEN yet."
+      "notes": "Individually observed in real Auth cookie route; exact accepted source e09ddf2; native restore and private boundary PASS."
     },
     {
       "section": "Services",
@@ -274,11 +274,11 @@
       "requirement": "line.list",
       "REQUIRED": true,
       "IMPLEMENTED": true,
-      "PROVEN": false,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "new_candidate_real_native_and_supabase_evidence_pending",
+      "BLOCKER": "W2_consumption_unproven",
       "existing_operation": null,
-      "notes": "Typed normal cookie route/closed DTO implemented; local Node and embedded behavior tested. Not PROVEN yet."
+      "notes": "Individually observed in real Auth cookie route; exact accepted source e09ddf2; native restore and private boundary PASS."
     },
     {
       "section": "Lines",
@@ -315,47 +315,47 @@
     },
     {
       "section": "Identifiers",
-      "requirement": "identifier.assign",
+      "requirement": "identifier.create_manual",
       "REQUIRED": true,
-      "IMPLEMENTED": false,
+      "IMPLEMENTED": true,
       "PROVEN": false,
       "W2_CONSUMED": false,
-      "BLOCKER": "not_implemented_as_requested",
+      "BLOCKER": "new_candidate_real_native_and_supabase_evidence_pending",
       "existing_operation": null,
-      "notes": "Table or a narrower legacy reader does not complete this TEL5 requirement."
+      "notes": "Protected normalized domain, requested-field reveal, CAS/history and value-free audit; exact candidate proof pending."
     },
     {
       "section": "Identifiers",
       "requirement": "identifier.retire",
       "REQUIRED": true,
-      "IMPLEMENTED": false,
+      "IMPLEMENTED": true,
       "PROVEN": false,
       "W2_CONSUMED": false,
-      "BLOCKER": "not_implemented_as_requested",
+      "BLOCKER": "new_candidate_real_native_and_supabase_evidence_pending",
       "existing_operation": null,
-      "notes": "Table or a narrower legacy reader does not complete this TEL5 requirement."
+      "notes": "Protected normalized domain, requested-field reveal, CAS/history and value-free audit; exact candidate proof pending."
     },
     {
       "section": "Identifiers",
-      "requirement": "identifier.list_masked",
+      "requirement": "identifier.list",
       "REQUIRED": true,
-      "IMPLEMENTED": false,
+      "IMPLEMENTED": true,
       "PROVEN": false,
       "W2_CONSUMED": false,
-      "BLOCKER": "not_implemented_as_requested",
+      "BLOCKER": "new_candidate_real_native_and_supabase_evidence_pending",
       "existing_operation": null,
-      "notes": "Table or a narrower legacy reader does not complete this TEL5 requirement."
+      "notes": "Protected normalized domain, requested-field reveal, CAS/history and value-free audit; exact candidate proof pending."
     },
     {
       "section": "Identifiers",
-      "requirement": "identifier.reveal",
+      "requirement": "sensitive.get (telecom_identifier)",
       "REQUIRED": true,
-      "IMPLEMENTED": false,
+      "IMPLEMENTED": true,
       "PROVEN": false,
       "W2_CONSUMED": false,
-      "BLOCKER": "not_implemented_as_requested",
+      "BLOCKER": "new_candidate_real_native_and_supabase_evidence_pending",
       "existing_operation": null,
-      "notes": "Table or a narrower legacy reader does not complete this TEL5 requirement."
+      "notes": "Protected normalized domain, requested-field reveal, CAS/history and value-free audit; exact candidate proof pending."
     },
     {
       "section": "SIM/eSIM",
@@ -472,22 +472,22 @@
       "requirement": "permanence.list",
       "REQUIRED": true,
       "IMPLEMENTED": true,
-      "PROVEN": false,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "new_candidate_real_native_and_supabase_evidence_pending",
+      "BLOCKER": "W2_consumption_unproven",
       "existing_operation": null,
-      "notes": "Typed normal cookie route/closed DTO implemented; local Node and embedded behavior tested. Not PROVEN yet."
+      "notes": "Individually observed in real Auth cookie route; exact accepted source e09ddf2; native restore and private boundary PASS."
     },
     {
       "section": "Permanences",
       "requirement": "permanence.get",
       "REQUIRED": true,
       "IMPLEMENTED": true,
-      "PROVEN": false,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "new_candidate_real_native_and_supabase_evidence_pending",
+      "BLOCKER": "W2_consumption_unproven",
       "existing_operation": null,
-      "notes": "Typed normal cookie route/closed DTO implemented; local Node and embedded behavior tested. Not PROVEN yet."
+      "notes": "Individually observed in real Auth cookie route; exact accepted source e09ddf2; native restore and private boundary PASS."
     },
     {
       "section": "Permanences",
@@ -516,22 +516,22 @@
       "requirement": "renewal.list",
       "REQUIRED": true,
       "IMPLEMENTED": true,
-      "PROVEN": false,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "new_candidate_real_native_and_supabase_evidence_pending",
+      "BLOCKER": "W2_consumption_unproven",
       "existing_operation": null,
-      "notes": "Typed normal cookie route/closed DTO implemented; local Node and embedded behavior tested. Not PROVEN yet."
+      "notes": "Individually observed in real Auth cookie route; exact accepted source e09ddf2; native restore and private boundary PASS."
     },
     {
       "section": "Renewals",
       "requirement": "renewal.get",
       "REQUIRED": true,
       "IMPLEMENTED": true,
-      "PROVEN": false,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "new_candidate_real_native_and_supabase_evidence_pending",
+      "BLOCKER": "W2_consumption_unproven",
       "existing_operation": null,
-      "notes": "Typed normal cookie route/closed DTO implemented; local Node and embedded behavior tested. Not PROVEN yet."
+      "notes": "Individually observed in real Auth cookie route; exact accepted source e09ddf2; native restore and private boundary PASS."
     },
     {
       "section": "Renewals",
@@ -681,55 +681,55 @@
       "requirement": "customer.list",
       "REQUIRED": true,
       "IMPLEMENTED": true,
-      "PROVEN": false,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "new_candidate_real_native_and_supabase_evidence_pending",
+      "BLOCKER": "W2_consumption_unproven",
       "existing_operation": null,
-      "notes": "Typed normal cookie route/closed DTO implemented; local Node and embedded behavior tested. Not PROVEN yet."
+      "notes": "Individually observed in real Auth cookie route; exact accepted source e09ddf2; native restore and private boundary PASS."
     },
     {
       "section": "Collections",
       "requirement": "contact.list",
       "REQUIRED": true,
       "IMPLEMENTED": true,
-      "PROVEN": false,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "new_candidate_real_native_and_supabase_evidence_pending",
+      "BLOCKER": "W2_consumption_unproven",
       "existing_operation": null,
-      "notes": "Typed normal cookie route/closed DTO implemented; local Node and embedded behavior tested. Not PROVEN yet."
+      "notes": "Individually observed in real Auth cookie route; exact accepted source e09ddf2; native restore and private boundary PASS."
     },
     {
       "section": "Collections",
       "requirement": "opportunity.list",
       "REQUIRED": true,
       "IMPLEMENTED": true,
-      "PROVEN": false,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "new_candidate_real_native_and_supabase_evidence_pending",
+      "BLOCKER": "W2_consumption_unproven",
       "existing_operation": null,
-      "notes": "Typed normal cookie route/closed DTO implemented; local Node and embedded behavior tested. Not PROVEN yet."
+      "notes": "Individually observed in real Auth cookie route; exact accepted source e09ddf2; native restore and private boundary PASS."
     },
     {
       "section": "Collections",
       "requirement": "activity.list",
       "REQUIRED": true,
       "IMPLEMENTED": true,
-      "PROVEN": false,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "new_candidate_real_native_and_supabase_evidence_pending",
+      "BLOCKER": "W2_consumption_unproven",
       "existing_operation": null,
-      "notes": "Typed normal cookie route/closed DTO implemented; local Node and embedded behavior tested. Not PROVEN yet."
+      "notes": "Individually observed in real Auth cookie route; exact accepted source e09ddf2; native restore and private boundary PASS."
     },
     {
       "section": "Collections",
       "requirement": "assignee.list",
       "REQUIRED": true,
       "IMPLEMENTED": true,
-      "PROVEN": false,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "new_candidate_real_native_and_supabase_evidence_pending",
+      "BLOCKER": "W2_consumption_unproven",
       "existing_operation": null,
-      "notes": "Typed normal cookie route/closed DTO implemented; local Node and embedded behavior tested. Not PROVEN yet."
+      "notes": "Individually observed in real Auth cookie route; exact accepted source e09ddf2; native restore and private boundary PASS."
     },
     {
       "section": "Customer360",
@@ -950,17 +950,29 @@
       "BLOCKER": "not_implemented_as_requested",
       "existing_operation": null,
       "notes": "Table or a narrower legacy reader does not complete this TEL5 requirement."
+    },
+    {
+      "section": "Identifiers",
+      "requirement": "identifier.get",
+      "REQUIRED": true,
+      "IMPLEMENTED": true,
+      "PROVEN": false,
+      "W2_CONSUMED": false,
+      "BLOCKER": "new_candidate_real_native_and_supabase_evidence_pending",
+      "existing_operation": null,
+      "notes": "Masked bounded entity read; no raw value."
     }
   ],
   "counts": {
-    "REQUIRED": 86,
-    "IMPLEMENTED": 30,
-    "PROVEN": 12,
+    "REQUIRED": 87,
+    "IMPLEMENTED": 35,
+    "PROVEN": 30,
     "W2_CONSUMED": 0,
-    "BLOCKER": 86
+    "BLOCKER": 87
   },
   "official_workflow_fully_green": false,
   "accepted_source_sha": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
   "candidate_operations_total": 18,
-  "candidate_operations_proven": 0
+  "candidate_operations_proven": 0,
+  "candidate_exact_head_accepted": false
 }

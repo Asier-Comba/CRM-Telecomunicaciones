@@ -1,0 +1,59 @@
+{
+  "contract_version": "identifiers.v1",
+  "operations": [
+    {
+      "operation": "identifier.create_manual",
+      "type": "write",
+      "implemented": true,
+      "proven": false,
+      "w2_consumed": false,
+      "ai_registration": false,
+      "ai_write_classification": "FUTURE_AI_ACTION_CANDIDATE"
+    },
+    {
+      "operation": "identifier.retire",
+      "type": "write",
+      "implemented": true,
+      "proven": false,
+      "w2_consumed": false,
+      "ai_registration": false,
+      "ai_write_classification": "FUTURE_AI_ACTION_CANDIDATE"
+    },
+    {
+      "operation": "identifier.list",
+      "type": "read",
+      "implemented": true,
+      "proven": false,
+      "w2_consumed": false,
+      "ai_registration": false,
+      "ai_write_classification": null
+    },
+    {
+      "operation": "identifier.get",
+      "type": "read",
+      "implemented": true,
+      "proven": false,
+      "w2_consumed": false,
+      "ai_registration": false,
+      "ai_write_classification": null
+    }
+  ],
+  "sensitive_reveal": {
+    "operation": "sensitive.get",
+    "entity_kind": "telecom_identifier",
+    "fields": [
+      "canonical_value"
+    ],
+    "roles": [
+      "owner",
+      "admin",
+      "member"
+    ],
+    "proven": false
+  },
+  "limitations": [
+    "SIM/eSIM ICCID/EID resource not yet implemented",
+    "protected production import blocked",
+    "line.list embedded masked number/SIM state not yet implemented"
+  ]
+}

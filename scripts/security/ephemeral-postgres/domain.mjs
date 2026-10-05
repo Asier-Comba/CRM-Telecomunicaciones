@@ -73,6 +73,8 @@ try {
   console.log('PRODUCT RICH DENSITY COUNTS/CURSOR/SCOPE ASSERTIONS PASS (25 companies, 400 lines)')
   await db.exec(richSeed.replace(/commit;\s*$/i, '') + await readFile(resolve(root, 'supabase/tests/telecom-commercial-collections.sql'), 'utf8'))
   console.log('TEL5 COMMERCIAL COLLECTIONS 18 READS/CURSOR/FILTER/PRIVACY/REVOCATION PASS')
+  await db.exec(richSeed.replace(/commit;\s*$/i, '') + await readFile(resolve(root, 'supabase/tests/protected-telecom-identifiers.sql'), 'utf8'))
+  console.log('TEL5 PROTECTED IDENTIFIERS CANONICAL/MASK/REVEAL/CAS/REPLAY/HISTORY/REVOCATION PASS')
 
   await db.exec(await readFile(resolve(root,'supabase/tests/billing-exact-issue.sql'),'utf8'))
   await db.exec(await readFile(resolve(root,'supabase/tests/billing-private-pdf-artifacts.sql'),'utf8'))

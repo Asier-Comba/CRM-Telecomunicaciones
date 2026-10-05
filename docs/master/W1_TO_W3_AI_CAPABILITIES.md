@@ -169,3 +169,6 @@ Machine authority: [product-capabilities.json](contracts/product-capabilities.js
 18normal human readers in [telecom-collections-v1.json](contracts/telecom-collections-v1.json), DTOs in `src/lib/contracts/telecom-collections-v1.ts`. No protected contact methods, fiscal IDs, line identifiers or notes. Current candidate awaits exact-source native/Supabase acceptance; do not claim proof or call as a registered AI tool. All old human writes remain FUTURE_AI_ACTION_CANDIDATE only. Issue10 stays W3 owned; zero new writes registered.
 
 `customer.list`, `contact.list`, `opportunity.list`, `activity.list`, `assignee.list`, `operator.list`, `operator.get`, `plan.list`, `plan.get`, `plan_version.list`, `plan_version.get`, `contract.list`, `service.list`, `line.list`, `renewal.list`, `renewal.get`, `permanence.list`, `permanence.get`.
+
+
+TEL5 reader acceptance: all18 collection/catalog read candidates individually proven on `e09ddf222b22e72150e7c27bf0d1b68f9ae4dd63` (1601 checks/native restore/private boundary PASS). `identifier.list` and `identifier.get` are new masked read candidates with exact proof pending. Explicit identifier `sensitive.get` remains human-only; no raw reveal tool registration. `identifier.create_manual` and `identifier.retire` are FUTURE_AI_ACTION_CANDIDATE only. No new AI tools or writes registered.

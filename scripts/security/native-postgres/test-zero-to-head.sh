@@ -72,6 +72,11 @@ run_fixture supabase/tests/product-dashboard-search.sql
   sed '$d' "$repo_root/supabase/seeds/synthetic_product.sql"
   cat "$repo_root/supabase/tests/telecom-commercial-collections.sql"
 } | psql_native > /dev/null
+{
+  printf "set app.environment = 'test';\n"
+  sed '$d' "$repo_root/supabase/seeds/synthetic_product.sql"
+  cat "$repo_root/supabase/tests/protected-telecom-identifiers.sql"
+} | psql_native > /dev/null
 run_fixture supabase/seeds/synthetic_portfolio.sql
 run_fixture supabase/tests/assistant-durable-foundation.sql
 run_fixture supabase/seeds/synthetic_durable.sql
@@ -195,6 +200,11 @@ migration_head="$(basename "${migration}")"
   printf "set app.environment = 'test';\n"
   sed '$d' "$repo_root/supabase/seeds/synthetic_product.sql"
   cat "$repo_root/supabase/tests/telecom-commercial-collections.sql"
+} | docker exec -i -u postgres "$container" psql -X -v ON_ERROR_STOP=1 -U postgres -d "$restore_db" > /dev/null
+{
+  printf "set app.environment = 'test';\n"
+  sed '$d' "$repo_root/supabase/seeds/synthetic_product.sql"
+  cat "$repo_root/supabase/tests/protected-telecom-identifiers.sql"
 } | docker exec -i -u postgres "$container" psql -X -v ON_ERROR_STOP=1 -U postgres -d "$restore_db" > /dev/null
 
 node scripts/security/native-postgres/product-command-races.mjs

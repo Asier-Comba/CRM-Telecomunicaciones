@@ -1,43 +1,43 @@
 # Telecom commercial domain acceptance matrix
 
-Initial gap inventory at `3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c`. This is not TEL5 completion. Existing schema and narrower telecom.v1 readers are not credited as complete requested operation families. Exact-source functional proof is recorded in W1_TEL5_00_EXACT_HEAD_EVIDENCE.md; official browser CI was cancelled, local actual boundary passed, native restore passed. Every W2_CONSUMED remains false without W2 evidence. Production import processing is separately blocked and is not a prerequisite for completing safe human telecom modules.
+Accepted source `e09ddf222b22e72150e7c27bf0d1b68f9ae4dd63`: 147 operations, 1601 real disposable checks, 55 migrations/248 privilege functions, 251 Node tests; native fresh/logical restore, isolated PGlite and official browser-private boundary PASS. npm audit remains red (Issue29). The current identifier module is a separate candidate, not yet proven. This is not TEL5 completion. W2 consumption requires W2 evidence.
 
-Counts: required 86; implemented 30; proven 12; W2 consumed0. New reads are candidates until real evidence.
+Counts: REQUIRED=87, IMPLEMENTED=35, PROVEN=30, W2_CONSUMED=0, BLOCKER=87.
 
 | Section | Requirement | REQUIRED | IMPLEMENTED | PROVEN | W2_CONSUMED | BLOCKER |
 |---|---|---|---|---|---|---|
-| Operators | operator.list | YES | YES | NO | NO | new_candidate_real_native_and_supabase_evidence_pending |
-| Operators | operator.get | YES | YES | NO | NO | new_candidate_real_native_and_supabase_evidence_pending |
+| Operators | operator.list | YES | YES | YES | NO | W2_consumption_unproven |
+| Operators | operator.get | YES | YES | YES | NO | W2_consumption_unproven |
 | Operators | operator.create | YES | NO | NO | NO | not_implemented_as_requested |
 | Operators | operator.update | YES | NO | NO | NO | not_implemented_as_requested |
 | Operators | operator.activate | YES | NO | NO | NO | not_implemented_as_requested |
 | Operators | operator.deactivate | YES | NO | NO | NO | not_implemented_as_requested |
-| Plans | plan.list | YES | YES | NO | NO | new_candidate_real_native_and_supabase_evidence_pending |
-| Plans | plan.get | YES | YES | NO | NO | new_candidate_real_native_and_supabase_evidence_pending |
+| Plans | plan.list | YES | YES | YES | NO | W2_consumption_unproven |
+| Plans | plan.get | YES | YES | YES | NO | W2_consumption_unproven |
 | Plans | plan.create | YES | NO | NO | NO | not_implemented_as_requested |
 | Plans | plan.update_metadata | YES | NO | NO | NO | not_implemented_as_requested |
 | Plans | plan.change_status | YES | NO | NO | NO | not_implemented_as_requested |
-| Plan versions | plan_version.list | YES | YES | NO | NO | new_candidate_real_native_and_supabase_evidence_pending |
-| Plan versions | plan_version.get | YES | YES | NO | NO | new_candidate_real_native_and_supabase_evidence_pending |
+| Plan versions | plan_version.list | YES | YES | YES | NO | W2_consumption_unproven |
+| Plan versions | plan_version.get | YES | YES | YES | NO | W2_consumption_unproven |
 | Plan versions | plan_version.create | YES | NO | NO | NO | not_implemented_as_requested |
 | Entitlements | typed immutable version entitlements | YES | NO | NO | NO | not_implemented_as_requested |
 | Bundles | immutable version components | YES | NO | NO | NO | not_implemented_as_requested |
 | Bundles | service add-on assignment history | YES | NO | NO | NO | not_implemented_as_requested |
-| Contracts | contract.list | YES | YES | NO | NO | new_candidate_real_native_and_supabase_evidence_pending |
+| Contracts | contract.list | YES | YES | YES | NO | W2_consumption_unproven |
 | Contracts | contract.create_manual | YES | YES | YES | NO | W2_consumption_unproven |
 | Contracts | contract.update_allowed_metadata | YES | YES | YES | NO | W2_consumption_unproven |
-| Services | service.list | YES | YES | NO | NO | new_candidate_real_native_and_supabase_evidence_pending |
+| Services | service.list | YES | YES | YES | NO | W2_consumption_unproven |
 | Services | service.create_manual | YES | YES | YES | NO | W2_consumption_unproven |
 | Services | service.update_label | YES | YES | YES | NO | W2_consumption_unproven |
 | Services | fixed service operational facts | YES | NO | NO | NO | not_implemented_as_requested |
-| Lines | line.list | YES | YES | NO | NO | new_candidate_real_native_and_supabase_evidence_pending |
+| Lines | line.list | YES | YES | YES | NO | W2_consumption_unproven |
 | Lines | line.create_manual | YES | YES | YES | NO | W2_consumption_unproven |
 | Lines | line.update_label | YES | YES | YES | NO | W2_consumption_unproven |
 | Lines | masked mobile commercial row | YES | NO | NO | NO | not_implemented_as_requested |
-| Identifiers | identifier.assign | YES | NO | NO | NO | not_implemented_as_requested |
-| Identifiers | identifier.retire | YES | NO | NO | NO | not_implemented_as_requested |
-| Identifiers | identifier.list_masked | YES | NO | NO | NO | not_implemented_as_requested |
-| Identifiers | identifier.reveal | YES | NO | NO | NO | not_implemented_as_requested |
+| Identifiers | identifier.create_manual | YES | YES | NO | NO | new_candidate_real_native_and_supabase_evidence_pending |
+| Identifiers | identifier.retire | YES | YES | NO | NO | new_candidate_real_native_and_supabase_evidence_pending |
+| Identifiers | identifier.list | YES | YES | NO | NO | new_candidate_real_native_and_supabase_evidence_pending |
+| Identifiers | sensitive.get (telecom_identifier) | YES | YES | NO | NO | new_candidate_real_native_and_supabase_evidence_pending |
 | SIM/eSIM | sim.create | YES | NO | NO | NO | not_implemented_as_requested |
 | SIM/eSIM | sim.assign | YES | NO | NO | NO | not_implemented_as_requested |
 | SIM/eSIM | sim.activate | YES | NO | NO | NO | not_implemented_as_requested |
@@ -48,12 +48,12 @@ Counts: required 86; implemented 30; proven 12; W2 consumed0. New reads are cand
 | Portabilities | portability.create | YES | NO | NO | NO | not_implemented_as_requested |
 | Portabilities | portability.transition | YES | NO | NO | NO | not_implemented_as_requested |
 | Portabilities | explicit completion line action | YES | NO | NO | NO | not_implemented_as_requested |
-| Permanences | permanence.list | YES | YES | NO | NO | new_candidate_real_native_and_supabase_evidence_pending |
-| Permanences | permanence.get | YES | YES | NO | NO | new_candidate_real_native_and_supabase_evidence_pending |
+| Permanences | permanence.list | YES | YES | YES | NO | W2_consumption_unproven |
+| Permanences | permanence.get | YES | YES | YES | NO | W2_consumption_unproven |
 | Permanences | permanence.create_manual | YES | YES | YES | NO | W2_consumption_unproven |
 | Permanences | permanence.update | YES | YES | YES | NO | W2_consumption_unproven |
-| Renewals | renewal.list | YES | YES | NO | NO | new_candidate_real_native_and_supabase_evidence_pending |
-| Renewals | renewal.get | YES | YES | NO | NO | new_candidate_real_native_and_supabase_evidence_pending |
+| Renewals | renewal.list | YES | YES | YES | NO | W2_consumption_unproven |
+| Renewals | renewal.get | YES | YES | YES | NO | W2_consumption_unproven |
 | Renewals | contract.record_renewal | YES | YES | YES | NO | W2_consumption_unproven |
 | Renewals | renewal.update | YES | YES | YES | NO | W2_consumption_unproven |
 | Cases | case.list | YES | NO | NO | NO | not_implemented_as_requested |
@@ -67,11 +67,11 @@ Counts: required 86; implemented 30; proven 12; W2 consumed0. New reads are cand
 | Cases | case.close | YES | NO | NO | NO | not_implemented_as_requested |
 | Cases | case.cancel | YES | NO | NO | NO | not_implemented_as_requested |
 | Equipment | bounded equipment need assessment | YES | NO | NO | NO | assessment_pending |
-| Collections | customer.list | YES | YES | NO | NO | new_candidate_real_native_and_supabase_evidence_pending |
-| Collections | contact.list | YES | YES | NO | NO | new_candidate_real_native_and_supabase_evidence_pending |
-| Collections | opportunity.list | YES | YES | NO | NO | new_candidate_real_native_and_supabase_evidence_pending |
-| Collections | activity.list | YES | YES | NO | NO | new_candidate_real_native_and_supabase_evidence_pending |
-| Collections | assignee.list | YES | YES | NO | NO | new_candidate_real_native_and_supabase_evidence_pending |
+| Collections | customer.list | YES | YES | YES | NO | W2_consumption_unproven |
+| Collections | contact.list | YES | YES | YES | NO | W2_consumption_unproven |
+| Collections | opportunity.list | YES | YES | YES | NO | W2_consumption_unproven |
+| Collections | activity.list | YES | YES | YES | NO | W2_consumption_unproven |
+| Collections | assignee.list | YES | YES | YES | NO | W2_consumption_unproven |
 | Customer360 | bounded existing domain pages | YES | NO | NO | NO | not_implemented_as_requested |
 | Customer360 | customer360.summary | YES | NO | NO | NO | not_implemented_as_requested |
 | Attention | deterministic telecom attention | YES | NO | NO | NO | not_implemented_as_requested |
@@ -92,3 +92,4 @@ Counts: required 86; implemented 30; proven 12; W2 consumed0. New reads are cand
 | Provenance | provenance.get | YES | YES | YES | NO | W2_consumption_unproven |
 | Provenance | verified manual origins | YES | YES | YES | NO | W2_consumption_unproven |
 | Provenance | provider-neutral external identities | YES | NO | NO | NO | not_implemented_as_requested |
+| Identifiers | identifier.get | YES | YES | NO | NO | new_candidate_real_native_and_supabase_evidence_pending |
