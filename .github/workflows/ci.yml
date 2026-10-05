@@ -165,6 +165,13 @@ jobs:
         env:
           TELECOM_NATIVE_TEST_CONTAINER: ${{ job.services.postgres.id }}
         run: bash scripts/security/native-postgres/test-zero-to-head.sh
+      - name: Retain synthetic density query plans
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: product-density-query-plans
+          path: ${{ runner.temp }}/product-density-query-plans.jsonlog
+          retention-days: 7
 
   preview-browser:
     name: Synthetic telecom browser preview
