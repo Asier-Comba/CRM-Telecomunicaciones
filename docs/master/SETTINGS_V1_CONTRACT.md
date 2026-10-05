@@ -15,6 +15,6 @@ settings.integrations {} returns7 registered classes with status only: google_ca
 
 Persisted in_app:false suppresses NEW task-overdue and internal automation notifications. Existing personal notification history remains readable. Forward migration refines private emit/refresh and marks opted-out automation action skipped with no effect; never fake succeeded. CAS and receipt semantics unchanged. Turning preferences back on permits future generation; no external mail/push semantics.
 
-Local48 migrations/233 privileges,225 Node/lint/types/build and embedded fresh/restored fixtures PASS. Actual acceptance5 operations, own viewer preference vs denied company role, tenant/revokedJWT/CAS/changed replay, real private PNG upload+reference+archive, exact provider cards and real task optout. Pending exact published Supabase head.
+Validation at the recorded accepted source: native/embedded fixtures and real acceptance of five operations, own viewer preference versus denied company role, tenant/revoked-JWT/CAS/changed replay, private PNG upload/reference/archive, exact provider cards and persisted task opt-out.
 
-Prior automation sourcebe6abbb/run37349874155 accepted1059 real checks/8 individual operations, native47/226,222 quality PASS except5high auditIssue29. Catalog121 operations:116 already observed+5 settings candidates. W2 company/user settings should use exact version from reads; viewer self-write is an intentional safe role exception. W3 human-write candidates only/Issue10; no assistant registration.
+W2 company/user settings use the exact read version; viewer self-write is an intentional safe role exception. W3 writes remain future Issue10 confirmation candidates, not assistant registrations.

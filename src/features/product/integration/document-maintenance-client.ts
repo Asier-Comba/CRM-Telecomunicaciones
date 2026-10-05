@@ -1,5 +1,5 @@
 import type {DocumentMaintenanceInputV1,DocumentMaintenanceOperationV1,DocumentMaintenanceReceiptV1} from '@/lib/contracts/document-maintenance-v1'
-import {isClosedObjectV1 as plain,isUuidV1 as uuid} from '@/lib/server/product-work-runtime-v1'
+import {isClosedObjectV1 as plain,isUuidV1 as uuid} from '../../../lib/server/product-work-runtime-v1.ts'
 import type {TeamListInputV1} from '@/lib/contracts/team-v1'
 export const DOCUMENT_MAINTENANCE_RPC_V1={'document.verify_content':'document_integrity_v1_verify','document.cleanup_claim':'document_cleanup_v1_claim','document.cleanup_finish':'document_cleanup_v1_finish','document.expired_list':'document_cleanup_v1_expired_list'} as const
 // Pure exact W1 input/receipt guards copied from the accepted server service; no crypto/provider authority enters the client.
