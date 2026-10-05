@@ -83,6 +83,22 @@ try {
  assert.equal(centerRace.filter(r=>r.code!==0&&/40001/.test(r.err)).length,19)
  console.log('NOTIFICATION NATIVE PROCESS RACES PASS:20 refresh replays/20 event emits one effect/20 distinct center CAS one winner')
 
+ const auto=(op,input)=>`begin;set local role authenticated;set local request.jwt.claim.sub='${actor}';select public.automation_v1_${op}('${workspace}','${JSON.stringify(input)}'::jsonb);commit;`
+ const definition=JSON.parse(await sql(auto('create',{command_id:randomUUID(),name:'Native automation',trigger_id:'customer.created',condition:{account_kind:null},action:{action_id:'task.create',recipient_user_id:actor}})))
+ await sql(auto('enable',{command_id:randomUUID(),id:definition.id,expected_version:1}))
+ const eventCustomer=JSON.parse(await sql(create({command_id:randomUUID(),account_kind:'legal_entity',legal_name:'Native automation event'})))
+ const processInputs=Array.from({length:20},()=>({command_id:randomUUID()}))
+ const processRaces=await Promise.all(processInputs.map(input=>docker(args,auto('process_pending',input))))
+ assert.ok(processRaces.every(r=>r.code===0),'automation native independent processor race')
+ const processReceipts=processRaces.map(r=>JSON.parse(r.out.trim()))
+ assert.equal(processReceipts.reduce((n,r)=>n+r.succeeded,0),1,'automation one logical action')
+ assert.equal(await sql(`select count(*)from public.tasks where customer_id='${eventCustomer.id}'`),'1')
+ assert.equal(await sql(`select count(*)from public.internal_automation_runs where automation_id='${definition.id}'`),'1')
+ const winner=processReceipts.findIndex(r=>r.succeeded===1)
+ const processReplays=await Promise.all(Array.from({length:20},()=>sql(auto('process_pending',processInputs[winner]))))
+ for(const r of processReplays)assert.deepEqual(JSON.parse(r),processReceipts[winner])
+ console.log('AUTOMATION NATIVE PROCESS RACES PASS:20 distinct processors one canonical task/run;20 winner replays exact receipt')
+
  const billing=(name,input)=>`begin;set local role authenticated;set local request.jwt.claim.sub='${actor}';select public.billing_v1_${name}('${workspace}','${JSON.stringify(input)}'::jsonb);commit;`
  const profile={legal_name:'Native Synthetic Fiscal',tax_id:'SYNTHETIC-NOT-VALID',address:'Synthetic Street 1',postal_code:'00000',city:'Synthetic',region:'Synthetic',country:'ES'}
  await sql(billing('issuer_set',{command_id:randomUUID(),expected_version:0,profile,currency:'EUR',default_series:'A'}))
