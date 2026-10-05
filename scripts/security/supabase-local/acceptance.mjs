@@ -1,3 +1,4 @@
+import {telecomCollectionAcceptance}from './telecom-collection-acceptance.mjs'
 import {portabilityAcceptance}from './portability-acceptance.mjs'
 import {documentMaintenanceAcceptance}from './document-maintenance-acceptance.mjs'
 import {teamOriginAcceptance}from './team-origin-acceptance.mjs'
@@ -152,6 +153,7 @@ export async function acceptance({ url, anon, service, db, command, report, appU
   Object.assign(report,await teamOriginAcceptance({rpc,sql,check,http,users,wa,wb,ca,url,anon,appUrl}))
   Object.assign(report,await documentMaintenanceAcceptance({rpc,sql,check,http,users,wa,wb,ca,url,anon,service,appUrl}))
   Object.assign(report,await portabilityAcceptance({sql,check,http,url,anon,appUrl}))
+  Object.assign(report,await telecomCollectionAcceptance({rpc,sql,check,http,users,wa,wb,url,anon,appUrl}))
   const buckets = await http('/storage/v1/bucket', service)
   check(buckets.status === 200 && ['telecom-documents', 'telecom-import-quarantine'].every(id => buckets.json?.some(b => b.id === id && b.public === false)), 'private_buckets')
   const bytes = Buffer.from('Synthetic local acceptance text only. No customer document.\n')

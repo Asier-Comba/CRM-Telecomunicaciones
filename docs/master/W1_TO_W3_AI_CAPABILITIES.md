@@ -163,3 +163,9 @@ Every read still needs a W3-owned minimized adapter and current server-authorita
 invoice.propose is a nonmutating normalized proposal: requires_review=true, saved=false. W2 owns text/audio parsing; no arbitrary prompt-to-write bridge. Registered automation effects are only the internal task.create/notification.create paths triggered by actual future canonical events; no arbitrary URL/code/SQL and no assistant dispatcher. Future n8n/inbound interfaces remain unregistered. Normal import validation/apply/resume remains unavailable until production encrypted staging, scoped worker and canonical import-source adapters exist.
 
 Machine authority: [product-capabilities.json](contracts/product-capabilities.json). Every ui_safe remains false pending W2/W4 review. Source/run acceptance is recorded in [the current closure](W1_PRODUCT_CLOSURE_20261005.md); prior figures are historical.
+
+## TEL5 commercial read candidates — not registered
+
+18normal human readers in [telecom-collections-v1.json](contracts/telecom-collections-v1.json), DTOs in `src/lib/contracts/telecom-collections-v1.ts`. No protected contact methods, fiscal IDs, line identifiers or notes. Current candidate awaits exact-source native/Supabase acceptance; do not claim proof or call as a registered AI tool. All old human writes remain FUTURE_AI_ACTION_CANDIDATE only. Issue10 stays W3 owned; zero new writes registered.
+
+`customer.list`, `contact.list`, `opportunity.list`, `activity.list`, `assignee.list`, `operator.list`, `operator.get`, `plan.list`, `plan.get`, `plan_version.list`, `plan_version.get`, `contract.list`, `service.list`, `line.list`, `renewal.list`, `renewal.get`, `permanence.list`, `permanence.get`.

@@ -1,4 +1,5 @@
 import type { ProductOperationV1, ProductResultV1 } from '../contracts/product-v1'
+import { TelecomCollectionServiceV1 } from './telecom-collection-service-v1.ts'
 import { isProductOperationV1, parseProductInputV1, parseProductReceiptV1, PRODUCT_RPC_V1, parseCustomerEditorV1, parseContactEditorPageV1 } from './product-runtime-v1.ts'
 import { isUuidV1 } from './product-work-runtime-v1.ts'
 import { parseCalendarInputV1,parseCalendarPageV1,parseWorkGetV1,parseStageCatalogV1 } from './product-query-runtime-v1.ts'
@@ -12,6 +13,9 @@ export interface ProductUserPortV1 {
 export class ProductServiceV1 {
   readonly #port: ProductUserPortV1
   constructor(port: ProductUserPortV1) { this.#port = port }
+  async collection(operation: unknown, value: unknown) {
+    return new TelecomCollectionServiceV1(this.#port).read(operation, value)
+  }
   async execute(operation: ProductOperationV1, unknownInput: unknown): Promise<ProductResultV1> {
     try {
       if (!isProductOperationV1(operation)) return { ok: false, error: 'validation' }

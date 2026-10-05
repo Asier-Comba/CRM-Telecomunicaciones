@@ -71,6 +71,8 @@ try {
   const billingDensity = await readFile(resolve(root, 'supabase/seeds/synthetic_product_billing.sql'), 'utf8')
   await db.exec(richSeed.replace(/commit;\s*$/i, '') + billingDensity + densityChecks)
   console.log('PRODUCT RICH DENSITY COUNTS/CURSOR/SCOPE ASSERTIONS PASS (25 companies, 400 lines)')
+  await db.exec(richSeed.replace(/commit;\s*$/i, '') + await readFile(resolve(root, 'supabase/tests/telecom-commercial-collections.sql'), 'utf8'))
+  console.log('TEL5 COMMERCIAL COLLECTIONS 18 READS/CURSOR/FILTER/PRIVACY/REVOCATION PASS')
 
   await db.exec(await readFile(resolve(root,'supabase/tests/billing-exact-issue.sql'),'utf8'))
   await db.exec(await readFile(resolve(root,'supabase/tests/billing-private-pdf-artifacts.sql'),'utf8'))
@@ -118,6 +120,16 @@ try {
 
   const seed = await readFile(resolve(root, 'supabase/seeds/synthetic_portfolio.sql'), 'utf8')
   await db.exec(seed)
+  // Validate the real-stack fixture setup against this actual schema. This is not Auth/HTTP evidence.
+  const {telecomCollectionAcceptance}=await import(pathToFileURL(resolve(root,'scripts/security/supabase-local/telecom-collection-acceptance.mjs')))
+  let tel5Setup
+  try {
+    await telecomCollectionAcceptance({sql:query=>{tel5Setup=query;throw new Error('TEL5_CAPTURE_SETUP')},wa:'b2000000-0000-4000-8000-000000000001',wb:'b2000000-0000-4000-8000-000000000002',users:{ownerA:{id:'a1000000-0000-4000-8000-000000000001'},memberA:{id:'a1000000-0000-4000-8000-000000000001'}}})
+  } catch(error) {if(error.message!=='TEL5_CAPTURE_SETUP')throw error}
+  assert.ok(tel5Setup)
+  await db.exec('begin;'+tel5Setup+'rollback;')
+  console.log('TEL5 REAL-STACK FIXTURE SQL SCHEMA CHECK PASS (NOT AUTH/HTTP PROOF)')
+
   const scoped = await db.query(`
     select
       jsonb_array_length(public.telecom_v1_customer_search_rows(
