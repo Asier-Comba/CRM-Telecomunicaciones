@@ -1,6 +1,6 @@
 {
   "catalog_version": "product.capabilities.v1",
-  "as_of": "2026-10-04",
+  "as_of": "2026-10-05",
   "implementation_head": "b5955fb1bb540036802b57e2e0644be221c8801c",
   "evidence": {
     "native": {
@@ -3282,6 +3282,178 @@
         "W2"
       ],
       "supabase_tested_head": "b5955fb1bb540036802b57e2e0644be221c8801c"
+    },
+    {
+      "name": "document.request_upload",
+      "version": "document.content.v1",
+      "kind": "write",
+      "rpc": "document_content_v1_request_upload",
+      "input_type": "DocumentContentInputsV1['document.request_upload']",
+      "output_type": "DocumentContentReceiptV1",
+      "minimum_role": "admin",
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor",
+        "changed_replay": "conflict"
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "backend_status": "candidate_sql_embedded_tested",
+      "transport": {
+        "method": "POST",
+        "enabled_by_default": false,
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "additional_enable_flag": "PRODUCT_DOCUMENT_CONTENT_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "server_cookie_getUser_active_membership",
+        "status": "implemented_default_off",
+        "path": "/api/document/v1/content/commands"
+      },
+      "supabase_tested": false,
+      "supabase_status": "pending_exact_head_acceptance",
+      "ui_safe": false,
+      "ui_safe_status": "W4_and_W2_review_pending",
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "review_pending": [
+        "W4",
+        "W2"
+      ]
+    },
+    {
+      "name": "document.finalize_upload",
+      "version": "document.content.v1",
+      "kind": "write",
+      "rpc": "document_content_v1_finalize_upload",
+      "input_type": "DocumentContentInputsV1['document.finalize_upload']",
+      "output_type": "DocumentContentReceiptV1",
+      "minimum_role": "admin",
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor",
+        "changed_replay": "conflict"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      },
+      "backend_status": "candidate_sql_embedded_tested",
+      "transport": {
+        "method": "POST",
+        "enabled_by_default": false,
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "additional_enable_flag": "PRODUCT_DOCUMENT_CONTENT_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "server_cookie_getUser_active_membership",
+        "status": "implemented_default_off",
+        "path": "/api/document/v1/content/commands"
+      },
+      "supabase_tested": false,
+      "supabase_status": "pending_exact_head_acceptance",
+      "ui_safe": false,
+      "ui_safe_status": "W4_and_W2_review_pending",
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "review_pending": [
+        "W4",
+        "W2"
+      ]
+    },
+    {
+      "name": "document.request_download",
+      "version": "document.content.v1",
+      "kind": "write",
+      "rpc": "document_content_v1_request_download",
+      "input_type": "DocumentContentInputsV1['document.request_download']",
+      "output_type": "DocumentContentReceiptV1",
+      "minimum_role": "admin",
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor",
+        "changed_replay": "conflict"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      },
+      "backend_status": "candidate_sql_embedded_tested",
+      "transport": {
+        "method": "POST",
+        "enabled_by_default": false,
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "additional_enable_flag": "PRODUCT_DOCUMENT_CONTENT_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "server_cookie_getUser_active_membership",
+        "status": "implemented_default_off",
+        "path": "/api/document/v1/content/commands"
+      },
+      "supabase_tested": false,
+      "supabase_status": "pending_exact_head_acceptance",
+      "ui_safe": false,
+      "ui_safe_status": "W4_and_W2_review_pending",
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "review_pending": [
+        "W4",
+        "W2"
+      ]
+    },
+    {
+      "name": "document.download",
+      "version": "document.content.v1",
+      "kind": "read",
+      "rpc": "document_content_v1_manifest",
+      "input_type": "DocumentDownloadInputV1",
+      "output_type": "authorized_attachment_bytes",
+      "minimum_role": "admin",
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null,
+        "changed_replay": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "backend_status": "candidate_sql_embedded_tested",
+      "transport": {
+        "method": "POST",
+        "enabled_by_default": false,
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "additional_enable_flag": "PRODUCT_DOCUMENT_CONTENT_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "server_cookie_getUser_active_membership",
+        "status": "implemented_default_off",
+        "path": "/api/document/v1/content/download"
+      },
+      "supabase_tested": false,
+      "supabase_status": "pending_exact_head_acceptance",
+      "ui_safe": false,
+      "ui_safe_status": "W4_and_W2_review_pending",
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "review_pending": [
+        "W4",
+        "W2"
+      ]
     }
   ],
   "unavailable_modules": [

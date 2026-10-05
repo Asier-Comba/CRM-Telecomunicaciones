@@ -11,8 +11,12 @@ create table storage.objects (
   id uuid primary key,
   bucket_id text not null references storage.buckets(id),
   name text not null,
+  metadata jsonb,
   unique (bucket_id,name)
 );
 alter table storage.objects enable row level security;
 grant usage on schema storage to authenticated,anon;
 grant select on storage.objects to authenticated,anon;
+
+-- Storage API uses INSERT with RLS for scoped pending upload intents.
+grant insert on storage.objects to authenticated;
