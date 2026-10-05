@@ -21,8 +21,14 @@ const money = (minor: number, currency: string) =>
   )
 export function Opportunities({
   items,
+  stageCatalog,
+  onCreate,
+  onSelect,
 }: {
   items: readonly OpportunityItemV1[]
+  stageCatalog?:readonly {id:string;label:string}[]
+  onCreate?:()=>void
+  onSelect?:(id:string)=>void
 }) {
   const [mode, setMode] = useState('board'),
     [query, setQuery] = useState(''),
@@ -36,11 +42,11 @@ export function Opportunities({
           )) &&
         (!owner || o.owner?.display_name === owner),
     ),
-    stages = [...new Set(items.map((o) => o.stage.display_name))]
+    stages = stageCatalog??[...new Map(items.map(o=>[o.stage.id,{id:o.stage.id,label:o.stage.display_name}])).values()]
   const card = (o: OpportunityItemV1) => (
     <button
       key={o.id}
-      onClick={() => setSelected(o)}
+      onClick={() => onSelect?onSelect(o.id):setSelected(o)}
       className="block w-full rounded-lg border border-slate-200 bg-white p-3 text-left shadow-sm transition hover:border-indigo-300"
     >
       <p className="text-xs font-semibold leading-5 text-slate-900">
@@ -79,8 +85,9 @@ export function Opportunities({
         action={
           <button
             className={primary}
-            disabled
-            title="Creación pendiente de contrato CRUD autorizado"
+            disabled={!onCreate}
+            onClick={onCreate}
+            title={onCreate?'Crear oportunidad local':'Creación pendiente de contrato CRUD autorizado'}
           >
             <Plus className="h-4 w-4" />
             Nueva oportunidad
@@ -151,17 +158,17 @@ export function Opportunities({
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {stages.map((stage) => (
             <section
-              key={stage}
+              key={stage.id}
               className="rounded-xl border border-slate-200 bg-slate-100/60 p-3"
             >
               <h2 className="mb-3 flex items-center justify-between text-sm font-semibold text-slate-700">
-                {stage}
+                {stage.label}
                 <span className="rounded bg-white px-2 py-0.5 text-xs">
-                  {rows.filter((o) => o.stage.display_name === stage).length}
+                  {rows.filter((o) => o.stage.id === stage.id).length}
                 </span>
               </h2>
               <div className="space-y-3">
-                {rows.filter((o) => o.stage.display_name === stage).map(card)}
+                {rows.filter((o) => o.stage.id === stage.id).map(card)}
               </div>
             </section>
           ))}
