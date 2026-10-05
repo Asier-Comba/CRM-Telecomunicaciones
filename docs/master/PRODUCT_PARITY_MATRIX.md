@@ -271,4 +271,4 @@ Desktop and mobile screenshots for nine major screens; source-level old/new comp
 
 ## Integrated-local row review — 2026-10-05
 
-All244 rows independently carry preview_status, integrated_local_status, mode evidence and limits in the JSON register. PARTIAL is not acceptance. Preview delivered metrics remain116/225; backend positives currently29/84 operations and19/65 write operations (synthetic real-local DB only). No production writes, W4 UI_SAFE promotion or complete behavioral parity claimed.
+All244 rows independently carry preview_status, integrated_local_status, mode evidence and limits in the JSON register. PARTIAL is not acceptance. Preview delivered metrics remain116/225; baseline42c8022 positives now56/90 operations and35/67 write operations after the W1 f574b0c denominator update (synthetic real-local DB only). Private fiscal PDF reference/download and import management have actual browser evidence; explicit persistence and next state checkpoint remain pending. Import processing remains blocked. No production writes, W4 UI_SAFE promotion or complete behavioral parity claimed.

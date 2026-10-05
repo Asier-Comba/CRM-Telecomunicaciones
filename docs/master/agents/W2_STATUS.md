@@ -1,64 +1,62 @@
-# W2 Product Integration 3.0 — current consumer evidence
+# W2 current consumer evidence
 
-2026-10-05. Branch w2/product-integration-v2; Draft PR30: https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/30, stacked on unchanged PR27@2878687. W1 normal merges consumed488647d and42176c744789a534daf4ea24c77ffc2cdbcd7c4c (verified document content executable eff8022). No main merge, deployment, production data or external effects.
+Branch: w2/product-integration-v2. Draft PR30 targets unchanged w2/product-rebuild-v1@2878687. W1 f574b0c55951e6e357e4e91059fcfe64b1410b02 is preserved by normal merge e0bad452, following the earlier488647d and42176c7 merges. Main, production, deployments and historical repository are untouched.
 
-## Actual integration and verification
+## Modes and authority
 
-Integrated local requires explicit integration/synthetic/product flags, nonproduction and canonical loopback URLs. Real SSR-cookie Auth getUser and current DB membership supply authority. One closed typed repository reuses W1 parsers, mounted immutable command IDs and editor expected_version; no fixture fallback or direct privileged browser RPC. Document content needs its additional default-off flag. W1 UI_SAFE remains false and W4 release review independent.
+Synthetic preview uses only fixtures and temporary drafts. Integrated local requires explicit PRODUCT_LOCAL_INTEGRATION, PRODUCT_LOCAL_SYNTHETIC and PRODUCT_V1_ENABLED flags, a nonproduction runtime and canonical loopback Supabase/application URLs. Identity comes from real SSR-cookie getUser plus current database membership; synthetic@example.invalid identities only. Document content/private fiscal PDF needs PRODUCT_DOCUMENT_CONTENT_ENABLED. Invalid configuration displays unavailable with no fixture fallback. The central typed cookie transport reuses closed W1 parsers and keeps exact command UUID/payload plus actual editor CAS in mounted memory.
 
-Latest executed browser head81fd8864964a760570870640e06a947480f34a04: Supabase39/run37311794867 reached W2 after568 backend checks;16 W2 independent journeys PASS/5 FAIL. Passed member/owner login, customer create/edit/archive/restore/reload, contact primary switching and no PII persistence, dashboard/search, task create/complete, meeting create/reschedule/cancel, manual service/line/renewal creation and imported-source read-only UI, metadata archive/restore, explicit prepare/upload/finalize/private download, eight screen families at1440/768/390 with no document overflow, viewer login/no-write controls.
+W1 catalog ui_safe flags remain false. Local consumer evidence does not grant W4 stage or production approval. All data is synthetic; integrated writes nevertheless persist in an actual disposable database.
 
-Failed conflict fixture, revocation final-state assertion, opportunities, billing and team invite. Captures showed direct version assignment rejected by W1 automatic-version trigger; missing concurrent customer name blocked downstream journeys. Fixture now changes trade_name only. Team raced an editable invitation input against prior role completion; now disabled while running and closes confirmation after reload. These fixes are candidates until next-head browser rerun. All failed suites stay FAIL.
+## Executed evidence
 
-CI318/run37311794696:234 tests/types/lint/build and independent embedded/native fresh/restore, migration/secret/guardrail/Windows/preview/production fixture closure PASS. Quality fails only full npm audit (Issue29,5 inherited high findings). Dependency review/Critical Playwright SKIPPED, not passes. Browser private-value boundary PASS. Next source candidate passed235 local tests/types/lint before executor failure, including exact integer invoice preview rounding; fresh GitHub verification is required after recovery.
+- c4cac776, Supabase43/run37316227147:22/22 actual browser journeys PASS and568 backend checks PASS. Real owner/admin/member/viewer logins, CAS conflict, current membership revocation, persisted customer/contact/calendar/opportunity/portfolio/billing/team/document behavior, protected uploads/downloads and desktop/tablet/mobile widths were observed.
+- e0bad452, Supabase45/run37317692237:801 W1 backend checks PASS after the new normal merge. UI failed before login because the merge lost ephemeral email/password fields from the synthetic browser fixture. Correction b735ec3 restores them in memory only.
+- 59ba8a3 adds private frozen PDF and import management consumers, closed parser reuse, source/state gates and actual browser cases. Its lint found React ref/effect violations in two new panels. Correction42c8022 replaces render-time ref access with explicit retry state and updates state after asynchronous reads.
+- 42c8022, Supabase48/run37319223501:23/23 actual browser journeys and801 W1 backend checks PASS. Existing import list/get/cancel persisted, private frozen fiscal PDF rendered and issued/paid bytes remained identical. Explicit private-PDF persistence button is not yet directly observed. The next state/deadline source checkpoint requires its own acceptance. Source availability, earlier-head positives and new parser tests do not certify the changed tree. Full npm audit remains enforced; Issue29 has five inherited high findings. No suppression or forced dependency rewrite.
+- The executor lost the linked checkout's Git backing directory, then disconnected. All important checkpoints were reconstructed and preserved through GitHub; remote CI provides fresh validation. New screenshot artifacts require human visual review.
 
-## Metrics and all244 rows
+## Actual observed operation coverage
 
-| Metric | Value | Scope |
-|---|---|---|
-| OLD_PRODUCT_PARITY |47.4% (99/209)|Delivered useful generic preview/local UX; full integrated parity not accepted|
-| TELECOM_SUPERSET |54.8% (17/31)|Delivered preview telecom additions|
-| INTERACTION_COMPLETENESS |51.6% (116/225)|Complete preview/local capability rows; PARTIAL counts zero|
-| BACKEND_WIRING |34.5% (29/84)|Individually observed normal W1 operations through real Auth/cookie/UI against disposable Supabase|
-| REAL_LOCAL_WRITES |29.2% (19/65)|Distinct positively observed persisted local write operations; production writes0|
-| SYNTHETIC_ONLY |100% of data|Only synthetic test/preview data; integrated local has actual DB persistence|
-| AI_UI |52.2% (12/23)|Existing preview acceptance; new W3 UI handoff partial and integrated sender disabled|
-| VISUAL_QUALITY |Partial|Width acceptance8screen families/3widths; complete dialog/all requested family/human review pending|
+At42c8022,56 distinct W1 operations and35 writes have positive browser evidence. The newly merged catalog contains90 operations and67 writes: BACKEND_WIRING62.2%, REAL_LOCAL_WRITES52.2%. Private PDF reference/download and import list/get/cancel now count; the explicit PDF persistence action stays excluded until observed. These measure distinct positive operations, not full parity or release readiness.
 
-All244 rows independently retain frozen preview_status and integrated_local_status/evidence/limitations. Source-only or positive-only integration stays PARTIAL. Primary counts85 synthetic,31 local,71 partial,5 not implemented,33 blocked,15 preserved backend,4 excluded. Integrated review142 partial,53 not implemented,30 blocked,15 preserved backend,4 excluded. Complete integrated accepted rows0 until complete row/negative-role evidence. Operation coverage uses a different denominator from row completeness.
+All244 parity rows retain frozen preview status and separate integrated status/evidence/limits. Integrated complete-row acceptance remains pending. Preview delivered scores remain OLD_PRODUCT_PARITY47.4%, TELECOM_SUPERSET54.8%, INTERACTION_COMPLETENESS51.6%, AI_UI52.2%. SYNTHETIC_ONLY100% of data. Visual quality is partial: automated widths/Poppler rendering exist; full old/new visual comparison and human review remain pending.
 
-## Family status
+## Product families
 
-- Customers: persisted create/update/archive/restore and contact primary switching verified. Contact archive/restore newly consumed, pending browser. Full inventory/assignment partial.
-- Customer360:14 areas; actual protected company/contact/scoped agenda/document/billing panels. Full customer-bound active/opportunity inventories and transversal activity explicitly unavailable.
-- Calendar: actual bounded reads and task/meeting state commands; civil renewal/permanence editor. Task start/reopen and meeting update/no-show newly consumed. Provider sync/drag unavailable.
-- Opportunities: canonical UUID stages, manual create/edit/stage/win/lose/reopen/archive and bounded coded history. Browser lifecycle blocked by fixture; full inventory/assignment/new links partial.
-- Portfolio: actual manual service/line/renewal UI writes verified, source ancestry preserved. Manual contract/child/deadline commands wired; general operator/plan/assignment selectors and inventory partial.
-- Billing: protected issuer/fiscal profiles, exact normalization/server totals and integer preview, text/audio proposal review, drafts/explicit issue/paid/reverse/trash/restore/authorized PDF wired. Actual lifecycle/PDF visual verification pending; full links/FX/charts/top-clients partial.
-- Team: protected list/role/suspend/resume and owner/self protection. Role/status positives observed; full invite/cancel pending race-fix acceptance. Internal intentions only, no mail.
-- Documents: protected metadata and actual scoped pending Storage upload/explicit finalize/private download verified. Exact-target restore strengthening and browser ticket revocation/expiry pending. Scanner/hash attestation/preview/cleanup/import processing unavailable.
-- W3_UI_CONTRACT: typed closed refs/request/render/source/proposal/progress/cancel handoff and thread-search shell. Durable threads/stream/runtime parser/semantic provider work stays W3/Issue10; no normal integrated sender.
-- Inbox/automations/notifications/profile/subscription/reports: unimplemented or blocked per registry, no fake activation.
+Customers and Contact: persisted create/edit/archive/restore, primary replacement, reload and PII nonpersistence verified. New contact archive/restore consumer needs its own browser case; full collections and assignment remain partial. Imported customer facts and archived editing are gated.
+
+Customer360:14 areas with protected company/contact and customer-bound agenda/documents/billing entry points. Full related inventory, opportunities and transversal activity are explicitly incomplete.
+
+Calendar: bounded93-day/100-item reads with real task/meeting CAS editors. Create/complete task and create/reschedule/cancel meeting verified. Start/reopen/update/no-show plus renewal/permanence state journeys require further positive UI observations. Provider sync/drag remain unavailable.
+
+Opportunities: canonical UUID stage catalog; manual create/edit/win/reopen/lose verified. Change-stage/archive consumers, assignment, complete inventory and new entity links remain partial.
+
+Portfolio: manual service/line/renewal persistence and imported read-only facts verified. Parent eligibility gates, remaining contract/deadline lifecycle, general operator/plan/responsible selectors and complete inventory remain partial. Import panel actual list/get/cancel persisted; processing and quarantine upload remain blocked.
+
+Billing: actual fiscal customer, draft/edit/explicit issue/server numbering/payment and authorized display PDF verified. Private PDF now consumes frozen candidate reference/persistence/verified attachment; its actual browser case compares identical issued/paid bytes and renders the attachment. Optional PDF failure never rolls back or repeats financial issuance. Reverse/trash/restore, issuer editing, links, FX ergonomics and charts need further work.
+
+Team: actual list/role/suspend/resume/invite intention/cancellation verified; no invitation delivery. Owner/self/admin safeguards remain enforced by W1. Existing intent listing/roster pagination and remove journey remain partial.
+
+Documents: actual metadata archive/restore and scoped prepare/upload/explicit finalize/private download verified. Current actor/document tickets remain authoritative. Scanner/hash attestation, inline preview, cleanup and processing imports are unavailable.
+
+W3: typed refs/request/render/source/partiality/proposal/progress/cancel presentation handoff. Durable threads, streaming and model/provider semantics remain W3/Issue10; normal integrated sender is disabled. Inbox, automations, notifications, profile/subscription and reports retain explicit missing dependencies.
 
 ## Top10 remaining
 
-1. Complete next-head CAS/revocation and actual owner/admin/member/viewer UI evidence.
-2. Opportunity and billing/PDF lifecycle acceptance.
-3. Authorized paginated customer-bound collections and full inventory.
-4. Operator/plan/responsible selectors and ancestry-aware links.
-5. Team invitation and protected attachment ticket revocation/expiry acceptance.
-6. Financial trends/top clients/full entity links and FX ergonomics.
-7. Inbox/internal automation/notification backend and consumer availability.
-8. W3 durable thread/stream/proposal contracts; sender remains disabled.
-9. Complete dialog/mobile/tablet and independent old/new visual review.
-10. W4-reviewed Issue29 dependency mitigation/release acceptance.
+1. Next-head acceptance for additional contact/task/meeting/deadline states.
+2. Remaining contact/calendar/opportunity/portfolio/billing/team state journeys with negative roles and stale versions.
+3. Authorized paginated customer-bound collections and complete inventory.
+4. Operator/plan/responsible selection and immutable ancestry-aware links.
+5. Ticket expiry/revocation evidence in the product browser.
+6. Financial charts/top clients and FX/fiscal-series ergonomics.
+7. Inbox, automation and notification backend/consumers.
+8. W3 durable thread/stream/proposal contracts.
+9. All critical dialog/mobile/tablet captures and independent human visual review.
+10. W4-reviewed Issue29 mitigation and release acceptance.
 
 ## Next3
 
-1. Recover a fresh execution workspace and verify the published recovery checkpoint in real-local CI.
-2. Review latest W1 fa779e1 (safe import-job management, processing blocked) separately before consumption; currently merged head remains42176c7.
-3. Complete available UI gaps, recalculate row acceptance from full behavior and finalize W3/PR evidence.
-
-## Execution recovery
-
-The original linked checkout lost its backing Git directory after local235-test validation. Then exec-server transport disconnected and recovery timed out. Source candidates were reconstructed against exact published81fd886 through GitHub with guarded edit anchors; source changes and evidence are preserved remotely. No exact local tree comparison or further local commands were possible. Fresh remote CI is the authority for the recovered tree; no complete delivery or release acceptance is claimed.
+1. Verify the next state/deadline checkpoint with fresh CI and actual Supabase/Auth/browser.
+2. Close available state/provenance gaps with individual UI assertions, then reevaluate row acceptance from behavior.
+3. Update Draft PR30 and W3 handoff with exact heads, metrics, limits and remaining blockers.

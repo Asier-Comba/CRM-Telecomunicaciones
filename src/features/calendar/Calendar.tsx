@@ -88,6 +88,7 @@ export function Calendar({
   const event = (e: CalendarEntry) => (
     <button
       key={e.id}
+      data-calendar-id={e.id}
       onClick={() => onSelect ? onSelect(e) : setSelected(e)}
       className={`mb-1 block w-full rounded border-l-2 p-1.5 text-left text-[10px] leading-4 ${colors[e.type]}`}
     >
