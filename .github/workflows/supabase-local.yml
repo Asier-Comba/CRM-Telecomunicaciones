@@ -49,6 +49,9 @@ on:
       - 'src/lib/server/provenance-*.ts'
       - 'src/lib/server/import-staging-*.ts'
       - 'src/lib/server/import-csv-*.ts'
+      - 'docs/master/contracts/product-environment.json'
+      - 'src/lib/server/document-maintenance-*.ts'
+      - 'src/lib/server/document-scanner-*.ts'
       - 'supabase/migrations/**'
 permissions:
   contents: read

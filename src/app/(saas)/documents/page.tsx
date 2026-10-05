@@ -6,7 +6,7 @@ import { integratedLocalAllowed } from '@/features/product/integration/mode'
 export default async function DocumentsPage({searchParams}:{searchParams:Promise<{customer?:string}>}) {
   if(integratedLocalAllowed()){
     const {customer}=await searchParams
-    return <IntegratedDocuments contentEnabled={process.env.PRODUCT_DOCUMENT_CONTENT_ENABLED==='true'} customerId={typeof customer==='string'&&/^[0-9a-f-]{36}$/i.test(customer)?customer:undefined}/>
+    return <IntegratedDocuments maintenanceEnabled={process.env.PRODUCT_DOCUMENT_MAINTENANCE_ENABLED==='true'} contentEnabled={process.env.PRODUCT_DOCUMENT_CONTENT_ENABLED==='true'} customerId={typeof customer==='string'&&/^[0-9a-f-]{36}$/i.test(customer)?customer:undefined}/>
   }
   if (!syntheticPreviewAllowed())
     return (

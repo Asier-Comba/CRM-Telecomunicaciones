@@ -4,7 +4,7 @@ import { readdir, readFile } from 'node:fs/promises'
 import { join } from 'node:path'
 
 // Build-only random canaries; never real/local platform credentials.
-const privateNames = ['SUPABASE_SERVICE_ROLE_KEY', 'OPENAI_API_KEY', 'SMTP_PASSWORD', 'JWT_SECRET', 'DATABASE_URL']
+const privateNames = ['SUPABASE_SERVICE_ROLE_KEY', 'OPENAI_API_KEY', 'SMTP_PASSWORD', 'PRODUCT_DOCUMENT_VERIFY_KEY_HEX', 'IMPORT_STAGING_TEST_KEY', 'JWT_SECRET', 'DATABASE_URL']
 const bindings = Object.fromEntries(privateNames.map(name => [name, `w4_bundle_${randomBytes(32).toString('hex')}`]))
 async function files(root) {
   const out = []

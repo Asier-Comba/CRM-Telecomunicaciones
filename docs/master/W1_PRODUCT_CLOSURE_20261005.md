@@ -1,34 +1,39 @@
-# W1 product closure checkpoint — 2026-10-05
+# W1 product backend completion — 2026-10-05
 
-Accepted executable source: f574b0c55951e6e357e4e91059fcfe64b1410b02. PR28 remains Draft; no main merge or deployment. All UI_SAFE flags remain false. This is a partial session checkpoint, not a claim that all C1–C12 modules are complete.
+This is the authoritative current checkpoint, superseding historical 90-operation/44-migration/186-function and 80-operation summaries. The code remains on Draft PR #28, branch w1/product-backend-v1, default-off. Source acceptance: c2a7390867d941a33b17509b3f4014f8356bb0c1; executed PR checkout 8f14da513a5c122e2de3542d19ecdbe6ba32e21b has exactly the same Git tree 9442df0abfb48e48fbecb0c0d46f6146f6a28229 as that source HEAD; real run 37361774116; native/quality run 37361774252. The subsequent catalog/document checkpoint adds no executable behavior. Every operation is human-only and ui_safe:false pending W2/W4; no assistant registration, frontend changes, W2 branch edits, production credentials, providers, merge or deployment.
 
-Evidence: actual Supabase42/run37315671127 PASS801 with browser private-value boundary and teardown PASS. Native CI321/run37315670864 fresh/restored44 migrations/186 functions and embedded/secret/migration/baseline checks PASS. Quality212 Node/lint/types/build PASS; full npm audit still fails Issue29 with5 high vulnerabilities; critical Playwright/dependency review skipped. Catalog90 operations (67 writes,23 reads),90 individually observed. C11 contributes29 explicitly named cases with normal real SSR/Auth/JWT positives, denied principals/tenants, write replay/changed-intent/stale CAS; the fixture asserts the exact29-name set. Do not infer evidence from a family pass.
+## Exact evidence
 
-## Live consumer map
+53 canonical migrations; 247 explicit function privilege entries; 243 Node tests; 1298 real Supabase checks. Native PostgreSQL fresh zero-to-head and logical synthetic restore/role/ACL/RLS checks PASS. Embedded PGlite is separate corroboration, not PostgreSQL recovery or Supabase runtime proof. Real disposable Auth/JWT/PostgREST/Storage and normal cookie transports PASS, 129/129 registered operations individually observed (91 writes, 38 reads), identity revocation, browser private-value boundary and teardown PASS. No service-role call is counted as user authorization evidence. Lint/types/build PASS. Overall CI remains FAIL solely at the unsuppressed 5-high dependency audit (Issue29); dependency review/critical Playwright remain skipped, not passes. Browser bundle scanning does not establish UI visual or interaction acceptance.
 
-PR30 advanced from13b4666 to81fd8864964a760570870640e06a947480f34a04. Its PRODUCT_PARITY_STATUS.json remains the historical2026-10-03/ad3c06e5 matrix: metadata/upload/download/imports and inbox rows still show historical blocked statuses; notifications are absent and automation remains partial. These are consumer gaps, not proof that accepted W1 capabilities are missing. No frontend or consumer parity file is edited.
+## New backend families
 
-| Area / W2 IDs | Published result or explicit gap |
-| --- | --- |
-| Contacts PAR-035/042 | Existing canonical editor/writes handed off; no duplicate implementation |
-| Sensitive PAR-043 | Requested-field audited reveal still missing; generic DTOs not expanded |
-| Documents PAR-053/190/200/201 | Metadata plus private request_upload/finalize/ticket-proxy download individually proven; owner/admin, default off; scan/hash certification/orphan cleanup open |
-| Billing PDF | Private immutable artifact reference, optional on-issue persistence, frozen fiscal projection; normal download verifies bytes; SQL reference alone remains untrusted candidate |
-| Imports PAR-072 | Existing canonical jobs safely get/list/cancel; begin/validate/apply/resume explicitly blocked by encrypted store/KMS/decrypt/quarantine/domain adapters; no plaintext fallback |
-| Calendar PAR-101 | Normal internal calendar exists; provider sync/OAuth status seam still missing |
-| Inbox PAR-172/173/176 | Internal domain SQL and embedded fixture drafted locally, but runtime/real acceptance unfinished and unpublished |
-| Inbox PAR-175/177/178 | No external send/public webhook/AI registration |
-| Automation PAR-179..189 | Registered internal definitions/effects/history not implemented |
-| Notifications PAR-005/160 | Self center/unread/acknowledgement and reliable source dedupe not implemented |
-| Settings | Existing fiscal configuration is not a company/user/profile/logo/provider-status contract; remaining gaps explicit |
-| Team/provenance refinements | Internal team management proven; expiry and verified NEW manual origin missing; legacy manual backfill never certified |
+| Family | Normal operations | Actual behavior and limit |
+|---|---:|---|
+| Inbox | 13 | Private internal conversations/messages/self markers, CAS/HMAC replay/current assignment, close/reopen/archive/restore; immutable bounded bodies. No send/provider ingress. |
+| Notifications | 5 | Self center, unread/read/all, bounded actual overdue-task refresh and dedupe; in-app opt-out honored. No scheduler/provider. |
+| Automations | 8 | Disabled definitions and explicit enable; reliable future customer.created events; registered actual task.create/notification.create only. Unique terminal runs, concurrent processing/replay tested; no arbitrary code/SQL/URL, failed auto-retry or fake pending progress. |
+| Settings | 5 | Own display/timezone/locale/in-app preferences; owner/admin business profile distinct from fiscal issuer; current private PNG/JPEG logo. Seven integration classes report truthful not-configured/available-local states, not connection health. |
+| Requested reveal | 1 read | Exact requested contact email/phone or customer fiscal ID; role matrix and current entity access; atomic immutable value-free audit and no-store response. Existing human editor contracts are unchanged and must be excluded from generic AI context. |
+| Invite expiry / origin | 3 | Expired invitation list/reissue, 7-day expiry, last-owner protection; no delivery/identity grant. New manual origin proof from canonical audit for eight entity kinds. Legacy manual declarations remain unverified; contact has no fabricated source column. |
+| Document integrity/cleanup | 4 | Server measures actual authorized Storage bytes, signs private witness and stores immutable SHA256; download rejects corruption. Exact actor/version lease permits only one ≥24h expired pending object, with metadata retained archived. Scanner unavailable and required mode fails closed; active/PDF cleanup retained. |
 
-## Operational boundary and continuation
+The document target fix resolves customer ancestry for coded activity without adding a second document target. All six customer/contract/service/line/service_case/opportunity paths have real upload/finalize/ticket/proxy-download positives. Service-target integrity and exact cleanup are also tested. Verification acquires the exclusive document lock before manifest shared locks, preventing concurrent lock upgrades. Old migrations are preserved; the fix is a forward migration.
 
-The local execution registry disconnected with environment_offline / Environment is not connected while completing Inbox tests. Inbox is not published or counted. GitHub and remote CI remained available, so the remaining29 existing-operation proofs were completed and accepted there. Details and the planned Inbox contract are preserved in INBOX_V1_UNPUBLISHED_CHECKPOINT.md; inspect existing local files before refreshing if execution returns. Do not overwrite canonical privilege186 with preparatory draft204 or register unfinished13 operations.
+## Prepared imports, portability and email
 
-C2/C3 and C4 management are BACKEND_READY_FOR_W2_REVIEW:YES (candidate), not release approved. Processing/import/provider gaps remain blocked. W2 handoffs are in PR30 comments5994185052,5994613403,5994873383 and5995251464; accepted C11 result follows the latter. W3 receives exact minimized reads and67 human write candidates only, with Issue10 durable immutable-intent confirmation/execution owned by W3. No assistant write, live model call, message/document/import body context or elevated product identity is introduced.
+EncryptedImportStagingV1 has opaque short-lived authorization grants rechecking real current workspace/actor/job; test-only adapter requires an ephemeral 32-byte environment key, uses authenticated encryption with scope-bound AAD, restrictive filesystem permissions, immutable idempotent writes, digest/ref MAC checks, tamper/revocation denial and exact cleanup. Runtime production cannot instantiate it. CSV is bounded UTF-8 with closed headers, safe row-code errors and formula/control rejection; XLSX/ZIP remains blocked. Real Auth/importjob and cancellation/cleanup proofs PASS_DISPOSABLE_ONLY. No normal upload/validate/apply/resume registration, fake progress, domain mutation or relabeling imported records as manual is claimed. Production KMS/encrypted storage, scoped worker and canonical import-source domain adapters remain necessary.
 
-Deadline supersede is not added for parity alone: existing cancellation/resolution plus a new renewal/permanence record keeps the historical fact; whether a distinct supersede relation is genuinely needed remains a product decision. Invite expiry can be internal without Auth email and remains a future implementation. New manual provenance must be verified prospectively through trusted creation evidence, never by retroactive certification of legacy source='manual'.
+[product-environment.json](contracts/product-environment.json) lists 34 names with scope, environment requirements, secret classification, validator, purpose and provider class, no values. Validation rejects unsafe public secrets, origins, inconsistent key pairs and production use of the disposable adapter, returning only names/codes. Rebuild uses the canonical migration chain and pinned seed-off Supabase config; actual private bucket policy and disabled Google OAuth are checked. Native PostgreSQL16 and local Supabase PostgreSQL15 are distinct verified paths, not claimed production equivalence. Hosted staging (Issue12), production key install/rotation, offsite backup recovery and live provider delivery remain untested.
 
-See W1_PRODUCT_CLOSURE_20261005_STATUS.json for the exact requested status fields and next3 priorities.
+Auth SMTP and CRM mail are separate readiness channels; both not configured. A flag or credential alone cannot establish verified sender domain, HTTPS site/callbacks, delivery, bounce/retry or production readiness. No email or provider activation occurred.
+
+## Retained product boundaries
+
+Existing exact billing, transactional numbering/frozen snapshots, protected private PDF, review-only unsaved proposal, bounded reports/search/dashboard, team, portfolio and deadlines remain canonical. Resolve/dismiss/cancel plus a new deadline record preserves history; no invented supersede state. Advanced historical billing analytics and text/audio parsing remain unavailable. Unlinked active PDF objects are retained until a scoped reachability cleanup is proved.
+
+## Handoffs and remaining work
+
+W2: [exact handoff](W1_TO_W2_COMPLETION_20261005.md). W2 branch and UI evidence are owned separately; backend browser/private checks do not promote their parity ledger or ui_safe. W3: [all 91 write and 38 read contracts](W1_TO_W3_AI_CAPABILITIES.md); Issue10 owns durable immutable-intent confirmation, current authorization, dispatch/replay/recovery, no registration here. Sensitive/private bodies, document/fiscal material and import data are excluded from generic AI context.
+
+Issue29 was checked once against the upstream advisory as requested; no known patched version was identified. Package/lock versions and audit enforcement are unchanged; five high findings remain. Issue10 and Issue12 remain open. Next: W2/W4 exact UI acceptance; separately authorized production imports; W3 durable Issue10 closure and upstream Issue29 resolution before production readiness.

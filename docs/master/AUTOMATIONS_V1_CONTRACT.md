@@ -1,5 +1,8 @@
 # Registered internal automations v1
 
+Current acceptance: c2a7390867d941a33b17509b3f4014f8356bb0c1, real run37361774116 (1,298 checks), native/quality37361774252 (53 migrations/247 privilege entries/243 Node tests). [Authoritative closure](W1_PRODUCT_CLOSURE_20261005.md) records the limits. Human backend only; UI_SAFE=false pending W2/W4.
+
+
 Default-off POST /api/automations/v1, current SSR owner/admin only, exact PRODUCT_V1_ORIGIN; no raw grants, arbitrary SQL/code/URL/webhook or actual provider. UI_SAFE=false. Human writes are future candidates only, no assistant registration.
 
 Definition {name1..100,trigger_id:customer.created,condition:{account_kind:null|legal_entity|sole_trader},action:{action_id:notification.create|task.create,recipient_user_id}}. Recipient must be active owner/admin/member in current workspace at create/update. All objects closed. create defaults disabled/version1. update requires disabled and replaces the complete definition. enable/disable CAS expected_version; reenable observes future events from new enabled_at, does not silently rerun history. No archive state added without product need.

@@ -37,6 +37,9 @@ import { parseCalendarPageV1, parseWorkGetV1, parseStageCatalogV1 } from '../../
 import type { TeamInputsV1, TeamOperationV1, TeamReceiptV1, TeamListV1, TeamListInputV1, TeamInviteListV1 } from '@/lib/contracts/team-v1'
 import type {ProvenanceInputV1,ProvenanceResultV1} from '@/lib/contracts/provenance-v1'
 import {parseProvenanceInputV1,parseProvenanceResultV1} from '../../../lib/server/provenance-runtime-v1.ts'
+import type {DocumentMaintenanceInputV1,DocumentMaintenanceOperationV1,DocumentMaintenanceReceiptV1} from '@/lib/contracts/document-maintenance-v1'
+import {parseDocumentMaintenanceInputV1,parseDocumentMaintenanceReceiptV1,parseExpiredDocumentPage,type ExpiredDocumentPage} from './document-maintenance-client'
+import {parseTeamListInputV1} from '@/lib/server/team-runtime-v1'
 import type { DocumentInputsV1, DocumentOperationV1, DocumentReceiptV1, DocumentListInputV1, DocumentListV1, DocumentGetV1 } from '@/lib/contracts/document-v1'
 import { parseTeamInputV1, parseTeamReceiptV1, parseTeamListV1, parseTeamInviteListV1 } from '../../../lib/server/team-runtime-v1.ts'
 import { parseDocumentInputV1, parseDocumentReceiptV1, parseDocumentListV1, parseDocumentGetV1 } from '../../../lib/server/document-runtime-v1.ts'
@@ -87,6 +90,8 @@ export interface ProductRepository {
   teamInvites(input:TeamListInputV1):Promise<TeamInviteListV1>
   provenance(input:ProvenanceInputV1):Promise<ProvenanceResultV1>
   teamCommand<O extends TeamOperationV1>(operation: O, input: TeamInputsV1[O]): Promise<TeamReceiptV1>
+  maintenance(operation:Exclude<DocumentMaintenanceOperationV1,'document.expired_list'>,input:DocumentMaintenanceInputV1):Promise<DocumentMaintenanceReceiptV1>
+  expiredDocuments(input:TeamListInputV1):Promise<ExpiredDocumentPage>
   documents(input: DocumentListInputV1): Promise<DocumentListV1>
   document(id: string): Promise<DocumentGetV1>
   documentCommand<O extends DocumentOperationV1>(operation: O, input: DocumentInputsV1[O]): Promise<DocumentReceiptV1>
@@ -173,6 +178,8 @@ export class IntegratedLocalProductRepository implements ProductRepository {
     const input=parseTeamInputV1(operation,value);if(!input)return Promise.reject(new ProductUiError('validation'))
     return this.post('commands',operation,input,v=>parseTeamReceiptV1(operation,input,v),'team')
   }
+  maintenance(operation:Exclude<DocumentMaintenanceOperationV1,'document.expired_list'>,value:DocumentMaintenanceInputV1){const input=parseDocumentMaintenanceInputV1(operation,value);if(!input)return Promise.reject(new ProductUiError('validation'));return this.post('commands',operation,input,v=>parseDocumentMaintenanceReceiptV1(operation,input,v),'document','/api/document/v1/maintenance')}
+  expiredDocuments(value:TeamListInputV1){const input=parseTeamListInputV1(value);if(!input)return Promise.reject(new ProductUiError('validation'));return this.post('queries','document.expired_list',input,v=>parseExpiredDocumentPage(input,v),'document','/api/document/v1/maintenance')}
   documents(input: DocumentListInputV1) { return this.post('queries','document.list',input,v=>parseDocumentListV1(input,v),'document') }
   document(id:string) { return this.post('queries','document.get_metadata',{id},v=>parseDocumentGetV1(id,v),'document') }
   documentCommand<O extends DocumentOperationV1>(operation: O,value:DocumentInputsV1[O]) {
@@ -247,6 +254,8 @@ export class SyntheticProductRepository implements ProductRepository {
   provenance(_input:ProvenanceInputV1){void _input;return this.unavailable<ProvenanceResultV1>()}
   team(_input?:TeamListInputV1) {void _input;return this.unavailable<TeamListV1>() }
   teamCommand<O extends TeamOperationV1>(_operation: O,_input:TeamInputsV1[O]) {void _operation;void _input;return this.unavailable<TeamReceiptV1>()}
+  maintenance(_operation:Exclude<DocumentMaintenanceOperationV1,'document.expired_list'>,_input:DocumentMaintenanceInputV1){void _operation;void _input;return this.unavailable<DocumentMaintenanceReceiptV1>()}
+  expiredDocuments(_input:TeamListInputV1){void _input;return this.unavailable<ExpiredDocumentPage>()}
   documents(_input:DocumentListInputV1) {void _input;return this.unavailable<DocumentListV1>()}
   document(_id:string) {void _id;return this.unavailable<DocumentGetV1>()}
   documentCommand<O extends DocumentOperationV1>(_operation:O,_input:DocumentInputsV1[O]) {void _operation;void _input;return this.unavailable<DocumentReceiptV1>()}

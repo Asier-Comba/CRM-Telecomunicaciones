@@ -97,6 +97,7 @@ try {
   console.log('SETTINGS SELF/COMPANY/REGISTRY/CAS/ROLLBACK PASS')
   await db.exec(await readFile(resolve(root,'supabase/tests/requested-sensitive-reveal.sql'),'utf8'))
   await db.exec(await readFile(resolve(root,'supabase/tests/team-expiry-manual-origin.sql'),'utf8'))
+  await db.exec(await readFile(resolve(root,'supabase/tests/document-integrity-cleanup.sql'),'utf8'))
   console.log('REQUESTED SENSITIVE REVEAL/ROLE/REDACTED AUDIT/ROLLBACK PASS')
   const {calculateBillingV1}=await import(pathToFileURL(resolve(root,'src/lib/server/billing-runtime-v1.ts')))
   let vectorState=20261004

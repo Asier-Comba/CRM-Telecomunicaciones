@@ -1,3 +1,4 @@
+import {createHash}from 'node:crypto'
 import type {ProductUserPortV1}from './product-service-v1'
 import type {ProductErrorV1}from '../contracts/product-v1'
 import type {DocumentContentOperationV1}from '../contracts/document-content-v1'
@@ -32,7 +33,7 @@ export class DocumentContentServiceV1{
   }catch{return fail('internal_safe')}
  }
  async download(id:string,ticket:string){
-  try{const r=await this.#manifest(id,ticket);if(!r.ok)return r;const bytes=await this.#port.download(r.path);if(!bytes)return fail('access_denied');if(bytes.byteLength!==r.manifest.size_bytes)return fail('internal_safe');return{ok:true as const,bytes,mime:r.manifest.media_type}}
+  try{const r=await this.#manifest(id,ticket);if(!r.ok)return r;const bytes=await this.#port.download(r.path);if(!bytes)return fail('access_denied');if(bytes.byteLength!==r.manifest.size_bytes)return fail('internal_safe');if(r.manifest.sha256&&createHash('sha256').update(bytes).digest('hex')!==r.manifest.sha256)return fail('conflict');return{ok:true as const,bytes,mime:r.manifest.media_type}}
   catch{return fail('internal_safe')}
  }
 }

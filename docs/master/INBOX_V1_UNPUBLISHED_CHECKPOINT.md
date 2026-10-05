@@ -1,5 +1,8 @@
 # Internal Inbox C5 — unpublished implementation checkpoint
 
+HISTORICAL UNPUBLISHED DRAFT — superseded by accepted Inbox source950d07eacab3323e14c9eb8671b7663d669bfc03 and the current [W1 closure](W1_PRODUCT_CLOSURE_20261005.md), sourcec2a7390867d941a33b17509b3f4014f8356bb0c1, 129/129 operations, real run37361774116. The preserved draft below is history and must not be used as current implementation/readiness evidence.
+
+
 2026-10-05. Canonical accepted remote is fa779e1; C11 proof expansion follows at f574b0c. BACKEND_READY_FOR_W2_REVIEW:NO for Inbox. UI_SAFE=false. Local execution environment disconnected before Node/SSR/HTTP checks could run, so Inbox source has not been published or counted.
 
 A local forward migration 20261005133000_internal_inbox_domain.sql and independent synthetic SQL fixture passed embedded fresh creation with204 functions and the fixture. These are local preparatory results, not accepted native/real-Supabase evidence. Runtime, factory, normal route and strict closed parser files were drafted; their final timestamp changes and actual HTTP fixture were not verified. Do not mark13 planned operations individually observed.
