@@ -17,3 +17,8 @@ I4 partial: existing calendar widget consumes calendar.list with 93-day bound an
 I7 partial: real my/workspace dashboard with period/snapshot separation, native-currency financial authorization, unavailable team state and coded recent activity. Topbar and Ctrl/Cmd-K consume the seven-kind bounded global search. Invoice navigation is preparatory; billing integration is still pending.
 
 Validation: 225 Node tests, typecheck, lint and production build PASS at the earlier client checkpoint. First UI run37304343398 failed before customer creation because preceding backend workspace-revocation test intentionally suspended Synthetic A. UI harness now reactivates only that synthetic workspace after proving backend denial. New run pending. No product browser PASS or parity promotion yet.
+
+I9 implemented pending browser: protected team roster/invite intention/role/suspend/resume/remove/cancel intention, preserving owner and hiding self-management. Document list/get_metadata/archive/restore scoped by selected customer; upload/content preview/download unavailable.
+I10 partial: W3 typed presentation handoff, thread search and contextual invoice shell, with sending disabled in integrated mode pending W3 and Issue10. No semantic/provider implementation.
+
+Run30 still failed customer_create after workspace restoration and handler warmup. Native fetch was invoked with a repository receiver; client now binds to globalThis and a receiver regression test passes. New harness retains safe passed-check names and HTTP path/status diagnostics only. No full product journey PASS claimed. Billing typed adapter/editor support exists but billing module activation remains pending.

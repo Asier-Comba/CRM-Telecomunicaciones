@@ -4,13 +4,13 @@ import { mkdirSync } from 'node:fs'
 import { resolve } from 'node:path'
 
 /** Real browser login and UI commands against the disposable Supabase stack. */
-export async function productBrowserAcceptance({ users, wa, sql, url, anon }) {
+export async function productBrowserAcceptance({ users, wa, sql, url, anon, report }) {
   if (process.env.GITHUB_ACTIONS !== 'true' || url !== 'http://127.0.0.1:54321') throw Error('W2_UI_LOCAL_CI_ONLY')
   const origin='http://127.0.0.1:3109'
   const server=spawn(process.execPath,['node_modules/next/dist/bin/next','dev','--webpack','--hostname','127.0.0.1','--port','3109'],{stdio:'ignore',env:{...process.env,NODE_ENV:'development',PRODUCT_LOCAL_INTEGRATION:'true',PRODUCT_LOCAL_SYNTHETIC:'true',PRODUCT_V1_ENABLED:'true',PRODUCT_V1_ORIGIN:origin,NEXT_PUBLIC_SUPABASE_URL:url,NEXT_PUBLIC_SUPABASE_ANON_KEY:anon,NEXT_PUBLIC_ENABLE_DEMO_DATA:'false',NEXT_PUBLIC_FORCE_OFFLINE_DEV:'false',NEXT_TELEMETRY_DISABLED:'1'}})
   let browser, context, page; const checks=[]
   const screenshotDir=resolve(process.env.RUNNER_TEMP,'w2-product-ui');mkdirSync(screenshotDir,{recursive:true})
-  async function check(name, action){try{await action();checks.push(name)}catch{throw Error('W2_UI_'+name.toUpperCase())}}
+  async function check(name, action){try{await action();checks.push(name);if(report)report.w2_product_ui_passed_checks=[...checks]}catch{throw Error('W2_UI_'+name.toUpperCase())}}
   try {
     let ready=false
     for(let i=0;i<90;i++){try{const r=await fetch(origin+'/login',{signal:AbortSignal.timeout(1500)});if(r.ok){ready=true;break}}catch{}await new Promise(r=>setTimeout(r,500))}
@@ -21,6 +21,9 @@ export async function productBrowserAcceptance({ users, wa, sql, url, anon }) {
       if(response.status!==400)throw Error('W2_UI_HANDLER_WARMUP_FAILED')
     }
     browser=await chromium.launch();context=await browser.newContext({viewport:{width:1440,height:960},timezoneId:'Europe/Madrid'});page=await context.newPage();page.setDefaultTimeout(30000)
+    const transport=[];if(report)report.w2_ui_transport=transport
+    page.on('response',r=>{const path=new URL(r.url()).pathname;if(/^\/api\/(product|team|document|billing)\/v1\/(commands|queries|pdf)$/.test(path))transport.push({path,status:r.status()})})
+    if(report)report.w2_fetch_receiver=await page.evaluate(async()=>{const detached={request:fetch};try{await detached.request('data:application/json,%7B%7D');return 'ACCEPTED'}catch{return 'REQUIRES_GLOBAL_RECEIVER'}})
     // Prior backend revocation tests modify these memberships. Restore ONLY synthetic harness identities before UI journey.
     sql(`update public.workspaces set status='active' where id='${wa}'; update public.workspace_members set status='active' where user_id in ('${users.memberA.id}','${users.viewerA.id}') and workspace_id='${wa}'; update public.profiles set workspace_id='${wa}' where id in ('${users.memberA.id}','${users.viewerA.id}');`)
     await check('real_browser_login',async()=>{await page.goto(origin+'/login');await page.locator('input[type="email"]').fill(users.memberA.email);await page.locator('input[type="password"]').fill(users.memberA.password);await page.getByRole('button',{name:'Iniciar sesión',exact:true}).click();await page.waitForURL('**/dashboard')})

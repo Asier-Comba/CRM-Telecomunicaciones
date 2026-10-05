@@ -30,3 +30,7 @@ test('malformed success, unexpected authority fields and unsafe errors fail clos
 test('synthetic implementation never simulates a persistent receipt',async()=>{
  await assert.rejects(commandIntent('customer.create',{account_kind:'legal_entity',legal_name:'Synthetic'}).execute(new SyntheticProductRepository()),e=>e.code==='unavailable')
 })
+test('browser fetch retains the global receiver instead of the repository instance',async()=>{
+ const repository=new IntegratedLocalProductRepository(function(){assert.equal(this,globalThis);return Promise.resolve(Response.json({ok:false,error:'access_denied'},{status:403}))})
+ await assert.rejects(repository.customer('10000000-0000-4000-8000-000000000001'),e=>e.code==='access_denied')
+})

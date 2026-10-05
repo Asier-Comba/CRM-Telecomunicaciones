@@ -4,6 +4,13 @@ import { parseProductInputV1, parseProductReceiptV1, parseCustomerEditorV1, pars
 import { parseDashboardV2, parseGlobalSearchV1 } from '../../../lib/server/product-dashboard-runtime-v2.ts'
 import type { CalendarInputV1, CalendarPageV1, WorkGetV1 } from '@/lib/contracts/product-queries-v1'
 import { parseCalendarPageV1, parseWorkGetV1 } from '../../../lib/server/product-query-runtime-v1.ts'
+import type { TeamInputsV1, TeamOperationV1, TeamReceiptV1, TeamListV1 } from '@/lib/contracts/team-v1'
+import type { DocumentInputsV1, DocumentOperationV1, DocumentReceiptV1, DocumentListInputV1, DocumentListV1, DocumentGetV1 } from '@/lib/contracts/document-v1'
+import { parseTeamInputV1, parseTeamReceiptV1, parseTeamListV1 } from '../../../lib/server/team-runtime-v1.ts'
+import { parseDocumentInputV1, parseDocumentReceiptV1, parseDocumentListV1, parseDocumentGetV1 } from '../../../lib/server/document-runtime-v1.ts'
+import type { BillingInputsV1, BillingOperationV1, BillingReceiptV1, BillingQueriesV1, BillingQueryV1, BillingReadDataV1 } from '@/lib/contracts/billing-v1'
+import { parseBillingInputV1, parseBillingReceiptV1 } from '../../../lib/server/billing-runtime-v1.ts'
+import { parseBillingQueryV1, parseBillingReadV1 } from '../../../lib/server/billing-query-runtime-v1.ts'
 
 export type UiError = ProductErrorV1 | 'transport_uncertain'
 export class ProductUiError extends Error {
@@ -28,6 +35,14 @@ export interface ProductRepository {
   search(query: string): Promise<GlobalSearchV1>
   calendar(input: CalendarInputV1): Promise<CalendarPageV1>
   work(kind: 'task'|'meeting'|'opportunity', id: string): Promise<WorkGetV1>
+  team(): Promise<TeamListV1>
+  teamCommand<O extends TeamOperationV1>(operation: O, input: TeamInputsV1[O]): Promise<TeamReceiptV1>
+  documents(input: DocumentListInputV1): Promise<DocumentListV1>
+  document(id: string): Promise<DocumentGetV1>
+  documentCommand<O extends DocumentOperationV1>(operation: O, input: DocumentInputsV1[O]): Promise<DocumentReceiptV1>
+  billing<Q extends BillingQueryV1>(operation: Q,input:BillingQueriesV1[Q]):Promise<Extract<BillingReadDataV1,{operation:Q}>>
+  billingCommand<O extends BillingOperationV1>(operation:O,input:BillingInputsV1[O]):Promise<BillingReceiptV1>
+  invoicePdf(id:string):Promise<Blob>
 }
 const errors: readonly string[] = ['validation','access_denied','not_found','conflict','unavailable','internal_safe']
 function object(v: unknown): v is Record<string, unknown> {
@@ -37,11 +52,11 @@ function object(v: unknown): v is Record<string, unknown> {
 export class IntegratedLocalProductRepository implements ProductRepository {
   readonly mode = 'integrated_local' as const
   private readonly request: typeof fetch
-  constructor(request: typeof fetch = fetch) { this.request = request }
-  private async post<T>(kind: 'commands' | 'queries', operation: string, input: unknown, parse: (value: unknown) => T | null): Promise<T> {
+  constructor(request: typeof fetch = fetch) { this.request = request.bind(globalThis) }
+  private async post<T>(kind: 'commands' | 'queries', operation: string, input: unknown, parse: (value: unknown) => T | null, family = 'product'): Promise<T> {
     let response: Response
     try {
-      response = await this.request(`/api/product/v1/${kind}`, {
+      response = await this.request(`/api/${family}/v1/${kind}`, {
         method: 'POST', credentials: 'same-origin', cache: 'no-store',
         headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ operation, input }),
         signal: AbortSignal.timeout(15000),
@@ -72,6 +87,32 @@ export class IntegratedLocalProductRepository implements ProductRepository {
   search(query: string) { const input = { query: query.trim(), limit: 50 }; return this.post('queries','global.search',input,v => parseGlobalSearchV1(input,v)) }
   calendar(input: CalendarInputV1) { return this.post('queries','calendar.list',input,v=>parseCalendarPageV1(input,v)) }
   work(kind: 'task'|'meeting'|'opportunity', id: string) { return this.post('queries','work.get',{kind,id},v=>parseWorkGetV1(kind,id,v)) }
+  team() { const input={limit:100};return this.post('queries','member.list',input,v=>parseTeamListV1(input,v),'team') }
+  teamCommand<O extends TeamOperationV1>(operation: O, value: TeamInputsV1[O]) {
+    const input=parseTeamInputV1(operation,value);if(!input)return Promise.reject(new ProductUiError('validation'))
+    return this.post('commands',operation,input,v=>parseTeamReceiptV1(operation,input,v),'team')
+  }
+  documents(input: DocumentListInputV1) { return this.post('queries','document.list',input,v=>parseDocumentListV1(input,v),'document') }
+  document(id:string) { return this.post('queries','document.get_metadata',{id},v=>parseDocumentGetV1(id,v),'document') }
+  documentCommand<O extends DocumentOperationV1>(operation: O,value:DocumentInputsV1[O]) {
+    const input=parseDocumentInputV1(operation,value);if(!input)return Promise.reject(new ProductUiError('validation'))
+    return this.post('commands',operation,input,v=>parseDocumentReceiptV1(operation,input,v),'document')
+  }
+  billing<Q extends BillingQueryV1>(operation:Q,value:BillingQueriesV1[Q]) {
+    const input=parseBillingQueryV1(operation,value);if(!input)return Promise.reject(new ProductUiError('validation'))
+    return this.post('queries',operation,input,v=>parseBillingReadV1(operation,input,v) as Extract<BillingReadDataV1,{operation:Q}>|null,'billing')
+  }
+  billingCommand<O extends BillingOperationV1>(operation:O,value:BillingInputsV1[O]) {
+    const input=parseBillingInputV1(operation,value);if(!input)return Promise.reject(new ProductUiError('validation'))
+    return this.post('commands',operation,input,v=>parseBillingReceiptV1(operation,input,v),'billing')
+  }
+  async invoicePdf(id:string){
+    let response:Response
+    try{response=await this.request('/api/billing/v1/pdf',{method:'POST',credentials:'same-origin',cache:'no-store',headers:{'Content-Type':'application/json'},body:JSON.stringify({operation:'invoice.pdf',input:{id}}),signal:AbortSignal.timeout(15000)})}catch{throw new ProductUiError('transport_uncertain')}
+    if(!response.ok || !/^application\/pdf(?:;|$)/i.test(response.headers.get('content-type')??''))throw new ProductUiError(response.status===403?'access_denied':response.status===404?'not_found':'internal_safe')
+    const blob=await response.blob();if(blob.size>2000000 || blob.size<5 || await blob.slice(0,5).text()!=='%PDF-')throw new ProductUiError('internal_safe')
+    return blob
+  }
 }
 /** Preview never impersonates a successful persistent write. */
 export class SyntheticProductRepository implements ProductRepository {
@@ -84,6 +125,14 @@ export class SyntheticProductRepository implements ProductRepository {
   search(_query: string) { void _query; return this.unavailable<GlobalSearchV1>() }
   calendar(_input: CalendarInputV1) { void _input; return this.unavailable<CalendarPageV1>() }
   work(_kind: 'task'|'meeting'|'opportunity', _id: string) { void _kind; void _id; return this.unavailable<WorkGetV1>() }
+  team() { return this.unavailable<TeamListV1>() }
+  teamCommand<O extends TeamOperationV1>(_operation: O,_input:TeamInputsV1[O]) {void _operation;void _input;return this.unavailable<TeamReceiptV1>()}
+  documents(_input:DocumentListInputV1) {void _input;return this.unavailable<DocumentListV1>()}
+  document(_id:string) {void _id;return this.unavailable<DocumentGetV1>()}
+  documentCommand<O extends DocumentOperationV1>(_operation:O,_input:DocumentInputsV1[O]) {void _operation;void _input;return this.unavailable<DocumentReceiptV1>()}
+  billing<Q extends BillingQueryV1>(_operation:Q,_input:BillingQueriesV1[Q]){void _operation;void _input;return this.unavailable<Extract<BillingReadDataV1,{operation:Q}>>()}
+  billingCommand<O extends BillingOperationV1>(_operation:O,_input:BillingInputsV1[O]){void _operation;void _input;return this.unavailable<BillingReceiptV1>()}
+  invoicePdf(_id:string){void _id;return this.unavailable<Blob>()}
 }
 /** Keep in the mounted action/editor only. Never persist this object or contact PII. */
 export function commandIntent<O extends ProductOperationV1>(operation: O, fields: Omit<ProductCommandInputsV1[O], 'command_id'>) {

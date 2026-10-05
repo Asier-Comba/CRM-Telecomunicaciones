@@ -108,7 +108,7 @@ export function Topbar({
                   setOpen(false)
                   setQuery('')
                 }}
-                href={r.kind === 'invoice' ? `/billing?invoice=${r.id}` : customerHref(r.customerId) ?? '/clients'}
+                href={r.kind === 'invoice' ? `/facturacion?invoice=${r.id}` : customerHref(r.customerId) ?? '/clients'}
                 className="block rounded-lg px-3 py-2 hover:bg-indigo-50"
               >
                 <p className="text-xs font-semibold text-slate-800">

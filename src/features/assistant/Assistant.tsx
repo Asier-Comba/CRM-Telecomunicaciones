@@ -17,6 +17,8 @@ import {
 } from '@/lib/telecom-preview/reply'
 import { AssistantResponseView } from './Response'
 import { PreviewNotice, Drawer, control, primary } from '@/features/product/ui'
+import { useProduct } from '@/features/product/integration/Provider'
+import type { AiEntityReference } from './w3-ui-contract'
 export type AssistantContext = {
   id: string
   name: string
@@ -39,7 +41,9 @@ const prompts = [
   '¿Qué oportunidades están abiertas?',
   'Resume Norte Telecom',
 ]
-export function Assistant({ context }: { context: AssistantContext | null }) {
+export function Assistant({ context, selectedReferences = [], invoiceIntent = false }: { context: AssistantContext | null; selectedReferences?: readonly AiEntityReference[]; invoiceIntent?: boolean }) {
+  const integrated = useProduct().repository.mode === 'integrated_local'
+  const [threadQuery,setThreadQuery] = useState('')
   const [threads, setThreads] = useState<Thread[]>([
       { id: 1, title: 'Nueva conversación', turns: [] },
     ]),
@@ -76,6 +80,7 @@ export function Assistant({ context }: { context: AssistantContext | null }) {
     setText('')
   }
   async function ask(value: string) {
+    if (integrated) return
     if (
       loading ||
       !value.trim() ||
@@ -158,17 +163,20 @@ export function Assistant({ context }: { context: AssistantContext | null }) {
         }
       />
       <PreviewNotice />
+      {integrated && <p role="status" className="rounded-lg border border-amber-100 bg-amber-50 p-3 text-sm text-amber-900">Asistente en preparación. Consultas y acciones IA desactivadas hasta aceptar la integración W3 y el historial durable (Issue10).</p>}
+      {invoiceIntent && <section className="rounded-xl border bg-white p-4"><h2 className="font-semibold">Crear factura con IA</h2><p className="mt-2 text-sm text-slate-500">El flujo requerirá una propuesta revisada, guardar el borrador y confirmar la emisión. La creación mediante IA todavía no está disponible.</p><button className={`${primary} mt-3`} disabled>Preparar propuesta</button></section>}
       <div className="grid items-start gap-4 xl:grid-cols-[210px_minmax(0,1fr)_230px]">
         <aside className="rounded-xl border border-slate-200 bg-white p-3">
           <button className={`${primary} w-full`} onClick={newThread}>
             <Plus className="h-4 w-4" />
             Nueva conversación
           </button>
+          <input aria-label="Buscar conversaciones" className={`${control} mt-3 w-full`} value={threadQuery} onChange={e=>setThreadQuery(e.target.value)} placeholder="Buscar conversación" maxLength={100}/>
           <h2 className="px-2 pb-2 pt-4 text-[10px] font-bold uppercase tracking-wider text-slate-400">
             Conversaciones de esta sesión
           </h2>
           <div className="max-h-48 space-y-1 overflow-y-auto xl:max-h-[500px]">
-            {threads.map((t) => (
+            {threads.filter(t=>t.title.toLowerCase().includes(threadQuery.toLowerCase())).map((t) => (
               <button
                 key={t.id}
                 aria-pressed={active === t.id}
@@ -233,6 +241,7 @@ export function Assistant({ context }: { context: AssistantContext | null }) {
                   {prompts.map((p) => (
                     <button
                       key={p}
+                      disabled={integrated}
                       className="rounded-lg border border-indigo-100 bg-white px-3 py-2 text-left text-xs font-medium text-indigo-700"
                       onClick={() => void ask(p)}
                     >
@@ -277,6 +286,7 @@ export function Assistant({ context }: { context: AssistantContext | null }) {
             <div className="flex gap-2">
               <input
                 aria-label="Consulta al asistente"
+                disabled={integrated}
                 maxLength={500}
                 value={text}
                 onChange={(e) => setText(e.target.value)}
@@ -296,7 +306,7 @@ export function Assistant({ context }: { context: AssistantContext | null }) {
                 <button
                   className={primary}
                   disabled={
-                    !text.trim() || new TextEncoder().encode(text).length > 500
+                    integrated || !text.trim() || new TextEncoder().encode(text).length > 500
                   }
                 >
                   <Send className="h-4 w-4" />
@@ -316,6 +326,7 @@ export function Assistant({ context }: { context: AssistantContext | null }) {
           <h2 className="text-sm font-semibold text-slate-900">
             Contexto de la consulta
           </h2>
+          {selectedReferences.map(reference=><div key={`${reference.kind}:${reference.id}`} className="rounded-lg bg-indigo-50 p-3 text-xs text-indigo-800"><strong>{reference.kind === 'customer' ? 'Cliente seleccionado' : 'Registro seleccionado'}</strong><p className="mt-1">Referencia {reference.id.slice(0,8)}</p><p className="mt-1 text-slate-500">La referencia no concede acceso; W3 deberá autorizarla.</p></div>)}
           {context ? (
             <>
               <Badge variant="indigo">Cliente seleccionado</Badge>
@@ -342,7 +353,7 @@ export function Assistant({ context }: { context: AssistantContext | null }) {
               </dl>
               <button
                 className={`${control} w-full text-left`}
-                disabled={loading}
+                disabled={loading || integrated}
                 onClick={() => void ask(`Resume ${context.name}`)}
               >
                 Consultar cliente

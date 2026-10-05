@@ -57,7 +57,7 @@ try {
     const { acceptance } = await import('./acceptance.mjs')
     const onProductUi = process.env.W2_PRODUCT_UI === 'true' ? async context => {
       const { productBrowserAcceptance } = await import('./product-browser-acceptance.mjs')
-      return productBrowserAcceptance({ ...context, url, anon })
+      return productBrowserAcceptance({ ...context, url, anon, report: evidence })
     } : undefined
     Object.assign(evidence, await acceptance({ url, anon, service, db, command, report: evidence, appUrl, onProductUi }))
   } else evidence.result = 'STACK_PROVEN_HTTP_ACCEPTANCE_PENDING'
