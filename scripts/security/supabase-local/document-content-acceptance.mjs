@@ -14,9 +14,11 @@ export async function documentContentAcceptance({rpc,sql,check,http,users,wa,wb,
  check(Number(sql(`select count(*)from public.product_commands where command_id='${finalize.command_id}'`))===0,'content_failed_finalize_no_reservation')
  check((await call('request_upload',{...input,size_bytes:input.size_bytes+1})).json.code==='40001','content_changed_intent_conflict')
  check((await call('request_upload',{...input,storage_path:'arbitrary'})).status===400,'content_caller_path_denied')
- check((await call('request_upload',{...input,command_id:randomUUID(),target_id:cb})).status===404,'content_foreign_target_denied')
+ const foreignTarget=await call('request_upload',{...input,command_id:randomUUID(),target_id:cb})
+ check(foreignTarget.status>=400&&foreignTarget.json?.code==='P0002','content_foreign_target_denied')
  for(const u of [users.memberA,users.viewerA,users.ownerB])check((await call('request_upload',input,u)).status===403,'content_role_and_tenant_denied')
- check((await call('manifest',{id},users.ownerB,wb)).status===404,'content_foreign_scoped_manifest_hidden')
+ const foreignManifest=await call('manifest',{id},users.ownerB,wb)
+ check(foreignManifest.status>=400&&foreignManifest.json?.code==='P0002','content_foreign_scoped_manifest_hidden')
  const manifest=await call('manifest',{id});check(manifest.status===200&&manifest.json.size_bytes===bytes.length&&!JSON.stringify(manifest.json).includes('storage_path'),'content_pending_manifest_scoped')
  const path=wa+'/documents/'+id+'/'+manifest.json.object_ref
  for(const u of [users.adminA,users.memberA,users.viewerA,users.ownerB])check((await http('/storage/v1/object/telecom-documents/'+path,u.token,'POST',bytes,'application/pdf')).status>=400,'content_other_actor_storage_insert_denied')
@@ -32,6 +34,7 @@ export async function documentContentAcceptance({rpc,sql,check,http,users,wa,wb,
  check(!(await client.auth.setSession({access_token:users.ownerA.token,refresh_token:users.ownerA.refresh})).error,'content_real_cookie_session')
  const cookie=cookies.map(c=>c.name+'='+c.value).join('; ')
  const post=async(kind,operation,input)=>{const r=await fetch(appUrl+'/api/document/v1/content/'+kind,{method:'POST',headers:{cookie,origin:appUrl,'content-type':'application/json'},body:JSON.stringify({operation,input}),signal:AbortSignal.timeout(15000)});const buf=Buffer.from(await r.arrayBuffer());let json;try{json=JSON.parse(buf)}catch{}return{status:r.status,json,bytes:buf,headers:r.headers}}
+ check((await post('commands','document.request_upload',{...input,command_id:randomUUID(),target_id:cb})).status===404,'content_next_foreign_target_not_found')
  const ticket=(await post('commands','document.request_download',{command_id:randomUUID(),id,expected_version:2}));check(ticket.status===200&&!!ticket.json.receipt.ticket_id,'content_next_download_ticket')
  const t=ticket.json.receipt.ticket_id,download=await post('download','document.download',{id,ticket_id:t})
  check(download.status===200&&download.bytes.equals(bytes)&&download.headers.get('cache-control')==='no-store'&&download.headers.get('content-disposition').startsWith('attachment'),'content_next_exact_private_download')
