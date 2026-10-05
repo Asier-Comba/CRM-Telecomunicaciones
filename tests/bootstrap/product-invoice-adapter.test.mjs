@@ -1,6 +1,6 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { normalizedInvoice, invoicePreviewTotals } from '../../src/features/billing/integration.ts'
+import { normalizedInvoice, invoicePreviewTotals, invoiceIssuerForm } from '../../src/features/billing/integration.ts'
 import { blankForm } from '../../src/features/billing/model.ts'
 import { validAiEntityReference } from '../../src/features/assistant/w3-ui-contract.ts'
 test('invoice UI normalizes exact units, rates and nullable links without authority',()=>{
@@ -20,4 +20,10 @@ test('integrated invoice preview uses W1 integer half-up rounding and unknown ra
  const form={...blankForm(),clientId:'10000000-0000-4000-8000-000000000001',items:[{description:'Synthetic rounding',quantity:1.005,unitPrice:1,discountRate:0,taxRate:0,withholdingRate:0,sortOrder:0}]}
  assert.deepEqual(invoicePreviewTotals(form),{subtotal_minor:101,tax_minor:0,withholding_minor:0,total_minor:101})
  assert.equal(invoicePreviewTotals({...form,items:[{...form.items[0],unitPrice:1.234}]}),null)
+})
+
+test('integrated issuer presentation derives only from the authorized fiscal profile',()=>{
+ assert.equal(invoiceIssuerForm(null).legalName,'');assert.equal(invoiceIssuerForm(null).taxId,'')
+ const profile={legal_name:'Synthetic Actual Issuer',tax_id:'SYNTHETIC-NOT-VALID',address:'Synthetic Street',postal_code:'00000',city:'Synthetic City',region:'Synthetic Region',country:'ES'}
+ const shown=invoiceIssuerForm(profile);assert.equal(shown.legalName,profile.legal_name);assert.equal(shown.taxId,profile.tax_id);assert.equal(shown.province,profile.region);assert.equal(shown.email,'');assert.equal(shown.phone,'')
 })

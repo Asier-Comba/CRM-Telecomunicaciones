@@ -1,6 +1,6 @@
 import {calculateBillingV1} from '../../lib/server/billing-runtime-v1.ts'
 import type { InvoiceFormData } from './model.ts'
-import type { BillingDraftV1,BillingInvoiceV1 } from '@/lib/contracts/billing-v1'
+import type { BillingDraftV1,BillingInvoiceV1,BillingProfileV1 } from '@/lib/contracts/billing-v1'
 import { ProductUiError } from '../product/integration/repository.ts'
 function scaled(value:number,places:number):number{
   const parts=String(value).split('.');if(!/^\d+$/.test(parts[0]) || parts.length>2 || parts[1] && (!/^\d+$/.test(parts[1]) || parts[1].length>places))throw new ProductUiError('validation')
@@ -15,3 +15,5 @@ export function invoiceForm(invoice:BillingInvoiceV1):InvoiceFormData{
 }
 
 export function invoicePreviewTotals(form:InvoiceFormData){try{return calculateBillingV1(normalizedInvoice(form).lines)}catch{return null}}
+
+export function invoiceIssuerForm(profile:BillingProfileV1|null|undefined){return {legalName:profile?.legal_name??'',tradeName:'',taxId:profile?.tax_id??'',address:profile?.address??'',postalCode:profile?.postal_code??'',city:profile?.city??'',province:profile?.region??'',country:profile?.country??'',email:'',phone:'',website:''}}
