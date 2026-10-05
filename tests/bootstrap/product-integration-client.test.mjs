@@ -50,3 +50,23 @@ test('document proxy download refuses unsafe content types and preserves revoked
  const revoked=new IntegratedLocalProductRepository(async()=>Response.json({ok:false,error:'access_denied'},{status:403}))
  await assert.rejects(revoked.downloadDocument(id,id),e=>e.code==='access_denied')
 })
+
+test('private invoice artifacts use their unified endpoint and reject leaked candidate fields',async()=>{
+ const id='10000000-0000-4000-8000-000000000001'
+ const reference={contract_version:'billing.artifact.v1',operation:'invoice.private_pdf_reference',id,invoice_id:id,document_id:id,version:1,renderer_version:'billing.snapshot.pdf.v1',verification_required:true,document_status:'active'}
+ const r=new IntegratedLocalProductRepository(async(path,init)=>{assert.equal(path,'/api/billing/v1/private-pdf');assert.equal(JSON.parse(init.body).operation,'invoice.private_pdf_reference');return Response.json({ok:true,data:reference})})
+ assert.equal((await r.privateInvoiceReference(id)).verification_required,true)
+ const leaked=new IntegratedLocalProductRepository(async()=>Response.json({ok:true,data:{...reference,storage_path:'private'}}))
+ await assert.rejects(leaked.privateInvoiceReference(id),e=>e.code==='internal_safe')
+ const revoked=new IntegratedLocalProductRepository(async()=>Response.json({ok:false,error:'access_denied'},{status:403}))
+ await assert.rejects(revoked.privateInvoicePdf(id),e=>e.code==='access_denied')
+})
+
+test('import management consumes minimized closed DTOs and keeps cancellation CAS',async()=>{
+ const id='10000000-0000-4000-8000-000000000001',input={command_id:id,id,expected_version:1}
+ const record={id,version:1,kind:'customers',status:'uploaded',total_rows:0,valid_rows:0,invalid_rows:0,applied_rows:0,failed_rows:0,checkpoint:null,failure_code:null,can_cancel:true,processing_status:'blocked_encrypted_staging_adapter'}
+ const r=new IntegratedLocalProductRepository(async(path,init)=>{assert.equal(path,'/api/import/v1');const {operation,input:sent}=JSON.parse(init.body);if(operation==='importjob.cancel'){assert.deepEqual(sent,input);return Response.json({ok:true,receipt:{contract_version:'importjob.v1',operation,command_id:id,id,version:2,status:'cancelled'}})}return Response.json({ok:true,data:{contract_version:'importjob.v1',operation,record}})})
+ assert.equal((await r.importJob(id)).processing_status,'blocked_encrypted_staging_adapter');assert.equal((await r.cancelImportJob(input)).version,2)
+ const leaked=new IntegratedLocalProductRepository(async()=>Response.json({ok:true,data:{contract_version:'importjob.v1',operation:'importjob.get',record:{...record,source_file_ref_id:id}}}))
+ await assert.rejects(leaked.importJob(id),e=>e.code==='internal_safe')
+})

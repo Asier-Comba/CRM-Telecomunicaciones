@@ -1,3 +1,7 @@
+import type {ImportJobRecordV1,ImportJobListInputV1,ImportJobCancelInputV1,ImportJobReceiptV1} from '@/lib/contracts/importjob-v1'
+import {parseImportJobIdV1,parseImportJobListV1,parseImportJobCancelV1,parseImportJobGetResultV1,parseImportJobListResultV1,parseImportJobReceiptV1} from '../../../lib/server/importjob-runtime-v1.ts'
+import type {BillingArtifactInputV1,BillingArtifactReceiptV1,BillingArtifactReferenceV1} from '@/lib/contracts/billing-artifact-v1'
+import {parseBillingArtifactInputV1,parseBillingArtifactReceiptV1,parseBillingArtifactReferenceV1} from '../../../lib/contracts/billing-artifact-runtime-v1.ts'
 import type {DocumentContentInputsV1,DocumentContentOperationV1,DocumentContentReceiptV1} from '@/lib/contracts/document-content-v1'
 import {parseDocumentContentInputV1,parseDocumentContentReceiptV1} from '../../../lib/server/document-content-runtime-v1.ts'
 import type {PortfolioInputsV1,PortfolioOperationV1,PortfolioReceiptV1,PortfolioGetV1,PortfolioKindV1} from '@/lib/contracts/portfolio-v1'
@@ -16,6 +20,7 @@ import type { BillingInputsV1, BillingOperationV1, BillingReceiptV1, BillingQuer
 import { parseBillingInputV1, parseBillingReceiptV1 } from '../../../lib/server/billing-runtime-v1.ts'
 import { parseBillingQueryV1, parseBillingReadV1 } from '../../../lib/server/billing-query-runtime-v1.ts'
 
+export type ImportJobPage = {contract_version:'importjob.v1';operation:'importjob.list';items:ImportJobRecordV1[];next_id:string|null}
 export type UiError = ProductErrorV1 | 'transport_uncertain'
 export class ProductUiError extends Error {
   readonly code: UiError
@@ -49,7 +54,13 @@ export interface ProductRepository {
   documentCommand<O extends DocumentOperationV1>(operation: O, input: DocumentInputsV1[O]): Promise<DocumentReceiptV1>
   billing<Q extends BillingQueryV1>(operation: Q,input:BillingQueriesV1[Q]):Promise<Extract<BillingReadDataV1,{operation:Q}>>
   billingCommand<O extends BillingOperationV1>(operation:O,input:BillingInputsV1[O]):Promise<BillingReceiptV1>
+  importJobs(input:ImportJobListInputV1):Promise<ImportJobPage>
+  importJob(id:string):Promise<ImportJobRecordV1>
+  cancelImportJob(input:ImportJobCancelInputV1):Promise<ImportJobReceiptV1>
   invoicePdf(id:string):Promise<Blob>
+  privateInvoiceReference(id:string):Promise<BillingArtifactReferenceV1>
+  persistPrivateInvoice(input:BillingArtifactInputV1):Promise<BillingArtifactReceiptV1>
+  privateInvoicePdf(id:string):Promise<Blob>
   contentCommand<O extends DocumentContentOperationV1>(operation:O,input:DocumentContentInputsV1[O]):Promise<DocumentContentReceiptV1>
   uploadDocument(id:string,file:File):Promise<void>
   downloadDocument(id:string,ticketId:string):Promise<Blob>
@@ -63,10 +74,10 @@ export class IntegratedLocalProductRepository implements ProductRepository {
   readonly mode = 'integrated_local' as const
   private readonly request: typeof fetch
   constructor(request: typeof fetch = fetch) { this.request = request.bind(globalThis) }
-  private async post<T>(kind: 'commands' | 'queries', operation: string, input: unknown, parse: (value: unknown) => T | null, family = 'product'): Promise<T> {
+  private async post<T>(kind: 'commands' | 'queries', operation: string, input: unknown, parse: (value: unknown) => T | null, family = 'product', endpoint?: string): Promise<T> {
     let response: Response
     try {
-      response = await this.request(`/api/${family==='document-content'?'document/v1/content':family+'/v1'}/${kind}`, {
+      response = await this.request(endpoint ?? `/api/${family==='document-content'?'document/v1/content':family+'/v1'}/${kind}`, {
         method: 'POST', credentials: 'same-origin', cache: 'no-store',
         headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ operation, input }),
         signal: AbortSignal.timeout(15000),
@@ -133,9 +144,16 @@ export class IntegratedLocalProductRepository implements ProductRepository {
     if(!['application/pdf','image/png','image/jpeg'].includes(response.headers.get('content-type')??''))throw new ProductUiError('internal_safe')
     const blob=await response.blob();if(blob.size<1||blob.size>10485760)throw new ProductUiError('internal_safe');return blob
   }
-  async invoicePdf(id:string){
+  importJobs(value:ImportJobListInputV1){const input=parseImportJobListV1(value);if(!input)return Promise.reject(new ProductUiError('validation'));return this.post('queries','importjob.list',input,v=>parseImportJobListResultV1(input,v),'import','/api/import/v1')}
+  async importJob(id:string){const input=parseImportJobIdV1({id});if(!input)throw new ProductUiError('validation');return(await this.post('queries','importjob.get',input,v=>parseImportJobGetResultV1(input.id,v),'import','/api/import/v1')).record}
+  cancelImportJob(value:ImportJobCancelInputV1){const input=parseImportJobCancelV1(value);if(!input)return Promise.reject(new ProductUiError('validation'));return this.post('commands','importjob.cancel',input,v=>parseImportJobReceiptV1(input,v),'import','/api/import/v1')}
+  privateInvoiceReference(id:string){return this.post('queries','invoice.private_pdf_reference',{id},v=>parseBillingArtifactReferenceV1(id,v),'billing','/api/billing/v1/private-pdf')}
+  persistPrivateInvoice(value:BillingArtifactInputV1){const input=parseBillingArtifactInputV1(value);if(!input)return Promise.reject(new ProductUiError('validation'));return this.post('commands','invoice.persist_private_pdf',input,v=>parseBillingArtifactReceiptV1(input,v),'billing','/api/billing/v1/private-pdf')}
+  privateInvoicePdf(id:string){return this.pdfDownload(id,true)}
+  invoicePdf(id:string){return this.pdfDownload(id,false)}
+  private async pdfDownload(id:string,frozen:boolean){
     let response:Response
-    try{response=await this.request('/api/billing/v1/pdf',{method:'POST',credentials:'same-origin',cache:'no-store',headers:{'Content-Type':'application/json'},body:JSON.stringify({operation:'invoice.pdf',input:{id}}),signal:AbortSignal.timeout(15000)})}catch{throw new ProductUiError('transport_uncertain')}
+    try{response=await this.request(frozen?'/api/billing/v1/private-pdf':'/api/billing/v1/pdf',{method:'POST',credentials:'same-origin',cache:'no-store',headers:{'Content-Type':'application/json'},body:JSON.stringify({operation:frozen?'invoice.private_pdf':'invoice.pdf',input:{id}}),signal:AbortSignal.timeout(15000)})}catch{throw new ProductUiError('transport_uncertain')}
     if(!response.ok || !/^application\/pdf(?:;|$)/i.test(response.headers.get('content-type')??''))throw new ProductUiError(response.status===403?'access_denied':response.status===404?'not_found':'internal_safe')
     const blob=await response.blob();if(blob.size>2000000 || blob.size<5 || await blob.slice(0,5).text()!=='%PDF-')throw new ProductUiError('internal_safe')
     return blob
@@ -165,6 +183,12 @@ export class SyntheticProductRepository implements ProductRepository {
   contentCommand<O extends DocumentContentOperationV1>(_operation:O,_input:DocumentContentInputsV1[O]){void _operation;void _input;return this.unavailable<DocumentContentReceiptV1>()}
   uploadDocument(_id:string,_file:File){void _id;void _file;return this.unavailable<void>()}
   downloadDocument(_id:string,_ticketId:string){void _id;void _ticketId;return this.unavailable<Blob>()}
+  importJobs(_input:ImportJobListInputV1){void _input;return this.unavailable<ImportJobPage>()}
+  importJob(_id:string){void _id;return this.unavailable<ImportJobRecordV1>()}
+  cancelImportJob(_input:ImportJobCancelInputV1){void _input;return this.unavailable<ImportJobReceiptV1>()}
+  privateInvoiceReference(_id:string){void _id;return this.unavailable<BillingArtifactReferenceV1>()}
+  persistPrivateInvoice(_input:BillingArtifactInputV1){void _input;return this.unavailable<BillingArtifactReceiptV1>()}
+  privateInvoicePdf(_id:string){void _id;return this.unavailable<Blob>()}
   invoicePdf(_id:string){void _id;return this.unavailable<Blob>()}
 }
 /** Keep in the mounted action/editor only. Never persist this object or contact PII. */
