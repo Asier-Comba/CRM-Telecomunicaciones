@@ -490,6 +490,14 @@
       "authenticated": false
     },
     {
+      "signature": "public.document_v1_customer_ancestor(uuid, documents)",
+      "public": false,
+      "anon": false,
+      "authenticated": false,
+      "service_role": false,
+      "definer": true
+    },
+    {
       "anon": false,
       "public": false,
       "definer": true,
@@ -893,17 +901,17 @@
       "anon": false,
       "public": false,
       "definer": true,
-      "signature": "public.portfolio_v1_get(uuid, jsonb)",
+      "signature": "public.portfolio_v1_get_portfolio_base(uuid, jsonb)",
       "service_role": false,
-      "authenticated": true
+      "authenticated": false
     },
     {
       "anon": false,
       "public": false,
       "definer": true,
-      "signature": "public.portfolio_v1_get_portfolio_base(uuid, jsonb)",
+      "signature": "public.portfolio_v1_get(uuid, jsonb)",
       "service_role": false,
-      "authenticated": false
+      "authenticated": true
     },
     {
       "anon": false,
@@ -1133,17 +1141,17 @@
       "anon": false,
       "public": false,
       "definer": true,
-      "signature": "public.product_v1_dashboard_v2(uuid, jsonb)",
+      "signature": "public.product_v1_dashboard_v2_base(uuid, jsonb)",
       "service_role": false,
-      "authenticated": true
+      "authenticated": false
     },
     {
       "anon": false,
       "public": false,
       "definer": true,
-      "signature": "public.product_v1_dashboard_v2_base(uuid, jsonb)",
+      "signature": "public.product_v1_dashboard_v2(uuid, jsonb)",
       "service_role": false,
-      "authenticated": false
+      "authenticated": true
     },
     {
       "anon": false,
