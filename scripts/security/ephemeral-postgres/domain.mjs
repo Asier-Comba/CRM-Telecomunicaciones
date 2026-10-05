@@ -87,6 +87,8 @@ try {
   await db.exec(await readFile(resolve(root,'supabase/tests/document-content-workflow.sql'),'utf8'))
   await db.exec(await readFile(resolve(root,'supabase/tests/importjob-product-management.sql'),'utf8'))
   console.log('DOCUMENT CONTENT PENDING/OBJECT/TICKET/REVOCATION PASS')
+  await db.exec(await readFile(resolve(root,'supabase/tests/internal-inbox-domain.sql'),'utf8'))
+  console.log('INBOX INTERNAL PRIVACY/CAS/REPLAY/ROLLBACK PASS')
   const {calculateBillingV1}=await import(pathToFileURL(resolve(root,'src/lib/server/billing-runtime-v1.ts')))
   let vectorState=20261004
   const draw=max=>{vectorState=(Math.imul(vectorState,1664525)+1013904223)>>>0;return vectorState%max}
