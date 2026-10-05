@@ -1,6 +1,6 @@
 # W2 → W3 assistant UI contract
 
-Integration baseline: W1 488647d, W2 PR30. Types: src/features/assistant/w3-ui-contract.ts. This contract is a presentation handoff, not approval to enable AI or execute commands.
+Integration baseline: W1 executable f574b0c55951e6e357e4e91059fcfe64b1410b02 and documentation94c20dc (normal merges); W2 stacked Draft PR30 on w2/product-rebuild-v1. Types: src/features/assistant/w3-ui-contract.ts. This contract is a presentation handoff, not approval to enable AI or execute commands.
 
 Threads: list/search/new/rename/delete remain temporary mounted-session interactions. W3 must provide authenticated durable identity, pagination, creation/update/delete receipts and revocation handling before normal activation. Issue10 remains open. Do not persist raw contacts, fiscal fields, prompts or private responses in browser storage.
 
@@ -17,3 +17,11 @@ Invoice context entry exists from Customer360. It currently opens the disabled p
 Synthetic preview keeps its deterministic read-only response presenter. Integrated-local assistant presents the thread/context/composer shell with sending and action confirmation disabled pending W3 and durable history acceptance. No model selection, provider call, semantic implementation or W1 security changes are introduced here.
 
 Acceptance before activation: real Auth/member revocation; bounded validated stream; stale events ignored after cancel/thread change; safe sources and missing coverage; receipt verified after confirmation; no raw PII in storage/URL/telemetry; accessible desktop/mobile controls; durable thread ownership; independent W4 review. LOCAL_INTEGRATION_SAFE, STAGE_READY and PROD_READY remain distinct.
+
+## Actual consumer evidence and remaining boundary — 2026-10-05
+
+W2 d4a6cce / Supabase56 run37329541044 passed40/40 actual product-browser groups and801 W1 backend checks. The ordinary billing text parser submits the selected authorized customer's normalized proposal to invoice.propose; requires_review=true/saved=false is checked, the editor is initially unreviewed, and the actual database invoice count remains unchanged until human Save. This is an ordinary typed billing consumer, not an assistant model/provider or durable confirmation implementation.
+
+All67 published write operations have positive ordinary UI evidence, including immutable versioned portfolio transitions and explicit private-PDF conservation after a real optional Storage failure without reissuance. This does not register any operation as an assistant tool, promote W1 ui_safe flags, replace durable Issue10 confirmation, or enable integrated assistant sending. W3 must still provide accepted durable thread ownership, runtime stream validation, source authorization, cancellation/late-event handling and normal-command receipt verification.
+
+Financial source presentation under W2 d4a6cce passed its actual authorized-reader/browser comparison in the same run. It uses the workspace-wide financial summary and keeps each currency separate; any future assistant explanation must retain that scope and mark overdue as a subset of outstanding. Customer filtering of an invoice list must not be represented as financial-summary filtering. There is no accepted historical time-series or client-ranking DTO to infer.
