@@ -27,7 +27,9 @@ function ctor() {
 export function PromptBuilder({
   customers,
   onGenerate,
+  asOf,
 }: {
+  asOf?:string
   customers: { id: string; name: string }[]
   onGenerate: (result: InvoiceParseResult, source: 'text'|'audio') => void
 }) {
@@ -89,8 +91,7 @@ export function PromptBuilder({
         Crear con texto o audio
       </h2>
       <p className="mb-3 mt-1 text-xs text-indigo-700">
-        Dicta → revisa la propuesta → guarda un borrador local. La emisión está
-        desactivada.
+        La propuesta no guarda ni emite la factura. Revisa los datos antes de guardar un borrador.
       </p>
       <textarea
         aria-label="Descripción de la factura"
@@ -119,7 +120,7 @@ export function PromptBuilder({
           type="button"
           disabled={!text.trim() || listening}
           className={primary}
-          onClick={() => onGenerate(parseInvoiceText(text, customers),source)}
+          onClick={() => onGenerate(parseInvoiceText(text, customers,asOf),source)}
         >
           <Wand2 className="h-4 w-4" />
           Generar propuesta

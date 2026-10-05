@@ -18,7 +18,7 @@ W1 catalog ui_safe flags remain false. Local consumer evidence does not grant W4
 
 ## Actual observed operation coverage
 
-At2a021a7,70 distinct W1 operations and49 writes have positive browser evidence. The newly merged catalog contains90 operations and67 writes: BACKEND_WIRING77.8%, REAL_LOCAL_WRITES73.1%. Private PDF reference/download and import list/get/cancel now count; the explicit PDF persistence action stays excluded until observed. These measure distinct positive operations, not full parity or release readiness.
+At69e23b1,74 distinct W1 operations and53 writes have positive browser evidence. The newly merged catalog contains90 operations and67 writes: BACKEND_WIRING82.2%, REAL_LOCAL_WRITES79.1%. Private PDF reference/download and import list/get/cancel now count; the explicit PDF persistence action stays excluded until observed. These measure distinct positive operations, not full parity or release readiness.
 
 All244 parity rows retain frozen preview status and separate integrated status/evidence/limits. Integrated complete-row acceptance remains separately reviewed; next changed-head regression remains pending. Preview delivered scores remain OLD_PRODUCT_PARITY47.4%, TELECOM_SUPERSET54.8%, INTERACTION_COMPLETENESS51.6%, AI_UI52.2%. SYNTHETIC_ONLY100% of data. Visual quality is partial: automated widths/Poppler rendering exist; full old/new visual comparison and human review remain pending.
 
@@ -44,7 +44,7 @@ W3: typed refs/request/render/source/partiality/proposal/progress/cancel present
 
 ## Top10 remaining
 
-1. Next-head acceptance for billing reverse/trash/restore, member removal and actual ticket revocation/expiry.
+1. Next-head acceptance for remaining portfolio lifecycle and fiscal proposal/private-PDF recovery.
 2. Remaining contact/calendar/opportunity/portfolio/billing/team state journeys with negative roles and stale versions.
 3. Authorized paginated customer-bound collections and complete inventory.
 4. Operator/plan/responsible selection and immutable ancestry-aware links.
@@ -62,3 +62,5 @@ W3: typed refs/request/render/source/partiality/proposal/progress/cancel present
 3. Update Draft PR30 and W3 handoff with exact heads, metrics, limits and remaining blockers.
 
 Supabase51/run37322338487 at2a021a7:29/29 actual browser groups and801 backend checks PASS. Contact archive/restore, task start/update/reopen/cancel, meeting update/complete/no-show, renewal update/resolve, customer/opportunity assignment, neutral-stage change and controlled opportunity archival now observed. Coincident weekly meeting cards are independently clickable after column layout correction. CI330 lint/types/244 tests/build and independent security/native/embedded/preview/Windows PASS; audit remains sole quality failure. Next attachment/work-priority source checkpoint requires its own fresh CI.
+
+69e23b1 Supabase52/run37323796784:33/33 real browser groups and801 backend checks PASS. Real30-second ticket expiration held32 seconds then denied without bytes, document archival revoked an already issued ticket, a fresh retry downloaded successfully. Invoice reverse/trash/restore and suspended-member removal persisted. Work priorities/assignees and cancelled-task reopen verified. CI331 lint/types/245 tests/build and independent native/embedded/preview/security/Windows passed; only enforced Issue29 audit fails. New portfolio/fiscal proposal/private-PDF failure-recovery checkpoint requires fresh acceptance.
