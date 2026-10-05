@@ -4,12 +4,15 @@ import { useId, useRef, useEffect, type ReactNode } from 'react'
 import { X, LockKeyhole, Search, ArrowUpDown } from 'lucide-react'
 import { Badge } from '@/components/Badge'
 import { periods, type Period } from './model'
+import { useProduct } from './integration/Provider'
 
 export const control =
   'rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50'
 export const primary =
   'inline-flex items-center justify-center gap-2 rounded-lg bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:cursor-not-allowed disabled:opacity-45'
 export function PreviewNotice() {
+  const { repository } = useProduct()
+  if (repository.mode === 'integrated_local') return <div className="rounded-lg border border-amber-100 bg-amber-50 px-3 py-2 text-xs text-amber-900"><strong>Integración local</strong> · Datos sintéticos de prueba · Cambios guardados en la base local</div>
   return (
     <div className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-indigo-100 bg-indigo-50/60 px-3 py-2 text-xs text-indigo-800">
       <span>

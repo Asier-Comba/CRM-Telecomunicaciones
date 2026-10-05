@@ -7,7 +7,7 @@ import { DEMO_MODE_KEY } from '@/lib/current-user'
 import { getSupabaseBrowserClient } from '@/lib/supabase'
 import { featureFlags } from '@/lib/feature-flags'
 
-export function AuthGate({ children }: { children: React.ReactNode }) {
+export function AuthGate({ children, integrated = false }: { children: React.ReactNode; integrated?: boolean }) {
   const router = useRouter()
   const pathname = usePathname()
   const [allowed, setAllowed] = useState(false)
@@ -27,6 +27,14 @@ export function AuthGate({ children }: { children: React.ReactNode }) {
       process.env.NEXT_PUBLIC_FORCE_OFFLINE_DEV === 'true'
 
     const checkAccess = async () => {
+      if (integrated) {
+        const supabase = getSupabaseBrowserClient()
+        const result = supabase ? await supabase.auth.getUser() : null
+        if (!mounted) return
+        if (result?.data.user && !result.error) setAllowed(true)
+        else router.replace('/login')
+        return
+      }
       if (OFFLINE_FORCE_DEV && mounted) {
         setAllowed(true)
         return
@@ -112,7 +120,7 @@ export function AuthGate({ children }: { children: React.ReactNode }) {
     return () => {
       mounted = false
     }
-  }, [pathname, router])
+  }, [pathname, router, integrated])
 
   if (!allowed) {
     return (

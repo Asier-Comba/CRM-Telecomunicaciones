@@ -21,7 +21,7 @@ const initial = {
   operator: '',
   attention: '',
 }
-export function Customers({ rows }: { rows: CustomerRow[] }) {
+export function Customers({ rows, onCreate }: { rows: CustomerRow[]; onCreate?: () => void }) {
   const [filters, setFilters] = useState(initial),
     [page, setPage] = useState(0),
     [sort, setSort] = useState<'name' | 'services' | 'renewal'>('name'),
@@ -64,8 +64,9 @@ export function Customers({ rows }: { rows: CustomerRow[] }) {
         description="Empresas, contactos y atención comercial"
         action={
           <button
-            disabled
-            title="Alta pendiente de contrato CRUD autorizado"
+            disabled={!onCreate}
+            onClick={onCreate}
+            title={onCreate ? 'Crear cliente en la base local' : 'Alta pendiente de contrato CRUD autorizado'}
             className={primary}
           >
             <Plus className="h-4 w-4" />

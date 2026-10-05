@@ -6,6 +6,8 @@ import { customerPreview } from '@/lib/telecom-preview/data'
 import { syntheticPreviewAllowed } from '@/lib/telecom-preview/access'
 import { CustomerTabs } from '@/features/customers/CustomerTabs'
 import { customerPanels } from '@/features/customers/CustomerSections'
+import { integratedLocalAllowed } from '@/features/product/integration/mode'
+import { IntegratedCustomerDetail } from '@/features/customers/IntegratedCustomerDetail'
 import {
   Kpis,
   PreviewNotice,
@@ -18,6 +20,7 @@ export default async function CustomerDetailPage({
 }: {
   params: Promise<{ id: string }>
 }) {
+  if (integratedLocalAllowed()) return <IntegratedCustomerDetail id={(await params).id} />
   if (!syntheticPreviewAllowed()) notFound()
   const { id } = await params,
     data = customerPreview(id)
