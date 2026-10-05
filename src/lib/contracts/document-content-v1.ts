@@ -6,5 +6,5 @@ export type DocumentContentInputsV1={
 export type DocumentContentOperationV1=keyof DocumentContentInputsV1
 export type DocumentContentReceiptV1={contract_version:'document.content.v1';operation:DocumentContentOperationV1;command_id:string;id:string;version:number;status:'pending'|'active';expires_at?:string;ticket_id?:string}
 /** Server port descriptor contains UUID references, never a caller path/URL. */
-export type DocumentContentManifestV1={id:string;object_ref:string;media_type:'application/pdf'|'image/png'|'image/jpeg';size_bytes:number;expires_at:string}
+export type DocumentContentManifestV1={id:string;object_ref:string;media_type:'application/pdf'|'image/png'|'image/jpeg';size_bytes:number;expires_at:string;sha256?:string|null}
 export type DocumentDownloadInputV1={id:string;ticket_id:string}

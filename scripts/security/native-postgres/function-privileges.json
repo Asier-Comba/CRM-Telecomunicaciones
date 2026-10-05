@@ -357,6 +357,54 @@
       "anon": false,
       "public": false,
       "definer": true,
+      "signature": "public.document_cleanup_v1_claim(uuid, jsonb)",
+      "service_role": false,
+      "authenticated": true
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": true,
+      "signature": "public.document_cleanup_v1_command(uuid, text, jsonb)",
+      "service_role": false,
+      "authenticated": false
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": true,
+      "signature": "public.document_cleanup_v1_deletable(text)",
+      "service_role": false,
+      "authenticated": true
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": true,
+      "signature": "public.document_cleanup_v1_expired_list(uuid, jsonb)",
+      "service_role": false,
+      "authenticated": true
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": true,
+      "signature": "public.document_cleanup_v1_finish(uuid, jsonb)",
+      "service_role": false,
+      "authenticated": true
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": true,
+      "signature": "public.document_cleanup_v1_prepare_finish(uuid, jsonb)",
+      "service_role": false,
+      "authenticated": true
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.document_content_v1_command(uuid, text, jsonb)",
       "service_role": false,
       "authenticated": false
@@ -408,6 +456,14 @@
       "signature": "public.document_content_v1_validate(text, jsonb)",
       "service_role": false,
       "authenticated": false
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": true,
+      "signature": "public.document_integrity_v1_verify(uuid, jsonb, jsonb)",
+      "service_role": false,
+      "authenticated": true
     },
     {
       "anon": false,

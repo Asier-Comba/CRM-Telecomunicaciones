@@ -22,5 +22,5 @@ export function parseDocumentContentReceiptV1(op:DocumentContentOperationV1,inpu
  return Object.freeze({...v})as DocumentContentReceiptV1}catch{return null}
 }
 export function parseDocumentContentManifestV1(id:string,v:unknown):DocumentContentManifestV1|null{
- try{return plain(v)&&keys(v,'id,object_ref,media_type,size_bytes,expires_at')&&v.id===id&&uuid(v.object_ref)&&mime(v.media_type)&&size(v.size_bytes)&&time(v.expires_at)?Object.freeze({...v})as DocumentContentManifestV1:null}catch{return null}
+ try{return plain(v)&&(keys(v,'id,object_ref,media_type,size_bytes,expires_at')||keys(v,'id,object_ref,media_type,size_bytes,expires_at,sha256'))&&v.id===id&&uuid(v.object_ref)&&mime(v.media_type)&&size(v.size_bytes)&&time(v.expires_at)&&(!('sha256'in v)||v.sha256===null||typeof v.sha256==='string'&&/^[0-9a-f]{64}$/.test(v.sha256))?Object.freeze({...v})as DocumentContentManifestV1:null}catch{return null}
 }
