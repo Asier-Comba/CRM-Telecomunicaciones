@@ -1,5 +1,4 @@
 import { randomUUID } from 'node:crypto'
-import { createServerClient } from '@supabase/ssr'
 
 // Real Auth/JWT/PostgREST/cookie transport; SQL is synthetic setup only.
 export async function telecomCollectionAcceptance({ rpc, sql, check, http, users, wa, wb, url, anon, appUrl }) {
@@ -30,6 +29,9 @@ export async function telecomCollectionAcceptance({ rpc, sql, check, http, users
   ['renewal.list',{customer_id:customer,contract_id:contract,owner_user_id:users.memberA.id,status:'open',window_from:'2026-11-01',window_to:'2026-11-30'},renewal],['renewal.get',{id:renewal},renewal],
   ['permanence.list',{customer_id:customer,contract_id:contract,service_id:service,status:'open',window_from:'2026-11-01',window_to:'2026-11-30'},permanence],['permanence.get',{id:permanence},permanence]
  ]
+ // The isolated schema harness captures setup before here and installs only PGlite.
+ // Load application Auth dependencies only in the actual cookie transport suite.
+ const {createServerClient}=await import('@supabase/ssr')
  const cookies={}
  for(const name of ['memberA','viewerA','ownerB']) {
   const values=[],client=createServerClient(url,anon,{cookies:{getAll:()=>[],setAll:v=>values.push(...v)}})
