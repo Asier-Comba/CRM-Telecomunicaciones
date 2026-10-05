@@ -172,7 +172,8 @@ export function Opportunities({
             <section
               key={stage.id}
               data-stage-id={stage.id}
-              onDragOver={e=>{if(onMoveStage&&stage.movable&&!pendingMove)e.preventDefault()}}
+              onDragEnter={e=>{if(onMoveStage&&stage.movable&&!pendingMove)e.preventDefault()}}
+              onDragOver={e=>{if(onMoveStage&&stage.movable&&!pendingMove){e.preventDefault();e.dataTransfer.dropEffect='move'}}}
               onDrop={e=>{e.preventDefault();const id=e.dataTransfer.getData('application/x-crm-opportunity');if(onMoveStage&&stage.movable&&!pendingMove&&canMove?.(id))onMoveStage(id,stage.id)}}
               className="rounded-xl border border-slate-200 bg-slate-100/60 p-3"
             >

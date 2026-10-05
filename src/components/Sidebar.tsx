@@ -100,7 +100,7 @@ export function Sidebar({ onClose }: { onClose?: () => void } = {}) {
             >
               <Icon className="h-4 w-4 shrink-0" />
               {label}
-              {(href === '/automations' || href === '/inbox' && !integrated) && (
+              {(!integrated && ['/automations','/inbox'].includes(href)) && (
                 <span className="ml-auto rounded bg-slate-100 px-1 text-[9px] text-slate-500">
                   Vista
                 </span>

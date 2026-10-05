@@ -83,6 +83,7 @@ test('customer collection, partiality, keyboard tabs and global search', async (
   await surface(page)
   await page.goto('/clients/cust_demo_norte_0001')
   await page.getByRole('link', { name: 'Consultar sobre este cliente' }).click()
+  if (await page.getByRole('tab', { name: 'Contexto', exact: true }).isVisible()) await page.getByRole('tab', { name: 'Contexto', exact: true }).click()
   await expect(page.getByText('Cliente seleccionado')).toBeVisible()
   await expect(
     page.getByText('Empresa Norte Telecom SL', { exact: true }),

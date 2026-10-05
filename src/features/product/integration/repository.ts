@@ -1,3 +1,14 @@
+import type {NotificationOperationV1,NotificationInputV1,NotificationListInputV1} from '@/lib/contracts/notifications-v1'
+import {parseNotificationInputV1,parseNotificationReceiptV1,parseNotificationListInputV1,parseNotificationListV1,parseNotificationCountV1} from '../../../lib/server/notifications-runtime-v1.ts'
+import type {AutomationOperationV1,AutomationInputV1,AutomationReadInputV1,AutomationDefinitionV1} from '@/lib/contracts/automations-v1'
+import {parseAutomationInputV1,parseAutomationReceiptV1,parseAutomationReadInputV1,parseAutomationReadV1} from '../../../lib/server/automations-runtime-v1.ts'
+export type NotificationPage=NonNullable<ReturnType<typeof parseNotificationListV1>>
+export type NotificationCount={contract_version:'notifications.v1';operation:'notification.unread_count';version:number;unread_count:number}
+export type NotificationReceipt={contract_version:'notifications.v1';operation:NotificationOperationV1;command_id:string;version:number;affected:number;has_more:boolean}
+export type AutomationRecord=AutomationDefinitionV1&{id:string;version:number;enabled:boolean;created_at:string;updated_at:string}
+export type AutomationRun={id:string;automation_id:string;event_id:string;action_id:'notification.create'|'task.create';definition_version:number;status:'succeeded'|'failed'|'skipped';effect_id:string|null;failure_code:string|null;created_at:string}
+export type AutomationRead={contract_version:'automations.v1'}&({operation:'automation.list';items:AutomationRecord[];next_id:string|null}|{operation:'automation.get';record:AutomationRecord}|{operation:'automation.run_history';items:AutomationRun[];next_id:string|null})
+export type AutomationReceipt={contract_version:'automations.v1';command_id:string}&({operation:'automation.process_pending';processed:number;succeeded:number;failed:number;skipped:number;has_more:boolean}|{operation:Exclude<AutomationOperationV1,'automation.process_pending'>;id:string;version:number;enabled:boolean})
 import type {InboxInputV1,InboxOperationV1,InboxReceiptV1,InboxListInputV1,InboxThreadInputV1} from '@/lib/contracts/inbox-v1'
 import {parseInboxInputV1,parseInboxReceiptV1,parseInboxListInputV1,parseInboxListResultV1,parseInboxThreadInputV1,parseInboxThreadResultV1,parseInboxUnreadV1} from '../../../lib/server/inbox-runtime-v1.ts'
 export type InboxPage=NonNullable<ReturnType<typeof parseInboxListResultV1>>
@@ -41,6 +52,11 @@ export function safeMessage(error: unknown) {
   return errorText[error instanceof ProductUiError ? error.code : 'internal_safe']
 }
 export interface ProductRepository {
+  notifications(input:NotificationListInputV1):Promise<NotificationPage>
+  notificationCount():Promise<NotificationCount>
+  notificationCommand(operation:NotificationOperationV1,input:NotificationInputV1):Promise<NotificationReceipt>
+  automation<O extends AutomationRead['operation']>(operation:O,input:AutomationReadInputV1):Promise<Extract<AutomationRead,{operation:O}>>
+  automationCommand(operation:AutomationOperationV1,input:AutomationInputV1):Promise<AutomationReceipt>
   inbox(input:InboxListInputV1):Promise<InboxPage>
   inboxThread(input:InboxThreadInputV1):Promise<InboxThread>
   inboxUnread():Promise<InboxUnread>
@@ -88,6 +104,11 @@ export class IntegratedLocalProductRepository implements ProductRepository {
   readonly mode = 'integrated_local' as const
   private readonly request: typeof fetch
   constructor(request: typeof fetch = fetch) { this.request = request.bind(globalThis) }
+  notifications(value:NotificationListInputV1){const input=parseNotificationListInputV1(value);if(!input)return Promise.reject(new ProductUiError('validation'));return this.post('queries','notification.list',input,v=>parseNotificationListV1(input,v),'notifications','/api/notifications/v1')}
+  notificationCount(){return this.post('queries','notification.unread_count',{},v=>parseNotificationCountV1(v) as NotificationCount|null,'notifications','/api/notifications/v1')}
+  notificationCommand(operation:NotificationOperationV1,value:NotificationInputV1){const input=parseNotificationInputV1(operation,value);if(!input)return Promise.reject(new ProductUiError('validation'));return this.post('commands',operation,input,v=>parseNotificationReceiptV1(operation,input,v) as NotificationReceipt|null,'notifications','/api/notifications/v1')}
+  automation<O extends AutomationRead['operation']>(operation:O,value:AutomationReadInputV1){const input=parseAutomationReadInputV1(operation,value);if(!input)return Promise.reject(new ProductUiError('validation'));return this.post('queries',operation,input,v=>parseAutomationReadV1(operation,input,v) as Extract<AutomationRead,{operation:O}>|null,'automations','/api/automations/v1')}
+  automationCommand(operation:AutomationOperationV1,value:AutomationInputV1){const input=parseAutomationInputV1(operation,value);if(!input)return Promise.reject(new ProductUiError('validation'));return this.post('commands',operation,input,v=>parseAutomationReceiptV1(operation,input,v) as AutomationReceipt|null,'automations','/api/automations/v1')}
   inbox(value:InboxListInputV1){const input=parseInboxListInputV1(value);if(!input)return Promise.reject(new ProductUiError('validation'));return this.post('queries','inbox.list',input,v=>parseInboxListResultV1(input,v),'inbox','/api/inbox/v1')}
   inboxThread(value:InboxThreadInputV1){const input=parseInboxThreadInputV1(value);if(!input)return Promise.reject(new ProductUiError('validation'));return this.post('queries','inbox.get_thread',input,v=>parseInboxThreadResultV1(input,v),'inbox','/api/inbox/v1')}
   inboxUnread(){return this.post('queries','inbox.unread_summary',{},parseInboxUnreadV1,'inbox','/api/inbox/v1')}
@@ -182,6 +203,11 @@ export class IntegratedLocalProductRepository implements ProductRepository {
 export class SyntheticProductRepository implements ProductRepository {
   readonly mode = 'synthetic' as const
   private unavailable<T>(): Promise<T> { return Promise.reject(new ProductUiError('unavailable')) }
+  notifications(_input:NotificationListInputV1){void _input;return this.unavailable<NotificationPage>()}
+  notificationCount(){return this.unavailable<NotificationCount>()}
+  notificationCommand(_operation:NotificationOperationV1,_input:NotificationInputV1){void _operation;void _input;return this.unavailable<NotificationReceipt>()}
+  automation<O extends AutomationRead['operation']>(_operation:O,_input:AutomationReadInputV1){void _operation;void _input;return this.unavailable<Extract<AutomationRead,{operation:O}>>()}
+  automationCommand(_operation:AutomationOperationV1,_input:AutomationInputV1){void _operation;void _input;return this.unavailable<AutomationReceipt>()}
   inbox(_input:InboxListInputV1){void _input;return this.unavailable<InboxPage>()}
   inboxThread(_input:InboxThreadInputV1){void _input;return this.unavailable<InboxThread>()}
   inboxUnread(){return this.unavailable<InboxUnread>()}

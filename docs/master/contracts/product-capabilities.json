@@ -98,6 +98,26 @@
       "status": "PASS",
       "migration_count": 35,
       "function_count": 128
+    },
+    "inbox": {
+      "tested_head": "950d07eacab3323e14c9eb8671b7663d669bfc03",
+      "run_id": 37345253259,
+      "checks": 925,
+      "status": "PASS",
+      "individually_observed": 13,
+      "native_functions": 204,
+      "browser_private_values": "PASS",
+      "teardown": "PASS"
+    },
+    "notifications": {
+      "tested_head": "e9f6217b28411ca562f47a0a16551bec6d4558cd",
+      "run_id": 37347316248,
+      "checks": 975,
+      "status": "PASS",
+      "individually_observed": 5,
+      "native_functions": 213,
+      "browser_private_values": "PASS",
+      "teardown": "PASS"
     }
   },
   "operations": [
@@ -3818,7 +3838,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_pending_actual_supabase",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -3828,8 +3848,8 @@
         "status": "implemented_default_off",
         "path": "/api/inbox/v1"
       },
-      "supabase_tested": false,
-      "supabase_status": "PENDING_ACTUAL_SUPABASE",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
@@ -3837,7 +3857,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": null
+      "supabase_tested_head": "950d07eacab3323e14c9eb8671b7663d669bfc03"
     },
     {
       "name": "message.add_internal_note",
@@ -3862,7 +3882,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_pending_actual_supabase",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -3872,8 +3892,8 @@
         "status": "implemented_default_off",
         "path": "/api/inbox/v1"
       },
-      "supabase_tested": false,
-      "supabase_status": "PENDING_ACTUAL_SUPABASE",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
@@ -3881,7 +3901,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": null
+      "supabase_tested_head": "950d07eacab3323e14c9eb8671b7663d669bfc03"
     },
     {
       "name": "conversation.assign",
@@ -3905,7 +3925,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_pending_actual_supabase",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -3915,8 +3935,8 @@
         "status": "implemented_default_off",
         "path": "/api/inbox/v1"
       },
-      "supabase_tested": false,
-      "supabase_status": "PENDING_ACTUAL_SUPABASE",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
@@ -3924,7 +3944,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": null
+      "supabase_tested_head": "950d07eacab3323e14c9eb8671b7663d669bfc03"
     },
     {
       "name": "conversation.link_customer",
@@ -3948,7 +3968,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_pending_actual_supabase",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -3958,8 +3978,8 @@
         "status": "implemented_default_off",
         "path": "/api/inbox/v1"
       },
-      "supabase_tested": false,
-      "supabase_status": "PENDING_ACTUAL_SUPABASE",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
@@ -3967,7 +3987,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": null
+      "supabase_tested_head": "950d07eacab3323e14c9eb8671b7663d669bfc03"
     },
     {
       "name": "conversation.close",
@@ -3992,7 +4012,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_pending_actual_supabase",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -4002,8 +4022,8 @@
         "status": "implemented_default_off",
         "path": "/api/inbox/v1"
       },
-      "supabase_tested": false,
-      "supabase_status": "PENDING_ACTUAL_SUPABASE",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
@@ -4011,7 +4031,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": null
+      "supabase_tested_head": "950d07eacab3323e14c9eb8671b7663d669bfc03"
     },
     {
       "name": "conversation.reopen",
@@ -4036,7 +4056,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_pending_actual_supabase",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -4046,8 +4066,8 @@
         "status": "implemented_default_off",
         "path": "/api/inbox/v1"
       },
-      "supabase_tested": false,
-      "supabase_status": "PENDING_ACTUAL_SUPABASE",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
@@ -4055,7 +4075,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": null
+      "supabase_tested_head": "950d07eacab3323e14c9eb8671b7663d669bfc03"
     },
     {
       "name": "conversation.archive",
@@ -4080,7 +4100,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_pending_actual_supabase",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -4090,8 +4110,8 @@
         "status": "implemented_default_off",
         "path": "/api/inbox/v1"
       },
-      "supabase_tested": false,
-      "supabase_status": "PENDING_ACTUAL_SUPABASE",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
@@ -4099,7 +4119,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": null
+      "supabase_tested_head": "950d07eacab3323e14c9eb8671b7663d669bfc03"
     },
     {
       "name": "conversation.restore",
@@ -4124,7 +4144,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_pending_actual_supabase",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -4134,8 +4154,8 @@
         "status": "implemented_default_off",
         "path": "/api/inbox/v1"
       },
-      "supabase_tested": false,
-      "supabase_status": "PENDING_ACTUAL_SUPABASE",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
@@ -4143,7 +4163,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": null
+      "supabase_tested_head": "950d07eacab3323e14c9eb8671b7663d669bfc03"
     },
     {
       "name": "conversation.mark_read",
@@ -4168,7 +4188,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_pending_actual_supabase",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -4178,8 +4198,8 @@
         "status": "implemented_default_off",
         "path": "/api/inbox/v1"
       },
-      "supabase_tested": false,
-      "supabase_status": "PENDING_ACTUAL_SUPABASE",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
@@ -4187,7 +4207,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": null
+      "supabase_tested_head": "950d07eacab3323e14c9eb8671b7663d669bfc03"
     },
     {
       "name": "conversation.mark_unread",
@@ -4212,7 +4232,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_pending_actual_supabase",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -4222,8 +4242,8 @@
         "status": "implemented_default_off",
         "path": "/api/inbox/v1"
       },
-      "supabase_tested": false,
-      "supabase_status": "PENDING_ACTUAL_SUPABASE",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
@@ -4231,7 +4251,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": null
+      "supabase_tested_head": "950d07eacab3323e14c9eb8671b7663d669bfc03"
     },
     {
       "name": "inbox.list",
@@ -4256,7 +4276,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_pending_actual_supabase",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -4266,8 +4286,8 @@
         "status": "implemented_default_off",
         "path": "/api/inbox/v1"
       },
-      "supabase_tested": false,
-      "supabase_status": "PENDING_ACTUAL_SUPABASE",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
@@ -4275,7 +4295,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": null
+      "supabase_tested_head": "950d07eacab3323e14c9eb8671b7663d669bfc03"
     },
     {
       "name": "inbox.get_thread",
@@ -4300,7 +4320,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_pending_actual_supabase",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -4310,8 +4330,8 @@
         "status": "implemented_default_off",
         "path": "/api/inbox/v1"
       },
-      "supabase_tested": false,
-      "supabase_status": "PENDING_ACTUAL_SUPABASE",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
@@ -4319,7 +4339,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": null
+      "supabase_tested_head": "950d07eacab3323e14c9eb8671b7663d669bfc03"
     },
     {
       "name": "inbox.unread_summary",
@@ -4344,7 +4364,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_pending_actual_supabase",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -4353,6 +4373,570 @@
         "authority": "server_cookie_getUser_active_membership",
         "status": "implemented_default_off",
         "path": "/api/inbox/v1"
+      },
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": false,
+      "ui_safe_status": "W4_and_W2_review_pending",
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "review_pending": [
+        "W4",
+        "W2"
+      ],
+      "supabase_tested_head": "950d07eacab3323e14c9eb8671b7663d669bfc03"
+    },
+    {
+      "name": "notification.refresh",
+      "version": "notifications.v1",
+      "kind": "write",
+      "rpc": "notification_v1_refresh",
+      "input_type": "NotificationInputV1",
+      "output_type": "notification_receipt",
+      "minimum_role": "member",
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member"
+      ],
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor",
+        "changed_replay": "conflict"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      },
+      "backend_status": "candidate_native_and_supabase_tested",
+      "transport": {
+        "method": "POST",
+        "enabled_by_default": false,
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "server_cookie_getUser_active_membership",
+        "status": "implemented_default_off",
+        "path": "/api/notifications/v1"
+      },
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": false,
+      "ui_safe_status": "W4_and_W2_review_pending",
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "review_pending": [
+        "W4",
+        "W2"
+      ],
+      "supabase_tested_head": "e9f6217b28411ca562f47a0a16551bec6d4558cd"
+    },
+    {
+      "name": "notification.mark_read",
+      "version": "notifications.v1",
+      "kind": "write",
+      "rpc": "notification_v1_mark_read",
+      "input_type": "NotificationInputV1",
+      "output_type": "notification_receipt",
+      "minimum_role": "member",
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member"
+      ],
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor",
+        "changed_replay": "conflict"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      },
+      "backend_status": "candidate_native_and_supabase_tested",
+      "transport": {
+        "method": "POST",
+        "enabled_by_default": false,
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "server_cookie_getUser_active_membership",
+        "status": "implemented_default_off",
+        "path": "/api/notifications/v1"
+      },
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": false,
+      "ui_safe_status": "W4_and_W2_review_pending",
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "review_pending": [
+        "W4",
+        "W2"
+      ],
+      "supabase_tested_head": "e9f6217b28411ca562f47a0a16551bec6d4558cd"
+    },
+    {
+      "name": "notification.mark_all_read",
+      "version": "notifications.v1",
+      "kind": "write",
+      "rpc": "notification_v1_mark_all_read",
+      "input_type": "NotificationInputV1",
+      "output_type": "notification_receipt",
+      "minimum_role": "member",
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member"
+      ],
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor",
+        "changed_replay": "conflict"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      },
+      "backend_status": "candidate_native_and_supabase_tested",
+      "transport": {
+        "method": "POST",
+        "enabled_by_default": false,
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "server_cookie_getUser_active_membership",
+        "status": "implemented_default_off",
+        "path": "/api/notifications/v1"
+      },
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": false,
+      "ui_safe_status": "W4_and_W2_review_pending",
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "review_pending": [
+        "W4",
+        "W2"
+      ],
+      "supabase_tested_head": "e9f6217b28411ca562f47a0a16551bec6d4558cd"
+    },
+    {
+      "name": "notification.list",
+      "version": "notifications.v1",
+      "kind": "read",
+      "rpc": "notification_v1_list",
+      "input_type": "NotificationListInputV1",
+      "output_type": "bounded_notification_DTO",
+      "minimum_role": "member",
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member"
+      ],
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null,
+        "changed_replay": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "backend_status": "candidate_native_and_supabase_tested",
+      "transport": {
+        "method": "POST",
+        "enabled_by_default": false,
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "server_cookie_getUser_active_membership",
+        "status": "implemented_default_off",
+        "path": "/api/notifications/v1"
+      },
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": false,
+      "ui_safe_status": "W4_and_W2_review_pending",
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "review_pending": [
+        "W4",
+        "W2"
+      ],
+      "supabase_tested_head": "e9f6217b28411ca562f47a0a16551bec6d4558cd"
+    },
+    {
+      "name": "notification.unread_count",
+      "version": "notifications.v1",
+      "kind": "read",
+      "rpc": "notification_v1_unread_count",
+      "input_type": "NotificationListInputV1",
+      "output_type": "bounded_notification_DTO",
+      "minimum_role": "member",
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member"
+      ],
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null,
+        "changed_replay": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "backend_status": "candidate_native_and_supabase_tested",
+      "transport": {
+        "method": "POST",
+        "enabled_by_default": false,
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "server_cookie_getUser_active_membership",
+        "status": "implemented_default_off",
+        "path": "/api/notifications/v1"
+      },
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": false,
+      "ui_safe_status": "W4_and_W2_review_pending",
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "review_pending": [
+        "W4",
+        "W2"
+      ],
+      "supabase_tested_head": "e9f6217b28411ca562f47a0a16551bec6d4558cd"
+    },
+    {
+      "name": "automation.create",
+      "version": "automations.v1",
+      "kind": "write",
+      "rpc": "automation_v1_create",
+      "input_type": "AutomationInputV1",
+      "output_type": "automation_receipt",
+      "minimum_role": "admin",
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor",
+        "changed_replay": "conflict"
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "backend_status": "candidate_pending_actual_supabase",
+      "transport": {
+        "method": "POST",
+        "enabled_by_default": false,
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "server_cookie_getUser_active_membership",
+        "status": "implemented_default_off",
+        "path": "/api/automations/v1"
+      },
+      "supabase_tested": false,
+      "supabase_status": "PENDING_ACTUAL_SUPABASE",
+      "ui_safe": false,
+      "ui_safe_status": "W4_and_W2_review_pending",
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "review_pending": [
+        "W4",
+        "W2"
+      ],
+      "supabase_tested_head": null
+    },
+    {
+      "name": "automation.update",
+      "version": "automations.v1",
+      "kind": "write",
+      "rpc": "automation_v1_update",
+      "input_type": "AutomationInputV1",
+      "output_type": "automation_receipt",
+      "minimum_role": "admin",
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor",
+        "changed_replay": "conflict"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      },
+      "backend_status": "candidate_pending_actual_supabase",
+      "transport": {
+        "method": "POST",
+        "enabled_by_default": false,
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "server_cookie_getUser_active_membership",
+        "status": "implemented_default_off",
+        "path": "/api/automations/v1"
+      },
+      "supabase_tested": false,
+      "supabase_status": "PENDING_ACTUAL_SUPABASE",
+      "ui_safe": false,
+      "ui_safe_status": "W4_and_W2_review_pending",
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "review_pending": [
+        "W4",
+        "W2"
+      ],
+      "supabase_tested_head": null
+    },
+    {
+      "name": "automation.enable",
+      "version": "automations.v1",
+      "kind": "write",
+      "rpc": "automation_v1_enable",
+      "input_type": "AutomationInputV1",
+      "output_type": "automation_receipt",
+      "minimum_role": "admin",
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor",
+        "changed_replay": "conflict"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      },
+      "backend_status": "candidate_pending_actual_supabase",
+      "transport": {
+        "method": "POST",
+        "enabled_by_default": false,
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "server_cookie_getUser_active_membership",
+        "status": "implemented_default_off",
+        "path": "/api/automations/v1"
+      },
+      "supabase_tested": false,
+      "supabase_status": "PENDING_ACTUAL_SUPABASE",
+      "ui_safe": false,
+      "ui_safe_status": "W4_and_W2_review_pending",
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "review_pending": [
+        "W4",
+        "W2"
+      ],
+      "supabase_tested_head": null
+    },
+    {
+      "name": "automation.disable",
+      "version": "automations.v1",
+      "kind": "write",
+      "rpc": "automation_v1_disable",
+      "input_type": "AutomationInputV1",
+      "output_type": "automation_receipt",
+      "minimum_role": "admin",
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor",
+        "changed_replay": "conflict"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      },
+      "backend_status": "candidate_pending_actual_supabase",
+      "transport": {
+        "method": "POST",
+        "enabled_by_default": false,
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "server_cookie_getUser_active_membership",
+        "status": "implemented_default_off",
+        "path": "/api/automations/v1"
+      },
+      "supabase_tested": false,
+      "supabase_status": "PENDING_ACTUAL_SUPABASE",
+      "ui_safe": false,
+      "ui_safe_status": "W4_and_W2_review_pending",
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "review_pending": [
+        "W4",
+        "W2"
+      ],
+      "supabase_tested_head": null
+    },
+    {
+      "name": "automation.process_pending",
+      "version": "automations.v1",
+      "kind": "write",
+      "rpc": "automation_v1_process_pending",
+      "input_type": "AutomationInputV1",
+      "output_type": "automation_receipt",
+      "minimum_role": "admin",
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor",
+        "changed_replay": "conflict"
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "backend_status": "candidate_pending_actual_supabase",
+      "transport": {
+        "method": "POST",
+        "enabled_by_default": false,
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "server_cookie_getUser_active_membership",
+        "status": "implemented_default_off",
+        "path": "/api/automations/v1"
+      },
+      "supabase_tested": false,
+      "supabase_status": "PENDING_ACTUAL_SUPABASE",
+      "ui_safe": false,
+      "ui_safe_status": "W4_and_W2_review_pending",
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "review_pending": [
+        "W4",
+        "W2"
+      ],
+      "supabase_tested_head": null
+    },
+    {
+      "name": "automation.list",
+      "version": "automations.v1",
+      "kind": "read",
+      "rpc": "automation_v1_list",
+      "input_type": "AutomationReadInputV1",
+      "output_type": "bounded_automation_DTO",
+      "minimum_role": "admin",
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null,
+        "changed_replay": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "backend_status": "candidate_pending_actual_supabase",
+      "transport": {
+        "method": "POST",
+        "enabled_by_default": false,
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "server_cookie_getUser_active_membership",
+        "status": "implemented_default_off",
+        "path": "/api/automations/v1"
+      },
+      "supabase_tested": false,
+      "supabase_status": "PENDING_ACTUAL_SUPABASE",
+      "ui_safe": false,
+      "ui_safe_status": "W4_and_W2_review_pending",
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "review_pending": [
+        "W4",
+        "W2"
+      ],
+      "supabase_tested_head": null
+    },
+    {
+      "name": "automation.get",
+      "version": "automations.v1",
+      "kind": "read",
+      "rpc": "automation_v1_get",
+      "input_type": "AutomationReadInputV1",
+      "output_type": "bounded_automation_DTO",
+      "minimum_role": "admin",
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null,
+        "changed_replay": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "backend_status": "candidate_pending_actual_supabase",
+      "transport": {
+        "method": "POST",
+        "enabled_by_default": false,
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "server_cookie_getUser_active_membership",
+        "status": "implemented_default_off",
+        "path": "/api/automations/v1"
+      },
+      "supabase_tested": false,
+      "supabase_status": "PENDING_ACTUAL_SUPABASE",
+      "ui_safe": false,
+      "ui_safe_status": "W4_and_W2_review_pending",
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "review_pending": [
+        "W4",
+        "W2"
+      ],
+      "supabase_tested_head": null
+    },
+    {
+      "name": "automation.run_history",
+      "version": "automations.v1",
+      "kind": "read",
+      "rpc": "automation_v1_run_history",
+      "input_type": "AutomationReadInputV1",
+      "output_type": "bounded_automation_DTO",
+      "minimum_role": "admin",
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null,
+        "changed_replay": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "backend_status": "candidate_pending_actual_supabase",
+      "transport": {
+        "method": "POST",
+        "enabled_by_default": false,
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "server_cookie_getUser_active_membership",
+        "status": "implemented_default_off",
+        "path": "/api/automations/v1"
       },
       "supabase_tested": false,
       "supabase_status": "PENDING_ACTUAL_SUPABASE",

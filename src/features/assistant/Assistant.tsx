@@ -213,7 +213,7 @@ export function Assistant({ context, selectedReferences = [], invoiceIntent = fa
             </button>
           </div>
         </aside>
-        <section id="assistant-mobile-panel-Consulta" aria-label="Consulta al asistente" className={`${mobilePane==='Consulta'?'':'hidden xl:block'} min-w-0 rounded-xl border border-slate-200 bg-white`}>
+        <section id="assistant-mobile-panel-Consulta" aria-label="Área de consulta" className={`${mobilePane==='Consulta'?'':'hidden xl:block'} min-w-0 rounded-xl border border-slate-200 bg-white`}>
           <header className="flex items-center gap-3 border-b p-4">
             <Bot className="h-9 w-9 rounded-lg bg-indigo-50 p-2 text-indigo-600" />
             <div>

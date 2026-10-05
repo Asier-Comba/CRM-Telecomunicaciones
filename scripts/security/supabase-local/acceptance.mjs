@@ -1,5 +1,7 @@
 import { randomBytes, randomUUID } from 'node:crypto'
 import { productAcceptance } from './product-acceptance.mjs'
+import {automationsAcceptance}from './automations-acceptance.mjs'
+import {notificationsAcceptance}from './notifications-acceptance.mjs'
 import {inboxAcceptance}from './inbox-acceptance.mjs'
 import {individualOperationAcceptance}from './individual-operation-acceptance.mjs'
 import {importJobAcceptance}from './importjob-acceptance.mjs'
@@ -136,6 +138,8 @@ export async function acceptance({ url, anon, service, db, command, report, appU
 
   const individualResult=await individualOperationAcceptance({rpc,sql,check,users,wa,ca,url,anon,appUrl})
   Object.assign(report,await inboxAcceptance({rpc,sql,check,users,wa,wb,ca,url,anon,appUrl}))
+  Object.assign(report,await notificationsAcceptance({rpc,sql,check,users,wa,wb,url,anon,appUrl}))
+  Object.assign(report,await automationsAcceptance({rpc,sql,check,users,wa,wb,url,anon,appUrl}))
   const buckets = await http('/storage/v1/bucket', service)
   check(buckets.status === 200 && ['telecom-documents', 'telecom-import-quarantine'].every(id => buckets.json?.some(b => b.id === id && b.public === false)), 'private_buckets')
   const bytes = Buffer.from('Synthetic local acceptance text only. No customer document.\n')
