@@ -137,7 +137,8 @@
       "individually_observed": 5,
       "browser_private_values": "PASS",
       "teardown": "PASS"
-    }
+    },
+    "team_origin_candidate_fixture": "scripts/security/supabase-local/team-origin-acceptance.mjs"
   },
   "operations": [
     {
@@ -5214,7 +5215,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_pending_actual_supabase",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -5224,8 +5225,8 @@
         "status": "implemented_default_off",
         "path": "/api/sensitive/v1"
       },
-      "supabase_tested": false,
-      "supabase_status": "PENDING_ACTUAL_SUPABASE",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "excluded_sensitive_reveal_requires_explicit_privacy_gate",
@@ -5233,7 +5234,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": null,
+      "supabase_tested_head": "abd38166e85174e134c08e06066fb85a6db8b2aa",
       "field_role_matrix": {
         "contact": [
           "owner",
@@ -5245,13 +5246,141 @@
           "admin"
         ]
       }
+    },
+    {
+      "name": "member.reissue_invite",
+      "version": "team.v1",
+      "kind": "write",
+      "rpc": "team_v1_member_reissue_invite",
+      "input_type": "TeamInputsV1['member.reissue_invite']",
+      "output_type": "TeamReceiptV1",
+      "minimum_role": "admin",
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor",
+        "changed_replay": "conflict"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      },
+      "backend_status": "candidate_pending_actual_supabase",
+      "transport": {
+        "method": "POST",
+        "enabled_by_default": false,
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "server_cookie_getUser_active_membership",
+        "status": "implemented_default_off",
+        "path": "/api/team/v1/commands"
+      },
+      "supabase_tested": false,
+      "supabase_status": "PENDING_ACTUAL_SUPABASE",
+      "ui_safe": false,
+      "ui_safe_status": "W4_and_W2_review_pending",
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "supabase_tested_head": null,
+      "review_pending": [
+        "W4",
+        "W2"
+      ]
+    },
+    {
+      "name": "member.invite_list",
+      "version": "team.v1",
+      "kind": "read",
+      "rpc": "team_v1_member_invite_list",
+      "input_type": "TeamListInputV1",
+      "output_type": "TeamInviteListV1",
+      "minimum_role": "admin",
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null,
+        "changed_replay": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "backend_status": "candidate_pending_actual_supabase",
+      "transport": {
+        "method": "POST",
+        "enabled_by_default": false,
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "server_cookie_getUser_active_membership",
+        "status": "implemented_default_off",
+        "path": "/api/team/v1/queries"
+      },
+      "supabase_tested": false,
+      "supabase_status": "PENDING_ACTUAL_SUPABASE",
+      "ui_safe": false,
+      "ui_safe_status": "W4_and_W2_review_pending",
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "supabase_tested_head": null,
+      "review_pending": [
+        "W4",
+        "W2"
+      ]
+    },
+    {
+      "name": "provenance.get",
+      "version": "provenance.v1",
+      "kind": "read",
+      "rpc": "provenance_v1_get",
+      "input_type": "ProvenanceInputV1",
+      "output_type": "ProvenanceResultV1",
+      "minimum_role": "admin",
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null,
+        "changed_replay": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "backend_status": "candidate_pending_actual_supabase",
+      "transport": {
+        "method": "POST",
+        "enabled_by_default": false,
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "server_cookie_getUser_active_membership",
+        "status": "implemented_default_off",
+        "path": "/api/provenance/v1"
+      },
+      "supabase_tested": false,
+      "supabase_status": "PENDING_ACTUAL_SUPABASE",
+      "ui_safe": false,
+      "ui_safe_status": "W4_and_W2_review_pending",
+      "assistant_future": "durable_Issue10_confirmation_required_not_registered",
+      "supabase_tested_head": null,
+      "review_pending": [
+        "W4",
+        "W2"
+      ]
     }
   ],
   "unavailable_modules": [
     "product_import_workflow",
     "text_audio_proposal_parser",
     "advanced_billing_analytics",
-    "portfolio_deadline_supersede",
     "portfolio_legacy_origin_verification"
   ],
   "registration": "Human product contracts only; no assistant capability registration or deployment authorization."

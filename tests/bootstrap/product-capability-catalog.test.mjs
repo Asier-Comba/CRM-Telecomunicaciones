@@ -26,7 +26,7 @@ test('capability catalog covers registered product transport and explicit RPC pr
  assert.deepEqual(catalog.operations.filter(o=>o.kind==='read'&&o.version==='billing.v1'&&o.name!=='invoice.pdf').map(o=>o.name).sort(),Object.keys(BILLING_QUERY_RPC_V1).sort())
  assert.equal(new Set(catalog.operations.map(o=>o.name)).size,catalog.operations.length)
  assert.deepEqual(catalog.operations.filter(o=>o.kind==='write'&&o.version==='team.v1').map(o=>o.name).sort(),Object.keys(TEAM_RPC_V1).sort())
- assert.deepEqual(catalog.operations.filter(o=>o.kind==='read'&&o.version==='team.v1').map(o=>o.name),['member.list'])
+ assert.deepEqual(catalog.operations.filter(o=>o.kind==='read'&&o.version==='team.v1').map(o=>o.name),['member.list','member.invite_list'])
  assert.deepEqual(catalog.operations.filter(o=>o.kind==='write'&&o.version==='portfolio.v1').map(o=>o.name).sort(),Object.keys(PORTFOLIO_RPC_V1).sort())
  assert.deepEqual(catalog.operations.filter(o=>o.kind==='read'&&o.version==='portfolio.v1').map(o=>o.name),['portfolio.get'])
  assert.deepEqual(catalog.operations.filter(o=>o.kind==='write'&&o.version==='document.v1').map(o=>o.name).sort(),Object.keys(DOCUMENT_RPC_V1).sort())

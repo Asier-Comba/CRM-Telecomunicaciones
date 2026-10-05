@@ -126,7 +126,7 @@ export function Status({ value }: { value: string }) {
     inactive: 'Inactivo',
     suspended: 'Suspendido',
     draft: 'Borrador',
-    pending: 'Pendiente',
+    expired: 'Caducada', pending: 'Pendiente',
     in_progress: 'En curso',
     open: 'Abierta',
     won: 'Ganada',

@@ -47,6 +47,7 @@ export function InvoiceEditor({
     [reviewed, setReviewed] = useState(false),
     totals = calculateInvoiceTotals(form.items)
   const exact=integrated?invoicePreviewTotals(form):null
+  function lineMoney(item:InvoiceFormData['items'][number]){const value=integrated?invoicePreviewTotals({...form,items:[item]}):null;return integrated?(value?money(value.total_minor/100,form.currency):'—'):money(calcLineTotals(item).lineTotal,form.currency)}
   function field<K extends keyof InvoiceFormData>(
     key: K,
     value: InvoiceFormData[K],
@@ -363,8 +364,8 @@ export function InvoiceEditor({
                 <Trash2 className="mx-auto h-4 w-4" />
               </button>
             </div>
-            <p className="mt-2 text-right text-xs font-semibold text-slate-700">
-              {money(calcLineTotals(i).lineTotal, form.currency)}
+            <p data-invoice-line-total={index+1} className="mt-2 text-right text-xs font-semibold text-slate-700">
+              {lineMoney(i)}
             </p>
           </div>
         ))}

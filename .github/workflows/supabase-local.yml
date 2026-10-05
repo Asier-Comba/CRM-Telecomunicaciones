@@ -45,6 +45,10 @@ on:
       - 'src/components/Sidebar.tsx'
       - 'src/components/Topbar.tsx'
       - 'src/app/(saas)/clients/**'
+      - 'src/app/api/provenance/**'
+      - 'src/lib/server/provenance-*.ts'
+      - 'src/lib/server/import-staging-*.ts'
+      - 'src/lib/server/import-csv-*.ts'
       - 'supabase/migrations/**'
 permissions:
   contents: read
