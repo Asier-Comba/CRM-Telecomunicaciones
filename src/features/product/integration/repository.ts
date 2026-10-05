@@ -69,6 +69,11 @@ const errors: readonly string[] = ['validation','access_denied','not_found','con
 function object(v: unknown): v is Record<string, unknown> {
   return v !== null && typeof v === 'object' && !Array.isArray(v)
 }
+async function attachmentFailure(response:Response):Promise<never>{
+ let value:unknown;try{value=await response.json()}catch{}
+ if(object(value)&&value.ok===false&&Object.keys(value).sort().join(',')==='error,ok'&&errors.includes(value.error as string))throw new ProductUiError(value.error as ProductErrorV1)
+ throw new ProductUiError(response.status===403?'access_denied':response.status===404?'not_found':response.status===503?'unavailable':'internal_safe')
+}
 /** All consumers validate the closed W1 success envelope and operation-specific DTO. */
 export class IntegratedLocalProductRepository implements ProductRepository {
   readonly mode = 'integrated_local' as const
@@ -140,7 +145,7 @@ export class IntegratedLocalProductRepository implements ProductRepository {
   }
   async downloadDocument(id:string,ticketId:string){
     let response:Response;try{response=await this.request('/api/document/v1/content/download',{method:'POST',credentials:'same-origin',cache:'no-store',headers:{'Content-Type':'application/json'},body:JSON.stringify({operation:'document.download',input:{id,ticket_id:ticketId}}),signal:AbortSignal.timeout(60000)})}catch{throw new ProductUiError('transport_uncertain')}
-    if(!response.ok)throw new ProductUiError(response.status===403?'access_denied':response.status===404?'not_found':'internal_safe')
+    if(!response.ok)return attachmentFailure(response)
     if(!['application/pdf','image/png','image/jpeg'].includes(response.headers.get('content-type')??''))throw new ProductUiError('internal_safe')
     const blob=await response.blob();if(blob.size<1||blob.size>10485760)throw new ProductUiError('internal_safe');return blob
   }
@@ -154,7 +159,8 @@ export class IntegratedLocalProductRepository implements ProductRepository {
   private async pdfDownload(id:string,frozen:boolean){
     let response:Response
     try{response=await this.request(frozen?'/api/billing/v1/private-pdf':'/api/billing/v1/pdf',{method:'POST',credentials:'same-origin',cache:'no-store',headers:{'Content-Type':'application/json'},body:JSON.stringify({operation:frozen?'invoice.private_pdf':'invoice.pdf',input:{id}}),signal:AbortSignal.timeout(15000)})}catch{throw new ProductUiError('transport_uncertain')}
-    if(!response.ok || !/^application\/pdf(?:;|$)/i.test(response.headers.get('content-type')??''))throw new ProductUiError(response.status===403?'access_denied':response.status===404?'not_found':'internal_safe')
+    if(!response.ok)return attachmentFailure(response)
+    if(!/^application\/pdf(?:;|$)/i.test(response.headers.get('content-type')??''))throw new ProductUiError('internal_safe')
     const blob=await response.blob();if(blob.size>2000000 || blob.size<5 || await blob.slice(0,5).text()!=='%PDF-')throw new ProductUiError('internal_safe')
     return blob
   }

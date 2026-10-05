@@ -70,3 +70,13 @@ test('import management consumes minimized closed DTOs and keeps cancellation CA
  const leaked=new IntegratedLocalProductRepository(async()=>Response.json({ok:true,data:{contract_version:'importjob.v1',operation:'importjob.get',record:{...record,source_file_ref_id:id}}}))
  await assert.rejects(leaked.importJob(id),e=>e.code==='internal_safe')
 })
+
+test('attachment failure consumes only the closed safe error envelope',async()=>{
+ const id='10000000-0000-4000-8000-000000000001'
+ for(const method of ['privateInvoicePdf','invoicePdf','downloadDocument']){
+  const conflict=new IntegratedLocalProductRepository(async()=>Response.json({ok:false,error:'conflict'},{status:409}))
+  await assert.rejects(conflict[method](id,id),e=>e.code==='conflict')
+  const forged=new IntegratedLocalProductRepository(async()=>Response.json({ok:false,error:'conflict',provider_detail:'private'},{status:409}))
+  await assert.rejects(forged[method](id,id),e=>e.code==='internal_safe'&&!e.message.includes('private'))
+ }
+})
