@@ -39,7 +39,7 @@ export async function acceptance({ url, anon, service, db, command, report, appU
     check(claims.sub === id && claims.role === 'authenticated', `jwt_actor_${name}`)
     const verified = await http('/auth/v1/user', token)
     check(verified.status === 200 && verified.json?.id === id, `auth_verify_${name}`)
-    users[name] = { id, token, refresh:login.json.refresh_token, workspace, role }
+    users[name] = { id, token, refresh:login.json.refresh_token, workspace, role, email, password }
   }
   const identities = Object.values(users).map(u => `('${u.workspace}','${u.id}','${u.role}','active')`).join(',')
   sql(`begin;
