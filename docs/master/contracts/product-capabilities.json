@@ -5214,7 +5214,7 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_pending_actual_supabase",
+      "backend_status": "candidate_native_and_supabase_tested",
       "transport": {
         "method": "POST",
         "enabled_by_default": false,
@@ -5224,8 +5224,8 @@
         "status": "implemented_default_off",
         "path": "/api/sensitive/v1"
       },
-      "supabase_tested": false,
-      "supabase_status": "PENDING_ACTUAL_SUPABASE",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "excluded_sensitive_reveal_requires_explicit_privacy_gate",
@@ -5233,7 +5233,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": null,
+      "supabase_tested_head": "abd38166e85174e134c08e06066fb85a6db8b2aa",
       "field_role_matrix": {
         "contact": [
           "owner",
