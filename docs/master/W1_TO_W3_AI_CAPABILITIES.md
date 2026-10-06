@@ -169,3 +169,37 @@ Machine authority: [product-capabilities.json](contracts/product-capabilities.js
 18normal human readers in [telecom-collections-v1.json](contracts/telecom-collections-v1.json), DTOs in `src/lib/contracts/telecom-collections-v1.ts`. No protected contact methods, fiscal IDs, line identifiers or notes. Current candidate awaits exact-source native/Supabase acceptance; do not claim proof or call as a registered AI tool. All old human writes remain FUTURE_AI_ACTION_CANDIDATE only. Issue10 stays W3 owned; zero new writes registered.
 
 `customer.list`, `contact.list`, `opportunity.list`, `activity.list`, `assignee.list`, `operator.list`, `operator.get`, `plan.list`, `plan.get`, `plan_version.list`, `plan_version.get`, `contract.list`, `service.list`, `line.list`, `renewal.list`, `renewal.get`, `permanence.list`, `permanence.get`.
+
+
+TEL5 reader acceptance: all18 collection/catalog read candidates individually proven on `e09ddf222b22e72150e7c27bf0d1b68f9ae4dd63` (1601 checks/native restore/private boundary PASS). `identifier.list` and `identifier.get` are new masked read candidates with exact proof pending. Explicit identifier `sensitive.get` remains human-only; no raw reveal tool registration. `identifier.create_manual` and `identifier.retire` are FUTURE_AI_ACTION_CANDIDATE only. No new AI tools or writes registered.
+
+
+TEL5 protected identifier reads `identifier.list/get` now individually proven on `4b5520f3a7ec027d7473b333587268ead0bb16f1` (1679checks/native restore/private boundary). Explicit reveal remains human-only. New `plan_version.terms_get` is a safe read candidate for typed commercial facts, proof pending. Eight catalog management writes are FUTURE_AI_ACTION_CANDIDATE only; owner/admin human transport, no AI registration. Issue10 remains W3-owned.
+
+
+TEL5 portability candidate: `portability.list/get` are bounded safe read candidates with masked number only, tenant/current membership enforced. Exact source proof pending. No AI registration. Five new writes are `FUTURE_AI_ACTION_CANDIDATE`; manual provider confirmation cannot be fabricated by an assistant. Raw requested-field identifier reveal remains human only; Issue10 W3-owned.
+
+
+Portability reads accepted48483ae8/2071real checks; no registration. `case.list/get` are new bounded safe summary read candidates; exact-source proof pending. `case.note_list` is human-only private note access and is not an AI read tool. Ninecase writes are `FUTURE_AI_ACTION_CANDIDATE`; no AI registration. Issue10 remains W3-owned.
+
+
+Case summary reads accepted a220ee17/2290real checks; private notes remain human-only and unregistered. SIM `sim.list/get/history` are new mask-only bounded read candidates, exact-source proof pending. SixSIMwrites are `FUTURE_AI_ACTION_CANDIDATE`; provider confirmation must be human recorded, no carrier action or AI registration. ICCID/EID requested-field reveal remains human-only.
+
+TEL5 Customer360/report read candidates (not registered): `customer360.summary`, `report.operator_portfolio`, `report.services_by_kind`, `report.lines_by_status`, `report.renewals_by_month`, `report.permanences_by_month`, `report.portabilities_by_status`, `report.cases_by_priority_status`, `report.pipeline_by_stage`, `report.commercial_owner_counts`. Current cookie JWT and role checks remain authoritative; protected billing/document summary counters require owner/admin. No money, raw identifiers or note bodies. Exact platform evidence pending for these10 reads. SIM masked reads are now proven b654b1d/2479checks; noAI tool registration. Writes remain FUTURE_AI_ACTION_CANDIDATE, Issue10 W3-owned.
+
+TEL5 Customer360/report10 safe read candidates are now proven0c67c3a/2669checks/native/browser. They remain unregistered;documents/billing counters remain owner/admin-only. Dense line.list context candidate is mask-only and needs its own exact-source proof. No new AI writes or tools;Issue10 remains W3-owned.
+
+
+## TEL5 deterministic attention candidate
+
+`telecom.attention` is a safe read candidate at `/api/telecom/attention/v1`; seven closed factual rules, bounded date window and keyset page; no names/notes/raw identifiers. Exact Supabase acceptance pending. Dense line extension accepted601ce28/2686checks. No new AI registration; no AI writes. New domain writes remain FUTURE_AI_ACTION_CANDIDATE under W3-owned Issue10.
+
+
+## TEL5 attention acceptance and billing read candidates
+
+Attention acceptedc18123e/2757checks,199operations; still not registered. `billing.monthly_series`/`billing.top_customers` candidates require current owner/admin billing scope and explicit single currency; current issue-month cohorts only, no fiscal PII. Exact candidate acceptance pending. No AI registration or writes; Issue10 remains W3-owned.
+
+
+## TEL5 full Customer360 work page candidates
+
+`task.list`/`meeting.list` candidate safe reads at normal product query route: all four active roles, customer/related opportunity/assignee/state/date filters, UUID keysets<=100; undated tasks and completed history included. No private note/identifier payload. Exact acceptance pending. Billing readers accepted84dbdc0/2872checks but remain protected owner/admin read candidates only. No registration or AI writes.

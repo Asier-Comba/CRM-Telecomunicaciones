@@ -59,6 +59,8 @@ run_fixture supabase/tests/personal-notifications.sql
 run_fixture supabase/tests/registered-automations.sql
 run_fixture supabase/tests/product-settings.sql
 run_fixture supabase/tests/requested-sensitive-reveal.sql
+run_fixture supabase/tests/immutable-commercial-catalog.sql
+run_fixture supabase/tests/commercial-portability-workflow.sql
 run_fixture supabase/tests/product-dashboard-search.sql
 # Density is rolled back so existing recovery sentinels remain exact.
 {
@@ -66,11 +68,29 @@ run_fixture supabase/tests/product-dashboard-search.sql
   sed '$d' "$repo_root/supabase/seeds/synthetic_product.sql"
   cat "$repo_root/supabase/seeds/synthetic_product_billing.sql"
   cat "$repo_root/supabase/tests/product-rich-density.sql"
+  sed '$d' "$repo_root/supabase/seeds/synthetic_product.sql"
+  cat "$repo_root/supabase/tests/product-service-case-workflow.sql"
+  sed '$d' "$repo_root/supabase/seeds/synthetic_product.sql"
+  cat "$repo_root/supabase/tests/commercial-sim-esim-history.sql"
+  sed '$d' "$repo_root/supabase/seeds/synthetic_product.sql"
+  cat "$repo_root/supabase/tests/telecom-customer360-report-reads.sql"
+  sed '$d' "$repo_root/supabase/seeds/synthetic_product.sql"
+  cat "$repo_root/supabase/tests/deterministic-telecom-attention.sql"
+  sed '$d' "$repo_root/supabase/seeds/synthetic_product.sql"
+  cat "$repo_root/supabase/seeds/synthetic_product_billing.sql"
+  cat "$repo_root/supabase/tests/currency-separated-billing-cohorts.sql"
+  sed '$d' "$repo_root/supabase/seeds/synthetic_product.sql"
+  cat "$repo_root/supabase/tests/full-customer360-work-collections.sql"
 } | psql_native > "${RUNNER_TEMP:-$tmp_dir}/product-density-query-plans.jsonlog"
 {
   printf "set app.environment = 'test';\n"
   sed '$d' "$repo_root/supabase/seeds/synthetic_product.sql"
   cat "$repo_root/supabase/tests/telecom-commercial-collections.sql"
+} | psql_native > /dev/null
+{
+  printf "set app.environment = 'test';\n"
+  sed '$d' "$repo_root/supabase/seeds/synthetic_product.sql"
+  cat "$repo_root/supabase/tests/protected-telecom-identifiers.sql"
 } | psql_native > /dev/null
 run_fixture supabase/seeds/synthetic_portfolio.sql
 run_fixture supabase/tests/assistant-durable-foundation.sql
@@ -183,18 +203,38 @@ migration_head="$(basename "${migration}")"
   cat "$repo_root/supabase/tests/registered-automations.sql"
   cat "$repo_root/supabase/tests/product-settings.sql"
   cat "$repo_root/supabase/tests/requested-sensitive-reveal.sql"
+  cat "$repo_root/supabase/tests/immutable-commercial-catalog.sql"
+  cat "$repo_root/supabase/tests/commercial-portability-workflow.sql"
   cat "$repo_root/supabase/tests/team-expiry-manual-origin.sql"
   cat "$repo_root/supabase/tests/document-integrity-cleanup.sql"
   cat "$repo_root/supabase/tests/product-dashboard-search.sql"
   sed '$d' "$repo_root/supabase/seeds/synthetic_product.sql"
   cat "$repo_root/supabase/seeds/synthetic_product_billing.sql"
   cat "$repo_root/supabase/tests/product-rich-density.sql"
+  sed '$d' "$repo_root/supabase/seeds/synthetic_product.sql"
+  cat "$repo_root/supabase/tests/product-service-case-workflow.sql"
+  sed '$d' "$repo_root/supabase/seeds/synthetic_product.sql"
+  cat "$repo_root/supabase/tests/commercial-sim-esim-history.sql"
+  sed '$d' "$repo_root/supabase/seeds/synthetic_product.sql"
+  cat "$repo_root/supabase/tests/telecom-customer360-report-reads.sql"
+  sed '$d' "$repo_root/supabase/seeds/synthetic_product.sql"
+  cat "$repo_root/supabase/tests/deterministic-telecom-attention.sql"
+  sed '$d' "$repo_root/supabase/seeds/synthetic_product.sql"
+  cat "$repo_root/supabase/seeds/synthetic_product_billing.sql"
+  cat "$repo_root/supabase/tests/currency-separated-billing-cohorts.sql"
+  sed '$d' "$repo_root/supabase/seeds/synthetic_product.sql"
+  cat "$repo_root/supabase/tests/full-customer360-work-collections.sql"
 } | docker exec -i -u postgres "$container" psql -X -v ON_ERROR_STOP=1 -U postgres -d "$restore_db" > /dev/null
 
 {
   printf "set app.environment = 'test';\n"
   sed '$d' "$repo_root/supabase/seeds/synthetic_product.sql"
   cat "$repo_root/supabase/tests/telecom-commercial-collections.sql"
+} | docker exec -i -u postgres "$container" psql -X -v ON_ERROR_STOP=1 -U postgres -d "$restore_db" > /dev/null
+{
+  printf "set app.environment = 'test';\n"
+  sed '$d' "$repo_root/supabase/seeds/synthetic_product.sql"
+  cat "$repo_root/supabase/tests/protected-telecom-identifiers.sql"
 } | docker exec -i -u postgres "$container" psql -X -v ON_ERROR_STOP=1 -U postgres -d "$restore_db" > /dev/null
 
 node scripts/security/native-postgres/product-command-races.mjs

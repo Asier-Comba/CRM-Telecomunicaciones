@@ -117,6 +117,22 @@
       "anon": false,
       "public": false,
       "definer": true,
+      "signature": "public.billing_analytics_v1_query(uuid, text, jsonb)",
+      "service_role": false,
+      "authenticated": true
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": true,
+      "signature": "public.billing_analytics_v1_validate(text, jsonb)",
+      "service_role": false,
+      "authenticated": false
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.billing_artifact_v1_attach(uuid, jsonb)",
       "service_role": false,
       "authenticated": true
@@ -338,6 +354,70 @@
       "authenticated": false
     },
     {
+      "signature": "public.case_v1_command(uuid, text, jsonb)",
+      "anon": false,
+      "public": false,
+      "service_role": false,
+      "definer": true,
+      "authenticated": true
+    },
+    {
+      "signature": "public.case_v1_guard_row()",
+      "anon": false,
+      "public": false,
+      "service_role": false,
+      "definer": false,
+      "authenticated": false
+    },
+    {
+      "signature": "public.case_v1_query(uuid, text, jsonb)",
+      "anon": false,
+      "public": false,
+      "service_role": false,
+      "definer": true,
+      "authenticated": true
+    },
+    {
+      "signature": "public.case_v1_validate(text, jsonb)",
+      "anon": false,
+      "public": false,
+      "service_role": false,
+      "definer": false,
+      "authenticated": false
+    },
+    {
+      "signature": "public.catalog_v1_command(uuid, text, jsonb)",
+      "definer": true,
+      "authenticated": true,
+      "anon": false,
+      "public": false,
+      "service_role": false
+    },
+    {
+      "signature": "public.catalog_v1_guard_commercial_fact()",
+      "definer": false,
+      "authenticated": false,
+      "anon": false,
+      "public": false,
+      "service_role": false
+    },
+    {
+      "signature": "public.catalog_v1_terms_get(uuid, jsonb)",
+      "definer": true,
+      "authenticated": true,
+      "anon": false,
+      "public": false,
+      "service_role": false
+    },
+    {
+      "signature": "public.catalog_v1_validate(text, jsonb)",
+      "definer": false,
+      "authenticated": false,
+      "anon": false,
+      "public": false,
+      "service_role": false
+    },
+    {
       "anon": false,
       "public": false,
       "definer": true,
@@ -544,6 +624,38 @@
       "signature": "public.has_workspace_role(uuid, text[])",
       "service_role": false,
       "authenticated": true
+    },
+    {
+      "signature": "public.identifier_v1_command(uuid, text, jsonb)",
+      "definer": true,
+      "authenticated": true,
+      "anon": false,
+      "public": false,
+      "service_role": false
+    },
+    {
+      "signature": "public.identifier_v1_guard_row()",
+      "definer": false,
+      "authenticated": false,
+      "anon": false,
+      "public": false,
+      "service_role": false
+    },
+    {
+      "signature": "public.identifier_v1_query(uuid, text, jsonb)",
+      "definer": true,
+      "authenticated": true,
+      "anon": false,
+      "public": false,
+      "service_role": false
+    },
+    {
+      "signature": "public.identifier_v1_validate(text, jsonb)",
+      "definer": false,
+      "authenticated": false,
+      "anon": false,
+      "public": false,
+      "service_role": false
     },
     {
       "anon": false,
@@ -824,6 +936,38 @@
       "signature": "public.notification_v1_validate(text, jsonb)",
       "service_role": false,
       "authenticated": false
+    },
+    {
+      "signature": "public.portability_v1_command(uuid, text, jsonb)",
+      "definer": true,
+      "authenticated": true,
+      "anon": false,
+      "public": false,
+      "service_role": false
+    },
+    {
+      "signature": "public.portability_v1_guard_row()",
+      "definer": false,
+      "authenticated": false,
+      "anon": false,
+      "public": false,
+      "service_role": false
+    },
+    {
+      "signature": "public.portability_v1_query(uuid, text, jsonb)",
+      "definer": true,
+      "authenticated": true,
+      "anon": false,
+      "public": false,
+      "service_role": false
+    },
+    {
+      "signature": "public.portability_v1_validate(text, jsonb)",
+      "definer": false,
+      "authenticated": false,
+      "anon": false,
+      "public": false,
+      "service_role": false
     },
     {
       "anon": false,
@@ -1562,6 +1706,46 @@
       "authenticated": true
     },
     {
+      "signature": "public.sim_v1_command(uuid, text, jsonb)",
+      "public": false,
+      "anon": false,
+      "authenticated": true,
+      "service_role": false,
+      "definer": true
+    },
+    {
+      "signature": "public.sim_v1_guard_association()",
+      "public": false,
+      "anon": false,
+      "authenticated": false,
+      "service_role": false,
+      "definer": false
+    },
+    {
+      "signature": "public.sim_v1_guard_resource()",
+      "public": false,
+      "anon": false,
+      "authenticated": false,
+      "service_role": false,
+      "definer": false
+    },
+    {
+      "signature": "public.sim_v1_query(uuid, text, jsonb)",
+      "public": false,
+      "anon": false,
+      "authenticated": true,
+      "service_role": false,
+      "definer": true
+    },
+    {
+      "signature": "public.sim_v1_validate(text, jsonb)",
+      "public": false,
+      "anon": false,
+      "authenticated": false,
+      "service_role": false,
+      "definer": false
+    },
+    {
       "anon": false,
       "public": false,
       "definer": true,
@@ -1661,9 +1845,41 @@
       "anon": false,
       "public": false,
       "definer": true,
+      "signature": "public.telecom_attention_v1_query(uuid, jsonb)",
+      "service_role": false,
+      "authenticated": true
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": true,
+      "signature": "public.telecom_attention_v1_validate(jsonb)",
+      "service_role": false,
+      "authenticated": false
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.telecom_collection_v1_query(uuid, text, jsonb)",
       "service_role": false,
       "authenticated": true
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": true,
+      "signature": "public.telecom_reads_v1_query(uuid, text, jsonb)",
+      "service_role": false,
+      "authenticated": true
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": true,
+      "signature": "public.telecom_reads_v1_validate(text, jsonb)",
+      "service_role": false,
+      "authenticated": false
     },
     {
       "anon": false,

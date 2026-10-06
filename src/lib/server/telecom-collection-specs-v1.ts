@@ -1,4 +1,4 @@
-/** Closed DTO/filter registry: no raw columns, protected identifiers or caller-defined schema. */
+/** Closed bounded domain collections. */
 export const TELECOM_COLLECTION_SPECS_V1 = {
   "customer.list": {
     "fields": {
@@ -227,7 +227,8 @@ export const TELECOM_COLLECTION_SPECS_V1 = {
         "manual",
         "import",
         "integration"
-      ]
+      ],
+      "version": "positive"
     },
     "filters": [
       "limit",
@@ -261,7 +262,8 @@ export const TELECOM_COLLECTION_SPECS_V1 = {
         "manual",
         "import",
         "integration"
-      ]
+      ],
+      "version": "positive"
     },
     "filters": [
       "id"
@@ -284,7 +286,8 @@ export const TELECOM_COLLECTION_SPECS_V1 = {
       "status": [
         "active",
         "retired"
-      ]
+      ],
+      "version": "positive"
     },
     "filters": [
       "limit",
@@ -324,7 +327,8 @@ export const TELECOM_COLLECTION_SPECS_V1 = {
       "status": [
         "active",
         "retired"
-      ]
+      ],
+      "version": "positive"
     },
     "filters": [
       "id"
@@ -539,7 +543,41 @@ export const TELECOM_COLLECTION_SPECS_V1 = {
         "integration"
       ],
       "activated_on": "date?",
-      "ended_on": "date?"
+      "ended_on": "date?",
+      "service_kind": [
+        "mobile",
+        "fiber",
+        "fixed_voice",
+        "data_connectivity",
+        "other"
+      ],
+      "masked_msisdn": "mask?",
+      "sim_id": "uuid?",
+      "sim_kind": [
+        "physical",
+        "esim",
+        null
+      ],
+      "sim_status": [
+        "assigned",
+        "active",
+        null
+      ],
+      "masked_iccid": "mask?",
+      "masked_eid": "mask?",
+      "portability_id": "uuid?",
+      "portability_status": [
+        "draft",
+        "requested",
+        "scheduled",
+        "in_progress",
+        "completed",
+        "rejected",
+        "cancelled",
+        null
+      ],
+      "open_commitment_count": "count",
+      "next_commitment_ends_on": "date?"
     },
     "filters": [
       "limit",
@@ -740,5 +778,100 @@ export const TELECOM_COLLECTION_SPECS_V1 = {
       "id"
     ],
     "enums": {}
+  },
+  "task.list": {
+    "fields": {
+      "id": "uuid",
+      "version": "positive",
+      "customer_id": "uuid?",
+      "opportunity_id": "uuid?",
+      "title": "text",
+      "status": [
+        "pending",
+        "in_progress",
+        "completed",
+        "cancelled"
+      ],
+      "priority": [
+        "low",
+        "normal",
+        "high",
+        null
+      ],
+      "assigned_user_id": "uuid?",
+      "due_at": "instant?",
+      "due_on": "date?"
+    },
+    "filters": [
+      "limit",
+      "after_id",
+      "sort",
+      "customer_id",
+      "opportunity_id",
+      "assigned_user_id",
+      "status",
+      "priority",
+      "date_from",
+      "date_to"
+    ],
+    "enums": {
+      "status": [
+        "pending",
+        "in_progress",
+        "completed",
+        "cancelled"
+      ],
+      "priority": [
+        "low",
+        "normal",
+        "high"
+      ]
+    }
+  },
+  "meeting.list": {
+    "fields": {
+      "id": "uuid",
+      "version": "positive",
+      "customer_id": "uuid?",
+      "opportunity_id": "uuid?",
+      "title": "text",
+      "status": [
+        "scheduled",
+        "completed",
+        "cancelled",
+        "no_show"
+      ],
+      "assigned_user_id": "uuid?",
+      "starts_at": "instant",
+      "starts_on": "date",
+      "ends_at": "instant?",
+      "timezone": "text",
+      "all_day": "boolean",
+      "channel": [
+        "in_person",
+        "phone",
+        "video",
+        "other"
+      ]
+    },
+    "filters": [
+      "limit",
+      "after_id",
+      "sort",
+      "customer_id",
+      "opportunity_id",
+      "assigned_user_id",
+      "status",
+      "date_from",
+      "date_to"
+    ],
+    "enums": {
+      "status": [
+        "scheduled",
+        "completed",
+        "cancelled",
+        "no_show"
+      ]
+    }
   }
 } as const

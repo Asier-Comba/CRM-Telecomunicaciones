@@ -1,3 +1,12 @@
+import{fullWorkCollectionsAcceptance}from './full-work-collections-acceptance.mjs'
+import{billingAnalyticsAcceptance}from './billing-analytics-acceptance.mjs'
+import{telecomAttentionAcceptance}from './telecom-attention-acceptance.mjs'
+import{telecomReportAcceptance}from './telecom-report-acceptance.mjs'
+import {simEsimAcceptance}from './sim-esim-acceptance.mjs'
+import {serviceCaseAcceptance}from './service-case-acceptance.mjs'
+import {commercialPortabilityAcceptance}from './commercial-portability-acceptance.mjs'
+import {commercialCatalogAcceptance}from './commercial-catalog-acceptance.mjs'
+import {protectedIdentifierAcceptance}from './protected-identifier-acceptance.mjs'
 import {telecomCollectionAcceptance}from './telecom-collection-acceptance.mjs'
 import {portabilityAcceptance}from './portability-acceptance.mjs'
 import {documentMaintenanceAcceptance}from './document-maintenance-acceptance.mjs'
@@ -154,6 +163,15 @@ export async function acceptance({ url, anon, service, db, command, report, appU
   Object.assign(report,await documentMaintenanceAcceptance({rpc,sql,check,http,users,wa,wb,ca,url,anon,service,appUrl}))
   Object.assign(report,await portabilityAcceptance({sql,check,http,url,anon,appUrl}))
   Object.assign(report,await telecomCollectionAcceptance({rpc,sql,check,http,users,wa,wb,url,anon,appUrl}))
+  Object.assign(report,await protectedIdentifierAcceptance({rpc,sql,check,http,users,wa,wb,url,anon,appUrl}))
+  Object.assign(report,await commercialCatalogAcceptance({rpc,sql,check,http,users,wa,url,anon,appUrl}))
+  Object.assign(report,await commercialPortabilityAcceptance({rpc,sql,check,http,users,wa,url,anon,appUrl}))
+  Object.assign(report,await serviceCaseAcceptance({rpc,sql,check,http,users,wa,url,anon,appUrl}))
+  Object.assign(report,await simEsimAcceptance({rpc,sql,check,http,users,wa,url,anon,appUrl}))
+  Object.assign(report,await telecomReportAcceptance({rpc,sql,check,http,users,wa,url,anon,appUrl}))
+  Object.assign(report,await telecomAttentionAcceptance({rpc,sql,check,http,users,wa,url,anon,appUrl}))
+  Object.assign(report,await billingAnalyticsAcceptance({rpc,sql,check,http,users,wa,url,anon,appUrl}))
+  Object.assign(report,await fullWorkCollectionsAcceptance({rpc,sql,check,http,users,wa,url,anon,appUrl}))
   const buckets = await http('/storage/v1/bucket', service)
   check(buckets.status === 200 && ['telecom-documents', 'telecom-import-quarantine'].every(id => buckets.json?.some(b => b.id === id && b.public === false)), 'private_buckets')
   const bytes = Buffer.from('Synthetic local acceptance text only. No customer document.\n')

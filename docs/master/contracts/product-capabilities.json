@@ -1,21 +1,22 @@
 {
   "catalog_version": "product.capabilities.v1",
-  "as_of": "2026-10-05",
-  "implementation_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
+  "as_of": "2026-10-06",
+  "implementation_head": "84dbdc0a0a6dd06286655241aa2db502a08e7f07",
   "evidence": {
     "native": {
-      "run_id": 37370409687,
+      "run_id": 37468025182,
       "status": "PASS",
-      "migration_count": 54,
-      "function_count": 247,
-      "tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
-      "tested_checkout": "be9b7237945e9e8b72cbe809cc003f632ddccbd3",
-      "tested_tree": "cf3c28b8fd6ee9bcbc39181709c4ba596c17bfb0",
+      "migration_count": 65,
+      "function_count": 275,
+      "tested_head": "84dbdc0a0a6dd06286655241aa2db502a08e7f07",
+      "tested_checkout": "3972c258bf123b478a94f75b3c65563e1c54ea19",
+      "tested_tree": "dcf6e220fbb7fcba0f1ebae26a48d516d7666f3a",
       "fresh": "PASS",
       "logical_synthetic_restore": "PASS",
       "privileges_roles_acl_loss_negative_control": "PASS",
       "production_backup": false,
-      "job_id": 111977630518
+      "job_id": 112283894560,
+      "tree_comparison_method": "GitHub compare:zero changed files"
     },
     "actual_supabase": {
       "environment": "LOCAL_SUPABASE_DOCKER",
@@ -26,15 +27,15 @@
       "rpc": "PASS",
       "storage": "PASS",
       "cli": "2.119.0",
-      "sha": "be9b7237945e9e8b72cbe809cc003f632ddccbd3",
+      "sha": "3972c258bf123b478a94f75b3c65563e1c54ea19",
       "config_sha256": "3fc22bba97e5114a7ee67cc90e514b8ec16eda0cb2c5817cf87784e8e4ab6e57",
-      "migration_head": "20261005203000_document_cleanup_replay_serialization.sql",
-      "migration_count": 54,
+      "migration_head": "20261006143000_currency_separated_billing_cohort_reads.sql",
+      "migration_count": 65,
       "service_images": [
-        "ghcr.io/supabase/postgrest:v16.4",
         "public.ecr.aws/supabase/gotrue:v2.197.0",
         "public.ecr.aws/supabase/kong:2.8.1",
         "public.ecr.aws/supabase/postgres:15.19.0.002",
+        "public.ecr.aws/supabase/postgrest:v16.4",
         "public.ecr.aws/supabase/storage-api:v1.79.28"
       ],
       "db": "15.19",
@@ -176,6 +177,9 @@
         "table.profiles.anon": 401,
         "table.profiles.A": 200,
         "table.profiles.B": 200,
+        "table.service_case_internal_notes.anon": 401,
+        "table.service_case_internal_notes.A": 403,
+        "table.service_case_internal_notes.B": 403,
         "table.service_cases.anon": 401,
         "table.service_cases.A": 403,
         "table.service_cases.B": 403,
@@ -191,24 +195,48 @@
         "table.telecom_contracts.anon": 401,
         "table.telecom_contracts.A": 403,
         "table.telecom_contracts.B": 403,
+        "table.telecom_entitlement_codes.anon": 401,
+        "table.telecom_entitlement_codes.A": 403,
+        "table.telecom_entitlement_codes.B": 403,
+        "table.telecom_identifiers.anon": 401,
+        "table.telecom_identifiers.A": 403,
+        "table.telecom_identifiers.B": 403,
         "table.telecom_lines.anon": 401,
         "table.telecom_lines.A": 403,
         "table.telecom_lines.B": 403,
         "table.telecom_operators.anon": 401,
         "table.telecom_operators.A": 403,
         "table.telecom_operators.B": 403,
+        "table.telecom_plan_version_components.anon": 401,
+        "table.telecom_plan_version_components.A": 403,
+        "table.telecom_plan_version_components.B": 403,
+        "table.telecom_plan_version_entitlements.anon": 401,
+        "table.telecom_plan_version_entitlements.A": 403,
+        "table.telecom_plan_version_entitlements.B": 403,
+        "table.telecom_plan_version_publications.anon": 401,
+        "table.telecom_plan_version_publications.A": 403,
+        "table.telecom_plan_version_publications.B": 403,
         "table.telecom_plan_versions.anon": 401,
         "table.telecom_plan_versions.A": 403,
         "table.telecom_plan_versions.B": 403,
         "table.telecom_plans.anon": 401,
         "table.telecom_plans.A": 403,
         "table.telecom_plans.B": 403,
+        "table.telecom_portabilities.anon": 401,
+        "table.telecom_portabilities.A": 403,
+        "table.telecom_portabilities.B": 403,
         "table.telecom_renewals.anon": 401,
         "table.telecom_renewals.A": 403,
         "table.telecom_renewals.B": 403,
         "table.telecom_services.anon": 401,
         "table.telecom_services.A": 403,
         "table.telecom_services.B": 403,
+        "table.telecom_sim_associations.anon": 401,
+        "table.telecom_sim_associations.A": 403,
+        "table.telecom_sim_associations.B": 403,
+        "table.telecom_sims.anon": 401,
+        "table.telecom_sims.A": 403,
+        "table.telecom_sims.B": 403,
         "table.workspace_company_profiles.anon": 401,
         "table.workspace_company_profiles.A": 403,
         "table.workspace_company_profiles.B": 403,
@@ -344,6 +372,131 @@
       "portability_config_sha256": "3fc22bba97e5114a7ee67cc90e514b8ec16eda0cb2c5817cf87784e8e4ab6e57",
       "auth_email_readiness": "NOT_CONFIGURED_PRODUCTION_UNVERIFIED",
       "crm_email_readiness": "NOT_CONFIGURED_SEPARATE_ADAPTER",
+      "telecom_collection_operations_individually_observed": [
+        "customer.list",
+        "contact.list",
+        "opportunity.list",
+        "activity.list",
+        "assignee.list",
+        "operator.list",
+        "operator.get",
+        "plan.list",
+        "plan.get",
+        "plan_version.list",
+        "plan_version.get",
+        "contract.list",
+        "service.list",
+        "line.list",
+        "renewal.list",
+        "renewal.get",
+        "permanence.list",
+        "permanence.get"
+      ],
+      "telecom_collections": "PASS_18_COOKIE_READS_FILTERS_KEYSET_PRIVACY_REVOCATION",
+      "telecom_catalog_prices": "PASS_EXACT_BIGINT_STRINGS",
+      "telecom_collections_backend_ready_for_w2": true,
+      "telecom_collections_ui_safe": false,
+      "protected_identifier_operations_individually_observed": [
+        "identifier.create_manual",
+        "identifier.retire",
+        "identifier.list",
+        "identifier.get"
+      ],
+      "protected_identifier_reveal": "PASS_REQUESTED_CANONICAL_FIELD_AUDITED",
+      "protected_identifier_concurrency": "PASS_ONE_WINNER",
+      "protected_identifiers": "PASS_CANONICAL_MASK_HISTORY_REVOCATION_VALUE_FREE_AUDIT",
+      "protected_identifier_production_import": "BLOCKED_SEPARATE_PROTECTED_STAGING_REQUIRED",
+      "commercial_catalog_operations_individually_observed": [
+        "operator.create",
+        "operator.update",
+        "operator.deactivate",
+        "operator.activate",
+        "plan.create",
+        "plan.update_metadata",
+        "plan_version.create",
+        "plan_version.terms_get",
+        "plan.change_status"
+      ],
+      "commercial_catalog": "PASS_OWNER_ADMIN_MANAGEMENT_MEMBER_VIEWER_CONSUMPTION",
+      "commercial_terms": "PASS_REGISTERED_TYPED_FROZEN_VERSION_FEATURES",
+      "commercial_bundles": "PASS_IMMUTABLE_BASE_AND_REGISTERED_ADDON_COMPONENTS",
+      "commercial_version_concurrency": "PASS_ONE_WINNER",
+      "commercial_service_addon_assignments": "NOT_IMPLEMENTED_SEPARATE_HISTORY_REQUIRED",
+      "commercial_legacy_plan_origin": "UNKNOWN_LEGACY_READ_ONLY_NO_RELABEL",
+      "commercial_portability_operations_individually_observed": [
+        "portability.create",
+        "portability.update_draft",
+        "portability.assign",
+        "portability.transition",
+        "portability.get",
+        "portability.complete",
+        "portability.list"
+      ],
+      "commercial_portability": "PASS_MANUAL_PROVIDER_TRUTH_CLOSED_LIFECYCLE_MASKED_HISTORY",
+      "commercial_portability_line_effect": "PASS_EXPLICIT_ATOMIC_CAS_INBOUND_ACTIVATION_OUTBOUND_END",
+      "commercial_portability_concurrency": "PASS_ONE_TRANSITION_WINNER",
+      "commercial_portability_revocation": "PASS_VALID_JWT_NO_READ_NO_REPLAY",
+      "service_case_operations_individually_observed": [
+        "case.create",
+        "case.get",
+        "case.update",
+        "case.assign",
+        "case.note_create",
+        "case.note_list",
+        "case.change_status",
+        "case.resolve",
+        "case.reopen",
+        "case.close",
+        "case.cancel",
+        "case.list"
+      ],
+      "service_cases": "PASS_CLOSED_LIFECYCLE_CAS_ANCESTRY_LOCAL_ASSIGNMENT",
+      "service_case_notes": "PASS_PRIVATE_APPEND_ONLY_BOUNDED_BODY_NO_AUDIT_VALUE",
+      "service_case_revocation": "PASS_VALID_JWT_ALL_OPERATIONS_DENIED",
+      "service_case_concurrency": "PASS_SINGLE_TRANSITION_WINNER",
+      "dense_line_collection": "PASS_MASKED_MSISDN_CURRENT_SIM_ESIM_LIFECYCLE_REVOCATION",
+      "sim_esim_operations_individually_observed": [
+        "sim.create",
+        "sim.assign",
+        "sim.activate",
+        "sim.replace",
+        "sim.get",
+        "sim.deactivate",
+        "sim.cancel",
+        "sim.history",
+        "sim.list"
+      ],
+      "sim_esim": "PASS_CUSTOMER_BOUND_RESOURCES_EXPLICIT_MANUAL_ACTIVATION",
+      "sim_replacement_history": "PASS_ATOMIC_REPLACEMENT_FROZEN_IDENTIFIER_POINTERS",
+      "sim_protected_identity": "PASS_ICCID_LIFETIME_UNIQUE_EID_SHARED_PROFILE_EXPLICIT_HUMAN_REVEAL",
+      "sim_revocation": "PASS_VALID_JWT_ALL_OPERATIONS_DENIED",
+      "sim_stock_erp": "NOT_MODELED_CUSTOMER_RESERVED_PREPARED_RESOURCE",
+      "telecom_report_operations_individually_observed": [
+        "customer360.summary",
+        "report.operator_portfolio",
+        "report.services_by_kind",
+        "report.lines_by_status",
+        "report.renewals_by_month",
+        "report.permanences_by_month",
+        "report.portabilities_by_status",
+        "report.cases_by_priority_status",
+        "report.pipeline_by_stage",
+        "report.commercial_owner_counts"
+      ],
+      "customer360_summary": "PASS_EXACT_COUNTERS_PROTECTED_COUNTS_ROLE_GATED",
+      "telecom_reports": "PASS_CLOSED_DENSE_DISTRIBUTIONS_PERIODS_KEYSET",
+      "telecom_report_revocation": "PASS_VALID_JWT_ALL_READS_DENIED",
+      "telecom_attention_operations_individually_observed": [
+        "telecom.attention"
+      ],
+      "telecom_attention": "PASS_SEVEN_DETERMINISTIC_RULES_KEYSET_PRIVACY_VALID_JWT_REVOCATION",
+      "dense_line_permanence_portability": "PASS",
+      "billing_analytics_operations_individually_observed": [
+        "billing.monthly_series",
+        "billing.top_customers"
+      ],
+      "billing_analytics": "PASS_EXACT_SEPARATE_CURRENCY_ISSUE_MONTH_CURRENT_STATUS_COHORTS_TOP_BOUNDS_PRIVILEGED_SCOPE_VALID_JWT_REVOCATION",
+      "billing_historical_balances": "NOT_RECONSTRUCTED_NO_PAYMENT_LEDGER",
       "billing_search": "PASS",
       "billing_pdf": "PASS",
       "billing_dashboard": "PASS",
@@ -432,7 +585,7 @@
       "document_content_verified_sha256": "NOT_IMPLEMENTED",
       "cross_tenant": "PASS",
       "revocation": "PASS",
-      "checks": 1298,
+      "checks": 2872,
       "manager": "NOT_CANONICAL",
       "signed_access": "NOT_IMPLEMENTED",
       "auth_email_production": "NOT_TESTED",
@@ -440,31 +593,24 @@
       "scoped_service_principal": "NOT_IMPLEMENTED",
       "remote_staging": "NOT_TESTED",
       "teardown": "PASS",
-      "run_id": 37370409567,
-      "job_id": 111965851820,
-      "tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
-      "tested_checkout": "be9b7237945e9e8b72cbe809cc003f632ddccbd3",
-      "tested_tree": "cf3c28b8fd6ee9bcbc39181709c4ba596c17bfb0",
-      "source_tree_matches_head": true,
-      "status": "PASS",
-      "browser_private_values": "PASS_LOCAL_ACTUAL_CANARY; CI_CANCELLED_NOT_PASS",
-      "operations_total": 129,
-      "operations_individually_proven": 129,
-      "writes": 91,
-      "reads": 38
+      "run_id": 37468025165,
+      "job_id": 112283893835,
+      "tested_head": "84dbdc0a0a6dd06286655241aa2db502a08e7f07"
     },
     "quality": {
-      "tests": 244,
+      "tests": 304,
+      "node_tests": 304,
       "lint": "PASS",
       "types": "PASS",
       "build": "PASS",
-      "audit": "BLOCKED_Issue29_5_HIGH",
-      "overall_ci": "FAIL_AUDIT; SOURCE_BROWSER_CI_CANCELLED_NOT_PASS",
-      "tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
-      "run_id": 37361774252,
+      "audit": "FAIL_UNSUPPRESSED_6_HIGH;known Issue29 chain plus distinct source-map-js GHSA-68fv-2mgg-jv7q",
+      "overall_ci": "FAIL_AUDIT;OFFICIAL_BROWSER_PASS",
+      "tested_head": "84dbdc0a0a6dd06286655241aa2db502a08e7f07",
+      "run_id": 37468025182,
+      "job_id": 112283894263,
       "critical_playwright": "SKIPPED",
       "dependency_review": "SKIPPED",
-      "browser_private_boundary_local": "PASS_ACTUAL_47_BUNDLES_7_PRIVATE_CLASSES"
+      "workflow_fully_green": false
     },
     "native_billing": {
       "run_id": 37219664908,
@@ -540,6 +686,24 @@
       "production": "NOT_TESTED",
       "auth_mail": "NOT_CONFIGURED",
       "crm_mail": "NOT_CONFIGURED"
+    },
+    "sim_esim": {
+      "sim_esim_operations_individually_observed": [
+        "sim.create",
+        "sim.assign",
+        "sim.activate",
+        "sim.replace",
+        "sim.get",
+        "sim.deactivate",
+        "sim.cancel",
+        "sim.history",
+        "sim.list"
+      ],
+      "sim_esim": "PASS_CUSTOMER_BOUND_RESOURCES_EXPLICIT_MANUAL_ACTIVATION",
+      "sim_replacement_history": "PASS_ATOMIC_REPLACEMENT_FROZEN_IDENTIFIER_POINTERS",
+      "sim_protected_identity": "PASS_ICCID_LIFETIME_UNIQUE_EID_SHARED_PROFILE_EXPLICIT_HUMAN_REVEAL",
+      "sim_revocation": "PASS_VALID_JWT_ALL_OPERATIONS_DENIED",
+      "sim_stock_erp": "NOT_MODELED_CUSTOMER_RESERVED_PREPARED_RESOURCE"
     }
   },
   "operations": [
@@ -581,7 +745,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "task.update",
@@ -621,7 +785,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "task.start",
@@ -661,7 +825,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "task.complete",
@@ -701,7 +865,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "task.reopen",
@@ -741,7 +905,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "task.cancel",
@@ -781,7 +945,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "meeting.create",
@@ -821,7 +985,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "meeting.update",
@@ -861,7 +1025,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "meeting.reschedule",
@@ -901,7 +1065,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "meeting.complete",
@@ -941,7 +1105,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "meeting.cancel",
@@ -981,7 +1145,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "meeting.no_show",
@@ -1021,7 +1185,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "opportunity.create",
@@ -1061,7 +1225,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "opportunity.update",
@@ -1101,7 +1265,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "opportunity.change_stage",
@@ -1141,7 +1305,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "opportunity.assign",
@@ -1181,7 +1345,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "opportunity.win",
@@ -1221,7 +1385,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "opportunity.lose",
@@ -1261,7 +1425,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "opportunity.reopen",
@@ -1301,7 +1465,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "opportunity.archive",
@@ -1341,7 +1505,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "customer.create",
@@ -1381,7 +1545,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "customer.update",
@@ -1421,7 +1585,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "customer.archive",
@@ -1461,7 +1625,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "customer.restore",
@@ -1501,7 +1665,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "contact.create",
@@ -1541,7 +1705,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "contact.update",
@@ -1581,7 +1745,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "contact.archive",
@@ -1621,7 +1785,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "contact.restore",
@@ -1661,7 +1825,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "customer.editor",
@@ -1699,7 +1863,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "safe_read_candidate_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "contact.editors",
@@ -1737,7 +1901,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "safe_read_candidate_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "calendar.list",
@@ -1776,7 +1940,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "safe_read_candidate_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "work.get",
@@ -1815,7 +1979,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "safe_read_candidate_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "opportunity.stages",
@@ -1854,7 +2018,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "safe_read_candidate_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "dashboard.get",
@@ -1904,7 +2068,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "safe_read_candidate_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "global.search",
@@ -1943,7 +2107,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "safe_read_candidate_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "supabase_core_tested_head": "db056e67111b7719e7072c2279b3c7459ef68a54",
       "item_roles": {
         "invoice": [
@@ -1988,7 +2152,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "customer_fiscal.set",
@@ -2026,7 +2190,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "invoice.create_draft",
@@ -2064,7 +2228,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "invoice.update_draft",
@@ -2102,7 +2266,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "invoice.issue",
@@ -2140,7 +2304,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "invoice.mark_paid",
@@ -2178,7 +2342,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "invoice.reverse_payment",
@@ -2216,7 +2380,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "invoice.trash",
@@ -2254,7 +2418,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "invoice.restore",
@@ -2292,7 +2456,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "invoice.get",
@@ -2330,7 +2494,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "protected_read_requires_fiscal_capability_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "invoice.summary",
@@ -2368,7 +2532,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "protected_read_requires_fiscal_capability_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "invoice.list",
@@ -2406,7 +2570,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "protected_read_requires_fiscal_capability_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "invoice.financial_summary",
@@ -2444,7 +2608,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "protected_read_requires_fiscal_capability_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "configuration.get",
@@ -2482,7 +2646,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "protected_read_requires_fiscal_capability_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "invoice.pdf",
@@ -2520,7 +2684,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "protected_read_requires_fiscal_capability_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "storage_status": "private_object_and_opaque_reference_pending"
     },
     {
@@ -2559,7 +2723,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "protected_read_requires_fiscal_capability_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "member.invite_intent",
@@ -2598,7 +2762,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "review_pending": [
         "W4",
         "W2"
@@ -2641,7 +2805,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "review_pending": [
         "W4",
         "W2"
@@ -2684,7 +2848,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "review_pending": [
         "W4",
         "W2"
@@ -2727,7 +2891,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "review_pending": [
         "W4",
         "W2"
@@ -2770,7 +2934,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "review_pending": [
         "W4",
         "W2"
@@ -2813,7 +2977,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "review_pending": [
         "W4",
         "W2"
@@ -2856,7 +3020,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "review_pending": [
         "W4",
         "W2"
@@ -2900,7 +3064,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "contract.update_allowed_metadata",
@@ -2940,7 +3104,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "contract.activate",
@@ -2980,7 +3144,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "review_pending": [
         "W4",
         "W2",
@@ -3025,7 +3189,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "review_pending": [
         "W4",
         "W2",
@@ -3070,7 +3234,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "review_pending": [
         "W4",
         "W2",
@@ -3115,7 +3279,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "service.transition",
@@ -3155,7 +3319,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "review_pending": [
         "W4",
         "W2",
@@ -3200,7 +3364,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "review_pending": [
         "W4",
         "W2",
@@ -3245,7 +3409,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "line.transition",
@@ -3285,7 +3449,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "review_pending": [
         "W4",
         "W2",
@@ -3335,7 +3499,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "supabase_core_tested_head": "497a5587429e77c67c2feceb71c1a2d1e259bf57"
     },
     {
@@ -3376,7 +3540,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "review_pending": [
         "W4",
         "W2",
@@ -3421,7 +3585,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "renewal.resolve",
@@ -3461,7 +3625,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "renewal.dismiss",
@@ -3501,7 +3665,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "permanence.create_manual",
@@ -3541,7 +3705,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "review_pending": [
         "W4",
         "W2",
@@ -3586,7 +3750,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "permanence.cancel",
@@ -3626,7 +3790,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "document.archive",
@@ -3669,7 +3833,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "document.restore",
@@ -3712,7 +3876,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "document.list",
@@ -3755,7 +3919,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "document.get_metadata",
@@ -3798,7 +3962,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "document.request_upload",
@@ -3842,7 +4006,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "document.finalize_upload",
@@ -3886,7 +4050,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "document.request_download",
@@ -3930,7 +4094,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "document.download",
@@ -3974,7 +4138,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "invoice.persist_private_pdf",
@@ -4018,7 +4182,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "invoice.private_pdf_reference",
@@ -4062,7 +4226,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "invoice.private_pdf",
@@ -4106,7 +4270,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "importjob.cancel",
@@ -4149,7 +4313,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "importjob.get",
@@ -4192,7 +4356,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "importjob.list",
@@ -4235,7 +4399,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "conversation.create_internal",
@@ -4279,7 +4443,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "message.add_internal_note",
@@ -4323,7 +4487,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "conversation.assign",
@@ -4366,7 +4530,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "conversation.link_customer",
@@ -4409,7 +4573,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "conversation.close",
@@ -4453,7 +4617,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "conversation.reopen",
@@ -4497,7 +4661,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "conversation.archive",
@@ -4541,7 +4705,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "conversation.restore",
@@ -4585,7 +4749,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "conversation.mark_read",
@@ -4629,7 +4793,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "conversation.mark_unread",
@@ -4673,7 +4837,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "inbox.list",
@@ -4717,7 +4881,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "inbox.get_thread",
@@ -4761,7 +4925,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "inbox.unread_summary",
@@ -4805,7 +4969,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "notification.refresh",
@@ -4849,7 +5013,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "notification.mark_read",
@@ -4893,7 +5057,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "notification.mark_all_read",
@@ -4937,7 +5101,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "notification.list",
@@ -4981,7 +5145,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "notification.unread_count",
@@ -5025,7 +5189,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "automation.create",
@@ -5068,7 +5232,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "automation.update",
@@ -5111,7 +5275,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "automation.enable",
@@ -5154,7 +5318,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "automation.disable",
@@ -5197,7 +5361,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "automation.process_pending",
@@ -5240,7 +5404,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "automation.list",
@@ -5283,7 +5447,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "automation.get",
@@ -5326,7 +5490,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "automation.run_history",
@@ -5369,7 +5533,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "settings.profile_update",
@@ -5414,7 +5578,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "settings.company_update",
@@ -5457,7 +5621,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "settings.profile_get",
@@ -5502,7 +5666,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "settings.company_get",
@@ -5547,7 +5711,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "settings.integrations",
@@ -5592,7 +5756,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "sensitive.get",
@@ -5636,7 +5800,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "field_role_matrix": {
         "contact": [
           "owner",
@@ -5686,7 +5850,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "review_pending": [
         "W4",
         "W2"
@@ -5729,7 +5893,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "review_pending": [
         "W4",
         "W2"
@@ -5772,7 +5936,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "review_pending": [
         "W4",
         "W2"
@@ -5820,7 +5984,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "document.cleanup_claim",
@@ -5864,7 +6028,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "document.cleanup_finish",
@@ -5908,7 +6072,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "document.expired_list",
@@ -5948,11 +6112,3552 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "review_pending": [
         "W4",
         "W2"
       ]
+    },
+    {
+      "name": "customer.list",
+      "kind": "read",
+      "contract_version": "telecom.collections.v1",
+      "transport": {
+        "method": "POST",
+        "path": "/api/product/v1/queries",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "current_cookie_user_jwt_membership",
+        "enabled_by_default": false
+      },
+      "rpc": "telecom_collection_v1_query",
+      "roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "input_fields": [
+        "limit",
+        "after_id",
+        "sort",
+        "status",
+        "lifecycle",
+        "assigned_user_id",
+        "source",
+        "operator_id"
+      ],
+      "dto_fields": [
+        "id",
+        "version",
+        "display_name",
+        "account_kind",
+        "lifecycle",
+        "status",
+        "source",
+        "assigned_user_id"
+      ],
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "ui_safe": false,
+      "ai_registration": false,
+      "sensitive_fields": [],
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
+      "backend_ready_for_w2": true,
+      "version": "telecom.collections.v1",
+      "input_type": "TelecomCollectionInputsV1['customer.list']",
+      "output_type": "TelecomCollectionPageV1<'customer.list'>",
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "supabase_status": "PASS_AT_RECORDED_HEAD"
+    },
+    {
+      "name": "contact.list",
+      "kind": "read",
+      "contract_version": "telecom.collections.v1",
+      "transport": {
+        "method": "POST",
+        "path": "/api/product/v1/queries",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "current_cookie_user_jwt_membership",
+        "enabled_by_default": false
+      },
+      "rpc": "telecom_collection_v1_query",
+      "roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "input_fields": [
+        "limit",
+        "after_id",
+        "sort",
+        "customer_id",
+        "status"
+      ],
+      "dto_fields": [
+        "id",
+        "version",
+        "customer_id",
+        "display_name",
+        "job_title",
+        "status",
+        "is_primary",
+        "has_email",
+        "has_phone"
+      ],
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "ui_safe": false,
+      "ai_registration": false,
+      "sensitive_fields": [],
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
+      "backend_ready_for_w2": true,
+      "version": "telecom.collections.v1",
+      "input_type": "TelecomCollectionInputsV1['contact.list']",
+      "output_type": "TelecomCollectionPageV1<'contact.list'>",
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "supabase_status": "PASS_AT_RECORDED_HEAD"
+    },
+    {
+      "name": "opportunity.list",
+      "kind": "read",
+      "contract_version": "telecom.collections.v1",
+      "transport": {
+        "method": "POST",
+        "path": "/api/product/v1/queries",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "current_cookie_user_jwt_membership",
+        "enabled_by_default": false
+      },
+      "rpc": "telecom_collection_v1_query",
+      "roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "input_fields": [
+        "limit",
+        "after_id",
+        "sort",
+        "customer_id",
+        "owner_user_id",
+        "stage_id",
+        "status",
+        "currency",
+        "expected_close_from",
+        "expected_close_to"
+      ],
+      "dto_fields": [
+        "id",
+        "version",
+        "customer_id",
+        "title",
+        "status",
+        "stage_id",
+        "owner_user_id",
+        "currency",
+        "amount_minor",
+        "expected_close_date",
+        "next_follow_up_at",
+        "has_next_action",
+        "source",
+        "links"
+      ],
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "ui_safe": false,
+      "ai_registration": false,
+      "sensitive_fields": [],
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
+      "backend_ready_for_w2": true,
+      "version": "telecom.collections.v1",
+      "input_type": "TelecomCollectionInputsV1['opportunity.list']",
+      "output_type": "TelecomCollectionPageV1<'opportunity.list'>",
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "supabase_status": "PASS_AT_RECORDED_HEAD"
+    },
+    {
+      "name": "activity.list",
+      "kind": "read",
+      "contract_version": "telecom.collections.v1",
+      "transport": {
+        "method": "POST",
+        "path": "/api/product/v1/queries",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "current_cookie_user_jwt_membership",
+        "enabled_by_default": false
+      },
+      "rpc": "telecom_collection_v1_query",
+      "roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "input_fields": [
+        "limit",
+        "after_id",
+        "sort",
+        "customer_id",
+        "kind",
+        "entity_kind",
+        "entity_id",
+        "date_from",
+        "date_to"
+      ],
+      "dto_fields": [
+        "id",
+        "customer_id",
+        "activity_kind",
+        "summary_code",
+        "occurred_at",
+        "actor_user_id",
+        "contract_id",
+        "service_id",
+        "opportunity_id",
+        "task_id",
+        "meeting_id"
+      ],
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "ui_safe": false,
+      "ai_registration": false,
+      "sensitive_fields": [],
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
+      "backend_ready_for_w2": true,
+      "version": "telecom.collections.v1",
+      "input_type": "TelecomCollectionInputsV1['activity.list']",
+      "output_type": "TelecomCollectionPageV1<'activity.list'>",
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "supabase_status": "PASS_AT_RECORDED_HEAD"
+    },
+    {
+      "name": "assignee.list",
+      "kind": "read",
+      "contract_version": "telecom.collections.v1",
+      "transport": {
+        "method": "POST",
+        "path": "/api/product/v1/queries",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "current_cookie_user_jwt_membership",
+        "enabled_by_default": false
+      },
+      "rpc": "telecom_collection_v1_query",
+      "roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "input_fields": [
+        "limit",
+        "after_id",
+        "sort",
+        "role"
+      ],
+      "dto_fields": [
+        "user_id",
+        "display_name",
+        "role"
+      ],
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "ui_safe": false,
+      "ai_registration": false,
+      "sensitive_fields": [],
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
+      "backend_ready_for_w2": true,
+      "version": "telecom.collections.v1",
+      "input_type": "TelecomCollectionInputsV1['assignee.list']",
+      "output_type": "TelecomCollectionPageV1<'assignee.list'>",
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "supabase_status": "PASS_AT_RECORDED_HEAD"
+    },
+    {
+      "name": "operator.list",
+      "kind": "read",
+      "contract_version": "telecom.collections.v1",
+      "transport": {
+        "method": "POST",
+        "path": "/api/product/v1/queries",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "current_cookie_user_jwt_membership",
+        "enabled_by_default": false
+      },
+      "rpc": "telecom_collection_v1_query",
+      "roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "input_fields": [
+        "limit",
+        "after_id",
+        "sort",
+        "status",
+        "source"
+      ],
+      "dto_fields": [
+        "id",
+        "code",
+        "display_name",
+        "status",
+        "source",
+        "version"
+      ],
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "ui_safe": false,
+      "ai_registration": false,
+      "sensitive_fields": [],
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
+      "backend_ready_for_w2": true,
+      "version": "telecom.collections.v1",
+      "input_type": "TelecomCollectionInputsV1['operator.list']",
+      "output_type": "TelecomCollectionPageV1<'operator.list'>",
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "candidate_dto_extension": "CAS version added in upcoming catalog candidate; new exact proof pending",
+      "supabase_status": "PASS_AT_RECORDED_HEAD"
+    },
+    {
+      "name": "operator.get",
+      "kind": "read",
+      "contract_version": "telecom.collections.v1",
+      "transport": {
+        "method": "POST",
+        "path": "/api/product/v1/queries",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "current_cookie_user_jwt_membership",
+        "enabled_by_default": false
+      },
+      "rpc": "telecom_collection_v1_query",
+      "roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "input_fields": [
+        "id"
+      ],
+      "dto_fields": [
+        "id",
+        "code",
+        "display_name",
+        "status",
+        "source",
+        "version"
+      ],
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "ui_safe": false,
+      "ai_registration": false,
+      "sensitive_fields": [],
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
+      "backend_ready_for_w2": true,
+      "version": "telecom.collections.v1",
+      "input_type": "TelecomCollectionInputsV1['operator.get']",
+      "output_type": "TelecomCollectionGetV1<'operator.get'>",
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "candidate_dto_extension": "CAS version added in upcoming catalog candidate; new exact proof pending",
+      "supabase_status": "PASS_AT_RECORDED_HEAD"
+    },
+    {
+      "name": "plan.list",
+      "kind": "read",
+      "contract_version": "telecom.collections.v1",
+      "transport": {
+        "method": "POST",
+        "path": "/api/product/v1/queries",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "current_cookie_user_jwt_membership",
+        "enabled_by_default": false
+      },
+      "rpc": "telecom_collection_v1_query",
+      "roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "input_fields": [
+        "limit",
+        "after_id",
+        "sort",
+        "operator_id",
+        "service_kind",
+        "status"
+      ],
+      "dto_fields": [
+        "id",
+        "operator_id",
+        "code",
+        "display_name",
+        "service_kind",
+        "status",
+        "version"
+      ],
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "ui_safe": false,
+      "ai_registration": false,
+      "sensitive_fields": [],
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
+      "backend_ready_for_w2": true,
+      "version": "telecom.collections.v1",
+      "input_type": "TelecomCollectionInputsV1['plan.list']",
+      "output_type": "TelecomCollectionPageV1<'plan.list'>",
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "candidate_dto_extension": "CAS version added in upcoming catalog candidate; new exact proof pending",
+      "supabase_status": "PASS_AT_RECORDED_HEAD"
+    },
+    {
+      "name": "plan.get",
+      "kind": "read",
+      "contract_version": "telecom.collections.v1",
+      "transport": {
+        "method": "POST",
+        "path": "/api/product/v1/queries",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "current_cookie_user_jwt_membership",
+        "enabled_by_default": false
+      },
+      "rpc": "telecom_collection_v1_query",
+      "roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "input_fields": [
+        "id"
+      ],
+      "dto_fields": [
+        "id",
+        "operator_id",
+        "code",
+        "display_name",
+        "service_kind",
+        "status",
+        "version"
+      ],
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "ui_safe": false,
+      "ai_registration": false,
+      "sensitive_fields": [],
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
+      "backend_ready_for_w2": true,
+      "version": "telecom.collections.v1",
+      "input_type": "TelecomCollectionInputsV1['plan.get']",
+      "output_type": "TelecomCollectionGetV1<'plan.get'>",
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "candidate_dto_extension": "CAS version added in upcoming catalog candidate; new exact proof pending",
+      "supabase_status": "PASS_AT_RECORDED_HEAD"
+    },
+    {
+      "name": "plan_version.list",
+      "kind": "read",
+      "contract_version": "telecom.collections.v1",
+      "transport": {
+        "method": "POST",
+        "path": "/api/product/v1/queries",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "current_cookie_user_jwt_membership",
+        "enabled_by_default": false
+      },
+      "rpc": "telecom_collection_v1_query",
+      "roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "input_fields": [
+        "limit",
+        "after_id",
+        "sort",
+        "plan_id",
+        "operator_id",
+        "service_kind",
+        "valid_on",
+        "status"
+      ],
+      "dto_fields": [
+        "id",
+        "plan_id",
+        "operator_id",
+        "service_kind",
+        "version_number",
+        "valid_from",
+        "valid_until",
+        "currency",
+        "recurring_amount_minor",
+        "plan_status"
+      ],
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "ui_safe": false,
+      "ai_registration": false,
+      "sensitive_fields": [],
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
+      "backend_ready_for_w2": true,
+      "version": "telecom.collections.v1",
+      "input_type": "TelecomCollectionInputsV1['plan_version.list']",
+      "output_type": "TelecomCollectionPageV1<'plan_version.list'>",
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "supabase_status": "PASS_AT_RECORDED_HEAD"
+    },
+    {
+      "name": "plan_version.get",
+      "kind": "read",
+      "contract_version": "telecom.collections.v1",
+      "transport": {
+        "method": "POST",
+        "path": "/api/product/v1/queries",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "current_cookie_user_jwt_membership",
+        "enabled_by_default": false
+      },
+      "rpc": "telecom_collection_v1_query",
+      "roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "input_fields": [
+        "id"
+      ],
+      "dto_fields": [
+        "id",
+        "plan_id",
+        "operator_id",
+        "service_kind",
+        "version_number",
+        "valid_from",
+        "valid_until",
+        "currency",
+        "recurring_amount_minor",
+        "plan_status"
+      ],
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "ui_safe": false,
+      "ai_registration": false,
+      "sensitive_fields": [],
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
+      "backend_ready_for_w2": true,
+      "version": "telecom.collections.v1",
+      "input_type": "TelecomCollectionInputsV1['plan_version.get']",
+      "output_type": "TelecomCollectionGetV1<'plan_version.get'>",
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "supabase_status": "PASS_AT_RECORDED_HEAD"
+    },
+    {
+      "name": "contract.list",
+      "kind": "read",
+      "contract_version": "telecom.collections.v1",
+      "transport": {
+        "method": "POST",
+        "path": "/api/product/v1/queries",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "current_cookie_user_jwt_membership",
+        "enabled_by_default": false
+      },
+      "rpc": "telecom_collection_v1_query",
+      "roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "input_fields": [
+        "limit",
+        "after_id",
+        "sort",
+        "customer_id",
+        "operator_id",
+        "plan_id",
+        "assigned_user_id",
+        "status",
+        "source"
+      ],
+      "dto_fields": [
+        "id",
+        "version",
+        "customer_id",
+        "operator_id",
+        "plan_version_id",
+        "assigned_user_id",
+        "status",
+        "source",
+        "start_date",
+        "end_date"
+      ],
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "ui_safe": false,
+      "ai_registration": false,
+      "sensitive_fields": [],
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
+      "backend_ready_for_w2": true,
+      "version": "telecom.collections.v1",
+      "input_type": "TelecomCollectionInputsV1['contract.list']",
+      "output_type": "TelecomCollectionPageV1<'contract.list'>",
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "supabase_status": "PASS_AT_RECORDED_HEAD"
+    },
+    {
+      "name": "service.list",
+      "kind": "read",
+      "contract_version": "telecom.collections.v1",
+      "transport": {
+        "method": "POST",
+        "path": "/api/product/v1/queries",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "current_cookie_user_jwt_membership",
+        "enabled_by_default": false
+      },
+      "rpc": "telecom_collection_v1_query",
+      "roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "input_fields": [
+        "limit",
+        "after_id",
+        "sort",
+        "customer_id",
+        "contract_id",
+        "operator_id",
+        "plan_id",
+        "kind",
+        "status",
+        "source"
+      ],
+      "dto_fields": [
+        "id",
+        "version",
+        "customer_id",
+        "contract_id",
+        "operator_id",
+        "plan_version_id",
+        "service_kind",
+        "display_name",
+        "status",
+        "source",
+        "activated_on",
+        "ended_on"
+      ],
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "ui_safe": false,
+      "ai_registration": false,
+      "sensitive_fields": [],
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
+      "backend_ready_for_w2": true,
+      "version": "telecom.collections.v1",
+      "input_type": "TelecomCollectionInputsV1['service.list']",
+      "output_type": "TelecomCollectionPageV1<'service.list'>",
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "supabase_status": "PASS_AT_RECORDED_HEAD"
+    },
+    {
+      "name": "line.list",
+      "kind": "read",
+      "contract_version": "telecom.collections.v1",
+      "transport": {
+        "method": "POST",
+        "path": "/api/product/v1/queries",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "current_cookie_user_jwt_membership",
+        "enabled_by_default": false
+      },
+      "rpc": "telecom_collection_v1_query",
+      "roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "input_fields": [
+        "limit",
+        "after_id",
+        "sort",
+        "customer_id",
+        "contract_id",
+        "service_id",
+        "operator_id",
+        "status",
+        "source"
+      ],
+      "dto_fields": [
+        "id",
+        "version",
+        "service_id",
+        "customer_id",
+        "contract_id",
+        "operator_id",
+        "plan_version_id",
+        "display_name",
+        "status",
+        "source",
+        "activated_on",
+        "ended_on"
+      ],
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "ui_safe": false,
+      "ai_registration": false,
+      "sensitive_fields": [],
+      "supabase_tested_head": "601ce28017910d486598c934567a07010595dcae",
+      "backend_ready_for_w2": true,
+      "version": "telecom.collections.v1",
+      "input_type": "TelecomCollectionInputsV1['line.list']",
+      "output_type": "TelecomCollectionPageV1<'line.list'>",
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "dense_telecom_extension": "CANDIDATE_AFTER_0C67C3A_CANONICAL_REMOTE_RECOVERY;EXACT_PLATFORM_PENDING",
+      "dense_extension_status": "PASS_REAL_SUPABASE_NATIVE_MASKED_SIM_PORTABILITY_PERMANENCE"
+    },
+    {
+      "name": "renewal.list",
+      "kind": "read",
+      "contract_version": "telecom.collections.v1",
+      "transport": {
+        "method": "POST",
+        "path": "/api/product/v1/queries",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "current_cookie_user_jwt_membership",
+        "enabled_by_default": false
+      },
+      "rpc": "telecom_collection_v1_query",
+      "roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "input_fields": [
+        "limit",
+        "after_id",
+        "sort",
+        "customer_id",
+        "contract_id",
+        "owner_user_id",
+        "status",
+        "window_from",
+        "window_to"
+      ],
+      "dto_fields": [
+        "id",
+        "version",
+        "contract_id",
+        "customer_id",
+        "owner_user_id",
+        "status",
+        "source",
+        "target_on",
+        "opens_on",
+        "closes_on",
+        "attention_state"
+      ],
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "ui_safe": false,
+      "ai_registration": false,
+      "sensitive_fields": [],
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
+      "backend_ready_for_w2": true,
+      "version": "telecom.collections.v1",
+      "input_type": "TelecomCollectionInputsV1['renewal.list']",
+      "output_type": "TelecomCollectionPageV1<'renewal.list'>",
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "supabase_status": "PASS_AT_RECORDED_HEAD"
+    },
+    {
+      "name": "renewal.get",
+      "kind": "read",
+      "contract_version": "telecom.collections.v1",
+      "transport": {
+        "method": "POST",
+        "path": "/api/product/v1/queries",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "current_cookie_user_jwt_membership",
+        "enabled_by_default": false
+      },
+      "rpc": "telecom_collection_v1_query",
+      "roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "input_fields": [
+        "id"
+      ],
+      "dto_fields": [
+        "id",
+        "version",
+        "contract_id",
+        "customer_id",
+        "owner_user_id",
+        "status",
+        "source",
+        "target_on",
+        "opens_on",
+        "closes_on",
+        "attention_state"
+      ],
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "ui_safe": false,
+      "ai_registration": false,
+      "sensitive_fields": [],
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
+      "backend_ready_for_w2": true,
+      "version": "telecom.collections.v1",
+      "input_type": "TelecomCollectionInputsV1['renewal.get']",
+      "output_type": "TelecomCollectionGetV1<'renewal.get'>",
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "supabase_status": "PASS_AT_RECORDED_HEAD"
+    },
+    {
+      "name": "permanence.list",
+      "kind": "read",
+      "contract_version": "telecom.collections.v1",
+      "transport": {
+        "method": "POST",
+        "path": "/api/product/v1/queries",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "current_cookie_user_jwt_membership",
+        "enabled_by_default": false
+      },
+      "rpc": "telecom_collection_v1_query",
+      "roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "input_fields": [
+        "limit",
+        "after_id",
+        "sort",
+        "customer_id",
+        "contract_id",
+        "service_id",
+        "status",
+        "window_from",
+        "window_to"
+      ],
+      "dto_fields": [
+        "id",
+        "version",
+        "contract_id",
+        "service_id",
+        "customer_id",
+        "status",
+        "source",
+        "commitment_kind",
+        "starts_on",
+        "ends_on",
+        "days_remaining",
+        "timing_state"
+      ],
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "ui_safe": false,
+      "ai_registration": false,
+      "sensitive_fields": [],
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
+      "backend_ready_for_w2": true,
+      "version": "telecom.collections.v1",
+      "input_type": "TelecomCollectionInputsV1['permanence.list']",
+      "output_type": "TelecomCollectionPageV1<'permanence.list'>",
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "supabase_status": "PASS_AT_RECORDED_HEAD"
+    },
+    {
+      "name": "permanence.get",
+      "kind": "read",
+      "contract_version": "telecom.collections.v1",
+      "transport": {
+        "method": "POST",
+        "path": "/api/product/v1/queries",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "current_cookie_user_jwt_membership",
+        "enabled_by_default": false
+      },
+      "rpc": "telecom_collection_v1_query",
+      "roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "input_fields": [
+        "id"
+      ],
+      "dto_fields": [
+        "id",
+        "version",
+        "contract_id",
+        "service_id",
+        "customer_id",
+        "status",
+        "source",
+        "commitment_kind",
+        "starts_on",
+        "ends_on",
+        "days_remaining",
+        "timing_state"
+      ],
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "ui_safe": false,
+      "ai_registration": false,
+      "sensitive_fields": [],
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
+      "backend_ready_for_w2": true,
+      "version": "telecom.collections.v1",
+      "input_type": "TelecomCollectionInputsV1['permanence.get']",
+      "output_type": "TelecomCollectionGetV1<'permanence.get'>",
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "supabase_status": "PASS_AT_RECORDED_HEAD"
+    },
+    {
+      "name": "identifier.create_manual",
+      "version": "identifiers.v1",
+      "kind": "write",
+      "rpc": "identifier_v1_command",
+      "input_type": "IdentifierInputV1",
+      "output_type": "IdentifierReceiptV1",
+      "minimum_role": "member",
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member"
+      ],
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
+      "ui_safe": false,
+      "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
+      "transport": {
+        "method": "POST",
+        "path": "/api/identifiers/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "extension_status": "SIM_ICCID_EID_CANDIDATE_EXACT_PLATFORM_PENDING",
+      "sim_protected_extension": "PASS_ON_B654B1D_ICCID_LIFETIME_EID_SHARED_REQUESTED_HUMAN_REVEAL"
+    },
+    {
+      "name": "identifier.retire",
+      "version": "identifiers.v1",
+      "kind": "write",
+      "rpc": "identifier_v1_command",
+      "input_type": "IdentifierInputV1",
+      "output_type": "IdentifierReceiptV1",
+      "minimum_role": "member",
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member"
+      ],
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
+      "ui_safe": false,
+      "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
+      "transport": {
+        "method": "POST",
+        "path": "/api/identifiers/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      },
+      "extension_status": "SIM_ICCID_EID_CANDIDATE_EXACT_PLATFORM_PENDING",
+      "sim_protected_extension": "PASS_ON_B654B1D_ICCID_LIFETIME_EID_SHARED_REQUESTED_HUMAN_REVEAL"
+    },
+    {
+      "name": "identifier.list",
+      "version": "identifiers.v1",
+      "kind": "read",
+      "rpc": "identifier_v1_query",
+      "input_type": "IdentifierInputV1",
+      "output_type": "IdentifierRowV1",
+      "minimum_role": "viewer",
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
+      "ui_safe": false,
+      "assistant_future": "SAFE_MASKED_READ_CANDIDATE_NOT_REGISTERED",
+      "transport": {
+        "method": "POST",
+        "path": "/api/identifiers/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "extension_status": "SIM_ICCID_EID_CANDIDATE_EXACT_PLATFORM_PENDING",
+      "sim_protected_extension": "PASS_ON_B654B1D_ICCID_LIFETIME_EID_SHARED_REQUESTED_HUMAN_REVEAL"
+    },
+    {
+      "name": "identifier.get",
+      "version": "identifiers.v1",
+      "kind": "read",
+      "rpc": "identifier_v1_query",
+      "input_type": "IdentifierInputV1",
+      "output_type": "IdentifierRowV1",
+      "minimum_role": "viewer",
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
+      "ui_safe": false,
+      "assistant_future": "SAFE_MASKED_READ_CANDIDATE_NOT_REGISTERED",
+      "transport": {
+        "method": "POST",
+        "path": "/api/identifiers/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "extension_status": "SIM_ICCID_EID_CANDIDATE_EXACT_PLATFORM_PENDING",
+      "sim_protected_extension": "PASS_ON_B654B1D_ICCID_LIFETIME_EID_SHARED_REQUESTED_HUMAN_REVEAL"
+    },
+    {
+      "name": "operator.create",
+      "kind": "write",
+      "version": "catalog.v1",
+      "rpc": "catalog_v1_command",
+      "input_type": "CatalogInputMapV1['operator.create']",
+      "output_type": "CatalogReceiptV1",
+      "input_fields": [
+        "command_id",
+        "code",
+        "display_name"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "minimum_role": "admin",
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": true,
+      "ai_registration": false,
+      "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
+      "transport": {
+        "method": "POST",
+        "path": "/api/catalog/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
+    },
+    {
+      "name": "operator.update",
+      "kind": "write",
+      "version": "catalog.v1",
+      "rpc": "catalog_v1_command",
+      "input_type": "CatalogInputMapV1['operator.update']",
+      "output_type": "CatalogReceiptV1",
+      "input_fields": [
+        "command_id",
+        "id",
+        "expected_version",
+        "display_name"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "minimum_role": "admin",
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      },
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": true,
+      "ai_registration": false,
+      "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
+      "transport": {
+        "method": "POST",
+        "path": "/api/catalog/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
+    },
+    {
+      "name": "operator.activate",
+      "kind": "write",
+      "version": "catalog.v1",
+      "rpc": "catalog_v1_command",
+      "input_type": "CatalogInputMapV1['operator.activate']",
+      "output_type": "CatalogReceiptV1",
+      "input_fields": [
+        "command_id",
+        "id",
+        "expected_version"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "minimum_role": "admin",
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      },
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": true,
+      "ai_registration": false,
+      "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
+      "transport": {
+        "method": "POST",
+        "path": "/api/catalog/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
+    },
+    {
+      "name": "operator.deactivate",
+      "kind": "write",
+      "version": "catalog.v1",
+      "rpc": "catalog_v1_command",
+      "input_type": "CatalogInputMapV1['operator.deactivate']",
+      "output_type": "CatalogReceiptV1",
+      "input_fields": [
+        "command_id",
+        "id",
+        "expected_version"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "minimum_role": "admin",
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      },
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": true,
+      "ai_registration": false,
+      "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
+      "transport": {
+        "method": "POST",
+        "path": "/api/catalog/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
+    },
+    {
+      "name": "plan.create",
+      "kind": "write",
+      "version": "catalog.v1",
+      "rpc": "catalog_v1_command",
+      "input_type": "CatalogInputMapV1['plan.create']",
+      "output_type": "CatalogReceiptV1",
+      "input_fields": [
+        "command_id",
+        "operator_id",
+        "code",
+        "display_name",
+        "service_kind"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "minimum_role": "admin",
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": true,
+      "ai_registration": false,
+      "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
+      "transport": {
+        "method": "POST",
+        "path": "/api/catalog/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
+    },
+    {
+      "name": "plan.update_metadata",
+      "kind": "write",
+      "version": "catalog.v1",
+      "rpc": "catalog_v1_command",
+      "input_type": "CatalogInputMapV1['plan.update_metadata']",
+      "output_type": "CatalogReceiptV1",
+      "input_fields": [
+        "command_id",
+        "id",
+        "expected_version",
+        "display_name"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "minimum_role": "admin",
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      },
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": true,
+      "ai_registration": false,
+      "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
+      "transport": {
+        "method": "POST",
+        "path": "/api/catalog/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
+    },
+    {
+      "name": "plan.change_status",
+      "kind": "write",
+      "version": "catalog.v1",
+      "rpc": "catalog_v1_command",
+      "input_type": "CatalogInputMapV1['plan.change_status']",
+      "output_type": "CatalogReceiptV1",
+      "input_fields": [
+        "command_id",
+        "id",
+        "expected_version",
+        "status"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "minimum_role": "admin",
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      },
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": true,
+      "ai_registration": false,
+      "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
+      "transport": {
+        "method": "POST",
+        "path": "/api/catalog/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
+    },
+    {
+      "name": "plan_version.create",
+      "kind": "write",
+      "version": "catalog.v1",
+      "rpc": "catalog_v1_command",
+      "input_type": "CatalogInputMapV1['plan_version.create']",
+      "output_type": "CatalogReceiptV1",
+      "input_fields": [
+        "command_id",
+        "plan_id",
+        "expected_version",
+        "valid_from",
+        "valid_until",
+        "currency",
+        "recurring_amount_minor",
+        "one_time_amount_minor",
+        "is_bundle",
+        "components",
+        "entitlements"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "minimum_role": "admin",
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      },
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": true,
+      "ai_registration": false,
+      "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
+      "transport": {
+        "method": "POST",
+        "path": "/api/catalog/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
+    },
+    {
+      "name": "plan_version.terms_get",
+      "kind": "read",
+      "version": "catalog.v1",
+      "rpc": "catalog_v1_terms_get",
+      "input_type": "CatalogInputMapV1['plan_version.terms_get']",
+      "output_type": "CatalogTermsV1",
+      "input_fields": [
+        "id"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": true,
+      "ai_registration": false,
+      "assistant_future": "SAFE_READ_CANDIDATE_NOT_REGISTERED",
+      "transport": {
+        "method": "POST",
+        "path": "/api/catalog/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
+    },
+    {
+      "name": "portability.create",
+      "version": "portability.v1",
+      "kind": "write",
+      "rpc": "portability_v1_command",
+      "input_type": "PortabilityInputsV1['portability.create']",
+      "output_type": "PortabilityReceiptV1",
+      "input_fields": [
+        "command_id",
+        "line_id",
+        "number_identifier_id",
+        "direction",
+        "donor_operator_id",
+        "target_operator_id",
+        "requested_on",
+        "owner_user_id"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member"
+      ],
+      "minimum_role": "member",
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": true,
+      "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/portability/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
+    },
+    {
+      "name": "portability.update_draft",
+      "version": "portability.v1",
+      "kind": "write",
+      "rpc": "portability_v1_command",
+      "input_type": "PortabilityInputsV1['portability.update_draft']",
+      "output_type": "PortabilityReceiptV1",
+      "input_fields": [
+        "command_id",
+        "id",
+        "expected_version",
+        "donor_operator_id",
+        "target_operator_id",
+        "requested_on"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member"
+      ],
+      "minimum_role": "member",
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": true,
+      "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/portability/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      },
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
+    },
+    {
+      "name": "portability.assign",
+      "version": "portability.v1",
+      "kind": "write",
+      "rpc": "portability_v1_command",
+      "input_type": "PortabilityInputsV1['portability.assign']",
+      "output_type": "PortabilityReceiptV1",
+      "input_fields": [
+        "command_id",
+        "id",
+        "expected_version",
+        "owner_user_id"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member"
+      ],
+      "minimum_role": "member",
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": true,
+      "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/portability/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      },
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
+    },
+    {
+      "name": "portability.transition",
+      "version": "portability.v1",
+      "kind": "write",
+      "rpc": "portability_v1_command",
+      "input_type": "PortabilityInputsV1['portability.transition']",
+      "output_type": "PortabilityReceiptV1",
+      "input_fields": [
+        "command_id",
+        "id",
+        "expected_version",
+        "status",
+        "effective_on",
+        "reason_code",
+        "evidence_source"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member"
+      ],
+      "minimum_role": "member",
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": true,
+      "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/portability/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      },
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
+    },
+    {
+      "name": "portability.complete",
+      "version": "portability.v1",
+      "kind": "write",
+      "rpc": "portability_v1_command",
+      "input_type": "PortabilityInputsV1['portability.complete']",
+      "output_type": "PortabilityReceiptV1",
+      "input_fields": [
+        "command_id",
+        "id",
+        "expected_version",
+        "completed_on",
+        "evidence_source",
+        "provider_outcome",
+        "line_action",
+        "expected_line_version"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member"
+      ],
+      "minimum_role": "member",
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": true,
+      "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/portability/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      },
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
+    },
+    {
+      "name": "portability.list",
+      "version": "portability.v1",
+      "kind": "read",
+      "rpc": "portability_v1_query",
+      "input_type": "PortabilityInputsV1['portability.list']",
+      "output_type": "PortabilityPageV1",
+      "input_fields": [
+        "limit",
+        "after_id",
+        "customer_id",
+        "contract_id",
+        "service_id",
+        "line_id",
+        "owner_user_id",
+        "operator_id",
+        "status",
+        "source",
+        "direction",
+        "window_from",
+        "window_to"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": true,
+      "assistant_future": "safe_read_candidate_not_registered",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/portability/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
+    },
+    {
+      "name": "portability.get",
+      "version": "portability.v1",
+      "kind": "read",
+      "rpc": "portability_v1_query",
+      "input_type": "PortabilityInputsV1['portability.get']",
+      "output_type": "PortabilityGetV1",
+      "input_fields": [
+        "id"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": true,
+      "assistant_future": "safe_read_candidate_not_registered",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/portability/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
+    },
+    {
+      "name": "case.create",
+      "version": "case.v1",
+      "kind": "write",
+      "rpc": "case_v1_command",
+      "input_type": "CaseInputsV1['case.create']",
+      "output_type": "CaseReceiptV1",
+      "input_fields": [
+        "command_id",
+        "customer_id",
+        "contract_id",
+        "service_id",
+        "line_id",
+        "case_type",
+        "title",
+        "priority",
+        "due_on",
+        "assigned_user_id"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member"
+      ],
+      "minimum_role": "member",
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": true,
+      "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/cases/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
+    },
+    {
+      "name": "case.update",
+      "version": "case.v1",
+      "kind": "write",
+      "rpc": "case_v1_command",
+      "input_type": "CaseInputsV1['case.update']",
+      "output_type": "CaseReceiptV1",
+      "input_fields": [
+        "command_id",
+        "id",
+        "expected_version",
+        "case_type",
+        "title",
+        "priority",
+        "due_on"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member"
+      ],
+      "minimum_role": "member",
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": true,
+      "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/cases/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      },
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
+    },
+    {
+      "name": "case.assign",
+      "version": "case.v1",
+      "kind": "write",
+      "rpc": "case_v1_command",
+      "input_type": "CaseInputsV1['case.assign']",
+      "output_type": "CaseReceiptV1",
+      "input_fields": [
+        "command_id",
+        "id",
+        "expected_version",
+        "assigned_user_id"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member"
+      ],
+      "minimum_role": "member",
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": true,
+      "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/cases/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      },
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
+    },
+    {
+      "name": "case.change_status",
+      "version": "case.v1",
+      "kind": "write",
+      "rpc": "case_v1_command",
+      "input_type": "CaseInputsV1['case.change_status']",
+      "output_type": "CaseReceiptV1",
+      "input_fields": [
+        "command_id",
+        "id",
+        "expected_version",
+        "status"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member"
+      ],
+      "minimum_role": "member",
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": true,
+      "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/cases/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      },
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
+    },
+    {
+      "name": "case.resolve",
+      "version": "case.v1",
+      "kind": "write",
+      "rpc": "case_v1_command",
+      "input_type": "CaseInputsV1['case.resolve']",
+      "output_type": "CaseReceiptV1",
+      "input_fields": [
+        "command_id",
+        "id",
+        "expected_version",
+        "resolution_code"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member"
+      ],
+      "minimum_role": "member",
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": true,
+      "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/cases/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      },
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
+    },
+    {
+      "name": "case.reopen",
+      "version": "case.v1",
+      "kind": "write",
+      "rpc": "case_v1_command",
+      "input_type": "CaseInputsV1['case.reopen']",
+      "output_type": "CaseReceiptV1",
+      "input_fields": [
+        "command_id",
+        "id",
+        "expected_version"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member"
+      ],
+      "minimum_role": "member",
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": true,
+      "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/cases/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      },
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
+    },
+    {
+      "name": "case.close",
+      "version": "case.v1",
+      "kind": "write",
+      "rpc": "case_v1_command",
+      "input_type": "CaseInputsV1['case.close']",
+      "output_type": "CaseReceiptV1",
+      "input_fields": [
+        "command_id",
+        "id",
+        "expected_version"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member"
+      ],
+      "minimum_role": "member",
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": true,
+      "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/cases/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      },
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
+    },
+    {
+      "name": "case.cancel",
+      "version": "case.v1",
+      "kind": "write",
+      "rpc": "case_v1_command",
+      "input_type": "CaseInputsV1['case.cancel']",
+      "output_type": "CaseReceiptV1",
+      "input_fields": [
+        "command_id",
+        "id",
+        "expected_version",
+        "cancellation_code"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member"
+      ],
+      "minimum_role": "member",
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": true,
+      "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/cases/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      },
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
+    },
+    {
+      "name": "case.note_create",
+      "version": "case.v1",
+      "kind": "write",
+      "rpc": "case_v1_command",
+      "input_type": "CaseInputsV1['case.note_create']",
+      "output_type": "CaseReceiptV1",
+      "input_fields": [
+        "command_id",
+        "id",
+        "expected_version",
+        "body"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member"
+      ],
+      "minimum_role": "member",
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": true,
+      "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/cases/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      },
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
+    },
+    {
+      "name": "case.list",
+      "version": "case.v1",
+      "kind": "read",
+      "rpc": "case_v1_query",
+      "input_type": "CaseInputsV1['case.list']",
+      "output_type": "CasePageV1",
+      "input_fields": [
+        "limit",
+        "after_id",
+        "customer_id",
+        "contract_id",
+        "service_id",
+        "line_id",
+        "assigned_user_id",
+        "case_type",
+        "priority",
+        "status",
+        "source",
+        "due_from",
+        "due_to",
+        "overdue"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": true,
+      "assistant_future": "safe_read_candidate_not_registered",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/cases/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
+    },
+    {
+      "name": "case.get",
+      "version": "case.v1",
+      "kind": "read",
+      "rpc": "case_v1_query",
+      "input_type": "CaseInputsV1['case.get']",
+      "output_type": "CaseGetV1",
+      "input_fields": [
+        "id"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": true,
+      "assistant_future": "safe_read_candidate_not_registered",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/cases/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
+    },
+    {
+      "name": "case.note_list",
+      "version": "case.v1",
+      "kind": "read",
+      "rpc": "case_v1_query",
+      "input_type": "CaseInputsV1['case.note_list']",
+      "output_type": "CaseNotePageV1",
+      "input_fields": [
+        "id",
+        "limit",
+        "after_seq"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member"
+      ],
+      "minimum_role": "member",
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": true,
+      "assistant_future": "human_only_private_note_read_not_registered",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/cases/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
+    },
+    {
+      "name": "sim.create",
+      "version": "sim.v1",
+      "kind": "write",
+      "rpc": "sim_v1_command",
+      "input_type": "SimInputsV1['sim.create']",
+      "output_type": "SimReceiptV1",
+      "input_fields": [
+        "command_id",
+        "customer_id",
+        "operator_id",
+        "kind",
+        "display_label"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member"
+      ],
+      "minimum_role": "member",
+      "backend_status": "implemented_real_disposable_proven",
+      "supabase_tested": true,
+      "supabase_status": "PASS",
+      "ui_safe": false,
+      "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/sims/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "supabase_tested_head": "b654b1dd02bf9f8a8213fda5a75eac476559c5cf"
+    },
+    {
+      "name": "sim.assign",
+      "version": "sim.v1",
+      "kind": "write",
+      "rpc": "sim_v1_command",
+      "input_type": "SimInputsV1['sim.assign']",
+      "output_type": "SimReceiptV1",
+      "input_fields": [
+        "command_id",
+        "id",
+        "expected_version",
+        "line_id",
+        "expected_line_version"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member"
+      ],
+      "minimum_role": "member",
+      "backend_status": "implemented_real_disposable_proven",
+      "supabase_tested": true,
+      "supabase_status": "PASS",
+      "ui_safe": false,
+      "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/sims/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      },
+      "supabase_tested_head": "b654b1dd02bf9f8a8213fda5a75eac476559c5cf"
+    },
+    {
+      "name": "sim.activate",
+      "version": "sim.v1",
+      "kind": "write",
+      "rpc": "sim_v1_command",
+      "input_type": "SimInputsV1['sim.activate']",
+      "output_type": "SimReceiptV1",
+      "input_fields": [
+        "command_id",
+        "id",
+        "expected_version",
+        "expected_line_version",
+        "evidence_source",
+        "provider_confirmation"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member"
+      ],
+      "minimum_role": "member",
+      "backend_status": "implemented_real_disposable_proven",
+      "supabase_tested": true,
+      "supabase_status": "PASS",
+      "ui_safe": false,
+      "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/sims/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      },
+      "supabase_tested_head": "b654b1dd02bf9f8a8213fda5a75eac476559c5cf"
+    },
+    {
+      "name": "sim.replace",
+      "version": "sim.v1",
+      "kind": "write",
+      "rpc": "sim_v1_command",
+      "input_type": "SimInputsV1['sim.replace']",
+      "output_type": "SimReceiptV1",
+      "input_fields": [
+        "command_id",
+        "id",
+        "expected_version",
+        "replacement_sim_id",
+        "expected_replacement_version",
+        "expected_line_version",
+        "replacement_status",
+        "evidence_source",
+        "provider_confirmation"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member"
+      ],
+      "minimum_role": "member",
+      "backend_status": "implemented_real_disposable_proven",
+      "supabase_tested": true,
+      "supabase_status": "PASS",
+      "ui_safe": false,
+      "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/sims/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      },
+      "supabase_tested_head": "b654b1dd02bf9f8a8213fda5a75eac476559c5cf"
+    },
+    {
+      "name": "sim.deactivate",
+      "version": "sim.v1",
+      "kind": "write",
+      "rpc": "sim_v1_command",
+      "input_type": "SimInputsV1['sim.deactivate']",
+      "output_type": "SimReceiptV1",
+      "input_fields": [
+        "command_id",
+        "id",
+        "expected_version",
+        "expected_line_version",
+        "evidence_source"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member"
+      ],
+      "minimum_role": "member",
+      "backend_status": "implemented_real_disposable_proven",
+      "supabase_tested": true,
+      "supabase_status": "PASS",
+      "ui_safe": false,
+      "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/sims/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      },
+      "supabase_tested_head": "b654b1dd02bf9f8a8213fda5a75eac476559c5cf"
+    },
+    {
+      "name": "sim.cancel",
+      "version": "sim.v1",
+      "kind": "write",
+      "rpc": "sim_v1_command",
+      "input_type": "SimInputsV1['sim.cancel']",
+      "output_type": "SimReceiptV1",
+      "input_fields": [
+        "command_id",
+        "id",
+        "expected_version"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member"
+      ],
+      "minimum_role": "member",
+      "backend_status": "implemented_real_disposable_proven",
+      "supabase_tested": true,
+      "supabase_status": "PASS",
+      "ui_safe": false,
+      "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/sims/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      },
+      "supabase_tested_head": "b654b1dd02bf9f8a8213fda5a75eac476559c5cf"
+    },
+    {
+      "name": "sim.list",
+      "version": "sim.v1",
+      "kind": "read",
+      "rpc": "sim_v1_query",
+      "input_type": "SimInputsV1['sim.list']",
+      "output_type": "SimPageV1",
+      "input_fields": [
+        "limit",
+        "after_id",
+        "customer_id",
+        "operator_id",
+        "line_id",
+        "kind",
+        "status",
+        "source"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "backend_status": "implemented_real_disposable_proven",
+      "supabase_tested": true,
+      "supabase_status": "PASS",
+      "ui_safe": false,
+      "assistant_future": "safe_read_candidate_not_registered",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/sims/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "supabase_tested_head": "b654b1dd02bf9f8a8213fda5a75eac476559c5cf"
+    },
+    {
+      "name": "sim.get",
+      "version": "sim.v1",
+      "kind": "read",
+      "rpc": "sim_v1_query",
+      "input_type": "SimInputsV1['sim.get']",
+      "output_type": "SimGetV1",
+      "input_fields": [
+        "id"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "backend_status": "implemented_real_disposable_proven",
+      "supabase_tested": true,
+      "supabase_status": "PASS",
+      "ui_safe": false,
+      "assistant_future": "safe_read_candidate_not_registered",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/sims/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "supabase_tested_head": "b654b1dd02bf9f8a8213fda5a75eac476559c5cf"
+    },
+    {
+      "name": "sim.history",
+      "version": "sim.v1",
+      "kind": "read",
+      "rpc": "sim_v1_query",
+      "input_type": "SimInputsV1['sim.history']",
+      "output_type": "SimHistoryV1",
+      "input_fields": [
+        "line_id",
+        "limit",
+        "after_id"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "backend_status": "implemented_real_disposable_proven",
+      "supabase_tested": true,
+      "supabase_status": "PASS",
+      "ui_safe": false,
+      "assistant_future": "safe_read_candidate_not_registered",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/sims/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "supabase_tested_head": "b654b1dd02bf9f8a8213fda5a75eac476559c5cf"
+    },
+    {
+      "name": "customer360.summary",
+      "version": "telecom.reads.v1",
+      "kind": "read",
+      "rpc": "telecom_reads_v1_query",
+      "input_type": "TelecomReadInputsV1['customer360.summary']",
+      "output_type": "TelecomReadResultV1<'customer360.summary'>",
+      "input_fields": [
+        "customer_id"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "backend_status": "implemented_real_disposable_proven",
+      "supabase_tested": true,
+      "supabase_status": "PASS",
+      "ui_safe": false,
+      "assistant_future": "safe_read_candidate_not_registered",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/telecom/reads/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "supabase_tested_head": "0c67c3a40f67d3ed6591773d5083f425466c1908"
+    },
+    {
+      "name": "report.operator_portfolio",
+      "version": "telecom.reads.v1",
+      "kind": "read",
+      "rpc": "telecom_reads_v1_query",
+      "input_type": "TelecomReadInputsV1['report.operator_portfolio']",
+      "output_type": "TelecomReadResultV1<'report.operator_portfolio'>",
+      "input_fields": [
+        "customer_id",
+        "operator_id",
+        "after_id",
+        "limit"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "backend_status": "implemented_real_disposable_proven",
+      "supabase_tested": true,
+      "supabase_status": "PASS",
+      "ui_safe": false,
+      "assistant_future": "safe_read_candidate_not_registered",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/telecom/reads/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "supabase_tested_head": "0c67c3a40f67d3ed6591773d5083f425466c1908"
+    },
+    {
+      "name": "report.services_by_kind",
+      "version": "telecom.reads.v1",
+      "kind": "read",
+      "rpc": "telecom_reads_v1_query",
+      "input_type": "TelecomReadInputsV1['report.services_by_kind']",
+      "output_type": "TelecomReadResultV1<'report.services_by_kind'>",
+      "input_fields": [
+        "customer_id",
+        "operator_id"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "backend_status": "implemented_real_disposable_proven",
+      "supabase_tested": true,
+      "supabase_status": "PASS",
+      "ui_safe": false,
+      "assistant_future": "safe_read_candidate_not_registered",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/telecom/reads/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "supabase_tested_head": "0c67c3a40f67d3ed6591773d5083f425466c1908"
+    },
+    {
+      "name": "report.lines_by_status",
+      "version": "telecom.reads.v1",
+      "kind": "read",
+      "rpc": "telecom_reads_v1_query",
+      "input_type": "TelecomReadInputsV1['report.lines_by_status']",
+      "output_type": "TelecomReadResultV1<'report.lines_by_status'>",
+      "input_fields": [
+        "customer_id",
+        "operator_id"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "backend_status": "implemented_real_disposable_proven",
+      "supabase_tested": true,
+      "supabase_status": "PASS",
+      "ui_safe": false,
+      "assistant_future": "safe_read_candidate_not_registered",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/telecom/reads/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "supabase_tested_head": "0c67c3a40f67d3ed6591773d5083f425466c1908"
+    },
+    {
+      "name": "report.renewals_by_month",
+      "version": "telecom.reads.v1",
+      "kind": "read",
+      "rpc": "telecom_reads_v1_query",
+      "input_type": "TelecomReadInputsV1['report.renewals_by_month']",
+      "output_type": "TelecomReadResultV1<'report.renewals_by_month'>",
+      "input_fields": [
+        "customer_id",
+        "from_month",
+        "to_month"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "backend_status": "implemented_real_disposable_proven",
+      "supabase_tested": true,
+      "supabase_status": "PASS",
+      "ui_safe": false,
+      "assistant_future": "safe_read_candidate_not_registered",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/telecom/reads/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "supabase_tested_head": "0c67c3a40f67d3ed6591773d5083f425466c1908"
+    },
+    {
+      "name": "report.permanences_by_month",
+      "version": "telecom.reads.v1",
+      "kind": "read",
+      "rpc": "telecom_reads_v1_query",
+      "input_type": "TelecomReadInputsV1['report.permanences_by_month']",
+      "output_type": "TelecomReadResultV1<'report.permanences_by_month'>",
+      "input_fields": [
+        "customer_id",
+        "from_month",
+        "to_month"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "backend_status": "implemented_real_disposable_proven",
+      "supabase_tested": true,
+      "supabase_status": "PASS",
+      "ui_safe": false,
+      "assistant_future": "safe_read_candidate_not_registered",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/telecom/reads/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "supabase_tested_head": "0c67c3a40f67d3ed6591773d5083f425466c1908"
+    },
+    {
+      "name": "report.portabilities_by_status",
+      "version": "telecom.reads.v1",
+      "kind": "read",
+      "rpc": "telecom_reads_v1_query",
+      "input_type": "TelecomReadInputsV1['report.portabilities_by_status']",
+      "output_type": "TelecomReadResultV1<'report.portabilities_by_status'>",
+      "input_fields": [
+        "customer_id"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "backend_status": "implemented_real_disposable_proven",
+      "supabase_tested": true,
+      "supabase_status": "PASS",
+      "ui_safe": false,
+      "assistant_future": "safe_read_candidate_not_registered",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/telecom/reads/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "supabase_tested_head": "0c67c3a40f67d3ed6591773d5083f425466c1908"
+    },
+    {
+      "name": "report.cases_by_priority_status",
+      "version": "telecom.reads.v1",
+      "kind": "read",
+      "rpc": "telecom_reads_v1_query",
+      "input_type": "TelecomReadInputsV1['report.cases_by_priority_status']",
+      "output_type": "TelecomReadResultV1<'report.cases_by_priority_status'>",
+      "input_fields": [
+        "customer_id"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "backend_status": "implemented_real_disposable_proven",
+      "supabase_tested": true,
+      "supabase_status": "PASS",
+      "ui_safe": false,
+      "assistant_future": "safe_read_candidate_not_registered",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/telecom/reads/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "supabase_tested_head": "0c67c3a40f67d3ed6591773d5083f425466c1908"
+    },
+    {
+      "name": "report.pipeline_by_stage",
+      "version": "telecom.reads.v1",
+      "kind": "read",
+      "rpc": "telecom_reads_v1_query",
+      "input_type": "TelecomReadInputsV1['report.pipeline_by_stage']",
+      "output_type": "TelecomReadResultV1<'report.pipeline_by_stage'>",
+      "input_fields": [
+        "customer_id",
+        "owner_user_id",
+        "stage_id",
+        "after_id",
+        "limit"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "backend_status": "implemented_real_disposable_proven",
+      "supabase_tested": true,
+      "supabase_status": "PASS",
+      "ui_safe": false,
+      "assistant_future": "safe_read_candidate_not_registered",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/telecom/reads/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "supabase_tested_head": "0c67c3a40f67d3ed6591773d5083f425466c1908"
+    },
+    {
+      "name": "report.commercial_owner_counts",
+      "version": "telecom.reads.v1",
+      "kind": "read",
+      "rpc": "telecom_reads_v1_query",
+      "input_type": "TelecomReadInputsV1['report.commercial_owner_counts']",
+      "output_type": "TelecomReadResultV1<'report.commercial_owner_counts'>",
+      "input_fields": [
+        "customer_id",
+        "owner_user_id",
+        "after_id",
+        "limit"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "backend_status": "implemented_real_disposable_proven",
+      "supabase_tested": true,
+      "supabase_status": "PASS",
+      "ui_safe": false,
+      "assistant_future": "safe_read_candidate_not_registered",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/telecom/reads/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "supabase_tested_head": "0c67c3a40f67d3ed6591773d5083f425466c1908"
+    },
+    {
+      "name": "telecom.attention",
+      "version": "telecom.attention.v1",
+      "kind": "read",
+      "rpc": "telecom_attention_v1_query",
+      "input_type": "TelecomAttentionInputV1",
+      "output_type": "TelecomAttentionPageV1",
+      "input_fields": [
+        "window_from",
+        "window_to",
+        "customer_id",
+        "owner_user_id",
+        "kind",
+        "limit",
+        "fallback_on",
+        "after_sort_on",
+        "after_kind",
+        "after_id"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "backend_status": "implemented_real_disposable_proven",
+      "supabase_tested": true,
+      "supabase_status": "PASS",
+      "ui_safe": false,
+      "assistant_future": "safe_read_candidate_not_registered",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/telecom/attention/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "supabase_tested_head": "c18123e573c2f4a066dea2be0a75c5ee82770627"
+    },
+    {
+      "name": "billing.monthly_series",
+      "version": "billing.analytics.v1",
+      "kind": "read",
+      "rpc": "billing_analytics_v1_query",
+      "input_type": "BillingAnalyticsInputV1",
+      "output_type": "BillingAnalyticsResultV1",
+      "input_fields": [
+        "currency",
+        "from_month",
+        "to_month",
+        "customer_id"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "minimum_role": "admin",
+      "backend_status": "implemented_real_disposable_proven",
+      "supabase_tested": true,
+      "supabase_status": "PASS",
+      "ui_safe": false,
+      "assistant_future": "protected_read_requires_billing_scope_not_registered",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/billing/analytics/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "supabase_tested_head": "84dbdc0a0a6dd06286655241aa2db502a08e7f07"
+    },
+    {
+      "name": "billing.top_customers",
+      "version": "billing.analytics.v1",
+      "kind": "read",
+      "rpc": "billing_analytics_v1_query",
+      "input_type": "BillingAnalyticsInputV1",
+      "output_type": "BillingAnalyticsResultV1",
+      "input_fields": [
+        "currency",
+        "from_month",
+        "to_month",
+        "customer_id",
+        "limit"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "minimum_role": "admin",
+      "backend_status": "implemented_real_disposable_proven",
+      "supabase_tested": true,
+      "supabase_status": "PASS",
+      "ui_safe": false,
+      "assistant_future": "protected_read_requires_billing_scope_not_registered",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/billing/analytics/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "supabase_tested_head": "84dbdc0a0a6dd06286655241aa2db502a08e7f07"
+    },
+    {
+      "name": "task.list",
+      "version": "telecom.collections.v1",
+      "kind": "read",
+      "rpc": "telecom_collection_v1_query",
+      "input_type": "TelecomCollectionInputsV1['task.list']",
+      "output_type": "TelecomCollectionPageV1<'task.list'>",
+      "input_fields": [
+        "limit",
+        "after_id",
+        "sort",
+        "customer_id",
+        "opportunity_id",
+        "assigned_user_id",
+        "status",
+        "date_from",
+        "date_to",
+        "priority"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "backend_status": "implemented_candidate_exact_acceptance_pending",
+      "supabase_tested": false,
+      "supabase_status": "PENDING",
+      "ui_safe": false,
+      "assistant_future": "safe_read_candidate_not_registered",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/product/v1/queries",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      }
+    },
+    {
+      "name": "meeting.list",
+      "version": "telecom.collections.v1",
+      "kind": "read",
+      "rpc": "telecom_collection_v1_query",
+      "input_type": "TelecomCollectionInputsV1['meeting.list']",
+      "output_type": "TelecomCollectionPageV1<'meeting.list'>",
+      "input_fields": [
+        "limit",
+        "after_id",
+        "sort",
+        "customer_id",
+        "opportunity_id",
+        "assigned_user_id",
+        "status",
+        "date_from",
+        "date_to"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "backend_status": "implemented_candidate_exact_acceptance_pending",
+      "supabase_tested": false,
+      "supabase_status": "PENDING",
+      "ui_safe": false,
+      "assistant_future": "safe_read_candidate_not_registered",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/product/v1/queries",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      }
     }
   ],
   "unavailable_modules": [
@@ -5961,5 +9666,8 @@
     "advanced_billing_analytics",
     "portfolio_legacy_origin_verification"
   ],
-  "registration": "Human product contracts only; no assistant capability registration or deployment authorization."
+  "registration": "Human contracts only; no new AI tools/writes registered; exact accepted source4b5520f,9catalog candidates pending.",
+  "candidate_after_head": "84dbdc0a0a6dd06286655241aa2db502a08e7f07",
+  "operations_total": 203,
+  "operations_proven": 201
 }

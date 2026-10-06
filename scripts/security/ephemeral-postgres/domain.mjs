@@ -73,6 +73,27 @@ try {
   console.log('PRODUCT RICH DENSITY COUNTS/CURSOR/SCOPE ASSERTIONS PASS (25 companies, 400 lines)')
   await db.exec(richSeed.replace(/commit;\s*$/i, '') + await readFile(resolve(root, 'supabase/tests/telecom-commercial-collections.sql'), 'utf8'))
   console.log('TEL5 COMMERCIAL COLLECTIONS 18 READS/CURSOR/FILTER/PRIVACY/REVOCATION PASS')
+  await db.exec(richSeed.replace(/commit;\s*$/i, '') + await readFile(resolve(root, 'supabase/tests/protected-telecom-identifiers.sql'), 'utf8'))
+  console.log('TEL5 PROTECTED IDENTIFIERS CANONICAL/MASK/REVEAL/CAS/REPLAY/HISTORY/REVOCATION PASS')
+  await db.exec(await readFile(resolve(root,'supabase/tests/immutable-commercial-catalog.sql'),'utf8'))
+  console.log('TEL5 CATALOG 9 OPERATIONS/TYPED TERMS/BUNDLE/FROZEN/CAS/REPLAY/REVOCATION PASS')
+  await db.exec(await readFile(resolve(root,'supabase/tests/commercial-portability-workflow.sql'),'utf8'))
+  console.log('TEL5 PORTABILITY 7 OPERATIONS/STATE/MASK/LINE EFFECT ATOMICITY/REPLAY/REVOCATION PASS')
+  await db.exec(richSeed.replace(/commit;\s*$/i, '') + await readFile(resolve(root,'supabase/tests/product-service-case-workflow.sql'),'utf8'))
+  console.log('TEL5 CASE 12 OPERATIONS/LIFECYCLE/PRIVATE NOTES/ANCESTRY/CAS/REPLAY/REVOCATION PASS')
+  await db.exec(richSeed.replace(/commit;\s*$/i, '') + await readFile(resolve(root,'supabase/tests/commercial-sim-esim-history.sql'),'utf8'))
+  console.log('TEL5 SIM 9 OPERATIONS/PROTECTED ICCID EID/ASSOCIATION HISTORY/CAS/REPLAY/REVOCATION PASS')
+  await db.exec(richSeed.replace(/commit;\s*$/i, '') + await readFile(resolve(root,'supabase/tests/telecom-customer360-report-reads.sql'),'utf8'))
+  console.log('TEL5 CUSTOMER360/REPORT 10 READS/EXACT COUNTS/KEYSET/PRIVILEGED COUNT PRIVACY/REVOCATION PASS')
+
+  await db.exec(richSeed.replace(/commit;\s*$/i, '') + await readFile(resolve(root,'supabase/tests/deterministic-telecom-attention.sql'),'utf8'))
+  console.log('TEL5 ATTENTION 7 RULE FAMILIES/KEYSET/PRIVACY/REVOCATION PASS')
+
+  await db.exec(richSeed.replace(/commit;\s*$/i, '') + billingDensity + await readFile(resolve(root,'supabase/tests/currency-separated-billing-cohorts.sql'),'utf8'))
+  console.log('TEL5 BILLING ANALYTICS EXACT CURRENCY COHORTS/TOP BOUNDS/ROLE/REVOCATION PASS')
+
+  await db.exec(richSeed.replace(/commit;\s*$/i, '') + await readFile(resolve(root,'supabase/tests/full-customer360-work-collections.sql'),'utf8'))
+  console.log('TEL5 CUSTOMER360 FULL TASK MEETING COLLECTIONS/UNDATED/HISTORY/KEYSET/VIEWER/REVOCATION PASS')
 
   await db.exec(await readFile(resolve(root,'supabase/tests/billing-exact-issue.sql'),'utf8'))
   await db.exec(await readFile(resolve(root,'supabase/tests/billing-private-pdf-artifacts.sql'),'utf8'))
