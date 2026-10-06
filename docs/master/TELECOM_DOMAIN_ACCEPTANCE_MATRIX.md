@@ -1,6 +1,6 @@
 # Telecom domain acceptance matrix
 
-Accepted functional source: `84dbdc0a0a6dd06286655241aa2db502a08e7f07` (2872 checks;201 operations). Full task/meeting page candidate pending exact proof. Six HIGH dependency findings prevent overall CI closure; W2 consumption never inferred.
+Accepted functional source: `8c93d4c58286b225209956237de27350aa0f2048` (2928 checks;203 operations). Service planning/add-on candidate pending exact proof. Six HIGH dependency findings prevent overall CI closure; W2 consumption never inferred.
 
 | Section | Requirement | REQUIRED | IMPLEMENTED | PROVEN | W2_CONSUMED | BLOCKER |
 |---|---|---|---|---|---|---|
@@ -20,14 +20,14 @@ Accepted functional source: `84dbdc0a0a6dd06286655241aa2db502a08e7f07` (2872 che
 | Plan versions | plan_version.create | true | true | true | false | W2_consumption_unproven |
 | Entitlements | typed immutable version entitlements | true | true | true | false | W2_consumption_unproven |
 | Bundles | immutable version components | true | true | true | false | W2_consumption_unproven |
-| Bundles | service add-on assignment history | true | false | false | false | not_implemented_as_requested |
+| Bundles | service add-on assignment history | true | true | false | false | exact_source_acceptance_pending;W2_consumption_unproven |
 | Contracts | contract.list | true | true | true | false | W2_consumption_unproven |
 | Contracts | contract.create_manual | true | true | true | false | W2_consumption_unproven |
 | Contracts | contract.update_allowed_metadata | true | true | true | false | W2_consumption_unproven |
 | Services | service.list | true | true | true | false | W2_consumption_unproven |
 | Services | service.create_manual | true | true | true | false | W2_consumption_unproven |
 | Services | service.update_label | true | true | true | false | W2_consumption_unproven |
-| Services | fixed service operational facts | true | false | false | false | not_implemented_as_requested |
+| Services | fixed service operational facts | true | true | false | false | exact_source_acceptance_pending;W2_consumption_unproven |
 | Lines | line.list | true | true | true | false | W2_consumption_unproven |
 | Lines | line.create_manual | true | true | true | false | W2_consumption_unproven |
 | Lines | line.update_label | true | true | true | false | W2_consumption_unproven |
@@ -70,7 +70,7 @@ Accepted functional source: `84dbdc0a0a6dd06286655241aa2db502a08e7f07` (2872 che
 | Collections | opportunity.list | true | true | true | false | W2_consumption_unproven |
 | Collections | activity.list | true | true | true | false | W2_consumption_unproven |
 | Collections | assignee.list | true | true | true | false | W2_consumption_unproven |
-| Customer360 | bounded existing domain pages | true | true | false | false | exact_source_acceptance_pending;W2_consumption_unproven |
+| Customer360 | bounded existing domain pages | true | true | true | false | W2_consumption_unproven |
 | Customer360 | customer360.summary | true | true | true | false | W2_consumption_unproven |
 | Attention | deterministic telecom attention | true | true | true | false | W2_consumption_unproven |
 | Reports | operator portfolio | true | true | true | false | W2_consumption_unproven |
@@ -102,4 +102,6 @@ Accepted functional source: `84dbdc0a0a6dd06286655241aa2db502a08e7f07` (2872 che
 | SIM/eSIM | sim.list | true | true | true | false | W2_consumption_unproven |
 | SIM/eSIM | sim.get | true | true | true | false | W2_consumption_unproven |
 
-Counts: `{"REQUIRED":97,"IMPLEMENTED":90,"PROVEN":89,"W2_CONSUMED":0,"BLOCKER":97}`.
+Counts: `{"REQUIRED":97,"IMPLEMENTED":92,"PROVEN":90,"W2_CONSUMED":0,"BLOCKER":97}`.
+
+FINAL7 reconciliation: exact accepted source `8c93d4c58286b225209956237de27350aa0f2048`;66 migrations/275 functions/307 Node/203 operations/2928 Supabase checks. Service add-on/fixed facts remain pending. Overall CI is red at six HIGH dependency findings; W2 consumption remains unproven.

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "source_sha": "work_collections_candidate_after_84dbdc0a0a6dd06286655241aa2db502a08e7f07",
-  "stage": "TEL5_DENSE_MASKED_LINE_CANDIDATE_AFTER_ACCEPTED_REPORTS",
+  "source_sha": "8c93d4c58286b225209956237de27350aa0f2048",
+  "stage": "FINAL7_ACCEPTED_BASELINE_RECONCILED",
   "exact_head_accepted": true,
   "no_ai_writes": true,
   "rows": [
@@ -188,9 +188,9 @@
       "IMPLEMENTED": false,
       "PROVEN": false,
       "W2_CONSUMED": false,
-      "BLOCKER": "not_implemented_as_requested",
-      "existing_operation": null,
-      "notes": "Table or a narrower legacy reader does not complete this TEL5 requirement."
+      "BLOCKER": "FINAL7_INTERNAL_PENDING",
+      "existing_operation": "service.addon_assign / service.addon_end / service.addon_list",
+      "notes": "Implementation prepared but not published or proven; exact accepted baseline8c93d4c excludes this family."
     },
     {
       "section": "Contracts",
@@ -265,9 +265,9 @@
       "IMPLEMENTED": false,
       "PROVEN": false,
       "W2_CONSUMED": false,
-      "BLOCKER": "not_implemented_as_requested",
-      "existing_operation": null,
-      "notes": "Table or a narrower legacy reader does not complete this TEL5 requirement."
+      "BLOCKER": "FINAL7_INTERNAL_PENDING",
+      "existing_operation": "service.installation_set / service.installation_get",
+      "notes": "Implementation prepared but not published or proven; exact accepted baseline8c93d4c excludes this family."
     },
     {
       "section": "Lines",
@@ -736,11 +736,11 @@
       "requirement": "bounded existing domain pages",
       "REQUIRED": true,
       "IMPLEMENTED": true,
-      "PROVEN": false,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "exact_source_acceptance_pending;W2_consumption_unproven",
+      "BLOCKER": "W2_consumption_unproven",
       "existing_operation": "task.list / meeting.list and existing bounded domain reads",
-      "notes": "Full work UUID pages include undated tasks/completed meetings beyond calendar. Document pages remain individual ancestry target pages and owner/admin-only; billing same restricted roles. No unbounded megaresponse."
+      "notes": "Accepted8c93d4c/2928checks,203operations. Undated task/all meeting history pages, closed filters/Madrid dates/keyset/valid-JWT revocation; existing 13-domain pages mapped with document ancestry/billing role limits explicit."
     },
     {
       "section": "Customer360",
@@ -1076,13 +1076,13 @@
   "counts": {
     "REQUIRED": 97,
     "IMPLEMENTED": 90,
-    "PROVEN": 89,
+    "PROVEN": 90,
     "W2_CONSUMED": 0,
     "BLOCKER": 97
   },
   "official_workflow_fully_green": false,
-  "accepted_source_sha": "84dbdc0a0a6dd06286655241aa2db502a08e7f07",
+  "accepted_source_sha": "8c93d4c58286b225209956237de27350aa0f2048",
   "candidate_operations_total": 203,
-  "candidate_operations_proven": 201,
-  "candidate_exact_head_accepted": false
+  "candidate_operations_proven": 203,
+  "candidate_exact_head_accepted": true
 }

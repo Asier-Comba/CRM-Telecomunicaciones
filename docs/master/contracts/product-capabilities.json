@@ -1,21 +1,21 @@
 {
   "catalog_version": "product.capabilities.v1",
   "as_of": "2026-10-06",
-  "implementation_head": "84dbdc0a0a6dd06286655241aa2db502a08e7f07",
+  "implementation_head": "8c93d4c58286b225209956237de27350aa0f2048",
   "evidence": {
     "native": {
-      "run_id": 37468025182,
+      "run_id": 37468994627,
       "status": "PASS",
-      "migration_count": 65,
+      "migration_count": 66,
       "function_count": 275,
-      "tested_head": "84dbdc0a0a6dd06286655241aa2db502a08e7f07",
-      "tested_checkout": "3972c258bf123b478a94f75b3c65563e1c54ea19",
-      "tested_tree": "dcf6e220fbb7fcba0f1ebae26a48d516d7666f3a",
+      "tested_head": "8c93d4c58286b225209956237de27350aa0f2048",
+      "tested_checkout": "c5b82c08b841c9a717086128a62b4ff4563921c8",
+      "tested_tree": "0638e120290da7c5310af6b342f2cf03576dbbba",
       "fresh": "PASS",
       "logical_synthetic_restore": "PASS",
       "privileges_roles_acl_loss_negative_control": "PASS",
       "production_backup": false,
-      "job_id": 112283894560,
+      "job_id": 112287229632,
       "tree_comparison_method": "GitHub compare:zero changed files"
     },
     "actual_supabase": {
@@ -27,15 +27,15 @@
       "rpc": "PASS",
       "storage": "PASS",
       "cli": "2.119.0",
-      "sha": "3972c258bf123b478a94f75b3c65563e1c54ea19",
+      "sha": "c5b82c08b841c9a717086128a62b4ff4563921c8",
       "config_sha256": "3fc22bba97e5114a7ee67cc90e514b8ec16eda0cb2c5817cf87784e8e4ab6e57",
-      "migration_head": "20261006143000_currency_separated_billing_cohort_reads.sql",
-      "migration_count": 65,
+      "migration_head": "20261006150000_full_customer360_work_collections.sql",
+      "migration_count": 66,
       "service_images": [
+        "ghcr.io/supabase/postgrest:v16.4",
         "public.ecr.aws/supabase/gotrue:v2.197.0",
         "public.ecr.aws/supabase/kong:2.8.1",
         "public.ecr.aws/supabase/postgres:15.19.0.002",
-        "public.ecr.aws/supabase/postgrest:v16.4",
         "public.ecr.aws/supabase/storage-api:v1.79.28"
       ],
       "db": "15.19",
@@ -497,6 +497,11 @@
       ],
       "billing_analytics": "PASS_EXACT_SEPARATE_CURRENCY_ISSUE_MONTH_CURRENT_STATUS_COHORTS_TOP_BOUNDS_PRIVILEGED_SCOPE_VALID_JWT_REVOCATION",
       "billing_historical_balances": "NOT_RECONSTRUCTED_NO_PAYMENT_LEDGER",
+      "full_work_collection_operations_individually_observed": [
+        "task.list",
+        "meeting.list"
+      ],
+      "customer360_work_pages": "PASS_UNDATED_TASKS_ALL_HISTORY_UUID_KEYSET_FILTERS_VIEWER_VALID_JWT_REVOCATION",
       "billing_search": "PASS",
       "billing_pdf": "PASS",
       "billing_dashboard": "PASS",
@@ -585,29 +590,26 @@
       "document_content_verified_sha256": "NOT_IMPLEMENTED",
       "cross_tenant": "PASS",
       "revocation": "PASS",
-      "checks": 2872,
+      "checks": 2928,
       "manager": "NOT_CANONICAL",
       "signed_access": "NOT_IMPLEMENTED",
       "auth_email_production": "NOT_TESTED",
       "mfa_production": "NOT_TESTED",
       "scoped_service_principal": "NOT_IMPLEMENTED",
       "remote_staging": "NOT_TESTED",
-      "teardown": "PASS",
-      "run_id": 37468025165,
-      "job_id": 112283893835,
-      "tested_head": "84dbdc0a0a6dd06286655241aa2db502a08e7f07"
+      "teardown": "PASS"
     },
     "quality": {
-      "tests": 304,
-      "node_tests": 304,
+      "tests": 307,
+      "node_tests": 307,
       "lint": "PASS",
       "types": "PASS",
       "build": "PASS",
       "audit": "FAIL_UNSUPPRESSED_6_HIGH;known Issue29 chain plus distinct source-map-js GHSA-68fv-2mgg-jv7q",
       "overall_ci": "FAIL_AUDIT;OFFICIAL_BROWSER_PASS",
-      "tested_head": "84dbdc0a0a6dd06286655241aa2db502a08e7f07",
-      "run_id": 37468025182,
-      "job_id": 112283894263,
+      "tested_head": "8c93d4c58286b225209956237de27350aa0f2048",
+      "run_id": 37468994627,
+      "job_id": 112287229712,
       "critical_playwright": "SKIPPED",
       "dependency_review": "SKIPPED",
       "workflow_fully_green": false
@@ -9586,9 +9588,9 @@
         "viewer"
       ],
       "minimum_role": "viewer",
-      "backend_status": "implemented_candidate_exact_acceptance_pending",
-      "supabase_tested": false,
-      "supabase_status": "PENDING",
+      "backend_status": "implemented_real_disposable_proven",
+      "supabase_tested": true,
+      "supabase_status": "PASS",
       "ui_safe": false,
       "assistant_future": "safe_read_candidate_not_registered",
       "ai_registration": false,
@@ -9608,7 +9610,8 @@
       "cas": {
         "required": false,
         "key": null
-      }
+      },
+      "supabase_tested_head": "8c93d4c58286b225209956237de27350aa0f2048"
     },
     {
       "name": "meeting.list",
@@ -9635,9 +9638,9 @@
         "viewer"
       ],
       "minimum_role": "viewer",
-      "backend_status": "implemented_candidate_exact_acceptance_pending",
-      "supabase_tested": false,
-      "supabase_status": "PENDING",
+      "backend_status": "implemented_real_disposable_proven",
+      "supabase_tested": true,
+      "supabase_status": "PASS",
       "ui_safe": false,
       "assistant_future": "safe_read_candidate_not_registered",
       "ai_registration": false,
@@ -9657,7 +9660,8 @@
       "cas": {
         "required": false,
         "key": null
-      }
+      },
+      "supabase_tested_head": "8c93d4c58286b225209956237de27350aa0f2048"
     }
   ],
   "unavailable_modules": [
@@ -9667,7 +9671,7 @@
     "portfolio_legacy_origin_verification"
   ],
   "registration": "Human contracts only; no new AI tools/writes registered; exact accepted source4b5520f,9catalog candidates pending.",
-  "candidate_after_head": "84dbdc0a0a6dd06286655241aa2db502a08e7f07",
+  "candidate_after_head": null,
   "operations_total": 203,
-  "operations_proven": 201
+  "operations_proven": 203
 }

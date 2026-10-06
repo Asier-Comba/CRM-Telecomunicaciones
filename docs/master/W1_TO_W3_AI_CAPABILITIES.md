@@ -203,3 +203,7 @@ Attention acceptedc18123e/2757checks,199operations; still not registered. `billi
 ## TEL5 full Customer360 work page candidates
 
 `task.list`/`meeting.list` candidate safe reads at normal product query route: all four active roles, customer/related opportunity/assignee/state/date filters, UUID keysets<=100; undated tasks and completed history included. No private note/identifier payload. Exact acceptance pending. Billing readers accepted84dbdc0/2872checks but remain protected owner/admin read candidates only. No registration or AI writes.
+
+## FINAL7 accepted baseline
+
+Accepted source `8c93d4c58286b225209956237de27350aa0f2048`:203/203 human operations, including task.list/meeting.list and billing.monthly_series/billing.top_customers. These are READ candidates only, not AI registrations; existing role and sensitive boundaries apply. All writes remain FUTURE_AI_ACTION_CANDIDATE.
