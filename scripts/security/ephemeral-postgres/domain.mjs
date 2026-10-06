@@ -77,6 +77,8 @@ try {
   console.log('TEL5 PROTECTED IDENTIFIERS CANONICAL/MASK/REVEAL/CAS/REPLAY/HISTORY/REVOCATION PASS')
   await db.exec(await readFile(resolve(root,'supabase/tests/immutable-commercial-catalog.sql'),'utf8'))
   console.log('TEL5 CATALOG 9 OPERATIONS/TYPED TERMS/BUNDLE/FROZEN/CAS/REPLAY/REVOCATION PASS')
+  await db.exec(await readFile(resolve(root,'supabase/tests/commercial-portability-workflow.sql'),'utf8'))
+  console.log('TEL5 PORTABILITY 7 OPERATIONS/STATE/MASK/LINE EFFECT ATOMICITY/REPLAY/REVOCATION PASS')
 
   await db.exec(await readFile(resolve(root,'supabase/tests/billing-exact-issue.sql'),'utf8'))
   await db.exec(await readFile(resolve(root,'supabase/tests/billing-private-pdf-artifacts.sql'),'utf8'))

@@ -87,6 +87,7 @@ target_relations(name) as (
     ('telecom_plan_version_publications'),
     ('telecom_plan_versions'),
     ('telecom_plans'),
+    ('telecom_portabilities'),
     ('telecom_renewals'),
     ('telecom_services'),
     ('vw_google_calendar_status'),

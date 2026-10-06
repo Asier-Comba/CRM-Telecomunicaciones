@@ -1,21 +1,21 @@
 {
   "catalog_version": "product.capabilities.v1",
-  "as_of": "2026-10-05",
-  "implementation_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+  "as_of": "2026-10-06",
+  "implementation_head": "461245637b2078a1151969d4f3c6662ad626a239",
   "evidence": {
     "native": {
-      "run_id": 37380250015,
+      "run_id": 37451153325,
       "status": "PASS",
-      "migration_count": 56,
-      "function_count": 252,
-      "tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
-      "tested_checkout": "58445423f26827bda63cdfc9e979648390e83b06",
-      "tested_tree": "1e8756a72f8cd74cf4e6f8da45088b13ee87f377",
+      "migration_count": 57,
+      "function_count": 256,
+      "tested_head": "461245637b2078a1151969d4f3c6662ad626a239",
+      "tested_checkout": "d0b563ffe416281c6c17461d7842dfdb3c4883a9",
+      "tested_tree": "cbf1ce5dd2c8144c4a643b4f068a668048cbec80",
       "fresh": "PASS",
       "logical_synthetic_restore": "PASS",
       "privileges_roles_acl_loss_negative_control": "PASS",
       "production_backup": false,
-      "job_id": 112000092153
+      "job_id": 112227767595
     },
     "actual_supabase": {
       "environment": "LOCAL_SUPABASE_DOCKER",
@@ -26,10 +26,10 @@
       "rpc": "PASS",
       "storage": "PASS",
       "cli": "2.119.0",
-      "sha": "58445423f26827bda63cdfc9e979648390e83b06",
+      "sha": "d0b563ffe416281c6c17461d7842dfdb3c4883a9",
       "config_sha256": "3fc22bba97e5114a7ee67cc90e514b8ec16eda0cb2c5817cf87784e8e4ab6e57",
-      "migration_head": "20261005220000_protected_telecom_identifiers.sql",
-      "migration_count": 56,
+      "migration_head": "20261005223000_immutable_commercial_catalog.sql",
+      "migration_count": 57,
       "service_images": [
         "public.ecr.aws/supabase/gotrue:v2.197.0",
         "public.ecr.aws/supabase/kong:2.8.1",
@@ -191,6 +191,9 @@
         "table.telecom_contracts.anon": 401,
         "table.telecom_contracts.A": 403,
         "table.telecom_contracts.B": 403,
+        "table.telecom_entitlement_codes.anon": 401,
+        "table.telecom_entitlement_codes.A": 403,
+        "table.telecom_entitlement_codes.B": 403,
         "table.telecom_identifiers.anon": 401,
         "table.telecom_identifiers.A": 403,
         "table.telecom_identifiers.B": 403,
@@ -200,6 +203,15 @@
         "table.telecom_operators.anon": 401,
         "table.telecom_operators.A": 403,
         "table.telecom_operators.B": 403,
+        "table.telecom_plan_version_components.anon": 401,
+        "table.telecom_plan_version_components.A": 403,
+        "table.telecom_plan_version_components.B": 403,
+        "table.telecom_plan_version_entitlements.anon": 401,
+        "table.telecom_plan_version_entitlements.A": 403,
+        "table.telecom_plan_version_entitlements.B": 403,
+        "table.telecom_plan_version_publications.anon": 401,
+        "table.telecom_plan_version_publications.A": 403,
+        "table.telecom_plan_version_publications.B": 403,
         "table.telecom_plan_versions.anon": 401,
         "table.telecom_plan_versions.A": 403,
         "table.telecom_plan_versions.B": 403,
@@ -381,6 +393,23 @@
       "protected_identifier_concurrency": "PASS_ONE_WINNER",
       "protected_identifiers": "PASS_CANONICAL_MASK_HISTORY_REVOCATION_VALUE_FREE_AUDIT",
       "protected_identifier_production_import": "BLOCKED_SEPARATE_PROTECTED_STAGING_REQUIRED",
+      "commercial_catalog_operations_individually_observed": [
+        "operator.create",
+        "operator.update",
+        "operator.deactivate",
+        "operator.activate",
+        "plan.create",
+        "plan.update_metadata",
+        "plan_version.create",
+        "plan_version.terms_get",
+        "plan.change_status"
+      ],
+      "commercial_catalog": "PASS_OWNER_ADMIN_MANAGEMENT_MEMBER_VIEWER_CONSUMPTION",
+      "commercial_terms": "PASS_REGISTERED_TYPED_FROZEN_VERSION_FEATURES",
+      "commercial_bundles": "PASS_IMMUTABLE_BASE_AND_REGISTERED_ADDON_COMPONENTS",
+      "commercial_version_concurrency": "PASS_ONE_WINNER",
+      "commercial_service_addon_assignments": "NOT_IMPLEMENTED_SEPARATE_HISTORY_REQUIRED",
+      "commercial_legacy_plan_origin": "UNKNOWN_LEGACY_READ_ONLY_NO_RELABEL",
       "billing_search": "PASS",
       "billing_pdf": "PASS",
       "billing_dashboard": "PASS",
@@ -469,7 +498,7 @@
       "document_content_verified_sha256": "NOT_IMPLEMENTED",
       "cross_tenant": "PASS",
       "revocation": "PASS",
-      "checks": 1679,
+      "checks": 1838,
       "manager": "NOT_CANONICAL",
       "signed_access": "NOT_IMPLEMENTED",
       "auth_email_production": "NOT_TESTED",
@@ -608,7 +637,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "task.update",
@@ -648,7 +677,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "task.start",
@@ -688,7 +717,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "task.complete",
@@ -728,7 +757,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "task.reopen",
@@ -768,7 +797,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "task.cancel",
@@ -808,7 +837,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "meeting.create",
@@ -848,7 +877,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "meeting.update",
@@ -888,7 +917,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "meeting.reschedule",
@@ -928,7 +957,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "meeting.complete",
@@ -968,7 +997,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "meeting.cancel",
@@ -1008,7 +1037,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "meeting.no_show",
@@ -1048,7 +1077,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "opportunity.create",
@@ -1088,7 +1117,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "opportunity.update",
@@ -1128,7 +1157,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "opportunity.change_stage",
@@ -1168,7 +1197,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "opportunity.assign",
@@ -1208,7 +1237,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "opportunity.win",
@@ -1248,7 +1277,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "opportunity.lose",
@@ -1288,7 +1317,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "opportunity.reopen",
@@ -1328,7 +1357,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "opportunity.archive",
@@ -1368,7 +1397,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "customer.create",
@@ -1408,7 +1437,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "customer.update",
@@ -1448,7 +1477,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "customer.archive",
@@ -1488,7 +1517,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "customer.restore",
@@ -1528,7 +1557,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "contact.create",
@@ -1568,7 +1597,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "contact.update",
@@ -1608,7 +1637,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "contact.archive",
@@ -1648,7 +1677,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "contact.restore",
@@ -1688,7 +1717,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "customer.editor",
@@ -1726,7 +1755,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "safe_read_candidate_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "contact.editors",
@@ -1764,7 +1793,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "safe_read_candidate_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "calendar.list",
@@ -1803,7 +1832,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "safe_read_candidate_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "work.get",
@@ -1842,7 +1871,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "safe_read_candidate_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "opportunity.stages",
@@ -1881,7 +1910,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "safe_read_candidate_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "dashboard.get",
@@ -1931,7 +1960,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "safe_read_candidate_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "global.search",
@@ -1970,7 +1999,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "safe_read_candidate_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239",
       "supabase_core_tested_head": "db056e67111b7719e7072c2279b3c7459ef68a54",
       "item_roles": {
         "invoice": [
@@ -2015,7 +2044,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "customer_fiscal.set",
@@ -2053,7 +2082,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "invoice.create_draft",
@@ -2091,7 +2120,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "invoice.update_draft",
@@ -2129,7 +2158,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "invoice.issue",
@@ -2167,7 +2196,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "invoice.mark_paid",
@@ -2205,7 +2234,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "invoice.reverse_payment",
@@ -2243,7 +2272,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "invoice.trash",
@@ -2281,7 +2310,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "invoice.restore",
@@ -2319,7 +2348,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "invoice.get",
@@ -2357,7 +2386,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "protected_read_requires_fiscal_capability_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "invoice.summary",
@@ -2395,7 +2424,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "protected_read_requires_fiscal_capability_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "invoice.list",
@@ -2433,7 +2462,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "protected_read_requires_fiscal_capability_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "invoice.financial_summary",
@@ -2471,7 +2500,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "protected_read_requires_fiscal_capability_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "configuration.get",
@@ -2509,7 +2538,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "protected_read_requires_fiscal_capability_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "invoice.pdf",
@@ -2547,7 +2576,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "protected_read_requires_fiscal_capability_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239",
       "storage_status": "private_object_and_opaque_reference_pending"
     },
     {
@@ -2586,7 +2615,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "protected_read_requires_fiscal_capability_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "member.invite_intent",
@@ -2625,7 +2654,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239",
       "review_pending": [
         "W4",
         "W2"
@@ -2668,7 +2697,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239",
       "review_pending": [
         "W4",
         "W2"
@@ -2711,7 +2740,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239",
       "review_pending": [
         "W4",
         "W2"
@@ -2754,7 +2783,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239",
       "review_pending": [
         "W4",
         "W2"
@@ -2797,7 +2826,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239",
       "review_pending": [
         "W4",
         "W2"
@@ -2840,7 +2869,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239",
       "review_pending": [
         "W4",
         "W2"
@@ -2883,7 +2912,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239",
       "review_pending": [
         "W4",
         "W2"
@@ -2927,7 +2956,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "contract.update_allowed_metadata",
@@ -2967,7 +2996,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "contract.activate",
@@ -3007,7 +3036,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239",
       "review_pending": [
         "W4",
         "W2",
@@ -3052,7 +3081,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239",
       "review_pending": [
         "W4",
         "W2",
@@ -3097,7 +3126,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239",
       "review_pending": [
         "W4",
         "W2",
@@ -3142,7 +3171,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "service.transition",
@@ -3182,7 +3211,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239",
       "review_pending": [
         "W4",
         "W2",
@@ -3227,7 +3256,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239",
       "review_pending": [
         "W4",
         "W2",
@@ -3272,7 +3301,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "line.transition",
@@ -3312,7 +3341,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239",
       "review_pending": [
         "W4",
         "W2",
@@ -3362,7 +3391,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239",
       "supabase_core_tested_head": "497a5587429e77c67c2feceb71c1a2d1e259bf57"
     },
     {
@@ -3403,7 +3432,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239",
       "review_pending": [
         "W4",
         "W2",
@@ -3448,7 +3477,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "renewal.resolve",
@@ -3488,7 +3517,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "renewal.dismiss",
@@ -3528,7 +3557,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "permanence.create_manual",
@@ -3568,7 +3597,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239",
       "review_pending": [
         "W4",
         "W2",
@@ -3613,7 +3642,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "permanence.cancel",
@@ -3653,7 +3682,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "document.archive",
@@ -3696,7 +3725,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "document.restore",
@@ -3739,7 +3768,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "document.list",
@@ -3782,7 +3811,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "document.get_metadata",
@@ -3825,7 +3854,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "document.request_upload",
@@ -3869,7 +3898,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "document.finalize_upload",
@@ -3913,7 +3942,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "document.request_download",
@@ -3957,7 +3986,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "document.download",
@@ -4001,7 +4030,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "invoice.persist_private_pdf",
@@ -4045,7 +4074,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "invoice.private_pdf_reference",
@@ -4089,7 +4118,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "invoice.private_pdf",
@@ -4133,7 +4162,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "importjob.cancel",
@@ -4176,7 +4205,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "importjob.get",
@@ -4219,7 +4248,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "importjob.list",
@@ -4262,7 +4291,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "conversation.create_internal",
@@ -4306,7 +4335,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "message.add_internal_note",
@@ -4350,7 +4379,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "conversation.assign",
@@ -4393,7 +4422,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "conversation.link_customer",
@@ -4436,7 +4465,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "conversation.close",
@@ -4480,7 +4509,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "conversation.reopen",
@@ -4524,7 +4553,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "conversation.archive",
@@ -4568,7 +4597,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "conversation.restore",
@@ -4612,7 +4641,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "conversation.mark_read",
@@ -4656,7 +4685,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "conversation.mark_unread",
@@ -4700,7 +4729,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "inbox.list",
@@ -4744,7 +4773,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "inbox.get_thread",
@@ -4788,7 +4817,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "inbox.unread_summary",
@@ -4832,7 +4861,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "notification.refresh",
@@ -4876,7 +4905,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "notification.mark_read",
@@ -4920,7 +4949,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "notification.mark_all_read",
@@ -4964,7 +4993,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "notification.list",
@@ -5008,7 +5037,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "notification.unread_count",
@@ -5052,7 +5081,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "automation.create",
@@ -5095,7 +5124,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "automation.update",
@@ -5138,7 +5167,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "automation.enable",
@@ -5181,7 +5210,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "automation.disable",
@@ -5224,7 +5253,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "automation.process_pending",
@@ -5267,7 +5296,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "automation.list",
@@ -5310,7 +5339,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "automation.get",
@@ -5353,7 +5382,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "automation.run_history",
@@ -5396,7 +5425,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "settings.profile_update",
@@ -5441,7 +5470,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "settings.company_update",
@@ -5484,7 +5513,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "settings.profile_get",
@@ -5529,7 +5558,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "settings.company_get",
@@ -5574,7 +5603,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "settings.integrations",
@@ -5619,7 +5648,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "sensitive.get",
@@ -5663,7 +5692,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239",
       "field_role_matrix": {
         "contact": [
           "owner",
@@ -5713,7 +5742,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239",
       "review_pending": [
         "W4",
         "W2"
@@ -5756,7 +5785,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239",
       "review_pending": [
         "W4",
         "W2"
@@ -5799,7 +5828,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239",
       "review_pending": [
         "W4",
         "W2"
@@ -5847,7 +5876,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "document.cleanup_claim",
@@ -5891,7 +5920,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "document.cleanup_finish",
@@ -5935,7 +5964,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "document.expired_list",
@@ -5975,7 +6004,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239",
       "review_pending": [
         "W4",
         "W2"
@@ -6025,7 +6054,7 @@
       "ui_safe": false,
       "ai_registration": false,
       "sensitive_fields": [],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239",
       "backend_ready_for_w2": true,
       "version": "telecom.collections.v1",
       "input_type": "TelecomCollectionInputsV1['customer.list']",
@@ -6036,7 +6065,8 @@
         "member",
         "viewer"
       ],
-      "minimum_role": "viewer"
+      "minimum_role": "viewer",
+      "supabase_status": "PASS_AT_RECORDED_HEAD"
     },
     {
       "name": "contact.list",
@@ -6080,7 +6110,7 @@
       "ui_safe": false,
       "ai_registration": false,
       "sensitive_fields": [],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239",
       "backend_ready_for_w2": true,
       "version": "telecom.collections.v1",
       "input_type": "TelecomCollectionInputsV1['contact.list']",
@@ -6091,7 +6121,8 @@
         "member",
         "viewer"
       ],
-      "minimum_role": "viewer"
+      "minimum_role": "viewer",
+      "supabase_status": "PASS_AT_RECORDED_HEAD"
     },
     {
       "name": "opportunity.list",
@@ -6145,7 +6176,7 @@
       "ui_safe": false,
       "ai_registration": false,
       "sensitive_fields": [],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239",
       "backend_ready_for_w2": true,
       "version": "telecom.collections.v1",
       "input_type": "TelecomCollectionInputsV1['opportunity.list']",
@@ -6156,7 +6187,8 @@
         "member",
         "viewer"
       ],
-      "minimum_role": "viewer"
+      "minimum_role": "viewer",
+      "supabase_status": "PASS_AT_RECORDED_HEAD"
     },
     {
       "name": "activity.list",
@@ -6206,7 +6238,7 @@
       "ui_safe": false,
       "ai_registration": false,
       "sensitive_fields": [],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239",
       "backend_ready_for_w2": true,
       "version": "telecom.collections.v1",
       "input_type": "TelecomCollectionInputsV1['activity.list']",
@@ -6217,7 +6249,8 @@
         "member",
         "viewer"
       ],
-      "minimum_role": "viewer"
+      "minimum_role": "viewer",
+      "supabase_status": "PASS_AT_RECORDED_HEAD"
     },
     {
       "name": "assignee.list",
@@ -6254,7 +6287,7 @@
       "ui_safe": false,
       "ai_registration": false,
       "sensitive_fields": [],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239",
       "backend_ready_for_w2": true,
       "version": "telecom.collections.v1",
       "input_type": "TelecomCollectionInputsV1['assignee.list']",
@@ -6265,7 +6298,8 @@
         "member",
         "viewer"
       ],
-      "minimum_role": "viewer"
+      "minimum_role": "viewer",
+      "supabase_status": "PASS_AT_RECORDED_HEAD"
     },
     {
       "name": "operator.list",
@@ -6306,7 +6340,7 @@
       "ui_safe": false,
       "ai_registration": false,
       "sensitive_fields": [],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239",
       "backend_ready_for_w2": true,
       "version": "telecom.collections.v1",
       "input_type": "TelecomCollectionInputsV1['operator.list']",
@@ -6318,7 +6352,8 @@
         "viewer"
       ],
       "minimum_role": "viewer",
-      "candidate_dto_extension": "CAS version added in upcoming catalog candidate; new exact proof pending"
+      "candidate_dto_extension": "CAS version added in upcoming catalog candidate; new exact proof pending",
+      "supabase_status": "PASS_AT_RECORDED_HEAD"
     },
     {
       "name": "operator.get",
@@ -6355,7 +6390,7 @@
       "ui_safe": false,
       "ai_registration": false,
       "sensitive_fields": [],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239",
       "backend_ready_for_w2": true,
       "version": "telecom.collections.v1",
       "input_type": "TelecomCollectionInputsV1['operator.get']",
@@ -6367,7 +6402,8 @@
         "viewer"
       ],
       "minimum_role": "viewer",
-      "candidate_dto_extension": "CAS version added in upcoming catalog candidate; new exact proof pending"
+      "candidate_dto_extension": "CAS version added in upcoming catalog candidate; new exact proof pending",
+      "supabase_status": "PASS_AT_RECORDED_HEAD"
     },
     {
       "name": "plan.list",
@@ -6410,7 +6446,7 @@
       "ui_safe": false,
       "ai_registration": false,
       "sensitive_fields": [],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239",
       "backend_ready_for_w2": true,
       "version": "telecom.collections.v1",
       "input_type": "TelecomCollectionInputsV1['plan.list']",
@@ -6422,7 +6458,8 @@
         "viewer"
       ],
       "minimum_role": "viewer",
-      "candidate_dto_extension": "CAS version added in upcoming catalog candidate; new exact proof pending"
+      "candidate_dto_extension": "CAS version added in upcoming catalog candidate; new exact proof pending",
+      "supabase_status": "PASS_AT_RECORDED_HEAD"
     },
     {
       "name": "plan.get",
@@ -6460,7 +6497,7 @@
       "ui_safe": false,
       "ai_registration": false,
       "sensitive_fields": [],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239",
       "backend_ready_for_w2": true,
       "version": "telecom.collections.v1",
       "input_type": "TelecomCollectionInputsV1['plan.get']",
@@ -6472,7 +6509,8 @@
         "viewer"
       ],
       "minimum_role": "viewer",
-      "candidate_dto_extension": "CAS version added in upcoming catalog candidate; new exact proof pending"
+      "candidate_dto_extension": "CAS version added in upcoming catalog candidate; new exact proof pending",
+      "supabase_status": "PASS_AT_RECORDED_HEAD"
     },
     {
       "name": "plan_version.list",
@@ -6520,7 +6558,7 @@
       "ui_safe": false,
       "ai_registration": false,
       "sensitive_fields": [],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239",
       "backend_ready_for_w2": true,
       "version": "telecom.collections.v1",
       "input_type": "TelecomCollectionInputsV1['plan_version.list']",
@@ -6531,7 +6569,8 @@
         "member",
         "viewer"
       ],
-      "minimum_role": "viewer"
+      "minimum_role": "viewer",
+      "supabase_status": "PASS_AT_RECORDED_HEAD"
     },
     {
       "name": "plan_version.get",
@@ -6572,7 +6611,7 @@
       "ui_safe": false,
       "ai_registration": false,
       "sensitive_fields": [],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239",
       "backend_ready_for_w2": true,
       "version": "telecom.collections.v1",
       "input_type": "TelecomCollectionInputsV1['plan_version.get']",
@@ -6583,7 +6622,8 @@
         "member",
         "viewer"
       ],
-      "minimum_role": "viewer"
+      "minimum_role": "viewer",
+      "supabase_status": "PASS_AT_RECORDED_HEAD"
     },
     {
       "name": "contract.list",
@@ -6632,7 +6672,7 @@
       "ui_safe": false,
       "ai_registration": false,
       "sensitive_fields": [],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239",
       "backend_ready_for_w2": true,
       "version": "telecom.collections.v1",
       "input_type": "TelecomCollectionInputsV1['contract.list']",
@@ -6643,7 +6683,8 @@
         "member",
         "viewer"
       ],
-      "minimum_role": "viewer"
+      "minimum_role": "viewer",
+      "supabase_status": "PASS_AT_RECORDED_HEAD"
     },
     {
       "name": "service.list",
@@ -6695,7 +6736,7 @@
       "ui_safe": false,
       "ai_registration": false,
       "sensitive_fields": [],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239",
       "backend_ready_for_w2": true,
       "version": "telecom.collections.v1",
       "input_type": "TelecomCollectionInputsV1['service.list']",
@@ -6706,7 +6747,8 @@
         "member",
         "viewer"
       ],
-      "minimum_role": "viewer"
+      "minimum_role": "viewer",
+      "supabase_status": "PASS_AT_RECORDED_HEAD"
     },
     {
       "name": "line.list",
@@ -6757,7 +6799,7 @@
       "ui_safe": false,
       "ai_registration": false,
       "sensitive_fields": [],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239",
       "backend_ready_for_w2": true,
       "version": "telecom.collections.v1",
       "input_type": "TelecomCollectionInputsV1['line.list']",
@@ -6768,7 +6810,8 @@
         "member",
         "viewer"
       ],
-      "minimum_role": "viewer"
+      "minimum_role": "viewer",
+      "supabase_status": "PASS_AT_RECORDED_HEAD"
     },
     {
       "name": "renewal.list",
@@ -6818,7 +6861,7 @@
       "ui_safe": false,
       "ai_registration": false,
       "sensitive_fields": [],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239",
       "backend_ready_for_w2": true,
       "version": "telecom.collections.v1",
       "input_type": "TelecomCollectionInputsV1['renewal.list']",
@@ -6829,7 +6872,8 @@
         "member",
         "viewer"
       ],
-      "minimum_role": "viewer"
+      "minimum_role": "viewer",
+      "supabase_status": "PASS_AT_RECORDED_HEAD"
     },
     {
       "name": "renewal.get",
@@ -6871,7 +6915,7 @@
       "ui_safe": false,
       "ai_registration": false,
       "sensitive_fields": [],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239",
       "backend_ready_for_w2": true,
       "version": "telecom.collections.v1",
       "input_type": "TelecomCollectionInputsV1['renewal.get']",
@@ -6882,7 +6926,8 @@
         "member",
         "viewer"
       ],
-      "minimum_role": "viewer"
+      "minimum_role": "viewer",
+      "supabase_status": "PASS_AT_RECORDED_HEAD"
     },
     {
       "name": "permanence.list",
@@ -6933,7 +6978,7 @@
       "ui_safe": false,
       "ai_registration": false,
       "sensitive_fields": [],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239",
       "backend_ready_for_w2": true,
       "version": "telecom.collections.v1",
       "input_type": "TelecomCollectionInputsV1['permanence.list']",
@@ -6944,7 +6989,8 @@
         "member",
         "viewer"
       ],
-      "minimum_role": "viewer"
+      "minimum_role": "viewer",
+      "supabase_status": "PASS_AT_RECORDED_HEAD"
     },
     {
       "name": "permanence.get",
@@ -6987,7 +7033,7 @@
       "ui_safe": false,
       "ai_registration": false,
       "sensitive_fields": [],
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239",
       "backend_ready_for_w2": true,
       "version": "telecom.collections.v1",
       "input_type": "TelecomCollectionInputsV1['permanence.get']",
@@ -6998,7 +7044,8 @@
         "member",
         "viewer"
       ],
-      "minimum_role": "viewer"
+      "minimum_role": "viewer",
+      "supabase_status": "PASS_AT_RECORDED_HEAD"
     },
     {
       "name": "identifier.create_manual",
@@ -7016,7 +7063,7 @@
       "backend_status": "implemented_native_and_supabase_tested",
       "supabase_tested": true,
       "supabase_status": "PASS_AT_RECORDED_HEAD",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239",
       "ui_safe": false,
       "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
       "transport": {
@@ -7053,7 +7100,7 @@
       "backend_status": "implemented_native_and_supabase_tested",
       "supabase_tested": true,
       "supabase_status": "PASS_AT_RECORDED_HEAD",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239",
       "ui_safe": false,
       "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
       "transport": {
@@ -7091,7 +7138,7 @@
       "backend_status": "implemented_native_and_supabase_tested",
       "supabase_tested": true,
       "supabase_status": "PASS_AT_RECORDED_HEAD",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239",
       "ui_safe": false,
       "assistant_future": "SAFE_MASKED_READ_CANDIDATE_NOT_REGISTERED",
       "transport": {
@@ -7129,7 +7176,7 @@
       "backend_status": "implemented_native_and_supabase_tested",
       "supabase_tested": true,
       "supabase_status": "PASS_AT_RECORDED_HEAD",
-      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239",
       "ui_safe": false,
       "assistant_future": "SAFE_MASKED_READ_CANDIDATE_NOT_REGISTERED",
       "transport": {
@@ -7176,10 +7223,10 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_local_tested_real_native_supabase_pending",
-      "supabase_tested": false,
-      "supabase_status": "PENDING_EXACT_CANDIDATE",
-      "ui_safe": false,
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": true,
       "ai_registration": false,
       "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
       "transport": {
@@ -7189,7 +7236,8 @@
         "origin_flag": "PRODUCT_V1_ORIGIN",
         "enabled_by_default": false,
         "authority": "current_cookie_user_jwt_membership"
-      }
+      },
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "operator.update",
@@ -7218,10 +7266,10 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_local_tested_real_native_supabase_pending",
-      "supabase_tested": false,
-      "supabase_status": "PENDING_EXACT_CANDIDATE",
-      "ui_safe": false,
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": true,
       "ai_registration": false,
       "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
       "transport": {
@@ -7231,7 +7279,8 @@
         "origin_flag": "PRODUCT_V1_ORIGIN",
         "enabled_by_default": false,
         "authority": "current_cookie_user_jwt_membership"
-      }
+      },
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "operator.activate",
@@ -7259,10 +7308,10 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_local_tested_real_native_supabase_pending",
-      "supabase_tested": false,
-      "supabase_status": "PENDING_EXACT_CANDIDATE",
-      "ui_safe": false,
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": true,
       "ai_registration": false,
       "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
       "transport": {
@@ -7272,7 +7321,8 @@
         "origin_flag": "PRODUCT_V1_ORIGIN",
         "enabled_by_default": false,
         "authority": "current_cookie_user_jwt_membership"
-      }
+      },
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "operator.deactivate",
@@ -7300,10 +7350,10 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_local_tested_real_native_supabase_pending",
-      "supabase_tested": false,
-      "supabase_status": "PENDING_EXACT_CANDIDATE",
-      "ui_safe": false,
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": true,
       "ai_registration": false,
       "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
       "transport": {
@@ -7313,7 +7363,8 @@
         "origin_flag": "PRODUCT_V1_ORIGIN",
         "enabled_by_default": false,
         "authority": "current_cookie_user_jwt_membership"
-      }
+      },
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "plan.create",
@@ -7343,10 +7394,10 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_local_tested_real_native_supabase_pending",
-      "supabase_tested": false,
-      "supabase_status": "PENDING_EXACT_CANDIDATE",
-      "ui_safe": false,
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": true,
       "ai_registration": false,
       "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
       "transport": {
@@ -7356,7 +7407,8 @@
         "origin_flag": "PRODUCT_V1_ORIGIN",
         "enabled_by_default": false,
         "authority": "current_cookie_user_jwt_membership"
-      }
+      },
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "plan.update_metadata",
@@ -7385,10 +7437,10 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_local_tested_real_native_supabase_pending",
-      "supabase_tested": false,
-      "supabase_status": "PENDING_EXACT_CANDIDATE",
-      "ui_safe": false,
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": true,
       "ai_registration": false,
       "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
       "transport": {
@@ -7398,7 +7450,8 @@
         "origin_flag": "PRODUCT_V1_ORIGIN",
         "enabled_by_default": false,
         "authority": "current_cookie_user_jwt_membership"
-      }
+      },
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "plan.change_status",
@@ -7427,10 +7480,10 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_local_tested_real_native_supabase_pending",
-      "supabase_tested": false,
-      "supabase_status": "PENDING_EXACT_CANDIDATE",
-      "ui_safe": false,
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": true,
       "ai_registration": false,
       "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
       "transport": {
@@ -7440,7 +7493,8 @@
         "origin_flag": "PRODUCT_V1_ORIGIN",
         "enabled_by_default": false,
         "authority": "current_cookie_user_jwt_membership"
-      }
+      },
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "plan_version.create",
@@ -7476,10 +7530,10 @@
         "required": true,
         "key": "expected_version"
       },
-      "backend_status": "candidate_local_tested_real_native_supabase_pending",
-      "supabase_tested": false,
-      "supabase_status": "PENDING_EXACT_CANDIDATE",
-      "ui_safe": false,
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": true,
       "ai_registration": false,
       "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
       "transport": {
@@ -7489,7 +7543,8 @@
         "origin_flag": "PRODUCT_V1_ORIGIN",
         "enabled_by_default": false,
         "authority": "current_cookie_user_jwt_membership"
-      }
+      },
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
     },
     {
       "name": "plan_version.terms_get",
@@ -7517,10 +7572,10 @@
         "required": false,
         "key": null
       },
-      "backend_status": "candidate_local_tested_real_native_supabase_pending",
-      "supabase_tested": false,
-      "supabase_status": "PENDING_EXACT_CANDIDATE",
-      "ui_safe": false,
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": true,
       "ai_registration": false,
       "assistant_future": "SAFE_READ_CANDIDATE_NOT_REGISTERED",
       "transport": {
@@ -7530,6 +7585,329 @@
         "origin_flag": "PRODUCT_V1_ORIGIN",
         "enabled_by_default": false,
         "authority": "current_cookie_user_jwt_membership"
+      },
+      "supabase_tested_head": "461245637b2078a1151969d4f3c6662ad626a239"
+    },
+    {
+      "name": "portability.create",
+      "version": "portability.v1",
+      "kind": "write",
+      "rpc": "portability_v1_command",
+      "input_type": "PortabilityInputsV1['portability.create']",
+      "output_type": "PortabilityReceiptV1",
+      "input_fields": [
+        "command_id",
+        "line_id",
+        "number_identifier_id",
+        "direction",
+        "donor_operator_id",
+        "target_operator_id",
+        "requested_on",
+        "owner_user_id"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member"
+      ],
+      "minimum_role": "member",
+      "backend_status": "candidate_local_tested_exact_native_supabase_pending",
+      "supabase_tested": false,
+      "supabase_status": "PENDING_EXACT_SOURCE",
+      "ui_safe": false,
+      "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/portability/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      }
+    },
+    {
+      "name": "portability.update_draft",
+      "version": "portability.v1",
+      "kind": "write",
+      "rpc": "portability_v1_command",
+      "input_type": "PortabilityInputsV1['portability.update_draft']",
+      "output_type": "PortabilityReceiptV1",
+      "input_fields": [
+        "command_id",
+        "id",
+        "expected_version",
+        "donor_operator_id",
+        "target_operator_id",
+        "requested_on"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member"
+      ],
+      "minimum_role": "member",
+      "backend_status": "candidate_local_tested_exact_native_supabase_pending",
+      "supabase_tested": false,
+      "supabase_status": "PENDING_EXACT_SOURCE",
+      "ui_safe": false,
+      "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/portability/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      }
+    },
+    {
+      "name": "portability.assign",
+      "version": "portability.v1",
+      "kind": "write",
+      "rpc": "portability_v1_command",
+      "input_type": "PortabilityInputsV1['portability.assign']",
+      "output_type": "PortabilityReceiptV1",
+      "input_fields": [
+        "command_id",
+        "id",
+        "expected_version",
+        "owner_user_id"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member"
+      ],
+      "minimum_role": "member",
+      "backend_status": "candidate_local_tested_exact_native_supabase_pending",
+      "supabase_tested": false,
+      "supabase_status": "PENDING_EXACT_SOURCE",
+      "ui_safe": false,
+      "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/portability/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      }
+    },
+    {
+      "name": "portability.transition",
+      "version": "portability.v1",
+      "kind": "write",
+      "rpc": "portability_v1_command",
+      "input_type": "PortabilityInputsV1['portability.transition']",
+      "output_type": "PortabilityReceiptV1",
+      "input_fields": [
+        "command_id",
+        "id",
+        "expected_version",
+        "status",
+        "effective_on",
+        "reason_code",
+        "evidence_source"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member"
+      ],
+      "minimum_role": "member",
+      "backend_status": "candidate_local_tested_exact_native_supabase_pending",
+      "supabase_tested": false,
+      "supabase_status": "PENDING_EXACT_SOURCE",
+      "ui_safe": false,
+      "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/portability/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      }
+    },
+    {
+      "name": "portability.complete",
+      "version": "portability.v1",
+      "kind": "write",
+      "rpc": "portability_v1_command",
+      "input_type": "PortabilityInputsV1['portability.complete']",
+      "output_type": "PortabilityReceiptV1",
+      "input_fields": [
+        "command_id",
+        "id",
+        "expected_version",
+        "completed_on",
+        "evidence_source",
+        "provider_outcome",
+        "line_action",
+        "expected_line_version"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member"
+      ],
+      "minimum_role": "member",
+      "backend_status": "candidate_local_tested_exact_native_supabase_pending",
+      "supabase_tested": false,
+      "supabase_status": "PENDING_EXACT_SOURCE",
+      "ui_safe": false,
+      "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/portability/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      }
+    },
+    {
+      "name": "portability.list",
+      "version": "portability.v1",
+      "kind": "read",
+      "rpc": "portability_v1_query",
+      "input_type": "PortabilityInputsV1['portability.list']",
+      "output_type": "PortabilityPageV1",
+      "input_fields": [
+        "limit",
+        "after_id",
+        "customer_id",
+        "contract_id",
+        "service_id",
+        "line_id",
+        "owner_user_id",
+        "operator_id",
+        "status",
+        "source",
+        "direction",
+        "window_from",
+        "window_to"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "backend_status": "candidate_local_tested_exact_native_supabase_pending",
+      "supabase_tested": false,
+      "supabase_status": "PENDING_EXACT_SOURCE",
+      "ui_safe": false,
+      "assistant_future": "safe_read_candidate_not_registered",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/portability/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      }
+    },
+    {
+      "name": "portability.get",
+      "version": "portability.v1",
+      "kind": "read",
+      "rpc": "portability_v1_query",
+      "input_type": "PortabilityInputsV1['portability.get']",
+      "output_type": "PortabilityGetV1",
+      "input_fields": [
+        "id"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "backend_status": "candidate_local_tested_exact_native_supabase_pending",
+      "supabase_tested": false,
+      "supabase_status": "PENDING_EXACT_SOURCE",
+      "ui_safe": false,
+      "assistant_future": "safe_read_candidate_not_registered",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/portability/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
       }
     }
   ],

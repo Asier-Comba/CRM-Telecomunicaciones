@@ -175,3 +175,6 @@ TEL5 reader acceptance: all18 collection/catalog read candidates individually pr
 
 
 TEL5 protected identifier reads `identifier.list/get` now individually proven on `4b5520f3a7ec027d7473b333587268ead0bb16f1` (1679checks/native restore/private boundary). Explicit reveal remains human-only. New `plan_version.terms_get` is a safe read candidate for typed commercial facts, proof pending. Eight catalog management writes are FUTURE_AI_ACTION_CANDIDATE only; owner/admin human transport, no AI registration. Issue10 remains W3-owned.
+
+
+TEL5 portability candidate: `portability.list/get` are bounded safe read candidates with masked number only, tenant/current membership enforced. Exact source proof pending. No AI registration. Five new writes are `FUTURE_AI_ACTION_CANDIDATE`; manual provider confirmation cannot be fabricated by an assistant. Raw requested-field identifier reveal remains human only; Issue10 W3-owned.

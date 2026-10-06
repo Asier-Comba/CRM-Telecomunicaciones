@@ -168,6 +168,25 @@ try {
  assert.equal(await sql(`select count(*)from public.telecom_identifiers where workspace_id='${workspace}'and line_id='${protectedLine.id}'`),'2')
  assert.deepEqual(JSON.parse(await sql(protectedSQL)),protectedReceipt)
  console.log('PROTECTED IDENTIFIER NATIVE RACES PASS:20 identical create receipts/20 retire CAS one winner/20 distinct assignments one winner/history retained/revoked replay below')
+
+ const port=(op,input)=>`begin;set local role authenticated;set local request.jwt.claim.sub='${actor}';select public.portability_v1_command('${workspace}','${op}','${JSON.stringify(input)}'::jsonb);commit;`
+ const portLine=JSON.parse(await sql(portfolio('line.create_manual',{command_id:randomUUID(),service_id:service,display_name:'Native Synthetic Port Line'})))
+ const portNumber=JSON.parse(await sql(ident('identifier.create_manual',{command_id:randomUUID(),entity_kind:'line',entity_id:portLine.id,identifier_kind:'msisdn',canonical_value:'+12025550812'})))
+ const donor=JSON.parse(await sql(catalog('operator.create',{command_id:randomUUID(),code:'native_port_donor',display_name:'Native Synthetic Donor'})))
+ const portInput={command_id:randomUUID(),line_id:portLine.id,number_identifier_id:portNumber.id,direction:'inbound',donor_operator_id:donor.id,target_operator_id:operator,requested_on:'2026-02-01',owner_user_id:null}
+ const openRaces=await Promise.all(Array.from({length:20},()=>docker([...args,'--set=VERBOSITY=sqlstate'],port('portability.create',{...portInput,command_id:randomUUID()}))))
+ assert.equal(openRaces.filter(r=>r.code===0).length,1);assert.equal(openRaces.filter(r=>r.code!==0&&/40001/.test(r.err)).length,19)
+ const openReceipt=JSON.parse(openRaces.find(r=>r.code===0).out.trim())
+ const transitions=await Promise.all(Array.from({length:20},()=>docker([...args,'--set=VERBOSITY=sqlstate'],port('portability.transition',{command_id:randomUUID(),id:openReceipt.id,expected_version:1,status:'requested',effective_on:'2026-02-02',reason_code:null,evidence_source:'manual'}))))
+ assert.equal(transitions.filter(r=>r.code===0).length,1);assert.equal(transitions.filter(r=>r.code!==0&&/40001/.test(r.err)).length,19)
+ await sql(port('portability.transition',{command_id:randomUUID(),id:openReceipt.id,expected_version:2,status:'scheduled',effective_on:'2026-02-03',reason_code:null,evidence_source:'manual'}))
+ const completionSQL=port('portability.complete',{command_id:randomUUID(),id:openReceipt.id,expected_version:3,completed_on:'2026-02-04',evidence_source:'manual',provider_outcome:'confirmed_completed',line_action:'none',expected_line_version:null})
+ const completions=await Promise.all(Array.from({length:20},()=>docker(args,completionSQL)));assert.ok(completions.every(r=>r.code===0));const completionReceipt=JSON.parse(completions[0].out.trim());for(const r of completions)assert.deepEqual(JSON.parse(r.out.trim()),completionReceipt);familyReplays.push(completionSQL)
+ assert.equal(await sql(`select status from public.telecom_lines where id='${portLine.id}'`),'pending','no implicit provider provisioning')
+ const createSQL=port('portability.create',{...portInput,command_id:randomUUID(),requested_on:'2026-03-01'})
+ const createReplays=await Promise.all(Array.from({length:20},()=>docker(args,createSQL)));assert.ok(createReplays.every(r=>r.code===0));const createReceipt=JSON.parse(createReplays[0].out.trim());for(const r of createReplays)assert.deepEqual(JSON.parse(r.out.trim()),createReceipt);familyReplays.push(createSQL)
+ assert.equal(await sql(`select count(*)from public.telecom_portabilities where line_id='${portLine.id}'`),'2')
+ console.log('COMMERCIAL PORTABILITY NATIVE RACES PASS:20 open assignments one winner/20 transitions CAS one winner/20 completion replays/20 create replays/history preserved/no implicit line action/revoked replay below')
  // Independent parent closure vs child creation must never both commit.
  for(let i=0;i<5;i++){
   const parent=JSON.parse(await sql(portfolio('contract.create_manual',{command_id:randomUUID(),customer_id:id,operator_id:operator,start_date:'2026-01-01'})))

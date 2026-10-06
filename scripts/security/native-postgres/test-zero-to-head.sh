@@ -60,6 +60,7 @@ run_fixture supabase/tests/registered-automations.sql
 run_fixture supabase/tests/product-settings.sql
 run_fixture supabase/tests/requested-sensitive-reveal.sql
 run_fixture supabase/tests/immutable-commercial-catalog.sql
+run_fixture supabase/tests/commercial-portability-workflow.sql
 run_fixture supabase/tests/product-dashboard-search.sql
 # Density is rolled back so existing recovery sentinels remain exact.
 {
@@ -190,6 +191,7 @@ migration_head="$(basename "${migration}")"
   cat "$repo_root/supabase/tests/product-settings.sql"
   cat "$repo_root/supabase/tests/requested-sensitive-reveal.sql"
   cat "$repo_root/supabase/tests/immutable-commercial-catalog.sql"
+  cat "$repo_root/supabase/tests/commercial-portability-workflow.sql"
   cat "$repo_root/supabase/tests/team-expiry-manual-origin.sql"
   cat "$repo_root/supabase/tests/document-integrity-cleanup.sql"
   cat "$repo_root/supabase/tests/product-dashboard-search.sql"

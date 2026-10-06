@@ -1,3 +1,4 @@
+import {commercialPortabilityAcceptance}from './commercial-portability-acceptance.mjs'
 import {commercialCatalogAcceptance}from './commercial-catalog-acceptance.mjs'
 import {protectedIdentifierAcceptance}from './protected-identifier-acceptance.mjs'
 import {telecomCollectionAcceptance}from './telecom-collection-acceptance.mjs'
@@ -158,6 +159,7 @@ export async function acceptance({ url, anon, service, db, command, report, appU
   Object.assign(report,await telecomCollectionAcceptance({rpc,sql,check,http,users,wa,wb,url,anon,appUrl}))
   Object.assign(report,await protectedIdentifierAcceptance({rpc,sql,check,http,users,wa,wb,url,anon,appUrl}))
   Object.assign(report,await commercialCatalogAcceptance({rpc,sql,check,http,users,wa,url,anon,appUrl}))
+  Object.assign(report,await commercialPortabilityAcceptance({rpc,sql,check,http,users,wa,url,anon,appUrl}))
   const buckets = await http('/storage/v1/bucket', service)
   check(buckets.status === 200 && ['telecom-documents', 'telecom-import-quarantine'].every(id => buckets.json?.some(b => b.id === id && b.public === false)), 'private_buckets')
   const bytes = Buffer.from('Synthetic local acceptance text only. No customer document.\n')

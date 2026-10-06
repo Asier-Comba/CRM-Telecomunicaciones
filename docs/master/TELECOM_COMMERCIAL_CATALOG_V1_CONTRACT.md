@@ -1,4 +1,6 @@
-# Commercial catalog.v1 — human backend candidate
+# Commercial catalog.v1 — accepted human backend
+
+Accepted source `461245637b2078a1151969d4f3c6662ad626a239`: all9operations individually observed,1838real Supabase checks,57migrations/256functions/264Node tests; native fresh/restore/races and official browser boundary PASS. e7b33c3 failed application bundle filtering and was repaired by4612456. Quality audit remains6HIGH, unsuppressed. Evidence: W1_TEL5_CATALOG_ACCEPTANCE.json.
 
 POST `/api/catalog/v1`, real same-origin current-user cookie transport, `PRODUCT_V1_ENABLED`, canonical `PRODUCT_V1_ORIGIN`, no-store. Raw catalog tables remain closed. No AI write registration or provider calls.
 

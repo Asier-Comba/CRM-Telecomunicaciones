@@ -81,6 +81,7 @@ test('the known Supabase drift remains explicit', () => {
       'telecom_plan_version_publications',
       'telecom_plan_versions',
       'telecom_plans',
+      'telecom_portabilities',
       'telecom_renewals',
       'telecom_services',
       'workspace_company_profiles',

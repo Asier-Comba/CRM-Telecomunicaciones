@@ -890,6 +890,38 @@
       "authenticated": false
     },
     {
+      "signature": "public.portability_v1_command(uuid, text, jsonb)",
+      "definer": true,
+      "authenticated": true,
+      "anon": false,
+      "public": false,
+      "service_role": false
+    },
+    {
+      "signature": "public.portability_v1_guard_row()",
+      "definer": false,
+      "authenticated": false,
+      "anon": false,
+      "public": false,
+      "service_role": false
+    },
+    {
+      "signature": "public.portability_v1_query(uuid, text, jsonb)",
+      "definer": true,
+      "authenticated": true,
+      "anon": false,
+      "public": false,
+      "service_role": false
+    },
+    {
+      "signature": "public.portability_v1_validate(text, jsonb)",
+      "definer": false,
+      "authenticated": false,
+      "anon": false,
+      "public": false,
+      "service_role": false
+    },
+    {
       "anon": false,
       "public": false,
       "definer": true,
