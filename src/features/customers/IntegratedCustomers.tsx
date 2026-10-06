@@ -22,6 +22,6 @@ export function IntegratedCustomers({initialCreate=false}:{initialCreate?:boolea
     <p className="text-xs text-slate-500">Búsqueda autorizada: hasta cinco empresas por consulta. La cartera y los totales por empresa todavía no están integrados.</p>
     {error && <p role="alert" className="text-sm text-red-700">{error}</p>}
     <Customers rows={rows} onCreate={role && role !== 'viewer' ? ()=>setCreate(true) : undefined} />
-    {create && <CustomerEditor onClose={()=>setCreate(false)} onSaved={receipt=>router.push(`/clients/${receipt.id}`)} />}
+    {create && <CustomerEditor onClose={()=>setCreate(false)} onSaved={receipt=>{setCreate(false);router.push(`/clients/${receipt.id}`)}} />}
   </div>
 }

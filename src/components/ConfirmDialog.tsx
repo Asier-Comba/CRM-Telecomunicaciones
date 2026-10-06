@@ -65,7 +65,7 @@ export function ConfirmDialog({
           <div className="min-w-0 flex-1">
             <h2 className="text-sm font-semibold text-gray-950">{title}</h2>
             <p className="mt-1 text-sm leading-6 text-gray-500">{description}</p>
-            {error && <p className="mt-2 text-xs font-medium text-red-600">{error}</p>}
+            {error && <p role="alert" className="mt-2 text-xs font-medium text-red-600">{error}</p>}
           </div>
           <button
             type="button"

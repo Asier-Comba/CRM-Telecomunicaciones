@@ -1,3 +1,6 @@
+import type {TelecomCollectionOperationV1,TelecomCollectionInputsV1,TelecomCollectionPageV1,TelecomCollectionGetV1} from '@/lib/contracts/telecom-collections-v1'
+import {parseTelecomCollectionInputV1,parseTelecomCollectionResultV1} from '../../../lib/server/telecom-collection-runtime-v1.ts'
+export type CollectionResult<O extends TelecomCollectionOperationV1> = O extends `${string}.get` ? TelecomCollectionGetV1<O> : TelecomCollectionPageV1<O>
 import type {SettingsOperationV1,SettingsInputV1,ProductPreferencesV1,CompanyProfileV1} from '@/lib/contracts/settings-v1'
 import {parseSettingsInputV1,parseSettingsReceiptV1,parseSettingsReadV1} from '../../../lib/server/settings-runtime-v1.ts'
 import type {SensitiveInputV1,SensitiveResultV1} from '@/lib/contracts/sensitive-v1'
@@ -63,6 +66,7 @@ export function safeMessage(error: unknown) {
   return errorText[error instanceof ProductUiError ? error.code : 'internal_safe']
 }
 export interface ProductRepository {
+  collection<O extends TelecomCollectionOperationV1>(operation:O,input:TelecomCollectionInputsV1[O]):Promise<CollectionResult<O>>
   settings<O extends SettingsRead['operation']>(operation:O):Promise<Extract<SettingsRead,{operation:O}>>
   settingsCommand(operation:SettingsOperationV1,input:SettingsInputV1):Promise<SettingsReceipt>
   sensitive(input:SensitiveInputV1):Promise<SensitiveResultV1>
@@ -122,6 +126,11 @@ export class IntegratedLocalProductRepository implements ProductRepository {
   readonly mode = 'integrated_local' as const
   private readonly request: typeof fetch
   constructor(request: typeof fetch = fetch) { this.request = request.bind(globalThis) }
+  collection<O extends TelecomCollectionOperationV1>(operation:O,value:TelecomCollectionInputsV1[O]):Promise<CollectionResult<O>> {
+    const input=parseTelecomCollectionInputV1(operation,value)
+    if(!input)return Promise.reject(new ProductUiError('validation'))
+    return this.post('queries',operation,input,v=>parseTelecomCollectionResultV1(operation,input,v) as CollectionResult<O>|null)
+  }
   settings<O extends SettingsRead['operation']>(operation:O){return this.post('queries',operation,{},v=>parseSettingsReadV1(operation,v) as Extract<SettingsRead,{operation:O}>|null,'settings','/api/settings/v1')}
   settingsCommand(operation:SettingsOperationV1,value:SettingsInputV1){const input=parseSettingsInputV1(operation,value);if(!input)return Promise.reject(new ProductUiError('validation'));return this.post('commands',operation,input,v=>parseSettingsReceiptV1(operation,input,v) as SettingsReceipt|null,'settings','/api/settings/v1')}
   sensitive(value:SensitiveInputV1){const input=parseSensitiveInputV1(value);if(!input)return Promise.reject(new ProductUiError('validation'));return this.post('queries','sensitive.get',input,v=>parseSensitiveResultV1(input,v),'sensitive','/api/sensitive/v1')}
@@ -226,6 +235,7 @@ export class IntegratedLocalProductRepository implements ProductRepository {
 }
 /** Preview never impersonates a successful persistent write. */
 export class SyntheticProductRepository implements ProductRepository {
+  collection<O extends TelecomCollectionOperationV1>(_operation:O,_input:TelecomCollectionInputsV1[O]):Promise<CollectionResult<O>> { void _operation;void _input;return this.unavailable<CollectionResult<O>>() }
   readonly mode = 'synthetic' as const
   private unavailable<T>(): Promise<T> { return Promise.reject(new ProductUiError('unavailable')) }
   settings<O extends SettingsRead['operation']>(_operation:O){void _operation;return this.unavailable<Extract<SettingsRead,{operation:O}>>()}
@@ -276,4 +286,18 @@ export class SyntheticProductRepository implements ProductRepository {
 export function commandIntent<O extends ProductOperationV1>(operation: O, fields: Omit<ProductCommandInputsV1[O], 'command_id'>) {
   const input = Object.freeze({ ...fields, command_id: crypto.randomUUID() }) as ProductCommandInputsV1[O]
   return { input, execute: (repository: ProductRepository) => repository.command(operation, input) }
+}
+/** A confirmed write is never repeated merely because the subsequent read failed. */
+export function customerSaveIntent<O extends 'customer.create'|'customer.update'>(operation:O,fields:Omit<ProductCommandInputsV1[O],'command_id'>) {
+  const action=commandIntent(operation,fields)
+  let receipt:ProductReceiptV1|null=null
+  return {
+    get confirmed(){return receipt!==null},
+    async execute(repository:ProductRepository){
+      receipt??=await action.execute(repository)
+      const fresh=await repository.customer(receipt.id)
+      if(fresh.id!==receipt.id||fresh.version<receipt.version)throw new ProductUiError('internal_safe')
+      return receipt
+    },
+  }
 }
