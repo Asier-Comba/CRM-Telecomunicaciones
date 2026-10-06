@@ -141,6 +141,7 @@ jobs:
         run: |
           npm run test:db:onboarding
           npm run test:db:domain
+          npm run test:db:assistant
 
   native-postgres:
     name: Native PostgreSQL zero-to-head and synthetic restore
