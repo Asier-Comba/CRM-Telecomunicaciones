@@ -11,3 +11,8 @@ Billing: `prepareInvoiceProposalV2` returns review/clarify/forbidden/unavailable
 Machine inventory: docs/master/ai/W3_AI_CAPABILITY_REGISTRY_V2.json pins220 W1 operations at182283f; only30 have current minimized local read schemas. Others use false schemas and disabled gates. W2 current base consumed8c93d4c, so latest equipment/location families are not silently available.
 
 Do not change raw CRM schema or W1 migrations for this handoff. Assistant-only threads/durable implementation is next W3 checkpoint; backend commands/domain services remain your authority. Issue10 stays OPEN; confirm/draft execution remains blocked pending native and W4 proof.
+# Checkpoint C — application conversations / streaming
+
+Stable candidate contract: `docs/master/ai/W3_CONVERSATIONS_UI_CONTRACT_V2.md`; policy: `docs/master/ai/AI_PRODUCT_POLICY_V2.md`. Draft PR31. New current-cookie thread lifecycle and read-turn SSE routes remain behind all synthetic loopback flags plus AI_PRODUCT_V2_ENABLED. Thread UUID is history identity, never CRM authority. Historical message pages are marked historical:true and currently store generic answer text; factual tables remain ephemeral validated reads. No persisted selected context yet. UIv1 unchanged.
+
+Forward assistant-only SQL, RLS/ownership/atomic lifecycle and native CI fixture are versioned.812 unit tests plus embedded DB fixture/types/lint/build PASS locally. Native C CI pending; no business durability acceptance. Issue10 stays open; no action, sends or production enablement. Live16-case planner command reports NOT_RUN when provider is absent. W4 review requested for these new candidates.
