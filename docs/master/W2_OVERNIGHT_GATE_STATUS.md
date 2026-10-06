@@ -13,3 +13,7 @@ Merge CI: lint/types/287 Node/build, native PostgreSQL, PGlite, migration guard,
 Local correction: 293 Node tests PASS; types/lint/build checked before publication. One inherited lint warning remains. Exact CI/Supabase for the correction must pass before major UI expansion. No production deployment, main merge, live provider call or W3 assistant write is included.
 
 NEXT: publish the correction and run exact consumer acceptance; once green apart from Issue29, integrate customer collections, ordinary assignees, Customer360 inventories, catalog/version history, portfolio, opportunities and activity. Keep each completion claim tied to actual browser, mobile and visual evidence.
+
+## Follow-up exact evidence
+
+Correction source b333b03741e8c7d30395354abbc8e1c95ff27e41, Supabase run37435781710: all68 groups executed,66PASS/2FAIL,teardownPASS. Both cleanup and invitation exact retries now PASS. Customer fresh-read/save flow PASS. The two remaining private-download denial checks encounter duplicate accessible alerts in the page and its active confirmation dialog. The follow-up suppresses the background duplicate while the dialog owns the error; it retains the denial and exact retry behavior. Exact acceptance remains required. The integration manifest now contains only18 product component mappings and references earlier detailed reviews in Git; the minimal version was accepted for publication.
