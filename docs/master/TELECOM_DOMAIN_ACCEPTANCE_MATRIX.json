@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "source_sha": "FINAL7_PROVIDER_REQUIREMENTS_AND_COMPATIBLE_DEPENDENCY_PATCH_CANDIDATE",
+  "source_sha": "normalized_service_locations_candidate_after_d8b0dd15a7c9f926fdcc52462858c30ff5cac35e",
   "stage": "FINAL7_INTERNAL_CLOSURE_IN_PROGRESS",
   "exact_head_accepted": true,
   "no_ai_writes": true,
@@ -265,9 +265,9 @@
       "IMPLEMENTED": true,
       "PROVEN": false,
       "W2_CONSUMED": false,
-      "BLOCKER": "INTERNAL_NORMALIZED_LOCATION_PENDING",
+      "BLOCKER": "EXACT_NORMALIZED_LOCATION_ACCEPTANCE_PENDING",
       "existing_operation": "service.installation_set / service.installation_get",
-      "notes": "788d124 proves planning contact/site/target and actual activation separation; frozen plan access/speeds and protected circuit supported. Normalized service address/location remains pending."
+      "notes": "Normalized immutable customer-bound private address, explicit requested-field reveal, safe location reference and append-only assignment history implemented; precise exact-head proof pending."
     },
     {
       "section": "Lines",
@@ -1081,8 +1081,8 @@
     "BLOCKER": 97
   },
   "official_workflow_fully_green": false,
-  "accepted_source_sha": "788d124f133678f6fd0c29619fa99aa99fe2409f",
-  "candidate_operations_total": 208,
+  "accepted_source_sha": "d8b0dd15a7c9f926fdcc52462858c30ff5cac35e",
+  "candidate_operations_total": 212,
   "candidate_operations_proven": 208,
   "candidate_exact_head_accepted": false
 }

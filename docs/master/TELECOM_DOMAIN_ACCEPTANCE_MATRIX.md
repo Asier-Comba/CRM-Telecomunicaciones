@@ -2,7 +2,7 @@
 
 Generated from JSON with scripts/domain/validate-telecom-matrix.mjs --write.
 
-Source: `FINAL7_PROVIDER_REQUIREMENTS_AND_COMPATIBLE_DEPENDENCY_PATCH_CANDIDATE`. Accepted functional source: `788d124f133678f6fd0c29619fa99aa99fe2409f`. W2 consumption is independent of backend acceptance. Overall CI remains blocked by dependency audit.
+Source: `normalized_service_locations_candidate_after_d8b0dd15a7c9f926fdcc52462858c30ff5cac35e`. Accepted functional source: `d8b0dd15a7c9f926fdcc52462858c30ff5cac35e`. W2 consumption is independent of backend acceptance. Overall CI remains blocked by dependency audit.
 
 | Section | Requirement | REQUIRED | IMPLEMENTED | PROVEN | W2_CONSUMED | BLOCKER |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -29,7 +29,7 @@ Source: `FINAL7_PROVIDER_REQUIREMENTS_AND_COMPATIBLE_DEPENDENCY_PATCH_CANDIDATE`
 | Services | service.list | YES | YES | YES | NO | W2_consumption_unproven |
 | Services | service.create_manual | YES | YES | YES | NO | W2_consumption_unproven |
 | Services | service.update_label | YES | YES | YES | NO | W2_consumption_unproven |
-| Services | fixed service operational facts | YES | YES | NO | NO | INTERNAL_NORMALIZED_LOCATION_PENDING |
+| Services | fixed service operational facts | YES | YES | NO | NO | EXACT_NORMALIZED_LOCATION_ACCEPTANCE_PENDING |
 | Lines | line.list | YES | YES | YES | NO | W2_consumption_unproven |
 | Lines | line.create_manual | YES | YES | YES | NO | W2_consumption_unproven |
 | Lines | line.update_label | YES | YES | YES | NO | W2_consumption_unproven |

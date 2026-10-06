@@ -86,6 +86,8 @@ test('the known Supabase drift remains explicit', () => {
       'telecom_renewals',
       'telecom_service_addon_assignments',
       'telecom_service_installations',
+      'telecom_service_location_assignments',
+      'telecom_service_locations',
       'telecom_services',
       'telecom_sim_associations',
       'telecom_sims',

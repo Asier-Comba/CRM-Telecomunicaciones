@@ -1,21 +1,21 @@
 {
   "catalog_version": "product.capabilities.v1",
   "as_of": "2026-10-06",
-  "implementation_head": "788d124f133678f6fd0c29619fa99aa99fe2409f",
+  "implementation_head": "d8b0dd15a7c9f926fdcc52462858c30ff5cac35e",
   "evidence": {
     "native": {
-      "run_id": 37497606418,
+      "run_id": 37498739450,
       "status": "PASS",
       "migration_count": 67,
       "function_count": 279,
-      "tested_head": "788d124f133678f6fd0c29619fa99aa99fe2409f",
-      "tested_checkout": "2472482d5e9ac2e8c6aa1fb9772cf0f2b8c23275",
-      "tested_tree": "d8881bebff531463647fc4fdfaeb6c901e8320fb",
+      "tested_head": "d8b0dd15a7c9f926fdcc52462858c30ff5cac35e",
+      "tested_checkout": "bdef86ae471046731be6b238d50f31e3abbd570b",
+      "tested_tree": "4abcc3fa7ad95b0412b2df4c96d2159822e78b62",
       "fresh": "PASS",
       "logical_synthetic_restore": "PASS",
       "privileges_roles_acl_loss_negative_control": "PASS",
       "production_backup": false,
-      "job_id": 112386061463,
+      "job_id": 112389940525,
       "tree_comparison_method": "GitHub compare:zero changed files"
     },
     "actual_supabase": {
@@ -27,14 +27,14 @@
       "rpc": "PASS",
       "storage": "PASS",
       "cli": "2.119.0",
-      "sha": "2472482d5e9ac2e8c6aa1fb9772cf0f2b8c23275",
+      "sha": "bdef86ae471046731be6b238d50f31e3abbd570b",
       "config_sha256": "3fc22bba97e5114a7ee67cc90e514b8ec16eda0cb2c5817cf87784e8e4ab6e57",
       "migration_head": "20261006153000_service_installation_and_addon_history.sql",
       "migration_count": 67,
       "service_images": [
-        "ghcr.io/supabase/postgres:15.19.0.002",
         "public.ecr.aws/supabase/gotrue:v2.197.0",
         "public.ecr.aws/supabase/kong:2.8.1",
+        "public.ecr.aws/supabase/postgres:15.19.0.002",
         "public.ecr.aws/supabase/postgrest:v16.4",
         "public.ecr.aws/supabase/storage-api:v1.79.28"
       ],
@@ -427,7 +427,7 @@
       "commercial_terms": "PASS_REGISTERED_TYPED_FROZEN_VERSION_FEATURES",
       "commercial_bundles": "PASS_IMMUTABLE_BASE_AND_REGISTERED_ADDON_COMPONENTS",
       "commercial_version_concurrency": "PASS_ONE_WINNER",
-      "commercial_service_addon_assignments": "NOT_IMPLEMENTED_SEPARATE_HISTORY_REQUIRED",
+      "commercial_service_addon_assignments": "PASS_FROZEN_SERVICE_ASSIGNMENT_HISTORY",
       "commercial_legacy_plan_origin": "UNKNOWN_LEGACY_READ_ONLY_NO_RELABEL",
       "commercial_portability_operations_individually_observed": [
         "portability.create",
@@ -617,16 +617,16 @@
       "teardown": "PASS"
     },
     "quality": {
-      "tests": 314,
-      "node_tests": 314,
+      "tests": 317,
+      "node_tests": 317,
       "lint": "PASS",
       "types": "PASS",
       "build": "PASS",
-      "audit": "FAIL_UNSUPPRESSED_7_HIGH; Issue29 chain/source-map-js/new sharp",
+      "audit": "FAIL_UNSUPPRESSED_5_HIGH_ISSUE29_CHAIN;sharp/source-map-js patches accepted",
       "overall_ci": "FAIL_AUDIT;OFFICIAL_BROWSER_PASS",
-      "tested_head": "788d124f133678f6fd0c29619fa99aa99fe2409f",
-      "run_id": 37497606418,
-      "job_id": 112386061018,
+      "tested_head": "d8b0dd15a7c9f926fdcc52462858c30ff5cac35e",
+      "run_id": 37498739450,
+      "job_id": 112389940456,
       "critical_playwright": "SKIPPED",
       "dependency_review": "SKIPPED",
       "workflow_fully_green": false
@@ -9876,6 +9876,185 @@
       },
       "provider_effects": false,
       "supabase_tested_head": "788d124f133678f6fd0c29619fa99aa99fe2409f"
+    },
+    {
+      "name": "service_location.create",
+      "version": "service_location.v1",
+      "kind": "write",
+      "rpc": "service_location_v1_command",
+      "input_type": "ServiceLocationInputsV1['service_location.create']",
+      "output_type": "ServiceLocationReceiptV1",
+      "input_fields": [
+        "command_id",
+        "customer_id",
+        "label",
+        "address_line1",
+        "address_line2",
+        "postal_code",
+        "city",
+        "region",
+        "country"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member"
+      ],
+      "minimum_role": "member",
+      "backend_status": "implemented_candidate_exact_acceptance_pending",
+      "supabase_tested": false,
+      "supabase_status": "PENDING",
+      "ui_safe": false,
+      "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/telecom/locations/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace+actor+command"
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      }
+    },
+    {
+      "name": "service_location.assign",
+      "version": "service_location.v1",
+      "kind": "write",
+      "rpc": "service_location_v1_command",
+      "input_type": "ServiceLocationInputsV1['service_location.assign']",
+      "output_type": "ServiceLocationReceiptV1",
+      "input_fields": [
+        "command_id",
+        "service_id",
+        "location_id",
+        "expected_service_version",
+        "expected_details_version"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member"
+      ],
+      "minimum_role": "member",
+      "backend_status": "implemented_candidate_exact_acceptance_pending",
+      "supabase_tested": false,
+      "supabase_status": "PENDING",
+      "ui_safe": false,
+      "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/telecom/locations/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace+actor+command"
+      },
+      "cas": {
+        "required": true,
+        "key": [
+          "expected_service_version",
+          "expected_details_version"
+        ]
+      }
+    },
+    {
+      "name": "service_location.get",
+      "version": "service_location.v1",
+      "kind": "read",
+      "rpc": "service_location_v1_query",
+      "input_type": "ServiceLocationInputsV1['service_location.get']",
+      "output_type": "ServiceLocationReadV1",
+      "input_fields": [
+        "id"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "backend_status": "implemented_candidate_exact_acceptance_pending",
+      "supabase_tested": false,
+      "supabase_status": "PENDING",
+      "ui_safe": false,
+      "assistant_future": "safe_read_candidate_not_registered",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/telecom/locations/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      }
+    },
+    {
+      "name": "service_location.list",
+      "version": "service_location.v1",
+      "kind": "read",
+      "rpc": "service_location_v1_query",
+      "input_type": "ServiceLocationInputsV1['service_location.list']",
+      "output_type": "ServiceLocationReadV1",
+      "input_fields": [
+        "customer_id",
+        "limit",
+        "after_id"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "backend_status": "implemented_candidate_exact_acceptance_pending",
+      "supabase_tested": false,
+      "supabase_status": "PENDING",
+      "ui_safe": false,
+      "assistant_future": "safe_read_candidate_not_registered",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/telecom/locations/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      }
     }
   ],
   "unavailable_modules": [
@@ -9885,13 +10064,13 @@
     "portfolio_legacy_origin_verification"
   ],
   "registration": "Human contracts only; no new AI tools/writes registered; exact accepted source4b5520f,9catalog candidates pending.",
-  "candidate_after_head": null,
-  "operations_total": 208,
+  "candidate_after_head": "normalized_service_locations_after_d8b0dd15a7c9f926fdcc52462858c30ff5cac35e",
+  "operations_total": 212,
   "operations_proven": 208,
   "candidate_dependency_patches": {
     "sharp": "0.35.5",
     "source-map-js": "1.2.2",
     "local_audit_high": 5,
-    "exact_head_proof": "PENDING"
+    "exact_head_proof": "PASS_D8B0DD1_3064_CHECKS"
   }
 }

@@ -96,6 +96,7 @@ try {
   console.log('TEL5 CUSTOMER360 FULL TASK MEETING COLLECTIONS/UNDATED/HISTORY/KEYSET/VIEWER/REVOCATION PASS')
 
   await db.exec(richSeed.replace(/commit;\s*$/i, '') + await readFile(resolve(root,'supabase/tests/service-installation-addon-history.sql'),'utf8'))
+  await db.exec(richSeed.replace(/commit;\s*$/i, '') + await readFile(resolve(root,'supabase/tests/normalized-service-locations.sql'),'utf8'))
   console.log('TEL5 SERVICE INSTALLATION ADDON HISTORY/CAS/EXACT REPLAY/ANCESTRY/SOURCE/VIEWER/REVOCATION PASS')
 
   await db.exec(await readFile(resolve(root,'supabase/tests/billing-exact-issue.sql'),'utf8'))
