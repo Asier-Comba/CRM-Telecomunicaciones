@@ -227,7 +227,8 @@ export const TELECOM_COLLECTION_SPECS_V1 = {
         "manual",
         "import",
         "integration"
-      ]
+      ],
+      "version": "positive"
     },
     "filters": [
       "limit",
@@ -261,7 +262,8 @@ export const TELECOM_COLLECTION_SPECS_V1 = {
         "manual",
         "import",
         "integration"
-      ]
+      ],
+      "version": "positive"
     },
     "filters": [
       "id"
@@ -284,7 +286,8 @@ export const TELECOM_COLLECTION_SPECS_V1 = {
       "status": [
         "active",
         "retired"
-      ]
+      ],
+      "version": "positive"
     },
     "filters": [
       "limit",
@@ -324,7 +327,8 @@ export const TELECOM_COLLECTION_SPECS_V1 = {
       "status": [
         "active",
         "retired"
-      ]
+      ],
+      "version": "positive"
     },
     "filters": [
       "id"

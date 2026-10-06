@@ -1,0 +1,395 @@
+{
+  "catalog_version": "catalog.v1",
+  "operations": [
+    {
+      "name": "operator.create",
+      "kind": "write",
+      "version": "catalog.v1",
+      "rpc": "catalog_v1_command",
+      "input_type": "CatalogInputMapV1['operator.create']",
+      "output_type": "CatalogReceiptV1",
+      "input_fields": [
+        "command_id",
+        "code",
+        "display_name"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "minimum_role": "admin",
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "backend_status": "candidate_local_tested_real_native_supabase_pending",
+      "supabase_tested": false,
+      "supabase_status": "PENDING_EXACT_CANDIDATE",
+      "ui_safe": false,
+      "ai_registration": false,
+      "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
+      "transport": {
+        "method": "POST",
+        "path": "/api/catalog/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      }
+    },
+    {
+      "name": "operator.update",
+      "kind": "write",
+      "version": "catalog.v1",
+      "rpc": "catalog_v1_command",
+      "input_type": "CatalogInputMapV1['operator.update']",
+      "output_type": "CatalogReceiptV1",
+      "input_fields": [
+        "command_id",
+        "id",
+        "expected_version",
+        "display_name"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "minimum_role": "admin",
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      },
+      "backend_status": "candidate_local_tested_real_native_supabase_pending",
+      "supabase_tested": false,
+      "supabase_status": "PENDING_EXACT_CANDIDATE",
+      "ui_safe": false,
+      "ai_registration": false,
+      "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
+      "transport": {
+        "method": "POST",
+        "path": "/api/catalog/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      }
+    },
+    {
+      "name": "operator.activate",
+      "kind": "write",
+      "version": "catalog.v1",
+      "rpc": "catalog_v1_command",
+      "input_type": "CatalogInputMapV1['operator.activate']",
+      "output_type": "CatalogReceiptV1",
+      "input_fields": [
+        "command_id",
+        "id",
+        "expected_version"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "minimum_role": "admin",
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      },
+      "backend_status": "candidate_local_tested_real_native_supabase_pending",
+      "supabase_tested": false,
+      "supabase_status": "PENDING_EXACT_CANDIDATE",
+      "ui_safe": false,
+      "ai_registration": false,
+      "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
+      "transport": {
+        "method": "POST",
+        "path": "/api/catalog/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      }
+    },
+    {
+      "name": "operator.deactivate",
+      "kind": "write",
+      "version": "catalog.v1",
+      "rpc": "catalog_v1_command",
+      "input_type": "CatalogInputMapV1['operator.deactivate']",
+      "output_type": "CatalogReceiptV1",
+      "input_fields": [
+        "command_id",
+        "id",
+        "expected_version"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "minimum_role": "admin",
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      },
+      "backend_status": "candidate_local_tested_real_native_supabase_pending",
+      "supabase_tested": false,
+      "supabase_status": "PENDING_EXACT_CANDIDATE",
+      "ui_safe": false,
+      "ai_registration": false,
+      "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
+      "transport": {
+        "method": "POST",
+        "path": "/api/catalog/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      }
+    },
+    {
+      "name": "plan.create",
+      "kind": "write",
+      "version": "catalog.v1",
+      "rpc": "catalog_v1_command",
+      "input_type": "CatalogInputMapV1['plan.create']",
+      "output_type": "CatalogReceiptV1",
+      "input_fields": [
+        "command_id",
+        "operator_id",
+        "code",
+        "display_name",
+        "service_kind"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "minimum_role": "admin",
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "backend_status": "candidate_local_tested_real_native_supabase_pending",
+      "supabase_tested": false,
+      "supabase_status": "PENDING_EXACT_CANDIDATE",
+      "ui_safe": false,
+      "ai_registration": false,
+      "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
+      "transport": {
+        "method": "POST",
+        "path": "/api/catalog/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      }
+    },
+    {
+      "name": "plan.update_metadata",
+      "kind": "write",
+      "version": "catalog.v1",
+      "rpc": "catalog_v1_command",
+      "input_type": "CatalogInputMapV1['plan.update_metadata']",
+      "output_type": "CatalogReceiptV1",
+      "input_fields": [
+        "command_id",
+        "id",
+        "expected_version",
+        "display_name"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "minimum_role": "admin",
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      },
+      "backend_status": "candidate_local_tested_real_native_supabase_pending",
+      "supabase_tested": false,
+      "supabase_status": "PENDING_EXACT_CANDIDATE",
+      "ui_safe": false,
+      "ai_registration": false,
+      "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
+      "transport": {
+        "method": "POST",
+        "path": "/api/catalog/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      }
+    },
+    {
+      "name": "plan.change_status",
+      "kind": "write",
+      "version": "catalog.v1",
+      "rpc": "catalog_v1_command",
+      "input_type": "CatalogInputMapV1['plan.change_status']",
+      "output_type": "CatalogReceiptV1",
+      "input_fields": [
+        "command_id",
+        "id",
+        "expected_version",
+        "status"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "minimum_role": "admin",
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      },
+      "backend_status": "candidate_local_tested_real_native_supabase_pending",
+      "supabase_tested": false,
+      "supabase_status": "PENDING_EXACT_CANDIDATE",
+      "ui_safe": false,
+      "ai_registration": false,
+      "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
+      "transport": {
+        "method": "POST",
+        "path": "/api/catalog/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      }
+    },
+    {
+      "name": "plan_version.create",
+      "kind": "write",
+      "version": "catalog.v1",
+      "rpc": "catalog_v1_command",
+      "input_type": "CatalogInputMapV1['plan_version.create']",
+      "output_type": "CatalogReceiptV1",
+      "input_fields": [
+        "command_id",
+        "plan_id",
+        "expected_version",
+        "valid_from",
+        "valid_until",
+        "currency",
+        "recurring_amount_minor",
+        "one_time_amount_minor",
+        "is_bundle",
+        "components",
+        "entitlements"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "minimum_role": "admin",
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      },
+      "backend_status": "candidate_local_tested_real_native_supabase_pending",
+      "supabase_tested": false,
+      "supabase_status": "PENDING_EXACT_CANDIDATE",
+      "ui_safe": false,
+      "ai_registration": false,
+      "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
+      "transport": {
+        "method": "POST",
+        "path": "/api/catalog/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      }
+    },
+    {
+      "name": "plan_version.terms_get",
+      "kind": "read",
+      "version": "catalog.v1",
+      "rpc": "catalog_v1_terms_get",
+      "input_type": "CatalogInputMapV1['plan_version.terms_get']",
+      "output_type": "CatalogTermsV1",
+      "input_fields": [
+        "id"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "backend_status": "candidate_local_tested_real_native_supabase_pending",
+      "supabase_tested": false,
+      "supabase_status": "PENDING_EXACT_CANDIDATE",
+      "ui_safe": false,
+      "ai_registration": false,
+      "assistant_future": "SAFE_READ_CANDIDATE_NOT_REGISTERED",
+      "transport": {
+        "method": "POST",
+        "path": "/api/catalog/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      }
+    }
+  ],
+  "operations_total": 9,
+  "operations_proven": 0,
+  "production": false,
+  "limitations": [
+    "Non-overlapping immutable validity windows; no supersession of open-ended versions",
+    "Legacy unknown plan origin remains read-only",
+    "Separate service add-on assignments/history not implemented"
+  ]
+}

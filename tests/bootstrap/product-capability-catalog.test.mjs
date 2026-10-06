@@ -1,3 +1,6 @@
+import {IDENTIFIER_RPC_V1}from '../../src/lib/server/identifiers-runtime-v1.ts'
+import {CATALOG_RPC_V1}from '../../src/lib/server/catalog-runtime-v1.ts'
+import {TELECOM_COLLECTION_SPECS_V1}from '../../src/lib/server/telecom-collection-specs-v1.ts'
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import {readFileSync} from 'node:fs'
@@ -40,6 +43,9 @@ test('capability catalog covers registered product transport and explicit RPC pr
  assert.deepEqual(catalog.operations.filter(o=>o.kind==='write'&&o.version==='notifications.v1').map(o=>o.name).sort(),Object.keys(NOTIFICATIONS_RPC_V1).sort())
  assert.deepEqual(catalog.operations.filter(o=>o.kind==='write'&&o.version==='automations.v1').map(o=>o.name).sort(),Object.keys(AUTOMATIONS_RPC_V1).sort())
  assert.deepEqual(catalog.operations.filter(o=>o.kind==='write'&&o.version==='settings.v1').map(o=>o.name).sort(),Object.keys(SETTINGS_RPC_V1).sort())
+ assert.deepEqual(catalog.operations.filter(o=>o.version==='telecom.collections.v1').map(o=>o.name).sort(),Object.keys(TELECOM_COLLECTION_SPECS_V1).sort())
+ assert.deepEqual(catalog.operations.filter(o=>o.version==='identifiers.v1').map(o=>o.name).sort(),Object.keys(IDENTIFIER_RPC_V1).sort())
+ assert.deepEqual(catalog.operations.filter(o=>o.version==='catalog.v1').map(o=>o.name).sort(),Object.keys(CATALOG_RPC_V1).sort())
  const manifest=JSON.parse(read('scripts/security/native-postgres/function-privileges.json'))
  for(const operation of catalog.operations){
   const privilege=manifest.functions.find(f=>f.signature.startsWith('public.'+operation.rpc+'('))
@@ -50,11 +56,11 @@ test('capability catalog covers registered product transport and explicit RPC pr
   for(const flag of [operation.transport.enable_flag,operation.transport.additional_enable_flag,operation.transport.origin_flag].filter(Boolean))assert.ok(environmentNames.has(flag),'undeclared transport environment flag: '+flag)
   assert.ok(operation.input_type);assert.ok(operation.output_type)
   if(operation.kind==='write'){
-   assert.equal(operation.rpc,(['document.integrity.v1','document.cleanup.v1'].includes(operation.version)?DOCUMENT_MAINTENANCE_RPC_V1:operation.version==='settings.v1'?SETTINGS_RPC_V1:operation.version==='automations.v1'?AUTOMATIONS_RPC_V1:operation.version==='notifications.v1'?NOTIFICATIONS_RPC_V1:operation.version==='inbox.v1'?INBOX_RPC_V1:operation.version==='importjob.v1'?IMPORTJOB_RPC_V1:operation.version==='billing.artifact.v1'?BILLING_ARTIFACT_RPC_V1:operation.version==='billing.v1'?BILLING_RPC_V1:operation.version==='team.v1'?TEAM_RPC_V1:operation.version==='portfolio.v1'?PORTFOLIO_RPC_V1:operation.version==='document.v1'?DOCUMENT_RPC_V1:operation.version==='document.content.v1'?DOCUMENT_CONTENT_RPC_V1:PRODUCT_RPC_V1)[operation.name])
+   assert.equal(operation.rpc,(operation.version==='identifiers.v1'?IDENTIFIER_RPC_V1:operation.version==='catalog.v1'?CATALOG_RPC_V1:['document.integrity.v1','document.cleanup.v1'].includes(operation.version)?DOCUMENT_MAINTENANCE_RPC_V1:operation.version==='settings.v1'?SETTINGS_RPC_V1:operation.version==='automations.v1'?AUTOMATIONS_RPC_V1:operation.version==='notifications.v1'?NOTIFICATIONS_RPC_V1:operation.version==='inbox.v1'?INBOX_RPC_V1:operation.version==='importjob.v1'?IMPORTJOB_RPC_V1:operation.version==='billing.artifact.v1'?BILLING_ARTIFACT_RPC_V1:operation.version==='billing.v1'?BILLING_RPC_V1:operation.version==='team.v1'?TEAM_RPC_V1:operation.version==='portfolio.v1'?PORTFOLIO_RPC_V1:operation.version==='document.v1'?DOCUMENT_RPC_V1:operation.version==='document.content.v1'?DOCUMENT_CONTENT_RPC_V1:PRODUCT_RPC_V1)[operation.name])
    assert.equal(operation.idempotency.key,'command_id')
-   assert.equal(operation.cas.required,operation.version==='automations.v1'?!['automation.create','automation.process_pending'].includes(operation.name):operation.version==='inbox.v1'?operation.name!=='conversation.create_internal':operation.version==='billing.v1'?operation.name!=='invoice.create_draft':operation.version==='team.v1'?operation.name!=='member.invite_intent':operation.version==='portfolio.v1'?(!operation.name.endsWith('.create_manual')&&operation.name!=='contract.record_renewal'):operation.version==='document.content.v1'?operation.name!=='document.request_upload':!operation.name.endsWith('.create'))
+   assert.equal(operation.cas.required,operation.version==='identifiers.v1'?operation.name==='identifier.retire':operation.version==='catalog.v1'?['operator.update','operator.activate','operator.deactivate','plan.update_metadata','plan.change_status','plan_version.create'].includes(operation.name):operation.version==='automations.v1'?!['automation.create','automation.process_pending'].includes(operation.name):operation.version==='inbox.v1'?operation.name!=='conversation.create_internal':operation.version==='billing.v1'?operation.name!=='invoice.create_draft':operation.version==='team.v1'?operation.name!=='member.invite_intent':operation.version==='portfolio.v1'?(!operation.name.endsWith('.create_manual')&&operation.name!=='contract.record_renewal'):operation.version==='document.content.v1'?operation.name!=='document.request_upload':!operation.name.endsWith('.create'))
    assert.equal(operation.allowed_roles.includes('viewer'),operation.name==='settings.profile_update')
-   assert.equal(operation.assistant_future,'durable_Issue10_confirmation_required_not_registered')
+   assert.equal(operation.assistant_future,['identifiers.v1','catalog.v1'].includes(operation.version)?'FUTURE_AI_ACTION_CANDIDATE':'durable_Issue10_confirmation_required_not_registered')
   }
   if(operation.ui_safe)assert.equal(operation.supabase_tested,true)
  }

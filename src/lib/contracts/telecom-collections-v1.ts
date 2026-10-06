@@ -55,6 +55,7 @@ export interface AssigneeRowV1 {
   role: "owner" | "admin" | "member"
 }
 export interface OperatorRowV1 {
+  version: number
   id: string
   code: string
   display_name: string
@@ -62,6 +63,7 @@ export interface OperatorRowV1 {
   source: "manual" | "import" | "integration"
 }
 export interface PlanRowV1 {
+  version: number
   id: string
   operator_id: string
   code: string

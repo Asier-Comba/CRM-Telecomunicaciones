@@ -2,6 +2,7 @@ import {isClosedObjectV1 as plain,isUuidV1 as uuid}from './product-work-runtime-
 import {snapshotProductJsonV1}from './product-query-runtime-v1.ts'
 import {exact,natural,instant}from './notifications-runtime-v1.ts'
 import type {IdentifierOperationV1,IdentifierInputV1,IdentifierRowV1}from '../contracts/identifiers-v1'
+export const IDENTIFIER_RPC_V1={'identifier.create_manual':'identifier_v1_command','identifier.retire':'identifier_v1_command','identifier.list':'identifier_v1_query','identifier.get':'identifier_v1_query'}as const
 export const IDENTIFIER_OPERATIONS_V1=['identifier.create_manual','identifier.retire','identifier.list','identifier.get']as const
 export function isIdentifierOperationV1(v:unknown):v is IdentifierOperationV1{return typeof v==='string'&&(IDENTIFIER_OPERATIONS_V1 as readonly string[]).includes(v)}
 export function parseIdentifierInputV1(op:IdentifierOperationV1,value:unknown):IdentifierInputV1|null{try{

@@ -5,7 +5,7 @@ import { parseTelecomCollectionInputV1, parseTelecomCollectionResultV1 } from '.
 import { productHttpV1 } from '../../src/lib/server/product-http-v1.ts'
 import { ProductServiceV1 } from '../../src/lib/server/product-service-v1.ts'
 const id='a1000000-0000-4000-8000-000000000001', workspace='b2000000-0000-4000-8000-000000000001'
-const operator={id,code:'synthetic',display_name:'Synthetic Operator',status:'active',source:'manual'}
+const operator={id,version:1,code:'synthetic',display_name:'Synthetic Operator',status:'active',source:'manual'}
 const page=(op,items,next=null)=>({contract_version:'telecom.collections.v1',operation:op,items,next_id:next})
 
 test('commercial collection input rejects caller authority, raw lookup, invalid dates, cursors and accessors',()=>{

@@ -338,6 +338,38 @@
       "authenticated": false
     },
     {
+      "signature": "public.catalog_v1_command(uuid, text, jsonb)",
+      "definer": true,
+      "authenticated": true,
+      "anon": false,
+      "public": false,
+      "service_role": false
+    },
+    {
+      "signature": "public.catalog_v1_guard_commercial_fact()",
+      "definer": false,
+      "authenticated": false,
+      "anon": false,
+      "public": false,
+      "service_role": false
+    },
+    {
+      "signature": "public.catalog_v1_terms_get(uuid, jsonb)",
+      "definer": true,
+      "authenticated": true,
+      "anon": false,
+      "public": false,
+      "service_role": false
+    },
+    {
+      "signature": "public.catalog_v1_validate(text, jsonb)",
+      "definer": false,
+      "authenticated": false,
+      "anon": false,
+      "public": false,
+      "service_role": false
+    },
+    {
       "anon": false,
       "public": false,
       "definer": true,

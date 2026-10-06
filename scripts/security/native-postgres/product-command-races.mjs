@@ -142,6 +142,17 @@ try {
   assert.equal(edits.filter(r=>r.code!==0&&/40001/.test(r.err)).length,19,`${family} portfolio CAS conflicts`)
   assert.equal(await sql(`select count(*)from public.product_audit_events where entity_id='${receipt.id}'`),'2')
  }
+ const catalog=(op,input)=>`begin;set local role authenticated;set local request.jwt.claim.sub='${actor}';select public.catalog_v1_command('${workspace}','${op}','${JSON.stringify(input)}'::jsonb);commit;`
+ const catalogPlan=JSON.parse(await sql(catalog('plan.create',{command_id:randomUUID(),operator_id:operator,code:'native_commercial_plan',display_name:'Native Synthetic Commercial Plan',service_kind:'mobile'})))
+ const commercialInput={command_id:randomUUID(),plan_id:catalogPlan.id,expected_version:1,valid_from:'2026-01-01',valid_until:'2026-12-31',currency:'EUR',recurring_amount_minor:'1299',one_time_amount_minor:'0',is_bundle:false,components:[{component_kind:'base',service_kind:'mobile',addon_code:null,quantity:1}],entitlements:[{code:'unlimited_voice',component_position:1,integer_value:null,boolean_value:true,text_value:null}]}
+ const commercialSQL=catalog('plan_version.create',commercialInput)
+ const commercialReplays=await Promise.all(Array.from({length:20},()=>docker(args,commercialSQL)))
+ assert.ok(commercialReplays.every(r=>r.code===0),'commercial version same-key replay race');const commercialReceipt=JSON.parse(commercialReplays[0].out.trim());for(const r of commercialReplays)assert.deepEqual(JSON.parse(r.out.trim()),commercialReceipt);familyReplays.push(commercialSQL)
+ const commercialVersions=await Promise.all(Array.from({length:20},()=>docker([...args,'--set=VERBOSITY=sqlstate'],catalog('plan_version.create',{...commercialInput,command_id:randomUUID(),expected_version:2,valid_from:'2027-01-01',valid_until:'2027-12-31'}))))
+ assert.equal(commercialVersions.filter(r=>r.code===0).length,1);assert.equal(commercialVersions.filter(r=>r.code!==0&&/40001/.test(r.err)).length,19)
+ assert.equal(await sql(`select count(*)from public.telecom_plan_versions where plan_id='${catalogPlan.id}'`),'2')
+ assert.equal(await sql(`select count(*)from public.telecom_plan_version_publications where plan_version_id='${commercialReceipt.id}'`),'1')
+ console.log('COMMERCIAL CATALOG NATIVE RACES PASS:20 identical publication receipts/20 distinct next versions one parent-CAS winner/immutable frozen version history/revoked replay below')
  // Protected identifiers: independent psql processes, same-key receipts and distinct-key uniqueness.
  const protectedLine=JSON.parse(await sql(portfolio('line.create_manual',{command_id:randomUUID(),service_id:service,display_name:'Native Synthetic Protected Line'})))
  const ident=(op,input)=>`begin;set local role authenticated;set local request.jwt.claim.sub='${actor}';select public.identifier_v1_command('${workspace}','${op}','${JSON.stringify(input)}'::jsonb);commit;`

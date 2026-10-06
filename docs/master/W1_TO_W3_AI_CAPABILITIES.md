@@ -172,3 +172,6 @@ Machine authority: [product-capabilities.json](contracts/product-capabilities.js
 
 
 TEL5 reader acceptance: all18 collection/catalog read candidates individually proven on `e09ddf222b22e72150e7c27bf0d1b68f9ae4dd63` (1601 checks/native restore/private boundary PASS). `identifier.list` and `identifier.get` are new masked read candidates with exact proof pending. Explicit identifier `sensitive.get` remains human-only; no raw reveal tool registration. `identifier.create_manual` and `identifier.retire` are FUTURE_AI_ACTION_CANDIDATE only. No new AI tools or writes registered.
+
+
+TEL5 protected identifier reads `identifier.list/get` now individually proven on `4b5520f3a7ec027d7473b333587268ead0bb16f1` (1679checks/native restore/private boundary). Explicit reveal remains human-only. New `plan_version.terms_get` is a safe read candidate for typed commercial facts, proof pending. Eight catalog management writes are FUTURE_AI_ACTION_CANDIDATE only; owner/admin human transport, no AI registration. Issue10 remains W3-owned.

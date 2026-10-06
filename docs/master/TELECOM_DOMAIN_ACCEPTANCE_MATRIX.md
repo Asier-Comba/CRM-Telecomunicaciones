@@ -1,27 +1,27 @@
 # Telecom commercial domain acceptance matrix
 
-Accepted source `e09ddf222b22e72150e7c27bf0d1b68f9ae4dd63`: 147 operations, 1601 real disposable checks, 55 migrations/248 privilege functions, 251 Node tests; native fresh/logical restore, isolated PGlite and official browser-private boundary PASS. npm audit remains red (Issue29). The current identifier module is a separate candidate, not yet proven. This is not TEL5 completion. W2 consumption requires W2 evidence.
+Accepted source `4b5520f3a7ec027d7473b333587268ead0bb16f1`:151operations,1679real checks,56migrations/252functions/256Node tests; native fresh/logical restore, isolated PGlite, official private boundary PASS. Audit Issue29 remains red. New9commercial catalog operations are candidates; this is not TEL5 completion. W2 consumption is unproven.
 
-Counts: REQUIRED=87, IMPLEMENTED=35, PROVEN=30, W2_CONSUMED=0, BLOCKER=87.
+Counts: REQUIRED=88, IMPLEMENTED=46, PROVEN=35, W2_CONSUMED=0, BLOCKER=88.
 
 | Section | Requirement | REQUIRED | IMPLEMENTED | PROVEN | W2_CONSUMED | BLOCKER |
 |---|---|---|---|---|---|---|
 | Operators | operator.list | YES | YES | YES | NO | W2_consumption_unproven |
 | Operators | operator.get | YES | YES | YES | NO | W2_consumption_unproven |
-| Operators | operator.create | YES | NO | NO | NO | not_implemented_as_requested |
-| Operators | operator.update | YES | NO | NO | NO | not_implemented_as_requested |
-| Operators | operator.activate | YES | NO | NO | NO | not_implemented_as_requested |
-| Operators | operator.deactivate | YES | NO | NO | NO | not_implemented_as_requested |
+| Operators | operator.create | YES | YES | NO | NO | new_candidate_real_native_and_supabase_evidence_pending |
+| Operators | operator.update | YES | YES | NO | NO | new_candidate_real_native_and_supabase_evidence_pending |
+| Operators | operator.activate | YES | YES | NO | NO | new_candidate_real_native_and_supabase_evidence_pending |
+| Operators | operator.deactivate | YES | YES | NO | NO | new_candidate_real_native_and_supabase_evidence_pending |
 | Plans | plan.list | YES | YES | YES | NO | W2_consumption_unproven |
 | Plans | plan.get | YES | YES | YES | NO | W2_consumption_unproven |
-| Plans | plan.create | YES | NO | NO | NO | not_implemented_as_requested |
-| Plans | plan.update_metadata | YES | NO | NO | NO | not_implemented_as_requested |
-| Plans | plan.change_status | YES | NO | NO | NO | not_implemented_as_requested |
+| Plans | plan.create | YES | YES | NO | NO | new_candidate_real_native_and_supabase_evidence_pending |
+| Plans | plan.update_metadata | YES | YES | NO | NO | new_candidate_real_native_and_supabase_evidence_pending |
+| Plans | plan.change_status | YES | YES | NO | NO | new_candidate_real_native_and_supabase_evidence_pending |
 | Plan versions | plan_version.list | YES | YES | YES | NO | W2_consumption_unproven |
 | Plan versions | plan_version.get | YES | YES | YES | NO | W2_consumption_unproven |
-| Plan versions | plan_version.create | YES | NO | NO | NO | not_implemented_as_requested |
-| Entitlements | typed immutable version entitlements | YES | NO | NO | NO | not_implemented_as_requested |
-| Bundles | immutable version components | YES | NO | NO | NO | not_implemented_as_requested |
+| Plan versions | plan_version.create | YES | YES | NO | NO | new_candidate_real_native_and_supabase_evidence_pending |
+| Entitlements | typed immutable version entitlements | YES | YES | NO | NO | new_candidate_real_native_and_supabase_evidence_pending |
+| Bundles | immutable version components | YES | YES | NO | NO | new_candidate_real_native_and_supabase_evidence_pending |
 | Bundles | service add-on assignment history | YES | NO | NO | NO | not_implemented_as_requested |
 | Contracts | contract.list | YES | YES | YES | NO | W2_consumption_unproven |
 | Contracts | contract.create_manual | YES | YES | YES | NO | W2_consumption_unproven |
@@ -34,10 +34,10 @@ Counts: REQUIRED=87, IMPLEMENTED=35, PROVEN=30, W2_CONSUMED=0, BLOCKER=87.
 | Lines | line.create_manual | YES | YES | YES | NO | W2_consumption_unproven |
 | Lines | line.update_label | YES | YES | YES | NO | W2_consumption_unproven |
 | Lines | masked mobile commercial row | YES | NO | NO | NO | not_implemented_as_requested |
-| Identifiers | identifier.create_manual | YES | YES | NO | NO | new_candidate_real_native_and_supabase_evidence_pending |
-| Identifiers | identifier.retire | YES | YES | NO | NO | new_candidate_real_native_and_supabase_evidence_pending |
-| Identifiers | identifier.list | YES | YES | NO | NO | new_candidate_real_native_and_supabase_evidence_pending |
-| Identifiers | sensitive.get (telecom_identifier) | YES | YES | NO | NO | new_candidate_real_native_and_supabase_evidence_pending |
+| Identifiers | identifier.create_manual | YES | YES | YES | NO | W2_consumption_unproven |
+| Identifiers | identifier.retire | YES | YES | YES | NO | W2_consumption_unproven |
+| Identifiers | identifier.list | YES | YES | YES | NO | W2_consumption_unproven |
+| Identifiers | sensitive.get (telecom_identifier) | YES | YES | YES | NO | W2_consumption_unproven |
 | SIM/eSIM | sim.create | YES | NO | NO | NO | not_implemented_as_requested |
 | SIM/eSIM | sim.assign | YES | NO | NO | NO | not_implemented_as_requested |
 | SIM/eSIM | sim.activate | YES | NO | NO | NO | not_implemented_as_requested |
@@ -92,4 +92,5 @@ Counts: REQUIRED=87, IMPLEMENTED=35, PROVEN=30, W2_CONSUMED=0, BLOCKER=87.
 | Provenance | provenance.get | YES | YES | YES | NO | W2_consumption_unproven |
 | Provenance | verified manual origins | YES | YES | YES | NO | W2_consumption_unproven |
 | Provenance | provider-neutral external identities | YES | NO | NO | NO | not_implemented_as_requested |
-| Identifiers | identifier.get | YES | YES | NO | NO | new_candidate_real_native_and_supabase_evidence_pending |
+| Identifiers | identifier.get | YES | YES | YES | NO | W2_consumption_unproven |
+| Plan versions | plan_version.terms_get | YES | YES | NO | NO | new_candidate_real_native_and_supabase_evidence_pending |
