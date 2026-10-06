@@ -22,7 +22,7 @@ do $$declare w uuid:=md5('density.workspace.1')::uuid;c uuid:=md5('density.custo
  loop
  r:=public.telecom_attention_v1_query(w,i);n:=n+1;perform pg_temp.assert_attention(n<200);
  for x in select value from jsonb_array_elements(r->'items')loop
- perform pg_temp.assert_attention((select count(*)from jsonb_object_keys(x))=10 and not x?'title'and not x?'canonical_value');
+ perform pg_temp.assert_attention((select count(*)from jsonb_object_keys(x))=9 and not x?'title'and not x?'canonical_value');
  seen:=array_append(seen,(x->>'id')::uuid);
  end loop;
  exit when r->'next_cursor'='null'::jsonb;i:=i||(r->'next_cursor');
