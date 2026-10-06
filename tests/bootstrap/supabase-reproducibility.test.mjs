@@ -43,6 +43,8 @@ test('the known Supabase drift remains explicit', () => {
       'document_integrity_verifiers',
       'document_upload_intents',
       'documents',
+      'external_entity_identities',
+      'external_identity_integrations',
       'import_applications',
       'import_field_mappings',
       'import_jobs',

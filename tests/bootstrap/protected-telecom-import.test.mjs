@@ -8,7 +8,7 @@ import {createDisposableImportStagingV1} from '../../src/lib/server/import-stagi
 import {stageProtectedTelecomImportV1} from '../../src/lib/server/protected-telecom-import-v1.ts'
 async function fixture(){
  const root=await mkdtemp(join(tmpdir(),'protected-telecom-')),workspaceId=randomUUID(),actorId=randomUUID(),jobId=randomUUID();let active=true
- const scope={workspaceId,actorId,role:'owner'},port={resolve:async()=>active?scope:null,lookup:async(w,kind,id)=>({workspaceId:w,kind,id})}
+ const scope={workspaceId,actorId,role:'owner'},port={kind:async id=>id===jobId?'protected_identifiers':null,resolve:async()=>active?scope:null,lookup:async(w,kind,id)=>({workspaceId:w,kind,id})}
  const adapter=await createDisposableImportStagingV1(root,{resolve:port.resolve,job:async(w,id)=>w===workspaceId&&id===jobId?{id,status:'uploaded'}:null},{NODE_ENV:'test',IMPORT_STAGING_ADAPTER:'disposable-local',IMPORT_STAGING_TEST_KEY:randomBytes(32).toString('hex')})
  return {root,workspaceId,jobId,port,adapter,revoke:()=>{active=false}}
 }
@@ -37,6 +37,7 @@ test('protected seam denies revoked actors and unregistered/production adapters'
  const f=await fixture();try{
   const bytes=csv([['line',randomUUID(),'msisdn','+34600123456']])
   await assert.rejects(stageProtectedTelecomImportV1(f.jobId,bytes,{...f.adapter,health:()=>({provider:'production',production_ready:true})},f.port),/NOT_CONFIGURED/)
+  await assert.rejects(stageProtectedTelecomImportV1(f.jobId,bytes,f.adapter,{...f.port,kind:async()=>null}),/JOB_INVALID/)
   f.revoke();await assert.rejects(stageProtectedTelecomImportV1(f.jobId,bytes,f.adapter,f.port),/ACCESS_DENIED/)
  }finally{await rm(f.root,{recursive:true,force:true})}
 })

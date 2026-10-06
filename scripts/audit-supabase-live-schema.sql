@@ -44,6 +44,8 @@ target_relations(name) as (
     ('conversations'),
     ('customers'),
     ('documents'),
+    ('external_entity_identities'),
+    ('external_identity_integrations'),
     ('document_upload_intents'),
     ('document_cleanup_claims'),
     ('document_content_integrity'),

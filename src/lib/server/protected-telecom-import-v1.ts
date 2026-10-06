@@ -4,13 +4,15 @@ import type {EncryptedImportStagingV1,ImportStagingRefV1} from './import-staging
 import type {SafeImportReferencePortV1} from './telecom-import-mapping-v1.ts'
 
 export type ProtectedImportStageV1=Readonly<{contract_version:'protected_telecom_import.v1';total_rows:number;staging:ImportStagingRefV1;production_ready:false;status:'encrypted_disposable_staging_only'}>
+export interface ProtectedImportWorkerPortV1 extends SafeImportReferencePortV1{kind(jobId:string):Promise<'protected_identifiers'|null>}
 const kinds={line:'lines',service:'services',contract:'contracts',sim:'sims'} as const
 const command='00000000-0000-4000-8000-000000000001'
 const invalid=()=>{throw new Error('PROTECTED_TELECOM_IMPORT_INVALID')}
 /** No preview/row DTO, raw-value digest, logging or canonical apply escapes this seam. */
-export async function stageProtectedTelecomImportV1(jobId:string,bytes:Uint8Array,adapter:EncryptedImportStagingV1,port:SafeImportReferencePortV1,objectId?:string):Promise<ProtectedImportStageV1>{
+export async function stageProtectedTelecomImportV1(jobId:string,bytes:Uint8Array,adapter:EncryptedImportStagingV1,port:ProtectedImportWorkerPortV1,objectId?:string):Promise<ProtectedImportStageV1>{
  if(adapter.health().provider!=='disposable-local'||adapter.health().production_ready)throw new Error('PROTECTED_TELECOM_IMPORT_NOT_CONFIGURED')
  const grant=await adapter.authorize(jobId,'stage')
+ if(await port.kind(jobId)!=='protected_identifiers')throw new Error('PROTECTED_TELECOM_IMPORT_JOB_INVALID')
  const scope=await port.resolve()
  if(!scope||scope.workspaceId!==grant.workspaceId||scope.actorId!==grant.actorId||!['owner','admin'].includes(scope.role))throw new Error('PROTECTED_TELECOM_IMPORT_ACCESS_DENIED')
  const records=decodeBoundedImportCsvV1(bytes)

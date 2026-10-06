@@ -100,6 +100,8 @@ try {
   console.log('FINAL7 EQUIPMENT FIXTURE START')
   await db.exec(richSeed.replace(/commit;\s*$/i, '') + await readFile(resolve(root,'supabase/tests/bounded-commercial-equipment.sql'),'utf8'))
   console.log('FINAL7 EQUIPMENT FIXTURE PASS')
+  await db.exec(richSeed.replace(/commit;\s*$/i, '') + await readFile(resolve(root,'supabase/tests/registered-external-identities.sql'),'utf8'))
+  console.log('W2 TAKEOVER REGISTERED IDENTITIES SCOPE/REPLAY/CAS/KEYSET/REVOCATION PASS')
   console.log('TEL5 SERVICE INSTALLATION ADDON HISTORY/CAS/EXACT REPLAY/ANCESTRY/SOURCE/VIEWER/REVOCATION PASS')
 
   await db.exec(await readFile(resolve(root,'supabase/tests/billing-exact-issue.sql'),'utf8'))
