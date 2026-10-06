@@ -1,26 +1,24 @@
 {
   "catalog_version": "product.capabilities.v1",
   "as_of": "2026-10-06",
-  "implementation_head": "0c67c3a40f67d3ed6591773d5083f425466c1908",
+  "implementation_head": "601ce28017910d486598c934567a07010595dcae",
   "evidence": {
     "native": {
-      "run_id": 37463144206,
+      "run_id": 37465021076,
       "status": "PASS",
-      "migration_count": 62,
+      "migration_count": 63,
       "function_count": 271,
-      "tested_head": "0c67c3a40f67d3ed6591773d5083f425466c1908",
-      "tested_checkout": "8505bbb1d46d048dd2eb95714a7841ca474423fb",
-      "tested_tree": "9b3828a97a7be097e2b86ff42345f123125217b3",
+      "tested_head": "601ce28017910d486598c934567a07010595dcae",
+      "tested_checkout": "7acf523ba4f5135f68b0471314abb285f2828c92",
+      "tested_tree": "b148b14d0068635ab0528095283383597ab743f0",
       "fresh": "PASS",
       "logical_synthetic_restore": "PASS",
       "privileges_roles_acl_loss_negative_control": "PASS",
       "production_backup": false,
-      "job_id": 112267451584,
+      "job_id": 112273772731,
       "tree_comparison_method": "GitHub compare:zero changed files"
     },
     "actual_supabase": {
-      "run_id": 37463144177,
-      "job_id": 112267455902,
       "environment": "LOCAL_SUPABASE_DOCKER",
       "result": "PASS",
       "auth": "PASS",
@@ -29,10 +27,10 @@
       "rpc": "PASS",
       "storage": "PASS",
       "cli": "2.119.0",
-      "sha": "8505bbb1d46d048dd2eb95714a7841ca474423fb",
+      "sha": "7acf523ba4f5135f68b0471314abb285f2828c92",
       "config_sha256": "3fc22bba97e5114a7ee67cc90e514b8ec16eda0cb2c5817cf87784e8e4ab6e57",
-      "migration_head": "20261006130000_telecom_customer360_report_reads.sql",
-      "migration_count": 62,
+      "migration_head": "20261006133000_dense_masked_line_collection.sql",
+      "migration_count": 63,
       "service_images": [
         "public.ecr.aws/supabase/gotrue:v2.197.0",
         "public.ecr.aws/supabase/kong:2.8.1",
@@ -456,6 +454,7 @@
       "service_case_notes": "PASS_PRIVATE_APPEND_ONLY_BOUNDED_BODY_NO_AUDIT_VALUE",
       "service_case_revocation": "PASS_VALID_JWT_ALL_OPERATIONS_DENIED",
       "service_case_concurrency": "PASS_SINGLE_TRANSITION_WINNER",
+      "dense_line_collection": "PASS_MASKED_MSISDN_CURRENT_SIM_ESIM_LIFECYCLE_REVOCATION",
       "sim_esim_operations_individually_observed": [
         "sim.create",
         "sim.assign",
@@ -575,7 +574,7 @@
       "document_content_verified_sha256": "NOT_IMPLEMENTED",
       "cross_tenant": "PASS",
       "revocation": "PASS",
-      "checks": 2669,
+      "checks": 2686,
       "manager": "NOT_CANONICAL",
       "signed_access": "NOT_IMPLEMENTED",
       "auth_email_production": "NOT_TESTED",
@@ -583,19 +582,21 @@
       "scoped_service_principal": "NOT_IMPLEMENTED",
       "remote_staging": "NOT_TESTED",
       "teardown": "PASS",
-      "tested_head": "0c67c3a40f67d3ed6591773d5083f425466c1908"
+      "run_id": 37465021017,
+      "job_id": 112273771243,
+      "tested_head": "601ce28017910d486598c934567a07010595dcae"
     },
     "quality": {
-      "tests": 290,
-      "node_tests": 290,
+      "tests": 291,
+      "node_tests": 291,
       "lint": "PASS",
       "types": "PASS",
       "build": "PASS",
       "audit": "FAIL_UNSUPPRESSED_6_HIGH;known Issue29 chain plus distinct source-map-js GHSA-68fv-2mgg-jv7q",
       "overall_ci": "FAIL_AUDIT;OFFICIAL_BROWSER_PASS",
-      "tested_head": "0c67c3a40f67d3ed6591773d5083f425466c1908",
-      "run_id": 37463144206,
-      "job_id": 112267451437,
+      "tested_head": "601ce28017910d486598c934567a07010595dcae",
+      "run_id": 37465021076,
+      "job_id": 112273772573,
       "critical_playwright": "SKIPPED",
       "dependency_review": "SKIPPED",
       "workflow_fully_green": false
@@ -6895,7 +6896,7 @@
       "ui_safe": false,
       "ai_registration": false,
       "sensitive_fields": [],
-      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
+      "supabase_tested_head": "601ce28017910d486598c934567a07010595dcae",
       "backend_ready_for_w2": true,
       "version": "telecom.collections.v1",
       "input_type": "TelecomCollectionInputsV1['line.list']",
@@ -6908,7 +6909,8 @@
       ],
       "minimum_role": "viewer",
       "supabase_status": "PASS_AT_RECORDED_HEAD",
-      "dense_telecom_extension": "CANDIDATE_AFTER_0C67C3A_CANONICAL_REMOTE_RECOVERY;EXACT_PLATFORM_PENDING"
+      "dense_telecom_extension": "CANDIDATE_AFTER_0C67C3A_CANONICAL_REMOTE_RECOVERY;EXACT_PLATFORM_PENDING",
+      "dense_extension_status": "PASS_REAL_SUPABASE_NATIVE_MASKED_SIM_PORTABILITY_PERMANENCE"
     },
     {
       "name": "renewal.list",
@@ -9408,6 +9410,56 @@
         "key": null
       },
       "supabase_tested_head": "0c67c3a40f67d3ed6591773d5083f425466c1908"
+    },
+    {
+      "name": "telecom.attention",
+      "version": "telecom.attention.v1",
+      "kind": "read",
+      "rpc": "telecom_attention_v1_query",
+      "input_type": "TelecomAttentionInputV1",
+      "output_type": "TelecomAttentionPageV1",
+      "input_fields": [
+        "window_from",
+        "window_to",
+        "customer_id",
+        "owner_user_id",
+        "kind",
+        "limit",
+        "fallback_on",
+        "after_sort_on",
+        "after_kind",
+        "after_id"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "backend_status": "implemented_candidate_exact_acceptance_pending",
+      "supabase_tested": false,
+      "supabase_status": "PENDING",
+      "ui_safe": false,
+      "assistant_future": "safe_read_candidate_not_registered",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/telecom/attention/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      }
     }
   ],
   "unavailable_modules": [
@@ -9417,7 +9469,7 @@
     "portfolio_legacy_origin_verification"
   ],
   "registration": "Human contracts only; no new AI tools/writes registered; exact accepted source4b5520f,9catalog candidates pending.",
-  "candidate_after_head": "0c67c3a40f67d3ed6591773d5083f425466c1908",
-  "operations_total": 198,
+  "candidate_after_head": "601ce28017910d486598c934567a07010595dcae",
+  "operations_total": 199,
   "operations_proven": 198
 }

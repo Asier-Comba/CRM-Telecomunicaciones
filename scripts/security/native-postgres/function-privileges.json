@@ -1829,6 +1829,22 @@
       "anon": false,
       "public": false,
       "definer": true,
+      "signature": "public.telecom_attention_v1_query(uuid, jsonb)",
+      "service_role": false,
+      "authenticated": true
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": true,
+      "signature": "public.telecom_attention_v1_validate(jsonb)",
+      "service_role": false,
+      "authenticated": false
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.telecom_collection_v1_query(uuid, text, jsonb)",
       "service_role": false,
       "authenticated": true

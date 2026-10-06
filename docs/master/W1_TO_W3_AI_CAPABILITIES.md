@@ -188,3 +188,8 @@ Case summary reads accepted a220ee17/2290real checks; private notes remain human
 TEL5 Customer360/report read candidates (not registered): `customer360.summary`, `report.operator_portfolio`, `report.services_by_kind`, `report.lines_by_status`, `report.renewals_by_month`, `report.permanences_by_month`, `report.portabilities_by_status`, `report.cases_by_priority_status`, `report.pipeline_by_stage`, `report.commercial_owner_counts`. Current cookie JWT and role checks remain authoritative; protected billing/document summary counters require owner/admin. No money, raw identifiers or note bodies. Exact platform evidence pending for these10 reads. SIM masked reads are now proven b654b1d/2479checks; noAI tool registration. Writes remain FUTURE_AI_ACTION_CANDIDATE, Issue10 W3-owned.
 
 TEL5 Customer360/report10 safe read candidates are now proven0c67c3a/2669checks/native/browser. They remain unregistered;documents/billing counters remain owner/admin-only. Dense line.list context candidate is mask-only and needs its own exact-source proof. No new AI writes or tools;Issue10 remains W3-owned.
+
+
+## TEL5 deterministic attention candidate
+
+`telecom.attention` is a safe read candidate at `/api/telecom/attention/v1`; seven closed factual rules, bounded date window and keyset page; no names/notes/raw identifiers. Exact Supabase acceptance pending. Dense line extension accepted601ce28/2686checks. No new AI registration; no AI writes. New domain writes remain FUTURE_AI_ACTION_CANDIDATE under W3-owned Issue10.

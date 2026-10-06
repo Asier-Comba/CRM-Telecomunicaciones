@@ -86,6 +86,9 @@ try {
   await db.exec(richSeed.replace(/commit;\s*$/i, '') + await readFile(resolve(root,'supabase/tests/telecom-customer360-report-reads.sql'),'utf8'))
   console.log('TEL5 CUSTOMER360/REPORT 10 READS/EXACT COUNTS/KEYSET/PRIVILEGED COUNT PRIVACY/REVOCATION PASS')
 
+  await db.exec(richSeed.replace(/commit;\s*$/i, '') + await readFile(resolve(root,'supabase/tests/deterministic-telecom-attention.sql'),'utf8'))
+  console.log('TEL5 ATTENTION 7 RULE FAMILIES/KEYSET/PRIVACY/REVOCATION PASS')
+
   await db.exec(await readFile(resolve(root,'supabase/tests/billing-exact-issue.sql'),'utf8'))
   await db.exec(await readFile(resolve(root,'supabase/tests/billing-private-pdf-artifacts.sql'),'utf8'))
   console.log('BILLING PRIVATE ARTIFACT CAS/REPLAY/IMMUTABILITY/ROLLBACK PASS')

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "source_sha": "0c67c3a40f67d3ed6591773d5083f425466c1908",
+  "source_sha": "attention_candidate_after_601ce28017910d486598c934567a07010595dcae",
   "stage": "TEL5_DENSE_MASKED_LINE_CANDIDATE_AFTER_ACCEPTED_REPORTS",
   "exact_head_accepted": true,
   "no_ai_writes": true,
@@ -278,7 +278,7 @@
       "W2_CONSUMED": false,
       "BLOCKER": "W2_consumption_unproven",
       "existing_operation": null,
-      "notes": "Individually observed in real Auth cookie route; exact accepted source e09ddf2; native restore and private boundary PASS. Dense masked line.list extension reconstructed from canonical GitHub source;exact63-migration platform proof pending."
+      "notes": "Individually observed in real Auth cookie route; exact accepted source e09ddf2; native restore and private boundary PASS. Dense masked line.list extension reconstructed from canonical GitHub source;exact63-migration platform proof pending. Dense DTO extension accepted601ce28/2686checks, current SIM masks/latest portability/applicable permanence."
     },
     {
       "section": "Lines",
@@ -289,7 +289,7 @@
       "W2_CONSUMED": false,
       "BLOCKER": "W2_consumption_unproven",
       "existing_operation": "line.create_manual",
-      "notes": "Existing canonical operation individually observed at source3ebed3f; native restore and local actual browser boundary PASS. Official browser CI cancelled, not credited as passed. Dense masked line.list extension reconstructed from canonical GitHub source;exact63-migration platform proof pending."
+      "notes": "Existing canonical operation individually observed at source3ebed3f; native restore and local actual browser boundary PASS. Official browser CI cancelled, not credited as passed. Dense masked line.list extension reconstructed from canonical GitHub source;exact63-migration platform proof pending. Dense DTO extension accepted601ce28/2686checks, current SIM masks/latest portability/applicable permanence."
     },
     {
       "section": "Lines",
@@ -300,7 +300,7 @@
       "W2_CONSUMED": false,
       "BLOCKER": "W2_consumption_unproven",
       "existing_operation": "line.update_label",
-      "notes": "Existing canonical operation individually observed at source3ebed3f; native restore and local actual browser boundary PASS. Official browser CI cancelled, not credited as passed. Dense masked line.list extension reconstructed from canonical GitHub source;exact63-migration platform proof pending."
+      "notes": "Existing canonical operation individually observed at source3ebed3f; native restore and local actual browser boundary PASS. Official browser CI cancelled, not credited as passed. Dense masked line.list extension reconstructed from canonical GitHub source;exact63-migration platform proof pending. Dense DTO extension accepted601ce28/2686checks, current SIM masks/latest portability/applicable permanence."
     },
     {
       "section": "Lines",
@@ -757,12 +757,12 @@
       "section": "Attention",
       "requirement": "deterministic telecom attention",
       "REQUIRED": true,
-      "IMPLEMENTED": false,
+      "IMPLEMENTED": true,
       "PROVEN": false,
       "W2_CONSUMED": false,
-      "BLOCKER": "not_implemented_as_requested",
-      "existing_operation": null,
-      "notes": "Table or a narrower legacy reader does not complete this TEL5 requirement."
+      "BLOCKER": "exact_source_acceptance_pending;W2_consumption_unproven",
+      "existing_operation": "telecom.attention",
+      "notes": "Seven deterministic families, closed value-free DTO, pinned fallback date and stable tuple keyset. Exact native/Supabase/HTTP/current-JWT revocation proof pending."
     },
     {
       "section": "Reports",
@@ -1075,14 +1075,14 @@
   ],
   "counts": {
     "REQUIRED": 97,
-    "IMPLEMENTED": 85,
+    "IMPLEMENTED": 86,
     "PROVEN": 85,
     "W2_CONSUMED": 0,
     "BLOCKER": 97
   },
   "official_workflow_fully_green": false,
-  "accepted_source_sha": "0c67c3a40f67d3ed6591773d5083f425466c1908",
-  "candidate_operations_total": 198,
+  "accepted_source_sha": "601ce28017910d486598c934567a07010595dcae",
+  "candidate_operations_total": 199,
   "candidate_operations_proven": 198,
   "candidate_exact_head_accepted": false
 }

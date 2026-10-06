@@ -1,0 +1,5 @@
+export type TelecomAttentionKindV1='renewal'|'permanence'|'case'|'task'|'meeting'|'opportunity'|'portability'
+export type TelecomAttentionCursorV1=Readonly<{after_sort_on:string;after_kind:TelecomAttentionKindV1;after_id:string;fallback_on:string}>
+export type TelecomAttentionInputV1=Readonly<{window_from:string;window_to:string;customer_id?:string;owner_user_id?:string;kind?:TelecomAttentionKindV1;limit?:number;fallback_on?:string;after_sort_on?:string;after_kind?:TelecomAttentionKindV1;after_id?:string}>
+export type TelecomAttentionRowV1=Readonly<{kind:TelecomAttentionKindV1;id:string;customer_id:string|null;owner_user_id:string|null;sort_on:string;due_on:string|null;status:string;reason_code:'renewal_overdue'|'renewal_upcoming'|'permanence_ending'|'case_urgent'|'case_overdue'|'task_overdue'|'meeting_upcoming'|'opportunity_missing_next_action'|'portability_blocked'|'portability_pending';priority:'low'|'normal'|'high'|'urgent'}>
+export type TelecomAttentionPageV1=Readonly<{contract_version:'telecom.attention.v1';operation:'telecom.attention';as_of:string;fallback_on:string;items:readonly TelecomAttentionRowV1[];next_cursor:TelecomAttentionCursorV1|null}>

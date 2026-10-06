@@ -1,13 +1,13 @@
 {
-  "SOURCE_HEAD": "dense_line_candidate_after_0c67c3a40f67d3ed6591773d5083f425466c1908",
-  "ACCEPTED_SOURCE": "0c67c3a40f67d3ed6591773d5083f425466c1908",
+  "SOURCE_HEAD": "attention_candidate_after_601ce28017910d486598c934567a07010595dcae",
+  "ACCEPTED_SOURCE": "601ce28017910d486598c934567a07010595dcae",
   "HISTORICAL_ACCEPTED_SOURCE": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
   "PR": 28,
-  "MIGRATIONS": 63,
-  "PRIVILEGE_FUNCTIONS": 271,
-  "NODE_TESTS": 291,
-  "SUPABASE_CHECKS": 2669,
-  "OPERATIONS_TOTAL": 198,
+  "MIGRATIONS": 64,
+  "PRIVILEGE_FUNCTIONS": 273,
+  "NODE_TESTS": 298,
+  "SUPABASE_CHECKS": 2686,
+  "OPERATIONS_TOTAL": 199,
   "OPERATIONS_PROVEN": 198,
   "CUSTOMER_COLLECTION": "PROVEN_BOUNDED_COOKIE_READS_E09DDF2",
   "ASSIGNEES": "PROVEN_BOUNDED_COOKIE_READS_E09DDF2",
@@ -18,7 +18,7 @@
   "BUNDLES": "PROVEN_IMMUTABLE_BASE_AND_REGISTERED_ADDON_COMPONENTS; service optional addon assignment history missing",
   "CONTRACTS": "COLLECTION_READS_PROVEN_E09DDF2; existing canonical writes preserved; richer telecom facts tracked separately",
   "SERVICES": "COLLECTION_READS_PROVEN_E09DDF2; existing canonical writes preserved; richer telecom facts tracked separately",
-  "LINES": "CORE_PROVEN;DENSE_MASKED_MSISDN_CURRENT_SIM_PORTABILITY_COMMITMENT_DTO_CANDIDATE",
+  "LINES": "PROVEN_DENSE_MASKED_MSISDN_CURRENT_SIM_PORTABILITY_COMMITMENT_DTO",
   "PROTECTED_IDENTIFIERS": "PROVEN_CORE_AND_SIM_ICCID_EID_REQUESTED_HUMAN_REVEAL",
   "SIM_ESIM": "PROVEN_9_OPERATIONS_FROZEN_HISTORY_20_PROCESS_ONE_WINNER_19_CAS",
   "PORTABILITY": "PROVEN_REAL_7OPERATIONS_MANUAL_TRUTH_MASKED_HISTORY_ATOMIC_LINE_CAS",
@@ -27,19 +27,19 @@
   "SERVICE_CASES": "PROVEN_12OPERATIONS_CLOSED_LIFECYCLE_PRIVATE_APPEND_ONLY_NOTES",
   "EQUIPMENT": "ASSESSMENT_PENDING; device commitment exists without an equipment resource",
   "CUSTOMER360_READS": "PROVEN_EXACT_MINIMAL_ROLE_GATED_SUMMARY;bounded domain pages retained",
-  "ATTENTION": "PARTIAL: existing dashboards; TEL5 deterministic telecom coverage incomplete",
+  "ATTENTION": "IMPLEMENTED_7_DETERMINISTIC_FAMILIES_EXACT_SOURCE_ACCEPTANCE_PENDING",
   "REPORTS": "PROVEN_9_CLOSED_COUNT_DISTRIBUTIONS;no monetary mixing",
   "BILLING_ANALYTICS": "PARTIAL: existing currency-separated billing aggregates; historical monthly series/top customer readers missing",
   "IMPORTS": "DISPOSABLE_ENCRYPTED_STAGING_PROVED_ONLY; production provider/worker/canonical apply blocked; telecom mapping/protected import pending",
   "PROVENANCE": "EXISTING eight-kind verified new manual origin; no legacy certification; external identities extension pending",
   "TELECOM_MATRIX_COUNTS": {
     "REQUIRED": 97,
-    "IMPLEMENTED": 85,
+    "IMPLEMENTED": 86,
     "PROVEN": 85,
     "W2_CONSUMED": 0,
     "BLOCKER": 97
   },
-  "W2_HANDOFFS": "identifiers6004184074/catalog6014580425/portability6014716226/cases6014955052 accepted;consumption unproven;SIM accepted6015517378;reports accepted6016349751",
+  "W2_HANDOFFS": "identifiers6004184074/catalog6014580425/portability6014716226/cases6014955052 accepted;consumption unproven;SIM accepted6015517378;reports accepted6016349751;dense6016574482 accepted",
   "W3_READ_HANDOFF": "18collections+2masked identifiers+terms_get proven read candidates;2portability candidates;no registration",
   "ISSUE29": "OPEN known dependency chain; total audit now6HIGH includes separate newsource-map-js GHSA-68fv-2mgg-jv7q;unsuppressed",
   "OPEN_EXTERNAL_PROVIDER_GAPS": [
@@ -49,22 +49,22 @@
     "live telecom/provider/OAuth integrations not authorized tonight"
   ],
   "TOP_REMAINING": [
-    "Exact dense line acceptance",
-    "Publish/prove deterministic attention and currency-separated billing analytics",
+    "Exact attention acceptance",
+    "Currency-separated billing analytics",
     "Imports/provenance/fixed-service/equipment"
   ],
   "NEXT_3": [
-    "Publish coherent63 dense line candidate",
-    "Exact platform proof",
-    "Recover/publish deterministic attention"
+    "Publish attention candidate",
+    "Exact native and Supabase acceptance",
+    "Complete billing analytics semantics and readers"
   ],
   "FEATURE_IMPLEMENTATION_STARTED": true,
   "MAIN_MERGED": false,
   "PRODUCTION_TOUCHED": false,
   "AI_WRITES_REGISTERED": false,
-  "NATIVE_FRESH_RESTORE": "PASS_112267451584_ON_0C67C3A",
-  "BROWSER_PRIVATE_BOUNDARY": "PASS_112267455526_ON_0C67C3A",
-  "FUNCTIONAL_ACCEPTANCE": "PASS_198OPERATIONS_ON_0C67C3A;DENSE_LINE_EXTENSION_PENDING",
+  "NATIVE_FRESH_RESTORE": "PASS_112273772731_ON_601CE28",
+  "BROWSER_PRIVATE_BOUNDARY": "PASS_112273770901_ON_601CE28",
+  "FUNCTIONAL_ACCEPTANCE": "PASS_198_OPERATIONS_ON_601CE28;ATTENTION_CANDIDATE_PENDING",
   "OFFICIAL_CI_CLOSED": false,
   "NEW_READ_OPERATIONS": 18,
   "NEW_READ_OPERATIONS_PROVEN": 18,
@@ -80,5 +80,7 @@
   "NEW_SIM_OPERATIONS_PROVEN": 9,
   "NEW_REPORT_OPERATIONS": 10,
   "NEW_REPORT_OPERATIONS_PROVEN": 10,
-  "EXECUTION_WORKSPACE": "OFFLINE;canonical GitHub API continuation and exact GHA proof"
+  "EXECUTION_WORKSPACE": "OFFLINE;canonical GitHub API continuation and exact GHA proof",
+  "NEW_ATTENTION_OPERATIONS": 1,
+  "NEW_ATTENTION_OPERATIONS_PROVEN": 0
 }
