@@ -1,6 +1,6 @@
 # Customer360 and commercial report reads v1
 
-Candidate after accepted b654b1dd02bf9f8a8213fda5a75eac476559c5cf. Ten read operations are implemented and locally tested; exact published-source Supabase acceptance is pending. No new writes or AI registration.
+Accepted at0c67c3a40f67d3ed6591773d5083f425466c1908. All10 readers individually cookie-observed;2669 real checks PASS, native fresh/restore and browser boundary PASS. Full workflow remains blocked by the unsuppressed six-HIGH audit. No new writes or AI registration.
 
 POST `/api/telecom/reads/v1` uses the current SSR cookie user, active workspace membership, the existing default-off PRODUCT_V1_ENABLED flag and exact PRODUCT_V1_ORIGIN. Envelope `{operation,input}`; no caller workspace, SQL, arbitrary grouping or requested raw columns. Responses are closed, no-store DTOs. Backend codes remain English; W2 renders Spanish product labels.
 
@@ -28,3 +28,5 @@ Calendar reports require canonical first-of-month dates within2000..2100, ordere
 Local evidence: 290 Node tests, lint/types/build, 62-migration embedded fresh/restore, 271-function manifest and SQL fixtures. Native fresh/restore and real disposable Auth/PostgREST/Storage/application tests are committed; their candidate status remains until exact-source runs pass. Real acceptance individually observes all ten operations, exact synthetic counts, category completeness, cursor traversal, viewer/foreign scope, notes privacy, month bounds and valid-JWT revocation at both application and direct RPC layers.
 
 Attention, composed dense line DTOs, billing monthly/top-customer analytics, richer service facts, protected imports and equipment assessment remain separate outstanding TEL5 requirements. Existing billing/document readers remain the authorized bounded detail paths; a counter does not grant access to those domains.
+
+Exact proof:docs/master/W1_TEL5_REPORT_ACCEPTANCE.json. Historical candidate statements above describe fixture preparation;actual platform acceptance is now recorded at0c67c3a. W2 consumption is unproven.

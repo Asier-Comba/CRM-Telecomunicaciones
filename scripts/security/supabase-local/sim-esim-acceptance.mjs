@@ -11,6 +11,8 @@ export async function simEsimAcceptance({rpc,sql,check,http,users,wa,url,anon,ap
  const contract=await call('portfolio_v1_contract_create_manual',{command_id:randomUUID(),customer_id:customer.id,operator_id:op.json.id,start_date:'2026-01-01'})
  const service=await call('portfolio_v1_service_create_manual',{command_id:randomUUID(),contract_id:contract.id,service_kind:'mobile',display_name:'Synthetic SIM Mobile'})
  const line=await call('portfolio_v1_line_create_manual',{command_id:randomUUID(),service_id:service.id,display_name:'Synthetic SIM Line'})
+ const number='+12025550184';check((await post('identifier.create_manual',{command_id:randomUUID(),entity_kind:'line',entity_id:line.id,identifier_kind:'msisdn',canonical_value:number},'memberA','/api/identifiers/v1')).status===200,'dense_line_protected_msisdn_setup')
+ const dense=async()=>{const r=await post('line.list',{service_id:service.id},'viewerA','/api/product/v1/queries');check(r.status===200&&r.json.data.items.length===1,'dense_line_actual_cookie_viewer');check(!JSON.stringify(r.json).includes(number),'dense_line_no_raw_msisdn');return r.json.data.items[0]}
  const create={command_id:randomUUID(),customer_id:customer.id,operator_id:op.json.id,kind:'physical',display_label:'Synthetic Physical SIM'}
  let old=await write('sim.create',create)
  check((await post('sim.assign',{command_id:randomUUID(),id:old.id,expected_version:1,line_id:line.id,expected_line_version:1})).status===400,'sim_assignment_requires_iccid')
@@ -20,6 +22,7 @@ export async function simEsimAcceptance({rpc,sql,check,http,users,wa,url,anon,ap
  old=await write('sim.assign',{command_id:randomUUID(),id:old.id,expected_version:1,line_id:line.id,expected_line_version:1})
  check((await post('identifier.retire',{command_id:randomUUID(),id:ic.id,expected_version:1},'memberA','/api/identifiers/v1')).status===403,'sim_assigned_identity_cannot_be_overwritten')
  old=await write('sim.activate',{command_id:randomUUID(),id:old.id,expected_version:2,expected_line_version:1,evidence_source:'manual',provider_confirmation:'confirmed_active'})
+ const activeLine=await dense();check(activeLine.masked_msisdn==='••••184'&&activeLine.sim_id===old.id&&activeLine.sim_kind==='physical'&&activeLine.sim_status==='active'&&activeLine.masked_iccid==='••••190'&&activeLine.masked_eid===null&&activeLine.open_commitment_count===0,'dense_line_physical_context')
  let replacement=await write('sim.create',{...create,command_id:randomUUID(),kind:'esim',display_label:'Synthetic eSIM Replacement'})
  const replacementIccid='8900000000000000191',eid='89'+'0'.repeat(27)+'191';await identity(replacement.id,'iccid',replacementIccid);const eidRecord=await identity(replacement.id,'eid',eid)
  const idGet=await post('identifier.get',{id:eidRecord.id},'viewerA','/api/identifiers/v1');check(idGet.status===200&&idGet.json.data.record.entity_kind==='sim'&&idGet.json.data.record.masked_display==='••••191','sim_identifier_extension_masked_viewer_get')
@@ -30,9 +33,11 @@ export async function simEsimAcceptance({rpc,sql,check,http,users,wa,url,anon,ap
  const replace={command_id:randomUUID(),id:old.id,expected_version:3,replacement_sim_id:replacement.id,expected_replacement_version:1,expected_line_version:1,replacement_status:'active',evidence_source:'manual',provider_confirmation:'confirmed_active'}
  check((await post('sim.replace',{...replace,expected_line_version:2})).status===409,'sim_line_cas_replacement_rollback')
  const outcome=await write('sim.replace',replace);check(outcome.status==='replaced'&&outcome.replacement_status==='active'&&outcome.replacement_version===2,'sim_replace_preserves_old_and_activates_explicitly')
+ const replacedLine=await dense();check(replacedLine.sim_id===replacement.id&&replacedLine.sim_kind==='esim'&&replacedLine.sim_status==='active'&&replacedLine.masked_iccid==='••••191'&&replacedLine.masked_eid==='••••191'&&!JSON.stringify(replacedLine).includes(replacementIccid)&&!JSON.stringify(replacedLine).includes(eid),'dense_line_esim_replacement_no_raw')
  const r=await post('sim.get',{id:replacement.id},'viewerA');check(r.status===200&&r.json.data.record.masked_iccid==='••••191'&&r.json.data.record.masked_eid==='••••191'&&r.json.data.record.assigned_line_id===line.id&&!JSON.stringify(r.json).includes(replacementIccid)&&!JSON.stringify(r.json).includes(eid),'sim_individually_observed_sim.get');observed.add('sim.get')
  check((await post('sim.get',{id:replacement.id},'ownerB')).status===404,'sim_get_foreign_hidden')
  replacement=await write('sim.deactivate',{command_id:randomUUID(),id:replacement.id,expected_version:2,expected_line_version:1,evidence_source:'manual'})
+ const inactiveLine=await dense();check(inactiveLine.sim_id===null&&inactiveLine.sim_kind===null&&inactiveLine.sim_status===null&&inactiveLine.masked_iccid===null&&inactiveLine.masked_eid===null&&inactiveLine.masked_msisdn==='••••184','dense_line_closed_association_no_current_sim')
  let unused=await write('sim.create',{...create,command_id:randomUUID(),kind:'esim',display_label:'Synthetic Unused eSIM'})
  await identity(unused.id,'eid',eid);check((await post('identifier.create_manual',{command_id:randomUUID(),entity_kind:'sim',entity_id:unused.id,identifier_kind:'iccid',canonical_value:iccid},'memberA','/api/identifiers/v1')).status===409,'sim_iccid_not_reused_after_replacement')
  unused=await write('sim.cancel',{command_id:randomUUID(),id:unused.id,expected_version:1});check(unused.status==='cancelled','sim_prepared_cancelled')
@@ -52,6 +57,7 @@ export async function simEsimAcceptance({rpc,sql,check,http,users,wa,url,anon,ap
  for(const[op,input]of replays)check((await post(op,input)).status===403,'sim_revoked_replay_'+op)
  for(const[op,input]of [['sim.list',{}],['sim.get',{id:old.id}],['sim.history',{line_id:line.id}]])check((await post(op,input)).status===403,'sim_revoked_read_'+op)
  check((await post('sensitive.get',revealInput,'memberA','/api/sensitive/v1')).status===403,'sim_revoked_eid_reveal')
+ check((await post('line.list',{service_id:service.id},'memberA','/api/product/v1/queries')).status===403,'dense_line_revoked_valid_jwt_denied')
  sql(`update public.workspace_members set status='active'where workspace_id='${wa}'and user_id='${users.memberA.id}';`)
- return{sim_esim_operations_individually_observed:[...observed],sim_esim:'PASS_CUSTOMER_BOUND_RESOURCES_EXPLICIT_MANUAL_ACTIVATION',sim_replacement_history:'PASS_ATOMIC_REPLACEMENT_FROZEN_IDENTIFIER_POINTERS',sim_protected_identity:'PASS_ICCID_LIFETIME_UNIQUE_EID_SHARED_PROFILE_EXPLICIT_HUMAN_REVEAL',sim_revocation:'PASS_VALID_JWT_ALL_OPERATIONS_DENIED',sim_stock_erp:'NOT_MODELED_CUSTOMER_RESERVED_PREPARED_RESOURCE'}
+ return{dense_line_collection:'PASS_MASKED_MSISDN_CURRENT_SIM_ESIM_LIFECYCLE_REVOCATION',sim_esim_operations_individually_observed:[...observed],sim_esim:'PASS_CUSTOMER_BOUND_RESOURCES_EXPLICIT_MANUAL_ACTIVATION',sim_replacement_history:'PASS_ATOMIC_REPLACEMENT_FROZEN_IDENTIFIER_POINTERS',sim_protected_identity:'PASS_ICCID_LIFETIME_UNIQUE_EID_SHARED_PROFILE_EXPLICIT_HUMAN_REVEAL',sim_revocation:'PASS_VALID_JWT_ALL_OPERATIONS_DENIED',sim_stock_erp:'NOT_MODELED_CUSTOMER_RESERVED_PREPARED_RESOURCE'}
 }

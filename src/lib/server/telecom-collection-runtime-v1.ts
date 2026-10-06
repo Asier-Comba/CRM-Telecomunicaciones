@@ -4,7 +4,7 @@ import { snapshotProductJsonV1 } from './product-query-runtime-v1.ts'
 import { isClosedObjectV1 as plain, isUuidV1 as uuid } from './product-work-runtime-v1.ts'
 import { isStrictCalendarDateV1, isStrictInstantV1 } from './telecom-runtime-v1.ts'
 
-type Rule = string | readonly string[]
+type Rule = string | readonly (string | null)[]
 type Spec = Readonly<{ fields: Readonly<Record<string, Rule>>; filters: readonly string[]; enums: Readonly<Record<string, readonly string[]>> }>
 const specs: Readonly<Record<string, Spec>> = TELECOM_COLLECTION_SPECS_V1
 const date = (v: unknown) => isStrictCalendarDateV1(v) && v >= '1900-01-01' && v <= '2199-12-31'
@@ -43,11 +43,13 @@ export function parseTelecomCollectionInputV1<O extends TelecomCollectionOperati
 }
 
 function field(rule: Rule, value: unknown): boolean {
-  if (typeof rule !== 'string') return typeof value === 'string' && rule.includes(value)
+  if (typeof rule !== 'string') return (typeof value === 'string' || value === null) && rule.includes(value)
   if (rule.endsWith('?')) return value === null || field(rule.slice(0, -1), value)
   if (rule === 'uuid') return uuid(value)
   if (rule === 'date') return date(value)
   if (rule === 'instant') return typeof value === 'string' && isStrictInstantV1(value.replace(/(\.\d{3})\d{1,3}(Z|[+-]\d{2}:\d{2})$/, '$1$2'))
+  if (rule === 'mask') return typeof value === 'string' && /^••••[0-9]{3}$/.test(value)
+  if (rule === 'count') return typeof value === 'number' && Number.isSafeInteger(value) && value >= 0 && value < 1e15
   if (rule === 'boolean') return typeof value === 'boolean'
   if (rule === 'positive') return typeof value === 'number' && Number.isSafeInteger(value) && value > 0 && value < 1e15
   if (rule === 'integer') return typeof value === 'number' && Number.isSafeInteger(value)
@@ -89,6 +91,11 @@ export function parseTelecomCollectionResultV1(op: TelecomCollectionOperationV1,
       if (op === 'activity.list' && i.kind !== undefined && r.activity_kind !== i.kind) return null
       if (op === 'service.list' && i.kind !== undefined && r.service_kind !== i.kind) return null
       if (op === 'plan_version.list' && i.status !== undefined && r.plan_status !== i.status) return null
+      if (op === 'line.list') {
+        if ((r.sim_id === null) !== (r.sim_kind === null) || (r.sim_id === null) !== (r.sim_status === null) || (r.sim_id === null) !== (r.masked_iccid === null)) return null
+        if ((r.sim_kind === null || r.sim_kind === 'physical') && r.masked_eid !== null) return null
+        if ((r.portability_id === null) !== (r.portability_status === null)) return null
+      }
       if (op === 'plan_version.list' && i.valid_on !== undefined && ((r.valid_from as string) > (i.valid_on as string) || r.valid_until !== null && (r.valid_until as string) < (i.valid_on as string))) return null
       const range = op === 'opportunity.list' ? ['expected_close', r.expected_close_date] : op === 'renewal.list' ? ['window', r.target_on] : op === 'permanence.list' ? ['window', r.ends_on] : null
       if (range && i[range[0] as string + '_from'] !== undefined) {

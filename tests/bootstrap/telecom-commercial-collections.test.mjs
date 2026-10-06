@@ -63,3 +63,10 @@ test('bundle kind filters preserve the primary catalog kind while validating the
  assert.ok(parseTelecomCollectionResultV1('plan.list',{service_kind:'fiber'},page('plan.list',[plan])))
  assert.equal(parseTelecomCollectionResultV1('plan_version.list',{operator_id:workspace,service_kind:'fiber'},page('plan_version.list',[row])),null)
 })
+
+test('dense line collection composes masks and current SIM/portability context with coherent nullable fields',()=>{
+ const row={id,version:1,service_id:id,customer_id:id,contract_id:id,operator_id:id,plan_version_id:null,display_name:'Synthetic Dense Line',status:'pending',source:'manual',activated_on:null,ended_on:null,service_kind:'mobile',masked_msisdn:'••••184',sim_id:workspace,sim_kind:'esim',sim_status:'active',masked_iccid:'••••191',masked_eid:'••••191',portability_id:id,portability_status:'requested',open_commitment_count:1,next_commitment_ends_on:'2026-10-31'}
+ const parse=r=>parseTelecomCollectionResultV1('line.list',{},page('line.list',[r]));assert.ok(parse(row))
+ for(const p of [{masked_msisdn:'+12025550184'},{masked_iccid:'8900000000000000191'},{sim_status:'replaced'},{sim_id:null},{sim_kind:'physical'},{portability_id:null},{open_commitment_count:-1},{msisdn:'+12025550184'}])assert.equal(parse({...row,...p}),null)
+ assert.ok(parse({...row,sim_id:null,sim_kind:null,sim_status:null,masked_iccid:null,masked_eid:null,portability_id:null,portability_status:null}))
+})

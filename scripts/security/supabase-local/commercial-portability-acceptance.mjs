@@ -46,6 +46,7 @@ export async function commercialPortabilityAcceptance({rpc,sql,check,http,users,
  check(out.line_effect.status==='ended'&&out.line_effect.version===3,'port_explicit_outbound_line_end')
  let cursor;const ids=[];do{const r=await post('portability.list',{line_id:line.id,limit:1,...(cursor?{after_id:cursor}:{})},'viewerA');check(r.status===200,'port_individually_observed_portability.list');observed.add('portability.list');ids.push(...r.json.data.items.map(x=>x.id));cursor=r.json.data.next_id}while(cursor)
  check(ids.length===4&&new Set(ids).size===4,'port_history_keyset_no_duplicates')
+ const denseResponse=await fetch(appUrl+'/api/product/v1/queries',{method:'POST',headers:{cookie:cookies.viewerA,origin:appUrl,'content-type':'application/json'},body:JSON.stringify({operation:'line.list',input:{service_id:service.id}})}),dense=await denseResponse.json();check(denseResponse.status===200&&dense.data.items[0].portability_id===out.id&&dense.data.items[0].portability_status==='completed'&&dense.data.items[0].masked_msisdn==='••••181'&&!JSON.stringify(dense).includes('+12025550181'),'dense_line_latest_portability_retained_after_end')
  for(const[op,input,response]of replays)check(JSON.stringify((await post(op,input)).json)===JSON.stringify(response),'port_exact_old_receipt_after_lifecycle')
  check((await http('/rest/v1/telecom_portabilities?select=*',users.memberA.token)).status>=400,'port_raw_table_closed')
  check((await post('portability.list',{msisdn:'+12025550181'})).status===400,'port_no_raw_number_search')

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "source_sha": "b654b1dd02bf9f8a8213fda5a75eac476559c5cf",
-  "stage": "TEL5_CUSTOMER360_REPORT_CANDIDATE_AFTER_ACCEPTED_SIM",
+  "source_sha": "0c67c3a40f67d3ed6591773d5083f425466c1908",
+  "stage": "TEL5_DENSE_MASKED_LINE_CANDIDATE_AFTER_ACCEPTED_REPORTS",
   "exact_head_accepted": true,
   "no_ai_writes": true,
   "rows": [
@@ -278,7 +278,7 @@
       "W2_CONSUMED": false,
       "BLOCKER": "W2_consumption_unproven",
       "existing_operation": null,
-      "notes": "Individually observed in real Auth cookie route; exact accepted source e09ddf2; native restore and private boundary PASS."
+      "notes": "Individually observed in real Auth cookie route; exact accepted source e09ddf2; native restore and private boundary PASS. Dense masked line.list extension reconstructed from canonical GitHub source;exact63-migration platform proof pending."
     },
     {
       "section": "Lines",
@@ -289,7 +289,7 @@
       "W2_CONSUMED": false,
       "BLOCKER": "W2_consumption_unproven",
       "existing_operation": "line.create_manual",
-      "notes": "Existing canonical operation individually observed at source3ebed3f; native restore and local actual browser boundary PASS. Official browser CI cancelled, not credited as passed."
+      "notes": "Existing canonical operation individually observed at source3ebed3f; native restore and local actual browser boundary PASS. Official browser CI cancelled, not credited as passed. Dense masked line.list extension reconstructed from canonical GitHub source;exact63-migration platform proof pending."
     },
     {
       "section": "Lines",
@@ -300,7 +300,7 @@
       "W2_CONSUMED": false,
       "BLOCKER": "W2_consumption_unproven",
       "existing_operation": "line.update_label",
-      "notes": "Existing canonical operation individually observed at source3ebed3f; native restore and local actual browser boundary PASS. Official browser CI cancelled, not credited as passed."
+      "notes": "Existing canonical operation individually observed at source3ebed3f; native restore and local actual browser boundary PASS. Official browser CI cancelled, not credited as passed. Dense masked line.list extension reconstructed from canonical GitHub source;exact63-migration platform proof pending."
     },
     {
       "section": "Lines",
@@ -311,7 +311,7 @@
       "W2_CONSUMED": false,
       "BLOCKER": "not_implemented_as_requested",
       "existing_operation": null,
-      "notes": "Table or a narrower legacy reader does not complete this TEL5 requirement."
+      "notes": "Table or a narrower legacy reader does not complete this TEL5 requirement. Dense masked line.list extension reconstructed from canonical GitHub source;exact63-migration platform proof pending."
     },
     {
       "section": "Identifiers",
@@ -747,11 +747,11 @@
       "requirement": "customer360.summary",
       "REQUIRED": true,
       "IMPLEMENTED": true,
-      "PROVEN": false,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "exact_source_platform_acceptance_pending;W2_consumption_unproven",
+      "BLOCKER": "W2_consumption_unproven",
       "existing_operation": "customer360.summary",
-      "notes": "Typed bounded telecom.reads.v1 implementation;290 Node/lint/types/build and embedded62 fresh/restore local proof;native/real Supabase exact source pending."
+      "notes": "All10 normal cookie readers proven0c67c3a/2669checks;exactcounts,closedcategories,densemonths,keyset,protectedcountscope and validJWT revocation;native/PGlite/browser PASS."
     },
     {
       "section": "Attention",
@@ -769,99 +769,99 @@
       "requirement": "operator portfolio",
       "REQUIRED": true,
       "IMPLEMENTED": true,
-      "PROVEN": false,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "exact_source_platform_acceptance_pending;W2_consumption_unproven",
+      "BLOCKER": "W2_consumption_unproven",
       "existing_operation": "report.operator_portfolio",
-      "notes": "Typed bounded telecom.reads.v1 implementation;290 Node/lint/types/build and embedded62 fresh/restore local proof;native/real Supabase exact source pending."
+      "notes": "All10 normal cookie readers proven0c67c3a/2669checks;exactcounts,closedcategories,densemonths,keyset,protectedcountscope and validJWT revocation;native/PGlite/browser PASS."
     },
     {
       "section": "Reports",
       "requirement": "service kind distribution",
       "REQUIRED": true,
       "IMPLEMENTED": true,
-      "PROVEN": false,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "exact_source_platform_acceptance_pending;W2_consumption_unproven",
+      "BLOCKER": "W2_consumption_unproven",
       "existing_operation": "report.services_by_kind",
-      "notes": "Typed bounded telecom.reads.v1 implementation;290 Node/lint/types/build and embedded62 fresh/restore local proof;native/real Supabase exact source pending."
+      "notes": "All10 normal cookie readers proven0c67c3a/2669checks;exactcounts,closedcategories,densemonths,keyset,protectedcountscope and validJWT revocation;native/PGlite/browser PASS."
     },
     {
       "section": "Reports",
       "requirement": "line status distribution",
       "REQUIRED": true,
       "IMPLEMENTED": true,
-      "PROVEN": false,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "exact_source_platform_acceptance_pending;W2_consumption_unproven",
+      "BLOCKER": "W2_consumption_unproven",
       "existing_operation": "report.lines_by_status",
-      "notes": "Typed bounded telecom.reads.v1 implementation;290 Node/lint/types/build and embedded62 fresh/restore local proof;native/real Supabase exact source pending."
+      "notes": "All10 normal cookie readers proven0c67c3a/2669checks;exactcounts,closedcategories,densemonths,keyset,protectedcountscope and validJWT revocation;native/PGlite/browser PASS."
     },
     {
       "section": "Reports",
       "requirement": "renewal periods",
       "REQUIRED": true,
       "IMPLEMENTED": true,
-      "PROVEN": false,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "exact_source_platform_acceptance_pending;W2_consumption_unproven",
+      "BLOCKER": "W2_consumption_unproven",
       "existing_operation": "report.renewals_by_month",
-      "notes": "Typed bounded telecom.reads.v1 implementation;290 Node/lint/types/build and embedded62 fresh/restore local proof;native/real Supabase exact source pending."
+      "notes": "All10 normal cookie readers proven0c67c3a/2669checks;exactcounts,closedcategories,densemonths,keyset,protectedcountscope and validJWT revocation;native/PGlite/browser PASS."
     },
     {
       "section": "Reports",
       "requirement": "permanence periods",
       "REQUIRED": true,
       "IMPLEMENTED": true,
-      "PROVEN": false,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "exact_source_platform_acceptance_pending;W2_consumption_unproven",
+      "BLOCKER": "W2_consumption_unproven",
       "existing_operation": "report.permanences_by_month",
-      "notes": "Typed bounded telecom.reads.v1 implementation;290 Node/lint/types/build and embedded62 fresh/restore local proof;native/real Supabase exact source pending."
+      "notes": "All10 normal cookie readers proven0c67c3a/2669checks;exactcounts,closedcategories,densemonths,keyset,protectedcountscope and validJWT revocation;native/PGlite/browser PASS."
     },
     {
       "section": "Reports",
       "requirement": "portability status",
       "REQUIRED": true,
       "IMPLEMENTED": true,
-      "PROVEN": false,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "exact_source_platform_acceptance_pending;W2_consumption_unproven",
+      "BLOCKER": "W2_consumption_unproven",
       "existing_operation": "report.portabilities_by_status",
-      "notes": "Typed bounded telecom.reads.v1 implementation;290 Node/lint/types/build and embedded62 fresh/restore local proof;native/real Supabase exact source pending."
+      "notes": "All10 normal cookie readers proven0c67c3a/2669checks;exactcounts,closedcategories,densemonths,keyset,protectedcountscope and validJWT revocation;native/PGlite/browser PASS."
     },
     {
       "section": "Reports",
       "requirement": "case priority/status",
       "REQUIRED": true,
       "IMPLEMENTED": true,
-      "PROVEN": false,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "exact_source_platform_acceptance_pending;W2_consumption_unproven",
+      "BLOCKER": "W2_consumption_unproven",
       "existing_operation": "report.cases_by_priority_status",
-      "notes": "Typed bounded telecom.reads.v1 implementation;290 Node/lint/types/build and embedded62 fresh/restore local proof;native/real Supabase exact source pending."
+      "notes": "All10 normal cookie readers proven0c67c3a/2669checks;exactcounts,closedcategories,densemonths,keyset,protectedcountscope and validJWT revocation;native/PGlite/browser PASS."
     },
     {
       "section": "Reports",
       "requirement": "pipeline stage",
       "REQUIRED": true,
       "IMPLEMENTED": true,
-      "PROVEN": false,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "exact_source_platform_acceptance_pending;W2_consumption_unproven",
+      "BLOCKER": "W2_consumption_unproven",
       "existing_operation": "report.pipeline_by_stage",
-      "notes": "Typed bounded telecom.reads.v1 implementation;290 Node/lint/types/build and embedded62 fresh/restore local proof;native/real Supabase exact source pending."
+      "notes": "All10 normal cookie readers proven0c67c3a/2669checks;exactcounts,closedcategories,densemonths,keyset,protectedcountscope and validJWT revocation;native/PGlite/browser PASS."
     },
     {
       "section": "Reports",
       "requirement": "commercial owner counts",
       "REQUIRED": true,
       "IMPLEMENTED": true,
-      "PROVEN": false,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "exact_source_platform_acceptance_pending;W2_consumption_unproven",
+      "BLOCKER": "W2_consumption_unproven",
       "existing_operation": "report.commercial_owner_counts",
-      "notes": "Typed bounded telecom.reads.v1 implementation;290 Node/lint/types/build and embedded62 fresh/restore local proof;native/real Supabase exact source pending."
+      "notes": "All10 normal cookie readers proven0c67c3a/2669checks;exactcounts,closedcategories,densemonths,keyset,protectedcountscope and validJWT revocation;native/PGlite/browser PASS."
     },
     {
       "section": "Reports",
@@ -1076,13 +1076,13 @@
   "counts": {
     "REQUIRED": 97,
     "IMPLEMENTED": 85,
-    "PROVEN": 75,
+    "PROVEN": 85,
     "W2_CONSUMED": 0,
     "BLOCKER": 97
   },
   "official_workflow_fully_green": false,
-  "accepted_source_sha": "b654b1dd02bf9f8a8213fda5a75eac476559c5cf",
+  "accepted_source_sha": "0c67c3a40f67d3ed6591773d5083f425466c1908",
   "candidate_operations_total": 198,
-  "candidate_operations_proven": 188,
+  "candidate_operations_proven": 198,
   "candidate_exact_head_accepted": false
 }

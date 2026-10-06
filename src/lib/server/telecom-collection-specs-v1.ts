@@ -1,4 +1,4 @@
-/** Closed DTO/filter registry: no raw columns, protected identifiers or caller-defined schema. */
+/** Closed DTO/filter registry; protected identifiers project masks only. */
 export const TELECOM_COLLECTION_SPECS_V1 = {
   "customer.list": {
     "fields": {
@@ -543,7 +543,41 @@ export const TELECOM_COLLECTION_SPECS_V1 = {
         "integration"
       ],
       "activated_on": "date?",
-      "ended_on": "date?"
+      "ended_on": "date?",
+      "service_kind": [
+        "mobile",
+        "fiber",
+        "fixed_voice",
+        "data_connectivity",
+        "other"
+      ],
+      "masked_msisdn": "mask?",
+      "sim_id": "uuid?",
+      "sim_kind": [
+        "physical",
+        "esim",
+        null
+      ],
+      "sim_status": [
+        "assigned",
+        "active",
+        null
+      ],
+      "masked_iccid": "mask?",
+      "masked_eid": "mask?",
+      "portability_id": "uuid?",
+      "portability_status": [
+        "draft",
+        "requested",
+        "scheduled",
+        "in_progress",
+        "completed",
+        "rejected",
+        "cancelled",
+        null
+      ],
+      "open_commitment_count": "count",
+      "next_commitment_ends_on": "date?"
     },
     "filters": [
       "limit",

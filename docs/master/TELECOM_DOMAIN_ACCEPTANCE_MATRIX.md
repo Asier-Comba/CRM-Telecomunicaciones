@@ -1,8 +1,8 @@
 # Telecom domain acceptance matrix
 
-Accepted source: `b654b1dd02bf9f8a8213fda5a75eac476559c5cf`. Customer360/report candidate follows; fullTEL5 still incomplete. No AI writes. W2 consumption is unproven.
+Accepted0c67c3a:198operations/2669checks. Dense line DTO candidate follows;attention/billinganalytics/extras remain incomplete. No AI writes;W2consumption unproven.
 
-| Section | Requirement | REQUIRED | IMPLEMENTED | PROVEN | W2_CONSUMED | BLOCKER |
+|Section|Requirement|REQUIRED|IMPLEMENTED|PROVEN|W2_CONSUMED|BLOCKER|
 |---|---|---|---|---|---|---|
 | Operators | operator.list | YES | YES | YES | NO | W2_consumption_unproven |
 | Operators | operator.get | YES | YES | YES | NO | W2_consumption_unproven |
@@ -71,17 +71,17 @@ Accepted source: `b654b1dd02bf9f8a8213fda5a75eac476559c5cf`. Customer360/report 
 | Collections | activity.list | YES | YES | YES | NO | W2_consumption_unproven |
 | Collections | assignee.list | YES | YES | YES | NO | W2_consumption_unproven |
 | Customer360 | bounded existing domain pages | YES | NO | NO | NO | not_implemented_as_requested |
-| Customer360 | customer360.summary | YES | YES | NO | NO | exact_source_platform_acceptance_pending;W2_consumption_unproven |
+| Customer360 | customer360.summary | YES | YES | YES | NO | W2_consumption_unproven |
 | Attention | deterministic telecom attention | YES | NO | NO | NO | not_implemented_as_requested |
-| Reports | operator portfolio | YES | YES | NO | NO | exact_source_platform_acceptance_pending;W2_consumption_unproven |
-| Reports | service kind distribution | YES | YES | NO | NO | exact_source_platform_acceptance_pending;W2_consumption_unproven |
-| Reports | line status distribution | YES | YES | NO | NO | exact_source_platform_acceptance_pending;W2_consumption_unproven |
-| Reports | renewal periods | YES | YES | NO | NO | exact_source_platform_acceptance_pending;W2_consumption_unproven |
-| Reports | permanence periods | YES | YES | NO | NO | exact_source_platform_acceptance_pending;W2_consumption_unproven |
-| Reports | portability status | YES | YES | NO | NO | exact_source_platform_acceptance_pending;W2_consumption_unproven |
-| Reports | case priority/status | YES | YES | NO | NO | exact_source_platform_acceptance_pending;W2_consumption_unproven |
-| Reports | pipeline stage | YES | YES | NO | NO | exact_source_platform_acceptance_pending;W2_consumption_unproven |
-| Reports | commercial owner counts | YES | YES | NO | NO | exact_source_platform_acceptance_pending;W2_consumption_unproven |
+| Reports | operator portfolio | YES | YES | YES | NO | W2_consumption_unproven |
+| Reports | service kind distribution | YES | YES | YES | NO | W2_consumption_unproven |
+| Reports | line status distribution | YES | YES | YES | NO | W2_consumption_unproven |
+| Reports | renewal periods | YES | YES | YES | NO | W2_consumption_unproven |
+| Reports | permanence periods | YES | YES | YES | NO | W2_consumption_unproven |
+| Reports | portability status | YES | YES | YES | NO | W2_consumption_unproven |
+| Reports | case priority/status | YES | YES | YES | NO | W2_consumption_unproven |
+| Reports | pipeline stage | YES | YES | YES | NO | W2_consumption_unproven |
+| Reports | commercial owner counts | YES | YES | YES | NO | W2_consumption_unproven |
 | Reports | billing monthly currency series | YES | NO | NO | NO | not_implemented_as_requested |
 | Reports | billing top customers by currency | YES | NO | NO | NO | not_implemented_as_requested |
 | Imports | safe telecom mapping update | YES | NO | NO | NO | not_implemented_as_requested |
@@ -102,4 +102,4 @@ Accepted source: `b654b1dd02bf9f8a8213fda5a75eac476559c5cf`. Customer360/report 
 | SIM/eSIM | sim.list | YES | YES | YES | NO | W2_consumption_unproven |
 | SIM/eSIM | sim.get | YES | YES | YES | NO | W2_consumption_unproven |
 
-Counts: {"REQUIRED": 97, "IMPLEMENTED": 85, "PROVEN": 75, "W2_CONSUMED": 0, "BLOCKER": 97}. Full notes/evidence mappings in the companion JSON.
+Counts: {"REQUIRED":97,"IMPLEMENTED":85,"PROVEN":85,"W2_CONSUMED":0,"BLOCKER":97}. Detailed notes in companion JSON.

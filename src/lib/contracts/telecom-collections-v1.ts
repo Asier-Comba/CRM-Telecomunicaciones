@@ -110,6 +110,18 @@ export interface ServiceRowV1 {
   ended_on: string | null
 }
 export interface LineRowV1 {
+  service_kind: "mobile" | "fiber" | "fixed_voice" | "data_connectivity" | "other"
+  masked_msisdn: string | null
+  sim_id: string | null
+  sim_kind: "physical" | "esim" | null
+  sim_status: "assigned" | "active" | null
+  masked_iccid: string | null
+  masked_eid: string | null
+  portability_id: string | null
+  portability_status: "draft" | "requested" | "scheduled" | "in_progress" | "completed" | "rejected" | "cancelled" | null
+  open_commitment_count: number
+  next_commitment_ends_on: string | null
+
   id: string
   version: number
   service_id: string

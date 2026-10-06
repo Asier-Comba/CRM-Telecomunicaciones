@@ -1,25 +1,26 @@
 {
   "catalog_version": "product.capabilities.v1",
   "as_of": "2026-10-06",
-  "implementation_head": "b654b1dd02bf9f8a8213fda5a75eac476559c5cf",
+  "implementation_head": "0c67c3a40f67d3ed6591773d5083f425466c1908",
   "evidence": {
     "native": {
-      "run_id": 37457701423,
+      "run_id": 37463144206,
       "status": "PASS",
-      "migration_count": 61,
-      "function_count": 269,
-      "tested_head": "b654b1dd02bf9f8a8213fda5a75eac476559c5cf",
-      "tested_checkout": "2489c93de20c14ea6955a3e1cdc794c94f550392",
-      "tested_tree": "745566600c3430bf90e40a9e88925998bf18b4f0",
+      "migration_count": 62,
+      "function_count": 271,
+      "tested_head": "0c67c3a40f67d3ed6591773d5083f425466c1908",
+      "tested_checkout": "8505bbb1d46d048dd2eb95714a7841ca474423fb",
+      "tested_tree": "9b3828a97a7be097e2b86ff42345f123125217b3",
       "fresh": "PASS",
       "logical_synthetic_restore": "PASS",
       "privileges_roles_acl_loss_negative_control": "PASS",
       "production_backup": false,
-      "job_id": 112249260785
+      "job_id": 112267451584,
+      "tree_comparison_method": "GitHub compare:zero changed files"
     },
     "actual_supabase": {
-      "run_id": 37457701499,
-      "job_id": 112249259768,
+      "run_id": 37463144177,
+      "job_id": 112267455902,
       "environment": "LOCAL_SUPABASE_DOCKER",
       "result": "PASS",
       "auth": "PASS",
@@ -28,10 +29,10 @@
       "rpc": "PASS",
       "storage": "PASS",
       "cli": "2.119.0",
-      "sha": "2489c93de20c14ea6955a3e1cdc794c94f550392",
+      "sha": "8505bbb1d46d048dd2eb95714a7841ca474423fb",
       "config_sha256": "3fc22bba97e5114a7ee67cc90e514b8ec16eda0cb2c5817cf87784e8e4ab6e57",
-      "migration_head": "20261006123000_sim_association_snapshot_cas.sql",
-      "migration_count": 61,
+      "migration_head": "20261006130000_telecom_customer360_report_reads.sql",
+      "migration_count": 62,
       "service_images": [
         "public.ecr.aws/supabase/gotrue:v2.197.0",
         "public.ecr.aws/supabase/kong:2.8.1",
@@ -471,6 +472,21 @@
       "sim_protected_identity": "PASS_ICCID_LIFETIME_UNIQUE_EID_SHARED_PROFILE_EXPLICIT_HUMAN_REVEAL",
       "sim_revocation": "PASS_VALID_JWT_ALL_OPERATIONS_DENIED",
       "sim_stock_erp": "NOT_MODELED_CUSTOMER_RESERVED_PREPARED_RESOURCE",
+      "telecom_report_operations_individually_observed": [
+        "customer360.summary",
+        "report.operator_portfolio",
+        "report.services_by_kind",
+        "report.lines_by_status",
+        "report.renewals_by_month",
+        "report.permanences_by_month",
+        "report.portabilities_by_status",
+        "report.cases_by_priority_status",
+        "report.pipeline_by_stage",
+        "report.commercial_owner_counts"
+      ],
+      "customer360_summary": "PASS_EXACT_COUNTERS_PROTECTED_COUNTS_ROLE_GATED",
+      "telecom_reports": "PASS_CLOSED_DENSE_DISTRIBUTIONS_PERIODS_KEYSET",
+      "telecom_report_revocation": "PASS_VALID_JWT_ALL_READS_DENIED",
       "billing_search": "PASS",
       "billing_pdf": "PASS",
       "billing_dashboard": "PASS",
@@ -559,7 +575,7 @@
       "document_content_verified_sha256": "NOT_IMPLEMENTED",
       "cross_tenant": "PASS",
       "revocation": "PASS",
-      "checks": 2479,
+      "checks": 2669,
       "manager": "NOT_CANONICAL",
       "signed_access": "NOT_IMPLEMENTED",
       "auth_email_production": "NOT_TESTED",
@@ -567,19 +583,19 @@
       "scoped_service_principal": "NOT_IMPLEMENTED",
       "remote_staging": "NOT_TESTED",
       "teardown": "PASS",
-      "tested_head": "b654b1dd02bf9f8a8213fda5a75eac476559c5cf"
+      "tested_head": "0c67c3a40f67d3ed6591773d5083f425466c1908"
     },
     "quality": {
-      "tests": 283,
-      "node_tests": 283,
+      "tests": 290,
+      "node_tests": 290,
       "lint": "PASS",
       "types": "PASS",
       "build": "PASS",
       "audit": "FAIL_UNSUPPRESSED_6_HIGH;known Issue29 chain plus distinct source-map-js GHSA-68fv-2mgg-jv7q",
       "overall_ci": "FAIL_AUDIT;OFFICIAL_BROWSER_PASS",
-      "tested_head": "b654b1dd02bf9f8a8213fda5a75eac476559c5cf",
-      "run_id": 37457701423,
-      "job_id": 112249260932,
+      "tested_head": "0c67c3a40f67d3ed6591773d5083f425466c1908",
+      "run_id": 37463144206,
+      "job_id": 112267451437,
       "critical_playwright": "SKIPPED",
       "dependency_review": "SKIPPED",
       "workflow_fully_green": false
@@ -6891,7 +6907,8 @@
         "viewer"
       ],
       "minimum_role": "viewer",
-      "supabase_status": "PASS_AT_RECORDED_HEAD"
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "dense_telecom_extension": "CANDIDATE_AFTER_0C67C3A_CANONICAL_REMOTE_RECOVERY;EXACT_PLATFORM_PENDING"
     },
     {
       "name": "renewal.list",
@@ -8973,9 +8990,9 @@
         "viewer"
       ],
       "minimum_role": "viewer",
-      "backend_status": "candidate_local_tested_exact_platform_pending",
-      "supabase_tested": false,
-      "supabase_status": "PENDING_EXACT_SOURCE",
+      "backend_status": "implemented_real_disposable_proven",
+      "supabase_tested": true,
+      "supabase_status": "PASS",
       "ui_safe": false,
       "assistant_future": "safe_read_candidate_not_registered",
       "ai_registration": false,
@@ -8995,7 +9012,8 @@
       "cas": {
         "required": false,
         "key": null
-      }
+      },
+      "supabase_tested_head": "0c67c3a40f67d3ed6591773d5083f425466c1908"
     },
     {
       "name": "report.operator_portfolio",
@@ -9017,9 +9035,9 @@
         "viewer"
       ],
       "minimum_role": "viewer",
-      "backend_status": "candidate_local_tested_exact_platform_pending",
-      "supabase_tested": false,
-      "supabase_status": "PENDING_EXACT_SOURCE",
+      "backend_status": "implemented_real_disposable_proven",
+      "supabase_tested": true,
+      "supabase_status": "PASS",
       "ui_safe": false,
       "assistant_future": "safe_read_candidate_not_registered",
       "ai_registration": false,
@@ -9039,7 +9057,8 @@
       "cas": {
         "required": false,
         "key": null
-      }
+      },
+      "supabase_tested_head": "0c67c3a40f67d3ed6591773d5083f425466c1908"
     },
     {
       "name": "report.services_by_kind",
@@ -9059,9 +9078,9 @@
         "viewer"
       ],
       "minimum_role": "viewer",
-      "backend_status": "candidate_local_tested_exact_platform_pending",
-      "supabase_tested": false,
-      "supabase_status": "PENDING_EXACT_SOURCE",
+      "backend_status": "implemented_real_disposable_proven",
+      "supabase_tested": true,
+      "supabase_status": "PASS",
       "ui_safe": false,
       "assistant_future": "safe_read_candidate_not_registered",
       "ai_registration": false,
@@ -9081,7 +9100,8 @@
       "cas": {
         "required": false,
         "key": null
-      }
+      },
+      "supabase_tested_head": "0c67c3a40f67d3ed6591773d5083f425466c1908"
     },
     {
       "name": "report.lines_by_status",
@@ -9101,9 +9121,9 @@
         "viewer"
       ],
       "minimum_role": "viewer",
-      "backend_status": "candidate_local_tested_exact_platform_pending",
-      "supabase_tested": false,
-      "supabase_status": "PENDING_EXACT_SOURCE",
+      "backend_status": "implemented_real_disposable_proven",
+      "supabase_tested": true,
+      "supabase_status": "PASS",
       "ui_safe": false,
       "assistant_future": "safe_read_candidate_not_registered",
       "ai_registration": false,
@@ -9123,7 +9143,8 @@
       "cas": {
         "required": false,
         "key": null
-      }
+      },
+      "supabase_tested_head": "0c67c3a40f67d3ed6591773d5083f425466c1908"
     },
     {
       "name": "report.renewals_by_month",
@@ -9144,9 +9165,9 @@
         "viewer"
       ],
       "minimum_role": "viewer",
-      "backend_status": "candidate_local_tested_exact_platform_pending",
-      "supabase_tested": false,
-      "supabase_status": "PENDING_EXACT_SOURCE",
+      "backend_status": "implemented_real_disposable_proven",
+      "supabase_tested": true,
+      "supabase_status": "PASS",
       "ui_safe": false,
       "assistant_future": "safe_read_candidate_not_registered",
       "ai_registration": false,
@@ -9166,7 +9187,8 @@
       "cas": {
         "required": false,
         "key": null
-      }
+      },
+      "supabase_tested_head": "0c67c3a40f67d3ed6591773d5083f425466c1908"
     },
     {
       "name": "report.permanences_by_month",
@@ -9187,9 +9209,9 @@
         "viewer"
       ],
       "minimum_role": "viewer",
-      "backend_status": "candidate_local_tested_exact_platform_pending",
-      "supabase_tested": false,
-      "supabase_status": "PENDING_EXACT_SOURCE",
+      "backend_status": "implemented_real_disposable_proven",
+      "supabase_tested": true,
+      "supabase_status": "PASS",
       "ui_safe": false,
       "assistant_future": "safe_read_candidate_not_registered",
       "ai_registration": false,
@@ -9209,7 +9231,8 @@
       "cas": {
         "required": false,
         "key": null
-      }
+      },
+      "supabase_tested_head": "0c67c3a40f67d3ed6591773d5083f425466c1908"
     },
     {
       "name": "report.portabilities_by_status",
@@ -9228,9 +9251,9 @@
         "viewer"
       ],
       "minimum_role": "viewer",
-      "backend_status": "candidate_local_tested_exact_platform_pending",
-      "supabase_tested": false,
-      "supabase_status": "PENDING_EXACT_SOURCE",
+      "backend_status": "implemented_real_disposable_proven",
+      "supabase_tested": true,
+      "supabase_status": "PASS",
       "ui_safe": false,
       "assistant_future": "safe_read_candidate_not_registered",
       "ai_registration": false,
@@ -9250,7 +9273,8 @@
       "cas": {
         "required": false,
         "key": null
-      }
+      },
+      "supabase_tested_head": "0c67c3a40f67d3ed6591773d5083f425466c1908"
     },
     {
       "name": "report.cases_by_priority_status",
@@ -9269,9 +9293,9 @@
         "viewer"
       ],
       "minimum_role": "viewer",
-      "backend_status": "candidate_local_tested_exact_platform_pending",
-      "supabase_tested": false,
-      "supabase_status": "PENDING_EXACT_SOURCE",
+      "backend_status": "implemented_real_disposable_proven",
+      "supabase_tested": true,
+      "supabase_status": "PASS",
       "ui_safe": false,
       "assistant_future": "safe_read_candidate_not_registered",
       "ai_registration": false,
@@ -9291,7 +9315,8 @@
       "cas": {
         "required": false,
         "key": null
-      }
+      },
+      "supabase_tested_head": "0c67c3a40f67d3ed6591773d5083f425466c1908"
     },
     {
       "name": "report.pipeline_by_stage",
@@ -9314,9 +9339,9 @@
         "viewer"
       ],
       "minimum_role": "viewer",
-      "backend_status": "candidate_local_tested_exact_platform_pending",
-      "supabase_tested": false,
-      "supabase_status": "PENDING_EXACT_SOURCE",
+      "backend_status": "implemented_real_disposable_proven",
+      "supabase_tested": true,
+      "supabase_status": "PASS",
       "ui_safe": false,
       "assistant_future": "safe_read_candidate_not_registered",
       "ai_registration": false,
@@ -9336,7 +9361,8 @@
       "cas": {
         "required": false,
         "key": null
-      }
+      },
+      "supabase_tested_head": "0c67c3a40f67d3ed6591773d5083f425466c1908"
     },
     {
       "name": "report.commercial_owner_counts",
@@ -9358,9 +9384,9 @@
         "viewer"
       ],
       "minimum_role": "viewer",
-      "backend_status": "candidate_local_tested_exact_platform_pending",
-      "supabase_tested": false,
-      "supabase_status": "PENDING_EXACT_SOURCE",
+      "backend_status": "implemented_real_disposable_proven",
+      "supabase_tested": true,
+      "supabase_status": "PASS",
       "ui_safe": false,
       "assistant_future": "safe_read_candidate_not_registered",
       "ai_registration": false,
@@ -9380,7 +9406,8 @@
       "cas": {
         "required": false,
         "key": null
-      }
+      },
+      "supabase_tested_head": "0c67c3a40f67d3ed6591773d5083f425466c1908"
     }
   ],
   "unavailable_modules": [
@@ -9390,7 +9417,7 @@
     "portfolio_legacy_origin_verification"
   ],
   "registration": "Human contracts only; no new AI tools/writes registered; exact accepted source4b5520f,9catalog candidates pending.",
-  "candidate_after_head": "b654b1dd02bf9f8a8213fda5a75eac476559c5cf",
+  "candidate_after_head": "0c67c3a40f67d3ed6591773d5083f425466c1908",
   "operations_total": 198,
-  "operations_proven": 188
+  "operations_proven": 198
 }
