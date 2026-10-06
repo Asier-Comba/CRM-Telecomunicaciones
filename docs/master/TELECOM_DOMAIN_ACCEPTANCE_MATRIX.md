@@ -2,7 +2,7 @@
 
 Generated from JSON with scripts/domain/validate-telecom-matrix.mjs --write.
 
-Source: `equipment_candidate_after_a9e4f29f443e27d05e52a416260a99c82aa7ffa2`. Accepted functional source: `a9e4f29f443e27d05e52a416260a99c82aa7ffa2`. W2 consumption is independent of backend acceptance. Overall CI remains blocked by dependency audit.
+Source: `e9d8bcf14ef27168e70bca9dd237aa2fbe02e27a`. Accepted functional source: `e9d8bcf14ef27168e70bca9dd237aa2fbe02e27a`. W2 consumption is independent of backend acceptance. Overall CI remains blocked by dependency audit.
 
 | Section | Requirement | REQUIRED | IMPLEMENTED | PROVEN | W2_CONSUMED | BLOCKER |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -66,7 +66,7 @@ Source: `equipment_candidate_after_a9e4f29f443e27d05e52a416260a99c82aa7ffa2`. Ac
 | Cases | case.reopen | YES | YES | YES | NO | W2_consumption_unproven |
 | Cases | case.close | YES | YES | YES | NO | W2_consumption_unproven |
 | Cases | case.cancel | YES | YES | YES | NO | W2_consumption_unproven |
-| Equipment | bounded equipment need assessment | YES | YES | NO | NO | EXACT_EQUIPMENT_ACCEPTANCE_PENDING |
+| Equipment | bounded equipment need assessment | YES | YES | YES | NO | W2_consumption_unproven |
 | Collections | customer.list | YES | YES | YES | NO | W2_consumption_unproven |
 | Collections | contact.list | YES | YES | YES | NO | W2_consumption_unproven |
 | Collections | opportunity.list | YES | YES | YES | NO | W2_consumption_unproven |
@@ -103,6 +103,6 @@ Source: `equipment_candidate_after_a9e4f29f443e27d05e52a416260a99c82aa7ffa2`. Ac
 | SIM/eSIM | sim.cancel | YES | YES | YES | NO | W2_consumption_unproven |
 | SIM/eSIM | sim.list | YES | YES | YES | NO | W2_consumption_unproven |
 | SIM/eSIM | sim.get | YES | YES | YES | NO | W2_consumption_unproven |
-| Equipment | equipment.v1 lifecycle and safe reads | YES | YES | NO | NO | EXACT_EQUIPMENT_ACCEPTANCE_PENDING |
+| Equipment | equipment.v1 lifecycle and safe reads | YES | YES | YES | NO | W2_consumption_unproven |
 
-Counts: `{"REQUIRED":98,"IMPLEMENTED":94,"PROVEN":92,"W2_CONSUMED":0,"BLOCKER":98}`.
+Counts: `{"REQUIRED":98,"IMPLEMENTED":94,"PROVEN":94,"W2_CONSUMED":0,"BLOCKER":98}`.

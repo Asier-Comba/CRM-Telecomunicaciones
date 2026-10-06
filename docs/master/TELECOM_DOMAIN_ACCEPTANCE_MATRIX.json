@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "source_sha": "equipment_candidate_after_a9e4f29f443e27d05e52a416260a99c82aa7ffa2",
-  "stage": "FINAL7_INTERNAL_CLOSURE_IN_PROGRESS",
+  "source_sha": "e9d8bcf14ef27168e70bca9dd237aa2fbe02e27a",
+  "stage": "FINAL7_EQUIPMENT_ACCEPTED_INTERNAL_IMPORT_IDENTITIES_PENDING",
   "exact_head_accepted": true,
   "no_ai_writes": true,
   "rows": [
@@ -670,11 +670,11 @@
       "requirement": "bounded equipment need assessment",
       "REQUIRED": true,
       "IMPLEMENTED": true,
-      "PROVEN": false,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "EXACT_EQUIPMENT_ACCEPTANCE_PENDING",
+      "BLOCKER": "W2_consumption_unproven",
       "existing_operation": null,
-      "notes": "Decision IMPLEMENT: customer routers/ONT/mobile terminals need lifecycle and actual device commitment resource. Bounded equipment.v1 candidate; no warehouseERP/serial/IMEI/credentials retained."
+      "notes": "Decision IMPLEMENT: customer routers/ONT/mobile terminals need lifecycle and actual device commitment resource. Bounded equipment.v1 accepted; no warehouseERP/serial/IMEI/credentials retained."
     },
     {
       "section": "Collections",
@@ -1077,23 +1077,23 @@
       "requirement": "equipment.v1 lifecycle and safe reads",
       "REQUIRED": true,
       "IMPLEMENTED": true,
-      "PROVEN": false,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "EXACT_EQUIPMENT_ACCEPTANCE_PENDING",
+      "BLOCKER": "W2_consumption_unproven",
       "existing_operation": null,
-      "notes": "8 normal human operations create/assign/return/replace/cancel/get/list/history; immutable original metadata and append-only events; explicit new financing selection; exact proof pending."
+      "notes": "8 normal human operations create/assign/return/replace/cancel/get/list/history; immutable original metadata and append-only events; explicit new financing selection; 3343 real Supabase checks PASS; eight operations individually observed; native 20-writer replacement race one winner/19 CAS; exact replay and current-authority revocation proven."
     }
   ],
   "counts": {
     "REQUIRED": 98,
     "IMPLEMENTED": 94,
-    "PROVEN": 92,
+    "PROVEN": 94,
     "W2_CONSUMED": 0,
     "BLOCKER": 98
   },
   "official_workflow_fully_green": false,
-  "accepted_source_sha": "a9e4f29f443e27d05e52a416260a99c82aa7ffa2",
+  "accepted_source_sha": "e9d8bcf14ef27168e70bca9dd237aa2fbe02e27a",
   "candidate_operations_total": 220,
-  "candidate_operations_proven": 212,
-  "candidate_exact_head_accepted": false
+  "candidate_operations_proven": 220,
+  "candidate_exact_head_accepted": true
 }
