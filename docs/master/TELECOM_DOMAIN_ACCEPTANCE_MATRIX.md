@@ -2,7 +2,7 @@
 
 Generated from JSON with scripts/domain/validate-telecom-matrix.mjs --write.
 
-Source: `normalized_service_locations_candidate_after_d8b0dd15a7c9f926fdcc52462858c30ff5cac35e`. Accepted functional source: `d8b0dd15a7c9f926fdcc52462858c30ff5cac35e`. W2 consumption is independent of backend acceptance. Overall CI remains blocked by dependency audit.
+Source: `equipment_candidate_after_a9e4f29f443e27d05e52a416260a99c82aa7ffa2`. Accepted functional source: `a9e4f29f443e27d05e52a416260a99c82aa7ffa2`. W2 consumption is independent of backend acceptance. Overall CI remains blocked by dependency audit.
 
 | Section | Requirement | REQUIRED | IMPLEMENTED | PROVEN | W2_CONSUMED | BLOCKER |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -29,7 +29,7 @@ Source: `normalized_service_locations_candidate_after_d8b0dd15a7c9f926fdcc524628
 | Services | service.list | YES | YES | YES | NO | W2_consumption_unproven |
 | Services | service.create_manual | YES | YES | YES | NO | W2_consumption_unproven |
 | Services | service.update_label | YES | YES | YES | NO | W2_consumption_unproven |
-| Services | fixed service operational facts | YES | YES | NO | NO | EXACT_NORMALIZED_LOCATION_ACCEPTANCE_PENDING |
+| Services | fixed service operational facts | YES | YES | YES | NO | W2_consumption_unproven |
 | Lines | line.list | YES | YES | YES | NO | W2_consumption_unproven |
 | Lines | line.create_manual | YES | YES | YES | NO | W2_consumption_unproven |
 | Lines | line.update_label | YES | YES | YES | NO | W2_consumption_unproven |
@@ -66,7 +66,7 @@ Source: `normalized_service_locations_candidate_after_d8b0dd15a7c9f926fdcc524628
 | Cases | case.reopen | YES | YES | YES | NO | W2_consumption_unproven |
 | Cases | case.close | YES | YES | YES | NO | W2_consumption_unproven |
 | Cases | case.cancel | YES | YES | YES | NO | W2_consumption_unproven |
-| Equipment | bounded equipment need assessment | YES | NO | NO | NO | assessment_pending |
+| Equipment | bounded equipment need assessment | YES | YES | NO | NO | EXACT_EQUIPMENT_ACCEPTANCE_PENDING |
 | Collections | customer.list | YES | YES | YES | NO | W2_consumption_unproven |
 | Collections | contact.list | YES | YES | YES | NO | W2_consumption_unproven |
 | Collections | opportunity.list | YES | YES | YES | NO | W2_consumption_unproven |
@@ -103,5 +103,6 @@ Source: `normalized_service_locations_candidate_after_d8b0dd15a7c9f926fdcc524628
 | SIM/eSIM | sim.cancel | YES | YES | YES | NO | W2_consumption_unproven |
 | SIM/eSIM | sim.list | YES | YES | YES | NO | W2_consumption_unproven |
 | SIM/eSIM | sim.get | YES | YES | YES | NO | W2_consumption_unproven |
+| Equipment | equipment.v1 lifecycle and safe reads | YES | YES | NO | NO | EXACT_EQUIPMENT_ACCEPTANCE_PENDING |
 
-Counts: `{"REQUIRED":97,"IMPLEMENTED":92,"PROVEN":91,"W2_CONSUMED":0,"BLOCKER":97}`.
+Counts: `{"REQUIRED":98,"IMPLEMENTED":94,"PROVEN":92,"W2_CONSUMED":0,"BLOCKER":98}`.

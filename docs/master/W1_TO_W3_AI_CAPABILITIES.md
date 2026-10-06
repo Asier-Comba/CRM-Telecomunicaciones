@@ -212,3 +212,5 @@ Attention acceptedc18123e/2757checks,199operations; still not registered. `billi
 FINAL7: service.installation_get and service.addon_list are now proven READ candidates on788d124 (3064Supabase/208operations). No AI registration. All three service writes remain FUTURE_AI_ACTION_CANDIDATE. Role and protected field boundaries remain unchanged.
 
 FINAL7 candidate: service_location.get/list return safe ID/customer/version/label/country/source only. Precise postal fields require human requested sensitive.get; no AI registration. service_location.create/assign remain FUTURE_AI_ACTION_CANDIDATE.
+
+FINAL7: service_location.get/list accepted a9e4f29 (3181Supabase/212operations); no AI registration. Equipment get/list/history are new candidate READS only. All five equipment writes remain FUTURE_AI_ACTION_CANDIDATE, never AI tools.

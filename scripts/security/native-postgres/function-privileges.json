@@ -613,6 +613,46 @@
       "anon": false,
       "public": false,
       "definer": true,
+      "signature": "public.equipment_v1_command(uuid, text, jsonb)",
+      "service_role": false,
+      "authenticated": true
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": true,
+      "signature": "public.equipment_v1_context(uuid, uuid, uuid, uuid, uuid, uuid, text, boolean)",
+      "service_role": false,
+      "authenticated": false
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": true,
+      "signature": "public.equipment_v1_guard()",
+      "service_role": false,
+      "authenticated": false
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": true,
+      "signature": "public.equipment_v1_query(uuid, text, jsonb)",
+      "service_role": false,
+      "authenticated": true
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": true,
+      "signature": "public.equipment_v1_validate(text, jsonb)",
+      "service_role": false,
+      "authenticated": false
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.handle_new_auth_user()",
       "service_role": false,
       "authenticated": false

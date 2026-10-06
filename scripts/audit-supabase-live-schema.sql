@@ -80,6 +80,8 @@ target_relations(name) as (
     ('telecom_commitments'),
     ('telecom_contracts'),
     ('telecom_entitlement_codes'),
+    ('telecom_equipment'),
+    ('telecom_equipment_events'),
     ('telecom_identifiers'),
     ('telecom_lines'),
     ('telecom_operators'),

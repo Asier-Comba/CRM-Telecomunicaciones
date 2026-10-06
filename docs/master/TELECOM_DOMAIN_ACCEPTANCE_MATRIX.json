@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "source_sha": "normalized_service_locations_candidate_after_d8b0dd15a7c9f926fdcc52462858c30ff5cac35e",
+  "source_sha": "equipment_candidate_after_a9e4f29f443e27d05e52a416260a99c82aa7ffa2",
   "stage": "FINAL7_INTERNAL_CLOSURE_IN_PROGRESS",
   "exact_head_accepted": true,
   "no_ai_writes": true,
@@ -263,11 +263,11 @@
       "requirement": "fixed service operational facts",
       "REQUIRED": true,
       "IMPLEMENTED": true,
-      "PROVEN": false,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "EXACT_NORMALIZED_LOCATION_ACCEPTANCE_PENDING",
+      "BLOCKER": "W2_consumption_unproven",
       "existing_operation": "service.installation_set / service.installation_get",
-      "notes": "Normalized immutable customer-bound private address, explicit requested-field reveal, safe location reference and append-only assignment history implemented; precise exact-head proof pending."
+      "notes": "a9e4f29:3181 real checks/212operations/321Node/native20independentwriters one winner19CAS/exactreplays/private requested-field address reveal/revocation PASS."
     },
     {
       "section": "Lines",
@@ -669,12 +669,12 @@
       "section": "Equipment",
       "requirement": "bounded equipment need assessment",
       "REQUIRED": true,
-      "IMPLEMENTED": false,
+      "IMPLEMENTED": true,
       "PROVEN": false,
       "W2_CONSUMED": false,
-      "BLOCKER": "assessment_pending",
+      "BLOCKER": "EXACT_EQUIPMENT_ACCEPTANCE_PENDING",
       "existing_operation": null,
-      "notes": "Device commitment alone is not an equipment resource; implementation decision requires bounded assessment."
+      "notes": "Decision IMPLEMENT: customer routers/ONT/mobile terminals need lifecycle and actual device commitment resource. Bounded equipment.v1 candidate; no warehouseERP/serial/IMEI/credentials retained."
     },
     {
       "section": "Collections",
@@ -1071,18 +1071,29 @@
       "BLOCKER": "W2_consumption_unproven",
       "existing_operation": null,
       "notes": "All9 operations individually cookie-observed on b654b1d;native20-process replacement one winner+19CAS,exact receipts/history/lifetime ICCID and valid JWT revocation;2479 checks PASS."
+    },
+    {
+      "section": "Equipment",
+      "requirement": "equipment.v1 lifecycle and safe reads",
+      "REQUIRED": true,
+      "IMPLEMENTED": true,
+      "PROVEN": false,
+      "W2_CONSUMED": false,
+      "BLOCKER": "EXACT_EQUIPMENT_ACCEPTANCE_PENDING",
+      "existing_operation": null,
+      "notes": "8 normal human operations create/assign/return/replace/cancel/get/list/history; immutable original metadata and append-only events; explicit new financing selection; exact proof pending."
     }
   ],
   "counts": {
-    "REQUIRED": 97,
-    "IMPLEMENTED": 92,
-    "PROVEN": 91,
+    "REQUIRED": 98,
+    "IMPLEMENTED": 94,
+    "PROVEN": 92,
     "W2_CONSUMED": 0,
-    "BLOCKER": 97
+    "BLOCKER": 98
   },
   "official_workflow_fully_green": false,
-  "accepted_source_sha": "d8b0dd15a7c9f926fdcc52462858c30ff5cac35e",
-  "candidate_operations_total": 212,
-  "candidate_operations_proven": 208,
+  "accepted_source_sha": "a9e4f29f443e27d05e52a416260a99c82aa7ffa2",
+  "candidate_operations_total": 220,
+  "candidate_operations_proven": 212,
   "candidate_exact_head_accepted": false
 }
