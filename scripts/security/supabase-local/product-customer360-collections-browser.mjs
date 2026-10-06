@@ -11,14 +11,14 @@ export async function customer360CollectionsBrowser({page,origin,id,sql,wa,users
   for(const[area,op]of [['Contratos','contract.list'],['Servicios','service.list'],['Líneas','line.list'],['SIM/eSIM','sim.list'],['Portabilidades','portability.list'],['Renovaciones','renewal.list'],['Permanencias','permanence.list'],['Oportunidades','opportunity.list'],['Tareas','task.list'],['Reuniones','meeting.list'],['Incidencias','case.list'],['Actividad','activity.list']]){const pending=wait(op);await page.getByRole('tab',{name:area,exact:true}).click();await sameRows(pending)}
  })
  const prefix='W2 Final9 Undated History '
- sql(`insert into public.tasks(workspace_id,customer_id,title,status,completed_at,assigned_user_id,created_by_user_id)select '${wa}','${id}','${prefix}'||i,'completed',now(),'${users.memberA.id}','${users.ownerA.id}' from generate_series(1,21)i;`)
+ await check('customer360_undated_completed_tasks_cursor_filter_navigation',async()=>{
+ sql(`insert into public.tasks(workspace_id,customer_id,title,status,completed_at,assigned_user_id,created_by_user_id)select '${wa}','${id}','${prefix}'||i,'completed',now(),'${users.ownerA.id}','${users.ownerA.id}' from generate_series(1,21)i;`)
  try{
-  await check('customer360_undated_completed_tasks_cursor_filter_navigation',async()=>{
    let pending=wait('task.list');await page.getByRole('tab',{name:'Tareas',exact:true}).click();await sameRows(pending);pending=wait('task.list');await page.getByLabel('Estado de Tareas',{exact:true}).selectOption('completed');const first=await sameRows(pending);if(first.items.length!==20||first.items.some(r=>r.status!=='completed'))throw Error('C360_COMPLETE_HISTORY_MISSING');if(!first.items.some(r=>r.due_at===null&&r.due_on===null))throw Error('C360_UNDATED_TASKS_MISSING')
    pending=wait('task.list');await page.getByRole('button',{name:'Siguiente página de Tareas',exact:true}).click();const second=await sameRows(pending);if(second.items.some(r=>first.items.some(a=>a.id===r.id)))throw Error('C360_CURSOR_DUPLICATES');pending=wait('task.list');await page.getByLabel('Estado de Tareas',{exact:true}).selectOption('');await sameRows(pending);await expect(page.getByRole('button',{name:'Página anterior de Tareas',exact:true})).toBeDisabled()
    const item=first.items.find(r=>r.title.startsWith(prefix));await page.goto(origin+'/calendar?task='+item.id);await expect(page.getByLabel('Título',{exact:true})).toHaveValue(item.title);await page.getByRole('button',{name:'Cerrar panel',exact:true}).click()
-  })
  }finally{sql(`delete from public.tasks where workspace_id='${wa}' and customer_id='${id}' and title like '${prefix}%';`)}
+ })
  await check('customer360_loaded_telecom_desktop_tablet_mobile',async()=>{
   for(const[area,op,table]of [['Líneas','line.list','telecom_lines'],['SIM/eSIM','sim.list','telecom_sims'],['Portabilidades','portability.list','telecom_portabilities'],['Incidencias','case.list','service_cases']]){
    const customer=sql(table==='telecom_lines'?`select s.customer_id from public.telecom_lines l join public.telecom_services s on s.id=l.service_id and s.workspace_id=l.workspace_id join public.telecom_identifiers i on i.line_id=l.id and i.identifier_kind='msisdn' where l.workspace_id='${wa}' order by l.id limit 1`:`select customer_id from public.${table} where workspace_id='${wa}' order by id limit 1`);if(!customer)throw Error('C360_TELECOM_LOADED_FIXTURE_MISSING')
