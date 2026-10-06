@@ -51,7 +51,16 @@ export class DocumentMaintenanceServiceV1{
     const v=p.data;if(!plain(v)||Object.keys(v).sort().join(',')!=='object_ref,receipt,version')return fail('internal_safe')
     if(v.receipt!==null){const receipt=parseDocumentMaintenanceReceiptV1(op,i,v.receipt);return receipt?{ok:true as const,receipt}:fail('internal_safe')}
     if(!uuid(v.object_ref)||v.version!==i.expected_version)return fail('internal_safe')
-    if(!await this.#port.remove(c.workspaceId+'/documents/'+i.id+'/'+v.object_ref))return fail('unavailable')
+    if(!await this.#port.remove(c.workspaceId+'/documents/'+i.id+'/'+v.object_ref)){
+     // A concurrent finisher may have archived the row and removed DELETE eligibility.
+     // Reauthorize and recover only this exact durable intent; absence is never success.
+     const recovered=await this.#port.rpc('document_cleanup_v1_prepare_finish',args)
+     if(recovered.error)return fail(err(recovered.error.code))
+     const x=recovered.data
+     if(!plain(x)||Object.keys(x).sort().join(',')!=='object_ref,receipt,version'||x.receipt===null)return fail('unavailable')
+     const receipt=parseDocumentMaintenanceReceiptV1(op,i,x.receipt)
+     return receipt?{ok:true as const,receipt}:fail('internal_safe')
+    }
    }
    const r=await this.#port.rpc(rpc,args);if(r.error)return fail(err(r.error.code));const receipt=parseDocumentMaintenanceReceiptV1(op,i,r.data);return receipt?{ok:true as const,receipt}:fail('internal_safe')
   }catch{return fail('internal_safe')}

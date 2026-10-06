@@ -1,5 +1,7 @@
 # W1 → W2 exact product handoff — 2026-10-05
 
+Exact-source TEL5-00 functional evidence: `3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c`; real Supabase run37370409567 PASS1298/129observed; native run37370409687/job111977630518 PASS54migrations/247privileges/fresh/restore;244Node/lint/types/build PASS; local actual private-canary scan47bundles PASS. Official browser CI cancelled twice, retry requested: not a PASS or fully-green workflow. Issue29 remains unsuppressed. [Exact evidence](W1_TEL5_00_EXACT_HEAD_EVIDENCE.md). Earlier source references below are historical. No new TEL5 operations are claimed by this documentation checkpoint.
+
 Accepted backend source c2a7390867d941a33b17509b3f4014f8356bb0c1; real Supabase 37361774116 / 1298 checks; native/quality 37361774252. 129/129 operations individually observed: 91 writes and 38 reads. All ui_safe:false; W2/W4 own visual/interaction review. W1 changed no frontend or W2 branch files.
 
 Use [product-capabilities.json](contracts/product-capabilities.json) for exact operation/RPC, role, input/output type, transport, CAS and replay. Keep trusted cookie getUser/Auth user JWT, current active membership, canonical workspace binding, exact Origin/Host, bounded closed DTOs and no-store private responses. Writes use command_id unchanged across retry/recovery, expected_version where required; changed payload or stale CAS conflicts. A valid JWT does not imply current membership. Never use browser service_role, caller role/actor, raw tables or fabricated success.

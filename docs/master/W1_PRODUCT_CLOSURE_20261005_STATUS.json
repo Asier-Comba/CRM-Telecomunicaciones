@@ -1,9 +1,9 @@
 {
-  "HEAD": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
+  "HEAD": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
   "PR": "Draft #28; w1/product-backend-v1; no merge/deploy",
-  "MIGRATIONS": 53,
+  "MIGRATIONS": 54,
   "PRIVILEGE_FUNCTIONS": 247,
-  "NODE_TESTS": 243,
+  "NODE_TESTS": 244,
   "SUPABASE_CHECKS": 1298,
   "OPERATIONS_TOTAL": 129,
   "OPERATIONS_PROVEN": 129,
@@ -15,7 +15,7 @@
   "IMPORTS": "Encrypted disposable staging and safe bounded CSV proved; no normal validate/apply/resume; production encrypted provider/scoped worker/domain apply missing; XLSX blocked",
   "DOCUMENT_HASH": "Server-observed bytes + private signed witness + immutable SHA256; normal download rejects same-size corruption",
   "SCANNER": "Provider-neutral interface only; disposable synthetic reject fixture; production scanner unavailable, required mode fails closed; no clean claim",
-  "CLEANUP": "Exact leased object for pending intent expired ≥24h only; active/unlinked PDF artifacts retained",
+  "CLEANUP": "Exact leased object for pending intent expired \u226524h only; active/unlinked PDF artifacts retained",
   "TEAM_EXPIRY": "Invite 7-day expiry/list/reissue CAS and replay; owner protections; no mail/Auth grant",
   "PROVENANCE": "New canonical audit-linked manual proof for 8 entity kinds; no legacy backfill; child owns its own proof",
   "REPORTS": "Existing bounded dashboard/search/native-currency billing aggregates; advanced historical analytics unavailable",
@@ -34,5 +34,8 @@
     "W2/W4 consume exact accepted W1 contracts and verify UI/roles/revocation/document six-target flows",
     "Implement production encrypted import provider + scoped worker and canonical apply/recovery in a separately authorized lane",
     "W3 finish durable Issue10 protocol; resolve upstream Issue29 before production readiness"
-  ]
+  ],
+  "ACCEPTED_SOURCE": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
+  "OFFICIAL_CI_CLOSED": false,
+  "EXACT_HEAD_EVIDENCE": "W1_TEL5_00_EXACT_HEAD_EVIDENCE.md; real/native/local boundary PASS; official browser CI twice cancelled, third retry requested; audit red Issue29"
 }

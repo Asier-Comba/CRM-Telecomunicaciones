@@ -1,5 +1,7 @@
 # W1 product backend completion — 2026-10-05
 
+Exact-source TEL5-00 functional evidence: `3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c`; real Supabase run37370409567 PASS1298/129observed; native run37370409687/job111977630518 PASS54migrations/247privileges/fresh/restore;244Node/lint/types/build PASS; local actual private-canary scan47bundles PASS. Official browser CI cancelled twice, retry requested: not a PASS or fully-green workflow. Issue29 remains unsuppressed. [Exact evidence](W1_TEL5_00_EXACT_HEAD_EVIDENCE.md). Earlier source references below are historical. No new TEL5 operations are claimed by this documentation checkpoint.
+
 This is the authoritative current checkpoint, superseding historical 90-operation/44-migration/186-function and 80-operation summaries. The code remains on Draft PR #28, branch w1/product-backend-v1, default-off. Source acceptance: c2a7390867d941a33b17509b3f4014f8356bb0c1; executed PR checkout 8f14da513a5c122e2de3542d19ecdbe6ba32e21b has exactly the same Git tree 9442df0abfb48e48fbecb0c0d46f6146f6a28229 as that source HEAD; real run 37361774116; native/quality run 37361774252. The subsequent catalog/document checkpoint adds no executable behavior. Every operation is human-only and ui_safe:false pending W2/W4; no assistant registration, frontend changes, W2 branch edits, production credentials, providers, merge or deployment.
 
 ## Exact evidence

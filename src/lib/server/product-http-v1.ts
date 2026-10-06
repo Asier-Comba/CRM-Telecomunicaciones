@@ -1,4 +1,5 @@
 import { isProductOperationV1 } from './product-runtime-v1.ts'
+import { isTelecomCollectionOperationV1 } from './telecom-collection-runtime-v1.ts'
 import { isClosedObjectV1 as plain } from './product-work-runtime-v1.ts'
 import type { ProductServiceV1 } from './product-service-v1'
 const headers = { 'Cache-Control': 'no-store', 'Content-Type': 'application/json; charset=utf-8', 'X-Content-Type-Options': 'nosniff' }
@@ -34,10 +35,11 @@ export async function productHttpV1(request: Request, kind: 'commands' | 'querie
   if(envelope instanceof Response)return envelope
   const value=envelope
   const op=value.operation
-  if(kind==='commands' ? !isProductOperationV1(op) : !['calendar.list','work.get','opportunity.stages','customer.editor','contact.editors','dashboard.get','global.search'].includes(op))return productReplyV1({ok:false,error:'validation'},400)
+  if(kind==='commands' ? !isProductOperationV1(op) : !isTelecomCollectionOperationV1(op) && !['calendar.list','work.get','opportunity.stages','customer.editor','contact.editors','dashboard.get','global.search'].includes(op))return productReplyV1({ok:false,error:'validation'},400)
   const services=await factory();if(services===null)return productReplyV1({ok:false,error:'unavailable'},503)
   let result
   if(kind==='commands' && isProductOperationV1(op))result=await services.commands.execute(op,value.input)
+  else if(kind==='queries' && isTelecomCollectionOperationV1(op))result=await services.commands.collection(op,value.input)
   else if(op==='customer.editor' || op==='contact.editors') {
    if(!plain(value.input) || Object.keys(value.input).some(k=>!(op==='customer.editor'?['id']:['customer_id','limit','after_id']).includes(k)))return productReplyV1({ok:false,error:'validation'},400)
    const input=value.input

@@ -1,20 +1,21 @@
 {
   "catalog_version": "product.capabilities.v1",
   "as_of": "2026-10-05",
-  "implementation_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
+  "implementation_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
   "evidence": {
     "native": {
-      "run_id": 37361774252,
+      "run_id": 37370409687,
       "status": "PASS",
-      "migration_count": 53,
+      "migration_count": 54,
       "function_count": 247,
-      "tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
-      "tested_checkout": "8f14da513a5c122e2de3542d19ecdbe6ba32e21b",
-      "tested_tree": "9442df0abfb48e48fbecb0c0d46f6146f6a28229",
+      "tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
+      "tested_checkout": "be9b7237945e9e8b72cbe809cc003f632ddccbd3",
+      "tested_tree": "cf3c28b8fd6ee9bcbc39181709c4ba596c17bfb0",
       "fresh": "PASS",
       "logical_synthetic_restore": "PASS",
       "privileges_roles_acl_loss_negative_control": "PASS",
-      "production_backup": false
+      "production_backup": false,
+      "job_id": 111977630518
     },
     "actual_supabase": {
       "environment": "LOCAL_SUPABASE_DOCKER",
@@ -25,15 +26,15 @@
       "rpc": "PASS",
       "storage": "PASS",
       "cli": "2.119.0",
-      "sha": "8f14da513a5c122e2de3542d19ecdbe6ba32e21b",
+      "sha": "be9b7237945e9e8b72cbe809cc003f632ddccbd3",
       "config_sha256": "3fc22bba97e5114a7ee67cc90e514b8ec16eda0cb2c5817cf87784e8e4ab6e57",
-      "migration_head": "20261005164500_document_target_ancestry_serialization.sql",
-      "migration_count": 53,
+      "migration_head": "20261005203000_document_cleanup_replay_serialization.sql",
+      "migration_count": 54,
       "service_images": [
+        "ghcr.io/supabase/postgrest:v16.4",
         "public.ecr.aws/supabase/gotrue:v2.197.0",
         "public.ecr.aws/supabase/kong:2.8.1",
         "public.ecr.aws/supabase/postgres:15.19.0.002",
-        "public.ecr.aws/supabase/postgrest:v16.4",
         "public.ecr.aws/supabase/storage-api:v1.79.28"
       ],
       "db": "15.19",
@@ -439,29 +440,31 @@
       "scoped_service_principal": "NOT_IMPLEMENTED",
       "remote_staging": "NOT_TESTED",
       "teardown": "PASS",
-      "run_id": 37361774116,
-      "tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
-      "tested_checkout": "8f14da513a5c122e2de3542d19ecdbe6ba32e21b",
-      "tested_tree": "9442df0abfb48e48fbecb0c0d46f6146f6a28229",
+      "run_id": 37370409567,
+      "job_id": 111965851820,
+      "tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
+      "tested_checkout": "be9b7237945e9e8b72cbe809cc003f632ddccbd3",
+      "tested_tree": "cf3c28b8fd6ee9bcbc39181709c4ba596c17bfb0",
       "source_tree_matches_head": true,
       "status": "PASS",
-      "browser_private_values": "PASS",
+      "browser_private_values": "PASS_LOCAL_ACTUAL_CANARY; CI_CANCELLED_NOT_PASS",
       "operations_total": 129,
       "operations_individually_proven": 129,
       "writes": 91,
       "reads": 38
     },
     "quality": {
-      "tests": 243,
+      "tests": 244,
       "lint": "PASS",
       "types": "PASS",
       "build": "PASS",
       "audit": "BLOCKED_Issue29_5_HIGH",
-      "overall_ci": "FAIL_AUDIT_ONLY",
-      "tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
+      "overall_ci": "FAIL_AUDIT; SOURCE_BROWSER_CI_CANCELLED_NOT_PASS",
+      "tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
       "run_id": 37361774252,
       "critical_playwright": "SKIPPED",
-      "dependency_review": "SKIPPED"
+      "dependency_review": "SKIPPED",
+      "browser_private_boundary_local": "PASS_ACTUAL_47_BUNDLES_7_PRIVATE_CLASSES"
     },
     "native_billing": {
       "run_id": 37219664908,
@@ -578,7 +581,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "task.update",
@@ -618,7 +621,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "task.start",
@@ -658,7 +661,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "task.complete",
@@ -698,7 +701,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "task.reopen",
@@ -738,7 +741,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "task.cancel",
@@ -778,7 +781,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "meeting.create",
@@ -818,7 +821,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "meeting.update",
@@ -858,7 +861,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "meeting.reschedule",
@@ -898,7 +901,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "meeting.complete",
@@ -938,7 +941,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "meeting.cancel",
@@ -978,7 +981,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "meeting.no_show",
@@ -1018,7 +1021,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "opportunity.create",
@@ -1058,7 +1061,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "opportunity.update",
@@ -1098,7 +1101,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "opportunity.change_stage",
@@ -1138,7 +1141,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "opportunity.assign",
@@ -1178,7 +1181,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "opportunity.win",
@@ -1218,7 +1221,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "opportunity.lose",
@@ -1258,7 +1261,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "opportunity.reopen",
@@ -1298,7 +1301,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "opportunity.archive",
@@ -1338,7 +1341,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "customer.create",
@@ -1378,7 +1381,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "customer.update",
@@ -1418,7 +1421,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "customer.archive",
@@ -1458,7 +1461,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "customer.restore",
@@ -1498,7 +1501,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "contact.create",
@@ -1538,7 +1541,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "contact.update",
@@ -1578,7 +1581,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "contact.archive",
@@ -1618,7 +1621,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "contact.restore",
@@ -1658,7 +1661,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "customer.editor",
@@ -1696,7 +1699,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "safe_read_candidate_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "contact.editors",
@@ -1734,7 +1737,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "safe_read_candidate_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "calendar.list",
@@ -1773,7 +1776,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "safe_read_candidate_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "work.get",
@@ -1812,7 +1815,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "safe_read_candidate_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "opportunity.stages",
@@ -1851,7 +1854,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "safe_read_candidate_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "dashboard.get",
@@ -1901,7 +1904,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "safe_read_candidate_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "global.search",
@@ -1940,7 +1943,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "safe_read_candidate_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
       "supabase_core_tested_head": "db056e67111b7719e7072c2279b3c7459ef68a54",
       "item_roles": {
         "invoice": [
@@ -1985,7 +1988,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "customer_fiscal.set",
@@ -2023,7 +2026,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "invoice.create_draft",
@@ -2061,7 +2064,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "invoice.update_draft",
@@ -2099,7 +2102,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "invoice.issue",
@@ -2137,7 +2140,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "invoice.mark_paid",
@@ -2175,7 +2178,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "invoice.reverse_payment",
@@ -2213,7 +2216,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "invoice.trash",
@@ -2251,7 +2254,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "invoice.restore",
@@ -2289,7 +2292,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "invoice.get",
@@ -2327,7 +2330,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "protected_read_requires_fiscal_capability_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "invoice.summary",
@@ -2365,7 +2368,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "protected_read_requires_fiscal_capability_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "invoice.list",
@@ -2403,7 +2406,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "protected_read_requires_fiscal_capability_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "invoice.financial_summary",
@@ -2441,7 +2444,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "protected_read_requires_fiscal_capability_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "configuration.get",
@@ -2479,7 +2482,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "protected_read_requires_fiscal_capability_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "invoice.pdf",
@@ -2517,7 +2520,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "protected_read_requires_fiscal_capability_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
       "storage_status": "private_object_and_opaque_reference_pending"
     },
     {
@@ -2556,7 +2559,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "protected_read_requires_fiscal_capability_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "member.invite_intent",
@@ -2595,7 +2598,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
       "review_pending": [
         "W4",
         "W2"
@@ -2638,7 +2641,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
       "review_pending": [
         "W4",
         "W2"
@@ -2681,7 +2684,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
       "review_pending": [
         "W4",
         "W2"
@@ -2724,7 +2727,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
       "review_pending": [
         "W4",
         "W2"
@@ -2767,7 +2770,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
       "review_pending": [
         "W4",
         "W2"
@@ -2810,7 +2813,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
       "review_pending": [
         "W4",
         "W2"
@@ -2853,7 +2856,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
       "review_pending": [
         "W4",
         "W2"
@@ -2897,7 +2900,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "contract.update_allowed_metadata",
@@ -2937,7 +2940,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "contract.activate",
@@ -2977,7 +2980,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
       "review_pending": [
         "W4",
         "W2",
@@ -3022,7 +3025,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
       "review_pending": [
         "W4",
         "W2",
@@ -3067,7 +3070,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
       "review_pending": [
         "W4",
         "W2",
@@ -3112,7 +3115,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "service.transition",
@@ -3152,7 +3155,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
       "review_pending": [
         "W4",
         "W2",
@@ -3197,7 +3200,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
       "review_pending": [
         "W4",
         "W2",
@@ -3242,7 +3245,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "line.transition",
@@ -3282,7 +3285,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
       "review_pending": [
         "W4",
         "W2",
@@ -3332,7 +3335,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
       "supabase_core_tested_head": "497a5587429e77c67c2feceb71c1a2d1e259bf57"
     },
     {
@@ -3373,7 +3376,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
       "review_pending": [
         "W4",
         "W2",
@@ -3418,7 +3421,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "renewal.resolve",
@@ -3458,7 +3461,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "renewal.dismiss",
@@ -3498,7 +3501,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "permanence.create_manual",
@@ -3538,7 +3541,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
       "review_pending": [
         "W4",
         "W2",
@@ -3583,7 +3586,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "permanence.cancel",
@@ -3623,7 +3626,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "document.archive",
@@ -3666,7 +3669,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "document.restore",
@@ -3709,7 +3712,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "document.list",
@@ -3752,7 +3755,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "document.get_metadata",
@@ -3795,7 +3798,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "document.request_upload",
@@ -3839,7 +3842,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "document.finalize_upload",
@@ -3883,7 +3886,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "document.request_download",
@@ -3927,7 +3930,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "document.download",
@@ -3971,7 +3974,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "invoice.persist_private_pdf",
@@ -4015,7 +4018,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "invoice.private_pdf_reference",
@@ -4059,7 +4062,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "invoice.private_pdf",
@@ -4103,7 +4106,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "importjob.cancel",
@@ -4146,7 +4149,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "importjob.get",
@@ -4189,7 +4192,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "importjob.list",
@@ -4232,7 +4235,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "conversation.create_internal",
@@ -4276,7 +4279,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "message.add_internal_note",
@@ -4320,7 +4323,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "conversation.assign",
@@ -4363,7 +4366,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "conversation.link_customer",
@@ -4406,7 +4409,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "conversation.close",
@@ -4450,7 +4453,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "conversation.reopen",
@@ -4494,7 +4497,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "conversation.archive",
@@ -4538,7 +4541,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "conversation.restore",
@@ -4582,7 +4585,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "conversation.mark_read",
@@ -4626,7 +4629,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "conversation.mark_unread",
@@ -4670,7 +4673,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "inbox.list",
@@ -4714,7 +4717,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "inbox.get_thread",
@@ -4758,7 +4761,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "inbox.unread_summary",
@@ -4802,7 +4805,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "notification.refresh",
@@ -4846,7 +4849,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "notification.mark_read",
@@ -4890,7 +4893,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "notification.mark_all_read",
@@ -4934,7 +4937,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "notification.list",
@@ -4978,7 +4981,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "notification.unread_count",
@@ -5022,7 +5025,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "automation.create",
@@ -5065,7 +5068,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "automation.update",
@@ -5108,7 +5111,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "automation.enable",
@@ -5151,7 +5154,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "automation.disable",
@@ -5194,7 +5197,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "automation.process_pending",
@@ -5237,7 +5240,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "automation.list",
@@ -5280,7 +5283,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "automation.get",
@@ -5323,7 +5326,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "automation.run_history",
@@ -5366,7 +5369,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "settings.profile_update",
@@ -5411,7 +5414,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "settings.company_update",
@@ -5454,7 +5457,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "settings.profile_get",
@@ -5499,7 +5502,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "settings.company_get",
@@ -5544,7 +5547,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "settings.integrations",
@@ -5589,7 +5592,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "sensitive.get",
@@ -5633,7 +5636,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
       "field_role_matrix": {
         "contact": [
           "owner",
@@ -5683,7 +5686,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
       "review_pending": [
         "W4",
         "W2"
@@ -5726,7 +5729,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
       "review_pending": [
         "W4",
         "W2"
@@ -5769,7 +5772,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
       "review_pending": [
         "W4",
         "W2"
@@ -5817,7 +5820,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "document.cleanup_claim",
@@ -5861,7 +5864,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "document.cleanup_finish",
@@ -5905,7 +5908,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1"
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c"
     },
     {
       "name": "document.expired_list",
@@ -5945,7 +5948,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
+      "supabase_tested_head": "3ebed3ff993c38cd74d60d8e3c6e4f3ed28af56c",
       "review_pending": [
         "W4",
         "W2"
