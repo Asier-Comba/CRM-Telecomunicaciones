@@ -1,6 +1,6 @@
 # Commercial SIM/eSIM v1
 
-Candidate POST `/api/sims/v1`: current authenticated cookies, same-origin, no-store, `PRODUCT_V1_ENABLED`/`PRODUCT_V1_ORIGIN`. Owner/admin/member perform normal writes; viewer consumes mask-only reads. No carrier API, network provisioning, stock ERP, PIN, PUK, credentials or AI write registration.
+Accepted at b654b1d / 2479 real checks. POST `/api/sims/v1`: current authenticated cookies, same-origin, no-store, `PRODUCT_V1_ENABLED`/`PRODUCT_V1_ORIGIN`. Owner/admin/member perform normal writes; viewer consumes mask-only reads. No carrier API, network provisioning, stock ERP, PIN, PUK, credentials or AI write registration.
 
 The SIM is a customer-bound commercial resource reserved before assignment. Its workspace/customer/operator/kind/source/creator identity is frozen. Prepared is not general warehouse availability. Physical SIM and eSIM profiles use the same bounded model, with optional EID only for eSIM. Dates record CRM confirmation/replacement/deactivation time; they do not fabricate provider telemetry.
 
@@ -26,3 +26,5 @@ Only one open SIM association per line and one open line per SIM. Assignment loc
 All9operations have local SQL fresh/restore fixtures and seven Node tests; native independent-process suites exercise20create receipts/20assignmentCAS/20distinct prepared replacements/20replacement replays, ensuring one winner and preserved history. The real Auth/cookie suite individually observes the nine operations plus SIM-specific protected create/get/list/reveal, physical EID denial, shared eUICC EID, lifetime ICCID uniqueness, source preservation and same valid JWT after suspension. Candidate status persists until published exact-source platform proof passes.
 
 Limits: no stock procurement, reuse of terminal SIMs, bulk provider synchronization or assignment onto external immutable line business. Prepared resource labels remain immutable in this first bounded resource family. Provider outcomes are manual human records. W2 consumption is unproven; no AI reads/writes are registered by this change.
+
+Accepted source b654b1dd02bf9f8a8213fda5a75eac476559c5cf:61 migrations/269 privilege functions/283 Node tests/2479 real Supabase checks. All nine SIM operations individually observed. Native112249260785 fresh/restore/races, browser112249259883 and real Supabase112249259768 PASS. Forward association snapshot CAS repair preserves exact receipts and denial after revocation. Six-HIGH audit remains unsuppressed; full workflow is not green. See W1_TEL5_SIM_ACCEPTANCE.json.

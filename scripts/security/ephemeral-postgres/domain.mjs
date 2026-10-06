@@ -83,6 +83,8 @@ try {
   console.log('TEL5 CASE 12 OPERATIONS/LIFECYCLE/PRIVATE NOTES/ANCESTRY/CAS/REPLAY/REVOCATION PASS')
   await db.exec(richSeed.replace(/commit;\s*$/i, '') + await readFile(resolve(root,'supabase/tests/commercial-sim-esim-history.sql'),'utf8'))
   console.log('TEL5 SIM 9 OPERATIONS/PROTECTED ICCID EID/ASSOCIATION HISTORY/CAS/REPLAY/REVOCATION PASS')
+  await db.exec(richSeed.replace(/commit;\s*$/i, '') + await readFile(resolve(root,'supabase/tests/telecom-customer360-report-reads.sql'),'utf8'))
+  console.log('TEL5 CUSTOMER360/REPORT 10 READS/EXACT COUNTS/KEYSET/PRIVILEGED COUNT PRIVACY/REVOCATION PASS')
 
   await db.exec(await readFile(resolve(root,'supabase/tests/billing-exact-issue.sql'),'utf8'))
   await db.exec(await readFile(resolve(root,'supabase/tests/billing-private-pdf-artifacts.sql'),'utf8'))

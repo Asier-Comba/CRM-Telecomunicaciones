@@ -1,23 +1,25 @@
 {
   "catalog_version": "product.capabilities.v1",
   "as_of": "2026-10-06",
-  "implementation_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
+  "implementation_head": "b654b1dd02bf9f8a8213fda5a75eac476559c5cf",
   "evidence": {
     "native": {
-      "run_id": 37453921474,
+      "run_id": 37457701423,
       "status": "PASS",
-      "migration_count": 59,
-      "function_count": 264,
-      "tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
-      "tested_checkout": "a4df0fde346270745141e4d073c0162510ced71e",
-      "tested_tree": "44d091fce66ae3794650317764b2f3afd298aa5b",
+      "migration_count": 61,
+      "function_count": 269,
+      "tested_head": "b654b1dd02bf9f8a8213fda5a75eac476559c5cf",
+      "tested_checkout": "2489c93de20c14ea6955a3e1cdc794c94f550392",
+      "tested_tree": "745566600c3430bf90e40a9e88925998bf18b4f0",
       "fresh": "PASS",
       "logical_synthetic_restore": "PASS",
       "privileges_roles_acl_loss_negative_control": "PASS",
       "production_backup": false,
-      "job_id": 112236782598
+      "job_id": 112249260785
     },
     "actual_supabase": {
+      "run_id": 37457701499,
+      "job_id": 112249259768,
       "environment": "LOCAL_SUPABASE_DOCKER",
       "result": "PASS",
       "auth": "PASS",
@@ -26,10 +28,10 @@
       "rpc": "PASS",
       "storage": "PASS",
       "cli": "2.119.0",
-      "sha": "a4df0fde346270745141e4d073c0162510ced71e",
+      "sha": "2489c93de20c14ea6955a3e1cdc794c94f550392",
       "config_sha256": "3fc22bba97e5114a7ee67cc90e514b8ec16eda0cb2c5817cf87784e8e4ab6e57",
-      "migration_head": "20261006113000_product_service_case_workflow.sql",
-      "migration_count": 59,
+      "migration_head": "20261006123000_sim_association_snapshot_cas.sql",
+      "migration_count": 61,
       "service_images": [
         "public.ecr.aws/supabase/gotrue:v2.197.0",
         "public.ecr.aws/supabase/kong:2.8.1",
@@ -230,6 +232,12 @@
         "table.telecom_services.anon": 401,
         "table.telecom_services.A": 403,
         "table.telecom_services.B": 403,
+        "table.telecom_sim_associations.anon": 401,
+        "table.telecom_sim_associations.A": 403,
+        "table.telecom_sim_associations.B": 403,
+        "table.telecom_sims.anon": 401,
+        "table.telecom_sims.A": 403,
+        "table.telecom_sims.B": 403,
         "table.workspace_company_profiles.anon": 401,
         "table.workspace_company_profiles.A": 403,
         "table.workspace_company_profiles.B": 403,
@@ -447,6 +455,22 @@
       "service_case_notes": "PASS_PRIVATE_APPEND_ONLY_BOUNDED_BODY_NO_AUDIT_VALUE",
       "service_case_revocation": "PASS_VALID_JWT_ALL_OPERATIONS_DENIED",
       "service_case_concurrency": "PASS_SINGLE_TRANSITION_WINNER",
+      "sim_esim_operations_individually_observed": [
+        "sim.create",
+        "sim.assign",
+        "sim.activate",
+        "sim.replace",
+        "sim.get",
+        "sim.deactivate",
+        "sim.cancel",
+        "sim.history",
+        "sim.list"
+      ],
+      "sim_esim": "PASS_CUSTOMER_BOUND_RESOURCES_EXPLICIT_MANUAL_ACTIVATION",
+      "sim_replacement_history": "PASS_ATOMIC_REPLACEMENT_FROZEN_IDENTIFIER_POINTERS",
+      "sim_protected_identity": "PASS_ICCID_LIFETIME_UNIQUE_EID_SHARED_PROFILE_EXPLICIT_HUMAN_REVEAL",
+      "sim_revocation": "PASS_VALID_JWT_ALL_OPERATIONS_DENIED",
+      "sim_stock_erp": "NOT_MODELED_CUSTOMER_RESERVED_PREPARED_RESOURCE",
       "billing_search": "PASS",
       "billing_pdf": "PASS",
       "billing_dashboard": "PASS",
@@ -535,28 +559,29 @@
       "document_content_verified_sha256": "NOT_IMPLEMENTED",
       "cross_tenant": "PASS",
       "revocation": "PASS",
-      "checks": 2290,
+      "checks": 2479,
       "manager": "NOT_CANONICAL",
       "signed_access": "NOT_IMPLEMENTED",
       "auth_email_production": "NOT_TESTED",
       "mfa_production": "NOT_TESTED",
       "scoped_service_principal": "NOT_IMPLEMENTED",
       "remote_staging": "NOT_TESTED",
-      "teardown": "PASS"
+      "teardown": "PASS",
+      "tested_head": "b654b1dd02bf9f8a8213fda5a75eac476559c5cf"
     },
     "quality": {
-      "tests": 244,
+      "tests": 283,
+      "node_tests": 283,
       "lint": "PASS",
       "types": "PASS",
       "build": "PASS",
-      "audit": "FAIL_ISSUE29_FIVE_HIGH",
-      "overall_ci": "FAIL_AUDIT; SOURCE_BROWSER_CI_CANCELLED_NOT_PASS",
-      "tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
-      "run_id": 37361774252,
+      "audit": "FAIL_UNSUPPRESSED_6_HIGH;known Issue29 chain plus distinct source-map-js GHSA-68fv-2mgg-jv7q",
+      "overall_ci": "FAIL_AUDIT;OFFICIAL_BROWSER_PASS",
+      "tested_head": "b654b1dd02bf9f8a8213fda5a75eac476559c5cf",
+      "run_id": 37457701423,
+      "job_id": 112249260932,
       "critical_playwright": "SKIPPED",
       "dependency_review": "SKIPPED",
-      "browser_private_boundary_local": "PASS_ACTUAL_47_BUNDLES_7_PRIVATE_CLASSES",
-      "node_tests": 256,
       "workflow_fully_green": false
     },
     "native_billing": {
@@ -633,6 +658,24 @@
       "production": "NOT_TESTED",
       "auth_mail": "NOT_CONFIGURED",
       "crm_mail": "NOT_CONFIGURED"
+    },
+    "sim_esim": {
+      "sim_esim_operations_individually_observed": [
+        "sim.create",
+        "sim.assign",
+        "sim.activate",
+        "sim.replace",
+        "sim.get",
+        "sim.deactivate",
+        "sim.cancel",
+        "sim.history",
+        "sim.list"
+      ],
+      "sim_esim": "PASS_CUSTOMER_BOUND_RESOURCES_EXPLICIT_MANUAL_ACTIVATION",
+      "sim_replacement_history": "PASS_ATOMIC_REPLACEMENT_FROZEN_IDENTIFIER_POINTERS",
+      "sim_protected_identity": "PASS_ICCID_LIFETIME_UNIQUE_EID_SHARED_PROFILE_EXPLICIT_HUMAN_REVEAL",
+      "sim_revocation": "PASS_VALID_JWT_ALL_OPERATIONS_DENIED",
+      "sim_stock_erp": "NOT_MODELED_CUSTOMER_RESERVED_PREPARED_RESOURCE"
     }
   },
   "operations": [
@@ -7120,7 +7163,8 @@
         "required": false,
         "key": null
       },
-      "extension_status": "SIM_ICCID_EID_CANDIDATE_EXACT_PLATFORM_PENDING"
+      "extension_status": "SIM_ICCID_EID_CANDIDATE_EXACT_PLATFORM_PENDING",
+      "sim_protected_extension": "PASS_ON_B654B1D_ICCID_LIFETIME_EID_SHARED_REQUESTED_HUMAN_REVEAL"
     },
     {
       "name": "identifier.retire",
@@ -7158,7 +7202,8 @@
         "required": true,
         "key": "expected_version"
       },
-      "extension_status": "SIM_ICCID_EID_CANDIDATE_EXACT_PLATFORM_PENDING"
+      "extension_status": "SIM_ICCID_EID_CANDIDATE_EXACT_PLATFORM_PENDING",
+      "sim_protected_extension": "PASS_ON_B654B1D_ICCID_LIFETIME_EID_SHARED_REQUESTED_HUMAN_REVEAL"
     },
     {
       "name": "identifier.list",
@@ -7197,7 +7242,8 @@
         "required": false,
         "key": null
       },
-      "extension_status": "SIM_ICCID_EID_CANDIDATE_EXACT_PLATFORM_PENDING"
+      "extension_status": "SIM_ICCID_EID_CANDIDATE_EXACT_PLATFORM_PENDING",
+      "sim_protected_extension": "PASS_ON_B654B1D_ICCID_LIFETIME_EID_SHARED_REQUESTED_HUMAN_REVEAL"
     },
     {
       "name": "identifier.get",
@@ -7236,7 +7282,8 @@
         "required": false,
         "key": null
       },
-      "extension_status": "SIM_ICCID_EID_CANDIDATE_EXACT_PLATFORM_PENDING"
+      "extension_status": "SIM_ICCID_EID_CANDIDATE_EXACT_PLATFORM_PENDING",
+      "sim_protected_extension": "PASS_ON_B654B1D_ICCID_LIFETIME_EID_SHARED_REQUESTED_HUMAN_REVEAL"
     },
     {
       "name": "operator.create",
@@ -8521,9 +8568,9 @@
         "member"
       ],
       "minimum_role": "member",
-      "backend_status": "candidate_local_tested_exact_platform_pending",
-      "supabase_tested": false,
-      "supabase_status": "PENDING_EXACT_SOURCE",
+      "backend_status": "implemented_real_disposable_proven",
+      "supabase_tested": true,
+      "supabase_status": "PASS",
       "ui_safe": false,
       "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
       "ai_registration": false,
@@ -8543,7 +8590,8 @@
       "cas": {
         "required": false,
         "key": null
-      }
+      },
+      "supabase_tested_head": "b654b1dd02bf9f8a8213fda5a75eac476559c5cf"
     },
     {
       "name": "sim.assign",
@@ -8565,9 +8613,9 @@
         "member"
       ],
       "minimum_role": "member",
-      "backend_status": "candidate_local_tested_exact_platform_pending",
-      "supabase_tested": false,
-      "supabase_status": "PENDING_EXACT_SOURCE",
+      "backend_status": "implemented_real_disposable_proven",
+      "supabase_tested": true,
+      "supabase_status": "PASS",
       "ui_safe": false,
       "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
       "ai_registration": false,
@@ -8587,7 +8635,8 @@
       "cas": {
         "required": true,
         "key": "expected_version"
-      }
+      },
+      "supabase_tested_head": "b654b1dd02bf9f8a8213fda5a75eac476559c5cf"
     },
     {
       "name": "sim.activate",
@@ -8610,9 +8659,9 @@
         "member"
       ],
       "minimum_role": "member",
-      "backend_status": "candidate_local_tested_exact_platform_pending",
-      "supabase_tested": false,
-      "supabase_status": "PENDING_EXACT_SOURCE",
+      "backend_status": "implemented_real_disposable_proven",
+      "supabase_tested": true,
+      "supabase_status": "PASS",
       "ui_safe": false,
       "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
       "ai_registration": false,
@@ -8632,7 +8681,8 @@
       "cas": {
         "required": true,
         "key": "expected_version"
-      }
+      },
+      "supabase_tested_head": "b654b1dd02bf9f8a8213fda5a75eac476559c5cf"
     },
     {
       "name": "sim.replace",
@@ -8658,9 +8708,9 @@
         "member"
       ],
       "minimum_role": "member",
-      "backend_status": "candidate_local_tested_exact_platform_pending",
-      "supabase_tested": false,
-      "supabase_status": "PENDING_EXACT_SOURCE",
+      "backend_status": "implemented_real_disposable_proven",
+      "supabase_tested": true,
+      "supabase_status": "PASS",
       "ui_safe": false,
       "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
       "ai_registration": false,
@@ -8680,7 +8730,8 @@
       "cas": {
         "required": true,
         "key": "expected_version"
-      }
+      },
+      "supabase_tested_head": "b654b1dd02bf9f8a8213fda5a75eac476559c5cf"
     },
     {
       "name": "sim.deactivate",
@@ -8702,9 +8753,9 @@
         "member"
       ],
       "minimum_role": "member",
-      "backend_status": "candidate_local_tested_exact_platform_pending",
-      "supabase_tested": false,
-      "supabase_status": "PENDING_EXACT_SOURCE",
+      "backend_status": "implemented_real_disposable_proven",
+      "supabase_tested": true,
+      "supabase_status": "PASS",
       "ui_safe": false,
       "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
       "ai_registration": false,
@@ -8724,7 +8775,8 @@
       "cas": {
         "required": true,
         "key": "expected_version"
-      }
+      },
+      "supabase_tested_head": "b654b1dd02bf9f8a8213fda5a75eac476559c5cf"
     },
     {
       "name": "sim.cancel",
@@ -8744,9 +8796,9 @@
         "member"
       ],
       "minimum_role": "member",
-      "backend_status": "candidate_local_tested_exact_platform_pending",
-      "supabase_tested": false,
-      "supabase_status": "PENDING_EXACT_SOURCE",
+      "backend_status": "implemented_real_disposable_proven",
+      "supabase_tested": true,
+      "supabase_status": "PASS",
       "ui_safe": false,
       "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
       "ai_registration": false,
@@ -8766,7 +8818,8 @@
       "cas": {
         "required": true,
         "key": "expected_version"
-      }
+      },
+      "supabase_tested_head": "b654b1dd02bf9f8a8213fda5a75eac476559c5cf"
     },
     {
       "name": "sim.list",
@@ -8792,9 +8845,9 @@
         "viewer"
       ],
       "minimum_role": "viewer",
-      "backend_status": "candidate_local_tested_exact_platform_pending",
-      "supabase_tested": false,
-      "supabase_status": "PENDING_EXACT_SOURCE",
+      "backend_status": "implemented_real_disposable_proven",
+      "supabase_tested": true,
+      "supabase_status": "PASS",
       "ui_safe": false,
       "assistant_future": "safe_read_candidate_not_registered",
       "ai_registration": false,
@@ -8814,7 +8867,8 @@
       "cas": {
         "required": false,
         "key": null
-      }
+      },
+      "supabase_tested_head": "b654b1dd02bf9f8a8213fda5a75eac476559c5cf"
     },
     {
       "name": "sim.get",
@@ -8833,9 +8887,9 @@
         "viewer"
       ],
       "minimum_role": "viewer",
-      "backend_status": "candidate_local_tested_exact_platform_pending",
-      "supabase_tested": false,
-      "supabase_status": "PENDING_EXACT_SOURCE",
+      "backend_status": "implemented_real_disposable_proven",
+      "supabase_tested": true,
+      "supabase_status": "PASS",
       "ui_safe": false,
       "assistant_future": "safe_read_candidate_not_registered",
       "ai_registration": false,
@@ -8855,7 +8909,8 @@
       "cas": {
         "required": false,
         "key": null
-      }
+      },
+      "supabase_tested_head": "b654b1dd02bf9f8a8213fda5a75eac476559c5cf"
     },
     {
       "name": "sim.history",
@@ -8876,6 +8931,48 @@
         "viewer"
       ],
       "minimum_role": "viewer",
+      "backend_status": "implemented_real_disposable_proven",
+      "supabase_tested": true,
+      "supabase_status": "PASS",
+      "ui_safe": false,
+      "assistant_future": "safe_read_candidate_not_registered",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/sims/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "supabase_tested_head": "b654b1dd02bf9f8a8213fda5a75eac476559c5cf"
+    },
+    {
+      "name": "customer360.summary",
+      "version": "telecom.reads.v1",
+      "kind": "read",
+      "rpc": "telecom_reads_v1_query",
+      "input_type": "TelecomReadInputsV1['customer360.summary']",
+      "output_type": "TelecomReadResultV1<'customer360.summary'>",
+      "input_fields": [
+        "customer_id"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
       "backend_status": "candidate_local_tested_exact_platform_pending",
       "supabase_tested": false,
       "supabase_status": "PENDING_EXACT_SOURCE",
@@ -8884,7 +8981,392 @@
       "ai_registration": false,
       "transport": {
         "method": "POST",
-        "path": "/api/sims/v1",
+        "path": "/api/telecom/reads/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      }
+    },
+    {
+      "name": "report.operator_portfolio",
+      "version": "telecom.reads.v1",
+      "kind": "read",
+      "rpc": "telecom_reads_v1_query",
+      "input_type": "TelecomReadInputsV1['report.operator_portfolio']",
+      "output_type": "TelecomReadResultV1<'report.operator_portfolio'>",
+      "input_fields": [
+        "customer_id",
+        "operator_id",
+        "after_id",
+        "limit"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "backend_status": "candidate_local_tested_exact_platform_pending",
+      "supabase_tested": false,
+      "supabase_status": "PENDING_EXACT_SOURCE",
+      "ui_safe": false,
+      "assistant_future": "safe_read_candidate_not_registered",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/telecom/reads/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      }
+    },
+    {
+      "name": "report.services_by_kind",
+      "version": "telecom.reads.v1",
+      "kind": "read",
+      "rpc": "telecom_reads_v1_query",
+      "input_type": "TelecomReadInputsV1['report.services_by_kind']",
+      "output_type": "TelecomReadResultV1<'report.services_by_kind'>",
+      "input_fields": [
+        "customer_id",
+        "operator_id"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "backend_status": "candidate_local_tested_exact_platform_pending",
+      "supabase_tested": false,
+      "supabase_status": "PENDING_EXACT_SOURCE",
+      "ui_safe": false,
+      "assistant_future": "safe_read_candidate_not_registered",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/telecom/reads/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      }
+    },
+    {
+      "name": "report.lines_by_status",
+      "version": "telecom.reads.v1",
+      "kind": "read",
+      "rpc": "telecom_reads_v1_query",
+      "input_type": "TelecomReadInputsV1['report.lines_by_status']",
+      "output_type": "TelecomReadResultV1<'report.lines_by_status'>",
+      "input_fields": [
+        "customer_id",
+        "operator_id"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "backend_status": "candidate_local_tested_exact_platform_pending",
+      "supabase_tested": false,
+      "supabase_status": "PENDING_EXACT_SOURCE",
+      "ui_safe": false,
+      "assistant_future": "safe_read_candidate_not_registered",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/telecom/reads/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      }
+    },
+    {
+      "name": "report.renewals_by_month",
+      "version": "telecom.reads.v1",
+      "kind": "read",
+      "rpc": "telecom_reads_v1_query",
+      "input_type": "TelecomReadInputsV1['report.renewals_by_month']",
+      "output_type": "TelecomReadResultV1<'report.renewals_by_month'>",
+      "input_fields": [
+        "customer_id",
+        "from_month",
+        "to_month"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "backend_status": "candidate_local_tested_exact_platform_pending",
+      "supabase_tested": false,
+      "supabase_status": "PENDING_EXACT_SOURCE",
+      "ui_safe": false,
+      "assistant_future": "safe_read_candidate_not_registered",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/telecom/reads/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      }
+    },
+    {
+      "name": "report.permanences_by_month",
+      "version": "telecom.reads.v1",
+      "kind": "read",
+      "rpc": "telecom_reads_v1_query",
+      "input_type": "TelecomReadInputsV1['report.permanences_by_month']",
+      "output_type": "TelecomReadResultV1<'report.permanences_by_month'>",
+      "input_fields": [
+        "customer_id",
+        "from_month",
+        "to_month"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "backend_status": "candidate_local_tested_exact_platform_pending",
+      "supabase_tested": false,
+      "supabase_status": "PENDING_EXACT_SOURCE",
+      "ui_safe": false,
+      "assistant_future": "safe_read_candidate_not_registered",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/telecom/reads/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      }
+    },
+    {
+      "name": "report.portabilities_by_status",
+      "version": "telecom.reads.v1",
+      "kind": "read",
+      "rpc": "telecom_reads_v1_query",
+      "input_type": "TelecomReadInputsV1['report.portabilities_by_status']",
+      "output_type": "TelecomReadResultV1<'report.portabilities_by_status'>",
+      "input_fields": [
+        "customer_id"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "backend_status": "candidate_local_tested_exact_platform_pending",
+      "supabase_tested": false,
+      "supabase_status": "PENDING_EXACT_SOURCE",
+      "ui_safe": false,
+      "assistant_future": "safe_read_candidate_not_registered",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/telecom/reads/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      }
+    },
+    {
+      "name": "report.cases_by_priority_status",
+      "version": "telecom.reads.v1",
+      "kind": "read",
+      "rpc": "telecom_reads_v1_query",
+      "input_type": "TelecomReadInputsV1['report.cases_by_priority_status']",
+      "output_type": "TelecomReadResultV1<'report.cases_by_priority_status'>",
+      "input_fields": [
+        "customer_id"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "backend_status": "candidate_local_tested_exact_platform_pending",
+      "supabase_tested": false,
+      "supabase_status": "PENDING_EXACT_SOURCE",
+      "ui_safe": false,
+      "assistant_future": "safe_read_candidate_not_registered",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/telecom/reads/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      }
+    },
+    {
+      "name": "report.pipeline_by_stage",
+      "version": "telecom.reads.v1",
+      "kind": "read",
+      "rpc": "telecom_reads_v1_query",
+      "input_type": "TelecomReadInputsV1['report.pipeline_by_stage']",
+      "output_type": "TelecomReadResultV1<'report.pipeline_by_stage'>",
+      "input_fields": [
+        "customer_id",
+        "owner_user_id",
+        "stage_id",
+        "after_id",
+        "limit"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "backend_status": "candidate_local_tested_exact_platform_pending",
+      "supabase_tested": false,
+      "supabase_status": "PENDING_EXACT_SOURCE",
+      "ui_safe": false,
+      "assistant_future": "safe_read_candidate_not_registered",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/telecom/reads/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      }
+    },
+    {
+      "name": "report.commercial_owner_counts",
+      "version": "telecom.reads.v1",
+      "kind": "read",
+      "rpc": "telecom_reads_v1_query",
+      "input_type": "TelecomReadInputsV1['report.commercial_owner_counts']",
+      "output_type": "TelecomReadResultV1<'report.commercial_owner_counts'>",
+      "input_fields": [
+        "customer_id",
+        "owner_user_id",
+        "after_id",
+        "limit"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "backend_status": "candidate_local_tested_exact_platform_pending",
+      "supabase_tested": false,
+      "supabase_status": "PENDING_EXACT_SOURCE",
+      "ui_safe": false,
+      "assistant_future": "safe_read_candidate_not_registered",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/telecom/reads/v1",
         "enable_flag": "PRODUCT_V1_ENABLED",
         "origin_flag": "PRODUCT_V1_ORIGIN",
         "enabled_by_default": false,
@@ -8908,7 +9390,7 @@
     "portfolio_legacy_origin_verification"
   ],
   "registration": "Human contracts only; no new AI tools/writes registered; exact accepted source4b5520f,9catalog candidates pending.",
-  "candidate_after_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
-  "operations_total": 160,
-  "operations_proven": 151
+  "candidate_after_head": "b654b1dd02bf9f8a8213fda5a75eac476559c5cf",
+  "operations_total": 198,
+  "operations_proven": 188
 }

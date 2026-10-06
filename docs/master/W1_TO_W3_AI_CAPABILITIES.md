@@ -184,3 +184,5 @@ Portability reads accepted48483ae8/2071real checks; no registration. `case.list/
 
 
 Case summary reads accepted a220ee17/2290real checks; private notes remain human-only and unregistered. SIM `sim.list/get/history` are new mask-only bounded read candidates, exact-source proof pending. SixSIMwrites are `FUTURE_AI_ACTION_CANDIDATE`; provider confirmation must be human recorded, no carrier action or AI registration. ICCID/EID requested-field reveal remains human-only.
+
+TEL5 Customer360/report read candidates (not registered): `customer360.summary`, `report.operator_portfolio`, `report.services_by_kind`, `report.lines_by_status`, `report.renewals_by_month`, `report.permanences_by_month`, `report.portabilities_by_status`, `report.cases_by_priority_status`, `report.pipeline_by_stage`, `report.commercial_owner_counts`. Current cookie JWT and role checks remain authoritative; protected billing/document summary counters require owner/admin. No money, raw identifiers or note bodies. Exact platform evidence pending for these10 reads. SIM masked reads are now proven b654b1d/2479checks; noAI tool registration. Writes remain FUTURE_AI_ACTION_CANDIDATE, Issue10 W3-owned.

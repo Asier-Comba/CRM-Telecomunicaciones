@@ -72,6 +72,8 @@ run_fixture supabase/tests/product-dashboard-search.sql
   cat "$repo_root/supabase/tests/product-service-case-workflow.sql"
   sed '$d' "$repo_root/supabase/seeds/synthetic_product.sql"
   cat "$repo_root/supabase/tests/commercial-sim-esim-history.sql"
+  sed '$d' "$repo_root/supabase/seeds/synthetic_product.sql"
+  cat "$repo_root/supabase/tests/telecom-customer360-report-reads.sql"
 } | psql_native > "${RUNNER_TEMP:-$tmp_dir}/product-density-query-plans.jsonlog"
 {
   printf "set app.environment = 'test';\n"
@@ -206,6 +208,8 @@ migration_head="$(basename "${migration}")"
   cat "$repo_root/supabase/tests/product-service-case-workflow.sql"
   sed '$d' "$repo_root/supabase/seeds/synthetic_product.sql"
   cat "$repo_root/supabase/tests/commercial-sim-esim-history.sql"
+  sed '$d' "$repo_root/supabase/seeds/synthetic_product.sql"
+  cat "$repo_root/supabase/tests/telecom-customer360-report-reads.sql"
 } | docker exec -i -u postgres "$container" psql -X -v ON_ERROR_STOP=1 -U postgres -d "$restore_db" > /dev/null
 
 {

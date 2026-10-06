@@ -1,8 +1,6 @@
-# Telecom commercial domain acceptance matrix
+# Telecom domain acceptance matrix
 
-Accepted source `a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd`:179operations individually observed,2290real checks,59migrations/264functions/276Node tests. Native fresh/restore/races and actual private boundary PASS. Audit6HIGH remains blocked, unsuppressed. New9SIMoperations and protected SIM identifier extensions await exact-source proof. W2_CONSUMED unproven.
-
-Counts: REQUIRED=97, IMPLEMENTED=75, PROVEN=66, W2_CONSUMED=0, BLOCKER=97.
+Accepted source: `b654b1dd02bf9f8a8213fda5a75eac476559c5cf`. Customer360/report candidate follows; fullTEL5 still incomplete. No AI writes. W2 consumption is unproven.
 
 | Section | Requirement | REQUIRED | IMPLEMENTED | PROVEN | W2_CONSUMED | BLOCKER |
 |---|---|---|---|---|---|---|
@@ -38,11 +36,11 @@ Counts: REQUIRED=97, IMPLEMENTED=75, PROVEN=66, W2_CONSUMED=0, BLOCKER=97.
 | Identifiers | identifier.retire | YES | YES | YES | NO | W2_consumption_unproven |
 | Identifiers | identifier.list | YES | YES | YES | NO | W2_consumption_unproven |
 | Identifiers | sensitive.get (telecom_identifier) | YES | YES | YES | NO | W2_consumption_unproven |
-| SIM/eSIM | sim.create | YES | YES | NO | NO | exact_sim_source_evidence_pending |
-| SIM/eSIM | sim.assign | YES | YES | NO | NO | exact_sim_source_evidence_pending |
-| SIM/eSIM | sim.activate | YES | YES | NO | NO | exact_sim_source_evidence_pending |
-| SIM/eSIM | sim.replace | YES | YES | NO | NO | exact_sim_source_evidence_pending |
-| SIM/eSIM | sim.history | YES | YES | NO | NO | exact_sim_source_evidence_pending |
+| SIM/eSIM | sim.create | YES | YES | YES | NO | W2_consumption_unproven |
+| SIM/eSIM | sim.assign | YES | YES | YES | NO | W2_consumption_unproven |
+| SIM/eSIM | sim.activate | YES | YES | YES | NO | W2_consumption_unproven |
+| SIM/eSIM | sim.replace | YES | YES | YES | NO | W2_consumption_unproven |
+| SIM/eSIM | sim.history | YES | YES | YES | NO | W2_consumption_unproven |
 | Portabilities | portability.list | YES | YES | YES | NO | W2_consumption_unproven |
 | Portabilities | portability.get | YES | YES | YES | NO | W2_consumption_unproven |
 | Portabilities | portability.create | YES | YES | YES | NO | W2_consumption_unproven |
@@ -73,17 +71,17 @@ Counts: REQUIRED=97, IMPLEMENTED=75, PROVEN=66, W2_CONSUMED=0, BLOCKER=97.
 | Collections | activity.list | YES | YES | YES | NO | W2_consumption_unproven |
 | Collections | assignee.list | YES | YES | YES | NO | W2_consumption_unproven |
 | Customer360 | bounded existing domain pages | YES | NO | NO | NO | not_implemented_as_requested |
-| Customer360 | customer360.summary | YES | NO | NO | NO | not_implemented_as_requested |
+| Customer360 | customer360.summary | YES | YES | NO | NO | exact_source_platform_acceptance_pending;W2_consumption_unproven |
 | Attention | deterministic telecom attention | YES | NO | NO | NO | not_implemented_as_requested |
-| Reports | operator portfolio | YES | NO | NO | NO | not_implemented_as_requested |
-| Reports | service kind distribution | YES | NO | NO | NO | not_implemented_as_requested |
-| Reports | line status distribution | YES | NO | NO | NO | not_implemented_as_requested |
-| Reports | renewal periods | YES | NO | NO | NO | not_implemented_as_requested |
-| Reports | permanence periods | YES | NO | NO | NO | not_implemented_as_requested |
-| Reports | portability status | YES | NO | NO | NO | not_implemented_as_requested |
-| Reports | case priority/status | YES | NO | NO | NO | not_implemented_as_requested |
-| Reports | pipeline stage | YES | NO | NO | NO | not_implemented_as_requested |
-| Reports | commercial owner counts | YES | NO | NO | NO | not_implemented_as_requested |
+| Reports | operator portfolio | YES | YES | NO | NO | exact_source_platform_acceptance_pending;W2_consumption_unproven |
+| Reports | service kind distribution | YES | YES | NO | NO | exact_source_platform_acceptance_pending;W2_consumption_unproven |
+| Reports | line status distribution | YES | YES | NO | NO | exact_source_platform_acceptance_pending;W2_consumption_unproven |
+| Reports | renewal periods | YES | YES | NO | NO | exact_source_platform_acceptance_pending;W2_consumption_unproven |
+| Reports | permanence periods | YES | YES | NO | NO | exact_source_platform_acceptance_pending;W2_consumption_unproven |
+| Reports | portability status | YES | YES | NO | NO | exact_source_platform_acceptance_pending;W2_consumption_unproven |
+| Reports | case priority/status | YES | YES | NO | NO | exact_source_platform_acceptance_pending;W2_consumption_unproven |
+| Reports | pipeline stage | YES | YES | NO | NO | exact_source_platform_acceptance_pending;W2_consumption_unproven |
+| Reports | commercial owner counts | YES | YES | NO | NO | exact_source_platform_acceptance_pending;W2_consumption_unproven |
 | Reports | billing monthly currency series | YES | NO | NO | NO | not_implemented_as_requested |
 | Reports | billing top customers by currency | YES | NO | NO | NO | not_implemented_as_requested |
 | Imports | safe telecom mapping update | YES | NO | NO | NO | not_implemented_as_requested |
@@ -99,7 +97,9 @@ Counts: REQUIRED=97, IMPLEMENTED=75, PROVEN=66, W2_CONSUMED=0, BLOCKER=97.
 | Portabilities | portability.complete | YES | YES | YES | NO | W2_consumption_unproven |
 | Cases | case.note_create | YES | YES | YES | NO | W2_consumption_unproven |
 | Cases | case.note_list | YES | YES | YES | NO | W2_consumption_unproven |
-| SIM/eSIM | sim.deactivate | YES | YES | NO | NO | exact_sim_source_evidence_pending |
-| SIM/eSIM | sim.cancel | YES | YES | NO | NO | exact_sim_source_evidence_pending |
-| SIM/eSIM | sim.list | YES | YES | NO | NO | exact_sim_source_evidence_pending |
-| SIM/eSIM | sim.get | YES | YES | NO | NO | exact_sim_source_evidence_pending |
+| SIM/eSIM | sim.deactivate | YES | YES | YES | NO | W2_consumption_unproven |
+| SIM/eSIM | sim.cancel | YES | YES | YES | NO | W2_consumption_unproven |
+| SIM/eSIM | sim.list | YES | YES | YES | NO | W2_consumption_unproven |
+| SIM/eSIM | sim.get | YES | YES | YES | NO | W2_consumption_unproven |
+
+Counts: {"REQUIRED": 97, "IMPLEMENTED": 85, "PROVEN": 75, "W2_CONSUMED": 0, "BLOCKER": 97}. Full notes/evidence mappings in the companion JSON.

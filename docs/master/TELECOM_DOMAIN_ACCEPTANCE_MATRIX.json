@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "source_sha": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
-  "stage": "tel5_sim_esim_candidate",
+  "source_sha": "b654b1dd02bf9f8a8213fda5a75eac476559c5cf",
+  "stage": "TEL5_CUSTOMER360_REPORT_CANDIDATE_AFTER_ACCEPTED_SIM",
   "exact_head_accepted": true,
   "no_ai_writes": true,
   "rows": [
@@ -362,55 +362,55 @@
       "requirement": "sim.create",
       "REQUIRED": true,
       "IMPLEMENTED": true,
-      "PROVEN": false,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "exact_sim_source_evidence_pending",
+      "BLOCKER": "W2_consumption_unproven",
       "existing_operation": null,
-      "notes": "Customer-bound reserved physical/eSIM resource, protected identity, closed lifecycle and immutable line association history; candidate."
+      "notes": "All9 operations individually cookie-observed on b654b1d;native20-process replacement one winner+19CAS,exact receipts/history/lifetime ICCID and valid JWT revocation;2479 checks PASS."
     },
     {
       "section": "SIM/eSIM",
       "requirement": "sim.assign",
       "REQUIRED": true,
       "IMPLEMENTED": true,
-      "PROVEN": false,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "exact_sim_source_evidence_pending",
+      "BLOCKER": "W2_consumption_unproven",
       "existing_operation": null,
-      "notes": "Customer-bound reserved physical/eSIM resource, protected identity, closed lifecycle and immutable line association history; candidate."
+      "notes": "All9 operations individually cookie-observed on b654b1d;native20-process replacement one winner+19CAS,exact receipts/history/lifetime ICCID and valid JWT revocation;2479 checks PASS."
     },
     {
       "section": "SIM/eSIM",
       "requirement": "sim.activate",
       "REQUIRED": true,
       "IMPLEMENTED": true,
-      "PROVEN": false,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "exact_sim_source_evidence_pending",
+      "BLOCKER": "W2_consumption_unproven",
       "existing_operation": null,
-      "notes": "Customer-bound reserved physical/eSIM resource, protected identity, closed lifecycle and immutable line association history; candidate."
+      "notes": "All9 operations individually cookie-observed on b654b1d;native20-process replacement one winner+19CAS,exact receipts/history/lifetime ICCID and valid JWT revocation;2479 checks PASS."
     },
     {
       "section": "SIM/eSIM",
       "requirement": "sim.replace",
       "REQUIRED": true,
       "IMPLEMENTED": true,
-      "PROVEN": false,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "exact_sim_source_evidence_pending",
+      "BLOCKER": "W2_consumption_unproven",
       "existing_operation": null,
-      "notes": "Customer-bound reserved physical/eSIM resource, protected identity, closed lifecycle and immutable line association history; candidate."
+      "notes": "All9 operations individually cookie-observed on b654b1d;native20-process replacement one winner+19CAS,exact receipts/history/lifetime ICCID and valid JWT revocation;2479 checks PASS."
     },
     {
       "section": "SIM/eSIM",
       "requirement": "sim.history",
       "REQUIRED": true,
       "IMPLEMENTED": true,
-      "PROVEN": false,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "exact_sim_source_evidence_pending",
+      "BLOCKER": "W2_consumption_unproven",
       "existing_operation": null,
-      "notes": "Customer-bound reserved physical/eSIM resource, protected identity, closed lifecycle and immutable line association history; candidate."
+      "notes": "All9 operations individually cookie-observed on b654b1d;native20-process replacement one winner+19CAS,exact receipts/history/lifetime ICCID and valid JWT revocation;2479 checks PASS."
     },
     {
       "section": "Portabilities",
@@ -746,12 +746,12 @@
       "section": "Customer360",
       "requirement": "customer360.summary",
       "REQUIRED": true,
-      "IMPLEMENTED": false,
+      "IMPLEMENTED": true,
       "PROVEN": false,
       "W2_CONSUMED": false,
-      "BLOCKER": "not_implemented_as_requested",
-      "existing_operation": null,
-      "notes": "Table or a narrower legacy reader does not complete this TEL5 requirement."
+      "BLOCKER": "exact_source_platform_acceptance_pending;W2_consumption_unproven",
+      "existing_operation": "customer360.summary",
+      "notes": "Typed bounded telecom.reads.v1 implementation;290 Node/lint/types/build and embedded62 fresh/restore local proof;native/real Supabase exact source pending."
     },
     {
       "section": "Attention",
@@ -768,100 +768,100 @@
       "section": "Reports",
       "requirement": "operator portfolio",
       "REQUIRED": true,
-      "IMPLEMENTED": false,
+      "IMPLEMENTED": true,
       "PROVEN": false,
       "W2_CONSUMED": false,
-      "BLOCKER": "not_implemented_as_requested",
-      "existing_operation": null,
-      "notes": "Table or a narrower legacy reader does not complete this TEL5 requirement."
+      "BLOCKER": "exact_source_platform_acceptance_pending;W2_consumption_unproven",
+      "existing_operation": "report.operator_portfolio",
+      "notes": "Typed bounded telecom.reads.v1 implementation;290 Node/lint/types/build and embedded62 fresh/restore local proof;native/real Supabase exact source pending."
     },
     {
       "section": "Reports",
       "requirement": "service kind distribution",
       "REQUIRED": true,
-      "IMPLEMENTED": false,
+      "IMPLEMENTED": true,
       "PROVEN": false,
       "W2_CONSUMED": false,
-      "BLOCKER": "not_implemented_as_requested",
-      "existing_operation": null,
-      "notes": "Table or a narrower legacy reader does not complete this TEL5 requirement."
+      "BLOCKER": "exact_source_platform_acceptance_pending;W2_consumption_unproven",
+      "existing_operation": "report.services_by_kind",
+      "notes": "Typed bounded telecom.reads.v1 implementation;290 Node/lint/types/build and embedded62 fresh/restore local proof;native/real Supabase exact source pending."
     },
     {
       "section": "Reports",
       "requirement": "line status distribution",
       "REQUIRED": true,
-      "IMPLEMENTED": false,
+      "IMPLEMENTED": true,
       "PROVEN": false,
       "W2_CONSUMED": false,
-      "BLOCKER": "not_implemented_as_requested",
-      "existing_operation": null,
-      "notes": "Table or a narrower legacy reader does not complete this TEL5 requirement."
+      "BLOCKER": "exact_source_platform_acceptance_pending;W2_consumption_unproven",
+      "existing_operation": "report.lines_by_status",
+      "notes": "Typed bounded telecom.reads.v1 implementation;290 Node/lint/types/build and embedded62 fresh/restore local proof;native/real Supabase exact source pending."
     },
     {
       "section": "Reports",
       "requirement": "renewal periods",
       "REQUIRED": true,
-      "IMPLEMENTED": false,
+      "IMPLEMENTED": true,
       "PROVEN": false,
       "W2_CONSUMED": false,
-      "BLOCKER": "not_implemented_as_requested",
-      "existing_operation": null,
-      "notes": "Table or a narrower legacy reader does not complete this TEL5 requirement."
+      "BLOCKER": "exact_source_platform_acceptance_pending;W2_consumption_unproven",
+      "existing_operation": "report.renewals_by_month",
+      "notes": "Typed bounded telecom.reads.v1 implementation;290 Node/lint/types/build and embedded62 fresh/restore local proof;native/real Supabase exact source pending."
     },
     {
       "section": "Reports",
       "requirement": "permanence periods",
       "REQUIRED": true,
-      "IMPLEMENTED": false,
+      "IMPLEMENTED": true,
       "PROVEN": false,
       "W2_CONSUMED": false,
-      "BLOCKER": "not_implemented_as_requested",
-      "existing_operation": null,
-      "notes": "Table or a narrower legacy reader does not complete this TEL5 requirement."
+      "BLOCKER": "exact_source_platform_acceptance_pending;W2_consumption_unproven",
+      "existing_operation": "report.permanences_by_month",
+      "notes": "Typed bounded telecom.reads.v1 implementation;290 Node/lint/types/build and embedded62 fresh/restore local proof;native/real Supabase exact source pending."
     },
     {
       "section": "Reports",
       "requirement": "portability status",
       "REQUIRED": true,
-      "IMPLEMENTED": false,
+      "IMPLEMENTED": true,
       "PROVEN": false,
       "W2_CONSUMED": false,
-      "BLOCKER": "not_implemented_as_requested",
-      "existing_operation": null,
-      "notes": "Table or a narrower legacy reader does not complete this TEL5 requirement."
+      "BLOCKER": "exact_source_platform_acceptance_pending;W2_consumption_unproven",
+      "existing_operation": "report.portabilities_by_status",
+      "notes": "Typed bounded telecom.reads.v1 implementation;290 Node/lint/types/build and embedded62 fresh/restore local proof;native/real Supabase exact source pending."
     },
     {
       "section": "Reports",
       "requirement": "case priority/status",
       "REQUIRED": true,
-      "IMPLEMENTED": false,
+      "IMPLEMENTED": true,
       "PROVEN": false,
       "W2_CONSUMED": false,
-      "BLOCKER": "not_implemented_as_requested",
-      "existing_operation": null,
-      "notes": "Table or a narrower legacy reader does not complete this TEL5 requirement."
+      "BLOCKER": "exact_source_platform_acceptance_pending;W2_consumption_unproven",
+      "existing_operation": "report.cases_by_priority_status",
+      "notes": "Typed bounded telecom.reads.v1 implementation;290 Node/lint/types/build and embedded62 fresh/restore local proof;native/real Supabase exact source pending."
     },
     {
       "section": "Reports",
       "requirement": "pipeline stage",
       "REQUIRED": true,
-      "IMPLEMENTED": false,
+      "IMPLEMENTED": true,
       "PROVEN": false,
       "W2_CONSUMED": false,
-      "BLOCKER": "not_implemented_as_requested",
-      "existing_operation": null,
-      "notes": "Table or a narrower legacy reader does not complete this TEL5 requirement."
+      "BLOCKER": "exact_source_platform_acceptance_pending;W2_consumption_unproven",
+      "existing_operation": "report.pipeline_by_stage",
+      "notes": "Typed bounded telecom.reads.v1 implementation;290 Node/lint/types/build and embedded62 fresh/restore local proof;native/real Supabase exact source pending."
     },
     {
       "section": "Reports",
       "requirement": "commercial owner counts",
       "REQUIRED": true,
-      "IMPLEMENTED": false,
+      "IMPLEMENTED": true,
       "PROVEN": false,
       "W2_CONSUMED": false,
-      "BLOCKER": "not_implemented_as_requested",
-      "existing_operation": null,
-      "notes": "Table or a narrower legacy reader does not complete this TEL5 requirement."
+      "BLOCKER": "exact_source_platform_acceptance_pending;W2_consumption_unproven",
+      "existing_operation": "report.commercial_owner_counts",
+      "notes": "Typed bounded telecom.reads.v1 implementation;290 Node/lint/types/build and embedded62 fresh/restore local proof;native/real Supabase exact source pending."
     },
     {
       "section": "Reports",
@@ -1033,56 +1033,56 @@
       "requirement": "sim.deactivate",
       "REQUIRED": true,
       "IMPLEMENTED": true,
-      "PROVEN": false,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "exact_sim_source_evidence_pending",
+      "BLOCKER": "W2_consumption_unproven",
       "existing_operation": null,
-      "notes": "Bounded cookie family; protected ICCID/EID; CAS/manual provider acknowledgement/history; platform proof pending."
+      "notes": "All9 operations individually cookie-observed on b654b1d;native20-process replacement one winner+19CAS,exact receipts/history/lifetime ICCID and valid JWT revocation;2479 checks PASS."
     },
     {
       "section": "SIM/eSIM",
       "requirement": "sim.cancel",
       "REQUIRED": true,
       "IMPLEMENTED": true,
-      "PROVEN": false,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "exact_sim_source_evidence_pending",
+      "BLOCKER": "W2_consumption_unproven",
       "existing_operation": null,
-      "notes": "Bounded cookie family; protected ICCID/EID; CAS/manual provider acknowledgement/history; platform proof pending."
+      "notes": "All9 operations individually cookie-observed on b654b1d;native20-process replacement one winner+19CAS,exact receipts/history/lifetime ICCID and valid JWT revocation;2479 checks PASS."
     },
     {
       "section": "SIM/eSIM",
       "requirement": "sim.list",
       "REQUIRED": true,
       "IMPLEMENTED": true,
-      "PROVEN": false,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "exact_sim_source_evidence_pending",
+      "BLOCKER": "W2_consumption_unproven",
       "existing_operation": null,
-      "notes": "Bounded cookie family; protected ICCID/EID; CAS/manual provider acknowledgement/history; platform proof pending."
+      "notes": "All9 operations individually cookie-observed on b654b1d;native20-process replacement one winner+19CAS,exact receipts/history/lifetime ICCID and valid JWT revocation;2479 checks PASS."
     },
     {
       "section": "SIM/eSIM",
       "requirement": "sim.get",
       "REQUIRED": true,
       "IMPLEMENTED": true,
-      "PROVEN": false,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "exact_sim_source_evidence_pending",
+      "BLOCKER": "W2_consumption_unproven",
       "existing_operation": null,
-      "notes": "Bounded cookie family; protected ICCID/EID; CAS/manual provider acknowledgement/history; platform proof pending."
+      "notes": "All9 operations individually cookie-observed on b654b1d;native20-process replacement one winner+19CAS,exact receipts/history/lifetime ICCID and valid JWT revocation;2479 checks PASS."
     }
   ],
   "counts": {
     "REQUIRED": 97,
-    "IMPLEMENTED": 75,
-    "PROVEN": 66,
+    "IMPLEMENTED": 85,
+    "PROVEN": 75,
     "W2_CONSUMED": 0,
     "BLOCKER": 97
   },
   "official_workflow_fully_green": false,
-  "accepted_source_sha": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
-  "candidate_operations_total": 9,
-  "candidate_operations_proven": 0,
+  "accepted_source_sha": "b654b1dd02bf9f8a8213fda5a75eac476559c5cf",
+  "candidate_operations_total": 198,
+  "candidate_operations_proven": 188,
   "candidate_exact_head_accepted": false
 }

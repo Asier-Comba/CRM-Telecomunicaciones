@@ -1,0 +1,212 @@
+{
+  "contract_version": "telecom.reads.v1",
+  "candidate": true,
+  "operations": {
+    "customer360.summary": {
+      "required": [
+        "customer_id"
+      ],
+      "filters": [
+        "customer_id"
+      ],
+      "record": {
+        "customer_id": "uuid",
+        "contacts": "count",
+        "contracts": "count",
+        "services": "count",
+        "lines": "count",
+        "renewals": "count",
+        "permanences": "count",
+        "opportunities": "count",
+        "tasks": "count",
+        "meetings": "count",
+        "cases": "count",
+        "documents": "count?",
+        "billing": "count?",
+        "activity": "count",
+        "portabilities": "count",
+        "sims": "count"
+      }
+    },
+    "report.operator_portfolio": {
+      "filters": [
+        "customer_id",
+        "operator_id",
+        "after_id",
+        "limit"
+      ],
+      "fields": {
+        "id": "uuid",
+        "customers": "count",
+        "contracts": "count",
+        "services": "count",
+        "lines": "count"
+      },
+      "key": "id",
+      "required": []
+    },
+    "report.services_by_kind": {
+      "filters": [
+        "customer_id",
+        "operator_id"
+      ],
+      "fields": {
+        "service_kind": [
+          "mobile",
+          "fiber",
+          "fixed_voice",
+          "data_connectivity",
+          "other"
+        ],
+        "pending": "count",
+        "active": "count",
+        "suspended": "count",
+        "ended": "count",
+        "cancelled": "count"
+      },
+      "key": "service_kind",
+      "required": []
+    },
+    "report.lines_by_status": {
+      "filters": [
+        "customer_id",
+        "operator_id"
+      ],
+      "fields": {
+        "status": [
+          "pending",
+          "active",
+          "suspended",
+          "ended",
+          "cancelled"
+        ],
+        "count": "count"
+      },
+      "key": "status",
+      "required": []
+    },
+    "report.renewals_by_month": {
+      "required": [
+        "from_month",
+        "to_month"
+      ],
+      "filters": [
+        "customer_id",
+        "from_month",
+        "to_month"
+      ],
+      "fields": {
+        "month": "month",
+        "open": "count",
+        "completed": "count",
+        "dismissed": "count",
+        "not_applicable": "count"
+      },
+      "key": "month"
+    },
+    "report.permanences_by_month": {
+      "required": [
+        "from_month",
+        "to_month"
+      ],
+      "filters": [
+        "customer_id",
+        "from_month",
+        "to_month"
+      ],
+      "fields": {
+        "month": "month",
+        "open": "count",
+        "cancelled": "count"
+      },
+      "key": "month"
+    },
+    "report.portabilities_by_status": {
+      "filters": [
+        "customer_id"
+      ],
+      "fields": {
+        "status": [
+          "draft",
+          "requested",
+          "scheduled",
+          "in_progress",
+          "completed",
+          "rejected",
+          "cancelled"
+        ],
+        "count": "count"
+      },
+      "key": "status",
+      "required": []
+    },
+    "report.cases_by_priority_status": {
+      "filters": [
+        "customer_id"
+      ],
+      "fields": {
+        "priority": [
+          "low",
+          "normal",
+          "high",
+          "urgent"
+        ],
+        "status": [
+          "open",
+          "in_progress",
+          "waiting_customer",
+          "waiting_operator",
+          "resolved",
+          "closed",
+          "cancelled"
+        ],
+        "count": "count"
+      },
+      "key": "priority,status",
+      "required": []
+    },
+    "report.pipeline_by_stage": {
+      "filters": [
+        "customer_id",
+        "owner_user_id",
+        "stage_id",
+        "after_id",
+        "limit"
+      ],
+      "fields": {
+        "id": "uuid",
+        "open": "count",
+        "won": "count",
+        "lost": "count",
+        "cancelled": "count"
+      },
+      "key": "id",
+      "required": []
+    },
+    "report.commercial_owner_counts": {
+      "filters": [
+        "customer_id",
+        "owner_user_id",
+        "after_id",
+        "limit"
+      ],
+      "fields": {
+        "id": "uuid",
+        "contracts": "count",
+        "opportunities": "count",
+        "tasks": "count",
+        "cases": "count"
+      },
+      "key": "id",
+      "unassigned": true,
+      "required": []
+    }
+  },
+  "transport": "POST /api/telecom/reads/v1",
+  "ai_registered": false,
+  "private_counts_owner_admin_only": [
+    "documents",
+    "billing"
+  ],
+  "exact_platform_acceptance": "PENDING"
+}
