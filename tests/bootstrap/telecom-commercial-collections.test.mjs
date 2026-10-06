@@ -54,3 +54,12 @@ test('normal cookie query transport admits collections, rejects writes and prese
  assert.equal((await productHttpV1(request('operator.create'),'queries',async()=>({commands}),origin)).status,400)
  assert.equal((await productHttpV1(request('operator.list',{origin:'https://foreign.example.invalid'}),'queries',async()=>({commands}),origin)).status,403)
 })
+
+test('bundle kind filters preserve the primary catalog kind while validating the closed DTO',()=>{
+ const row={id,plan_id:id,operator_id:id,service_kind:'mobile',plan_status:'active',version_number:1,valid_from:'2026-01-01',valid_until:null,currency:'EUR',recurring_amount_minor:'3000'}
+ assert.ok(parseTelecomCollectionResultV1('plan_version.list',{service_kind:'fiber'},page('plan_version.list',[row])))
+ assert.equal(parseTelecomCollectionResultV1('plan_version.list',{service_kind:'fiber'},page('plan_version.list',[{...row,service_kind:'arbitrary'}])),null)
+ const plan={id,version:1,operator_id:id,code:'synthetic_bundle',display_name:'Synthetic Bundle',service_kind:'mobile',status:'active'}
+ assert.ok(parseTelecomCollectionResultV1('plan.list',{service_kind:'fiber'},page('plan.list',[plan])))
+ assert.equal(parseTelecomCollectionResultV1('plan_version.list',{operator_id:workspace,service_kind:'fiber'},page('plan_version.list',[row])),null)
+})

@@ -81,6 +81,8 @@ export function parseTelecomCollectionResultV1(op: TelecomCollectionOperationV1,
       if (one ? id !== i.id : id <= previous) return null
       previous = id
       for (const k of ['customer_id', 'contract_id', 'service_id', 'operator_id', 'assigned_user_id', 'owner_user_id', 'stage_id', 'status', 'source', 'currency', 'service_kind', 'role']) {
+        // Catalog kind filters include sealed base components; the DTO keeps the primary kind.
+        if (k === 'service_kind' && ['plan.list', 'plan_version.list'].includes(op)) continue
         if (k in i && k in r && i[k] !== r[k]) return null
       }
       if (op === 'opportunity.list' && ((r.amount_minor === null) !== (r.currency === null))) return null
