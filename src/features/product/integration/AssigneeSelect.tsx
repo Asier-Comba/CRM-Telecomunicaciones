@@ -5,7 +5,7 @@ import {safeMessage} from './repository'
 import {control} from '@/features/product/ui'
 import type {TelecomCollectionPageV1} from '@/lib/contracts/telecom-collections-v1'
 /** Ordinary active assignees, available to every normal reader role. */
-export function AssigneeSelect({value,onChange,disabled=false,allowClear=false}:{value:string;onChange:(id:string)=>void;disabled?:boolean;allowClear?:boolean}) {
+export function AssigneeSelect({value,onChange,disabled=false,allowClear=false,clearLabel='Sin responsable'}:{value:string;onChange:(id:string)=>void;disabled?:boolean;allowClear?:boolean;clearLabel?:string}) {
   const {repository,actorId}=useProduct()
   const [page,setPage]=useState<TelecomCollectionPageV1<'assignee.list'>|null>(null)
   const [cursors,setCursors]=useState<string[]>([]),[error,setError]=useState(''),[revision,setRevision]=useState(0)
@@ -19,7 +19,7 @@ export function AssigneeSelect({value,onChange,disabled=false,allowClear=false}:
   function next(){if(page?.next_id){setPage(null);setError('');setCursors(v=>[...v,page.next_id!])}}
   return <div className="space-y-2">
     <label className="block text-sm">Responsable<select aria-label="Responsable autorizado" className={control+' mt-1 w-full'} value={value} disabled={disabled||!page} onChange={e=>onChange(e.target.value)}>
-      <option value="" disabled={!allowClear}>{allowClear?'Sin responsable':'Seleccionar responsable'}</option>
+      <option value="" disabled={!allowClear}>{allowClear?clearLabel:'Seleccionar responsable'}</option>
       {value&&!choices.some(c=>c.user_id===value)&&<option value={value} disabled>Responsable actual · fuera de esta página</option>}
       {choices.map(c=><option key={c.user_id} value={c.user_id}>{c.display_name}{c.user_id===actorId?' · Tú':''}</option>)}
     </select></label>

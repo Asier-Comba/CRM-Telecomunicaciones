@@ -19,3 +19,11 @@ Source `2febd90674106aca5d92427ce8b164a02b39cb85` now passes Supabase run3753764
 The new W2-owned candidate includes registered durable identities,17 safe metadata job kinds and a distinct protected-identifiers job kind. A protected stage requires that kind, never an ordinary job. Five new owner/admin human operations have cookie HTTP,20-way competing-binding/exact-replay, cursor, closed-table and current valid-JWT revocation fixtures ready for actual execution. Safe/protected import fixtures use real Auth/RPC authority and disposable PostgreSQL reference facts, ciphertext/receipt minimization and no-domain-apply assertions. Their checks are recorded separately after the preserved3343 W1 checks; they are not attributed to W1. Local70-migration PGlite/domain/privilege/restore,388 Node/types/lint/build passed; added job-kind test also passes. Exact new acceptance pending.
 
 Twelve prior c632 loaded line/SIM/portability/case captures manually inspected at1440/768/390. Remaining visual defects: raw ISO timestamps and active-tab visibility after viewport changes. No full visual/mobile completeness claim. W3 branch0150791 checkpoint B publishes read/planner/billing libraries without a route or accepted durable action runtime; no competing semantics implemented or writes enabled.
+
+## Customers/C360 presentation follow-up
+
+Published takeover candidate9a9b063e8606d58e70f4475527c65149c827b67a has exact Supabase37539987496 and CI37539987494 in progress; no new acceptance claim. Its private bundle, embedded PGlite, migration policy, secret scan, Windows and guardrails pass.
+
+This follow-up corrects the all-owner customer filter label, shows factual lifecycle/source columns in integrated collections rather than unavailable portfolio previews, formats calendar dates without timezone drift and instants in Europe/Madrid, and translates registered statuses. Shared tabs keep the selected tab visible across viewport resize and keyboard navigation without scrolling the document. Existing acceptance groups now assert the clear-owner label and selected-tab visibility at1440/768/390; none of the original groups were removed.
+
+Local389 Node/typecheck/build PASS, lint0 errors/1 inherited OriginProof warning. Exact current presentation browser/mobile/visual acceptance is pending; Customers and C360 remain partial and the product is not frozen.
