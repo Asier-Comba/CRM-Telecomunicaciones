@@ -37,7 +37,7 @@ export function CustomerEditor({ customer, onClose, onSaved, onReload }: { custo
         <label className="block text-sm">Relación comercial<select className={`${control} mt-1 w-full`} value={fields.lifecycle} onChange={e => change('lifecycle',e.target.value as CustomerFieldsV1['lifecycle'])}><option value="lead">Lead</option><option value="prospect">Prospecto</option><option value="customer">Cliente</option><option value="former_customer">Antiguo cliente</option></select></label>
         <AssigneeSelect allowClear value={fields.assigned_user_id??''} onChange={id=>change('assigned_user_id',id||null)} disabled={busy||uncertain||conflict}/>
       </fieldset>
-      {!!error && <p role="alert" className="text-sm text-red-700">{safeMessage(error)}</p>}
+      {!!error && <p role="alert" aria-label="Resultado del guardado" className="text-sm text-red-700">{safeMessage(error)}</p>}
       {conflict && <button type="button" onClick={onReload} className={control}>Recargar y revisar</button>}
       <button className={primary} disabled={busy || conflict}>{busy ? 'Guardando…' : writeConfirmed ? 'Comprobar cliente guardado' : uncertain ? 'Reintentar la misma acción' : 'Guardar cliente'}</button>
     </form>
