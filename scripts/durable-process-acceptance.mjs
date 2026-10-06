@@ -2,9 +2,9 @@ import { fork } from 'node:child_process'
 import { isAbsolute } from 'node:path'
 import { pathToFileURL, fileURLToPath } from 'node:url'
 import assert from 'node:assert/strict'
-import { DURABLE_PROCESS_CONTRACT, DURABLE_PROCESS_SCENARIOS, validateDurableObservation, validateRollbackEvidence } from '../dist/src/assistant/durable-process-spec.js'
+import { DURABLE_PROCESS_CONTRACT, DURABLE_PROCESS_SCENARIOS, validateDurableObservation, validateRollbackEvidence } from '../src/assistant/durable-process-spec.ts'
 
-// Usage after npm run build: node scripts/durable-process-acceptance.mjs /absolute/W2-driver.mjs
+// Usage on repository Node24: node scripts/durable-process-acceptance.mjs /absolute/W2-driver.mjs
 // Driver receives credentials through its own approved local environment, never CLI JSON.
 const modulePath = process.argv[2]
 if (!modulePath || !isAbsolute(modulePath)) {
