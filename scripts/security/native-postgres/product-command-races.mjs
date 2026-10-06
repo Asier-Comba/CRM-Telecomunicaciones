@@ -224,7 +224,7 @@ try {
  await sql(ident('identifier.retire',{command_id:randomUUID(),id:simIdentifierReceipt.id,expected_version:1}))
  for(const[i,candidate]of simCandidates.entries())await sql(ident('identifier.create_manual',{command_id:randomUUID(),entity_kind:'sim',entity_id:candidate.id,identifier_kind:'iccid',canonical_value:'89'+String(300+i).padStart(17,'0')}))
  const simReplacements=await Promise.all(replacementInputs.map(i=>docker([...args,'--set=VERBOSITY=sqlstate'],sims('sim.replace',i))))
- assert.equal(simReplacements.filter(r=>r.code===0).length,1);assert.equal(simReplacements.filter(r=>r.code!==0&&/40001/.test(r.err)).length,19)
+ assert.equal(simReplacements.filter(r=>r.code===0).length,1);assert.equal(simReplacements.filter(r=>r.code!==0&&/40001/.test(r.err)).length,19,'replacement losers must be CAS conflicts; SQLSTATEs: '+simReplacements.filter(r=>r.code!==0).map(r=>r.err.match(/ERROR:\s+([A-Z0-9]{5})/)?.[1]??'unclassified').join(','))
  const replacementWinner=simReplacements.findIndex(r=>r.code===0),replacementReceipt=JSON.parse(simReplacements[replacementWinner].out.trim()),replacementSQL=sims('sim.replace',replacementInputs[replacementWinner])
  const replacementReplays=await Promise.all(Array.from({length:20},()=>docker(args,replacementSQL)));assert.ok(replacementReplays.every(r=>r.code===0));for(const r of replacementReplays)assert.deepEqual(JSON.parse(r.out.trim()),replacementReceipt);familyReplays.push(replacementSQL)
  assert.equal(await sql(`select count(*)from public.telecom_sim_associations where line_id='${simLine.id}'`),'2');assert.equal(await sql(`select count(*)from public.telecom_sim_associations where line_id='${simLine.id}'and ended_at is null`),'1')

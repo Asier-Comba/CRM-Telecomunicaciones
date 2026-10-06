@@ -1,9 +1,9 @@
 {
-  "SOURCE_HEAD": "sim_candidate_after_a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
+  "SOURCE_HEAD": "sim_snapshot_cas_repair_after_e8cd8057a6b7b4db9a39b298fd8f337bdb837311",
   "ACCEPTED_SOURCE": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
   "HISTORICAL_ACCEPTED_SOURCE": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
   "PR": 28,
-  "MIGRATIONS": 60,
+  "MIGRATIONS": 61,
   "PRIVILEGE_FUNCTIONS": 269,
   "NODE_TESTS": 283,
   "SUPABASE_CHECKS": 2290,
@@ -20,7 +20,7 @@
   "SERVICES": "COLLECTION_READS_PROVEN_E09DDF2; existing canonical writes preserved; richer telecom facts tracked separately",
   "LINES": "COLLECTION_READS_PROVEN_E09DDF2; existing canonical writes preserved; richer telecom facts tracked separately",
   "PROTECTED_IDENTIFIERS": "PROVEN_CORE_REQUESTED_REVEAL;SIM_ICCID_EID_EXTENSION_CANDIDATE",
-  "SIM_ESIM": "IMPLEMENTED_9OPERATION_CANDIDATE_CUSTOMER_BOUND_PHYSICAL_ESIM_FROZEN_HISTORY;EXACT_PLATFORM_PENDING",
+  "SIM_ESIM": "CANDIDATE_E8CD805_SUPABASE_2479_PASS;NATIVE_18_OF_19_CAS_LOSERS_1_INVALID_TRANSITION;FORWARD_SNAPSHOT_CAS_REPAIR_PENDING",
   "PORTABILITY": "PROVEN_REAL_7OPERATIONS_MANUAL_TRUTH_MASKED_HISTORY_ATOMIC_LINE_CAS",
   "PERMANENCES": "COLLECTION_READS_PROVEN_E09DDF2; existing canonical writes preserved; richer telecom facts tracked separately",
   "RENEWALS": "COLLECTION_READS_PROVEN_E09DDF2; existing canonical writes preserved; richer telecom facts tracked separately",
@@ -54,8 +54,8 @@
     "Imports/provenance/fixed service facts/equipment assessment"
   ],
   "NEXT_3": [
-    "Publish coherent SIMcheckpoint",
-    "Prove exact source",
+    "Publish forward SIM association snapshot CAS repair",
+    "Reprove native concurrency/fresh/restore and Supabase exact source",
     "Dense Customer360/attention/report reads"
   ],
   "FEATURE_IMPLEMENTATION_STARTED": true,
