@@ -1,0 +1,13 @@
+# Bounded commercial equipment
+
+Assessment decision: IMPLEMENT. Routers, ONT and mobile terminals belong in a distributor CRM because customer assignment/return/replacement and device commitments need an actual resource. A device commitment alone cannot identify which commercial equipment was allocated. This resource models customer allocation; it does not implement warehouse stock, carrier provisioning or device management.
+
+Human `/api/telecom/equipment/v1` supports equipment.create/assign/return/replace/cancel/get/list/history. Member/owner/admin mutate manual-origin equipment; viewer reads safe rows. Imported/integration business equipment is read-only. All operations use current cookie JWT/membership, closed input DTOs, disabled-by-default product flag, Origin and no-store transport. No AI tools are registered; writes remain FUTURE_AI_ACTION_CANDIDATE.
+
+Kinds: router/ont/mobile_terminal/other. Prepared means allocated to a customer, not warehouse availability. Prepared may be assigned or cancelled; assigned may be returned or replaced. Terminal records never reopen. Dates are explicit manual confirmations, canonical and no later than the Madrid business date. Model/manufacturer/description, purchase date, context, financing reference and source never change in place.
+
+Workspace/customer/contract/service/line and optional device commitment have strict ancestry. ONT requires fiber if service-linked; router supports fixed/fiber/data; mobile terminal requires mobile if service-linked. A device commitment must match the contract and applicable service. Replacing equipment creates a new assigned UUID, retains the old model and financing link, and records reciprocal history pointers. New equipment's commitment is explicitly selected or null; no financing transfer is inferred. Deferred constraints validate exact reciprocal ancestry/date links before commit.
+
+Each lifecycle version appends one immutable coded event; no free note/body enters history or audit. Replacement adds the successor's initial event atomically. CAS/idempotency and current-authority receipt recovery protect concurrency. Collections use bounded UUID keysets; history uses version keysets. No serial, IMEI, PIN, PUK, passwords or credentials are retained. Any future retained serial/IMEI must enter the protected identifier domain, never this DTO.
+
+Customer360 may compose equipment.list with customer_id as an additional bounded domain page. This does not change the existing summary's fifteen exact counters or financial/document role policies. Actual backend acceptance is pending until real disposable Supabase and independent native process proof; local tests are supplementary.

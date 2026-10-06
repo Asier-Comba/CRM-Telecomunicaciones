@@ -1,0 +1,70 @@
+-- Synthetic exact money, actual roles, numbering/snapshots and audit rollback.
+begin;
+insert into auth.users(id,email) values ('81000000-0000-4000-8000-000000000001','billing-owner@example.invalid'),('81000000-0000-4000-8000-000000000002','billing-member@example.invalid');
+insert into public.workspaces(id,name,slug) values ('82000000-0000-4000-8000-000000000001','Billing Synthetic','billing-synthetic'),('82000000-0000-4000-8000-000000000002','Billing Foreign','billing-foreign');
+insert into public.workspace_members(workspace_id,user_id,role) values ('82000000-0000-4000-8000-000000000001','81000000-0000-4000-8000-000000000001','owner'),('82000000-0000-4000-8000-000000000001','81000000-0000-4000-8000-000000000002','member');
+insert into public.customers(id,workspace_id,account_kind,legal_name) values ('83000000-0000-4000-8000-000000000001','82000000-0000-4000-8000-000000000001','legal_entity','Billing Synthetic'),('83000000-0000-4000-8000-000000000002','82000000-0000-4000-8000-000000000002','legal_entity','Foreign Synthetic');
+create function pg_temp.assert_b(ok boolean) returns void language plpgsql as $$begin if ok is not true then raise exception 'billing assertion';end if;end$$;
+create function pg_temp.deny_b(q text,c text) returns void language plpgsql as $$begin begin execute q;exception when others then if sqlstate=c then return;end if;raise;end;raise exception 'expected billing denial %',c;end$$;
+create function pg_temp.billing_counts() returns jsonb language sql security definer set search_path='' as $$
+ select jsonb_build_array((select count(*) from public.billing_invoices),(select count(*) from public.billing_invoice_lines),(select count(*) from public.billing_series),(select count(*) from public.product_commands),(select count(*) from public.product_audit_events))
+$$;
+create temp table inbox_fixture(id uuid,version bigint);grant all on inbox_fixture to authenticated;
+set local role authenticated;
+select set_config('request.jwt.claim.sub','81000000-0000-4000-8000-000000000001',true);
+do $$declare w uuid:='82000000-0000-4000-8000-000000000001';i jsonb;r jsonb;id uuid;begin
+ i:=jsonb_build_object('command_id',gen_random_uuid(),'assigned_user_id','81000000-0000-4000-8000-000000000002','customer_id','83000000-0000-4000-8000-000000000001','body','Synthetic private internal note');
+ r:=public.inbox_v1_conversation_create_internal(w,i);id:=(r->>'id')::uuid;perform pg_temp.assert_b(r=public.inbox_v1_conversation_create_internal(w,i));insert into inbox_fixture values(id,1);
+ perform pg_temp.assert_b(public.inbox_v1_get_thread(w,jsonb_build_object('id',id))->'messages'->0->>'body'='Synthetic private internal note');
+ perform pg_temp.assert_b(public.inbox_v1_list(w,'{"limit":1}')->'items'->0->>'id'=id::text);
+ perform pg_temp.assert_b(public.inbox_v1_unread_summary(w,'{}')->>'unread_count'='1');
+ perform pg_temp.deny_b(format('select public.inbox_v1_conversation_create_internal(%L,%L)',w,(i||jsonb_build_object('command_id',gen_random_uuid(),'customer_id','83000000-0000-4000-8000-000000000002'))::text),'P0002');
+ perform pg_temp.deny_b(format('select public.inbox_v1_get_thread(%L,%L)',w,jsonb_build_object('id',id,'limit',51)::text),'22023');
+end$$;
+select set_config('request.jwt.claim.sub','81000000-0000-4000-8000-000000000002',true);
+do $$declare w uuid:='82000000-0000-4000-8000-000000000001';id uuid;i jsonb;r jsonb;begin
+ select inbox_fixture.id into id from inbox_fixture;
+ i:=jsonb_build_object('command_id',gen_random_uuid(),'id',id,'expected_version',0);r:=public.inbox_v1_conversation_mark_read(w,i);perform pg_temp.assert_b(r->>'version'='1'and r=public.inbox_v1_conversation_mark_read(w,i));
+ perform pg_temp.assert_b(public.inbox_v1_unread_summary(w,'{}')->>'unread_count'='0');
+ r:=public.inbox_v1_conversation_mark_unread(w,jsonb_build_object('command_id',gen_random_uuid(),'id',id,'expected_version',1));perform pg_temp.assert_b(r->>'version'='2');
+ perform pg_temp.assert_b(public.inbox_v1_unread_summary(w,'{}')->>'unread_count'='1');
+ perform public.inbox_v1_message_add_internal_note(w,jsonb_build_object('command_id',gen_random_uuid(),'id',id,'expected_version',1,'body','Synthetic second private note'));
+ perform pg_temp.assert_b(public.inbox_v1_get_thread(w,jsonb_build_object('id',id,'limit',1))->>'next_seq'='1');
+ perform pg_temp.assert_b(public.inbox_v1_get_thread(w,jsonb_build_object('id',id,'after_seq',1))->'messages'->0->>'seq'='2');
+ perform public.inbox_v1_conversation_close(w,jsonb_build_object('command_id',gen_random_uuid(),'id',id,'expected_version',2));
+ perform public.inbox_v1_conversation_reopen(w,jsonb_build_object('command_id',gen_random_uuid(),'id',id,'expected_version',3));
+ perform public.inbox_v1_conversation_archive(w,jsonb_build_object('command_id',gen_random_uuid(),'id',id,'expected_version',4));
+ perform public.inbox_v1_conversation_restore(w,jsonb_build_object('command_id',gen_random_uuid(),'id',id,'expected_version',5));
+ perform pg_temp.deny_b(format('select public.inbox_v1_conversation_assign(%L,%L)',w,jsonb_build_object('command_id',gen_random_uuid(),'id',id,'expected_version',6,'assigned_user_id',null)::text),'42501');
+end$$;
+select set_config('request.jwt.claim.sub','81000000-0000-4000-8000-000000000001',true);
+do $$declare w uuid:='82000000-0000-4000-8000-000000000001';id uuid;begin
+ select inbox_fixture.id into id from inbox_fixture;
+ perform pg_temp.assert_b(public.inbox_v1_unread_summary(w,'{}')->>'unread_count'='1');
+ perform public.inbox_v1_conversation_link_customer(w,jsonb_build_object('command_id',gen_random_uuid(),'id',id,'expected_version',6,'customer_id',null,'contact_id',null));
+ perform public.inbox_v1_conversation_assign(w,jsonb_build_object('command_id',gen_random_uuid(),'id',id,'expected_version',7,'assigned_user_id',null));
+end$$;
+select set_config('request.jwt.claim.sub','81000000-0000-4000-8000-000000000002',true);
+select pg_temp.assert_b(public.inbox_v1_get_thread('82000000-0000-4000-8000-000000000001',jsonb_build_object('id',(select id from inbox_fixture)))is null);
+reset role;
+select pg_temp.deny_b($q$update public.inbox_messages set body='Tampered'$q$,'55000');
+create function pg_temp.fail_inbox_audit()returns trigger language plpgsql as $$begin raise exception 'Synthetic inbox cutpoint';end$$;
+create trigger inbox_test_audit before insert on public.product_audit_events for each row execute function pg_temp.fail_inbox_audit();
+set local role authenticated;
+select set_config('request.jwt.claim.sub','81000000-0000-4000-8000-000000000001',true);
+select pg_temp.deny_b(format('select public.inbox_v1_message_add_internal_note(%L,%L)','82000000-0000-4000-8000-000000000001',jsonb_build_object('command_id',gen_random_uuid(),'id',(select id from inbox_fixture),'expected_version',8,'body','Synthetic failed note')::text),'P0001');
+reset role;
+select pg_temp.assert_b((select count(*)=2 from public.inbox_messages));
+select pg_temp.assert_b((select version=8 and last_seq=2 from public.inbox_conversations where id=(select id from inbox_fixture)));
+drop trigger inbox_test_audit on public.product_audit_events;
+update public.workspace_members set status='suspended'where user_id='81000000-0000-4000-8000-000000000001';
+set local role authenticated;
+select pg_temp.deny_b($q$select public.inbox_v1_list('82000000-0000-4000-8000-000000000001','{}')$q$,'42501');
+reset role;
+set local role anon;
+select pg_temp.deny_b($q$select public.inbox_v1_list('82000000-0000-4000-8000-000000000001','{}')$q$,'42501');
+reset role;
+set local role service_role;
+select pg_temp.deny_b($q$select public.inbox_v1_list('82000000-0000-4000-8000-000000000001','{}')$q$,'42501');
+reset role;
+rollback;

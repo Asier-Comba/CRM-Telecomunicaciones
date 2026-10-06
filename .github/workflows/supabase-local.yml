@@ -1,0 +1,107 @@
+name: Supabase local acceptance
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - '.github/workflows/supabase-local.yml'
+      - 'scripts/security/supabase-local/**'
+      - 'supabase/config.toml'
+      - 'src/lib/server/product-*.ts'
+      - 'docs/master/contracts/product-environment.json'
+      - 'src/lib/server/document-maintenance-*.ts'
+      - 'src/lib/server/document-scanner-*.ts'
+      - 'src/app/api/product/**'
+      - 'src/app/api/billing/**'
+      - 'src/app/api/team/**'
+      - 'src/app/api/provenance/**'
+      - 'src/lib/server/provenance-*.ts'
+      - 'src/app/api/import/**'
+      - 'src/app/api/inbox/**'
+      - 'src/app/api/notifications/**'
+      - 'src/app/api/automations/**'
+      - 'src/app/api/settings/**'
+      - 'src/app/api/sensitive/**'
+      - 'src/lib/server/sensitive-*.ts'
+      - 'src/lib/server/settings-*.ts'
+      - 'src/lib/server/automations-*.ts'
+      - 'src/lib/server/notifications-*.ts'
+      - 'src/lib/server/inbox-*.ts'
+      - 'src/lib/server/importjob-*.ts'
+      - 'src/lib/server/import-staging-*.ts'
+      - 'src/lib/server/import-csv-*.ts'
+      - 'src/app/api/portfolio/**'
+      - 'src/app/api/document/**'
+      - 'src/lib/server/document-*.ts'
+      - 'src/lib/server/portfolio-*.ts'
+      - 'src/lib/server/team-*.ts'
+      - 'src/lib/server/document-*.ts'
+      - 'src/app/api/document/**'
+      - 'src/lib/server/billing-*.ts'
+      - 'src/app/api/telecom/**'
+      - 'src/lib/server/telecom-reads-*.ts'
+      - 'src/lib/server/telecom-attention-*.ts'
+      - 'src/lib/server/telecom-service-commercial-*.ts'
+      - 'src/lib/server/service-location-*.ts'
+      - 'src/lib/server/equipment-*.ts'
+      - 'src/lib/server/telecom-collection-*.ts'
+      - 'src/app/api/catalog/**'
+      - 'src/lib/server/catalog-*.ts'
+      - 'src/app/api/identifiers/**'
+      - 'src/lib/server/identifiers-*.ts'
+      - 'src/app/api/portability/**'
+      - 'src/lib/server/portability-*.ts'
+      - 'src/app/api/cases/**'
+      - 'src/lib/server/case-*.ts'
+      - 'src/app/api/sims/**'
+      - 'src/lib/server/sim-*.ts'
+      - 'src/lib/contracts/**'
+      - 'supabase/migrations/**'
+permissions:
+  contents: read
+env:
+  CI: 'true'
+concurrency:
+  group: supabase-local-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  browser-secret-boundary:
+    name: Browser bundle private-value boundary
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version-file: .nvmrc
+      - name: Build with private test canaries and scan actual client assets
+        run: node scripts/security/supabase-local/browser-secret-check.mjs
+  local-platform:
+    name: Supabase local Auth PostgREST Storage acceptance
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version-file: .nvmrc
+      - name: Install and build application transport
+        run: |
+          npm ci
+          npm run build
+      - name: Pinned official CLI
+        uses: supabase/setup-cli@45a513f8c64c0bc8e0e3dfe572b5c95be85f6359 # v3.0.1
+        with:
+          version: 2.119.0
+      - name: Disposable real-local stack and acceptance
+        run: node scripts/security/supabase-local/run-stack.mjs
+      - name: Retain safe summary only
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: supabase-local-safe-evidence
+          path: ${{ runner.temp }}/w4-supabase-safe-evidence.json
+          retention-days: 7

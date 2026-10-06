@@ -1,0 +1,11 @@
+import type {ProductUserPortV1}from './product-service-v1'
+import type {ProductErrorV1}from '../contracts/product-v1'
+import type {SettingsOperationV1}from '../contracts/settings-v1'
+import {SETTINGS_RPC_V1,parseSettingsInputV1,parseSettingsReceiptV1,parseSettingsReadV1}from './settings-runtime-v1.ts'
+import {isClosedObjectV1 as plain}from './product-work-runtime-v1.ts'
+export class SettingsServiceV1{
+ readonly #port:ProductUserPortV1;readonly #storage:boolean;constructor(p:ProductUserPortV1,storageEnabled=false){this.#port=p;this.#storage=storageEnabled}
+ async #invoke<T>(name:string,input:unknown,parse:(v:unknown)=>T|null,admin=false){try{const c=await this.#port.resolve();if(!c||admin&&!['owner','admin'].includes(c.role))return{ok:false as const,error:'access_denied'as const};const r=await this.#port.rpc(name,{p_workspace_id:c.workspaceId,p_input:input});if(r.error)return{ok:false as const,error:(r.error.code==='42501'?'access_denied':r.error.code==='P0002'?'not_found':['40001','23505'].includes(r.error.code??'')?'conflict':['22023','22P02','23514'].includes(r.error.code??'')?'validation':'internal_safe')as ProductErrorV1};const data=parse(r.data);return data?{ok:true as const,data}:{ok:false as const,error:'internal_safe'as const}}catch{return{ok:false as const,error:'internal_safe'as const}}}
+ async execute(op:SettingsOperationV1,v:unknown){const i=parseSettingsInputV1(op,v);if(!i)return{ok:false as const,error:'validation'as const};const r=await this.#invoke(SETTINGS_RPC_V1[op],i,v=>parseSettingsReceiptV1(op,i,v),op==='settings.company_update');return r.ok?{ok:true as const,receipt:r.data}:r}
+ async read(op:string,v:unknown){if(!['settings.profile_get','settings.company_get','settings.integrations'].includes(op)||!plain(v)||Object.keys(v).length!==0)return{ok:false as const,error:'validation'as const};const r=await this.#invoke('settings_v1_'+op.slice(9),{},v=>parseSettingsReadV1(op,v));if(r.ok&&op==='settings.integrations'&&!this.#storage){const data=r.data;return{ok:true as const,data:{...data,integrations:(data.integrations as {class:string;status:string}[]).map(x=>x.class==='storage'&&x.status==='configured'?{...x,status:'not_configured'}:x)}}}return r}
+}

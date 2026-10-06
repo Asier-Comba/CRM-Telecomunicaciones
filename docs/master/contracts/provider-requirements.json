@@ -1,0 +1,516 @@
+{
+  "contract_version": "provider.requirements.v1",
+  "values_included": false,
+  "provider_activation_authorized": false,
+  "secret_policy": {
+    "server_only": true,
+    "never_commit_or_log": true,
+    "never_browser_bundle_or_response": true,
+    "never_paste_into_chat": true,
+    "secret_reference_is_not_secret_value": true
+  },
+  "email_plane_separation": {
+    "human_business_mail": "business-mail.primary",
+    "auth_transactional_email": "auth-mail.primary",
+    "crm_customer_outbound_email": "crm-mail.primary",
+    "same_identity_implicit_reuse_allowed": false
+  },
+  "registered_workflows": [
+    {
+      "integration_id": "n8n.primary",
+      "workflow_id": "crm.customer-created.v1",
+      "browser_url_allowed": false,
+      "durable_idempotency_key": "workspace+registered_workflow+event_identity"
+    }
+  ],
+  "providers": [
+    {
+      "id": "business-mail.primary",
+      "class": "human_business_mail",
+      "purpose": "Human sales/support mailbox; separate sender and tenant from Auth and CRM",
+      "required_environments_when_enabled": [
+        "STAGING",
+        "PROD"
+      ],
+      "configuration_fields": [
+        "provider_reference",
+        "mode",
+        "enabled",
+        "tenant_binding_reference",
+        "from_address",
+        "reply_to",
+        "verified_domain",
+        "rate_limit_policy_reference",
+        "template_version_references"
+      ],
+      "environment_variable_names": [],
+      "secret_reference_fields": [
+        "server_secret_manager_reference"
+      ],
+      "secrets_destination": [
+        "GitHub Actions environment secrets for disposable CI",
+        "deployment host secret store for application adapters",
+        "Supabase Auth settings for Auth SMTP only"
+      ],
+      "domain_dns_requirements": [
+        "verified_sender_domain",
+        "SPF",
+        "DKIM",
+        "DMARC"
+      ],
+      "oauth_requirements": [
+        "registered_client",
+        "exact_callback_allowlist",
+        "scoped_encrypted_refresh_token_store"
+      ],
+      "health_status_contract": {
+        "states": [
+          "not_configured",
+          "configured",
+          "degraded",
+          "unavailable"
+        ],
+        "no_secret_values": true,
+        "configured_requires": "server-owned valid references and successful authenticated provider preflight; environment syntax alone is insufficient"
+      },
+      "enabled_by_default": false,
+      "concrete_provider_implemented": false,
+      "allowed_mode": "human_mailbox",
+      "activation_authorized": false
+    },
+    {
+      "id": "auth-mail.primary",
+      "class": "auth_mail",
+      "purpose": "Supabase Auth signup/reset/magic-link transactional delivery",
+      "required_environments_when_enabled": [
+        "STAGING",
+        "PROD"
+      ],
+      "configuration_fields": [
+        "provider_reference",
+        "mode",
+        "enabled",
+        "tenant_binding_reference",
+        "from_address",
+        "reply_to",
+        "verified_domain",
+        "rate_limit_policy_reference",
+        "template_version_references",
+        "site_url",
+        "redirect_url_allowlist",
+        "smtp_host",
+        "smtp_port",
+        "smtp_transport_security"
+      ],
+      "environment_variable_names": [
+        "SMTP_HOST",
+        "SMTP_PORT",
+        "SMTP_USER",
+        "SMTP_PASSWORD",
+        "AUTH_MAIL_FROM"
+      ],
+      "secret_reference_fields": [
+        "SMTP_USER",
+        "SMTP_PASSWORD"
+      ],
+      "secrets_destination": [
+        "GitHub Actions environment secrets for disposable CI",
+        "deployment host secret store for application adapters",
+        "Supabase Auth settings for Auth SMTP only"
+      ],
+      "domain_dns_requirements": [
+        "verified_sender_domain",
+        "SPF",
+        "DKIM",
+        "DMARC"
+      ],
+      "oauth_requirements": [],
+      "health_status_contract": {
+        "states": [
+          "not_configured",
+          "configured",
+          "degraded",
+          "unavailable"
+        ],
+        "no_secret_values": true,
+        "configured_requires": "server-owned valid references and successful authenticated provider preflight; environment syntax alone is insufficient"
+      },
+      "enabled_by_default": false,
+      "concrete_provider_implemented": false,
+      "allowed_mode": "transactional",
+      "activation_authorized": false
+    },
+    {
+      "id": "crm-mail.primary",
+      "class": "crm_mail",
+      "purpose": "CRM customer outbound messages; explicit durable send integration required",
+      "required_environments_when_enabled": [
+        "STAGING",
+        "PROD"
+      ],
+      "configuration_fields": [
+        "provider_reference",
+        "mode",
+        "enabled",
+        "tenant_binding_reference",
+        "from_address",
+        "reply_to",
+        "verified_domain",
+        "rate_limit_policy_reference",
+        "template_version_references"
+      ],
+      "environment_variable_names": [
+        "CRM_MAIL_PROVIDER_REF",
+        "CRM_MAIL_FROM"
+      ],
+      "secret_reference_fields": [
+        "CRM_MAIL_PROVIDER_REF"
+      ],
+      "secrets_destination": [
+        "GitHub Actions environment secrets for disposable CI",
+        "deployment host secret store for application adapters",
+        "Supabase Auth settings for Auth SMTP only"
+      ],
+      "domain_dns_requirements": [
+        "verified_sender_domain",
+        "SPF",
+        "DKIM",
+        "DMARC"
+      ],
+      "oauth_requirements": [],
+      "health_status_contract": {
+        "states": [
+          "not_configured",
+          "configured",
+          "degraded",
+          "unavailable"
+        ],
+        "no_secret_values": true,
+        "configured_requires": "server-owned valid references and successful authenticated provider preflight; environment syntax alone is insufficient"
+      },
+      "enabled_by_default": false,
+      "concrete_provider_implemented": false,
+      "allowed_mode": "commercial_or_transactional",
+      "activation_authorized": false
+    },
+    {
+      "id": "n8n.primary",
+      "class": "n8n",
+      "purpose": "Registered workflows only; current CRM adapters remain unavailable",
+      "required_environments_when_enabled": [
+        "STAGING",
+        "PROD"
+      ],
+      "configuration_fields": [
+        "provider_reference",
+        "mode",
+        "enabled",
+        "tenant_binding_reference",
+        "base_url_reference",
+        "registered_workflow_ids",
+        "signature_policy_reference",
+        "idempotency_policy_reference"
+      ],
+      "environment_variable_names": [
+        "N8N_BASE_URL",
+        "N8N_API_KEY",
+        "N8N_WEBHOOK_SECRET"
+      ],
+      "secret_reference_fields": [
+        "N8N_API_KEY",
+        "N8N_WEBHOOK_SECRET"
+      ],
+      "secrets_destination": [
+        "GitHub Actions environment secrets for disposable CI",
+        "deployment host secret store for application adapters",
+        "Supabase Auth settings for Auth SMTP only"
+      ],
+      "domain_dns_requirements": [],
+      "oauth_requirements": [],
+      "health_status_contract": {
+        "states": [
+          "not_configured",
+          "configured",
+          "degraded",
+          "unavailable"
+        ],
+        "no_secret_values": true,
+        "configured_requires": "server-owned valid references and successful authenticated provider preflight; environment syntax alone is insufficient"
+      },
+      "enabled_by_default": false,
+      "concrete_provider_implemented": false,
+      "allowed_mode": "workflow",
+      "activation_authorized": false
+    },
+    {
+      "id": "ai.primary",
+      "class": "ai_provider",
+      "purpose": "W3 semantic provider; W1 configuration requirements only",
+      "required_environments_when_enabled": [
+        "STAGING",
+        "PROD"
+      ],
+      "configuration_fields": [
+        "provider_reference",
+        "mode",
+        "enabled",
+        "tenant_binding_reference",
+        "model_policy_reference",
+        "data_retention_policy_reference",
+        "request_budget_policy_reference"
+      ],
+      "environment_variable_names": [
+        "OPENAI_API_KEY"
+      ],
+      "secret_reference_fields": [
+        "OPENAI_API_KEY"
+      ],
+      "secrets_destination": [
+        "GitHub Actions environment secrets for disposable CI",
+        "deployment host secret store for application adapters",
+        "Supabase Auth settings for Auth SMTP only"
+      ],
+      "domain_dns_requirements": [],
+      "oauth_requirements": [],
+      "health_status_contract": {
+        "states": [
+          "not_configured",
+          "configured",
+          "degraded",
+          "unavailable"
+        ],
+        "no_secret_values": true,
+        "configured_requires": "server-owned valid references and successful authenticated provider preflight; environment syntax alone is insufficient"
+      },
+      "enabled_by_default": false,
+      "concrete_provider_implemented": false,
+      "allowed_mode": "ai",
+      "activation_authorized": false
+    },
+    {
+      "id": "google-calendar.primary",
+      "class": "google_calendar",
+      "purpose": "Future registered calendar OAuth integration",
+      "required_environments_when_enabled": [
+        "STAGING",
+        "PROD"
+      ],
+      "configuration_fields": [
+        "provider_reference",
+        "mode",
+        "enabled",
+        "tenant_binding_reference"
+      ],
+      "environment_variable_names": [
+        "GOOGLE_CLIENT_ID",
+        "GOOGLE_CLIENT_SECRET",
+        "GOOGLE_REDIRECT_URI"
+      ],
+      "secret_reference_fields": [
+        "GOOGLE_CLIENT_SECRET"
+      ],
+      "secrets_destination": [
+        "GitHub Actions environment secrets for disposable CI",
+        "deployment host secret store for application adapters",
+        "Supabase Auth settings for Auth SMTP only"
+      ],
+      "domain_dns_requirements": [],
+      "oauth_requirements": [
+        "registered_client",
+        "exact_callback_allowlist",
+        "scoped_encrypted_refresh_token_store"
+      ],
+      "health_status_contract": {
+        "states": [
+          "not_configured",
+          "configured",
+          "degraded",
+          "unavailable"
+        ],
+        "no_secret_values": true,
+        "configured_requires": "server-owned valid references and successful authenticated provider preflight; environment syntax alone is insufficient"
+      },
+      "enabled_by_default": false,
+      "concrete_provider_implemented": false,
+      "allowed_mode": "oauth",
+      "activation_authorized": false
+    },
+    {
+      "id": "whatsapp.primary",
+      "class": "whatsapp",
+      "purpose": "Future verified inbound/outbound channel",
+      "required_environments_when_enabled": [
+        "STAGING",
+        "PROD"
+      ],
+      "configuration_fields": [
+        "provider_reference",
+        "mode",
+        "enabled",
+        "tenant_binding_reference"
+      ],
+      "environment_variable_names": [
+        "META_WHATSAPP_ACCESS_TOKEN",
+        "META_APP_SECRET",
+        "META_WEBHOOK_VERIFY_TOKEN"
+      ],
+      "secret_reference_fields": [
+        "META_WHATSAPP_ACCESS_TOKEN",
+        "META_APP_SECRET",
+        "META_WEBHOOK_VERIFY_TOKEN"
+      ],
+      "secrets_destination": [
+        "GitHub Actions environment secrets for disposable CI",
+        "deployment host secret store for application adapters",
+        "Supabase Auth settings for Auth SMTP only"
+      ],
+      "domain_dns_requirements": [],
+      "oauth_requirements": [],
+      "health_status_contract": {
+        "states": [
+          "not_configured",
+          "configured",
+          "degraded",
+          "unavailable"
+        ],
+        "no_secret_values": true,
+        "configured_requires": "server-owned valid references and successful authenticated provider preflight; environment syntax alone is insufficient"
+      },
+      "enabled_by_default": false,
+      "concrete_provider_implemented": false,
+      "allowed_mode": "messaging",
+      "activation_authorized": false
+    },
+    {
+      "id": "telecom-sync.primary",
+      "class": "telecom_sync",
+      "purpose": "Provider-neutral carrier catalog/portfolio import; no live API",
+      "required_environments_when_enabled": [
+        "STAGING",
+        "PROD"
+      ],
+      "configuration_fields": [
+        "provider_reference",
+        "mode",
+        "enabled",
+        "tenant_binding_reference",
+        "registered_entity_kinds",
+        "external_identity_namespace",
+        "origin_verification_policy_reference"
+      ],
+      "environment_variable_names": [],
+      "secret_reference_fields": [
+        "server_secret_manager_reference"
+      ],
+      "secrets_destination": [
+        "GitHub Actions environment secrets for disposable CI",
+        "deployment host secret store for application adapters",
+        "Supabase Auth settings for Auth SMTP only"
+      ],
+      "domain_dns_requirements": [],
+      "oauth_requirements": [],
+      "health_status_contract": {
+        "states": [
+          "not_configured",
+          "configured",
+          "degraded",
+          "unavailable"
+        ],
+        "no_secret_values": true,
+        "configured_requires": "server-owned valid references and successful authenticated provider preflight; environment syntax alone is insufficient"
+      },
+      "enabled_by_default": false,
+      "concrete_provider_implemented": false,
+      "allowed_mode": "sync",
+      "activation_authorized": false
+    },
+    {
+      "id": "import-kms.primary",
+      "class": "import_staging",
+      "purpose": "Production authenticated encrypted staging and scoped worker",
+      "required_environments_when_enabled": [
+        "STAGING",
+        "PROD"
+      ],
+      "configuration_fields": [
+        "provider_reference",
+        "mode",
+        "enabled",
+        "tenant_binding_reference",
+        "key_provider_reference",
+        "authenticated_encryption_suite",
+        "worker_principal_reference",
+        "retention_policy_reference",
+        "canonical_domain_adapter_ids"
+      ],
+      "environment_variable_names": [
+        "IMPORT_STAGING_ADAPTER",
+        "IMPORT_STAGING_TEST_KEY"
+      ],
+      "secret_reference_fields": [
+        "IMPORT_STAGING_TEST_KEY"
+      ],
+      "secrets_destination": [
+        "GitHub Actions environment secrets for disposable CI",
+        "deployment host secret store for application adapters",
+        "Supabase Auth settings for Auth SMTP only"
+      ],
+      "domain_dns_requirements": [],
+      "oauth_requirements": [],
+      "health_status_contract": {
+        "states": [
+          "not_configured",
+          "configured",
+          "degraded",
+          "unavailable"
+        ],
+        "no_secret_values": true,
+        "configured_requires": "server-owned valid references and successful authenticated provider preflight; environment syntax alone is insufficient"
+      },
+      "enabled_by_default": false,
+      "concrete_provider_implemented": false,
+      "allowed_mode": "encryption",
+      "activation_authorized": false
+    },
+    {
+      "id": "document-scanner.primary",
+      "class": "document_scanner",
+      "purpose": "Production content verdict with authenticated provenance",
+      "required_environments_when_enabled": [
+        "STAGING",
+        "PROD"
+      ],
+      "configuration_fields": [
+        "provider_reference",
+        "mode",
+        "enabled",
+        "tenant_binding_reference"
+      ],
+      "environment_variable_names": [],
+      "secret_reference_fields": [
+        "server_secret_manager_reference"
+      ],
+      "secrets_destination": [
+        "GitHub Actions environment secrets for disposable CI",
+        "deployment host secret store for application adapters",
+        "Supabase Auth settings for Auth SMTP only"
+      ],
+      "domain_dns_requirements": [],
+      "oauth_requirements": [],
+      "health_status_contract": {
+        "states": [
+          "not_configured",
+          "configured",
+          "degraded",
+          "unavailable"
+        ],
+        "no_secret_values": true,
+        "configured_requires": "server-owned valid references and successful authenticated provider preflight; environment syntax alone is insufficient"
+      },
+      "enabled_by_default": false,
+      "concrete_provider_implemented": false,
+      "allowed_mode": "scanner",
+      "activation_authorized": false
+    }
+  ]
+}

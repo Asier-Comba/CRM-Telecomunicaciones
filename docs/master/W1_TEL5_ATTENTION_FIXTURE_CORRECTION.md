@@ -1,0 +1,3 @@
+# Attention fixture correction
+
+Candidate008dbc4 native112277945666 and embedded112277945543 failed at the explicit per-row DTO key count. The public contract/runtime and SQL projection have exactly nine fields (kind/id/customer_id/owner_user_id/sort_on/due_on/status/reason_code/priority); fixture incorrectly expected ten. Only the fixture expectation is corrected to nine; privacy, seven-family coverage, cursor, tenant and revocation assertions remain enforced. No published migration modified. No predecessor acceptance inferred. Exact fresh/restore, Supabase/application and private-browser rerun required.

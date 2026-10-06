@@ -1,0 +1,1010 @@
+{
+  "catalog_version": "telecom.collections.v1",
+  "operations": [
+    {
+      "name": "customer.list",
+      "kind": "read",
+      "contract_version": "telecom.collections.v1",
+      "transport": {
+        "method": "POST",
+        "path": "/api/product/v1/queries",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "rpc": "telecom_collection_v1_query",
+      "roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "input_fields": [
+        "limit",
+        "after_id",
+        "sort",
+        "status",
+        "lifecycle",
+        "assigned_user_id",
+        "source",
+        "operator_id"
+      ],
+      "dto_fields": [
+        "id",
+        "version",
+        "display_name",
+        "account_kind",
+        "lifecycle",
+        "status",
+        "source",
+        "assigned_user_id"
+      ],
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "ui_safe": false,
+      "ai_registration": false,
+      "sensitive_fields": [],
+      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "backend_ready_for_w2": true,
+      "version": "telecom.collections.v1",
+      "input_type": "TelecomCollectionInputMapV1",
+      "output_type": "TelecomCollectionResultMapV1",
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer"
+    },
+    {
+      "name": "contact.list",
+      "kind": "read",
+      "contract_version": "telecom.collections.v1",
+      "transport": {
+        "method": "POST",
+        "path": "/api/product/v1/queries",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "rpc": "telecom_collection_v1_query",
+      "roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "input_fields": [
+        "limit",
+        "after_id",
+        "sort",
+        "customer_id",
+        "status"
+      ],
+      "dto_fields": [
+        "id",
+        "version",
+        "customer_id",
+        "display_name",
+        "job_title",
+        "status",
+        "is_primary",
+        "has_email",
+        "has_phone"
+      ],
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "ui_safe": false,
+      "ai_registration": false,
+      "sensitive_fields": [],
+      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "backend_ready_for_w2": true,
+      "version": "telecom.collections.v1",
+      "input_type": "TelecomCollectionInputMapV1",
+      "output_type": "TelecomCollectionResultMapV1",
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer"
+    },
+    {
+      "name": "opportunity.list",
+      "kind": "read",
+      "contract_version": "telecom.collections.v1",
+      "transport": {
+        "method": "POST",
+        "path": "/api/product/v1/queries",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "rpc": "telecom_collection_v1_query",
+      "roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "input_fields": [
+        "limit",
+        "after_id",
+        "sort",
+        "customer_id",
+        "owner_user_id",
+        "stage_id",
+        "status",
+        "currency",
+        "expected_close_from",
+        "expected_close_to"
+      ],
+      "dto_fields": [
+        "id",
+        "version",
+        "customer_id",
+        "title",
+        "status",
+        "stage_id",
+        "owner_user_id",
+        "currency",
+        "amount_minor",
+        "expected_close_date",
+        "next_follow_up_at",
+        "has_next_action",
+        "source",
+        "links"
+      ],
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "ui_safe": false,
+      "ai_registration": false,
+      "sensitive_fields": [],
+      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "backend_ready_for_w2": true,
+      "version": "telecom.collections.v1",
+      "input_type": "TelecomCollectionInputMapV1",
+      "output_type": "TelecomCollectionResultMapV1",
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer"
+    },
+    {
+      "name": "activity.list",
+      "kind": "read",
+      "contract_version": "telecom.collections.v1",
+      "transport": {
+        "method": "POST",
+        "path": "/api/product/v1/queries",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "rpc": "telecom_collection_v1_query",
+      "roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "input_fields": [
+        "limit",
+        "after_id",
+        "sort",
+        "customer_id",
+        "kind",
+        "entity_kind",
+        "entity_id",
+        "date_from",
+        "date_to"
+      ],
+      "dto_fields": [
+        "id",
+        "customer_id",
+        "activity_kind",
+        "summary_code",
+        "occurred_at",
+        "actor_user_id",
+        "contract_id",
+        "service_id",
+        "opportunity_id",
+        "task_id",
+        "meeting_id"
+      ],
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "ui_safe": false,
+      "ai_registration": false,
+      "sensitive_fields": [],
+      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "backend_ready_for_w2": true,
+      "version": "telecom.collections.v1",
+      "input_type": "TelecomCollectionInputMapV1",
+      "output_type": "TelecomCollectionResultMapV1",
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer"
+    },
+    {
+      "name": "assignee.list",
+      "kind": "read",
+      "contract_version": "telecom.collections.v1",
+      "transport": {
+        "method": "POST",
+        "path": "/api/product/v1/queries",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "rpc": "telecom_collection_v1_query",
+      "roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "input_fields": [
+        "limit",
+        "after_id",
+        "sort",
+        "role"
+      ],
+      "dto_fields": [
+        "user_id",
+        "display_name",
+        "role"
+      ],
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "ui_safe": false,
+      "ai_registration": false,
+      "sensitive_fields": [],
+      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "backend_ready_for_w2": true,
+      "version": "telecom.collections.v1",
+      "input_type": "TelecomCollectionInputMapV1",
+      "output_type": "TelecomCollectionResultMapV1",
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer"
+    },
+    {
+      "name": "operator.list",
+      "kind": "read",
+      "contract_version": "telecom.collections.v1",
+      "transport": {
+        "method": "POST",
+        "path": "/api/product/v1/queries",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "rpc": "telecom_collection_v1_query",
+      "roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "input_fields": [
+        "limit",
+        "after_id",
+        "sort",
+        "status",
+        "source"
+      ],
+      "dto_fields": [
+        "id",
+        "code",
+        "display_name",
+        "status",
+        "source",
+        "version"
+      ],
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "ui_safe": false,
+      "ai_registration": false,
+      "sensitive_fields": [],
+      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "backend_ready_for_w2": true,
+      "version": "telecom.collections.v1",
+      "input_type": "TelecomCollectionInputMapV1",
+      "output_type": "TelecomCollectionResultMapV1",
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "candidate_dto_extension": "CAS version added in upcoming catalog candidate; new exact proof pending"
+    },
+    {
+      "name": "operator.get",
+      "kind": "read",
+      "contract_version": "telecom.collections.v1",
+      "transport": {
+        "method": "POST",
+        "path": "/api/product/v1/queries",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "rpc": "telecom_collection_v1_query",
+      "roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "input_fields": [
+        "id"
+      ],
+      "dto_fields": [
+        "id",
+        "code",
+        "display_name",
+        "status",
+        "source",
+        "version"
+      ],
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "ui_safe": false,
+      "ai_registration": false,
+      "sensitive_fields": [],
+      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "backend_ready_for_w2": true,
+      "version": "telecom.collections.v1",
+      "input_type": "TelecomCollectionInputMapV1",
+      "output_type": "TelecomCollectionResultMapV1",
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "candidate_dto_extension": "CAS version added in upcoming catalog candidate; new exact proof pending"
+    },
+    {
+      "name": "plan.list",
+      "kind": "read",
+      "contract_version": "telecom.collections.v1",
+      "transport": {
+        "method": "POST",
+        "path": "/api/product/v1/queries",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "rpc": "telecom_collection_v1_query",
+      "roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "input_fields": [
+        "limit",
+        "after_id",
+        "sort",
+        "operator_id",
+        "service_kind",
+        "status"
+      ],
+      "dto_fields": [
+        "id",
+        "operator_id",
+        "code",
+        "display_name",
+        "service_kind",
+        "status",
+        "version"
+      ],
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "ui_safe": false,
+      "ai_registration": false,
+      "sensitive_fields": [],
+      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "backend_ready_for_w2": true,
+      "version": "telecom.collections.v1",
+      "input_type": "TelecomCollectionInputMapV1",
+      "output_type": "TelecomCollectionResultMapV1",
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "candidate_dto_extension": "CAS version added in upcoming catalog candidate; new exact proof pending"
+    },
+    {
+      "name": "plan.get",
+      "kind": "read",
+      "contract_version": "telecom.collections.v1",
+      "transport": {
+        "method": "POST",
+        "path": "/api/product/v1/queries",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "rpc": "telecom_collection_v1_query",
+      "roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "input_fields": [
+        "id"
+      ],
+      "dto_fields": [
+        "id",
+        "operator_id",
+        "code",
+        "display_name",
+        "service_kind",
+        "status",
+        "version"
+      ],
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "ui_safe": false,
+      "ai_registration": false,
+      "sensitive_fields": [],
+      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "backend_ready_for_w2": true,
+      "version": "telecom.collections.v1",
+      "input_type": "TelecomCollectionInputMapV1",
+      "output_type": "TelecomCollectionResultMapV1",
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "candidate_dto_extension": "CAS version added in upcoming catalog candidate; new exact proof pending"
+    },
+    {
+      "name": "plan_version.list",
+      "kind": "read",
+      "contract_version": "telecom.collections.v1",
+      "transport": {
+        "method": "POST",
+        "path": "/api/product/v1/queries",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "rpc": "telecom_collection_v1_query",
+      "roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "input_fields": [
+        "limit",
+        "after_id",
+        "sort",
+        "plan_id",
+        "operator_id",
+        "service_kind",
+        "valid_on",
+        "status"
+      ],
+      "dto_fields": [
+        "id",
+        "plan_id",
+        "operator_id",
+        "service_kind",
+        "version_number",
+        "valid_from",
+        "valid_until",
+        "currency",
+        "recurring_amount_minor",
+        "plan_status"
+      ],
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "ui_safe": false,
+      "ai_registration": false,
+      "sensitive_fields": [],
+      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "backend_ready_for_w2": true,
+      "version": "telecom.collections.v1",
+      "input_type": "TelecomCollectionInputMapV1",
+      "output_type": "TelecomCollectionResultMapV1",
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer"
+    },
+    {
+      "name": "plan_version.get",
+      "kind": "read",
+      "contract_version": "telecom.collections.v1",
+      "transport": {
+        "method": "POST",
+        "path": "/api/product/v1/queries",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "rpc": "telecom_collection_v1_query",
+      "roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "input_fields": [
+        "id"
+      ],
+      "dto_fields": [
+        "id",
+        "plan_id",
+        "operator_id",
+        "service_kind",
+        "version_number",
+        "valid_from",
+        "valid_until",
+        "currency",
+        "recurring_amount_minor",
+        "plan_status"
+      ],
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "ui_safe": false,
+      "ai_registration": false,
+      "sensitive_fields": [],
+      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "backend_ready_for_w2": true,
+      "version": "telecom.collections.v1",
+      "input_type": "TelecomCollectionInputMapV1",
+      "output_type": "TelecomCollectionResultMapV1",
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer"
+    },
+    {
+      "name": "contract.list",
+      "kind": "read",
+      "contract_version": "telecom.collections.v1",
+      "transport": {
+        "method": "POST",
+        "path": "/api/product/v1/queries",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "rpc": "telecom_collection_v1_query",
+      "roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "input_fields": [
+        "limit",
+        "after_id",
+        "sort",
+        "customer_id",
+        "operator_id",
+        "plan_id",
+        "assigned_user_id",
+        "status",
+        "source"
+      ],
+      "dto_fields": [
+        "id",
+        "version",
+        "customer_id",
+        "operator_id",
+        "plan_version_id",
+        "assigned_user_id",
+        "status",
+        "source",
+        "start_date",
+        "end_date"
+      ],
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "ui_safe": false,
+      "ai_registration": false,
+      "sensitive_fields": [],
+      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "backend_ready_for_w2": true,
+      "version": "telecom.collections.v1",
+      "input_type": "TelecomCollectionInputMapV1",
+      "output_type": "TelecomCollectionResultMapV1",
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer"
+    },
+    {
+      "name": "service.list",
+      "kind": "read",
+      "contract_version": "telecom.collections.v1",
+      "transport": {
+        "method": "POST",
+        "path": "/api/product/v1/queries",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "rpc": "telecom_collection_v1_query",
+      "roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "input_fields": [
+        "limit",
+        "after_id",
+        "sort",
+        "customer_id",
+        "contract_id",
+        "operator_id",
+        "plan_id",
+        "kind",
+        "status",
+        "source"
+      ],
+      "dto_fields": [
+        "id",
+        "version",
+        "customer_id",
+        "contract_id",
+        "operator_id",
+        "plan_version_id",
+        "service_kind",
+        "display_name",
+        "status",
+        "source",
+        "activated_on",
+        "ended_on"
+      ],
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "ui_safe": false,
+      "ai_registration": false,
+      "sensitive_fields": [],
+      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "backend_ready_for_w2": true,
+      "version": "telecom.collections.v1",
+      "input_type": "TelecomCollectionInputMapV1",
+      "output_type": "TelecomCollectionResultMapV1",
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer"
+    },
+    {
+      "name": "line.list",
+      "kind": "read",
+      "contract_version": "telecom.collections.v1",
+      "transport": {
+        "method": "POST",
+        "path": "/api/product/v1/queries",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "rpc": "telecom_collection_v1_query",
+      "roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "input_fields": [
+        "limit",
+        "after_id",
+        "sort",
+        "customer_id",
+        "contract_id",
+        "service_id",
+        "operator_id",
+        "status",
+        "source"
+      ],
+      "dto_fields": [
+        "id",
+        "version",
+        "service_id",
+        "customer_id",
+        "contract_id",
+        "operator_id",
+        "plan_version_id",
+        "display_name",
+        "status",
+        "source",
+        "activated_on",
+        "ended_on"
+      ],
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "ui_safe": false,
+      "ai_registration": false,
+      "sensitive_fields": [],
+      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "backend_ready_for_w2": true,
+      "version": "telecom.collections.v1",
+      "input_type": "TelecomCollectionInputMapV1",
+      "output_type": "TelecomCollectionResultMapV1",
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer"
+    },
+    {
+      "name": "renewal.list",
+      "kind": "read",
+      "contract_version": "telecom.collections.v1",
+      "transport": {
+        "method": "POST",
+        "path": "/api/product/v1/queries",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "rpc": "telecom_collection_v1_query",
+      "roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "input_fields": [
+        "limit",
+        "after_id",
+        "sort",
+        "customer_id",
+        "contract_id",
+        "owner_user_id",
+        "status",
+        "window_from",
+        "window_to"
+      ],
+      "dto_fields": [
+        "id",
+        "version",
+        "contract_id",
+        "customer_id",
+        "owner_user_id",
+        "status",
+        "source",
+        "target_on",
+        "opens_on",
+        "closes_on",
+        "attention_state"
+      ],
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "ui_safe": false,
+      "ai_registration": false,
+      "sensitive_fields": [],
+      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "backend_ready_for_w2": true,
+      "version": "telecom.collections.v1",
+      "input_type": "TelecomCollectionInputMapV1",
+      "output_type": "TelecomCollectionResultMapV1",
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer"
+    },
+    {
+      "name": "renewal.get",
+      "kind": "read",
+      "contract_version": "telecom.collections.v1",
+      "transport": {
+        "method": "POST",
+        "path": "/api/product/v1/queries",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "rpc": "telecom_collection_v1_query",
+      "roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "input_fields": [
+        "id"
+      ],
+      "dto_fields": [
+        "id",
+        "version",
+        "contract_id",
+        "customer_id",
+        "owner_user_id",
+        "status",
+        "source",
+        "target_on",
+        "opens_on",
+        "closes_on",
+        "attention_state"
+      ],
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "ui_safe": false,
+      "ai_registration": false,
+      "sensitive_fields": [],
+      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "backend_ready_for_w2": true,
+      "version": "telecom.collections.v1",
+      "input_type": "TelecomCollectionInputMapV1",
+      "output_type": "TelecomCollectionResultMapV1",
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer"
+    },
+    {
+      "name": "permanence.list",
+      "kind": "read",
+      "contract_version": "telecom.collections.v1",
+      "transport": {
+        "method": "POST",
+        "path": "/api/product/v1/queries",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "rpc": "telecom_collection_v1_query",
+      "roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "input_fields": [
+        "limit",
+        "after_id",
+        "sort",
+        "customer_id",
+        "contract_id",
+        "service_id",
+        "status",
+        "window_from",
+        "window_to"
+      ],
+      "dto_fields": [
+        "id",
+        "version",
+        "contract_id",
+        "service_id",
+        "customer_id",
+        "status",
+        "source",
+        "commitment_kind",
+        "starts_on",
+        "ends_on",
+        "days_remaining",
+        "timing_state"
+      ],
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "ui_safe": false,
+      "ai_registration": false,
+      "sensitive_fields": [],
+      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "backend_ready_for_w2": true,
+      "version": "telecom.collections.v1",
+      "input_type": "TelecomCollectionInputMapV1",
+      "output_type": "TelecomCollectionResultMapV1",
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer"
+    },
+    {
+      "name": "permanence.get",
+      "kind": "read",
+      "contract_version": "telecom.collections.v1",
+      "transport": {
+        "method": "POST",
+        "path": "/api/product/v1/queries",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "rpc": "telecom_collection_v1_query",
+      "roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "input_fields": [
+        "id"
+      ],
+      "dto_fields": [
+        "id",
+        "version",
+        "contract_id",
+        "service_id",
+        "customer_id",
+        "status",
+        "source",
+        "commitment_kind",
+        "starts_on",
+        "ends_on",
+        "days_remaining",
+        "timing_state"
+      ],
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "ui_safe": false,
+      "ai_registration": false,
+      "sensitive_fields": [],
+      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "backend_ready_for_w2": true,
+      "version": "telecom.collections.v1",
+      "input_type": "TelecomCollectionInputMapV1",
+      "output_type": "TelecomCollectionResultMapV1",
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer"
+    }
+  ],
+  "operations_total": 18,
+  "operations_proven": 18,
+  "production": false,
+  "accepted_source": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+}
