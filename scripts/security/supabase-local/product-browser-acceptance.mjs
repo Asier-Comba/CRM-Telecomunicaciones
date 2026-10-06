@@ -48,6 +48,15 @@ export async function productBrowserAcceptance({ users, wa, ca, sql, url, anon, 
     // Prior backend revocation tests modify these memberships. Restore ONLY synthetic harness identities before UI journey.
     sql(`update public.workspaces set status='active' where id='${wa}'; update public.workspace_members set status='active' where user_id in ('${users.memberA.id}','${users.viewerA.id}') and workspace_id='${wa}'; update public.profiles set workspace_id='${wa}' where id in ('${users.memberA.id}','${users.viewerA.id}');`)
     await check('real_browser_login',async()=>{if(report)report.w2_login_stage='OPEN_LOGIN';await page.goto(origin+'/login');if(report)report.w2_login_stage='FILL_CREDENTIALS';await page.locator('input[type="email"]').fill(users.memberA.email);await page.locator('input[type="password"]').fill(users.memberA.password);if(report)report.w2_login_stage='SUBMIT_LOGIN';await page.getByRole('button',{name:'Iniciar sesión',exact:true}).click();if(report)report.w2_login_stage='WAIT_DASHBOARD';await page.waitForURL('**/dashboard');if(report)report.w2_login_stage='PASS'})
+    // Compile and prove the existing authorized detail before measuring a newly created customer.
+    // A response must match the loaded DOM; failure is its own browser group, never ignored/retried.
+    await check('existing_customer_detail_authorized',async()=>{
+      const pending=page.waitForResponse(r=>{try{const b=r.request().postDataJSON();return new URL(r.url()).pathname==='/api/product/v1/queries'&&b.operation==='customer.editor'&&b.input.id===ca}catch{return false}})
+      await page.goto(origin+'/clients/'+ca)
+      const response=await pending;if(response.status()!==200)throw Error('EXISTING_CUSTOMER_DETAIL_READ_DENIED')
+      const body=await response.json();if(!body.ok||body.data.id!==ca)throw Error('EXISTING_CUSTOMER_DETAIL_ID_MISMATCH')
+      await expect(page.getByRole('heading',{name:body.data.legal_name,exact:true})).toBeVisible()
+    })
     await page.goto(origin+'/clients')
     await check('customer_create',async()=>{if(report)report.w2_customer_create_stage='OPEN_EDITOR';await page.getByRole('button',{name:'Nuevo cliente',exact:true}).click();await page.getByLabel('Razón social').fill('W2 UI Synthetic Company');if(report)report.w2_customer_create_stage='SUBMIT';await page.getByRole('button',{name:'Guardar cliente',exact:true}).click();if(report)report.w2_customer_create_stage='WAIT_DETAILS';await expect(page.getByRole('heading',{name:'W2 UI Synthetic Company',exact:true})).toBeVisible();if(report)report.w2_customer_create_stage='PASS'})
     const id=new URL(page.url()).pathname.split('/').at(-1)
