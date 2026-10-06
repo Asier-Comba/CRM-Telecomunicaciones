@@ -1690,6 +1690,46 @@
       "authenticated": true
     },
     {
+      "signature": "public.sim_v1_command(uuid, text, jsonb)",
+      "public": false,
+      "anon": false,
+      "authenticated": true,
+      "service_role": false,
+      "definer": true
+    },
+    {
+      "signature": "public.sim_v1_guard_association()",
+      "public": false,
+      "anon": false,
+      "authenticated": false,
+      "service_role": false,
+      "definer": false
+    },
+    {
+      "signature": "public.sim_v1_guard_resource()",
+      "public": false,
+      "anon": false,
+      "authenticated": false,
+      "service_role": false,
+      "definer": false
+    },
+    {
+      "signature": "public.sim_v1_query(uuid, text, jsonb)",
+      "public": false,
+      "anon": false,
+      "authenticated": true,
+      "service_role": false,
+      "definer": true
+    },
+    {
+      "signature": "public.sim_v1_validate(text, jsonb)",
+      "public": false,
+      "anon": false,
+      "authenticated": false,
+      "service_role": false,
+      "definer": false
+    },
+    {
       "anon": false,
       "public": false,
       "definer": true,

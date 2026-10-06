@@ -1,21 +1,21 @@
 {
   "catalog_version": "product.capabilities.v1",
   "as_of": "2026-10-06",
-  "implementation_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc",
+  "implementation_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
   "evidence": {
     "native": {
-      "run_id": 37452269921,
+      "run_id": 37453921474,
       "status": "PASS",
-      "migration_count": 58,
-      "function_count": 260,
-      "tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc",
-      "tested_checkout": "a42f0660fb894ed437d231dca562c284b2295b5d",
-      "tested_tree": "0bfebc8bc12c4073c5fad9a65329f019489fe59d",
+      "migration_count": 59,
+      "function_count": 264,
+      "tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
+      "tested_checkout": "a4df0fde346270745141e4d073c0162510ced71e",
+      "tested_tree": "44d091fce66ae3794650317764b2f3afd298aa5b",
       "fresh": "PASS",
       "logical_synthetic_restore": "PASS",
       "privileges_roles_acl_loss_negative_control": "PASS",
       "production_backup": false,
-      "job_id": 112231388519
+      "job_id": 112236782598
     },
     "actual_supabase": {
       "environment": "LOCAL_SUPABASE_DOCKER",
@@ -26,10 +26,10 @@
       "rpc": "PASS",
       "storage": "PASS",
       "cli": "2.119.0",
-      "sha": "a42f0660fb894ed437d231dca562c284b2295b5d",
+      "sha": "a4df0fde346270745141e4d073c0162510ced71e",
       "config_sha256": "3fc22bba97e5114a7ee67cc90e514b8ec16eda0cb2c5817cf87784e8e4ab6e57",
-      "migration_head": "20261006110000_commercial_portability_workflow.sql",
-      "migration_count": 58,
+      "migration_head": "20261006113000_product_service_case_workflow.sql",
+      "migration_count": 59,
       "service_images": [
         "public.ecr.aws/supabase/gotrue:v2.197.0",
         "public.ecr.aws/supabase/kong:2.8.1",
@@ -176,6 +176,9 @@
         "table.profiles.anon": 401,
         "table.profiles.A": 200,
         "table.profiles.B": 200,
+        "table.service_case_internal_notes.anon": 401,
+        "table.service_case_internal_notes.A": 403,
+        "table.service_case_internal_notes.B": 403,
         "table.service_cases.anon": 401,
         "table.service_cases.A": 403,
         "table.service_cases.B": 403,
@@ -426,6 +429,24 @@
       "commercial_portability_line_effect": "PASS_EXPLICIT_ATOMIC_CAS_INBOUND_ACTIVATION_OUTBOUND_END",
       "commercial_portability_concurrency": "PASS_ONE_TRANSITION_WINNER",
       "commercial_portability_revocation": "PASS_VALID_JWT_NO_READ_NO_REPLAY",
+      "service_case_operations_individually_observed": [
+        "case.create",
+        "case.get",
+        "case.update",
+        "case.assign",
+        "case.note_create",
+        "case.note_list",
+        "case.change_status",
+        "case.resolve",
+        "case.reopen",
+        "case.close",
+        "case.cancel",
+        "case.list"
+      ],
+      "service_cases": "PASS_CLOSED_LIFECYCLE_CAS_ANCESTRY_LOCAL_ASSIGNMENT",
+      "service_case_notes": "PASS_PRIVATE_APPEND_ONLY_BOUNDED_BODY_NO_AUDIT_VALUE",
+      "service_case_revocation": "PASS_VALID_JWT_ALL_OPERATIONS_DENIED",
+      "service_case_concurrency": "PASS_SINGLE_TRANSITION_WINNER",
       "billing_search": "PASS",
       "billing_pdf": "PASS",
       "billing_dashboard": "PASS",
@@ -514,7 +535,7 @@
       "document_content_verified_sha256": "NOT_IMPLEMENTED",
       "cross_tenant": "PASS",
       "revocation": "PASS",
-      "checks": 2071,
+      "checks": 2290,
       "manager": "NOT_CANONICAL",
       "signed_access": "NOT_IMPLEMENTED",
       "auth_email_production": "NOT_TESTED",
@@ -653,7 +674,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "task.update",
@@ -693,7 +714,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "task.start",
@@ -733,7 +754,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "task.complete",
@@ -773,7 +794,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "task.reopen",
@@ -813,7 +834,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "task.cancel",
@@ -853,7 +874,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "meeting.create",
@@ -893,7 +914,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "meeting.update",
@@ -933,7 +954,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "meeting.reschedule",
@@ -973,7 +994,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "meeting.complete",
@@ -1013,7 +1034,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "meeting.cancel",
@@ -1053,7 +1074,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "meeting.no_show",
@@ -1093,7 +1114,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "opportunity.create",
@@ -1133,7 +1154,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "opportunity.update",
@@ -1173,7 +1194,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "opportunity.change_stage",
@@ -1213,7 +1234,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "opportunity.assign",
@@ -1253,7 +1274,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "opportunity.win",
@@ -1293,7 +1314,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "opportunity.lose",
@@ -1333,7 +1354,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "opportunity.reopen",
@@ -1373,7 +1394,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "opportunity.archive",
@@ -1413,7 +1434,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "customer.create",
@@ -1453,7 +1474,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "customer.update",
@@ -1493,7 +1514,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "customer.archive",
@@ -1533,7 +1554,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "customer.restore",
@@ -1573,7 +1594,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "contact.create",
@@ -1613,7 +1634,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "contact.update",
@@ -1653,7 +1674,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "contact.archive",
@@ -1693,7 +1714,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "contact.restore",
@@ -1733,7 +1754,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "customer.editor",
@@ -1771,7 +1792,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "safe_read_candidate_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "contact.editors",
@@ -1809,7 +1830,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "safe_read_candidate_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "calendar.list",
@@ -1848,7 +1869,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "safe_read_candidate_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "work.get",
@@ -1887,7 +1908,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "safe_read_candidate_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "opportunity.stages",
@@ -1926,7 +1947,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "safe_read_candidate_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "dashboard.get",
@@ -1976,7 +1997,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "safe_read_candidate_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "global.search",
@@ -2015,7 +2036,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "safe_read_candidate_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "supabase_core_tested_head": "db056e67111b7719e7072c2279b3c7459ef68a54",
       "item_roles": {
         "invoice": [
@@ -2060,7 +2081,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "customer_fiscal.set",
@@ -2098,7 +2119,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "invoice.create_draft",
@@ -2136,7 +2157,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "invoice.update_draft",
@@ -2174,7 +2195,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "invoice.issue",
@@ -2212,7 +2233,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "invoice.mark_paid",
@@ -2250,7 +2271,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "invoice.reverse_payment",
@@ -2288,7 +2309,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "invoice.trash",
@@ -2326,7 +2347,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "invoice.restore",
@@ -2364,7 +2385,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "invoice.get",
@@ -2402,7 +2423,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "protected_read_requires_fiscal_capability_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "invoice.summary",
@@ -2440,7 +2461,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "protected_read_requires_fiscal_capability_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "invoice.list",
@@ -2478,7 +2499,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "protected_read_requires_fiscal_capability_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "invoice.financial_summary",
@@ -2516,7 +2537,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "protected_read_requires_fiscal_capability_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "configuration.get",
@@ -2554,7 +2575,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "protected_read_requires_fiscal_capability_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "invoice.pdf",
@@ -2592,7 +2613,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "protected_read_requires_fiscal_capability_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "storage_status": "private_object_and_opaque_reference_pending"
     },
     {
@@ -2631,7 +2652,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "protected_read_requires_fiscal_capability_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "member.invite_intent",
@@ -2670,7 +2691,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "review_pending": [
         "W4",
         "W2"
@@ -2713,7 +2734,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "review_pending": [
         "W4",
         "W2"
@@ -2756,7 +2777,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "review_pending": [
         "W4",
         "W2"
@@ -2799,7 +2820,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "review_pending": [
         "W4",
         "W2"
@@ -2842,7 +2863,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "review_pending": [
         "W4",
         "W2"
@@ -2885,7 +2906,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "review_pending": [
         "W4",
         "W2"
@@ -2928,7 +2949,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "review_pending": [
         "W4",
         "W2"
@@ -2972,7 +2993,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "contract.update_allowed_metadata",
@@ -3012,7 +3033,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "contract.activate",
@@ -3052,7 +3073,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "review_pending": [
         "W4",
         "W2",
@@ -3097,7 +3118,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "review_pending": [
         "W4",
         "W2",
@@ -3142,7 +3163,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "review_pending": [
         "W4",
         "W2",
@@ -3187,7 +3208,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "service.transition",
@@ -3227,7 +3248,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "review_pending": [
         "W4",
         "W2",
@@ -3272,7 +3293,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "review_pending": [
         "W4",
         "W2",
@@ -3317,7 +3338,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "line.transition",
@@ -3357,7 +3378,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "review_pending": [
         "W4",
         "W2",
@@ -3407,7 +3428,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "supabase_core_tested_head": "497a5587429e77c67c2feceb71c1a2d1e259bf57"
     },
     {
@@ -3448,7 +3469,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "review_pending": [
         "W4",
         "W2",
@@ -3493,7 +3514,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "renewal.resolve",
@@ -3533,7 +3554,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "renewal.dismiss",
@@ -3573,7 +3594,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "permanence.create_manual",
@@ -3613,7 +3634,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "review_pending": [
         "W4",
         "W2",
@@ -3658,7 +3679,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "permanence.cancel",
@@ -3698,7 +3719,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "document.archive",
@@ -3741,7 +3762,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "document.restore",
@@ -3784,7 +3805,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "document.list",
@@ -3827,7 +3848,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "document.get_metadata",
@@ -3870,7 +3891,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "document.request_upload",
@@ -3914,7 +3935,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "document.finalize_upload",
@@ -3958,7 +3979,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "document.request_download",
@@ -4002,7 +4023,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "document.download",
@@ -4046,7 +4067,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "invoice.persist_private_pdf",
@@ -4090,7 +4111,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "invoice.private_pdf_reference",
@@ -4134,7 +4155,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "invoice.private_pdf",
@@ -4178,7 +4199,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "importjob.cancel",
@@ -4221,7 +4242,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "importjob.get",
@@ -4264,7 +4285,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "importjob.list",
@@ -4307,7 +4328,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "conversation.create_internal",
@@ -4351,7 +4372,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "message.add_internal_note",
@@ -4395,7 +4416,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "conversation.assign",
@@ -4438,7 +4459,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "conversation.link_customer",
@@ -4481,7 +4502,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "conversation.close",
@@ -4525,7 +4546,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "conversation.reopen",
@@ -4569,7 +4590,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "conversation.archive",
@@ -4613,7 +4634,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "conversation.restore",
@@ -4657,7 +4678,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "conversation.mark_read",
@@ -4701,7 +4722,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "conversation.mark_unread",
@@ -4745,7 +4766,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "inbox.list",
@@ -4789,7 +4810,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "inbox.get_thread",
@@ -4833,7 +4854,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "inbox.unread_summary",
@@ -4877,7 +4898,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "notification.refresh",
@@ -4921,7 +4942,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "notification.mark_read",
@@ -4965,7 +4986,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "notification.mark_all_read",
@@ -5009,7 +5030,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "notification.list",
@@ -5053,7 +5074,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "notification.unread_count",
@@ -5097,7 +5118,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "automation.create",
@@ -5140,7 +5161,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "automation.update",
@@ -5183,7 +5204,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "automation.enable",
@@ -5226,7 +5247,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "automation.disable",
@@ -5269,7 +5290,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "automation.process_pending",
@@ -5312,7 +5333,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "automation.list",
@@ -5355,7 +5376,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "automation.get",
@@ -5398,7 +5419,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "automation.run_history",
@@ -5441,7 +5462,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "settings.profile_update",
@@ -5486,7 +5507,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "settings.company_update",
@@ -5529,7 +5550,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "settings.profile_get",
@@ -5574,7 +5595,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "settings.company_get",
@@ -5619,7 +5640,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "settings.integrations",
@@ -5664,7 +5685,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "sensitive.get",
@@ -5708,7 +5729,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "field_role_matrix": {
         "contact": [
           "owner",
@@ -5758,7 +5779,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "review_pending": [
         "W4",
         "W2"
@@ -5801,7 +5822,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "review_pending": [
         "W4",
         "W2"
@@ -5844,7 +5865,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "review_pending": [
         "W4",
         "W2"
@@ -5892,7 +5913,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "document.cleanup_claim",
@@ -5936,7 +5957,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "document.cleanup_finish",
@@ -5980,7 +6001,7 @@
         "W4",
         "W2"
       ],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "document.expired_list",
@@ -6020,7 +6041,7 @@
       "ui_safe": false,
       "ui_safe_status": "W4_and_W2_review_pending",
       "assistant_future": "durable_Issue10_confirmation_required_not_registered",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "review_pending": [
         "W4",
         "W2"
@@ -6070,7 +6091,7 @@
       "ui_safe": false,
       "ai_registration": false,
       "sensitive_fields": [],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "backend_ready_for_w2": true,
       "version": "telecom.collections.v1",
       "input_type": "TelecomCollectionInputsV1['customer.list']",
@@ -6126,7 +6147,7 @@
       "ui_safe": false,
       "ai_registration": false,
       "sensitive_fields": [],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "backend_ready_for_w2": true,
       "version": "telecom.collections.v1",
       "input_type": "TelecomCollectionInputsV1['contact.list']",
@@ -6192,7 +6213,7 @@
       "ui_safe": false,
       "ai_registration": false,
       "sensitive_fields": [],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "backend_ready_for_w2": true,
       "version": "telecom.collections.v1",
       "input_type": "TelecomCollectionInputsV1['opportunity.list']",
@@ -6254,7 +6275,7 @@
       "ui_safe": false,
       "ai_registration": false,
       "sensitive_fields": [],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "backend_ready_for_w2": true,
       "version": "telecom.collections.v1",
       "input_type": "TelecomCollectionInputsV1['activity.list']",
@@ -6303,7 +6324,7 @@
       "ui_safe": false,
       "ai_registration": false,
       "sensitive_fields": [],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "backend_ready_for_w2": true,
       "version": "telecom.collections.v1",
       "input_type": "TelecomCollectionInputsV1['assignee.list']",
@@ -6356,7 +6377,7 @@
       "ui_safe": false,
       "ai_registration": false,
       "sensitive_fields": [],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "backend_ready_for_w2": true,
       "version": "telecom.collections.v1",
       "input_type": "TelecomCollectionInputsV1['operator.list']",
@@ -6406,7 +6427,7 @@
       "ui_safe": false,
       "ai_registration": false,
       "sensitive_fields": [],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "backend_ready_for_w2": true,
       "version": "telecom.collections.v1",
       "input_type": "TelecomCollectionInputsV1['operator.get']",
@@ -6462,7 +6483,7 @@
       "ui_safe": false,
       "ai_registration": false,
       "sensitive_fields": [],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "backend_ready_for_w2": true,
       "version": "telecom.collections.v1",
       "input_type": "TelecomCollectionInputsV1['plan.list']",
@@ -6513,7 +6534,7 @@
       "ui_safe": false,
       "ai_registration": false,
       "sensitive_fields": [],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "backend_ready_for_w2": true,
       "version": "telecom.collections.v1",
       "input_type": "TelecomCollectionInputsV1['plan.get']",
@@ -6574,7 +6595,7 @@
       "ui_safe": false,
       "ai_registration": false,
       "sensitive_fields": [],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "backend_ready_for_w2": true,
       "version": "telecom.collections.v1",
       "input_type": "TelecomCollectionInputsV1['plan_version.list']",
@@ -6627,7 +6648,7 @@
       "ui_safe": false,
       "ai_registration": false,
       "sensitive_fields": [],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "backend_ready_for_w2": true,
       "version": "telecom.collections.v1",
       "input_type": "TelecomCollectionInputsV1['plan_version.get']",
@@ -6688,7 +6709,7 @@
       "ui_safe": false,
       "ai_registration": false,
       "sensitive_fields": [],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "backend_ready_for_w2": true,
       "version": "telecom.collections.v1",
       "input_type": "TelecomCollectionInputsV1['contract.list']",
@@ -6752,7 +6773,7 @@
       "ui_safe": false,
       "ai_registration": false,
       "sensitive_fields": [],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "backend_ready_for_w2": true,
       "version": "telecom.collections.v1",
       "input_type": "TelecomCollectionInputsV1['service.list']",
@@ -6815,7 +6836,7 @@
       "ui_safe": false,
       "ai_registration": false,
       "sensitive_fields": [],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "backend_ready_for_w2": true,
       "version": "telecom.collections.v1",
       "input_type": "TelecomCollectionInputsV1['line.list']",
@@ -6877,7 +6898,7 @@
       "ui_safe": false,
       "ai_registration": false,
       "sensitive_fields": [],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "backend_ready_for_w2": true,
       "version": "telecom.collections.v1",
       "input_type": "TelecomCollectionInputsV1['renewal.list']",
@@ -6931,7 +6952,7 @@
       "ui_safe": false,
       "ai_registration": false,
       "sensitive_fields": [],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "backend_ready_for_w2": true,
       "version": "telecom.collections.v1",
       "input_type": "TelecomCollectionInputsV1['renewal.get']",
@@ -6994,7 +7015,7 @@
       "ui_safe": false,
       "ai_registration": false,
       "sensitive_fields": [],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "backend_ready_for_w2": true,
       "version": "telecom.collections.v1",
       "input_type": "TelecomCollectionInputsV1['permanence.list']",
@@ -7049,7 +7070,7 @@
       "ui_safe": false,
       "ai_registration": false,
       "sensitive_fields": [],
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "backend_ready_for_w2": true,
       "version": "telecom.collections.v1",
       "input_type": "TelecomCollectionInputsV1['permanence.get']",
@@ -7079,7 +7100,7 @@
       "backend_status": "implemented_native_and_supabase_tested",
       "supabase_tested": true,
       "supabase_status": "PASS_AT_RECORDED_HEAD",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "ui_safe": false,
       "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
       "transport": {
@@ -7098,7 +7119,8 @@
       "cas": {
         "required": false,
         "key": null
-      }
+      },
+      "extension_status": "SIM_ICCID_EID_CANDIDATE_EXACT_PLATFORM_PENDING"
     },
     {
       "name": "identifier.retire",
@@ -7116,7 +7138,7 @@
       "backend_status": "implemented_native_and_supabase_tested",
       "supabase_tested": true,
       "supabase_status": "PASS_AT_RECORDED_HEAD",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "ui_safe": false,
       "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
       "transport": {
@@ -7135,7 +7157,8 @@
       "cas": {
         "required": true,
         "key": "expected_version"
-      }
+      },
+      "extension_status": "SIM_ICCID_EID_CANDIDATE_EXACT_PLATFORM_PENDING"
     },
     {
       "name": "identifier.list",
@@ -7154,7 +7177,7 @@
       "backend_status": "implemented_native_and_supabase_tested",
       "supabase_tested": true,
       "supabase_status": "PASS_AT_RECORDED_HEAD",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "ui_safe": false,
       "assistant_future": "SAFE_MASKED_READ_CANDIDATE_NOT_REGISTERED",
       "transport": {
@@ -7173,7 +7196,8 @@
       "cas": {
         "required": false,
         "key": null
-      }
+      },
+      "extension_status": "SIM_ICCID_EID_CANDIDATE_EXACT_PLATFORM_PENDING"
     },
     {
       "name": "identifier.get",
@@ -7192,7 +7216,7 @@
       "backend_status": "implemented_native_and_supabase_tested",
       "supabase_tested": true,
       "supabase_status": "PASS_AT_RECORDED_HEAD",
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc",
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
       "ui_safe": false,
       "assistant_future": "SAFE_MASKED_READ_CANDIDATE_NOT_REGISTERED",
       "transport": {
@@ -7211,7 +7235,8 @@
       "cas": {
         "required": false,
         "key": null
-      }
+      },
+      "extension_status": "SIM_ICCID_EID_CANDIDATE_EXACT_PLATFORM_PENDING"
     },
     {
       "name": "operator.create",
@@ -7253,7 +7278,7 @@
         "enabled_by_default": false,
         "authority": "current_cookie_user_jwt_membership"
       },
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "operator.update",
@@ -7296,7 +7321,7 @@
         "enabled_by_default": false,
         "authority": "current_cookie_user_jwt_membership"
       },
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "operator.activate",
@@ -7338,7 +7363,7 @@
         "enabled_by_default": false,
         "authority": "current_cookie_user_jwt_membership"
       },
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "operator.deactivate",
@@ -7380,7 +7405,7 @@
         "enabled_by_default": false,
         "authority": "current_cookie_user_jwt_membership"
       },
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "plan.create",
@@ -7424,7 +7449,7 @@
         "enabled_by_default": false,
         "authority": "current_cookie_user_jwt_membership"
       },
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "plan.update_metadata",
@@ -7467,7 +7492,7 @@
         "enabled_by_default": false,
         "authority": "current_cookie_user_jwt_membership"
       },
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "plan.change_status",
@@ -7510,7 +7535,7 @@
         "enabled_by_default": false,
         "authority": "current_cookie_user_jwt_membership"
       },
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "plan_version.create",
@@ -7560,7 +7585,7 @@
         "enabled_by_default": false,
         "authority": "current_cookie_user_jwt_membership"
       },
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "plan_version.terms_get",
@@ -7602,7 +7627,7 @@
         "enabled_by_default": false,
         "authority": "current_cookie_user_jwt_membership"
       },
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "portability.create",
@@ -7650,7 +7675,7 @@
         "required": false,
         "key": null
       },
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "portability.update_draft",
@@ -7696,7 +7721,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "portability.assign",
@@ -7740,7 +7765,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "portability.transition",
@@ -7787,7 +7812,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "portability.complete",
@@ -7835,7 +7860,7 @@
         "required": true,
         "key": "expected_version"
       },
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "portability.list",
@@ -7889,7 +7914,7 @@
         "required": false,
         "key": null
       },
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "portability.get",
@@ -7931,7 +7956,7 @@
         "required": false,
         "key": null
       },
-      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "case.create",
@@ -7958,10 +7983,10 @@
         "member"
       ],
       "minimum_role": "member",
-      "backend_status": "candidate_local_tested_exact_platform_pending",
-      "supabase_tested": false,
-      "supabase_status": "PENDING_EXACT_SOURCE",
-      "ui_safe": false,
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": true,
       "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
       "ai_registration": false,
       "transport": {
@@ -7980,7 +8005,8 @@
       "cas": {
         "required": false,
         "key": null
-      }
+      },
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "case.update",
@@ -8004,10 +8030,10 @@
         "member"
       ],
       "minimum_role": "member",
-      "backend_status": "candidate_local_tested_exact_platform_pending",
-      "supabase_tested": false,
-      "supabase_status": "PENDING_EXACT_SOURCE",
-      "ui_safe": false,
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": true,
       "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
       "ai_registration": false,
       "transport": {
@@ -8026,7 +8052,8 @@
       "cas": {
         "required": true,
         "key": "expected_version"
-      }
+      },
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "case.assign",
@@ -8047,10 +8074,10 @@
         "member"
       ],
       "minimum_role": "member",
-      "backend_status": "candidate_local_tested_exact_platform_pending",
-      "supabase_tested": false,
-      "supabase_status": "PENDING_EXACT_SOURCE",
-      "ui_safe": false,
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": true,
       "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
       "ai_registration": false,
       "transport": {
@@ -8069,7 +8096,8 @@
       "cas": {
         "required": true,
         "key": "expected_version"
-      }
+      },
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "case.change_status",
@@ -8090,10 +8118,10 @@
         "member"
       ],
       "minimum_role": "member",
-      "backend_status": "candidate_local_tested_exact_platform_pending",
-      "supabase_tested": false,
-      "supabase_status": "PENDING_EXACT_SOURCE",
-      "ui_safe": false,
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": true,
       "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
       "ai_registration": false,
       "transport": {
@@ -8112,7 +8140,8 @@
       "cas": {
         "required": true,
         "key": "expected_version"
-      }
+      },
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "case.resolve",
@@ -8133,10 +8162,10 @@
         "member"
       ],
       "minimum_role": "member",
-      "backend_status": "candidate_local_tested_exact_platform_pending",
-      "supabase_tested": false,
-      "supabase_status": "PENDING_EXACT_SOURCE",
-      "ui_safe": false,
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": true,
       "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
       "ai_registration": false,
       "transport": {
@@ -8155,7 +8184,8 @@
       "cas": {
         "required": true,
         "key": "expected_version"
-      }
+      },
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "case.reopen",
@@ -8175,10 +8205,10 @@
         "member"
       ],
       "minimum_role": "member",
-      "backend_status": "candidate_local_tested_exact_platform_pending",
-      "supabase_tested": false,
-      "supabase_status": "PENDING_EXACT_SOURCE",
-      "ui_safe": false,
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": true,
       "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
       "ai_registration": false,
       "transport": {
@@ -8197,7 +8227,8 @@
       "cas": {
         "required": true,
         "key": "expected_version"
-      }
+      },
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "case.close",
@@ -8217,10 +8248,10 @@
         "member"
       ],
       "minimum_role": "member",
-      "backend_status": "candidate_local_tested_exact_platform_pending",
-      "supabase_tested": false,
-      "supabase_status": "PENDING_EXACT_SOURCE",
-      "ui_safe": false,
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": true,
       "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
       "ai_registration": false,
       "transport": {
@@ -8239,7 +8270,8 @@
       "cas": {
         "required": true,
         "key": "expected_version"
-      }
+      },
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "case.cancel",
@@ -8260,10 +8292,10 @@
         "member"
       ],
       "minimum_role": "member",
-      "backend_status": "candidate_local_tested_exact_platform_pending",
-      "supabase_tested": false,
-      "supabase_status": "PENDING_EXACT_SOURCE",
-      "ui_safe": false,
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": true,
       "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
       "ai_registration": false,
       "transport": {
@@ -8282,7 +8314,8 @@
       "cas": {
         "required": true,
         "key": "expected_version"
-      }
+      },
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "case.note_create",
@@ -8303,10 +8336,10 @@
         "member"
       ],
       "minimum_role": "member",
-      "backend_status": "candidate_local_tested_exact_platform_pending",
-      "supabase_tested": false,
-      "supabase_status": "PENDING_EXACT_SOURCE",
-      "ui_safe": false,
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": true,
       "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
       "ai_registration": false,
       "transport": {
@@ -8325,7 +8358,8 @@
       "cas": {
         "required": true,
         "key": "expected_version"
-      }
+      },
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "case.list",
@@ -8357,10 +8391,10 @@
         "viewer"
       ],
       "minimum_role": "viewer",
-      "backend_status": "candidate_local_tested_exact_platform_pending",
-      "supabase_tested": false,
-      "supabase_status": "PENDING_EXACT_SOURCE",
-      "ui_safe": false,
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": true,
       "assistant_future": "safe_read_candidate_not_registered",
       "ai_registration": false,
       "transport": {
@@ -8379,7 +8413,8 @@
       "cas": {
         "required": false,
         "key": null
-      }
+      },
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "case.get",
@@ -8398,10 +8433,10 @@
         "viewer"
       ],
       "minimum_role": "viewer",
-      "backend_status": "candidate_local_tested_exact_platform_pending",
-      "supabase_tested": false,
-      "supabase_status": "PENDING_EXACT_SOURCE",
-      "ui_safe": false,
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": true,
       "assistant_future": "safe_read_candidate_not_registered",
       "ai_registration": false,
       "transport": {
@@ -8420,7 +8455,8 @@
       "cas": {
         "required": false,
         "key": null
-      }
+      },
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
     },
     {
       "name": "case.note_list",
@@ -8440,15 +8476,415 @@
         "member"
       ],
       "minimum_role": "member",
-      "backend_status": "candidate_local_tested_exact_platform_pending",
-      "supabase_tested": false,
-      "supabase_status": "PENDING_EXACT_SOURCE",
-      "ui_safe": false,
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": true,
       "assistant_future": "human_only_private_note_read_not_registered",
       "ai_registration": false,
       "transport": {
         "method": "POST",
         "path": "/api/cases/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "supabase_tested_head": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd"
+    },
+    {
+      "name": "sim.create",
+      "version": "sim.v1",
+      "kind": "write",
+      "rpc": "sim_v1_command",
+      "input_type": "SimInputsV1['sim.create']",
+      "output_type": "SimReceiptV1",
+      "input_fields": [
+        "command_id",
+        "customer_id",
+        "operator_id",
+        "kind",
+        "display_label"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member"
+      ],
+      "minimum_role": "member",
+      "backend_status": "candidate_local_tested_exact_platform_pending",
+      "supabase_tested": false,
+      "supabase_status": "PENDING_EXACT_SOURCE",
+      "ui_safe": false,
+      "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/sims/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      }
+    },
+    {
+      "name": "sim.assign",
+      "version": "sim.v1",
+      "kind": "write",
+      "rpc": "sim_v1_command",
+      "input_type": "SimInputsV1['sim.assign']",
+      "output_type": "SimReceiptV1",
+      "input_fields": [
+        "command_id",
+        "id",
+        "expected_version",
+        "line_id",
+        "expected_line_version"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member"
+      ],
+      "minimum_role": "member",
+      "backend_status": "candidate_local_tested_exact_platform_pending",
+      "supabase_tested": false,
+      "supabase_status": "PENDING_EXACT_SOURCE",
+      "ui_safe": false,
+      "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/sims/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      }
+    },
+    {
+      "name": "sim.activate",
+      "version": "sim.v1",
+      "kind": "write",
+      "rpc": "sim_v1_command",
+      "input_type": "SimInputsV1['sim.activate']",
+      "output_type": "SimReceiptV1",
+      "input_fields": [
+        "command_id",
+        "id",
+        "expected_version",
+        "expected_line_version",
+        "evidence_source",
+        "provider_confirmation"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member"
+      ],
+      "minimum_role": "member",
+      "backend_status": "candidate_local_tested_exact_platform_pending",
+      "supabase_tested": false,
+      "supabase_status": "PENDING_EXACT_SOURCE",
+      "ui_safe": false,
+      "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/sims/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      }
+    },
+    {
+      "name": "sim.replace",
+      "version": "sim.v1",
+      "kind": "write",
+      "rpc": "sim_v1_command",
+      "input_type": "SimInputsV1['sim.replace']",
+      "output_type": "SimReceiptV1",
+      "input_fields": [
+        "command_id",
+        "id",
+        "expected_version",
+        "replacement_sim_id",
+        "expected_replacement_version",
+        "expected_line_version",
+        "replacement_status",
+        "evidence_source",
+        "provider_confirmation"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member"
+      ],
+      "minimum_role": "member",
+      "backend_status": "candidate_local_tested_exact_platform_pending",
+      "supabase_tested": false,
+      "supabase_status": "PENDING_EXACT_SOURCE",
+      "ui_safe": false,
+      "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/sims/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      }
+    },
+    {
+      "name": "sim.deactivate",
+      "version": "sim.v1",
+      "kind": "write",
+      "rpc": "sim_v1_command",
+      "input_type": "SimInputsV1['sim.deactivate']",
+      "output_type": "SimReceiptV1",
+      "input_fields": [
+        "command_id",
+        "id",
+        "expected_version",
+        "expected_line_version",
+        "evidence_source"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member"
+      ],
+      "minimum_role": "member",
+      "backend_status": "candidate_local_tested_exact_platform_pending",
+      "supabase_tested": false,
+      "supabase_status": "PENDING_EXACT_SOURCE",
+      "ui_safe": false,
+      "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/sims/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      }
+    },
+    {
+      "name": "sim.cancel",
+      "version": "sim.v1",
+      "kind": "write",
+      "rpc": "sim_v1_command",
+      "input_type": "SimInputsV1['sim.cancel']",
+      "output_type": "SimReceiptV1",
+      "input_fields": [
+        "command_id",
+        "id",
+        "expected_version"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member"
+      ],
+      "minimum_role": "member",
+      "backend_status": "candidate_local_tested_exact_platform_pending",
+      "supabase_tested": false,
+      "supabase_status": "PENDING_EXACT_SOURCE",
+      "ui_safe": false,
+      "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/sims/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "workspace_actor"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_version"
+      }
+    },
+    {
+      "name": "sim.list",
+      "version": "sim.v1",
+      "kind": "read",
+      "rpc": "sim_v1_query",
+      "input_type": "SimInputsV1['sim.list']",
+      "output_type": "SimPageV1",
+      "input_fields": [
+        "limit",
+        "after_id",
+        "customer_id",
+        "operator_id",
+        "line_id",
+        "kind",
+        "status",
+        "source"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "backend_status": "candidate_local_tested_exact_platform_pending",
+      "supabase_tested": false,
+      "supabase_status": "PENDING_EXACT_SOURCE",
+      "ui_safe": false,
+      "assistant_future": "safe_read_candidate_not_registered",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/sims/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      }
+    },
+    {
+      "name": "sim.get",
+      "version": "sim.v1",
+      "kind": "read",
+      "rpc": "sim_v1_query",
+      "input_type": "SimInputsV1['sim.get']",
+      "output_type": "SimGetV1",
+      "input_fields": [
+        "id"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "backend_status": "candidate_local_tested_exact_platform_pending",
+      "supabase_tested": false,
+      "supabase_status": "PENDING_EXACT_SOURCE",
+      "ui_safe": false,
+      "assistant_future": "safe_read_candidate_not_registered",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/sims/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      }
+    },
+    {
+      "name": "sim.history",
+      "version": "sim.v1",
+      "kind": "read",
+      "rpc": "sim_v1_query",
+      "input_type": "SimInputsV1['sim.history']",
+      "output_type": "SimHistoryV1",
+      "input_fields": [
+        "line_id",
+        "limit",
+        "after_id"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "backend_status": "candidate_local_tested_exact_platform_pending",
+      "supabase_tested": false,
+      "supabase_status": "PENDING_EXACT_SOURCE",
+      "ui_safe": false,
+      "assistant_future": "safe_read_candidate_not_registered",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/sims/v1",
         "enable_flag": "PRODUCT_V1_ENABLED",
         "origin_flag": "PRODUCT_V1_ORIGIN",
         "enabled_by_default": false,

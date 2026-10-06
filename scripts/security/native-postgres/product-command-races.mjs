@@ -202,6 +202,35 @@ try {
  assert.equal(resolutions.filter(r=>r.code===0).length,1);assert.equal(resolutions.filter(r=>r.code!==0&&/40001/.test(r.err)).length,19)
  assert.deepEqual(JSON.parse(await sql(noteSQL)),noteReceipt)
  console.log('SERVICE CASE NATIVE RACES PASS:20 exact creates/20statusCAS one winner/20noteCAS one winner/20exact note receipts/20resolutionCAS one winner/private append-only history/revoked replay below')
+
+ const sims=(op,input)=>`begin;set local role authenticated;set local request.jwt.claim.sub='${actor}';select public.sim_v1_command('${workspace}','${op}','${JSON.stringify(input)}'::jsonb);commit;`
+ const simLine=JSON.parse(await sql(portfolio('line.create_manual',{command_id:randomUUID(),service_id:service,display_name:'Native Synthetic SIM Line'})))
+ const simInput={command_id:randomUUID(),customer_id:id,operator_id:operator,kind:'physical',display_label:'Native Synthetic Physical SIM'},simSQL=sims('sim.create',simInput)
+ const simCreates=await Promise.all(Array.from({length:20},()=>docker(args,simSQL)));assert.ok(simCreates.every(r=>r.code===0));const simReceipt=JSON.parse(simCreates[0].out.trim());for(const r of simCreates)assert.deepEqual(JSON.parse(r.out.trim()),simReceipt);familyReplays.push(simSQL)
+ await sql(ident('identifier.create_manual',{command_id:randomUUID(),entity_kind:'sim',entity_id:simReceipt.id,identifier_kind:'iccid',canonical_value:'8900000000000000290'}))
+ const simAssignments=await Promise.all(Array.from({length:20},()=>docker([...args,'--set=VERBOSITY=sqlstate'],sims('sim.assign',{command_id:randomUUID(),id:simReceipt.id,expected_version:1,line_id:simLine.id,expected_line_version:1}))))
+ assert.equal(simAssignments.filter(r=>r.code===0).length,1);assert.equal(simAssignments.filter(r=>r.code!==0&&/40001/.test(r.err)).length,19)
+ await sql(sims('sim.activate',{command_id:randomUUID(),id:simReceipt.id,expected_version:2,expected_line_version:1,evidence_source:'manual',provider_confirmation:'confirmed_active'}))
+ const replacementInputs=[],simCandidates=[]
+ for(let i=0;i<20;i++){
+  const candidate=JSON.parse(await sql(sims('sim.create',{...simInput,command_id:randomUUID(),kind:'esim',display_label:'Native Synthetic eSIM '+i})))
+  simCandidates.push(candidate)
+  replacementInputs.push({command_id:randomUUID(),id:simReceipt.id,expected_version:3,replacement_sim_id:candidate.id,expected_replacement_version:1,expected_line_version:1,replacement_status:'active',evidence_source:'manual',provider_confirmation:'confirmed_active'})
+ }
+ const simIdentifierInputs=simCandidates.map(candidate=>({command_id:randomUUID(),entity_kind:'sim',entity_id:candidate.id,identifier_kind:'iccid',canonical_value:'8900000000000000350'}))
+ const simIdentifierRaces=await Promise.all(simIdentifierInputs.map(i=>docker([...args,'--set=VERBOSITY=sqlstate'],ident('identifier.create_manual',i))))
+ assert.equal(simIdentifierRaces.filter(r=>r.code===0).length,1);assert.equal(simIdentifierRaces.filter(r=>r.code!==0&&/40001/.test(r.err)).length,19)
+ const simIdentifierWinner=simIdentifierRaces.findIndex(r=>r.code===0),simIdentifierReceipt=JSON.parse(simIdentifierRaces[simIdentifierWinner].out.trim())
+ await sql(ident('identifier.retire',{command_id:randomUUID(),id:simIdentifierReceipt.id,expected_version:1}))
+ for(const[i,candidate]of simCandidates.entries())await sql(ident('identifier.create_manual',{command_id:randomUUID(),entity_kind:'sim',entity_id:candidate.id,identifier_kind:'iccid',canonical_value:'89'+String(300+i).padStart(17,'0')}))
+ const simReplacements=await Promise.all(replacementInputs.map(i=>docker([...args,'--set=VERBOSITY=sqlstate'],sims('sim.replace',i))))
+ assert.equal(simReplacements.filter(r=>r.code===0).length,1);assert.equal(simReplacements.filter(r=>r.code!==0&&/40001/.test(r.err)).length,19)
+ const replacementWinner=simReplacements.findIndex(r=>r.code===0),replacementReceipt=JSON.parse(simReplacements[replacementWinner].out.trim()),replacementSQL=sims('sim.replace',replacementInputs[replacementWinner])
+ const replacementReplays=await Promise.all(Array.from({length:20},()=>docker(args,replacementSQL)));assert.ok(replacementReplays.every(r=>r.code===0));for(const r of replacementReplays)assert.deepEqual(JSON.parse(r.out.trim()),replacementReceipt);familyReplays.push(replacementSQL)
+ assert.equal(await sql(`select count(*)from public.telecom_sim_associations where line_id='${simLine.id}'`),'2');assert.equal(await sql(`select count(*)from public.telecom_sim_associations where line_id='${simLine.id}'and ended_at is null`),'1')
+ assert.equal(await sql(`select status from public.telecom_sims where id='${simReceipt.id}'`),'replaced');assert.equal(await sql(`select status from public.telecom_lines where id='${simLine.id}'`),'pending','no implicit network/line activation')
+ await sql(sims('sim.deactivate',{command_id:randomUUID(),id:replacementReceipt.replacement_id,expected_version:2,expected_line_version:1,evidence_source:'manual'}));assert.deepEqual(JSON.parse(await sql(replacementSQL)),replacementReceipt)
+ console.log('SIM ESIM NATIVE RACES PASS:20exact creates/20assignmentCAS one winner/20ICCID lifetime assignments one winner/20distinct prepared replacements one winner/20exact replacement receipts/closed old associations and identity retained/no implicit line activation/revoked replay below')
  // Independent parent closure vs child creation must never both commit.
  for(let i=0;i<5;i++){
   const parent=JSON.parse(await sql(portfolio('contract.create_manual',{command_id:randomUUID(),customer_id:id,operator_id:operator,start_date:'2026-01-01'})))

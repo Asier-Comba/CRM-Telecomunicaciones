@@ -181,3 +181,6 @@ TEL5 portability candidate: `portability.list/get` are bounded safe read candida
 
 
 Portability reads accepted48483ae8/2071real checks; no registration. `case.list/get` are new bounded safe summary read candidates; exact-source proof pending. `case.note_list` is human-only private note access and is not an AI read tool. Ninecase writes are `FUTURE_AI_ACTION_CANDIDATE`; no AI registration. Issue10 remains W3-owned.
+
+
+Case summary reads accepted a220ee17/2290real checks; private notes remain human-only and unregistered. SIM `sim.list/get/history` are new mask-only bounded read candidates, exact-source proof pending. SixSIMwrites are `FUTURE_AI_ACTION_CANDIDATE`; provider confirmation must be human recorded, no carrier action or AI registration. ICCID/EID requested-field reveal remains human-only.

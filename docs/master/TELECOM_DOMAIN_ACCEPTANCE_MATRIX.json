@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "source_sha": "48483ae8d583e13cf1dd144b0a09873f36efddfc",
-  "stage": "tel5_service_cases_candidate",
+  "source_sha": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
+  "stage": "tel5_sim_esim_candidate",
   "exact_head_accepted": true,
   "no_ai_writes": true,
   "rows": [
@@ -361,56 +361,56 @@
       "section": "SIM/eSIM",
       "requirement": "sim.create",
       "REQUIRED": true,
-      "IMPLEMENTED": false,
+      "IMPLEMENTED": true,
       "PROVEN": false,
       "W2_CONSUMED": false,
-      "BLOCKER": "not_implemented_as_requested",
+      "BLOCKER": "exact_sim_source_evidence_pending",
       "existing_operation": null,
-      "notes": "Table or a narrower legacy reader does not complete this TEL5 requirement."
+      "notes": "Customer-bound reserved physical/eSIM resource, protected identity, closed lifecycle and immutable line association history; candidate."
     },
     {
       "section": "SIM/eSIM",
       "requirement": "sim.assign",
       "REQUIRED": true,
-      "IMPLEMENTED": false,
+      "IMPLEMENTED": true,
       "PROVEN": false,
       "W2_CONSUMED": false,
-      "BLOCKER": "not_implemented_as_requested",
+      "BLOCKER": "exact_sim_source_evidence_pending",
       "existing_operation": null,
-      "notes": "Table or a narrower legacy reader does not complete this TEL5 requirement."
+      "notes": "Customer-bound reserved physical/eSIM resource, protected identity, closed lifecycle and immutable line association history; candidate."
     },
     {
       "section": "SIM/eSIM",
       "requirement": "sim.activate",
       "REQUIRED": true,
-      "IMPLEMENTED": false,
+      "IMPLEMENTED": true,
       "PROVEN": false,
       "W2_CONSUMED": false,
-      "BLOCKER": "not_implemented_as_requested",
+      "BLOCKER": "exact_sim_source_evidence_pending",
       "existing_operation": null,
-      "notes": "Table or a narrower legacy reader does not complete this TEL5 requirement."
+      "notes": "Customer-bound reserved physical/eSIM resource, protected identity, closed lifecycle and immutable line association history; candidate."
     },
     {
       "section": "SIM/eSIM",
       "requirement": "sim.replace",
       "REQUIRED": true,
-      "IMPLEMENTED": false,
+      "IMPLEMENTED": true,
       "PROVEN": false,
       "W2_CONSUMED": false,
-      "BLOCKER": "not_implemented_as_requested",
+      "BLOCKER": "exact_sim_source_evidence_pending",
       "existing_operation": null,
-      "notes": "Table or a narrower legacy reader does not complete this TEL5 requirement."
+      "notes": "Customer-bound reserved physical/eSIM resource, protected identity, closed lifecycle and immutable line association history; candidate."
     },
     {
       "section": "SIM/eSIM",
       "requirement": "sim.history",
       "REQUIRED": true,
-      "IMPLEMENTED": false,
+      "IMPLEMENTED": true,
       "PROVEN": false,
       "W2_CONSUMED": false,
-      "BLOCKER": "not_implemented_as_requested",
+      "BLOCKER": "exact_sim_source_evidence_pending",
       "existing_operation": null,
-      "notes": "Table or a narrower legacy reader does not complete this TEL5 requirement."
+      "notes": "Customer-bound reserved physical/eSIM resource, protected identity, closed lifecycle and immutable line association history; candidate."
     },
     {
       "section": "Portabilities",
@@ -560,110 +560,110 @@
       "requirement": "case.list",
       "REQUIRED": true,
       "IMPLEMENTED": true,
-      "PROVEN": false,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "exact_case_source_evidence_pending",
+      "BLOCKER": "W2_consumption_unproven",
       "existing_operation": null,
-      "notes": "Normal human case family/closed lifecycle/private append-only notes; candidate pending platform proof."
+      "notes": "Exacta220ee17accepted:2290real checks/276Node/59migrations/264functions/native20processCAS/replay/fresh/restore/official private boundary PASS."
     },
     {
       "section": "Cases",
       "requirement": "case.get",
       "REQUIRED": true,
       "IMPLEMENTED": true,
-      "PROVEN": false,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "exact_case_source_evidence_pending",
+      "BLOCKER": "W2_consumption_unproven",
       "existing_operation": null,
-      "notes": "Normal human case family/closed lifecycle/private append-only notes; candidate pending platform proof."
+      "notes": "Exacta220ee17accepted:2290real checks/276Node/59migrations/264functions/native20processCAS/replay/fresh/restore/official private boundary PASS."
     },
     {
       "section": "Cases",
       "requirement": "case.create",
       "REQUIRED": true,
       "IMPLEMENTED": true,
-      "PROVEN": false,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "exact_case_source_evidence_pending",
+      "BLOCKER": "W2_consumption_unproven",
       "existing_operation": null,
-      "notes": "Normal human case family/closed lifecycle/private append-only notes; candidate pending platform proof."
+      "notes": "Exacta220ee17accepted:2290real checks/276Node/59migrations/264functions/native20processCAS/replay/fresh/restore/official private boundary PASS."
     },
     {
       "section": "Cases",
       "requirement": "case.update",
       "REQUIRED": true,
       "IMPLEMENTED": true,
-      "PROVEN": false,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "exact_case_source_evidence_pending",
+      "BLOCKER": "W2_consumption_unproven",
       "existing_operation": null,
-      "notes": "Normal human case family/closed lifecycle/private append-only notes; candidate pending platform proof."
+      "notes": "Exacta220ee17accepted:2290real checks/276Node/59migrations/264functions/native20processCAS/replay/fresh/restore/official private boundary PASS."
     },
     {
       "section": "Cases",
       "requirement": "case.assign",
       "REQUIRED": true,
       "IMPLEMENTED": true,
-      "PROVEN": false,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "exact_case_source_evidence_pending",
+      "BLOCKER": "W2_consumption_unproven",
       "existing_operation": null,
-      "notes": "Normal human case family/closed lifecycle/private append-only notes; candidate pending platform proof."
+      "notes": "Exacta220ee17accepted:2290real checks/276Node/59migrations/264functions/native20processCAS/replay/fresh/restore/official private boundary PASS."
     },
     {
       "section": "Cases",
       "requirement": "case.change_status",
       "REQUIRED": true,
       "IMPLEMENTED": true,
-      "PROVEN": false,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "exact_case_source_evidence_pending",
+      "BLOCKER": "W2_consumption_unproven",
       "existing_operation": null,
-      "notes": "Normal human case family/closed lifecycle/private append-only notes; candidate pending platform proof."
+      "notes": "Exacta220ee17accepted:2290real checks/276Node/59migrations/264functions/native20processCAS/replay/fresh/restore/official private boundary PASS."
     },
     {
       "section": "Cases",
       "requirement": "case.resolve",
       "REQUIRED": true,
       "IMPLEMENTED": true,
-      "PROVEN": false,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "exact_case_source_evidence_pending",
+      "BLOCKER": "W2_consumption_unproven",
       "existing_operation": null,
-      "notes": "Normal human case family/closed lifecycle/private append-only notes; candidate pending platform proof."
+      "notes": "Exacta220ee17accepted:2290real checks/276Node/59migrations/264functions/native20processCAS/replay/fresh/restore/official private boundary PASS."
     },
     {
       "section": "Cases",
       "requirement": "case.reopen",
       "REQUIRED": true,
       "IMPLEMENTED": true,
-      "PROVEN": false,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "exact_case_source_evidence_pending",
+      "BLOCKER": "W2_consumption_unproven",
       "existing_operation": null,
-      "notes": "Normal human case family/closed lifecycle/private append-only notes; candidate pending platform proof."
+      "notes": "Exacta220ee17accepted:2290real checks/276Node/59migrations/264functions/native20processCAS/replay/fresh/restore/official private boundary PASS."
     },
     {
       "section": "Cases",
       "requirement": "case.close",
       "REQUIRED": true,
       "IMPLEMENTED": true,
-      "PROVEN": false,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "exact_case_source_evidence_pending",
+      "BLOCKER": "W2_consumption_unproven",
       "existing_operation": null,
-      "notes": "Normal human case family/closed lifecycle/private append-only notes; candidate pending platform proof."
+      "notes": "Exacta220ee17accepted:2290real checks/276Node/59migrations/264functions/native20processCAS/replay/fresh/restore/official private boundary PASS."
     },
     {
       "section": "Cases",
       "requirement": "case.cancel",
       "REQUIRED": true,
       "IMPLEMENTED": true,
-      "PROVEN": false,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "exact_case_source_evidence_pending",
+      "BLOCKER": "W2_consumption_unproven",
       "existing_operation": null,
-      "notes": "Normal human case family/closed lifecycle/private append-only notes; candidate pending platform proof."
+      "notes": "Exacta220ee17accepted:2290real checks/276Node/59migrations/264functions/native20processCAS/replay/fresh/restore/official private boundary PASS."
     },
     {
       "section": "Equipment",
@@ -1011,34 +1011,78 @@
       "requirement": "case.note_create",
       "REQUIRED": true,
       "IMPLEMENTED": true,
-      "PROVEN": false,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "exact_case_source_evidence_pending",
+      "BLOCKER": "W2_consumption_unproven",
       "existing_operation": null,
-      "notes": "Bounded human cookie operation with current membership/ancestry/CAS; private notes viewer denied."
+      "notes": "Exacta220ee17accepted:2290real checks/276Node/59migrations/264functions/native20processCAS/replay/fresh/restore/official private boundary PASS."
     },
     {
       "section": "Cases",
       "requirement": "case.note_list",
       "REQUIRED": true,
       "IMPLEMENTED": true,
+      "PROVEN": true,
+      "W2_CONSUMED": false,
+      "BLOCKER": "W2_consumption_unproven",
+      "existing_operation": null,
+      "notes": "Exacta220ee17accepted:2290real checks/276Node/59migrations/264functions/native20processCAS/replay/fresh/restore/official private boundary PASS."
+    },
+    {
+      "section": "SIM/eSIM",
+      "requirement": "sim.deactivate",
+      "REQUIRED": true,
+      "IMPLEMENTED": true,
       "PROVEN": false,
       "W2_CONSUMED": false,
-      "BLOCKER": "exact_case_source_evidence_pending",
+      "BLOCKER": "exact_sim_source_evidence_pending",
       "existing_operation": null,
-      "notes": "Bounded human cookie operation with current membership/ancestry/CAS; private notes viewer denied."
+      "notes": "Bounded cookie family; protected ICCID/EID; CAS/manual provider acknowledgement/history; platform proof pending."
+    },
+    {
+      "section": "SIM/eSIM",
+      "requirement": "sim.cancel",
+      "REQUIRED": true,
+      "IMPLEMENTED": true,
+      "PROVEN": false,
+      "W2_CONSUMED": false,
+      "BLOCKER": "exact_sim_source_evidence_pending",
+      "existing_operation": null,
+      "notes": "Bounded cookie family; protected ICCID/EID; CAS/manual provider acknowledgement/history; platform proof pending."
+    },
+    {
+      "section": "SIM/eSIM",
+      "requirement": "sim.list",
+      "REQUIRED": true,
+      "IMPLEMENTED": true,
+      "PROVEN": false,
+      "W2_CONSUMED": false,
+      "BLOCKER": "exact_sim_source_evidence_pending",
+      "existing_operation": null,
+      "notes": "Bounded cookie family; protected ICCID/EID; CAS/manual provider acknowledgement/history; platform proof pending."
+    },
+    {
+      "section": "SIM/eSIM",
+      "requirement": "sim.get",
+      "REQUIRED": true,
+      "IMPLEMENTED": true,
+      "PROVEN": false,
+      "W2_CONSUMED": false,
+      "BLOCKER": "exact_sim_source_evidence_pending",
+      "existing_operation": null,
+      "notes": "Bounded cookie family; protected ICCID/EID; CAS/manual provider acknowledgement/history; platform proof pending."
     }
   ],
   "counts": {
-    "REQUIRED": 93,
-    "IMPLEMENTED": 66,
-    "PROVEN": 54,
+    "REQUIRED": 97,
+    "IMPLEMENTED": 75,
+    "PROVEN": 66,
     "W2_CONSUMED": 0,
-    "BLOCKER": 93
+    "BLOCKER": 97
   },
   "official_workflow_fully_green": false,
-  "accepted_source_sha": "48483ae8d583e13cf1dd144b0a09873f36efddfc",
-  "candidate_operations_total": 12,
+  "accepted_source_sha": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
+  "candidate_operations_total": 9,
   "candidate_operations_proven": 0,
   "candidate_exact_head_accepted": false
 }

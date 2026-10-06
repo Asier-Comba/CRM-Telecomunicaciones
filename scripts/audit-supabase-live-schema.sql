@@ -91,6 +91,8 @@ target_relations(name) as (
     ('telecom_portabilities'),
     ('telecom_renewals'),
     ('telecom_services'),
+    ('telecom_sim_associations'),
+    ('telecom_sims'),
     ('vw_google_calendar_status'),
     ('vw_integrations_status'),
     ('whatsapp_connections'),

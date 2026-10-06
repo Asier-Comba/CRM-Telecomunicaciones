@@ -1,8 +1,8 @@
 # Telecom commercial domain acceptance matrix
 
-Accepted source `48483ae8d583e13cf1dd144b0a09873f36efddfc`:167operations individually observed,2071real checks,58migrations/260functions/270Node tests. Native fresh/restore/races and browser boundary PASS. Quality audit6HIGH remains blocked, unsuppressed. New12case operations await exact-source proof. W2_CONSUMED unproven.
+Accepted source `a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd`:179operations individually observed,2290real checks,59migrations/264functions/276Node tests. Native fresh/restore/races and actual private boundary PASS. Audit6HIGH remains blocked, unsuppressed. New9SIMoperations and protected SIM identifier extensions await exact-source proof. W2_CONSUMED unproven.
 
-Counts: REQUIRED=93, IMPLEMENTED=66, PROVEN=54, W2_CONSUMED=0, BLOCKER=93.
+Counts: REQUIRED=97, IMPLEMENTED=75, PROVEN=66, W2_CONSUMED=0, BLOCKER=97.
 
 | Section | Requirement | REQUIRED | IMPLEMENTED | PROVEN | W2_CONSUMED | BLOCKER |
 |---|---|---|---|---|---|---|
@@ -38,11 +38,11 @@ Counts: REQUIRED=93, IMPLEMENTED=66, PROVEN=54, W2_CONSUMED=0, BLOCKER=93.
 | Identifiers | identifier.retire | YES | YES | YES | NO | W2_consumption_unproven |
 | Identifiers | identifier.list | YES | YES | YES | NO | W2_consumption_unproven |
 | Identifiers | sensitive.get (telecom_identifier) | YES | YES | YES | NO | W2_consumption_unproven |
-| SIM/eSIM | sim.create | YES | NO | NO | NO | not_implemented_as_requested |
-| SIM/eSIM | sim.assign | YES | NO | NO | NO | not_implemented_as_requested |
-| SIM/eSIM | sim.activate | YES | NO | NO | NO | not_implemented_as_requested |
-| SIM/eSIM | sim.replace | YES | NO | NO | NO | not_implemented_as_requested |
-| SIM/eSIM | sim.history | YES | NO | NO | NO | not_implemented_as_requested |
+| SIM/eSIM | sim.create | YES | YES | NO | NO | exact_sim_source_evidence_pending |
+| SIM/eSIM | sim.assign | YES | YES | NO | NO | exact_sim_source_evidence_pending |
+| SIM/eSIM | sim.activate | YES | YES | NO | NO | exact_sim_source_evidence_pending |
+| SIM/eSIM | sim.replace | YES | YES | NO | NO | exact_sim_source_evidence_pending |
+| SIM/eSIM | sim.history | YES | YES | NO | NO | exact_sim_source_evidence_pending |
 | Portabilities | portability.list | YES | YES | YES | NO | W2_consumption_unproven |
 | Portabilities | portability.get | YES | YES | YES | NO | W2_consumption_unproven |
 | Portabilities | portability.create | YES | YES | YES | NO | W2_consumption_unproven |
@@ -56,16 +56,16 @@ Counts: REQUIRED=93, IMPLEMENTED=66, PROVEN=54, W2_CONSUMED=0, BLOCKER=93.
 | Renewals | renewal.get | YES | YES | YES | NO | W2_consumption_unproven |
 | Renewals | contract.record_renewal | YES | YES | YES | NO | W2_consumption_unproven |
 | Renewals | renewal.update | YES | YES | YES | NO | W2_consumption_unproven |
-| Cases | case.list | YES | YES | NO | NO | exact_case_source_evidence_pending |
-| Cases | case.get | YES | YES | NO | NO | exact_case_source_evidence_pending |
-| Cases | case.create | YES | YES | NO | NO | exact_case_source_evidence_pending |
-| Cases | case.update | YES | YES | NO | NO | exact_case_source_evidence_pending |
-| Cases | case.assign | YES | YES | NO | NO | exact_case_source_evidence_pending |
-| Cases | case.change_status | YES | YES | NO | NO | exact_case_source_evidence_pending |
-| Cases | case.resolve | YES | YES | NO | NO | exact_case_source_evidence_pending |
-| Cases | case.reopen | YES | YES | NO | NO | exact_case_source_evidence_pending |
-| Cases | case.close | YES | YES | NO | NO | exact_case_source_evidence_pending |
-| Cases | case.cancel | YES | YES | NO | NO | exact_case_source_evidence_pending |
+| Cases | case.list | YES | YES | YES | NO | W2_consumption_unproven |
+| Cases | case.get | YES | YES | YES | NO | W2_consumption_unproven |
+| Cases | case.create | YES | YES | YES | NO | W2_consumption_unproven |
+| Cases | case.update | YES | YES | YES | NO | W2_consumption_unproven |
+| Cases | case.assign | YES | YES | YES | NO | W2_consumption_unproven |
+| Cases | case.change_status | YES | YES | YES | NO | W2_consumption_unproven |
+| Cases | case.resolve | YES | YES | YES | NO | W2_consumption_unproven |
+| Cases | case.reopen | YES | YES | YES | NO | W2_consumption_unproven |
+| Cases | case.close | YES | YES | YES | NO | W2_consumption_unproven |
+| Cases | case.cancel | YES | YES | YES | NO | W2_consumption_unproven |
 | Equipment | bounded equipment need assessment | YES | NO | NO | NO | assessment_pending |
 | Collections | customer.list | YES | YES | YES | NO | W2_consumption_unproven |
 | Collections | contact.list | YES | YES | YES | NO | W2_consumption_unproven |
@@ -97,5 +97,9 @@ Counts: REQUIRED=93, IMPLEMENTED=66, PROVEN=54, W2_CONSUMED=0, BLOCKER=93.
 | Portabilities | portability.update_draft | YES | YES | YES | NO | W2_consumption_unproven |
 | Portabilities | portability.assign | YES | YES | YES | NO | W2_consumption_unproven |
 | Portabilities | portability.complete | YES | YES | YES | NO | W2_consumption_unproven |
-| Cases | case.note_create | YES | YES | NO | NO | exact_case_source_evidence_pending |
-| Cases | case.note_list | YES | YES | NO | NO | exact_case_source_evidence_pending |
+| Cases | case.note_create | YES | YES | YES | NO | W2_consumption_unproven |
+| Cases | case.note_list | YES | YES | YES | NO | W2_consumption_unproven |
+| SIM/eSIM | sim.deactivate | YES | YES | NO | NO | exact_sim_source_evidence_pending |
+| SIM/eSIM | sim.cancel | YES | YES | NO | NO | exact_sim_source_evidence_pending |
+| SIM/eSIM | sim.list | YES | YES | NO | NO | exact_sim_source_evidence_pending |
+| SIM/eSIM | sim.get | YES | YES | NO | NO | exact_sim_source_evidence_pending |

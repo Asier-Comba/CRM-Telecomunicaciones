@@ -1,6 +1,8 @@
 # Service case v1
 
-Candidate normal human product family: POST `/api/cases/v1`, same-origin authenticated cookies, no-store, `PRODUCT_V1_ENABLED` and `PRODUCT_V1_ORIGIN`. Current active membership and tenant resolve on the server for every operation, including exact replay. Raw cases and note tables remain closed. No AI write or provider integration.
+Accepted source `a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd`:2290real checks/179individually observed operations/native fresh+restore+20processraces/private boundary PASS. Evidence W1_TEL5_CASE_ACCEPTANCE.json. Qualityaudit6HIGH remainsblocked.
+
+Accepted normal human product family: POST `/api/cases/v1`, same-origin authenticated cookies, no-store, `PRODUCT_V1_ENABLED` and `PRODUCT_V1_ORIGIN`. Current active membership and tenant resolve on the server for every operation, including exact replay. Raw cases and note tables remain closed. No AI write or provider integration.
 
 | Operation | Commercial meaning |
 |---|---|
@@ -24,6 +26,6 @@ Customer/contract/service/line ancestry is validated and locked. Links remain im
 
 All writes use exact command_id HMAC idempotency; edits require expected_version. Parent case CAS serializes note append, transition and resolution races. Private notes have <=4000characters, no unsupported control characters, immutable actor/timestamp and sequence. Notes cannot be edited/deleted. Reading notes uses case_id and after_seq, limit1–100; body never joins generic summaries, global search, audit, activities, notifications or durable receipts. No external delivery. Bodies may contain private human content and this read remains human-only; it is not an AI capability.
 
-Fresh/restore SQL fixture individually exercises the family and private boundary. Six Node tests enforce inputs/DTO/privacy/current membership/same-origin transport. Native independent psql races exercise20create replays,20status CAS,20note CAS,20exact note replays and20resolution CAS, with one winner for distinct-key CAS. Real Supabase suite individually observes all12cookie operations, strict same-customer ancestry, viewer/private-note/direct-RPC denials, source preservation, bounded notes/pages and same valid JWT after suspension. These remain candidate checks until published exact-source acceptance passes.
+Fresh/restore SQL fixture individually exercises the family and private boundary. Six Node tests enforce inputs/DTO/privacy/current membership/same-origin transport. Native independent psql races exercise20create replays,20status CAS,20note CAS,20exact note replays and20resolution CAS, with one winner for distinct-key CAS. Real Supabase suite individually observes all12cookie operations, strict same-customer ancestry, viewer/private-note/direct-RPC denials, source preservation, bounded notes/pages and same valid JWT after suspension. All12operations were individually observed in the real cookie application transport on the accepted source.
 
 Limits: no enterprise SLA engine, provider synchronization, outbound messages or case customer/context relink. Cases are commercial incidents; dedicated portability is a separate bounded workflow. Notes are private human material. W2 consumption remains unproven until demonstrated by W2.

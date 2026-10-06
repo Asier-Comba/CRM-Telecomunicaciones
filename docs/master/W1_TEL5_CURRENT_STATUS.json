@@ -1,14 +1,14 @@
 {
-  "SOURCE_HEAD": "service_cases_candidate_after_48483ae8d583e13cf1dd144b0a09873f36efddfc",
-  "ACCEPTED_SOURCE": "48483ae8d583e13cf1dd144b0a09873f36efddfc",
+  "SOURCE_HEAD": "sim_candidate_after_a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
+  "ACCEPTED_SOURCE": "a220ee17c8eb59fe8e4ab33530c6f4205a5bdefd",
   "HISTORICAL_ACCEPTED_SOURCE": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
   "PR": 28,
-  "MIGRATIONS": 59,
-  "PRIVILEGE_FUNCTIONS": 264,
-  "NODE_TESTS": 276,
-  "SUPABASE_CHECKS": 2071,
-  "OPERATIONS_TOTAL": 179,
-  "OPERATIONS_PROVEN": 167,
+  "MIGRATIONS": 60,
+  "PRIVILEGE_FUNCTIONS": 269,
+  "NODE_TESTS": 283,
+  "SUPABASE_CHECKS": 2290,
+  "OPERATIONS_TOTAL": 188,
+  "OPERATIONS_PROVEN": 179,
   "CUSTOMER_COLLECTION": "PROVEN_BOUNDED_COOKIE_READS_E09DDF2",
   "ASSIGNEES": "PROVEN_BOUNDED_COOKIE_READS_E09DDF2",
   "OPERATORS": "PROVEN_NORMAL_READS_ADMIN_MANAGEMENT",
@@ -19,12 +19,12 @@
   "CONTRACTS": "COLLECTION_READS_PROVEN_E09DDF2; existing canonical writes preserved; richer telecom facts tracked separately",
   "SERVICES": "COLLECTION_READS_PROVEN_E09DDF2; existing canonical writes preserved; richer telecom facts tracked separately",
   "LINES": "COLLECTION_READS_PROVEN_E09DDF2; existing canonical writes preserved; richer telecom facts tracked separately",
-  "PROTECTED_IDENTIFIERS": "PROVEN_REAL_REQUESTED_REVEAL_MASKED_HISTORY_CAS_EVERY_OPERATION; SIM identifiers pending",
-  "SIM_ESIM": "MISSING",
+  "PROTECTED_IDENTIFIERS": "PROVEN_CORE_REQUESTED_REVEAL;SIM_ICCID_EID_EXTENSION_CANDIDATE",
+  "SIM_ESIM": "IMPLEMENTED_9OPERATION_CANDIDATE_CUSTOMER_BOUND_PHYSICAL_ESIM_FROZEN_HISTORY;EXACT_PLATFORM_PENDING",
   "PORTABILITY": "PROVEN_REAL_7OPERATIONS_MANUAL_TRUTH_MASKED_HISTORY_ATOMIC_LINE_CAS",
   "PERMANENCES": "COLLECTION_READS_PROVEN_E09DDF2; existing canonical writes preserved; richer telecom facts tracked separately",
   "RENEWALS": "COLLECTION_READS_PROVEN_E09DDF2; existing canonical writes preserved; richer telecom facts tracked separately",
-  "SERVICE_CASES": "IMPLEMENTED_12OPERATION_CANDIDATE_WITH_PRIVATE_APPEND_ONLY_NOTES;EXACT_PLATFORM_PENDING",
+  "SERVICE_CASES": "PROVEN_12OPERATIONS_CLOSED_LIFECYCLE_PRIVATE_APPEND_ONLY_NOTES",
   "EQUIPMENT": "ASSESSMENT_PENDING; device commitment exists without an equipment resource",
   "CUSTOMER360_READS": "PARTIAL: existing narrow masked telecom.v1 pages; complete requested pages/summary absent",
   "ATTENTION": "PARTIAL: existing dashboards; TEL5 deterministic telecom coverage incomplete",
@@ -33,13 +33,13 @@
   "IMPORTS": "DISPOSABLE_ENCRYPTED_STAGING_PROVED_ONLY; production provider/worker/canonical apply blocked; telecom mapping/protected import pending",
   "PROVENANCE": "EXISTING eight-kind verified new manual origin; no legacy certification; external identities extension pending",
   "TELECOM_MATRIX_COUNTS": {
-    "REQUIRED": 93,
-    "IMPLEMENTED": 66,
-    "PROVEN": 54,
+    "REQUIRED": 97,
+    "IMPLEMENTED": 75,
+    "PROVEN": 66,
     "W2_CONSUMED": 0,
-    "BLOCKER": 93
+    "BLOCKER": 97
   },
-  "W2_HANDOFFS": "identifiers6004184074/catalog6014580425/portability6014716226 accepted;W2 consumed unproven",
+  "W2_HANDOFFS": "identifiers6004184074/catalog6014580425/portability6014716226/cases6014955052 accepted;consumption unproven",
   "W3_READ_HANDOFF": "18collections+2masked identifiers+terms_get proven read candidates;2portability candidates;no registration",
   "ISSUE29": "OPEN known dependency chain; total audit now6HIGH includes separate newsource-map-js GHSA-68fv-2mgg-jv7q;unsuppressed",
   "OPEN_EXTERNAL_PROVIDER_GAPS": [
@@ -49,22 +49,22 @@
     "live telecom/provider/OAuth integrations not authorized tonight"
   ],
   "TOP_REMAINING": [
-    "Exact cases acceptance",
-    "SIM/eSIM history",
-    "Customer360/attention/report aggregates"
+    "Exact SIM/eSIM acceptance",
+    "Dense line/customer360/attention/report reads",
+    "Imports/provenance/fixed service facts/equipment assessment"
   ],
   "NEXT_3": [
-    "Publish coherent cases checkpoint",
+    "Publish coherent SIMcheckpoint",
     "Prove exact source",
-    "Implement SIM/eSIM resource/history"
+    "Dense Customer360/attention/report reads"
   ],
   "FEATURE_IMPLEMENTATION_STARTED": true,
   "MAIN_MERGED": false,
   "PRODUCTION_TOUCHED": false,
   "AI_WRITES_REGISTERED": false,
-  "NATIVE_FRESH_RESTORE": "PASS_JOB_112231388519_ON_48483AE8",
-  "BROWSER_PRIVATE_BOUNDARY": "PASS_JOB_112231388821_ON_48483AE8",
-  "FUNCTIONAL_ACCEPTANCE": "PASS_167OPERATIONS_ON_48483AE8;case candidate pending",
+  "NATIVE_FRESH_RESTORE": "PASS_JOB_112236782598_ON_A220EE17",
+  "BROWSER_PRIVATE_BOUNDARY": "PASS_JOB_112236779585_ON_A220EE17",
+  "FUNCTIONAL_ACCEPTANCE": "PASS_179OPERATIONS_ON_A220EE17;SIMcandidate pending",
   "OFFICIAL_CI_CLOSED": false,
   "NEW_READ_OPERATIONS": 18,
   "NEW_READ_OPERATIONS_PROVEN": 18,
@@ -75,5 +75,7 @@
   "NEW_PORTABILITY_OPERATIONS": 7,
   "NEW_PORTABILITY_OPERATIONS_PROVEN": 7,
   "NEW_CASE_OPERATIONS": 12,
-  "NEW_CASE_OPERATIONS_PROVEN": 0
+  "NEW_CASE_OPERATIONS_PROVEN": 12,
+  "NEW_SIM_OPERATIONS": 9,
+  "NEW_SIM_OPERATIONS_PROVEN": 0
 }
