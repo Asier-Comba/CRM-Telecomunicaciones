@@ -15,12 +15,12 @@ export async function showCustomerCollectionRow(page,id){
 export async function customerCollectionsBrowser({page,origin,sql,wa,users,check,screenshotDir}){
  // Disposable extra rows are inserted after existing aggregate proofs. They are not product fixtures.
  const prefix='W2 Final9 Cursor Account '
- sql(`insert into public.customers(workspace_id,account_kind,legal_name,status,lifecycle,source,assigned_user_id,created_by_user_id)select '${wa}','legal_entity','${prefix}'||i,case when i%3=0 then 'archived' when i%3=1 then 'active' else 'inactive' end,case when i%2=0 then 'lead' else 'customer' end,'manual','${users.memberA.id}','${users.memberA.id}' from generate_series(1,45)i;`)
  const visible=()=>page.locator('[data-customer-id]:visible')
  const response=()=>page.waitForResponse(r=>{try{return new URL(r.url()).pathname==='/api/product/v1/queries'&&r.request().postDataJSON().operation==='customer.list'}catch{return false}})
  async function sameRows(pending){const r=await pending;if(r.status()!==200)throw Error('CUSTOMER_COOKIE_READ_FAILED');const body=await r.json();if(!body.ok)throw Error('CUSTOMER_CLOSED_READ_FAILED');await expect(page.getByRole('button',{name:'Actualizar clientes',exact:true})).toBeEnabled();await expect.poll(()=>visible().evaluateAll(rows=>rows.map(r=>r.dataset.customerId))).toEqual(body.data.items.map(r=>r.id));return body.data}
  try{
   await check('customer_collection_real_cursor_filters_reload_member',async()=>{
+   sql(`insert into public.customers(workspace_id,account_kind,legal_name,status,archived_at,lifecycle,source,assigned_user_id,created_by_user_id)select '${wa}','legal_entity','${prefix}'||i,case when i%3=0 then 'archived' when i%3=1 then 'active' else 'inactive' end,case when i%3=0 then now() else null end,case when i%2=0 then 'lead' else 'customer' end,'manual','${users.memberA.id}','${users.memberA.id}' from generate_series(1,45)i;`)
    const operations=[];const observed=r=>{try{operations.push(r.postDataJSON()?.operation)}catch{}};page.on('request',observed)
    let pending=response();await page.goto(origin+'/clients');let first=await sameRows(pending);if(!first.next_id||first.items.length!==20)throw Error('CUSTOMER_FIRST_PAGE_NOT_BOUNDED')
    pending=response();await page.getByRole('button',{name:'Página siguiente',exact:true}).click();let second=await sameRows(pending);if(second.items.some(r=>first.items.some(a=>a.id===r.id)))throw Error('CUSTOMER_DUPLICATE_CURSOR_ROWS')
