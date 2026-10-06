@@ -1,6 +1,6 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { fork } from 'node:child_process'
+import { fork, spawnSync } from 'node:child_process'
 import { mkdtemp, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
@@ -30,4 +30,11 @@ test('worker protocol reaches the requested barrier and terminates by observed S
     if (child.exitCode === null && child.signalCode === null) child.kill('SIGKILL')
     await rm(directory, { recursive: true, force: true })
   }
+})
+
+test('portable native runner reaches driver prerequisite without obsolete dist build', () => {
+  const result = spawnSync(process.execPath, ['scripts/durable-process-acceptance.mjs'], { encoding: 'utf8' })
+  assert.equal(result.status, 2)
+  assert.match(result.stderr, /Required: absolute local W2 acceptance driver path/)
+  assert.doesNotMatch(result.stderr, /ERR_MODULE_NOT_FOUND/)
 })
