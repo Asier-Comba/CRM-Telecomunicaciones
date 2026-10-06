@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "source_sha": "service_commercial_candidate_after_8c93d4c58286b225209956237de27350aa0f2048",
-  "stage": "TEL5_DENSE_MASKED_LINE_CANDIDATE_AFTER_ACCEPTED_REPORTS",
+  "source_sha": "FINAL7_PROVIDER_REQUIREMENTS_AND_COMPATIBLE_DEPENDENCY_PATCH_CANDIDATE",
+  "stage": "FINAL7_INTERNAL_CLOSURE_IN_PROGRESS",
   "exact_head_accepted": true,
   "no_ai_writes": true,
   "rows": [
@@ -186,11 +186,11 @@
       "requirement": "service add-on assignment history",
       "REQUIRED": true,
       "IMPLEMENTED": true,
-      "PROVEN": false,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "exact_source_acceptance_pending;W2_consumption_unproven",
+      "BLOCKER": "W2_consumption_unproven",
       "existing_operation": "service.addon_assign / service.addon_end / service.addon_list",
-      "notes": "Frozen published component and quantity; CAS source policy/inclusive validity history/one-open constraint/derived timing; no provider effects or component surcharge inference. Exact proof pending."
+      "notes": "788d124:3064 real Supabase checks/208operations/314Node/native20independentwriters one winner19CAS/exact receipts/revocation PASS; immutable frozen component/quantity/validity history."
     },
     {
       "section": "Contracts",
@@ -265,9 +265,9 @@
       "IMPLEMENTED": true,
       "PROVEN": false,
       "W2_CONSUMED": false,
-      "BLOCKER": "exact_source_acceptance_pending;W2_consumption_unproven",
+      "BLOCKER": "INTERNAL_NORMALIZED_LOCATION_PENDING",
       "existing_operation": "service.installation_set / service.installation_get",
-      "notes": "Explicit safe site/contact/target planning, canonical actual service activation unchanged; access/speeds via frozen plan terms, circuit via protected identifiers. Precise postal site address not retained/inferred from billing. Exact proof pending."
+      "notes": "788d124 proves planning contact/site/target and actual activation separation; frozen plan access/speeds and protected circuit supported. Normalized service address/location remains pending."
     },
     {
       "section": "Lines",
@@ -1076,13 +1076,13 @@
   "counts": {
     "REQUIRED": 97,
     "IMPLEMENTED": 92,
-    "PROVEN": 90,
+    "PROVEN": 91,
     "W2_CONSUMED": 0,
     "BLOCKER": 97
   },
   "official_workflow_fully_green": false,
-  "accepted_source_sha": "8c93d4c58286b225209956237de27350aa0f2048",
+  "accepted_source_sha": "788d124f133678f6fd0c29619fa99aa99fe2409f",
   "candidate_operations_total": 208,
-  "candidate_operations_proven": 203,
+  "candidate_operations_proven": 208,
   "candidate_exact_head_accepted": false
 }

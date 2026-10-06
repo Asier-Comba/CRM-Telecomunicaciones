@@ -2,7 +2,7 @@
 
 Generated from JSON with scripts/domain/validate-telecom-matrix.mjs --write.
 
-Source: `service_commercial_candidate_after_8c93d4c58286b225209956237de27350aa0f2048`. Accepted functional source: `8c93d4c58286b225209956237de27350aa0f2048`. W2 consumption is independent of backend acceptance. Overall CI remains blocked by dependency audit.
+Source: `FINAL7_PROVIDER_REQUIREMENTS_AND_COMPATIBLE_DEPENDENCY_PATCH_CANDIDATE`. Accepted functional source: `788d124f133678f6fd0c29619fa99aa99fe2409f`. W2 consumption is independent of backend acceptance. Overall CI remains blocked by dependency audit.
 
 | Section | Requirement | REQUIRED | IMPLEMENTED | PROVEN | W2_CONSUMED | BLOCKER |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -22,14 +22,14 @@ Source: `service_commercial_candidate_after_8c93d4c58286b225209956237de27350aa0f
 | Plan versions | plan_version.create | YES | YES | YES | NO | W2_consumption_unproven |
 | Entitlements | typed immutable version entitlements | YES | YES | YES | NO | W2_consumption_unproven |
 | Bundles | immutable version components | YES | YES | YES | NO | W2_consumption_unproven |
-| Bundles | service add-on assignment history | YES | YES | NO | NO | exact_source_acceptance_pending;W2_consumption_unproven |
+| Bundles | service add-on assignment history | YES | YES | YES | NO | W2_consumption_unproven |
 | Contracts | contract.list | YES | YES | YES | NO | W2_consumption_unproven |
 | Contracts | contract.create_manual | YES | YES | YES | NO | W2_consumption_unproven |
 | Contracts | contract.update_allowed_metadata | YES | YES | YES | NO | W2_consumption_unproven |
 | Services | service.list | YES | YES | YES | NO | W2_consumption_unproven |
 | Services | service.create_manual | YES | YES | YES | NO | W2_consumption_unproven |
 | Services | service.update_label | YES | YES | YES | NO | W2_consumption_unproven |
-| Services | fixed service operational facts | YES | YES | NO | NO | exact_source_acceptance_pending;W2_consumption_unproven |
+| Services | fixed service operational facts | YES | YES | NO | NO | INTERNAL_NORMALIZED_LOCATION_PENDING |
 | Lines | line.list | YES | YES | YES | NO | W2_consumption_unproven |
 | Lines | line.create_manual | YES | YES | YES | NO | W2_consumption_unproven |
 | Lines | line.update_label | YES | YES | YES | NO | W2_consumption_unproven |
@@ -104,4 +104,4 @@ Source: `service_commercial_candidate_after_8c93d4c58286b225209956237de27350aa0f
 | SIM/eSIM | sim.list | YES | YES | YES | NO | W2_consumption_unproven |
 | SIM/eSIM | sim.get | YES | YES | YES | NO | W2_consumption_unproven |
 
-Counts: `{"REQUIRED":97,"IMPLEMENTED":92,"PROVEN":90,"W2_CONSUMED":0,"BLOCKER":97}`.
+Counts: `{"REQUIRED":97,"IMPLEMENTED":92,"PROVEN":91,"W2_CONSUMED":0,"BLOCKER":97}`.

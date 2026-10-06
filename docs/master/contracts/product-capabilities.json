@@ -1,21 +1,21 @@
 {
   "catalog_version": "product.capabilities.v1",
   "as_of": "2026-10-06",
-  "implementation_head": "8c93d4c58286b225209956237de27350aa0f2048",
+  "implementation_head": "788d124f133678f6fd0c29619fa99aa99fe2409f",
   "evidence": {
     "native": {
-      "run_id": 37468994627,
+      "run_id": 37497606418,
       "status": "PASS",
-      "migration_count": 66,
-      "function_count": 275,
-      "tested_head": "8c93d4c58286b225209956237de27350aa0f2048",
-      "tested_checkout": "c5b82c08b841c9a717086128a62b4ff4563921c8",
-      "tested_tree": "0638e120290da7c5310af6b342f2cf03576dbbba",
+      "migration_count": 67,
+      "function_count": 279,
+      "tested_head": "788d124f133678f6fd0c29619fa99aa99fe2409f",
+      "tested_checkout": "2472482d5e9ac2e8c6aa1fb9772cf0f2b8c23275",
+      "tested_tree": "d8881bebff531463647fc4fdfaeb6c901e8320fb",
       "fresh": "PASS",
       "logical_synthetic_restore": "PASS",
       "privileges_roles_acl_loss_negative_control": "PASS",
       "production_backup": false,
-      "job_id": 112287229632,
+      "job_id": 112386061463,
       "tree_comparison_method": "GitHub compare:zero changed files"
     },
     "actual_supabase": {
@@ -27,15 +27,15 @@
       "rpc": "PASS",
       "storage": "PASS",
       "cli": "2.119.0",
-      "sha": "c5b82c08b841c9a717086128a62b4ff4563921c8",
+      "sha": "2472482d5e9ac2e8c6aa1fb9772cf0f2b8c23275",
       "config_sha256": "3fc22bba97e5114a7ee67cc90e514b8ec16eda0cb2c5817cf87784e8e4ab6e57",
-      "migration_head": "20261006150000_full_customer360_work_collections.sql",
-      "migration_count": 66,
+      "migration_head": "20261006153000_service_installation_and_addon_history.sql",
+      "migration_count": 67,
       "service_images": [
-        "ghcr.io/supabase/postgrest:v16.4",
+        "ghcr.io/supabase/postgres:15.19.0.002",
         "public.ecr.aws/supabase/gotrue:v2.197.0",
         "public.ecr.aws/supabase/kong:2.8.1",
-        "public.ecr.aws/supabase/postgres:15.19.0.002",
+        "public.ecr.aws/supabase/postgrest:v16.4",
         "public.ecr.aws/supabase/storage-api:v1.79.28"
       ],
       "db": "15.19",
@@ -228,6 +228,12 @@
         "table.telecom_renewals.anon": 401,
         "table.telecom_renewals.A": 403,
         "table.telecom_renewals.B": 403,
+        "table.telecom_service_addon_assignments.anon": 401,
+        "table.telecom_service_addon_assignments.A": 403,
+        "table.telecom_service_addon_assignments.B": 403,
+        "table.telecom_service_installations.anon": 401,
+        "table.telecom_service_installations.A": 403,
+        "table.telecom_service_installations.B": 403,
         "table.telecom_services.anon": 401,
         "table.telecom_services.A": 403,
         "table.telecom_services.B": 403,
@@ -502,6 +508,17 @@
         "meeting.list"
       ],
       "customer360_work_pages": "PASS_UNDATED_TASKS_ALL_HISTORY_UUID_KEYSET_FILTERS_VIEWER_VALID_JWT_REVOCATION",
+      "service_commercial_operations_individually_observed": [
+        "service.installation_set",
+        "service.installation_get",
+        "service.addon_assign",
+        "service.addon_end",
+        "service.addon_list"
+      ],
+      "service_installations": "PASS_EXPLICIT_PLANNING_CONTACT_ANCESTRY_NO_PROVIDER_ACTIVATION",
+      "service_addon_history": "PASS_FROZEN_VERSION_COMPONENT_QUANTITY_VALIDITY_HISTORY_CAS_KEYSET",
+      "service_commercial_revocation": "PASS_ALL_OPERATIONS_VALID_JWT_NO_READ_REPLAY_MUTATION",
+      "service_component_pricing": "NOT_INFERRED_PARENT_VERSION_TERMS_ONLY",
       "billing_search": "PASS",
       "billing_pdf": "PASS",
       "billing_dashboard": "PASS",
@@ -590,29 +607,26 @@
       "document_content_verified_sha256": "NOT_IMPLEMENTED",
       "cross_tenant": "PASS",
       "revocation": "PASS",
-      "checks": 2928,
+      "checks": 3064,
       "manager": "NOT_CANONICAL",
       "signed_access": "NOT_IMPLEMENTED",
       "auth_email_production": "NOT_TESTED",
       "mfa_production": "NOT_TESTED",
       "scoped_service_principal": "NOT_IMPLEMENTED",
       "remote_staging": "NOT_TESTED",
-      "teardown": "PASS",
-      "run_id": 37468994597,
-      "job_id": 112287229903,
-      "tested_head": "8c93d4c58286b225209956237de27350aa0f2048"
+      "teardown": "PASS"
     },
     "quality": {
-      "tests": 307,
-      "node_tests": 307,
+      "tests": 314,
+      "node_tests": 314,
       "lint": "PASS",
       "types": "PASS",
       "build": "PASS",
-      "audit": "FAIL_UNSUPPRESSED_6_HIGH;known Issue29 chain plus distinct source-map-js GHSA-68fv-2mgg-jv7q",
+      "audit": "FAIL_UNSUPPRESSED_7_HIGH; Issue29 chain/source-map-js/new sharp",
       "overall_ci": "FAIL_AUDIT;OFFICIAL_BROWSER_PASS",
-      "tested_head": "8c93d4c58286b225209956237de27350aa0f2048",
-      "run_id": 37468994627,
-      "job_id": 112287229712,
+      "tested_head": "788d124f133678f6fd0c29619fa99aa99fe2409f",
+      "run_id": 37497606418,
+      "job_id": 112386061018,
       "critical_playwright": "SKIPPED",
       "dependency_review": "SKIPPED",
       "workflow_fully_green": false
@@ -9679,9 +9693,9 @@
         "member"
       ],
       "minimum_role": "member",
-      "backend_status": "implemented_candidate_exact_acceptance_pending",
-      "supabase_tested": false,
-      "supabase_status": "PENDING",
+      "backend_status": "implemented_real_disposable_proven",
+      "supabase_tested": true,
+      "supabase_status": "PASS",
       "ui_safe": false,
       "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
       "ai_registration": false,
@@ -9702,7 +9716,8 @@
         "required": true,
         "key": "expected_service_version plus bounded child version"
       },
-      "provider_effects": false
+      "provider_effects": false,
+      "supabase_tested_head": "788d124f133678f6fd0c29619fa99aa99fe2409f"
     },
     {
       "name": "service.installation_get",
@@ -9718,9 +9733,9 @@
         "viewer"
       ],
       "minimum_role": "viewer",
-      "backend_status": "implemented_candidate_exact_acceptance_pending",
-      "supabase_tested": false,
-      "supabase_status": "PENDING",
+      "backend_status": "implemented_real_disposable_proven",
+      "supabase_tested": true,
+      "supabase_status": "PASS",
       "ui_safe": false,
       "assistant_future": "safe_read_candidate_not_registered",
       "ai_registration": false,
@@ -9741,7 +9756,8 @@
         "required": false,
         "key": null
       },
-      "provider_effects": false
+      "provider_effects": false,
+      "supabase_tested_head": "788d124f133678f6fd0c29619fa99aa99fe2409f"
     },
     {
       "name": "service.addon_assign",
@@ -9756,9 +9772,9 @@
         "member"
       ],
       "minimum_role": "member",
-      "backend_status": "implemented_candidate_exact_acceptance_pending",
-      "supabase_tested": false,
-      "supabase_status": "PENDING",
+      "backend_status": "implemented_real_disposable_proven",
+      "supabase_tested": true,
+      "supabase_status": "PASS",
       "ui_safe": false,
       "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
       "ai_registration": false,
@@ -9779,7 +9795,8 @@
         "required": true,
         "key": "expected_service_version plus bounded child version"
       },
-      "provider_effects": false
+      "provider_effects": false,
+      "supabase_tested_head": "788d124f133678f6fd0c29619fa99aa99fe2409f"
     },
     {
       "name": "service.addon_end",
@@ -9794,9 +9811,9 @@
         "member"
       ],
       "minimum_role": "member",
-      "backend_status": "implemented_candidate_exact_acceptance_pending",
-      "supabase_tested": false,
-      "supabase_status": "PENDING",
+      "backend_status": "implemented_real_disposable_proven",
+      "supabase_tested": true,
+      "supabase_status": "PASS",
       "ui_safe": false,
       "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
       "ai_registration": false,
@@ -9817,7 +9834,8 @@
         "required": true,
         "key": "expected_service_version plus bounded child version"
       },
-      "provider_effects": false
+      "provider_effects": false,
+      "supabase_tested_head": "788d124f133678f6fd0c29619fa99aa99fe2409f"
     },
     {
       "name": "service.addon_list",
@@ -9833,9 +9851,9 @@
         "viewer"
       ],
       "minimum_role": "viewer",
-      "backend_status": "implemented_candidate_exact_acceptance_pending",
-      "supabase_tested": false,
-      "supabase_status": "PENDING",
+      "backend_status": "implemented_real_disposable_proven",
+      "supabase_tested": true,
+      "supabase_status": "PASS",
       "ui_safe": false,
       "assistant_future": "safe_read_candidate_not_registered",
       "ai_registration": false,
@@ -9856,7 +9874,8 @@
         "required": false,
         "key": null
       },
-      "provider_effects": false
+      "provider_effects": false,
+      "supabase_tested_head": "788d124f133678f6fd0c29619fa99aa99fe2409f"
     }
   ],
   "unavailable_modules": [
@@ -9866,7 +9885,13 @@
     "portfolio_legacy_origin_verification"
   ],
   "registration": "Human contracts only; no new AI tools/writes registered; exact accepted source4b5520f,9catalog candidates pending.",
-  "candidate_after_head": "8c93d4c58286b225209956237de27350aa0f2048",
+  "candidate_after_head": null,
   "operations_total": 208,
-  "operations_proven": 203
+  "operations_proven": 208,
+  "candidate_dependency_patches": {
+    "sharp": "0.35.5",
+    "source-map-js": "1.2.2",
+    "local_audit_high": 5,
+    "exact_head_proof": "PENDING"
+  }
 }
