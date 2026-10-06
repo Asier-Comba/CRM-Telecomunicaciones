@@ -8,7 +8,7 @@ Base: W2 `c632f0ad936b0d24e77fe77144666a23753a762f` (`w2/product-integration-v2`
 | registry/runtime/plan | Reuse isolated modules | Closed schemas, resource authorization, sensitive output scanning; no route registration or effect enablement. |
 | durable contracts, atomic reconciliation, operation status | Reuse isolated modules | Preserve exact states, bindings and immutable original audit intent. Memory implementations are conformance references only. |
 | durable process-v2 runner/spec | Reuse | Native independent-process acceptance remains required; copying the harness does not prove persistence. |
-| historical test/ and eval fixtures | Port to tests/assistant/ | Import suffix/path adaptation only; TypeScript transform execution preserves parameter properties. |
+| historical test/ and eval fixtures | Port to tests/assistant/ | Import suffix/path adaptation and explicit fixture type annotations only; TypeScript transform execution preserves parameter properties. |
 | old package/tsconfig/CI/product/schema | Reject | Obsolete base; current W2 application stays authoritative. |
 | old benchmark BigInt rewrite | Defer | Preserve existing W2 bounded safe-number behavior at this checkpoint. |
 | old telecom DTO customer.id-only condition | Reject | W2 valid customer references use customer_id; restoring old check would regress accepted transport. |

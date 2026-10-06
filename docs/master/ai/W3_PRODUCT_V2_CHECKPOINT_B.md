@@ -8,6 +8,6 @@ Implemented server-only OpenAI Responses factory with provider-neutral createTur
 
 Invoice intent flow uses exact decimal minor units/quantity thousandths/rate basis points and existing invoice.propose. Missing customer/tax/currency/series/date clarifies. Backend totals verified. No invoice number from model; review saved:false; issuing requires a separate confirmation. No draft persistence/write currently enabled.
 
-Current limitations: no application route/provider UI wiring yet; no new thread migration, physical durable adapter/dispatcher or native races. New local read adapters are candidate libraries, not an enabled production feature. No remote UI/live model/browser end-to-end claim. Stage/prod and effects disabled. External sends unavailable.
+Current limitations: no application route/provider UI wiring yet; no new thread migration, physical durable adapter/dispatcher or native races. New local read adapters are candidate libraries, not an enabled production feature. Semantic turn and UI v2 composer are implemented, with source-backed plain-text tables and immutable runtime evidence. No remote UI/live model/browser end-to-end claim. Stage/prod and effects disabled. External sends unavailable.
 
 Next checkpoint: wire typed planner and response blocks to gated current-cookie routes; implement thread persistence and durable DB adapter with forward-only migrations plus native races; W4 independent acceptance remains required.
