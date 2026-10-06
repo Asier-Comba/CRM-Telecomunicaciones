@@ -94,6 +94,7 @@ run_fixture supabase/tests/product-dashboard-search.sql
 } | psql_native > /dev/null
 run_fixture supabase/seeds/synthetic_portfolio.sql
 run_fixture supabase/tests/assistant-durable-foundation.sql
+run_fixture supabase/tests/assistant-conversations-v2.sql
 run_fixture supabase/seeds/synthetic_durable.sql
 
 # Pattern A: preserve ACLs with the same required logical roles in this disposable

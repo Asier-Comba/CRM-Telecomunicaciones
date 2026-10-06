@@ -12,6 +12,38 @@
     {
       "anon": false,
       "public": false,
+      "definer": false,
+      "signature": "public.assistant_conversation_guard_v2()",
+      "service_role": false,
+      "authenticated": false
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": false,
+      "signature": "public.assistant_message_guard_v2()",
+      "service_role": false,
+      "authenticated": false
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": false,
+      "signature": "public.assistant_thread_v2(uuid, text, jsonb)",
+      "service_role": false,
+      "authenticated": true
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": false,
+      "signature": "public.assistant_turn_guard_v2()",
+      "service_role": false,
+      "authenticated": false
+    },
+    {
+      "anon": false,
+      "public": false,
       "definer": true,
       "signature": "public.automation_v1_capture_customer()",
       "service_role": false,
