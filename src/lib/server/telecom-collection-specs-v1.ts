@@ -1,4 +1,4 @@
-/** Closed DTO/filter registry; protected identifiers project masks only. */
+/** Closed bounded domain collections. */
 export const TELECOM_COLLECTION_SPECS_V1 = {
   "customer.list": {
     "fields": {
@@ -778,5 +778,100 @@ export const TELECOM_COLLECTION_SPECS_V1 = {
       "id"
     ],
     "enums": {}
+  },
+  "task.list": {
+    "fields": {
+      "id": "uuid",
+      "version": "positive",
+      "customer_id": "uuid?",
+      "opportunity_id": "uuid?",
+      "title": "text",
+      "status": [
+        "pending",
+        "in_progress",
+        "completed",
+        "cancelled"
+      ],
+      "priority": [
+        "low",
+        "normal",
+        "high",
+        null
+      ],
+      "assigned_user_id": "uuid?",
+      "due_at": "instant?",
+      "due_on": "date?"
+    },
+    "filters": [
+      "limit",
+      "after_id",
+      "sort",
+      "customer_id",
+      "opportunity_id",
+      "assigned_user_id",
+      "status",
+      "priority",
+      "date_from",
+      "date_to"
+    ],
+    "enums": {
+      "status": [
+        "pending",
+        "in_progress",
+        "completed",
+        "cancelled"
+      ],
+      "priority": [
+        "low",
+        "normal",
+        "high"
+      ]
+    }
+  },
+  "meeting.list": {
+    "fields": {
+      "id": "uuid",
+      "version": "positive",
+      "customer_id": "uuid?",
+      "opportunity_id": "uuid?",
+      "title": "text",
+      "status": [
+        "scheduled",
+        "completed",
+        "cancelled",
+        "no_show"
+      ],
+      "assigned_user_id": "uuid?",
+      "starts_at": "instant",
+      "starts_on": "date",
+      "ends_at": "instant?",
+      "timezone": "text",
+      "all_day": "boolean",
+      "channel": [
+        "in_person",
+        "phone",
+        "video",
+        "other"
+      ]
+    },
+    "filters": [
+      "limit",
+      "after_id",
+      "sort",
+      "customer_id",
+      "opportunity_id",
+      "assigned_user_id",
+      "status",
+      "date_from",
+      "date_to"
+    ],
+    "enums": {
+      "status": [
+        "scheduled",
+        "completed",
+        "cancelled",
+        "no_show"
+      ]
+    }
   }
 } as const

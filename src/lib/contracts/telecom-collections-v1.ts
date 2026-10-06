@@ -1,3 +1,5 @@
+export interface TaskCollectionRowV1{id:string;version:number;customer_id:string|null;opportunity_id:string|null;title:string;status:'pending'|'in_progress'|'completed'|'cancelled';priority:'low'|'normal'|'high'|null;assigned_user_id:string|null;due_at:string|null;due_on:string|null}
+export interface MeetingCollectionRowV1{id:string;version:number;customer_id:string|null;opportunity_id:string|null;title:string;status:'scheduled'|'completed'|'cancelled'|'no_show';assigned_user_id:string|null;starts_at:string;starts_on:string;ends_at:string|null;timezone:string;all_day:boolean;channel:'in_person'|'phone'|'video'|'other'}
 /** Safe commercial reads; minor units are decimal strings to preserve bigint precision. */
 export interface CustomerRowV1 {
   id: string
@@ -163,6 +165,8 @@ export interface PermanenceRowV1 {
   timing_state: "cancelled" | "expired" | "upcoming" | "current"
 }
 export interface TelecomCollectionRowsV1 {
+  'task.list':TaskCollectionRowV1
+  'meeting.list':MeetingCollectionRowV1
   "customer.list": CustomerRowV1
   "contact.list": ContactRowV1
   "opportunity.list": OpportunityRowV1
@@ -184,6 +188,8 @@ export interface TelecomCollectionRowsV1 {
 }
 export type TelecomCollectionOperationV1 = keyof TelecomCollectionRowsV1
 export interface TelecomCollectionInputsV1 {
+  'task.list':Readonly<{limit?:number;after_id?:string;sort?:'id_asc';customer_id?:string;opportunity_id?:string;assigned_user_id?:string;status?:'pending'|'in_progress'|'completed'|'cancelled';priority?:'low'|'normal'|'high';date_from?:string;date_to?:string}>
+  'meeting.list':Readonly<{limit?:number;after_id?:string;sort?:'id_asc';customer_id?:string;opportunity_id?:string;assigned_user_id?:string;status?:'scheduled'|'completed'|'cancelled'|'no_show';date_from?:string;date_to?:string}>
   "customer.list": Readonly<{ limit?: number; after_id?: string; sort?: 'id_asc'; status?: "active" | "inactive" | "archived"; lifecycle?: "lead" | "prospect" | "customer" | "former_customer"; assigned_user_id?: string; source?: "manual" | "import" | "integration"; operator_id?: string }>
   "contact.list": Readonly<{ limit?: number; after_id?: string; sort?: 'id_asc'; customer_id?: string; status?: "active" | "inactive" | "archived" }>
   "opportunity.list": Readonly<{ limit?: number; after_id?: string; sort?: 'id_asc'; customer_id?: string; owner_user_id?: string; stage_id?: string; status?: "open" | "won" | "lost" | "cancelled"; currency?: string; expected_close_from?: string; expected_close_to?: string }>

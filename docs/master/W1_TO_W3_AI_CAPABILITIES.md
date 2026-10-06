@@ -198,3 +198,8 @@ TEL5 Customer360/report10 safe read candidates are now proven0c67c3a/2669checks/
 ## TEL5 attention acceptance and billing read candidates
 
 Attention acceptedc18123e/2757checks,199operations; still not registered. `billing.monthly_series`/`billing.top_customers` candidates require current owner/admin billing scope and explicit single currency; current issue-month cohorts only, no fiscal PII. Exact candidate acceptance pending. No AI registration or writes; Issue10 remains W3-owned.
+
+
+## TEL5 full Customer360 work page candidates
+
+`task.list`/`meeting.list` candidate safe reads at normal product query route: all four active roles, customer/related opportunity/assignee/state/date filters, UUID keysets<=100; undated tasks and completed history included. No private note/identifier payload. Exact acceptance pending. Billing readers accepted84dbdc0/2872checks but remain protected owner/admin read candidates only. No registration or AI writes.

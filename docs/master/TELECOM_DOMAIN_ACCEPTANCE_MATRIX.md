@@ -1,6 +1,6 @@
 # Telecom domain acceptance matrix
 
-Accepted functional source: `c18123e573c2f4a066dea2be0a75c5ee82770627` (2757 Supabase checks;199 operations). Billing analytics candidate pending exact proof. Six HIGH dependency findings prevent overall CI closure; W2 consumption never inferred.
+Accepted functional source: `84dbdc0a0a6dd06286655241aa2db502a08e7f07` (2872 checks;201 operations). Full task/meeting page candidate pending exact proof. Six HIGH dependency findings prevent overall CI closure; W2 consumption never inferred.
 
 | Section | Requirement | REQUIRED | IMPLEMENTED | PROVEN | W2_CONSUMED | BLOCKER |
 |---|---|---|---|---|---|---|
@@ -70,7 +70,7 @@ Accepted functional source: `c18123e573c2f4a066dea2be0a75c5ee82770627` (2757 Sup
 | Collections | opportunity.list | true | true | true | false | W2_consumption_unproven |
 | Collections | activity.list | true | true | true | false | W2_consumption_unproven |
 | Collections | assignee.list | true | true | true | false | W2_consumption_unproven |
-| Customer360 | bounded existing domain pages | true | false | false | false | not_implemented_as_requested |
+| Customer360 | bounded existing domain pages | true | true | false | false | exact_source_acceptance_pending;W2_consumption_unproven |
 | Customer360 | customer360.summary | true | true | true | false | W2_consumption_unproven |
 | Attention | deterministic telecom attention | true | true | true | false | W2_consumption_unproven |
 | Reports | operator portfolio | true | true | true | false | W2_consumption_unproven |
@@ -82,8 +82,8 @@ Accepted functional source: `c18123e573c2f4a066dea2be0a75c5ee82770627` (2757 Sup
 | Reports | case priority/status | true | true | true | false | W2_consumption_unproven |
 | Reports | pipeline stage | true | true | true | false | W2_consumption_unproven |
 | Reports | commercial owner counts | true | true | true | false | W2_consumption_unproven |
-| Reports | billing monthly currency series | true | true | false | false | exact_source_acceptance_pending;W2_consumption_unproven |
-| Reports | billing top customers by currency | true | true | false | false | exact_source_acceptance_pending;W2_consumption_unproven |
+| Reports | billing monthly currency series | true | true | true | false | W2_consumption_unproven |
+| Reports | billing top customers by currency | true | true | true | false | W2_consumption_unproven |
 | Imports | safe telecom mapping update | true | false | false | false | not_implemented_as_requested |
 | Imports | separate protected identifier import | true | false | false | false | not_implemented_as_requested |
 | Imports | production encrypted processing | true | false | false | false | external_encrypted_provider_scoped_worker_domain_apply |
@@ -102,4 +102,4 @@ Accepted functional source: `c18123e573c2f4a066dea2be0a75c5ee82770627` (2757 Sup
 | SIM/eSIM | sim.list | true | true | true | false | W2_consumption_unproven |
 | SIM/eSIM | sim.get | true | true | true | false | W2_consumption_unproven |
 
-Counts: `{"REQUIRED":97,"IMPLEMENTED":89,"PROVEN":87,"W2_CONSUMED":0,"BLOCKER":97}`.
+Counts: `{"REQUIRED":97,"IMPLEMENTED":90,"PROVEN":89,"W2_CONSUMED":0,"BLOCKER":97}`.

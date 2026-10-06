@@ -1,14 +1,14 @@
 {
-  "SOURCE_HEAD": "billing_analytics_candidate_after_c18123e573c2f4a066dea2be0a75c5ee82770627",
-  "ACCEPTED_SOURCE": "c18123e573c2f4a066dea2be0a75c5ee82770627",
+  "SOURCE_HEAD": "work_collections_candidate_after_84dbdc0a0a6dd06286655241aa2db502a08e7f07",
+  "ACCEPTED_SOURCE": "84dbdc0a0a6dd06286655241aa2db502a08e7f07",
   "HISTORICAL_ACCEPTED_SOURCE": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
   "PR": 28,
-  "MIGRATIONS": 65,
+  "MIGRATIONS": 66,
   "PRIVILEGE_FUNCTIONS": 275,
-  "NODE_TESTS": 304,
-  "SUPABASE_CHECKS": 2757,
-  "OPERATIONS_TOTAL": 201,
-  "OPERATIONS_PROVEN": 199,
+  "NODE_TESTS": 307,
+  "SUPABASE_CHECKS": 2872,
+  "OPERATIONS_TOTAL": 203,
+  "OPERATIONS_PROVEN": 201,
   "CUSTOMER_COLLECTION": "PROVEN_BOUNDED_COOKIE_READS_E09DDF2",
   "ASSIGNEES": "PROVEN_BOUNDED_COOKIE_READS_E09DDF2",
   "OPERATORS": "PROVEN_NORMAL_READS_ADMIN_MANAGEMENT",
@@ -26,20 +26,20 @@
   "RENEWALS": "COLLECTION_READS_PROVEN_E09DDF2; existing canonical writes preserved; richer telecom facts tracked separately",
   "SERVICE_CASES": "PROVEN_12OPERATIONS_CLOSED_LIFECYCLE_PRIVATE_APPEND_ONLY_NOTES",
   "EQUIPMENT": "ASSESSMENT_PENDING; device commitment exists without an equipment resource",
-  "CUSTOMER360_READS": "PROVEN_EXACT_MINIMAL_ROLE_GATED_SUMMARY;bounded domain pages retained",
+  "CUSTOMER360_READS": "PROVEN_SUMMARY_AND_CORE_PAGES;FULL_TASK_MEETING_UNDATED_HISTORY_CANDIDATE",
   "ATTENTION": "PROVEN_7_DETERMINISTIC_FAMILIES_9_FIELD_DTO_TUPLE_CURSOR_VALID_JWT_REVOCATION",
   "REPORTS": "PROVEN_9_CLOSED_COUNT_DISTRIBUTIONS;no monetary mixing",
-  "BILLING_ANALYTICS": "IMPLEMENTED_CURRENCY_SEPARATED_ISSUE_MONTH_CURRENT_STATUS_COHORTS_AND_TOP;EXACT_ACCEPTANCE_PENDING;NO_HISTORIC_BALANCE_RECONSTRUCTION",
+  "BILLING_ANALYTICS": "PROVEN_CURRENCY_SEPARATED_CURRENT_STATUS_ISSUE_MONTH_COHORTS_AND_TOP;NO_HISTORIC_BALANCE_LEDGER_RECONSTRUCTION",
   "IMPORTS": "DISPOSABLE_ENCRYPTED_STAGING_PROVED_ONLY; production provider/worker/canonical apply blocked; telecom mapping/protected import pending",
   "PROVENANCE": "EXISTING eight-kind verified new manual origin; no legacy certification; external identities extension pending",
   "TELECOM_MATRIX_COUNTS": {
     "REQUIRED": 97,
-    "IMPLEMENTED": 89,
-    "PROVEN": 87,
+    "IMPLEMENTED": 90,
+    "PROVEN": 89,
     "W2_CONSUMED": 0,
     "BLOCKER": 97
   },
-  "W2_HANDOFFS": "identifiers6004184074/catalog6014580425/portability6014716226/cases6014955052 accepted;consumption unproven;SIM accepted6015517378;reports accepted6016349751;dense6016574482 accepted;attention6016862156 accepted",
+  "W2_HANDOFFS": "identifiers6004184074/catalog6014580425/portability6014716226/cases6014955052 accepted;consumption unproven;SIM accepted6015517378;reports accepted6016349751;dense6016574482 accepted;attention6016862156 accepted;billing6016997063 accepted",
   "W3_READ_HANDOFF": "18collections+2masked identifiers+terms_get proven read candidates;2portability candidates;no registration",
   "ISSUE29": "OPEN known dependency chain; total audit now6HIGH includes separate newsource-map-js GHSA-68fv-2mgg-jv7q;unsuppressed",
   "OPEN_EXTERNAL_PROVIDER_GAPS": [
@@ -49,22 +49,22 @@
     "live telecom/provider/OAuth integrations not authorized tonight"
   ],
   "TOP_REMAINING": [
-    "Exact billing analytics acceptance",
-    "Full Customer360 task/meeting collections",
-    "Imports/provenance/fixed-service/add-ons/equipment"
+    "Exact full work page acceptance",
+    "Fixed-service operational facts and add-on assignment history",
+    "Imports/provenance/equipment and unified scenarios"
   ],
   "NEXT_3": [
-    "Publish billing analytic candidate",
+    "Publish full task/meeting pages",
     "Exact native/Supabase proof",
-    "Full task and meeting collections"
+    "Bounded service extensions"
   ],
   "FEATURE_IMPLEMENTATION_STARTED": true,
   "MAIN_MERGED": false,
   "PRODUCTION_TOUCHED": false,
   "AI_WRITES_REGISTERED": false,
-  "NATIVE_FRESH_RESTORE": "PASS_112280516596_ON_C18123E",
-  "BROWSER_PRIVATE_BOUNDARY": "PASS_112280513815_ON_C18123E",
-  "FUNCTIONAL_ACCEPTANCE": "PASS_199_OPERATIONS_ON_C18123E;BILLING_ANALYTICS_CANDIDATE_PENDING",
+  "NATIVE_FRESH_RESTORE": "PASS_112283894560_ON_84DBDC0",
+  "BROWSER_PRIVATE_BOUNDARY": "PASS_112283894501_ON_84DBDC0",
+  "FUNCTIONAL_ACCEPTANCE": "PASS_201_OPERATIONS_ON_84DBDC0;FULL_WORK_COLLECTION_CANDIDATE_PENDING",
   "OFFICIAL_CI_CLOSED": false,
   "NEW_READ_OPERATIONS": 18,
   "NEW_READ_OPERATIONS_PROVEN": 18,
@@ -84,5 +84,7 @@
   "NEW_ATTENTION_OPERATIONS": 1,
   "NEW_ATTENTION_OPERATIONS_PROVEN": 1,
   "NEW_BILLING_ANALYTICS_OPERATIONS": 2,
-  "NEW_BILLING_ANALYTICS_OPERATIONS_PROVEN": 0
+  "NEW_BILLING_ANALYTICS_OPERATIONS_PROVEN": 2,
+  "NEW_FULL_WORK_COLLECTION_OPERATIONS": 2,
+  "NEW_FULL_WORK_COLLECTION_OPERATIONS_PROVEN": 0
 }

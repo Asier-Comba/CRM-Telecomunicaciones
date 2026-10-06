@@ -92,6 +92,9 @@ try {
   await db.exec(richSeed.replace(/commit;\s*$/i, '') + billingDensity + await readFile(resolve(root,'supabase/tests/currency-separated-billing-cohorts.sql'),'utf8'))
   console.log('TEL5 BILLING ANALYTICS EXACT CURRENCY COHORTS/TOP BOUNDS/ROLE/REVOCATION PASS')
 
+  await db.exec(richSeed.replace(/commit;\s*$/i, '') + await readFile(resolve(root,'supabase/tests/full-customer360-work-collections.sql'),'utf8'))
+  console.log('TEL5 CUSTOMER360 FULL TASK MEETING COLLECTIONS/UNDATED/HISTORY/KEYSET/VIEWER/REVOCATION PASS')
+
   await db.exec(await readFile(resolve(root,'supabase/tests/billing-exact-issue.sql'),'utf8'))
   await db.exec(await readFile(resolve(root,'supabase/tests/billing-private-pdf-artifacts.sql'),'utf8'))
   console.log('BILLING PRIVATE ARTIFACT CAS/REPLAY/IMMUTABILITY/ROLLBACK PASS')

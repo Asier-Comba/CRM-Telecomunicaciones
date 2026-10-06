@@ -82,7 +82,7 @@ export function parseTelecomCollectionResultV1(op: TelecomCollectionOperationV1,
       const id = (op === 'assignee.list' ? r.user_id : r.id) as string
       if (one ? id !== i.id : id <= previous) return null
       previous = id
-      for (const k of ['customer_id', 'contract_id', 'service_id', 'operator_id', 'assigned_user_id', 'owner_user_id', 'stage_id', 'status', 'source', 'currency', 'service_kind', 'role']) {
+      for (const k of ['customer_id', 'contract_id', 'service_id', 'operator_id', 'assigned_user_id', 'owner_user_id', 'stage_id', 'opportunity_id', 'priority', 'status', 'source', 'currency', 'service_kind', 'role']) {
         // Catalog kind filters include sealed base components; the DTO keeps the primary kind.
         if (k === 'service_kind' && ['plan.list', 'plan_version.list'].includes(op)) continue
         if (k in i && k in r && i[k] !== r[k]) return null
@@ -91,13 +91,26 @@ export function parseTelecomCollectionResultV1(op: TelecomCollectionOperationV1,
       if (op === 'activity.list' && i.kind !== undefined && r.activity_kind !== i.kind) return null
       if (op === 'service.list' && i.kind !== undefined && r.service_kind !== i.kind) return null
       if (op === 'plan_version.list' && i.status !== undefined && r.plan_status !== i.status) return null
+      if (op === 'task.list' || op === 'meeting.list') {
+        const at=op==='task.list'?r.due_at:r.starts_at,on=op==='task.list'?r.due_on:r.starts_on
+        if ((at===null)!==(on===null))return null
+        if (at!==null) {
+          const parts=Object.fromEntries(new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Madrid',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date(at as string)).map(p=>[p.type,p.value]))
+          if ([parts.year,parts.month,parts.day].join('-')!==on)return null
+        }
+        if (r.opportunity_id!==null&&r.customer_id===null)return null
+        if (op==='meeting.list') {
+          if (r.ends_at!==null&&Date.parse(r.ends_at as string)<=Date.parse(r.starts_at as string))return null
+          try{new Intl.DateTimeFormat('en',{timeZone:r.timezone as string})}catch{return null}
+        }
+      }
       if (op === 'line.list') {
         if ((r.sim_id === null) !== (r.sim_kind === null) || (r.sim_id === null) !== (r.sim_status === null) || (r.sim_id === null) !== (r.masked_iccid === null)) return null
         if ((r.sim_kind === null || r.sim_kind === 'physical') && r.masked_eid !== null) return null
         if ((r.portability_id === null) !== (r.portability_status === null)) return null
       }
       if (op === 'plan_version.list' && i.valid_on !== undefined && ((r.valid_from as string) > (i.valid_on as string) || r.valid_until !== null && (r.valid_until as string) < (i.valid_on as string))) return null
-      const range = op === 'opportunity.list' ? ['expected_close', r.expected_close_date] : op === 'renewal.list' ? ['window', r.target_on] : op === 'permanence.list' ? ['window', r.ends_on] : null
+      const range = op === 'task.list' ? ['date', r.due_on] : op === 'meeting.list' ? ['date', r.starts_on] : op === 'opportunity.list' ? ['expected_close', r.expected_close_date] : op === 'renewal.list' ? ['window', r.target_on] : op === 'permanence.list' ? ['window', r.ends_on] : null
       if (range && i[range[0] as string + '_from'] !== undefined) {
         const from = i[range[0] as string + '_from'] as string, to = i[range[0] as string + '_to'] as string
         if (typeof range[1] !== 'string' || range[1] < from || range[1] > to) return null

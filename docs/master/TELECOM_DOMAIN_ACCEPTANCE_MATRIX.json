@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "source_sha": "billing_analytics_candidate_after_c18123e573c2f4a066dea2be0a75c5ee82770627",
+  "source_sha": "work_collections_candidate_after_84dbdc0a0a6dd06286655241aa2db502a08e7f07",
   "stage": "TEL5_DENSE_MASKED_LINE_CANDIDATE_AFTER_ACCEPTED_REPORTS",
   "exact_head_accepted": true,
   "no_ai_writes": true,
@@ -735,12 +735,12 @@
       "section": "Customer360",
       "requirement": "bounded existing domain pages",
       "REQUIRED": true,
-      "IMPLEMENTED": false,
+      "IMPLEMENTED": true,
       "PROVEN": false,
       "W2_CONSUMED": false,
-      "BLOCKER": "not_implemented_as_requested",
-      "existing_operation": null,
-      "notes": "Existing narrower telecom.v1 customer-bound reads; full TEL5 catalog and collections absent."
+      "BLOCKER": "exact_source_acceptance_pending;W2_consumption_unproven",
+      "existing_operation": "task.list / meeting.list and existing bounded domain reads",
+      "notes": "Full work UUID pages include undated tasks/completed meetings beyond calendar. Document pages remain individual ancestry target pages and owner/admin-only; billing same restricted roles. No unbounded megaresponse."
     },
     {
       "section": "Customer360",
@@ -868,22 +868,22 @@
       "requirement": "billing monthly currency series",
       "REQUIRED": true,
       "IMPLEMENTED": true,
-      "PROVEN": false,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "exact_source_acceptance_pending;W2_consumption_unproven",
+      "BLOCKER": "W2_consumption_unproven",
       "existing_operation": "billing.monthly_series",
-      "notes": "Required currency, current-state issue-month cohorts, exact decimal minor-unit strings; not past month-end balances or payment ledger. Owner/admin-only exact acceptance pending."
+      "notes": "Accepted84dbdc0/2872checks,201operations. Current-status issue-month cohorts, exact EUR/USD isolated sums and GBP zero, owner/admin scope, valid-JWT revocation; native fresh/restore/PGlite/browser PASS. No payment-ledger or past-balance reconstruction."
     },
     {
       "section": "Reports",
       "requirement": "billing top customers by currency",
       "REQUIRED": true,
       "IMPLEMENTED": true,
-      "PROVEN": false,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "exact_source_acceptance_pending;W2_consumption_unproven",
+      "BLOCKER": "W2_consumption_unproven",
       "existing_operation": "billing.top_customers",
-      "notes": "Required currency, current-state issue-month cohorts, exact decimal minor-unit strings; not past month-end balances or payment ledger. Owner/admin-only exact acceptance pending."
+      "notes": "Accepted84dbdc0/2872checks,201operations. Current-status issue-month cohorts, exact EUR/USD isolated sums and GBP zero, owner/admin scope, valid-JWT revocation; native fresh/restore/PGlite/browser PASS. No payment-ledger or past-balance reconstruction."
     },
     {
       "section": "Imports",
@@ -1075,14 +1075,14 @@
   ],
   "counts": {
     "REQUIRED": 97,
-    "IMPLEMENTED": 89,
-    "PROVEN": 87,
+    "IMPLEMENTED": 90,
+    "PROVEN": 89,
     "W2_CONSUMED": 0,
     "BLOCKER": 97
   },
   "official_workflow_fully_green": false,
-  "accepted_source_sha": "c18123e573c2f4a066dea2be0a75c5ee82770627",
-  "candidate_operations_total": 201,
-  "candidate_operations_proven": 199,
+  "accepted_source_sha": "84dbdc0a0a6dd06286655241aa2db502a08e7f07",
+  "candidate_operations_total": 203,
+  "candidate_operations_proven": 201,
   "candidate_exact_head_accepted": false
 }
