@@ -1,4 +1,4 @@
-import { productCapabilityV2 } from './product-capabilities-v2.ts'
+import { productCapabilityV2, PRODUCT_CAPABILITIES_V2 } from './product-capabilities-v2.ts'
 import { snapshotProductJsonV1 } from '../lib/server/product-query-runtime-v1.ts'
 import { parseTelecomCollectionInputV1, isTelecomCollectionOperationV1 } from '../lib/server/telecom-collection-runtime-v1.ts'
 import { parseTelecomReadInputV1, isTelecomReadOperationV1 } from '../lib/server/telecom-reads-runtime-v1.ts'
@@ -45,6 +45,6 @@ const closed = (properties: Record<string, unknown>) => ({ type: 'object', prope
 /** Provider strict schema uses argument pairs, avoiding unbounded dictionaries.
  * Runtime parser still validates capability-specific filters, dates and DAG. */
 export const PRODUCT_READ_PLAN_JSON_SCHEMA_V2 = closed({ version: { type: 'integer', enum: [2] }, decision: { type: 'string', enum: ['plan', 'clarify', 'abstain'] },
-  nodes: { type: 'array', maxItems: 8, items: closed({ id: text(40), capability: text(100),
-    arguments: { type: 'array', maxItems: 16, items: closed({ field: text(40), value: { anyOf: [text(64), { type: 'integer' }, { type: 'null' }] } }) },
+  nodes: { type: 'array', maxItems: 8, items: closed({ id: text(40), capability: { ...text(100), enum: PRODUCT_CAPABILITIES_V2.map(c => c.name) },
+    arguments: { type: 'array', maxItems: 16, items: closed({ field: text(40), value: { anyOf: [text(64), { type: 'integer' }] } }) },
     bindings: { type: 'array', maxItems: 4, items: closed({ field: text(40), handle: { anyOf: [text(160), { type: 'null' }] }, nodeId: { anyOf: [text(40), { type: 'null' }] } }) } }) } })

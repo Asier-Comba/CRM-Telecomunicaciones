@@ -4,7 +4,6 @@ import type {
   AccessClass,
   AuditEvent,
   AuditSink,
-  CapabilityDefinition,
   CapabilityRequest,
   CapabilityResult,
   ConfirmationBinding,
