@@ -1,14 +1,14 @@
 {
-  "SOURCE_HEAD": "portability_candidate_after_461245637b2078a1151969d4f3c6662ad626a239",
-  "ACCEPTED_SOURCE": "461245637b2078a1151969d4f3c6662ad626a239",
+  "SOURCE_HEAD": "service_cases_candidate_after_48483ae8d583e13cf1dd144b0a09873f36efddfc",
+  "ACCEPTED_SOURCE": "48483ae8d583e13cf1dd144b0a09873f36efddfc",
   "HISTORICAL_ACCEPTED_SOURCE": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
   "PR": 28,
-  "MIGRATIONS": 58,
-  "PRIVILEGE_FUNCTIONS": 260,
-  "NODE_TESTS": 270,
-  "SUPABASE_CHECKS": 1838,
-  "OPERATIONS_TOTAL": 167,
-  "OPERATIONS_PROVEN": 160,
+  "MIGRATIONS": 59,
+  "PRIVILEGE_FUNCTIONS": 264,
+  "NODE_TESTS": 276,
+  "SUPABASE_CHECKS": 2071,
+  "OPERATIONS_TOTAL": 179,
+  "OPERATIONS_PROVEN": 167,
   "CUSTOMER_COLLECTION": "PROVEN_BOUNDED_COOKIE_READS_E09DDF2",
   "ASSIGNEES": "PROVEN_BOUNDED_COOKIE_READS_E09DDF2",
   "OPERATORS": "PROVEN_NORMAL_READS_ADMIN_MANAGEMENT",
@@ -21,10 +21,10 @@
   "LINES": "COLLECTION_READS_PROVEN_E09DDF2; existing canonical writes preserved; richer telecom facts tracked separately",
   "PROTECTED_IDENTIFIERS": "PROVEN_REAL_REQUESTED_REVEAL_MASKED_HISTORY_CAS_EVERY_OPERATION; SIM identifiers pending",
   "SIM_ESIM": "MISSING",
-  "PORTABILITY": "IMPLEMENTED_CANDIDATE:7normal human operations; exact platform proof pending",
+  "PORTABILITY": "PROVEN_REAL_7OPERATIONS_MANUAL_TRUTH_MASKED_HISTORY_ATOMIC_LINE_CAS",
   "PERMANENCES": "COLLECTION_READS_PROVEN_E09DDF2; existing canonical writes preserved; richer telecom facts tracked separately",
   "RENEWALS": "COLLECTION_READS_PROVEN_E09DDF2; existing canonical writes preserved; richer telecom facts tracked separately",
-  "SERVICE_CASES": "SCHEMA_ONLY: no normal case.v1 family",
+  "SERVICE_CASES": "IMPLEMENTED_12OPERATION_CANDIDATE_WITH_PRIVATE_APPEND_ONLY_NOTES;EXACT_PLATFORM_PENDING",
   "EQUIPMENT": "ASSESSMENT_PENDING; device commitment exists without an equipment resource",
   "CUSTOMER360_READS": "PARTIAL: existing narrow masked telecom.v1 pages; complete requested pages/summary absent",
   "ATTENTION": "PARTIAL: existing dashboards; TEL5 deterministic telecom coverage incomplete",
@@ -33,13 +33,13 @@
   "IMPORTS": "DISPOSABLE_ENCRYPTED_STAGING_PROVED_ONLY; production provider/worker/canonical apply blocked; telecom mapping/protected import pending",
   "PROVENANCE": "EXISTING eight-kind verified new manual origin; no legacy certification; external identities extension pending",
   "TELECOM_MATRIX_COUNTS": {
-    "REQUIRED": 91,
-    "IMPLEMENTED": 54,
-    "PROVEN": 46,
+    "REQUIRED": 93,
+    "IMPLEMENTED": 66,
+    "PROVEN": 54,
     "W2_CONSUMED": 0,
-    "BLOCKER": 91
+    "BLOCKER": 93
   },
-  "W2_HANDOFFS": "PR30 identifiers6004184074;catalog6014580425;W2 consumed unproven",
+  "W2_HANDOFFS": "identifiers6004184074/catalog6014580425/portability6014716226 accepted;W2 consumed unproven",
   "W3_READ_HANDOFF": "18collections+2masked identifiers+terms_get proven read candidates;2portability candidates;no registration",
   "ISSUE29": "OPEN known dependency chain; total audit now6HIGH includes separate newsource-map-js GHSA-68fv-2mgg-jv7q;unsuppressed",
   "OPEN_EXTERNAL_PROVIDER_GAPS": [
@@ -49,22 +49,22 @@
     "live telecom/provider/OAuth integrations not authorized tonight"
   ],
   "TOP_REMAINING": [
-    "Exact portability acceptance",
-    "Service cases and SIM/eSIM",
+    "Exact cases acceptance",
+    "SIM/eSIM history",
     "Customer360/attention/report aggregates"
   ],
   "NEXT_3": [
-    "Publish coherent portability checkpoint",
+    "Publish coherent cases checkpoint",
     "Prove exact source",
-    "Implement normal service cases family"
+    "Implement SIM/eSIM resource/history"
   ],
   "FEATURE_IMPLEMENTATION_STARTED": true,
   "MAIN_MERGED": false,
   "PRODUCTION_TOUCHED": false,
   "AI_WRITES_REGISTERED": false,
-  "NATIVE_FRESH_RESTORE": "PASS_JOB_112227767595_ON_4612456",
-  "BROWSER_PRIVATE_BOUNDARY": "PASS_JOB_112227767759_ON_4612456",
-  "FUNCTIONAL_ACCEPTANCE": "PASS_160OPERATIONS_ON_4612456;portability candidate pending",
+  "NATIVE_FRESH_RESTORE": "PASS_JOB_112231388519_ON_48483AE8",
+  "BROWSER_PRIVATE_BOUNDARY": "PASS_JOB_112231388821_ON_48483AE8",
+  "FUNCTIONAL_ACCEPTANCE": "PASS_167OPERATIONS_ON_48483AE8;case candidate pending",
   "OFFICIAL_CI_CLOSED": false,
   "NEW_READ_OPERATIONS": 18,
   "NEW_READ_OPERATIONS_PROVEN": 18,
@@ -73,5 +73,7 @@
   "NEW_CATALOG_OPERATIONS": 9,
   "NEW_CATALOG_OPERATIONS_PROVEN": 9,
   "NEW_PORTABILITY_OPERATIONS": 7,
-  "NEW_PORTABILITY_OPERATIONS_PROVEN": 0
+  "NEW_PORTABILITY_OPERATIONS_PROVEN": 7,
+  "NEW_CASE_OPERATIONS": 12,
+  "NEW_CASE_OPERATIONS_PROVEN": 0
 }

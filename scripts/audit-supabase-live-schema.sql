@@ -73,6 +73,7 @@ target_relations(name) as (
   ('product_opportunity_links'),
     ('profiles'),
     ('properties'),
+    ('service_case_internal_notes'),
     ('service_cases'),
     ('tasks'),
     ('team_invite_intents'),

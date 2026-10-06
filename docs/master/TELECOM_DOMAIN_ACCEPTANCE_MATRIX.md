@@ -1,8 +1,8 @@
 # Telecom commercial domain acceptance matrix
 
-Accepted source `461245637b2078a1151969d4f3c6662ad626a239`:160operations individually observed,1838real checks,57migrations/256functions/264Node tests. Native fresh/restore and actual browser boundary PASS. Audit6HIGH remains blocked; e7b33c3 failed bundle filter acceptance and was repaired by4612456. New7portability operations await exact-source evidence. W2 consumption unproven.
+Accepted source `48483ae8d583e13cf1dd144b0a09873f36efddfc`:167operations individually observed,2071real checks,58migrations/260functions/270Node tests. Native fresh/restore/races and browser boundary PASS. Quality audit6HIGH remains blocked, unsuppressed. New12case operations await exact-source proof. W2_CONSUMED unproven.
 
-Counts: REQUIRED=91, IMPLEMENTED=54, PROVEN=46, W2_CONSUMED=0, BLOCKER=91.
+Counts: REQUIRED=93, IMPLEMENTED=66, PROVEN=54, W2_CONSUMED=0, BLOCKER=93.
 
 | Section | Requirement | REQUIRED | IMPLEMENTED | PROVEN | W2_CONSUMED | BLOCKER |
 |---|---|---|---|---|---|---|
@@ -43,11 +43,11 @@ Counts: REQUIRED=91, IMPLEMENTED=54, PROVEN=46, W2_CONSUMED=0, BLOCKER=91.
 | SIM/eSIM | sim.activate | YES | NO | NO | NO | not_implemented_as_requested |
 | SIM/eSIM | sim.replace | YES | NO | NO | NO | not_implemented_as_requested |
 | SIM/eSIM | sim.history | YES | NO | NO | NO | not_implemented_as_requested |
-| Portabilities | portability.list | YES | YES | NO | NO | exact_portability_source_evidence_pending |
-| Portabilities | portability.get | YES | YES | NO | NO | exact_portability_source_evidence_pending |
-| Portabilities | portability.create | YES | YES | NO | NO | exact_portability_source_evidence_pending |
-| Portabilities | portability.transition | YES | YES | NO | NO | exact_portability_source_evidence_pending |
-| Portabilities | explicit completion line action | YES | YES | NO | NO | exact_portability_source_evidence_pending |
+| Portabilities | portability.list | YES | YES | YES | NO | W2_consumption_unproven |
+| Portabilities | portability.get | YES | YES | YES | NO | W2_consumption_unproven |
+| Portabilities | portability.create | YES | YES | YES | NO | W2_consumption_unproven |
+| Portabilities | portability.transition | YES | YES | YES | NO | W2_consumption_unproven |
+| Portabilities | explicit completion line action | YES | YES | YES | NO | W2_consumption_unproven |
 | Permanences | permanence.list | YES | YES | YES | NO | W2_consumption_unproven |
 | Permanences | permanence.get | YES | YES | YES | NO | W2_consumption_unproven |
 | Permanences | permanence.create_manual | YES | YES | YES | NO | W2_consumption_unproven |
@@ -56,16 +56,16 @@ Counts: REQUIRED=91, IMPLEMENTED=54, PROVEN=46, W2_CONSUMED=0, BLOCKER=91.
 | Renewals | renewal.get | YES | YES | YES | NO | W2_consumption_unproven |
 | Renewals | contract.record_renewal | YES | YES | YES | NO | W2_consumption_unproven |
 | Renewals | renewal.update | YES | YES | YES | NO | W2_consumption_unproven |
-| Cases | case.list | YES | NO | NO | NO | not_implemented_as_requested |
-| Cases | case.get | YES | NO | NO | NO | not_implemented_as_requested |
-| Cases | case.create | YES | NO | NO | NO | not_implemented_as_requested |
-| Cases | case.update | YES | NO | NO | NO | not_implemented_as_requested |
-| Cases | case.assign | YES | NO | NO | NO | not_implemented_as_requested |
-| Cases | case.change_status | YES | NO | NO | NO | not_implemented_as_requested |
-| Cases | case.resolve | YES | NO | NO | NO | not_implemented_as_requested |
-| Cases | case.reopen | YES | NO | NO | NO | not_implemented_as_requested |
-| Cases | case.close | YES | NO | NO | NO | not_implemented_as_requested |
-| Cases | case.cancel | YES | NO | NO | NO | not_implemented_as_requested |
+| Cases | case.list | YES | YES | NO | NO | exact_case_source_evidence_pending |
+| Cases | case.get | YES | YES | NO | NO | exact_case_source_evidence_pending |
+| Cases | case.create | YES | YES | NO | NO | exact_case_source_evidence_pending |
+| Cases | case.update | YES | YES | NO | NO | exact_case_source_evidence_pending |
+| Cases | case.assign | YES | YES | NO | NO | exact_case_source_evidence_pending |
+| Cases | case.change_status | YES | YES | NO | NO | exact_case_source_evidence_pending |
+| Cases | case.resolve | YES | YES | NO | NO | exact_case_source_evidence_pending |
+| Cases | case.reopen | YES | YES | NO | NO | exact_case_source_evidence_pending |
+| Cases | case.close | YES | YES | NO | NO | exact_case_source_evidence_pending |
+| Cases | case.cancel | YES | YES | NO | NO | exact_case_source_evidence_pending |
 | Equipment | bounded equipment need assessment | YES | NO | NO | NO | assessment_pending |
 | Collections | customer.list | YES | YES | YES | NO | W2_consumption_unproven |
 | Collections | contact.list | YES | YES | YES | NO | W2_consumption_unproven |
@@ -94,6 +94,8 @@ Counts: REQUIRED=91, IMPLEMENTED=54, PROVEN=46, W2_CONSUMED=0, BLOCKER=91.
 | Provenance | provider-neutral external identities | YES | NO | NO | NO | not_implemented_as_requested |
 | Identifiers | identifier.get | YES | YES | YES | NO | W2_consumption_unproven |
 | Plan versions | plan_version.terms_get | YES | YES | YES | NO | W2_consumption_unproven |
-| Portabilities | portability.update_draft | YES | YES | NO | NO | exact_portability_source_evidence_pending |
-| Portabilities | portability.assign | YES | YES | NO | NO | exact_portability_source_evidence_pending |
-| Portabilities | portability.complete | YES | YES | NO | NO | exact_portability_source_evidence_pending |
+| Portabilities | portability.update_draft | YES | YES | YES | NO | W2_consumption_unproven |
+| Portabilities | portability.assign | YES | YES | YES | NO | W2_consumption_unproven |
+| Portabilities | portability.complete | YES | YES | YES | NO | W2_consumption_unproven |
+| Cases | case.note_create | YES | YES | NO | NO | exact_case_source_evidence_pending |
+| Cases | case.note_list | YES | YES | NO | NO | exact_case_source_evidence_pending |

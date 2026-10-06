@@ -15,7 +15,7 @@ export async function commercialPortabilityAcceptance({rpc,sql,check,http,users,
  const service=await call('portfolio_v1_service_create_manual',{command_id:randomUUID(),contract_id:contract.id,service_kind:'mobile',display_name:'Synthetic Port Service'})
  await call('portfolio_v1_service_transition',{command_id:randomUUID(),id:service.id,expected_version:1,status:'active',effective_on:'2026-01-01'})
  const line=await call('portfolio_v1_line_create_manual',{command_id:randomUUID(),service_id:service.id,display_name:'Synthetic Port Mobile'})
- const identifier=await rpc('identifier_v1_command',{p_workspace_id:wa,p_operation:'identifier.create_manual',p_input:{command_id:randomUUID(),entity_kind:'line',entity_id:line.id,identifier_kind:'msisdn',canonical_value:'+12025550811'}},users.memberA.token);check(identifier.status===200,'port_normal_protected_identifier')
+ const identifier=await rpc('identifier_v1_command',{p_workspace_id:wa,p_operation:'identifier.create_manual',p_input:{command_id:randomUUID(),entity_kind:'line',entity_id:line.id,identifier_kind:'msisdn',canonical_value:'+12025550181'}},users.memberA.token);check(identifier.status===200,'port_normal_protected_identifier')
  const create={command_id:randomUUID(),line_id:line.id,number_identifier_id:identifier.json.id,direction:'inbound',donor_operator_id:donor.json.id,target_operator_id:operator.json.id,requested_on:'2026-02-01',owner_user_id:null}
  let p=await command('portability.create',create)
  check((await post('portability.create',{...create,command_id:randomUUID()})).status===409,'port_unique_open_line')
@@ -32,7 +32,7 @@ export async function commercialPortabilityAcceptance({rpc,sql,check,http,users,
  check((await post('portability.complete',stale)).status===409,'port_line_conflict_rolls_back_completion')
  let read=await post('portability.get',{id:p.id});check(read.status===200&&read.json.data.record.status==='in_progress','port_rollback_no_completion');observed.add('portability.get')
  p=await command('portability.complete',{...stale,expected_line_version:1});check(p.line_effect.status==='active'&&p.line_effect.version===2,'port_explicit_line_activation')
- read=await post('portability.get',{id:p.id},'viewerA');check(read.status===200&&read.json.data.record.masked_display==='••••811'&&!JSON.stringify(read.json).includes('+12025550811'),'port_viewer_mask_only')
+ read=await post('portability.get',{id:p.id},'viewerA');check(read.status===200&&read.json.data.record.masked_display==='••••181'&&!JSON.stringify(read.json).includes('+12025550181'),'port_viewer_mask_only')
  check((await post('portability.get',{id:p.id},'ownerB')).status===404,'port_get_foreign_hidden')
  const outbound={...create,command_id:randomUUID(),direction:'outbound',donor_operator_id:operator.json.id,target_operator_id:donor.json.id,requested_on:'2026-03-01'}
  let out=await command('portability.create',outbound)
@@ -48,8 +48,8 @@ export async function commercialPortabilityAcceptance({rpc,sql,check,http,users,
  check(ids.length===4&&new Set(ids).size===4,'port_history_keyset_no_duplicates')
  for(const[op,input,response]of replays)check(JSON.stringify((await post(op,input)).json)===JSON.stringify(response),'port_exact_old_receipt_after_lifecycle')
  check((await http('/rest/v1/telecom_portabilities?select=*',users.memberA.token)).status>=400,'port_raw_table_closed')
- check((await post('portability.list',{msisdn:'+12025550811'})).status===400,'port_no_raw_number_search')
- check(sql(`select count(*)from public.product_audit_events where operation like 'portability.%'and row_to_json(product_audit_events)::text like '%12025550811%';`).trim()==='0','port_value_free_audit')
+ check((await post('portability.list',{msisdn:'+12025550181'})).status===400,'port_no_raw_number_search')
+ check(sql(`select count(*)from public.product_audit_events where operation like 'portability.%'and row_to_json(product_audit_events)::text like '%12025550181%';`).trim()==='0','port_value_free_audit')
  sql(`update public.workspace_members set status='suspended'where workspace_id='${wa}'and user_id='${users.memberA.id}';`)
  check((await http('/auth/v1/user',users.memberA.token)).status===200,'port_revoked_jwt_still_valid')
  for(const[op,input]of replays)check((await post(op,input)).status===403,'port_revoked_replay_'+op)

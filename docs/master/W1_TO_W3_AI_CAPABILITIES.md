@@ -178,3 +178,6 @@ TEL5 protected identifier reads `identifier.list/get` now individually proven on
 
 
 TEL5 portability candidate: `portability.list/get` are bounded safe read candidates with masked number only, tenant/current membership enforced. Exact source proof pending. No AI registration. Five new writes are `FUTURE_AI_ACTION_CANDIDATE`; manual provider confirmation cannot be fabricated by an assistant. Raw requested-field identifier reveal remains human only; Issue10 W3-owned.
+
+
+Portability reads accepted48483ae8/2071real checks; no registration. `case.list/get` are new bounded safe summary read candidates; exact-source proof pending. `case.note_list` is human-only private note access and is not an AI read tool. Ninecase writes are `FUTURE_AI_ACTION_CANDIDATE`; no AI registration. Issue10 remains W3-owned.

@@ -171,7 +171,7 @@ try {
 
  const port=(op,input)=>`begin;set local role authenticated;set local request.jwt.claim.sub='${actor}';select public.portability_v1_command('${workspace}','${op}','${JSON.stringify(input)}'::jsonb);commit;`
  const portLine=JSON.parse(await sql(portfolio('line.create_manual',{command_id:randomUUID(),service_id:service,display_name:'Native Synthetic Port Line'})))
- const portNumber=JSON.parse(await sql(ident('identifier.create_manual',{command_id:randomUUID(),entity_kind:'line',entity_id:portLine.id,identifier_kind:'msisdn',canonical_value:'+12025550812'})))
+ const portNumber=JSON.parse(await sql(ident('identifier.create_manual',{command_id:randomUUID(),entity_kind:'line',entity_id:portLine.id,identifier_kind:'msisdn',canonical_value:'+12025550182'})))
  const donor=JSON.parse(await sql(catalog('operator.create',{command_id:randomUUID(),code:'native_port_donor',display_name:'Native Synthetic Donor'})))
  const portInput={command_id:randomUUID(),line_id:portLine.id,number_identifier_id:portNumber.id,direction:'inbound',donor_operator_id:donor.id,target_operator_id:operator,requested_on:'2026-02-01',owner_user_id:null}
  const openRaces=await Promise.all(Array.from({length:20},()=>docker([...args,'--set=VERBOSITY=sqlstate'],port('portability.create',{...portInput,command_id:randomUUID()}))))
@@ -187,6 +187,21 @@ try {
  const createReplays=await Promise.all(Array.from({length:20},()=>docker(args,createSQL)));assert.ok(createReplays.every(r=>r.code===0));const createReceipt=JSON.parse(createReplays[0].out.trim());for(const r of createReplays)assert.deepEqual(JSON.parse(r.out.trim()),createReceipt);familyReplays.push(createSQL)
  assert.equal(await sql(`select count(*)from public.telecom_portabilities where line_id='${portLine.id}'`),'2')
  console.log('COMMERCIAL PORTABILITY NATIVE RACES PASS:20 open assignments one winner/20 transitions CAS one winner/20 completion replays/20 create replays/history preserved/no implicit line action/revoked replay below')
+
+ const cases=(op,input)=>`begin;set local role authenticated;set local request.jwt.claim.sub='${actor}';select public.case_v1_command('${workspace}','${op}','${JSON.stringify(input)}'::jsonb);commit;`
+ const caseInput={command_id:randomUUID(),customer_id:id,contract_id:contract,service_id:service,line_id:null,case_type:'technical',title:'Native Synthetic Case',priority:'urgent',due_on:'2000-01-01',assigned_user_id:null},caseSQL=cases('case.create',caseInput)
+ const caseCreates=await Promise.all(Array.from({length:20},()=>docker(args,caseSQL)));assert.ok(caseCreates.every(r=>r.code===0));const caseReceipt=JSON.parse(caseCreates[0].out.trim());for(const r of caseCreates)assert.deepEqual(JSON.parse(r.out.trim()),caseReceipt);familyReplays.push(caseSQL)
+ const caseTransitions=await Promise.all(Array.from({length:20},()=>docker([...args,'--set=VERBOSITY=sqlstate'],cases('case.change_status',{command_id:randomUUID(),id:caseReceipt.id,expected_version:1,status:'in_progress'}))))
+ assert.equal(caseTransitions.filter(r=>r.code===0).length,1);assert.equal(caseTransitions.filter(r=>r.code!==0&&/40001/.test(r.err)).length,19)
+ const caseNotes=await Promise.all(Array.from({length:20},()=>docker([...args,'--set=VERBOSITY=sqlstate'],cases('case.note_create',{command_id:randomUUID(),id:caseReceipt.id,expected_version:2,body:'Native synthetic private CAS note'}))))
+ assert.equal(caseNotes.filter(r=>r.code===0).length,1);assert.equal(caseNotes.filter(r=>r.code!==0&&/40001/.test(r.err)).length,19)
+ const noteSQL=cases('case.note_create',{command_id:randomUUID(),id:caseReceipt.id,expected_version:3,body:'Native synthetic private replay note'})
+ const noteReplays=await Promise.all(Array.from({length:20},()=>docker(args,noteSQL)));assert.ok(noteReplays.every(r=>r.code===0));const noteReceipt=JSON.parse(noteReplays[0].out.trim());for(const r of noteReplays)assert.deepEqual(JSON.parse(r.out.trim()),noteReceipt);familyReplays.push(noteSQL)
+ assert.equal(await sql(`select count(*)from public.service_case_internal_notes where case_id='${caseReceipt.id}'`),'2')
+ const resolutions=await Promise.all(Array.from({length:20},()=>docker([...args,'--set=VERBOSITY=sqlstate'],cases('case.resolve',{command_id:randomUUID(),id:caseReceipt.id,expected_version:4,resolution_code:'issue_fixed'}))))
+ assert.equal(resolutions.filter(r=>r.code===0).length,1);assert.equal(resolutions.filter(r=>r.code!==0&&/40001/.test(r.err)).length,19)
+ assert.deepEqual(JSON.parse(await sql(noteSQL)),noteReceipt)
+ console.log('SERVICE CASE NATIVE RACES PASS:20 exact creates/20statusCAS one winner/20noteCAS one winner/20exact note receipts/20resolutionCAS one winner/private append-only history/revoked replay below')
  // Independent parent closure vs child creation must never both commit.
  for(let i=0;i<5;i++){
   const parent=JSON.parse(await sql(portfolio('contract.create_manual',{command_id:randomUUID(),customer_id:id,operator_id:operator,start_date:'2026-01-01'})))

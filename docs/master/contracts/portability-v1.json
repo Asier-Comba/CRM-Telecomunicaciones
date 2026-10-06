@@ -24,10 +24,10 @@
         "member"
       ],
       "minimum_role": "member",
-      "backend_status": "candidate_local_tested_exact_native_supabase_pending",
-      "supabase_tested": false,
-      "supabase_status": "PENDING_EXACT_SOURCE",
-      "ui_safe": false,
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": true,
       "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
       "ai_registration": false,
       "transport": {
@@ -46,7 +46,8 @@
       "cas": {
         "required": false,
         "key": null
-      }
+      },
+      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
     },
     {
       "name": "portability.update_draft",
@@ -69,10 +70,10 @@
         "member"
       ],
       "minimum_role": "member",
-      "backend_status": "candidate_local_tested_exact_native_supabase_pending",
-      "supabase_tested": false,
-      "supabase_status": "PENDING_EXACT_SOURCE",
-      "ui_safe": false,
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": true,
       "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
       "ai_registration": false,
       "transport": {
@@ -91,7 +92,8 @@
       "cas": {
         "required": true,
         "key": "expected_version"
-      }
+      },
+      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
     },
     {
       "name": "portability.assign",
@@ -112,10 +114,10 @@
         "member"
       ],
       "minimum_role": "member",
-      "backend_status": "candidate_local_tested_exact_native_supabase_pending",
-      "supabase_tested": false,
-      "supabase_status": "PENDING_EXACT_SOURCE",
-      "ui_safe": false,
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": true,
       "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
       "ai_registration": false,
       "transport": {
@@ -134,7 +136,8 @@
       "cas": {
         "required": true,
         "key": "expected_version"
-      }
+      },
+      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
     },
     {
       "name": "portability.transition",
@@ -158,10 +161,10 @@
         "member"
       ],
       "minimum_role": "member",
-      "backend_status": "candidate_local_tested_exact_native_supabase_pending",
-      "supabase_tested": false,
-      "supabase_status": "PENDING_EXACT_SOURCE",
-      "ui_safe": false,
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": true,
       "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
       "ai_registration": false,
       "transport": {
@@ -180,7 +183,8 @@
       "cas": {
         "required": true,
         "key": "expected_version"
-      }
+      },
+      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
     },
     {
       "name": "portability.complete",
@@ -205,10 +209,10 @@
         "member"
       ],
       "minimum_role": "member",
-      "backend_status": "candidate_local_tested_exact_native_supabase_pending",
-      "supabase_tested": false,
-      "supabase_status": "PENDING_EXACT_SOURCE",
-      "ui_safe": false,
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": true,
       "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
       "ai_registration": false,
       "transport": {
@@ -227,7 +231,8 @@
       "cas": {
         "required": true,
         "key": "expected_version"
-      }
+      },
+      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
     },
     {
       "name": "portability.list",
@@ -258,10 +263,10 @@
         "viewer"
       ],
       "minimum_role": "viewer",
-      "backend_status": "candidate_local_tested_exact_native_supabase_pending",
-      "supabase_tested": false,
-      "supabase_status": "PENDING_EXACT_SOURCE",
-      "ui_safe": false,
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": true,
       "assistant_future": "safe_read_candidate_not_registered",
       "ai_registration": false,
       "transport": {
@@ -280,7 +285,8 @@
       "cas": {
         "required": false,
         "key": null
-      }
+      },
+      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
     },
     {
       "name": "portability.get",
@@ -299,10 +305,10 @@
         "viewer"
       ],
       "minimum_role": "viewer",
-      "backend_status": "candidate_local_tested_exact_native_supabase_pending",
-      "supabase_tested": false,
-      "supabase_status": "PENDING_EXACT_SOURCE",
-      "ui_safe": false,
+      "backend_status": "implemented_native_and_supabase_tested",
+      "supabase_tested": true,
+      "supabase_status": "PASS_AT_RECORDED_HEAD",
+      "ui_safe": true,
       "assistant_future": "safe_read_candidate_not_registered",
       "ai_registration": false,
       "transport": {
@@ -321,20 +327,14 @@
       "cas": {
         "required": false,
         "key": null
-      }
+      },
+      "supabase_tested_head": "48483ae8d583e13cf1dd144b0a09873f36efddfc"
     }
   ],
-  "states": [
-    "draft",
-    "requested",
-    "scheduled",
-    "in_progress",
-    "completed",
-    "rejected",
-    "cancelled"
-  ],
+  "source_sha": "48483ae8d583e13cf1dd144b0a09873f36efddfc",
+  "operations_proven": 7,
+  "checks": 2071,
   "provider_evidence_source": "manual",
-  "protected_identifier_kind": "msisdn",
   "raw_number_fields": false,
-  "service_case_is_not_a_portability_workflow": true
+  "backend_ready_for_w2": true
 }
