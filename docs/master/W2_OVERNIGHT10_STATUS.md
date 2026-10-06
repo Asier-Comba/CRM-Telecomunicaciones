@@ -27,3 +27,11 @@ Published takeover candidate9a9b063e8606d58e70f4475527c65149c827b67a has exact S
 This follow-up corrects the all-owner customer filter label, shows factual lifecycle/source columns in integrated collections rather than unavailable portfolio previews, formats calendar dates without timezone drift and instants in Europe/Madrid, and translates registered statuses. Shared tabs keep the selected tab visible across viewport resize and keyboard navigation without scrolling the document. Existing acceptance groups now assert the clear-owner label and selected-tab visibility at1440/768/390; none of the original groups were removed.
 
 Local389 Node/typecheck/build PASS, lint0 errors/1 inherited OriginProof warning. Exact current presentation browser/mobile/visual acceptance is pending; Customers and C360 remain partial and the product is not frozen.
+
+## Takeover fixture diagnosis
+
+Exact ecdaebc Supabase37540393349/job112532245617 fails before browser on CHECK_IDENTITY_SCOPED_CUSTOMER_SETUP. W1 checks3349 PASS and teardown PASS. The last inherited Storage revocation fixture deliberately suspends the disposable workspace; before W2 takeover the workspace must be restored, just as the existing browser harness already restores it. This correction preserves that revocation proof and checks current owner scope via actual RPC before running the new takeover. Customer setup now records only HTTP status checks, never payloads. No production authorization or schema change.
+
+CI37540393365 native112531797636, PGlite112531797740, preview112531797564, Windows112531798000 and migration/secret/guardrails PASS. Quality fails unsuppressed audit5 HIGH after local-equivalent checks. Takeover9a9b063 run37539987496 was cancelled automatically by the subsequent branch push, not accepted.
+
+All15 loaded 2febd90 customer collection/line/SIM/portability/case screenshots were manually reviewed at1440/768/390. They corroborate the published table/date/tab fixes, but do not prove the current candidate visually complete. New C360 equipment plus exact ordinary commercial-name lookup is preserved separately;392 local Node/types/build passed, remote76-group browser proof pending. Local browser preview could not launch Chromium; its attempted browser download produced an invalid archive. Remote preview passes. No product freeze.

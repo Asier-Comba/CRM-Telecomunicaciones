@@ -262,6 +262,11 @@ export async function acceptance({ url, anon, service, db, command, report, appU
   check(!repository.includes('NEXT_PUBLIC_SUPABASE_SERVICE_ROLE'), 'no_public_service_binding')
   Object.assign(report,{w1_backend_acceptance:'PASS',w1_backend_checks:checks.length})
   const takeoverStart=checks.length
+  // The preceding W1 Storage revocation proof intentionally leaves this disposable
+  // workspace suspended. Restore its fixture state before testing new W2 operations.
+  sql(`update public.workspaces set status='active' where id='${wa}';`)
+  const takeoverScope=await rpc('current_workspace_role',{p_workspace_id:wa},users.ownerA.token)
+  check(takeoverScope.status===200&&takeoverScope.json==='owner','takeover_fixture_current_scope_restored')
   Object.assign(report,await externalIdentityAcceptance({rpc,sql,check,http,users,wa,url,anon,appUrl}))
   Object.assign(report,await telecomImportTakeoverAcceptance({rpc,sql,check,http,users,wa}))
   Object.assign(report,{w2_backend_takeover_acceptance:'PASS_LOCAL_IMPORT_VALIDATION_PROTECTED_STAGING_AND_EXTERNAL_IDENTITIES',w2_backend_takeover_checks:checks.length-takeoverStart})

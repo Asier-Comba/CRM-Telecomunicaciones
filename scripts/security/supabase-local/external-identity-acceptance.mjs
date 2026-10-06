@@ -13,8 +13,9 @@ export async function externalIdentityAcceptance({rpc,sql,check,http,users,wa,ur
   return {status:response.status,json:await response.json()}
  }
  const command=async(op,input)=>{const r=await post(op,input);check(r.status===200&&r.json.ok,'identity_individually_observed_'+op);observed.add(op);saved.push([op,input,r.json]);return r.json.data}
- const c=(await rpc('product_v1_customer_create',{p_workspace_id:wa,p_input:{command_id:randomUUID(),account_kind:'legal_entity',legal_name:'Synthetic Identity Acceptance Customer'}},users.ownerA.token)).json
- const other=(await rpc('product_v1_customer_create',{p_workspace_id:wa,p_input:{command_id:randomUUID(),account_kind:'legal_entity',legal_name:'Synthetic Other Identity Acceptance'}},users.ownerA.token)).json
+ const createCustomer=async legal_name=>{const r=await rpc('product_v1_customer_create',{p_workspace_id:wa,p_input:{command_id:randomUUID(),account_kind:'legal_entity',legal_name}},users.ownerA.token);check(r.status===200,'identity_customer_setup_http_'+r.status);return r.json}
+ const c=await createCustomer('Synthetic Identity Acceptance Customer')
+ const other=await createCustomer('Synthetic Other Identity Acceptance')
  check(!!c?.id&&!!other?.id,'identity_scoped_customer_setup')
  const integration=await command('external_identity.integration_register',{command_id:randomUUID(),integration_key:'synthetic.acceptance',provider_code:'generic.telecom.v1',display_name:'Synthetic Identity Registry',source:'integration'})
  check(integration.external_effect==='disabled','identity_registration_not_provider_activation')
