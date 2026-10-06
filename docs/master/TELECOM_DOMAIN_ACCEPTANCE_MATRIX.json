@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "source_sha": "attention_candidate_after_601ce28017910d486598c934567a07010595dcae",
+  "source_sha": "billing_analytics_candidate_after_c18123e573c2f4a066dea2be0a75c5ee82770627",
   "stage": "TEL5_DENSE_MASKED_LINE_CANDIDATE_AFTER_ACCEPTED_REPORTS",
   "exact_head_accepted": true,
   "no_ai_writes": true,
@@ -306,12 +306,12 @@
       "section": "Lines",
       "requirement": "masked mobile commercial row",
       "REQUIRED": true,
-      "IMPLEMENTED": false,
-      "PROVEN": false,
+      "IMPLEMENTED": true,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "not_implemented_as_requested",
-      "existing_operation": null,
-      "notes": "Table or a narrower legacy reader does not complete this TEL5 requirement. Dense masked line.list extension reconstructed from canonical GitHub source;exact63-migration platform proof pending."
+      "BLOCKER": "W2_consumption_unproven",
+      "existing_operation": "line.list",
+      "notes": "Dense masks, current SIM/eSIM context, latest portability and permanence summary accepted601ce28/2686checks; remains regressedc18123e."
     },
     {
       "section": "Identifiers",
@@ -758,11 +758,11 @@
       "requirement": "deterministic telecom attention",
       "REQUIRED": true,
       "IMPLEMENTED": true,
-      "PROVEN": false,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "exact_source_acceptance_pending;W2_consumption_unproven",
+      "BLOCKER": "W2_consumption_unproven",
       "existing_operation": "telecom.attention",
-      "notes": "Seven deterministic families, closed value-free DTO, pinned fallback date and stable tuple keyset. Exact native/Supabase/HTTP/current-JWT revocation proof pending."
+      "notes": "Acceptedc18123e/2757checks,199operations. Seven factual families, nine-field closed DTO, tuple pagination, active viewer, same valid-JWT revocation; native fresh/restore/PGlite/browser PASS."
     },
     {
       "section": "Reports",
@@ -867,23 +867,23 @@
       "section": "Reports",
       "requirement": "billing monthly currency series",
       "REQUIRED": true,
-      "IMPLEMENTED": false,
+      "IMPLEMENTED": true,
       "PROVEN": false,
       "W2_CONSUMED": false,
-      "BLOCKER": "not_implemented_as_requested",
-      "existing_operation": null,
-      "notes": "Table or a narrower legacy reader does not complete this TEL5 requirement."
+      "BLOCKER": "exact_source_acceptance_pending;W2_consumption_unproven",
+      "existing_operation": "billing.monthly_series",
+      "notes": "Required currency, current-state issue-month cohorts, exact decimal minor-unit strings; not past month-end balances or payment ledger. Owner/admin-only exact acceptance pending."
     },
     {
       "section": "Reports",
       "requirement": "billing top customers by currency",
       "REQUIRED": true,
-      "IMPLEMENTED": false,
+      "IMPLEMENTED": true,
       "PROVEN": false,
       "W2_CONSUMED": false,
-      "BLOCKER": "not_implemented_as_requested",
-      "existing_operation": null,
-      "notes": "Table or a narrower legacy reader does not complete this TEL5 requirement."
+      "BLOCKER": "exact_source_acceptance_pending;W2_consumption_unproven",
+      "existing_operation": "billing.top_customers",
+      "notes": "Required currency, current-state issue-month cohorts, exact decimal minor-unit strings; not past month-end balances or payment ledger. Owner/admin-only exact acceptance pending."
     },
     {
       "section": "Imports",
@@ -1075,14 +1075,14 @@
   ],
   "counts": {
     "REQUIRED": 97,
-    "IMPLEMENTED": 86,
-    "PROVEN": 85,
+    "IMPLEMENTED": 89,
+    "PROVEN": 87,
     "W2_CONSUMED": 0,
     "BLOCKER": 97
   },
   "official_workflow_fully_green": false,
-  "accepted_source_sha": "601ce28017910d486598c934567a07010595dcae",
-  "candidate_operations_total": 199,
-  "candidate_operations_proven": 198,
+  "accepted_source_sha": "c18123e573c2f4a066dea2be0a75c5ee82770627",
+  "candidate_operations_total": 201,
+  "candidate_operations_proven": 199,
   "candidate_exact_head_accepted": false
 }

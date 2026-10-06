@@ -76,6 +76,9 @@ run_fixture supabase/tests/product-dashboard-search.sql
   cat "$repo_root/supabase/tests/telecom-customer360-report-reads.sql"
   sed '$d' "$repo_root/supabase/seeds/synthetic_product.sql"
   cat "$repo_root/supabase/tests/deterministic-telecom-attention.sql"
+  sed '$d' "$repo_root/supabase/seeds/synthetic_product.sql"
+  cat "$repo_root/supabase/seeds/synthetic_product_billing.sql"
+  cat "$repo_root/supabase/tests/currency-separated-billing-cohorts.sql"
 } | psql_native > "${RUNNER_TEMP:-$tmp_dir}/product-density-query-plans.jsonlog"
 {
   printf "set app.environment = 'test';\n"
@@ -214,6 +217,9 @@ migration_head="$(basename "${migration}")"
   cat "$repo_root/supabase/tests/telecom-customer360-report-reads.sql"
   sed '$d' "$repo_root/supabase/seeds/synthetic_product.sql"
   cat "$repo_root/supabase/tests/deterministic-telecom-attention.sql"
+  sed '$d' "$repo_root/supabase/seeds/synthetic_product.sql"
+  cat "$repo_root/supabase/seeds/synthetic_product_billing.sql"
+  cat "$repo_root/supabase/tests/currency-separated-billing-cohorts.sql"
 } | docker exec -i -u postgres "$container" psql -X -v ON_ERROR_STOP=1 -U postgres -d "$restore_db" > /dev/null
 
 {

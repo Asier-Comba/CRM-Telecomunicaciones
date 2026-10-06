@@ -1,0 +1,33 @@
+-- Append synthetic_product.sql (without COMMIT), then synthetic_product_billing.sql; rollback.
+create function pg_temp.assert_analytics(ok boolean)returns void language plpgsql as $$begin if ok is not true then raise exception 'billing_analytics_assertion';end if;end$$;
+create function pg_temp.deny_analytics(q text,c text)returns void language plpgsql as $$begin begin execute q;exception when others then if sqlstate=c then return;end if;raise;end;raise exception 'billing_analytics_expected_denial';end$$;
+set local role authenticated;
+select set_config('request.jwt.claim.sub',md5('density.actor.1.1')::uuid::text,true);
+do $$declare w uuid:=md5('density.workspace.1')::uuid;c uuid:=md5('density.customer.1.1')::uuid;i jsonb;r jsonb;x jsonb;t date:=(statement_timestamp()at time zone'Europe/Madrid')::date;begin
+ i:=jsonb_build_object('currency','EUR','from_month','2026-08-01','to_month','2026-10-01','customer_id',c);
+ r:=public.billing_analytics_v1_query(w,'billing.monthly_series',i);
+ perform pg_temp.assert_analytics(jsonb_array_length(r->'items')=3 and r->>'basis'='issue_month_cohort_current_status'and r->'items'->0->>'issued_minor'='0'and r->'items'->2->>'issued_minor'='0');
+ x:=r->'items'->1;
+ perform pg_temp.assert_analytics(x->>'month'='2026-09-01'and x->>'issued_minor'='456'and x->>'paid_minor'='152'and x->>'outstanding_minor'='304'and(x->>'overdue_minor')::bigint=case when t>date'2026-09-10'then 152 else 0 end);
+ r:=public.billing_analytics_v1_query(w,'billing.top_customers',i||jsonb_build_object('limit',1));x:=r->'items'->0;
+ perform pg_temp.assert_analytics(jsonb_array_length(r->'items')=1 and x->>'customer_id'=c::text and x->>'issued_minor'='456'and not x?'legal_name'and not x?'tax_id');
+ r:=public.billing_analytics_v1_query(w,'billing.top_customers',(i-'customer_id')||jsonb_build_object('limit',2));perform pg_temp.assert_analytics(jsonb_array_length(r->'items')=2 and(r->'items'->0->>'customer_id')::uuid<(r->'items'->1->>'customer_id')::uuid);
+ r:=public.billing_analytics_v1_query(w,'billing.monthly_series',i||'{"currency":"USD"}');perform pg_temp.assert_analytics((select bool_and(value->>'issued_minor'='0')from jsonb_array_elements(r->'items')));
+ perform pg_temp.assert_analytics(public.billing_analytics_v1_query(w,'billing.top_customers',i||'{"currency":"USD"}')->'items'='[]'::jsonb);
+ perform pg_temp.deny_analytics(format('select public.billing_analytics_v1_query(%L,%L,%L)',w,'billing.monthly_series',i-'currency'),'22023');
+ perform pg_temp.deny_analytics(format('select public.billing_analytics_v1_query(%L,%L,%L)',w,'billing.top_customers',i||'{"limit":26}'),'22023');
+ perform pg_temp.deny_analytics(format('select public.billing_analytics_v1_query(%L,%L,%L)',w,'billing.monthly_series',i||'{"to_month":"2028-08-01"}'),'22023');
+ perform pg_temp.deny_analytics(format('select public.billing_analytics_v1_query(%L,%L,%L)',w,'billing.monthly_series',i||jsonb_build_object('customer_id',md5('density.customer.2.1')::uuid)),'P0002');
+end$$;
+reset role;
+update public.workspace_members set role='viewer'where user_id=md5('density.actor.1.3')::uuid;
+set local role authenticated;
+select set_config('request.jwt.claim.sub',md5('density.actor.1.3')::uuid::text,true);
+select pg_temp.deny_analytics(format('select public.billing_analytics_v1_query(%L,%L,%L)',md5('density.workspace.1')::uuid,'billing.monthly_series','{"currency":"EUR","from_month":"2026-09-01","to_month":"2026-09-01"}'),'42501');
+reset role;
+update public.workspace_members set status='suspended'where user_id=md5('density.actor.1.1')::uuid;
+set local role authenticated;
+select set_config('request.jwt.claim.sub',md5('density.actor.1.1')::uuid::text,true);
+select pg_temp.deny_analytics(format('select public.billing_analytics_v1_query(%L,%L,%L)',md5('density.workspace.1')::uuid,'billing.top_customers','{"currency":"EUR","from_month":"2026-09-01","to_month":"2026-09-01"}'),'42501');
+reset role;
+rollback;

@@ -117,6 +117,22 @@
       "anon": false,
       "public": false,
       "definer": true,
+      "signature": "public.billing_analytics_v1_query(uuid, text, jsonb)",
+      "service_role": false,
+      "authenticated": true
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": true,
+      "signature": "public.billing_analytics_v1_validate(text, jsonb)",
+      "service_role": false,
+      "authenticated": false
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.billing_artifact_v1_attach(uuid, jsonb)",
       "service_role": false,
       "authenticated": true

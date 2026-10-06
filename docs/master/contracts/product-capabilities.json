@@ -1,21 +1,21 @@
 {
   "catalog_version": "product.capabilities.v1",
   "as_of": "2026-10-06",
-  "implementation_head": "601ce28017910d486598c934567a07010595dcae",
+  "implementation_head": "c18123e573c2f4a066dea2be0a75c5ee82770627",
   "evidence": {
     "native": {
-      "run_id": 37465021076,
+      "run_id": 37467022255,
       "status": "PASS",
-      "migration_count": 63,
-      "function_count": 271,
-      "tested_head": "601ce28017910d486598c934567a07010595dcae",
-      "tested_checkout": "7acf523ba4f5135f68b0471314abb285f2828c92",
-      "tested_tree": "b148b14d0068635ab0528095283383597ab743f0",
+      "migration_count": 64,
+      "function_count": 273,
+      "tested_head": "c18123e573c2f4a066dea2be0a75c5ee82770627",
+      "tested_checkout": "efa57e269fe4d2e0bc73c12195e4189c0920a15d",
+      "tested_tree": "e2eab437a92867ee44cccaae1958006459f92e33",
       "fresh": "PASS",
       "logical_synthetic_restore": "PASS",
       "privileges_roles_acl_loss_negative_control": "PASS",
       "production_backup": false,
-      "job_id": 112273772731,
+      "job_id": 112280516596,
       "tree_comparison_method": "GitHub compare:zero changed files"
     },
     "actual_supabase": {
@@ -27,10 +27,10 @@
       "rpc": "PASS",
       "storage": "PASS",
       "cli": "2.119.0",
-      "sha": "7acf523ba4f5135f68b0471314abb285f2828c92",
+      "sha": "efa57e269fe4d2e0bc73c12195e4189c0920a15d",
       "config_sha256": "3fc22bba97e5114a7ee67cc90e514b8ec16eda0cb2c5817cf87784e8e4ab6e57",
-      "migration_head": "20261006133000_dense_masked_line_collection.sql",
-      "migration_count": 63,
+      "migration_head": "20261006140000_deterministic_telecom_attention.sql",
+      "migration_count": 64,
       "service_images": [
         "public.ecr.aws/supabase/gotrue:v2.197.0",
         "public.ecr.aws/supabase/kong:2.8.1",
@@ -486,6 +486,11 @@
       "customer360_summary": "PASS_EXACT_COUNTERS_PROTECTED_COUNTS_ROLE_GATED",
       "telecom_reports": "PASS_CLOSED_DENSE_DISTRIBUTIONS_PERIODS_KEYSET",
       "telecom_report_revocation": "PASS_VALID_JWT_ALL_READS_DENIED",
+      "telecom_attention_operations_individually_observed": [
+        "telecom.attention"
+      ],
+      "telecom_attention": "PASS_SEVEN_DETERMINISTIC_RULES_KEYSET_PRIVACY_VALID_JWT_REVOCATION",
+      "dense_line_permanence_portability": "PASS",
       "billing_search": "PASS",
       "billing_pdf": "PASS",
       "billing_dashboard": "PASS",
@@ -574,7 +579,7 @@
       "document_content_verified_sha256": "NOT_IMPLEMENTED",
       "cross_tenant": "PASS",
       "revocation": "PASS",
-      "checks": 2686,
+      "checks": 2757,
       "manager": "NOT_CANONICAL",
       "signed_access": "NOT_IMPLEMENTED",
       "auth_email_production": "NOT_TESTED",
@@ -582,21 +587,21 @@
       "scoped_service_principal": "NOT_IMPLEMENTED",
       "remote_staging": "NOT_TESTED",
       "teardown": "PASS",
-      "run_id": 37465021017,
-      "job_id": 112273771243,
-      "tested_head": "601ce28017910d486598c934567a07010595dcae"
+      "run_id": 37467022251,
+      "job_id": 112280514175,
+      "tested_head": "c18123e573c2f4a066dea2be0a75c5ee82770627"
     },
     "quality": {
-      "tests": 291,
-      "node_tests": 291,
+      "tests": 298,
+      "node_tests": 298,
       "lint": "PASS",
       "types": "PASS",
       "build": "PASS",
       "audit": "FAIL_UNSUPPRESSED_6_HIGH;known Issue29 chain plus distinct source-map-js GHSA-68fv-2mgg-jv7q",
       "overall_ci": "FAIL_AUDIT;OFFICIAL_BROWSER_PASS",
-      "tested_head": "601ce28017910d486598c934567a07010595dcae",
-      "run_id": 37465021076,
-      "job_id": 112273772573,
+      "tested_head": "c18123e573c2f4a066dea2be0a75c5ee82770627",
+      "run_id": 37467022255,
+      "job_id": 112280516709,
       "critical_playwright": "SKIPPED",
       "dependency_review": "SKIPPED",
       "workflow_fully_green": false
@@ -9437,15 +9442,101 @@
         "viewer"
       ],
       "minimum_role": "viewer",
-      "backend_status": "implemented_candidate_exact_acceptance_pending",
-      "supabase_tested": false,
-      "supabase_status": "PENDING",
+      "backend_status": "implemented_real_disposable_proven",
+      "supabase_tested": true,
+      "supabase_status": "PASS",
       "ui_safe": false,
       "assistant_future": "safe_read_candidate_not_registered",
       "ai_registration": false,
       "transport": {
         "method": "POST",
         "path": "/api/telecom/attention/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "supabase_tested_head": "c18123e573c2f4a066dea2be0a75c5ee82770627"
+    },
+    {
+      "name": "billing.monthly_series",
+      "version": "billing.analytics.v1",
+      "kind": "read",
+      "rpc": "billing_analytics_v1_query",
+      "input_type": "BillingAnalyticsInputV1",
+      "output_type": "BillingAnalyticsResultV1",
+      "input_fields": [
+        "currency",
+        "from_month",
+        "to_month",
+        "customer_id"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "minimum_role": "admin",
+      "backend_status": "implemented_candidate_exact_acceptance_pending",
+      "supabase_tested": false,
+      "supabase_status": "PENDING",
+      "ui_safe": false,
+      "assistant_future": "protected_read_requires_billing_scope_not_registered",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/billing/analytics/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      }
+    },
+    {
+      "name": "billing.top_customers",
+      "version": "billing.analytics.v1",
+      "kind": "read",
+      "rpc": "billing_analytics_v1_query",
+      "input_type": "BillingAnalyticsInputV1",
+      "output_type": "BillingAnalyticsResultV1",
+      "input_fields": [
+        "currency",
+        "from_month",
+        "to_month",
+        "customer_id",
+        "limit"
+      ],
+      "allowed_roles": [
+        "owner",
+        "admin"
+      ],
+      "minimum_role": "admin",
+      "backend_status": "implemented_candidate_exact_acceptance_pending",
+      "supabase_tested": false,
+      "supabase_status": "PENDING",
+      "ui_safe": false,
+      "assistant_future": "protected_read_requires_billing_scope_not_registered",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/billing/analytics/v1",
         "enable_flag": "PRODUCT_V1_ENABLED",
         "origin_flag": "PRODUCT_V1_ORIGIN",
         "enabled_by_default": false,
@@ -9469,7 +9560,7 @@
     "portfolio_legacy_origin_verification"
   ],
   "registration": "Human contracts only; no new AI tools/writes registered; exact accepted source4b5520f,9catalog candidates pending.",
-  "candidate_after_head": "601ce28017910d486598c934567a07010595dcae",
-  "operations_total": 199,
-  "operations_proven": 198
+  "candidate_after_head": "c18123e573c2f4a066dea2be0a75c5ee82770627",
+  "operations_total": 201,
+  "operations_proven": 199
 }

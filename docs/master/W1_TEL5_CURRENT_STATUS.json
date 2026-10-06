@@ -1,14 +1,14 @@
 {
-  "SOURCE_HEAD": "attention_candidate_after_601ce28017910d486598c934567a07010595dcae",
-  "ACCEPTED_SOURCE": "601ce28017910d486598c934567a07010595dcae",
+  "SOURCE_HEAD": "billing_analytics_candidate_after_c18123e573c2f4a066dea2be0a75c5ee82770627",
+  "ACCEPTED_SOURCE": "c18123e573c2f4a066dea2be0a75c5ee82770627",
   "HISTORICAL_ACCEPTED_SOURCE": "c2a7390867d941a33b17509b3f4014f8356bb0c1",
   "PR": 28,
-  "MIGRATIONS": 64,
-  "PRIVILEGE_FUNCTIONS": 273,
-  "NODE_TESTS": 298,
-  "SUPABASE_CHECKS": 2686,
-  "OPERATIONS_TOTAL": 199,
-  "OPERATIONS_PROVEN": 198,
+  "MIGRATIONS": 65,
+  "PRIVILEGE_FUNCTIONS": 275,
+  "NODE_TESTS": 304,
+  "SUPABASE_CHECKS": 2757,
+  "OPERATIONS_TOTAL": 201,
+  "OPERATIONS_PROVEN": 199,
   "CUSTOMER_COLLECTION": "PROVEN_BOUNDED_COOKIE_READS_E09DDF2",
   "ASSIGNEES": "PROVEN_BOUNDED_COOKIE_READS_E09DDF2",
   "OPERATORS": "PROVEN_NORMAL_READS_ADMIN_MANAGEMENT",
@@ -27,19 +27,19 @@
   "SERVICE_CASES": "PROVEN_12OPERATIONS_CLOSED_LIFECYCLE_PRIVATE_APPEND_ONLY_NOTES",
   "EQUIPMENT": "ASSESSMENT_PENDING; device commitment exists without an equipment resource",
   "CUSTOMER360_READS": "PROVEN_EXACT_MINIMAL_ROLE_GATED_SUMMARY;bounded domain pages retained",
-  "ATTENTION": "IMPLEMENTED_7_DETERMINISTIC_FAMILIES_EXACT_SOURCE_ACCEPTANCE_PENDING",
+  "ATTENTION": "PROVEN_7_DETERMINISTIC_FAMILIES_9_FIELD_DTO_TUPLE_CURSOR_VALID_JWT_REVOCATION",
   "REPORTS": "PROVEN_9_CLOSED_COUNT_DISTRIBUTIONS;no monetary mixing",
-  "BILLING_ANALYTICS": "PARTIAL: existing currency-separated billing aggregates; historical monthly series/top customer readers missing",
+  "BILLING_ANALYTICS": "IMPLEMENTED_CURRENCY_SEPARATED_ISSUE_MONTH_CURRENT_STATUS_COHORTS_AND_TOP;EXACT_ACCEPTANCE_PENDING;NO_HISTORIC_BALANCE_RECONSTRUCTION",
   "IMPORTS": "DISPOSABLE_ENCRYPTED_STAGING_PROVED_ONLY; production provider/worker/canonical apply blocked; telecom mapping/protected import pending",
   "PROVENANCE": "EXISTING eight-kind verified new manual origin; no legacy certification; external identities extension pending",
   "TELECOM_MATRIX_COUNTS": {
     "REQUIRED": 97,
-    "IMPLEMENTED": 86,
-    "PROVEN": 85,
+    "IMPLEMENTED": 89,
+    "PROVEN": 87,
     "W2_CONSUMED": 0,
     "BLOCKER": 97
   },
-  "W2_HANDOFFS": "identifiers6004184074/catalog6014580425/portability6014716226/cases6014955052 accepted;consumption unproven;SIM accepted6015517378;reports accepted6016349751;dense6016574482 accepted",
+  "W2_HANDOFFS": "identifiers6004184074/catalog6014580425/portability6014716226/cases6014955052 accepted;consumption unproven;SIM accepted6015517378;reports accepted6016349751;dense6016574482 accepted;attention6016862156 accepted",
   "W3_READ_HANDOFF": "18collections+2masked identifiers+terms_get proven read candidates;2portability candidates;no registration",
   "ISSUE29": "OPEN known dependency chain; total audit now6HIGH includes separate newsource-map-js GHSA-68fv-2mgg-jv7q;unsuppressed",
   "OPEN_EXTERNAL_PROVIDER_GAPS": [
@@ -49,22 +49,22 @@
     "live telecom/provider/OAuth integrations not authorized tonight"
   ],
   "TOP_REMAINING": [
-    "Exact attention acceptance",
-    "Currency-separated billing analytics",
-    "Imports/provenance/fixed-service/equipment"
+    "Exact billing analytics acceptance",
+    "Full Customer360 task/meeting collections",
+    "Imports/provenance/fixed-service/add-ons/equipment"
   ],
   "NEXT_3": [
-    "Publish attention candidate",
-    "Exact native and Supabase acceptance",
-    "Complete billing analytics semantics and readers"
+    "Publish billing analytic candidate",
+    "Exact native/Supabase proof",
+    "Full task and meeting collections"
   ],
   "FEATURE_IMPLEMENTATION_STARTED": true,
   "MAIN_MERGED": false,
   "PRODUCTION_TOUCHED": false,
   "AI_WRITES_REGISTERED": false,
-  "NATIVE_FRESH_RESTORE": "PASS_112273772731_ON_601CE28",
-  "BROWSER_PRIVATE_BOUNDARY": "PASS_112273770901_ON_601CE28",
-  "FUNCTIONAL_ACCEPTANCE": "PASS_198_OPERATIONS_ON_601CE28;ATTENTION_CANDIDATE_PENDING",
+  "NATIVE_FRESH_RESTORE": "PASS_112280516596_ON_C18123E",
+  "BROWSER_PRIVATE_BOUNDARY": "PASS_112280513815_ON_C18123E",
+  "FUNCTIONAL_ACCEPTANCE": "PASS_199_OPERATIONS_ON_C18123E;BILLING_ANALYTICS_CANDIDATE_PENDING",
   "OFFICIAL_CI_CLOSED": false,
   "NEW_READ_OPERATIONS": 18,
   "NEW_READ_OPERATIONS_PROVEN": 18,
@@ -82,5 +82,7 @@
   "NEW_REPORT_OPERATIONS_PROVEN": 10,
   "EXECUTION_WORKSPACE": "OFFLINE;canonical GitHub API continuation and exact GHA proof",
   "NEW_ATTENTION_OPERATIONS": 1,
-  "NEW_ATTENTION_OPERATIONS_PROVEN": 0
+  "NEW_ATTENTION_OPERATIONS_PROVEN": 1,
+  "NEW_BILLING_ANALYTICS_OPERATIONS": 2,
+  "NEW_BILLING_ANALYTICS_OPERATIONS_PROVEN": 0
 }

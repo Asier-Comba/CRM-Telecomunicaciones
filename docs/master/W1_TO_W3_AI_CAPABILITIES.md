@@ -193,3 +193,8 @@ TEL5 Customer360/report10 safe read candidates are now proven0c67c3a/2669checks/
 ## TEL5 deterministic attention candidate
 
 `telecom.attention` is a safe read candidate at `/api/telecom/attention/v1`; seven closed factual rules, bounded date window and keyset page; no names/notes/raw identifiers. Exact Supabase acceptance pending. Dense line extension accepted601ce28/2686checks. No new AI registration; no AI writes. New domain writes remain FUTURE_AI_ACTION_CANDIDATE under W3-owned Issue10.
+
+
+## TEL5 attention acceptance and billing read candidates
+
+Attention acceptedc18123e/2757checks,199operations; still not registered. `billing.monthly_series`/`billing.top_customers` candidates require current owner/admin billing scope and explicit single currency; current issue-month cohorts only, no fiscal PII. Exact candidate acceptance pending. No AI registration or writes; Issue10 remains W3-owned.
