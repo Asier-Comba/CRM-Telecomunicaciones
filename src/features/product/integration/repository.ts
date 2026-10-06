@@ -1,3 +1,4 @@
+import {telecomBoundary,type TelecomOperation,type TelecomInputs,type TelecomResult} from './telecom-client.ts'
 import type {TelecomCollectionOperationV1,TelecomCollectionInputsV1,TelecomCollectionPageV1,TelecomCollectionGetV1} from '@/lib/contracts/telecom-collections-v1'
 import {parseTelecomCollectionInputV1,parseTelecomCollectionResultV1} from '../../../lib/server/telecom-collection-runtime-v1.ts'
 export type CollectionResult<O extends TelecomCollectionOperationV1> = O extends `${string}.get` ? TelecomCollectionGetV1<O> : TelecomCollectionPageV1<O>
@@ -66,6 +67,7 @@ export function safeMessage(error: unknown) {
   return errorText[error instanceof ProductUiError ? error.code : 'internal_safe']
 }
 export interface ProductRepository {
+  telecom<O extends TelecomOperation>(operation:O,input:TelecomInputs[O]):Promise<TelecomResult<O>>
   collection<O extends TelecomCollectionOperationV1>(operation:O,input:TelecomCollectionInputsV1[O]):Promise<CollectionResult<O>>
   settings<O extends SettingsRead['operation']>(operation:O):Promise<Extract<SettingsRead,{operation:O}>>
   settingsCommand(operation:SettingsOperationV1,input:SettingsInputV1):Promise<SettingsReceipt>
@@ -123,6 +125,7 @@ async function attachmentFailure(response:Response):Promise<never>{
 }
 /** All consumers validate the closed W1 success envelope and operation-specific DTO. */
 export class IntegratedLocalProductRepository implements ProductRepository {
+  telecom<O extends TelecomOperation>(operation:O,value:TelecomInputs[O]):Promise<TelecomResult<O>> {const boundary=telecomBoundary(operation,value);if(!boundary)return Promise.reject(new ProductUiError('validation'));return this.post('queries',operation,boundary.input,v=>boundary.parse(v) as TelecomResult<O>|null,'telecom',boundary.endpoint)}
   readonly mode = 'integrated_local' as const
   private readonly request: typeof fetch
   constructor(request: typeof fetch = fetch) { this.request = request.bind(globalThis) }
@@ -236,6 +239,7 @@ export class IntegratedLocalProductRepository implements ProductRepository {
 /** Preview never impersonates a successful persistent write. */
 export class SyntheticProductRepository implements ProductRepository {
   collection<O extends TelecomCollectionOperationV1>(_operation:O,_input:TelecomCollectionInputsV1[O]):Promise<CollectionResult<O>> { void _operation;void _input;return this.unavailable<CollectionResult<O>>() }
+  telecom<O extends TelecomOperation>(_operation:O,_input:TelecomInputs[O]):Promise<TelecomResult<O>>{void _operation;void _input;return this.unavailable<TelecomResult<O>>()}
   readonly mode = 'synthetic' as const
   private unavailable<T>(): Promise<T> { return Promise.reject(new ProductUiError('unavailable')) }
   settings<O extends SettingsRead['operation']>(_operation:O){void _operation;return this.unavailable<Extract<SettingsRead,{operation:O}>>()}

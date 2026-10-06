@@ -20,7 +20,7 @@ export default async function CustomerDetailPage({
 }: {
   params: Promise<{ id: string }>
 }) {
-  if (integratedLocalAllowed()) return <IntegratedCustomerDetail id={(await params).id} />
+  if (integratedLocalAllowed()){const{id}=await params;return <IntegratedCustomerDetail key={id} id={id}/>}
   if (!syntheticPreviewAllowed()) notFound()
   const { id } = await params,
     data = customerPreview(id)

@@ -13,6 +13,8 @@ export type CustomerRow = {
   owner: string
   status: string
   lifecycle: string
+  source?: string
+  assignedUserId?: string | null
   operators: string[]
   services: number | null
   lines: number | null

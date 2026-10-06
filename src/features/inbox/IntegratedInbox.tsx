@@ -14,10 +14,10 @@ const statuses={open:'Abiertas',closed:'Cerradas',archived:'Archivadas'}
 const date=(v:string)=>new Intl.DateTimeFormat('es-ES',{dateStyle:'medium',timeStyle:'short',timeZone:'Europe/Madrid'}).format(new Date(v))
 type Intent={operation:InboxOperationV1;input:InboxInputV1;receipt?:InboxReceiptV1}
 /** Internal notes only. Every refresh reauthorizes private bodies; no persistent client cache. */
-export function IntegratedInbox(){
+export function IntegratedInbox({initialId}:{initialId?:string}){
  const {repository,role,actorId}=useProduct(),manager=role==='owner'||role==='admin',allowed=manager||role==='member'
  const [status,setStatus]=useState<InboxStatusV1>('open'),[cursors,setCursors]=useState<string[]>([]),[revision,setRevision]=useState(0),[list,setList]=useState<{key:string;data?:InboxPage;error?:string}|null>(null),[unread,setUnread]=useState<number|null>(null)
- const [selected,setSelected]=useState<string|null>(null),[messageCursors,setMessageCursors]=useState<number[]>([]),[thread,setThread]=useState<{key:string;data?:InboxThread;error?:string}|null>(null),[roster,setRoster]=useState<readonly TeamMemberV1[]>([])
+ const [selected,setSelected]=useState<string|null>(initialId??null),[messageCursors,setMessageCursors]=useState<number[]>([]),[thread,setThread]=useState<{key:string;data?:InboxThread;error?:string}|null>(null),[roster,setRoster]=useState<readonly TeamMemberV1[]>([])
  const [draft,setDraft]=useState(''),[create,setCreate]=useState(false),[newCustomer,setNewCustomer]=useState(''),[newAssignee,setNewAssignee]=useState(actorId??''),[linkCustomer,setLinkCustomer]=useState(''),[linkContact,setLinkContact]=useState(''),[contactPages,setContactPages]=useState<{customer:string;data:ContactEditorPageV1}|null>(null),[contactsError,setContactsError]=useState('')
  const [busy,setBusy]=useState(false),[uncertain,setUncertain]=useState(false),[error,setError]=useState(''),[notice,setNotice]=useState(''),intent=useRef<Intent|null>(null)
  const listKey=JSON.stringify([status,cursors.at(-1)??null,revision]),threadKey=JSON.stringify([selected,messageCursors.at(-1)??null,revision])

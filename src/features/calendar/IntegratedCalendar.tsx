@@ -11,10 +11,10 @@ import { Drawer, control, primary, Status } from '@/features/product/ui'
 import type { CalendarEntry } from '@/features/product/model'
 import type { CalendarPageV1, CalendarCursorV1, WorkGetV1 } from '@/lib/contracts/product-queries-v1'
 import type { ProductReceiptV1 } from '@/lib/contracts/product-v1'
-export function IntegratedCalendar({customerId,initialCreate,initialTaskId}:{customerId?:string;initialCreate?:'task'|'meeting';initialTaskId?:string}){
+export function IntegratedCalendar({customerId,initialCreate,initialTaskId,initialMeetingId}:{customerId?:string;initialCreate?:'task'|'meeting';initialTaskId?:string;initialMeetingId?:string}){
   const {repository,role}=useProduct()
   const [asOf]=useState(()=>new Date().toISOString()),[anchor,setAnchor]=useState(asOf.slice(0,10)),[reload,setReload]=useState(0)
-  const [data,setData]=useState<CalendarPageV1|null>(null),[error,setError]=useState(''),[selected,setSelected]=useState<{kind:'task'|'meeting';id?:string}|null>(initialTaskId?{kind:'task',id:initialTaskId}:initialCreate&&role!==null&&role!=='viewer'?{kind:initialCreate}:null)
+  const [data,setData]=useState<CalendarPageV1|null>(null),[error,setError]=useState(''),[selected,setSelected]=useState<{kind:'task'|'meeting';id?:string}|null>(initialTaskId?{kind:'task',id:initialTaskId}:initialMeetingId?{kind:'meeting',id:initialMeetingId}:initialCreate&&role!==null&&role!=='viewer'?{kind:initialCreate}:null)
   const [loading,setLoading]=useState(true),[status,setStatus]=useState(''),[dataKey,setDataKey]=useState('')
   const pageKey=[anchor,customerId??'',status,reload].join(':')
   const [paging,setPaging]=useState<{key:string;cursors:(CalendarCursorV1|null)[];index:number}>({key:'',cursors:[null],index:0})

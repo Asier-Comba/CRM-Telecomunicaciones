@@ -2,42 +2,42 @@
   "schema_version": "w2.ui.mapping.v2",
   "previous_review_reference": "2b9804c:docs/master/W2_BACKEND_INTEGRATION_REVIEW.json",
   "accepted_contract_reference": "TELECOM_COLLECTIONS_V1_CONTRACT.md",
-  "scope": "Product UI mapping only. Earlier detailed reviews remain in Git history. These new UI consumers are pending browser, mobile and visual acceptance.",
+  "scope": "UI mapping only; complete acceptance requires exact browser, mobile and manual visual evidence. Typed transport availability alone is not UI completion.",
   "new_ui_consumers": [
     {
       "operation": "customer.list",
       "component": "Customers / CustomerSelect",
-      "status": "PENDING_UI_ACCEPTANCE"
+      "status": "IMPLEMENTED_PENDING_EXACT_BROWSER_MOBILE_VISUAL"
     },
     {
       "operation": "contact.list",
       "component": "Customer360 contacts",
-      "status": "PENDING_UI_ACCEPTANCE"
+      "status": "IMPLEMENTED_PENDING_EXACT_BROWSER_MOBILE_VISUAL"
     },
     {
       "operation": "opportunity.list",
       "component": "Opportunities / Customer360",
-      "status": "PENDING_UI_ACCEPTANCE"
+      "status": "IMPLEMENTED_PENDING_EXACT_BROWSER_MOBILE_VISUAL"
     },
     {
       "operation": "activity.list",
       "component": "Customer360 activity",
-      "status": "PENDING_UI_ACCEPTANCE"
+      "status": "IMPLEMENTED_PENDING_EXACT_BROWSER_MOBILE_VISUAL"
     },
     {
       "operation": "assignee.list",
       "component": "AssigneeSelect",
-      "status": "PENDING_UI_ACCEPTANCE"
+      "status": "IMPLEMENTED_PENDING_EXACT_BROWSER_MOBILE_VISUAL"
     },
     {
       "operation": "operator.list",
       "component": "Operator catalog / portfolio filters",
-      "status": "PENDING_UI_ACCEPTANCE"
+      "status": "IMPLEMENTED_PENDING_EXACT_BROWSER_MOBILE_VISUAL"
     },
     {
       "operation": "operator.get",
       "component": "Operator catalog / portfolio filters",
-      "status": "PENDING_UI_ACCEPTANCE"
+      "status": "IMPLEMENTED_PENDING_EXACT_BROWSER_MOBILE_VISUAL"
     },
     {
       "operation": "plan.list",
@@ -57,27 +57,27 @@
     {
       "operation": "plan_version.get",
       "component": "Historical plan versions / contract relationships",
-      "status": "PENDING_UI_ACCEPTANCE"
+      "status": "IMPLEMENTED_PENDING_EXACT_BROWSER_MOBILE_VISUAL"
     },
     {
       "operation": "contract.list",
       "component": "Portfolio / Customer360 contracts",
-      "status": "PENDING_UI_ACCEPTANCE"
+      "status": "IMPLEMENTED_PENDING_EXACT_BROWSER_MOBILE_VISUAL"
     },
     {
       "operation": "service.list",
       "component": "Portfolio / Customer360 services",
-      "status": "PENDING_UI_ACCEPTANCE"
+      "status": "IMPLEMENTED_PENDING_EXACT_BROWSER_MOBILE_VISUAL"
     },
     {
       "operation": "line.list",
       "component": "Portfolio / Customer360 lines",
-      "status": "PENDING_UI_ACCEPTANCE"
+      "status": "IMPLEMENTED_PENDING_EXACT_BROWSER_MOBILE_VISUAL"
     },
     {
       "operation": "renewal.list",
       "component": "Renewals / Customer360",
-      "status": "PENDING_UI_ACCEPTANCE"
+      "status": "IMPLEMENTED_PENDING_EXACT_BROWSER_MOBILE_VISUAL"
     },
     {
       "operation": "renewal.get",
@@ -87,12 +87,49 @@
     {
       "operation": "permanence.list",
       "component": "Permanences / Customer360",
-      "status": "PENDING_UI_ACCEPTANCE"
+      "status": "IMPLEMENTED_PENDING_EXACT_BROWSER_MOBILE_VISUAL"
     },
     {
       "operation": "permanence.get",
       "component": "Permanences / Customer360",
       "status": "PENDING_UI_ACCEPTANCE"
+    },
+    {
+      "operation": "task.list",
+      "component": "CustomerDomainPages",
+      "status": "IMPLEMENTED_PENDING_EXACT_BROWSER_MOBILE_VISUAL"
+    },
+    {
+      "operation": "meeting.list",
+      "component": "CustomerDomainPages",
+      "status": "IMPLEMENTED_PENDING_EXACT_BROWSER_MOBILE_VISUAL"
+    },
+    {
+      "operation": "customer360.summary",
+      "component": "Customer360Overview",
+      "status": "IMPLEMENTED_PENDING_EXACT_BROWSER_MOBILE_VISUAL"
+    },
+    {
+      "operation": "telecom.attention",
+      "component": "Customer360Overview",
+      "status": "IMPLEMENTED_PENDING_EXACT_BROWSER_MOBILE_VISUAL"
+    },
+    {
+      "operation": "sim.list",
+      "component": "CustomerDomainPages",
+      "status": "IMPLEMENTED_PENDING_EXACT_BROWSER_MOBILE_VISUAL"
+    },
+    {
+      "operation": "portability.list",
+      "component": "CustomerDomainPages",
+      "status": "IMPLEMENTED_PENDING_EXACT_BROWSER_MOBILE_VISUAL"
+    },
+    {
+      "operation": "case.list",
+      "component": "CustomerDomainPages",
+      "status": "IMPLEMENTED_PENDING_EXACT_BROWSER_MOBILE_VISUAL"
     }
-  ]
+  ],
+  "accepted_w1_source": "8c93d4c58286b225209956237de27350aa0f2048",
+  "accepted_consumer_foundation": "7f1dae83102ad00176a04c7e6a3cd2fb0e56410d"
 }

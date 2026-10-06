@@ -46,10 +46,10 @@ test('customer collection, partiality, keyboard tabs and global search', async (
   const search = page.getByRole('textbox', { name: 'Buscar clientes' })
   await search.fill('Horizonte')
   await expect(
-    page.getByRole('row').filter({ hasText: 'Horizonte Datos Parciales' }),
+    page.locator('[data-customer-id]:visible').filter({ hasText: 'Horizonte Datos Parciales' }),
   ).toContainText('No disponible')
   await expect(
-    page.getByRole('row').filter({ hasText: 'Horizonte Datos Parciales' }),
+    page.locator('[data-customer-id]:visible').filter({ hasText: 'Horizonte Datos Parciales' }),
   ).not.toContainText('0 servicios')
   await search.fill('never-matches')
   await expect(
@@ -60,7 +60,7 @@ test('customer collection, partiality, keyboard tabs and global search', async (
     .getByRole('combobox', { name: 'Atención', exact: true })
     .selectOption('renewal')
   await expect(
-    page.getByRole('row').filter({ hasText: 'Empresa Norte Telecom SL' }),
+    page.locator('[data-customer-id]:visible').filter({ hasText: 'Empresa Norte Telecom SL' }),
   ).toBeVisible()
   await page.getByRole('checkbox', { name: 'Seleccionar página' }).check()
   await expect(page.getByText('1 seleccionados')).toBeVisible()

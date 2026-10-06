@@ -132,7 +132,7 @@ export function Status({ value }: { value: string }) {
     won: 'Ganada',
     lost: 'Perdida',
     completed: 'Completada',
-    scheduled: 'Programada',
+    scheduled: 'Programada', archived:'Archivado',cancelled:'Cancelado',ended:'Finalizado',retired:'Retirado',prepared:'Preparada',assigned:'Asignada',replaced:'Sustituida',requested:'Solicitada',rejected:'Rechazada',waiting_customer:'Esperando al cliente',waiting_operator:'Esperando al operador',resolved:'Resuelta',closed:'Cerrada',no_show:'No asistió',dismissed:'Descartada',not_applicable:'No aplica',
   }
   return (
     <Badge
@@ -154,22 +154,25 @@ export function SortButton({
   active,
   descending,
   onClick,
+  disabled=false,
 }: {
   children: ReactNode
   active: boolean
   descending: boolean
   onClick: () => void
+  disabled?:boolean
 }) {
   return (
     <button
       className="inline-flex items-center gap-1 text-left font-semibold hover:text-indigo-600"
       onClick={onClick}
+      disabled={disabled}
     >
       {children}
-      <ArrowUpDown className="h-3 w-3" />
-      <span className="sr-only">
+      {!disabled&&<ArrowUpDown className="h-3 w-3" />}
+      {!disabled&&<span className="sr-only">
         {active ? (descending ? ', descendente' : ', ascendente') : ', ordenar'}
-      </span>
+      </span>}
     </button>
   )
 }
