@@ -597,7 +597,10 @@
       "mfa_production": "NOT_TESTED",
       "scoped_service_principal": "NOT_IMPLEMENTED",
       "remote_staging": "NOT_TESTED",
-      "teardown": "PASS"
+      "teardown": "PASS",
+      "run_id": 37468994597,
+      "job_id": 112287229903,
+      "tested_head": "8c93d4c58286b225209956237de27350aa0f2048"
     },
     "quality": {
       "tests": 307,
@@ -9662,6 +9665,198 @@
         "key": null
       },
       "supabase_tested_head": "8c93d4c58286b225209956237de27350aa0f2048"
+    },
+    {
+      "name": "service.installation_set",
+      "version": "telecom.service_commercial.v1",
+      "kind": "write",
+      "rpc": "service_commercial_v1_command",
+      "input_type": "ServiceCommercialInputsV1['service.installation_set']",
+      "output_type": "ServiceCommercialReceiptV1",
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member"
+      ],
+      "minimum_role": "member",
+      "backend_status": "implemented_candidate_exact_acceptance_pending",
+      "supabase_tested": false,
+      "supabase_status": "PENDING",
+      "ui_safe": false,
+      "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/telecom/services/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "current_actor_workspace_exact_HMAC_receipt"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_service_version plus bounded child version"
+      },
+      "provider_effects": false
+    },
+    {
+      "name": "service.installation_get",
+      "version": "telecom.service_commercial.v1",
+      "kind": "read",
+      "rpc": "service_commercial_v1_query",
+      "input_type": "ServiceCommercialInputsV1['service.installation_get']",
+      "output_type": "ServiceInstallationV1",
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "backend_status": "implemented_candidate_exact_acceptance_pending",
+      "supabase_tested": false,
+      "supabase_status": "PENDING",
+      "ui_safe": false,
+      "assistant_future": "safe_read_candidate_not_registered",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/telecom/services/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "provider_effects": false
+    },
+    {
+      "name": "service.addon_assign",
+      "version": "telecom.service_commercial.v1",
+      "kind": "write",
+      "rpc": "service_commercial_v1_command",
+      "input_type": "ServiceCommercialInputsV1['service.addon_assign']",
+      "output_type": "ServiceCommercialReceiptV1",
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member"
+      ],
+      "minimum_role": "member",
+      "backend_status": "implemented_candidate_exact_acceptance_pending",
+      "supabase_tested": false,
+      "supabase_status": "PENDING",
+      "ui_safe": false,
+      "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/telecom/services/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "current_actor_workspace_exact_HMAC_receipt"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_service_version plus bounded child version"
+      },
+      "provider_effects": false
+    },
+    {
+      "name": "service.addon_end",
+      "version": "telecom.service_commercial.v1",
+      "kind": "write",
+      "rpc": "service_commercial_v1_command",
+      "input_type": "ServiceCommercialInputsV1['service.addon_end']",
+      "output_type": "ServiceCommercialReceiptV1",
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member"
+      ],
+      "minimum_role": "member",
+      "backend_status": "implemented_candidate_exact_acceptance_pending",
+      "supabase_tested": false,
+      "supabase_status": "PENDING",
+      "ui_safe": false,
+      "assistant_future": "FUTURE_AI_ACTION_CANDIDATE",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/telecom/services/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": true,
+        "key": "command_id",
+        "scope": "current_actor_workspace_exact_HMAC_receipt"
+      },
+      "cas": {
+        "required": true,
+        "key": "expected_service_version plus bounded child version"
+      },
+      "provider_effects": false
+    },
+    {
+      "name": "service.addon_list",
+      "version": "telecom.service_commercial.v1",
+      "kind": "read",
+      "rpc": "service_commercial_v1_query",
+      "input_type": "ServiceCommercialInputsV1['service.addon_list']",
+      "output_type": "ServiceAddonPageV1",
+      "allowed_roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "minimum_role": "viewer",
+      "backend_status": "implemented_candidate_exact_acceptance_pending",
+      "supabase_tested": false,
+      "supabase_status": "PENDING",
+      "ui_safe": false,
+      "assistant_future": "safe_read_candidate_not_registered",
+      "ai_registration": false,
+      "transport": {
+        "method": "POST",
+        "path": "/api/telecom/services/v1",
+        "enable_flag": "PRODUCT_V1_ENABLED",
+        "origin_flag": "PRODUCT_V1_ORIGIN",
+        "enabled_by_default": false,
+        "authority": "current_cookie_user_jwt_membership"
+      },
+      "idempotency": {
+        "required": false,
+        "key": null,
+        "scope": null
+      },
+      "cas": {
+        "required": false,
+        "key": null
+      },
+      "provider_effects": false
     }
   ],
   "unavailable_modules": [
@@ -9671,7 +9866,7 @@
     "portfolio_legacy_origin_verification"
   ],
   "registration": "Human contracts only; no new AI tools/writes registered; exact accepted source4b5520f,9catalog candidates pending.",
-  "candidate_after_head": null,
-  "operations_total": 203,
+  "candidate_after_head": "8c93d4c58286b225209956237de27350aa0f2048",
+  "operations_total": 208,
   "operations_proven": 203
 }

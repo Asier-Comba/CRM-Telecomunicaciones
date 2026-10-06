@@ -81,6 +81,8 @@ run_fixture supabase/tests/product-dashboard-search.sql
   cat "$repo_root/supabase/tests/currency-separated-billing-cohorts.sql"
   sed '$d' "$repo_root/supabase/seeds/synthetic_product.sql"
   cat "$repo_root/supabase/tests/full-customer360-work-collections.sql"
+  sed '$d' "$repo_root/supabase/seeds/synthetic_product.sql"
+  cat "$repo_root/supabase/tests/service-installation-addon-history.sql"
 } | psql_native > "${RUNNER_TEMP:-$tmp_dir}/product-density-query-plans.jsonlog"
 {
   printf "set app.environment = 'test';\n"
@@ -224,6 +226,8 @@ migration_head="$(basename "${migration}")"
   cat "$repo_root/supabase/tests/currency-separated-billing-cohorts.sql"
   sed '$d' "$repo_root/supabase/seeds/synthetic_product.sql"
   cat "$repo_root/supabase/tests/full-customer360-work-collections.sql"
+  sed '$d' "$repo_root/supabase/seeds/synthetic_product.sql"
+  cat "$repo_root/supabase/tests/service-installation-addon-history.sql"
 } | docker exec -i -u postgres "$container" psql -X -v ON_ERROR_STOP=1 -U postgres -d "$restore_db" > /dev/null
 
 {
@@ -238,6 +242,7 @@ migration_head="$(basename "${migration}")"
 } | docker exec -i -u postgres "$container" psql -X -v ON_ERROR_STOP=1 -U postgres -d "$restore_db" > /dev/null
 
 node scripts/security/native-postgres/product-command-races.mjs
+node scripts/security/native-postgres/service-commercial-races.mjs
 
 printf '{"kind":"native_postgresql_restore_test_only","migration_count":%d,"migration_head":"%s","dump_sha256":"%s","schema":"pass","rows":"pass","assistant_rows":"pass","rls":"pass","scope":"pass","restored_privilege_matrix":"pass","fresh_role_calls":"pass","restored_role_calls":"pass","acl_loss_negative_control":"pass","production_backup":false}\n' \
   "$migration_count" "$migration_head" "$dump_sha"

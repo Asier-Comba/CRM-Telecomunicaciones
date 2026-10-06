@@ -1634,6 +1634,38 @@
       "authenticated": false
     },
     {
+      "anon": false,
+      "public": false,
+      "definer": true,
+      "signature": "public.service_commercial_v1_command(uuid, text, jsonb)",
+      "service_role": false,
+      "authenticated": true
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": true,
+      "signature": "public.service_commercial_v1_guard()",
+      "service_role": false,
+      "authenticated": false
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": true,
+      "signature": "public.service_commercial_v1_query(uuid, text, jsonb)",
+      "service_role": false,
+      "authenticated": true
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": true,
+      "signature": "public.service_commercial_v1_validate(text, jsonb)",
+      "service_role": false,
+      "authenticated": false
+    },
+    {
       "anon": true,
       "public": true,
       "definer": false,

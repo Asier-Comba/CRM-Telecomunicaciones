@@ -204,6 +204,7 @@ Attention acceptedc18123e/2757checks,199operations; still not registered. `billi
 
 `task.list`/`meeting.list` candidate safe reads at normal product query route: all four active roles, customer/related opportunity/assignee/state/date filters, UUID keysets<=100; undated tasks and completed history included. No private note/identifier payload. Exact acceptance pending. Billing readers accepted84dbdc0/2872checks but remain protected owner/admin read candidates only. No registration or AI writes.
 
-## FINAL7 accepted baseline
 
-Accepted source `8c93d4c58286b225209956237de27350aa0f2048`:203/203 human operations, including task.list/meeting.list and billing.monthly_series/billing.top_customers. These are READ candidates only, not AI registrations; existing role and sensitive boundaries apply. All writes remain FUTURE_AI_ACTION_CANDIDATE.
+## TEL5 service commercial candidates
+
+`service.installation_get` and `service.addon_list` are bounded current-role read candidates at `/api/telecom/services/v1`, exact proof pending. Target planning is distinct from actual activation. Add-on rows bind frozen version/position and retain full validity/ending history, no component prices guessed. `service.installation_set`/`service.addon_assign`/`service.addon_end` are FUTURE_AI_ACTION_CANDIDATE only. No new AI tools/writes registered; Issue10 stays W3-owned. Customer360 pages accepted8c93d4c/2928checks.

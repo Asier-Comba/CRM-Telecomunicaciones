@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "source_sha": "8c93d4c58286b225209956237de27350aa0f2048",
-  "stage": "FINAL7_ACCEPTED_BASELINE_RECONCILED",
+  "source_sha": "service_commercial_candidate_after_8c93d4c58286b225209956237de27350aa0f2048",
+  "stage": "TEL5_DENSE_MASKED_LINE_CANDIDATE_AFTER_ACCEPTED_REPORTS",
   "exact_head_accepted": true,
   "no_ai_writes": true,
   "rows": [
@@ -185,12 +185,12 @@
       "section": "Bundles",
       "requirement": "service add-on assignment history",
       "REQUIRED": true,
-      "IMPLEMENTED": false,
+      "IMPLEMENTED": true,
       "PROVEN": false,
       "W2_CONSUMED": false,
-      "BLOCKER": "FINAL7_INTERNAL_PENDING",
+      "BLOCKER": "exact_source_acceptance_pending;W2_consumption_unproven",
       "existing_operation": "service.addon_assign / service.addon_end / service.addon_list",
-      "notes": "Implementation prepared but not published or proven; exact accepted baseline8c93d4c excludes this family."
+      "notes": "Frozen published component and quantity; CAS source policy/inclusive validity history/one-open constraint/derived timing; no provider effects or component surcharge inference. Exact proof pending."
     },
     {
       "section": "Contracts",
@@ -262,12 +262,12 @@
       "section": "Services",
       "requirement": "fixed service operational facts",
       "REQUIRED": true,
-      "IMPLEMENTED": false,
+      "IMPLEMENTED": true,
       "PROVEN": false,
       "W2_CONSUMED": false,
-      "BLOCKER": "FINAL7_INTERNAL_PENDING",
+      "BLOCKER": "exact_source_acceptance_pending;W2_consumption_unproven",
       "existing_operation": "service.installation_set / service.installation_get",
-      "notes": "Implementation prepared but not published or proven; exact accepted baseline8c93d4c excludes this family."
+      "notes": "Explicit safe site/contact/target planning, canonical actual service activation unchanged; access/speeds via frozen plan terms, circuit via protected identifiers. Precise postal site address not retained/inferred from billing. Exact proof pending."
     },
     {
       "section": "Lines",
@@ -1075,14 +1075,14 @@
   ],
   "counts": {
     "REQUIRED": 97,
-    "IMPLEMENTED": 90,
+    "IMPLEMENTED": 92,
     "PROVEN": 90,
     "W2_CONSUMED": 0,
     "BLOCKER": 97
   },
   "official_workflow_fully_green": false,
   "accepted_source_sha": "8c93d4c58286b225209956237de27350aa0f2048",
-  "candidate_operations_total": 203,
+  "candidate_operations_total": 208,
   "candidate_operations_proven": 203,
-  "candidate_exact_head_accepted": true
+  "candidate_exact_head_accepted": false
 }
