@@ -51,6 +51,8 @@ select public.assistant_thread_v2('92000000-0000-4000-8000-000000000001','thread
 select pg_temp.deny_a($q$select public.assistant_thread_v2('92000000-0000-4000-8000-000000000001','thread.archive','{"id":"93000000-0000-4000-8000-000000000001","expected_version":1}')$q$,'40001');
 select public.assistant_thread_v2('92000000-0000-4000-8000-000000000001','turn.start','{"id":"93000000-0000-4000-8000-000000000001","turn_id":"94000000-0000-4000-8000-000000000002","text":"Lectura interrumpida por revocación"}');
 reset role;
+-- Exact lease arithmetic is invariant on native clocks with microsecond precision.
+select pg_temp.assert_a((select bool_and(expires_at=started_at+interval '90 seconds') from public.assistant_turns_v2));
 update public.workspace_members set status='suspended' where user_id='91000000-0000-4000-8000-000000000001';
 set local role authenticated;
 select pg_temp.deny_a($q$select * from public.assistant_conversations_v2$q$,'42501');
