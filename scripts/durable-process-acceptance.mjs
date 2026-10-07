@@ -2,7 +2,7 @@ import { fork } from 'node:child_process'
 import { isAbsolute } from 'node:path'
 import { pathToFileURL, fileURLToPath } from 'node:url'
 import assert from 'node:assert/strict'
-import { DURABLE_PROCESS_CONTRACT, DURABLE_PROCESS_SCENARIOS, validateDurableObservation, validateRollbackEvidence } from '../src/assistant/durable-process-spec.ts'
+import { DURABLE_PROCESS_CONTRACT, DURABLE_PROCESS_SCENARIOS, validateDurableObservation, validateRollbackEvidence, validateDatabaseRestartEvidence } from '../src/assistant/durable-process-spec.ts'
 
 // Usage on repository Node24: node scripts/durable-process-acceptance.mjs /absolute/W2-driver.mjs
 // Driver receives credentials through its own approved local environment, never CLI JSON.
@@ -71,6 +71,9 @@ try {
       if (scenario.id === 'atomic_operation_outbox') {
         const evidence = await driver.inspectBoundary(fixture)
         assert.equal(validateRollbackEvidence(evidence), true)
+      }
+      if (scenario.id === 'database_restart') {
+        assert.equal(validateDatabaseRestartEvidence(await driver.inspectBoundary(fixture)), true)
       }
       if (scenario.id === 'claim_fencing') {
         const evidence = await driver.inspectBoundary(fixture)
