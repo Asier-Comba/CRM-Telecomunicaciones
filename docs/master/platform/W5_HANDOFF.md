@@ -39,3 +39,22 @@ PUBLIC/anon/authenticated behavior and function bodies unchanged. W4 must review
 this real-provider alignment and exact71-migration native/Supabase evidence.
 The RPC comparison now normalizes property/list order while still rejecting
 missing/extra signatures, changed security mode and any changed execution grant.
+
+Full browser acceptance is a separate W2 result. The observed source `8a424bac`,
+merge `2ac3471e`, run `37702649473` failed `real_browser_login` with TIMEOUT at `/login`;
+no full journey PASS is attributed to that source. Consult the acceptance JSON
+for the closing candidate's own browser run. Do not repair product acceptance
+by dropping assertions, extending arbitrary timeouts or disabling its boundary.
+
+Closing source `92f1529d1a058ff48d293305a1ad73055b672594`, tested merge
+`c8dc0de83633f6a9404e72894a1bf97c2464a25a`: W5 run `37703545798` PASS in all three
+jobs. Full W2 browser run `37703545880` is FAIL with 84/87 groups passing:
+`reports_exact_scope_period_export_and_error_mobile` (TIMEOUT),
+`confirmation_native_focus_cycle_escape_restores_trigger_without_write` (TIMEOUT),
+`billing_analytics_real_cohorts_exact_money_currency_and_accessible_tables`
+(ACTION_FAILED). These match W2's published 84/87 gap report; login and all 84
+listed groups passed on this candidate. General CI run `37703545934` passes all
+396 tests/lint/types/build and its other executed jobs, but fails the unsuppressed
+five HIGH braces findings; Critical Playwright is skipped by that blocking gate.
+No older PASS or backend-only PASS overrides these results. W2 must publish
+accepted full-browser and hosted runtime evidence before platform launch.

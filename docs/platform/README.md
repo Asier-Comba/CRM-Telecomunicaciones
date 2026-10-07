@@ -4,6 +4,9 @@ W5 prepares reconstruction and operations. This branch is a draft against W2;
 it is not a production release. Use `docs/master/platform/W5_PLATFORM_ACCEPTANCE.json`
 for exact evidence and blockers. Company accounts and credentials are not needed
 to run repository checks. Never paste credential values into a chat or commit them.
+The acceptance JSON separates dated development-host observations in `local`
+from the exact source/merge CI evidence. Use `evidence`, `ci_package` and
+`ci_boundaries` for the recorded candidate; full browser acceptance is separate.
 
 ## Commands
 

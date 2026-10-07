@@ -1,67 +1,256 @@
 {
   "version": 1,
-  "generated_at": "2026-10-07T22:49:49.453Z",
-  "head_at_generation": "f1cc44af1c024d0186787e0dbfa55888edff8a8f",
+  "generated_at": "2026-10-07T23:59:50.512Z",
+  "head_at_generation": "92f1529d1a058ff48d293305a1ad73055b672594",
   "base_w2_sha": "7ab6f56f10fc65aa7212ed5dfbdeacea8901756a",
-  "w2_last_observed": "692ba6fcc3c78ba3b57a2d8fbc2b8b82317b4b7c",
+  "w2_last_observed": "782c8fc8fd011afce1a49ca761eea46cc9c7a3bd",
+  "w2_source_last_observed": "692ba6fcc3c78ba3b57a2d8fbc2b8b82317b4b7c",
   "w3_last_observed": "db5d9defbe06ce7b7543df78823c4ab15a38f80b",
   "w3_source_consumed": null,
   "pr": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/34",
   "manifest": {
     "file": "infra/platform/environment-manifest.json",
     "entries": 107,
-    "migrations": 70
+    "migrations": 71
   },
   "ci_package": {
-    "result": "PASS",
-    "job_url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37697793613/job/113053699055",
-    "image": "sha256:8d92224392d1e77e1c63a55a121802f67ddce88f43836e4432183dbc3e334a17",
-    "user": "NONROOT",
-    "filesystem": "READONLY"
+    "container": {
+      "status": "PASS",
+      "user": "NONROOT",
+      "filesystem": "READONLY",
+      "liveness": "PASS",
+      "docker_healthcheck": "PASS",
+      "node_version": "24.21.0",
+      "missing_backend": "FAIL_CLOSED",
+      "image": "sha256:bfbfd145fffeb302f34a619498cb7a08c982c30f3f16035f0b890d1b62026b0a",
+      "staging": "NOT_PROVEN",
+      "production": "NOT_PROVEN"
+    },
+    "scan": {
+      "result": "PASS",
+      "scanner": "trivy-0.75.0",
+      "image": "sha256:bfbfd145fffeb302f34a619498cb7a08c982c30f3f16035f0b890d1b62026b0a",
+      "high_critical": [],
+      "secret_findings": 0,
+      "raw_results_retained": false
+    },
+    "base_signature": {
+      "result": "PASS",
+      "identity": "keyless@distroless.iam.gserviceaccount.com",
+      "issuer": "https://accounts.google.com",
+      "index_digest": "sha256:9eeb7f5887d0e239e78264b06f7f11d2e14be534050481803a9e4728fcdd278e"
+    }
   },
   "ci_boundaries": {
-    "result": "PASS",
-    "job_url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37697793613/job/113053698646",
-    "private_classes": 24,
-    "build_files": 2080,
-    "runtime_logs": "PASS",
-    "synthetic_dom_screenshot": "PASS"
+    "manifest": {
+      "manifest": "infra/platform/environment-manifest.json",
+      "sha256": "ad86e1787438e4c71fc00f2491ae82ea47f3490647d5b39444b9a17250ea1583",
+      "values_included": false
+    },
+    "build": {
+      "status": "PASS",
+      "files_checked": 2080,
+      "values_included": false,
+      "classes": 24,
+      "scope": "BUILD_STATIC_SERVER_CACHE_LOGS",
+      "screenshots": "EXISTING_W2_SYNTHETIC_CI_ARTIFACTS_NOT_SCANNED"
+    },
+    "runtime": {
+      "status": "PASS",
+      "build_server": "PASS",
+      "liveness": "PASS",
+      "headers": "PASS",
+      "unconfigured_readiness": "FAIL_CLOSED",
+      "unconfigured_product": "FAIL_CLOSED",
+      "runtime_secret_classes": 24,
+      "runtime_logs": "PASS",
+      "screenshots": "PASS_SYNTHETIC_DOM_AND_ARTIFACT_BOUNDARY",
+      "provider_calls": false
+    }
   },
   "evidence": {
-    "run_url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37697793613",
-    "source_head_sha": "f1cc44af1c024d0186787e0dbfa55888edff8a8f",
-    "tested_merge_sha": "072ca11823039b2d7e34e76e56b1ce3fc1b93e0c",
-    "overall": "FAIL",
-    "recovery_stage": "restore_storage",
-    "error": "BUCKET_TARGET_READ_FAILED_UNKNOWN",
+    "run_url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37703545798",
+    "source_head_sha": "92f1529d1a058ff48d293305a1ad73055b672594",
+    "tested_merge_sha": "c8dc0de83633f6a9404e72894a1bf97c2464a25a",
+    "overall": "PASS",
+    "recovery_stage": "verify_auth_scope",
     "zero_to_head": "PASS",
     "backend_checks": 3349,
     "takeover_checks": 227,
+    "migration_count": 71,
+    "auth": "PASS",
+    "storage": "PASS",
+    "rpc_manifest": {
+      "result": "PASS",
+      "public_functions": 291,
+      "scope": "SIGNATURE_SECURITY_MODE_AND_EXECUTION_GRANTS"
+    },
     "backup": {
       "database": "PASS",
       "storage_bytes": "PASS",
       "encryption": "AES-256-GCM",
-      "archive_sha256": "1556211fb511c5a50372c7fe1231a83f113ff81fca2fda7295db098bd5e8e478",
-      "objects": 18,
+      "archive_sha256": "1cd3f906b3e55bf1c1e377c49b89adca41d2ad8a8935bb148e891a874020e765",
+      "objects": 19,
       "auth_scope": "LOCAL_USERS_IDENTITIES_ONLY_NO_SESSIONS",
+      "offsite": "NOT_PROVEN"
+    },
+    "disaster_rehearsal": {
+      "result": "PASS",
+      "fresh_rebuilds": 2,
+      "schema_drift": "PASS",
+      "database_hashes": "PASS",
+      "storage": {
+        "objects": 19,
+        "hashes": "PASS",
+        "metadata": "PASS"
+      },
+      "storage_metadata_scope": [
+        "size",
+        "sha256",
+        "content_type",
+        "cache_control",
+        "custom_metadata"
+      ],
+      "storage_provider_ids_timestamps": "REGENERATED_API_FIELDS",
+      "tenant_isolation": "PASS",
+      "revoked_member": "PASS",
+      "auth_login": "PASS",
+      "duration_seconds": 42,
+      "hosted_auth_portability": "NOT_PROVEN",
       "offsite": "NOT_PROVEN"
     }
   },
   "local": {
-    "platform_tests": "PASS_23",
+    "platform_tests": "PASS_25",
     "typecheck": "PASS",
     "offline_build": "PASS",
     "build_health_smoke": "PASS",
     "private_canary_boundary": "PASS_22_CLASSES_2006_FILES_CACHE_REMOVED",
     "portability_scan": "PASS",
-    "embedded_70_migration_restore": "PASS",
+    "embedded_71_migration_restore": "PASS",
     "repository_bootstrap_tests": "386_PASS_5_WINDOWS_UNIX_PERMISSION_FAILURES",
     "dependency_audit": "5_HIGH_INHERITED_BRACES_CHAIN",
     "container": "HOST_DOCKER_UNAVAILABLE"
   },
-  "zero_to_app": "NOT_RUN",
-  "full_product_browser": "NOT_PROVEN_AT_W5_HEAD",
-  "disaster_rehearsal": "NOT_RUN",
+  "zero_to_app": "FAIL",
+  "zero_to_app_scope": "FULL_PRODUCT_BROWSER_DISTINCT_FROM_BACKEND_TRANSPORT",
+  "full_product_browser": {
+    "source_head_sha": "92f1529d1a058ff48d293305a1ad73055b672594",
+    "tested_merge_sha": "c8dc0de83633f6a9404e72894a1bf97c2464a25a",
+    "run_url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37703545880",
+    "result": "FAIL",
+    "passed_checks": [
+      "real_browser_login",
+      "existing_customer_detail_authorized",
+      "customer_create",
+      "customer_edit_and_reload",
+      "contact_create_primary",
+      "contact_update_primary_switch",
+      "contact_archive_restore_readonly",
+      "customer_archive_restore_persist",
+      "contact_pii_not_persisted",
+      "dashboard_and_global_search",
+      "task_create_complete_persist",
+      "meeting_create_reschedule_cancel_persist",
+      "task_reopen_start_update_cancel",
+      "meeting_update_complete_no_show",
+      "calendar_customer_association_persist",
+      "calendar_real_cursor_next_previous",
+      "dashboard_operational_scope_period",
+      "stale_editor_conflict_no_overwrite",
+      "valid_jwt_revocation_denies_ui_write",
+      "owner_real_browser_login",
+      "customer_authorized_assignment",
+      "opportunity_create_edit_win_reopen_lose",
+      "opportunity_reopen_archive_terminal_readonly",
+      "opportunity_real_drag_keyboard_conflict",
+      "global_search_keyboard_quick_actions",
+      "inbox_internal_create_note_marker_link_assign_lifecycle",
+      "inbox_uncertain_replay_and_cas_no_duplicate",
+      "inbox_actual_thread_cursor_mobile_context",
+      "portfolio_manual_service_line_renewal_source",
+      "calendar_manual_renewal_update_resolve",
+      "portfolio_contract_create_assign_activate_cancel",
+      "portfolio_service_line_labels_and_transitions",
+      "portfolio_permanence_create_update_cancel_and_renewal_dismiss",
+      "importjob_list_get_cancel_processing_blocked",
+      "billing_fiscal_draft_issue_pdf_paid",
+      "billing_reverse_payment_trash_restore",
+      "billing_financial_currency_comparison_scoped_period",
+      "billing_issuer_and_text_proposal_requires_review",
+      "billing_fiscal_commit_survives_storage_failure_and_private_retry",
+      "billing_exact_lines_discount_tax_withholding_fx_review_and_replay",
+      "invoice_minimized_summary_actual_reader_and_mobile",
+      "notifications_self_refresh_mark_read_all_and_mobile",
+      "automation_create_update_enable_notification_effect_disable",
+      "automation_task_lost_response_exact_replay_no_duplicate",
+      "automation_conflict_terminal_failure_truth_mobile",
+      "document_valid_image_private_preview_reauthorization_and_revoke",
+      "settings_profile_exact_replay_company_logo_integrations_mobile",
+      "settings_company_cas_and_notification_optout_truth",
+      "sensitive_requested_field_audit_copy_revocation_mobile",
+      "team_invite_role_suspend_resume",
+      "team_remove_suspended_member",
+      "document_integrity_exact_lost_response_private_proof_mobile",
+      "document_expired_pending_claim_finish_exact_retry_active_preserved",
+      "team_expired_invite_list_reissue_exact_retry_cancel_mobile",
+      "manual_origin_new_proof_legacy_and_denied_refresh",
+      "opportunity_actual_product_links_same_customer_replay_cas_mobile",
+      "document_metadata_archive_restore",
+      "document_upload_finalize_private_download",
+      "document_ticket_metadata_revocation",
+      "document_ticket_actual_expiry_and_fresh_retry",
+      "desktop_tablet_mobile_layouts",
+      "polished_contacts_cursor_settings_assistant_day",
+      "document_real_target_drag_invalid_no_request",
+      "critical_dialogs_desktop_tablet_mobile",
+      "customer360_exact_summary_safe_contacts_independent_domains",
+      "customer360_undated_completed_tasks_cursor_filter_navigation",
+      "customer360_loaded_telecom_desktop_tablet_mobile",
+      "portfolio_confirmed_create_read_failure_retry_never_repeats_command",
+      "equipment_real_collection_cursor_filters_three_widths",
+      "equipment_normal_create_assign_lost_response_exact_retry_replace_return_cancel_history",
+      "portfolio_real_inventory_independent_collections",
+      "attention_normal_scoped_filters_cursor_truth_and_three_widths",
+      "telecom_nine_reports_real_aggregate_rows_three_widths",
+      "catalog_normal_operator_create_update_deactivate_activate_plan_create",
+      "catalog_actual_version_terms_and_three_widths",
+      "viewer_login_no_write_controls",
+      "viewer_portfolio_ancestry_ordinary_identity_never_privileged_editor",
+      "equipment_viewer_normal_read_has_no_lifecycle_controls",
+      "admin_real_login_write_and_owner_protection",
+      "inbox_member_reassignment_revokes_private_body",
+      "customer_collection_real_cursor_filters_reload_member",
+      "customer_collection_loaded_desktop_tablet_mobile",
+      "customer_collection_revoked_authority_clears_rows",
+      "shell_mobile_routes_escape_focus_and_real_logout"
+    ],
+    "failed_checks": [
+      "reports_exact_scope_period_export_and_error_mobile",
+      "confirmation_native_focus_cycle_escape_restores_trigger_without_write",
+      "billing_analytics_real_cohorts_exact_money_currency_and_accessible_tables"
+    ],
+    "failure_details": [
+      {
+        "check": "reports_exact_scope_period_export_and_error_mobile",
+        "action": "reports_exact_scope_period_export_and_error_mobile",
+        "kind": "TIMEOUT"
+      },
+      {
+        "check": "confirmation_native_focus_cycle_escape_restores_trigger_without_write",
+        "action": "confirmation_native_focus_cycle_escape_restores_trigger_without_write",
+        "kind": "TIMEOUT"
+      },
+      {
+        "check": "billing_analytics_real_cohorts_exact_money_currency_and_accessible_tables",
+        "action": "billing_analytics_real_cohorts_exact_money_currency_and_accessible_tables",
+        "kind": "ACTION_FAILED"
+      }
+    ],
+    "failed_stage": "http_acceptance",
+    "error": "W2_UI_FAILED_JOURNEYS"
+  },
+  "disaster_rehearsal": "PASS",
   "staging": "NOT_PROVEN",
   "production": "NOT_PROVEN",
   "w4_required": true,
@@ -77,16 +266,17 @@
     "independent W4 and real staging",
     "final protected production approval"
   ],
-  "internal_work_remaining": [
-    "resolve/prove real Supabase disaster rehearsal",
-    "accepted W2 hosted runtime and W3 worker integration when published",
-    "independent hosted policy acceptance with accepted W2/W3 contracts"
+  "internal_work_remaining": [],
+  "team_gates": [
+    "accepted W2 full browser and hosted runtime",
+    "accepted W3 durable worker contract and integration when published",
+    "independent W4 hosted policy/dependency review"
   ],
   "next_5": [
-    "prove full real-local DB/Auth/Storage restore",
-    "review exact candidate SBOM and dependency advisory with W4",
-    "consume accepted W2 hosted runtime without bypass",
-    "obtain independent W4 platform review",
-    "bind company staging accounts and prove staging without customer data"
+    "W2 resolve full browser acceptance and publish accepted hosted runtime",
+    "W3 publish accepted durable worker/deployment contract",
+    "W4 review exact candidate SQL ACLs, image/SBOM and unresolved braces advisory",
+    "bind company staging identities/secrets/DNS/SMTP/offsite/KMS and prove synthetic staging recovery",
+    "approve and exercise protected production promotion only after all staging and W4 gates"
   ]
 }
