@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "generated_at": "2026-10-07T22:33:31.087Z",
-  "head_at_generation": "cc433a3f1e7b518b8f4723c90ff694c1c7361eef",
+  "generated_at": "2026-10-07T22:49:49.453Z",
+  "head_at_generation": "f1cc44af1c024d0186787e0dbfa55888edff8a8f",
   "base_w2_sha": "7ab6f56f10fc65aa7212ed5dfbdeacea8901756a",
   "w2_last_observed": "692ba6fcc3c78ba3b57a2d8fbc2b8b82317b4b7c",
   "w3_last_observed": "db5d9defbe06ce7b7543df78823c4ab15a38f80b",
@@ -9,12 +9,46 @@
   "pr": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/34",
   "manifest": {
     "file": "infra/platform/environment-manifest.json",
-    "entries": 98,
+    "entries": 107,
     "migrations": 70
   },
-  "evidence": null,
+  "ci_package": {
+    "result": "PASS",
+    "job_url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37697793613/job/113053699055",
+    "image": "sha256:8d92224392d1e77e1c63a55a121802f67ddce88f43836e4432183dbc3e334a17",
+    "user": "NONROOT",
+    "filesystem": "READONLY"
+  },
+  "ci_boundaries": {
+    "result": "PASS",
+    "job_url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37697793613/job/113053698646",
+    "private_classes": 24,
+    "build_files": 2080,
+    "runtime_logs": "PASS",
+    "synthetic_dom_screenshot": "PASS"
+  },
+  "evidence": {
+    "run_url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37697793613",
+    "source_head_sha": "f1cc44af1c024d0186787e0dbfa55888edff8a8f",
+    "tested_merge_sha": "072ca11823039b2d7e34e76e56b1ce3fc1b93e0c",
+    "overall": "FAIL",
+    "recovery_stage": "restore_storage",
+    "error": "BUCKET_TARGET_READ_FAILED_UNKNOWN",
+    "zero_to_head": "PASS",
+    "backend_checks": 3349,
+    "takeover_checks": 227,
+    "backup": {
+      "database": "PASS",
+      "storage_bytes": "PASS",
+      "encryption": "AES-256-GCM",
+      "archive_sha256": "1556211fb511c5a50372c7fe1231a83f113ff81fca2fda7295db098bd5e8e478",
+      "objects": 18,
+      "auth_scope": "LOCAL_USERS_IDENTITIES_ONLY_NO_SESSIONS",
+      "offsite": "NOT_PROVEN"
+    }
+  },
   "local": {
-    "platform_tests": "PASS_18",
+    "platform_tests": "PASS_23",
     "typecheck": "PASS",
     "offline_build": "PASS",
     "build_health_smoke": "PASS",
@@ -23,7 +57,7 @@
     "embedded_70_migration_restore": "PASS",
     "repository_bootstrap_tests": "386_PASS_5_WINDOWS_UNIX_PERMISSION_FAILURES",
     "dependency_audit": "5_HIGH_INHERITED_BRACES_CHAIN",
-    "container": "NOT_RUN"
+    "container": "HOST_DOCKER_UNAVAILABLE"
   },
   "zero_to_app": "NOT_RUN",
   "full_product_browser": "NOT_PROVEN_AT_W5_HEAD",
@@ -45,13 +79,12 @@
   ],
   "internal_work_remaining": [
     "resolve/prove real Supabase disaster rehearsal",
-    "container package smoke in CI",
     "accepted W2 hosted runtime and W3 worker integration when published",
-    "complete artifact/screenshot/runtime logging and hosted policy acceptance"
+    "independent hosted policy acceptance with accepted W2/W3 contracts"
   ],
   "next_5": [
     "prove full real-local DB/Auth/Storage restore",
-    "run nonroot/read-only container acceptance",
+    "review exact candidate SBOM and dependency advisory with W4",
     "consume accepted W2 hosted runtime without bypass",
     "obtain independent W4 platform review",
     "bind company staging accounts and prove staging without customer data"

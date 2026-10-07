@@ -63,7 +63,11 @@ export async function restoreStorage(storage,bundle){
   if(existing.error){
    const status=Number(existing.error.status??existing.error.statusCode)
    const absent=status===404||status===400&&/^Bucket not found$/i.test(existing.error.message??'')
-   if(!absent)throw new Error(`BUCKET_TARGET_READ_FAILED_${Number.isInteger(status)?status:'UNKNOWN'}`)
+   if(!absent){
+    const cause=existing.error.originalError
+    const known=['ECONNRESET','ECONNREFUSED','UND_ERR_SOCKET','UND_ERR_CONNECT_TIMEOUT'].includes(cause?.cause?.code)?cause.cause.code:['TypeError','SyntaxError','TimeoutError','AbortError'].includes(cause?.name)?cause.name.toUpperCase():'UNKNOWN'
+    throw new Error(`BUCKET_TARGET_READ_FAILED_${Number.isInteger(status)?status:known}`)
+   }
    const r=await storage.createBucket(b.id,{public:false,fileSizeLimit:b.file_size_limit,allowedMimeTypes:b.allowed_mime_types});if(r.error)throw new Error(`BUCKET_RESTORE_FAILED_${Number(r.error.status??r.error.statusCode)||'UNKNOWN'}`)
   }
   else if(existing.data.public!==false||existing.data.file_size_limit!==b.file_size_limit||JSON.stringify(existing.data.allowed_mime_types)!==JSON.stringify(b.allowed_mime_types))throw new Error('BUCKET_CONFIG_DRIFT')

@@ -5,6 +5,9 @@ import {join,resolve,sep,basename} from 'node:path'
 import {tmpdir} from 'node:os'
 import {encryptBackup,decryptBackup,captureStorage,restoreStorage,verifyBundle,storageTargetGuard} from './backup.mjs'
 import {disposableGuard,root,migrations,hash} from './lib.mjs'
+import {checkRpcManifest} from './rpc-manifest.mjs'
+import {storageReady} from './storage-ready.mjs'
+const clientOptions={auth:{persistSession:false,autoRefreshToken:false},global:{fetch:(input,options={})=>fetch(input,{...options,redirect:'error',signal:options.signal?AbortSignal.any([options.signal,AbortSignal.timeout(15000)]):AbortSignal.timeout(15000)})}}
 // Called only inside run-stack after real Auth/Storage acceptance. It never takes
 // a caller-selected database, Docker container, URL or key from CLI arguments.
 export async function recoveryRehearsal({url,anon,service,db,command,report,users,wa,wb,object}){
@@ -17,11 +20,12 @@ export async function recoveryRehearsal({url,anon,service,db,command,report,user
  try{
   report.recovery_stage='capture'
   const expected=metadata(),expectedRows=rows()
+  report.rpc_manifest=checkRpcManifest(expected.privileges)
   if(JSON.stringify(expected.schema.migrations)!==JSON.stringify(migrations().map(m=>m.version)))throw new Error('MIGRATION_VERSION_DRIFT')
   // Obtain DB bytes without terminal conversion or echoing any contents.
   const dump=command('docker',['exec',db,'pg_dump','-U','postgres','-d','postgres','--format=custom','--data-only','--table=public.*','--table=auth.users','--table=auth.identities'],{encoding:null})
   if(!Buffer.isBuffer(dump)||!dump.length)throw new Error('EMPTY_DATABASE_BACKUP')
-  let storage=createClient(url,service,{auth:{persistSession:false,autoRefreshToken:false}}).storage
+  let storage=createClient(url,service,clientOptions).storage
   const contents=await captureStorage(storage)
   if(!contents.objects.length)throw new Error('STORAGE_RECOVERY_REQUIRES_OBJECTS')
   const bundle={version:1,migrations:migrations(),database:dump.toString('base64'),database_sha256:hash(dump),...contents}
@@ -41,7 +45,7 @@ export async function recoveryRehearsal({url,anon,service,db,command,report,user
   anon=statusB.ANON_KEY??statusB.auth?.anon_key
   service=statusB.SERVICE_ROLE_KEY??statusB.auth?.service_role_key
   if(!anon||!service)throw new Error('RESTORE_TARGET_KEYS_MISSING')
-  storage=createClient(url,service,{auth:{persistSession:false,autoRefreshToken:false}}).storage
+  storage=createClient(url,service,clientOptions).storage
   const fresh=metadata()
   if(JSON.stringify(fresh)!==JSON.stringify(expected))throw new Error('FRESH_SCHEMA_DRIFT')
   report.recovery_stage='restore_database'
@@ -55,6 +59,7 @@ export async function recoveryRehearsal({url,anon,service,db,command,report,user
   command('docker',['exec','-i',db,'pg_restore','-U','supabase_admin','-d','postgres','--data-only','--disable-triggers','--exit-on-error'],{input:Buffer.from(recovered.database,'base64')})
   if(JSON.stringify(rows())!==JSON.stringify(expectedRows))throw new Error('DATABASE_RECOVERY_ROW_MISMATCH')
   report.recovery_stage='restore_storage'
+  report.restore_storage_readiness=await storageReady(url,service)
   const storageResult=await restoreStorage(storage,recovered)
   if(JSON.stringify(metadata())!==JSON.stringify(expected))throw new Error('RESTORE_SECURITY_DRIFT')
   report.recovery_stage='verify_auth_scope'

@@ -26,3 +26,11 @@ test('nested inventory and byte+metadata restore, missing download fails closed'
  assert.deepEqual(await restoreStorage(storage,b),{objects:1,hashes:'PASS',metadata:'PASS'})
  storage.from=()=>({list:async()=>({error:'unavailable'})});await assert.rejects(()=>captureStorage(storage),/OBJECT_LIST_FAILED/)
 })
+test('only a known missing-bucket response permits creation; authorization failures stop recovery',async()=>{
+ const b=bundle();let created=false
+ const storage={getBucket:async()=>({error:{status:403,message:'Forbidden'}}),createBucket:async()=>{created=true;return {error:null}}}
+ await assert.rejects(()=>restoreStorage(storage,b),/BUCKET_TARGET_READ_FAILED_403/);assert.equal(created,false)
+ storage.getBucket=async()=>({error:{status:400,message:'Bucket not found'}})
+ storage.createBucket=async()=>{created=true;return {error:{status:503}}}
+ await assert.rejects(()=>restoreStorage(storage,b),/BUCKET_RESTORE_FAILED_503/);assert.equal(created,true)
+})
