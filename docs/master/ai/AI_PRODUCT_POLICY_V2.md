@@ -24,3 +24,7 @@ Production/staging application gates remain closed. Local routes require every W
 ### Provider-neutral deadline and result envelope
 
 Every semantic provider call has an independent60second upper deadline even when the transport ignores AbortSignal. Cancellation aborts only this call, never a shared provider-wide cancel. Provider exceptions become safe unavailable. A descriptor-safe immutable snapshot and closed envelope validate usage, model identifier, duration and plan bounds before any read. Known credential patterns, invalid/extra calendar fields and unbounded/duplicate/unsafe reference handles are rejected before transport independently of the vendor adapter. This does not establish provider health or live semantic quality. Existing current-authority fences and per-capability plan/result validation remain mandatory.
+
+## Safe per-turn provider state
+
+Existing turn telemetry exposes providerState: not_configured, configured, degraded, unavailable. Configured means only that the transport is configured; it does not assert a successful live evaluation. Invalid output/rate-limit indicate degraded; timeout/transport failure indicate unavailable. User cancellation, invalid caller input and provider refusal do not alone demonstrate transport outage. This snapshot never chooses authority or changes CRM truth. No global cache, active health probe, credentials or raw error payload. liveModelEvidence remains independently classified.

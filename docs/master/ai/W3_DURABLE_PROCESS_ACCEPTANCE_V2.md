@@ -83,7 +83,28 @@ provider outcomes stay reconciliation_required; this suite's successful recovery
 fixtures offer independent receipt or absence evidence. Do not infer absence from
 timeout, transport failure or a missing in-process cache entry.
 
+## Actual database restart evidence
+
+`database_restart` uses `restart_disposable_database_after_commit`. Only the
+reviewed, explicitly disposable native driver may restart its own test cluster;
+this spec grants no production/VPS infrastructure authority. Connection termination
+remains a separate scenario and cannot substitute for restarting the postmaster.
+
+`inspectBoundary(fixture)` must return exactly:
+`{beforeSystemIdentifier,afterSystemIdentifier,beforePostmasterStartMs,afterPostmasterStartMs,originalBindingDigest,persistedBindingDigest}`.
+Measure the system identifier from `pg_control_system()` and the start time from
+`pg_postmaster_start_time()` before/after the restart. The same identifier and a
+strictly later start time are required; each timestamp is safe integer epoch ms.
+Digests are equal SHA256 of the exact actor/workspace/capability/idempotency/argument
+binding persisted before the committed reply was lost. Inspect again afterward,
+before a fresh recovery process drains/reconciles; the normal final ledger oracle
+still requires exactly one effect and original audit delivery. No new intent/key.
+Do not print identifiers or binding material. Evidence shape rejects unknown
+fields, accessors and symbols. Exact reviewed driver source and independent W4
+execution are still required: a unit test of this oracle proves no DB restart.
+
 Run registerDurableAdapterConformance against the real factory as well. Current
 W3 unit/IPC tests verify protocol mechanics and rejection controls only; none of
-these native scenarios has run without W2's actual adapter/driver. Real DB restart,
-Supabase JWT/PostgREST/Storage and infrastructure recovery remain separate gates.
+these native scenarios has run without an actual physical adapter/driver. Real DB
+restart now has a required executable scenario, still NOT_RUN; Supabase
+JWT/PostgREST/Storage and infrastructure recovery remain separate gates.
