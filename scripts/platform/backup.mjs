@@ -60,7 +60,10 @@ export async function restoreStorage(storage,bundle){
  verifyBundle(bundle)
  for(const b of bundle.buckets){
   const existing=await storage.getBucket(b.id)
-  if(existing.error){const r=await storage.createBucket(b.id,{public:false,fileSizeLimit:b.file_size_limit,allowedMimeTypes:b.allowed_mime_types});if(r.error)throw new Error('BUCKET_RESTORE_FAILED')}
+  if(existing.error){
+   if(Number(existing.error.status??existing.error.statusCode)!==404)throw new Error('BUCKET_TARGET_READ_FAILED')
+   const r=await storage.createBucket(b.id,{public:false,fileSizeLimit:b.file_size_limit,allowedMimeTypes:b.allowed_mime_types});if(r.error)throw new Error('BUCKET_RESTORE_FAILED')
+  }
   else if(existing.data.public!==false||existing.data.file_size_limit!==b.file_size_limit||JSON.stringify(existing.data.allowed_mime_types)!==JSON.stringify(b.allowed_mime_types))throw new Error('BUCKET_CONFIG_DRIFT')
  }
  for(const o of bundle.objects){

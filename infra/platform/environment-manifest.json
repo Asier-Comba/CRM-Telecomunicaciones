@@ -399,6 +399,7 @@
       },
       "owner": "W5",
       "consumer": [
+        "scripts/platform/container-smoke.mjs",
         "scripts/platform/hosted-bootstrap.mjs",
         "scripts/platform/lib.mjs"
       ],
@@ -547,6 +548,7 @@
       },
       "owner": "W5",
       "consumer": [
+        "scripts/platform/container-smoke.mjs",
         "scripts/platform/hosted-bootstrap.mjs",
         "scripts/platform/lib.mjs"
       ],
@@ -1628,6 +1630,27 @@
       ],
       "validation_rule": "string",
       "description": "Configuration binding for OPENAI_MODEL; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "PATH",
+      "type": "string",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform/smoke.mjs"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for PATH; presence does not prove provider readiness.",
       "rotation_expectation": "Review on release/config change.",
       "provider": "application",
       "destination": "environment-specific configuration",

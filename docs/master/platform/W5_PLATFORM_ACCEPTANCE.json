@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "generated_at": "2026-10-07T22:33:31.087Z",
+  "head_at_generation": "cc433a3f1e7b518b8f4723c90ff694c1c7361eef",
+  "base_w2_sha": "7ab6f56f10fc65aa7212ed5dfbdeacea8901756a",
+  "w2_last_observed": "692ba6fcc3c78ba3b57a2d8fbc2b8b82317b4b7c",
+  "w3_last_observed": "db5d9defbe06ce7b7543df78823c4ab15a38f80b",
+  "w3_source_consumed": null,
+  "pr": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/34",
+  "manifest": {
+    "file": "infra/platform/environment-manifest.json",
+    "entries": 98,
+    "migrations": 70
+  },
+  "evidence": null,
+  "local": {
+    "platform_tests": "PASS_18",
+    "typecheck": "PASS",
+    "offline_build": "PASS",
+    "build_health_smoke": "PASS",
+    "private_canary_boundary": "PASS_22_CLASSES_2006_FILES_CACHE_REMOVED",
+    "portability_scan": "PASS",
+    "embedded_70_migration_restore": "PASS",
+    "repository_bootstrap_tests": "386_PASS_5_WINDOWS_UNIX_PERMISSION_FAILURES",
+    "dependency_audit": "5_HIGH_INHERITED_BRACES_CHAIN",
+    "container": "NOT_RUN"
+  },
+  "zero_to_app": "NOT_RUN",
+  "full_product_browser": "NOT_PROVEN_AT_W5_HEAD",
+  "disaster_rehearsal": "NOT_RUN",
+  "staging": "NOT_PROVEN",
+  "production": "NOT_PROVEN",
+  "w4_required": true,
+  "platform_freeze": false,
+  "external_actions_required": [
+    "company ownership and two MFA administrators",
+    "separate Supabase staging/prod projects",
+    "domain/DNS/TLS provider bindings",
+    "human mail and verified Auth SMTP",
+    "accepted CRM outbound provider adapter",
+    "scoped AI/n8n/monitoring secrets if selected",
+    "approved retention/RPO/RTO/offsite/KMS",
+    "independent W4 and real staging",
+    "final protected production approval"
+  ],
+  "internal_work_remaining": [
+    "resolve/prove real Supabase disaster rehearsal",
+    "container package smoke in CI",
+    "accepted W2 hosted runtime and W3 worker integration when published",
+    "complete artifact/screenshot/runtime logging and hosted policy acceptance"
+  ],
+  "next_5": [
+    "prove full real-local DB/Auth/Storage restore",
+    "run nonroot/read-only container acceptance",
+    "consume accepted W2 hosted runtime without bypass",
+    "obtain independent W4 platform review",
+    "bind company staging accounts and prove staging without customer data"
+  ]
+}

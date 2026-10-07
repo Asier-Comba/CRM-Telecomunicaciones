@@ -1,0 +1,235 @@
+{
+  "version": 1,
+  "evidence_run": null,
+  "rows": [
+    {
+      "subsystem": "GitHub",
+      "IMPLEMENTED": true,
+      "LOCALLY_PROVEN": true,
+      "EXTERNAL_CONFIG_REQUIRED": true,
+      "STAGING_PROVEN": false,
+      "PROD_PROVEN": false,
+      "BLOCKER": "Company organization ownership/protection not established",
+      "local_proof_scope": "git checkpoint push"
+    },
+    {
+      "subsystem": "Supabase",
+      "IMPLEMENTED": true,
+      "LOCALLY_PROVEN": false,
+      "EXTERNAL_CONFIG_REQUIRED": true,
+      "STAGING_PROVEN": false,
+      "PROD_PROVEN": false,
+      "BLOCKER": "Hosted company projects required",
+      "local_proof_scope": "real local migration bootstrap"
+    },
+    {
+      "subsystem": "DB",
+      "IMPLEMENTED": true,
+      "LOCALLY_PROVEN": false,
+      "EXTERNAL_CONFIG_REQUIRED": true,
+      "STAGING_PROVEN": false,
+      "PROD_PROVEN": false,
+      "BLOCKER": "Hosted drift/ACL proof required",
+      "local_proof_scope": "real local SQL and embedded contracts"
+    },
+    {
+      "subsystem": "Auth",
+      "IMPLEMENTED": true,
+      "LOCALLY_PROVEN": false,
+      "EXTERNAL_CONFIG_REQUIRED": true,
+      "STAGING_PROVEN": false,
+      "PROD_PROVEN": false,
+      "BLOCKER": "Hosted MFA/delivery/provider state required",
+      "local_proof_scope": "real local create/login/refresh/logout/revoke"
+    },
+    {
+      "subsystem": "Storage",
+      "IMPLEMENTED": true,
+      "LOCALLY_PROVEN": false,
+      "EXTERNAL_CONFIG_REQUIRED": true,
+      "STAGING_PROVEN": false,
+      "PROD_PROVEN": false,
+      "BLOCKER": "Hosted object/ACL proof required",
+      "local_proof_scope": "real local private object API"
+    },
+    {
+      "subsystem": "App deploy",
+      "IMPLEMENTED": true,
+      "LOCALLY_PROVEN": true,
+      "EXTERNAL_CONFIG_REQUIRED": true,
+      "STAGING_PROVEN": false,
+      "PROD_PROVEN": false,
+      "BLOCKER": "W2 hosted runtime remains disabled",
+      "local_proof_scope": "built server health smoke only"
+    },
+    {
+      "subsystem": "DNS",
+      "IMPLEMENTED": true,
+      "LOCALLY_PROVEN": false,
+      "EXTERNAL_CONFIG_REQUIRED": true,
+      "STAGING_PROVEN": false,
+      "PROD_PROVEN": false,
+      "BLOCKER": "Provider-issued records and authority required",
+      "local_proof_scope": "simulated resolver validator only"
+    },
+    {
+      "subsystem": "human email",
+      "IMPLEMENTED": false,
+      "LOCALLY_PROVEN": false,
+      "EXTERNAL_CONFIG_REQUIRED": true,
+      "STAGING_PROVEN": false,
+      "PROD_PROVEN": false,
+      "BLOCKER": "Company mail account provisioning required",
+      "local_proof_scope": "none"
+    },
+    {
+      "subsystem": "Auth email",
+      "IMPLEMENTED": true,
+      "LOCALLY_PROVEN": false,
+      "EXTERNAL_CONFIG_REQUIRED": true,
+      "STAGING_PROVEN": false,
+      "PROD_PROVEN": false,
+      "BLOCKER": "SMTP and live deliverability required",
+      "local_proof_scope": "synthetic config transport/templates only"
+    },
+    {
+      "subsystem": "CRM email",
+      "IMPLEMENTED": false,
+      "LOCALLY_PROVEN": false,
+      "EXTERNAL_CONFIG_REQUIRED": true,
+      "STAGING_PROVEN": false,
+      "PROD_PROVEN": false,
+      "BLOCKER": "Accepted outbound delivery adapter required",
+      "local_proof_scope": "contract only"
+    },
+    {
+      "subsystem": "AI",
+      "IMPLEMENTED": true,
+      "LOCALLY_PROVEN": false,
+      "EXTERNAL_CONFIG_REQUIRED": true,
+      "STAGING_PROVEN": false,
+      "PROD_PROVEN": false,
+      "BLOCKER": "W3 accepted runtime/worker/live synthetic eval required",
+      "local_proof_scope": "private environment/provider seam only"
+    },
+    {
+      "subsystem": "n8n",
+      "IMPLEMENTED": true,
+      "LOCALLY_PROVEN": false,
+      "EXTERNAL_CONFIG_REQUIRED": true,
+      "STAGING_PROVEN": false,
+      "PROD_PROVEN": false,
+      "BLOCKER": "Persistent deployment/provider IDs/import and safe live test required",
+      "local_proof_scope": "closed inactive workflow validation only"
+    },
+    {
+      "subsystem": "VPS",
+      "IMPLEMENTED": true,
+      "LOCALLY_PROVEN": false,
+      "EXTERNAL_CONFIG_REQUIRED": true,
+      "STAGING_PROVEN": false,
+      "PROD_PROVEN": false,
+      "BLOCKER": "Company VPS/hardening/TLS required",
+      "local_proof_scope": "deployment package only"
+    },
+    {
+      "subsystem": "backup",
+      "IMPLEMENTED": true,
+      "LOCALLY_PROVEN": false,
+      "EXTERNAL_CONFIG_REQUIRED": true,
+      "STAGING_PROVEN": false,
+      "PROD_PROVEN": false,
+      "BLOCKER": "Hosted encrypted offsite/KMS/access/retention required",
+      "local_proof_scope": "encrypted synthetic DB and object archive"
+    },
+    {
+      "subsystem": "restore",
+      "IMPLEMENTED": true,
+      "LOCALLY_PROVEN": false,
+      "EXTERNAL_CONFIG_REQUIRED": true,
+      "STAGING_PROVEN": false,
+      "PROD_PROVEN": false,
+      "BLOCKER": "Hosted full recovery and provider Auth assumptions required",
+      "local_proof_scope": "real-local A to B rehearsal"
+    },
+    {
+      "subsystem": "monitoring",
+      "IMPLEMENTED": true,
+      "LOCALLY_PROVEN": false,
+      "EXTERNAL_CONFIG_REQUIRED": true,
+      "STAGING_PROVEN": false,
+      "PROD_PROVEN": false,
+      "BLOCKER": "Provider binding/thresholds required",
+      "local_proof_scope": "metadata/alert contract only"
+    },
+    {
+      "subsystem": "logging",
+      "IMPLEMENTED": true,
+      "LOCALLY_PROVEN": true,
+      "EXTERNAL_CONFIG_REQUIRED": true,
+      "STAGING_PROVEN": false,
+      "PROD_PROVEN": false,
+      "BLOCKER": "Existing hosted runtime logs require independent review",
+      "local_proof_scope": "allowlisted structured event redaction tests"
+    },
+    {
+      "subsystem": "secrets",
+      "IMPLEMENTED": true,
+      "LOCALLY_PROVEN": true,
+      "EXTERNAL_CONFIG_REQUIRED": true,
+      "STAGING_PROVEN": false,
+      "PROD_PROVEN": false,
+      "BLOCKER": "Company scoped store and identities required",
+      "local_proof_scope": "manifest/canary build boundaries"
+    },
+    {
+      "subsystem": "rotation",
+      "IMPLEMENTED": true,
+      "LOCALLY_PROVEN": false,
+      "EXTERNAL_CONFIG_REQUIRED": true,
+      "STAGING_PROVEN": false,
+      "PROD_PROVEN": false,
+      "BLOCKER": "Provider-specific dual-secret/revocation proof required",
+      "local_proof_scope": "runbook only"
+    },
+    {
+      "subsystem": "CI/CD",
+      "IMPLEMENTED": true,
+      "LOCALLY_PROVEN": true,
+      "EXTERNAL_CONFIG_REQUIRED": true,
+      "STAGING_PROVEN": false,
+      "PROD_PROVEN": false,
+      "BLOCKER": "Release protection and accepted hosted deploy adapter required",
+      "local_proof_scope": "CI contracts; no live deploy"
+    },
+    {
+      "subsystem": "staging",
+      "IMPLEMENTED": true,
+      "LOCALLY_PROVEN": false,
+      "EXTERNAL_CONFIG_REQUIRED": true,
+      "STAGING_PROVEN": false,
+      "PROD_PROVEN": false,
+      "BLOCKER": "W2 hosted runtime, providers and W4 required",
+      "local_proof_scope": "read-only fail-closed preflight"
+    },
+    {
+      "subsystem": "production",
+      "IMPLEMENTED": true,
+      "LOCALLY_PROVEN": false,
+      "EXTERNAL_CONFIG_REQUIRED": true,
+      "STAGING_PROVEN": false,
+      "PROD_PROVEN": false,
+      "BLOCKER": "Staging/exact candidate/W4/backup/human approval required",
+      "local_proof_scope": "read-only protected preflight only"
+    }
+  ],
+  "counts": {
+    "IMPLEMENTED": 20,
+    "LOCALLY_PROVEN": 5,
+    "EXTERNAL_CONFIG_REQUIRED": 22,
+    "STAGING_PROVEN": 0,
+    "PROD_PROVEN": 0
+  },
+  "W4_REQUIRED": true,
+  "values_included": false
+}

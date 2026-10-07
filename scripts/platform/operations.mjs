@@ -8,13 +8,16 @@ export function validateCompany(c){
  if(!c||typeof c!=='object'||Array.isArray(c))return {status:'BLOCKED',errors:['COMPANY_OBJECT_REQUIRED']}
  const fields=readJson('infra/platform/company.schema.json').properties
  if(Object.keys(c).some(k=>!Object.hasOwn(fields,k)))errors.push('UNKNOWN_COMPANY_FIELD')
+ for(const [name,allowed]of Object.entries({auth:['redirect_urls','email_confirmation','mfa_required'],backup:['retention_days','rpo_seconds','rto_seconds','key_reference','offsite_reference']})){
+  if(!c[name]||typeof c[name]!=='object'||Array.isArray(c[name])||Object.keys(c[name]).some(k=>!allowed.includes(k)))errors.push(`UNKNOWN_${name.toUpperCase()}_FIELD`)
+ }
  if(!['STAGING','PROD'].includes(c.environment))errors.push('INVALID_COMPANY_ENVIRONMENT')
  if(!validValue('origin',c.app_origin,c.environment))errors.push('INVALID_APP_ORIGIN')
  if(!/^[a-z]{20}$/.test(c.supabase_project_ref??''))errors.push('INVALID_PROJECT_REF')
  if(!Array.isArray(c.administrators)||new Set(c.administrators).size<2||c.administrators.some(a=>typeof a!=='string'||!a.trim()))errors.push('TWO_NAMED_ADMINISTRATORS_REQUIRED')
  if(c.auth?.email_confirmation!==true||c.auth?.mfa_required!==true)errors.push('AUTH_SECURITY_REQUIREMENTS')
  if(!Array.isArray(c.auth?.redirect_urls)||!c.auth.redirect_urls.length||c.auth.redirect_urls.some(u=>!validValue('url',u,c.environment)||new URL(u).origin!==c.app_origin||u.includes('*')))errors.push('AUTH_REDIRECT_MISMATCH')
- if(!Array.isArray(c.dns)||!c.dns.length||c.dns.some(r=>!r||!['TXT','MX','CNAME','A','AAAA'].includes(r.type)||!/^[a-zA-Z0-9_.-]{1,253}$/.test(r.name??'')||!Array.isArray(r.expected)||!r.expected.length||r.expected.some(v=>typeof v!=='string'||!v.length)))errors.push('EXACT_PROVIDER_DNS_RECORDS_REQUIRED')
+ if(!Array.isArray(c.dns)||!c.dns.length||c.dns.some(r=>!r||Object.keys(r).some(k=>!['name','type','expected'].includes(k))||!['TXT','MX','CNAME','A','AAAA'].includes(r.type)||!/^[a-zA-Z0-9_.-]{1,253}$/.test(r.name??'')||!Array.isArray(r.expected)||!r.expected.length||r.expected.some(v=>typeof v!=='string'||!v.length)))errors.push('EXACT_PROVIDER_DNS_RECORDS_REQUIRED')
  for(const n of ['retention_days','rpo_seconds','rto_seconds'])if(!Number.isSafeInteger(c.backup?.[n])||c.backup[n]<1)errors.push(`BACKUP_POLICY_${n.toUpperCase()}_REQUIRED`)
  for(const n of ['key_reference','offsite_reference'])if(typeof c.backup?.[n]!=='string'||!c.backup[n].trim())errors.push(`BACKUP_${n.toUpperCase()}_REQUIRED`)
  return {status:errors.length?'BLOCKED':'VALID',errors,governance_verified:false,values_included:false}

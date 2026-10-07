@@ -21,7 +21,7 @@ export async function recoveryRehearsal({url,anon,service,db,command,report,user
   // Obtain DB bytes without terminal conversion or echoing any contents.
   const dump=command('docker',['exec',db,'pg_dump','-U','postgres','-d','postgres','--format=custom','--data-only','--table=public.*','--table=auth.users','--table=auth.identities'],{encoding:null})
   if(!Buffer.isBuffer(dump)||!dump.length)throw new Error('EMPTY_DATABASE_BACKUP')
-  const storage=createClient(url,service,{auth:{persistSession:false,autoRefreshToken:false}}).storage
+  let storage=createClient(url,service,{auth:{persistSession:false,autoRefreshToken:false}}).storage
   const contents=await captureStorage(storage)
   if(!contents.objects.length)throw new Error('STORAGE_RECOVERY_REQUIRES_OBJECTS')
   const bundle={version:1,migrations:migrations(),database:dump.toString('base64'),database_sha256:hash(dump),...contents}
@@ -34,6 +34,14 @@ export async function recoveryRehearsal({url,anon,service,db,command,report,user
   command('supabase',['stop','--no-backup','--project-id','crm-telecom-local'],{timeout:120000})
   report.recovery_stage='fresh_rebuild'
   command('supabase',['start','--exclude','realtime,imgproxy,studio,postgres-meta,edge-runtime,logflare,vector,supavisor,mailpit'],{timeout:600000})
+  // Clean B may have fresh local signing material. Never reuse A's service JWT
+  // as a recovery credential; obtain B bindings privately from its CLI status.
+  const statusB=JSON.parse(command('supabase',['status','--output','json']))
+  if((statusB.API_URL??statusB.api?.url)!==url)throw new Error('RESTORE_TARGET_URL_MISMATCH')
+  anon=statusB.ANON_KEY??statusB.auth?.anon_key
+  service=statusB.SERVICE_ROLE_KEY??statusB.auth?.service_role_key
+  if(!anon||!service)throw new Error('RESTORE_TARGET_KEYS_MISSING')
+  storage=createClient(url,service,{auth:{persistSession:false,autoRefreshToken:false}}).storage
   const fresh=metadata()
   if(JSON.stringify(fresh)!==JSON.stringify(expected))throw new Error('FRESH_SCHEMA_DRIFT')
   report.recovery_stage='restore_database'
