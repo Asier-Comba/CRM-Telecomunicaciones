@@ -14,6 +14,7 @@ export const DURABLE_PROCESS_SCENARIOS = [
   { id: 'kill_after_transition', workers: 1, action: 'execute', killAt: 'after_transition_commit', recover: true },
   { id: 'audit_ack_loss', workers: 1, action: 'deliver_audit', killAt: 'after_sink_acceptance_before_ack', recover: true },
   { id: 'database_connection_termination', workers: 1, action: 'terminate_transaction_connection', recover: true },
+  { id: 'database_restart', workers: 1, action: 'restart_disposable_database_after_commit', recover: true },
   { id: 'committed_reply_loss', workers: 1, action: 'lose_confirmed_commit_reply', recover: true },
   { id: 'claim_fencing', workers: 1, action: 'reject_stale_claims', recover: true },
   { id: 'audit_content_conflict', workers: 1, action: 'reject_changed_audit_content', recover: true },
@@ -67,4 +68,23 @@ export function validateRollbackEvidence(value: unknown): boolean {
     return Reflect.ownKeys(fields).length === keys.length && keys.every(k => fields[k] && 'value' in fields[k]) &&
       fields.point!.value === point && keys.slice(1).every(k => fields[k]!.value === 0)
   })
+}
+
+/** Actual postmaster restart, not connection termination. Identifiers are
+ * measured inside the reviewed disposable driver; never emitted in reports.
+ * The unchanged logical intent must survive the same cluster's restart. */
+export function validateDatabaseRestartEvidence(value: unknown): boolean {
+  try {
+    if (!value || typeof value !== 'object' || Array.isArray(value)) return false
+    const fields = Object.getOwnPropertyDescriptors(value)
+    const keys = ['beforeSystemIdentifier', 'afterSystemIdentifier', 'beforePostmasterStartMs', 'afterPostmasterStartMs', 'originalBindingDigest', 'persistedBindingDigest'] as const
+    if (Reflect.ownKeys(fields).length !== keys.length || !keys.every(key => fields[key] && 'value' in fields[key])) return false
+    const v = Object.fromEntries(keys.map(key => [key, fields[key]!.value]))
+    return typeof v.beforeSystemIdentifier === 'string' && /^[1-9][0-9]{0,19}$/.test(v.beforeSystemIdentifier)
+      && v.afterSystemIdentifier === v.beforeSystemIdentifier
+      && Number.isSafeInteger(v.beforePostmasterStartMs) && v.beforePostmasterStartMs > 0
+      && Number.isSafeInteger(v.afterPostmasterStartMs) && v.afterPostmasterStartMs > v.beforePostmasterStartMs
+      && typeof v.originalBindingDigest === 'string' && /^[a-f0-9]{64}$/.test(v.originalBindingDigest)
+      && v.persistedBindingDigest === v.originalBindingDigest
+  } catch { return false }
 }
