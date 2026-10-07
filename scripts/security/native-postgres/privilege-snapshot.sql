@@ -13,6 +13,12 @@ select jsonb_build_object(
    select 1 from pg_depend d where d.classid='pg_proc'::regclass and d.objid=p.oid and d.deptype='e')),
  'relations', (select jsonb_agg(jsonb_build_object(
   'name',n.nspname||'.'||c.relname,'rls',c.relrowsecurity,'forceRls',c.relforcerowsecurity,
+  'columnGrants',(select coalesce(jsonb_agg(jsonb_build_object(
+    'column',at.attname,'role',case when a.grantee=0 then 'PUBLIC' else pg_get_userbyid(a.grantee) end,
+    'privilege',a.privilege_type,'grantable',a.is_grantable)
+    order by at.attname,case when a.grantee=0 then 'PUBLIC' else pg_get_userbyid(a.grantee) end,a.privilege_type),'[]'::jsonb)
+    from pg_attribute at cross join lateral aclexplode(at.attacl) a
+    where at.attrelid=c.oid and at.attnum>0 and not at.attisdropped),
   'grants',(select jsonb_agg(jsonb_build_object(
     'role',case when a.grantee=0 then 'PUBLIC' else pg_get_userbyid(a.grantee) end,
     'privilege',a.privilege_type,'grantable',a.is_grantable)
