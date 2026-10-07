@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-05",
+  "date": "2026-10-07",
   "historical_sha": "ad3c06e5e6dca8e9cf0342845f670b1b48478851",
   "rows": [
     {
@@ -62,10 +62,10 @@
       "evidence": "src/components/{AppShell,Sidebar,Topbar}.tsx",
       "limitation": "Notification payload, unread count and read acknowledgement contract absent; no fake badge.",
       "preview_status": "NOT_IMPLEMENTED",
-      "reviewed_on": "2026-10-05",
-      "integrated_local_status": "BLOCKED",
-      "integrated_local_evidence": "src/components/{Sidebar,Topbar,AppShell}.tsx",
-      "integrated_local_limitation": "Independent backend/provider/authority or W3 Issue10 boundary remains open; normal action unavailable."
+      "reviewed_on": "2026-10-07",
+      "integrated_local_status": "PARTIAL",
+      "integrated_local_evidence": "src/components/Topbar.tsx; scripts/security/supabase-local/product-notifications-automations-browser.mjs",
+      "integrated_local_limitation": "Accepted 4de7cad run37541469512, 75/75 browser groups, includes ordinary current-permission notification list/unread/read/read-all and preferences. Row-specific complete link, keyboard, responsive and visual audit remains open; external delivery not claimed."
     },
     {
       "id": "PAR-006",
@@ -387,10 +387,10 @@
       "evidence": "src/features/clients/Clients.tsx",
       "limitation": "Functional typed read preview; source; executed journey evidence is module-level, not exhaustive per-row testing (see W2_STATUS). No live wiring.",
       "preview_status": "SYNTHETIC_IMPLEMENTED",
-      "reviewed_on": "2026-10-05",
-      "integrated_local_status": "NOT_IMPLEMENTED",
-      "integrated_local_evidence": "src/features/customers/{IntegratedCustomers,CustomerEditor,IntegratedCustomerDetail}.tsx",
-      "integrated_local_limitation": "Preview capability retained where present; this behavior is not yet implemented in integrated-local mode."
+      "reviewed_on": "2026-10-07",
+      "integrated_local_status": "PARTIAL",
+      "integrated_local_evidence": "src/features/customers/Customers.tsx; scripts/security/supabase-local/product-customer-collections-browser.mjs",
+      "integrated_local_limitation": "Accepted 4de7cad run37541469512, 75/75 groups: real 20-row customer keyset collection, scoped filters and cursor/reset coverage. Complete selection/action/a11y/visual parity remains open."
     },
     {
       "id": "PAR-031",
@@ -1011,10 +1011,10 @@
       "evidence": "src/features/{portfolio/Portfolio,opportunities/Opportunities}.tsx",
       "limitation": "Missing accepted callable scoped read/mutation/provider contract; unavailable/disabled UI where relevant. See W1/W5/W3 gaps below.",
       "preview_status": "BLOCKED",
-      "reviewed_on": "2026-10-05",
-      "integrated_local_status": "NOT_IMPLEMENTED",
-      "integrated_local_evidence": "src/features/{portfolio/IntegratedPortfolio,opportunities/IntegratedOpportunities}.tsx",
-      "integrated_local_limitation": "Preview capability retained where present; this behavior is not yet implemented in integrated-local mode."
+      "reviewed_on": "2026-10-07",
+      "integrated_local_status": "PARTIAL",
+      "integrated_local_evidence": "src/features/opportunities/OpportunityProductLinks.tsx; scripts/security/supabase-local/product-opportunity-links-browser.mjs",
+      "integrated_local_limitation": "Accepted 4de7cad run37541469512, 75/75 groups: same-customer product associations, exact replay, CAS and mobile journeys. Full plan/version/catalog association and complete historical parity remain open. New 7ab full gate failed; accepted foundation remains 4de."
     },
     {
       "id": "PAR-079",
@@ -1050,10 +1050,10 @@
       "evidence": "src/features/{portfolio/Portfolio,opportunities/Opportunities}.tsx",
       "limitation": "Missing accepted callable scoped read/mutation/provider contract; unavailable/disabled UI where relevant. See W1/W5/W3 gaps below.",
       "preview_status": "BLOCKED",
-      "reviewed_on": "2026-10-05",
-      "integrated_local_status": "NOT_IMPLEMENTED",
-      "integrated_local_evidence": "src/features/{portfolio/IntegratedPortfolio,opportunities/IntegratedOpportunities}.tsx",
-      "integrated_local_limitation": "Preview capability retained where present; this behavior is not yet implemented in integrated-local mode."
+      "reviewed_on": "2026-10-07",
+      "integrated_local_status": "PARTIAL",
+      "integrated_local_evidence": "src/features/opportunities/IntegratedOpportunities.tsx; scripts/security/supabase-local/product-browser-acceptance.mjs",
+      "integrated_local_limitation": "Accepted 4de7cad run37541469512, 75/75 groups includes actual pointer drag, keyboard stage change, concurrency denial and 390/768 movement. Full commercial workflow and manual visual review still partial."
     },
     {
       "id": "PAR-082",
@@ -2077,10 +2077,10 @@
       "evidence": "src/features/settings/{Settings,LocalCompany}.tsx",
       "limitation": "Missing accepted callable scoped read/mutation/provider contract; unavailable/disabled UI where relevant. See W1/W5/W3 gaps below.",
       "preview_status": "BLOCKED",
-      "reviewed_on": "2026-10-05",
-      "integrated_local_status": "BLOCKED",
-      "integrated_local_evidence": "src/features/settings/IntegratedSettings.tsx",
-      "integrated_local_limitation": "Independent backend/provider/authority or W3 Issue10 boundary remains open; normal action unavailable."
+      "reviewed_on": "2026-10-07",
+      "integrated_local_status": "PARTIAL",
+      "integrated_local_evidence": "src/features/settings/IntegratedSettings.tsx; scripts/security/supabase-local/product-notifications-automations-browser.mjs",
+      "integrated_local_limitation": "Accepted 4de7cad run37541469512: current internal notification preferences consumed by normal UI. External delivery/settings-provider capabilities remain unavailable; full settings row not complete."
     },
     {
       "id": "PAR-161",
@@ -3052,10 +3052,10 @@
       "evidence": "Existing W1/W5 source and tests",
       "limitation": "Existing W1/W5 implementation unchanged; candidate DB tests are not new UI wiring. Issue12 remains for scoped server identity.",
       "preview_status": "PRESERVED_BACKEND",
-      "reviewed_on": "2026-10-05",
-      "integrated_local_status": "PRESERVED_BACKEND",
-      "integrated_local_evidence": "See W2_PRODUCT_INTEGRATION_STATUS.md",
-      "integrated_local_limitation": "Retained W1 platform/exclusion; does not count as new consumer UI acceptance."
+      "reviewed_on": "2026-10-07",
+      "integrated_local_status": "PARTIAL",
+      "integrated_local_evidence": "src/features/reports/IntegratedReports.tsx; src/features/billing/IntegratedBilling.tsx; scripts/security/supabase-local/product-browser-acceptance.mjs",
+      "integrated_local_limitation": "Accepted 4de7cad run37541469512: ordinary scoped dashboard/report export and real financial summary in billing. Nine Telecom reports and financial monthly/top-customer UI now authored but pending new exact-head acceptance; not whole-row complete."
     },
     {
       "id": "PAR-236",
@@ -3192,20 +3192,20 @@
     "NOT_APPLICABLE": 4
   },
   "integration_counts": {
-    "PARTIAL": 142,
-    "BLOCKED": 30,
-    "NOT_IMPLEMENTED": 53,
-    "PRESERVED_BACKEND": 15,
+    "PARTIAL": 148,
+    "NOT_IMPLEMENTED": 50,
+    "BLOCKED": 28,
+    "PRESERVED_BACKEND": 14,
     "NOT_APPLICABLE": 4
   },
   "verified_browser_baseline": {
-    "head": "d4a6ccecfecb2952a6cf026c0bc5dcfb972279f4",
-    "run": 37329541044,
-    "journeys_pass": 40,
+    "head": "4de7cad45c4005b7903dbe97502febfff457541f",
+    "run": 37541469512,
+    "journeys_pass": 75,
     "journeys_fail": 0,
-    "positive_operations": 89,
-    "positive_writes": 67,
-    "latest_changed_head_acceptance": "PASS_AT_d4a6cce_DOCUMENTATION_ONLY_CHECKPOINT"
+    "backend_checks": 3576,
+    "latest_changed_head_acceptance": "7ab6f56f10fc65aa7212ed5dfbdeacea8901756a FAILED 69/79; follow-up candidate pending",
+    "limitation": "Per-row review above stays PARTIAL. Aggregate accepted backend/browser counts do not prove all 244 rows."
   },
   "w1_documentation_head": "94c20dccd342dbf313fe2930b5a3b32b73f61f7d"
 }
