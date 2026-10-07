@@ -21,6 +21,11 @@ contracts. Checkpoint commits and their exact evidence links are on PR34.
 - Added plan-first protected staging Auth configuration/readback and mail templates,
   registered inactive n8n import/export, encrypted destination/retention seams,
   bounded metadata logging/alerts, company phase reports and operational runbooks.
+- Updated the value-free backend reconstruction contract to include migration71;
+  its existing exact migration-list assertion remains unchanged. Applied the
+  official Next16.3.8 maintenance patch for the newly published Next advisories
+  (including GHSA-cjq9-62q9-8jv4), preserving the product architecture, and refreshed
+  the dependency SBOM. The independent braces advisory remains a blocking gate.
 
 Hosted product acceptance, W3 durable execution, independent W4, chosen company
 accounts, live email/DNS/TLS/monitoring/offsite recovery and actual staging/prod
