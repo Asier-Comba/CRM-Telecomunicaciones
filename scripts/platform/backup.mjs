@@ -29,7 +29,7 @@ export function verifyBundle(bundle){
  }
  return true
 }
-export async function captureStorage(storage){
+export async function captureStorage(storage,{inspect}={}){
  const b=await storage.listBuckets();if(b.error||!Array.isArray(b.data))throw new Error('BUCKET_LIST_FAILED')
  const buckets=b.data.map(({id,name,public:pub,file_size_limit,allowed_mime_types})=>({id,name,public:pub,file_size_limit,allowed_mime_types}))
  if(buckets.some(b=>b.public!==false))throw new Error('PUBLIC_BUCKET_FORBIDDEN')
@@ -48,7 +48,8 @@ export async function captureStorage(storage){
      if(objects.length>=10000)throw new Error('STORAGE_INVENTORY_TOO_LARGE')
      const download=await storage.from(bucket.id).download(name);if(download.error||!download.data)throw new Error('OBJECT_DOWNLOAD_FAILED')
      const bytes=Buffer.from(await download.data.arrayBuffer());total+=bytes.length;if(total>MAX_BYTES)throw new Error('BACKUP_SIZE_LIMIT')
-     objects.push({bucket:bucket.id,name,size:bytes.length,sha256:hash(bytes),content_type:item.metadata?.mimetype??download.data.type??'application/octet-stream',cache_control:item.metadata?.cacheControl??'3600',bytes:bytes.toString('base64')})
+     const info=inspect?await inspect(bucket.id,name):null
+     objects.push({bucket:bucket.id,name,size:bytes.length,sha256:hash(bytes),content_type:info?.content_type??info?.contentType??item.metadata?.mimetype??download.data.type??'application/octet-stream',cache_control:info?.cache_control??info?.cacheControl??item.metadata?.cacheControl??'3600',user_metadata:info?.metadata??null,bytes:bytes.toString('base64')})
     }
     if(list.data.length<100)break
    }
@@ -56,7 +57,7 @@ export async function captureStorage(storage){
  }
  return {buckets,objects:objects.sort((a,b)=>`${a.bucket}/${a.name}`.localeCompare(`${b.bucket}/${b.name}`))}
 }
-export async function restoreStorage(storage,bundle){
+export async function restoreStorage(storage,bundle,captureOptions={}){
  verifyBundle(bundle)
  for(const b of bundle.buckets){
   const existing=await storage.getBucket(b.id)
@@ -73,12 +74,18 @@ export async function restoreStorage(storage,bundle){
   else if(existing.data.public!==false||existing.data.file_size_limit!==b.file_size_limit||JSON.stringify(existing.data.allowed_mime_types)!==JSON.stringify(b.allowed_mime_types))throw new Error('BUCKET_CONFIG_DRIFT')
  }
  for(const o of bundle.objects){
-  const r=await storage.from(o.bucket).upload(o.name,Buffer.from(o.bytes,'base64'),{contentType:o.content_type,cacheControl:String(o.cache_control).replace(/^max-age=/,''),upsert:false})
+  // SDK cacheControl always prefixes max-age, which changes original no-cache
+  // or compound policies. Its explicit header seam preserves the captured value.
+  const r=await storage.from(o.bucket).upload(o.name,Buffer.from(o.bytes,'base64'),{contentType:o.content_type,headers:{'cache-control':String(o.cache_control)},metadata:o.user_metadata??undefined,upsert:false})
   if(r.error)throw new Error('OBJECT_RESTORE_FAILED')
  }
- const recovered=await captureStorage(storage)
- const summaries=objects=>objects.map(({bucket,name,size,sha256,content_type,cache_control})=>({bucket,name,size,sha256,content_type,cache_control}))
- if(JSON.stringify(summaries(recovered.objects))!==JSON.stringify(summaries(bundle.objects)))throw new Error('STORAGE_RECOVERY_MISMATCH')
+ const recovered=await captureStorage(storage,captureOptions)
+ const summaries=objects=>objects.map(({bucket,name,size,sha256,content_type,cache_control,user_metadata})=>({bucket,name,size,sha256,content_type,cache_control,user_metadata:user_metadata??null}))
+ if(JSON.stringify(summaries(recovered.objects))!==JSON.stringify(summaries(bundle.objects))){
+  const e=new Error('STORAGE_RECOVERY_MISMATCH'),fields=['size','sha256','content_type','cache_control','user_metadata']
+  e.summary={expected_objects:bundle.objects.length,recovered_objects:recovered.objects.length,fields:Object.fromEntries(fields.map(f=>[f,bundle.objects.filter(o=>JSON.stringify(recovered.objects.find(r=>r.bucket===o.bucket&&r.name===o.name)?.[f]??null)!==JSON.stringify(o[f]??null)).length]))}
+  throw e
+ }
  return {objects:recovered.objects.length,hashes:'PASS',metadata:'PASS'}
 }
 export function storageTargetGuard(url){if(url!=='http://127.0.0.1:54321'||!loopback(url))throw new Error('BACKUP_LOOPBACK_ONLY')}

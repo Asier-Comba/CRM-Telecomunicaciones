@@ -29,7 +29,15 @@ export async function recoveryRehearsal({url,anon,service,db,command,report,user
   const dump=command('docker',['exec',db,'pg_dump','-U','postgres','-d','postgres','--format=custom','--data-only','--table=public.*','--table=auth.users','--table=auth.identities'],{encoding:null})
   if(!Buffer.isBuffer(dump)||!dump.length)throw new Error('EMPTY_DATABASE_BACKUP')
   let storage=createClient(url,service,clientOptions).storage
-  const contents=await captureStorage(storage)
+  const inspect=async(bucket,name)=>{
+   const response=await fetch(url+'/storage/v1/object/info/'+encodeURIComponent(bucket)+'/'+name.split('/').map(encodeURIComponent).join('/'),{headers:{apikey:service,authorization:`Bearer ${service}`},redirect:'error',signal:AbortSignal.timeout(15000)})
+   if(!response.ok)throw new Error('STORAGE_METADATA_READ_FAILED')
+   return response.json()
+  }
+  const captureOptions={inspect}
+  const probe=await storage.from('telecom-documents').upload(wa+'/w5-recovery-metadata.pdf',Buffer.from('%PDF-1.4\n% synthetic W5 metadata\n%%EOF\n'),{contentType:'application/pdf',headers:{'cache-control':'no-cache'},metadata:{synthetic_reference:'w5-only',nested:{snake_case:'preserved'}},upsert:false})
+  if(probe.error)throw new Error('STORAGE_METADATA_PROBE_FAILED')
+  const contents=await captureStorage(storage,captureOptions)
   if(!contents.objects.length)throw new Error('STORAGE_RECOVERY_REQUIRES_OBJECTS')
   const bundle={version:1,migrations:migrations(),database:dump.toString('base64'),database_sha256:hash(dump),...contents}
   verifyBundle(bundle)
@@ -63,7 +71,8 @@ export async function recoveryRehearsal({url,anon,service,db,command,report,user
   if(JSON.stringify(rows())!==JSON.stringify(expectedRows))throw new Error('DATABASE_RECOVERY_ROW_MISMATCH')
   report.recovery_stage='restore_storage'
   report.restore_storage_readiness=await storageReady(url,service)
-  const storageResult=await restoreStorage(storage,recovered)
+  let storageResult
+  try{storageResult=await restoreStorage(storage,recovered,captureOptions)}catch(e){if(e.message==='STORAGE_RECOVERY_MISMATCH')report.storage_mismatch=e.summary;throw e}
   if(JSON.stringify(metadata())!==JSON.stringify(expected))throw new Error('RESTORE_SECURITY_DRIFT')
   report.recovery_stage='verify_auth_scope'
   // Actual user JWT checks after restore: retained business revocation and A/B scope.
@@ -86,7 +95,7 @@ export async function recoveryRehearsal({url,anon,service,db,command,report,user
    const raw=await api('/rest/v1/assistant_operations?select=id',token)
    if(raw.status<400&&(!Array.isArray(raw.json)||raw.json.length))throw new Error('RESTORED_ASSISTANT_RAW_ACCESS')
   }
-  return {result:'PASS',fresh_rebuilds:2,schema_drift:'PASS',database_hashes:'PASS',storage:storageResult,tenant_isolation:'PASS',revoked_member:'PASS',auth_login:'PASS',duration_seconds:Math.round((Date.now()-start)/1000),hosted_auth_portability:'NOT_PROVEN',offsite:'NOT_PROVEN'}
+  return {result:'PASS',fresh_rebuilds:2,schema_drift:'PASS',database_hashes:'PASS',storage:storageResult,storage_metadata_scope:['size','sha256','content_type','cache_control','custom_metadata'],storage_provider_ids_timestamps:'REGENERATED_API_FIELDS',tenant_isolation:'PASS',revoked_member:'PASS',auth_login:'PASS',duration_seconds:Math.round((Date.now()-start)/1000),hosted_auth_portability:'NOT_PROVEN',offsite:'NOT_PROVEN'}
  }finally{
   key.fill(0)
   const target=resolve(scratch)

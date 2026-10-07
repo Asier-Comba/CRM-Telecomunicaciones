@@ -21,9 +21,14 @@ test('recovery rejects missing bytes, duplicate objects, path traversal and publ
 })
 test('nested inventory and byte+metadata restore, missing download fails closed',async()=>{
  const b=bundle(),saved=new Map()
- const storage={listBuckets:async()=>({data:b.buckets}),getBucket:async()=>({data:b.buckets[0]}),from:()=>({list:async(prefix)=>({data:prefix==='nested'?[{id:'x',name:'file.pdf',metadata:{mimetype:'application/pdf',cacheControl:'3600'}}]:[{id:null,name:'nested'}]}),download:async(name)=>({data:new Blob([saved.get(name)??'abc'],{type:'application/pdf'})}),upload:async(name,bytes)=>{saved.set(name,bytes);return {error:null}}})}
+ const storage={listBuckets:async()=>({data:b.buckets}),getBucket:async()=>({data:b.buckets[0]}),from:()=>({list:async(prefix)=>({data:prefix==='nested'?[{id:'x',name:'file.pdf',metadata:{mimetype:'application/pdf',cacheControl:b.objects[0].cache_control}}]:[{id:null,name:'nested'}]}),download:async(name)=>({data:new Blob([saved.get(name)??'abc'],{type:'application/pdf'})}),upload:async(name,bytes,options)=>{assert.equal(options.headers['cache-control'],b.objects[0].cache_control);saved.set(name,bytes);return {error:null}}})}
  assert.equal((await captureStorage(storage)).objects.length,1)
  assert.deepEqual(await restoreStorage(storage,b),{objects:1,hashes:'PASS',metadata:'PASS'})
+ b.objects[0].cache_control='no-cache';assert.deepEqual(await restoreStorage(storage,b),{objects:1,hashes:'PASS',metadata:'PASS'})
+ b.objects[0].user_metadata={snake_case:'synthetic',nested:{exact_key:42}}
+ const captureOptions={inspect:async()=>({content_type:'application/pdf',cache_control:'no-cache',metadata:b.objects[0].user_metadata})}
+ assert.deepEqual((await captureStorage(storage,captureOptions)).objects[0].user_metadata,b.objects[0].user_metadata)
+ assert.deepEqual(await restoreStorage(storage,b,captureOptions),{objects:1,hashes:'PASS',metadata:'PASS'})
  storage.from=()=>({list:async()=>({error:'unavailable'})});await assert.rejects(()=>captureStorage(storage),/OBJECT_LIST_FAILED/)
 })
 test('only a known missing-bucket response permits creation; authorization failures stop recovery',async()=>{
