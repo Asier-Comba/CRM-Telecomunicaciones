@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
-import { PRODUCT_CAPABILITIES_V2, productCapabilityV2 } from '../../src/assistant/product-capabilities-v2.ts'
+import { readFileSync } from 'node:fs'
+import { PRODUCT_CAPABILITIES_V2, productCapabilityV2, productPlannerCatalogV2 } from '../../src/assistant/product-capabilities-v2.ts'
 import { parseProductReadPlanV2 } from '../../src/assistant/product-read-plan-v2.ts'
 import { executeProductReadPlanV2, type ProductReadDependenciesV2 } from '../../src/assistant/product-read-executor-v2.ts'
 const id = '00000000-0000-4000-8000-000000000001'
@@ -16,6 +17,29 @@ test('modern inventory derives30 closed immutable current-contract reads, no mut
   assert.ok(productCapabilityV2('crm.contact.list')); assert.ok(productCapabilityV2('crm.customer360.summary')); assert.ok(productCapabilityV2('crm.plan_version.get'))
   assert.equal(productCapabilityV2('crm.invoice.issue'), null)
   assert.throws(() => { PRODUCT_CAPABILITIES_V2[0]!.inputSchema.additionalProperties = true })
+})
+test('semantic catalogue advertises accurate Spanish limits and fits maximum offered-reference budget', () => {
+  const catalog = productPlannerCatalogV2()
+  assert.deepEqual(catalog.map(c => c.name), PRODUCT_CAPABILITIES_V2.map(c => c.name))
+  for (const c of catalog) {
+    assert.ok(c.description.length > 30 && c.description.length <= 250)
+    assert.equal(Object.hasOwn(c.input.fields, 'after_id'), false)
+    for (const [field, schema] of Object.entries(c.input.fields)) if (field === 'id' || field.endsWith('_id'))
+      assert.deepEqual(schema, { binding: 'authorized_opaque_reference_or_unique_dependency' })
+  }
+  assert.match(productCapabilityV2('crm.customer.list')!.description, /No busca por nombre/)
+  assert.match(productCapabilityV2('crm.permanence.list')!.description, /No inferir desde renovaciones/)
+  const context = { calendar: { date: '2026-10-07', timezone: 'Europe/Madrid' }, references: Array.from({ length: 50 }, (_, i) => `ref_${i}`.padEnd(160, 'x')), capabilities: catalog }
+  assert.ok(Buffer.byteLength(JSON.stringify(context)) <= 32000)
+  catalog[0].input.fields.status = { type: 'string', enum: ['forged'] }
+  assert.notDeepEqual(productPlannerCatalogV2()[0].input.fields.status, catalog[0].input.fields.status)
+})
+test('versioned registry matches executable schemas and keeps proposed operations disabled', () => {
+  const registry = JSON.parse(readFileSync(new URL('../../docs/master/ai/W3_AI_CAPABILITY_REGISTRY_V2.json', import.meta.url), 'utf8'))
+  assert.equal(registry.executableLocalReads, PRODUCT_CAPABILITIES_V2.length)
+  assert.deepEqual(registry.capabilities.filter((c: { enabled: { local: boolean } }) => c.enabled.local), PRODUCT_CAPABILITIES_V2)
+  for (const c of registry.capabilities) if (!productCapabilityV2(c.name))
+    assert.deepEqual(c.enabled, { local: false, stage: false, prod: false })
 })
 test('closed plan rejects model authority, unknown capabilities, raw IDs, duplicate fields and cyclic DAG', () => {
   for (const value of [{ ...plan, workspace: 'foreign' }, { ...plan, nodes: [{ ...node, capability: 'crm.execute.sql' }] },
