@@ -20,3 +20,7 @@ All CRM claims must come from runtime-issued, validated capability output. Trunc
 Historical messages are user-owned display, not current CRM evidence. Current persistence saves bounded user text and generic assistant answer, not tool payloads or factual table snapshots. Reopened historical threads require a new authorized read for current facts. Rich historical blocks, context bindings, durable business writes and shared conversations remain pending.
 
 Production/staging application gates remain closed. Local routes require every W2 synthetic loopback gate plus `AI_PRODUCT_V2_ENABLED=true`. Missing provider key is `not_configured`; no live quality result is claimed. Provider eval requires explicit `--live`, authored synthetic prompts only, and records safe metrics without raw provider output.
+
+### Provider-neutral deadline and result envelope
+
+Every semantic provider call has an independent60second upper deadline even when the transport ignores AbortSignal. Cancellation aborts only this call, never a shared provider-wide cancel. Provider exceptions become safe unavailable. A descriptor-safe immutable snapshot and closed envelope validate usage, model identifier, duration and plan bounds before any read. Known credential patterns, invalid/extra calendar fields and unbounded/duplicate/unsafe reference handles are rejected before transport independently of the vendor adapter. This does not establish provider health or live semantic quality. Existing current-authority fences and per-capability plan/result validation remain mandatory.
