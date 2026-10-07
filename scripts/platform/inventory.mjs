@@ -22,7 +22,7 @@ export function inventory(){
 }
 if(process.argv[1]?.endsWith('inventory.mjs')){
  const content=JSON.stringify(inventory(),null,2)+'\n',path=join(root,'infra/platform/environment-manifest.json')
- if(process.argv.includes('--check')){if(readFileSync(path,'utf8')!==content)throw new Error('ENV_INVENTORY_DRIFT')}
+ if(process.argv.includes('--check')){if(readFileSync(path,'utf8').replaceAll('\r\n','\n')!==content)throw new Error('ENV_INVENTORY_DRIFT')}
  else writeFileSync(path,content)
  console.log(JSON.stringify({manifest:'infra/platform/environment-manifest.json',sha256:hash(content),values_included:false}))
 }

@@ -6,7 +6,7 @@ export const root=resolve(import.meta.dirname,'../..')
 export const readJson=p=>JSON.parse(readFileSync(join(root,p),'utf8'))
 export const hash=b=>createHash('sha256').update(b).digest('hex')
 export function files(dir){return readdirSync(dir,{withFileTypes:true}).flatMap(e=>e.isDirectory()?files(join(dir,e.name)):[join(dir,e.name)])}
-export function migrations(){return readdirSync(join(root,'supabase/migrations')).filter(n=>/^\d{14}_[a-z0-9_]+\.sql$/.test(n)).sort().map(name=>({name,version:name.slice(0,14),sha256:hash(readFileSync(join(root,'supabase/migrations',name)))}))}
+export function migrations(){return readdirSync(join(root,'supabase/migrations')).filter(n=>/^\d{14}_[a-z0-9_]+\.sql$/.test(n)).sort().map(name=>({name,version:name.slice(0,14),sha256:hash(readFileSync(join(root,'supabase/migrations',name),'utf8').replaceAll('\r\n','\n'))}))}
 export function run(bin,args,options={}){
  const r=spawnSync(bin,args,{cwd:root,encoding:'utf8',timeout:120000,maxBuffer:64*1024*1024,...options})
  if(r.status!==0)throw new Error('PLATFORM_COMMAND_FAILED')

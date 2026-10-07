@@ -1,0 +1,55 @@
+name: W5 enterprise platform acceptance
+on:
+  pull_request:
+    paths:
+      - 'scripts/platform/**'
+      - 'tests/platform/**'
+      - 'infra/**'
+      - 'supabase/**'
+      - 'scripts/security/supabase-local/**'
+      - '.github/workflows/enterprise-platform.yml'
+      - 'next.config.ts'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: w5-enterprise-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  contracts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with: {node-version-file: .nvmrc}
+      - run: npm ci
+      - run: node scripts/platform/inventory.mjs --check
+      - run: node --test tests/platform/*.test.mjs
+  reconstruction-recovery:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      CI: 'true'
+      PLATFORM_TARGET: LOCAL
+      W5_RECOVERY: 'true'
+      NEXT_TELEMETRY_DISABLED: '1'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with: {node-version-file: .nvmrc}
+      - uses: supabase/setup-cli@45a513f8c64c0bc8e0e3dfe572b5c95be85f6359
+        with: {version: 2.119.0}
+      - run: npm ci
+      - run: npm run build
+      - name: Real synthetic A to empty B, authenticated DB and Storage recovery
+        run: node scripts/security/supabase-local/run-stack.mjs
+      - name: Safe evidence only; no archives, keys, rows or objects
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: w5-enterprise-local-safe-evidence
+          path: ${{ runner.temp }}/w4-supabase-safe-evidence.json
+          retention-days: 7

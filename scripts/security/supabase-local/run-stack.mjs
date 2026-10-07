@@ -22,7 +22,7 @@ function command(bin, args, options = {}) {
     }
     throw new Error('COMMAND_FAILED')
   }
-  return r.stdout.trim()
+  return Buffer.isBuffer(r.stdout) ? r.stdout : r.stdout.trim()
 }
 try {
   if (process.env.GITHUB_ACTIONS !== 'true' || process.env.CI !== 'true') throw new Error('CI_ONLY')
@@ -68,7 +68,8 @@ try {
       const { productBrowserAcceptance } = await import('./product-browser-acceptance.mjs')
       return productBrowserAcceptance({ ...context, url, anon, report: evidence, maintenanceCredentials: {id:verifyId,key:verifyKey} })
     } : undefined
-    Object.assign(evidence, await acceptance({ url, anon, service, db, command, report: evidence, appUrl, onProductUi }))
+    const onRecovery = process.env.W5_RECOVERY === 'true' ? (await import('../../platform/recovery.mjs')).recoveryRehearsal : undefined
+    Object.assign(evidence, await acceptance({ url, anon, service, db, command, report: evidence, appUrl, onProductUi, onRecovery }))
   } else evidence.result = 'STACK_PROVEN_HTTP_ACCEPTANCE_PENDING'
 } catch (error) {
   evidence.result = 'FAIL'; evidence.failed_stage = stage

@@ -35,7 +35,7 @@ import { workReadAcceptance } from './work-read-acceptance.mjs'
 import { readFileSync } from 'node:fs'
 
 // No mock Auth, JWT, PostgREST or Storage. Only setup SQL runs as postgres.
-export async function acceptance({ url, anon, service, db, command, report, appUrl, onProductUi }) {
+export async function acceptance({ url, anon, service, db, command, report, appUrl, onProductUi, onRecovery }) {
   const checks = [], statuses = {}
   function check(ok, name) { if (!ok) throw new Error(`CHECK_${name.toUpperCase().replace(/[^A-Z0-9_]/g, '_')}`); checks.push(name) }
   async function http(path, token = anon, method = 'GET', body, mime) {
@@ -271,5 +271,6 @@ export async function acceptance({ url, anon, service, db, command, report, appU
   Object.assign(report,await telecomImportTakeoverAcceptance({rpc,sql,check,http,users,wa}))
   Object.assign(report,{w2_backend_takeover_acceptance:'PASS_LOCAL_IMPORT_VALIDATION_PROTECTED_STAGING_AND_EXTERNAL_IDENTITIES',w2_backend_takeover_checks:checks.length-takeoverStart})
   if (onProductUi) Object.assign(report, await onProductUi({ users, wa, ca, sql }))
+  if (onRecovery) report.disaster_rehearsal = await onRecovery({url,anon,service,db,command,report,users,wa,wb,object})
   return { ...productResult, ...workReadResult, ...teamResult, ...portfolioResult, ...deadlineResult, ...documentResult, ...individualResult,...importJobResult,...artifactResult,...contentResult, result: 'PASS', auth: 'PASS', jwt: 'PASS', postgrest: 'PASS', rpc: 'PASS', storage: 'PASS', cross_tenant: 'PASS', revocation: 'PASS', auth_users: Object.keys(users).length, checks: checks.length, status_codes: statuses, manager: 'NOT_CANONICAL', signed_access: 'NOT_IMPLEMENTED', auth_email_production: 'NOT_TESTED', mfa_production: 'NOT_TESTED', scoped_service_principal: 'NOT_IMPLEMENTED', remote_staging: 'NOT_TESTED' }
 }
