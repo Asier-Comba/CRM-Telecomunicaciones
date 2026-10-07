@@ -52,6 +52,15 @@ jobs:
         with: {node-version-file: .nvmrc}
       - name: Build and start the actual nonroot read-only image; no registry push
         run: node scripts/platform/container-smoke.mjs
+      - name: Install exact checksum-verified image scanner
+        run: |
+          curl --fail --location --silent --show-error https://github.com/aquasecurity/trivy/releases/download/v0.75.0/trivy_0.75.0_Linux-64bit.tar.gz -o "$RUNNER_TEMP/trivy.tar.gz"
+          echo "c6e65abddb348e25f10549df887045629cf28cc72453cd1c63acb717316b3f3f  $RUNNER_TEMP/trivy.tar.gz" | sha256sum --check
+          mkdir "$RUNNER_TEMP/w5-scanner"
+          tar -xzf "$RUNNER_TEMP/trivy.tar.gz" -C "$RUNNER_TEMP/w5-scanner" trivy
+          echo "$RUNNER_TEMP/w5-scanner" >> "$GITHUB_PATH"
+      - name: Fail on image high/critical vulnerabilities or secret findings
+        run: node scripts/platform/image-scan.mjs
   reconstruction-recovery:
     runs-on: ubuntu-latest
     timeout-minutes: 40

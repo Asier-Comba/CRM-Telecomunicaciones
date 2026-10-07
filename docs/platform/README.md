@@ -20,6 +20,7 @@ Install the locked application with Node24 (`npm ci`).
 | Production preflight | `npm run platform:preflight:prod` | Read-only; no deploy |
 | Release manifest | `npm run platform:release` | Metadata only |
 | Company contract | `node scripts/platform/platform.mjs company company.json` | No credential values |
+| Company bootstrap state | `npm run platform:company:report -- company.json` | Read-only phase/binding report; no live proof |
 | Provider DNS records | `node scripts/platform/platform.mjs dns company.json` | Public DNS reads only |
 | Hosted reconstruction plan | `node scripts/platform/hosted-bootstrap.mjs company.json` | No mutation by default |
 | Private build boundary | `node scripts/platform/boundary.mjs --build` | Disposable private canaries |
@@ -101,12 +102,18 @@ domain/DNS authority, OAuth consent, billing, secret entry directly in providers
 and final production approval. Follow `docs/company/ONBOARDING.md` and the
 incident/recovery runbooks. Providers configured with keys are not automatically
 healthy: missing/configured/degraded/unavailable require separate observations.
+Use [the disaster runbook](../runbooks/DISASTER_RECOVERY.md) for executable local
+recovery checks and the separate hosted recovery gates. CI also scans the actual
+runtime image with checksum-pinned Trivy0.75.0; high/critical and secret findings
+stop the image gate. Only coordinates/counts are logged; raw secret matches are
+never uploaded.
 
 ## Known limits
 
 Inherited npm audit: five high findings in the eslint-config-next -> fast-glob ->
 micromatch -> braces chain, GHSA-vfj7-8cjw-p6xm. The current compatible latest braces
-is3.0.3; audit proposes a framework tooling downgrade. No audit weakening or forced
+is3.0.3; [the reviewed advisory](https://github.com/advisories/GHSA-vfj7-8cjw-p6xm)
+lists no patched release. Audit proposes a framework tooling downgrade. No audit weakening or forced
 downgrade. Windows rejects five inherited Unix-permission import adapter tests;
 the adapter is test-only and Linux acceptance remains required. W2 owns the eventual
 Windows-compatible fixture strategy. Full scanning/production import, external

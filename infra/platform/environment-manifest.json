@@ -464,6 +464,7 @@
       "consumer": [
         "scripts/platform/container-smoke.mjs",
         "scripts/platform/hosted-bootstrap.mjs",
+        "scripts/platform/image-scan.mjs",
         "scripts/platform/lib.mjs",
         "scripts/platform/n8n-registry.mjs"
       ],
@@ -614,6 +615,7 @@
       "consumer": [
         "scripts/platform/container-smoke.mjs",
         "scripts/platform/hosted-bootstrap.mjs",
+        "scripts/platform/image-scan.mjs",
         "scripts/platform/lib.mjs",
         "scripts/platform/n8n-registry.mjs"
       ],
@@ -1182,6 +1184,7 @@
         "docs/master/contracts/product-environment.json",
         "src/lib/agents/local-answers.ts",
         "src/lib/config-status.ts",
+        "scripts/platform/company-state.mjs",
         "scripts/platform/config.mjs"
       ],
       "validation_rule": "origin_url",
@@ -1563,6 +1566,7 @@
         "src/lib/supabase-admin.ts",
         "src/lib/supabase.ts",
         "src/proxy.ts",
+        "scripts/platform/company-state.mjs",
         "scripts/platform/hosted-bootstrap.mjs"
       ],
       "validation_rule": "platform_url",
@@ -2121,6 +2125,7 @@
         "src/app/api/telecom/services/v1/route.ts",
         "src/features/product/integration/mode.ts",
         "src/lib/server/product-http-v1.ts",
+        "scripts/platform/company-state.mjs",
         "scripts/platform/config.mjs"
       ],
       "validation_rule": "origin_url",

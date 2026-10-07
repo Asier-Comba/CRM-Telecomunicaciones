@@ -11,6 +11,7 @@
     "platform:preflight:staging": "node scripts/platform/platform.mjs preflight STAGING",
     "platform:preflight:prod": "node scripts/platform/platform.mjs preflight PROD",
     "platform:release": "node scripts/platform/platform.mjs release",
+    "platform:company:report": "node scripts/platform/platform.mjs company-report",
     "preview:dev": "node scripts/preview-dev.mjs",
     "preview:check": "node --test tests/bootstrap/telecom-preview-gates.test.mjs && npm run typecheck && npm run test:e2e:preview",
     "dev": "next dev --webpack",

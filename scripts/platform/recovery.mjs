@@ -20,7 +20,10 @@ export async function recoveryRehearsal({url,anon,service,db,command,report,user
  try{
   report.recovery_stage='capture'
   const expected=metadata(),expectedRows=rows()
-  report.rpc_manifest=checkRpcManifest(expected.privileges)
+  try{report.rpc_manifest=checkRpcManifest(expected.privileges)}catch(e){
+   if(e.message==='PUBLIC_RPC_MANIFEST_DRIFT')report.rpc_manifest_drift=e.differences
+   throw e
+  }
   if(JSON.stringify(expected.schema.migrations)!==JSON.stringify(migrations().map(m=>m.version)))throw new Error('MIGRATION_VERSION_DRIFT')
   // Obtain DB bytes without terminal conversion or echoing any contents.
   const dump=command('docker',['exec',db,'pg_dump','-U','postgres','-d','postgres','--format=custom','--data-only','--table=public.*','--table=auth.users','--table=auth.identities'],{encoding:null})

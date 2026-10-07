@@ -6,6 +6,7 @@ import {inventory} from './inventory.mjs'
 import {validateEnvironment} from './config.mjs'
 import {validateCompany,validateWorkflow,verifyDns,preflight,releaseManifest} from './operations.mjs'
 import {cleanBuildCache} from './clean-build-cache.mjs'
+import {companyState} from './company-state.mjs'
 const [mode,targetOrFile]=process.argv.slice(2)
 try{
  let result
@@ -17,8 +18,8 @@ try{
  }else if(mode==='preflight')result=preflight(targetOrFile)
  else if(mode==='config')result=validateEnvironment(process.env,targetOrFile)
  else if(mode==='release')result=releaseManifest()
- else if(mode==='company'||mode==='dns'){
-  const c=JSON.parse(readFileSync(targetOrFile,'utf8'));result=mode==='dns'?await verifyDns(c):validateCompany(c)
+ else if(['company','company-report','dns'].includes(mode)){
+  const c=JSON.parse(readFileSync(targetOrFile,'utf8'));result=mode==='dns'?await verifyDns(c):mode==='company-report'?companyState(c,process.env):validateCompany(c)
  }else if(mode==='n8n')result=validateWorkflow(JSON.parse(readFileSync(targetOrFile??join(root,'infra/n8n/synthetic-health.json'),'utf8')))
  else if(['bootstrap-local','recovery-test','acceptance'].includes(mode)){
   if(process.env.PLATFORM_TARGET!=='LOCAL'||process.env.SUPABASE_ACCESS_TOKEN||process.env.SUPABASE_DB_PASSWORD)throw new Error('EXPLICIT_DISPOSABLE_LOCAL_REQUIRED')
