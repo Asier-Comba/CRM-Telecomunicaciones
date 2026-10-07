@@ -5,7 +5,7 @@ import { createHash,randomBytes,randomUUID } from 'node:crypto'
 
 // Deliberately CI-only: no hosted URL/token/password and no reusable local DB.
 const project = 'crm-telecom-local'
-let stage = 'preflight', started = false, appServer
+let stage = 'preflight', started = false, appServer, assistantServer
 const evidence = { environment: 'LOCAL_SUPABASE_DOCKER', result: 'NOT_RUN', auth: 'NOT_TESTED', jwt: 'NOT_TESTED', postgrest: 'NOT_TESTED', rpc: 'NOT_TESTED', storage: 'NOT_TESTED' }
 function command(bin, args, options = {}) {
   const r = spawnSync(bin, args, { encoding: 'utf8', timeout: 120_000, maxBuffer: 20 * 1024 * 1024, ...options })
@@ -61,6 +61,15 @@ try {
   let appReady=false
   for(let attempt=0;attempt<40;attempt++){try{const response=await fetch(appUrl+'/api/product/v1/commands',{method:'POST',signal:AbortSignal.timeout(1000)});if(response.status===403){appReady=true;break}}catch{}await new Promise(resolve=>setTimeout(resolve,250))}
   if(!appReady)throw new Error('APP_TRANSPORT_NOT_READY')
+  // Assistant transport deliberately denies NODE_ENV=production. Exercise the
+  // actual route on a separate loopback-only development process; never relax
+  // that production deny just because this runner's data is disposable.
+  stage='assistant_history_transport_start'
+  const assistantAppUrl='http://127.0.0.1:3109'
+  assistantServer=spawn(process.execPath,['node_modules/next/dist/bin/next','dev','--webpack','--hostname','127.0.0.1','--port','3109'],{stdio:'ignore',env:{...process.env,NODE_ENV:'development',NEXT_PUBLIC_SUPABASE_URL:url,NEXT_PUBLIC_SUPABASE_ANON_KEY:anon,PRODUCT_V1_ENABLED:'true',PRODUCT_LOCAL_INTEGRATION:'true',PRODUCT_LOCAL_SYNTHETIC:'true',AI_PRODUCT_V2_ENABLED:'true',PRODUCT_V1_ORIGIN:assistantAppUrl,OPENAI_API_KEY:''}})
+  let assistantReady=false
+  for(let attempt=0;attempt<20;attempt++){try{const response=await fetch(assistantAppUrl+'/api/assistant/v2/threads',{method:'POST',signal:AbortSignal.timeout(15000)});if(response.status===403){assistantReady=true;break}}catch{}await new Promise(resolve=>setTimeout(resolve,250))}
+  if(!assistantReady)throw new Error('ASSISTANT_HISTORY_TRANSPORT_NOT_READY')
   stage = 'http_acceptance'
   if (existsSync('scripts/security/supabase-local/acceptance.mjs')) {
     const { acceptance } = await import('./acceptance.mjs')
@@ -68,13 +77,14 @@ try {
       const { productBrowserAcceptance } = await import('./product-browser-acceptance.mjs')
       return productBrowserAcceptance({ ...context, url, anon, report: evidence, maintenanceCredentials: {id:verifyId,key:verifyKey} })
     } : undefined
-    Object.assign(evidence, await acceptance({ url, anon, service, db, command, report: evidence, appUrl, onProductUi }))
+    Object.assign(evidence, await acceptance({ url, anon, service, db, command, report: evidence, appUrl, assistantAppUrl, onProductUi }))
   } else evidence.result = 'STACK_PROVEN_HTTP_ACCEPTANCE_PENDING'
 } catch (error) {
   evidence.result = 'FAIL'; evidence.failed_stage = stage
   evidence.error = /^[A-Z][A-Z0-9_]{0,180}$/.test(error.message) ? error.message : 'BOUNDED_ACCEPTANCE_FAILURE'
   process.exitCode = 1
 } finally {
+  if(assistantServer){assistantServer.kill('SIGTERM');await new Promise(resolve=>{if(assistantServer.exitCode!==null)return resolve();assistantServer.once('exit',resolve);setTimeout(()=>{assistantServer.kill('SIGKILL');resolve()},5000).unref()})}
   if(appServer){appServer.kill('SIGTERM');await new Promise(resolve=>{if(appServer.exitCode!==null)return resolve();appServer.once('exit',resolve);setTimeout(()=>{appServer.kill('SIGKILL');resolve()},5000).unref()})}
   if (started) {
     try { command('supabase', ['stop', '--no-backup', '--project-id', project]); evidence.teardown = 'PASS' }

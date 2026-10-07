@@ -1,3 +1,4 @@
+import {assistantHistoryAcceptance} from './assistant-history-acceptance.mjs'
 import {telecomImportTakeoverAcceptance} from './telecom-import-takeover-acceptance.mjs'
 import {externalIdentityAcceptance} from './external-identity-acceptance.mjs'
 import{equipmentAcceptance}from './equipment-acceptance.mjs'
@@ -35,7 +36,7 @@ import { workReadAcceptance } from './work-read-acceptance.mjs'
 import { readFileSync } from 'node:fs'
 
 // No mock Auth, JWT, PostgREST or Storage. Only setup SQL runs as postgres.
-export async function acceptance({ url, anon, service, db, command, report, appUrl, onProductUi }) {
+export async function acceptance({ url, anon, service, db, command, report, appUrl, assistantAppUrl, onProductUi }) {
   const checks = [], statuses = {}
   function check(ok, name) { if (!ok) throw new Error(`CHECK_${name.toUpperCase().replace(/[^A-Z0-9_]/g, '_')}`); checks.push(name) }
   async function http(path, token = anon, method = 'GET', body, mime) {
@@ -125,6 +126,7 @@ export async function acceptance({ url, anon, service, db, command, report, appU
     }
   }
   report.postgrest = 'PASS'
+  Object.assign(report, await assistantHistoryAcceptance({ rpc, sql, check, users, wa, wb, anon, service, url, assistantAppUrl }))
   report.status_codes = statuses
   const names = ['telecom_v1_customer_get_row', 'telecom_v1_customer_search_rows', 'telecom_v1_customer_summary', 'telecom_v1_contract_get', 'telecom_v1_contract_list', 'telecom_v1_service_list', 'telecom_v1_line_list', 'telecom_v1_activity_list', 'telecom_v1_opportunity_list', 'telecom_v1_task_list', 'telecom_v1_meeting_list', 'telecom_v1_renewal_list', 'telecom_v1_permanence_list', 'telecom_v1_dashboard_authorize']
   const functions = JSON.parse(sql(`select json_agg(json_build_object('name',p.proname,'args',p.proargnames) order by p.proname) from pg_proc p join pg_namespace n on n.oid=p.pronamespace
