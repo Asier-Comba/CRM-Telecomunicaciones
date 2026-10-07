@@ -1,4 +1,4 @@
-# W3 AI product v2 — checkpoint D candidate, 2026-10-07
+# W3 AI product v2 — checkpoint E lease candidate, 2026-10-07
 
 Branch `w3/ai-product-v2`, Draft PR31. W2 `4de7cad45c4005b7903dbe97502febfff457541f` consumed by normal remote merge PR32 `ffdca160d1b66c67c9d8af7c8effdf7e31943ca4`; no conflicts, force rebase, main or PR9 merge. Historical published C `1d21296` remains the predecessor; D forward fix publication/CI is pending at this document's commit.
 
@@ -13,3 +13,9 @@ Existing foundation preserved: provider-neutral Responses adapter, bounded struc
 AI_FOUNDATION_COMPLETE: NO. Safe persisted selections, entity resolution, broader reads, rich historical display, assistant UI and invoice end-to-end remain pending. DURABLE_CANDIDATE_COMPLETE: NO. Physical registered command/original audit+delivery adapter and independent native processes remain pending. W4_DURABLE_ACCEPTANCE: PENDING. Issue10 OPEN. Writes/sends/stage/prod remain disabled. EMAIL_UNAVAILABLE: no connected email tool; recorded in PR31.
 
 Next: prove D remote gate; meanwhile pure schema/privacy/semantic adversarial work. Only after foundation DB gate: context/read/assistant UI expansion and physical durable action candidate. W2/W4 coordination is versioned and published via PR31/30/Issue10. No library duplicate of git-backed code.
+
+## Checkpoint E — native clock correction
+
+D published SHA `19f462c620653a2263748ef9205835d46b88f17e`, tree equal to tested `fd43930`. Remote CI `37690335156`: embedded fixture PASS; quality reached build then failed only the existing5HIGH Issue29 audit. Native job `113029145212` failed `assistant_turns_v2_check2`: separate volatile defaults produced expiry90seconds+1microsecond. No native D acceptance claim. Supabase `37690335123` was still running at E preparation.
+
+Forward `20261007214224_assistant_turn_single_clock.sql` preserves the exact <=90second constraint and all authorization/privileges. RPC samples clock once after scoped locks and inserts both timestamps from it. Stable statement-timestamp defaults additionally protect privileged inserts. Original two published history migrations remain unchanged. Fixture now asserts exact lease arithmetic; bootstrap inventory matches73 migrations. Embedded73 fixture/privilege PASS and exact bootstrap contract3tests PASS locally; combined389 bootstrap +458 assistant =847 PASS locally. Native/real Supabase E pending. No context/action schema expansion until that gate. PR31/30/Issue10 D comments acknowledge readiness NO, definer-owner RLS bypass and W4 review. Issue10 remains OPEN.
