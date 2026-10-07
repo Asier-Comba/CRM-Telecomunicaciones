@@ -80,6 +80,7 @@ try {
       // actual route on a separate loopback-only development process; never relax
       // that production deny just because this runner's data is disposable.
       stage='assistant_history_transport_start'
+      console.log('{"kind":"local_acceptance_progress","phase":"assistant_history_start"}')
       const assistantAppUrl='http://127.0.0.1:3109'
       assistantServer=spawn(process.execPath,['node_modules/next/dist/bin/next','dev','--webpack','--hostname','127.0.0.1','--port','3109'],{stdio:'ignore',env:{...process.env,NODE_ENV:'development',NEXT_PUBLIC_SUPABASE_URL:url,NEXT_PUBLIC_SUPABASE_ANON_KEY:anon,PRODUCT_V1_ENABLED:'true',PRODUCT_LOCAL_INTEGRATION:'true',PRODUCT_LOCAL_SYNTHETIC:'true',AI_PRODUCT_V2_ENABLED:'true',PRODUCT_V1_ORIGIN:assistantAppUrl,OPENAI_API_KEY:''}})
       let assistantReady=false
@@ -88,16 +89,23 @@ try {
       stage = 'http_acceptance'
       try {
         const { assistantHistoryAcceptance } = await import('./assistant-history-acceptance.mjs')
-        return await assistantHistoryAcceptance({ ...context, assistantAppUrl })
+        const result = await assistantHistoryAcceptance({ ...context, assistantAppUrl })
+        console.log('{"kind":"local_acceptance_progress","phase":"assistant_history_complete"}')
+        return result
       } finally {
         // W2's existing browser journey owns this same dev port/output lock.
         // Release ours before that journey; never change its assertions/gates.
         await stopProcess(assistantServer); assistantServer = undefined
+        console.log('{"kind":"local_acceptance_progress","phase":"assistant_history_server_released"}')
       }
     }
     const onProductUi = process.env.W2_PRODUCT_UI === 'true' ? async context => {
       const { productBrowserAcceptance } = await import('./product-browser-acceptance.mjs')
-      return productBrowserAcceptance({ ...context, url, anon, report: evidence, maintenanceCredentials: {id:verifyId,key:verifyKey} })
+      stage = 'w2_product_browser'
+      console.log('{"kind":"local_acceptance_progress","phase":"w2_product_browser_start"}')
+      const result = await productBrowserAcceptance({ ...context, url, anon, report: evidence, maintenanceCredentials: {id:verifyId,key:verifyKey} })
+      console.log('{"kind":"local_acceptance_progress","phase":"w2_product_browser_complete"}')
+      return result
     } : undefined
     Object.assign(evidence, await acceptance({ url, anon, service, db, command, report: evidence, appUrl, onAssistantHistory, onProductUi }))
   } else evidence.result = 'STACK_PROVEN_HTTP_ACCEPTANCE_PENDING'
