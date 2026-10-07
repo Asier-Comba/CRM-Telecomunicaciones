@@ -1,3 +1,5 @@
+import type {EquipmentInputsV1,EquipmentOperationV1,EquipmentReceiptV1,EquipmentReadV1} from '@/lib/contracts/equipment-v1'
+import {isEquipmentOperationV1,parseEquipmentInputV1,parseEquipmentReadV1,parseEquipmentReceiptV1} from '../../../lib/server/equipment-runtime-v1.ts'
 import type {CatalogInputMapV1,CatalogOperationV1,CatalogReceiptV1,CatalogTermsV1} from '@/lib/contracts/catalog-v1'
 import type {CaseInputsV1,CaseOperationV1,CaseReceiptV1,CasePageV1,CaseGetV1,CaseNotePageV1} from '@/lib/contracts/case-v1'
 import type {SimInputsV1,SimOperationV1,SimReceiptV1,SimPageV1,SimGetV1,SimHistoryV1} from '@/lib/contracts/sim-v1'
@@ -14,9 +16,10 @@ import {isIdentifierOperationV1,parseIdentifierInputV1,parseIdentifierResultV1} 
 import {isTelecomReadOperationV1,parseTelecomReadInputV1,parseTelecomReadResultV1} from '../../../lib/server/telecom-reads-runtime-v1.ts'
 import {parseTelecomAttentionInputV1,parseTelecomAttentionResultV1} from '../../../lib/server/telecom-attention-runtime-v1.ts'
 import {isBillingAnalyticsOperationV1,parseBillingAnalyticsInputV1,parseBillingAnalyticsResultV1} from '../../../lib/server/billing-analytics-runtime-v1.ts'
-export type TelecomInputs=CatalogInputMapV1&CaseInputsV1&SimInputsV1&PortabilityInputsV1&TelecomReadInputsV1&Record<IdentifierOperationV1,IdentifierInputV1>&Record<BillingAnalyticsOperationV1,BillingAnalyticsInputV1>&{'telecom.attention':TelecomAttentionInputV1}
+export type TelecomInputs=EquipmentInputsV1&CatalogInputMapV1&CaseInputsV1&SimInputsV1&PortabilityInputsV1&TelecomReadInputsV1&Record<IdentifierOperationV1,IdentifierInputV1>&Record<BillingAnalyticsOperationV1,BillingAnalyticsInputV1>&{'telecom.attention':TelecomAttentionInputV1}
 export type TelecomOperation=keyof TelecomInputs
 export type TelecomResult<O extends TelecomOperation>=
+ O extends 'equipment.get'|'equipment.list'|'equipment.history'?Extract<EquipmentReadV1,{operation:O}>:O extends EquipmentOperationV1?EquipmentReceiptV1:
  O extends 'plan_version.terms_get'?Readonly<{contract_version:'catalog.v1';operation:O;record:CatalogTermsV1}>:
  O extends CatalogOperationV1?CatalogReceiptV1:
  O extends 'case.list'?CasePageV1:O extends 'case.get'?CaseGetV1:O extends 'case.note_list'?CaseNotePageV1:O extends CaseOperationV1?CaseReceiptV1:
@@ -26,6 +29,7 @@ export type TelecomResult<O extends TelecomOperation>=
  O extends TelecomReadOperationV1?TelecomReadResultV1<O>:O extends 'telecom.attention'?TelecomAttentionPageV1:O extends BillingAnalyticsOperationV1?BillingAnalyticsResultV1:never
 /** Reuse accepted W1 closed validators; the repository remains the sole transport. */
 export function telecomBoundary(operation:TelecomOperation,value:unknown):{endpoint:string;input:unknown;parse:(v:unknown)=>unknown|null}|null{
+ if(isEquipmentOperationV1(operation)){const input=parseEquipmentInputV1(operation,value);return input?{endpoint:'/api/telecom/equipment/v1',input,parse:v=>operation==='equipment.get'||operation==='equipment.list'||operation==='equipment.history'?parseEquipmentReadV1(operation,input,v):parseEquipmentReceiptV1(operation,input,v)}:null}
  if(isCatalogOperationV1(operation)){const input=parseCatalogInputV1(operation,value);return input?{endpoint:'/api/catalog/v1',input,parse:v=>parseCatalogResultV1(operation,input,v)}:null}
  if(isCaseOperationV1(operation)){const input=parseCaseInputV1(operation,value);return input?{endpoint:'/api/cases/v1',input,parse:v=>parseCaseResultV1(operation,input,v)}:null}
  if(isSimOperationV1(operation)){const input=parseSimInputV1(operation,value);return input?{endpoint:'/api/sims/v1',input,parse:v=>parseSimResultV1(operation,input,v)}:null}
