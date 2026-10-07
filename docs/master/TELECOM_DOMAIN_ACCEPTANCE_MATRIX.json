@@ -889,23 +889,23 @@
       "section": "Imports",
       "requirement": "safe telecom mapping update",
       "REQUIRED": true,
-      "IMPLEMENTED": false,
-      "PROVEN": false,
+      "IMPLEMENTED": true,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "not_implemented_as_requested",
+      "BLOCKER": "W2_product_wizard_or_catalog_consumption_pending",
       "existing_operation": null,
-      "notes": "Table or a narrower legacy reader does not complete this TEL5 requirement."
+      "notes": "Accepted W2 4de7cad45c4005b7903dbe97502febfff457541f; Supabase run 37541469512 SUCCESS, 3576 checks, real Auth/HTTP, current-authority revocation, teardown PASS. 17 closed safe CSV schemas with bounded validation; no production domain apply."
     },
     {
       "section": "Imports",
       "requirement": "separate protected identifier import",
       "REQUIRED": true,
-      "IMPLEMENTED": false,
-      "PROVEN": false,
+      "IMPLEMENTED": true,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "not_implemented_as_requested",
+      "BLOCKER": "W2_product_wizard_or_catalog_consumption_pending",
       "existing_operation": null,
-      "notes": "Table or a narrower legacy reader does not complete this TEL5 requirement."
+      "notes": "Accepted W2 4de7cad45c4005b7903dbe97502febfff457541f; Supabase run 37541469512 SUCCESS, 3576 checks, real Auth/HTTP, current-authority revocation, teardown PASS. 6 protected kinds, separate protected_identifiers job, disposable AEAD/count-only proof; production KMS/worker/apply remains blocked."
     },
     {
       "section": "Imports",
@@ -944,12 +944,12 @@
       "section": "Provenance",
       "requirement": "provider-neutral external identities",
       "REQUIRED": true,
-      "IMPLEMENTED": false,
-      "PROVEN": false,
+      "IMPLEMENTED": true,
+      "PROVEN": true,
       "W2_CONSUMED": false,
-      "BLOCKER": "not_implemented_as_requested",
+      "BLOCKER": "W2_product_wizard_or_catalog_consumption_pending",
       "existing_operation": null,
-      "notes": "Table or a narrower legacy reader does not complete this TEL5 requirement."
+      "notes": "Accepted W2 4de7cad45c4005b7903dbe97502febfff457541f; Supabase run 37541469512 SUCCESS, 3576 checks, real Auth/HTTP, current-authority revocation, teardown PASS. 5 registered normal admin operations with scoped target whitelist, immutable ancestry, race/replay and raw-table denial. No provider activation."
     },
     {
       "section": "Identifiers",
@@ -1086,8 +1086,8 @@
   ],
   "counts": {
     "REQUIRED": 98,
-    "IMPLEMENTED": 94,
-    "PROVEN": 94,
+    "IMPLEMENTED": 97,
+    "PROVEN": 97,
     "W2_CONSUMED": 0,
     "BLOCKER": 98
   },
@@ -1095,5 +1095,10 @@
   "accepted_source_sha": "e9d8bcf14ef27168e70bca9dd237aa2fbe02e27a",
   "candidate_operations_total": 220,
   "candidate_operations_proven": 220,
-  "candidate_exact_head_accepted": true
+  "candidate_exact_head_accepted": true,
+  "w2_evidence_update": {
+    "source_sha": "4de7cad45c4005b7903dbe97502febfff457541f",
+    "supabase_run": 37541469512,
+    "changes": "Three takeover backend proofs only; frontend/browser/visual completeness not inferred."
+  }
 }

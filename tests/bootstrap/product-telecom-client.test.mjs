@@ -29,3 +29,19 @@ test('read-only exact customer identity is bounded, verifies ID and never calls 
  await assert.rejects(customerCollectionIdentity({collection:async()=>({items:[{...row,id:'10000000-0000-4000-8000-000000000002'}]})},id),e=>e.code==='not_found')
  await assert.rejects(customerCollectionIdentity(repository,'invalid'),e=>e.code==='validation');assert.equal(calls,1)
 })
+
+const equipment={id,version:1,customer_id:id,contract_id:null,service_id:null,line_id:null,commitment_id:null,kind:'router',manufacturer:'Synthetic',model:'Router 1',commercial_description:null,status:'prepared',purchased_on:null,assigned_on:null,returned_on:null,replaced_on:null,cancelled_on:null,replaces_equipment_id:null,replaced_by_id:null,source:'manual'}
+test('equipment reads use normal cookies and closed scoped rows; private fields and foreign rows fail',async()=>{
+ const input={customer_id:id,limit:20};let calls=0
+ const r=new IntegratedLocalProductRepository(async(path,init)=>{calls++;assert.equal(path,'/api/telecom/equipment/v1');assert.equal(init.credentials,'same-origin');assert.equal(init.cache,'no-store');assert.deepEqual(JSON.parse(init.body),{operation:'equipment.list',input});return Response.json({ok:true,data:{contract_version:'equipment.v1',operation:'equipment.list',items:[equipment],next_id:null}})})
+ assert.equal((await r.telecom('equipment.list',input)).items[0].model,'Router 1')
+ for(const row of [{...equipment,imei:'private'},{...equipment,customer_id:'10000000-0000-4000-8000-000000000002'}]){const wrong=new IntegratedLocalProductRepository(async()=>Response.json({ok:true,data:{contract_version:'equipment.v1',operation:'equipment.list',items:[row],next_id:null}}));await assert.rejects(wrong.telecom('equipment.list',input),e=>e.code==='internal_safe')}
+ await assert.rejects(r.telecom('equipment.list',{workspace_id:id}),e=>e.code==='validation');assert.equal(calls,1)
+})
+test('equipment write checks exact CAS receipt, current denial and uncertain same-intent retry',async()=>{
+ const input={command_id:id,id,expected_version:1,event_on:'2026-10-01'},receipt={contract_version:'equipment.v1',operation:'equipment.assign',command_id:id,id,version:2,status:'assigned',source:'manual',replacement_id:null,replacement_version:null},bodies=[]
+ const r=new IntegratedLocalProductRepository(async(path,init)=>{assert.equal(path,'/api/telecom/equipment/v1');bodies.push(init.body);if(bodies.length===1)throw Error('lost response');return Response.json({ok:true,data:receipt})})
+ await assert.rejects(r.telecom('equipment.assign',input),e=>e.code==='transport_uncertain');assert.equal((await r.telecom('equipment.assign',input)).version,2);assert.equal(bodies[0],bodies[1])
+ const wrong=new IntegratedLocalProductRepository(async()=>Response.json({ok:true,data:{...receipt,version:3}}));await assert.rejects(wrong.telecom('equipment.assign',input),e=>e.code==='internal_safe')
+ const denied=new IntegratedLocalProductRepository(async()=>Response.json({ok:false,error:'access_denied'},{status:403}));await assert.rejects(denied.telecom('equipment.assign',input),e=>e.code==='access_denied')
+})

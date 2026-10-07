@@ -1,5 +1,6 @@
 'use client'
 import Link from 'next/link'
+import {EquipmentInventory} from '@/features/equipment/EquipmentInventory'
 import {SensitiveReveal} from './SensitiveReveal'
 import {CustomerDomainPages,isCustomerDomain} from './CustomerDomainPages'
 import {customerName,type CustomerIdentity} from './customer-identity'
@@ -9,8 +10,9 @@ import {CustomerCommunications} from './CustomerCommunications'
 import { IntegratedBilling } from '@/features/billing/IntegratedBilling'
 import { control, Status } from '@/features/product/ui'
 
-export const customerAreas=['Resumen','Empresa','Contactos','Contratos','Servicios','Líneas','SIM/eSIM','Portabilidades','Renovaciones','Permanencias','Oportunidades','Tareas','Reuniones','Incidencias','Agenda','Documentos','Facturación','Actividad','Comunicaciones']
+export const customerAreas=['Resumen','Empresa','Contactos','Contratos','Servicios','Líneas','SIM/eSIM','Portabilidades','Renovaciones','Permanencias','Oportunidades','Tareas','Reuniones','Incidencias','Equipos','Agenda','Documentos','Facturación','Actividad','Comunicaciones']
 export function CustomerIntegratedPanels({customer,area}:{customer:CustomerIdentity;area:string}){
+ if(area==='Equipos')return <EquipmentInventory customerId={customer.id} createAllowed={customer.status==='active'}/>
  if(isCustomerDomain(area))return <CustomerDomainPages key={area} area={area} customerId={customer.id}/>
  if(area==='Agenda')return <IntegratedCalendar customerId={customer.id}/>
  if(area==='Documentos')return <CustomerDocuments customerId={customer.id}/>
