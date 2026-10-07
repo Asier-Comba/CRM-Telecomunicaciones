@@ -15,6 +15,7 @@ export async function recoveryRehearsal({url,anon,service,db,command,report,user
  const metadata=()=>({privileges:JSON.parse(sql(readFileSync(join(root,'scripts/security/native-postgres/privilege-snapshot.sql'),'utf8'))),schema:JSON.parse(sql(readFileSync(join(root,'scripts/platform/drift.sql'),'utf8')))})
  const rows=()=>JSON.parse(sql(`select jsonb_object_agg(name,digest) from (select n.nspname||'.'||c.relname name, (xpath('/row/h/text()',query_to_xml(format('select md5(coalesce(string_agg(t::text,chr(10) order by t::text),'''')) h from %I.%I t',n.nspname,c.relname),false,true,'')))[1]::text digest from pg_class c join pg_namespace n on n.oid=c.relnamespace where (n.nspname='public' or n.nspname='auth' and c.relname in ('users','identities')) and c.relkind='r') x;`))
  try{
+  report.recovery_stage='capture'
   const expected=metadata(),expectedRows=rows()
   if(JSON.stringify(expected.schema.migrations)!==JSON.stringify(migrations().map(m=>m.version)))throw new Error('MIGRATION_VERSION_DRIFT')
   // Obtain DB bytes without terminal conversion or echoing any contents.
@@ -31,15 +32,22 @@ export async function recoveryRehearsal({url,anon,service,db,command,report,user
   report.backup={database:'PASS',storage_bytes:'PASS',encryption:'AES-256-GCM',archive_sha256:hash(encrypted),objects:contents.objects.length,auth_scope:'LOCAL_USERS_IDENTITIES_ONLY_NO_SESSIONS',offsite:'NOT_PROVEN'}
   // Explicitly discard Environment A before reconstructing B. No reused SQL schema.
   command('supabase',['stop','--no-backup','--project-id','crm-telecom-local'],{timeout:120000})
+  report.recovery_stage='fresh_rebuild'
   command('supabase',['start','--exclude','realtime,imgproxy,studio,postgres-meta,edge-runtime,logflare,vector,supavisor,mailpit'],{timeout:600000})
   const fresh=metadata()
   if(JSON.stringify(fresh)!==JSON.stringify(expected))throw new Error('FRESH_SCHEMA_DRIFT')
+  report.recovery_stage='restore_database'
+  // Migrations may install technical/catalog rows. The complete A data dump
+  // includes those rows, so clear B data while preserving the canonical schema.
+  sql(`do $$ declare tables text; begin select string_agg(format('%I.%I',schemaname,tablename),',') into tables from pg_tables where schemaname='public'; execute 'truncate '||tables||',auth.users,auth.identities restart identity cascade'; end $$;`)
   // New schema is canonical; import data with triggers disabled only in this
   // disposable superuser DB. Roles, ACLs and schema are never imported without ACLs.
   command('docker',['exec','-i',db,'pg_restore','-U','postgres','-d','postgres','--data-only','--disable-triggers','--exit-on-error'],{input:Buffer.from(recovered.database,'base64')})
   if(JSON.stringify(rows())!==JSON.stringify(expectedRows))throw new Error('DATABASE_RECOVERY_ROW_MISMATCH')
+  report.recovery_stage='restore_storage'
   const storageResult=await restoreStorage(storage,recovered)
   if(JSON.stringify(metadata())!==JSON.stringify(expected))throw new Error('RESTORE_SECURITY_DRIFT')
+  report.recovery_stage='verify_auth_scope'
   // Actual user JWT checks after restore: retained business revocation and A/B scope.
   const api=async(path,token,body)=>{const r=await fetch(url+path,{method:body?'POST':'GET',headers:{apikey:anon,authorization:`Bearer ${token}`,...(body?{'content-type':'application/json'}:{})},body:body?JSON.stringify(body):undefined,signal:AbortSignal.timeout(15000)});return {status:r.status,json:await r.json()}}
   for(const name of ['ownerA','ownerB','removedA','suspendedA']){

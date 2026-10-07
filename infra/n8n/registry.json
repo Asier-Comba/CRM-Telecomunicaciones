@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "effects_enabled": false,
+  "workflows": [{"registered_id": "synthetic-health-v1", "file": "infra/n8n/synthetic-health.json", "environment": "LOCAL", "provider_workflow_id": null, "credential_references": [], "public_webhook": false}],
+  "future_webhook_contract": ["registered path", "signature/auth", "distributed rate limit", "body limit", "event dedupe", "tenant authorization"],
+  "persistent_deployment_requirements": ["accepted pinned image digest", "external PostgreSQL", "encrypted persistent volume", "secret-managed encryption key", "TLS", "separate staging/prod", "workflow/execution/config backups"],
+  "runtime_deployment": "NOT_CONFIGURED"
+}

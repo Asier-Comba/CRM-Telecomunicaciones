@@ -1,0 +1,19 @@
+# Preparatory package: no company host is bound or deployment performed.
+services:
+  app:
+    image: ${APP_IMAGE:?Set an immutable repository@sha256 digest}
+    env_file: ${APP_ENV_FILE:?Set a secret-store rendered environment file outside Git}
+    environment:
+      TZ: UTC
+      NODE_ENV: production
+    ports: ["127.0.0.1:3000:3000"]
+    restart: unless-stopped
+    read_only: true
+    tmpfs: ["/tmp:size=64m,mode=1777", "/app/.next/cache:size=128m,uid=1000,gid=1000"]
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    mem_limit: 1g
+    cpus: 2
+    logging:
+      driver: json-file
+      options: {max-size: "10m", max-file: "3"}

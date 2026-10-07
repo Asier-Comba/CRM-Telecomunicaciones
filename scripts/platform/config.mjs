@@ -1,14 +1,24 @@
 import {readJson,loopback} from './lib.mjs'
 export function validValue(type,value,target){
- if(typeof value!=='string'||!value.trim())return false
+ if(typeof value!=='string'||!value.trim()||value.length>8192||/[\u0000-\u001f\u007f]/.test(value))return false
  if(type==='boolean')return ['true','false'].includes(value)
  if(type==='enum')return ['LOCAL','DEV','STAGING','PROD'].includes(value)
- if(type==='node_env')return ['development','test','production'].includes(value)
+ if(['node_env','node_mode'].includes(type))return ['development','test','production'].includes(value)
+ if(type==='app_environment')return ['local','test','staging','production'].includes(value)
+ if(type==='disposable_adapter')return target==='LOCAL'&&value==='disposable-local'
+ if(type==='uuid')return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value)
+ if(type==='port')return /^\d+$/.test(value)&&Number(value)>0&&Number(value)<=65535
+ if(type==='hostname')return /^[a-zA-Z0-9.-]{1,253}$/.test(value)&&!value.includes('..')
+ if(type==='email_address')return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)&&value.length<=320
+ if(type==='public_api_key'){
+  if(/^sb_publishable_[A-Za-z0-9_-]{8,}$/.test(value))return true
+  try{return JSON.parse(Buffer.from(value.split('.')[1],'base64url')).role==='anon'&&/^[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+$/.test(value)}catch{return false}
+ }
  if(type==='hex32')return /^[0-9a-f]{64}$/i.test(value)
  if(type==='positive_integer')return /^\d+$/.test(value)&&Number(value)>0&&Number.isSafeInteger(Number(value))
  if(type==='digest')return /^sha256:[0-9a-f]{64}$/.test(value)
- if(['url','origin','https_url'].includes(type)){
-  try{const u=new URL(value);return !u.username&&!u.password&&!u.search&&!u.hash&&(target==='LOCAL'?loopback(value):u.protocol==='https:'&&!['localhost','127.0.0.1','[::1]'].includes(u.hostname))&&(type!=='origin'||u.origin===value)}catch{return false}
+ if(['url','origin','origin_url','platform_url','https_url'].includes(type)){
+  try{const u=new URL(value);return !u.username&&!u.password&&!u.search&&!u.hash&&(target==='LOCAL'?loopback(value):u.protocol==='https:'&&!['localhost','127.0.0.1','[::1]'].includes(u.hostname))&&(!['origin','origin_url'].includes(type)||u.origin===value)}catch{return false}
  }
  if(type==='json_urls')try{const a=JSON.parse(value);return Array.isArray(a)&&a.length>0&&a.every(v=>typeof v==='string'&&!v.includes('*')&&validValue('url',v,target))}catch{return false}
  if(type==='json_emails')try{const a=JSON.parse(value);return Array.isArray(a)&&a.length>0&&a.every(v=>typeof v==='string'&&/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v))}catch{return false}

@@ -73,7 +73,7 @@
     },
     {
       "name": "APP_ENV",
-      "type": "string",
+      "type": "app_environment",
       "secret": false,
       "required": {
         "LOCAL": false,
@@ -85,7 +85,7 @@
       "consumer": [
         "docs/master/contracts/product-environment.json"
       ],
-      "validation_rule": "string",
+      "validation_rule": "app_environment",
       "description": "Disposable/staging/production labeling for operational gates",
       "rotation_expectation": "Review on release/config change.",
       "provider": "runtime",
@@ -241,7 +241,7 @@
     },
     {
       "name": "AUTH_MAIL_FROM",
-      "type": "string",
+      "type": "email_address",
       "secret": false,
       "required": {
         "LOCAL": false,
@@ -253,7 +253,7 @@
       "consumer": [
         "docs/master/contracts/product-environment.json"
       ],
-      "validation_rule": "string",
+      "validation_rule": "email_address",
       "description": "Reserved approved Auth sender address; domain verification still required",
       "rotation_expectation": "Review on release/config change.",
       "provider": "auth_mail",
@@ -430,7 +430,7 @@
     },
     {
       "name": "CRM_MAIL_FROM",
-      "type": "string",
+      "type": "email_address",
       "secret": false,
       "required": {
         "LOCAL": false,
@@ -442,7 +442,7 @@
       "consumer": [
         "docs/master/contracts/product-environment.json"
       ],
-      "validation_rule": "string",
+      "validation_rule": "email_address",
       "description": "Reserved approved CRM sender address; distinct delivery channel",
       "rotation_expectation": "Review on release/config change.",
       "provider": "crm_mail",
@@ -451,7 +451,7 @@
     },
     {
       "name": "CRM_MAIL_PROVIDER_REF",
-      "type": "string",
+      "type": "private_reference_or_key",
       "secret": true,
       "required": {
         "LOCAL": false,
@@ -463,7 +463,7 @@
       "consumer": [
         "docs/master/contracts/product-environment.json"
       ],
-      "validation_rule": "string",
+      "validation_rule": "private_reference_or_key",
       "description": "Reserved separate CRM transactional/commercial API adapter binding",
       "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
       "provider": "crm_mail",
@@ -514,7 +514,7 @@
     },
     {
       "name": "GOOGLE_CLIENT_ID",
-      "type": "string",
+      "type": "nonempty",
       "secret": false,
       "required": {
         "LOCAL": false,
@@ -526,7 +526,7 @@
       "consumer": [
         "docs/master/contracts/product-environment.json"
       ],
-      "validation_rule": "string",
+      "validation_rule": "nonempty",
       "description": "Existing future OAuth client metadata; not connection proof",
       "rotation_expectation": "Review on release/config change.",
       "provider": "google_calendar",
@@ -535,7 +535,7 @@
     },
     {
       "name": "GOOGLE_CLIENT_SECRET",
-      "type": "string",
+      "type": "private_reference_or_key",
       "secret": true,
       "required": {
         "LOCAL": false,
@@ -547,7 +547,7 @@
       "consumer": [
         "docs/master/contracts/product-environment.json"
       ],
-      "validation_rule": "string",
+      "validation_rule": "private_reference_or_key",
       "description": "Existing future private OAuth credential",
       "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
       "provider": "google_calendar",
@@ -598,7 +598,7 @@
     },
     {
       "name": "GOOGLE_REDIRECT_URI",
-      "type": "url",
+      "type": "https_url",
       "secret": false,
       "required": {
         "LOCAL": false,
@@ -610,7 +610,7 @@
       "consumer": [
         "docs/master/contracts/product-environment.json"
       ],
-      "validation_rule": "url",
+      "validation_rule": "https_url",
       "description": "Existing future callback inventory; exact approved production callback required",
       "rotation_expectation": "Review on release/config change.",
       "provider": "google_calendar",
@@ -619,7 +619,7 @@
     },
     {
       "name": "IMPORT_STAGING_ADAPTER",
-      "type": "string",
+      "type": "disposable_adapter",
       "secret": false,
       "required": {
         "LOCAL": false,
@@ -633,7 +633,7 @@
         "src/lib/server/import-staging-disposable-v1.ts",
         "src/lib/server/product-environment-v1.ts"
       ],
-      "validation_rule": "string",
+      "validation_rule": "disposable_adapter",
       "description": "Select disposable-local only in an actual nonproduction test process",
       "rotation_expectation": "Review on release/config change.",
       "provider": "import_staging",
@@ -772,7 +772,7 @@
     },
     {
       "name": "META_APP_SECRET",
-      "type": "string",
+      "type": "private_reference_or_key",
       "secret": true,
       "required": {
         "LOCAL": false,
@@ -784,7 +784,7 @@
       "consumer": [
         "docs/master/contracts/product-environment.json"
       ],
-      "validation_rule": "string",
+      "validation_rule": "private_reference_or_key",
       "description": "Existing future signature verifier placeholder",
       "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
       "provider": "whatsapp",
@@ -815,7 +815,7 @@
     },
     {
       "name": "META_WEBHOOK_VERIFY_TOKEN",
-      "type": "string",
+      "type": "private_reference_or_key",
       "secret": true,
       "required": {
         "LOCAL": false,
@@ -827,7 +827,7 @@
       "consumer": [
         "docs/master/contracts/product-environment.json"
       ],
-      "validation_rule": "string",
+      "validation_rule": "private_reference_or_key",
       "description": "Existing future handshake placeholder; not a valid ingress adapter",
       "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
       "provider": "whatsapp",
@@ -836,7 +836,7 @@
     },
     {
       "name": "META_WHATSAPP_ACCESS_TOKEN",
-      "type": "string",
+      "type": "private_reference_or_key",
       "secret": true,
       "required": {
         "LOCAL": false,
@@ -849,7 +849,7 @@
         "docs/master/contracts/product-environment.json",
         "src/lib/meta-whatsapp.ts"
       ],
-      "validation_rule": "string",
+      "validation_rule": "private_reference_or_key",
       "description": "Existing future provider token placeholder; no provider ingress/send",
       "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
       "provider": "whatsapp",
@@ -879,7 +879,7 @@
     },
     {
       "name": "N8N_API_KEY",
-      "type": "string",
+      "type": "private_reference_or_key",
       "secret": true,
       "required": {
         "LOCAL": false,
@@ -892,7 +892,7 @@
         "docs/master/contracts/product-environment.json",
         "src/lib/n8n-client.ts"
       ],
-      "validation_rule": "string",
+      "validation_rule": "private_reference_or_key",
       "description": "Existing future private adapter credential",
       "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
       "provider": "n8n",
@@ -943,7 +943,7 @@
     },
     {
       "name": "N8N_BASE_URL",
-      "type": "url",
+      "type": "https_url",
       "secret": false,
       "required": {
         "LOCAL": false,
@@ -958,7 +958,7 @@
         "src/lib/assistant-n8n-hook.ts",
         "src/lib/n8n-client.ts"
       ],
-      "validation_rule": "url",
+      "validation_rule": "https_url",
       "description": "Existing future registered adapter endpoint; never caller arbitrary URL",
       "rotation_expectation": "Review on release/config change.",
       "provider": "n8n",
@@ -1009,7 +1009,7 @@
     },
     {
       "name": "N8N_WEBHOOK_SECRET",
-      "type": "string",
+      "type": "private_reference_or_key",
       "secret": true,
       "required": {
         "LOCAL": false,
@@ -1023,7 +1023,7 @@
         "src/lib/assistant-n8n-hook.ts",
         "src/lib/n8n-client.ts"
       ],
-      "validation_rule": "string",
+      "validation_rule": "private_reference_or_key",
       "description": "Existing future signature material",
       "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
       "provider": "n8n",
@@ -1032,7 +1032,7 @@
     },
     {
       "name": "NEXT_PUBLIC_APP_URL",
-      "type": "url",
+      "type": "origin_url",
       "secret": false,
       "required": {
         "LOCAL": false,
@@ -1046,7 +1046,7 @@
         "src/lib/agents/local-answers.ts",
         "src/lib/config-status.ts"
       ],
-      "validation_rule": "url",
+      "validation_rule": "origin_url",
       "description": "Existing public application origin; not callback/provider verification",
       "rotation_expectation": "Review on release/config change.",
       "provider": "application",
@@ -1353,7 +1353,7 @@
     },
     {
       "name": "NEXT_PUBLIC_SUPABASE_ANON_KEY",
-      "type": "string",
+      "type": "public_api_key",
       "secret": false,
       "required": {
         "LOCAL": false,
@@ -1364,12 +1364,13 @@
       "owner": "W5",
       "consumer": [
         "docs/master/contracts/product-environment.json",
+        "src/app/api/health/ready/route.ts",
         "src/lib/integrations.ts",
         "src/lib/server/supabase-user.ts",
         "src/lib/supabase.ts",
         "src/proxy.ts"
       ],
-      "validation_rule": "string",
+      "validation_rule": "public_api_key",
       "description": "Legacy alternative public API key; never a service-role key",
       "rotation_expectation": "Review on release/config change.",
       "provider": "backend_platform",
@@ -1378,7 +1379,7 @@
     },
     {
       "name": "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY",
-      "type": "string",
+      "type": "public_api_key",
       "secret": false,
       "required": {
         "LOCAL": false,
@@ -1389,12 +1390,13 @@
       "owner": "W5",
       "consumer": [
         "docs/master/contracts/product-environment.json",
+        "src/app/api/health/ready/route.ts",
         "src/lib/integrations.ts",
         "src/lib/server/supabase-user.ts",
         "src/lib/supabase.ts",
         "src/proxy.ts"
       ],
-      "validation_rule": "string",
+      "validation_rule": "public_api_key",
       "description": "Preferred public API key; user JWT supplies identity",
       "rotation_expectation": "Review on release/config change.",
       "provider": "backend_platform",
@@ -1403,7 +1405,7 @@
     },
     {
       "name": "NEXT_PUBLIC_SUPABASE_URL",
-      "type": "url",
+      "type": "platform_url",
       "secret": false,
       "required": {
         "LOCAL": false,
@@ -1414,6 +1416,7 @@
       "owner": "W5",
       "consumer": [
         "docs/master/contracts/product-environment.json",
+        "src/app/api/health/ready/route.ts",
         "src/features/product/integration/mode.ts",
         "src/lib/integrations.ts",
         "src/lib/server/supabase-user.ts",
@@ -1421,7 +1424,7 @@
         "src/lib/supabase.ts",
         "src/proxy.ts"
       ],
-      "validation_rule": "url",
+      "validation_rule": "platform_url",
       "description": "Canonical Auth/PostgREST/Storage endpoint; public does not confer authority",
       "rotation_expectation": "Review on release/config change.",
       "provider": "backend_platform",
@@ -1430,7 +1433,7 @@
     },
     {
       "name": "NODE_ENV",
-      "type": "node_env",
+      "type": "node_mode",
       "secret": false,
       "required": {
         "LOCAL": false,
@@ -1459,7 +1462,7 @@
         "src/lib/workspace-settings.ts",
         "src/lib/workspace-templates.ts"
       ],
-      "validation_rule": "node_env",
+      "validation_rule": "node_mode",
       "description": "Framework/test execution mode; test adapters deny production",
       "rotation_expectation": "Review on release/config change.",
       "provider": "runtime",
@@ -1468,7 +1471,7 @@
     },
     {
       "name": "NOWCRM_WEBHOOK_SECRET",
-      "type": "string",
+      "type": "private_reference_or_key",
       "secret": true,
       "required": {
         "LOCAL": false,
@@ -1480,7 +1483,7 @@
       "consumer": [
         "docs/master/contracts/product-environment.json"
       ],
-      "validation_rule": "string",
+      "validation_rule": "private_reference_or_key",
       "description": "Existing future provider-neutral ingress seam; no activated endpoint",
       "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
       "provider": "external_crm",
@@ -1511,7 +1514,7 @@
     },
     {
       "name": "OPENAI_API_KEY",
-      "type": "string",
+      "type": "private_reference_or_key",
       "secret": true,
       "required": {
         "LOCAL": false,
@@ -1526,7 +1529,7 @@
         "src/lib/agents/planner/shadow-hook.ts",
         "src/lib/agents/whatsapp-agent.ts"
       ],
-      "validation_rule": "string",
+      "validation_rule": "private_reference_or_key",
       "description": "Existing future AI provider placeholder; no registration/live execution",
       "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
       "provider": "ai_provider",
@@ -1739,7 +1742,7 @@
     },
     {
       "name": "PRODUCT_DOCUMENT_VERIFY_KEY_ID",
-      "type": "string",
+      "type": "uuid",
       "secret": false,
       "required": {
         "LOCAL": false,
@@ -1753,7 +1756,7 @@
         "src/lib/server/document-maintenance-user-factory-v1.ts",
         "src/lib/server/product-environment-v1.ts"
       ],
-      "validation_rule": "string",
+      "validation_rule": "uuid",
       "description": "ID of explicitly installed private document witness verifier; not a Storage decryption key",
       "rotation_expectation": "Review on release/config change.",
       "provider": "document_integrity",
@@ -1863,7 +1866,7 @@
     },
     {
       "name": "PRODUCT_V1_ORIGIN",
-      "type": "url",
+      "type": "origin_url",
       "secret": false,
       "required": {
         "LOCAL": false,
@@ -1912,7 +1915,7 @@
         "src/features/product/integration/mode.ts",
         "src/lib/server/product-http-v1.ts"
       ],
-      "validation_rule": "url",
+      "validation_rule": "origin_url",
       "description": "Canonical Origin/Host validation on normal product mutations",
       "rotation_expectation": "Review on release/config change.",
       "provider": "product",
@@ -1924,7 +1927,7 @@
     },
     {
       "name": "SMTP_HOST",
-      "type": "string",
+      "type": "hostname",
       "secret": false,
       "required": {
         "LOCAL": false,
@@ -1936,7 +1939,7 @@
       "consumer": [
         "docs/master/contracts/product-environment.json"
       ],
-      "validation_rule": "string",
+      "validation_rule": "hostname",
       "description": "Reserved production Auth SMTP configuration, independently managed in platform config",
       "rotation_expectation": "Review on release/config change.",
       "provider": "auth_mail",
@@ -1945,7 +1948,7 @@
     },
     {
       "name": "SMTP_PASSWORD",
-      "type": "string",
+      "type": "private_reference_or_key",
       "secret": true,
       "required": {
         "LOCAL": false,
@@ -1957,7 +1960,7 @@
       "consumer": [
         "docs/master/contracts/product-environment.json"
       ],
-      "validation_rule": "string",
+      "validation_rule": "private_reference_or_key",
       "description": "Reserved production Auth SMTP password/reference; no actual adapter installed",
       "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
       "provider": "auth_mail",
@@ -1966,7 +1969,7 @@
     },
     {
       "name": "SMTP_PORT",
-      "type": "positive_integer",
+      "type": "port",
       "secret": false,
       "required": {
         "LOCAL": false,
@@ -1978,7 +1981,7 @@
       "consumer": [
         "docs/master/contracts/product-environment.json"
       ],
-      "validation_rule": "positive_integer",
+      "validation_rule": "port",
       "description": "Reserved production Auth SMTP port",
       "rotation_expectation": "Review on release/config change.",
       "provider": "auth_mail",
@@ -1987,7 +1990,7 @@
     },
     {
       "name": "SMTP_USER",
-      "type": "string",
+      "type": "private_reference_or_key",
       "secret": true,
       "required": {
         "LOCAL": false,
@@ -1999,7 +2002,7 @@
       "consumer": [
         "docs/master/contracts/product-environment.json"
       ],
-      "validation_rule": "string",
+      "validation_rule": "private_reference_or_key",
       "description": "Reserved production Auth SMTP login/reference",
       "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
       "provider": "auth_mail",
@@ -2008,7 +2011,7 @@
     },
     {
       "name": "SUPABASE_SERVICE_ROLE_KEY",
-      "type": "string",
+      "type": "private_reference_or_key",
       "secret": true,
       "required": {
         "LOCAL": false,
@@ -2021,7 +2024,7 @@
         "docs/master/contracts/product-environment.json",
         "src/lib/supabase-admin.ts"
       ],
-      "validation_rule": "string",
+      "validation_rule": "private_reference_or_key",
       "description": "Existing private platform credential reserved outside normal user-JWT commands; no new generic worker authority",
       "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
       "provider": "backend_platform",

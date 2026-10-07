@@ -1,0 +1,10 @@
+{
+  "name": "CRM synthetic health",
+  "active": false,
+  "nodes": [
+    {"id": "synthetic-start", "name": "Manual synthetic start", "type": "n8n-nodes-base.manualTrigger", "typeVersion": 1, "parameters": {}, "position": [0, 0]},
+    {"id": "synthetic-stop", "name": "No external effect", "type": "n8n-nodes-base.noOp", "typeVersion": 1, "parameters": {}, "position": [200, 0]}
+  ],
+  "connections": {"Manual synthetic start": {"main": [[{"node": "No external effect", "type": "main", "index": 0}]]}},
+  "settings": {"executionOrder": "v1"}
+}

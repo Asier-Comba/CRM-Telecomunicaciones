@@ -13,7 +13,7 @@ export function run(bin,args,options={}){
  return r.stdout
 }
 export function disposableGuard(env=process.env){
- if(env.CI!=='true'||env.GITHUB_ACTIONS!=='true'||env.PLATFORM_TARGET!=='LOCAL')throw new Error('DISPOSABLE_CI_LOCAL_ONLY')
+ if(env.PLATFORM_TARGET!=='LOCAL'||env.NODE_ENV==='production'||!(env.CI==='true'&&env.GITHUB_ACTIONS==='true'||env.W5_DISPOSABLE_LOCAL==='true'))throw new Error('DISPOSABLE_CI_LOCAL_ONLY')
  if(env.SUPABASE_ACCESS_TOKEN||env.SUPABASE_DB_PASSWORD||existsSync(join(root,'supabase/.temp/project-ref')))throw new Error('HOSTED_TARGET_FORBIDDEN')
 }
 export function loopback(value){try{const u=new URL(value);return u.protocol==='http:'&&['127.0.0.1','localhost','[::1]'].includes(u.hostname)&&!u.username&&!u.password}catch{return false}}

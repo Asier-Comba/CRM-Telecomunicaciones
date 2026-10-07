@@ -18,14 +18,15 @@ function command(bin, args, options = {}) {
       tool:['supabase','docker','git'].includes(bin)?bin:'OTHER',
       exit_code:Number.isInteger(r.status)?r.status:null,
       timed_out:r.error?.code==='ETIMEDOUT',
-      category:r.error?.code==='ETIMEDOUT'?'TIMEOUT':/toomanyrequests|429 Too Many Requests/i.test(output)?'REGISTRY_RATE_LIMIT':/pull access denied|manifest unknown|failed to pull|error pulling image/i.test(output)?'IMAGE_PULL_FAILURE':/container.*unhealthy|failed.*health check/i.test(output)?'SERVICE_HEALTH_FAILURE':'COMMAND_FAILURE_UNCLASSIFIED'
+      category:r.error?.code==='ETIMEDOUT'?'TIMEOUT':/duplicate key|already exists/i.test(output)?'DUPLICATE_RESTORE_DATA':/foreign key constraint/i.test(output)?'FOREIGN_KEY_FAILURE':/permission denied/i.test(output)?'PERMISSION_DENIED':/toomanyrequests|429 Too Many Requests/i.test(output)?'REGISTRY_RATE_LIMIT':/pull access denied|manifest unknown|failed to pull|error pulling image/i.test(output)?'IMAGE_PULL_FAILURE':/container.*unhealthy|failed.*health check/i.test(output)?'SERVICE_HEALTH_FAILURE':'COMMAND_FAILURE_UNCLASSIFIED'
     }
     throw new Error('COMMAND_FAILED')
   }
   return Buffer.isBuffer(r.stdout) ? r.stdout : r.stdout.trim()
 }
 try {
-  if (process.env.GITHUB_ACTIONS !== 'true' || process.env.CI !== 'true') throw new Error('CI_ONLY')
+  if (!(process.env.GITHUB_ACTIONS === 'true' && process.env.CI === 'true') &&
+      !(process.env.W5_DISPOSABLE_LOCAL === 'true' && process.env.PLATFORM_TARGET === 'LOCAL' && process.env.NODE_ENV !== 'production')) throw new Error('DISPOSABLE_LOCAL_ONLY')
   if (process.env.SUPABASE_ACCESS_TOKEN || process.env.SUPABASE_DB_PASSWORD || existsSync('supabase/.temp/project-ref')) throw new Error('HOSTED_CONFIGURATION_FORBIDDEN')
   if (!readFileSync('supabase/config.toml', 'utf8').includes(`project_id = "${project}"`)) throw new Error('PROJECT_MISMATCH')
   if (command('docker', ['ps', '-a', '--format', '{{.Names}}']).split('\n').some(n => n.includes(project))) throw new Error('REQUIRES_EMPTY_RUNNER')
