@@ -30,3 +30,12 @@ rate limit is one-host readiness; multi-instance distributed limiting remains an
 accepted-adapter requirement. Minimal CSP does not claim full nonce-based CSP proof.
 
 No W5 platform freeze, W4 approval or market-ready declaration is made here.
+
+The real Supabase run37699212945 exposed inherited service_role EXECUTE on38
+legacy helper/trigger functions that the native manifest denies. Migration
+`20261008010000_align_provider_rpc_execution_grants.sql` revokes only those
+extra grants and future postgres/public service_role default EXECUTE. It leaves
+PUBLIC/anon/authenticated behavior and function bodies unchanged. W4 must review
+this real-provider alignment and exact71-migration native/Supabase evidence.
+The RPC comparison now normalizes property/list order while still rejecting
+missing/extra signatures, changed security mode and any changed execution grant.

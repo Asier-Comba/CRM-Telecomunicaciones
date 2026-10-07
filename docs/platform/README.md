@@ -71,7 +71,7 @@ credentials come from an environment-specific secret store. Logs and monitoring
 are bounded metadata. Add an independently persistent W3 worker only after its
 accepted durable execution contract exists. n8n is optional and remains inactive.
 
-`infra/deployment/Dockerfile` pins Node24.13.0 Linux amd64 by verified digest.
+`infra/deployment/Dockerfile` pins Node24.21.0 Linux amd64 by verified digest.
 `compose.yaml` requires a digest-qualified image and externally rendered env file.
 Only the proxy exposes traffic; app port is loopback-only. The proxy replaces
 forwarded Host/scheme headers and rejects unknown hosts. TLS certificates/DNS

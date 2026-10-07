@@ -1,6 +1,6 @@
 import {readJson} from './lib.mjs'
 export function checkRpcManifest(actual,manifest=readJson('scripts/security/native-postgres/function-privileges.json')){
- const publicFunctions=a=>a.filter(f=>f.signature.startsWith('public.'))
+ const publicFunctions=a=>a.filter(f=>f.signature.startsWith('public.')).map(f=>({signature:f.signature,definer:f.definer,public:f.public,anon:f.anon,authenticated:f.authenticated,service_role:f.service_role})).sort((a,b)=>a.signature<b.signature?-1:a.signature>b.signature?1:0)
  const expected=publicFunctions(manifest.functions),observed=publicFunctions(actual.functions??[])
  if(JSON.stringify(observed)!==JSON.stringify(expected)){
   const e=new Error('PUBLIC_RPC_MANIFEST_DRIFT')

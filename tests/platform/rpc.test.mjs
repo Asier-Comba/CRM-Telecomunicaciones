@@ -5,6 +5,8 @@ import {readJson} from '../../scripts/platform/lib.mjs'
 test('real RPC grant inventory rejects missing/extra signatures or public definer grants',()=>{
  const manifest=readJson('scripts/security/native-postgres/function-privileges.json')
  assert.equal(checkRpcManifest(manifest).result,'PASS')
+ const reordered={functions:manifest.functions.map(f=>Object.fromEntries(Object.entries(f).reverse())).reverse()}
+ assert.equal(checkRpcManifest(reordered).result,'PASS')
  const i=manifest.functions.findIndex(f=>f.signature.startsWith('public.'))
  const missing=structuredClone(manifest);missing.functions.splice(i,1);assert.throws(()=>checkRpcManifest(missing),/DRIFT/)
  const drift=structuredClone(manifest);drift.functions[i].authenticated=!drift.functions[i].authenticated;assert.throws(()=>checkRpcManifest(drift),/DRIFT/)
