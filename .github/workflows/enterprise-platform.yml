@@ -30,8 +30,17 @@ jobs:
       - run: node scripts/platform/boundary.mjs
       - name: Private canaries in all generated build assets and logs
         run: node scripts/platform/boundary.mjs --build
+      - name: Install Chromium for synthetic screenshot boundary
+        run: npx playwright install --with-deps chromium
       - name: Actual build health and fail-closed missing backend
+        env: {W5_BROWSER_BOUNDARY: 'true'}
         run: node scripts/platform/smoke.mjs
+      - name: Retain only synthetic screenshot for review
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: w5-synthetic-secret-boundary-login
+          path: ${{ runner.temp }}/w5-synthetic-browser
+          retention-days: 7
   container-package:
     runs-on: ubuntu-latest
     timeout-minutes: 25

@@ -23,6 +23,7 @@ Install the locked application with Node24 (`npm ci`).
 | Provider DNS records | `node scripts/platform/platform.mjs dns company.json` | Public DNS reads only |
 | Hosted reconstruction plan | `node scripts/platform/hosted-bootstrap.mjs company.json` | No mutation by default |
 | Private build boundary | `node scripts/platform/boundary.mjs --build` | Disposable private canaries |
+| Registered n8n import plan | `node scripts/platform/n8n-registry.mjs` | No execution or activation |
 
 Before local bootstrap explicitly set `PLATFORM_TARGET=LOCAL`. Use a machine/runner
 with Docker Linux engine and Supabase CLI2.119.0. The command refuses linked hosted

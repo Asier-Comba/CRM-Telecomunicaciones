@@ -93,6 +93,69 @@
       "required_when": null
     },
     {
+      "name": "APP_ENV_FILE",
+      "type": "path",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform"
+      ],
+      "validation_rule": "path",
+      "description": "Configuration binding for APP_ENV_FILE; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "APP_HOST",
+      "type": "hostname",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform"
+      ],
+      "validation_rule": "hostname",
+      "description": "Configuration binding for APP_HOST; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "APP_IMAGE",
+      "type": "image_digest",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform"
+      ],
+      "validation_rule": "image_digest",
+      "description": "Configuration binding for APP_IMAGE; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
       "name": "APP_IMAGE_DIGEST",
       "type": "digest",
       "secret": false,
@@ -401,7 +464,8 @@
       "consumer": [
         "scripts/platform/container-smoke.mjs",
         "scripts/platform/hosted-bootstrap.mjs",
-        "scripts/platform/lib.mjs"
+        "scripts/platform/lib.mjs",
+        "scripts/platform/n8n-registry.mjs"
       ],
       "validation_rule": "string",
       "description": "Configuration binding for CI; presence does not prove provider readiness.",
@@ -550,7 +614,8 @@
       "consumer": [
         "scripts/platform/container-smoke.mjs",
         "scripts/platform/hosted-bootstrap.mjs",
-        "scripts/platform/lib.mjs"
+        "scripts/platform/lib.mjs",
+        "scripts/platform/n8n-registry.mjs"
       ],
       "validation_rule": "string",
       "description": "Configuration binding for GITHUB_ACTIONS; presence does not prove provider readiness.",
@@ -939,13 +1004,35 @@
       "owner": "W5",
       "consumer": [
         "docs/master/contracts/product-environment.json",
-        "src/lib/n8n-client.ts"
+        "src/lib/n8n-client.ts",
+        "scripts/platform/n8n-registry.mjs"
       ],
       "validation_rule": "private_reference_or_key",
       "description": "Existing future private adapter credential",
       "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
       "provider": "n8n",
       "destination": "environment-specific secret store",
+      "required_when": null
+    },
+    {
+      "name": "N8N_APPROVED_ORIGIN",
+      "type": "url",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform/n8n-registry.mjs"
+      ],
+      "validation_rule": "url",
+      "description": "Configuration binding for N8N_APPROVED_ORIGIN; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
       "required_when": null
     },
     {
@@ -1005,7 +1092,8 @@
         "docs/master/contracts/product-environment.json",
         "src/lib/agents/n8n-assistant-client.ts",
         "src/lib/assistant-n8n-hook.ts",
-        "src/lib/n8n-client.ts"
+        "src/lib/n8n-client.ts",
+        "scripts/platform/n8n-registry.mjs"
       ],
       "validation_rule": "https_url",
       "description": "Existing future registered adapter endpoint; never caller arbitrary URL",
@@ -1699,6 +1787,27 @@
       "required_when": null
     },
     {
+      "name": "PLATFORM_ALLOW_N8N_IMPORT",
+      "type": "string",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform/n8n-registry.mjs"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for PLATFORM_ALLOW_N8N_IMPORT; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
       "name": "PLATFORM_ALLOW_STAGING_BOOTSTRAP",
       "type": "string",
       "secret": false,
@@ -2025,6 +2134,28 @@
       }
     },
     {
+      "name": "RUNNER_TEMP",
+      "type": "string",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform/n8n-registry.mjs",
+        "scripts/platform/smoke.mjs"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for RUNNER_TEMP; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
       "name": "SMTP_HOST",
       "type": "hostname",
       "secret": false,
@@ -2218,6 +2349,69 @@
       ],
       "validation_rule": "string",
       "description": "Configuration binding for SUPABASE_STAGING_PROJECT_REF; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "TLS_CERT_PATH",
+      "type": "path",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform"
+      ],
+      "validation_rule": "path",
+      "description": "Configuration binding for TLS_CERT_PATH; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "TLS_KEY_PATH",
+      "type": "path",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform"
+      ],
+      "validation_rule": "path",
+      "description": "Configuration binding for TLS_KEY_PATH; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "W5_BROWSER_BOUNDARY",
+      "type": "string",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform/smoke.mjs"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for W5_BROWSER_BOUNDARY; presence does not prove provider readiness.",
       "rotation_expectation": "Review on release/config change.",
       "provider": "application",
       "destination": "environment-specific configuration",

@@ -17,6 +17,7 @@ export function validValue(type,value,target){
  if(type==='hex32')return /^[0-9a-f]{64}$/i.test(value)
  if(type==='positive_integer')return /^\d+$/.test(value)&&Number(value)>0&&Number.isSafeInteger(Number(value))
  if(type==='digest')return /^sha256:[0-9a-f]{64}$/.test(value)
+ if(type==='image_digest')return /^[A-Za-z0-9./:_-]+@sha256:[0-9a-f]{64}$/.test(value)
  if(['url','origin','origin_url','platform_url','https_url'].includes(type)){
   try{const u=new URL(value);return !u.username&&!u.password&&!u.search&&!u.hash&&(target==='LOCAL'?loopback(value):u.protocol==='https:'&&!['localhost','127.0.0.1','[::1]'].includes(u.hostname))&&(!['origin','origin_url'].includes(type)||u.origin===value)}catch{return false}
  }
