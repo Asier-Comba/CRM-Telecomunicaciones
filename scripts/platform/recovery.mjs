@@ -39,10 +39,12 @@ export async function recoveryRehearsal({url,anon,service,db,command,report,user
   report.recovery_stage='restore_database'
   // Migrations may install technical/catalog rows. The complete A data dump
   // includes those rows, so clear B data while preserving the canonical schema.
-  sql(`do $$ declare tables text; begin select string_agg(format('%I.%I',schemaname,tablename),',') into tables from pg_tables where schemaname='public'; execute 'truncate '||tables||',auth.users,auth.identities restart identity cascade'; end $$;`)
+  report.recovery_stage='clear_fresh_data'
+  command('docker',['exec','-i',db,'psql','-X','-qAt','-v','ON_ERROR_STOP=1','-U','supabase_admin','-d','postgres'],{input:`do $$ declare tables text; begin select string_agg(format('%I.%I',schemaname,tablename),',') into tables from pg_tables where schemaname='public'; execute 'truncate '||tables||',auth.users,auth.identities cascade'; end $$;`})
   // New schema is canonical; import data with triggers disabled only in this
   // disposable superuser DB. Roles, ACLs and schema are never imported without ACLs.
-  command('docker',['exec','-i',db,'pg_restore','-U','postgres','-d','postgres','--data-only','--disable-triggers','--exit-on-error'],{input:Buffer.from(recovered.database,'base64')})
+  report.recovery_stage='import_database'
+  command('docker',['exec','-i',db,'pg_restore','-U','supabase_admin','-d','postgres','--data-only','--disable-triggers','--exit-on-error'],{input:Buffer.from(recovered.database,'base64')})
   if(JSON.stringify(rows())!==JSON.stringify(expectedRows))throw new Error('DATABASE_RECOVERY_ROW_MISMATCH')
   report.recovery_stage='restore_storage'
   const storageResult=await restoreStorage(storage,recovered)

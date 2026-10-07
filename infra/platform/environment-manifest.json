@@ -251,7 +251,8 @@
       },
       "owner": "W5",
       "consumer": [
-        "docs/master/contracts/product-environment.json"
+        "docs/master/contracts/product-environment.json",
+        "scripts/platform/hosted-bootstrap.mjs"
       ],
       "validation_rule": "email_address",
       "description": "Reserved approved Auth sender address; domain verification still required",
@@ -387,6 +388,28 @@
       "required_when": null
     },
     {
+      "name": "CI",
+      "type": "string",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform/hosted-bootstrap.mjs",
+        "scripts/platform/lib.mjs"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for CI; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
       "name": "CRM_EMAIL_ALLOWLIST",
       "type": "json_emails",
       "secret": false,
@@ -513,6 +536,28 @@
       "required_when": null
     },
     {
+      "name": "GITHUB_ACTIONS",
+      "type": "string",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform/hosted-bootstrap.mjs",
+        "scripts/platform/lib.mjs"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for GITHUB_ACTIONS; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
       "name": "GOOGLE_CLIENT_ID",
       "type": "nonempty",
       "secret": false,
@@ -631,7 +676,8 @@
       "consumer": [
         "docs/master/contracts/product-environment.json",
         "src/lib/server/import-staging-disposable-v1.ts",
-        "src/lib/server/product-environment-v1.ts"
+        "src/lib/server/product-environment-v1.ts",
+        "scripts/platform/config.mjs"
       ],
       "validation_rule": "disposable_adapter",
       "description": "Select disposable-local only in an actual nonproduction test process",
@@ -653,7 +699,8 @@
       "owner": "W5",
       "consumer": [
         "docs/master/contracts/product-environment.json",
-        "src/lib/server/import-staging-disposable-v1.ts"
+        "src/lib/server/import-staging-disposable-v1.ts",
+        "scripts/platform/config.mjs"
       ],
       "validation_rule": "hex32",
       "description": "Fresh ephemeral 32-byte staging root key; no committed/default/plaintext fallback",
@@ -1044,7 +1091,8 @@
       "consumer": [
         "docs/master/contracts/product-environment.json",
         "src/lib/agents/local-answers.ts",
-        "src/lib/config-status.ts"
+        "src/lib/config-status.ts",
+        "scripts/platform/config.mjs"
       ],
       "validation_rule": "origin_url",
       "description": "Existing public application origin; not callback/provider verification",
@@ -1368,7 +1416,8 @@
         "src/lib/integrations.ts",
         "src/lib/server/supabase-user.ts",
         "src/lib/supabase.ts",
-        "src/proxy.ts"
+        "src/proxy.ts",
+        "scripts/platform/config.mjs"
       ],
       "validation_rule": "public_api_key",
       "description": "Legacy alternative public API key; never a service-role key",
@@ -1394,7 +1443,8 @@
         "src/lib/integrations.ts",
         "src/lib/server/supabase-user.ts",
         "src/lib/supabase.ts",
-        "src/proxy.ts"
+        "src/proxy.ts",
+        "scripts/platform/config.mjs"
       ],
       "validation_rule": "public_api_key",
       "description": "Preferred public API key; user JWT supplies identity",
@@ -1422,7 +1472,8 @@
         "src/lib/server/supabase-user.ts",
         "src/lib/supabase-admin.ts",
         "src/lib/supabase.ts",
-        "src/proxy.ts"
+        "src/proxy.ts",
+        "scripts/platform/hosted-bootstrap.mjs"
       ],
       "validation_rule": "platform_url",
       "description": "Canonical Auth/PostgREST/Storage endpoint; public does not confer authority",
@@ -1460,7 +1511,9 @@
         "src/lib/telecom-preview/access.ts",
         "src/lib/vertical-queries.ts",
         "src/lib/workspace-settings.ts",
-        "src/lib/workspace-templates.ts"
+        "src/lib/workspace-templates.ts",
+        "scripts/platform/config.mjs",
+        "scripts/platform/lib.mjs"
       ],
       "validation_rule": "node_mode",
       "description": "Framework/test execution mode; test adapters deny production",
@@ -1617,6 +1670,27 @@
       ],
       "validation_rule": "string",
       "description": "Configuration binding for PLANNER_MODEL; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "PLATFORM_ALLOW_STAGING_BOOTSTRAP",
+      "type": "string",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform/hosted-bootstrap.mjs"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for PLATFORM_ALLOW_STAGING_BOOTSTRAP; presence does not prove provider readiness.",
       "rotation_expectation": "Review on release/config change.",
       "provider": "application",
       "destination": "environment-specific configuration",
@@ -1855,7 +1929,8 @@
         "src/app/api/telecom/locations/v1/route.ts",
         "src/app/api/telecom/reads/v1/route.ts",
         "src/app/api/telecom/services/v1/route.ts",
-        "src/features/product/integration/mode.ts"
+        "src/features/product/integration/mode.ts",
+        "scripts/platform/config.mjs"
       ],
       "validation_rule": "boolean",
       "description": "Master default-off normal product transport",
@@ -1913,7 +1988,8 @@
         "src/app/api/telecom/reads/v1/route.ts",
         "src/app/api/telecom/services/v1/route.ts",
         "src/features/product/integration/mode.ts",
-        "src/lib/server/product-http-v1.ts"
+        "src/lib/server/product-http-v1.ts",
+        "scripts/platform/config.mjs"
       ],
       "validation_rule": "origin_url",
       "description": "Canonical Origin/Host validation on normal product mutations",
@@ -1937,7 +2013,8 @@
       },
       "owner": "W5",
       "consumer": [
-        "docs/master/contracts/product-environment.json"
+        "docs/master/contracts/product-environment.json",
+        "scripts/platform/hosted-bootstrap.mjs"
       ],
       "validation_rule": "hostname",
       "description": "Reserved production Auth SMTP configuration, independently managed in platform config",
@@ -1958,7 +2035,8 @@
       },
       "owner": "W5",
       "consumer": [
-        "docs/master/contracts/product-environment.json"
+        "docs/master/contracts/product-environment.json",
+        "scripts/platform/hosted-bootstrap.mjs"
       ],
       "validation_rule": "private_reference_or_key",
       "description": "Reserved production Auth SMTP password/reference; no actual adapter installed",
@@ -1979,7 +2057,8 @@
       },
       "owner": "W5",
       "consumer": [
-        "docs/master/contracts/product-environment.json"
+        "docs/master/contracts/product-environment.json",
+        "scripts/platform/hosted-bootstrap.mjs"
       ],
       "validation_rule": "port",
       "description": "Reserved production Auth SMTP port",
@@ -2000,13 +2079,81 @@
       },
       "owner": "W5",
       "consumer": [
-        "docs/master/contracts/product-environment.json"
+        "docs/master/contracts/product-environment.json",
+        "scripts/platform/hosted-bootstrap.mjs"
       ],
       "validation_rule": "private_reference_or_key",
       "description": "Reserved production Auth SMTP login/reference",
       "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
       "provider": "auth_mail",
       "destination": "environment-specific secret store",
+      "required_when": null
+    },
+    {
+      "name": "SUPABASE_ACCESS_TOKEN",
+      "type": "string",
+      "secret": true,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform/hosted-bootstrap.mjs",
+        "scripts/platform/lib.mjs",
+        "scripts/platform/platform.mjs"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for SUPABASE_ACCESS_TOKEN; presence does not prove provider readiness.",
+      "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
+      "provider": "application",
+      "destination": "environment-specific secret store",
+      "required_when": null
+    },
+    {
+      "name": "SUPABASE_DB_PASSWORD",
+      "type": "string",
+      "secret": true,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform/hosted-bootstrap.mjs",
+        "scripts/platform/lib.mjs",
+        "scripts/platform/platform.mjs"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for SUPABASE_DB_PASSWORD; presence does not prove provider readiness.",
+      "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
+      "provider": "application",
+      "destination": "environment-specific secret store",
+      "required_when": null
+    },
+    {
+      "name": "SUPABASE_PROD_PROJECT_REF",
+      "type": "string",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform/hosted-bootstrap.mjs"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for SUPABASE_PROD_PROJECT_REF; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
       "required_when": null
     },
     {
@@ -2022,13 +2169,56 @@
       "owner": "W5",
       "consumer": [
         "docs/master/contracts/product-environment.json",
-        "src/lib/supabase-admin.ts"
+        "src/lib/supabase-admin.ts",
+        "scripts/platform/hosted-bootstrap.mjs"
       ],
       "validation_rule": "private_reference_or_key",
       "description": "Existing private platform credential reserved outside normal user-JWT commands; no new generic worker authority",
       "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
       "provider": "backend_platform",
       "destination": "environment-specific secret store",
+      "required_when": null
+    },
+    {
+      "name": "SUPABASE_STAGING_PROJECT_REF",
+      "type": "string",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform/hosted-bootstrap.mjs"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for SUPABASE_STAGING_PROJECT_REF; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "W5_DISPOSABLE_LOCAL",
+      "type": "string",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform/lib.mjs"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for W5_DISPOSABLE_LOCAL; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
       "required_when": null
     }
   ],

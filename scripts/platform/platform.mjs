@@ -5,6 +5,7 @@ import {root,readJson,run,safeError} from './lib.mjs'
 import {inventory} from './inventory.mjs'
 import {validateEnvironment} from './config.mjs'
 import {validateCompany,validateWorkflow,verifyDns,preflight,releaseManifest} from './operations.mjs'
+import {cleanBuildCache} from './clean-build-cache.mjs'
 const [mode,targetOrFile]=process.argv.slice(2)
 try{
  let result
@@ -26,6 +27,7 @@ try{
   const env={...process.env,W5_DISPOSABLE_LOCAL:'true',W5_RECOVERY:mode==='bootstrap-local'?'false':'true',NEXT_TELEMETRY_DISABLED:'1'}
   const build=spawnSync(process.execPath,['node_modules/next/dist/bin/next','build'],{cwd:root,env,stdio:'ignore',timeout:600000})
   if(build.status!==0)throw new Error('APP_BUILD_FAILED')
+  cleanBuildCache()
   const r=spawnSync(process.execPath,['scripts/security/supabase-local/run-stack.mjs'],{cwd:root,env,stdio:'inherit',timeout:2400000})
   if(r.status!==0)throw new Error('LOCAL_ACCEPTANCE_FAILED')
   result={status:'PASS',scope:'DISPOSABLE_LOCAL_BACKEND_TRANSPORT',product_browser:'RUN_SEPARATE_W2_ACCEPTANCE'}

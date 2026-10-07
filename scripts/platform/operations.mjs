@@ -1,5 +1,5 @@
 import {resolveTxt,resolveMx,resolveCname,resolve4,resolve6} from 'node:dns/promises'
-import {readJson,run,hash,migrations,root,loopback} from './lib.mjs'
+import {readJson,run,hash,migrations,root} from './lib.mjs'
 import {validateEnvironment,validValue} from './config.mjs'
 import {readFileSync} from 'node:fs'
 import {join} from 'node:path'

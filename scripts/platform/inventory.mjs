@@ -4,7 +4,7 @@ import {root,files,readJson,migrations,hash} from './lib.mjs'
 export function inventory(){
  const prior=readJson('docs/master/contracts/product-environment.json').entries
  const uses=new Map(prior.map(e=>[e.name,['docs/master/contracts/product-environment.json']]))
- for(const file of files(join(root,'src'))){
+ for(const file of [...files(join(root,'src')),...files(join(root,'scripts/platform'))].filter(p=>/\.(?:ts|tsx|mjs)$/.test(p))){
   const source=readFileSync(file,'utf8')
   for(const m of source.matchAll(/(?:process\.env|\benv)\.([A-Z][A-Z0-9_]+)/g))uses.set(m[1],[...new Set([...(uses.get(m[1])??[]),relative(root,file).replaceAll('\\','/')])])
  }

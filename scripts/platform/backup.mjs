@@ -64,7 +64,7 @@ export async function restoreStorage(storage,bundle){
   else if(existing.data.public!==false||existing.data.file_size_limit!==b.file_size_limit||JSON.stringify(existing.data.allowed_mime_types)!==JSON.stringify(b.allowed_mime_types))throw new Error('BUCKET_CONFIG_DRIFT')
  }
  for(const o of bundle.objects){
-  const r=await storage.from(o.bucket).upload(o.name,Buffer.from(o.bytes,'base64'),{contentType:o.content_type,cacheControl:o.cache_control,upsert:false})
+  const r=await storage.from(o.bucket).upload(o.name,Buffer.from(o.bytes,'base64'),{contentType:o.content_type,cacheControl:String(o.cache_control).replace(/^max-age=/,''),upsert:false})
   if(r.error)throw new Error('OBJECT_RESTORE_FAILED')
  }
  const recovered=await captureStorage(storage)

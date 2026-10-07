@@ -27,6 +27,9 @@ jobs:
       - run: npm ci
       - run: node scripts/platform/inventory.mjs --check
       - run: node --test tests/platform/*.test.mjs
+      - run: node scripts/platform/boundary.mjs
+      - name: Private canaries in all generated build assets and logs
+        run: node scripts/platform/boundary.mjs --build
   reconstruction-recovery:
     runs-on: ubuntu-latest
     timeout-minutes: 40
