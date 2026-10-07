@@ -16,7 +16,7 @@ export async function recoveryRehearsal({url,anon,service,db,command,report,user
  const start=Date.now(),key=randomBytes(32),scratch=mkdtempSync(join(tmpdir(),'crm-synthetic-recovery-'))
  const sql=s=>command('docker',['exec','-i',db,'psql','-X','-qAt','-v','ON_ERROR_STOP=1','-U','postgres','-d','postgres'],{input:s})
  const metadata=()=>({privileges:JSON.parse(sql(readFileSync(join(root,'scripts/security/native-postgres/privilege-snapshot.sql'),'utf8'))),schema:JSON.parse(sql(readFileSync(join(root,'scripts/platform/drift.sql'),'utf8')))})
- const rows=()=>JSON.parse(sql(`select jsonb_object_agg(name,digest) from (select n.nspname||'.'||c.relname name, (xpath('/row/h/text()',query_to_xml(format('select md5(coalesce(string_agg(t::text,chr(10) order by t::text),'''')) h from %I.%I t',n.nspname,c.relname),false,true,'')))[1]::text digest from pg_class c join pg_namespace n on n.oid=c.relnamespace where (n.nspname='public' or n.nspname='auth' and c.relname in ('users','identities')) and c.relkind='r') x;`))
+ const rows=()=>JSON.parse(sql(readFileSync(join(root,'scripts/platform/row-hashes.sql'),'utf8')))
  try{
   report.recovery_stage='capture'
   const expected=metadata(),expectedRows=rows()
