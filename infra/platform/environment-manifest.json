@@ -1,0 +1,2415 @@
+{
+  "version": 2,
+  "values_included": false,
+  "environments": [
+    "LOCAL",
+    "DEV",
+    "STAGING",
+    "PROD"
+  ],
+  "entries": [
+    {
+      "name": "AGENT_ACTION_URL",
+      "type": "url",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/agents/local-answers.ts"
+      ],
+      "validation_rule": "url",
+      "description": "Configuration binding for AGENT_ACTION_URL; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "AGENT_TOOL_SECRET",
+      "type": "string",
+      "secret": true,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/agents/local-answers.ts"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for AGENT_TOOL_SECRET; presence does not prove provider readiness.",
+      "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
+      "provider": "application",
+      "destination": "environment-specific secret store",
+      "required_when": null
+    },
+    {
+      "name": "AI_ENABLED",
+      "type": "boolean",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform"
+      ],
+      "validation_rule": "boolean",
+      "description": "Configuration binding for AI_ENABLED; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "APP_ENV",
+      "type": "string",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json"
+      ],
+      "validation_rule": "string",
+      "description": "Disposable/staging/production labeling for operational gates",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "runtime",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "APP_IMAGE_DIGEST",
+      "type": "digest",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform"
+      ],
+      "validation_rule": "digest",
+      "description": "Configuration binding for APP_IMAGE_DIGEST; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "ASSISTANT_BRAIN_TRACE",
+      "type": "string",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/agents/local-answers.ts"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for ASSISTANT_BRAIN_TRACE; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "ASSISTANT_MAX_HISTORY_CHARS_PER_MESSAGE",
+      "type": "positive_integer",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/assistant-guard.ts"
+      ],
+      "validation_rule": "positive_integer",
+      "description": "Configuration binding for ASSISTANT_MAX_HISTORY_CHARS_PER_MESSAGE; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "ASSISTANT_MAX_HISTORY_MESSAGES",
+      "type": "positive_integer",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/assistant-guard.ts"
+      ],
+      "validation_rule": "positive_integer",
+      "description": "Configuration binding for ASSISTANT_MAX_HISTORY_MESSAGES; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "ASSISTANT_MAX_INPUT_CHARS",
+      "type": "positive_integer",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/assistant-guard.ts"
+      ],
+      "validation_rule": "positive_integer",
+      "description": "Configuration binding for ASSISTANT_MAX_INPUT_CHARS; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "ASSISTANT_RATE_LIMIT_PER_MINUTE",
+      "type": "positive_integer",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/assistant-guard.ts"
+      ],
+      "validation_rule": "positive_integer",
+      "description": "Configuration binding for ASSISTANT_RATE_LIMIT_PER_MINUTE; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "AUTH_EMAIL_ENABLED",
+      "type": "boolean",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": true,
+        "PROD": true
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform"
+      ],
+      "validation_rule": "boolean",
+      "description": "Configuration binding for AUTH_EMAIL_ENABLED; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "AUTH_MAIL_FROM",
+      "type": "string",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json"
+      ],
+      "validation_rule": "string",
+      "description": "Reserved approved Auth sender address; domain verification still required",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "auth_mail",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "AUTH_REDIRECT_URLS",
+      "type": "json_urls",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": true,
+        "PROD": true
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform"
+      ],
+      "validation_rule": "json_urls",
+      "description": "Configuration binding for AUTH_REDIRECT_URLS; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "AUTH_SITE_URL",
+      "type": "origin",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": true,
+        "PROD": true
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform"
+      ],
+      "validation_rule": "origin",
+      "description": "Configuration binding for AUTH_SITE_URL; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "BACKUP_DESTINATION",
+      "type": "path",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform"
+      ],
+      "validation_rule": "path",
+      "description": "Configuration binding for BACKUP_DESTINATION; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "BACKUP_ENCRYPTION_KEY_HEX",
+      "type": "hex32",
+      "secret": true,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform"
+      ],
+      "validation_rule": "hex32",
+      "description": "Configuration binding for BACKUP_ENCRYPTION_KEY_HEX; presence does not prove provider readiness.",
+      "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
+      "provider": "application",
+      "destination": "environment-specific secret store",
+      "required_when": null
+    },
+    {
+      "name": "BACKUP_KEY_ID",
+      "type": "identifier",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform"
+      ],
+      "validation_rule": "identifier",
+      "description": "Configuration binding for BACKUP_KEY_ID; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "BACKUP_RETENTION_DAYS",
+      "type": "positive_integer",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": true,
+        "PROD": true
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform"
+      ],
+      "validation_rule": "positive_integer",
+      "description": "Configuration binding for BACKUP_RETENTION_DAYS; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "CRM_EMAIL_ALLOWLIST",
+      "type": "json_emails",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform"
+      ],
+      "validation_rule": "json_emails",
+      "description": "Configuration binding for CRM_EMAIL_ALLOWLIST; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "CRM_EMAIL_ENABLED",
+      "type": "boolean",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform"
+      ],
+      "validation_rule": "boolean",
+      "description": "Configuration binding for CRM_EMAIL_ENABLED; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "CRM_MAIL_FROM",
+      "type": "string",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json"
+      ],
+      "validation_rule": "string",
+      "description": "Reserved approved CRM sender address; distinct delivery channel",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "crm_mail",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "CRM_MAIL_PROVIDER_REF",
+      "type": "string",
+      "secret": true,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json"
+      ],
+      "validation_rule": "string",
+      "description": "Reserved separate CRM transactional/commercial API adapter binding",
+      "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
+      "provider": "crm_mail",
+      "destination": "environment-specific secret store",
+      "required_when": null
+    },
+    {
+      "name": "GENERAL_SEMANTIC_PLANNER",
+      "type": "string",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/agents/planner/planner-flag.ts"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for GENERAL_SEMANTIC_PLANNER; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "GEOAPIFY_API_KEY",
+      "type": "string",
+      "secret": true,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/locations/providers.server.ts"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for GEOAPIFY_API_KEY; presence does not prove provider readiness.",
+      "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
+      "provider": "application",
+      "destination": "environment-specific secret store",
+      "required_when": null
+    },
+    {
+      "name": "GOOGLE_CLIENT_ID",
+      "type": "string",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json"
+      ],
+      "validation_rule": "string",
+      "description": "Existing future OAuth client metadata; not connection proof",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "google_calendar",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "GOOGLE_CLIENT_SECRET",
+      "type": "string",
+      "secret": true,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json"
+      ],
+      "validation_rule": "string",
+      "description": "Existing future private OAuth credential",
+      "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
+      "provider": "google_calendar",
+      "destination": "environment-specific secret store",
+      "required_when": null
+    },
+    {
+      "name": "GOOGLE_MAPS_API_KEY",
+      "type": "string",
+      "secret": true,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/locations/providers.server.ts"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for GOOGLE_MAPS_API_KEY; presence does not prove provider readiness.",
+      "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
+      "provider": "application",
+      "destination": "environment-specific secret store",
+      "required_when": null
+    },
+    {
+      "name": "GOOGLE_PLACES_API_KEY",
+      "type": "string",
+      "secret": true,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/locations/providers.server.ts"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for GOOGLE_PLACES_API_KEY; presence does not prove provider readiness.",
+      "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
+      "provider": "application",
+      "destination": "environment-specific secret store",
+      "required_when": null
+    },
+    {
+      "name": "GOOGLE_REDIRECT_URI",
+      "type": "url",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json"
+      ],
+      "validation_rule": "url",
+      "description": "Existing future callback inventory; exact approved production callback required",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "google_calendar",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "IMPORT_STAGING_ADAPTER",
+      "type": "string",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json",
+        "src/lib/server/import-staging-disposable-v1.ts",
+        "src/lib/server/product-environment-v1.ts"
+      ],
+      "validation_rule": "string",
+      "description": "Select disposable-local only in an actual nonproduction test process",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "import_staging",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "IMPORT_STAGING_TEST_KEY",
+      "type": "hex32",
+      "secret": true,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json",
+        "src/lib/server/import-staging-disposable-v1.ts"
+      ],
+      "validation_rule": "hex32",
+      "description": "Fresh ephemeral 32-byte staging root key; no committed/default/plaintext fallback",
+      "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
+      "provider": "import_staging",
+      "destination": "environment-specific secret store",
+      "required_when": {
+        "name": "IMPORT_STAGING_ADAPTER",
+        "equals": "disposable-local"
+      }
+    },
+    {
+      "name": "LOCATION_AUTOCOMPLETE_ENABLED",
+      "type": "boolean",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/locations/providers.server.ts"
+      ],
+      "validation_rule": "boolean",
+      "description": "Configuration binding for LOCATION_AUTOCOMPLETE_ENABLED; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "LOCATION_COUNTRY",
+      "type": "string",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/locations/providers.server.ts"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for LOCATION_COUNTRY; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "LOCATION_PROVIDER",
+      "type": "string",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/locations/providers.server.ts"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for LOCATION_PROVIDER; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "MAPBOX_ACCESS_TOKEN",
+      "type": "string",
+      "secret": true,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/locations/providers.server.ts"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for MAPBOX_ACCESS_TOKEN; presence does not prove provider readiness.",
+      "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
+      "provider": "application",
+      "destination": "environment-specific secret store",
+      "required_when": null
+    },
+    {
+      "name": "META_ACCESS_TOKEN",
+      "type": "string",
+      "secret": true,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/meta-whatsapp.ts"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for META_ACCESS_TOKEN; presence does not prove provider readiness.",
+      "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
+      "provider": "application",
+      "destination": "environment-specific secret store",
+      "required_when": null
+    },
+    {
+      "name": "META_APP_SECRET",
+      "type": "string",
+      "secret": true,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json"
+      ],
+      "validation_rule": "string",
+      "description": "Existing future signature verifier placeholder",
+      "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
+      "provider": "whatsapp",
+      "destination": "environment-specific secret store",
+      "required_when": null
+    },
+    {
+      "name": "META_GRAPH_VERSION",
+      "type": "string",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/config-status.ts",
+        "src/lib/meta-whatsapp.ts"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for META_GRAPH_VERSION; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "META_WEBHOOK_VERIFY_TOKEN",
+      "type": "string",
+      "secret": true,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json"
+      ],
+      "validation_rule": "string",
+      "description": "Existing future handshake placeholder; not a valid ingress adapter",
+      "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
+      "provider": "whatsapp",
+      "destination": "environment-specific secret store",
+      "required_when": null
+    },
+    {
+      "name": "META_WHATSAPP_ACCESS_TOKEN",
+      "type": "string",
+      "secret": true,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json",
+        "src/lib/meta-whatsapp.ts"
+      ],
+      "validation_rule": "string",
+      "description": "Existing future provider token placeholder; no provider ingress/send",
+      "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
+      "provider": "whatsapp",
+      "destination": "environment-specific secret store",
+      "required_when": null
+    },
+    {
+      "name": "MONITORING_ENDPOINT",
+      "type": "https_url",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform"
+      ],
+      "validation_rule": "https_url",
+      "description": "Configuration binding for MONITORING_ENDPOINT; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "N8N_API_KEY",
+      "type": "string",
+      "secret": true,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json",
+        "src/lib/n8n-client.ts"
+      ],
+      "validation_rule": "string",
+      "description": "Existing future private adapter credential",
+      "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
+      "provider": "n8n",
+      "destination": "environment-specific secret store",
+      "required_when": null
+    },
+    {
+      "name": "N8N_ASSISTANT_V2_SECRET",
+      "type": "string",
+      "secret": true,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/agents/n8n-assistant-client.ts"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for N8N_ASSISTANT_V2_SECRET; presence does not prove provider readiness.",
+      "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
+      "provider": "application",
+      "destination": "environment-specific secret store",
+      "required_when": null
+    },
+    {
+      "name": "N8N_ASSISTANT_V2_WEBHOOK_URL",
+      "type": "url",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/agents/n8n-assistant-client.ts"
+      ],
+      "validation_rule": "url",
+      "description": "Configuration binding for N8N_ASSISTANT_V2_WEBHOOK_URL; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "N8N_BASE_URL",
+      "type": "url",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json",
+        "src/lib/agents/n8n-assistant-client.ts",
+        "src/lib/assistant-n8n-hook.ts",
+        "src/lib/n8n-client.ts"
+      ],
+      "validation_rule": "url",
+      "description": "Existing future registered adapter endpoint; never caller arbitrary URL",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "n8n",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "N8N_DEFAULT_TIMEOUT_MS",
+      "type": "positive_integer",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/config-status.ts"
+      ],
+      "validation_rule": "positive_integer",
+      "description": "Configuration binding for N8N_DEFAULT_TIMEOUT_MS; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "N8N_ENABLED",
+      "type": "boolean",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform"
+      ],
+      "validation_rule": "boolean",
+      "description": "Configuration binding for N8N_ENABLED; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "N8N_WEBHOOK_SECRET",
+      "type": "string",
+      "secret": true,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json",
+        "src/lib/assistant-n8n-hook.ts",
+        "src/lib/n8n-client.ts"
+      ],
+      "validation_rule": "string",
+      "description": "Existing future signature material",
+      "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
+      "provider": "n8n",
+      "destination": "environment-specific secret store",
+      "required_when": null
+    },
+    {
+      "name": "NEXT_PUBLIC_APP_URL",
+      "type": "url",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": true,
+        "PROD": true
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json",
+        "src/lib/agents/local-answers.ts",
+        "src/lib/config-status.ts"
+      ],
+      "validation_rule": "url",
+      "description": "Existing public application origin; not callback/provider verification",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "NEXT_PUBLIC_ASSISTANT_MAX_INPUT_CHARS",
+      "type": "positive_integer",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/assistant-guard.ts"
+      ],
+      "validation_rule": "positive_integer",
+      "description": "Configuration binding for NEXT_PUBLIC_ASSISTANT_MAX_INPUT_CHARS; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "NEXT_PUBLIC_ASSISTANT_WARN_AT_CHARS",
+      "type": "string",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/assistant-guard.ts"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for NEXT_PUBLIC_ASSISTANT_WARN_AT_CHARS; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "NEXT_PUBLIC_ENABLE_ASSISTANT",
+      "type": "boolean",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/feature-flags.ts"
+      ],
+      "validation_rule": "boolean",
+      "description": "Configuration binding for NEXT_PUBLIC_ENABLE_ASSISTANT; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "NEXT_PUBLIC_ENABLE_AUTOMATIONS",
+      "type": "boolean",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/feature-flags.ts"
+      ],
+      "validation_rule": "boolean",
+      "description": "Configuration binding for NEXT_PUBLIC_ENABLE_AUTOMATIONS; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "NEXT_PUBLIC_ENABLE_BILLING",
+      "type": "boolean",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/feature-flags.ts"
+      ],
+      "validation_rule": "boolean",
+      "description": "Configuration binding for NEXT_PUBLIC_ENABLE_BILLING; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "NEXT_PUBLIC_ENABLE_CALENDAR",
+      "type": "boolean",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/feature-flags.ts"
+      ],
+      "validation_rule": "boolean",
+      "description": "Configuration binding for NEXT_PUBLIC_ENABLE_CALENDAR; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "NEXT_PUBLIC_ENABLE_DEMO_DATA",
+      "type": "boolean",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/app/api/assistant/read-preview/route.ts",
+        "src/lib/feature-flags.ts",
+        "src/lib/telecom-preview/access.ts"
+      ],
+      "validation_rule": "boolean",
+      "description": "Configuration binding for NEXT_PUBLIC_ENABLE_DEMO_DATA; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "NEXT_PUBLIC_ENABLE_INBOX",
+      "type": "boolean",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/feature-flags.ts"
+      ],
+      "validation_rule": "boolean",
+      "description": "Configuration binding for NEXT_PUBLIC_ENABLE_INBOX; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "NEXT_PUBLIC_ENABLE_INSTAGRAM",
+      "type": "boolean",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/feature-flags.ts"
+      ],
+      "validation_rule": "boolean",
+      "description": "Configuration binding for NEXT_PUBLIC_ENABLE_INSTAGRAM; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "NEXT_PUBLIC_ENABLE_INVOICING",
+      "type": "boolean",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/feature-flags.ts"
+      ],
+      "validation_rule": "boolean",
+      "description": "Configuration binding for NEXT_PUBLIC_ENABLE_INVOICING; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "NEXT_PUBLIC_ENABLE_OPPORTUNITIES",
+      "type": "boolean",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/feature-flags.ts"
+      ],
+      "validation_rule": "boolean",
+      "description": "Configuration binding for NEXT_PUBLIC_ENABLE_OPPORTUNITIES; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "NEXT_PUBLIC_ENABLE_WHATSAPP",
+      "type": "boolean",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/feature-flags.ts"
+      ],
+      "validation_rule": "boolean",
+      "description": "Configuration binding for NEXT_PUBLIC_ENABLE_WHATSAPP; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "NEXT_PUBLIC_FORCE_OFFLINE_DEV",
+      "type": "boolean",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/components/AuthGate.tsx",
+        "src/lib/current-user.ts"
+      ],
+      "validation_rule": "boolean",
+      "description": "Configuration binding for NEXT_PUBLIC_FORCE_OFFLINE_DEV; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "NEXT_PUBLIC_NOWLABS_INTERNAL",
+      "type": "string",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/components/TeamUsersCard.tsx",
+        "src/lib/feature-flags.ts"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for NEXT_PUBLIC_NOWLABS_INTERNAL; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "NEXT_PUBLIC_SUPABASE_ANON_KEY",
+      "type": "string",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json",
+        "src/lib/integrations.ts",
+        "src/lib/server/supabase-user.ts",
+        "src/lib/supabase.ts",
+        "src/proxy.ts"
+      ],
+      "validation_rule": "string",
+      "description": "Legacy alternative public API key; never a service-role key",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "backend_platform",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY",
+      "type": "string",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json",
+        "src/lib/integrations.ts",
+        "src/lib/server/supabase-user.ts",
+        "src/lib/supabase.ts",
+        "src/proxy.ts"
+      ],
+      "validation_rule": "string",
+      "description": "Preferred public API key; user JWT supplies identity",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "backend_platform",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "NEXT_PUBLIC_SUPABASE_URL",
+      "type": "url",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": true,
+        "PROD": true
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json",
+        "src/features/product/integration/mode.ts",
+        "src/lib/integrations.ts",
+        "src/lib/server/supabase-user.ts",
+        "src/lib/supabase-admin.ts",
+        "src/lib/supabase.ts",
+        "src/proxy.ts"
+      ],
+      "validation_rule": "url",
+      "description": "Canonical Auth/PostgREST/Storage endpoint; public does not confer authority",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "backend_platform",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "NODE_ENV",
+      "type": "node_env",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json",
+        "src/app/api/assistant/read-preview/route.ts",
+        "src/components/AuthGate.tsx",
+        "src/features/product/integration/mode.ts",
+        "src/lib/agents/conversation-pending.ts",
+        "src/lib/agents/n8n-assistant-client.ts",
+        "src/lib/assistant-n8n-hook.ts",
+        "src/lib/config-status.ts",
+        "src/lib/current-user.ts",
+        "src/lib/feature-flags.ts",
+        "src/lib/server/document-scanner-v1.ts",
+        "src/lib/server/import-staging-disposable-v1.ts",
+        "src/lib/server/product-environment-v1.ts",
+        "src/lib/supabase-queries.ts",
+        "src/lib/telecom-preview/access.ts",
+        "src/lib/vertical-queries.ts",
+        "src/lib/workspace-settings.ts",
+        "src/lib/workspace-templates.ts"
+      ],
+      "validation_rule": "node_env",
+      "description": "Framework/test execution mode; test adapters deny production",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "runtime",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "NOWCRM_WEBHOOK_SECRET",
+      "type": "string",
+      "secret": true,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json"
+      ],
+      "validation_rule": "string",
+      "description": "Existing future provider-neutral ingress seam; no activated endpoint",
+      "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
+      "provider": "external_crm",
+      "destination": "environment-specific secret store",
+      "required_when": null
+    },
+    {
+      "name": "NOWLABS_MODEL",
+      "type": "string",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/agents/whatsapp-agent.ts",
+        "src/lib/config-status.ts"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for NOWLABS_MODEL; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "OPENAI_API_KEY",
+      "type": "string",
+      "secret": true,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W3",
+      "consumer": [
+        "docs/master/contracts/product-environment.json",
+        "src/lib/agents/nowlabs-main-agent.ts",
+        "src/lib/agents/planner/shadow-hook.ts",
+        "src/lib/agents/whatsapp-agent.ts"
+      ],
+      "validation_rule": "string",
+      "description": "Existing future AI provider placeholder; no registration/live execution",
+      "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
+      "provider": "ai_provider",
+      "destination": "environment-specific secret store",
+      "required_when": null
+    },
+    {
+      "name": "OPENAI_ASSISTANT_MODEL",
+      "type": "string",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W3",
+      "consumer": [
+        "src/lib/agents/nowlabs-main-agent.ts",
+        "src/lib/agents/planner/shadow-hook.ts"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for OPENAI_ASSISTANT_MODEL; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "OPENAI_MODEL",
+      "type": "string",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W3",
+      "consumer": [
+        "src/lib/agents/whatsapp-agent.ts",
+        "src/lib/config-status.ts"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for OPENAI_MODEL; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "PLANNER_FALLBACK_MODEL",
+      "type": "string",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W3",
+      "consumer": [
+        "src/lib/agents/planner/shadow-hook.ts"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for PLANNER_FALLBACK_MODEL; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "PLANNER_MODEL",
+      "type": "string",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W3",
+      "consumer": [
+        "src/lib/agents/planner/shadow-hook.ts"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for PLANNER_MODEL; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "PLATFORM_TARGET",
+      "type": "enum",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": true,
+        "PROD": true
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform"
+      ],
+      "validation_rule": "enum",
+      "description": "Configuration binding for PLATFORM_TARGET; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "PRODUCT_DOCUMENT_CONTENT_ENABLED",
+      "type": "boolean",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json",
+        "src/app/(saas)/documents/page.tsx",
+        "src/app/(saas)/facturacion/page.tsx",
+        "src/app/api/billing/v1/private-pdf/route.ts",
+        "src/app/api/document/v1/content/commands/route.ts",
+        "src/app/api/document/v1/content/download/route.ts",
+        "src/app/api/document/v1/content/upload/route.ts",
+        "src/lib/server/billing-user-factory-v1.ts",
+        "src/lib/server/settings-user-factory-v1.ts"
+      ],
+      "validation_rule": "boolean",
+      "description": "Default-off protected upload/finalize/proxy content",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "product",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "PRODUCT_DOCUMENT_MAINTENANCE_ENABLED",
+      "type": "boolean",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json",
+        "src/app/(saas)/documents/page.tsx",
+        "src/app/api/document/v1/maintenance/route.ts"
+      ],
+      "validation_rule": "boolean",
+      "description": "Default-off protected observed-byte verification and exact expired cleanup",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "product",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "PRODUCT_DOCUMENT_SCAN_REQUIRED",
+      "type": "boolean",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json",
+        "src/lib/server/document-maintenance-user-factory-v1.ts"
+      ],
+      "validation_rule": "boolean",
+      "description": "Fail closed when a required production scanner is unavailable",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "product",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "PRODUCT_DOCUMENT_VERIFY_KEY_HEX",
+      "type": "hex32",
+      "secret": true,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json",
+        "src/lib/server/document-maintenance-user-factory-v1.ts",
+        "src/lib/server/product-environment-v1.ts"
+      ],
+      "validation_rule": "hex32",
+      "description": "Purpose-specific document measurement MAC secret; pair with private DB verifier, never browser/audit",
+      "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
+      "provider": "document_integrity",
+      "destination": "environment-specific secret store",
+      "required_when": null
+    },
+    {
+      "name": "PRODUCT_DOCUMENT_VERIFY_KEY_ID",
+      "type": "string",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json",
+        "src/lib/server/document-maintenance-user-factory-v1.ts",
+        "src/lib/server/product-environment-v1.ts"
+      ],
+      "validation_rule": "string",
+      "description": "ID of explicitly installed private document witness verifier; not a Storage decryption key",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "document_integrity",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "PRODUCT_LOCAL_INTEGRATION",
+      "type": "boolean",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/app/(saas)/layout.tsx",
+        "src/features/product/integration/mode.ts",
+        "src/lib/telecom-preview/access.ts"
+      ],
+      "validation_rule": "boolean",
+      "description": "Configuration binding for PRODUCT_LOCAL_INTEGRATION; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "PRODUCT_LOCAL_SYNTHETIC",
+      "type": "boolean",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/features/product/integration/mode.ts"
+      ],
+      "validation_rule": "boolean",
+      "description": "Configuration binding for PRODUCT_LOCAL_SYNTHETIC; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "PRODUCT_V1_ENABLED",
+      "type": "boolean",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json",
+        "src/app/api/automations/v1/route.ts",
+        "src/app/api/billing/analytics/v1/route.ts",
+        "src/app/api/billing/v1/commands/route.ts",
+        "src/app/api/billing/v1/pdf/route.ts",
+        "src/app/api/billing/v1/private-pdf/route.ts",
+        "src/app/api/billing/v1/queries/route.ts",
+        "src/app/api/cases/v1/route.ts",
+        "src/app/api/catalog/v1/route.ts",
+        "src/app/api/document/v1/commands/route.ts",
+        "src/app/api/document/v1/content/commands/route.ts",
+        "src/app/api/document/v1/content/download/route.ts",
+        "src/app/api/document/v1/content/upload/route.ts",
+        "src/app/api/document/v1/maintenance/route.ts",
+        "src/app/api/document/v1/queries/route.ts",
+        "src/app/api/identifiers/v1/route.ts",
+        "src/app/api/import/v1/route.ts",
+        "src/app/api/inbox/v1/route.ts",
+        "src/app/api/notifications/v1/route.ts",
+        "src/app/api/portability/v1/route.ts",
+        "src/app/api/portfolio/v1/commands/route.ts",
+        "src/app/api/portfolio/v1/queries/route.ts",
+        "src/app/api/product/v1/commands/route.ts",
+        "src/app/api/product/v1/queries/route.ts",
+        "src/app/api/provenance/v1/route.ts",
+        "src/app/api/sensitive/v1/route.ts",
+        "src/app/api/settings/v1/route.ts",
+        "src/app/api/sims/v1/route.ts",
+        "src/app/api/team/v1/commands/route.ts",
+        "src/app/api/team/v1/queries/route.ts",
+        "src/app/api/telecom/attention/v1/route.ts",
+        "src/app/api/telecom/equipment/v1/route.ts",
+        "src/app/api/telecom/external-identities/v1/route.ts",
+        "src/app/api/telecom/locations/v1/route.ts",
+        "src/app/api/telecom/reads/v1/route.ts",
+        "src/app/api/telecom/services/v1/route.ts",
+        "src/features/product/integration/mode.ts"
+      ],
+      "validation_rule": "boolean",
+      "description": "Master default-off normal product transport",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "product",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "PRODUCT_V1_ORIGIN",
+      "type": "url",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": true,
+        "PROD": true
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json",
+        "src/app/api/automations/v1/route.ts",
+        "src/app/api/billing/analytics/v1/route.ts",
+        "src/app/api/billing/v1/commands/route.ts",
+        "src/app/api/billing/v1/pdf/route.ts",
+        "src/app/api/billing/v1/private-pdf/route.ts",
+        "src/app/api/billing/v1/queries/route.ts",
+        "src/app/api/cases/v1/route.ts",
+        "src/app/api/catalog/v1/route.ts",
+        "src/app/api/document/v1/commands/route.ts",
+        "src/app/api/document/v1/content/commands/route.ts",
+        "src/app/api/document/v1/content/download/route.ts",
+        "src/app/api/document/v1/content/upload/route.ts",
+        "src/app/api/document/v1/maintenance/route.ts",
+        "src/app/api/document/v1/queries/route.ts",
+        "src/app/api/identifiers/v1/route.ts",
+        "src/app/api/import/v1/route.ts",
+        "src/app/api/inbox/v1/route.ts",
+        "src/app/api/notifications/v1/route.ts",
+        "src/app/api/portability/v1/route.ts",
+        "src/app/api/portfolio/v1/commands/route.ts",
+        "src/app/api/portfolio/v1/queries/route.ts",
+        "src/app/api/product/v1/commands/route.ts",
+        "src/app/api/product/v1/queries/route.ts",
+        "src/app/api/provenance/v1/route.ts",
+        "src/app/api/sensitive/v1/route.ts",
+        "src/app/api/settings/v1/route.ts",
+        "src/app/api/sims/v1/route.ts",
+        "src/app/api/team/v1/commands/route.ts",
+        "src/app/api/team/v1/queries/route.ts",
+        "src/app/api/telecom/attention/v1/route.ts",
+        "src/app/api/telecom/equipment/v1/route.ts",
+        "src/app/api/telecom/external-identities/v1/route.ts",
+        "src/app/api/telecom/locations/v1/route.ts",
+        "src/app/api/telecom/reads/v1/route.ts",
+        "src/app/api/telecom/services/v1/route.ts",
+        "src/features/product/integration/mode.ts",
+        "src/lib/server/product-http-v1.ts"
+      ],
+      "validation_rule": "url",
+      "description": "Canonical Origin/Host validation on normal product mutations",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "product",
+      "destination": "environment-specific configuration",
+      "required_when": {
+        "name": "PRODUCT_V1_ENABLED",
+        "equals": "true"
+      }
+    },
+    {
+      "name": "SMTP_HOST",
+      "type": "string",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json"
+      ],
+      "validation_rule": "string",
+      "description": "Reserved production Auth SMTP configuration, independently managed in platform config",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "auth_mail",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "SMTP_PASSWORD",
+      "type": "string",
+      "secret": true,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json"
+      ],
+      "validation_rule": "string",
+      "description": "Reserved production Auth SMTP password/reference; no actual adapter installed",
+      "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
+      "provider": "auth_mail",
+      "destination": "environment-specific secret store",
+      "required_when": null
+    },
+    {
+      "name": "SMTP_PORT",
+      "type": "positive_integer",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json"
+      ],
+      "validation_rule": "positive_integer",
+      "description": "Reserved production Auth SMTP port",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "auth_mail",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "SMTP_USER",
+      "type": "string",
+      "secret": true,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json"
+      ],
+      "validation_rule": "string",
+      "description": "Reserved production Auth SMTP login/reference",
+      "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
+      "provider": "auth_mail",
+      "destination": "environment-specific secret store",
+      "required_when": null
+    },
+    {
+      "name": "SUPABASE_SERVICE_ROLE_KEY",
+      "type": "string",
+      "secret": true,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json",
+        "src/lib/supabase-admin.ts"
+      ],
+      "validation_rule": "string",
+      "description": "Existing private platform credential reserved outside normal user-JWT commands; no new generic worker authority",
+      "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
+      "provider": "backend_platform",
+      "destination": "environment-specific secret store",
+      "required_when": null
+    }
+  ],
+  "public_allowlist": [
+    "NEXT_PUBLIC_SUPABASE_URL",
+    "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY",
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY",
+    "NEXT_PUBLIC_APP_URL",
+    "NEXT_PUBLIC_ENABLE_DEMO_DATA",
+    "NEXT_PUBLIC_FORCE_OFFLINE_DEV",
+    "NEXT_PUBLIC_NOWLABS_INTERNAL",
+    "NEXT_PUBLIC_ASSISTANT_MAX_INPUT_CHARS",
+    "NEXT_PUBLIC_ASSISTANT_WARN_AT_CHARS",
+    "NEXT_PUBLIC_ENABLE_BILLING",
+    "NEXT_PUBLIC_ENABLE_INVOICING",
+    "NEXT_PUBLIC_ENABLE_AUTOMATIONS",
+    "NEXT_PUBLIC_ENABLE_INBOX",
+    "NEXT_PUBLIC_ENABLE_ASSISTANT",
+    "NEXT_PUBLIC_ENABLE_OPPORTUNITIES",
+    "NEXT_PUBLIC_ENABLE_CALENDAR",
+    "NEXT_PUBLIC_ENABLE_INSTAGRAM",
+    "NEXT_PUBLIC_ENABLE_WHATSAPP"
+  ],
+  "alternative_required_groups": [
+    [
+      "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY",
+      "NEXT_PUBLIC_SUPABASE_ANON_KEY"
+    ]
+  ],
+  "config_artifacts": [
+    "supabase/config.toml",
+    "infra/platform/company.schema.json",
+    "infra/platform/providers.json"
+  ],
+  "migration_inventory": [
+    {
+      "name": "20260925153500_core_tenant_identity.sql",
+      "version": "20260925153500",
+      "sha256": "f6d46fa991ab483441ceb7eb2334b036b897a321a51e6ca5df6c00d1356793fa"
+    },
+    {
+      "name": "20260926120000_atomic_workspace_onboarding.sql",
+      "version": "20260926120000",
+      "sha256": "6d3304d82bfe569bd9317fe47ddc545508575e50b1175d85a43b734a1fca4ddc"
+    },
+    {
+      "name": "20260926143000_enforce_active_workspace_authorization.sql",
+      "version": "20260926143000",
+      "sha256": "e5099a60f646db891092df727039929f5eebbc16e7b8d5b1c4bcbdd9855eabfc"
+    },
+    {
+      "name": "20260926160000_telecom_customer_contacts.sql",
+      "version": "20260926160000",
+      "sha256": "5fee0811f0a1a1504884d4dd76460797c5d97a3ea83634c59feab4f77ce58648"
+    },
+    {
+      "name": "20260926161000_telecom_operator_plan_catalog.sql",
+      "version": "20260926161000",
+      "sha256": "405a6204b454569a8a91ad8f2f0c456cc02532ead912b86611c87831f923ff52"
+    },
+    {
+      "name": "20260926162000_telecom_contract_service_portfolio.sql",
+      "version": "20260926162000",
+      "sha256": "3dda7363c88474d852dcc2173b696a6cd976956e4f60d8499cba7d24b35c95c8"
+    },
+    {
+      "name": "20260926163000_telecom_commercial_operations.sql",
+      "version": "20260926163000",
+      "sha256": "1c2ffdba68d2c51ebf40cc943d14433621531f538c19848aaef9acd6de38a5a6"
+    },
+    {
+      "name": "20260926164000_telecom_service_cases_documents.sql",
+      "version": "20260926164000",
+      "sha256": "c20abdc886fe03e29ca0ea24988ff7d4130fb90f489855e92164207c77702d8c"
+    },
+    {
+      "name": "20260926165000_import_audit_foundation.sql",
+      "version": "20260926165000",
+      "sha256": "8ea15857d41a7af50482e8d2d4f36539e85cfbb5a37701ae022f77daa02cc0a3"
+    },
+    {
+      "name": "20260927090000_fix_provision_workspace_profile_conflict.sql",
+      "version": "20260927090000",
+      "sha256": "86ed9e78bdc85f390e268e595b18f624d71c1105bd5d43e48e4359ef2e4fa712"
+    },
+    {
+      "name": "20260927161000_harden_shared_trigger_record_guards.sql",
+      "version": "20260927161000",
+      "sha256": "f276f0ad4adcf577cdcae42ba16d368613069bae8e0b4b8a72b8ec4d0f135e6b"
+    },
+    {
+      "name": "20260927162000_enforce_import_job_initial_state.sql",
+      "version": "20260927162000",
+      "sha256": "aa31efdf0ca8c2a7d9e4332a40bc6e397a8f2423ce9512ecf5903fb57d1b6f9f"
+    },
+    {
+      "name": "20260927170000_telecom_v1_customer_read_rpc.sql",
+      "version": "20260927170000",
+      "sha256": "db906c47f277db040bfd96c7a501bb63412487278541423dcba1c6e2396fcc73"
+    },
+    {
+      "name": "20260927171000_telecom_v1_customer_summary_rpc.sql",
+      "version": "20260927171000",
+      "sha256": "735291e506cbfd4c46cb4d1e472a900c9280f5f9e06b2c0f04871c6a0b0ce3be"
+    },
+    {
+      "name": "20260927172000_telecom_v1_contract_read_rpc.sql",
+      "version": "20260927172000",
+      "sha256": "9eebf2a593a9caf861deeffc52cf4c688cc5d5d9c53f7f68f9fc6ecc35989c55"
+    },
+    {
+      "name": "20260927173000_telecom_v1_service_line_read_rpc.sql",
+      "version": "20260927173000",
+      "sha256": "627186376d0351c79bd9b7f6367b52db8c714c73e96dfc0b7d38b8218ee7db72"
+    },
+    {
+      "name": "20260927174000_telecom_v1_activity_opportunity_read_rpc.sql",
+      "version": "20260927174000",
+      "sha256": "849f1604485ef003e3e71ab8f804fae903be972bdc5e1cfd13c3167da773a575"
+    },
+    {
+      "name": "20260927175000_telecom_v1_task_meeting_read_rpc.sql",
+      "version": "20260927175000",
+      "sha256": "f0571938a41f964a456574f79d3f8449e732a0b8b59bcf680abd93d763fccfd8"
+    },
+    {
+      "name": "20260927180000_telecom_v1_renewal_permanence_read_rpc.sql",
+      "version": "20260927180000",
+      "sha256": "bcfabd65b94556172b02df10ddaf38f129c1a0ad6e1ed3a985d668a0f53d1798"
+    },
+    {
+      "name": "20260927181000_telecom_v1_dashboard_scope_rpc.sql",
+      "version": "20260927181000",
+      "sha256": "6c9834b6d737a033bce1fcf133914fd5417eb5c3916fd5deca6a978c7949a7fb"
+    },
+    {
+      "name": "20260927182000_private_document_storage.sql",
+      "version": "20260927182000",
+      "sha256": "a160c3ee7b3cdcd8b52a482deb98cb917d4fde24830ae8689d8d2b31e20c6367"
+    },
+    {
+      "name": "20260927183000_assistant_durable_foundation.sql",
+      "version": "20260927183000",
+      "sha256": "23f70fc3c902f0d3ed161d38aa3e63569f8dfab63c62e355dcd564637ba47f50"
+    },
+    {
+      "name": "20260927184000_restrict_document_object_read.sql",
+      "version": "20260927184000",
+      "sha256": "b51f2a9b0725fe925f6defae58dad60c6c2a323b27afc6f21fd749858a3002e6"
+    },
+    {
+      "name": "20260927185000_fix_customer_search_collation.sql",
+      "version": "20260927185000",
+      "sha256": "5b8a59a978054f28fdefe0e4a337c3a1edf56f5abb838302fa327dd65dc561f1"
+    },
+    {
+      "name": "20260929212000_align_assistant_durable_contract.sql",
+      "version": "20260929212000",
+      "sha256": "c06302c5f9483f53a102dcaef2eefbb1bac4f9aad2d91365e103f1ec4a4e6186"
+    },
+    {
+      "name": "20261003132000_product_customer_contact_commands.sql",
+      "version": "20261003132000",
+      "sha256": "ace07d1d9c5c7cfe1ccd697403588b6b3ae005bf3fb853a3c889952690890563"
+    },
+    {
+      "name": "20261003134000_product_identity_editor_reads.sql",
+      "version": "20261003134000",
+      "sha256": "7558a3bb01bd57e316dc5191dc8ecac5531ea84bfe99c16a6e4b961c4832c26a"
+    },
+    {
+      "name": "20261004160000_product_work_commands.sql",
+      "version": "20261004160000",
+      "sha256": "1e0d460f6fb31dd198e0952300bb86f76332e43f2d474531835fbd3add66f902"
+    },
+    {
+      "name": "20261004162000_product_work_reads.sql",
+      "version": "20261004162000",
+      "sha256": "4ae578ca1912a6f91bcb50ad7dfd259c0868c3f0cec550ef561760d9e011715d"
+    },
+    {
+      "name": "20261004163000_product_identity_commercial_policy.sql",
+      "version": "20261004163000",
+      "sha256": "3a2edf075357bdf568d6d61dac85dee00400a00e74d085f44137ae677979e723"
+    },
+    {
+      "name": "20261004170000_product_dashboard_search.sql",
+      "version": "20261004170000",
+      "sha256": "39bcc4d05ed6dd1870074d4d1b382ac433b8c9f1bdf1d243a7489b39182d0a79"
+    },
+    {
+      "name": "20261004173000_billing_exact_issue.sql",
+      "version": "20261004173000",
+      "sha256": "5e0a229a6db48b07ce3e2832d08669431761d2376a1fa9887a3960bb38301371"
+    },
+    {
+      "name": "20261004174000_billing_protected_reads.sql",
+      "version": "20261004174000",
+      "sha256": "4e25f50072d7ae6479fa45fe49a775439d603d1f506b561696585c710750a8d9"
+    },
+    {
+      "name": "20261004175000_product_dashboard_financial.sql",
+      "version": "20261004175000",
+      "sha256": "2351efb111591bcbcef68a6a9f47f5db4e484dc67338324415f394cbf6865094"
+    },
+    {
+      "name": "20261004180000_billing_normalized_proposal.sql",
+      "version": "20261004180000",
+      "sha256": "4abbcebbee2a3d921eaef8a50b905d10fb58d5829fda1bb3388b428a2a39e685"
+    },
+    {
+      "name": "20261004183000_team_protected_management.sql",
+      "version": "20261004183000",
+      "sha256": "7912b94e9fc89d512232e8c08c1a61e83dbabd18bddb000b3cf5dd2963dc7c34"
+    },
+    {
+      "name": "20261004190000_portfolio_human_commands.sql",
+      "version": "20261004190000",
+      "sha256": "aa3fc340c7346535b08591b3fa8cae360c6fda093827e4f9f96dfe492a270e28"
+    },
+    {
+      "name": "20261004193000_portfolio_deadline_commands.sql",
+      "version": "20261004193000",
+      "sha256": "516291991bc1eb0f291f39bbd086e83ba8e315cdbe5e5ccdb1e7a70a11024583"
+    },
+    {
+      "name": "20261004200000_product_protected_invoice_search.sql",
+      "version": "20261004200000",
+      "sha256": "ad958e966d70a4e0bdca863525d3761c77252f1dc40d0a25a0f7b5ccf31be895"
+    },
+    {
+      "name": "20261004203000_document_metadata_commands.sql",
+      "version": "20261004203000",
+      "sha256": "921c8e76532fdcd795eb808839727990ded554fe50c06cc2193f01d259810622"
+    },
+    {
+      "name": "20261004204500_portfolio_explicit_child_provenance.sql",
+      "version": "20261004204500",
+      "sha256": "599851bdc38cb38f2910323e3d78668b3ab868a9575920cd5ba7c3378d4ec91c"
+    },
+    {
+      "name": "20261005120000_document_content_workflow.sql",
+      "version": "20261005120000",
+      "sha256": "2c8f0cdd7a6dfc092be0484aa5fe3d661cd7a29c7a1e713738fa8e259ac0fa7a"
+    },
+    {
+      "name": "20261005123000_private_invoice_pdf_artifacts.sql",
+      "version": "20261005123000",
+      "sha256": "dee0a01b4dd389568c5ec8c79db3db48c4f4fd14433b14486a10561dc440650c"
+    },
+    {
+      "name": "20261005130000_import_job_product_management.sql",
+      "version": "20261005130000",
+      "sha256": "9a5113d02dfd53a91369931b71764fecd5fffb8d6cee01f6c0ded4e92690461c"
+    },
+    {
+      "name": "20261005133000_internal_inbox_domain.sql",
+      "version": "20261005133000",
+      "sha256": "e6bc81ca4acd414fbe9cfcda2b0d83f9eb1fe035516a24b96f01130d3b1bdc8b"
+    },
+    {
+      "name": "20261005140000_personal_notification_center.sql",
+      "version": "20261005140000",
+      "sha256": "3ec41ff149cfbc47c066e474c141b22a3122ec6d71e52ea48f38a20c30d3a40b"
+    },
+    {
+      "name": "20261005143000_registered_internal_automations.sql",
+      "version": "20261005143000",
+      "sha256": "04499f24c380a07de4533aadb9db212aec247aa9719390af978a9eef268bfe1a"
+    },
+    {
+      "name": "20261005150000_product_settings_profiles.sql",
+      "version": "20261005150000",
+      "sha256": "2788426484453d2822c7675bf3d3bf0c2a8b4b2460258e82d1e3b1de42ea0d33"
+    },
+    {
+      "name": "20261005153000_requested_sensitive_reveal.sql",
+      "version": "20261005153000",
+      "sha256": "b653f8a336a898a6ce87717bc7531c75cd09276aac33dfc13cf070471cc605b7"
+    },
+    {
+      "name": "20261005160000_team_expiry_manual_origin.sql",
+      "version": "20261005160000",
+      "sha256": "a70b9c0c7b6ad60c27a838a78e144c17876800070c5cb9a40beab14236219cb3"
+    },
+    {
+      "name": "20261005160500_contact_origin_without_legacy_source.sql",
+      "version": "20261005160500",
+      "sha256": "4d3d8fa8788322ece4e6c9033eb64b0da4001adf776fc3b47f533f56dea16969"
+    },
+    {
+      "name": "20261005163000_document_integrity_expired_cleanup.sql",
+      "version": "20261005163000",
+      "sha256": "8c08ea5519c8d680a7e09e37425c9e7c54def0aecd78d178744b47a10309979e"
+    },
+    {
+      "name": "20261005164500_document_target_ancestry_serialization.sql",
+      "version": "20261005164500",
+      "sha256": "8bcb0a139456d6eb073a38c44f121244fe3a953eac3cf038cc0b170dd2c7075b"
+    },
+    {
+      "name": "20261005203000_document_cleanup_replay_serialization.sql",
+      "version": "20261005203000",
+      "sha256": "0628bb69cdbbf689c9eb46273f2374f6d9c4ca67933183b38734f7e5054b3fe6"
+    },
+    {
+      "name": "20261005213000_telecom_commercial_collections.sql",
+      "version": "20261005213000",
+      "sha256": "84429df995da8718c020b1a66a972ec76a7d6d0a98e89c693bacf2191ca5bbdd"
+    },
+    {
+      "name": "20261005220000_protected_telecom_identifiers.sql",
+      "version": "20261005220000",
+      "sha256": "71e3e7e89774aee9fe8dd28daf7afa10d12d98fb4e262677b4188cf623fcc5b8"
+    },
+    {
+      "name": "20261005223000_immutable_commercial_catalog.sql",
+      "version": "20261005223000",
+      "sha256": "2c1f403f0ceb16d336fcb279ebf5bf3b281166a545f1a43c206617b8926b3aba"
+    },
+    {
+      "name": "20261006110000_commercial_portability_workflow.sql",
+      "version": "20261006110000",
+      "sha256": "eee8768da3ee1122d51f744206ca0dbc5ca9041570e28b34b6d1926ba63b421e"
+    },
+    {
+      "name": "20261006113000_product_service_case_workflow.sql",
+      "version": "20261006113000",
+      "sha256": "d230cb4aa22ded19b76998452fbb6b63ce6e53a96feef04998c4a8ba42e6c585"
+    },
+    {
+      "name": "20261006120000_commercial_sim_esim_history.sql",
+      "version": "20261006120000",
+      "sha256": "920f0e690cea178f0a188d9376dec5d69f90a37ace99f85cabebc372654fd209"
+    },
+    {
+      "name": "20261006123000_sim_association_snapshot_cas.sql",
+      "version": "20261006123000",
+      "sha256": "356ec8c56c3415888fc45de60cd19b0ba30aa5e4fea2620871a18e366bd30c9d"
+    },
+    {
+      "name": "20261006130000_telecom_customer360_report_reads.sql",
+      "version": "20261006130000",
+      "sha256": "a996740043aca0174117ae62603cd4e694e9342d3d355775182fe488d581c116"
+    },
+    {
+      "name": "20261006133000_dense_masked_line_collection.sql",
+      "version": "20261006133000",
+      "sha256": "17d4fa573215a2ba43a766073f4f8f8203ed871cb054f71393c4d39e94bdf0b3"
+    },
+    {
+      "name": "20261006140000_deterministic_telecom_attention.sql",
+      "version": "20261006140000",
+      "sha256": "89e80cfc414c1681c282d642bb281b6179ea5eec775c3ac9f14526beee5f2c64"
+    },
+    {
+      "name": "20261006143000_currency_separated_billing_cohort_reads.sql",
+      "version": "20261006143000",
+      "sha256": "37f2cc41b1e317ebd08506ecca7686b3a3614b8511c6c962261ef0b12ecc50fb"
+    },
+    {
+      "name": "20261006150000_full_customer360_work_collections.sql",
+      "version": "20261006150000",
+      "sha256": "486ddf06f26b05032eaff7c387c393deccd6a7a3398dac76778a6e76ec209ad4"
+    },
+    {
+      "name": "20261006153000_service_installation_and_addon_history.sql",
+      "version": "20261006153000",
+      "sha256": "05a994815e716a699ee80a4826b9d92450c2bbcf503cd4a104b81a3c9287de97"
+    },
+    {
+      "name": "20261006160000_normalized_private_service_locations.sql",
+      "version": "20261006160000",
+      "sha256": "12c6b329ff3f8b0bb1df9749372b7ec286dedbf3ca8239cd4feaaa23e6838938"
+    },
+    {
+      "name": "20261006163000_bounded_commercial_equipment.sql",
+      "version": "20261006163000",
+      "sha256": "fdeb8e5a0cab8f56a81c0f0368a9c73d16af6e60f846f70d9915d248a7b64ed6"
+    },
+    {
+      "name": "20261006221500_registered_external_identities.sql",
+      "version": "20261006221500",
+      "sha256": "62d8dabd3d34835d3992ed540acc75920093f7c9a4d6bc3547c5b200aeb3c0d9"
+    }
+  ]
+}

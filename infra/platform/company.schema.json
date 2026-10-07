@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CRM company configuration; no secret values",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["environment", "app_origin", "supabase_project_ref", "administrators", "auth", "dns", "backup"],
+  "properties": {
+    "environment": {"enum": ["STAGING", "PROD"]},
+    "app_origin": {"type": "string", "format": "uri"},
+    "supabase_project_ref": {"type": "string", "pattern": "^[a-z]{20}$"},
+    "administrators": {"type": "array", "minItems": 2, "uniqueItems": true, "items": {"type": "string"}},
+    "auth": {"type": "object", "required": ["redirect_urls", "email_confirmation", "mfa_required"], "properties": {"redirect_urls": {"type": "array", "items": {"type": "string", "format": "uri"}}, "email_confirmation": {"const": true}, "mfa_required": {"const": true}}},
+    "dns": {"type": "array", "items": {"type": "object", "required": ["name", "type", "expected"], "properties": {"name": {"type": "string"}, "type": {"enum": ["TXT", "MX", "CNAME", "A", "AAAA"]}, "expected": {"type": "array", "minItems": 1, "items": {"type": "string"}}}}},
+    "backup": {"type": "object", "required": ["retention_days", "rpo_seconds", "rto_seconds", "key_reference", "offsite_reference"], "properties": {"retention_days": {"type": "integer", "minimum": 1}, "rpo_seconds": {"type": "integer", "minimum": 1}, "rto_seconds": {"type": "integer", "minimum": 1}, "key_reference": {"type": "string"}, "offsite_reference": {"type": "string"}}}
+  }
+}
