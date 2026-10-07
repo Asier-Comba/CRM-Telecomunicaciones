@@ -120,8 +120,7 @@ export function PeriodSelect({
     </label>
   )
 }
-export function Status({ value }: { value: string }) {
-  const names: Record<string, string> = {
+const statusNames: Readonly<Record<string, string>> = {
     active: 'Activo',
     inactive: 'Inactivo',
     suspended: 'Suspendido',
@@ -133,7 +132,9 @@ export function Status({ value }: { value: string }) {
     lost: 'Perdida',
     completed: 'Completada',
     scheduled: 'Programada', archived:'Archivado',cancelled:'Cancelado',ended:'Finalizado',retired:'Retirado',prepared:'Preparada',assigned:'Asignada',replaced:'Sustituida',requested:'Solicitada',rejected:'Rechazada',waiting_customer:'Esperando al cliente',waiting_operator:'Esperando al operador',resolved:'Resuelta',closed:'Cerrada',no_show:'No asistió',dismissed:'Descartada',not_applicable:'No aplica',
-  }
+}
+export function statusLabel(value: string) { return statusNames[value] ?? value }
+export function Status({ value }: { value: string }) {
   return (
     <Badge
       variant={
@@ -145,7 +146,7 @@ export function Status({ value }: { value: string }) {
       }
       dot
     >
-      {names[value] ?? value}
+      {statusLabel(value)}
     </Badge>
   )
 }
@@ -187,8 +188,25 @@ export function Tabs({
   value: string
   onChange: (v: string) => void
 }) {
+  const list = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    const container = list.current
+    if (!container) return
+    function keepSelectedVisible() {
+      const selected = container!.querySelector<HTMLElement>('[aria-selected="true"]')
+      if (!selected) return
+      const bounds = container!.getBoundingClientRect(), tab = selected.getBoundingClientRect()
+      if (tab.left < bounds.left) container!.scrollLeft += tab.left - bounds.left
+      else if (tab.right > bounds.right) container!.scrollLeft += tab.right - bounds.right
+    }
+    keepSelectedVisible()
+    const observer = new ResizeObserver(keepSelectedVisible)
+    observer.observe(container)
+    return () => observer.disconnect()
+  }, [value])
   return (
     <div
+      ref={list}
       className="flex gap-1 overflow-x-auto border-b border-slate-200"
       role="tablist"
       aria-label="Secciones"
@@ -215,7 +233,7 @@ export function Tabs({
                     : (i + (e.key === 'ArrowRight' ? 1 : -1) + items.length) %
                       items.length
               onChange(items[next])
-              document.getElementById(`${prefix}tab-${items[next]}`)?.focus()
+              document.getElementById(`${prefix}tab-${items[next]}`)?.focus({preventScroll:true})
             }
           }}
           className={`whitespace-nowrap border-b-2 px-3 py-3 text-sm font-medium focus-visible:outline-2 focus-visible:outline-indigo-500 ${value === item ? 'border-indigo-600 text-indigo-700' : 'border-transparent text-slate-500 hover:text-slate-800'}`}

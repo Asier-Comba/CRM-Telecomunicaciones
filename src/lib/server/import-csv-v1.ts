@@ -1,8 +1,8 @@
 export type ImportCsvRowV1=Readonly<{row:number;account_kind:'legal_entity'|'sole_trader';legal_name:string}>
 export type ImportCsvPreviewV1=Readonly<{total_rows:number;valid_rows:number;invalid_rows:number;rows:readonly ImportCsvRowV1[];errors:readonly Readonly<{row:number;code:'invalid_account_kind'|'invalid_legal_name'|'invalid_columns'|'unsafe_cell'}>[];has_more:boolean}>
 const fail=()=>{throw new Error('IMPORT_CSV_INVALID')}
-export function validateCustomerCsvV1(bytes:Uint8Array,afterRow=0,limit=20):ImportCsvPreviewV1{
- if(!(bytes instanceof Uint8Array)||bytes.length<1||bytes.length>2*1024*1024||!Number.isSafeInteger(afterRow)||afterRow<0||!Number.isSafeInteger(limit)||limit<1||limit>20)fail()
+export function decodeBoundedImportCsvV1(bytes:Uint8Array):string[][]{
+ if(!(bytes instanceof Uint8Array)||bytes.length<1||bytes.length>2*1024*1024)fail()
  let text:string;try{text=new TextDecoder('utf-8',{fatal:true}).decode(bytes)}catch{fail()}
  text=text!.replace(/^\uFEFF/,'');if(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/.test(text))fail()
  const records:string[][]=[];let row:string[]=[],cell='',quoted=false,closed=false
@@ -17,6 +17,11 @@ export function validateCustomerCsvV1(bytes:Uint8Array,afterRow=0,limit=20):Impo
   if(cell.length>1000)fail()
  }
  if(quoted)fail();if(cell!==''||row.length||closed)pushRow()
+ return records
+}
+export function validateCustomerCsvV1(bytes:Uint8Array,afterRow=0,limit=20):ImportCsvPreviewV1{
+ if(!Number.isSafeInteger(afterRow)||afterRow<0||!Number.isSafeInteger(limit)||limit<1||limit>20)fail()
+ const records=decodeBoundedImportCsvV1(bytes)
  if(records.length<2||records[0].join(',')!=='account_kind,legal_name'||records[0].length!==2)fail()
  const valid:ImportCsvRowV1[]=[],errors:{row:number;code:'invalid_account_kind'|'invalid_legal_name'|'invalid_columns'|'unsafe_cell'}[]=[]
  records.slice(1).forEach((v,index)=>{const row=index+1;let code:typeof errors[number]['code']|null=null

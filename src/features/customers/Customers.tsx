@@ -131,7 +131,7 @@ export function Customers({ rows, onCreate, collection }: { rows: CustomerRow[];
             <option value="inactive">Inactivo</option>
             {collection&&<option value="archived">Archivado</option>}
           </select>
-          {collection?<div className="min-w-48"><AssigneeSelect allowClear value={collection.values.owner} onChange={v=>collection.onFilter('owner',v)} disabled={collection.busy}/></div>:<select
+          {collection?<div className="min-w-48"><AssigneeSelect allowClear clearLabel="Todos los responsables" value={collection.values.owner} onChange={v=>collection.onFilter('owner',v)} disabled={collection.busy}/></div>:<select
             aria-label="Comercial"
             className={control}
             value={filters.owner}
@@ -236,7 +236,7 @@ export function Customers({ rows, onCreate, collection }: { rows: CustomerRow[];
                 </th>
                 <th className="p-3">Comercial</th>
                 <th className="p-3">Estado</th>
-                <th className="p-3">Operadores</th>
+                {collection?<><th className="p-3">Relación comercial</th><th className="p-3">Origen</th></>:<><th className="p-3">Operadores</th>
                 <th className="p-3">
                   <SortButton
                     disabled={!!collection}
@@ -257,7 +257,7 @@ export function Customers({ rows, onCreate, collection }: { rows: CustomerRow[];
                     Renovación / permanencia
                   </SortButton>
                 </th>
-                <th className="p-3">Oportunidad / próxima acción</th>
+                <th className="p-3">Oportunidad / próxima acción</th></>}
                 <th className="p-3">Acciones</th>
               </tr>
             </thead>
@@ -286,15 +286,13 @@ export function Customers({ rows, onCreate, collection }: { rows: CustomerRow[];
                       <Building2 className="mt-0.5 h-4 w-4 shrink-0 text-indigo-500" />
                       {r.name}
                     </Link>
-                    <p className="mt-1 text-[10px] text-slate-400">
-                      Contacto no disponible
-                    </p>
+                    {!collection&&<p className="mt-1 text-[10px] text-slate-400">Contacto no disponible</p>}
                   </td>
                   <td className="p-3 text-slate-600">{r.owner}</td>
                   <td className="p-3">
                     <Status value={r.status} />
                   </td>
-                  <td className="max-w-40 p-3 text-slate-600">
+                  {collection?<><td className="p-3 text-slate-600">{{lead:"Lead",prospect:"Prospecto",customer:"Cliente",former_customer:"Antiguo cliente"}[r.lifecycle]??r.lifecycle}</td><td className="p-3 text-slate-600">{{manual:"Manual",import:"Importado",integration:"Integración"}[r.source??""]??r.source??"No registrado"}</td></>:<><td className="max-w-40 p-3 text-slate-600">
                     {r.services === null
                       ? 'No disponible'
                       : r.operators.join(', ') || 'Sin operador conocido'}
@@ -323,7 +321,7 @@ export function Customers({ rows, onCreate, collection }: { rows: CustomerRow[];
                     <p className="mt-1 text-slate-400">
                       {r.nextAction ?? 'Sin acción disponible'}
                     </p>
-                  </td>
+                  </td></>}
                   <td className="p-3">
                     <Link
                       href={`/clients/${r.id}`}

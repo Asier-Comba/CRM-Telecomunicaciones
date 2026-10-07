@@ -203,3 +203,14 @@ Attention acceptedc18123e/2757checks,199operations; still not registered. `billi
 ## TEL5 full Customer360 work page candidates
 
 `task.list`/`meeting.list` candidate safe reads at normal product query route: all four active roles, customer/related opportunity/assignee/state/date filters, UUID keysets<=100; undated tasks and completed history included. No private note/identifier payload. Exact acceptance pending. Billing readers accepted84dbdc0/2872checks but remain protected owner/admin read candidates only. No registration or AI writes.
+
+
+## TEL5 service commercial candidates
+
+`service.installation_get` and `service.addon_list` are bounded current-role read candidates at `/api/telecom/services/v1`, exact proof pending. Target planning is distinct from actual activation. Add-on rows bind frozen version/position and retain full validity/ending history, no component prices guessed. `service.installation_set`/`service.addon_assign`/`service.addon_end` are FUTURE_AI_ACTION_CANDIDATE only. No new AI tools/writes registered; Issue10 stays W3-owned. Customer360 pages accepted8c93d4c/2928checks.
+
+FINAL7: service.installation_get and service.addon_list are now proven READ candidates on788d124 (3064Supabase/208operations). No AI registration. All three service writes remain FUTURE_AI_ACTION_CANDIDATE. Role and protected field boundaries remain unchanged.
+
+FINAL7 candidate: service_location.get/list return safe ID/customer/version/label/country/source only. Precise postal fields require human requested sensitive.get; no AI registration. service_location.create/assign remain FUTURE_AI_ACTION_CANDIDATE.
+
+FINAL7: service_location.get/list accepted a9e4f29 (3181Supabase/212operations); no AI registration. Equipment get/list/history are new candidate READS only. All five equipment writes remain FUTURE_AI_ACTION_CANDIDATE, never AI tools.

@@ -1,3 +1,8 @@
+import {telecomImportTakeoverAcceptance} from './telecom-import-takeover-acceptance.mjs'
+import {externalIdentityAcceptance} from './external-identity-acceptance.mjs'
+import{equipmentAcceptance}from './equipment-acceptance.mjs'
+import{serviceLocationAcceptance}from './service-location-acceptance.mjs'
+import{serviceCommercialAcceptance}from './service-commercial-acceptance.mjs'
 import{fullWorkCollectionsAcceptance}from './full-work-collections-acceptance.mjs'
 import{billingAnalyticsAcceptance}from './billing-analytics-acceptance.mjs'
 import{telecomAttentionAcceptance}from './telecom-attention-acceptance.mjs'
@@ -172,6 +177,9 @@ export async function acceptance({ url, anon, service, db, command, report, appU
   Object.assign(report,await telecomAttentionAcceptance({rpc,sql,check,http,users,wa,url,anon,appUrl}))
   Object.assign(report,await billingAnalyticsAcceptance({rpc,sql,check,http,users,wa,url,anon,appUrl}))
   Object.assign(report,await fullWorkCollectionsAcceptance({rpc,sql,check,http,users,wa,url,anon,appUrl}))
+  Object.assign(report,await serviceCommercialAcceptance({rpc,sql,check,http,users,wa,url,anon,appUrl}))
+  Object.assign(report,await serviceLocationAcceptance({rpc,sql,check,http,users,wa,url,anon,appUrl}))
+  Object.assign(report,await equipmentAcceptance({rpc,sql,check,http,users,wa,url,anon,appUrl}))
   const buckets = await http('/storage/v1/bucket', service)
   check(buckets.status === 200 && ['telecom-documents', 'telecom-import-quarantine'].every(id => buckets.json?.some(b => b.id === id && b.public === false)), 'private_buckets')
   const bytes = Buffer.from('Synthetic local acceptance text only. No customer document.\n')
@@ -253,6 +261,15 @@ export async function acceptance({ url, anon, service, db, command, report, appU
   const repository = readFileSync('src/lib/server/telecom-supabase-repository-v1.ts', 'utf8')
   check(!repository.includes('NEXT_PUBLIC_SUPABASE_SERVICE_ROLE'), 'no_public_service_binding')
   Object.assign(report,{w1_backend_acceptance:'PASS',w1_backend_checks:checks.length})
+  const takeoverStart=checks.length
+  // The preceding W1 Storage revocation proof intentionally leaves this disposable
+  // workspace suspended. Restore its fixture state before testing new W2 operations.
+  sql(`update public.workspaces set status='active' where id='${wa}';`)
+  const takeoverScope=await rpc('current_workspace_role',{p_workspace_id:wa},users.ownerA.token)
+  check(takeoverScope.status===200&&takeoverScope.json==='owner','takeover_fixture_current_scope_restored')
+  Object.assign(report,await externalIdentityAcceptance({rpc,sql,check,http,users,wa,url,anon,appUrl}))
+  Object.assign(report,await telecomImportTakeoverAcceptance({rpc,sql,check,http,users,wa}))
+  Object.assign(report,{w2_backend_takeover_acceptance:'PASS_LOCAL_IMPORT_VALIDATION_PROTECTED_STAGING_AND_EXTERNAL_IDENTITIES',w2_backend_takeover_checks:checks.length-takeoverStart})
   if (onProductUi) Object.assign(report, await onProductUi({ users, wa, ca, sql }))
   return { ...productResult, ...workReadResult, ...teamResult, ...portfolioResult, ...deadlineResult, ...documentResult, ...individualResult,...importJobResult,...artifactResult,...contentResult, result: 'PASS', auth: 'PASS', jwt: 'PASS', postgrest: 'PASS', rpc: 'PASS', storage: 'PASS', cross_tenant: 'PASS', revocation: 'PASS', auth_users: Object.keys(users).length, checks: checks.length, status_codes: statuses, manager: 'NOT_CANONICAL', signed_access: 'NOT_IMPLEMENTED', auth_email_production: 'NOT_TESTED', mfa_production: 'NOT_TESTED', scoped_service_principal: 'NOT_IMPLEMENTED', remote_staging: 'NOT_TESTED' }
 }

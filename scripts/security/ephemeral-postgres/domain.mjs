@@ -95,6 +95,15 @@ try {
   await db.exec(richSeed.replace(/commit;\s*$/i, '') + await readFile(resolve(root,'supabase/tests/full-customer360-work-collections.sql'),'utf8'))
   console.log('TEL5 CUSTOMER360 FULL TASK MEETING COLLECTIONS/UNDATED/HISTORY/KEYSET/VIEWER/REVOCATION PASS')
 
+  await db.exec(richSeed.replace(/commit;\s*$/i, '') + await readFile(resolve(root,'supabase/tests/service-installation-addon-history.sql'),'utf8'))
+  await db.exec(richSeed.replace(/commit;\s*$/i, '') + await readFile(resolve(root,'supabase/tests/normalized-service-locations.sql'),'utf8'))
+  console.log('FINAL7 EQUIPMENT FIXTURE START')
+  await db.exec(richSeed.replace(/commit;\s*$/i, '') + await readFile(resolve(root,'supabase/tests/bounded-commercial-equipment.sql'),'utf8'))
+  console.log('FINAL7 EQUIPMENT FIXTURE PASS')
+  await db.exec(richSeed.replace(/commit;\s*$/i, '') + await readFile(resolve(root,'supabase/tests/registered-external-identities.sql'),'utf8'))
+  console.log('W2 TAKEOVER REGISTERED IDENTITIES SCOPE/REPLAY/CAS/KEYSET/REVOCATION PASS')
+  console.log('TEL5 SERVICE INSTALLATION ADDON HISTORY/CAS/EXACT REPLAY/ANCESTRY/SOURCE/VIEWER/REVOCATION PASS')
+
   await db.exec(await readFile(resolve(root,'supabase/tests/billing-exact-issue.sql'),'utf8'))
   await db.exec(await readFile(resolve(root,'supabase/tests/billing-private-pdf-artifacts.sql'),'utf8'))
   console.log('BILLING PRIVATE ARTIFACT CAS/REPLAY/IMMUTABILITY/ROLLBACK PASS')
@@ -236,6 +245,7 @@ try {
   }
 } catch (error) {
   console.error('DISPOSABLE DOMAIN DB FAILURE', error.code, error.message)
+  for(const frame of(error.where??'').split('\n').filter(line=>/^PL\/pgSQL function [a-z_][a-z0-9_.]*(?:\([^)]*\))? line [0-9]+ at [a-z ]+$/i.test(line)))console.error('DB_CODED_FRAME',frame)
   process.exitCode = 1
 } finally {
   await db.close()

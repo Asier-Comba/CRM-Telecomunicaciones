@@ -13,6 +13,13 @@ function command(bin, args, options = {}) {
     // Provider/CLI payloads may contain ephemeral credentials. Never echo them.
     const migration = ((r.stdout || '') + (r.stderr || '')).match(/\b\d{14}_[a-z0-9_]+\.sql\b/)?.[0]
     if (migration) evidence.last_observed_migration = migration
+    const output=(r.stdout||'')+(r.stderr||'')
+    evidence.command_failure={
+      tool:['supabase','docker','git'].includes(bin)?bin:'OTHER',
+      exit_code:Number.isInteger(r.status)?r.status:null,
+      timed_out:r.error?.code==='ETIMEDOUT',
+      category:r.error?.code==='ETIMEDOUT'?'TIMEOUT':/toomanyrequests|429 Too Many Requests/i.test(output)?'REGISTRY_RATE_LIMIT':/pull access denied|manifest unknown|failed to pull|error pulling image/i.test(output)?'IMAGE_PULL_FAILURE':/container.*unhealthy|failed.*health check/i.test(output)?'SERVICE_HEALTH_FAILURE':'COMMAND_FAILURE_UNCLASSIFIED'
+    }
     throw new Error('COMMAND_FAILED')
   }
   return r.stdout.trim()

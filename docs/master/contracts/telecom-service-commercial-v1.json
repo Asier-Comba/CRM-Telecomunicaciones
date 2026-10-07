@@ -1,0 +1,47 @@
+{
+  "contract_version": "telecom.service_commercial.v1",
+  "candidate": true,
+  "operations": [
+    "service.installation_set",
+    "service.installation_get",
+    "service.addon_assign",
+    "service.addon_end",
+    "service.addon_list"
+  ],
+  "transport": {
+    "method": "POST",
+    "path": "/api/telecom/services/v1",
+    "flag": "PRODUCT_V1_ENABLED",
+    "origin": "PRODUCT_V1_ORIGIN",
+    "default_enabled": false,
+    "no_store": true
+  },
+  "writes": {
+    "roles": [
+      "owner",
+      "admin",
+      "member"
+    ],
+    "parent_cas": "expected_service_version",
+    "idempotency": "command_id/current_actor_workspace/exact_HMAC_receipt",
+    "provider_business_sources": "read_only"
+  },
+  "reads": {
+    "roles": [
+      "owner",
+      "admin",
+      "member",
+      "viewer"
+    ],
+    "history_keyset": "UUID_ASC",
+    "limit_max": 100
+  },
+  "sensitive_fields": [],
+  "raw_tables": "closed",
+  "provider_activation": "none",
+  "installation_address": "not_retained_or_inferred_from_fiscal_identity",
+  "component_prices": "not_inferred",
+  "ai_registration": false,
+  "write_ai_status": "FUTURE_AI_ACTION_CANDIDATE",
+  "exact_supabase": "pending"
+}

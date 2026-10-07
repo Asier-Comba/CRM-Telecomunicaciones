@@ -1,0 +1,192 @@
+{
+  "contract_version": "backend.bootstrap.requirements.v1",
+  "values_included": false,
+  "normal_backend_freeze": false,
+  "production_ready": false,
+  "owners": [
+    "W4",
+    "W5"
+  ],
+  "database": {
+    "extensions": [
+      {
+        "name": "pgcrypto",
+        "schema": "extensions"
+      },
+      {
+        "name": "btree_gist",
+        "schema": "extensions"
+      }
+    ],
+    "migrations": [
+      "20260925153500_core_tenant_identity.sql",
+      "20260926120000_atomic_workspace_onboarding.sql",
+      "20260926143000_enforce_active_workspace_authorization.sql",
+      "20260926160000_telecom_customer_contacts.sql",
+      "20260926161000_telecom_operator_plan_catalog.sql",
+      "20260926162000_telecom_contract_service_portfolio.sql",
+      "20260926163000_telecom_commercial_operations.sql",
+      "20260926164000_telecom_service_cases_documents.sql",
+      "20260926165000_import_audit_foundation.sql",
+      "20260927090000_fix_provision_workspace_profile_conflict.sql",
+      "20260927161000_harden_shared_trigger_record_guards.sql",
+      "20260927162000_enforce_import_job_initial_state.sql",
+      "20260927170000_telecom_v1_customer_read_rpc.sql",
+      "20260927171000_telecom_v1_customer_summary_rpc.sql",
+      "20260927172000_telecom_v1_contract_read_rpc.sql",
+      "20260927173000_telecom_v1_service_line_read_rpc.sql",
+      "20260927174000_telecom_v1_activity_opportunity_read_rpc.sql",
+      "20260927175000_telecom_v1_task_meeting_read_rpc.sql",
+      "20260927180000_telecom_v1_renewal_permanence_read_rpc.sql",
+      "20260927181000_telecom_v1_dashboard_scope_rpc.sql",
+      "20260927182000_private_document_storage.sql",
+      "20260927183000_assistant_durable_foundation.sql",
+      "20260927184000_restrict_document_object_read.sql",
+      "20260927185000_fix_customer_search_collation.sql",
+      "20260929212000_align_assistant_durable_contract.sql",
+      "20261003132000_product_customer_contact_commands.sql",
+      "20261003134000_product_identity_editor_reads.sql",
+      "20261004160000_product_work_commands.sql",
+      "20261004162000_product_work_reads.sql",
+      "20261004163000_product_identity_commercial_policy.sql",
+      "20261004170000_product_dashboard_search.sql",
+      "20261004173000_billing_exact_issue.sql",
+      "20261004174000_billing_protected_reads.sql",
+      "20261004175000_product_dashboard_financial.sql",
+      "20261004180000_billing_normalized_proposal.sql",
+      "20261004183000_team_protected_management.sql",
+      "20261004190000_portfolio_human_commands.sql",
+      "20261004193000_portfolio_deadline_commands.sql",
+      "20261004200000_product_protected_invoice_search.sql",
+      "20261004203000_document_metadata_commands.sql",
+      "20261004204500_portfolio_explicit_child_provenance.sql",
+      "20261005120000_document_content_workflow.sql",
+      "20261005123000_private_invoice_pdf_artifacts.sql",
+      "20261005130000_import_job_product_management.sql",
+      "20261005133000_internal_inbox_domain.sql",
+      "20261005140000_personal_notification_center.sql",
+      "20261005143000_registered_internal_automations.sql",
+      "20261005150000_product_settings_profiles.sql",
+      "20261005153000_requested_sensitive_reveal.sql",
+      "20261005160000_team_expiry_manual_origin.sql",
+      "20261005160500_contact_origin_without_legacy_source.sql",
+      "20261005163000_document_integrity_expired_cleanup.sql",
+      "20261005164500_document_target_ancestry_serialization.sql",
+      "20261005203000_document_cleanup_replay_serialization.sql",
+      "20261005213000_telecom_commercial_collections.sql",
+      "20261005220000_protected_telecom_identifiers.sql",
+      "20261005223000_immutable_commercial_catalog.sql",
+      "20261006110000_commercial_portability_workflow.sql",
+      "20261006113000_product_service_case_workflow.sql",
+      "20261006120000_commercial_sim_esim_history.sql",
+      "20261006123000_sim_association_snapshot_cas.sql",
+      "20261006130000_telecom_customer360_report_reads.sql",
+      "20261006133000_dense_masked_line_collection.sql",
+      "20261006140000_deterministic_telecom_attention.sql",
+      "20261006143000_currency_separated_billing_cohort_reads.sql",
+      "20261006150000_full_customer360_work_collections.sql",
+      "20261006153000_service_installation_and_addon_history.sql",
+      "20261006160000_normalized_private_service_locations.sql",
+      "20261006163000_bounded_commercial_equipment.sql",
+      "20261006221500_registered_external_identities.sql"
+    ],
+    "forward_only": true,
+    "privilege_manifest": "scripts/security/native-postgres/function-privileges.json",
+    "browser_raw_domain_crud_allowed": false
+  },
+  "supabase": {
+    "config": "supabase/config.toml",
+    "postgrest_max_rows": 100,
+    "auth": {
+      "production_site_url": "environment-owned HTTPS application origin",
+      "redirect_urls": "exact environment-owned allowlist; no wildcard",
+      "local_oauth_enabled": false,
+      "production_mail_provider": "auth-mail.primary",
+      "mfa_production_verification": "W4/W5 requirement; not proven by local Auth"
+    },
+    "storage_buckets": [
+      {
+        "id": "telecom-documents",
+        "public": false,
+        "file_size_limit": "10MiB",
+        "allowed_mime_types": [
+          "application/pdf",
+          "image/png",
+          "image/jpeg"
+        ]
+      },
+      {
+        "id": "telecom-import-quarantine",
+        "public": false,
+        "file_size_limit": "10MiB",
+        "allowed_mime_types": [
+          "application/zip"
+        ],
+        "generic_zip_apply": "BLOCKED"
+      }
+    ]
+  },
+  "environment_manifest": "docs/master/contracts/product-environment.json",
+  "required_environment_names": {
+    "always": {
+      "LOCALDEV": [
+        "NEXT_PUBLIC_SUPABASE_URL"
+      ],
+      "TEST": [
+        "NEXT_PUBLIC_SUPABASE_URL"
+      ],
+      "STAGING": [
+        "NEXT_PUBLIC_SUPABASE_URL"
+      ],
+      "PROD": [
+        "NEXT_PUBLIC_SUPABASE_URL"
+      ]
+    },
+    "alternative_required_groups": [
+      {
+        "names": [
+          "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY",
+          "NEXT_PUBLIC_SUPABASE_ANON_KEY"
+        ],
+        "minimum_present": 1
+      }
+    ]
+  },
+  "feature_flags": [
+    {
+      "name": "PRODUCT_V1_ENABLED",
+      "purpose": "Master default-off normal product transport",
+      "required_when": null
+    },
+    {
+      "name": "PRODUCT_DOCUMENT_CONTENT_ENABLED",
+      "purpose": "Default-off protected upload/finalize/proxy content",
+      "required_when": null
+    },
+    {
+      "name": "PRODUCT_DOCUMENT_MAINTENANCE_ENABLED",
+      "purpose": "Default-off protected observed-byte verification and exact expired cleanup",
+      "required_when": null
+    }
+  ],
+  "feature_flag_default": "disabled unless authorized environment configuration",
+  "provider_manifest": "docs/master/contracts/provider-requirements.json",
+  "synthetic_seed_profile": {
+    "automatic_reset_seed_enabled": false,
+    "marker_required": true,
+    "seed_file": "supabase/seeds/synthetic_portfolio.sql",
+    "profile": "disposable synthetic A/B only; no production/customer data"
+  },
+  "acceptance_commands": [
+    "npm test",
+    "npm run lint",
+    "npm run typecheck",
+    "npm run build",
+    "npm run test:db:domain",
+    "scripts/security/native-postgres/test-zero-to-head.sh",
+    "GitHub workflow .github/workflows/supabase-local.yml (pinned disposable official Supabase CLI)"
+  ],
+  "no_hidden_dashboard_ddl": true,
+  "production_encrypted_processing": "FAIL_CLOSED_REGISTERED_KMS_SCOPED_WORKER_CANONICAL_ADAPTER_REQUIRED",
+  "provider_health_not_inferred_from_environment": true
+}
