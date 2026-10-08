@@ -9,6 +9,7 @@ function configuration(){return {version:3,company:{environment:'STAGING'},owner
 test('ownership rejects personal accounts, shared or missing MFA administrators and missing owners',()=>{
  assert.deepEqual(publicConfiguration(configuration()),[])
  for(const mutation of [c=>c.ownership.account_class='PERSONAL',c=>c.ownership.administrators.pop(),c=>c.ownership.administrators[1].identity='HUMAN-ONE',c=>c.ownership.administrators[0].mfa='NONE',c=>c.ownership.billing_owner='',c=>c.choices.environment='PROD',c=>c.ownership.administrators='malformed',c=>c.extra='canary-private']){const c=configuration();mutation(c);assert.ok(publicConfiguration(c).length)}
+ for(const mutation of [c=>c.company.app_origin='https://user:password@example.invalid',c=>c.company.supabase_project_ref='private-canary',c=>c.company.smtp_password='private-canary',c=>c.recovery_policy.secret='private-canary']){const c=configuration();mutation(c);assert.ok(publicConfiguration(c).length);assert.throws(()=>enterprisePlan(c,sha),/PUBLIC_CONFIGURATION_INVALID/)}
 })
 test('read-only preflight never emits input secrets or grants provider, W4, staging acceptance',()=>{
  const r=companyPreflight(configuration(),{SMTP_PASSWORD:'canary-private',NEXT_PUBLIC_SUPABASE_URL:'https://wrong.invalid'},{w4:'APPROVED'})

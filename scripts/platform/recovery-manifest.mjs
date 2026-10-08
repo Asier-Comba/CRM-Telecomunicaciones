@@ -1,7 +1,7 @@
 import {readFileSync} from 'node:fs'
 import {join} from 'node:path'
 import {root,hash,migrations,run,readJson} from './lib.mjs'
-const paths=['supabase/config.toml','infra/platform/environment-manifest.json','infra/platform/providers.json','infra/platform/worker-contract.json','infra/n8n/registry.json','infra/n8n/synthetic-health.json','infra/n8n/compose.preparatory.yaml','infra/deployment/Dockerfile','infra/deployment/compose.yaml','infra/deployment/nginx.conf.template']
+const paths=['supabase/config.toml','infra/platform/environment-manifest.json','infra/platform/providers.json','infra/platform/worker-contract.json','infra/n8n/registry.json','infra/n8n/synthetic-health.json','infra/n8n/compose.preparatory.yaml','infra/n8n/disposable-image-pins.json','infra/deployment/Dockerfile','infra/deployment/compose.yaml','infra/deployment/nginx.conf.template']
 export function recoveryManifest(){
  return {version:1,scope:'LOCAL_CANONICAL_PUBLIC_CONFIG_ONLY',source_sha:run('git',['rev-parse','HEAD']).trim(),package_lock_sha256:hash(readFileSync(join(root,'package-lock.json'),'utf8').replaceAll('\r\n','\n')),migrations:migrations(),configuration:paths.map(path=>{const bytes=Buffer.from(readFileSync(join(root,path),'utf8').replaceAll('\r\n','\n'));return {path,sha256:hash(bytes),bytes:bytes.toString('base64')}}),secret_references:readJson('infra/platform/environment-manifest.json').entries.filter(e=>e.secret).map(e=>({name:e.name,destination:e.destination,owner:e.owner})),workflow_activation:'DISABLED',private_secret_values_included:false,company_runtime_configuration:'NOT_CAPTURED'}
 }

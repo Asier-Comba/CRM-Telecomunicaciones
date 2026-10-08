@@ -2,7 +2,8 @@ import {readFileSync,writeFileSync,renameSync,existsSync} from 'node:fs'
 import {resolve} from 'node:path'
 import {pathToFileURL} from 'node:url'
 import {createInterface} from 'node:readline/promises'
-import {hash,migrations,run,safeError} from './lib.mjs'
+import {hash,migrations,run,safeError,readJson} from './lib.mjs'
+import {validValue} from './config.mjs'
 import {companyState} from './company-state.mjs'
 
 export const phases=['PREFLIGHT','PLAN','PROVISION','CONFIGURE','DEPLOY','VERIFY','ACCEPT']
@@ -25,6 +26,10 @@ export function publicConfiguration(c){
  if(!c?.choices||Object.keys(c.choices).some(k=>!Object.hasOwn(choices,k)))errors.push('UNKNOWN_PROVIDER_CHOICE')
  for(const [k,values]of Object.entries(choices))if(!values.includes(c?.choices?.[k]))errors.push(`INVALID_${k.toUpperCase()}_CHOICE`)
  if(c?.company?.environment!==c?.choices?.environment)errors.push('TARGET_BINDING_MISMATCH')
+ if(c?.company?.app_origin!==undefined&&!validValue('origin',c.company.app_origin,c.company.environment))errors.push('PUBLIC_ORIGIN_INVALID')
+ if(c?.company?.supabase_project_ref!==undefined&&!/^[a-z]{20}$/.test(c.company.supabase_project_ref))errors.push('PUBLIC_PROJECT_REFERENCE_INVALID')
+ if(!c?.company||Object.keys(c.company).some(k=>!Object.hasOwn(readJson('infra/platform/company.schema.json').properties,k)))errors.push('UNKNOWN_PUBLIC_COMPANY_FIELD')
+ if(c?.recovery_policy&&Object.keys(c.recovery_policy).some(k=>!['approval','source_sha','evidence_url'].includes(k)))errors.push('UNKNOWN_RECOVERY_POLICY_FIELD')
  if(c?.recovery_policy?.approval!=='UNAPPROVED'&&!(c?.recovery_policy?.approval==='COMPANY_APPROVED'&&shaPattern.test(c.recovery_policy.source_sha??'')&&typeof c.recovery_policy.evidence_url==='string'&&c.recovery_policy.evidence_url.startsWith('https://github.com/')))errors.push('RECOVERY_POLICY_APPROVAL_REQUIRED')
  return [...errors,...validateOwnership(c)]
 }

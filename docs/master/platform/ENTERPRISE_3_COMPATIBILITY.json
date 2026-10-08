@@ -1,0 +1,49 @@
+{
+  "version": 3,
+  "W5_SOURCE": "a7d8e015d0fe9e31670913da462eba69c8470ab1",
+  "W2_OBSERVED": "51f7524b23440df3f4b730e8914677f613fd78be",
+  "W3_OBSERVED": "972e96c680a39db25ed1555de4eed9b7149925e3",
+  "ACCEPTED_SOURCE": "NONE",
+  "W2_CODE_CONSUMED": "7ab6f56f10fc65aa7212ed5dfbdeacea8901756a original W5 branch ancestry; newer product code not imported",
+  "W3_CODE_CONSUMED": null,
+  "ISOLATED_ADOPTION": "eslint-config-next16.3.8 aligned with installed Next16.3.8; no W2 product branch merge",
+  "MIGRATIONS": {
+    "W5": 71,
+    "W3": 73,
+    "future_union": 74,
+    "applied_union": false,
+    "W3_ONLY": [
+      "20261006221429_assistant_conversations_v2.sql",
+      "20261006224734_assistant_history_rpc_only.sql",
+      "20261007214224_assistant_turn_single_clock.sql"
+    ],
+    "W5_ONLY": [
+      "20261008010000_align_provider_rpc_execution_grants.sql"
+    ]
+  },
+  "ROUTES": "Current W5 preserves W2 closed cookie/RPC product transport; hosted acceptance pending",
+  "SSE": "Actual synthetic proxy streaming test pending; no W3 streaming consumer/runtime imported",
+  "FLAGS": "No hosted local/synthetic flag forcing; AI/n8n remain disabled",
+  "OUTBOX": "CRM sink is disposable in-memory; W3 physical durable dispatcher unaccepted",
+  "MFA": "Company two human MFA declarations not verified provider enrollment",
+  "W4": "Independent exact-source review pending",
+  "DEPLOYABLE": false,
+  "KNOWN_BROWSER": {
+    "source": "78b6a137703d7956a990d267580d30f4b5538edf",
+    "merge": "d28affd3ff6276e06576ba2054e01068f39c7520",
+    "parents": [
+      "c21a7c0d405863b0312c6026ba50e989b34bd081",
+      "78b6a137703d7956a990d267580d30f4b5538edf"
+    ],
+    "run": 37797727858,
+    "passed": 86,
+    "total": 87,
+    "failed": [
+      "reports_exact_scope_period_export_and_error_mobile"
+    ],
+    "failure_action": "reports:error_alert",
+    "result": "FAIL"
+  },
+  "STAGING": "NOT_PROVEN",
+  "PRODUCTION": "NOT_PROVEN"
+}

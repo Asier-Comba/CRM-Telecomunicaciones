@@ -22,14 +22,14 @@ try{
  if(syntax.status!==0)throw new Error(/Permission denied/.test(syntax.stderr??'')?'NGINX_SYNTAX_PERMISSION':/unknown directive|invalid parameter|invalid number/.test(syntax.stderr??'')?'NGINX_SYNTAX_DIRECTIVE':'ACTUAL_NGINX_SYNTAX')
  prove(true,'ACTUAL_NGINX_SYNTAX')
  server=createServer((req,res)=>{
-  if(req.url.startsWith('/api/headers')){res.setHeader('Cache-Control','public,max-age=999');res.end(JSON.stringify({host:req.headers.host,forwarded_host:req.headers['x-forwarded-host'],proto:req.headers['x-forwarded-proto'],client:req.headers['x-forwarded-for']}))}
+  if(req.url.startsWith('/api/headers')){res.setHeader('Cache-Control','public,max-age=999');res.end(JSON.stringify({host:req.headers.host,forwarded_host:req.headers['x-forwarded-host'],proto:req.headers['x-forwarded-proto'],client:req.headers['x-forwarded-for'],real_ip:req.headers['x-real-ip'],forwarded:req.headers.forwarded??null}))}
   else if(req.url==='/api/events'){res.writeHead(200,{'Content-Type':'text/event-stream','Cache-Control':'public'});res.write('data: first\n\n');setTimeout(()=>res.end('data: final\n\n'),2000)}
   else{res.statusCode=503;res.end('synthetic unavailable')}
  });server.on('upgrade',(req,socket)=>{socket.write('HTTP/1.1 101 Switching Protocols\r\nUpgrade: websocket\r\nConnection: Upgrade\r\n\r\n');socket.end(Buffer.from([0x81,2,0x6f,0x6b]))})
  await new Promise(r=>server.listen(3000,'127.0.0.1',r));nginx=spawn('nginx',['-p',scratch,'-c',config,'-g','daemon off;'],{stdio:'ignore'})
  let ready=false;for(let i=0;i<30;i++){try{await fetchProxy('/api/headers');ready=true;break}catch{}await new Promise(r=>setTimeout(r,100))}prove(ready,'TLS_PROXY_STARTED')
- const response=await fetchProxy('/api/headers?canary-private',{headers:{'x-forwarded-for':'private-canary','x-forwarded-host':'wrong.invalid','x-forwarded-proto':'http'}}),headers=JSON.parse(response.body)
- prove(headers.host==='example.invalid'&&headers.forwarded_host==='example.invalid'&&headers.proto==='https'&&headers.client==='127.0.0.1','FORWARDED_HEADERS_REPLACED')
+ const response=await fetchProxy('/api/headers?canary-private',{headers:{'x-forwarded-for':'private-canary','x-forwarded-host':'wrong.invalid','x-forwarded-proto':'http','x-real-ip':'private-canary',forwarded:'for=private-canary;proto=http'}}),headers=JSON.parse(response.body)
+ prove(headers.host==='example.invalid'&&headers.forwarded_host==='example.invalid'&&headers.proto==='https'&&headers.client==='127.0.0.1'&&headers.real_ip==='127.0.0.1'&&headers.forwarded===null,'FORWARDED_HEADERS_REPLACED')
  prove(response.headers['cache-control']==='private, no-store','PRIVATE_NO_STORE')
  const failed=await fetchProxy('/api/error');prove(failed.status===503&&failed.headers['cache-control']==='private, no-store','ERROR_NO_STORE')
  const events=await fetchProxy('/api/events');prove(events.body==='data: first\n\ndata: final\n\n'&&events.ended-events.first>=1500,'ACTUAL_SSE_STREAMING')
