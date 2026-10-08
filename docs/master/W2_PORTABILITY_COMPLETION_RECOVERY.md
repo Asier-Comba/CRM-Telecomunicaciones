@@ -70,6 +70,23 @@ the screenshot alone does not prove a framework-level root cause.
 
 ## Evidence and limits
 
+Second candidate ebd4000 failed run37850510808 at checkout
+86970cb7825cf49dd36b7c3537ccbf4fa84d8ae0:105/107. The unavailable alert and
+equipment checks pass. Portability reached completed, but its failure screenshot
+explicitly shows completed date09 Oct2026. PortabilityEditor is keyed by row
+version: a successful transition remounts it with the current Europe/Madrid date.
+The harness did not select its fixed08 Oct date after the final transition.
+This explains the date predicate failure after Madrid midnight; it does not prove
+a duplicate mutation or changed line. The harness now explicitly fills/requires
+08 Oct before completion, requires the real refreshed record/status/date/version,
+and checks the single request's CAS6, none/null line action and confirmed outcome.
+Persisted completed/version7/date08 and line pending/version1 remain required;
+separate failure tags distinguish them. No clock mock, new retry or timeout.
+The other failure is a document upload TIMEOUT: its screenshot shows the upload
+still busy, not an error or completion. Cause remains unproven and is investigated
+separately. Customer360 run37850523475 reached106/107 with only the same date
+predicate failure; it is not accepted as107/107. Full exact-source rerun pending.
+
 Clean lockfile installation completed locally on Node24.12.0/npm11.6.2.
 Full dependency audit reports5HIGH through braces/micromatch/fast-glob/Next lint.
 No suppression or downgrade. At fdb020e, Linux CI37848141921 lint/types/405 Node

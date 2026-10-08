@@ -1,6 +1,6 @@
 'use client'
 
-import { FormEvent, useEffect, useMemo, useState } from 'react'
+import { FormEvent, useEffect, useMemo, useState, useSyncExternalStore } from 'react'
 import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { ArrowRight, Bot, Building2, Calendar, CheckCircle, KeyRound, Loader2, Lock, Mail, Shield, Users } from 'lucide-react'
@@ -14,6 +14,11 @@ import { featureFlags } from '@/lib/feature-flags'
 
 type AuthMode = 'signin' | 'forgot'
 type AuthFieldErrors = Partial<Record<'email' | 'password', string>>
+
+// Server-rendered fields must not accept input before React can record changes.
+const subscribeToFormReady = () => () => undefined
+const clientFormReady = () => true
+const serverFormReady = () => false
 
 const loginTransitionSteps = [
   'Verificando credenciales',
@@ -68,6 +73,7 @@ function getAuthErrorMessage(error: unknown) {
 
 export default function LoginPage() {
   const router = useRouter()
+  const formReady = useSyncExternalStore(subscribeToFormReady, clientFormReady, serverFormReady)
   const [mode, setMode] = useState<AuthMode>('signin')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -319,13 +325,14 @@ export default function LoginPage() {
                 : 'Te enviaremos un enlace seguro a tu email corporativo.'}
             </p>
 
-            <form onSubmit={handleAuth} className="mt-8 space-y-4">
+            <form onSubmit={handleAuth} aria-busy={!formReady} className="mt-8 space-y-4">
               <label className="block">
                 <span className="mb-2 block text-xs font-semibold tracking-wide text-gray-700">Email</span>
                 <div className="relative">
                   <Mail className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
                   <input
                     type="email"
+                    disabled={!formReady}
                     value={email}
                     onChange={(event) => setEmail(event.target.value)}
                     placeholder="nombre@empresa.com"
@@ -351,6 +358,7 @@ export default function LoginPage() {
                     <span className="text-xs font-semibold tracking-wide text-gray-700">Contraseña</span>
                     <button
                       type="button"
+                      disabled={!formReady}
                       onClick={() => resetFormState('forgot')}
                       className="text-[11px] font-medium text-gray-600 transition-colors hover:text-gray-900"
                     >
@@ -361,6 +369,7 @@ export default function LoginPage() {
                     <KeyRound className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
                     <input
                       type="password"
+                      disabled={!formReady}
                       value={password}
                       onChange={(event) => setPassword(event.target.value)}
                       placeholder="Introduce tu contraseña"
@@ -384,7 +393,8 @@ export default function LoginPage() {
                 )}
                 variant="primary"
                 loading={loading}
-                aria-disabled={!formCanSubmit}
+                disabled={!formReady}
+                aria-disabled={!formReady || !formCanSubmit}
               >
                 {mode === 'signin' ? 'Iniciar sesión' : 'Enviar enlace'}
                 <ArrowRight className="h-4 w-4" />
