@@ -16,6 +16,20 @@ concurrency:
   group: w5-enterprise-${{ github.ref }}
   cancel-in-progress: true
 jobs:
+  proxy-compose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with: {node-version-file: .nvmrc}
+      - name: Actual Compose parser, no containers or provider effects
+        run: node scripts/platform/compose-contract.mjs
+      - name: Install disposable system proxy validator; no deployment image is selected
+        run: sudo apt-get update -qq && sudo apt-get install -y --no-install-recommends nginx openssl
+      - name: Actual synthetic TLS proxy, private headers, SSE and Upgrade acceptance
+        run: node scripts/platform/proxy-acceptance.mjs
   auth-mail:
     runs-on: ubuntu-latest
     timeout-minutes: 20

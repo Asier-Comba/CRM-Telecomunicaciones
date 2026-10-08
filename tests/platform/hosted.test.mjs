@@ -15,5 +15,9 @@ test('Auth config compares exact security settings with no values in results',as
  const transport=async(url,options)=>{calls.push(options.method);return {ok:true,json:async()=>auth}}
  assert.equal((await configureAuth(c,{},transport)).status,'PASS');assert.deepEqual(calls,['PATCH','GET'])
  await assert.rejects(()=>configureAuth(c,{},async()=>({ok:false})),/AUTH_CONFIG_WRITE_FAILED/)
+ await assert.rejects(()=>configureAuth(c,{}),/STAGING_TARGET_GUARD/)
+ const env={SMTP_HOST:'smtp.example.invalid',SMTP_PORT:'587',AUTH_MAIL_FROM:'auth@example.invalid'}
+ assert.equal(compareAuth(desiredAuth(c,env),c,env).status,'PASS')
+ for(const field of ['smtp_host','smtp_port','smtp_admin_email'])assert.equal(compareAuth({...desiredAuth(c,env),[field]:'wrong'},c,env).status,'BLOCKED')
 })
 test('deployable files have no personal machine paths or project refs',()=>{assert.equal(portabilityScan().status,'PASS')})

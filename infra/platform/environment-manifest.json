@@ -626,7 +626,8 @@
         "scripts/platform/hosted-bootstrap.mjs",
         "scripts/platform/image-scan.mjs",
         "scripts/platform/lib.mjs",
-        "scripts/platform/n8n-registry.mjs"
+        "scripts/platform/n8n-registry.mjs",
+        "scripts/platform/proxy-acceptance.mjs"
       ],
       "validation_rule": "string",
       "description": "Configuration binding for GITHUB_ACTIONS; presence does not prove provider readiness.",
@@ -1695,6 +1696,27 @@
       "description": "Canonical Auth/PostgREST/Storage endpoint; public does not confer authority",
       "rotation_expectation": "Review on release/config change.",
       "provider": "backend_platform",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "NGINX_METADATA_LOG_PATH",
+      "type": "string",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "infra/deployment/nginx.conf.template"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for NGINX_METADATA_LOG_PATH; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
       "destination": "environment-specific configuration",
       "required_when": null
     },

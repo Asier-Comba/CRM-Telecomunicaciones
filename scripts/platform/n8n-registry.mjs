@@ -10,6 +10,7 @@ export function n8nGuard(env,write=false){
 // activation, arbitrary webhook, credential API, SQL or production operation.
 export async function importRegisteredWorkflow(entry,env,transport=fetch){
  n8nGuard(env,true)
+ if(transport===fetch)throw new Error('CURRENT_HOSTED_AUTOMATION_BLOCKED')
  if(entry.registered_id!=='synthetic-health-v1'||entry.file!=='infra/n8n/synthetic-health.json')throw new Error('UNREGISTERED_WORKFLOW')
  const workflow=readJson(entry.file)
  if(validateWorkflow(workflow).status!=='VALID')throw new Error('UNSAFE_WORKFLOW')

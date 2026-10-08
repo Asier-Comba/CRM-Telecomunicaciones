@@ -1,0 +1,32 @@
+{
+  "version": 3,
+  "source_sha": "78b6a137703d7956a990d267580d30f4b5538edf",
+  "tested_merge_sha": "d28affd3ff6276e06576ba2054e01068f39c7520",
+  "enterprise_run": 37797727553,
+  "general_ci_run": 37797727593,
+  "browser_run": 37797727858,
+  "source_acceptance": "NONE",
+  "enterprise": {
+    "contracts": "PASS",
+    "container": "PASS",
+    "recovery": "PASS",
+    "auth_mail": "PASS_22_CHECKS"
+  },
+  "general_ci": {
+    "native_postgres": "PASS",
+    "pglite": "PASS",
+    "secret_scan": "PASS",
+    "migration_policy": "PASS",
+    "baseline": "PASS",
+    "synthetic_preview": "PASS",
+    "windows_launcher": "PASS",
+    "quality": "FAIL_DEPENDENCY_AUDIT_5_HIGH",
+    "critical_playwright": "SKIPPED",
+    "dependency_review": "SKIPPED"
+  },
+  "browser": "PENDING",
+  "external_deliverability": "NOT_PROVEN",
+  "staging": "NOT_PROVEN",
+  "production": "NOT_PROVEN",
+  "w4": "PENDING"
+}

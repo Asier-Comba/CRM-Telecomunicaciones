@@ -8,9 +8,10 @@ export function desiredAuth(company,env){
  const templates=Object.fromEntries(['confirmation','recovery','invite'].map(n=>[`mailer_templates_${n}_content`,readFileSync(join(root,`infra/email/${n}.html`),'utf8').replaceAll('\r\n','\n')]))
  return {site_url:company.app_origin,uri_allow_list:company.auth.redirect_urls.join(','),mailer_autoconfirm:false,external_anonymous_users_enabled:false,external_email_enabled:true,refresh_token_rotation_enabled:true,mfa_totp_enroll_enabled:true,mfa_totp_verify_enabled:true,smtp_host:env.SMTP_HOST,smtp_port:env.SMTP_PORT,smtp_user:env.SMTP_USER,smtp_pass:env.SMTP_PASSWORD,smtp_admin_email:env.AUTH_MAIL_FROM,...templates}
 }
-export function compareAuth(actual,company){
- const expected=desiredAuth(company,{})
+export function compareAuth(actual,company,env={}){
+ const expected=desiredAuth(company,env)
  const fields=Object.keys(expected).filter(k=>!k.startsWith('smtp_'))
+ for(const key of ['smtp_host','smtp_port','smtp_admin_email'])if(expected[key]!==undefined)fields.push(key)
  const errors=fields.filter(k=>actual[k]!==expected[k]).map(k=>`AUTH_DRIFT_${k.toUpperCase()}`)
  return {status:errors.length?'BLOCKED':'PASS',errors,secret_values_included:false,mfa_enrollment_verified:false,deliverability_verified:false}
 }
@@ -19,15 +20,18 @@ export function hostedGuard(company,env){
  if(env.CI!=='true'||env.GITHUB_ACTIONS!=='true'||env.PLATFORM_ALLOW_STAGING_BOOTSTRAP!=='true')throw new Error('PROTECTED_STAGING_WORKFLOW_REQUIRED')
  if(validateEnvironment(env,'STAGING').status!=='VALID'||!env.SUPABASE_ACCESS_TOKEN||!env.SUPABASE_DB_PASSWORD||!env.SUPABASE_SERVICE_ROLE_KEY)throw new Error('STAGING_CONFIGURATION_REQUIRED')
  if(env.NEXT_PUBLIC_SUPABASE_URL!==`https://${company.supabase_project_ref}.supabase.co`)throw new Error('PROJECT_URL_MISMATCH')
+ // No flag or credentials can waive the unaccepted hosted runtime/company gates.
+ throw new Error('CURRENT_HOSTED_BOOTSTRAP_BLOCKED')
 }
 export async function configureAuth(company,env,transport=fetch){
+ if(transport===fetch)hostedGuard(company,env)
  const endpoint=`https://api.supabase.com/v1/projects/${company.supabase_project_ref}/config/auth`
  const headers={authorization:`Bearer ${env.SUPABASE_ACCESS_TOKEN}`,'content-type':'application/json'}
  const r=await transport(endpoint,{method:'PATCH',headers,body:JSON.stringify(desiredAuth(company,env)),redirect:'error',signal:AbortSignal.timeout(15000)})
  if(!r.ok)throw new Error('AUTH_CONFIG_WRITE_FAILED')
  const read=await transport(endpoint,{method:'GET',headers,redirect:'error',signal:AbortSignal.timeout(15000)})
  if(!read.ok)throw new Error('AUTH_CONFIG_READ_FAILED')
- const verified=compareAuth(await read.json(),company)
+ const verified=compareAuth(await read.json(),company,env)
  if(verified.status!=='PASS')throw new Error('AUTH_CONFIGURATION_DRIFT')
  return verified
 }

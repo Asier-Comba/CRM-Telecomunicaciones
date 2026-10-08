@@ -7,6 +7,7 @@ import {encryptBackup,decryptBackup,captureStorage,restoreStorage,verifyBundle,s
 import {disposableGuard,root,migrations,hash} from './lib.mjs'
 import {checkRpcManifest} from './rpc-manifest.mjs'
 import {storageReady} from './storage-ready.mjs'
+import {recoveryManifest,verifyRecoveryManifest} from './recovery-manifest.mjs'
 const clientOptions={auth:{persistSession:false,autoRefreshToken:false},global:{fetch:(input,options={})=>fetch(input,{...options,redirect:'error',signal:options.signal?AbortSignal.any([options.signal,AbortSignal.timeout(15000)]):AbortSignal.timeout(15000)})}}
 // Called only inside run-stack after real Auth/Storage acceptance. It never takes
 // a caller-selected database, Docker container, URL or key from CLI arguments.
@@ -39,11 +40,19 @@ export async function recoveryRehearsal({url,anon,service,db,command,report,user
   if(probe.error)throw new Error('STORAGE_METADATA_PROBE_FAILED')
   const contents=await captureStorage(storage,captureOptions)
   if(!contents.objects.length)throw new Error('STORAGE_RECOVERY_REQUIRES_OBJECTS')
-  const bundle={version:1,migrations:migrations(),database:dump.toString('base64'),database_sha256:hash(dump),...contents}
+  const manifest=recoveryManifest()
+  const bundle={version:1,migrations:migrations(),recovery_manifest:manifest,database:dump.toString('base64'),database_sha256:hash(dump),...contents}
   verifyBundle(bundle)
   const encrypted=encryptBackup(Buffer.from(JSON.stringify(bundle)),key,'disposable-ephemeral')
   const archive=join(scratch,'synthetic.encrypted');writeFileSync(archive,encrypted,{mode:0o600})
   const recovered=JSON.parse(decryptBackup(readFileSync(archive),key));verifyBundle(recovered)
+  report.recovery_configuration=verifyRecoveryManifest(recovered.recovery_manifest,manifest)
+  if(JSON.stringify(recovered.migrations)!==JSON.stringify(manifest.migrations))throw new Error('RECOVERY_MIGRATION_INVENTORY_DRIFT')
+  const rejects=(action,name)=>{let denied=false;try{action()}catch{denied=true}if(!denied)throw new Error('RECOVERY_NEGATIVE_CONTROL_FAILED');return {name,status:'PASS',provider_mutation_performed:false}}
+  const corruption=Buffer.from(encrypted);corruption[corruption.length-10]^=1
+  report.negative_recovery=[rejects(()=>decryptBackup(corruption,key),'CORRUPT_ARCHIVE_REJECTED'),rejects(()=>decryptBackup(encrypted,randomBytes(32)),'WRONG_KEY_REJECTED')]
+  for(const [name,mutation]of [['MISSING_OBJECT_BYTES_REJECTED',b=>b.objects[0].bytes=''],['PUBLIC_BUCKET_REJECTED',b=>b.buckets[0].public=true]]){const bad=structuredClone(recovered);mutation(bad);report.negative_recovery.push(rejects(()=>verifyBundle(bad),name))}
+  const unknown=structuredClone(recovered.recovery_manifest);unknown.migrations.push({name:'20990101000000_unknown.sql'});report.negative_recovery.push(rejects(()=>verifyRecoveryManifest(unknown,manifest),'UNRECOGNIZED_MIGRATION_REJECTED'))
   report.backup={database:'PASS',storage_bytes:'PASS',encryption:'AES-256-GCM',archive_sha256:hash(encrypted),objects:contents.objects.length,auth_scope:'LOCAL_USERS_IDENTITIES_ONLY_NO_SESSIONS',offsite:'NOT_PROVEN'}
   // Explicitly discard Environment A before reconstructing B. No reused SQL schema.
   command('supabase',['stop','--no-backup','--project-id','crm-telecom-local'],{timeout:120000})

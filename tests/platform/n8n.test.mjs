@@ -10,6 +10,7 @@ test('registry import is bound to approved staging origin and remains inactive',
  assert.throws(()=>n8nGuard({...env,PLATFORM_TARGET:'PROD'},true),/STAGING/)
  assert.throws(()=>n8nGuard({...env,N8N_APPROVED_ORIGIN:'https://wrong.invalid'},true),/STAGING/)
  await assert.rejects(()=>importRegisteredWorkflow(entry,env,async()=>({ok:true,json:async()=>({id:'id',active:true})})),/NOT_VERIFIED_INACTIVE/)
+ await assert.rejects(()=>importRegisteredWorkflow(entry,env),/CURRENT_HOSTED_AUTOMATION_BLOCKED/)
 })
 test('n8n export never removes credential evidence to make an unsafe workflow look safe',()=>{
  const w=readJson('infra/n8n/synthetic-health.json');assert.equal(exportRegisteredWorkflow({...w,id:'provider-id'}).active,false)

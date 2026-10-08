@@ -7,12 +7,13 @@ const fail=code=>{throw new Error(code)}
 export function createMailSink({scope,authorize,allowlist,senders,templates,maxQueue=100,maxAttempts=3}){
  if(scope!=='DISPOSABLE_SIMULATION'||typeof authorize!=='function'||!Array.isArray(allowlist)||allowlist.some(a=>!address.test(a)||!a.endsWith('@example.invalid'))||!Number.isSafeInteger(maxQueue)||maxQueue<1||!Number.isSafeInteger(maxAttempts)||maxAttempts<1)fail('DISPOSABLE_SYNTHETIC_MAIL_ONLY')
  const recipients=new Set(allowlist),queue=new Map(),captures=[],audit=[],seen=new Set(),inFlight=new Set()
+ const approvedTemplates=structuredClone(templates??{}),approvedSenders=structuredClone(senders??{})
  const event=(j,status)=>audit.push({component:'mail',status,tenant_digest:hash(j.tenant),operation_digest:j.key,attempt:j.attempts})
  async function authorized(j){const proof=await authorize({tenant:j.tenant,actor:j.actor,recipient:j.recipient,template:j.template});if(!proof||proof.tenant!==j.tenant||proof.actor!==j.actor||proof.authorized!==true||proof.consent!==true)fail('MAIL_AUTHORIZATION_REQUIRED')}
  return {
   async enqueue(input){
    if(!input||Object.keys(input).some(k=>!['tenant','actor','recipient','sender','template','idempotency_key'].includes(k))||!['tenant','actor','template','idempotency_key'].every(k=>identity.test(input[k]??'')))fail('MAIL_INPUT_INVALID')
-   if(!recipients.has(input.recipient)||input.sender!==senders?.[input.tenant]||!address.test(input.sender??'')||!input.sender.endsWith('@example.invalid')||!Object.hasOwn(templates??{},input.template))fail('MAIL_BINDING_FORBIDDEN')
+   if(!recipients.has(input.recipient)||input.sender!==approvedSenders[input.tenant]||!address.test(input.sender??'')||!input.sender.endsWith('@example.invalid')||!Object.hasOwn(approvedTemplates,input.template)||typeof approvedTemplates[input.template]!=='string'||Buffer.byteLength(approvedTemplates[input.template])>65536)fail('MAIL_BINDING_FORBIDDEN')
    const key=hash(`${input.tenant}:${input.idempotency_key}`),payload=hash(JSON.stringify(input));await authorized(input)
    if(queue.has(key)){if(queue.get(key).payload!==payload)fail('IDEMPOTENCY_PAYLOAD_CONFLICT');return {status:queue.get(key).status,operation_digest:key,duplicate:true}}
    if([...queue.values()].filter(j=>['QUEUED','RETRY'].includes(j.status)).length>=maxQueue)fail('MAIL_QUEUE_LIMIT')
@@ -28,7 +29,7 @@ export function createMailSink({scope,authorize,allowlist,senders,templates,maxQ
    if(j.attempts>=maxAttempts){j.status='FAILED';event(j,j.status);return {status:j.status}}
    j.attempts++
    if(transport!=='SINK'||failure){j.status=j.attempts>=maxAttempts?'FAILED':'RETRY';event(j,j.status);return {status:j.status}}
-   const message_id=`sink-${j.key}`;captures.push({message_id,tenant:j.tenant,recipient:j.recipient,sender:j.sender,template:j.template,body:templates[j.template]});j.status='CAPTURED';j.message_id=message_id;event(j,j.status);return {status:j.status,message_id,delivery_proven:false}
+   const message_id=`sink-${j.key}`;captures.push({message_id,tenant:j.tenant,recipient:j.recipient,sender:j.sender,template:j.template,body:approvedTemplates[j.template]});j.status='CAPTURED';j.message_id=message_id;event(j,j.status);return {status:j.status,message_id,delivery_proven:false}
    }finally{inFlight.delete(key)}
   },
   bounce({body,signature,key,now=Date.now()}){
