@@ -2,6 +2,7 @@ import { spawnSync, spawn } from 'node:child_process'
 import { existsSync, readFileSync, readdirSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { createHash,randomBytes,randomUUID } from 'node:crypto'
+import { waitForAssistantPortRelease } from './assistant-port-release.mjs'
 
 // Deliberately CI-only: no hosted URL/token/password and no reusable local DB.
 const project = 'crm-telecom-local'
@@ -96,6 +97,9 @@ try {
         // W2's existing browser journey owns this same dev port/output lock.
         // Release ours before that journey; never change its assertions/gates.
         await stopProcess(assistantServer); assistantServer = undefined
+        stage = 'assistant_history_transport_stop'
+        if (!await waitForAssistantPortRelease()) throw new Error('ASSISTANT_HISTORY_PORT_NOT_RELEASED')
+        stage = 'http_acceptance'
         console.log('{"kind":"local_acceptance_progress","phase":"assistant_history_server_released"}')
       }
     }
