@@ -10,7 +10,7 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "test": "node --test tests/bootstrap/*.test.mjs",
+    "test": "node --test tests/bootstrap/*.test.mjs && npm run test:assistant",
     "test:db:onboarding": "npm --prefix scripts/security/ephemeral-postgres run test:onboarding",
     "test:db:domain": "npm --prefix scripts/security/ephemeral-postgres run test:domain",
     "test:db:rls": "node scripts/run-telecom-db-rls-test.mjs",
@@ -19,7 +19,10 @@
     "audit:supabase-repro:strict": "node scripts/audit-supabase-reproducibility.mjs --strict",
     "test:e2e:legacy": "playwright test --config playwright.legacy.config.ts",
     "preview:doctor": "node scripts/preview-doctor.mjs",
-    "preview:setup": "node scripts/preview-setup.mjs"
+    "preview:setup": "node scripts/preview-setup.mjs",
+    "test:assistant": "node --experimental-transform-types --test tests/assistant/*.test.ts",
+    "test:db:assistant": "node scripts/security/ephemeral-postgres/assistant.mjs",
+    "eval:assistant:v2": "node --experimental-transform-types scripts/assistant/eval-live-v2.ts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.10.2",

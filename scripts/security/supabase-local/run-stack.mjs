@@ -2,10 +2,22 @@ import { spawnSync, spawn } from 'node:child_process'
 import { existsSync, readFileSync, readdirSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { createHash,randomBytes,randomUUID } from 'node:crypto'
+import { waitForAssistantPortRelease } from './assistant-port-release.mjs'
 
 // Deliberately CI-only: no hosted URL/token/password and no reusable local DB.
 const project = 'crm-telecom-local'
-let stage = 'preflight', started = false, appServer
+let stage = 'preflight', started = false, appServer, assistantServer
+async function stopProcess(child) {
+  if (!child || child.exitCode !== null) return
+  child.kill('SIGTERM')
+  await new Promise(resolve => {
+    let timer
+    const done = () => { clearTimeout(timer); resolve() }
+    child.once('exit', done)
+    timer = setTimeout(() => { child.kill('SIGKILL'); resolve() }, 5000)
+    timer.unref()
+  })
+}
 const evidence = { environment: 'LOCAL_SUPABASE_DOCKER', result: 'NOT_RUN', auth: 'NOT_TESTED', jwt: 'NOT_TESTED', postgrest: 'NOT_TESTED', rpc: 'NOT_TESTED', storage: 'NOT_TESTED' }
 function command(bin, args, options = {}) {
   const r = spawnSync(bin, args, { encoding: 'utf8', timeout: 120_000, maxBuffer: 20 * 1024 * 1024, ...options })
@@ -64,18 +76,50 @@ try {
   stage = 'http_acceptance'
   if (existsSync('scripts/security/supabase-local/acceptance.mjs')) {
     const { acceptance } = await import('./acceptance.mjs')
+    const onAssistantHistory = async context => {
+      // Assistant transport deliberately denies NODE_ENV=production. Exercise the
+      // actual route on a separate loopback-only development process; never relax
+      // that production deny just because this runner's data is disposable.
+      stage='assistant_history_transport_start'
+      console.log('{"kind":"local_acceptance_progress","phase":"assistant_history_start"}')
+      const assistantAppUrl='http://127.0.0.1:3109'
+      assistantServer=spawn(process.execPath,['node_modules/next/dist/bin/next','dev','--webpack','--hostname','127.0.0.1','--port','3109'],{stdio:'ignore',env:{...process.env,NODE_ENV:'development',NEXT_PUBLIC_SUPABASE_URL:url,NEXT_PUBLIC_SUPABASE_ANON_KEY:anon,PRODUCT_V1_ENABLED:'true',PRODUCT_LOCAL_INTEGRATION:'true',PRODUCT_LOCAL_SYNTHETIC:'true',AI_PRODUCT_V2_ENABLED:'true',PRODUCT_V1_ORIGIN:assistantAppUrl,OPENAI_API_KEY:''}})
+      let assistantReady=false
+      for(let attempt=0;attempt<20;attempt++){try{const response=await fetch(assistantAppUrl+'/api/assistant/v2/threads',{method:'POST',signal:AbortSignal.timeout(15000)});if(response.status===403){assistantReady=true;break}}catch{}await new Promise(resolve=>setTimeout(resolve,250))}
+      if(!assistantReady)throw new Error('ASSISTANT_HISTORY_TRANSPORT_NOT_READY')
+      stage = 'http_acceptance'
+      try {
+        const { assistantHistoryAcceptance } = await import('./assistant-history-acceptance.mjs')
+        const result = await assistantHistoryAcceptance({ ...context, assistantAppUrl })
+        console.log('{"kind":"local_acceptance_progress","phase":"assistant_history_complete"}')
+        return result
+      } finally {
+        // W2's existing browser journey owns this same dev port/output lock.
+        // Release ours before that journey; never change its assertions/gates.
+        await stopProcess(assistantServer); assistantServer = undefined
+        stage = 'assistant_history_transport_stop'
+        if (!await waitForAssistantPortRelease()) throw new Error('ASSISTANT_HISTORY_PORT_NOT_RELEASED')
+        stage = 'http_acceptance'
+        console.log('{"kind":"local_acceptance_progress","phase":"assistant_history_server_released"}')
+      }
+    }
     const onProductUi = process.env.W2_PRODUCT_UI === 'true' ? async context => {
       const { productBrowserAcceptance } = await import('./product-browser-acceptance.mjs')
-      return productBrowserAcceptance({ ...context, url, anon, report: evidence, maintenanceCredentials: {id:verifyId,key:verifyKey} })
+      stage = 'w2_product_browser'
+      console.log('{"kind":"local_acceptance_progress","phase":"w2_product_browser_start"}')
+      const result = await productBrowserAcceptance({ ...context, url, anon, report: evidence, maintenanceCredentials: {id:verifyId,key:verifyKey} })
+      console.log('{"kind":"local_acceptance_progress","phase":"w2_product_browser_complete"}')
+      return result
     } : undefined
-    Object.assign(evidence, await acceptance({ url, anon, service, db, command, report: evidence, appUrl, onProductUi }))
+    Object.assign(evidence, await acceptance({ url, anon, service, db, command, report: evidence, appUrl, onAssistantHistory, onProductUi }))
   } else evidence.result = 'STACK_PROVEN_HTTP_ACCEPTANCE_PENDING'
 } catch (error) {
   evidence.result = 'FAIL'; evidence.failed_stage = stage
   evidence.error = /^[A-Z][A-Z0-9_]{0,180}$/.test(error.message) ? error.message : 'BOUNDED_ACCEPTANCE_FAILURE'
   process.exitCode = 1
 } finally {
-  if(appServer){appServer.kill('SIGTERM');await new Promise(resolve=>{if(appServer.exitCode!==null)return resolve();appServer.once('exit',resolve);setTimeout(()=>{appServer.kill('SIGKILL');resolve()},5000).unref()})}
+  await stopProcess(assistantServer)
+  await stopProcess(appServer)
   if (started) {
     try { command('supabase', ['stop', '--no-backup', '--project-id', project]); evidence.teardown = 'PASS' }
     catch { evidence.teardown = 'FAIL'; process.exitCode = 1 }
