@@ -1,9 +1,10 @@
 import {hash} from './lib.mjs'
-const components=new Set(['app','database','auth','storage','backup','mail','n8n','worker','tls'])
+const components=new Set(['app','database','auth','storage','backup','mail','ai','n8n','worker','tls'])
+const metricNames=['errors','queue_depth','duration_ms','age_seconds','expiry_seconds','retry_count','request_count','input_tokens','output_tokens']
 export function healthSample(component,input,limits){
- if(!components.has(component)||!limits||!Object.values(limits).every(v=>Number.isSafeInteger(v)&&v>=0))throw new Error('MONITOR_CONTRACT_INVALID')
+ if(!components.has(component)||!limits||Object.keys(limits).some(k=>!metricNames.includes(k))||!Object.values(limits).every(v=>Number.isSafeInteger(v)&&v>=0))throw new Error('MONITOR_CONTRACT_INVALID')
  const sample={component,status:'PASS',metrics:{}}
- for(const name of ['errors','queue_depth','duration_ms','age_seconds','expiry_seconds','retry_count'])if(Number.isSafeInteger(input?.[name])&&input[name]>=0)sample.metrics[name]=input[name]
+ for(const name of metricNames)if(Number.isSafeInteger(input?.[name])&&input[name]>=0)sample.metrics[name]=input[name]
  const reasons=[]
  for(const [k,v]of Object.entries(limits)){
   if(!Object.hasOwn(sample.metrics,k))reasons.push(`MISSING_${k.toUpperCase()}`)
@@ -15,13 +16,15 @@ export function healthSample(component,input,limits){
  if(/^[a-f0-9]{40}$/.test(input?.deployment_sha??''))sample.deployment_sha=input.deployment_sha
  // Random internal correlation handles only; no user/tenant identifiers.
  if(/^[a-f0-9]{32}$/.test(input?.request_correlation??''))sample.request_correlation=input.request_correlation
+ // Approved public model configuration digest, never a free-text model label.
+ if(component==='ai'&&/^[a-f0-9]{64}$/.test(input?.model_revision??''))sample.model_revision=input.model_revision
  return sample
 }
 export function createAlertSink({scope,cooldown_ms=60000}){
  if(scope!=='DISPOSABLE_SIMULATION'||!Number.isSafeInteger(cooldown_ms)||cooldown_ms<1)throw new Error('LOCAL_ALERT_SINK_REQUIRED')
  const delivered=[],last=new Map()
  return {evaluate(sample,now=Date.now()){
-  if(!components.has(sample?.component)||!['PASS','DEGRADED'].includes(sample.status)||!Array.isArray(sample.reasons)||sample.reasons.some(r=>!/^((MISSING|THRESHOLD)_(ERRORS|QUEUE_DEPTH|DURATION_MS|AGE_SECONDS|EXPIRY_SECONDS|RETRY_COUNT)|PROVIDER_UNAVAILABLE)$/.test(r)))throw new Error('ALERT_SAMPLE_INVALID')
+  if(!components.has(sample?.component)||!['PASS','DEGRADED'].includes(sample.status)||!Array.isArray(sample.reasons)||sample.reasons.some(r=>!/^((MISSING|THRESHOLD)_(ERRORS|QUEUE_DEPTH|DURATION_MS|AGE_SECONDS|EXPIRY_SECONDS|RETRY_COUNT|REQUEST_COUNT|INPUT_TOKENS|OUTPUT_TOKENS)|PROVIDER_UNAVAILABLE)$/.test(r)))throw new Error('ALERT_SAMPLE_INVALID')
   const key=hash(`${sample.component}:${sample.reasons.join(',')}`)
   if(sample.status==='PASS'){last.delete(sample.component);return {status:'HEALTHY',external_delivery_proven:false}}
   const prior=last.get(sample.component)

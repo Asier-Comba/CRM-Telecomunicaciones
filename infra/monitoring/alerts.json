@@ -9,9 +9,19 @@
     {"event": "migration_failed", "source": "protected workflow", "severity": "critical"},
     {"event": "provider_unavailable", "source": "safeEvent", "severity": "warning"},
     {"event": "queue_backlog", "source": "W3 accepted worker metrics pending", "severity": "warning"},
-    {"event": "http_error_rate", "source": "proxy aggregate status codes", "severity": "warning"}
+    {"event": "http_error_rate", "source": "proxy aggregate status codes", "severity": "warning"},
+    {"event": "auth_unavailable", "source": "accepted Auth metadata probe pending", "severity": "critical", "owner": "company identity owner", "action": "ENTERPRISE_INCIDENTS.md Auth unavailable"},
+    {"event": "database_unavailable", "source": "accepted database metadata probe pending", "severity": "critical", "owner": "company platform owner", "action": "ENTERPRISE_INCIDENTS.md DB outage"},
+    {"event": "storage_unavailable", "source": "accepted private Storage authorization probe pending", "severity": "critical", "owner": "company platform owner", "action": "ENTERPRISE_INCIDENTS.md Storage outage"},
+    {"event": "backup_overdue", "source": "approved backup-age metric contract", "severity": "critical", "owner": "company recovery owner", "action": "Verify selected encrypted backup/readback; block promotion; no destructive restore"},
+    {"event": "ai_degraded_or_budget", "source": "aggregate requests/input-output tokens/duration/errors; approved model digest", "severity": "warning", "owner": "company AI owner", "action": "Inspect W3 accepted provider quota/kill-switch policy; no prompt or tenant labels"},
+    {"event": "worker_stuck", "source": "W3 accepted queue/lease/retry metrics pending", "severity": "critical", "owner": "company AI owner", "action": "Stop new claims with accepted kill switch; reconcile original confirmed operations"},
+    {"event": "n8n_unavailable", "source": "accepted n8n readiness probe pending", "severity": "warning", "owner": "company automation owner", "action": "Keep effects disabled; inspect exact image/config/PG/key identity"},
+    {"event": "crm_mail_backlog", "source": "accepted durable CRM outbox depth/retry/receipt metrics pending", "severity": "warning", "owner": "company mail owner", "action": "Pause new dispatch; inspect consent/authority/receipt; do not blindly resend"},
+    {"event": "deployment_failed", "source": "protected exact-artifact deployment result", "severity": "critical", "owner": "company release owner", "action": "Abort traffic switch; verify previous image compatibility and pending effects"},
+    {"event": "tls_expiring", "source": "exact selected domain certificate expiry metric", "severity": "critical", "owner": "company domain owner", "action": "Verify renewal, authority and exact certificate chain; no DNS mutation by monitor"}
   ],
-  "labels_allowed": ["environment", "component", "status", "model"],
+  "labels_allowed": ["environment", "component", "status", "approved_model_digest", "deployment_sha", "random_internal_correlation"],
   "labels_forbidden": ["tenant", "customer", "email", "phone", "MSISDN", "ICCID", "invoice", "JWT", "prompt", "request_body"],
   "thresholds": "Set from approved company service objectives and measured baseline. No implied SLA."
 }

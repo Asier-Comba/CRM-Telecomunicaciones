@@ -55,7 +55,8 @@ try{
  prove(docker(['exec',app,'node','-e',keyTest]).trim()==='PASS','MOUNTED_ENCRYPTION_KEY_BOUND')
  stage='OWNER_SETUP';const setup=await request('/rest/owner/setup',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({email:'owner@example.invalid',firstName:'Synthetic',lastName:'Owner',password:randomBytes(24).toString('base64url')+'Aa1!'})});prove(setup.ok,'SYNTHETIC_OWNER_SETUP')
  const workflow=readJson('infra/n8n/synthetic-health.json');prove(validateWorkflow(workflow).status==='VALID','ONLY_REGISTERED_NOOP_IMPORT')
- stage='REGISTERED_IMPORT';writeFileSync(join(scratch,'workflow.json'),JSON.stringify({...workflow,id:'synthetic-health-v1'}),{mode:0o600});docker(['cp',join(scratch,'workflow.json'),`${app}:/tmp/workflow.json`]);docker(['exec',app,'n8n','import:workflow','--input=/tmp/workflow.json'])
+ stage='REGISTERED_FILE_WRITE';docker(['exec',app,'node','-e',"require('fs').writeFileSync('/tmp/workflow.json',process.argv[1],{mode:0o600})",JSON.stringify({...workflow,id:'synthetic-health-v1'})]);prove(docker(['exec',app,'node','-e',"const s=require('fs').statSync('/tmp/workflow.json');process.stdout.write(s.uid===1000&&(s.mode&0o777)===0o600?'PASS':'FAIL')"]).trim()==='PASS','REGISTERED_IMPORT_FILE_PRIVATE_UID')
+ stage='REGISTERED_IMPORT';docker(['exec',app,'n8n','import:workflow','--input=/tmp/workflow.json'])
  stage='INACTIVE_EXPORT_AND_RESTART'
  const first=snapshot();docker(['restart',app]);prove(await ready(),'ACTUAL_PROCESS_RESTART_READY');prove(snapshot()===first,'WORKFLOW_PERSISTED_AFTER_PROCESS_RESTART');prove(docker(['exec',app,'node','-e',keyTest]).trim()==='PASS','KEY_PERSISTED_AFTER_PROCESS_RESTART')
  docker(['restart',db]);docker(['restart',app]);prove(await ready(),'ACTUAL_DATABASE_AND_PROCESS_RESTART_READY');prove(snapshot()===first,'WORKFLOW_PERSISTED_AFTER_DATABASE_RESTART')
