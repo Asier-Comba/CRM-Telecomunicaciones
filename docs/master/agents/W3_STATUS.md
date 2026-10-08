@@ -1,4 +1,18 @@
-# W3 AI product v2 — checkpoint G candidate, 2026-10-07
+# W3 AI product v2 — recovery and current W2 sync, 2026-10-08
+
+## Current checkpoint (supersedes historical pending statements below)
+
+Interrupted G+H publication is complete at remote `7b2401ae574e619fbd4b379c585bd2251a91011f`; fetched tree exactly equals tested local `5dc7581`. No code/test/contract changes were lost: the missing two status/handoff documents are published. Recovery rerun391 bootstrap +473 assistant =864 PASS. PR31 and PR9 remain Draft; Issue10 OPEN. W2/W4 comments were published in PR30 and Issue10.
+
+Exact CI470/run `37793509341`: native PostgreSQL fresh/strict restore `113366818399` PASS (including retained column ACL equality and deliberate no-ACL rejection); embedded/migrations/guardrails/secrets/preview/Windows PASS. Quality `113366818577` passes lint/types/tests/build and fails enforced audit with **6 HIGH** entries. This supersedes the historical5: the existing tooling chain plus newly reported runtime Next16.3.6 advisories. Local current audit independently confirms6HIGH; Issue29 updated for W4 remediation. No audit suppression/forced dependency change. Dependency Review owner configuration remains unfulfilled, skip is not PASS.
+
+Prior G+H Supabase `37695889699/job113047667924` completed FAILURE, failed_stage:w2_product_browser, W2_UI_FAILED_JOURNEYS, teardown:PASS; ten retained W2 journey failures at the old7ab base. Recovery Supabase `37793509248/job113366820592` completed FAILURE5m55s, W2_UI_REAL_BROWSER_LOGIN, failed_stage:w2_product_browser, teardown:PASS. Executed virtual merge `71a7f6f1bb05a82e3e1861c28599ef76c7620792` has parents W2 `782c8fc` and W3 `7b2401a`; this is actual integrated source, not only the W3 head tree. Actual assistant Auth/PostgREST/replay/CAS/revocation and cookie thread lifecycle both PASS; business durability NOT_TESTED. Static markers prove history server released before W2 started. Login has no recorded alert code; cause remains unverified. Native schema/restore evidence is not physical business-effect/process acceptance.
+
+Latest W2 `c21a7c0d405863b0312c6026ba50e989b34bd081` inspected; includes `782c8fc` / source692ba6f plus5-file confirmation-focus/currency-query/report-diagnostic correction. No database migration, server DTO or assistant-core delta. Normal conflict-free local merges; combined source `5b442dd8485b73d2af46fd7f698ff024447412ff` has396 bootstrap +473 assistant =869 PASS; production build and subsequent typecheck PASS, lint0errors/0warnings. Fresh73-migration embedded assistant fixture PASS after W2 sync. Remote PR35 merged normally and exclusively into W3 at `d442ec2de4ff1253b17be232c7eb21d5619fbc1a` after recovery acceptance completed; fetched code tree matches tested source, with only these two recovery docs different. No main/PR31/PR9 merge. W2's previous whole candidate remains84/87 FAILED, current correction not yet accepted.
+
+W3_READY_FOR_W2_READ:NO. W3_READY_FOR_W2_ACTION_CANDIDATE:NO. Persisted selected references, name resolution, rich historical UI, invoice UI end-to-end and physical durable command/audit/outbox adapter are still incomplete. Live40-case provider eval NOT_RUN/provider_not_configured. No assistant writes, sends, stage/prod or Issue10 closure. NEXT: finish exact-head acceptance, publish normal W2 sync and exact tree verification; then resolve W3-owned failures and keep W2-owned UI/dependency handoffs explicit before any feature DB expansion.
+
+## Historical checkpoint record
 
 Current G consumes W2 `7ab6f56f10fc65aa7212ed5dfbdeacea8901756a`; normal remote merge PR33 `1900952`. F remote `e79b0cc1c4980b5034628406cb6cd857438bdec6` was verified tree-identical to local `254510d`, and its publication history is normally merged locally. No force rewrite/main/PR9 merge. Foundation readiness remains NO pending exact native/Supabase completion.
 

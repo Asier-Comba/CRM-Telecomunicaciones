@@ -1,3 +1,9 @@
+# Current recovery handoff — 2026-10-08
+
+G+H code/tests/contracts/status fully published at `7b2401ae574e619fbd4b379c585bd2251a91011f`, fetched tree equal tested5dc7581. UI telemetry providerState remains the four-state per-turn contract; history/turn routes and UIv1 unchanged. Native fresh/strict restore113366818399 PASS; recovery Supabase37793509248/job113366820592 completes FAIL at W2_UI_REAL_BROWSER_LOGIN, teardownPASS. Actual executed merge71a7f6f integrates W2782c8fc: both assistant Auth/PostgREST/revocation and cookie history API PASS, business durabilityNOT_TESTED. History server release marker precedes W2 start; login cause unverified. Audit now6HIGH (new Next runtime entry plus old tooling chain), reported Issue29 without bypass. READ_READY:NO; ACTION_CANDIDATE:NO; physical action durability and live model evidence absent.
+
+Your c21a7c0 /782c8fc /692ba6f source inspected and normally merged; no DTO/schema/core delta.869 local Node tests, build/types and lint0/0 PASS; embedded73 migration fixture PASS. Isolated PR35 merged into W3 at d442ec2 after the previous run completed; code tree exactly matches tested5b442dd, recovery docs publishing separately. No PR31/main/PR9 merge. Your prior84/87 failed product gate stays recorded, current correction is a candidate. No duplicated focus/finance/report implementation. All historical checkpoint statements below are provenance, not current readiness.
+
 # W3 → W2 AI product v2, checkpoint B
 
 Source base c632f0a. New branch w3/ai-product-v2 stacks on w2/product-integration-v2; PR9 remains isolated Draft.
