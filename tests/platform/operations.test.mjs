@@ -10,6 +10,7 @@ test('company config rejects shared admins, unsafe redirects and unapproved back
 test('DNS is read-only and compares exact provider supplied records',async()=>{
  assert.equal((await verifyDns(company(),{TXT:async()=>[['provider-','supplied-value']]})).status,'PASS')
  assert.equal((await verifyDns(company(),{TXT:async()=>[['wrong']]})).status,'BLOCKED')
+ assert.equal((await verifyDns(company(),{TXT:async()=>[['provider-supplied-value'],['unapproved-extra-spf']]})).status,'BLOCKED')
  assert.equal((await verifyDns(company(),{TXT:async()=>{throw new Error('not found')}})).checks[0].status,'UNAVAILABLE')
 })
 test('workflow exports reject credentials, executable code and activated effects',()=>{

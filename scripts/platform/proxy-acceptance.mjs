@@ -17,8 +17,10 @@ try{
  const generated=spawnSync('openssl',['req','-x509','-newkey','rsa:2048','-nodes','-keyout',key,'-out',cert,'-days','1','-subj','/CN=example.invalid','-addext','subjectAltName=DNS:example.invalid'],{stdio:'ignore',timeout:15000});prove(generated.status===0,'LOCAL_CERT_GENERATED')
  const template=readFileSync(join(root,'infra/deployment/nginx.conf.template'),'utf8'),bindings={APP_HOST:'example.invalid',TLS_CERT_PATH:cert,TLS_KEY_PATH:key,NGINX_METADATA_LOG_PATH:log}
  const rendered=template.replace(/\$\{([A-Z_]+)\}/g,(_s,name)=>{if(!bindings[name])throw new Error('PROXY_BINDING_MISSING');return bindings[name]}).replace('listen 80 default_server','listen 18080 default_server').replace('listen 443 ssl','listen 18443 ssl')
- const config=join(scratch,'nginx.conf');writeFileSync(config,`pid ${scratch}/nginx.pid;\nevents {}\nhttp {\n${rendered}\n}\n`)
- prove(spawnSync('nginx',['-p',scratch,'-c',config,'-t'],{stdio:'ignore'}).status===0,'ACTUAL_NGINX_SYNTAX')
+ const config=join(scratch,'nginx.conf');writeFileSync(config,`pid ${scratch}/nginx.pid;\nerror_log stderr crit;\nevents {}\nhttp {\naccess_log off;\nclient_body_temp_path ${scratch}/client_body;\nproxy_temp_path ${scratch}/proxy_temp;\nfastcgi_temp_path ${scratch}/fastcgi_temp;\nuwsgi_temp_path ${scratch}/uwsgi_temp;\nscgi_temp_path ${scratch}/scgi_temp;\n${rendered}\n}\n`)
+ const syntax=spawnSync('nginx',['-p',scratch,'-c',config,'-t'],{encoding:'utf8'})
+ if(syntax.status!==0)throw new Error(/Permission denied/.test(syntax.stderr??'')?'NGINX_SYNTAX_PERMISSION':/unknown directive|invalid parameter|invalid number/.test(syntax.stderr??'')?'NGINX_SYNTAX_DIRECTIVE':'ACTUAL_NGINX_SYNTAX')
+ prove(true,'ACTUAL_NGINX_SYNTAX')
  server=createServer((req,res)=>{
   if(req.url.startsWith('/api/headers')){res.setHeader('Cache-Control','public,max-age=999');res.end(JSON.stringify({host:req.headers.host,forwarded_host:req.headers['x-forwarded-host'],proto:req.headers['x-forwarded-proto'],client:req.headers['x-forwarded-for']}))}
   else if(req.url==='/api/events'){res.writeHead(200,{'Content-Type':'text/event-stream','Cache-Control':'public'});res.write('data: first\n\n');setTimeout(()=>res.end('data: final\n\n'),2000)}

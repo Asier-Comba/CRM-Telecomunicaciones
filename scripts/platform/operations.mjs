@@ -38,7 +38,8 @@ export async function verifyDns(company,resolvers={TXT:resolveTxt,MX:resolveMx,C
  const results=[]
  for(const r of company.dns){
   try{const values=(await resolvers[r.type](r.name)).map(v=>Array.isArray(v)?v.join(''):r.type==='MX'?`${v.priority} ${v.exchange.replace(/\.$/,'')}`:String(v).replace(/\.$/,''))
-   results.push({type:r.type,status:r.expected.every(v=>values.includes(v))?'PASS':'FAIL'})
+   const normalize=v=>['CNAME','MX'].includes(r.type)?v.toLowerCase():v
+   results.push({type:r.type,status:JSON.stringify(values.map(normalize).sort())===JSON.stringify(r.expected.map(normalize).sort())?'PASS':'FAIL'})
   }catch{results.push({type:r.type,status:'UNAVAILABLE'})}
  }
  return {status:results.every(r=>r.status==='PASS')?'PASS':'BLOCKED',checks:results}

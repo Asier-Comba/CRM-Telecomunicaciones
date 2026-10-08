@@ -19,6 +19,7 @@ export function createWebhookContract({scope,key,authorize,maxQueue=10,timeoutMs
     const proof=await Promise.race([authorize({tenant:p.tenant,actor:p.actor,signal:controller.signal}),new Promise((_r,reject)=>{timer=setTimeout(()=>{controller.abort();reject(new Error('WEBHOOK_AUTHORIZATION_TIMEOUT'))},timeoutMs)})])
     if(proof?.tenant!==p.tenant||proof?.actor!==p.actor||proof?.authorized!==true)throw new Error('WEBHOOK_AUTHORIZATION_REQUIRED')
    }finally{clearTimeout(timer)}
+   if(closed)throw new Error('WEBHOOK_CLOSED')
    // Recheck after await: concurrent authorizations cannot race nonce/capacity.
    if(used.has(digest))throw new Error('WEBHOOK_REPLAY_FORBIDDEN')
    if(queue.size>=maxQueue)throw new Error('WEBHOOK_QUEUE_LIMIT')

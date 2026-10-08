@@ -38,7 +38,7 @@
     "properties": [
       {
         "name": "crm:package-lock:sha256",
-        "value": "e0670a3fa7acd1d7318389f5220d79b9336c82344ff423f9114f5d9502e0c06e"
+        "value": "d600a0a0246de12b2dc6fc0774338d01051d2574b28325e4d87d5edab0962f53"
       },
       {
         "name": "crm:scope",
@@ -2560,12 +2560,12 @@
       ]
     },
     {
-      "bom-ref": "@next/eslint-plugin-next@16.2.4",
+      "bom-ref": "@next/eslint-plugin-next@16.3.8",
       "type": "library",
       "name": "@next/eslint-plugin-next",
-      "version": "16.2.4",
+      "version": "16.3.8",
       "scope": "optional",
-      "purl": "pkg:npm/%40next/eslint-plugin-next@16.2.4",
+      "purl": "pkg:npm/%40next/eslint-plugin-next@16.3.8",
       "properties": [
         {
           "name": "cdx:npm:package:path",
@@ -2579,13 +2579,13 @@
       "externalReferences": [
         {
           "type": "distribution",
-          "url": "https://registry.npmjs.org/@next/eslint-plugin-next/-/eslint-plugin-next-16.2.4.tgz"
+          "url": "https://registry.npmjs.org/@next/eslint-plugin-next/-/eslint-plugin-next-16.3.8.tgz"
         }
       ],
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "b4e5fcdba249f7a8182bf828d7cb0f52032af452b5b6ac4115f50212e7c96f95c89161459a9814ee66a124034a1a41ecec5e358abded45e2772efe4b6b446f84"
+          "content": "78247d45c2d366b552f8adfe54e862d3131d51418dbab8821c7854d59a00042fd043f1a9d0e59b2ca431576ffd0e49a285875845c4161666575bc33500c51763"
         }
       ],
       "licenses": [
@@ -8664,12 +8664,12 @@
       ]
     },
     {
-      "bom-ref": "eslint-config-next@16.2.4",
+      "bom-ref": "eslint-config-next@16.3.8",
       "type": "library",
       "name": "eslint-config-next",
-      "version": "16.2.4",
+      "version": "16.3.8",
       "scope": "optional",
-      "purl": "pkg:npm/eslint-config-next@16.2.4",
+      "purl": "pkg:npm/eslint-config-next@16.3.8",
       "properties": [
         {
           "name": "cdx:npm:package:path",
@@ -8683,13 +8683,13 @@
       "externalReferences": [
         {
           "type": "distribution",
-          "url": "https://registry.npmjs.org/eslint-config-next/-/eslint-config-next-16.2.4.tgz"
+          "url": "https://registry.npmjs.org/eslint-config-next/-/eslint-config-next-16.3.8.tgz"
         }
       ],
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "03a7a45d8163fd843104f325e398377be53ccc9a3e5f6f99430733df8a4f2a3a5cff74b8ae8040d9177dc5607814ab92c61a1fa35ffde568f399463ec07ace86"
+          "content": "f35be8bf031ee8d1a7a05b25d0a5095b3952fb2db7f62ddf76cc6ce3d812117de90d05b672e2b2f9fc543d736442aab1e8e08f85e60fb41952b9f73d699d24fb"
         }
       ],
       "licenses": [
@@ -9511,12 +9511,12 @@
       ]
     },
     {
-      "bom-ref": "fastq@1.20.1",
+      "bom-ref": "fastq@1.20.3",
       "type": "library",
       "name": "fastq",
-      "version": "1.20.1",
+      "version": "1.20.3",
       "scope": "optional",
-      "purl": "pkg:npm/fastq@1.20.1",
+      "purl": "pkg:npm/fastq@1.20.3",
       "properties": [
         {
           "name": "cdx:npm:package:path",
@@ -9530,13 +9530,13 @@
       "externalReferences": [
         {
           "type": "distribution",
-          "url": "https://registry.npmjs.org/fastq/-/fastq-1.20.1.tgz"
+          "url": "https://registry.npmjs.org/fastq/-/fastq-1.20.3.tgz"
         }
       ],
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "1864e8c49ff0d71df6b3f0f610a343ee44e29789fc39593ff66c9c4dce150f36b5de53afa54653197de61520ad57d92c746055cefb320152ccea61c54e1c57c7"
+          "content": "5cabf99e72ecea72c5ef536088a24b21914b90fc8812e3ac7a52c6eee8d99c6ad17d02bc1e9bd8f96a8a84025401d2e89b054712b552e0b7f11653ead3f15303"
         }
       ],
       "licenses": [
@@ -18346,8 +18346,9 @@
       "dependsOn": []
     },
     {
-      "ref": "@next/eslint-plugin-next@16.2.4",
+      "ref": "@next/eslint-plugin-next@16.3.8",
       "dependsOn": [
+        "@eslint-community/eslint-utils@4.9.1",
         "fast-glob@3.3.1"
       ]
     },
@@ -18398,7 +18399,7 @@
       "ref": "@nodelib/fs.walk@1.2.8",
       "dependsOn": [
         "@nodelib/fs.scandir@2.1.5",
-        "fastq@1.20.1"
+        "fastq@1.20.3"
       ]
     },
     {
@@ -19120,7 +19121,7 @@
         "@types/react-dom@19.2.3",
         "@types/react@19.2.14",
         "clsx@2.1.1",
-        "eslint-config-next@16.2.4",
+        "eslint-config-next@16.3.8",
         "eslint@9.39.4",
         "framer-motion@12.38.0",
         "lucide-react@1.14.0",
@@ -19445,9 +19446,9 @@
       "dependsOn": []
     },
     {
-      "ref": "eslint-config-next@16.2.4",
+      "ref": "eslint-config-next@16.3.8",
       "dependsOn": [
-        "@next/eslint-plugin-next@16.2.4",
+        "@next/eslint-plugin-next@16.3.8",
         "eslint-import-resolver-node@0.3.10",
         "eslint-import-resolver-typescript@3.10.1",
         "eslint-plugin-import@2.32.0",
@@ -19683,7 +19684,7 @@
       "dependsOn": []
     },
     {
-      "ref": "fastq@1.20.1",
+      "ref": "fastq@1.20.3",
       "dependsOn": [
         "reusify@1.1.0"
       ]

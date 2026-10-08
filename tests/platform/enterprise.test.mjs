@@ -13,6 +13,7 @@ test('ownership rejects personal accounts, shared or missing MFA administrators 
 test('read-only preflight never emits input secrets or grants provider, W4, staging acceptance',()=>{
  const r=companyPreflight(configuration(),{SMTP_PASSWORD:'canary-private',NEXT_PUBLIC_SUPABASE_URL:'https://wrong.invalid'},{w4:'APPROVED'})
  assert.equal(r.status,'CONFIGURATION_MISSING');assert.equal(r.readiness.staging,'NOT_PROVEN');assert.equal(r.mutation_performed,false);assert.equal(r.rpo_rto,'UNAPPROVED');assert.ok(r.providers.every(p=>p.status==='PROVIDER_UNAVAILABLE'));assert.ok(!JSON.stringify(r).includes('canary-private'));assert.equal(r.security,'EXACT_SOURCE_REVIEW_STILL_REQUIRED')
+ assert.ok(r.errors.includes('PROVIDER_CHOICE_REQUIRED_HOSTING'))
 })
 test('interrupted simulation resumes with identical idempotency keys; repeats have zero effects',async()=>{
  const plan=enterprisePlan(configuration(),sha),calls=[]
@@ -20,7 +21,7 @@ test('interrupted simulation resumes with identical idempotency keys; repeats ha
  const adapters={scope:'DISPOSABLE_SIMULATION',...Object.fromEntries(phases.map(phase=>[phase,async({idempotency_key})=>{calls.push({phase,key:idempotency_key});if(phase==='CONFIGURE'&&interrupted)throw new Error('canary-private');return {status:'SIMULATED_PASS',idempotency_key,secret:'canary-private'}}]))}
  const first=await simulateEnterprise(plan,null,adapters);assert.equal(first.status,'BLOCKED');assert.equal(first.phases.at(-1).phase,'CONFIGURE');assert.ok(!JSON.stringify(first).includes('canary-private'))
  interrupted=false;const resumed=await simulateEnterprise(plan,first,adapters);assert.equal(resumed.status,'SIMULATED_PASS');assert.equal(resumed.phases.length,7);assert.equal(calls.filter(c=>c.phase==='PROVISION').length,1);const keys=calls.filter(c=>c.phase==='CONFIGURE').map(c=>c.key);assert.equal(keys[0],keys[1]);const count=calls.length;await simulateEnterprise(plan,resumed,adapters);assert.equal(calls.length,count)
- const dir=mkdtempSync(join(tmpdir(),'w5-enterprise-'));try{saveState(join(dir,'state.json'),resumed);assert.equal(JSON.parse(readFileSync(join(dir,'state.json'))).production,'NOT_PROVEN')}finally{rmSync(dir,{recursive:true,force:true})}
+ const dir=mkdtempSync(join(tmpdir(),'w5-enterprise-'));try{saveState(join(dir,'state.json'),resumed);assert.equal(JSON.parse(readFileSync(join(dir,'state.json'))).production,'NOT_PROVEN');assert.throws(()=>saveState(join(dir,'unsafe.json'),{...resumed,source_sha:'private-canary'}),/UNSAFE_STATE/);assert.throws(()=>saveState(join(dir,'unsafe.json'),{...resumed,audit:[{phase:'private-canary',status:'BLOCKED'}]}),/UNSAFE_STATE/)}finally{rmSync(dir,{recursive:true,force:true})}
 })
 test('target/source/config drift, missing adapter, malformed order and hosted execution fail closed',async()=>{
  const plan=enterprisePlan(configuration(),sha)

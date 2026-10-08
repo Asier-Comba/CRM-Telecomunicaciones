@@ -20,3 +20,6 @@ test('authorization timeout/unavailable does not consume nonce; enabled/tampered
  const g=fixture();for(const state of [{...g.gateway.checkpoint(),effects_enabled:true},{...g.gateway.checkpoint(),private:'canary'},{...g.gateway.checkpoint(),used:['invalid']}])assert.throws(()=>g.gateway.resume(state),/INVALID/)
  g.gateway.shutdown();await assert.rejects(()=>g.gateway.ingest(body,g.sign(body),p.at),/CLOSED/)
 })
+test('shutdown during authorization prevents capture after a late authority reply',async()=>{
+ let complete;const f=fixture({authorize:p=>new Promise(r=>{complete=()=>r({...p,authorized:true})})}),p=payload(),body=JSON.stringify(p),pending=f.gateway.ingest(body,f.sign(body),p.at);f.gateway.shutdown();complete();await assert.rejects(()=>pending,/CLOSED/);assert.equal(f.gateway.checkpoint().queue.length,0)
+})

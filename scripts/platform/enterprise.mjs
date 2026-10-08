@@ -31,7 +31,8 @@ export function publicConfiguration(c){
 export function companyPreflight(c,env={},evidence={}){
  const publicErrors=publicConfiguration(c),base=companyState(c?.company,env)
  const missing=base.errors.filter(e=>e.startsWith('MISSING_'))
- const errors=[...new Set([...publicErrors,...base.errors])]
+ const providerChoices=['human_mail','hosting','backup'].filter(k=>c?.choices?.[k]==='UNSELECTED').map(k=>`PROVIDER_CHOICE_REQUIRED_${k.toUpperCase()}`)
+ const errors=[...new Set([...publicErrors,...base.errors,...providerChoices])]
  const providers=base.providers.map(p=>({name:p.name,status:'PROVIDER_UNAVAILABLE',configuration:p.status}))
  const security=evidence.w4==='APPROVED'?'EXACT_SOURCE_REVIEW_STILL_REQUIRED':'SECURITY_REVIEW_REQUIRED'
  return {version:3,status:errors.length?(publicErrors.length?'BLOCKED':'CONFIGURATION_MISSING'):'READY_FOR_CONFIGURATION',errors,missing,providers,security,readiness:{configuration:errors.length?'BLOCKED':'READY_FOR_CONFIGURATION',staging:'NOT_PROVEN',production:'NOT_PROVEN'},mutation_performed:false,values_included:false,governance:'DECLARED_NOT_VERIFIED',rpo_rto:c?.recovery_policy?.approval==='COMPANY_APPROVED'?'APPROVAL_REFERENCE_NOT_VERIFIED':'UNAPPROVED'}
@@ -66,7 +67,7 @@ export async function simulateEnterprise(plan,state,adapters){
 }
 export function saveState(path,state){
  // State contains phase metadata only, never provider responses or credentials.
- if(state?.version!==3||state.hosted_mutation_performed!==false)throw new Error('UNSAFE_STATE')
+ if(state?.version!==3||state.hosted_mutation_performed!==false||!shaPattern.test(state.source_sha??'')||!/^[a-f0-9]{64}$/.test(state.binding??'')||!['STAGING','PROD'].includes(state.target)||!['BLOCKED','SIMULATED_PASS','NOT_RUN'].includes(state.status)||!Array.isArray(state.phases)||!Array.isArray(state.audit)||[...state.phases,...state.audit].some(p=>!phases.includes(p.phase)||!['BLOCKED','SIMULATED_PASS'].includes(p.status)||p.idempotency_key&&!/^[a-f0-9]{64}$/.test(p.idempotency_key)))throw new Error('UNSAFE_STATE')
  const clean={version:3,binding:state.binding,source_sha:state.source_sha,target:state.target,status:state.status,phases:state.phases.map(p=>({phase:p.phase,status:p.status,...(p.idempotency_key?{idempotency_key:p.idempotency_key}:{})})),audit:state.audit.map(p=>({phase:p.phase,status:p.status})),hosted_mutation_performed:false,staging:'NOT_PROVEN',production:'NOT_PROVEN'}
  writeFileSync(`${path}.tmp`,JSON.stringify(clean,null,2)+'\n',{mode:0o600,flag:'wx'});renameSync(`${path}.tmp`,path)
 }
@@ -85,6 +86,6 @@ async function init(path){
 if(process.argv[1]&&pathToFileURL(resolve(process.argv[1])).href===import.meta.url){
  try{const [command,path]=process.argv.slice(2)
  if(command==='init'){if(!path)throw new Error('PUBLIC_CONFIG_PATH_REQUIRED');await init(path)}
- else {const c=path?JSON.parse(readFileSync(path,'utf8')):{};const result=command==='plan'?enterprisePlan(c,run('git',['rev-parse','HEAD']).trim()):companyPreflight(c,process.env);console.log(JSON.stringify(result,null,2));if(command!=='plan'&&result.status!=='READY_FOR_CONFIGURATION')process.exitCode=1}
+ else {if(!['plan','preflight'].includes(command))throw new Error('UNKNOWN_ENTERPRISE_COMMAND');const c=path?JSON.parse(readFileSync(path,'utf8')):{};const result=command==='plan'?enterprisePlan(c,run('git',['rev-parse','HEAD']).trim()):companyPreflight(c,process.env);console.log(JSON.stringify(result,null,2));if(command!=='plan'&&result.status!=='READY_FOR_CONFIGURATION')process.exitCode=1}
  }catch(e){console.error(JSON.stringify({status:'BLOCKED',error:safeError(e),mutation_performed:false}));process.exitCode=1}
 }
