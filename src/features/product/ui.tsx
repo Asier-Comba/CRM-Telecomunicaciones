@@ -127,6 +127,7 @@ const statusNames: Readonly<Record<string, string>> = {
     inactive: 'Inactivo',
     suspended: 'Suspendido',
     draft: 'Borrador',
+    issued: 'Emitida', paid: 'Cobrada', trashed: 'Papelera',
     expired: 'Caducada', pending: 'Pendiente',
     in_progress: 'En curso',
     open: 'Abierta',
@@ -140,9 +141,9 @@ export function Status({ value }: { value: string }) {
   return (
     <Badge
       variant={
-        ['active', 'won', 'completed'].includes(value)
+        ['active', 'won', 'completed', 'paid'].includes(value)
           ? 'success'
-          : ['suspended', 'lost'].includes(value)
+          : ['suspended', 'lost', 'overdue'].includes(value)
             ? 'warning'
             : 'default'
       }
