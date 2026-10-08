@@ -33,9 +33,10 @@ message. The unchanged client mapping was independently exercised locally and
 returned unavailable with the former text. Existing failure capture shows the
 confirmed command lock after completion; this capture alone is not root proof.
 
-Unchanged-source rerun37847534309 was dispatched before the correction. Its real
-Supabase/browser result is pending at this checkpoint. Local response injection
-is a focused client-boundary reproduction, not Supabase or complete product proof.
+Unchanged-source rerun37847534309 was dispatched before the correction and has
+now independently reproduced exactly106/107 at99f1417, with the same completion
+gate TIMEOUT. Actual3349 backend and227 takeover checks and teardown PASS. Local
+response injection is supplementary client-boundary reproduction.
 
 ## Change and retained controls
 
@@ -51,12 +52,34 @@ history, viewer denial and1440/768/390 captures. No retry or timeout was increas
 No application code, RPC, migration, authorization, CAS, idempotency or provider
 behavior changed. Shared contracts and their consumers are unchanged.
 
+First candidate fdb020e failed full run37848141848 at its tree-identical checkout
+e8cfe49fae377c52fcb72b08e434c697e2ff406f:105/107, teardown PASS. The new global
+alert locator was ambiguous; this is not an accepted correction. It now requires
+exactly one visible alert containing the closed unavailable message, then asserts
+its entire text exactly. Other unrelated alerts cannot satisfy that assertion.
+No first/nth locator or relaxed text assertion is used.
+
+The other failure was equipment collection TIMEOUT. Its failure capture still
+shows the default customer panel; no equipment result was proven. The harness now
+requires the normal scoped summary response and loaded summary DOM before
+selecting Equipment, then requires the tab's selected state. Named substeps
+distinguish foundation, selection, cursor, filter and viewport failures. Existing
+20+3 exact rows, no duplicates, empty filter, reset, three widths and lifecycle
+checks remain unchanged. This readiness guard is a candidate pending full rerun;
+the screenshot alone does not prove a framework-level root cause.
+
 ## Evidence and limits
 
 Clean lockfile installation completed locally on Node24.12.0/npm11.6.2.
 Full dependency audit reports5HIGH through braces/micromatch/fast-glob/Next lint.
-No suppression or downgrade. Lint/types/tests/build are pending completion;
-corrected whole-source Supabase and W2/W3 composition are NOT_YET_PROVEN.
+No suppression or downgrade. At fdb020e, Linux CI37848141921 lint/types/405 Node
+tests/build PASS; full audit alone FAIL. Local lint/types/build PASS, Windows Node
+400/405 FAIL: five disposable staging tests reject short temporary-path aliases
+and unavailable POSIX private modes. No checks were skipped or weakened. Windows
+launcher, native PostgreSQL, PGlite, preview, secrets, migration/guardrails and
+private browser bundle PASS in CI. Dependency review/critical dependent job are
+SKIPPED, not PASS. Corrected whole-source Supabase and W2/W3 composition remain
+NOT_YET_PROVEN; first-candidate results do not transfer to subsequent changes.
 
 Windows has15.7GB RAM, initially3.45GB available. Heavy checks run sequentially.
 Docker remains stopped to avoid memory saturation; native PostgreSQL and real
