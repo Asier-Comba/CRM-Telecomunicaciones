@@ -53,3 +53,6 @@ was verified without login/start. VPS/production and external sends are untouche
 Next three: prove SSR-to-interactive readiness locally and actual Auth in CI;
 consume the accepted fix by normal W3 composition and require all107 groups;
 integrate accepted Customer360/billing presentation changes with that composition.
+## Terminal exact-source evidence
+
+Source `55fa568581b7798d42dfcb2774533f1764215b58`, executed `3a7f252e12e2f6bdabfafc0137196842c70c8240`, source-identical tree `ed4679a222161907338f31234adf6e3f602692c0`: Supabase37853592165/job113572590749 **107/107**, Auth200,3349+227,70 migrations,teardownPASS. Exact quality405/lint/types/buildPASS; audit5HIGH FAIL. Later exact composed history source92ea85c passes107/107 and actual Auth/history/browser; new merges still need their own evidence. Detailed ledger: W2_W3_ACCEPTANCE_LEDGER_20261009.md. Older failures below remain historical evidence, not current source acceptance.

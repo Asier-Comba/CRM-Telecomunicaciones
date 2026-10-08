@@ -75,3 +75,7 @@ actual history and product captures and request independent W4 review through
 GitHub; connect grounded read/context semantics only after their own contracts and
 gates, leaving invoice/business writes disabled. Broader product/local acceptance
 and live model quality remain unfinished.
+
+## Terminal actual consumer evidence
+
+Source `92ea85c718cb685fa1de140eda7e1e37a85b904e`, executed `0d6ed4ab70d77d58e7a777be631a34299f3d59ab`, tree `d6a7ccc3ea7d76ab7934142ed191377e6ad7fa0e` equals source. Supabase37855856474/job113579731794 **107/107**, Auth200,3468+227,73 migrations, backend/API and new actual browser history/CAS/pagination/revocation PASS, teardownPASS. Quality410+481/lint/types/buildPASS; audit5HIGH FAIL. Real browser artifact11584363276 reviewed at desktop/mobile: literal injection remains inert, persisted displays work, mobile rename input needs separate presentation correction PR45. These results supersede pending consumer evidence for this exact source only. Separate Windows CLI fix PR43 is now normally composed; full local assistant482/482 on the composition, but its fresh whole remote gate remains pending. See W2_W3_ACCEPTANCE_LEDGER_20261009.md. Business durability/provider live/context/invoice/W4/local full product gates remain unfinished.

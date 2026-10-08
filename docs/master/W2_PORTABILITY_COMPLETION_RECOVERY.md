@@ -113,3 +113,7 @@ composition with history/Auth/revocation preserved; investigate Issue29 compatib
 remediation while retaining the enforced full audit. Resume by fetching remote
 HEADs, checking the worktree, PR comments and the latest terminal run at its actual
 executed SHA. Update this checkpoint with final source/run before acceptance.
+
+## Terminal portability evidence
+
+The preceding pending text is superseded for exact source `d5f1ab7a53ad717c80e1c20077140edd346ec699`: Supabase37853501369/job113572037773 executed `fdb3eed4cf36b1d3da8ded4a4704afb441cfd0f4`, source-identical tree `6ba1e3849097dea0d0ec1ab7d6150862c5752ea0`, **107/107**, Auth200,3349+227,70 migrations,teardownPASS. Exact quality405/lint/types/buildPASS; full audit5HIGH FAIL. Entire composed history source92ea85c also passes107/107 with real cookie/browser history. See W2_W3_ACCEPTANCE_LEDGER_20261009.md for exact separate sources and subsequent pending candidates. No broader release/security/local acceptance is inferred.
