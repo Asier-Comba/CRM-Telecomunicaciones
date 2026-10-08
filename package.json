@@ -30,7 +30,10 @@
     "audit:supabase-repro:strict": "node scripts/audit-supabase-reproducibility.mjs --strict",
     "test:e2e:legacy": "playwright test --config playwright.legacy.config.ts",
     "preview:doctor": "node scripts/preview-doctor.mjs",
-    "preview:setup": "node scripts/preview-setup.mjs"
+    "preview:setup": "node scripts/preview-setup.mjs",
+    "company:init": "node scripts/platform/enterprise.mjs init",
+    "company:preflight": "node scripts/platform/enterprise.mjs preflight",
+    "company:plan": "node scripts/platform/enterprise.mjs plan"
   },
   "dependencies": {
     "@supabase/ssr": "^0.10.2",

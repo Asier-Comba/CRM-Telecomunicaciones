@@ -1,0 +1,26 @@
+{
+  "version": 3,
+  "accepted_source": "NONE",
+  "observed": {"W5": "44a6d3375d62e35cd63f4ec201e55d10d0de14c2", "W2": "782c8fc8fd011afce1a49ca761eea46cc9c7a3bd", "W2_product": "692ba6fcc3c78ba3b57a2d8fbc2b8b82317b4b7c", "W3": "7b2401ae574e619fbd4b379c585bd2251a91011f"},
+  "baseline": {"migrations": 71, "public_rpc": 291, "real_supabase_run": 37705364370, "ui_run": 37705364477, "ui": "FAIL_84_OF_87", "dependency_audit": "FAIL_5_HIGH_0_CRITICAL", "host_docker": "UNAVAILABLE"},
+  "items": [
+    {"PHASE":"ENT3-00","MODULE":"live-gap-audit","STATUS":"IMPLEMENTED","NEXT":"Keep exact source and proof distinctions"},
+    {"PHASE":"ENT3-01","MODULE":"W2-W3-compatibility","STATUS":"DEPENDENCY_BLOCKED","NEXT":"Accepted product and physical worker proof; no branch imported"},
+    {"PHASE":"ENT3-02","MODULE":"company-preflight-plan-resume","STATUS":"LOCAL_TESTED","NEXT":"Real provider identity and protected workflow only after independent acceptance"},
+    {"PHASE":"ENT3-03","MODULE":"canonical-Supabase-Auth","STATUS":"BASELINE_PROVEN","NEXT":"Fresh exact-source CI and extended Auth mailbox acceptance"},
+    {"PHASE":"ENT3-04","MODULE":"local-Auth-mail","STATUS":"TODO","NEXT":"Local SMTP confirmation, recovery and invite capture; expiry and redirect rejection"},
+    {"PHASE":"ENT3-05","MODULE":"CRM-mail-sink","STATUS":"TODO","NEXT":"Authorization, allowlist, idempotency, retry, bounce, safe audit"},
+    {"PHASE":"ENT3-06","MODULE":"deployment-proxy","STATUS":"TODO","NEXT":"SSE/private-cache/timeouts and immutable release identity"},
+    {"PHASE":"ENT3-07","MODULE":"n8n","STATUS":"TODO","NEXT":"Optional persistent deployment and closed workflow lifecycle"},
+    {"PHASE":"ENT3-08","MODULE":"AI-worker-contract","STATUS":"DEPENDENCY_BLOCKED","NEXT":"Disabled start-stop/lease/revoke/crash contract owned by W3"},
+    {"PHASE":"ENT3-09","MODULE":"offsite-negative-recovery","STATUS":"TODO","NEXT":"Identity, version, retention and separate-account mock contract"},
+    {"PHASE":"ENT3-10","MODULE":"monitoring-rotation","STATUS":"TODO","NEXT":"Correlated metadata-only alerts and secret rotation test interface"},
+    {"PHASE":"ENT3-11","MODULE":"negative-promotion","STATUS":"TODO","NEXT":"Exact provenance/approvals/identity and drift rejection matrix"},
+    {"PHASE":"ENT3-12","MODULE":"supply-chain","STATUS":"TODO","NEXT":"Reproducible SBOM and exact artifact provenance"},
+    {"PHASE":"ENT3-13","MODULE":"tenant-operations","STATUS":"TODO","NEXT":"Infrastructure onboarding/offboarding, technical privacy and cost policy"},
+    {"PHASE":"ENT3-14","MODULE":"W4-review-packet","STATUS":"TODO","NEXT":"Reproducible findings and independent review checklist"},
+    {"PHASE":"ENT3-15","MODULE":"activation-guide","STATUS":"TODO","NEXT":"ONE_DAY_ACTIVATION public choices, exact destinations and gates"},
+    {"PHASE":"ENT3-16","MODULE":"disposable-full-stack","STATUS":"TODO","NEXT":"Exact-source full CI without hosted effects"},
+    {"PHASE":"ENT3-17","MODULE":"final-evidence-handoff","STATUS":"TODO","NEXT":"Terminal CI proof, ledger, PR handoffs and truthful readiness"}
+  ]
+}
