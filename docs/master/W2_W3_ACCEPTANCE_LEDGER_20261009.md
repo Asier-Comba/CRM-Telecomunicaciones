@@ -19,7 +19,7 @@ The first mandatory portability reproduction/correction and an entire W2/W3 Auth
 
 The owned `codex/w2-w3-portability-composition` now normally merges reviewed, accepted PR44@8961a03 and PR45@c2b3 on accepted PR38 source64cc55f. Code merge `25137561f5d3eed0895fa241208ca33c960bb3a1` precedes this status-only documentation commit. No force push or main merge. Diff against W3 source `972e96c680a39db25ed1555de4eed9b7149925e3` for `src/assistant` and `supabase/migrations` remains empty: core contracts and all73 migrations are unchanged. Independent CLI fix43 and history UI42 are already consumed through normal development-branch merges.
 
-New local composition document5/5, history client3/3 and browser syntax must pass before publication. Full lint/types/tests/build and actual Supabase/history/product107/107 are PENDING on this new source. Accepted executions above belong only to their recorded trees. The predecessor0fa upload106 and first9683 document103 remain historical failures, not current accepted sources. New composition preserves the native Windows prerequisite exit regression plus every real history and W2 journey.
+New local composition document5/5, history client3/3 and both browser scripts syntax: PASS, zero skips. Full lint/types/tests/build and actual Supabase/history/product107/107 are PENDING on this new source. Accepted executions above belong only to their recorded trees. The predecessor0fa upload106 and first9683 document103 remain historical failures, not current accepted sources. New composition preserves the native Windows prerequisite exit regression plus every real history and W2 journey.
 
 ## Independent candidates and failures
 
