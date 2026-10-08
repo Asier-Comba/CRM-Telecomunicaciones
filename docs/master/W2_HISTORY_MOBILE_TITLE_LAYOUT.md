@@ -11,3 +11,7 @@ Candidate validation: changed-file lint and typecheck must pass; fresh actual hi
 The base's exact remote quality passes lint/types,410 bootstrap+481 assistant tests and production build; full audit fails five HIGH under issue #29. The separate Windows prerequisite exit fix is PR #43. AI queries remain unavailable without their separate provider/context gates; business writes stay disabled pending issue #10 and independent W4 approval. Full local Supabase remains resource-blocked.
 
 Next: inspect this candidate's actual mobile input and tablet/desktop captures; compose accepted presentation/history with the reviewed stability fixes; re-run the complete exact-source acceptance without inheriting an older green.
+
+## Terminal presentation evidence
+
+PR45 c2b3f01efd0d4f67309d29c7776c9e732f7d9a16 executes5bf69c024f8bb40e23ca729d4f9214af39e0c1c9, tree742cef73c004f54eb3ab8bc5ab2d4f17563cde68 identical. Actual37858184829/job113587337893:107/107, Auth200,3468+227,73 migrations, real history backend/API/browser and teardownPASS. Quality37858184775 lint/types410+481/buildPASS, audit5HIGH FAIL. Actual artifact11585273631 at390 reviewed: one-line label and full-width input. Prior pending statements are historical and superseded for this exact source only. New composition still requires its own full gate.
