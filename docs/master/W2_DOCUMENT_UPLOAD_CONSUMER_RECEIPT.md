@@ -26,3 +26,11 @@ The invalid HTML drop now additionally observes zero content POST requests durin
 - Full dependency audit remains blocked by issue #29 (five HIGH); physical assistant business durability and independent W4 approval remain pending issue #10. AI business writes remain disabled. No W4/W5 infrastructure or production change.
 
 Next: collect actual candidate upload timings and full integration; consume the isolated change into W2/W3 only after reviewing its diff and evidence; diagnose any remaining independent browser failure before declaring compatibility.
+
+## First candidate failure and correction
+
+Source `9683cade9f15c5af1ec96f80eac29910f19aa1f7`, executed `58583887580b59360b06860388e2f1cca3efb0ba`, run37857065647/job113583674471: **103/107**, Auth200, backend3409+227,73 migrations, history/backend cookie lifecycle PASS and teardown PASS. Both preparation checks fail ACTION_FAILED, and the dependent uncreated-document ticket cases time out. No upload observation exists, because this candidate stopped before transferring bytes. Its capture shows the correctly prepared UI. This is a defect introduced in the test consumer, not evidence of a backend upload defect.
+
+`DocumentContentServiceV1.execute` publishes `{ok:true,receipt}` for preparation and finalization, whereas `upload` publishes `{ok:true,data}`. The first candidate wrongly required `data` for all three. Corrected checks require the existing exact `receipt` envelope for commands and retain the exact `data` upload envelope. A new transport regression executes the real content HTTP/service adapters with a deterministic unit port and checks preparation, finalization and binary envelope distinctions: document tests **5/5 PASS**, zero skips. This unit port is not claimed as real DB/Auth acceptance. Closed assertion tags now survive reporting without serializing receipt/ID diffs. All checks, budgets, real CAS and persistence requirements remain.
+
+The failed first candidate is not accepted. Corrected source requires a new full actual Supabase run and its own quality evidence. Separately, history UI source92ea85c718cb685fa1de140eda7e1e37a85b904e on PR42 passed107/107 with actual cookie/browser history/CAS/pagination/revocation; this does not validate the changed document consumer.

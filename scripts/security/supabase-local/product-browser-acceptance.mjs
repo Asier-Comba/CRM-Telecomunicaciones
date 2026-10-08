@@ -35,6 +35,7 @@ export async function productBrowserAcceptance({ users, wa, ca, sql, url, anon, 
   let browser, context, page; const checks=[],failures=[]
   const safeOperations=new Set([...JSON.parse(readFileSync('docs/master/contracts/product-capabilities.json','utf8')).operations,...JSON.parse(readFileSync('docs/master/contracts/telecom-collections-v1.json','utf8')).operations].map(o=>o.name))
   const screenshotDir=resolve(process.env.RUNNER_TEMP,'w2-product-ui');mkdirSync(screenshotDir,{recursive:true})
+  function exactDocumentValue(actual,expected,tag){try{assert.deepEqual(actual,expected)}catch{throw Error(tag)}}
   // Separate the real command/Storage round trip (unchanged page budget) from
   // React rendering (unchanged expect budget). Never retry or synthesize success.
   async function prepareDocumentUpload(){
@@ -44,11 +45,11 @@ export async function productBrowserAcceptance({ users, wa, ca, sql, url, anon, 
     })
     await page.getByRole('button',{name:'Preparar subida',exact:true}).click()
     const response=await pending,input=response.request().postDataJSON().input,body=await response.json()
-    assert.equal(response.status(),200,'DOCUMENT_PREPARE_HTTP')
-    assert.deepEqual(Object.keys(body).sort(),['data','ok'],'DOCUMENT_PREPARE_ENVELOPE')
-    assert.equal(body.ok,true,'DOCUMENT_PREPARE_REFUSED')
-    const receipt=parseDocumentContentReceiptV1('document.request_upload',input,body.data)
-    assert.ok(receipt,'DOCUMENT_PREPARE_RECEIPT_INVALID')
+    exactDocumentValue(response.status(),200,'DOCUMENT_PREPARE_HTTP')
+    exactDocumentValue(Object.keys(body).sort(),['ok','receipt'],'DOCUMENT_PREPARE_ENVELOPE')
+    exactDocumentValue(body.ok,true,'DOCUMENT_PREPARE_REFUSED')
+    const receipt=parseDocumentContentReceiptV1('document.request_upload',input,body.receipt)
+    if(!receipt)throw Error('DOCUMENT_PREPARE_RECEIPT_INVALID')
     await expect(page.getByText('Intención preparada. El archivo todavía no se ha subido.',{exact:true})).toBeVisible()
     return {receipt,response}
   }
@@ -56,8 +57,8 @@ export async function productBrowserAcceptance({ users, wa, ca, sql, url, anon, 
     const started=Date.now(),pending=page.waitForResponse(response=>response.url()===origin+'/api/document/v1/content/upload?id='+receipt.id&&response.request().method()==='POST')
     await page.getByRole('button',{name:'Subir archivo pendiente',exact:true}).click()
     const response=await pending,headersElapsed=Date.now()-started,body=await response.json()
-    assert.equal(response.status(),200,'DOCUMENT_UPLOAD_HTTP')
-    assert.deepEqual(body,{ok:true,data:{id:receipt.id,uploaded:true,finalized:false}},'DOCUMENT_UPLOAD_RECEIPT_INVALID')
+    exactDocumentValue(response.status(),200,'DOCUMENT_UPLOAD_HTTP')
+    exactDocumentValue(body,{ok:true,data:{id:receipt.id,uploaded:true,finalized:false}},'DOCUMENT_UPLOAD_RECEIPT_INVALID')
     if(report){report.w2_document_upload_observations??=[];report.w2_document_upload_observations.push({status:response.status(),headers_elapsed_ms:headersElapsed,body_elapsed_ms:Date.now()-started})}
     await expect(page.getByText('Archivo subido; pendiente de finalización.',{exact:true})).toBeVisible()
   }
@@ -68,11 +69,11 @@ export async function productBrowserAcceptance({ users, wa, ca, sql, url, anon, 
     })
     await page.getByRole('button',{name:'Confirmar finalización',exact:true}).click()
     const response=await pending,input=response.request().postDataJSON().input,body=await response.json()
-    assert.equal(response.status(),200,'DOCUMENT_FINALIZE_HTTP')
-    assert.deepEqual(Object.keys(body).sort(),['data','ok'],'DOCUMENT_FINALIZE_ENVELOPE')
-    assert.equal(body.ok,true,'DOCUMENT_FINALIZE_REFUSED')
-    assert.equal(input.expected_version,receipt.version,'DOCUMENT_FINALIZE_CAS_INPUT')
-    assert.ok(parseDocumentContentReceiptV1('document.finalize_upload',input,body.data),'DOCUMENT_FINALIZE_RECEIPT_INVALID')
+    exactDocumentValue(response.status(),200,'DOCUMENT_FINALIZE_HTTP')
+    exactDocumentValue(Object.keys(body).sort(),['ok','receipt'],'DOCUMENT_FINALIZE_ENVELOPE')
+    exactDocumentValue(body.ok,true,'DOCUMENT_FINALIZE_REFUSED')
+    exactDocumentValue(input.expected_version,receipt.version,'DOCUMENT_FINALIZE_CAS_INPUT')
+    if(!parseDocumentContentReceiptV1('document.finalize_upload',input,body.receipt))throw Error('DOCUMENT_FINALIZE_RECEIPT_INVALID')
     await expect(page.getByText('Documento finalizado y disponible.',{exact:true})).toBeVisible()
   }
   async function check(name, action){try{if(report)report.w2_ui_action_step=name;await action();checks.push(name);if(report)report.w2_product_ui_passed_checks=[...checks]}catch(error){
