@@ -1,6 +1,6 @@
 {
-  "version": 1,
-  "evidence_run": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37703545798",
+  "version": 3,
+  "evidence_run": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37804190277",
   "rows": [
     {
       "subsystem": "GitHub",
@@ -10,7 +10,10 @@
       "STAGING_PROVEN": false,
       "PROD_PROVEN": false,
       "BLOCKER": "Company organization ownership/protection not established",
-      "local_proof_scope": "git checkpoint push"
+      "local_proof_scope": "git checkpoint push",
+      "OWNER": "W5/COMPANY/W4",
+      "EVIDENCE_SHA": "44c619445eac18b449fad95cbb7705e3f89e6d27",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37804190277"
     },
     {
       "subsystem": "Supabase",
@@ -20,7 +23,10 @@
       "STAGING_PROVEN": false,
       "PROD_PROVEN": false,
       "BLOCKER": "Hosted company projects required",
-      "local_proof_scope": "real local migration bootstrap"
+      "local_proof_scope": "real local migration bootstrap",
+      "OWNER": "W5/COMPANY/W4",
+      "EVIDENCE_SHA": "44c619445eac18b449fad95cbb7705e3f89e6d27",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37804190277"
     },
     {
       "subsystem": "DB",
@@ -30,7 +36,10 @@
       "STAGING_PROVEN": false,
       "PROD_PROVEN": false,
       "BLOCKER": "Hosted drift/ACL proof required",
-      "local_proof_scope": "real local SQL and embedded contracts"
+      "local_proof_scope": "real local SQL and embedded contracts",
+      "OWNER": "W5/COMPANY/W4",
+      "EVIDENCE_SHA": "44c619445eac18b449fad95cbb7705e3f89e6d27",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37804190277"
     },
     {
       "subsystem": "Auth",
@@ -40,7 +49,10 @@
       "STAGING_PROVEN": false,
       "PROD_PROVEN": false,
       "BLOCKER": "Hosted MFA/delivery/provider state required",
-      "local_proof_scope": "real local create/login/refresh/logout/revoke"
+      "local_proof_scope": "real local create/login/refresh/logout/revoke",
+      "OWNER": "W5/COMPANY/W4",
+      "EVIDENCE_SHA": "44c619445eac18b449fad95cbb7705e3f89e6d27",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37804190277"
     },
     {
       "subsystem": "Storage",
@@ -50,7 +62,10 @@
       "STAGING_PROVEN": false,
       "PROD_PROVEN": false,
       "BLOCKER": "Hosted object/ACL proof required",
-      "local_proof_scope": "real local private object API"
+      "local_proof_scope": "real local private object API",
+      "OWNER": "W5/COMPANY/W4",
+      "EVIDENCE_SHA": "44c619445eac18b449fad95cbb7705e3f89e6d27",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37804190277"
     },
     {
       "subsystem": "App deploy",
@@ -60,7 +75,10 @@
       "STAGING_PROVEN": false,
       "PROD_PROVEN": false,
       "BLOCKER": "W2 hosted runtime remains disabled",
-      "local_proof_scope": "built server health smoke only"
+      "local_proof_scope": "Actual nonroot/read-only Docker app smoke plus TLS nginx SSE/Upgrade/private-cache/limits; product hosted runtime unaccepted",
+      "OWNER": "W5/COMPANY/W4",
+      "EVIDENCE_SHA": "44c619445eac18b449fad95cbb7705e3f89e6d27",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37804190277"
     },
     {
       "subsystem": "DNS",
@@ -70,7 +88,10 @@
       "STAGING_PROVEN": false,
       "PROD_PROVEN": false,
       "BLOCKER": "Provider-issued records and authority required",
-      "local_proof_scope": "simulated resolver validator only"
+      "local_proof_scope": "simulated resolver validator only",
+      "OWNER": "COMPANY/W5/W4",
+      "EVIDENCE_SHA": "44c619445eac18b449fad95cbb7705e3f89e6d27",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37804190277"
     },
     {
       "subsystem": "human email",
@@ -80,27 +101,36 @@
       "STAGING_PROVEN": false,
       "PROD_PROVEN": false,
       "BLOCKER": "Company mail account provisioning required",
-      "local_proof_scope": "none"
+      "local_proof_scope": "none",
+      "OWNER": "COMPANY/W5/W4",
+      "EVIDENCE_SHA": "44c619445eac18b449fad95cbb7705e3f89e6d27",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37804190277"
     },
     {
       "subsystem": "Auth email",
+      "IMPLEMENTED": true,
+      "LOCALLY_PROVEN": true,
+      "EXTERNAL_CONFIG_REQUIRED": true,
+      "STAGING_PROVEN": false,
+      "PROD_PROVEN": false,
+      "BLOCKER": "SMTP and live deliverability required",
+      "local_proof_scope": "Actual local Supabase SMTP/Mailpit22 confirmation/recovery/invite/session/expiry/no-SMTP checks; external deliverability unproven",
+      "OWNER": "W5/COMPANY/W4",
+      "EVIDENCE_SHA": "44c619445eac18b449fad95cbb7705e3f89e6d27",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37804190277"
+    },
+    {
+      "subsystem": "CRM email",
       "IMPLEMENTED": true,
       "LOCALLY_PROVEN": false,
       "EXTERNAL_CONFIG_REQUIRED": true,
       "STAGING_PROVEN": false,
       "PROD_PROVEN": false,
-      "BLOCKER": "SMTP and live deliverability required",
-      "local_proof_scope": "synthetic config transport/templates only"
-    },
-    {
-      "subsystem": "CRM email",
-      "IMPLEMENTED": false,
-      "LOCALLY_PROVEN": false,
-      "EXTERNAL_CONFIG_REQUIRED": true,
-      "STAGING_PROVEN": false,
-      "PROD_PROVEN": false,
       "BLOCKER": "Accepted outbound delivery adapter required",
-      "local_proof_scope": "contract only"
+      "local_proof_scope": "Disposable synthetic in-memory sink authorization/idempotency/retry/bounce/concurrency tests; no durable hosted delivery",
+      "OWNER": "W5/COMPANY/W4",
+      "EVIDENCE_SHA": "44c619445eac18b449fad95cbb7705e3f89e6d27",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37804190277"
     },
     {
       "subsystem": "AI",
@@ -110,7 +140,10 @@
       "STAGING_PROVEN": false,
       "PROD_PROVEN": false,
       "BLOCKER": "W3 accepted runtime/worker/live synthetic eval required",
-      "local_proof_scope": "private environment/provider seam only"
+      "local_proof_scope": "private environment/provider seam only",
+      "OWNER": "W3/W5/W4",
+      "EVIDENCE_SHA": "44c619445eac18b449fad95cbb7705e3f89e6d27",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37804190277"
     },
     {
       "subsystem": "n8n",
@@ -119,8 +152,11 @@
       "EXTERNAL_CONFIG_REQUIRED": true,
       "STAGING_PROVEN": false,
       "PROD_PROVEN": false,
-      "BLOCKER": "Persistent deployment/provider IDs/import and safe live test required",
-      "local_proof_scope": "closed inactive workflow validation only"
+      "BLOCKER": "Native startup diagnosis/retest plus vendor image remediation, independent W4 and company lifecycle acceptance",
+      "local_proof_scope": "Actual pinned PostgreSQL ready; n8n readiness FAIL; vendor images HIGH/CRITICAL; closed webhook/registry contracts PASS",
+      "OWNER": "W5/COMPANY/W4",
+      "EVIDENCE_SHA": "44c619445eac18b449fad95cbb7705e3f89e6d27",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37804190277"
     },
     {
       "subsystem": "VPS",
@@ -130,7 +166,10 @@
       "STAGING_PROVEN": false,
       "PROD_PROVEN": false,
       "BLOCKER": "Company VPS/hardening/TLS required",
-      "local_proof_scope": "deployment package only"
+      "local_proof_scope": "deployment package only",
+      "OWNER": "COMPANY/W5/W4",
+      "EVIDENCE_SHA": "44c619445eac18b449fad95cbb7705e3f89e6d27",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37804190277"
     },
     {
       "subsystem": "backup",
@@ -140,7 +179,10 @@
       "STAGING_PROVEN": false,
       "PROD_PROVEN": false,
       "BLOCKER": "Hosted encrypted offsite/KMS/access/retention required",
-      "local_proof_scope": "encrypted synthetic DB and object archive"
+      "local_proof_scope": "Actual encrypted DB/local Auth/19 private objects/metadata/11 public configs/24 secret references A->emptyB;36seconds synthetic;5 negatives",
+      "OWNER": "W5/COMPANY/W4",
+      "EVIDENCE_SHA": "44c619445eac18b449fad95cbb7705e3f89e6d27",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37804190277"
     },
     {
       "subsystem": "restore",
@@ -150,7 +192,10 @@
       "STAGING_PROVEN": false,
       "PROD_PROVEN": false,
       "BLOCKER": "Hosted full recovery and provider Auth assumptions required",
-      "local_proof_scope": "real-local A to B rehearsal"
+      "local_proof_scope": "Actual encrypted DB/local Auth/19 private objects/metadata/11 public configs/24 secret references A->emptyB;36seconds synthetic;5 negatives",
+      "OWNER": "W5/COMPANY/W4",
+      "EVIDENCE_SHA": "44c619445eac18b449fad95cbb7705e3f89e6d27",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37804190277"
     },
     {
       "subsystem": "monitoring",
@@ -160,7 +205,10 @@
       "STAGING_PROVEN": false,
       "PROD_PROVEN": false,
       "BLOCKER": "Provider binding/thresholds required",
-      "local_proof_scope": "metadata/alert contract only"
+      "local_proof_scope": "metadata/alert contract only",
+      "OWNER": "W5/COMPANY/W4",
+      "EVIDENCE_SHA": "44c619445eac18b449fad95cbb7705e3f89e6d27",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37804190277"
     },
     {
       "subsystem": "logging",
@@ -170,7 +218,10 @@
       "STAGING_PROVEN": false,
       "PROD_PROVEN": false,
       "BLOCKER": "Existing hosted runtime logs require independent review",
-      "local_proof_scope": "allowlisted structured event redaction tests"
+      "local_proof_scope": "Actual synthetic nginx metadata no-payload log and app runtime private-canary tests; existing product payload logs need W4",
+      "OWNER": "W5/COMPANY/W4",
+      "EVIDENCE_SHA": "44c619445eac18b449fad95cbb7705e3f89e6d27",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37804190277"
     },
     {
       "subsystem": "secrets",
@@ -180,7 +231,10 @@
       "STAGING_PROVEN": false,
       "PROD_PROVEN": false,
       "BLOCKER": "Company scoped store and identities required",
-      "local_proof_scope": "manifest/canary build boundaries"
+      "local_proof_scope": "113-entry manifest24 secret classes, generated build/cache/log/synthetic DOM+login screenshot canaries; no company values",
+      "OWNER": "W5/COMPANY/W4",
+      "EVIDENCE_SHA": "44c619445eac18b449fad95cbb7705e3f89e6d27",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37804190277"
     },
     {
       "subsystem": "rotation",
@@ -190,7 +244,10 @@
       "STAGING_PROVEN": false,
       "PROD_PROVEN": false,
       "BLOCKER": "Provider-specific dual-secret/revocation proof required",
-      "local_proof_scope": "runbook only"
+      "local_proof_scope": "Seven symbolic provider-class stage/health/switch/revoke/old-denied/rollback mock tests; actual provider rotation unproven",
+      "OWNER": "W5/COMPANY/W4",
+      "EVIDENCE_SHA": "44c619445eac18b449fad95cbb7705e3f89e6d27",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37804190277"
     },
     {
       "subsystem": "CI/CD",
@@ -199,8 +256,11 @@
       "EXTERNAL_CONFIG_REQUIRED": true,
       "STAGING_PROVEN": false,
       "PROD_PROVEN": false,
-      "BLOCKER": "Release protection and accepted hosted deploy adapter required",
-      "local_proof_scope": "CI contracts; no live deploy"
+      "BLOCKER": "Full dependency audit HIGH; optional n8n/PostgreSQL vendor image HIGH/CRITICAL; product browser and hosted/W4/release protection unaccepted",
+      "local_proof_scope": "CI contracts; no live deploy",
+      "OWNER": "W5/COMPANY/W4",
+      "EVIDENCE_SHA": "44c619445eac18b449fad95cbb7705e3f89e6d27",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37804190277"
     },
     {
       "subsystem": "staging",
@@ -210,7 +270,10 @@
       "STAGING_PROVEN": false,
       "PROD_PROVEN": false,
       "BLOCKER": "W2 hosted runtime, providers and W4 required",
-      "local_proof_scope": "read-only fail-closed preflight"
+      "local_proof_scope": "read-only fail-closed preflight",
+      "OWNER": "W5/COMPANY/W4",
+      "EVIDENCE_SHA": "44c619445eac18b449fad95cbb7705e3f89e6d27",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37804190277"
     },
     {
       "subsystem": "production",
@@ -220,16 +283,22 @@
       "STAGING_PROVEN": false,
       "PROD_PROVEN": false,
       "BLOCKER": "Staging/exact candidate/W4/backup/human approval required",
-      "local_proof_scope": "read-only protected preflight only"
+      "local_proof_scope": "read-only protected preflight only",
+      "OWNER": "W5/COMPANY/W4",
+      "EVIDENCE_SHA": "44c619445eac18b449fad95cbb7705e3f89e6d27",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37804190277"
     }
   ],
   "counts": {
-    "IMPLEMENTED": 20,
-    "LOCALLY_PROVEN": 11,
+    "IMPLEMENTED": 21,
+    "LOCALLY_PROVEN": 12,
     "EXTERNAL_CONFIG_REQUIRED": 22,
     "STAGING_PROVEN": 0,
     "PROD_PROVEN": 0
   },
   "W4_REQUIRED": true,
-  "values_included": false
+  "values_included": false,
+  "evidence_source_sha": "44c619445eac18b449fad95cbb7705e3f89e6d27",
+  "tested_merge_sha": "904c8f891ff297b64ce8b111e484997defcab317",
+  "readiness_scope": "PACKAGE_IMPLEMENTED;DISPOSABLE_PROVEN_PER_ROW;COMPANY_CONFIG_PENDING;HOSTED_STAGING_PENDING;SECURITY_REVIEW_PENDING;PRODUCTION_BLOCKED"
 }

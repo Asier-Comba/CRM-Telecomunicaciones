@@ -1,26 +1,166 @@
 {
   "version": 3,
   "accepted_source": "NONE",
-  "observed": {"W5": "44a6d3375d62e35cd63f4ec201e55d10d0de14c2", "W2": "782c8fc8fd011afce1a49ca761eea46cc9c7a3bd", "W2_product": "692ba6fcc3c78ba3b57a2d8fbc2b8b82317b4b7c", "W3": "7b2401ae574e619fbd4b379c585bd2251a91011f"},
-  "baseline": {"migrations": 71, "public_rpc": 291, "real_supabase_run": 37705364370, "ui_run": 37705364477, "ui": "FAIL_84_OF_87", "dependency_audit": "FAIL_5_HIGH_0_CRITICAL", "host_docker": "UNAVAILABLE"},
+  "observed": {
+    "W5": "44c619445eac18b449fad95cbb7705e3f89e6d27",
+    "W2": "97394bdf995e59add9cc488350a884524996a19a",
+    "W3": "972e96c680a39db25ed1555de4eed9b7149925e3"
+  },
+  "baseline": {
+    "migrations": 71,
+    "public_rpc": 291,
+    "real_supabase_run": 37705364370,
+    "ui_run": 37705364477,
+    "ui": "FAIL_84_OF_87",
+    "dependency_audit": "FAIL_5_HIGH_0_CRITICAL",
+    "host_docker": "UNAVAILABLE",
+    "preserved": true
+  },
   "items": [
-    {"PHASE":"ENT3-00","MODULE":"live-gap-audit","STATUS":"IMPLEMENTED","NEXT":"Keep exact source and proof distinctions"},
-    {"PHASE":"ENT3-01","MODULE":"W2-W3-compatibility","STATUS":"DEPENDENCY_BLOCKED","NEXT":"Accepted product and physical worker proof; no branch imported"},
-    {"PHASE":"ENT3-02","MODULE":"company-preflight-plan-resume","STATUS":"LOCAL_TESTED","NEXT":"Real provider identity and protected workflow only after independent acceptance"},
-    {"PHASE":"ENT3-03","MODULE":"canonical-Supabase-Auth","STATUS":"BASELINE_PROVEN","NEXT":"Fresh exact-source CI and extended Auth mailbox acceptance"},
-    {"PHASE":"ENT3-04","MODULE":"local-Auth-mail","STATUS":"TODO","NEXT":"Local SMTP confirmation, recovery and invite capture; expiry and redirect rejection"},
-    {"PHASE":"ENT3-05","MODULE":"CRM-mail-sink","STATUS":"TODO","NEXT":"Authorization, allowlist, idempotency, retry, bounce, safe audit"},
-    {"PHASE":"ENT3-06","MODULE":"deployment-proxy","STATUS":"TODO","NEXT":"SSE/private-cache/timeouts and immutable release identity"},
-    {"PHASE":"ENT3-07","MODULE":"n8n","STATUS":"TODO","NEXT":"Optional persistent deployment and closed workflow lifecycle"},
-    {"PHASE":"ENT3-08","MODULE":"AI-worker-contract","STATUS":"DEPENDENCY_BLOCKED","NEXT":"Disabled start-stop/lease/revoke/crash contract owned by W3"},
-    {"PHASE":"ENT3-09","MODULE":"offsite-negative-recovery","STATUS":"TODO","NEXT":"Identity, version, retention and separate-account mock contract"},
-    {"PHASE":"ENT3-10","MODULE":"monitoring-rotation","STATUS":"TODO","NEXT":"Correlated metadata-only alerts and secret rotation test interface"},
-    {"PHASE":"ENT3-11","MODULE":"negative-promotion","STATUS":"TODO","NEXT":"Exact provenance/approvals/identity and drift rejection matrix"},
-    {"PHASE":"ENT3-12","MODULE":"supply-chain","STATUS":"TODO","NEXT":"Reproducible SBOM and exact artifact provenance"},
-    {"PHASE":"ENT3-13","MODULE":"tenant-operations","STATUS":"TODO","NEXT":"Infrastructure onboarding/offboarding, technical privacy and cost policy"},
-    {"PHASE":"ENT3-14","MODULE":"W4-review-packet","STATUS":"TODO","NEXT":"Reproducible findings and independent review checklist"},
-    {"PHASE":"ENT3-15","MODULE":"activation-guide","STATUS":"TODO","NEXT":"ONE_DAY_ACTIVATION public choices, exact destinations and gates"},
-    {"PHASE":"ENT3-16","MODULE":"disposable-full-stack","STATUS":"TODO","NEXT":"Exact-source full CI without hosted effects"},
-    {"PHASE":"ENT3-17","MODULE":"final-evidence-handoff","STATUS":"TODO","NEXT":"Terminal CI proof, ledger, PR handoffs and truthful readiness"}
-  ]
+    {
+      "PHASE": "ENT3-00",
+      "MODULE": "live-gap-audit",
+      "STATUS": "LIVE_AUDIT_PUBLISHED",
+      "NEXT": "Complete exact-source proof, independent review and company/provider configuration gates",
+      "EVIDENCE_SHA": "44c619445eac18b449fad95cbb7705e3f89e6d27",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37804190277"
+    },
+    {
+      "PHASE": "ENT3-01",
+      "MODULE": "W2-W3-compatibility",
+      "STATUS": "DEPENDENCY_BLOCKED",
+      "NEXT": "Complete exact-source proof, independent review and company/provider configuration gates",
+      "EVIDENCE_SHA": "44c619445eac18b449fad95cbb7705e3f89e6d27",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37804190277"
+    },
+    {
+      "PHASE": "ENT3-02",
+      "MODULE": "company-preflight-plan-resume",
+      "STATUS": "DISPOSABLE_CONTRACT_PROVEN",
+      "NEXT": "Complete exact-source proof, independent review and company/provider configuration gates",
+      "EVIDENCE_SHA": "44c619445eac18b449fad95cbb7705e3f89e6d27",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37804190277"
+    },
+    {
+      "PHASE": "ENT3-03",
+      "MODULE": "canonical-Supabase-Auth",
+      "STATUS": "REAL_LOCAL_PROVEN",
+      "NEXT": "Complete exact-source proof, independent review and company/provider configuration gates",
+      "EVIDENCE_SHA": "44c619445eac18b449fad95cbb7705e3f89e6d27",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37804190277"
+    },
+    {
+      "PHASE": "ENT3-04",
+      "MODULE": "local-Auth-mail",
+      "STATUS": "REAL_LOCAL_PROVEN",
+      "NEXT": "Complete exact-source proof, independent review and company/provider configuration gates",
+      "EVIDENCE_SHA": "44c619445eac18b449fad95cbb7705e3f89e6d27",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37804190277"
+    },
+    {
+      "PHASE": "ENT3-05",
+      "MODULE": "CRM-mail-sink",
+      "STATUS": "DISPOSABLE_CONTRACT_PROVEN",
+      "NEXT": "Complete exact-source proof, independent review and company/provider configuration gates",
+      "EVIDENCE_SHA": "44c619445eac18b449fad95cbb7705e3f89e6d27",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37804190277"
+    },
+    {
+      "PHASE": "ENT3-06",
+      "MODULE": "deployment-proxy",
+      "STATUS": "REAL_LOCAL_PROVEN",
+      "NEXT": "Complete exact-source proof, independent review and company/provider configuration gates",
+      "EVIDENCE_SHA": "44c619445eac18b449fad95cbb7705e3f89e6d27",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37804190277"
+    },
+    {
+      "PHASE": "ENT3-07",
+      "MODULE": "n8n",
+      "STATUS": "NATIVE_READINESS_FAILED_VENDOR_SECURITY_BLOCKED",
+      "NEXT": "Safe native startup diagnosis and exact-source retest; vendor image remediation without gate waiver",
+      "EVIDENCE_SHA": "44c619445eac18b449fad95cbb7705e3f89e6d27",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37804190277"
+    },
+    {
+      "PHASE": "ENT3-08",
+      "MODULE": "AI-worker-contract",
+      "STATUS": "DISABLED_DEPENDENCY_BLOCKED",
+      "NEXT": "Complete exact-source proof, independent review and company/provider configuration gates",
+      "EVIDENCE_SHA": "44c619445eac18b449fad95cbb7705e3f89e6d27",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37804190277"
+    },
+    {
+      "PHASE": "ENT3-09",
+      "MODULE": "offsite-negative-recovery",
+      "STATUS": "REAL_LOCAL_RECOVERY_MOCK_OFFSITE",
+      "NEXT": "Complete exact-source proof, independent review and company/provider configuration gates",
+      "EVIDENCE_SHA": "44c619445eac18b449fad95cbb7705e3f89e6d27",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37804190277"
+    },
+    {
+      "PHASE": "ENT3-10",
+      "MODULE": "monitoring-rotation",
+      "STATUS": "DISPOSABLE_CONTRACT_PROVEN",
+      "NEXT": "Complete exact-source proof, independent review and company/provider configuration gates",
+      "EVIDENCE_SHA": "44c619445eac18b449fad95cbb7705e3f89e6d27",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37804190277"
+    },
+    {
+      "PHASE": "ENT3-11",
+      "MODULE": "negative-promotion",
+      "STATUS": "DISPOSABLE_CONTRACT_PROVEN",
+      "NEXT": "Complete exact-source proof, independent review and company/provider configuration gates",
+      "EVIDENCE_SHA": "44c619445eac18b449fad95cbb7705e3f89e6d27",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37804190277"
+    },
+    {
+      "PHASE": "ENT3-12",
+      "MODULE": "supply-chain",
+      "STATUS": "APP_PROVEN_VENDOR_SECURITY_BLOCKED",
+      "NEXT": "Complete exact-source proof, independent review and company/provider configuration gates",
+      "EVIDENCE_SHA": "44c619445eac18b449fad95cbb7705e3f89e6d27",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37804190277"
+    },
+    {
+      "PHASE": "ENT3-13",
+      "MODULE": "tenant-operations",
+      "STATUS": "PACKAGE_PREPARED",
+      "NEXT": "Complete exact-source proof, independent review and company/provider configuration gates",
+      "EVIDENCE_SHA": "44c619445eac18b449fad95cbb7705e3f89e6d27",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37804190277"
+    },
+    {
+      "PHASE": "ENT3-14",
+      "MODULE": "W4-review-packet",
+      "STATUS": "PREPARED_NOT_APPROVED",
+      "NEXT": "Complete exact-source proof, independent review and company/provider configuration gates",
+      "EVIDENCE_SHA": "44c619445eac18b449fad95cbb7705e3f89e6d27",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37804190277"
+    },
+    {
+      "PHASE": "ENT3-15",
+      "MODULE": "activation-guide",
+      "STATUS": "GUIDE_PREPARED",
+      "NEXT": "Complete exact-source proof, independent review and company/provider configuration gates",
+      "EVIDENCE_SHA": "44c619445eac18b449fad95cbb7705e3f89e6d27",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37804190277"
+    },
+    {
+      "PHASE": "ENT3-16",
+      "MODULE": "disposable-full-stack",
+      "STATUS": "PARTIAL_PASS_N8N_FAILED",
+      "NEXT": "Complete exact-source proof, independent review and company/provider configuration gates",
+      "EVIDENCE_SHA": "44c619445eac18b449fad95cbb7705e3f89e6d27",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37804190277"
+    },
+    {
+      "PHASE": "ENT3-17",
+      "MODULE": "final-evidence-handoff",
+      "STATUS": "CURRENT_FINAL_ACCEPTANCE_PENDING",
+      "NEXT": "Complete exact-source proof, independent review and company/provider configuration gates",
+      "EVIDENCE_SHA": "44c619445eac18b449fad95cbb7705e3f89e6d27",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37804190277"
+    }
+  ],
+  "current_evidence": "docs/master/platform/ENTERPRISE_3_CI_EVIDENCE.json"
 }

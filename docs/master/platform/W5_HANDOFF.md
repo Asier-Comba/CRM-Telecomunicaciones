@@ -1,5 +1,7 @@
 # W5 handoff for independent review
 
+Enterprise3 supersedes the closing-candidate status in the dated baseline below. Use `ENTERPRISE_3_CI_EVIDENCE.json`, `ENTERPRISE_3_CHECKPOINT_LEDGER.json`, `ENTERPRISE_3_COMPATIBILITY.json` and `W5_FINAL_W4_REVIEW_PACKET.md`. Source44c619445eac18b449fad95cbb7705e3f89e6d27/merge904c8f891ff297b64ce8b111e484997defcab317 passes five enterprise jobs including actual proxy and Auth mail; optional n8n fails readiness and both vendor scans. Previous W2 browser is89/91 with service:location_assign TIMEOUT and service:addon_end ACTION_FAILED; current run37804190124 is tracked independently. W2/W3 handoffs remain GitHub PR30/31; no frontend or worker branch is imported. Current internal readiness remains false while executable evidence gaps remain.
+
 Exact evidence SHA and run links are in `W5_PLATFORM_ACCEPTANCE.json`; no older
 green is attributed to a later head. PR34 remains Draft against current W2.
 

@@ -11,7 +11,13 @@ const prove=(ok,name)=>{if(!ok)throw new Error(name);checks.push({name,status:'P
 let stage='PREFLIGHT',evidence={status:'NOT_RUN',scope:'DISPOSABLE_ACTUAL_N8N',source_sha,checks,provider_values_included:false}
 const docker=(args,options={})=>run('docker',args,{timeout:240000,...options})
 const request=async(path,options={})=>fetch('http://127.0.0.1:5678'+path,{...options,redirect:'error',signal:AbortSignal.timeout(3000)})
-async function ready(){for(let i=0;i<80;i++){try{if((await request('/healthz/readiness')).ok)return true}catch{}await new Promise(r=>setTimeout(r,500))}return false}
+function startupDiagnostic(){
+ let state={},categories=[]
+ try{const s=JSON.parse(docker(['inspect','--format','{{json .State}}',app]));state={running:s.Running===true,exit_code:Number.isInteger(s.ExitCode)?s.ExitCode:null,oom_killed:s.OOMKilled===true}}catch{}
+ try{const log=docker(['logs',app]);for(const [name,pattern] of Object.entries({FILE_PERMISSION:/EACCES|permission denied/i,READONLY_FILESYSTEM:/EROFS|read-only file system/i,DATABASE_AUTH:/password authentication failed|SASL.*password/i,DATABASE_CONNECTION:/ECONNREFUSED|ENOTFOUND|database.*connection/i,ENCRYPTION_KEY:/mismatching encryption keys|encryption.*key.*error/i,MISSING_FILE:/ENOENT/i,CONFIGURATION:/invalid.*config|unknown.*environment/i,MIGRATIONS:/migration.*failed/i}))if(pattern.test(log))categories.push(name)}catch{}
+ return {state,categories,raw_logs_retained:false}
+}
+async function ready(){for(let i=0;i<80;i++){try{if((await request('/healthz/readiness')).ok)return true}catch{}if(i%10===0&&startupDiagnostic().state.running===false)return false;await new Promise(r=>setTimeout(r,500))}return false}
 function workflows(){docker(['exec',app,'n8n','export:workflow','--all','--output=/tmp/export.json']);return JSON.parse(docker(['exec',app,'node','-e',"process.stdout.write(require('fs').readFileSync('/tmp/export.json','utf8'))"]))}
 function snapshot(){const w=workflows();prove(w.length===1&&w[0].active===false&&validateWorkflow(w[0]).status==='VALID','INACTIVE_CLOSED_EXPORT');return hash(JSON.stringify(w.map(({id,name,nodes,connections,active})=>({id,name,nodes,connections,active}))))}
 try{
@@ -37,7 +43,7 @@ try{
  const first=snapshot();docker(['restart',app]);prove(await ready(),'ACTUAL_PROCESS_RESTART_READY');prove(snapshot()===first,'WORKFLOW_PERSISTED_AFTER_PROCESS_RESTART');prove(docker(['exec',app,'node','-e',keyTest]).trim()==='PASS','KEY_PERSISTED_AFTER_PROCESS_RESTART')
  docker(['restart',db]);docker(['restart',app]);prove(await ready(),'ACTUAL_DATABASE_AND_PROCESS_RESTART_READY');prove(snapshot()===first,'WORKFLOW_PERSISTED_AFTER_DATABASE_RESTART')
  evidence={...evidence,status:'PASS',scope:'DISPOSABLE_ACTUAL_N8N_POSTGRES_INACTIVE_WORKFLOW',version,workflow_effects:false,external_network:'INTERNAL_DOCKER_NETWORK',image:pins.n8n.image,company_runtime:'NOT_ACCEPTED',production:'NOT_PROVEN'}
-}catch(e){evidence={...evidence,status:'FAIL',failed_stage:stage,error:/^[A-Z][A-Z0-9_]+$/.test(e.message)?e.message:'N8N_LOCAL_ACCEPTANCE_FAILURE'};process.exitCode=1}
+}catch(e){evidence={...evidence,status:'FAIL',failed_stage:stage,error:/^[A-Z][A-Z0-9_]+$/.test(e.message)?e.message:'N8N_LOCAL_ACCEPTANCE_FAILURE',startup_diagnostic:startupDiagnostic()};process.exitCode=1}
 finally{for(const name of [app,db])try{docker(['rm','-f',name])}catch{}try{docker(['volume','rm',volume])}catch{}try{docker(['network','rm',network])}catch{}
  try{if(docker(['ps','-a','--format','{{.Names}}']).split('\n').some(n=>[app,db].includes(n))||docker(['volume','ls','--format','{{.Name}}']).split('\n').includes(volume)||docker(['network','ls','--format','{{.Name}}']).split('\n').includes(network))throw new Error();evidence.teardown='PASS'}catch{evidence.teardown='FAIL';process.exitCode=1}
  rmSync(scratch,{recursive:true,force:true});console.log(JSON.stringify(evidence))}

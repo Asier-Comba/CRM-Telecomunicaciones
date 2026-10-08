@@ -1,5 +1,11 @@
 # W5 enterprise platform audit
 
+Enterprise3 current evidence is recorded in `ENTERPRISE_3_CI_EVIDENCE.json` and the phase ledger. This section supersedes only the current-status claims in the dated baseline below. The existing branch/PR34 is continued, not recreated. Observed W2 is97394bdf995e59add9cc488350a884524996a19a; W3 is972e96c680a39db25ed1555de4eed9b7149925e3, with no new product or worker code imported. Only eslint-config-next16.3.8 was aligned with the installed Next version and the lock/SBOM regenerated.
+
+Source44c619445eac18b449fad95cbb7705e3f89e6d27/merge904c8f891ff297b64ce8b111e484997defcab317 proves actual nginx TLS/SSE/Upgrade/private cache/Host/limits/log tests, local Auth/Mailpit22 checks and extended encrypted recovery3576 checks with11 public configs/24 secret references/19 objects/five negative controls. Company plan/preflight/resume, synthetic CRM sink, offsite mock, metadata alerts, rotation and signed negative release contracts are separately marked simulation/contract scope. Full npm audit remains five HIGH; actual app image passes; new optional n8n/PostgreSQL candidate images fail HIGH/CRITICAL and n8n native readiness fails. Safe diagnosis and exact-source retest are required. No hosted bootstrap/deploy/automation mutation can be enabled by a credential variable in the current adapter.
+
+The machine matrix now includes owner/evidence SHA/run for all22 subsystems. `node scripts/platform/readiness.mjs` verifies its evidence fields and automatically derived counts; it does not authenticate company readiness or award external acceptance. W4 review is prepared in `W5_FINAL_W4_REVIEW_PACKET.md` and its single findings JSON. Neither this packet nor any prior green accepts the final release.
+
 Base W2: `7ab6f56f10fc65aa7212ed5dfbdeacea8901756a`, fetched at execution on 2026-10-08.
 Fresh branch: `w5/enterprise-bootstrap-v2`. Historical W5 is reference only.
 

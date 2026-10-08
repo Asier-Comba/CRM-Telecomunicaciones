@@ -15,6 +15,9 @@ Install the locked application with Node24 (`npm ci`).
 | Task | Command | Scope |
 | --- | --- | --- |
 | Inventory / provider contracts | `npm run platform:verify` | Repository only |
+| Enterprise public initialization | `npm run company:init -- public-company.json` | Public ownership/provider choices; no secrets or effects |
+| Enterprise preflight / plan | `npm run company:preflight -- public-company.json` / `npm run company:plan -- public-company.json` | Read-only, PLAN_ONLY, exact source/config/migration binding |
+| Readiness evidence / counts | `node scripts/platform/readiness.mjs` | Declared row fields and automatic counts; no external approval |
 | Security/config/operations fixtures | `npm run platform:test` | Synthetic unit tests |
 | Clean real-local bootstrap | `npm run platform:bootstrap:local` | Disposable Docker/Supabase only |
 | A -> empty B recovery | `npm run platform:recovery:test` | Disposable DB/Auth/Storage |
