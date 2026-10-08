@@ -3,8 +3,13 @@ import assert from 'node:assert/strict'
 import {mkdtempSync,readFileSync,rmSync} from 'node:fs'
 import {tmpdir} from 'node:os'
 import {join} from 'node:path'
-import {companyPreflight,enterprisePlan,simulateEnterprise,saveState,phases,publicConfiguration} from '../../scripts/platform/enterprise.mjs'
+import {companyPreflight,enterprisePlan,simulateEnterprise,saveState,phases,publicConfiguration,exactSource} from '../../scripts/platform/enterprise.mjs'
 const sha='a'.repeat(40)
+test('CLI source binding rejects unpublished tracked/untracked implementation before claiming a commit',()=>{
+ assert.equal(exactSource((_bin,args)=>args[0]==='status'?'':sha+'\n'),sha)
+ for(const status of [' M scripts/platform/enterprise.mjs\n','A  supabase/migrations/new.sql\n','?? src/unpublished.ts\n'])assert.throws(()=>exactSource((_bin,args)=>args[0]==='status'?status:sha),/SOURCE_WORKTREE_DIRTY/)
+ assert.throws(()=>exactSource((_bin,args)=>args[0]==='status'?'':'not-a-sha'),/EXACT_SOURCE_SHA_REQUIRED/)
+})
 function configuration(){return {version:3,company:{environment:'STAGING'},ownership:{organization:'synthetic-company',account_class:'COMPANY',administrators:['human-one','human-two'].map(identity=>({identity,human:true,mfa:'PASSKEY',role:'ADMIN'})),billing_owner:'human-one',security_owner:'human-one',asset_owner:'human-two',offboarding_owner:'human-two',recovery_contacts:['human-one','human-two']},choices:{environment:'STAGING',human_mail:'UNSELECTED',hosting:'UNSELECTED',backup:'UNSELECTED',n8n:'DISABLED',ai:'DISABLED'},recovery_policy:{approval:'UNAPPROVED'}}}
 test('ownership rejects personal accounts, shared or missing MFA administrators and missing owners',()=>{
  assert.deepEqual(publicConfiguration(configuration()),[])

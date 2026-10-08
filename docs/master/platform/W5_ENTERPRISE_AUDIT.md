@@ -41,3 +41,10 @@ activation boundaries remain intact. The independent braces advisory remains
 unsuppressed. The locked CycloneDX dependency inventory includes 497 components
 across supported optional platforms and development tooling; the actual Linux
 runtime image is separately scanned in CI. Neither inventory is a live release.
+
+
+## Enterprise3 closing executable evidence
+
+Source `3c3a3d1291f4dcf3a0db15ff9dd7890c6226a234`, tested merge `c6c65d33011ba949f4c3bcd92f34e00f3396b502`, [enterprise run37809312374](https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37809312374). Actual Supabase71 migrations/291RPC/3576 checks,19 objects,11 public configs and26 secret references pass with five negative controls. Actual Auth/Mailpit22, nginx TLS11, app container/scan/secret boundaries and isolated n8n inactive lifecycle/encrypted empty DB+config restore/fresh owner login pass. Native n8n correctness does not accept its unsafe vendor images: n8n71 HIGH/11 CRITICAL, PG32 HIGH/1 CRITICAL, no secret matches; full npm audit remains five HIGH. Current product browser is PASS,95/95, mergec6c65d33011ba949f4c3bcd92f34e00f3396b502, run37809311902. Exact failure details are in the machine evidence. W2 observed4b3a43f607cac2dd4efb5b8d36d0a058459f6ad2, W3 observed972e96c680a39db25ed1555de4eed9b7149925e3; neither newer branch imported. Company configuration, staging, production, W4 and release acceptance remain blocked. No hosted/provider/DNS/send/worker effect occurred.
+
+Documentation after this executable checkpoint records already executed evidence; the closing PR comment and CI artifacts bind the final document commit separately. No older green is assigned to an untested newer executable.

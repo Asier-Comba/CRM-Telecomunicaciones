@@ -65,7 +65,8 @@ try{
  docker(['restart',db]);docker(['restart',app]);prove(await ready(),'ACTUAL_DATABASE_AND_PROCESS_RESTART_READY');prove(snapshot()===first,'WORKFLOW_PERSISTED_AFTER_DATABASE_RESTART')
  stage='ENCRYPTED_BACKUP'
  const database_sql=docker(['exec',db,'pg_dump','-U','n8n','-d','n8n','--no-owner','--no-acl']),config_json=docker(['exec',app,'node','-e',"process.stdout.write(require('fs').readFileSync('/home/node/.n8n/config','utf8'))"])
- const bundle={version:1,source_sha,n8n_image:pins.n8n.image,postgres_image:pins.postgres.image,database_sql,config_json,database_sha256:hash(database_sql),config_sha256:hash(config_json)},backupKey=randomBytes(32),archive=encryptBackup(Buffer.from(JSON.stringify(bundle)),backupKey,'n8n-disposable-v1'),backupPath=join(scratch,'n8n-encrypted-backup.bin')
+ const versionId='n8n-disposable-v1' // Public archive version label, not key material.
+ const bundle={version:1,source_sha,n8n_image:pins.n8n.image,postgres_image:pins.postgres.image,database_sql,config_json,database_sha256:hash(database_sql),config_sha256:hash(config_json)},backupKey=randomBytes(32),archive=encryptBackup(Buffer.from(JSON.stringify(bundle)),backupKey,versionId),backupPath=join(scratch,'n8n-encrypted-backup.bin')
  writeFileSync(backupPath,archive,{mode:0o600});const retrieved=readFileSync(backupPath);prove(hash(retrieved)===hash(archive),'ACTUAL_ENCRYPTED_BACKUP_READBACK')
  let wrongKeyRejected=false;try{decryptBackup(retrieved,randomBytes(32))}catch{wrongKeyRejected=true}prove(wrongKeyRejected,'ACTUAL_BACKUP_WRONG_KEY_REJECTED')
  const restored=JSON.parse(decryptBackup(retrieved,backupKey));backupKey.fill(0)

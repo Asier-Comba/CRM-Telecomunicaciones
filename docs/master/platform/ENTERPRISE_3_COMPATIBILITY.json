@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "W5_SOURCE": "44c619445eac18b449fad95cbb7705e3f89e6d27",
-  "W2_OBSERVED": "97394bdf995e59add9cc488350a884524996a19a",
+  "W5_SOURCE": "3c3a3d1291f4dcf3a0db15ff9dd7890c6226a234",
+  "W2_OBSERVED": "4b3a43f607cac2dd4efb5b8d36d0a058459f6ad2",
   "W3_OBSERVED": "972e96c680a39db25ed1555de4eed9b7149925e3",
   "ACCEPTED_SOURCE": "NONE",
   "W2_CODE_CONSUMED": "7ab6f56f10fc65aa7212ed5dfbdeacea8901756a original W5 branch ancestry; newer product code not imported",
@@ -29,26 +29,29 @@
   "W4": "Independent exact-source review pending",
   "DEPLOYABLE": false,
   "KNOWN_BROWSER": {
-    "source": "ab6d222f8b3a6e667bc158c5ff61bb1dbac9c91d",
-    "merge": "a10fceaba08e6a6eb43aaafcc554d92b86e7c8f3",
-    "run": 37800424074,
-    "passed": 89,
-    "total": 91,
-    "failed": [
-      {
-        "action": "service:location_assign",
-        "kind": "TIMEOUT"
-      },
-      {
-        "action": "service:addon_end",
-        "kind": "ACTION_FAILED"
-      }
-    ]
+    "source": "3c3a3d1291f4dcf3a0db15ff9dd7890c6226a234",
+    "merge": "c6c65d33011ba949f4c3bcd92f34e00f3396b502",
+    "result": "PASS",
+    "passed": 95,
+    "total": 95,
+    "failed": [],
+    "run": 37809311902,
+    "teardown": "PASS"
   },
   "STAGING": "NOT_PROVEN",
   "PRODUCTION": "NOT_PROVEN",
-  "CURRENT_BROWSER": "PENDING_CURRENT_RUN",
-  "HEALTH": "App health/readiness failclosed PASS; actual n8n readiness FAIL",
-  "SECRETS": "113 inventory entries24 secret classes; OPENAI_API_KEY private only; no provider values",
-  "ENVIRONMENT": "LOCAL/DEV/STAGING/PROD exact identity guard; hosted mutation currently blocked"
+  "CURRENT_BROWSER": {
+    "source": "3c3a3d1291f4dcf3a0db15ff9dd7890c6226a234",
+    "merge": "c6c65d33011ba949f4c3bcd92f34e00f3396b502",
+    "result": "PASS",
+    "passed": 95,
+    "total": 95,
+    "failed": [],
+    "run": 37809311902,
+    "teardown": "PASS"
+  },
+  "HEALTH": "Actual app failclosed/nginx and isolated n8n readiness+restart+restore PASS; company hosted readiness unproven",
+  "SECRETS": "113 entries24 direct secrets+two private file references; test key LOCAL only",
+  "ENVIRONMENT": "LOCAL/DEV/STAGING/PROD exact identity guard; hosted mutation currently blocked",
+  "N8N": "Native lifecycle/empty encrypted restore PASS; vendor HIGH/CRITICAL adoption BLOCKED"
 }

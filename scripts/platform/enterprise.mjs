@@ -9,6 +9,11 @@ import {companyState} from './company-state.mjs'
 export const phases=['PREFLIGHT','PLAN','PROVISION','CONFIGURE','DEPLOY','VERIFY','ACCEPT']
 const choices={environment:['STAGING','PROD'],human_mail:['UNSELECTED','MANAGED_COMPANY'],hosting:['UNSELECTED','VPS','MANAGED'],backup:['UNSELECTED','OFFSITE'],n8n:['DISABLED','PREPARATORY'],ai:['DISABLED','PREPARATORY']}
 const shaPattern=/^[a-f0-9]{40}$/
+export function exactSource(reader=run){
+ const status=reader('git',['status','--porcelain','--untracked-files=normal','--','src','scripts','infra','supabase','tests','.github','docs/master/contracts','package.json','package-lock.json','next.config.ts','.nvmrc','eslint.config.mjs','tsconfig.json','.gitleaks.toml','.gitleaksignore'])
+ if(status.trim())throw new Error('SOURCE_WORKTREE_DIRTY')
+ const sha=reader('git',['rev-parse','HEAD']).trim();if(!shaPattern.test(sha))throw new Error('EXACT_SOURCE_SHA_REQUIRED');return sha
+}
 export function validateOwnership(c){
  const errors=[],o=c?.ownership
  if(!o||Object.keys(o).some(k=>!['organization','account_class','administrators','billing_owner','recovery_contacts','security_owner','asset_owner','offboarding_owner'].includes(k)))errors.push('OWNERSHIP_CONTRACT_REQUIRED')
@@ -91,6 +96,6 @@ async function init(path){
 if(process.argv[1]&&pathToFileURL(resolve(process.argv[1])).href===import.meta.url){
  try{const [command,path]=process.argv.slice(2)
  if(command==='init'){if(!path)throw new Error('PUBLIC_CONFIG_PATH_REQUIRED');await init(path)}
- else {if(!['plan','preflight'].includes(command))throw new Error('UNKNOWN_ENTERPRISE_COMMAND');const c=path?JSON.parse(readFileSync(path,'utf8')):{};const result=command==='plan'?enterprisePlan(c,run('git',['rev-parse','HEAD']).trim()):companyPreflight(c,process.env);console.log(JSON.stringify(result,null,2));if(command!=='plan'&&result.status!=='READY_FOR_CONFIGURATION')process.exitCode=1}
+ else {if(!['plan','preflight'].includes(command))throw new Error('UNKNOWN_ENTERPRISE_COMMAND');const c=path?JSON.parse(readFileSync(path,'utf8')):{};const result=command==='plan'?enterprisePlan(c,exactSource()):companyPreflight(c,process.env);console.log(JSON.stringify(result,null,2));if(command!=='plan'&&result.status!=='READY_FOR_CONFIGURATION')process.exitCode=1}
  }catch(e){console.error(JSON.stringify({status:'BLOCKED',error:safeError(e),mutation_performed:false}));process.exitCode=1}
 }

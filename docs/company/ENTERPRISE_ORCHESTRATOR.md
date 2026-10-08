@@ -6,6 +6,8 @@
 
 `npm run company:plan -- public-company.json` binds all seven phases to the exact source, target, public configuration and canonical migration hashes. Changing any binding invalidates saved simulation state. PLAN_ONLY is the only CLI mode. There is no hosted execute switch.
 
+The CLI rejects unpublished tracked or untracked implementation changes under src/scripts/infra/supabase/tests/workflows and package manifests before claiming a source SHA. Public company files outside these source paths can be initialized and then hashed into a plan. Finish the reviewed code checkpoint before generating a plan; a dirty executable cannot be represented by the unchanged Git HEAD.
+
 The exported simulation interface accepts disposable test adapters only. Failed phases stop subsequent phases; retries reuse the same idempotency key. Adapters must implement that key atomically if a failure occurs after their effect. Saved state is atomic and strips adapter responses. A completed simulation remains NOT_PROVEN for staging and production. This is a recovery interface for local adapter tests, not a durable hosted job worker.
 
 Phases: PREFLIGHT → PLAN → PROVISION → CONFIGURE → DEPLOY → VERIFY → ACCEPT. Real future adapters must verify the company account and exact project, protected workflow identity, accepted W2/W3 sources, signed artifact and independent W4 review. Production additionally requires exact staging evidence, backup/readback, compatible rollback and explicit company environment approval.

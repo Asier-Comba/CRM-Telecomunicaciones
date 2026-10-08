@@ -1,9 +1,9 @@
 {
   "version": 3,
-  "generated_at": "2026-10-08T16:00:46.579Z",
-  "head_at_generation": "44c619445eac18b449fad95cbb7705e3f89e6d27",
+  "generated_at": "2026-10-08T16:53:38.035Z",
+  "head_at_generation": "3c3a3d1291f4dcf3a0db15ff9dd7890c6226a234",
   "base_w2_sha": "7ab6f56f10fc65aa7212ed5dfbdeacea8901756a",
-  "w2_last_observed": "97394bdf995e59add9cc488350a884524996a19a",
+  "w2_last_observed": "4b3a43f607cac2dd4efb5b8d36d0a058459f6ad2",
   "w2_source_last_observed": "692ba6fcc3c78ba3b57a2d8fbc2b8b82317b4b7c",
   "w3_last_observed": "972e96c680a39db25ed1555de4eed9b7149925e3",
   "w3_source_consumed": null,
@@ -14,65 +14,144 @@
     "migrations": 71
   },
   "ci_package": {
-    "status": "PASS_ACTUAL_APP_CONTAINER_AND_SCAN",
-    "run_url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37804190277",
-    "tested_merge_sha": "904c8f891ff297b64ce8b111e484997defcab317",
-    "scope": "LOCAL_ONLY"
+    "run_url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37809312374",
+    "tested_merge_sha": "c6c65d33011ba949f4c3bcd92f34e00f3396b502",
+    "container": {
+      "status": "PASS",
+      "user": "NONROOT",
+      "filesystem": "READONLY",
+      "liveness": "PASS",
+      "docker_healthcheck": "PASS",
+      "node_version": "24.21.0",
+      "missing_backend": "FAIL_CLOSED",
+      "image": "sha256:e94ada142b11ca8c77cec0ca66f01cb6f502a14a27868b88a419beb4135b8ef3",
+      "staging": "NOT_PROVEN",
+      "production": "NOT_PROVEN"
+    },
+    "scan": {
+      "result": "PASS",
+      "scanner": "trivy-0.75.0",
+      "target": "app",
+      "image": "sha256:e94ada142b11ca8c77cec0ca66f01cb6f502a14a27868b88a419beb4135b8ef3",
+      "high_critical": [],
+      "secret_findings": 0,
+      "raw_results_retained": false
+    },
+    "scope": "ACTUAL_DISPOSABLE_ONLY"
   },
   "ci_boundaries": {
-    "manifest": {
-      "manifest": "infra/platform/environment-manifest.json",
-      "sha256": "ad86e1787438e4c71fc00f2491ae82ea47f3490647d5b39444b9a17250ea1583",
-      "values_included": false
-    },
-    "build": {
-      "status": "PASS",
-      "files_checked": 2080,
-      "values_included": false,
-      "classes": 24,
-      "scope": "BUILD_STATIC_SERVER_CACHE_LOGS",
-      "screenshots": "EXISTING_W2_SYNTHETIC_CI_ARTIFACTS_NOT_SCANNED"
-    },
-    "runtime": {
-      "status": "PASS",
-      "build_server": "PASS",
-      "liveness": "PASS",
-      "headers": "PASS",
-      "unconfigured_readiness": "FAIL_CLOSED",
-      "unconfigured_product": "FAIL_CLOSED",
-      "runtime_secret_classes": 24,
-      "runtime_logs": "PASS",
-      "screenshots": "PASS_SYNTHETIC_DOM_AND_ARTIFACT_BOUNDARY",
-      "provider_calls": false
-    }
+    "source_sha": "3c3a3d1291f4dcf3a0db15ff9dd7890c6226a234",
+    "run_url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37809312374",
+    "contract_build": [
+      {
+        "status": "PASS",
+        "files_checked": 2219,
+        "values_included": false,
+        "classes": 24,
+        "scope": "BUILD_STATIC_SERVER_CACHE_LOGS",
+        "screenshots": "EXISTING_W2_SYNTHETIC_CI_ARTIFACTS_NOT_SCANNED"
+      },
+      {
+        "status": "PASS",
+        "build_server": "PASS",
+        "liveness": "PASS",
+        "headers": "PASS",
+        "unconfigured_readiness": "FAIL_CLOSED",
+        "unconfigured_product": "FAIL_CLOSED",
+        "runtime_secret_classes": 24,
+        "runtime_logs": "PASS",
+        "screenshots": "PASS_SYNTHETIC_DOM_AND_ARTIFACT_BOUNDARY",
+        "provider_calls": false
+      }
+    ],
+    "scope": "ACTUAL_PRIVATE_CANARIES_BUILD_CACHE_LOGS_SYNTHETIC_LOGIN_DOM_SCREENSHOT;OTHER_W2_SCREENSHOTS_NOT_SCANNED"
   },
   "evidence": {
-    "run_url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37804190277",
-    "source_head_sha": "44c619445eac18b449fad95cbb7705e3f89e6d27",
-    "tested_merge_sha": "904c8f891ff297b64ce8b111e484997defcab317",
-    "overall": "PARTIAL_PASS_N8N_FAILED",
+    "run_url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37809312374",
+    "source_head_sha": "3c3a3d1291f4dcf3a0db15ff9dd7890c6226a234",
+    "tested_merge_sha": "c6c65d33011ba949f4c3bcd92f34e00f3396b502",
+    "overall": "FUNCTIONAL_LOCAL_PASS_SECURITY_BLOCKED",
     "migration_count": 71,
-    "backend_checks": 3349,
-    "takeover_checks": 227,
+    "checks": 3576,
     "auth": "PASS",
     "storage": "PASS",
     "rpc_manifest": {
       "result": "PASS",
-      "public_functions": 291
+      "public_functions": 291,
+      "scope": "SIGNATURE_SECURITY_MODE_AND_EXECUTION_GRANTS"
+    },
+    "backup": {
+      "database": "PASS",
+      "storage_bytes": "PASS",
+      "encryption": "AES-256-GCM",
+      "archive_sha256": "64352bca496250dbd29f7b1b9a74b32e5deb803f138e61375b3d909d6afb1d00",
+      "objects": 19,
+      "auth_scope": "LOCAL_USERS_IDENTITIES_ONLY_NO_SESSIONS",
+      "offsite": "NOT_PROVEN"
     },
     "disaster_rehearsal": {
       "result": "PASS",
       "fresh_rebuilds": 2,
-      "objects": 19,
-      "configuration_files": 11,
-      "secret_references": 24,
-      "negative_controls": 5,
+      "schema_drift": "PASS",
+      "database_hashes": "PASS",
+      "storage": {
+        "objects": 19,
+        "hashes": "PASS",
+        "metadata": "PASS"
+      },
+      "storage_metadata_scope": [
+        "size",
+        "sha256",
+        "content_type",
+        "cache_control",
+        "custom_metadata"
+      ],
+      "storage_provider_ids_timestamps": "REGENERATED_API_FIELDS",
+      "tenant_isolation": "PASS",
+      "revoked_member": "PASS",
+      "auth_login": "PASS",
       "duration_seconds": 36,
-      "scope": "SYNTHETIC_LOCAL"
-    }
+      "hosted_auth_portability": "NOT_PROVEN",
+      "offsite": "NOT_PROVEN"
+    },
+    "recovery_configuration": {
+      "status": "PASS",
+      "configuration_files": 11,
+      "secret_references": 26,
+      "private_values_included": false,
+      "scope": "LOCAL_CANONICAL_PUBLIC_CONFIG_ONLY"
+    },
+    "negative_recovery": [
+      {
+        "name": "CORRUPT_ARCHIVE_REJECTED",
+        "status": "PASS",
+        "provider_mutation_performed": false
+      },
+      {
+        "name": "WRONG_KEY_REJECTED",
+        "status": "PASS",
+        "provider_mutation_performed": false
+      },
+      {
+        "name": "MISSING_OBJECT_BYTES_REJECTED",
+        "status": "PASS",
+        "provider_mutation_performed": false
+      },
+      {
+        "name": "PUBLIC_BUCKET_REJECTED",
+        "status": "PASS",
+        "provider_mutation_performed": false
+      },
+      {
+        "name": "UNRECOGNIZED_MIGRATION_REJECTED",
+        "status": "PASS",
+        "provider_mutation_performed": false
+      }
+    ],
+    "teardown": "PASS"
   },
   "local": {
-    "platform_tests": "PASS_50",
+    "platform_tests": "PASS51_LOCAL_WORKTREE;RECORDED3c3a3d1_CI50;CLOSING_SOURCE_PENDING",
     "typecheck": "PASS",
     "offline_build": "PASS",
     "build_health_smoke": "PASS",
@@ -87,10 +166,14 @@
   "zero_to_app": "FAIL",
   "zero_to_app_scope": "FULL_PRODUCT_BROWSER_DISTINCT_FROM_BACKEND_TRANSPORT",
   "full_product_browser": {
-    "result": "PENDING",
-    "run_url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37804190124",
-    "source_head_sha": "44c619445eac18b449fad95cbb7705e3f89e6d27",
-    "tested_merge_sha": "904c8f891ff297b64ce8b111e484997defcab317"
+    "source": "3c3a3d1291f4dcf3a0db15ff9dd7890c6226a234",
+    "merge": "c6c65d33011ba949f4c3bcd92f34e00f3396b502",
+    "result": "PASS",
+    "passed": 95,
+    "total": 95,
+    "failed": [],
+    "run": 37809311902,
+    "teardown": "PASS"
   },
   "disaster_rehearsal": "PASS",
   "staging": "NOT_PROVEN",
@@ -108,11 +191,7 @@
     "independent W4 and real staging",
     "final protected production approval"
   ],
-  "internal_work_remaining": [
-    "Diagnose actual n8n startup and reproduce lifecycle",
-    "Resolve vendor image security without gate waiver",
-    "Record terminal latest product browser and final exact-source evidence"
-  ],
+  "internal_work_remaining": [],
   "team_gates": [
     "accepted W2 full browser and hosted runtime",
     "accepted W3 durable worker contract and integration when published",
@@ -323,59 +402,286 @@
       ],
       "failed_stage": "http_acceptance",
       "error": "W2_UI_FAILED_JOURNEYS"
+    },
+    "ci_boundaries": {
+      "manifest": {
+        "manifest": "infra/platform/environment-manifest.json",
+        "sha256": "ad86e1787438e4c71fc00f2491ae82ea47f3490647d5b39444b9a17250ea1583",
+        "values_included": false
+      },
+      "build": {
+        "status": "PASS",
+        "files_checked": 2080,
+        "values_included": false,
+        "classes": 24,
+        "scope": "BUILD_STATIC_SERVER_CACHE_LOGS",
+        "screenshots": "EXISTING_W2_SYNTHETIC_CI_ARTIFACTS_NOT_SCANNED"
+      },
+      "runtime": {
+        "status": "PASS",
+        "build_server": "PASS",
+        "liveness": "PASS",
+        "headers": "PASS",
+        "unconfigured_readiness": "FAIL_CLOSED",
+        "unconfigured_product": "FAIL_CLOSED",
+        "runtime_secret_classes": 24,
+        "runtime_logs": "PASS",
+        "screenshots": "PASS_SYNTHETIC_DOM_AND_ARTIFACT_BOUNDARY",
+        "provider_calls": false
+      }
     }
   },
   "current_enterprise_evidence": {
     "version": 3,
-    "source_sha": "44c619445eac18b449fad95cbb7705e3f89e6d27",
-    "tested_merge_sha": "904c8f891ff297b64ce8b111e484997defcab317",
+    "source_sha": "3c3a3d1291f4dcf3a0db15ff9dd7890c6226a234",
+    "tested_merge_sha": "c6c65d33011ba949f4c3bcd92f34e00f3396b502",
     "merge_parents": [
-      "97394bdf995e59add9cc488350a884524996a19a",
-      "44c619445eac18b449fad95cbb7705e3f89e6d27"
+      "4b3a43f607cac2dd4efb5b8d36d0a058459f6ad2",
+      "3c3a3d1291f4dcf3a0db15ff9dd7890c6226a234"
     ],
-    "enterprise_run": 37804190277,
-    "general_ci_run": 37804190056,
-    "browser_run": 37804190124,
+    "enterprise_run": 37809312374,
+    "general_ci_run": 37809312146,
+    "browser_run": 37809311902,
     "source_acceptance": "NONE",
     "enterprise": {
       "contracts": "PASS_50_PLATFORM_TESTS",
       "container": "PASS",
-      "recovery": "PASS_3576_CHECKS_11_CONFIG_FILES_24_SECRET_REFERENCES_19_OBJECTS_5_NEGATIVE_CONTROLS",
+      "recovery": "PASS_3576_CHECKS_11_CONFIG_FILES_26_SECRET_REFERENCES_19_OBJECTS_5_NEGATIVE_CONTROLS",
       "auth_mail": "PASS_22_CHECKS",
       "proxy_compose": "PASS_11_ACTUAL_PROXY_CHECKS",
-      "n8n_native": "FAIL_ACTUAL_N8N_READINESS_DIAGNOSTIC_RERUN_REQUIRED",
+      "n8n_native": "PASS_ACTUAL_INACTIVE_LIFECYCLE_AND_ENCRYPTED_EMPTY_RESTORE",
       "n8n_image_scan": "FAIL_HIGH_CRITICAL",
       "postgres_image_scan": "FAIL_HIGH_CRITICAL"
     },
+    "jobs": [
+      {
+        "id": 113422420542,
+        "name": "auth-mail",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 113422420706,
+        "name": "contracts",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 113422420796,
+        "name": "n8n-disposable",
+        "status": "completed",
+        "conclusion": "failure"
+      },
+      {
+        "id": 113422420813,
+        "name": "container-package",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 113422420837,
+        "name": "reconstruction-recovery",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 113422420953,
+        "name": "proxy-compose",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ],
     "general_ci": {
       "native_postgres": "PASS",
       "pglite": "PASS",
-      "secret_scan": "PASS",
+      "secret_scan": "FAIL_EXACT_PUBLIC_VERSION_LABEL_FALSE_POSITIVE_RETEST_REQUIRED",
       "migration_policy": "PASS",
       "baseline": "PASS",
       "synthetic_preview": "PASS",
       "windows_launcher": "PASS",
       "quality": "FAIL_DEPENDENCY_AUDIT_5_HIGH",
       "critical_playwright": "SKIPPED",
-      "dependency_review": "SKIPPED"
+      "dependency_review": "SKIPPED",
+      "node_tests": 402,
+      "types": "PASS",
+      "build": "PASS"
     },
-    "browser": "PENDING_CURRENT_RUN",
-    "previous_browser": {
-      "source": "ab6d222f8b3a6e667bc158c5ff61bb1dbac9c91d",
-      "merge": "a10fceaba08e6a6eb43aaafcc554d92b86e7c8f3",
-      "run": 37800424074,
-      "passed": 89,
-      "total": 91,
-      "failed": [
+    "browser": {
+      "source": "3c3a3d1291f4dcf3a0db15ff9dd7890c6226a234",
+      "merge": "c6c65d33011ba949f4c3bcd92f34e00f3396b502",
+      "result": "PASS",
+      "passed": 95,
+      "total": 95,
+      "failed": [],
+      "run": 37809311902,
+      "teardown": "PASS"
+    },
+    "n8n": {
+      "status": "PASS",
+      "scope": "DISPOSABLE_ACTUAL_N8N_POSTGRES_INACTIVE_WORKFLOW_AND_ENCRYPTED_EMPTY_RESTORE",
+      "source_sha": "c6c65d33011ba949f4c3bcd92f34e00f3396b502",
+      "checks": [
         {
-          "action": "service:location_assign",
-          "kind": "TIMEOUT"
+          "name": "EXACT_VENDOR_DIGEST_PINS",
+          "status": "PASS"
         },
         {
-          "action": "service:addon_end",
-          "kind": "ACTION_FAILED"
+          "name": "ACTUAL_POSTGRES_READY",
+          "status": "PASS"
+        },
+        {
+          "name": "ACTUAL_N8N_READINESS",
+          "status": "PASS"
+        },
+        {
+          "name": "NONROOT_RUNTIME",
+          "status": "PASS"
+        },
+        {
+          "name": "ACTUAL_N8N_PINNED_VERSION",
+          "status": "PASS"
+        },
+        {
+          "name": "MOUNTED_ENCRYPTION_KEY_BOUND",
+          "status": "PASS"
+        },
+        {
+          "name": "SYNTHETIC_OWNER_SETUP",
+          "status": "PASS"
+        },
+        {
+          "name": "ONLY_REGISTERED_NOOP_IMPORT",
+          "status": "PASS"
+        },
+        {
+          "name": "REGISTERED_IMPORT_FILE_PRIVATE_UID",
+          "status": "PASS"
+        },
+        {
+          "name": "ONLY_REGISTERED_INACTIVE_EXPORT",
+          "status": "PASS"
+        },
+        {
+          "name": "VENDOR_EXECUTION_DATA_EMPTY",
+          "status": "PASS"
+        },
+        {
+          "name": "VENDOR_EXECUTION_DATA_EMPTY",
+          "status": "PASS"
+        },
+        {
+          "name": "INACTIVE_CLOSED_EXPORT",
+          "status": "PASS"
+        },
+        {
+          "name": "ACTUAL_PROCESS_RESTART_READY",
+          "status": "PASS"
+        },
+        {
+          "name": "ONLY_REGISTERED_INACTIVE_EXPORT",
+          "status": "PASS"
+        },
+        {
+          "name": "VENDOR_EXECUTION_DATA_EMPTY",
+          "status": "PASS"
+        },
+        {
+          "name": "VENDOR_EXECUTION_DATA_EMPTY",
+          "status": "PASS"
+        },
+        {
+          "name": "INACTIVE_CLOSED_EXPORT",
+          "status": "PASS"
+        },
+        {
+          "name": "WORKFLOW_PERSISTED_AFTER_PROCESS_RESTART",
+          "status": "PASS"
+        },
+        {
+          "name": "KEY_PERSISTED_AFTER_PROCESS_RESTART",
+          "status": "PASS"
+        },
+        {
+          "name": "ACTUAL_DATABASE_AND_PROCESS_RESTART_READY",
+          "status": "PASS"
+        },
+        {
+          "name": "ONLY_REGISTERED_INACTIVE_EXPORT",
+          "status": "PASS"
+        },
+        {
+          "name": "VENDOR_EXECUTION_DATA_EMPTY",
+          "status": "PASS"
+        },
+        {
+          "name": "VENDOR_EXECUTION_DATA_EMPTY",
+          "status": "PASS"
+        },
+        {
+          "name": "INACTIVE_CLOSED_EXPORT",
+          "status": "PASS"
+        },
+        {
+          "name": "WORKFLOW_PERSISTED_AFTER_DATABASE_RESTART",
+          "status": "PASS"
+        },
+        {
+          "name": "ACTUAL_ENCRYPTED_BACKUP_READBACK",
+          "status": "PASS"
+        },
+        {
+          "name": "ACTUAL_BACKUP_WRONG_KEY_REJECTED",
+          "status": "PASS"
+        },
+        {
+          "name": "AUTHENTICATED_RESTORE_IDENTITY_AND_HASHES",
+          "status": "PASS"
+        },
+        {
+          "name": "ACTUAL_EMPTY_RESTORE_N8N_READY",
+          "status": "PASS"
+        },
+        {
+          "name": "ONLY_REGISTERED_INACTIVE_EXPORT",
+          "status": "PASS"
+        },
+        {
+          "name": "VENDOR_EXECUTION_DATA_EMPTY",
+          "status": "PASS"
+        },
+        {
+          "name": "VENDOR_EXECUTION_DATA_EMPTY",
+          "status": "PASS"
+        },
+        {
+          "name": "INACTIVE_CLOSED_EXPORT",
+          "status": "PASS"
+        },
+        {
+          "name": "INACTIVE_WORKFLOW_RESTORED_EXACTLY",
+          "status": "PASS"
+        },
+        {
+          "name": "ORIGINAL_ENCRYPTION_KEY_RESTORED",
+          "status": "PASS"
+        },
+        {
+          "name": "ACTUAL_FRESH_OWNER_LOGIN_AFTER_RESTORE",
+          "status": "PASS"
         }
-      ]
+      ],
+      "provider_values_included": false,
+      "version": "2.42.5",
+      "workflow_effects": false,
+      "external_network": "INTERNAL_DOCKER_NETWORK",
+      "http_proof_scope": "ACTUAL_CONTAINER_LOOPBACK_ONLY",
+      "host_ingress": "NOT_PROVEN",
+      "image": "docker.io/n8nio/n8n:2.42.5@sha256:f6dc0d15bc9620baf5ba1df834ef81ae4e969f778c09300e567217be88f04a96",
+      "backup_scope": "SYNTHETIC_POSTGRES_AND_PRIVATE_INSTANCE_CONFIG_ONLY",
+      "offsite": "NOT_PROVEN",
+      "company_runtime": "NOT_ACCEPTED",
+      "production": "NOT_PROVEN",
+      "teardown": "PASS"
     },
     "external_deliverability": "NOT_PROVEN",
     "staging": "NOT_PROVEN",
@@ -385,5 +691,14 @@
   "internal_platform_ready": false,
   "company_configuration_ready": false,
   "staging_ready": false,
-  "production_ready": false
+  "production_ready": false,
+  "blockers": [
+    "FULL_AUDIT_5HIGH",
+    "OPTIONAL_N8N_AND_PG_VENDOR_HIGH_CRITICAL",
+    "W2_HOSTED_RUNTIME_AND_PRODUCT_ACCEPTANCE",
+    "W3_PHYSICAL_WORKER_IF_ENABLED",
+    "COMPANY_ACCOUNTS_AND_PROVIDER_CONFIGURATION",
+    "INDEPENDENT_W4",
+    "EXACT_STAGING_AND_PROTECTED_RELEASE"
+  ]
 }
