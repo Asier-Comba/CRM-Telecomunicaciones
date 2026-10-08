@@ -1,4 +1,5 @@
 'use client'
+import {ContractsInventory} from '@/features/contracts/Contracts'
 import Link from 'next/link'
 import {AssignedCommercial} from '@/features/product/integration/AssignedCommercial'
 import {EquipmentInventory} from '@/features/equipment/EquipmentInventory'
@@ -17,6 +18,7 @@ import { control, Status } from '@/features/product/ui'
 
 export const customerAreas=['Resumen','Empresa','Contactos','Contratos','Servicios','Ubicaciones','Líneas','SIM/eSIM','Portabilidades','Renovaciones','Permanencias','Oportunidades','Tareas','Reuniones','Incidencias','Equipos','Agenda','Documentos','Facturación','Actividad','Comunicaciones']
 export function CustomerIntegratedPanels({customer,area}:{customer:CustomerIdentity;area:string}){
+ if(area==='Contratos')return <ContractsInventory key={customer.id} customerId={customer.id} createAllowed={customer.status==='active'}/>
  if(area==='Ubicaciones')return <ServiceLocations key={customer.id} customerId={customer.id} createAllowed={customer.status==='active'}/>
  if(area==='Portabilidades')return <PortabilityInventory key={customer.id} customerId={customer.id} createAllowed={customer.status==='active'}/>
  if(area==='SIM/eSIM')return <SimInventory key={customer.id} customerId={customer.id} createAllowed={customer.status==='active'}/>

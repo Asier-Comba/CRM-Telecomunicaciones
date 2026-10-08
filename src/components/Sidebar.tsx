@@ -35,6 +35,7 @@ const items = [
   ['/dashboard', 'Dashboard', LayoutDashboard],
   ['/clients', 'Clientes', Users],
   ['/portfolio', 'Cartera Telecom', RadioTower],
+  ['/contracts', 'Contratos', Files],
   ['/services', 'Servicios', Layers3],
   ['/portabilities', 'Portabilidades', ArrowRightLeft],
   ['/sims', 'SIM y eSIM', CreditCard],
