@@ -3,6 +3,8 @@ import Link from 'next/link'
 import {AssignedCommercial} from '@/features/product/integration/AssignedCommercial'
 import {EquipmentInventory} from '@/features/equipment/EquipmentInventory'
 import {ServiceLocations} from '@/features/services/ServiceLocations'
+import {PortabilityInventory} from '@/features/portabilities/Portabilities'
+import {SimInventory} from '@/features/sims/Sims'
 import {CaseInventory} from '@/features/cases/Cases'
 import {SensitiveReveal} from './SensitiveReveal'
 import {CustomerDomainPages,isCustomerDomain} from './CustomerDomainPages'
@@ -16,6 +18,8 @@ import { control, Status } from '@/features/product/ui'
 export const customerAreas=['Resumen','Empresa','Contactos','Contratos','Servicios','Ubicaciones','Líneas','SIM/eSIM','Portabilidades','Renovaciones','Permanencias','Oportunidades','Tareas','Reuniones','Incidencias','Equipos','Agenda','Documentos','Facturación','Actividad','Comunicaciones']
 export function CustomerIntegratedPanels({customer,area}:{customer:CustomerIdentity;area:string}){
  if(area==='Ubicaciones')return <ServiceLocations key={customer.id} customerId={customer.id} createAllowed={customer.status==='active'}/>
+ if(area==='Portabilidades')return <PortabilityInventory key={customer.id} customerId={customer.id} createAllowed={customer.status==='active'}/>
+ if(area==='SIM/eSIM')return <SimInventory key={customer.id} customerId={customer.id} createAllowed={customer.status==='active'}/>
  if(area==='Incidencias')return <CaseInventory key={customer.id} customerId={customer.id} createAllowed={customer.status==='active'}/>
  if(area==='Equipos')return <EquipmentInventory customerId={customer.id} createAllowed={customer.status==='active'}/>
  if(isCustomerDomain(area))return <CustomerDomainPages key={area} area={area} customerId={customer.id}/>
