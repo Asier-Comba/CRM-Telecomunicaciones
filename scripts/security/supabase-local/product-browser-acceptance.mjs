@@ -51,6 +51,11 @@ export async function productBrowserAcceptance({ users, wa, ca, sql, url, anon, 
     const receipt=parseDocumentContentReceiptV1('document.request_upload',input,body.receipt)
     if(!receipt)throw Error('DOCUMENT_PREPARE_RECEIPT_INVALID')
     await expect(page.getByText('Intención preparada. El archivo todavía no se ha subido.',{exact:true})).toBeVisible()
+    const expires=new Intl.DateTimeFormat('es-ES',{day:'2-digit',month:'short',year:'numeric',timeZone:'Europe/Madrid',hour:'2-digit',minute:'2-digit'}).format(new Date(receipt.expires_at))
+    const expiration=page.getByRole('dialog').locator('time')
+    await expect(expiration).toHaveAttribute('datetime',receipt.expires_at)
+    await expect(expiration).toHaveText(expires)
+    await expect(page.getByText('Intención pendiente hasta '+expires+' (hora de Madrid).',{exact:true})).toBeVisible()
     return {receipt,response}
   }
   async function uploadPreparedDocument(receipt){
