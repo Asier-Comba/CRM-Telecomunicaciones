@@ -14,6 +14,12 @@ W3_READY_FOR_W2_READ:NO. W3_READY_FOR_W2_ACTION_CANDIDATE:NO. Persisted selected
 
 ## Historical checkpoint record
 
+## Independent entity-choice seam — 2026-10-08
+
+Candidate source `product-entity-resolution-v2.ts`, contract `docs/master/ai/W3_ENTITY_RESOLUTION_CONTRACT_V2.md`. Uses existing closed W2 search DTOs through an injected registered server service, with fresh actor/workspace/role/epoch and point-resource/ancestry authorization around awaits before issuing references. Unknown/private fields, secret labels, forged IDs and issuer handles reject; no raw IDs in output. Contacts/invoices/unrelated kinds excluded. Every bounded result is partial with unknown as-of; one exact label still requires explicit selection. Zero matches does not prove nonexistence. Prompt injection remains literal untrusted search/display data.
+
+No new capability registration, route, persisted context, fuzzy backend search or business write enabled; this is independent pure integration work while the required whole Supabase gate is red. Eight focused tests exercise actual seam/port ordering, ambiguity/empty versus outage, malformed/accessor input/output, cross-tenant/actor/role/epoch, ancestry, late revocation, clock/expiry/abort and duplicate/forged references. Local final396 bootstrap +481 assistant =877 PASS; production build and subsequent types PASS; lint0errors/0warnings. W4 independent review requested; no physical/live-model acceptance claim.
+
 Current G consumes W2 `7ab6f56f10fc65aa7212ed5dfbdeacea8901756a`; normal remote merge PR33 `1900952`. F remote `e79b0cc1c4980b5034628406cb6cd857438bdec6` was verified tree-identical to local `254510d`, and its publication history is normally merged locally. No force rewrite/main/PR9 merge. Foundation readiness remains NO pending exact native/Supabase completion.
 
 Branch `w3/ai-product-v2`, Draft PR31. Current F consumes W2 `7ab6f56f10fc65aa7212ed5dfbdeacea8901756a` via normal PR33 `19009526af680c521d69f66c77c94509e21b3ebd`; local391+464=855 tests, final types/build/lint PASS; native/Supabase full gates still pending after candidate corrections. Prior D history: W2 `4de7cad45c4005b7903dbe97502febfff457541f` consumed by normal remote merge PR32 `ffdca160d1b66c67c9d8af7c8effdf7e31943ca4`; no conflicts, force rebase, main or PR9 merge. Historical published C `1d21296` remains the predecessor; D forward fix publication/CI is pending at this document's commit.

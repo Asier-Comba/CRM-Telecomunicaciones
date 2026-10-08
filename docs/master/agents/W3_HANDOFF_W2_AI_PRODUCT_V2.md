@@ -6,6 +6,8 @@ Your c21a7c0 /782c8fc /692ba6f source inspected and normally merged; no DTO/sche
 
 # W3 → W2 AI product v2, checkpoint B
 
+New inert entity-choice structure is documented in `docs/master/ai/W3_ENTITY_RESOLUTION_CONTRACT_V2.md`: needs_selection or no_match_in_bounded_search, partial:true/asOf:null/untrusted data, opaque references and explicit user selection even with one exact match. Constant failure states never mean “none”. Five nonprivate entity kinds only. Current registry stays30; no route/persisted-selection readiness implied.877 final local tests plus build/types/lint0/0 PASS. W4 must independently review eventual authorized issuer and selected-read adapter.
+
 Source base c632f0a. New branch w3/ai-product-v2 stacks on w2/product-integration-v2; PR9 remains isolated Draft.
 
 Stable today: existing AssistantResponse v1 unchanged. New provider-neutral interface `src/assistant/providers/ai-provider.ts`; Responses server factory `src/lib/server/ai-provider-v2.ts`. Do not render plan_delta as a user answer or interactive action. It is unvalidated internal planning text; only validated final responses may contain UI blocks.
