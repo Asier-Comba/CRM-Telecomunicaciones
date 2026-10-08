@@ -21,3 +21,9 @@ Windows changed-file lint, syntax and typecheck: PASS. Existing meaningful bound
 Full local stack remains stopped/resource-blocked at approximately 3 GiB free. The older local Windows full assistant abort belongs to the separate prerequisite runner fixed/tested in PR #43; that change is not yet consumed here. Full dependency audit remains five HIGH under issue #29. Physical business effect durability remains NOT_TESTED and IA writes disabled pending issue #10 and independent W4 approval. No W4/W5 migration/infrastructure/provider/production change.
 
 Next three: prove the actual own/foreign/viewer/revocation context browser and all107; inspect context and history captures at390/768/1440; compose only reviewed candidates and repeat exact-source W2/W3 gates before semantic grounding integration.
+
+## First real candidate failure
+
+Source `5b20b1d12b36344cbe11aa71d5c875fb6b473bf3`, executed `d3b65fd1529e2dce5c6e03e169b52cb0cf8bc664`, run37858978264/job113589914801: FAIL at http_acceptance with BOUNDED_ACCEPTANCE_FAILURE, zero W2 product journeys started, teardownPASS. Nine actual context/history captures were produced, including history after rename/reload at all three widths. They prove that execution reached those frames; they do not accept the candidate, prove the final revocation/archive/cursor gates, or establish the failure's exact cause.
+
+Exact quality37858978199/job113589915164 passes lint/types/410+481/build; full audit5HIGH FAIL. The failure is not masked as a UI/backend PASS. The browser harness now emits a fixed phase/kind error tag and captures the failed phase before cleanup with main scrolled to the top. No request body, IDs, URLs, credentials or raw error text is logged. App behavior, budgets and every assertion are unchanged in this diagnostic update; a fresh actual run must isolate the cause before remediation is accepted.
