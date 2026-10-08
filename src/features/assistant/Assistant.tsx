@@ -45,7 +45,7 @@ const prompts = [
 type AssistantProps = { context: AssistantContext | null; selectedReferences?: readonly AiEntityReference[]; invoiceIntent?: boolean; persistedHistory?: boolean }
 export function Assistant(props: AssistantProps) {
   const { actorId, workspaceId, role, repository } = useProduct()
-  return props.persistedHistory && repository.mode === 'integrated_local' ? <PersistedHistory key={JSON.stringify([actorId,workspaceId,role])} /> : <TemporaryAssistant {...props} />
+  return props.persistedHistory && repository.mode === 'integrated_local' ? <PersistedHistory key={JSON.stringify([actorId,workspaceId,role])} selectedReferences={props.selectedReferences} invoiceIntent={props.invoiceIntent} /> : <TemporaryAssistant {...props} />
 }
 function TemporaryAssistant({ context, selectedReferences = [], invoiceIntent = false }: AssistantProps) {
   const integrated = useProduct().repository.mode === 'integrated_local'
