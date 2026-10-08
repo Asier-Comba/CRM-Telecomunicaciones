@@ -62,5 +62,7 @@ export async function assistantHistoryAcceptance({ rpc, sql, check, users, wa, w
   try { check((await api('thread.get', { id: apiId })).status === 403, 'assistant_history_api_valid_jwt_revoked') }
   finally { sql(`update public.workspace_members set status='active' where workspace_id='${wa}' and user_id='${users.ownerA.id}';`) }
   check((await api('thread.archive', { id: apiId, expected_version: 2 })).json?.data?.record?.archived === true, 'assistant_history_api_archive')
-  return { assistant_history: 'PASS_ACTUAL_AUTH_POSTGREST_SCOPE_REPLAY_CAS_REVOCATION', assistant_history_application_api: 'PASS_ACTUAL_COOKIE_THREAD_LIFECYCLE', assistant_business_durability: 'NOT_TESTED' }
+  const {assistantHistoryBrowser}=await import('./assistant-history-browser.mjs')
+  const assistant_history_browser=await assistantHistoryBrowser({origin:assistantAppUrl,cookie:cookies.ownerA,call,sql,wa,users,check})
+  return { assistant_history: 'PASS_ACTUAL_AUTH_POSTGREST_SCOPE_REPLAY_CAS_REVOCATION', assistant_history_application_api: 'PASS_ACTUAL_COOKIE_THREAD_LIFECYCLE', assistant_history_browser, assistant_business_durability: 'NOT_TESTED' }
 }
