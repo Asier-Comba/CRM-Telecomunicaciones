@@ -4,7 +4,7 @@ import { mkdirSync } from 'node:fs'
 import { resolve } from 'node:path'
 
 /** Actual cookie browser/history RPC on the same disposable development app. */
-export async function assistantHistoryBrowser({ origin, cookie, call, sql, wa, users, check }) {
+export async function assistantHistoryBrowser({ origin, cookie, viewerCookie, call, sql, wa, wb, users, check }) {
   const browser = await chromium.launch()
   let context
   try {
@@ -13,7 +13,51 @@ export async function assistantHistoryBrowser({ origin, cookie, call, sql, wa, u
     const page=await context.newPage();page.setDefaultTimeout(30000)
     const dir=resolve(process.env.RUNNER_TEMP,'w3-history-ui');mkdirSync(dir,{recursive:true})
     const pending=op=>page.waitForResponse(response=>{try{return new URL(response.url()).pathname==='/api/assistant/v2/threads'&&response.request().postDataJSON().operation===op}catch{return false}})
-    await page.goto(origin+'/assistant')
+    const customer=randomUUID(),foreignCustomer=randomUUID()
+    sql(`insert into public.customers(id,workspace_id,account_kind,legal_name,created_by_user_id) values('${customer}','${wa}','legal_entity','W3 UI Authorized Context','${users.ownerA.id}'),('${foreignCustomer}','${wb}','legal_entity','W3 UI Foreign Context','${users.ownerB.id}')`)
+    const ordinary=[],observe=request=>{try{const input=request.postDataJSON();if(input?.operation)ordinary.push(input)}catch{}}
+    page.on('request',observe)
+    const summary=page.waitForResponse(response=>{try{const request=response.request().postDataJSON();return new URL(response.url()).pathname==='/api/telecom/reads/v1'&&request.operation==='customer360.summary'&&request.input.customer_id===customer}catch{return false}})
+    await page.goto(origin+'/assistant?customer='+customer)
+    const summaryResponse=await summary,summaryBody=await summaryResponse.json(),contextRegion=page.getByRole('region',{name:'Contexto autorizado del cliente',exact:true})
+    check(summaryResponse.status()===200&&summaryBody.data?.record?.customer_id===customer&&summaryBody.data.record.contracts===0&&summaryBody.data.record.services===0&&summaryBody.data.record.lines===0,'assistant_history_browser_context_actual_scoped_summary')
+    await expect(contextRegion.getByRole('heading',{name:'W3 UI Authorized Context',exact:true})).toBeVisible()
+    await expect(contextRegion.getByRole('link',{name:'Abrir ficha del cliente',exact:true})).toHaveAttribute('href','/clients/'+customer)
+    await expect(contextRegion.getByText(/Recuentos completos del cliente/)).toBeVisible()
+    check(ordinary.some(request=>request.operation==='customer.list'&&request.input.limit===1)&&!ordinary.some(request=>request.operation==='customer.editor'),'assistant_history_browser_context_ordinary_identity_no_privileged_editor')
+    for(const width of [1440,768,390]){await page.setViewportSize({width,height:960});await page.getByRole('main').evaluate(el=>{el.scrollTop=0});await page.screenshot({path:resolve(dir,'history-context-'+width+'.png'),fullPage:true});check(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'assistant_history_browser_context_responsive_'+width)}
+    ordinary.length=0
+    await page.goto(origin+'/assistant?customer='+foreignCustomer)
+    await expect(page.getByRole('region',{name:'Contexto autorizado del cliente',exact:true}).getByRole('alert')).toHaveText('El registro ya no está disponible.')
+    await expect(page.getByText('W3 UI Foreign Context',{exact:true})).toHaveCount(0)
+    await expect(page.getByText('W3 UI Authorized Context',{exact:true})).toHaveCount(0)
+    check(!ordinary.some(request=>request.operation==='customer.editor'||request.operation==='customer360.summary'||request.operation==='telecom.attention'),'assistant_history_browser_context_foreign_reference_no_dependent_read_or_leak')
+    ordinary.length=0
+    await page.goto(origin+'/assistant?customer=invalid')
+    await expect(page.getByText('Abre el asistente desde una ficha de cliente para consultar su contexto actual autorizado.',{exact:true})).toBeVisible()
+    check(!ordinary.some(request=>request.operation==='customer.list'||request.operation==='customer360.summary'||request.operation==='telecom.attention'),'assistant_history_browser_context_invalid_reference_no_read')
+    page.off('request',observe)
+    // Viewer uses the same ordinary identity and redacted summary under actual
+    // cookie scope. Restore only these disposable membership/profile fixtures.
+    const previousStatus=sql(`select status from public.workspace_members where workspace_id='${wa}' and user_id='${users.viewerA.id}'`),previousWorkspace=sql(`select coalesce(workspace_id::text,'') from public.profiles where id='${users.viewerA.id}'`)
+    check(['active','suspended'].includes(previousStatus)&&(!previousWorkspace||/^[0-9a-f-]{36}$/.test(previousWorkspace)),'assistant_history_browser_context_viewer_fixture_binding')
+    let viewerContext
+    try{
+      sql(`update public.workspace_members set status='active' where workspace_id='${wa}' and user_id='${users.viewerA.id}';update public.profiles set workspace_id='${wa}' where id='${users.viewerA.id}'`)
+      viewerContext=await browser.newContext({viewport:{width:390,height:960}})
+      await viewerContext.addCookies(viewerCookie.split('; ').map(part=>{const at=part.indexOf('=');return{name:part.slice(0,at),value:part.slice(at+1),url:origin}}))
+      const viewerPage=await viewerContext.newPage();viewerPage.setDefaultTimeout(30000)
+      const viewerRequests=[];viewerPage.on('request',request=>{try{const body=request.postDataJSON();if(body?.operation)viewerRequests.push(body.operation)}catch{}})
+      const viewerSummary=viewerPage.waitForResponse(response=>{try{return response.request().postDataJSON().operation==='customer360.summary'}catch{return false}})
+      await viewerPage.goto(origin+'/assistant?customer='+customer)
+      const viewerResponse=await viewerSummary,viewerBody=await viewerResponse.json()
+      check(viewerResponse.status()===200&&viewerBody.data?.record?.customer_id===customer&&viewerBody.data.record.documents===null&&viewerBody.data.record.billing===null,'assistant_history_browser_context_viewer_real_redaction')
+      await expect(viewerPage.getByRole('heading',{name:'W3 UI Authorized Context',exact:true})).toBeVisible()
+      await expect(viewerPage.getByText(/Documentos: Acceso restringido · Facturación: Acceso restringido/)).toBeVisible()
+      check(viewerRequests.includes('customer.list')&&!viewerRequests.includes('customer.editor'),'assistant_history_browser_context_viewer_no_privileged_editor')
+    }finally{await viewerContext?.close();sql(`update public.workspace_members set status='${previousStatus}' where workspace_id='${wa}' and user_id='${users.viewerA.id}';update public.profiles set workspace_id=${previousWorkspace?"'"+previousWorkspace+"'":'null'} where id='${users.viewerA.id}'`)}
+    await page.setViewportSize({width:1440,height:960})
+    await page.goto(origin+'/assistant?customer='+customer)
     await expect(page.getByRole('heading',{name:'Asistente de cartera',exact:true})).toBeVisible()
     await expect(page.getByRole('button',{name:'Actualizar historial',exact:true})).toBeEnabled()
     await expect(page.getByLabel('Consulta al asistente',{exact:true})).toBeDisabled()
@@ -55,6 +99,11 @@ export async function assistantHistoryBrowser({ origin, cookie, call, sql, wa, u
     check(!cache.includes('W3 UI Renamed History')&&!cache.includes('historical only'),'assistant_history_browser_no_history_browser_storage')
     sql(`update public.workspace_members set status='suspended' where workspace_id='${wa}' and user_id='${users.ownerA.id}'`)
     try{await page.getByRole('button',{name:'Actualizar historial',exact:true}).click();await expect(page.getByRole('alert').filter({hasText:'No tienes acceso a este historial.'})).toBeVisible();await expect(page.locator('[data-history-message]')).toHaveCount(0);await expect(page.locator('[data-history-thread]')).toHaveCount(0);check(true,'assistant_history_browser_revocation_clears_display')}
+    finally{sql(`update public.workspace_members set status='active' where workspace_id='${wa}' and user_id='${users.ownerA.id}'`)}
+    await page.getByRole('button',{name:'Actualizar historial',exact:true}).click();await expect(page.locator('[data-history-message]')).toHaveCount(20)
+    await expect(page.getByRole('heading',{name:'W3 UI Authorized Context',exact:true})).toBeVisible()
+    sql(`update public.workspace_members set status='suspended' where workspace_id='${wa}' and user_id='${users.ownerA.id}'`)
+    try{await page.getByRole('button',{name:'Actualizar contexto',exact:true}).click();await expect(page.getByRole('alert').filter({hasText:'Tu acceso ha cambiado. Actualiza el historial.'})).toBeVisible();await expect(page.locator('[data-history-message]')).toHaveCount(0);await expect(page.locator('[data-history-thread]')).toHaveCount(0);await expect(page.getByRole('region',{name:'Contexto autorizado del cliente',exact:true})).toHaveCount(0);check(true,'assistant_history_browser_context_revocation_clears_history_and_context')}
     finally{sql(`update public.workspace_members set status='active' where workspace_id='${wa}' and user_id='${users.ownerA.id}'`)}
     await page.getByRole('button',{name:'Actualizar historial',exact:true}).click();await expect(page.locator('[data-history-message]')).toHaveCount(20)
     await page.getByRole('button',{name:'Archivar conversación',exact:true}).click();const archived=pending('thread.archive');await page.getByRole('button',{name:'Confirmar archivo',exact:true}).click()
