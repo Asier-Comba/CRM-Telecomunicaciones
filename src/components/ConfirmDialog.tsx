@@ -34,18 +34,27 @@ export function ConfirmDialog({
   onConfirm: () => void
   onCancel: () => void
 }) {
-  const dialogRef=useRef<HTMLDialogElement>(null),titleId=useId(),descriptionId=useId()
+  const dialogRef=useRef<HTMLDialogElement>(null),cancelRef=useRef<HTMLButtonElement>(null),titleId=useId(),descriptionId=useId()
   useEffect(()=>{
     if(!open||!dialogRef.current)return
     const dialog=dialogRef.current,previous=document.activeElement as HTMLElement|null
     dialog.showModal()
+    cancelRef.current?.focus()
     return()=>{dialog.close();previous?.focus()}
   },[open])
 
   if (!open) return null
 
   return (
-    <dialog ref={dialogRef} aria-labelledby={titleId} aria-describedby={descriptionId}
+    <dialog ref={dialogRef} tabIndex={-1} aria-labelledby={titleId} aria-describedby={descriptionId}
+      onKeyDown={e=>{
+        if(e.key!=='Tab')return
+        const buttons=Array.from(e.currentTarget.querySelectorAll<HTMLButtonElement>('button:not(:disabled)'))
+        const first=buttons[0],last=buttons[buttons.length-1]
+        if(!first){e.preventDefault();e.currentTarget.focus()}
+        else if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}
+        else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}
+      }}
       onCancel={e=>{e.preventDefault();if(!loading)onCancel()}}
       onClick={e=>{if(e.target===e.currentTarget&&!loading)onCancel()}}
       className="m-auto w-[min(28rem,calc(100vw-2rem))] overflow-hidden rounded-2xl border border-gray-200 bg-white p-0 shadow-2xl backdrop:bg-slate-950/55 backdrop:backdrop-blur-sm">
@@ -69,7 +78,7 @@ export function ConfirmDialog({
           </button>
         </div>
         <div className="flex justify-end gap-2 border-t border-gray-100 bg-gray-50/70 px-5 py-3">
-          <Button variant="secondary" size="sm" autoFocus onClick={onCancel} disabled={loading}>{cancelLabel}</Button>
+          <Button ref={cancelRef} variant="secondary" size="sm" onClick={onCancel} disabled={loading}>{cancelLabel}</Button>
           <Button variant={destructive ? 'danger' : 'primary'} size="sm" loading={loading} onClick={onConfirm}>
             {loading ? (loadingLabel ?? confirmLabel) : confirmLabel}
           </Button>

@@ -1,6 +1,6 @@
 'use client'
 import {ScopedCollectionLabels} from '@/features/product/integration/ScopedCollectionLabels'
-import {useEffect,useState} from 'react'
+import {useEffect,useState,useMemo} from 'react'
 import {useProduct} from '@/features/product/integration/Provider'
 import {safeMessage} from '@/features/product/integration/repository'
 import {control} from '@/features/product/ui'
@@ -14,7 +14,7 @@ function month(){return new Intl.DateTimeFormat('sv-SE',{timeZone:'Europe/Madrid
 function startMonth(){const d=new Date(month()+'-01T12:00:00Z');d.setUTCMonth(d.getUTCMonth()-5);return d.toISOString().slice(0,7)}
 export function BillingAnalytics({customerId}:{customerId?:string}){
  const {role}=useProduct(),[from,setFrom]=useState(startMonth),[to,setTo]=useState(month),[currency,setCurrency]=useState<BillingAnalyticsInputV1['currency']>('EUR'),[revision,setRevision]=useState(0)
- const span=(Number(to.slice(0,4))-Number(from.slice(0,4)))*12+Number(to.slice(5,7))-Number(from.slice(5,7)),valid=/^\d{4}-\d{2}$/.test(from)&&/^\d{4}-\d{2}$/.test(to)&&span>=0&&span<24,input={currency,from_month:from+'-01',to_month:to+'-01',...(customerId?{customer_id:customerId}:{})}
+ const span=(Number(to.slice(0,4))-Number(from.slice(0,4)))*12+Number(to.slice(5,7))-Number(from.slice(5,7)),valid=/^\d{4}-\d{2}$/.test(from)&&/^\d{4}-\d{2}$/.test(to)&&span>=0&&span<24,input=useMemo(()=>({currency,from_month:from+'-01',to_month:to+'-01',...(customerId?{customer_id:customerId}:{})}),[currency,from,to,customerId])
  if(role!=='owner'&&role!=='admin')return <section className="rounded-xl border bg-white p-5"><h2 className="font-semibold">Analítica financiera</h2><p className="mt-2 text-sm text-slate-500">Disponible para los responsables del espacio.</p></section>
  return <section className="space-y-4"><div><h2 className="text-lg font-semibold">Analítica financiera</h2><p className="mt-1 text-sm text-slate-500">Estado actual de las facturas agrupado por mes de emisión. Las monedas se consultan por separado.</p></div><div className="flex flex-wrap items-end gap-3 rounded-xl border bg-white p-4"><label className="text-sm">Mes inicial<input type="month" aria-label="Mes inicial de analítica" className={control+' ml-2'} min="2000-01" max="2100-12" value={from} onChange={e=>setFrom(e.target.value)}/></label><label className="text-sm">Mes final<input type="month" aria-label="Mes final de analítica" className={control+' ml-2'} min="2000-01" max="2100-12" value={to} onChange={e=>setTo(e.target.value)}/></label><select aria-label="Moneda de analítica" className={control} value={currency} onChange={e=>setCurrency(e.target.value as typeof currency)}>{['EUR','USD','GBP'].map(c=><option key={c}>{c}</option>)}</select><button className={control} onClick={()=>setRevision(v=>v+1)}>Actualizar analítica</button></div>{!valid?<p role="alert" className="text-sm text-red-700">Selecciona un intervalo de entre 1 y 24 meses.</p>:<div className="space-y-4"><AnalyticsPanel key={'months'+JSON.stringify(input)} operation="billing.monthly_series" input={input} revision={revision}/><AnalyticsPanel key={'customers'+JSON.stringify(input)} operation="billing.top_customers" input={input} revision={revision}/></div>}</section>
 }
