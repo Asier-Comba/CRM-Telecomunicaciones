@@ -16,14 +16,22 @@ function startupDiagnostic(){
  try{const s=JSON.parse(docker(['inspect','--format','{{json .State}}',app]));state={running:s.Running===true,exit_code:Number.isInteger(s.ExitCode)?s.ExitCode:null,oom_killed:s.OOMKilled===true}}catch{}
  try{const log=docker(['logs',app]);for(const [name,pattern] of Object.entries({FILE_PERMISSION:/EACCES|permission denied/i,READONLY_FILESYSTEM:/EROFS|read-only file system/i,DATABASE_AUTH:/password authentication failed|SASL.*password/i,DATABASE_CONNECTION:/ECONNREFUSED|ENOTFOUND|database.*connection/i,ENCRYPTION_KEY:/mismatching encryption keys|encryption.*key.*error/i,MISSING_FILE:/ENOENT/i,CONFIGURATION:/invalid.*config|unknown.*environment/i,MIGRATIONS:/migration.*failed/i}))if(pattern.test(log))categories.push(name)
  // Only public installed-file coordinates and vendor migration identifiers.
- missing_files=[...log.matchAll(/ENOENT:[^\r\n]*?(open|mkdir|stat|scandir) ['"]((?:\/usr\/local\/lib\/node_modules\/n8n|\/opt\/n8n)\/[A-Za-z0-9/@._-]+)['"]/g)].map(m=>({operation:m[1],vendor_file:m[2]})).slice(-3)
+ missing_files=[...log.matchAll(/ENOENT:[^\r\n]*?(open|mkdir|stat|scandir) ['"]((?:\/usr\/local\/lib\/node_modules\/n8n|\/opt\/n8n|\/home\/node\/\.cache\/n8n)\/[A-Za-z0-9/@._-]+)['"]/g)].map(m=>({operation:m[1],vendor_file:m[2]})).slice(-3)
  migration_steps=[...log.matchAll(/(?:Starting|Finished|Migration) migration?\s*["']?([A-Z][A-Za-z]{1,100}\d{13})/g)].map(m=>m[1]).slice(-5)
  }catch{}
  return {state,categories,missing_files,migration_steps,raw_logs_retained:false}
 }
 async function ready(){for(let i=0;i<80;i++){try{if((await request('/healthz/readiness')).ok)return true}catch{}if(i%10===0&&startupDiagnostic().state.running===false)return false;await new Promise(r=>setTimeout(r,500))}return false}
 function workflows(){docker(['exec',app,'n8n','export:workflow','--all','--output=/tmp/export.json']);return JSON.parse(docker(['exec',app,'node','-e',"process.stdout.write(require('fs').readFileSync('/tmp/export.json','utf8'))"]))}
-function snapshot(){const w=workflows();prove(w.length===1&&w[0].active===false&&validateWorkflow(w[0]).status==='VALID','INACTIVE_CLOSED_EXPORT');return hash(JSON.stringify(w.map(({id,name,nodes,connections,active})=>({id,name,nodes,connections,active}))))}
+function snapshot(){
+ const w=workflows();prove(w.length===1&&w[0].id==='synthetic-health-v1'&&w[0].name===readJson('infra/n8n/synthetic-health.json').name&&w[0].active===false,'ONLY_REGISTERED_INACTIVE_EXPORT')
+ const clean=structuredClone(w[0])
+ // Vendor exports may serialize empty execution-data placeholders. Assert they
+ // contain no data before excluding them from the repository's strict contract.
+ for(const name of ['pinData','staticData'])if(Object.hasOwn(clean,name)){const value=clean[name];prove(value===null||typeof value==='object'&&!Array.isArray(value)&&Object.keys(value).length===0,'VENDOR_EXECUTION_DATA_EMPTY');delete clean[name]}
+ prove(validateWorkflow(clean).status==='VALID','INACTIVE_CLOSED_EXPORT')
+ return hash(JSON.stringify(w.map(({id,name,nodes,connections,active})=>({id,name,nodes,connections,active}))))
+}
 try{
  prove(pins.scope==='DISPOSABLE_ACCEPTANCE_NOT_COMPANY_APPROVED'&&Object.values({a:pins.n8n,b:pins.postgres}).every(p=>/^docker\.io\/[A-Za-z0-9/._-]+:[A-Za-z0-9.-]+@sha256:[a-f0-9]{64}$/.test(p.image)),'EXACT_VENDOR_DIGEST_PINS')
  docker(['pull',pins.n8n.image],{timeout:600000});docker(['pull',pins.postgres.image],{timeout:600000})
@@ -35,7 +43,7 @@ try{
  let pgReady=false;for(let i=0;i<60;i++){try{docker(['exec',db,'pg_isready','-U','n8n','-d','n8n'],{timeout:2000});pgReady=true;break}catch{}await new Promise(r=>setTimeout(r,500))}prove(pgReady,'ACTUAL_POSTGRES_READY')
  const env={NODE_ENV:'production',DB_TYPE:'postgresdb',DB_POSTGRESDB_HOST:'database',DB_POSTGRESDB_PORT:'5432',DB_POSTGRESDB_DATABASE:'n8n',DB_POSTGRESDB_USER:'n8n',DB_POSTGRESDB_PASSWORD_FILE:'/run/secrets/database',N8N_ENCRYPTION_KEY_FILE:'/run/secrets/key',N8N_DIAGNOSTICS_ENABLED:'false',N8N_VERSION_NOTIFICATIONS_ENABLED:'false',N8N_TEMPLATES_ENABLED:'false',N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS:'true',N8N_BLOCK_ENV_ACCESS_IN_NODE:'true',N8N_SECURE_COOKIE:'false',EXECUTIONS_DATA_SAVE_ON_SUCCESS:'none',EXECUTIONS_DATA_SAVE_ON_ERROR:'none',EXECUTIONS_DATA_SAVE_MANUAL_EXECUTIONS:'false'}
  writeFileSync(join(scratch,'public.env'),Object.entries(env).map(([k,v])=>`${k}=${v}`).join('\n'),{mode:0o600})
- docker(['run','-d','--name',app,'--network',network,'--user','1000:1000','--read-only','--cap-drop','ALL','--security-opt','no-new-privileges','--memory','2g','--cpus','2','--tmpfs','/tmp:size=64m,uid=1000,gid=1000,mode=1777','-p','127.0.0.1:5678:5678','-v',`${volume}:/home/node/.n8n`,'-v',`${scratch}/database.secret:/run/secrets/database:ro`,'-v',`${scratch}/key.secret:/run/secrets/key:ro`,'--env-file',join(scratch,'public.env'),pins.n8n.image])
+ docker(['run','-d','--name',app,'--network',network,'--user','1000:1000','--read-only','--cap-drop','ALL','--security-opt','no-new-privileges','--memory','2g','--cpus','2','--tmpfs','/tmp:size=64m,uid=1000,gid=1000,mode=1777','--tmpfs','/home/node/.cache:size=256m,uid=1000,gid=1000,mode=0700','-p','127.0.0.1:5678:5678','-v',`${volume}:/home/node/.n8n`,'-v',`${scratch}/database.secret:/run/secrets/database:ro`,'-v',`${scratch}/key.secret:/run/secrets/key:ro`,'--env-file',join(scratch,'public.env'),pins.n8n.image])
  stage='READINESS';prove(await ready(),'ACTUAL_N8N_READINESS');prove(docker(['exec',app,'id','-u']).trim()==='1000','NONROOT_RUNTIME')
  const version=docker(['exec',app,'n8n','--version']).trim();prove(version===pins.n8n.version,'ACTUAL_N8N_PINNED_VERSION')
  const keyTest=`const fs=require('fs'),crypto=require('crypto'),c=JSON.parse(fs.readFileSync('/home/node/.n8n/config','utf8'));process.stdout.write(crypto.createHash('sha256').update(c.encryptionKey||'').digest('hex')==='${hash(encryption)}'?'PASS':'FAIL')`

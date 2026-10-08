@@ -27,7 +27,7 @@ services:
     volumes: ["n8n_data:/home/node/.n8n"]
     secrets: [n8n_database_password, n8n_encryption_key]
     read_only: true
-    tmpfs: ["/tmp:size=64m,uid=1000,gid=1000,mode=1777"]
+    tmpfs: ["/tmp:size=64m,uid=1000,gid=1000,mode=1777", "/home/node/.cache:size=256m,uid=1000,gid=1000,mode=0700"]
     cap_drop: [ALL]
     security_opt: [no-new-privileges:true]
     mem_limit: 1g

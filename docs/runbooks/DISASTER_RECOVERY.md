@@ -60,6 +60,16 @@ An HTTP service readiness retry may reconnect after B is rebuilt; authorization
 errors stop immediately. A backup captured before a later failure proves capture
 only. Any failed stage means DISASTER_REHEARSAL=FAIL.
 
+Enterprise3 extends the authenticated archive to the exact software lock, every
+canonical migration path/hash,11 public configuration artifacts,24 secret-reference
+names/owners/destinations and registered inactive n8n workflow. Secret values and
+private company configuration are excluded; future company capture needs its own
+accepted adapter. Identity/configuration mismatches stop before disposable A is
+discarded. Actual captured-archive negatives reject corrupt bytes, a wrong key,
+missing object bytes, a public bucket and an unexpected migration. The latest
+terminal CI proof and measured synthetic duration are in the phase evidence JSON;
+none constitutes a company RPO/RTO or offsite/KMS proof.
+
 ## 3. Recover a future company environment
 
 Use a separately approved, unexposed recovery project. Obtain company approval for

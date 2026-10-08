@@ -40,11 +40,13 @@
 9. AI project creation/billing/secret entry belongs to company administrators.
    W3 owns provider runtime/model semantics. W5 supplies private secret/deployment/
    health/metrics boundaries. No model prompt/customer body belongs in logs.
-10. Run repository verification, company configuration and staging preflight.
-    Hosted bootstrap defaults to a safe plan. Future `--execute` requires the
-    protected staging CI environment, matching staging allowlisted project ref,
-    scoped management/DB/server secrets and complete valid configuration. It has
-    no production mutation path. Apply forward migrations without synthetic
+10. Follow `ONE_DAY_ACTIVATION.md` and `ENTERPRISE_ORCHESTRATOR.md` for the public
+    version3 company contract. Run company:init, company:preflight and company:plan.
+    Hosted bootstrap defaults to a safe plan and currently always blocks actual
+    execution, even with complete credentials and approval flags. A future reviewed
+    adapter must verify the protected staging workflow, exact company project and
+    independent accepted sources before it can support mutation. It has no current
+    production mutation path. Apply forward migrations without synthetic
     automatic seeds; configure/read back Auth and verify private buckets. Never
     run local `supabase/config.toml` against hosted Auth blindly.
 11. Wait for W2 hosted runtime, independent W4 acceptance, safe synthetic staging
