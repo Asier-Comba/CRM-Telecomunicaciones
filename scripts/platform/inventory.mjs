@@ -8,8 +8,11 @@ export function inventory(){
   const source=readFileSync(file,'utf8')
   for(const m of source.matchAll(/(?:process\.env|\benv)\.([A-Z][A-Z0-9_]+)/g))uses.set(m[1],[...new Set([...(uses.get(m[1])??[]),relative(root,file).replaceAll('\\','/')])])
  }
- const extra={PLATFORM_TARGET:'enum',BACKUP_ENCRYPTION_KEY_HEX:'hex32',BACKUP_KEY_ID:'identifier',BACKUP_DESTINATION:'path',BACKUP_RETENTION_DAYS:'positive_integer',APP_IMAGE_DIGEST:'digest',APP_IMAGE:'image_digest',APP_ENV_FILE:'path',APP_HOST:'hostname',TLS_CERT_PATH:'path',TLS_KEY_PATH:'path',AUTH_SITE_URL:'origin',AUTH_REDIRECT_URLS:'json_urls',AUTH_EMAIL_ENABLED:'boolean',CRM_EMAIL_ENABLED:'boolean',CRM_EMAIL_ALLOWLIST:'json_emails',N8N_ENABLED:'boolean',AI_ENABLED:'boolean',MONITORING_ENDPOINT:'https_url'}
- for(const name of Object.keys(extra))uses.set(name,['scripts/platform'])
+ for(const file of files(join(root,'infra')).filter(p=>/\.(?:yaml|template)$/.test(p))){
+  for(const m of readFileSync(file,'utf8').matchAll(/\$\{([A-Z][A-Z0-9_]+)(?::[^}]*)?\}/g))uses.set(m[1],[...new Set([...(uses.get(m[1])??[]),relative(root,file).replaceAll('\\','/')])])
+ }
+ const extra={PLATFORM_TARGET:'enum',BACKUP_ENCRYPTION_KEY_HEX:'hex32',BACKUP_KEY_ID:'identifier',BACKUP_DESTINATION:'path',BACKUP_RETENTION_DAYS:'positive_integer',APP_IMAGE_DIGEST:'digest',APP_IMAGE:'image_digest',APP_ENV_FILE:'path',APP_HOST:'hostname',TLS_CERT_PATH:'path',TLS_KEY_PATH:'path',AUTH_SITE_URL:'origin',AUTH_REDIRECT_URLS:'json_urls',AUTH_EMAIL_ENABLED:'boolean',CRM_EMAIL_ENABLED:'boolean',CRM_EMAIL_ALLOWLIST:'json_emails',N8N_IMAGE:'image_digest',N8N_ENV_FILE:'path',N8N_DATABASE_PASSWORD_FILE:'path',N8N_ENCRYPTION_SECRET_FILE:'path',N8N_VOLUME_NAME:'identifier',N8N_ENABLED:'boolean',AI_ENABLED:'boolean',MONITORING_ENDPOINT:'https_url'}
+ for(const name of Object.keys(extra))uses.set(name,[...new Set([...(uses.get(name)??[]),'scripts/platform'])])
  const publicNames=[...uses.keys()].filter(n=>n.startsWith('NEXT_PUBLIC_'))
  const required=new Set(['PLATFORM_TARGET','NEXT_PUBLIC_SUPABASE_URL','PRODUCT_V1_ORIGIN','NEXT_PUBLIC_APP_URL','AUTH_SITE_URL','AUTH_REDIRECT_URLS','AUTH_EMAIL_ENABLED','BACKUP_RETENTION_DAYS'])
  const entries=[...uses].sort(([a],[b])=>a.localeCompare(b)).map(([name,consumer])=>{

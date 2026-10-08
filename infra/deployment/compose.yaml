@@ -8,6 +8,7 @@ services:
       NODE_ENV: production
     ports: ["127.0.0.1:3000:3000"]
     restart: unless-stopped
+    stop_grace_period: 30s
     read_only: true
     tmpfs: ["/tmp:size=64m,mode=1777", "/app/.next/cache:size=128m,uid=65532,gid=65532"]
     cap_drop: [ALL]

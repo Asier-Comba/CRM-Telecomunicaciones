@@ -104,6 +104,7 @@
       },
       "owner": "W5",
       "consumer": [
+        "infra/deployment/compose.yaml",
         "scripts/platform"
       ],
       "validation_rule": "path",
@@ -125,6 +126,7 @@
       },
       "owner": "W5",
       "consumer": [
+        "infra/deployment/nginx.conf.template",
         "scripts/platform"
       ],
       "validation_rule": "hostname",
@@ -146,6 +148,7 @@
       },
       "owner": "W5",
       "consumer": [
+        "infra/deployment/compose.yaml",
         "scripts/platform"
       ],
       "validation_rule": "image_digest",
@@ -167,6 +170,7 @@
       },
       "owner": "W5",
       "consumer": [
+        "scripts/platform/operations.mjs",
         "scripts/platform"
       ],
       "validation_rule": "digest",
@@ -293,6 +297,7 @@
       },
       "owner": "W5",
       "consumer": [
+        "scripts/platform/config.mjs",
         "scripts/platform"
       ],
       "validation_rule": "boolean",
@@ -357,6 +362,8 @@
       },
       "owner": "W5",
       "consumer": [
+        "scripts/platform/company-state.mjs",
+        "scripts/platform/config.mjs",
         "scripts/platform"
       ],
       "validation_rule": "origin",
@@ -487,6 +494,7 @@
       },
       "owner": "W5",
       "consumer": [
+        "scripts/platform/config.mjs",
         "scripts/platform"
       ],
       "validation_rule": "json_emails",
@@ -508,6 +516,7 @@
       },
       "owner": "W5",
       "consumer": [
+        "scripts/platform/config.mjs",
         "scripts/platform"
       ],
       "validation_rule": "boolean",
@@ -1105,6 +1114,28 @@
       "required_when": null
     },
     {
+      "name": "N8N_DATABASE_PASSWORD_FILE",
+      "type": "path",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "infra/n8n/compose.preparatory.yaml",
+        "scripts/platform"
+      ],
+      "validation_rule": "path",
+      "description": "Configuration binding for N8N_DATABASE_PASSWORD_FILE; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
       "name": "N8N_DEFAULT_TIMEOUT_MS",
       "type": "positive_integer",
       "secret": false,
@@ -1141,6 +1172,94 @@
       ],
       "validation_rule": "boolean",
       "description": "Configuration binding for N8N_ENABLED; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "N8N_ENCRYPTION_SECRET_FILE",
+      "type": "path",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "infra/n8n/compose.preparatory.yaml",
+        "scripts/platform"
+      ],
+      "validation_rule": "path",
+      "description": "Configuration binding for N8N_ENCRYPTION_SECRET_FILE; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "N8N_ENV_FILE",
+      "type": "path",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "infra/n8n/compose.preparatory.yaml",
+        "scripts/platform"
+      ],
+      "validation_rule": "path",
+      "description": "Configuration binding for N8N_ENV_FILE; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "N8N_IMAGE",
+      "type": "image_digest",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "infra/n8n/compose.preparatory.yaml",
+        "scripts/platform"
+      ],
+      "validation_rule": "image_digest",
+      "description": "Configuration binding for N8N_IMAGE; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "N8N_VOLUME_NAME",
+      "type": "identifier",
+      "secret": false,
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "infra/n8n/compose.preparatory.yaml",
+        "scripts/platform"
+      ],
+      "validation_rule": "identifier",
+      "description": "Configuration binding for N8N_VOLUME_NAME; presence does not prove provider readiness.",
       "rotation_expectation": "Review on release/config change.",
       "provider": "application",
       "destination": "environment-specific configuration",
@@ -1847,6 +1966,13 @@
       },
       "owner": "W5",
       "consumer": [
+        "src/app/api/health/ready/route.ts",
+        "scripts/platform/config.mjs",
+        "scripts/platform/entrypoint.mjs",
+        "scripts/platform/hosted-bootstrap.mjs",
+        "scripts/platform/lib.mjs",
+        "scripts/platform/n8n-registry.mjs",
+        "scripts/platform/platform.mjs",
         "scripts/platform"
       ],
       "validation_rule": "enum",
@@ -2375,6 +2501,7 @@
       },
       "owner": "W5",
       "consumer": [
+        "infra/deployment/nginx.conf.template",
         "scripts/platform"
       ],
       "validation_rule": "path",
@@ -2396,6 +2523,7 @@
       },
       "owner": "W5",
       "consumer": [
+        "infra/deployment/nginx.conf.template",
         "scripts/platform"
       ],
       "validation_rule": "path",

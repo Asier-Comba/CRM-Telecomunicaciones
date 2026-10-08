@@ -22,7 +22,7 @@ async function message(email,subject){
  }throw new Error('LOCAL_MAIL_CAPTURE_TIMEOUT')
 }
 function verificationLink(m){const href=m.HTML?.match(/href="([^"]+)"/)?.[1]?.replaceAll('&amp;','&');const u=new URL(href);if(u.origin!==api||u.pathname!=='/auth/v1/verify')throw new Error('AUTH_MAIL_LINK_INVALID');return u}
-async function verify(link){const response=await fetch(link,{redirect:'manual',signal:AbortSignal.timeout(15000)});if(response.status!==302)throw new Error('AUTH_MAIL_VERIFY_STATUS');return new URL(response.headers.get('location'))}
+async function verify(link){const response=await fetch(link,{redirect:'manual',signal:AbortSignal.timeout(15000)});if(![302,303].includes(response.status))throw new Error(`AUTH_MAIL_VERIFY_STATUS_${response.status}`);return new URL(response.headers.get('location'))}
 try{
  cpSync(join(root,'supabase'),join(scratch,'supabase'),{recursive:true,filter:p=>!p.includes('.temp')&&!p.includes('.branches')});cpSync(join(root,'infra/email'),join(scratch,'infra/email'),{recursive:true})
  const config=readFileSync(join(scratch,'supabase/config.toml'),'utf8')+'\n[inbucket]\nenabled = true\nport = 54324\n[auth.email]\nenable_signup = true\nenable_confirmations = true\nmax_frequency = "1m"\notp_expiry = 60\n'+['confirmation','recovery','invite'].map(n=>`[auth.email.template.${n}]\nsubject = "W5 ${n}"\ncontent_path = "./infra/email/${n}.html"`).join('\n')+'\n'
@@ -39,7 +39,10 @@ try{
  const link=verificationLink(confirmation);requireProof(link.searchParams.get('redirect_to')==='http://127.0.0.1:3000/auth/callback','EXACT_REDIRECT')
  const confirmed=await verify(link);requireProof(confirmed.origin==='http://127.0.0.1:3000'&&confirmed.hash.includes('access_token='),'CONFIRMATION_VERIFIED')
  const duplicate=await verify(link);requireProof(duplicate.hash.includes('error='),'USED_LINK_REJECTED')
- requireProof((await request('/auth/v1/token?grant_type=password',anon,{email,password})).ok,'CONFIRMED_LOGIN')
+ const login=await request('/auth/v1/token?grant_type=password',anon,{email,password});requireProof(login.ok,'CONFIRMED_LOGIN')
+ const session=await login.json()
+ const logout=await fetch(api+'/auth/v1/logout?scope=global',{method:'POST',headers:{apikey:anon,authorization:`Bearer ${session.access_token}`},redirect:'error',signal:AbortSignal.timeout(15000)});requireProof(logout.ok,'SESSION_LOGOUT')
+ requireProof(!(await request('/auth/v1/token?grant_type=refresh_token',anon,{refresh_token:session.refresh_token})).ok,'REVOKED_REFRESH_REJECTED')
  requireProof((await request('/auth/v1/recover?redirect_to='+encodeURIComponent('https://foreign.example.invalid/steal'),anon,{email})).ok,'RECOVERY_SENT')
  const recovery=await message(email,'W5 recovery'),recoveryLink=verificationLink(recovery)
  requireProof(recoveryLink.searchParams.get('redirect_to')!=='https://foreign.example.invalid/steal','FOREIGN_REDIRECT_NOT_USED')
@@ -51,6 +54,9 @@ try{
  // Actual elapsed expiry, never a mocked clock or altered database timestamp.
  await new Promise(r=>setTimeout(r,62000))
  const expired=await verify(recoveryLink);requireProof(expired.hash.includes('error='),'ELAPSED_RECOVERY_EXPIRY')
+ const mailContainers=run('docker',['ps','--format','{{.Names}}']).trim().split('\n').filter(n=>/^supabase_(mailpit|inbucket)_crm-telecom-local$/.test(n));requireProof(mailContainers.length===1,'EXACT_LOCAL_SMTP_CONTAINER')
+ run('docker',['stop',mailContainers[0]])
+ const unavailable=await request('/auth/v1/recover',anon,{email});requireProof(!unavailable.ok&&unavailable.status>=500,'NO_SMTP_FAILS_CLOSED')
  evidence.status='PASS'
 }catch(e){evidence.status='FAIL';evidence.error=/^[A-Z][A-Z0-9_]{0,100}$/.test(e.message)?e.message:'LOCAL_MAIL_ACCEPTANCE_FAILURE';process.exitCode=1}
 finally{if(started){try{cli(['stop','--no-backup','--project-id','crm-telecom-local']);evidence.teardown='PASS'}catch{evidence.teardown='FAIL';process.exitCode=1}}rmSync(scratch,{recursive:true,force:true});console.log(JSON.stringify(evidence));if(process.env.RUNNER_TEMP)writeFileSync(join(process.env.RUNNER_TEMP,'w5-auth-mail-safe-evidence.json'),JSON.stringify(evidence,null,2)+'\n')}

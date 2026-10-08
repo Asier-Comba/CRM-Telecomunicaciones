@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "owner": "W3",
+  "enabled": false,
+  "runtime_adapter": "NOT_ACCEPTED",
+  "source_sha": null,
+  "schema_sha256": null,
+  "private_configuration": ["OPENAI_API_KEY", "OPENAI_MODEL"],
+  "required_runtime_contract": ["protected start/stop", "current actor/tenant authorization", "bounded concurrency and resources", "lease ownership and expiry", "kill switch cancels new claims", "pending confirmation is never permission", "durable outbox and reconciliation", "effect idempotency", "aggregate queue/retry/errors only"],
+  "required_native_proof": ["20 independent processes", "crash after claim", "crash after effect before receipt", "fresh process restart", "actual database restart with same cluster and later postmaster start", "exactly one effect and original audit", "revoke during pending dispatch", "compatible rollback without loss of confirmed effects"],
+  "activation_gates": ["exact accepted W2 source", "exact accepted W3 source and migrations", "terminal native proof", "private provider configuration", "company staging acceptance", "independent W4 exact-source approval"],
+  "provider_presence_unlocks_runtime": false
+}

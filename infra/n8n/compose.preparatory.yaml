@@ -1,0 +1,45 @@
+# Optional preparatory profile. No default tag or activation command.
+# Company/W4 must accept the exact supported version+digest before launch.
+services:
+  n8n:
+    profiles: [preparatory]
+    image: ${N8N_IMAGE:?reviewed vendor version and sha256 digest required}
+    user: "1000:1000"
+    restart: unless-stopped
+    stop_grace_period: 60s
+    ports: ["127.0.0.1:5678:5678"]
+    env_file: ["${N8N_ENV_FILE:?external environment-specific configuration required}"]
+    environment:
+      NODE_ENV: production
+      DB_TYPE: postgresdb
+      DB_POSTGRESDB_PASSWORD_FILE: /run/secrets/n8n_database_password
+      N8N_ENCRYPTION_KEY_FILE: /run/secrets/n8n_encryption_key
+      N8N_DIAGNOSTICS_ENABLED: "false"
+      N8N_VERSION_NOTIFICATIONS_ENABLED: "false"
+      N8N_TEMPLATES_ENABLED: "false"
+      EXECUTIONS_DATA_SAVE_ON_SUCCESS: none
+      EXECUTIONS_DATA_SAVE_ON_ERROR: none
+      EXECUTIONS_DATA_SAVE_MANUAL_EXECUTIONS: "false"
+      EXECUTIONS_DATA_PRUNE: "true"
+      EXECUTIONS_DATA_MAX_AGE: "24"
+      N8N_BLOCK_ENV_ACCESS_IN_NODE: "true"
+      N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS: "true"
+    volumes: ["n8n_data:/home/node/.n8n"]
+    secrets: [n8n_database_password, n8n_encryption_key]
+    read_only: true
+    tmpfs: ["/tmp:size=64m,uid=1000,gid=1000,mode=1777"]
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    mem_limit: 1g
+    cpus: 1.0
+    logging: {driver: json-file, options: {max-size: "10m", max-file: "3"}}
+    healthcheck:
+      test: [CMD, node, -e, "fetch('http://127.0.0.1:5678/healthz/readiness').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+secrets:
+  n8n_database_password: {file: "${N8N_DATABASE_PASSWORD_FILE:?company secret file required}"}
+  n8n_encryption_key: {file: "${N8N_ENCRYPTION_SECRET_FILE:?company encryption key file required}"}
+volumes:
+  n8n_data: {external: true, name: "${N8N_VOLUME_NAME:?precreated environment-specific persistent volume required}"}

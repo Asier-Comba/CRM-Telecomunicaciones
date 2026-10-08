@@ -2,7 +2,7 @@ import {readFileSync,writeFileSync,renameSync,existsSync} from 'node:fs'
 import {resolve} from 'node:path'
 import {pathToFileURL} from 'node:url'
 import {createInterface} from 'node:readline/promises'
-import {hash,migrations,readJson,run,safeError} from './lib.mjs'
+import {hash,migrations,run,safeError} from './lib.mjs'
 import {companyState} from './company-state.mjs'
 
 export const phases=['PREFLIGHT','PLAN','PROVISION','CONFIGURE','DEPLOY','VERIFY','ACCEPT']
