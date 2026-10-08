@@ -82,3 +82,22 @@ test('page label loader bounds concurrency and stops queued reads after the page
  const repository={collection:async()=>{calls++;inFlight++;max=Math.max(max,inFlight);await new Promise(r=>setTimeout(r,2));active=false;inFlight--;return{record:{display_name:'Scoped operator'}}}}
  await loadCollectionLabels(repository,ids.map(operator_id=>({operator_id})),()=>active);assert.equal(max,4);assert.equal(calls,4)
 })
+
+test('location normal masked reads are closed and reject foreign customers and private address values',async()=>{
+ const input={customer_id:id,limit:20},row={id,customer_id:id,version:1,label:'Synthetic site',country:'ES',source:'manual'}
+ const run=value=>new IntegratedLocalProductRepository(async(path,init)=>{assert.equal(path,'/api/telecom/locations/v1');assert.equal(init.cache,'no-store');assert.equal(init.credentials,'same-origin');return Response.json({ok:true,data:{contract_version:'service_location.v1',operation:'service_location.list',items:[value],next_id:null}})})
+ assert.equal((await run(row).telecom('service_location.list',input)).items[0].label,row.label)
+ for(const bad of [{...row,address_line1:'Private Synthetic Street'},{...row,customer_id:'10000000-0000-4000-8000-000000000002'}])await assert.rejects(run(bad).telecom('service_location.list',input),e=>e.code==='internal_safe')
+ let calls=0;const r=new IntegratedLocalProductRepository(async()=>{calls++;return Response.json({})});await assert.rejects(r.telecom('service_location.list',{...input,workspace_id:id}),e=>e.code==='validation');assert.equal(calls,0)
+})
+test('installation metadata excludes location assignment and preserves exact uncertain intent with live denial',async()=>{
+ const input={command_id:id,service_id:id,expected_service_version:1,expected_details_version:0,site_label:'Synthetic Site',installation_contact_id:null,activation_target_on:'2026-10-09'},receipt={contract_version:'telecom.service_commercial.v1',operation:'service.installation_set',command_id:id,id,service_id:id,service_version:2,version:1,status:'recorded'},bodies=[]
+ const r=new IntegratedLocalProductRepository(async(path,init)=>{assert.equal(path,'/api/telecom/services/v1');bodies.push(init.body);if(bodies.length===1)throw Error('lost response');return Response.json({ok:true,data:receipt})})
+ await assert.rejects(r.telecom('service.installation_set',input),e=>e.code==='transport_uncertain');assert.equal((await r.telecom('service.installation_set',input)).service_version,2);assert.equal(bodies[0],bodies[1]);await assert.rejects(r.telecom('service.installation_set',{...input,location_id:null}),e=>e.code==='validation');assert.equal(bodies.length,2)
+ const denied=new IntegratedLocalProductRepository(async()=>Response.json({ok:false,error:'access_denied'},{status:403}));await assert.rejects(denied.telecom('service_location.assign',{command_id:id,service_id:id,location_id:null,expected_service_version:2,expected_details_version:1}),e=>e.code==='access_denied')
+})
+test('sold addon read uses authoritative civil as-of and rejects invented timing or sensitive fields',async()=>{
+ const row={id,version:1,service_id:id,plan_version_id:id,component_position:3,addon_code:'static_ip',quantity:1,valid_from:'2026-10-01',valid_until:null,ended_on:null,source:'manual',timing_state:'current'},read=items=>new IntegratedLocalProductRepository(async(path)=>{assert.equal(path,'/api/telecom/services/v1');return Response.json({ok:true,data:{contract_version:'telecom.service_commercial.v1',operation:'service.addon_list',service_id:id,as_of:'2026-10-08',items,next_id:null}})})
+ assert.equal((await read([row]).telecom('service.addon_list',{service_id:id,limit:20})).items[0].plan_version_id,id)
+ for(const bad of [{...row,timing_state:'planned'},{...row,canonical_value:'PRIVATE-SYNTHETIC'},{...row,service_id:'10000000-0000-4000-8000-000000000002'}])await assert.rejects(read([bad]).telecom('service.addon_list',{service_id:id,limit:20}),e=>e.code==='internal_safe')
+})
