@@ -3,8 +3,16 @@ import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import {
   LayoutDashboard,
+  ChartNoAxesCombined,
   Users,
   RadioTower,
+  Package,
+  Layers3,
+  LifeBuoy,
+  CreditCard,
+  ArrowRightLeft,
+  ListTodo,
+  BookOpen,
   Target,
   CalendarDays,
   Inbox,
@@ -21,11 +29,20 @@ import { useWorkspaceIdentity } from '@/components/WorkspaceIdentityProvider'
 import { getSupabaseBrowserClient } from '@/lib/supabase'
 import { clearWorkspaceIdentityCache } from '@/lib/supabase-queries'
 import { DEMO_MODE_KEY } from '@/lib/current-user'
+import { useProduct } from '@/features/product/integration/Provider'
 import { BRAND } from '@/lib/brand'
 const items = [
   ['/dashboard', 'Dashboard', LayoutDashboard],
   ['/clients', 'Clientes', Users],
   ['/portfolio', 'Cartera Telecom', RadioTower],
+  ['/contracts', 'Contratos', Files],
+  ['/services', 'Servicios', Layers3],
+  ['/portabilities', 'Portabilidades', ArrowRightLeft],
+  ['/sims', 'SIM y eSIM', CreditCard],
+  ['/cases', 'Incidencias', LifeBuoy],
+  ['/equipment', 'Equipos', Package],
+  ['/attention', 'Centro de atención', ListTodo],
+  ['/catalog', 'Catálogo Telecom', BookOpen],
   ['/opportunities', 'Oportunidades', Target],
   ['/calendar', 'Calendario', CalendarDays],
   ['/inbox', 'Inbox', Inbox],
@@ -33,17 +50,20 @@ const items = [
   ['/assistant', 'Asistente IA', Bot],
   ['/facturacion', 'Facturación PRO', Receipt],
   ['/documents', 'Documentos', Files],
+  ['/reports', 'Informes', ChartNoAxesCombined],
   ['/settings', 'Configuración', Settings],
 ] as const
 export function Sidebar({ onClose }: { onClose?: () => void } = {}) {
+  const {repository,display}=useProduct()
+  const integrated=repository.mode==='integrated_local'
   const pathname = usePathname(),
     router = useRouter(),
     { currentUser } = useWorkspaceIdentity()
   async function logout() {
     window.localStorage.removeItem(DEMO_MODE_KEY)
     clearWorkspaceIdentityCache()
-    if (!currentUser.isDemo) await getSupabaseBrowserClient()?.auth.signOut()
-    window.location.assign('/login')
+    if (integrated || !currentUser.isDemo) await getSupabaseBrowserClient()?.auth.signOut()
+    router.replace('/login');router.refresh()
   }
   return (
     <aside className="flex h-full w-60 shrink-0 flex-col border-r border-slate-200 bg-white">
@@ -71,14 +91,10 @@ export function Sidebar({ onClose }: { onClose?: () => void } = {}) {
       </div>
       <div className="m-3 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2.5">
         <p className="truncate text-xs font-semibold text-slate-800">
-          {currentUser.isDemo
-            ? BRAND.exampleWorkspaceName
-            : currentUser.workspaceName || BRAND.workspaceName}
+          {integrated?display?.company || (currentUser.isAuthenticated&&!currentUser.isFallback?currentUser.workspaceName:'Espacio autorizado'):currentUser.isDemo?BRAND.exampleWorkspaceName:currentUser.workspaceName || BRAND.workspaceName}
         </p>
         <p className="mt-1 text-[10px] text-slate-500">
-          {currentUser.isDemo
-            ? 'Demostración · solo lectura'
-            : 'Acceso según permisos'}
+          {!integrated&&currentUser.isDemo?'Demostración · solo lectura':'Acceso según permisos'}
         </p>
       </div>
       <nav
@@ -97,7 +113,7 @@ export function Sidebar({ onClose }: { onClose?: () => void } = {}) {
             >
               <Icon className="h-4 w-4 shrink-0" />
               {label}
-              {['/inbox', '/automations'].includes(href) && (
+              {(!integrated && ['/automations','/inbox'].includes(href)) && (
                 <span className="ml-auto rounded bg-slate-100 px-1 text-[9px] text-slate-500">
                   Vista
                 </span>
@@ -109,10 +125,10 @@ export function Sidebar({ onClose }: { onClose?: () => void } = {}) {
       <div className="m-3 rounded-lg bg-indigo-50 px-3 py-3">
         <p className="flex gap-2 text-xs font-semibold text-indigo-800">
           <ShieldCheck className="h-4 w-4" />
-          Entorno de consulta
+          {integrated?'Integración local':'Entorno de consulta'}
         </p>
         <p className="mt-1 text-[11px] leading-4 text-indigo-600">
-          Las acciones que requieren conexión aparecen desactivadas.
+          {integrated?'Cambios guardados con permisos en la base de prueba.':'Las acciones que requieren conexión aparecen desactivadas.'}
         </p>
       </div>
       <div className="flex items-center gap-2 border-t border-slate-100 px-4 py-3">
@@ -121,10 +137,10 @@ export function Sidebar({ onClose }: { onClose?: () => void } = {}) {
           className="flex min-w-0 flex-1 items-center gap-2 text-left"
         >
           <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-slate-100 text-xs font-bold text-slate-600">
-            {currentUser.initials}
+            {display?.name?display.name.split(/\s+/).slice(0,2).map(n=>n[0]).join('').toUpperCase():integrated&&(!currentUser.isAuthenticated||currentUser.isFallback)?'·':currentUser.initials}
           </span>
           <span className="truncate text-xs font-medium text-slate-700">
-            {currentUser.name}
+            {display?.name || (integrated&&(!currentUser.isAuthenticated||currentUser.isFallback)?'Identidad pendiente':currentUser.name)}
           </span>
         </button>
         <button

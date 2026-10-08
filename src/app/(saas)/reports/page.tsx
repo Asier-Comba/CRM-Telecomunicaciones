@@ -1,7 +1,10 @@
 import Link from 'next/link'
 import { PageHeader } from '@/components/PageHeader'
 import { Unavailable } from '@/features/product/ui'
+import {integratedLocalAllowed} from '@/features/product/integration/mode'
+import {IntegratedReports} from '@/features/reports/IntegratedReports'
 export default function ReportsPage() {
+  if(integratedLocalAllowed())return <IntegratedReports/>
   return (
     <div className="space-y-4">
       <PageHeader

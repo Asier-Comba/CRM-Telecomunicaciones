@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { ChevronLeft, ChevronRight, Plus } from 'lucide-react'
 import { PageHeader } from '@/components/PageHeader'
@@ -36,6 +36,13 @@ const time = (value: string) =>
     minute: '2-digit',
     timeZone: 'Europe/Madrid',
   }).format(new Date(value))
+/** Compact weekly cards share columns when their displayed footprints overlap. */
+function weekPositions(entries:CalendarEntry[]){
+ const rows=entries.map(entry=>{const parts=time(entry.date).split(':').map(Number);return{entry,top:Math.max(0,Math.min(11.25,parts[0]+parts[1]/60-8))*48}}).sort((a,b)=>a.top-b.top||a.entry.id.localeCompare(b.entry.id))
+ const groups:{end:number;columns:number[];rows:{entry:CalendarEntry;top:number;column:number}[]}[]=[]
+ for(const row of rows){let group=groups.at(-1);if(!group||row.top>=group.end){group={end:row.top+48,columns:[],rows:[]};groups.push(group)}let column=group.columns.findIndex(end=>end<=row.top);if(column<0)column=group.columns.length;group.columns[column]=row.top+48;group.end=Math.max(group.end,row.top+48);group.rows.push({...row,column})}
+ return groups.flatMap(group=>group.rows.map(row=>({...row,count:group.columns.length})))
+}
 function monthDays(anchor: string) {
   const first = anchor.slice(0, 7) + '-01',
     start = weekStart(first)
@@ -49,18 +56,26 @@ function moveMonth(anchor: string, delta: number) {
 export function Calendar({
   entries,
   asOf,
+  onCreate,
+  onSelect,
+  onRange,
 }: {
   entries: CalendarEntry[]
   asOf: string
+  onCreate?: () => void
+  onSelect?: (entry: CalendarEntry) => void
+  onRange?: (anchor: string) => void
 }) {
   const today = asOf.slice(0, 10),
     [anchor, setAnchor] = useState(today),
-    [view, setView] = useState<'week' | 'month' | 'agenda'>('week'),
+    [view, setView] = useState<'day' | 'week' | 'month' | 'agenda'>('week'),
     [owner, setOwner] = useState(''),
     [type, setType] = useState(''),
     [selected, setSelected] = useState<CalendarEntry | null>(null)
+  useEffect(()=>{onRange?.(anchor)},[anchor,onRange])
   const start = weekStart(anchor),
     days = Array.from({ length: 7 }, (_, i) => addDays(start, i)),
+    gridDays=view==='day'?[anchor]:days,
     month = monthDays(anchor),
     filtered = entries.filter(
       (e) => (!owner || e.owner === owner) && (!type || e.type === type),
@@ -70,7 +85,7 @@ export function Calendar({
     .filter((e) =>
       view === 'month'
         ? calendarDate(e.date).slice(0, 7) === anchor.slice(0, 7)
-        : calendarDate(e.date) >= start && calendarDate(e.date) <= days[6],
+        : view==='day'?calendarDate(e.date)===anchor:calendarDate(e.date) >= start && calendarDate(e.date) <= days[6],
     )
     .sort((a, b) => a.date.localeCompare(b.date))
   const monthLabel = new Intl.DateTimeFormat('es-ES', {
@@ -78,13 +93,15 @@ export function Calendar({
     year: 'numeric',
     timeZone: 'UTC',
   }).format(new Date(`${anchor}T12:00:00Z`))
-  const event = (e: CalendarEntry) => (
+  const event = (e: CalendarEntry, compact = false) => (
     <button
       key={e.id}
-      onClick={() => setSelected(e)}
-      className={`mb-1 block w-full rounded border-l-2 p-1.5 text-left text-[10px] leading-4 ${colors[e.type]}`}
+      data-calendar-id={e.id}
+      title={e.title}
+      onClick={() => onSelect ? onSelect(e) : setSelected(e)}
+      className={`mb-1 block w-full rounded border-l-2 p-1.5 ${compact?'h-12 overflow-hidden':''} text-left text-[10px] leading-4 ${colors[e.type]}`}
     >
-      <span className="block font-semibold">
+      <span className={compact?'block truncate font-semibold':'block font-semibold'}>
         {e.allDay ? types[e.type] : time(e.date)} · {e.title}
       </span>
       <span className="block truncate opacity-80">{e.customer}</span>
@@ -97,8 +114,9 @@ export function Calendar({
         description="Agenda, seguimiento y fechas de tu cartera"
         action={
           <button
-            disabled
-            title="Alta pendiente de contrato autorizado de calendario"
+            disabled={!onCreate}
+            onClick={onCreate}
+            title={onCreate ? 'Crear tarea o reunión local' : 'Alta pendiente de contrato autorizado de calendario'}
             className={primary}
           >
             <Plus className="h-4 w-4" />
@@ -208,7 +226,7 @@ export function Calendar({
                   setAnchor(
                     view === 'month'
                       ? moveMonth(anchor, -1)
-                      : addDays(anchor, -7),
+                      : addDays(anchor, view==='day'?-1:-7),
                   )
                 }
               >
@@ -221,7 +239,7 @@ export function Calendar({
                   setAnchor(
                     view === 'month'
                       ? moveMonth(anchor, 1)
-                      : addDays(anchor, 7),
+                      : addDays(anchor, view==='day'?1:7),
                   )
                 }
               >
@@ -230,18 +248,18 @@ export function Calendar({
               <h2 className="text-sm font-semibold text-slate-800">
                 {view === 'month'
                   ? monthLabel
-                  : `${previewDate(start)} – ${previewDate(days[6])}`}
+                  : view==='day'?previewDate(anchor):`${previewDate(start)} – ${previewDate(days[6])}`}
               </h2>
             </div>
             <div className="flex rounded-lg bg-slate-100 p-1">
-              {(['week', 'month', 'agenda'] as const).map((v) => (
+              {(['day', 'week', 'month', 'agenda'] as const).map((v) => (
                 <button
                   aria-pressed={view === v}
                   onClick={() => setView(v)}
                   key={v}
                   className={`rounded px-3 py-1.5 text-xs font-medium ${view === v ? 'bg-white text-indigo-700 shadow-sm' : 'text-slate-500'}`}
                 >
-                  {v === 'week' ? 'Semana' : v === 'month' ? 'Mes' : 'Agenda'}
+                  {v==='day'?'Día':v === 'week' ? 'Semana' : v === 'month' ? 'Mes' : 'Agenda'}
                 </button>
               ))}
             </div>
@@ -278,17 +296,17 @@ export function Calendar({
                     </p>
                     {filtered
                       .filter((e) => calendarDate(e.date) === day)
-                      .map(event)}
+                      .map(e=>event(e))}
                   </div>
                 ))}
               </div>
             </div>
           ) : (
             <div className="overflow-x-auto">
-              <div className="min-w-[740px]">
-                <div className="grid grid-cols-[48px_repeat(7,1fr)] border-b border-slate-100">
-                  <span className="p-2 text-[10px] text-slate-400">GMT+2</span>
-                  {days.map((day) => (
+              <div className={view==='day'?'min-w-0':'min-w-[740px]'}>
+                <div className={`grid ${view==='day'?'grid-cols-[48px_minmax(0,1fr)]':'grid-cols-[48px_repeat(7,1fr)]'} border-b border-slate-100`}>
+                  <span className="p-2 text-[10px] text-slate-400">Madrid</span>
+                  {gridDays.map((day) => (
                     <div
                       className={`border-l border-slate-100 p-2 text-center text-xs font-semibold ${day === today ? 'bg-indigo-50 text-indigo-700' : 'text-slate-500'}`}
                       key={day}
@@ -301,22 +319,22 @@ export function Calendar({
                     </div>
                   ))}
                 </div>
-                <div className="grid grid-cols-[48px_repeat(7,1fr)] border-b border-slate-100">
+                <div className={`grid ${view==='day'?'grid-cols-[48px_minmax(0,1fr)]':'grid-cols-[48px_repeat(7,1fr)]'} border-b border-slate-100`}>
                   <span className="p-1 text-[9px] text-slate-400">
                     Todo el día
                   </span>
-                  {days.map((day) => (
+                  {gridDays.map((day) => (
                     <div
                       key={day}
                       className="min-h-10 border-l border-slate-100 p-1"
                     >
                       {filtered
                         .filter((e) => e.allDay && calendarDate(e.date) === day)
-                        .map(event)}
+                        .map(e=>event(e))}
                     </div>
                   ))}
                 </div>
-                <div className="grid grid-cols-[48px_repeat(7,1fr)]">
+                <div className={`grid ${view==='day'?'grid-cols-[48px_minmax(0,1fr)]':'grid-cols-[48px_repeat(7,1fr)]'}`}>
                   <div>
                     {Array.from({ length: 12 }, (_, i) => (
                       <div
@@ -327,7 +345,7 @@ export function Calendar({
                       </div>
                     ))}
                   </div>
-                  {days.map((day) => (
+                  {gridDays.map((day) => (
                     <div
                       key={day}
                       className="relative border-l border-slate-100"
@@ -338,24 +356,7 @@ export function Calendar({
                           className="h-12 border-b border-slate-100"
                         />
                       ))}
-                      {filtered
-                        .filter(
-                          (e) => !e.allDay && calendarDate(e.date) === day,
-                        )
-                        .map((e) => {
-                          const parts = time(e.date).split(':').map(Number),
-                            hour = parts[0] + parts[1] / 60,
-                            top = Math.max(0, Math.min(11.25, hour - 8)) * 48
-                          return (
-                            <div
-                              key={e.id}
-                              className="absolute inset-x-1"
-                              style={{ top }}
-                            >
-                              {event(e)}
-                            </div>
-                          )
-                        })}
+                      {weekPositions(filtered.filter(e=>!e.allDay&&calendarDate(e.date)===day)).map(({entry,top,column,count})=><div key={entry.id} className="absolute" style={{top,left:`calc(${column/count*100}% + 2px)`,width:`calc(${100/count}% - 4px)`}}>{event(entry,true)}</div>)}
                     </div>
                   ))}
                 </div>
@@ -363,8 +364,7 @@ export function Calendar({
             </div>
           )}
           <footer className="border-t px-4 py-2 text-[11px] text-slate-500">
-            {current.length} registros en el periodo · no se crean ni
-            sincronizan eventos
+            {current.length} registros en el periodo · sincronización externa no disponible
           </footer>
         </section>
       </div>
@@ -375,7 +375,7 @@ export function Calendar({
             .filter((e) => calendarDate(e.date) >= today)
             .sort((a, b) => a.date.localeCompare(b.date))
             .slice(0, 4)
-            .map(event)}
+            .map(e=>event(e))}
         </div>
       </div>
       {selected && (

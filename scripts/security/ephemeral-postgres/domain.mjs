@@ -2,7 +2,7 @@ import assert from 'node:assert/strict'
 import { createHash } from 'node:crypto'
 import { readFile, readdir } from 'node:fs/promises'
 import { resolve } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { fileURLToPath, pathToFileURL } from 'node:url'
 import { PGlite } from '@electric-sql/pglite'
 import { btree_gist } from '@electric-sql/pglite/contrib/btree_gist'
 import { pgcrypto } from '@electric-sql/pglite/contrib/pgcrypto'
@@ -59,8 +59,107 @@ try {
   await db.exec(readerFixture)
   console.log('TELECOM SERVER READ RPC ASSERTIONS PASS')
 
+  await db.exec(await readFile(resolve(root, 'supabase/tests/product-customer-contact-commands.sql'), 'utf8'))
+  console.log('PRODUCT CUSTOMER/CONTACT JWT COMMAND ASSERTIONS PASS')
+  await db.exec(await readFile(resolve(root, 'supabase/tests/product-work-commands.sql'), 'utf8'))
+  console.log('PRODUCT TASK/CALENDAR/OPPORTUNITY ASSERTIONS PASS')
+  await db.exec(await readFile(resolve(root, 'supabase/tests/product-dashboard-search.sql'), 'utf8'))
+  console.log('PRODUCT DASHBOARD/SEARCH ASSERTIONS PASS')
+  const richSeed = await readFile(resolve(root, 'supabase/seeds/synthetic_product.sql'), 'utf8')
+  assert.match(richSeed, /commit;\s*$/i)
+  const densityChecks = await readFile(resolve(root, 'supabase/tests/product-rich-density.sql'), 'utf8')
+  const billingDensity = await readFile(resolve(root, 'supabase/seeds/synthetic_product_billing.sql'), 'utf8')
+  await db.exec(richSeed.replace(/commit;\s*$/i, '') + billingDensity + densityChecks)
+  console.log('PRODUCT RICH DENSITY COUNTS/CURSOR/SCOPE ASSERTIONS PASS (25 companies, 400 lines)')
+  await db.exec(richSeed.replace(/commit;\s*$/i, '') + await readFile(resolve(root, 'supabase/tests/telecom-commercial-collections.sql'), 'utf8'))
+  console.log('TEL5 COMMERCIAL COLLECTIONS 18 READS/CURSOR/FILTER/PRIVACY/REVOCATION PASS')
+  await db.exec(richSeed.replace(/commit;\s*$/i, '') + await readFile(resolve(root, 'supabase/tests/protected-telecom-identifiers.sql'), 'utf8'))
+  console.log('TEL5 PROTECTED IDENTIFIERS CANONICAL/MASK/REVEAL/CAS/REPLAY/HISTORY/REVOCATION PASS')
+  await db.exec(await readFile(resolve(root,'supabase/tests/immutable-commercial-catalog.sql'),'utf8'))
+  console.log('TEL5 CATALOG 9 OPERATIONS/TYPED TERMS/BUNDLE/FROZEN/CAS/REPLAY/REVOCATION PASS')
+  await db.exec(await readFile(resolve(root,'supabase/tests/commercial-portability-workflow.sql'),'utf8'))
+  console.log('TEL5 PORTABILITY 7 OPERATIONS/STATE/MASK/LINE EFFECT ATOMICITY/REPLAY/REVOCATION PASS')
+  await db.exec(richSeed.replace(/commit;\s*$/i, '') + await readFile(resolve(root,'supabase/tests/product-service-case-workflow.sql'),'utf8'))
+  console.log('TEL5 CASE 12 OPERATIONS/LIFECYCLE/PRIVATE NOTES/ANCESTRY/CAS/REPLAY/REVOCATION PASS')
+  await db.exec(richSeed.replace(/commit;\s*$/i, '') + await readFile(resolve(root,'supabase/tests/commercial-sim-esim-history.sql'),'utf8'))
+  console.log('TEL5 SIM 9 OPERATIONS/PROTECTED ICCID EID/ASSOCIATION HISTORY/CAS/REPLAY/REVOCATION PASS')
+  await db.exec(richSeed.replace(/commit;\s*$/i, '') + await readFile(resolve(root,'supabase/tests/telecom-customer360-report-reads.sql'),'utf8'))
+  console.log('TEL5 CUSTOMER360/REPORT 10 READS/EXACT COUNTS/KEYSET/PRIVILEGED COUNT PRIVACY/REVOCATION PASS')
+
+  await db.exec(richSeed.replace(/commit;\s*$/i, '') + await readFile(resolve(root,'supabase/tests/deterministic-telecom-attention.sql'),'utf8'))
+  console.log('TEL5 ATTENTION 7 RULE FAMILIES/KEYSET/PRIVACY/REVOCATION PASS')
+
+  await db.exec(richSeed.replace(/commit;\s*$/i, '') + billingDensity + await readFile(resolve(root,'supabase/tests/currency-separated-billing-cohorts.sql'),'utf8'))
+  console.log('TEL5 BILLING ANALYTICS EXACT CURRENCY COHORTS/TOP BOUNDS/ROLE/REVOCATION PASS')
+
+  await db.exec(richSeed.replace(/commit;\s*$/i, '') + await readFile(resolve(root,'supabase/tests/full-customer360-work-collections.sql'),'utf8'))
+  console.log('TEL5 CUSTOMER360 FULL TASK MEETING COLLECTIONS/UNDATED/HISTORY/KEYSET/VIEWER/REVOCATION PASS')
+
+  await db.exec(richSeed.replace(/commit;\s*$/i, '') + await readFile(resolve(root,'supabase/tests/service-installation-addon-history.sql'),'utf8'))
+  await db.exec(richSeed.replace(/commit;\s*$/i, '') + await readFile(resolve(root,'supabase/tests/normalized-service-locations.sql'),'utf8'))
+  console.log('FINAL7 EQUIPMENT FIXTURE START')
+  await db.exec(richSeed.replace(/commit;\s*$/i, '') + await readFile(resolve(root,'supabase/tests/bounded-commercial-equipment.sql'),'utf8'))
+  console.log('FINAL7 EQUIPMENT FIXTURE PASS')
+  await db.exec(richSeed.replace(/commit;\s*$/i, '') + await readFile(resolve(root,'supabase/tests/registered-external-identities.sql'),'utf8'))
+  console.log('W2 TAKEOVER REGISTERED IDENTITIES SCOPE/REPLAY/CAS/KEYSET/REVOCATION PASS')
+  console.log('TEL5 SERVICE INSTALLATION ADDON HISTORY/CAS/EXACT REPLAY/ANCESTRY/SOURCE/VIEWER/REVOCATION PASS')
+
+  await db.exec(await readFile(resolve(root,'supabase/tests/billing-exact-issue.sql'),'utf8'))
+  await db.exec(await readFile(resolve(root,'supabase/tests/billing-private-pdf-artifacts.sql'),'utf8'))
+  console.log('BILLING PRIVATE ARTIFACT CAS/REPLAY/IMMUTABILITY/ROLLBACK PASS')
+  console.log('BILLING EXACT ISSUE/IMMUTABILITY/ROLLBACK PASS')
+  await db.exec(await readFile(resolve(root,'supabase/tests/team-protected-management.sql'),'utf8'))
+  console.log('TEAM PROTECTED AUTHORITY/CAS/REPLAY/REVOCATION/AUDIT ROLLBACK PASS')
+  await db.exec(await readFile(resolve(root,'supabase/tests/portfolio-human-commands.sql'),'utf8'))
+  console.log('PORTFOLIO PROVENANCE/CAS/REPLAY/LIFECYCLE/REVOCATION/ROLLBACK PASS')
+  await db.exec(await readFile(resolve(root,'supabase/tests/portfolio-deadline-commands.sql'),'utf8'))
+  console.log('PORTFOLIO DEADLINE WINDOW/PROVENANCE/CAS/REPLAY/LIFECYCLE PASS')
+  await db.exec(await readFile(resolve(root,'supabase/tests/document-metadata-commands.sql'),'utf8'))
+  console.log('DOCUMENT METADATA/CAS/REPLAY/REVOCATION/STORAGE DENIAL/ROLLBACK PASS')
+  await db.exec(await readFile(resolve(root,'supabase/tests/document-content-workflow.sql'),'utf8'))
+  await db.exec(await readFile(resolve(root,'supabase/tests/importjob-product-management.sql'),'utf8'))
+  console.log('DOCUMENT CONTENT PENDING/OBJECT/TICKET/REVOCATION PASS')
+  await db.exec(await readFile(resolve(root,'supabase/tests/internal-inbox-domain.sql'),'utf8'))
+  console.log('INBOX INTERNAL PRIVACY/CAS/REPLAY/ROLLBACK PASS')
+  await db.exec(await readFile(resolve(root,'supabase/tests/personal-notifications.sql'),'utf8'))
+  console.log('NOTIFICATIONS SELF/DEDUPE/ROLLBACK PASS')
+  await db.exec(await readFile(resolve(root,'supabase/tests/registered-automations.sql'),'utf8'))
+  console.log('AUTOMATIONS REGISTERED ACTION/DEDUPE/ROLLBACK PASS')
+  await db.exec(await readFile(resolve(root,'supabase/tests/product-settings.sql'),'utf8'))
+  console.log('SETTINGS SELF/COMPANY/REGISTRY/CAS/ROLLBACK PASS')
+  await db.exec(await readFile(resolve(root,'supabase/tests/requested-sensitive-reveal.sql'),'utf8'))
+  await db.exec(await readFile(resolve(root,'supabase/tests/team-expiry-manual-origin.sql'),'utf8'))
+  await db.exec(await readFile(resolve(root,'supabase/tests/document-integrity-cleanup.sql'),'utf8'))
+  console.log('REQUESTED SENSITIVE REVEAL/ROLE/REDACTED AUDIT/ROLLBACK PASS')
+  const {calculateBillingV1}=await import(pathToFileURL(resolve(root,'src/lib/server/billing-runtime-v1.ts')))
+  let vectorState=20261004
+  const draw=max=>{vectorState=(Math.imul(vectorState,1664525)+1013904223)>>>0;return vectorState%max}
+  for(let sample=0;sample<200;sample++){
+    const lines=Array.from({length:1+draw(50)},()=>({description:'Synthetic Differential',quantity_milli:1+draw(1000000),unit_price_minor:draw(1000000),discount_bps:draw(10001),tax_bps:draw(10001),withholding_bps:draw(10001)}))
+    const result=await db.query('select public.billing_v1_calculate($1::jsonb) as totals',[JSON.stringify(lines)])
+    const {lines:ignored,...totals}=result.rows[0].totals
+    assert.ok(ignored.length===lines.length)
+    assert.deepEqual(totals,calculateBillingV1(lines))
+  }
+  console.log('BILLING 200 DETERMINISTIC SQL/BigInt DIFFERENTIAL VECTORS PASS')
+
+  const privileges = await db.query(await readFile(resolve(root, 'scripts/security/native-postgres/privilege-snapshot.sql'), 'utf8'))
+  const manifest = JSON.parse(await readFile(resolve(root, 'scripts/security/native-postgres/function-privileges.json'), 'utf8'))
+  assert.deepEqual(privileges.rows[0].snapshot.functions, manifest.functions)
+  console.log('PRODUCT EXTENDED FUNCTION PRIVILEGE MANIFEST PASS')
+
   const seed = await readFile(resolve(root, 'supabase/seeds/synthetic_portfolio.sql'), 'utf8')
   await db.exec(seed)
+  // Validate the real-stack fixture setup against this actual schema. This is not Auth/HTTP evidence.
+  const {telecomCollectionAcceptance}=await import(pathToFileURL(resolve(root,'scripts/security/supabase-local/telecom-collection-acceptance.mjs')))
+  let tel5Setup
+  try {
+    await telecomCollectionAcceptance({sql:query=>{tel5Setup=query;throw new Error('TEL5_CAPTURE_SETUP')},wa:'b2000000-0000-4000-8000-000000000001',wb:'b2000000-0000-4000-8000-000000000002',users:{ownerA:{id:'a1000000-0000-4000-8000-000000000001'},memberA:{id:'a1000000-0000-4000-8000-000000000001'}}})
+  } catch(error) {if(error.message!=='TEL5_CAPTURE_SETUP')throw error}
+  assert.ok(tel5Setup)
+  await db.exec('begin;'+tel5Setup+'rollback;')
+  console.log('TEL5 REAL-STACK FIXTURE SQL SCHEMA CHECK PASS (NOT AUTH/HTTP PROOF)')
+
   const scoped = await db.query(`
     select
       jsonb_array_length(public.telecom_v1_customer_search_rows(
@@ -146,6 +245,7 @@ try {
   }
 } catch (error) {
   console.error('DISPOSABLE DOMAIN DB FAILURE', error.code, error.message)
+  for(const frame of(error.where??'').split('\n').filter(line=>/^PL\/pgSQL function [a-z_][a-z0-9_.]*(?:\([^)]*\))? line [0-9]+ at [a-z ]+$/i.test(line)))console.error('DB_CODED_FRAME',frame)
   process.exitCode = 1
 } finally {
   await db.close()

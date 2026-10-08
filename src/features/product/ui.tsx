@@ -4,12 +4,15 @@ import { useId, useRef, useEffect, type ReactNode } from 'react'
 import { X, LockKeyhole, Search, ArrowUpDown } from 'lucide-react'
 import { Badge } from '@/components/Badge'
 import { periods, type Period } from './model'
+import { useProduct } from './integration/Provider'
 
 export const control =
   'rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50'
 export const primary =
   'inline-flex items-center justify-center gap-2 rounded-lg bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:cursor-not-allowed disabled:opacity-45'
 export function PreviewNotice() {
+  const { repository } = useProduct()
+  if (repository.mode === 'integrated_local') return <div className="rounded-lg border border-amber-100 bg-amber-50 px-3 py-2 text-xs text-amber-900"><strong>Integración local</strong> · Datos sintéticos de prueba · Cambios guardados en la base local</div>
   return (
     <div className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-indigo-100 bg-indigo-50/60 px-3 py-2 text-xs text-indigo-800">
       <span>
@@ -21,7 +24,9 @@ export function PreviewNotice() {
 }
 export function Kpis({
   items,
+  compact = false,
 }: {
+  compact?: boolean
   items: Array<{
     label: string
     value: ReactNode
@@ -30,15 +35,15 @@ export function Kpis({
   }>
 }) {
   return (
-    <dl className="grid grid-cols-2 gap-3 md:grid-cols-4">
+    <dl className={compact ? "grid grid-cols-2 gap-2 md:grid-cols-4 xl:grid-cols-8" : "grid grid-cols-2 gap-3 md:grid-cols-4"}>
       {items.map((item) => (
         <div
           key={item.label}
-          className="rounded-xl border border-slate-200 bg-white px-4 py-3 shadow-sm"
+          className={compact ? "min-w-0 rounded-lg border border-slate-200 bg-white p-2" : "min-w-0 rounded-xl border border-slate-200 bg-white px-4 py-3 shadow-sm"}
         >
           <dt className="text-xs font-medium text-slate-500">{item.label}</dt>
           <dd
-            className={`mt-1 text-2xl font-bold tracking-tight ${item.tone ?? 'text-slate-950'}`}
+            className={`mt-1 break-words font-bold tracking-tight ${compact ? "text-lg" : "text-xl sm:text-2xl"} ${item.tone ?? 'text-slate-950'}`}
           >
             {item.value}
           </dd>
@@ -117,20 +122,21 @@ export function PeriodSelect({
     </label>
   )
 }
-export function Status({ value }: { value: string }) {
-  const names: Record<string, string> = {
+const statusNames: Readonly<Record<string, string>> = {
     active: 'Activo',
     inactive: 'Inactivo',
     suspended: 'Suspendido',
     draft: 'Borrador',
-    pending: 'Pendiente',
+    expired: 'Caducada', pending: 'Pendiente',
     in_progress: 'En curso',
     open: 'Abierta',
     won: 'Ganada',
     lost: 'Perdida',
     completed: 'Completada',
-    scheduled: 'Programada',
-  }
+    scheduled: 'Programada', returned:'Devuelto', overdue:'Vencido', upcoming:'Próximo', archived:'Archivado',cancelled:'Cancelado',ended:'Finalizado',retired:'Retirado',prepared:'Preparada',assigned:'Asignada',replaced:'Sustituida',requested:'Solicitada',rejected:'Rechazada',waiting_customer:'Esperando al cliente',waiting_operator:'Esperando al operador',resolved:'Resuelta',closed:'Cerrada',no_show:'No asistió',dismissed:'Descartada',not_applicable:'No aplica',
+}
+export function statusLabel(value: string) { return statusNames[value] ?? value }
+export function Status({ value }: { value: string }) {
   return (
     <Badge
       variant={
@@ -142,7 +148,7 @@ export function Status({ value }: { value: string }) {
       }
       dot
     >
-      {names[value] ?? value}
+      {statusLabel(value)}
     </Badge>
   )
 }
@@ -151,22 +157,25 @@ export function SortButton({
   active,
   descending,
   onClick,
+  disabled=false,
 }: {
   children: ReactNode
   active: boolean
   descending: boolean
   onClick: () => void
+  disabled?:boolean
 }) {
   return (
     <button
       className="inline-flex items-center gap-1 text-left font-semibold hover:text-indigo-600"
       onClick={onClick}
+      disabled={disabled}
     >
       {children}
-      <ArrowUpDown className="h-3 w-3" />
-      <span className="sr-only">
+      {!disabled&&<ArrowUpDown className="h-3 w-3" />}
+      {!disabled&&<span className="sr-only">
         {active ? (descending ? ', descendente' : ', ascendente') : ', ordenar'}
-      </span>
+      </span>}
     </button>
   )
 }
@@ -174,13 +183,32 @@ export function Tabs({
   items,
   value,
   onChange,
+  prefix='',
 }: {
+  prefix?: string
   items: readonly string[]
   value: string
   onChange: (v: string) => void
 }) {
+  const list = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    const container = list.current
+    if (!container) return
+    function keepSelectedVisible() {
+      const selected = container!.querySelector<HTMLElement>('[aria-selected="true"]')
+      if (!selected) return
+      const bounds = container!.getBoundingClientRect(), tab = selected.getBoundingClientRect()
+      if (tab.left < bounds.left) container!.scrollLeft += tab.left - bounds.left
+      else if (tab.right > bounds.right) container!.scrollLeft += tab.right - bounds.right
+    }
+    keepSelectedVisible()
+    const observer = new ResizeObserver(keepSelectedVisible)
+    observer.observe(container)
+    return () => observer.disconnect()
+  }, [value])
   return (
     <div
+      ref={list}
       className="flex gap-1 overflow-x-auto border-b border-slate-200"
       role="tablist"
       aria-label="Secciones"
@@ -190,8 +218,8 @@ export function Tabs({
           type="button"
           role="tab"
           aria-selected={value === item}
-          id={`tab-${item}`}
-          aria-controls={`panel-${item}`}
+          id={`${prefix}tab-${item}`}
+          aria-controls={`${prefix}panel-${item}`}
           tabIndex={value === item ? 0 : -1}
           key={item}
           onClick={() => onChange(item)}
@@ -207,7 +235,7 @@ export function Tabs({
                     : (i + (e.key === 'ArrowRight' ? 1 : -1) + items.length) %
                       items.length
               onChange(items[next])
-              document.getElementById(`tab-${items[next]}`)?.focus()
+              document.getElementById(`${prefix}tab-${items[next]}`)?.focus({preventScroll:true})
             }
           }}
           className={`whitespace-nowrap border-b-2 px-3 py-3 text-sm font-medium focus-visible:outline-2 focus-visible:outline-indigo-500 ${value === item ? 'border-indigo-600 text-indigo-700' : 'border-transparent text-slate-500 hover:text-slate-800'}`}
@@ -240,7 +268,7 @@ export function Drawer({
     <dialog
       ref={ref}
       aria-labelledby={id}
-      onCancel={onClose}
+      onCancel={(e) => { e.preventDefault(); onClose() }}
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose()
       }}

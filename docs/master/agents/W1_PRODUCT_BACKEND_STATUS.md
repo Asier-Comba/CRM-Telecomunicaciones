@@ -1,0 +1,13 @@
+# W1 product backend status
+
+Authoritative accepted executable source: c2a7390867d941a33b17509b3f4014f8356bb0c1. PR #28 remains Draft on w1/product-backend-v1; base w2/platform-closure-v1@a917bbb41ef8192344dc49737cd78fd52fe29649. No frontend/W2 branch changes, merge or production deployment.
+
+53 migrations, 247 function privileges, 243 passing Node tests, 1,298 real disposable Supabase checks, 129/129 individually observed human operations (91 writes,38 reads). Native fresh/logical synthetic restore and ACL/RLS/role checks, embedded fixtures, browser private values and teardown PASS. Lint/types/build PASS; overall CI fails unsuppressed five-high dependency audit, Issue29. Executed PR checkout 8f14da513a5c122e2de3542d19ecdbe6ba32e21b and accepted HEAD have identical tree 9442df0abfb48e48fbecb0c0d46f6146f6a28229. Real run37361774116; native/quality37361774252.
+
+Current modules: existing customers/contacts/work/opportunities/dashboard/search/exact billing/private PDF/unsaved proposal/team/portfolio/deadlines/document workflows/importjob management; plus internal Inbox, registered internal automation effects, personal notifications, own preferences/business profile/private logo, requested-field audited reveal, invite expiry/reissue and NEW audit-linked manual-origin proof. All six document targets have real normal upload/finalize/download evidence; service integrity and exact expired-pending cleanup are positive.
+
+Imports: disposable encrypted staging + bounded safe CSV proved; normal production processing/worker/apply unavailable. Scanner: interface and disposable reject fixture only, not_scanned; required production scanning fails closed. Cleanup: exact old pending only; active/PDF artifacts retained. Integrations: no provider activation or connection-health assertion. Auth SMTP and CRM mail separate, both not configured. Hosted staging/production and live delivery untested (Issue12); advanced historical reports/text/audio parser unavailable.
+
+All ui_safe:false pending W2/W4. 91 writes are future Issue10 confirmation candidates only; zero assistant registration. Legacy manual origin is not certified/backfilled. W3 owns durable immutable-intent confirmation/dispatch/replay/recovery.
+
+Full current evidence and limitations: [closure](../W1_PRODUCT_CLOSURE_20261005.md), [machine status](../W1_PRODUCT_CLOSURE_20261005_STATUS.json), [catalog](../contracts/product-capabilities.json), [environment names](../contracts/product-environment.json), [W2 handoff](../W1_TO_W2_COMPLETION_20261005.md), [W3 handoff](../W1_TO_W3_AI_CAPABILITIES.md). These supersede prior 80/90-operation figures; historical source/run records remain history, not current acceptance.

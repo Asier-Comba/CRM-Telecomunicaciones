@@ -21,8 +21,20 @@ const money = (minor: number, currency: string) =>
   )
 export function Opportunities({
   items,
+  stageCatalog,
+  onCreate,
+  onSelect,
+  onMoveStage,
+  canMove,
+  pendingMove,
 }: {
   items: readonly OpportunityItemV1[]
+  stageCatalog?:readonly {id:string;label:string;movable?:boolean}[]
+  onCreate?:()=>void
+  onSelect?:(id:string)=>void
+  onMoveStage?:(id:string,stageId:string)=>void
+  canMove?:(id:string)=>boolean
+  pendingMove?:{id:string;stageId:string}|null
 }) {
   const [mode, setMode] = useState('board'),
     [query, setQuery] = useState(''),
@@ -36,11 +48,15 @@ export function Opportunities({
           )) &&
         (!owner || o.owner?.display_name === owner),
     ),
-    stages = [...new Set(items.map((o) => o.stage.display_name))]
+    stages = stageCatalog??[...new Map(items.map(o=>[o.stage.id,{id:o.stage.id,label:o.stage.display_name,movable:false}])).values()]
   const card = (o: OpportunityItemV1) => (
+    <div key={o.id} className="space-y-2">
     <button
-      key={o.id}
-      onClick={() => setSelected(o)}
+      draggable={!!onMoveStage&&!!canMove?.(o.id)&&!pendingMove}
+      onDragStart={e=>{if(!canMove?.(o.id)||pendingMove){e.preventDefault();return}e.dataTransfer.setData('application/x-crm-opportunity',o.id);e.dataTransfer.effectAllowed='move'}}
+      data-opportunity-id={o.id}
+      disabled={pendingMove?.id===o.id}
+      onClick={() => onSelect?onSelect(o.id):setSelected(o)}
       className="block w-full rounded-lg border border-slate-200 bg-white p-3 text-left shadow-sm transition hover:border-indigo-300"
     >
       <p className="text-xs font-semibold leading-5 text-slate-900">
@@ -70,6 +86,8 @@ export function Opportunities({
             : 'Fecha de seguimiento no disponible'}
       </p>
     </button>
+    {onMoveStage&&canMove?.(o.id)&&<label className="block text-xs text-slate-500">Mover a etapa<select aria-label={`Mover etapa de ${o.title}`} className={control+' mt-1 w-full'} value={o.stage.id} disabled={!!pendingMove} onChange={e=>onMoveStage(o.id,e.target.value)}>{stages.map(stage=><option key={stage.id} value={stage.id} disabled={!stage.movable&&stage.id!==o.stage.id}>{stage.label}</option>)}</select></label>}
+    </div>
   )
   return (
     <div className="space-y-4">
@@ -79,8 +97,9 @@ export function Opportunities({
         action={
           <button
             className={primary}
-            disabled
-            title="Creación pendiente de contrato CRUD autorizado"
+            disabled={!onCreate}
+            onClick={onCreate}
+            title={onCreate?'Crear oportunidad local':'Creación pendiente de contrato CRUD autorizado'}
           >
             <Plus className="h-4 w-4" />
             Nueva oportunidad
@@ -151,17 +170,22 @@ export function Opportunities({
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {stages.map((stage) => (
             <section
-              key={stage}
+              key={stage.id}
+              data-stage-id={stage.id}
+              onDragEnter={e=>{if(onMoveStage&&stage.movable&&!pendingMove)e.preventDefault()}}
+              onDragOver={e=>{if(onMoveStage&&stage.movable&&!pendingMove){e.preventDefault();e.dataTransfer.dropEffect='move'}}}
+              onDrop={e=>{e.preventDefault();const id=e.dataTransfer.getData('application/x-crm-opportunity');if(onMoveStage&&stage.movable&&!pendingMove&&canMove?.(id))onMoveStage(id,stage.id)}}
               className="rounded-xl border border-slate-200 bg-slate-100/60 p-3"
             >
               <h2 className="mb-3 flex items-center justify-between text-sm font-semibold text-slate-700">
-                {stage}
+                {stage.label}
                 <span className="rounded bg-white px-2 py-0.5 text-xs">
-                  {rows.filter((o) => o.stage.display_name === stage).length}
+                  {rows.filter((o) => o.stage.id === stage.id).length}
                 </span>
               </h2>
               <div className="space-y-3">
-                {rows.filter((o) => o.stage.display_name === stage).map(card)}
+                {pendingMove?.stageId===stage.id&&<div role="status" className="rounded-lg border-2 border-dashed border-indigo-300 bg-indigo-50 p-4 text-sm text-indigo-700">Comprobando movimiento…</div>}
+                {rows.filter((o) => o.stage.id === stage.id).map(card)}
               </div>
             </section>
           ))}
@@ -170,9 +194,7 @@ export function Opportunities({
               Definición del pipeline
             </h2>
             <p className="mt-2 text-xs leading-5 text-slate-400">
-              Se muestran las etapas presentes en la lectura autorizada. El
-              catálogo completo y el arrastre de tarjetas requieren contratos de
-              etapas y mutaciones.
+              {onMoveStage?'Arrastra una oportunidad manual abierta o usa su selector de etapa. Las etapas de cierre se revisan en el detalle. El movimiento se confirma al guardar y consultar el registro.':'Se muestran las etapas presentes en la lectura autorizada. El catálogo completo y los cambios de etapa requieren conexión autorizada.'}
             </p>
           </section>
         </div>

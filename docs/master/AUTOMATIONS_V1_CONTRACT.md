@@ -1,0 +1,20 @@
+# Registered internal automations v1
+
+Current acceptance: c2a7390867d941a33b17509b3f4014f8356bb0c1, real run37361774116 (1,298 checks), native/quality37361774252 (53 migrations/247 privilege entries/243 Node tests). [Authoritative closure](W1_PRODUCT_CLOSURE_20261005.md) records the limits. Human backend only; UI_SAFE=false pending W2/W4.
+
+
+Default-off POST /api/automations/v1, current SSR owner/admin only, exact PRODUCT_V1_ORIGIN; no raw grants, arbitrary SQL/code/URL/webhook or actual provider. UI_SAFE=false. Human writes are future candidates only, no assistant registration.
+
+Definition {name1..100,trigger_id:customer.created,condition:{account_kind:null|legal_entity|sole_trader},action:{action_id:notification.create|task.create,recipient_user_id}}. Recipient must be active owner/admin/member in current workspace at create/update. All objects closed. create defaults disabled/version1. update requires disabled and replaces the complete definition. enable/disable CAS expected_version; reenable observes future events from new enabled_at, does not silently rerun history. No archive state added without product need.
+
+Commands automation.create {command_id,...definition}; automation.update adds id,expected_version; automation.enable/disable {command_id,id,expected_version}; automation.process_pending {command_id}. CRUD receipts {contract_version:automations.v1,operation,command_id,id,version,enabled}; process receipt {contract_version,operation,command_id,processed,succeeded,failed,skipped,has_more}. HMAC exact retries/changed-intent409; CAS on definition changes. Explicit processing is transactional and bounded100 actions; has_more reports continuation, including events locked by another processor. No periodic worker claimed.
+
+Only reliable customer.created events are registered: an immutable private trigger captures new customer identity/account kind at database insertion. No name/contact/body or retroactive legacy event backfill. Enabled definition conditions match authoritative events. Private event locks+unique event/automation/action prevent duplicate runs; task.create calls the existing canonical domain command with deterministic child UUID, notification.create uses the private deduplicated recipient adapter. Run and effect commit together. Each run is succeeded with real effect ID, failed with closed code/no effect, or skipped for unavailable target. No durable pending/running state is invented for synchronous processing. Audit failures roll back root, child commands, run and effect. Failed runs remain terminal; automatic retry of failed events is not registered, while command replay returns the exact recorded result. New successful events still process normally.
+
+Reads automation.list {limit1..100/default20,after_id}; automation.get {id}; automation.run_history {id,limit,after_id}. UUID ascending cursor, minimized private DTO, owner/admin current membership on every call. No raw payload/error/secret/code history. role/tenant/revoked valid JWT deny reads and receipt replay.
+
+RegisteredIntegrationAdaptersV1 contracts define future n8n.primary / crm.customer-created.v1 intents and typed inbox ingress signature/tenant/size/dedupe responsibilities; no concrete provider or endpoint is instantiated. External workflow action IDs are rejected by the normal automation registry. Google/mail/WhatsApp/n8n/AI configuration is not claimed.
+
+Validation at the recorded accepted source: native/embedded fresh/restored fixtures and real acceptance of eight operations, both actual effects, twenty root retries, coded failures with no task effect, role/tenant/revocation/CAS/changed-intent controls. Twenty independent processors create one canonical task/run; winner retries recover its exact receipt.
+
+W2 must distinguish enabled intent from provider availability and handle failed/skipped/has_more. W3 may propose definitions only through a future Issue10 confirmation adapter; no autonomous creation or registration.

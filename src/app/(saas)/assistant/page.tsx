@@ -2,11 +2,17 @@ import { PageHeader } from '@/components/PageHeader'
 import { syntheticPreviewAllowed } from '@/lib/telecom-preview/access'
 import { customerPreview } from '@/lib/telecom-preview/data'
 import { Assistant } from '@/features/assistant/Assistant'
+import { integratedLocalAllowed } from '@/features/product/integration/mode'
+import { validAiEntityReference } from '@/features/assistant/w3-ui-contract'
 export default async function AssistantPage({
   searchParams,
 }: {
-  searchParams: Promise<{ customer?: string }>
+  searchParams: Promise<{ customer?: string; intent?: string }>
 }) {
+  if(integratedLocalAllowed()){
+    const input=await searchParams,reference={kind:'customer',id:input.customer}
+    return <Assistant context={null} selectedReferences={validAiEntityReference(reference)?[reference]:[]} invoiceIntent={input.intent==='invoice'}/>
+  }
   if (!syntheticPreviewAllowed())
     return (
       <PageHeader

@@ -1,55 +1,59 @@
-# W2 Product Rebuild 1.0 — delivery status
+# W2 current consumer evidence
 
-Date: 2026-10-03. Branch: `w2/product-rebuild-v1`. Draft PR: https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/27. Target: `w4/preview-hardening-v1@6210a9d5af6766679b231954199bc77b07ad8559`, containing W3 PR21 and the W4 candidate launcher/request hardening. This PR is product work; it does not merge main or accept a release.
+Delivery branch: w2/product-integration-v2. [Draft PR30](https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/30) remains stacked on w2/product-rebuild-v1@2878687ceb55c4696efc734553d3b87c8f190e72. PR27 is unchanged. W1 executable f574b0c55951e6e357e4e91059fcfe64b1410b02 and documentation94c20dccd342dbf313fe2930b5a3b32b73f61f7d are preserved by normal merges. Main, deployment, production and the historical repository remain untouched.
 
-## Delivered scope
+## Validation and exact heads
 
-Dense shared shell with responsive modal navigation, safe cross-entity fixture search, eleven module entries and reusable tabs/drawers. Dashboard, Clients, fourteen-area Customer360, seven-tab telecom portfolio, opportunity pipeline/card/list views and real calendar week/month/agenda grids are functional typed read previews. Assistant has temporary threads with rename/delete, safe W3 output, sources/partiality, validated customer context and cancellation fencing. Invoice proposals, reviewed local drafts, real draft PDF bytes, tax/discount/FX editor, customer-scoped entity links and controlled trash lifecycle are functional local operations. Company/fiscal forms remain in memory. Inbox, automation catalog and document categories expose their actual readiness limits.
+Last fully accepted product-browser source checkpoint:d4a6ccecfecb2952a6cf026c0bc5dcfb972279f4. Supabase56/run37329541044 passed40/40 browser groups,801 W1 backend checks, teardown and browser private-value boundary. CI335/run37329541034 passed lint, types,246 Node tests, build and independent security/migration/native fresh+restore/embedded/preview/Windows checks. The enforced full npm audit retains five inherited high findings tracked in Issue29; dependent Critical Playwright/dependency review are skipped.
 
-All data shown by rebuilt modules are synthetic or unavailable. Backend effects and provider sends remain disabled. Frontend roles or fixture IDs never supply server authority.
+250adfef067134ea85f666fcd814d1071923a766 / Supabase53/run37325418835 preserved33 prior groups but timed out in five new cases. The explicit contract-customer accessible label and refresh of fiscal configuration before reopening corrected the blockers. All five then passed at a043161, along with authorized issuer presentation and ten-family/critical-dialog captures at1440/768/390px. The a043161 checkpoint resolved these failures with39 passing groups. Current d4a6cce additionally passed the financial comparison against the actual authorized reader, with workspace scope/native currencies/period shown explicitly. This new documentation-only checkpoint retains d4a6cce as its source-validation authority.
 
-## Measured capability coverage
+## Modes, identity and data
 
-The canonical register is `../PRODUCT_PARITY_STATUS.json` (244 rows, matching `../PRODUCT_PARITY_MATRIX.md`). Fully delivered means SYNTHETIC_IMPLEMENTED or LOCAL_IMPLEMENTED **within preview scope**. Partial rows count zero; disabled operations count zero. Platform implementation retained from W1/W5 does not count as new UI delivery. Four explicit property-domain exclusions are outside the denominator. The register mixes inherited capabilities and 31 marked telecom additions, so the scopes are explicit rather than claiming all rows originated in the old CRM.
+Synthetic preview uses only fixtures and temporary drafts. Integrated local requires PRODUCT_LOCAL_INTEGRATION, PRODUCT_LOCAL_SYNTHETIC and PRODUCT_V1_ENABLED, a nonproduction runtime and canonical loopback Supabase/application URLs. SSR cookie getUser and current database membership supply identity; the local integration permits synthetic@example.invalid identities only. Document/private-PDF content additionally requires PRODUCT_DOCUMENT_CONTENT_ENABLED. Invalid mode configuration never falls back to fixtures.
 
-| Required metric | Value | Definition / limit |
-|---|---|---|
-| OLD_PRODUCT_PARITY | 47.4% | 99/209 applicable generic historical rows delivered in preview/local UX; live behavioral parity is not accepted |
-| TELECOM_SUPERSET | 54.8% | 17/31 explicitly marked telecom extension rows fully functional; remaining additions partial/blocked |
-| VISUAL_QUALITY | 80% | 8/10 review checks evidenced: shared shell, heading hierarchy, nine-screen desktop/mobile captures, controlled document width, responsive controls, labelled fields, visible unavailable/partial states and legacy-string absence. Old-rendering comparison and independent human approval remain unverified. This is acceptance-check coverage, not an aesthetic score |
-| INTERACTION_COMPLETENESS | 51.6% | 116/225 product UI capability rows fully functional within preview scope; not a count of routes or successful compilations |
-| BACKEND_WIRING | 0% | No rebuilt module is wired to an accepted live scoped data/mutation adapter; existing DB/runtime work is preserved separately |
-| SYNTHETIC_ONLY | 100% | Every rendered dataset in rebuilt modules is synthetic/local or explicitly unavailable |
-| REAL_WRITES | 0% | No server/domain/fiscal/provider writes enabled by this change; local form/draft state is not a real write |
-| AI_UI | 52.2% | 12/23 assistant UI rows delivered; live model, context transport, rich entity navigation/continuations and action contracts are incomplete |
-| BLOCKERS | Open | Unpatched dependency audit; scoped server identity Issue12; accepted per-module contracts; W3 action boundary Issue10; human visual acceptance |
+The central cookie transport reuses exact closed W1 input/output parsers. Logical retry preserves the command UUID and immutable payload in mounted memory; edits use the actual version read from the database. Contact PII is absent from local/session storage, URL, telemetry and global caches. Integrated writes persist in a real disposable Supabase database despite all data being synthetic.
 
-Counts: 85 synthetic implemented, 31 local implemented, 40 partial, 5 not implemented, 64 blocked, 15 preserved backend, 4 not applicable. Implementation classification is source-based plus executed module journeys; it does not claim exhaustive per-row browser tests. Microphone recognition has not been exercised. Full product parity is **not** declared.
+W1 capabilities remain ui_safe:false. Positive local consumers do not grant W4 staging, release or production acceptance. Integrated assistant sending is disabled pending W3/Issue10.
 
-## Executed validation and evidence
+## Coverage and parity
 
-Latest tested product code: `badfd676769540d6b43aaaec84aeacb551c8d388`. The final evidence commit changes documentation only.
+At the accepted d4a6cce checkpoint,89/90 distinct operations and67/67 writes have positive browser evidence: BACKEND_WIRING98.9%; REAL_LOCAL_WRITES100%. The unused invoice.summary read is excluded; existing list/get already support the consumer. Exact operation names are counted from safe actual HTTP observations and passing UI/DB behavior, never inferred from family coverage. This does not mean complete behavior, negative-case coverage per widget, full parity or release acceptance.
 
-Local Node24: 141/141 unit and behavior tests, lint, typecheck and production build PASS. Unit evidence includes filters, null versus zero, periods, calendar dates, DST, deterministic invoice calculation/parser, malicious extraction, PDF generation and cross-customer/contract invoice link rejection. Tests and screenshot journeys remain in the repository.
+All244 parity rows preserve separate preview and integrated evidence/limitations. Positive operations are not complete-row or release acceptance. Frozen preview scores remain OLD_PRODUCT_PARITY47.4% (99/209), TELECOM_SUPERSET54.8% (17/31), INTERACTION_COMPLETENESS51.6% (116/225), AI_UI52.2% (12/23). SYNTHETIC_ONLY100% describes the data; production integration is disabled. Visual quality remains partial: ten families and critical dialogs were captured at three widths and real PDFs rendered with Poppler, but human visual comparison remains pending.
 
-Chromium acceptance: `badfd676769540d6b43aaaec84aeacb551c8d388`, run https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37128554151: 12/12 desktop/mobile tests PASS without retries, including invoice links, conversation rename/delete, Spanish summary labels, authority rejection and malformed/cancelled output. Production fixture closure PASS; Linux launcher and child/port cleanup PASS. Screenshot artifact: https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37128554151/artifacts/11275199353. ZIP SHA256 verified after download. The manifest selects 36 captures: nine screens, two devices, two scroll positions.
+## Product families
 
-CI baseline guardrails, secret scan, migration policy, embedded PGlite, native PostgreSQL and Windows launcher passed on run 37128554151. Dependency review and the separate Critical Playwright job are skipped by repository configuration/dependency gating; they are not reported as passes. The dedicated synthetic browser job supplies the executed browser evidence.
+- Customers/contacts: actual create/update/archive/restore, primary replacement, reload, authorized assignment, stale CAS, JWT membership revocation and PII nonpersistence passed. Imported facts and archived edits remain guarded. Full paginated collections and complete assignment selection remain partial.
+- Customer360:14 areas, protected company/contact, and customer-bound calendar/documents/billing entry points. Complete related inventory and transversal activity remain missing.
+- Calendar: actual task create/complete/reopen/start/update/cancel (including cancelled reopen), priorities/assignee; meeting create/reschedule/update/complete/no-show/cancel; renewal update/resolve passed. Bounded93-day/100-item results are visibly partial. Coincident weekly meeting cards occupy separate columns. Generic customer association, provider sync and drag remain missing.
+- Opportunities: actual manual create/update/neutral-stage change/win/reopen/lose/assign/archive passed. Closed facts are read-only, except explicit won/lost reopen. UUID stage catalog and existing currencies are preserved. Complete inventory, new links and drag remain partial.
+- Portfolio: actual manual service/line/renewal creation, renewal update/resolve and imported read-only provenance passed. Contract create/assign/activate/cancel, child label/transitions, permanence lifecycle and renewal dismiss passed through actual UI/database behavior. Active-parent checks use authorized reads and W1 rechecks; full inventory/operator/plan catalogs remain missing.
+- Import management: actual existing-job list/get/cancel passed. Upload, validation and apply remain blocked by the encrypted staging adapter; there is no plaintext substitute.
+- Billing: actual customer fiscal profile, draft/create/edit/issue/server numbering/payment/reversal/trash/restore, display PDF and frozen private download passed. Actual issued/paid private PDF bytes stay identical. Issuer editing, text proposal with requires_review/no save, and optional storage-failure recovery passed. The real disposable bucket rejected PDF while the invoice stayed issued; after restoring its MIME policy, explicit private conservation/download passed without changing the issued/paid count. Financial issuance is separate from optional document conservation; retries must not reissue. An accessible comparison of four financial states within each native currency passed against the actual authorized summary; workspace scope and returned period are explicit, overdue remains a subset of outstanding. Historical charts/top clients, new links and complete FX/series ergonomics remain partial.
+- Team: actual list/role/suspend/resume/invite intention/cancel/remove passed, with owner/self/admin safeguards. No invitation delivery. Existing intent lists, expiry and pagination remain missing.
+- Documents: actual metadata/read/archive/restore, prepare/upload/explicit finalize/private download passed. Archiving revokes an issued ticket; actual32-second elapsed expiry denies bytes; a fresh retry downloads successfully. Scanner/hash attestation, inline preview and cleanup remain unavailable.
+- W3/remaining families: typed closed refs and presentation/proposal/progress/cancel handoff exist. Durable threads, streaming and provider semantics remain W3/Issue10. Unpublished Inbox work is not consumed or counted. Inbox/automation/notifications/profile/subscription/reports retain explicit backend or consumer gaps.
 
-CI quality executes lint/types/tests/build successfully but fails `npm audit` with five high findings through one inherited chain: `eslint-config-next -> @next/eslint-plugin-next -> fast-glob -> micromatch -> braces@3.0.3`. Advisory https://github.com/advisories/GHSA-vfj7-8cjw-p6xm reports no patched release at review time. No audit suppression, gate removal, forced downgrade or unreviewed dependency replacement was used. W4 must approve a compatible mitigation/update before this gate can pass.
+## Top10 remaining
 
-Artifacts `synthetic-product-screenshots` and `synthetic-telecom-browser` retain seven days in the Actions run. Large binaries are not committed. The renewed capture helpers wait for temporary toasts, record upper/lower viewport positions and keep responsive overflow checks. `../PRODUCT_SCREENSHOT_MANIFEST.json` records the selected nine-screen evidence, viewport sizes and SHA256.
+1. Review complete behavior/negative-state evidence per parity row after the40-group passing regression.
+2. Independently inspect the captured critical dialogs and ten screen families for human visual QA.
+3. Authorized paginated customer-bound collections and complete inventory.
+4. Operator/plan/responsible selection with immutable ancestry-aware links.
+5. Broaden attachment conflict/revocation and financial state UX from the accepted private-PDF recovery baseline.
+6. Browser dictation availability/privacy, financial charts/top clients and FX/series ergonomics.
+7. Accepted Inbox, automation and notification backend contracts/consumers.
+8. W3 durable-thread/stream/proposal contracts.
+9. Document scanner/hash/preview/cleanup and encrypted import processing.
+10. W4-reviewed Issue29 mitigation and release acceptance.
 
-Local reproduction: Node24, `npm ci`, `npm run preview:dev`, open http://localhost:3107/login and select **Ver demo telecom**. Browser verification: `npx playwright install chromium`, `npm run test:e2e:preview`. Production closure: `npm run build`, `node scripts/preview-production-check.mjs`. In this executor Chromium download returned an empty archive; Chromium ran in GitHub CI instead. This does not affect the Windows/local setup contract already tested by CI.
+## Next3
 
-## Exact integration gaps and ownership
+1. Review per-row completeness from exact accepted UI/DB behavior without weakening W1 authority.
+2. Reevaluate individual parity rows from accepted behavior, preserving negative-role/CAS/provenance limits.
+3. Publish coherent checkpoints and update PR30/W3 handoff with exact-head evidence and remaining blockers.
 
-- **W1/W5 / Issue12:** all fourteen candidate privileged readers exist, but the safely injectable scoped server principal is still missing. Actor/workspace arguments must be derived and membership checked server-side. Do not grant authenticated EXECUTE on caller-controlled privileged functions and do not wire a global service-role key. Need accepted factory and operations for contacts/reveal, fiscal identity, global search, CRUD, calendar edits, opportunity expected-close/products/history, invoices/numbering/PDF/storage, issuer configuration, document metadata and Inbox. Local presentation models are not backend DTOs.
-- **W3 / Issue10:** preserve the single existing `{text}` READ preview request and AssistantResponse. Need accepted transport for selected entities, persisted/renamed/deleted threads, rich entity blocks and closed navigation, choices/continuations, stream protocol, live model and authorised actions. No model can emit a fiscal invoice from these local drafts.
-- **W4:** review exact-head production fixture/SSR/RSC closure; unknown/malformed replies; stale response cancellation; local draft and issuer isolation; protected identifiers; missing/partial/denied semantics; desktop/mobile focus and scroll behavior; absent provider effects; and the unresolved npm audit gate. Candidate local Supabase evidence and inherited release manifests are not live UI acceptance.
+## Execution limitation
 
-## Explicit remaining product gaps
-
-The missing backend does not excuse reporting a route as a complete capability. Financial analytics, fiscal customer snapshots, real invoice lifecycle, full tariff/stage catalogs, authorized reveal, team administration, notifications, persistence, file operations, provider Inbox and active automation execution remain incomplete. Profile, billing subscription and Reports have honest unavailable states rather than copied sample finances. Old/new code review and exceptions: `../PRODUCT_OLD_NEW_REVIEW.md`.
-
-CAN_MERGE / CAN_STAGE / CAN_PRODUCE: no acceptance claimed. Old reference and main remain unchanged. No deployment or real commercial data/provider effects performed.
+The local executor lost the checkout backing directory and disconnected. Important work was reconstructed and published through GitHub; fresh remote CI provides execution evidence. Screenshots/PDF renders remain available as CI artifacts, but local human visual inspection is blocked. No completion or production readiness is claimed.

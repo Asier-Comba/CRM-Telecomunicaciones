@@ -1,0 +1,35 @@
+begin;
+insert into auth.users(id,email)values('81000000-0000-4000-8000-000000000001','settings-owner@example.invalid'),('81000000-0000-4000-8000-000000000002','settings-viewer@example.invalid');
+insert into public.workspaces(id,name,slug)values('82000000-0000-4000-8000-000000000001','Settings Synthetic','settings-synthetic');
+insert into public.workspace_members(workspace_id,user_id,role)values('82000000-0000-4000-8000-000000000001','81000000-0000-4000-8000-000000000001','owner'),('82000000-0000-4000-8000-000000000001','81000000-0000-4000-8000-000000000002','viewer');
+create function pg_temp.assert_s(ok boolean)returns void language plpgsql as $$begin if ok is not true then raise exception 'settings_assertion';end if;end$$;
+create function pg_temp.deny_s(q text,c text)returns void language plpgsql as $$begin begin execute q;exception when others then if sqlstate=c then return;end if;raise;end;raise exception 'expected_settings_denial';end$$;
+set local role authenticated;
+select set_config('request.jwt.claim.sub','81000000-0000-4000-8000-000000000002',true);
+do $$declare w uuid:='82000000-0000-4000-8000-000000000001';i jsonb;r jsonb;begin
+ perform pg_temp.assert_s(public.settings_v1_profile_get(w,'{}')->>'version'='0');
+ i:=jsonb_build_object('command_id',gen_random_uuid(),'expected_version',0,'profile',jsonb_build_object('display_name','Synthetic preference','timezone','Europe/Madrid','locale','es-ES','notification_preferences',jsonb_build_object('in_app',false)));
+ r:=public.settings_v1_profile_update(w,i);perform pg_temp.assert_s(r->>'version'='1'and r=public.settings_v1_profile_update(w,i));
+ perform pg_temp.assert_s(public.settings_v1_profile_get(w,'{}')->'profile'->'notification_preferences'->>'in_app'='false');
+ perform pg_temp.deny_s(format('select public.settings_v1_profile_update(%L,%L)',w,(i||'{"expected_version":1}'::jsonb)::text),'40001');
+ perform pg_temp.deny_s(format('select public.settings_v1_company_update(%L,%L)',w,i::text),'42501');
+ perform pg_temp.deny_s(format('select public.settings_v1_profile_update(%L,%L)',w,(i||jsonb_build_object('command_id',gen_random_uuid(),'actor_id','81000000-0000-4000-8000-000000000001'))::text),'22023');
+end$$;
+select set_config('request.jwt.claim.sub','81000000-0000-4000-8000-000000000001',true);
+do $$declare w uuid:='82000000-0000-4000-8000-000000000001';i jsonb;r jsonb;begin
+ perform pg_temp.assert_s(public.settings_v1_profile_get(w,'{}')->'profile'->>'display_name'is null);
+ i:=jsonb_build_object('command_id',gen_random_uuid(),'expected_version',0,'profile',jsonb_build_object('trade_name','Synthetic trade','business_name','Synthetic company','business_email','synthetic@example.invalid','phone',null,'website','https://example.invalid','address',null,'timezone','Europe/Madrid','locale','es-ES','description',null,'logo_document_id',null));
+ r:=public.settings_v1_company_update(w,i);perform pg_temp.assert_s(r->>'version'='1'and r=public.settings_v1_company_update(w,i));
+ perform pg_temp.assert_s(public.settings_v1_company_get(w,'{}')->'profile'->>'business_name'='Synthetic company');
+ perform pg_temp.assert_s(jsonb_array_length(public.settings_v1_integrations(w,'{}')->'integrations')=7);
+ perform pg_temp.deny_s(format('select public.settings_v1_company_update(%L,%L)',w,(i||jsonb_build_object('command_id',gen_random_uuid(),'profile',(i->'profile')||'{"tax_id":"forbidden"}'::jsonb))::text),'22023');
+end$$;
+reset role;
+create function pg_temp.settings_audit_failure()returns trigger language plpgsql as $$begin raise exception 'settings_cutpoint';end$$;
+create trigger settings_test_audit before insert on public.product_audit_events for each row execute function pg_temp.settings_audit_failure();
+set local role authenticated;
+select pg_temp.deny_s($q$select public.settings_v1_profile_update('82000000-0000-4000-8000-000000000001',jsonb_build_object('command_id',gen_random_uuid(),'expected_version',0,'profile',jsonb_build_object('display_name','Failed','timezone','UTC','locale','en-US','notification_preferences',jsonb_build_object('in_app',true))))$q$,'P0001');
+reset role;
+select pg_temp.assert_s(not exists(select 1 from public.product_user_preferences where user_id='81000000-0000-4000-8000-000000000001'));
+drop trigger settings_test_audit on public.product_audit_events;
+rollback;

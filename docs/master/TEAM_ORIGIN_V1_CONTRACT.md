@@ -1,0 +1,14 @@
+# Team expiry and NEW manual origin v1
+
+Current acceptance: c2a7390867d941a33b17509b3f4014f8356bb0c1, real run37361774116 (1,298 checks), native/quality37361774252 (53 migrations/247 privilege entries/243 Node tests). [Authoritative closure](W1_PRODUCT_CLOSURE_20261005.md) records the limits. Human backend only; UI_SAFE=false pending W2/W4.
+
+
+Invitation intents expire after seven days. Historical expiry is calculated from original created_at; effective list state is expired for pending intents after that time. No asynchronous clock job, email, Auth invitation or membership grant is claimed. Protected member.invite_list is bounded by UUID (20/default, 100/max), exposes intent email/role/expiry only to current owner/admin. member.reissue_invite uses command_id/id/expected_version, preserves recipient and role, allows pending expired intent only, returns pending and expires_at seven days later. Reissue of admin intent requires owner; current target authorization precedes replay; one audit per successful CAS. Cancel remains the canonical cancellation. Existing owner/self/admin protections remain unchanged.
+
+Product manual origin proofs are private, forced-RLS and append-only. AFTER INSERT on the canonical value-free product audit captures NEW human customer/contact/opportunity create and explicit manual contract/service/line/renewal/permanence creation only when the actual entity source is manual (contacts have no source column: their new canonical human create audit is the proof; legacy contacts remain unrecorded/unverified). No task, automation effect, SQL seed, imported row or historical audit backfill emits a manual proof. No source label or editability rule is changed. A new child proof certifies its own canonical creation, not the ancestry of a legacy parent.
+
+provenance.get is current owner/admin only, uses a closed eight-kind registry, same-workspace entity read and minimized confidence DTO. verified_new_manual requires an immutable audit-linked proof; legacy manual source remains declared_legacy_manual with null timestamp, external source remains declared_external. No name, tax ID, actor, command payload or proof signing material is returned.
+
+Deadlines continue to use canonical renewal.resolve/dismiss or permanence.cancel and creation of a new record. Existing immutable audit retains the prior record and version. There is no destructive date-history overwrite or invented supersede state; a future supersede contract needs an explicit business decision.
+
+Coverage: Node contract tests; native and embedded fresh/restored fixture; real Supabase/Next-cookie per-operation observations including twenty replays, twenty distinct CAS writers, foreign scope, revoked still-valid JWT, preserved legacy confidence and one NEW proof. Exact accepted source/run evidence is recorded above and in PR #28/#30. All ui_safe:false.

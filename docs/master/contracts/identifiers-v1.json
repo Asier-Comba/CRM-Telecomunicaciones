@@ -1,0 +1,72 @@
+{
+  "contract_version": "identifiers.v1",
+  "operations": [
+    {
+      "operation": "identifier.create_manual",
+      "type": "write",
+      "implemented": true,
+      "proven": true,
+      "w2_consumed": false,
+      "ai_registration": false,
+      "ai_write_classification": "FUTURE_AI_ACTION_CANDIDATE",
+      "supabase_tested": true,
+      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "backend_ready_for_w2": true
+    },
+    {
+      "operation": "identifier.retire",
+      "type": "write",
+      "implemented": true,
+      "proven": true,
+      "w2_consumed": false,
+      "ai_registration": false,
+      "ai_write_classification": "FUTURE_AI_ACTION_CANDIDATE",
+      "supabase_tested": true,
+      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "backend_ready_for_w2": true
+    },
+    {
+      "operation": "identifier.list",
+      "type": "read",
+      "implemented": true,
+      "proven": true,
+      "w2_consumed": false,
+      "ai_registration": false,
+      "ai_write_classification": null,
+      "supabase_tested": true,
+      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "backend_ready_for_w2": true
+    },
+    {
+      "operation": "identifier.get",
+      "type": "read",
+      "implemented": true,
+      "proven": true,
+      "w2_consumed": false,
+      "ai_registration": false,
+      "ai_write_classification": null,
+      "supabase_tested": true,
+      "supabase_tested_head": "4b5520f3a7ec027d7473b333587268ead0bb16f1",
+      "backend_ready_for_w2": true
+    }
+  ],
+  "sensitive_reveal": {
+    "operation": "sensitive.get",
+    "entity_kind": "telecom_identifier",
+    "fields": [
+      "canonical_value"
+    ],
+    "roles": [
+      "owner",
+      "admin",
+      "member"
+    ],
+    "proven": true
+  },
+  "limitations": [
+    "SIM/eSIM ICCID/EID resource not yet implemented",
+    "protected production import blocked",
+    "line.list embedded masked number/SIM state not yet implemented"
+  ],
+  "accepted_source": "4b5520f3a7ec027d7473b333587268ead0bb16f1"
+}

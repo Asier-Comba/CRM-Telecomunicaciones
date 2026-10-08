@@ -1,7 +1,10 @@
 import { PageHeader } from '@/components/PageHeader'
 import { syntheticPreviewAllowed } from '@/lib/telecom-preview/access'
+import { integratedLocalAllowed } from '@/features/product/integration/mode'
+import { IntegratedInbox } from '@/features/inbox/IntegratedInbox'
 import { Inbox } from '@/features/inbox/Inbox'
-export default function InboxPage() {
+export default async function InboxPage({searchParams}:{searchParams:Promise<{id?:string}>}) {
+  if (integratedLocalAllowed()){const{id}=await searchParams;const reference=id&&/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id)?id:undefined;return <IntegratedInbox key={reference??'list'} initialId={reference}/>}
   if (!syntheticPreviewAllowed())
     return (
       <PageHeader
