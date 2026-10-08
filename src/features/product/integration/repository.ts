@@ -89,7 +89,7 @@ export interface ProductRepository {
   search(query: string): Promise<GlobalSearchV1>
   calendar(input: CalendarInputV1): Promise<CalendarPageV1>
   work(kind: 'task'|'meeting'|'opportunity', id: string): Promise<WorkGetV1>
-  stages():Promise<StageCatalogV1>
+  stages(input?:TeamListInputV1):Promise<StageCatalogV1>
   portfolio(kind:PortfolioKindV1,id:string):Promise<PortfolioGetV1>
   portfolioCommand<O extends PortfolioOperationV1>(operation:O,input:PortfolioInputsV1[O]):Promise<PortfolioReceiptV1>
   team(input?:TeamListInputV1): Promise<TeamListV1>
@@ -182,7 +182,7 @@ export class IntegratedLocalProductRepository implements ProductRepository {
   work(kind: 'task'|'meeting'|'opportunity', id: string) { return this.post('queries','work.get',{kind,id},v=>parseWorkGetV1(kind,id,v)) }
   portfolio(kind:PortfolioKindV1,id:string){const input={kind,id};return this.post('queries','portfolio.get',input,v=>parsePortfolioGetV1(input,v),'portfolio')}
   portfolioCommand<O extends PortfolioOperationV1>(operation:O,value:PortfolioInputsV1[O]){const input=parsePortfolioInputV1(operation,value);if(!input)return Promise.reject(new ProductUiError('validation'));return this.post('commands',operation,input,v=>parsePortfolioReceiptV1(operation,input,v),'portfolio')}
-  stages(){const input={limit:100};return this.post('queries','opportunity.stages',input,v=>parseStageCatalogV1(100,null,v))}
+  stages(value:TeamListInputV1={limit:100}){const input=parseTeamListInputV1(value);if(!input)return Promise.reject(new ProductUiError('validation'));return this.post('queries','opportunity.stages',input,v=>parseStageCatalogV1(input.limit??100,input.after_id??null,v))}
   teamInvites(input:TeamListInputV1){return this.post('queries','member.invite_list',input,v=>parseTeamInviteListV1(input,v),'team')}
   provenance(value:ProvenanceInputV1){const input=parseProvenanceInputV1(value);if(!input)return Promise.reject(new ProductUiError('validation'));return this.post('queries','provenance.get',input,v=>parseProvenanceResultV1(input,v),'provenance','/api/provenance/v1')}
   team(input:TeamListInputV1={limit:100}) {return this.post('queries','member.list',input,v=>parseTeamListV1(input,v),'team') }
@@ -261,7 +261,7 @@ export class SyntheticProductRepository implements ProductRepository {
   search(_query: string) { void _query; return this.unavailable<GlobalSearchV1>() }
   calendar(_input: CalendarInputV1) { void _input; return this.unavailable<CalendarPageV1>() }
   work(_kind: 'task'|'meeting'|'opportunity', _id: string) { void _kind; void _id; return this.unavailable<WorkGetV1>() }
-  stages(){return this.unavailable<StageCatalogV1>()}
+  stages(_input?:TeamListInputV1){void _input;return this.unavailable<StageCatalogV1>()}
   portfolio(_kind:PortfolioKindV1,_id:string){void _kind;void _id;return this.unavailable<PortfolioGetV1>()}
   portfolioCommand<O extends PortfolioOperationV1>(_operation:O,_input:PortfolioInputsV1[O]){void _operation;void _input;return this.unavailable<PortfolioReceiptV1>()}
   teamInvites(_input:TeamListInputV1){void _input;return this.unavailable<TeamInviteListV1>()}

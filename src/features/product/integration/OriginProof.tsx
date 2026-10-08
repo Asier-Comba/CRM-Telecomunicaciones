@@ -6,7 +6,7 @@ import type {ProvenanceKindV1,ProvenanceResultV1} from '@/lib/contracts/provenan
 import {control} from '@/features/product/ui'
 export function OriginProof({kind,id}:{kind:ProvenanceKindV1;id:string}){
  const {repository,role}=useProduct(),[state,setState]=useState<{id:string;value:ProvenanceResultV1|null;error:string}>({id,value:null,error:''}),[busy,setBusy]=useState(false),attempt=useRef(0),alive=useRef(true)
- useEffect(()=>{alive.current=true;return()=>{alive.current=false;attempt.current++}},[])
+ useEffect(()=>{const generation=attempt;alive.current=true;return()=>{alive.current=false;generation.current++}},[])
  if(role!=='owner'&&role!=='admin')return null
  const current=state.id===id?state:null
  async function read(){if(busy)return;const n=++attempt.current;setBusy(true);setState({id,value:null,error:''});try{const value=await repository.provenance({kind,id});if(alive.current&&attempt.current===n)setState({id,value,error:''})}catch(e){if(alive.current&&attempt.current===n)setState({id,value:null,error:safeMessage(e)})}finally{if(alive.current&&attempt.current===n)setBusy(false)}}
