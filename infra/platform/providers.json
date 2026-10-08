@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "activation_authorized": false,
+  "providers": {
+    "human_email": {"owner": "company", "configuration": "DNS MX + named accounts", "runtime_adapter": false},
+    "auth_email": {"owner": "W5", "configuration": ["SMTP_HOST", "SMTP_PORT", "SMTP_USER", "SMTP_PASSWORD", "AUTH_MAIL_FROM"], "runtime_adapter": "Supabase Auth SMTP; configure through management API before verification"},
+    "crm_email": {"owner": "W2/W5", "configuration": ["CRM_MAIL_PROVIDER_REF", "CRM_MAIL_FROM", "CRM_EMAIL_ALLOWLIST"], "runtime_adapter": false, "required_contract": ["authorization", "idempotency", "message_id", "audit", "retry", "bounce", "staging_sink"]},
+    "ai": {"owner": "W3", "configuration": ["OPENAI_API_KEY", "OPENAI_MODEL"], "runtime_adapter": "PR31 not consumed; no competing assistant worker", "metrics": ["requests", "tokens", "latency", "errors", "model"]},
+    "n8n": {"owner": "W5", "configuration": ["N8N_BASE_URL", "N8N_API_KEY", "N8N_WEBHOOK_SECRET"], "runtime_adapter": "registered workflows only; export validation available", "effects_enabled": false},
+    "backup": {"owner": "W5", "configuration": ["BACKUP_ENCRYPTION_KEY_HEX", "BACKUP_KEY_ID", "BACKUP_DESTINATION", "BACKUP_RETENTION_DAYS"], "runtime_adapter": "encrypted local-disposable adapter; offsite provider not bound"},
+    "monitoring": {"owner": "W5", "configuration": ["MONITORING_ENDPOINT"], "runtime_adapter": "metadata-only health and structured event seam; external alerts not bound"}
+  }
+}

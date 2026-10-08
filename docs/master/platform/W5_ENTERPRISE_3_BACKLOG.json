@@ -1,0 +1,166 @@
+{
+  "version": 3,
+  "accepted_source": "NONE",
+  "observed": {
+    "W5": "3c3a3d1291f4dcf3a0db15ff9dd7890c6226a234",
+    "W2": "4b3a43f607cac2dd4efb5b8d36d0a058459f6ad2",
+    "W3": "972e96c680a39db25ed1555de4eed9b7149925e3"
+  },
+  "baseline": {
+    "migrations": 71,
+    "public_rpc": 291,
+    "real_supabase_run": 37705364370,
+    "ui_run": 37705364477,
+    "ui": "FAIL_84_OF_87",
+    "dependency_audit": "FAIL_5_HIGH_0_CRITICAL",
+    "host_docker": "UNAVAILABLE",
+    "preserved": true
+  },
+  "items": [
+    {
+      "PHASE": "ENT3-00",
+      "MODULE": "live-gap-audit",
+      "STATUS": "LIVE_AUDIT_PUBLISHED",
+      "NEXT": "Owner-bound external configuration, compatible upstream remediation, exact W2/W3 acceptance and independent W4; no hosted authority",
+      "EVIDENCE_SHA": "3c3a3d1291f4dcf3a0db15ff9dd7890c6226a234",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37809312374"
+    },
+    {
+      "PHASE": "ENT3-01",
+      "MODULE": "W2-W3-compatibility",
+      "STATUS": "DEPENDENCY_BLOCKED",
+      "NEXT": "Owner-bound external configuration, compatible upstream remediation, exact W2/W3 acceptance and independent W4; no hosted authority",
+      "EVIDENCE_SHA": "3c3a3d1291f4dcf3a0db15ff9dd7890c6226a234",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37809312374"
+    },
+    {
+      "PHASE": "ENT3-02",
+      "MODULE": "company-preflight-plan-resume",
+      "STATUS": "DISPOSABLE_CONTRACT_PROVEN",
+      "NEXT": "Owner-bound external configuration, compatible upstream remediation, exact W2/W3 acceptance and independent W4; no hosted authority",
+      "EVIDENCE_SHA": "3c3a3d1291f4dcf3a0db15ff9dd7890c6226a234",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37809312374"
+    },
+    {
+      "PHASE": "ENT3-03",
+      "MODULE": "canonical-Supabase-Auth",
+      "STATUS": "REAL_LOCAL_PROVEN",
+      "NEXT": "Owner-bound external configuration, compatible upstream remediation, exact W2/W3 acceptance and independent W4; no hosted authority",
+      "EVIDENCE_SHA": "3c3a3d1291f4dcf3a0db15ff9dd7890c6226a234",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37809312374"
+    },
+    {
+      "PHASE": "ENT3-04",
+      "MODULE": "local-Auth-mail",
+      "STATUS": "REAL_LOCAL_PROVEN",
+      "NEXT": "Owner-bound external configuration, compatible upstream remediation, exact W2/W3 acceptance and independent W4; no hosted authority",
+      "EVIDENCE_SHA": "3c3a3d1291f4dcf3a0db15ff9dd7890c6226a234",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37809312374"
+    },
+    {
+      "PHASE": "ENT3-05",
+      "MODULE": "CRM-mail-sink",
+      "STATUS": "DISPOSABLE_CONTRACT_PROVEN",
+      "NEXT": "Owner-bound external configuration, compatible upstream remediation, exact W2/W3 acceptance and independent W4; no hosted authority",
+      "EVIDENCE_SHA": "3c3a3d1291f4dcf3a0db15ff9dd7890c6226a234",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37809312374"
+    },
+    {
+      "PHASE": "ENT3-06",
+      "MODULE": "deployment-proxy",
+      "STATUS": "REAL_LOCAL_PROVEN",
+      "NEXT": "Owner-bound external configuration, compatible upstream remediation, exact W2/W3 acceptance and independent W4; no hosted authority",
+      "EVIDENCE_SHA": "3c3a3d1291f4dcf3a0db15ff9dd7890c6226a234",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37809312374"
+    },
+    {
+      "PHASE": "ENT3-07",
+      "MODULE": "n8n",
+      "STATUS": "REAL_LOCAL_NATIVE_PROVEN_VENDOR_SECURITY_BLOCKED",
+      "NEXT": "Owner-bound external configuration, compatible upstream remediation, exact W2/W3 acceptance and independent W4; no hosted authority",
+      "EVIDENCE_SHA": "3c3a3d1291f4dcf3a0db15ff9dd7890c6226a234",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37809312374"
+    },
+    {
+      "PHASE": "ENT3-08",
+      "MODULE": "AI-worker-contract",
+      "STATUS": "DISABLED_DEPENDENCY_BLOCKED",
+      "NEXT": "Owner-bound external configuration, compatible upstream remediation, exact W2/W3 acceptance and independent W4; no hosted authority",
+      "EVIDENCE_SHA": "3c3a3d1291f4dcf3a0db15ff9dd7890c6226a234",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37809312374"
+    },
+    {
+      "PHASE": "ENT3-09",
+      "MODULE": "offsite-negative-recovery",
+      "STATUS": "REAL_LOCAL_RECOVERY_MOCK_OFFSITE",
+      "NEXT": "Owner-bound external configuration, compatible upstream remediation, exact W2/W3 acceptance and independent W4; no hosted authority",
+      "EVIDENCE_SHA": "3c3a3d1291f4dcf3a0db15ff9dd7890c6226a234",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37809312374"
+    },
+    {
+      "PHASE": "ENT3-10",
+      "MODULE": "monitoring-rotation",
+      "STATUS": "DISPOSABLE_CONTRACT_PROVEN",
+      "NEXT": "Owner-bound external configuration, compatible upstream remediation, exact W2/W3 acceptance and independent W4; no hosted authority",
+      "EVIDENCE_SHA": "3c3a3d1291f4dcf3a0db15ff9dd7890c6226a234",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37809312374"
+    },
+    {
+      "PHASE": "ENT3-11",
+      "MODULE": "negative-promotion",
+      "STATUS": "DISPOSABLE_CONTRACT_PROVEN",
+      "NEXT": "Owner-bound external configuration, compatible upstream remediation, exact W2/W3 acceptance and independent W4; no hosted authority",
+      "EVIDENCE_SHA": "3c3a3d1291f4dcf3a0db15ff9dd7890c6226a234",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37809312374"
+    },
+    {
+      "PHASE": "ENT3-12",
+      "MODULE": "supply-chain",
+      "STATUS": "APP_PROVEN_VENDOR_SECURITY_BLOCKED",
+      "NEXT": "Owner-bound external configuration, compatible upstream remediation, exact W2/W3 acceptance and independent W4; no hosted authority",
+      "EVIDENCE_SHA": "3c3a3d1291f4dcf3a0db15ff9dd7890c6226a234",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37809312374"
+    },
+    {
+      "PHASE": "ENT3-13",
+      "MODULE": "tenant-operations",
+      "STATUS": "PACKAGE_PREPARED",
+      "NEXT": "Owner-bound external configuration, compatible upstream remediation, exact W2/W3 acceptance and independent W4; no hosted authority",
+      "EVIDENCE_SHA": "3c3a3d1291f4dcf3a0db15ff9dd7890c6226a234",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37809312374"
+    },
+    {
+      "PHASE": "ENT3-14",
+      "MODULE": "W4-review-packet",
+      "STATUS": "PREPARED_NOT_APPROVED",
+      "NEXT": "Owner-bound external configuration, compatible upstream remediation, exact W2/W3 acceptance and independent W4; no hosted authority",
+      "EVIDENCE_SHA": "3c3a3d1291f4dcf3a0db15ff9dd7890c6226a234",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37809312374"
+    },
+    {
+      "PHASE": "ENT3-15",
+      "MODULE": "activation-guide",
+      "STATUS": "GUIDE_PREPARED",
+      "NEXT": "Owner-bound external configuration, compatible upstream remediation, exact W2/W3 acceptance and independent W4; no hosted authority",
+      "EVIDENCE_SHA": "3c3a3d1291f4dcf3a0db15ff9dd7890c6226a234",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37809312374"
+    },
+    {
+      "PHASE": "ENT3-16",
+      "MODULE": "disposable-full-stack",
+      "STATUS": "DISPOSABLE_FUNCTIONAL_PROVEN_SECURITY_BLOCKED",
+      "NEXT": "Owner-bound external configuration, compatible upstream remediation, exact W2/W3 acceptance and independent W4; no hosted authority",
+      "EVIDENCE_SHA": "3c3a3d1291f4dcf3a0db15ff9dd7890c6226a234",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37809312374"
+    },
+    {
+      "PHASE": "ENT3-17",
+      "MODULE": "final-evidence-handoff",
+      "STATUS": "TERMINAL_EVIDENCE_AND_HANDOFF_PUBLISHED",
+      "NEXT": "Owner-bound external configuration, compatible upstream remediation, exact W2/W3 acceptance and independent W4; no hosted authority",
+      "EVIDENCE_SHA": "3c3a3d1291f4dcf3a0db15ff9dd7890c6226a234",
+      "EVIDENCE_RUN": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/37809312374"
+    }
+  ],
+  "current_evidence": "docs/master/platform/ENTERPRISE_3_CI_EVIDENCE.json"
+}

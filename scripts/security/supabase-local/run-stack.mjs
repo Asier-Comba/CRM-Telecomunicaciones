@@ -18,14 +18,15 @@ function command(bin, args, options = {}) {
       tool:['supabase','docker','git'].includes(bin)?bin:'OTHER',
       exit_code:Number.isInteger(r.status)?r.status:null,
       timed_out:r.error?.code==='ETIMEDOUT',
-      category:r.error?.code==='ETIMEDOUT'?'TIMEOUT':/toomanyrequests|429 Too Many Requests/i.test(output)?'REGISTRY_RATE_LIMIT':/pull access denied|manifest unknown|failed to pull|error pulling image/i.test(output)?'IMAGE_PULL_FAILURE':/container.*unhealthy|failed.*health check/i.test(output)?'SERVICE_HEALTH_FAILURE':'COMMAND_FAILURE_UNCLASSIFIED'
+      category:r.error?.code==='ETIMEDOUT'?'TIMEOUT':/duplicate key|already exists/i.test(output)?'DUPLICATE_RESTORE_DATA':/foreign key constraint/i.test(output)?'FOREIGN_KEY_FAILURE':/permission denied|must be owner|must be superuser/i.test(output)?'PERMISSION_DENIED':/toomanyrequests|429 Too Many Requests/i.test(output)?'REGISTRY_RATE_LIMIT':/pull access denied|manifest unknown|failed to pull|error pulling image/i.test(output)?'IMAGE_PULL_FAILURE':/container.*unhealthy|failed.*health check/i.test(output)?'SERVICE_HEALTH_FAILURE':'COMMAND_FAILURE_UNCLASSIFIED'
     }
     throw new Error('COMMAND_FAILED')
   }
-  return r.stdout.trim()
+  return Buffer.isBuffer(r.stdout) ? r.stdout : r.stdout.trim()
 }
 try {
-  if (process.env.GITHUB_ACTIONS !== 'true' || process.env.CI !== 'true') throw new Error('CI_ONLY')
+  if (!(process.env.GITHUB_ACTIONS === 'true' && process.env.CI === 'true') &&
+      !(process.env.W5_DISPOSABLE_LOCAL === 'true' && process.env.PLATFORM_TARGET === 'LOCAL' && process.env.NODE_ENV !== 'production')) throw new Error('DISPOSABLE_LOCAL_ONLY')
   if (process.env.SUPABASE_ACCESS_TOKEN || process.env.SUPABASE_DB_PASSWORD || existsSync('supabase/.temp/project-ref')) throw new Error('HOSTED_CONFIGURATION_FORBIDDEN')
   if (!readFileSync('supabase/config.toml', 'utf8').includes(`project_id = "${project}"`)) throw new Error('PROJECT_MISMATCH')
   if (command('docker', ['ps', '-a', '--format', '{{.Names}}']).split('\n').some(n => n.includes(project))) throw new Error('REQUIRES_EMPTY_RUNNER')
@@ -68,7 +69,8 @@ try {
       const { productBrowserAcceptance } = await import('./product-browser-acceptance.mjs')
       return productBrowserAcceptance({ ...context, url, anon, report: evidence, maintenanceCredentials: {id:verifyId,key:verifyKey} })
     } : undefined
-    Object.assign(evidence, await acceptance({ url, anon, service, db, command, report: evidence, appUrl, onProductUi }))
+    const onRecovery = process.env.W5_RECOVERY === 'true' ? (await import('../../platform/recovery.mjs')).recoveryRehearsal : undefined
+    Object.assign(evidence, await acceptance({ url, anon, service, db, command, report: evidence, appUrl, onProductUi, onRecovery }))
   } else evidence.result = 'STACK_PROVEN_HTTP_ACCEPTANCE_PENDING'
 } catch (error) {
   evidence.result = 'FAIL'; evidence.failed_stage = stage

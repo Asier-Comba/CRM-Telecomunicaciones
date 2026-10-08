@@ -3,10 +3,21 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "platform:verify": "node scripts/platform/platform.mjs verify",
+    "platform:test": "node --test tests/platform/*.test.mjs",
+    "platform:bootstrap:local": "node scripts/platform/platform.mjs bootstrap-local",
+    "platform:acceptance": "node scripts/platform/platform.mjs acceptance",
+    "platform:recovery:test": "node scripts/platform/platform.mjs recovery-test",
+    "platform:preflight:staging": "node scripts/platform/platform.mjs preflight STAGING",
+    "platform:preflight:prod": "node scripts/platform/platform.mjs preflight PROD",
+    "platform:release": "node scripts/platform/platform.mjs release",
+    "platform:company:report": "node scripts/platform/platform.mjs company-report",
     "preview:dev": "node scripts/preview-dev.mjs",
     "preview:check": "node --test tests/bootstrap/telecom-preview-gates.test.mjs && npm run typecheck && npm run test:e2e:preview",
     "dev": "next dev --webpack",
     "build": "next build",
+    "prebuild": "node scripts/platform/build-public.mjs",
+    "postbuild": "node scripts/platform/clean-build-cache.mjs",
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
@@ -19,7 +30,10 @@
     "audit:supabase-repro:strict": "node scripts/audit-supabase-reproducibility.mjs --strict",
     "test:e2e:legacy": "playwright test --config playwright.legacy.config.ts",
     "preview:doctor": "node scripts/preview-doctor.mjs",
-    "preview:setup": "node scripts/preview-setup.mjs"
+    "preview:setup": "node scripts/preview-setup.mjs",
+    "company:init": "node scripts/platform/enterprise.mjs init",
+    "company:preflight": "node scripts/platform/enterprise.mjs preflight",
+    "company:plan": "node scripts/platform/enterprise.mjs plan"
   },
   "dependencies": {
     "@supabase/ssr": "^0.10.2",

@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "currency": "UNAPPROVED",
+  "company_approval": "UNAPPROVED",
+  "prices_currently_verified": false,
+  "items": [
+    {"service":"hosting","basis":"fixed_month","price_minor":null,"quantity":null,"capacity_risk":"CPU/memory/SSE","upgrade_trigger":"sustained measured saturation"},
+    {"service":"database","basis":"fixed_month","price_minor":null,"quantity":null,"capacity_risk":"connections/rows/IO","upgrade_trigger":"measured query latency or connection quota"},
+    {"service":"storage","basis":"GB_month","price_minor":null,"quantity":null,"capacity_risk":"private object capacity","upgrade_trigger":"approved storage quota threshold"},
+    {"service":"egress","basis":"GB","price_minor":null,"quantity":null,"capacity_risk":"download/upload bandwidth","upgrade_trigger":"approved bandwidth quota threshold"},
+    {"service":"human_mail","basis":"named_account_month","price_minor":null,"quantity":null,"capacity_risk":"account governance","upgrade_trigger":"approved additional human"},
+    {"service":"auth_mail","basis":"1000_messages","price_minor":null,"quantity":null,"capacity_risk":"SMTP/rate limits","upgrade_trigger":"verified delivery or queue degradation"},
+    {"service":"crm_mail","basis":"1000_messages","price_minor":null,"quantity":null,"capacity_risk":"consent/queue/provider quotas","upgrade_trigger":"approved volume and lawful use"},
+    {"service":"offsite","basis":"GB_month","price_minor":null,"quantity":null,"capacity_risk":"retention/readback/restore bandwidth","upgrade_trigger":"approved retention and measured restore scope"},
+    {"service":"n8n","basis":"fixed_month","price_minor":null,"quantity":null,"capacity_risk":"execution concurrency/resources","upgrade_trigger":"accepted workflow measured limits"},
+    {"service":"ai","basis":"1000000_tokens","price_minor":null,"quantity":null,"capacity_risk":"provider spend/worker queue","upgrade_trigger":"approved model and budget cap"}
+  ],
+  "purchases_performed": false
+}

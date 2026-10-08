@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "mode": "PLAN_ONLY",
+  "owner": "company-security-owner",
+  "schedule": "UNAPPROVED",
+  "target": "DEDICATED_EMPTY_SYNTHETIC_LOCAL",
+  "execution_command": "npm run platform:recovery:test",
+  "prerequisites": ["PLATFORM_TARGET=LOCAL", "explicit disposable marker", "empty Docker target", "no hosted credentials or linked project", "approved scope and retention", "bounded runner teardown"],
+  "required_evidence": ["source_sha", "tested_merge_sha", "CI_run", "migration and config digests", "Auth fresh login and revocation", "tenant isolation", "private Storage bytes and metadata", "AEAD/readback", "measured elapsed recovery", "negative controls", "teardown"],
+  "production_rpo_rto": "UNAPPROVED",
+  "destructive_hosted_restore_supported": false,
+  "automation_created": false
+}

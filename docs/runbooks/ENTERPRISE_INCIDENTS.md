@@ -1,0 +1,19 @@
+# Enterprise incident actions
+
+Every incident is keyed by a random internal correlation and deployment SHA. Record times, safe aggregates, affected component, owner, authorized action, rollback decision and evidence URL; omit addresses, tenant/user/thread IDs, tokens, cookies, bodies, prompts and documents. External notifications require company-authorized recipients and channels; the local alert sink never sends them.
+
+Auth unavailable: reject protected traffic, confirm provider status/identity without logging keys, check exact redirect/project/config drift, disable new operations, preserve current membership authority. Recovery is a fresh login/current-role test, not an old JWT merely parsing successfully. Suspected compromise: revoke sessions/credentials by approved owner workflow and test old refresh denial; rotate machine secrets through staged new health and old denial.
+
+SMTP unavailable: stop external delivery, keep bounded durable intentions only in an accepted outbox, do not regenerate identities/idempotency keys or blindly resend unknown results. Compare sender/recipient/template/consent against current authority; reconcile provider receipt before retry. Auth and CRM mail are separate planes. Delivery restoration requires actual sink/provider readback and bounce/retry evidence.
+
+DB/Storage failure: fail closed; do not bypass RLS or switch to synthetic fallback. Verify canonical migration/signature/grants/config/private-bucket parity and exact object hashes/metadata. Capture a protected pre-recovery copy. Restore only to the explicitly approved empty target; the disposable A→B runner is not a production restore command. Wrong keys, corrupt archives, extra migrations/public buckets and unknown permission errors abort recovery.
+
+Backup/offsite failure: alert on stale age, failed readback/protection, account/region drift or inability to recover a version. Preserve the last verified encrypted copy and key version. Never delete immutable versions to fit space automatically. New copy success requires readback hash and AEAD verification under approved retention. RPO/RTO remain UNAPPROVED until company signs scope and measured drill evidence.
+
+TLS/DNS/hosting failure: unknown hosts remain rejected; do not bypass certificate verification or add wildcard redirects. Review exact provider DNS records and certificate/chain/expiry with owners. Replace trusted ingress forwarding headers; preserve private API no-store/SSE behavior. New image requires digest and compatible forward schema, health/readiness and current accepted-source checks.
+
+AI/n8n failure: current adapters remain disabled. Future accepted workers stop new claims, reconcile durable confirmed effects, obey kill/revoke controls and restart with the original idempotency/audit. Do not replay arbitrary webhooks or activate an unregistered workflow. n8n restore includes PostgreSQL, persistent user data, configuration, registered inactive workflow exports and the original encryption key or accepted vendor rotation process.
+
+Rollback: use only a previously accepted immutable app digest whose contract works with the current forward migration head. Do not automatically reverse SQL migrations. Before rollback measure pending confirmed worker/mail/automation effects; retain and reconcile their original audit/receipts. Auth/Storage backup restore and application rollback are distinct procedures. If schema/effect compatibility is not proven, remain blocked and escalate to the named company owner.
+
+Periodic drills: schedule only when authorized by company with a dedicated synthetic/empty target and bounded teardown. Store exact SHA, run, scope, elapsed restore, recovered counts/hashes and measured limits. Never call a synthetic36-second result production RTO. A drill failure blocks promotion until an accepted repeat fixes the cause.

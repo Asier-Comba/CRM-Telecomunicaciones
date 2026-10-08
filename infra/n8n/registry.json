@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "effects_enabled": false,
+  "workflows": [{"registered_id": "synthetic-health-v1", "contract_version": 1, "owner": "W5", "file": "infra/n8n/synthetic-health.json", "environment": "LOCAL", "provider_workflow_id": null, "credential_references": [], "public_webhook": false, "input_contract": "closed signed SYNTHETIC_HEALTH registered_id/tenant/actor/nonce/at/kind", "output_contract": "CAPTURED_INACTIVE/event_digest/effects_enabled=false/workflow_executed=false", "tenant_binding": "current injected authority must match tenant and actor", "effects_enabled": false, "activation_requires": ["accepted image and company identity", "physical restart/queue proof", "current tenant authority", "independent W4", "protected environment approval"]}],
+  "future_webhook_contract": ["registered path", "signature/auth", "distributed rate limit", "body limit", "event dedupe", "tenant authorization"],
+  "persistent_deployment_requirements": ["accepted pinned image digest", "external PostgreSQL", "encrypted persistent volume", "secret-managed encryption key", "TLS", "separate staging/prod", "workflow/execution/config backups"],
+  "runtime_deployment": "NOT_CONFIGURED"
+}

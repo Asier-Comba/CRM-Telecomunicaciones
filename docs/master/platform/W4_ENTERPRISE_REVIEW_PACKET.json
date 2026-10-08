@@ -1,0 +1,188 @@
+{
+  "version": 3,
+  "status": "INDEPENDENT_REVIEW_REQUIRED",
+  "source_acceptance": "NONE",
+  "evidence_file": "docs/master/platform/ENTERPRISE_3_CI_EVIDENCE.json",
+  "review_scope": "Exact final executable source; earlier checkpoint proof is historical until rerun",
+  "attack_surface": [
+    "browser cookies and SSR identity",
+    "closed product RPC command transport",
+    "authenticated tenant database and private Storage tickets",
+    "protected management/deployment adapters currently blocked",
+    "Auth verification links and SMTP",
+    "inactive n8n registry and future webhook adapter",
+    "disabled W3 physical worker/outbox",
+    "encrypted backups/key references and future offsite provider",
+    "metadata health/logs and CI/artifact supply chain"
+  ],
+  "data_flow": [
+    "browser -> Auth/current cookie -> current tenant membership -> closed RPC -> RLS database",
+    "authorized ticket -> private Storage -> authenticated download",
+    "Auth -> local SMTP -> disposable Mailpit; hosted deliverability unproven",
+    "authorized simulated mail -> bounded in-memory sink; durable provider outbox unaccepted",
+    "canonical DB/Auth users+identities/private objects+metadata/public config -> AEAD archive -> authenticated readback -> empty B -> scope/revoke verification",
+    "private secrets -> environment store/mounted secret files -> server consumers; never NEXT_PUBLIC artifacts",
+    "aggregate metadata -> local alert sink; external delivery unconfigured"
+  ],
+  "invariants": [
+    "71 canonical forward migrations",
+    "291 public RPC signature/security/grant manifest",
+    "current tenant/actor authority precedes effects",
+    "private Storage; no public bucket fallback",
+    "no hosted runtime activation from flags/key presence",
+    "n8n/AI worker disabled until independent exact-source evidence",
+    "no self-issued W4/company approval",
+    "skipped/cancelled/stale checks never PASS",
+    "offsite and RPO/RTO unapproved until company policy"
+  ],
+  "findings": [
+    {
+      "ID": "ENT3-SEC-001",
+      "SEVERITY": "HIGH",
+      "SOURCE": "npm upstream audit/Issue29",
+      "EVIDENCE": "5 HIGH/0 CRITICAL; braces GHSA-vfj7-8cjw-p6xm <=3.0.3 in development eslint-config-next chain",
+      "STATUS": "OPEN",
+      "REPRODUCTION": "npm ci; npm audit --audit-level=high",
+      "OWNER": "W4/platform",
+      "NEXT_ACTION": "Verify supported upstream remediation or independently approved advisory disposition; retain gate, no incompatible Next14 downgrade"
+    },
+    {
+      "ID": "ENT3-SEC-002",
+      "SEVERITY": "HIGH",
+      "SOURCE": "W2 hosted product runtime",
+      "EVIDENCE": "Observed W2 4b3a43f607cac2dd4efb5b8d36d0a058459f6ad2; no import; current recorded browser {\"source\":\"3c3a3d1291f4dcf3a0db15ff9dd7890c6226a234\",\"merge\":\"c6c65d33011ba949f4c3bcd92f34e00f3396b502\",\"result\":\"PASS\",\"passed\":95,\"total\":95,\"failed\":[],\"run\":37809311902,\"teardown\":\"PASS\"}",
+      "STATUS": "BLOCKED",
+      "REPRODUCTION": "company:preflight and protected promotion report blocked; current browser result tracked separately",
+      "OWNER": "W2/W4",
+      "NEXT_ACTION": "Exact tested W2 source and reviewed hosted cookie/origin/MFA adapter; no hosted flag forcing"
+    },
+    {
+      "ID": "ENT3-SEC-003",
+      "SEVERITY": "HIGH",
+      "SOURCE": "W3 worker/Issue10",
+      "EVIDENCE": "Observed W3 972e96c680a39db25ed1555de4eed9b7149925e3; no accepted physical worker proof consumed",
+      "STATUS": "DISABLED",
+      "REPRODUCTION": "infra/platform/worker-contract.json requires native evidence; AI presence does not activate worker",
+      "OWNER": "W3/W4",
+      "NEXT_ACTION": "Physical native proof, exact schema and source compatibility, current membership/revoke, one effect/original audit and independent review"
+    },
+    {
+      "ID": "ENT3-SEC-004",
+      "SEVERITY": "HIGH",
+      "SOURCE": "company ownership/provider governance",
+      "EVIDENCE": "Bootstrap ownership/MFA/account class are public declarations; organization, billing and two administrator recovery are not provider-verified",
+      "STATUS": "EXTERNAL_BLOCKER",
+      "REPRODUCTION": "company:preflight emits DECLARED_NOT_VERIFIED and providers unavailable",
+      "OWNER": "company/W4",
+      "NEXT_ACTION": "Verify separate owned accounts/projects/environments, named permissions and protected workflow approval"
+    },
+    {
+      "ID": "ENT3-SEC-005",
+      "SEVERITY": "HIGH",
+      "SOURCE": "offsite/recovery scope",
+      "EVIDENCE": "Real local19-object/Auth A->B PASS; simulated identity/retention/readback contract; no real offsite adapter or approved RPO/RTO",
+      "STATUS": "EXTERNAL_BLOCKER",
+      "REPRODUCTION": "platform:recovery:test in guarded empty disposable runner; tests/platform/offsite.test.mjs",
+      "OWNER": "company recovery/W4",
+      "NEXT_ACTION": "Approved separate-account destination, version/immutability/key custody, read-recovery drill and measured policy"
+    },
+    {
+      "ID": "ENT3-SEC-006",
+      "SEVERITY": "MEDIUM",
+      "SOURCE": "CRM mail operational seam",
+      "EVIDENCE": "Synthetic sink tests current authorization/allowlist/consent/template/retry/bounce and20 concurrent dispatch; queue is in-memory",
+      "STATUS": "PREPARATORY",
+      "REPRODUCTION": "node --test tests/platform/mail-sink.test.mjs",
+      "OWNER": "W2/W5/W4",
+      "NEXT_ACTION": "Accepted durable outbox/approved template and consent persistence, real provider receipts/reconciliation and physical restart proof"
+    },
+    {
+      "ID": "ENT3-SEC-007",
+      "SEVERITY": "MEDIUM",
+      "SOURCE": "SMTP/Auth delivery",
+      "EVIDENCE": "Actual local Auth/Mailpit22checks PASS on c6c65d33011ba949f4c3bcd92f34e00f3396b502 run37809312374; hosted DNS/MFA/delivery unavailable",
+      "STATUS": "LOCAL_PROVEN_EXTERNAL_BLOCKED",
+      "REPRODUCTION": "scripts/platform/auth-mail-acceptance.mjs on empty CI LOCAL",
+      "OWNER": "company identity/W4",
+      "NEXT_ACTION": "Independent selected-provider sender/DNS/MFA verification and controlled staging delivery acceptance"
+    },
+    {
+      "ID": "ENT3-SEC-008",
+      "SEVERITY": "CRITICAL",
+      "SOURCE": "n8n lifecycle",
+      "EVIDENCE": "Actual pinned n8n/PG inactive lifecycle and encrypted empty recovery PASS on c6c65d33011ba949f4c3bcd92f34e00f3396b502 run37809312374; n8n71HIGH11CRITICAL/PG32HIGH1CRITICAL in N8N_VENDOR_IMAGE_SECURITY.json",
+      "STATUS": "NATIVE_PROVEN_VENDOR_SECURITY_BLOCKED",
+      "REPRODUCTION": "platform tests plus compose-contract parser; no activation command",
+      "OWNER": "company automation/W4",
+      "NEXT_ACTION": "Vendor-supported compatible clean images and independent adoption review; no ignore/waiver; company TLS/backup/offsite acceptance"
+    },
+    {
+      "ID": "ENT3-SEC-009",
+      "SEVERITY": "MEDIUM",
+      "SOURCE": "release provenance",
+      "EVIDENCE": "497-component deterministic lock inventory and actual app image/base signature/scan; application registry signature/provenance trust policy not published",
+      "STATUS": "PREPARATORY",
+      "REPRODUCTION": "supply-chain.mjs --check; signed negative-candidate tests; real container-package CI",
+      "OWNER": "company release/W4",
+      "NEXT_ACTION": "Independent issuer/trust anchors, exact workflow/source/artifact identity, protected approval; test signatures cannot approve a release"
+    },
+    {
+      "ID": "ENT3-SEC-010",
+      "SEVERITY": "MEDIUM",
+      "SOURCE": "secret rotation/alerts",
+      "EVIDENCE": "113 binding inventory24 direct secrets+two private files, actual canary/metadata and eight rotation mock classes; no real provider rotation/notification",
+      "STATUS": "LOCAL_CONTRACT_ONLY",
+      "REPRODUCTION": "tests/platform/monitor.test.mjs; boundary.mjs --build",
+      "OWNER": "company security/W4",
+      "NEXT_ACTION": "Provider-specific stage/revoke/rollback evidence and approved alert recipients; no plaintext/PII telemetry"
+    },
+    {
+      "ID": "ENT3-SEC-011",
+      "SEVERITY": "MEDIUM",
+      "SOURCE": "migration71 execution grants",
+      "EVIDENCE": "20261008010000_align_provider_rpc_execution_grants.sql; public manifest291 and actual local Auth/Storage/ACL parity PASS",
+      "STATUS": "INDEPENDENT_REVIEW_REQUIRED",
+      "REPRODUCTION": "Native fresh/restore plus real Supabase recovery/rpc-manifest",
+      "OWNER": "W1/W4",
+      "NEXT_ACTION": "Review service-role helper/trigger grant restrictions and ensure no unintended public/anon/authenticated expansion"
+    },
+    {
+      "ID": "ENT3-SEC-012",
+      "SEVERITY": "MEDIUM",
+      "SOURCE": "proxy/expanded backup current work",
+      "EVIDENCE": "Actual nginx TLS11checks and Supabase recovery11configs26refs19objects5negatives PASS on c6c65d33011ba949f4c3bcd92f34e00f3396b502 run37809312374",
+      "STATUS": "REAL_LOCAL_PROVEN_INDEPENDENT_REVIEW_REQUIRED",
+      "REPRODUCTION": "proxy-acceptance.mjs on disposable Linux; recovery-manifest tests and A->B workflow",
+      "OWNER": "W5/W4",
+      "NEXT_ACTION": "Terminal current CI with safe metadata evidence, retain failure until fixed; no hosted TLS claim"
+    },
+    {
+      "ID": "ENT3-SEC-013",
+      "SEVERITY": "LOW",
+      "SOURCE": "Gitleaks immutable-history false positive",
+      "EVIDENCE": "Run37809312146/job113422008410 flagged only public label n8n-disposable-v1 in b4846b315fba8b6e76273208253cf70cf766ceaa:scripts/platform/n8n-local-acceptance.mjs:generic-api-key:68; actual key generated by randomBytes(32), never literal",
+      "STATUS": "EXACT_FALSE_POSITIVE_REVIEW_REQUIRED",
+      "REPRODUCTION": "Inspect that immutable source line and rerun unchanged full-history pinned Gitleaks with the single exact fingerprint in .gitleaksignore; no path/rule/commit wildcard",
+      "OWNER": "W5/W4",
+      "NEXT_ACTION": "Independent verification that only the nonsecret version label matches; preserve full scanner and reject any other finding"
+    }
+  ],
+  "review_checklist": [
+    "verify final SHA/merge parents and source diff",
+    "reproduce grants/RLS/default privilege/tenant/revoke checks",
+    "inspect actual Auth mail expiry/redirect/no-SMTP/session evidence",
+    "inspect immutable app image UID/read-only/smoke/Trivy and base signature",
+    "verify SBOM every lock package and provenance trust policy",
+    "review secrets/canaries/server boundary and unknown adapters",
+    "validate current proxy and recovery negatives from terminal CI",
+    "resolve advisory and W2/browser/W3 physical gates independently",
+    "verify company accounts/region/retention/contract/recovery approval",
+    "record APPROVED or REJECTED with reviewer identity and exact SHA; never infer from packet presence"
+  ],
+  "self_approval": false,
+  "staging_ready": false,
+  "production_ready": false,
+  "source_sha": "3c3a3d1291f4dcf3a0db15ff9dd7890c6226a234",
+  "tested_merge_sha": "c6c65d33011ba949f4c3bcd92f34e00f3396b502",
+  "ci_evidence": "docs/master/platform/ENTERPRISE_3_CI_EVIDENCE.json"
+}

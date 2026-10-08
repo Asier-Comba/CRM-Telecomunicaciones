@@ -1,0 +1,44 @@
+-- Supabase provider defaults granted service_role execution to legacy helper/
+-- trigger functions that the canonical native RPC manifest denies. Align the
+-- real provider ACL with that existing manifest; preserve user-facing grants.
+begin;
+alter default privileges for role postgres in schema public revoke execute on functions from service_role;
+revoke execute on function public.current_workspace_ids() from service_role;
+revoke execute on function public.current_workspace_role(uuid) from service_role;
+revoke execute on function public.handle_new_auth_user() from service_role;
+revoke execute on function public.has_workspace_role(uuid, text[]) from service_role;
+revoke execute on function public.is_import_target_field_for_kind(text, text) from service_role;
+revoke execute on function public.is_workspace_member(uuid) from service_role;
+revoke execute on function public.manage_task_version() from service_role;
+revoke execute on function public.mark_import_row_applied() from service_role;
+revoke execute on function public.protect_import_child_identity() from service_role;
+revoke execute on function public.protect_import_identity() from service_role;
+revoke execute on function public.protect_operational_identity() from service_role;
+revoke execute on function public.protect_referenced_opportunity_stage() from service_role;
+revoke execute on function public.protect_referenced_telecom_plan() from service_role;
+revoke execute on function public.protect_support_identity() from service_role;
+revoke execute on function public.provision_workspace(text, text) from service_role;
+revoke execute on function public.reject_activity_mutation() from service_role;
+revoke execute on function public.reject_business_audit_mutation() from service_role;
+revoke execute on function public.reject_import_ledger_mutation() from service_role;
+revoke execute on function public.reject_telecom_plan_version_mutation() from service_role;
+revoke execute on function public.shares_workspace_with(uuid) from service_role;
+revoke execute on function public.telecom_v1_assert_reader_scope(uuid, uuid) from service_role;
+revoke execute on function public.validate_activity_scope() from service_role;
+revoke execute on function public.validate_business_audit_event() from service_role;
+revoke execute on function public.validate_customer_assignment() from service_role;
+revoke execute on function public.validate_document_storage_path() from service_role;
+revoke execute on function public.validate_import_application() from service_role;
+revoke execute on function public.validate_import_job_initial_state() from service_role;
+revoke execute on function public.validate_import_job_transition() from service_role;
+revoke execute on function public.validate_import_mapping_state() from service_role;
+revoke execute on function public.validate_import_row_issue() from service_role;
+revoke execute on function public.validate_import_staging_phase() from service_role;
+revoke execute on function public.validate_import_staging_transition() from service_role;
+revoke execute on function public.validate_meeting_timezone() from service_role;
+revoke execute on function public.validate_opportunity_context() from service_role;
+revoke execute on function public.validate_service_case_context() from service_role;
+revoke execute on function public.validate_telecom_contract_assignment() from service_role;
+revoke execute on function public.validate_telecom_plan_operator() from service_role;
+revoke execute on function public.validate_work_item_assignment() from service_role;
+commit;

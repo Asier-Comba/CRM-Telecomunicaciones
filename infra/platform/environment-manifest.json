@@ -1,0 +1,3893 @@
+{
+  "version": 2,
+  "values_included": false,
+  "environments": [
+    "LOCAL",
+    "DEV",
+    "STAGING",
+    "PROD"
+  ],
+  "entries": [
+    {
+      "name": "AGENT_ACTION_URL",
+      "type": "url",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/agents/local-answers.ts"
+      ],
+      "validation_rule": "url",
+      "description": "Configuration binding for AGENT_ACTION_URL; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "AGENT_TOOL_SECRET",
+      "type": "string",
+      "secret": true,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/agents/local-answers.ts"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for AGENT_TOOL_SECRET; presence does not prove provider readiness.",
+      "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
+      "revocation_expectation": "Company-approved provider-specific revoke and old-credential denial; no automatic live revocation.",
+      "health_test_reference": "tests/platform/monitor.test.mjs rotation simulation; accepted provider-specific live test still required.",
+      "provider": "application",
+      "destination": "environment-specific secret store",
+      "required_when": null
+    },
+    {
+      "name": "AI_ENABLED",
+      "type": "boolean",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform"
+      ],
+      "validation_rule": "boolean",
+      "description": "Configuration binding for AI_ENABLED; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "APP_ENV",
+      "type": "app_environment",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json"
+      ],
+      "validation_rule": "app_environment",
+      "description": "Disposable/staging/production labeling for operational gates",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "runtime",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "APP_ENV_FILE",
+      "type": "path",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "infra/deployment/compose.yaml",
+        "scripts/platform"
+      ],
+      "validation_rule": "path",
+      "description": "Configuration binding for APP_ENV_FILE; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "APP_HOST",
+      "type": "hostname",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "infra/deployment/nginx.conf.template",
+        "scripts/platform"
+      ],
+      "validation_rule": "hostname",
+      "description": "Configuration binding for APP_HOST; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "APP_IMAGE",
+      "type": "image_digest",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "infra/deployment/compose.yaml",
+        "scripts/platform"
+      ],
+      "validation_rule": "image_digest",
+      "description": "Configuration binding for APP_IMAGE; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "APP_IMAGE_DIGEST",
+      "type": "digest",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform/operations.mjs",
+        "scripts/platform"
+      ],
+      "validation_rule": "digest",
+      "description": "Configuration binding for APP_IMAGE_DIGEST; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "ASSISTANT_BRAIN_TRACE",
+      "type": "string",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/agents/local-answers.ts"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for ASSISTANT_BRAIN_TRACE; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "ASSISTANT_MAX_HISTORY_CHARS_PER_MESSAGE",
+      "type": "positive_integer",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/assistant-guard.ts"
+      ],
+      "validation_rule": "positive_integer",
+      "description": "Configuration binding for ASSISTANT_MAX_HISTORY_CHARS_PER_MESSAGE; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "ASSISTANT_MAX_HISTORY_MESSAGES",
+      "type": "positive_integer",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/assistant-guard.ts"
+      ],
+      "validation_rule": "positive_integer",
+      "description": "Configuration binding for ASSISTANT_MAX_HISTORY_MESSAGES; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "ASSISTANT_MAX_INPUT_CHARS",
+      "type": "positive_integer",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/assistant-guard.ts"
+      ],
+      "validation_rule": "positive_integer",
+      "description": "Configuration binding for ASSISTANT_MAX_INPUT_CHARS; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "ASSISTANT_RATE_LIMIT_PER_MINUTE",
+      "type": "positive_integer",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/assistant-guard.ts"
+      ],
+      "validation_rule": "positive_integer",
+      "description": "Configuration binding for ASSISTANT_RATE_LIMIT_PER_MINUTE; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "AUTH_EMAIL_ENABLED",
+      "type": "boolean",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": true,
+        "PROD": true
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform/config.mjs",
+        "scripts/platform"
+      ],
+      "validation_rule": "boolean",
+      "description": "Configuration binding for AUTH_EMAIL_ENABLED; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "AUTH_MAIL_FROM",
+      "type": "email_address",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json",
+        "scripts/platform/hosted-bootstrap.mjs"
+      ],
+      "validation_rule": "email_address",
+      "description": "Reserved approved Auth sender address; domain verification still required",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "auth_mail",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "AUTH_REDIRECT_URLS",
+      "type": "json_urls",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": true,
+        "PROD": true
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform"
+      ],
+      "validation_rule": "json_urls",
+      "description": "Configuration binding for AUTH_REDIRECT_URLS; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "AUTH_SITE_URL",
+      "type": "origin",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": true,
+        "PROD": true
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform/company-state.mjs",
+        "scripts/platform/config.mjs",
+        "scripts/platform"
+      ],
+      "validation_rule": "origin",
+      "description": "Configuration binding for AUTH_SITE_URL; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "BACKUP_DESTINATION",
+      "type": "path",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform"
+      ],
+      "validation_rule": "path",
+      "description": "Configuration binding for BACKUP_DESTINATION; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "BACKUP_ENCRYPTION_KEY_HEX",
+      "type": "hex32",
+      "secret": true,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform"
+      ],
+      "validation_rule": "hex32",
+      "description": "Configuration binding for BACKUP_ENCRYPTION_KEY_HEX; presence does not prove provider readiness.",
+      "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
+      "revocation_expectation": "Company-approved provider-specific revoke and old-credential denial; no automatic live revocation.",
+      "health_test_reference": "tests/platform/monitor.test.mjs rotation simulation; accepted provider-specific live test still required.",
+      "provider": "application",
+      "destination": "environment-specific secret store",
+      "required_when": null
+    },
+    {
+      "name": "BACKUP_KEY_ID",
+      "type": "identifier",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform"
+      ],
+      "validation_rule": "identifier",
+      "description": "Configuration binding for BACKUP_KEY_ID; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "BACKUP_RETENTION_DAYS",
+      "type": "positive_integer",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": true,
+        "PROD": true
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform"
+      ],
+      "validation_rule": "positive_integer",
+      "description": "Configuration binding for BACKUP_RETENTION_DAYS; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "CI",
+      "type": "string",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform/container-smoke.mjs",
+        "scripts/platform/hosted-bootstrap.mjs",
+        "scripts/platform/image-scan.mjs",
+        "scripts/platform/lib.mjs",
+        "scripts/platform/n8n-registry.mjs"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for CI; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "CRM_EMAIL_ALLOWLIST",
+      "type": "json_emails",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform/config.mjs",
+        "scripts/platform"
+      ],
+      "validation_rule": "json_emails",
+      "description": "Configuration binding for CRM_EMAIL_ALLOWLIST; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "CRM_EMAIL_ENABLED",
+      "type": "boolean",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform/config.mjs",
+        "scripts/platform"
+      ],
+      "validation_rule": "boolean",
+      "description": "Configuration binding for CRM_EMAIL_ENABLED; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "CRM_MAIL_FROM",
+      "type": "email_address",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json"
+      ],
+      "validation_rule": "email_address",
+      "description": "Reserved approved CRM sender address; distinct delivery channel",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "crm_mail",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "CRM_MAIL_PROVIDER_REF",
+      "type": "private_reference_or_key",
+      "secret": true,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json"
+      ],
+      "validation_rule": "private_reference_or_key",
+      "description": "Reserved separate CRM transactional/commercial API adapter binding",
+      "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
+      "revocation_expectation": "Company-approved provider-specific revoke and old-credential denial; no automatic live revocation.",
+      "health_test_reference": "tests/platform/monitor.test.mjs rotation simulation; accepted provider-specific live test still required.",
+      "provider": "crm_mail",
+      "destination": "environment-specific secret store",
+      "required_when": null
+    },
+    {
+      "name": "GENERAL_SEMANTIC_PLANNER",
+      "type": "string",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/agents/planner/planner-flag.ts"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for GENERAL_SEMANTIC_PLANNER; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "GEOAPIFY_API_KEY",
+      "type": "string",
+      "secret": true,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/locations/providers.server.ts"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for GEOAPIFY_API_KEY; presence does not prove provider readiness.",
+      "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
+      "revocation_expectation": "Company-approved provider-specific revoke and old-credential denial; no automatic live revocation.",
+      "health_test_reference": "tests/platform/monitor.test.mjs rotation simulation; accepted provider-specific live test still required.",
+      "provider": "application",
+      "destination": "environment-specific secret store",
+      "required_when": null
+    },
+    {
+      "name": "GITHUB_ACTIONS",
+      "type": "string",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform/container-smoke.mjs",
+        "scripts/platform/hosted-bootstrap.mjs",
+        "scripts/platform/image-scan.mjs",
+        "scripts/platform/lib.mjs",
+        "scripts/platform/n8n-local-acceptance.mjs",
+        "scripts/platform/n8n-registry.mjs",
+        "scripts/platform/proxy-acceptance.mjs"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for GITHUB_ACTIONS; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "GOOGLE_CLIENT_ID",
+      "type": "nonempty",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json"
+      ],
+      "validation_rule": "nonempty",
+      "description": "Existing future OAuth client metadata; not connection proof",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "google_calendar",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "GOOGLE_CLIENT_SECRET",
+      "type": "private_reference_or_key",
+      "secret": true,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json"
+      ],
+      "validation_rule": "private_reference_or_key",
+      "description": "Existing future private OAuth credential",
+      "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
+      "revocation_expectation": "Company-approved provider-specific revoke and old-credential denial; no automatic live revocation.",
+      "health_test_reference": "tests/platform/monitor.test.mjs rotation simulation; accepted provider-specific live test still required.",
+      "provider": "google_calendar",
+      "destination": "environment-specific secret store",
+      "required_when": null
+    },
+    {
+      "name": "GOOGLE_MAPS_API_KEY",
+      "type": "string",
+      "secret": true,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/locations/providers.server.ts"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for GOOGLE_MAPS_API_KEY; presence does not prove provider readiness.",
+      "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
+      "revocation_expectation": "Company-approved provider-specific revoke and old-credential denial; no automatic live revocation.",
+      "health_test_reference": "tests/platform/monitor.test.mjs rotation simulation; accepted provider-specific live test still required.",
+      "provider": "application",
+      "destination": "environment-specific secret store",
+      "required_when": null
+    },
+    {
+      "name": "GOOGLE_PLACES_API_KEY",
+      "type": "string",
+      "secret": true,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/locations/providers.server.ts"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for GOOGLE_PLACES_API_KEY; presence does not prove provider readiness.",
+      "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
+      "revocation_expectation": "Company-approved provider-specific revoke and old-credential denial; no automatic live revocation.",
+      "health_test_reference": "tests/platform/monitor.test.mjs rotation simulation; accepted provider-specific live test still required.",
+      "provider": "application",
+      "destination": "environment-specific secret store",
+      "required_when": null
+    },
+    {
+      "name": "GOOGLE_REDIRECT_URI",
+      "type": "https_url",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json"
+      ],
+      "validation_rule": "https_url",
+      "description": "Existing future callback inventory; exact approved production callback required",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "google_calendar",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "IMPORT_STAGING_ADAPTER",
+      "type": "disposable_adapter",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json",
+        "src/lib/server/import-staging-disposable-v1.ts",
+        "src/lib/server/product-environment-v1.ts",
+        "scripts/platform/config.mjs"
+      ],
+      "validation_rule": "disposable_adapter",
+      "description": "Select disposable-local only in an actual nonproduction test process",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "import_staging",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "IMPORT_STAGING_TEST_KEY",
+      "type": "hex32",
+      "secret": true,
+      "target": [
+        "LOCAL"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json",
+        "src/lib/server/import-staging-disposable-v1.ts",
+        "scripts/platform/config.mjs"
+      ],
+      "validation_rule": "hex32",
+      "description": "Fresh ephemeral 32-byte staging root key; no committed/default/plaintext fallback",
+      "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
+      "revocation_expectation": "Company-approved provider-specific revoke and old-credential denial; no automatic live revocation.",
+      "health_test_reference": "tests/platform/monitor.test.mjs rotation simulation; accepted provider-specific live test still required.",
+      "provider": "import_staging",
+      "destination": "Ephemeral disposable local test process only; forbidden in hosted environments",
+      "required_when": {
+        "name": "IMPORT_STAGING_ADAPTER",
+        "equals": "disposable-local"
+      }
+    },
+    {
+      "name": "LOCATION_AUTOCOMPLETE_ENABLED",
+      "type": "boolean",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/locations/providers.server.ts"
+      ],
+      "validation_rule": "boolean",
+      "description": "Configuration binding for LOCATION_AUTOCOMPLETE_ENABLED; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "LOCATION_COUNTRY",
+      "type": "string",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/locations/providers.server.ts"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for LOCATION_COUNTRY; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "LOCATION_PROVIDER",
+      "type": "string",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/locations/providers.server.ts"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for LOCATION_PROVIDER; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "MAPBOX_ACCESS_TOKEN",
+      "type": "string",
+      "secret": true,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/locations/providers.server.ts"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for MAPBOX_ACCESS_TOKEN; presence does not prove provider readiness.",
+      "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
+      "revocation_expectation": "Company-approved provider-specific revoke and old-credential denial; no automatic live revocation.",
+      "health_test_reference": "tests/platform/monitor.test.mjs rotation simulation; accepted provider-specific live test still required.",
+      "provider": "application",
+      "destination": "environment-specific secret store",
+      "required_when": null
+    },
+    {
+      "name": "META_ACCESS_TOKEN",
+      "type": "string",
+      "secret": true,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/meta-whatsapp.ts"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for META_ACCESS_TOKEN; presence does not prove provider readiness.",
+      "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
+      "revocation_expectation": "Company-approved provider-specific revoke and old-credential denial; no automatic live revocation.",
+      "health_test_reference": "tests/platform/monitor.test.mjs rotation simulation; accepted provider-specific live test still required.",
+      "provider": "application",
+      "destination": "environment-specific secret store",
+      "required_when": null
+    },
+    {
+      "name": "META_APP_SECRET",
+      "type": "private_reference_or_key",
+      "secret": true,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json"
+      ],
+      "validation_rule": "private_reference_or_key",
+      "description": "Existing future signature verifier placeholder",
+      "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
+      "revocation_expectation": "Company-approved provider-specific revoke and old-credential denial; no automatic live revocation.",
+      "health_test_reference": "tests/platform/monitor.test.mjs rotation simulation; accepted provider-specific live test still required.",
+      "provider": "whatsapp",
+      "destination": "environment-specific secret store",
+      "required_when": null
+    },
+    {
+      "name": "META_GRAPH_VERSION",
+      "type": "string",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/config-status.ts",
+        "src/lib/meta-whatsapp.ts"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for META_GRAPH_VERSION; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "META_WEBHOOK_VERIFY_TOKEN",
+      "type": "private_reference_or_key",
+      "secret": true,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json"
+      ],
+      "validation_rule": "private_reference_or_key",
+      "description": "Existing future handshake placeholder; not a valid ingress adapter",
+      "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
+      "revocation_expectation": "Company-approved provider-specific revoke and old-credential denial; no automatic live revocation.",
+      "health_test_reference": "tests/platform/monitor.test.mjs rotation simulation; accepted provider-specific live test still required.",
+      "provider": "whatsapp",
+      "destination": "environment-specific secret store",
+      "required_when": null
+    },
+    {
+      "name": "META_WHATSAPP_ACCESS_TOKEN",
+      "type": "private_reference_or_key",
+      "secret": true,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json",
+        "src/lib/meta-whatsapp.ts"
+      ],
+      "validation_rule": "private_reference_or_key",
+      "description": "Existing future provider token placeholder; no provider ingress/send",
+      "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
+      "revocation_expectation": "Company-approved provider-specific revoke and old-credential denial; no automatic live revocation.",
+      "health_test_reference": "tests/platform/monitor.test.mjs rotation simulation; accepted provider-specific live test still required.",
+      "provider": "whatsapp",
+      "destination": "environment-specific secret store",
+      "required_when": null
+    },
+    {
+      "name": "MONITORING_ENDPOINT",
+      "type": "https_url",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform"
+      ],
+      "validation_rule": "https_url",
+      "description": "Configuration binding for MONITORING_ENDPOINT; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "N8N_API_KEY",
+      "type": "private_reference_or_key",
+      "secret": true,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json",
+        "src/lib/n8n-client.ts",
+        "scripts/platform/n8n-registry.mjs"
+      ],
+      "validation_rule": "private_reference_or_key",
+      "description": "Existing future private adapter credential",
+      "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
+      "revocation_expectation": "Company-approved provider-specific revoke and old-credential denial; no automatic live revocation.",
+      "health_test_reference": "tests/platform/monitor.test.mjs rotation simulation; accepted provider-specific live test still required.",
+      "provider": "n8n",
+      "destination": "environment-specific secret store",
+      "required_when": null
+    },
+    {
+      "name": "N8N_APPROVED_ORIGIN",
+      "type": "url",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform/n8n-registry.mjs"
+      ],
+      "validation_rule": "url",
+      "description": "Configuration binding for N8N_APPROVED_ORIGIN; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "N8N_ASSISTANT_V2_SECRET",
+      "type": "string",
+      "secret": true,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/agents/n8n-assistant-client.ts"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for N8N_ASSISTANT_V2_SECRET; presence does not prove provider readiness.",
+      "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
+      "revocation_expectation": "Company-approved provider-specific revoke and old-credential denial; no automatic live revocation.",
+      "health_test_reference": "tests/platform/monitor.test.mjs rotation simulation; accepted provider-specific live test still required.",
+      "provider": "application",
+      "destination": "environment-specific secret store",
+      "required_when": null
+    },
+    {
+      "name": "N8N_ASSISTANT_V2_WEBHOOK_URL",
+      "type": "url",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/agents/n8n-assistant-client.ts"
+      ],
+      "validation_rule": "url",
+      "description": "Configuration binding for N8N_ASSISTANT_V2_WEBHOOK_URL; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "N8N_BASE_URL",
+      "type": "https_url",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json",
+        "src/lib/agents/n8n-assistant-client.ts",
+        "src/lib/assistant-n8n-hook.ts",
+        "src/lib/n8n-client.ts",
+        "scripts/platform/n8n-registry.mjs"
+      ],
+      "validation_rule": "https_url",
+      "description": "Existing future registered adapter endpoint; never caller arbitrary URL",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "n8n",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "N8N_DATABASE_PASSWORD_FILE",
+      "type": "path",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "infra/n8n/compose.preparatory.yaml",
+        "scripts/platform"
+      ],
+      "validation_rule": "path",
+      "description": "Reference path only; file contents are private credentials, never included in public configuration/builds/logs. Company runtime remains disabled.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "n8n_postgres",
+      "destination": "Private per-environment host secret file mounted read-only at /run/secrets/n8n_database_password",
+      "required_when": null,
+      "file_content_secret": true
+    },
+    {
+      "name": "N8N_DEFAULT_TIMEOUT_MS",
+      "type": "positive_integer",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/config-status.ts"
+      ],
+      "validation_rule": "positive_integer",
+      "description": "Configuration binding for N8N_DEFAULT_TIMEOUT_MS; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "N8N_ENABLED",
+      "type": "boolean",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform"
+      ],
+      "validation_rule": "boolean",
+      "description": "Configuration binding for N8N_ENABLED; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "N8N_ENCRYPTION_SECRET_FILE",
+      "type": "path",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "infra/n8n/compose.preparatory.yaml",
+        "scripts/platform"
+      ],
+      "validation_rule": "path",
+      "description": "Reference path only; file contents are private credentials, never included in public configuration/builds/logs. Company runtime remains disabled.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "n8n",
+      "destination": "Private per-environment host secret file mounted read-only at /run/secrets/n8n_encryption_key",
+      "required_when": null,
+      "file_content_secret": true
+    },
+    {
+      "name": "N8N_ENV_FILE",
+      "type": "path",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "infra/n8n/compose.preparatory.yaml",
+        "scripts/platform"
+      ],
+      "validation_rule": "path",
+      "description": "Configuration binding for N8N_ENV_FILE; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "N8N_IMAGE",
+      "type": "image_digest",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "infra/n8n/compose.preparatory.yaml",
+        "scripts/platform"
+      ],
+      "validation_rule": "image_digest",
+      "description": "Configuration binding for N8N_IMAGE; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "N8N_VOLUME_NAME",
+      "type": "identifier",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "infra/n8n/compose.preparatory.yaml",
+        "scripts/platform"
+      ],
+      "validation_rule": "identifier",
+      "description": "Configuration binding for N8N_VOLUME_NAME; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "N8N_WEBHOOK_SECRET",
+      "type": "private_reference_or_key",
+      "secret": true,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json",
+        "src/lib/assistant-n8n-hook.ts",
+        "src/lib/n8n-client.ts"
+      ],
+      "validation_rule": "private_reference_or_key",
+      "description": "Existing future signature material",
+      "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
+      "revocation_expectation": "Company-approved provider-specific revoke and old-credential denial; no automatic live revocation.",
+      "health_test_reference": "tests/platform/monitor.test.mjs rotation simulation; accepted provider-specific live test still required.",
+      "provider": "n8n",
+      "destination": "environment-specific secret store",
+      "required_when": null
+    },
+    {
+      "name": "NEXT_PUBLIC_APP_URL",
+      "type": "origin_url",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": true,
+        "PROD": true
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json",
+        "src/lib/agents/local-answers.ts",
+        "src/lib/config-status.ts",
+        "scripts/platform/company-state.mjs",
+        "scripts/platform/config.mjs"
+      ],
+      "validation_rule": "origin_url",
+      "description": "Existing public application origin; not callback/provider verification",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "NEXT_PUBLIC_ASSISTANT_MAX_INPUT_CHARS",
+      "type": "positive_integer",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/assistant-guard.ts"
+      ],
+      "validation_rule": "positive_integer",
+      "description": "Configuration binding for NEXT_PUBLIC_ASSISTANT_MAX_INPUT_CHARS; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "NEXT_PUBLIC_ASSISTANT_WARN_AT_CHARS",
+      "type": "string",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/assistant-guard.ts"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for NEXT_PUBLIC_ASSISTANT_WARN_AT_CHARS; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "NEXT_PUBLIC_ENABLE_ASSISTANT",
+      "type": "boolean",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/feature-flags.ts"
+      ],
+      "validation_rule": "boolean",
+      "description": "Configuration binding for NEXT_PUBLIC_ENABLE_ASSISTANT; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "NEXT_PUBLIC_ENABLE_AUTOMATIONS",
+      "type": "boolean",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/feature-flags.ts"
+      ],
+      "validation_rule": "boolean",
+      "description": "Configuration binding for NEXT_PUBLIC_ENABLE_AUTOMATIONS; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "NEXT_PUBLIC_ENABLE_BILLING",
+      "type": "boolean",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/feature-flags.ts"
+      ],
+      "validation_rule": "boolean",
+      "description": "Configuration binding for NEXT_PUBLIC_ENABLE_BILLING; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "NEXT_PUBLIC_ENABLE_CALENDAR",
+      "type": "boolean",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/feature-flags.ts"
+      ],
+      "validation_rule": "boolean",
+      "description": "Configuration binding for NEXT_PUBLIC_ENABLE_CALENDAR; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "NEXT_PUBLIC_ENABLE_DEMO_DATA",
+      "type": "boolean",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/app/api/assistant/read-preview/route.ts",
+        "src/lib/feature-flags.ts",
+        "src/lib/telecom-preview/access.ts"
+      ],
+      "validation_rule": "boolean",
+      "description": "Configuration binding for NEXT_PUBLIC_ENABLE_DEMO_DATA; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "NEXT_PUBLIC_ENABLE_INBOX",
+      "type": "boolean",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/feature-flags.ts"
+      ],
+      "validation_rule": "boolean",
+      "description": "Configuration binding for NEXT_PUBLIC_ENABLE_INBOX; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "NEXT_PUBLIC_ENABLE_INSTAGRAM",
+      "type": "boolean",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/feature-flags.ts"
+      ],
+      "validation_rule": "boolean",
+      "description": "Configuration binding for NEXT_PUBLIC_ENABLE_INSTAGRAM; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "NEXT_PUBLIC_ENABLE_INVOICING",
+      "type": "boolean",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/feature-flags.ts"
+      ],
+      "validation_rule": "boolean",
+      "description": "Configuration binding for NEXT_PUBLIC_ENABLE_INVOICING; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "NEXT_PUBLIC_ENABLE_OPPORTUNITIES",
+      "type": "boolean",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/feature-flags.ts"
+      ],
+      "validation_rule": "boolean",
+      "description": "Configuration binding for NEXT_PUBLIC_ENABLE_OPPORTUNITIES; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "NEXT_PUBLIC_ENABLE_WHATSAPP",
+      "type": "boolean",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/feature-flags.ts"
+      ],
+      "validation_rule": "boolean",
+      "description": "Configuration binding for NEXT_PUBLIC_ENABLE_WHATSAPP; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "NEXT_PUBLIC_FORCE_OFFLINE_DEV",
+      "type": "boolean",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/components/AuthGate.tsx",
+        "src/lib/current-user.ts"
+      ],
+      "validation_rule": "boolean",
+      "description": "Configuration binding for NEXT_PUBLIC_FORCE_OFFLINE_DEV; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "NEXT_PUBLIC_NOWLABS_INTERNAL",
+      "type": "string",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/components/TeamUsersCard.tsx",
+        "src/lib/feature-flags.ts"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for NEXT_PUBLIC_NOWLABS_INTERNAL; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "NEXT_PUBLIC_SUPABASE_ANON_KEY",
+      "type": "public_api_key",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json",
+        "src/app/api/health/ready/route.ts",
+        "src/lib/integrations.ts",
+        "src/lib/server/supabase-user.ts",
+        "src/lib/supabase.ts",
+        "src/proxy.ts",
+        "scripts/platform/build-public.mjs",
+        "scripts/platform/config.mjs"
+      ],
+      "validation_rule": "public_api_key",
+      "description": "Legacy alternative public API key; never a service-role key",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "backend_platform",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY",
+      "type": "public_api_key",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json",
+        "src/app/api/health/ready/route.ts",
+        "src/lib/integrations.ts",
+        "src/lib/server/supabase-user.ts",
+        "src/lib/supabase.ts",
+        "src/proxy.ts",
+        "scripts/platform/build-public.mjs",
+        "scripts/platform/config.mjs"
+      ],
+      "validation_rule": "public_api_key",
+      "description": "Preferred public API key; user JWT supplies identity",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "backend_platform",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "NEXT_PUBLIC_SUPABASE_URL",
+      "type": "platform_url",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": true,
+        "PROD": true
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json",
+        "src/app/api/health/ready/route.ts",
+        "src/features/product/integration/mode.ts",
+        "src/lib/integrations.ts",
+        "src/lib/server/supabase-user.ts",
+        "src/lib/supabase-admin.ts",
+        "src/lib/supabase.ts",
+        "src/proxy.ts",
+        "scripts/platform/build-public.mjs",
+        "scripts/platform/company-state.mjs",
+        "scripts/platform/hosted-bootstrap.mjs"
+      ],
+      "validation_rule": "platform_url",
+      "description": "Canonical Auth/PostgREST/Storage endpoint; public does not confer authority",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "backend_platform",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "NGINX_METADATA_LOG_PATH",
+      "type": "string",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "infra/deployment/nginx.conf.template"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for NGINX_METADATA_LOG_PATH; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "NODE_ENV",
+      "type": "node_mode",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json",
+        "src/app/api/assistant/read-preview/route.ts",
+        "src/components/AuthGate.tsx",
+        "src/features/product/integration/mode.ts",
+        "src/lib/agents/conversation-pending.ts",
+        "src/lib/agents/n8n-assistant-client.ts",
+        "src/lib/assistant-n8n-hook.ts",
+        "src/lib/config-status.ts",
+        "src/lib/current-user.ts",
+        "src/lib/feature-flags.ts",
+        "src/lib/server/document-scanner-v1.ts",
+        "src/lib/server/import-staging-disposable-v1.ts",
+        "src/lib/server/product-environment-v1.ts",
+        "src/lib/supabase-queries.ts",
+        "src/lib/telecom-preview/access.ts",
+        "src/lib/vertical-queries.ts",
+        "src/lib/workspace-settings.ts",
+        "src/lib/workspace-templates.ts",
+        "scripts/platform/config.mjs",
+        "scripts/platform/lib.mjs"
+      ],
+      "validation_rule": "node_mode",
+      "description": "Framework/test execution mode; test adapters deny production",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "runtime",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "NOWCRM_WEBHOOK_SECRET",
+      "type": "private_reference_or_key",
+      "secret": true,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json"
+      ],
+      "validation_rule": "private_reference_or_key",
+      "description": "Existing future provider-neutral ingress seam; no activated endpoint",
+      "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
+      "revocation_expectation": "Company-approved provider-specific revoke and old-credential denial; no automatic live revocation.",
+      "health_test_reference": "tests/platform/monitor.test.mjs rotation simulation; accepted provider-specific live test still required.",
+      "provider": "external_crm",
+      "destination": "environment-specific secret store",
+      "required_when": null
+    },
+    {
+      "name": "NOWLABS_MODEL",
+      "type": "string",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/agents/whatsapp-agent.ts",
+        "src/lib/config-status.ts"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for NOWLABS_MODEL; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "OPENAI_API_KEY",
+      "type": "private_reference_or_key",
+      "secret": true,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W3",
+      "consumer": [
+        "docs/master/contracts/product-environment.json",
+        "src/lib/agents/nowlabs-main-agent.ts",
+        "src/lib/agents/planner/shadow-hook.ts",
+        "src/lib/agents/whatsapp-agent.ts"
+      ],
+      "validation_rule": "private_reference_or_key",
+      "description": "Existing future AI provider placeholder; no registration/live execution",
+      "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
+      "revocation_expectation": "Company-approved provider-specific revoke and old-credential denial; no automatic live revocation.",
+      "health_test_reference": "tests/platform/monitor.test.mjs rotation simulation; accepted provider-specific live test still required.",
+      "provider": "ai_provider",
+      "destination": "environment-specific secret store",
+      "required_when": null
+    },
+    {
+      "name": "OPENAI_ASSISTANT_MODEL",
+      "type": "string",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W3",
+      "consumer": [
+        "src/lib/agents/nowlabs-main-agent.ts",
+        "src/lib/agents/planner/shadow-hook.ts"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for OPENAI_ASSISTANT_MODEL; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "OPENAI_MODEL",
+      "type": "string",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W3",
+      "consumer": [
+        "src/lib/agents/whatsapp-agent.ts",
+        "src/lib/config-status.ts"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for OPENAI_MODEL; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "PATH",
+      "type": "string",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform/smoke.mjs"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for PATH; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "PLANNER_FALLBACK_MODEL",
+      "type": "string",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W3",
+      "consumer": [
+        "src/lib/agents/planner/shadow-hook.ts"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for PLANNER_FALLBACK_MODEL; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "PLANNER_MODEL",
+      "type": "string",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W3",
+      "consumer": [
+        "src/lib/agents/planner/shadow-hook.ts"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for PLANNER_MODEL; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "PLATFORM_ALLOW_N8N_IMPORT",
+      "type": "string",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform/n8n-registry.mjs"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for PLATFORM_ALLOW_N8N_IMPORT; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "PLATFORM_ALLOW_STAGING_BOOTSTRAP",
+      "type": "string",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform/hosted-bootstrap.mjs"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for PLATFORM_ALLOW_STAGING_BOOTSTRAP; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "PLATFORM_TARGET",
+      "type": "enum",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": true,
+        "PROD": true
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/app/api/health/ready/route.ts",
+        "scripts/platform/config.mjs",
+        "scripts/platform/entrypoint.mjs",
+        "scripts/platform/hosted-bootstrap.mjs",
+        "scripts/platform/lib.mjs",
+        "scripts/platform/n8n-registry.mjs",
+        "scripts/platform/platform.mjs",
+        "scripts/platform"
+      ],
+      "validation_rule": "enum",
+      "description": "Configuration binding for PLATFORM_TARGET; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "PRODUCT_DOCUMENT_CONTENT_ENABLED",
+      "type": "boolean",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json",
+        "src/app/(saas)/documents/page.tsx",
+        "src/app/(saas)/facturacion/page.tsx",
+        "src/app/api/billing/v1/private-pdf/route.ts",
+        "src/app/api/document/v1/content/commands/route.ts",
+        "src/app/api/document/v1/content/download/route.ts",
+        "src/app/api/document/v1/content/upload/route.ts",
+        "src/lib/server/billing-user-factory-v1.ts",
+        "src/lib/server/settings-user-factory-v1.ts"
+      ],
+      "validation_rule": "boolean",
+      "description": "Default-off protected upload/finalize/proxy content",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "product",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "PRODUCT_DOCUMENT_MAINTENANCE_ENABLED",
+      "type": "boolean",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json",
+        "src/app/(saas)/documents/page.tsx",
+        "src/app/api/document/v1/maintenance/route.ts"
+      ],
+      "validation_rule": "boolean",
+      "description": "Default-off protected observed-byte verification and exact expired cleanup",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "product",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "PRODUCT_DOCUMENT_SCAN_REQUIRED",
+      "type": "boolean",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json",
+        "src/lib/server/document-maintenance-user-factory-v1.ts"
+      ],
+      "validation_rule": "boolean",
+      "description": "Fail closed when a required production scanner is unavailable",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "product",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "PRODUCT_DOCUMENT_VERIFY_KEY_HEX",
+      "type": "hex32",
+      "secret": true,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json",
+        "src/lib/server/document-maintenance-user-factory-v1.ts",
+        "src/lib/server/product-environment-v1.ts"
+      ],
+      "validation_rule": "hex32",
+      "description": "Purpose-specific document measurement MAC secret; pair with private DB verifier, never browser/audit",
+      "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
+      "revocation_expectation": "Company-approved provider-specific revoke and old-credential denial; no automatic live revocation.",
+      "health_test_reference": "tests/platform/monitor.test.mjs rotation simulation; accepted provider-specific live test still required.",
+      "provider": "document_integrity",
+      "destination": "environment-specific secret store",
+      "required_when": null
+    },
+    {
+      "name": "PRODUCT_DOCUMENT_VERIFY_KEY_ID",
+      "type": "uuid",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json",
+        "src/lib/server/document-maintenance-user-factory-v1.ts",
+        "src/lib/server/product-environment-v1.ts"
+      ],
+      "validation_rule": "uuid",
+      "description": "ID of explicitly installed private document witness verifier; not a Storage decryption key",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "document_integrity",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "PRODUCT_LOCAL_INTEGRATION",
+      "type": "boolean",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/app/(saas)/layout.tsx",
+        "src/features/product/integration/mode.ts",
+        "src/lib/telecom-preview/access.ts"
+      ],
+      "validation_rule": "boolean",
+      "description": "Configuration binding for PRODUCT_LOCAL_INTEGRATION; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "PRODUCT_LOCAL_SYNTHETIC",
+      "type": "boolean",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/features/product/integration/mode.ts"
+      ],
+      "validation_rule": "boolean",
+      "description": "Configuration binding for PRODUCT_LOCAL_SYNTHETIC; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "PRODUCT_V1_ENABLED",
+      "type": "boolean",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json",
+        "src/app/api/automations/v1/route.ts",
+        "src/app/api/billing/analytics/v1/route.ts",
+        "src/app/api/billing/v1/commands/route.ts",
+        "src/app/api/billing/v1/pdf/route.ts",
+        "src/app/api/billing/v1/private-pdf/route.ts",
+        "src/app/api/billing/v1/queries/route.ts",
+        "src/app/api/cases/v1/route.ts",
+        "src/app/api/catalog/v1/route.ts",
+        "src/app/api/document/v1/commands/route.ts",
+        "src/app/api/document/v1/content/commands/route.ts",
+        "src/app/api/document/v1/content/download/route.ts",
+        "src/app/api/document/v1/content/upload/route.ts",
+        "src/app/api/document/v1/maintenance/route.ts",
+        "src/app/api/document/v1/queries/route.ts",
+        "src/app/api/identifiers/v1/route.ts",
+        "src/app/api/import/v1/route.ts",
+        "src/app/api/inbox/v1/route.ts",
+        "src/app/api/notifications/v1/route.ts",
+        "src/app/api/portability/v1/route.ts",
+        "src/app/api/portfolio/v1/commands/route.ts",
+        "src/app/api/portfolio/v1/queries/route.ts",
+        "src/app/api/product/v1/commands/route.ts",
+        "src/app/api/product/v1/queries/route.ts",
+        "src/app/api/provenance/v1/route.ts",
+        "src/app/api/sensitive/v1/route.ts",
+        "src/app/api/settings/v1/route.ts",
+        "src/app/api/sims/v1/route.ts",
+        "src/app/api/team/v1/commands/route.ts",
+        "src/app/api/team/v1/queries/route.ts",
+        "src/app/api/telecom/attention/v1/route.ts",
+        "src/app/api/telecom/equipment/v1/route.ts",
+        "src/app/api/telecom/external-identities/v1/route.ts",
+        "src/app/api/telecom/locations/v1/route.ts",
+        "src/app/api/telecom/reads/v1/route.ts",
+        "src/app/api/telecom/services/v1/route.ts",
+        "src/features/product/integration/mode.ts",
+        "scripts/platform/config.mjs"
+      ],
+      "validation_rule": "boolean",
+      "description": "Master default-off normal product transport",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "product",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "PRODUCT_V1_ORIGIN",
+      "type": "origin_url",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": true,
+        "PROD": true
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json",
+        "src/app/api/automations/v1/route.ts",
+        "src/app/api/billing/analytics/v1/route.ts",
+        "src/app/api/billing/v1/commands/route.ts",
+        "src/app/api/billing/v1/pdf/route.ts",
+        "src/app/api/billing/v1/private-pdf/route.ts",
+        "src/app/api/billing/v1/queries/route.ts",
+        "src/app/api/cases/v1/route.ts",
+        "src/app/api/catalog/v1/route.ts",
+        "src/app/api/document/v1/commands/route.ts",
+        "src/app/api/document/v1/content/commands/route.ts",
+        "src/app/api/document/v1/content/download/route.ts",
+        "src/app/api/document/v1/content/upload/route.ts",
+        "src/app/api/document/v1/maintenance/route.ts",
+        "src/app/api/document/v1/queries/route.ts",
+        "src/app/api/identifiers/v1/route.ts",
+        "src/app/api/import/v1/route.ts",
+        "src/app/api/inbox/v1/route.ts",
+        "src/app/api/notifications/v1/route.ts",
+        "src/app/api/portability/v1/route.ts",
+        "src/app/api/portfolio/v1/commands/route.ts",
+        "src/app/api/portfolio/v1/queries/route.ts",
+        "src/app/api/product/v1/commands/route.ts",
+        "src/app/api/product/v1/queries/route.ts",
+        "src/app/api/provenance/v1/route.ts",
+        "src/app/api/sensitive/v1/route.ts",
+        "src/app/api/settings/v1/route.ts",
+        "src/app/api/sims/v1/route.ts",
+        "src/app/api/team/v1/commands/route.ts",
+        "src/app/api/team/v1/queries/route.ts",
+        "src/app/api/telecom/attention/v1/route.ts",
+        "src/app/api/telecom/equipment/v1/route.ts",
+        "src/app/api/telecom/external-identities/v1/route.ts",
+        "src/app/api/telecom/locations/v1/route.ts",
+        "src/app/api/telecom/reads/v1/route.ts",
+        "src/app/api/telecom/services/v1/route.ts",
+        "src/features/product/integration/mode.ts",
+        "src/lib/server/product-http-v1.ts",
+        "scripts/platform/company-state.mjs",
+        "scripts/platform/config.mjs"
+      ],
+      "validation_rule": "origin_url",
+      "description": "Canonical Origin/Host validation on normal product mutations",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "product",
+      "destination": "environment-specific configuration",
+      "required_when": {
+        "name": "PRODUCT_V1_ENABLED",
+        "equals": "true"
+      }
+    },
+    {
+      "name": "RUNNER_TEMP",
+      "type": "string",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform/auth-mail-acceptance.mjs",
+        "scripts/platform/n8n-registry.mjs",
+        "scripts/platform/smoke.mjs"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for RUNNER_TEMP; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "SMTP_HOST",
+      "type": "hostname",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json",
+        "scripts/platform/hosted-bootstrap.mjs"
+      ],
+      "validation_rule": "hostname",
+      "description": "Reserved production Auth SMTP configuration, independently managed in platform config",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "auth_mail",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "SMTP_PASSWORD",
+      "type": "private_reference_or_key",
+      "secret": true,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json",
+        "scripts/platform/hosted-bootstrap.mjs"
+      ],
+      "validation_rule": "private_reference_or_key",
+      "description": "Reserved production Auth SMTP password/reference; no actual adapter installed",
+      "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
+      "revocation_expectation": "Company-approved provider-specific revoke and old-credential denial; no automatic live revocation.",
+      "health_test_reference": "tests/platform/monitor.test.mjs rotation simulation; accepted provider-specific live test still required.",
+      "provider": "auth_mail",
+      "destination": "environment-specific secret store",
+      "required_when": null
+    },
+    {
+      "name": "SMTP_PORT",
+      "type": "port",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json",
+        "scripts/platform/hosted-bootstrap.mjs"
+      ],
+      "validation_rule": "port",
+      "description": "Reserved production Auth SMTP port",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "auth_mail",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "SMTP_USER",
+      "type": "private_reference_or_key",
+      "secret": true,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json",
+        "scripts/platform/hosted-bootstrap.mjs"
+      ],
+      "validation_rule": "private_reference_or_key",
+      "description": "Reserved production Auth SMTP login/reference",
+      "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
+      "revocation_expectation": "Company-approved provider-specific revoke and old-credential denial; no automatic live revocation.",
+      "health_test_reference": "tests/platform/monitor.test.mjs rotation simulation; accepted provider-specific live test still required.",
+      "provider": "auth_mail",
+      "destination": "environment-specific secret store",
+      "required_when": null
+    },
+    {
+      "name": "SUPABASE_ACCESS_TOKEN",
+      "type": "string",
+      "secret": true,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform/hosted-bootstrap.mjs",
+        "scripts/platform/lib.mjs",
+        "scripts/platform/platform.mjs"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for SUPABASE_ACCESS_TOKEN; presence does not prove provider readiness.",
+      "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
+      "revocation_expectation": "Company-approved provider-specific revoke and old-credential denial; no automatic live revocation.",
+      "health_test_reference": "tests/platform/monitor.test.mjs rotation simulation; accepted provider-specific live test still required.",
+      "provider": "application",
+      "destination": "environment-specific secret store",
+      "required_when": null
+    },
+    {
+      "name": "SUPABASE_DB_PASSWORD",
+      "type": "string",
+      "secret": true,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform/hosted-bootstrap.mjs",
+        "scripts/platform/lib.mjs",
+        "scripts/platform/platform.mjs"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for SUPABASE_DB_PASSWORD; presence does not prove provider readiness.",
+      "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
+      "revocation_expectation": "Company-approved provider-specific revoke and old-credential denial; no automatic live revocation.",
+      "health_test_reference": "tests/platform/monitor.test.mjs rotation simulation; accepted provider-specific live test still required.",
+      "provider": "application",
+      "destination": "environment-specific secret store",
+      "required_when": null
+    },
+    {
+      "name": "SUPABASE_PROD_PROJECT_REF",
+      "type": "string",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform/hosted-bootstrap.mjs"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for SUPABASE_PROD_PROJECT_REF; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "SUPABASE_SERVICE_ROLE_KEY",
+      "type": "private_reference_or_key",
+      "secret": true,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json",
+        "src/lib/supabase-admin.ts",
+        "scripts/platform/hosted-bootstrap.mjs"
+      ],
+      "validation_rule": "private_reference_or_key",
+      "description": "Existing private platform credential reserved outside normal user-JWT commands; no new generic worker authority",
+      "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
+      "revocation_expectation": "Company-approved provider-specific revoke and old-credential denial; no automatic live revocation.",
+      "health_test_reference": "tests/platform/monitor.test.mjs rotation simulation; accepted provider-specific live test still required.",
+      "provider": "backend_platform",
+      "destination": "environment-specific secret store",
+      "required_when": null
+    },
+    {
+      "name": "SUPABASE_STAGING_PROJECT_REF",
+      "type": "string",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform/hosted-bootstrap.mjs"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for SUPABASE_STAGING_PROJECT_REF; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "TLS_CERT_PATH",
+      "type": "path",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "infra/deployment/nginx.conf.template",
+        "scripts/platform"
+      ],
+      "validation_rule": "path",
+      "description": "Configuration binding for TLS_CERT_PATH; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "TLS_KEY_PATH",
+      "type": "path",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "infra/deployment/nginx.conf.template",
+        "scripts/platform"
+      ],
+      "validation_rule": "path",
+      "description": "Configuration binding for TLS_KEY_PATH; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "W5_BROWSER_BOUNDARY",
+      "type": "string",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform/smoke.mjs"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for W5_BROWSER_BOUNDARY; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "W5_DISPOSABLE_LOCAL",
+      "type": "string",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "scripts/platform/lib.mjs"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for W5_DISPOSABLE_LOCAL; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    }
+  ],
+  "public_allowlist": [
+    "NEXT_PUBLIC_SUPABASE_URL",
+    "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY",
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY",
+    "NEXT_PUBLIC_APP_URL",
+    "NEXT_PUBLIC_ENABLE_DEMO_DATA",
+    "NEXT_PUBLIC_FORCE_OFFLINE_DEV",
+    "NEXT_PUBLIC_NOWLABS_INTERNAL",
+    "NEXT_PUBLIC_ASSISTANT_MAX_INPUT_CHARS",
+    "NEXT_PUBLIC_ASSISTANT_WARN_AT_CHARS",
+    "NEXT_PUBLIC_ENABLE_BILLING",
+    "NEXT_PUBLIC_ENABLE_INVOICING",
+    "NEXT_PUBLIC_ENABLE_AUTOMATIONS",
+    "NEXT_PUBLIC_ENABLE_INBOX",
+    "NEXT_PUBLIC_ENABLE_ASSISTANT",
+    "NEXT_PUBLIC_ENABLE_OPPORTUNITIES",
+    "NEXT_PUBLIC_ENABLE_CALENDAR",
+    "NEXT_PUBLIC_ENABLE_INSTAGRAM",
+    "NEXT_PUBLIC_ENABLE_WHATSAPP"
+  ],
+  "alternative_required_groups": [
+    [
+      "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY",
+      "NEXT_PUBLIC_SUPABASE_ANON_KEY"
+    ]
+  ],
+  "config_artifacts": [
+    "supabase/config.toml",
+    "infra/platform/company.schema.json",
+    "infra/platform/providers.json"
+  ],
+  "migration_inventory": [
+    {
+      "name": "20260925153500_core_tenant_identity.sql",
+      "version": "20260925153500",
+      "sha256": "46284301c8e56f7b5b982e1dd824890c55b05e84560afd4d34183178614ae3a4"
+    },
+    {
+      "name": "20260926120000_atomic_workspace_onboarding.sql",
+      "version": "20260926120000",
+      "sha256": "2d73a537040a5a76c9d457689d2b07b6c0f31b6a555d1f045a6797b7d9cb626c"
+    },
+    {
+      "name": "20260926143000_enforce_active_workspace_authorization.sql",
+      "version": "20260926143000",
+      "sha256": "56af5c9d55eb16c45e5584ff5c0954d45db785ea283ce702ed3869aa354f80a7"
+    },
+    {
+      "name": "20260926160000_telecom_customer_contacts.sql",
+      "version": "20260926160000",
+      "sha256": "1a1d43d3cac43e0cc36491f86695b766361cdd98d4cf16dfb2cd33bc3c813a99"
+    },
+    {
+      "name": "20260926161000_telecom_operator_plan_catalog.sql",
+      "version": "20260926161000",
+      "sha256": "a97911f5b63b38c66a21b62927442b89375ea48c36a83126b77ff83708e9e122"
+    },
+    {
+      "name": "20260926162000_telecom_contract_service_portfolio.sql",
+      "version": "20260926162000",
+      "sha256": "21214295fc64cd3c405a29c1e8f83c4e46e72ab62022dda7df7dfbad5138b08f"
+    },
+    {
+      "name": "20260926163000_telecom_commercial_operations.sql",
+      "version": "20260926163000",
+      "sha256": "7456254e3ca20017b29a18fc800b484a6328c34b4a9e36e68a6bc21fbc2af6a8"
+    },
+    {
+      "name": "20260926164000_telecom_service_cases_documents.sql",
+      "version": "20260926164000",
+      "sha256": "35d568ac6804d68744c46b72c7b89bc18e9a546adf379059d9ce1ecad045f40a"
+    },
+    {
+      "name": "20260926165000_import_audit_foundation.sql",
+      "version": "20260926165000",
+      "sha256": "a3327da21638b1144e0565e863c701414ac0b592b6b7cf7e30f5b20543153030"
+    },
+    {
+      "name": "20260927090000_fix_provision_workspace_profile_conflict.sql",
+      "version": "20260927090000",
+      "sha256": "d9e3015af2a0a6925af284a7ed04ad078cfcdfe940701dd52652d8dfd2bf93b9"
+    },
+    {
+      "name": "20260927161000_harden_shared_trigger_record_guards.sql",
+      "version": "20260927161000",
+      "sha256": "f2b3072589408414c5b4722f02f2456b7880ddb441577d816551c3797cb643bd"
+    },
+    {
+      "name": "20260927162000_enforce_import_job_initial_state.sql",
+      "version": "20260927162000",
+      "sha256": "20148daf663d6f03e549389d8c8e77bf9ce927d7e4e76f1726117c01e120d6f1"
+    },
+    {
+      "name": "20260927170000_telecom_v1_customer_read_rpc.sql",
+      "version": "20260927170000",
+      "sha256": "8408b7f1c61467997dce33a9c998336a6d2581574a030217b66f18b6e24d1167"
+    },
+    {
+      "name": "20260927171000_telecom_v1_customer_summary_rpc.sql",
+      "version": "20260927171000",
+      "sha256": "38198193e94392210ed2686b00b695f20e8d8cbce1e4d9b4e82c04f8411c40db"
+    },
+    {
+      "name": "20260927172000_telecom_v1_contract_read_rpc.sql",
+      "version": "20260927172000",
+      "sha256": "e226036182894af74d64e73707a9b45ae423761f943175afd19d7fbea341f577"
+    },
+    {
+      "name": "20260927173000_telecom_v1_service_line_read_rpc.sql",
+      "version": "20260927173000",
+      "sha256": "ab34316f06768e378105aa1f0ff8b64f51f8df7115dd97cfefcf42d4f070d9ce"
+    },
+    {
+      "name": "20260927174000_telecom_v1_activity_opportunity_read_rpc.sql",
+      "version": "20260927174000",
+      "sha256": "dfd8da004c171d257dccc0aebd06a3f3c69a87a603d3ad6e92323cd3935057e7"
+    },
+    {
+      "name": "20260927175000_telecom_v1_task_meeting_read_rpc.sql",
+      "version": "20260927175000",
+      "sha256": "c19565ae4e6eabfe0406d4d49f61bbfd20fd3f25d4e49589b6472261d8971748"
+    },
+    {
+      "name": "20260927180000_telecom_v1_renewal_permanence_read_rpc.sql",
+      "version": "20260927180000",
+      "sha256": "39c3176e4411aceaff9a87cfbe1c701070fd26d18192675d3443bf5c37c24d6b"
+    },
+    {
+      "name": "20260927181000_telecom_v1_dashboard_scope_rpc.sql",
+      "version": "20260927181000",
+      "sha256": "291de3e5f83483f696006c6cc3ab461d3522460e40edf4b66cb7ed175a7a29f3"
+    },
+    {
+      "name": "20260927182000_private_document_storage.sql",
+      "version": "20260927182000",
+      "sha256": "22d217bac21c6bcd6a3eefb03fd915c1eaa4e349707153072461e8658f309947"
+    },
+    {
+      "name": "20260927183000_assistant_durable_foundation.sql",
+      "version": "20260927183000",
+      "sha256": "6f1f4574e192fd362c0ba787201e4dc6dd6424058f6060a06170e32e72c52c04"
+    },
+    {
+      "name": "20260927184000_restrict_document_object_read.sql",
+      "version": "20260927184000",
+      "sha256": "734cd38b172b6fb2167aa7db301555f16013ec7a83a5dee5fbdda51524757076"
+    },
+    {
+      "name": "20260927185000_fix_customer_search_collation.sql",
+      "version": "20260927185000",
+      "sha256": "1e2267f4b714870937f3ace30e7fc9b0bcfc6fca041205abf9d2685217bd1742"
+    },
+    {
+      "name": "20260929212000_align_assistant_durable_contract.sql",
+      "version": "20260929212000",
+      "sha256": "d832c684d2f107562686b1c1500243f88bc4dd073e62debea58c7203da969fca"
+    },
+    {
+      "name": "20261003132000_product_customer_contact_commands.sql",
+      "version": "20261003132000",
+      "sha256": "3e4b4126d1fcf46df5df721a37cf829451d81dba9142fa04292260d6c8564287"
+    },
+    {
+      "name": "20261003134000_product_identity_editor_reads.sql",
+      "version": "20261003134000",
+      "sha256": "b5339c6887eba7993d0f34829a6af2089f7d5537b55f418b11601ef57eca688a"
+    },
+    {
+      "name": "20261004160000_product_work_commands.sql",
+      "version": "20261004160000",
+      "sha256": "3bc4796435f546879f46ac647154bd7a3d2c9f1a8cdacea2683b70cc57fb2f5b"
+    },
+    {
+      "name": "20261004162000_product_work_reads.sql",
+      "version": "20261004162000",
+      "sha256": "cd90b05178351a47dbdc4dc2ddd8e2913fe7107b1db260cfcdd271c6b4b8abbb"
+    },
+    {
+      "name": "20261004163000_product_identity_commercial_policy.sql",
+      "version": "20261004163000",
+      "sha256": "e7d692bd3fcfcc91a6a32e66297edfb7c5d21ca6338f250d0f3573a8b2e7f7d7"
+    },
+    {
+      "name": "20261004170000_product_dashboard_search.sql",
+      "version": "20261004170000",
+      "sha256": "e38237d809a2dc4970a2b02eaae6cba16a3dfce702070c4cec69d0a63d86df23"
+    },
+    {
+      "name": "20261004173000_billing_exact_issue.sql",
+      "version": "20261004173000",
+      "sha256": "189956cc71427a945888fbc8359594d5f0bad0c3a1979218e3c02f89fd5867ef"
+    },
+    {
+      "name": "20261004174000_billing_protected_reads.sql",
+      "version": "20261004174000",
+      "sha256": "3f26a7f74ee20328aea0e9426f3f66009aad0627e594c9bc9ff974f21e64f0ca"
+    },
+    {
+      "name": "20261004175000_product_dashboard_financial.sql",
+      "version": "20261004175000",
+      "sha256": "4c1366d8e4fe999270c9d2a33fbee3848759395c7bd20c01a68033575693ee16"
+    },
+    {
+      "name": "20261004180000_billing_normalized_proposal.sql",
+      "version": "20261004180000",
+      "sha256": "5e1cca230a6ec6c2b6a48515c4b54963f738cdee968a82d4a269a320beba4335"
+    },
+    {
+      "name": "20261004183000_team_protected_management.sql",
+      "version": "20261004183000",
+      "sha256": "ce1ac3ba62db8fd95aaa240096d1d7297c172279e5b2f96530cc08336d8656d1"
+    },
+    {
+      "name": "20261004190000_portfolio_human_commands.sql",
+      "version": "20261004190000",
+      "sha256": "9c08ee2040aaae9a7868f35d77f6672341f5becd4d1eb4181a214486074bf0fa"
+    },
+    {
+      "name": "20261004193000_portfolio_deadline_commands.sql",
+      "version": "20261004193000",
+      "sha256": "1f1d500ccd44487e5e3a277a5bcbbcf821216fcb3d25ef77191cd866f67a8d03"
+    },
+    {
+      "name": "20261004200000_product_protected_invoice_search.sql",
+      "version": "20261004200000",
+      "sha256": "196b051fa84ff97be18fb7eaceef1ab1efbbf73c075f8e446fa1c7859de04166"
+    },
+    {
+      "name": "20261004203000_document_metadata_commands.sql",
+      "version": "20261004203000",
+      "sha256": "21cc8c4c82ee80c847086c99771bcdf0a16fcf1d06f0ba64db84134540cd550c"
+    },
+    {
+      "name": "20261004204500_portfolio_explicit_child_provenance.sql",
+      "version": "20261004204500",
+      "sha256": "7341e1b6fe284a7016abfdca5aaa6f2316cc33024f25aaa3d332ae0cc0f4b138"
+    },
+    {
+      "name": "20261005120000_document_content_workflow.sql",
+      "version": "20261005120000",
+      "sha256": "4437725149fd9ced430b8645abb92fb04ac8c7b266d1ba1f9acdaddadbe7bd6c"
+    },
+    {
+      "name": "20261005123000_private_invoice_pdf_artifacts.sql",
+      "version": "20261005123000",
+      "sha256": "e37835f73f655271799557dc784ccb8a6820f8641bc023ea60f6cb5f7e52e6d9"
+    },
+    {
+      "name": "20261005130000_import_job_product_management.sql",
+      "version": "20261005130000",
+      "sha256": "4c183d14bb9889a0ac5faeacc7bb00dd3fb8140bac7e9b605ca91895d3f2b293"
+    },
+    {
+      "name": "20261005133000_internal_inbox_domain.sql",
+      "version": "20261005133000",
+      "sha256": "e3e4cc891ad1376c38474e1b2aee27829b76957826c63de676cde158ae7cd43c"
+    },
+    {
+      "name": "20261005140000_personal_notification_center.sql",
+      "version": "20261005140000",
+      "sha256": "fca59c25f8080c2636372d8fc00669732a976a8d896d6174b3f04e8a1d7c32b6"
+    },
+    {
+      "name": "20261005143000_registered_internal_automations.sql",
+      "version": "20261005143000",
+      "sha256": "0ba2fe39889c8657fa8b87f48b1230d0cad904a44354ab80763571b243e9e72b"
+    },
+    {
+      "name": "20261005150000_product_settings_profiles.sql",
+      "version": "20261005150000",
+      "sha256": "6f2029b6848797503d698e22765df32fe9d9e0fbe20ab9ef9dc3e41f2283a281"
+    },
+    {
+      "name": "20261005153000_requested_sensitive_reveal.sql",
+      "version": "20261005153000",
+      "sha256": "c201d80a4eb2d014b9935a3fea722d1bea6ac7e499752a5a881e2294f211c11d"
+    },
+    {
+      "name": "20261005160000_team_expiry_manual_origin.sql",
+      "version": "20261005160000",
+      "sha256": "291968f610f1d2470465b867df96e1b6fead4bcc91ad5dd11edd6bf902e62ed9"
+    },
+    {
+      "name": "20261005160500_contact_origin_without_legacy_source.sql",
+      "version": "20261005160500",
+      "sha256": "e62f22711b3d6eac4cba8325e808dd16b407ba32126c9ad92c973acbc820fdd1"
+    },
+    {
+      "name": "20261005163000_document_integrity_expired_cleanup.sql",
+      "version": "20261005163000",
+      "sha256": "92ebe0932250c2b072c79845ac1b47194a7a2d0818868d4ca29ddf9555ac120c"
+    },
+    {
+      "name": "20261005164500_document_target_ancestry_serialization.sql",
+      "version": "20261005164500",
+      "sha256": "77d21735511cd058d39bdd1ed16b48ec9b02c881a3b77af72dc4b316d9af8b27"
+    },
+    {
+      "name": "20261005203000_document_cleanup_replay_serialization.sql",
+      "version": "20261005203000",
+      "sha256": "8859a644e11db7c0d72d44e45d15d34cb518d035d0588bf09c019f7cfa3d1082"
+    },
+    {
+      "name": "20261005213000_telecom_commercial_collections.sql",
+      "version": "20261005213000",
+      "sha256": "528931de801fabd19f953d2d9564ffd7b6b25e9b3390b93936bce933b127799d"
+    },
+    {
+      "name": "20261005220000_protected_telecom_identifiers.sql",
+      "version": "20261005220000",
+      "sha256": "3b56e254b9324c2fa94488f4f0eb97d7db39e070c54e641fcc9c8e89cf7b1d77"
+    },
+    {
+      "name": "20261005223000_immutable_commercial_catalog.sql",
+      "version": "20261005223000",
+      "sha256": "759f9d6b3aa1b8e50e0e64b03a435dfccc8221c39f8d6fd6124a1acac571c4da"
+    },
+    {
+      "name": "20261006110000_commercial_portability_workflow.sql",
+      "version": "20261006110000",
+      "sha256": "2ec35807630a626795a49cd09721accb668821a359a019a29a1ba82c65d606c8"
+    },
+    {
+      "name": "20261006113000_product_service_case_workflow.sql",
+      "version": "20261006113000",
+      "sha256": "78323eb49f5ede3a5538747df50612dce7119992b9891149ba226f152d0cc649"
+    },
+    {
+      "name": "20261006120000_commercial_sim_esim_history.sql",
+      "version": "20261006120000",
+      "sha256": "0df8d32c8dc09234018a68b771de4cca1d44eecc428eb3f8eda41eea9ebaca06"
+    },
+    {
+      "name": "20261006123000_sim_association_snapshot_cas.sql",
+      "version": "20261006123000",
+      "sha256": "169273dd12ae8c6e9d963b062b3311024a880b3e6e8d96a616d6eb7c6ab9649c"
+    },
+    {
+      "name": "20261006130000_telecom_customer360_report_reads.sql",
+      "version": "20261006130000",
+      "sha256": "5ae5dd4f643de7e4af55109e6da98993e8d3514a1c147197e2055dcc630d4876"
+    },
+    {
+      "name": "20261006133000_dense_masked_line_collection.sql",
+      "version": "20261006133000",
+      "sha256": "bb1a639032308f2459a63b7b459ff1ab58ee368d0539cf92ca00b028166f058c"
+    },
+    {
+      "name": "20261006140000_deterministic_telecom_attention.sql",
+      "version": "20261006140000",
+      "sha256": "3fc65dc1579c0ad39b7fa52ec0abb06bd0e6b6c388f805728d1aafcb1261d570"
+    },
+    {
+      "name": "20261006143000_currency_separated_billing_cohort_reads.sql",
+      "version": "20261006143000",
+      "sha256": "2642d76790b873cee0016d811978eaba72a7c02d6a179ecc95aa6f26b0ef8e0f"
+    },
+    {
+      "name": "20261006150000_full_customer360_work_collections.sql",
+      "version": "20261006150000",
+      "sha256": "97338cbadb84c5e0407615125d3ae08b918ab2040df57747d584bd19f5052de6"
+    },
+    {
+      "name": "20261006153000_service_installation_and_addon_history.sql",
+      "version": "20261006153000",
+      "sha256": "21b0272260fd3bc8c2f137dec793531012ecdf3f6ba08cd6cc8bddd9584ea2b7"
+    },
+    {
+      "name": "20261006160000_normalized_private_service_locations.sql",
+      "version": "20261006160000",
+      "sha256": "5e3e76174e5aec3f33f70d756f173d60819c85dff8b4e844ea49e54cebe28926"
+    },
+    {
+      "name": "20261006163000_bounded_commercial_equipment.sql",
+      "version": "20261006163000",
+      "sha256": "9484f47d5e427933afec457960b5687e49445f0a1199515f3ec69736509df2b6"
+    },
+    {
+      "name": "20261006221500_registered_external_identities.sql",
+      "version": "20261006221500",
+      "sha256": "93c5692cd69230080fa4fd773f67d2150c85f33414ff704fad6f4897a5c0065c"
+    },
+    {
+      "name": "20261008010000_align_provider_rpc_execution_grants.sql",
+      "version": "20261008010000",
+      "sha256": "700d2dea9db5351cb97a0256461e67e93d399d9c0b8320bbd2e8b96ed4f6da9b"
+    }
+  ]
+}
