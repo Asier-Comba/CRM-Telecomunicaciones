@@ -4,7 +4,7 @@ import {readJson,root} from './lib.mjs'
 
 const path='docs/master/platform/ENTERPRISE_BOOTSTRAP_MATRIX.json',matrix=readJson(path)
 const flags=['IMPLEMENTED','LOCALLY_PROVEN','EXTERNAL_CONFIG_REQUIRED','STAGING_PROVEN','PROD_PROVEN']
-if(!Array.isArray(matrix.rows)||new Set(matrix.rows.map(r=>r.subsystem)).size!==22)throw new Error('READINESS_SUBSYSTEM_INVENTORY_INVALID')
+if(!Array.isArray(matrix.rows)||matrix.rows.length!==22||new Set(matrix.rows.map(r=>r.subsystem)).size!==22)throw new Error('READINESS_SUBSYSTEM_INVENTORY_INVALID')
 for(const row of matrix.rows){
  if(flags.some(k=>typeof row[k]!=='boolean')||!row.OWNER||!Object.hasOwn(row,'EVIDENCE_SHA')||!Object.hasOwn(row,'EVIDENCE_RUN')||!row.local_proof_scope)throw new Error('READINESS_EVIDENCE_FIELDS_REQUIRED')
  if(row.LOCALLY_PROVEN&&(!/^[a-f0-9]{40}$/.test(row.EVIDENCE_SHA??'')||!/^https:\/\/github.com\/Asier-Comba\/CRM-Telecomunicaciones\/actions\/runs\/\d+$/.test(row.EVIDENCE_RUN??'')))throw new Error('READINESS_LOCAL_EVIDENCE_REQUIRED')

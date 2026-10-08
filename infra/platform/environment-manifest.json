@@ -1051,10 +1051,7 @@
       "type": "hex32",
       "secret": true,
       "target": [
-        "LOCAL",
-        "DEV",
-        "STAGING",
-        "PROD"
+        "LOCAL"
       ],
       "required": {
         "LOCAL": false,
@@ -1074,7 +1071,7 @@
       "revocation_expectation": "Company-approved provider-specific revoke and old-credential denial; no automatic live revocation.",
       "health_test_reference": "tests/platform/monitor.test.mjs rotation simulation; accepted provider-specific live test still required.",
       "provider": "import_staging",
-      "destination": "environment-specific secret store",
+      "destination": "Ephemeral disposable local test process only; forbidden in hosted environments",
       "required_when": {
         "name": "IMPORT_STAGING_ADAPTER",
         "equals": "disposable-local"
@@ -1545,13 +1542,14 @@
         "scripts/platform"
       ],
       "validation_rule": "path",
-      "description": "Configuration binding for N8N_DATABASE_PASSWORD_FILE; presence does not prove provider readiness.",
+      "description": "Reference path only; file contents are private credentials, never included in public configuration/builds/logs. Company runtime remains disabled.",
       "rotation_expectation": "Review on release/config change.",
       "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
       "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
-      "provider": "application",
-      "destination": "environment-specific configuration",
-      "required_when": null
+      "provider": "n8n_postgres",
+      "destination": "Private per-environment host secret file mounted read-only at /run/secrets/n8n_database_password",
+      "required_when": null,
+      "file_content_secret": true
     },
     {
       "name": "N8N_DEFAULT_TIMEOUT_MS",
@@ -1633,13 +1631,14 @@
         "scripts/platform"
       ],
       "validation_rule": "path",
-      "description": "Configuration binding for N8N_ENCRYPTION_SECRET_FILE; presence does not prove provider readiness.",
+      "description": "Reference path only; file contents are private credentials, never included in public configuration/builds/logs. Company runtime remains disabled.",
       "rotation_expectation": "Review on release/config change.",
       "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
       "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
-      "provider": "application",
-      "destination": "environment-specific configuration",
-      "required_when": null
+      "provider": "n8n",
+      "destination": "Private per-environment host secret file mounted read-only at /run/secrets/n8n_encryption_key",
+      "required_when": null,
+      "file_content_secret": true
     },
     {
       "name": "N8N_ENV_FILE",
