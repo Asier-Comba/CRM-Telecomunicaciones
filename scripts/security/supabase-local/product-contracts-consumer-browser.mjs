@@ -19,7 +19,12 @@ export async function contractsConsumerBrowser({page,origin,sql,wa,check,screens
    const row=page.locator('[data-domain-id="'+soldContractId+'"]:visible')
    await expect(row).toHaveCount(1);await expect(row).toContainText('Versión 1 · 19,00 EUR')
    const panel=page.getByRole('tabpanel').locator('section').filter({has:page.getByRole('heading',{name:'Contratos',exact:true})})
-   await panel.evaluate(element=>element.scrollIntoView({block:'start',inline:'nearest'}));await expect(panel).toBeInViewport({ratio:1});await expect(row).toBeInViewport({ratio:1});await expect(panel.locator('footer')).toBeInViewport({ratio:1})
+   await panel.evaluate(element=>element.scrollIntoView({block:'start',inline:'nearest'}))
+   step('sold_version_detail_'+width+'_panel');await expect(panel).toBeInViewport({ratio:1})
+   step('sold_version_detail_'+width+'_row');await expect(row).toBeInViewport({ratio:1})
+   step('sold_version_detail_'+width+'_origin');await expect(row.getByText('Manual',{exact:true})).toBeInViewport({ratio:1})
+   step('sold_version_detail_'+width+'_footer');await expect(panel.locator('footer')).toBeInViewport({ratio:1})
+   step('sold_version_detail_'+width+'_capture')
    await page.screenshot({path:resolve(screenshotDir,'contract-sold-version-detail-'+width+'.png'),fullPage:true})
    if(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1))throw Error('CONTRACT_DETAIL_OVERFLOW')
   }
