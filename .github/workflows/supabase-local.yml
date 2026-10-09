@@ -36,6 +36,19 @@ on:
       - 'src/features/documents/**'
       - 'src/features/opportunities/**'
       - 'src/features/portfolio/**'
+      - 'src/features/services/**'
+      - 'src/features/cases/**'
+      - 'src/features/sims/**'
+      - 'src/app/(saas)/sims/**'
+      - 'src/features/portabilities/**'
+      - 'src/app/(saas)/portabilities/**'
+      - 'src/app/(saas)/cases/**'
+      - 'src/features/equipment/**'
+      - 'src/features/catalog/**'
+      - 'src/features/attention/**'
+      - 'src/features/product/ui.tsx'
+      - 'src/components/ConfirmDialog.tsx'
+      - 'src/app/(saas)/services/**'
       - 'src/features/settings/**'
       - 'src/features/inbox/**'
       - 'src/features/notifications/**'
@@ -98,7 +111,7 @@ jobs:
   local-platform:
     name: Supabase local Auth PostgREST Storage acceptance
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
@@ -121,7 +134,9 @@ jobs:
       - name: Disposable real-local stack and acceptance
         env:
           W2_PRODUCT_UI: 'true'
-        run: node scripts/security/supabase-local/run-stack.mjs
+        # Match test:assistant: the unchanged ConversationServiceV2 uses a
+        # TypeScript parameter property, which strip-only Node cannot import.
+        run: node --experimental-transform-types scripts/security/supabase-local/run-stack.mjs
       - name: Retain safe summary only
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
@@ -135,4 +150,11 @@ jobs:
         with:
           name: w2-product-ui-synthetic-screenshots
           path: ${{ runner.temp }}/w2-product-ui
+          retention-days: 7
+      - name: Retain synthetic history UI screenshots
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: w3-history-ui-synthetic-screenshots
+          path: ${{ runner.temp }}/w3-history-ui
           retention-days: 7

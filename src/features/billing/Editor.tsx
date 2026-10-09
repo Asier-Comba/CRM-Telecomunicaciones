@@ -1,6 +1,6 @@
 'use client'
 import { invoicePreviewTotals } from './integration'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { Plus, Trash2, Download } from 'lucide-react'
 import { Drawer, control, primary } from '@/features/product/ui'
 import {
@@ -11,6 +11,7 @@ import {
 import type { InvoiceItem } from '@/lib/invoicing/types'
 import { buildInvoicePdfBytes } from './pdf'
 import { validateDraft, type InvoiceFormData, type InvoiceLink } from './model'
+import { InvoiceRelationSelect } from './InvoiceRelationSelect'
 import type { CompanyForm } from '@/features/settings/LocalCompany'
 const money = formatInvoiceCurrency
 export function InvoiceEditor({
@@ -26,7 +27,10 @@ export function InvoiceEditor({
   serverError,
   onRetry,
   onReload,
+  onReadRecorded,
+  readingRecorded = false,
   immutableCustomer = false,
+  authorizedRelations = false,
 }: {
   initial: InvoiceFormData
   customers: { id: string; name: string }[]
@@ -40,13 +44,19 @@ export function InvoiceEditor({
   serverError?: string
   onRetry?: () => void
   onReload?: () => void
+  onReadRecorded?: () => void
+  readingRecorded?: boolean
   immutableCustomer?: boolean
+  authorizedRelations?: boolean
 }) {
   const [form, setForm] = useState(initial),
     [errors, setErrors] = useState<string[]>([]),
     [reviewed, setReviewed] = useState(false),
     totals = calculateInvoiceTotals(form.items)
   const exact=integrated?invoicePreviewTotals(form):null
+  const [verifiedLinks,setVerifiedLinks]=useState<Partial<Record<InvoiceLink['kind'],{id:string;link:InvoiceLink|null}>>>({})
+  const rememberLink=useCallback((kind:InvoiceLink['kind'],id:string,link:InvoiceLink|null)=>setVerifiedLinks(previous=>{const before=previous[kind];return before?.id===id&&JSON.stringify(before.link)===JSON.stringify(link)?previous:{...previous,[kind]:{id,link}}}),[])
+  const currentLinks=authorizedRelations?Object.values(verifiedLinks).flatMap(entry=>entry?.link&&entry.id===form[entry.link.kind]&&entry.link.customerId===form.clientId?[entry.link]:[]):links
   function lineMoney(item:InvoiceFormData['items'][number]){const value=integrated?invoicePreviewTotals({...form,items:[item]}):null;return integrated?(value?money(value.total_minor/100,form.currency):'—'):money(calcLineTotals(item).lineTotal,form.currency)}
   function field<K extends keyof InvoiceFormData>(
     key: K,
@@ -75,7 +85,7 @@ export function InvoiceEditor({
     const next = validateDraft(
       form,
       customers.map((c) => c.id),
-      links,
+      currentLinks,
     )
     setErrors(next)
     if (!next.length && reviewed) onSave(structuredClone(form))
@@ -84,7 +94,7 @@ export function InvoiceEditor({
     const next = validateDraft(
       form,
       customers.map((c) => c.id),
-      links,
+      currentLinks,
     )
     setErrors(next)
     if (next.length) return
@@ -100,7 +110,7 @@ export function InvoiceEditor({
         notes: `BORRADOR LOCAL DE DEMOSTRACIÓN · NO EMITIDO\n${form.notes}`,
         issuer: { ...issuer, legalName: issuer.legalName },
         customer: { name: client.name },
-        linkedOpportunity: links.find(
+        linkedOpportunity: currentLinks.find(
           (l) => l.kind === 'opportunityId' && l.id === form.opportunityId,
         )?.label,
         exchange:
@@ -148,6 +158,7 @@ export function InvoiceEditor({
       {serverError && <p role="alert" className="text-sm text-red-700">{serverError}</p>}
       {onRetry && <button type="button" className={primary} onClick={onRetry}>Reintentar la misma acción</button>}
       {onReload && <button type="button" className={control} onClick={onReload}>Recargar y revisar</button>}
+      {onReadRecorded && <><p role="status" className="text-sm text-slate-600">El cambio está registrado. Consulta la factura para confirmar sus datos actuales.</p><button type="button" className={control} onClick={onReadRecorded} disabled={readingRecorded}>Consultar factura registrada</button></>}
       <fieldset disabled={locked} className="space-y-4">
       {warnings.map((w) => (
         <p key={w} role="status" className="text-xs text-amber-700">
@@ -227,7 +238,7 @@ export function InvoiceEditor({
           </p>
         </div>
       </div>
-      <fieldset className="grid gap-2 rounded-lg border border-slate-200 p-3 sm:grid-cols-3">
+      <fieldset data-invoice-relations={authorizedRelations?"authorized":undefined} className="grid gap-2 rounded-lg border border-slate-200 p-3 sm:grid-cols-3">
         <legend className="px-1 text-xs font-semibold text-slate-700">
           Vínculos de prueba del cliente
         </legend>
@@ -237,7 +248,7 @@ export function InvoiceEditor({
             ['contractId', 'Contrato'],
             ['serviceId', 'Servicio'],
           ] as const
-        ).map(([kind, label]) => (
+        ).map(([kind, label]) => authorizedRelations?<InvoiceRelationSelect key={JSON.stringify([kind,form.clientId,kind==='serviceId'?form.contractId:null])} kind={kind} customerId={form.clientId??''} contractId={kind==='serviceId'?form.contractId:null} value={form[kind]??''} onChange={id=>{setErrors([]);field(kind,id||null)}} onVerified={rememberLink}/>: (
           <label key={kind} className="min-w-0 text-xs text-slate-500">
             {label}
             <select

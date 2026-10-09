@@ -3,6 +3,7 @@ import { existsSync, readFileSync, readdirSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { createHash,randomBytes,randomUUID } from 'node:crypto'
 import { waitForAssistantPortRelease } from './assistant-port-release.mjs'
+import { observeAssistantServerDiagnostics } from './assistant-server-diagnostics.mjs'
 
 // Deliberately CI-only: no hosted URL/token/password and no reusable local DB.
 const project = 'crm-telecom-local'
@@ -83,7 +84,8 @@ try {
       stage='assistant_history_transport_start'
       console.log('{"kind":"local_acceptance_progress","phase":"assistant_history_start"}')
       const assistantAppUrl='http://127.0.0.1:3109'
-      assistantServer=spawn(process.execPath,['node_modules/next/dist/bin/next','dev','--webpack','--hostname','127.0.0.1','--port','3109'],{stdio:'ignore',env:{...process.env,NODE_ENV:'development',NEXT_PUBLIC_SUPABASE_URL:url,NEXT_PUBLIC_SUPABASE_ANON_KEY:anon,PRODUCT_V1_ENABLED:'true',PRODUCT_LOCAL_INTEGRATION:'true',PRODUCT_LOCAL_SYNTHETIC:'true',AI_PRODUCT_V2_ENABLED:'true',PRODUCT_V1_ORIGIN:assistantAppUrl,OPENAI_API_KEY:''}})
+      assistantServer=spawn(process.execPath,['node_modules/next/dist/bin/next','dev','--webpack','--hostname','127.0.0.1','--port','3109'],{stdio:['ignore','pipe','pipe'],env:{...process.env,NODE_ENV:'development',NEXT_PUBLIC_SUPABASE_URL:url,NEXT_PUBLIC_SUPABASE_ANON_KEY:anon,PRODUCT_V1_ENABLED:'true',PRODUCT_LOCAL_INTEGRATION:'true',PRODUCT_LOCAL_SYNTHETIC:'true',AI_PRODUCT_V2_ENABLED:'true',PRODUCT_V1_ORIGIN:assistantAppUrl,OPENAI_API_KEY:''}})
+      observeAssistantServerDiagnostics(assistantServer,evidence)
       let assistantReady=false
       for(let attempt=0;attempt<20;attempt++){try{const response=await fetch(assistantAppUrl+'/api/assistant/v2/threads',{method:'POST',signal:AbortSignal.timeout(15000)});if(response.status===403){assistantReady=true;break}}catch{}await new Promise(resolve=>setTimeout(resolve,250))}
       if(!assistantReady)throw new Error('ASSISTANT_HISTORY_TRANSPORT_NOT_READY')

@@ -24,7 +24,9 @@ export function PreviewNotice() {
 }
 export function Kpis({
   items,
+  compact = false,
 }: {
+  compact?: boolean
   items: Array<{
     label: string
     value: ReactNode
@@ -33,15 +35,15 @@ export function Kpis({
   }>
 }) {
   return (
-    <dl className="grid grid-cols-2 gap-3 md:grid-cols-4">
+    <dl className={compact ? "grid grid-cols-2 gap-2 md:grid-cols-4 xl:grid-cols-8" : "grid grid-cols-2 gap-3 md:grid-cols-4"}>
       {items.map((item) => (
         <div
           key={item.label}
-          className="min-w-0 rounded-xl border border-slate-200 bg-white px-4 py-3 shadow-sm"
+          className={compact ? "min-w-0 rounded-lg border border-slate-200 bg-white p-2" : "min-w-0 rounded-xl border border-slate-200 bg-white px-4 py-3 shadow-sm"}
         >
           <dt className="text-xs font-medium text-slate-500">{item.label}</dt>
           <dd
-            className={`mt-1 break-words text-xl font-bold tracking-tight sm:text-2xl ${item.tone ?? 'text-slate-950'}`}
+            className={`mt-1 break-words font-bold tracking-tight ${compact ? "text-lg" : "text-xl sm:text-2xl"} ${item.tone ?? 'text-slate-950'}`}
           >
             {item.value}
           </dd>
@@ -125,22 +127,23 @@ const statusNames: Readonly<Record<string, string>> = {
     inactive: 'Inactivo',
     suspended: 'Suspendido',
     draft: 'Borrador',
+    issued: 'Emitida', paid: 'Cobrada', trashed: 'Papelera',
     expired: 'Caducada', pending: 'Pendiente',
     in_progress: 'En curso',
     open: 'Abierta',
     won: 'Ganada',
     lost: 'Perdida',
     completed: 'Completada',
-    scheduled: 'Programada', returned:'Devuelto', overdue:'Vencido', upcoming:'Próximo', archived:'Archivado',cancelled:'Cancelado',ended:'Finalizado',retired:'Retirado',prepared:'Preparada',assigned:'Asignada',replaced:'Sustituida',requested:'Solicitada',rejected:'Rechazada',waiting_customer:'Esperando al cliente',waiting_operator:'Esperando al operador',resolved:'Resuelta',closed:'Cerrada',no_show:'No asistió',dismissed:'Descartada',not_applicable:'No aplica',
+    scheduled: 'Programada', returned:'Devuelto', overdue:'Vencido', upcoming:'Próximo', archived:'Archivado',cancelled:'Cancelado',ended:'Finalizado',removed:'Retirado',retired:'Retirado',prepared:'Preparada',assigned:'Asignada',replaced:'Sustituida',requested:'Solicitada',rejected:'Rechazada',waiting_customer:'Esperando al cliente',waiting_operator:'Esperando al operador',resolved:'Resuelta',closed:'Cerrada',no_show:'No asistió',dismissed:'Descartada',not_applicable:'No aplica',
 }
 export function statusLabel(value: string) { return statusNames[value] ?? value }
 export function Status({ value }: { value: string }) {
   return (
     <Badge
       variant={
-        ['active', 'won', 'completed'].includes(value)
+        ['active', 'won', 'completed', 'paid'].includes(value)
           ? 'success'
-          : ['suspended', 'lost'].includes(value)
+          : ['suspended', 'lost', 'overdue'].includes(value)
             ? 'warning'
             : 'default'
       }

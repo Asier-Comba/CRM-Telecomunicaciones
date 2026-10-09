@@ -4,6 +4,7 @@ import { customerPreview } from '@/lib/telecom-preview/data'
 import { Assistant } from '@/features/assistant/Assistant'
 import { integratedLocalAllowed } from '@/features/product/integration/mode'
 import { validAiEntityReference } from '@/features/assistant/w3-ui-contract'
+import { assistantLocalAllowedV2 } from '@/assistant/application-http-v2'
 export default async function AssistantPage({
   searchParams,
 }: {
@@ -11,7 +12,7 @@ export default async function AssistantPage({
 }) {
   if(integratedLocalAllowed()){
     const input=await searchParams,reference={kind:'customer',id:input.customer}
-    return <Assistant context={null} selectedReferences={validAiEntityReference(reference)?[reference]:[]} invoiceIntent={input.intent==='invoice'}/>
+    return <Assistant context={null} selectedReferences={validAiEntityReference(reference)?[reference]:[]} invoiceIntent={input.intent==='invoice'} persistedHistory={assistantLocalAllowedV2()}/>
   }
   if (!syntheticPreviewAllowed())
     return (

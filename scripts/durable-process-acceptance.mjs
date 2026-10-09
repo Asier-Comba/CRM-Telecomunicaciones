@@ -6,18 +6,19 @@ import { DURABLE_PROCESS_CONTRACT, DURABLE_PROCESS_SCENARIOS, validateDurableObs
 
 // Usage on repository Node24: node scripts/durable-process-acceptance.mjs /absolute/W2-driver.mjs
 // Driver receives credentials through its own approved local environment, never CLI JSON.
+async function main() {
 const modulePath = process.argv[2]
 if (!modulePath || !isAbsolute(modulePath)) {
   console.error('Required: absolute local W2 acceptance driver path; no database evidence produced.')
-  process.exit(2)
+  process.exitCode = 2; return
 }
 let driver
 try { driver = await import(pathToFileURL(modulePath).href) } catch {
-  console.error('adapter_load_failed'); process.exit(2)
+  console.error('adapter_load_failed'); process.exitCode = 2; return
 }
 if (!driver.metadata || Object.keys(driver.metadata).sort().join(',') !== 'backend,contract,disposable' ||
   driver.metadata.contract !== DURABLE_PROCESS_CONTRACT || driver.metadata.backend !== 'native_postgres' || driver.metadata.disposable !== true) {
-  console.error('disposable_native_postgres_driver_required'); process.exit(2)
+  console.error('disposable_native_postgres_driver_required'); process.exitCode = 2; return
 }
 const workerPath = fileURLToPath(new URL('./durable-process-worker.mjs', import.meta.url))
 const active = new Set()
@@ -125,3 +126,5 @@ try {
 } finally {
   for (const child of active) child.kill('SIGKILL')
 }
+}
+await main()

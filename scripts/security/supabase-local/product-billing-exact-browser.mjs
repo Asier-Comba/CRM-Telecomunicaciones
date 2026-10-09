@@ -1,6 +1,9 @@
 import {expect} from '@playwright/test'
 import {resolve} from 'node:path'
-export async function billingExactBrowser({page,origin,check,sql,wa,customerId,day,screenshotDir}){
+import {billingConfirmedReadBrowser} from './product-billing-confirmed-read-browser.mjs'
+import {billingMobileRowsBrowser} from './product-billing-mobile-rows-browser.mjs'
+import {billingAuthorizedRelationsBrowser} from './product-billing-authorized-relations-browser.mjs'
+export async function billingExactBrowser({page,origin,check,sql,wa,customerId,day,screenshotDir,report}){
  const button=name=>page.getByRole('button',{name,exact:true}),field=name=>page.getByLabel(name,{exact:true}),money=minor=>new Intl.NumberFormat('es-ES',{style:'currency',currency:'USD'}).format(minor/100)
  await check('billing_exact_lines_discount_tax_withholding_fx_review_and_replay',async()=>{
   await page.goto(origin+'/facturacion?customer='+customerId);await expect(button('Configurar emisor')).toBeEnabled();await button('Nuevo borrador local').click();await field('Concepto 1').fill('W2 P4 Exact Arithmetic');await field('Cantidad 1').fill('0');await page.getByRole('checkbox').check();await button('Guardar borrador local').click();await expect(page.getByRole('dialog').getByRole('alert')).toBeVisible();await expect(page.locator('[data-invoice-line-total="1"]')).toHaveText('—');
@@ -9,5 +12,8 @@ export async function billingExactBrowser({page,origin,check,sql,wa,customerId,d
   for(const width of [1440,768,390]){await page.setViewportSize({width,height:960});await page.getByRole('dialog').evaluate(el=>{el.scrollTop=el.scrollHeight});await page.screenshot({path:resolve(screenshotDir,'invoice-exact-arithmetic-'+width+'.png'),fullPage:true});if(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1))throw Error('INVOICE_EXACT_OVERFLOW')}
   let lost=true,bodies=[];await page.route('**/api/billing/v1/commands',async route=>{const p=route.request().postDataJSON();if(p.operation!=='invoice.create_draft')return route.continue();bodies.push(JSON.stringify(p));if(lost){lost=false;const result=await route.fetch();if(result.status()!==200)throw Error('INVOICE_REPLAY_NOT_COMMITTED');return route.abort('failed')}return route.continue()});
   try{await page.getByRole('checkbox').check();await button('Guardar borrador local').click();await expect(button('Reintentar la misma acción')).toBeVisible();await expect(field('Precio 1')).toBeDisabled();await button('Reintentar la misma acción').click();await expect(page.getByRole('dialog',{name:'Revisar borrador local',exact:true})).toHaveCount(0);if(bodies.length!==2||bodies[0]!==bodies[1])throw Error('INVOICE_REPLAY_CHANGED');if(Number(sql("select count(*) from public.billing_invoices where workspace_id='"+wa+"' and notes='W2 P4 Exact Arithmetic' and total_minor=21083 and currency='USD' and fx_rate_micros=900000 and number_sequence is null"))!==1)throw Error('INVOICE_EXACT_DUPLICATED_OR_WRONG');const invoiceId=sql("select id from public.billing_invoices where workspace_id='"+wa+"' and notes='W2 P4 Exact Arithmetic'");if(sql("select total_minor from public.billing_invoice_lines where invoice_id='"+invoiceId+"' and description='W2 Fractional rounding'")!=='3')throw Error('INVOICE_LINE_ROUNDING_DIFFERS');await page.reload();await page.locator('tr[data-invoice-id="'+invoiceId+'"]').getByRole('button',{name:'Abrir factura',exact:true}).click();await expect(page.getByText('Total confirmado por el servidor: '+money(21083),{exact:true})).toBeVisible()}finally{await page.unroute('**/api/billing/v1/commands');await page.setViewportSize({width:1440,height:960})}
+  await billingConfirmedReadBrowser({page,origin,sql,wa,customerId,day,screenshotDir})
+  await billingMobileRowsBrowser({page,origin,sql,wa,customerId,screenshotDir,report})
+  await billingAuthorizedRelationsBrowser({page,origin,sql,wa,customerId,day,screenshotDir,report})
  })
 }

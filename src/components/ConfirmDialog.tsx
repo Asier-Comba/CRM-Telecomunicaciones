@@ -18,6 +18,7 @@ export function ConfirmDialog({
   cancelLabel = 'Cancelar',
   destructive = false,
   loading = false,
+  confirmDisabled = false,
   error,
   onConfirm,
   onCancel,
@@ -30,6 +31,7 @@ export function ConfirmDialog({
   cancelLabel?: string
   destructive?: boolean
   loading?: boolean
+  confirmDisabled?: boolean
   error?: string | null
   onConfirm: () => void
   onCancel: () => void
@@ -79,7 +81,7 @@ export function ConfirmDialog({
         </div>
         <div className="flex justify-end gap-2 border-t border-gray-100 bg-gray-50/70 px-5 py-3">
           <Button ref={cancelRef} variant="secondary" size="sm" onClick={onCancel} disabled={loading}>{cancelLabel}</Button>
-          <Button variant={destructive ? 'danger' : 'primary'} size="sm" loading={loading} onClick={onConfirm}>
+          <Button variant={destructive ? 'danger' : 'primary'} size="sm" loading={loading} disabled={confirmDisabled} onClick={onConfirm}>
             {loading ? (loadingLabel ?? confirmLabel) : confirmLabel}
           </Button>
         </div>

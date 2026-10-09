@@ -11,12 +11,58 @@ node scripts/durable-process-acceptance.mjs /absolute/reviewed/w2-driver.mjs
 ```
 
 Metadata must be exactly `{contract:'assistant.durable-process.v2', backend:'native_postgres', disposable:true}`.
-A v1 driver is rejected rather than silently receiving new semantics. The exports,
-independent connection/PID requirements, credential boundary and cleanup rules in
-W3_DURABLE_PROCESS_ACCEPTANCE_V1.md continue to apply, except `inspectBoundary`
-now returns measured records described below instead of aggregate approval flags.
+A v1 driver is rejected rather than silently receiving new semantics. The
+required exports and connection/cleanup boundary are stated below. The former
+reference to W3_DURABLE_PROCESS_ACCEPTANCE_V1.md pointed to an absent file in the
+current tree; it is not a prerequisite or a source of unverified decisions.
 Missing driver exits2; failures exit1. Metadata and driver assertions are not
 independent proof: review the exact driver and authoritative ledgers.
+
+## Complete driver interface and owner boundary
+
+The executable sources are [runner](../../../scripts/durable-process-acceptance.mjs),
+[worker](../../../scripts/durable-process-worker.mjs) and
+[scenario/oracles](../../../src/assistant/durable-process-spec.ts). This section
+documents their existing calls; it changes neither code nor protocol. The driver
+must export the following in addition to the exact metadata above:
+
+| Export | Actual caller and requirement |
+|---|---|
+| `setupScenario(scenarioId)` | Parent; creates one isolated synthetic fixture and returns an opaque string matching `[A-Za-z0-9_-]{1,160}`. Never return a DSN, cookie, key or actor/workspace material. |
+| `connectWorker()` | Each separately forked worker/recovery process, before the start barrier; opens its own native PostgreSQL connection and returns its measured positive integer `pg_backend_pid()`. That same connection is used by `execute`. |
+| `execute(job, checkpoint)` | Worker; `job` contains the opaque fixture, exact scenario/action and optional `killAt`. Implements the real native transaction/effect/drain path. For a20-worker race, exactly one outcome has `authorization: 'granted'`. Recovery runs as action `recover_and_drain` in a new process. |
+| `inspectBoundary(fixture)` | Parent, after the cutpoint and before recovery; returns the measured scenario-specific rollback/restart/fence/immutable-audit evidence below. No aggregate approval booleans or in-memory substitute for DB state. |
+| `inspectScenario(fixture)` | Parent; returns exactly the closed `DurableObservation` fields in the scenario/oracle source, measured from authoritative DB rows and an independent synthetic effect ledger. |
+| `cleanupScenario(fixture)` | Parent in per-scenario `finally`, after terminating remaining child processes; removes only that driver's verified disposable fixture resources. Never delete/restart an existing personal/hosted/production database. |
+
+The `checkpoint(name)` callback is supplied by the worker wrapper. At the matching
+`killAt` it informs the parent and stays alive until the parent sends SIGKILL; the
+driver must await it at the exact transaction/effect/ACK boundary. A simulated
+exception, clean process exit or fabricated PID does not establish that cutpoint.
+Each worker has the existing30s watchdog. Race participants have distinct process
+and backend PIDs; recovery is a new process and actual independent connection.
+
+The reviewed local absolute driver path is the only CLI binding. The driver gets
+approved disposable credentials through its own local environment, never JSON
+CLI arguments, reports, committed fixtures or model input. Worker stdout/stderr
+remain ignored and failures use closed codes. Source review must verify native
+connection binding, real transaction/ledger implementation, teardown ownership
+and the exact DB cluster restart; self-reported metadata cannot prove them.
+
+The actual factory also needs the separate
+[`registerDurableAdapterConformance`](../../../tests/assistant/support/durable-conformance.ts)
+suite against the interfaces in
+[`durable-db-contract.ts`](../../../src/assistant/durable-db-contract.ts).
+The in-memory reference factory and its passing tests do not register a native
+production provider and cannot satisfy issue10.
+
+Owner handoff: W1/W2/W3 own the physical domain adapter/driver and its semantics;
+W5 owns only its separately reviewed native fixture/runtime/restart facilities.
+W4 owns independent execution/review. An infrastructure recovery test is not this
+business durability test. W5's offer of fixture assistance does not implicitly
+delegate W3 implementation or authorize provider registration, IA writes,
+staging, production, VPS or existing database changes. Any proposed boundary
+must identify the exact driver/factory and runtime sources before adoption.
 
 ## Added/strengthened scenarios
 

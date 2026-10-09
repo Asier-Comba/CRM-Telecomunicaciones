@@ -5,6 +5,18 @@ import {DocumentContentServiceV1}from '../../src/lib/server/document-content-ser
 import {documentContentHttpV1}from '../../src/lib/server/document-content-http-v1.ts'
 const id='a9100000-0000-4000-8000-000000000001',ref='b9100000-0000-4000-8000-000000000001',workspace='c9100000-0000-4000-8000-000000000001',command='d9100000-0000-4000-8000-000000000001'
 const upload={command_id:command,target_kind:'customer',target_id:id,document_kind:'general',media_type:'application/pdf',size_bytes:3,file_name:'Synthetic.pdf'}
+test('successful content HTTP commands expose receipt while binary upload exposes data',async()=>{
+ const origin='https://crm.example.invalid',headers={host:'crm.example.invalid',origin,'content-type':'application/json'}
+ const prepared={contract_version:'document.content.v1',operation:'document.request_upload',command_id:command,id,version:1,status:'pending',expires_at:'2026-10-05T12:10:00Z'}
+ const finalized={contract_version:'document.content.v1',operation:'document.finalize_upload',command_id:command,id,version:2,status:'active'}
+ const service=new DocumentContentServiceV1({resolve:async()=>({workspaceId:workspace,role:'owner'}),rpc:async name=>({error:null,data:name==='document_content_v1_request_upload'?prepared:name==='document_content_v1_finalize_upload'?finalized:{id,object_ref:ref,media_type:'application/pdf',size_bytes:3,expires_at:'2026-10-05T12:10:00Z'}}),upload:async()=> 'ok',download:async()=>null})
+ for(const [operation,input,receipt]of [['document.request_upload',upload,prepared],['document.finalize_upload',{command_id:command,id,expected_version:1},finalized]]){
+  const response=await documentContentHttpV1(new Request(origin+'/api/document/v1/content/commands',{method:'POST',headers,body:JSON.stringify({operation,input})}),'commands',async()=>service,origin)
+  assert.equal(response.status,200);assert.deepEqual(await response.json(),{ok:true,receipt})
+ }
+ const response=await documentContentHttpV1(new Request(origin+'/api/document/v1/content/upload?id='+id,{method:'POST',headers:{...headers,'content-type':'application/pdf','content-length':'3'},body:new Uint8Array([1,2,3])}),'upload',async()=>service,origin)
+ assert.equal(response.status,200);assert.deepEqual(await response.json(),{ok:true,data:{id,uploaded:true,finalized:false}})
+})
 test('content contracts reject authority, locators, arbitrary media and oversized intents',()=>{
  assert.ok(parseDocumentContentInputV1('document.request_upload',upload))
  for(const extra of [{storage_path:'arbitrary'},{workspace_id:workspace},{size_bytes:10485761},{file_name:'../x.pdf'},{media_type:'text/html'},{size_bytes:0}])assert.equal(parseDocumentContentInputV1('document.request_upload',{...upload,...extra}),null)

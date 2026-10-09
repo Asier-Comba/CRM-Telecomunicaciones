@@ -1,7 +1,16 @@
 'use client'
+import {CustomerRenewalsInventory} from '@/features/portfolio/CustomerRenewalsInventory'
+import {CustomerLinesInventory} from '@/features/portfolio/CustomerLinesInventory'
+import {CustomerPermanencesInventory} from '@/features/portfolio/CustomerPermanencesInventory'
+import {CustomerServicesInventory} from '@/features/services/CustomerServicesInventory'
+import {ContractsInventory} from '@/features/contracts/Contracts'
 import Link from 'next/link'
 import {AssignedCommercial} from '@/features/product/integration/AssignedCommercial'
 import {EquipmentInventory} from '@/features/equipment/EquipmentInventory'
+import {ServiceLocations} from '@/features/services/ServiceLocations'
+import {PortabilityInventory} from '@/features/portabilities/Portabilities'
+import {SimInventory} from '@/features/sims/Sims'
+import {CaseInventory} from '@/features/cases/Cases'
 import {SensitiveReveal} from './SensitiveReveal'
 import {CustomerDomainPages,isCustomerDomain} from './CustomerDomainPages'
 import {customerName,type CustomerIdentity} from './customer-identity'
@@ -11,11 +20,20 @@ import {CustomerCommunications} from './CustomerCommunications'
 import { IntegratedBilling } from '@/features/billing/IntegratedBilling'
 import { control, Status } from '@/features/product/ui'
 
-export const customerAreas=['Resumen','Empresa','Contactos','Contratos','Servicios','Líneas','SIM/eSIM','Portabilidades','Renovaciones','Permanencias','Oportunidades','Tareas','Reuniones','Incidencias','Equipos','Agenda','Documentos','Facturación','Actividad','Comunicaciones']
-export function CustomerIntegratedPanels({customer,area}:{customer:CustomerIdentity;area:string}){
+export const customerAreas=['Resumen','Empresa','Contactos','Contratos','Servicios','Ubicaciones','Líneas','SIM/eSIM','Portabilidades','Renovaciones','Permanencias','Oportunidades','Tareas','Reuniones','Incidencias','Equipos','Agenda','Documentos','Facturación','Actividad','Comunicaciones']
+export function CustomerIntegratedPanels({customer,area,onRecordCreated}:{customer:CustomerIdentity;area:string;onRecordCreated?:()=>void}){
+ if(area==='Permanencias')return <CustomerPermanencesInventory key={customer.id} customer={customer} createAllowed={customer.status==='active'} onCreated={onRecordCreated}/>
+ if(area==='Renovaciones')return <CustomerRenewalsInventory key={customer.id} customer={customer} createAllowed={customer.status==='active'} onCreated={onRecordCreated}/>
+ if(area==='Líneas')return <CustomerLinesInventory key={customer.id} customer={customer} createAllowed={customer.status==='active'} onCreated={onRecordCreated}/>
+ if(area==='Contratos')return <ContractsInventory key={customer.id} customerId={customer.id} createAllowed={customer.status==='active'} onCreated={onRecordCreated}/>
+ if(area==='Servicios')return <CustomerServicesInventory key={customer.id} customer={customer} createAllowed={customer.status==='active'} onCreated={onRecordCreated}/>
+ if(area==='Ubicaciones')return <ServiceLocations key={customer.id} customerId={customer.id} createAllowed={customer.status==='active'}/>
+ if(area==='Portabilidades')return <PortabilityInventory key={customer.id} customerId={customer.id} createAllowed={customer.status==='active'} onCreated={onRecordCreated}/>
+ if(area==='SIM/eSIM')return <SimInventory key={customer.id} customerId={customer.id} createAllowed={customer.status==='active'} onCreated={onRecordCreated}/>
+ if(area==='Incidencias')return <CaseInventory key={customer.id} customerId={customer.id} createAllowed={customer.status==='active'} onCreated={onRecordCreated}/>
  if(area==='Equipos')return <EquipmentInventory customerId={customer.id} createAllowed={customer.status==='active'}/>
  if(isCustomerDomain(area))return <CustomerDomainPages key={area} area={area} customerId={customer.id}/>
- if(area==='Agenda')return <IntegratedCalendar customerId={customer.id}/>
+ if(area==='Agenda')return <IntegratedCalendar customerId={customer.id} onCommitted={onRecordCreated}/>
  if(area==='Documentos')return <CustomerDocuments customerId={customer.id}/>
  if(area==='Facturación')return <IntegratedBilling initialCustomerId={customer.id}/>
  if(area==='Contactos')return null
