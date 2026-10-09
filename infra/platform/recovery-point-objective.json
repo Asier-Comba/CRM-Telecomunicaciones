@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "scope": "PREPARATORY_CONTRACT_NOT_ACTIVE_SCHEDULE",
+  "desired_rpo_seconds": 900,
+  "proposed_probe_interval_seconds": 60,
+  "metric": "age of oldest authenticated complete recoverable component in a coherent restore set",
+  "required_components": ["database", "auth", "storage_objects", "storage_metadata", "configuration", "secret_references"],
+  "optional_when_enabled": ["n8n_database", "n8n_configuration"],
+  "provider_adapter": "NOT_ACCEPTED",
+  "offsite_destination": "COMPANY_DECISION_REQUIRED",
+  "retention_region_kms": "COMPANY_DECISION_REQUIRED",
+  "notification_destination": "COMPANY_DECISION_REQUIRED",
+  "hosted_rpo_verified": false,
+  "hosted_scheduler_active": false,
+  "automatic_restore_allowed": false
+}
