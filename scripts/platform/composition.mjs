@@ -5,7 +5,7 @@ import {root, readJson} from './lib.mjs'
 
 export const sources = {
   platform: '85d3a60a7b34af4aac5465f3b30130f742e49900',
-  product: '9ab36e242ff4678ee518c1d1606f0035139fcd39',
+  product: '817c041afd730f250c6b2233e693f527267245cd',
 }
 const platformPaths = ['src/app/api/health/live/route.ts', 'src/app/api/health/ready/route.ts', 'src/app/fonts.css', 'src/app/layout.tsx']
 function git(args) {
@@ -51,7 +51,7 @@ export function composition() {
   const functions = manifest.functions.filter(f => f.signature.startsWith('public.'))
   if (functions.some(f => f.definer && f.public)) throw new Error('PUBLIC_DEFINER_EXECUTION')
   return {
-    version: 4, sources, merge_base: git(['merge-base', sources.platform, sources.product]).trim(),
+    version: 5, sources, merge_base: git(['merge-base', sources.platform, sources.product]).trim(),
     status: 'STATIC_COMPOSITION_CANDIDATE', composition_accepted: false,
     migrations: {platform: Object.keys(pm).length, product: Object.keys(qm).length, shared: migrations.shared, union: names.length, platform_only: migrations.platform_only, product_only: migrations.product_only, applied_database: 'NOT_PROVEN'},
     source_blobs: {product_paths_preserved: Object.keys(product).length - platformPaths.length, platform_paths_preserved: platformPaths, migration_blobs_identical: true},
