@@ -6,12 +6,12 @@ import { resolve } from 'node:path'
 /** Actual cookie browser/history RPC on the same disposable development app. */
 export async function assistantHistoryBrowser({ origin, cookie, call, sql, wa, users, check }) {
   const browser = await chromium.launch()
-  let context
+  let context,page,failureDir,phase='START'
   try {
     context = await browser.newContext({ viewport: { width:1440, height:960 } })
     await context.addCookies(cookie.split('; ').map(part => { const at=part.indexOf('='); return { name:part.slice(0,at), value:part.slice(at+1), url:origin } }))
-    const page=await context.newPage();page.setDefaultTimeout(30000)
-    const dir=resolve(process.env.RUNNER_TEMP,'w3-history-ui');mkdirSync(dir,{recursive:true})
+    page=await context.newPage();page.setDefaultTimeout(30000)
+    const dir=resolve(process.env.RUNNER_TEMP,'w3-history-ui');failureDir=dir;mkdirSync(dir,{recursive:true})
     const pending=op=>page.waitForResponse(response=>{try{return new URL(response.url()).pathname==='/api/assistant/v2/threads'&&response.request().postDataJSON().operation===op}catch{return false}})
     await page.goto(origin+'/assistant')
     await expect(page.getByRole('heading',{name:'Asistente de cartera',exact:true})).toBeVisible()
@@ -20,14 +20,19 @@ export async function assistantHistoryBrowser({ origin, cookie, call, sql, wa, u
     await page.getByLabel('Título de nueva conversación',{exact:true}).fill('W3 UI Synthetic History')
     // Keep route-handler failures in the awaited test path. Throwing from this
     // callback bypasses the harness report/teardown and hides the HTTP refusal.
-    let commitStatus=null
-    const creates=[],loseDelivery=async route=>{const request=route.request().postDataJSON();if(request.operation!=='thread.create'){await route.continue();return}creates.push(request);if(creates.length===1){try{commitStatus=(await route.fetch()).status()}catch{commitStatus=null}finally{await route.abort('failed')}}else await route.continue()}
+    let commitStatus=null,completeCommit
+    const commitComplete=new Promise(resolve=>{completeCommit=resolve})
+    const creates=[],loseDelivery=async route=>{const request=route.request().postDataJSON();if(request.operation!=='thread.create'){await route.continue();return}creates.push(request);if(creates.length===1){try{commitStatus=(await route.fetch()).status()}catch{commitStatus=null}finally{try{await route.abort('failed')}finally{completeCommit()}}}else await route.continue()}
     await page.route('**/api/assistant/v2/threads',loseDelivery)
     let response,body
     try{
-      await page.getByRole('button',{name:'Nueva conversación',exact:true}).click()
-      await expect(page.getByRole('alert').filter({hasText:'No se pudo confirmar el resultado.'})).toBeVisible();await expect(page.getByLabel('Título de nueva conversación',{exact:true})).toBeDisabled()
+      phase='CREATE_CLICK';await page.getByRole('button',{name:'Nueva conversación',exact:true}).click()
+      // Observe the upstream command inside the existing 30s page budget before
+      // testing its intentionally lost UI delivery (unchanged 5s expect budget).
+      phase='CREATE_UPSTREAM';let commitTimer
+      try{await Promise.race([commitComplete,new Promise((_,reject)=>{commitTimer=setTimeout(()=>reject(Error('W3_HISTORY_UI_CREATE_UPSTREAM_TIMEOUT')),30000)})])}finally{clearTimeout(commitTimer)}
       check(commitStatus===200,'assistant_history_browser_commit_before_delivery_loss_http_'+(commitStatus??'NO_RESPONSE'))
+      phase='CREATE_LOST_DELIVERY';await expect(page.getByRole('alert').filter({hasText:'No se pudo confirmar el resultado.'})).toBeVisible();await expect(page.getByLabel('Título de nueva conversación',{exact:true})).toBeDisabled()
       const created=pending('thread.create');await page.getByRole('button',{name:'Reintentar misma creación',exact:true}).click();response=await created;body=await response.json()
       check(creates.length===2&&JSON.stringify(creates[0])===JSON.stringify(creates[1]),'assistant_history_browser_same_create_identity_retry')
     }finally{await page.unrouteAll({behavior:'wait'})}
@@ -72,5 +77,10 @@ export async function assistantHistoryBrowser({ origin, cookie, call, sql, wa, u
     const last=await page.locator('[data-history-thread]').getAttribute('data-history-thread');check(!first.includes(last)&&new Set(first).size===20,'assistant_history_browser_thread_cursor_no_duplicates')
     await expect(page.getByRole('button',{name:'Más conversaciones',exact:true})).toBeDisabled();await page.getByRole('button',{name:'Conversaciones anteriores',exact:true}).click();await expect(page.locator('[data-history-thread]')).toHaveCount(20)
     return 'PASS_ACTUAL_COOKIE_BROWSER_HISTORY_CAS_PAGINATION_REVOCATION'
+  } catch(error) {
+    if(page&&!page.isClosed()&&failureDir)await page.screenshot({path:resolve(failureDir,'failed-history-'+phase+'.png'),fullPage:true}).catch(()=>{})
+    const message=String(error?.message??'')
+    if(/^CHECK_ASSISTANT_HISTORY_BROWSER_COMMIT_BEFORE_DELIVERY_LOSS_HTTP_(?:[1-5][0-9]{2}|NO_RESPONSE)$/.test(message)||message==='W3_HISTORY_UI_CREATE_UPSTREAM_TIMEOUT')throw error
+    throw Error('W3_HISTORY_UI_'+phase+'_'+(/timeout/i.test(message)?'TIMEOUT':'ACTION_FAILED'))
   } finally { await context?.close();await browser.close() }
 }
