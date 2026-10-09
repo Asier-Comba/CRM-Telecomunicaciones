@@ -6,6 +6,17 @@ export async function serviceConsumerBrowser({page,origin,id,sql,wa,users,check,
  const button=name=>page.getByRole('button',{name,exact:true}),step=name=>{report.w2_ui_action_step='service:'+name}
  const wait=operation=>page.waitForResponse(r=>{try{return r.request().method()==='POST'&&r.request().postDataJSON().operation===operation}catch{return false}})
  async function captures(prefix){for(const width of [1440,768,390]){await page.setViewportSize({width,height:960});await page.screenshot({path:resolve(screenshotDir,prefix+'-'+width+'.png'),fullPage:true});if(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1))throw Error('SERVICE_LAYOUT_OVERFLOW')}}
+ async function locationDetails(raw){
+  const heading=page.getByRole('heading',{name:'Ubicaciones de instalación',exact:true}),panel=page.getByRole('tabpanel').locator('section').filter({has:heading})
+  for(const width of [1440,768,390]){
+   step('location_detail_'+width);await page.setViewportSize({width,height:960})
+   await expect(panel.locator('[data-location-id]')).toHaveCount(4);await expect(panel).toContainText('Página 2 · 4 ubicaciones')
+   await expect(page.locator('body')).not.toContainText(raw)
+   await heading.scrollIntoViewIfNeeded();await expect(heading).toBeInViewport()
+   await page.screenshot({path:resolve(screenshotDir,'service-locations-detail-'+width+'.png'),fullPage:true})
+   if(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1))throw Error('LOCATION_DETAIL_OVERFLOW')
+  }
+ }
  async function post(path,operation,input){const r=await page.evaluate(async({path,operation,input})=>{const r=await fetch(path,{method:'POST',credentials:'same-origin',headers:{'content-type':'application/json'},body:JSON.stringify({operation,input})});return{status:r.status,body:await r.json()}},{path,operation,input});if(r.status!==200||!r.body.ok)throw Error('SERVICE_FIXTURE_NORMAL_COMMAND_FAILED');return r.body.receipt??r.body.data}
  await check('service_locations_normal_create_explicit_reveal_masked_cursor_three_widths',async()=>{
   step('location_create');await page.setViewportSize({width:1440,height:960});await page.goto(origin+'/clients/'+id);await page.getByRole('tab',{name:'Ubicaciones',exact:true}).click();await button('Nueva ubicación').click()
@@ -14,6 +25,7 @@ export async function serviceConsumerBrowser({page,origin,id,sql,wa,users,check,
   step('explicit_reveal');let reveals=0;const observe=r=>{try{if(r.postDataJSON().operation==='sensitive.get')reveals++}catch{}};page.on('request',observe);try{await row.getByRole('button',{name:'Revelar dirección',exact:true}).click();const dialog=page.getByRole('dialog',{name:'Dirección de instalación',exact:true});await expect(dialog).toBeVisible();if(reveals)throw Error('LOCATION_IMPLICIT_REVEAL');const reveal=wait('sensitive.get');await button('Consultar dirección autorizada').click();const rr=await reveal,input=rr.request().postDataJSON().input;if(input.entity_kind!=='service_location'||input.entity_id!==locationId||[...input.fields].sort().join(',')!==['address_line1','address_line2','postal_code','city','region','country'].sort().join(','))throw Error('LOCATION_REVEAL_FIELD_SCOPE');await expect(dialog.getByText(raw,{exact:true})).toBeVisible();await dialog.getByRole('button',{name:'Cerrar panel',exact:true}).click();await expect(page.locator('body')).not.toContainText(raw);if(await page.evaluate(raw=>location.href.includes(raw)||Object.values(localStorage).some(v=>v.includes(raw))||Object.values(sessionStorage).some(v=>v.includes(raw)),raw))throw Error('LOCATION_PRIVATE_PERSISTENCE')}finally{page.off('request',observe)}
   sql(`insert into public.telecom_service_locations(workspace_id,customer_id,label,address_line1,address_line2,postal_code,city,region,country,created_by_user_id)select '${wa}','${id}','W2 Synthetic Site '||i,'${raw}',null,'00000','Synthetic City',null,'ES','${users.ownerA.id}' from generate_series(1,23)i;`)
   step('location_collection');let read=wait('service_location.list');await button('Actualizar ubicaciones').click();let r=await read,b=await r.json();if(r.status()!==200||b.data.items.length!==20||!b.data.next_id)throw Error('LOCATION_BOUNDED_PAGE');const first=b.data.items.map(r=>r.id);await expect.poll(()=>page.locator('[data-location-id]').count()).toBe(20);read=wait('service_location.list');await button('Más ubicaciones').click();r=await read;b=await r.json();if(r.status()!==200||b.data.items.length!==4||b.data.next_id||b.data.items.some(r=>first.includes(r.id)))throw Error('LOCATION_CURSOR_COVERAGE');await expect.poll(()=>page.locator('[data-location-id]').count()).toBe(4);await expect(page.locator('body')).not.toContainText(raw);await captures('service-locations');await page.setViewportSize({width:1440,height:960})
+  await locationDetails(raw);await page.setViewportSize({width:1440,height:960})
   // Immutable synthetic address/history rows remain until whole disposable-stack teardown.
  })
  await check('service_installation_location_assignment_exact_retry_no_provider_activation',async()=>{
