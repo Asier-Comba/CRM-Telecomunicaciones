@@ -63,6 +63,10 @@ export async function recoveryRehearsal({url,anon,service,db,command,report,user
   report.negative_recovery.push(rejects(()=>verifyBundle(ambiguous),'AMBIGUOUS_BUCKET_INVENTORY_REJECTED'))
   for(const [name,mutation]of [['MISSING_OBJECT_BYTES_REJECTED',b=>b.objects[0].bytes=''],['PUBLIC_BUCKET_REJECTED',b=>b.buckets[0].public=true]]){const bad=structuredClone(recovered);mutation(bad);report.negative_recovery.push(rejects(()=>verifyBundle(bad),name))}
   const unknown=structuredClone(recovered.recovery_manifest);unknown.migrations.push({name:'20990101000000_unknown.sql'});report.negative_recovery.push(rejects(()=>verifyRecoveryManifest(unknown,manifest),'UNRECOGNIZED_MIGRATION_REJECTED'))
+  for(const [name,mutation]of [['UNDECLARED_PUBLIC_MANIFEST_FIELD_REJECTED',m=>m.undeclared='synthetic-only'],['UNDECLARED_PUBLIC_CONFIG_FIELD_REJECTED',m=>m.configuration[0].undeclared='synthetic-only'],['NONCANONICAL_PUBLIC_CONFIG_REJECTED',m=>m.configuration[0].bytes+='!']]){
+   const bad=structuredClone(recovered.recovery_manifest);mutation(bad)
+   report.negative_recovery.push(rejects(()=>verifyRecoveryManifest(bad,manifest),name))
+  }
   report.backup={database:'PASS',storage_bytes:'PASS',encryption:'AES-256-GCM',archive_sha256:hash(encrypted),objects:contents.objects.length,auth_scope:'LOCAL_USERS_IDENTITIES_ONLY_NO_SESSIONS',offsite:'NOT_PROVEN'}
   // Explicitly discard Environment A before reconstructing B. No reused SQL schema.
   command('supabase',['stop','--no-backup','--project-id','crm-telecom-local'],{timeout:120000})

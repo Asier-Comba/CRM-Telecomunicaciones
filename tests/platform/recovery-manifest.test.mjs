@@ -8,3 +8,19 @@ test('archive binds every canonical migration, public configuration, software an
  const mutations=[m=>m.source_sha='a'.repeat(40),m=>m.package_lock_sha256='b'.repeat(64),m=>m.migrations.push({name:'20990101000000_unknown.sql'}),m=>m.migrations[0].sha256='c'.repeat(64),m=>m.configuration.pop(),m=>m.configuration[0].bytes=Buffer.from('corrupt').toString('base64'),m=>m.configuration[0].path='../unsafe',m=>m.secret_references[0].destination='personal',m=>m.workflow_activation='ENABLED',m=>m.private_secret_values_included=true]
  for(const mutation of mutations){const actual=structuredClone(manifest);mutation(actual);assert.throws(()=>verifyRecoveryManifest(actual,manifest))}
 })
+
+test('public-only recovery manifest rejects undeclared fields at every inventory boundary',()=>{
+ const manifest=recoveryManifest()
+ for(const mutate of [m=>m.undeclared='synthetic-only',m=>m.configuration[0].undeclared='synthetic-only',m=>m.migrations[0].undeclared='synthetic-only',m=>m.secret_references[0].undeclared='synthetic-only']){
+  const bad=structuredClone(manifest);mutate(bad)
+  assert.throws(()=>verifyRecoveryManifest(bad,manifest))
+ }
+})
+
+test('public configuration must retain the exact canonical captured encoding',()=>{
+ const manifest=recoveryManifest()
+ for(const mutate of [m=>m.configuration[0].bytes+='!',m=>m.configuration[0].bytes+='\n',m=>{const entry=m.configuration.find(e=>/=+$/.test(e.bytes));assert.ok(entry,'capture includes a padded encoding fixture');entry.bytes=entry.bytes.replace(/=+$/,'')}]){
+  const bad=structuredClone(manifest);mutate(bad)
+  assert.throws(()=>verifyRecoveryManifest(bad,manifest))
+ }
+})
