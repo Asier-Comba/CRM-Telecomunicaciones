@@ -51,6 +51,11 @@ export async function productBrowserAcceptance({ users, wa, ca, sql, url, anon, 
     const receipt=parseDocumentContentReceiptV1('document.request_upload',input,body.receipt)
     if(!receipt)throw Error('DOCUMENT_PREPARE_RECEIPT_INVALID')
     await expect(page.getByText('Intención preparada. El archivo todavía no se ha subido.',{exact:true})).toBeVisible()
+    const expires=new Intl.DateTimeFormat('es-ES',{day:'2-digit',month:'short',year:'numeric',timeZone:'Europe/Madrid',hour:'2-digit',minute:'2-digit'}).format(new Date(receipt.expires_at))
+    const expiration=page.getByRole('dialog').locator('time')
+    await expect(expiration).toHaveAttribute('datetime',receipt.expires_at)
+    await expect(expiration).toHaveText(expires)
+    await expect(page.getByText('Intención pendiente hasta '+expires+' (hora de Madrid).',{exact:true})).toBeVisible()
     return {receipt,response}
   }
   async function uploadPreparedDocument(receipt){
@@ -75,6 +80,8 @@ export async function productBrowserAcceptance({ users, wa, ca, sql, url, anon, 
     exactDocumentValue(input.expected_version,receipt.version,'DOCUMENT_FINALIZE_CAS_INPUT')
     if(!parseDocumentContentReceiptV1('document.finalize_upload',input,body.receipt))throw Error('DOCUMENT_FINALIZE_RECEIPT_INVALID')
     await expect(page.getByText('Documento finalizado y disponible.',{exact:true})).toBeVisible()
+    await expect(page.getByText(/^Intención pendiente hasta /)).toHaveCount(0)
+    await expect(page.getByRole('dialog').locator('time')).toHaveCount(0)
   }
   async function check(name, action){try{if(report)report.w2_ui_action_step=name;await action();checks.push(name);if(report)report.w2_product_ui_passed_checks=[...checks]}catch(error){
     failures.push(name);if(report){report.w2_ui_failure_details??=[];report.w2_ui_failure_details.push({check:name,action:report.w2_ui_action_step??null,kind:String(error?.message??'').includes('strict mode violation')?'AMBIGUOUS_LOCATOR':/timeout/i.test(String(error?.message??''))?'TIMEOUT':/interrupted by another navigation/.test(String(error?.message??''))?'NAVIGATION_INTERRUPTED':/net::ERR_/.test(String(error?.message??''))?'NAVIGATION_NETWORK':error instanceof TypeError?'TYPE_ERROR':error instanceof ReferenceError?'REFERENCE_ERROR':error instanceof SyntaxError?'SYNTAX_ERROR':'ACTION_FAILED',...(/^[A-Z][A-Z0-9_]{0,80}$/.test(String(error?.message??''))?{error_tag:error.message}:{})})}if(report&&page&&!page.isClosed()){const known={'Revisa los datos introducidos.':'VALIDATION','El registro ha cambiado desde que lo abriste.':'CONFLICT','No tienes permiso para esta acción.':'ACCESS_DENIED','No se pudo completar la acción.':'INTERNAL_SAFE'};report.w2_ui_alert_codes=(await page.getByRole('alert').allTextContents().catch(()=>[])).flatMap(t=>known[t.trim()]?[known[t.trim()]]:[])}if(report){const pathname=page&&!page.isClosed()?new URL(page.url()).pathname:'';report.w2_ui_failed_page=['/login','/dashboard'].includes(pathname)?pathname:'OTHER';if(/^[A-Z][A-Z0-9_]{0,80}$/.test(String(error?.message??'')))report.w2_ui_safe_error_tag=error.message;report.w2_product_ui_failed_checks=[...failures];report.w2_ui_failure_kind=String(error?.message??'').includes('strict mode violation')?'AMBIGUOUS_LOCATOR':/timeout/i.test(String(error?.message??''))?'TIMEOUT':/net::ERR_/.test(String(error?.message??''))?'NAVIGATION_NETWORK':/has been closed|Target closed/.test(String(error?.message??''))?'BROWSER_CLOSED':/interrupted by another navigation/.test(String(error?.message??''))?'NAVIGATION_INTERRUPTED':'ACTION_FAILED'}
