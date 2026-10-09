@@ -25,10 +25,12 @@ export function createAlertSink({scope,cooldown_ms=60000}){
  const delivered=[],last=new Map()
  return {evaluate(sample,now=Date.now()){
   if(!components.has(sample?.component)||!['PASS','DEGRADED'].includes(sample.status)||!Array.isArray(sample.reasons)||sample.reasons.some(r=>!/^((MISSING|THRESHOLD)_(ERRORS|QUEUE_DEPTH|DURATION_MS|AGE_SECONDS|EXPIRY_SECONDS|RETRY_COUNT|REQUEST_COUNT|INPUT_TOKENS|OUTPUT_TOKENS)|PROVIDER_UNAVAILABLE)$/.test(r)))throw new Error('ALERT_SAMPLE_INVALID')
+  if((sample.status==='PASS')!== (sample.reasons.length===0))throw new Error('ALERT_SAMPLE_INCONSISTENT')
+  if(!Number.isSafeInteger(now)||now<0)throw new Error('ALERT_CLOCK_INVALID')
   const key=hash(`${sample.component}:${sample.reasons.join(',')}`)
   if(sample.status==='PASS'){last.delete(sample.component);return {status:'HEALTHY',external_delivery_proven:false}}
   const prior=last.get(sample.component)
-  if(prior?.key===key&&now-prior.at<cooldown_ms)return {status:'DEDUPLICATED',external_delivery_proven:false}
+  if(prior?.key===key&&now>=prior.at&&now-prior.at<cooldown_ms)return {status:'DEDUPLICATED',external_delivery_proven:false}
   last.set(sample.component,{key,at:now});delivered.push({component:sample.component,status:sample.status,reasons:[...sample.reasons],action:`Run ${sample.component} incident runbook`,at:now});return {status:'CAPTURED',external_delivery_proven:false}
  },capture:()=>structuredClone(delivered)}
 }
