@@ -55,6 +55,12 @@ export async function recoveryRehearsal({url,anon,service,db,command,report,user
   const rejects=(action,name)=>{let denied=false;try{action()}catch{denied=true}if(!denied)throw new Error('RECOVERY_NEGATIVE_CONTROL_FAILED');return {name,status:'PASS',provider_mutation_performed:false}}
   const corruption=Buffer.from(encrypted);corruption[corruption.length-10]^=1
   report.negative_recovery=[rejects(()=>decryptBackup(corruption,key),'CORRUPT_ARCHIVE_REJECTED'),rejects(()=>decryptBackup(encrypted,randomBytes(32)),'WRONG_KEY_REJECTED')]
+  const malformed=JSON.parse(encrypted);malformed.tag=Buffer.from(malformed.tag,'base64').subarray(0,12).toString('base64')
+  report.negative_recovery.push(rejects(()=>decryptBackup(Buffer.from(JSON.stringify(malformed)),key),'INCOMPLETE_ARCHIVE_FORMAT_REJECTED'))
+  const noncanonical=JSON.parse(encrypted);noncanonical.body+='!'
+  report.negative_recovery.push(rejects(()=>decryptBackup(Buffer.from(JSON.stringify(noncanonical)),key),'NONCANONICAL_ARCHIVE_FORMAT_REJECTED'))
+  const ambiguous=structuredClone(recovered);ambiguous.buckets.push({...ambiguous.buckets[0]})
+  report.negative_recovery.push(rejects(()=>verifyBundle(ambiguous),'AMBIGUOUS_BUCKET_INVENTORY_REJECTED'))
   for(const [name,mutation]of [['MISSING_OBJECT_BYTES_REJECTED',b=>b.objects[0].bytes=''],['PUBLIC_BUCKET_REJECTED',b=>b.buckets[0].public=true]]){const bad=structuredClone(recovered);mutation(bad);report.negative_recovery.push(rejects(()=>verifyBundle(bad),name))}
   const unknown=structuredClone(recovered.recovery_manifest);unknown.migrations.push({name:'20990101000000_unknown.sql'});report.negative_recovery.push(rejects(()=>verifyRecoveryManifest(unknown,manifest),'UNRECOGNIZED_MIGRATION_REJECTED'))
   report.backup={database:'PASS',storage_bytes:'PASS',encryption:'AES-256-GCM',archive_sha256:hash(encrypted),objects:contents.objects.length,auth_scope:'LOCAL_USERS_IDENTITIES_ONLY_NO_SESSIONS',offsite:'NOT_PROVEN'}

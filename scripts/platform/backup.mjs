@@ -1,31 +1,43 @@
 import {createCipheriv,createDecipheriv,randomBytes} from 'node:crypto'
 import {hash,loopback} from './lib.mjs'
 const MAX_BYTES=128*1024*1024
+function canonicalBytes(value,maxBytes){
+ if(typeof value!=='string'||value.length>4*Math.ceil(maxBytes/3)||value.length%4!==0)throw new Error('BACKUP_ENCODING_INVALID')
+ const bytes=Buffer.from(value,'base64')
+ if(bytes.length>maxBytes||bytes.toString('base64')!==value)throw new Error('BACKUP_ENCODING_INVALID')
+ return bytes
+}
+const exactKeys=(value,keys)=>value!==null&&typeof value==='object'&&!Array.isArray(value)&&JSON.stringify(Object.keys(value).sort())===JSON.stringify([...keys].sort())
 export function encryptBackup(bytes,key,keyId){
- if(!Buffer.isBuffer(bytes)||bytes.length>MAX_BYTES||!Buffer.isBuffer(key)||key.length!==32||!/^[a-zA-Z0-9_-]{1,80}$/.test(keyId))throw new Error('BACKUP_INPUT_INVALID')
+ if(!Buffer.isBuffer(bytes)||bytes.length>MAX_BYTES||!Buffer.isBuffer(key)||key.length!==32||typeof keyId!=='string'||!/^[a-zA-Z0-9_-]{1,80}$/.test(keyId))throw new Error('BACKUP_INPUT_INVALID')
  const nonce=randomBytes(12),header=Buffer.from(JSON.stringify({version:1,key_id:keyId,algorithm:'AES-256-GCM'}))
- const cipher=createCipheriv('aes-256-gcm',key,nonce);cipher.setAAD(header)
+ const cipher=createCipheriv('aes-256-gcm',key,nonce,{authTagLength:16});cipher.setAAD(header)
  const body=Buffer.concat([cipher.update(bytes),cipher.final()])
  return Buffer.from(JSON.stringify({header:header.toString('base64'),nonce:nonce.toString('base64'),tag:cipher.getAuthTag().toString('base64'),body:body.toString('base64')}))
 }
 export function decryptBackup(archive,key){
  try{
-  if(archive.length>MAX_BYTES*2||key.length!==32)throw new Error()
-  const a=JSON.parse(archive),header=Buffer.from(a.header,'base64'),h=JSON.parse(header)
-  if(h.version!==1||h.algorithm!=='AES-256-GCM')throw new Error()
-  const decipher=createDecipheriv('aes-256-gcm',key,Buffer.from(a.nonce,'base64'));decipher.setAAD(header);decipher.setAuthTag(Buffer.from(a.tag,'base64'))
-  return Buffer.concat([decipher.update(Buffer.from(a.body,'base64')),decipher.final()])
+  if(!Buffer.isBuffer(archive)||archive.length>MAX_BYTES*2||!Buffer.isBuffer(key)||key.length!==32)throw new Error()
+  const a=JSON.parse(archive)
+  if(!exactKeys(a,['header','nonce','tag','body']))throw new Error()
+  const header=canonicalBytes(a.header,1024),h=JSON.parse(header),nonce=canonicalBytes(a.nonce,12),tag=canonicalBytes(a.tag,16),body=canonicalBytes(a.body,MAX_BYTES)
+  if(!exactKeys(h,['version','key_id','algorithm'])||h.version!==1||h.algorithm!=='AES-256-GCM'||typeof h.key_id!=='string'||!/^[a-zA-Z0-9_-]{1,80}$/.test(h.key_id)||nonce.length!==12||tag.length!==16)throw new Error()
+  const decipher=createDecipheriv('aes-256-gcm',key,nonce,{authTagLength:16});decipher.setAAD(header);decipher.setAuthTag(tag)
+  return Buffer.concat([decipher.update(body),decipher.final()])
  }catch{throw new Error('BACKUP_AUTHENTICATION_FAILED')}
 }
 export function verifyBundle(bundle){
  if(bundle.version!==1||!Array.isArray(bundle.objects)||!Array.isArray(bundle.buckets)||!Array.isArray(bundle.migrations))throw new Error('BACKUP_MANIFEST_INVALID')
- const db=Buffer.from(bundle.database??'','base64');if(!db.length||hash(db)!==bundle.database_sha256)throw new Error('DATABASE_HASH_MISMATCH')
- const seen=new Set()
- for(const bucket of bundle.buckets)if(typeof bucket.id!=='string'||bucket.public!==false)throw new Error('PUBLIC_OR_INVALID_BUCKET')
+ const db=canonicalBytes(bundle.database,MAX_BYTES);if(!db.length||hash(db)!==bundle.database_sha256)throw new Error('DATABASE_HASH_MISMATCH')
+ const seen=new Set(),bucketIds=new Set()
+ for(const bucket of bundle.buckets){
+  if(!bucket||typeof bucket.id!=='string'||!bucket.id.length||bucket.public!==false||bucketIds.has(bucket.id))throw new Error('PUBLIC_OR_INVALID_BUCKET')
+  bucketIds.add(bucket.id)
+ }
  for(const o of bundle.objects){
   if(typeof o.name!=='string'||!o.name.length||o.name.split('/').some(p=>['..','.',''].includes(p))||!bundle.buckets.some(b=>b.id===o.bucket)||seen.has(`${o.bucket}/${o.name}`))throw new Error('OBJECT_MANIFEST_INVALID')
   seen.add(`${o.bucket}/${o.name}`)
-  const bytes=Buffer.from(o.bytes??'','base64');if(hash(bytes)!==o.sha256||bytes.length!==o.size)throw new Error('STORAGE_HASH_MISMATCH')
+  const bytes=canonicalBytes(o.bytes,MAX_BYTES);if(hash(bytes)!==o.sha256||bytes.length!==o.size)throw new Error('STORAGE_HASH_MISMATCH')
  }
  return true
 }
