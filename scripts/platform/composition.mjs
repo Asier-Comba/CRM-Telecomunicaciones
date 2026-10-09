@@ -5,7 +5,7 @@ import {root, readJson} from './lib.mjs'
 
 export const sources = {
   platform: '85d3a60a7b34af4aac5465f3b30130f742e49900',
-  product: '1c5cd51b4f96f83c0bf938026226aa53369f2d0e',
+  product: '9ab36e242ff4678ee518c1d1606f0035139fcd39',
 }
 const platformPaths = ['src/app/api/health/live/route.ts', 'src/app/api/health/ready/route.ts', 'src/app/fonts.css', 'src/app/layout.tsx']
 function git(args) {

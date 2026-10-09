@@ -1,6 +1,7 @@
 'use client'
 import {CustomerRenewalsInventory} from '@/features/portfolio/CustomerRenewalsInventory'
 import {CustomerLinesInventory} from '@/features/portfolio/CustomerLinesInventory'
+import {CustomerPermanencesInventory} from '@/features/portfolio/CustomerPermanencesInventory'
 import {CustomerServicesInventory} from '@/features/services/CustomerServicesInventory'
 import {ContractsInventory} from '@/features/contracts/Contracts'
 import Link from 'next/link'
@@ -21,6 +22,7 @@ import { control, Status } from '@/features/product/ui'
 
 export const customerAreas=['Resumen','Empresa','Contactos','Contratos','Servicios','Ubicaciones','Líneas','SIM/eSIM','Portabilidades','Renovaciones','Permanencias','Oportunidades','Tareas','Reuniones','Incidencias','Equipos','Agenda','Documentos','Facturación','Actividad','Comunicaciones']
 export function CustomerIntegratedPanels({customer,area,onRecordCreated}:{customer:CustomerIdentity;area:string;onRecordCreated?:()=>void}){
+ if(area==='Permanencias')return <CustomerPermanencesInventory key={customer.id} customer={customer} createAllowed={customer.status==='active'} onCreated={onRecordCreated}/>
  if(area==='Renovaciones')return <CustomerRenewalsInventory key={customer.id} customer={customer} createAllowed={customer.status==='active'} onCreated={onRecordCreated}/>
  if(area==='Líneas')return <CustomerLinesInventory key={customer.id} customer={customer} createAllowed={customer.status==='active'} onCreated={onRecordCreated}/>
  if(area==='Contratos')return <ContractsInventory key={customer.id} customerId={customer.id} createAllowed={customer.status==='active'} onCreated={onRecordCreated}/>
