@@ -2,6 +2,7 @@ import { randomUUID } from 'node:crypto'
 import { executeApplicationReadTurnV2 } from '../../../src/assistant/application-turn-v2.ts'
 import { ConversationServiceV2 } from '../../../src/assistant/conversation-service-v2.ts'
 import { customerCollectionIdentity } from '../../../src/features/customers/customer-identity.ts'
+import { normalizeActiveMemberships,selectActiveMembership } from '../../../src/lib/workspace-roles.ts'
 
 /** Actual Auth/PostgREST/cookie reads and history; the planner alone is a fixed
  * synthetic adapter. No live-model, interactive-UI or business-durability claim. */
@@ -14,17 +15,22 @@ export async function assistantReadGroundingAcceptance({ rpc, sql, check, users,
     const client=createClient(url,anon,{global:{headers:{Authorization:'Bearer '+owner.token}},auth:{persistSession:false,autoRefreshToken:false,detectSessionInUrl:false}})
     check([wa,wb,owner.id,users.ownerB.id].every(value=>typeof value==='string'&&/^[0-9a-f-]{36}$/.test(value)),'assistant_grounding_fixture_ids')
     // Fresh JWT/profile/membership/workspace reads, with the production epoch
-    // inputs. Fixture workspace must still be the actual selected profile.
+    // inputs and the existing production membership selection rule. A profile
+    // preference is not authority; this harness deliberately points it abroad.
     let authorityStatus='NOT_READ'
     const authority=async()=>{
       const auth=await client.auth.getUser(owner.token)
       if(auth.error||auth.data.user?.id!==owner.id){authorityStatus='JWT_REFUSED';return null}
       const profile=await client.from('profiles').select('workspace_id').eq('id',owner.id).abortSignal(AbortSignal.timeout(10000)).maybeSingle()
-      if(profile.error||profile.data?.workspace_id!==wa){authorityStatus='PROFILE_REFUSED';return null}
-      const member=await client.from('workspace_members').select('id,role,status,version,workspace:workspaces!inner(status,updated_at)').eq('user_id',owner.id).eq('workspace_id',wa).abortSignal(AbortSignal.timeout(10000)).maybeSingle()
+      if(profile.error){authorityStatus='PROFILE_REFUSED';return null}
+      const candidates=await client.from('workspace_members').select('id,workspace_id,role,status,created_at,workspace:workspaces!inner(status)').eq('user_id',owner.id).eq('status','active').eq('workspace.status','active').order('created_at',{ascending:true}).abortSignal(AbortSignal.timeout(10000))
+      if(candidates.error){authorityStatus='MEMBERSHIP_READ_REFUSED';return null}
+      const selection=selectActiveMembership(normalizeActiveMemberships(candidates.data??[]),null,profile.data?.workspace_id??null)
+      if(!selection.membership||selection.membership.workspace_id!==wa){authorityStatus='MEMBERSHIP_SELECTION_REFUSED';return null}
+      const member=await client.from('workspace_members').select('id,role,status,version,workspace:workspaces!inner(status,updated_at)').eq('id',selection.membership.id).eq('user_id',owner.id).eq('workspace_id',selection.membership.workspace_id).abortSignal(AbortSignal.timeout(10000)).maybeSingle()
       const data=member.data,joined=Array.isArray(data?.workspace)?data.workspace.length===1?data.workspace[0]:null:data?.workspace
       if(member.error||!data){authorityStatus='MEMBERSHIP_READ_REFUSED';return null}
-      if(data.status!=='active'||!Number.isSafeInteger(data.version)||data.version<1){authorityStatus='MEMBERSHIP_INACTIVE_OR_VERSION';return null}
+      if(data.status!=='active'||data.role!==selection.membership.role||!Number.isSafeInteger(data.version)||data.version<1){authorityStatus='MEMBERSHIP_INACTIVE_OR_VERSION';return null}
       if(!joined||joined.status!=='active'||typeof joined.updated_at!=='string'){authorityStatus='WORKSPACE_INACTIVE_OR_JOIN';return null}
       authorityStatus='READY'
       return{actorId:owner.id,workspaceId:wa,role:data.role,scopeEpoch:data.id+':'+data.version+':'+joined.updated_at}
