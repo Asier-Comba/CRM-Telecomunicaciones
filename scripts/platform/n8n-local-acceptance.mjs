@@ -5,6 +5,7 @@ import {randomBytes} from 'node:crypto'
 import {disposableGuard,readJson,hash,run} from './lib.mjs'
 import {validateWorkflow} from './operations.mjs'
 import {encryptBackup,decryptBackup} from './backup.mjs'
+import {postgresQueryReady} from './postgres-query-ready.mjs'
 disposableGuard()
 if(process.platform!=='linux'||process.env.GITHUB_ACTIONS!=='true')throw new Error('N8N_DISPOSABLE_LINUX_ONLY')
 const suffix=randomBytes(6).toString('hex'),prefix=`w5-n8n-${suffix}`,network=prefix+'-network',volume=prefix+'-data',db=prefix+'-db',app=prefix+'-app',scratch=mkdtempSync(join(tmpdir(),'w5-n8n-')),pins=readJson('infra/n8n/disposable-image-pins.json'),checks=[],source_sha=run('git',['rev-parse','HEAD']).trim()
@@ -47,8 +48,8 @@ try{
  writeFileSync(join(scratch,'key.secret'),encryption,{mode:0o600});writeFileSync(join(scratch,'database.secret'),password,{mode:0o600})
  docker(['run','--rm','--network','none','--user','0','--entrypoint','sh','-v',`${volume}:/home/node/.n8n`,'-v',`${scratch}:/fixture`,pins.n8n.image,'-c','chown -R 1000:1000 /home/node/.n8n && chown 1000:1000 /fixture/key.secret /fixture/database.secret && chmod 600 /fixture/key.secret /fixture/database.secret'])
  docker(['run','-d','--name',db,'--network',network,'--network-alias','database','-v',`${scratch}/database.secret:/run/secrets/database:ro`,'-e','POSTGRES_USER=n8n','-e','POSTGRES_DB=n8n','-e','POSTGRES_PASSWORD_FILE=/run/secrets/database',pins.postgres.image])
- let pgReady=false;for(let i=0;i<60;i++){try{docker(['exec',db,'pg_isready','-U','n8n','-d','n8n'],{timeout:2000});pgReady=true;break}catch{}await new Promise(r=>setTimeout(r,500))}prove(pgReady,'ACTUAL_POSTGRES_READY')
- const postgres_version=docker(['exec',db,'psql','-X','-qAt','-U','n8n','-d','n8n','-c','SHOW server_version']).trim().split(/\s+/)[0];prove(/^\d+\.\d+$/.test(postgres_version)&&postgres_version===pins.postgres.version.split('-')[0],'ACTUAL_POSTGRES_PINNED_VERSION')
+ const pg=await postgresQueryReady({expected:pins.postgres.version.split('-')[0],probe:()=>{docker(['exec',db,'pg_isready','-U','n8n','-d','n8n'],{timeout:2000});return docker(['exec',db,'psql','-X','-qAt','-U','n8n','-d','n8n','-c','SHOW server_version'],{timeout:2000}).trim().split(/\s+/)[0]}})
+ const postgres_version=pg.version;prove(true,'ACTUAL_POSTGRES_AUTHENTICATED_QUERY_READY');prove(postgres_version===pins.postgres.version.split('-')[0],'ACTUAL_POSTGRES_PINNED_VERSION')
  const env={NODE_ENV:'production',DB_TYPE:'postgresdb',DB_POSTGRESDB_HOST:'database',DB_POSTGRESDB_PORT:'5432',DB_POSTGRESDB_DATABASE:'n8n',DB_POSTGRESDB_USER:'n8n',DB_POSTGRESDB_PASSWORD_FILE:'/run/secrets/database',N8N_ENCRYPTION_KEY_FILE:'/run/secrets/key',N8N_DIAGNOSTICS_ENABLED:'false',N8N_VERSION_NOTIFICATIONS_ENABLED:'false',N8N_TEMPLATES_ENABLED:'false',N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS:'true',N8N_BLOCK_ENV_ACCESS_IN_NODE:'true',N8N_SECURE_COOKIE:'false',EXECUTIONS_DATA_SAVE_ON_SUCCESS:'none',EXECUTIONS_DATA_SAVE_ON_ERROR:'none',EXECUTIONS_DATA_SAVE_MANUAL_EXECUTIONS:'false'}
  writeFileSync(join(scratch,'public.env'),Object.entries(env).map(([k,v])=>`${k}=${v}`).join('\n'),{mode:0o600})
  startApp()
