@@ -154,3 +154,76 @@ The new composition normally merges tested907cb and accepted509a into accepted9a
 After restart15.7GiB total/3.19GiB free remains below the full-stack guide7GiB. Docker stays stopped, no personal processes/settings/volumes changed, and disposable CI is not a persistent Windows installation. IndependentW4,issue29 fullaudit,issue10 physical business durability,live semantic/premium/commercial acceptance remain open;AI business writes OFF. W5d365 compatibility was checked statically against9ab:all73 product/71 platform blobs identical in74 union,manifest296/295 and38 revokes match,src/lib/assistant unchanged. Owner's priorac60 actual107 in37919617891/job113784227189/execa3c12f033511e0ff3a4642a8d0ba140b6e7e1bcc/74migrations was verified by closed report; no result transfers to d365,new product or business durability. No W4 findings published,vendor candidate adoption,production/VPS/DNS/mail/operator effects.
 
 Next three:complete exact local checks and push this combined product candidate;collect its own107/quality and review its fresh target frames;handoff only a verified exact product checkpoint to W5 through67 while continuing the authorised product/local work within independent gates.
+
+
+## Billing, portfolio and mobile team composition after recovery — 9 October 2026
+
+The following own candidates are now consumed by ordinary merges. Their scoped
+evidence belongs to their recorded executions. This composition adds the recovery
+doctor, native driver contract and this ledger, so its new source/tree must earn
+its own full107/Auth/history/context/grounding/Storage/teardown, quality and fresh
+36 target-frame review. No prior green transfers to this new canonical tree.
+
+| Candidate | Source / actual executed / identical tree | Own run / job and reviewed scope |
+|---|---|---|
+| Billing88 | 18472b45fa164c79adbc4561edd3b7666195d702 / 7bb01a6661fec4b23c6d0da8c65e1f94f46e3f00 / e0c40845d000dae14d411a9ca6a0704d1fbba79a | 37962817594 / 113929668624 SUCCESS107/107; 33 actually reviewed billing/Customer360 frames at1440/768/390. Tablet status/USD tokens complete. |
+| Portfolio95 | 5434e6287d16177af990868ab92612af201760be / 655be7f58fc4eaf10c60b0a56bc5bcb4c461a0fe / 0594852ed4aa48364e82a6b11effc4958cc76ab6 | 37963658888 / 113932491946 SUCCESS107/107; 33 billing/Customer360 plus6 portfolio frames actually reviewed. Inventory geometry and current referenced article complete; supplemental customer/operator labels still loading in the top inventory frames. |
+| Team96 | ce413350dc0f50f77b659cc54a653e98afba8190 / a3ca711c0b78177b40beaf6d75638b60c733c82b / d1a69d4bdf422fded713dfea6fcf8a780cf3487f | 37967937923 / 113946914234 SUCCESS107/107; 36 fresh target frames actually reviewed. Four team fields/controls complete in mobile cards and tablet/desktop table. |
+| Recovery93 | a95da69beb3e4c7c95ab2eed39ebc92c41eee3e5 / 0d6425d8dd906cf4dc931905d30f66197f7eb921 / 2bb2028c4960eab914af7b55b79d524c2f2fe457 | 37957997644 / 113913311198 lint/types413+482/build66 PASS; audit5HIGH FAIL. Two native Windows privacy/dirty-tree/remote-Docker tests PASS. Read-only diagnosis, no installation or107 claim. |
+| Driver contract94 | 5c1a54a0cbc826776dc8f911fb5aed4886d7161f / d5db9435b0a53f1f77009478f9159a9a6d1de166 / 5d232303af522c8a1bc0e78725964999c30da1ea | 37958946595 / 113916547418 lint/types411+482/build66 PASS; audit5HIGH FAIL. Document only; no native adapter/scenario executed. |
+
+The three product candidates retain Auth200,3535+227 backend checks,73 migrations,
+history backend/API/browser/CAS/cursor/revocation, authorized context/read-grounding,
+Storage, teardown PASS and0pageerrors. Their exact functional quality jobs
+113929668100/113932492339/113946914067 pass lint/types413+482/build66 and preserve
+the fiveHIGH audit failure; all independent jobs pass and dependents are skipped.
+Actual safe/product artifacts for96: 11635037733/11635142598.
+
+Billing composes fiscal current-read recovery, complete five-field invoice rows
+and authorized client relation choices. The token fix applies nowrap only to the
+status/money spans; the existing assertions now check all received invoice tokens.
+Current-invoice PDF metadata is pending in some desktop frames; target frame
+acceptance does not assert all asynchronous components ready in every screenshot.
+
+Portfolio correlates the exact ordinary current-navigation portfolio.get request,
+HTTP200/closed envelope/current kind-id DTO before the unchanged5s render check.
+Native real components/repository/parsers with explicit in-memory HTTP demonstrate
+valid6500ms transport: old TIMEOUT5091ms, correlated PASS6861ms;503 and foreign DTO
+refused,4reads0commands0errors. This mechanism does not establish the original
+server delay in W5#92. Existing5s/15s/30s budgets and55 main names remain.
+
+Team changes only presentation of the four table cells plus removed→Retirado.
+Native real components/roles/repository/parsers/ConfirmDialog/Button/Geist show
+old390 overflow, complete updated6rows at1440/768/390, protected self/owner/removed/
+admin peers, Escape0commands and four explicit memory actions with CAS1/2/3/4,
+distinct command IDs and receipt versions2/3/4/5. This is not native Auth/DB proof.
+The real full suite and36 reviewed frames provide the separate integrated proof.
+
+All product/backend/assistant/migration/package/workflow and acceptance-helper
+blobs are identical to the accepted96 execution. Recovery93 adds only its three
+files;94 changes only the driver contract document. No main or W4/W5 branch is
+changed, no force push. Exact canonical execution/result will be recorded in its
+remote checkpoint rather than a new status-only source commit.
+
+Historical canonicald6 retains original37929913690/job113817820638 SUCCESS107 and
+repeat37933829500/job113830819477 FAILURE106 financial_currency_comparison, precise
+cause unisolated. BillingF09 retains37949967801/job113885892552 FAILURE106;311 retains
+37954177106/job113900335163 early history CREATE_UPSTREAM HTTP500. A035 retains
+37957116328/job113910333057 SUCCESS107 plus its actually reviewed tablet token and
+team clipping gaps; its diagnostic categories do not establish that500's cause.
+W5#92 owner035de4c retains37956588534/job113908530775 FAILURE106, mobile portfolio
+exact_reference TIMEOUT. No prior failure/cancellation is erased or relabelled.
+
+Issue29/audit5HIGH remains enforced without downgrade/override/suppression;
+issue10 physical native adapter/23 scenarios/four20-worker races/six rollback
+points/SIGKILL/Postgres restart and independent W4 remain unaccepted. Fixed
+synthetic planner grounding does not prove live model semantics. Persistent
+Windows installation remains blocked by memory/prerequisites and five POSIX
+private-file tests; the doctor does not start Docker or claim acceptance. W5's
+fixture/recovery proof does not establish business durability. AI business writes
+remain OFF; no accounts, production/VPS/DNS/email/n8n/provider changes.
+
+Next three: collect this new canonical's exact own107/quality and36 fresh frames;
+handoff only its verified SHA/tree evidence to W5 via the existing checkpoints;
+continue scoped product/local/native adapter work while preserving independent
+security, resource and commercial gates.
