@@ -24,6 +24,12 @@ export async function recoveryRehearsal({url,anon,service,db,command,report,user
   // Disposable late role downgrade: old Auth tokens and application role caches
   // must not retain the former admin authority after canonical reconstruction.
   sql(`update public.workspace_members set role='viewer' where workspace_id='${wa}' and user_id='${users.adminA.id}' and status='active';`)
+  // Restore ordinary-member fixtures after earlier disposable domain tests;
+  // capture these exact active roles in A and require them again in fresh B.
+  for(const [name,workspace]of [['memberA',wa],['memberB',wb]]){
+   if(!users[name]?.id||!users[name]?.token)throw new Error('RECOVERY_MEMBER_FIXTURE_MISSING')
+   sql(`update public.workspace_members set role='member',status='active' where workspace_id='${workspace}' and user_id='${users[name].id}';update public.profiles set workspace_id='${workspace}' where id='${users[name].id}';`)
+  }
   const expected=metadata(),expectedRows=rows()
   try{report.rpc_manifest=checkRpcManifest(expected.privileges)}catch(e){
    if(e.message==='PUBLIC_RPC_MANIFEST_DRIFT')report.rpc_manifest_drift=e.differences
@@ -63,6 +69,10 @@ export async function recoveryRehearsal({url,anon,service,db,command,report,user
   report.negative_recovery.push(rejects(()=>verifyBundle(ambiguous),'AMBIGUOUS_BUCKET_INVENTORY_REJECTED'))
   for(const [name,mutation]of [['MISSING_OBJECT_BYTES_REJECTED',b=>b.objects[0].bytes=''],['PUBLIC_BUCKET_REJECTED',b=>b.buckets[0].public=true]]){const bad=structuredClone(recovered);mutation(bad);report.negative_recovery.push(rejects(()=>verifyBundle(bad),name))}
   const unknown=structuredClone(recovered.recovery_manifest);unknown.migrations.push({name:'20990101000000_unknown.sql'});report.negative_recovery.push(rejects(()=>verifyRecoveryManifest(unknown,manifest),'UNRECOGNIZED_MIGRATION_REJECTED'))
+  for(const [name,mutation]of [['UNDECLARED_PUBLIC_MANIFEST_FIELD_REJECTED',m=>m.undeclared='synthetic-only'],['UNDECLARED_PUBLIC_CONFIG_FIELD_REJECTED',m=>m.configuration[0].undeclared='synthetic-only'],['NONCANONICAL_PUBLIC_CONFIG_REJECTED',m=>m.configuration[0].bytes+='!']]){
+   const bad=structuredClone(recovered.recovery_manifest);mutation(bad)
+   report.negative_recovery.push(rejects(()=>verifyRecoveryManifest(bad,manifest),name))
+  }
   report.backup={database:'PASS',storage_bytes:'PASS',encryption:'AES-256-GCM',archive_sha256:hash(encrypted),objects:contents.objects.length,auth_scope:'LOCAL_USERS_IDENTITIES_ONLY_NO_SESSIONS',offsite:'NOT_PROVEN'}
   // Explicitly discard Environment A before reconstructing B. No reused SQL schema.
   command('supabase',['stop','--no-backup','--project-id','crm-telecom-local'],{timeout:120000})
@@ -101,7 +111,7 @@ export async function recoveryRehearsal({url,anon,service,db,command,report,user
   const ticket=JSON.parse(sql(`select coalesce((select jsonb_build_object('id',t.id,'document_id',t.document_id) from public.document_download_tickets t join public.documents d on d.id=t.document_id and d.workspace_id=t.workspace_id where t.workspace_id='${wa}' and t.actor_id='${users.ownerA.id}' and t.expires_at<statement_timestamp() and d.status='active' order by t.id limit 1),'null'::jsonb);`))
   if(!ticket||!['id','document_id'].every(k=>/^[0-9a-f-]{36}$/.test(ticket[k])))throw new Error('RESTORED_EXPIRED_TICKET_FIXTURE_MISSING')
   const deny=async(name,r)=>{const proof=verifyRestoredRpcDenial(r);denied_rpc_checks.push({name,...proof})}
-  for(const name of ['ownerA','ownerB','removedA','suspendedA','viewerA','adminA']){
+  for(const name of ['ownerA','ownerB','removedA','suspendedA','viewerA','adminA','memberA','memberB']){
    const user=users[name]
    const login=await api('/auth/v1/token?grant_type=password',anon,{email:user.email,password:user.password})
    if(login.status!==200||!login.json.access_token)throw new Error('RESTORED_AUTH_LOGIN_FAILED')
@@ -114,10 +124,11 @@ export async function recoveryRehearsal({url,anon,service,db,command,report,user
     const role=await api('/rest/v1/rpc/current_workspace_role',token,{p_workspace_id:wa})
     if(role.status!==200||role.json!==null||list.json.some(w=>w.id===wa))throw new Error('RESTORED_REVOCATION_FAILED')
    }else{
-    const own=name==='ownerB'?wb:wa,foreign=name==='ownerB'?wa:wb
+    const own=['ownerB','memberB'].includes(name)?wb:wa,foreign=['ownerB','memberB'].includes(name)?wa:wb
     if(!list.json.some(w=>w.id===own)||list.json.some(w=>w.id===foreign))throw new Error('RESTORED_TENANT_SCOPE_FAILED')
     const role=await api('/rest/v1/rpc/current_workspace_role',token,{p_workspace_id:own})
-    if(role.status!==200||role.json!==(['viewerA','adminA'].includes(name)?'viewer':'owner'))throw new Error('RESTORED_CURRENT_ROLE_NOT_PROVEN')
+    const expectedRole=['viewerA','adminA'].includes(name)?'viewer':['memberA','memberB'].includes(name)?'member':'owner'
+    if(role.status!==200||role.json!==expectedRole)throw new Error('RESTORED_CURRENT_ROLE_NOT_PROVEN')
    }
    const download=await fetch(url+'/storage/v1/object/authenticated/telecom-documents/'+object,{headers:{apikey:anon,authorization:`Bearer ${token}`},signal:AbortSignal.timeout(15000)})
    const storage_response={status:download.status,json:download.status===200?null:await download.json()}
@@ -133,6 +144,11 @@ export async function recoveryRehearsal({url,anon,service,db,command,report,user
     await deny(session+'_EXPIRED_TICKET',await rpc('document_content_v1_manifest',{id:ticket.document_id,ticket_id:ticket.id}))
     await deny(session+'_FORGED_TICKET',await rpc('document_content_v1_manifest',{id:ticket.document_id,ticket_id:randomUUID()}))
     await deny(session+'_FOREIGN_REVEAL_SCOPE',await rpc('sensitive_v1_get',{entity_kind:'customer',entity_id:randomUUID(),fields:['fiscal_id']},wb))
+   }
+   if(['memberA','memberB'].includes(name)){
+    const foreign=name==='memberA'?wb:wa
+    await deny(name+'_'+session+'_FOREIGN_WRITE',await rpc('product_v1_task_create',{command_id:randomUUID(),title:'Synthetic cross-scope denied task'},foreign))
+    await deny(name+'_'+session+'_FOREIGN_REVEAL',await rpc('sensitive_v1_get',{entity_kind:'customer',entity_id:randomUUID(),fields:['fiscal_id']},foreign))
    }
    }
   }
