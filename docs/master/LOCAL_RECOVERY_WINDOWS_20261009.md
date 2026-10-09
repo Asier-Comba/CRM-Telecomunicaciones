@@ -28,6 +28,23 @@ git log -1 --format="%H %s"
 
 No fuerces push, no uses reset destructivo ni cambies main. Si tu rama local coincide con la rama elegida y sólo está atrasada, `git pull --ff-only` acepta únicamente un avance lineal. Si diverge o hay cambios, detente en esa actualización y conserva ambos trabajos. No ejecutes un script antiguo de checkpoints para reconstruir el estado: podría publicar SHAs o resultados ya superados.
 
+Algunos checkouts de trabajo no tienen un mapeo `remote.origin.fetch`. En ellos `git fetch origin` puede actualizar `FETCH_HEAD` dejando antigua la referencia `origin/rama`. El diagnóstico muestra `EXPLICIT_BRANCH_FETCH_REQUIRED` sin imprimir configuración, URLs ni nombres privados. `CONVENTIONAL_MAPPING_OBSERVED_REMOTE_HEAD_NOT_VERIFIED` sólo observa el mapeo local habitual: tampoco verifica el HEAD remoto. El doctor no descarga ni modifica referencias.
+
+Para la composición indicada por el checkpoint, conserva primero los cambios y comprueba la rama actual. Descarga su referencia explícita; no dependas de una referencia antigua ni cambies la configuración Git compartida:
+
+```powershell
+$crmRecoveryBranch = 'codex/w2-w3-portability-composition'
+git branch --show-current
+git status --short
+git ls-remote origin "refs/heads/$crmRecoveryBranch"
+git fetch origin "refs/heads/${crmRecoveryBranch}:refs/remotes/origin/${crmRecoveryBranch}"
+git rev-parse "refs/remotes/origin/$crmRecoveryBranch"
+```
+
+Los SHA del checkpoint, `ls-remote` y referencia descargada deben coincidir antes de consumir esa versión. Si el remoto ha avanzado, lee su checkpoint nuevo; no heredes pruebas de otro SHA. Sólo con árbol limpio y la misma rama elegida, `git merge --ff-only "refs/remotes/origin/$crmRecoveryBranch"` permite un avance lineal. En caso de divergencia, conserva ambos trabajos y revisa. Esta actualización no arranca servicios, habilita IA ni acredita aceptación. No uses estos pasos para modificar main o ramas W4/W5.
+
+La regresión sintética con un bare remoto y dos commits reproduce que la descarga genérica deja la referencia antigua sin mapeo y la explícita recupera el segundo commit. Las fixtures y referencias son desechables; el código del doctor sigue siendo sólo lectura. Los demás prerrequisitos y bloqueos de la pila completa permanecen.
+
 ## 3. Distinguir preview y CRM integrado
 
 El launcher `npm run preview:dev` es un preview sintético sin backend integrado, definido en `PREVIEW_WINDOWS.md`. Puede ayudar a revisar presentación; no acredita escrituras, Auth, Storage ni IA viva. No sustituye a la pila real. No uses la rama histórica de esa guía para sobrescribir tu trabajo actual.
