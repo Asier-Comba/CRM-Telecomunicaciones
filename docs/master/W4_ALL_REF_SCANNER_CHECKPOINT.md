@@ -46,3 +46,6 @@ Public location-specific security findings are withheld for private review.
 NEXT_3: collect exact CI scope/result; independently review the candidate;
 prepare W5 composition on freshly inspected product source. No merge/deployment
 or repository visibility/access modification is included.
+# Merge-resolution coverage extension
+
+An additional synthetic control reproduced a scanner gap: all-ref traversal alone did not show a canary introduced only in the merge commit, absent from both parents. The control failed before the correction. The scanner now requests `--diff-merges=separate` alongside full-history/all refs so every merge is compared against each parent; repeated identical finding locations are deduplicated by redacted ID. The canary is generated only in disposable test repositories and its value is never published. Eight controls replace the earlier seven-control scope; older CI remains historical until this executable source runs. No suppression or release acceptance is added.

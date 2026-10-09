@@ -36,7 +36,9 @@ export function scan(repo,scanner='gitleaks') {
   // 8.24.3 always loads source/.gitleaksignore even with an explicit ignore path.
   // Point the history scanner at the Git directory, never the working tree.
   const source=git(repo,['rev-parse','--absolute-git-dir'])
-  const args=['git',source,'--log-opts=--all --full-history --no-ext-diff --no-textconv HEAD','--config',config,'--gitleaks-ignore-path',ignore,'--ignore-gitleaks-allow','--redact=100','--no-banner','--no-color','--log-level=error','--exit-code=2','--report-format=json','--report-path',report]
+  // Traversing every ancestor alone does not show merge-resolution additions.
+  // Separate parent diffs also cover content introduced in the merge itself.
+  const args=['git',source,'--log-opts=--all --full-history --diff-merges=separate --no-ext-diff --no-textconv HEAD','--config',config,'--gitleaks-ignore-path',ignore,'--ignore-gitleaks-allow','--redact=100','--no-banner','--no-color','--log-level=error','--exit-code=2','--report-format=json','--report-path',report]
   // Capture scanner output privately. Even redacted logs may contain surrounding PII.
   const run=spawnSync(scanner,args,{cwd:repo,env,encoding:'utf8',timeout:300000,maxBuffer:32*1024*1024})
   if(run.error)throw new Error('SCANNER_EXECUTION_FAILED')
@@ -44,7 +46,7 @@ export function scan(repo,scanner='gitleaks') {
   if(run.stderr.trim())throw new Error(/permission denied|access is denied/i.test(run.stderr)?'SCANNER_PERMISSION_REFUSED':'SCANNER_DIAGNOSTIC_REJECTED')
   let raw;try{raw=JSON.parse(readFileSync(report,'utf8'))}catch{throw new Error('SCANNER_REPORT_MISSING')}
   if(!Array.isArray(raw))throw new Error('SCANNER_REPORT_INVALID')
-  const findings=raw.map(redactFinding).sort((a,b)=>a.id.localeCompare(b.id))
+  const findings=[...new Map(raw.map(redactFinding).map(f=>[f.id,f])).values()].sort((a,b)=>a.id.localeCompare(b.id))
   if((run.status===0)!==(findings.length===0))throw new Error('SCANNER_EXIT_REPORT_MISMATCH')
   const after=snapshot(repo);if(after.identity!==before.identity)throw new Error('REFS_CHANGED_DURING_SCAN')
   return {version:1,status:findings.length?'BLOCKED_FINDINGS':'PASS_REACHABLE_TEXT_SCAN',scanner:'gitleaks-8.24.3',head:before.head,scope:'ALL_LOCAL_HEADS_REMOTE_TRACKING_TAGS_AND_HEAD_FULL_ANCESTRY',snapshot_sha256:before.identity,ref_count:before.refs.length,commit_count:before.commits.length,refs:before.refs,findings,exceptions_applied:0,raw_output_published:false,limitations:['Remote refs must be refreshed before invoking this command.','Deleted unreachable refs, forks, Git LFS objects and hosted artifacts are outside this scan.','Pattern scan is not proof of no PII or no undiscovered credential.'],production_ready:false}
