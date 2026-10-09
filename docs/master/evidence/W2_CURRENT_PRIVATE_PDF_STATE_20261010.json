@@ -1,0 +1,81 @@
+{
+  "scope": "ACTUAL_COMPONENT_REACT_PRODUCTION_HTTP_FIXED_PROVIDER_NO_AUTH_DB_SHELL",
+  "before_source": "158682461863fc16609db44d18de14389a947841",
+  "component_sha256": {
+    "before": "af99be7ceeb3cbf810e15126b6cd54b04b5ffdf43cea84816cb7c1267570d7ab",
+    "after": "a4475082d97339ab435a510c9c54d1ce90d21a713bfff066af672fde18cfc312"
+  },
+  "samples": [
+    {
+      "variant": "before",
+      "kind": "version",
+      "stale_download_controls": 1,
+      "reads": 2,
+      "errors": 0
+    },
+    {
+      "variant": "before",
+      "kind": "repository",
+      "stale_download_controls": 1,
+      "reads": 2,
+      "errors": 0
+    },
+    {
+      "variant": "before",
+      "kind": "denied",
+      "stale_download_controls": 1,
+      "reads": 2,
+      "errors": 0
+    },
+    {
+      "variant": "after",
+      "kind": "version",
+      "stale_download_controls": 0,
+      "reads": 2,
+      "errors": 0
+    },
+    {
+      "variant": "after",
+      "kind": "repository",
+      "stale_download_controls": 0,
+      "reads": 2,
+      "errors": 0
+    },
+    {
+      "variant": "after",
+      "kind": "denied",
+      "stale_download_controls": 0,
+      "reads": 2,
+      "errors": 0
+    }
+  ],
+  "reads": 12,
+  "commands": 0,
+  "review_widths": [
+    1440,
+    768,
+    390
+  ],
+  "resource_free_gib": 2.01,
+  "visually_reviewed_frames": {
+    "private-pdf-current-state-1440.png": "10abc7af2060ddafca0d5e75e08cc96e4bdf7fb0d949429f5ae5a5a191df4d52",
+    "private-pdf-current-state-768.png": "959bfa0a763a23d31075d9e1b761b44d541578c524f97374ae841c45efb5b31a",
+    "private-pdf-current-state-390.png": "6b9a7e0ee0eff166989ad97387f6c7b64798e40f062196602d00482f336a2622"
+  },
+  "native_actual_component_hook_seam": {
+    "before_four_cases": {
+      "pass": 1,
+      "fail": 3
+    },
+    "after_six_cases": {
+      "pass": 6,
+      "fail": 0
+    },
+    "existing_artifact_pdf_six": {
+      "pass": 6,
+      "fail": 0
+    },
+    "lint": "PASS_2"
+  },
+  "full_product_auth_db_acceptance": "PENDING_OWN107_FRESH55"
+}
