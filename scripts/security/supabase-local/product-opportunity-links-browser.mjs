@@ -13,10 +13,11 @@ export async function opportunityLinksBrowser({page,origin,check,sql,wa,customer
    else await route.continue()
   }
   await page.route('**/api/product/v1/**',confirmedReadFailure)
+  const recoveryAlert=page.getByRole('dialog',{name:'Nueva oportunidad',exact:true}).getByRole('alert')
   try{
-   await button('Guardar oportunidad').click();await expect(button('Consultar la oportunidad guardada')).toBeVisible();await expect(field('Título comercial')).toBeDisabled();await expect(page.getByRole('alert')).toHaveText('Oportunidad guardada. Falta consultar su estado actual.')
+   await button('Guardar oportunidad').click();await expect(button('Consultar la oportunidad guardada')).toBeVisible();await expect(field('Título comercial')).toBeDisabled();await expect(recoveryAlert).toHaveCount(1);await expect(recoveryAlert).toHaveText('Oportunidad guardada. Falta consultar su estado actual.')
    if(commitStatus!==200||commands!==1||readFailures!==1||!/^[0-9a-f-]{36}$/.test(receiptId??'')||sql("select count(*) from public.opportunities where id='"+receiptId+"' and workspace_id='"+wa+"' and customer_id='"+customerId+"' and version=1")!=='1')throw Error('OPPORTUNITY_CONFIRMED_READ_FAILURE_NOT_EXERCISED')
-   await button('Consultar la oportunidad guardada').click();await expect(button('Consultar la oportunidad guardada')).toBeEnabled();await expect(page.getByRole('alert')).toHaveText('Oportunidad guardada. Falta consultar su estado actual.');await expect(field('Título comercial')).toBeDisabled()
+   await button('Consultar la oportunidad guardada').click();await expect(button('Consultar la oportunidad guardada')).toBeEnabled();await expect(recoveryAlert).toHaveCount(1);await expect(recoveryAlert).toHaveText('Oportunidad guardada. Falta consultar su estado actual.');await expect(field('Título comercial')).toBeDisabled()
    if(commands!==1||readFailures!==2)throw Error('OPPORTUNITY_CONFIRMED_RETRY_REPEATED_COMMAND')
    await button('Consultar la oportunidad guardada').scrollIntoViewIfNeeded();await page.screenshot({path:resolve(screenshotDir,'opportunity-confirmed-read-recovery-1440.png'),fullPage:true})
    await button('Consultar la oportunidad guardada').click();await expect(page.getByRole('dialog')).toHaveCount(0)
