@@ -115,7 +115,11 @@ export function AuthGate({ children, integrated = false }: { children: React.Rea
       router.replace('/login')
     }
 
-    void checkAccess()
+    void checkAccess().catch(() => {
+      if (!mounted) return
+      setAllowed(false)
+      router.replace('/login?error=access_check')
+    })
 
     return () => {
       mounted = false
