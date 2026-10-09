@@ -1,0 +1,9 @@
+# W5 existing image identity proof
+
+This unit starts at composed candidate PR78 source5abf73a32c840e61c54b92dcb1705349fe5e8f15. It consumes only the reviewed scanner/parser controls from vendor experiment PR71@d332937384b9e40e4430fb052426aab339864cbe, not its image/version changes. Existing n8n2.42.5 and PostgreSQL16.13-alpine references are unchanged and remain previously blocked, not approved.
+
+Anonymous official registry GETs addressed the existing immutable index digests, verified actual index/amd64 child bytes against SHA256, and bound their configurations in BASE_VENDOR_MANIFESTS.json. Scan input is the installed Docker image only; inspected ID must equal the independently pinned configuration and Trivy's scanned ID. Native lifecycle additionally proves SHOW server_version against the existing PostgreSQL minor. This extends identity evidence without claiming signed publisher provenance or security remediation.
+
+Exact checksum-pinned Trivy0.75.0 scans filesystem vulnerabilities/secrets and image configuration/history secrets. Only validated package/advisory/version coordinates and aggregate secret counts are retained; raw values/snippets/descriptions stay private. HIGH/CRITICAL or any secret finding remains fatal. Wrong image identities, malformed reports, unsafe coordinate text and vulnerable/secret-only reports fail closed. Company adoption and waivers remain false.
+
+Exact-source native lifecycle, both vendor scans and combined recovery/product acceptance are required separately. Parent PASS is historical, not inherited by this source. No real workflow, hosted service, secret rotation, existing volume upgrade or production effect is introduced. NEXT3: collect bound installed/scanned/native results; retain rejection on any remaining gate; independent review before adoption.
