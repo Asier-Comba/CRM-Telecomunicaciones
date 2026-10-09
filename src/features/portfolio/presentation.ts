@@ -5,5 +5,5 @@ const permanenceTiming:Record<PermanenceRowV1['timing_state'],string>={cancelled
 
 export function portfolioTimingLabel(field:'attention_state'|'timing_state',value:string){
  const labels:Readonly<Record<string,string>>=field==='attention_state'?renewalAttention:permanenceTiming
- return labels[value]??value
+ return Object.hasOwn(labels,value)?labels[value]:value
 }
