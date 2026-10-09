@@ -26,6 +26,8 @@ export function InvoiceEditor({
   serverError,
   onRetry,
   onReload,
+  onReadRecorded,
+  readingRecorded = false,
   immutableCustomer = false,
 }: {
   initial: InvoiceFormData
@@ -40,6 +42,8 @@ export function InvoiceEditor({
   serverError?: string
   onRetry?: () => void
   onReload?: () => void
+  onReadRecorded?: () => void
+  readingRecorded?: boolean
   immutableCustomer?: boolean
 }) {
   const [form, setForm] = useState(initial),
@@ -148,6 +152,7 @@ export function InvoiceEditor({
       {serverError && <p role="alert" className="text-sm text-red-700">{serverError}</p>}
       {onRetry && <button type="button" className={primary} onClick={onRetry}>Reintentar la misma acción</button>}
       {onReload && <button type="button" className={control} onClick={onReload}>Recargar y revisar</button>}
+      {onReadRecorded && <><p role="status" className="text-sm text-slate-600">El cambio está registrado. Consulta la factura para confirmar sus datos actuales.</p><button type="button" className={control} onClick={onReadRecorded} disabled={readingRecorded}>Consultar factura registrada</button></>}
       <fieldset disabled={locked} className="space-y-4">
       {warnings.map((w) => (
         <p key={w} role="status" className="text-xs text-amber-700">
