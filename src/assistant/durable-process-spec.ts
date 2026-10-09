@@ -38,7 +38,7 @@ export type DurableObservation = {
 function evidenceRecord(value: unknown, keys: readonly string[]): Record<string, unknown> | null {
   try {
     if (!value || typeof value !== 'object' || Array.isArray(value) || Object.getPrototypeOf(value) !== Object.prototype) return null
-    const fields = Object.getOwnPropertyDescriptors(value)
+    const fields = Object.getOwnPropertyDescriptors(value as object)
     if (Reflect.ownKeys(fields).length !== keys.length || !keys.every(key => fields[key]?.enumerable && 'value' in fields[key]!)) return null
     return Object.fromEntries(keys.map(key => [key, fields[key]!.value]))
   } catch { return null }
@@ -48,7 +48,7 @@ function evidenceRecord(value: unknown, keys: readonly string[]): Record<string,
 function evidenceRows(value: unknown, length: number): unknown[] | null {
   try {
     if (!Array.isArray(value) || Object.getPrototypeOf(value) !== Array.prototype) return null
-    const fields = Object.getOwnPropertyDescriptors(value)
+    const fields = Object.getOwnPropertyDescriptors(value as object)
     if (!fields.length || !('value' in fields.length) || fields.length.value !== length || Reflect.ownKeys(fields).length !== length + 1) return null
     const keys = Array.from({ length }, (_, index) => String(index))
     if (!keys.every(key => fields[key]?.enumerable && 'value' in fields[key]!)) return null
