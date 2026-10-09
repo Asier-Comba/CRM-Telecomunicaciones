@@ -20,6 +20,10 @@ if (!driver.metadata || Object.keys(driver.metadata).sort().join(',') !== 'backe
   driver.metadata.contract !== DURABLE_PROCESS_CONTRACT || driver.metadata.backend !== 'native_postgres' || driver.metadata.disposable !== true) {
   console.error('disposable_native_postgres_driver_required'); process.exitCode = 2; return
 }
+const requiredExports = ['setupScenario', 'connectWorker', 'execute', 'inspectBoundary', 'inspectScenario', 'cleanupScenario']
+if (requiredExports.some(name => typeof driver[name] !== 'function')) {
+  console.error('durable_driver_exports_required'); process.exitCode = 2; return
+}
 const workerPath = fileURLToPath(new URL('./durable-process-worker.mjs', import.meta.url))
 const active = new Set()
 function launch(job) {

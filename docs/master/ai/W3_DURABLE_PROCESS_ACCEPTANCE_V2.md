@@ -18,6 +18,17 @@ current tree; it is not a prerequisite or a source of unverified decisions.
 Missing driver exits2; failures exit1. Metadata and driver assertions are not
 independent proof: review the exact driver and authoritative ledgers.
 
+Before calling `setupScenario` or creating workers, the runner now requires all
+six exports below to be functions. A driver with otherwise valid metadata but a
+missing/non-function export exits2 with `durable_driver_exports_required` and
+never calls setup. Previously an incomplete driver could reach setup and then
+fail during execution; a synthetic filesystem marker reproduced that admission
+gap without opening a native database. The regression covers all six omissions
+and six non-function variants, and checks that a complete interface still reaches
+setup and reports its failure with a closed code. This is only structural
+prerequisite validation: it does not approve the module, sandbox import-time
+side effects, validate its credentials or prove any physical durability result.
+
 ## Complete driver interface and owner boundary
 
 The executable sources are [runner](../../../scripts/durable-process-acceptance.mjs),
