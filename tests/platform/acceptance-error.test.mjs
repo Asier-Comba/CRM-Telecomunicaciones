@@ -8,4 +8,6 @@ test('bounded acceptance diagnostics identify missing browser/timeouts while str
  assert.equal(acceptanceError(timeout),'BOUNDED_OPERATION_TIMEOUT')
  assert.equal(acceptanceError(new Error('provider response includes private-canary')),'BOUNDED_ACCEPTANCE_FAILURE')
  assert.equal(acceptanceError(null),'BOUNDED_ACCEPTANCE_FAILURE')
+ const syntax=new Error('private-canary source');syntax.code='ERR_UNSUPPORTED_TYPESCRIPT_SYNTAX'
+ assert.equal(acceptanceError(syntax),'TYPESCRIPT_TRANSFORM_REQUIRED')
 })

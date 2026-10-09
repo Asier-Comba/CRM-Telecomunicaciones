@@ -29,7 +29,7 @@ try{
   const build=spawnSync(process.execPath,['node_modules/next/dist/bin/next','build'],{cwd:root,env,stdio:'ignore',timeout:600000})
   if(build.status!==0)throw new Error('APP_BUILD_FAILED')
   cleanBuildCache()
-  const r=spawnSync(process.execPath,['scripts/security/supabase-local/run-stack.mjs'],{cwd:root,env,stdio:'inherit',timeout:2400000})
+  const r=spawnSync(process.execPath,['--experimental-transform-types','scripts/security/supabase-local/run-stack.mjs'],{cwd:root,env,stdio:'inherit',timeout:2400000})
   if(r.status!==0)throw new Error('LOCAL_ACCEPTANCE_FAILED')
   result={status:'PASS',scope:'DISPOSABLE_LOCAL_BACKEND_TRANSPORT',product_browser:'RUN_SEPARATE_W2_ACCEPTANCE'}
  }else throw new Error('UNKNOWN_PLATFORM_COMMAND')

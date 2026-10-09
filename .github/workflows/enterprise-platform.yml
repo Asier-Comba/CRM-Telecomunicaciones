@@ -150,7 +150,7 @@ jobs:
       - name: Install browser required by composed assistant-history acceptance
         run: npx playwright install --with-deps chromium
       - name: Real synthetic A to empty B, authenticated DB and Storage recovery
-        run: node scripts/security/supabase-local/run-stack.mjs
+        run: node --experimental-transform-types scripts/security/supabase-local/run-stack.mjs
       - name: Safe evidence only; no archives, keys, rows or objects
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
