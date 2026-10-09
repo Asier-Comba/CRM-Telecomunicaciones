@@ -1,4 +1,5 @@
 'use client'
+import {CustomerServicesInventory} from '@/features/services/CustomerServicesInventory'
 import {ContractsInventory} from '@/features/contracts/Contracts'
 import Link from 'next/link'
 import {AssignedCommercial} from '@/features/product/integration/AssignedCommercial'
@@ -19,6 +20,7 @@ import { control, Status } from '@/features/product/ui'
 export const customerAreas=['Resumen','Empresa','Contactos','Contratos','Servicios','Ubicaciones','Líneas','SIM/eSIM','Portabilidades','Renovaciones','Permanencias','Oportunidades','Tareas','Reuniones','Incidencias','Equipos','Agenda','Documentos','Facturación','Actividad','Comunicaciones']
 export function CustomerIntegratedPanels({customer,area,onRecordCreated}:{customer:CustomerIdentity;area:string;onRecordCreated?:()=>void}){
  if(area==='Contratos')return <ContractsInventory key={customer.id} customerId={customer.id} createAllowed={customer.status==='active'} onCreated={onRecordCreated}/>
+ if(area==='Servicios')return <CustomerServicesInventory key={customer.id} customer={customer} createAllowed={customer.status==='active'} onCreated={onRecordCreated}/>
  if(area==='Ubicaciones')return <ServiceLocations key={customer.id} customerId={customer.id} createAllowed={customer.status==='active'}/>
  if(area==='Portabilidades')return <PortabilityInventory key={customer.id} customerId={customer.id} createAllowed={customer.status==='active'} onCreated={onRecordCreated}/>
  if(area==='SIM/eSIM')return <SimInventory key={customer.id} customerId={customer.id} createAllowed={customer.status==='active'} onCreated={onRecordCreated}/>
