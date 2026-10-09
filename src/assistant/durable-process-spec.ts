@@ -33,16 +33,38 @@ export type DurableObservation = {
   unauthorizedRows: number; forbiddenTransitions: number; unregisteredDispatches: number
   automaticRedispatches: number; state: string
 }
+
+/** Snapshot exact enumerable own data; do not evaluate evidence accessors. */
+function evidenceRecord(value: unknown, keys: readonly string[]): Record<string, unknown> | null {
+  try {
+    if (!value || typeof value !== 'object' || Array.isArray(value) || Object.getPrototypeOf(value) !== Object.prototype) return null
+    const fields = Object.getOwnPropertyDescriptors(value)
+    if (Reflect.ownKeys(fields).length !== keys.length || !keys.every(key => fields[key]?.enumerable && 'value' in fields[key]!)) return null
+    return Object.fromEntries(keys.map(key => [key, fields[key]!.value]))
+  } catch { return null }
+}
+
+/** A dense ordinary array only; reject inherited/accessor/private entries. */
+function evidenceRows(value: unknown, length: number): unknown[] | null {
+  try {
+    if (!Array.isArray(value) || Object.getPrototypeOf(value) !== Array.prototype) return null
+    const fields = Object.getOwnPropertyDescriptors(value)
+    if (!fields.length || !('value' in fields.length) || fields.length.value !== length || Reflect.ownKeys(fields).length !== length + 1) return null
+    const keys = Array.from({ length }, (_, index) => String(index))
+    if (!keys.every(key => fields[key]?.enumerable && 'value' in fields[key]!)) return null
+    return keys.map(key => fields[key]!.value)
+  } catch { return null }
+}
 /** Counters are scoped to the fixture's one binding/operation, measured from DB
  * plus an independent synthetic effect ledger. Never count client assertions.
  */
 export function validateDurableObservation(id: DurableProcessScenario, value: unknown): boolean {
   if (!DURABLE_PROCESS_SCENARIOS.some(scenario => scenario.id === id)) return false
-  if (!value || typeof value !== 'object' || Array.isArray(value)) return false
-  const o = value as DurableObservation
   const numeric = ['operationCount', 'executionAuthorizations', 'effectCount', 'originalAuditIntents', 'deliveredOriginalEvents', 'pendingOriginalEvents', 'unauthorizedRows', 'forbiddenTransitions', 'unregisteredDispatches', 'automaticRedispatches'] as const
-  if (Object.keys(o).sort().join(',') !== [...numeric, 'state'].sort().join(',') ||
-    numeric.some(k => !Number.isSafeInteger(o[k]) || o[k] < 0) || typeof o.state !== 'string') return false
+  const data = evidenceRecord(value, [...numeric, 'state'])
+  if (!data) return false
+  const o = data as DurableObservation
+  if (numeric.some(k => !Number.isSafeInteger(o[k]) || o[k] < 0) || typeof o.state !== 'string') return false
   if (o.unauthorizedRows || o.forbiddenTransitions || o.unregisteredDispatches || o.automaticRedispatches) return false
   if (['cross_workspace_lookup', 'cross_actor_lookup', 'changed_digest', 'revoked_principal'].includes(id)) {
     return o.operationCount === 1 && o.executionAuthorizations === 0 && o.effectCount === 0 &&
@@ -59,14 +81,12 @@ export function validateDurableObservation(id: DurableProcessScenario, value: un
  * connection. Counts are deltas relative to the issued confirmation fixture.
  */
 export function validateRollbackEvidence(value: unknown): boolean {
-  if (!Array.isArray(value) || value.length !== DURABLE_ROLLBACK_POINTS.length) return false
+  const rows = evidenceRows(value, DURABLE_ROLLBACK_POINTS.length)
+  if (!rows) return false
   const keys = ['point', 'consumedConfirmations', 'operations', 'commands', 'outbox', 'auditIntents', 'auditDeliveries'] as const
   return DURABLE_ROLLBACK_POINTS.every((point, index) => {
-    const row = value[index]
-    if (!row || typeof row !== 'object' || Array.isArray(row)) return false
-    const fields = Object.getOwnPropertyDescriptors(row)
-    return Reflect.ownKeys(fields).length === keys.length && keys.every(k => fields[k] && 'value' in fields[k]) &&
-      fields.point!.value === point && keys.slice(1).every(k => fields[k]!.value === 0)
+    const row = evidenceRecord(rows[index], keys)
+    return !!row && row.point === point && keys.slice(1).every(k => row[k] === 0)
   })
 }
 
@@ -75,15 +95,13 @@ export function validateRollbackEvidence(value: unknown): boolean {
  * The unchanged logical intent must survive the same cluster's restart. */
 export function validateDatabaseRestartEvidence(value: unknown): boolean {
   try {
-    if (!value || typeof value !== 'object' || Array.isArray(value)) return false
-    const fields = Object.getOwnPropertyDescriptors(value)
     const keys = ['beforeSystemIdentifier', 'afterSystemIdentifier', 'beforePostmasterStartMs', 'afterPostmasterStartMs', 'originalBindingDigest', 'persistedBindingDigest'] as const
-    if (Reflect.ownKeys(fields).length !== keys.length || !keys.every(key => fields[key] && 'value' in fields[key])) return false
-    const v = Object.fromEntries(keys.map(key => [key, fields[key]!.value]))
+    const v = evidenceRecord(value, keys)
+    if (!v) return false
     return typeof v.beforeSystemIdentifier === 'string' && /^[1-9][0-9]{0,19}$/.test(v.beforeSystemIdentifier)
       && v.afterSystemIdentifier === v.beforeSystemIdentifier
-      && Number.isSafeInteger(v.beforePostmasterStartMs) && v.beforePostmasterStartMs > 0
-      && Number.isSafeInteger(v.afterPostmasterStartMs) && v.afterPostmasterStartMs > v.beforePostmasterStartMs
+      && typeof v.beforePostmasterStartMs === 'number' && Number.isSafeInteger(v.beforePostmasterStartMs) && v.beforePostmasterStartMs > 0
+      && typeof v.afterPostmasterStartMs === 'number' && Number.isSafeInteger(v.afterPostmasterStartMs) && v.afterPostmasterStartMs > v.beforePostmasterStartMs
       && typeof v.originalBindingDigest === 'string' && /^[a-f0-9]{64}$/.test(v.originalBindingDigest)
       && v.persistedBindingDigest === v.originalBindingDigest
   } catch { return false }

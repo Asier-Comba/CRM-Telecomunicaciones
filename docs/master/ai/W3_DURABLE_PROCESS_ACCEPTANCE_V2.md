@@ -18,6 +18,23 @@ current tree; it is not a prerequisite or a source of unverified decisions.
 Missing driver exits2; failures exit1. Metadata and driver assertions are not
 independent proof: review the exact driver and authoritative ledgers.
 
+The observation, rollback and restart oracles now require exact ordinary JSON
+data: enumerable own data fields, no getters, symbols, hidden extra fields or
+custom prototypes. The rollback array must also contain exactly its six dense
+enumerable own rows. Descriptor/prototype inspection failures return false and
+do not expose the original error. Frozen/JSON-roundtripped valid measurements
+remain accepted. Counts, states,23 scenarios/four20-worker races, rollback order
+and restart invariants are unchanged.
+
+The previous oracle reproducibly accepted an observation with accessor counters
+(32 getter calls), an observation carrying a hidden extra field, and nonenumerable
+required rollback/restart fields; an ownKeys inspection trap also escaped as an
+exception. The new regressions require rejection without getter evaluation and
+preserve every existing positive and negative semantic fixture. This closes an
+evidence-admission gap only: it does not create a physical adapter, certify a
+driver's assertions, prove a native transaction/crash/restart, approve W4 or
+enable business effects. No schema/fixture/provider/worker ownership changes.
+
 Before calling `setupScenario` or creating workers, the runner now requires all
 six exports below to be functions. A driver with otherwise valid metadata but a
 missing/non-function export exits2 with `durable_driver_exports_required` and
