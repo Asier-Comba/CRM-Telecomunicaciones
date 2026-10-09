@@ -20,6 +20,11 @@ export async function billingMobileRowsBrowser({page,origin,sql,wa,customerId,sc
    for(const label of ['Ver resumen','Abrir factura'])await expect(row.getByRole('button',{name:label,exact:true})).toBeInViewport({ratio:1})
    if(width===390)for(const label of ['Factura','Estado','Vencimiento','Total','Acciones'])await expect(row.locator('span[aria-hidden="true"]').filter({hasText:new RegExp('^'+label+'$')})).toBeInViewport({ratio:1})
    if(await table.evaluate(el=>el.closest('section').scrollWidth>el.closest('section').clientWidth+1)||await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1))throw Error('BILLING_MOBILE_LIST_HORIZONTAL_CLIPPING')
+   step('all_row_tokens_'+width)
+   await expect(table.locator('tr[data-invoice-id]')).toHaveCount(listBody.data.items.length)
+   for(const item of listBody.data.items){const currentRow=table.locator(`tr[data-invoice-id="${item.id}"]`);await expect(currentRow.locator('[data-invoice-status]')).toHaveCount(1);await expect(currentRow.locator('[data-invoice-total]')).toHaveText(new Intl.NumberFormat('es-ES',{style:'currency',currency:item.currency}).format(item.totals.total_minor/100))}
+   const wrapped=await table.locator('[data-invoice-status], [data-invoice-total]').evaluateAll(tokens=>tokens.some(token=>{const walker=document.createTreeWalker(token,NodeFilter.SHOW_TEXT),tops=new Set;let node;while(node=walker.nextNode()){if(!node.textContent.trim())continue;const range=document.createRange();range.selectNodeContents(node);for(const rect of range.getClientRects())if(rect.width>0)tops.add(Math.round(rect.top))}return tops.size!==1}))
+   if(wrapped)throw Error('BILLING_MOBILE_ROW_STATUS_OR_CURRENCY_WRAPPED')
    await page.screenshot({path:resolve(screenshotDir,'billing-complete-invoice-row-'+width+'.png'),fullPage:true})
    step('current_summary_'+width);const summaryRead=response('invoice.summary');await row.getByRole('button',{name:'Ver resumen',exact:true}).click();const summaryResponse=await summaryRead,summaryBody=await summaryResponse.json(),summary=summaryBody.data?.invoice
    if(summaryResponse.status()!==200||!summaryBody.ok||!summary||summary.id!==invoiceId||summary.customer_id!==customerId||summary.totals.total_minor!==listedInvoice.totals.total_minor||summary.currency!==listedInvoice.currency)throw Error('BILLING_MOBILE_ROW_SUMMARY_MISMATCH')
