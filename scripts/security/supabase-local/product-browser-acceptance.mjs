@@ -1,3 +1,4 @@
+import {observeCustomerAgendaCreation} from './customer-summary-creation-observer.mjs'
 import {contractsConsumerBrowser,viewerContractsConsumerBrowser} from './product-contracts-consumer-browser.mjs'
 import {portabilityConsumerBrowser,viewerPortabilityConsumerBrowser} from './product-portability-consumer-browser.mjs'
 import {simConsumerBrowser,viewerSimConsumerBrowser} from './product-sim-consumer-browser.mjs'
@@ -155,6 +156,13 @@ export async function productBrowserAcceptance({ users, wa, ca, sql, url, anon, 
       await drawer.getByLabel('Cliente vinculado',{exact:true}).selectOption(id);await drawer.getByRole('button',{name:'Guardar agenda',exact:true}).click();await expect(page.getByRole('dialog')).toHaveCount(0);
       if(sql(`select customer_id from public.tasks where workspace_id='${wa}' and title='W2 P4 Linked Task'`)!==id)throw Error('P4_TASK_CUSTOMER_NOT_PERSISTED');
       await page.reload();await page.getByRole('button',{name:/W2 P4 Linked Task/}).first().click();await expect(page.getByText('Actividad vinculada a una empresa.',{exact:false})).toBeVisible();await page.getByRole('button',{name:'Cerrar panel',exact:true}).click();
+      if(report)report.w2_ui_action_step='calendar:customer360_create_task_meeting';await page.goto(origin+'/clients/'+id);await page.getByRole('tab',{name:'Agenda',exact:true}).click();await expect(page.getByRole('button',{name:'Actualizar agenda',exact:true})).toBeEnabled()
+      for(const kind of ['task','meeting']){
+        await page.getByRole('button',{name:'Nueva cita',exact:true}).click();const editor=page.getByRole('dialog');await editor.getByLabel('Tipo',{exact:true}).selectOption(kind);await editor.getByLabel('Título',{exact:true}).fill('W2 Customer360 Synthetic '+kind);await editor.getByLabel(kind==='task'?'Vencimiento':'Inicio',{exact:true}).fill(day+'T10:00');if(kind==='meeting')await editor.getByLabel('Fin',{exact:true}).fill(day+'T10:30')
+        const summary=await observeCustomerAgendaCreation({page,sql,customerId:id,kind}),command=page.waitForResponse(r=>{try{const q=r.request().postDataJSON();return new URL(r.url()).pathname==='/api/product/v1/commands'&&q.operation===kind+'.create'}catch{return false}});await editor.getByRole('button',{name:'Guardar agenda',exact:true}).click();const response=await command,body=await response.json();if(response.status()!==200||!body.ok||typeof body.receipt?.id!=='string')throw Error('C360_AGENDA_CREATE_RECEIPT_MISSING');await expect(page.getByRole('dialog')).toHaveCount(0);await summary(body.receipt.id)
+      }
+      await page.getByLabel('Resumen real del cliente',{exact:true}).evaluate(el=>el.scrollIntoView({block:'start',inline:'nearest'}));await page.screenshot({path:resolve(screenshotDir,'customer360-agenda-created-1440.png'),fullPage:true});await page.goto(origin+'/calendar');
+
     })
     await check('calendar_real_cursor_next_previous',async()=>{
       sql(`insert into public.tasks(workspace_id,customer_id,title,status,due_at,assigned_user_id,created_by_user_id) select '${wa}','${id}','W2 P4 Page Task '||lpad(i::text,3,'0'),'pending','${day}T09:00:00Z'::timestamptz+i*interval '1 minute','${users.memberA.id}','${users.memberA.id}' from generate_series(1,105) i;`)

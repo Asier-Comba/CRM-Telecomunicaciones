@@ -25,7 +25,7 @@ export function CustomerIntegratedPanels({customer,area,onRecordCreated}:{custom
  if(area==='Incidencias')return <CaseInventory key={customer.id} customerId={customer.id} createAllowed={customer.status==='active'} onCreated={onRecordCreated}/>
  if(area==='Equipos')return <EquipmentInventory customerId={customer.id} createAllowed={customer.status==='active'}/>
  if(isCustomerDomain(area))return <CustomerDomainPages key={area} area={area} customerId={customer.id}/>
- if(area==='Agenda')return <IntegratedCalendar customerId={customer.id}/>
+ if(area==='Agenda')return <IntegratedCalendar customerId={customer.id} onCommitted={onRecordCreated}/>
  if(area==='Documentos')return <CustomerDocuments customerId={customer.id}/>
  if(area==='Facturación')return <IntegratedBilling initialCustomerId={customer.id}/>
  if(area==='Contactos')return null
