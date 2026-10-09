@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useRef, useId } from 'react'
 import { AlertTriangle, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/Button'
@@ -18,6 +18,7 @@ export function ConfirmDialog({
   cancelLabel = 'Cancelar',
   destructive = false,
   loading = false,
+  confirmDisabled = false,
   error,
   onConfirm,
   onCancel,
@@ -30,41 +31,42 @@ export function ConfirmDialog({
   cancelLabel?: string
   destructive?: boolean
   loading?: boolean
+  confirmDisabled?: boolean
   error?: string | null
   onConfirm: () => void
   onCancel: () => void
 }) {
-  useEffect(() => {
-    if (!open) return
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && !loading) onCancel()
-    }
-    document.addEventListener('keydown', onKey)
-    return () => document.removeEventListener('keydown', onKey)
-  }, [open, loading, onCancel])
+  const dialogRef=useRef<HTMLDialogElement>(null),cancelRef=useRef<HTMLButtonElement>(null),titleId=useId(),descriptionId=useId()
+  useEffect(()=>{
+    if(!open||!dialogRef.current)return
+    const dialog=dialogRef.current,previous=document.activeElement as HTMLElement|null
+    dialog.showModal()
+    cancelRef.current?.focus()
+    return()=>{dialog.close();previous?.focus()}
+  },[open])
 
   if (!open) return null
 
   return (
-    <div className="fixed inset-0 z-[70] flex items-center justify-center p-4">
-      <div
-        className="absolute inset-0 bg-slate-950/55 backdrop-blur-sm animate-in fade-in"
-        onClick={() => { if (!loading) onCancel() }}
-        aria-hidden
-      />
-      <div
-        role="dialog"
-        aria-modal="true"
-        aria-label={title}
-        className="relative w-full max-w-md overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xl shadow-slate-950/30"
-      >
+    <dialog ref={dialogRef} tabIndex={-1} aria-labelledby={titleId} aria-describedby={descriptionId}
+      onKeyDown={e=>{
+        if(e.key!=='Tab')return
+        const buttons=Array.from(e.currentTarget.querySelectorAll<HTMLButtonElement>('button:not(:disabled)'))
+        const first=buttons[0],last=buttons[buttons.length-1]
+        if(!first){e.preventDefault();e.currentTarget.focus()}
+        else if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}
+        else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}
+      }}
+      onCancel={e=>{e.preventDefault();if(!loading)onCancel()}}
+      onClick={e=>{if(e.target===e.currentTarget&&!loading)onCancel()}}
+      className="m-auto w-[min(28rem,calc(100vw-2rem))] overflow-hidden rounded-2xl border border-gray-200 bg-white p-0 shadow-2xl backdrop:bg-slate-950/55 backdrop:backdrop-blur-sm">
         <div className="flex items-start gap-3.5 p-5">
           <div className={cn('flex h-10 w-10 shrink-0 items-center justify-center rounded-xl', destructive ? 'bg-red-50 text-red-600' : 'bg-indigo-50 text-indigo-600')}>
             <AlertTriangle className="h-5 w-5" />
           </div>
           <div className="min-w-0 flex-1">
-            <h2 className="text-sm font-semibold text-gray-950">{title}</h2>
-            <p className="mt-1 text-sm leading-6 text-gray-500">{description}</p>
+            <h2 id={titleId} className="text-sm font-semibold text-gray-950">{title}</h2>
+            <p id={descriptionId} className="mt-1 text-sm leading-6 text-gray-500">{description}</p>
             {error && <p role="alert" className="mt-2 text-xs font-medium text-red-600">{error}</p>}
           </div>
           <button
@@ -78,12 +80,11 @@ export function ConfirmDialog({
           </button>
         </div>
         <div className="flex justify-end gap-2 border-t border-gray-100 bg-gray-50/70 px-5 py-3">
-          <Button variant="secondary" size="sm" onClick={onCancel} disabled={loading}>{cancelLabel}</Button>
-          <Button variant={destructive ? 'danger' : 'primary'} size="sm" loading={loading} onClick={onConfirm}>
+          <Button ref={cancelRef} variant="secondary" size="sm" onClick={onCancel} disabled={loading}>{cancelLabel}</Button>
+          <Button variant={destructive ? 'danger' : 'primary'} size="sm" loading={loading} disabled={confirmDisabled} onClick={onConfirm}>
             {loading ? (loadingLabel ?? confirmLabel) : confirmLabel}
           </Button>
         </div>
-      </div>
-    </div>
+    </dialog>
   )
 }

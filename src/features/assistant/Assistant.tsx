@@ -19,6 +19,7 @@ import { AssistantResponseView } from './Response'
 import { PreviewNotice, Drawer, Tabs, control, primary } from '@/features/product/ui'
 import { useProduct } from '@/features/product/integration/Provider'
 import type { AiEntityReference } from './w3-ui-contract'
+import { PersistedHistory } from './PersistedHistory'
 export type AssistantContext = {
   id: string
   name: string
@@ -41,7 +42,12 @@ const prompts = [
   '¿Qué oportunidades están abiertas?',
   'Resume Norte Telecom',
 ]
-export function Assistant({ context, selectedReferences = [], invoiceIntent = false }: { context: AssistantContext | null; selectedReferences?: readonly AiEntityReference[]; invoiceIntent?: boolean }) {
+type AssistantProps = { context: AssistantContext | null; selectedReferences?: readonly AiEntityReference[]; invoiceIntent?: boolean; persistedHistory?: boolean }
+export function Assistant(props: AssistantProps) {
+  const { actorId, workspaceId, role, repository } = useProduct()
+  return props.persistedHistory && repository.mode === 'integrated_local' ? <PersistedHistory key={JSON.stringify([actorId,workspaceId,role])} selectedReferences={props.selectedReferences} invoiceIntent={props.invoiceIntent} /> : <TemporaryAssistant {...props} />
+}
+function TemporaryAssistant({ context, selectedReferences = [], invoiceIntent = false }: AssistantProps) {
   const integrated = useProduct().repository.mode === 'integrated_local'
   const [mobilePane,setMobilePane]=useState('Consulta')
   const [threadQuery,setThreadQuery] = useState('')

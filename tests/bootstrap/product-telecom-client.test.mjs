@@ -45,3 +45,78 @@ test('equipment write checks exact CAS receipt, current denial and uncertain sam
  const wrong=new IntegratedLocalProductRepository(async()=>Response.json({ok:true,data:{...receipt,version:3}}));await assert.rejects(wrong.telecom('equipment.assign',input),e=>e.code==='internal_safe')
  const denied=new IntegratedLocalProductRepository(async()=>Response.json({ok:false,error:'access_denied'},{status:403}));await assert.rejects(denied.telecom('equipment.assign',input),e=>e.code==='access_denied')
 })
+
+import {attentionBucket,attentionHref} from '../../src/features/attention/presentation.ts'
+import {minorAmount,amountBarPercent} from '../../src/features/billing/analytics-presentation.ts'
+test('attention uses published reason/date facts and real supported normal destinations',()=>{
+ const base={kind:'task',id,customer_id:id,owner_user_id:null,sort_on:'2026-10-07',due_on:'2026-10-07',status:'pending',reason_code:'task_overdue',priority:'normal'}
+ assert.equal(attentionBucket(base,'2026-10-07'),'Requiere atención');assert.equal(attentionHref(base),'/calendar?task='+id)
+ assert.equal(attentionBucket({...base,kind:'meeting',reason_code:'meeting_upcoming',sort_on:'2026-10-08'},'2026-10-07'),'Próximos días')
+ assert.equal(attentionBucket({...base,kind:'opportunity',reason_code:'opportunity_missing_next_action',due_on:null},'2026-10-07'),'Hoy')
+ assert.equal(attentionHref({...base,kind:'case',reason_code:'case_urgent'}),'/cases/'+id)
+})
+test('financial presentation preserves amounts beyond IEEE precision and bounded graph scale',()=>{
+ assert.equal(minorAmount('900719925474099399','EUR'),'9.007.199.254.740.993,99 EUR')
+ assert.equal(amountBarPercent('900719925474099399','900719925474099399'),100)
+ assert.equal(amountBarPercent('450359962737049699','900719925474099399'),49.99)
+ assert.equal(amountBarPercent('0','0'),0)
+})
+
+import {assigneeCollectionIdentity,stageCollectionIdentity} from '../../src/features/customers/customer-identity.ts'
+test('ordinary commercial and stage names beyond first page use one exact bounded read, never foreign identity',async()=>{
+ let calls=0;const row={user_id:id,display_name:'Commercial identity',role:'member'}
+ const repository={collection:async(op,input)=>{calls++;assert.equal(op,'assignee.list');assert.deepEqual(input,{limit:1,sort:'id_asc',after_id:'10000000-0000-4000-8000-000000000000'});return{items:[row]}}}
+ assert.equal((await assigneeCollectionIdentity(repository,id)).display_name,'Commercial identity');assert.equal(calls,1)
+ await assert.rejects(assigneeCollectionIdentity({collection:async()=>({items:[{...row,user_id:'10000000-0000-4000-8000-000000000002'}]})},id),e=>e.code==='not_found')
+ let stageCalls=0;assert.equal((await stageCollectionIdentity({stages:async input=>{stageCalls++;assert.deepEqual(input,{limit:1,after_id:'10000000-0000-4000-8000-000000000000'});return{items:[{id,display_name:'Scoped stage'}]}}},id)).display_name,'Scoped stage');assert.equal(stageCalls,1)
+})
+
+import {loadCollectionLabels} from '../../src/features/product/integration/collection-labels.ts'
+test('page identity labels deduplicate repeated references and never cache authority across refresh',async()=>{
+ let calls=0;const rows=Array.from({length:20},()=>({customer_id:id,operator_id:id,plan_version_id:id})),repository={collection:async(op)=>{calls++;return op==='customer.list'?{items:[{id,display_name:'Current customer'}]}:op==='operator.get'?{record:{display_name:'Current operator'}}:{record:{version_number:1,recurring_amount_minor:'1200',currency:'EUR',valid_from:'2026-01-01',valid_until:null}}}}
+ const labels=await loadCollectionLabels(repository,rows);assert.equal(calls,3);assert.equal(labels.customer[id],'Current customer');assert.match(labels.plan_version[id],/12,00 EUR/)
+ const revoked=await loadCollectionLabels({collection:async()=>{calls++;throw Error('authority revoked')}},rows);assert.equal(calls,6);assert.equal(revoked.customer[id],'Cliente no disponible');assert.equal(revoked.operator[id],'Operador no disponible')
+})
+test('page label loader bounds concurrency and stops queued reads after the page is disposed',async()=>{
+ let inFlight=0,max=0,calls=0,active=true;const ids=Array.from({length:12},(_,i)=>'10000000-0000-4000-8000-'+String(i+1).padStart(12,'0'))
+ const repository={collection:async()=>{calls++;inFlight++;max=Math.max(max,inFlight);await new Promise(r=>setTimeout(r,2));active=false;inFlight--;return{record:{display_name:'Scoped operator'}}}}
+ await loadCollectionLabels(repository,ids.map(operator_id=>({operator_id})),()=>active);assert.equal(max,4);assert.equal(calls,4)
+})
+
+test('location normal masked reads are closed and reject foreign customers and private address values',async()=>{
+ const input={customer_id:id,limit:20},row={id,customer_id:id,version:1,label:'Synthetic site',country:'ES',source:'manual'}
+ const run=value=>new IntegratedLocalProductRepository(async(path,init)=>{assert.equal(path,'/api/telecom/locations/v1');assert.equal(init.cache,'no-store');assert.equal(init.credentials,'same-origin');return Response.json({ok:true,data:{contract_version:'service_location.v1',operation:'service_location.list',items:[value],next_id:null}})})
+ assert.equal((await run(row).telecom('service_location.list',input)).items[0].label,row.label)
+ for(const bad of [{...row,address_line1:'Private Synthetic Street'},{...row,customer_id:'10000000-0000-4000-8000-000000000002'}])await assert.rejects(run(bad).telecom('service_location.list',input),e=>e.code==='internal_safe')
+ let calls=0;const r=new IntegratedLocalProductRepository(async()=>{calls++;return Response.json({})});await assert.rejects(r.telecom('service_location.list',{...input,workspace_id:id}),e=>e.code==='validation');assert.equal(calls,0)
+})
+test('installation metadata excludes location assignment and preserves exact uncertain intent with live denial',async()=>{
+ const input={command_id:id,service_id:id,expected_service_version:1,expected_details_version:0,site_label:'Synthetic Site',installation_contact_id:null,activation_target_on:'2026-10-09'},receipt={contract_version:'telecom.service_commercial.v1',operation:'service.installation_set',command_id:id,id,service_id:id,service_version:2,version:1,status:'recorded'},bodies=[]
+ const r=new IntegratedLocalProductRepository(async(path,init)=>{assert.equal(path,'/api/telecom/services/v1');bodies.push(init.body);if(bodies.length===1)throw Error('lost response');return Response.json({ok:true,data:receipt})})
+ await assert.rejects(r.telecom('service.installation_set',input),e=>e.code==='transport_uncertain');assert.equal((await r.telecom('service.installation_set',input)).service_version,2);assert.equal(bodies[0],bodies[1]);await assert.rejects(r.telecom('service.installation_set',{...input,location_id:null}),e=>e.code==='validation');assert.equal(bodies.length,2)
+ const denied=new IntegratedLocalProductRepository(async()=>Response.json({ok:false,error:'access_denied'},{status:403}));await assert.rejects(denied.telecom('service_location.assign',{command_id:id,service_id:id,location_id:null,expected_service_version:2,expected_details_version:1}),e=>e.code==='access_denied')
+})
+test('sold addon read uses authoritative civil as-of and rejects invented timing or sensitive fields',async()=>{
+ const row={id,version:1,service_id:id,plan_version_id:id,component_position:3,addon_code:'static_ip',quantity:1,valid_from:'2026-10-01',valid_until:null,ended_on:null,source:'manual',timing_state:'current'},read=items=>new IntegratedLocalProductRepository(async(path)=>{assert.equal(path,'/api/telecom/services/v1');return Response.json({ok:true,data:{contract_version:'telecom.service_commercial.v1',operation:'service.addon_list',service_id:id,as_of:'2026-10-08',items,next_id:null}})})
+ assert.equal((await read([row]).telecom('service.addon_list',{service_id:id,limit:20})).items[0].plan_version_id,id)
+ for(const bad of [{...row,timing_state:'planned'},{...row,canonical_value:'PRIVATE-SYNTHETIC'},{...row,service_id:'10000000-0000-4000-8000-000000000002'}])await assert.rejects(read([bad]).telecom('service.addon_list',{service_id:id,limit:20}),e=>e.code==='internal_safe')
+})
+
+const caseRow={id,version:1,customer_id:id,contract_id:null,service_id:null,line_id:null,case_type:'technical',title:'Synthetic case',priority:'normal',due_on:null,assigned_user_id:null,status:'open',source:'manual',resolved_at:null,closed_at:null,resolution_code:null,cancellation_code:null,internal_note_count:0,created_at:'2026-10-08T12:00:00Z',updated_at:'2026-10-08T12:00:00Z',overdue:false}
+test('case ordinary metadata cannot acquire private notes or a foreign row identity',async()=>{
+ const reader=row=>new IntegratedLocalProductRepository(async(path,init)=>{assert.equal(path,'/api/cases/v1');assert.equal(init.credentials,'same-origin');assert.equal(init.cache,'no-store');return Response.json({ok:true,data:{contract_version:'case.v1',operation:'case.get',record:row}})})
+ assert.equal((await reader(caseRow).telecom('case.get',{id})).record.internal_note_count,0)
+ for(const bad of [{...caseRow,body:'Private Synthetic Note'},{...caseRow,id:'10000000-0000-4000-8000-000000000002'}])await assert.rejects(reader(bad).telecom('case.get',{id}),e=>e.code==='internal_safe')
+})
+test('explicit case note history enforces case identity, monotonic cursor, closed body and fresh permission',async()=>{
+ const input={id,limit:1,after_seq:20},note={id,seq:21,body:'Private Synthetic Case Note',actor_user_id:id,created_at:'2026-10-08T12:00:00Z'},read=body=>new IntegratedLocalProductRepository(async()=>Response.json({ok:true,data:body})),result={contract_version:'case.v1',operation:'case.note_list',case_id:id,items:[note],next_seq:21}
+ assert.equal((await read(result).telecom('case.note_list',input)).items[0].seq,21)
+ for(const bad of [{...result,case_id:'10000000-0000-4000-8000-000000000002'},{...result,items:[{...note,seq:20}]},{...result,items:[{...note,email:'private@example.invalid'}]}])await assert.rejects(read(bad).telecom('case.note_list',input),e=>e.code==='internal_safe')
+ const denied=new IntegratedLocalProductRepository(async()=>Response.json({ok:false,error:'access_denied'},{status:403}));await assert.rejects(denied.telecom('case.note_list',input),e=>e.code==='access_denied')
+})
+test('case private note uncertain writes retain exact intent, validate receipt CAS and never echo body in safe error',async()=>{
+ const input={command_id:id,id,expected_version:1,body:'Private Synthetic Case Note'},receipt={contract_version:'case.v1',operation:'case.note_create',command_id:id,id,version:2,status:'open',source:'manual',resolution_code:null,cancellation_code:null,note_id:id,note_seq:1},bodies=[]
+ const r=new IntegratedLocalProductRepository(async(path,init)=>{assert.equal(path,'/api/cases/v1');bodies.push(init.body);if(bodies.length===1)throw Error(input.body);return Response.json({ok:true,data:receipt})})
+ await assert.rejects(r.telecom('case.note_create',input),e=>e.code==='transport_uncertain'&&!e.message.includes(input.body));assert.equal((await r.telecom('case.note_create',input)).note_seq,1);assert.equal(bodies[0],bodies[1])
+ const wrong=new IntegratedLocalProductRepository(async()=>Response.json({ok:true,data:{...receipt,version:3}}));await assert.rejects(wrong.telecom('case.note_create',input),e=>e.code==='internal_safe')
+})
