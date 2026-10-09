@@ -4,6 +4,8 @@ on:
   pull_request:
     paths:
       - '.github/workflows/supabase-local.yml'
+      - 'scripts/platform/**'
+      - 'infra/platform/**'
       - 'scripts/security/supabase-local/**'
       - 'supabase/config.toml'
       - 'src/lib/server/product-*.ts'
