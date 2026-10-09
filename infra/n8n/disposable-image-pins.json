@@ -1,8 +1,18 @@
 {
- "version":1,
- "scope":"DISPOSABLE_ACCEPTANCE_NOT_COMPANY_APPROVED",
- "n8n":{"version":"2.42.5","image":"docker.io/n8nio/n8n:2.42.5@sha256:f6dc0d15bc9620baf5ba1df834ef81ae4e969f778c09300e567217be88f04a96","source":"https://github.com/n8n-io/n8n/releases/tag/n8n@2.42.5"},
- "postgres":{"version":"16.13-alpine","image":"docker.io/library/postgres:16.13-alpine@sha256:4e6e670bb069649261c9c18031f0aded7bb249a5b6664ddec29c013a89310d50"},
- "registry_verification":"Anonymous public manifests returned HTTP200 with these Docker-Content-Digests; preferred docker.n8n.io returned429, so official Docker Hub namespace is used.",
- "company_runtime_accepted":false
+  "version": 1,
+  "scope": "DISPOSABLE_ACCEPTANCE_NOT_COMPANY_APPROVED",
+  "n8n": {
+    "version": "2.42.6",
+    "image": "docker.io/n8nio/n8n:2.42.6@sha256:526daa38b68e923cc00c5280d18b4da5d489f115a73bdbf3b8e452b184197a9a",
+    "source": "https://github.com/n8n-io/n8n/releases/tag/n8n%402.42.6",
+    "verified_linux_amd64_config_digest": "sha256:29268d302563a0127d34ed5fc6b1d456e17c9e4915b4cf2b7d0af77f2c877704"
+  },
+  "postgres": {
+    "version": "16.15-bookworm",
+    "image": "docker.io/library/postgres:16.15-bookworm@sha256:0ea6700a3b4f0ae6ce746519073558aed4d88a79d8d07622a9a644946c7319c4",
+    "verified_linux_amd64_config_digest": "sha256:e8538db784b854a9baac5c1be6d059dcf0db257af2d94c8c5807b5fc15f11222",
+    "source": "https://github.com/docker-library/official-images/blob/master/library/postgres"
+  },
+  "registry_verification": "Anonymous registry manifests: index and Linux amd64 content bytes match SHA256. Configuration digest is independently pinned. Native/security acceptance remains pending; no company adoption.",
+  "company_runtime_accepted": false
 }
