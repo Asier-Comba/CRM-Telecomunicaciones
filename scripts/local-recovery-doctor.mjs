@@ -16,6 +16,14 @@ export function localDockerEndpoint(value) {
   return value === 'unix:///var/run/docker.sock' || /^npipe:\/\/\/\/\.\/pipe\/(docker_engine|dockerDesktopLinuxEngine)$/.test(value)
 }
 
+export function gitRefreshStatus(cwd, run = command) {
+  // Local metadata only: no remote URLs, branch names, fetch or network request.
+  const mapping = run('git', ['config', '--get-all', 'remote.origin.fetch'], cwd)
+  return mapping.ok && mapping.text.split(/\r?\n/).some(value => value === '+refs/heads/*:refs/remotes/origin/*' || value === 'refs/heads/*:refs/remotes/origin/*')
+    ? 'CONVENTIONAL_MAPPING_OBSERVED_REMOTE_HEAD_NOT_VERIFIED'
+    : 'EXPLICIT_BRANCH_FETCH_REQUIRED'
+}
+
 export function dockerStatus(cwd, run = command, env = process.env) {
   // Context inspection reads local metadata only. Never contact a remote engine.
   if (env.DOCKER_HOST && !localDockerEndpoint(env.DOCKER_HOST)) return 'REMOTE_ENDPOINT_BLOCKED'
@@ -53,6 +61,7 @@ export async function localRecoveryReport({ cwd = root, run = command, freeBytes
     scope: 'READ_ONLY_LOCAL_RECOVERY_PREFLIGHT', source,
     node24: process.versions.node.split('.')[0] === '24',
     working_tree: !gitChanges.ok ? 'UNAVAILABLE' : gitChanges.text ? 'CHANGES_PRESERVED_REVIEW_REQUIRED' : 'CLEAN',
+    git_refresh: gitRefreshStatus(cwd, run),
     project_files: projectFiles.every(file => existsSync(resolve(cwd, file))) && localProject ? 'PRESENT_LOCAL_PROJECT' : 'MISSING_OR_WRONG_PROJECT',
     dependencies: existsSync(resolve(cwd, 'node_modules/next/dist/bin/next')) ? 'PRESENT_UNVERIFIED' : 'MISSING',
     memory: { free_gib: Math.floor(freeBytes / 1024 ** 3 * 100) / 100, total_gib: Math.floor(totalBytes / 1024 ** 3 * 100) / 100, full_stack_budget: freeBytes >= minimumFreeBytes ? 'AVAILABLE' : 'BELOW_7_GIB_GUIDE' },
