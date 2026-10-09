@@ -19,7 +19,7 @@ import type {LineRowV1} from '@/lib/contracts/telecom-collections-v1'
 import type {IdentifierRowV1,IdentifierInputV1} from '@/lib/contracts/identifiers-v1'
 type Write=Exclude<PortabilityOperationV1,'portability.get'|'portability.list'>
 type Proposal={[O in Write]:{operation:O;input:PortabilityInputsV1[O];description:string}}[Write]
-const reasons:Record<PortabilityReasonV1,string>={subscriber_mismatch:'Titular no coincidente',number_not_found:'Número no localizado',authorization_missing:'Falta autorización',ineligible_contract:'Contrato no elegible',donor_rejected:'Rechazo del operador origen',technical_failure:'Fallo técnico',customer_withdrew:'Solicitud retirada por el cliente',duplicate_request:'Solicitud duplicada'}
+import {portabilityReasonLabels as reasons} from './presentation'
 const nextStates:Record<PortabilityStatusV1,readonly ('requested'|'scheduled'|'in_progress'|'rejected'|'cancelled')[]>={draft:['requested','cancelled'],requested:['scheduled','rejected','cancelled'],scheduled:['in_progress','rejected','cancelled'],in_progress:['rejected','cancelled'],completed:[],rejected:[],cancelled:[]}
 function today(){const parts=new Intl.DateTimeFormat('en',{timeZone:'Europe/Madrid',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date());return ['year','month','day'].map(k=>parts.find(p=>p.type===k)?.value).join('-')}
 export function PortabilityInventory({customerId,createAllowed=false,onCreated}:{customerId?:string;createAllowed?:boolean;onCreated?:()=>void}){
