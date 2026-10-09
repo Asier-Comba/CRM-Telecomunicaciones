@@ -134,7 +134,9 @@ jobs:
       - name: Disposable real-local stack and acceptance
         env:
           W2_PRODUCT_UI: 'true'
-        run: node scripts/security/supabase-local/run-stack.mjs
+        # Match test:assistant: the unchanged ConversationServiceV2 uses a
+        # TypeScript parameter property, which strip-only Node cannot import.
+        run: node --experimental-transform-types scripts/security/supabase-local/run-stack.mjs
       - name: Retain safe summary only
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
