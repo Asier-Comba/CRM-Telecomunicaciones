@@ -12,7 +12,7 @@ export async function serviceConsumerBrowser({page,origin,id,sql,wa,users,check,
    step('location_detail_'+width);await page.setViewportSize({width,height:960})
    await expect(panel.locator('[data-location-id]')).toHaveCount(4);await expect(panel).toContainText('Página 2 · 4 ubicaciones')
    await expect(page.locator('body')).not.toContainText(raw)
-   await heading.scrollIntoViewIfNeeded();await expect(heading).toBeInViewport()
+   await panel.evaluate(element=>element.scrollIntoView({block:'start',inline:'nearest'}));await expect(panel).toBeInViewport({ratio:1});await expect(heading).toBeInViewport({ratio:1});await expect(panel.locator('[data-location-id]').last()).toBeInViewport({ratio:1});await expect(panel.locator('footer')).toBeInViewport({ratio:1})
    await page.screenshot({path:resolve(screenshotDir,'service-locations-detail-'+width+'.png'),fullPage:true})
    if(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1))throw Error('LOCATION_DETAIL_OVERFLOW')
   }
