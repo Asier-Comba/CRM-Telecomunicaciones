@@ -1,8 +1,8 @@
 'use client'
-import {useCallback,useEffect,useState} from 'react'
+import {useCallback,useEffect,useRef,useState} from 'react'
 import Link from 'next/link'
 import {useProduct} from '@/features/product/integration/Provider'
-import {safeMessage} from '@/features/product/integration/repository'
+import {ProductUiError,safeMessage} from '@/features/product/integration/repository'
 import {useReviewedCommand} from '@/features/product/integration/ReviewedCommand'
 import {CustomerCreationChoice} from '@/features/product/integration/CustomerCreationChoice'
 import {OperatorSelect} from '@/features/product/integration/OperatorSelect'
@@ -12,17 +12,28 @@ import {CustomerDomainPages,NamedCustomer,NamedOperator} from '@/features/custom
 import {customerCollectionIdentity} from '@/features/customers/customer-identity'
 import {Drawer,control,primary,Status} from '@/features/product/ui'
 import {productDate} from '@/features/product/presentation'
-import type {SimInputsV1,SimOperationV1,SimRowV1,SimHistoryV1,SimPageV1} from '@/lib/contracts/sim-v1'
+import type {SimInputsV1,SimOperationV1,SimRowV1,SimHistoryV1,SimPageV1,SimReceiptV1} from '@/lib/contracts/sim-v1'
 import type {IdentifierInputV1,IdentifierRowV1} from '@/lib/contracts/identifiers-v1'
 import type {LineRowV1} from '@/lib/contracts/telecom-collections-v1'
 type Write=Exclude<SimOperationV1,'sim.get'|'sim.list'|'sim.history'>
 type Proposal={[O in Write]:{operation:O;input:SimInputsV1[O];description:string}}[Write]|{operation:'identifier.create_manual'|'identifier.retire';input:IdentifierInputV1;description:string}
 export function SimInventory({customerId,createAllowed=false,onCreated}:{customerId?:string;createAllowed?:boolean;onCreated?:()=>void}){
- const {role}=useProduct(),[creating,setCreating]=useState(false),[revision,setRevision]=useState(0),[notice,setNotice]=useState('')
- return <div className="space-y-3">{notice&&<p role="status">{notice}</p>}{role&&role!=='viewer'&&(!customerId||createAllowed)&&<button className={primary} onClick={()=>setCreating(true)}>Nueva SIM/eSIM</button>}<CustomerDomainPages key={revision} area="SIM/eSIM" customerId={customerId}/>{creating&&<CustomerCreationChoice customerId={customerId} title="Nueva SIM/eSIM" onClose={()=>setCreating(false)}>{id=><SimCreate key={id} customerId={id} onClose={()=>setCreating(false)} onCreated={()=>{setCreating(false);setNotice('SIM/eSIM registrada.');setRevision(v=>v+1);onCreated?.()}}/>}</CustomerCreationChoice>}</div>
+ const {role}=useProduct(),[creating,setCreating]=useState(false),[revision,setRevision]=useState(0),[created,setCreated]=useState<SimRowV1>()
+ return <div className="space-y-3">{created&&<p role="status">SIM/eSIM registrada: {created.display_label}. <Link className="font-semibold text-indigo-700" href={'/sims/'+created.id}>Ver SIM/eSIM registrada</Link></p>}{role&&role!=='viewer'&&(!customerId||createAllowed)&&<button className={primary} onClick={()=>setCreating(true)}>Nueva SIM/eSIM</button>}<CustomerDomainPages key={revision} area="SIM/eSIM" customerId={customerId}/>{creating&&<CustomerCreationChoice customerId={customerId} title="Nueva SIM/eSIM" onClose={()=>setCreating(false)}>{id=><SimCreate key={id} customerId={id} onClose={()=>setCreating(false)} onCreated={row=>{setCreating(false);setCreated(row);setRevision(v=>v+1);onCreated?.()}}/>}</CustomerCreationChoice>}</div>
 }
-function SimCreate({customerId,onClose,onCreated}:{customerId:string;onClose:()=>void;onCreated:()=>void}){
- const {repository}=useProduct(),[label,setLabel]=useState(''),[kind,setKind]=useState<'physical'|'esim'>('physical'),[operator,setOperator]=useState(''),command=useReviewedCommand<Proposal>(p=>repository.telecom(p.operation,p.input),async()=>onCreated(),'Registrar SIM/eSIM')
+function SimCreate({customerId,onClose,onCreated}:{customerId:string;onClose:()=>void;onCreated:(row:SimRowV1)=>void}){
+ const {repository}=useProduct(),[label,setLabel]=useState(''),[kind,setKind]=useState<'physical'|'esim'>('physical'),[operator,setOperator]=useState('')
+ const confirmed=useRef<{input:SimInputsV1['sim.create'];receipt:SimReceiptV1}|undefined>(undefined)
+ const command=useReviewedCommand<{operation:'sim.create';input:SimInputsV1['sim.create'];description:string}>(async p=>{
+  const receipt=await repository.telecom(p.operation,p.input)
+  if(receipt.operation!=='sim.create'||receipt.command_id!==p.input.command_id||receipt.source!=='manual')throw new ProductUiError('internal_safe')
+  confirmed.current={input:p.input,receipt};return receipt
+ },async()=>{
+  if(!confirmed.current)throw new ProductUiError('internal_safe')
+  const {input,receipt}=confirmed.current,{record}=await repository.telecom('sim.get',{id:receipt.id})
+  if(record.id!==receipt.id||record.customer_id!==customerId||record.customer_id!==input.customer_id||record.operator_id!==input.operator_id||record.kind!==input.kind||record.display_label!==input.display_label||record.source!=='manual'||record.version<receipt.version)throw new ProductUiError('internal_safe')
+  onCreated(record)
+ },'Registrar SIM/eSIM')
  return <Drawer title="Nueva SIM/eSIM" onClose={()=>{if(!command.locked)onClose()}}><form className="space-y-3" onSubmit={e=>{e.preventDefault();command.propose({operation:'sim.create',input:{command_id:crypto.randomUUID(),customer_id:customerId,operator_id:operator,kind,display_label:label},description:'Registrar '+(kind==='physical'?'SIM física':'eSIM')+' · '+label+'. Se crea preparada, sin activar una línea.'})}}><NamedCustomer id={customerId}/><label className="block text-sm">Nombre de SIM/eSIM<input aria-label="Nombre de SIM/eSIM" className={control+' mt-1 w-full'} required maxLength={160} value={label} disabled={command.locked} onChange={e=>setLabel(e.target.value)}/></label><label className="block text-sm">Tipo de SIM<select aria-label="Tipo de SIM" className={control+' mt-1 w-full'} value={kind} disabled={command.locked} onChange={e=>setKind(e.target.value as typeof kind)}><option value="physical">SIM física</option><option value="esim">eSIM</option></select></label><OperatorSelect activeOnly label="Operador de SIM/eSIM" value={operator} onChange={setOperator} disabled={command.locked}/><button className={primary} disabled={command.locked||!operator}>Revisar alta de SIM/eSIM</button></form>{command.feedback}</Drawer>
 }
 export function SimDetail({id}:{id:string}){
