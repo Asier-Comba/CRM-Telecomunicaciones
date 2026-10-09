@@ -2,6 +2,8 @@
 
 Owner: W2 billing consumer. Base is canonical PR38 source `d6d7cbb6c32a671ff228017fb736984bdea8e67e`, tree `beec7fffaa7212f1b965aff4599506a285869508`. Its original acceptance run37929913690 passed107/107; the later same-tree run37933829500 failed106/107 in the financial comparison. Both results remain recorded. Fiscal81, mobile82 and financial-reader83 are separate candidates. This unit does not inherit their results or claim overall stability.
 
+Publication dependency: the candidate includes financial-reader83 source `9427ee908d2e52d09715ed21a0c28c3c347d49ab` through a normal merge and targets its branch. That dependency's run37937234522/job113842250035 was cancelled at25 minutes without a final count or confirmed teardown. Its279 partial frames do not constitute acceptance. Including it here prevents the already measured old-document waiter hazard during this candidate's own financial check; it is not an accredited canonical consumption. The complete resulting tree needs a new gate, and canonical38 remains atd6.
+
 ## Observed gap and implementation
 
 The previous integrated parent supplies only relationships already present on the selected invoice. A new draft has none, so all three pickers offer only **Sin vínculo**, even when this customer has actual contracts, services and opportunities. The actual accepted screenshot identifies the unfinished linkage, and rendering the original editor with its actual empty links reproduces zero collection reads and no usable relationship options.
