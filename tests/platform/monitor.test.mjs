@@ -16,3 +16,19 @@ test('rotation stages new health before switch and revokes old; failure rolls ba
  for(const reference of ['SUPABASE_DB_PASSWORD','SUPABASE_SERVICE_ROLE_KEY','SMTP_PASSWORD','OPENAI_API_KEY','N8N_API_KEY','BACKUP_ENCRYPTION_KEY_HEX','N8N_WEBHOOK_SECRET','DEPLOY_PROVIDER_REFERENCE']){const calls=[];let revoked=false;const adapter={health:async(_r,v)=>v==='NEW'||!revoked,stage:async()=>calls.push('stage'),switch:async()=>calls.push('switch'),revoke:async()=>{revoked=true;calls.push('revoke')},rollback:async()=>calls.push('rollback')};assert.equal((await rotationContract({scope:'DISPOSABLE_SIMULATION',adapter,reference})).live_rotation_proven,false);assert.deepEqual(calls,['stage','switch','revoke'])}
  const calls=[],adapter={health:async(_r,v)=>v==='OLD',stage:async()=>calls.push('stage'),rollback:async()=>calls.push('rollback'),switch:async()=>calls.push('switch')};await assert.rejects(()=>rotationContract({scope:'DISPOSABLE_SIMULATION',adapter,reference:'SMTP_PASSWORD'}),/NEW_HEALTH_FAILED/);assert.deepEqual(calls,['stage','rollback'])
 })
+
+test('contradictory healthy samples cannot clear an outstanding alert',()=>{
+ const sink=createAlertSink({scope:'DISPOSABLE_SIMULATION'}),sample=healthSample('backup',{available:false,age_seconds:901},{age_seconds:900})
+ assert.equal(sink.evaluate(sample,100).status,'CAPTURED')
+ assert.throws(()=>sink.evaluate({...sample,status:'PASS'},101),/INCONSISTENT/)
+ assert.throws(()=>sink.evaluate({...sample,reasons:[]},101),/INCONSISTENT/)
+ assert.equal(sink.evaluate(sample,102).status,'DEDUPLICATED')
+})
+test('clock rollback captures a failure again rather than silencing it until a future clock catches up',()=>{
+ const sink=createAlertSink({scope:'DISPOSABLE_SIMULATION'}),sample=healthSample('backup',{available:false},{age_seconds:900})
+ assert.equal(sink.evaluate(sample,100).status,'CAPTURED')
+ assert.equal(sink.evaluate(sample,50).status,'CAPTURED')
+ assert.equal(sink.evaluate(sample,51).status,'DEDUPLICATED')
+ for(const time of [NaN,-1,Infinity,1.5])assert.throws(()=>sink.evaluate(sample,time),/CLOCK_INVALID/)
+ assert.equal(sink.capture().length,2)
+})
