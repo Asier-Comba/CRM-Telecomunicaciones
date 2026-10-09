@@ -2,6 +2,7 @@ import { chromium, expect } from '@playwright/test'
 import { randomUUID } from 'node:crypto'
 import { mkdirSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
+import { assistantUpstreamDiagnostic } from './assistant-server-diagnostics.mjs'
 
 /** Actual cookie browser/history RPC on the same disposable development app. */
 export async function assistantHistoryBrowser({ origin, cookie, viewerCookie, call, sql, wa, wb, users, check }) {
@@ -68,9 +69,9 @@ export async function assistantHistoryBrowser({ origin, cookie, viewerCookie, ca
     await page.getByLabel('Título de nueva conversación',{exact:true}).fill('W3 UI Synthetic History')
     // Keep route-handler failures in the awaited test path. Throwing from this
     // callback bypasses the harness report/teardown and hides the HTTP refusal.
-    let commitStatus=null,completeCommit
+    let commitStatus=null,commitDiagnostic=null,completeCommit
     const commitComplete=new Promise(resolve=>{completeCommit=resolve})
-    const creates=[],loseDelivery=async route=>{const request=route.request().postDataJSON();if(request.operation!=='thread.create'){await route.continue();return}creates.push(request);if(creates.length===1){try{commitStatus=(await route.fetch()).status()}catch{commitStatus=null}finally{try{await route.abort('failed')}finally{completeCommit()}}}else await route.continue()}
+    const creates=[],loseDelivery=async route=>{const request=route.request().postDataJSON();if(request.operation!=='thread.create'){await route.continue();return}creates.push(request);if(creates.length===1){try{const upstream=await route.fetch();commitStatus=upstream.status();if(commitStatus!==200)commitDiagnostic=await assistantUpstreamDiagnostic(upstream)}catch{commitStatus=null}finally{try{await route.abort('failed')}finally{completeCommit()}}}else await route.continue()}
     const started=performance.now(),events=[],operations=new Set(['thread.list','thread.create','thread.get','thread.rename','thread.archive','message.page'])
     const operation=request=>{try{const q=request.postDataJSON();return new URL(request.url()).pathname==='/api/assistant/v2/threads'&&operations.has(q.operation)?q.operation:null}catch{return null}}
     const recordEvent=(request,kind,status=null)=>{const op=operation(request);if(op){if(events.length===32)events.shift();events.push({operation:op,kind,status,elapsed_ms:Math.round(performance.now()-started)})}}
@@ -84,7 +85,7 @@ export async function assistantHistoryBrowser({ origin, cookie, viewerCookie, ca
         const retry=buttons.find(button=>button.textContent==='Reintentar misma creación'),create=buttons.find(button=>button.textContent==='Nueva conversación')
         return {busy:document.querySelector('[aria-busy]')?.getAttribute('aria-busy')==='true',title_disabled:input?.disabled??null,retry_visible:!!retry,create_visible:!!create,create_disabled:create?.disabled??null,uncertain_alert:Array.from(document.querySelectorAll('[role="alert"]')).some(alert=>alert.textContent?.includes('No se pudo confirmar el resultado.'))}
       })
-      writeFileSync(resolve(dir,'failed-create-before-route-drain-safe.json'),JSON.stringify({scope:'SYNTHETIC_COOKIE_BROWSER_CREATE_BEFORE_ROUTE_DRAIN',phase,upstream_status:commitStatus,create_attempts:creates.length,same_first_two_inputs:creates.length>=2?JSON.stringify(creates[0])===JSON.stringify(creates[1]):null,events,display},null,2)+'\n')
+      writeFileSync(resolve(dir,'failed-create-before-route-drain-safe.json'),JSON.stringify({scope:'SYNTHETIC_COOKIE_BROWSER_CREATE_BEFORE_ROUTE_DRAIN',phase,upstream_status:commitStatus,upstream_diagnostic:commitDiagnostic,create_attempts:creates.length,same_first_two_inputs:creates.length>=2?JSON.stringify(creates[0])===JSON.stringify(creates[1]):null,events,display},null,2)+'\n')
       await page.screenshot({path:resolve(dir,'failed-'+phase+'-before-route-drain.png'),fullPage:true})
     }
     await page.route('**/api/assistant/v2/threads',loseDelivery)
