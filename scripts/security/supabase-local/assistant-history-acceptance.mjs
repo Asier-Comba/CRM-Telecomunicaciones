@@ -37,7 +37,7 @@ export async function assistantHistoryAcceptance({ rpc, sql, check, users, wa, w
   check((await call('turn.finish', { id, turn_id: revokedTurn, status: 'cancelled' })).json?.status === 'cancelled', 'assistant_history_stale_read_cancelled')
   check((await call('thread.archive', { id, expected_version: 1 })).json?.record?.archived === true, 'assistant_history_archive_cas')
   const { createServerClient } = await import('@supabase/ssr'), cookies = {}
-  for (const name of ['ownerA', 'memberA', 'ownerB']) {
+  for (const name of ['ownerA', 'memberA', 'ownerB', 'viewerA']) {
     const values = [], client = createServerClient(url, anon, { cookies: { getAll: () => [], setAll: v => values.push(...v) } })
     check(!(await client.auth.setSession({ access_token: users[name].token, refresh_token: users[name].refresh })).error, 'assistant_history_cookie_' + name)
     cookies[name] = values.map(v => v.name + '=' + v.value).join('; ')
@@ -63,6 +63,9 @@ export async function assistantHistoryAcceptance({ rpc, sql, check, users, wa, w
   finally { sql(`update public.workspace_members set status='active' where workspace_id='${wa}' and user_id='${users.ownerA.id}';`) }
   check((await api('thread.archive', { id: apiId, expected_version: 2 })).json?.data?.record?.archived === true, 'assistant_history_api_archive')
   const {assistantHistoryBrowser}=await import('./assistant-history-browser.mjs')
-  const assistant_history_browser=await assistantHistoryBrowser({origin:assistantAppUrl,cookie:cookies.ownerA,call,sql,wa,users,check})
-  return { assistant_history: 'PASS_ACTUAL_AUTH_POSTGREST_SCOPE_REPLAY_CAS_REVOCATION', assistant_history_application_api: 'PASS_ACTUAL_COOKIE_THREAD_LIFECYCLE', assistant_history_browser, assistant_business_durability: 'NOT_TESTED' }
+  const assistant_history_browser=await assistantHistoryBrowser({origin:assistantAppUrl,cookie:cookies.ownerA,viewerCookie:cookies.viewerA,call,sql,wa,wb,users,check})
+  console.log('{"kind":"local_acceptance_progress","phase":"assistant_history_browser_complete"}')
+  const {assistantReadGroundingAcceptance}=await import('./assistant-read-grounding-acceptance.mjs')
+  const assistant_read_grounding=await assistantReadGroundingAcceptance({rpc,sql,check,users,wa,wb,anon,url,assistantAppUrl,cookie:cookies.ownerA})
+  return { assistant_history: 'PASS_ACTUAL_AUTH_POSTGREST_SCOPE_REPLAY_CAS_REVOCATION', assistant_history_application_api: 'PASS_ACTUAL_COOKIE_THREAD_LIFECYCLE', assistant_history_browser, assistant_read_grounding, assistant_business_durability: 'NOT_TESTED' }
 }

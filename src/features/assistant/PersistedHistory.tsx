@@ -5,6 +5,8 @@ import { useProduct } from '@/features/product/integration/Provider'
 import { control, primary, Drawer } from '@/features/product/ui'
 import type { ConversationRecordV2 } from '@/assistant/conversation-contract-v2'
 import { historyRequestV2, historyErrorTextV2, HistoryClientErrorV2, type HistoryResultsV2 } from './history-client-v2'
+import { AuthorizedCustomerContext } from './AuthorizedCustomerContext'
+import { validAiEntityReference, type AiEntityReference } from './w3-ui-contract'
 
 type HistoryState = {
   actorId: string | null
@@ -16,7 +18,7 @@ type HistoryState = {
 }
 
 /** User-owned display history; never CRM facts, model context or action authority. */
-export function PersistedHistory() {
+export function PersistedHistory({ selectedReferences = [], invoiceIntent = false }: { selectedReferences?: readonly AiEntityReference[]; invoiceIntent?: boolean }) {
   const { actorId } = useProduct()
   const [state, setState] = useState<HistoryState | null>(null)
   const [busy, setBusy] = useState(true), [error, setError] = useState('')
@@ -27,6 +29,8 @@ export function PersistedHistory() {
   const [pendingCreate, setPendingCreate] = useState<{ id: string; title: string } | null>(null)
   const invalidate = useCallback(() => { ++epoch.current; controller.current?.abort(); locked.current = false }, [])
   const current = state?.actorId === actorId ? state : null
+  const context = selectedReferences.find(reference => validAiEntityReference(reference) && reference.kind === 'customer')
+  const clearAuthorizedDisplay = useCallback(() => { invalidate(); setState(null); setBusy(false); setError('Tu acceso ha cambiado. Actualiza el historial.') }, [invalidate])
 
   useEffect(() => {
     const abort = new AbortController(), generation = ++epoch.current
@@ -62,6 +66,9 @@ export function PersistedHistory() {
     <p role="status" className="rounded-xl border border-amber-100 bg-amber-50 p-3 text-sm text-amber-900">Las consultas IA están en preparación. Puedes consultar y organizar tu historial; no se ejecutan acciones de negocio.</p>
     <div className="flex flex-wrap items-center gap-3"><button className={control} disabled={busy} onClick={() => void run(signal => load(signal, [], current?.selected ?? (lastSelection.current ? { id: lastSelection.current } : null)))}>Actualizar historial</button>{busy && <p role="status" className="text-sm text-slate-500">Consultando historial autorizado…</p>}</div>
     {error && <p role="alert" className="rounded-xl bg-red-50 p-3 text-sm text-red-700">{error}</p>}
+    {current && context && <AuthorizedCustomerContext key={context.id} id={context.id} onAccessDenied={clearAuthorizedDisplay} />}
+    {current && !context && <p className="text-sm text-slate-500">Abre el asistente desde una ficha de cliente para consultar su contexto actual autorizado.</p>}
+    {invoiceIntent && <section className="rounded-xl border bg-white p-4"><h2 className="font-semibold">Crear factura con IA</h2><p className="mt-2 text-sm text-slate-500">El flujo requerirá una propuesta revisada, guardar el borrador y confirmar la emisión. La creación mediante IA todavía no está disponible.</p><button className={`${primary} mt-3`} disabled>Preparar propuesta</button></section>}
     <div className="grid gap-4 lg:grid-cols-[260px_minmax(0,1fr)]" aria-busy={busy}>
       <aside aria-label="Conversaciones persistentes" className="min-w-0 space-y-4 rounded-xl border bg-white p-4">
         <h2 className="font-semibold">Tus conversaciones</h2>

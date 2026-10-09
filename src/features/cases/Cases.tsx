@@ -19,9 +19,9 @@ const resolutions:Record<CaseResolutionV1,string>={issue_fixed:'Problema corregi
 const cancellations:Record<CaseCancellationV1,string>={customer_withdrew:'El cliente retiró la solicitud',duplicate:'Duplicada',no_longer_needed:'Ya no es necesaria',entered_in_error:'Registro incorrecto'}
 type Write=Exclude<CaseOperationV1,'case.get'|'case.list'|'case.note_list'>
 type Proposal={[O in Write]:{operation:O;input:CaseInputsV1[O];description:string}}[Write]
-export function CaseInventory({customerId,createAllowed=false}:{customerId?:string;createAllowed?:boolean}){
+export function CaseInventory({customerId,createAllowed=false,onCreated}:{customerId?:string;createAllowed?:boolean;onCreated?:()=>void}){
  const {role}=useProduct(),[creating,setCreating]=useState(false),[notice,setNotice]=useState(''),[revision,setRevision]=useState(0)
- return <div className="space-y-3">{notice&&<p role="status" className="text-sm text-emerald-700">{notice}</p>}{(!customerId||createAllowed)&&role&&role!=='viewer'&&<button className={primary} onClick={()=>setCreating(true)}>Nueva incidencia</button>}<CustomerDomainPages key={revision} customerId={customerId} area="Incidencias"/>{creating&&<CaseCreateEntry customerId={customerId} onClose={()=>setCreating(false)} onCreated={()=>{setCreating(false);setNotice('Incidencia registrada.');setRevision(v=>v+1)}}/>}</div>
+ return <div className="space-y-3">{notice&&<p role="status" className="text-sm text-emerald-700">{notice}</p>}{(!customerId||createAllowed)&&role&&role!=='viewer'&&<button className={primary} onClick={()=>setCreating(true)}>Nueva incidencia</button>}<CustomerDomainPages key={revision} customerId={customerId} area="Incidencias"/>{creating&&<CaseCreateEntry customerId={customerId} onClose={()=>setCreating(false)} onCreated={()=>{setCreating(false);setNotice('Incidencia registrada.');setRevision(v=>v+1);onCreated?.()}}/>}</div>
 }
 function CaseCreateEntry({customerId,onClose,onCreated}:{customerId?:string;onClose:()=>void;onCreated:()=>void}){
  const {repository}=useProduct(),[selected,setSelected]=useState(customerId),[choice,setChoice]=useState(''),[busy,setBusy]=useState(false),[error,setError]=useState('')
