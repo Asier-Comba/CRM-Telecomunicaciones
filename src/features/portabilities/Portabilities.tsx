@@ -1,8 +1,8 @@
 'use client'
-import {useCallback,useEffect,useState} from 'react'
+import {useCallback,useEffect,useRef,useState} from 'react'
 import Link from 'next/link'
 import {useProduct} from '@/features/product/integration/Provider'
-import {safeMessage} from '@/features/product/integration/repository'
+import {ProductUiError,safeMessage} from '@/features/product/integration/repository'
 import {useReviewedCommand} from '@/features/product/integration/ReviewedCommand'
 import {CustomerCreationChoice} from '@/features/product/integration/CustomerCreationChoice'
 import {OperatorSelect} from '@/features/product/integration/OperatorSelect'
@@ -14,7 +14,7 @@ import {CustomerDomainPages,NamedCustomer,NamedOperator} from '@/features/custom
 import {customerCollectionIdentity} from '@/features/customers/customer-identity'
 import {Drawer,control,primary,Status,statusLabel} from '@/features/product/ui'
 import {productDate} from '@/features/product/presentation'
-import type {PortabilityInputsV1,PortabilityOperationV1,PortabilityRowV1,PortabilityStatusV1,PortabilityReasonV1} from '@/lib/contracts/portability-v1'
+import type {PortabilityInputsV1,PortabilityOperationV1,PortabilityRowV1,PortabilityStatusV1,PortabilityReasonV1,PortabilityReceiptV1} from '@/lib/contracts/portability-v1'
 import type {LineRowV1} from '@/lib/contracts/telecom-collections-v1'
 import type {IdentifierRowV1,IdentifierInputV1} from '@/lib/contracts/identifiers-v1'
 type Write=Exclude<PortabilityOperationV1,'portability.get'|'portability.list'>
@@ -23,13 +23,26 @@ import {portabilityReasonLabels as reasons} from './presentation'
 const nextStates:Record<PortabilityStatusV1,readonly ('requested'|'scheduled'|'in_progress'|'rejected'|'cancelled')[]>={draft:['requested','cancelled'],requested:['scheduled','rejected','cancelled'],scheduled:['in_progress','rejected','cancelled'],in_progress:['rejected','cancelled'],completed:[],rejected:[],cancelled:[]}
 function today(){const parts=new Intl.DateTimeFormat('en',{timeZone:'Europe/Madrid',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date());return ['year','month','day'].map(k=>parts.find(p=>p.type===k)?.value).join('-')}
 export function PortabilityInventory({customerId,createAllowed=false,onCreated}:{customerId?:string;createAllowed?:boolean;onCreated?:()=>void}){
- const {role}=useProduct(),[creating,setCreating]=useState(false),[revision,setRevision]=useState(0),[notice,setNotice]=useState('')
- return <div className="space-y-3">{notice&&<p role="status">{notice}</p>}{role&&role!=='viewer'&&(!customerId||createAllowed)&&<button className={primary} onClick={()=>setCreating(true)}>Nueva portabilidad</button>}<CustomerDomainPages key={revision} area="Portabilidades" customerId={customerId}/>{creating&&<CustomerCreationChoice customerId={customerId} title="Nueva portabilidad" onClose={()=>setCreating(false)}>{id=><PortabilityCreate key={id} customerId={id} onClose={()=>setCreating(false)} onCreated={()=>{setCreating(false);setNotice('Portabilidad registrada.');setRevision(v=>v+1);onCreated?.()}}/>}</CustomerCreationChoice>}</div>
+ const {role}=useProduct(),[creating,setCreating]=useState(false),[revision,setRevision]=useState(0),[created,setCreated]=useState<PortabilityRowV1>()
+ return <div className="space-y-3">{created&&<p role="status">Portabilidad registrada de {created.masked_display}. <Link className="font-semibold text-indigo-700" href={'/portabilities/'+created.id}>Ver portabilidad registrada</Link></p>}{role&&role!=='viewer'&&(!customerId||createAllowed)&&<button className={primary} onClick={()=>setCreating(true)}>Nueva portabilidad</button>}<CustomerDomainPages key={revision} area="Portabilidades" customerId={customerId}/>{creating&&<CustomerCreationChoice customerId={customerId} title="Nueva portabilidad" onClose={()=>setCreating(false)}>{id=><PortabilityCreate key={id} customerId={id} onClose={()=>setCreating(false)} onCreated={row=>{setCreating(false);setCreated(row);setRevision(v=>v+1);onCreated?.()}}/>}</CustomerCreationChoice>}</div>
 }
 function OperatorFields({donor,target,setDonor,setTarget,disabled}:{donor:string;target:string;setDonor:(v:string)=>void;setTarget:(v:string)=>void;disabled:boolean}){return <div className="grid gap-3 sm:grid-cols-2"><OperatorSelect activeOnly paginationLabel="origen" label="Operador origen de portabilidad" value={donor} onChange={setDonor} disabled={disabled}/><OperatorSelect activeOnly paginationLabel="destino" label="Operador destino de portabilidad" value={target} onChange={setTarget} disabled={disabled}/></div>}
-function PortabilityCreate({customerId,onClose,onCreated}:{customerId:string;onClose:()=>void;onCreated:()=>void}){
+function PortabilityCreate({customerId,onClose,onCreated}:{customerId:string;onClose:()=>void;onCreated:(row:PortabilityRowV1)=>void}){
  const {repository}=useProduct(),[line,setLine]=useState<LineRowV1>(),[context,setContext]=useState<LineContext>(),[direction,setDirection]=useState<'inbound'|'outbound'>('inbound'),[donor,setDonor]=useState(''),[target,setTarget]=useState(''),[requested,setRequested]=useState(today),[owner,setOwner]=useState(''),[number,setNumber]=useState(''),[numberEntry,setNumberEntry]=useState(false),[revision,setRevision]=useState(0),[error,setError]=useState('')
- const command=useReviewedCommand<Proposal>(p=>repository.telecom(p.operation,p.input),async()=>onCreated(),'Registrar portabilidad')
+ const confirmed=useRef<{input:PortabilityInputsV1['portability.create'];receipt:PortabilityReceiptV1}|undefined>(undefined)
+ const command=useReviewedCommand<{operation:'portability.create';input:PortabilityInputsV1['portability.create'];description:string}>(async p=>{
+  const receipt=await repository.telecom(p.operation,p.input)
+  if(receipt.operation!=='portability.create'||receipt.command_id!==p.input.command_id||receipt.source!=='manual'||receipt.line_effect!==null)throw new ProductUiError('internal_safe')
+  confirmed.current={input:p.input,receipt};return receipt
+ },async()=>{
+  if(!confirmed.current)throw new ProductUiError('internal_safe')
+  const {input,receipt}=confirmed.current,{record}=await repository.telecom('portability.get',{id:receipt.id})
+  if(record.id!==receipt.id||record.customer_id!==customerId||record.line_id!==input.line_id||record.number_identifier_id!==input.number_identifier_id||record.direction!==input.direction||record.source!=='manual'||record.version<receipt.version)throw new ProductUiError('internal_safe')
+  if(record.version===receipt.version&&(record.donor_operator_id!==input.donor_operator_id||record.target_operator_id!==input.target_operator_id||record.requested_on!==input.requested_on||record.owner_user_id!==input.owner_user_id))throw new ProductUiError('internal_safe')
+  const actual=await readLineContext(repository,record.line_id,customerId)
+  if(actual.line.contract_id!==record.contract_id||actual.line.service_id!==record.service_id)throw new ProductUiError('internal_safe')
+  onCreated(record)
+ },'Registrar portabilidad')
  useEffect(()=>{if(!line)return;let active=true;void readLineContext(repository,line.id,customerId).then(c=>{if(active){setContext(c);setError('');if(direction==='inbound')setTarget(c.line.operator_id);else setDonor(c.line.operator_id)}}).catch(e=>{if(active){setContext(undefined);setError(safeMessage(e))}});return()=>{active=false}},[repository,line,customerId,direction])
  const eligible=context?.line.id===line?.id&&context?.line.version===line?.version&&context?.manualParents
  return <Drawer title="Nueva portabilidad" onClose={()=>{if(!command.locked)onClose()}}><form className="space-y-3" onSubmit={e=>{e.preventDefault();if(line&&eligible)command.propose({operation:'portability.create',input:{command_id:crypto.randomUUID(),line_id:line.id,number_identifier_id:number,direction,donor_operator_id:donor,target_operator_id:target,requested_on:requested,owner_user_id:owner||null},description:'Registrar portabilidad de '+(line.display_name||'la línea seleccionada')+' · '+(direction==='inbound'?'entrada':'salida')+' · '+productDate(requested)+'. Se crea borrador; no envía solicitudes al operador.'})}}><NamedCustomer id={customerId}/><LineSelect customerId={customerId} value={line?.id??''} onChange={r=>{setLine(r);setContext(undefined);setNumber('')}} disabled={command.locked} label="Línea de portabilidad"/>{error&&<p role="alert">{error}</p>}{line&&<><MaskedNumberSelect key={line.id+revision} lineId={line.id} value={number} onChange={setNumber} disabled={command.locked}/><button type="button" className={control} disabled={command.locked||!eligible} onClick={()=>setNumberEntry(true)}>Registrar número protegido de la línea</button></>}<label className="block text-sm">Dirección<select aria-label="Dirección de portabilidad" className={control+' mt-1 w-full'} value={direction} disabled={command.locked} onChange={e=>setDirection(e.target.value as typeof direction)}><option value="inbound">Entrada</option><option value="outbound">Salida</option></select></label><OperatorFields donor={donor} target={target} setDonor={setDonor} setTarget={setTarget} disabled={command.locked}/><label className="block text-sm">Fecha de solicitud<input aria-label="Fecha de solicitud de portabilidad" className={control+' mt-1 w-full'} type="date" min="1900-01-01" max="2199-12-31" required value={requested} disabled={command.locked} onChange={e=>setRequested(e.target.value)}/></label><AssigneeSelect value={owner} onChange={setOwner} disabled={command.locked} allowClear/><button className={primary} disabled={command.locked||!eligible||!number||!donor||!target||donor===target}>Revisar alta de portabilidad</button><p className="text-sm text-slate-500">Seguimiento interno de un número registrado y enmascarado. El operador origen y destino deben ser distintos.</p></form>{numberEntry&&line&&<LineNumberEntry lineId={line.id} onClose={()=>setNumberEntry(false)} onCreated={()=>{setNumberEntry(false);setNumber('');setRevision(v=>v+1)}}/>}{command.feedback}</Drawer>
