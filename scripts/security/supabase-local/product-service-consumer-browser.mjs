@@ -50,7 +50,18 @@ export async function serviceConsumerBrowser({page,origin,id,sql,wa,users,check,
    const fields=record.locator(width>=1280?'td':'dl > div');await expect(fields).toHaveCount(width>=1280?8:7);for(const field of await fields.all())await expect(field).toBeInViewport({ratio:1})
    await page.screenshot({path:resolve(screenshotDir,'customer360-created-service-row-'+width+'.png'),fullPage:true});if(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1))throw Error('C360_CREATED_SERVICE_ROW_OVERFLOW')
   }
-  await page.setViewportSize({width:1440,height:960});await page.getByRole('link',{name:'Ver servicio creado',exact:true}).click();await expect(page.getByRole('heading',{name:'W2 Customer360 Synthetic Service',exact:true})).toBeVisible()}finally{page.off('request',observeExtraWrite)}
+  await page.setViewportSize({width:1440,height:960});
+  // The detail first resolves service, parent contract and ordinary customer
+  // identity. Observe those real reads before its unchanged rendering budget.
+  const key=id.toLowerCase(),hex=(BigInt('0x'+key.replaceAll('-',''))-1n).toString(16).padStart(32,'0'),afterId=hex.slice(0,8)+'-'+hex.slice(8,12)+'-'+hex.slice(12,16)+'-'+hex.slice(16,20)+'-'+hex.slice(20)
+  const details=Promise.all([
+   page.waitForResponse(response=>{try{const q=response.request().postDataJSON();return new URL(response.url()).pathname==='/api/portfolio/v1/queries'&&q.operation==='portfolio.get'&&q.input.kind==='service'&&q.input.id===createdId}catch{return false}}),
+   page.waitForResponse(response=>{try{const q=response.request().postDataJSON();return new URL(response.url()).pathname==='/api/portfolio/v1/queries'&&q.operation==='portfolio.get'&&q.input.kind==='contract'&&q.input.id===parent.id}catch{return false}}),
+   page.waitForResponse(response=>{try{const q=response.request().postDataJSON();return new URL(response.url()).pathname==='/api/product/v1/queries'&&q.operation==='customer.list'&&q.input.limit===1&&q.input.sort==='id_asc'&&q.input.after_id===afterId}catch{return false}})
+  ])
+  step('customer360_created_service_detail_navigation_actual_reads');const [,responses]=await Promise.all([page.getByRole('link',{name:'Ver servicio creado',exact:true}).click(),details]);const [serviceBody,contractBody,customerBody]=await Promise.all(responses.map(response=>response.json()))
+  if(responses.some(response=>response.status()!==200)||!serviceBody.ok||serviceBody.data?.kind!=='service'||serviceBody.data.record?.id!==createdId||serviceBody.data.record.contract_id!==parent.id||serviceBody.data.record.customer_id!==id||serviceBody.data.record.version!==1||!contractBody.ok||contractBody.data?.kind!=='contract'||contractBody.data.record?.id!==parent.id||contractBody.data.record.customer_id!==id||!customerBody.ok||customerBody.data?.items?.[0]?.id!==id)throw Error('C360_CREATED_SERVICE_DETAIL_READ_BINDING_FAILED')
+  step('customer360_created_service_detail_heading');await expect(page.getByRole('heading',{name:'W2 Customer360 Synthetic Service',exact:true})).toBeVisible()}finally{page.off('request',observeExtraWrite)}
   // Immutable synthetic address/history rows remain until whole disposable-stack teardown.
  })
  await check('service_installation_location_assignment_exact_retry_no_provider_activation',async()=>{
