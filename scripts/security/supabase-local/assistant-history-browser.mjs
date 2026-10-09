@@ -1,6 +1,6 @@
 import { chromium, expect } from '@playwright/test'
 import { randomUUID } from 'node:crypto'
-import { mkdirSync } from 'node:fs'
+import { mkdirSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 
 /** Actual cookie browser/history RPC on the same disposable development app. */
@@ -71,6 +71,22 @@ export async function assistantHistoryBrowser({ origin, cookie, viewerCookie, ca
     let commitStatus=null,completeCommit
     const commitComplete=new Promise(resolve=>{completeCommit=resolve})
     const creates=[],loseDelivery=async route=>{const request=route.request().postDataJSON();if(request.operation!=='thread.create'){await route.continue();return}creates.push(request);if(creates.length===1){try{commitStatus=(await route.fetch()).status()}catch{commitStatus=null}finally{try{await route.abort('failed')}finally{completeCommit()}}}else await route.continue()}
+    const started=performance.now(),events=[],operations=new Set(['thread.list','thread.create','thread.get','thread.rename','thread.archive','message.page'])
+    const operation=request=>{try{const q=request.postDataJSON();return new URL(request.url()).pathname==='/api/assistant/v2/threads'&&operations.has(q.operation)?q.operation:null}catch{return null}}
+    const recordEvent=(request,kind,status=null)=>{const op=operation(request);if(op){if(events.length===32)events.shift();events.push({operation:op,kind,status,elapsed_ms:Math.round(performance.now()-started)})}}
+    const onResponse=response=>recordEvent(response.request(),'HTTP',response.status()),onFailed=request=>recordEvent(request,'NETWORK_FAILURE')
+    page.on('response',onResponse);page.on('requestfailed',onFailed)
+    const captureBeforeDrain=async()=>{
+      // Closed booleans/operation enums only: never content, identity, errors,
+      // URLs, cookies, headers, browser storage or database credentials.
+      const display=await page.evaluate(()=>{
+        const aside=document.querySelector('aside[aria-label="Conversaciones persistentes"]'),input=aside?.querySelector('input[aria-label="Título de nueva conversación"]'),buttons=Array.from(aside?.querySelectorAll('button')??[])
+        const retry=buttons.find(button=>button.textContent==='Reintentar misma creación'),create=buttons.find(button=>button.textContent==='Nueva conversación')
+        return {busy:document.querySelector('[aria-busy]')?.getAttribute('aria-busy')==='true',title_disabled:input?.disabled??null,retry_visible:!!retry,create_visible:!!create,create_disabled:create?.disabled??null,uncertain_alert:Array.from(document.querySelectorAll('[role="alert"]')).some(alert=>alert.textContent?.includes('No se pudo confirmar el resultado.'))}
+      })
+      writeFileSync(resolve(dir,'failed-create-before-route-drain-safe.json'),JSON.stringify({scope:'SYNTHETIC_COOKIE_BROWSER_CREATE_BEFORE_ROUTE_DRAIN',phase,upstream_status:commitStatus,create_attempts:creates.length,same_first_two_inputs:creates.length>=2?JSON.stringify(creates[0])===JSON.stringify(creates[1]):null,events,display},null,2)+'\n')
+      await page.screenshot({path:resolve(dir,'failed-'+phase+'-before-route-drain.png'),fullPage:true})
+    }
     await page.route('**/api/assistant/v2/threads',loseDelivery)
     let response,body
     try{
@@ -83,7 +99,7 @@ export async function assistantHistoryBrowser({ origin, cookie, viewerCookie, ca
       phase='CREATE_LOST_DELIVERY';await expect(page.getByRole('alert').filter({hasText:'No se pudo confirmar el resultado.'})).toBeVisible();await expect(page.getByLabel('Título de nueva conversación',{exact:true})).toBeDisabled()
       const created=pending('thread.create');await page.getByRole('button',{name:'Reintentar misma creación',exact:true}).click();response=await created;body=await response.json()
       check(creates.length===2&&JSON.stringify(creates[0])===JSON.stringify(creates[1]),'assistant_history_browser_same_create_identity_retry')
-    }finally{await page.unrouteAll({behavior:'wait'})}
+    }catch(error){await captureBeforeDrain().catch(()=>{});throw error}finally{await page.unrouteAll({behavior:'wait'});page.off('response',onResponse);page.off('requestfailed',onFailed)}
     check(response.status()===200&&body.ok&&body.data?.record?.version===1,'assistant_history_browser_actual_create')
     const id=body.data.record.id;check(/^[0-9a-f-]{36}$/.test(id),'assistant_history_browser_created_uuid')
     check(sql(`select count(*) from public.assistant_conversations_v2 where id='${id}' and workspace_id='${wa}' and actor_id='${users.ownerA.id}' and version=1`)==='1','assistant_history_browser_retry_single_persisted_thread')
