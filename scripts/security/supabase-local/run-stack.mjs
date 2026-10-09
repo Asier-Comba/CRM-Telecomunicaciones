@@ -3,6 +3,7 @@ import { existsSync, readFileSync, readdirSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { createHash,randomBytes,randomUUID } from 'node:crypto'
 import { waitForAssistantPortRelease } from './assistant-port-release.mjs'
+import { acceptanceError } from './acceptance-error.mjs'
 
 // Deliberately CI-only: no hosted URL/token/password and no reusable local DB.
 const project = 'crm-telecom-local'
@@ -117,7 +118,7 @@ try {
   } else evidence.result = 'STACK_PROVEN_HTTP_ACCEPTANCE_PENDING'
 } catch (error) {
   evidence.result = 'FAIL'; evidence.failed_stage = stage
-  evidence.error = /^[A-Z][A-Z0-9_]{0,180}$/.test(error.message) ? error.message : 'BOUNDED_ACCEPTANCE_FAILURE'
+  evidence.error = acceptanceError(error)
   process.exitCode = 1
 } finally {
   await stopProcess(assistantServer)
