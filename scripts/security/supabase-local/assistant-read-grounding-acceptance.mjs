@@ -9,24 +9,33 @@ export async function assistantReadGroundingAcceptance({ rpc, sql, check, users,
   if(process.env.GITHUB_ACTIONS!=='true'||url!=='http://127.0.0.1:54321'||assistantAppUrl!=='http://127.0.0.1:3109')throw Error('W3_READ_GROUNDING_LOCAL_CI_ONLY')
   let phase='START'
   try{
+    phase='IMPORT_SDK'
     const {createClient}=await import('@supabase/supabase-js'),owner=users.ownerA
     const client=createClient(url,anon,{global:{headers:{Authorization:'Bearer '+owner.token}},auth:{persistSession:false,autoRefreshToken:false,detectSessionInUrl:false}})
     check([wa,wb,owner.id,users.ownerB.id].every(value=>typeof value==='string'&&/^[0-9a-f-]{36}$/.test(value)),'assistant_grounding_fixture_ids')
     // Fresh JWT/profile/membership/workspace reads, with the production epoch
     // inputs. Fixture workspace must still be the actual selected profile.
+    let authorityStatus='NOT_READ'
     const authority=async()=>{
       const auth=await client.auth.getUser(owner.token)
-      if(auth.error||auth.data.user?.id!==owner.id)return null
+      if(auth.error||auth.data.user?.id!==owner.id){authorityStatus='JWT_REFUSED';return null}
       const profile=await client.from('profiles').select('workspace_id').eq('id',owner.id).abortSignal(AbortSignal.timeout(10000)).maybeSingle()
-      if(profile.error||profile.data?.workspace_id!==wa)return null
+      if(profile.error||profile.data?.workspace_id!==wa){authorityStatus='PROFILE_REFUSED';return null}
       const member=await client.from('workspace_members').select('id,role,status,version,workspace:workspaces!inner(status,updated_at)').eq('user_id',owner.id).eq('workspace_id',wa).abortSignal(AbortSignal.timeout(10000)).maybeSingle()
       const data=member.data,joined=Array.isArray(data?.workspace)?data.workspace.length===1?data.workspace[0]:null:data?.workspace
-      if(member.error||!data||data.status!=='active'||!Number.isSafeInteger(data.version)||data.version<1||!joined||joined.status!=='active'||typeof joined.updated_at!=='string')return null
+      if(member.error||!data){authorityStatus='MEMBERSHIP_READ_REFUSED';return null}
+      if(data.status!=='active'||!Number.isSafeInteger(data.version)||data.version<1){authorityStatus='MEMBERSHIP_INACTIVE_OR_VERSION';return null}
+      if(!joined||joined.status!=='active'||typeof joined.updated_at!=='string'){authorityStatus='WORKSPACE_INACTIVE_OR_JOIN';return null}
+      authorityStatus='READY'
       return{actorId:owner.id,workspaceId:wa,role:data.role,scopeEpoch:data.id+':'+data.version+':'+joined.updated_at}
     }
-    check((await authority())?.role==='owner','assistant_grounding_actual_auth_membership_epoch')
+    phase='AUTH_SETUP'
+    if((await authority())?.role!=='owner')throw Error('W3_READ_GROUNDING_AUTH_'+authorityStatus)
+    check(true,'assistant_grounding_actual_auth_membership_epoch')
+    phase='FIXTURE_SETUP'
     const customers=[randomUUID(),randomUUID()],foreignCustomer=randomUUID(),operator=randomUUID(),foreignOperator=randomUUID(),contracts=[randomUUID(),randomUUID(),randomUUID()]
     sql(`insert into public.customers(id,workspace_id,account_kind,legal_name,created_by_user_id)values('${customers[0]}','${wa}','legal_entity','W3 Grounding Alpha','${owner.id}'),('${customers[1]}','${wa}','legal_entity','W3 Grounding Beta','${owner.id}'),('${foreignCustomer}','${wb}','legal_entity','W3 Grounding Other Tenant','${users.ownerB.id}');insert into public.telecom_operators(id,workspace_id,code,display_name)values('${operator}','${wa}','w3-grounding','W3 Grounding Operator'),('${foreignOperator}','${wb}','w3-grounding','W3 Grounding Operator');insert into public.telecom_contracts(id,workspace_id,customer_id,operator_id,start_date,source)values('${contracts[0]}','${wa}','${customers[0]}','${operator}','2026-10-08','manual'),('${contracts[1]}','${wa}','${customers[1]}','${operator}','2026-10-08','manual'),('${contracts[2]}','${wb}','${foreignCustomer}','${foreignOperator}','2026-10-08','manual')`)
+    phase='SNAPSHOT'
     const businessSnapshot=()=>sql(`select md5(coalesce(jsonb_agg(payload order by id)::text,'')) from(select id,to_jsonb(x) payload from public.customers x where id in('${customers[0]}','${customers[1]}','${foreignCustomer}') union all select id,to_jsonb(x) payload from public.telecom_contracts x where id in('${contracts[0]}','${contracts[1]}','${contracts[2]}') union all select id,to_jsonb(x) payload from public.telecom_operators x where id in('${operator}','${foreignOperator}')) records`)
     const before=businessSnapshot(),calls=[]
     let suspendAfterRead=false
@@ -56,6 +65,7 @@ export async function assistantReadGroundingAcceptance({ rpc, sql, check, users,
       return result.status===200?{data:result.json,error:null}:{data:null,error:{code:result.status===403?'42501':result.status===409?'40001':result.status===400?'22023':'XX000'}}
     }})
     const thread=randomUUID()
+    phase='THREAD_SETUP'
     check((await conversations.execute('thread.create',{id:thread,title:'Synthetic actual read grounding'})).ok,'assistant_grounding_actual_history_create')
     const node=(limit=20)=>({id:'clients',capability:'crm.customer.list',arguments:[{field:'limit',value:limit}],bindings:[{field:'operator_id',handle:'operator_ref',nodeId:null}]})
     const summary=binding=>({id:'summary',capability:'crm.customer360.summary',arguments:[],bindings:[{field:'customer_id',...binding}]})
@@ -109,5 +119,10 @@ export async function assistantReadGroundingAcceptance({ rpc, sql, check, users,
     check(messages.ok&&messages.data.historical&&messages.data.items.length===13&&messages.data.items.filter(item=>item.role==='user').length===7&&messages.data.items.filter(item=>item.role==='assistant').length===6&&messages.data.items.filter(item=>item.role==='assistant').every(item=>!['W3 Grounding','telecom.collections','source_','inputTokens'].some(value=>item.content.includes(value))),'assistant_grounding_persisted_history_excludes_factual_blocks')
     check(before===businessSnapshot(),'assistant_grounding_no_business_record_change')
     return 'PASS_ACTUAL_AUTH_COOKIE_READ_GROUNDING_PARTIALITY_REVOCATION_SYNTHETIC_PLANNER'
-  }catch{throw Error('W3_READ_GROUNDING_'+phase)}
+  }catch(cause){
+    const tag=String(cause?.message??'')
+    if(/^W3_READ_GROUNDING_AUTH_[A-Z_]{1,60}$/.test(tag))throw cause
+    if(/^CHECK_ASSISTANT_GROUNDING_[A-Z0-9_]{1,110}$/.test(tag))throw Error('W3_READ_GROUNDING_'+phase+'_'+tag.slice(6))
+    throw Error('W3_READ_GROUNDING_'+phase)
+  }
 }
