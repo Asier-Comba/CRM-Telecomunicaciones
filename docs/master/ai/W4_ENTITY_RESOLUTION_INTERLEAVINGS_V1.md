@@ -1,0 +1,9 @@
+# W4 independent entity-resolution interleavings
+
+Evaluated source: W3 PR31@972e96c680a39db25ed1555de4eed9b7149925e3. The entity-resolution implementation blob on this W4 candidate is unchanged from that source. New tests reside only in tests/assistant/w4-entity-resolution-interleavings.test.ts; no runtime, issuer, route, planner, schema or adapter implementation is added.
+
+Six deterministic negative/concurrency controls exercise cancellation while search/authorization/issuance awaits, revocation after ancestry authorization and between reference emissions, separate concurrent tenants, mutable repository response ownership, and late issuer failure after an earlier handle. Deferred promises explicitly order events; no latency increase or simulated HTTP acceptance. Six new plus eight existing targeted controls PASS locally. Own Linux CI remains required.
+
+The core exposes no partially accepted handle list under the tested interleavings and no raw provider error detail. A late asynchronous port may still complete internally: these tests prove suppressed output and no subsequent core pipeline advancement, not rollback or cancellation of a persisted issuer. The core contract is inert, without a concrete issuer or selected-read integration. The future registered server issuer/consumer must bind actor/workspace/epoch/expiry and reauthorize current resource ancestry; persisted reference consumption and physical restart remain unproven. W3 must confirm those integration boundaries before a physical adapter is delegated.
+
+This is independent W4 evaluation of unchanged W3 core source, not independent approval of this author's W5 changes, native tenant persistence, semantic live-model evaluation, global security acceptance or issue10 closure. AI writes/sends stay disabled. NEXT3: Linux exact-source evidence; W3 issuer/consumer handoff; separately scoped physical durability only after ownership confirmation.
