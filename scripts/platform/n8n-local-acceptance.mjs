@@ -5,6 +5,7 @@ import {randomBytes} from 'node:crypto'
 import {disposableGuard,readJson,hash,run} from './lib.mjs'
 import {validateWorkflow} from './operations.mjs'
 import {encryptBackup,decryptBackup} from './backup.mjs'
+import {postgresQueryReady} from './postgres-query-ready.mjs'
 disposableGuard()
 if(process.platform!=='linux'||process.env.GITHUB_ACTIONS!=='true')throw new Error('N8N_DISPOSABLE_LINUX_ONLY')
 const suffix=randomBytes(6).toString('hex'),prefix=`w5-n8n-${suffix}`,network=prefix+'-network',volume=prefix+'-data',db=prefix+'-db',app=prefix+'-app',scratch=mkdtempSync(join(tmpdir(),'w5-n8n-')),pins=readJson('infra/n8n/disposable-image-pins.json'),checks=[],source_sha=run('git',['rev-parse','HEAD']).trim()
@@ -47,7 +48,8 @@ try{
  writeFileSync(join(scratch,'key.secret'),encryption,{mode:0o600});writeFileSync(join(scratch,'database.secret'),password,{mode:0o600})
  docker(['run','--rm','--network','none','--user','0','--entrypoint','sh','-v',`${volume}:/home/node/.n8n`,'-v',`${scratch}:/fixture`,pins.n8n.image,'-c','chown -R 1000:1000 /home/node/.n8n && chown 1000:1000 /fixture/key.secret /fixture/database.secret && chmod 600 /fixture/key.secret /fixture/database.secret'])
  docker(['run','-d','--name',db,'--network',network,'--network-alias','database','-v',`${scratch}/database.secret:/run/secrets/database:ro`,'-e','POSTGRES_USER=n8n','-e','POSTGRES_DB=n8n','-e','POSTGRES_PASSWORD_FILE=/run/secrets/database',pins.postgres.image])
- let pgReady=false;for(let i=0;i<60;i++){try{docker(['exec',db,'pg_isready','-U','n8n','-d','n8n'],{timeout:2000});pgReady=true;break}catch{}await new Promise(r=>setTimeout(r,500))}prove(pgReady,'ACTUAL_POSTGRES_READY')
+ const pg=await postgresQueryReady({expected:pins.postgres.version.split('-')[0],probe:()=>{docker(['exec',db,'pg_isready','-U','n8n','-d','n8n'],{timeout:2000});return docker(['exec',db,'psql','-X','-qAt','-U','n8n','-d','n8n','-c','SHOW server_version'],{timeout:2000}).trim().split(/\s+/)[0]}})
+ const postgres_version=pg.version;prove(true,'ACTUAL_POSTGRES_AUTHENTICATED_QUERY_READY');prove(postgres_version===pins.postgres.version.split('-')[0],'ACTUAL_POSTGRES_PINNED_VERSION')
  const env={NODE_ENV:'production',DB_TYPE:'postgresdb',DB_POSTGRESDB_HOST:'database',DB_POSTGRESDB_PORT:'5432',DB_POSTGRESDB_DATABASE:'n8n',DB_POSTGRESDB_USER:'n8n',DB_POSTGRESDB_PASSWORD_FILE:'/run/secrets/database',N8N_ENCRYPTION_KEY_FILE:'/run/secrets/key',N8N_DIAGNOSTICS_ENABLED:'false',N8N_VERSION_NOTIFICATIONS_ENABLED:'false',N8N_TEMPLATES_ENABLED:'false',N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS:'true',N8N_BLOCK_ENV_ACCESS_IN_NODE:'true',N8N_SECURE_COOKIE:'false',EXECUTIONS_DATA_SAVE_ON_SUCCESS:'none',EXECUTIONS_DATA_SAVE_ON_ERROR:'none',EXECUTIONS_DATA_SAVE_MANUAL_EXECUTIONS:'false'}
  writeFileSync(join(scratch,'public.env'),Object.entries(env).map(([k,v])=>`${k}=${v}`).join('\n'),{mode:0o600})
  startApp()
@@ -81,7 +83,7 @@ try{
  docker(['exec','-i',db,'psql','-U','n8n','-d','n8n','-v','ON_ERROR_STOP=1'],{input:restored.database_sql})
  startApp();prove(await ready(),'ACTUAL_EMPTY_RESTORE_N8N_READY');prove(snapshot()===first,'INACTIVE_WORKFLOW_RESTORED_EXACTLY');prove(docker(['exec',app,'node','-e',keyTest]).trim()==='PASS','ORIGINAL_ENCRYPTION_KEY_RESTORED')
  const login=await request('/rest/login',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({emailOrLdapLoginId:'owner@example.invalid',password:ownerPassword})});prove(login.ok,'ACTUAL_FRESH_OWNER_LOGIN_AFTER_RESTORE')
- evidence={...evidence,status:'PASS',scope:'DISPOSABLE_ACTUAL_N8N_POSTGRES_INACTIVE_WORKFLOW_AND_ENCRYPTED_EMPTY_RESTORE',version,workflow_effects:false,external_network:'INTERNAL_DOCKER_NETWORK',http_proof_scope:'ACTUAL_CONTAINER_LOOPBACK_ONLY',host_ingress:'NOT_PROVEN',image:pins.n8n.image,backup_scope:'SYNTHETIC_POSTGRES_AND_PRIVATE_INSTANCE_CONFIG_ONLY',offsite:'NOT_PROVEN',company_runtime:'NOT_ACCEPTED',production:'NOT_PROVEN'}
+ evidence={...evidence,status:'PASS',scope:'DISPOSABLE_ACTUAL_N8N_POSTGRES_INACTIVE_WORKFLOW_AND_ENCRYPTED_EMPTY_RESTORE',version,postgres_version,workflow_effects:false,external_network:'INTERNAL_DOCKER_NETWORK',http_proof_scope:'ACTUAL_CONTAINER_LOOPBACK_ONLY',host_ingress:'NOT_PROVEN',image:pins.n8n.image,backup_scope:'SYNTHETIC_POSTGRES_AND_PRIVATE_INSTANCE_CONFIG_ONLY',offsite:'NOT_PROVEN',company_runtime:'NOT_ACCEPTED',production:'NOT_PROVEN'}
 }catch(e){evidence={...evidence,status:'FAIL',failed_stage:stage,error:/^[A-Z][A-Z0-9_]+$/.test(e.message)?e.message:'N8N_LOCAL_ACCEPTANCE_FAILURE',startup_diagnostic:startupDiagnostic()};process.exitCode=1}
 finally{for(const name of [app,db])try{docker(['rm','-f',name])}catch{}try{docker(['volume','rm',volume])}catch{}try{docker(['network','rm',network])}catch{}
  try{if(docker(['ps','-a','--format','{{.Names}}']).split('\n').some(n=>[app,db].includes(n))||docker(['volume','ls','--format','{{.Name}}']).split('\n').includes(volume)||docker(['network','ls','--format','{{.Name}}']).split('\n').includes(network))throw new Error();evidence.teardown='PASS'}catch{evidence.teardown='FAIL';process.exitCode=1}

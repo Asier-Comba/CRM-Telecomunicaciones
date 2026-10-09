@@ -1,8 +1,17 @@
 {
- "version":1,
- "scope":"DISPOSABLE_ACCEPTANCE_NOT_COMPANY_APPROVED",
- "n8n":{"version":"2.42.5","image":"docker.io/n8nio/n8n:2.42.5@sha256:f6dc0d15bc9620baf5ba1df834ef81ae4e969f778c09300e567217be88f04a96","source":"https://github.com/n8n-io/n8n/releases/tag/n8n@2.42.5"},
- "postgres":{"version":"16.13-alpine","image":"docker.io/library/postgres:16.13-alpine@sha256:4e6e670bb069649261c9c18031f0aded7bb249a5b6664ddec29c013a89310d50"},
- "registry_verification":"Anonymous public manifests returned HTTP200 with these Docker-Content-Digests; preferred docker.n8n.io returned429, so official Docker Hub namespace is used.",
- "company_runtime_accepted":false
+  "version": 1,
+  "scope": "DISPOSABLE_ACCEPTANCE_NOT_COMPANY_APPROVED",
+  "n8n": {
+    "version": "2.42.5",
+    "image": "docker.io/n8nio/n8n:2.42.5@sha256:f6dc0d15bc9620baf5ba1df834ef81ae4e969f778c09300e567217be88f04a96",
+    "source": "https://github.com/n8n-io/n8n/releases/tag/n8n@2.42.5",
+    "verified_linux_amd64_config_digest": "sha256:673cf422821d5dda078bda7962e5c48be400745a843041618a2ad2263972a3b9"
+  },
+  "postgres": {
+    "version": "16.13-alpine",
+    "image": "docker.io/library/postgres:16.13-alpine@sha256:4e6e670bb069649261c9c18031f0aded7bb249a5b6664ddec29c013a89310d50",
+    "verified_linux_amd64_config_digest": "sha256:667495ca2ac33180ad3690178da1bf274f481d0c43849d4c1941f0176983bd2e"
+  },
+  "registry_verification": "Existing immutable index and amd64 manifest bytes independently match SHA256; configuration digest pinned. Versions unchanged; vulnerability gates remain blocked pending exact CI.",
+  "company_runtime_accepted": false
 }
