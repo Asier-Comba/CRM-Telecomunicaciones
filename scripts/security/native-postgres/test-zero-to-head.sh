@@ -1,20 +1,17 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Runs only against the CI-created postgres:16 service container. The backup is
+# Runs only against the CI-created official PostgreSQL 16 service container. The backup is
 # synthetic, unencrypted, transient and never uploaded or called production DR.
 container="${TELECOM_NATIVE_TEST_CONTAINER:-}"
 [[ "$container" =~ ^[0-9a-f]{12,64}$ ]] || {
   echo 'Missing disposable PostgreSQL service container ID' >&2
   exit 1
 }
-image="$(docker inspect --format='{{.Config.Image}}' "$container")"
-[[ "$image" == postgres:16* ]] || {
-  echo 'Refusing an unexpected PostgreSQL container image' >&2
-  exit 1
-}
-
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
+image="$(docker inspect --format='{{.Config.Image}}' "$container")"
+node "$repo_root/scripts/security/native-postgres/expected-image.mjs" "$image"
+
 test_db=telecom_test
 restore_db=telecom_restore_test
 tmp_dir="$(mktemp -d)"
