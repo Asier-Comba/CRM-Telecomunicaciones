@@ -3,6 +3,8 @@ import { randomUUID } from 'node:crypto'
 import { mkdirSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { assistantUpstreamDiagnostic } from './assistant-server-diagnostics.mjs'
+import { currentHistoryReload } from './assistant-history-current-reload.mjs'
+import { parseHistoryDataV2 } from '../../../src/features/assistant/history-client-v2.ts'
 
 /** Actual cookie browser/history RPC on the same disposable development app. */
 export async function assistantHistoryBrowser({ origin, cookie, viewerCookie, call, sql, wa, wb, users, check }) {
@@ -122,9 +124,16 @@ export async function assistantHistoryBrowser({ origin, cookie, viewerCookie, ca
     phase='HISTORY_RENAME'
     await page.getByLabel('Nuevo título de conversación',{exact:true}).fill('W3 UI Renamed History')
     const renamed=pending('thread.rename');await page.getByRole('button',{name:'Guardar título',exact:true}).click()
-    check((await(await renamed).json()).data?.record?.version===2,'assistant_history_browser_rename_cas')
-    await page.reload();await expect(page.getByRole('button',{name:'Abrir conversación: W3 UI Renamed History',exact:true})).toBeVisible()
-    await page.getByRole('button',{name:'Abrir conversación: W3 UI Renamed History',exact:true}).click();await expect(page.locator('[data-history-message]')).toHaveCount(20)
+    phase='HISTORY_RENAME_HTTP'
+    const renameResponse=await renamed,renameBody=await renameResponse.json()
+    const changed=parseHistoryDataV2('thread.rename',{id,expected_version:1,title:'W3 UI Renamed History'},renameBody.data)
+    if(renameResponse.status()!==200||Object.keys(renameBody).sort().join(',')!=='data,ok'||renameBody.ok!==true||!changed)throw Error('HISTORY_RENAME_CURRENT_RESPONSE_INVALID')
+    check(changed.record.version===2,'assistant_history_browser_rename_cas')
+    await currentHistoryReload({page,origin,thread:changed.record,step:next=>{phase=next}})
+    await expect(page.getByRole('button',{name:'Abrir conversación: W3 UI Renamed History',exact:true})).toBeVisible()
+    phase='HISTORY_REOPEN_CLICK'
+    await page.getByRole('button',{name:'Abrir conversación: W3 UI Renamed History',exact:true}).click()
+    phase='HISTORY_REOPEN_MESSAGES';await expect(page.locator('[data-history-message]')).toHaveCount(20)
     check(true,'assistant_history_browser_reload_persistence')
     for(const width of [1440,768,390]){await page.setViewportSize({width,height:960});await page.getByRole('main').evaluate(el=>{el.scrollTop=0});await page.screenshot({path:resolve(dir,'history-'+width+'.png'),fullPage:true});await page.getByRole('main').evaluate(el=>{el.scrollTop=el.scrollHeight});await page.screenshot({path:resolve(dir,'history-lower-'+width+'.png'),fullPage:true});check(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'assistant_history_browser_responsive_'+width)}
     phase='STORAGE_PRIVACY'
