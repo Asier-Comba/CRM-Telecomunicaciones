@@ -305,3 +305,43 @@ Next three: close this exact new canonical's own107/quality and46fresh QA; publi
 only verified checkpoint SHA/tree to W5; continue open product/local/durability
 tasks within ownership and resource limits. Production/VPS/DNS/accounts/provider
 boundaries remain unchanged.
+
+
+## Current labels, access recovery and closed evidence composition — 9 October 2026
+
+
+Previous canonical source9cf6c10eae9b6c301b6f79753ffbaafd6eebc7ad, executed84cd318697882505890484730e42c83eb9fa7366, treefcc2485c06f6693ab3ec71c9dd747abf4ec8f43c closed own107 and46 actually reviewed frames. Quality415+483/build66/lint/types PASS, audit5HIGH FAIL. That acceptance does not transfer to this new composition.
+
+
+| Own unit | Source / consumed executed / identical tree | Own closed evidence |
+|---|---|---|
+
+| PR100 | 2c7fcacd6b6839af356441dd40fad5ff156eb50a / e57809cc2a63b97893c7d2b393f191676f2845e3 / d10eea79706c3003bb496885ef6899f00d8b3731 | Supabase37984596356/job114003299332 SUCCESS107; CI37984596418/job114003298193 PASS_422_483_BUILD66, audit5HIGH FAIL, independents PASS; 55 fresh actual reviewed frames in own manifest. |
+
+| PR103 | f8e711d47cd22f9403e60719fff20349c88579ad / 7a50e0e70ddee41282b77571da11d06ca579b241 / 05ee586dd1114d883021a3d9346e2e341c990110 | Supabase37981798580/job114004947233 SUCCESS107; CI37981798548/job113993896841 PASS_415_485_BUILD66, audit5HIGH FAIL, independents PASS; 46 fresh actual reviewed frames in own manifest. |
+
+| PR104 | fe01f3869d494d954a6f086f019a07111fe2b79f / 9b39a4d25c669edc60ff54a7be370ee245e9a3ec / 782810a235f0fa1542d648f8005b20696d29756a | Supabase37985766380/job114007242106 SUCCESS107; CI37985685245/job114006978639 PASS_420_483_BUILD66, audit5HIGH FAIL, independents PASS; 46 fresh actual reviewed frames in own manifest. |
+
+| PR105 | 586e06d4849afdbb1db30f36425000af54bfbd4d / 79240e4ccd711907248be751bb13ed50c0be1efb / 7120a2b23c5188608ec331ef26a9c3c71f8f4174 | Supabase37986414270/job114009402297 SUCCESS107; CI37986414361/job114009403465 PASS_417_483_BUILD66, audit5HIGH FAIL, independents PASS; 46 fresh actual reviewed frames in own manifest. |
+
+| PR106 | 0a4ee2f0b0bc53c6181b3006eb5b0a2f8d9f1efb / 2abfa1908da142c39ce697f5a70dbeecfc2052b4 / cb18d94e2f3edb91374cc8b26e4543600b2816b8 | Supabase37987401757/job114012708418 SUCCESS107; CI37987401404/job114012708795 PASS_424_483_BUILD66, audit5HIGH FAIL, independents PASS; 55 fresh actual reviewed frames in own manifest. |
+
+
+
+PR100 supplies progressive current reference labels, with actual complete contract inventory20rows/threewidths/18reads/zero commands native proof; late publishers are disposed and previous repository/rows identities are hidden synchronously. PR102 current-document closed history reload is included identically by100 and106. PR103 rejects accessors/hidden/symbol/proxy/dense-array-invalid evidence without executing getters; it is structural admission, not physical durability. PR104 closes rejected getUser access checks and redirects to the existing login error; disposed responses stay inert. Its source dispatch and consumed CI merge have identical trees. PR105 includes101 explicit branch recovery doctor/tests/documentation, adding only the AuthGate workflow path. PR106 observes bounded current-main-document Auth user HTTP headers/categories only and handles both pending navigation/request rejections. These counters never prove authorization.
+
+
+
+Every overlapping unit blob was identical before mutation; every resulting changed blob equals its accepted executed unit. Protected schema/RLS/SDK/durable DB contract/package/security DB helpers are byte-identical to9cf. Workflow differs only by one AuthGate path; existing107 names/checks,55 main checks, budgets/retries/skips/commands and permissions are preserved. No W4/W5 owner adoption, main, force push, production, VPS, DNS, accounts, providers or real data.
+
+
+
+Historical100@448/39c HISTORY_RENAME_TIMEOUT before W2 remains FAILURE. PR103 attempt1 run37981798580/job113993896737 remains FAILURE106/107 at portfolio768 current request; reviewed frame showed Verificando acceso… before portfolio.get, original cause unknown. Attempt2 same source/executed closed107, demonstrating compatibility on that run without claiming root cause/stability. All older failures/cancellations recorded above remain.
+
+
+
+Fresh manifests retain asynchronous list/PDF/label loads and mobile content below viewport; ordinary helper scrolling is distinct from what each screenshot shows. Native memory transport proofs do not establish Auth/SQL/full app/physical driver behavior. Five HIGH audit remains enforced; no suppression/override/downgrade. Issue10 physical adapter/store/registered dispatcher/native23scenarios, independent W4, persistent Windows stack, live and commercial acceptance stay open. Business AI writes OFF.
+
+
+
+This new source requires its own exact107/Auth/history/grounding/Storage/teardown, quality and55 fresh actually reviewed frames. Before those gates close it is a candidate, with9cf remaining the last scoped accepted canonical. Next: native exact composition checks, ordinary push and own gates, fresh visual review and verified checkpoints.
