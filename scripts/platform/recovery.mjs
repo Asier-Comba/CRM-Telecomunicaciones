@@ -1,5 +1,5 @@
 import {createClient} from '@supabase/supabase-js'
-import {randomBytes} from 'node:crypto'
+import {randomBytes,randomUUID} from 'node:crypto'
 import {readFileSync,writeFileSync,mkdtempSync,rmSync} from 'node:fs'
 import {join,resolve,sep,basename} from 'node:path'
 import {tmpdir} from 'node:os'
@@ -8,7 +8,7 @@ import {disposableGuard,root,migrations,hash} from './lib.mjs'
 import {checkRpcManifest} from './rpc-manifest.mjs'
 import {storageReady} from './storage-ready.mjs'
 import {recoveryManifest,verifyRecoveryManifest} from './recovery-manifest.mjs'
-import {verifyRestoredPrivateResponses} from './restored-authorization.mjs'
+import {verifyRestoredPrivateResponses,verifyRestoredRpcDenial} from './restored-authorization.mjs'
 const clientOptions={auth:{persistSession:false,autoRefreshToken:false},global:{fetch:(input,options={})=>fetch(input,{...options,redirect:'error',signal:options.signal?AbortSignal.any([options.signal,AbortSignal.timeout(15000)]):AbortSignal.timeout(15000)})}}
 // Called only inside run-stack after real Auth/Storage acceptance. It never takes
 // a caller-selected database, Docker container, URL or key from CLI arguments.
@@ -21,6 +21,9 @@ export async function recoveryRehearsal({url,anon,service,db,command,report,user
  const rows=()=>JSON.parse(sql(readFileSync(join(root,'scripts/platform/row-hashes.sql'),'utf8')))
  try{
   report.recovery_stage='capture'
+  // Disposable late role downgrade: old Auth tokens and application role caches
+  // must not retain the former admin authority after canonical reconstruction.
+  sql(`update public.workspace_members set role='viewer' where workspace_id='${wa}' and user_id='${users.adminA.id}' and status='active';`)
   const expected=metadata(),expectedRows=rows()
   try{report.rpc_manifest=checkRpcManifest(expected.privileges)}catch(e){
    if(e.message==='PUBLIC_RPC_MANIFEST_DRIFT')report.rpc_manifest_drift=e.differences
@@ -88,7 +91,11 @@ export async function recoveryRehearsal({url,anon,service,db,command,report,user
   // Actual user JWT checks after restore: retained business revocation and A/B scope.
   const api=async(path,token,body)=>{const r=await fetch(url+path,{method:body?'POST':'GET',headers:{apikey:anon,authorization:`Bearer ${token}`,...(body?{'content-type':'application/json'}:{})},body:body?JSON.stringify(body):undefined,signal:AbortSignal.timeout(15000)});return {status:r.status,json:await r.json()}}
   const authorization_checks=[]
-  for(const name of ['ownerA','ownerB','removedA','suspendedA']){
+  const denied_rpc_checks=[]
+  const ticket=JSON.parse(sql(`select coalesce((select jsonb_build_object('id',t.id,'document_id',t.document_id) from public.document_download_tickets t join public.documents d on d.id=t.document_id and d.workspace_id=t.workspace_id where t.workspace_id='${wa}' and t.actor_id='${users.ownerA.id}' and t.expires_at<statement_timestamp() and d.status='active' order by t.id limit 1),'null'::jsonb);`))
+  if(!ticket||!['id','document_id'].every(k=>/^[0-9a-f-]{36}$/.test(ticket[k])))throw new Error('RESTORED_EXPIRED_TICKET_FIXTURE_MISSING')
+  const deny=async(name,r)=>{const proof=verifyRestoredRpcDenial(r);denied_rpc_checks.push({name,...proof})}
+  for(const name of ['ownerA','ownerB','removedA','suspendedA','viewerA','adminA']){
    const user=users[name]
    const login=await api('/auth/v1/token?grant_type=password',anon,{email:user.email,password:user.password})
    if(login.status!==200||!login.json.access_token)throw new Error('RESTORED_AUTH_LOGIN_FAILED')
@@ -101,17 +108,29 @@ export async function recoveryRehearsal({url,anon,service,db,command,report,user
     const role=await api('/rest/v1/rpc/current_workspace_role',token,{p_workspace_id:wa})
     if(role.status!==200||role.json!==null||list.json.some(w=>w.id===wa))throw new Error('RESTORED_REVOCATION_FAILED')
    }else{
-    const own=name==='ownerA'?wa:wb,foreign=name==='ownerA'?wb:wa
+    const own=name==='ownerB'?wb:wa,foreign=name==='ownerB'?wa:wb
     if(!list.json.some(w=>w.id===own)||list.json.some(w=>w.id===foreign))throw new Error('RESTORED_TENANT_SCOPE_FAILED')
+    const role=await api('/rest/v1/rpc/current_workspace_role',token,{p_workspace_id:own})
+    if(role.status!==200||role.json!==(['viewerA','adminA'].includes(name)?'viewer':'owner'))throw new Error('RESTORED_CURRENT_ROLE_NOT_PROVEN')
    }
    const download=await fetch(url+'/storage/v1/object/authenticated/telecom-documents/'+object,{headers:{apikey:anon,authorization:`Bearer ${token}`},signal:AbortSignal.timeout(15000)})
    const storage_response={status:download.status,json:download.status===200?null:await download.json()}
-   const raw=await api('/rest/v1/assistant_operations?select=id',token)
+   const raw=await api('/rest/v1/assistant_operations?select=operation_ref',token)
    const proof=verifyRestoredPrivateResponses({owner:name==='ownerA',storage:storage_response,assistant:raw})
    authorization_checks.push({actor:name,session,status:'PASS',...proof})
+   const rpc=(operation,input,workspace=wa)=>api('/rest/v1/rpc/'+operation,token,{p_workspace_id:workspace,p_input:input})
+   if(['viewerA','adminA','removedA','suspendedA','ownerB'].includes(name)){
+    await deny(name+'_'+session+'_WRITE',await rpc('product_v1_task_create',{command_id:randomUUID(),title:'Synthetic post-restore denied task'}))
+    await deny(name+'_'+session+'_REVEAL',await rpc('sensitive_v1_get',{entity_kind:'customer',entity_id:randomUUID(),fields:['fiscal_id']}))
+   }
+   if(name==='ownerA'){
+    await deny(session+'_EXPIRED_TICKET',await rpc('document_content_v1_manifest',{id:ticket.document_id,ticket_id:ticket.id}))
+    await deny(session+'_FORGED_TICKET',await rpc('document_content_v1_manifest',{id:ticket.document_id,ticket_id:randomUUID()}))
+    await deny(session+'_FOREIGN_REVEAL_SCOPE',await rpc('sensitive_v1_get',{entity_kind:'customer',entity_id:randomUUID(),fields:['fiscal_id']},wb))
+   }
    }
   }
-  return {result:'PASS',fresh_rebuilds:2,schema_drift:'PASS',database_hashes:'PASS',storage:storageResult,storage_metadata_scope:['size','sha256','content_type','cache_control','custom_metadata'],storage_provider_ids_timestamps:'REGENERATED_API_FIELDS',tenant_isolation:'PASS',revoked_member:'PASS',auth_login:'PASS',authorization_checks,duration_seconds:Math.round((Date.now()-start)/1000),hosted_auth_portability:'NOT_PROVEN',offsite:'NOT_PROVEN'}
+  return {result:'PASS',fresh_rebuilds:2,schema_drift:'PASS',database_hashes:'PASS',storage:storageResult,storage_metadata_scope:['size','sha256','content_type','cache_control','custom_metadata'],storage_provider_ids_timestamps:'REGENERATED_API_FIELDS',tenant_isolation:'PASS',revoked_member:'PASS',auth_login:'PASS',authorization_checks,denied_rpc_checks,stale_admin_role:'DISPOSABLE_DOWNGRADE_TO_VIEWER_PRESERVED',duration_seconds:Math.round((Date.now()-start)/1000),hosted_auth_portability:'NOT_PROVEN',offsite:'NOT_PROVEN'}
  }finally{
   key.fill(0)
   const target=resolve(scratch)

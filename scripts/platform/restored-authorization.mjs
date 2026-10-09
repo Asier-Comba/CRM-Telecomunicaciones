@@ -11,3 +11,7 @@ export function verifyRestoredPrivateResponses({owner,storage,assistant}){
  if(assistant?.status!==403||assistant?.json?.code!=='42501')throw new Error('RESTORED_ASSISTANT_DENIAL_NOT_PROVEN')
  return {storage:owner?'AUTHORIZED':'DENIED',assistant_raw:'DENIED',response_values_included:false}
 }
+export function verifyRestoredRpcDenial(response){
+ if(response?.status!==403||response?.json?.code!=='42501')throw new Error('RESTORED_RPC_DENIAL_NOT_PROVEN')
+ return {status:'PASS',response_values_included:false}
+}
