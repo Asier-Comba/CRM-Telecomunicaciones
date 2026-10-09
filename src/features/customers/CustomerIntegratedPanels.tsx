@@ -17,12 +17,12 @@ import { IntegratedBilling } from '@/features/billing/IntegratedBilling'
 import { control, Status } from '@/features/product/ui'
 
 export const customerAreas=['Resumen','Empresa','Contactos','Contratos','Servicios','Ubicaciones','Líneas','SIM/eSIM','Portabilidades','Renovaciones','Permanencias','Oportunidades','Tareas','Reuniones','Incidencias','Equipos','Agenda','Documentos','Facturación','Actividad','Comunicaciones']
-export function CustomerIntegratedPanels({customer,area,onContractCreated}:{customer:CustomerIdentity;area:string;onContractCreated?:()=>void}){
- if(area==='Contratos')return <ContractsInventory key={customer.id} customerId={customer.id} createAllowed={customer.status==='active'} onCreated={onContractCreated}/>
+export function CustomerIntegratedPanels({customer,area,onRecordCreated}:{customer:CustomerIdentity;area:string;onRecordCreated?:()=>void}){
+ if(area==='Contratos')return <ContractsInventory key={customer.id} customerId={customer.id} createAllowed={customer.status==='active'} onCreated={onRecordCreated}/>
  if(area==='Ubicaciones')return <ServiceLocations key={customer.id} customerId={customer.id} createAllowed={customer.status==='active'}/>
- if(area==='Portabilidades')return <PortabilityInventory key={customer.id} customerId={customer.id} createAllowed={customer.status==='active'}/>
- if(area==='SIM/eSIM')return <SimInventory key={customer.id} customerId={customer.id} createAllowed={customer.status==='active'}/>
- if(area==='Incidencias')return <CaseInventory key={customer.id} customerId={customer.id} createAllowed={customer.status==='active'}/>
+ if(area==='Portabilidades')return <PortabilityInventory key={customer.id} customerId={customer.id} createAllowed={customer.status==='active'} onCreated={onRecordCreated}/>
+ if(area==='SIM/eSIM')return <SimInventory key={customer.id} customerId={customer.id} createAllowed={customer.status==='active'} onCreated={onRecordCreated}/>
+ if(area==='Incidencias')return <CaseInventory key={customer.id} customerId={customer.id} createAllowed={customer.status==='active'} onCreated={onRecordCreated}/>
  if(area==='Equipos')return <EquipmentInventory customerId={customer.id} createAllowed={customer.status==='active'}/>
  if(isCustomerDomain(area))return <CustomerDomainPages key={area} area={area} customerId={customer.id}/>
  if(area==='Agenda')return <IntegratedCalendar customerId={customer.id}/>
