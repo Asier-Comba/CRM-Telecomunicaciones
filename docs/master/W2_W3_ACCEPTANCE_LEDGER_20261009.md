@@ -227,3 +227,81 @@ Next three: collect this new canonical's exact own107/quality and36 fresh frames
 handoff only its verified SHA/tree evidence to W5 via the existing checkpoints;
 continue scoped product/local/native adapter work while preserving independent
 security, resource and commercial gates.
+
+
+## Current import reads and driver admission composition — 9 October 2026
+
+Ordinary merges now consume the following own executed commits. No main or owner
+W4/W5 branch is changed. Previous canonical56b source56b812e48ae6c1ef8f6fe72fdf71d3dbb6e0317f,
+executed0d381b3fbf303d3bcfeeaa8ef469c6ed3ac0f04d/tree7e5022dc22108da819618c4bcd3ac0df2f3370cd,
+closed its own37971192526/job113957939952 SUCCESS107 and36 fresh reviewed frames.
+CI37971192581/job113957943553 lint/types415+482/build66 PASS, audit5HIGH FAIL;
+independent jobs PASS. This historical acceptance does not transfer to this tree.
+
+| Own candidate | Source / executed / identical tree | Closed evidence |
+|---|---|---|
+| Import labels97, included by98 | c9605698efc3d2d89a434885280a970056ea5112 / edc06b00a72741375395b9e189284b033a7fa25e / 15b20befb2f67ddbf7fb229c952790326b551b72 | Supabase37970661693/job113956133872 SUCCESS107, quality37970661659/job113956133401413+482/build66 PASS/audit5HIGH FAIL,43 actual reviewed frames. Existing management frame was above import panel, not visual cancellation proof. |
+| Current import read98 | 3aaba3628b0b45537067d8c4258da6a1a90ec815 / 0827f55ea81297cd179029b42d13c3e6b459b44d / 9d8c299d7506b9e88361800e332e226ff65c2590 | Supabase37973646837/job113966447102 SUCCESS107; quality37973646914/job113966320572413+482/build66 PASS/audit5HIGH FAIL.46 actual reviewed fresh frames, safe11639700108/product11639635231. |
+| Driver export admission99 | 3749000bc151813a17111cb23ff12e78c1472ef5 / c0779660dc72f78256ad52d6bc2984a8a7c0f9e2 / 963914282c6e4d5e0e6cc44e72e28b166e38f8a4 | CI37975483707/job113972590794415+483/build66 PASS/audit5HIGH FAIL. All independent jobs PASS. Runner/test/doc scope does not trigger a new Supabase run; no107 claim for this unit. |
+
+Import97 fixes ten missing family labels and renders eight closed states in
+Spanish while preserving their values/colors, handlers, filters, pagination,
+roles, CAS and cancellation confirmation. Native real components/repository/
+parsers/React/Tailwind/Geist proof at18families/eightstates/threewidths has57reads,
+zero commands;14 existing import/client tests, exactlint/types PASS.
+
+Import98 correlates the ordinary Actualizar importaciones click to its exact
+same-originPOST/api/import/v1 importjob.list request with only limit20, HTTP200,
+closed envelope and actual parser. Expected already-cancelled synthetic job must
+match id/kind/status. Every received row's family/state/counter/button is checked
+inside main and viewport after ordinary vertical scroll, then three new frames
+are captured. The prior management frame receives only scrollIntoViewIfNeeded.
+Main outside the single import/call and capture focus is byte-identical;55 main
+names/order,107checks and all existing budgets remain. Native69reads/0commands/
+0errors,18families/eightstates/threewidths,503/extraDTO/missingrequiredID refused;
+member/viewer no panel/read. Native memory HTTP is not Auth/SQL cancellation.
+
+Own98 full gate proves Auth200,73 migrations,3535+227 backend checks,historyAPI/
+browser/CAS/cursor/revocation/context/grounding/Storage/teardown PASS,0pageerrors.
+Document responses200 with headers/body182/188ms and757/760ms. All46 actual frames
+reviewed: five current jobs complete on1440/768/390, fourCancelado/oneCargado,
+Identificadores protegidos/Clientes/Servicios,0filas andVertrabajo; management
+now shows four cancelled records. Separate107 checks SQL cancellation+reload.
+Six portfolio frames include still-loading supplemental labels in upper inventory;
+no all-enrichment-ready claim. Billing currentA/2026/000008 EUR30.25 controls complete,
+desktop list/PDFmetadata pending, tablet/mobile PDFmetadata ready; tablet status/
+USD tokens intact. Mobile invoice frame shows complete paid/current EUR cards,
+other rows checked via normal scroll. Team six desktop/tablet rows complete;
+mobile top administrator and retired-member cards complete, remainder checked
+via helper scroll. Customer360 sixSIM/sevenpermanence/sevencase/tenportability
+fields complete on three widths, masked portability061 and phase-specific counts.
+
+Driver99 rejects twelve incomplete-interface variants before setup with exit2,
+zero setup/zero stdout and closed durable_driver_exports_required. Complete six
+functions still reach setup and retain existing closed failure reporting. Prior
+synthetic marker reproduced setup despite missing exports before the fix. Two
+native regression tests and exact lint/types PASS; temporary checkout restored.
+This structural admission is not driver approval, import-effect sandboxing,
+credential validation, adapter/store/SQL/provider implementation or physical
+durability proof. Existing23scenario/20worker/SIGKILL/rollback/fence/restart oracles
+are unchanged. Business AI writes remain OFF until issue10 and independentW4.
+
+All product/backend/migration/package/workflow/security-helper blobs in this new
+composition match accepted98 exactly. Driver runner/test/doc match99 exactly.
+Only the prior doctor/bootstrap/doc and acceptance ledger supplement them.
+The new source/tree requires its own107/Auth/history/grounding/Storage/teardown,
+quality and46 fresh actual reviewed frames. Unit results are not inherited.
+
+Historical98@576f6d9524cc7e470402b29fd04d5ea606197a72/exec35bbf3b2ada28203d8078e146a0300f1b6280553/
+tree9989771bdf1ddd978f8d672557fa2b9795159b9e retains37973268822 CANCELLED after
+ordinary source advancement, quality37973268627/job113965026596413+482/build66 PASS/
+audit5HIGH FAIL. All earlier106/500/cancellation/QA failures above remain recorded.
+FiveHIGH audit failure remains enforced, no overrides/downgrades/suppression;
+physical adapter/independentW4/liveLLM/persistentWindows/commercial acceptance
+remain open. Read-only doctor reports about2GiB free, localDocker stopped and
+preflightBLOCKED; no heavy local stack or personal process is changed.
+
+Next three: close this exact new canonical's own107/quality and46fresh QA; publish
+only verified checkpoint SHA/tree to W5; continue open product/local/durability
+tasks within ownership and resource limits. Production/VPS/DNS/accounts/provider
+boundaries remain unchanged.
