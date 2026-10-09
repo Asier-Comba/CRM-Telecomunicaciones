@@ -20,4 +20,6 @@ test('malformed scanner data cannot be treated as a clean scan',()=>{
  assert.throws(()=>imageEvidence({Metadata:{ImageID:image},Results:[{}]},context),/RESULTS_INVALID/)
  const malformed=clean();malformed.Results[0].Secrets={};assert.throws(()=>imageEvidence(malformed,context),/RESULTS_INVALID/)
  const malformedCoordinates=clean();malformedCoordinates.Results[0].Vulnerabilities=[{Severity:'CRITICAL',VulnerabilityID:'unexpected private payload'}];assert.throws(()=>imageEvidence(malformedCoordinates,context),/COORDINATES_INVALID/)
+ assert.throws(()=>imageEvidence(clean(),{...context,requested_image:'https://user:private-canary@example.invalid/image'}),/REFERENCE_INVALID/)
+ const emailPackage=clean();emailPackage.Results[0].Vulnerabilities=[{Severity:'HIGH',VulnerabilityID:'CVE-2026-12345',PkgName:'private@example.invalid',InstalledVersion:'1.0'}];assert.throws(()=>imageEvidence(emailPackage,context),/COORDINATES_INVALID/)
 })
