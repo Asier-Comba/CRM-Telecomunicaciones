@@ -31,8 +31,15 @@ anchura. También rechaza HTTP503, un campo extra en el DTO y la identidad de un
 trabajo requerido ausente. Resultado69lecturas/0comandos/0pageerrors; miembro y
 lector no muestran el panel ni realizan lecturas. Esta prueba no acredita
 Auth/Postgres/cancelación nativa/W4. Lint2, sintaxis2 y diff PASS. Una comparación
-del main confirma identidad de todo su código al retirar sólo el nuevo import
-y la llamada del helper. No se cambia producto/backend/API/migraciones/deps.
+del main confirma identidad de todo su código al retirar sólo el nuevo import,
+la llamada del helper y el enfoque de la captura descrito a continuación. No se cambia producto/backend/API/migraciones/deps.
+
+La revisión real de import-management.png de97 muestra el inventario superior,
+con el panel de importaciones fuera de la captura. La cancelación sí está
+probada con SQL y recarga, y las3capturas portfolio-lower muestran las etiquetas
+correctas. Se conserva la captura de97 como evidencia limitada. Ahora se enfoca
+el panel ya consultado antes de guardar import-management.png; no se añade
+ninguna lectura ni acción de negocio para cambiar ese encuadre.
 
 Base ejecutada97: `edc06b00a72741375395b9e189284b033a7fa25e`, árbol
 `15b20befb2f67ddbf7fb229c952790326b551b72`, idéntico a su fuentec9605698.
