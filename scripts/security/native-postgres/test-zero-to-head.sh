@@ -102,6 +102,7 @@ run_fixture supabase/tests/product-dashboard-search.sql
 } | psql_native > /dev/null
 run_fixture supabase/seeds/synthetic_portfolio.sql
 run_fixture supabase/tests/assistant-durable-foundation.sql
+run_fixture supabase/tests/assistant-conversations-v2.sql
 run_fixture supabase/seeds/synthetic_durable.sql
 
 # Pattern A: preserve ACLs with the same required logical roles in this disposable
@@ -154,6 +155,8 @@ docker exec -i -u postgres "$container" pg_restore -U postgres --exit-on-error \
   --no-owner -d "$restore_db" < "$tmp_dir/synthetic.dump" > /dev/null
 
 snapshot "$restore_db" "$tmp_dir/restored.json"
+# Metadata-only diagnosis supplements, never bypasses, exact restore equality.
+node "$repo_root/scripts/security/native-postgres/diagnose-privilege-drift.mjs" "$tmp_dir/fresh.json" "$tmp_dir/restored.json"
 node "$checker" "$manifest" "$tmp_dir/fresh.json" "$tmp_dir/restored.json"
 docker exec -i -u postgres "$container" psql -X -v ON_ERROR_STOP=1 \
   -U postgres -d "$restore_db" < "$repo_root/scripts/security/native-postgres/reader-role-matrix.sql" > /dev/null

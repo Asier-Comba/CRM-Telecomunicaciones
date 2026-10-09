@@ -1,0 +1,50 @@
+{
+  "version": 4,
+  "sources": {
+    "platform": "85d3a60a7b34af4aac5465f3b30130f742e49900",
+    "product": "1c5cd51b4f96f83c0bf938026226aa53369f2d0e"
+  },
+  "merge_base": "7ab6f56f10fc65aa7212ed5dfbdeacea8901756a",
+  "status": "STATIC_COMPOSITION_CANDIDATE",
+  "composition_accepted": false,
+  "migrations": {
+    "platform": 71,
+    "product": 73,
+    "shared": 70,
+    "union": 74,
+    "platform_only": [
+      "supabase/migrations/20261008010000_align_provider_rpc_execution_grants.sql"
+    ],
+    "product_only": [
+      "supabase/migrations/20261006221429_assistant_conversations_v2.sql",
+      "supabase/migrations/20261006224734_assistant_history_rpc_only.sql",
+      "supabase/migrations/20261007214224_assistant_turn_single_clock.sql"
+    ],
+    "applied_database": "NOT_PROVEN"
+  },
+  "source_blobs": {
+    "product_paths_preserved": 622,
+    "platform_paths_preserved": [
+      "src/app/api/health/live/route.ts",
+      "src/app/api/health/ready/route.ts",
+      "src/app/fonts.css",
+      "src/app/layout.tsx"
+    ],
+    "migration_blobs_identical": true
+  },
+  "public_rpc_manifest": {
+    "count": 295,
+    "actual_database_comparison": "REQUIRES_EXACT_CI"
+  },
+  "acceptance": {
+    "native_db": "REQUIRES_EXACT_CI",
+    "supabase": "REQUIRES_EXACT_CI",
+    "recovery": "REQUIRES_EXACT_CI",
+    "product_browser": "REQUIRES_EXACT_CI",
+    "independent_review": "PENDING",
+    "staging": "NOT_PROVEN",
+    "production": "NOT_AUTHORIZED"
+  },
+  "ai_writes": "NOT_ACCEPTED_DO_NOT_ACTIVATE",
+  "external_effects": "NONE"
+}

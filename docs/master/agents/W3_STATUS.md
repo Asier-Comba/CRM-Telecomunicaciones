@@ -1,80 +1,79 @@
-# W3 status — iteration 7.1 read integration
+# W3 AI product v2 — recovery and current W2 sync, 2026-10-08
 
-## Current checkpoint (supersedes historical evidence below)
+## Current checkpoint (supersedes historical pending statements below)
 
-ACCEPTED SYNTHETIC BROWSER CHECKPOINT: `109d4e5`, CI `36702260040` / #251:
-7 successful jobs, 2 configuration-skipped jobs. Desktop+mobile journeys and both
-API tests PASS (4/4, zero retries); actual production fixture closure PASS. Reports,
-screenshots and traces retained. This supersedes the pending rerun notes below.
-USER_CAN_TEST=YES **local synthetic preview only** using the launcher below;
-CAN_STAGE=NO; CAN_PRODUCE=NO; no hosted preview/deployment/live-model evidence.
-Latest W2 platform status and Issue10 re-read: actual durable adapter/driver still
-absent; no new acceptance/ownership change. W4 independent acceptance still open.
+Interrupted G+H publication is complete at remote `7b2401ae574e619fbd4b379c585bd2251a91011f`; fetched tree exactly equals tested local `5dc7581`. No code/test/contract changes were lost: the missing two status/handoff documents are published. Recovery rerun391 bootstrap +473 assistant =864 PASS. PR31 and PR9 remain Draft; Issue10 OPEN. W2/W4 comments were published in PR30 and Issue10.
 
-Updated 2026-09-30; Draft PR21, same branch/base. No main merge/deployment.
-Visible assistant now runs real W3 `runTelecomReadTurn`: bounded preview planner
-→ validated semantic plan → typed read capability → W2 authorized telecom.v1
-service → fixture repository → validated DTO → grounding/composer → closed UI.
-Only `{text}` is accepted; actor/workspace are server-owned. No planner DB/SDK.
-Scripted preview planner is NOT a live LLM/general-semantic evaluation. Ten
-synthetic companies include ambiguous names and partial portfolio; unavailable
-contracts/services/lines stay unavailable, never zero. No persistent follow-ups.
+Exact CI470/run `37793509341`: native PostgreSQL fresh/strict restore `113366818399` PASS (including retained column ACL equality and deliberate no-ACL rejection); embedded/migrations/guardrails/secrets/preview/Windows PASS. Quality `113366818577` passes lint/types/tests/build and fails enforced audit with **6 HIGH** entries. This supersedes the historical5: the existing tooling chain plus newly reported runtime Next16.3.6 advisories. Local current audit independently confirms6HIGH; Issue29 updated for W4 remediation. No audit suppression/forced dependency change. Dependency Review owner configuration remains unfulfilled, skip is not PASS.
 
-Candidate fixes for W4: production closes fixture SSR/RSC routes, assistant POST,
-demo identity and login entry even with demo flag enabled; demo search never queries
-legacy database readers. W2/W3 navigation parsers validate `customer_id` for customer
-navigation; foreign-customer navigation still fails closed. No SQL/migration/RLS
-changes. These are tested candidates, NOT independent W4 acceptance.
+Prior G+H Supabase `37695889699/job113047667924` completed FAILURE, failed_stage:w2_product_browser, W2_UI_FAILED_JOURNEYS, teardown:PASS; ten retained W2 journey failures at the old7ab base. Recovery Supabase `37793509248/job113366820592` completed FAILURE5m55s, W2_UI_REAL_BROWSER_LOGIN, failed_stage:w2_product_browser, teardown:PASS. Executed virtual merge `71a7f6f1bb05a82e3e1861c28599ef76c7620792` has parents W2 `782c8fc` and W3 `7b2401a`; this is actual integrated source, not only the W3 head tree. Actual assistant Auth/PostgREST/replay/CAS/revocation and cookie thread lifecycle both PASS; business durability NOT_TESTED. Static markers prove history server released before W2 started. Login has no recorded alert code; cause remains unverified. Native schema/restore evidence is not physical business-effect/process acceptance.
 
-Evidence: 128 Node tests, lint/types/build PASS locally; actual production-start
-closure PASS. Chromium really executed in CI `36700961745` (`3333b87`): both API
-tests PASS, both visual journeys FAIL on duplicate H1. Fixed Topbar markup without
-weakening tests. Rerun `36701647976` (`3ce23fe`) pending final result. Dedicated job
-retains reports/screenshots/traces and runs build+production closure after E2E.
-Local browser download truncated; no local E2E success claimed.
+Latest W2 `c21a7c0d405863b0312c6026ba50e989b34bd081` inspected; includes `782c8fc` / source692ba6f plus5-file confirmation-focus/currency-query/report-diagnostic correction. No database migration, server DTO or assistant-core delta. Normal conflict-free local merges; combined source `5b442dd8485b73d2af46fd7f698ff024447412ff` has396 bootstrap +473 assistant =869 PASS; production build and subsequent typecheck PASS, lint0errors/0warnings. Fresh73-migration embedded assistant fixture PASS after W2 sync. Remote PR35 merged normally and exclusively into W3 at `d442ec2de4ff1253b17be232c7eb21d5619fbc1a` after recovery acceptance completed; fetched code tree matches tested source, with only these two recovery docs different. No main/PR31/PR9 merge. W2's previous whole candidate remains84/87 FAILED, current correction not yet accepted.
 
-Gates before CI #251: USER_CAN_TEST=NO until full browser acceptance; CAN_STAGE=NO;
-CAN_PRODUCE=NO; Issue10 OPEN; writes OFF; durable adapter absent in this slice.
-Dependency Review configuration-skipped and original Critical Playwright skipped,
-neither counted as executed evidence. HOW_TO_RUN: Node24; npm ci;
-npm run preview:dev; http://127.0.0.1:3107/login; Ver demo telecom.
+W3_READY_FOR_W2_READ:NO. W3_READY_FOR_W2_ACTION_CANDIDATE:NO. Persisted selected references, connected name resolution, rich historical UI, invoice UI end-to-end and physical durable command/audit/outbox adapter are still incomplete. Live40-case provider eval NOT_RUN/provider_not_configured. No assistant writes, sends, stage/prod or Issue10 closure. W2 sync is published; entity-choice checkpoint `9ba475ef383c6977321fd6b15143e41d3fc8ea5f` was fetched and verified tree-identical to tested local5405be2 (877 PASS). NEXT: verify new exact-head CI, address W3-owned acceptance failures and preserve W2-owned login/dependency handoffs before any feature DB expansion.
 
-W2 handoff: review navigation-consistency candidate; existing server telecom.v1
-boundary is the integration seam. Synthetic fixtures must never become DB truth.
-W4 handoff: independently verify SSR closure, demo-search isolation, forged
-authority denial and foreign navigation rejection. Keep durability/write gates shut.
-UI handoff: closed response blocks and source attribution preserve PARTIAL and
-UNAVAILABLE; internal execution context never leaves the route.
+## Final independent transport checkpoint — 2026-10-08
 
-## Historical iteration 7.0 checkpoint
+The disposable acceptance runner now requires actual loopback3109 connection refusal after stopping the history process before emitting `assistant_history_server_released` and starting W2. A live listener, unknown socket error or deadline expiry cannot produce release evidence; the probe never kills an unrelated process. Two real socket tests cover retained owner, delayed closure and invalid bounds. This is diagnostic hardening, not a verified cause/fix for W2's SUBMIT_LOGIN timeout. Exact full rerun:398 bootstrap +481 assistant =879 PASS; production build, subsequent types, lint0errors/0warnings and diff-check PASS. Full Supabase/new-head CI remains separately required.
 
-BRANCH: `w3/telecom-readonly-integration-v1`, based exactly on W2
-`a917bbb41ef8192344dc49737cd78fd52fe29649`.
-INTEGRATION: Draft PR #21 targets `w2/platform-closure-v1`; remote CI has six
-successful jobs. Dependency Review and Critical Playwright are explicitly skipped
-by repository/environment configuration, not reported as executed evidence.
+Latest fetched W2c21a7c0 and W4e9ce3a7 reviewed; W4 Issue10 still requires physical factory/dispatcher/audit-outbox/process/restart evidence. W5 PR31 handoff4fbd098 acknowledged: server-only per-environment provider configuration, disabled worker/kill switch, exact compatible durable RPC/dispatcher contract, aggregate-only observability and independent native/revocation review remain required. No competing W5 worker, dispatcher, schema or configuration activation is requested.
 
-PRODUCT: reviewed W3 telecom READ slice imported without mutation/durable runtime.
-Active Dashboard, Clientes, Customer 360, Oportunidades, Calendario and Assistant
-surfaces are telecom-specific and consume reserved synthetic fixtures. Inherited
-billing, inbox, automation and property paths are outside active preview navigation.
+## Historical checkpoint record
 
-SAFETY: demo access requires the explicit demo feature flag; the preview assistant
-route additionally refuses production. No contact/tax values, real Arizan data,
-external sends, assistant writes or raw database access. Cross-workspace text is
-closed with `POLICY_BLOCK`.
+## Independent entity-choice seam — 2026-10-08
 
-EVIDENCE: 125/125 Node tests, lint, typecheck and production build PASS. Local HTTP
-smoke returned 200 for seven primary routes. Browser E2E is versioned but page
-execution is pending: Playwright Chromium was absent and its official download
-returned a truncated zero-byte archive in this environment. GitHub PR #21 CI passed
-baseline guardrails, secret scan, migration policy, app lint/types/tests/build,
-embedded PGlite and native PostgreSQL zero-to-head/synthetic restore.
+Candidate source `product-entity-resolution-v2.ts`, contract `docs/master/ai/W3_ENTITY_RESOLUTION_CONTRACT_V2.md`. Uses existing closed W2 search DTOs through an injected registered server service, with fresh actor/workspace/role/epoch and point-resource/ancestry authorization around awaits before issuing references. Unknown/private fields, secret labels, forged IDs and issuer handles reject; no raw IDs in output. Contacts/invoices/unrelated kinds excluded. Every bounded result is partial with unknown as-of; one exact label still requires explicit selection. Zero matches does not prove nonexistence. Prompt injection remains literal untrusted search/display data.
 
-GATES: `USER_CAN_TEST_SYNTHETIC_PREVIEW=NO`; `CAN_STAGE=NO`; `CAN_PRODUCE=NO`.
-PR9 remains the isolated assistant foundation. Issue10 remains open. Assistant
-mutations and the W2 durable adapter remain disabled/absent.
+No new capability registration, route, persisted context, fuzzy backend search or business write enabled; this is independent pure integration work while the required whole Supabase gate is red. Eight focused tests exercise actual seam/port ordering, ambiguity/empty versus outage, malformed/accessor input/output, cross-tenant/actor/role/epoch, ancestry, late revocation, clock/expiry/abort and duplicate/forged references. Local final396 bootstrap +481 assistant =877 PASS; production build and subsequent types PASS; lint0errors/0warnings. W4 independent review requested; no physical/live-model acceptance claim.
 
-NEXT 3: run preview E2E with installed Chromium; replace the deterministic fixture
-planner with an approved provider module through `telecom-read-turn`; obtain W4
-independent review before any broader integration claim.
+Current G consumes W2 `7ab6f56f10fc65aa7212ed5dfbdeacea8901756a`; normal remote merge PR33 `1900952`. F remote `e79b0cc1c4980b5034628406cb6cd857438bdec6` was verified tree-identical to local `254510d`, and its publication history is normally merged locally. No force rewrite/main/PR9 merge. Foundation readiness remains NO pending exact native/Supabase completion.
+
+Branch `w3/ai-product-v2`, Draft PR31. Current F consumes W2 `7ab6f56f10fc65aa7212ed5dfbdeacea8901756a` via normal PR33 `19009526af680c521d69f66c77c94509e21b3ebd`; local391+464=855 tests, final types/build/lint PASS; native/Supabase full gates still pending after candidate corrections. Prior D history: W2 `4de7cad45c4005b7903dbe97502febfff457541f` consumed by normal remote merge PR32 `ffdca160d1b66c67c9d8af7c8effdf7e31943ca4`; no conflicts, force rebase, main or PR9 merge. Historical published C `1d21296` remains the predecessor; D forward fix publication/CI is pending at this document's commit.
+
+D fixes the two reproduced C failures: real Supabase `37541619866` rejected raw assistant table grants; CI `37541619636` failed389 bootstrap/388PASS at the exact migration manifest comparison. The original published migration is immutable. Forward-only RPC boundary revokes table, sequence and column privileges, retains forced RLS and uses explicit current auth.uid()/active membership+workspace row locks and scoped ownership predicates inside the closed SECURITY DEFINER RPC. The definer owner bypasses RLS, so explicit checks are essential. No service-role shortcut. Bootstrap manifest lists all72 migrations exactly; no assertion was weakened.
+
+Actual Auth/PostgREST history lifecycle plus cookie application API, raw-denial, cross-actor/workspace, concurrent read reservation, malformed-completion rollback, CAS and valid-JWT revocation harness added. Assistant uses a separate CI-only loopback development process; existing production transport deny remains unchanged. Native/real Supabase evidence for D is pending. C native fresh/restore passed, but C Supabase/bootstrap did not; C remote does not prove812 tests.
+
+Current local D:389 bootstrap +458 assistant deterministic tests PASS (847 total); typecheck PASS; fresh72-migration PGlite ownership/raw-denial/atomicity/full privilege fixture PASS. Final lint0errors/1inherited W2 OriginProof warning; production build PASS after harness changes. No local PostgreSQL/docker binaries. No independent20-worker business-action evidence.
+
+Existing foundation preserved: provider-neutral Responses adapter, bounded structured semantic DAG,30 registered modern minimized read candidates, current authorized W2 service boundary, runtime-issued grounded UIv2, partiality/revocation fences and exact-decimal nonmutating invoice proposal. Backend inventory220 entries is not executable capability coverage. Live model eval NOT_RUN_PROVIDER_NOT_CONFIGURED; no key requested.
+
+AI_FOUNDATION_COMPLETE: NO. Safe persisted selections, entity resolution, broader reads, rich historical display, assistant UI and invoice end-to-end remain pending. DURABLE_CANDIDATE_COMPLETE: NO. Physical registered command/original audit+delivery adapter and independent native processes remain pending. W4_DURABLE_ACCEPTANCE: PENDING. Issue10 OPEN. Writes/sends/stage/prod remain disabled. EMAIL_UNAVAILABLE: no connected email tool; recorded in PR31.
+
+Next: prove D remote gate; meanwhile pure schema/privacy/semantic adversarial work. Only after foundation DB gate: context/read/assistant UI expansion and physical durable action candidate. W2/W4 coordination is versioned and published via PR31/30/Issue10. No library duplicate of git-backed code.
+
+## Checkpoint E — native clock correction
+
+D published SHA `19f462c620653a2263748ef9205835d46b88f17e`, tree equal to tested `fd43930`. Remote CI `37690335156`: embedded fixture PASS; quality reached build then failed only the existing5HIGH Issue29 audit. Native job `113029145212` failed `assistant_turns_v2_check2`: separate volatile defaults produced expiry90seconds+1microsecond. No native D acceptance claim. Supabase `37690335123` was still running at E preparation.
+
+Forward `20261007214224_assistant_turn_single_clock.sql` preserves the exact <=90second constraint and all authorization/privileges. RPC samples clock once after scoped locks and inserts both timestamps from it. Stable statement-timestamp defaults additionally protect privileged inserts. Original two published history migrations remain unchanged. Fixture now asserts exact lease arithmetic; bootstrap inventory matches73 migrations. Embedded73 fixture/privilege PASS and exact bootstrap contract3tests PASS locally; combined389 bootstrap +458 assistant =847 PASS locally. Native/real Supabase E pending. No context/action schema expansion until that gate. PR31/30/Issue10 D comments acknowledge readiness NO, definer-owner RLS bypass and W4 review. Issue10 remains OPEN.
+
+## Checkpoint F — provider boundary and restore diagnosis candidate
+
+E published `e8776bd2c8860b7650d2e722ca3ac3830ffc4afb`, tree equal to tested `2a5b632`. E native `37691512927/job113032930269` now passes fresh history fixture and296-function matrix, then rejects restored metadata equality. The native gate remains RED. Added metadata-only allowlisted diagnostic before the unchanged strict checker; no approval assertion removed. Column ACLs are now included in restore equality, with an adversarial column-UPDATE regression. This is diagnostic/coverage, not a restored-permission fix claim. E Supabase `37691512988/job113032625825` completed FAIL at `W2_UI_NEW_HANDLER_WARMUP_FAILED` after actual assistant history/Auth/cookie lifecycle PASS and raw history anon401/A403/B403. W3 dev server occupied W2 browser's existing3109 port. F scopes assistant startup/teardown to its history acceptance callback, releases the process/lock before W2's unchanged browser journey. Overall Supabase remains RED until next-head acceptance; no W2 assertion weakened.
+
+Pure provider-neutral seam independently bounds hung transports to60seconds and propagates per-turn abort without globally cancelling other calls. Exceptions are safe unavailable; closed immutable result envelopes reject private extras, wrong usage/types/depth/oversize/secret values before CRM reads. Semantic input rejects known credentials and bounds/calendar-validates reference context independently of vendor adapter. Six meaningful boundary tests cover cancellation/late results, ignored abort, sync/rejected exceptions,14 malformed envelopes, unconfigured transport and minimized invalid context.
+
+F local389 bootstrap +464 assistant =853 PASS; types/build PASS; lint0errors/1inherited warning;73-migration embedded fixture and privilege matrix PASS. Native metadata negative tests include column ACL and privacy-safe diagnostic coverage. No live model claim. W4 current night-shift `e9ce3a7` re-read: Issue10 OPEN, stage/prod NO, independent durable evidence missing. W2 current `7ab6f56` is a14-file equipment/inventory product checkpoint, consumed by normal remote PR33 merge `19009526af680c521d69f66c77c94509e21b3ebd`; no assistant DTO/schema modifications in that delta. Combined391 bootstrap +464 assistant =855 PASS locally after sync; build and lint0errors/1inherited warning PASS. Final sequential typecheck PASS after build; initial parallel validation encountered stale generated Next equipment route types. No massive feature schema added; physical action candidate remains absent and writes off.
+
+## Checkpoint G — exact snapshot correction, semantic catalogue and scoring
+
+F native `37693038381/job113038105066` diagnosis isolates only `public.assistant_messages_v2_ordinal_seq`: explicit fresh owner SELECT/UPDATE/USAGE versus implicit restored owner USAGE. This was a snapshot defect, not actual restore permission loss. `pg_class.relkind` uses uppercase S, but PostgreSQL16 `acldefault_sql` maps lowercase s to OBJECT_SEQUENCE and uppercase S to OBJECT_FOREIGN_SERVER (official `src/backend/utils/adt/acl.c`). Corrected fallback to lowercase s. Strict checker remains unchanged; all API-role/column ACL comparisons and the `--no-acl` negative control remain. No migration or owner grant change. An actual snapshot regression creates a sequence with NULL ACL, measures SELECT/UPDATE/USAGE, grants/revokes authenticated USAGE to obtain an explicit default ACL, then requires exact equality and rolls back. Embedded73 migrations +11 metadata tests PASS. Native correction is CANDIDATE, not independently accepted.
+
+Thirty registered reads now advertise Spanish meaning/limits plus actual runtime auth, tenant, read-idempotency and errors. Compact planner catalogue marks identity fields as authorized opaque bindings, omits unsupported after_id cursors and fits the32KiB budget even with50 maximum-length references. Machine-readable registry regenerated against current W2 and retains all190 disabled inventory proposals; backend220 is not executable coverage. No additional tool or DB feature registered.
+
+Golden dataset40 authored/synthetic Spanish scenarios; added dates, typo, renewal/permanence distinction, privacy, ambiguous commercial names, missing ordinal selection, unsupported ranking/provider and forged authority. Scorer now rejects additional query nodes and unrequested filters; subset-match false positives are closed. Only harmless full-page100/id_asc defaults accepted when omitted by authored expectation. Live runner uses the same bounded provider/catalogue as core. Local provider evidence: NOT_RUN/provider_not_configured,40 scenarios, liveModelEvidence:false; no key requested. Groundedness/action success remain separately unmeasured in live planner harness.
+
+Portable durability spec now distinguishes real database restart from connection termination, requiring same measured cluster identifier, later postmaster start and unchanged persisted binding digest, then one effect/original audit in a fresh recovery process. Oracle rejects getters/symbols/changed evidence. This is an executable acceptance requirement, NOT physical adapter/restart evidence. Issue10 OPEN; no business writes.
+
+Local G:391 bootstrap +471 assistant =862 PASS; types after build PASS; production build PASS for catalogue/scoring; lint0errors/1inherited OriginProof warning. F remote quality113038105075 passes through build then fails only inherited5HIGH Issue29. F full Supabase37693038612/job113038023975 still RUNNING at this checkpoint preparation; do not claim PASS or replace E's known partial history acceptance with full acceptance. Next-head native/Supabase pending. W3_READY_FOR_W2_READ:NO; ACTION_CANDIDATE:NO; no feature-schema expansion before DB gate.
+
+## G follow-up H — safe provider state and progress
+
+Pure per-turn providerState is now exposed in existing telemetry/SSE final envelope: not_configured/configured/degraded/unavailable. It is a current configuration/transport observation, not global availability, model quality, live evidence or authorization. Invalid output/rate limit degrade; timeout/transport failure are unavailable; caller input/cancellation/refusal preserve configured state. No network health probe/key serializer. Two meaningful tests exercise actual read-turn failure paths and closed telemetry, with zero CRM reads.
+
+The shared disposable run-stack logs only static JSON progress markers for assistant history start/completion/server release and W2 browser start/completion; no identity/config/payload is logged. Browser failures now identify w2_product_browser as the actual stage. No W2 handler/assertion or gate changed. W2 PR30's exact7ab gate69/79 failure diagnosis acknowledged: UI reference-load dedup and immutable-equipment fixture cleanup are W2-owned; will consume next source by normal merge. Full F still running; do not publish over it merely to cancel acceptance. Current local publication combines committed G754e318 and this safe follow-up; final exact tree/SHA will be verified after browser upload.
+
+Final G+H local verification:391 bootstrap +473 assistant =864 PASS; full production build/typecheck PASS, lint0errors/1 inherited warning. Full F Supabase37693038612/job113038023975 completed FAILURE after19m1s; actual assistant Auth/PostgREST and cookie lifecycle both PASS again. Exact overall failing product stage is being extracted before next-head publication. Project CRM TELECOM-MASTER read successfully; latest visible W3 coordination chat is historical iteration3.1/489eed2, so it does not supersede current GitHub state. No ChatGPT→ChatGPT execution loop initiated.
+
+F exact completed result:Supabase37693038612/job113038023975 FAILURE19m1s, failed_stage:http_acceptance, error:W2_UI_FAILED_JOURNEYS, teardown:PASS. Both assistant_history PASS_ACTUAL_AUTH_POSTGREST_SCOPE_REPLAY_CAS_REVOCATION and assistant_history_application_api PASS_ACTUAL_COOKIE_THREAD_LIFECYCLE observed. The dev-port warmup defect is no longer the failure. Ten W2 journey failures observed, starting portfolio_manual_service_line_renewal_source TIMEOUT, also calendar/portfolio/import/opportunity/mobile/document/equipment/shell groups; consistent with W2's current independent7ab diagnosis, without claiming causality for every group. W2 owns reference-load/fixture repairs. No full green/readiness claim. G+H publication can proceed now without cancelling F.

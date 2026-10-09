@@ -7,6 +7,12 @@ import {
   Users,
   RadioTower,
   Package,
+  Layers3,
+  LifeBuoy,
+  CreditCard,
+  ArrowRightLeft,
+  ListTodo,
+  BookOpen,
   Target,
   CalendarDays,
   Inbox,
@@ -29,7 +35,14 @@ const items = [
   ['/dashboard', 'Dashboard', LayoutDashboard],
   ['/clients', 'Clientes', Users],
   ['/portfolio', 'Cartera Telecom', RadioTower],
+  ['/contracts', 'Contratos', Files],
+  ['/services', 'Servicios', Layers3],
+  ['/portabilities', 'Portabilidades', ArrowRightLeft],
+  ['/sims', 'SIM y eSIM', CreditCard],
+  ['/cases', 'Incidencias', LifeBuoy],
   ['/equipment', 'Equipos', Package],
+  ['/attention', 'Centro de atención', ListTodo],
+  ['/catalog', 'Catálogo Telecom', BookOpen],
   ['/opportunities', 'Oportunidades', Target],
   ['/calendar', 'Calendario', CalendarDays],
   ['/inbox', 'Inbox', Inbox],
@@ -50,7 +63,7 @@ export function Sidebar({ onClose }: { onClose?: () => void } = {}) {
     window.localStorage.removeItem(DEMO_MODE_KEY)
     clearWorkspaceIdentityCache()
     if (integrated || !currentUser.isDemo) await getSupabaseBrowserClient()?.auth.signOut()
-    window.location.assign('/login')
+    router.replace('/login');router.refresh()
   }
   return (
     <aside className="flex h-full w-60 shrink-0 flex-col border-r border-slate-200 bg-white">

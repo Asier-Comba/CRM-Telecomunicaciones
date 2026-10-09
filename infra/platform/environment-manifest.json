@@ -96,6 +96,64 @@
       "required_when": null
     },
     {
+      "name": "AI_PRODUCT_V2_ENABLED",
+      "type": "boolean",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/assistant/application-http-v2.ts"
+      ],
+      "validation_rule": "boolean",
+      "description": "Configuration binding for AI_PRODUCT_V2_ENABLED; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "AI_PROVIDER",
+      "type": "string",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/lib/server/ai-provider-v2.ts"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for AI_PROVIDER; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
       "name": "APP_ENV",
       "type": "app_environment",
       "secret": false,
@@ -382,6 +440,35 @@
       ],
       "validation_rule": "positive_integer",
       "description": "Configuration binding for ASSISTANT_RATE_LIMIT_PER_MINUTE; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "ASSISTANT_TIMEZONE",
+      "type": "string",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/app/api/assistant/v2/turn/route.ts"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for ASSISTANT_TIMEZONE; presence does not prove provider readiness.",
       "rotation_expectation": "Review on release/config change.",
       "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
       "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
@@ -2472,7 +2559,8 @@
         "docs/master/contracts/product-environment.json",
         "src/lib/agents/nowlabs-main-agent.ts",
         "src/lib/agents/planner/shadow-hook.ts",
-        "src/lib/agents/whatsapp-agent.ts"
+        "src/lib/agents/whatsapp-agent.ts",
+        "src/lib/server/ai-provider-v2.ts"
       ],
       "validation_rule": "private_reference_or_key",
       "description": "Existing future AI provider placeholder; no registration/live execution",
@@ -2532,10 +2620,40 @@
       "owner": "W3",
       "consumer": [
         "src/lib/agents/whatsapp-agent.ts",
-        "src/lib/config-status.ts"
+        "src/lib/config-status.ts",
+        "src/lib/server/ai-provider-v2.ts"
       ],
       "validation_rule": "string",
       "description": "Configuration binding for OPENAI_MODEL; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "OPENAI_PROJECT_ID",
+      "type": "string",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W3",
+      "consumer": [
+        "src/lib/server/ai-provider-v2.ts"
+      ],
+      "validation_rule": "string",
+      "description": "Configuration binding for OPENAI_PROJECT_ID; presence does not prove provider readiness.",
       "rotation_expectation": "Review on release/config change.",
       "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
       "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
@@ -3029,6 +3147,8 @@
       "owner": "W5",
       "consumer": [
         "docs/master/contracts/product-environment.json",
+        "src/app/api/assistant/v2/threads/route.ts",
+        "src/app/api/assistant/v2/turn/route.ts",
         "src/app/api/automations/v1/route.ts",
         "src/app/api/billing/analytics/v1/route.ts",
         "src/app/api/billing/v1/commands/route.ts",
@@ -3880,9 +4000,24 @@
       "sha256": "9484f47d5e427933afec457960b5687e49445f0a1199515f3ec69736509df2b6"
     },
     {
+      "name": "20261006221429_assistant_conversations_v2.sql",
+      "version": "20261006221429",
+      "sha256": "fc8c5fb41d3750ea58db4cd2b74f42c217e08541314c2bf36251955daacf51f5"
+    },
+    {
       "name": "20261006221500_registered_external_identities.sql",
       "version": "20261006221500",
       "sha256": "93c5692cd69230080fa4fd773f67d2150c85f33414ff704fad6f4897a5c0065c"
+    },
+    {
+      "name": "20261006224734_assistant_history_rpc_only.sql",
+      "version": "20261006224734",
+      "sha256": "509888a02b71d7fed8a26c11ea7b12ae16c5506e0f8273b964c1f4aa21168547"
+    },
+    {
+      "name": "20261007214224_assistant_turn_single_clock.sql",
+      "version": "20261007214224",
+      "sha256": "fef6cbb714ad7b30e7fe5f770c838ca57d7739d876f1e8862c5a9385c7de1a8f"
     },
     {
       "name": "20261008010000_align_provider_rpc_execution_grants.sql",
