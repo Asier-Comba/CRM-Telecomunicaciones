@@ -8,6 +8,7 @@ import {disposableGuard,root,migrations,hash} from './lib.mjs'
 import {checkRpcManifest} from './rpc-manifest.mjs'
 import {storageReady} from './storage-ready.mjs'
 import {recoveryManifest,verifyRecoveryManifest} from './recovery-manifest.mjs'
+import {verifyRestoredPrivateResponses} from './restored-authorization.mjs'
 const clientOptions={auth:{persistSession:false,autoRefreshToken:false},global:{fetch:(input,options={})=>fetch(input,{...options,redirect:'error',signal:options.signal?AbortSignal.any([options.signal,AbortSignal.timeout(15000)]):AbortSignal.timeout(15000)})}}
 // Called only inside run-stack after real Auth/Storage acceptance. It never takes
 // a caller-selected database, Docker container, URL or key from CLI arguments.
@@ -86,11 +87,15 @@ export async function recoveryRehearsal({url,anon,service,db,command,report,user
   report.recovery_stage='verify_auth_scope'
   // Actual user JWT checks after restore: retained business revocation and A/B scope.
   const api=async(path,token,body)=>{const r=await fetch(url+path,{method:body?'POST':'GET',headers:{apikey:anon,authorization:`Bearer ${token}`,...(body?{'content-type':'application/json'}:{})},body:body?JSON.stringify(body):undefined,signal:AbortSignal.timeout(15000)});return {status:r.status,json:await r.json()}}
+  const authorization_checks=[]
   for(const name of ['ownerA','ownerB','removedA','suspendedA']){
    const user=users[name]
    const login=await api('/auth/v1/token?grant_type=password',anon,{email:user.email,password:user.password})
    if(login.status!==200||!login.json.access_token)throw new Error('RESTORED_AUTH_LOGIN_FAILED')
-   const token=login.json.access_token,list=await api('/rest/v1/workspaces?select=id',token)
+   // Test both fresh login and the actual JWT retained from before reconstruction.
+   for(const [session,token]of [['FRESH_LOGIN',login.json.access_token],['RETAINED_JWT',user.token]]){
+   if(typeof token!=='string'||!token)throw new Error('RESTORED_RETAINED_JWT_MISSING')
+   const list=await api('/rest/v1/workspaces?select=id',token)
    if(list.status!==200||!Array.isArray(list.json))throw new Error('RESTORED_RLS_FAILED')
    if(['removedA','suspendedA'].includes(name)){
     const role=await api('/rest/v1/rpc/current_workspace_role',token,{p_workspace_id:wa})
@@ -100,11 +105,13 @@ export async function recoveryRehearsal({url,anon,service,db,command,report,user
     if(!list.json.some(w=>w.id===own)||list.json.some(w=>w.id===foreign))throw new Error('RESTORED_TENANT_SCOPE_FAILED')
    }
    const download=await fetch(url+'/storage/v1/object/authenticated/telecom-documents/'+object,{headers:{apikey:anon,authorization:`Bearer ${token}`},signal:AbortSignal.timeout(15000)})
-   if(name==='ownerA'?!download.ok:download.ok)throw new Error('RESTORED_STORAGE_AUTHORIZATION_FAILED')
+   const storage_response={status:download.status,json:download.status===200?null:await download.json()}
    const raw=await api('/rest/v1/assistant_operations?select=id',token)
-   if(raw.status<400&&(!Array.isArray(raw.json)||raw.json.length))throw new Error('RESTORED_ASSISTANT_RAW_ACCESS')
+   const proof=verifyRestoredPrivateResponses({owner:name==='ownerA',storage:storage_response,assistant:raw})
+   authorization_checks.push({actor:name,session,status:'PASS',...proof})
+   }
   }
-  return {result:'PASS',fresh_rebuilds:2,schema_drift:'PASS',database_hashes:'PASS',storage:storageResult,storage_metadata_scope:['size','sha256','content_type','cache_control','custom_metadata'],storage_provider_ids_timestamps:'REGENERATED_API_FIELDS',tenant_isolation:'PASS',revoked_member:'PASS',auth_login:'PASS',duration_seconds:Math.round((Date.now()-start)/1000),hosted_auth_portability:'NOT_PROVEN',offsite:'NOT_PROVEN'}
+  return {result:'PASS',fresh_rebuilds:2,schema_drift:'PASS',database_hashes:'PASS',storage:storageResult,storage_metadata_scope:['size','sha256','content_type','cache_control','custom_metadata'],storage_provider_ids_timestamps:'REGENERATED_API_FIELDS',tenant_isolation:'PASS',revoked_member:'PASS',auth_login:'PASS',authorization_checks,duration_seconds:Math.round((Date.now()-start)/1000),hosted_auth_portability:'NOT_PROVEN',offsite:'NOT_PROVEN'}
  }finally{
   key.fill(0)
   const target=resolve(scratch)
