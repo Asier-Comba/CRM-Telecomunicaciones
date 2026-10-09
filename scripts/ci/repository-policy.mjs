@@ -19,5 +19,5 @@ export function prepareDisabledRuleset(policy,{scope,actions_app_id}) {
  ]}
 }
 if(process.argv[1]?.endsWith('repository-policy.mjs'))try{
- console.log(JSON.stringify(validateRepositoryPolicy(JSON.parse(readFileSync(new URL('../../infra/github/default-branch-policy.json',import.meta.url),'utf8')))))
+ console.log(JSON.stringify(validateRepositoryPolicy(JSON.parse(readFileSync(new URL('../../.github/security/default-branch-policy.json',import.meta.url),'utf8')))))
 }catch{console.error('{"status":"FAIL","error":"REPOSITORY_POLICY_INVALID"}');process.exitCode=1}

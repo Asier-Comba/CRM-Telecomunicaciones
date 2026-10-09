@@ -2,7 +2,7 @@ import test from 'node:test'
 import assert from 'node:assert/strict'
 import {readFileSync} from 'node:fs'
 import {validateRepositoryPolicy,prepareDisabledRuleset} from '../../scripts/ci/repository-policy.mjs'
-const fixture=()=>JSON.parse(readFileSync(new URL('../../infra/github/default-branch-policy.json',import.meta.url),'utf8'))
+const fixture=()=>JSON.parse(readFileSync(new URL('../../.github/security/default-branch-policy.json',import.meta.url),'utf8'))
 test('proposal is inert and cannot turn successful local tests into live administrative protection',()=>{
  const p=fixture(),r=validateRepositoryPolicy(p);assert.equal(r.live_protection_verified,false);assert.equal(r.admin_activation_authorized,false)
  assert.throws(()=>prepareDisabledRuleset(p,{scope:'LOCAL_PREPARATORY',actions_app_id:1}),/VERIFIED_CHECK_APP_REQUIRED/)
