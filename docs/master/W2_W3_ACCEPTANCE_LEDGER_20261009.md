@@ -345,3 +345,14 @@ Fresh manifests retain asynchronous list/PDF/label loads and mobile content belo
 
 
 This new source requires its own exact107/Auth/history/grounding/Storage/teardown, quality and55 fresh actually reviewed frames. Before those gates close it is a candidate, with9cf remaining the last scoped accepted canonical. Next: native exact composition checks, ordinary push and own gates, fresh visual review and verified checkpoints.
+
+
+## Native PostgreSQL registry recovery composition — 9 October 2026
+
+Previous source 52f9f0d226664b32f94d0fb732b32ffcbdf1dd5a, executed f7f0f886c5eac2eccb36512c6b98c7b7d7872d4b, tree 900225e2d6a76fd244bf83ddc31d0fc3b0fa8703: own Supabase 37990750515/job 114023972661 SUCCESS107 and55 fresh actually reviewed frames; quality434+485/build66/lint/types PASS, audit5HIGH FAIL. Its two native PostgreSQL jobs114023972625 and114027230729 failed before startup on Docker Hub pull-rate limit; both remain FAILURE, no native DB evidence attributed to that tree. Product evidence does not make its overall CI green.
+
+Consumed isolated PR107 source ab95daa94f552114f7c1d441060f748e0431bc53, executed 18976e7d7186c2ff5b2a1082bc839792826a4eed, identical tree 355f055bb459352c033d3e6553ea2fc1ce369049: own CI 37992182312/native job 114028919906 SUCCESS73 migrations, fresh/restored296-function privilege matrix/RLS/roles, ACL-loss negative control and independent20-process product/B3/notification/automation/service-commercial races; native teardown PASS. Quality437+485/build66/lint/types and12 synthetic preview browser tests PASS, audit5HIGH FAIL, two dependent gates SKIPPED. Three local image-boundary tests/lint4/Bash syntax/diff PASS. No unit Supabase107 or product QA claimed for this CI-only diff; SQL Auth/Storage fixtures do not prove real JWT/Storage or W4/#22/issue10.
+
+Both official registries were queried read-only and gave the same postgres:16 OCI index and Linux/amd64 digest. Exact ECR Public index pinned; shell and both race scripts admit only that digest or exact legacy local postgres:16. All seven accepted unit blobs verified identical after ordinary merge. Product, schema/RLS, SQL fixtures, packages and Supabase acceptance workflow are byte-identical to previous52f. W5 received proposal/evidence through its existing GitHub checkpoint; its owner branches/enterprise infrastructure are untouched.
+
+This new tree requires own native PostgreSQL, lint/types/tests/build, Supabase107/Auth/history/grounding/Storage/teardown and55 fresh reviewed frames; no inherited gates. Until those close, canonical acceptance remains pending, last earlier accepted scope9cf remains recorded. Issue10 physical adapter/dispatcher/23process scenarios, independent W4, five-HIGH audit, Windows persistent stack, live and commercial acceptance stay open; business AI writes OFF. No main/force push/production/VPS/DNS/accounts/providers/real data.

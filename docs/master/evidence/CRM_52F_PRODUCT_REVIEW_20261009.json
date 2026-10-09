@@ -1,0 +1,259 @@
+{
+  "scope": "OWN_52F_PRODUCT_REVIEW_NOT_NATIVE_ACCEPTANCE_NOT_RELEASE",
+  "source": "52f9f0d226664b32f94d0fb732b32ffcbdf1dd5a",
+  "executed": "f7f0f886c5eac2eccb36512c6b98c7b7d7872d4b",
+  "tree": "900225e2d6a76fd244bf83ddc31d0fc3b0fa8703",
+  "supabase_run": 37990750515,
+  "supabase_job": 114023972661,
+  "result": "PASS_107_OF_107_TEARDOWN_PASS",
+  "artifacts": {
+    "safe_artifact": 11646126412,
+    "product_artifact": 11646590559,
+    "history_artifact": 11646290968
+  },
+  "quality_run": 37990750532,
+  "quality_job": 114023972411,
+  "quality_functional": "PASS_434_BOOTSTRAP_485_ASSISTANT_LINT_TYPES_BUILD66",
+  "audit": "FAIL_FIVE_HIGH_ISSUE29",
+  "native_postgres": "FAIL_BOTH_ATTEMPTS_REGISTRY_BEFORE_POSTGRES_START",
+  "native_failed_jobs": [
+    114023972625,
+    114027230729
+  ],
+  "review_notes": {
+    "billing": "Current A/2026/000008 EUR30.25. Desktop invoice list/PDF metadata pending in that frame; tablet/mobile current invoice and private PDF controls complete/ready. Full invoice desktop5 rows; tablet shows draftUSD210.83/currentEUR30.25/issuedEUR48.40, with later rows below viewport. Mobile full selected three cards are draftUSD210.83/currentEUR30.25/issuedEUR48.40; paidEUR145.20 requires ordinary scroll. Fiscal issuer/customer seven fields and recovery/close controls readable at every width; draft/mobile lower editor continues below viewport.",
+    "relations": "Selected P4ConcurrentDrag/Abierta,09Oct2026contract/Activo,MobileUpdated/Finalizado. Supplemental full relation labels visible at all widths despite native select truncation. AmountEUR30.25,25+21percentIVA.",
+    "customer360": "Complete SIM6/permanence7/case7/portability10 fields and controls all widths. This run mask057 and case23:20; counters are phase-specific, not interchangeable. Mobile tabs scroll within their own strip.",
+    "team": "Six complete rows desktop/tablet. Mobile retiredmember and active reader both complete, including reader role/status/actions. Other four members require ordinary helper scrolling, separately asserted by actual acceptance.",
+    "portfolio": "Progressive labels: visible top customer labels resolved at all widths; first five desktop operator labels resolved, later operator labels and first two sold versions pending. First two tablet operators resolved; mobile first operator resolved. No all-reference-ready claim. Lower imports show all five rows. Earlier separate management frame in W4-owner phase still has bottom customer/operator lookups pending; identities/captures not conflated.",
+    "imports": "Five complete rows all widths: fourCancelado/oneCargado, Spanish family labels,0filas/Vertrabajo. Management filterCancelado shows four complete cancelled rows. Upload/validation/application remain unavailable and clearly stated.",
+    "history": "Own context snapshot zero counters/authorized customer visible. Desktop renamed history selected and hostile markup escaped as literal text; its later summary pending. Tablet/mobile conversation pane below context. Lower all widths show messages5-9/pagination and disabled live query; actual history/browser/CAS/revocation and grounding gates PASS, no live AI provider claim.",
+    "diagnostic_limits": "Current-main-document Auth-user header observation:1440requests6/responses6/ok6/pending0;768requests4/responses3/ok3/pending1;390requests4/responses3/ok3/pending1. Document/navigation true,0failures/no truncation. No body/principal/authorization/cause inference;107 authorization proof separate. Closed server categories UNCLASSIFIED and UPSTREAM_NETWORK_FAILURE retained; original cause not inferred.",
+    "limits": "Own107/55QA and functional code checks pass. Both native registry attempts on52f fail before DB start; PR107 own native recovery separately passes, not inherited. Audit5HIGHFAIL; issue10 physicaldurability/independentW4/#22/Windows/live/commercial open; businessAIwritesOFF."
+  },
+  "reviewed_frames": [
+    {
+      "name": "billing-confirmed-read-recovery-1440.png",
+      "sha256": "6c2597bfdeb7b0704396236849f31a570f463745664d5e4a911e163f28186f4c"
+    },
+    {
+      "name": "billing-confirmed-read-recovery-768.png",
+      "sha256": "f75b0095074111d71641e382db64ac86c1a7ef35931041bf818a7db0c7e7cedf"
+    },
+    {
+      "name": "billing-confirmed-read-recovery-390.png",
+      "sha256": "6518f9d6bfde75c9de3ed3706dcc65a55bebebc4ad8afb2f8c64f41ddb60242b"
+    },
+    {
+      "name": "billing-confirmed-issued-read-recovery-1440.png",
+      "sha256": "feb28280de6363d04a31e5496366d04f69317eb1d89bbfb6dcc9e49d1ba33ac5"
+    },
+    {
+      "name": "billing-confirmed-issued-read-recovery-768.png",
+      "sha256": "3bb23f06e03a49b9ac25fb24e19eb0cbb1626fa4694e3124baa894ed210a097a"
+    },
+    {
+      "name": "billing-confirmed-issued-read-recovery-390.png",
+      "sha256": "49757c6c3fd479d5841a9cbe12d62cbe0ad228ebdcb27f8c080ea2609bfda502"
+    },
+    {
+      "name": "billing-confirmed-current-invoice-1440.png",
+      "sha256": "4691e9d0a8f68a0f210ccdd0c2e789496ab80f5d987ed78563ef4ff23907568e"
+    },
+    {
+      "name": "billing-confirmed-current-invoice-768.png",
+      "sha256": "3b8a147719e2a8bad0d4afe7ab7adb18c294f4f75f30d6b1a64fb9341f053051"
+    },
+    {
+      "name": "billing-confirmed-current-invoice-390.png",
+      "sha256": "b8b0ce97694bca585e32cbde52ac88f70045aad6c343fbb89ec5c0f970b5e5ac"
+    },
+    {
+      "name": "billing-fiscal-issuer-read-recovery-1440.png",
+      "sha256": "5a4b80f51672d9436e7295c4d7bcca4b8b278deecda16d3e8cb379db987a702d"
+    },
+    {
+      "name": "billing-fiscal-issuer-read-recovery-768.png",
+      "sha256": "d5313707d632cae90376ec08ff64996c592baf80637d1c1d985a5619495abe39"
+    },
+    {
+      "name": "billing-fiscal-issuer-read-recovery-390.png",
+      "sha256": "3588779df3b53fd2a23adfb511821ebecdac039b44c388853c9999cf503dd716"
+    },
+    {
+      "name": "billing-fiscal-customer-read-recovery-1440.png",
+      "sha256": "441c156818c105617ada0ae194bfc20b97219cf580c46ef376b93b291bb21df2"
+    },
+    {
+      "name": "billing-fiscal-customer-read-recovery-768.png",
+      "sha256": "c5dec554dd11d4b943bad43c3dee2cdd1f2bebb0741058b01fac7564a2d4201f"
+    },
+    {
+      "name": "billing-fiscal-customer-read-recovery-390.png",
+      "sha256": "eb75151047059f51e968c26875a63dec11155d7c02f623a2ccdfcf6d939eaa3f"
+    },
+    {
+      "name": "billing-complete-invoice-row-1440.png",
+      "sha256": "e446ba2dc6c3f6b637d76ae42520d918045198d2931b255a68e9c7b945bdab7e"
+    },
+    {
+      "name": "billing-complete-invoice-row-768.png",
+      "sha256": "a2a576bec98f2646d85add81ae5b18e09434ac63cf61fc5529d256aeed5b89c6"
+    },
+    {
+      "name": "billing-complete-invoice-row-390.png",
+      "sha256": "66a9c58a5642a93f2d16c5c4000d0a2a5fbcf3cfb6a5c6531609e2d52cf11bb2"
+    },
+    {
+      "name": "billing-authorized-relations-1440.png",
+      "sha256": "33f91e5984ee57b07241711803b214a6998250936199e5a79ccdfac881ca3991"
+    },
+    {
+      "name": "billing-authorized-relations-768.png",
+      "sha256": "d65c04cc156221914bc2b8eda70927dc1c4201b4b414be8729058c067674aa18"
+    },
+    {
+      "name": "billing-authorized-relations-390.png",
+      "sha256": "24b37c47bbbf011ebb2a05cd9911913a10cef3a69541b89d602737b4d818e104"
+    },
+    {
+      "name": "customer360-created-sim-row-1440.png",
+      "sha256": "81919cbadfc5c12b2261990040acc589f98971e0d5850ba6e23ca7d12ddecc14"
+    },
+    {
+      "name": "customer360-created-sim-row-768.png",
+      "sha256": "5a423705ce0d42d56910b8994fc8afe099f7cd86652591fa01bf9b0a772a455f"
+    },
+    {
+      "name": "customer360-created-sim-row-390.png",
+      "sha256": "14996a636ba518e6badc0eb02e87f63e71494455152338c3b23e4d726f832e4d"
+    },
+    {
+      "name": "customer360-created-permanence-row-1440.png",
+      "sha256": "0d885b2fa24d6cd28d012199ef1de975254888aee642075e88bb1f6b677728e5"
+    },
+    {
+      "name": "customer360-created-permanence-row-768.png",
+      "sha256": "50b53f24ac50173fc2b9100ea5984e7cfc41aa69ec396c9a0be04c007bc34b1c"
+    },
+    {
+      "name": "customer360-created-permanence-row-390.png",
+      "sha256": "49d8c1612234f9b04dc2da5be9c5326bd1aaf42daba0337487ac5caba014b156"
+    },
+    {
+      "name": "customer360-created-case-row-1440.png",
+      "sha256": "17c1d869f8057186b8d1a8d01b575fb022cb699f56c1f624b4b6dcb07e42a020"
+    },
+    {
+      "name": "customer360-created-case-row-768.png",
+      "sha256": "b652603e1ef5eb86917206ad0963642b5d494f14f991844f5e1d48a1673a8e60"
+    },
+    {
+      "name": "customer360-created-case-row-390.png",
+      "sha256": "d2b7deab49d78572af9eccc8d261f30b1d1249b8afd03ce2a37ef1817cedb607"
+    },
+    {
+      "name": "customer360-created-portability-row-1440.png",
+      "sha256": "8e821e215631df09fc12c7dd6928dcd0bed02ed472487e307cf09ebb4871e22c"
+    },
+    {
+      "name": "customer360-created-portability-row-768.png",
+      "sha256": "f42f2494b0c3abaf4c26662007d117bf1fb67868bfc37f93ff4d4711bbad6bca"
+    },
+    {
+      "name": "customer360-created-portability-row-390.png",
+      "sha256": "3dd9ddc803ed9b68922da85e731b08546da4c074c137cb88808dcc2f9f7708ef"
+    },
+    {
+      "name": "team-complete-members-1440.png",
+      "sha256": "42f7d1604835f83033e4d9b2054f1a59f4b1908ecec32d46e3591af4f3283bf5"
+    },
+    {
+      "name": "team-complete-members-768.png",
+      "sha256": "22310e2f445e1331903f5a61e31cc47c0792863bde32971643b955d0241c4082"
+    },
+    {
+      "name": "team-complete-members-390.png",
+      "sha256": "9eaad88584707d5d1a3a639751af2ee00080404ac260a7ab513621aa89c99a5e"
+    },
+    {
+      "name": "portfolio-1440.png",
+      "sha256": "74ade19f052d1774c6df8823c6429f2e18e597556890824f697632e352483096"
+    },
+    {
+      "name": "portfolio-768.png",
+      "sha256": "5e41a355984755367183fece40dd708406e89cf632821b58d7088a71ce0add8d"
+    },
+    {
+      "name": "portfolio-390.png",
+      "sha256": "38a65e1b809787ace88233905a1c54293832b9bbf8baffb7ec1dc0819781efd8"
+    },
+    {
+      "name": "portfolio-lower-1440.png",
+      "sha256": "453745d8a8907c3d1dea0f0240947fa406c68234b00127bcd6f36e21d8ccc80b"
+    },
+    {
+      "name": "portfolio-lower-768.png",
+      "sha256": "d1866919f196c7aefbd68df7e1ae64fe5687d99ae65bdcf9f4711b4f37da9a0c"
+    },
+    {
+      "name": "portfolio-lower-390.png",
+      "sha256": "e504a0953d0158ef92432b75636f0c0ce233e5ab6e01d119dc2ee39c64a7c3ae"
+    },
+    {
+      "name": "import-current-rows-1440.png",
+      "sha256": "87470a6fb145ee41ea3524ec15826f98dc596a84eab9ac16343b75e9ec44cc47"
+    },
+    {
+      "name": "import-current-rows-768.png",
+      "sha256": "d1866919f196c7aefbd68df7e1ae64fe5687d99ae65bdcf9f4711b4f37da9a0c"
+    },
+    {
+      "name": "import-current-rows-390.png",
+      "sha256": "f28f74ae4f82068cf6ed3bc0579bb7a6856d0ed5c3e5c994a434b21852ec60da"
+    },
+    {
+      "name": "import-management.png",
+      "sha256": "a0c0fdad2082c545bfe56a170f9cc637fbfd830d1f6ceb3adcef03c6ef5cfc29"
+    },
+    {
+      "name": "history-context-1440.png",
+      "sha256": "7172da01d265a243489fd33e5e74ec5ea54a1be6f70f46d3c313b8c49c2b2391"
+    },
+    {
+      "name": "history-context-768.png",
+      "sha256": "49a318a7b7a126b1b2af8994e1eb96f1050bb728606ca6267d6a6a4990f2d012"
+    },
+    {
+      "name": "history-context-390.png",
+      "sha256": "38808f12ef7d7a82aab075e706e77a415b4943efc6192acb13346b8f470fb479"
+    },
+    {
+      "name": "history-1440.png",
+      "sha256": "605eaae2ee72c583541d40e2f08c7f63164131e06d93904cf8a3874514aa4cc3"
+    },
+    {
+      "name": "history-768.png",
+      "sha256": "49a318a7b7a126b1b2af8994e1eb96f1050bb728606ca6267d6a6a4990f2d012"
+    },
+    {
+      "name": "history-390.png",
+      "sha256": "38808f12ef7d7a82aab075e706e77a415b4943efc6192acb13346b8f470fb479"
+    },
+    {
+      "name": "history-lower-1440.png",
+      "sha256": "783ecec89f4b59797521763ee874a197cb50e641f731a7fd31bb29c00783c842"
+    },
+    {
+      "name": "history-lower-768.png",
+      "sha256": "4e7ff115ce6462e8e1dfd33330ec585ab75af7de5d5cfd8422ad0d7a0bd6e4e4"
+    },
+    {
+      "name": "history-lower-390.png",
+      "sha256": "5522a4d23800f6f4b0069cbb4f0b76956cde0596a3f454b31243882b729b7420"
+    }
+  ],
+  "business_ai_writes": "OFF",
+  "independent_w4": "PENDING",
+  "windows_persistent_stack": "NOT_ESTABLISHED"
+}
