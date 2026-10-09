@@ -10,9 +10,10 @@ export async function customerLineCreationBrowser({page,origin,id,wa,serviceId,s
  const importedId=sql(`insert into public.telecom_services(workspace_id,customer_id,operator_id,contract_id,service_kind,display_name,source)select workspace_id,customer_id,operator_id,contract_id,service_kind,'W2 Synthetic Imported Line Parent','import' from public.telecom_services where workspace_id='${wa}' and id='${serviceId}' returning id`).trim()
  if(!/^[0-9a-f-]{36}$/.test(importedId))throw Error('C360_LINE_IMPORTED_FIXTURE_MISSING')
  async function choose(parentId){
-  await button('Nueva línea manual').click();const picker=page.getByLabel('Servicio de la nueva línea',{exact:true});await expect(picker).toBeEnabled()
+  step('parent_picker_collection');const pending=page.waitForResponse(r=>{try{const q=r.request().postDataJSON();return q.operation==='service.list'&&q.input.customer_id===id&&q.input.limit===20&&!Object.hasOwn(q.input,'contract_id')}catch{return false}})
+  await button('Nueva línea manual').click();const response=await pending,body=await response.json();if(response.status()!==200||!body.ok||!Array.isArray(body.data?.items))throw Error('C360_LINE_CUSTOMER_SERVICE_SCOPE_FAILED');const picker=page.getByLabel('Servicio de la nueva línea',{exact:true});step('parent_picker_enabled');await expect(picker).toBeEnabled()
   for(let n=0;n<8&&!await picker.locator('option[value="'+parentId+'"]').count();n++){const next=page.waitForResponse(r=>{try{const q=r.request().postDataJSON();return q.operation==='service.list'&&q.input.customer_id===id&&q.input.limit===20&&!!q.input.after_id}catch{return false}});await button('Más relaciones de servicio').click();if((await next).status()!==200)throw Error('C360_LINE_PARENT_PAGE_FAILED');await expect(picker).toBeEnabled()}
-  await picker.selectOption(parentId);await button('Continuar con el servicio').click()
+  step('parent_picker_selection');await picker.selectOption(parentId);step('parent_prepare_actual_ancestry');await button('Continuar con el servicio').click()
  }
  step('imported_parent_refusal');await page.setViewportSize({width:1440,height:960});await page.goto(origin+'/clients/'+id);await page.getByRole('tab',{name:'Líneas',exact:true}).click();await expect(kpi()).toHaveText(String(before))
  let refusedWrites=0;const refused=r=>{try{if(r.postDataJSON().operation==='line.create_manual')refusedWrites++}catch{}};page.on('request',refused)

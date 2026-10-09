@@ -42,7 +42,7 @@ export function CustomerLinesInventory({customer,createAllowed=false,onCreated}:
   <CustomerDomainPages key={revision} area="Líneas" customerId={customer.id}/>
   {creating&&(parent?<PortfolioCreate parent={parent} customers={[]} onClose={()=>{setCreating(false);setParent(null)}} onSaved={saved}/>:<Drawer title="Nueva línea del cliente" onClose={()=>{if(!busy)setCreating(false)}}>
    <div className="space-y-4"><p className="text-sm">Selecciona un servicio de {customerName(customer)}. La línea se registra pendiente, sin asignar número o SIM ni activar nada con el operador.</p>
-    <PortfolioRelationSelect kind="service" customerId={customer.id} label="Servicio de la nueva línea" value={serviceId} onChange={setServiceId} disabled={busy}/>
+    <PortfolioRelationSelect kind="service" customerId={customer.id} allowCustomerServices label="Servicio de la nueva línea" value={serviceId} onChange={setServiceId} disabled={busy}/>
     {error&&<p role="alert" className="text-sm text-red-700">{error}</p>}
     <button className={control} disabled={busy||!serviceId} onClick={()=>void prepare()}>{busy?'Consultando servicio…':'Continuar con el servicio'}</button>
    </div>
