@@ -137,7 +137,7 @@ const statusNames: Readonly<Record<string, string>> = {
     scheduled: 'Programada', returned:'Devuelto', overdue:'Vencido', upcoming:'Próximo', archived:'Archivado',cancelled:'Cancelado',ended:'Finalizado',removed:'Retirado',retired:'Retirado',prepared:'Preparada',assigned:'Asignada',replaced:'Sustituida',requested:'Solicitada',rejected:'Rechazada',waiting_customer:'Esperando al cliente',waiting_operator:'Esperando al operador',resolved:'Resuelta',closed:'Cerrada',no_show:'No asistió',dismissed:'Descartada',not_applicable:'No aplica',
 }
 export function statusLabel(value: string) { return statusNames[value] ?? value }
-export function Status({ value }: { value: string }) {
+export function Status({ value, label }: { value: string; label?: string }) {
   return (
     <Badge
       variant={
@@ -149,7 +149,7 @@ export function Status({ value }: { value: string }) {
       }
       dot
     >
-      {statusLabel(value)}
+      {label ?? statusLabel(value)}
     </Badge>
   )
 }
