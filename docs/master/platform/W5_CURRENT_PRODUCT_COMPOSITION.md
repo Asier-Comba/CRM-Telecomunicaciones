@@ -1,5 +1,13 @@
 # W5 current product composition candidate
 
+Current candidate consumes W2 PR38 source9ab36e242ff4678ee518c1d1606f0035139fcd39 through a normal merge. Before consumption, its actual Supabase run37923112003/job113795548444 completed PASS107/107 plus3762 backend checks/73migrations/history/read-grounding/teardown. Executed merge949951fc13c9560b795f58b8433a09b29add1b23 has exactly the same tree as the owner source. This is source acceptance, not acceptance of the new W5 composition. Its own CI remains required.
+
+The13-file owner delta adds confirmed SIM creation and customer permanence creation and corrects exact field selection in the browser proof. No migration, RPC manifest, package/lock, src/lib or src/assistant changed. The composition checker now binds product source9ab; the migration union remains74, platform four source overrides remain85d3. No owner implementation was rewritten. The previous W5 composition PR70 source d365b818e27ec3190474a4aed8ad5010b6ce21e7 has separately recorded exact-tree recovery and107/107 browser PASS, and is retained as a frozen checkpoint. Vendor/RPO/W4 audit branches are not silently imported here.
+
+NEXT3: exact candidate native/Supabase/recovery/browser validation; owner handoff for any new failure; independent review and unresolved security/company gates. Below is the retained first-composition design history; its source and pending-state statements are historical.
+
+## First composition design history
+
 This checkpoint supersedes Enterprise 3 compatibility claims only for this candidate branch. It does not replace historical test evidence or approve a release. Machine provenance is `ENTERPRISE_4_COMPATIBILITY.json`; reproduce with `node scripts/platform/composition.mjs` after staging all changes (CI uses the committed index).
 
 Consumed platform: PR34 source `85d3a60a7b34af4aac5465f3b30130f742e49900`. Consumed product: PR38 source `1c5cd51b4f96f83c0bf938026226aa53369f2d0e`. Merge base: `7ab6f56f10fc65aa7212ed5dfbdeacea8901756a`. Both parents are retained by a normal merge. Later product branches are not implicitly consumed.
