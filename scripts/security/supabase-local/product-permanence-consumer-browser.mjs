@@ -32,7 +32,7 @@ export async function customerPermanenceCreationBrowser({page,origin,id,wa,contr
   if(inputs.length!==2||JSON.stringify(inputs[0])!==JSON.stringify(inputs[1])||Object.keys(inputs[0]).sort().join(',')!=='command_id,commitment_kind,contract_id,ends_on,reason_code,starts_on'||inputs[0].contract_id!==contractId||inputs[0].commitment_kind!=='minimum_term'||inputs[0].starts_on!==day||inputs[0].ends_on!==end||inputs[0].reason_code!=='manual_record'||count()!==before+1)throw Error('C360_PERMANENCE_REPLAY_CHANGED_OR_DUPLICATED')
  }finally{await page.unroute('**/api/portfolio/v1/commands',unknown);await page.unroute('**/api/portfolio/v1/queries',unavailable)}
  const summaryRequests=new WeakSet();let extraWrites=0;const observe=r=>{try{const q=r.postDataJSON();if(q.operation==='permanence.create_manual')extraWrites++;if(r.method()==='POST'&&new URL(r.url()).pathname==='/api/telecom/reads/v1'&&q.operation==='customer360.summary'&&q.input.customer_id===id)summaryRequests.add(r)}catch{}};page.on('request',observe)
- const summary=page.waitForResponse(r=>summaryRequests.has(r.request()))
+ const summary=page.waitForResponse(r=>summaryRequests.has(r.request()));void summary.catch(()=>{})
  try{
   step('confirmed_read_only_recovery');await button('Consultar permanencia registrada').click();await expect(dialog).toHaveCount(0);const response=await summary,body=await response.json()
   if(response.status()!==200||!body.ok||body.data?.record?.customer_id!==id||body.data.record.permanences!==before+1||body.data.record.renewals!==renewals||extraWrites)throw Error('C360_PERMANENCE_SUMMARY_OR_SECOND_WRITE')
