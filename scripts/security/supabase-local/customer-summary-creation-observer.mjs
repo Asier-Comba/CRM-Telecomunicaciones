@@ -3,7 +3,7 @@ import {expect} from '@playwright/test'
 /** Fixture-only SQL observer. Product reads and writes still use normal cookies.
  * Registers before the reviewed creation; never fabricates a response or count. */
 export async function observeCustomerSummaryCreation({page,sql,customerId,kind}){
- const domains={sim:{table:'telecom_sims',field:'sims',label:'SIM/eSIM'},portability:{table:'telecom_portabilities',field:'portabilities',label:'Portabilidades'},case:{table:'service_cases',field:'cases',label:'Incidencias'}}
+ const domains={sim:{table:'telecom_sims',field:'sims',label:'SIM/eSIM'},portability:{table:'telecom_portabilities',field:'portabilities',label:'Portabilidades'},case:{table:'service_cases',field:'cases',label:'Incidencias'},service:{table:'telecom_services',field:'services',label:'Servicios'}}
  if(!Object.hasOwn(domains,kind)||typeof customerId!=='string'||!/^[0-9a-f-]{36}$/.test(customerId))throw Error('INVENTORY_SUMMARY_FIXTURE_REFUSED')
  const domain=domains[kind]
  const count=()=>Number(sql(`select count(*) from public.${domain.table} where customer_id='${customerId}'`)),before=count()
