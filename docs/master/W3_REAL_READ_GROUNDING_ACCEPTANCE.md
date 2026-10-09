@@ -31,3 +31,10 @@ Fresh CI lint/types/full tests/build and complete actual Supabase/Auth/PostgREST
 Verified current [getUser](https://supabase.com/docs/reference/javascript/auth-getuser) and [select](https://supabase.com/docs/reference/javascript/select) documentation plus the changelog against the existing locked SDK; no SDK or engine upgrade. The [Postgres minor release notice](https://supabase.com/changelog/postgres-15-19-17-11-breaking-changes) concerns extension/index/legacy-cipher/custom-operator upgrade handling, owned separately by W5/W4; this test does not upgrade an engine or infer their approval.
 
 Next three: collect this exact source's actual grounding and full107 gate; diagnose any closed phase failure without substituting mocks or dropping assertions; review/combine accepted consumers and repeat full exact-source composition, keeping live semantic/UI/security gates explicit.
+# First actual execution and bounded history diagnostic
+
+Initial head `4005232beaa7532ffcf5e21b59aa48188baf07fd`, Supabase run 37863185969/job 113603569480, failed in the preceding history browser route callback: `CHECK_ASSISTANT_HISTORY_BROWSER_COMMIT_BEFORE_DELIVERY_LOSS`. The grounding helper was **NOT_REACHED**, not PASS. The callback threw before its delivery abort and outside the awaited harness path, so this initial execution does not provide a complete report/teardown receipt. Do not infer its HTTP status or root cause.
+
+The diagnostic follow-up records only the HTTP status (or closed `NO_RESPONSE` value), aborts delivery in `finally`, and checks the required 200 in the awaited test path before any retry. It retains the same command identity, one persisted row, CAS and all original assertions. It changes no product or grounding behavior and registers no model/provider. A refused first command cannot become a PASS.
+
+The base #38 at `e6ca5dc7875d5552d12ef2da72039608e74890e7` has now completed **104/107**, with two billing and one mobile shell timeout; Auth/history passed. Its previous composition `64cc55f9d88e314f0c740a3b1829ff61571c5c3d` passed 107/107. Do not transfer that success to the new source. W2 is diagnosing this separately.
