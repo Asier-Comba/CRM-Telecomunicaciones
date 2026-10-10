@@ -53,6 +53,13 @@ not expire reserved automatically. W2 must fence start/recovery of reserved work
 a reserved record itself grants no effect authority. Persist versions and attempts
 as positive safe integers; increment version exactly once per committed transition.
 Use authoritative server/DB time, never a caller-selected clock or lease duration.
+The reconciliation service requires the applied receipt and authorized reread to
+report exactly `expectedVersion + 1`, not merely an equal version greater than
+the previous one. A skipped version cannot certify that original transition.
+`expectedVersion = Number.MAX_SAFE_INTEGER` has no safe successor and is rejected
+before lookup, verification or commit; the last safe transition starts at
+`Number.MAX_SAFE_INTEGER - 1`. These checks do not prove a physical transaction
+or replace current authorization, fencing, atomic audit delivery or W4 acceptance.
 Current AssistantRuntime confirmation TTL and idempotency lease are both300000ms
 (five minutes); confirmation expiry must never exceed that server-issued bound.
 Runtime idempotency keys match `[A-Za-z0-9_-]{16,128}`; operation refs match
