@@ -11,7 +11,7 @@ for (const mode of ['success', 'viewport_refusal', 'version_refusal'] as const) 
     const server = createServer((request, response) => {
       methods.push(request.method ?? '')
       response.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' })
-      response.end(`<style>body{margin:0}section{width:300px;margin:100px auto;height:${mode === 'viewport_refusal' ? 1400 : 200}px;background:#eef}</style><section data-invoice-detail-version="${mode === 'version_refusal' ? '2' : '3'}">Synthetic current invoice</section>`)
+      response.end(`<meta name="viewport" content="width=device-width, initial-scale=1"><style>body{margin:0}section{width:300px;margin:100px auto;height:${mode === 'viewport_refusal' ? 1400 : 200}px;background:#eef}</style><section data-invoice-detail-version="${mode === 'version_refusal' ? '2' : '3'}">Synthetic current invoice</section>`)
     })
     await new Promise<void>(resolve => { server.listen(0, '127.0.0.1', resolve) })
     try {
@@ -21,6 +21,7 @@ for (const mode of ['success', 'viewport_refusal', 'version_refusal'] as const) 
       const report: { w2_ui_action_step?: string; w2_ui_billing_current_invoice_failure?: { width: number; step: string; kind: string } } = {}
       const detail = page.locator('section')
       await observeBillingCurrentInvoiceStep(report, width, 'viewport_setup', () => page.setViewportSize({ width, height: 960 }))
+      expect(await page.evaluate(() => ({ width: innerWidth, height: innerHeight }))).toEqual({ width, height: 960 })
       await observeBillingCurrentInvoiceStep(report, width, 'scroll', () => detail.scrollIntoViewIfNeeded())
       const step = mode === 'version_refusal' ? 'version_assertion' : 'viewport_assertion'
       let calls = 0, rejected = false
