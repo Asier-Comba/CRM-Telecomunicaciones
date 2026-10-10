@@ -99,6 +99,7 @@ run_fixture supabase/tests/product-dashboard-search.sql
 } | psql_native > /dev/null
 run_fixture supabase/seeds/synthetic_portfolio.sql
 run_fixture supabase/tests/assistant-durable-foundation.sql
+run_fixture supabase/tests/assistant-confirm-reserve-atomic.sql
 run_fixture supabase/tests/assistant-conversations-v2.sql
 run_fixture supabase/seeds/synthetic_durable.sql
 
@@ -114,6 +115,7 @@ checker="$repo_root/scripts/security/native-postgres/check-privilege-matrix.mjs"
 snapshot "$test_db" "$tmp_dir/fresh.json"
 node "$checker" "$manifest" "$tmp_dir/fresh.json"
 run_fixture scripts/security/native-postgres/reader-role-matrix.sql
+run_fixture supabase/tests/assistant-reservation-role-boundary.sql
 
 docker exec -u postgres "$container" pg_dump -U postgres -Fc -d "$test_db" > "$tmp_dir/synthetic.dump"
 [[ -s "$tmp_dir/synthetic.dump" ]] || {
@@ -157,6 +159,8 @@ node "$repo_root/scripts/security/native-postgres/diagnose-privilege-drift.mjs" 
 node "$checker" "$manifest" "$tmp_dir/fresh.json" "$tmp_dir/restored.json"
 docker exec -i -u postgres "$container" psql -X -v ON_ERROR_STOP=1 \
   -U postgres -d "$restore_db" < "$repo_root/scripts/security/native-postgres/reader-role-matrix.sql" > /dev/null
+docker exec -i -u postgres "$container" psql -X -v ON_ERROR_STOP=1 \
+  -U postgres -d "$restore_db" < "$repo_root/supabase/tests/assistant-reservation-role-boundary.sql" > /dev/null
 
 docker exec -i -u postgres "$container" psql -X -v ON_ERROR_STOP=1 \
   -U postgres -d "$restore_db" > /dev/null <<'SQL'
@@ -255,6 +259,7 @@ migration_head="$(basename "${migration}")"
 
 node scripts/security/native-postgres/product-command-races.mjs
 node scripts/security/native-postgres/service-commercial-races.mjs
+node scripts/security/native-postgres/assistant-reservation-races.mjs
 
 printf '{"kind":"native_postgresql_restore_test_only","migration_count":%d,"migration_head":"%s","dump_sha256":"%s","schema":"pass","rows":"pass","assistant_rows":"pass","rls":"pass","scope":"pass","restored_privilege_matrix":"pass","fresh_role_calls":"pass","restored_role_calls":"pass","acl_loss_negative_control":"pass","production_backup":false}\n' \
   "$migration_count" "$migration_head" "$dump_sha"

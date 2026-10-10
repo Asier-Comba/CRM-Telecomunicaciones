@@ -20,8 +20,32 @@
     {
       "anon": false,
       "public": false,
+      "definer": true,
+      "signature": "public.assistant_durable_v1_confirm_reserve(uuid, text, text, text, text, text, text, text)",
+      "service_role": false,
+      "authenticated": false
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": true,
+      "signature": "public.assistant_durable_v1_issue(uuid, text, text)",
+      "service_role": false,
+      "authenticated": false
+    },
+    {
+      "anon": false,
+      "public": false,
       "definer": false,
       "signature": "public.assistant_message_guard_v2()",
+      "service_role": false,
+      "authenticated": false
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": false,
+      "signature": "public.assistant_original_audit_guard_v1()",
       "service_role": false,
       "authenticated": false
     },
