@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
 import { Loader2 } from 'lucide-react'
 import { DEMO_MODE_KEY } from '@/lib/current-user'
@@ -11,9 +11,16 @@ export function AuthGate({ children, integrated = false }: { children: React.Rea
   const router = useRouter()
   const pathname = usePathname()
   const [allowed, setAllowed] = useState(false)
+  const gateElement = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     let mounted = true
+    // Closed lifecycle markers distinguish an unhydrated document from a
+    // pending SDK call. They contain no session, identity, or error details.
+    const mark = (stage: 'legacy_checking' | 'user_pending' | 'user_returned' | 'client_unavailable' | 'access_error') => {
+      if (mounted) gateElement.current?.setAttribute('data-crm-access-stage', stage)
+    }
+    mark('legacy_checking')
 
     // Demo mode via localStorage is a dev-only escape hatch. In a real client
     // deployment it must never grant access on its own — only a real Supabase
@@ -29,8 +36,10 @@ export function AuthGate({ children, integrated = false }: { children: React.Rea
     const checkAccess = async () => {
       if (integrated) {
         const supabase = getSupabaseBrowserClient()
+        mark(supabase ? 'user_pending' : 'client_unavailable')
         const result = supabase ? await supabase.auth.getUser() : null
         if (!mounted) return
+        if (supabase) mark('user_returned')
         if (result?.data.user && !result.error) setAllowed(true)
         else router.replace('/login')
         return
@@ -117,6 +126,7 @@ export function AuthGate({ children, integrated = false }: { children: React.Rea
 
     void checkAccess().catch(() => {
       if (!mounted) return
+      mark('access_error')
       setAllowed(false)
       router.replace('/login?error=access_check')
     })
@@ -128,7 +138,7 @@ export function AuthGate({ children, integrated = false }: { children: React.Rea
 
   if (!allowed) {
     return (
-      <div className="flex min-h-dvh items-center justify-center bg-[#070814] text-white">
+      <div ref={gateElement} data-crm-access-stage="before_effect" className="flex min-h-dvh items-center justify-center bg-[#070814] text-white">
         <div className="flex items-center gap-2 rounded-2xl border border-white/10 bg-white/[0.08] px-4 py-3 text-sm shadow-2xl shadow-black/30">
           <Loader2 className="h-4 w-4 animate-spin text-indigo-200" />
           Verificando acceso...

@@ -9,7 +9,7 @@ const flush=()=>new Promise(resolve=>setImmediate(resolve))
 function mount({client,integrated=true,previouslyAllowed=false}){
  const effects=[],states=[],redirects=[],storage=[]
  const router={replace:path=>redirects.push(path)}
- const dependencies={react:{useEffect:effect=>effects.push(effect),useState:()=>[previouslyAllowed,value=>states.push(value)]},'react/jsx-runtime':{jsx:()=>null,jsxs:()=>null},'next/navigation':{useRouter:()=>router,usePathname:()=>'/portfolio'},'lucide-react':{Loader2:()=>null},'@/lib/current-user':{DEMO_MODE_KEY:'synthetic-demo'},'@/lib/supabase':{getSupabaseBrowserClient:()=>client},'@/lib/feature-flags':{featureFlags:{demoData:false}}}
+ const dependencies={react:{useEffect:effect=>effects.push(effect),useRef:()=>({current:null}),useState:()=>[previouslyAllowed,value=>states.push(value)]},'react/jsx-runtime':{jsx:()=>null,jsxs:()=>null},'next/navigation':{useRouter:()=>router,usePathname:()=>'/portfolio'},'lucide-react':{Loader2:()=>null},'@/lib/current-user':{DEMO_MODE_KEY:'synthetic-demo'},'@/lib/supabase':{getSupabaseBrowserClient:()=>client},'@/lib/feature-flags':{featureFlags:{demoData:false}}}
  const fixtureModule={exports:{}}
  new Function('require','module','exports','process','window',compiled)(name=>{assert.ok(Object.hasOwn(dependencies,name));return dependencies[name]},fixtureModule,fixtureModule.exports,{env:{NODE_ENV:'production',NEXT_PUBLIC_FORCE_OFFLINE_DEV:'true'}},{localStorage:{getItem:()=>null,removeItem:key=>storage.push(key)}})
  fixtureModule.exports.AuthGate({children:'AUTHORIZED_SYNTHETIC_CONTENT',integrated})

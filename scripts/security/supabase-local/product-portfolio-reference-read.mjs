@@ -1,5 +1,19 @@
 import {parsePortfolioGetInputV1,parsePortfolioGetV1} from '../../../src/lib/server/portfolio-runtime-v1.ts'
 
+/** Read only a closed lifecycle marker from the same committed document. */
+export async function currentPortfolioGateStage(page,destination){
+ try{
+  const stage=await page.evaluate(expected=>{
+   if(location.href!==expected)return'document_changed'
+   const gate=document.querySelector('[data-crm-access-stage]')
+   if(!gate)return'not_present'
+   const value=gate.getAttribute('data-crm-access-stage')
+   return['before_effect','legacy_checking','user_pending','user_returned','client_unavailable','access_error'].includes(value)?value:'unavailable'
+  },destination)
+  return['before_effect','legacy_checking','user_pending','user_returned','client_unavailable','access_error','not_present','document_changed'].includes(stage)?stage:'unavailable'
+ }catch{return'unavailable'}
+}
+
 /** Only current main-document user-read headers; no identity or authorization claim. */
 function observeAccess({page,authOrigin,destination,report,phase}){
  if(!authOrigin)return{navigationDone(){},finish(){}}
@@ -22,13 +36,14 @@ function observeAccess({page,authOrigin,destination,report,phase}){
  page.on('framenavigated',navigated);page.on('request',started);page.on('response',responded);page.on('requestfailed',failed)
  return{
   navigationDone(){navigationDone=true},
-  finish(){
+  async finish(){
    page.off('framenavigated',navigated);page.off('request',started);page.off('response',responded);page.off('requestfailed',failed)
    if(!report)return
+   const gate_stage=documentObserved?await currentPortfolioGateStage(page,destination):'unavailable'
    const values=[...reads.values()],width=phase.match(/^layout:portfolio:(1440|768|390):exact_reference$/)?.[1]
    const status_counts=Object.fromEntries(['ok','denied','client_error','server_error','other'].map(status=>[status,values.filter(v=>v.status===status).length]))
    report.w2_portfolio_access_observations??=[]
-   if(report.w2_portfolio_access_observations.length<6)report.w2_portfolio_access_observations.push({scope:'CURRENT_MAIN_DOCUMENT_AUTH_USER_HEADERS_NOT_AUTHORIZATION',width:width?Number(width):null,document_observed:documentObserved,navigation_completed:navigationDone,requests:values.length,responses:values.filter(v=>v.status!==null).length,failures:values.filter(v=>v.failed).length,pending:values.filter(v=>v.status===null&&!v.failed).length,status_counts,truncated})
+   if(report.w2_portfolio_access_observations.length<6)report.w2_portfolio_access_observations.push({scope:'CURRENT_MAIN_DOCUMENT_AUTH_USER_HEADERS_NOT_AUTHORIZATION',width:width?Number(width):null,document_observed:documentObserved,navigation_completed:navigationDone,gate_stage,requests:values.length,responses:values.filter(v=>v.status!==null).length,failures:values.filter(v=>v.failed).length,pending:values.filter(v=>v.status===null&&!v.failed).length,status_counts,truncated})
   },
  }
 }
@@ -56,5 +71,5 @@ export async function currentPortfolioReference({page,origin,kind,id,report,auth
  const value=parsePortfolioGetV1(input,body.data)
  if(!value)throw Error('PORTFOLIO_REFERENCE_CURRENT_DTO_INVALID')
  step('current_render');return value
- }finally{observation.finish()}
+ }finally{await observation.finish()}
 }
