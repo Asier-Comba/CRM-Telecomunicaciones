@@ -7,7 +7,7 @@ const record={id,version:1,status:'active',source:'manual',customer_id:'00000000
 const envelope={ok:true,data:{contract_version:'portfolio.v1',kind:'contract',record}}
 function fixture({navigate,status=200,body=envelope}={}){
  const page=new EventEmitter(),main={url:()=>page.destination},foreign={url:()=>page.destination}
- page.mainFrame=()=>main;page.navigations=[]
+ page.mainFrame=()=>main;page.navigations=[];page.evaluate=async()=> 'not_present'
  const request=({method='GET',url=authOrigin+'/auth/v1/user',frame=main}={})=>({method:()=>method,url:()=>url,frame:()=>frame,headers:()=>{throw Error('private synthetic header must not be read')},postDataJSON:()=>{throw Error('private synthetic body must not be read')}})
  const portfolio={...request({method:'POST',url:origin+'/api/portfolio/v1/queries'}),postDataJSON:()=>({operation:'portfolio.get',input:{kind:'contract',id}}),response:async()=>({status:()=>status,json:async()=>body})}
  page.waitForRequest=predicate=>new Promise((resolve,reject)=>{
@@ -35,7 +35,7 @@ test('only current main-document exact auth user headers are counted; no identit
  old=f.request();const wait=f.page.waitForRequest
  f.page.waitForRequest=predicate=>{const pending=wait(predicate);f.page.emit('request',old);return pending}
  assert.deepEqual(await run(f,report),envelope.data)
- assert.deepEqual(report.w2_portfolio_access_observations,[{scope:'CURRENT_MAIN_DOCUMENT_AUTH_USER_HEADERS_NOT_AUTHORIZATION',width:768,document_observed:true,navigation_completed:true,requests:1,responses:1,failures:0,pending:0,status_counts:{ok:1,denied:0,client_error:0,server_error:0,other:0},truncated:false}])
+ assert.deepEqual(report.w2_portfolio_access_observations,[{scope:'CURRENT_MAIN_DOCUMENT_AUTH_USER_HEADERS_NOT_AUTHORIZATION',width:768,document_observed:true,navigation_completed:true,gate_stage:'not_present',requests:1,responses:1,failures:0,pending:0,status_counts:{ok:1,denied:0,client_error:0,server_error:0,other:0},truncated:false}])
  assert.equal(JSON.stringify(report).includes('private'),false)
  for(const event of ['framenavigated','request','response','requestfailed'])assert.equal(f.page.listenerCount(event),0)
 })
