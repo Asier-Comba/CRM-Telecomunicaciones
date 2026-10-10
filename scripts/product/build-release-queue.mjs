@@ -9,7 +9,8 @@ const root=resolve(fileURLToPath(new URL('../..',import.meta.url)))
 const stages=['IMPLEMENTED','PROVEN_BACKEND','CONSUMED_UI','BROWSER_ACCEPTED','VISUAL_ACCEPTED','SECURITY_ACCEPTED']
 const states=['NOT_RECONCILED','PARTIAL','PASS','NOT_APPLICABLE']
 const sha=/^[0-9a-f]{40}$/
-const hash=value=>createHash('sha256').update(value).digest('hex')
+const canonicalText=value=>value.toString('utf8').replace(/\r\n/g,'\n')
+const hash=value=>createHash('sha256').update(canonicalText(value)).digest('hex')
 async function input(path){const bytes=await readFile(resolve(root,path));return {path,sha256:hash(bytes),value:JSON.parse(bytes.toString('utf8'))}}
 
 export function reconcileRows(parity,telecom,reviews){
@@ -65,7 +66,7 @@ export async function buildQueue(){
  return {schema_version:1,reviewed_at:reviews.reviewed_at,acceptance_policy:'No inherited or aggregate PASS promotions. NOT_RECONCILED means unverified here, not absent in the product.',
   accepted_source:reviews.accepted_source,candidate_source:reviews.candidate_source,candidate_pr:reviews.candidate_pr,
   inherited_baseline:reviews.inherited_baseline,candidate_verification:reviews.candidate_verification,global_release_blockers:reviews.global_release_blockers,
-  input_snapshots:inputs.map(({path,sha256})=>({path,sha256})),reference_documents:documents,
+  hash_encoding:'sha256_utf8_lf',input_snapshots:inputs.map(({path,sha256})=>({path,sha256})),reference_documents:documents,
   review_progress:{total:rows.length,parity:244,telecom:98,reviewed_partial:Object.keys(reviews.row_reviews).length,unreconciled:rows.filter(r=>r.evidence.length===0).length,release_ready:rows.filter(r=>r.RELEASE_READY).length},
   next_3:reviews.next_3,rows}
 }
@@ -75,6 +76,6 @@ if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)){
  const queue=await buildQueue(),path=resolve(root,'docs/master/PRODUCT_RELEASE_QUEUE.json')
  const content=JSON.stringify(queue,null,2)+'\n'
  if(mode==='--write')await writeFile(path,content)
- else assert.equal(await readFile(path,'utf8'),content,'release queue is stale: review deltas, then regenerate')
+ else assert.equal(canonicalText(await readFile(path,'utf8')),content,'release queue is stale: review deltas, then regenerate')
  console.log(JSON.stringify({mode,...queue.review_progress,release:'NOT_ACCEPTED'}))
 }
