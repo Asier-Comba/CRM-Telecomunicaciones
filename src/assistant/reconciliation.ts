@@ -65,6 +65,7 @@ function isReconciliationRequest(value: unknown): value is ReconciliationRequest
   }
   return typeof record.operationRef === 'string' && validOperationRef(record.operationRef) &&
     Number.isSafeInteger(record.expectedVersion) && Number(record.expectedVersion) >= 1 &&
+    Number(record.expectedVersion) < Number.MAX_SAFE_INTEGER &&
     typeof record.requestedOutcome === 'string' && REQUESTED_OUTCOMES.has(record.requestedOutcome) &&
     typeof record.reason === 'string' && REASONS.has(record.reason)
 }
@@ -275,7 +276,7 @@ export class AuthorizedReconciliationService {
     if (transition.auditIntentPersisted !== true || transition.eventRef !== eventRef ||
       !verifiedRecord || !matchesIdentity(verifiedRecord) || !matchesIdentity(transition.record) ||
       verifiedRecord.state !== terminalState || transition.record.state !== terminalState ||
-      !Number.isSafeInteger(verifiedRecord.version) || verifiedRecord.version <= request.expectedVersion ||
+      !Number.isSafeInteger(verifiedRecord.version) || verifiedRecord.version !== request.expectedVersion + 1 ||
       verifiedRecord.version !== transition.record.version) {
       return this.#finish(actor, request, 'unavailable', 'reconciliation_read_after_write_failed', failure(
         'UNAVAILABLE',
