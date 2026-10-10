@@ -4,7 +4,67 @@ import { spawnSync } from 'node:child_process'
 import { mkdtempSync, writeFileSync, mkdirSync, rmSync, realpathSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
-import { dockerStatus, localRecoveryReport, gitRefreshStatus } from '../../scripts/local-recovery-doctor.mjs'
+import { dockerStatus, localRecoveryReport, gitRefreshStatus, localProjectConfig } from '../../scripts/local-recovery-doctor.mjs'
+
+test('local project scope requires one ordinary root declaration, not a comment, table, duplicate or expression', () => {
+  for (const config of [
+    'project_id = "crm-telecom-local"\n[auth]\nenabled = true\n',
+    '\uFEFF# Local only\r\n\tproject_id\t=\t\'crm-telecom-local\' # reviewed root\r\n[api]\r\n',
+    '"project_id" = "crm-telecom-local"\n',
+    "'project_id' = 'crm-telecom-local'\n",
+  ]) assert.equal(localProjectConfig(config), true)
+  for (const config of [
+    '# project_id = "crm-telecom-local"\nproject_id = "another-synthetic-project"\n',
+    '[auth]\nproject_id = "crm-telecom-local"\n',
+    'project_id = "crm-telecom-local"\nproject_id = "crm-telecom-local"\n',
+    'project_id = "crm-telecom-local"\nproject_id = "another-synthetic-project"\n',
+    'project_id = "another-synthetic-project"\n# project_id = "crm-telecom-local"\n',
+    'note = """\nproject_id = "crm-telecom-local"\n"""\n',
+    'project_id = "crm-telecom-local"\nunreviewed_root = true\n',
+    'project_id = "crm-telecom-local\'\n',
+    'project_id = "crm-telecom-local-extra"\n',
+    '\u00A0project_id = "crm-telecom-local"\n',
+    '', null, undefined, {},
+  ]) assert.equal(localProjectConfig(config), false)
+})
+
+test('actual wrong-project configuration files block an otherwise observed preflight without exposing their contents', async () => {
+  const parent = realpathSync(tmpdir()), cwd = mkdtempSync(join(parent, 'crm-project-scope-test-'))
+  try {
+    for (const file of ['package.json', 'package-lock.json', 'scripts/security/supabase-local/run-stack.mjs', 'node_modules/next/dist/bin/next']) {
+      const target = join(cwd, file)
+      mkdirSync(resolve(target, '..'), { recursive: true })
+      writeFileSync(target, '')
+    }
+    mkdirSync(join(cwd, 'supabase'))
+    const calls = [], secret = 'synthetic-private-project-must-not-be-reported'
+    const run = (file, args) => {
+      calls.push([file, args])
+      if (file === 'git') return { ok: true, text: args[0] === 'rev-parse' ? 'a'.repeat(40) : args[0] === 'config' ? '+refs/heads/*:refs/remotes/origin/*' : '' }
+      if (file === 'supabase') return { ok: true, text: '2.119.0' }
+      assert.equal(file, 'docker')
+      return { ok: true, text: args[0] === 'context' ? 'unix:///var/run/docker.sock' : 'linux' }
+    }
+    for (const [config, correct] of [
+      ['project_id = "crm-telecom-local"\n[auth]\nenabled = true\n', true],
+      ['# project_id = "crm-telecom-local"\nproject_id = "' + secret + '"\n', false],
+      ['[auth]\nproject_id = "crm-telecom-local"\n# ' + secret + '\n', false],
+      ['project_id = "crm-telecom-local"\nproject_id = "' + secret + '"\n', false],
+    ]) {
+      writeFileSync(join(cwd, 'supabase/config.toml'), config)
+      const report = await localRecoveryReport({ cwd, run, env: {}, freeBytes: 8 * 1024 ** 3, totalBytes: 16 * 1024 ** 3, probePort: async () => 'NOT_LISTENING' })
+      assert.equal(report.project_files, correct ? 'PRESENT_LOCAL_PROJECT' : 'MISSING_OR_WRONG_PROJECT')
+      assert.equal(report.full_stack_preflight, correct ? 'PREREQUISITES_OBSERVED_ACCEPTANCE_STILL_REQUIRED' : 'BLOCKED_REVIEW_REPORT')
+      assert.equal(report.acceptance, 'NOT_ESTABLISHED'); assert.equal(report.installation, 'NOT_ESTABLISHED')
+      assert.equal(JSON.stringify(report).includes(secret), false)
+    }
+    assert.ok(calls.every(([file, args]) => file === 'git' && ['rev-parse', 'status', 'config'].includes(args[0]) || file === 'supabase' && args.join(',') === '--version' || file === 'docker' && ['context', '--host'].includes(args[0])))
+  } finally {
+    const target = realpathSync(cwd)
+    assert.equal(resolve(target, '..'), parent); assert.ok(target.startsWith(join(parent, 'crm-project-scope-test-')))
+    rmSync(target, { recursive: true, force: true })
+  }
+})
 
 test('recovery doctor preserves actual tracked and untracked changes and does not disclose environment contents', async () => {
   const parent = realpathSync(tmpdir()), cwd = mkdtempSync(join(parent, 'crm-local-doctor-test-'))
