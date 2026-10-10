@@ -106,3 +106,22 @@ export function validateDatabaseRestartEvidence(value: unknown): boolean {
       && v.persistedBindingDigest === v.originalBindingDigest
   } catch { return false }
 }
+
+/** Exact persisted fence measurements; reading a driver object is not proof
+ * that its lease, owner or rejection ledger came from PostgreSQL. */
+export function validateClaimFenceEvidence(value: unknown): boolean {
+  const data = evidenceRecord(value, ['priorFence', 'currentFence', 'changedRows', 'rejected'])
+  if (!data || typeof data.priorFence !== 'number' || !Number.isSafeInteger(data.priorFence) || data.priorFence < 1 ||
+    typeof data.currentFence !== 'number' || !Number.isSafeInteger(data.currentFence) || data.currentFence <= data.priorFence || data.changedRows !== 0) return false
+  const expected = ['expired_owner', 'stale_version', 'wrong_worker', 'wrong_workspace', 'wrong_operation', 'old_fence', 'future_fence']
+  const rejected = evidenceRows(data.rejected, expected.length)
+  return !!rejected && expected.every((reason, index) => rejected[index] === reason)
+}
+
+/** Snapshot the original audit identity without executing evidence getters.
+ * The actual ledger, collision attempt and native driver still need review. */
+export function validateImmutableAuditEvidence(value: unknown): boolean {
+  const data = evidenceRecord(value, ['originalDigest', 'persistedDigest', 'changedContentRejected'])
+  return !!data && typeof data.originalDigest === 'string' && /^[a-f0-9]{64}$/.test(data.originalDigest) &&
+    data.persistedDigest === data.originalDigest && data.changedContentRejected === true
+}

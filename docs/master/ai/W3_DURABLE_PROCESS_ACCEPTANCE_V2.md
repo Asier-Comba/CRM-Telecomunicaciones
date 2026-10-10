@@ -134,6 +134,18 @@ valid retry/recovery must produce one operation/effect/original audit.
 
 ## Fences and audit identity evidence
 
+Fence and immutable-audit boundary measurements now use the same exact own-data
+admission as observation, rollback and restart evidence. Fence rejection arrays
+must have seven dense enumerable own data entries in the existing order. Hidden
+or symbol fields, accessors, custom prototypes and failed descriptor inspection
+return false without evaluating evidence getters or exposing inspection errors.
+The previous runner assertion blocks accepted both accessor records (11 getter
+calls across the two shapes) and hidden extra fields in a six-case synthetic
+reproduction. Ordinary, frozen and JSON-roundtripped measurements remain accepted.
+This is evidence admission only: the 23 scenarios, native ledger requirements,
+claim fencing, audit identity, worker protocol and independent W4 gate are unchanged.
+No physical adapter, database restart, real business effect or acceptance is proved.
+
 For `claim_fencing`, `inspectBoundary` returns exactly:
 
 ```json
