@@ -5,7 +5,7 @@ import {currentPortfolioReference} from '../../scripts/security/supabase-local/p
 const origin='http://127.0.0.1:3109',authOrigin='http://127.0.0.1:54321',id='00000000-0000-4000-8000-000000000001'
 const record={id,version:1,status:'active',source:'manual',customer_id:'00000000-0000-4000-8000-000000000002',operator_id:'00000000-0000-4000-8000-000000000003',plan_version_id:null,start_date:'2026-10-09',signed_date:null,end_date:null,assigned_user_id:null}
 const envelope={ok:true,data:{contract_version:'portfolio.v1',kind:'contract',record}}
-function fixture({navigate,status=200,body=envelope}={}){
+function fixture({beforeCommit,navigate,status=200,body=envelope}={}){
  const page=new EventEmitter(),main={url:()=>page.destination},foreign={url:()=>page.destination}
  page.mainFrame=()=>main;page.navigations=[];page.evaluate=async()=> 'not_present'
  const request=({method='GET',url=authOrigin+'/auth/v1/user',frame=main}={})=>({method:()=>method,url:()=>url,frame:()=>frame,headers:()=>{throw Error('private synthetic header must not be read')},postDataJSON:()=>{throw Error('private synthetic body must not be read')}})
@@ -16,6 +16,8 @@ function fixture({navigate,status=200,body=envelope}={}){
  })
  page.goto=async url=>{
   page.navigations.push(url);page.destination=url;if(url==='about:blank')return
+  if(beforeCommit)await beforeCommit({page,main,foreign,request,portfolio})
+  page.emit('request',{frame:()=>main,isNavigationRequest:()=>true,resourceType:()=> 'document'})
   page.emit('framenavigated',main)
   if(navigate)await navigate({page,main,foreign,request,portfolio})
   page.emit('request',portfolio)
@@ -26,14 +28,13 @@ const run=(f,report={w2_ui_action_step:'layout:portfolio:768:exact_reference'},e
 test('only current main-document exact auth user headers are counted; no identity, body, headers, URL or error is retained',async()=>{
  const report={w2_ui_action_step:'layout:portfolio:768:exact_reference'}
  let old
- const f=fixture({navigate:async({page,main,foreign,request})=>{
+ const f=fixture({beforeCommit:async({page})=>{page.emit('request',old)},navigate:async({page,main,foreign,request})=>{
   page.emit('response',{request:()=>old,status:()=>200})
   for(const r of [request({frame:foreign}),request({url:'https://private.invalid/auth/v1/user'}),request({method:'POST'}),request({url:authOrigin+'/auth/v1/user?private=synthetic'})])page.emit('request',r)
   const r=request();page.emit('request',r);page.emit('response',{request:()=>r,status:()=>200,json:()=>{throw Error('private body must not be read')}})
   assert.equal(main,page.mainFrame())
  }})
- old=f.request();const wait=f.page.waitForRequest
- f.page.waitForRequest=predicate=>{const pending=wait(predicate);f.page.emit('request',old);return pending}
+ old=f.request()
  assert.deepEqual(await run(f,report),envelope.data)
  assert.deepEqual(report.w2_portfolio_access_observations,[{scope:'CURRENT_MAIN_DOCUMENT_AUTH_USER_HEADERS_NOT_AUTHORIZATION',width:768,document_observed:true,navigation_completed:true,gate_stage:'not_present',requests:1,responses:1,failures:0,pending:0,status_counts:{ok:1,denied:0,client_error:0,server_error:0,other:0},truncated:false}])
  assert.equal(JSON.stringify(report).includes('private'),false)
@@ -48,9 +49,10 @@ test('denied/upstream headers, failed transport and pending read stay distinguis
  await run(f,report);const o=report.w2_portfolio_access_observations[0]
  assert.deepEqual([o.width,o.requests,o.responses,o.failures,o.pending],[390,4,2,1,1]);assert.deepEqual(o.status_counts,{ok:0,denied:1,client_error:0,server_error:1,other:0})
 })
-test('navigation rejection and a later pending-read rejection are both observed and access listeners are removed',async()=>{
- const report={},f=fixture({navigate:async({page})=>{setTimeout(()=>page.rejectPending(),5);throw Error('synthetic navigation failure')}})
- await assert.rejects(run(f,report));await new Promise(resolve=>setTimeout(resolve,20))
+test('navigation rejection starts no request waiter and access listeners are removed',async()=>{
+ const report={},f=fixture({navigate:async()=>{throw Error('synthetic navigation failure')}})
+ let waits=0;f.page.waitForRequest=()=>{waits++;throw Error('request budget must not start during navigation')}
+ await assert.rejects(run(f,report));assert.equal(waits,0)
  assert.equal(report.w2_portfolio_access_observations[0].navigation_completed,false)
  for(const event of ['framenavigated','request','response','requestfailed'])assert.equal(f.page.listenerCount(event),0)
 })
