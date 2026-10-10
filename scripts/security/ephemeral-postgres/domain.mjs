@@ -184,6 +184,7 @@ try {
   console.log('ATOMIC CONFIRM/RESERVE/COMMAND/OUTBOX/ORIGINAL AUDIT SQL PASS; EMBEDDED, NOT NATIVE PROCESS ACCEPTANCE')
   await db.exec(await readFile(resolve(root, 'supabase/tests/assistant-reservation-role-boundary.sql'), 'utf8'))
   await db.exec(await readFile(resolve(root, 'supabase/tests/assistant-reservation-record-projection.sql'), 'utf8'))
+  await db.exec(await readFile(resolve(root, 'supabase/tests/assistant-confirmation-cancel.sql'), 'utf8'))
 
   await db.exec(`
     insert into public.assistant_registered_dispatchers values('task.create','task.create',1);

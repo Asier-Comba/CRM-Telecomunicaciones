@@ -64,6 +64,7 @@ try{
   for(const value of Object.values(input))assert.match(value,/^[A-Za-z0-9_.:-]+$/)
   const values=operation==='assistant_durable_v1_issue'
    ?[input.p_workspace,input.p_capability,input.p_digest]
+   :operation==='assistant_durable_v1_cancel'?[input.p_workspace,input.p_confirmation,input.p_capability,input.p_digest]
    :[input.p_workspace,input.p_confirmation,input.p_capability,input.p_digest,input.p_key,input.p_dispatcher,input.p_command,input.p_request]
   return {data:JSON.parse(await sql(auth+`select public.${operation}(${values.map(v=>`'${v}'`).join(',')});`)),error:null}
  }})
@@ -74,6 +75,10 @@ try{
  assert.equal(typedReserved.status,'reserved');assert.deepEqual(await ledger(typedKey),one)
  const typedReplay=await port.confirmReserveEnqueue({...principal,requestId:request+'_typed_retry'},typedCommand)
  assert.equal(typedReplay.status,'existing');assert.deepEqual(typedReplay.record,typedReserved.record)
+ assert.deepEqual(await port.cancelConfirmation(principal,typedConfirmation.operationRef,binding),{status:'already_terminal'})
+ const typedCancelled=await port.issueConfirmation(principal,binding,new Date('2099-01-01'))
+ const cancelReceipt=await port.cancelConfirmation(principal,typedCancelled.operationRef,binding)
+ assert.equal(cancelReceipt.status,'applied');assert.equal(cancelReceipt.record.state,'cancelled');assert.equal(cancelReceipt.record.version,2)
  console.log('TYPED RESERVATION PHYSICAL SEAM PASS: issue/confirmed reservation/exact replay; synthetic DB session only; full port/effects NOT_RUN.')
  const ref=await issue(),key='native_atomic_same_key_'+nonce,command='native_atomic_command_'+nonce
  const same=await Promise.all(Array.from({length:20},(_,i)=>run(auth+`select jsonb_build_object('backend',pg_backend_pid(),'receipt',${invoke(ref,key,command,{request:request+'_'+i})});`)))
@@ -104,6 +109,71 @@ try{
  assert.equal(competing.filter(r=>r.receipt.status==='reserved').length,1)
  assert.equal(competing.filter(r=>r.receipt.status==='invalid_confirmation').length,19)
  assert.equal(await sql(`select count(*) from public.assistant_operations where workspace_id='${workspace}' and confirmation_ref='${singleRef}';`),'1')
+ const cancel=(proof)=>{assert.match(proof,/^[0-9a-f]{64}$/);return `public.assistant_durable_v1_cancel('${workspace}','${proof}','${capability}','${digest}')`}
+ const cancelProof=await issue()
+ const cancelled=await Promise.all(Array.from({length:20},()=>run(auth+`select jsonb_build_object('backend',pg_backend_pid(),'receipt',${cancel(cancelProof)});`)))
+ assert.ok(cancelled.every(r=>r.code===0&&!r.timedOut));assert.equal(new Set(cancelled.map(r=>r.pid)).size,20)
+ const cancels=cancelled.map(r=>JSON.parse(r.out.trim()))
+ assert.equal(new Set(cancels.map(r=>r.backend)).size,20)
+ assert.equal(cancels.filter(r=>r.receipt.status==='applied').length,1)
+ assert.equal(cancels.filter(r=>r.receipt.status==='already_terminal').length,19)
+ assert.equal(await sql(`select state||':'||version from public.assistant_confirmations where workspace_id='${workspace}' and confirmation_ref='${cancelProof}';`),'cancelled:2')
+ assert.equal(await sql(`select count(*) from public.assistant_operations where workspace_id='${workspace}' and confirmation_ref='${cancelProof}';`),'0')
+ const mixedProof=await issue(),mixedKey='native_cancel_reserve_key_'+nonce,mixedCommand='native_cancel_reserve_command_'+nonce
+ const mixed=await Promise.all(Array.from({length:20},(_,i)=>run(auth+`select jsonb_build_object('backend',pg_backend_pid(),'receipt',${i<10?cancel(mixedProof):invoke(mixedProof,mixedKey,mixedCommand)});`)))
+ assert.ok(mixed.every(r=>r.code===0&&!r.timedOut));assert.equal(new Set(mixed.map(r=>r.pid)).size,20)
+ const contenders=mixed.map(r=>JSON.parse(r.out.trim()))
+ assert.equal(new Set(contenders.map(r=>r.backend)).size,20)
+ const terminal=await sql(`select state||':'||version from public.assistant_confirmations where workspace_id='${workspace}' and confirmation_ref='${mixedProof}';`)
+ if(terminal==='cancelled:2'){
+  assert.equal(contenders.filter(r=>r.receipt.status==='applied').length,1)
+  assert.equal(contenders.filter(r=>r.receipt.status==='already_terminal').length,9)
+  assert.equal(contenders.filter(r=>r.receipt.status==='invalid_confirmation').length,10)
+  assert.deepEqual(await ledger(mixedKey),zero)
+ }else{
+  assert.equal(terminal,'consumed:2')
+  assert.equal(contenders.filter(r=>r.receipt.status==='reserved').length,1)
+  assert.equal(contenders.filter(r=>r.receipt.status==='existing').length,9)
+  assert.equal(contenders.filter(r=>r.receipt.status==='already_terminal').length,10)
+  assert.deepEqual(await ledger(mixedKey),one)
+ }
+ const cancelSource=readFileSync('supabase/migrations/20261011014500_assistant_confirmation_cancel.sql','utf8').replace(/\r\n/g,'\n')
+ const cancelStart=cancelSource.indexOf('create function public.assistant_durable_v1_cancel(')
+ const cancelEnd=cancelSource.indexOf('revoke all on function public.assistant_durable_v1_cancel(',cancelStart)
+ const cancelDefinition=cancelSource.slice(cancelStart,cancelEnd)
+ assert.ok(cancelDefinition.includes(' or c.arguments_digest<>p_digest'))
+ const cancelMutant=cancelDefinition.replace('create function','create or replace function').replace(' or c.arguments_digest<>p_digest','')
+ const cancelHash=()=>sql("select encode(extensions.digest(convert_to(pg_get_functiondef('public.assistant_durable_v1_cancel(uuid,text,text,text)'::regprocedure),'UTF8'),'sha256'),'hex');")
+ const cancelBefore=await cancelHash()
+ const cancelNegative=await run('begin;'+cancelMutant+readFileSync('supabase/tests/assistant-confirmation-cancel.sql','utf8'))
+ assert.notEqual(cancelNegative.code,0);assert.equal(cancelNegative.timedOut,false);assert.match(cancelNegative.err,/cancel_changed_digest_accepted/)
+ assert.equal(await cancelHash(),cancelBefore)
+ await sql("create function public.assistant_native_cancel_fault() returns trigger language plpgsql as $$begin if NEW.state='cancelled' and current_setting('test.assistant.cancel.fail',true)='on' then raise exception 'synthetic_cancel_rollback';end if;return NEW;end$$;create trigger assistant_native_cancel_rollback after update on public.assistant_confirmations for each row execute function public.assistant_native_cancel_fault();")
+ const cancelRollbackProof=await issue()
+ const cancelRollback=await run(auth+`set test.assistant.cancel.fail='on';select ${cancel(cancelRollbackProof)};`)
+ assert.notEqual(cancelRollback.code,0);assert.equal(cancelRollback.timedOut,false);assert.match(cancelRollback.err,/synthetic_cancel_rollback/)
+ assert.equal(await sql(`select state||':'||version from public.assistant_confirmations where workspace_id='${workspace}' and confirmation_ref='${cancelRollbackProof}';`),'issued:1')
+ await sql('drop trigger assistant_native_cancel_rollback on public.assistant_confirmations;drop function public.assistant_native_cancel_fault();')
+ assert.equal(JSON.parse(await sql(auth+`select ${cancel(cancelRollbackProof)};`)).status,'applied')
+ // Observe an unexpired caller waiting on the proof's actual row lock. Expiry
+ // must be measured AFTER the lock becomes available, not at request start.
+ const waitingProof=await issue()
+ await sql(`with t as(select clock_timestamp()+interval '3 seconds' as expiry) update public.assistant_confirmations c set issued_at=t.expiry-interval '5 minutes',expires_at=t.expiry from t where c.workspace_id='${workspace}' and c.confirmation_ref='${waitingProof}';`)
+ const lockMarker='native_cancel_lock_ready_'+nonce
+ const holder=run(`set application_name='${lockMarker}';begin;select confirmation_ref from public.assistant_confirmations where workspace_id='${workspace}' and confirmation_ref='${waitingProof}' for update;select pg_sleep(4);commit;`)
+ let locked=false
+ const barrierDeadline=Date.now()+2500
+ while(!locked&&Date.now()<barrierDeadline){
+  locked=await sql(`select count(*)=1 from pg_stat_activity a join pg_locks l on l.pid=a.pid where a.application_name='${lockMarker}' and a.wait_event='PgSleep' and l.relation='public.assistant_confirmations'::regclass and l.mode='RowShareLock' and l.granted;`)==='t'
+  if(!locked)await new Promise(resolve=>setTimeout(resolve,25))
+ }
+ assert.equal(locked,true,'independent PostgreSQL lock/sleep barrier was not observed')
+ const waiting=await run(auth+`select jsonb_build_object('startedBeforeExpiry',clock_timestamp()<expires_at) from public.assistant_confirmations where workspace_id='${workspace}' and confirmation_ref='${waitingProof}';select ${cancel(waitingProof)};`)
+ assert.equal(waiting.code,0);assert.equal(waiting.timedOut,false)
+ const [started,expired]=waiting.out.trim().split('\n').map(line=>JSON.parse(line))
+ assert.equal(started.startedBeforeExpiry,true);assert.deepEqual(expired,{status:'expired'});assert.equal((await holder).code,0)
+ assert.equal(await sql(`select state||':'||version from public.assistant_confirmations where workspace_id='${workspace}' and confirmation_ref='${waitingProof}';`),'expired:2')
+ console.log('CONFIRMATION CANCEL NATIVE PASS: one winner/19 terminal refusals;20 cancel-reserve contenders;independent state/ledger;binding mutant rejected. Full durable-process.v2 NOT_RUN.')
  // Inject faults using disposable trigger DDL, never a production RPC fault flag.
  await sql(`create function public.assistant_native_fixture_fault() returns trigger language plpgsql as $$begin
  if current_setting('test.assistant.cutpoint',true)=TG_ARGV[0] then raise exception 'synthetic_atomic_cutpoint';end if;return NEW;end$$;`)
@@ -128,7 +198,7 @@ try{
   assert.equal(retry.status,'reserved');assert.deepEqual(await ledger(rollbackKey),one)
  }
  await sql('drop function public.assistant_native_fixture_fault();')
- const source=readFileSync('supabase/migrations/20261011010500_assistant_confirm_reserve_atomic.sql','utf8')
+ const source=readFileSync('supabase/migrations/20261011010500_assistant_confirm_reserve_atomic.sql','utf8').replace(/\r\n/g,'\n')
  const start=source.indexOf('create function public.assistant_durable_v1_confirm_reserve(')
  const end=source.indexOf('revoke all on function public.assistant_durable_v1_confirm_reserve(',start)
  const omit=/ insert into public\.assistant_audit_delivery_outbox\(workspace_id,event_ref,next_eligible_at,created_at\)\n values\(p_workspace,event_id,t,t\);/

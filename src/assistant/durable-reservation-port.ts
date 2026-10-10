@@ -3,10 +3,10 @@ import type {DurableConfirmationRecord,DurableIdempotencyRecord,ReconciliationAc
 import type {DurableDatabasePort} from './durable-db-contract.ts'
 import {boundedAwaitV2} from './bounded-await-v2.ts'
 
-/** Two-method physical seam only. Not a full DurableDatabasePort or enabled write path. */
-export type DurableReservationPortV1=Pick<DurableDatabasePort,'issueConfirmation'|'confirmReserveEnqueue'>
+/** Confirmation/reservation seam only. Not a full DurableDatabasePort or enabled write path. */
+export type DurableReservationPortV1=Pick<DurableDatabasePort,'issueConfirmation'|'cancelConfirmation'|'confirmReserveEnqueue'>
 export type ReservationAuthorityV1={actorId:string;workspaceId:string;permissions:ReadonlySet<string>}
-export type ReservationRpcV1='assistant_durable_v1_issue'|'assistant_durable_v1_confirm_reserve'
+export type ReservationRpcV1='assistant_durable_v1_issue'|'assistant_durable_v1_cancel'|'assistant_durable_v1_confirm_reserve'
 export type ReservationDependenciesV1={
  // Current server-owned session/permissions, resolved anew for EVERY call.
  authority:()=>Promise<ReservationAuthorityV1|null>
@@ -36,6 +36,12 @@ function timestamp(v:unknown):v is string{
  return Boolean(match&&Number(match[2])<24&&Number(match[3])<60&&Number(match[4])<60
   &&new Date(`${match[1]}T00:00:00Z`).toISOString().slice(0,10)===match[1])
 }
+// PostgreSQL keeps microseconds; Date.parse alone would merge two distinct
+// instants within one millisecond and reject a legitimate pre-expiry cancel.
+function microtime(value:string):bigint{
+ const fraction=/\.(\d{1,6})/.exec(value)?.[1].padEnd(6,'0')??'000000'
+ return BigInt(Date.parse(value))*BigInt(1000)+BigInt(fraction.slice(3))
+}
 function validBinding(v:unknown):v is IdempotencyBinding{
  return exact(v,'actorId,workspaceId,capability,argumentsDigest')&&uuid(v.actorId)&&uuid(v.workspaceId)&&capability(v.capability)&&digest(v.argumentsDigest)
 }
@@ -45,7 +51,7 @@ function matches(v:unknown,b:IdempotencyBinding):boolean{
 function confirmation(v:unknown,b:IdempotencyBinding):DurableConfirmationRecord{
  if(!exact(v,'operationRef,binding,state,version,issuedAt,expiresAt,updatedAt')||!ref(v.operationRef)||!matches(v.binding,b)
   ||v.state!=='issued'||v.version!==1||!timestamp(v.issuedAt)||!timestamp(v.expiresAt)||!timestamp(v.updatedAt)
-  ||Date.parse(v.expiresAt)-Date.parse(v.issuedAt)!==300000||v.updatedAt!==v.issuedAt)throw unavailable()
+  ||microtime(v.expiresAt)-microtime(v.issuedAt)!==BigInt(300000000)||v.updatedAt!==v.issuedAt)throw unavailable()
  return {operationRef:v.operationRef,binding:{...b},state:'issued',version:1,issuedAt:v.issuedAt,expiresAt:v.expiresAt,updatedAt:v.updatedAt}
 }
 function reservation(v:unknown,b:IdempotencyBinding,k:string):DurableIdempotencyRecord{
@@ -54,7 +60,7 @@ function reservation(v:unknown,b:IdempotencyBinding,k:string):DurableIdempotency
  if(!exact(v,'operationRef,idempotencyKey,binding,state,attempt,version,leaseExpiresAt,createdAt,updatedAt')||!ref(v.operationRef)
   ||v.idempotencyKey!==k||!matches(v.binding,b)||v.state!=='reserved'||v.attempt!==1||v.version!==1
   ||!timestamp(v.leaseExpiresAt)||!timestamp(v.createdAt)||!timestamp(v.updatedAt)
-  ||Date.parse(v.leaseExpiresAt)-Date.parse(v.createdAt)!==300000||v.updatedAt!==v.createdAt)throw unavailable()
+  ||microtime(v.leaseExpiresAt)-microtime(v.createdAt)!==BigInt(300000000)||v.updatedAt!==v.createdAt)throw unavailable()
  return {operationRef:v.operationRef,idempotencyKey:k,binding:{...b},state:'reserved',attempt:1,version:1,
   leaseExpiresAt:v.leaseExpiresAt,createdAt:v.createdAt,updatedAt:v.updatedAt}
 }
@@ -72,6 +78,22 @@ export function createDurableReservationPortV1(dependencies:ReservationDependenc
   return response.data
  }
  return {
+  async cancelConfirmation(actor,confirmationRef,binding){
+   try{
+    if(!ref(confirmationRef)||!await authorized(actor,binding))throw unavailable()
+    const value=await invoke('assistant_durable_v1_cancel',{p_workspace:binding.workspaceId,p_confirmation:confirmationRef,p_capability:binding.capability,p_digest:binding.argumentsDigest})
+    if(exact(value,'status')&&typeof value.status==='string'&&['not_found','binding_mismatch','already_terminal','expired'].includes(value.status))
+     return {status:value.status as 'not_found'|'binding_mismatch'|'already_terminal'|'expired'}
+    if(!exact(value,'status,record')||value.status!=='applied')throw unavailable()
+    const v=value.record
+    if(!exact(v,'operationRef,binding,state,version,issuedAt,expiresAt,updatedAt')||v.operationRef!==confirmationRef||!matches(v.binding,binding)
+     ||v.state!=='cancelled'||!Number.isSafeInteger(v.version)||Number(v.version)<2
+     ||!timestamp(v.issuedAt)||!timestamp(v.expiresAt)||!timestamp(v.updatedAt)
+     ||microtime(v.expiresAt)<=microtime(v.issuedAt)||microtime(v.expiresAt)-microtime(v.issuedAt)>BigInt(300000000)
+     ||microtime(v.updatedAt)<microtime(v.issuedAt)||microtime(v.updatedAt)>=microtime(v.expiresAt))throw unavailable()
+    return {status:'applied',record:{operationRef:confirmationRef,binding:{...binding},state:'cancelled',version:Number(v.version),issuedAt:v.issuedAt,expiresAt:v.expiresAt,updatedAt:v.updatedAt}}
+   }catch{throw unavailable()}
+  },
   async issueConfirmation(actor,binding,expiresAt){
    try{
     if(!(expiresAt instanceof Date)||!Number.isFinite(expiresAt.getTime())||!await authorized(actor,binding))throw unavailable()

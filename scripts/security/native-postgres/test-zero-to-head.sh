@@ -101,6 +101,7 @@ run_fixture supabase/seeds/synthetic_portfolio.sql
 run_fixture supabase/tests/assistant-durable-foundation.sql
 run_fixture supabase/tests/assistant-confirm-reserve-atomic.sql
 run_fixture supabase/tests/assistant-reservation-record-projection.sql
+run_fixture supabase/tests/assistant-confirmation-cancel.sql
 run_fixture supabase/tests/assistant-conversations-v2.sql
 run_fixture supabase/seeds/synthetic_durable.sql
 
@@ -164,6 +165,8 @@ docker exec -i -u postgres "$container" psql -X -v ON_ERROR_STOP=1 \
   -U postgres -d "$restore_db" < "$repo_root/supabase/tests/assistant-reservation-role-boundary.sql" > /dev/null
 docker exec -i -u postgres "$container" psql -X -v ON_ERROR_STOP=1 \
   -U postgres -d "$restore_db" < "$repo_root/supabase/tests/assistant-reservation-record-projection.sql" > /dev/null
+docker exec -i -u postgres "$container" psql -X -v ON_ERROR_STOP=1 \
+  -U postgres -d "$restore_db" < "$repo_root/supabase/tests/assistant-confirmation-cancel.sql" > /dev/null
 
 docker exec -i -u postgres "$container" psql -X -v ON_ERROR_STOP=1 \
   -U postgres -d "$restore_db" > /dev/null <<'SQL'

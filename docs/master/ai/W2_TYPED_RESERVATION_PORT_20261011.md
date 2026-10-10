@@ -1,5 +1,7 @@
 # W2 typed reservation seam — 11 October 2026
 
+Subsequent three-method cancellation extension and microsecond validation: `W2_CONFIRMATION_CANCEL_20261011.md`. The two-method results below describe the earlier PR130 source, not acceptance of that extension.
+
 Dependent on the physical transaction in PR130, source `b90178172ed40221499484023dd245e4b5c6998c`. Its native job114335961165 passed74 migrations,299 privilege functions, two20-process races, six rollback/retry cuts and mutation rejection. This dependent record-projection candidate requires its own acceptance; neither source closes Issue10 or enables writes.
 
 The compact issue/reserve receipts were insufficient to compose W3's records. The new SQL projection fixture reproduces `confirmation_projection_missing` on74 migrations. Forward-only migration75 replaces only those two functions' response projection, retaining transaction, current authority, database clock, binding comparisons, immutable reservation association and all execute revokes. It explicitly names each record field; it does not serialize a raw row or expose command/result/provider bodies. The privilege function count stays299.

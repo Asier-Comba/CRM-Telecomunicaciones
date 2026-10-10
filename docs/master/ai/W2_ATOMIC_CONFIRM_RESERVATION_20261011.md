@@ -13,7 +13,7 @@ Exact association replay returns the existing reservation after current authoriz
 
 The dispatcher metadata table is empty after migration. Neither primitive is executable by PUBLIC, anon, authenticated or service_role; all new tables use forced RLS and no raw grants. No route, factory registration, application worker, provider or real command handler is enabled. The registered-command record currently stores only identity/schema/binding: server-owned validated argument material and a production dispatcher implementation remain pending.
 
-New command FK enforces same workspace/operation/command/dispatcher on every new or changed outbox row. It is NOT VALID for prior inert rows: historical unassociated rows are quarantined from this primitive, not silently upgraded. Existing disposable foundation/restore seeds now explicitly create their synthetic command metadata; original assertions remain.
+New command FK enforces same workspace/operation/command/dispatcher on new or changed associations. It is NOT VALID for prior inert rows: changing other columns does not certify a legacy association. Historical unassociated reservations are denied by this primitive, not silently upgraded; future workers must retain that denial. Existing disposable foundation/restore seeds now explicitly create their synthetic command metadata; original assertions remain.
 
 ## Verification and exact limits
 

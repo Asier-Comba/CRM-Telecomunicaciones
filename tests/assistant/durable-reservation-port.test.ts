@@ -63,3 +63,21 @@ test('projection accessors are rejected without execution',async()=>{
  f.data({status:{toString(){invoked++;return 'conflict'}}})
  await assert.rejects(f.port.confirmReserveEnqueue(actor,command),safeUnavailable);assert.equal(invoked,0)
 })
+test('physical cancellation uses current authority, exact proof and full terminal record',async()=>{
+ const f=fixture(),cancelled={...record,state:'cancelled',version:2,updatedAt:'2026-10-11T01:26:00+00:00'}
+ f.data({status:'applied',record:cancelled});assert.deepEqual(await f.port.cancelConfirmation(actor,record.operationRef,binding),{status:'applied',record:cancelled})
+ assert.deepEqual(f.calls[0],{operation:'assistant_durable_v1_cancel',input:{p_workspace:binding.workspaceId,p_confirmation:record.operationRef,p_capability:binding.capability,p_digest:binding.argumentsDigest}})
+ f.permission(false);await assert.rejects(f.port.cancelConfirmation(actor,record.operationRef,binding),safeUnavailable);assert.equal(f.calls.length,1)
+})
+test('cancellation cannot claim success from a changed proof, unsafe version or expiry equality',async()=>{
+ for(const changed of [{...record,operationRef:'e'.repeat(64),state:'cancelled',version:2},{...record,state:'cancelled',version:9007199254740992},{...record,state:'cancelled',version:2,updatedAt:expiresAt}]){
+  const f=fixture();f.data({status:'applied',record:changed});await assert.rejects(f.port.cancelConfirmation(actor,record.operationRef,binding),safeUnavailable)
+ }
+ const f=fixture();for(const status of ['not_found','binding_mismatch','already_terminal','expired']){f.data({status});assert.deepEqual(await f.port.cancelConfirmation(actor,record.operationRef,binding),{status})}
+})
+test('cancellation respects PostgreSQL microseconds within a single JavaScript millisecond',async()=>{
+ const f=fixture(),cancelled={...record,state:'cancelled',version:2,issuedAt:'2026-10-11T01:25:00.000001Z',updatedAt:'2026-10-11T01:25:00.000002Z',expiresAt:'2026-10-11T01:25:00.000003Z'}
+ f.data({status:'applied',record:cancelled});assert.deepEqual(await f.port.cancelConfirmation(actor,record.operationRef,binding),{status:'applied',record:cancelled})
+ f.data({...issued,record:{...record,issuedAt:'2026-10-11T01:25:00.000001Z',updatedAt:'2026-10-11T01:25:00.000001Z',expiresAt:'2026-10-11T01:30:00.000002Z'}})
+ await assert.rejects(f.port.issueConfirmation(actor,binding,new Date()),safeUnavailable)
+})
