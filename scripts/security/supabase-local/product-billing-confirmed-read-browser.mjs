@@ -1,7 +1,8 @@
 import {expect} from '@playwright/test'
 import {resolve} from 'node:path'
+import {observeBillingCurrentInvoiceStep} from './billing-current-invoice-step.mjs'
 
-export async function billingConfirmedReadBrowser({page,origin,sql,wa,customerId,day,screenshotDir}){
+export async function billingConfirmedReadBrowser({page,origin,sql,wa,customerId,day,screenshotDir,report}){
  const button=name=>page.getByRole('button',{name,exact:true}),field=name=>page.getByLabel(name,{exact:true})
  const notes='W2 confirmed current invoice',count=()=>Number(sql(`select count(*) from public.billing_invoices where workspace_id='${wa}' and customer_id='${customerId}'`)),before=count()
  let invoiceId=null,lost=true,failRead=true,reads=0,commands=[],phase='create'
@@ -41,7 +42,15 @@ export async function billingConfirmedReadBrowser({page,origin,sql,wa,customerId
   const issuedRead=currentRead();await button('Consultar factura registrada').click();const issuedBody=await (await issuedRead).json(),issued=issuedBody.data;await expect(button('Marcar como cobrada')).toBeVisible()
   if(!issuedBody.ok||!issued?.invoice||issued.invoice.version!==3||issued.invoice.status!=='issued'||issued.invoice.customer_id!==customerId||`${issued.invoice.number.series}:${issued.invoice.number.year}:${issued.invoice.number.sequence}`!==storedNumber||commands.length!==4||reads!==6||count()!==before+1)throw Error('BILLING_CONFIRMED_ISSUE_RECOVERY_CHANGED_NUMBER_OR_WROTE_AGAIN')
   const detail=page.locator(`section[data-invoice-detail-id="${invoiceId}"]`)
-  for(const width of [1440,768,390]){await page.setViewportSize({width,height:960});await detail.scrollIntoViewIfNeeded();await expect(detail).toBeInViewport({ratio:1});await expect(detail).toHaveAttribute('data-invoice-detail-version','3');await page.screenshot({path:resolve(screenshotDir,'billing-confirmed-current-invoice-'+width+'.png'),fullPage:true});if(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1))throw Error('BILLING_CONFIRMED_CURRENT_INVOICE_OVERFLOW')}
+  for(const width of [1440,768,390]){
+   const observe=(step,action)=>observeBillingCurrentInvoiceStep(report,width,step,action)
+   await observe('viewport_setup',()=>page.setViewportSize({width,height:960}))
+   await observe('scroll',()=>detail.scrollIntoViewIfNeeded())
+   await observe('viewport_assertion',()=>expect(detail).toBeInViewport({ratio:1}))
+   await observe('version_assertion',()=>expect(detail).toHaveAttribute('data-invoice-detail-version','3'))
+   await observe('screenshot',()=>page.screenshot({path:resolve(screenshotDir,'billing-confirmed-current-invoice-'+width+'.png'),fullPage:true}))
+   await observe('overflow',async()=>{if(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1))throw Error('BILLING_CONFIRMED_CURRENT_INVOICE_OVERFLOW')})
+  }
  }catch(error){throw Error('billing_confirmed_read:'+phase,{cause:error})}
  finally{await page.unroute('**/api/billing/v1/commands',commandRoute);await page.unroute('**/api/billing/v1/queries',queryRoute);await page.setViewportSize({width:1440,height:960})}
 }
