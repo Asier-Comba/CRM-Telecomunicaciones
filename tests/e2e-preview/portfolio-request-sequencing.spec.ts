@@ -1,4 +1,5 @@
 import { createServer } from 'node:http'
+import type { EventEmitter } from 'node:events'
 import { expect, test } from '@playwright/test'
 import { currentPortfolioReference } from '../../scripts/security/supabase-local/product-portfolio-reference-read.mjs'
 
@@ -38,13 +39,15 @@ for (const mode of ['delayed_navigation', 'before_load', 'foreign_frame', 'wrong
       const address = server.address(); if (!address || typeof address === 'string') throw Error('LOOPBACK_ADDRESS_REQUIRED')
       const origin = `http://127.0.0.1:${address.port}`
       page.setDefaultTimeout(1000); page.setDefaultNavigationTimeout(5000)
-      const operation = currentPortfolioReference({ page, origin, kind: 'contract', id, report: {} })
+      const operation = currentPortfolioReference({ page, origin, kind: 'contract', id, report: {}, authOrigin: undefined })
       if (mode === 'wrong_id') await expect(operation).rejects.toThrow(/Timeout/)
       else if (mode === 'http_refusal') await expect(operation).rejects.toThrow('PORTFOLIO_REFERENCE_HTTP_REFUSED')
       else if (mode === 'dto_refusal') await expect(operation).rejects.toThrow('PORTFOLIO_REFERENCE_CURRENT_DTO_INVALID')
       else await expect(operation).resolves.toEqual(envelope.data)
       expect(counts).toEqual({ documents: 1, current_queries: 1, foreign_queries: mode === 'foreign_frame' ? 1 : 0 })
-      expect(page.listenerCount('request')).toBe(0); expect(page.listenerCount('framenavigated')).toBe(0)
+      // Playwright's runtime emitter has this API; the Page interface omits it.
+      const eventCounts = page as unknown as Pick<EventEmitter, 'listenerCount'>
+      expect(eventCounts.listenerCount('request')).toBe(0); expect(eventCounts.listenerCount('framenavigated')).toBe(0)
     } finally {
       for (const timer of timers) clearTimeout(timer)
       server.closeAllConnections(); await new Promise<void>((resolve, reject) => server.close(error => error ? reject(error) : resolve()))
