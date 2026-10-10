@@ -1,5 +1,6 @@
 import {parsePortfolioGetInputV1,parsePortfolioGetV1} from '../../../src/lib/server/portfolio-runtime-v1.ts'
 import {observePortfolioStartup} from './portfolio-startup-observation.mjs'
+import {captureCurrentPortfolioRequest} from './current-portfolio-request.mjs'
 
 /** Read only a closed lifecycle marker from the same committed document. */
 export async function currentPortfolioGateStage(page,destination){
@@ -59,13 +60,14 @@ export async function currentPortfolioReference({page,origin,kind,id,report,auth
  const destination=origin+'/portfolio?kind='+input.kind+'&id='+input.id
  const observation=observeAccess({page,authOrigin,destination,report,phase})
  const startup=observePortfolioStartup({page,destination,report,phase})
+ let current
  try{
- step('current_request')
- const pending=page.waitForRequest(request=>{
+ current=captureCurrentPortfolioRequest({page,destination,predicate:request=>{
   if(request.method()!=='POST'||request.url()!==origin+'/api/portfolio/v1/queries')return false
   try{const body=request.postDataJSON();return Object.keys(body).sort().join(',')==='input,operation'&&body.operation==='portfolio.get'&&Object.keys(body.input).sort().join(',')==='id,kind'&&body.input.kind===input.kind&&body.input.id===input.id}catch{return false}
- })
- const [,request]=await Promise.all([page.goto(destination).then(()=>{observation.navigationDone();startup.navigationDone()}),pending])
+ }})
+ step('current_navigation');await page.goto(destination);observation.navigationDone();startup.navigationDone()
+ step('current_request');const request=await current.wait()
  step('current_response');const response=await request.response()
  if(!response||response.status()!==200)throw Error('PORTFOLIO_REFERENCE_HTTP_REFUSED')
  step('current_body');let body;try{body=await response.json()}catch{throw Error('PORTFOLIO_REFERENCE_BODY_UNAVAILABLE')}
@@ -73,5 +75,5 @@ export async function currentPortfolioReference({page,origin,kind,id,report,auth
  const value=parsePortfolioGetV1(input,body.data)
  if(!value)throw Error('PORTFOLIO_REFERENCE_CURRENT_DTO_INVALID')
  step('current_render');return value
- }finally{try{await observation.finish()}finally{await startup.finish()}}
+ }finally{current?.finish();try{await observation.finish()}finally{await startup.finish()}}
 }
