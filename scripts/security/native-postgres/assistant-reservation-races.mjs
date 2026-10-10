@@ -4,6 +4,7 @@ import {spawn,spawnSync} from 'node:child_process'
 import {randomBytes} from 'node:crypto'
 import {readFileSync} from 'node:fs'
 import {isExpectedNativeImage} from './expected-image.mjs'
+import {createDurableReservationPortV1} from '../../../src/assistant/durable-reservation-port.ts'
 
 const container=process.env.TELECOM_NATIVE_TEST_CONTAINER??''
 assert.match(container,/^[0-9a-f]{12,64}$/)
@@ -55,6 +56,25 @@ const zero={operations:0,commands:0,outbox:0,intents:0,deliveries:0}
 try{
  assert.equal(await sql('select current_database();'),database)
  await sql(`insert into public.assistant_registered_dispatchers values('${dispatcher}','${capability}',1);`)
+ // Execute the SAME typed reservation seam against physical SQL, rather than
+ // accepting a synthetic JavaScript receipt as database conformance.
+ const binding={actorId:actor,workspaceId:workspace,capability,argumentsDigest:digest}
+ const principal={actorId:actor,workspaceId:workspace,authentication:'user_session',permissions:new Set(),requestId:request}
+ const port=createDurableReservationPortV1({authority:async()=>({actorId:actor,workspaceId:workspace,permissions:new Set([capability])}),invoke:async(operation,input)=>{
+  for(const value of Object.values(input))assert.match(value,/^[A-Za-z0-9_.:-]+$/)
+  const values=operation==='assistant_durable_v1_issue'
+   ?[input.p_workspace,input.p_capability,input.p_digest]
+   :[input.p_workspace,input.p_confirmation,input.p_capability,input.p_digest,input.p_key,input.p_dispatcher,input.p_command,input.p_request]
+  return {data:JSON.parse(await sql(auth+`select public.${operation}(${values.map(v=>`'${v}'`).join(',')});`)),error:null}
+ }})
+ const typedConfirmation=await port.issueConfirmation(principal,binding,new Date('2099-01-01'))
+ const typedKey='native_typed_key_'+nonce
+ const typedCommand={confirmationRef:typedConfirmation.operationRef,binding,idempotencyKey:typedKey,command:{dispatcher,commandRef:'native_typed_command_'+nonce}}
+ const typedReserved=await port.confirmReserveEnqueue(principal,typedCommand)
+ assert.equal(typedReserved.status,'reserved');assert.deepEqual(await ledger(typedKey),one)
+ const typedReplay=await port.confirmReserveEnqueue({...principal,requestId:request+'_typed_retry'},typedCommand)
+ assert.equal(typedReplay.status,'existing');assert.deepEqual(typedReplay.record,typedReserved.record)
+ console.log('TYPED RESERVATION PHYSICAL SEAM PASS: issue/confirmed reservation/exact replay; synthetic DB session only; full port/effects NOT_RUN.')
  const ref=await issue(),key='native_atomic_same_key_'+nonce,command='native_atomic_command_'+nonce
  const same=await Promise.all(Array.from({length:20},(_,i)=>run(auth+`select jsonb_build_object('backend',pg_backend_pid(),'receipt',${invoke(ref,key,command,{request:request+'_'+i})});`)))
  assert.ok(same.every(r=>r.code===0&&!r.timedOut))
