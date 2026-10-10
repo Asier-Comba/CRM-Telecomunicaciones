@@ -10,11 +10,12 @@ function fixture(){
  page.mainFrame=()=>main
  page.waitForRequest=async predicate=>{waits++;const request={frame:()=>main,exact:true};assert.equal(predicate(request),true);return request}
  const capture=captureCurrentPortfolioRequest({page,destination,predicate:r=>{reads++;return r.exact===true}})
- const commit=(next=destination)=>{url=next;page.emit('framenavigated',main)}
+ const commit=(next=destination)=>{page.emit('request',{frame:()=>main,isNavigationRequest:()=>true,resourceType:()=> 'document'});url=next;page.emit('framenavigated',main)}
+ const sameDocument=(next=destination)=>{url=next;page.emit('framenavigated',main)}
  const emit=(frame=main,exact=true)=>{const request={frame:()=>frame,exact};page.emit('request',request);return request}
- return{page,main,foreign,capture,commit,emit,counts:()=>({waits,reads})}
+ return{page,main,foreign,capture,commit,sameDocument,emit,counts:()=>({waits,reads})}
 }
-const clear=f=>{f.capture.finish();for(const event of ['request','framenavigated'])assert.equal(f.page.listenerCount(event),0)}
+const clear=f=>{f.capture.finish();for(const event of ['request','framenavigated','requestfailed'])assert.equal(f.page.listenerCount(event),0)}
 
 test('navigation consumes no request budget and a read before load is retained without an additional waiter',async()=>{
  const f=fixture();assert.deepEqual(f.counts(),{waits:0,reads:0});f.commit();const first=f.emit()
@@ -35,6 +36,24 @@ test('a successor document invalidates the cached reference even if it has the s
  for(const next of [destination,destination+'&changed=1']){
   const f=fixture();f.commit();f.emit();f.commit(next);f.emit();await assert.rejects(f.capture.wait(),/DOCUMENT_CHANGED/);assert.equal(f.counts().waits,0);clear(f)
  }
+})
+
+test('same-document identical-URL history updates retain the first exact read and the original budget',async()=>{
+ const f=fixture();f.sameDocument();f.emit();assert.equal(f.counts().reads,0)
+ f.commit();const first=f.emit();for(let i=0;i<20;i++)f.sameDocument()
+ assert.equal(await f.capture.wait(),first);assert.equal(f.counts().waits,0);clear(f)
+})
+
+test('same-document URL changes invalidate the cached reference',async()=>{
+ const f=fixture();f.commit();f.emit();f.sameDocument(destination+'&changed=1')
+ await assert.rejects(f.capture.wait(),/DOCUMENT_CHANGED/);clear(f)
+})
+
+test('a failed navigation request cannot make a later same-document update look like a replacement',async()=>{
+ const f=fixture();f.commit();const first=f.emit()
+ const request={frame:()=>f.main,isNavigationRequest:()=>true,resourceType:()=> 'document'}
+ f.page.emit('request',request);f.page.emit('requestfailed',request);f.sameDocument()
+ assert.equal(await f.capture.wait(),first);clear(f)
 })
 test('detached requests do not throw, publish data or evaluate private fields',async()=>{
  const f=fixture();f.commit();f.page.emit('request',{frame:()=>{throw Error('private detached detail')},get exact(){throw Error('private getter')}})

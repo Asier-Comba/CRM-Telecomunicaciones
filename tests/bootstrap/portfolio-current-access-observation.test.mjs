@@ -17,6 +17,7 @@ function fixture({beforeCommit,navigate,status=200,body=envelope}={}){
  page.goto=async url=>{
   page.navigations.push(url);page.destination=url;if(url==='about:blank')return
   if(beforeCommit)await beforeCommit({page,main,foreign,request,portfolio})
+  page.emit('request',{frame:()=>main,isNavigationRequest:()=>true,resourceType:()=> 'document'})
   page.emit('framenavigated',main)
   if(navigate)await navigate({page,main,foreign,request,portfolio})
   page.emit('request',portfolio)
