@@ -16,6 +16,21 @@ export function localDockerEndpoint(value) {
   return value === 'unix:///var/run/docker.sock' || /^npipe:\/\/\/\/\.\/pipe\/(docker_engine|dockerDesktopLinuxEngine)$/.test(value)
 }
 
+export function localProjectConfig(value) {
+  // Observe only the closed root declaration used by our local configuration.
+  // This is not a TOML validator or installation approval. Reject other root
+  // expressions instead of interpreting strings, tables or comments as scope.
+  if (typeof value !== 'string') return false
+  const declarations = []
+  for (const line of value.replace(/^\uFEFF/, '').split(/\r?\n/)) {
+    const ordinary = line.replace(/^[ \t]+|[ \t]+$/g, '')
+    if (!ordinary || ordinary.startsWith('#')) continue
+    if (ordinary.startsWith('[')) break
+    declarations.push(ordinary)
+  }
+  return declarations.length === 1 && /^(?:project_id|"project_id"|'project_id')[ \t]*=[ \t]*(?:"crm-telecom-local"|'crm-telecom-local')[ \t]*(?:#.*)?$/.test(declarations[0])
+}
+
 export function gitRefreshStatus(cwd, run = command) {
   // Local metadata only: no remote URLs, branch names, fetch or network request.
   const mapping = run('git', ['config', '--get-all', 'remote.origin.fetch'], cwd)
@@ -50,7 +65,7 @@ export async function localRecoveryReport({ cwd = root, run = command, freeBytes
   const gitChanges = run('git', ['status', '--porcelain=v1', '--untracked-files=normal'], cwd)
   const projectFiles = ['package.json', 'package-lock.json', 'supabase/config.toml', 'scripts/security/supabase-local/run-stack.mjs']
   let localProject = false
-  try { localProject = readFileSync(resolve(cwd, 'supabase/config.toml'), 'utf8').includes('project_id = "crm-telecom-local"') } catch { /* Missing configuration is a blocker. */ }
+  try { localProject = localProjectConfig(readFileSync(resolve(cwd, 'supabase/config.toml'), 'utf8')) } catch { /* Missing configuration is a blocker. */ }
   const supabase = run('supabase', ['--version'], cwd)
   const cli = supabase.ok && supabase.text === '2.119.0' ? 'PINNED_VERSION_AVAILABLE' : supabase.ok ? 'VERSION_MISMATCH' : 'NOT_AVAILABLE_ON_PATH'
   const docker = dockerStatus(cwd, run, env)
