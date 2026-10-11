@@ -2,7 +2,7 @@ import { fork } from 'node:child_process'
 import { isAbsolute } from 'node:path'
 import { pathToFileURL, fileURLToPath } from 'node:url'
 import assert from 'node:assert/strict'
-import { DURABLE_PROCESS_CONTRACT, DURABLE_PROCESS_SCENARIOS, validateDurableObservation, validateRollbackEvidence, validateDatabaseRestartEvidence, validateClaimFenceEvidence, validateImmutableAuditEvidence } from '../src/assistant/durable-process-spec.ts'
+import { DURABLE_PROCESS_CONTRACT, DURABLE_PROCESS_SCENARIOS, validateDurableObservation, validateAuditOutageObservation, validateRollbackEvidence, validateDatabaseRestartEvidence, validateClaimFenceEvidence, validateImmutableAuditEvidence } from '../src/assistant/durable-process-spec-v3.ts'
 
 // Usage on repository Node24: node scripts/durable-process-acceptance.mjs /absolute/W2-driver.mjs
 // Driver receives credentials through its own approved local environment, never CLI JSON.
@@ -88,9 +88,7 @@ try {
       }
       if (scenario.id === 'audit_delivery_outage') {
         const beforeDrain = await driver.inspectScenario(fixture)
-        assert.equal(beforeDrain.originalAuditIntents, 1)
-        assert.equal(beforeDrain.pendingOriginalEvents, 1)
-        assert.equal(beforeDrain.deliveredOriginalEvents, 0)
+        assert.equal(validateAuditOutageObservation(beforeDrain), true)
       }
       const identities = jobs.map(job => job.identity)
       if (scenario.recover) {

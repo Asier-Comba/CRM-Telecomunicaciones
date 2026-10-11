@@ -1,5 +1,11 @@
 # Native durability acceptance v2 — W2 implementation, independent review pending
 
+Historical v2 specification. The active runner now requires explicit
+`assistant.durable-process.v3` metadata and the complete audit ledger in
+[v3](W3_DURABLE_PROCESS_ACCEPTANCE_V3.md). The v2 oracle source and its tests remain
+as historical business-invariant controls; a v2 driver cannot silently receive
+the new semantics. Neither version has full physical acceptance.
+
 This is an executable specification, not a database adapter or acceptance result.
 W2 supplies the driver. W4 unavailability does not waive independent review or
 allow Issue10 closure, staging, production or assistant writes.
