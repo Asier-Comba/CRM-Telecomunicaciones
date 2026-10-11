@@ -16,6 +16,7 @@ import {createDurableBusinessOutboxPortV1} from '../../../src/assistant/durable-
 import {createDurableAuditDeliveryPortV1} from '../../../src/assistant/durable-audit-delivery-port.ts'
 import {createDurableAuditDrainV1} from '../../../src/assistant/durable-audit-drain.ts'
 import {runIndependentCompletionRaceV1} from './positive-reconciliation-race.mjs'
+import {runCompletionProcessCutV1} from './positive-reconciliation-process-cut.mjs'
 const container=process.env.TELECOM_NATIVE_TEST_CONTAINER??''
 assert.match(container,/^[0-9a-f]{12,64}$/)
 const image=spawnSync('docker',['inspect','--format={{.Config.Image}}',container],{encoding:'utf8'})
@@ -121,6 +122,23 @@ try{
  loseReply=true;await assert.rejects(completion.completeOperationWithAuditIntent({...context,requestId:original.requestId},{...replyLost,auditIntent:original}));expectedAudits.set(replyLost.eventRef,original)
  const afterLoss=hash(await aggregate());assert.equal((await completion.loadAuthorizedOperation(context,replyLost.operationRef,new Date())).state,'completed');assert.equal(hash(await aggregate()),afterLoss)
  await assert.rejects(completion.completeOperationWithAuditIntent({...context,requestId:'completion_changed_retry_'+nonce},{...replyLost,auditIntent:originalAudit('completion_changed_retry_'+nonce,999)}));assert.equal(hash(await aggregate()),afterLoss)
+ const crashCandidate=await preparedCompletion('completion_process_cut'),crashAudit=originalAudit('completion_process_cut_original_'+nonce,287)
+ const crashCommand=JSON.parse(await sql(`select jsonb_build_object('dispatcher',dispatcher_key,'commandRef',command_ref) from public.assistant_registered_commands where workspace_id='${workspace}' and operation_ref=${literal(crashCandidate.operationRef)};`))
+ const crashBefore=await completion.loadAuthorizedOperation(context,crashCandidate.operationRef,new Date()),crashReceipt=crashBefore.effectReceiptRef
+ assert.equal(crashBefore.state,'effect_applied');assert.equal(crashBefore.version,3)
+ let crashLedger,crashRecord
+ const crash=await runCompletionProcessCutV1({...crashCandidate,auditIntent:crashAudit,actor:{authentication:'user_session',actorId:actor,workspaceId:workspace,permissions:authority.permissions,requestId:crashAudit.requestId},now:new Date()},
+  {workspace,actor,capability,workerRef,input,outcomes,command:crashCommand,expectedReceipt:crashReceipt,expectedIdempotencyKey:crashBefore.idempotencyKey,recoveryRequestId:'completion_fresh_process_recovery_'+nonce},async()=>{
+   crashRecord=await completion.loadAuthorizedOperation(context,crashCandidate.operationRef,new Date())
+   assert.equal(crashRecord.state,'completed');assert.equal(crashRecord.version,4);assert.deepEqual(crashRecord.result,crashCandidate.result);assert.equal(crashRecord.effectReceiptRef,crashReceipt)
+   const original=JSON.parse(await sql(`select capability_event from public.assistant_original_audit_intents where workspace_id='${workspace}' and event_ref=${literal(crashCandidate.eventRef)};`))
+   assert.deepEqual(original,crashAudit)
+   assert.equal(await sql(`select count(*) from public.assistant_audit_delivery_outbox where workspace_id='${workspace}' and event_ref=${literal(crashCandidate.eventRef)} and state='pending';`),'1')
+   crashLedger=await aggregate();return hash(canonicalArgumentsV1(crashRecord))
+  },terminateOwnedSessions)
+ assert.equal(crash.signal,'SIGKILL');assert.equal(crash.independentRecovery,true);assert.equal(crash.recordDigest,hash(canonicalArgumentsV1(crashRecord)))
+ assert.equal(crash.receiptDigest,hash(crashReceipt));assert.equal(crash.resultDigest,hash(canonicalArgumentsV1(crashCandidate.result)));assert.equal(await aggregate(),crashLedger)
+ expectedAudits.set(crashCandidate.eventRef,crashAudit)
  const rollback=await preparedCompletion('completion_rollback'),rollbackAudit=originalAudit('completion_rollback_original_'+nonce,345),before=hash(await aggregate())
  await sql(`create function public.${cut}() returns trigger language plpgsql set search_path='' as $$begin if NEW.event_ref='${rollback.eventRef}' then raise exception 'synthetic_native_completion_cut';end if;return NEW;end$$;
  create trigger ${cut} after insert on public.assistant_audit_delivery_outbox for each row execute function public.${cut}();`)
@@ -163,10 +181,10 @@ try{
   assert.equal(original.digest,packet.contentDigest);assert.deepEqual(original.packet,packet)
   return {status:'accepted',workspaceId:workspace,eventRef:event.eventRef,digestAlgorithm:packet.digestAlgorithm,contentDigest:packet.contentDigest,receiptRef:original.receipt}
  }})
- const page=await drain.processPage();assert.equal(page.status,'page_processed');assert.equal(page.delivered,11);assert.equal((await drain.processPage()).status,'empty_page')
+ const page=await drain.processPage();assert.equal(page.status,'page_processed');assert.equal(page.delivered,14);assert.equal((await drain.processPage()).status,'empty_page')
  assert.equal(await sql(`select count(*) from public.assistant_audit_delivery_outbox d join public.assistant_original_audit_intents i using(workspace_id,event_ref) where i.capability='${capability}' and d.state='pending';`),'0')
- assert.equal(await sql(`select count(*) from public.${auditSink};`),'11');assert.equal(hash(await allOriginals()),originals)
- console.log('SAFE COMPLETION NATIVE PASS:20 distinct independent Node processes/native backends same persistent connection;one completion19 conflicts;registered result producer;original receipt;postcommit loss/authorized replay;atomic rollback/retry;grant expiry after observed customer lock;five SQL mutants restored;eleven original audits including full eleven-field completion payloads drained;NOT full23/four complete Node scenarios/business handler/SIGKILL/restart')
+ assert.equal(await sql(`select count(*) from public.${auditSink};`),'14');assert.equal(hash(await allOriginals()),originals)
+ console.log('SAFE COMPLETION NATIVE PASS:20 distinct independent Node processes/native backends same persistent connection;one completion19 conflicts;registered result producer;original receipt;postcommit loss/authorized replay;real postcommit SIGKILL observed after independent persisted full record/audit inspection;fresh Node/backend recovers identical full record/result/receipt and eight ledgers unchanged;atomic rollback/retry;grant expiry after observed customer lock;five SQL mutants restored;fourteen original audits including full eleven-field completion payloads drained;NOT full23/four complete Node scenarios/business handler/before-effect SIGKILL/restart')
 }finally{
  for(const child of owned)child.kill('SIGKILL')
  // Only nonce-owned fixture resources, after checking the existing owned cluster.
