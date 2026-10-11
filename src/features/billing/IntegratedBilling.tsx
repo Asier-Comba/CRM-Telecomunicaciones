@@ -22,7 +22,11 @@ type Summary=Extract<BillingReadDataV1,{operation:'invoice.summary'}>['invoice']
 type Financial=Extract<BillingReadDataV1,{operation:'invoice.financial_summary'}>
 type RegisteredInvoice={receipt:BillingReceiptV1;customerId:string}
 const money=(minor:number,currency:string)=>new Intl.NumberFormat('es-ES',{style:'currency',currency}).format(minor/100)
-export function IntegratedBilling({initialInvoiceId,initialCustomerId,contentEnabled=false,initialCreate=false}:{initialCreate?:boolean;initialInvoiceId?:string;initialCustomerId?:string;contentEnabled?:boolean}){
+type IntegratedBillingProps={initialCreate?:boolean;initialInvoiceId?:string;initialCustomerId?:string;contentEnabled?:boolean}
+export function IntegratedBilling(props:IntegratedBillingProps){
+  return <ScopedIntegratedBilling key={JSON.stringify([props.initialInvoiceId??null,props.initialCustomerId??null,props.initialCreate??false])} {...props}/>
+}
+function ScopedIntegratedBilling({initialInvoiceId,initialCustomerId,contentEnabled=false,initialCreate=false}:IntegratedBillingProps){
   const {repository,role}=useProduct(),authorized=role==='owner'||role==='admin'
   const [createCustomer,setCreateCustomer]=useState(initialCreate&&authorized),[newCustomer,setNewCustomer]=useState('')
   const [query,setQuery]=useState(''),[customers,setCustomers]=useState<{id:string;name:string}[]>([]),[customerId,setCustomerId]=useState(initialCustomerId??''),[status,setStatus]=useState(''),[period,setPeriod]=useState<Period>('month')
