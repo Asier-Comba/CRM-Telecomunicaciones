@@ -23,6 +23,13 @@ test('SIM normal records are mask-only and retain a coherent resource/associatio
  assert.ok(result('sim.list',{},page([row])));for(const r of [{...row,iccid:'private'},{...row,masked_iccid:'8900000000000000180'},{...row,status:'active'},{...row,masked_eid:'••••180'},{...row,assigned_line_id:other}])assert.equal(result('sim.list',{},page([r])),null)
  assert.equal(result('sim.list',{customer_id:other},page([row])),null);assert.equal(result('sim.list',{},page([row,row])),null)
 })
+test('SIM list and selected read reject an update earlier than creation and accept equality or a later update',()=>{
+ for(const op of ['sim.list','sim.get'])for(const updated_at of [row.created_at,'2026-01-02T00:00:00Z','2025-12-31T23:59:59Z']){
+  const record={...row,updated_at},dto=op==='sim.list'?page([record]):{contract_version:'sim.v1',operation:op,record}
+  assert.equal(result(op,op==='sim.list'?{}:{id},dto)!==null,updated_at>=row.created_at)
+ }
+})
+
 test('replacement receipt preserves old resource and explicit new resource CAS without guessed identities',()=>{
  assert.ok(result('sim.replace',replace,receipt));for(const r of [{...receipt,replacement_version:3},{...receipt,replacement_status:'assigned'},{...receipt,source:'integration'},{...receipt,association_id:null},{...receipt,iccid:'private'}])assert.equal(result('sim.replace',replace,r),null)
 })

@@ -14,12 +14,14 @@ const labels: Record<string, string> = { display_name: 'Nombre', title: 'Título
   target_on: 'Renovación prevista', ends_on: 'Fin de permanencia', opens_on: 'Inicio de ventana', closes_on: 'Fin de ventana', month: 'Mes', count: 'Cantidad',
   contacts: 'Contactos', contracts: 'Contratos', services: 'Servicios', lines: 'Líneas', renewals: 'Renovaciones', permanences: 'Permanencias', opportunities: 'Oportunidades',
   tasks: 'Tareas', meetings: 'Reuniones', cases: 'Incidencias', documents: 'Documentos', billing: 'Facturas', activity: 'Actividad', portabilities: 'Portabilidades', sims: 'SIM',
-  customers: 'Clientes', open: 'Abiertos', completed: 'Completados', cancelled: 'Cancelados', active: 'Activos', suspended: 'Suspendidos', pending: 'Pendientes',
+  customers: 'Clientes', display_label: 'Etiqueta', kind: 'Tipo', source: 'Origen', open: 'Abiertos', completed: 'Completados', cancelled: 'Cancelados', active: 'Activos', suspended: 'Suspendidos', pending: 'Pendientes',
   masked_msisdn: 'Número enmascarado', masked_iccid: 'ICCID enmascarado', masked_eid: 'EID enmascarado', sim_kind: 'Tipo de SIM', sim_status: 'Estado de SIM',
   portability_status: 'Estado de portabilidad', open_commitment_count: 'Compromisos abiertos', next_commitment_ends_on: 'Próximo fin de compromiso' }
 const titles: Record<string, string> = { customer: 'Clientes', customer360: 'Resumen del cliente', contact: 'Contactos', contract: 'Contratos', service: 'Servicios', line: 'Líneas',
   renewal: 'Renovaciones', permanence: 'Permanencias', task: 'Tareas', meeting: 'Reuniones', activity: 'Actividad', opportunity: 'Oportunidades', operator: 'Operadores',
-  plan: 'Planes', plan_version: 'Versiones de planes', assignee: 'Comerciales', report: 'Informe del CRM' }
+  plan: 'Planes', plan_version: 'Versiones de planes', assignee: 'Comerciales', report: 'Informe del CRM', sim: 'SIM/eSIM registradas' }
+const simStates: Record<string, string> = { prepared: 'Preparada', assigned: 'Asignada', active: 'Activa', replaced: 'Sustituida', inactive: 'Inactiva', cancelled: 'Cancelada' }
+const simSources: Record<string, string> = { manual: 'Manual', import: 'Importación', integration: 'Integración' }
 const billingLabels: Record<string, string> = { issued_minor: 'Facturado', paid_minor: 'Marcado como pagado',
   outstanding_minor: 'Pendiente', overdue_minor: 'Vencido' }
 // The W1 parser has already validated nonnegative integer strings. Formatting
@@ -33,6 +35,7 @@ export function composeProductResponseV2(result: ProductReadResultV2, requestId:
   if (result.status !== 'completed') return response
   for (const [index, evidence] of result.evidence.entries()) {
     const monthlyBilling = evidence.capability === 'crm.billing.monthly_series'
+    const simInventory = evidence.capability === 'crm.sim.list'
     const sourceRef = `source_${index + 1}`, title = monthlyBilling ? 'Facturas por mes de emisión · estado actual'
       : titles[evidence.capability.split('.')[1] ?? ''] ?? 'Datos del CRM'
     const raw = Array.isArray(evidence.data.items) ? evidence.data.items : [evidence.data.record]
@@ -42,11 +45,13 @@ export function composeProductResponseV2(result: ProductReadResultV2, requestId:
       const row: Record<string, string | number | boolean | null> = {}
       for (const [field, value] of Object.entries(item)) if (Object.hasOwn(labels, field) && (value === null || ['string', 'number', 'boolean'].includes(typeof value))) row[field] = value as string | number | boolean | null
       if (monthlyBilling) for (const field of Object.keys(billingLabels)) row[field] = exactMinor((item as Record<string, string>)[field])
+      if (simInventory) { row.kind = row.kind === 'physical' ? 'Física' : 'eSIM'; row.status = simStates[String(row.status)]!; row.source = simSources[String(row.source)]! }
       rows.push(row)
     }
     const fields = [...new Set(rows.flatMap(row => Object.keys(row)))]
     response.blocks.push({ type: 'table', title, columns: fields.map(field => ({ field,
-      label: monthlyBilling && billingLabels[field] ? `${billingLabels[field]} (${evidence.data.currency})` : labels[field]! })), rows, sourceRef, partial: evidence.partial })
+      label: monthlyBilling && billingLabels[field] ? `${billingLabels[field]} (${evidence.data.currency})`
+        : simInventory && field === 'status' ? 'Estado registrado' : labels[field]! })), rows, sourceRef, partial: evidence.partial })
     response.sources.push({ ref: sourceRef, label: title, capability: evidence.capability, readAt: evidence.readAt, asOf: evidence.asOf, partial: evidence.partial })
   }
   return response

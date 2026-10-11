@@ -6,11 +6,14 @@ import { parseTelecomReadInputV1, parseTelecomReadResultV1, isTelecomReadOperati
 import { snapshotProductJsonV1 } from '../lib/server/product-query-runtime-v1.ts'
 import { boundedAwaitV2 } from './bounded-await-v2.ts'
 import { isBillingAnalyticsOperationV1, parseBillingAnalyticsInputV1, parseBillingAnalyticsResultV1 } from '../lib/server/billing-analytics-runtime-v1.ts'
+import { parseSimInputV1 } from '../lib/server/sim-runtime-v1.ts'
+import { projectAuthorizedSimListV1 } from './sim-read-projection-v1.ts'
 export type ReadAuthorityV2 = Readonly<{ actorId: string; workspaceId: string; scopeEpoch: string; role: string }>
 export type AuthorizedProductReadersV2 = {
   collection(operation: string, input: unknown): Promise<unknown>
   report(operation: string, input: unknown): Promise<unknown>
   billingAnalytics?(operation: string, input: unknown): Promise<unknown>
+  simInventory?(operation: string, input: unknown): Promise<unknown>
 }
 export type ProductEvidenceV2 = { nodeId: string; capability: string; readAt: string; asOf: string | null;
   partial: boolean; data: Record<string, unknown> }
@@ -66,11 +69,13 @@ export async function executeProductReadPlanV2(raw: unknown, deps: ProductReadDe
       if (!same(await fresh(), authority)) return stop('access_changed')
       const op = cap.backendOperation
       const parsedInput = isTelecomCollectionOperationV1(op) ? parseTelecomCollectionInputV1(op, input) : isTelecomReadOperationV1(op) ? parseTelecomReadInputV1(op, input)
-        : isBillingAnalyticsOperationV1(op) ? parseBillingAnalyticsInputV1(op, input) : null
+        : isBillingAnalyticsOperationV1(op) ? parseBillingAnalyticsInputV1(op, input) : op === 'sim.list' ? parseSimInputV1(op, input) : null
       if (!parsedInput) return stop('invalid_plan')
       if (cap.family === 'billing_analytics' && !deps.readers.billingAnalytics) return stop('unavailable')
+      if (cap.family === 'sim_inventory' && !deps.readers.simInventory) return stop('unavailable')
       const rawResult = await boundedAwaitV2(() => cap.family === 'collection' ? deps.readers.collection(op, parsedInput)
-        : cap.family === 'billing_analytics' ? deps.readers.billingAnalytics!(op, parsedInput) : deps.readers.report(op, parsedInput), deps.signal)
+        : cap.family === 'billing_analytics' ? deps.readers.billingAnalytics!(op, parsedInput)
+        : cap.family === 'sim_inventory' ? deps.readers.simInventory!(op, parsedInput) : deps.readers.report(op, parsedInput), deps.signal)
       if (!same(await fresh(), authority)) return stop('access_changed')
       const result = snapshotProductJsonV1(rawResult)
       if (!object(result) || Object.keys(result).sort().join(',') !== 'data,ok' || result.ok !== true) return stop('unavailable')
@@ -84,6 +89,8 @@ export async function executeProductReadPlanV2(raw: unknown, deps: ProductReadDe
       } else if (isBillingAnalyticsOperationV1(op)) {
         const input = parseBillingAnalyticsInputV1(op, parsedInput)
         if (input) data = parseBillingAnalyticsResultV1(op, input, result.data) as Record<string, unknown> | null
+      } else if (op === 'sim.list') {
+        data = projectAuthorizedSimListV1(parsedInput, result.data)
       }
       if (!data || containsHighConfidenceSecret(data)) return stop('unavailable')
       // Role-specific protected counters must remain unknown even if a buggy reader returns them.

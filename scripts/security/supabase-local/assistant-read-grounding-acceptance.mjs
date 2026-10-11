@@ -41,21 +41,27 @@ export async function assistantReadGroundingAcceptance({ rpc, sql, check, users,
     phase='FIXTURE_SETUP'
     const customers=[randomUUID(),randomUUID()],foreignCustomer=randomUUID(),operator=randomUUID(),foreignOperator=randomUUID(),contracts=[randomUUID(),randomUUID(),randomUUID()]
     sql(`insert into public.customers(id,workspace_id,account_kind,legal_name,created_by_user_id)values('${customers[0]}','${wa}','legal_entity','W3 Grounding Alpha','${owner.id}'),('${customers[1]}','${wa}','legal_entity','W3 Grounding Beta','${owner.id}'),('${foreignCustomer}','${wb}','legal_entity','W3 Grounding Other Tenant','${users.ownerB.id}');insert into public.telecom_operators(id,workspace_id,code,display_name)values('${operator}','${wa}','w3-grounding','W3 Grounding Operator'),('${foreignOperator}','${wb}','w3-grounding','W3 Grounding Operator');insert into public.telecom_contracts(id,workspace_id,customer_id,operator_id,start_date,source)values('${contracts[0]}','${wa}','${customers[0]}','${operator}','2026-10-08','manual'),('${contracts[1]}','${wa}','${customers[1]}','${operator}','2026-10-08','manual'),('${contracts[2]}','${wb}','${foreignCustomer}','${foreignOperator}','2026-10-08','manual')`)
+    phase='SIM_FIXTURE_CREATE_AUTHORIZED'
+    const simCreated=await fetch(assistantAppUrl+'/api/sims/v1',{method:'POST',headers:{cookie,origin:assistantAppUrl,'content-type':'application/json'},body:JSON.stringify({operation:'sim.create',input:{command_id:randomUUID(),customer_id:customers[0],operator_id:operator,kind:'esim',display_label:'W3 Grounding Prepared eSIM'}}),signal:AbortSignal.timeout(30000)})
+    const simBody=await simCreated.json()
+    check(simCreated.status===200&&simBody.ok&&simBody.data.operation==='sim.create'&&simBody.data.status==='prepared'&&/^[0-9a-f-]{36}$/.test(simBody.data.id),'assistant_grounding_sim_real_authorized_fixture_not_ai_write')
+    const sim=simBody.data.id
     phase='SNAPSHOT'
-    const businessSnapshot=()=>sql(`select md5(coalesce(jsonb_agg(payload order by id)::text,'')) from(select id,to_jsonb(x) payload from public.customers x where id in('${customers[0]}','${customers[1]}','${foreignCustomer}') union all select id,to_jsonb(x) payload from public.telecom_contracts x where id in('${contracts[0]}','${contracts[1]}','${contracts[2]}') union all select id,to_jsonb(x) payload from public.telecom_operators x where id in('${operator}','${foreignOperator}')) records`)
+    const businessSnapshot=()=>sql(`select md5(coalesce(jsonb_agg(payload order by id)::text,'')) from(select id,to_jsonb(x) payload from public.customers x where id in('${customers[0]}','${customers[1]}','${foreignCustomer}') union all select id,to_jsonb(x) payload from public.telecom_contracts x where id in('${contracts[0]}','${contracts[1]}','${contracts[2]}') union all select id,to_jsonb(x) payload from public.telecom_operators x where id in('${operator}','${foreignOperator}') union all select id,to_jsonb(x) payload from public.telecom_sims x where id='${sim}') records`)
     const before=businessSnapshot(),calls=[]
-    let suspendAfterRead=false,suspendAfterBilling=false
+    let suspendAfterRead=false,suspendAfterBilling=false,suspendAfterSim=false
     const httpRead=async(family,operation,input)=>{
-      const endpoint=family==='collection'?'/api/product/v1/queries':family==='billing_analytics'?'/api/billing/analytics/v1':'/api/telecom/reads/v1'
+      const endpoint=family==='collection'?'/api/product/v1/queries':family==='billing_analytics'?'/api/billing/analytics/v1':family==='sim_inventory'?'/api/sims/v1':'/api/telecom/reads/v1'
       const response=await fetch(assistantAppUrl+endpoint,{method:'POST',headers:{cookie,origin:assistantAppUrl,'content-type':'application/json'},body:JSON.stringify({operation,input}),signal:AbortSignal.timeout(30000)})
       calls.push({operation,status:response.status})
       check(response.headers.get('cache-control')==='no-store','assistant_grounding_reader_no_store')
       const body=await response.json()
       if(suspendAfterRead&&operation==='customer.list'){suspendAfterRead=false;sql(`update public.workspace_members set status='suspended' where workspace_id='${wa}' and user_id='${owner.id}'`)}
       if(suspendAfterBilling&&operation==='billing.monthly_series'){suspendAfterBilling=false;sql(`update public.workspace_members set status='suspended' where workspace_id='${wa}' and user_id='${owner.id}'`)}
+      if(suspendAfterSim&&operation==='sim.list'){suspendAfterSim=false;sql(`update public.workspace_members set status='suspended' where workspace_id='${wa}' and user_id='${owner.id}'`)}
       return body
     }
-    const readers={collection:(op,input)=>httpRead('collection',op,input),report:(op,input)=>httpRead('report',op,input),billingAnalytics:(op,input)=>httpRead('billing_analytics',op,input)},handles=['operator_ref','customer_ref','foreign_customer_ref']
+    const readers={collection:(op,input)=>httpRead('collection',op,input),report:(op,input)=>httpRead('report',op,input),billingAnalytics:(op,input)=>httpRead('billing_analytics',op,input),simInventory:(op,input)=>httpRead('sim_inventory',op,input)},handles=['operator_ref','customer_ref','foreign_customer_ref']
     const resolveReference=async(handle,field)=>{
       if(handle==='operator_ref'&&field==='operator_id'){
         const result=await readers.collection('operator.get',{id:operator})
@@ -77,6 +83,7 @@ export async function assistantReadGroundingAcceptance({ rpc, sql, check, users,
     const node=(limit=20)=>({id:'clients',capability:'crm.customer.list',arguments:[{field:'limit',value:limit}],bindings:[{field:'operator_id',handle:'operator_ref',nodeId:null}]})
     const summary=binding=>({id:'summary',capability:'crm.customer360.summary',arguments:[],bindings:[{field:'customer_id',...binding}]})
     const monthly=handle=>({id:'billing',capability:'crm.billing.monthly_series',arguments:[{field:'currency',value:'EUR'},{field:'from_month',value:'2026-09-01'},{field:'to_month',value:'2026-10-01'}],bindings:[{field:'customer_id',handle,nodeId:null}]})
+    const sims=handle=>({id:'sims',capability:'crm.sim.list',arguments:[{field:'kind',value:'esim'},{field:'status',value:'prepared'}],bindings:[{field:'customer_id',handle,nodeId:null}]})
     const plan=nodes=>({version:2,decision:'plan',nodes})
     const run=async(value)=>{
       const turn_id=randomUUID(),input={id:thread,turn_id,text:'Consulta sintética de lectura con plan cerrado'},events=[]
@@ -123,6 +130,23 @@ export async function assistantReadGroundingAcceptance({ rpc, sql, check, users,
       check(calls.at(-1)?.status===403,'assistant_grounding_billing_actual_cookie_revoked')
     }finally{sql(`update public.workspace_members set status='active' where workspace_id='${wa}' and user_id='${owner.id}'`)}
     check((await conversations.execute('turn.finish',{id:thread,turn_id:result.turn_id,status:'cancelled'})).ok,'assistant_grounding_billing_revoked_cancel_after_restore')
+    phase='SIM_MINIMIZED_ACTUAL_READ'
+    result=await run(plan([sims('customer_ref')]))
+    const inventory=result.final?.response
+    check(inventory?.status==='completed'&&inventory.grounded&&inventory.blocks.length===1&&inventory.blocks[0].rows.length===1&&inventory.blocks[0].rows[0].display_label==='W3 Grounding Prepared eSIM'&&inventory.blocks[0].rows[0].kind==='eSIM'&&inventory.blocks[0].rows[0].status==='Preparada'&&inventory.blocks[0].rows[0].masked_iccid===null&&inventory.blocks[0].rows[0].masked_eid===null&&!JSON.stringify(inventory).includes(sim)&&!JSON.stringify(inventory).includes(customers[0]),'assistant_grounding_sim_actual_authorized_minimized_nonzero')
+    check(inventory.sources[0].capability==='crm.sim.list'&&!inventory.sources[0].partial&&inventory.sources[0].asOf===null,'assistant_grounding_sim_fresh_page_no_invented_asof')
+    phase='SIM_FOREIGN_REFERENCE'
+    result=await run(plan([sims('foreign_customer_ref')]))
+    check(result.final?.response.status==='access_changed'&&!result.final.response.grounded&&!result.final.response.blocks.length&&!result.calls.some(call=>call.operation==='sim.list'),'assistant_grounding_sim_foreign_reference_no_query')
+    phase='SIM_REVOKED_READ'
+    suspendAfterSim=true
+    try{
+      result=await run(plan([sims('customer_ref')]))
+      check(result.events.map(event=>event.type).join(',')==='started,failed'&&!result.final,'assistant_grounding_sim_revocation_discards_facts')
+      await readers.simInventory('sim.list',{customer_id:customers[0]})
+      check(calls.at(-1)?.status===403,'assistant_grounding_sim_actual_cookie_revoked')
+    }finally{sql(`update public.workspace_members set status='active' where workspace_id='${wa}' and user_id='${owner.id}'`)}
+    check((await conversations.execute('turn.finish',{id:thread,turn_id:result.turn_id,status:'cancelled'})).ok,'assistant_grounding_sim_revoked_cancel_after_restore')
     phase='FOREIGN_REFERENCE'
     result=await run(plan([summary({handle:'foreign_customer_ref',nodeId:null})]))
     check(result.final?.response.status==='access_changed'&&!result.final.response.grounded&&!result.final.response.blocks.length&&!result.calls.some(call=>call.operation==='customer360.summary'),'assistant_grounding_foreign_ordinary_identity_no_dependent_read')
@@ -141,7 +165,7 @@ export async function assistantReadGroundingAcceptance({ rpc, sql, check, users,
     check((await conversations.execute('turn.finish',{id:thread,turn_id:result.turn_id,status:'cancelled'})).ok,'assistant_grounding_revoked_read_cancel_after_restore')
     phase='IMMUTABLE_HISTORY'
     const messages=await conversations.execute('message.page',{id:thread,limit:50})
-    check(messages.ok&&messages.data.historical&&messages.data.items.length===18&&messages.data.items.filter(item=>item.role==='user').length===10&&messages.data.items.filter(item=>item.role==='assistant').length===8&&messages.data.items.filter(item=>item.role==='assistant').every(item=>!['W3 Grounding','telecom.collections','billing.analytics','source_','inputTokens'].some(value=>item.content.includes(value))),'assistant_grounding_persisted_history_excludes_factual_blocks')
+    check(messages.ok&&messages.data.historical&&messages.data.items.length===23&&messages.data.items.filter(item=>item.role==='user').length===13&&messages.data.items.filter(item=>item.role==='assistant').length===10&&messages.data.items.filter(item=>item.role==='assistant').every(item=>!['W3 Grounding','telecom.collections','billing.analytics','assistant.sim-list','source_','inputTokens'].some(value=>item.content.includes(value))),'assistant_grounding_persisted_history_excludes_factual_blocks')
     check(before===businessSnapshot(),'assistant_grounding_no_business_record_change')
     return 'PASS_ACTUAL_AUTH_COOKIE_READ_GROUNDING_PARTIALITY_REVOCATION_SYNTHETIC_PLANNER'
   }catch(cause){

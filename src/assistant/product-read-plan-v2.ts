@@ -3,6 +3,7 @@ import { snapshotProductJsonV1 } from '../lib/server/product-query-runtime-v1.ts
 import { parseTelecomCollectionInputV1, isTelecomCollectionOperationV1 } from '../lib/server/telecom-collection-runtime-v1.ts'
 import { parseTelecomReadInputV1, isTelecomReadOperationV1 } from '../lib/server/telecom-reads-runtime-v1.ts'
 import { parseBillingAnalyticsInputV1, isBillingAnalyticsOperationV1 } from '../lib/server/billing-analytics-runtime-v1.ts'
+import { parseSimInputV1 } from '../lib/server/sim-runtime-v1.ts'
 export type ProductReadPlanV2 = { version: 2; decision: 'plan' | 'clarify' | 'abstain'; nodes: ProductReadNodeV2[] }
 export type ProductReadNodeV2 = { id: string; capability: string; arguments: { field: string; value: string | number | null }[];
   bindings: { field: string; handle: string | null; nodeId: string | null }[] }
@@ -36,7 +37,7 @@ export function parseProductReadPlanV2(value: unknown, offered: readonly string[
       }
       const op = cap.backendOperation
       if (isTelecomCollectionOperationV1(op) ? !parseTelecomCollectionInputV1(op, input) : isTelecomReadOperationV1(op) ? !parseTelecomReadInputV1(op, input)
-        : isBillingAnalyticsOperationV1(op) ? !parseBillingAnalyticsInputV1(op, input) : true) return null
+        : isBillingAnalyticsOperationV1(op) ? !parseBillingAnalyticsInputV1(op, input) : op === 'sim.list' ? !parseSimInputV1(op, input) : true) return null
       nodes.push(node as ProductReadNodeV2)
     }
     return { version: 2, decision: 'plan', nodes }

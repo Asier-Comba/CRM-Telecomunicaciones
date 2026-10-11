@@ -19,6 +19,7 @@ export function parseSimInputV1(op:SimOperationV1,value:unknown):SimInputsV1[Sim
  }catch{return null}}
 function row(r:unknown){
  if(!plain(r)||!exact(r,'id,version,customer_id,operator_id,kind,display_label,status,source,masked_iccid,masked_eid,assigned_line_id,activated_at,replaced_at,deactivated_at,cancelled_at,created_at,updated_at')||!uuid(r.id)||!natural(r.version)||(r.version as number)<1||!uuid(r.customer_id)||!uuid(r.operator_id)||!['physical','esim'].includes(r.kind as string)||!label(r.display_label)||!states.includes(r.status as string)||!sources.includes(r.source as string)||r.masked_iccid!==null&&!mask(r.masked_iccid)||r.masked_eid!==null&&(!mask(r.masked_eid)||r.kind!=='esim')||r.assigned_line_id!==null&&!uuid(r.assigned_line_id)||!instant(r.created_at)||!instant(r.updated_at))return false
+ if(Date.parse(r.updated_at as string)<Date.parse(r.created_at as string))return false
  for(const k of ['activated_at','replaced_at','deactivated_at','cancelled_at'])if(r[k]!==null&&(!instant(r[k])||Date.parse(r[k]as string)<Date.parse(r.created_at as string)))return false
  if(['assigned','active'].includes(r.status as string)?r.assigned_line_id===null||r.masked_iccid===null:r.assigned_line_id!==null)return false
  if(['prepared','assigned'].includes(r.status as string)&&r.activated_at!==null||r.status==='active'&&r.activated_at===null||r.status==='replaced'&&r.replaced_at===null||r.status==='inactive'&&r.deactivated_at===null||r.status==='cancelled'&&r.cancelled_at===null)return false

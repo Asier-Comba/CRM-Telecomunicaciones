@@ -65,7 +65,7 @@ function inputSchema(filters: readonly string[], enums: Readonly<Record<string, 
 }
 export type ProductCapabilityV2 = {
   name: string; description: string; version: 'assistant.capability.v2'; mode: 'read'; risk: 'READ'; roles: readonly string[]
-  inputSchema: Schema; outputSchema: Schema; backendOperation: string; family: 'collection' | 'report' | 'billing_analytics'
+  inputSchema: Schema; outputSchema: Schema; backendOperation: string; family: 'collection' | 'report' | 'billing_analytics' | 'sim_inventory'
   sensitiveFields: readonly string[]; confirmation: 'none'; grounding: string; partiality: string
   authorization: 'current_server_membership_and_role_rechecked_around_each_await'
   tenantScope: 'server_selected_workspace_actor_and_scope_epoch'
@@ -120,6 +120,22 @@ capabilities.push({ name: `crm.${billingOperation}`, version: 'assistant.capabil
   ...readBoundary, sensitiveFields: [], confirmation: 'none',
   grounding: 'validated dense monthly cohort; exact integer-string amounts; current invoice status at as_of, never cash ledger',
   partiality: 'complete requested range only; missing months, currency mismatch or invalid amount equations are unavailable',
+  enabled: { local: true, stage: false, prod: false } })
+const maskedSim = { anyOf: [{ type: 'string', pattern: '^••••[0-9]{3}$', maxLength: 7 }, { type: 'null' }] }
+const simRow = closed({ id: uuid, display_label: { type: 'string', maxLength: 200 }, kind: { type: 'string', enum: ['physical', 'esim'] },
+  status: { type: 'string', enum: ['prepared', 'assigned', 'active', 'replaced', 'inactive', 'cancelled'] },
+  source: { type: 'string', enum: ['manual', 'import', 'integration'] }, masked_iccid: maskedSim, masked_eid: maskedSim },
+['id', 'display_label', 'kind', 'status', 'source', 'masked_iccid', 'masked_eid'])
+capabilities.push({ name: 'crm.sim.list', version: 'assistant.capability.v2', mode: 'read', risk: 'READ',
+  description: 'Lista SIM/eSIM registradas por cliente, operador, línea, tipo, estado y origen. Identificadores solo enmascarados o desconocidos; no PIN/PUK, ICCID/EID completos, QR ni activación. No prueba conectividad ni total de inventario.',
+  roles: ['owner', 'admin', 'member', 'viewer'], backendOperation: 'sim.list', family: 'sim_inventory',
+  inputSchema: inputSchema(['limit', 'after_id', 'customer_id', 'operator_id', 'line_id', 'kind', 'status', 'source'], {
+    kind: ['physical', 'esim'], status: ['prepared', 'assigned', 'active', 'replaced', 'inactive', 'cancelled'], source: ['manual', 'import', 'integration'] }, []),
+  outputSchema: closed({ contract_version: { const: 'assistant.sim-list.v1' }, operation: { const: 'sim.list' },
+    items: { type: 'array', maxItems: 100, items: simRow }, next_id: { anyOf: [uuid, { type: 'null' }] } }, ['contract_version', 'operation', 'items', 'next_id']),
+  ...readBoundary, sensitiveFields: ['masked_iccid', 'masked_eid'], confirmation: 'none',
+  grounding: 'Validated W1 DTO then minimized projection; registered status is not provider activation or current connectivity',
+  partiality: 'next_id means partial; unknown masks stay null; no unavailable-to-empty conversion or current-page inventory total',
   enabled: { local: true, stage: false, prod: false } })
 function freeze(value: unknown): void { if (value && typeof value === 'object') { for (const child of Object.values(value)) freeze(child); Object.freeze(value) } }
 freeze(capabilities)
