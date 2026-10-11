@@ -10,7 +10,7 @@ export type ReservationRpcV1='assistant_durable_v1_issue'|'assistant_durable_v1_
 export type ReservationDependenciesV1={
  // Current server-owned session/permissions, resolved anew for EVERY call.
  authority:()=>Promise<ReservationAuthorityV1|null>
- invoke:(operation:ReservationRpcV1,input:Readonly<Record<string,string>>)=>Promise<{data:unknown;error:unknown}>
+ invoke:(operation:ReservationRpcV1,input:Readonly<Record<string,string>>,signal?:AbortSignal)=>Promise<{data:unknown;error:unknown}>
 }
 export class DurableReservationUnavailable extends Error{
  readonly code='ASSISTANT_DURABLE_RESERVATION_UNAVAILABLE'
@@ -97,9 +97,12 @@ export function createDurableReservationPortV1(dependencies:ReservationDependenc
    &&current.permissions.has(binding.capability))
  }
  async function invoke(operation:ReservationRpcV1,input:Record<string,string>){
-  const response=await boundedAwaitV2(()=>dependencies.invoke(operation,Object.freeze(input)))
-  if(!response||response.error!==null)throw unavailable()
-  return response.data
+  const controller=new AbortController()
+  try{
+   const response=await boundedAwaitV2(()=>dependencies.invoke(operation,Object.freeze(input),controller.signal))
+   if(!response||response.error!==null)throw unavailable()
+   return response.data
+  }finally{controller.abort()}
  }
  return {
   async startExecution(actor,operationRef,binding,expectedVersion){

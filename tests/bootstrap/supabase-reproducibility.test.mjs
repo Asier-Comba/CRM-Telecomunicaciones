@@ -24,6 +24,7 @@ test('the known Supabase drift remains explicit', () => {
     [
       'activities',
       'assistant_audit_delivery_outbox',
+      'assistant_command_material',
       'assistant_confirmations',
       'assistant_conversations_v2',
       'assistant_effect_outbox',

@@ -15,7 +15,8 @@ begin
    or has_function_privilege(r,'public.assistant_durable_v1_start_execution(uuid,text,text,text,bigint)','EXECUTE')
    or has_function_privilege(r,'public.assistant_durable_v1_claim_audit(uuid,text,bigint,text,bigint)','EXECUTE')
    or has_function_privilege(r,'public.assistant_durable_v1_ack_audit(uuid,text,bigint,text,bigint,bigint,text,text)','EXECUTE')
-   or has_function_privilege(r,'public.assistant_durable_v1_list_audit(uuid,text,bigint,text,text)','EXECUTE') then
+   or has_function_privilege(r,'public.assistant_durable_v1_list_audit(uuid,text,bigint,text,text)','EXECUTE')
+   or has_function_privilege(r,'public.assistant_durable_v1_confirm_reserve_material(uuid,text,text,text,text,text,text,text,jsonb)','EXECUTE') then
    raise exception 'durable_inert_rpc_grant_lost';
   end if;
   execute format('set local role %I',r);
@@ -67,6 +68,16 @@ begin
   begin perform count(*) from public.assistant_registered_audit_workers;
   exception when insufficient_privilege then denied:=true;end;
   if not denied then raise exception 'durable_private_audit_worker_registry_read';end if;
+  denied:=false;
+  begin perform public.assistant_durable_v1_confirm_reserve_material('b2000000-0000-4000-8000-000000000001',
+   current_setting('test.assistant.confirmation'),'fixture.role.boundary',repeat('a',64),
+   'role_boundary_idempotency','fixture.role.boundary','role_boundary_command_reference','role_boundary_original_request','{}'::jsonb);
+  exception when insufficient_privilege then denied:=true;end;
+  if not denied then raise exception 'durable_inert_material_reservation_executed';end if;
+  denied:=false;
+  begin perform count(*) from public.assistant_command_material;
+  exception when insufficient_privilege then denied:=true;end;
+  if not denied then raise exception 'durable_private_command_material_read';end if;
   reset role;
  end loop;
  if exists(select 1 from public.assistant_operations where capability='fixture.role.boundary') then
