@@ -27,6 +27,7 @@ export function Opportunities({
   onMoveStage,
   canMove,
   pendingMove,
+  queryStatus='ready',
 }: {
   items: readonly OpportunityItemV1[]
   stageCatalog?:readonly {id:string;label:string;movable?:boolean}[]
@@ -35,6 +36,7 @@ export function Opportunities({
   onMoveStage?:(id:string,stageId:string)=>void
   canMove?:(id:string)=>boolean
   pendingMove?:{id:string;stageId:string}|null
+  queryStatus?:'idle'|'pending'|'loading'|'ready'|'error'
 }) {
   const [mode, setMode] = useState('board'),
     [query, setQuery] = useState(''),
@@ -107,7 +109,7 @@ export function Opportunities({
         }
       />
       <PreviewNotice />
-      <Kpis
+      {queryStatus==='ready'&&<Kpis
         items={[
           {
             label: 'Oportunidades abiertas',
@@ -125,8 +127,8 @@ export function Opportunities({
           },
           { label: 'Etapas publicadas', value: stages.length },
         ]}
-      />
-      <div className="flex flex-wrap items-center gap-2 rounded-xl border bg-white p-3">
+      />}
+      {queryStatus==='ready'&&<><div className="flex flex-wrap items-center gap-2 rounded-xl border bg-white p-3">
         <input
           aria-label="Buscar oportunidades"
           value={query}
@@ -209,6 +211,7 @@ export function Opportunities({
           }}
         />
       )}
+      </>}
       {selected && (
         <Drawer title={selected.title} onClose={() => setSelected(null)}>
           {card(selected)}
