@@ -5,6 +5,7 @@ import {randomBytes,createHash} from 'node:crypto'
 import {readFileSync} from 'node:fs'
 import {isExpectedNativeImage} from './expected-image.mjs'
 import {createDurableAuditDeliveryPortV1} from '../../../src/assistant/durable-audit-delivery-port.ts'
+import {createDurableAuditDrainV1,originalAuditPacketV1} from '../../../src/assistant/durable-audit-drain.ts'
 const container=process.env.TELECOM_NATIVE_TEST_CONTAINER??''
 assert.match(container,/^[0-9a-f]{12,64}$/)
 const image=spawnSync('docker',['inspect','--format={{.Config.Image}}',container],{encoding:'utf8'})
@@ -146,4 +147,48 @@ try{
   assert.notEqual(mutant.code,0);assert.equal(mutant.timedOut,false);assert.ok(mutant.err.includes(expected));assert.equal(await sql(definition),before)
  }
  console.log('AUDIT DELIVERY NATIVE PASS:20 processes/backends one claim;exact-content sink dedup after unacked expiry;old ACK rejected;claim/ACK rollback and retry;grant expiry after blocking lock;seven SQL fence/identity/lease denials;three mutants restored. NO live provider/SIGKILL/full23/W4 acceptance.')
+ // Exercise the actual bounded worker with an intermediate recovery audit.
+ const start=JSON.parse(await sql(auth+`select public.assistant_durable_v1_start_execution('${workspace}','${waiting.operation}','${capability}','${'a'.repeat(64)}',1);`))
+ assert.equal(start.status,'applied')
+ const recovery=JSON.parse(await sql(auth+`select public.assistant_durable_v1_require_reconciliation('${workspace}','${waiting.operation}','${capability}','${'a'.repeat(64)}',2,'internal_safe','audit_drain_recovery_request_${nonce}');`))
+ assert.equal(recovery.status,'applied')
+ const allOriginal=()=>sql(`select jsonb_agg(to_jsonb(i) order by i.event_ref) from public.assistant_original_audit_intents i where i.workspace_id='${workspace}' and i.capability='${capability}';`)
+ const beforeDrain=await allOriginal(),drainSink='assistant_native_drain_sink_'+nonce
+ await sql(`create table public.${drainSink}(workspace_id uuid,event_ref text,content jsonb,content_digest text,receipt_ref text,primary key(workspace_id,event_ref));`)
+ let firstPacket
+ async function deliver(packet){
+  const e=packet.event,content=JSON.stringify(e).replaceAll("'","''")
+  assert.equal(e.workspaceId,workspace);assert.match(e.eventRef,/^[0-9a-f]{64}$/);assert.match(packet.contentDigest,/^[0-9a-f]{64}$/)
+  const originalReceipt=createHash('sha256').update('synthetic_drain_receipt:'+e.eventRef).digest('hex')
+  const data=await sql(`begin;insert into public.${drainSink} values('${workspace}','${e.eventRef}','${content}'::jsonb,'${packet.contentDigest}','${originalReceipt}') on conflict do nothing;
+   select jsonb_build_object('status','already_accepted','workspaceId',workspace_id,'eventRef',event_ref,'contentDigest',content_digest,
+    'digestAlgorithm','${packet.digestAlgorithm}','receiptRef',receipt_ref) from public.${drainSink}
+    where workspace_id='${workspace}' and event_ref='${e.eventRef}' and content='${content}'::jsonb and content_digest='${packet.contentDigest}';commit;`)
+  if(!firstPacket)firstPacket=packet
+  if(!data)throw new Error('synthetic_sink_content_conflict')
+  return JSON.parse(data)
+ }
+ const withheld=createDurableAuditDrainV1({port:{...port,ack:async()=>{throw new Error('synthetic_ack_withheld')}},deliver})
+ const interrupted=await withheld.processPage()
+ assert.equal(interrupted.status,'unavailable');assert.equal(interrupted.delivered,0);assert.equal(interrupted.uncertain,1)
+ assert.ok(firstPacket);assert.equal(await sql(`select count(*) from public.${drainSink};`),'1')
+ const acceptedEvent=firstPacket.event.eventRef,beforeWithheld=await state(acceptedEvent),pending=JSON.parse(beforeWithheld)
+ assert.equal(pending.state,'pending');assert.equal(pending.version,2);assert.equal(pending.fence,1)
+ await assert.rejects(deliver(originalAuditPacketV1({...firstPacket.event,requestId:'audit_different_original_request'})),/synthetic_sink_content_conflict/)
+ assert.equal(await state(acceptedEvent),beforeWithheld)
+ await sql(`update public.assistant_audit_delivery_outbox set lease_expires_at=clock_timestamp()-interval '1 millisecond' where workspace_id='${workspace}' and event_ref='${acceptedEvent}';`)
+ const drain=createDurableAuditDrainV1({port,deliver})
+ const firstDrain=await drain.processPage()
+ assert.equal(firstDrain.status,'page_processed');assert.equal(firstDrain.delivered,20);assert.equal(firstDrain.uncertain,0);assert.ok(firstDrain.nextCursor)
+ const secondDrain=await drain.processPage(firstDrain.nextCursor)
+ assert.equal(secondDrain.status,'page_processed');assert.equal(secondDrain.delivered,2);assert.equal(secondDrain.nextCursor,null)
+ assert.equal(await sql(`select count(*) from public.${drainSink};`),'22')
+ assert.equal(await sql(`select count(*) from public.assistant_audit_delivery_outbox d join public.assistant_original_audit_intents i using(workspace_id,event_ref) where i.workspace_id='${workspace}' and i.capability='${capability}' and d.state<>'delivered';`),'0')
+ assert.equal(await sql(`select count(*) from public.${drainSink} s join public.assistant_audit_delivery_outbox d using(workspace_id,event_ref) where d.state='delivered' and d.receipt_ref=s.receipt_ref;`),'22')
+ assert.equal(await sql(`select count(*) from public.${drainSink} s join public.assistant_original_audit_intents i using(workspace_id,event_ref) where s.content=jsonb_build_object('eventRef',i.event_ref,'workspaceId',i.workspace_id,'operationRef',i.operation_ref,
+  'operationVersion',i.operation_version,'actorId',i.actor_id,'capability',i.capability,'argumentsDigest',i.arguments_digest,'event',i.event,'requestId',i.request_ref,'createdAt',i.created_at,'reasonCode',i.reason_code);`),'22')
+ assert.equal(await allOriginal(),beforeDrain)
+ assert.equal((await drain.processPage()).status,'empty_page')
+ await sql(`drop table public.${drainSink};`)
+ console.log('AUDIT DRAIN NATIVE PASS: real bounded list/claim/sink/ACK worker;22 exact events in20+2 pages include recovery;withheld ACK retry keeps one sink row/original receipt;conflicting content refused;independently observed zero pending and22 exact immutable contents. NO live sink/SIGKILL/full23/W4 acceptance.')
 }finally{for(const child of owned)child.kill('SIGKILL')}
