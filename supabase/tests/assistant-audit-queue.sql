@@ -8,7 +8,16 @@ insert into public.assistant_registered_audit_workers(workspace_id,worker_ref,ac
  ('b2000000-0000-4000-8000-000000000001','audit_queue_worker_reference','a1000000-0000-4000-8000-000000000001','fixture.audit.queue',clock_timestamp()+interval '1 hour');
 select set_config('request.jwt.claim.sub','a1000000-0000-4000-8000-000000000001',true);
 do $$declare c jsonb;r jsonb;first_page jsonb;second_page jsonb;before_rows jsonb;n integer;foreign_event text;
+ baseline_time text;baseline_event text;
 begin
+ -- Native race fixtures may already have more than a page of other-capability
+ -- events. Keep those rows intact and test this fixture's entire new interval.
+ -- The deliberate capability-filter mutant must still disclose its new foreign
+ -- event; bounded pagination must not make that negative depend on test order.
+ select created_at::text,event_ref into baseline_time,baseline_event from public.assistant_original_audit_intents
+ where workspace_id='b2000000-0000-4000-8000-000000000001' order by created_at desc,event_ref desc limit 1;
+ if baseline_time is null then baseline_time:='';baseline_event:='';
+ else baseline_time:=to_char(baseline_time::timestamptz at time zone 'UTC','YYYY-MM-DD"T"HH24:MI:SS.US"Z"');end if;
  c:=public.assistant_durable_v1_issue('b2000000-0000-4000-8000-000000000001','fixture.audit.other',repeat('a',64));
  r:=public.assistant_durable_v1_confirm_reserve('b2000000-0000-4000-8000-000000000001',c->>'confirmationRef','fixture.audit.other',repeat('a',64),
  'audit_other_idempotency_key','fixture.audit.other','audit_other_command_reference','audit_other_original_request');
@@ -20,7 +29,7 @@ begin
   if r->>'status' is distinct from 'reserved' then raise exception 'audit_queue_fixture_reservation_failed';end if;
  end loop;
  select jsonb_agg(to_jsonb(d) order by d.event_ref) into before_rows from public.assistant_audit_delivery_outbox d join public.assistant_original_audit_intents i using(workspace_id,event_ref) where i.capability='fixture.audit.queue';
- first_page:=public.assistant_durable_v1_list_audit('b2000000-0000-4000-8000-000000000001','audit_queue_worker_reference',1,'','');
+ first_page:=public.assistant_durable_v1_list_audit('b2000000-0000-4000-8000-000000000001','audit_queue_worker_reference',1,baseline_time,baseline_event);
  if exists(select 1 from jsonb_array_elements(first_page->'items') x where x->>'eventRef'=foreign_event) then
   raise exception 'audit_queue_foreign_capability_disclosed';end if;
  if first_page->>'status' is distinct from 'applied' or jsonb_array_length(first_page->'items') is distinct from 20
