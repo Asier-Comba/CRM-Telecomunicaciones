@@ -14,7 +14,7 @@ for(const mode of ['late_refusal','same_customer_return','one_pending_page','cur
  page.on('pageerror',e=>errors.push(e.message))
  await page.route('**/api/**',async route=>{
   const {operation,input}=route.request().postDataJSON()
-  if(route.request().url().endsWith('/commands')){commands.push(operation);await route.fulfill({status:403,json:{ok:false,error:'access_denied'}});return}
+  if(route.request().url().endsWith('/commands')||operation.startsWith('conversation.')||operation==='message.add_internal_note'){commands.push(operation);await route.fulfill({status:403,json:{ok:false,error:'access_denied'}});return}
   let data:unknown
   if(operation==='inbox.list')data={contract_version:'inbox.v1',operation,items:[record],next_id:null}
   else if(operation==='inbox.get_thread')data={contract_version:'inbox.v1',operation,conversation:record,messages:[],next_seq:null,provider_status:'not_configured'}
