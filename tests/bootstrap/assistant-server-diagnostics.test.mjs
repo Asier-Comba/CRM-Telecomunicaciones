@@ -1,7 +1,7 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { PassThrough } from 'node:stream'
-import { assistantServerDiagnostic, observeAssistantServerDiagnostics, assistantUpstreamDiagnostic } from '../../scripts/security/supabase-local/assistant-server-diagnostics.mjs'
+import { assistantServerDiagnostic, observeAssistantServerDiagnostics, assistantUpstreamDiagnostic, assistantJsonParseFrame } from '../../scripts/security/supabase-local/assistant-server-diagnostics.mjs'
 
 test('assistant server diagnostics discard credentials, payloads and unknown errors', () => {
   const secret = 'private-token-and-conversation@example.invalid'
@@ -15,6 +15,36 @@ test('assistant server diagnostics discard credentials, payloads and unknown err
   assert.equal(report.assistant_server_diagnostics[0].category, 'MODULE_RESOLUTION_FAILED')
   assert.ok(!JSON.stringify(report).includes(secret))
   stdout.end(); stderr.end()
+})
+
+test('JSON refusal identifies a fixed parser frame only inside serialized Next error data',async()=>{
+ const secret='private-token-and-conversation@example.invalid'
+ const document=stack=>'<script id="__NEXT_DATA__" type="application/json">'+JSON.stringify({props:{cookie:secret},err:{name:'SyntaxError',message:'Unexpected end of JSON input '+secret,stack}})+'</script>'
+ for(const [frame,expected] of [
+  ['    at loadManifest (/private/'+secret+'/node_modules/next/dist/server/load-manifest.external.js:61:25)','NEXT_MANIFEST_LOAD'],
+  ['    at loadManifest (C:\\private\\'+secret+'\\node_modules\\next\\dist\\server\\load-manifest.external.js:61:25)','NEXT_MANIFEST_LOAD'],
+  ['    at parseJSONFromBytes (node:internal/deps/undici/undici:5682:19)','HTTP_BODY_PARSE'],
+ ]){
+  const html=document('SyntaxError: Unexpected end of JSON input\n    at JSON.parse (<anonymous>)\n'+frame)
+  assert.equal(assistantJsonParseFrame(html),expected)
+  const diagnostic=await assistantUpstreamDiagnostic({headers:()=>({'content-type':'text/html'}),body:async()=>Buffer.from(html)})
+  assert.equal(diagnostic.json_parse_frame,expected);assert.equal(diagnostic.error_category,'SERVER_SYNTAX_JSON_INPUT');assert.equal(diagnostic.application_error,null)
+  assert.ok(!JSON.stringify(diagnostic).includes(secret));assert.ok(!JSON.stringify(diagnostic).includes('node_modules'))
+ }
+})
+
+test('JSON parser-frame evidence rejects missing, malformed, oversized and payload-only matches',()=>{
+ const frame='    at JSON.parse (<anonymous>)\n    at loadManifest (/node_modules/next/dist/server/load-manifest.external.js:61:25)'
+ const document=err=>'<script id="__NEXT_DATA__">'+JSON.stringify({err})+'</script>'
+ for(const html of [
+  frame, '<html>'+frame+'</html>', '<script id="__NEXT_DATA__">broken</script>',
+  document({name:'TypeError',stack:'TypeError: x\n'+frame}),
+  document({name:'SyntaxError',stack:'SyntaxError: '+frame.replaceAll('\n',' ')}),
+  document({name:'SyntaxError',stack:'SyntaxError: x\n    at unknown (/private/next/dist/server/load-manifest.external.js:61:25)'}),
+  '<script id="__NEXT_DATA__">'+JSON.stringify({props:{message:frame}})+'</script>',
+  document({name:'SyntaxError',stack:'x'.repeat(16385)+frame}), 'x'.repeat(262145),
+ ])assert.equal(assistantJsonParseFrame(html),'UNCLASSIFIED')
+ assert.equal(assistantJsonParseFrame(null),'UNCLASSIFIED')
 })
 
 test('upstream refusal classification never exports raw JSON/HTML or arbitrary error codes', async () => {
