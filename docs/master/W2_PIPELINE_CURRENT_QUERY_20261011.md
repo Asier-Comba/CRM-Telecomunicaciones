@@ -1,4 +1,14 @@
-# Pipeline: current search and UI scope
+# Pipeline: current search, UI scope and occupied stages
+
+## Reach the actual work before empty catalog columns
+
+A valid sorted twelve-stage response with an opportunity in the last catalog position reproduced the defect in the actual integrated component at390/768/1440: eleven empty stage columns hid the loaded opportunity below the first viewport. The three parent browser failures and screenshots are retained. An earlier malformed fixture put catalog IDs in position order instead of the required UUID order; the parser rejected it, so that failure is not the valid catalog reproduction. The production parser is unchanged.
+
+The board now starts with stages containing filtered current opportunities. Empty stages remain available through an explicit keyboard-accessible disclosure, and every published destination remains in the movement selector. A pending move keeps its destination visible. The summary is initially collapsed below768px and remains visible at tablet/desktop widths; its disclosure preserves focus and has stable controls/expanded semantics. Current opportunities whose stage is missing from the active catalog remain in a read-only fallback column using the already admitted label, without promoting that stage into the published-catalog count. That missing-stage defect separately failed before the fallback change; a catalog refresh after a supplied workspace change now retains the actual record.
+
+Six local browser cases preserve the previous current-query controls and add the three widths with eleven empty stages, a visible occupied card before scrolling, full destination options, Enter/Space/focus, empty-result filtering, and missing-stage/current-context recovery. No commands, JavaScript errors or document overflow are accepted. Three loaded actual-component frames are visually inspected; they use synthetic controlled responses and do not accept live Auth/RLS, full parity rows or release. Focused strict ES2017 types and lint apply to this source; own published154+6=160 browser controls and full Supabase must close before integration. The earlier common root a885 closes its own1140/154/native85/320/107 checks; the later d3ac retains its own Supabase100/107 with seven failures of unproven cause. Neither source supplies acceptance for this change.
+
+## Current query and supplied context
 
 The actual IntegratedOpportunities component reproduced a stale result at390:the search input contained Beta while the visible opportunity and customer still belonged to Alpha. A separate controlled workspace change during the actual delayed request retained the old record in the new scope. A delayed selected-card detail opened an old dialog after the query changed;the same generation now guards that success/error path. All three failed browser evidence files are retained outside Git;neither is a claim about a live Auth exploit.
 

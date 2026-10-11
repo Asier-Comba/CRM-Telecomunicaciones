@@ -7,6 +7,50 @@ type Name=keyof typeof ids
 function search(name:Name){return {contract_version:'product.v1',items:[{kind:'customer',id:customer,customer_id:customer,label:`Synthetic ${name} customer`,status:'active'},{kind:'opportunity',id:ids[name],customer_id:customer,label:`Synthetic ${name} opportunity`,status:'open'}]}}
 function work(name:Name){return {contract_version:'product.v1',kind:'opportunity',record:{id:ids[name],version:1,title:`Synthetic ${name} opportunity`,status:'open',customer_id:customer,stage_id:stage,owner_user_id:null,amount_minor:10000,currency:'EUR',next_follow_up_at:null,expected_close_date:null,next_action:null,source:'manual',links:[],history:[],history_partial:false}}}
 async function reply(route:Route,data:unknown){await route.fulfill({json:{ok:true,data}})}
+for(const width of [390,768,1440])test(`pipeline occupied stage is reachable before eleven empty stages at ${width}`,async({page},info)=>{
+ const fixture=await startPipelineCurrentFixture(),errors:string[]=[],commands:string[]=[]
+ let catalogMissingOccupied=false
+ page.on('pageerror',e=>errors.push(e.message))
+ const emptyStages=Array.from({length:11},(_,i)=>({id:`20000000-0000-4000-8000-${String(i+10).padStart(12,'0')}`,code:`empty_${i}`,display_name:`Etapa vacía ${i+1}`,position:i,outcome:null,status:'active'}))
+ await page.route('**/api/product/v1/**',async route=>{
+  const {operation}=route.request().postDataJSON()
+  if(route.request().url().endsWith('/commands')){commands.push(operation);await route.fulfill({status:403,json:{ok:false,error:'denied'}});return}
+  if(operation==='opportunity.stages'){await reply(route,{contract_version:'product.v1',items:[...emptyStages,...(catalogMissingOccupied?[]:[{id:stage,code:'new',display_name:'Nueva',position:11,outcome:null,status:'active'}])].sort((a,b)=>a.id.localeCompare(b.id)),next_id:null});return}
+  if(operation==='global.search'){await reply(route,search('Alpha'));return}
+  if(operation==='work.get'){await reply(route,work('Alpha'));return}
+  await route.fulfill({status:400,json:{ok:false,error:'validation'}})
+ })
+ try{
+  await page.setViewportSize({width,height:960});await page.goto(fixture.url)
+  await expect(page.getByRole('button',{name:'Nueva oportunidad',exact:true})).toBeEnabled()
+  await page.getByRole('textbox',{name:'Consultar pipeline local'}).fill('Alpha');await page.getByRole('button',{name:'Consultar pipeline',exact:true}).click()
+  const card=page.locator(`[data-opportunity-id="${ids.Alpha}"]`);await expect(card).toBeVisible()
+  const visibleFraction=await card.evaluate(el=>{const r=el.getBoundingClientRect();return Math.max(0,Math.min(r.bottom,innerHeight)-Math.max(r.top,64))/r.height})
+  await page.screenshot({path:info.outputPath(`pipeline-occupied-first-${width}.png`)})
+  expect(visibleFraction).toBeGreaterThanOrEqual(.6)
+  if(width<768){
+   const summary=page.getByRole('button',{name:'Mostrar resumen del pipeline',exact:true});await expect(summary).toHaveAttribute('aria-expanded','false')
+   await expect(page.getByText('Etapas publicadas',{exact:true})).toBeHidden();await summary.focus();await page.keyboard.press('Enter')
+   await expect(page.getByText('Etapas publicadas',{exact:true})).toBeVisible();const hide=page.getByRole('button',{name:'Ocultar resumen del pipeline',exact:true});await expect(hide).toBeFocused();await page.keyboard.press('Space');await expect(summary).toBeFocused()
+  }else await expect(page.getByText('Etapas publicadas',{exact:true})).toBeVisible()
+  await expect(page.locator('[data-stage-id]')).toHaveCount(1)
+  const toggle=page.getByRole('button',{name:'Mostrar etapas vacías (11)',exact:true});await expect(toggle).toHaveAttribute('aria-expanded','false')
+  await expect(page.getByRole('combobox',{name:'Mover etapa de Synthetic Alpha opportunity'}).locator('option')).toHaveCount(12)
+  await toggle.focus();await page.keyboard.press('Enter');await expect(page.locator('[data-stage-id]')).toHaveCount(12)
+  const collapse=page.getByRole('button',{name:'Ocultar etapas vacías (11)',exact:true});await expect(collapse).toBeFocused();await expect(collapse).toHaveAttribute('aria-expanded','true')
+  await page.keyboard.press('Space');await expect(page.locator('[data-stage-id]')).toHaveCount(1);await expect(toggle).toBeFocused()
+  await page.getByRole('textbox',{name:'Buscar oportunidades'}).fill('Sin coincidencias');await expect(page.locator('[data-stage-id]')).toHaveCount(0)
+  await expect(page.getByText('No hay resultados con estos filtros.',{exact:true})).toBeVisible();await expect(page.getByRole('button',{name:'Mostrar etapas vacías (12)',exact:true})).toBeVisible()
+  await page.getByRole('textbox',{name:'Buscar oportunidades'}).fill('');await expect(card).toBeVisible();await expect(page.locator('[data-stage-id]')).toHaveCount(1)
+  catalogMissingOccupied=true;await page.getByRole('button',{name:'Cambiar empresa sintética',exact:true}).click()
+  await page.getByRole('textbox',{name:'Consultar pipeline local'}).fill('Alpha');await page.getByRole('button',{name:'Consultar pipeline',exact:true}).click()
+  await expect(card).toBeVisible();await expect(page.getByRole('heading',{name:/Etapa no disponible/})).toBeVisible();await expect(page.locator('[data-stage-id]')).toHaveCount(1)
+  const summaryMissing=page.getByRole('button',{name:'Mostrar resumen del pipeline',exact:true});if(width<768)await summaryMissing.click()
+  await expect(page.getByText('Etapas publicadas',{exact:true}).locator('..')).toContainText('11')
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBe(true)
+  expect(errors).toEqual([]);expect(commands).toEqual([])
+ }finally{await fixture.close()}
+})
 for(const width of [390,768,1440])test(`pipeline keeps only the current query after delayed search/detail/error at ${width}`,async({page},info)=>{
  const fixture=await startPipelineCurrentFixture(),errors:string[]=[],commands:string[]=[],held:Route[]=[]
  let holdSearch=false,holdWork=false,holdLatest=false,holdSelection=false
