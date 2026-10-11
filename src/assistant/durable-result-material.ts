@@ -12,7 +12,7 @@ export type ResultRegistrationV1=Readonly<{dispatcher:string;capability:string;s
 declare const preparedResult:unique symbol
 export type PreparedResultMaterialV1=Readonly<{[preparedResult]:true}>
 type PrivateResult={binding:IdempotencyBinding;operationRef:string;version:number;receiptRef:string;command:ServerEffectCommand;
- recordDigest:string;epoch:string;permission:string;accessClass:AccessClass;schemaVersion:number;schemaDigest:string;canonicalResult:string}
+ recordDigest:string;epoch:string;permission:string;accessClass:AccessClass;confirmationPolicy:string;schemaVersion:number;schemaDigest:string;canonicalResult:string}
 const prepared=new WeakMap<object,PrivateResult>(),fail=()=>new DurableReservationUnavailable()
 function exact(v:unknown,fields:string):v is Record<string,unknown>{
  if(!v||typeof v!=='object'||Array.isArray(v)||![Object.prototype,null].includes(Object.getPrototypeOf(v))||Object.getOwnPropertySymbols(v).length)return false
@@ -53,7 +53,7 @@ export function preparedResultParametersV1(handle:PreparedResultMaterialV1,curre
   ||material.recordDigest!==argumentsDigest(record as unknown as Record<string,unknown>)
   ||material.receiptRef!==record.effectReceiptRef||current.actorId!==record.binding.actorId||current.workspaceId!==record.binding.workspaceId||current.scopeEpoch!==material.epoch
   ||!current.permissions.has(record.binding.capability)||!current.permissions.has(material.permission)||command.dispatcher!==material.command.dispatcher||command.commandRef!==material.command.commandRef)throw fail()
- return Object.freeze({schemaVersion:material.schemaVersion,schemaDigest:material.schemaDigest,canonicalResult:material.canonicalResult,accessClass:material.accessClass})
+ return Object.freeze({schemaVersion:material.schemaVersion,schemaDigest:material.schemaDigest,canonicalResult:material.canonicalResult,accessClass:material.accessClass,confirmationPolicy:material.confirmationPolicy})
 }
 export function createDurableResultMaterialProducerV1(deps:{registry:CapabilityRegistry;registrations:readonly ResultRegistrationV1[];
  authority:()=>Promise<CommandMaterialAuthorityV1|null>;
@@ -109,7 +109,7 @@ export function createDurableResultMaterialProducerV1(deps:{registry:CapabilityR
     const handle=Object.freeze(Object.create(null)) as PreparedResultMaterialV1
     prepared.set(handle,{binding:{...record.binding},operationRef:record.operationRef,version:record.version,receiptRef:record.effectReceiptRef!,
      command:{...command},recordDigest:argumentsDigest(record as unknown as Record<string,unknown>),epoch:after.scopeEpoch,permission:registered.definition.permission,accessClass:registered.definition.accessClass,schemaVersion:registered.schemaVersion,
-     schemaDigest:argumentsDigest(registered.definition.outputSchema as unknown as Record<string,unknown>),canonicalResult})
+     confirmationPolicy:registered.definition.confirmationPolicy,schemaDigest:argumentsDigest(registered.definition.outputSchema as unknown as Record<string,unknown>),canonicalResult})
     return handle
    },signal)}catch{throw fail()}finally{stop.abort();parentSignal?.removeEventListener('abort',cancel)}
   },

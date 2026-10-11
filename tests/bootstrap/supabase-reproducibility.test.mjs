@@ -38,6 +38,7 @@ test('the known Supabase drift remains explicit', () => {
       'assistant_registered_result_schemas',
       'assistant_safe_results',
       'assistant_turns_v2',
+      'assistant_unconfirmed_policies',
       'billing_customer_profiles',
       'billing_invoice_lines',
       'billing_invoices',

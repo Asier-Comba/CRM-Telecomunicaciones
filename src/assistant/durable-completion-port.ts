@@ -28,16 +28,20 @@ function validWorker(v:EffectWorkerAuthorityV1|null):v is EffectWorkerAuthorityV
   &&Number.isInteger(v.schemaVersion)&&v.schemaVersion>0&&v.schemaVersion<=2147483647
   &&typeof v.scopeEpoch==='string'&&v.scopeEpoch.length>0&&v.scopeEpoch.length<=256&&v.permissions.has(v.capability))
 }
-function audit(value:unknown,actor:ReconciliationActor,b:IdempotencyBinding,accessClass:string):asserts value is AuditEvent{
+function audit(value:unknown,actor:ReconciliationActor,b:IdempotencyBinding,accessClass:string,confirmation:unknown):asserts value is AuditEvent{
  if(!exact(value,'event,requestId,actorId,workspaceId,capability,accessClass,status,reasonCode,confirmationState,idempotencyState,durationMs')
   ||value.event!=='assistant.capability.completed'||value.requestId!==actor.requestId||value.actorId!==b.actorId||value.workspaceId!==b.workspaceId
   ||value.capability!==b.capability||value.accessClass!==accessClass||value.status!=='SUCCESS'||value.reasonCode!=='capability_success'
-  ||value.confirmationState!=='accepted'||value.idempotencyState!=='reserved'||!Number.isSafeInteger(value.durationMs)||Number(value.durationMs)<0
+  ||!['accepted','not_applicable'].includes(String(confirmation))||(confirmation==='not_applicable'&&accessClass!=='SAFE_WRITE')
+  ||value.confirmationState!==confirmation||value.idempotencyState!=='reserved'||!Number.isSafeInteger(value.durationMs)||Number(value.durationMs)<0
   ||containsHighConfidenceSecret(value))throw fail()
 }
 export function createDurableCompletionPortV1(deps:{business:DurableBusinessPortV1;currentWorker:()=>Promise<EffectWorkerAuthorityV1|null>;
  producer:ReturnType<typeof createDurableResultMaterialProducerV1>;
  loadCommand:(worker:Readonly<EffectWorkerAuthorityV1>,operationRef:string)=>Promise<unknown>;
+ // Optional only for original confirmed callers. Unconfirmed paths must load
+ // provenance from the private original operation, never from the audit input.
+ loadConfirmationOrigin?:(worker:Readonly<EffectWorkerAuthorityV1>,operationRef:string)=>Promise<unknown>;
  invoke:(name:CompletionRpcV1,input:Readonly<Record<string,string>>,signal:AbortSignal)=>Promise<{data:unknown;error:unknown}>;
 }):DurableCompletionPortV1{
  async function bounded<T>(actor:ReconciliationActor,run:(w:EffectWorkerAuthorityV1,signal:AbortSignal)=>Promise<T>):Promise<T>{
@@ -78,7 +82,9 @@ export function createDurableCompletionPortV1(deps:{business:DurableBusinessPort
     const cmd=command(await boundedAwaitV2(()=>deps.loadCommand(w,c.operationRef),signal),w)
     const material=await deps.producer.prepare(record,cmd,c.result,principal.requestId,signal)
     const current=await fresh(w,signal),p=preparedResultParametersV1(material,current,record,cmd)
-    audit(c.auditIntent,principal,record.binding,p.accessClass)
+    const confirmation=deps.loadConfirmationOrigin?await boundedAwaitV2(()=>deps.loadConfirmationOrigin!(current,c.operationRef),signal):'accepted'
+    if(confirmation==='not_applicable'&&p.confirmationPolicy!=='none')throw fail()
+    audit(c.auditIntent,principal,record.binding,p.accessClass,confirmation)
     const response=await rpc('assistant_durable_v1_complete',{...scope(current),p_operation:c.operationRef,p_version:String(c.expectedVersion),
      p_receipt:record.effectReceiptRef!,p_output_schema_version:String(p.schemaVersion),p_schema_digest:p.schemaDigest,
      p_result:p.canonicalResult,p_audit:canonicalArgumentsV1(c.auditIntent),p_event:c.eventRef},signal)

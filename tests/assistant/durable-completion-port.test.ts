@@ -18,18 +18,18 @@ const result:CapabilityResult={status:'SUCCESS',capability,data:{customerRef:'d4
 const audit:AuditEvent={event:'assistant.capability.completed',requestId,actorId,workspaceId,capability,accessClass:'SAFE_WRITE',status:'SUCCESS',reasonCode:'capability_success',confirmationState:'accepted',idempotencyState:'reserved',durationMs:123}
 const completed={...before,state:'completed' as const,version:4,updatedAt:'2026-10-11T04:00:02Z',result}
 const input={operationRef:before.operationRef,binding,expectedVersion:3,result,eventRef,auditIntent:audit}
-function fixture(){
+function fixture(policy:'none'|'preview_confirm'='preview_confirm'){
  let worker:EffectWorkerAuthorityV1|null={...actor,permissions:new Set([capability,permission,'assistant:audit:deliver']),scopeEpoch:'scope1',workerRef:'completion_worker_reference_001',capability,dispatcher:capability,schemaVersion:1,grantVersion:1}
  let readable=true,source:unknown={binding,operationRef:before.operationRef,command,receiptRef:before.effectReceiptRef,result,sourceAuthority:'registered_result_source.v1'}
  let loaded:unknown=null
  const calls:{name:string;p:Readonly<Record<string,string>>;signal:AbortSignal}[]=[],registry=new CapabilityRegistry()
- registry.register({contractVersion:3,name:capability,description:'Synthetic completion boundary',permission,accessClass:'SAFE_WRITE',confirmationPolicy:'preview_confirm',idempotencyRequired:true,
+ registry.register({contractVersion:3,name:capability,description:'Synthetic completion boundary',permission,accessClass:'SAFE_WRITE',confirmationPolicy:policy,idempotencyRequired:true,
   inputSchema:{type:'object',properties:{},required:[],additionalProperties:false},outputSchema:{type:'object',properties:{customerRef:{type:'string',maxLength:36},label:{type:'string',maxLength:120}},required:['customerRef','label'],additionalProperties:false},
   outputPolicy:{sourceProjection:'explicit_dto',sensitiveValueScan:'high_confidence'},tenantScope:{source:'server_context',modelMayChooseWorkspace:false},authorize:async()=>({allowed:true}),handler:async()=>{throw Error('handler_must_not_run')},projectOutput:()=>null})
  const deps={registry,registrations:[{dispatcher:capability,capability,schemaVersion:1,authorizeResult:async()=>readable}],authority:async()=>worker,loadOutcome:async():Promise<unknown>=>structuredClone(source)}
  const producer=createDurableResultMaterialProducerV1(deps)
  const business={loadAuthorizedOperation:async()=>structuredClone(before)} as unknown as DurableBusinessPortV1
- const completionDeps={business,currentWorker:async()=>worker,producer,loadCommand:async()=>command,
+ const completionDeps={business,currentWorker:async()=>worker,producer,loadCommand:async()=>command,loadConfirmationOrigin:undefined as undefined|(()=>Promise<unknown>),
   invoke:async(name:string,p:Readonly<Record<string,string>>,signal:AbortSignal):Promise<{data:unknown;error:unknown}>=>{calls.push({name,p,signal});return {data:name==='assistant_durable_v1_load_result'?loaded:{status:'applied',record:structuredClone(completed)},error:null}}}
  return {deps,completionDeps,calls,port:createDurableCompletionPortV1(completionDeps),setWorker:(v:EffectWorkerAuthorityV1|null)=>{worker=v},worker:()=>worker!,setReadable:(v:boolean)=>{readable=v},setSource:(v:unknown)=>{source=v},setLoaded:(v:unknown)=>{loaded=v}}
 }
@@ -121,4 +121,16 @@ test('delegated audit claim rejects missing or substituted original completion c
    claimedAt:'2026-10-11T04:01:00Z',leaseExpiresAt:'2026-10-11T04:06:00Z',event:original}})})
   if(original===originalEvent)assert.equal((await port.claim(eventRef,1)).status,'applied');else await assert.rejects(port.claim(eventRef,1))
  }
+})
+
+test('unconfirmed completion requires private original provenance and a registered SAFE none policy',async()=>{
+ const original={...audit,confirmationState:'not_applicable' as const}
+ const f=fixture('none');f.completionDeps.loadConfirmationOrigin=async()=> 'not_applicable'
+ const port=createDurableCompletionPortV1(f.completionDeps)
+ assert.equal((await port.completeOperationWithAuditIntent(actor,{...input,auditIntent:original})).status,'applied')
+ assert.deepEqual(JSON.parse(f.calls[0].p.p_audit),original)
+ const unsafe=fixture();unsafe.completionDeps.loadConfirmationOrigin=async()=> 'not_applicable'
+ await assert.rejects(createDurableCompletionPortV1(unsafe.completionDeps).completeOperationWithAuditIntent(actor,{...input,auditIntent:original}));assert.equal(unsafe.calls.length,0)
+ const substituted=fixture('none');substituted.completionDeps.loadConfirmationOrigin=async()=> 'not_applicable'
+ await assert.rejects(createDurableCompletionPortV1(substituted.completionDeps).completeOperationWithAuditIntent(actor,input));assert.equal(substituted.calls.length,0)
 })

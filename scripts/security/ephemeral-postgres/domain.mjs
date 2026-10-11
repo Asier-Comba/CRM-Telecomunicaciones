@@ -192,6 +192,7 @@ try {
   await db.exec(await readFile(resolve(root, 'supabase/tests/assistant-command-material.sql'), 'utf8'))
   await db.exec(await readFile(resolve(root, 'supabase/tests/assistant-effect-workers.sql'), 'utf8'))
   await db.exec(await readFile(resolve(root, 'supabase/tests/assistant-safe-completion.sql'), 'utf8'))
+  await db.exec(await readFile(resolve(root, 'supabase/tests/assistant-unconfirmed-reservation.sql'), 'utf8'))
 
   await db.exec(`
     insert into public.assistant_registered_dispatchers values('task.create','task.create',1);

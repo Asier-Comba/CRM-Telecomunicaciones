@@ -12,7 +12,7 @@ type Registration=Readonly<{dispatcher:string;capability:string;schemaVersion:nu
 declare const preparedCommand:unique symbol
 export type PreparedCommandMaterialV1=Readonly<{[preparedCommand]:true}>
 type PrivateMaterial={binding:IdempotencyBinding;command:ServerEffectCommand;epoch:string;permission:string;schemaVersion:number;
- canonicalArguments:string;digestAlgorithm:'w3-canonical-json-localeCompare-sha256-v1';producerRuntime:string}
+ accessClass:string;confirmationPolicy:string;canonicalArguments:string;digestAlgorithm:'w3-canonical-json-localeCompare-sha256-v1';producerRuntime:string}
 const prepared=new WeakMap<object,PrivateMaterial>()
 const fail=()=>new DurableReservationUnavailable()
 function exact(v:unknown,fields:string):v is Record<string,unknown>{
@@ -30,6 +30,14 @@ export function assertPreparedCommandMaterialV1(handle:PreparedCommandMaterialV1
  if(!material||!active(current)||(schemaVersion!==undefined&&schemaVersion!==material.schemaVersion)||current.actorId!==binding.actorId||current.workspaceId!==binding.workspaceId||current.scopeEpoch!==material.epoch
   ||!current.permissions.has(binding.capability)||!current.permissions.has(material.permission)||!sameBinding(material.binding,binding)
   ||material.command.commandRef!==command.commandRef||material.command.dispatcher!==command.dispatcher)throw fail()
+}
+/** Private server adapter seam. Only a freshly authorized original opaque handle
+ * for a registered SAFE_WRITE/none definition can release its immutable bytes. */
+export function preparedUnconfirmedMaterialParametersV1(handle:PreparedCommandMaterialV1,binding:IdempotencyBinding,command:ServerEffectCommand,current:CommandMaterialAuthorityV1|null,schemaVersion:number){
+ assertPreparedCommandMaterialV1(handle,binding,command,current,schemaVersion)
+ const m=prepared.get(handle)!
+ if(m.accessClass!=='SAFE_WRITE'||m.confirmationPolicy!=='none')throw fail()
+ return Object.freeze({schemaVersion:m.schemaVersion,canonicalArguments:m.canonicalArguments,digestAlgorithm:m.digestAlgorithm,producerRuntime:m.producerRuntime})
 }
 export function createDurableCommandMaterialProducerV1(deps:{
  // Reviewed server definitions/versions and private draft source. None is model input.
@@ -71,7 +79,7 @@ export function createDurableCommandMaterialProducerV1(deps:{
     // An authorizer receives validated data, but cannot mutate the original binding.
     if(signal?.aborted||argumentsDigest(args)!==binding.argumentsDigest)throw fail()
     const handle=Object.freeze(Object.create(null)) as PreparedCommandMaterialV1
-    prepared.set(handle,{binding:{...binding},command:{...command},epoch:after.scopeEpoch,permission:definition.permission,schemaVersion:registered.schemaVersion,
+    prepared.set(handle,{binding:{...binding},command:{...command},epoch:after.scopeEpoch,permission:definition.permission,schemaVersion:registered.schemaVersion,accessClass:definition.accessClass,confirmationPolicy:definition.confirmationPolicy,
      canonicalArguments:canonicalArgumentsV1(args),digestAlgorithm:'w3-canonical-json-localeCompare-sha256-v1',
      producerRuntime:'node'+process.versions.node+'_icu'+process.versions.icu})
     return handle
