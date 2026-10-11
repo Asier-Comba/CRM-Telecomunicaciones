@@ -428,6 +428,20 @@
             "src/features/billing/PrivateInvoicePdf.tsx",
             "scripts/security/supabase-local/product-browser-acceptance.mjs"
           ]
+        },
+        {
+          "source_sha": "662bcb1fec12cd0de65d6cb92724e458252eb3f2",
+          "kind": "VISUAL",
+          "scope": "PARTIAL_ROW",
+          "stage": "VISUAL_ACCEPTED",
+          "positive": "Actual owner-cookie private PDF download rendered and first page reviewed: invoice A/2026/000006, base120.00EUR, VAT25.20EUR, withholding0.00EUR, total145.20EUR.",
+          "negative": "Only the first page was rendered. Status remains English issued and Emision lacks an accent; later pages, complete Unicode/accessibility/fiscal layout and independent W4 acceptance remain unreviewed. Frozen v1 PDF bytes must not be silently changed.",
+          "execution": "ROOT662_EXECUTEDaf0f05720820d1b178c48eb7205aadd743654f69_PRODUCT11710023620_ZIP_SHA256012ee517cd5fbd0c6c9adf69b03fd91b9d0a0e07e136cbd3d3e26059d96d816e_FIRST_PAGE_SHA25606ddca8943215822f39768a1aa182055643f597500521c73dd20aaf6f33234b3_ACTUALLY_VIEWED",
+          "paths": [
+            "scripts/security/supabase-local/product-browser-acceptance.mjs",
+            "src/lib/server/billing-pdf-v1.ts",
+            "src/lib/server/billing-artifact-service-v1.ts"
+          ]
         }
       ]
     }
