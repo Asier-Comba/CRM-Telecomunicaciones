@@ -17,6 +17,7 @@ const fields={
  assistant_durable_v1_reserve_material:['p_workspace','p_worker','p_authority_version','p_capability','p_digest','p_key','p_dispatcher','p_command','p_request','p_material'],
  assistant_durable_v1_load_operation:['p_workspace','p_operation'],
  assistant_durable_v1_load_result:['p_workspace','p_worker','p_authority_version','p_operation'],
+ assistant_durable_v1_complete:['p_workspace','p_worker','p_authority_version','p_operation','p_version','p_receipt','p_output_schema_version','p_schema_digest','p_result','p_audit','p_event'],
  assistant_durable_v1_reconcile_completed:['p_workspace','p_worker','p_authority_version','p_operation','p_version','p_receipt','p_output_schema_version','p_schema_digest','p_result','p_audit','p_event'],
 }
 
@@ -25,9 +26,9 @@ try{
  const job=await new Promise(resolve=>process.once('message',resolve))
  const {workspace,actor,capability,workerRef,input,outcomes,command,commit}=job
  const mode=job.mode??'reconcile',grantVersion=job.grantVersion??1
- assert.ok(['reconcile','reserve','kill_after_commit','recover_only'].includes(mode))
+ assert.ok(['reconcile','reserve','complete','kill_after_commit','recover_only'].includes(mode))
  assert.ok(Number.isSafeInteger(grantVersion)&&grantVersion>0&&grantVersion<Number.MAX_SAFE_INTEGER)
- assert.match(outcomes,/^unconfirmed_native_outcomes_[0-9a-f]{24}$/)
+ assert.match(outcomes,mode==='complete'?/^completion_native_outcomes_[0-9a-f]{24}$/:/^unconfirmed_native_outcomes_[0-9a-f]{24}$/)
  assert.equal(commit.binding.workspaceId,workspace);assert.equal(commit.binding.actorId,actor);assert.equal(commit.binding.capability,capability)
  session=await openPersistentNativeFixtureSessionV1()
  await session.query(`set request.jwt.claim.sub=${literal(actor)};`)
@@ -42,8 +43,9 @@ try{
   authorize:async(ctx,values)=>await session.query(`select count(*) from public.customers where id=${literal(values.customerRef)}::uuid and workspace_id=${literal(ctx.workspaceId)}::uuid;`)==='1'?{allowed:true}:{allowed:false,reason:'resource_not_accessible'},handler:async()=>{throw Error('business_handler_not_run')},projectOutput:()=>null})
  async function invoke(name,params,signal){
   const names=fields[name];assert.ok(names);assert.deepEqual(Object.keys(params).sort(),[...names].sort())
-  if(name==='assistant_durable_v1_reconcile_completed'||name==='assistant_durable_v1_reserve_material'){
+  if(name==='assistant_durable_v1_reconcile_completed'||name==='assistant_durable_v1_reserve_material'||name==='assistant_durable_v1_complete'){
    assert.equal(name==='assistant_durable_v1_reserve_material',mode==='reserve')
+   assert.equal(name==='assistant_durable_v1_complete',mode==='complete')
    stage='COMMIT_BARRIER'
    const backend=Number(await session.query('select pg_backend_pid();',signal));assert.equal(backend,session.backend)
    send({phase:'prepared',pid:process.pid,backend})
@@ -58,7 +60,7 @@ try{
    // The parent independently inspects persisted rows, then observes real SIGKILL.
    await new Promise(()=>{})
   }
-  if(name==='assistant_durable_v1_reconcile_completed')stage='READBACK'
+  if(name==='assistant_durable_v1_reconcile_completed'||name==='assistant_durable_v1_complete')stage='READBACK'
   return {data:row.data,error:null}
  }
  const material=createDurableCommandMaterialProducerV1({registry,registrations:[{dispatcher:capability,capability,schemaVersion:1}],authority:async()=>authority,
@@ -66,7 +68,7 @@ try{
  const reservation=createDurableMaterialReservationPortV1({authority:async()=>authority,producer:material,invoke})
  const business=createDurableBusinessOutboxPortV1({reservation,currentWorker:async()=>authority,producer:material,invoke,
   loadOutbox:async()=>{throw Error('worker_outbox_not_requested')},verifyReceipt:async()=>{throw Error('worker_ack_not_requested')}})
- const producer=createDurableResultMaterialProducerV1({registry,allowVerifiedReconciliation:true,registrations:[{dispatcher:capability,capability,schemaVersion:1,
+ const producer=createDurableResultMaterialProducerV1({registry,allowVerifiedReconciliation:mode!=='complete',registrations:[{dispatcher:capability,capability,schemaVersion:1,
   authorizeResult:async(ctx,_record,result)=>await session.query(`select count(*) from public.customers where workspace_id=${literal(ctx.workspaceId)}::uuid and id=${literal(result.data.customerRef)}::uuid;`)==='1'}],authority:async()=>authority,
   loadOutcome:async(_current,record,cmd)=>{const raw=await session.query(`select outcome from public.${outcomes} where workspace_id=${literal(workspace)}::uuid and operation_ref=${literal(record.operationRef)} and command_ref=${literal(cmd.commandRef)} and receipt_ref=${literal(record.effectReceiptRef)};`);return raw?JSON.parse(raw):null}})
  const loadCommand=async(_worker,operation)=>{const raw=await session.query(`select jsonb_build_object('dispatcher',dispatcher_key,'commandRef',command_ref) from public.assistant_registered_commands where workspace_id=${literal(workspace)}::uuid and operation_ref=${literal(operation)} and actor_id=${literal(actor)}::uuid;`);return raw?JSON.parse(raw):null}
@@ -82,6 +84,13 @@ try{
   assert.deepEqual(decision.record.binding,commit.binding);assert.equal(decision.record.idempotencyKey,commit.idempotencyKey)
   assert.equal(Number(await session.query('select pg_backend_pid();')),session.backend)
   send({phase:'result',pid:process.pid,backend:session.backend,status:decision.status,operationRef:decision.record.operationRef,recordDigest:createHash('sha256').update(canonicalArgumentsV1(decision.record)).digest('hex')})
+ }else if(mode==='complete'){
+  const {actor:principal,now,...completionInput}=commit;void now
+  const result=await completion.completeOperationWithAuditIntent(principal,completionInput)
+  stage='RESULT';assert.ok(['applied','version_conflict'].includes(result.status))
+  if(result.status==='applied'){assert.equal(result.record.version,commit.expectedVersion+1);assert.equal(result.record.state,'completed');assert.deepEqual(result.record.result,commit.result)}
+  assert.equal(Number(await session.query('select pg_backend_pid();')),session.backend)
+  send({phase:'result',pid:process.pid,backend:session.backend,status:result.status})
  }else if(mode==='recover_only'){
   stage='RECOVER'
   const recovered=await positive.loadAuthorizedOperation(commit.actor,commit.operationRef,new Date())

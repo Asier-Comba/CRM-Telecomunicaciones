@@ -8,6 +8,9 @@ export function runIndependentPositiveReconciliationRaceV1(inputs,fixture,termin
 export function runIndependentUnconfirmedReservationRaceV1(inputs,fixture,terminateBackends){
  return runIndependentRace(inputs,fixture,terminateBackends,'reserve')
 }
+export function runIndependentCompletionRaceV1(inputs,fixture,terminateBackends){
+ return runIndependentRace(inputs,fixture,terminateBackends,'complete')
+}
 async function runIndependentRace(inputs,fixture,terminateBackends,mode){
  assert.equal(inputs.length,20)
  const children=[],sessions=new Map(),states=new Map()
