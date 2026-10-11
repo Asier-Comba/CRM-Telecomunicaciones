@@ -81,3 +81,52 @@ test('cancellation respects PostgreSQL microseconds within a single JavaScript m
  f.data({...issued,record:{...record,issuedAt:'2026-10-11T01:25:00.000001Z',updatedAt:'2026-10-11T01:25:00.000001Z',expiresAt:'2026-10-11T01:30:00.000002Z'}})
  await assert.rejects(f.port.issueConfirmation(actor,binding,new Date()),safeUnavailable)
 })
+test('authorized operation lookup returns persisted nonterminal state and ignores caller clock',async()=>{
+ const f=fixture();f.data(operation)
+ assert.deepEqual(await f.port.loadAuthorizedOperation(actor,operation.operationRef,new Date('2099-01-01')),operation)
+ assert.deepEqual(f.calls[0],{operation:'assistant_durable_v1_load_operation',input:{p_workspace:binding.workspaceId,p_operation:operation.operationRef}})
+ assert.equal(f.authorityCalls(),2);f.data(null)
+ assert.equal(await f.port.loadAuthorizedOperation(actor,operation.operationRef,new Date()),null)
+ f.permission(false);f.data(operation)
+ assert.equal(await f.port.loadAuthorizedOperation(actor,operation.operationRef,new Date()),null)
+ assert.equal(await f.port.loadAuthorizedOperation({...actor,workspaceId:'b2000000-0000-4000-8000-000000000002'},operation.operationRef,new Date()),null)
+})
+test('lookup does not leak foreign, unsupported completed or malformed physical records',async()=>{
+ const f=fixture();f.data({...operation,binding:{...binding,actorId:'a1000000-0000-4000-8000-000000000002'}})
+ assert.equal(await f.port.loadAuthorizedOperation(actor,operation.operationRef,new Date()),null)
+ for(const changed of [{...operation,state:'completed',result:{private:'body'}},{...operation,version:Number.MAX_SAFE_INTEGER+1},
+  {...operation,attempt:0},{...operation,leaseExpiresAt:'2099-01-01T00:00:00Z'},
+  {...operation,effectReceiptRef:'https://private.example'},{...operation,state:'effect_applied'},
+  {...operation,operationRef:'e'.repeat(64)},{...operation,private:'body'}]){
+  f.data(changed);await assert.rejects(f.port.loadAuthorizedOperation(actor,operation.operationRef,new Date()),safeUnavailable)
+ }
+ let invoked=0;f.data({...operation,failureCode:{toString(){invoked++;return 'internal_safe'}}})
+ await assert.rejects(f.port.loadAuthorizedOperation(actor,operation.operationRef,new Date()),safeUnavailable);assert.equal(invoked,0)
+})
+test('lookup rechecks current permission after a delayed DB reply',async()=>{
+ let allowed=true,calls=0
+ const port=createDurableReservationPortV1({authority:async()=>({...binding,permissions:new Set(allowed?[binding.capability]:[])}),
+  invoke:async()=>{calls++;allowed=false;return {data:operation,error:null}}})
+ assert.equal(await port.loadAuthorizedOperation(actor,operation.operationRef,new Date()),null);assert.equal(calls,1)
+})
+test('recovery admission requires exact successor, immutable binding and closed uncertainty reason',async()=>{
+ const f=fixture(),recovered={...operation,state:'reconciliation_required',version:3,failureCode:'internal_safe'}
+ f.data({status:'applied',record:recovered})
+ assert.deepEqual(await f.port.transitionToReconciliation(actor,operation.operationRef,binding,2,'internal_safe'),{status:'applied',record:recovered})
+ assert.equal(f.calls[0].input.p_version,'2');assert.equal(f.calls[0].input.p_request,actor.requestId)
+ for(const changed of [{...recovered,version:4},{...recovered,state:'completed'},
+  {...recovered,failureCode:'effect_absence_verified_retryable'},{...recovered,binding:{...binding,argumentsDigest:'b'.repeat(64)}}]){
+  f.data({status:'applied',record:changed});await assert.rejects(f.port.transitionToReconciliation(actor,operation.operationRef,binding,2,'internal_safe'),safeUnavailable)
+ }
+ for(const status of ['not_found','binding_mismatch','version_conflict','invalid_transition']){
+  f.data({status});assert.deepEqual(await f.port.transitionToReconciliation(actor,operation.operationRef,binding,2,'internal_safe'),{status})
+ }
+})
+test('recovery rejects exhausted versions, raw reasons and forged principal without an RPC',async()=>{
+ const f=fixture()
+ for(const version of [0,1.5,Number.MAX_SAFE_INTEGER,Number.MAX_SAFE_INTEGER+1])
+  await assert.rejects(f.port.transitionToReconciliation(actor,operation.operationRef,binding,version,'internal_safe'),safeUnavailable)
+ await assert.rejects(f.port.transitionToReconciliation(actor,operation.operationRef,binding,2,'private provider SQL'),safeUnavailable)
+ f.permission(false);await assert.rejects(f.port.transitionToReconciliation({...actor,permissions:new Set([binding.capability])},operation.operationRef,binding,2,'internal_safe'),safeUnavailable)
+ assert.equal(f.calls.length,0)
+})

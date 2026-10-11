@@ -3,10 +3,10 @@ import type {DurableConfirmationRecord,DurableIdempotencyRecord,ReconciliationAc
 import type {DurableDatabasePort} from './durable-db-contract.ts'
 import {boundedAwaitV2} from './bounded-await-v2.ts'
 
-/** Confirmation/reservation seam only. Not a full DurableDatabasePort or enabled write path. */
-export type DurableReservationPortV1=Pick<DurableDatabasePort,'issueConfirmation'|'cancelConfirmation'|'confirmReserveEnqueue'>
+/** Five-method confirmation/reservation/recovery seam. Not a full port or enabled write path. */
+export type DurableReservationPortV1=Pick<DurableDatabasePort,'issueConfirmation'|'cancelConfirmation'|'confirmReserveEnqueue'|'loadAuthorizedOperation'|'transitionToReconciliation'>
 export type ReservationAuthorityV1={actorId:string;workspaceId:string;permissions:ReadonlySet<string>}
-export type ReservationRpcV1='assistant_durable_v1_issue'|'assistant_durable_v1_cancel'|'assistant_durable_v1_confirm_reserve'
+export type ReservationRpcV1='assistant_durable_v1_issue'|'assistant_durable_v1_cancel'|'assistant_durable_v1_confirm_reserve'|'assistant_durable_v1_load_operation'|'assistant_durable_v1_require_reconciliation'
 export type ReservationDependenciesV1={
  // Current server-owned session/permissions, resolved anew for EVERY call.
  authority:()=>Promise<ReservationAuthorityV1|null>
@@ -64,12 +64,36 @@ function reservation(v:unknown,b:IdempotencyBinding,k:string):DurableIdempotency
  return {operationRef:v.operationRef,idempotencyKey:k,binding:{...b},state:'reserved',attempt:1,version:1,
   leaseExpiresAt:v.leaseExpiresAt,createdAt:v.createdAt,updatedAt:v.updatedAt}
 }
+function recoveryRecord(v:unknown,operationRef:string):DurableIdempotencyRecord{
+ if(!object(v))throw unavailable()
+ const required='operationRef,idempotencyKey,binding,state,attempt,version,leaseExpiresAt,createdAt,updatedAt'.split(',')
+ const optional=['effectReceiptRef','failureCode']
+ if(!required.every(k=>Object.hasOwn(v,k))||Object.keys(v).some(k=>!required.includes(k)&&!optional.includes(k))
+  ||v.operationRef!==operationRef||!key(v.idempotencyKey)||!validBinding(v.binding)
+  ||typeof v.state!=='string'||!['reserved','executing','effect_applied','reconciliation_required'].includes(v.state)
+  ||!Number.isSafeInteger(v.version)||Number(v.version)<1||!Number.isSafeInteger(v.attempt)||Number(v.attempt)<1
+  ||!timestamp(v.createdAt)||!timestamp(v.updatedAt)||!timestamp(v.leaseExpiresAt)
+  ||microtime(v.updatedAt)<microtime(v.createdAt)||microtime(v.leaseExpiresAt)<=microtime(v.createdAt)
+  ||microtime(v.leaseExpiresAt)>microtime(v.updatedAt)+BigInt(300000000)
+  ||(Object.hasOwn(v,'effectReceiptRef')&&!ref(v.effectReceiptRef))
+  ||(Object.hasOwn(v,'failureCode')&&(typeof v.failureCode!=='string'||!['temporary_unavailable','validation','conflict','access_revoked','internal_safe','effect_absence_verified_retryable','effect_absence_verified_terminal'].includes(v.failureCode)))
+  ||(v.state==='effect_applied'&&!ref(v.effectReceiptRef)))throw unavailable()
+ // A recovery read reports persisted state; it never invents an expiry transition
+ // or reconstructs a completed result without a registered result schema.
+ return {operationRef,idempotencyKey:v.idempotencyKey,binding:{...v.binding},state:v.state as DurableIdempotencyRecord['state'],
+  attempt:Number(v.attempt),version:Number(v.version),leaseExpiresAt:v.leaseExpiresAt,createdAt:v.createdAt,updatedAt:v.updatedAt,
+  ...(typeof v.effectReceiptRef==='string'?{effectReceiptRef:v.effectReceiptRef}:{}),...(typeof v.failureCode==='string'?{failureCode:v.failureCode}:{})}
+}
 export function createDurableReservationPortV1(dependencies:ReservationDependenciesV1):DurableReservationPortV1{
- async function authorized(actor:ReconciliationActor,binding:IdempotencyBinding){
-  if(!validBinding(binding)||!actor||actor.authentication!=='user_session'||!key(actor.requestId))return false
+ async function currentAuthority(actor:ReconciliationActor){
+  if(!actor||actor.authentication!=='user_session'||!key(actor.requestId))return null
   const current=await boundedAwaitV2(()=>dependencies.authority())
-  return Boolean(current&&uuid(current.actorId)&&uuid(current.workspaceId)&&current.actorId===actor.actorId
-   &&current.workspaceId===actor.workspaceId&&current.actorId===binding.actorId&&current.workspaceId===binding.workspaceId
+  return current&&uuid(current.actorId)&&uuid(current.workspaceId)&&current.actorId===actor.actorId&&current.workspaceId===actor.workspaceId?current:null
+ }
+ async function authorized(actor:ReconciliationActor,binding:IdempotencyBinding){
+  if(!validBinding(binding))return false
+  const current=await currentAuthority(actor)
+  return Boolean(current&&current.actorId===binding.actorId&&current.workspaceId===binding.workspaceId
    &&current.permissions.has(binding.capability))
  }
  async function invoke(operation:ReservationRpcV1,input:Record<string,string>){
@@ -78,6 +102,32 @@ export function createDurableReservationPortV1(dependencies:ReservationDependenc
   return response.data
  }
  return {
+  async loadAuthorizedOperation(actor,operationRef,now){
+   try{
+    if(!ref(operationRef)||!(now instanceof Date)||!Number.isFinite(now.getTime()))throw unavailable()
+    const current=await currentAuthority(actor);if(!current)return null
+    const value=await invoke('assistant_durable_v1_load_operation',{p_workspace:current.workspaceId,p_operation:operationRef})
+    if(value===null)return null
+    const record=recoveryRecord(value,operationRef)
+    if(!await authorized(actor,record.binding))return null
+    return record
+   }catch{throw unavailable()}
+  },
+  async transitionToReconciliation(actor,operationRef,binding,expectedVersion,reasonCode){
+   try{
+    if(!ref(operationRef)||!Number.isSafeInteger(expectedVersion)||expectedVersion<1||expectedVersion>=Number.MAX_SAFE_INTEGER
+     ||!['internal_safe','temporary_unavailable'].includes(reasonCode))throw unavailable()
+    if(!await authorized(actor,binding))throw unavailable()
+    const value=await invoke('assistant_durable_v1_require_reconciliation',{p_workspace:binding.workspaceId,p_operation:operationRef,
+     p_capability:binding.capability,p_digest:binding.argumentsDigest,p_version:String(expectedVersion),p_reason:reasonCode,p_request:actor.requestId})
+    if(exact(value,'status')&&typeof value.status==='string'&&['not_found','binding_mismatch','version_conflict','invalid_transition'].includes(value.status))
+     return {status:value.status as 'not_found'|'binding_mismatch'|'version_conflict'|'invalid_transition'}
+    if(!exact(value,'status,record')||value.status!=='applied')throw unavailable()
+    const record=recoveryRecord(value.record,operationRef)
+    if(!matches(record.binding,binding)||record.state!=='reconciliation_required'||record.version!==expectedVersion+1||record.failureCode!==reasonCode)throw unavailable()
+    return {status:'applied',record}
+   }catch{throw unavailable()}
+  },
   async cancelConfirmation(actor,confirmationRef,binding){
    try{
     if(!ref(confirmationRef)||!await authorized(actor,binding))throw unavailable()

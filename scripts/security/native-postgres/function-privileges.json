@@ -44,6 +44,22 @@
     {
       "anon": false,
       "public": false,
+      "definer": true,
+      "signature": "public.assistant_durable_v1_load_operation(uuid, text)",
+      "service_role": false,
+      "authenticated": false
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": true,
+      "signature": "public.assistant_durable_v1_require_reconciliation(uuid, text, text, text, bigint, text, text)",
+      "service_role": false,
+      "authenticated": false
+    },
+    {
+      "anon": false,
+      "public": false,
       "definer": false,
       "signature": "public.assistant_message_guard_v2()",
       "service_role": false,

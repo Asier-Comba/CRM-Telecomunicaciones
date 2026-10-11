@@ -62,10 +62,14 @@ try{
  const principal={actorId:actor,workspaceId:workspace,authentication:'user_session',permissions:new Set(),requestId:request}
  const port=createDurableReservationPortV1({authority:async()=>({actorId:actor,workspaceId:workspace,permissions:new Set([capability])}),invoke:async(operation,input)=>{
   for(const value of Object.values(input))assert.match(value,/^[A-Za-z0-9_.:-]+$/)
-  const values=operation==='assistant_durable_v1_issue'
-   ?[input.p_workspace,input.p_capability,input.p_digest]
-   :operation==='assistant_durable_v1_cancel'?[input.p_workspace,input.p_confirmation,input.p_capability,input.p_digest]
-   :[input.p_workspace,input.p_confirmation,input.p_capability,input.p_digest,input.p_key,input.p_dispatcher,input.p_command,input.p_request]
+  const parameters={
+   assistant_durable_v1_issue:[input.p_workspace,input.p_capability,input.p_digest],
+   assistant_durable_v1_cancel:[input.p_workspace,input.p_confirmation,input.p_capability,input.p_digest],
+   assistant_durable_v1_confirm_reserve:[input.p_workspace,input.p_confirmation,input.p_capability,input.p_digest,input.p_key,input.p_dispatcher,input.p_command,input.p_request],
+   assistant_durable_v1_load_operation:[input.p_workspace,input.p_operation],
+   assistant_durable_v1_require_reconciliation:[input.p_workspace,input.p_operation,input.p_capability,input.p_digest,input.p_version,input.p_reason,input.p_request],
+  }
+  assert.ok(Object.hasOwn(parameters,operation));const values=parameters[operation]
   return {data:JSON.parse(await sql(auth+`select public.${operation}(${values.map(v=>`'${v}'`).join(',')});`)),error:null}
  }})
  const typedConfirmation=await port.issueConfirmation(principal,binding,new Date('2099-01-01'))
@@ -80,6 +84,75 @@ try{
  const cancelReceipt=await port.cancelConfirmation(principal,typedCancelled.operationRef,binding)
  assert.equal(cancelReceipt.status,'applied');assert.equal(cancelReceipt.record.state,'cancelled');assert.equal(cancelReceipt.record.version,2)
  console.log('TYPED RESERVATION PHYSICAL SEAM PASS: issue/confirmed reservation/exact replay; synthetic DB session only; full port/effects NOT_RUN.')
+ assert.deepEqual(await port.loadAuthorizedOperation(principal,typedReserved.record.operationRef,new Date('2099-01-01')),typedReserved.record)
+ async function recoveryFixture(suffix){
+  const proof=await issue(),k='native_recovery_key_'+suffix+'_'+nonce
+  const receipt=JSON.parse(await sql(auth+`select ${invoke(proof,k,'native_recovery_command_'+suffix+'_'+nonce)};`))
+  const operation=receipt.operationRef;assert.match(operation,/^[a-f0-9]{64}$/)
+  await sql(`update public.assistant_operations set state='executing',version=2 where workspace_id='${workspace}' and operation_ref='${operation}';
+   update public.assistant_effect_outbox set state='dispatching',version=2,fence=1,worker_ref='synthetic_recovery_worker',lease_expires_at=clock_timestamp()+interval '5 minutes'
+   where workspace_id='${workspace}' and operation_ref='${operation}';`)
+  return {operation,key:k}
+ }
+ function recoveryCall(operation,requestRef=request){
+  assert.match(operation,/^[a-f0-9]{64}$/);assert.match(requestRef,/^[A-Za-z0-9_]+$/)
+  return `public.assistant_durable_v1_require_reconciliation('${workspace}','${operation}','${capability}','${digest}',2,'internal_safe','${requestRef}')`
+ }
+ const recovering=await recoveryFixture('race')
+ const recoveryRace=await Promise.all(Array.from({length:20},(_,i)=>run(auth+`select jsonb_build_object('backend',pg_backend_pid(),'receipt',${recoveryCall(recovering.operation,request+'_recovery_'+i)});`)))
+ assert.ok(recoveryRace.every(r=>r.code===0&&!r.timedOut));assert.equal(new Set(recoveryRace.map(r=>r.pid)).size,20)
+ const recoveryRows=recoveryRace.map(r=>JSON.parse(r.out.trim()));assert.equal(new Set(recoveryRows.map(r=>r.backend)).size,20)
+ assert.equal(recoveryRows.filter(r=>r.receipt.status==='applied').length,1);assert.equal(recoveryRows.filter(r=>r.receipt.status==='version_conflict').length,19)
+ assert.deepEqual(await ledger(recovering.key),{...one,intents:2,deliveries:2})
+ const persistedRecovery=await port.loadAuthorizedOperation(principal,recovering.operation,new Date())
+ assert.equal(persistedRecovery.state,'reconciliation_required');assert.equal(persistedRecovery.version,3);assert.equal(persistedRecovery.failureCode,'internal_safe')
+ const winnerRequest=request+'_recovery_'+recoveryRows.findIndex(r=>r.receipt.status==='applied')
+ assert.equal(await sql(`select request_ref from public.assistant_original_audit_intents where workspace_id='${workspace}' and operation_ref='${recovering.operation}' and operation_version=3;`),winnerRequest)
+ assert.deepEqual(await port.transitionToReconciliation(principal,recovering.operation,binding,2,'internal_safe'),{status:'version_conflict'})
+ // Actual abort after each write, separate connection observes rollback before retry.
+ const triggerName='assistant_recovery_native_'+nonce
+ await sql(`create function public.${triggerName}() returns trigger language plpgsql as $fixture$
+ begin
+ if current_setting('test.assistant.recovery.cut',true)=TG_TABLE_NAME
+ and ((TG_TABLE_NAME='assistant_operations' and to_jsonb(NEW)->>'state'='reconciliation_required')
+ or (TG_TABLE_NAME='assistant_effect_outbox' and to_jsonb(NEW)->>'state'='reconciliation_required')
+ or (TG_TABLE_NAME='assistant_original_audit_intents' and to_jsonb(NEW)->>'event'='assistant.operation.recovery_required')
+ or (TG_TABLE_NAME='assistant_audit_delivery_outbox' and exists(select 1 from public.assistant_original_audit_intents i
+ where i.workspace_id=(to_jsonb(NEW)->>'workspace_id')::uuid and i.event_ref=to_jsonb(NEW)->>'event_ref' and i.event='assistant.operation.recovery_required'))) then
+ raise exception 'synthetic_recovery_cutpoint';end if;return NEW;end;$fixture$;
+ create trigger ${triggerName} after update on public.assistant_operations for each row execute function public.${triggerName}();
+ create trigger ${triggerName} after update on public.assistant_effect_outbox for each row execute function public.${triggerName}();
+ create trigger ${triggerName} after insert on public.assistant_original_audit_intents for each row execute function public.${triggerName}();
+ create trigger ${triggerName} after insert on public.assistant_audit_delivery_outbox for each row execute function public.${triggerName}();`)
+ for(const [i,table] of ['assistant_operations','assistant_effect_outbox','assistant_original_audit_intents','assistant_audit_delivery_outbox'].entries()){
+  const fixture=await recoveryFixture('cut'+i)
+  const failed=await run(auth+`set test.assistant.recovery.cut='${table}';select ${recoveryCall(fixture.operation)};`)
+  assert.notEqual(failed.code,0);assert.equal(failed.timedOut,false);assert.ok(failed.err.includes('synthetic_recovery_cutpoint'))
+  assert.deepEqual(await ledger(fixture.key),one)
+  const observed=JSON.parse(await sql(`select jsonb_build_object('state',o.state,'version',o.version,'outboxState',b.state,'outboxVersion',b.version,'fence',b.fence,'worker',b.worker_ref)
+   from public.assistant_operations o join public.assistant_effect_outbox b using(workspace_id,operation_ref) where o.workspace_id='${workspace}' and o.operation_ref='${fixture.operation}';`))
+  assert.deepEqual(observed,{state:'executing',version:2,outboxState:'dispatching',outboxVersion:2,fence:1,worker:'synthetic_recovery_worker'})
+  const applied=await port.transitionToReconciliation(principal,fixture.operation,binding,2,'internal_safe')
+  assert.equal(applied.status,'applied');assert.equal(applied.record.version,3);assert.deepEqual(await ledger(fixture.key),{...one,intents:2,deliveries:2})
+ }
+ await sql(`drop trigger ${triggerName} on public.assistant_operations;drop trigger ${triggerName} on public.assistant_effect_outbox;
+ drop trigger ${triggerName} on public.assistant_original_audit_intents;drop trigger ${triggerName} on public.assistant_audit_delivery_outbox;drop function public.${triggerName}();`)
+ // Negative controls run the real SQL fixture and roll back the mutated definition.
+ const recoveryMigration=readFileSync('supabase/migrations/20261011023000_assistant_operation_recovery.sql','utf8').replace(/\r\n/g,'\n')
+ const recoveryTest=readFileSync('supabase/tests/assistant-operation-recovery.sql','utf8').replace(/\r\n/g,'\n')
+ for(const [signature,name,replaceFrom,replaceTo,expectedFailure] of [
+  ['uuid,text','assistant_durable_v1_load_operation',' and x.actor_id=a','', 'cross_actor_operation_leaked'],
+  ['uuid,text,text,text,bigint,text,text','assistant_durable_v1_require_reconciliation',
+   ' insert into public.assistant_audit_delivery_outbox(workspace_id,event_ref,next_eligible_at,created_at) values(p_workspace,event_id,t,t);','', 'recovery_atomic_audit_delivery_missing'],
+ ]){
+  const from=recoveryMigration.indexOf('create function public.'+name+'('),to=recoveryMigration.indexOf('revoke all on function public.'+name+'(',from)
+  const original=recoveryMigration.slice(from,to);assert.ok(original.includes(replaceFrom))
+  const before=await sql(`select pg_get_functiondef('public.${name}(${signature})'::regprocedure);`)
+  const weakened=original.replace('create function','create or replace function').replace(replaceFrom,replaceTo)
+  const mutation=await run('begin;'+weakened+recoveryTest);assert.notEqual(mutation.code,0);assert.ok(mutation.err.includes(expectedFailure))
+  assert.equal(await sql(`select pg_get_functiondef('public.${name}(${signature})'::regprocedure);`),before)
+ }
+ console.log('OPERATION RECOVERY NATIVE PASS: typed lookup/CAS quarantine;20 processes/backends one winner;four independently observed rollback/retry cuts;actor/delivery mutants rejected. NO effects/verified outcome/full23/W4 acceptance.')
  const ref=await issue(),key='native_atomic_same_key_'+nonce,command='native_atomic_command_'+nonce
  const same=await Promise.all(Array.from({length:20},(_,i)=>run(auth+`select jsonb_build_object('backend',pg_backend_pid(),'receipt',${invoke(ref,key,command,{request:request+'_'+i})});`)))
  assert.ok(same.every(r=>r.code===0&&!r.timedOut))
