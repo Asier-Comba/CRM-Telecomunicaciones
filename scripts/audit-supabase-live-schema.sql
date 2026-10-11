@@ -23,6 +23,7 @@ target_relations(name) as (
     ('assistant_command_material'),
     ('assistant_registered_commands'),
     ('assistant_registered_dispatchers'),
+    ('assistant_registered_effect_workers'),
     ('assistant_turns_v2'),
     ('assistant_findings'),
     ('assistant_messages'),

@@ -24,6 +24,13 @@ const sameBinding=(a:IdempotencyBinding,b:IdempotencyBinding)=>a.actorId===b.act
 function active(a:CommandMaterialAuthorityV1|null):a is CommandMaterialAuthorityV1{
  return Boolean(a&&a.authentication==='user_session'&&typeof a.scopeEpoch==='string'&&a.scopeEpoch.length>0&&a.scopeEpoch.length<=256)
 }
+/** Private brand and fresh authority check; never exposes arguments. */
+export function assertPreparedCommandMaterialV1(handle:PreparedCommandMaterialV1,binding:IdempotencyBinding,command:ServerEffectCommand,current:CommandMaterialAuthorityV1|null,schemaVersion?:number):void{
+ const material=prepared.get(handle)
+ if(!material||!active(current)||(schemaVersion!==undefined&&schemaVersion!==material.schemaVersion)||current.actorId!==binding.actorId||current.workspaceId!==binding.workspaceId||current.scopeEpoch!==material.epoch
+  ||!current.permissions.has(binding.capability)||!current.permissions.has(material.permission)||!sameBinding(material.binding,binding)
+  ||material.command.commandRef!==command.commandRef||material.command.dispatcher!==command.dispatcher)throw fail()
+}
 export function createDurableCommandMaterialProducerV1(deps:{
  // Reviewed server definitions/versions and private draft source. None is model input.
  registry:CapabilityRegistry;registrations:readonly Registration[]

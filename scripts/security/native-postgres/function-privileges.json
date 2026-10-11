@@ -45,6 +45,14 @@
       "anon": false,
       "public": false,
       "definer": true,
+      "signature": "public.assistant_durable_v1_ack_effect(uuid, text, bigint, text, bigint, bigint, text, text, text)",
+      "service_role": false,
+      "authenticated": false
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.assistant_durable_v1_cancel(uuid, text, text, text)",
       "service_role": false,
       "authenticated": false
@@ -61,6 +69,14 @@
       "anon": false,
       "public": false,
       "definer": true,
+      "signature": "public.assistant_durable_v1_claim_effect(uuid, text, bigint, text, bigint)",
+      "service_role": false,
+      "authenticated": false
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.assistant_durable_v1_confirm_reserve(uuid, text, text, text, text, text, text, text)",
       "service_role": false,
       "authenticated": false
@@ -70,6 +86,14 @@
       "public": false,
       "definer": true,
       "signature": "public.assistant_durable_v1_confirm_reserve_material(uuid, text, text, text, text, text, text, text, jsonb)",
+      "service_role": false,
+      "authenticated": false
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": false,
+      "signature": "public.assistant_durable_v1_effect_projection(assistant_effect_outbox)",
       "service_role": false,
       "authenticated": false
     },
@@ -110,6 +134,14 @@
       "public": false,
       "definer": true,
       "signature": "public.assistant_durable_v1_start_execution(uuid, text, text, text, bigint)",
+      "service_role": false,
+      "authenticated": false
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": false,
+      "signature": "public.assistant_effect_worker_grant_guard()",
       "service_role": false,
       "authenticated": false
     },
