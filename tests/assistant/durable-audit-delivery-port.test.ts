@@ -28,6 +28,12 @@ test('audit discovery returns frozen bounded keyset pages without claims or tena
  f.data({status:'applied',items:[],nextCursor:null})
  assert.deepEqual(await f.port.listEligible(nextCursor),{status:'applied',items:[],nextCursor:null})
  assert.equal(f.calls[1].input.p_after_event,nextCursor.eventRef)
+ f.data({status:'applied',items:[{...items[0],version:Number.MAX_SAFE_INTEGER}],nextCursor:null})
+ const exhausted=await f.port.listEligible();assert.equal(exhausted.status,'applied')
+ if(exhausted.status!=='applied')throw new Error('missing_exhausted_metadata')
+ assert.equal(exhausted.items[0].version,Number.MAX_SAFE_INTEGER)
+ const calls=f.calls.length;await assert.rejects(f.port.claim(exhausted.items[0].eventRef,exhausted.items[0].version),safe)
+ assert.equal(f.calls.length,calls)
 })
 test('queue discovery rejects duplicate/reversed/oversized/accessor pages and invalid cursors',async()=>{
  const f=fixture(),item={createdAt:original.createdAt,eventRef:'a'.repeat(64),version:1};let invoked=0

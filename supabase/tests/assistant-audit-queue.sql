@@ -34,6 +34,10 @@ begin
  update public.assistant_audit_delivery_outbox set next_eligible_at=clock_timestamp()+interval '1 hour' where event_ref=first_page->'items'->0->>'eventRef';
  r:=public.assistant_durable_v1_list_audit('b2000000-0000-4000-8000-000000000001','audit_queue_worker_reference',1,'','');
  if exists(select 1 from jsonb_array_elements(r->'items') x where x->>'eventRef'=first_page->'items'->0->>'eventRef') then raise exception 'audit_queue_backoff_ignored';end if;
+ update public.assistant_audit_delivery_outbox set version=9007199254740991 where event_ref=second_page->'items'->0->>'eventRef';
+ r:=public.assistant_durable_v1_list_audit('b2000000-0000-4000-8000-000000000001','audit_queue_worker_reference',1,
+  first_page->'nextCursor'->>'createdAt',first_page->'nextCursor'->>'eventRef');
+ if r->'items'->0->>'version' is distinct from '9007199254740991' then raise exception 'audit_queue_exhausted_event_hidden';end if;
  update public.assistant_registered_audit_workers set active=false,authority_version=2 where worker_ref='audit_queue_worker_reference';
  r:=public.assistant_durable_v1_list_audit('b2000000-0000-4000-8000-000000000001','audit_queue_worker_reference',1,'','');
  if r is distinct from jsonb_build_object('status','forbidden') then raise exception 'audit_queue_revoked_worker_disclosed';end if;
