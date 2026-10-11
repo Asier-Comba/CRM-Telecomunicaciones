@@ -94,6 +94,22 @@ begin
   begin perform count(*) from public.assistant_registered_effect_workers;
   exception when insufficient_privilege then denied:=true;end;
   if not denied then raise exception 'durable_private_effect_worker_registry_read';end if;
+  denied:=false;
+  begin perform count(*) from public.assistant_registered_result_schemas;
+  exception when insufficient_privilege then denied:=true;end;
+  if not denied then raise exception 'durable_private_result_schema_registry_read';end if;
+  denied:=false;
+  begin perform count(*) from public.assistant_safe_results;
+  exception when insufficient_privilege then denied:=true;end;
+  if not denied then raise exception 'durable_private_safe_result_read';end if;
+  denied:=false;
+  begin perform public.assistant_durable_v1_complete('b2000000-0000-4000-8000-000000000001','role_boundary_worker_reference',1,'role_boundary_operation_reference',3,'role_boundary_original_receipt',1,repeat('a',64),'{}','{}',repeat('b',64));
+  exception when insufficient_privilege then denied:=true;end;
+  if not denied then raise exception 'durable_inert_safe_completion_executed';end if;
+  denied:=false;
+  begin perform public.assistant_durable_v1_load_result('b2000000-0000-4000-8000-000000000001','role_boundary_worker_reference',1,'role_boundary_operation_reference');
+  exception when insufficient_privilege then denied:=true;end;
+  if not denied then raise exception 'durable_inert_safe_replay_executed';end if;
   reset role;
  end loop;
  if exists(select 1 from public.assistant_operations where capability='fixture.role.boundary') then

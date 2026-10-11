@@ -1,4 +1,5 @@
 import {boundedAwaitV2} from './bounded-await-v2.ts'
+import type {AuditEvent} from './contracts.ts'
 
 /** Private delegated user-session delivery only. No effect or service authority. */
 export type AuditWorkerAuthorityV1={authentication:'user_session';actorId:string;workspaceId:string;workerRef:string;
@@ -6,9 +7,12 @@ export type AuditWorkerAuthorityV1={authentication:'user_session';actorId:string
 export type AuditDeliveryRpcV1='assistant_durable_v1_claim_audit'|'assistant_durable_v1_ack_audit'|'assistant_durable_v1_list_audit'
 export type AuditDeliveryCursorV1={createdAt:string;eventRef:string}
 export type EligibleAuditDeliveryV1=AuditDeliveryCursorV1&{version:number}
-export type OriginalAuditEventV1={eventRef:string;workspaceId:string;operationRef:string;operationVersion:number;actorId:string;
+type OriginalAuditMetadataV1={eventRef:string;workspaceId:string;operationRef:string;operationVersion:number;actorId:string;
+ capability:string;argumentsDigest:string;requestId:string;createdAt:string}
+export type OriginalAuditEventV1=OriginalAuditMetadataV1&({
  capability:string;argumentsDigest:string;event:'assistant.operation.reserved'|'assistant.operation.recovery_required'|'assistant.operation.effect_applied';
- requestId:string;createdAt:string;reasonCode:null|'internal_safe'|'temporary_unavailable'}
+ reasonCode:null|'internal_safe'|'temporary_unavailable'}|{
+ event:'assistant.capability.completed';reasonCode:'capability_success';capabilityEvent:Readonly<AuditEvent>})
 export type AuditDeliveryClaimV1={workspaceId:string;eventRef:string;workerRef:string;grantVersion:number;version:number;
  fence:number;claimRef:string;claimedAt:string;leaseExpiresAt:string}
 type Denial='forbidden'|'not_found'|'version_conflict'
@@ -44,14 +48,26 @@ function micros(v:string):bigint{
  return BigInt(Date.parse(v))*BigInt(1000)+BigInt(f.slice(3))
 }
 function event(value:unknown,worker:AuditWorkerAuthorityV1,eventRef:string):OriginalAuditEventV1{
- if(!exact(value,'eventRef,workspaceId,operationRef,operationVersion,actorId,capability,argumentsDigest,event,requestId,createdAt,reasonCode')
+ const fields='eventRef,workspaceId,operationRef,operationVersion,actorId,capability,argumentsDigest,event,requestId,createdAt,reasonCode'
+ if(!(exact(value,fields)||exact(value,fields+',capabilityEvent'))
   ||value.eventRef!==eventRef||value.workspaceId!==worker.workspaceId||value.capability!==worker.capability
   ||!uuid(value.actorId)||!ref(value.operationRef)||!Number.isSafeInteger(value.operationVersion)||Number(value.operationVersion)<1
   ||!hex(value.argumentsDigest)||typeof value.requestId!=='string'||!/^[A-Za-z0-9_-]{16,128}$/.test(value.requestId)||!timestamp(value.createdAt)
   ||!((value.event==='assistant.operation.reserved'&&value.operationVersion===1&&value.reasonCode===null)
    ||(value.event==='assistant.operation.effect_applied'&&Number(value.operationVersion)>2&&value.reasonCode===null)
    ||(value.event==='assistant.operation.recovery_required'&&Number(value.operationVersion)>1
-    &&(value.reasonCode==='internal_safe'||value.reasonCode==='temporary_unavailable'))))throw unavailable()
+    &&(value.reasonCode==='internal_safe'||value.reasonCode==='temporary_unavailable'))
+   ||(value.event==='assistant.capability.completed'&&Number(value.operationVersion)>3&&value.reasonCode==='capability_success')))throw unavailable()
+ if(value.event==='assistant.capability.completed'){
+  const e=value.capabilityEvent
+  if(!exact(value,fields+',capabilityEvent')||!exact(e,'event,requestId,actorId,workspaceId,capability,accessClass,status,reasonCode,confirmationState,idempotencyState,durationMs')
+   ||e.event!==value.event||e.requestId!==value.requestId||e.actorId!==value.actorId||e.workspaceId!==value.workspaceId||e.capability!==value.capability
+   ||e.status!=='SUCCESS'||e.reasonCode!==value.reasonCode||e.confirmationState!=='accepted'||e.idempotencyState!=='reserved'
+   ||typeof e.accessClass!=='string'||!['SAFE_WRITE','SENSITIVE_WRITE','IRREVERSIBLE'].includes(e.accessClass)
+   ||!Number.isSafeInteger(e.durationMs)||Number(e.durationMs)<0)throw unavailable()
+  return Object.freeze({...value,capabilityEvent:Object.freeze({...e})}) as OriginalAuditEventV1
+ }
+ if(!exact(value,fields))throw unavailable()
  return Object.freeze({...value}) as OriginalAuditEventV1
 }
 function validClaim(value:unknown):value is AuditDeliveryClaimV1{

@@ -4,7 +4,8 @@ import type {AuditDeliveryCursorV1,DurableAuditDeliveryPortV1,OriginalAuditEvent
 
 /** Private delivery orchestration only. No scheduler, provider or business effect. */
 export const ORIGINAL_AUDIT_CONTENT_V1='assistant-original-audit-content.v1' as const
-export type OriginalAuditPacketV1=Readonly<{event:Readonly<OriginalAuditEventV1>;digestAlgorithm:typeof ORIGINAL_AUDIT_CONTENT_V1;contentDigest:string}>
+export const ORIGINAL_CAPABILITY_AUDIT_CONTENT_V1='assistant-original-capability-audit-content.v1' as const
+export type OriginalAuditPacketV1=Readonly<{event:Readonly<OriginalAuditEventV1>;digestAlgorithm:typeof ORIGINAL_AUDIT_CONTENT_V1|typeof ORIGINAL_CAPABILITY_AUDIT_CONTENT_V1;contentDigest:string}>
 export type AuditDrainPageV1=Readonly<{
  status:'page_processed'|'empty_page'|'blocked'|'unavailable'|'cancelled'
  listed:number;delivered:number;skipped:number;uncertain:number
@@ -15,6 +16,17 @@ export type AuditDrainPageV1=Readonly<{
 // Explicit versioned field order includes original actor/request/reason/time.
 // Never hash JSONB serialization, worker identity, a retry request or a claim.
 export function originalAuditPacketV1(event:OriginalAuditEventV1):OriginalAuditPacketV1{
+ if(event.event==='assistant.capability.completed'){
+  const e=event.capabilityEvent,capabilityEvent=Object.freeze({event:e.event,requestId:e.requestId,actorId:e.actorId,workspaceId:e.workspaceId,
+   capability:e.capability,accessClass:e.accessClass,status:e.status,reasonCode:e.reasonCode,confirmationState:e.confirmationState,idempotencyState:e.idempotencyState,durationMs:e.durationMs})
+  const original=Object.freeze({eventRef:event.eventRef,workspaceId:event.workspaceId,operationRef:event.operationRef,operationVersion:event.operationVersion,
+   actorId:event.actorId,capability:event.capability,argumentsDigest:event.argumentsDigest,event:event.event,requestId:event.requestId,createdAt:event.createdAt,
+   reasonCode:event.reasonCode,capabilityEvent})
+  const fields=[ORIGINAL_CAPABILITY_AUDIT_CONTENT_V1,original.eventRef,original.workspaceId,original.operationRef,original.operationVersion,
+   original.actorId,original.capability,original.argumentsDigest,original.event,original.requestId,original.createdAt,original.reasonCode,
+   e.event,e.requestId,e.actorId,e.workspaceId,e.capability,e.accessClass,e.status,e.reasonCode,e.confirmationState,e.idempotencyState,e.durationMs]
+  return Object.freeze({event:original,digestAlgorithm:ORIGINAL_CAPABILITY_AUDIT_CONTENT_V1,contentDigest:createHash('sha256').update(JSON.stringify(fields),'utf8').digest('hex')})
+ }
  const original=Object.freeze({eventRef:event.eventRef,workspaceId:event.workspaceId,operationRef:event.operationRef,
   operationVersion:event.operationVersion,actorId:event.actorId,capability:event.capability,argumentsDigest:event.argumentsDigest,
   event:event.event,requestId:event.requestId,createdAt:event.createdAt,reasonCode:event.reasonCode})

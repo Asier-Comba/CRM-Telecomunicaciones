@@ -77,6 +77,14 @@
       "anon": false,
       "public": false,
       "definer": true,
+      "signature": "public.assistant_durable_v1_complete(uuid, text, bigint, text, bigint, text, integer, text, text, text, text)",
+      "service_role": false,
+      "authenticated": false
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.assistant_durable_v1_confirm_reserve(uuid, text, text, text, text, text, text, text)",
       "service_role": false,
       "authenticated": false
@@ -125,6 +133,14 @@
       "anon": false,
       "public": false,
       "definer": true,
+      "signature": "public.assistant_durable_v1_load_result(uuid, text, bigint, text)",
+      "service_role": false,
+      "authenticated": false
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.assistant_durable_v1_require_reconciliation(uuid, text, text, text, bigint, text, text)",
       "service_role": false,
       "authenticated": false
@@ -158,6 +174,30 @@
       "public": false,
       "definer": false,
       "signature": "public.assistant_original_audit_guard_v1()",
+      "service_role": false,
+      "authenticated": false
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": false,
+      "signature": "public.assistant_result_data_valid_v1(jsonb, jsonb, jsonb, uuid)",
+      "service_role": false,
+      "authenticated": false
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": false,
+      "signature": "public.assistant_result_material_guard_v1()",
+      "service_role": false,
+      "authenticated": false
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": false,
+      "signature": "public.assistant_result_schema_valid_v1(jsonb, jsonb)",
       "service_role": false,
       "authenticated": false
     },
