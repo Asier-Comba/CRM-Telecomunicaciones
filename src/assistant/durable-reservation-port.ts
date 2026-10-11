@@ -3,10 +3,10 @@ import type {DurableConfirmationRecord,DurableIdempotencyRecord,ReconciliationAc
 import type {DurableDatabasePort} from './durable-db-contract.ts'
 import {boundedAwaitV2} from './bounded-await-v2.ts'
 
-/** Five-method confirmation/reservation/recovery seam. Not a full port or enabled write path. */
-export type DurableReservationPortV1=Pick<DurableDatabasePort,'issueConfirmation'|'cancelConfirmation'|'confirmReserveEnqueue'|'loadAuthorizedOperation'|'transitionToReconciliation'>
+/** Six-method lifecycle seam. Not a full port, worker claim or enabled write path. */
+export type DurableReservationPortV1=Pick<DurableDatabasePort,'issueConfirmation'|'cancelConfirmation'|'confirmReserveEnqueue'|'loadAuthorizedOperation'|'transitionToReconciliation'|'startExecution'>
 export type ReservationAuthorityV1={actorId:string;workspaceId:string;permissions:ReadonlySet<string>}
-export type ReservationRpcV1='assistant_durable_v1_issue'|'assistant_durable_v1_cancel'|'assistant_durable_v1_confirm_reserve'|'assistant_durable_v1_load_operation'|'assistant_durable_v1_require_reconciliation'
+export type ReservationRpcV1='assistant_durable_v1_issue'|'assistant_durable_v1_cancel'|'assistant_durable_v1_confirm_reserve'|'assistant_durable_v1_load_operation'|'assistant_durable_v1_require_reconciliation'|'assistant_durable_v1_start_execution'
 export type ReservationDependenciesV1={
  // Current server-owned session/permissions, resolved anew for EVERY call.
  authority:()=>Promise<ReservationAuthorityV1|null>
@@ -102,6 +102,24 @@ export function createDurableReservationPortV1(dependencies:ReservationDependenc
   return response.data
  }
  return {
+  async startExecution(actor,operationRef,binding,expectedVersion){
+   try{
+    if(!ref(operationRef)||!Number.isSafeInteger(expectedVersion)||expectedVersion<1||expectedVersion>=Number.MAX_SAFE_INTEGER)throw unavailable()
+    if(!await authorized(actor,binding))throw unavailable()
+    const value=await invoke('assistant_durable_v1_start_execution',{p_workspace:binding.workspaceId,p_operation:operationRef,
+     p_capability:binding.capability,p_digest:binding.argumentsDigest,p_version:String(expectedVersion)})
+    if(exact(value,'status')&&typeof value.status==='string'&&['not_found','binding_mismatch','version_conflict','invalid_transition'].includes(value.status))
+     return {status:value.status as 'not_found'|'binding_mismatch'|'version_conflict'|'invalid_transition'}
+    if(!exact(value,'status,record')||value.status!=='applied')throw unavailable()
+    const record=recoveryRecord(value.record,operationRef)
+    if(!matches(record.binding,binding)||record.state!=='executing'||record.version!==expectedVersion+1
+     ||record.effectReceiptRef!==undefined||record.failureCode!==undefined
+     ||microtime(record.leaseExpiresAt)-microtime(record.updatedAt)!==BigInt(300000000))throw unavailable()
+    // A successful lifecycle receipt does not authorize an external effect;
+    // that requires the separately reviewed current worker/fence claim.
+    return {status:'applied',record}
+   }catch{throw unavailable()}
+  },
   async loadAuthorizedOperation(actor,operationRef,now){
    try{
     if(!ref(operationRef)||!(now instanceof Date)||!Number.isFinite(now.getTime()))throw unavailable()
