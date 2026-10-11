@@ -44,6 +44,9 @@ export function argumentsDigest(input: Record<string, unknown>): string {
   return createHash('sha256').update(canonical(input)).digest('hex')
 }
 
+/** Exact existing v1 producer bytes; call only after bounded input validation. */
+export function canonicalArgumentsV1(input:Record<string,unknown>):string{return canonical(input)}
+
 function failure(
   capability: string,
   status: ResultStatus,
