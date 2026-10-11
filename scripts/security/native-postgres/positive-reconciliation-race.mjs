@@ -17,7 +17,7 @@ export async function runIndependentPositiveReconciliationRaceV1(inputs,fixture,
   child.on('message',m=>{
    try{
     if(m.phase==='failed'){
-     assert.equal(m.code,'INDEPENDENT_RECONCILIATION_WORKER_FAILED');assert.ok(['CONNECT','PREPARE','COMMIT_BARRIER','COMMIT','READBACK','RESULT'].includes(m.stage))
+     assert.equal(m.code,'INDEPENDENT_RECONCILIATION_WORKER_FAILED');assert.ok(['CONNECT','PREPARE','COMMIT_BARRIER','COMMIT','READBACK','RESULT','POSTCOMMIT','RECOVER'].includes(m.stage))
      reject(Error('INDEPENDENT_RECONCILIATION_WORKER_'+m.stage));return
     }
     assert.equal(m.pid,child.pid);assert.ok(Number.isSafeInteger(m.backend)&&m.backend>0)

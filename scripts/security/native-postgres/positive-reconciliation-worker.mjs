@@ -1,8 +1,9 @@
 // IPC-only owned synthetic worker: one persistent native PostgreSQL connection.
 import assert from 'node:assert/strict'
+import {createHash} from 'node:crypto'
 import {openPersistentNativeFixtureSessionV1} from './persistent-fixture-session.mjs'
 import {CapabilityRegistry} from '../../../src/assistant/registry.ts'
-import {argumentsDigest} from '../../../src/assistant/runtime.ts'
+import {argumentsDigest,canonicalArgumentsV1} from '../../../src/assistant/runtime.ts'
 import {createDurableCommandMaterialProducerV1,createDurableMaterialReservationPortV1} from '../../../src/assistant/durable-command-material.ts'
 import {createDurableResultMaterialProducerV1} from '../../../src/assistant/durable-result-material.ts'
 import {createDurablePositiveReconciliationPortV1} from '../../../src/assistant/durable-positive-reconciliation-port.ts'
@@ -22,6 +23,9 @@ let session,stage='CONNECT'
 try{
  const job=await new Promise(resolve=>process.once('message',resolve))
  const {workspace,actor,capability,workerRef,input,outcomes,command,commit}=job
+ const mode=job.mode??'reconcile',grantVersion=job.grantVersion??1
+ assert.ok(['reconcile','kill_after_commit','recover_only'].includes(mode))
+ assert.ok(Number.isSafeInteger(grantVersion)&&grantVersion>0&&grantVersion<Number.MAX_SAFE_INTEGER)
  assert.match(outcomes,/^unconfirmed_native_outcomes_[0-9a-f]{24}$/)
  assert.equal(commit.binding.workspaceId,workspace);assert.equal(commit.binding.actorId,actor);assert.equal(commit.binding.capability,capability)
  session=await openPersistentNativeFixtureSessionV1()
@@ -29,7 +33,7 @@ try{
  send({phase:'connected',pid:process.pid,backend:session.backend,application:session.application})
  await new Promise(resolve=>process.once('message',m=>{assert.deepEqual(m,{phase:'start'});resolve()}))
  stage='PREPARE'
- const authority={authentication:'user_session',actorId:actor,workspaceId:workspace,scopeEpoch:'synthetic_current_v1',permissions:new Set([capability,'fixture:write','assistant:operation:reconcile']),workerRef,capability,dispatcher:capability,schemaVersion:1,grantVersion:1}
+ const authority={authentication:'user_session',actorId:actor,workspaceId:workspace,scopeEpoch:'synthetic_current_v1',permissions:new Set([capability,'fixture:write','assistant:operation:reconcile']),workerRef,capability,dispatcher:capability,schemaVersion:1,grantVersion}
  const binding={actorId:actor,workspaceId:workspace,capability,argumentsDigest:argumentsDigest(input)}
  assert.deepEqual(binding,commit.binding)
  const registry=new CapabilityRegistry()
@@ -46,6 +50,12 @@ try{
   }
   const row=JSON.parse(await session.query(`select jsonb_build_object('backend',pg_backend_pid(),'data',public.${name}(${names.map(n=>literal(params[n])).join(',')}));`,signal))
   assert.equal(row.backend,session.backend)
+  if(name==='assistant_durable_v1_reconcile_completed'&&mode==='kill_after_commit'){
+   assert.equal(row.data.status,'applied');stage='POSTCOMMIT'
+   send({phase:'committed',pid:process.pid,backend:session.backend})
+   // The parent independently inspects persisted rows, then observes real SIGKILL.
+   await new Promise(()=>{})
+  }
   if(name==='assistant_durable_v1_reconcile_completed')stage='READBACK'
   return {data:row.data,error:null}
  }
@@ -63,11 +73,22 @@ try{
  const ten=createDurableUnconfirmedReservationPortV1({completion,currentWorker:async()=>authority,producer:material,invoke,loadCommand:async()=>command})
  const positive=createDurablePositiveReconciliationPortV1({reservation:ten,currentWorker:async()=>authority,producer,loadCommand,invoke})
  commit.actor.permissions=new Set(commit.actor.permissions);commit.now=new Date(commit.now)
+ if(mode==='recover_only'){
+  stage='RECOVER'
+  const recovered=await positive.loadAuthorizedOperation(commit.actor,commit.operationRef,new Date())
+  assert.equal(recovered.state,'completed');assert.equal(recovered.version,commit.expectedVersion+1)
+  assert.deepEqual(recovered.binding,commit.binding);assert.equal(recovered.idempotencyKey,commit.idempotencyKey)
+  assert.equal(recovered.effectReceiptRef,job.expectedReceipt)
+  assert.equal(canonicalArgumentsV1(recovered.result),canonicalArgumentsV1(commit.resolution.result))
+  assert.equal(Number(await session.query('select pg_backend_pid();')),session.backend)
+  send({phase:'recovered',pid:process.pid,backend:session.backend,receiptDigest:createHash('sha256').update(recovered.effectReceiptRef).digest('hex'),resultDigest:createHash('sha256').update(canonicalArgumentsV1(recovered.result)).digest('hex')})
+ }else{
  const result=await positive.commitVerifiedReconciliation(commit)
  stage='RESULT'
  assert.ok(['applied','version_conflict'].includes(result.status))
  if(result.status==='applied'){assert.equal(result.record.version,5);assert.equal(result.record.state,'completed');assert.deepEqual(result.record.result,commit.resolution.result)}
  assert.equal(Number(await session.query('select pg_backend_pid();')),session.backend)
  send({phase:'result',pid:process.pid,backend:session.backend,status:result.status})
+ }
 }catch{send({phase:'failed',code:'INDEPENDENT_RECONCILIATION_WORKER_FAILED',stage})}
 finally{if(session)await session.close();if(process.connected)process.disconnect()}

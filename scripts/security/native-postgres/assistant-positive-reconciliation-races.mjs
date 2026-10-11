@@ -3,11 +3,12 @@
 // Other partial SQL races do not establish full23 or its four Node races.
 import assert from 'node:assert/strict'
 import {spawn,spawnSync} from 'node:child_process'
-import {randomBytes,createHash} from 'node:crypto'
+import {randomBytes,randomUUID,createHash} from 'node:crypto'
 import {readFileSync} from 'node:fs'
 import {isExpectedNativeImage} from './expected-image.mjs'
 import {terminatedCatalogFunctionDefinition} from './catalog-function-definition.mjs'
 import {runIndependentPositiveReconciliationRaceV1} from './positive-reconciliation-race.mjs'
+import {runPositiveReconciliationProcessCutV1} from './positive-reconciliation-process-cut.mjs'
 import {CapabilityRegistry} from '../../../src/assistant/registry.ts'
 import {argumentsDigest} from '../../../src/assistant/runtime.ts'
 import {createDurableCommandMaterialProducerV1,createDurableMaterialReservationPortV1} from '../../../src/assistant/durable-command-material.ts'
@@ -25,6 +26,7 @@ const image=spawnSync('docker',['inspect','--format={{.Config.Image}}',container
 assert.equal(image.status,0);assert.ok(isExpectedNativeImage(image.stdout.trim()))
 const database='telecom_test',workspace='b2000000-0000-4000-8000-000000000001',actor='a1000000-0000-4000-8000-000000000001'
 const nonce=randomBytes(12).toString('hex'),capability='fixture.complete.n'+nonce,workerRef='completion_native_worker_'+nonce
+const auditActor=randomUUID()
 const args=['exec','-i','-u','postgres',container,'psql','-X','-qAt','-v','ON_ERROR_STOP=1','-U','postgres','-d',database]
 const auth=`set request.jwt.claim.sub='${actor}';`,owned=new Set(),literal=v=>"'"+String(v).replaceAll("'","''")+"'",hash=v=>createHash('sha256').update(v).digest('hex')
 function run(input){return new Promise((resolve,reject)=>{
@@ -61,7 +63,8 @@ async function invoke(operation,params,signal){
  if(signal?.aborted)throw Error('native_completion_cancelled')
  if(positiveExpiry&&operation==='assistant_durable_v1_reconcile_completed')await sql(`update public.assistant_registered_effect_workers set authority_version=2,expires_at=clock_timestamp()+interval '1 second' where workspace_id='${workspace}' and worker_ref='${workerRef}';`)
  const appName=positiveExpiry&&operation==='assistant_durable_v1_reconcile_completed'?`set application_name='positive_expiry_wait_${nonce}';`:''
- const result=await run(auth+appName+`select jsonb_build_object('backend',pg_backend_pid(),'data',public.${operation}(${names.map(f=>literal(params[f])+(f==='p_material'?'::jsonb':'')).join(',')}));`)
+ const currentAuth=['assistant_durable_v1_list_audit','assistant_durable_v1_claim_audit','assistant_durable_v1_ack_audit'].includes(operation)?`set request.jwt.claim.sub=${literal(auditActor)};`:auth
+ const result=await run(currentAuth+appName+`select jsonb_build_object('backend',pg_backend_pid(),'data',public.${operation}(${names.map(f=>literal(params[f])+(f==='p_material'?'::jsonb':'')).join(',')}));`)
  assert.equal(result.code,0,'native effect RPC failed');assert.equal(result.timedOut,false);const value=JSON.parse(result.out.trim())
  if(race&&operation==='assistant_durable_v1_reserve_material'){processes.push(result.pid);backends.push(value.backend)}
  if(positiveLoss&&operation==='assistant_durable_v1_reconcile_completed'){positiveLoss=false;throw Error('synthetic_positive_postcommit_reply_lost')}
@@ -84,8 +87,14 @@ const completion=createDurableCompletionPortV1({business:port,currentWorker:asyn
 
 const commands=new Map(),ten=createDurableUnconfirmedReservationPortV1({completion,currentWorker:async()=>authority,producer,invoke,
  loadCommand:async(_worker,current,key)=>{assert.deepEqual(current,binding);return commands.get(key)??null}})
-const allLedger=()=>sql(`select jsonb_build_object('operations',(select jsonb_agg(to_jsonb(x) order by operation_ref) from public.assistant_operations x where capability='${capability}'),'commands',(select jsonb_agg(to_jsonb(x) order by command_ref) from public.assistant_registered_commands x where capability='${capability}'),'materials',(select jsonb_agg(to_jsonb(m) order by m.command_ref) from public.assistant_command_material m join public.assistant_registered_commands c using(workspace_id,command_ref) where c.capability='${capability}'),'outboxes',(select jsonb_agg(to_jsonb(x) order by outbox_ref) from public.assistant_effect_outbox x where capability='${capability}'),'audits',(select jsonb_agg(to_jsonb(x) order by event_ref) from public.assistant_original_audit_intents x where capability='${capability}'),'deliveries',(select jsonb_agg(to_jsonb(d) order by d.event_ref) from public.assistant_audit_delivery_outbox d join public.assistant_original_audit_intents i using(workspace_id,event_ref) where i.capability='${capability}'),'results',(select jsonb_agg(to_jsonb(x) order by operation_ref) from public.assistant_safe_results x where capability='${capability}'),'confirmations',(select jsonb_agg(to_jsonb(x) order by confirmation_ref) from public.assistant_confirmations x where capability='${capability}'));
+const allLedger=()=>sql(`select encode(extensions.digest(convert_to(jsonb_build_object('operations',(select jsonb_agg(to_jsonb(x) order by operation_ref) from public.assistant_operations x where capability='${capability}'),'commands',(select jsonb_agg(to_jsonb(x) order by command_ref) from public.assistant_registered_commands x where capability='${capability}'),'materials',(select jsonb_agg(to_jsonb(m) order by m.command_ref) from public.assistant_command_material m join public.assistant_registered_commands c using(workspace_id,command_ref) where c.capability='${capability}'),'outboxes',(select jsonb_agg(to_jsonb(x) order by outbox_ref) from public.assistant_effect_outbox x where capability='${capability}'),'audits',(select jsonb_agg(to_jsonb(x) order by event_ref) from public.assistant_original_audit_intents x where capability='${capability}'),'deliveries',(select jsonb_agg(to_jsonb(d) order by d.event_ref) from public.assistant_audit_delivery_outbox d join public.assistant_original_audit_intents i using(workspace_id,event_ref) where i.capability='${capability}'),'results',(select jsonb_agg(to_jsonb(x) order by operation_ref) from public.assistant_safe_results x where capability='${capability}'),'confirmations',(select jsonb_agg(to_jsonb(x) order by confirmation_ref) from public.assistant_confirmations x where capability='${capability}'))::text,'UTF8'),'sha256'),'hex');
 `)
+async function terminateOwnedSessions(sessions){
+ const ownedSessions=`datname='${database}' and (${sessions.map(x=>`(pid=${x.backend} and application_name=${literal(x.application)})`).join(' or ')}) and pid<>pg_backend_pid()`
+ await sql(`select pg_terminate_backend(pid) from pg_stat_activity where ${ownedSessions};`)
+ for(let n=0;n<10;n++)if(await sql(`select count(*) from pg_stat_activity where ${ownedSessions};`)==='0')return
+ throw Error('INDEPENDENT_RECONCILIATION_OWNED_BACKEND_CLEANUP_FAILED')
+}
 try{
  assert.equal(await sql('select current_database();'),database)
  const schema=registry.get(capability).outputSchema
@@ -134,12 +143,7 @@ try{
  }
  const receipt=await quarantine(record.operationRef,command)
  const competing=Array.from({length:20},(_,i)=>commitInput(record.operationRef,key,'positive_original_'+i+'_'+nonce))
- const independent=await runIndependentPositiveReconciliationRaceV1(competing,{workspace,actor,capability,workerRef,input,outcomes,command},async sessions=>{
-  const ownedSessions=`datname='${database}' and (${sessions.map(x=>`(pid=${x.backend} and application_name=${literal(x.application)})`).join(' or ')}) and pid<>pg_backend_pid()`
-  await sql(`select pg_terminate_backend(pid) from pg_stat_activity where ${ownedSessions};`)
-  for(let n=0;n<10;n++)if(await sql(`select count(*) from pg_stat_activity where ${ownedSessions};`)==='0')return
-  throw Error('INDEPENDENT_RECONCILIATION_OWNED_BACKEND_CLEANUP_FAILED')
- })
+ const independent=await runIndependentPositiveReconciliationRaceV1(competing,{workspace,actor,capability,workerRef,input,outcomes,command},terminateOwnedSessions)
  const settled=independent.settled;assert.equal(independent.nodeProcesses,20);assert.equal(independent.nativeBackends,20);assert.equal(independent.sameConnection,true)
  assert.equal(settled.filter(x=>x.status==='applied').length,1);assert.equal(settled.filter(x=>x.status==='version_conflict').length,19)
  const committedIndex=settled.findIndex(x=>x.status==='applied'),originalAudit=competing[committedIndex].auditIntent,eventRef=competing[committedIndex].eventRef
@@ -162,6 +166,24 @@ try{
  const lossReplay=await positive.loadAuthorizedOperation(principal('positive_loss_retry_'+nonce),lossRecord.operationRef,new Date())
  assert.equal(lossReplay.version,5);assert.equal(lossReplay.effectReceiptRef,lossReceipt);assert.deepEqual(lossReplay.result,result);assert.equal(hash(await allLedger()),complete)
  expectedAudits.set(lossInput.eventRef,lossInput.auditIntent)
+
+ const crashKey='positive_sigkill_key_'+nonce,crashCommand={dispatcher:capability,commandRef:'positive_sigkill_command_'+nonce};commands.set(crashKey,crashCommand)
+ const crashRecord=(await ten.reserveOperation(context,binding,crashKey)).record,crashReceipt=await quarantine(crashRecord.operationRef,crashCommand)
+ const crashInput=commitInput(crashRecord.operationRef,crashKey,'positive_sigkill_original_'+nonce);let committedLedger
+ const cut=await runPositiveReconciliationProcessCutV1(crashInput,{workspace,actor,capability,workerRef,input,outcomes,command:crashCommand,grantVersion:authority.grantVersion,expectedReceipt:crashReceipt,recoveryRequestId:'positive_new_process_recovery_'+nonce},async()=>{
+  const observed=JSON.parse(await sql(`select jsonb_build_object('state',o.state,'version',o.version,'receipt',o.receipt_ref,'result',r.canonical_result::jsonb,'audit',i.reconciliation_event,'delivery',d.state)
+   from public.assistant_operations o join public.assistant_safe_results r using(workspace_id,operation_ref)
+   join public.assistant_original_audit_intents i on i.workspace_id=o.workspace_id and i.operation_ref=o.operation_ref and i.operation_version=o.version
+   join public.assistant_audit_delivery_outbox d on d.workspace_id=i.workspace_id and d.event_ref=i.event_ref
+   where o.workspace_id='${workspace}' and o.operation_ref=${literal(crashRecord.operationRef)} and i.event_ref=${literal(crashInput.eventRef)};`))
+  assert.equal(observed.state,'completed');assert.equal(observed.version,5);assert.equal(observed.receipt,crashReceipt)
+  assert.deepEqual(observed.result,result);assert.deepEqual(observed.audit,crashInput.auditIntent);assert.equal(observed.delivery,'pending')
+  committedLedger=hash(await allLedger())
+ },terminateOwnedSessions)
+ assert.equal(cut.signal,'SIGKILL');assert.equal(cut.independentRecovery,true)
+ assert.equal(cut.receiptDigest,hash(crashReceipt));assert.equal(cut.resultDigest,hash(canonicalArgumentsV1(result)))
+ assert.equal(hash(await allLedger()),committedLedger);expectedAudits.set(crashInput.eventRef,crashInput.auditIntent)
+ console.log('POSITIVE RECONCILIATION PROCESS CUT PASS:original commit/audit/delivery independently inspected;actual owned Node SIGKILL observed;different Node and native backend authorized full original result recovery;entire original ledger unchanged;no restart/full23/business handler claim')
  for(const [fn,remove,oracle] of [
   ['assistant_durable_v1_reconcile_completed'," if not found then raise exception using errcode='42501',message='assistant_reconciliation_forbidden';end if;",'reconciliation_unregistered_policy_accepted'],
   ['assistant_durable_v1_reconcile_completed',' or t>=g.expires_at','reconciliation_expired_grant_accepted'],
@@ -174,19 +196,22 @@ try{
   assert.notEqual(rejected.code,0);assert.ok(rejected.err.includes(oracle));await sql(terminatedCatalogFunctionDefinition(definition))
   assert.equal(await sql(`select pg_get_functiondef(p.oid) from pg_proc p join pg_namespace n on n.oid=p.pronamespace where n.nspname='public' and p.proname=${literal(fn)};`),definition)
  }
- const auditWorker={...authority,grantVersion:1,workerRef:'positive_audit_worker_'+nonce,permissions:new Set([...authority.permissions,'assistant:audit:deliver'])}
- await sql(`insert into public.assistant_registered_audit_workers(workspace_id,worker_ref,actor_id,capability,expires_at) values('${workspace}','${auditWorker.workerRef}','${actor}','${capability}',clock_timestamp()+interval '1 hour');create table public.${auditSink}(event_ref text primary key,packet jsonb);revoke all on public.${auditSink} from public,anon,authenticated,service_role;`)
+ const auditWorker={...authority,actorId:auditActor,grantVersion:1,workerRef:'positive_audit_worker_'+nonce,permissions:new Set([...authority.permissions,'assistant:audit:deliver'])}
+ await sql(`insert into auth.users(id,email) values('${auditActor}','audit-${nonce}@example.invalid');
+ insert into public.workspace_members(workspace_id,user_id,role,status) values('${workspace}','${auditActor}','member','active');
+ insert into public.assistant_registered_audit_workers(workspace_id,worker_ref,actor_id,capability,expires_at) values('${workspace}','${auditWorker.workerRef}','${auditActor}','${capability}',clock_timestamp()+interval '1 hour');create table public.${auditSink}(event_ref text primary key,packet jsonb);revoke all on public.${auditSink} from public,anon,authenticated,service_role;`)
  const originals=await sql(`select jsonb_agg(to_jsonb(i) order by event_ref) from public.assistant_original_audit_intents i where capability='${capability}';`)
  const drain=createDurableAuditDrainV1({port:createDurableAuditDeliveryPortV1({currentWorker:async()=>auditWorker,invoke}),deliver:async packet=>{
+  assert.equal(packet.event.actorId,actor);assert.notEqual(packet.event.actorId,auditActor)
   if(expectedAudits.has(packet.event.eventRef)){assert.deepEqual(packet.event.reconciliationEvent,expectedAudits.get(packet.event.eventRef));assert.equal(Object.keys(packet.event.reconciliationEvent).length,8)}
   await sql(`insert into public.${auditSink} values(${literal(packet.event.eventRef)},${literal(JSON.stringify(packet))}::jsonb) on conflict do nothing;`)
   const retained=JSON.parse(await sql(`select packet from public.${auditSink} where event_ref=${literal(packet.event.eventRef)};`));assert.deepEqual(retained,packet)
   return {status:'accepted',workspaceId:workspace,eventRef:packet.event.eventRef,digestAlgorithm:packet.digestAlgorithm,contentDigest:packet.contentDigest,receiptRef:hash('positive_audit:'+packet.event.eventRef)}
  }})
- const page=await drain.processPage();assert.equal(page.status,'page_processed');assert.equal(page.delivered,8);assert.equal((await drain.processPage()).status,'empty_page')
+ const page=await drain.processPage();assert.equal(page.status,'page_processed');assert.equal(page.delivered,12);assert.equal((await drain.processPage()).status,'empty_page')
  assert.equal(await sql(`select count(*) from public.assistant_audit_delivery_outbox d join public.assistant_original_audit_intents i using(workspace_id,event_ref) where i.capability='${capability}' and d.state='pending';`),'0')
  assert.equal(await sql(`select jsonb_agg(to_jsonb(i) order by event_ref) from public.assistant_original_audit_intents i where capability='${capability}';`),originals)
- console.log('POSITIVE RECONCILIATION NATIVE PASS:20 distinct independent Node processes/native backends same persistent connection one completion19 conflicts;original expired lease/full receipt/full result;ten complete methods plus positive reconciliation;targeted postcommit reply loss/authorized replay;current grant expiry after observed customer row lock;five SQL mutants exact-restored;eight immutable original audits drained including two complete eight-field reconciliation events;NOT full11/verified absence/full23/four independent Node races/business handler/SIGKILL/restart')
+ console.log('POSITIVE RECONCILIATION NATIVE PASS:20 distinct independent Node processes/native backends same persistent connection one completion19 conflicts;original expired lease/full receipt/full result;ten complete methods plus positive reconciliation;targeted postcommit reply loss/authorized replay;actual postcommit Node SIGKILL/different process backend recovery;current grant expiry after observed customer row lock;five SQL mutants exact-restored;twelve immutable original audits drained by a distinct current actor including three complete eight-field reconciliation events;NOT full11/verified absence/full23/four independent Node races/business handler/before-effect SIGKILL/restart')
 }finally{
  for(const child of owned)child.kill('SIGKILL')
  await run(`drop table if exists public.${sink},public.${outcomes},public.${auditSink};`)
