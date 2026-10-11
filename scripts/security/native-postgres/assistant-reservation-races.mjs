@@ -5,6 +5,7 @@ import {randomBytes} from 'node:crypto'
 import {readFileSync} from 'node:fs'
 import {isExpectedNativeImage} from './expected-image.mjs'
 import {createDurableReservationPortV1} from '../../../src/assistant/durable-reservation-port.ts'
+import {runIndependentConfirmedReserveStartRaceV1} from './positive-reconciliation-race.mjs'
 
 const container=process.env.TELECOM_NATIVE_TEST_CONTAINER??''
 assert.match(container,/^[0-9a-f]{12,64}$/)
@@ -103,6 +104,33 @@ try{
  const typedStarted=await port.loadAuthorizedOperation(principal,startRace.operation,new Date())
  assert.equal(typedStarted.state,'executing');assert.equal(typedStarted.version,2)
  assert.deepEqual(await port.startExecution(principal,startRace.operation,binding,1),{status:'version_conflict'})
+ // Retain the SQL race above; separately exercise the typed port in twenty Node
+ // workers, with barriers before reservation and start on each same connection.
+ const startNodeKey='native_start_key_node_race_'+nonce,startNodeProof=await issue()
+ const terminateStartSessions=async sessions=>{
+  for(const identity of sessions){
+   assert.ok(Number.isSafeInteger(identity.backend)&&identity.backend>0)
+   assert.match(identity.application,/^durable_node_[0-9a-f]{32}$/)
+  }
+  const predicate=`datname='${database}' and (${sessions.map(identity=>`(application_name='${identity.application}' and pid=${identity.backend})`).join(' or ')}) and pid<>pg_backend_pid()`
+  await sql(`select pg_terminate_backend(pid) from pg_stat_activity where ${predicate};`)
+  for(let n=0;n<10;n++)if(await sql(`select count(*) from pg_stat_activity where ${predicate};`)==='0')return
+  throw Error('START_EXECUTION_OWNED_BACKEND_CLEANUP_FAILED')
+ }
+ const nodeRequests=Array.from({length:20},(_,i)=>({...principal,requestId:request+'_node_start_'+i}))
+ const nodeStarts=await runIndependentConfirmedReserveStartRaceV1(nodeRequests.map(actor=>({
+  actor,binding,confirmationRef:startNodeProof,idempotencyKey:startNodeKey,command:{dispatcher,commandRef:'native_start_command_node_race_'+nonce},expectedVersion:1,now:new Date(),
+ })),{workspace,actor,capability},terminateStartSessions)
+ assert.equal(nodeStarts.nodeProcesses,20);assert.equal(nodeStarts.nativeBackends,20);assert.equal(nodeStarts.sameConnection,true)
+ assert.equal(nodeStarts.settled.filter(result=>result.status==='applied').length,1)
+ assert.equal(nodeStarts.settled.filter(result=>result.status==='version_conflict').length,19)
+ const nodeOperation=nodeStarts.reservations[0].operationRef
+ const nodeStarted=await port.loadAuthorizedOperation(principal,nodeOperation,new Date())
+ assert.equal(nodeStarted.state,'executing');assert.equal(nodeStarted.version,2);assert.deepEqual(nodeStarted.binding,binding)
+ assert.deepEqual(await ledger(startNodeKey),one)
+ assert.equal(await sql(`select request_ref from public.assistant_original_audit_intents where workspace_id='${workspace}' and operation_ref='${nodeOperation}';`),nodeRequests[nodeStarts.reservations.findIndex(result=>result.status==='reserved')].requestId)
+ assert.deepEqual(await port.startExecution(principal,nodeOperation,binding,1),{status:'version_conflict'})
+ console.log('CONFIRMED RESERVE START NODE NATIVE PASS:20 distinct independent Node processes/native backends;typed port;one reservation/original request;19 exact replays;one authorization;19 CAS conflicts;unchanged original ledger. NO effect/full23/W4 acceptance.')
  const startCut=await startFixture('cut'),startTrigger='assistant_start_native_'+nonce
  await sql(`create function public.${startTrigger}() returns trigger language plpgsql as $fixture$
  begin if NEW.state='executing' and current_setting('test.assistant.start.cut',true)='on' then
