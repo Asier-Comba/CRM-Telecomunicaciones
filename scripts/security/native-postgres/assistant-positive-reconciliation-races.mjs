@@ -1,11 +1,13 @@
 // Private partial completion evidence in the existing owned native fixture.
-// Twenty SQL processes/backends, not full23 or twenty independent Node workers.
+// Positive reconciliation uses twenty independent Node workers/backends.
+// Other partial SQL races do not establish full23 or its four Node races.
 import assert from 'node:assert/strict'
 import {spawn,spawnSync} from 'node:child_process'
 import {randomBytes,createHash} from 'node:crypto'
 import {readFileSync} from 'node:fs'
 import {isExpectedNativeImage} from './expected-image.mjs'
 import {terminatedCatalogFunctionDefinition} from './catalog-function-definition.mjs'
+import {runIndependentPositiveReconciliationRaceV1} from './positive-reconciliation-race.mjs'
 import {CapabilityRegistry} from '../../../src/assistant/registry.ts'
 import {argumentsDigest} from '../../../src/assistant/runtime.ts'
 import {createDurableCommandMaterialProducerV1,createDurableMaterialReservationPortV1} from '../../../src/assistant/durable-command-material.ts'
@@ -49,22 +51,19 @@ const fields={assistant_durable_v1_reserve_material:['p_workspace','p_worker','p
  assistant_durable_v1_claim_effect:['p_workspace','p_worker','p_authority_version','p_outbox','p_version'],assistant_durable_v1_ack_effect:['p_workspace','p_worker','p_authority_version','p_outbox','p_version','p_fence','p_claim','p_receipt','p_request'],
  assistant_durable_v1_list_audit:['p_workspace','p_worker','p_authority_version','p_after_time','p_after_event'],assistant_durable_v1_claim_audit:['p_workspace','p_worker','p_authority_version','p_event','p_version'],assistant_durable_v1_ack_audit:['p_workspace','p_worker','p_authority_version','p_event','p_version','p_fence','p_claim','p_receipt']}
 fields.assistant_durable_v1_reconcile_completed=fields.assistant_durable_v1_complete;fields.assistant_durable_v1_require_reconciliation=['p_workspace','p_operation','p_capability','p_digest','p_version','p_reason','p_request'];
-let positiveRace=false,positiveReady=0,positiveRelease,positiveExpiry=false,positiveLoss=false;const positiveBarrier=new Promise(resolve=>{positiveRelease=resolve}),positiveProcesses=[],positiveBackends=[];
-let race=false,ready=0,release,loseReply=false,expiryBarrier=false;const barrier=new Promise(resolve=>{release=resolve}),processes=[],backends=[]
+let positiveExpiry=false,positiveLoss=false;
+let race=false,ready=0,release,loseReply=false;const barrier=new Promise(resolve=>{release=resolve}),processes=[],backends=[]
 const sink='completion_native_receipts_'+nonce,auditSink='completion_native_audit_sink_'+nonce
 async function invoke(operation,params,signal){
  if(signal?.aborted)throw Error('native_completion_cancelled')
  const names=fields[operation];assert.ok(names);assert.deepEqual(Object.keys(params).sort(),[...names].sort())
  if(race&&operation==='assistant_durable_v1_reserve_material'){if(++ready===20)release();await barrier}
- if(positiveRace&&operation==='assistant_durable_v1_reconcile_completed'){if(++positiveReady===20)positiveRelease();await positiveBarrier}
  if(signal?.aborted)throw Error('native_completion_cancelled')
- if(expiryBarrier&&operation==='assistant_durable_v1_reserve_material')await sql(`update public.assistant_registered_effect_workers set authority_version=2,expires_at=clock_timestamp()+interval '1 second' where workspace_id='${workspace}' and worker_ref='${workerRef}';`)
  if(positiveExpiry&&operation==='assistant_durable_v1_reconcile_completed')await sql(`update public.assistant_registered_effect_workers set authority_version=2,expires_at=clock_timestamp()+interval '1 second' where workspace_id='${workspace}' and worker_ref='${workerRef}';`)
- const appName=positiveExpiry&&operation==='assistant_durable_v1_reconcile_completed'?`set application_name='positive_expiry_wait_${nonce}';`:expiryBarrier&&operation==='assistant_durable_v1_reserve_material'?`set application_name='completion_expiry_wait_${nonce}';`:''
+ const appName=positiveExpiry&&operation==='assistant_durable_v1_reconcile_completed'?`set application_name='positive_expiry_wait_${nonce}';`:''
  const result=await run(auth+appName+`select jsonb_build_object('backend',pg_backend_pid(),'data',public.${operation}(${names.map(f=>literal(params[f])+(f==='p_material'?'::jsonb':'')).join(',')}));`)
  assert.equal(result.code,0,'native effect RPC failed');assert.equal(result.timedOut,false);const value=JSON.parse(result.out.trim())
  if(race&&operation==='assistant_durable_v1_reserve_material'){processes.push(result.pid);backends.push(value.backend)}
- if(positiveRace&&operation==='assistant_durable_v1_reconcile_completed'){positiveProcesses.push(result.pid);positiveBackends.push(value.backend)}
  if(positiveLoss&&operation==='assistant_durable_v1_reconcile_completed'){positiveLoss=false;throw Error('synthetic_positive_postcommit_reply_lost')}
  if(loseReply&&operation==='assistant_durable_v1_reserve_material'){loseReply=false;throw Error('synthetic_postcommit_ack_reply_lost')}
  return {data:value.data,error:null}
@@ -135,8 +134,13 @@ try{
  }
  const receipt=await quarantine(record.operationRef,command)
  const competing=Array.from({length:20},(_,i)=>commitInput(record.operationRef,key,'positive_original_'+i+'_'+nonce))
- positiveRace=true;const settled=await Promise.all(competing.map(c=>positive.commitVerifiedReconciliation(c)));positiveRace=false
- assert.equal(positiveReady,20);assert.equal(new Set(positiveProcesses).size,20);assert.equal(new Set(positiveBackends).size,20)
+ const independent=await runIndependentPositiveReconciliationRaceV1(competing,{workspace,actor,capability,workerRef,input,outcomes,command},async sessions=>{
+  const ownedSessions=`datname='${database}' and (${sessions.map(x=>`(pid=${x.backend} and application_name=${literal(x.application)})`).join(' or ')}) and pid<>pg_backend_pid()`
+  await sql(`select pg_terminate_backend(pid) from pg_stat_activity where ${ownedSessions};`)
+  for(let n=0;n<10;n++)if(await sql(`select count(*) from pg_stat_activity where ${ownedSessions};`)==='0')return
+  throw Error('INDEPENDENT_RECONCILIATION_OWNED_BACKEND_CLEANUP_FAILED')
+ })
+ const settled=independent.settled;assert.equal(independent.nodeProcesses,20);assert.equal(independent.nativeBackends,20);assert.equal(independent.sameConnection,true)
  assert.equal(settled.filter(x=>x.status==='applied').length,1);assert.equal(settled.filter(x=>x.status==='version_conflict').length,19)
  const committedIndex=settled.findIndex(x=>x.status==='applied'),originalAudit=competing[committedIndex].auditIntent,eventRef=competing[committedIndex].eventRef
  expectedAudits.set(eventRef,originalAudit)
@@ -182,7 +186,7 @@ try{
  const page=await drain.processPage();assert.equal(page.status,'page_processed');assert.equal(page.delivered,8);assert.equal((await drain.processPage()).status,'empty_page')
  assert.equal(await sql(`select count(*) from public.assistant_audit_delivery_outbox d join public.assistant_original_audit_intents i using(workspace_id,event_ref) where i.capability='${capability}' and d.state='pending';`),'0')
  assert.equal(await sql(`select jsonb_agg(to_jsonb(i) order by event_ref) from public.assistant_original_audit_intents i where capability='${capability}';`),originals)
- console.log('POSITIVE RECONCILIATION NATIVE PASS:20 distinct SQL processes/backends one completion19 conflicts;original expired lease/full receipt/full result;ten complete methods plus positive reconciliation;targeted postcommit reply loss/authorized replay;current grant expiry after observed customer row lock;five SQL mutants exact-restored;eight immutable original audits drained including two complete eight-field reconciliation events;NOT full11/verified absence/full23/independent Node workers/business handler/SIGKILL/restart')
+ console.log('POSITIVE RECONCILIATION NATIVE PASS:20 distinct independent Node processes/native backends same persistent connection one completion19 conflicts;original expired lease/full receipt/full result;ten complete methods plus positive reconciliation;targeted postcommit reply loss/authorized replay;current grant expiry after observed customer row lock;five SQL mutants exact-restored;eight immutable original audits drained including two complete eight-field reconciliation events;NOT full11/verified absence/full23/four independent Node races/business handler/SIGKILL/restart')
 }finally{
  for(const child of owned)child.kill('SIGKILL')
  await run(`drop table if exists public.${sink},public.${outcomes},public.${auditSink};`)

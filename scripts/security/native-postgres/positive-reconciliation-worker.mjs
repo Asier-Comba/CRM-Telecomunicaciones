@@ -1,0 +1,73 @@
+// IPC-only owned synthetic worker: one persistent native PostgreSQL connection.
+import assert from 'node:assert/strict'
+import {openPersistentNativeFixtureSessionV1} from './persistent-fixture-session.mjs'
+import {CapabilityRegistry} from '../../../src/assistant/registry.ts'
+import {argumentsDigest} from '../../../src/assistant/runtime.ts'
+import {createDurableCommandMaterialProducerV1,createDurableMaterialReservationPortV1} from '../../../src/assistant/durable-command-material.ts'
+import {createDurableResultMaterialProducerV1} from '../../../src/assistant/durable-result-material.ts'
+import {createDurablePositiveReconciliationPortV1} from '../../../src/assistant/durable-positive-reconciliation-port.ts'
+import {createDurableUnconfirmedReservationPortV1} from '../../../src/assistant/durable-unconfirmed-reservation-port.ts'
+import {createDurableCompletionPortV1} from '../../../src/assistant/durable-completion-port.ts'
+import {createDurableBusinessOutboxPortV1} from '../../../src/assistant/durable-business-outbox-port.ts'
+
+const literal=v=>"'"+String(v).replaceAll("'","''")+"'"
+const send=m=>process.send?.(m)
+const fields={
+ assistant_durable_v1_load_operation:['p_workspace','p_operation'],
+ assistant_durable_v1_load_result:['p_workspace','p_worker','p_authority_version','p_operation'],
+ assistant_durable_v1_reconcile_completed:['p_workspace','p_worker','p_authority_version','p_operation','p_version','p_receipt','p_output_schema_version','p_schema_digest','p_result','p_audit','p_event'],
+}
+
+let session,stage='CONNECT'
+try{
+ const job=await new Promise(resolve=>process.once('message',resolve))
+ const {workspace,actor,capability,workerRef,input,outcomes,command,commit}=job
+ assert.match(outcomes,/^unconfirmed_native_outcomes_[0-9a-f]{24}$/)
+ assert.equal(commit.binding.workspaceId,workspace);assert.equal(commit.binding.actorId,actor);assert.equal(commit.binding.capability,capability)
+ session=await openPersistentNativeFixtureSessionV1()
+ await session.query(`set request.jwt.claim.sub=${literal(actor)};`)
+ send({phase:'connected',pid:process.pid,backend:session.backend,application:session.application})
+ await new Promise(resolve=>process.once('message',m=>{assert.deepEqual(m,{phase:'start'});resolve()}))
+ stage='PREPARE'
+ const authority={authentication:'user_session',actorId:actor,workspaceId:workspace,scopeEpoch:'synthetic_current_v1',permissions:new Set([capability,'fixture:write','assistant:operation:reconcile']),workerRef,capability,dispatcher:capability,schemaVersion:1,grantVersion:1}
+ const binding={actorId:actor,workspaceId:workspace,capability,argumentsDigest:argumentsDigest(input)}
+ assert.deepEqual(binding,commit.binding)
+ const registry=new CapabilityRegistry()
+ registry.register({contractVersion:3,name:capability,description:'Independent owned reconciliation fixture',inputSchema:{type:'object',properties:{customerRef:{type:'string',maxLength:80},label:{type:'string',maxLength:48}},required:['customerRef','label'],additionalProperties:false},outputSchema:{type:'object',properties:{customerRef:{type:'string',maxLength:80},label:{type:'string',maxLength:48}},required:['customerRef','label'],additionalProperties:false},outputPolicy:{sourceProjection:'explicit_dto',sensitiveValueScan:'high_confidence'},permission:'fixture:write',accessClass:'SAFE_WRITE',confirmationPolicy:'none',idempotencyRequired:true,tenantScope:{source:'server_context',modelMayChooseWorkspace:false},
+  authorize:async(ctx,values)=>await session.query(`select count(*) from public.customers where id=${literal(values.customerRef)}::uuid and workspace_id=${literal(ctx.workspaceId)}::uuid;`)==='1'?{allowed:true}:{allowed:false,reason:'resource_not_accessible'},handler:async()=>{throw Error('business_handler_not_run')},projectOutput:()=>null})
+ async function invoke(name,params,signal){
+  const names=fields[name];assert.ok(names);assert.deepEqual(Object.keys(params).sort(),[...names].sort())
+  if(name==='assistant_durable_v1_reconcile_completed'){
+   stage='COMMIT_BARRIER'
+   const backend=Number(await session.query('select pg_backend_pid();',signal));assert.equal(backend,session.backend)
+   send({phase:'prepared',pid:process.pid,backend})
+   await new Promise(resolve=>process.once('message',m=>{assert.deepEqual(m,{phase:'release'});resolve()}))
+   stage='COMMIT'
+  }
+  const row=JSON.parse(await session.query(`select jsonb_build_object('backend',pg_backend_pid(),'data',public.${name}(${names.map(n=>literal(params[n])).join(',')}));`,signal))
+  assert.equal(row.backend,session.backend)
+  if(name==='assistant_durable_v1_reconcile_completed')stage='READBACK'
+  return {data:row.data,error:null}
+ }
+ const material=createDurableCommandMaterialProducerV1({registry,registrations:[{dispatcher:capability,capability,schemaVersion:1}],authority:async()=>authority,
+  loadDraft:async()=>({binding,command,schemaVersion:1,arguments:input})})
+ const reservation=createDurableMaterialReservationPortV1({authority:async()=>authority,producer:material,invoke})
+ const business=createDurableBusinessOutboxPortV1({reservation,currentWorker:async()=>authority,producer:material,invoke,
+  loadOutbox:async()=>{throw Error('worker_outbox_not_requested')},verifyReceipt:async()=>{throw Error('worker_ack_not_requested')}})
+ const producer=createDurableResultMaterialProducerV1({registry,allowVerifiedReconciliation:true,registrations:[{dispatcher:capability,capability,schemaVersion:1,
+  authorizeResult:async(ctx,_record,result)=>await session.query(`select count(*) from public.customers where workspace_id=${literal(ctx.workspaceId)}::uuid and id=${literal(result.data.customerRef)}::uuid;`)==='1'}],authority:async()=>authority,
+  loadOutcome:async(_current,record,cmd)=>{const raw=await session.query(`select outcome from public.${outcomes} where workspace_id=${literal(workspace)}::uuid and operation_ref=${literal(record.operationRef)} and command_ref=${literal(cmd.commandRef)} and receipt_ref=${literal(record.effectReceiptRef)};`);return raw?JSON.parse(raw):null}})
+ const loadCommand=async(_worker,operation)=>{const raw=await session.query(`select jsonb_build_object('dispatcher',dispatcher_key,'commandRef',command_ref) from public.assistant_registered_commands where workspace_id=${literal(workspace)}::uuid and operation_ref=${literal(operation)} and actor_id=${literal(actor)}::uuid;`);return raw?JSON.parse(raw):null}
+ const completion=createDurableCompletionPortV1({business,currentWorker:async()=>authority,producer,loadCommand,invoke,
+  loadConfirmationOrigin:async(_worker,operation)=>await session.query(`select case when confirmation_ref is null then 'not_applicable' else 'accepted' end from public.assistant_operations where workspace_id=${literal(workspace)}::uuid and operation_ref=${literal(operation)} and actor_id=${literal(actor)}::uuid;`)})
+ const ten=createDurableUnconfirmedReservationPortV1({completion,currentWorker:async()=>authority,producer:material,invoke,loadCommand:async()=>command})
+ const positive=createDurablePositiveReconciliationPortV1({reservation:ten,currentWorker:async()=>authority,producer,loadCommand,invoke})
+ commit.actor.permissions=new Set(commit.actor.permissions);commit.now=new Date(commit.now)
+ const result=await positive.commitVerifiedReconciliation(commit)
+ stage='RESULT'
+ assert.ok(['applied','version_conflict'].includes(result.status))
+ if(result.status==='applied'){assert.equal(result.record.version,5);assert.equal(result.record.state,'completed');assert.deepEqual(result.record.result,commit.resolution.result)}
+ assert.equal(Number(await session.query('select pg_backend_pid();')),session.backend)
+ send({phase:'result',pid:process.pid,backend:session.backend,status:result.status})
+}catch{send({phase:'failed',code:'INDEPENDENT_RECONCILIATION_WORKER_FAILED',stage})}
+finally{if(session)await session.close();if(process.connected)process.disconnect()}
