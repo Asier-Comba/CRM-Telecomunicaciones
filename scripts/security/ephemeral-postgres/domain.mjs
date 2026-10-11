@@ -188,6 +188,7 @@ try {
   await db.exec(await readFile(resolve(root, 'supabase/tests/assistant-operation-recovery.sql'), 'utf8'))
   await db.exec(await readFile(resolve(root, 'supabase/tests/assistant-start-execution.sql'), 'utf8'))
   await db.exec(await readFile(resolve(root, 'supabase/tests/assistant-audit-delivery.sql'), 'utf8'))
+  await db.exec(await readFile(resolve(root, 'supabase/tests/assistant-audit-queue.sql'), 'utf8'))
 
   await db.exec(`
     insert into public.assistant_registered_dispatchers values('task.create','task.create',1);

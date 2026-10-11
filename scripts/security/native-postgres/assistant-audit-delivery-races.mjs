@@ -44,9 +44,10 @@ try{
  values('${workspace}','${worker}','${actor}','${capability}',clock_timestamp()+interval '1 hour');`)
  const port=createDurableAuditDeliveryPortV1({currentWorker:async()=>({authentication:'user_session',actorId:actor,workspaceId:workspace,
   workerRef:worker,capability,grantVersion:1,permissions:new Set(['assistant:audit:deliver'])}),invoke:async(operation,input)=>{
-  for(const value of Object.values(input))assert.match(value,/^[A-Za-z0-9_.:-]+$/)
+  for(const value of Object.values(input))assert.match(value,/^[A-Za-z0-9_.:+-]*$/)
   const parameters={assistant_durable_v1_claim_audit:[input.p_workspace,input.p_worker,input.p_authority_version,input.p_event,input.p_version],
-   assistant_durable_v1_ack_audit:[input.p_workspace,input.p_worker,input.p_authority_version,input.p_event,input.p_version,input.p_fence,input.p_claim,input.p_receipt]}
+   assistant_durable_v1_ack_audit:[input.p_workspace,input.p_worker,input.p_authority_version,input.p_event,input.p_version,input.p_fence,input.p_claim,input.p_receipt],
+   assistant_durable_v1_list_audit:[input.p_workspace,input.p_worker,input.p_authority_version,input.p_after_time,input.p_after_event]}
   assert.ok(Object.hasOwn(parameters,operation))
   return {data:JSON.parse(await sql(auth+`select public.${operation}(${parameters[operation].map(v=>`'${v}'`).join(',')});`)),error:null}
  }})
@@ -114,6 +115,24 @@ try{
  const [started,expired]=waited.out.trim().split('\n').map(line=>JSON.parse(line))
  assert.equal(started.startedBeforeExpiry,true);assert.deepEqual(expired,{status:'forbidden'});assert.equal((await holder).code,0)
  assert.equal(await state(waiting.event),beforeWait)
+ for(let i=0;i<21;i++)await fixture('page'+i)
+ const page1=await port.listEligible();assert.equal(page1.status,'applied');assert.equal(page1.items.length,20);assert.ok(page1.nextCursor)
+ const page2=await port.listEligible(page1.nextCursor);assert.equal(page2.status,'applied');assert.equal(page2.items.length,2);assert.equal(page2.nextCursor,null)
+ const discovered=[...page1.items,...page2.items];assert.equal(new Set(discovered.map(i=>i.eventRef)).size,22)
+ assert.equal(await sql(`select count(*) from public.assistant_original_audit_intents i join public.assistant_audit_delivery_outbox d using(workspace_id,event_ref) where i.workspace_id='${workspace}' and i.capability='${capability}' and d.state='pending';`),'22')
+ const fromQueue=await port.claim(page1.items[0].eventRef,page1.items[0].version);assert.equal(fromQueue.status,'applied')
+ assert.deepEqual(await port.ack(fromQueue.claim,'audit_queue_discovered_receipt_'+nonce),{status:'applied',version:3})
+ const stableTail=await port.listEligible(page1.nextCursor);assert.equal(stableTail.status,'applied');assert.deepEqual(stableTail.items,page2.items)
+ console.log('AUDIT QUEUE NATIVE PASS:22 exact eligible events;20+2 keyset pages without duplication;claim/ACK from discovered version;tail unchanged after earlier delivery. Current scoped private worker only.')
+ const queueSource=readFileSync('supabase/migrations/20261011040500_assistant_audit_queue.sql','utf8').replace(/\r\n/g,'\n')
+ const queueDefinition=queueSource.slice(queueSource.indexOf('create function'),queueSource.indexOf('revoke all on function'))
+ for(const [removed,expected] of [[' and i.capability=g.capability','audit_queue_foreign_capability_disclosed'],
+  ['  and (after_time is null or (i.created_at,i.event_ref)>(after_time,p_after_event))','audit_queue_keyset_skipped_or_duplicated']]){
+  assert.ok(queueDefinition.includes(removed))
+  const definition="select pg_get_functiondef('public.assistant_durable_v1_list_audit(uuid,text,bigint,text,text)'::regprocedure);",before=await sql(definition)
+  const mutant=await run('begin;'+queueDefinition.replace('create function','create or replace function').replace(removed,'')+readFileSync('supabase/tests/assistant-audit-queue.sql','utf8'))
+  assert.notEqual(mutant.code,0);assert.equal(mutant.timedOut,false);assert.ok(mutant.err.includes(expected));assert.equal(await sql(definition),before)
+ }
  const source=readFileSync('supabase/migrations/20261011034500_assistant_audit_delivery_workers.sql','utf8').replace(/\r\n/g,'\n')
  for(const [name,signature,removed,expected] of [
   ['assistant_durable_v1_ack_audit','uuid,text,bigint,text,bigint,bigint,text,text',' or d.fence<>p_fence','audit_future_fence_accepted'],

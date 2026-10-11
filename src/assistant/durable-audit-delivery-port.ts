@@ -3,7 +3,9 @@ import {boundedAwaitV2} from './bounded-await-v2.ts'
 /** Private delegated user-session delivery only. No effect or service authority. */
 export type AuditWorkerAuthorityV1={authentication:'user_session';actorId:string;workspaceId:string;workerRef:string;
  capability:string;grantVersion:number;permissions:ReadonlySet<string>}
-export type AuditDeliveryRpcV1='assistant_durable_v1_claim_audit'|'assistant_durable_v1_ack_audit'
+export type AuditDeliveryRpcV1='assistant_durable_v1_claim_audit'|'assistant_durable_v1_ack_audit'|'assistant_durable_v1_list_audit'
+export type AuditDeliveryCursorV1={createdAt:string;eventRef:string}
+export type EligibleAuditDeliveryV1=AuditDeliveryCursorV1&{version:number}
 export type OriginalAuditEventV1={eventRef:string;workspaceId:string;operationRef:string;operationVersion:number;actorId:string;
  capability:string;argumentsDigest:string;event:'assistant.operation.reserved'|'assistant.operation.recovery_required';
  requestId:string;createdAt:string;reasonCode:null|'internal_safe'|'temporary_unavailable'}
@@ -11,6 +13,7 @@ export type AuditDeliveryClaimV1={workspaceId:string;eventRef:string;workerRef:s
  fence:number;claimRef:string;claimedAt:string;leaseExpiresAt:string}
 type Denial='forbidden'|'not_found'|'version_conflict'
 export interface DurableAuditDeliveryPortV1{
+ listEligible(after?:AuditDeliveryCursorV1):Promise<{status:'applied';items:readonly EligibleAuditDeliveryV1[];nextCursor:AuditDeliveryCursorV1|null}|{status:'forbidden'}>
  claim(eventRef:string,expectedVersion:number):Promise<{status:'applied';claim:AuditDeliveryClaimV1;event:OriginalAuditEventV1}|{status:Denial|'invalid_transition'}>
  ack(claim:AuditDeliveryClaimV1,receiptRef:string):Promise<{status:'applied';version:number}|{status:Denial|'invalid_claim'}>
 }
@@ -74,7 +77,43 @@ export function createDurableAuditDeliveryPortV1(dependencies:{
   if(!r||r.error!==null)throw unavailable();return r.data
  }
  const scope=(w:AuditWorkerAuthorityV1)=>({p_workspace:w.workspaceId,p_worker:w.workerRef,p_authority_version:String(w.grantVersion)})
+ async function stillCurrent(w:AuditWorkerAuthorityV1){
+  const fresh=await current()
+  if(!fresh||fresh.actorId!==w.actorId||fresh.workspaceId!==w.workspaceId||fresh.workerRef!==w.workerRef
+   ||fresh.grantVersion!==w.grantVersion||fresh.capability!==w.capability)throw unavailable()
+ }
+ function validCursor(v:unknown):v is AuditDeliveryCursorV1{
+  return exact(v,'createdAt,eventRef')&&timestamp(v.createdAt)&&hex(v.eventRef)
+ }
  return {
+  async listEligible(after){
+   try{
+    if(after!==undefined&&!validCursor(after))throw unavailable()
+    const w=await current();if(!w)return {status:'forbidden'}
+    const value=await invoke('assistant_durable_v1_list_audit',{...scope(w),p_after_time:after?.createdAt??'',p_after_event:after?.eventRef??''})
+    if(exact(value,'status')&&value.status==='forbidden')return {status:'forbidden'}
+    if(!exact(value,'status,items,nextCursor')||value.status!=='applied'||!Array.isArray(value.items)
+     ||Object.getPrototypeOf(value.items)!==Array.prototype||Object.getOwnPropertySymbols(value.items).length||value.items.length>20)throw unavailable()
+    const descriptors=Object.getOwnPropertyDescriptors(value.items)
+    if(Object.keys(descriptors).length!==value.items.length+1||Object.entries(descriptors).some(([key,d])=>
+     key!=='length'&&(!('value'in d)||!d.enumerable||!/^(0|[1-9][0-9]*)$/.test(key))))throw unavailable()
+    const items:EligibleAuditDeliveryV1[]=[]
+    let previous=after
+    for(let i=0;i<value.items.length;i++){
+     const item:unknown=descriptors[String(i)]?.value
+     if(!exact(item,'createdAt,eventRef,version')||!timestamp(item.createdAt)||!hex(item.eventRef)
+      ||!Number.isSafeInteger(item.version)||Number(item.version)<1)throw unavailable()
+     if(previous&&(micros(item.createdAt)<micros(previous.createdAt)
+      ||(micros(item.createdAt)===micros(previous.createdAt)&&item.eventRef<=previous.eventRef)))throw unavailable()
+     const accepted=Object.freeze({createdAt:item.createdAt,eventRef:item.eventRef,version:Number(item.version)})
+     items.push(accepted);previous=accepted
+    }
+    const last=items.at(-1),cursor=value.nextCursor
+    if(items.length===20?(!validCursor(cursor)||!last||cursor.createdAt!==last.createdAt||cursor.eventRef!==last.eventRef):cursor!==null)throw unavailable()
+    await stillCurrent(w)
+    return {status:'applied',items:Object.freeze(items),nextCursor:cursor===null?null:Object.freeze({...cursor}) as AuditDeliveryCursorV1}
+   }catch{throw unavailable()}
+  },
   async claim(eventRef,expectedVersion){
    try{
     if(!hex(eventRef)||!version(expectedVersion)||expectedVersion>=Number.MAX_SAFE_INTEGER-1)throw unavailable()
@@ -88,9 +127,7 @@ export function createDurableAuditDeliveryPortV1(dependencies:{
     if(!validClaim(claim)||claim.workerRef!==w.workerRef||claim.grantVersion!==w.grantVersion||claim.version!==expectedVersion+1)throw unavailable()
     const original=event(value.event,w,eventRef)
     if(micros(original.createdAt)>micros(claim.claimedAt))throw unavailable()
-    const fresh=await current()
-    if(!fresh||fresh.actorId!==w.actorId||fresh.workspaceId!==w.workspaceId||fresh.workerRef!==w.workerRef
-     ||fresh.grantVersion!==w.grantVersion||fresh.capability!==w.capability)throw unavailable()
+    await stillCurrent(w)
     return {status:'applied',claim:Object.freeze(claim),event:original}
    }catch{throw unavailable()}
   },

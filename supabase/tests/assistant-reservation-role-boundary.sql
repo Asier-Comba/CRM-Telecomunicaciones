@@ -14,7 +14,8 @@ begin
    or has_function_privilege(r,'public.assistant_durable_v1_require_reconciliation(uuid,text,text,text,bigint,text,text)','EXECUTE')
    or has_function_privilege(r,'public.assistant_durable_v1_start_execution(uuid,text,text,text,bigint)','EXECUTE')
    or has_function_privilege(r,'public.assistant_durable_v1_claim_audit(uuid,text,bigint,text,bigint)','EXECUTE')
-   or has_function_privilege(r,'public.assistant_durable_v1_ack_audit(uuid,text,bigint,text,bigint,bigint,text,text)','EXECUTE') then
+   or has_function_privilege(r,'public.assistant_durable_v1_ack_audit(uuid,text,bigint,text,bigint,bigint,text,text)','EXECUTE')
+   or has_function_privilege(r,'public.assistant_durable_v1_list_audit(uuid,text,bigint,text,text)','EXECUTE') then
    raise exception 'durable_inert_rpc_grant_lost';
   end if;
   execute format('set local role %I',r);
@@ -58,6 +59,10 @@ begin
   begin perform public.assistant_durable_v1_ack_audit('b2000000-0000-4000-8000-000000000001','role_boundary_worker_reference',1,repeat('a',64),2,1,repeat('b',64),'role_boundary_sink_receipt_ref');
   exception when insufficient_privilege then denied:=true;end;
   if not denied then raise exception 'durable_inert_audit_ack_executed';end if;
+  denied:=false;
+  begin perform public.assistant_durable_v1_list_audit('b2000000-0000-4000-8000-000000000001','role_boundary_worker_reference',1,'','');
+  exception when insufficient_privilege then denied:=true;end;
+  if not denied then raise exception 'durable_inert_audit_queue_executed';end if;
   denied:=false;
   begin perform count(*) from public.assistant_registered_audit_workers;
   exception when insufficient_privilege then denied:=true;end;

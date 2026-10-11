@@ -105,6 +105,7 @@ run_fixture supabase/tests/assistant-confirmation-cancel.sql
 run_fixture supabase/tests/assistant-operation-recovery.sql
 run_fixture supabase/tests/assistant-start-execution.sql
 run_fixture supabase/tests/assistant-audit-delivery.sql
+run_fixture supabase/tests/assistant-audit-queue.sql
 run_fixture supabase/tests/assistant-conversations-v2.sql
 run_fixture supabase/seeds/synthetic_durable.sql
 
@@ -176,6 +177,8 @@ docker exec -i -u postgres "$container" psql -X -v ON_ERROR_STOP=1 \
   -U postgres -d "$restore_db" < "$repo_root/supabase/tests/assistant-start-execution.sql" > /dev/null
 docker exec -i -u postgres "$container" psql -X -v ON_ERROR_STOP=1 \
   -U postgres -d "$restore_db" < "$repo_root/supabase/tests/assistant-audit-delivery.sql" > /dev/null
+docker exec -i -u postgres "$container" psql -X -v ON_ERROR_STOP=1 \
+  -U postgres -d "$restore_db" < "$repo_root/supabase/tests/assistant-audit-queue.sql" > /dev/null
 
 docker exec -i -u postgres "$container" psql -X -v ON_ERROR_STOP=1 \
   -U postgres -d "$restore_db" > /dev/null <<'SQL'

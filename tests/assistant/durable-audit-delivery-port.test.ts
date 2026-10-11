@@ -17,6 +17,38 @@ function fixture(){
 }
 const safe=(e:unknown)=>e instanceof DurableAuditDeliveryUnavailable&&!e.message.includes('private')
 
+test('audit discovery returns frozen bounded keyset pages without claims or tenant selectors',async()=>{
+ const f=fixture(),items=Array.from({length:20},(_,i)=>({eventRef:i.toString(16).padStart(64,'0'),version:1,createdAt:original.createdAt}))
+ const nextCursor={createdAt:items[19].createdAt,eventRef:items[19].eventRef}
+ f.data({status:'applied',items,nextCursor});const page=await f.port.listEligible();assert.equal(page.status,'applied')
+ if(page.status!=='applied')throw new Error('missing_page')
+ assert.deepEqual(page.items,items);assert.ok(Object.isFrozen(page.items));assert.ok(page.items.every(Object.isFrozen))
+ assert.deepEqual(f.calls[0],{operation:'assistant_durable_v1_list_audit',input:{p_workspace:worker.workspaceId,p_worker:worker.workerRef,
+  p_authority_version:'1',p_after_time:'',p_after_event:''}})
+ f.data({status:'applied',items:[],nextCursor:null})
+ assert.deepEqual(await f.port.listEligible(nextCursor),{status:'applied',items:[],nextCursor:null})
+ assert.equal(f.calls[1].input.p_after_event,nextCursor.eventRef)
+})
+test('queue discovery rejects duplicate/reversed/oversized/accessor pages and invalid cursors',async()=>{
+ const f=fixture(),item={createdAt:original.createdAt,eventRef:'a'.repeat(64),version:1};let invoked=0
+ const accessor=Object.defineProperty([item],'0',{get(){invoked++;return item},enumerable:true})
+ for(const items of [[item,item],[{...item,eventRef:'b'.repeat(64)},item],Array(21).fill(item),accessor,
+  [{...item,version:Number.MAX_SAFE_INTEGER+1}],[{...item,private:'body'}]]){
+  f.data({status:'applied',items,nextCursor:null});await assert.rejects(f.port.listEligible(),safe)
+ }
+ assert.equal(invoked,0)
+ f.data({status:'applied',items:[item],nextCursor:null})
+ await assert.rejects(f.port.listEligible({createdAt:item.createdAt,eventRef:item.eventRef}),safe)
+ const calls=f.calls.length
+ await assert.rejects(f.port.listEligible({createdAt:'invalid',eventRef:item.eventRef}),safe);assert.equal(f.calls.length,calls)
+})
+test('a delayed queue reply cannot release references after worker revocation',async()=>{
+ let allowed=true
+ const port=createDurableAuditDeliveryPortV1({currentWorker:async()=>allowed?worker:null,
+  invoke:async()=>{allowed=false;return {data:{status:'applied',items:[],nextCursor:null},error:null}}})
+ await assert.rejects(port.listEligible(),safe)
+})
+
 test('audit delivery uses a fresh scoped worker and preserves the different original actor/request',async()=>{
  const f=fixture(),claimed=await f.port.claim(original.eventRef,1);assert.equal(claimed.status,'applied')
  if(claimed.status!=='applied')throw new Error('missing_claim')
