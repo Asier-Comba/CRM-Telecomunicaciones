@@ -109,3 +109,9 @@ reference when the scanner flagged two literal synthetic idempotency keys as
 generic API keys. Their computed values are unchanged; splitting the synthetic
 literal avoids this false match. The scanner output is retained. No scanner rule,
 allowlist or published history is changed; the corrected own head is rescanned.
+
+CI of source a79/execution e4de caught a separate exact-bootstrap contract still
+ending at migration82 (526/527 bootstrap tests, no assistant/build continuation).
+The contract now enumerates migration83 without weakening its exact comparison.
+The original failed run/log is retained; the corrected published source needs
+its own full CI and Supabase execution before acceptance.
