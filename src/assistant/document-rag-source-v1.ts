@@ -20,14 +20,17 @@ const admitted = new WeakMap<object, { authority: ReadAuthorityV2; material: Doc
 const sha = (bytes: Uint8Array | string) => createHash('sha256').update(bytes).digest('hex')
 const same = (a: ReadAuthorityV2 | null, b: ReadAuthorityV2) => !!a && a.actorId === b.actorId
   && a.workspaceId === b.workspaceId && a.scopeEpoch === b.scopeEpoch && a.role === b.role
-const exact = (v: unknown, keys: string): v is Record<string, unknown> => {
-  if (!v || typeof v !== 'object' || Array.isArray(v) || Object.getPrototypeOf(v) !== Object.prototype) return false
+const closedRecord = (v: unknown, keys: string): Record<string, unknown> | null => {
+  if (!v || typeof v !== 'object' || Array.isArray(v) || Object.getPrototypeOf(v) !== Object.prototype) return null
   const d = Object.getOwnPropertyDescriptors(v)
-  return Reflect.ownKeys(d).length === keys.split(',').length && Object.keys(d).sort().join(',') === keys
-    && Object.values(d).every(x => 'value' in x && x.enumerable)
+  if (Reflect.ownKeys(d).length !== keys.split(',').length || Object.keys(d).sort().join(',') !== keys
+    || !Object.values(d).every(x => 'value' in x && x.enumerable)) return null
+  // Read only admitted descriptor values; a Proxy get trap must not swap them.
+  return Object.fromEntries(keys.split(',').map(key => [key, d[key].value]))
 }
-function snapshot(value: unknown): DocumentRagSnapshotV1 | null {
-  if (!exact(value, 'contentClass,documentId,documentKind,indexingApproved,mediaType,sha256,sizeBytes,status,version')) return null
+function snapshot(raw: unknown): DocumentRagSnapshotV1 | null {
+  const value = closedRecord(raw, 'contentClass,documentId,documentKind,indexingApproved,mediaType,sha256,sizeBytes,status,version')
+  if (!value) return null
   if (typeof value.documentId !== 'string' || !/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value.documentId)
     || !Number.isSafeInteger(value.version) || Number(value.version) < 1 || value.status !== 'active'
     || typeof value.sha256 !== 'string' || !/^[0-9a-f]{64}$/.test(value.sha256)
@@ -40,14 +43,16 @@ function snapshot(value: unknown): DocumentRagSnapshotV1 | null {
     indexingApproved: value.indexingApproved, contentClass: value.contentClass }) as DocumentRagSnapshotV1
 }
 function chunks(value: unknown): readonly DocumentRagChunkV1[] | null {
-  if (!Array.isArray(value) || value.length < 1 || value.length > 100) return null
-  const arrayFields = Object.getOwnPropertyDescriptors(value)
-  if (Reflect.ownKeys(arrayFields).length !== value.length + 1
-    || Array.from({ length: value.length }, (_, i) => i).some(i => !arrayFields[i]?.enumerable || !('value' in arrayFields[i]))) return null
+  if (!Array.isArray(value)) return null
+  const arrayFields = Object.getOwnPropertyDescriptors<object>(value)
+  const length: unknown = arrayFields.length?.value
+  if (typeof length !== 'number' || !Number.isSafeInteger(length) || length < 1 || length > 100
+    || Reflect.ownKeys(arrayFields).length !== length + 1
+    || Array.from({ length }, (_, i) => i).some(i => !arrayFields[i]?.enumerable || !('value' in arrayFields[i]))) return null
   const result: DocumentRagChunkV1[] = []; let total = 0
-  for (let i = 0; i < value.length; i++) {
-    const page: unknown = arrayFields[i].value
-    if (!exact(page, 'page,text') || page.page !== i + 1 || typeof page.text !== 'string' || !page.text.trim()
+  for (let i = 0; i < length; i++) {
+    const page = closedRecord(arrayFields[i].value, 'page,text')
+    if (!page || page.page !== i + 1 || typeof page.text !== 'string' || !page.text.trim()
       || /[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f-\u009f]/u.test(page.text)
       || containsHighConfidenceSecret(page.text)) return null
     total += Buffer.byteLength(page.text)

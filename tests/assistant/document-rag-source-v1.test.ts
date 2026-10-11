@@ -128,6 +128,24 @@ test('opaque material cannot be forged or reused across authority/version change
   assert.ok(admittedDocumentRagMaterialV1(result.handle!, authority, reordered))
 })
 
+test('data-property read traps cannot promote an unapproved source or replace the validated extraction text', async () => {
+  let reads = 0
+  const f = fixture()
+  f.source(new Proxy({ ...source, indexingApproved: false }, { get(target, key, receiver) {
+    // Promise assimilation may inspect then; count data-field reads only.
+    if (key !== 'then') reads++
+    return key === 'indexingApproved' ? true : Reflect.get(target, key, receiver)
+  } }))
+  assert.equal((await prepareDocumentRagSourceV1(handle, f.deps)).status, 'not_admitted')
+  assert.equal(f.calls.download, 0); assert.equal(reads, 0)
+  const valid = fixture(), text = 'Exact reviewed extraction.'
+  valid.pages(new Proxy([new Proxy({ page: 1, text }, { get() { reads++; return 'replaced' } })], {
+    get(target, key, receiver) { if (key !== 'then') reads++; return Reflect.get(target, key, receiver) },
+  }))
+  const { value } = await material(valid)
+  assert.equal(value.chunks[0].text, text); assert.equal(reads, 0)
+})
+
 test('cancellation of a held download never produces a prepared source or calls extraction', async () => {
   const f = fixture(), controller = new AbortController(); let entered!: () => void
   const started = new Promise<void>(resolve => { entered = resolve })
