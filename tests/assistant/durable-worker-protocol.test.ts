@@ -44,7 +44,10 @@ test('native runner exits safely for missing and non-disposable adapters without
   try {
     const adapter=join(directory,'wrong-driver.mjs')
     await writeFile(adapter,'export const metadata={contract:"synthetic-wrong",backend:"hosted_remote",disposable:false};export function setupScenario(){throw Error("must not execute")}\n')
-    for(const [path,message] of [[join(directory,'absent.mjs'),'adapter_load_failed'],[adapter,'disposable_native_postgres_driver_required']]) {
+    const legacy=join(directory,'legacy-v2.mjs')
+    await writeFile(legacy,'export const metadata={contract:"assistant.durable-process.v2",backend:"native_postgres",disposable:true};'+
+      ['setupScenario','connectWorker','execute','inspectBoundary','inspectScenario','cleanupScenario'].map(name=>'export function '+name+'(){throw Error("must not execute")}').join('\n'))
+    for(const [path,message] of [[join(directory,'absent.mjs'),'adapter_load_failed'],[adapter,'disposable_native_postgres_driver_required'],[legacy,'disposable_native_postgres_driver_required']]) {
       const result=spawnSync(process.execPath,['scripts/durable-process-acceptance.mjs',path],{encoding:'utf8',timeout:5000})
       assert.equal(result.status,2);assert.equal(result.signal,null);assert.match(result.stderr,new RegExp(message));assert.doesNotMatch(result.stderr,/UV_HANDLE_CLOSING|must not execute/);assert.equal(result.stdout,'')
     }
@@ -60,7 +63,7 @@ test('incomplete drivers are rejected before synthetic fixture setup; complete e
   const root=resolve(tmpdir()),directory=await mkdtemp(join(root,'w3-export-admission-'))
   const adapter=join(directory,'synthetic-driver.mjs'),marker=join(directory,'setup.marker')
   const names=['setupScenario','connectWorker','execute','inspectBoundary','inspectScenario','cleanupScenario']
-  const metadata='import {writeFileSync} from "node:fs";export const metadata={contract:"assistant.durable-process.v2",backend:"native_postgres",disposable:true};\n'
+  const metadata='import {writeFileSync} from "node:fs";export const metadata={contract:"assistant.durable-process.v3",backend:"native_postgres",disposable:true};\n'
   const functions=names.map(name=>name==='setupScenario'
     ? 'export function setupScenario(){writeFileSync('+JSON.stringify(marker)+',"SYNTHETIC_SETUP_CALLED");throw Error("synthetic setup abort: never serialize this adapter error")}\n'
     : 'export function '+name+'(){throw Error("must not execute native path")}\n')
