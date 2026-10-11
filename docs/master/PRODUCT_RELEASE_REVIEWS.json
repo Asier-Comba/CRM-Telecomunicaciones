@@ -344,6 +344,92 @@
           ]
         }
       ]
+    },
+    "PAR-109": {
+      "source_sha": "662bcb1fec12cd0de65d6cb92724e458252eb3f2",
+      "owner": "W1/W2 billing; W4 independent acceptance",
+      "priority": "P1",
+      "stages": {
+        "IMPLEMENTED": "PARTIAL",
+        "PROVEN_BACKEND": "PARTIAL",
+        "CONSUMED_UI": "PARTIAL",
+        "BROWSER_ACCEPTED": "PARTIAL",
+        "VISUAL_ACCEPTED": "PARTIAL"
+      },
+      "permissions": "Actual disposable cookie/JWT checks for owner, member/viewer, foreign workspace, archive and live revocation; complete per-row roles/staging/W4 pending.",
+      "mobile": "NOT_RECONCILED",
+      "external_blocked": "BLOCKED",
+      "pending": "Complete mobile/tablet/desktop private-PDF UI, fiscal layout/accessibility/Unicode and independently accepted stored-file/W4 scope. Ordinary words split across lines in current renderer. No FULL_ROW/PASS or release claim.",
+      "evidence": [
+        {
+          "source_sha": "c38e5459ddad12b6eb5fa4ef80f0416a1f8377d5",
+          "kind": "AUTH_BROWSER",
+          "scope": "PARTIAL_ROW",
+          "stage": "PROVEN_BACKEND",
+          "positive": "Canonical private PDF on issue; real Storage byte equality; byte preservation after paid/archive+restore; canonical repair revision2 with20 identical replays and immutable revision count2.",
+          "negative": "Member/viewer/foreign owner API+RPC refusal, foreign workspace, archive refusal, corrupted stored bytes409, changed artifact intent409 and valid-JWT live revocation403.",
+          "execution": "C38_EXECUTED59D920_TREE1E315_SUPABASE38152137515_JOB114507596897_PASS107_SAFE11707995618;fixed source unconditionally awaits billingArtifactAcceptance;check throws on failure. Source/run inference, individual artifact fields not emitted by approved consumer whitelist.",
+          "paths": [
+            "scripts/security/supabase-local/acceptance.mjs",
+            "scripts/security/supabase-local/billing-artifact-acceptance.mjs",
+            "src/lib/server/billing-artifact-service-v1.ts"
+          ]
+        },
+        {
+          "source_sha": "c38e5459ddad12b6eb5fa4ef80f0416a1f8377d5",
+          "kind": "AUTH_BROWSER",
+          "scope": "PARTIAL_ROW",
+          "stage": "BROWSER_ACCEPTED",
+          "positive": "Real owner browser issues fiscal invoice, retains committed receipt under deliberately unavailable Storage, restores Storage and persists/downloads private PDF without reissuing.",
+          "negative": "Storage failure must expose pending private-file action while issued invoice remains; recovery must preserve issued count and return PDF bytes.",
+          "execution": "C38_EXECUTED59D920_TREE1E315_SUPABASE38152137515_SAFE11707995618_TIMING_billing_fiscal_commit_survives_storage_failure_and_private_retry_PASS; screenshot widget not reviewed, no UI width/full-row claim.",
+          "paths": [
+            "scripts/security/supabase-local/product-browser-acceptance.mjs",
+            "src/features/billing/PrivateInvoicePdf.tsx"
+          ]
+        },
+        {
+          "source_sha": "c38e5459ddad12b6eb5fa4ef80f0416a1f8377d5",
+          "kind": "VISUAL",
+          "scope": "PARTIAL_ROW",
+          "stage": "VISUAL_ACCEPTED",
+          "positive": "Eight local canonical renderer pages actually reviewed:50 valid300-character descriptions, fixed issuer/customer, sequential concepts and visible72/15/11/76EUR totals and footers.",
+          "negative": "Contract rejects controls/newlines; sample preserves exact frozen bytes after paid display change. Not a new native negative, not HTTP/Storage PDF visual acceptance.",
+          "execution": "LOCAL_RENDERER_SOURCE8a0261bc3c964419ef3d6a023f47105da8ce8f81_TREE8ade84ae133e51467e498a747d019700632a39a8;renderer blobs identical to accepted C38;controlled DTO and all8PNG hashes saved locally. Not Supabase artifact or W4.",
+          "paths": [
+            "src/lib/server/billing-pdf-v1.ts",
+            "src/lib/server/billing-artifact-runtime-v1.ts",
+            "tests/bootstrap/billing-pdf-v1.test.mjs",
+            "tests/bootstrap/billing-artifact-v1.test.mjs"
+          ]
+        },
+        {
+          "source_sha": "662bcb1fec12cd0de65d6cb92724e458252eb3f2",
+          "kind": "AUTH_BROWSER",
+          "scope": "PARTIAL_ROW",
+          "stage": "BROWSER_ACCEPTED",
+          "positive": "Own real browser issues invoice and recovers its private PDF after deliberately unavailable Storage, preserving number A/2026/000007 and total48.40EUR.",
+          "negative": "Storage outage leaves private-copy action pending while fiscal issuance stays committed; recovery must not reissue or create a second invoice.",
+          "execution": "ROOT662_EXECUTEDaf0f05720820d1b178c48eb7205aadd743654f69_TREE9c790de9499e1c9727ce79e70df4d4d297d63d2b_SUPABASE38159906851_JOB114530454579_SAFE11710333151_TIMING_billing_fiscal_commit_survives_storage_failure_and_private_retry_PASS",
+          "paths": [
+            "scripts/security/supabase-local/product-browser-acceptance.mjs",
+            "src/features/billing/PrivateInvoicePdf.tsx"
+          ]
+        },
+        {
+          "source_sha": "662bcb1fec12cd0de65d6cb92724e458252eb3f2",
+          "kind": "VISUAL",
+          "scope": "PARTIAL_ROW",
+          "stage": "VISUAL_ACCEPTED",
+          "positive": "Two own1440px frames actually reviewed: emitted invoice retains exact number/48.40EUR while private copy is pending; recovered widget exposes integrity-checked download. Own390px current invoice frame also shows conserved private-copy controls.",
+          "negative": "Observed deliberate pending/recovered Storage states, not an inferred rendering of stored PDF pages. No complete responsive/accessibility/Unicode/fiscal-layout or independent W4 acceptance.",
+          "execution": "ROOT662_PRODUCT11710023620_SHA256012ee517cd5fbd0c6c9adf69b03fd91b9d0a0e07e136cbd3d3e26059d96d816e_invoice-private-pending.png_invoice-private-recovered.png_billing-confirmed-current-invoice-390.png_ACTUALLY_VIEWED;stored PDF page bytes NOT_VIEWED",
+          "paths": [
+            "src/features/billing/PrivateInvoicePdf.tsx",
+            "scripts/security/supabase-local/product-browser-acceptance.mjs"
+          ]
+        }
+      ]
     }
   },
   "next_3": [
