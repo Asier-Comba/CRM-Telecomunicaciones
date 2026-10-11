@@ -13,6 +13,14 @@
       "anon": false,
       "public": false,
       "definer": false,
+      "signature": "public.assistant_audit_worker_grant_guard()",
+      "service_role": false,
+      "authenticated": false
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": false,
       "signature": "public.assistant_conversation_guard_v2()",
       "service_role": false,
       "authenticated": false
@@ -21,7 +29,23 @@
       "anon": false,
       "public": false,
       "definer": true,
+      "signature": "public.assistant_durable_v1_ack_audit(uuid, text, bigint, text, bigint, bigint, text, text)",
+      "service_role": false,
+      "authenticated": false
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": true,
       "signature": "public.assistant_durable_v1_cancel(uuid, text, text, text)",
+      "service_role": false,
+      "authenticated": false
+    },
+    {
+      "anon": false,
+      "public": false,
+      "definer": true,
+      "signature": "public.assistant_durable_v1_claim_audit(uuid, text, bigint, text, bigint)",
       "service_role": false,
       "authenticated": false
     },

@@ -104,6 +104,7 @@ run_fixture supabase/tests/assistant-reservation-record-projection.sql
 run_fixture supabase/tests/assistant-confirmation-cancel.sql
 run_fixture supabase/tests/assistant-operation-recovery.sql
 run_fixture supabase/tests/assistant-start-execution.sql
+run_fixture supabase/tests/assistant-audit-delivery.sql
 run_fixture supabase/tests/assistant-conversations-v2.sql
 run_fixture supabase/seeds/synthetic_durable.sql
 
@@ -173,6 +174,8 @@ docker exec -i -u postgres "$container" psql -X -v ON_ERROR_STOP=1 \
   -U postgres -d "$restore_db" < "$repo_root/supabase/tests/assistant-operation-recovery.sql" > /dev/null
 docker exec -i -u postgres "$container" psql -X -v ON_ERROR_STOP=1 \
   -U postgres -d "$restore_db" < "$repo_root/supabase/tests/assistant-start-execution.sql" > /dev/null
+docker exec -i -u postgres "$container" psql -X -v ON_ERROR_STOP=1 \
+  -U postgres -d "$restore_db" < "$repo_root/supabase/tests/assistant-audit-delivery.sql" > /dev/null
 
 docker exec -i -u postgres "$container" psql -X -v ON_ERROR_STOP=1 \
   -U postgres -d "$restore_db" > /dev/null <<'SQL'
@@ -272,6 +275,7 @@ migration_head="$(basename "${migration}")"
 node scripts/security/native-postgres/product-command-races.mjs
 node scripts/security/native-postgres/service-commercial-races.mjs
 node --experimental-transform-types scripts/security/native-postgres/assistant-reservation-races.mjs
+node --experimental-transform-types scripts/security/native-postgres/assistant-audit-delivery-races.mjs
 
 printf '{"kind":"native_postgresql_restore_test_only","migration_count":%d,"migration_head":"%s","dump_sha256":"%s","schema":"pass","rows":"pass","assistant_rows":"pass","rls":"pass","scope":"pass","restored_privilege_matrix":"pass","fresh_role_calls":"pass","restored_role_calls":"pass","acl_loss_negative_control":"pass","production_backup":false}\n' \
   "$migration_count" "$migration_head" "$dump_sha"
