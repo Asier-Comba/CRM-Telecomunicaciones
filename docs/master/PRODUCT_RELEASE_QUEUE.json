@@ -3,7 +3,7 @@
   "reviewed_at": "2026-10-11",
   "acceptance_policy": "No inherited or aggregate PASS promotions. NOT_RECONCILED means unverified here, not absent in the product.",
   "accepted_source": "a8851dc75eccae082c9f3ab8f9b67be748f7fb46",
-  "candidate_source": "8d0ea9967a069dd467ffbbb052bfe4636d87e120",
+  "candidate_source": "5da315ad67717e929fba067e8f2c1ff21a15a082",
   "candidate_pr": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142",
   "inherited_baseline": {
     "source_sha": "a8851dc75eccae082c9f3ab8f9b67be748f7fb46",
@@ -18,23 +18,21 @@
     "scope": "Own root functional acceptance only. Seven approved current core frames reviewed: three loaded catalog-version frames; three initial Customer360 and one initial agenda frame still contain pending reads. Not full loaded visual or full342 acceptance; no inheritance across source/execution/tree."
   },
   "candidate_verification": {
-    "source_sha": "8d0ea9967a069dd467ffbbb052bfe4636d87e120",
-    "executed_sha": "84c13a7aed1bd572b174b67bdf2783ea00811e08",
-    "tree_sha": "39f7b56a519a67184a063aed171d34cecb426971",
-    "native_run": 38139035264,
-    "native_job": 114468860435,
-    "native_status": "PASS",
-    "native_scope": "Own85 migrations/320 functions fresh+restored privileges/RLS/ACL/roles;distinct primitive20Node reservation,normal completion and positive reconciliation;normal and positive actual postcommit SIGKILL/fresh Node-backend full-record recovery;all eight ledgers unchanged;normal14 original audits/full11 completion contents delivered. Not full23/four complete scenarios/restart/before-effect kill/verified absence/business handlers.",
-    "quality_job": 114468860422,
+    "source_sha": "5da315ad67717e929fba067e8f2c1ff21a15a082",
+    "executed_sha": "860d1b88d79ecbc87b51d70dcdb0767ebed61114",
+    "tree_sha": "6809baa855dfc1361960a6e7dccd6604df30f15c",
+    "native_run": 38141429366,
+    "native_job": 114475926402,
+    "native_status": "PASS85_320_FRESH_RESTORE_RLS_ACL_ROLES",
+    "quality_job": 114475926440,
     "functional": 1140,
-    "browser_ci": 178,
+    "browser_ci": 202,
     "lint_types_build": "PASS",
-    "audit": "FAIL_FIVE_HIGH",
-    "supabase_run": 38139035261,
-    "supabase_status": "SUCCESS_OWN107_AUTH85_BACKEND_HISTORY_GROUNDING_TEARDOWN",
-    "release": "NOT_ACCEPTED",
-    "prior_failed_source": "b57ed6ed30ab8d546556ce21ac735dd7a1e2f218",
-    "prior_failure": "Own1140/native85_320/160 pass;own Supabase105 pass2 TIMEOUT. Empty-stage drag test now opens real disclosure and retains all persistence/conflict assertions;portfolio before-effect loading cause unproven. D3ac100 pass7 fail and D17 native failure also preserved;no retroactive success."
+    "supabase_run": 38141429504,
+    "supabase_job": 114475926653,
+    "supabase_status": "PASS107",
+    "audit": "FAIL5HIGH",
+    "scope": "Own candidate only;root composition NOT_TESTED. Original normal/positive postcommit SIGKILL,whole record and14 normal audits proven primitives,not full23/verified absence.12 dedicated loaded collection frames reviewed,not full row or W4. B423 ownHTTP500/B57/D3ac failures retained."
   },
   "global_release_blockers": [
     {
@@ -80,7 +78,7 @@
     },
     {
       "path": "docs/master/PRODUCT_RELEASE_REVIEWS.json",
-      "sha256": "79d42f4bd30dba310972649e810d7ce29d64d5970ff2aedf64f415014f9e28dc"
+      "sha256": "55f334adf7f2e0c45de646fcecf2b634d309725184820f8c90dcb9282833b632"
     }
   ],
   "reference_documents": [
@@ -105,8 +103,8 @@
     "total": 342,
     "parity": 244,
     "telecom": 98,
-    "reviewed_partial": 4,
-    "unreconciled": 338,
+    "reviewed_partial": 7,
+    "unreconciled": 335,
     "release_ready": 0
   },
   "next_3": [
@@ -1526,21 +1524,36 @@
       "capability": "Customer360: Contactos",
       "family": "parity",
       "REQUIRED": true,
-      "IMPLEMENTED": "NOT_RECONCILED",
-      "PROVEN_BACKEND": "NOT_RECONCILED",
-      "CONSUMED_UI": "NOT_RECONCILED",
-      "BROWSER_ACCEPTED": "NOT_RECONCILED",
+      "IMPLEMENTED": "PARTIAL",
+      "PROVEN_BACKEND": "PARTIAL",
+      "CONSUMED_UI": "PARTIAL",
+      "BROWSER_ACCEPTED": "PARTIAL",
       "VISUAL_ACCEPTED": "NOT_RECONCILED",
       "SECURITY_ACCEPTED": "NOT_RECONCILED",
-      "EXTERNAL_BLOCKED": "NOT_RECONCILED",
+      "EXTERNAL_BLOCKED": "BLOCKED",
       "RELEASE_READY": false,
-      "owner": "W2; W1 contracts; W4 acceptance",
+      "owner": "W2 UI / W1 contracts / W4 independent acceptance",
       "priority": "P1",
-      "source_sha": null,
-      "evidence": [],
-      "permissions": "NOT_RECONCILED",
+      "source_sha": "5da315ad67717e929fba067e8f2c1ff21a15a082",
+      "evidence": [
+        {
+          "source_sha": "5da315ad67717e929fba067e8f2c1ff21a15a082",
+          "kind": "AUTH_BROWSER",
+          "scope": "PARTIAL_ROW",
+          "stage": "BROWSER_ACCEPTED",
+          "positive": "Ordinary contact list rendered under cookie authority;no email/phone fields and no eager privileged contact.editors request.",
+          "negative": "Ordinary contact payload containing email/phone and eager contact.editors request are rejected. Complete role/state/cursor matrix pending.",
+          "execution": "OWN_SOURCE5DA_EXECUTED860D1_TREE6809_SUPABASE38141429504_JOB114475926653_PASS107;PARTIAL_ROW_NOT_W4_NOT_ROOT_ACCEPTANCE",
+          "paths": [
+            "scripts/security/supabase-local/product-customer360-collections-browser.mjs",
+            "docs/master/W2_CUSTOMER360_LOADED_REVIEW_20261011.md",
+            "src/features/customers/IntegratedCustomerDetail.tsx"
+          ]
+        }
+      ],
+      "permissions": "Actual cookie reads on disposable local Auth/SQL;complete per-row role/revocation/foreign-workspace staging acceptance and W4 remain pending.",
       "mobile": "NOT_RECONCILED",
-      "pending": "Map current implementation and row-specific positive, negative, permission, responsive and visual evidence before promotion.",
+      "pending": "Complete row-specific permission/state/cursor/creation/lifecycle acceptance and independent W4;no PASS/no RELEASE_READY.Current root fresh gates pending.",
       "historical_snapshot": {
         "id": "PAR-042",
         "capability": "Customer360: Contactos",
@@ -1696,21 +1709,50 @@
       "capability": "Customer360: Líneas",
       "family": "parity",
       "REQUIRED": true,
-      "IMPLEMENTED": "NOT_RECONCILED",
-      "PROVEN_BACKEND": "NOT_RECONCILED",
-      "CONSUMED_UI": "NOT_RECONCILED",
-      "BROWSER_ACCEPTED": "NOT_RECONCILED",
-      "VISUAL_ACCEPTED": "NOT_RECONCILED",
+      "IMPLEMENTED": "PARTIAL",
+      "PROVEN_BACKEND": "PARTIAL",
+      "CONSUMED_UI": "PARTIAL",
+      "BROWSER_ACCEPTED": "PARTIAL",
+      "VISUAL_ACCEPTED": "PARTIAL",
       "SECURITY_ACCEPTED": "NOT_RECONCILED",
-      "EXTERNAL_BLOCKED": "NOT_RECONCILED",
+      "EXTERNAL_BLOCKED": "BLOCKED",
       "RELEASE_READY": false,
-      "owner": "W2; W1 contracts; W4 acceptance",
+      "owner": "W2 UI / W1 contracts / W4 independent acceptance",
       "priority": "P1",
-      "source_sha": null,
-      "evidence": [],
-      "permissions": "NOT_RECONCILED",
-      "mobile": "NOT_RECONCILED",
-      "pending": "Map current implementation and row-specific positive, negative, permission, responsive and visual evidence before promotion.",
+      "source_sha": "5da315ad67717e929fba067e8f2c1ff21a15a082",
+      "evidence": [
+        {
+          "source_sha": "5da315ad67717e929fba067e8f2c1ff21a15a082",
+          "kind": "AUTH_BROWSER",
+          "scope": "PARTIAL_ROW",
+          "stage": "BROWSER_ACCEPTED",
+          "positive": "Loaded Customer360 line ids match normal authenticated response ;customer fixture selected from persisted SQL rows;all twelve displayed line labels verified390/768/1440.",
+          "negative": "Exact visible-id equality, twelve field labels, record/field viewport checks and document overflow checks reject missing/mismatched loaded rows. Complete role/state/cursor matrix pending.",
+          "execution": "OWN_SOURCE5DA_EXECUTED860D1_TREE6809_SUPABASE38141429504_JOB114475926653_PASS107;PARTIAL_ROW_NOT_W4_NOT_ROOT_ACCEPTANCE",
+          "paths": [
+            "scripts/security/supabase-local/product-customer360-collections-browser.mjs",
+            "docs/master/W2_CUSTOMER360_LOADED_REVIEW_20261011.md",
+            "src/features/customers/CustomerDomainPages.tsx",
+            "src/features/portfolio/CustomerLinesInventory.tsx"
+          ]
+        },
+        {
+          "source_sha": "5da315ad67717e929fba067e8f2c1ff21a15a082",
+          "kind": "VISUAL",
+          "scope": "PARTIAL_ROW",
+          "stage": "VISUAL_ACCEPTED",
+          "positive": "Three dedicated loaded domain frames390/768/1440 reviewed;current row,labels and related operator readable.",
+          "negative": "No overlap or horizontal overflow observed;does not inspect all records,states or content outside frame.",
+          "execution": "OWN5DA_PRODUCT_ARTIFACT11703831286;EXACT_ZIP_SHA_IN_REVIEW_DOCUMENT;NOT_FULL_ROW",
+          "paths": [
+            "docs/master/W2_CUSTOMER360_LOADED_REVIEW_20261011.md",
+            "scripts/security/supabase-local/product-customer360-collections-browser.mjs"
+          ]
+        }
+      ],
+      "permissions": "Actual cookie reads on disposable local Auth/SQL;complete per-row role/revocation/foreign-workspace staging acceptance and W4 remain pending.",
+      "mobile": "PARTIAL_LOADED390_768_1440",
+      "pending": "Complete row-specific permission/state/cursor/creation/lifecycle acceptance and independent W4;no PASS/no RELEASE_READY.Current root fresh gates pending.",
       "historical_snapshot": {
         "id": "PAR-047",
         "capability": "Customer360: Líneas",
@@ -9721,21 +9763,50 @@
       "capability": "portability.list",
       "family": "telecom",
       "REQUIRED": true,
-      "IMPLEMENTED": "NOT_RECONCILED",
-      "PROVEN_BACKEND": "NOT_RECONCILED",
-      "CONSUMED_UI": "NOT_RECONCILED",
-      "BROWSER_ACCEPTED": "NOT_RECONCILED",
-      "VISUAL_ACCEPTED": "NOT_RECONCILED",
+      "IMPLEMENTED": "PARTIAL",
+      "PROVEN_BACKEND": "PARTIAL",
+      "CONSUMED_UI": "PARTIAL",
+      "BROWSER_ACCEPTED": "PARTIAL",
+      "VISUAL_ACCEPTED": "PARTIAL",
       "SECURITY_ACCEPTED": "NOT_RECONCILED",
-      "EXTERNAL_BLOCKED": "NOT_RECONCILED",
+      "EXTERNAL_BLOCKED": "BLOCKED",
       "RELEASE_READY": false,
-      "owner": "W1/W2; W4 acceptance",
+      "owner": "W2 UI / W1 contracts / W4 independent acceptance",
       "priority": "P1",
-      "source_sha": null,
-      "evidence": [],
-      "permissions": "NOT_RECONCILED",
-      "mobile": "NOT_RECONCILED",
-      "pending": "Map current implementation and row-specific positive, negative, permission, responsive and visual evidence before promotion.",
+      "source_sha": "5da315ad67717e929fba067e8f2c1ff21a15a082",
+      "evidence": [
+        {
+          "source_sha": "5da315ad67717e929fba067e8f2c1ff21a15a082",
+          "kind": "AUTH_BROWSER",
+          "scope": "PARTIAL_ROW",
+          "stage": "BROWSER_ACCEPTED",
+          "positive": "Loaded ordinary portability ids match authenticated list ;customer fixture selected from persisted SQL rows;all ten displayed labels verified390/768/1440.",
+          "negative": "Exact visible-id equality, ten field labels, record/field viewport checks and document overflow checks reject missing/mismatched loaded portabilities. Complete role/state/cursor matrix pending.",
+          "execution": "OWN_SOURCE5DA_EXECUTED860D1_TREE6809_SUPABASE38141429504_JOB114475926653_PASS107;PARTIAL_ROW_NOT_W4_NOT_ROOT_ACCEPTANCE",
+          "paths": [
+            "scripts/security/supabase-local/product-customer360-collections-browser.mjs",
+            "docs/master/W2_CUSTOMER360_LOADED_REVIEW_20261011.md",
+            "src/features/customers/CustomerDomainPages.tsx",
+            "src/lib/contracts/portability-v1.ts"
+          ]
+        },
+        {
+          "source_sha": "5da315ad67717e929fba067e8f2c1ff21a15a082",
+          "kind": "VISUAL",
+          "scope": "PARTIAL_ROW",
+          "stage": "VISUAL_ACCEPTED",
+          "positive": "Three dedicated loaded domain frames390/768/1440 reviewed;current row,labels and related operator readable.",
+          "negative": "No overlap or horizontal overflow observed;does not inspect all records,states or content outside frame.",
+          "execution": "OWN5DA_PRODUCT_ARTIFACT11703831286;EXACT_ZIP_SHA_IN_REVIEW_DOCUMENT;NOT_FULL_ROW",
+          "paths": [
+            "docs/master/W2_CUSTOMER360_LOADED_REVIEW_20261011.md",
+            "scripts/security/supabase-local/product-customer360-collections-browser.mjs"
+          ]
+        }
+      ],
+      "permissions": "Actual cookie reads on disposable local Auth/SQL;complete per-row role/revocation/foreign-workspace staging acceptance and W4 remain pending.",
+      "mobile": "PARTIAL_LOADED390_768_1440",
+      "pending": "Complete row-specific permission/state/cursor/creation/lifecycle acceptance and independent W4;no PASS/no RELEASE_READY.Current root fresh gates pending.",
       "historical_snapshot": {
         "section": "Portabilities",
         "requirement": "portability.list",
