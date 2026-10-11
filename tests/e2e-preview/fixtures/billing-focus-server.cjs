@@ -61,7 +61,7 @@ exports.startBillingFocusFixture = async function startBillingFocusFixture() {
  })
  await new Promise(accept=>server.listen(0,'127.0.0.1',accept))
  const address=server.address();if(!address||typeof address==='string')throw Error('FIXTURE_ADDRESS')
- return {url:`http://127.0.0.1:${address.port}`,requests,
+ return {url:`http://127.0.0.1:${address.port}`,requests,invoice,
   releaseList(){const summary=Object.fromEntries(['currency','customer_id','due_on','id','issue_on','number','overdue','series','status','totals','version'].map(key=>[key,invoice[key]]));for(const response of [...held])json(response,{ok:true,data:{contract_version:'billing.v1',operation:'invoice.list',items:Array.from({length:50},(_,index)=>({...summary,id:`10000000-0000-4000-8000-${String(index+2).padStart(12,'0')}`,number:{series:'A',year:2026,sequence:index+9}})),next_id:null}})},
   releasePdf(){for(const response of [...heldPdf])json(response,{ok:false,error:'not_found'},404)},
   async close(){server.closeAllConnections();await new Promise((accept,reject)=>server.close(error=>error?reject(error):accept()))}}

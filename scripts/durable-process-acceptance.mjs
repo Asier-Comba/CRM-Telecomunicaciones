@@ -95,9 +95,11 @@ try {
         // Fresh independent process/connection after crash; adapter verifies receipt
         // or absence before any retry. Recovery includes draining the original audit.
         const recovery = launch({ fixture, scenario: scenario.id, action: 'recover_and_drain' })
-        await recovery.ready; recovery.start(); await recovery.result
+        await recovery.ready
         assert.ok(Number.isSafeInteger(recovery.identity.backendPid) && recovery.identity.backendPid > 0)
         assert.ok(!identities.some(id => id.clientPid === recovery.identity.clientPid))
+        assert.ok(!identities.some(id => id.backendPid === recovery.identity.backendPid))
+        recovery.start(); await recovery.result
         identities.push(recovery.identity)
       }
       const observation = await driver.inspectScenario(fixture)
