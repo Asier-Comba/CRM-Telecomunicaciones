@@ -27,7 +27,7 @@ function fixture(initialVersion: number, reportedVersion: number) {
     async loadAuthorizedOperation() { reads++; return structuredClone(current) },
     async commitVerifiedReconciliation(command) {
       commits++
-      current = { ...current, state: 'failed_terminal', version: reportedVersion }
+      current = { ...current, state: 'failed_terminal', version: reportedVersion, failureCode: command.resolution.outcome === 'completed' ? undefined : command.resolution.failureCode }
       return { status: 'applied', record: structuredClone(current), eventRef: command.eventRef, auditIntentPersisted: true }
     },
   }
