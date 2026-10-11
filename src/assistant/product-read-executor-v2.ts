@@ -5,10 +5,12 @@ import { parseTelecomCollectionInputV1, parseTelecomCollectionResultV1, isTeleco
 import { parseTelecomReadInputV1, parseTelecomReadResultV1, isTelecomReadOperationV1 } from '../lib/server/telecom-reads-runtime-v1.ts'
 import { snapshotProductJsonV1 } from '../lib/server/product-query-runtime-v1.ts'
 import { boundedAwaitV2 } from './bounded-await-v2.ts'
+import { isBillingAnalyticsOperationV1, parseBillingAnalyticsInputV1, parseBillingAnalyticsResultV1 } from '../lib/server/billing-analytics-runtime-v1.ts'
 export type ReadAuthorityV2 = Readonly<{ actorId: string; workspaceId: string; scopeEpoch: string; role: string }>
 export type AuthorizedProductReadersV2 = {
   collection(operation: string, input: unknown): Promise<unknown>
   report(operation: string, input: unknown): Promise<unknown>
+  billingAnalytics?(operation: string, input: unknown): Promise<unknown>
 }
 export type ProductEvidenceV2 = { nodeId: string; capability: string; readAt: string; asOf: string | null;
   partial: boolean; data: Record<string, unknown> }
@@ -40,6 +42,9 @@ export async function executeProductReadPlanV2(raw: unknown, deps: ProductReadDe
     const fresh = () => boundedAwaitV2(() => deps.authority(), deps.signal)
     const authority = await fresh()
     if (!authority || !['owner', 'admin', 'member', 'viewer'].includes(authority.role)) return stop('access_changed')
+    // Reject the entire plan before reading or resolving any reference when a
+    // capability requires a role the current authenticated actor does not have.
+    if (plan.nodes.some(node => !productCapabilityV2(node.capability)!.roles.includes(authority.role))) return stop('abstain')
     const evidence: ProductEvidenceV2[] = []
     for (const node of plan.nodes) {
       const cap = productCapabilityV2(node.capability)!; const input: Record<string, unknown> = Object.fromEntries(node.arguments.map(arg => [arg.field, arg.value]))
@@ -60,9 +65,12 @@ export async function executeProductReadPlanV2(raw: unknown, deps: ProductReadDe
       }
       if (!same(await fresh(), authority)) return stop('access_changed')
       const op = cap.backendOperation
-      const parsedInput = isTelecomCollectionOperationV1(op) ? parseTelecomCollectionInputV1(op, input) : isTelecomReadOperationV1(op) ? parseTelecomReadInputV1(op, input) : null
+      const parsedInput = isTelecomCollectionOperationV1(op) ? parseTelecomCollectionInputV1(op, input) : isTelecomReadOperationV1(op) ? parseTelecomReadInputV1(op, input)
+        : isBillingAnalyticsOperationV1(op) ? parseBillingAnalyticsInputV1(op, input) : null
       if (!parsedInput) return stop('invalid_plan')
-      const rawResult = await boundedAwaitV2(() => cap.family === 'collection' ? deps.readers.collection(op, parsedInput) : deps.readers.report(op, parsedInput), deps.signal)
+      if (cap.family === 'billing_analytics' && !deps.readers.billingAnalytics) return stop('unavailable')
+      const rawResult = await boundedAwaitV2(() => cap.family === 'collection' ? deps.readers.collection(op, parsedInput)
+        : cap.family === 'billing_analytics' ? deps.readers.billingAnalytics!(op, parsedInput) : deps.readers.report(op, parsedInput), deps.signal)
       if (!same(await fresh(), authority)) return stop('access_changed')
       const result = snapshotProductJsonV1(rawResult)
       if (!object(result) || Object.keys(result).sort().join(',') !== 'data,ok' || result.ok !== true) return stop('unavailable')
@@ -73,6 +81,9 @@ export async function executeProductReadPlanV2(raw: unknown, deps: ProductReadDe
       } else if (isTelecomReadOperationV1(op)) {
         const input = parseTelecomReadInputV1(op, parsedInput)
         if (input) data = parseTelecomReadResultV1(op, input, result.data) as Record<string, unknown> | null
+      } else if (isBillingAnalyticsOperationV1(op)) {
+        const input = parseBillingAnalyticsInputV1(op, parsedInput)
+        if (input) data = parseBillingAnalyticsResultV1(op, input, result.data) as Record<string, unknown> | null
       }
       if (!data || containsHighConfidenceSecret(data)) return stop('unavailable')
       // Role-specific protected counters must remain unknown even if a buggy reader returns them.
