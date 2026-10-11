@@ -93,6 +93,7 @@ async function terminateOwnedSessions(sessions){
  for(let n=0;n<10;n++)if(await sql(`select count(*) from pg_stat_activity where ${ownedSessions};`)==='0')return
  throw Error('INDEPENDENT_RECONCILIATION_OWNED_BACKEND_CLEANUP_FAILED')
 }
+const principal=requestId=>({authentication:'user_session',actorId:actor,workspaceId:workspace,permissions:authority.permissions,requestId})
 try{
  assert.equal(await sql('select current_database();'),database)
  const schema=registry.get(capability).outputSchema
@@ -125,7 +126,6 @@ try{
  const positive=createDurablePositiveReconciliationPortV1({reservation:ten,currentWorker:async()=>authority,producer:resultProducer,
   loadCommand:async(_current,operation)=>{const raw=await sql(`select jsonb_build_object('dispatcher',dispatcher_key,'commandRef',command_ref) from public.assistant_registered_commands where workspace_id='${workspace}' and operation_ref=${literal(operation)} and actor_id='${actor}';`);return raw?JSON.parse(raw):null},invoke})
  const result={status:'SUCCESS',capability,data:input},expectedAudits=new Map()
- const principal=requestId=>({authentication:'user_session',actorId:actor,workspaceId:workspace,permissions:authority.permissions,requestId})
  async function quarantine(operation,cmd){
   assert.equal((await ten.startExecution(context,operation,binding,1)).status,'applied')
   const outbox=await sql(`select outbox_ref from public.assistant_effect_outbox where operation_ref=${literal(operation)};`),claim=await ten.claimOutbox(context,outbox,1)
