@@ -135,10 +135,13 @@ test('portfolio drill-down, pipeline and actual calendar navigation', async ({
   await surface(page)
   await page.goto('/calendar')
   await page.getByRole('button', { name: 'Mes', exact: true }).click()
+  const calendarFilters=page.getByRole('button',{name:'Fecha y filtros',exact:true})
+  if(await calendarFilters.isVisible())await calendarFilters.click()
   await page.getByRole('button', { name: 'Mes siguiente', exact: true }).click()
   await expect(
     page.getByRole('heading', { name: 'octubre de 2026' }),
   ).toBeVisible()
+  if(await calendarFilters.isVisible())await calendarFilters.click()
   await page.getByRole('button', { name: 'Hoy', exact: true }).click()
   await page.getByRole('button', { name: 'Semana', exact: true }).click()
   await page
