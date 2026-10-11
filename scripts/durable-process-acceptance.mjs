@@ -2,22 +2,27 @@ import { fork } from 'node:child_process'
 import { isAbsolute } from 'node:path'
 import { pathToFileURL, fileURLToPath } from 'node:url'
 import assert from 'node:assert/strict'
-import { DURABLE_PROCESS_CONTRACT, DURABLE_PROCESS_SCENARIOS, validateDurableObservation, validateRollbackEvidence, validateDatabaseRestartEvidence } from '../src/assistant/durable-process-spec.ts'
+import { DURABLE_PROCESS_CONTRACT, DURABLE_PROCESS_SCENARIOS, validateDurableObservation, validateRollbackEvidence, validateDatabaseRestartEvidence, validateClaimFenceEvidence, validateImmutableAuditEvidence } from '../src/assistant/durable-process-spec.ts'
 
 // Usage on repository Node24: node scripts/durable-process-acceptance.mjs /absolute/W2-driver.mjs
 // Driver receives credentials through its own approved local environment, never CLI JSON.
+async function main() {
 const modulePath = process.argv[2]
 if (!modulePath || !isAbsolute(modulePath)) {
   console.error('Required: absolute local W2 acceptance driver path; no database evidence produced.')
-  process.exit(2)
+  process.exitCode = 2; return
 }
 let driver
 try { driver = await import(pathToFileURL(modulePath).href) } catch {
-  console.error('adapter_load_failed'); process.exit(2)
+  console.error('adapter_load_failed'); process.exitCode = 2; return
 }
 if (!driver.metadata || Object.keys(driver.metadata).sort().join(',') !== 'backend,contract,disposable' ||
   driver.metadata.contract !== DURABLE_PROCESS_CONTRACT || driver.metadata.backend !== 'native_postgres' || driver.metadata.disposable !== true) {
-  console.error('disposable_native_postgres_driver_required'); process.exit(2)
+  console.error('disposable_native_postgres_driver_required'); process.exitCode = 2; return
+}
+const requiredExports = ['setupScenario', 'connectWorker', 'execute', 'inspectBoundary', 'inspectScenario', 'cleanupScenario']
+if (requiredExports.some(name => typeof driver[name] !== 'function')) {
+  console.error('durable_driver_exports_required'); process.exitCode = 2; return
 }
 const workerPath = fileURLToPath(new URL('./durable-process-worker.mjs', import.meta.url))
 const active = new Set()
@@ -76,19 +81,10 @@ try {
         assert.equal(validateDatabaseRestartEvidence(await driver.inspectBoundary(fixture)), true)
       }
       if (scenario.id === 'claim_fencing') {
-        const evidence = await driver.inspectBoundary(fixture)
-        assert.deepEqual(Object.keys(evidence).sort(), ['changedRows', 'currentFence', 'priorFence', 'rejected'])
-        assert.ok(Number.isSafeInteger(evidence.priorFence) && evidence.priorFence >= 1)
-        assert.ok(Number.isSafeInteger(evidence.currentFence) && evidence.currentFence > evidence.priorFence)
-        assert.deepEqual(evidence.rejected, ['expired_owner', 'stale_version', 'wrong_worker', 'wrong_workspace', 'wrong_operation', 'old_fence', 'future_fence'])
-        assert.equal(evidence.changedRows, 0)
+        assert.equal(validateClaimFenceEvidence(await driver.inspectBoundary(fixture)), true)
       }
       if (['audit_ack_loss', 'audit_content_conflict', 'kill_after_transition'].includes(scenario.id)) {
-        const evidence = await driver.inspectBoundary(fixture)
-        assert.deepEqual(Object.keys(evidence).sort(), ['changedContentRejected', 'originalDigest', 'persistedDigest'])
-        assert.match(evidence.originalDigest, /^[a-f0-9]{64}$/)
-        assert.equal(evidence.persistedDigest, evidence.originalDigest)
-        assert.equal(evidence.changedContentRejected, true)
+        assert.equal(validateImmutableAuditEvidence(await driver.inspectBoundary(fixture)), true)
       }
       if (scenario.id === 'audit_delivery_outage') {
         const beforeDrain = await driver.inspectScenario(fixture)
@@ -125,3 +121,5 @@ try {
 } finally {
   for (const child of active) child.kill('SIGKILL')
 }
+}
+await main()

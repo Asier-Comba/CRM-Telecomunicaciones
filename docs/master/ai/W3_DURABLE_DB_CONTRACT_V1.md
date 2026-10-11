@@ -1,9 +1,13 @@
 > Iteration 6.0: W2 owns the physical backend/platform and durable adapter; W3 owns this behavioral contract. W4 independent acceptance remains required while unavailable. Original audit intent **and delivery outbox** belong to every confirm/reserve/enqueue, completion and reconciliation transaction. The machine-readable transaction list now explicitly includes these existing requirements. Process protocol v2 is in W3_DURABLE_PROCESS_ACCEPTANCE_V2.md; durable states and UI v1 are unchanged.
 
-# W3 durable database contract v1 — W5 implementation handoff
+# W3 durable database contract v1 — W2 implementation handoff
 
-Canonical discussion: Issue #10. W3 owns semantics/runtime; W5 owns schema,
-SQL/RLS and durable implementation; W4 independently verifies. This document
+Canonical discussion: Issue #10. Under the current Iteration 6.0 decision,
+W2 owns schema, SQL/RLS, the durable implementation and its local acceptance
+driver; W3 owns semantics/runtime and connects the exact reviewed adapter.
+W5 coordinates future infrastructure and runtime configuration; its delivery
+does not substitute for the physical W2 port or independent W4 acceptance.
+W4 independently verifies. This document
 requests behavior, never authorizes deployment, routes or assistant writes.
 Machine contract: `src/assistant/durable-db-contract.ts`. Field inventory:
 `DURABLE_MAPPING_MANIFEST`; its old W1 relation names are suggestions, not mandated
@@ -49,6 +53,13 @@ not expire reserved automatically. W2 must fence start/recovery of reserved work
 a reserved record itself grants no effect authority. Persist versions and attempts
 as positive safe integers; increment version exactly once per committed transition.
 Use authoritative server/DB time, never a caller-selected clock or lease duration.
+The reconciliation service requires the applied receipt and authorized reread to
+report exactly `expectedVersion + 1`, not merely an equal version greater than
+the previous one. A skipped version cannot certify that original transition.
+`expectedVersion = Number.MAX_SAFE_INTEGER` has no safe successor and is rejected
+before lookup, verification or commit; the last safe transition starts at
+`Number.MAX_SAFE_INTEGER - 1`. These checks do not prove a physical transaction
+or replace current authorization, fencing, atomic audit delivery or W4 acceptance.
 Current AssistantRuntime confirmation TTL and idempotency lease are both300000ms
 (five minutes); confirmation expiry must never exceed that server-issued bound.
 Runtime idempotency keys match `[A-Za-z0-9_-]{16,128}`; operation refs match
@@ -137,7 +148,7 @@ provider receipt/read-after-write or idempotent provider token to reconcile. If
 effect cannot be proven present or absent, keep reconciliation_required. Exactly
 once at arbitrary external providers is NOT promised.
 
-## W5 handoff / concrete questions
+## W2 implementation handoff / concrete questions
 
 DO NOT IMPLEMENT raw SQL/HTTP planner tools, browser workspace authority, generic
 unvalidated JSON results, direct provider calls, permissive service-role bypass,
@@ -154,10 +165,14 @@ Acceptance runner and matrix: `scripts/durable-process-acceptance.mjs` and
 `src/assistant/durable-process-spec.ts`. W2 implements the local driver; W4 runs
 independently against disposable native PostgreSQL. No Map result clears the gate.
 
-## Iteration 5.0 clarifications (authoritative over earlier reference experiments)
+## Behavioral clarifications retained from Iteration 5.0
 
-Owner transfer only: earlier mentions of W2 implementation now mean W5. Exact
-states, runtime digest and UI v1 are unchanged. No SQL or deployment is prescribed.
+Iteration 5.0 assigned physical implementation to W5. That ownership transfer
+was superseded by Iteration 6.0 above and the current `DurableDatabasePort`
+source comment: W2 owns the physical implementation and local driver. The
+behavioral guarantees below remain authoritative over older reference
+experiments. Exact states, runtime digest and UI v1 are unchanged. No SQL or
+deployment is prescribed; this clarification implements no port or dispatcher.
 
 | Question | Required behavior |
 |---|---|
@@ -170,8 +185,8 @@ states, runtime digest and UI v1 are unchanged. No SQL or deployment is prescrib
 | Audit identity | Reconciliation keeps exact SHA256(JSON([workspaceId,operationRef,expectedVersion])). Persist original event including requestId once. Lost-reply retries must retain it, not overwrite with the retry's requestId. Other transitions use separately registered server event identities; do not reuse a reconciliation ID for different content. |
 | Audit outbox | Every committed original transition audit intent has a same-transaction delivery record, including normal completion and confirmation/reservation. Audit delivery uses a separate current authorized worker/lease/fence; at-least-once delivery + sink dedup. The old reference audit worker's unclaimed batch/ack API is not the production implementation. |
 | Reconciliation replay | The current service may return CONFLICT for stale expectedVersion after a committed/lost reply. `applied` requires matching eventRef and `auditIntentPersisted:true`. Do not manufacture `replayed` as a new public success state. Read authorized status and drain the original event independently. |
-| Normal runtime integration | Current legacy `AssistantRuntime` stores are not an enabled durable write path. W5 supplies the port and driver; W3 connects the exact adapter; W4 validates before routes or first writes. Implementing only the old store interfaces cannot satisfy Issue10. |
+| Normal runtime integration | Current legacy `AssistantRuntime` stores are not an enabled durable write path. W2 supplies the physical port and local driver; W3 connects the exact adapter; W5 coordinates future runtime infrastructure; W4 validates before routes or first writes. Implementing only the old store interfaces cannot satisfy Issue10. |
 
-Pending W5 delivery: exact factory/module SHA, capability-schema registry and
+Pending W2 delivery: exact factory/module SHA, capability-schema registry and
 native PostgreSQL acceptance driver. W3 cannot execute native conformance until
 these exist. W4 alone accepts the evidence and decides Issue #10 closure.

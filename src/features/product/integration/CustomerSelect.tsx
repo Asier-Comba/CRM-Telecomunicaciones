@@ -4,7 +4,12 @@ import { useProduct } from './Provider'
 import { safeMessage } from './repository'
 import { control } from '@/features/product/ui'
 /** Company identity only; global search is not a complete inventory. */
-export function CustomerSelect({value,onChange,disabled=false,inputLabel='Buscar empresa para agenda',clearLabel='Sin cliente'}:{value:string;onChange:(id:string)=>void;disabled?:boolean;inputLabel?:string;clearLabel?:string}){
+type CustomerSelectProps={value:string;onChange:(id:string)=>void;disabled?:boolean;inputLabel?:string;clearLabel?:string}
+export function CustomerSelect(props:CustomerSelectProps){
+ const {actorId,workspaceId,role}=useProduct()
+ return <ScopedCustomerSelect key={JSON.stringify([actorId,workspaceId,role])} {...props}/>
+}
+function ScopedCustomerSelect({value,onChange,disabled=false,inputLabel='Buscar empresa para agenda',clearLabel='Sin cliente'}:CustomerSelectProps) {
  const {repository}=useProduct(),[query,setQuery]=useState(''),[result,setResult]=useState<{query:string;items:{id:string;label:string}[];error:string}|null>(null)
  useEffect(()=>{if(query.trim().length<2)return;let current=true;const timer=setTimeout(()=>{void repository.search(query).then(v=>{if(current)setResult({query,items:v.items.filter(i=>i.kind==='customer').map(i=>({id:i.id,label:i.label})),error:''})}).catch(e=>{if(current)setResult({query,items:[],error:safeMessage(e)})})},250);return()=>{current=false;clearTimeout(timer)}},[query,repository])
  const items=result?.query===query?result.items:[]

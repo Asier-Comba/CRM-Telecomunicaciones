@@ -1,3 +1,7 @@
+import type {ServiceLocationInputsV1,ServiceLocationOperationV1,ServiceLocationReceiptV1,ServiceLocationReadV1} from '@/lib/contracts/service-location-v1'
+import type {ServiceCommercialInputsV1,ServiceCommercialOperationV1,ServiceCommercialReceiptV1,ServiceInstallationV1,ServiceAddonPageV1} from '@/lib/contracts/telecom-service-commercial-v1'
+import {isServiceLocationOperationV1,parseServiceLocationInputV1,parseServiceLocationReadV1,parseServiceLocationReceiptV1} from '../../../lib/server/service-location-runtime-v1.ts'
+import {isServiceCommercialOperationV1,parseServiceCommercialInputV1,parseServiceCommercialReadV1,parseServiceCommercialReceiptV1} from '../../../lib/server/telecom-service-commercial-runtime-v1.ts'
 import type {EquipmentInputsV1,EquipmentOperationV1,EquipmentReceiptV1,EquipmentReadV1} from '@/lib/contracts/equipment-v1'
 import {isEquipmentOperationV1,parseEquipmentInputV1,parseEquipmentReadV1,parseEquipmentReceiptV1} from '../../../lib/server/equipment-runtime-v1.ts'
 import type {CatalogInputMapV1,CatalogOperationV1,CatalogReceiptV1,CatalogTermsV1} from '@/lib/contracts/catalog-v1'
@@ -16,9 +20,13 @@ import {isIdentifierOperationV1,parseIdentifierInputV1,parseIdentifierResultV1} 
 import {isTelecomReadOperationV1,parseTelecomReadInputV1,parseTelecomReadResultV1} from '../../../lib/server/telecom-reads-runtime-v1.ts'
 import {parseTelecomAttentionInputV1,parseTelecomAttentionResultV1} from '../../../lib/server/telecom-attention-runtime-v1.ts'
 import {isBillingAnalyticsOperationV1,parseBillingAnalyticsInputV1,parseBillingAnalyticsResultV1} from '../../../lib/server/billing-analytics-runtime-v1.ts'
-export type TelecomInputs=EquipmentInputsV1&CatalogInputMapV1&CaseInputsV1&SimInputsV1&PortabilityInputsV1&TelecomReadInputsV1&Record<IdentifierOperationV1,IdentifierInputV1>&Record<BillingAnalyticsOperationV1,BillingAnalyticsInputV1>&{'telecom.attention':TelecomAttentionInputV1}
+// Installation metadata and location assignment are separate accepted commands.
+type ServiceClientInputs=Omit<ServiceCommercialInputsV1,'service.installation_set'>&{'service.installation_set':Omit<ServiceCommercialInputsV1['service.installation_set'],'location_id'>}
+export type TelecomInputs=ServiceLocationInputsV1&ServiceClientInputs&EquipmentInputsV1&CatalogInputMapV1&CaseInputsV1&SimInputsV1&PortabilityInputsV1&TelecomReadInputsV1&Record<IdentifierOperationV1,IdentifierInputV1>&Record<BillingAnalyticsOperationV1,BillingAnalyticsInputV1>&{'telecom.attention':TelecomAttentionInputV1}
 export type TelecomOperation=keyof TelecomInputs
 export type TelecomResult<O extends TelecomOperation>=
+ O extends 'service_location.get'|'service_location.list'?Extract<ServiceLocationReadV1,{operation:O}>:O extends ServiceLocationOperationV1?ServiceLocationReceiptV1:
+ O extends 'service.installation_get'?ServiceInstallationV1:O extends 'service.addon_list'?ServiceAddonPageV1:O extends ServiceCommercialOperationV1?ServiceCommercialReceiptV1:
  O extends 'equipment.get'|'equipment.list'|'equipment.history'?Extract<EquipmentReadV1,{operation:O}>:O extends EquipmentOperationV1?EquipmentReceiptV1:
  O extends 'plan_version.terms_get'?Readonly<{contract_version:'catalog.v1';operation:O;record:CatalogTermsV1}>:
  O extends CatalogOperationV1?CatalogReceiptV1:
@@ -29,6 +37,8 @@ export type TelecomResult<O extends TelecomOperation>=
  O extends TelecomReadOperationV1?TelecomReadResultV1<O>:O extends 'telecom.attention'?TelecomAttentionPageV1:O extends BillingAnalyticsOperationV1?BillingAnalyticsResultV1:never
 /** Reuse accepted W1 closed validators; the repository remains the sole transport. */
 export function telecomBoundary(operation:TelecomOperation,value:unknown):{endpoint:string;input:unknown;parse:(v:unknown)=>unknown|null}|null{
+ if(isServiceLocationOperationV1(operation)){const input=parseServiceLocationInputV1(operation,value);return input?{endpoint:'/api/telecom/locations/v1',input,parse:v=>operation==='service_location.get'||operation==='service_location.list'?parseServiceLocationReadV1(operation,input,v):parseServiceLocationReceiptV1(operation,input,v)}:null}
+ if(isServiceCommercialOperationV1(operation)){const input=parseServiceCommercialInputV1(operation,value);return input?{endpoint:'/api/telecom/services/v1',input,parse:v=>operation==='service.installation_get'||operation==='service.addon_list'?parseServiceCommercialReadV1(operation,input,v):parseServiceCommercialReceiptV1(operation,input,v)}:null}
  if(isEquipmentOperationV1(operation)){const input=parseEquipmentInputV1(operation,value);return input?{endpoint:'/api/telecom/equipment/v1',input,parse:v=>operation==='equipment.get'||operation==='equipment.list'||operation==='equipment.history'?parseEquipmentReadV1(operation,input,v):parseEquipmentReceiptV1(operation,input,v)}:null}
  if(isCatalogOperationV1(operation)){const input=parseCatalogInputV1(operation,value);return input?{endpoint:'/api/catalog/v1',input,parse:v=>parseCatalogResultV1(operation,input,v)}:null}
  if(isCaseOperationV1(operation)){const input=parseCaseInputV1(operation,value);return input?{endpoint:'/api/cases/v1',input,parse:v=>parseCaseResultV1(operation,input,v)}:null}

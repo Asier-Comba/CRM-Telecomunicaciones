@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "reviewed_at": "2026-10-11",
+  "accepted_source": "fe196fe46e7f2927eec6a706e04b67aa0dcb1292",
+  "candidate_source": "b90178172ed40221499484023dd245e4b5c6998c",
+  "candidate_pr": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/130",
+  "inherited_baseline": {
+    "source_sha": "fe196fe46e7f2927eec6a706e04b67aa0dcb1292",
+    "ci_run": 38090022760,
+    "supabase_run": 38090022793,
+    "functional": 1020,
+    "browser_ci": 134,
+    "auth_browser": 107,
+    "reviewed_images": 55,
+    "scope": "Functional integration baseline only. Aggregate totals do not prove any complete row or the candidate."
+  },
+  "candidate_verification": {
+    "source_sha":"b90178172ed40221499484023dd245e4b5c6998c",
+    "executed_sha":"3e9ddfa4884d777faab012f15b124917e5b1ba83",
+    "tree_sha":"a7678702f856d01598b40307a3128039c3dcaf34",
+    "native_run":38093980179,
+    "native_job":114335961165,
+    "native_status":"PASS",
+    "native_scope":"74 migrations;299 privilege functions;fresh/restored role calls;two20-process reservation races;six rollback cuts/retries;original audit replay;omitted-delivery mutant rejection. Full23/effects NOT_RUN.",
+    "quality_job":114335960945,
+    "functional":1020,
+    "lint_types_build":"PASS",
+    "audit":"FAIL_FIVE_HIGH",
+    "supabase_run":38093980189,
+    "supabase_status":"IN_PROGRESS_AT_REVIEW",
+    "release":"NOT_ACCEPTED"
+  },
+  "global_release_blockers": [
+    {"priority":"P0","issue":10,"owner":"W2 physical / W3 semantic / W5 runtime / W4 review","pending":"Complete physical port, fenced execution, immutable completion/reconciliation, audit drain and durable-process.v2 acceptance; IA business writes OFF."},
+    {"priority":"P0","issue":12,"owner":"W4/W5","pending":"Independent enterprise Auth/RLS staging acceptance remains open; local Auth acceptance does not close it."},
+    {"priority":"P0","issue":22,"owner":"W4/W5","pending":"Independent exact union restore/ACL acceptance remains open."},
+    {"priority":"P0","issue":29,"owner":"W4 with W1/W2/W3 corrections","pending":"Five HIGH dependency findings remain unsuppressed."},
+    {"priority":"P0","issue":67,"owner":"Repository owner and W4/W5","pending":"Repository PUBLIC; privacy decision, historical scanner/provider review, joined source and independent release acceptance outstanding."}
+  ],
+  "row_reviews": {
+    "PAR-217": {
+      "source_sha":"b90178172ed40221499484023dd245e4b5c6998c",
+      "owner":"W2 physical / W3 connection / W4 review",
+      "priority":"P0",
+      "stages":{"IMPLEMENTED":"PARTIAL","PROVEN_BACKEND":"PARTIAL"},
+      "permissions":"Current DB membership checked; all client/service-role calls denied. Full actual Auth/target-resource authority and W4 acceptance pending.",
+      "mobile":"NOT_RECONCILED",
+      "pending":"Two inert primitives cover server issue and atomic reservation only. Full typed factory, command schema material, UI confirmation and complete physical acceptance remain pending; writes OFF.",
+      "evidence":[{"source_sha":"b90178172ed40221499484023dd245e4b5c6998c","kind":"LOCAL_EMBEDDED","scope":"PARTIAL_ROW","stage":"PROVEN_BACKEND","positive":"Issued proof plus consume/operation/command/outbox/original audit/delivery and exact replay; embedded74-migration fixture PASS.","negative":"Invented/changed/expired proof, denied roles, six rollback cuts, omitted-delivery mutant rejected.","execution":"LOCAL_EMBEDDED_ONLY; native candidate jobs pending when reviewed","paths":["supabase/migrations/20261011010500_assistant_confirm_reserve_atomic.sql","supabase/tests/assistant-confirm-reserve-atomic.sql","supabase/tests/assistant-reservation-role-boundary.sql"]}]
+    },
+    "PAR-218": {
+      "source_sha":"b90178172ed40221499484023dd245e4b5c6998c","owner":"W2/W3; W4 acceptance","priority":"P0",
+      "stages":{"IMPLEMENTED":"PARTIAL"},
+      "pending":"Reserved/existing SQL receipts are not a complete authorized operation status flow. Claim, effect acknowledgement, completion and reconciliation remain absent.",
+      "evidence":[{"source_sha":"b90178172ed40221499484023dd245e4b5c6998c","kind":"SOURCE","scope":"PARTIAL_ROW","paths":["src/assistant/durable-db-contract.ts","supabase/migrations/20261011010500_assistant_confirm_reserve_atomic.sql"]}]
+    },
+    "PAR-220": {
+      "source_sha":"b90178172ed40221499484023dd245e4b5c6998c","owner":"W2/W3; W4 acceptance","priority":"P0",
+      "stages":{"IMPLEMENTED":"PARTIAL","PROVEN_BACKEND":"PARTIAL"},
+      "pending":"Exact confirmed reservation replay and rollback covered locally; no effect replay, worker crash/restart, completion/reconciliation or complete UI recovery acceptance.",
+      "evidence":[{"source_sha":"b90178172ed40221499484023dd245e4b5c6998c","kind":"LOCAL_EMBEDDED","scope":"PARTIAL_ROW","stage":"PROVEN_BACKEND","positive":"Exact reservation association replay retains original request and a single obligation.","negative":"Changed digest/consumed proof and six failed transactions rejected; audit-delivery mutant rejected.","execution":"LOCAL_EMBEDDED_ONLY","paths":["supabase/tests/assistant-confirm-reserve-atomic.sql","scripts/security/native-postgres/assistant-reservation-races.mjs"]}]
+    },
+    "PAR-224": {
+      "source_sha":"b90178172ed40221499484023dd245e4b5c6998c","owner":"W2 physical / W3 authority / W4 review","priority":"P0",
+      "stages":{"IMPLEMENTED":"PARTIAL","PROVEN_BACKEND":"PARTIAL"},
+      "permissions":"Scope resolves auth.uid plus locked active DB membership; no caller-supplied actor authority; inert function grants denied.",
+      "pending":"These reservation negatives cover one subflow. Complete resource authorization, concurrent revocation, full runtime and independent W4 acceptance remain pending.",
+      "evidence":[{"source_sha":"b90178172ed40221499484023dd245e4b5c6998c","kind":"LOCAL_EMBEDDED","scope":"PARTIAL_ROW","stage":"PROVEN_BACKEND","positive":"Synthetic authorized owner issues/reserves.","negative":"Viewer/foreign workspace and actual anon/authenticated/service-role calls denied.","execution":"LOCAL_EMBEDDED_ONLY; not real Auth JWT or independent review","paths":["supabase/tests/assistant-confirm-reserve-atomic.sql","supabase/tests/assistant-reservation-role-boundary.sql"]}]
+    }
+  },
+  "next_3": [
+    {"priority":"P0","owner":"W2","work":"Close exact reservation candidate's pending real Auth/browser gate and own integration;native20-process races,rollback controls and restored role calls now PASS;preserve audit FAIL and full23 NOT_RUN."},
+    {"priority":"P0","owner":"W2/W3; W5 fixture; W4 review","work":"Deliver type-compatible physical port with fenced worker, safe command/result schema, atomic completion/reconciliation and claimed audit delivery; then full23-scenario native acceptance."},
+    {"priority":"P1","owner":"W1/W2/W3","work":"Reconcile current row-specific product/browser/mobile/visual evidence in this queue; start billing, Customer360, telecom lifecycle and assistant rows. Do not reconstruct working features from stale historical flags."}
+  ]
+}

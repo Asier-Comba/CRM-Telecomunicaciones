@@ -66,7 +66,7 @@ export function Calendar({
   onSelect?: (entry: CalendarEntry) => void
   onRange?: (anchor: string) => void
 }) {
-  const today = asOf.slice(0, 10),
+  const today = calendarDate(asOf),
     [anchor, setAnchor] = useState(today),
     [view, setView] = useState<'day' | 'week' | 'month' | 'agenda'>('week'),
     [owner, setOwner] = useState(''),
