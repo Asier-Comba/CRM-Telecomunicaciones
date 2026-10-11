@@ -7,7 +7,7 @@ export type AuditDeliveryRpcV1='assistant_durable_v1_claim_audit'|'assistant_dur
 export type AuditDeliveryCursorV1={createdAt:string;eventRef:string}
 export type EligibleAuditDeliveryV1=AuditDeliveryCursorV1&{version:number}
 export type OriginalAuditEventV1={eventRef:string;workspaceId:string;operationRef:string;operationVersion:number;actorId:string;
- capability:string;argumentsDigest:string;event:'assistant.operation.reserved'|'assistant.operation.recovery_required';
+ capability:string;argumentsDigest:string;event:'assistant.operation.reserved'|'assistant.operation.recovery_required'|'assistant.operation.effect_applied';
  requestId:string;createdAt:string;reasonCode:null|'internal_safe'|'temporary_unavailable'}
 export type AuditDeliveryClaimV1={workspaceId:string;eventRef:string;workerRef:string;grantVersion:number;version:number;
  fence:number;claimRef:string;claimedAt:string;leaseExpiresAt:string}
@@ -49,6 +49,7 @@ function event(value:unknown,worker:AuditWorkerAuthorityV1,eventRef:string):Orig
   ||!uuid(value.actorId)||!ref(value.operationRef)||!Number.isSafeInteger(value.operationVersion)||Number(value.operationVersion)<1
   ||!hex(value.argumentsDigest)||typeof value.requestId!=='string'||!/^[A-Za-z0-9_-]{16,128}$/.test(value.requestId)||!timestamp(value.createdAt)
   ||!((value.event==='assistant.operation.reserved'&&value.operationVersion===1&&value.reasonCode===null)
+   ||(value.event==='assistant.operation.effect_applied'&&Number(value.operationVersion)>2&&value.reasonCode===null)
    ||(value.event==='assistant.operation.recovery_required'&&Number(value.operationVersion)>1
     &&(value.reasonCode==='internal_safe'||value.reasonCode==='temporary_unavailable'))))throw unavailable()
  return Object.freeze({...value}) as OriginalAuditEventV1

@@ -16,7 +16,11 @@ begin
    or has_function_privilege(r,'public.assistant_durable_v1_claim_audit(uuid,text,bigint,text,bigint)','EXECUTE')
    or has_function_privilege(r,'public.assistant_durable_v1_ack_audit(uuid,text,bigint,text,bigint,bigint,text,text)','EXECUTE')
    or has_function_privilege(r,'public.assistant_durable_v1_list_audit(uuid,text,bigint,text,text)','EXECUTE')
-   or has_function_privilege(r,'public.assistant_durable_v1_confirm_reserve_material(uuid,text,text,text,text,text,text,text,jsonb)','EXECUTE') then
+   or has_function_privilege(r,'public.assistant_durable_v1_confirm_reserve_material(uuid,text,text,text,text,text,text,text,jsonb)','EXECUTE')
+   or has_function_privilege(r,'public.assistant_durable_v1_claim_effect(uuid,text,bigint,text,bigint)','EXECUTE')
+   or has_function_privilege(r,'public.assistant_durable_v1_ack_effect(uuid,text,bigint,text,bigint,bigint,text,text,text)','EXECUTE')
+   or has_function_privilege(r,'public.assistant_durable_v1_effect_projection(public.assistant_effect_outbox)','EXECUTE')
+   or has_function_privilege(r,'public.assistant_effect_worker_grant_guard()','EXECUTE') then
    raise exception 'durable_inert_rpc_grant_lost';
   end if;
   execute format('set local role %I',r);
@@ -78,6 +82,18 @@ begin
   begin perform count(*) from public.assistant_command_material;
   exception when insufficient_privilege then denied:=true;end;
   if not denied then raise exception 'durable_private_command_material_read';end if;
+  denied:=false;
+  begin perform public.assistant_durable_v1_claim_effect('b2000000-0000-4000-8000-000000000001','role_boundary_worker_reference',1,'role_boundary_outbox_reference',1);
+  exception when insufficient_privilege then denied:=true;end;
+  if not denied then raise exception 'durable_inert_effect_claim_executed';end if;
+  denied:=false;
+  begin perform public.assistant_durable_v1_ack_effect('b2000000-0000-4000-8000-000000000001','role_boundary_worker_reference',1,'role_boundary_outbox_reference',2,1,repeat('b',64),'role_boundary_sink_receipt_ref','role_boundary_ack_request');
+  exception when insufficient_privilege then denied:=true;end;
+  if not denied then raise exception 'durable_inert_effect_ack_executed';end if;
+  denied:=false;
+  begin perform count(*) from public.assistant_registered_effect_workers;
+  exception when insufficient_privilege then denied:=true;end;
+  if not denied then raise exception 'durable_private_effect_worker_registry_read';end if;
   reset role;
  end loop;
  if exists(select 1 from public.assistant_operations where capability='fixture.role.boundary') then
