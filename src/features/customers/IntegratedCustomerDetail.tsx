@@ -16,6 +16,10 @@ import { ConfirmDialog } from '@/components/ConfirmDialog'
 import type { ProductReceiptV1 } from '@/lib/contracts/product-v1'
 
 export function IntegratedCustomerDetail({ id }: { id: string }) {
+  return <ScopedCustomerDetail key={id} id={id}/>
+}
+// A new resource must start with empty reads, editors and command intents.
+function ScopedCustomerDetail({ id }: { id: string }) {
   const { repository, role } = useProduct()
   const [customer,setCustomer] = useState<CustomerIdentity|null>(null), [contacts,setContacts] = useState<TelecomCollectionPageV1<'contact.list'>|null>(null)
   const [error,setError] = useState(''), [edit,setEdit] = useState(false), [contact,setContact] = useState<ContactRowV1|'new'|null>(null)
