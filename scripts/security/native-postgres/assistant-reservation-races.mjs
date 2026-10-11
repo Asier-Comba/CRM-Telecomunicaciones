@@ -1,4 +1,4 @@
-// Narrow physical reservation evidence; not the full durable-process.v2 driver.
+// Narrow physical lifecycle evidence; not the full durable-process.v3 driver.
 import assert from 'node:assert/strict'
 import {spawn,spawnSync} from 'node:child_process'
 import {randomBytes} from 'node:crypto'
@@ -68,6 +68,7 @@ try{
    assistant_durable_v1_confirm_reserve:[input.p_workspace,input.p_confirmation,input.p_capability,input.p_digest,input.p_key,input.p_dispatcher,input.p_command,input.p_request],
    assistant_durable_v1_load_operation:[input.p_workspace,input.p_operation],
    assistant_durable_v1_require_reconciliation:[input.p_workspace,input.p_operation,input.p_capability,input.p_digest,input.p_version,input.p_reason,input.p_request],
+   assistant_durable_v1_start_execution:[input.p_workspace,input.p_operation,input.p_capability,input.p_digest,input.p_version],
   }
   assert.ok(Object.hasOwn(parameters,operation));const values=parameters[operation]
   return {data:JSON.parse(await sql(auth+`select public.${operation}(${values.map(v=>`'${v}'`).join(',')});`)),error:null}
@@ -85,6 +86,62 @@ try{
  assert.equal(cancelReceipt.status,'applied');assert.equal(cancelReceipt.record.state,'cancelled');assert.equal(cancelReceipt.record.version,2)
  console.log('TYPED RESERVATION PHYSICAL SEAM PASS: issue/confirmed reservation/exact replay; synthetic DB session only; full port/effects NOT_RUN.')
  assert.deepEqual(await port.loadAuthorizedOperation(principal,typedReserved.record.operationRef,new Date('2099-01-01')),typedReserved.record)
+ async function startFixture(suffix){
+  const proof=await issue(),key='native_start_key_'+suffix+'_'+nonce
+  const receipt=JSON.parse(await sql(auth+`select ${invoke(proof,key,'native_start_command_'+suffix+'_'+nonce)};`))
+  assert.equal(receipt.status,'reserved');assert.match(receipt.operationRef,/^[a-f0-9]{64}$/)
+  return {operation:receipt.operationRef,key}
+ }
+ const startCall=operation=>`public.assistant_durable_v1_start_execution('${workspace}','${operation}','${capability}','${digest}',1)`
+ const startRace=await startFixture('race')
+ const starters=await Promise.all(Array.from({length:20},()=>run(auth+`select jsonb_build_object('backend',pg_backend_pid(),'receipt',${startCall(startRace.operation)});`)))
+ assert.equal(new Set(starters.map(r=>r.pid)).size,20);assert.ok(starters.every(r=>r.code===0&&!r.timedOut))
+ const startedRows=starters.map(r=>JSON.parse(r.out.trim()));assert.equal(new Set(startedRows.map(r=>r.backend)).size,20)
+ assert.equal(startedRows.filter(r=>r.receipt.status==='applied').length,1)
+ assert.equal(startedRows.filter(r=>r.receipt.status==='version_conflict').length,19)
+ assert.deepEqual(await ledger(startRace.key),one)
+ const typedStarted=await port.loadAuthorizedOperation(principal,startRace.operation,new Date())
+ assert.equal(typedStarted.state,'executing');assert.equal(typedStarted.version,2)
+ assert.deepEqual(await port.startExecution(principal,startRace.operation,binding,1),{status:'version_conflict'})
+ const startCut=await startFixture('cut'),startTrigger='assistant_start_native_'+nonce
+ await sql(`create function public.${startTrigger}() returns trigger language plpgsql as $fixture$
+ begin if NEW.state='executing' and current_setting('test.assistant.start.cut',true)='on' then
+ raise exception 'synthetic_start_cutpoint';end if;return NEW;end;$fixture$;
+ create trigger ${startTrigger} after update on public.assistant_operations for each row execute function public.${startTrigger}();`)
+ const failedStart=await run(auth+`set test.assistant.start.cut='on';select ${startCall(startCut.operation)};`)
+ assert.notEqual(failedStart.code,0);assert.equal(failedStart.timedOut,false);assert.match(failedStart.err,/synthetic_start_cutpoint/)
+ const unchangedStart=await port.loadAuthorizedOperation(principal,startCut.operation,new Date())
+ assert.equal(unchangedStart.state,'reserved');assert.equal(unchangedStart.version,1);assert.deepEqual(await ledger(startCut.key),one)
+ const retriedStart=await port.startExecution(principal,startCut.operation,binding,1)
+ assert.equal(retriedStart.status,'applied');assert.equal(retriedStart.record.state,'executing');assert.equal(retriedStart.record.version,2)
+ assert.deepEqual(await ledger(startCut.key),one)
+ await sql(`drop trigger ${startTrigger} on public.assistant_operations;drop function public.${startTrigger}();`)
+ const waitingStart=await startFixture('wait'),startLockMarker='assistant_start_lock_'+nonce
+ await sql(`update public.assistant_operations set lease_expires_at=clock_timestamp()+interval '3 seconds' where operation_ref='${waitingStart.operation}';`)
+ const startHolder=run(`set application_name='${startLockMarker}';begin;select outbox_ref from public.assistant_effect_outbox where operation_ref='${waitingStart.operation}' for update;select pg_sleep(4);commit;`)
+ let startLocked=false
+ for(let i=0;i<80&&!startLocked;i++){
+  startLocked=await sql(`select count(*)=1 from pg_stat_activity a join pg_locks l on l.pid=a.pid where a.application_name='${startLockMarker}' and a.wait_event='PgSleep' and l.relation='public.assistant_effect_outbox'::regclass and l.mode='RowShareLock' and l.granted;`)==='t'
+  if(!startLocked)await new Promise(resolve=>setTimeout(resolve,25))
+ }
+ assert.equal(startLocked,true)
+ const waitedStart=await run(auth+`select jsonb_build_object('startedBeforeExpiry',clock_timestamp()<lease_expires_at) from public.assistant_operations where operation_ref='${waitingStart.operation}';select ${startCall(waitingStart.operation)};`)
+ assert.equal(waitedStart.code,0);assert.equal(waitedStart.timedOut,false)
+ const [startBeforeExpiry,startAfterLock]=waitedStart.out.trim().split('\n').map(line=>JSON.parse(line))
+ assert.equal(startBeforeExpiry.startedBeforeExpiry,true);assert.deepEqual(startAfterLock,{status:'invalid_transition'});assert.equal((await startHolder).code,0)
+ assert.equal(await sql(`select state||':'||version from public.assistant_operations where operation_ref='${waitingStart.operation}';`),'reserved:1')
+ assert.deepEqual(await ledger(waitingStart.key),one)
+ const startMigration=readFileSync('supabase/migrations/20261011031500_assistant_start_execution.sql','utf8').replace(/\r\n/g,'\n')
+ const startDefinition=startMigration.slice(startMigration.indexOf('create function'),startMigration.indexOf('revoke all on function'))
+ const startDefinitionQuery="select pg_get_functiondef('public.assistant_durable_v1_start_execution(uuid,text,text,text,bigint)'::regprocedure);"
+ for(const [removed,expected] of [[' or o.arguments_digest<>p_digest','start_changed_digest_accepted'],
+  [" if t>=o.lease_expires_at then return jsonb_build_object('status','invalid_transition');end if;",'start_expired_reservation_accepted']]){
+  assert.ok(startDefinition.includes(removed));const before=await sql(startDefinitionQuery)
+  const mutated=await run('begin;'+startDefinition.replace('create function','create or replace function').replace(removed,'')+readFileSync('supabase/tests/assistant-start-execution.sql','utf8'))
+  assert.notEqual(mutated.code,0);assert.equal(mutated.timedOut,false);assert.ok(mutated.err.includes(expected))
+  assert.equal(await sql(startDefinitionQuery),before)
+ }
+ console.log('START EXECUTION NATIVE PASS: same typed lifecycle seam;20 processes/backends one winner;independently observed rollback/retry;outbox-lock expiry;binding/expiry mutants rejected. NO worker claim/effect/full23/W4 acceptance.')
  async function recoveryFixture(suffix){
   const proof=await issue(),k='native_recovery_key_'+suffix+'_'+nonce
   const receipt=JSON.parse(await sql(auth+`select ${invoke(proof,k,'native_recovery_command_'+suffix+'_'+nonce)};`))

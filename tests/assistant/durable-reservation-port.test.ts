@@ -20,6 +20,36 @@ function fixture(){
 }
 const safeUnavailable=(error:unknown)=>error instanceof DurableReservationUnavailable&&error.code==='ASSISTANT_DURABLE_RESERVATION_UNAVAILABLE'&&!error.message.includes('private')
 
+test('execution admission uses current authority and the exact persisted successor with a server lease',async()=>{
+ const f=fixture(),started={...operation,state:'executing',version:2}
+ f.data({status:'applied',record:started})
+ assert.deepEqual(await f.port.startExecution(actor,operation.operationRef,binding,1),{status:'applied',record:started})
+ assert.deepEqual(f.calls[0],{operation:'assistant_durable_v1_start_execution',input:{p_workspace:binding.workspaceId,
+  p_operation:operation.operationRef,p_capability:binding.capability,p_digest:binding.argumentsDigest,p_version:'1'}})
+ assert.ok(Object.isFrozen(f.calls[0].input))
+ for(const status of ['not_found','binding_mismatch','version_conflict','invalid_transition']){
+  f.data({status});assert.deepEqual(await f.port.startExecution(actor,operation.operationRef,binding,1),{status})
+ }
+ f.permission(false)
+ await assert.rejects(f.port.startExecution({...actor,permissions:new Set([binding.capability])},operation.operationRef,binding,1),safeUnavailable)
+ assert.equal(f.calls.length,5)
+})
+
+test('execution cannot admit unsafe versions, changed records, effects, unbounded leases or raw failure details',async()=>{
+ const f=fixture(),started={...operation,state:'executing',version:2}
+ for(const version of [0,-1,1.5,Number.MAX_SAFE_INTEGER,Number.MAX_SAFE_INTEGER+1]){
+  await assert.rejects(f.port.startExecution(actor,operation.operationRef,binding,version),safeUnavailable)
+ }
+ assert.equal(f.calls.length,0)
+ for(const changed of [{...started,version:3},{...started,state:'reserved'},{...started,binding:{...binding,argumentsDigest:'b'.repeat(64)}},
+  {...started,effectReceiptRef:'already_delivered_effect_reference'},{...started,failureCode:'internal_safe'},
+  {...started,leaseExpiresAt:'2026-10-11T01:30:00.000001Z'},{...started,private:'body'}]){
+  f.data({status:'applied',record:changed});await assert.rejects(f.port.startExecution(actor,operation.operationRef,binding,1),safeUnavailable)
+ }
+ f.error({message:'private provider and SQL body'})
+ await assert.rejects(f.port.startExecution(actor,operation.operationRef,binding,1),safeUnavailable)
+})
+
 test('physical reservation seam uses current server authority and closed RPC arguments',async()=>{
  const f=fixture();assert.deepEqual(await f.port.issueConfirmation(actor,binding,new Date('2099-01-01')),record)
  assert.deepEqual(f.calls[0],{operation:'assistant_durable_v1_issue',input:{p_workspace:binding.workspaceId,p_capability:binding.capability,p_digest:binding.argumentsDigest}})
