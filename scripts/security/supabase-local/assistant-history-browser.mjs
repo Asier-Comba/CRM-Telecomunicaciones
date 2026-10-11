@@ -4,6 +4,7 @@ import { mkdirSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { assistantUpstreamDiagnostic } from './assistant-server-diagnostics.mjs'
 import { historyCreateStepObservation } from './assistant-history-create-step.mjs'
+import { withHistoryViewerSession } from './assistant-history-viewer-session.mjs'
 import { currentHistoryReload } from './assistant-history-current-reload.mjs'
 import { currentHistoryReopen } from './assistant-history-current-reopen.mjs'
 import { parseHistoryDataV2 } from '../../../src/features/assistant/history-client-v2.ts'
@@ -48,22 +49,37 @@ export async function assistantHistoryBrowser({ origin, cookie, viewerCookie, ca
     // cookie scope. Restore only these disposable membership/profile fixtures.
     const previousStatus=sql(`select status from public.workspace_members where workspace_id='${wa}' and user_id='${users.viewerA.id}'`),previousWorkspace=sql(`select coalesce(workspace_id::text,'') from public.profiles where id='${users.viewerA.id}'`)
     check(['active','suspended'].includes(previousStatus)&&(!previousWorkspace||/^[0-9a-f-]{36}$/.test(previousWorkspace)),'assistant_history_browser_context_viewer_fixture_binding')
-    let viewerContext
+    let viewerStep='SETUP',viewerNavigationStatus=null,viewerSummaryStatus=null,viewerSummaryRequested=false,viewerPageError=false
     phase='CONTEXT_VIEWER'
     try{
       sql(`update public.workspace_members set status='active' where workspace_id='${wa}' and user_id='${users.viewerA.id}';update public.profiles set workspace_id='${wa}' where id='${users.viewerA.id}'`)
-      viewerContext=await browser.newContext({viewport:{width:390,height:960}})
-      await viewerContext.addCookies(viewerCookie.split('; ').map(part=>{const at=part.indexOf('=');return{name:part.slice(0,at),value:part.slice(at+1),url:origin}}))
-      const viewerPage=await viewerContext.newPage();viewerPage.setDefaultTimeout(30000)
+      await withHistoryViewerSession({browser,origin,cookie:viewerCookie,run:async viewerPage=>{
       const viewerRequests=[];viewerPage.on('request',request=>{try{const body=request.postDataJSON();if(body?.operation)viewerRequests.push(body.operation)}catch{}})
+      viewerPage.on('pageerror',()=>{viewerPageError=true})
+      viewerPage.on('request',request=>{try{if(request.postDataJSON()?.operation==='customer360.summary')viewerSummaryRequested=true}catch{}})
       const viewerSummary=viewerPage.waitForResponse(response=>{try{return response.request().postDataJSON().operation==='customer360.summary'}catch{return false}})
-      await viewerPage.goto(origin+'/assistant?customer='+customer)
-      const viewerResponse=await viewerSummary,viewerBody=await viewerResponse.json()
+      // Observe rejection immediately if navigation fails before awaiting the response.
+      void viewerSummary.catch(()=>{})
+      viewerStep='NAVIGATION'
+      viewerNavigationStatus=(await viewerPage.goto(origin+'/assistant?customer='+customer))?.status()??null
+      viewerStep='SUMMARY_RESPONSE'
+      const viewerResponse=await viewerSummary;viewerSummaryStatus=viewerResponse.status()
+      viewerStep='SUMMARY_BODY'
+      const viewerBody=await viewerResponse.json()
       check(viewerResponse.status()===200&&viewerBody.data?.record?.customer_id===customer&&viewerBody.data.record.documents===null&&viewerBody.data.record.billing===null,'assistant_history_browser_context_viewer_real_redaction')
+      viewerStep='HEADING'
       await expect(viewerPage.getByRole('heading',{name:'W3 UI Authorized Context',exact:true})).toBeVisible()
+      viewerStep='REDACTION'
       await expect(viewerPage.getByText(/Documentos: Acceso restringido · Facturación: Acceso restringido/)).toBeVisible()
+      viewerStep='IDENTITY'
       check(viewerRequests.includes('customer.list')&&!viewerRequests.includes('customer.editor'),'assistant_history_browser_context_viewer_no_privileged_editor')
-    }finally{await viewerContext?.close();sql(`update public.workspace_members set status='${previousStatus}' where workspace_id='${wa}' and user_id='${users.viewerA.id}';update public.profiles set workspace_id=${previousWorkspace?"'"+previousWorkspace+"'":'null'} where id='${users.viewerA.id}'`)}
+      },captureFailure:async viewerPage=>{
+        let frameCaptured=false
+        try{await viewerPage.screenshot({path:resolve(dir,'failed-CONTEXT_VIEWER-current-session.png'),fullPage:true,timeout:5000});frameCaptured=true}catch{}
+        // Fixed vocabulary only: no URL, user/customer references, response bodies or error text.
+        writeFileSync(resolve(dir,'failed-CONTEXT_VIEWER-current-session-safe.json'),JSON.stringify({scope:'CURRENT_SYNTHETIC_HISTORY_VIEWER_BEFORE_CONTEXT_CLOSE',step:viewerStep,navigation_status:viewerNavigationStatus,summary_requested:viewerSummaryRequested,summary_status:viewerSummaryStatus,page_error_observed:viewerPageError,frame_captured:frameCaptured},null,2))
+      }})
+    }finally{sql(`update public.workspace_members set status='${previousStatus}' where workspace_id='${wa}' and user_id='${users.viewerA.id}';update public.profiles set workspace_id=${previousWorkspace?"'"+previousWorkspace+"'":'null'} where id='${users.viewerA.id}'`)}
     await page.setViewportSize({width:1440,height:960})
     phase='HISTORY_CREATE'
     await page.goto(origin+'/assistant?customer='+customer)
@@ -196,7 +212,7 @@ export async function assistantHistoryBrowser({ origin, cookie, viewerCookie, ca
     return 'PASS_ACTUAL_COOKIE_BROWSER_HISTORY_CAS_PAGINATION_REVOCATION'
   } catch(error){
     await captureCreateAfterDrain?.().catch(()=>{})
-    if(page&&!page.isClosed()&&failureDir){await page.getByRole('main').evaluate(element=>{element.scrollTop=0}).catch(()=>{});await page.screenshot({path:resolve(failureDir,'failed-'+phase+'.png'),fullPage:true}).catch(()=>{})}
+    if(phase!=='CONTEXT_VIEWER'&&page&&!page.isClosed()&&failureDir){await page.getByRole('main').evaluate(element=>{element.scrollTop=0}).catch(()=>{});await page.screenshot({path:resolve(failureDir,'failed-'+phase+'.png'),fullPage:true}).catch(()=>{})}
     const message=String(error?.message??'')
     if(/^CHECK_ASSISTANT_HISTORY_BROWSER_COMMIT_BEFORE_DELIVERY_LOSS_HTTP_(?:[1-5][0-9]{2}|NO_RESPONSE)$/.test(message)||message==='W3_HISTORY_UI_CREATE_UPSTREAM_TIMEOUT')throw error
     const kind=/timeout/i.test(String(error?.message??''))?'TIMEOUT':/strict mode violation/.test(String(error?.message??''))?'AMBIGUOUS':error instanceof TypeError?'TYPE_ERROR':'ASSERTION'
