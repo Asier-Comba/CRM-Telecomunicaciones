@@ -2,7 +2,13 @@ import assert from 'node:assert/strict'
 import {fork} from 'node:child_process'
 
 /** Actual Node processes and persistent native backends, not SQL child counters. */
-export async function runIndependentPositiveReconciliationRaceV1(inputs,fixture,terminateBackends){
+export function runIndependentPositiveReconciliationRaceV1(inputs,fixture,terminateBackends){
+ return runIndependentRace(inputs,fixture,terminateBackends,'reconcile')
+}
+export function runIndependentUnconfirmedReservationRaceV1(inputs,fixture,terminateBackends){
+ return runIndependentRace(inputs,fixture,terminateBackends,'reserve')
+}
+async function runIndependentRace(inputs,fixture,terminateBackends,mode){
  assert.equal(inputs.length,20)
  const children=[],sessions=new Map(),states=new Map()
  let connected=0,prepared=0
@@ -29,8 +35,13 @@ export async function runIndependentPositiveReconciliationRaceV1(inputs,fixture,
      assert.equal(states.get(child),'connected');assert.equal(m.backend,sessions.get(child).backend);states.set(child,'prepared')
      if(++prepared===20)for(const c of children)c.send({phase:'release'})
     }else if(m.phase==='result'){
-     assert.equal(states.get(child),'prepared');assert.equal(m.backend,sessions.get(child).backend);assert.ok(['applied','version_conflict'].includes(m.status))
+     assert.equal(states.get(child),'prepared');assert.equal(m.backend,sessions.get(child).backend)
+     assert.ok((mode==='reserve'?['reserved','existing']:['applied','version_conflict']).includes(m.status))
      states.set(child,'result');result={status:m.status}
+     if(mode==='reserve'){
+      assert.match(m.operationRef,/^[A-Za-z0-9_-]{24,200}$/);assert.match(m.recordDigest,/^[0-9a-f]{64}$/)
+      result={...result,operationRef:m.operationRef,recordDigest:m.recordDigest}
+     }
     }else throw Error('INVALID_PHASE')
    }catch{reject(Error('INDEPENDENT_RECONCILIATION_PROTOCOL_FAILED'))}
   })
@@ -40,12 +51,16 @@ export async function runIndependentPositiveReconciliationRaceV1(inputs,fixture,
    else reject(Error('INDEPENDENT_RECONCILIATION_WORKER_FAILED'))
   })
   const command={...input,actor:{...input.actor,permissions:[...input.actor.permissions]},now:input.now.toISOString()}
-  child.send({...fixture,commit:command})
+  child.send({...fixture,mode,commit:command})
  }))
  try{
   const settled=await Promise.all(results)
   assert.equal(connected,20);assert.equal(prepared,20);assert.equal(new Set(children.map(c=>c.pid)).size,20)
-  assert.equal(settled.filter(r=>r.status==='applied').length,1);assert.equal(settled.filter(r=>r.status==='version_conflict').length,19)
+  assert.equal(settled.filter(r=>r.status===(mode==='reserve'?'reserved':'applied')).length,1)
+  assert.equal(settled.filter(r=>r.status===(mode==='reserve'?'existing':'version_conflict')).length,19)
+  if(mode==='reserve'){
+   assert.equal(new Set(settled.map(r=>r.operationRef)).size,1);assert.equal(new Set(settled.map(r=>r.recordDigest)).size,1)
+  }
   return {settled,nodeProcesses:20,nativeBackends:20,sameConnection:true}
  }finally{
   for(const c of children)if(c.exitCode===null&&c.signalCode===null)c.kill('SIGKILL')

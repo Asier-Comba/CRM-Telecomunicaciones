@@ -14,6 +14,7 @@ import {createDurableBusinessOutboxPortV1} from '../../../src/assistant/durable-
 const literal=v=>"'"+String(v).replaceAll("'","''")+"'"
 const send=m=>process.send?.(m)
 const fields={
+ assistant_durable_v1_reserve_material:['p_workspace','p_worker','p_authority_version','p_capability','p_digest','p_key','p_dispatcher','p_command','p_request','p_material'],
  assistant_durable_v1_load_operation:['p_workspace','p_operation'],
  assistant_durable_v1_load_result:['p_workspace','p_worker','p_authority_version','p_operation'],
  assistant_durable_v1_reconcile_completed:['p_workspace','p_worker','p_authority_version','p_operation','p_version','p_receipt','p_output_schema_version','p_schema_digest','p_result','p_audit','p_event'],
@@ -24,7 +25,7 @@ try{
  const job=await new Promise(resolve=>process.once('message',resolve))
  const {workspace,actor,capability,workerRef,input,outcomes,command,commit}=job
  const mode=job.mode??'reconcile',grantVersion=job.grantVersion??1
- assert.ok(['reconcile','kill_after_commit','recover_only'].includes(mode))
+ assert.ok(['reconcile','reserve','kill_after_commit','recover_only'].includes(mode))
  assert.ok(Number.isSafeInteger(grantVersion)&&grantVersion>0&&grantVersion<Number.MAX_SAFE_INTEGER)
  assert.match(outcomes,/^unconfirmed_native_outcomes_[0-9a-f]{24}$/)
  assert.equal(commit.binding.workspaceId,workspace);assert.equal(commit.binding.actorId,actor);assert.equal(commit.binding.capability,capability)
@@ -41,14 +42,15 @@ try{
   authorize:async(ctx,values)=>await session.query(`select count(*) from public.customers where id=${literal(values.customerRef)}::uuid and workspace_id=${literal(ctx.workspaceId)}::uuid;`)==='1'?{allowed:true}:{allowed:false,reason:'resource_not_accessible'},handler:async()=>{throw Error('business_handler_not_run')},projectOutput:()=>null})
  async function invoke(name,params,signal){
   const names=fields[name];assert.ok(names);assert.deepEqual(Object.keys(params).sort(),[...names].sort())
-  if(name==='assistant_durable_v1_reconcile_completed'){
+  if(name==='assistant_durable_v1_reconcile_completed'||name==='assistant_durable_v1_reserve_material'){
+   assert.equal(name==='assistant_durable_v1_reserve_material',mode==='reserve')
    stage='COMMIT_BARRIER'
    const backend=Number(await session.query('select pg_backend_pid();',signal));assert.equal(backend,session.backend)
    send({phase:'prepared',pid:process.pid,backend})
    await new Promise(resolve=>process.once('message',m=>{assert.deepEqual(m,{phase:'release'});resolve()}))
    stage='COMMIT'
   }
-  const row=JSON.parse(await session.query(`select jsonb_build_object('backend',pg_backend_pid(),'data',public.${name}(${names.map(n=>literal(params[n])).join(',')}));`,signal))
+  const row=JSON.parse(await session.query(`select jsonb_build_object('backend',pg_backend_pid(),'data',public.${name}(${names.map(n=>literal(params[n])+(n==='p_material'?'::jsonb':'')).join(',')}));`,signal))
   assert.equal(row.backend,session.backend)
   if(name==='assistant_durable_v1_reconcile_completed'&&mode==='kill_after_commit'){
    assert.equal(row.data.status,'applied');stage='POSTCOMMIT'
@@ -73,7 +75,14 @@ try{
  const ten=createDurableUnconfirmedReservationPortV1({completion,currentWorker:async()=>authority,producer:material,invoke,loadCommand:async()=>command})
  const positive=createDurablePositiveReconciliationPortV1({reservation:ten,currentWorker:async()=>authority,producer,loadCommand,invoke})
  commit.actor.permissions=new Set(commit.actor.permissions);commit.now=new Date(commit.now)
- if(mode==='recover_only'){
+ if(mode==='reserve'){
+  const decision=await ten.reserveOperation(commit.actor,commit.binding,commit.idempotencyKey)
+  stage='RESULT';assert.ok(['reserved','existing'].includes(decision.status))
+  assert.equal(decision.record.state,'reserved');assert.equal(decision.record.version,1);assert.equal(decision.record.attempt,1)
+  assert.deepEqual(decision.record.binding,commit.binding);assert.equal(decision.record.idempotencyKey,commit.idempotencyKey)
+  assert.equal(Number(await session.query('select pg_backend_pid();')),session.backend)
+  send({phase:'result',pid:process.pid,backend:session.backend,status:decision.status,operationRef:decision.record.operationRef,recordDigest:createHash('sha256').update(canonicalArgumentsV1(decision.record)).digest('hex')})
+ }else if(mode==='recover_only'){
   stage='RECOVER'
   const recovered=await positive.loadAuthorizedOperation(commit.actor,commit.operationRef,new Date())
   assert.equal(recovered.state,'completed');assert.equal(recovered.version,commit.expectedVersion+1)

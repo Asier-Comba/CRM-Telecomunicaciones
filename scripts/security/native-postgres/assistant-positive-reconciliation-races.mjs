@@ -1,5 +1,5 @@
 // Private partial completion evidence in the existing owned native fixture.
-// Positive reconciliation uses twenty independent Node workers/backends.
+// Reservation and positive reconciliation use separate twenty-Node races.
 // Other partial SQL races do not establish full23 or its four Node races.
 import assert from 'node:assert/strict'
 import {spawn,spawnSync} from 'node:child_process'
@@ -7,7 +7,7 @@ import {randomBytes,randomUUID,createHash} from 'node:crypto'
 import {readFileSync} from 'node:fs'
 import {isExpectedNativeImage} from './expected-image.mjs'
 import {terminatedCatalogFunctionDefinition} from './catalog-function-definition.mjs'
-import {runIndependentPositiveReconciliationRaceV1} from './positive-reconciliation-race.mjs'
+import {runIndependentPositiveReconciliationRaceV1,runIndependentUnconfirmedReservationRaceV1} from './positive-reconciliation-race.mjs'
 import {runPositiveReconciliationProcessCutV1} from './positive-reconciliation-process-cut.mjs'
 import {CapabilityRegistry} from '../../../src/assistant/registry.ts'
 import {argumentsDigest} from '../../../src/assistant/runtime.ts'
@@ -54,19 +54,17 @@ const fields={assistant_durable_v1_reserve_material:['p_workspace','p_worker','p
  assistant_durable_v1_list_audit:['p_workspace','p_worker','p_authority_version','p_after_time','p_after_event'],assistant_durable_v1_claim_audit:['p_workspace','p_worker','p_authority_version','p_event','p_version'],assistant_durable_v1_ack_audit:['p_workspace','p_worker','p_authority_version','p_event','p_version','p_fence','p_claim','p_receipt']}
 fields.assistant_durable_v1_reconcile_completed=fields.assistant_durable_v1_complete;fields.assistant_durable_v1_require_reconciliation=['p_workspace','p_operation','p_capability','p_digest','p_version','p_reason','p_request'];
 let positiveExpiry=false,positiveLoss=false;
-let race=false,ready=0,release,loseReply=false;const barrier=new Promise(resolve=>{release=resolve}),processes=[],backends=[]
+let loseReply=false
 const sink='completion_native_receipts_'+nonce,auditSink='completion_native_audit_sink_'+nonce
 async function invoke(operation,params,signal){
  if(signal?.aborted)throw Error('native_completion_cancelled')
  const names=fields[operation];assert.ok(names);assert.deepEqual(Object.keys(params).sort(),[...names].sort())
- if(race&&operation==='assistant_durable_v1_reserve_material'){if(++ready===20)release();await barrier}
  if(signal?.aborted)throw Error('native_completion_cancelled')
  if(positiveExpiry&&operation==='assistant_durable_v1_reconcile_completed')await sql(`update public.assistant_registered_effect_workers set authority_version=2,expires_at=clock_timestamp()+interval '1 second' where workspace_id='${workspace}' and worker_ref='${workerRef}';`)
  const appName=positiveExpiry&&operation==='assistant_durable_v1_reconcile_completed'?`set application_name='positive_expiry_wait_${nonce}';`:''
  const currentAuth=['assistant_durable_v1_list_audit','assistant_durable_v1_claim_audit','assistant_durable_v1_ack_audit'].includes(operation)?`set request.jwt.claim.sub=${literal(auditActor)};`:auth
  const result=await run(currentAuth+appName+`select jsonb_build_object('backend',pg_backend_pid(),'data',public.${operation}(${names.map(f=>literal(params[f])+(f==='p_material'?'::jsonb':'')).join(',')}));`)
  assert.equal(result.code,0,'native effect RPC failed');assert.equal(result.timedOut,false);const value=JSON.parse(result.out.trim())
- if(race&&operation==='assistant_durable_v1_reserve_material'){processes.push(result.pid);backends.push(value.backend)}
  if(positiveLoss&&operation==='assistant_durable_v1_reconcile_completed'){positiveLoss=false;throw Error('synthetic_positive_postcommit_reply_lost')}
  if(loseReply&&operation==='assistant_durable_v1_reserve_material'){loseReply=false;throw Error('synthetic_postcommit_ack_reply_lost')}
  return {data:value.data,error:null}
@@ -108,15 +106,18 @@ try{
  revoke all on public.${sink},public.${outcomes} from public,anon,authenticated,service_role;`)
  assert.equal(Object.keys(ten).length,10)
  const key='unconfirmed_race_key_'+nonce,command={dispatcher:capability,commandRef:'unconfirmed_race_command_'+nonce};commands.set(key,command)
- race=true
- const requests=Array.from({length:20},(_,i)=>({...context,requestId:'unconfirmed_original_'+i+'_'+nonce}))
- const decisions=await Promise.all(requests.map(c=>ten.reserveOperation(c,binding,key)))
- race=false;assert.equal(ready,20);assert.equal(new Set(processes).size,20);assert.equal(new Set(backends).size,20)
+ const requests=Array.from({length:20},(_,i)=>principal('unconfirmed_original_'+i+'_'+nonce))
+ const reservationRace=await runIndependentUnconfirmedReservationRaceV1(requests.map(actor=>({actor,binding,idempotencyKey:key,now:new Date()})),{workspace,actor,capability,workerRef,input,outcomes,command},terminateOwnedSessions)
+ assert.equal(reservationRace.nodeProcesses,20);assert.equal(reservationRace.nativeBackends,20);assert.equal(reservationRace.sameConnection,true)
+ const decisions=reservationRace.settled
  assert.equal(decisions.filter(d=>d.status==='reserved').length,1);assert.equal(decisions.filter(d=>d.status==='existing').length,19)
- const winner=decisions.findIndex(d=>d.status==='reserved'),record=decisions[winner].record
- assert.ok(decisions.every(d=>JSON.stringify(d.record)===JSON.stringify(record)))
+ const winner=decisions.findIndex(d=>d.status==='reserved'),record=await ten.loadAuthorizedOperation(requests[winner],decisions[winner].operationRef,new Date())
+ assert.equal(record.state,'reserved');assert.equal(record.version,1);assert.equal(record.attempt,1)
+ assert.deepEqual(record.binding,binding);assert.equal(record.idempotencyKey,key)
+ assert.ok(decisions.every(d=>d.operationRef===record.operationRef&&d.recordDigest===hash(canonicalArgumentsV1(record))))
  assert.equal(await sql(`select request_ref from public.assistant_original_audit_intents where operation_ref=${literal(record.operationRef)};`),requests[winner].requestId)
  assert.equal(await sql(`select count(*) from public.assistant_confirmations where capability='${capability}';`),'0')
+ console.log('UNCONFIRMED NODE RESERVATION PASS:20 distinct independent Node processes/native backends same persistent connection;one original reservation19 exact full-record replays;original winning request audit;zero invented confirmations;NOT full23/four Node races')
  const stored=hash(await allLedger());assert.equal((await ten.reserveOperation({...context,requestId:'unconfirmed_changed_retry_'+nonce},binding,key)).status,'existing');assert.equal(hash(await allLedger()),stored)
  const lossKey='unconfirmed_replyloss_key_'+nonce;commands.set(lossKey,{dispatcher:capability,commandRef:'unconfirmed_replyloss_command_'+nonce});loseReply=true
  await assert.rejects(ten.reserveOperation(context,binding,lossKey));const afterLoss=hash(await allLedger());assert.equal((await ten.reserveOperation(context,binding,lossKey)).status,'existing');assert.equal(hash(await allLedger()),afterLoss)
