@@ -21,6 +21,7 @@ for(const kind of ['case','sim'])for(const width of [390,768,1440])test(`telecom
    await reply(route,kind,n);return
   }
   if(operation==='customer.list'){const n=Number(input.after_id.slice(-12))+1;await route.fulfill({json:{ok:true,data:{contract_version:'telecom.collections.v1',operation,items:[{id:customer(n),version:1,display_name:`Synthetic customer ${n}`,account_kind:'legal_entity',lifecycle:'customer',status:'active',source:'manual',assigned_user_id:null}],next_id:null}}});return}
+  if(operation==='operator.get'){await route.fulfill({json:{ok:true,data:{contract_version:'telecom.collections.v1',operation,record:{id:input.id,version:1,code:'synthetic_2',display_name:'Synthetic operator 2',status:'active',source:'manual'}}}});return}
   if(['operator.list','assignee.list','line.list'].includes(operation)){await route.fulfill({json:{ok:true,data:{contract_version:'telecom.collections.v1',operation,items:[],next_id:null}}});return}
   await route.fulfill({status:400,json:{ok:false,error:'validation'}})
  })
@@ -50,6 +51,7 @@ for(const kind of ['case','sim'])for(const width of [390,768,1440])test(`telecom
   const response=page.waitForResponse(r=>r.url()===late[0].request().url()&&r.request().postData()===late[0].request().postData());await reply(late[0],kind,1);await response
   await expect(page.getByRole('heading',{name:title(3),exact:true})).toBeVisible();await expect(page.getByRole('heading',{name:title(1),exact:true})).toHaveCount(0)
   await expect(page.getByRole('alert')).toHaveCount(0)
+  if(kind==='sim')await expect(page.locator('header').filter({has:page.getByRole('heading',{name:title(3),exact:true})})).toContainText('Synthetic operator 2')
   await page.screenshot({path:info.outputPath(`telecom-current-${kind}-${width}.png`)})
   await page.getByRole('button',{name:'Seleccionar recurso D',exact:true}).dispatchEvent('click')
   await expect(page.getByRole('alert').first()).toBeVisible();await expect(page.getByRole('heading',{name:title(3),exact:true})).toHaveCount(0)

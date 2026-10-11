@@ -41,3 +41,9 @@ cartera antes del efecto de acceso sigue sin demostrarse.
 
 Raíz A885 conserva sus gates funcionales propios cerrados. IA negocio OFF;
 full23, ausencia independiente, seguridad W4 y lanzamiento pendientes.
+
+Actualización de composición: 4e5 se conserva como ancestro local sin gates
+independientes. La candidata conjunta añade portabilidad/servicio, valida los
+operadores mediante `operator.get` y vuelve a pasar estos seis casos; la
+expectativa conjunta es202 navegador, pendiente de ejecución propia.
+8d0 cerró su propio Supabase107 PASS antes de preparar la publicación conjunta.
