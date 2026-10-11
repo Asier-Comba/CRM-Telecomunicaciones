@@ -339,7 +339,7 @@ export function Calendar({
             <div ref={weekViewport} className="overflow-x-auto">
               <div className={view==='day'?'min-w-0':'min-w-[740px]'}>
                 <div className={`grid ${view==='day'?'grid-cols-[48px_minmax(0,1fr)]':'grid-cols-[48px_repeat(7,1fr)]'} border-b border-slate-100`}>
-                  <span className="p-2 text-[10px] text-slate-400">Madrid</span>
+                  <span className="sticky left-0 z-10 bg-white p-2 text-[10px] text-slate-400">Madrid</span>
                   {gridDays.map((day) => (
                     <div
                       data-calendar-day={day}
@@ -356,7 +356,7 @@ export function Calendar({
                   ))}
                 </div>
                 <div className={`grid ${view==='day'?'grid-cols-[48px_minmax(0,1fr)]':'grid-cols-[48px_repeat(7,1fr)]'} border-b border-slate-100`}>
-                  <span className="p-1 text-[9px] text-slate-400">
+                  <span className="sticky left-0 z-10 bg-white p-1 text-[9px] text-slate-400">
                     Todo el día
                   </span>
                   {gridDays.map((day) => (
@@ -371,7 +371,7 @@ export function Calendar({
                   ))}
                 </div>
                 <div className={`grid ${view==='day'?'grid-cols-[48px_minmax(0,1fr)]':'grid-cols-[48px_repeat(7,1fr)]'}`}>
-                  <div>
+                  <div className="sticky left-0 z-10 bg-white">
                     {Array.from({ length: 12 }, (_, i) => (
                       <div
                         key={i}

@@ -11,6 +11,8 @@ for(const width of [390,768,1440])test(`calendar agenda stays primary and filter
   const agenda=page.locator('section').filter({has:week}),box=await agenda.boundingBox()
   expect(box).not.toBeNull();expect(box!.y,'agenda must begin within the first viewport').toBeLessThan(600)
   await expect(agenda.getByText(/^dom.*11$/)).toBeInViewport({ratio:0.9})
+  await expect(agenda.getByText('Madrid',{exact:true})).toBeInViewport({ratio:0.9})
+  await expect(agenda.getByText('10:00',{exact:true})).toBeInViewport({ratio:0.9})
   const initial=info.outputPath(`calendar-agenda-initial-${width}.png`);await page.screenshot({path:initial,fullPage:false});await info.attach(`calendar-agenda-initial-${width}`,{path:initial,contentType:'image/png'})
   const filters=page.locator('aside'),toggle=page.getByRole('button',{name:'Fecha y filtros',exact:true})
   if(width<1280){await expect(filters).toBeHidden();await expect(toggle).toHaveAttribute('aria-expanded','false');await toggle.click();await expect(filters).toBeVisible();await expect(toggle).toHaveAttribute('aria-expanded','true');await expect(toggle).toHaveAttribute('aria-controls',await filters.getAttribute('id')??'')}
