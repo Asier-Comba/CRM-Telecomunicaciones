@@ -2,39 +2,39 @@
   "schema_version": 1,
   "reviewed_at": "2026-10-11",
   "acceptance_policy": "No inherited or aggregate PASS promotions. NOT_RECONCILED means unverified here, not absent in the product.",
-  "accepted_source": "5ef1e9b5c9bea0f73024227d59bf961a701e565a",
-  "candidate_source": "4f2cf867a0a4bf24292d9ca72485c3b5de7b2def",
+  "accepted_source": "a8851dc75eccae082c9f3ab8f9b67be748f7fb46",
+  "candidate_source": "8d0ea9967a069dd467ffbbb052bfe4636d87e120",
   "candidate_pr": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142",
   "inherited_baseline": {
-    "source_sha": "5ef1e9b5c9bea0f73024227d59bf961a701e565a",
-    "executed_sha": "e39b29d6cd9f139f7e5615ad1c61e623f5916313",
-    "tree_sha": "9ee04a139267cccafc6fc60b54d1ad2af902551a",
-    "ci_run": 38115956542,
-    "supabase_run": 38115956573,
-    "functional": 1115,
-    "browser_ci": 140,
+    "source_sha": "a8851dc75eccae082c9f3ab8f9b67be748f7fb46",
+    "executed_sha": "19f9ca8d7f2c3ad4186faeb3e6eed16a9411625e",
+    "tree_sha": "42616cb1d8791d93174d65bffed32e58d5bab5c8",
+    "ci_run": 38134874228,
+    "supabase_run": 38134874097,
+    "functional": 1140,
+    "browser_ci": 154,
     "auth_browser": 107,
-    "reviewed_images": 15,
-    "scope": "Own root functional acceptance only;15 core frames actually reviewed,not full55/302 current visual acceptance. Aggregate totals cannot promote any complete row or a different candidate."
+    "reviewed_images": 7,
+    "scope": "Own root functional acceptance only. Seven approved current core frames reviewed: three loaded catalog-version frames; three initial Customer360 and one initial agenda frame still contain pending reads. Not full loaded visual or full342 acceptance; no inheritance across source/execution/tree."
   },
   "candidate_verification": {
-    "source_sha": "4f2cf867a0a4bf24292d9ca72485c3b5de7b2def",
-    "executed_sha": "0dd1bffce96c0b9db75a26c53ba9567c6ae279d3",
-    "tree_sha": "a64892d06224314fd1dd0dc5ce5d683a76523d52",
-    "native_run": 38131583229,
-    "native_job": 114446843376,
+    "source_sha": "8d0ea9967a069dd467ffbbb052bfe4636d87e120",
+    "executed_sha": "84c13a7aed1bd572b174b67bdf2783ea00811e08",
+    "tree_sha": "39f7b56a519a67184a063aed171d34cecb426971",
+    "native_run": 38139035264,
+    "native_job": 114468860435,
     "native_status": "PASS",
-    "native_scope": "85 migrations/320 fresh+restored privileges/RLS/ACL/roles;separate reservation and positive20 Node races;postcommit actualSIGKILL,new Node/backend full-result recovery,entire original ledger unchanged,12 originals/3 full8 reconciliation audits delivered by distinct actor. NOT full23/four complete scenarios/restart/before-effect SIGKILL/verified absence.",
-    "quality_job": 114446843360,
+    "native_scope": "Own85 migrations/320 functions fresh+restored privileges/RLS/ACL/roles;distinct primitive20Node reservation,normal completion and positive reconciliation;normal and positive actual postcommit SIGKILL/fresh Node-backend full-record recovery;all eight ledgers unchanged;normal14 original audits/full11 completion contents delivered. Not full23/four complete scenarios/restart/before-effect kill/verified absence/business handlers.",
+    "quality_job": 114468860422,
     "functional": 1140,
-    "browser_ci": 146,
+    "browser_ci": 178,
     "lint_types_build": "PASS",
     "audit": "FAIL_FIVE_HIGH",
-    "supabase_run": 38131583382,
-    "supabase_status": "IN_PROGRESS_AT_REVIEW",
+    "supabase_run": 38139035261,
+    "supabase_status": "SUCCESS_OWN107_AUTH85_BACKEND_HISTORY_GROUNDING_TEARDOWN",
     "release": "NOT_ACCEPTED",
-    "prior_failed_source": "d17c96f53b0a6f438bdfcc59a8a40fe0dae71fb1",
-    "prior_failure": "Native principal constructor TDZ before new reservation fork;own1140/146/107 still retained.4f2 changes only initialization order;no inherited acceptance."
+    "prior_failed_source": "b57ed6ed30ab8d546556ce21ac735dd7a1e2f218",
+    "prior_failure": "Own1140/native85_320/160 pass;own Supabase105 pass2 TIMEOUT. Empty-stage drag test now opens real disclosure and retains all persistence/conflict assertions;portfolio before-effect loading cause unproven. D3ac100 pass7 fail and D17 native failure also preserved;no retroactive success."
   },
   "global_release_blockers": [
     {
@@ -80,7 +80,7 @@
     },
     {
       "path": "docs/master/PRODUCT_RELEASE_REVIEWS.json",
-      "sha256": "0322a634c0c667a38bc5577861f59156a9d64648a2bcd108692b3d6dbbe88831"
+      "sha256": "79d42f4bd30dba310972649e810d7ce29d64d5970ff2aedf64f415014f9e28dc"
     }
   ],
   "reference_documents": [
@@ -113,7 +113,7 @@
     {
       "priority": "P0",
       "owner": "W2/W3",
-      "work": "Close own4f2 Supabase and current-query/scope pipeline unit;consume latest eligible source into root38 with fresh own integration gates;retain D17 native failure and audit5HIGH."
+      "work": "Compose eligible8d0 Customer360 identity lifetime/pipeline occupancy and normal crash recovery into root38;close fresh own root gates;retain B57/D3ac/D17 failures and fiveHIGH. Separate local incidence/SIM/portability/service lifetime work until own gates."
     },
     {
       "priority": "P0",
@@ -123,7 +123,7 @@
     {
       "priority": "P1",
       "owner": "W1/W2/W3",
-      "work": "Reconcile only row-specific current code/backend/browser/loaded visual/mobile/permission evidence;preserve4 partial338 unreviewed0 release until justified. Pipeline fixture proves UI recovery risks only,not complete-row/Auth/RLS acceptance."
+      "work": "Reconcile current row-specific evidence without aggregate promotions. Four rows remain partial,338 unreviewed,0 release. Three component Customer360 frames and bounded initial core frames do not prove complete loaded visual/Auth/RLS/full342 acceptance."
     }
   ],
   "rows": [
@@ -7486,7 +7486,7 @@
       "RELEASE_READY": false,
       "owner": "W2 physical / W3 connection / W4 review",
       "priority": "P0",
-      "source_sha": "b90178172ed40221499484023dd245e4b5c6998c",
+      "source_sha": "8d0ea9967a069dd467ffbbb052bfe4636d87e120",
       "evidence": [
         {
           "source_sha": "b90178172ed40221499484023dd245e4b5c6998c",
@@ -7501,11 +7501,25 @@
             "supabase/tests/assistant-confirm-reserve-atomic.sql",
             "supabase/tests/assistant-reservation-role-boundary.sql"
           ]
+        },
+        {
+          "source_sha": "8d0ea9967a069dd467ffbbb052bfe4636d87e120",
+          "kind": "NATIVE",
+          "scope": "PARTIAL_ROW",
+          "stage": "PROVEN_BACKEND",
+          "positive": "Registered confirmation/reservation/material and complete ten-method constructor exercised by owned native fixture;only bounded subflows.",
+          "negative": "Changed proof/digest/grant and rollback controls rejected;no confirmed20Node full business scenario claim.",
+          "execution": "OWN_SOURCE8D0_EXECUTED84C13_TREE39F7_CI38139035264_NATIVE114468860435_PASS;NOT_FULL_ROW_NOT_W4",
+          "paths": [
+            "scripts/security/native-postgres/assistant-safe-completion-races.mjs",
+            "scripts/security/native-postgres/positive-reconciliation-process-cut.mjs",
+            "docs/master/W3_VERIFIED_RECONCILIATION_READBACK_20261011.md"
+          ]
         }
       ],
       "permissions": "Current DB membership checked; all client/service-role calls denied. Full actual Auth/target-resource authority and W4 acceptance pending.",
       "mobile": "NOT_RECONCILED",
-      "pending": "Two inert primitives cover server issue and atomic reservation only. Full typed factory, command schema material, UI confirmation and complete physical acceptance remain pending; writes OFF.",
+      "pending": "Ten methods plus positive completed reconciliation exist. Independent verified absence/fencing-quiescence,real business handlers,full23/four complete20Node scenarios/six cuts/before-effect kill/restart,UI confirmation and W4 remain pending;writes OFF.",
       "historical_snapshot": {
         "id": "PAR-217",
         "capability": "Asistente: Confirmación",
@@ -7526,7 +7540,7 @@
       "family": "parity",
       "REQUIRED": true,
       "IMPLEMENTED": "PARTIAL",
-      "PROVEN_BACKEND": "NOT_RECONCILED",
+      "PROVEN_BACKEND": "PARTIAL",
       "CONSUMED_UI": "NOT_RECONCILED",
       "BROWSER_ACCEPTED": "NOT_RECONCILED",
       "VISUAL_ACCEPTED": "NOT_RECONCILED",
@@ -7535,7 +7549,7 @@
       "RELEASE_READY": false,
       "owner": "W2/W3; W4 acceptance",
       "priority": "P0",
-      "source_sha": "b90178172ed40221499484023dd245e4b5c6998c",
+      "source_sha": "8d0ea9967a069dd467ffbbb052bfe4636d87e120",
       "evidence": [
         {
           "source_sha": "b90178172ed40221499484023dd245e4b5c6998c",
@@ -7545,11 +7559,25 @@
             "src/assistant/durable-db-contract.ts",
             "supabase/migrations/20261011010500_assistant_confirm_reserve_atomic.sql"
           ]
+        },
+        {
+          "source_sha": "8d0ea9967a069dd467ffbbb052bfe4636d87e120",
+          "kind": "NATIVE",
+          "scope": "PARTIAL_ROW",
+          "stage": "PROVEN_BACKEND",
+          "positive": "Normal completion20 distinct Node/backends produces one completion19 conflicts;authorized full original record/result/receipt recovery after actual postcommit SIGKILL.",
+          "negative": "Rollback/retry,grant expiry after observed customer lock,five SQL mutants restored;all eight ledger fingerprints unchanged during recovery.",
+          "execution": "OWN_SOURCE8D0_EXECUTED84C13_TREE39F7_CI38139035264_NATIVE114468860435_PASS;NOT_FULL_ROW_NOT_W4",
+          "paths": [
+            "scripts/security/native-postgres/assistant-safe-completion-races.mjs",
+            "scripts/security/native-postgres/positive-reconciliation-process-cut.mjs",
+            "docs/master/W3_VERIFIED_RECONCILIATION_READBACK_20261011.md"
+          ]
         }
       ],
       "permissions": "NOT_RECONCILED",
       "mobile": "NOT_RECONCILED",
-      "pending": "Reserved/existing SQL receipts are not a complete authorized operation status flow. Claim, effect acknowledgement, completion and reconciliation remain absent.",
+      "pending": "Bounded operation states/completion/reconciliation and recovery are proven;complete authorized UI status flow,verified absence and full23 runtime/W4 acceptance remain pending.",
       "historical_snapshot": {
         "id": "PAR-218",
         "capability": "Asistente: Estado de acción",
@@ -7613,7 +7641,7 @@
       "RELEASE_READY": false,
       "owner": "W2/W3; W4 acceptance",
       "priority": "P0",
-      "source_sha": "b90178172ed40221499484023dd245e4b5c6998c",
+      "source_sha": "8d0ea9967a069dd467ffbbb052bfe4636d87e120",
       "evidence": [
         {
           "source_sha": "b90178172ed40221499484023dd245e4b5c6998c",
@@ -7627,11 +7655,25 @@
             "supabase/tests/assistant-confirm-reserve-atomic.sql",
             "scripts/security/native-postgres/assistant-reservation-races.mjs"
           ]
+        },
+        {
+          "source_sha": "8d0ea9967a069dd467ffbbb052bfe4636d87e120",
+          "kind": "NATIVE",
+          "scope": "PARTIAL_ROW",
+          "stage": "PROVEN_BACKEND",
+          "positive": "Own normal and positive postcommit process cuts recover full original records in fresh Node/native backends;normal14 originals include full eleven-field completion payloads and are drained.",
+          "negative": "Original receipts/results/audit content unchanged;wrong/stale bindings,rollback cuts and SQL mutants rejected. No before-effect kill/restart/full23 proof.",
+          "execution": "OWN_SOURCE8D0_EXECUTED84C13_TREE39F7_CI38139035264_NATIVE114468860435_PASS;NOT_FULL_ROW_NOT_W4",
+          "paths": [
+            "scripts/security/native-postgres/assistant-safe-completion-races.mjs",
+            "scripts/security/native-postgres/positive-reconciliation-process-cut.mjs",
+            "docs/master/W3_VERIFIED_RECONCILIATION_READBACK_20261011.md"
+          ]
         }
       ],
       "permissions": "NOT_RECONCILED",
       "mobile": "NOT_RECONCILED",
-      "pending": "Exact confirmed reservation replay and rollback covered locally; no effect replay, worker crash/restart, completion/reconciliation or complete UI recovery acceptance.",
+      "pending": "Exact replay and real postcommit completion crash recovery cover bounded primitives. Real effects/full business handlers,verified absence,full23/four complete races/six cuts/before-effect kill/restart and complete UI recovery/W4 remain pending.",
       "historical_snapshot": {
         "id": "PAR-220",
         "capability": "Asistente: Errores y retry seguro",
@@ -7763,7 +7805,7 @@
       "RELEASE_READY": false,
       "owner": "W2 physical / W3 authority / W4 review",
       "priority": "P0",
-      "source_sha": "b90178172ed40221499484023dd245e4b5c6998c",
+      "source_sha": "8d0ea9967a069dd467ffbbb052bfe4636d87e120",
       "evidence": [
         {
           "source_sha": "b90178172ed40221499484023dd245e4b5c6998c",
@@ -7777,11 +7819,25 @@
             "supabase/tests/assistant-confirm-reserve-atomic.sql",
             "supabase/tests/assistant-reservation-role-boundary.sql"
           ]
+        },
+        {
+          "source_sha": "8d0ea9967a069dd467ffbbb052bfe4636d87e120",
+          "kind": "NATIVE",
+          "scope": "PARTIAL_ROW",
+          "stage": "PROVEN_BACKEND",
+          "positive": "Own fresh/restored320-function privilege matrices,real role calls and current-grant private native paths pass.",
+          "negative": "PUBLIC/anon/authenticated/service-role boundaries,ACL-loss mutant and grant expiry after independently observed blocking locks are exercised.",
+          "execution": "OWN_SOURCE8D0_EXECUTED84C13_TREE39F7_CI38139035264_NATIVE114468860435_PASS;NOT_FULL_ROW_NOT_W4",
+          "paths": [
+            "scripts/security/native-postgres/assistant-safe-completion-races.mjs",
+            "scripts/security/native-postgres/positive-reconciliation-process-cut.mjs",
+            "docs/master/W3_VERIFIED_RECONCILIATION_READBACK_20261011.md"
+          ]
         }
       ],
       "permissions": "Scope resolves auth.uid plus locked active DB membership; no caller-supplied actor authority; inert function grants denied.",
       "mobile": "NOT_RECONCILED",
-      "pending": "These reservation negatives cover one subflow. Complete resource authorization, concurrent revocation, full runtime and independent W4 acceptance remain pending.",
+      "pending": "Native permission/expiry negatives cover bounded subflows. Independent stagingAuth/RLS,complete resource authority/concurrent revocation/full runtime and W4 acceptance remain pending.",
       "historical_snapshot": {
         "id": "PAR-224",
         "capability": "Asistente: Permisos y tenant",
