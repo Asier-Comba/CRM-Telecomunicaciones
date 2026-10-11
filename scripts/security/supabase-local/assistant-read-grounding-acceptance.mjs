@@ -44,17 +44,18 @@ export async function assistantReadGroundingAcceptance({ rpc, sql, check, users,
     phase='SNAPSHOT'
     const businessSnapshot=()=>sql(`select md5(coalesce(jsonb_agg(payload order by id)::text,'')) from(select id,to_jsonb(x) payload from public.customers x where id in('${customers[0]}','${customers[1]}','${foreignCustomer}') union all select id,to_jsonb(x) payload from public.telecom_contracts x where id in('${contracts[0]}','${contracts[1]}','${contracts[2]}') union all select id,to_jsonb(x) payload from public.telecom_operators x where id in('${operator}','${foreignOperator}')) records`)
     const before=businessSnapshot(),calls=[]
-    let suspendAfterRead=false
+    let suspendAfterRead=false,suspendAfterBilling=false
     const httpRead=async(family,operation,input)=>{
-      const endpoint=family==='collection'?'/api/product/v1/queries':'/api/telecom/reads/v1'
+      const endpoint=family==='collection'?'/api/product/v1/queries':family==='billing_analytics'?'/api/billing/analytics/v1':'/api/telecom/reads/v1'
       const response=await fetch(assistantAppUrl+endpoint,{method:'POST',headers:{cookie,origin:assistantAppUrl,'content-type':'application/json'},body:JSON.stringify({operation,input}),signal:AbortSignal.timeout(30000)})
       calls.push({operation,status:response.status})
       check(response.headers.get('cache-control')==='no-store','assistant_grounding_reader_no_store')
       const body=await response.json()
       if(suspendAfterRead&&operation==='customer.list'){suspendAfterRead=false;sql(`update public.workspace_members set status='suspended' where workspace_id='${wa}' and user_id='${owner.id}'`)}
+      if(suspendAfterBilling&&operation==='billing.monthly_series'){suspendAfterBilling=false;sql(`update public.workspace_members set status='suspended' where workspace_id='${wa}' and user_id='${owner.id}'`)}
       return body
     }
-    const readers={collection:(op,input)=>httpRead('collection',op,input),report:(op,input)=>httpRead('report',op,input)},handles=['operator_ref','customer_ref','foreign_customer_ref']
+    const readers={collection:(op,input)=>httpRead('collection',op,input),report:(op,input)=>httpRead('report',op,input),billingAnalytics:(op,input)=>httpRead('billing_analytics',op,input)},handles=['operator_ref','customer_ref','foreign_customer_ref']
     const resolveReference=async(handle,field)=>{
       if(handle==='operator_ref'&&field==='operator_id'){
         const result=await readers.collection('operator.get',{id:operator})
@@ -75,6 +76,7 @@ export async function assistantReadGroundingAcceptance({ rpc, sql, check, users,
     check((await conversations.execute('thread.create',{id:thread,title:'Synthetic actual read grounding'})).ok,'assistant_grounding_actual_history_create')
     const node=(limit=20)=>({id:'clients',capability:'crm.customer.list',arguments:[{field:'limit',value:limit}],bindings:[{field:'operator_id',handle:'operator_ref',nodeId:null}]})
     const summary=binding=>({id:'summary',capability:'crm.customer360.summary',arguments:[],bindings:[{field:'customer_id',...binding}]})
+    const monthly=handle=>({id:'billing',capability:'crm.billing.monthly_series',arguments:[{field:'currency',value:'EUR'},{field:'from_month',value:'2026-09-01'},{field:'to_month',value:'2026-10-01'}],bindings:[{field:'customer_id',handle,nodeId:null}]})
     const plan=nodes=>({version:2,decision:'plan',nodes})
     const run=async(value)=>{
       const turn_id=randomUUID(),input={id:thread,turn_id,text:'Consulta sintética de lectura con plan cerrado'},events=[]
@@ -104,6 +106,23 @@ export async function assistantReadGroundingAcceptance({ rpc, sql, check, users,
     phase='AUTHORIZED_SUMMARY'
     result=await run(plan([summary({handle:'customer_ref',nodeId:null})]))
     check(result.final?.response.grounded&&result.final.response.blocks[0].rows[0].contracts===1&&result.final.response.blocks[0].rows[0].services===0&&result.final.response.blocks[0].rows[0].lines===0&&/^\d{4}-\d{2}-\d{2}$/.test(result.final.response.sources[0].asOf),'assistant_grounding_actual_customer_counts_as_of')
+    phase='BILLING_DENSE_COHORT'
+    result=await run(plan([monthly('customer_ref')]))
+    const financial=result.final?.response
+    check(financial?.status==='completed'&&financial.grounded&&financial.blocks.length===1&&financial.blocks[0].rows.length===2&&financial.blocks[0].rows.map(row=>row.month).join(',')==='2026-09-01,2026-10-01'&&financial.blocks[0].rows.every(row=>['issued_minor','paid_minor','outstanding_minor','overdue_minor'].every(field=>row[field]==='0,00')),'assistant_grounding_billing_actual_empty_customer_dense_zero')
+    check(financial.sources[0].capability==='crm.billing.monthly_series'&&!financial.sources[0].partial&&/^\d{4}-\d{2}-\d{2}$/.test(financial.sources[0].asOf)&&financial.blocks[0].columns.find(column=>column.field==='paid_minor')?.label==='Marcado como pagado (EUR)'&&financial.blocks[0].title==='Facturas por mes de emisión · estado actual','assistant_grounding_billing_current_cohort_exact_currency_source')
+    phase='BILLING_FOREIGN_REFERENCE'
+    result=await run(plan([monthly('foreign_customer_ref')]))
+    check(result.final?.response.status==='access_changed'&&!result.final.response.grounded&&!result.final.response.blocks.length&&!result.calls.some(call=>call.operation==='billing.monthly_series'),'assistant_grounding_billing_foreign_reference_no_query')
+    phase='BILLING_REVOKED_READ'
+    suspendAfterBilling=true
+    try{
+      result=await run(plan([monthly('customer_ref')]))
+      check(result.events.map(event=>event.type).join(',')==='started,failed'&&!result.final,'assistant_grounding_billing_revocation_discards_financial_facts')
+      await readers.billingAnalytics('billing.monthly_series',{currency:'EUR',from_month:'2026-09-01',to_month:'2026-10-01',customer_id:customers[0]})
+      check(calls.at(-1)?.status===403,'assistant_grounding_billing_actual_cookie_revoked')
+    }finally{sql(`update public.workspace_members set status='active' where workspace_id='${wa}' and user_id='${owner.id}'`)}
+    check((await conversations.execute('turn.finish',{id:thread,turn_id:result.turn_id,status:'cancelled'})).ok,'assistant_grounding_billing_revoked_cancel_after_restore')
     phase='FOREIGN_REFERENCE'
     result=await run(plan([summary({handle:'foreign_customer_ref',nodeId:null})]))
     check(result.final?.response.status==='access_changed'&&!result.final.response.grounded&&!result.final.response.blocks.length&&!result.calls.some(call=>call.operation==='customer360.summary'),'assistant_grounding_foreign_ordinary_identity_no_dependent_read')
@@ -122,7 +141,7 @@ export async function assistantReadGroundingAcceptance({ rpc, sql, check, users,
     check((await conversations.execute('turn.finish',{id:thread,turn_id:result.turn_id,status:'cancelled'})).ok,'assistant_grounding_revoked_read_cancel_after_restore')
     phase='IMMUTABLE_HISTORY'
     const messages=await conversations.execute('message.page',{id:thread,limit:50})
-    check(messages.ok&&messages.data.historical&&messages.data.items.length===13&&messages.data.items.filter(item=>item.role==='user').length===7&&messages.data.items.filter(item=>item.role==='assistant').length===6&&messages.data.items.filter(item=>item.role==='assistant').every(item=>!['W3 Grounding','telecom.collections','source_','inputTokens'].some(value=>item.content.includes(value))),'assistant_grounding_persisted_history_excludes_factual_blocks')
+    check(messages.ok&&messages.data.historical&&messages.data.items.length===18&&messages.data.items.filter(item=>item.role==='user').length===10&&messages.data.items.filter(item=>item.role==='assistant').length===8&&messages.data.items.filter(item=>item.role==='assistant').every(item=>!['W3 Grounding','telecom.collections','billing.analytics','source_','inputTokens'].some(value=>item.content.includes(value))),'assistant_grounding_persisted_history_excludes_factual_blocks')
     check(before===businessSnapshot(),'assistant_grounding_no_business_record_change')
     return 'PASS_ACTUAL_AUTH_COOKIE_READ_GROUNDING_PARTIALITY_REVOCATION_SYNTHETIC_PLANNER'
   }catch(cause){

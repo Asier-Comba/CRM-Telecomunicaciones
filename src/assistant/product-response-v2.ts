@@ -20,6 +20,11 @@ const labels: Record<string, string> = { display_name: 'Nombre', title: 'Título
 const titles: Record<string, string> = { customer: 'Clientes', customer360: 'Resumen del cliente', contact: 'Contactos', contract: 'Contratos', service: 'Servicios', line: 'Líneas',
   renewal: 'Renovaciones', permanence: 'Permanencias', task: 'Tareas', meeting: 'Reuniones', activity: 'Actividad', opportunity: 'Oportunidades', operator: 'Operadores',
   plan: 'Planes', plan_version: 'Versiones de planes', assignee: 'Comerciales', report: 'Informe del CRM' }
+const billingLabels: Record<string, string> = { issued_minor: 'Facturado', paid_minor: 'Marcado como pagado',
+  outstanding_minor: 'Pendiente', overdue_minor: 'Vencido' }
+// The W1 parser has already validated nonnegative integer strings. Formatting
+// never converts money to Number, including amounts above the safe integer limit.
+const exactMinor = (value: string) => (value.length > 2 ? value.slice(0, -2) : '0') + ',' + value.slice(-2).padStart(2, '0')
 export function composeProductResponseV2(result: ProductReadResultV2, requestId: string): ProductAssistantResponseV2 {
   if (result.status === 'completed' && !isValidatedProductReadResultV2(result)) result = { status: 'unavailable', evidence: [] }
   const answer = result.status === 'completed' ? 'Estos son los datos autorizados recuperados.' : result.status === 'clarify' || result.status === 'ambiguous' ? 'Necesito concretar el registro o el intervalo para continuar.'
@@ -27,17 +32,21 @@ export function composeProductResponseV2(result: ProductReadResultV2, requestId:
   const response: ProductAssistantResponseV2 = { contract: 'assistant.response.v2', requestId, status: result.status, answer, grounded: result.status === 'completed', blocks: [], sources: [] }
   if (result.status !== 'completed') return response
   for (const [index, evidence] of result.evidence.entries()) {
-    const sourceRef = `source_${index + 1}`, title = titles[evidence.capability.split('.')[1] ?? ''] ?? 'Datos del CRM'
+    const monthlyBilling = evidence.capability === 'crm.billing.monthly_series'
+    const sourceRef = `source_${index + 1}`, title = monthlyBilling ? 'Facturas por mes de emisión · estado actual'
+      : titles[evidence.capability.split('.')[1] ?? ''] ?? 'Datos del CRM'
     const raw = Array.isArray(evidence.data.items) ? evidence.data.items : [evidence.data.record]
     const rows: Record<string, string | number | boolean | null>[] = []
     for (const item of raw) {
       if (!item || typeof item !== 'object' || Array.isArray(item)) continue
       const row: Record<string, string | number | boolean | null> = {}
       for (const [field, value] of Object.entries(item)) if (Object.hasOwn(labels, field) && (value === null || ['string', 'number', 'boolean'].includes(typeof value))) row[field] = value as string | number | boolean | null
+      if (monthlyBilling) for (const field of Object.keys(billingLabels)) row[field] = exactMinor((item as Record<string, string>)[field])
       rows.push(row)
     }
     const fields = [...new Set(rows.flatMap(row => Object.keys(row)))]
-    response.blocks.push({ type: 'table', title, columns: fields.map(field => ({ field, label: labels[field]! })), rows, sourceRef, partial: evidence.partial })
+    response.blocks.push({ type: 'table', title, columns: fields.map(field => ({ field,
+      label: monthlyBilling && billingLabels[field] ? `${billingLabels[field]} (${evidence.data.currency})` : labels[field]! })), rows, sourceRef, partial: evidence.partial })
     response.sources.push({ ref: sourceRef, label: title, capability: evidence.capability, readAt: evidence.readAt, asOf: evidence.asOf, partial: evidence.partial })
   }
   return response

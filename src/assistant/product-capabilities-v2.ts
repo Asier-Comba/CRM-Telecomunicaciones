@@ -65,7 +65,7 @@ function inputSchema(filters: readonly string[], enums: Readonly<Record<string, 
 }
 export type ProductCapabilityV2 = {
   name: string; description: string; version: 'assistant.capability.v2'; mode: 'read'; risk: 'READ'; roles: readonly string[]
-  inputSchema: Schema; outputSchema: Schema; backendOperation: string; family: 'collection' | 'report'
+  inputSchema: Schema; outputSchema: Schema; backendOperation: string; family: 'collection' | 'report' | 'billing_analytics'
   sensitiveFields: readonly string[]; confirmation: 'none'; grounding: string; partiality: string
   authorization: 'current_server_membership_and_role_rechecked_around_each_await'
   tenantScope: 'server_selected_workspace_actor_and_scope_epoch'
@@ -102,6 +102,25 @@ for (const [operation, raw] of Object.entries(TELECOM_READ_SPECS_V1)) {
     backendOperation: operation, family: 'report', ...readBoundary, sensitiveFields: [], confirmation: 'none', grounding: 'validated authorized aggregate with source as_of; restricted counters remain null',
     partiality: 'preserve unavailable protected counters; paginated aggregates never prove total or absence', enabled: { local: true, stage: false, prod: false } })
 }
+const billingOperation = 'billing.monthly_series'
+const billingMonths = { type: 'string', pattern: '^\\d{4}-\\d{2}-01$', maxLength: 10 }
+const billingAmounts = Object.fromEntries(['issued_minor', 'paid_minor', 'outstanding_minor', 'overdue_minor']
+  .map(field => [field, { type: 'string', pattern: '^(0|[1-9][0-9]{0,39})$', maxLength: 40 }]))
+const billingRow = closed({ month: billingMonths, ...billingAmounts }, ['month', ...Object.keys(billingAmounts)])
+capabilities.push({ name: `crm.${billingOperation}`, version: 'assistant.capability.v2', mode: 'read', risk: 'READ',
+  description: 'Facturas por mes de emisión y estado actual: emitido, marcado pagado, pendiente y vencido. No representa movimientos de cobro. Exige una moneda EUR/USD/GBP y meses inclusivos con día01, máximo24. Solo titular/administrador.',
+  roles: ['owner', 'admin'], backendOperation: billingOperation, family: 'billing_analytics',
+  inputSchema: closed({ currency: { type: 'string', enum: ['EUR', 'USD', 'GBP'] }, from_month: billingMonths,
+    to_month: billingMonths, customer_id: uuid }, ['currency', 'from_month', 'to_month']),
+  outputSchema: closed({ contract_version: { const: 'billing.analytics.v1' }, operation: { const: billingOperation },
+    basis: { const: 'issue_month_cohort_current_status' }, as_of: ruleSchema('date'),
+    currency: { type: 'string', enum: ['EUR', 'USD', 'GBP'] }, from_month: billingMonths, to_month: billingMonths,
+    items: { type: 'array', minItems: 1, maxItems: 24, items: billingRow } },
+    ['contract_version', 'operation', 'basis', 'as_of', 'currency', 'from_month', 'to_month', 'items']),
+  ...readBoundary, sensitiveFields: [], confirmation: 'none',
+  grounding: 'validated dense monthly cohort; exact integer-string amounts; current invoice status at as_of, never cash ledger',
+  partiality: 'complete requested range only; missing months, currency mismatch or invalid amount equations are unavailable',
+  enabled: { local: true, stage: false, prod: false } })
 function freeze(value: unknown): void { if (value && typeof value === 'object') { for (const child of Object.values(value)) freeze(child); Object.freeze(value) } }
 freeze(capabilities)
 export const PRODUCT_CAPABILITIES_V2: readonly ProductCapabilityV2[] = Object.freeze(capabilities)
@@ -109,8 +128,8 @@ export function productCapabilityV2(name: string): ProductCapabilityV2 | null { 
 /** Small semantic advertisement, not an executable schema or permission grant.
  * UUID patterns are unnecessary: identity fields require opaque bindings.
  * Cursor replay is deliberately absent from the current planner contract. */
-export function productPlannerCatalogV2() {
-  return PRODUCT_CAPABILITIES_V2.map(c => ({ name: c.name, description: c.description,
+export function productPlannerCatalogV2(role?: string) {
+  return PRODUCT_CAPABILITIES_V2.filter(c => role === undefined || c.roles.includes(role)).map(c => ({ name: c.name, description: c.description,
     input: { required: c.inputSchema.required, fields: Object.fromEntries(Object.entries(c.inputSchema.properties as Record<string, Schema>)
       .filter(([field]) => field !== 'after_id').map(([field, rule]) => [field, field === 'id' || field.endsWith('_id') ? { binding: 'authorized_opaque_reference_or_unique_dependency' } : rule])) },
     partiality: c.partiality }))

@@ -22,7 +22,7 @@ export async function runProductReadTurnV2(text: unknown, requestId: string, pro
   if (typeof text !== 'string' || !text.trim() || Buffer.byteLength(text) > 8000 || containsHighConfidenceSecret(text)) return { ...base, status: 'invalid_input', execution: null }
   let scope
   try { scope = await boundedAwaitV2(() => deps.authority(), signal) } catch { return { ...base, status: 'unavailable', execution: null } }
-  if (!scope) return { ...base, status: 'access_changed', execution: null }
+  if (!scope || !['owner', 'admin', 'member', 'viewer'].includes(scope.role)) return { ...base, status: 'access_changed', execution: null }
   let context: string
   try {
     const trustedCalendar = snapshotProductJsonV1(calendar) as Record<string, unknown>
@@ -31,7 +31,7 @@ export async function runProductReadTurnV2(text: unknown, requestId: string, pro
     new Intl.DateTimeFormat('en', { timeZone: trustedCalendar.timezone })
     if (containsHighConfidenceSecret(deps.offeredHandles) || !Array.isArray(deps.offeredHandles) || deps.offeredHandles.length > 50 || new Set(deps.offeredHandles).size !== deps.offeredHandles.length
       || deps.offeredHandles.some(handle => typeof handle !== 'string' || !/^[A-Za-z0-9_-]{1,160}$/.test(handle))) return { ...base, status: 'invalid_input', execution: null }
-    const minimized = { calendar: trustedCalendar, references: [...deps.offeredHandles], capabilities: productPlannerCatalogV2() }
+    const minimized = { calendar: trustedCalendar, references: [...deps.offeredHandles], capabilities: productPlannerCatalogV2(scope.role) }
     if (containsHighConfidenceSecret(minimized)) return { ...base, status: 'invalid_input', execution: null }
     context = JSON.stringify(minimized)
     if (Buffer.byteLength(context) > 32000) return { ...base, status: 'invalid_input', execution: null }
