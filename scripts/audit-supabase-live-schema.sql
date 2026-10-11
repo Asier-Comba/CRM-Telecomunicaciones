@@ -26,6 +26,7 @@ target_relations(name) as (
     ('assistant_registered_effect_workers'),
     ('assistant_registered_result_schemas'),
     ('assistant_safe_results'),
+    ('assistant_unconfirmed_policies'),
     ('assistant_turns_v2'),
     ('assistant_findings'),
     ('assistant_messages'),

@@ -84,6 +84,10 @@ function recoveryRecord(v:unknown,operationRef:string):DurableIdempotencyRecord{
   attempt:Number(v.attempt),version:Number(v.version),leaseExpiresAt:v.leaseExpiresAt,createdAt:v.createdAt,updatedAt:v.updatedAt,
   ...(typeof v.effectReceiptRef==='string'?{effectReceiptRef:v.effectReceiptRef}:{}),...(typeof v.failureCode==='string'?{failureCode:v.failureCode}:{})}
 }
+/** Shared closed nonterminal DTO parser; does not admit completed results. */
+export function parseDurableRecoveryRecordV1(value:unknown,operationRef:string):DurableIdempotencyRecord{
+ return recoveryRecord(value,operationRef)
+}
 export function createDurableReservationPortV1(dependencies:ReservationDependenciesV1):DurableReservationPortV1{
  async function currentAuthority(actor:ReconciliationActor){
   if(!actor||actor.authentication!=='user_session'||!key(actor.requestId))return null

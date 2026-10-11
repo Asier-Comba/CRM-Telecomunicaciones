@@ -129,7 +129,6 @@ try{
  }
  assert.ok(waiting);assert.equal((await holder).code,0);await expiryDenied;expiryBarrier=false;assert.equal(hash(await aggregate()),beforeExpiry)
  // Exact original completion SQL fixture catches independently applied mutants.
- const migration=readFileSync('supabase/migrations/20261011070000_assistant_safe_completion.sql','utf8').replace(/\r\n/g,'\n')
  for(const [fn,remove,expected] of [
   ['assistant_durable_v1_complete',' and x.schema_digest=p_schema_digest','completion_unregistered_schema_accepted'],
   ['assistant_durable_v1_complete',' if t>=o.lease_expires_at then return jsonb_build_object(\'status\',\'invalid_transition\');end if;','completion_expired_operation_accepted'],
@@ -137,8 +136,8 @@ try{
   ['assistant_durable_v1_complete',' insert into public.assistant_audit_delivery_outbox(workspace_id,event_ref,next_eligible_at,created_at) values(p_workspace,p_event,t,t);','completion_atomic_rollback_incomplete'],
   ['assistant_result_data_valid_v1','   if not found then return false;end if;','completion_invalid_result_accepted'],
  ]){
-  const start=migration.indexOf('create function public.'+fn+'('),end=migration.indexOf('\nend$$;',start)+8,definition=migration.slice(start,end)
-  assert.ok(start>=0&&end>start&&definition.includes(remove));const mutant=await run('begin;'+definition.replace('create function','create or replace function').replace(remove,'')+readFileSync('supabase/tests/assistant-safe-completion.sql','utf8'))
+  const definition=await sql(`select pg_get_functiondef(p.oid) from pg_proc p join pg_namespace n on n.oid=p.pronamespace where n.nspname='public' and p.proname=${literal(fn)};`)
+  assert.ok(definition.startsWith('CREATE OR REPLACE FUNCTION')&&definition.includes(remove));const mutant=await run('begin;'+definition.replace('create function','create or replace function').replace(remove,'')+readFileSync('supabase/tests/assistant-safe-completion.sql','utf8'))
   assert.notEqual(mutant.code,0);assert.ok(mutant.err.includes(expected));await sql(definition.replace('create function','create or replace function'))
  }
  const originals=hash(await allOriginals()),auditWorker={...authority,grantVersion:1,workerRef:'completion_audit_worker_'+nonce,permissions:new Set([...authority.permissions,'assistant:audit:deliver'])}

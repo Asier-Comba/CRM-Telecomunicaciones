@@ -62,7 +62,8 @@ function event(value:unknown,worker:AuditWorkerAuthorityV1,eventRef:string):Orig
   const e=value.capabilityEvent
   if(!exact(value,fields+',capabilityEvent')||!exact(e,'event,requestId,actorId,workspaceId,capability,accessClass,status,reasonCode,confirmationState,idempotencyState,durationMs')
    ||e.event!==value.event||e.requestId!==value.requestId||e.actorId!==value.actorId||e.workspaceId!==value.workspaceId||e.capability!==value.capability
-   ||e.status!=='SUCCESS'||e.reasonCode!==value.reasonCode||e.confirmationState!=='accepted'||e.idempotencyState!=='reserved'
+   ||e.status!=='SUCCESS'||e.reasonCode!==value.reasonCode
+   ||!(e.confirmationState==='accepted'||(e.confirmationState==='not_applicable'&&e.accessClass==='SAFE_WRITE'))||e.idempotencyState!=='reserved'
    ||typeof e.accessClass!=='string'||!['SAFE_WRITE','SENSITIVE_WRITE','IRREVERSIBLE'].includes(e.accessClass)
    ||!Number.isSafeInteger(e.durationMs)||Number(e.durationMs)<0)throw unavailable()
   return Object.freeze({...value,capabilityEvent:Object.freeze({...e})}) as OriginalAuditEventV1
