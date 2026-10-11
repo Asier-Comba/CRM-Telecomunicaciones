@@ -5,6 +5,7 @@ import {spawn,spawnSync} from 'node:child_process'
 import {randomBytes,createHash} from 'node:crypto'
 import {readFileSync} from 'node:fs'
 import {isExpectedNativeImage} from './expected-image.mjs'
+import {terminatedCatalogFunctionDefinition} from './catalog-function-definition.mjs'
 import {CapabilityRegistry} from '../../../src/assistant/registry.ts'
 import {argumentsDigest} from '../../../src/assistant/runtime.ts'
 import {createDurableCommandMaterialProducerV1,createDurableMaterialReservationPortV1} from '../../../src/assistant/durable-command-material.ts'
@@ -137,8 +138,9 @@ try{
   ['assistant_result_data_valid_v1','   if not found then return false;end if;','completion_invalid_result_accepted'],
  ]){
   const definition=await sql(`select pg_get_functiondef(p.oid) from pg_proc p join pg_namespace n on n.oid=p.pronamespace where n.nspname='public' and p.proname=${literal(fn)};`)
-  assert.ok(definition.startsWith('CREATE OR REPLACE FUNCTION')&&definition.includes(remove));const mutant=await run('begin;'+definition.replace('create function','create or replace function').replace(remove,'')+readFileSync('supabase/tests/assistant-safe-completion.sql','utf8'))
-  assert.notEqual(mutant.code,0);assert.ok(mutant.err.includes(expected));await sql(definition.replace('create function','create or replace function'))
+  assert.ok(definition.startsWith('CREATE OR REPLACE FUNCTION')&&definition.includes(remove));const mutant=await run('begin;'+terminatedCatalogFunctionDefinition(definition.replace(remove,''))+readFileSync('supabase/tests/assistant-safe-completion.sql','utf8'))
+  assert.notEqual(mutant.code,0);assert.ok(mutant.err.includes(expected));await sql(terminatedCatalogFunctionDefinition(definition))
+  assert.equal(await sql(`select pg_get_functiondef(p.oid) from pg_proc p join pg_namespace n on n.oid=p.pronamespace where n.nspname='public' and p.proname=${literal(fn)};`),definition)
  }
  const originals=hash(await allOriginals()),auditWorker={...authority,grantVersion:1,workerRef:'completion_audit_worker_'+nonce,permissions:new Set([...authority.permissions,'assistant:audit:deliver'])}
  await sql(`insert into public.assistant_registered_audit_workers(workspace_id,worker_ref,actor_id,capability,expires_at) values('${workspace}','${auditWorker.workerRef}','${actor}','${capability}',clock_timestamp()+interval '1 hour');

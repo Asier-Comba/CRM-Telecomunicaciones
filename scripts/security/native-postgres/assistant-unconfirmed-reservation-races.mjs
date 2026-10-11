@@ -5,6 +5,7 @@ import {spawn,spawnSync} from 'node:child_process'
 import {randomBytes,createHash} from 'node:crypto'
 import {readFileSync} from 'node:fs'
 import {isExpectedNativeImage} from './expected-image.mjs'
+import {terminatedCatalogFunctionDefinition} from './catalog-function-definition.mjs'
 import {CapabilityRegistry} from '../../../src/assistant/registry.ts'
 import {argumentsDigest} from '../../../src/assistant/runtime.ts'
 import {createDurableCommandMaterialProducerV1,createDurableMaterialReservationPortV1} from '../../../src/assistant/durable-command-material.ts'
@@ -133,12 +134,12 @@ try{
   let mutant=originalDefinition
   if(expected==='unconfirmed_unregistered_policy_accepted')mutant=mutant.replace(" if not found then raise exception using errcode='42501',message='assistant_unconfirmed_forbidden';end if;",'')
   else mutant=mutant.replaceAll(remove,'')
-  const rejected=await run('begin;'+mutant+readFileSync('supabase/tests/assistant-unconfirmed-reservation.sql','utf8'))
-  assert.notEqual(rejected.code,0);assert.ok(rejected.err.includes(expected));await sql(originalDefinition)
+  const rejected=await run('begin;'+terminatedCatalogFunctionDefinition(mutant)+readFileSync('supabase/tests/assistant-unconfirmed-reservation.sql','utf8'))
+  assert.notEqual(rejected.code,0);assert.ok(rejected.err.includes(expected));await sql(terminatedCatalogFunctionDefinition(originalDefinition))
  }
  const deliveryInsert=" insert into public.assistant_audit_delivery_outbox(workspace_id,event_ref,next_eligible_at,created_at) values(p_workspace,event_id,t,t);"
- assert.ok(originalDefinition.includes(deliveryInsert));const rejected=await run('begin;'+originalDefinition.replace(deliveryInsert,'')+readFileSync('supabase/tests/assistant-unconfirmed-reservation.sql','utf8'))
- assert.notEqual(rejected.code,0);assert.ok(rejected.err.includes('unconfirmed_atomic_rollback_incomplete'));await sql(originalDefinition)
+ assert.ok(originalDefinition.includes(deliveryInsert));const rejected=await run('begin;'+terminatedCatalogFunctionDefinition(originalDefinition.replace(deliveryInsert,''))+readFileSync('supabase/tests/assistant-unconfirmed-reservation.sql','utf8'))
+ assert.notEqual(rejected.code,0);assert.ok(rejected.err.includes('unconfirmed_atomic_rollback_incomplete'));await sql(terminatedCatalogFunctionDefinition(originalDefinition))
  assert.equal(await sql("select pg_get_functiondef('public.assistant_durable_v1_reserve_material(uuid,text,bigint,text,text,text,text,text,text,jsonb)'::regprocedure);"),originalDefinition)
  const auditWorker={...authority,grantVersion:1,workerRef:'unconfirmed_audit_worker_'+nonce,permissions:new Set([...authority.permissions,'assistant:audit:deliver'])}
  await sql(`insert into public.assistant_registered_audit_workers(workspace_id,worker_ref,actor_id,capability,expires_at) values('${workspace}','${auditWorker.workerRef}','${actor}','${capability}',clock_timestamp()+interval '1 hour');create table public.${auditSink}(event_ref text primary key,packet jsonb);revoke all on public.${auditSink} from public,anon,authenticated,service_role;`)

@@ -31,3 +31,20 @@ test('upstream refusal classification never exports raw JSON/HTML or arbitrary e
   assert.equal(missing.body_available, false)
   assert.ok(!JSON.stringify(missing).includes(secret))
 })
+
+test('syntax refusals distinguish closed JSON module and regexp categories without exporting source material',async()=>{
+ const secret='private-token-and-conversation@example.invalid'
+ for(const [message,expected] of [
+  ['SyntaxError: Unexpected end of JSON input','SERVER_SYNTAX_JSON_INPUT'],
+  ['SyntaxError: '+secret+' is not valid JSON','SERVER_SYNTAX_JSON_INPUT'],
+  ["SyntaxError: Unexpected token 'export' "+secret,'SERVER_SYNTAX_MODULE_FORMAT'],
+  ['SyntaxError: Cannot use import statement outside a module '+secret,'SERVER_SYNTAX_MODULE_FORMAT'],
+  ['SyntaxError: Invalid regular expression '+secret,'SERVER_SYNTAX_REGEXP'],
+  ['SyntaxError: Unexpected token '+secret,'SERVER_SYNTAX_ERROR'],
+ ]){
+  assert.equal(assistantServerDiagnostic(message),expected)
+  const diagnostic=await assistantUpstreamDiagnostic({headers:()=>({'content-type':'text/html'}),body:async()=>Buffer.from('<html>'+message+'</html>')})
+  assert.equal(diagnostic.error_category,expected);assert.ok(!JSON.stringify(diagnostic).includes(secret))
+ }
+ assert.equal(assistantServerDiagnostic('arbitrary syntax '+secret),null)
+})
