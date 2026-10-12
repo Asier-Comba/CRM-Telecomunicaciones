@@ -1,0 +1,7 @@
+# W2: capturas SIM con relaciones resueltas e historial visible
+
+La revisión de tres frames del artefacto propio de `b49ece473d7ab43ef1a7b9b0e93ef8267fcfe117`, ejecutado como `e7a97201984e4bd32682a553acdacd354760638f` en Supabase run `38189038341`, encontró límites de evidencia visual: `sim-viewer-1440.png` todavía mostraba cliente/operador en carga; `sim-replacement-history-768.png` dejaba filas del historial fuera del área visible. La fila creada en Customer360 móvil era legible. Esta revisión es parcial; no acredita aceptación visual completa de B49 ni implica que el producto no resolviera después esos nombres.
+
+El consumidor de navegador ahora exige el enlace del cliente vigente resuelto y disponible, y el operador sintético efectivamente registrado, antes de capturar la vista de lectura. Conserva ausencia de acciones de escritura y comprobación de overflow en las tres anchuras. Las capturas de ciclo de vida esperan a que desaparezcan los enlaces en carga. En el historial, cada anchura desplaza la última fila dentro del contenedor desplazable y exige ambas filas visibles antes de fotografiar. `fullPage` no desplaza por sí solo los contenedores internos.
+
+No se cambia producto, fixture, datos, rol, assertions anteriores ni timeouts. Son aserciones adicionales del consumidor W2; los controles propios de la nueva fuente siguen siendo necesarios. Tampoco acreditan las 342 filas, UI de consulta IA comercial, modelo vivo ni W4. Las pruebas funcionales anteriores siguen ligadas a B49, audit HIGH sigue FAIL, IA writes OFF y release NOT_ACCEPTED.

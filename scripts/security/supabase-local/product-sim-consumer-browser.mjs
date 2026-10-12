@@ -7,7 +7,18 @@ export async function simConsumerBrowser({page,origin,id,sql,check,screenshotDir
  let simId,replacementId,lineId,operatorId
  const button=name=>page.getByRole('button',{name,exact:true}),wait=op=>page.waitForResponse(r=>{try{return r.request().method()==='POST'&&r.request().postDataJSON().operation===op}catch{return false}}),step=name=>{report.w2_ui_action_step='sim:'+name}
  async function normal(path,operation,input){step('fixture:'+operation);const r=await page.evaluate(async q=>{const r=await fetch(q.path,{method:'POST',credentials:'same-origin',headers:{'content-type':'application/json'},body:JSON.stringify({operation:q.operation,input:q.input})});let body;try{body=await r.json()}catch{return{status:r.status,notJson:true}}return{status:r.status,body}},{path,operation,input});if(r.notJson)throw Error('SIM_FIXTURE_RESPONSE_NOT_JSON');if(r.status!==200||!r.body?.ok)throw Error('SIM_NORMAL_FIXTURE_FAILED');const result=path==='/api/portfolio/v1/commands'?r.body.receipt:r.body.data;if(!result||typeof result.id!=='string')throw Error('SIM_FIXTURE_RECEIPT_MISSING');return result}
- async function captures(prefix){for(const width of [1440,768,390]){await page.setViewportSize({width,height:960});await page.screenshot({path:resolve(screenshotDir,prefix+'-'+width+'.png'),fullPage:true});if(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1))throw Error('SIM_LAYOUT_OVERFLOW')}}
+ async function captures(prefix){
+  for(const name of ['Consultando cliente…','Consultando operador…'])await expect(page.getByRole('link',{name,exact:true})).toHaveCount(0)
+  for(const width of [1440,768,390]){
+   await page.setViewportSize({width,height:960})
+   if(prefix==='sim-replacement-history'){
+    const rows=page.locator('[data-sim-history-id]');await expect(rows).toHaveCount(2)
+    await rows.last().scrollIntoViewIfNeeded();await expect(rows.first()).toBeInViewport({ratio:1});await expect(rows.last()).toBeInViewport({ratio:1})
+   }
+   await page.screenshot({path:resolve(screenshotDir,prefix+'-'+width+'.png'),fullPage:true})
+   if(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1))throw Error('SIM_LAYOUT_OVERFLOW')
+  }
+ }
  async function confirm(op){const pending=wait(op);await button('Confirmar cambio').click();const r=await pending,b=await r.json();if(r.status()!==200||!b.ok)throw Error('SIM_NORMAL_COMMAND_FAILED');await expect(page.getByRole('dialog')).toHaveCount(0);return b.data}
  async function create(label,kind='physical'){await page.goto(origin+'/clients/'+id);await page.getByRole('tab',{name:'SIM/eSIM',exact:true}).click();await button('Nueva SIM/eSIM').click();await page.getByLabel('Nombre de SIM/eSIM',{exact:true}).fill(label);await page.getByLabel('Tipo de SIM',{exact:true}).selectOption(kind);const picker=page.getByLabel('Operador de SIM/eSIM',{exact:true});await expect(picker).toBeEnabled();for(let i=0;i<8&&!await picker.locator('option[value="'+operatorId+'"]').count();i++){const pending=page.waitForResponse(r=>{try{const q=r.request().postDataJSON();return q.operation==='operator.list'&&q.input.limit===20&&!!q.input.after_id}catch{return false}});await button('Más operadores').click();if((await pending).status()!==200)throw Error('SIM_OPERATOR_NEXT_FAILED');await expect(picker).toBeEnabled()}await picker.selectOption(operatorId);await button('Revisar alta de SIM/eSIM').click();const summary=await observeCustomerSummaryCreation({page,sql,customerId:id,kind:'sim'}),receipt=await confirm('sim.create');await summary(receipt.id);return receipt.id}
  async function identifier(targetId,raw,kind='iccid'){await page.goto(origin+'/sims/'+targetId);await button('Gestionar identificadores de SIM/eSIM').click();await page.getByLabel('Tipo de identificador de SIM',{exact:true}).selectOption(kind);await page.getByLabel('Nuevo identificador de SIM',{exact:true}).fill(raw);await button('Revisar identificador de SIM/eSIM').click();const receipt=await confirm('identifier.create_manual');await expect(page.locator('body')).not.toContainText(raw);if(await page.evaluate(raw=>location.href.includes(raw)||Object.values(localStorage).some(v=>v.includes(raw))||Object.values(sessionStorage).some(v=>v.includes(raw)),raw))throw Error('SIM_PRIVATE_IDENTIFIER_PERSISTED');return receipt.id}
@@ -27,5 +38,14 @@ export async function simConsumerBrowser({page,origin,id,sql,check,screenshotDir
  return{simId,replacementId,lineId,customerId:id}
 }
 export async function viewerSimConsumerBrowser({page,origin,check,simConsumer,screenshotDir}){
- await check('sim_viewer_masked_detail_no_lifecycle_writes_three_widths',async()=>{if(!simConsumer?.simId)throw Error('SIM_VIEWER_FIXTURE_MISSING');await page.goto(origin+'/sims/'+simConsumer.simId);await expect(page.getByRole('heading',{name:'W2 Synthetic Physical SIM',exact:true})).toBeVisible();for(const name of ['Gestionar identificadores de SIM/eSIM','Revisar asignación de SIM/eSIM','Revisar cancelación de SIM/eSIM','Revisar desactivación de SIM/eSIM'])await expect(page.getByRole('button',{name,exact:true})).toHaveCount(0);for(const width of [1440,768,390]){await page.setViewportSize({width,height:960});await page.screenshot({path:resolve(screenshotDir,'sim-viewer-'+width+'.png'),fullPage:true});if(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1))throw Error('SIM_VIEWER_LAYOUT_OVERFLOW')}await viewerCustomerSimCreationBrowser({page,origin,id:simConsumer.customerId})})
+ await check('sim_viewer_masked_detail_no_lifecycle_writes_three_widths',async()=>{
+  if(!simConsumer?.simId||!simConsumer.customerId)throw Error('SIM_VIEWER_FIXTURE_MISSING')
+  await page.goto(origin+'/sims/'+simConsumer.simId);await expect(page.getByRole('heading',{name:'W2 Synthetic Physical SIM',exact:true})).toBeVisible()
+  const customer=page.locator('header').getByRole('link').and(page.locator('a[href="/clients/'+simConsumer.customerId+'"]'))
+  await expect(customer).toBeVisible();await expect(customer).not.toHaveText('Consultando cliente…');await expect(customer).not.toHaveText('Cliente no disponible');await expect(customer).toHaveText(/\S/)
+  await expect(page.getByRole('link',{name:'W2 Synthetic SIM Operator',exact:true})).toBeVisible()
+  for(const name of ['Gestionar identificadores de SIM/eSIM','Revisar asignación de SIM/eSIM','Revisar cancelación de SIM/eSIM','Revisar desactivación de SIM/eSIM'])await expect(page.getByRole('button',{name,exact:true})).toHaveCount(0)
+  for(const width of [1440,768,390]){await page.setViewportSize({width,height:960});await page.screenshot({path:resolve(screenshotDir,'sim-viewer-'+width+'.png'),fullPage:true});if(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1))throw Error('SIM_VIEWER_LAYOUT_OVERFLOW')}
+  await viewerCustomerSimCreationBrowser({page,origin,id:simConsumer.customerId})
+ })
 }
