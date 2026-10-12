@@ -1,5 +1,6 @@
 import { isValidatedProductReadResultV2, type ProductReadResultV2 } from './product-read-executor-v2.ts'
 import {portabilityReasonLabel} from '../features/portabilities/presentation.ts'
+import {caseRegisteredCodeLabelV1} from '../features/cases/presentation.ts'
 /** UI-facing typed facts. Business strings render as plain text, never markdown
  * instructions, links or executable actions. Model prose cannot supply blocks. */
 export type ProductAssistantResponseV2 = { contract: 'assistant.response.v2'; requestId: string; status: ProductReadResultV2['status'];
@@ -51,7 +52,9 @@ export function composeProductResponseV2(result: ProductReadResultV2, requestId:
         row.case_type=({activation:'Activación',portability:'Portabilidad',technical:'Técnica',billing:'Facturación',renewal:'Renovación',cancellation:'Baja',documentation:'Documentación',other:'Otra'} as Record<string,string>)[record.case_type as string];
         row.priority=({low:'Baja',normal:'Normal',high:'Alta',urgent:'Urgente'} as Record<string,string>)[record.priority as string];
         row.status=({open:'Abierta',in_progress:'En curso',waiting_customer:'Esperando al cliente',waiting_operator:'Esperando al operador',resolved:'Resuelta',closed:'Cerrada',cancelled:'Cancelada'} as Record<string,string>)[record.status as string];
-        for(const field of ['due_on','resolved_at','closed_at','resolution_code','cancellation_code','overdue','source'])row[field]=record[field]
+        for(const field of ['due_on','resolved_at','closed_at','overdue','source'])row[field]=record[field]
+        row.resolution_code=caseRegisteredCodeLabelV1(record.resolution_code as string|null,'resolution')
+        row.cancellation_code=caseRegisteredCodeLabelV1(record.cancellation_code as string|null,'cancellation')
       }
       rows.push(row)
     }
