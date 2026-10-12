@@ -4,6 +4,44 @@ import { aggregateBenchmark, runBenchmark, type BenchmarkCandidate } from '../..
 const candidate: BenchmarkCandidate = { id: 'reference_v1', mode: 'reference', inputMicrousdPerMillion: 2_000_000, outputMicrousdPerMillion: 4_000_000, async generate() { return { output: { capability: 'crm.customer.search' }, inputTokens: 10, outputTokens: 5 } } }
 const cases = [{ id: 'lookup', prompt: 'Busca ACME', context: {} }]
 const judge = () => ({ capability: true, arguments: true, policy: true, grounding: true })
+test('direct benchmark keeps original case membership and denominator across adapter mutation',async()=>{
+ const selected=[{id:'first_original',prompt:'Consulta original',context:{}},{id:'second_original',prompt:'Otra consulta original',context:{}}]
+ let calls=0
+ const changing:BenchmarkCandidate={...candidate,async generate(){calls++;if(calls===1)selected.pop();return {output:{},inputTokens:10,outputTokens:5}}}
+ const rows=await runBenchmark(changing,selected,judge)
+ assert.deepEqual(rows.map(r=>r.caseId),['first_original','second_original']);assert.equal(calls,2)
+ assert.equal(aggregateBenchmark(rows)?.cases,2);assert.equal(aggregateBenchmark(rows)?.observedCostMicrousd,80)
+})
+test('direct benchmark pins later prompts and nested context before waiting for a provider',async()=>{
+ const selected=[{id:'first_original',prompt:'Primera consulta',context:{record:{label:'Primero'}}},{id:'second_original',prompt:'Segunda original',context:{record:{label:'Segundo'}}}]
+ const seen:string[]=[],changing:BenchmarkCandidate={...candidate,async generate(input){
+  seen.push(JSON.stringify(input))
+  if(seen.length===1){selected[1]!.id='substituted_case';selected[1]!.prompt='Texto sustituido';selected[1]!.context.record.label='Hecho sustituido'}
+  return {output:{},inputTokens:10,outputTokens:5}
+ }}
+ const rows=await runBenchmark(changing,selected,judge)
+ assert.equal(rows[1]!.caseId,'second_original');assert.ok(seen[1]!.includes('Segunda original'));assert.ok(seen[1]!.includes('Segundo'))
+ assert.ok(!seen[1]!.includes('sustituido'));assert.equal(JSON.stringify(rows).includes('original'),true)
+})
+test('direct benchmark refuses accessor case material before evaluating it or calling a provider',async()=>{
+ let read=false,calls=0
+ const accessor={id:'accessor_case',get prompt(){read=true;return 'Texto inestable'},context:{}}
+ await assert.rejects(runBenchmark({...candidate,async generate(){calls++;return {output:{},inputTokens:0,outputTokens:0}}},[accessor],judge),/invalid_benchmark_case/)
+ assert.equal(read,false);assert.equal(calls,0)
+})
+test('benchmark refuses provider usage accessors without invoking them or inventing a cost',async()=>{
+ let read=false
+ const rows=await runBenchmark({...candidate,async generate(){return {output:{},get inputTokens(){read=true;return 10},outputTokens:5}}},cases,judge)
+ assert.equal(read,false);assert.equal(rows[0]!.status,'invalid_observation');assert.equal(rows[0]!.costMicrousd,null)
+ assert.equal(aggregateBenchmark(rows)?.usageComplete,false)
+})
+test('benchmark counts admitted usage descriptor values rather than substituted Proxy get values',async()=>{
+ let substituted=0
+ const rows=await runBenchmark({...candidate,async generate(){return new Proxy({output:{},inputTokens:10,outputTokens:5},{get(target,key,receiver){
+  if(key==='inputTokens'||key==='outputTokens'){substituted++;return 0}return Reflect.get(target,key,receiver)
+ }})}},cases,judge)
+ assert.equal(substituted,0);assert.equal(rows[0]!.inputTokens,10);assert.equal(rows[0]!.outputTokens,5);assert.equal(rows[0]!.costMicrousd,40)
+})
 
 test('a running benchmark keeps its admitted identity, evidence mode, tariffs and transport across adapter mutation',async()=>{
  let originalCalls=0,replacementCalls=0
