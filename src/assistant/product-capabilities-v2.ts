@@ -65,7 +65,7 @@ function inputSchema(filters: readonly string[], enums: Readonly<Record<string, 
 }
 export type ProductCapabilityV2 = {
   name: string; description: string; version: 'assistant.capability.v2'; mode: 'read'; risk: 'READ'; roles: readonly string[]
-  inputSchema: Schema; outputSchema: Schema; backendOperation: string; family: 'collection' | 'report' | 'billing_analytics'
+  inputSchema: Schema; outputSchema: Schema; backendOperation: string; family: 'collection' | 'report' | 'billing_analytics' | 'billing_invoice'
   sensitiveFields: readonly string[]; confirmation: 'none'; grounding: string; partiality: string
   authorization: 'current_server_membership_and_role_rechecked_around_each_await'
   tenantScope: 'server_selected_workspace_actor_and_scope_epoch'
@@ -121,6 +121,16 @@ capabilities.push({ name: `crm.${billingOperation}`, version: 'assistant.capabil
   grounding: 'validated dense monthly cohort; exact integer-string amounts; current invoice status at as_of, never cash ledger',
   partiality: 'complete requested range only; missing months, currency mismatch or invalid amount equations are unavailable',
   enabled: { local: true, stage: false, prod: false } })
+capabilities.push({name:'crm.invoice.list',version:'assistant.capability.v2',mode:'read',risk:'READ',roles:['owner','admin'],backendOperation:'invoice.list',family:'billing_invoice',
+  description:'Lista hasta veinte facturas de un cliente autorizado: estado, fechas, moneda e importe exacto. Solo titular/administrador. Sin datos fiscales ni números; pagada indica estado registrado, no un cobro bancario. Conserva parcialidad.',
+  inputSchema:closed({customer_id:uuid,status:{type:'string',enum:['draft','trashed','issued','paid','overdue']},from:ruleSchema('date'),to:ruleSchema('date'),
+    limit:{type:'integer',minimum:1,maximum:20},after_id:uuid},['customer_id']),
+  outputSchema:closed({contract_version:{const:'assistant.invoice-list.v1'},operation:{const:'invoice.list'},items:{type:'array',maxItems:20,
+    items:closed({id:uuid,status:{type:'string',enum:['draft','trashed','issued','paid']},issue_on:ruleSchema('date'),due_on:ruleSchema('date?'),currency:ruleSchema('currency'),total_minor:ruleSchema('money'),overdue:{type:'boolean'}},
+      ['id','status','issue_on','due_on','currency','total_minor','overdue'])},next_id:{anyOf:[uuid,{type:'null'}]}},['contract_version','operation','items','next_id']),
+  ...readBoundary,sensitiveFields:['customer_id','number','series','version','totals.subtotal_minor','totals.tax_minor','totals.withholding_minor','lines','notes','issuer','customer_fiscal'],confirmation:'none',
+  grounding:'validated current invoice list for the authorized customer and requested status/issue-date slice; exact integer minor units, separate currencies; paid is recorded status only',
+  partiality:'at most20 rows; next_id means partial, never infer customer totals, bank collections or absence from an incomplete page',enabled:{local:true,stage:false,prod:false}})
 function freeze(value: unknown): void { if (value && typeof value === 'object') { for (const child of Object.values(value)) freeze(child); Object.freeze(value) } }
 freeze(capabilities)
 export const PRODUCT_CAPABILITIES_V2: readonly ProductCapabilityV2[] = Object.freeze(capabilities)

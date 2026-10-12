@@ -32,9 +32,9 @@ export function composeProductResponseV2(result: ProductReadResultV2, requestId:
   const response: ProductAssistantResponseV2 = { contract: 'assistant.response.v2', requestId, status: result.status, answer, grounded: result.status === 'completed', blocks: [], sources: [] }
   if (result.status !== 'completed') return response
   for (const [index, evidence] of result.evidence.entries()) {
-    const monthlyBilling = evidence.capability === 'crm.billing.monthly_series'
+    const monthlyBilling = evidence.capability === 'crm.billing.monthly_series',invoiceList=evidence.capability==='crm.invoice.list'
     const sourceRef = `source_${index + 1}`, title = monthlyBilling ? 'Facturas por mes de emisión · estado actual'
-      : titles[evidence.capability.split('.')[1] ?? ''] ?? 'Datos del CRM'
+      : invoiceList?'Facturas del cliente · estado registrado':titles[evidence.capability.split('.')[1] ?? ''] ?? 'Datos del CRM'
     const raw = Array.isArray(evidence.data.items) ? evidence.data.items : [evidence.data.record]
     const rows: Record<string, string | number | boolean | null>[] = []
     for (const item of raw) {
@@ -42,11 +42,13 @@ export function composeProductResponseV2(result: ProductReadResultV2, requestId:
       const row: Record<string, string | number | boolean | null> = {}
       for (const [field, value] of Object.entries(item)) if (Object.hasOwn(labels, field) && (value === null || ['string', 'number', 'boolean'].includes(typeof value))) row[field] = value as string | number | boolean | null
       if (monthlyBilling) for (const field of Object.keys(billingLabels)) row[field] = exactMinor((item as Record<string, string>)[field])
+      if(invoiceList){const invoice=item as Record<string,string|boolean|null>;row.issue_on=invoice.issue_on;row.total_minor=exactMinor(invoice.total_minor as string);row.overdue=invoice.overdue;
+        row.status=({draft:'Borrador',trashed:'Archivada',issued:'Emitida',paid:'Marcada como pagada'} as Record<string,string>)[invoice.status as string]!}
       rows.push(row)
     }
     const fields = [...new Set(rows.flatMap(row => Object.keys(row)))]
     response.blocks.push({ type: 'table', title, columns: fields.map(field => ({ field,
-      label: monthlyBilling && billingLabels[field] ? `${billingLabels[field]} (${evidence.data.currency})` : labels[field]! })), rows, sourceRef, partial: evidence.partial })
+      label: monthlyBilling && billingLabels[field] ? `${billingLabels[field]} (${evidence.data.currency})` : invoiceList&&field==='issue_on'?'Emisión':invoiceList&&field==='total_minor'?'Total':invoiceList&&field==='overdue'?'Vencida según consulta':labels[field]! })), rows, sourceRef, partial: evidence.partial })
     response.sources.push({ ref: sourceRef, label: title, capability: evidence.capability, readAt: evidence.readAt, asOf: evidence.asOf, partial: evidence.partial })
   }
   return response
