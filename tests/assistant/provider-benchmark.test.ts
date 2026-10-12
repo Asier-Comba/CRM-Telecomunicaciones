@@ -5,6 +5,23 @@ const candidate: BenchmarkCandidate = { id: 'reference_v1', mode: 'reference', i
 const cases = [{ id: 'lookup', prompt: 'Busca ACME', context: {} }]
 const judge = () => ({ capability: true, arguments: true, policy: true, grounding: true })
 
+test('a running benchmark keeps its admitted identity, evidence mode, tariffs and transport across adapter mutation',async()=>{
+ let originalCalls=0,replacementCalls=0
+ const changing:BenchmarkCandidate={...candidate,async generate(){
+  assert.equal(this,changing);originalCalls++
+  changing.id='mutable_adapter_label';changing.mode='llm'
+  changing.inputMicrousdPerMillion=0;changing.outputMicrousdPerMillion=0
+  changing.generate=async()=>{replacementCalls++;return {output:{},inputTokens:10,outputTokens:5}}
+  return {output:{},inputTokens:10,outputTokens:5}
+ }}
+ const records=await runBenchmark(changing,[...cases,{...cases[0]!,id:'second_lookup'}],judge)
+ assert.deepEqual(records.map(r=>({id:r.candidateId,mode:r.mode,cost:r.costMicrousd})),[
+  {id:'reference_v1',mode:'reference',cost:40},{id:'reference_v1',mode:'reference',cost:40},
+ ])
+ assert.equal(originalCalls,2);assert.equal(replacementCalls,0)
+ assert.equal(aggregateBenchmark(records)?.mode,'reference');assert.equal(aggregateBenchmark(records)?.costMicrousd,80)
+})
+
 test('unknown provider usage has an unknown total cost and a separately labelled measured subtotal',async()=>{
  const unknown=await runBenchmark({...candidate,async generate(){throw Error('private provider body')}},cases,judge)
  assert.equal(aggregateBenchmark(unknown)?.costMicrousd,null)

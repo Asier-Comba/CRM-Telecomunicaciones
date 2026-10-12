@@ -27,8 +27,13 @@ export async function runBenchmark(
   judge: (caseId: string, output: unknown) => GoldenJudgment,
   timeoutMs = 5000,
 ): Promise<BenchmarkRecord[]> {
-  if (!identifier(candidate.id) || !['reference', 'mock', 'llm'].includes(candidate.mode) ||
-    !validCount(candidate.inputMicrousdPerMillion) || !validCount(candidate.outputMicrousdPerMillion) ||
+  // Configuration is server-owned, but adapters may retain a mutable reference.
+  // Admit one observation policy/transport for this whole run before any await.
+  const admitted = Object.freeze({ id: candidate.id, mode: candidate.mode,
+    inputMicrousdPerMillion: candidate.inputMicrousdPerMillion, outputMicrousdPerMillion: candidate.outputMicrousdPerMillion })
+  const transport = candidate.generate
+  if (!identifier(admitted.id) || !['reference', 'mock', 'llm'].includes(admitted.mode) ||
+    !validCount(admitted.inputMicrousdPerMillion) || !validCount(admitted.outputMicrousdPerMillion) || typeof transport !== 'function' ||
     !Number.isSafeInteger(timeoutMs) || timeoutMs < 1 || timeoutMs > 60_000 || cases.length > 1000 ||
     new Set(cases.map(c => c.id)).size !== cases.length) throw new Error('invalid_benchmark_config')
   if (cases.some(c => !identifier(c.id) || typeof c.prompt !== 'string' || c.prompt.length > 4000)) throw new Error('invalid_benchmark_case')
@@ -37,10 +42,10 @@ export async function runBenchmark(
     const start = performance.now()
     const controller = new AbortController()
     let timer: ReturnType<typeof setTimeout> | undefined
-    const record: BenchmarkRecord = { caseId: input.id, candidateId: candidate.id, mode: candidate.mode, status: 'provider_failure', latencyMs: 0, inputTokens: null, outputTokens: null, costMicrousd: null, judgment: null, fallbackUsed: null }
+    const record: BenchmarkRecord = { caseId: input.id, candidateId: admitted.id, mode: admitted.mode, status: 'provider_failure', latencyMs: 0, inputTokens: null, outputTokens: null, costMicrousd: null, judgment: null, fallbackUsed: null }
     try {
       const result = await Promise.race([
-        Promise.resolve().then(() => candidate.generate(structuredClone(input), controller.signal)),
+        Promise.resolve().then(() => transport.call(candidate, structuredClone(input), controller.signal)),
         new Promise<null>(resolve => { timer = setTimeout(() => { controller.abort(); resolve(null) }, timeoutMs) }),
       ])
       if (result === null) record.status = 'timeout'
@@ -51,8 +56,8 @@ export async function runBenchmark(
         record.inputTokens = result.inputTokens
         record.outputTokens = result.outputTokens
         record.fallbackUsed = result.fallbackUsed ?? false
-        const costNumerator = result.inputTokens * candidate.inputMicrousdPerMillion
-          + result.outputTokens * candidate.outputMicrousdPerMillion
+        const costNumerator = result.inputTokens * admitted.inputMicrousdPerMillion
+          + result.outputTokens * admitted.outputMicrousdPerMillion
         if (!Number.isSafeInteger(costNumerator)) throw new Error('unsafe_cost')
         record.costMicrousd = Math.ceil(costNumerator / 1_000_000)
         try {
