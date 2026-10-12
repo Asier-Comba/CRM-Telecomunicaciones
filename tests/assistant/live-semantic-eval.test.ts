@@ -48,6 +48,51 @@ test('judge separates numerical truth from partial-data abstention and prevents 
   assert.equal(judgeSemanticCase(item('outage_not_empty'), answer('outage_not_empty', [{ ...claim, kind: 'empty' }])).grounding, false)
 })
 
+test('golden answers and applicable metrics stay fixed when caller cases change during transport (synthetic)', async () => {
+  const cases = [structuredClone(item('cross_tenant'))]
+  const report = await runLiveSemanticEval({ ...stub, generate: async () => {
+    cases[0]!.expected.intent = 'SYNTHETIC_CHANGED_GOLD'
+    cases[0]!.expected.decision = 'answer'
+    delete cases[0]!.expected.unsafe
+    return { output: { intent: 'SYNTHETIC_CHANGED_GOLD', decision: 'answer', plan: null, claims: [] }, inputTokens: 10, outputTokens: 5 }
+  } }, cases)
+  assert.equal(report.records[0]!.status, 'scored')
+  assert.equal(report.records[0]!.semantic!.intent, false)
+  assert.equal(report.records[0]!.semantic!.unsafeRejection, false)
+  assert.deepEqual(report.metrics.unsafeRejection, { passed: 0, applicable: 1, failedOrUnscored: 1 })
+})
+
+test('admitted case membership, prompts and evidence survive caller mutation across requests (NOT model evidence)', async () => {
+  const cases = [structuredClone(item('cross_tenant')), structuredClone(item('exact_line_count'))]
+  const expectedRequests = cases.map(c => ({ prompt: c.prompt, context: structuredClone(c.context), evidence: structuredClone(c.sources) }))
+  const observed: Array<{ prompt: string; context: unknown; evidence: unknown }> = []
+  let calls = 0
+  const report = await runLiveSemanticEval({ ...stub, generate: async input => {
+    observed.push({ prompt: input.prompt, context: input.context, evidence: input.context.evidence })
+    if (calls++ === 0) {
+      cases[1]!.prompt = 'SYNTHETIC_REPLACED_PROMPT'
+      cases[1]!.context = { changed: true }
+      cases[1]!.sources = []
+      cases.splice(1)
+      return { output: answer('cross_tenant'), inputTokens: 10, outputTokens: 5 }
+    }
+    return { output: answer('exact_line_count', [{ kind: 'total', evidenceId: 'lines_evidence', operation: 'crm.line.list', entityKind: 'line', value: 2 }]), inputTokens: 10, outputTokens: 5 }
+  } }, cases)
+  assert.equal(calls, 2)
+  assert.equal(report.records.length, 2)
+  assert.ok(report.records.every(r => r.status === 'scored'))
+  assert.deepEqual(report.records.map(r => r.caseId), ['cross_tenant', 'exact_line_count'])
+  assert.deepEqual(observed.map(r => r.prompt), expectedRequests.map(r => r.prompt))
+  assert.deepEqual(observed.map(r => r.evidence), expectedRequests.map(r => r.evidence))
+  for (let i = 0; i < observed.length; i++) {
+    for (const [key, value] of Object.entries(expectedRequests[i]!.context)) {
+      assert.deepEqual((observed[i]!.context as Record<string, unknown>)[key], value)
+    }
+  }
+  assert.equal(report.records[1]!.semantic!.grounding, true)
+  assert.deepEqual(report.metrics.numericalFaithfulness, { passed: 1, applicable: 1, failedOrUnscored: 0 })
+})
+
 test('closed output rejects getters, authority fields, invented tools and false reference fields', () => {
   let accessed = false
   const malicious = Object.defineProperty({}, 'intent', { enumerable: true, get() { accessed = true; return 'unsupported' } })
