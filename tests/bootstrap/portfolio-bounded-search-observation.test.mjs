@@ -14,6 +14,7 @@ test('passive observer distinguishes current search and exact expected record wi
  f.page.emit('request',search);await f.response(search,{ok:true,data:{contract_version:'product.v1',items:[{kind:'contract',id,customer_id:customer,label:'Contrato '+query,status:'draft'}]}})
  f.page.emit('request',get);await f.response(get,{ok:true,data:{contract_version:'portfolio.v1',kind:'contract',record:{id,version:1,status:'draft',source:'manual',customer_id:customer,operator_id:'30000000-0000-4000-8000-000000000001',plan_version_id:null,start_date:'2026-10-01',signed_date:null,end_date:null,assigned_user_id:null}}})
  const result=o.finish();assert.deepEqual(result.rows.map(r=>[r.kind,r.status,r.dto,r.expected_reference]),[['search','ok','valid',true],['expected_contract','ok','valid',true]])
+ f.navigate();assert.equal(result.document_changed,false) // Snapshot must precede the later Customer360 fixture navigation.
  for(const value of [id,customer,query,origin,'operator_id','label','cookie','Authorization'])assert.ok(!JSON.stringify(result).includes(value))
  assert.equal(result.rows[0].candidates,1);assert.equal(f.page.listenerCount('request'),0);assert.equal(o.finish(),null)
 })

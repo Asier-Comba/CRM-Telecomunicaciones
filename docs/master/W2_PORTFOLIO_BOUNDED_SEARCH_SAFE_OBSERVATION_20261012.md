@@ -26,3 +26,20 @@ heredan1256/334 ni se reescribe ADF.33 lecturas/214 casos/220 entradas, SIM+fact
 e historial28/16/12 intactos; la portabilidad nueva sigue independiente. Modelo
 NOT_RUN, IA writes OFF, cincoHIGH FAIL y release NOT_ACCEPTED. W4/W5 y full23/
 recurso/reinicio mantienen revisión independiente, sin ACK por silencio.
+
+## Corrección de la ventana y fallo del export final
+
+E2A8 cerró own1259/334/native13, pero Supabase38264481913 FAIL sin artefacto
+supabase-local-safe-evidence. Build/private scan PASS, screenshots parciales
+presentes; conteos producto, Auth/grounding/teardown finales UNKNOWN. No se leen
+logs Sup privados ni se acredita107 con imágenes. Kernel/run-stack W4/W5 sin
+modificar: el export seguro está después de stopProcess/stop del stack en finally;
+causa de su ausencia UNKNOWN, requiere revisión independiente W5 del job exacto.
+
+Sidecar original document_changed:true/rows[]: el observer seguía activo durante
+la navegación posterior a Customer360 de esa misma prueba. Los PNG portfolio y
+renewal existen, sin acreditar107. Ahora se congela exactamente al aparecer la
+tarjeta manual, antes de crear fixtures/navegar; si falla antes, finally guarda
+la evidencia disponible. Finish idempotente evita sobrescribirla al terminar la
+prueba. Se conserva la invalidez del sidecar anterior; no prueba la causa de ADF.
+La nueva fuente necesita sus controles1259/334/native13/Supabase107 completos.
