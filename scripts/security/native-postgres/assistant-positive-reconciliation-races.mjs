@@ -11,6 +11,7 @@ import {runIndependentPositiveReconciliationRaceV1,runIndependentUnconfirmedRese
 import {runPositiveReconciliationProcessCutV1} from './positive-reconciliation-process-cut.mjs'
 import {createNativeDurableAuditInspectorV3} from './durable-audit-inspection-v3.mjs'
 import {createNativeDurableOperationInspectorV3} from './durable-operation-inspection-v3.mjs'
+import {createNativePositiveEffectInspectorV3} from './durable-positive-effect-inspection-v3.mjs'
 import {CapabilityRegistry} from '../../../src/assistant/registry.ts'
 import {argumentsDigest} from '../../../src/assistant/runtime.ts'
 import {createDurableCommandMaterialProducerV1,createDurableMaterialReservationPortV1} from '../../../src/assistant/durable-command-material.ts'
@@ -221,6 +222,9 @@ try{
  assert.equal(await sql(`select count(*) from public.assistant_audit_delivery_outbox d join public.assistant_original_audit_intents i using(workspace_id,event_ref) where i.capability='${capability}' and d.state='pending';`),'0')
  assert.equal(await sql(`select jsonb_agg(to_jsonb(i) order by event_ref) from public.assistant_original_audit_intents i where capability='${capability}';`),originals)
  const finalAudit=await auditInspector.inspect()
+ const positiveEffect=await createNativePositiveEffectInspectorV3(sql,sink,{...binding,operationRef:record.operationRef}).inspect()
+ assert.deepEqual(positiveEffect,{effectCount:1})
+ console.log(JSON.stringify({kind:'durable_v3_native_positive_effect_observation',scenario:'reconciliation_primitive',effect:positiveEffect,source:'owned_synthetic_receipt_ledger',verified_absence:'NOT_RUN',full23:'NOT_RUN'}))
  const operationSlice=await createNativeDurableOperationInspectorV3(sql,{...binding,operationRef:record.operationRef}).inspect()
  assert.deepEqual(operationSlice,{operationCount:1,state:'completed'})
  console.log(JSON.stringify({kind:'durable_v3_native_operation_observation',scenario:'reconciliation_primitive',operation:operationSlice,full23:'NOT_RUN'}))

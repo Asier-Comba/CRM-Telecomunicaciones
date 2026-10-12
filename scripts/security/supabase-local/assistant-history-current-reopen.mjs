@@ -2,7 +2,7 @@ import {parseHistoryDataV2} from '../../../src/features/assistant/history-client
 
 /** Observe the click's ordinary reads alongside the original render assertion.
  * No additional request, retry, timeout override or inferred persistence. */
-export async function currentHistoryReopen({page,origin,thread,action,step=()=>{},observe}){
+export async function currentHistoryReopen({page,origin,thread,action,step=()=>{},observe=undefined}){
  const url=page.url(),main=page.mainFrame()
  let target;try{target=new URL(url)}catch{throw Error('HISTORY_REOPEN_TARGET_INVALID')}
  if(target.origin!==origin||target.pathname!=='/assistant'||target.username||target.password)throw Error('HISTORY_REOPEN_TARGET_INVALID')
