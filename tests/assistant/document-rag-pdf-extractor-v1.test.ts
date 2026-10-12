@@ -31,7 +31,8 @@ test('private PDF adapter pins process configuration, snapshots bytes and requir
   const {args,options}=mock.invocations[0]!
   assert.deepEqual(args.slice(0,3),['-I','-X','utf8']);assert.match(args[3]!,/extract-reviewed-pdf-v1\.py$/)
   assert.equal(options.shell,false);assert.equal(options.windowsHide,true)
-  assert.ok(Object.keys(options.env as object).every(key=>['SystemRoot','PATH','TEMP','TMP'].includes(key)))
+  assert.ok(Object.keys(options.env as object).every(key=>['SystemRoot','PATH','TEMP','TMP','NODE_ENV'].includes(key)))
+  assert.equal(options.env!.NODE_ENV,'test')
   assert.equal(mock.signals.length,0)
 })
 test('private PDF adapter denies premature/nonzero results and malformed or expanded page schemas',async()=>{

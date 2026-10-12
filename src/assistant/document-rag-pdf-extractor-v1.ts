@@ -22,7 +22,7 @@ export function createReviewedPdfExtractorV1(raw:ReviewedPdfExtractorDependencie
   return async(bytes:Uint8Array,signal?:AbortSignal):Promise<unknown>=>{
     if(signal?.aborted||!(bytes instanceof Uint8Array)||bytes.byteLength<5||bytes.byteLength>10_485_760
       ||!Buffer.from(bytes.subarray(0,5)).equals(Buffer.from('%PDF-','ascii')))throw failure()
-    const input=Buffer.from(bytes),environment:NodeJS.ProcessEnv={}
+    const input=Buffer.from(bytes),environment:NodeJS.ProcessEnv={NODE_ENV:'test'}
     for(const key of ['SystemRoot','PATH','TEMP','TMP'])if(process.env[key])environment[key]=process.env[key]
     return new Promise((resolve,reject)=>{
       let child:ChildProcessWithoutNullStreams,settled=false,size=0
