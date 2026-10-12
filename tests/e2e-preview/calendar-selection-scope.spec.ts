@@ -1,9 +1,14 @@
 import {expect,test,type Route} from '@playwright/test'
 import {startCalendarSelectionFixture} from './fixtures/calendar-selection-server.cjs'
+import {calendarDate} from '../../src/features/product/model'
 const renewalId='40000000-0000-4000-8000-000000000001',taskId='50000000-0000-4000-8000-000000000002'
 for(const mode of ['late_success','late_refusal','current_refusal'])for(const width of [390,768,1440])test(`calendar selection ${mode} keeps the latest task at ${width}`,async({page},info)=>{
  const fixture=await startCalendarSelectionFixture(),commands:string[]=[],errors:string[]=[],held:Route[]=[]
- const day=new Date().toISOString().slice(0,10),at=day+'T09:00:00Z'
+ // Deliberate UTC-Sunday/Madrid-Monday boundary; selection semantics must not
+ // depend on the host's date or the real midnight while the fixture compiles.
+ const now='2026-10-11T22:30:00Z'
+ await page.clock.setFixedTime(new Date(now))
+ const day=calendarDate(now),at=day+'T09:00:00Z'
  const entries=[{kind:'renewal',id:renewalId,version:null,title:'Synthetic renewal A',status:'open',customer_id:null,assigned_user_id:null,at,ends_at:null,all_day:true,date:day},{kind:'task',id:taskId,version:1,title:'Synthetic task B',status:'pending',customer_id:null,assigned_user_id:null,at,ends_at:null,all_day:false,date:null}]
  page.on('pageerror',e=>errors.push(e.message))
  await page.route('**/api/**',async route=>{

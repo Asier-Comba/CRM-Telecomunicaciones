@@ -1,4 +1,5 @@
 import {synchronizeLocalShellRoute} from './local-shell-route-arrival.mjs'
+import {calendarDate} from '../../../src/features/product/model.ts'
 import {importCurrentRowsBrowser} from './product-import-current-rows-browser.mjs'
 import {teamCompleteRowsBrowser} from './product-team-complete-rows-browser.mjs'
 import {currentPortfolioReference} from './product-portfolio-reference-read.mjs'
@@ -154,7 +155,7 @@ export async function productBrowserAcceptance({ users, wa, ca, sql, url, anon, 
     await check('contact_pii_not_persisted',async()=>{const state=await page.evaluate(()=>({local:JSON.stringify({...localStorage}),session:JSON.stringify({...sessionStorage}),url:location.href}));if(Object.values(state).some(s=>s.includes('w2-ui-contact@example.invalid')))throw Error('PII_PERSISTED')})
     await page.screenshot({path:resolve(screenshotDir,'customer360.png'),fullPage:true})
     await check('dashboard_and_global_search',async()=>{await page.goto(origin+'/dashboard');await expect(page.getByRole('heading',{name:'Dashboard telecom',exact:true})).toBeVisible();await expect(page.getByText('Información financiera no disponible para tu rol.',{exact:true})).toBeVisible();await page.getByLabel('Búsqueda global',{exact:true}).fill('W2 UI Synthetic');await expect(page.getByLabel('Resultados de búsqueda').getByText('W2 UI Synthetic Trade',{exact:true})).toBeVisible()})
-    const day=new Date().toISOString().slice(0,10)
+    const day=calendarDate(new Date().toISOString())
     await page.goto(origin+'/reports');await expect(page.getByText('Información financiera no disponible para tu rol.',{exact:true})).toBeVisible();await expect(page.getByLabel('Ámbito del informe',{exact:true}).locator('option[value="workspace"]')).toHaveCount(0);
     await page.goto(origin+'/calendar')
     await check('task_create_complete_persist',async()=>{await page.getByRole('button',{name:'Nueva cita',exact:true}).click();await page.getByRole('dialog').getByLabel('Tipo',{exact:true}).selectOption('task');await page.getByLabel('Título',{exact:true}).fill('W2 UI Synthetic Task');await page.getByLabel('Prioridad',{exact:true}).selectOption('high');await page.getByLabel('Responsable autorizado',{exact:true}).selectOption(users.memberA.id);await page.getByLabel('Vencimiento',{exact:true}).fill(day+'T12:00');await page.getByRole('button',{name:'Guardar agenda',exact:true}).click();await expect(page.getByRole('button',{name:/W2 UI Synthetic Task/}).first()).toBeVisible();await page.reload();await page.getByRole('button',{name:/W2 UI Synthetic Task/}).first().click();await expect(page.getByLabel('Título',{exact:true})).toHaveValue('W2 UI Synthetic Task');await page.getByRole('button',{name:'Completar',exact:true}).click();await expect(page.getByRole('dialog')).toHaveCount(0);if(sql(`select status from public.tasks where workspace_id='${wa}' and title='W2 UI Synthetic Task'`)!=='completed')throw Error('TASK_NOT_PERSISTED')})
