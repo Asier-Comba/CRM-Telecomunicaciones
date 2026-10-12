@@ -17,7 +17,10 @@ import {createDurableAuditDeliveryPortV1} from '../../../src/assistant/durable-a
 import {createDurableAuditDrainV1} from '../../../src/assistant/durable-audit-drain.ts'
 import {runIndependentCompletionRaceV1} from './positive-reconciliation-race.mjs'
 import {createNativeDurableAuditInspectorV3} from './durable-audit-inspection-v3.mjs'
+import {createNativeDurableOperationInspectorV3} from './durable-operation-inspection-v3.mjs'
 import {runCompletionProcessCutV1} from './positive-reconciliation-process-cut.mjs'
+import {launchDurableWorkerV3} from '../../durable-process-worker-controller-v3.mjs'
+import {fileURLToPath} from 'node:url'
 const container=process.env.TELECOM_NATIVE_TEST_CONTAINER??''
 assert.match(container,/^[0-9a-f]{12,64}$/)
 const image=spawnSync('docker',['inspect','--format={{.Config.Image}}',container],{encoding:'utf8'})
@@ -35,6 +38,24 @@ function run(input){return new Promise((resolve,reject)=>{
  child.stdin.end("set log_min_error_statement='panic';set log_error_verbosity='terse';"+input)
 })}
 async function sql(input){const r=await run(input);assert.equal(r.code,0,'native effect SQL failed');assert.equal(r.timedOut,false);return r.out.trim()}
+// Measure the new driver's connection method using the same owned fixture;
+// original scenario/data/resource setup below stays unchanged.
+const connectionWorkers=new Set()
+try{
+ const worker=launchDurableWorkerV3({modulePath:fileURLToPath(new URL('./durable-driver-connection-probe-v3.mjs',import.meta.url)),
+  job:{fixture:'v3_connection_probe',scenario:'connection_only',action:'read_same_connection'},active:connectionWorkers})
+ await worker.ready
+ const backend=worker.identity.backendPid
+ assert.ok(Number.isSafeInteger(backend)&&backend>0)
+ const application=await sql(`select application_name from pg_stat_activity where pid=${backend} and datname='telecom_test';`)
+ assert.match(application,/^durable_node_[a-f0-9]{32}$/)
+ worker.start()
+ assert.deepEqual(await worker.result,{contract:'assistant.durable-native-connection.v3',sameBackend:true,connectionClosed:true,full23:'NOT_RUN'})
+ assert.equal(await sql(`select count(*) from pg_stat_activity where pid=${backend} and datname='telecom_test' and application_name=${literal(application)};`),'0')
+ console.log('DURABLE DRIVER CONNECTION V3 NATIVE PASS:independent Node/backend;two fixed reads on admitted connection;clean process exit;owned probe session absent;connectWorker only;NOT full23/business absence/restart/W5 resource')
+}finally{
+ await Promise.all([...connectionWorkers].map(child=>new Promise(resolve=>{child.once('exit',resolve);child.kill('SIGKILL')})))
+}
 const input={customerRef:'d4000000-0000-4000-8000-000000000001',label:'fixture'},digest=argumentsDigest(input)
 const binding={actorId:actor,workspaceId:workspace,capability,argumentsDigest:digest}
 const authority={authentication:'user_session',actorId:actor,workspaceId:workspace,scopeEpoch:'synthetic_current_v1',permissions:new Set([capability,'fixture:write']),
@@ -192,6 +213,9 @@ try{
  assert.equal(await sql(`select count(*) from public.assistant_audit_delivery_outbox d join public.assistant_original_audit_intents i using(workspace_id,event_ref) where i.capability='${capability}' and d.state='pending';`),'0')
  assert.equal(await sql(`select count(*) from public.${auditSink};`),'14');assert.equal(hash(await allOriginals()),originals)
  const finalAudit=await auditInspector.inspect()
+ const operationSlice=await createNativeDurableOperationInspectorV3(sql,{...binding,operationRef:candidate.operationRef}).inspect()
+ assert.deepEqual(operationSlice,{operationCount:1,state:'completed'})
+ console.log(JSON.stringify({kind:'durable_v3_native_operation_observation',scenario:'completion_primitive',operation:operationSlice,full23:'NOT_RUN'}))
  assert.equal(finalAudit.originalAuditIntents,3);assert.equal(finalAudit.deliveredOriginalEvents,3);assert.equal(finalAudit.pendingOriginalEvents,0)
  assert.equal(finalAudit.outcomeDeliveredEvents,1);assert.equal(finalAudit.outcomePendingEvents,0);assert.equal(finalAudit.baselinePendingOriginalEvents,2)
  assert.equal(finalAudit.baselineAuditContentDigest,finalAudit.persistedBaselineAuditContentDigest)

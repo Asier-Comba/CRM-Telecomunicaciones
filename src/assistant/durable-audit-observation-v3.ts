@@ -22,7 +22,7 @@ const events=['assistant.operation.reserved','assistant.operation.effect_applied
 const outcome=(r:AuditRowV3)=>r.event==='assistant.capability.completed'||r.event==='assistant.operation.reconciliation'
 const fingerprint=(rows:readonly AuditRowV3[])=>createHash('sha256').update(JSON.stringify([...rows].sort((a,b)=>a.eventRef.localeCompare(b.eventRef))
   .map(r=>[r.eventRef,r.event,r.contentDigest]))).digest('hex')
-function scope(raw:unknown):AuditScopeV3|null{
+export function snapshotDurableBindingScopeV3(raw:unknown):AuditScopeV3|null{
   const value=snapshotProductJsonV1(raw)
   if(!object(value)||!exact(value,'actorId,argumentsDigest,capability,operationRef,workspaceId')||!uuid(value.actorId)||!uuid(value.workspaceId)
     ||!hex(value.argumentsDigest)||typeof value.capability!=='string'||!/^[a-zA-Z][a-zA-Z0-9_.:-]{0,127}$/.test(value.capability)
@@ -47,7 +47,7 @@ function rows(raw:unknown,binding:AuditScopeV3):readonly AuditRowV3[]|null{
  * Capture before hostile work; handles cannot be manufactured from counters. */
 export function captureDurableAuditBaselineV3(rawScope:unknown,rawRows:unknown):DurableAuditBaselineV3|null{
   try{
-    const binding=scope(rawScope);if(!binding)return null
+    const binding=snapshotDurableBindingScopeV3(rawScope);if(!binding)return null
     const initial=rows(rawRows,binding)
     if(!initial||initial.filter(r=>r.event==='assistant.operation.reserved').length!==1||initial.some(outcome))return null
     const handle=Object.freeze({}) as DurableAuditBaselineV3

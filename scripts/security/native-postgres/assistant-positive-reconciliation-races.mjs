@@ -10,6 +10,7 @@ import {terminatedCatalogFunctionDefinition} from './catalog-function-definition
 import {runIndependentPositiveReconciliationRaceV1,runIndependentUnconfirmedReservationRaceV1} from './positive-reconciliation-race.mjs'
 import {runPositiveReconciliationProcessCutV1} from './positive-reconciliation-process-cut.mjs'
 import {createNativeDurableAuditInspectorV3} from './durable-audit-inspection-v3.mjs'
+import {createNativeDurableOperationInspectorV3} from './durable-operation-inspection-v3.mjs'
 import {CapabilityRegistry} from '../../../src/assistant/registry.ts'
 import {argumentsDigest} from '../../../src/assistant/runtime.ts'
 import {createDurableCommandMaterialProducerV1,createDurableMaterialReservationPortV1} from '../../../src/assistant/durable-command-material.ts'
@@ -220,6 +221,9 @@ try{
  assert.equal(await sql(`select count(*) from public.assistant_audit_delivery_outbox d join public.assistant_original_audit_intents i using(workspace_id,event_ref) where i.capability='${capability}' and d.state='pending';`),'0')
  assert.equal(await sql(`select jsonb_agg(to_jsonb(i) order by event_ref) from public.assistant_original_audit_intents i where capability='${capability}';`),originals)
  const finalAudit=await auditInspector.inspect()
+ const operationSlice=await createNativeDurableOperationInspectorV3(sql,{...binding,operationRef:record.operationRef}).inspect()
+ assert.deepEqual(operationSlice,{operationCount:1,state:'completed'})
+ console.log(JSON.stringify({kind:'durable_v3_native_operation_observation',scenario:'reconciliation_primitive',operation:operationSlice,full23:'NOT_RUN'}))
  assert.equal(finalAudit.originalAuditIntents,4);assert.equal(finalAudit.deliveredOriginalEvents,4);assert.equal(finalAudit.pendingOriginalEvents,0)
  assert.equal(finalAudit.outcomeDeliveredEvents,1);assert.equal(finalAudit.outcomePendingEvents,0);assert.equal(finalAudit.baselinePendingOriginalEvents,3)
  assert.equal(finalAudit.baselineAuditContentDigest,finalAudit.persistedBaselineAuditContentDigest)

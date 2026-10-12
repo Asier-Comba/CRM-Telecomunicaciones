@@ -63,16 +63,18 @@ export async function retrieveAdmittedDocumentChunksV1(query:unknown,raw:Documen
     if(!selected||typeof deps.authority!=='function'||typeof deps.resolveCurrentDocument!=='function')return finish('invalid_input')
   }catch{return finish('invalid_input')}
   if(signal?.aborted)return finish('unavailable')
-  const controller=new AbortController(),cancel=()=>controller.abort(),timer=setTimeout(cancel,10000)
+  const controller=new AbortController(),cancel=()=>controller.abort(),deadline=performance.now()+10000,timer=setTimeout(cancel,10000)
+  const ensureBudget=()=>{if(controller.signal.aborted||performance.now()>=deadline){cancel();throw Error('unavailable')}}
+  const within=async<T>(start:()=>Promise<T>)=>{ensureBudget();const value=await boundedAwaitV2(start,controller.signal);ensureBudget();return value}
   signal?.addEventListener('abort',cancel,{once:true})
   try{
     if(signal?.aborted)controller.abort()
     // Snapshot callbacks before the first await. Keep this bound to the original
     // server dependency object, while every authority/source read remains fresh.
-    const readAuthority=deps.authority,resolve=deps.resolveCurrentDocument,scope=authority(await boundedAwaitV2(()=>readAuthority.call(raw),controller.signal))
+    const readAuthority=deps.authority,resolve=deps.resolveCurrentDocument,scope=authority(await within(()=>readAuthority.call(raw)))
     if(!scope||!['owner','admin'].includes(scope.role))return finish('not_admitted')
-    const fresh=async()=>same(authority(await boundedAwaitV2(()=>readAuthority.call(raw),controller.signal)),scope)&&!controller.signal.aborted
-    const current=async(reference:string)=>await boundedAwaitV2(()=>resolve.call(raw,reference,scope,controller.signal),controller.signal)
+    const fresh=async()=>same(authority(await within(()=>readAuthority.call(raw))),scope)&&!controller.signal.aborted
+    const current=async(reference:string)=>await within(()=>resolve.call(raw,reference,scope,controller.signal))
     const materials:{reference:string;material:DocumentRagMaterialV1}[]=[],identities=new Set<string>()
     for(const item of selected){
       if(!await fresh())return finish('access_changed')
@@ -102,6 +104,7 @@ export async function retrieveAdmittedDocumentChunksV1(query:unknown,raw:Documen
     }
     if(!await fresh())return finish('access_changed')
     matches.sort((a,b)=>b.score-a.score||a.source-b.source||a.citation.page-b.citation.page||a.citation.start-b.citation.start)
+    ensureBudget()
     return finish(matches.length?'matched':'no_match',matches.slice(0,3).map(m=>m.citation))
   }catch{return finish('unavailable')}
   finally{clearTimeout(timer);signal?.removeEventListener('abort',cancel)}

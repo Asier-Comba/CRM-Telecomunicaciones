@@ -9,6 +9,9 @@ import { isBillingAnalyticsOperationV1, parseBillingAnalyticsInputV1, parseBilli
 import { parseSimInputV1 } from '../lib/server/sim-runtime-v1.ts'
 import { projectAuthorizedSimListV1 } from './sim-read-projection-v1.ts'
 import {parseAssistantInvoiceListInputV1,projectAuthorizedInvoiceListV1} from './invoice-read-projection-v1.ts'
+import {parseAssistantPortabilityListInputV1,projectAuthorizedPortabilityListV1} from './portability-read-projection-v1.ts'
+import {snapshotReadAuthorityV2} from './read-authority-snapshot-v2.ts'
+import {parseAssistantCaseListInputV1,projectAuthorizedCaseListV1} from './case-read-projection-v1.ts'
 export type ReadAuthorityV2 = Readonly<{ actorId: string; workspaceId: string; scopeEpoch: string; role: string }>
 export type AuthorizedProductReadersV2 = {
   collection(operation: string, input: unknown): Promise<unknown>
@@ -16,6 +19,8 @@ export type AuthorizedProductReadersV2 = {
   billingAnalytics?(operation: string, input: unknown): Promise<unknown>
   simInventory?(operation: string, input: unknown): Promise<unknown>
   billingInvoices?(operation: 'invoice.list', input: unknown): Promise<unknown>
+  portabilities?(operation:'portability.list',input:unknown):Promise<unknown>
+  cases?(operation:'case.list',input:unknown):Promise<unknown>
 }
 export type ProductEvidenceV2 = { nodeId: string; capability: string; readAt: string; asOf: string | null;
   partial: boolean; data: Record<string, unknown> }
@@ -43,8 +48,18 @@ export async function executeProductReadPlanV2(raw: unknown, deps: ProductReadDe
   const stop = (status: Exclude<ProductReadResultV2['status'], 'completed'>): ProductReadResultV2 => ({ status, evidence: [] })
   const plan = parseProductReadPlanV2(raw, deps.offeredHandles); if (!plan) return stop('invalid_plan')
   if (plan.decision !== 'plan') return stop(plan.decision)
+  const callerSignal=deps.signal,controller=new AbortController(),cancel=()=>controller.abort()
+  const deadline=performance.now()+20000,timer=setTimeout(cancel,20000)
+  const ensureBudget=()=>{if(controller.signal.aborted||performance.now()>=deadline){cancel();throw Error('unavailable')}}
+  const within=async<T>(start:()=>Promise<T>)=>{ensureBudget();const value=await boundedAwaitV2(start,controller.signal);ensureBudget();return value}
   try {
-    const fresh = () => boundedAwaitV2(() => deps.authority(), deps.signal)
+    if(callerSignal?.aborted)return stop('unavailable')
+    callerSignal?.addEventListener('abort',cancel,{once:true})
+    if(callerSignal?.aborted)cancel()
+    // Retained server adapter objects must not rewrite either the admitted
+    // identity or the callback supplying subsequent fresh authorization.
+    const readAuthority=deps.authority,resolveReference=deps.resolveReference
+    const fresh = async() => snapshotReadAuthorityV2(await within(() => readAuthority.call(deps)))
     const authority = await fresh()
     if (!authority || !['owner', 'admin', 'member', 'viewer'].includes(authority.role)) return stop('access_changed')
     // Reject the entire plan before reading or resolving any reference when a
@@ -55,7 +70,7 @@ export async function executeProductReadPlanV2(raw: unknown, deps: ProductReadDe
       const cap = productCapabilityV2(node.capability)!; const input: Record<string, unknown> = Object.fromEntries(node.arguments.map(arg => [arg.field, arg.value]))
       for (const binding of node.bindings) {
         let id: string | null = null
-        if (binding.handle !== null) id = await boundedAwaitV2(() => deps.resolveReference(binding.handle!, binding.field, authority), deps.signal)
+        if (binding.handle !== null) id = await within(() => resolveReference.call(deps,binding.handle!, binding.field, authority))
         else {
           const source = evidence.find(e => e.nodeId === binding.nodeId), sourceCap = source && productCapabilityV2(source.capability)
           const expected = binding.field === 'id' ? cap.backendOperation.split('.')[0] : bindingKinds[binding.field]
@@ -71,14 +86,15 @@ export async function executeProductReadPlanV2(raw: unknown, deps: ProductReadDe
       if (!same(await fresh(), authority)) return stop('access_changed')
       const op = cap.backendOperation
       const parsedInput = isTelecomCollectionOperationV1(op) ? parseTelecomCollectionInputV1(op, input) : isTelecomReadOperationV1(op) ? parseTelecomReadInputV1(op, input)
-        : isBillingAnalyticsOperationV1(op) ? parseBillingAnalyticsInputV1(op, input) : op === 'sim.list' ? parseSimInputV1(op, input) : op === 'invoice.list' ? parseAssistantInvoiceListInputV1(input) : null
+        : isBillingAnalyticsOperationV1(op) ? parseBillingAnalyticsInputV1(op, input) : op === 'sim.list' ? parseSimInputV1(op, input) : op==='invoice.list' ? parseAssistantInvoiceListInputV1(input) : op==='portability.list' ? parseAssistantPortabilityListInputV1(input) : op==='case.list' ? parseAssistantCaseListInputV1(input) : null
       if (!parsedInput) return stop('invalid_plan')
       if (cap.family === 'billing_analytics' && !deps.readers.billingAnalytics) return stop('unavailable')
       if (cap.family === 'sim_inventory' && !deps.readers.simInventory) return stop('unavailable')
       if (cap.family === 'billing_invoice' && !deps.readers.billingInvoices) return stop('unavailable')
-      const rawResult = await boundedAwaitV2(() => cap.family === 'collection' ? deps.readers.collection(op, parsedInput)
-        : cap.family === 'billing_analytics' ? deps.readers.billingAnalytics!(op, parsedInput)
-        : cap.family === 'sim_inventory' ? deps.readers.simInventory!(op, parsedInput) : op === 'invoice.list' ? deps.readers.billingInvoices!(op, parsedInput) : deps.readers.report(op, parsedInput), deps.signal)
+      if(cap.family==='portability_read'&&!deps.readers.portabilities)return stop('unavailable')
+      if(cap.family==='case_read'&&!deps.readers.cases)return stop('unavailable')
+      const rawResult = await within(() => cap.family === 'collection' ? deps.readers.collection(op, parsedInput)
+        : cap.family === 'billing_analytics' ? deps.readers.billingAnalytics!(op, parsedInput) : op === 'sim.list' ? deps.readers.simInventory!(op, parsedInput) : op==='invoice.list' ? deps.readers.billingInvoices!(op,parsedInput) : op==='portability.list' ? deps.readers.portabilities!(op,parsedInput) : op==='case.list' ? deps.readers.cases!(op,parsedInput) : deps.readers.report(op, parsedInput))
       if (!same(await fresh(), authority)) return stop('access_changed')
       const result = snapshotProductJsonV1(rawResult)
       if (!object(result) || Object.keys(result).sort().join(',') !== 'data,ok' || result.ok !== true) return stop('unavailable')
@@ -96,6 +112,10 @@ export async function executeProductReadPlanV2(raw: unknown, deps: ProductReadDe
         data = projectAuthorizedSimListV1(parsedInput, result.data)
       } else if(op==='invoice.list'){
         data=projectAuthorizedInvoiceListV1(parsedInput,result.data)
+      } else if(op==='portability.list'){
+        data=projectAuthorizedPortabilityListV1(parsedInput,result.data)
+      } else if(op==='case.list'){
+        data=projectAuthorizedCaseListV1(parsedInput,result.data)
       }
       if (!data || containsHighConfidenceSecret(data)) return stop('unavailable')
       // Role-specific protected counters must remain unknown even if a buggy reader returns them.
@@ -104,8 +124,10 @@ export async function executeProductReadPlanV2(raw: unknown, deps: ProductReadDe
         partial: data.next_id !== undefined && data.next_id !== null, data })
     }
     if (!same(await fresh(), authority)) return stop('access_changed')
+    ensureBudget()
     const result: ProductReadResultV2 = Object.freeze({ status: 'completed', evidence: Object.freeze(evidence.map(e => Object.freeze(e))) as unknown as ProductEvidenceV2[] })
     validatedResults.add(result)
     return result
   } catch { return stop('unavailable') }
+  finally{clearTimeout(timer);callerSignal?.removeEventListener('abort',cancel)}
 }
