@@ -26,9 +26,9 @@ test('abstention expectations cannot pass merely because one allowed decision ac
   assert.equal(scoreReadPlanV2(parse([], 'clarify'), abstain).capabilityCorrect, true)
   assert.equal(scoreReadPlanV2(parse([node()]), abstain).capabilityCorrect, false)
 })
-test('216 authored expectations cover35 reads, exact references and closed dependent plans', () => {
+test('217 authored expectations cover35 reads, exact references and closed dependent plans', () => {
   const rows = readFileSync(new URL('../../evals/assistant/product-v2.jsonl', import.meta.url), 'utf8').trim().split('\n').map(line => JSON.parse(line) as ReadPlanExpectationV2)
-  assert.equal(rows.length, 216)
+  assert.equal(rows.length, 217)
   assert.equal(new Set(rows.map(row => row.id)).size, rows.length)
   assert.equal(new Set(rows.map(row => row.text)).size, rows.length)
   const covered = new Set<string>()

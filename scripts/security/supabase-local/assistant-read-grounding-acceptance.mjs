@@ -287,6 +287,20 @@ export async function assistantReadGroundingAcceptance({ rpc, sql, check, users,
       check(calls.at(-1)?.status===403,'assistant_grounding_billing_actual_cookie_revoked')
     }finally{sql(`update public.workspace_members set status='active' where workspace_id='${wa}' and user_id='${owner.id}'`)}
     check((await conversations.execute('turn.finish',{id:thread,turn_id:result.turn_id,status:'cancelled'})).ok,'assistant_grounding_billing_revoked_cancel_after_restore')
+    phase='AUTHORIZED_FOUR_ENTITY_COMPOUND'
+    result=await run(plan([invoiceNode('customer_ref'),portability('customer_ref'),cases('customer_ref'),equipment('customer_ref')]))
+    const compound=result.final?.response,expectedCompoundCapabilities=['crm.invoice.list','crm.portability.list','crm.case.list','crm.equipment.list']
+    check(compound?.status==='completed'&&compound.grounded&&compound.blocks.length===4&&compound.sources.length===4
+      &&JSON.stringify(compound.sources.map(source=>source.capability))===JSON.stringify(expectedCompoundCapabilities)
+      &&new Set(compound.sources.map(source=>source.ref)).size===4&&compound.blocks.every((block,i)=>block.rows.length===1&&block.sourceRef===compound.sources[i].ref&&!block.partial)
+      &&compound.sources.every(source=>!source.partial&&Number.isFinite(Date.parse(source.readAt))),'assistant_grounding_current_multi_entity_sources_separated')
+    check(compound.blocks[0].rows[0].total_minor==='123,45'&&compound.blocks[0].rows[0].currency==='EUR'&&compound.blocks[0].rows[0].status==='Borrador'
+      &&compound.blocks[1].rows[0].masked_display==='••••183'&&compound.blocks[1].rows[0].status==='Borrador'
+      &&compound.blocks[2].rows[0].case_type==='Técnica'&&compound.blocks[2].rows[0].status==='Abierta'
+      &&compound.blocks[3].rows[0].kind==='Router'&&compound.blocks[3].rows[0].status==='Preparado','assistant_grounding_current_multi_entity_exact_registered_facts')
+    check(![...customers,invoiceFixture.receipt.id,portCreated.data.id,caseCreated.id,equipmentCreated.data.id,'+12025550183','W3 Grounding private case fixture','W3 Grounding private case note','W3 Grounding private equipment maker','W3 Grounding private equipment model','W3 Grounding private equipment description','W3 Grounding private invoice fixture','W3 Grounding private note'].some(value=>JSON.stringify(compound).includes(value)),
+      'assistant_grounding_current_multi_entity_no_private_data')
+    check(result.final.telemetry.liveModelEvidence===false&&result.final.telemetry.provider==='deterministic-acceptance','assistant_grounding_current_multi_entity_synthetic_planner_not_live_quality')
     phase='FOREIGN_REFERENCE'
     result=await run(plan([summary({handle:'foreign_customer_ref',nodeId:null})]))
     check(result.final?.response.status==='access_changed'&&!result.final.response.grounded&&!result.final.response.blocks.length&&!result.calls.some(call=>call.operation==='customer360.summary'),'assistant_grounding_foreign_ordinary_identity_no_dependent_read')
@@ -307,7 +321,7 @@ export async function assistantReadGroundingAcceptance({ rpc, sql, check, users,
     const messages=await conversations.execute('message.page',{id:thread,limit:50})
     // Each invoice/portability/case/equipment group adds three users/two replies;
     // the revoked read has no final reply. Assert the complete exact ledger.
-    check(messages.ok&&messages.data.historical&&messages.data.items.length===38&&messages.data.items.filter(item=>item.role==='user').length===22&&messages.data.items.filter(item=>item.role==='assistant').length===16,
+    check(messages.ok&&messages.data.historical&&messages.data.items.length===40&&messages.data.items.filter(item=>item.role==='user').length===23&&messages.data.items.filter(item=>item.role==='assistant').length===17,
       'assistant_grounding_persisted_history_exact_turn_counts')
     check(messages.ok&&messages.data.items.filter(item=>item.role==='assistant').every(item=>!['W3 Grounding','telecom.collections','billing.analytics','assistant.invoice-list','assistant.portability-list','assistant.case-list','assistant.equipment-list','case.v1','equipment.v1','portability.v1','source_','inputTokens','123,45','••••183','+12025550183'].some(value=>item.content.includes(value))),
       'assistant_grounding_persisted_history_excludes_factual_blocks')
