@@ -22,7 +22,7 @@ import {browserErrorKind,observeNextDiagnostics} from './product-browser-diagnos
 import {documentMaintenanceBrowser} from './product-document-maintenance-browser.mjs'
 import { spawn, execFileSync } from 'node:child_process'
 import { chromium, expect } from '@playwright/test'
-import { mkdirSync, readFileSync } from 'node:fs'
+import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { randomUUID } from 'node:crypto'
 import {notificationsAutomationsBrowser} from './product-notifications-automations-browser.mjs'
@@ -254,6 +254,9 @@ export async function productBrowserAcceptance({ users, wa, ca, sql, url, anon, 
     sql(`insert into public.telecom_operators(id,workspace_id,code,display_name)values('${uiOperator}','${wa}','w2-ui-portfolio','W2 UI Portfolio Operator');insert into public.telecom_contracts(id,workspace_id,customer_id,operator_id,start_date,source)values('${uiContract}','${wa}','${id}','${uiOperator}','${day}','manual'),('${uiImported}','${wa}','${id}','${uiOperator}','${day}','import');`)
     await page.goto(origin+'/portfolio')
     await check('portfolio_manual_service_line_renewal_source',async()=>{
+      const {observePortfolioBoundedSearchV1}=await import('./portfolio-bounded-search-observation-v1.mjs')
+      const observed=observePortfolioBoundedSearchV1({page,origin,query:'W2 UI Portfolio',expectedContractId:uiContract})
+      try{
       const step=value=>{if(report)report.w2_ui_action_step='portfolio_manual_service_line_renewal_source:'+value}
       step(1);await page.getByLabel('Consultar cartera local',{exact:true}).fill('W2 UI Portfolio');await page.getByRole('button',{name:'Consultar cartera',exact:true}).click()
       const manual=()=>page.getByRole('article').filter({hasText:'Origen: Manual'}).filter({hasText:'Contrato W2 UI Portfolio'}).first()
@@ -271,6 +274,12 @@ export async function productBrowserAcceptance({ users, wa, ca, sql, url, anon, 
       step(11);await page.getByRole('button',{name:'Cerrar panel',exact:true}).click();if(Number(sql(`select count(*) from public.telecom_services where workspace_id='${wa}' and contract_id='${uiContract}' and display_name='W2 UI Portfolio Mobile'`))!==1)throw Error('SERVICE_NOT_PERSISTED');await page.screenshot({path:resolve(screenshotDir,'portfolio.png'),fullPage:true})
       step(12)
       await customerRenewalCreationBrowser({page,origin,id,wa,contractId:uiContract,importedId:uiImported,day,sql,screenshotDir,report})
+      }finally{
+        try{
+          const summary=observed?.finish()
+          if(summary)writeFileSync(resolve(screenshotDir,'portfolio-bounded-current.safe.json'),JSON.stringify(summary,null,2)+'\n')
+        }catch{/* Passive diagnostics cannot replace the original result/error. */}
+      }
     })
     const uiRenewal=sql(`select id from public.telecom_renewals where workspace_id='${wa}' and contract_id='${uiContract}' and target_on='${day}' order by id limit 1`).trim()
     await page.goto(origin+'/calendar')
