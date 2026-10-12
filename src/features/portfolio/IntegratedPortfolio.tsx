@@ -20,7 +20,8 @@ type Item={value:PortfolioGetV1;label:string}
 export function IntegratedPortfolio({initialReference}:{initialReference?:{kind:PortfolioKindV1;id:string}}){
  const {repository,role}=useProduct(),[query,setQuery]=useState(''),[items,setItems]=useState<Item[]>([]),[customers,setCustomers]=useState<{id:string;name:string}[]>([]),[error,setError]=useState(''),[busy,setBusy]=useState(false),[selected,setSelected]=useState<Item|null>(null),[creating,setCreating]=useState<Item|null>(null)
  const selectionEpoch=useRef(0),[readingSelection,setReadingSelection]=useState(Boolean(initialReference))
- useEffect(()=>{if(!initialReference)return;const epoch=++selectionEpoch.current;let active=true;void repository.portfolio(initialReference.kind,initialReference.id).then(value=>{if(active&&epoch===selectionEpoch.current){const item={value,label:labels[value.kind]};setItems([item]);setSelected(item)}}).catch(e=>{if(active&&epoch===selectionEpoch.current)setError(safeMessage(e))}).finally(()=>{if(active&&epoch===selectionEpoch.current)setReadingSelection(false)});return()=>{active=false}},[repository,initialReference])
+ const referenceKind=initialReference?.kind,referenceId=initialReference?.id
+ useEffect(()=>{if(!referenceKind||!referenceId)return;const epoch=++selectionEpoch.current;let active=true;void repository.portfolio(referenceKind,referenceId).then(value=>{if(active&&epoch===selectionEpoch.current){const item={value,label:labels[value.kind]};setItems([item]);setSelected(item)}}).catch(e=>{if(active&&epoch===selectionEpoch.current)setError(safeMessage(e))}).finally(()=>{if(active&&epoch===selectionEpoch.current)setReadingSelection(false)});return()=>{active=false}},[repository,referenceKind,referenceId])
  const canWrite=role!==null&&role!=='viewer'
  const searchEpoch=useRef(0),[readingItems,setReadingItems]=useState(false)
  useEffect(()=>()=>{searchEpoch.current++;selectionEpoch.current++},[])
