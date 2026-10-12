@@ -32,10 +32,10 @@ function assets(){
  const repository=ts.createSourceFile('repository.ts',readFileSync('src/features/product/integration/repository.ts','utf8'),ts.ScriptTarget.Latest,true)
  const errors=repository.statements.filter(node=>ts.isClassDeclaration(node)&&node.name?.text==='ProductUiError'||ts.isFunctionDeclaration(node)&&node.name?.text==='safeMessage'||ts.isVariableStatement(node)&&node.declarationList.declarations.some(d=>d.name.getText(repository)==='errorText')).map(node=>node.getText(repository)).join('\n')
  result.set('/adapter.js',`import React from '/react.js';const context=React.createContext(null);export const Context=context,useProduct=()=>React.useContext(context),control='',primary='';export const PageHeader=({title})=>React.createElement('h1',null,title),PreviewNotice=()=>null,Status=({value})=>React.createElement('span',null,value),Drawer=({title,children,onClose})=>React.createElement('section',{'data-fixture-drawer':true},React.createElement('h2',null,title),React.createElement('button',{onClick:onClose},'Cerrar ficha'),children);export const ConfirmDialog=()=>null,DocumentIntegrity=({onVerified})=>React.createElement('button',{onClick:()=>onVerified().then(()=>window.refreshOutcome='done',()=>window.refreshOutcome='refused')},'Actualizar metadatos verificados'),DocumentCleanup=()=>null,DocumentUpload=()=>null,DocumentImagePreview=()=>null;`+compile(errors))
- result.set('/entry.js',`import React from '/react.js';import{createRoot}from'/client.js';import{Context}from'/adapter.js';import{IntegratedDocuments}from'/documents.js';window.settled=0;const repository={mode:'integrated_local',documents:()=>fetch('/list').then(r=>r.json()),document:id=>fetch('/metadata/'+id).then(async r=>{if(!r.ok)throw Error('SYNTHETIC_PRIVATE_DETAIL');return r.json()}).finally(()=>window.settled++),search:()=>Promise.resolve({items:[{id:'20000000-0000-4000-8000-000000000001',kind:'customer',label:'Otra empresa'}]})};const root=createRoot(document.getElementById('app'));window.unmount=()=>root.unmount();window.setRole=role=>root.render(React.createElement(Context.Provider,{value:{repository,role,actorId:'synthetic-actor',workspaceId:'synthetic-workspace'}},React.createElement(IntegratedDocuments,{customerId:'30000000-0000-4000-8000-000000000001',contentEnabled:true,maintenanceEnabled:true})));window.setRole('owner');`)
+ result.set('/entry.js',`import React from '/react.js';import{createRoot}from'/client.js';import{Context,ProductUiError}from'/adapter.js';import{IntegratedDocuments}from'/documents.js';window.settled=0;const repository={mode:'integrated_local',documents:()=>fetch('/list').then(r=>r.json()),document:id=>fetch('/metadata/'+id).then(async r=>{if(r.status===403)throw new ProductUiError('access_denied');if(r.status===404)throw new ProductUiError('not_found');if(!r.ok)throw Error('SYNTHETIC_PRIVATE_DETAIL');return r.json()}).finally(()=>window.settled++),search:()=>Promise.resolve({items:[{id:'20000000-0000-4000-8000-000000000001',kind:'customer',label:'Otra empresa'}]})};const root=createRoot(document.getElementById('app'));window.unmount=()=>root.unmount();window.setRole=role=>root.render(React.createElement(Context.Provider,{value:{repository,role,actorId:'synthetic-actor',workspaceId:'synthetic-workspace'}},React.createElement(IntegratedDocuments,{customerId:'30000000-0000-4000-8000-000000000001',contentEnabled:true,maintenanceEnabled:true})));window.setRole('owner');`)
  return result
 }
-for(const mode of ['latest_success','late_error','closed','target_changed','role_revoked','unmounted','refresh_success','refresh_failure','loaded_replace_success','loaded_replace_failure'] as const){
+for(const mode of ['latest_success','late_error','closed','target_changed','role_revoked','unmounted','refresh_success','refresh_failure','loaded_replace_success','loaded_replace_failure','refresh_access_denied','refresh_not_found'] as const){
  test(`document metadata keeps current selection on ${mode}`,async({page})=>{
   const files=assets(),pending=new Map<string,ServerResponse>(),reads:string[]=[],errors:string[]=[]
   const record=(id:string)=>({id,version:1,status:'active',document_kind:id===first?'general':'contract',media_type:id===first?'image/png':'application/pdf',size_bytes:id===first?111:222,target:{kind:'customer',id:'30000000-0000-4000-8000-000000000001'}})
@@ -54,6 +54,18 @@ for(const mode of ['latest_success','late_error','closed','target_changed','role
    await page.goto(`http://127.0.0.1:${address.port}`)
    await page.getByRole('button',{name:'Ver metadatos',exact:true}).nth(0).click()
    await expect.poll(()=>reads.length).toBe(1)
+   if(mode==='refresh_access_denied'||mode==='refresh_not_found'){
+    respond(first)
+    await expect(page.locator('[data-fixture-drawer] dd').filter({hasText:'image/png'})).toBeVisible()
+    await page.getByRole('button',{name:'Actualizar metadatos verificados',exact:true}).click()
+    await expect.poll(()=>reads.length).toBe(2)
+    respond(first,mode==='refresh_access_denied'?403:404)
+    await expect.poll(()=>page.evaluate(()=>(window as unknown as {refreshOutcome:string}).refreshOutcome)).toBe('refused')
+    await expect(page.locator('[data-fixture-drawer]')).toHaveCount(0)
+    await expect(page.getByRole('alert')).toHaveCount(1)
+    expect(reads).toEqual([first,first]);expect(errors).toEqual([])
+    return
+   }
    if(mode==='loaded_replace_success'||mode==='loaded_replace_failure'){
     respond(first)
     await expect(page.locator('[data-fixture-drawer] dd').filter({hasText:'image/png'})).toBeVisible()
