@@ -35,7 +35,7 @@ function assets(){
  result.set('/entry.js',`import React from '/react.js';import{createRoot}from'/client.js';import{Context}from'/adapter.js';import{IntegratedDocuments}from'/documents.js';window.settled=0;const repository={mode:'integrated_local',documents:()=>fetch('/list').then(r=>r.json()),document:id=>fetch('/metadata/'+id).then(async r=>{if(!r.ok)throw Error('SYNTHETIC_PRIVATE_DETAIL');return r.json()}).finally(()=>window.settled++),search:()=>Promise.resolve({items:[{id:'20000000-0000-4000-8000-000000000001',kind:'customer',label:'Otra empresa'}]})};const root=createRoot(document.getElementById('app'));window.unmount=()=>root.unmount();window.setRole=role=>root.render(React.createElement(Context.Provider,{value:{repository,role,actorId:'synthetic-actor',workspaceId:'synthetic-workspace'}},React.createElement(IntegratedDocuments,{customerId:'30000000-0000-4000-8000-000000000001',contentEnabled:true,maintenanceEnabled:true})));window.setRole('owner');`)
  return result
 }
-for(const mode of ['latest_success','late_error','closed','target_changed','role_revoked','unmounted','refresh_success','refresh_failure'] as const){
+for(const mode of ['latest_success','late_error','closed','target_changed','role_revoked','unmounted','refresh_success','refresh_failure','loaded_replace_success','loaded_replace_failure'] as const){
  test(`document metadata keeps current selection on ${mode}`,async({page})=>{
   const files=assets(),pending=new Map<string,ServerResponse>(),reads:string[]=[],errors:string[]=[]
   const record=(id:string)=>({id,version:1,status:'active',document_kind:id===first?'general':'contract',media_type:id===first?'image/png':'application/pdf',size_bytes:id===first?111:222,target:{kind:'customer',id:'30000000-0000-4000-8000-000000000001'}})
@@ -54,6 +54,21 @@ for(const mode of ['latest_success','late_error','closed','target_changed','role
    await page.goto(`http://127.0.0.1:${address.port}`)
    await page.getByRole('button',{name:'Ver metadatos',exact:true}).nth(0).click()
    await expect.poll(()=>reads.length).toBe(1)
+   if(mode==='loaded_replace_success'||mode==='loaded_replace_failure'){
+    respond(first)
+    await expect(page.locator('[data-fixture-drawer] dd').filter({hasText:'image/png'})).toBeVisible()
+    await page.getByRole('button',{name:'Ver metadatos',exact:true}).nth(1).click()
+    await expect.poll(()=>reads.length).toBe(2)
+    // An already displayed document must disappear as soon as another is selected,
+    // before its delayed metadata succeeds or fails. Its integrity action must vanish too.
+    await expect(page.locator('[data-fixture-drawer]')).toHaveCount(0)
+    respond(second,mode==='loaded_replace_failure'?503:200)
+    await expect.poll(()=>page.evaluate(()=>(window as unknown as {settled:number}).settled)).toBe(2)
+    if(mode==='loaded_replace_success')await expect(page.locator('[data-fixture-drawer] dd').filter({hasText:'application/pdf'})).toBeVisible()
+    else{await expect(page.locator('[data-fixture-drawer]')).toHaveCount(0);await expect(page.getByRole('alert')).toHaveCount(1)}
+    expect(reads).toEqual([first,second]);expect(errors).toEqual([])
+    return
+   }
    if(mode==='refresh_success'||mode==='refresh_failure'){
     respond(first)
     await expect(page.locator('[data-fixture-drawer] dd').filter({hasText:'image/png'})).toBeVisible()

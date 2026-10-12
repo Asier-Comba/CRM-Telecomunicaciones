@@ -20,13 +20,16 @@ export function useDocumentMetadataSelection(repository: ProductRepository, scop
   async function read(id: string, refresh: boolean) {
     if (!authorized) return
     const request = ++generation.current
-    setState(previous => previous?.scope === scope ? { scope, record: previous.record } : null)
+    // Keep a displayed record only while refreshing that same document. A new
+    // selection retires the previous record and its integrity action immediately.
+    setState(previous => refresh && previous?.scope === scope && previous.record?.id === id
+      ? { scope, record: previous.record } : null)
     try {
       const result = await repository.document(id)
       if (generation.current === request) setState({ scope, record: result.record })
     } catch (error) {
       if (generation.current === request) {
-        setState(previous => ({ scope, record: refresh && previous?.scope === scope ? previous.record : undefined, error: safeMessage(error) }))
+        setState(previous => ({ scope, record: refresh && previous?.scope === scope && previous.record?.id === id ? previous.record : undefined, error: safeMessage(error) }))
         if (refresh) throw error
       }
     }

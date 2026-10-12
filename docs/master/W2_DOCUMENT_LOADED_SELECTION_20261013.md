@@ -1,0 +1,9 @@
+# Document metadata follows the newly selected document
+
+Opening another document now retires the displayed metadata and its integrity action immediately. A delayed success replaces it with the selected document; a failure leaves the former document closed. Refreshing the same document preserves its current metadata and the existing error/retry behavior. Request generations, target/actor/workspace/role scopes and backend authorization stay unchanged.
+
+The exact previous hook shared by Root CE1, Leaf EE9 and checkpoint 951 failed two controlled loopback browser cases: a loaded document remained visible while another document's read was pending. The existing production React/component harness now covers those cases alongside its eight prior cases on desktop and mobile: 20 local cases pass; global types and changed-file lint pass. This is synthetic presentation evidence, not an Auth/Storage incident or global visual acceptance.
+
+This unit retains the four-node compound grounding prepared in 951, 35 registered reads and 217 gold cases. Its own complete controls require 1,312 functional tests, 344 preview cases, native audit/operation/positive receipt observations and Supabase 107, with actual compound grounding/history 40/23/17 and all three owned cleanup statuses passing. Earlier SHA results are not inherited. Live model evaluation remains NOT_RUN, AI writes OFF and release NOT_ACCEPTED.
+
+EE9 separately passed its own 1,312 functional tests, 340 previews and native controls but failed Supabase 106/107: Cartera at 768 px timed out before the exact selected reference issued its ordinary read. The safe observation shows the current main document, navigation complete, gate before_effect and zero observed requests/responses/failures. That locates the phase; it does not establish the complete cause. Auth, actual grounding and teardown passed. The selection correction above does not claim to fix that distinct Cartera failure.
