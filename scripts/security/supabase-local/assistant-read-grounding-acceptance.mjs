@@ -172,7 +172,12 @@ export async function assistantReadGroundingAcceptance({ rpc, sql, check, users,
     check((await conversations.execute('turn.finish',{id:thread,turn_id:result.turn_id,status:'cancelled'})).ok,'assistant_grounding_revoked_read_cancel_after_restore')
     phase='IMMUTABLE_HISTORY'
     const messages=await conversations.execute('message.page',{id:thread,limit:50})
-    check(messages.ok&&messages.data.historical&&messages.data.items.length===18&&messages.data.items.filter(item=>item.role==='user').length===10&&messages.data.items.filter(item=>item.role==='assistant').length===8&&messages.data.items.filter(item=>item.role==='assistant').every(item=>!['W3 Grounding','telecom.collections','billing.analytics','source_','inputTokens'].some(value=>item.content.includes(value))),'assistant_grounding_persisted_history_excludes_factual_blocks')
+    // The three invoice turns add three users and two assistant replies;
+    // the revoked read has no final reply. Assert the complete exact ledger.
+    check(messages.ok&&messages.data.historical&&messages.data.items.length===23&&messages.data.items.filter(item=>item.role==='user').length===13&&messages.data.items.filter(item=>item.role==='assistant').length===10,
+      'assistant_grounding_persisted_history_exact_turn_counts')
+    check(messages.ok&&messages.data.items.filter(item=>item.role==='assistant').every(item=>!['W3 Grounding','telecom.collections','billing.analytics','assistant.invoice-list','source_','inputTokens','123,45'].some(value=>item.content.includes(value))),
+      'assistant_grounding_persisted_history_excludes_factual_blocks')
     check(before===businessSnapshot(),'assistant_grounding_no_business_record_change')
     return 'PASS_ACTUAL_AUTH_COOKIE_READ_GROUNDING_PARTIALITY_REVOCATION_SYNTHETIC_PLANNER'
   }catch(cause){
