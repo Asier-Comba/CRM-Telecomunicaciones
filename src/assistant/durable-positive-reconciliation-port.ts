@@ -4,7 +4,7 @@ import type {DurableDatabasePort} from './durable-db-contract.ts'
 import type {ServerEffectCommand} from './durable-contracts.ts'
 import type {EffectWorkerAuthorityV1} from './durable-business-outbox-port.ts'
 import type {DurableUnconfirmedReservationPortV1} from './durable-unconfirmed-reservation-port.ts'
-import {assertResultRecordV1,assertVerifiedReconciliationRecordV1,preparedResultParametersV1,type createDurableResultMaterialProducerV1} from './durable-result-material.ts'
+import {assertResultRecordV1,assertResultTimeProgressionV1,assertVerifiedReconciliationRecordV1,preparedResultParametersV1,type createDurableResultMaterialProducerV1} from './durable-result-material.ts'
 import {boundedAwaitV2} from './bounded-await-v2.ts'
 import {canonicalArgumentsV1} from './runtime.ts'
 import {containsHighConfidenceSecret} from './schema.ts'
@@ -86,7 +86,8 @@ export function createDurablePositiveReconciliationPortV1(deps:{reservation:Dura
     if(completed.state!=='completed'||completed.operationRef!==original.operationRef||!same(completed.binding,original.binding)
      ||completed.idempotencyKey!==original.idempotencyKey||completed.version!==original.version+1||completed.attempt!==original.attempt
      ||completed.createdAt!==original.createdAt||completed.leaseExpiresAt!==original.leaseExpiresAt||completed.effectReceiptRef!==original.effectReceiptRef
-     ||Date.parse(completed.updatedAt)<Date.parse(original.updatedAt)||canonicalArgumentsV1(completed.result!)!==p.canonicalResult)throw fail()
+     ||canonicalArgumentsV1(completed.result!)!==p.canonicalResult)throw fail()
+    assertResultTimeProgressionV1(original.updatedAt,completed.updatedAt)
     const after=await fresh(current,signal),admitted=await deps.producer.prepare(completed,command,completed.result,c.actor.requestId,signal)
     const checked=preparedResultParametersV1(admitted,await fresh(after,signal),completed,command)
     if(checked.canonicalResult!==p.canonicalResult)throw fail()

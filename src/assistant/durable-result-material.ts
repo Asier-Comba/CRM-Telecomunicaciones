@@ -28,6 +28,12 @@ function timestamp(v:unknown):v is string{
  return Boolean(m&&Number(m[2])<24&&Number(m[3])<60&&Number(m[4])<60&&new Date(m[1]+'T00:00:00Z').toISOString().slice(0,10)===m[1])
 }
 const micros=(v:string)=>BigInt(Date.parse(v))*BigInt(1000)+BigInt((/\.(\d{1,6})/.exec(v)?.[1].padEnd(6,'0')??'000000').slice(3))
+/** PostgreSQL timestamps retain six fractional digits. Compare the prior
+ * authorized observation and reply without truncating to JavaScript millis.
+ * This checks chronology only; it never proves or rolls back a committed effect. */
+export function assertResultTimeProgressionV1(previous:unknown,current:unknown):void{
+ if(!timestamp(previous)||!timestamp(current)||micros(current)<micros(previous))throw fail()
+}
 function assertMaterialRecordV1(value:unknown,reconciliation=false):asserts value is DurableIdempotencyRecord{
  if(!value||typeof value!=='object')throw fail()
  const v=value as Record<string,unknown>

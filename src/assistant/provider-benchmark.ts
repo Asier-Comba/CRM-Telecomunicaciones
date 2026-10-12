@@ -73,17 +73,26 @@ export async function runBenchmark(
 
 export function aggregateBenchmark(records: readonly BenchmarkRecord[]): {
   mode: BenchmarkCandidate['mode']; cases: number; scored: number; fullPassRate: number
-  meanLatencyMs: number; costMicrousd: number; usageComplete: boolean
+  meanLatencyMs: number; costMicrousd: number | null; observedCostMicrousd: number; usageComplete: boolean
   fallbackRate: number; fallbackReportingComplete: boolean
 } | null {
   if (!records.length || new Set(records.map(r => r.mode)).size !== 1 || new Set(records.map(r => r.candidateId)).size !== 1) return null
+  let observedCostMicrousd = 0
+  for (const record of records) {
+    if (record.costMicrousd === null) continue
+    if (!Number.isSafeInteger(record.costMicrousd) || record.costMicrousd < 0) return null
+    observedCostMicrousd += record.costMicrousd
+    if (!Number.isSafeInteger(observedCostMicrousd)) return null
+  }
+  const usageComplete = records.every(r => r.costMicrousd !== null)
   const scored = records.filter(r => r.status === 'scored')
   return {
     mode: records[0]!.mode, cases: records.length, scored: scored.length,
     fullPassRate: scored.filter(r => r.judgment && Object.values(r.judgment).every(Boolean)).length / records.length,
     meanLatencyMs: records.reduce((sum, r) => sum + r.latencyMs, 0) / records.length,
-    costMicrousd: records.reduce((sum, r) => sum + (r.costMicrousd ?? 0), 0),
-    usageComplete: records.every(r => r.costMicrousd !== null),
+    // A transport failure may still have incurred usage: unknown is not free.
+    // The observed subtotal remains useful but is never an estimated total.
+    costMicrousd: usageComplete ? observedCostMicrousd : null, observedCostMicrousd, usageComplete,
     fallbackRate: records.filter(r => r.fallbackUsed === true).length / records.length,
     fallbackReportingComplete: records.every(r => r.fallbackUsed !== null),
   }
