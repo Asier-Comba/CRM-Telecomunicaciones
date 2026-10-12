@@ -21,7 +21,7 @@ export async function assigneeCollectionIdentity(repository:ProductRepository,id
  return record
 }
 
-function identityCursor(id:string){
+export function identityCursor(id:string){
  const key=id.toLowerCase(),number=BigInt('0x'+key.replaceAll('-','')),hex=number>BigInt(0)?(number-BigInt(1)).toString(16).padStart(32,'0'):null
  const previous=hex?hex.slice(0,8)+'-'+hex.slice(8,12)+'-'+hex.slice(12,16)+'-'+hex.slice(16,20)+'-'+hex.slice(20):null
  return {key,previous}

@@ -1,6 +1,7 @@
 import { chromium, expect } from '@playwright/test'
 import { randomUUID } from 'node:crypto'
 import { mkdirSync, writeFileSync } from 'node:fs'
+import {observeHistoryCurrentIdentityV1} from './history-current-identity-observation-v1.mjs'
 import { resolve } from 'node:path'
 import { assistantUpstreamDiagnostic } from './assistant-server-diagnostics.mjs'
 import { historyCreateStepObservation } from './assistant-history-create-step.mjs'
@@ -34,11 +35,14 @@ export async function assistantHistoryBrowser({ origin, cookie, viewerCookie, ca
     for(const width of [1440,768,390]){await page.setViewportSize({width,height:960});await page.getByRole('main').evaluate(el=>{el.scrollTop=0});await page.screenshot({path:resolve(dir,'history-context-'+width+'.png'),fullPage:true});check(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'assistant_history_browser_context_responsive_'+width)}
     ordinary.length=0
     phase='CONTEXT_FOREIGN'
-    await page.goto(origin+'/assistant?customer='+foreignCustomer)
+    const destination=origin+'/assistant?customer='+foreignCustomer,identityObserver=observeHistoryCurrentIdentityV1({page,destination,customerId:foreignCustomer})
+    try{
+    await page.goto(destination)
     await expect(page.getByRole('region',{name:'Contexto autorizado del cliente',exact:true}).getByRole('alert')).toHaveText('El registro ya no está disponible.')
     await expect(page.getByText('W3 UI Foreign Context',{exact:true})).toHaveCount(0)
     await expect(page.getByText('W3 UI Authorized Context',{exact:true})).toHaveCount(0)
     check(!ordinary.some(request=>request.operation==='customer.editor'||request.operation==='customer360.summary'||request.operation==='telecom.attention'),'assistant_history_browser_context_foreign_reference_no_dependent_read_or_leak')
+    }finally{try{const summary=identityObserver?.finish();if(summary)writeFileSync(resolve(dir,'current-foreign-identity.safe.json'),JSON.stringify(summary))}catch{console.log('W3_HISTORY_FOREIGN_IDENTITY_DIAGNOSTIC_WRITE_UNAVAILABLE')}}
     ordinary.length=0
     phase='CONTEXT_INVALID'
     await page.goto(origin+'/assistant?customer=invalid')
