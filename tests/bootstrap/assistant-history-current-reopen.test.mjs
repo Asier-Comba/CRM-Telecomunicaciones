@@ -18,7 +18,7 @@ function fixture(){
  return{page,main,deliver,reject:()=>reject(Error('SYNTHETIC_WAITER_DISPOSED'))}
 }
 const run=(f,action,extra={})=>currentHistoryReopen({page:f.page,origin,thread,action,...extra})
-const clean=f=>{for(const event of ['request','framenavigated'])assert.equal(f.page.listenerCount(event),0)}
+const clean=f=>{for(const event of ['request','framenavigated','requestfailed'])assert.equal(f.page.listenerCount(event),0)}
 test('only new current-document exact reads are validated in order alongside the unchanged action',async()=>{
  const f=fixture(),steps=[];let actions=0
  await run(f,async()=>{
@@ -51,4 +51,36 @@ test('invalid destination/record/action is refused before observers or action',a
  for(const extra of [{origin:'http://foreign.invalid'},{thread:{...thread,archived:true}},{thread:{...thread,version:0}},{action:null}]){
   const f=fixture();let actions=0;await assert.rejects(run(f,()=>{actions++},extra));assert.equal(actions,0);clean(f)
  }
+})
+
+test('safe reopen summary closes three exact reads without exposing thread or transport material',async()=>{
+ const f=fixture();let summary
+ await run(f,async()=>{await Promise.all([f.deliver(0),f.deliver(1),f.deliver(2)])},{observe:value=>{summary=value}})
+ assert.deepEqual(Object.keys(summary).sort(),['contract','current_document','issued','outcome','reads','validated'])
+ assert.equal(summary.contract,'w3.history-current-reopen-observation.v1');assert.equal(summary.issued,3);assert.equal(summary.validated,3)
+ assert.equal(summary.current_document,true);assert.equal(summary.outcome,null)
+ assert.deepEqual(summary.reads.map(r=>[r.phase,r.requested,r.http,r.body,r.envelope,r.dto,r.current_thread]),[
+  ['list',true,'ok200','received','valid','valid',true],['get',true,'ok200','received','valid','valid',true],['messages',true,'ok200','received','valid','valid',null]])
+ assert.ok(Object.isFrozen(summary)&&Object.isFrozen(summary.reads)&&summary.reads.every(Object.isFrozen))
+ const wire=JSON.stringify(summary);for(const value of [origin,thread.id,thread.title,'cookie','headers','private'])assert.equal(wire.includes(value),false)
+ clean(f)
+})
+
+test('pending body survives waiter failure as bounded immutable evidence and late body cannot rewrite it',async()=>{
+ const f=fixture();let release,summary,late
+ const held=new Promise(resolve=>{release=resolve})
+ await assert.rejects(run(f,async()=>{
+  late=f.deliver(0,{json:()=>held});await new Promise(resolve=>setImmediate(resolve));f.reject()
+ },{observe:value=>{summary=value}}),{message:'SYNTHETIC_WAITER_DISPOSED'})
+ assert.equal(summary.issued,1);assert.equal(summary.validated,0);assert.equal(summary.reads[0].http,'ok200');assert.equal(summary.reads[0].body,'pending')
+ assert.equal(summary.reads[0].dto,'not_observed');assert.equal(summary.reads.length,3)
+ const before=JSON.stringify(summary);release({ok:true,data:values[0]});await late;assert.equal(JSON.stringify(summary),before);clean(f)
+})
+
+test('diagnostic callback failure cannot hide HTTP refusal or replace navigation invalidation',async()=>{
+ const f=fixture()
+ await assert.rejects(run(f,async()=>{await f.deliver(0,{status:500,body:'private response'})},{observe(){throw Error('private diagnostic failure')}}),{message:'HISTORY_REOPEN_LIST_HTTP_REFUSED'});clean(f)
+ const g=fixture();let summary
+ await assert.rejects(run(g,async()=>{g.page.emit('framenavigated',g.main);g.reject()},{observe:value=>{summary=value}}),{message:'SYNTHETIC_WAITER_DISPOSED'})
+ assert.equal(summary.current_document,false);assert.equal(summary.issued,0);assert.equal(summary.validated,0);clean(g)
 })
