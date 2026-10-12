@@ -28,14 +28,18 @@ function ScopedCustomerDetail({ id }: { id: string }) {
   const [area,setArea]=useState('Resumen')
   const [inventoryRevision,setInventoryRevision]=useState(0)
   const archiveIntent = useRef<{execute:()=>Promise<ProductReceiptV1>}|null>(null)
+  const customerReadEpoch = useRef(0)
   const canWrite = role !== null && role !== 'viewer'
   const readCustomer=useCallback(()=>role==='viewer'?customerCollectionIdentity(repository,id):repository.customer(id),[repository,id,role])
   const load = useCallback(async()=>{
+    const epoch=++customerReadEpoch.current
     setError('')
-    try {setCustomer(await readCustomer());setContacts(null);setContactCursors([]);setContactRevision(v=>v+1)}
-    catch(e){setCustomer(null);setContacts(null);setError(safeMessage(e))}
+    try {const current=await readCustomer();if(epoch!==customerReadEpoch.current)return;setCustomer(current);setContacts(null);setContactCursors([]);setContactRevision(v=>v+1)}
+    catch(e){if(epoch!==customerReadEpoch.current)return;setCustomer(null);setContacts(null);setError(safeMessage(e))}
   },[readCustomer])
-  useEffect(()=>{let active=true; void (async()=>{try {const c=await readCustomer();if(active){setCustomer(c);setError('')}}catch(e){if(active)setError(safeMessage(e))}})();return()=>{active=false}},[readCustomer])
+  // Initial and manual/post-command reads share one order. An earlier success
+  // must not undo the newest version or a later denied/unavailable observation.
+  useEffect(()=>{const reads=customerReadEpoch,epoch=++reads.current; void (async()=>{try {const c=await readCustomer();if(epoch===reads.current){setCustomer(c);setError('')}}catch(e){if(epoch===reads.current)setError(safeMessage(e))}})();return()=>{reads.current++}},[readCustomer])
   useEffect(()=>{let active=true;void repository.collection('contact.list',{customer_id:id,limit:20,sort:'id_asc',...(contactCursors.length?{after_id:contactCursors.at(-1)}:{})}).then(v=>{if(active){setContacts(v);setContactsError('')}}).catch(e=>{if(active){setContacts(null);setContactsError(safeMessage(e))}});return()=>{active=false}},[repository,id,contactCursors,contactRevision])
   async function archive() {
     if(!customer || busy)return
