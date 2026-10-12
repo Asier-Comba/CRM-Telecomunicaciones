@@ -4,6 +4,29 @@ import { aggregateBenchmark, runBenchmark, type BenchmarkCandidate } from '../..
 const candidate: BenchmarkCandidate = { id: 'reference_v1', mode: 'reference', inputMicrousdPerMillion: 2_000_000, outputMicrousdPerMillion: 4_000_000, async generate() { return { output: { capability: 'crm.customer.search' }, inputTokens: 10, outputTokens: 5 } } }
 const cases = [{ id: 'lookup', prompt: 'Busca ACME', context: {} }]
 const judge = () => ({ capability: true, arguments: true, policy: true, grounding: true })
+
+test('unknown provider usage has an unknown total cost and a separately labelled measured subtotal',async()=>{
+ const unknown=await runBenchmark({...candidate,async generate(){throw Error('private provider body')}},cases,judge)
+ assert.equal(aggregateBenchmark(unknown)?.costMicrousd,null)
+ assert.equal(aggregateBenchmark(unknown)?.observedCostMicrousd,0)
+ const known=await runBenchmark(candidate,cases,judge),mixed=aggregateBenchmark([...known,{...unknown[0]!,caseId:'failed_lookup'}])!
+ assert.equal(mixed.costMicrousd,null);assert.equal(mixed.observedCostMicrousd,40);assert.equal(mixed.usageComplete,false)
+ assert.equal(JSON.stringify(mixed).includes('private'),false)
+})
+
+test('complete measured usage distinguishes a genuinely zero synthetic cost from missing usage',async()=>{
+ const measured=await runBenchmark({...candidate,inputMicrousdPerMillion:0,outputMicrousdPerMillion:0},cases,judge)
+ const summary=aggregateBenchmark(measured)!
+ assert.equal(summary.costMicrousd,0);assert.equal(summary.observedCostMicrousd,0);assert.equal(summary.usageComplete,true)
+ const known=aggregateBenchmark(await runBenchmark(candidate,cases,judge))!
+ assert.equal(known.costMicrousd,40);assert.equal(known.observedCostMicrousd,40)
+})
+
+test('invalid or overflowing cost observations cannot produce an apparently usable evaluation total',async()=>{
+ const row=(await runBenchmark(candidate,cases,judge))[0]!
+ for(const costMicrousd of [-1,NaN,Infinity,0.5])assert.equal(aggregateBenchmark([{...row,costMicrousd}]),null)
+ assert.equal(aggregateBenchmark([{...row,costMicrousd:Number.MAX_SAFE_INTEGER},{...row,caseId:'second_lookup',costMicrousd:1}]),null)
+})
 test('reference benchmark records precise usage without claiming an LLM run or exposing payload', async () => {
   const rows = await runBenchmark(candidate, cases, judge)
   assert.equal(rows[0]?.costMicrousd, 40)
