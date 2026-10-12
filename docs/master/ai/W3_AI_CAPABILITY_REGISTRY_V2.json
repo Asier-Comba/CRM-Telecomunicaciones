@@ -3,7 +3,7 @@
   "base": "7ab6f56f10fc65aa7212ed5dfbdeacea8901756a",
   "backendInventorySource": "182283f542f3854c3e8b2ea7eb0d27634eaef206",
   "backendInventoryIsNotRegistration": true,
-  "executableLocalReads": 34,
+  "executableLocalReads": 35,
   "capabilities": [
     {
       "name": "crm.customer.list",
@@ -11373,7 +11373,8 @@
     },
     {
       "name": "crm.equipment.list",
-      "version": "equipment.v1",
+      "description": "Lista hasta20 equipos registrados del cliente seleccionado: tipo, estado y fechas de asignación/devolución/sustitución/cancelación. No acredita instalación física; sin fabricantes, modelos, texto libre, compra ni asociaciones privadas.",
+      "version": "assistant.capability.v2",
       "mode": "read",
       "risk": "READ",
       "roles": [
@@ -11382,19 +11383,210 @@
         "member",
         "viewer"
       ],
-      "inputSchema": false,
-      "outputSchema": false,
-      "sourceInputType": "EquipmentInputsV1['equipment.list']",
-      "sourceOutputType": "EquipmentReadV1",
       "backendOperation": "equipment.list",
+      "family": "equipment_read",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "customer_id": {
+            "type": "string",
+            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+            "maxLength": 36
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "router",
+              "ont",
+              "mobile_terminal",
+              "other"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "prepared",
+              "assigned",
+              "returned",
+              "replaced",
+              "cancelled"
+            ]
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 20
+          },
+          "after_id": {
+            "type": "string",
+            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+            "maxLength": 36
+          }
+        },
+        "required": [
+          "customer_id"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "contract_version": {
+            "const": "assistant.equipment-list.v1"
+          },
+          "operation": {
+            "const": "equipment.list"
+          },
+          "items": {
+            "type": "array",
+            "maxItems": 20,
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+                  "maxLength": 36
+                },
+                "kind": {
+                  "type": "string",
+                  "enum": [
+                    "router",
+                    "ont",
+                    "mobile_terminal",
+                    "other"
+                  ]
+                },
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "prepared",
+                    "assigned",
+                    "returned",
+                    "replaced",
+                    "cancelled"
+                  ]
+                },
+                "assigned_on": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+                      "maxLength": 10
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "returned_on": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+                      "maxLength": 10
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "replaced_on": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+                      "maxLength": 10
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "cancelled_on": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+                      "maxLength": 10
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "source": {
+                  "type": "string",
+                  "enum": [
+                    "manual",
+                    "import",
+                    "integration"
+                  ]
+                }
+              },
+              "required": [
+                "id",
+                "kind",
+                "status",
+                "assigned_on",
+                "returned_on",
+                "replaced_on",
+                "cancelled_on",
+                "source"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "next_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+                "maxLength": 36
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "contract_version",
+          "operation",
+          "items",
+          "next_id"
+        ],
+        "additionalProperties": false
+      },
+      "authorization": "current_server_membership_and_role_rechecked_around_each_await",
+      "tenantScope": "server_selected_workspace_actor_and_scope_epoch",
+      "idempotency": "read_fresh_no_effect_reservation",
+      "errorContract": [
+        "invalid_plan",
+        "access_changed",
+        "unavailable",
+        "ambiguous"
+      ],
       "sensitiveFields": [
-        "source_minimization_review_required"
+        "manufacturer",
+        "model",
+        "commercial_description",
+        "purchased_on",
+        "customer_id",
+        "contract_id",
+        "service_id",
+        "line_id",
+        "commitment_id",
+        "replaces_equipment_id",
+        "replaced_by_id",
+        "version",
+        "history.actor_user_id"
       ],
       "confirmation": "none",
-      "grounding": "not_registered_until_minimized_output_parser",
-      "partiality": "unavailable_not_empty",
+      "grounding": "validated current W1 equipment list for the selected authorized customer; registered state/dates only, not installation/connectivity/ownership or complete inventory proof",
+      "partiality": "at most20 rows, next_id means partial; never infer totals, physical installation or absence outside the selected page/filter",
       "enabled": {
-        "local": false,
+        "local": true,
         "stage": false,
         "prod": false
       }

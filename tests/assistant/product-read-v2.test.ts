@@ -12,8 +12,8 @@ const plan = { version: 2, decision: 'plan', nodes: [node] }
 const authority = { actorId: 'actor-a', workspaceId: 'workspace-a', scopeEpoch: 'epoch-a', role: 'member' }
 function deps(result: unknown = { ok: true, data: page }): ProductReadDependenciesV2 { return { readers: { collection: async () => result, report: async () => result }, authority: async () => authority,
   resolveReference: async () => id, offeredHandles: ['server-handle'], now: () => new Date('2026-10-06T20:00:00Z') } }
-test('modern inventory derives34 closed immutable current-contract reads, no mutations', () => {
-  assert.equal(PRODUCT_CAPABILITIES_V2.length, 34)
+test('modern inventory derives35 closed immutable current-contract reads, no mutations', () => {
+  assert.equal(PRODUCT_CAPABILITIES_V2.length, 35)
   assert.ok(productCapabilityV2('crm.contact.list')); assert.ok(productCapabilityV2('crm.customer360.summary')); assert.ok(productCapabilityV2('crm.plan_version.get'))
   assert.equal(productCapabilityV2('crm.invoice.issue'), null)
   assert.throws(() => { PRODUCT_CAPABILITIES_V2[0]!.inputSchema.additionalProperties = true })
