@@ -2,6 +2,7 @@ import { createHash } from 'node:crypto'
 import { boundedAwaitV2 } from './bounded-await-v2.ts'
 import { containsHighConfidenceSecret } from './schema.ts'
 import type { ReadAuthorityV2 } from './product-read-executor-v2.ts'
+import {snapshotReadAuthorityV2} from './read-authority-snapshot-v2.ts'
 
 /** Server-only opt-in admission. Backend metadata alone never approves indexing. */
 export type DocumentRagSnapshotV1 = Readonly<{
@@ -105,11 +106,11 @@ export async function prepareDocumentRagSourceV1(handle: unknown, deps: Document
     // must not swap fresh authorization/version checks for cached responses.
     const readAuthority = deps.authority, resolveDocument = deps.resolveDocument
     const downloadAuthorized = deps.downloadAuthorized, extractPdf = deps.extractPdf
-    const authority = await within(() => readAuthority.call(deps))
+    const authority = snapshotReadAuthorityV2(await within(() => readAuthority.call(deps)))
     // Preserve the current document-content service's owner/admin boundary.
     if (!authority || !['owner', 'admin'].includes(authority.role)) return stop('not_admitted')
-    const scope = Object.freeze({ ...authority })
-    const fresh = async () => same(await within(() => readAuthority.call(deps)), scope)
+    const scope = authority
+    const fresh = async () => same(snapshotReadAuthorityV2(await within(() => readAuthority.call(deps))), scope)
     const resolve = async () => snapshot(await within(() => resolveDocument.call(deps, handle, scope, controller.signal)))
     if (!await fresh()) return stop('access_changed')
     const source = await resolve()
@@ -145,7 +146,7 @@ export function admittedDocumentRagMaterialV1(handle: PreparedDocumentRagSourceV
   currentDocument: DocumentRagSnapshotV1): DocumentRagMaterialV1 | null {
   try {
     const record = admitted.get(handle), current = snapshot(currentDocument)
-    return record && same(authority, record.authority) && current
+    return record && same(snapshotReadAuthorityV2(authority), record.authority) && current
       && JSON.stringify(current) === JSON.stringify(record.material.source) ? record.material : null
   } catch { return null }
 }

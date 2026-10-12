@@ -8,6 +8,7 @@ import { boundedAwaitV2 } from './bounded-await-v2.ts'
 import { isBillingAnalyticsOperationV1, parseBillingAnalyticsInputV1, parseBillingAnalyticsResultV1 } from '../lib/server/billing-analytics-runtime-v1.ts'
 import {parseAssistantInvoiceListInputV1,projectAuthorizedInvoiceListV1} from './invoice-read-projection-v1.ts'
 import {parseAssistantPortabilityListInputV1,projectAuthorizedPortabilityListV1} from './portability-read-projection-v1.ts'
+import {snapshotReadAuthorityV2} from './read-authority-snapshot-v2.ts'
 export type ReadAuthorityV2 = Readonly<{ actorId: string; workspaceId: string; scopeEpoch: string; role: string }>
 export type AuthorizedProductReadersV2 = {
   collection(operation: string, input: unknown): Promise<unknown>
@@ -33,16 +34,6 @@ export type ProductReadDependenciesV2 = {
   signal?: AbortSignal
 }
 const same = (a: ReadAuthorityV2 | null, b: ReadAuthorityV2) => a !== null && a.actorId === b.actorId && a.workspaceId === b.workspaceId && a.scopeEpoch === b.scopeEpoch && a.role === b.role
-function authoritySnapshotV2(raw:unknown):ReadAuthorityV2|null{
-  try{
-    const value=snapshotProductJsonV1(raw)
-    if(!value||typeof value!=='object'||Array.isArray(value)||Object.keys(value).sort().join(',')!=='actorId,role,scopeEpoch,workspaceId')return null
-    const fields=value as Record<string,unknown>
-    if(!['actorId','workspaceId','scopeEpoch'].every(key=>typeof fields[key]==='string'&&fields[key].length>0&&fields[key].length<=512)
-      ||typeof fields.role!=='string'||!['owner','admin','member','viewer'].includes(fields.role))return null
-    return value as ReadAuthorityV2
-  }catch{return null}
-}
 const object = (v: unknown): v is Record<string, unknown> => !!v && typeof v === 'object' && !Array.isArray(v)
 const bindingKinds: Readonly<Record<string, string>> = { customer_id: 'customer', contract_id: 'contract', service_id: 'service', line_id: 'line',
   operator_id: 'operator', plan_id: 'plan', assigned_user_id: 'assignee', owner_user_id: 'assignee', opportunity_id: 'opportunity', stage_id: 'opportunity_stage' }
@@ -56,7 +47,7 @@ export async function executeProductReadPlanV2(raw: unknown, deps: ProductReadDe
     // Retained server adapter objects must not rewrite either the admitted
     // identity or the callback supplying subsequent fresh authorization.
     const readAuthority=deps.authority,resolveReference=deps.resolveReference
-    const fresh = async() => authoritySnapshotV2(await boundedAwaitV2(() => readAuthority.call(deps), deps.signal))
+    const fresh = async() => snapshotReadAuthorityV2(await boundedAwaitV2(() => readAuthority.call(deps), deps.signal))
     const authority = await fresh()
     if (!authority || !['owner', 'admin', 'member', 'viewer'].includes(authority.role)) return stop('access_changed')
     // Reject the entire plan before reading or resolving any reference when a
