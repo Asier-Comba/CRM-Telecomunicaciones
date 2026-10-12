@@ -1,0 +1,9 @@
+# W3: revalidación documental con callbacks estables
+
+El padre `835f87302b7750f935e32ef74d5a91ac4b586a50` volvía a leer los callbacks del objeto de dependencias tras esperar al adaptador. Dos regresiones sintéticas fallaban: un adaptador de descarga podía reemplazar el lector de autoridad por una respuesta antigua después de revocar la autoridad de la fixture; un extractor podía reemplazar el resolver después de retirar la aprobación documental. Ambos casos acababan con `prepared`.
+
+La preparación toma los cuatro callbacks de servidor antes de la primera espera y conserva su receptor `this`. Las revalidaciones siguen invocando los lectores originales, que consultan el estado actual de permiso, versión y aprobación; las sustituciones del objeto ya no los cambian durante esa operación. En las regresiones se obtiene `access_changed` sin handle: la revocación durante descarga impide extraer, y retirar la aprobación durante extracción impide admitir los fragmentos.
+
+Verificación local: dos negativos previos FAIL;13 pruebas documentales y645 pruebas del asistente PASS; tipado estricto focalizado y lint PASS. La firma PDF exacta y las31 variantes de bits altos siguen cubiertas. No modifica permisos, política de indexación, límites, cancelación, planner ni source callbacks internamente; solo fija qué funciones se admiten para esa preparación.
+
+Scope: mutación controlada de dependencias de servidor, no una vía de explotación Auth/Storage demostrada. Los adaptadores siguen siendo código confiable; fijar callbacks no verifica su implementación ni aísla JavaScript hostil. Sin extracción PDF real, índice, embeddings, búsqueda ni modelo. RAG operativo NOT_TESTED; IA writes OFF; release NOT_ACCEPTED y W4 pendiente. Los pases propios originales de835F se conservan, pero estos nuevos negativos requieren la descendiente corregida y sus controles propios antes de otra composición.

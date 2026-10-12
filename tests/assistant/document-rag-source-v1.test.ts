@@ -87,6 +87,29 @@ test('revocation, changed document and withdrawn indexing approval during extrac
   assert.equal((await prepareDocumentRagSourceV1(handle, revoked.deps)).status, 'access_changed')
 })
 
+test('download adapter cannot replace the admitted authority reader to hide revocation', async () => {
+  const f = fixture()
+  f.onDownload(() => {
+    f.authority(null)
+    f.deps.authority = async () => authority
+  })
+  const result = await prepareDocumentRagSourceV1(handle, f.deps)
+  assert.deepEqual(result, { status: 'access_changed', handle: null })
+  assert.equal(f.calls.download, 1)
+  assert.equal(f.calls.extract, 0)
+})
+
+test('extraction adapter cannot replace the admitted document resolver to hide withdrawn approval', async () => {
+  const f = fixture()
+  f.onExtract(() => {
+    f.source({ ...source, indexingApproved: false })
+    f.deps.resolveDocument = async () => source
+  })
+  const result = await prepareDocumentRagSourceV1(handle, f.deps)
+  assert.deepEqual(result, { status: 'access_changed', handle: null })
+  assert.equal(f.calls.extract, 1)
+})
+
 test('size, digest and format mismatch fail before extraction', async () => {
   for (const content of [null, Buffer.from('not-a-pdf'), Buffer.from(bytes).fill(0), Buffer.concat([bytes, bytes])]) {
     const f = fixture(); f.bytes(content)
