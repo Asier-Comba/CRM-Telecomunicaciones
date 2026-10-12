@@ -94,17 +94,23 @@ export async function prepareDocumentRagSourceV1(handle: unknown, deps: Document
   const stop = (status: Exclude<DocumentRagPreparationV1['status'], 'prepared'>): DocumentRagPreparationV1 => ({ status, handle: null })
   if (typeof handle !== 'string' || !/^[A-Za-z0-9_-]{1,160}$/.test(handle)
     || !Array.isArray(deps.offeredHandles) || deps.offeredHandles.length > 50 || !deps.offeredHandles.includes(handle)) return stop('invalid_input')
+  if(signal?.aborted)return stop('unavailable')
+  const controller=new AbortController(),cancel=()=>controller.abort(),deadline=performance.now()+10000,timer=setTimeout(cancel,10000)
+  signal?.addEventListener('abort',cancel,{once:true})
+  const ensureWithinBudget=()=>{if(controller.signal.aborted||performance.now()>=deadline){cancel();throw Error('unavailable')}}
+  const within=async<T>(start:()=>Promise<T>)=>{ensureWithinBudget();const value=await boundedAwaitV2(start,controller.signal);ensureWithinBudget();return value}
   try {
+    if(signal?.aborted)cancel()
     // Pin the server callbacks before awaiting an adapter. A later replacement
     // must not swap fresh authorization/version checks for cached responses.
     const readAuthority = deps.authority, resolveDocument = deps.resolveDocument
     const downloadAuthorized = deps.downloadAuthorized, extractPdf = deps.extractPdf
-    const authority = await boundedAwaitV2(() => readAuthority.call(deps), signal)
+    const authority = await within(() => readAuthority.call(deps))
     // Preserve the current document-content service's owner/admin boundary.
     if (!authority || !['owner', 'admin'].includes(authority.role)) return stop('not_admitted')
     const scope = Object.freeze({ ...authority })
-    const fresh = async () => same(await boundedAwaitV2(() => readAuthority.call(deps), signal), scope) && !signal?.aborted
-    const resolve = async () => snapshot(await boundedAwaitV2(() => resolveDocument.call(deps, handle, scope, signal), signal))
+    const fresh = async () => same(await within(() => readAuthority.call(deps)), scope)
+    const resolve = async () => snapshot(await within(() => resolveDocument.call(deps, handle, scope, controller.signal)))
     if (!await fresh()) return stop('access_changed')
     const source = await resolve()
     if (!await fresh()) return stop('access_changed')
@@ -114,21 +120,23 @@ export async function prepareDocumentRagSourceV1(handle: unknown, deps: Document
       const next = await resolve()
       return await fresh() && !!next && JSON.stringify(next) === JSON.stringify(source)
     }
-    const downloaded = await boundedAwaitV2(() => downloadAuthorized.call(deps, source, scope, signal), signal)
+    const downloaded = await within(() => downloadAuthorized.call(deps, source, scope, controller.signal))
     if (!await current()) return stop('access_changed')
     if (!(downloaded instanceof Uint8Array) || downloaded.byteLength !== source.sizeBytes) return stop('invalid_source')
     const bytes = new Uint8Array(downloaded)
     // ASCII decoding clears high bits: compare the signature's actual bytes.
     if (sha(bytes) !== source.sha256 || !Buffer.from(bytes.subarray(0, 5)).equals(Buffer.from('%PDF-', 'ascii'))) return stop('invalid_source')
-    const extracted = await boundedAwaitV2(() => extractPdf.call(deps, bytes, signal), signal)
+    const extracted = await within(() => extractPdf.call(deps, bytes, controller.signal))
     if (!await current()) return stop('access_changed')
     const fragments = chunks(extracted)
     if (!fragments) return stop('invalid_source')
+    ensureWithinBudget()
     const preparedHandle = Object.freeze({}) as PreparedDocumentRagSourceV1
     const material: DocumentRagMaterialV1 = Object.freeze({ contract: 'assistant.document-source.v1', trust: 'untrusted_document_data', source, chunks: fragments })
     admitted.set(preparedHandle, { authority: scope, material })
     return { status: 'prepared', handle: preparedHandle }
   } catch { return stop('unavailable') }
+  finally{clearTimeout(timer);signal?.removeEventListener('abort',cancel)}
 }
 
 /** Internal server consumer must recheck permissions/version before persistence.

@@ -193,3 +193,40 @@ test('cancellation of a held download never produces a prepared source or calls 
   await started; controller.abort()
   assert.deepEqual(await pending, { status: 'unavailable', handle: null }); assert.equal(f.calls.extract, 0)
 })
+
+test('preparation has one total ten-second deadline across download and extraction', async context => {
+  context.mock.timers.enable({apis:['setTimeout']})
+  const f=fixture();let downloadEntered!:()=>void,extractEntered!:()=>void,extractSignal:AbortSignal|undefined
+  const downloading=new Promise<void>(resolve=>{downloadEntered=resolve}),extracting=new Promise<void>(resolve=>{extractEntered=resolve})
+  f.deps.downloadAuthorized=async()=>{downloadEntered();await new Promise<void>(resolve=>setTimeout(resolve,6000));return bytes}
+  f.deps.extractPdf=async(_bytes,signal)=>{extractSignal=signal;extractEntered();await new Promise<void>(resolve=>setTimeout(resolve,6000));return[{page:1,text:'Condiciones revisadas.'}]}
+  const pending=prepareDocumentRagSourceV1(handle,f.deps)
+  await downloading;context.mock.timers.tick(6000);await extracting
+  context.mock.timers.tick(4000);await new Promise<void>(resolve=>setImmediate(resolve))
+  const abortedAtDeadline=extractSignal?.aborted===true
+  context.mock.timers.tick(2000)
+  assert.deepEqual(await pending,{status:'unavailable',handle:null});assert.equal(abortedAtDeadline,true)
+})
+
+test('authorization latency consumes the same deadline and aborts a later held download', async context => {
+  context.mock.timers.enable({apis:['setTimeout']})
+  const f=fixture();let count=0,entered!:()=>void,started!:()=>void,downloadSignal:AbortSignal|undefined
+  const authorizing=new Promise<void>(resolve=>{entered=resolve}),downloading=new Promise<void>(resolve=>{started=resolve})
+  f.deps.authority=async()=>{if(++count===1){entered();await new Promise<void>(resolve=>setTimeout(resolve,6000))}return authority}
+  f.deps.downloadAuthorized=async(_source,_scope,signal)=>{downloadSignal=signal;started();return await new Promise<Uint8Array>(()=>{})}
+  const pending=prepareDocumentRagSourceV1(handle,f.deps)
+  await authorizing;context.mock.timers.tick(6000);await downloading
+  context.mock.timers.tick(4000);await new Promise<void>(resolve=>setImmediate(resolve))
+  const abortedAtDeadline=downloadSignal?.aborted===true
+  context.mock.timers.tick(6000) // The old per-await timer otherwise remains live until sixteen seconds.
+  assert.deepEqual(await pending,{status:'unavailable',handle:null});assert.equal(abortedAtDeadline,true);assert.equal(f.calls.extract,0)
+})
+
+test('successful preparation cleans its total deadline without later aborting the extraction signal', async context => {
+  context.mock.timers.enable({apis:['setTimeout']})
+  const f=fixture();let extractSignal:AbortSignal|undefined
+  f.deps.extractPdf=async(_bytes,signal)=>{extractSignal=signal;return[{page:1,text:'Condiciones revisadas.'}]}
+  const result=await prepareDocumentRagSourceV1(handle,f.deps)
+  assert.equal(result.status,'prepared');assert.ok(extractSignal instanceof AbortSignal)
+  context.mock.timers.tick(10000);assert.equal(extractSignal.aborted,false)
+})
