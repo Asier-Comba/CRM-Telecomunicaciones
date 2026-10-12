@@ -1,0 +1,13 @@
+# SIM/eSIM and customer invoice read composition
+
+Parents: root `422e61b05de4c6f75d9d3667359fdf6ec1b4a9a9` and eligible invoice candidate `b0bf9c82d6da4169580eee38f684fe7342c36307`. The invoice candidate closed its own1202 tests,316 browser journeys, native85/320 controls and Supabase107 acceptance before consumption. Root parent closed its own1196/316/native85/320/Supabase107. Their results are prerequisites only, never results for this new tree.
+
+Eight shared files are composed semantically. Both current-cookie service adapters remain separate: SimServiceV1 admits sim.list, BillingServiceV1 admits invoice.list. Both validated projections, opaque reference bindings, fresh authority around awaits, missing-adapter denial, partiality and role boundaries remain intact. SIM identifier masks may be unknown; invoice reads are owner/admin only, limited to20 authorized customer rows, with exact money and separate currencies. Recorded paid status does not prove bank collection. No commercial assistant writes are introduced.
+
+The compiled registry contains33 local reads and preserves the220 unique-operation inventory; stage/prod remain disabled. The214-case synthetic planner bank retains the original212 cases byte for byte and both independent SIM and invoice cases. It does not evaluate a live model.
+
+The actual Auth/cookie/DB fixture retains both independently authorized synthetic fixture creations, both reader routes and both foreign-reference/revocation checks. Its immutable history now requires28 messages:16 user and12 assistant. Exact counts and privacy assertions remain separate; persisted assistant history excludes both factual projection contracts and the private invoice amount. The business snapshot covers SIMs and invoices together. The invoice cleanup retains its exact owned unchanged draft predicate, local disposable CI guards, transaction and absence postcheck.
+
+Local composed checks:665 assistant tests, targeted types, lint and fixture syntax PASS. New own CI must establish1210 tests (545 bootstrap+665 assistant),316 browser journeys, native85/320 and Supabase107 including actual28/16/12 history. These new controls are pending at authoring. Prior invoice failures4F2AB/1CE and product/document negatives remain preserved in recovery evidence.
+
+W4 independent security acceptance and W5 native same-resource restart remain outstanding. Five HIGH alerts remain visible. Live model NOT_RUN; operational documentary RAG and durable company budgets are not accepted. AI writes OFF; release NOT_ACCEPTED; issue10 OPEN. This composition does not create a W5 resource or modify W4/W5 sources.

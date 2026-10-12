@@ -9,6 +9,7 @@ import { normalizeActiveMemberships,selectActiveMembership } from '../../../src/
 export async function assistantReadGroundingAcceptance({ rpc, sql, check, users, wa, wb, anon, url, assistantAppUrl, cookie }) {
   if(process.env.GITHUB_ACTIONS!=='true'||url!=='http://127.0.0.1:54321'||assistantAppUrl!=='http://127.0.0.1:3109')throw Error('W3_READ_GROUNDING_LOCAL_CI_ONLY')
   let phase='START'
+  let ownedInvoiceFixture=null
   try{
     phase='IMPORT_SDK'
     const {createClient}=await import('@supabase/supabase-js'),owner=users.ownerA
@@ -46,12 +47,23 @@ export async function assistantReadGroundingAcceptance({ rpc, sql, check, users,
     const simBody=await simCreated.json()
     check(simCreated.status===200&&simBody.ok&&simBody.data.operation==='sim.create'&&simBody.data.status==='prepared'&&/^[0-9a-f-]{36}$/.test(simBody.data.id),'assistant_grounding_sim_real_authorized_fixture_not_ai_write')
     const sim=simBody.data.id
+    phase='INVOICE_FIXTURE_SETUP'
+    // Explicit fixture setup through W1 and the actual cookie, outside every
+    // assistant turn; the registered assistant reader admits invoice.list only.
+    const invoiceFixtureResponse=await fetch(assistantAppUrl+'/api/billing/v1/commands',{method:'POST',headers:{cookie,origin:assistantAppUrl,'content-type':'application/json'},
+      body:JSON.stringify({operation:'invoice.create_draft',input:{command_id:randomUUID(),customer_id:customers[0],issue_on:'2026-08-15',due_on:'2026-08-31',series:'GR',currency:'EUR',
+        lines:[{description:'W3 Grounding private invoice fixture',quantity_milli:1000,unit_price_minor:12345,discount_bps:0,tax_bps:0,withholding_bps:0}],notes:'W3 Grounding private note'}}),signal:AbortSignal.timeout(30000)})
+    const invoiceFixture=await invoiceFixtureResponse.json()
+    check(invoiceFixtureResponse.status===200&&invoiceFixture.ok&&invoiceFixture.receipt?.status==='draft','assistant_grounding_invoice_fixture_actual_w1_cookie_setup')
+    if(!invoiceFixture.ok||!invoiceFixture.receipt?.id)throw Error('W3_READ_GROUNDING_INVOICE_FIXTURE_FAILED')
+    if(!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(invoiceFixture.receipt.id))throw Error('W3_READ_GROUNDING_INVOICE_FIXTURE_ID_INVALID')
+    ownedInvoiceFixture={id:invoiceFixture.receipt.id,customer:customers[0],owner:owner.id}
     phase='SNAPSHOT'
-    const businessSnapshot=()=>sql(`select md5(coalesce(jsonb_agg(payload order by id)::text,'')) from(select id,to_jsonb(x) payload from public.customers x where id in('${customers[0]}','${customers[1]}','${foreignCustomer}') union all select id,to_jsonb(x) payload from public.telecom_contracts x where id in('${contracts[0]}','${contracts[1]}','${contracts[2]}') union all select id,to_jsonb(x) payload from public.telecom_operators x where id in('${operator}','${foreignOperator}') union all select id,to_jsonb(x) payload from public.telecom_sims x where id='${sim}') records`)
+    const businessSnapshot=()=>sql(`select md5(coalesce(jsonb_agg(payload order by id)::text,'')) from(select id,to_jsonb(x) payload from public.customers x where id in('${customers[0]}','${customers[1]}','${foreignCustomer}') union all select id,to_jsonb(x) payload from public.telecom_contracts x where id in('${contracts[0]}','${contracts[1]}','${contracts[2]}') union all select id,to_jsonb(x) payload from public.telecom_operators x where id in('${operator}','${foreignOperator}') union all select id,to_jsonb(x) payload from public.telecom_sims x where id='${sim}' union all select id,to_jsonb(x) payload from public.billing_invoices x where customer_id in('${customers[0]}','${customers[1]}','${foreignCustomer}')) records`)
     const before=businessSnapshot(),calls=[]
-    let suspendAfterRead=false,suspendAfterBilling=false,suspendAfterSim=false
+    let suspendAfterRead=false,suspendAfterBilling=false,suspendAfterSim=false,suspendAfterInvoices=false
     const httpRead=async(family,operation,input)=>{
-      const endpoint=family==='collection'?'/api/product/v1/queries':family==='billing_analytics'?'/api/billing/analytics/v1':family==='sim_inventory'?'/api/sims/v1':'/api/telecom/reads/v1'
+      const endpoint=family==='collection'?'/api/product/v1/queries':family==='billing_analytics'?'/api/billing/analytics/v1':family==='sim_inventory'?'/api/sims/v1':family==='billing_invoice'?'/api/billing/v1/queries':'/api/telecom/reads/v1'
       const response=await fetch(assistantAppUrl+endpoint,{method:'POST',headers:{cookie,origin:assistantAppUrl,'content-type':'application/json'},body:JSON.stringify({operation,input}),signal:AbortSignal.timeout(30000)})
       calls.push({operation,status:response.status})
       check(response.headers.get('cache-control')==='no-store','assistant_grounding_reader_no_store')
@@ -59,9 +71,10 @@ export async function assistantReadGroundingAcceptance({ rpc, sql, check, users,
       if(suspendAfterRead&&operation==='customer.list'){suspendAfterRead=false;sql(`update public.workspace_members set status='suspended' where workspace_id='${wa}' and user_id='${owner.id}'`)}
       if(suspendAfterBilling&&operation==='billing.monthly_series'){suspendAfterBilling=false;sql(`update public.workspace_members set status='suspended' where workspace_id='${wa}' and user_id='${owner.id}'`)}
       if(suspendAfterSim&&operation==='sim.list'){suspendAfterSim=false;sql(`update public.workspace_members set status='suspended' where workspace_id='${wa}' and user_id='${owner.id}'`)}
+      if(suspendAfterInvoices&&operation==='invoice.list'){suspendAfterInvoices=false;sql(`update public.workspace_members set status='suspended' where workspace_id='${wa}' and user_id='${owner.id}'`)}
       return body
     }
-    const readers={collection:(op,input)=>httpRead('collection',op,input),report:(op,input)=>httpRead('report',op,input),billingAnalytics:(op,input)=>httpRead('billing_analytics',op,input),simInventory:(op,input)=>httpRead('sim_inventory',op,input)},handles=['operator_ref','customer_ref','foreign_customer_ref']
+    const readers={collection:(op,input)=>httpRead('collection',op,input),report:(op,input)=>httpRead('report',op,input),billingAnalytics:(op,input)=>httpRead('billing_analytics',op,input),simInventory:(op,input)=>httpRead('sim_inventory',op,input),billingInvoices:(op,input)=>httpRead('billing_invoice',op,input)},handles=['operator_ref','customer_ref','foreign_customer_ref']
     const resolveReference=async(handle,field)=>{
       if(handle==='operator_ref'&&field==='operator_id'){
         const result=await readers.collection('operator.get',{id:operator})
@@ -113,6 +126,27 @@ export async function assistantReadGroundingAcceptance({ rpc, sql, check, users,
     phase='AUTHORIZED_SUMMARY'
     result=await run(plan([summary({handle:'customer_ref',nodeId:null})]))
     check(result.final?.response.grounded&&result.final.response.blocks[0].rows[0].contracts===1&&result.final.response.blocks[0].rows[0].services===0&&result.final.response.blocks[0].rows[0].lines===0&&/^\d{4}-\d{2}-\d{2}$/.test(result.final.response.sources[0].asOf),'assistant_grounding_actual_customer_counts_as_of')
+    phase='AUTHORIZED_INVOICE_LIST'
+    const invoiceNode=handle=>({id:'invoices',capability:'crm.invoice.list',arguments:[{field:'status',value:'draft'},{field:'limit',value:20}],bindings:[{field:'customer_id',handle,nodeId:null}]})
+    result=await run(plan([invoiceNode('customer_ref')]))
+    const invoiceRead=result.final?.response
+    check(invoiceRead?.status==='completed'&&invoiceRead.grounded&&invoiceRead.blocks.length===1&&invoiceRead.blocks[0].rows.length===1
+      &&invoiceRead.blocks[0].rows[0].total_minor==='123,45'&&invoiceRead.blocks[0].rows[0].currency==='EUR'&&invoiceRead.blocks[0].rows[0].status==='Borrador'
+      &&invoiceRead.sources[0].capability==='crm.invoice.list'&&!invoiceRead.sources[0].partial,'assistant_grounding_invoice_actual_nonempty_minimized_money')
+    check(![invoiceFixture.receipt.id,...customers,'W3 Grounding private invoice fixture','W3 Grounding private note','customer_id','tax_minor','withholding_minor'].some(value=>JSON.stringify(invoiceRead).includes(value)),
+      'assistant_grounding_invoice_private_fields_not_in_response')
+    phase='INVOICE_FOREIGN_REFERENCE'
+    result=await run(plan([invoiceNode('foreign_customer_ref')]))
+    check(result.final?.response.status==='access_changed'&&!result.final.response.grounded&&!result.calls.some(call=>call.operation==='invoice.list'),'assistant_grounding_invoice_foreign_reference_no_query')
+    phase='INVOICE_REVOKED_READ'
+    suspendAfterInvoices=true
+    try{
+      result=await run(plan([invoiceNode('customer_ref')]))
+      check(result.events.map(event=>event.type).join(',')==='started,failed'&&!result.final,'assistant_grounding_invoice_revocation_discards_financial_facts')
+      await readers.billingInvoices('invoice.list',{customer_id:customers[0],limit:20})
+      check(calls.at(-1)?.status===403,'assistant_grounding_invoice_actual_cookie_revoked')
+    }finally{sql(`update public.workspace_members set status='active' where workspace_id='${wa}' and user_id='${owner.id}'`)}
+    check((await conversations.execute('turn.finish',{id:thread,turn_id:result.turn_id,status:'cancelled'})).ok,'assistant_grounding_invoice_revoked_cancel_after_restore')
     phase='BILLING_DENSE_COHORT'
     result=await run(plan([monthly('customer_ref')]))
     const financial=result.final?.response
@@ -165,7 +199,12 @@ export async function assistantReadGroundingAcceptance({ rpc, sql, check, users,
     check((await conversations.execute('turn.finish',{id:thread,turn_id:result.turn_id,status:'cancelled'})).ok,'assistant_grounding_revoked_read_cancel_after_restore')
     phase='IMMUTABLE_HISTORY'
     const messages=await conversations.execute('message.page',{id:thread,limit:50})
-    check(messages.ok&&messages.data.historical&&messages.data.items.length===23&&messages.data.items.filter(item=>item.role==='user').length===13&&messages.data.items.filter(item=>item.role==='assistant').length===10&&messages.data.items.filter(item=>item.role==='assistant').every(item=>!['W3 Grounding','telecom.collections','billing.analytics','assistant.sim-list','source_','inputTokens'].some(value=>item.content.includes(value))),'assistant_grounding_persisted_history_excludes_factual_blocks')
+    // SIM and invoice turns together add six users and four assistant replies;
+    // the revoked read has no final reply. Assert the complete exact ledger.
+    check(messages.ok&&messages.data.historical&&messages.data.items.length===28&&messages.data.items.filter(item=>item.role==='user').length===16&&messages.data.items.filter(item=>item.role==='assistant').length===12,
+      'assistant_grounding_persisted_history_exact_turn_counts')
+    check(messages.ok&&messages.data.items.filter(item=>item.role==='assistant').every(item=>!['W3 Grounding','telecom.collections','billing.analytics','assistant.sim-list','assistant.invoice-list','source_','inputTokens','123,45'].some(value=>item.content.includes(value))),
+      'assistant_grounding_persisted_history_excludes_factual_blocks')
     check(before===businessSnapshot(),'assistant_grounding_no_business_record_change')
     return 'PASS_ACTUAL_AUTH_COOKIE_READ_GROUNDING_PARTIALITY_REVOCATION_SYNTHETIC_PLANNER'
   }catch(cause){
@@ -173,5 +212,14 @@ export async function assistantReadGroundingAcceptance({ rpc, sql, check, users,
     if(/^W3_READ_GROUNDING_AUTH_[A-Z_]{1,60}$/.test(tag))throw cause
     if(/^CHECK_ASSISTANT_GROUNDING_[A-Z0-9_]{1,110}$/.test(tag))throw Error('W3_READ_GROUNDING_'+phase+'_'+tag.slice(6))
     throw Error('W3_READ_GROUNDING_'+phase)
+  }finally{
+    if(ownedInvoiceFixture){
+      // Restore only this invocation's unchanged synthetic draft in the already
+      // guarded disposable CI stack. Never reset a workspace or another fixture.
+      const {id,customer,owner}=ownedInvoiceFixture
+      const predicate=`id='${id}' and workspace_id='${wa}' and customer_id='${customer}' and created_by_user_id='${owner}' and status='draft' and version=1 and series='GR'`
+      sql(`begin;delete from public.billing_invoice_lines l where l.workspace_id='${wa}' and l.invoice_id='${id}' and exists(select 1 from public.billing_invoices where ${predicate});delete from public.billing_invoices where ${predicate};commit`)
+      check(sql(`select count(*) from public.billing_invoices where workspace_id='${wa}' and id='${id}'`)==='0','assistant_grounding_owned_invoice_fixture_cleanup')
+    }
   }
 }
