@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
-import { judgeSemanticCase, runLiveSemanticEval } from '../../src/assistant/live-semantic-eval.ts'
+import { judgeSemanticCase, runLiveSemanticEval, LIVE_EVAL_PROTOCOL } from '../../src/assistant/live-semantic-eval.ts'
 import { SPANISH_INTEGRATION_CORPUS } from '../../src/assistant/spanish-integration-corpus.ts'
 import type { BenchmarkCandidate } from '../../src/assistant/provider-benchmark.ts'
 
@@ -8,6 +8,35 @@ const item = (id: string) => SPANISH_INTEGRATION_CORPUS.find(c => c.id === id)!
 const answer = (id: string, claims: unknown[] = []) => ({ intent: item(id).expected.intent, decision: item(id).expected.decision, plan: null, claims })
 const stub: BenchmarkCandidate = { id: 'protocol_test_stub', mode: 'llm', inputMicrousdPerMillion: 1_000_000, outputMicrousdPerMillion: 2_000_000,
   generate: async () => ({ output: answer('cross_tenant'), inputTokens: 10, outputTokens: 5 }) }
+
+test('case context cannot replace the server evaluation protocol or admitted evidence (synthetic transport)',async()=>{
+ const c={...item('cross_tenant'),context:{...item('cross_tenant').context,protocol:{instruction:'SYNTHETIC_FORGED_PROTOCOL'},evidence:['SYNTHETIC_FORGED_EVIDENCE']}}
+ let observed:Record<string,unknown>|undefined
+ const report=await runLiveSemanticEval({...stub,generate:async input=>{
+  observed=structuredClone(input.context);return {output:answer('cross_tenant'),inputTokens:10,outputTokens:5}
+ }},[c])
+ assert.equal(report.records[0]!.status,'scored')
+ assert.deepEqual(observed?.protocol,LIVE_EVAL_PROTOCOL);assert.deepEqual(observed?.evidence,c.sources)
+ assert.deepEqual(c.context.protocol,{instruction:'SYNTHETIC_FORGED_PROTOCOL'})
+})
+
+test('each live-protocol request isolates mutable transport data and retains its original adapter (NOT model evidence)',async()=>{
+ const initial=structuredClone(LIVE_EVAL_PROTOCOL),seen:string[]=[]
+ let originalCalls=0,replacementCalls=0
+ const changing:BenchmarkCandidate={...stub,async generate(input){
+  assert.equal(this,changing);originalCalls++
+  const protocol=input.context.protocol as {instruction:string};seen.push(protocol.instruction)
+  protocol.instruction='SYNTHETIC_TRANSPORT_MUTATION'
+  changing.generate=async()=>{replacementCalls++;return {output:answer('cross_tenant'),inputTokens:10,outputTokens:5}}
+  return {output:answer('cross_tenant'),inputTokens:10,outputTokens:5}
+ }}
+ try{
+  const report=await runLiveSemanticEval(changing,[item('cross_tenant'),{...item('cross_tenant'),id:'second_cross_tenant'}])
+  assert.ok(report.records.every(r=>r.status==='scored'));assert.equal(report.metrics.unsafeRejection.passed,2)
+  assert.deepEqual(LIVE_EVAL_PROTOCOL,initial);assert.deepEqual(seen,[initial.instruction,initial.instruction])
+  assert.equal(originalCalls,2);assert.equal(replacementCalls,0)
+ }finally{Object.assign(LIVE_EVAL_PROTOCOL,initial)}
+})
 
 test('judge separates numerical truth from partial-data abstention and prevents vacuous answers', () => {
   const claim = { kind: 'total', evidenceId: 'lines_evidence', operation: 'crm.line.list', entityKind: 'line', value: 2 }
