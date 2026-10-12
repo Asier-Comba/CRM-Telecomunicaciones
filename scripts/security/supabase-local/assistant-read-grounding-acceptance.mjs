@@ -9,6 +9,7 @@ import { normalizeActiveMemberships,selectActiveMembership } from '../../../src/
 export async function assistantReadGroundingAcceptance({ rpc, sql, check, users, wa, wb, anon, url, assistantAppUrl, cookie }) {
   if(process.env.GITHUB_ACTIONS!=='true'||url!=='http://127.0.0.1:54321'||assistantAppUrl!=='http://127.0.0.1:3109')throw Error('W3_READ_GROUNDING_LOCAL_CI_ONLY')
   let phase='START'
+  let ownedInvoiceFixture=null
   try{
     phase='IMPORT_SDK'
     const {createClient}=await import('@supabase/supabase-js'),owner=users.ownerA
@@ -50,6 +51,8 @@ export async function assistantReadGroundingAcceptance({ rpc, sql, check, users,
     const invoiceFixture=await invoiceFixtureResponse.json()
     check(invoiceFixtureResponse.status===200&&invoiceFixture.ok&&invoiceFixture.receipt?.status==='draft','assistant_grounding_invoice_fixture_actual_w1_cookie_setup')
     if(!invoiceFixture.ok||!invoiceFixture.receipt?.id)throw Error('W3_READ_GROUNDING_INVOICE_FIXTURE_FAILED')
+    if(!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(invoiceFixture.receipt.id))throw Error('W3_READ_GROUNDING_INVOICE_FIXTURE_ID_INVALID')
+    ownedInvoiceFixture={id:invoiceFixture.receipt.id,customer:customers[0],owner:owner.id}
     phase='SNAPSHOT'
     const businessSnapshot=()=>sql(`select md5(coalesce(jsonb_agg(payload order by id)::text,'')) from(select id,to_jsonb(x) payload from public.customers x where id in('${customers[0]}','${customers[1]}','${foreignCustomer}') union all select id,to_jsonb(x) payload from public.telecom_contracts x where id in('${contracts[0]}','${contracts[1]}','${contracts[2]}') union all select id,to_jsonb(x) payload from public.telecom_operators x where id in('${operator}','${foreignOperator}') union all select id,to_jsonb(x) payload from public.billing_invoices x where customer_id in('${customers[0]}','${customers[1]}','${foreignCustomer}')) records`)
     const before=businessSnapshot(),calls=[]
@@ -185,5 +188,14 @@ export async function assistantReadGroundingAcceptance({ rpc, sql, check, users,
     if(/^W3_READ_GROUNDING_AUTH_[A-Z_]{1,60}$/.test(tag))throw cause
     if(/^CHECK_ASSISTANT_GROUNDING_[A-Z0-9_]{1,110}$/.test(tag))throw Error('W3_READ_GROUNDING_'+phase+'_'+tag.slice(6))
     throw Error('W3_READ_GROUNDING_'+phase)
+  }finally{
+    if(ownedInvoiceFixture){
+      // Restore only this invocation's unchanged synthetic draft in the already
+      // guarded disposable CI stack. Never reset a workspace or another fixture.
+      const {id,customer,owner}=ownedInvoiceFixture
+      const predicate=`id='${id}' and workspace_id='${wa}' and customer_id='${customer}' and created_by_user_id='${owner}' and status='draft' and version=1 and series='GR'`
+      sql(`begin;delete from public.billing_invoice_lines l where l.workspace_id='${wa}' and l.invoice_id='${id}' and exists(select 1 from public.billing_invoices where ${predicate});delete from public.billing_invoices where ${predicate};commit`)
+      check(sql(`select count(*) from public.billing_invoices where workspace_id='${wa}' and id='${id}'`)==='0','assistant_grounding_owned_invoice_fixture_cleanup')
+    }
   }
 }
