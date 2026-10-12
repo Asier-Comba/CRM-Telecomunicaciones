@@ -5,6 +5,7 @@ import { parseTelecomReadInputV1, isTelecomReadOperationV1 } from '../lib/server
 import { parseBillingAnalyticsInputV1, isBillingAnalyticsOperationV1 } from '../lib/server/billing-analytics-runtime-v1.ts'
 import {parseAssistantInvoiceListInputV1} from './invoice-read-projection-v1.ts'
 import {parseAssistantPortabilityListInputV1} from './portability-read-projection-v1.ts'
+import {parseAssistantCaseListInputV1} from './case-read-projection-v1.ts'
 export type ProductReadPlanV2 = { version: 2; decision: 'plan' | 'clarify' | 'abstain'; nodes: ProductReadNodeV2[] }
 export type ProductReadNodeV2 = { id: string; capability: string; arguments: { field: string; value: string | number | null }[];
   bindings: { field: string; handle: string | null; nodeId: string | null }[] }
@@ -38,7 +39,7 @@ export function parseProductReadPlanV2(value: unknown, offered: readonly string[
       }
       const op = cap.backendOperation
       if (isTelecomCollectionOperationV1(op) ? !parseTelecomCollectionInputV1(op, input) : isTelecomReadOperationV1(op) ? !parseTelecomReadInputV1(op, input)
-        : isBillingAnalyticsOperationV1(op) ? !parseBillingAnalyticsInputV1(op, input) : op==='invoice.list' ? !parseAssistantInvoiceListInputV1(input) : op==='portability.list' ? !parseAssistantPortabilityListInputV1(input) : true) return null
+        : isBillingAnalyticsOperationV1(op) ? !parseBillingAnalyticsInputV1(op, input) : op==='invoice.list' ? !parseAssistantInvoiceListInputV1(input) : op==='portability.list' ? !parseAssistantPortabilityListInputV1(input) : op==='case.list' ? !parseAssistantCaseListInputV1(input) : true) return null
       nodes.push(node as ProductReadNodeV2)
     }
     return { version: 2, decision: 'plan', nodes }

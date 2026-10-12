@@ -3,7 +3,7 @@
   "base": "7ab6f56f10fc65aa7212ed5dfbdeacea8901756a",
   "backendInventorySource": "182283f542f3854c3e8b2ea7eb0d27634eaef206",
   "backendInventoryIsNotRegistration": true,
-  "executableLocalReads": 33,
+  "executableLocalReads": 34,
   "capabilities": [
     {
       "name": "crm.customer.list",
@@ -10067,6 +10067,275 @@
       }
     },
     {
+      "name": "crm.case.list",
+      "description": "Lista hasta20 incidencias registradas del cliente seleccionado: tipo, prioridad, estado, vencimiento y códigos de resolución/cancelación. Sin títulos, notas ni vínculos privados; un código no confirma una resolución independiente.",
+      "version": "assistant.capability.v2",
+      "mode": "read",
+      "risk": "READ",
+      "roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "backendOperation": "case.list",
+      "family": "case_read",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "customer_id": {
+            "type": "string",
+            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+            "maxLength": 36
+          },
+          "case_type": {
+            "type": "string",
+            "enum": [
+              "activation",
+              "portability",
+              "technical",
+              "billing",
+              "renewal",
+              "cancellation",
+              "documentation",
+              "other"
+            ]
+          },
+          "priority": {
+            "type": "string",
+            "enum": [
+              "low",
+              "normal",
+              "high",
+              "urgent"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "open",
+              "in_progress",
+              "waiting_customer",
+              "waiting_operator",
+              "resolved",
+              "closed",
+              "cancelled"
+            ]
+          },
+          "due_from": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+            "maxLength": 10
+          },
+          "due_to": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+            "maxLength": 10
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 20
+          },
+          "after_id": {
+            "type": "string",
+            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+            "maxLength": 36
+          }
+        },
+        "required": [
+          "customer_id"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "contract_version": {
+            "const": "assistant.case-list.v1"
+          },
+          "operation": {
+            "const": "case.list"
+          },
+          "items": {
+            "type": "array",
+            "maxItems": 20,
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+                  "maxLength": 36
+                },
+                "case_type": {
+                  "type": "string",
+                  "enum": [
+                    "activation",
+                    "portability",
+                    "technical",
+                    "billing",
+                    "renewal",
+                    "cancellation",
+                    "documentation",
+                    "other"
+                  ]
+                },
+                "priority": {
+                  "type": "string",
+                  "enum": [
+                    "low",
+                    "normal",
+                    "high",
+                    "urgent"
+                  ]
+                },
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "open",
+                    "in_progress",
+                    "waiting_customer",
+                    "waiting_operator",
+                    "resolved",
+                    "closed",
+                    "cancelled"
+                  ]
+                },
+                "due_on": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+                      "maxLength": 10
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "resolved_at": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "maxLength": 40
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "closed_at": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "maxLength": 40
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "overdue": {
+                  "type": "boolean"
+                },
+                "source": {
+                  "type": "string",
+                  "enum": [
+                    "manual",
+                    "import",
+                    "integration",
+                    "system"
+                  ]
+                },
+                "resolution_code": {
+                  "enum": [
+                    "issue_fixed",
+                    "request_fulfilled",
+                    "customer_confirmed",
+                    "no_action_required",
+                    null
+                  ]
+                },
+                "cancellation_code": {
+                  "enum": [
+                    "customer_withdrew",
+                    "duplicate",
+                    "no_longer_needed",
+                    "entered_in_error",
+                    null
+                  ]
+                }
+              },
+              "required": [
+                "id",
+                "case_type",
+                "priority",
+                "status",
+                "due_on",
+                "resolved_at",
+                "closed_at",
+                "resolution_code",
+                "cancellation_code",
+                "overdue",
+                "source"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "next_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+                "maxLength": 36
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "contract_version",
+          "operation",
+          "items",
+          "next_id"
+        ],
+        "additionalProperties": false
+      },
+      "authorization": "current_server_membership_and_role_rechecked_around_each_await",
+      "tenantScope": "server_selected_workspace_actor_and_scope_epoch",
+      "idempotency": "read_fresh_no_effect_reservation",
+      "errorContract": [
+        "invalid_plan",
+        "access_changed",
+        "unavailable",
+        "ambiguous"
+      ],
+      "sensitiveFields": [
+        "title",
+        "internal_note_count",
+        "customer_id",
+        "contract_id",
+        "service_id",
+        "line_id",
+        "assigned_user_id",
+        "version",
+        "created_at",
+        "updated_at",
+        "note_body"
+      ],
+      "confirmation": "none",
+      "grounding": "current authorized W1 case status/dates/codes only; no private notes, SLA inference or independent resolution confirmation",
+      "partiality": "at most20 selected-customer rows; cursor means partial, no inferred total or absence outside the selected filter",
+      "enabled": {
+        "local": true,
+        "stage": false,
+        "prod": false
+      }
+    },
+    {
       "name": "crm.portability.get",
       "version": "portability.v1",
       "mode": "read",
@@ -10329,34 +10598,6 @@
         "source_minimization_review_required"
       ],
       "confirmation": "durable_preview_confirm",
-      "grounding": "not_registered_until_minimized_output_parser",
-      "partiality": "unavailable_not_empty",
-      "enabled": {
-        "local": false,
-        "stage": false,
-        "prod": false
-      }
-    },
-    {
-      "name": "crm.case.list",
-      "version": "case.v1",
-      "mode": "read",
-      "risk": "READ",
-      "roles": [
-        "owner",
-        "admin",
-        "member",
-        "viewer"
-      ],
-      "inputSchema": false,
-      "outputSchema": false,
-      "sourceInputType": "CaseInputsV1['case.list']",
-      "sourceOutputType": "CasePageV1",
-      "backendOperation": "case.list",
-      "sensitiveFields": [
-        "source_minimization_review_required"
-      ],
-      "confirmation": "none",
       "grounding": "not_registered_until_minimized_output_parser",
       "partiality": "unavailable_not_empty",
       "enabled": {

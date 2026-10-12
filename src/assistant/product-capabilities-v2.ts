@@ -65,7 +65,7 @@ function inputSchema(filters: readonly string[], enums: Readonly<Record<string, 
 }
 export type ProductCapabilityV2 = {
   name: string; description: string; version: 'assistant.capability.v2'; mode: 'read'; risk: 'READ'; roles: readonly string[]
-  inputSchema: Schema; outputSchema: Schema; backendOperation: string; family: 'collection' | 'report' | 'billing_analytics' | 'billing_invoice' | 'portability_read'
+  inputSchema: Schema; outputSchema: Schema; backendOperation: string; family: 'collection' | 'report' | 'billing_analytics' | 'billing_invoice' | 'portability_read' | 'case_read'
   sensitiveFields: readonly string[]; confirmation: 'none'; grounding: string; partiality: string
   authorization: 'current_server_membership_and_role_rechecked_around_each_await'
   tenantScope: 'server_selected_workspace_actor_and_scope_epoch'
@@ -143,6 +143,20 @@ capabilities.push({name:'crm.portability.list',version:'assistant.capability.v2'
  ...readBoundary,sensitiveFields:['customer_id','contract_id','service_id','line_id','number_identifier_id','donor_operator_id','target_operator_id','owner_user_id','version','created_at','updated_at','complete_number'],confirmation:'none',
  grounding:'validated current W1 status/dates/reason and masked number for the authorized customer and requested slice; no carrier-confirmation or line-effect claim',
  partiality:'at most20 rows; next_id means partial, never infer customer totals, successful physical transfer or absence from an incomplete page',enabled:{local:true,stage:false,prod:false}})
+capabilities.push({name:'crm.case.list',description:'Lista hasta20 incidencias registradas del cliente seleccionado: tipo, prioridad, estado, vencimiento y códigos de resolución/cancelación. Sin títulos, notas ni vínculos privados; un código no confirma una resolución independiente.',
+ version:'assistant.capability.v2',mode:'read',risk:'READ',roles:['owner','admin','member','viewer'],backendOperation:'case.list',family:'case_read',
+ inputSchema:closed({customer_id:uuid,case_type:{type:'string',enum:['activation','portability','technical','billing','renewal','cancellation','documentation','other']},
+  priority:{type:'string',enum:['low','normal','high','urgent']},status:{type:'string',enum:['open','in_progress','waiting_customer','waiting_operator','resolved','closed','cancelled']},
+  due_from:ruleSchema('date'),due_to:ruleSchema('date'),limit:{type:'integer',minimum:1,maximum:20},after_id:uuid},['customer_id']),
+ outputSchema:closed({contract_version:{const:'assistant.case-list.v1'},operation:{const:'case.list'},items:{type:'array',maxItems:20,items:closed({
+  id:uuid,case_type:{type:'string',enum:['activation','portability','technical','billing','renewal','cancellation','documentation','other']},
+  priority:{type:'string',enum:['low','normal','high','urgent']},status:{type:'string',enum:['open','in_progress','waiting_customer','waiting_operator','resolved','closed','cancelled']},
+  due_on:ruleSchema('date?'),resolved_at:ruleSchema('instant?'),closed_at:ruleSchema('instant?'),overdue:{type:'boolean'},source:{type:'string',enum:['manual','import','integration','system']},
+  resolution_code:{enum:['issue_fixed','request_fulfilled','customer_confirmed','no_action_required',null]},cancellation_code:{enum:['customer_withdrew','duplicate','no_longer_needed','entered_in_error',null]}},
+  ['id','case_type','priority','status','due_on','resolved_at','closed_at','resolution_code','cancellation_code','overdue','source'])},next_id:{anyOf:[uuid,{type:'null'}]}},['contract_version','operation','items','next_id']),
+ ...readBoundary,sensitiveFields:['title','internal_note_count','customer_id','contract_id','service_id','line_id','assigned_user_id','version','created_at','updated_at','note_body'],confirmation:'none',
+ grounding:'current authorized W1 case status/dates/codes only; no private notes, SLA inference or independent resolution confirmation',
+ partiality:'at most20 selected-customer rows; cursor means partial, no inferred total or absence outside the selected filter',enabled:{local:true,stage:false,prod:false}})
 function freeze(value: unknown): void { if (value && typeof value === 'object') { for (const child of Object.values(value)) freeze(child); Object.freeze(value) } }
 freeze(capabilities)
 export const PRODUCT_CAPABILITIES_V2: readonly ProductCapabilityV2[] = Object.freeze(capabilities)
