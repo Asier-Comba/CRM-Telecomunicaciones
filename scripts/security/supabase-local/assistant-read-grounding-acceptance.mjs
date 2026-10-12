@@ -3,6 +3,7 @@ import { executeApplicationReadTurnV2 } from '../../../src/assistant/application
 import { ConversationServiceV2 } from '../../../src/assistant/conversation-service-v2.ts'
 import { customerCollectionIdentity } from '../../../src/features/customers/customer-identity.ts'
 import { normalizeActiveMemberships,selectActiveMembership } from '../../../src/lib/workspace-roles.ts'
+import {projectAuthorizedPortabilityListV1} from '../../../src/assistant/portability-read-projection-v1.ts'
 
 /** Actual Auth/PostgREST/cookie reads and history; the planner alone is a fixed
  * synthetic adapter. No live-model, interactive-UI or business-durability claim. */
@@ -53,12 +54,29 @@ export async function assistantReadGroundingAcceptance({ rpc, sql, check, users,
     if(!invoiceFixture.ok||!invoiceFixture.receipt?.id)throw Error('W3_READ_GROUNDING_INVOICE_FIXTURE_FAILED')
     if(!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(invoiceFixture.receipt.id))throw Error('W3_READ_GROUNDING_INVOICE_FIXTURE_ID_INVALID')
     ownedInvoiceFixture={id:invoiceFixture.receipt.id,customer:customers[0],owner:owner.id}
+    phase='PORTABILITY_FIXTURE_SETUP'
+    // Ordinary authenticated W1 setup outside every assistant turn. This is an
+    // isolated synthetic draft, not a carrier call or assistant commercial write.
+    const setupPortParent=async(operation,input)=>{
+      const result=await rpc(operation,{p_workspace_id:wa,p_input:input},owner.token)
+      check(result.status===200&&typeof result.json?.id==='string'&&/^[0-9a-f-]{36}$/.test(result.json.id),'assistant_grounding_portability_parent_setup_'+operation)
+      return result.json
+    }
+    const portService=await setupPortParent('portfolio_v1_service_create_manual',{command_id:randomUUID(),contract_id:contracts[0],service_kind:'mobile',display_name:'W3 Grounding private portability service'})
+    const portLine=await setupPortParent('portfolio_v1_line_create_manual',{command_id:randomUUID(),service_id:portService.id,display_name:'W3 Grounding private portability line'})
+    const portDonor=await rpc('catalog_v1_command',{p_workspace_id:wa,p_operation:'operator.create',p_input:{command_id:randomUUID(),code:'w3-port-donor-'+randomUUID(),display_name:'W3 Grounding private portability donor'}},owner.token)
+    check(portDonor.status===200&&/^[0-9a-f-]{36}$/.test(portDonor.json?.id??''),'assistant_grounding_portability_donor_setup')
+    const portIdentifier=await rpc('identifier_v1_command',{p_workspace_id:wa,p_operation:'identifier.create_manual',p_input:{command_id:randomUUID(),entity_kind:'line',entity_id:portLine.id,identifier_kind:'msisdn',canonical_value:'+12025550183'}},owner.token)
+    check(portIdentifier.status===200&&/^[0-9a-f-]{36}$/.test(portIdentifier.json?.id??''),'assistant_grounding_portability_identifier_setup')
+    const portCreate=await fetch(assistantAppUrl+'/api/portability/v1',{method:'POST',headers:{cookie,origin:assistantAppUrl,'content-type':'application/json'},body:JSON.stringify({operation:'portability.create',input:{command_id:randomUUID(),line_id:portLine.id,number_identifier_id:portIdentifier.json.id,direction:'inbound',donor_operator_id:portDonor.json.id,target_operator_id:operator,requested_on:'2026-10-10',owner_user_id:null}}),signal:AbortSignal.timeout(30000)})
+    const portCreated=await portCreate.json()
+    check(portCreate.status===200&&portCreated.ok&&portCreated.data?.status==='draft'&&/^[0-9a-f-]{36}$/.test(portCreated.data?.id??''),'assistant_grounding_portability_fixture_actual_w1_cookie_setup')
     phase='SNAPSHOT'
-    const businessSnapshot=()=>sql(`select md5(coalesce(jsonb_agg(payload order by id)::text,'')) from(select id,to_jsonb(x) payload from public.customers x where id in('${customers[0]}','${customers[1]}','${foreignCustomer}') union all select id,to_jsonb(x) payload from public.telecom_contracts x where id in('${contracts[0]}','${contracts[1]}','${contracts[2]}') union all select id,to_jsonb(x) payload from public.telecom_operators x where id in('${operator}','${foreignOperator}') union all select id,to_jsonb(x) payload from public.billing_invoices x where customer_id in('${customers[0]}','${customers[1]}','${foreignCustomer}')) records`)
+    const businessSnapshot=()=>sql(`select md5(coalesce(jsonb_agg(payload order by id)::text,'')) from(select id,to_jsonb(x) payload from public.customers x where id in('${customers[0]}','${customers[1]}','${foreignCustomer}') union all select id,to_jsonb(x) payload from public.telecom_contracts x where id in('${contracts[0]}','${contracts[1]}','${contracts[2]}') union all select id,to_jsonb(x) payload from public.telecom_operators x where id in('${operator}','${foreignOperator}','${portDonor.json.id}') union all select id,to_jsonb(x) payload from public.billing_invoices x where customer_id in('${customers[0]}','${customers[1]}','${foreignCustomer}') union all select id,to_jsonb(x) payload from public.telecom_services x where id='${portService.id}' union all select id,to_jsonb(x) payload from public.telecom_lines x where id='${portLine.id}' union all select id,to_jsonb(x) payload from public.telecom_identifiers x where id='${portIdentifier.json.id}' union all select id,to_jsonb(x) payload from public.telecom_portabilities x where id='${portCreated.data.id}') records`)
     const before=businessSnapshot(),calls=[]
-    let suspendAfterRead=false,suspendAfterBilling=false,suspendAfterInvoices=false
+    let suspendAfterRead=false,suspendAfterBilling=false,suspendAfterInvoices=false,suspendAfterPortabilities=false
     const httpRead=async(family,operation,input)=>{
-      const endpoint=family==='collection'?'/api/product/v1/queries':family==='billing_analytics'?'/api/billing/analytics/v1':family==='billing_invoice'?'/api/billing/v1/queries':'/api/telecom/reads/v1'
+      const endpoint=family==='collection'?'/api/product/v1/queries':family==='billing_analytics'?'/api/billing/analytics/v1':family==='billing_invoice'?'/api/billing/v1/queries':family==='portability_read'?'/api/portability/v1':'/api/telecom/reads/v1'
       const response=await fetch(assistantAppUrl+endpoint,{method:'POST',headers:{cookie,origin:assistantAppUrl,'content-type':'application/json'},body:JSON.stringify({operation,input}),signal:AbortSignal.timeout(30000)})
       calls.push({operation,status:response.status})
       check(response.headers.get('cache-control')==='no-store','assistant_grounding_reader_no_store')
@@ -66,9 +84,10 @@ export async function assistantReadGroundingAcceptance({ rpc, sql, check, users,
       if(suspendAfterRead&&operation==='customer.list'){suspendAfterRead=false;sql(`update public.workspace_members set status='suspended' where workspace_id='${wa}' and user_id='${owner.id}'`)}
       if(suspendAfterBilling&&operation==='billing.monthly_series'){suspendAfterBilling=false;sql(`update public.workspace_members set status='suspended' where workspace_id='${wa}' and user_id='${owner.id}'`)}
       if(suspendAfterInvoices&&operation==='invoice.list'){suspendAfterInvoices=false;sql(`update public.workspace_members set status='suspended' where workspace_id='${wa}' and user_id='${owner.id}'`)}
+      if(suspendAfterPortabilities&&operation==='portability.list'){suspendAfterPortabilities=false;sql(`update public.workspace_members set status='suspended' where workspace_id='${wa}' and user_id='${owner.id}'`)}
       return body
     }
-    const readers={collection:(op,input)=>httpRead('collection',op,input),report:(op,input)=>httpRead('report',op,input),billingAnalytics:(op,input)=>httpRead('billing_analytics',op,input),billingInvoices:(op,input)=>httpRead('billing_invoice',op,input)},handles=['operator_ref','customer_ref','foreign_customer_ref']
+    const readers={collection:(op,input)=>httpRead('collection',op,input),report:(op,input)=>httpRead('report',op,input),billingAnalytics:(op,input)=>httpRead('billing_analytics',op,input),billingInvoices:(op,input)=>httpRead('billing_invoice',op,input),portabilities:(op,input)=>httpRead('portability_read',op,input)},handles=['operator_ref','customer_ref','foreign_customer_ref']
     const resolveReference=async(handle,field)=>{
       if(handle==='operator_ref'&&field==='operator_id'){
         const result=await readers.collection('operator.get',{id:operator})
@@ -90,13 +109,14 @@ export async function assistantReadGroundingAcceptance({ rpc, sql, check, users,
     const node=(limit=20)=>({id:'clients',capability:'crm.customer.list',arguments:[{field:'limit',value:limit}],bindings:[{field:'operator_id',handle:'operator_ref',nodeId:null}]})
     const summary=binding=>({id:'summary',capability:'crm.customer360.summary',arguments:[],bindings:[{field:'customer_id',...binding}]})
     const monthly=handle=>({id:'billing',capability:'crm.billing.monthly_series',arguments:[{field:'currency',value:'EUR'},{field:'from_month',value:'2026-09-01'},{field:'to_month',value:'2026-10-01'}],bindings:[{field:'customer_id',handle,nodeId:null}]})
+    const portability=handle=>({id:'portabilities',capability:'crm.portability.list',arguments:[{field:'status',value:'draft'},{field:'limit',value:20}],bindings:[{field:'customer_id',handle,nodeId:null}]})
     const plan=nodes=>({version:2,decision:'plan',nodes})
     const run=async(value)=>{
       const turn_id=randomUUID(),input={id:thread,turn_id,text:'Consulta sintética de lectura con plan cerrado'},events=[]
       check((await conversations.execute('turn.start',input)).ok,'assistant_grounding_actual_turn_reservation')
       let cancelled=0
       const provider={name:'deterministic-acceptance',status:'ready',evidenceMode:'synthetic',cancel(){cancelled++},async *streamTurn(){yield{type:'started'}},async createTurn(input){
-        check(![wa,wb,owner.id,owner.token,...customers,foreignCustomer,operator,foreignOperator,'W3 Grounding Alpha','W3 Grounding Other Tenant'].some(privateValue=>input.context.includes(privateValue)),'assistant_grounding_planner_minimized_context')
+        check(![wa,wb,owner.id,owner.token,...customers,foreignCustomer,operator,foreignOperator,portService.id,portLine.id,portDonor.json.id,portIdentifier.json.id,portCreated.data.id,'+12025550183','W3 Grounding Alpha','W3 Grounding Other Tenant'].some(privateValue=>input.context.includes(privateValue)),'assistant_grounding_planner_minimized_context')
         return{ok:true,value,model:'synthetic-closed-plan',usage:{inputTokens:0,outputTokens:0,totalTokens:0},durationMs:0}
       }}
       calls.length=0
@@ -118,7 +138,32 @@ export async function assistantReadGroundingAcceptance({ rpc, sql, check, users,
     check(result.final?.response.status==='ambiguous'&&!result.final.response.grounded&&!result.final.response.blocks.length&&!result.final.response.sources.length&&!result.calls.some(call=>call.operation==='customer360.summary'),'assistant_grounding_multiple_rows_no_invented_selection')
     phase='AUTHORIZED_SUMMARY'
     result=await run(plan([summary({handle:'customer_ref',nodeId:null})]))
-    check(result.final?.response.grounded&&result.final.response.blocks[0].rows[0].contracts===1&&result.final.response.blocks[0].rows[0].services===0&&result.final.response.blocks[0].rows[0].lines===0&&/^\d{4}-\d{2}-\d{2}$/.test(result.final.response.sources[0].asOf),'assistant_grounding_actual_customer_counts_as_of')
+    check(result.final?.response.grounded&&result.final.response.blocks[0].rows[0].contracts===1&&result.final.response.blocks[0].rows[0].services===1&&result.final.response.blocks[0].rows[0].lines===1&&/^\d{4}-\d{2}-\d{2}$/.test(result.final.response.sources[0].asOf),'assistant_grounding_actual_customer_counts_as_of')
+    phase='AUTHORIZED_PORTABILITIES'
+    result=await run(plan([portability('customer_ref')]))
+    const portabilityResponse=result.final?.response
+    check(portabilityResponse?.status==='completed'&&portabilityResponse.grounded&&portabilityResponse.blocks.length===1&&portabilityResponse.blocks[0].rows.length===1&&portabilityResponse.blocks[0].rows[0].masked_display==='••••183'&&portabilityResponse.blocks[0].rows[0].status==='Borrador'&&portabilityResponse.blocks[0].rows[0].requested_on==='2026-10-10','assistant_grounding_portability_actual_registered_masked_state')
+    check(portabilityResponse.sources[0].capability==='crm.portability.list'&&!portabilityResponse.sources[0].partial&&portabilityResponse.sources[0].asOf===null&&portabilityResponse.blocks[0].title==='Portabilidades del cliente · estado registrado'&&![portCreated.data.id,customers[0],portService.id,portLine.id,portIdentifier.json.id,portDonor.json.id,operator,'+12025550183','number_identifier_id','owner_user_id','created_at','updated_at'].some(value=>JSON.stringify(portabilityResponse).includes(value)),'assistant_grounding_portability_actual_source_private_minimization')
+    phase='PORTABILITY_VIEWER_COOKIE'
+    const {createServerClient}=await import('@supabase/ssr'),viewerCookies=[]
+    const viewerClient=createServerClient(url,anon,{cookies:{getAll:()=>[],setAll:values=>viewerCookies.push(...values)}})
+    check(!(await viewerClient.auth.setSession({access_token:users.viewerA.token,refresh_token:users.viewerA.refresh})).error,'assistant_grounding_portability_actual_viewer_cookie_setup')
+    const viewerPortInput={customer_id:customers[0],status:'draft',limit:20}
+    const viewerPortRead=await fetch(assistantAppUrl+'/api/portability/v1',{method:'POST',headers:{cookie:viewerCookies.map(c=>c.name+'='+c.value).join('; '),origin:assistantAppUrl,'content-type':'application/json'},body:JSON.stringify({operation:'portability.list',input:viewerPortInput}),signal:AbortSignal.timeout(30000)})
+    const viewerPortBody=await viewerPortRead.json(),viewerPortProjection=viewerPortBody.ok?projectAuthorizedPortabilityListV1(viewerPortInput,viewerPortBody.data):null
+    check(viewerPortRead.status===200&&viewerPortRead.headers.get('cache-control')==='no-store'&&viewerPortProjection?.items.length===1&&viewerPortProjection.items[0].masked_display==='••••183'&&![customers[0],portService.id,portLine.id,portIdentifier.json.id,portDonor.json.id,operator,'+12025550183','number_identifier_id','owner_user_id'].some(value=>JSON.stringify(viewerPortProjection).includes(value)),'assistant_grounding_portability_actual_viewer_authorized_masked_minimization')
+    phase='PORTABILITY_FOREIGN_REFERENCE'
+    result=await run(plan([portability('foreign_customer_ref')]))
+    check(result.final?.response.status==='access_changed'&&!result.final.response.grounded&&!result.final.response.blocks.length&&!result.calls.some(call=>call.operation==='portability.list'),'assistant_grounding_portability_foreign_reference_no_query')
+    phase='PORTABILITY_REVOKED_READ'
+    suspendAfterPortabilities=true
+    try{
+      result=await run(plan([portability('customer_ref')]))
+      check(result.events.map(event=>event.type).join(',')==='started,failed'&&!result.final,'assistant_grounding_portability_revocation_discards_facts')
+      await readers.portabilities('portability.list',{customer_id:customers[0],limit:20})
+      check(calls.at(-1)?.status===403,'assistant_grounding_portability_actual_cookie_revoked')
+    }finally{sql(`update public.workspace_members set status='active' where workspace_id='${wa}' and user_id='${owner.id}'`)}
+    check((await conversations.execute('turn.finish',{id:thread,turn_id:result.turn_id,status:'cancelled'})).ok,'assistant_grounding_portability_revoked_cancel_after_restore')
     phase='AUTHORIZED_INVOICE_LIST'
     const invoiceNode=handle=>({id:'invoices',capability:'crm.invoice.list',arguments:[{field:'status',value:'draft'},{field:'limit',value:20}],bindings:[{field:'customer_id',handle,nodeId:null}]})
     result=await run(plan([invoiceNode('customer_ref')]))
@@ -177,9 +222,9 @@ export async function assistantReadGroundingAcceptance({ rpc, sql, check, users,
     const messages=await conversations.execute('message.page',{id:thread,limit:50})
     // The three invoice turns add three users and two assistant replies;
     // the revoked read has no final reply. Assert the complete exact ledger.
-    check(messages.ok&&messages.data.historical&&messages.data.items.length===23&&messages.data.items.filter(item=>item.role==='user').length===13&&messages.data.items.filter(item=>item.role==='assistant').length===10,
+    check(messages.ok&&messages.data.historical&&messages.data.items.length===28&&messages.data.items.filter(item=>item.role==='user').length===16&&messages.data.items.filter(item=>item.role==='assistant').length===12,
       'assistant_grounding_persisted_history_exact_turn_counts')
-    check(messages.ok&&messages.data.items.filter(item=>item.role==='assistant').every(item=>!['W3 Grounding','telecom.collections','billing.analytics','assistant.invoice-list','source_','inputTokens','123,45'].some(value=>item.content.includes(value))),
+    check(messages.ok&&messages.data.items.filter(item=>item.role==='assistant').every(item=>!['W3 Grounding','telecom.collections','billing.analytics','assistant.invoice-list','assistant.portability-list','portability.v1','source_','inputTokens','123,45','••••183','+12025550183'].some(value=>item.content.includes(value))),
       'assistant_grounding_persisted_history_excludes_factual_blocks')
     check(before===businessSnapshot(),'assistant_grounding_no_business_record_change')
     return 'PASS_ACTUAL_AUTH_COOKIE_READ_GROUNDING_PARTIALITY_REVOCATION_SYNTHETIC_PLANNER'

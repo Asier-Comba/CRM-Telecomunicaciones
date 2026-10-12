@@ -65,7 +65,7 @@ function inputSchema(filters: readonly string[], enums: Readonly<Record<string, 
 }
 export type ProductCapabilityV2 = {
   name: string; description: string; version: 'assistant.capability.v2'; mode: 'read'; risk: 'READ'; roles: readonly string[]
-  inputSchema: Schema; outputSchema: Schema; backendOperation: string; family: 'collection' | 'report' | 'billing_analytics' | 'billing_invoice'
+  inputSchema: Schema; outputSchema: Schema; backendOperation: string; family: 'collection' | 'report' | 'billing_analytics' | 'billing_invoice' | 'portability_read'
   sensitiveFields: readonly string[]; confirmation: 'none'; grounding: string; partiality: string
   authorization: 'current_server_membership_and_role_rechecked_around_each_await'
   tenantScope: 'server_selected_workspace_actor_and_scope_epoch'
@@ -131,6 +131,18 @@ capabilities.push({name:'crm.invoice.list',version:'assistant.capability.v2',mod
   ...readBoundary,sensitiveFields:['customer_id','number','series','version','totals.subtotal_minor','totals.tax_minor','totals.withholding_minor','lines','notes','issuer','customer_fiscal'],confirmation:'none',
   grounding:'validated current invoice list for the authorized customer and requested status/issue-date slice; exact integer minor units, separate currencies; paid is recorded status only',
   partiality:'at most20 rows; next_id means partial, never infer customer totals, bank collections or absence from an incomplete page',enabled:{local:true,stage:false,prod:false}})
+capabilities.push({name:'crm.portability.list',version:'assistant.capability.v2',mode:'read',risk:'READ',roles:['owner','admin','member','viewer'],backendOperation:'portability.list',family:'portability_read',
+ description:'Lista hasta veinte portabilidades del cliente seleccionado: número enmascarado, dirección, estado, fechas y motivo registrados. No acredita una transferencia real del operador. Conserva parcialidad, sin números completos ni asociaciones privadas.',
+ inputSchema:closed({customer_id:uuid,status:{type:'string',enum:['draft','requested','scheduled','in_progress','completed','rejected','cancelled']},direction:{type:'string',enum:['inbound','outbound']},
+  window_from:ruleSchema('date'),window_to:ruleSchema('date'),limit:{type:'integer',minimum:1,maximum:20},after_id:uuid},['customer_id']),
+ outputSchema:closed({contract_version:{const:'assistant.portability-list.v1'},operation:{const:'portability.list'},items:{type:'array',maxItems:20,
+  items:closed({id:uuid,masked_display:{type:'string',pattern:'^••••[0-9]{3}$'},direction:{type:'string',enum:['inbound','outbound']},status:{type:'string',enum:['draft','requested','scheduled','in_progress','completed','rejected','cancelled']},
+   requested_on:ruleSchema('date'),submitted_on:ruleSchema('date?'),scheduled_on:ruleSchema('date?'),started_on:ruleSchema('date?'),completed_on:ruleSchema('date?'),closed_on:ruleSchema('date?'),
+   reason_code:{anyOf:[{type:'string',enum:['subscriber_mismatch','number_not_found','authorization_missing','ineligible_contract','donor_rejected','technical_failure','customer_withdrew','duplicate_request']},{type:'null'}]},source:{type:'string',enum:['manual','import','integration']}},
+   ['id','masked_display','direction','status','requested_on','submitted_on','scheduled_on','started_on','completed_on','closed_on','reason_code','source'])},next_id:{anyOf:[uuid,{type:'null'}]}},['contract_version','operation','items','next_id']),
+ ...readBoundary,sensitiveFields:['customer_id','contract_id','service_id','line_id','number_identifier_id','donor_operator_id','target_operator_id','owner_user_id','version','created_at','updated_at','complete_number'],confirmation:'none',
+ grounding:'validated current W1 status/dates/reason and masked number for the authorized customer and requested slice; no carrier-confirmation or line-effect claim',
+ partiality:'at most20 rows; next_id means partial, never infer customer totals, successful physical transfer or absence from an incomplete page',enabled:{local:true,stage:false,prod:false}})
 function freeze(value: unknown): void { if (value && typeof value === 'object') { for (const child of Object.values(value)) freeze(child); Object.freeze(value) } }
 freeze(capabilities)
 export const PRODUCT_CAPABILITIES_V2: readonly ProductCapabilityV2[] = Object.freeze(capabilities)

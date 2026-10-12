@@ -26,9 +26,9 @@ test('abstention expectations cannot pass merely because one allowed decision ac
   assert.equal(scoreReadPlanV2(parse([], 'clarify'), abstain).capabilityCorrect, true)
   assert.equal(scoreReadPlanV2(parse([node()]), abstain).capabilityCorrect, false)
 })
-test('213 authored expectations cover32 reads, exact references and closed dependent plans', () => {
+test('214 authored expectations cover33 reads, exact references and closed dependent plans', () => {
   const rows = readFileSync(new URL('../../evals/assistant/product-v2.jsonl', import.meta.url), 'utf8').trim().split('\n').map(line => JSON.parse(line) as ReadPlanExpectationV2)
-  assert.equal(rows.length, 213)
+  assert.equal(rows.length, 214)
   assert.equal(new Set(rows.map(row => row.id)).size, rows.length)
   assert.equal(new Set(rows.map(row => row.text)).size, rows.length)
   const covered = new Set<string>()
@@ -44,7 +44,7 @@ test('213 authored expectations cover32 reads, exact references and closed depen
     const plan = parseProductReadPlanV2({ version: 2, decision: row.decisions[0], nodes }, row.references ?? [])
     assert.ok(plan, row.id); assert.equal(scoreReadPlanV2(plan, row).argumentCorrect, true, row.id)
   }
-  assert.equal(covered.size, 32)
+  assert.equal(covered.size, 33)
   assert.equal(rows.filter(row => row.category === 'unique_dependency').length, 5)
   assert.equal(rows.filter(row => row.category === 'multiple_entities').length, 5)
   assert.equal(rows.filter(row => row.category === 'rag_gap').length, 5)
