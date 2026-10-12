@@ -114,7 +114,8 @@ export async function prepareDocumentRagSourceV1(handle: unknown, deps: Document
     if (!await current()) return stop('access_changed')
     if (!(downloaded instanceof Uint8Array) || downloaded.byteLength !== source.sizeBytes) return stop('invalid_source')
     const bytes = new Uint8Array(downloaded)
-    if (sha(bytes) !== source.sha256 || Buffer.from(bytes.subarray(0, 5)).toString('ascii') !== '%PDF-') return stop('invalid_source')
+    // ASCII decoding clears high bits: compare the signature's actual bytes.
+    if (sha(bytes) !== source.sha256 || !Buffer.from(bytes.subarray(0, 5)).equals(Buffer.from('%PDF-', 'ascii'))) return stop('invalid_source')
     const extracted = await boundedAwaitV2(() => deps.extractPdf(bytes, signal), signal)
     if (!await current()) return stop('access_changed')
     const fragments = chunks(extracted)

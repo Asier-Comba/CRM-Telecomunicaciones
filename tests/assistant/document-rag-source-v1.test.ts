@@ -95,6 +95,22 @@ test('size, digest and format mismatch fail before extraction', async () => {
   }
 })
 
+test('PDF admission rejects all high-bit header aliases even with matching approved size and digest', async () => {
+  for (let mask = 1; mask < 32; mask++) {
+    const aliased = Buffer.from(bytes)
+    for (let offset = 0; offset < 5; offset++) {
+      if (mask & (1 << offset)) aliased[offset] = aliased[offset]! | 0x80
+    }
+    const f = fixture()
+    f.bytes(aliased)
+    f.source({ ...source, sizeBytes: aliased.length, sha256: createHash('sha256').update(aliased).digest('hex') })
+    const result = await prepareDocumentRagSourceV1(handle, f.deps)
+    assert.deepEqual(result, { status: 'invalid_source', handle: null }, `header mask ${mask}`)
+    assert.equal(f.calls.download, 1)
+    assert.equal(f.calls.extract, 0)
+  }
+})
+
 test('hostile snapshots/pages, sparse arrays and accessors fail without invoking getters or coercions', async () => {
   let invoked = 0
   const getter = Object.defineProperty({ ...source }, 'sha256', { enumerable: true, get() { invoked++; return source.sha256 } })
