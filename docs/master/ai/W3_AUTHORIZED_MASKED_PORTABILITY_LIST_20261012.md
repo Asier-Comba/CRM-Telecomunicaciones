@@ -41,7 +41,10 @@ OFF, cincoHIGH FAIL, release NOT_ACCEPTED y revisión W4 independiente.
 
 Control bootstrap local Windows:538 PASS/5 FAIL, sobre543. Las cinco pruebas de
 staging/importación cifrada son ajenas a esta lectura: constructor disposable
-rechaza permisos POSIX que NTFS no acredita. Esas fuentes permanecen idénticas
+rechaza primero la raíz porque realpath(root)!==root (línea23), antes de evaluar
+permisos. Un probe físico de un directorio temporal vacío propio confirma esa
+desigualdad y registra también bits grupo/otros066: privacidad POSIX no acreditada.
+No se usa esta segunda condición como causa de la primera excepción. Esas fuentes permanecen idénticas
 a1CF, cuyo bootstrap543 propio en Linux cerró PASS. Se retiene el fallo local;
 no se quita la validación de permisos ni se afirma PASS local543. La nueva fuente
 requiere sus propios controles Linux completos y revisión W4/W5 de ese soporte.
