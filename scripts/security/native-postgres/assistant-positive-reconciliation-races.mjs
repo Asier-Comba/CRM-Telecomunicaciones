@@ -9,6 +9,7 @@ import {isExpectedNativeImage} from './expected-image.mjs'
 import {terminatedCatalogFunctionDefinition} from './catalog-function-definition.mjs'
 import {runIndependentPositiveReconciliationRaceV1,runIndependentUnconfirmedReservationRaceV1} from './positive-reconciliation-race.mjs'
 import {runPositiveReconciliationProcessCutV1} from './positive-reconciliation-process-cut.mjs'
+import {createNativeDurableAuditInspectorV3} from './durable-audit-inspection-v3.mjs'
 import {CapabilityRegistry} from '../../../src/assistant/registry.ts'
 import {argumentsDigest} from '../../../src/assistant/runtime.ts'
 import {createDurableCommandMaterialProducerV1,createDurableMaterialReservationPortV1} from '../../../src/assistant/durable-command-material.ts'
@@ -143,12 +144,18 @@ try{
   return {actor:principal(requestId),operationRef:operation,expectedVersion:4,binding,idempotencyKey:key,resolution:{outcome:'completed',result},eventRef:hash(JSON.stringify([workspace,operation,4])),auditIntent:audit,now:new Date()}
  }
  const receipt=await quarantine(record.operationRef,command)
+ const auditInspector=createNativeDurableAuditInspectorV3(sql,{...binding,operationRef:record.operationRef})
+ await auditInspector.captureBaseline()
  const competing=Array.from({length:20},(_,i)=>commitInput(record.operationRef,key,'positive_original_'+i+'_'+nonce))
  const independent=await runIndependentPositiveReconciliationRaceV1(competing,{workspace,actor,capability,workerRef,input,outcomes,command},terminateOwnedSessions)
  const settled=independent.settled;assert.equal(independent.nodeProcesses,20);assert.equal(independent.nativeBackends,20);assert.equal(independent.sameConnection,true)
  assert.equal(settled.filter(x=>x.status==='applied').length,1);assert.equal(settled.filter(x=>x.status==='version_conflict').length,19)
  const committedIndex=settled.findIndex(x=>x.status==='applied'),originalAudit=competing[committedIndex].auditIntent,eventRef=competing[committedIndex].eventRef
  expectedAudits.set(eventRef,originalAudit)
+ const raceAudit=await auditInspector.inspect()
+ assert.equal(raceAudit.originalAuditIntents,4);assert.equal(raceAudit.baselineOriginalAuditIntents,3)
+ assert.equal(raceAudit.reservationAuditIntents,1);assert.equal(raceAudit.otherAuditIntents,2);assert.equal(raceAudit.outcomeAuditIntents,1)
+ assert.equal(raceAudit.pendingOriginalEvents,4);assert.equal(raceAudit.outcomePendingEvents,1);assert.equal(raceAudit.outcomeDeliveredEvents,0)
  assert.deepEqual(JSON.parse(await sql(`select reconciliation_event from public.assistant_original_audit_intents where event_ref=${literal(eventRef)};`)),originalAudit)
  let complete=hash(await allLedger());const replay=await positive.loadAuthorizedOperation(principal('positive_changed_retry_'+nonce),record.operationRef,new Date())
  assert.equal(replay.state,'completed');assert.equal(replay.version,5);assert.equal(replay.effectReceiptRef,receipt);assert.deepEqual(replay.result,result);assert.equal(hash(await allLedger()),complete)
@@ -212,6 +219,11 @@ try{
  const page=await drain.processPage();assert.equal(page.status,'page_processed');assert.equal(page.delivered,12);assert.equal((await drain.processPage()).status,'empty_page')
  assert.equal(await sql(`select count(*) from public.assistant_audit_delivery_outbox d join public.assistant_original_audit_intents i using(workspace_id,event_ref) where i.capability='${capability}' and d.state='pending';`),'0')
  assert.equal(await sql(`select jsonb_agg(to_jsonb(i) order by event_ref) from public.assistant_original_audit_intents i where capability='${capability}';`),originals)
+ const finalAudit=await auditInspector.inspect()
+ assert.equal(finalAudit.originalAuditIntents,4);assert.equal(finalAudit.deliveredOriginalEvents,4);assert.equal(finalAudit.pendingOriginalEvents,0)
+ assert.equal(finalAudit.outcomeDeliveredEvents,1);assert.equal(finalAudit.outcomePendingEvents,0);assert.equal(finalAudit.baselinePendingOriginalEvents,3)
+ assert.equal(finalAudit.baselineAuditContentDigest,finalAudit.persistedBaselineAuditContentDigest)
+ console.log(JSON.stringify({kind:'durable_v3_native_audit_observation',scenario:'reconciliation_primitive',ledger:finalAudit,full23:'NOT_RUN'}))
  console.log('POSITIVE RECONCILIATION NATIVE PASS:20 distinct independent Node processes/native backends same persistent connection one completion19 conflicts;original expired lease/full receipt/full result;ten complete methods plus positive reconciliation;targeted postcommit reply loss/authorized replay;actual postcommit Node SIGKILL/different process backend recovery;current grant expiry after observed customer row lock;five SQL mutants exact-restored;twelve immutable original audits drained by a distinct current actor including three complete eight-field reconciliation events;NOT full11/verified absence/full23/four independent Node races/business handler/before-effect SIGKILL/restart')
 }finally{
  for(const child of owned)child.kill('SIGKILL')

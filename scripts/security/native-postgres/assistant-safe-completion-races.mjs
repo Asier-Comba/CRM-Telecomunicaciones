@@ -16,6 +16,7 @@ import {createDurableBusinessOutboxPortV1} from '../../../src/assistant/durable-
 import {createDurableAuditDeliveryPortV1} from '../../../src/assistant/durable-audit-delivery-port.ts'
 import {createDurableAuditDrainV1} from '../../../src/assistant/durable-audit-drain.ts'
 import {runIndependentCompletionRaceV1} from './positive-reconciliation-race.mjs'
+import {createNativeDurableAuditInspectorV3} from './durable-audit-inspection-v3.mjs'
 import {runCompletionProcessCutV1} from './positive-reconciliation-process-cut.mjs'
 const container=process.env.TELECOM_NATIVE_TEST_CONTAINER??''
 assert.match(container,/^[0-9a-f]{12,64}$/)
@@ -107,6 +108,8 @@ try{
  create table public.${outcomes}(workspace_id uuid,operation_ref text,command_ref text,receipt_ref text,outcome jsonb,primary key(workspace_id,operation_ref));
  revoke all on public.${sink},public.${outcomes} from public,anon,authenticated,service_role;`)
  const candidate=await preparedCompletion('completion_race')
+ const auditInspector=createNativeDurableAuditInspectorV3(sql,{...binding,operationRef:candidate.operationRef})
+ await auditInspector.captureBaseline()
  const auditInputs=Array.from({length:20},(_,i)=>originalAudit('completion_original_'+i+'_'+nonce,123+i))
  const requests=auditInputs.map(auditIntent=>({...candidate,auditIntent,actor:{authentication:'user_session',actorId:actor,workspaceId:workspace,permissions:authority.permissions,requestId:auditIntent.requestId},now:new Date()}))
  const commandRaw=await sql(`select command_ref from public.assistant_registered_commands where workspace_id='${workspace}' and operation_ref=${literal(candidate.operationRef)};`)
@@ -115,6 +118,10 @@ try{
  const results=independent.settled
  assert.equal(results.filter(r=>r.status==='applied').length,1);assert.equal(results.filter(r=>r.status==='version_conflict').length,19)
  const winner=results.findIndex(r=>r.status==='applied');expectedAudits.set(candidate.eventRef,auditInputs[winner])
+ const raceAudit=await auditInspector.inspect()
+ assert.equal(raceAudit.originalAuditIntents,3);assert.equal(raceAudit.baselineOriginalAuditIntents,2)
+ assert.equal(raceAudit.reservationAuditIntents,1);assert.equal(raceAudit.otherAuditIntents,1);assert.equal(raceAudit.outcomeAuditIntents,1)
+ assert.equal(raceAudit.pendingOriginalEvents,3);assert.equal(raceAudit.outcomePendingEvents,1);assert.equal(raceAudit.outcomeDeliveredEvents,0)
  const committed=hash(await aggregate())
  const replay=await completion.loadAuthorizedOperation({...context,requestId:'completion_authorized_replay_'+nonce},candidate.operationRef,new Date())
  assert.equal(replay.state,'completed');assert.equal(replay.version,4);assert.deepEqual(replay.result,candidate.result);assert.equal(hash(await aggregate()),committed)
@@ -184,6 +191,11 @@ try{
  const page=await drain.processPage();assert.equal(page.status,'page_processed');assert.equal(page.delivered,14);assert.equal((await drain.processPage()).status,'empty_page')
  assert.equal(await sql(`select count(*) from public.assistant_audit_delivery_outbox d join public.assistant_original_audit_intents i using(workspace_id,event_ref) where i.capability='${capability}' and d.state='pending';`),'0')
  assert.equal(await sql(`select count(*) from public.${auditSink};`),'14');assert.equal(hash(await allOriginals()),originals)
+ const finalAudit=await auditInspector.inspect()
+ assert.equal(finalAudit.originalAuditIntents,3);assert.equal(finalAudit.deliveredOriginalEvents,3);assert.equal(finalAudit.pendingOriginalEvents,0)
+ assert.equal(finalAudit.outcomeDeliveredEvents,1);assert.equal(finalAudit.outcomePendingEvents,0);assert.equal(finalAudit.baselinePendingOriginalEvents,2)
+ assert.equal(finalAudit.baselineAuditContentDigest,finalAudit.persistedBaselineAuditContentDigest)
+ console.log(JSON.stringify({kind:'durable_v3_native_audit_observation',scenario:'completion_primitive',ledger:finalAudit,full23:'NOT_RUN'}))
  console.log('SAFE COMPLETION NATIVE PASS:20 distinct independent Node processes/native backends same persistent connection;one completion19 conflicts;registered result producer;original receipt;postcommit loss/authorized replay;real postcommit SIGKILL observed after independent persisted full record/audit inspection;fresh Node/backend recovers identical full record/result/receipt and eight ledgers unchanged;atomic rollback/retry;grant expiry after observed customer lock;five SQL mutants restored;fourteen original audits including full eleven-field completion payloads drained;NOT full23/four complete Node scenarios/business handler/before-effect SIGKILL/restart')
 }finally{
  for(const child of owned)child.kill('SIGKILL')
