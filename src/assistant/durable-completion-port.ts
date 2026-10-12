@@ -2,7 +2,7 @@ import type {AuditEvent,IdempotencyBinding} from './contracts.ts'
 import type {DurableDatabasePort} from './durable-db-contract.ts'
 import type {ReconciliationActor,ServerEffectCommand} from './durable-contracts.ts'
 import type {DurableBusinessPortV1,EffectWorkerAuthorityV1} from './durable-business-outbox-port.ts'
-import {assertResultRecordV1,preparedResultParametersV1,type createDurableResultMaterialProducerV1} from './durable-result-material.ts'
+import {assertResultRecordV1,assertResultTimeProgressionV1,preparedResultParametersV1,type createDurableResultMaterialProducerV1} from './durable-result-material.ts'
 import {boundedAwaitV2} from './bounded-await-v2.ts'
 import {canonicalArgumentsV1} from './runtime.ts'
 import {containsHighConfidenceSecret} from './schema.ts'
@@ -95,8 +95,9 @@ export function createDurableCompletionPortV1(deps:{business:DurableBusinessPort
     const result=response.record
     if(result.state!=='completed'||result.version!==record.version+1||result.operationRef!==record.operationRef||!same(result.binding,record.binding)
      ||result.effectReceiptRef!==record.effectReceiptRef||result.idempotencyKey!==record.idempotencyKey||result.attempt!==record.attempt
-     ||result.createdAt!==record.createdAt||result.leaseExpiresAt!==record.leaseExpiresAt||Date.parse(result.updatedAt)<Date.parse(record.updatedAt)
+     ||result.createdAt!==record.createdAt||result.leaseExpiresAt!==record.leaseExpiresAt
      ||canonicalArgumentsV1(result.result!)!==p.canonicalResult)throw fail()
+    assertResultTimeProgressionV1(record.updatedAt,result.updatedAt)
     // Resource access can change after the commit releases its locks. Admit the
     // returned completed DTO again before exposing it; denial never undoes a commit.
     const returned=await deps.producer.prepare(result,cmd,result.result,principal.requestId,signal)

@@ -35,6 +35,21 @@ function fixture(){
   invoke:async(name:'assistant_durable_v1_reconcile_completed',params:Readonly<Record<string,string>>,signal:AbortSignal):Promise<{data:unknown;error:unknown}>=>{calls.push({name,params,signal});return {data:{status:'applied',record:structuredClone(completed),eventRef,auditIntentPersisted:true},error:null}}}
  return {deps,materialDeps,producer,calls,port:createDurablePositiveReconciliationPortV1(deps),worker:()=>worker!,setWorker:(w:EffectWorkerAuthorityV1|null)=>{worker=w},setReadable:(v:boolean)=>{readable=v},setSource:(v:unknown)=>{source=v}}
 }
+test('positive reconciliation rejects a one-microsecond backward reply and admits equal, later and offset-equivalent instants',async()=>{
+ const prior={...record,updatedAt:'2026-10-11T05:10:00.123456Z'}
+ for(const [updatedAt,allowed] of [
+  ['2026-10-11T05:10:00.123455Z',false],
+  ['2026-10-11T05:10:00.123456Z',true],
+  ['2026-10-11T05:10:00.123457Z',true],
+  ['2026-10-11T06:10:00.123456+01:00',true],
+ ] as const){
+  const f=fixture();f.deps.reservation.loadAuthorizedOperation=async()=>structuredClone(prior)
+  f.deps.invoke=async(name,params,signal)=>{f.calls.push({name,params,signal});return {data:{status:'applied',record:{...completed,updatedAt},eventRef,auditIntentPersisted:true},error:null}}
+  const pending=createDurablePositiveReconciliationPortV1(f.deps).commitVerifiedReconciliation(structuredClone(input))
+  if(allowed)assert.equal((await pending).status,'applied');else await assert.rejects(pending)
+  assert.equal(f.calls.length,1);assert.ok(f.calls[0].signal.aborted)
+ }
+})
 
 test('positive reconciliation sends original opaque result receipt and full eight-field audit in one private mutation',async()=>{
  const f=fixture(),actual=await f.port.commitVerifiedReconciliation(structuredClone(input));assert.equal(actual.status,'applied')
