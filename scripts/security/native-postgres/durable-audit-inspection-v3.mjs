@@ -1,12 +1,13 @@
-import {captureDurableAuditBaselineV3,inspectDurableAuditLedgerV3} from '../../../src/assistant/durable-audit-observation-v3.ts'
+import {captureDurableAuditBaselineV3,inspectDurableAuditLedgerV3,snapshotDurableBindingScopeV3} from '../../../src/assistant/durable-audit-observation-v3.ts'
 
 const literal=v=>"'"+String(v).replaceAll("'","''")+"'"
 /** Consumer of the existing owned native fixture's private readonly SQL port.
  * One statement measures the entire operation ledger and every delivery; no
  * resource creation/restart, no raw ledger publication, no business counters. */
 export function createNativeDurableAuditInspectorV3(query,scope){
-  if(typeof query!=='function')throw Error('NATIVE_AUDIT_INSPECTION_UNAVAILABLE')
-  const binding=Object.freeze({...scope})
+  let binding
+  try{binding=snapshotDurableBindingScopeV3(scope)}catch{throw Error('NATIVE_AUDIT_INSPECTION_UNAVAILABLE')}
+  if(typeof query!=='function'||!binding)throw Error('NATIVE_AUDIT_INSPECTION_UNAVAILABLE')
   const statement=`select coalesce(jsonb_agg(jsonb_build_object(
     'workspaceId',i.workspace_id,'actorId',i.actor_id,'operationRef',i.operation_ref,
     'capability',i.capability,'argumentsDigest',i.arguments_digest,'eventRef',i.event_ref,'event',i.event,
