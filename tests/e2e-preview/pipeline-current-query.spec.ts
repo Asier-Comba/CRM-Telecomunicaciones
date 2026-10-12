@@ -54,6 +54,7 @@ for(const width of [390,768,1440])test(`pipeline occupied stage is reachable bef
 for(const width of [390,768,1440])test(`pipeline keeps only the current query after delayed search/detail/error at ${width}`,async({page},info)=>{
  const fixture=await startPipelineCurrentFixture(),errors:string[]=[],commands:string[]=[],held:Route[]=[]
  let holdSearch=false,holdWork=false,holdLatest=false,holdSelection=false
+ let staleDetail:Route|null=null
  page.on('pageerror',e=>errors.push(e.message))
  await page.route('**/api/product/v1/**',async route=>{
   const {operation,input}=route.request().postDataJSON()
@@ -78,18 +79,29 @@ for(const width of [390,768,1440])test(`pipeline keeps only the current query af
   await expect(page.locator(`[data-opportunity-id="${ids.Beta}"]`)).toBeVisible()
   await expect(page.getByText('Synthetic Beta customer',{exact:true})).toBeVisible()
   holdSearch=false;holdWork=true;await input.fill('Alpha');await submit.click();await expect.poll(()=>held.length).toBe(1)
+  staleDetail=held.shift()!
+  expect(staleDetail.request().postDataJSON().operation).toBe('work.get')
+  expect(staleDetail.request().postDataJSON().input.id).toBe(ids.Alpha)
   await input.fill('Gamma');await submit.click();await expect(page.locator(`[data-opportunity-id="${ids.Gamma}"]`)).toBeVisible()
+  // The retained work DTO belongs to the previous query. Scope controls must
+  // await their own search request, not count/pop that earlier detail as theirs.
+  holdWork=false;holdSearch=true
   for(const button of ['Cambiar actor sintético','Cambiar a lector sintético']){
    await input.fill('Alpha');await submit.click();await expect.poll(()=>held.length).toBe(1)
-   await page.getByRole('button',{name:button,exact:true}).click();await reply(held.shift()!,search('Alpha'))
+   const staleSearch=held.shift()!
+   expect(staleSearch.request().postDataJSON().operation).toBe('global.search')
+   expect(staleSearch.request().postDataJSON().input.query).toBe('Alpha')
+   const response=page.waitForResponse(r=>r.request()===staleSearch.request())
+   await page.getByRole('button',{name:button,exact:true}).click();await reply(staleSearch,search('Alpha'));await (await response).finished()
    await expect(page.getByRole('status').filter({hasText:'Escribe una empresa'})).toBeVisible()
    await expect(input).toHaveValue('');await expect(page.locator('[data-opportunity-id]')).toHaveCount(0)
   }
+  holdSearch=false
   await input.fill('Gamma');await submit.click();await expect(page.locator(`[data-opportunity-id="${ids.Gamma}"]`)).toBeVisible()
   await expect(page.getByRole('button',{name:'Nueva oportunidad',exact:true})).toBeDisabled()
   await expect(page.getByRole('combobox',{name:'Mover etapa de Synthetic Gamma opportunity',exact:true})).toHaveCount(0)
-  const oldDetail=page.waitForResponse(r=>r.request().postDataJSON()?.operation==='work.get'&&r.request().postDataJSON()?.input.id===ids.Alpha)
-  await reply(held.shift()!,work('Alpha'));await (await oldDetail).finished()
+  const oldDetail=page.waitForResponse(r=>r.request()===staleDetail!.request())
+  await reply(staleDetail,work('Alpha'));await (await oldDetail).finished();staleDetail=null
   await page.evaluate(()=>new Promise<void>(resolve=>requestAnimationFrame(()=>requestAnimationFrame(()=>resolve()))))
   await expect(page.locator(`[data-opportunity-id="${ids.Gamma}"]`)).toBeVisible();await expect(page.locator(`[data-opportunity-id="${ids.Alpha}"]`)).toHaveCount(0)
   await expect(page.getByText('Synthetic Gamma customer',{exact:true})).toBeVisible()
@@ -116,5 +128,5 @@ for(const width of [390,768,1440])test(`pipeline keeps only the current query af
   await page.evaluate(()=>new Promise<void>(resolve=>requestAnimationFrame(()=>requestAnimationFrame(()=>resolve()))))
   await expect(page.getByRole('dialog')).toHaveCount(0)
   await expect(page.getByRole('status').filter({hasText:'Consulta pendiente'})).toBeVisible()
- }finally{for(const route of held)await route.abort().catch(()=>{});await page.unrouteAll({behavior:'wait'});await fixture.close()}
+ }finally{for(const route of [...held,...(staleDetail?[staleDetail]:[])])await route.abort().catch(()=>{});await page.unrouteAll({behavior:'wait'});await fixture.close()}
 })
