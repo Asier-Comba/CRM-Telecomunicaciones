@@ -30,6 +30,19 @@ test('SIM list and selected read reject an update earlier than creation and acce
  }
 })
 
+test('SIM chronology preserves microseconds and timezone equality for records and associations',()=>{
+ const created_at='2026-01-01T00:00:00.123456Z'
+ for(const updated_at of ['2026-01-01T00:00:00.123455Z','2026-01-01T00:00:00.123456Z','2026-01-01T01:00:00.123456+01:00','2026-01-01T00:00:00.123457Z']){
+  const r={...row,created_at,updated_at};assert.equal(result('sim.list',{},page([r]))!==null,updated_at!== '2026-01-01T00:00:00.123455Z')
+ }
+ const active={...row,status:'active',assigned_line_id:third,masked_iccid:'••••180',created_at,updated_at:created_at,activated_at:'2026-01-01T00:00:00.123455Z'}
+ assert.equal(result('sim.get',{id},{contract_version:'sim.v1',operation:'sim.get',record:active}),null)
+ const association={id,sim_id:id,line_id:third,kind:'physical',masked_iccid:'••••180',masked_eid:null,status:'inactive',assigned_at:created_at,activated_at:null,ended_at:'2026-01-01T00:00:00.123455Z',replacement_sim_id:null}
+ assert.equal(result('sim.history',{line_id:third},{contract_version:'sim.v1',operation:'sim.history',line_id:third,items:[association],next_id:null}),null)
+ association.ended_at='2026-01-01T01:00:00.123456+01:00'
+ assert.ok(result('sim.history',{line_id:third},{contract_version:'sim.v1',operation:'sim.history',line_id:third,items:[association],next_id:null}))
+})
+
 test('replacement receipt preserves old resource and explicit new resource CAS without guessed identities',()=>{
  assert.ok(result('sim.replace',replace,receipt));for(const r of [{...receipt,replacement_version:3},{...receipt,replacement_status:'assigned'},{...receipt,source:'integration'},{...receipt,association_id:null},{...receipt,iccid:'private'}])assert.equal(result('sim.replace',replace,r),null)
 })
