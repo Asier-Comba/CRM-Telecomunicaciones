@@ -43,11 +43,18 @@ export async function executeProductReadPlanV2(raw: unknown, deps: ProductReadDe
   const stop = (status: Exclude<ProductReadResultV2['status'], 'completed'>): ProductReadResultV2 => ({ status, evidence: [] })
   const plan = parseProductReadPlanV2(raw, deps.offeredHandles); if (!plan) return stop('invalid_plan')
   if (plan.decision !== 'plan') return stop(plan.decision)
+  const callerSignal=deps.signal,controller=new AbortController(),cancel=()=>controller.abort()
+  const deadline=performance.now()+20000,timer=setTimeout(cancel,20000)
+  const ensureBudget=()=>{if(controller.signal.aborted||performance.now()>=deadline){cancel();throw Error('unavailable')}}
+  const within=async<T>(start:()=>Promise<T>)=>{ensureBudget();const value=await boundedAwaitV2(start,controller.signal);ensureBudget();return value}
   try {
+    if(callerSignal?.aborted)return stop('unavailable')
+    callerSignal?.addEventListener('abort',cancel,{once:true})
+    if(callerSignal?.aborted)cancel()
     // Retained server adapter objects must not rewrite either the admitted
     // identity or the callback supplying subsequent fresh authorization.
     const readAuthority=deps.authority,resolveReference=deps.resolveReference
-    const fresh = async() => snapshotReadAuthorityV2(await boundedAwaitV2(() => readAuthority.call(deps), deps.signal))
+    const fresh = async() => snapshotReadAuthorityV2(await within(() => readAuthority.call(deps)))
     const authority = await fresh()
     if (!authority || !['owner', 'admin', 'member', 'viewer'].includes(authority.role)) return stop('access_changed')
     // Reject the entire plan before reading or resolving any reference when a
@@ -58,7 +65,7 @@ export async function executeProductReadPlanV2(raw: unknown, deps: ProductReadDe
       const cap = productCapabilityV2(node.capability)!; const input: Record<string, unknown> = Object.fromEntries(node.arguments.map(arg => [arg.field, arg.value]))
       for (const binding of node.bindings) {
         let id: string | null = null
-        if (binding.handle !== null) id = await boundedAwaitV2(() => resolveReference.call(deps,binding.handle!, binding.field, authority), deps.signal)
+        if (binding.handle !== null) id = await within(() => resolveReference.call(deps,binding.handle!, binding.field, authority))
         else {
           const source = evidence.find(e => e.nodeId === binding.nodeId), sourceCap = source && productCapabilityV2(source.capability)
           const expected = binding.field === 'id' ? cap.backendOperation.split('.')[0] : bindingKinds[binding.field]
@@ -79,8 +86,8 @@ export async function executeProductReadPlanV2(raw: unknown, deps: ProductReadDe
       if (cap.family === 'billing_analytics' && !deps.readers.billingAnalytics) return stop('unavailable')
       if (cap.family === 'billing_invoice' && !deps.readers.billingInvoices) return stop('unavailable')
       if(cap.family==='portability_read'&&!deps.readers.portabilities)return stop('unavailable')
-      const rawResult = await boundedAwaitV2(() => cap.family === 'collection' ? deps.readers.collection(op, parsedInput)
-        : cap.family === 'billing_analytics' ? deps.readers.billingAnalytics!(op, parsedInput) : op==='invoice.list' ? deps.readers.billingInvoices!(op,parsedInput) : op==='portability.list' ? deps.readers.portabilities!(op,parsedInput) : deps.readers.report(op, parsedInput), deps.signal)
+      const rawResult = await within(() => cap.family === 'collection' ? deps.readers.collection(op, parsedInput)
+        : cap.family === 'billing_analytics' ? deps.readers.billingAnalytics!(op, parsedInput) : op==='invoice.list' ? deps.readers.billingInvoices!(op,parsedInput) : op==='portability.list' ? deps.readers.portabilities!(op,parsedInput) : deps.readers.report(op, parsedInput))
       if (!same(await fresh(), authority)) return stop('access_changed')
       const result = snapshotProductJsonV1(rawResult)
       if (!object(result) || Object.keys(result).sort().join(',') !== 'data,ok' || result.ok !== true) return stop('unavailable')
@@ -106,8 +113,10 @@ export async function executeProductReadPlanV2(raw: unknown, deps: ProductReadDe
         partial: data.next_id !== undefined && data.next_id !== null, data })
     }
     if (!same(await fresh(), authority)) return stop('access_changed')
+    ensureBudget()
     const result: ProductReadResultV2 = Object.freeze({ status: 'completed', evidence: Object.freeze(evidence.map(e => Object.freeze(e))) as unknown as ProductEvidenceV2[] })
     validatedResults.add(result)
     return result
   } catch { return stop('unavailable') }
+  finally{clearTimeout(timer);callerSignal?.removeEventListener('abort',cancel)}
 }
