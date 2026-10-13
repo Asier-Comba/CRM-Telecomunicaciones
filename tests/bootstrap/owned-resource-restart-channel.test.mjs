@@ -1,7 +1,7 @@
 import {test} from 'node:test'
 import assert from 'node:assert/strict'
 import {EventEmitter} from 'node:events'
-import {requestOwnedResourceRestartV1,bindOwnedResourceRestartV1} from '../../scripts/security/native-postgres/owned-resource-restart-channel-v1.mjs'
+import {requestOwnedResourceRestartV1,bindOwnedResourceRestartV1,closedOwnedConsumerPhaseV1} from '../../scripts/security/native-postgres/owned-resource-restart-channel-v1.mjs'
 function channels(){const parent=new EventEmitter(),worker=new EventEmitter();parent.connected=worker.connected=true;parent.exitCode=null;let killed=0
  parent.send=(p,cb)=>{queueMicrotask(()=>worker.emit('message',p));cb?.()};worker.send=(p,cb)=>{queueMicrotask(()=>parent.emit('message',p));cb?.()};parent.kill=()=>{killed++;worker.emit('disconnect')}
  return{parent,worker,killed:()=>killed}}
@@ -32,4 +32,11 @@ test('lost parent IPC reply cannot prevent relay cleanup or trigger another owne
  const relay=bindOwnedResourceRestartV1(f.parent,async()=>{calls++})
  f.parent.emit('message',{kind:'OWNED_RESOURCE_RESTART_V1',request:'a'.repeat(32)})
  await new Promise(resolve=>setImmediate(resolve));await relay.close();assert.equal(calls,1);assert.equal(f.parent.listenerCount('message'),0)
+})
+test('consumer phase diagnostics discard private payloads unknown enums and oversized child output',()=>{
+ const row=phase=>JSON.stringify({kind:'durable_v3_owned_resource_consumer_phase',phase})
+ const text=[row('COMMITTED_BEFORE_RESTART'),JSON.stringify({kind:'durable_v3_owned_resource_consumer_phase',phase:'RESTART_OWNER_ACK',private_body:'synthetic private row'}),row('synthetic private error'),row('LEDGER_AFTER_RESTART_MATCHED')].join('\n')
+ assert.equal(closedOwnedConsumerPhaseV1(text),'LEDGER_AFTER_RESTART_MATCHED')
+ assert.equal(closedOwnedConsumerPhaseV1(JSON.stringify({kind:'durable_v3_owned_resource_consumer_phase',phase:'RESTART_OWNER_ACK',row:'private'})),null)
+ assert.equal(closedOwnedConsumerPhaseV1('x'.repeat(1048577)),null)
 })

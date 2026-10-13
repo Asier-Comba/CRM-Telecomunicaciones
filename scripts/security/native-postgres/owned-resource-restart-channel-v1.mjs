@@ -1,5 +1,15 @@
 import {randomBytes} from 'node:crypto'
 const failure=()=>Error('OWNED_RESOURCE_RESTART_CHANNEL_UNAVAILABLE')
+const phases=new Set(['COMMITTED_BEFORE_RESTART','RESTART_OWNER_ACK','LEDGER_AFTER_RESTART_MATCHED','EXPIRED_ORIGINAL_REPLAY_DENIED','FRESH_AUTHORISED_REPLAY_MATCHED'])
+/** Diagnostics only: reject payload-bearing rows and return one fixed enum. */
+export function closedOwnedConsumerPhaseV1(text){
+ if(typeof text!=='string'||Buffer.byteLength(text)>1048576)return null
+ let phase=null
+ for(const line of text.split(/\r?\n/)){try{const row=JSON.parse(line)
+  if(row&&Object.keys(row).sort().join(',')==='kind,phase'&&row.kind==='durable_v3_owned_resource_consumer_phase'&&phases.has(row.phase))phase=row.phase
+ }catch{/* Never export original bytes. */}}
+ return phase
+}
 const packet=(value,kind,request)=>!!value&&typeof value==='object'&&!Array.isArray(value)
  &&Object.keys(value).sort().join(',')==='kind,request'&&value.kind===kind
  &&typeof value.request==='string'&&/^[a-f0-9]{32}$/.test(value.request)&&(!request||value.request===request)
