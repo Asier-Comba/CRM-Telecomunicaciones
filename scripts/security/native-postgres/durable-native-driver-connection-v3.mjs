@@ -1,5 +1,6 @@
 import {createNativeDurableOperationInspectorV3} from './durable-operation-inspection-v3.mjs'
 import {createNativeDurableAuditInspectorV3} from './durable-audit-inspection-v3.mjs'
+import {createNativePositiveEffectInspectorV3} from './durable-positive-effect-inspection-v3.mjs'
 const unavailable=()=>Error('DURABLE_NATIVE_WORKER_CONNECTION_UNAVAILABLE')
 const statement="select jsonb_build_object('backend',pg_backend_pid(),'database',current_database(),'application',current_setting('application_name'));"
 
@@ -81,5 +82,22 @@ export function createDurableNativeWorkerConnectionV3(open){
   }
   return Object.freeze({captureBaseline:()=>fenced('captureBaseline'),inspect:()=>fenced('inspect')})
  }
- return Object.freeze({connectWorker,inspectWorkerConnection,inspectWorkerOperation,createWorkerAuditInspector,closeWorker})
+ async function inspectWorkerPositiveEffect(sink,rawScope){
+  if(phase!=='connected')throw unavailable()
+  try{
+   // Existing positive-only receipt validator pins its private fixture table
+   // and binding before awaiting. Missing facts never become effectCount zero.
+   const inspector=createNativePositiveEffectInspectorV3(async sql=>{
+    if(phase!=='connected')throw unavailable()
+    const row=await query.call(session,sql)
+    if(phase!=='connected')throw unavailable()
+    return row
+   },sink,rawScope)
+   await inspectWorkerConnection()
+   const effect=await inspector.inspect()
+   await inspectWorkerConnection()
+   return effect
+  }catch{phase='unavailable';try{await retire()}catch{};throw unavailable()}
+ }
+ return Object.freeze({connectWorker,inspectWorkerConnection,inspectWorkerOperation,createWorkerAuditInspector,inspectWorkerPositiveEffect,closeWorker})
 }

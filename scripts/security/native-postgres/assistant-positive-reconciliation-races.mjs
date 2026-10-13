@@ -13,7 +13,7 @@ import {runPositiveReconciliationProcessCutV1} from './positive-reconciliation-p
 import {createNativeDurableAuditInspectorV3} from './durable-audit-inspection-v3.mjs'
 import {createNativeDurableOperationInspectorV3} from './durable-operation-inspection-v3.mjs'
 import {verifyNativeDriverOperationSliceV3} from './verify-driver-operation-slice-v3.mjs'
-import {connectWorker,createWorkerAuditInspectorV3,closeWorkerV3} from './durable-native-driver-v3.mjs'
+import {connectWorker,createWorkerAuditInspectorV3,inspectWorkerPositiveEffectV3,closeWorkerV3} from './durable-native-driver-v3.mjs'
 import {createNativePositiveEffectInspectorV3} from './durable-positive-effect-inspection-v3.mjs'
 import {CapabilityRegistry} from '../../../src/assistant/registry.ts'
 import {argumentsDigest} from '../../../src/assistant/runtime.ts'
@@ -233,6 +233,9 @@ try{
  console.log(JSON.stringify({kind:'durable_v3_native_driver_audit_observation',scenario:'reconciliation_primitive',ledger:driverAudit,sameBackend:true,independentLedgerEquality:true,full23:'NOT_RUN'}))
  const positiveEffect=await createNativePositiveEffectInspectorV3(sql,sink,{...binding,operationRef:record.operationRef}).inspect()
  assert.deepEqual(positiveEffect,{effectCount:1})
+ const driverPositiveEffect=await inspectWorkerPositiveEffectV3(sink,{...binding,operationRef:record.operationRef})
+ assert.deepEqual(driverPositiveEffect,positiveEffect)
+ console.log(JSON.stringify({kind:'durable_v3_native_driver_positive_effect_observation',scenario:'reconciliation_primitive',effect:driverPositiveEffect,sameBackend:true,independentReceiptEquality:true,verified_absence:'NOT_RUN',full23:'NOT_RUN'}))
  console.log(JSON.stringify({kind:'durable_v3_native_positive_effect_observation',scenario:'reconciliation_primitive',effect:positiveEffect,source:'owned_synthetic_receipt_ledger',verified_absence:'NOT_RUN',full23:'NOT_RUN'}))
  const operationSlice=await createNativeDurableOperationInspectorV3(sql,{...binding,operationRef:record.operationRef}).inspect()
  assert.deepEqual(operationSlice,{operationCount:1,state:'completed'})

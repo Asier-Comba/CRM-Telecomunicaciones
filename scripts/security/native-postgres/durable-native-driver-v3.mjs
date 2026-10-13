@@ -2,7 +2,7 @@ import {openPersistentNativeFixtureSessionV1} from './persistent-fixture-session
 import {createDurableNativeWorkerConnectionV3} from './durable-native-driver-connection-v3.mjs'
 
 // Partial business-driver implementation: connectWorker and a fixed readonly
-// operation and whole-audit inspection slices on its admitted connection. No metadata or
+// operation, whole-audit and positive-only receipt slices on its admitted connection. No metadata or
 // other five scenario exports yet; the complete acceptance runner must reject
 // this module until implemented. No resource creation/restart or W5 ACK implied.
 const connection=createDurableNativeWorkerConnectionV3(openPersistentNativeFixtureSessionV1)
@@ -10,4 +10,5 @@ export const connectWorker=connection.connectWorker
 export const inspectWorkerConnectionV3=connection.inspectWorkerConnection
 export const inspectWorkerOperationV3=connection.inspectWorkerOperation
 export const createWorkerAuditInspectorV3=connection.createWorkerAuditInspector
+export const inspectWorkerPositiveEffectV3=connection.inspectWorkerPositiveEffect
 export const closeWorkerV3=connection.closeWorker
