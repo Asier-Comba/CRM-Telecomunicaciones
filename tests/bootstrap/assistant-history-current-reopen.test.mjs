@@ -10,8 +10,8 @@ function fixture(){
  page.url=()=>url;page.mainFrame=()=>main
  page.waitForResponse=fn=>{predicate=fn;return new Promise((yes,no)=>{resolve=yes;reject=no})}
  const request=(index,extra={})=>({frame:()=>main,method:()=> 'POST',url:()=>origin+'/api/assistant/v2/threads',postDataJSON:()=>({operation:inputs[index][0],input:inputs[index][1]}),...extra})
- const deliver=async(index,{emit=true,status=200,body={ok:true,data:values[index]},extra={},json}={})=>{
-  const r=request(index,extra),response={request:()=>r,status:()=>status,json:json??(async()=>body)}
+ const deliver=async(index,{emit=true,status=200,body={ok:true,data:values[index]},extra={},json,diagnostic={}}={})=>{
+  const r=request(index,extra),response={request:()=>r,status:()=>status,json:json??(async()=>body),...diagnostic}
   if(emit)page.emit('request',r)
   if(await predicate(response))resolve(response)
  }
@@ -83,4 +83,33 @@ test('diagnostic callback failure cannot hide HTTP refusal or replace navigation
  const g=fixture();let summary
  await assert.rejects(run(g,async()=>{g.page.emit('framenavigated',g.main);g.reject()},{observe:value=>{summary=value}}),{message:'SYNTHETIC_WAITER_DISPOSED'})
  assert.equal(summary.current_document,false);assert.equal(summary.issued,0);assert.equal(summary.validated,0);clean(g)
+})
+
+test('refused current response exposes only existing closed diagnostic buckets and keeps the original failure',async()=>{
+ const f=fixture();let original,summary,callbacks=0
+ const diagnostic={headers:()=>({'content-type':'application/json','cache-control':'no-store','private-header':thread.id}),body:async()=>Buffer.from(JSON.stringify({ok:false,error:'unavailable',private:'cookie SQL token '+thread.id}))}
+ await assert.rejects(run(f,()=>f.deliver(0,{status:500,diagnostic}),{observe:value=>{original=value},observeRefusal:value=>{summary=value;callbacks++;throw Error('private callback error')}}),{message:'HISTORY_REOPEN_LIST_HTTP_REFUSED'})
+ assert.equal(original.outcome,'HISTORY_REOPEN_LIST_HTTP_REFUSED');assert.equal(original.reads[0].body,'not_observed')
+ assert.equal(summary.state,'COMPLETE');assert.equal(summary.phase,'list');assert.equal(summary.http,'server')
+ assert.equal(summary.application_error,'unavailable');assert.equal(summary.content_kind,'JSON');assert.equal(summary.no_store,true);assert.equal(summary.body_available,true)
+ assert.equal(callbacks,1);assert.ok(Object.isFrozen(summary))
+ for(const value of [thread.id,thread.title,origin,'cookie','SQL','token','private-header'])assert.equal(JSON.stringify(summary).includes(value),false)
+ clean(f)
+})
+
+test('a stalled refused body closes as pending and cannot rewrite the immutable diagnostic after late delivery',async()=>{
+ const f=fixture();let release,summary
+ const held=new Promise(resolve=>{release=resolve})
+ const diagnostic={headers:()=>({'content-type':'application/json'}),body:()=>held}
+ await assert.rejects(run(f,()=>f.deliver(0,{status:500,diagnostic}),{observeRefusal:value=>{summary=value}}),{message:'HISTORY_REOPEN_LIST_HTTP_REFUSED'})
+ assert.equal(summary.state,'PENDING_AT_CLOSE');assert.equal(summary.body_available,false);assert.equal(summary.application_error,null)
+ const before=JSON.stringify(summary);release(Buffer.from('{"ok":false,"error":"unavailable"}'))
+ await new Promise(resolve=>setImmediate(resolve));assert.equal(JSON.stringify(summary),before);clean(f)
+})
+
+test('same URL navigation during refused body collection retires every late classification',async()=>{
+ const f=fixture();let summary
+ const diagnostic={headers:()=>({'content-type':'application/json'}),body:()=>new Promise(resolve=>setImmediate(()=>{f.page.emit('framenavigated',f.main);resolve(Buffer.from('{"ok":false,"error":"unavailable"}'))}))}
+ await assert.rejects(run(f,()=>f.deliver(0,{status:500,diagnostic}),{observeRefusal:value=>{summary=value}}),{message:'HISTORY_REOPEN_LIST_HTTP_REFUSED'})
+ assert.equal(summary.current_document,false);assert.equal(summary.state,'STALE_DOCUMENT');assert.equal(summary.application_error,null);assert.equal(summary.content_kind,null);assert.equal(summary.body_available,false);clean(f)
 })

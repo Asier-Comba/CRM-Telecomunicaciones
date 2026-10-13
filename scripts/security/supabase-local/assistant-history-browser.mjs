@@ -177,6 +177,8 @@ export async function assistantHistoryBrowser({ origin, cookie, viewerCookie, ca
     await expect(page.getByRole('button',{name:'Abrir conversación: W3 UI Renamed History',exact:true})).toBeVisible()
     await currentHistoryReopen({page,origin,thread:changed.record,step:next=>{phase=next},observe:summary=>{
       try{writeFileSync(resolve(dir,'current-history-reopen.safe.json'),JSON.stringify(summary))}catch{console.log('W3_HISTORY_REOPEN_DIAGNOSTIC_WRITE_UNAVAILABLE')}
+    },observeRefusal:summary=>{
+      try{writeFileSync(resolve(dir,'current-history-reopen-refusal.safe.json'),JSON.stringify(summary))}catch{console.log('W3_HISTORY_REOPEN_REFUSAL_DIAGNOSTIC_WRITE_UNAVAILABLE')}
     },action:async()=>{
       await page.getByRole('button',{name:'Abrir conversación: W3 UI Renamed History',exact:true}).click()
       await expect(page.locator('[data-history-message]')).toHaveCount(20)

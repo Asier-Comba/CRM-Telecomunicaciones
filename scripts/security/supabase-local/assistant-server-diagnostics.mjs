@@ -35,7 +35,7 @@ export function observeAssistantServerDiagnostics(server, report) {
 }
 
 export async function assistantUpstreamDiagnostic(response) {
-  // Called only for refused synthetic creates. Never emit the response or headers.
+  // Refused synthetic history creates/reads only. Never emit response or headers.
   const contentType = response.headers()['content-type'] ?? ''
   const diagnostic = {
     content_kind: /application\/json/i.test(contentType) ? 'JSON' : /text\/html/i.test(contentType) ? 'HTML' : 'OTHER',

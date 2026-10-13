@@ -1,15 +1,16 @@
 import {parseHistoryDataV2} from '../../../src/features/assistant/history-client-v2.ts'
+import {assistantUpstreamDiagnostic} from './assistant-server-diagnostics.mjs'
 
 /** Observe the click's ordinary reads alongside the original render assertion.
  * No additional request, retry, timeout override or inferred persistence. */
-export async function currentHistoryReopen({page,origin,thread,action,step=()=>{},observe=undefined}){
+export async function currentHistoryReopen({page,origin,thread,action,step=()=>{},observe=undefined,observeRefusal=undefined}){
  const url=page.url(),main=page.mainFrame()
  let target;try{target=new URL(url)}catch{throw Error('HISTORY_REOPEN_TARGET_INVALID')}
  if(target.origin!==origin||target.pathname!=='/assistant'||target.username||target.password)throw Error('HISTORY_REOPEN_TARGET_INVALID')
  if(!thread||!parseHistoryDataV2('thread.get',{id:thread.id},{contract:'assistant.thread.v2',record:thread})||thread.archived)throw Error('HISTORY_REOPEN_THREAD_INVALID')
  if(typeof action!=='function')throw Error('HISTORY_REOPEN_ACTION_REQUIRED')
  const specs=[['thread.list',{limit:20}],['thread.get',{id:thread.id}],['message.page',{id:thread.id,limit:20}]]
- const requests=new WeakMap();let issued=0,validated=0,current=true,closed=false,outcome=null,chain=Promise.resolve()
+ const requests=new WeakMap();let issued=0,validated=0,current=true,closed=false,outcome=null,chain=Promise.resolve(),refusal
  const reads=specs.map((_,index)=>({phase:['list','get','messages'][index],requested:false,request_failed:false,http:'not_observed',body:'not_observed',envelope:'not_observed',dto:'not_observed',current_thread:null}))
  const navigated=frame=>{if(frame===main)current=false}
  const requested=request=>{
@@ -33,7 +34,12 @@ export async function currentHistoryReopen({page,origin,thread,action,step=()=>{
    row.http=status===200?'ok200':status===403?'denied403':status>=500&&status<600?'server':status>=400&&status<500?'client':'other'
    const fail=code=>{outcome={code:'HISTORY_REOPEN_'+phase+'_'+code};step(outcome.code);return true}
    if(spec.index!==validated)return fail('RESPONSE_ORDER_INVALID')
-   if(status!==200)return fail('HTTP_REFUSED')
+   if(status!==200){
+    // Fail the original control immediately. Inspect only the already received
+    // response for a separate bounded diagnostic; never create another read.
+    if(typeof observeRefusal==='function')refusal={phase:row.phase,http:row.http,pending:Promise.resolve().then(()=>assistantUpstreamDiagnostic(response)).then(value=>({state:'COMPLETE',value}),()=>({state:'UNAVAILABLE'}))}
+    return fail('HTTP_REFUSED')
+   }
    row.body='pending'
    let body;try{body=await response.json()}catch{if(closed||!current||page.url()!==url)return false;row.body='unavailable';return fail('BODY_UNAVAILABLE')}
    if(closed||!current||page.url()!==url)return false
@@ -62,10 +68,21 @@ export async function currentHistoryReopen({page,origin,thread,action,step=()=>{
   await Promise.all([pending,Promise.resolve().then(action)])
   if(validated!==specs.length||outcome?.code!==null)throw Error('HISTORY_REOPEN_CURRENT_READS_INCOMPLETE')
  }finally{
-  closed=true;page.off('framenavigated',navigated);page.off('request',requested);page.off('requestfailed',failed)
+  closed=true;if(!refusal)page.off('framenavigated',navigated);page.off('request',requested);page.off('requestfailed',failed)
   // Only closed vocabulary, counts and booleans. Snapshot before late body
   // resolution; diagnostics cannot replace the original failure or create reads.
   if(typeof observe==='function')try{observe(Object.freeze({contract:'w3.history-current-reopen-observation.v1',current_document:current&&page.url()===url,
    issued,validated,outcome:outcome?.code??null,reads:Object.freeze(reads.map(row=>Object.freeze({...row})))}))}catch{/* Original control outcome is authoritative. */}
+  if(refusal){
+   let timer
+   const diagnostic=await Promise.race([refusal.pending,new Promise(resolve=>{timer=setTimeout(()=>resolve({state:'PENDING_AT_CLOSE'}),1000)})])
+   clearTimeout(timer)
+   const currentDocument=current&&page.url()===url,value=currentDocument&&diagnostic.state==='COMPLETE'?diagnostic.value:null
+   const summary=Object.freeze({contract:'w3.history-current-reopen-refusal.v1',current_document:currentDocument,phase:refusal.phase,http:refusal.http,
+    state:currentDocument?diagnostic.state:'STALE_DOCUMENT',content_kind:value?.content_kind??null,no_store:value?.no_store??null,
+    error_category:value?.error_category??null,json_parse_frame:value?.json_parse_frame??null,application_error:value?.application_error??null,body_available:value?.body_available??false})
+   page.off('framenavigated',navigated)
+   try{Promise.resolve(observeRefusal(summary)).catch(()=>{})}catch{/* Diagnostic cannot replace the primary refusal. */}
+  }
  }
 }
