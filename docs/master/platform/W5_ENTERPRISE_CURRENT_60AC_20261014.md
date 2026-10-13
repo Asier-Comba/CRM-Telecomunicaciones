@@ -1,0 +1,9 @@
+# W5: admision presupuestaria backend y correccion de facturacion
+
+Merge normal sin conflictos de source propietario60acdc5d6a2ae41ff3d751724582ade0c0762788 despues de ocho runs propios36 terminales. Fuente previamente calificada611bootstrap/819assistant/lint/types/buildPASS,audit5HIGHFAIL; Sup107/85/4042backend/nuevosAuthnegativos/teardown,resource16,canonical85 ydelivered86 reinicio independientePASS. Arbol1b3deafcf404bfb66f46cacbe8fddea0da43554b igualejecutado4f8e9940f7256f64c928899cb8e82773820fcbe0.
+
+Codigo propietario exacto: createAiProviderV2 deniega proveedor antes de turn.start hasta admision canónica de presupuesto, sin excepcion por variable de entorno. El test usa fetch inerte y configura datos privados sinteticos; cero API real. Financiera solo admite periodo/generacion vigentes y oculta datos anteriores durante refresh; owner prueba React/HTTP retenido. Cuatro Auth denials reales con snapshot de borrador sin cambios deben ejecutarse en esta union nueva. No heredar4042 del Root85 ni107/4037 de36.
+
+Version12 mantiene union86 exacta/extension700d y blobsproducto con cuatro paths de infraestructura. No cambios propios en backend/ledger/UI/test/workflow/driver W2/W3. PR151 cache NOincorporada; ACKtecnicoW2 sinadopcion/W4, Sup106/1 CASE_NOTE_CURSOR/causeUNKNOWN preservado. Diagnostico de ese fallo bajo CLAIMW2-X6156379414; W5 no duplica ni toca su rama.
+
+CI nueva requerida, ninguna cancelacion ni retry adicionalPR150. Canonical ledger/controller compartido, secret/model/pricing/tokenbounds verificados, AuthDB/wiring y evaluacion real siguen sinaprobacion. IA writesOFF/modeloNOT_RUN/releaseNOT_ACCEPTED/OpenAI0calls0reservas$0; W3 unico consumidor. npm/vendor/history/reviewW4/full23/ausencia/quiescencia/handler/staging abiertos. PDF admision sintetica/AuthStorage real/indicepersistente/modelo noaprobados.
