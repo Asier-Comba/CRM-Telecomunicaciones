@@ -4,13 +4,13 @@ export async function customer360CollectionsBrowser({page,origin,id,sql,wa,users
  const wait=op=>page.waitForResponse(r=>{try{return r.request().method()==='POST'&&r.request().postDataJSON().operation===op}catch{return false}})
  const visible=()=>page.locator('[data-domain-id]:visible')
  async function sameRows(pending){const response=await pending;if(response.status()!==200)throw Error('C360_NORMAL_COOKIE_READ_FAILED');const result=await response.json();if(!result.ok)throw Error('C360_CLOSED_READ_FAILED');await expect.poll(()=>visible().evaluateAll(rows=>rows.map(r=>r.dataset.domainId))).toEqual(result.data.items.map(r=>r.id));return result.data}
- const additionalFields={Renovaciones:['Fecha objetivo','Ventana desde','Ventana hasta','Seguimiento','Estado','Origen'],Permanencias:['Compromiso','Inicio','Fin','Días restantes','Vigencia','Estado','Origen'],Oportunidades:['Estado','Moneda','Importe','Cierre previsto','Próximo seguimiento','Próxima acción registrada','Origen']}
+ const additionalFields={Renovaciones:['Fecha objetivo','Ventana desde','Ventana hasta','Seguimiento','Estado','Origen'],Permanencias:['Compromiso','Inicio','Fin','DÃ­as restantes','Vigencia','Estado','Origen'],Oportunidades:['Estado','Moneda','Importe','Cierre previsto','PrÃ³ximo seguimiento','PrÃ³xima acciÃ³n registrada','Origen']}
  async function captureAdditionalDomain(area,op,data){
   if(!data.items.length)throw Error('C360_ADDITIONAL_INVENTORY_FIXTURE_MISSING')
   const previous=page.viewportSize(),labels=additionalFields[area]
   for(const width of [1440,768,390]){
    await page.setViewportSize({width,height:960});await expect(page.getByRole('tab',{name:area,exact:true})).toHaveAttribute('aria-selected','true')
-   const row=page.locator('[data-domain-id="'+data.items[0].id+'"]:visible');await expect(row).toHaveCount(1);if(area==='Renovaciones')await expect(width<1280?row.getByRole('heading',{name:'Renovación',exact:true}):row.locator('td').first()).toHaveText('Renovación');await expect(page.getByText(/Consultando (operador|versión vendida)/)).toHaveCount(0)
+   const row=page.locator('[data-domain-id="'+data.items[0].id+'"]:visible');await expect(row).toHaveCount(1);if(area==='Renovaciones')await expect(width<1280?row.getByRole('heading',{name:'RenovaciÃ³n',exact:true}):row.locator('td').first()).toHaveText('RenovaciÃ³n');await expect(page.getByText(/Consultando (operador|versiÃ³n vendida)/)).toHaveCount(0)
    await row.evaluate(el=>el.scrollIntoView({block:'start',inline:'nearest'}));await expect(row).toBeInViewport({ratio:1})
    if(width<1280){for(const label of labels){const field=row.locator('dl > div').filter({has:page.getByText(label,{exact:true})});await expect(field).toHaveCount(1);await expect(field).toBeInViewport({ratio:1})}await expect(row.locator('dd')).toHaveCount(labels.length)}
    else{await expect(row.locator('td')).toHaveCount(labels.length+1);for(const cell of await row.locator('td').all())await expect(cell).toBeInViewport({ratio:1})}
@@ -20,28 +20,28 @@ export async function customer360CollectionsBrowser({page,origin,id,sql,wa,users
  }
  await check('customer360_exact_summary_safe_contacts_independent_domains',async()=>{
   const summary=wait('customer360.summary'),contacts=wait('contact.list'),operations=[],observe=r=>{try{operations.push(r.postDataJSON()?.operation)}catch{}};page.on('request',observe);await page.goto(origin+'/clients/'+id)
-  const s=await(await summary).json();await expect(page.getByLabel('Resumen real del cliente').getByText('Líneas',{exact:true}).locator('..').locator('dd')).toHaveText(String(s.data.record.lines))
+  const s=await(await summary).json();await expect(page.getByLabel('Resumen real del cliente').getByText('LÃ­neas',{exact:true}).locator('..').locator('dd')).toHaveText(String(s.data.record.lines))
   const c=await(await contacts).json();if(c.data.items.some(r=>'email'in r||'phone'in r))throw Error('C360_DEFAULT_CONTACT_PII');await expect(page.getByRole('article').first()).toBeVisible();if(operations.includes('contact.editors'))throw Error('C360_PRIVILEGED_CONTACT_EDITOR_EAGER');page.off('request',observe)
-  for(const[area,op]of [['Contratos','contract.list'],['Servicios','service.list'],['Líneas','line.list'],['SIM/eSIM','sim.list'],['Portabilidades','portability.list'],['Renovaciones','renewal.list'],['Permanencias','permanence.list'],['Oportunidades','opportunity.list'],['Tareas','task.list'],['Reuniones','meeting.list'],['Incidencias','case.list'],['Actividad','activity.list']]){const pending=wait(op);await page.getByRole('tab',{name:area,exact:true}).click();const data=await sameRows(pending);if(Object.hasOwn(additionalFields,area))await captureAdditionalDomain(area,op,data)}
+  for(const[area,op]of [['Contratos','contract.list'],['Servicios','service.list'],['LÃ­neas','line.list'],['SIM/eSIM','sim.list'],['Portabilidades','portability.list'],['Renovaciones','renewal.list'],['Permanencias','permanence.list'],['Oportunidades','opportunity.list'],['Tareas','task.list'],['Reuniones','meeting.list'],['Incidencias','case.list'],['Actividad','activity.list']]){const pending=wait(op);await page.getByRole('tab',{name:area,exact:true}).click();const data=await sameRows(pending);if(Object.hasOwn(additionalFields,area))await captureAdditionalDomain(area,op,data)}
  })
  const prefix='W2 Final9 Undated History '
  await check('customer360_undated_completed_tasks_cursor_filter_navigation',async()=>{
  sql(`insert into public.tasks(workspace_id,customer_id,title,status,completed_at,assigned_user_id,created_by_user_id)select '${wa}','${id}','${prefix}'||i,'completed',now(),'${users.ownerA.id}','${users.ownerA.id}' from generate_series(1,21)i;`)
  try{
    let pending=wait('task.list');await page.getByRole('tab',{name:'Tareas',exact:true}).click();await sameRows(pending);pending=wait('task.list');await page.getByLabel('Estado de Tareas',{exact:true}).selectOption('completed');const first=await sameRows(pending);if(first.items.length!==20||first.items.some(r=>r.status!=='completed'))throw Error('C360_COMPLETE_HISTORY_MISSING');if(!first.items.some(r=>r.due_at===null&&r.due_on===null))throw Error('C360_UNDATED_TASKS_MISSING')
-   pending=wait('task.list');await page.getByRole('button',{name:'Siguiente página de Tareas',exact:true}).click();const second=await sameRows(pending);if(second.items.some(r=>first.items.some(a=>a.id===r.id)))throw Error('C360_CURSOR_DUPLICATES');pending=wait('task.list');await page.getByLabel('Estado de Tareas',{exact:true}).selectOption('');await sameRows(pending);await expect(page.getByRole('button',{name:'Página anterior de Tareas',exact:true})).toBeDisabled()
-   const item=first.items.find(r=>r.title.startsWith(prefix));await page.goto(origin+'/calendar?task='+item.id);await expect(page.getByLabel('Título',{exact:true})).toHaveValue(item.title);await page.getByRole('button',{name:'Cerrar panel',exact:true}).click()
+   pending=wait('task.list');await page.getByRole('button',{name:'Siguiente pÃ¡gina de Tareas',exact:true}).click();const second=await sameRows(pending);if(second.items.some(r=>first.items.some(a=>a.id===r.id)))throw Error('C360_CURSOR_DUPLICATES');pending=wait('task.list');await page.getByLabel('Estado de Tareas',{exact:true}).selectOption('');await sameRows(pending);await expect(page.getByRole('button',{name:'PÃ¡gina anterior de Tareas',exact:true})).toBeDisabled()
+   const item=first.items.find(r=>r.title.startsWith(prefix));await page.goto(origin+'/calendar?task='+item.id);await expect(page.getByLabel('TÃ­tulo',{exact:true})).toHaveValue(item.title);await page.getByRole('button',{name:'Cerrar panel',exact:true}).click()
  }finally{sql(`delete from public.tasks where workspace_id='${wa}' and customer_id='${id}' and title like '${prefix}%';`)}
  })
  await check('customer360_loaded_telecom_desktop_tablet_mobile',async()=>{
   let phase='START',areaName=null,widthValue=null
   const mark=value=>{phase=value;if(report)report.w2_ui_action_step='customer360_loaded:'+value}
   try{
-  for(const[area,op,table]of [['Líneas','line.list','telecom_lines'],['SIM/eSIM','sim.list','telecom_sims'],['Portabilidades','portability.list','telecom_portabilities'],['Incidencias','case.list','service_cases']]){
+  for(const[area,op,table]of [['LÃ­neas','line.list','telecom_lines'],['SIM/eSIM','sim.list','telecom_sims'],['Portabilidades','portability.list','telecom_portabilities'],['Incidencias','case.list','service_cases']]){
    areaName=area;widthValue=null;mark(area+':fixture_binding')
    const customer=sql(table==='telecom_lines'?`select s.customer_id from public.telecom_lines l join public.telecom_services s on s.id=l.service_id and s.workspace_id=l.workspace_id join public.telecom_identifiers i on i.line_id=l.id and i.identifier_kind='msisdn' where l.workspace_id='${wa}' order by l.id limit 1`:`select customer_id from public.${table} where workspace_id='${wa}' order by id limit 1`);if(!customer)throw Error('C360_TELECOM_LOADED_FIXTURE_MISSING')
    mark(area+':customer_navigation');await page.goto(origin+'/clients/'+customer);await expect(page.getByRole('button',{name:'Actualizar resumen',exact:true})).toBeVisible();mark(area+':collection');const pending=wait(op);await page.getByRole('tab',{name:area,exact:true}).click();const data=await sameRows(pending);if(!data.items.length)throw Error('C360_TELECOM_LOADED_ROWS_MISSING')
-   for(const width of [1440,768,390]){widthValue=width;mark(area+':'+width+':record_visible');await page.setViewportSize({width,height:960});await expect(visible().first()).toBeVisible();mark(area+':'+width+':selected_tab_bounds');await expect.poll(()=>page.getByRole('tab',{name:area,exact:true}).evaluate(el=>{const tab=el.getBoundingClientRect(),list=el.parentElement.getBoundingClientRect();return tab.left>=list.left-1&&tab.right<=list.right+1})).toBe(true);mark(area+':'+width+':labels_loaded');await expect(page.getByText(/Consultando (operador|versión vendida)/)).toHaveCount(0);mark(area+':'+width+':scroll_record');await visible().first().scrollIntoViewIfNeeded();if(width<1280||['Líneas','Portabilidades'].includes(area)){const row=visible().first();await row.evaluate(el=>el.scrollIntoView({block:'start',inline:'nearest'}));mark(area+':'+width+':record_ratio1');await expect(row).toBeInViewport({ratio:1});const labels=area==='Líneas'?['Número','Estado','Operador','Tarifa vendida','Servicio','ICCID','EID','SIM/eSIM','Portabilidad','Permanencias abiertas','Próxima permanencia','Activación']:area==='SIM/eSIM'?['Tipo de SIM','ICCID','EID','Estado','Activación','Origen']:area==='Portabilidades'?['Número','Dirección','Operador origen','Operador destino','Solicitud','Programación','Completada','Estado','Motivo','Origen']:['Tipo','Prioridad','Estado','Vencimiento','Vencida','Notas internas','Actualizada'];for(const label of labels){mark(area+':'+width+':field:'+label);const field=row.locator('dl > div').filter({has:page.getByText(label,{exact:true}).and(page.locator('dt'))});await expect(field).toHaveCount(1);await expect(field).toBeInViewport({ratio:1})}mark(area+':'+width+':field_count');await expect(row.locator('dd')).toHaveCount(labels.length)}mark(area+':'+width+':capture');await page.screenshot({path:resolve(screenshotDir,'customer360-'+op.split('.')[0]+'-'+width+'.png'),fullPage:true});if(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1))throw Error('C360_LAYOUT_OVERFLOW')}
+   for(const width of [1440,768,390]){widthValue=width;mark(area+':'+width+':record_visible');await page.setViewportSize({width,height:960});await expect(visible().first()).toBeVisible();mark(area+':'+width+':selected_tab_bounds');await expect.poll(()=>page.getByRole('tab',{name:area,exact:true}).evaluate(el=>{const tab=el.getBoundingClientRect(),list=el.parentElement.getBoundingClientRect();return tab.left>=list.left-1&&tab.right<=list.right+1})).toBe(true);mark(area+':'+width+':labels_loaded');await expect(page.getByText(/Consultando (operador|versiÃ³n vendida)/)).toHaveCount(0);mark(area+':'+width+':scroll_record');await visible().first().scrollIntoViewIfNeeded();if(width<1280||['LÃ­neas','Portabilidades'].includes(area)){const row=visible().first();await row.evaluate(el=>el.scrollIntoView({block:'start',inline:'nearest'}));mark(area+':'+width+':record_ratio1');await expect(row).toBeInViewport({ratio:1});const labels=area==='LÃ­neas'?['NÃºmero','Estado','Operador','Tarifa vendida','Servicio','ICCID','EID','SIM/eSIM','Portabilidad','Permanencias abiertas','PrÃ³xima permanencia','ActivaciÃ³n']:area==='SIM/eSIM'?['Tipo de SIM','ICCID','EID','Estado','ActivaciÃ³n','Origen']:area==='Portabilidades'?['NÃºmero','DirecciÃ³n','Operador origen','Operador destino','Solicitud','ProgramaciÃ³n','Completada','Estado','Motivo','Origen']:['Tipo','Prioridad','Estado','Vencimiento','Vencida','Notas internas','Actualizada'];for(const label of labels){mark(area+':'+width+':field:'+label);const field=row.locator('dl > div').filter({has:page.getByText(label,{exact:true}).and(page.locator('dt'))});await expect(field).toHaveCount(1);await expect(field).toBeInViewport({ratio:1})}mark(area+':'+width+':field_count');await expect(row.locator('dd')).toHaveCount(labels.length)}mark(area+':'+width+':capture');await page.screenshot({path:resolve(screenshotDir,'customer360-'+op.split('.')[0]+'-'+width+'.png'),fullPage:true});if(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1))throw Error('C360_LAYOUT_OVERFLOW')}
   }
   }catch(error){
    if(report)report.w2_customer360_loaded_layout_diagnostic={area:areaName,width:widthValue,phase,display:await page.evaluate(async()=>{
@@ -52,7 +52,7 @@ export async function customer360CollectionsBrowser({page,origin,id,sql,wa,users
    }).catch(()=>null)}
    throw error
   }
-  })
+ })
  await check('customer360_contact_lost_receipt_keeps_intent_and_single_persisted_effect',async()=>{
   const label='W2-X Synthetic Contact Lost Receipt',bodies=[],previous=page.viewportSize()
   let lost=true
@@ -65,20 +65,44 @@ export async function customer360CollectionsBrowser({page,origin,id,sql,wa,users
   const contactResponse=()=>page.waitForResponse(r=>{try{const q=r.request().postDataJSON();return r.request().method()==='POST'&&q.operation==='contact.list'&&q.input.customer_id===id}catch{return false}})
   await page.route('**/api/product/v1/commands',observe)
   try{
-   if(report)report.w2_ui_action_step='contact_uncertain:open';const initial=contactResponse();await page.goto(origin+'/clients/'+id);if((await initial).status()!==200)throw Error('CONTACT_INITIAL_READ_FAILED');await page.getByRole('tab',{name:'Contactos',exact:true}).click();await page.getByRole('button',{name:'Añadir contacto',exact:true}).click()
-   const drawer=page.getByRole('dialog',{name:'Añadir contacto',exact:true})
+   if(report)report.w2_ui_action_step='contact_uncertain:open';const initial=contactResponse();await page.goto(origin+'/clients/'+id);if((await initial).status()!==200)throw Error('CONTACT_INITIAL_READ_FAILED');await page.getByRole('tab',{name:'Contactos',exact:true}).click();await page.getByRole('button',{name:'AÃ±adir contacto',exact:true}).click()
+   const drawer=page.getByRole('dialog',{name:'AÃ±adir contacto',exact:true})
    await drawer.getByLabel('Nombre del contacto',{exact:true}).fill(label);await drawer.getByRole('button',{name:'Guardar contacto',exact:true}).click()
-   await expect(drawer.getByRole('alert')).toHaveText('No se pudo confirmar el resultado. Reintenta la misma acción para comprobarlo.')
+   await expect(drawer.getByRole('alert')).toHaveText('No se pudo confirmar el resultado. Reintenta la misma acciÃ³n para comprobarlo.')
    await expect(drawer.getByRole('button',{name:'Cerrar panel',exact:true})).toBeDisabled();await page.keyboard.press('Escape');await expect(drawer).toBeVisible();await expect(drawer.getByLabel('Nombre del contacto',{exact:true})).toBeDisabled()
    for(const width of [390,768,1440]){await page.setViewportSize({width,height:960});await page.screenshot({path:resolve(screenshotDir,'contact-uncertain-'+width+'.png'),fullPage:true});if(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1))throw Error('CONTACT_UNCERTAIN_OVERFLOW')}
-   if(report)report.w2_ui_action_step='contact_uncertain:confirm';let pending=contactResponse();await drawer.getByRole('button',{name:'Reintentar la misma acción',exact:true}).click();await expect(drawer).toHaveCount(0)
+   if(report)report.w2_ui_action_step='contact_uncertain:confirm';let pending=contactResponse();await drawer.getByRole('button',{name:'Reintentar la misma acciÃ³n',exact:true}).click();await expect(drawer).toHaveCount(0)
    const response=await pending;if(response.status()!==200)throw Error('CONTACT_CONFIRMED_READ_FAILED')
    if(bodies.length!==2||bodies[0]!==bodies[1])throw Error('CONTACT_REPLAY_CHANGED')
    const command=JSON.parse(bodies[0]).input.command_id;if(!/^[0-9a-f-]{36}$/.test(command))throw Error('CONTACT_COMMAND_INVALID')
    if(sql(`select count(*) from public.contacts where workspace_id='${wa}' and customer_id='${id}' and display_name='${label}'`)!=='1'||sql(`select count(*) from public.product_commands where workspace_id='${wa}' and command_id='${command}' and operation='contact.create'`)!=='1'||sql(`select count(*) from public.product_audit_events where workspace_id='${wa}' and command_id='${command}' and operation='contact.create'`)!=='1')throw Error('CONTACT_EFFECT_LEDGER_AUDIT_NOT_SINGLE')
    if(report)report.w2_ui_action_step='contact_uncertain:ordinary_read'
-   for(let n=0;n<3&&!await page.getByRole('heading',{name:label,exact:true}).count();n++){pending=contactResponse();await page.getByRole('button',{name:'Siguiente página de contactos',exact:true}).click();if((await pending).status()!==200)throw Error('CONTACT_NEXT_READ_FAILED')}
+   for(let n=0;n<3&&!await page.getByRole('heading',{name:label,exact:true}).count();n++){pending=contactResponse();await page.getByRole('button',{name:'Siguiente pÃ¡gina de contactos',exact:true}).click();if((await pending).status()!==200)throw Error('CONTACT_NEXT_READ_FAILED')}
    await expect(page.getByRole('heading',{name:label,exact:true})).toBeVisible()
   }finally{await page.unroute('**/api/product/v1/commands',observe);await page.setViewportSize(previous)}
+ })
+ await check('customer360_customer_lost_receipt_same_command_and_single_revision',async()=>{
+  const bodies=[],version=Number(sql(`select version from public.customers where workspace_id='${wa}' and id='${id}'`))
+  let lost=true
+  const observe=async route=>{
+   const q=route.request().postDataJSON();if(q.operation!=='customer.update')return route.continue()
+   bodies.push(JSON.stringify(q))
+   if(lost){lost=false;const result=await route.fetch();if(result.status()!==200)throw Error('CUSTOMER_EFFECT_NOT_COMMITTED');return route.abort('failed')}
+   return route.continue()
+  }
+  await page.route('**/api/product/v1/commands',observe)
+  try{
+   if(report)report.w2_ui_action_step='customer_uncertain:open';await page.goto(origin+'/clients/'+id);await page.getByRole('button',{name:'Editar cliente',exact:true}).click()
+   const drawer=page.getByRole('dialog',{name:'Editar cliente',exact:true})
+   // Existing authorized fields are unchanged; only the normal command revision is measured.
+   await drawer.getByRole('button',{name:'Guardar cliente',exact:true}).click()
+   await expect(drawer.getByRole('alert',{name:'Resultado del guardado',exact:true})).toHaveText('No se pudo confirmar el resultado. Reintenta la misma acciÃ³n para comprobarlo.')
+   await expect(drawer.getByRole('button',{name:'Cerrar panel',exact:true})).toBeDisabled();await page.keyboard.press('Escape');await expect(drawer).toBeVisible()
+   if(report)report.w2_ui_action_step='customer_uncertain:confirm';await drawer.getByRole('button',{name:'Reintentar la misma acciÃ³n',exact:true}).click();await expect(drawer).toHaveCount(0)
+   if(bodies.length!==2||bodies[0]!==bodies[1])throw Error('CUSTOMER_REPLAY_CHANGED')
+   const command=JSON.parse(bodies[0]).input.command_id;if(!/^[0-9a-f-]{36}$/.test(command))throw Error('CUSTOMER_COMMAND_INVALID')
+   if(Number(sql(`select version from public.customers where workspace_id='${wa}' and id='${id}'`))!==version+1||sql(`select count(*) from public.product_commands where workspace_id='${wa}' and command_id='${command}' and operation='customer.update'`)!=='1'||sql(`select count(*) from public.product_audit_events where workspace_id='${wa}' and command_id='${command}' and operation='customer.update'`)!=='1')throw Error('CUSTOMER_REVISION_LEDGER_AUDIT_NOT_SINGLE')
+   await expect(page.getByRole('status').filter({hasText:'Cliente guardado.'})).toBeVisible()
+  }finally{await page.unroute('**/api/product/v1/commands',observe)}
  })
 }

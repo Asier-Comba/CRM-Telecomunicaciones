@@ -1,0 +1,11 @@
+# W2-X — composición de fiabilidad Customer360
+
+CLAIM issue67 comentario6157144196. Base verificada60ac; fuentes propias9c361c9ce7e32ba202f0c6e24aacd371c5026e04 (contactos inciertos),2b8f7b0f72f731b9bf4c1513c74fe5cabeb54b12 (cliente activo) y563948981dff3e1216beeb3fcec3c7e9219596a4 (clientes inciertos/confirmados). Se conserva la genealogía por fast-forward y merges normales; no se escriben ramas PR38/142 ni W3/W5.
+
+La unión mantiene creación/edición/archivo de contactos con el mismo comando ante respuesta perdida, acciones de contacto solo con cliente activo, consulta de históricos/principal y recuperación del guardado de clientes sin repetir una escritura confirmada. Las dos props UI opcionales conservan sus defaults y no se duplica Drawer. El fixture de creación de clientes se añade al fixture existente.
+
+El único conflicto de contenido era el final del consumidor AuthDBC360: se mantienen sus tres controles originales y ambos nuevos, con los cuerpos de las fuentes respectivas. Un primer comprobador de composición rechazó una diferencia de indentación al cerrar el control original; se resolvió verificando igualdad de líneas salvo espacio exterior. No se publicó el conflicto ni se relajó ninguna aserción. Checks nuevos: contacto persistido1/comando1/audit1 tras respuesta perdida y actualización de cliente versión+1/comando1/audit1/readback. Ningún SQL/contrato/rol/timeout/imagen cambia.
+
+Navegador focal sobre esta unión:41/41 (9 contacto incierto,18 estado/rol UI,12 cliente incierto/lectura posterior y2 lectura de contactos). Build normal con TypeScript y lint se verifican localmente. Los controles globales de su nuevo SHA están PENDING hasta publicar en la PR153 existente, después de terminar TODOS los controles actuales de9c361. Se prevén440 controles preview y109 AuthDB por incremento de casos, sin declarar PASS ni heredar resultados de fuentes anteriores. PR152/a650 de notas es una entrega independiente y no está incluida.
+
+Aceptación solo parcial de estos recorridos. Permisos/tenant reales, controles físicos nuevos y aceptación completa PAR-042 requieren evidencia propia; las pruebas HTTP controladas no los sustituyen. No se acredita modelo vivo, staging, full23, W4 o release; cincoHIGH visibles, IA writesOFF/issue10OPEN/releaseNOT_ACCEPTED. Integración principal requiere ACK exacto del propietario.

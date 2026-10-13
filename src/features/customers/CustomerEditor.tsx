@@ -28,7 +28,8 @@ export function CustomerEditor({ customer, onClose, onSaved, onReload }: { custo
   function change<K extends keyof CustomerFieldsV1>(key: K, value: CustomerFieldsV1[K]) {
     setFields({ ...fields, [key]: value }); intent.current = null; setError(null);setWriteConfirmed(false)
   }
-  return <Drawer title={customer ? 'Editar cliente' : 'Nuevo cliente'} onClose={() => { if (!busy) onClose() }}>
+  return <Drawer closeDisabled={busy || uncertain || writeConfirmed} title={customer ? 'Editar cliente' : 'Nuevo cliente'} onClose={() => { if (!busy && !uncertain && !writeConfirmed) onClose() }}>
+    {(uncertain || writeConfirmed) && <p role="status" className="text-sm text-amber-800">{writeConfirmed ? 'El cliente ya está guardado. Comprueba sus datos antes de cerrar.' : 'El resultado está pendiente de confirmación. Reintenta la misma acción antes de cerrar.'}</p>}
     <form onSubmit={save} className="space-y-4">
       <fieldset disabled={busy || uncertain || conflict || writeConfirmed} className="space-y-4">
         <label className="block text-sm">Tipo de cuenta<select className={`${control} mt-1 w-full`} value={fields.account_kind} onChange={e => change('account_kind',e.target.value as CustomerFieldsV1['account_kind'])}><option value="legal_entity">Empresa</option><option value="sole_trader">Autónomo</option></select></label>
