@@ -9,11 +9,16 @@ const failure=()=>Error('NATIVE_SESSION_UNAVAILABLE')
 
 /** Framing has no SQL/error/result material in rejected errors or diagnostics. */
 export function createFramedFixtureSessionV1(child,terminateOwnedBackend){
- let active=null,closed=false,closePromise
+ let active=null,closed=false,processClosed=false,terminationRequested=false,closePromise
  child.stdout.on('data',chunk=>{
   if(active){active.wireBytes+=chunk.length;if(active.wireBytes>65536)stop()}
  })
  const lines=createInterface({input:child.stdout,crlfDelay:Infinity})
+ function terminate(){
+  if(terminationRequested)return
+  terminationRequested=true
+  try{terminateOwnedBackend()}catch{/* Closed failure; independent owner cleanup verifies disappearance. */}
+ }
  function stop(){
   if(closed)return
   closed=true
@@ -21,7 +26,7 @@ export function createFramedFixtureSessionV1(child,terminateOwnedBackend){
   if(pending){clearTimeout(pending.timer);pending.signal?.removeEventListener('abort',pending.abort);pending.reject(failure())}
   child.stdin.destroy()
   // The caller verifies its private application name and database before killing.
-  try{terminateOwnedBackend()}catch{/* Keep the closed failure; owner cleanup verifies disappearance. */}
+  terminate()
  }
  lines.on('line',line=>{
   const p=active
@@ -39,7 +44,7 @@ export function createFramedFixtureSessionV1(child,terminateOwnedBackend){
  child.stdout.on('error',()=>stop())
  child.stderr.on('error',()=>stop())
  child.on('error',()=>stop())
- child.on('close',()=>{stop();lines.close()})
+ child.on('close',()=>{processClosed=true;stop();lines.close()})
  return {
   query(sql,signal){
    if(closed||active||signal?.aborted||typeof sql!=='string'||!sql.trim()||Buffer.byteLength(sql,'utf8')>65536||/^\s*\\/m.test(sql))return Promise.reject(failure())
@@ -53,9 +58,14 @@ export function createFramedFixtureSessionV1(child,terminateOwnedBackend){
   },
   close(){
    if(closePromise)return closePromise
-   closePromise=new Promise(resolve=>{
-    if(child.exitCode!==null){stop();lines.close();resolve();return}
-    const timer=setTimeout(()=>{stop();child.kill('SIGKILL');lines.close();resolve()},2000)
+   closePromise=new Promise((resolve,reject)=>{
+    if(processClosed){stop();lines.close();resolve();return}
+    const timer=setTimeout(()=>{
+     stop();terminate();child.kill('SIGKILL');lines.close()
+     // A kill request is not an observed close. Keep this failure even if the
+     // process closes later; neither a timeout nor exitCode grants cleanup PASS.
+     reject(failure())
+    },2000)
     child.once('close',()=>{clearTimeout(timer);resolve()})
     if(active)stop();else {closed=true;child.stdin.end('\\q\n')}
    })
