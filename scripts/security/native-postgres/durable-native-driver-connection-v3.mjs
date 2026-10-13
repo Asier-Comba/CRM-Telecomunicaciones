@@ -1,4 +1,5 @@
 import {createNativeDurableOperationInspectorV3} from './durable-operation-inspection-v3.mjs'
+import {createNativeDurableAuditInspectorV3} from './durable-audit-inspection-v3.mjs'
 const unavailable=()=>Error('DURABLE_NATIVE_WORKER_CONNECTION_UNAVAILABLE')
 const statement="select jsonb_build_object('backend',pg_backend_pid(),'database',current_database(),'application',current_setting('application_name'));"
 
@@ -56,5 +57,29 @@ export function createDurableNativeWorkerConnectionV3(open){
   closing=(async()=>{try{if(pending)await pending.catch(()=>{});await retire()}catch{throw unavailable()}finally{phase='closed'}})()
   return closing
  }
- return Object.freeze({connectWorker,inspectWorkerConnection,inspectWorkerOperation,closeWorker})
+ function createWorkerAuditInspector(rawScope){
+  if(phase!=='connected')throw unavailable()
+  let inspector
+  try{
+   // Existing inspector captures the binding synchronously and owns the opaque
+   // pre-effect baseline. Every later ledger read uses this same owned session.
+   inspector=createNativeDurableAuditInspectorV3(async sql=>{
+    if(phase!=='connected')throw unavailable()
+    const row=await query.call(session,sql)
+    if(phase!=='connected')throw unavailable()
+    return row
+   },rawScope)
+  }catch{throw unavailable()}
+  const fenced=async method=>{
+   if(phase!=='connected')throw unavailable()
+   try{
+    await inspectWorkerConnection()
+    const observed=await inspector[method]()
+    await inspectWorkerConnection()
+    return observed
+   }catch{phase='unavailable';try{await retire()}catch{};throw unavailable()}
+  }
+  return Object.freeze({captureBaseline:()=>fenced('captureBaseline'),inspect:()=>fenced('inspect')})
+ }
+ return Object.freeze({connectWorker,inspectWorkerConnection,inspectWorkerOperation,createWorkerAuditInspector,closeWorker})
 }

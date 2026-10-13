@@ -13,6 +13,7 @@ import {runPositiveReconciliationProcessCutV1} from './positive-reconciliation-p
 import {createNativeDurableAuditInspectorV3} from './durable-audit-inspection-v3.mjs'
 import {createNativeDurableOperationInspectorV3} from './durable-operation-inspection-v3.mjs'
 import {verifyNativeDriverOperationSliceV3} from './verify-driver-operation-slice-v3.mjs'
+import {connectWorker,createWorkerAuditInspectorV3,closeWorkerV3} from './durable-native-driver-v3.mjs'
 import {createNativePositiveEffectInspectorV3} from './durable-positive-effect-inspection-v3.mjs'
 import {CapabilityRegistry} from '../../../src/assistant/registry.ts'
 import {argumentsDigest} from '../../../src/assistant/runtime.ts'
@@ -150,6 +151,9 @@ try{
  const receipt=await quarantine(record.operationRef,command)
  const auditInspector=createNativeDurableAuditInspectorV3(sql,{...binding,operationRef:record.operationRef})
  await auditInspector.captureBaseline()
+ const auditDriverBackend=await connectWorker()
+ const auditDriver=createWorkerAuditInspectorV3({...binding,operationRef:record.operationRef})
+ await auditDriver.captureBaseline()
  const competing=Array.from({length:20},(_,i)=>commitInput(record.operationRef,key,'positive_original_'+i+'_'+nonce))
  const independent=await runIndependentPositiveReconciliationRaceV1(competing,{workspace,actor,capability,workerRef,input,outcomes,command},terminateOwnedSessions)
  const settled=independent.settled;assert.equal(independent.nodeProcesses,20);assert.equal(independent.nativeBackends,20);assert.equal(independent.sameConnection,true)
@@ -224,13 +228,16 @@ try{
  assert.equal(await sql(`select count(*) from public.assistant_audit_delivery_outbox d join public.assistant_original_audit_intents i using(workspace_id,event_ref) where i.capability='${capability}' and d.state='pending';`),'0')
  assert.equal(await sql(`select jsonb_agg(to_jsonb(i) order by event_ref) from public.assistant_original_audit_intents i where capability='${capability}';`),originals)
  const finalAudit=await auditInspector.inspect()
+ const driverAudit=await auditDriver.inspect()
+ assert.deepEqual(driverAudit,finalAudit)
+ console.log(JSON.stringify({kind:'durable_v3_native_driver_audit_observation',scenario:'reconciliation_primitive',ledger:driverAudit,sameBackend:true,independentLedgerEquality:true,full23:'NOT_RUN'}))
  const positiveEffect=await createNativePositiveEffectInspectorV3(sql,sink,{...binding,operationRef:record.operationRef}).inspect()
  assert.deepEqual(positiveEffect,{effectCount:1})
  console.log(JSON.stringify({kind:'durable_v3_native_positive_effect_observation',scenario:'reconciliation_primitive',effect:positiveEffect,source:'owned_synthetic_receipt_ledger',verified_absence:'NOT_RUN',full23:'NOT_RUN'}))
  const operationSlice=await createNativeDurableOperationInspectorV3(sql,{...binding,operationRef:record.operationRef}).inspect()
  assert.deepEqual(operationSlice,{operationCount:1,state:'completed'})
  console.log(JSON.stringify({kind:'durable_v3_native_operation_observation',scenario:'reconciliation_primitive',operation:operationSlice,full23:'NOT_RUN'}))
- const driverOperation=await verifyNativeDriverOperationSliceV3(sql,{...binding,operationRef:record.operationRef})
+ const driverOperation=await verifyNativeDriverOperationSliceV3(sql,{...binding,operationRef:record.operationRef},auditDriverBackend)
  console.log(JSON.stringify({kind:'durable_v3_native_driver_operation_observation',scenario:'reconciliation_primitive',...driverOperation}))
  assert.equal(finalAudit.originalAuditIntents,4);assert.equal(finalAudit.deliveredOriginalEvents,4);assert.equal(finalAudit.pendingOriginalEvents,0)
  assert.equal(finalAudit.outcomeDeliveredEvents,1);assert.equal(finalAudit.outcomePendingEvents,0);assert.equal(finalAudit.baselinePendingOriginalEvents,3)
@@ -238,6 +245,8 @@ try{
  console.log(JSON.stringify({kind:'durable_v3_native_audit_observation',scenario:'reconciliation_primitive',ledger:finalAudit,full23:'NOT_RUN'}))
  console.log('POSITIVE RECONCILIATION NATIVE PASS:20 distinct independent Node processes/native backends same persistent connection one completion19 conflicts;original expired lease/full receipt/full result;ten complete methods plus positive reconciliation;targeted postcommit reply loss/authorized replay;actual postcommit Node SIGKILL/different process backend recovery;current grant expiry after observed customer row lock;five SQL mutants exact-restored;twelve immutable original audits drained by a distinct current actor including three complete eight-field reconciliation events;NOT full11/verified absence/full23/four independent Node races/business handler/before-effect SIGKILL/restart')
 }finally{
+ let driverCloseError;try{await closeWorkerV3()}catch(error){driverCloseError=error}
  for(const child of owned)child.kill('SIGKILL')
  await run(`drop table if exists public.${sink},public.${outcomes},public.${auditSink};`)
+ if(driverCloseError)throw driverCloseError
 }
