@@ -8,7 +8,7 @@ import type {ReadAuthorityV2} from '../../src/assistant/product-read-executor-v2
 // Synthetic authority/download/extraction seams. Actual parser probe is separate;
 // these tests do not certify Auth/Storage, an index, embeddings or a live model.
 const original:ReadAuthorityV2={actorId:'actor-a',workspaceId:'workspace-a',scopeEpoch:'epoch-1',role:'owner'}
-async function fixture(texts=['Permanencia de doce meses. Fibra 600 Mbps.','Condiciones: renovación y permanencia de doce meses.']){
+async function fixture(texts:(string|readonly string[])[]=['Permanencia de doce meses. Fibra 600 Mbps.','Condiciones: renovación y permanencia de doce meses.']){
   let current:ReadAuthorityV2|null=original,authReads=0
   const documents=new Map<string,DocumentRagSnapshotV1>(),sources:{reference:string;prepared:PreparedDocumentRagSourceV1}[]=[],reads=new Map<string,number>()
   for(const [index,text] of texts.entries()){
@@ -17,7 +17,7 @@ async function fixture(texts=['Permanencia de doce meses. Fibra 600 Mbps.','Cond
       sha256:createHash('sha256').update(bytes).digest('hex'),sizeBytes:bytes.length,mediaType:'application/pdf',documentKind:'contract',indexingApproved:true,contentClass:'reviewed_knowledge'}
     documents.set(reference,document)
     const result=await prepareDocumentRagSourceV1(reference,{offeredHandles:[reference],authority:async()=>original,resolveDocument:async()=>document,
-      downloadAuthorized:async()=>bytes,extractPdf:async()=>[{page:1,text}]})
+      downloadAuthorized:async()=>bytes,extractPdf:async()=>typeof text==='string'?[{page:1,text}]:text.map((value,page)=>({page:page+1,text:value}))})
     assert.equal(result.status,'prepared');sources.push({reference,prepared:result.handle!})
   }
   let onAuthority=()=>{},onResolve:(_reference:string)=>void=()=>{}
@@ -131,6 +131,29 @@ test('document retrieval keeps resolver failures/cancellation unavailable withou
   const g=await fixture(),controller=new AbortController();g.onResolve(()=>controller.abort())
   const cancelled=await retrieveAdmittedDocumentChunksV1('permanencia',g.deps,controller.signal)
   assert.notEqual(cancelled.status,'matched');assert.equal(cancelled.citations.length,0)
+})
+test('document retrieval covers a complete question across pages of one admitted document with exact citations',async()=>{
+ const pages=['Fibra 600 Mbps.','Permanencia 12 meses.'],f=await fixture([pages])
+ const result=await retrieveAdmittedDocumentChunksV1('Fibra 600Mbps permanencia 12 meses',f.deps)
+ assert.equal(result.status,'matched');assert.deepEqual(result.citations.map(c=>c.page),[1,2])
+ assert.ok(result.citations.every(c=>c.reference==='document_0'&&c.version===1&&c.documentSha256===f.documents.get('document_0')!.sha256))
+ for(const c of result.citations){assert.equal(c.text,pages[c.page-1]);assert.equal(c.start,0);assert.equal(c.end,c.text.length);assert.equal(c.sha256,createHash('sha256').update(c.text).digest('hex'))}
+ assert.equal(result.scope,'selected_admitted_chunks_only')
+})
+test('document retrieval never combines different documents or exceeds three citations to cover a question',async()=>{
+ const separate=await fixture(['Fibra 600 Mbps.','Permanencia 12 meses.'])
+ assert.equal((await retrieveAdmittedDocumentChunksV1('Fibra 600Mbps permanencia 12 meses',separate.deps)).status,'no_match')
+ const four=await fixture([['fibra','permanencia','contrato','respaldo']])
+ assert.equal((await retrieveAdmittedDocumentChunksV1('fibra permanencia contrato respaldo',four.deps)).status,'no_match')
+})
+test('document retrieval chooses minimal complete page coverage and discards it after late withdrawal',async()=>{
+ const f=await fixture([['fibra','fibra permanencia','contrato']])
+ const result=await retrieveAdmittedDocumentChunksV1('fibra permanencia contrato',f.deps)
+ assert.equal(result.status,'matched');assert.deepEqual(result.citations.map(c=>c.page),[2,3])
+ const withdrawn=await fixture([['Fibra 600 Mbps.','Permanencia 12 meses.']])
+ withdrawn.onResolve(ref=>{if(withdrawn.reads.get(ref)===2)withdrawn.documents.set(ref,{...withdrawn.documents.get(ref)!,version:2})})
+ const denied=await retrieveAdmittedDocumentChunksV1('fibra 600Mbps permanencia 12 meses',withdrawn.deps)
+ assert.equal(denied.status,'access_changed');assert.deepEqual(denied.citations,[])
 })
 test('document retrieval bounds citations to three exact fragments with stable lexical ranking',async()=>{
   const f=await fixture(Array.from({length:5},(_,i)=>'Permanencia de doce meses. '.repeat(i+1)))

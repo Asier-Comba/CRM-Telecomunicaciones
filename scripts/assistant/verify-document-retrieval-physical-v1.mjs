@@ -33,6 +33,9 @@ async function main(){
  const second=await retrieveAdmittedDocumentChunksV1('Permanencia 12 meses',deps)
  assert.equal(second.status,'matched');assert.equal(second.citations.length,1);assert.equal(second.citations[0].page,2)
  assert.ok(second.citations[0].text.includes('Permanencia 12 meses'));assert.equal(second.trust,'untrusted_document_data')
+ const combined=await retrieveAdmittedDocumentChunksV1('Fibra 600Mbps permanencia 12 meses',deps)
+ assert.equal(combined.status,'matched');assert.deepEqual(combined.citations.map(c=>c.page),[1,2])
+ assert.deepEqual(combined.citations,[first.citations[0],second.citations[0]])
  const absent=await retrieveAdmittedDocumentChunksV1('portabilidad',deps)
  assert.equal(absent.status,'no_match');assert.equal(absent.scope,'selected_admitted_chunks_only');assert.equal(absent.citations.length,0)
  const withdrawn=await retrieveAdmittedDocumentChunksV1('fibra',{...deps,resolveCurrentDocument:async()=>({...source,version:2})})
@@ -40,6 +43,7 @@ async function main(){
  console.log(JSON.stringify({contract:'assistant.document-retrieval-physical.v1',parser:'pypdf6.10.0',source_sha256:source.sha256,
   physical_retrieval:'PASS_REAL_PDF_TEXT_LEXICAL_PAGE1_PAGE2_EXACT_QUOTE_HASH_NO_MATCH_SELECTED_SCOPE_WITHDRAWAL',
   telecom_compact_rate:'PASS_EXACT_600MBPS_PAGE1_NO_MAGNITUDE_UNIT_OR_BYTE_RATE_CONVERSION',
+  same_document_page_cover:'PASS_EXACT_PAGE1_FIBRA600MBPS_PAGE2_PERMANENCIA12_SAME_REFERENCE_VERSION_HASH_TWO_LITERAL_CITATIONS',
   auth_download:'SYNTHETIC_SEAMS',actual_auth_storage:'NOT_RUN',persistent_index_embeddings:'NOT_IMPLEMENTED',live_model:'NOT_RUN',business_ai:'OFF',release:'NOT_ACCEPTED'}))
 }
 try{await main()}catch{console.error('physical_document_retrieval_failed');process.exitCode=1}
