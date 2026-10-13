@@ -182,11 +182,11 @@ export const PRODUCT_CAPABILITIES_V2: readonly ProductCapabilityV2[] = Object.fr
 export function productCapabilityV2(name: string): ProductCapabilityV2 | null { return PRODUCT_CAPABILITIES_V2.find(c => c.name === name) ?? null }
 /** Small semantic advertisement, not an executable schema or permission grant.
  * UUID patterns are unnecessary: identity fields require authorized opaque
- * references or a unique authorized dependency; ref is only an abbreviation.
+ * references or a unique authorized dependency; ref/dep are abbreviations only.
  * Cursor replay is deliberately absent from the current planner contract. */
 export function productPlannerCatalogV2(role?: string) {
   return PRODUCT_CAPABILITIES_V2.filter(c => role === undefined || c.roles.includes(role)).map(c => ({ name: c.name, description: c.description,
     input: { required: c.inputSchema.required, fields: Object.fromEntries(Object.entries(c.inputSchema.properties as Record<string, Schema>)
-      .filter(([field]) => field !== 'after_id').map(([field, rule]) => [field, field === 'id' || field.endsWith('_id') ? { binding: 'authorized_opaque_ref_or_unique_dependency' } : rule])) },
+      .filter(([field]) => field !== 'after_id').map(([field, rule]) => [field, field === 'id' || field.endsWith('_id') ? { binding: 'authorized_opaque_ref_or_unique_dep' } : rule])) },
     partiality: c.partiality }))
 }
