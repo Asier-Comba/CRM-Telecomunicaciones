@@ -5,6 +5,7 @@ import { existsSync } from 'node:fs'
 import { createDurableNativeFixtureV1 } from '../../scripts/platform/durable-native-fixture.mjs'
 import { NATIVE_POSTGRES_OFFICIAL_IMAGE } from '../../scripts/security/native-postgres/expected-image.mjs'
 import { openPersistentNativeFixtureSessionV1 } from '../../scripts/security/native-postgres/persistent-fixture-session.mjs'
+import { nativeResourceQueryFailureCategory } from '../../scripts/platform/native-resource-query-error.mjs'
 
 const privateMarker = 'private-synthetic-marker@example.invalid'
 const contract = 'telecom.native-resource.v1'
@@ -58,12 +59,43 @@ function engine(t, options = {}) {
       if (a[1] === 'restart') { state.mutations.push('restart'); if (!state.noStartChange) state.start += 1000; if (state.changeSystem) state.system = '999'; return state.container.Id }
       if (a[1] === 'rm') { state.mutations.push('remove-container'); state.container = null; return '' }
     }
-    if (a[0] === 'exec') return JSON.stringify({ system: state.system, started: state.start, database: 'telecom_test', publicRelations: state.nonempty ? 1 : 0, ...(state.extraSnapshot ? { private_data: privateMarker } : {}) })
+    if (a[0] === 'exec') {
+      if (state.temporaryQueriesRemaining && a[a.indexOf('-h') + 1] === '127.0.0.1') {
+        state.temporaryQueriesRemaining--
+        throw Object.assign(Error(privateMarker), {status: 2, stderr: 'connection refused ' + privateMarker})
+      }
+      return JSON.stringify({ system: state.system, started: state.start, database: 'telecom_test', publicRelations: state.nonempty ? 1 : 0, ...(state.extraSnapshot ? { private_data: privateMarker } : {}) })
+    }
     throw Error('Unexpected mocked command')
   })
   return state
 }
 const closedError = code => error => error.message === 'NATIVE_RESOURCE_' + code && error.cause === undefined && !String(error.stack).includes(privateMarker)
+
+test('socket-only initialization is never admitted as final postmaster readiness', async t => {
+  const s = engine(t, { temporaryQueriesRemaining: 2 }), f = await createDurableNativeFixtureV1()
+  try {
+    assert.equal(s.temporaryQueriesRemaining, 0)
+    assert.equal(s.calls.filter(a => a[0] === 'exec').length, 3)
+    assert.ok(s.calls.filter(a => a[0] === 'exec').every(a => a[a.indexOf('-h') + 1] === '127.0.0.1'))
+  } finally { await f.close() }
+})
+
+test('query diagnostics distinguish closed failures without retaining private content', () => {
+  for (const [error, expected] of [
+    [{code:'ETIMEDOUT',stderr:privateMarker}, 'TIMEOUT'],
+    [{code:'ENOBUFS',stderr:privateMarker}, 'OUTPUT_LIMIT'],
+    [{status:3,stderr:privateMarker}, 'SQL_FAILED'],
+    [{stderr:'ERROR: ' + privateMarker}, 'SQL_FAILED'],
+    [{status:2,stderr:privateMarker}, 'TRANSPORT_FAILED'],
+    [{stderr:'connection refused ' + privateMarker}, 'TRANSPORT_FAILED'],
+    [{code:'ENOENT',stderr:privateMarker}, 'CLIENT_UNAVAILABLE'],
+    [{signal:'SIGTERM',stderr:privateMarker}, 'INTERRUPTED'],
+    [{status:1,stderr:privateMarker}, 'CLIENT_OR_SQL_FAILED'],
+    [{stderr:privateMarker}, 'UNAVAILABLE'],
+  ]) assert.equal(nativeResourceQueryFailureCategory(error), expected)
+  assert.equal(nativeResourceQueryFailureCategory(new Proxy({}, {get(){throw Error(privateMarker)}})), 'UNAVAILABLE')
+})
 
 test('requires an explicit disposable CI and rejects arguments and production before Docker', async t => {
   prepare(t); let calls = 0
@@ -203,7 +235,7 @@ test('native own resource, independent consumer sessions, persisted storage, act
   const oldBinding = process.env.TELECOM_NATIVE_TEST_CONTAINER
   const safeDocker = args => {
     try { return childProcess.execFileSync('docker', ['--host', 'unix:///var/run/docker.sock', ...args], { encoding: 'utf8', timeout: 10000, maxBuffer: 65536, stdio: ['ignore', 'pipe', 'pipe'], windowsHide: true }).trim() }
-    catch { throw Error('NATIVE_RESOURCE_PROOF_QUERY_FAILED') }
+    catch (error) { throw Error('NATIVE_RESOURCE_PROOF_QUERY_' + nativeResourceQueryFailureCategory(error)) }
   }
   const query = sql => safeDocker(['exec', '-u', 'postgres', container, 'psql', '-X', '-qAt', '-v', 'ON_ERROR_STOP=1', '-U', 'postgres', '-d', 'telecom_test', '-c', sql])
   const privateJson = value => { try { return JSON.parse(value) } catch { throw Error('NATIVE_RESOURCE_PROOF_INSPECTION_FAILED') } }
@@ -213,6 +245,7 @@ test('native own resource, independent consumer sessions, persisted storage, act
     volume = metadata.Mounts[0].Name
     assert.ok(metadata.Id === container && metadata.Config.Image === NATIVE_POSTGRES_OFFICIAL_IMAGE, 'EXACT_PINNED_OWN_RESOURCE')
     assert.ok(metadata.HostConfig.NetworkMode === 'none' && !Object.keys(metadata.HostConfig.PortBindings ?? {}).length, 'NO_PUBLISHED_NETWORK')
+    assert.equal(safeDocker(['exec', '-u', 'postgres', container, 'cat', '/proc/1/comm']), 'postgres', 'FINAL_POSTMASTER_IS_PID1_BEFORE_FIRST_QUERY')
     assert.ok(query("select count(*) from pg_class where relnamespace='public'::regnamespace;") === '0', 'EMPTY_TELECOM_DATABASE')
     process.env.TELECOM_NATIVE_TEST_CONTAINER = container
     first = await openPersistentNativeFixtureSessionV1(); second = await openPersistentNativeFixtureSessionV1()
@@ -238,5 +271,5 @@ test('native own resource, independent consumer sessions, persisted storage, act
   }
   assert.ok(safeDocker(['container', 'ls', '-a', '-q', '--filter', 'id=' + container]) === '', 'OWN_CONTAINER_REMOVAL_CONFIRMED')
   assert.ok(safeDocker(['volume', 'ls', '--filter', 'name=^' + volume + '$', '--format', '{{.Name}}']) === '', 'OWN_VOLUME_REMOVAL_CONFIRMED')
-  console.log(JSON.stringify({ contract, source, scope: 'RESOURCE_ONLY_NOT_BUSINESS_DURABILITY', result: 'PASS', independent_connections: 2, same_cluster_restart: 'PASS', storage: 'PASS_SYNTHETIC_PROBE', teardown: 'PASS', full23: 'NOT_RUN', business_ai_writes: 'OFF' }))
+  console.log(JSON.stringify({ contract, source, scope: 'RESOURCE_ONLY_NOT_BUSINESS_DURABILITY', result: 'PASS', final_postmaster: 'PASS_PID1_POSTGRES_BEFORE_FIRST_QUERY', independent_connections: 2, same_cluster_restart: 'PASS', storage: 'PASS_SYNTHETIC_PROBE', teardown: 'PASS', full23: 'NOT_RUN', business_ai_writes: 'OFF' }))
 })
