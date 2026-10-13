@@ -11,10 +11,10 @@ export function observePortfolioBoundedSearchV1({page,origin,query,expectedContr
  const navigated=f=>{if(f===frame)changed=true}
  const request=req=>{try{
   if(finished||changed||page.url()!==destination||req.frame()!==frame||req.method()!=='POST')return
-  const url=new URL(req.url());if(url.origin!==origin||url.pathname!=='/api/product/v1/queries')return
+  const url=new URL(req.url());if(url.origin!==origin)return
   const data=req.postDataJSON();let kind=null
-  if(data?.operation==='global.search'&&data.input?.query===query)kind='search'
-  if(data?.operation==='portfolio.get'&&data.input?.kind==='contract'&&data.input?.id===expectedContractId)kind='expected_contract'
+  if(url.pathname==='/api/product/v1/queries'&&data?.operation==='global.search'&&data.input?.query===query)kind='search'
+  if(url.pathname==='/api/portfolio/v1/queries'&&data?.operation==='portfolio.get'&&data.input?.kind==='contract'&&data.input?.id===expectedContractId)kind='expected_contract'
   if(!kind)return;if(rows.size>=12){truncated=true;return}
   rows.set(req,{kind,status:'pending',failed:false,dto:'not_observed',expected_reference:null,candidates:null})
  }catch{/* Exotic/foreign request cannot supply evidence. */}}

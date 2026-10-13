@@ -5,7 +5,7 @@ import {observePortfolioBoundedSearchV1} from '../../scripts/security/supabase-l
 const origin='http://127.0.0.1:3109',id='10000000-0000-4000-8000-000000000001',customer='20000000-0000-4000-8000-000000000001',query='Synthetic private query'
 function fixture(){const page=new EventEmitter(),frame={};let href=origin+'/portfolio';page.url=()=>href;page.mainFrame=()=>frame
  const observe=()=>observePortfolioBoundedSearchV1({page,origin,query,expectedContractId:id})
- const request=(operation,input,other={})=>({frame:()=>frame,method:()=>other.method??'POST',url:()=>other.url??origin+'/api/product/v1/queries',postDataJSON:()=>({operation,input})})
+ const request=(operation,input,other={})=>({frame:()=>frame,method:()=>other.method??'POST',url:()=>other.url??origin+(operation==='portfolio.get'?'/api/portfolio/v1/queries':'/api/product/v1/queries'),postDataJSON:()=>({operation,input})})
  const response=async(req,body,status=200)=>{page.emit('response',{request:()=>req,status:()=>status,json:async()=>body});await new Promise(resolve=>setImmediate(resolve))}
  return{page,frame,observe,request,response,navigate:()=>{href=origin+'/portfolio?other=private';page.emit('framenavigated',frame)}}
 }
@@ -21,10 +21,15 @@ test('passive observer distinguishes current search and exact expected record wi
 test('old foreign and unrelated requests cannot supply current-document evidence; navigation discards prior DTOs',async()=>{
  const f=fixture(),old=f.request('global.search',{query});f.page.emit('request',old)
  const o=f.observe();await f.response(old,{ok:true,data:{contract_version:'product.v1',items:[]}})
- for(const req of [f.request('global.search',{query:'other'}),f.request('portfolio.get',{kind:'contract',id:customer}),f.request('global.search',{query},{url:'http://127.0.0.1:4000/api/product/v1/queries'})])f.page.emit('request',req)
+ for(const req of [f.request('global.search',{query:'other'}),f.request('portfolio.get',{kind:'contract',id:customer}),f.request('global.search',{query},{url:'http://127.0.0.1:4000/api/product/v1/queries'}),f.request('portfolio.get',{kind:'contract',id},{url:origin+'/api/product/v1/queries'}),f.request('global.search',{query},{url:origin+'/api/portfolio/v1/queries'})])f.page.emit('request',req)
  assert.equal(o.finish().rows.length,0)
  const changed=f.observe(),current=f.request('global.search',{query});f.page.emit('request',current);f.navigate();await f.response(current,{ok:true,data:{contract_version:'product.v1',items:[]}})
  assert.equal(changed.finish().document_changed,true)
+})
+test('passive observer captures the actual dedicated portfolio endpoint',async()=>{
+ const f=fixture(),o=f.observe(),get=f.request('portfolio.get',{kind:'contract',id},{url:origin+'/api/portfolio/v1/queries'})
+ f.page.emit('request',get);await f.response(get,{ok:true,data:{contract_version:'portfolio.v1',kind:'contract',record:{id,version:1,status:'draft',source:'manual',customer_id:customer,operator_id:'30000000-0000-4000-8000-000000000001',plan_version_id:null,start_date:'2026-10-01',signed_date:null,end_date:null,assigned_user_id:null}}})
+ assert.deepEqual(o.finish().rows.map(r=>[r.kind,r.status,r.dto,r.expected_reference]),[['expected_contract','ok','valid',true]])
 })
 test('invalid DTO pending transport failure and request bound are retained as safe enums without repair or retries',async()=>{
  const f=fixture(),o=f.observe(),bad=f.request('global.search',{query});f.page.emit('request',bad);await f.response(bad,{ok:true,data:{contract_version:'product.v1',items:[],private_body:'synthetic-private-payload'}})

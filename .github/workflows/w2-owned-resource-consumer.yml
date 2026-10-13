@@ -1,0 +1,44 @@
+name: W2 owned resource business consumer
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'scripts/platform/durable-native-fixture.mjs'
+      - 'scripts/security/native-postgres/**'
+      - 'src/assistant/durable-*.ts'
+      - 'supabase/migrations/**'
+      - '.github/workflows/w2-owned-resource-consumer.yml'
+permissions:
+  contents: read
+concurrency:
+  group: w2-owned-resource-consumer-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  committed-restart:
+    name: W2 committed operation and audit persistence across W5 restart
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      CI: 'true'
+      TELECOM_NATIVE_RESOURCE_DISPOSABLE: 'true'
+      DOCKER_HOST: unix:///var/run/docker.sock
+      DOCKER_CONTEXT: ''
+      NODE_ENV: test
+      APP_ENV: test
+      ALLOW_PRODUCTION_TESTS: 'false'
+    steps:
+      - name: Exact consumer source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Existing Node runtime
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version-file: .nvmrc
+      - name: Existing application dependencies
+        run: npm ci
+      - name: IPC closed controls and actual committed restart
+        run: |
+          node --test tests/bootstrap/owned-resource-restart-channel.test.mjs
+          node --experimental-transform-types scripts/security/native-postgres/consume-owned-resource-committed-restart-v1.mjs

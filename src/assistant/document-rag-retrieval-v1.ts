@@ -27,6 +27,30 @@ const tokens=(text:string)=>{
   }
   return result
 }
+// PDF soft line breaks may separate a rate number from its unit. Keep the
+// pair constraint across CR/LF, while retaining the original literal citation.
+const ratePairs=(text:string)=>[...text.normalize('NFKD').matchAll(/(?<![A-Za-z0-9_.,])(\d+)[ \t\r\n]*([kKmMgG])([bB])ps(?![A-Za-z0-9_])/g)]
+  .map(match=>match[1]+':'+match[2]!.toLowerCase()+match[3]+'ps')
+type ChunkMatchV1={citation:DocumentRagCitationV1;score:number;source:number;mask:number}
+function completePageCover(chunks:readonly ChunkMatchV1[],full:number,checkBudget:()=>void):readonly ChunkMatchV1[]|null{
+  // At most200 fragments per admitted source. Keep the best equivalent mask;
+  // examine every remaining pair/triple, never trim rare-term fragments away.
+  const unique=new Map<number,ChunkMatchV1>()
+  for(const chunk of chunks){const prior=unique.get(chunk.mask);if(!prior||chunk.score>prior.score)unique.set(chunk.mask,chunk)}
+  const rows=[...unique.values()],score=(cover:readonly ChunkMatchV1[])=>cover.reduce((sum,row)=>sum+row.score,0)
+  const selection:{best:readonly ChunkMatchV1[]|null}={best:null};let steps=0
+  const accept=(cover:readonly ChunkMatchV1[])=>{if(!selection.best||score(cover)>score(selection.best))selection.best=cover}
+  for(let i=0;i<rows.length;i++)for(let j=i+1;j<rows.length;j++){
+    if((++steps&1023)===0)checkBudget()
+    if((rows[i]!.mask|rows[j]!.mask)===full)accept([rows[i]!,rows[j]!])
+  }
+  if(!selection.best)for(let i=0;i<rows.length;i++)for(let j=i+1;j<rows.length;j++)for(let k=j+1;k<rows.length;k++){
+    if((++steps&1023)===0)checkBudget()
+    if((rows[i]!.mask|rows[j]!.mask|rows[k]!.mask)===full)accept([rows[i]!,rows[j]!,rows[k]!])
+  }
+  checkBudget()
+  return selection.best?[...selection.best].sort((a,b)=>a.citation.page-b.citation.page||a.citation.start-b.citation.start):null
+}
 const same=(a:ReadAuthorityV2|null,b:ReadAuthorityV2)=>!!a&&['actorId','workspaceId','scopeEpoch','role'].every(key=>a[key as keyof ReadAuthorityV2]===b[key as keyof ReadAuthorityV2])
 function authority(raw:unknown):ReadAuthorityV2|null{
   const value=snapshotProductJsonV1(raw)
@@ -63,6 +87,7 @@ export async function retrieveAdmittedDocumentChunksV1(query:unknown,raw:Documen
   if(typeof query!=='string'||!query.trim()||Buffer.byteLength(query)>800||query.length>400||containsHighConfidenceSecret(query))return finish('invalid_input')
   const terms=[...new Set(tokens(query).filter(term=>!stopwords.has(term)))]
   if(!terms.length||terms.length>8)return finish('invalid_input')
+  const requiredRates=[...new Set(ratePairs(query))]
   let deps:DocumentRagRetrievalDependenciesV1,selected:DocumentRagRetrievalDependenciesV1['sources']|null
   try{
     if(!raw||typeof raw!=='object'||Object.getPrototypeOf(raw)!==Object.prototype)return finish('invalid_input')
@@ -96,15 +121,24 @@ export async function retrieveAdmittedDocumentChunksV1(query:unknown,raw:Documen
       if(identities.has(key))return finish('invalid_input')
       identities.add(key);materials.push({reference:item.reference,material})
     }
-    const matches:{citation:DocumentRagCitationV1;score:number;source:number}[]=[]
+    const matches:ChunkMatchV1[]=[],partial=materials.map(()=>[] as ChunkMatchV1[]),fullMask=(1<<(terms.length+requiredRates.length))-1
     for(const [source,{reference,material}] of materials.entries())for(const chunk of material.chunks){
       const counts=new Map<string,number>()
       for(const token of tokens(chunk.text))counts.set(token,(counts.get(token)??0)+1)
-      if(!terms.every(term=>counts.has(term)))continue
-      const score=terms.reduce((sum,term)=>sum+counts.get(term)!,0)
-      matches.push({source,score,citation:Object.freeze({reference,version:material.source.version,documentSha256:material.source.sha256,
-        page:chunk.page,start:chunk.start,end:chunk.end,text:chunk.text,sha256:chunk.sha256})})
+      const rates=new Set(ratePairs(chunk.text))
+      let mask=0
+      terms.forEach((term,index)=>{if(counts.has(term))mask|=1<<index})
+      requiredRates.forEach((rate,index)=>{if(rates.has(rate))mask|=1<<(terms.length+index)})
+      const score=terms.reduce((sum,term)=>sum+(counts.get(term)??0),0)
+      const match={source,score,mask,citation:Object.freeze({reference,version:material.source.version,documentSha256:material.source.sha256,
+        page:chunk.page,start:chunk.start,end:chunk.end,text:chunk.text,sha256:chunk.sha256})}
+      if(mask===fullMask)matches.push(match)
+      else if(mask)partial[source]!.push(match)
     }
+    // Existing full-fragment ranking stays intact. Otherwise cover the question
+    // with at most3 exact fragments from ONE document, never mixed references.
+    const covers=matches.length?[]:partial.map(rows=>completePageCover(rows,fullMask,ensureBudget)).filter((value):value is readonly ChunkMatchV1[]=>!!value)
+    covers.sort((a,b)=>a.length-b.length||b.reduce((s,r)=>s+r.score,0)-a.reduce((s,r)=>s+r.score,0)||a[0]!.source-b[0]!.source)
     // Revalidate ALL selected sources, including those that did not match.
     // Partial facts collected before withdrawal can never escape as citations.
     for(const item of selected){
@@ -115,7 +149,8 @@ export async function retrieveAdmittedDocumentChunksV1(query:unknown,raw:Documen
     if(!await fresh())return finish('access_changed')
     matches.sort((a,b)=>b.score-a.score||a.source-b.source||a.citation.page-b.citation.page||a.citation.start-b.citation.start)
     ensureBudget()
-    return finish(matches.length?'matched':'no_match',matches.slice(0,3).map(m=>m.citation))
+    const chosen=matches.length?matches.slice(0,3):covers[0]??[]
+    return finish(chosen.length?'matched':'no_match',chosen.map(m=>m.citation))
   }catch{return finish('unavailable')}
   finally{clearTimeout(timer);signal?.removeEventListener('abort',cancel)}
 }
