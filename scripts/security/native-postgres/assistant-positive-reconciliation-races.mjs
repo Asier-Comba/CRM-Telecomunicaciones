@@ -229,7 +229,7 @@ try{
  const operationSlice=await createNativeDurableOperationInspectorV3(sql,{...binding,operationRef:record.operationRef}).inspect()
  assert.deepEqual(operationSlice,{operationCount:1,state:'completed'})
  console.log(JSON.stringify({kind:'durable_v3_native_operation_observation',scenario:'reconciliation_primitive',operation:operationSlice,full23:'NOT_RUN'}))
- const driverOperation=await verifyNativeDriverOperationSliceV3(sql,{...binding,operationRef:candidate.operationRef})
+ const driverOperation=await verifyNativeDriverOperationSliceV3(sql,{...binding,operationRef:record.operationRef})
  console.log(JSON.stringify({kind:'durable_v3_native_driver_operation_observation',scenario:'reconciliation_primitive',...driverOperation}))
  assert.equal(finalAudit.originalAuditIntents,4);assert.equal(finalAudit.deliveredOriginalEvents,4);assert.equal(finalAudit.pendingOriginalEvents,0)
  assert.equal(finalAudit.outcomeDeliveredEvents,1);assert.equal(finalAudit.outcomePendingEvents,0);assert.equal(finalAudit.baselinePendingOriginalEvents,3)

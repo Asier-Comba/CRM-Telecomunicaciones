@@ -10,6 +10,7 @@ import {parseEquipmentReceiptV1} from '../../../src/lib/server/equipment-runtime
 import {cleanupAssistantGroundingFixturesV3} from './assistant-grounding-fixture-cleanup-v3.mjs'
 import {parseAssistantDocumentListInputV1,projectAuthorizedDocumentMetadataListV1} from '../../../src/assistant/document-metadata-read-projection-v1.ts'
 import {parseDocumentReceiptV1} from '../../../src/lib/server/document-runtime-v1.ts'
+import {readCompleteOwnedGroundingHistoryV1} from './assistant-grounding-history-page-v1.mjs'
 import {mkdirSync,writeFileSync} from 'node:fs'
 import {resolve,join,dirname} from 'node:path'
 
@@ -342,6 +343,35 @@ export async function assistantReadGroundingAcceptance({ rpc, sql, check, users,
     check(![...customers,invoiceFixture.receipt.id,portCreated.data.id,caseCreated.id,equipmentCreated.data.id,'+12025550183','W3 Grounding private case fixture','W3 Grounding private case note','W3 Grounding private equipment maker','W3 Grounding private equipment model','W3 Grounding private equipment description','W3 Grounding private invoice fixture','W3 Grounding private note'].some(value=>JSON.stringify(compound).includes(value)),
       'assistant_grounding_current_multi_entity_no_private_data')
     check(result.final.telemetry.liveModelEvidence===false&&result.final.telemetry.provider==='deterministic-acceptance','assistant_grounding_current_multi_entity_synthetic_planner_not_live_quality')
+    phase='AUTHORIZED_FIVE_ENTITY_DOCUMENT_COMPOUND'
+    const fiveNodes=documentHandle=>[invoiceNode('customer_ref'),portability('customer_ref'),cases('customer_ref'),equipment('customer_ref'),documentNode(documentHandle)]
+    result=await run(plan(fiveNodes('customer_ref')))
+    const compound5=result.final?.response,expectedFiveCapabilities=[...expectedCompoundCapabilities,'crm.document.list']
+    check(compound5?.status==='completed'&&compound5.grounded&&compound5.blocks.length===5&&compound5.sources.length===5
+      &&JSON.stringify(compound5.sources.map(source=>source.capability))===JSON.stringify(expectedFiveCapabilities)
+      &&new Set(compound5.sources.map(source=>source.ref)).size===5
+      &&compound5.blocks.every((block,i)=>block.rows.length===1&&block.sourceRef===compound5.sources[i].ref&&!block.partial)
+      &&compound5.sources.every(source=>!source.partial&&Number.isFinite(Date.parse(source.readAt))),'assistant_grounding_five_entity_sources_separated')
+    check(compound5.blocks[0].rows[0].total_minor==='123,45'&&compound5.blocks[0].rows[0].currency==='EUR'
+      &&compound5.blocks[1].rows[0].masked_display==='••••183'&&compound5.blocks[2].rows[0].case_type==='Técnica'
+      &&compound5.blocks[3].rows[0].kind==='Router'&&compound5.blocks[4].rows[0].document_kind==='General'
+      &&compound5.blocks[4].rows[0].status==='Activo'&&compound5.blocks[4].rows[0].media_type==='application/pdf'&&compound5.blocks[4].rows[0].size_bytes===1013,
+      'assistant_grounding_five_entity_exact_registered_facts_metadata_only')
+    check(![...customers,invoiceFixture.receipt.id,portCreated.data.id,caseCreated.id,equipmentCreated.data.id,documentId,documentPath,
+      'W3 Grounding private metadata fixture.pdf','W3 Grounding private case fixture','W3 Grounding private case note','W3 Grounding private equipment maker',
+      'W3 Grounding private equipment model','W3 Grounding private equipment description','W3 Grounding private invoice fixture','W3 Grounding private note',
+      '+12025550183','file_name','storage_path','indexingApproved','contentClass'].some(value=>JSON.stringify(compound5).includes(value)),
+      'assistant_grounding_five_entity_no_private_content_or_indexing_claim')
+    check(result.final.telemetry.liveModelEvidence===false&&result.final.telemetry.provider==='deterministic-acceptance','assistant_grounding_five_entity_synthetic_planner_not_live_quality')
+    result=await run(plan(fiveNodes('foreign_customer_ref')))
+    check(result.final?.response.status==='access_changed'&&!result.final.response.grounded&&!result.final.response.blocks.length
+      &&!result.calls.some(call=>call.operation==='document.list'),'assistant_grounding_five_entity_foreign_document_discards_all_facts_no_document_query')
+    suspendAfterDocuments=true
+    try{
+      result=await run(plan(fiveNodes('customer_ref')))
+      check(result.events.map(event=>event.type).join(',')==='started,failed'&&!result.final,'assistant_grounding_five_entity_last_read_revocation_discards_all_facts')
+    }finally{sql(`update public.workspace_members set status='active' where workspace_id='${wa}' and user_id='${owner.id}'`)}
+    check((await conversations.execute('turn.finish',{id:thread,turn_id:result.turn_id,status:'cancelled'})).ok,'assistant_grounding_five_entity_revoked_cancel_after_restore')
     phase='FOREIGN_REFERENCE'
     result=await run(plan([summary({handle:'foreign_customer_ref',nodeId:null})]))
     check(result.final?.response.status==='access_changed'&&!result.final.response.grounded&&!result.final.response.blocks.length&&!result.calls.some(call=>call.operation==='customer360.summary'),'assistant_grounding_foreign_ordinary_identity_no_dependent_read')
@@ -359,11 +389,12 @@ export async function assistantReadGroundingAcceptance({ rpc, sql, check, users,
     phase='RESTORE'
     check((await conversations.execute('turn.finish',{id:thread,turn_id:result.turn_id,status:'cancelled'})).ok,'assistant_grounding_revoked_read_cancel_after_restore')
     phase='IMMUTABLE_HISTORY'
-    const messages=await conversations.execute('message.page',{id:thread,limit:50})
+    const messages=await readCompleteOwnedGroundingHistoryV1((operation,input)=>conversations.execute(operation,input),thread)
     // Each invoice/portability/case/equipment/document group adds three users/two replies;
     // the revoked read has no final reply. Assert the complete exact ledger.
-    check(messages.ok&&messages.data.historical&&messages.data.items.length===45&&messages.data.items.filter(item=>item.role==='user').length===26&&messages.data.items.filter(item=>item.role==='assistant').length===19,
+    check(messages.ok&&messages.data.historical&&messages.data.items.length===50&&messages.data.items.filter(item=>item.role==='user').length===29&&messages.data.items.filter(item=>item.role==='assistant').length===21,
       'assistant_grounding_persisted_history_exact_turn_counts')
+    check(messages.data.next_sequence===null&&messages.page_count>=1&&messages.page_count<=2,'assistant_grounding_complete_owned_history_closed_pages')
     check(messages.ok&&messages.data.items.filter(item=>item.role==='assistant').every(item=>!['W3 Grounding','telecom.collections','billing.analytics','assistant.invoice-list','assistant.portability-list','assistant.case-list','assistant.equipment-list','assistant.document-metadata-list','document.v1','case.v1','equipment.v1','portability.v1','source_','inputTokens','123,45','••••183','+12025550183'].some(value=>item.content.includes(value))),
       'assistant_grounding_persisted_history_excludes_factual_blocks')
     check(before===businessSnapshot(),'assistant_grounding_no_business_record_change')
