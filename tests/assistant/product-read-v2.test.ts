@@ -12,8 +12,8 @@ const plan = { version: 2, decision: 'plan', nodes: [node] }
 const authority = { actorId: 'actor-a', workspaceId: 'workspace-a', scopeEpoch: 'epoch-a', role: 'member' }
 function deps(result: unknown = { ok: true, data: page }): ProductReadDependenciesV2 { return { readers: { collection: async () => result, report: async () => result }, authority: async () => authority,
   resolveReference: async () => id, offeredHandles: ['server-handle'], now: () => new Date('2026-10-06T20:00:00Z') } }
-test('modern inventory derives30 closed immutable current-contract reads, no mutations', () => {
-  assert.equal(PRODUCT_CAPABILITIES_V2.length, 30)
+test('modern inventory derives36 closed immutable current-contract reads, no mutations', () => {
+  assert.equal(PRODUCT_CAPABILITIES_V2.length, 36)
   assert.ok(productCapabilityV2('crm.contact.list')); assert.ok(productCapabilityV2('crm.customer360.summary')); assert.ok(productCapabilityV2('crm.plan_version.get'))
   assert.equal(productCapabilityV2('crm.invoice.issue'), null)
   assert.throws(() => { PRODUCT_CAPABILITIES_V2[0]!.inputSchema.additionalProperties = true })
@@ -25,7 +25,7 @@ test('semantic catalogue advertises accurate Spanish limits and fits maximum off
     assert.ok(c.description.length > 30 && c.description.length <= 250)
     assert.equal(Object.hasOwn(c.input.fields, 'after_id'), false)
     for (const [field, schema] of Object.entries(c.input.fields)) if (field === 'id' || field.endsWith('_id'))
-      assert.deepEqual(schema, { binding: 'authorized_opaque_reference_or_unique_dependency' })
+      assert.deepEqual(schema, { binding: 'authorized_opaque_ref_or_unique_dep' })
   }
   assert.match(productCapabilityV2('crm.customer.list')!.description, /No busca por nombre/)
   assert.match(productCapabilityV2('crm.permanence.list')!.description, /No inferir desde renovaciones/)

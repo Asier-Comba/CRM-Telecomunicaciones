@@ -2,41 +2,46 @@
   "schema_version": 1,
   "reviewed_at": "2026-10-11",
   "acceptance_policy": "No inherited or aggregate PASS promotions. NOT_RECONCILED means unverified here, not absent in the product.",
-  "accepted_source": "fe196fe46e7f2927eec6a706e04b67aa0dcb1292",
-  "candidate_source": "b90178172ed40221499484023dd245e4b5c6998c",
-  "candidate_pr": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/130",
+  "accepted_source": "5ef1e9b5c9bea0f73024227d59bf961a701e565a",
+  "candidate_source": "4f2cf867a0a4bf24292d9ca72485c3b5de7b2def",
+  "candidate_pr": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142",
   "inherited_baseline": {
-    "source_sha": "fe196fe46e7f2927eec6a706e04b67aa0dcb1292",
-    "ci_run": 38090022760,
-    "supabase_run": 38090022793,
-    "functional": 1020,
-    "browser_ci": 134,
+    "source_sha": "5ef1e9b5c9bea0f73024227d59bf961a701e565a",
+    "executed_sha": "e39b29d6cd9f139f7e5615ad1c61e623f5916313",
+    "tree_sha": "9ee04a139267cccafc6fc60b54d1ad2af902551a",
+    "ci_run": 38115956542,
+    "supabase_run": 38115956573,
+    "functional": 1115,
+    "browser_ci": 140,
     "auth_browser": 107,
-    "reviewed_images": 55,
-    "scope": "Functional integration baseline only. Aggregate totals do not prove any complete row or the candidate."
+    "reviewed_images": 15,
+    "scope": "Own root functional acceptance only;15 core frames actually reviewed,not full55/302 current visual acceptance. Aggregate totals cannot promote any complete row or a different candidate."
   },
   "candidate_verification": {
-    "source_sha": "b90178172ed40221499484023dd245e4b5c6998c",
-    "executed_sha": "3e9ddfa4884d777faab012f15b124917e5b1ba83",
-    "tree_sha": "a7678702f856d01598b40307a3128039c3dcaf34",
-    "native_run": 38093980179,
-    "native_job": 114335961165,
+    "source_sha": "4f2cf867a0a4bf24292d9ca72485c3b5de7b2def",
+    "executed_sha": "0dd1bffce96c0b9db75a26c53ba9567c6ae279d3",
+    "tree_sha": "a64892d06224314fd1dd0dc5ce5d683a76523d52",
+    "native_run": 38131583229,
+    "native_job": 114446843376,
     "native_status": "PASS",
-    "native_scope": "74 migrations;299 privilege functions;fresh/restored role calls;two20-process reservation races;six rollback cuts/retries;original audit replay;omitted-delivery mutant rejection. Full23/effects NOT_RUN.",
-    "quality_job": 114335960945,
-    "functional": 1020,
+    "native_scope": "85 migrations/320 fresh+restored privileges/RLS/ACL/roles;separate reservation and positive20 Node races;postcommit actualSIGKILL,new Node/backend full-result recovery,entire original ledger unchanged,12 originals/3 full8 reconciliation audits delivered by distinct actor. NOT full23/four complete scenarios/restart/before-effect SIGKILL/verified absence.",
+    "quality_job": 114446843360,
+    "functional": 1140,
+    "browser_ci": 146,
     "lint_types_build": "PASS",
     "audit": "FAIL_FIVE_HIGH",
-    "supabase_run": 38093980189,
+    "supabase_run": 38131583382,
     "supabase_status": "IN_PROGRESS_AT_REVIEW",
-    "release": "NOT_ACCEPTED"
+    "release": "NOT_ACCEPTED",
+    "prior_failed_source": "d17c96f53b0a6f438bdfcc59a8a40fe0dae71fb1",
+    "prior_failure": "Native principal constructor TDZ before new reservation fork;own1140/146/107 still retained.4f2 changes only initialization order;no inherited acceptance."
   },
   "global_release_blockers": [
     {
       "priority": "P0",
       "issue": 10,
       "owner": "W2 physical / W3 semantic / W5 runtime / W4 review",
-      "pending": "Complete physical port, fenced execution, immutable completion/reconciliation, audit drain and durable-process.v2 acceptance; IA business writes OFF."
+      "pending": "Ten complete physical methods plus positive completed reconciliation implemented and locally/native proven within bounded scopes;independently authoritative verified absence with fencing/quiescence,real handlers,full23/four complete20 Node races/six ordered cuts/before-effect kill/restart and independent W4 remain pending. IA business writes OFF."
     },
     {
       "priority": "P0",
@@ -75,7 +80,7 @@
     },
     {
       "path": "docs/master/PRODUCT_RELEASE_REVIEWS.json",
-      "sha256": "941564bad7adc8ab97138fd12e6135b7013f78327e3ffa6ab01f504d681987ae"
+      "sha256": "0322a634c0c667a38bc5577861f59156a9d64648a2bcd108692b3d6dbbe88831"
     }
   ],
   "reference_documents": [
@@ -107,18 +112,18 @@
   "next_3": [
     {
       "priority": "P0",
-      "owner": "W2",
-      "work": "Close exact reservation candidate's pending real Auth/browser gate and own integration;native20-process races,rollback controls and restored role calls now PASS;preserve audit FAIL and full23 NOT_RUN."
+      "owner": "W2/W3",
+      "work": "Close own4f2 Supabase and current-query/scope pipeline unit;consume latest eligible source into root38 with fresh own integration gates;retain D17 native failure and audit5HIGH."
     },
     {
       "priority": "P0",
-      "owner": "W2/W3; W5 fixture; W4 review",
-      "work": "Deliver type-compatible physical port with fenced worker, safe command/result schema, atomic completion/reconciliation and claimed audit delivery; then full23-scenario native acceptance."
+      "owner": "W2 physical/W3 semantics;W5 resource/runtime;W4 review",
+      "work": "Finish independently authoritative verified absence and full durable-process.v3 driver23 scenarios/four complete20 Node races/six ordered cuts;W5 owns scoped resource/restart module,never infer adoption from silence."
     },
     {
       "priority": "P1",
       "owner": "W1/W2/W3",
-      "work": "Reconcile current row-specific product/browser/mobile/visual evidence in this queue; start billing, Customer360, telecom lifecycle and assistant rows. Do not reconstruct working features from stale historical flags."
+      "work": "Reconcile only row-specific current code/backend/browser/loaded visual/mobile/permission evidence;preserve4 partial338 unreviewed0 release until justified. Pipeline fixture proves UI recovery risks only,not complete-row/Auth/RLS acceptance."
     }
   ],
   "rows": [

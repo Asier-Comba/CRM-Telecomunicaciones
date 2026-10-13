@@ -33,6 +33,21 @@ function fixture(policy:'none'|'preview_confirm'='preview_confirm'){
   invoke:async(name:string,p:Readonly<Record<string,string>>,signal:AbortSignal):Promise<{data:unknown;error:unknown}>=>{calls.push({name,p,signal});return {data:name==='assistant_durable_v1_load_result'?loaded:{status:'applied',record:structuredClone(completed)},error:null}}}
  return {deps,completionDeps,calls,port:createDurableCompletionPortV1(completionDeps),setWorker:(v:EffectWorkerAuthorityV1|null)=>{worker=v},worker:()=>worker!,setReadable:(v:boolean)=>{readable=v},setSource:(v:unknown)=>{source=v},setLoaded:(v:unknown)=>{loaded=v}}
 }
+test('completion rejects a one-microsecond backward reply and admits equal, later and offset-equivalent instants',async()=>{
+ const prior={...before,updatedAt:'2026-10-11T04:00:01.123456Z'}
+ for(const [updatedAt,allowed] of [
+  ['2026-10-11T04:00:01.123455Z',false],
+  ['2026-10-11T04:00:01.123456Z',true],
+  ['2026-10-11T04:00:01.123457Z',true],
+  ['2026-10-11T05:00:01.123456+01:00',true],
+ ] as const){
+  const f=fixture();f.completionDeps.business.loadAuthorizedOperation=async()=>structuredClone(prior)
+  f.completionDeps.invoke=async(name,p,signal)=>{f.calls.push({name,p,signal});return {data:{status:'applied',record:{...completed,updatedAt}},error:null}}
+  const pending=createDurableCompletionPortV1(f.completionDeps).completeOperationWithAuditIntent(actor,input)
+  if(allowed)assert.equal((await pending).status,'applied');else await assert.rejects(pending)
+  assert.equal(f.calls.length,1);assert.ok(f.calls[0].signal.aborted)
+ }
+})
 test('completion sends registered safe material and all original audit fields in one private call',async()=>{
  const f=fixture(),value=await f.port.completeOperationWithAuditIntent(actor,input)
  assert.equal(value.status,'applied');assert.equal(f.calls.length,1)

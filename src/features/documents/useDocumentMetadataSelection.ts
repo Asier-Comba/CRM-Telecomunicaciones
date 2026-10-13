@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import type { DocumentMetadataV1 } from '@/lib/contracts/document-v1'
-import { safeMessage, type ProductRepository } from '@/features/product/integration/repository'
+import { ProductUiError, safeMessage, type ProductRepository } from '@/features/product/integration/repository'
 
 /** Presentation lifetime only. Repository and backend still authorize every read. */
 export function useDocumentMetadataSelection(repository: ProductRepository, scope: string, authorized: boolean) {
@@ -20,13 +20,19 @@ export function useDocumentMetadataSelection(repository: ProductRepository, scop
   async function read(id: string, refresh: boolean) {
     if (!authorized) return
     const request = ++generation.current
-    setState(previous => previous?.scope === scope ? { scope, record: previous.record } : null)
+    // Keep a displayed record only while refreshing that same document. A new
+    // selection retires the previous record and its integrity action immediately.
+    setState(previous => refresh && previous?.scope === scope && previous.record?.id === id
+      ? { scope, record: previous.record } : null)
     try {
       const result = await repository.document(id)
       if (generation.current === request) setState({ scope, record: result.record })
     } catch (error) {
       if (generation.current === request) {
-        setState(previous => ({ scope, record: refresh && previous?.scope === scope ? previous.record : undefined, error: safeMessage(error) }))
+        // A refusal or hidden resource invalidates displayed metadata too. Only
+        // a transient refresh failure may retain the same selected record.
+        const withdrawn = error instanceof ProductUiError && (error.code === 'access_denied' || error.code === 'not_found')
+        setState(previous => ({ scope, record: !withdrawn && refresh && previous?.scope === scope && previous.record?.id === id ? previous.record : undefined, error: safeMessage(error) }))
         if (refresh) throw error
       }
     }

@@ -1,0 +1,11 @@
+# Colecciones ligadas al cliente y dominio actuales
+
+`CustomerDomainPages` conservaba las filas, filtro y cursor del cliente anterior cuando cambiaba `customerId`. En el padre publicado 9c75, tres pruebas de componente/navegador (390, 768 y 1440 px) muestran servicios de A mientras B está pendiente. Un control adicional de 1440 px demuestra que la primera consulta de B lleva el cursor de la página 2 de A y su filtro `active`. La fuente y prueba modificadas para ese control se restauran con los mismos bytes.
+
+El componente exportado monta `ScopedCustomerDomainPages` con la pareja cliente/dominio como clave. Cambiar cualquiera retira la colección y errores anteriores y reinicia paginación y filtro. Volver a seleccionar la misma pareja conserva página y filtro y no repite la consulta. La limpieza del efecto existente rechaza las respuestas tardías de otra instancia.
+
+Tres pruebas finales pasan: página 2 y filtro de A se conservan en el mismo cliente; B comienza sin cursor/filtro y sin filas anteriores; sus registros se muestran en página 1; una respuesta tardía de A no sustituye C; acceso denegado a D retira C y deshabilita navegación. Cero comandos, errores de página o desbordamiento horizontal. Tipos estrictos de la superficie afectada, lint, sintaxis del controlador y diff pasan. Tres capturas revisadas muestran las filas y operador actuales en las tres anchuras.
+
+Se utilizan componente, repositorio y validación DTO reales con transporte HTTP sintético. Esto prueba el contrato del componente exportado. Hay consumidores que ya remountan por cliente o dominio; no se declara que todos sus recorridos reales exhibieran el defecto. Las pruebas no acreditan Auth, SQL, RLS ni toda la paridad comercial. La nueva fuente requiere gates propios: 214 casos de preview y 1.142 funcionales son expectativas hasta su ejecución. No cambia IA de negocio OFF, permisos, migraciones ni estados de lanzamiento.
+
+La unidad se mantiene inicialmente en commit y bundle local mientras terminan los gates propios de 9c75, para conservar aquella ejecución completa. 5da conserva sus OWN1140/202/107/native85/320 PASS. B423 conserva su HTTP500 anterior a los recorridos de producto y causa no probada; la última raíz funcional aceptada continúa siendo A885. W4 y los bloqueos de seguridad, privacidad y durabilidad completa permanecen pendientes.

@@ -1,5 +1,6 @@
+/* eslint no-undef: "error" */
 // Private partial completion evidence in the existing owned native fixture.
-// Twenty SQL processes/backends, not full23 or twenty independent Node workers.
+// Twenty independent Node processes/persistent native backends,not full23.
 import assert from 'node:assert/strict'
 import {spawn,spawnSync} from 'node:child_process'
 import {randomBytes,createHash} from 'node:crypto'
@@ -15,6 +16,15 @@ import {canonicalArgumentsV1} from '../../../src/assistant/runtime.ts'
 import {createDurableBusinessOutboxPortV1} from '../../../src/assistant/durable-business-outbox-port.ts'
 import {createDurableAuditDeliveryPortV1} from '../../../src/assistant/durable-audit-delivery-port.ts'
 import {createDurableAuditDrainV1} from '../../../src/assistant/durable-audit-drain.ts'
+import {runIndependentCompletionRaceV1} from './positive-reconciliation-race.mjs'
+import {createNativeDurableAuditInspectorV3} from './durable-audit-inspection-v3.mjs'
+import {createNativeDurableOperationInspectorV3} from './durable-operation-inspection-v3.mjs'
+import {verifyNativeDriverOperationSliceV3} from './verify-driver-operation-slice-v3.mjs'
+import {connectWorker,createWorkerAuditInspectorV3,inspectWorkerPositiveEffectV3,closeWorkerV3} from './durable-native-driver-v3.mjs'
+import {createNativePositiveEffectInspectorV3} from './durable-positive-effect-inspection-v3.mjs'
+import {runCompletionProcessCutV1} from './positive-reconciliation-process-cut.mjs'
+import {launchDurableWorkerV3} from '../../durable-process-worker-controller-v3.mjs'
+import {fileURLToPath} from 'node:url'
 const container=process.env.TELECOM_NATIVE_TEST_CONTAINER??''
 assert.match(container,/^[0-9a-f]{12,64}$/)
 const image=spawnSync('docker',['inspect','--format={{.Config.Image}}',container],{encoding:'utf8'})
@@ -32,6 +42,24 @@ function run(input){return new Promise((resolve,reject)=>{
  child.stdin.end("set log_min_error_statement='panic';set log_error_verbosity='terse';"+input)
 })}
 async function sql(input){const r=await run(input);assert.equal(r.code,0,'native effect SQL failed');assert.equal(r.timedOut,false);return r.out.trim()}
+// Measure the new driver's connection method using the same owned fixture;
+// original scenario/data/resource setup below stays unchanged.
+const connectionWorkers=new Set()
+try{
+ const worker=launchDurableWorkerV3({modulePath:fileURLToPath(new URL('./durable-driver-connection-probe-v3.mjs',import.meta.url)),
+  job:{fixture:'v3_connection_probe',scenario:'connection_only',action:'read_same_connection'},active:connectionWorkers})
+ await worker.ready
+ const backend=worker.identity.backendPid
+ assert.ok(Number.isSafeInteger(backend)&&backend>0)
+ const application=await sql(`select application_name from pg_stat_activity where pid=${backend} and datname='telecom_test';`)
+ assert.match(application,/^durable_node_[a-f0-9]{32}$/)
+ worker.start()
+ assert.deepEqual(await worker.result,{contract:'assistant.durable-native-connection.v3',sameBackend:true,connectionClosed:true,full23:'NOT_RUN'})
+ assert.equal(await sql(`select count(*) from pg_stat_activity where pid=${backend} and datname='telecom_test' and application_name=${literal(application)};`),'0')
+ console.log('DURABLE DRIVER CONNECTION V3 NATIVE PASS:independent Node/backend;two fixed reads on admitted connection;clean process exit;owned probe session absent;connectWorker only;NOT full23/business absence/restart/W5 resource')
+}finally{
+ await Promise.all([...connectionWorkers].map(child=>new Promise(resolve=>{child.once('exit',resolve);child.kill('SIGKILL')})))
+}
 const input={customerRef:'d4000000-0000-4000-8000-000000000001',label:'fixture'},digest=argumentsDigest(input)
 const binding={actorId:actor,workspaceId:workspace,capability,argumentsDigest:digest}
 const authority={authentication:'user_session',actorId:actor,workspaceId:workspace,scopeEpoch:'synthetic_current_v1',permissions:new Set([capability,'fixture:write']),
@@ -46,25 +74,23 @@ const producer=createDurableCommandMaterialProducerV1({registry,registrations:[{
 const fields={assistant_durable_v1_load_operation:['p_workspace','p_operation'],assistant_durable_v1_complete:['p_workspace','p_worker','p_authority_version','p_operation','p_version','p_receipt','p_output_schema_version','p_schema_digest','p_result','p_audit','p_event'],assistant_durable_v1_load_result:['p_workspace','p_worker','p_authority_version','p_operation'],assistant_durable_v1_issue:['p_workspace','p_capability','p_digest'],assistant_durable_v1_confirm_reserve_material:['p_workspace','p_confirmation','p_capability','p_digest','p_key','p_dispatcher','p_command','p_request','p_material'],assistant_durable_v1_start_execution:['p_workspace','p_operation','p_capability','p_digest','p_version'],
  assistant_durable_v1_claim_effect:['p_workspace','p_worker','p_authority_version','p_outbox','p_version'],assistant_durable_v1_ack_effect:['p_workspace','p_worker','p_authority_version','p_outbox','p_version','p_fence','p_claim','p_receipt','p_request'],
  assistant_durable_v1_list_audit:['p_workspace','p_worker','p_authority_version','p_after_time','p_after_event'],assistant_durable_v1_claim_audit:['p_workspace','p_worker','p_authority_version','p_event','p_version'],assistant_durable_v1_ack_audit:['p_workspace','p_worker','p_authority_version','p_event','p_version','p_fence','p_claim','p_receipt']}
-let race=false,ready=0,release,loseReply=false,expiryBarrier=false;const barrier=new Promise(resolve=>{release=resolve}),processes=[],backends=[]
+let loseReply=false,expiryBarrier=false
 const sink='completion_native_receipts_'+nonce,auditSink='completion_native_audit_sink_'+nonce
 async function invoke(operation,params,signal){
  if(signal?.aborted)throw Error('native_completion_cancelled')
  const names=fields[operation];assert.ok(names);assert.deepEqual(Object.keys(params).sort(),[...names].sort())
- if(race&&operation==='assistant_durable_v1_complete'){if(++ready===20)release();await barrier}
  if(signal?.aborted)throw Error('native_completion_cancelled')
  if(expiryBarrier&&operation==='assistant_durable_v1_complete')await sql(`update public.assistant_registered_effect_workers set authority_version=2,expires_at=clock_timestamp()+interval '1 second' where workspace_id='${workspace}' and worker_ref='${workerRef}';`)
  const appName=expiryBarrier&&operation==='assistant_durable_v1_complete'?`set application_name='completion_expiry_wait_${nonce}';`:''
  const result=await run(auth+appName+`select jsonb_build_object('backend',pg_backend_pid(),'data',public.${operation}(${names.map(f=>literal(params[f])+(f==='p_material'?'::jsonb':'')).join(',')}));`)
  assert.equal(result.code,0,'native effect RPC failed');assert.equal(result.timedOut,false);const value=JSON.parse(result.out.trim())
- if(race&&operation==='assistant_durable_v1_complete'){processes.push(result.pid);backends.push(value.backend)}
  if(loseReply&&operation==='assistant_durable_v1_complete'){loseReply=false;throw Error('synthetic_postcommit_ack_reply_lost')}
  return {data:value.data,error:null}
 }
 const reservation=createDurableMaterialReservationPortV1({authority:async()=>authority,producer,invoke})
 const port=createDurableBusinessOutboxPortV1({reservation,currentWorker:async()=>authority,producer,invoke,
  loadOutbox:async(_worker,ref)=>{const raw=await sql(`select jsonb_build_object('outboxRef',outbox_ref,'operationRef',operation_ref,'binding',jsonb_build_object('actorId',actor_id,'workspaceId',workspace_id,'capability',capability,'argumentsDigest',arguments_digest),'command',jsonb_build_object('dispatcher',dispatcher_key,'commandRef',command_ref),'version',version) from public.assistant_effect_outbox where workspace_id='${workspace}' and outbox_ref=${literal(ref)};`)
-  if(race){if(++ready===20)release();await barrier}return raw?JSON.parse(raw):null},
+  return raw?JSON.parse(raw):null},
  verifyReceipt:async(_worker,metadata,claimFence,receiptRef)=>{const raw=await sql(`select admission from public.${sink} where workspace_id='${workspace}' and outbox_ref=${literal(metadata.outboxRef)} and receipt_ref=${literal(receiptRef)} and admission->>'claimFence'=${literal(claimFence)};`);return raw?JSON.parse(raw):null}})
 async function fixture(suffix){const confirmation=await port.issueConfirmation(context,binding,new Date(Date.now()+300000))
  const result=await port.confirmReserveEnqueue(context,{confirmationRef:confirmation.operationRef,binding,idempotencyKey:'effect_native_key_'+suffix+'_'+nonce,command:{dispatcher:capability,commandRef:'effect_native_command_'+suffix+'_'+nonce}})
@@ -72,7 +98,8 @@ async function fixture(suffix){const confirmation=await port.issueConfirmation(c
  const ref=await sql(`select outbox_ref from public.assistant_effect_outbox where workspace_id='${workspace}' and operation_ref=${literal(result.record.operationRef)};`);assert.match(ref,/^[0-9a-f]{64}$/);return ref}
 async function accept(claim){const r=claim.record,receiptRef=hash('synthetic_effect_receipt:'+r.outboxRef),admission={workspaceId:workspace,actorId:actor,outboxRef:r.outboxRef,operationRef:r.operationRef,capability,argumentsDigest:digest,dispatcher:capability,commandRef:r.command.commandRef,claimFence:claim.claimFence,receiptRef,receiptAuthority:'registered_effect_source.v1'}
  const found=await sql(`begin;insert into public.${sink} values('${workspace}',${literal(r.outboxRef)},${literal(receiptRef)},${literal(JSON.stringify(admission))}::jsonb) on conflict do nothing;select count(*) from public.${sink} where workspace_id='${workspace}' and outbox_ref=${literal(r.outboxRef)} and admission=${literal(JSON.stringify(admission))}::jsonb;commit;`);assert.equal(found,'1');return receiptRef}
-const aggregate=()=>sql(`select jsonb_build_object('operations',(select jsonb_agg(to_jsonb(x) order by operation_ref) from public.assistant_operations x where capability='${capability}'),'outboxes',(select jsonb_agg(to_jsonb(x) order by outbox_ref) from public.assistant_effect_outbox x where capability='${capability}'),'audits',(select jsonb_agg(to_jsonb(x) order by event_ref) from public.assistant_original_audit_intents x where capability='${capability}'),'results',(select jsonb_agg(to_jsonb(x) order by operation_ref) from public.assistant_safe_results x where capability='${capability}'),'deliveries',(select jsonb_agg(to_jsonb(x) order by x.event_ref) from public.assistant_audit_delivery_outbox x join public.assistant_original_audit_intents i using(workspace_id,event_ref) where i.capability='${capability}'));`)
+const aggregate=()=>sql(`select encode(extensions.digest(convert_to(jsonb_build_object('operations',(select jsonb_agg(to_jsonb(x) order by operation_ref) from public.assistant_operations x where capability='${capability}'),'commands',(select jsonb_agg(to_jsonb(x) order by command_ref) from public.assistant_registered_commands x where capability='${capability}'),'materials',(select jsonb_agg(to_jsonb(m) order by m.command_ref) from public.assistant_command_material m join public.assistant_registered_commands c using(workspace_id,command_ref) where c.capability='${capability}'),'outboxes',(select jsonb_agg(to_jsonb(x) order by outbox_ref) from public.assistant_effect_outbox x where capability='${capability}'),'audits',(select jsonb_agg(to_jsonb(x) order by event_ref) from public.assistant_original_audit_intents x where capability='${capability}'),'deliveries',(select jsonb_agg(to_jsonb(d) order by d.event_ref) from public.assistant_audit_delivery_outbox d join public.assistant_original_audit_intents i using(workspace_id,event_ref) where i.capability='${capability}'),'results',(select jsonb_agg(to_jsonb(x) order by operation_ref) from public.assistant_safe_results x where capability='${capability}'),'confirmations',(select jsonb_agg(to_jsonb(x) order by confirmation_ref) from public.assistant_confirmations x where capability='${capability}'))::text,'UTF8'),'sha256'),'hex');
+`)
 const outcomes='completion_native_outcomes_'+nonce,cut='completion_native_cut_'+nonce,expectedAudits=new Map()
 const resultProducer=createDurableResultMaterialProducerV1({registry,registrations:[{dispatcher:capability,capability,schemaVersion:1,
  authorizeResult:async(ctx,_record,result)=>await sql(`select count(*) from public.customers where workspace_id=${literal(ctx.workspaceId)}::uuid and id=${literal(result.data.customerRef)}::uuid;`)==='1'}],authority:async()=>authority,
@@ -90,6 +117,12 @@ async function preparedCompletion(suffix){
 const originalAudit=(requestId,durationMs)=>({event:'assistant.capability.completed',requestId,actorId:actor,workspaceId:workspace,capability,
  accessClass:'SAFE_WRITE',status:'SUCCESS',reasonCode:'capability_success',confirmationState:'accepted',idempotencyState:'reserved',durationMs})
 const allOriginals=()=>sql(`select jsonb_agg(to_jsonb(i) order by event_ref) from public.assistant_original_audit_intents i where capability='${capability}';`)
+async function terminateOwnedSessions(sessions){
+ const ownedSessions=`datname='${database}' and (${sessions.map(x=>`(pid=${x.backend} and application_name=${literal(x.application)})`).join(' or ')}) and pid<>pg_backend_pid()`
+ await sql(`select pg_terminate_backend(pid) from pg_stat_activity where ${ownedSessions};`)
+ for(let n=0;n<10;n++)if(await sql(`select count(*) from pg_stat_activity where ${ownedSessions};`)==='0')return
+ throw Error('INDEPENDENT_COMPLETION_OWNED_BACKEND_CLEANUP_FAILED')
+}
 try{
  assert.equal(await sql('select current_database();'),database)
  const schema=registry.get(capability).outputSchema
@@ -99,12 +132,24 @@ try{
  create table public.${sink}(workspace_id uuid,outbox_ref text,receipt_ref text,admission jsonb,primary key(workspace_id,outbox_ref));
  create table public.${outcomes}(workspace_id uuid,operation_ref text,command_ref text,receipt_ref text,outcome jsonb,primary key(workspace_id,operation_ref));
  revoke all on public.${sink},public.${outcomes} from public,anon,authenticated,service_role;`)
- const candidate=await preparedCompletion('completion_race');race=true
+ const candidate=await preparedCompletion('completion_race')
+ const auditInspector=createNativeDurableAuditInspectorV3(sql,{...binding,operationRef:candidate.operationRef})
+ await auditInspector.captureBaseline()
+ const auditDriverBackend=await connectWorker()
+ const auditDriver=createWorkerAuditInspectorV3({...binding,operationRef:candidate.operationRef})
+ await auditDriver.captureBaseline()
  const auditInputs=Array.from({length:20},(_,i)=>originalAudit('completion_original_'+i+'_'+nonce,123+i))
- const results=await Promise.all(auditInputs.map(auditIntent=>completion.completeOperationWithAuditIntent({...context,requestId:auditIntent.requestId},{...candidate,auditIntent})))
- race=false;assert.equal(ready,20);assert.equal(new Set(processes).size,20);assert.equal(new Set(backends).size,20)
+ const requests=auditInputs.map(auditIntent=>({...candidate,auditIntent,actor:{authentication:'user_session',actorId:actor,workspaceId:workspace,permissions:authority.permissions,requestId:auditIntent.requestId},now:new Date()}))
+ const commandRaw=await sql(`select command_ref from public.assistant_registered_commands where workspace_id='${workspace}' and operation_ref=${literal(candidate.operationRef)};`)
+ const independent=await runIndependentCompletionRaceV1(requests,{workspace,actor,capability,workerRef,input,outcomes,command:{dispatcher:capability,commandRef:commandRaw}},terminateOwnedSessions)
+ assert.equal(independent.nodeProcesses,20);assert.equal(independent.nativeBackends,20);assert.equal(independent.sameConnection,true)
+ const results=independent.settled
  assert.equal(results.filter(r=>r.status==='applied').length,1);assert.equal(results.filter(r=>r.status==='version_conflict').length,19)
  const winner=results.findIndex(r=>r.status==='applied');expectedAudits.set(candidate.eventRef,auditInputs[winner])
+ const raceAudit=await auditInspector.inspect()
+ assert.equal(raceAudit.originalAuditIntents,3);assert.equal(raceAudit.baselineOriginalAuditIntents,2)
+ assert.equal(raceAudit.reservationAuditIntents,1);assert.equal(raceAudit.otherAuditIntents,1);assert.equal(raceAudit.outcomeAuditIntents,1)
+ assert.equal(raceAudit.pendingOriginalEvents,3);assert.equal(raceAudit.outcomePendingEvents,1);assert.equal(raceAudit.outcomeDeliveredEvents,0)
  const committed=hash(await aggregate())
  const replay=await completion.loadAuthorizedOperation({...context,requestId:'completion_authorized_replay_'+nonce},candidate.operationRef,new Date())
  assert.equal(replay.state,'completed');assert.equal(replay.version,4);assert.deepEqual(replay.result,candidate.result);assert.equal(hash(await aggregate()),committed)
@@ -112,6 +157,23 @@ try{
  loseReply=true;await assert.rejects(completion.completeOperationWithAuditIntent({...context,requestId:original.requestId},{...replyLost,auditIntent:original}));expectedAudits.set(replyLost.eventRef,original)
  const afterLoss=hash(await aggregate());assert.equal((await completion.loadAuthorizedOperation(context,replyLost.operationRef,new Date())).state,'completed');assert.equal(hash(await aggregate()),afterLoss)
  await assert.rejects(completion.completeOperationWithAuditIntent({...context,requestId:'completion_changed_retry_'+nonce},{...replyLost,auditIntent:originalAudit('completion_changed_retry_'+nonce,999)}));assert.equal(hash(await aggregate()),afterLoss)
+ const crashCandidate=await preparedCompletion('completion_process_cut'),crashAudit=originalAudit('completion_process_cut_original_'+nonce,287)
+ const crashCommand=JSON.parse(await sql(`select jsonb_build_object('dispatcher',dispatcher_key,'commandRef',command_ref) from public.assistant_registered_commands where workspace_id='${workspace}' and operation_ref=${literal(crashCandidate.operationRef)};`))
+ const crashBefore=await completion.loadAuthorizedOperation(context,crashCandidate.operationRef,new Date()),crashReceipt=crashBefore.effectReceiptRef
+ assert.equal(crashBefore.state,'effect_applied');assert.equal(crashBefore.version,3)
+ let crashLedger,crashRecord
+ const crash=await runCompletionProcessCutV1({...crashCandidate,auditIntent:crashAudit,actor:{authentication:'user_session',actorId:actor,workspaceId:workspace,permissions:authority.permissions,requestId:crashAudit.requestId},now:new Date()},
+  {workspace,actor,capability,workerRef,input,outcomes,command:crashCommand,expectedReceipt:crashReceipt,expectedIdempotencyKey:crashBefore.idempotencyKey,recoveryRequestId:'completion_fresh_process_recovery_'+nonce},async()=>{
+   crashRecord=await completion.loadAuthorizedOperation(context,crashCandidate.operationRef,new Date())
+   assert.equal(crashRecord.state,'completed');assert.equal(crashRecord.version,4);assert.deepEqual(crashRecord.result,crashCandidate.result);assert.equal(crashRecord.effectReceiptRef,crashReceipt)
+   const original=JSON.parse(await sql(`select capability_event from public.assistant_original_audit_intents where workspace_id='${workspace}' and event_ref=${literal(crashCandidate.eventRef)};`))
+   assert.deepEqual(original,crashAudit)
+   assert.equal(await sql(`select count(*) from public.assistant_audit_delivery_outbox where workspace_id='${workspace}' and event_ref=${literal(crashCandidate.eventRef)} and state='pending';`),'1')
+   crashLedger=await aggregate();return hash(canonicalArgumentsV1(crashRecord))
+  },terminateOwnedSessions)
+ assert.equal(crash.signal,'SIGKILL');assert.equal(crash.independentRecovery,true);assert.equal(crash.recordDigest,hash(canonicalArgumentsV1(crashRecord)))
+ assert.equal(crash.receiptDigest,hash(crashReceipt));assert.equal(crash.resultDigest,hash(canonicalArgumentsV1(crashCandidate.result)));assert.equal(await aggregate(),crashLedger)
+ expectedAudits.set(crashCandidate.eventRef,crashAudit)
  const rollback=await preparedCompletion('completion_rollback'),rollbackAudit=originalAudit('completion_rollback_original_'+nonce,345),before=hash(await aggregate())
  await sql(`create function public.${cut}() returns trigger language plpgsql set search_path='' as $$begin if NEW.event_ref='${rollback.eventRef}' then raise exception 'synthetic_native_completion_cut';end if;return NEW;end$$;
  create trigger ${cut} after insert on public.assistant_audit_delivery_outbox for each row execute function public.${cut}();`)
@@ -154,12 +216,33 @@ try{
   assert.equal(original.digest,packet.contentDigest);assert.deepEqual(original.packet,packet)
   return {status:'accepted',workspaceId:workspace,eventRef:event.eventRef,digestAlgorithm:packet.digestAlgorithm,contentDigest:packet.contentDigest,receiptRef:original.receipt}
  }})
- const page=await drain.processPage();assert.equal(page.status,'page_processed');assert.equal(page.delivered,11);assert.equal((await drain.processPage()).status,'empty_page')
+ const page=await drain.processPage();assert.equal(page.status,'page_processed');assert.equal(page.delivered,14);assert.equal((await drain.processPage()).status,'empty_page')
  assert.equal(await sql(`select count(*) from public.assistant_audit_delivery_outbox d join public.assistant_original_audit_intents i using(workspace_id,event_ref) where i.capability='${capability}' and d.state='pending';`),'0')
- assert.equal(await sql(`select count(*) from public.${auditSink};`),'11');assert.equal(hash(await allOriginals()),originals)
- console.log('SAFE COMPLETION NATIVE PASS:20 distinct SQL processes/backends;one completion19 conflicts;registered result producer;original receipt;postcommit loss/authorized replay;atomic rollback/retry;grant expiry after observed customer lock;five SQL mutants restored;eleven original audits including full eleven-field completion payloads drained;NOT full23/independent Node workers/business handler/SIGKILL/restart')
+ assert.equal(await sql(`select count(*) from public.${auditSink};`),'14');assert.equal(hash(await allOriginals()),originals)
+ const finalAudit=await auditInspector.inspect()
+ const driverAudit=await auditDriver.inspect()
+ assert.deepEqual(driverAudit,finalAudit)
+ console.log(JSON.stringify({kind:'durable_v3_native_driver_audit_observation',scenario:'completion_primitive',ledger:driverAudit,sameBackend:true,independentLedgerEquality:true,full23:'NOT_RUN'}))
+ const positiveEffect=await createNativePositiveEffectInspectorV3(sql,sink,{...binding,operationRef:candidate.operationRef}).inspect()
+ assert.deepEqual(positiveEffect,{effectCount:1})
+ const driverPositiveEffect=await inspectWorkerPositiveEffectV3(sink,{...binding,operationRef:candidate.operationRef})
+ assert.deepEqual(driverPositiveEffect,positiveEffect)
+ console.log(JSON.stringify({kind:'durable_v3_native_driver_positive_effect_observation',scenario:'completion_primitive',effect:driverPositiveEffect,sameBackend:true,independentReceiptEquality:true,verified_absence:'NOT_RUN',full23:'NOT_RUN'}))
+ console.log(JSON.stringify({kind:'durable_v3_native_positive_effect_observation',scenario:'completion_primitive',effect:positiveEffect,source:'owned_synthetic_receipt_ledger',verified_absence:'NOT_RUN',full23:'NOT_RUN'}))
+ const operationSlice=await createNativeDurableOperationInspectorV3(sql,{...binding,operationRef:candidate.operationRef}).inspect()
+ assert.deepEqual(operationSlice,{operationCount:1,state:'completed'})
+ console.log(JSON.stringify({kind:'durable_v3_native_operation_observation',scenario:'completion_primitive',operation:operationSlice,full23:'NOT_RUN'}))
+ const driverOperation=await verifyNativeDriverOperationSliceV3(sql,{...binding,operationRef:candidate.operationRef},auditDriverBackend)
+ console.log(JSON.stringify({kind:'durable_v3_native_driver_operation_observation',scenario:'completion_primitive',...driverOperation}))
+ assert.equal(finalAudit.originalAuditIntents,3);assert.equal(finalAudit.deliveredOriginalEvents,3);assert.equal(finalAudit.pendingOriginalEvents,0)
+ assert.equal(finalAudit.outcomeDeliveredEvents,1);assert.equal(finalAudit.outcomePendingEvents,0);assert.equal(finalAudit.baselinePendingOriginalEvents,2)
+ assert.equal(finalAudit.baselineAuditContentDigest,finalAudit.persistedBaselineAuditContentDigest)
+ console.log(JSON.stringify({kind:'durable_v3_native_audit_observation',scenario:'completion_primitive',ledger:finalAudit,full23:'NOT_RUN'}))
+ console.log('SAFE COMPLETION NATIVE PASS:20 distinct independent Node processes/native backends same persistent connection;one completion19 conflicts;registered result producer;original receipt;postcommit loss/authorized replay;real postcommit SIGKILL observed after independent persisted full record/audit inspection;fresh Node/backend recovers identical full record/result/receipt and eight ledgers unchanged;atomic rollback/retry;grant expiry after observed customer lock;five SQL mutants restored;fourteen original audits including full eleven-field completion payloads drained;NOT full23/four complete Node scenarios/business handler/before-effect SIGKILL/restart')
 }finally{
+ let driverCloseError;try{await closeWorkerV3()}catch(error){driverCloseError=error}
  for(const child of owned)child.kill('SIGKILL')
  // Only nonce-owned fixture resources, after checking the existing owned cluster.
  await run(`drop trigger if exists ${cut} on public.assistant_audit_delivery_outbox;drop function if exists public.${cut}();drop table if exists public.${sink},public.${outcomes},public.${auditSink};`)
+ if(driverCloseError)throw driverCloseError
 }

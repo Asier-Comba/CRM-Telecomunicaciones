@@ -1,8 +1,11 @@
 import { chromium, expect } from '@playwright/test'
 import { randomUUID } from 'node:crypto'
 import { mkdirSync, writeFileSync } from 'node:fs'
+import {observeHistoryCurrentIdentityV1} from './history-current-identity-observation-v1.mjs'
 import { resolve } from 'node:path'
 import { assistantUpstreamDiagnostic } from './assistant-server-diagnostics.mjs'
+import { historyCreateStepObservation } from './assistant-history-create-step.mjs'
+import { withHistoryViewerSession } from './assistant-history-viewer-session.mjs'
 import { currentHistoryReload } from './assistant-history-current-reload.mjs'
 import { currentHistoryReopen } from './assistant-history-current-reopen.mjs'
 import { parseHistoryDataV2 } from '../../../src/features/assistant/history-client-v2.ts'
@@ -10,7 +13,7 @@ import { parseHistoryDataV2 } from '../../../src/features/assistant/history-clie
 /** Actual cookie browser/history RPC on the same disposable development app. */
 export async function assistantHistoryBrowser({ origin, cookie, viewerCookie, call, sql, wa, wb, users, check }) {
   const browser = await chromium.launch()
-  let context, page, failureDir, phase='CONTEXT_START'
+  let context, page, failureDir, captureCreateAfterDrain, phase='CONTEXT_START'
   try {
     context = await browser.newContext({ viewport: { width:1440, height:960 } })
     await context.addCookies(cookie.split('; ').map(part => { const at=part.indexOf('='); return { name:part.slice(0,at), value:part.slice(at+1), url:origin } }))
@@ -32,11 +35,14 @@ export async function assistantHistoryBrowser({ origin, cookie, viewerCookie, ca
     for(const width of [1440,768,390]){await page.setViewportSize({width,height:960});await page.getByRole('main').evaluate(el=>{el.scrollTop=0});await page.screenshot({path:resolve(dir,'history-context-'+width+'.png'),fullPage:true});check(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'assistant_history_browser_context_responsive_'+width)}
     ordinary.length=0
     phase='CONTEXT_FOREIGN'
-    await page.goto(origin+'/assistant?customer='+foreignCustomer)
+    const destination=origin+'/assistant?customer='+foreignCustomer,identityObserver=observeHistoryCurrentIdentityV1({page,destination,customerId:foreignCustomer})
+    try{
+    await page.goto(destination)
     await expect(page.getByRole('region',{name:'Contexto autorizado del cliente',exact:true}).getByRole('alert')).toHaveText('El registro ya no está disponible.')
     await expect(page.getByText('W3 UI Foreign Context',{exact:true})).toHaveCount(0)
     await expect(page.getByText('W3 UI Authorized Context',{exact:true})).toHaveCount(0)
     check(!ordinary.some(request=>request.operation==='customer.editor'||request.operation==='customer360.summary'||request.operation==='telecom.attention'),'assistant_history_browser_context_foreign_reference_no_dependent_read_or_leak')
+    }finally{try{const summary=identityObserver?.finish();if(summary)writeFileSync(resolve(dir,'current-foreign-identity.safe.json'),JSON.stringify(summary))}catch{console.log('W3_HISTORY_FOREIGN_IDENTITY_DIAGNOSTIC_WRITE_UNAVAILABLE')}}
     ordinary.length=0
     phase='CONTEXT_INVALID'
     await page.goto(origin+'/assistant?customer=invalid')
@@ -47,22 +53,37 @@ export async function assistantHistoryBrowser({ origin, cookie, viewerCookie, ca
     // cookie scope. Restore only these disposable membership/profile fixtures.
     const previousStatus=sql(`select status from public.workspace_members where workspace_id='${wa}' and user_id='${users.viewerA.id}'`),previousWorkspace=sql(`select coalesce(workspace_id::text,'') from public.profiles where id='${users.viewerA.id}'`)
     check(['active','suspended'].includes(previousStatus)&&(!previousWorkspace||/^[0-9a-f-]{36}$/.test(previousWorkspace)),'assistant_history_browser_context_viewer_fixture_binding')
-    let viewerContext
+    let viewerStep='SETUP',viewerNavigationStatus=null,viewerSummaryStatus=null,viewerSummaryRequested=false,viewerPageError=false
     phase='CONTEXT_VIEWER'
     try{
       sql(`update public.workspace_members set status='active' where workspace_id='${wa}' and user_id='${users.viewerA.id}';update public.profiles set workspace_id='${wa}' where id='${users.viewerA.id}'`)
-      viewerContext=await browser.newContext({viewport:{width:390,height:960}})
-      await viewerContext.addCookies(viewerCookie.split('; ').map(part=>{const at=part.indexOf('=');return{name:part.slice(0,at),value:part.slice(at+1),url:origin}}))
-      const viewerPage=await viewerContext.newPage();viewerPage.setDefaultTimeout(30000)
+      await withHistoryViewerSession({browser,origin,cookie:viewerCookie,run:async viewerPage=>{
       const viewerRequests=[];viewerPage.on('request',request=>{try{const body=request.postDataJSON();if(body?.operation)viewerRequests.push(body.operation)}catch{}})
+      viewerPage.on('pageerror',()=>{viewerPageError=true})
+      viewerPage.on('request',request=>{try{if(request.postDataJSON()?.operation==='customer360.summary')viewerSummaryRequested=true}catch{}})
       const viewerSummary=viewerPage.waitForResponse(response=>{try{return response.request().postDataJSON().operation==='customer360.summary'}catch{return false}})
-      await viewerPage.goto(origin+'/assistant?customer='+customer)
-      const viewerResponse=await viewerSummary,viewerBody=await viewerResponse.json()
+      // Observe rejection immediately if navigation fails before awaiting the response.
+      void viewerSummary.catch(()=>{})
+      viewerStep='NAVIGATION'
+      viewerNavigationStatus=(await viewerPage.goto(origin+'/assistant?customer='+customer))?.status()??null
+      viewerStep='SUMMARY_RESPONSE'
+      const viewerResponse=await viewerSummary;viewerSummaryStatus=viewerResponse.status()
+      viewerStep='SUMMARY_BODY'
+      const viewerBody=await viewerResponse.json()
       check(viewerResponse.status()===200&&viewerBody.data?.record?.customer_id===customer&&viewerBody.data.record.documents===null&&viewerBody.data.record.billing===null,'assistant_history_browser_context_viewer_real_redaction')
+      viewerStep='HEADING'
       await expect(viewerPage.getByRole('heading',{name:'W3 UI Authorized Context',exact:true})).toBeVisible()
+      viewerStep='REDACTION'
       await expect(viewerPage.getByText(/Documentos: Acceso restringido · Facturación: Acceso restringido/)).toBeVisible()
+      viewerStep='IDENTITY'
       check(viewerRequests.includes('customer.list')&&!viewerRequests.includes('customer.editor'),'assistant_history_browser_context_viewer_no_privileged_editor')
-    }finally{await viewerContext?.close();sql(`update public.workspace_members set status='${previousStatus}' where workspace_id='${wa}' and user_id='${users.viewerA.id}';update public.profiles set workspace_id=${previousWorkspace?"'"+previousWorkspace+"'":'null'} where id='${users.viewerA.id}'`)}
+      },captureFailure:async viewerPage=>{
+        let frameCaptured=false
+        try{await viewerPage.screenshot({path:resolve(dir,'failed-CONTEXT_VIEWER-current-session.png'),fullPage:true,timeout:5000});frameCaptured=true}catch{}
+        // Fixed vocabulary only: no URL, user/customer references, response bodies or error text.
+        writeFileSync(resolve(dir,'failed-CONTEXT_VIEWER-current-session-safe.json'),JSON.stringify({scope:'CURRENT_SYNTHETIC_HISTORY_VIEWER_BEFORE_CONTEXT_CLOSE',step:viewerStep,navigation_status:viewerNavigationStatus,summary_requested:viewerSummaryRequested,summary_status:viewerSummaryStatus,page_error_observed:viewerPageError,frame_captured:frameCaptured},null,2))
+      }})
+    }finally{sql(`update public.workspace_members set status='${previousStatus}' where workspace_id='${wa}' and user_id='${users.viewerA.id}';update public.profiles set workspace_id=${previousWorkspace?"'"+previousWorkspace+"'":'null'} where id='${users.viewerA.id}'`)}
     await page.setViewportSize({width:1440,height:960})
     phase='HISTORY_CREATE'
     await page.goto(origin+'/assistant?customer='+customer)
@@ -74,6 +95,7 @@ export async function assistantHistoryBrowser({ origin, cookie, viewerCookie, ca
     // callback bypasses the harness report/teardown and hides the HTTP refusal.
     let commitStatus=null,commitDiagnostic=null,completeCommit
     const commitComplete=new Promise(resolve=>{completeCommit=resolve})
+    let replayStatus=null,receiptPassed=null,persistedThreadCount=null,seededTurns=0,routeDrained=false
     const creates=[],loseDelivery=async route=>{const request=route.request().postDataJSON();if(request.operation!=='thread.create'){await route.continue();return}creates.push(request);if(creates.length===1){try{const upstream=await route.fetch();commitStatus=upstream.status();if(commitStatus!==200)commitDiagnostic=await assistantUpstreamDiagnostic(upstream)}catch{commitStatus=null}finally{try{await route.abort('failed')}finally{completeCommit()}}}else await route.continue()}
     const started=performance.now(),events=[],operations=new Set(['thread.list','thread.create','thread.get','thread.rename','thread.archive','message.page'])
     const operation=request=>{try{const q=request.postDataJSON();return new URL(request.url()).pathname==='/api/assistant/v2/threads'&&operations.has(q.operation)?q.operation:null}catch{return null}}
@@ -91,6 +113,21 @@ export async function assistantHistoryBrowser({ origin, cookie, viewerCookie, ca
       writeFileSync(resolve(dir,'failed-create-before-route-drain-safe.json'),JSON.stringify({scope:'SYNTHETIC_COOKIE_BROWSER_CREATE_BEFORE_ROUTE_DRAIN',phase,upstream_status:commitStatus,upstream_diagnostic:commitDiagnostic,create_attempts:creates.length,same_first_two_inputs:creates.length>=2?JSON.stringify(creates[0])===JSON.stringify(creates[1]):null,events,display},null,2)+'\n')
       await page.screenshot({path:resolve(dir,'failed-'+phase+'-before-route-drain.png'),fullPage:true})
     }
+    captureCreateAfterDrain=async()=>{
+      const state={phase,route_drained:routeDrained,create_attempts:creates.length,same_first_two_inputs:creates.length>=2?JSON.stringify(creates[0])===JSON.stringify(creates[1]):null,upstream_status:commitStatus,replay_status:replayStatus,receipt_passed:receiptPassed,persisted_thread_count:persistedThreadCount,seeded_turns:seededTurns,display:null}
+      const observation=historyCreateStepObservation(state)
+      if(!observation)return
+      let timer,display=null
+      try{
+        display=await Promise.race([page.evaluate(()=>{
+          const aside=document.querySelector('aside[aria-label="Conversaciones persistentes"]'),input=aside?.querySelector('input[aria-label="Título de nueva conversación"]'),buttons=Array.from(aside?.querySelectorAll('button')??[])
+          const retry=buttons.find(button=>button.textContent==='Reintentar misma creación'),create=buttons.find(button=>button.textContent==='Nueva conversación')
+          return {any_page_busy:!!document.querySelector('[aria-busy="true"]'),title_disabled:input?.disabled??null,retry_present:!!retry,create_present:!!create,create_disabled:create?.disabled??null,uncertain_alert:Array.from(document.querySelectorAll('[role="alert"]')).some(alert=>alert.textContent?.includes('No se pudo confirmar el resultado.')),selected_heading_present:Array.from(document.querySelectorAll('h1,h2,h3')).some(heading=>heading.textContent==='W3 UI Synthetic History')}
+        }).catch(()=>null),new Promise(resolve=>{timer=setTimeout(()=>resolve(null),1000)})])
+      }finally{clearTimeout(timer)}
+      const complete=historyCreateStepObservation({...state,display})??observation
+      writeFileSync(resolve(dir,'failed-create-step-after-route-drain-safe.json'),JSON.stringify(complete,null,2)+'\n')
+    }
     await page.route('**/api/assistant/v2/threads',loseDelivery)
     let response,body
     try{
@@ -101,17 +138,23 @@ export async function assistantHistoryBrowser({ origin, cookie, viewerCookie, ca
       try{await Promise.race([commitComplete,new Promise((_,reject)=>{commitTimer=setTimeout(()=>reject(Error('W3_HISTORY_UI_CREATE_UPSTREAM_TIMEOUT')),30000)})])}finally{clearTimeout(commitTimer)}
       check(commitStatus===200,'assistant_history_browser_commit_before_delivery_loss_http_'+(commitStatus??'NO_RESPONSE'))
       phase='CREATE_LOST_DELIVERY';await expect(page.getByRole('alert').filter({hasText:'No se pudo confirmar el resultado.'})).toBeVisible();await expect(page.getByLabel('Título de nueva conversación',{exact:true})).toBeDisabled()
-      const created=pending('thread.create');await page.getByRole('button',{name:'Reintentar misma creación',exact:true}).click();response=await created;body=await response.json()
-      check(creates.length===2&&JSON.stringify(creates[0])===JSON.stringify(creates[1]),'assistant_history_browser_same_create_identity_retry')
-    }catch(error){await captureBeforeDrain().catch(()=>{});throw error}finally{await page.unrouteAll({behavior:'wait'});page.off('response',onResponse);page.off('requestfailed',onFailed)}
+      phase='CREATE_REPLAY_CLICK';const created=pending('thread.create');await page.getByRole('button',{name:'Reintentar misma creación',exact:true}).click()
+      phase='CREATE_REPLAY_RESPONSE';response=await created;replayStatus=response.status()
+      phase='CREATE_REPLAY_BODY';body=await response.json()
+      phase='CREATE_REPLAY_IDENTITY';check(creates.length===2&&JSON.stringify(creates[0])===JSON.stringify(creates[1]),'assistant_history_browser_same_create_identity_retry')
+    }catch(error){await captureBeforeDrain().catch(()=>{});throw error}finally{await page.unrouteAll({behavior:'wait'});routeDrained=true;page.off('response',onResponse);page.off('requestfailed',onFailed)}
+    phase='CREATE_RECEIPT';receiptPassed=!!(response.status()===200&&body.ok&&body.data?.record?.version===1)
     check(response.status()===200&&body.ok&&body.data?.record?.version===1,'assistant_history_browser_actual_create')
     const id=body.data.record.id;check(/^[0-9a-f-]{36}$/.test(id),'assistant_history_browser_created_uuid')
-    check(sql(`select count(*) from public.assistant_conversations_v2 where id='${id}' and workspace_id='${wa}' and actor_id='${users.ownerA.id}' and version=1`)==='1','assistant_history_browser_retry_single_persisted_thread')
-    await expect(page.getByRole('heading',{name:'W3 UI Synthetic History',exact:true})).toBeVisible()
+    phase='CREATE_PERSISTED_THREAD';const persistedCount=sql(`select count(*) from public.assistant_conversations_v2 where id='${id}' and workspace_id='${wa}' and actor_id='${users.ownerA.id}' and version=1`)
+    persistedThreadCount=/^[0-9]+$/.test(persistedCount)&&Number.isSafeInteger(Number(persistedCount))?Number(persistedCount):null
+    check(persistedCount==='1','assistant_history_browser_retry_single_persisted_thread')
+    phase='CREATE_SELECTED_THREAD';await expect(page.getByRole('heading',{name:'W3 UI Synthetic History',exact:true})).toBeVisible()
     for(let i=0;i<11;i++){
       const turn_id=randomUUID(),text=i===0?'<img src=x onerror=alert(1)> historical only':'Synthetic historical request '+i
-      check((await call('turn.start',{id,turn_id,text})).status===200,'assistant_history_browser_seed_real_start')
-      check((await call('turn.finish',{id,turn_id,status:'completed',answer:'Synthetic historical answer '+i})).status===200,'assistant_history_browser_seed_real_finish')
+      phase='CREATE_SEED_START';check((await call('turn.start',{id,turn_id,text})).status===200,'assistant_history_browser_seed_real_start')
+      phase='CREATE_SEED_FINISH';check((await call('turn.finish',{id,turn_id,status:'completed',answer:'Synthetic historical answer '+i})).status===200,'assistant_history_browser_seed_real_finish')
+      seededTurns++
     }
     phase='HISTORY_MESSAGES'
     await page.getByRole('button',{name:'Actualizar historial',exact:true}).click()
@@ -132,7 +175,11 @@ export async function assistantHistoryBrowser({ origin, cookie, viewerCookie, ca
     check(changed.record.version===2,'assistant_history_browser_rename_cas')
     await currentHistoryReload({page,origin,thread:changed.record,step:next=>{phase=next}})
     await expect(page.getByRole('button',{name:'Abrir conversación: W3 UI Renamed History',exact:true})).toBeVisible()
-    await currentHistoryReopen({page,origin,thread:changed.record,step:next=>{phase=next},action:async()=>{
+    await currentHistoryReopen({page,origin,thread:changed.record,step:next=>{phase=next},observe:summary=>{
+      try{writeFileSync(resolve(dir,'current-history-reopen.safe.json'),JSON.stringify(summary))}catch{console.log('W3_HISTORY_REOPEN_DIAGNOSTIC_WRITE_UNAVAILABLE')}
+    },observeRefusal:summary=>{
+      try{writeFileSync(resolve(dir,'current-history-reopen-refusal.safe.json'),JSON.stringify(summary))}catch{console.log('W3_HISTORY_REOPEN_REFUSAL_DIAGNOSTIC_WRITE_UNAVAILABLE')}
+    },action:async()=>{
       await page.getByRole('button',{name:'Abrir conversación: W3 UI Renamed History',exact:true}).click()
       await expect(page.locator('[data-history-message]')).toHaveCount(20)
     }})
@@ -172,7 +219,8 @@ export async function assistantHistoryBrowser({ origin, cookie, viewerCookie, ca
     await expect(page.getByRole('button',{name:'Más conversaciones',exact:true})).toBeDisabled();await page.getByRole('button',{name:'Conversaciones anteriores',exact:true}).click();await expect(page.locator('[data-history-thread]')).toHaveCount(20)
     return 'PASS_ACTUAL_COOKIE_BROWSER_HISTORY_CAS_PAGINATION_REVOCATION'
   } catch(error){
-    if(page&&!page.isClosed()&&failureDir){await page.getByRole('main').evaluate(element=>{element.scrollTop=0}).catch(()=>{});await page.screenshot({path:resolve(failureDir,'failed-'+phase+'.png'),fullPage:true}).catch(()=>{})}
+    await captureCreateAfterDrain?.().catch(()=>{})
+    if(phase!=='CONTEXT_VIEWER'&&page&&!page.isClosed()&&failureDir){await page.getByRole('main').evaluate(element=>{element.scrollTop=0}).catch(()=>{});await page.screenshot({path:resolve(failureDir,'failed-'+phase+'.png'),fullPage:true}).catch(()=>{})}
     const message=String(error?.message??'')
     if(/^CHECK_ASSISTANT_HISTORY_BROWSER_COMMIT_BEFORE_DELIVERY_LOSS_HTTP_(?:[1-5][0-9]{2}|NO_RESPONSE)$/.test(message)||message==='W3_HISTORY_UI_CREATE_UPSTREAM_TIMEOUT')throw error
     const kind=/timeout/i.test(String(error?.message??''))?'TIMEOUT':/strict mode violation/.test(String(error?.message??''))?'AMBIGUOUS':error instanceof TypeError?'TYPE_ERROR':'ASSERTION'

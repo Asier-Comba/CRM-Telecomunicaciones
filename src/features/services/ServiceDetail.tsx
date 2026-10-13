@@ -21,6 +21,9 @@ type Proposal={operation:'service.installation_set';input:TelecomInputs['service
 const addons={extra_data:'Datos adicionales',international_calling:'Llamadas internacionales',roaming:'Roaming',static_ip:'IP estática',device_financing:'Financiación de equipo'}
 function today(){return new Intl.DateTimeFormat('sv-SE',{timeZone:'Europe/Madrid',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date())}
 export function ServiceDetail({id}:{id:string}){
+ return <ScopedServiceDetail key={id} id={id}/>
+}
+function ScopedServiceDetail({id}:{id:string}){
  const {repository}=useProduct(),[core,setCore]=useState<{service:Service;contract:Contract;customerActive:boolean}>(),[error,setError]=useState(''),[revision,setRevision]=useState(0)
  const read=useCallback(async()=>{const s=await repository.portfolio('service',id);if(s.kind!=='service')throw new ProductUiError('internal_safe');const [c,customer]=await Promise.all([repository.portfolio('contract',s.record.contract_id),customerCollectionIdentity(repository,s.record.customer_id)]);if(c.kind!=='contract'||c.record.customer_id!==s.record.customer_id)throw new ProductUiError('internal_safe');setCore({service:s.record,contract:c.record,customerActive:customer.status==='active'});setError('')},[repository,id])
  useEffect(()=>{let active=true;async function load(){try{const s=await repository.portfolio('service',id);if(s.kind!=='service')throw new ProductUiError('internal_safe');const [c,customer]=await Promise.all([repository.portfolio('contract',s.record.contract_id),customerCollectionIdentity(repository,s.record.customer_id)]);if(c.kind!=='contract'||c.record.customer_id!==s.record.customer_id)throw new ProductUiError('internal_safe');if(active){setCore({service:s.record,contract:c.record,customerActive:customer.status==='active'});setError('')}}catch(e){if(active){setCore(undefined);setError(safeMessage(e))}}}void load();return()=>{active=false}},[repository,id,revision])

@@ -29,6 +29,8 @@ class ReferencePort implements ReconciliationPersistence {
     if (cmd.expectedVersion !== this.memory.record.version) return { status: 'version_conflict' }
     const next = structuredClone(this.memory.record)
     next.state = cmd.resolution.outcome; next.version++
+    if (cmd.resolution.outcome === 'completed') next.result = structuredClone(cmd.resolution.result)
+    else next.failureCode = cmd.resolution.failureCode
     const intent = structuredClone(cmd)
     if (this.crash === 'before_commit') throw new Error('precommit')
     this.memory.record = next

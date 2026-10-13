@@ -19,6 +19,7 @@ target_relations(name) as (
     ('assistant_operations'),
     ('assistant_audit_delivery_outbox'),
     ('assistant_original_audit_intents'),
+    ('assistant_reconciliation_policies'),
     ('assistant_registered_audit_workers'),
     ('assistant_command_material'),
     ('assistant_registered_commands'),

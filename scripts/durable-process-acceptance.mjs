@@ -1,7 +1,7 @@
-import { fork } from 'node:child_process'
 import { isAbsolute } from 'node:path'
-import { pathToFileURL, fileURLToPath } from 'node:url'
+import { pathToFileURL } from 'node:url'
 import assert from 'node:assert/strict'
+import {launchDurableWorkerV3} from './durable-process-worker-controller-v3.mjs'
 import { DURABLE_PROCESS_CONTRACT, DURABLE_PROCESS_SCENARIOS, validateDurableObservation, validateAuditOutageObservation, validateRollbackEvidence, validateDatabaseRestartEvidence, validateClaimFenceEvidence, validateImmutableAuditEvidence } from '../src/assistant/durable-process-spec-v3.ts'
 
 // Usage on repository Node24: node scripts/durable-process-acceptance.mjs /absolute/W2-driver.mjs
@@ -24,35 +24,8 @@ const requiredExports = ['setupScenario', 'connectWorker', 'execute', 'inspectBo
 if (requiredExports.some(name => typeof driver[name] !== 'function')) {
   console.error('durable_driver_exports_required'); process.exitCode = 2; return
 }
-const workerPath = fileURLToPath(new URL('./durable-process-worker.mjs', import.meta.url))
 const active = new Set()
-function launch(job) {
-  const child = fork(workerPath, [modulePath], { stdio: ['ignore', 'ignore', 'ignore', 'ipc'] })
-  active.add(child)
-  const identity = { clientPid: child.pid, backendPid: undefined }
-  let release
-  const ready = new Promise(resolve => { release = resolve })
-  let reached = false
-  let done = false
-  const result = new Promise((resolve, reject) => {
-    const timer = setTimeout(() => { child.kill('SIGKILL'); reject(new Error('worker_timeout')) }, 30000)
-    child.on('message', message => {
-      if (message.type === 'ready') { identity.backendPid = message.backendPid; release() }
-      if (message.type === 'checkpoint' && message.name === job.killAt) { reached = true; child.kill('SIGKILL') }
-      if (message.type === 'result') { done = true; clearTimeout(timer); resolve(message.result) }
-      if (message.type === 'error') { clearTimeout(timer); reject(new Error('worker_failed')) }
-    })
-    child.on('error', () => { clearTimeout(timer); release(); reject(new Error('worker_launch_failed')) })
-    child.on('exit', (code, signal) => {
-      active.delete(child); clearTimeout(timer); release()
-      if (reached && signal === 'SIGKILL') resolve({ killedAt: job.killAt })
-      else if (!done) reject(new Error('worker_exited_without_result'))
-    })
-  })
-  // Observe errors even if a worker dies before every peer reaches the barrier.
-  void result.catch(() => {})
-  return { identity, ready, start() { child.send(job) }, result }
-}
+const launch=job=>launchDurableWorkerV3({modulePath,job,active})
 
 const report = []
 try {
@@ -95,9 +68,11 @@ try {
         // Fresh independent process/connection after crash; adapter verifies receipt
         // or absence before any retry. Recovery includes draining the original audit.
         const recovery = launch({ fixture, scenario: scenario.id, action: 'recover_and_drain' })
-        await recovery.ready; recovery.start(); await recovery.result
+        await recovery.ready
         assert.ok(Number.isSafeInteger(recovery.identity.backendPid) && recovery.identity.backendPid > 0)
         assert.ok(!identities.some(id => id.clientPid === recovery.identity.clientPid))
+        assert.ok(!identities.some(id => id.backendPid === recovery.identity.backendPid))
+        recovery.start(); await recovery.result
         identities.push(recovery.identity)
       }
       const observation = await driver.inspectScenario(fixture)

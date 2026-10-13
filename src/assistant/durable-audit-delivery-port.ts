@@ -1,5 +1,6 @@
 import {boundedAwaitV2} from './bounded-await-v2.ts'
 import type {AuditEvent} from './contracts.ts'
+import type {ReconciliationAuditEvent} from './durable-contracts.ts'
 
 /** Private delegated user-session delivery only. No effect or service authority. */
 export type AuditWorkerAuthorityV1={authentication:'user_session';actorId:string;workspaceId:string;workerRef:string;
@@ -12,7 +13,8 @@ type OriginalAuditMetadataV1={eventRef:string;workspaceId:string;operationRef:st
 export type OriginalAuditEventV1=OriginalAuditMetadataV1&({
  capability:string;argumentsDigest:string;event:'assistant.operation.reserved'|'assistant.operation.recovery_required'|'assistant.operation.effect_applied';
  reasonCode:null|'internal_safe'|'temporary_unavailable'}|{
- event:'assistant.capability.completed';reasonCode:'capability_success';capabilityEvent:Readonly<AuditEvent>})
+ event:'assistant.capability.completed';reasonCode:'capability_success';capabilityEvent:Readonly<AuditEvent>}|{
+ event:'assistant.operation.reconciliation';reasonCode:'reconciliation_applied';reconciliationEvent:Readonly<ReconciliationAuditEvent>})
 export type AuditDeliveryClaimV1={workspaceId:string;eventRef:string;workerRef:string;grantVersion:number;version:number;
  fence:number;claimRef:string;claimedAt:string;leaseExpiresAt:string}
 type Denial='forbidden'|'not_found'|'version_conflict'
@@ -49,7 +51,7 @@ function micros(v:string):bigint{
 }
 function event(value:unknown,worker:AuditWorkerAuthorityV1,eventRef:string):OriginalAuditEventV1{
  const fields='eventRef,workspaceId,operationRef,operationVersion,actorId,capability,argumentsDigest,event,requestId,createdAt,reasonCode'
- if(!(exact(value,fields)||exact(value,fields+',capabilityEvent'))
+ if(!(exact(value,fields)||exact(value,fields+',capabilityEvent')||exact(value,fields+',reconciliationEvent'))
   ||value.eventRef!==eventRef||value.workspaceId!==worker.workspaceId||value.capability!==worker.capability
   ||!uuid(value.actorId)||!ref(value.operationRef)||!Number.isSafeInteger(value.operationVersion)||Number(value.operationVersion)<1
   ||!hex(value.argumentsDigest)||typeof value.requestId!=='string'||!/^[A-Za-z0-9_-]{16,128}$/.test(value.requestId)||!timestamp(value.createdAt)
@@ -57,7 +59,15 @@ function event(value:unknown,worker:AuditWorkerAuthorityV1,eventRef:string):Orig
    ||(value.event==='assistant.operation.effect_applied'&&Number(value.operationVersion)>2&&value.reasonCode===null)
    ||(value.event==='assistant.operation.recovery_required'&&Number(value.operationVersion)>1
     &&(value.reasonCode==='internal_safe'||value.reasonCode==='temporary_unavailable'))
-   ||(value.event==='assistant.capability.completed'&&Number(value.operationVersion)>3&&value.reasonCode==='capability_success')))throw unavailable()
+   ||(value.event==='assistant.capability.completed'&&Number(value.operationVersion)>3&&value.reasonCode==='capability_success')
+   ||(value.event==='assistant.operation.reconciliation'&&Number(value.operationVersion)>4&&value.reasonCode==='reconciliation_applied')))throw unavailable()
+ if(value.event==='assistant.operation.reconciliation'){
+  const e=value.reconciliationEvent
+  if(!exact(value,fields+',reconciliationEvent')||!exact(e,'event,requestId,actorId,workspaceId,operationRef,requestedOutcome,decision,reasonCode')
+   ||e.event!==value.event||e.requestId!==value.requestId||e.actorId!==value.actorId||e.workspaceId!==value.workspaceId||e.operationRef!==value.operationRef
+   ||e.requestedOutcome!=='completed'||e.decision!=='completed'||e.reasonCode!==value.reasonCode)throw unavailable()
+  return Object.freeze({...value,reconciliationEvent:Object.freeze({...e})}) as OriginalAuditEventV1
+ }
  if(value.event==='assistant.capability.completed'){
   const e=value.capabilityEvent
   if(!exact(value,fields+',capabilityEvent')||!exact(e,'event,requestId,actorId,workspaceId,capability,accessClass,status,reasonCode,confirmationState,idempotencyState,durationMs')

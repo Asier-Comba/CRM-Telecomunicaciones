@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
 import Link from 'next/link'
 import { ChevronLeft, ChevronRight, Plus } from 'lucide-react'
 import { PageHeader } from '@/components/PageHeader'
@@ -72,7 +72,25 @@ export function Calendar({
     [owner, setOwner] = useState(''),
     [type, setType] = useState(''),
     [selected, setSelected] = useState<CalendarEntry | null>(null)
+  const [filtersExpanded, setFiltersExpanded] = useState(false)
+  const filtersId = useId()
+  const weekViewport = useRef<HTMLDivElement>(null)
   useEffect(()=>{onRange?.(anchor)},[anchor,onRange])
+  useEffect(() => {
+    const viewport = weekViewport.current
+    if (view !== 'week' || !viewport) return
+    function showSelectedDay() {
+      if (!viewport || viewport.scrollWidth <= viewport.clientWidth) return
+      const selectedDay = viewport.querySelector<HTMLElement>(`[data-calendar-day="${anchor}"]`)
+      if (!selectedDay) return
+      const offset = selectedDay.getBoundingClientRect().left - viewport.getBoundingClientRect().left
+      viewport.scrollLeft = Math.max(0, viewport.scrollLeft + offset - 48)
+    }
+    showSelectedDay()
+    const resize = new ResizeObserver(showSelectedDay)
+    resize.observe(viewport)
+    return () => resize.disconnect()
+  }, [anchor, view])
   const start = weekStart(anchor),
     days = Array.from({ length: 7 }, (_, i) => addDays(start, i)),
     gridDays=view==='day'?[anchor]:days,
@@ -125,8 +143,24 @@ export function Calendar({
         }
       />
       <PreviewNotice />
+      <button
+        type="button"
+        aria-label="Fecha y filtros"
+        aria-controls={filtersId}
+        aria-expanded={filtersExpanded}
+        onClick={() => setFiltersExpanded(expanded => !expanded)}
+        className={`${control} inline-flex items-center gap-2 xl:hidden`}
+      >
+        <ChevronRight aria-hidden="true" className={`h-4 w-4 ${filtersExpanded ? 'rotate-90' : ''}`} />
+        Fecha y filtros
+        {(owner || type) && <span className="rounded bg-indigo-50 px-2 py-0.5 text-xs text-indigo-700">Aplicados</span>}
+      </button>
       <div className="grid items-start gap-4 xl:grid-cols-[230px_1fr]">
-        <aside className="space-y-4 rounded-xl border border-slate-200 bg-white p-4">
+        <aside
+          id={filtersId}
+          aria-label="Fecha y filtros del calendario"
+          className={`${filtersExpanded ? 'block' : 'hidden'} space-y-4 rounded-xl border border-slate-200 bg-white p-4 xl:block`}
+        >
           <div className="flex items-center justify-between gap-1">
             <p className="text-xs font-semibold capitalize">{monthLabel}</p>
             <button
@@ -213,7 +247,7 @@ export function Calendar({
             contrato necesitan su proyección de eventos.
           </p>
         </aside>
-        <section className="min-w-0 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
+        <section aria-label="Agenda y vistas del calendario" className="min-w-0 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
           <header className="flex flex-wrap items-center justify-between gap-2 border-b p-3">
             <div className="flex flex-wrap items-center gap-2">
               <button className={control} onClick={() => setAnchor(today)}>
@@ -302,12 +336,14 @@ export function Calendar({
               </div>
             </div>
           ) : (
-            <div className="overflow-x-auto">
+            <div ref={weekViewport} className="overflow-x-auto">
               <div className={view==='day'?'min-w-0':'min-w-[740px]'}>
                 <div className={`grid ${view==='day'?'grid-cols-[48px_minmax(0,1fr)]':'grid-cols-[48px_repeat(7,1fr)]'} border-b border-slate-100`}>
-                  <span className="p-2 text-[10px] text-slate-400">Madrid</span>
+                  <span className="sticky left-0 z-10 bg-white p-2 text-[10px] text-slate-400">Madrid</span>
                   {gridDays.map((day) => (
                     <div
+                      data-calendar-day={day}
+                      aria-current={day === today ? 'date' : undefined}
                       className={`border-l border-slate-100 p-2 text-center text-xs font-semibold ${day === today ? 'bg-indigo-50 text-indigo-700' : 'text-slate-500'}`}
                       key={day}
                     >
@@ -320,7 +356,7 @@ export function Calendar({
                   ))}
                 </div>
                 <div className={`grid ${view==='day'?'grid-cols-[48px_minmax(0,1fr)]':'grid-cols-[48px_repeat(7,1fr)]'} border-b border-slate-100`}>
-                  <span className="p-1 text-[9px] text-slate-400">
+                  <span className="sticky left-0 z-10 bg-white p-1 text-[9px] text-slate-400">
                     Todo el día
                   </span>
                   {gridDays.map((day) => (
@@ -335,7 +371,7 @@ export function Calendar({
                   ))}
                 </div>
                 <div className={`grid ${view==='day'?'grid-cols-[48px_minmax(0,1fr)]':'grid-cols-[48px_repeat(7,1fr)]'}`}>
-                  <div>
+                  <div className="sticky left-0 z-10 bg-white">
                     {Array.from({ length: 12 }, (_, i) => (
                       <div
                         key={i}

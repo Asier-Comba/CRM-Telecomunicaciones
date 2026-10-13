@@ -1,0 +1,9 @@
+# Document metadata disappears after an authority refusal
+
+A metadata refresh that returns the existing `access_denied` or `not_found` repository error now clears the displayed document and its integrity action. The safe error remains visible and the refresh still rejects. Transient failures preserve the same selected metadata, as before. New-document selection, late-response generations and actor/workspace/role/target fences stay intact. Backend permissions, commands, contracts and scopes are unchanged.
+
+The exact parent DC2 failed two loopback cases using its actual React component and the production `ProductUiError` class: metadata remained after refresh403/404. The existing browser harness preserves all ten prior cases and adds these two, requiring 24 desktop/mobile cases locally. This is a controlled repository transport test, not evidence of an actual Auth/Storage disclosure.
+
+This descendant retains 35 reads/217 gold cases and the compound grounding prepared in 951. Its own complete controls require 1,312 functional tests, 348 preview cases, native audit/operation/positive receipt observations and Supabase 107, actual compound history40/23/17 and exact three-resource cleanup. A later SIM composition is expected to contain36 reads/218 gold cases/220 entries and history45/26/19 with its own1,330/348 controls; source counters must be verified. No parent test result is inherited.
+
+DC2's running checks are allowed to finish without cancellation or publication above them. Even a functional pass on DC2 does not accept the two newly reproduced refresh boundaries. EE9's separate Cartera768 before_effect timeout and all historical failures are preserved without an inferred cause. W4 review remains independent, W5's resource is not duplicated, live model NOT_RUN, AI writes OFF and release NOT_ACCEPTED.

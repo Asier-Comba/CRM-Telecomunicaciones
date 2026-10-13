@@ -3,7 +3,7 @@
   "base": "7ab6f56f10fc65aa7212ed5dfbdeacea8901756a",
   "backendInventorySource": "182283f542f3854c3e8b2ea7eb0d27634eaef206",
   "backendInventoryIsNotRegistration": true,
-  "executableLocalReads": 30,
+  "executableLocalReads": 36,
   "capabilities": [
     {
       "name": "crm.customer.list",
@@ -5564,6 +5564,342 @@
       }
     },
     {
+      "name": "crm.billing.monthly_series",
+      "version": "assistant.capability.v2",
+      "mode": "read",
+      "risk": "READ",
+      "description": "Facturas por mes de emisión y estado actual: emitido, marcado pagado, pendiente y vencido. No representa movimientos de cobro. Exige una moneda EUR/USD/GBP y meses inclusivos con día01, máximo24. Solo titular/administrador.",
+      "roles": [
+        "owner",
+        "admin"
+      ],
+      "backendOperation": "billing.monthly_series",
+      "family": "billing_analytics",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "currency": {
+            "type": "string",
+            "enum": [
+              "EUR",
+              "USD",
+              "GBP"
+            ]
+          },
+          "from_month": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-01$",
+            "maxLength": 10
+          },
+          "to_month": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-01$",
+            "maxLength": 10
+          },
+          "customer_id": {
+            "type": "string",
+            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+            "maxLength": 36
+          }
+        },
+        "required": [
+          "currency",
+          "from_month",
+          "to_month"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "contract_version": {
+            "const": "billing.analytics.v1"
+          },
+          "operation": {
+            "const": "billing.monthly_series"
+          },
+          "basis": {
+            "const": "issue_month_cohort_current_status"
+          },
+          "as_of": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+            "maxLength": 10
+          },
+          "currency": {
+            "type": "string",
+            "enum": [
+              "EUR",
+              "USD",
+              "GBP"
+            ]
+          },
+          "from_month": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-01$",
+            "maxLength": 10
+          },
+          "to_month": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-01$",
+            "maxLength": 10
+          },
+          "items": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 24,
+            "items": {
+              "type": "object",
+              "properties": {
+                "month": {
+                  "type": "string",
+                  "pattern": "^\\d{4}-\\d{2}-01$",
+                  "maxLength": 10
+                },
+                "issued_minor": {
+                  "type": "string",
+                  "pattern": "^(0|[1-9][0-9]{0,39})$",
+                  "maxLength": 40
+                },
+                "paid_minor": {
+                  "type": "string",
+                  "pattern": "^(0|[1-9][0-9]{0,39})$",
+                  "maxLength": 40
+                },
+                "outstanding_minor": {
+                  "type": "string",
+                  "pattern": "^(0|[1-9][0-9]{0,39})$",
+                  "maxLength": 40
+                },
+                "overdue_minor": {
+                  "type": "string",
+                  "pattern": "^(0|[1-9][0-9]{0,39})$",
+                  "maxLength": 40
+                }
+              },
+              "required": [
+                "month",
+                "issued_minor",
+                "paid_minor",
+                "outstanding_minor",
+                "overdue_minor"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "contract_version",
+          "operation",
+          "basis",
+          "as_of",
+          "currency",
+          "from_month",
+          "to_month",
+          "items"
+        ],
+        "additionalProperties": false
+      },
+      "authorization": "current_server_membership_and_role_rechecked_around_each_await",
+      "tenantScope": "server_selected_workspace_actor_and_scope_epoch",
+      "idempotency": "read_fresh_no_effect_reservation",
+      "errorContract": [
+        "invalid_plan",
+        "access_changed",
+        "unavailable",
+        "ambiguous"
+      ],
+      "sensitiveFields": [],
+      "confirmation": "none",
+      "grounding": "validated dense monthly cohort; exact integer-string amounts; current invoice status at as_of, never cash ledger",
+      "partiality": "complete requested range only; missing months, currency mismatch or invalid amount equations are unavailable",
+      "enabled": {
+        "local": true,
+        "stage": false,
+        "prod": false
+      }
+    },
+    {
+      "name": "crm.invoice.list",
+      "version": "assistant.capability.v2",
+      "mode": "read",
+      "risk": "READ",
+      "roles": [
+        "owner",
+        "admin"
+      ],
+      "backendOperation": "invoice.list",
+      "family": "billing_invoice",
+      "description": "Lista hasta veinte facturas de un cliente autorizado: estado, fechas, moneda e importe exacto. Solo titular/administrador. Sin datos fiscales ni números; pagada indica estado registrado, no un cobro bancario. Conserva parcialidad.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "customer_id": {
+            "type": "string",
+            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+            "maxLength": 36
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "draft",
+              "trashed",
+              "issued",
+              "paid",
+              "overdue"
+            ]
+          },
+          "from": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+            "maxLength": 10
+          },
+          "to": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+            "maxLength": 10
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 20
+          },
+          "after_id": {
+            "type": "string",
+            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+            "maxLength": 36
+          }
+        },
+        "required": [
+          "customer_id"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "contract_version": {
+            "const": "assistant.invoice-list.v1"
+          },
+          "operation": {
+            "const": "invoice.list"
+          },
+          "items": {
+            "type": "array",
+            "maxItems": 20,
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+                  "maxLength": 36
+                },
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "draft",
+                    "trashed",
+                    "issued",
+                    "paid"
+                  ]
+                },
+                "issue_on": {
+                  "type": "string",
+                  "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+                  "maxLength": 10
+                },
+                "due_on": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+                      "maxLength": 10
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "currency": {
+                  "type": "string",
+                  "pattern": "^[A-Z]{3}$",
+                  "maxLength": 3
+                },
+                "total_minor": {
+                  "type": "string",
+                  "pattern": "^(0|[1-9][0-9]{0,18})$",
+                  "maxLength": 19
+                },
+                "overdue": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "id",
+                "status",
+                "issue_on",
+                "due_on",
+                "currency",
+                "total_minor",
+                "overdue"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "next_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+                "maxLength": 36
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "contract_version",
+          "operation",
+          "items",
+          "next_id"
+        ],
+        "additionalProperties": false
+      },
+      "authorization": "current_server_membership_and_role_rechecked_around_each_await",
+      "tenantScope": "server_selected_workspace_actor_and_scope_epoch",
+      "idempotency": "read_fresh_no_effect_reservation",
+      "errorContract": [
+        "invalid_plan",
+        "access_changed",
+        "unavailable",
+        "ambiguous"
+      ],
+      "sensitiveFields": [
+        "customer_id",
+        "number",
+        "series",
+        "version",
+        "totals.subtotal_minor",
+        "totals.tax_minor",
+        "totals.withholding_minor",
+        "lines",
+        "notes",
+        "issuer",
+        "customer_fiscal"
+      ],
+      "confirmation": "none",
+      "grounding": "validated current invoice list for the authorized customer and requested status/issue-date slice; exact integer minor units, separate currencies; paid is recorded status only",
+      "partiality": "at most20 rows; next_id means partial, never infer customer totals, bank collections or absence from an incomplete page",
+      "enabled": {
+        "local": true,
+        "stage": false,
+        "prod": false
+      }
+    },
+    {
       "name": "crm.task.create",
       "version": "product.v1",
       "mode": "proposal",
@@ -6800,32 +7136,6 @@
       }
     },
     {
-      "name": "crm.invoice.list",
-      "version": "billing.v1",
-      "mode": "read",
-      "risk": "READ",
-      "roles": [
-        "owner",
-        "admin"
-      ],
-      "inputSchema": false,
-      "outputSchema": false,
-      "sourceInputType": "BillingQueriesV1['invoice.list']",
-      "sourceOutputType": "BillingReadDataV1",
-      "backendOperation": "invoice.list",
-      "sensitiveFields": [
-        "source_minimization_review_required"
-      ],
-      "confirmation": "none",
-      "grounding": "not_registered_until_minimized_output_parser",
-      "partiality": "unavailable_not_empty",
-      "enabled": {
-        "local": false,
-        "stage": false,
-        "prod": false
-      }
-    },
-    {
       "name": "crm.invoice.financial_summary",
       "version": "billing.v1",
       "mode": "read",
@@ -7642,32 +7952,6 @@
         "source_minimization_review_required"
       ],
       "confirmation": "durable_preview_confirm",
-      "grounding": "not_registered_until_minimized_output_parser",
-      "partiality": "unavailable_not_empty",
-      "enabled": {
-        "local": false,
-        "stage": false,
-        "prod": false
-      }
-    },
-    {
-      "name": "crm.document.list",
-      "version": "document.v1",
-      "mode": "read",
-      "risk": "READ",
-      "roles": [
-        "owner",
-        "admin"
-      ],
-      "inputSchema": false,
-      "outputSchema": false,
-      "sourceInputType": "DocumentListInputV1",
-      "sourceOutputType": "DocumentListV1",
-      "backendOperation": "document.list",
-      "sensitiveFields": [
-        "source_minimization_review_required"
-      ],
-      "confirmation": "none",
       "grounding": "not_registered_until_minimized_output_parser",
       "partiality": "unavailable_not_empty",
       "enabled": {
@@ -9484,7 +9768,7 @@
     },
     {
       "name": "crm.portability.list",
-      "version": "portability.v1",
+      "version": "assistant.capability.v2",
       "mode": "read",
       "risk": "READ",
       "roles": [
@@ -9493,19 +9777,534 @@
         "member",
         "viewer"
       ],
-      "inputSchema": false,
-      "outputSchema": false,
-      "sourceInputType": "PortabilityInputsV1['portability.list']",
-      "sourceOutputType": "PortabilityPageV1",
       "backendOperation": "portability.list",
+      "family": "portability_read",
+      "description": "Lista hasta veinte portabilidades del cliente seleccionado: número enmascarado, dirección, estado, fechas y motivo registrados. No acredita una transferencia real del operador. Conserva parcialidad, sin números completos ni asociaciones privadas.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "customer_id": {
+            "type": "string",
+            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+            "maxLength": 36
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "draft",
+              "requested",
+              "scheduled",
+              "in_progress",
+              "completed",
+              "rejected",
+              "cancelled"
+            ]
+          },
+          "direction": {
+            "type": "string",
+            "enum": [
+              "inbound",
+              "outbound"
+            ]
+          },
+          "window_from": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+            "maxLength": 10
+          },
+          "window_to": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+            "maxLength": 10
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 20
+          },
+          "after_id": {
+            "type": "string",
+            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+            "maxLength": 36
+          }
+        },
+        "required": [
+          "customer_id"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "contract_version": {
+            "const": "assistant.portability-list.v1"
+          },
+          "operation": {
+            "const": "portability.list"
+          },
+          "items": {
+            "type": "array",
+            "maxItems": 20,
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+                  "maxLength": 36
+                },
+                "masked_display": {
+                  "type": "string",
+                  "pattern": "^••••[0-9]{3}$"
+                },
+                "direction": {
+                  "type": "string",
+                  "enum": [
+                    "inbound",
+                    "outbound"
+                  ]
+                },
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "draft",
+                    "requested",
+                    "scheduled",
+                    "in_progress",
+                    "completed",
+                    "rejected",
+                    "cancelled"
+                  ]
+                },
+                "requested_on": {
+                  "type": "string",
+                  "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+                  "maxLength": 10
+                },
+                "submitted_on": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+                      "maxLength": 10
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "scheduled_on": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+                      "maxLength": 10
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "started_on": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+                      "maxLength": 10
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "completed_on": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+                      "maxLength": 10
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "closed_on": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+                      "maxLength": 10
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "reason_code": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "enum": [
+                        "subscriber_mismatch",
+                        "number_not_found",
+                        "authorization_missing",
+                        "ineligible_contract",
+                        "donor_rejected",
+                        "technical_failure",
+                        "customer_withdrew",
+                        "duplicate_request"
+                      ]
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "source": {
+                  "type": "string",
+                  "enum": [
+                    "manual",
+                    "import",
+                    "integration"
+                  ]
+                }
+              },
+              "required": [
+                "id",
+                "masked_display",
+                "direction",
+                "status",
+                "requested_on",
+                "submitted_on",
+                "scheduled_on",
+                "started_on",
+                "completed_on",
+                "closed_on",
+                "reason_code",
+                "source"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "next_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+                "maxLength": 36
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "contract_version",
+          "operation",
+          "items",
+          "next_id"
+        ],
+        "additionalProperties": false
+      },
+      "authorization": "current_server_membership_and_role_rechecked_around_each_await",
+      "tenantScope": "server_selected_workspace_actor_and_scope_epoch",
+      "idempotency": "read_fresh_no_effect_reservation",
+      "errorContract": [
+        "invalid_plan",
+        "access_changed",
+        "unavailable",
+        "ambiguous"
+      ],
       "sensitiveFields": [
-        "source_minimization_review_required"
+        "customer_id",
+        "contract_id",
+        "service_id",
+        "line_id",
+        "number_identifier_id",
+        "donor_operator_id",
+        "target_operator_id",
+        "owner_user_id",
+        "version",
+        "created_at",
+        "updated_at",
+        "complete_number"
       ],
       "confirmation": "none",
-      "grounding": "not_registered_until_minimized_output_parser",
-      "partiality": "unavailable_not_empty",
+      "grounding": "validated current W1 status/dates/reason and masked number for the authorized customer and requested slice; no carrier-confirmation or line-effect claim",
+      "partiality": "at most20 rows; next_id means partial, never infer customer totals, successful physical transfer or absence from an incomplete page",
       "enabled": {
-        "local": false,
+        "local": true,
+        "stage": false,
+        "prod": false
+      }
+    },
+    {
+      "name": "crm.case.list",
+      "description": "Lista hasta20 incidencias registradas del cliente seleccionado: tipo, prioridad, estado, vencimiento y códigos de resolución/cancelación. Sin títulos, notas ni vínculos privados; un código no confirma una resolución independiente.",
+      "version": "assistant.capability.v2",
+      "mode": "read",
+      "risk": "READ",
+      "roles": [
+        "owner",
+        "admin",
+        "member",
+        "viewer"
+      ],
+      "backendOperation": "case.list",
+      "family": "case_read",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "customer_id": {
+            "type": "string",
+            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+            "maxLength": 36
+          },
+          "case_type": {
+            "type": "string",
+            "enum": [
+              "activation",
+              "portability",
+              "technical",
+              "billing",
+              "renewal",
+              "cancellation",
+              "documentation",
+              "other"
+            ]
+          },
+          "priority": {
+            "type": "string",
+            "enum": [
+              "low",
+              "normal",
+              "high",
+              "urgent"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "open",
+              "in_progress",
+              "waiting_customer",
+              "waiting_operator",
+              "resolved",
+              "closed",
+              "cancelled"
+            ]
+          },
+          "due_from": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+            "maxLength": 10
+          },
+          "due_to": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+            "maxLength": 10
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 20
+          },
+          "after_id": {
+            "type": "string",
+            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+            "maxLength": 36
+          }
+        },
+        "required": [
+          "customer_id"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "contract_version": {
+            "const": "assistant.case-list.v1"
+          },
+          "operation": {
+            "const": "case.list"
+          },
+          "items": {
+            "type": "array",
+            "maxItems": 20,
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+                  "maxLength": 36
+                },
+                "case_type": {
+                  "type": "string",
+                  "enum": [
+                    "activation",
+                    "portability",
+                    "technical",
+                    "billing",
+                    "renewal",
+                    "cancellation",
+                    "documentation",
+                    "other"
+                  ]
+                },
+                "priority": {
+                  "type": "string",
+                  "enum": [
+                    "low",
+                    "normal",
+                    "high",
+                    "urgent"
+                  ]
+                },
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "open",
+                    "in_progress",
+                    "waiting_customer",
+                    "waiting_operator",
+                    "resolved",
+                    "closed",
+                    "cancelled"
+                  ]
+                },
+                "due_on": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+                      "maxLength": 10
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "resolved_at": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "maxLength": 40
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "closed_at": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "maxLength": 40
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "overdue": {
+                  "type": "boolean"
+                },
+                "source": {
+                  "type": "string",
+                  "enum": [
+                    "manual",
+                    "import",
+                    "integration",
+                    "system"
+                  ]
+                },
+                "resolution_code": {
+                  "enum": [
+                    "issue_fixed",
+                    "request_fulfilled",
+                    "customer_confirmed",
+                    "no_action_required",
+                    null
+                  ]
+                },
+                "cancellation_code": {
+                  "enum": [
+                    "customer_withdrew",
+                    "duplicate",
+                    "no_longer_needed",
+                    "entered_in_error",
+                    null
+                  ]
+                }
+              },
+              "required": [
+                "id",
+                "case_type",
+                "priority",
+                "status",
+                "due_on",
+                "resolved_at",
+                "closed_at",
+                "resolution_code",
+                "cancellation_code",
+                "overdue",
+                "source"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "next_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+                "maxLength": 36
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "contract_version",
+          "operation",
+          "items",
+          "next_id"
+        ],
+        "additionalProperties": false
+      },
+      "authorization": "current_server_membership_and_role_rechecked_around_each_await",
+      "tenantScope": "server_selected_workspace_actor_and_scope_epoch",
+      "idempotency": "read_fresh_no_effect_reservation",
+      "errorContract": [
+        "invalid_plan",
+        "access_changed",
+        "unavailable",
+        "ambiguous"
+      ],
+      "sensitiveFields": [
+        "title",
+        "internal_note_count",
+        "customer_id",
+        "contract_id",
+        "service_id",
+        "line_id",
+        "assigned_user_id",
+        "version",
+        "created_at",
+        "updated_at",
+        "note_body"
+      ],
+      "confirmation": "none",
+      "grounding": "current authorized W1 case status/dates/codes only; no private notes, SLA inference or independent resolution confirmation",
+      "partiality": "at most20 selected-customer rows; cursor means partial, no inferred total or absence outside the selected filter",
+      "enabled": {
+        "local": true,
         "stage": false,
         "prod": false
       }
@@ -9773,34 +10572,6 @@
         "source_minimization_review_required"
       ],
       "confirmation": "durable_preview_confirm",
-      "grounding": "not_registered_until_minimized_output_parser",
-      "partiality": "unavailable_not_empty",
-      "enabled": {
-        "local": false,
-        "stage": false,
-        "prod": false
-      }
-    },
-    {
-      "name": "crm.case.list",
-      "version": "case.v1",
-      "mode": "read",
-      "risk": "READ",
-      "roles": [
-        "owner",
-        "admin",
-        "member",
-        "viewer"
-      ],
-      "inputSchema": false,
-      "outputSchema": false,
-      "sourceInputType": "CaseInputsV1['case.list']",
-      "sourceOutputType": "CasePageV1",
-      "backendOperation": "case.list",
-      "sensitiveFields": [
-        "source_minimization_review_required"
-      ],
-      "confirmation": "none",
       "grounding": "not_registered_until_minimized_output_parser",
       "partiality": "unavailable_not_empty",
       "enabled": {
@@ -10126,32 +10897,6 @@
       "sourceInputType": "TelecomAttentionInputV1",
       "sourceOutputType": "TelecomAttentionPageV1",
       "backendOperation": "telecom.attention",
-      "sensitiveFields": [
-        "source_minimization_review_required"
-      ],
-      "confirmation": "none",
-      "grounding": "not_registered_until_minimized_output_parser",
-      "partiality": "unavailable_not_empty",
-      "enabled": {
-        "local": false,
-        "stage": false,
-        "prod": false
-      }
-    },
-    {
-      "name": "crm.billing.monthly_series",
-      "version": "billing.analytics.v1",
-      "mode": "read",
-      "risk": "READ",
-      "roles": [
-        "owner",
-        "admin"
-      ],
-      "inputSchema": false,
-      "outputSchema": false,
-      "sourceInputType": "BillingAnalyticsInputV1",
-      "sourceOutputType": "BillingAnalyticsResultV1",
-      "backendOperation": "billing.monthly_series",
       "sensitiveFields": [
         "source_minimization_review_required"
       ],
@@ -10602,7 +11347,8 @@
     },
     {
       "name": "crm.equipment.list",
-      "version": "equipment.v1",
+      "description": "Lista hasta20 equipos registrados del cliente seleccionado: tipo, estado y fechas de asignación/devolución/sustitución/cancelación. No acredita instalación física; sin fabricantes, modelos, texto libre, compra ni asociaciones privadas.",
+      "version": "assistant.capability.v2",
       "mode": "read",
       "risk": "READ",
       "roles": [
@@ -10611,19 +11357,379 @@
         "member",
         "viewer"
       ],
-      "inputSchema": false,
-      "outputSchema": false,
-      "sourceInputType": "EquipmentInputsV1['equipment.list']",
-      "sourceOutputType": "EquipmentReadV1",
       "backendOperation": "equipment.list",
+      "family": "equipment_read",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "customer_id": {
+            "type": "string",
+            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+            "maxLength": 36
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "router",
+              "ont",
+              "mobile_terminal",
+              "other"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "prepared",
+              "assigned",
+              "returned",
+              "replaced",
+              "cancelled"
+            ]
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 20
+          },
+          "after_id": {
+            "type": "string",
+            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+            "maxLength": 36
+          }
+        },
+        "required": [
+          "customer_id"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "contract_version": {
+            "const": "assistant.equipment-list.v1"
+          },
+          "operation": {
+            "const": "equipment.list"
+          },
+          "items": {
+            "type": "array",
+            "maxItems": 20,
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+                  "maxLength": 36
+                },
+                "kind": {
+                  "type": "string",
+                  "enum": [
+                    "router",
+                    "ont",
+                    "mobile_terminal",
+                    "other"
+                  ]
+                },
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "prepared",
+                    "assigned",
+                    "returned",
+                    "replaced",
+                    "cancelled"
+                  ]
+                },
+                "assigned_on": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+                      "maxLength": 10
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "returned_on": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+                      "maxLength": 10
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "replaced_on": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+                      "maxLength": 10
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "cancelled_on": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+                      "maxLength": 10
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "source": {
+                  "type": "string",
+                  "enum": [
+                    "manual",
+                    "import",
+                    "integration"
+                  ]
+                }
+              },
+              "required": [
+                "id",
+                "kind",
+                "status",
+                "assigned_on",
+                "returned_on",
+                "replaced_on",
+                "cancelled_on",
+                "source"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "next_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+                "maxLength": 36
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "contract_version",
+          "operation",
+          "items",
+          "next_id"
+        ],
+        "additionalProperties": false
+      },
+      "authorization": "current_server_membership_and_role_rechecked_around_each_await",
+      "tenantScope": "server_selected_workspace_actor_and_scope_epoch",
+      "idempotency": "read_fresh_no_effect_reservation",
+      "errorContract": [
+        "invalid_plan",
+        "access_changed",
+        "unavailable",
+        "ambiguous"
+      ],
       "sensitiveFields": [
-        "source_minimization_review_required"
+        "manufacturer",
+        "model",
+        "commercial_description",
+        "purchased_on",
+        "customer_id",
+        "contract_id",
+        "service_id",
+        "line_id",
+        "commitment_id",
+        "replaces_equipment_id",
+        "replaced_by_id",
+        "version",
+        "history.actor_user_id"
       ],
       "confirmation": "none",
-      "grounding": "not_registered_until_minimized_output_parser",
-      "partiality": "unavailable_not_empty",
+      "grounding": "validated current W1 equipment list for the selected authorized customer; registered state/dates only, not installation/connectivity/ownership or complete inventory proof",
+      "partiality": "at most20 rows, next_id means partial; never infer totals, physical installation or absence outside the selected page/filter",
       "enabled": {
-        "local": false,
+        "local": true,
+        "stage": false,
+        "prod": false
+      }
+    },
+    {
+      "name": "crm.document.list",
+      "description": "Lista hasta20 metadatos de documentos directos del cliente: tipo, estado, formato y tamaño registrados. Titular/administrador; sin nombres, rutas, enlaces o contenido. No prueba disponibilidad del archivo, revisión, indexación ni RAG.",
+      "version": "assistant.capability.v2",
+      "mode": "read",
+      "risk": "READ",
+      "roles": [
+        "owner",
+        "admin"
+      ],
+      "backendOperation": "document.list",
+      "family": "document_metadata",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "customer_id": {
+            "type": "string",
+            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+            "maxLength": 36
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "active",
+              "archived"
+            ]
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 20
+          },
+          "after_id": {
+            "type": "string",
+            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+            "maxLength": 36
+          }
+        },
+        "required": [
+          "customer_id"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "contract_version": {
+            "const": "assistant.document-metadata-list.v1"
+          },
+          "operation": {
+            "const": "document.list"
+          },
+          "items": {
+            "type": "array",
+            "maxItems": 20,
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+                  "maxLength": 36
+                },
+                "document_kind": {
+                  "type": "string",
+                  "enum": [
+                    "general",
+                    "identity",
+                    "contract",
+                    "service",
+                    "incident",
+                    "billing",
+                    "other"
+                  ]
+                },
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "active",
+                    "archived"
+                  ]
+                },
+                "media_type": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "maxLength": 127
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "size_bytes": {
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 1073741824
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "id",
+                "document_kind",
+                "status",
+                "media_type",
+                "size_bytes"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "next_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+                "maxLength": 36
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "contract_version",
+          "operation",
+          "items",
+          "next_id"
+        ],
+        "additionalProperties": false
+      },
+      "authorization": "current_server_membership_and_role_rechecked_around_each_await",
+      "tenantScope": "server_selected_workspace_actor_and_scope_epoch",
+      "idempotency": "read_fresh_no_effect_reservation",
+      "errorContract": [
+        "invalid_plan",
+        "access_changed",
+        "unavailable",
+        "ambiguous"
+      ],
+      "sensitiveFields": [
+        "file_name",
+        "storage_path",
+        "storage_bucket",
+        "object_ref",
+        "sha256_hex",
+        "target",
+        "version",
+        "ticket_id",
+        "signed_url",
+        "content",
+        "indexingApproved",
+        "contentClass"
+      ],
+      "confirmation": "none",
+      "grounding": "validated current W1 selected-customer direct metadata collection; registered facts only, no file availability/content/integrity/review/indexing or RAG admission claim",
+      "partiality": "at most20 direct selected-customer rows; cursor means partial, no total or absence outside this target/page/filter",
+      "enabled": {
+        "local": true,
         "stage": false,
         "prod": false
       }

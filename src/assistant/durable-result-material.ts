@@ -12,7 +12,7 @@ export type ResultRegistrationV1=Readonly<{dispatcher:string;capability:string;s
 declare const preparedResult:unique symbol
 export type PreparedResultMaterialV1=Readonly<{[preparedResult]:true}>
 type PrivateResult={binding:IdempotencyBinding;operationRef:string;version:number;receiptRef:string;command:ServerEffectCommand;
- recordDigest:string;epoch:string;permission:string;accessClass:AccessClass;confirmationPolicy:string;schemaVersion:number;schemaDigest:string;canonicalResult:string}
+ recordDigest:string;epoch:string;permission:string;accessClass:AccessClass;confirmationPolicy:string;schemaVersion:number;schemaDigest:string;canonicalResult:string;reconciliationAdmission:boolean}
 const prepared=new WeakMap<object,PrivateResult>(),fail=()=>new DurableReservationUnavailable()
 function exact(v:unknown,fields:string):v is Record<string,unknown>{
  if(!v||typeof v!=='object'||Array.isArray(v)||![Object.prototype,null].includes(Object.getPrototypeOf(v))||Object.getOwnPropertySymbols(v).length)return false
@@ -28,12 +28,19 @@ function timestamp(v:unknown):v is string{
  return Boolean(m&&Number(m[2])<24&&Number(m[3])<60&&Number(m[4])<60&&new Date(m[1]+'T00:00:00Z').toISOString().slice(0,10)===m[1])
 }
 const micros=(v:string)=>BigInt(Date.parse(v))*BigInt(1000)+BigInt((/\.(\d{1,6})/.exec(v)?.[1].padEnd(6,'0')??'000000').slice(3))
-export function assertResultRecordV1(value:unknown):asserts value is DurableIdempotencyRecord{
+/** PostgreSQL timestamps retain six fractional digits. Compare the prior
+ * authorized observation and reply without truncating to JavaScript millis.
+ * This checks chronology only; it never proves or rolls back a committed effect. */
+export function assertResultTimeProgressionV1(previous:unknown,current:unknown):void{
+ if(!timestamp(previous)||!timestamp(current)||micros(current)<micros(previous))throw fail()
+}
+function assertMaterialRecordV1(value:unknown,reconciliation=false):asserts value is DurableIdempotencyRecord{
  if(!value||typeof value!=='object')throw fail()
  const v=value as Record<string,unknown>
  const fields='operationRef,idempotencyKey,binding,state,attempt,version,leaseExpiresAt,createdAt,updatedAt,effectReceiptRef'
- if(!(exact(v,fields)||exact(v,fields+',result')))throw fail()
- if(!exact(v,fields+(v.state==='completed'?',result':''))
+ if(!(exact(v,fields)||exact(v,fields+',result')||(reconciliation&&exact(v,fields+',failureCode'))))throw fail()
+ const quarantined=reconciliation&&v.state==='reconciliation_required'
+ if(!exact(v,fields+(v.state==='completed'?',result':quarantined?',failureCode':''))
   ||!exact(v.binding,'actorId,workspaceId,capability,argumentsDigest')||!uuid(v.binding.actorId)||!uuid(v.binding.workspaceId)
   ||typeof v.binding.capability!=='string'||!/^[a-z][a-z0-9.:_-]{2,119}$/.test(v.binding.capability)
   ||typeof v.binding.argumentsDigest!=='string'||!/^[0-9a-f]{64}$/.test(v.binding.argumentsDigest)
@@ -41,14 +48,20 @@ export function assertResultRecordV1(value:unknown):asserts value is DurableIdem
   ||typeof v.idempotencyKey!=='string'||!/^[A-Za-z0-9_-]{16,128}$/.test(v.idempotencyKey)
   ||typeof v.effectReceiptRef!=='string'||!/^[A-Za-z0-9_-]{24,200}$/.test(v.effectReceiptRef)
   ||!Number.isSafeInteger(v.attempt)||Number(v.attempt)<1||!Number.isSafeInteger(v.version)||Number(v.version)<3||Number(v.version)>=Number.MAX_SAFE_INTEGER
-  ||(v.state!=='effect_applied'&&v.state!=='completed')||(v.state==='completed'&&Number(v.version)<4)
+  ||(v.state!=='effect_applied'&&v.state!=='completed'&&!quarantined)||(v.state==='completed'&&Number(v.version)<4)
+  ||(quarantined&&(Number(v.version)<4||!['internal_safe','temporary_unavailable'].includes(String(v.failureCode))))
   ||!timestamp(v.createdAt)||!timestamp(v.updatedAt)||!timestamp(v.leaseExpiresAt)||micros(v.updatedAt)<micros(v.createdAt)
   ||micros(v.leaseExpiresAt)<=micros(v.createdAt)||micros(v.leaseExpiresAt)>micros(v.updatedAt)+BigInt(300000000)||containsHighConfidenceSecret(v))throw fail()
 }
+export function assertResultRecordV1(value:unknown):asserts value is DurableIdempotencyRecord{assertMaterialRecordV1(value)}
+export function assertVerifiedReconciliationRecordV1(value:unknown):asserts value is DurableIdempotencyRecord{
+ assertMaterialRecordV1(value,true);if(value.state!=='reconciliation_required')throw fail()
+}
 /** A reference/digest supplied by a caller is never an admitted result. */
 export function preparedResultParametersV1(handle:PreparedResultMaterialV1,current:CommandMaterialAuthorityV1|null,record:DurableIdempotencyRecord,command:ServerEffectCommand){
- assertResultRecordV1(record)
  const material=prepared.get(handle)
+ if(!material)throw fail()
+ assertMaterialRecordV1(record,material.reconciliationAdmission)
  if(!material||!active(current)||!sameBinding(material.binding,record.binding)||material.operationRef!==record.operationRef||material.version!==record.version
   ||material.recordDigest!==argumentsDigest(record as unknown as Record<string,unknown>)
   ||material.receiptRef!==record.effectReceiptRef||current.actorId!==record.binding.actorId||current.workspaceId!==record.binding.workspaceId||current.scopeEpoch!==material.epoch
@@ -57,6 +70,8 @@ export function preparedResultParametersV1(handle:PreparedResultMaterialV1,curre
 }
 export function createDurableResultMaterialProducerV1(deps:{registry:CapabilityRegistry;registrations:readonly ResultRegistrationV1[];
  authority:()=>Promise<CommandMaterialAuthorityV1|null>;
+ // Trusted server composition only. Default completion callers cannot admit quarantine.
+ allowVerifiedReconciliation?:true;
  // Required private original-effect outcome lookup, never a model/provider body.
  loadOutcome:(authority:Readonly<CommandMaterialAuthorityV1>,record:Readonly<DurableIdempotencyRecord>,command:Readonly<ServerEffectCommand>)=>Promise<unknown>;
 }){
@@ -78,10 +93,10 @@ export function createDurableResultMaterialProducerV1(deps:{registry:CapabilityR
    const stop=new AbortController(),cancel=()=>stop.abort(),signal=stop.signal
    parentSignal?.addEventListener('abort',cancel,{once:true});if(parentSignal?.aborted)cancel()
    try{return await boundedAwaitV2(async()=>{
-    assertResultRecordV1(inputRecord)
+    assertMaterialRecordV1(inputRecord,deps.allowVerifiedReconciliation===true)
     if(containsHighConfidenceSecret(inputRecord)||containsHighConfidenceSecret(inputCommand)||!exact(inputCommand,'dispatcher,commandRef')
      ||!Number.isSafeInteger(inputRecord.version)||inputRecord.version<3||inputRecord.version>=Number.MAX_SAFE_INTEGER
-     ||!['effect_applied','completed'].includes(inputRecord.state)||typeof inputRecord.effectReceiptRef!=='string'
+     ||!(['effect_applied','completed'].includes(inputRecord.state)||(deps.allowVerifiedReconciliation===true&&inputRecord.state==='reconciliation_required'))||typeof inputRecord.effectReceiptRef!=='string'
      ||!/^[A-Za-z0-9_-]{24,200}$/.test(inputRecord.effectReceiptRef)||!exact(inputRecord.binding,'actorId,workspaceId,capability,argumentsDigest')
      ||!/^[A-Za-z0-9_-]{24,200}$/.test(inputRecord.operationRef)||!/^[A-Za-z0-9_-]{24,200}$/.test(inputCommand.commandRef)
      ||!/^[0-9a-f]{64}$/.test(inputRecord.binding.argumentsDigest)
@@ -109,7 +124,7 @@ export function createDurableResultMaterialProducerV1(deps:{registry:CapabilityR
     const handle=Object.freeze(Object.create(null)) as PreparedResultMaterialV1
     prepared.set(handle,{binding:{...record.binding},operationRef:record.operationRef,version:record.version,receiptRef:record.effectReceiptRef!,
      command:{...command},recordDigest:argumentsDigest(record as unknown as Record<string,unknown>),epoch:after.scopeEpoch,permission:registered.definition.permission,accessClass:registered.definition.accessClass,schemaVersion:registered.schemaVersion,
-     confirmationPolicy:registered.definition.confirmationPolicy,schemaDigest:argumentsDigest(registered.definition.outputSchema as unknown as Record<string,unknown>),canonicalResult})
+     confirmationPolicy:registered.definition.confirmationPolicy,schemaDigest:argumentsDigest(registered.definition.outputSchema as unknown as Record<string,unknown>),canonicalResult,reconciliationAdmission:deps.allowVerifiedReconciliation===true})
     return handle
    },signal)}catch{throw fail()}finally{stop.abort();parentSignal?.removeEventListener('abort',cancel)}
   },

@@ -118,6 +118,14 @@ begin
   begin perform public.assistant_durable_v1_reserve_material('b2000000-0000-4000-8000-000000000001','role_boundary_worker_reference',1,'fixture.role.boundary',repeat('a',64),'role_boundary_idempotency','fixture.role.boundary','role_boundary_command_reference','role_boundary_original_request','{}'::jsonb);
   exception when insufficient_privilege then denied:=true;end;
   if not denied then raise exception 'durable_inert_unconfirmed_reservation_executed';end if;
+  denied:=false;
+  begin perform count(*) from public.assistant_reconciliation_policies;
+  exception when insufficient_privilege then denied:=true;end;
+  if not denied then raise exception 'durable_private_reconciliation_policy_read';end if;
+  denied:=false;
+  begin perform public.assistant_durable_v1_reconcile_completed('b2000000-0000-4000-8000-000000000001','role_boundary_worker_reference',1,'role_boundary_operation_reference',4,'role_boundary_original_receipt_reference',1,repeat('a',64),'{}','{}',repeat('b',64));
+  exception when insufficient_privilege then denied:=true;end;
+  if not denied then raise exception 'durable_inert_positive_reconciliation_executed';end if;
   reset role;
  end loop;
  if exists(select 1 from public.assistant_operations where capability='fixture.role.boundary') then

@@ -13,13 +13,14 @@ const provider = new OpenAiResponsesProvider({ apiKey: process.env.OPENAI_API_KE
 if (provider.status !== 'ready' || !process.argv.includes('--live')) {
   console.log(JSON.stringify({ contract: 'assistant.eval.v2', status: 'NOT_RUN', reason: provider.status !== 'ready' ? 'provider_not_configured' : 'explicit_live_flag_required', scenarios: rows.length, policy: ASSISTANT_POLICY_V2.version, liveModelEvidence: false }))
 } else {
-  const context = JSON.stringify({ calendar: { date: '2026-10-06', timezone: 'Europe/Madrid' }, references: [],
-    capabilities: productPlannerCatalogV2() })
   const measurements = []
   for (const row of rows) {
+    const references = row.references ?? []
+    const context = JSON.stringify({ calendar: { date: '2026-10-06', timezone: 'Europe/Madrid' }, references,
+      capabilities: productPlannerCatalogV2() })
     const response = await boundedProviderTurnV2(provider, { instructions: ASSISTANT_POLICY_V2.instruction, userText: row.text, context,
       schemaName: 'assistant_read_plan_v2', schema: PRODUCT_READ_PLAN_JSON_SCHEMA_V2, maxOutputTokens: 4096 })
-    const plan = response.ok ? parseProductReadPlanV2(response.value, []) : null
+    const plan = response.ok ? parseProductReadPlanV2(response.value, references) : null
     measurements.push({ id: row.id, ...scoreReadPlanV2(plan, row),
       failureCode: response.ok ? null : response.code, inputTokens: response.ok ? response.usage.inputTokens : null,
       outputTokens: response.ok ? response.usage.outputTokens : null, durationMs: response.ok ? response.durationMs : null })
