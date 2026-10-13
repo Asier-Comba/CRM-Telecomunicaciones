@@ -44,3 +44,10 @@ referenciaba `candidate`, nombre de la otra fixture. Esta unidad corrige a
 adyacentes. Job115089303707 y su salida original se conservan; no son un PASS
 nativo completo. Se exigen dos observaciones físicas propias en el nuevo SHA,
 sin relajar assertions ni cambiar recursos/primitivas.
+
+Ambas fixtures W2 incorporan `no-undef:error` local al archivo. El lint normal
+del proyecto rechazará variables ajenas a su scope antes de PostgreSQL. No se
+modifica configuración de seguridad W4 ni workflow/recurso W5. La fuente1B3
+reproduce exactamente el error `candidate is not defined` con la misma regla;
+los dos archivos corregidos pasan. El cambio es solo comentario de lint y
+documentación; ninguna consulta, primitiva, timeout o assertion se altera.

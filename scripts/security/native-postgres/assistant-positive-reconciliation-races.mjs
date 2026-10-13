@@ -1,3 +1,4 @@
+/* eslint no-undef: "error" */
 // Private partial completion evidence in the existing owned native fixture.
 // Reservation and positive reconciliation use separate twenty-Node races.
 // Other partial SQL races do not establish full23 or its four Node races.

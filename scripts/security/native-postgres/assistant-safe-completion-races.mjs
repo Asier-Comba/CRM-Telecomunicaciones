@@ -1,3 +1,4 @@
+/* eslint no-undef: "error" */
 // Private partial completion evidence in the existing owned native fixture.
 // Twenty independent Node processes/persistent native backends,not full23.
 import assert from 'node:assert/strict'
