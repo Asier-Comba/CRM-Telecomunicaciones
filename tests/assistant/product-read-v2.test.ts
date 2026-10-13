@@ -25,7 +25,7 @@ test('semantic catalogue advertises accurate Spanish limits and fits maximum off
     assert.ok(c.description.length > 30 && c.description.length <= 250)
     assert.equal(Object.hasOwn(c.input.fields, 'after_id'), false)
     for (const [field, schema] of Object.entries(c.input.fields)) if (field === 'id' || field.endsWith('_id'))
-      assert.deepEqual(schema, { binding: 'authorized_opaque_reference_or_unique_dependency' })
+      assert.deepEqual(schema, { binding: 'authorized_opaque_ref_or_unique_dependency' })
   }
   assert.match(productCapabilityV2('crm.customer.list')!.description, /No busca por nombre/)
   assert.match(productCapabilityV2('crm.permanence.list')!.description, /No inferir desde renovaciones/)
