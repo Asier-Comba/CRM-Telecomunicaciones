@@ -15,6 +15,13 @@ export async function billingAcceptance({rpc,check,users,wa,wb,ca,url,anon,appUr
  for(const u of [users.memberA,users.viewerA,users.ownerB])check((await invoke('invoice_create_draft',{...input,command_id:randomUUID()},u)).status>=400,'billing_actual_role_denied_'+u.role)
  check((await invoke('invoice_create_draft',input,users.ownerA,wb)).status>=400,'billing_actual_foreign_workspace_denied')
  const issueInput={command_id:randomUUID(),id:draft.json.id,expected_version:1}
+ const beforeDeniedIssue=await invoke('invoice_get',{id:draft.json.id})
+ for(const [actor,workspace,label] of [[users.memberA,wa,'member'],[users.viewerA,wa,'viewer'],[users.ownerB,wa,'foreign_owner'],[users.ownerA,wb,'foreign_workspace']]){
+  const denied=await invoke('invoice_issue',{...issueInput,command_id:randomUUID()},actor,workspace)
+  check(denied.status===403&&denied.json.code==='42501','billing_actual_issue_specific_denied_'+label)
+ }
+ const afterDeniedIssue=await invoke('invoice_get',{id:draft.json.id})
+ check(beforeDeniedIssue.status===200&&afterDeniedIssue.status===200&&JSON.stringify(beforeDeniedIssue.json)===JSON.stringify(afterDeniedIssue.json),'billing_actual_issue_denial_preserves_draft_snapshot')
  const issued=await invoke('invoice_issue',issueInput);check(issued.status===200&&issued.json.number.sequence===1,'billing_actual_atomic_issue')
  check(JSON.stringify((await invoke('invoice_issue',issueInput)).json)===JSON.stringify(issued.json),'billing_actual_issue_replay')
  const conflict=await invoke('invoice_issue',{...issueInput,command_id:randomUUID()});check(conflict.status>=400&&conflict.json.code==='40001','billing_actual_issue_cas')
