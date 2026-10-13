@@ -223,19 +223,20 @@
       ]
     },
     "PAR-042": {
-      "source_sha": "5da315ad67717e929fba067e8f2c1ff21a15a082",
+      "source_sha": "9c361c9ce7e32ba202f0c6e24aacd371c5026e04",
       "owner": "W2 UI / W1 contracts / W4 independent acceptance",
       "priority": "P1",
       "stages": {
         "IMPLEMENTED": "PARTIAL",
         "PROVEN_BACKEND": "PARTIAL",
         "CONSUMED_UI": "PARTIAL",
-        "BROWSER_ACCEPTED": "PARTIAL"
+        "BROWSER_ACCEPTED": "PARTIAL",
+        "VISUAL_ACCEPTED": "PARTIAL"
       },
       "permissions": "Actual cookie reads on disposable local Auth/SQL;complete per-row role/revocation/foreign-workspace staging acceptance and W4 remain pending.",
-      "mobile": "NOT_RECONCILED",
+      "mobile": "PARTIAL_ACTUAL_AUTH_UNCERTAIN_CONTACT_EDITOR390_768_1440_SOURCE9C361",
       "external_blocked": "BLOCKED",
-      "pending": "Complete row-specific permission/state/cursor/creation/lifecycle acceptance and independent W4;no PASS/no RELEASE_READY.Current root fresh gates pending.",
+      "pending": "Complete per-row role/revocation/foreign-workspace, principal, cursor, lifecycle and staging acceptance plus independent W4. Source9c361 has partial lost-response creation acceptance only; uniond764 requires its own active CI38483489804/Sup38483489916 and is not covered by this evidence. No full-row PASS or release.",
       "evidence": [
         {
           "source_sha": "5da315ad67717e929fba067e8f2c1ff21a15a082",
@@ -249,6 +250,33 @@
             "scripts/security/supabase-local/product-customer360-collections-browser.mjs",
             "docs/master/W2_CUSTOMER360_LOADED_REVIEW_20261011.md",
             "src/features/customers/IntegratedCustomerDetail.tsx"
+          ]
+        },
+        {
+          "source_sha": "9c361c9ce7e32ba202f0c6e24aacd371c5026e04",
+          "kind": "AUTH_BROWSER",
+          "scope": "PARTIAL_ROW",
+          "stage": "BROWSER_ACCEPTED",
+          "positive": "Actual normal authenticated contact.create commits before its response is lost; retry uses identical command_id and inputs. Exactly one contact, product_command and audit event; ordinary paginated readback exposes the persisted label.",
+          "negative": "Uncertain editor refuses close/Escape and field changes until confirmation. No duplicate effect/command/audit; existing privacy and authority boundaries stay active. This case does not prove every role, revocation, lifecycle or foreign parent.",
+          "execution": "OWN_SOURCE9C361_EXECUTED781E200_TREEE54DA_SUP38480433895_JOB115581395988_PASS108_AUTH_TEARDOWN;required customer360_contact_lost_receipt_keeps_intent_and_single_persisted_effect PASS;NOT_FULL_ROW_NOT_W4_NOT_D764",
+          "paths": [
+            "scripts/security/supabase-local/product-customer360-collections-browser.mjs",
+            "src/features/customers/IntegratedCustomerDetail.tsx",
+            "docs/master/W2X_PAR042_INDIVIDUAL_REVIEW_20261014.md"
+          ]
+        },
+        {
+          "source_sha": "9c361c9ce7e32ba202f0c6e24aacd371c5026e04",
+          "kind": "VISUAL",
+          "scope": "PARTIAL_ROW",
+          "stage": "VISUAL_ACCEPTED",
+          "positive": "Actual disposable Auth/DB loaded uncertain create editor inspected at390/768/1440: contextual warning, disabled close/fields and enabled same-action retry; no horizontal overflow.",
+          "negative": "These images cover the uncertain editor; no claim that all contact inventory pages, lifecycle states or role combinations received loaded visual acceptance.",
+          "execution": "SOURCE9C361_SUP38480433895_PRODUCT11857332694_contact-uncertain-390/768/1440.png;SHA256 manifest in W2X_PAR042_INDIVIDUAL_REVIEW_20261014.md;PARTIAL_VISUAL_NOT_FULL_ROW",
+          "paths": [
+            "scripts/security/supabase-local/product-customer360-collections-browser.mjs",
+            "docs/master/W2X_PAR042_INDIVIDUAL_REVIEW_20261014.md"
           ]
         }
       ]
