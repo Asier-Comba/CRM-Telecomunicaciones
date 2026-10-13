@@ -54,7 +54,7 @@ export async function createDurableNativeFixtureV1(...argumentsReceived) {
   const token = randomBytes(24).toString('hex')
   const name = 'telecom-native-resource-' + token
   const volume = 'telecom-native-data-' + token
-  let container, containerIdentity, volumeIdentity, initialSnapshot
+  let container, containerIdentity, volumeIdentity, initialSnapshot, admittedImage
   let volumeAttempted = false, containerAttempted = false, closed = false
   let queue = Promise.resolve()
 
@@ -66,11 +66,28 @@ export async function createDurableNativeFixtureV1(...argumentsReceived) {
       }).trim()
     } catch (error) {
       if (code === 'IMAGE_PULL_UNAVAILABLE') throw pullFailure(error)
+      if (code === 'IMAGE_INSPECTION_UNAVAILABLE') {
+        // Only the exact daemon missing-image response is a cache miss.
+        // Timeout, output limits, access/daemon failures and arbitrary stderr
+        // must not turn into a network operation or an admitted image.
+        const missing = 'No such image: ' + NATIVE_POSTGRES_OFFICIAL_IMAGE
+        const detail = typeof error?.stderr === 'string' ? error.stderr.trim() : Buffer.isBuffer(error?.stderr) ? error.stderr.toString('utf8').trim() : ''
+        if (error?.status === 1 && !error.code && !error.signal && (detail === 'Error response from daemon: ' + missing || detail === 'Error: ' + missing)) return null
+      }
       throw fail(code === 'QUERY_UNAVAILABLE' ? 'QUERY_' + nativeResourceQueryFailureCategory(error) : code)
     }
   }
   function json(args) {
     try { return JSON.parse(docker(args)) } catch { throw fail('INSPECTION_UNAVAILABLE') }
+  }
+  function verifiedImage() {
+    const raw = docker(['image', 'inspect', NATIVE_POSTGRES_OFFICIAL_IMAGE], 'IMAGE_INSPECTION_UNAVAILABLE')
+    if (raw === null) return null
+    let records
+    try { records = JSON.parse(raw) } catch { throw fail('IMAGE_IDENTITY_REJECTED') }
+    const image = Array.isArray(records) && records.length === 1 ? records[0] : null
+    if (!image || !imagePattern.test(image.Id ?? '') || image.Os !== 'linux' || !Array.isArray(image.RepoDigests) || !image.RepoDigests.includes(NATIVE_POSTGRES_OFFICIAL_IMAGE)) throw fail('IMAGE_IDENTITY_REJECTED')
+    return image.Id
   }
   function verifyVolume() {
     const records = json(['volume', 'inspect', volume])
@@ -85,7 +102,7 @@ export async function createDurableNativeFixtureV1(...argumentsReceived) {
     const c = Array.isArray(records) && records.length === 1 ? records[0] : null
     const mount = c?.Mounts?.length === 1 ? c.Mounts[0] : null
     if (!c || c.Id !== container || c.Name !== '/' + name || typeof c.Created !== 'string' || !Number.isFinite(Date.parse(c.Created)) || c.Config?.Image !== NATIVE_POSTGRES_OFFICIAL_IMAGE || !imagePattern.test(c.Image ?? '') || c.Config?.Labels?.[label] !== contract || c.Config?.Labels?.[ownerLabel] !== token || c.HostConfig?.NetworkMode !== 'none' || c.HostConfig?.Privileged !== false || c.HostConfig?.PidMode !== '' || Object.keys(c.HostConfig?.PortBindings ?? {}).length || !mount || mount.Type !== 'volume' || mount.Name !== volume || mount.Destination !== '/var/lib/postgresql/data' || mount.RW !== true) throw fail('OWNERSHIP_REJECTED')
-    if (containerIdentity && (c.Created !== containerIdentity.created || c.Image !== containerIdentity.image)) throw fail('IDENTITY_REJECTED')
+    if (c.Image !== admittedImage || (containerIdentity && (c.Created !== containerIdentity.created || c.Image !== containerIdentity.image))) throw fail('IDENTITY_REJECTED')
     containerIdentity ??= { created: c.Created, image: c.Image }
     verifyVolume()
   }
@@ -157,12 +174,17 @@ export async function createDurableNativeFixtureV1(...argumentsReceived) {
 
   try {
     if (docker(['info', '--format', '{{.OSType}}']) !== 'linux') throw fail('LINUX_ENGINE_REQUIRED')
-    docker(['pull', '--quiet', NATIVE_POSTGRES_OFFICIAL_IMAGE], 'IMAGE_PULL_UNAVAILABLE', 120000)
+    admittedImage = verifiedImage()
+    if (admittedImage === null) {
+      docker(['pull', '--quiet', NATIVE_POSTGRES_OFFICIAL_IMAGE], 'IMAGE_PULL_UNAVAILABLE', 120000)
+      admittedImage = verifiedImage()
+      if (admittedImage === null) throw fail('IMAGE_IDENTITY_REJECTED')
+    }
     volumeAttempted = true
     if (docker(['volume', 'create', '--driver', 'local', '--label', label + '=' + contract, '--label', ownerLabel + '=' + token, volume]) !== volume) throw fail('IDENTITY_REJECTED')
     verifyVolume()
     containerAttempted = true
-    container = docker(['container', 'create', '--name', name, '--label', label + '=' + contract, '--label', ownerLabel + '=' + token, '--network', 'none', '--mount', 'type=volume,source=' + volume + ',target=/var/lib/postgresql/data', '--env', 'POSTGRES_HOST_AUTH_METHOD=trust', '--env', 'POSTGRES_DB=telecom_test', NATIVE_POSTGRES_OFFICIAL_IMAGE])
+    container = docker(['container', 'create', '--pull', 'never', '--name', name, '--label', label + '=' + contract, '--label', ownerLabel + '=' + token, '--network', 'none', '--mount', 'type=volume,source=' + volume + ',target=/var/lib/postgresql/data', '--env', 'POSTGRES_HOST_AUTH_METHOD=trust', '--env', 'POSTGRES_DB=telecom_test', NATIVE_POSTGRES_OFFICIAL_IMAGE])
     verifyContainer()
     docker(['container', 'start', container], 'START_UNAVAILABLE')
     initialSnapshot = await ready()
