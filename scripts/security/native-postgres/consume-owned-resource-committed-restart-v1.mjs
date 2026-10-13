@@ -1,12 +1,14 @@
 import {createDurableNativeFixtureV1} from '../../platform/durable-native-fixture.mjs'
 import {bindOwnedResourceRestartV1,closedOwnedConsumerPhaseV1} from './owned-resource-restart-channel-v1.mjs'
 import {execFileSync,fork,spawnSync} from 'node:child_process'
-import {readFileSync,readdirSync} from 'node:fs'
+import {readFileSync} from 'node:fs'
 import {fileURLToPath} from 'node:url'
+import {loadOwnedConsumerMigrationsV1} from './owned-consumer-migrations-v1.mjs'
 const fail=()=>Error('OWNED_RESOURCE_BUSINESS_CONSUMER_UNAVAILABLE')
 const diagnostic={stage:'RESOURCE_CREATE',lastObservedPhase:null,migration:null,teardown:'NOT_RUN'}
 async function main(){
  let resource,relay,child,closed=false
+ const mode=process.env.TELECOM_NATIVE_CONSUMER_MIGRATION_CLOSURE
  try{
   // W5 creates the only resource. W2 applies its own existing bootstrap/schema.
   resource=await createDurableNativeFixtureV1()
@@ -24,9 +26,9 @@ async function main(){
   sql(readFileSync(new URL('scripts/security/native-postgres/bootstrap.sql',root),'utf8'))
   sql(readFileSync(new URL('scripts/security/ephemeral-postgres/storage-stub.sql',root),'utf8'))
   diagnostic.stage='MIGRATIONS'
-  const migrations=readdirSync(new URL('supabase/migrations/',root)).filter(name=>/^\d{14}_[a-z0-9_]+\.sql$/.test(name)).sort()
-  if(migrations.length!==85)throw fail()
-  for(const name of migrations){diagnostic.migration=name;sql(readFileSync(new URL('supabase/migrations/'+name,root),'utf8'))}
+  if(mode!==undefined&&mode!==''&&mode!=='delivered_grants_86')throw fail()
+  const closure=loadOwnedConsumerMigrationsV1(root,mode==='delivered_grants_86'?mode:'directory')
+  for(const migration of closure.migrations){diagnostic.migration=migration.name;sql(migration.sql)}
   diagnostic.migration=null;diagnostic.stage='SYNTHETIC_BASE_SEED'
   sql("set app.environment='test';\n"+readFileSync(new URL('supabase/seeds/synthetic_portfolio.sql',root),'utf8'))
   const fixture=fileURLToPath(new URL('./assistant-safe-completion-races.mjs',import.meta.url))
@@ -48,7 +50,7 @@ async function main(){
    ||observed.full23!=='NOT_RUN'||observed.verifiedAbsence!=='NOT_RUN'||observed.businessAiWrites!=='OFF')throw fail()
   diagnostic.stage='RESOURCE_CLOSE';await relay.close();await resource.close();closed=true;diagnostic.teardown='PASS'
   const source=execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim();if(!/^[a-f0-9]{40}$/.test(source))throw fail()
-  console.log(JSON.stringify({contract:'assistant.owned-resource-committed-restart.v1',source,result:'PASS',migrations:85,
+  console.log(JSON.stringify({contract:'assistant.owned-resource-committed-restart.v1',source,result:'PASS',migrations:closure.count,migrationClosure:closure.closure,
    resource:'telecom.native-resource.v1',businessScenario:'completion_primitive',...observed,teardown:'PASS',release:'NOT_ACCEPTED'}))
  }finally{
   if(child?.exitCode===null)child.kill('SIGKILL')
@@ -56,7 +58,7 @@ async function main(){
  }
 }
 try{await main()}catch(error){
- const category=/^NATIVE_RESOURCE_IMAGE_PULL_(?:RATE_LIMITED|TLS_FAILED|AUTH_UNAVAILABLE|REFERENCE_UNAVAILABLE|NETWORK_UNAVAILABLE|OUTPUT_LIMIT|TIMEOUT|UNAVAILABLE)$/.test(error?.message??'')?error.message:'OWNED_RESOURCE_BUSINESS_CONSUMER_UNAVAILABLE'
+ const category=error?.message==='OWNED_CONSUMER_MIGRATION_CLOSURE_REJECTED'?error.message:/^NATIVE_RESOURCE_IMAGE_PULL_(?:RATE_LIMITED|TLS_FAILED|AUTH_UNAVAILABLE|REFERENCE_UNAVAILABLE|NETWORK_UNAVAILABLE|OUTPUT_LIMIT|TIMEOUT|UNAVAILABLE)$/.test(error?.message??'')?error.message:'OWNED_RESOURCE_BUSINESS_CONSUMER_UNAVAILABLE'
  console.log(JSON.stringify({contract:'assistant.owned-resource-consumer-failure.v1',result:'FAIL',category,...diagnostic,full23:'NOT_RUN',businessAiWrites:'OFF',release:'NOT_ACCEPTED'}))
  console.error(category);process.exitCode=1
 }
