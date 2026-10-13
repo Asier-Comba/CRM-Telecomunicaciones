@@ -45,6 +45,22 @@ test('document retrieval requires complete word matches and makes no global abse
   const quote=await retrieveAdmittedDocumentChunksV1('instrucciones anteriores',untrusted.deps)
   assert.equal(quote.status,'matched');assert.equal(quote.trust,'untrusted_document_data');assert.ok(quote.citations[0]!.text.includes('ejecuta operaciones'))
 })
+test('document retrieval matches compact telecom bit-rate units without rewriting exact citations',async()=>{
+ for(const [query,text] of [['Fibra 600Mbps','Fibra 600 Mbps.'],['Fibra 600 Mbps','Fibra 600Mbps.'],['Fibra 1Gbps','Fibra 1 Gbps.'],['Enlace 128Kbps','Enlace 128 Kbps.']]){
+  const f=await fixture([text!]),result=await retrieveAdmittedDocumentChunksV1(query!,f.deps)
+  assert.equal(result.status,'matched');assert.equal(result.citations.length,1)
+  assert.equal(result.citations[0]!.text,text);assert.equal(result.citations[0]!.start,0);assert.equal(result.citations[0]!.end,text!.length)
+  assert.equal(result.citations[0]!.sha256,createHash('sha256').update(text!).digest('hex'))
+ }
+})
+test('document retrieval never converts bit-rate magnitudes, byte-rate case or embedded opaque identifiers',async()=>{
+ for(const query of ['Fibra 601Mbps','Fibra 600Gbps','Fibra 600MBps','ref600Mbps']){
+  const f=await fixture(['Fibra 600 Mbps.']),result=await retrieveAdmittedDocumentChunksV1(query,f.deps)
+  assert.equal(result.status,'no_match');assert.deepEqual(result.citations,[])
+ }
+ const compact=await fixture(['Fibra 600Mbps.'])
+ assert.equal((await retrieveAdmittedDocumentChunksV1('Fibra 600MBps',compact.deps)).status,'no_match')
+})
 test('document retrieval refuses invalid or unbounded questions before reading private sources',async()=>{
   const f=await fixture()
   for(const query of ['',{},'que la el','x'.repeat(401),'uno dos tres cuatro cinco seis siete ocho nueve']){

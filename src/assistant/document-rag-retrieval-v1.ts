@@ -16,7 +16,17 @@ export type DocumentRagRetrievalDependenciesV1={
 }
 const validated=new WeakSet<object>()
 const stopwords=new Set('que cual cuales como de del la el los las un una unos unas en por para con y o es son se a al este esta estos estas tiene tienen me mi su sus segun'.split(' '))
-const tokens=(text:string)=>text.normalize('NFKD').replace(/[\u0300-\u036f]/g,'').toLowerCase().match(/[a-z0-9]+/g)??[]
+const tokens=(text:string)=>{
+  const words=text.normalize('NFKD').replace(/[\u0300-\u036f]/g,'').match(/[a-zA-Z0-9]+/g)??[],result:string[]=[]
+  for(const word of words){
+    // Split only a complete supported rate token. Preserve b/B so a byte rate
+    // cannot satisfy a bit-rate question; never rewrite quoted source text.
+    const rate=/^(\d+)?([kKmMgG])([bB])ps$/.exec(word)
+    if(rate){if(rate[1])result.push(rate[1]);result.push(rate[2]!.toLowerCase()+rate[3]+'ps')}
+    else result.push(word.toLowerCase())
+  }
+  return result
+}
 const same=(a:ReadAuthorityV2|null,b:ReadAuthorityV2)=>!!a&&['actorId','workspaceId','scopeEpoch','role'].every(key=>a[key as keyof ReadAuthorityV2]===b[key as keyof ReadAuthorityV2])
 function authority(raw:unknown):ReadAuthorityV2|null{
   const value=snapshotProductJsonV1(raw)
