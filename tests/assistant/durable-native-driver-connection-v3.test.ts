@@ -42,3 +42,30 @@ test('close during connection admission waits for its owned session and denies a
  await denied;await ending;assert.equal(closed,1)
  await assert.rejects(driver.inspectWorkerConnection(),/UNAVAILABLE/)
 })
+
+test('close joins an inspection retirement still awaiting its owned session',async()=>{
+ let release!:()=>void,entered!:()=>void,closes=0,finished=false
+ const retiring=new Promise<void>(done=>{entered=done}),gate=new Promise<void>(done=>{release=done})
+ const driver=createDurableNativeWorkerConnectionV3(async()=>({backend,application,
+  query:async()=>JSON.stringify({backend:backend+1,database:'telecom_test',application}),
+  close:async()=>{closes++;entered();await gate}}))
+ await driver.connectWorker()
+ const denied=assert.rejects(driver.inspectWorkerConnection(),/UNAVAILABLE/)
+ await retiring
+ const ending=driver.closeWorker().then(()=>{finished=true})
+ await new Promise<void>(done=>setImmediate(done))
+ assert.equal(finished,false,'closing cannot finish ahead of the owned retirement')
+ release();await denied;await ending;assert.equal(closes,1)
+})
+
+test('a failed inspection retirement remains a failed close instead of disappearing',async()=>{
+ let closes=0
+ const driver=createDurableNativeWorkerConnectionV3(async()=>({backend,application,
+  query:async()=>JSON.stringify({backend:backend+1,database:'telecom_test',application}),
+  close:async()=>{closes++;throw Error('private-cleanup-material')}}))
+ await driver.connectWorker()
+ await assert.rejects(driver.inspectWorkerConnection(),{message:'DURABLE_NATIVE_WORKER_CONNECTION_UNAVAILABLE'})
+ await assert.rejects(driver.closeWorker(),{message:'DURABLE_NATIVE_WORKER_CONNECTION_UNAVAILABLE'})
+ await assert.rejects(driver.closeWorker(),{message:'DURABLE_NATIVE_WORKER_CONNECTION_UNAVAILABLE'})
+ assert.equal(closes,1)
+})
