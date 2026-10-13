@@ -65,6 +65,47 @@ test('unoffered references, restricted roles and unapproved/sensitive document c
   }
 })
 
+test('source admission rejects forged includes, sparse, duplicate and accessor offer lists without lookup', async () => {
+  let invoked = 0
+  const forged: string[] = []; forged.includes = () => { invoked++; return true }
+  const accessor: string[] = []; Object.defineProperty(accessor, '0', { enumerable: true, get() { invoked++; return handle } })
+  for (const offered of [forged, accessor, [handle, , 'other'], [handle, handle], Array(51).fill(handle), ['bad reference', handle]]) {
+    const f = fixture(); f.deps.offeredHandles = offered as string[]
+    const result = await prepareDocumentRagSourceV1(handle, f.deps)
+    assert.deepEqual(result, { status: 'invalid_input', handle: null })
+    assert.deepEqual(f.calls, { resolve: 0, download: 0, extract: 0 })
+  }
+  assert.equal(invoked, 0)
+})
+
+test('source admission rejects dependency getters and revoked proxies without invoking callbacks or throwing', async () => {
+  let invoked = 0
+  const f = fixture(), accessor = { ...f.deps }
+  Object.defineProperty(accessor, 'offeredHandles', { enumerable: true, get() { invoked++; throw Error('private offer detail') } })
+  const callbackAccessor = { ...f.deps }
+  Object.defineProperty(callbackAccessor, 'authority', { enumerable: true, get() { invoked++; return f.deps.authority } })
+  const revoked = Proxy.revocable(f.deps, {}); revoked.revoke()
+  for (const deps of [accessor, callbackAccessor, revoked.proxy]) {
+    assert.deepEqual(await prepareDocumentRagSourceV1(handle, deps), { status: 'invalid_input', handle: null })
+  }
+  assert.equal(invoked, 0); assert.deepEqual(f.calls, { resolve: 0, download: 0, extract: 0 })
+})
+
+test('source admission pins descriptor values and preserves dependency callback receivers', async () => {
+  const f = fixture(); let propertyReads = 0
+  const offers = new Proxy([handle], { get(target, key, receiver) { propertyReads++; return Reflect.get(target, key, receiver) } })
+  f.deps.offeredHandles = offers
+  const original = { ...f.deps }
+  for (const key of ['authority', 'resolveDocument', 'downloadAuthorized', 'extractPdf'] as const) {
+    const callback = original[key]
+    Object.defineProperty(f.deps, key, { enumerable: true, configurable: true, value: function(this: unknown, ...args: unknown[]) {
+      assert.equal(this, f.deps)
+      return Reflect.apply(callback, this, args)
+    } })
+  }
+  await material(f); assert.equal(propertyReads, 0)
+})
+
 test('revocation or context/version change during download prevents extraction', async () => {
   for (const revoke of ['actor', 'workspace', 'epoch', 'role', 'membership', 'document'] as const) {
     const f = fixture(); f.onDownload(() => {

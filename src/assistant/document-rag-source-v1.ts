@@ -89,12 +89,35 @@ export type DocumentRagSourceDependenciesV1 = {
 export type DocumentRagPreparationV1 = { status: 'prepared'; handle: PreparedDocumentRagSourceV1 }
   | { status: 'invalid_input' | 'not_admitted' | 'access_changed' | 'invalid_source' | 'unavailable'; handle: null }
 
+function sourceDependencies(raw: unknown, handle: string): DocumentRagSourceDependenciesV1 | null {
+  try {
+    const fields = closedRecord(raw, 'authority,downloadAuthorized,extractPdf,offeredHandles,resolveDocument')
+    if (!fields || !['authority', 'downloadAuthorized', 'extractPdf', 'resolveDocument'].every(key => typeof fields[key] === 'function')) return null
+    const offers = fields.offeredHandles
+    if (!Array.isArray(offers) || Object.getPrototypeOf(offers) !== Array.prototype) return null
+    const descriptors = Object.getOwnPropertyDescriptors<object>(offers), length: unknown = descriptors.length?.value
+    if (typeof length !== 'number' || !Number.isSafeInteger(length) || length < 1 || length > 50
+      || Reflect.ownKeys(descriptors).length !== length + 1) return null
+    const refs = new Set<string>()
+    for (let i = 0; i < length; i++) {
+      const field = descriptors[i]
+      if (!field?.enumerable || !('value' in field) || typeof field.value !== 'string'
+        || !/^[A-Za-z0-9_-]{1,160}$/.test(field.value) || refs.has(field.value)) return null
+      refs.add(field.value)
+    }
+    // Never invoke a supplied includes method, getter or Proxy property read.
+    if (!refs.has(handle)) return null
+    return Object.freeze({ ...fields, offeredHandles: Object.freeze([...refs]) }) as DocumentRagSourceDependenciesV1
+  } catch { return null }
+}
+
 /** No embeddings, index write, tool registration, model call or retrieval claim. */
 export async function prepareDocumentRagSourceV1(handle: unknown, deps: DocumentRagSourceDependenciesV1,
   signal?: AbortSignal): Promise<DocumentRagPreparationV1> {
   const stop = (status: Exclude<DocumentRagPreparationV1['status'], 'prepared'>): DocumentRagPreparationV1 => ({ status, handle: null })
-  if (typeof handle !== 'string' || !/^[A-Za-z0-9_-]{1,160}$/.test(handle)
-    || !Array.isArray(deps.offeredHandles) || deps.offeredHandles.length > 50 || !deps.offeredHandles.includes(handle)) return stop('invalid_input')
+  if (typeof handle !== 'string' || !/^[A-Za-z0-9_-]{1,160}$/.test(handle)) return stop('invalid_input')
+  const pinned = sourceDependencies(deps, handle)
+  if (!pinned) return stop('invalid_input')
   if(signal?.aborted)return stop('unavailable')
   const controller=new AbortController(),cancel=()=>controller.abort(),deadline=performance.now()+10000,timer=setTimeout(cancel,10000)
   signal?.addEventListener('abort',cancel,{once:true})
@@ -104,8 +127,8 @@ export async function prepareDocumentRagSourceV1(handle: unknown, deps: Document
     if(signal?.aborted)cancel()
     // Pin the server callbacks before awaiting an adapter. A later replacement
     // must not swap fresh authorization/version checks for cached responses.
-    const readAuthority = deps.authority, resolveDocument = deps.resolveDocument
-    const downloadAuthorized = deps.downloadAuthorized, extractPdf = deps.extractPdf
+    const readAuthority = pinned.authority, resolveDocument = pinned.resolveDocument
+    const downloadAuthorized = pinned.downloadAuthorized, extractPdf = pinned.extractPdf
     const authority = snapshotReadAuthorityV2(await within(() => readAuthority.call(deps)))
     // Preserve the current document-content service's owner/admin boundary.
     if (!authority || !['owner', 'admin'].includes(authority.role)) return stop('not_admitted')
