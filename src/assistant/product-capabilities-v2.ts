@@ -65,7 +65,7 @@ function inputSchema(filters: readonly string[], enums: Readonly<Record<string, 
 }
 export type ProductCapabilityV2 = {
   name: string; description: string; version: 'assistant.capability.v2'; mode: 'read'; risk: 'READ'; roles: readonly string[]
-  inputSchema: Schema; outputSchema: Schema; backendOperation: string; family: 'collection' | 'report' | 'billing_analytics' | 'billing_invoice' | 'portability_read' | 'case_read' | 'equipment_read'
+  inputSchema: Schema; outputSchema: Schema; backendOperation: string; family: 'collection' | 'report' | 'billing_analytics' | 'billing_invoice' | 'portability_read' | 'case_read' | 'equipment_read' | 'document_metadata'
   sensitiveFields: readonly string[]; confirmation: 'none'; grounding: string; partiality: string
   authorization: 'current_server_membership_and_role_rechecked_around_each_await'
   tenantScope: 'server_selected_workspace_actor_and_scope_epoch'
@@ -167,6 +167,15 @@ capabilities.push({name:'crm.equipment.list',description:'Lista hasta20 equipos 
  ...readBoundary,sensitiveFields:['manufacturer','model','commercial_description','purchased_on','customer_id','contract_id','service_id','line_id','commitment_id','replaces_equipment_id','replaced_by_id','version','history.actor_user_id'],confirmation:'none',
  grounding:'validated current W1 equipment list for the selected authorized customer; registered state/dates only, not installation/connectivity/ownership or complete inventory proof',
  partiality:'at most20 rows, next_id means partial; never infer totals, physical installation or absence outside the selected page/filter',enabled:{local:true,stage:false,prod:false}})
+capabilities.push({name:'crm.document.list',description:'Lista hasta20 metadatos de documentos directos del cliente: tipo, estado, formato y tamaño registrados. Titular/administrador; sin nombres, rutas, enlaces o contenido. No prueba disponibilidad del archivo, revisión, indexación ni RAG.',
+ version:'assistant.capability.v2',mode:'read',risk:'READ',roles:['owner','admin'],backendOperation:'document.list',family:'document_metadata',
+ inputSchema:closed({customer_id:uuid,status:{type:'string',enum:['active','archived']},limit:{type:'integer',minimum:1,maximum:20},after_id:uuid},['customer_id']),
+ outputSchema:closed({contract_version:{const:'assistant.document-metadata-list.v1'},operation:{const:'document.list'},items:{type:'array',maxItems:20,items:closed({id:uuid,
+  document_kind:{type:'string',enum:['general','identity','contract','service','incident','billing','other']},status:{type:'string',enum:['active','archived']},
+  media_type:{anyOf:[{type:'string',maxLength:127},{type:'null'}]},size_bytes:{anyOf:[{type:'integer',minimum:0,maximum:1073741824},{type:'null'}]}},['id','document_kind','status','media_type','size_bytes'])},next_id:{anyOf:[uuid,{type:'null'}]}},['contract_version','operation','items','next_id']),
+ ...readBoundary,sensitiveFields:['file_name','storage_path','storage_bucket','object_ref','sha256_hex','target','version','ticket_id','signed_url','content','indexingApproved','contentClass'],confirmation:'none',
+ grounding:'validated current W1 selected-customer direct metadata collection; registered facts only, no file availability/content/integrity/review/indexing or RAG admission claim',
+ partiality:'at most20 direct selected-customer rows; cursor means partial, no total or absence outside this target/page/filter',enabled:{local:true,stage:false,prod:false}})
 function freeze(value: unknown): void { if (value && typeof value === 'object') { for (const child of Object.values(value)) freeze(child); Object.freeze(value) } }
 freeze(capabilities)
 export const PRODUCT_CAPABILITIES_V2: readonly ProductCapabilityV2[] = Object.freeze(capabilities)

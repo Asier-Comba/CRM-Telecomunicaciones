@@ -3,7 +3,7 @@
   "base": "7ab6f56f10fc65aa7212ed5dfbdeacea8901756a",
   "backendInventorySource": "182283f542f3854c3e8b2ea7eb0d27634eaef206",
   "backendInventoryIsNotRegistration": true,
-  "executableLocalReads": 35,
+  "executableLocalReads": 36,
   "capabilities": [
     {
       "name": "crm.customer.list",
@@ -7961,32 +7961,6 @@
       }
     },
     {
-      "name": "crm.document.list",
-      "version": "document.v1",
-      "mode": "read",
-      "risk": "READ",
-      "roles": [
-        "owner",
-        "admin"
-      ],
-      "inputSchema": false,
-      "outputSchema": false,
-      "sourceInputType": "DocumentListInputV1",
-      "sourceOutputType": "DocumentListV1",
-      "backendOperation": "document.list",
-      "sensitiveFields": [
-        "source_minimization_review_required"
-      ],
-      "confirmation": "none",
-      "grounding": "not_registered_until_minimized_output_parser",
-      "partiality": "unavailable_not_empty",
-      "enabled": {
-        "local": false,
-        "stage": false,
-        "prod": false
-      }
-    },
-    {
       "name": "crm.document.get_metadata",
       "version": "document.v1",
       "mode": "read",
@@ -11585,6 +11559,175 @@
       "confirmation": "none",
       "grounding": "validated current W1 equipment list for the selected authorized customer; registered state/dates only, not installation/connectivity/ownership or complete inventory proof",
       "partiality": "at most20 rows, next_id means partial; never infer totals, physical installation or absence outside the selected page/filter",
+      "enabled": {
+        "local": true,
+        "stage": false,
+        "prod": false
+      }
+    },
+    {
+      "name": "crm.document.list",
+      "description": "Lista hasta20 metadatos de documentos directos del cliente: tipo, estado, formato y tamaño registrados. Titular/administrador; sin nombres, rutas, enlaces o contenido. No prueba disponibilidad del archivo, revisión, indexación ni RAG.",
+      "version": "assistant.capability.v2",
+      "mode": "read",
+      "risk": "READ",
+      "roles": [
+        "owner",
+        "admin"
+      ],
+      "backendOperation": "document.list",
+      "family": "document_metadata",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "customer_id": {
+            "type": "string",
+            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+            "maxLength": 36
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "active",
+              "archived"
+            ]
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 20
+          },
+          "after_id": {
+            "type": "string",
+            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+            "maxLength": 36
+          }
+        },
+        "required": [
+          "customer_id"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "contract_version": {
+            "const": "assistant.document-metadata-list.v1"
+          },
+          "operation": {
+            "const": "document.list"
+          },
+          "items": {
+            "type": "array",
+            "maxItems": 20,
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+                  "maxLength": 36
+                },
+                "document_kind": {
+                  "type": "string",
+                  "enum": [
+                    "general",
+                    "identity",
+                    "contract",
+                    "service",
+                    "incident",
+                    "billing",
+                    "other"
+                  ]
+                },
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "active",
+                    "archived"
+                  ]
+                },
+                "media_type": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "maxLength": 127
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "size_bytes": {
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 1073741824
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "id",
+                "document_kind",
+                "status",
+                "media_type",
+                "size_bytes"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "next_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+                "maxLength": 36
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "contract_version",
+          "operation",
+          "items",
+          "next_id"
+        ],
+        "additionalProperties": false
+      },
+      "authorization": "current_server_membership_and_role_rechecked_around_each_await",
+      "tenantScope": "server_selected_workspace_actor_and_scope_epoch",
+      "idempotency": "read_fresh_no_effect_reservation",
+      "errorContract": [
+        "invalid_plan",
+        "access_changed",
+        "unavailable",
+        "ambiguous"
+      ],
+      "sensitiveFields": [
+        "file_name",
+        "storage_path",
+        "storage_bucket",
+        "object_ref",
+        "sha256_hex",
+        "target",
+        "version",
+        "ticket_id",
+        "signed_url",
+        "content",
+        "indexingApproved",
+        "contentClass"
+      ],
+      "confirmation": "none",
+      "grounding": "validated current W1 selected-customer direct metadata collection; registered facts only, no file availability/content/integrity/review/indexing or RAG admission claim",
+      "partiality": "at most20 direct selected-customer rows; cursor means partial, no total or absence outside this target/page/filter",
       "enabled": {
         "local": true,
         "stage": false,

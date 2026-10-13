@@ -7,7 +7,9 @@ import {projectAuthorizedPortabilityListV1} from '../../../src/assistant/portabi
 import {projectAuthorizedCaseListV1} from '../../../src/assistant/case-read-projection-v1.ts'
 import {projectAuthorizedEquipmentListV1} from '../../../src/assistant/equipment-read-projection-v1.ts'
 import {parseEquipmentReceiptV1} from '../../../src/lib/server/equipment-runtime-v1.ts'
-import {cleanupAssistantGroundingFixturesV2} from './assistant-grounding-fixture-cleanup-v2.mjs'
+import {cleanupAssistantGroundingFixturesV3} from './assistant-grounding-fixture-cleanup-v3.mjs'
+import {parseAssistantDocumentListInputV1,projectAuthorizedDocumentMetadataListV1} from '../../../src/assistant/document-metadata-read-projection-v1.ts'
+import {parseDocumentReceiptV1} from '../../../src/lib/server/document-runtime-v1.ts'
 import {mkdirSync,writeFileSync} from 'node:fs'
 import {resolve,join,dirname} from 'node:path'
 
@@ -19,6 +21,7 @@ export async function assistantReadGroundingAcceptance({ rpc, sql, check, users,
   let ownedInvoiceFixture=null
   let ownedCaseFixture=null
   let ownedEquipmentFixture=null
+  let ownedDocumentFixture=null
   let primaryFailure=null
   try{
     phase='IMPORT_SDK'
@@ -100,6 +103,13 @@ export async function assistantReadGroundingAcceptance({ rpc, sql, check, users,
     const equipmentCreated=await equipmentCreate.json()
     check(equipmentCreate.status===200&&equipmentCreated.ok&&parseEquipmentReceiptV1('equipment.create',equipmentCreateInput,equipmentCreated.data)?.status==='prepared','assistant_grounding_equipment_fixture_actual_w1_cookie_setup')
     ownedEquipmentFixture={id:equipmentCreated.data.id,customer:customers[0],owner:owner.id}
+    phase='DOCUMENT_METADATA_FIXTURE_SETUP'
+    // Synthetic metadata setup in this already guarded disposable stack. No
+    // object is uploaded or content/review/indexing approval fabricated; these
+    // registered metadata facts do not prove that file bytes are available.
+    const documentId=randomUUID(),documentObject=randomUUID(),documentPath=wa+'/documents/'+documentId+'/'+documentObject
+    sql(`insert into public.documents(id,workspace_id,customer_id,document_kind,file_name,media_type,size_bytes,storage_path,created_by_user_id)values('${documentId}','${wa}','${customers[0]}','general','W3 Grounding private metadata fixture.pdf','application/pdf',1013,'${documentPath}','${owner.id}')`)
+    ownedDocumentFixture={id:documentId,customer:customers[0],owner:owner.id,path:documentPath}
     phase='SNAPSHOT'
     const businessSnapshot=()=>sql(`select md5(coalesce(jsonb_agg(payload order by id)::text,'')) from(select id,to_jsonb(x) payload from public.customers x where id in('${customers[0]}','${customers[1]}','${foreignCustomer}') union all select id,to_jsonb(x) payload from public.telecom_contracts x where id in('${contracts[0]}','${contracts[1]}','${contracts[2]}') union all select id,to_jsonb(x) payload from public.telecom_operators x where id in('${operator}','${foreignOperator}','${portDonor.json.id}') union all select id,to_jsonb(x) payload from public.billing_invoices x where customer_id in('${customers[0]}','${customers[1]}','${foreignCustomer}') union all select id,to_jsonb(x) payload from public.telecom_services x where id='${portService.id}' union all select id,to_jsonb(x) payload from public.telecom_lines x where id='${portLine.id}' union all select id,to_jsonb(x) payload from public.telecom_identifiers x where id='${portIdentifier.json.id}' union all select id,to_jsonb(x) payload from public.telecom_portabilities x where id='${portCreated.data.id}') records`)
     const before=businessSnapshot(),calls=[]
@@ -107,10 +117,12 @@ export async function assistantReadGroundingAcceptance({ rpc, sql, check, users,
     const caseBefore=caseSnapshot()
     const equipmentSnapshot=()=>sql(`select md5(jsonb_build_object('record',(select to_jsonb(x) from public.telecom_equipment x where workspace_id='${wa}' and id='${equipmentCreated.data.id}'),'events',(select jsonb_agg(to_jsonb(x) order by version) from public.telecom_equipment_events x where workspace_id='${wa}' and equipment_id='${equipmentCreated.data.id}'))::text)`)
     const equipmentBefore=equipmentSnapshot()
-    let suspendAfterRead=false,suspendAfterBilling=false,suspendAfterInvoices=false,suspendAfterPortabilities=false,suspendAfterCases=false,suspendAfterEquipment=false
+    const documentSnapshot=()=>sql(`select md5(jsonb_build_object('record',(select to_jsonb(x) from public.documents x where workspace_id='${wa}' and id='${documentId}'),'audit',(select jsonb_agg(to_jsonb(x) order by occurred_at,id) from public.product_audit_events x where workspace_id='${wa}' and entity_id='${documentId}'))::text)`)
+    const documentBefore=documentSnapshot()
+    let suspendAfterRead=false,suspendAfterBilling=false,suspendAfterInvoices=false,suspendAfterPortabilities=false,suspendAfterCases=false,suspendAfterEquipment=false,suspendAfterDocuments=false
     const httpRead=async(family,operation,input)=>{
-      const endpoint=family==='collection'?'/api/product/v1/queries':family==='billing_analytics'?'/api/billing/analytics/v1':family==='billing_invoice'?'/api/billing/v1/queries':family==='portability_read'?'/api/portability/v1':family==='case_read'?'/api/cases/v1':family==='equipment_read'?'/api/telecom/equipment/v1':'/api/telecom/reads/v1'
-      const response=await fetch(assistantAppUrl+endpoint,{method:'POST',headers:{cookie,origin:assistantAppUrl,'content-type':'application/json'},body:JSON.stringify({operation,input}),signal:AbortSignal.timeout(30000)})
+      const endpoint=family==='collection'?'/api/product/v1/queries':family==='billing_analytics'?'/api/billing/analytics/v1':family==='billing_invoice'?'/api/billing/v1/queries':family==='portability_read'?'/api/portability/v1':family==='case_read'?'/api/cases/v1':family==='equipment_read'?'/api/telecom/equipment/v1':family==='document_metadata'?'/api/document/v1/queries':'/api/telecom/reads/v1'
+      const response=await fetch(assistantAppUrl+endpoint,{method:'POST',headers:{cookie,origin:assistantAppUrl,'content-type':'application/json'},body:JSON.stringify({operation,input:family==='document_metadata'?parseAssistantDocumentListInputV1(input):input}),signal:AbortSignal.timeout(30000)})
       calls.push({operation,status:response.status})
       check(response.headers.get('cache-control')==='no-store','assistant_grounding_reader_no_store')
       const body=await response.json()
@@ -120,9 +132,10 @@ export async function assistantReadGroundingAcceptance({ rpc, sql, check, users,
       if(suspendAfterPortabilities&&operation==='portability.list'){suspendAfterPortabilities=false;sql(`update public.workspace_members set status='suspended' where workspace_id='${wa}' and user_id='${owner.id}'`)}
       if(suspendAfterCases&&operation==='case.list'){suspendAfterCases=false;sql(`update public.workspace_members set status='suspended' where workspace_id='${wa}' and user_id='${owner.id}'`)}
       if(suspendAfterEquipment&&operation==='equipment.list'){suspendAfterEquipment=false;sql(`update public.workspace_members set status='suspended' where workspace_id='${wa}' and user_id='${owner.id}'`)}
+      if(suspendAfterDocuments&&operation==='document.list'){suspendAfterDocuments=false;sql(`update public.workspace_members set status='suspended' where workspace_id='${wa}' and user_id='${owner.id}'`)}
       return body
     }
-    const readers={collection:(op,input)=>httpRead('collection',op,input),report:(op,input)=>httpRead('report',op,input),billingAnalytics:(op,input)=>httpRead('billing_analytics',op,input),billingInvoices:(op,input)=>httpRead('billing_invoice',op,input),portabilities:(op,input)=>httpRead('portability_read',op,input),cases:(op,input)=>httpRead('case_read',op,input),equipment:(op,input)=>httpRead('equipment_read',op,input)},handles=['operator_ref','customer_ref','foreign_customer_ref']
+    const readers={collection:(op,input)=>httpRead('collection',op,input),report:(op,input)=>httpRead('report',op,input),billingAnalytics:(op,input)=>httpRead('billing_analytics',op,input),billingInvoices:(op,input)=>httpRead('billing_invoice',op,input),portabilities:(op,input)=>httpRead('portability_read',op,input),cases:(op,input)=>httpRead('case_read',op,input),equipment:(op,input)=>httpRead('equipment_read',op,input),documents:(op,input)=>httpRead('document_metadata',op,input)},handles=['operator_ref','customer_ref','foreign_customer_ref']
     const resolveReference=async(handle,field)=>{
       if(handle==='operator_ref'&&field==='operator_id'){
         const result=await readers.collection('operator.get',{id:operator})
@@ -249,6 +262,34 @@ export async function assistantReadGroundingAcceptance({ rpc, sql, check, users,
       check(calls.at(-1)?.status===403,'assistant_grounding_equipment_actual_cookie_revoked')
     }finally{sql(`update public.workspace_members set status='active' where workspace_id='${wa}' and user_id='${owner.id}'`)}
     check((await conversations.execute('turn.finish',{id:thread,turn_id:result.turn_id,status:'cancelled'})).ok,'assistant_grounding_equipment_revoked_cancel_after_restore')
+    phase='AUTHORIZED_DOCUMENT_METADATA_LIST'
+    const documentNode=handle=>({id:'documents',capability:'crm.document.list',arguments:[{field:'status',value:'active'},{field:'limit',value:20}],bindings:[{field:'customer_id',handle,nodeId:null}]})
+    result=await run(plan([documentNode('customer_ref')]))
+    const documentRead=result.final?.response
+    check(documentRead?.status==='completed'&&documentRead.grounded&&documentRead.blocks.length===1&&documentRead.blocks[0].rows.length===1
+      &&documentRead.blocks[0].rows[0].document_kind==='General'&&documentRead.blocks[0].rows[0].status==='Activo'&&documentRead.blocks[0].rows[0].media_type==='application/pdf'&&documentRead.blocks[0].rows[0].size_bytes===1013
+      &&documentRead.sources[0].capability==='crm.document.list'&&!documentRead.sources[0].partial,'assistant_grounding_document_actual_direct_metadata_registered_facts_only')
+    check(![documentId,documentPath,...customers,'W3 Grounding private metadata fixture.pdf','file_name','storage_path','storage_bucket','sha256_hex','ticket_id','signed_url','indexingApproved','contentClass'].some(value=>JSON.stringify(documentRead).includes(value)),
+      'assistant_grounding_document_private_fields_no_content_or_review_claim')
+    const directDocumentInput={target_kind:'customer',target_id:customers[0],status:'active',limit:20}
+    const viewerDocument=await fetch(assistantAppUrl+'/api/document/v1/queries',{method:'POST',headers:{cookie:viewerCookies.map(c=>c.name+'='+c.value).join('; '),origin:assistantAppUrl,'content-type':'application/json'},body:JSON.stringify({operation:'document.list',input:directDocumentInput}),signal:AbortSignal.timeout(30000)})
+    check(viewerDocument.status===403,'assistant_grounding_document_actual_viewer_cookie_denied')
+    const adminDocumentCookies=[],adminDocumentClient=createServerClient(url,anon,{cookies:{getAll:()=>[],setAll:value=>adminDocumentCookies.push(...value)}})
+    check(!(await adminDocumentClient.auth.setSession({access_token:users.adminA.token,refresh_token:users.adminA.refresh})).error,'assistant_grounding_document_actual_admin_session')
+    const adminDocument=await fetch(assistantAppUrl+'/api/document/v1/queries',{method:'POST',headers:{cookie:adminDocumentCookies.map(c=>c.name+'='+c.value).join('; '),origin:assistantAppUrl,'content-type':'application/json'},body:JSON.stringify({operation:'document.list',input:directDocumentInput}),signal:AbortSignal.timeout(30000)})
+    const adminDocumentBody=await adminDocument.json(),adminDocumentProjection=adminDocumentBody.ok?projectAuthorizedDocumentMetadataListV1({customer_id:customers[0],status:'active',limit:20},adminDocumentBody.data):null
+    check(adminDocument.status===200&&adminDocumentProjection?.items.length===1&&adminDocumentProjection.items[0].document_kind==='general','assistant_grounding_document_actual_admin_cookie_minimization')
+    result=await run(plan([documentNode('foreign_customer_ref')]))
+    check(result.final?.response.status==='access_changed'&&!result.final.response.grounded&&!result.calls.some(call=>call.operation==='document.list'),'assistant_grounding_document_foreign_reference_no_query')
+    phase='DOCUMENT_METADATA_REVOKED_READ'
+    suspendAfterDocuments=true
+    try{
+      result=await run(plan([documentNode('customer_ref')]))
+      check(result.events.map(event=>event.type).join(',')==='started,failed'&&!result.final,'assistant_grounding_document_revocation_discards_facts')
+      await readers.documents('document.list',{customer_id:customers[0],status:'active',limit:20})
+      check(calls.at(-1)?.status===403,'assistant_grounding_document_actual_cookie_revoked')
+    }finally{sql(`update public.workspace_members set status='active' where workspace_id='${wa}' and user_id='${owner.id}'`)}
+    check((await conversations.execute('turn.finish',{id:thread,turn_id:result.turn_id,status:'cancelled'})).ok,'assistant_grounding_document_revoked_cancel_after_restore')
     phase='AUTHORIZED_INVOICE_LIST'
     const invoiceNode=handle=>({id:'invoices',capability:'crm.invoice.list',arguments:[{field:'status',value:'draft'},{field:'limit',value:20}],bindings:[{field:'customer_id',handle,nodeId:null}]})
     result=await run(plan([invoiceNode('customer_ref')]))
@@ -319,15 +360,16 @@ export async function assistantReadGroundingAcceptance({ rpc, sql, check, users,
     check((await conversations.execute('turn.finish',{id:thread,turn_id:result.turn_id,status:'cancelled'})).ok,'assistant_grounding_revoked_read_cancel_after_restore')
     phase='IMMUTABLE_HISTORY'
     const messages=await conversations.execute('message.page',{id:thread,limit:50})
-    // Each invoice/portability/case/equipment group adds three users/two replies;
+    // Each invoice/portability/case/equipment/document group adds three users/two replies;
     // the revoked read has no final reply. Assert the complete exact ledger.
-    check(messages.ok&&messages.data.historical&&messages.data.items.length===40&&messages.data.items.filter(item=>item.role==='user').length===23&&messages.data.items.filter(item=>item.role==='assistant').length===17,
+    check(messages.ok&&messages.data.historical&&messages.data.items.length===45&&messages.data.items.filter(item=>item.role==='user').length===26&&messages.data.items.filter(item=>item.role==='assistant').length===19,
       'assistant_grounding_persisted_history_exact_turn_counts')
-    check(messages.ok&&messages.data.items.filter(item=>item.role==='assistant').every(item=>!['W3 Grounding','telecom.collections','billing.analytics','assistant.invoice-list','assistant.portability-list','assistant.case-list','assistant.equipment-list','case.v1','equipment.v1','portability.v1','source_','inputTokens','123,45','••••183','+12025550183'].some(value=>item.content.includes(value))),
+    check(messages.ok&&messages.data.items.filter(item=>item.role==='assistant').every(item=>!['W3 Grounding','telecom.collections','billing.analytics','assistant.invoice-list','assistant.portability-list','assistant.case-list','assistant.equipment-list','assistant.document-metadata-list','document.v1','case.v1','equipment.v1','portability.v1','source_','inputTokens','123,45','••••183','+12025550183'].some(value=>item.content.includes(value))),
       'assistant_grounding_persisted_history_excludes_factual_blocks')
     check(before===businessSnapshot(),'assistant_grounding_no_business_record_change')
     check(caseBefore===caseSnapshot(),'assistant_grounding_no_case_or_note_record_change')
     check(equipmentBefore===equipmentSnapshot(),'assistant_grounding_no_equipment_or_event_record_change')
+    check(documentBefore===documentSnapshot(),'assistant_grounding_no_document_or_audit_record_change')
     return 'PASS_ACTUAL_AUTH_COOKIE_READ_GROUNDING_PARTIALITY_REVOCATION_SYNTHETIC_PLANNER'
   }catch(cause){
     const tag=String(cause?.message??'')
@@ -335,7 +377,7 @@ export async function assistantReadGroundingAcceptance({ rpc, sql, check, users,
       :/^CHECK_ASSISTANT_GROUNDING_[A-Z0-9_]{1,110}$/.test(tag)?'W3_READ_GROUNDING_'+phase+'_'+tag.slice(6):'W3_READ_GROUNDING_'+phase
     throw Error(primaryFailure)
   }finally{
-    const cleanup=await cleanupAssistantGroundingFixturesV2({primaryFailure,caseCleanup:ownedCaseFixture?async()=>{
+    const cleanup=await cleanupAssistantGroundingFixturesV3({primaryFailure,caseCleanup:ownedCaseFixture?async()=>{
       const {id,customer,owner,version,notes}=ownedCaseFixture
       // Append-only cases/notes are never deleted or their triggers disabled.
       // Cancel only this unchanged owned synthetic fixture through ordinary W1.
@@ -361,6 +403,12 @@ export async function assistantReadGroundingAcceptance({ rpc, sql, check, users,
       const response=await fetch(assistantAppUrl+'/api/telecom/equipment/v1',{method:'POST',headers:{cookie,origin:assistantAppUrl,'content-type':'application/json'},body:JSON.stringify({operation:'equipment.cancel',input:cancelInput}),signal:AbortSignal.timeout(30000)})
       const result=await response.json()
       check(response.status===200&&result.ok&&parseEquipmentReceiptV1('equipment.cancel',cancelInput,result.data)?.status==='cancelled','assistant_grounding_owned_equipment_fixture_cancelled')
+    }:null,documentCleanup:ownedDocumentFixture?async()=>{
+      const {id,customer,owner,path}=ownedDocumentFixture
+      check(sql(`select count(*) from public.documents d where id='${id}' and workspace_id='${wa}' and customer_id='${customer}' and created_by_user_id='${owner}' and version=1 and status='active' and document_kind='general' and file_name='W3 Grounding private metadata fixture.pdf' and media_type='application/pdf' and size_bytes=1013 and storage_path='${path}' and sha256_hex is null and contract_id is null and service_id is null and line_id is null and service_case_id is null and opportunity_id is null and not exists(select 1 from public.product_audit_events a where a.workspace_id=d.workspace_id and a.entity_id=d.id)`)==='1','assistant_grounding_owned_document_metadata_cleanup_guard')
+      const input={command_id:randomUUID(),id,expected_version:1},response=await fetch(assistantAppUrl+'/api/document/v1/commands',{method:'POST',headers:{cookie,origin:assistantAppUrl,'content-type':'application/json'},body:JSON.stringify({operation:'document.archive',input}),signal:AbortSignal.timeout(30000)})
+      const body=await response.json()
+      check(response.status===200&&body.ok&&parseDocumentReceiptV1('document.archive',input,body.receipt)?.status==='archived','assistant_grounding_owned_document_metadata_archived')
     }:null})
     // Closed sidecar in the existing approved W3 artifact preserves BOTH cleanup
     // statuses and the primary enum; no IDs, SQL, cookies, rows or raw errors.
