@@ -18,6 +18,7 @@ import {createDurableAuditDrainV1} from '../../../src/assistant/durable-audit-dr
 import {runIndependentCompletionRaceV1} from './positive-reconciliation-race.mjs'
 import {createNativeDurableAuditInspectorV3} from './durable-audit-inspection-v3.mjs'
 import {createNativeDurableOperationInspectorV3} from './durable-operation-inspection-v3.mjs'
+import {verifyNativeDriverOperationSliceV3} from './verify-driver-operation-slice-v3.mjs'
 import {createNativePositiveEffectInspectorV3} from './durable-positive-effect-inspection-v3.mjs'
 import {runCompletionProcessCutV1} from './positive-reconciliation-process-cut.mjs'
 import {launchDurableWorkerV3} from '../../durable-process-worker-controller-v3.mjs'
@@ -220,6 +221,8 @@ try{
  const operationSlice=await createNativeDurableOperationInspectorV3(sql,{...binding,operationRef:candidate.operationRef}).inspect()
  assert.deepEqual(operationSlice,{operationCount:1,state:'completed'})
  console.log(JSON.stringify({kind:'durable_v3_native_operation_observation',scenario:'completion_primitive',operation:operationSlice,full23:'NOT_RUN'}))
+ const driverOperation=await verifyNativeDriverOperationSliceV3(sql,{...binding,operationRef:candidate.operationRef})
+ console.log(JSON.stringify({kind:'durable_v3_native_driver_operation_observation',scenario:'completion_primitive',...driverOperation}))
  assert.equal(finalAudit.originalAuditIntents,3);assert.equal(finalAudit.deliveredOriginalEvents,3);assert.equal(finalAudit.pendingOriginalEvents,0)
  assert.equal(finalAudit.outcomeDeliveredEvents,1);assert.equal(finalAudit.outcomePendingEvents,0);assert.equal(finalAudit.baselinePendingOriginalEvents,2)
  assert.equal(finalAudit.baselineAuditContentDigest,finalAudit.persistedBaselineAuditContentDigest)
