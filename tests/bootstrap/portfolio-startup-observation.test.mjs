@@ -76,3 +76,22 @@ test('invalid diagnostic destinations do not change the original action or attac
     assert.equal(page.eventNames().length, 0); assert.deepEqual(report, {})
   }
 })
+
+test('successful script headers remain unfinished until its observed requestfinished event',async()=>{
+ const f=fixture();f.page.emit('framenavigated',f.main)
+ const a=f.request(),b=f.request();f.page.emit('request',a);f.page.emit('request',b)
+ for(const r of [a,b])f.page.emit('response',{request:()=>r,status:()=>200})
+ f.page.emit('requestfinished',a);f.page.emit('requestfinished',a)
+ await f.observation.finish()
+ assert.equal(f.row().responses,2);assert.equal(f.row().pending,0)
+ assert.equal(f.row().body_finished,1);assert.equal(f.row().body_unfinished,1)
+ assert.equal(JSON.stringify(f.report).includes('private'),false);assert.equal(f.page.eventNames().length,0)
+})
+
+test('untracked and successor script completions cannot supply prior-document body completion',async()=>{
+ const f=fixture();f.page.emit('requestfinished',f.request());f.page.emit('framenavigated',f.main)
+ const a=f.request();f.page.emit('request',a);f.page.emit('response',{request:()=>a,status:()=>200})
+ f.page.emit('framenavigated',f.main);f.page.emit('requestfinished',a)
+ await f.observation.finish()
+ assert.equal(f.row().document_changed,true);assert.equal(f.row().body_finished,0);assert.equal(f.row().body_unfinished,1)
+})

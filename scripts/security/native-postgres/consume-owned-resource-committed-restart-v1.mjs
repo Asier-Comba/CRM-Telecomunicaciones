@@ -3,7 +3,7 @@ import {bindOwnedResourceRestartV1,closedOwnedConsumerPhaseV1} from './owned-res
 import {execFileSync,fork,spawnSync} from 'node:child_process'
 import {readFileSync} from 'node:fs'
 import {fileURLToPath} from 'node:url'
-import {loadOwnedConsumerMigrationsV1} from './owned-consumer-migrations-v1.mjs'
+import {loadOwnedConsumerMigrationsV1,loadOwnedConsumerGrants86V1} from './owned-consumer-migrations-v1.mjs'
 const fail=()=>Error('OWNED_RESOURCE_BUSINESS_CONSUMER_UNAVAILABLE')
 const diagnostic={stage:'RESOURCE_CREATE',lastObservedPhase:null,migration:null,teardown:'NOT_RUN'}
 async function main(){
@@ -26,8 +26,8 @@ async function main(){
   sql(readFileSync(new URL('scripts/security/native-postgres/bootstrap.sql',root),'utf8'))
   sql(readFileSync(new URL('scripts/security/ephemeral-postgres/storage-stub.sql',root),'utf8'))
   diagnostic.stage='MIGRATIONS'
-  if(mode!==undefined&&mode!==''&&mode!=='delivered_grants_86')throw fail()
-  const closure=loadOwnedConsumerMigrationsV1(root,mode==='delivered_grants_86'?mode:'directory')
+  if(mode!==undefined&&mode!==''&&mode!=='delivered_grants_86'&&mode!=='require_grants_86')throw fail()
+  const closure=mode==='require_grants_86'?loadOwnedConsumerGrants86V1(root):loadOwnedConsumerMigrationsV1(root,mode==='delivered_grants_86'?mode:'directory')
   for(const migration of closure.migrations){diagnostic.migration=migration.name;sql(migration.sql)}
   diagnostic.migration=null;diagnostic.stage='SYNTHETIC_BASE_SEED'
   sql("set app.environment='test';\n"+readFileSync(new URL('supabase/seeds/synthetic_portfolio.sql',root),'utf8'))

@@ -23,7 +23,7 @@ export function observePortfolioStartup({ page, destination, phase, report }) {
       const url = new URL(request.url())
       if (url.origin !== origin || !url.pathname.startsWith('/_next/static/') || !url.pathname.endsWith('.js')) return
       if (scripts.size >= 32) { truncated = true; return }
-      scripts.set(request, { status: null, failed: false })
+      scripts.set(request, { status: null, failed: false, bodyFinished:false })
     } catch { /* Detached/service-worker requests cannot supply this evidence. */ }
   }
   const responded = response => {
@@ -32,6 +32,10 @@ export function observePortfolioStartup({ page, destination, phase, report }) {
     value.status = status >= 200 && status < 300 ? 'ok' : status >= 300 && status < 400 ? 'redirect' : status >= 400 && status < 500 ? 'client_error' : status >= 500 && status < 600 ? 'server_error' : 'other'
   }
   const failed = request => { const value = scripts.get(request); if (value) value.failed = true }
+  const bodyFinished=request=>{
+    if(changed||finished)return
+    const value=scripts.get(request);if(value)value.bodyFinished=true
+  }
   const errored = error => {
     if (!observed || changed) return
     if (errorCount >= 8) { errorsTruncated = true; return }
@@ -44,7 +48,7 @@ export function observePortfolioStartup({ page, destination, phase, report }) {
     errors[name === 'ChunkLoadError' || message.includes('Loading chunk') || message.includes('ChunkLoadError') ? 'chunk_load' : name === 'SyntaxError' ? 'syntax' : 'other']++
     errorCount++
   }
-  const handlers = { framenavigated: navigation, request: started, response: responded, requestfailed: failed, pageerror: errored }
+  const handlers = { framenavigated: navigation, request: started, response: responded, requestfailed: failed, requestfinished:bodyFinished, pageerror: errored }
   for (const [event, handler] of Object.entries(handlers)) page.on(event, handler)
   return {
     navigationDone() { navigated = true },
@@ -69,6 +73,9 @@ export function observePortfolioStartup({ page, destination, phase, report }) {
         document_observed: observed, document_changed: changed, navigation_completed: navigated, document_ready: ready,
         requests: values.length, responses: values.filter(value => value.status !== null).length,
         failures: values.filter(value => value.failed).length, pending: values.filter(value => value.status === null && !value.failed).length,
+        // Headers alone never establish full script delivery or execution.
+        body_finished:values.filter(value=>value.bodyFinished).length,
+        body_unfinished:values.filter(value=>!value.bodyFinished&&!value.failed).length,
         status_counts, truncated, page_errors: errors, page_errors_truncated: errorsTruncated,
       })
     },

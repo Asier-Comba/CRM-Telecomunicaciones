@@ -9,6 +9,14 @@ const fail=()=>Error('OWNED_CONSUMER_MIGRATION_CLOSURE_REJECTED')
 const hash=wire=>createHash('sha256').update(wire).digest('hex')
 const decode=wire=>new TextDecoder('utf-8',{fatal:true}).decode(wire)
 
+/** Fixed grants86 caller profile: validate the actual directory first. An exact
+ * owner extension already present is used once; canonical85 receives only the
+ * pinned delivered fixture. Explicit duplicate delivery remains rejected below. */
+export function loadOwnedConsumerGrants86V1(root){
+  const directory=loadOwnedConsumerMigrationsV1(root)
+  return directory.closure==='canonical_85'?loadOwnedConsumerMigrationsV1(root,'delivered_grants_86'):directory
+}
+
 /** Only the fixed canonical85 Git blobs and the exact delivered grant86 blob.
  * Validate and capture ALL SQL before applying the first migration. No count
  * waiver, owner-file edit, SQL replacement, grant removal or W4 approval. */

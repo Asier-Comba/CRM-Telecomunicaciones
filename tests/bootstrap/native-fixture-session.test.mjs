@@ -60,3 +60,20 @@ test('SQL errors, metacommands and oversized input expose only a closed failure 
  const a=f.session.query('select original;'),rejected=assert.rejects(a,{message:'NATIVE_SESSION_UNAVAILABLE'})
  f.child.stderr.write('PRIVATE_SQL_OR_DATABASE_ERROR');await rejected;assert.equal(f.terminated(),1);f.end()
 })
+test('close deadline cannot report success without an observed child close',async t=>{
+ t.mock.timers.enable({apis:['setTimeout']})
+ const f=fixture();let killed=0;f.child.kill=()=>{killed++;return true}
+ const closing=f.session.close(),rejected=assert.rejects(closing,{message:'NATIVE_SESSION_UNAVAILABLE'})
+ t.mock.timers.tick(2000)
+ await rejected;assert.equal(killed,1);assert.equal(f.terminated(),1)
+ assert.equal(f.session.close(),closing)
+ f.end();await assert.rejects(f.session.close(),{message:'NATIVE_SESSION_UNAVAILABLE'})
+})
+test('an exitCode is not a drained channel or a reusable close acknowledgement',async()=>{
+ const f=fixture();f.child.exitCode=0;let settled=false
+ const closing=f.session.close();void closing.then(()=>{settled=true},()=>{settled=true})
+ await Promise.resolve();assert.equal(settled,false)
+ f.end();await closing;assert.equal(settled,true)
+ assert.equal(f.terminated(),0)
+ await assert.rejects(f.session.query('select late;'),{message:'NATIVE_SESSION_UNAVAILABLE'})
+})
