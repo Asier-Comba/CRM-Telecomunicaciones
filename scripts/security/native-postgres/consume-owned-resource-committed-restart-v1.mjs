@@ -4,6 +4,7 @@ import {execFileSync,fork,spawnSync} from 'node:child_process'
 import {readFileSync} from 'node:fs'
 import {fileURLToPath} from 'node:url'
 import {loadOwnedConsumerMigrationsV1,loadOwnedConsumerGrants86V1} from './owned-consumer-migrations-v1.mjs'
+import {collectOwnedConsumerChildOutputV1} from './owned-consumer-child-output-v1.mjs'
 const fail=()=>Error('OWNED_RESOURCE_BUSINESS_CONSUMER_UNAVAILABLE')
 const diagnostic={stage:'RESOURCE_CREATE',lastObservedPhase:null,migration:null,teardown:'NOT_RUN'}
 async function main(){
@@ -32,16 +33,10 @@ async function main(){
   diagnostic.migration=null;diagnostic.stage='SYNTHETIC_BASE_SEED'
   sql("set app.environment='test';\n"+readFileSync(new URL('supabase/seeds/synthetic_portfolio.sql',root),'utf8'))
   const fixture=fileURLToPath(new URL('./assistant-safe-completion-races.mjs',import.meta.url))
-  let output='',overflow=false
   diagnostic.stage='BUSINESS_FIXTURE'
   child=fork(fixture,[],{env,execArgv:['--experimental-transform-types'],stdio:['ignore','pipe','pipe','ipc']})
   relay=bindOwnedResourceRestartV1(child,()=>resource.restart())
-  const timer=setTimeout(()=>child.kill('SIGKILL'),300000)
-  child.stdout.on('data',bytes=>{output+=bytes.toString();if(Buffer.byteLength(output)>1048576){overflow=true;child.kill('SIGKILL')}})
-  // Drain private error bytes without retaining or exporting them.
-  child.stderr.on('data',()=>{})
-  const code=await new Promise(resolve=>{child.once('exit',resolve);child.once('error',()=>resolve(-1))})
-  clearTimeout(timer);diagnostic.lastObservedPhase=closedOwnedConsumerPhaseV1(output);if(code!==0||overflow)throw fail()
+  const output=await collectOwnedConsumerChildOutputV1(child,text=>{diagnostic.lastObservedPhase=closedOwnedConsumerPhaseV1(text)})
   const records=output.split(/\r?\n/).flatMap(line=>{try{return[JSON.parse(line)]}catch{return[]}})
   const observations=records.filter(row=>row.kind==='durable_v3_owned_resource_committed_restart_observation')
   if(observations.length!==1)throw fail()
