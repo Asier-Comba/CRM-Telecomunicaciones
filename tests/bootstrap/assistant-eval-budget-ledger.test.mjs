@@ -4,6 +4,7 @@ import {existsSync,mkdtempSync,rmSync,writeFileSync} from 'node:fs'
 import {tmpdir} from 'node:os'
 import {dirname,join,resolve} from 'node:path'
 import test from 'node:test'
+import {DatabaseSync} from 'node:sqlite'
 import {createEvaluationBudgetLedgerV1 as createRaw,openEvaluationBudgetLedgerV1 as openRaw} from '../../scripts/assistant/eval-budget-ledger-v1.mjs'
 
 const owned=new Map()
@@ -22,6 +23,24 @@ function fixture(t){
   return path
 }
 const reservation=(callRef='call-a',maxCostMicrousd=400000,batchRef='batch-a')=>({callRef,maxCostMicrousd,batchRef})
+
+function exhaust(ledger){for(let n=0;n<3;n++){assert.equal(ledger.reserve(reservation('full-'+n,500000,'full-batch-'+n)).status,'reserved');assert.equal(ledger.settle({callRef:'full-'+n,knownCostMicrousd:500000}).status,'settled')}}
+function corruptAccounting(path){
+ const db=new DatabaseSync(path)
+ try{db.exec("PRAGMA ignore_check_constraints=ON; INSERT INTO calls VALUES('invalid-negative','invalid-batch',500000,'settled',-1500000)")}
+ finally{db.close()}
+}
+test('logically corrupt persisted accounting cannot cancel spent charges into a new allowance on reopen',t=>{
+ const path=fixture(t),ledger=createEvaluationBudgetLedgerV1(path);exhaust(ledger);ledger.close()
+ corruptAccounting(path)
+ assert.throws(()=>openEvaluationBudgetLedgerV1(path),/EVAL_BUDGET_LEDGER_UNAVAILABLE/)
+})
+test('accounting corruption after admission is rejected inside every new transaction',t=>{
+ const path=fixture(t),ledger=createEvaluationBudgetLedgerV1(path);exhaust(ledger)
+ corruptAccounting(path)
+ assert.throws(()=>ledger.reserve(reservation('new-call',1,'new-batch')),/EVAL_BUDGET_LEDGER_UNAVAILABLE/)
+ assert.throws(()=>ledger.inspect(),/EVAL_BUDGET_LEDGER_UNAVAILABLE/)
+})
 test('real persisted shared and batch ceilings survive reopening and new batch identifiers',t=>{
   const path=fixture(t);let ledger=createEvaluationBudgetLedgerV1(path)
   for(let n=0;n<3;n++){

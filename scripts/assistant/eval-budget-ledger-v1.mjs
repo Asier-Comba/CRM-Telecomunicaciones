@@ -31,6 +31,19 @@ function open(path){
   catch{db.close();throw unavailable()}
 }
 
+function validateAccounting(db){
+ // Do not trust a readable SQLite file to satisfy the original CHECK rules.
+ // Corrupt records must never offset real charges or supply a new allowance.
+ const invalid=db.prepare(`SELECT 1 FROM calls WHERE
+  typeof(call_ref)<>'text' OR length(call_ref)<1 OR length(call_ref)>100 OR call_ref GLOB '*[^A-Za-z0-9_-]*'
+  OR typeof(batch_ref)<>'text' OR length(batch_ref)<1 OR length(batch_ref)>100 OR batch_ref GLOB '*[^A-Za-z0-9_-]*'
+  OR typeof(maximum)<>'integer' OR maximum<1 OR maximum>500000
+  OR typeof(state)<>'text' OR state NOT IN('pending','unknown','settled')
+  OR NOT((state='settled' AND typeof(actual)='integer' AND actual>=0 AND actual<=maximum)
+   OR(state IN('pending','unknown') AND actual IS NULL)) LIMIT 1`).get()
+ if(invalid)throw unavailable()
+}
+
 /** Trusted local evaluation host only. Explicit one-time creation is separate
  * from reopening: missing/corrupt files never mean a new allowance. No prompts,
  * keys, CRM data, provider requests, production use or per-tenant acceptance.
@@ -63,12 +76,12 @@ export function openEvaluationBudgetLedgerV1(rawPath){
     db=open(pathFor(rawPath))
     const p=db.prepare('SELECT id,contract,total_limit,batch_limit FROM policy').all()
     if(p.length!==1||p[0].id!==1||p[0].contract!==contract||p[0].total_limit!==totalLimit||p[0].batch_limit!==batchLimit)throw unavailable()
-    db.prepare('SELECT call_ref,batch_ref,maximum,state,actual FROM calls LIMIT 1').all()
+    validateAccounting(db)
   }catch{try{db?.close()}catch{}throw unavailable()}
   let closed=false
   function atomic(fn){
     if(closed)throw unavailable()
-    try{db.exec('BEGIN IMMEDIATE');const value=fn();db.exec('COMMIT');return value}
+    try{db.exec('BEGIN IMMEDIATE');validateAccounting(db);const value=fn();db.exec('COMMIT');return value}
     catch{try{db.exec('ROLLBACK')}catch{}throw unavailable()}
   }
   function totals(batch){
