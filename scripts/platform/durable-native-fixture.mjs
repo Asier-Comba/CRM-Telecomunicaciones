@@ -14,6 +14,19 @@ const imagePattern = /^sha256:[0-9a-f]{64}$/
 const fail = code => new Error('NATIVE_RESOURCE_' + code)
 const localEndpoint = value => value === 'unix:///var/run/docker.sock' || /^npipe:\/\/\/\/\.\/pipe\/(docker_engine|dockerDesktopLinuxEngine)$/.test(value)
 const snapshotSql = "select json_build_object('system',system_identifier::text,'started',floor(extract(epoch from pg_postmaster_start_time())*1000)::bigint,'database',current_database(),'publicRelations',(select count(*) from pg_class where relnamespace='public'::regnamespace)) from pg_control_system();"
+function pullFailure(error) {
+  try {
+    if (error?.code === 'ENOBUFS') return fail('IMAGE_PULL_OUTPUT_LIMIT')
+    if (error?.code === 'ETIMEDOUT') return fail('IMAGE_PULL_TIMEOUT')
+    const text = (typeof error?.stderr === 'string' ? error.stderr : Buffer.isBuffer(error?.stderr) ? error.stderr.toString('utf8') : '').slice(0, 65536)
+    if (/toomanyrequests|rate.?limit|\b429\b/i.test(text)) return fail('IMAGE_PULL_RATE_LIMITED')
+    if (/x509|certificate|\btls\b/i.test(text)) return fail('IMAGE_PULL_TLS_FAILED')
+    if (/unauthorized|authentication required|error getting credentials|\b401\b/i.test(text)) return fail('IMAGE_PULL_AUTH_UNAVAILABLE')
+    if (/manifest unknown|not found|\b404\b/i.test(text)) return fail('IMAGE_PULL_REFERENCE_UNAVAILABLE')
+    if (/connection refused|connection reset|no such host|network|timeout|deadline exceeded/i.test(text)) return fail('IMAGE_PULL_NETWORK_UNAVAILABLE')
+  } catch { /* Never allow diagnostic parsing to expose a provider error. */ }
+  return fail('IMAGE_PULL_UNAVAILABLE')
+}
 
 /** Creates only a new CI fixture. No existing-container, connection or SQL input. */
 export async function createDurableNativeFixtureV1(...argumentsReceived) {
@@ -50,7 +63,7 @@ export async function createDurableNativeFixtureV1(...argumentsReceived) {
         env: environment, encoding: 'utf8', timeout, maxBuffer: 65536,
         windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'],
       }).trim()
-    } catch { throw fail(code) } // Never preserve raw stderr, args, DSNs or causes.
+    } catch (error) { throw code === 'IMAGE_PULL_UNAVAILABLE' ? pullFailure(error) : fail(code) }
   }
   function json(args) {
     try { return JSON.parse(docker(args)) } catch { throw fail('INSPECTION_UNAVAILABLE') }
@@ -135,7 +148,7 @@ export async function createDurableNativeFixtureV1(...argumentsReceived) {
 
   try {
     if (docker(['info', '--format', '{{.OSType}}']) !== 'linux') throw fail('LINUX_ENGINE_REQUIRED')
-    docker(['pull', NATIVE_POSTGRES_OFFICIAL_IMAGE], 'IMAGE_PULL_UNAVAILABLE', 120000)
+    docker(['pull', '--quiet', NATIVE_POSTGRES_OFFICIAL_IMAGE], 'IMAGE_PULL_UNAVAILABLE', 120000)
     volumeAttempted = true
     if (docker(['volume', 'create', '--driver', 'local', '--label', label + '=' + contract, '--label', ownerLabel + '=' + token, volume]) !== volume) throw fail('IDENTITY_REJECTED')
     verifyVolume()

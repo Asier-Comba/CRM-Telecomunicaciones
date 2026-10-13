@@ -33,7 +33,7 @@ function engine(t, options = {}) {
     state.config = args[1]
     const a = args.slice(4); state.calls.push(a)
     if (a[0] === 'info') return 'linux\n'
-    if (a[0] === 'pull') { if (state.pullFailure) throw Error(privateMarker); assert.equal(a[1], NATIVE_POSTGRES_OFFICIAL_IMAGE); return '' }
+    if (a[0] === 'pull') { if (state.pullFailure) throw Object.assign(Error(privateMarker), state.pullError ?? {}); assert.equal(a.at(-1), NATIVE_POSTGRES_OFFICIAL_IMAGE); assert.ok(a.includes('--quiet')); return '' }
     if (a[0] === 'volume') {
       if (a[1] === 'create') {
         const labels = Object.fromEntries(a.flatMap((v, i) => v === '--label' ? [a[i + 1].split('=')] : []))
@@ -166,6 +166,22 @@ test('failed pull emits no provider output, credentials or unsafe cleanup comman
   const s = engine(t, { pullFailure: true })
   await assert.rejects(createDurableNativeFixtureV1(), closedError('IMAGE_PULL_UNAVAILABLE'))
   assert.equal(s.mutations.length, 0); assert.ok(!existsSync(s.config))
+})
+test('pull diagnostics expose only fixed categories and discard all provider text', async t => {
+  const s = engine(t, { pullFailure: true })
+  for (const [detail, code] of [
+    [{ code: 'ENOBUFS' }, 'OUTPUT_LIMIT'],
+    [{ code: 'ETIMEDOUT' }, 'TIMEOUT'],
+    [{ stderr: 'toomanyrequests: ' + privateMarker }, 'RATE_LIMITED'],
+    [{ stderr: Buffer.from('x509: ' + privateMarker) }, 'TLS_FAILED'],
+    [{ stderr: 'unauthorized ' + privateMarker }, 'AUTH_UNAVAILABLE'],
+    [{ stderr: 'manifest unknown ' + privateMarker }, 'REFERENCE_UNAVAILABLE'],
+    [{ stderr: 'connection reset ' + privateMarker }, 'NETWORK_UNAVAILABLE'],
+  ]) {
+    s.pullError = detail
+    await assert.rejects(createDurableNativeFixtureV1(), closedError('IMAGE_PULL_' + code))
+    assert.equal(s.mutations.length, 0); assert.ok(!existsSync(s.config))
+  }
 })
 test('close refuses a shared volume instead of forcing removal and can retry safely', async t => {
   const s = engine(t), f = await createDurableNativeFixtureV1()
