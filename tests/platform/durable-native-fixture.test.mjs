@@ -193,6 +193,10 @@ test('close refuses a shared volume instead of forcing removal and can retry saf
 })
 
 test('native own resource, independent consumer sessions, persisted storage, actual restart and teardown', { skip: process.env.RUN_NATIVE_RESOURCE_PROOF !== 'true' }, async () => {
+  let source
+  try { source = childProcess.execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }).trim() }
+  catch { throw Error('NATIVE_RESOURCE_PROOF_SOURCE_UNAVAILABLE') }
+  assert.ok(/^[0-9a-f]{40}$/.test(source), 'EXACT_SOURCE_RECORDED')
   const fixture = await createDurableNativeFixtureV1()
   const container = fixture.environment.TELECOM_NATIVE_TEST_CONTAINER
   let volume, first, second
@@ -234,5 +238,5 @@ test('native own resource, independent consumer sessions, persisted storage, act
   }
   assert.ok(safeDocker(['container', 'ls', '-a', '-q', '--filter', 'id=' + container]) === '', 'OWN_CONTAINER_REMOVAL_CONFIRMED')
   assert.ok(safeDocker(['volume', 'ls', '--filter', 'name=^' + volume + '$', '--format', '{{.Name}}']) === '', 'OWN_VOLUME_REMOVAL_CONFIRMED')
-  console.log(JSON.stringify({ contract, scope: 'RESOURCE_ONLY_NOT_BUSINESS_DURABILITY', result: 'PASS', independent_connections: 2, same_cluster_restart: 'PASS', storage: 'PASS_SYNTHETIC_PROBE', teardown: 'PASS', full23: 'NOT_RUN', business_ai_writes: 'OFF' }))
+  console.log(JSON.stringify({ contract, source, scope: 'RESOURCE_ONLY_NOT_BUSINESS_DURABILITY', result: 'PASS', independent_connections: 2, same_cluster_restart: 'PASS', storage: 'PASS_SYNTHETIC_PROBE', teardown: 'PASS', full23: 'NOT_RUN', business_ai_writes: 'OFF' }))
 })
