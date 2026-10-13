@@ -1,29 +1,41 @@
 {
-  "version": 5,
+  "version": 6,
   "sources": {
     "platform": "85d3a60a7b34af4aac5465f3b30130f742e49900",
-    "product": "817c041afd730f250c6b2233e693f527267245cd"
+    "product": "a047b74d150695b03d0fecf3c03b4fae2d57f707"
   },
   "merge_base": "7ab6f56f10fc65aa7212ed5dfbdeacea8901756a",
   "status": "STATIC_COMPOSITION_CANDIDATE",
   "composition_accepted": false,
   "migrations": {
     "platform": 71,
-    "product": 73,
+    "product": 85,
     "shared": 70,
-    "union": 74,
+    "union": 86,
     "platform_only": [
       "supabase/migrations/20261008010000_align_provider_rpc_execution_grants.sql"
     ],
     "product_only": [
       "supabase/migrations/20261006221429_assistant_conversations_v2.sql",
       "supabase/migrations/20261006224734_assistant_history_rpc_only.sql",
-      "supabase/migrations/20261007214224_assistant_turn_single_clock.sql"
+      "supabase/migrations/20261007214224_assistant_turn_single_clock.sql",
+      "supabase/migrations/20261011010500_assistant_confirm_reserve_atomic.sql",
+      "supabase/migrations/20261011012500_assistant_reservation_record_projection.sql",
+      "supabase/migrations/20261011014500_assistant_confirmation_cancel.sql",
+      "supabase/migrations/20261011023000_assistant_operation_recovery.sql",
+      "supabase/migrations/20261011031500_assistant_start_execution.sql",
+      "supabase/migrations/20261011034500_assistant_audit_delivery_workers.sql",
+      "supabase/migrations/20261011040500_assistant_audit_queue.sql",
+      "supabase/migrations/20261011050000_assistant_command_material.sql",
+      "supabase/migrations/20261011060000_assistant_effect_workers.sql",
+      "supabase/migrations/20261011070000_assistant_safe_completion.sql",
+      "supabase/migrations/20261011080000_assistant_unconfirmed_reservation.sql",
+      "supabase/migrations/20261011090000_assistant_verified_completed_reconciliation.sql"
     ],
     "applied_database": "NOT_PROVEN"
   },
   "source_blobs": {
-    "product_paths_preserved": 624,
+    "product_paths_preserved": 655,
     "platform_paths_preserved": [
       "src/app/api/health/live/route.ts",
       "src/app/api/health/ready/route.ts",
@@ -33,7 +45,7 @@
     "migration_blobs_identical": true
   },
   "public_rpc_manifest": {
-    "count": 295,
+    "count": 319,
     "actual_database_comparison": "REQUIRES_EXACT_CI"
   },
   "acceptance": {

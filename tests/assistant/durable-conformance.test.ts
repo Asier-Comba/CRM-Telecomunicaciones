@@ -172,12 +172,19 @@ class ReferenceIdempotencyStore implements DurableIdempotencyStore {
     staged.state = command.resolution.outcome
     staged.version++
     staged.updatedAt = command.now.toISOString()
-    if (command.resolution.outcome === 'completed') staged.result = copy(command.resolution.result)
-    else staged.failureCode = command.resolution.failureCode
+    if (command.resolution.outcome === 'completed') {
+      staged.result = copy(command.resolution.result)
+      delete staged.failureCode
+    } else {
+      staged.failureCode = command.resolution.failureCode
+      delete staged.result
+    }
     const intent = copy(command.auditIntent)
     const auditKey = JSON.stringify([command.actor.workspaceId, command.eventRef])
     if (this.backing.auditIntents.has(auditKey)) return { status: 'version_conflict' }
     // No await or throwing IO between staged commit assignments.
+    delete current.result
+    delete current.failureCode
     Object.assign(current, staged)
     this.backing.auditIntents.set(auditKey, intent)
     return { status: 'applied', record: copy(current), eventRef: command.eventRef, auditIntentPersisted: true }

@@ -11,6 +11,9 @@ import type {TelecomAttentionPageV1} from '@/lib/contracts/telecom-attention-v1'
 const labels={renewal:'Renovación',permanence:'Permanencia',case:'Incidencia',task:'Tarea',meeting:'Reunión',opportunity:'Oportunidad',portability:'Portabilidad'}
 const priorities={urgent:'Urgente',high:'Alta',normal:'Normal',low:'Baja'}
 export function Customer360Overview({customerId,onAccessDenied}:{customerId:string;onAccessDenied?:()=>void}){
+ return <ScopedCustomer360Overview key={customerId} customerId={customerId} onAccessDenied={onAccessDenied}/>
+}
+function ScopedCustomer360Overview({customerId,onAccessDenied}:{customerId:string;onAccessDenied?:()=>void}){
  const {repository}=useProduct(),[summary,setSummary]=useState<TelecomReadResultV1<'customer360.summary'>|null>(null),[attention,setAttention]=useState<TelecomAttentionPageV1|null>(null),[error,setError]=useState(''),[attentionError,setAttentionError]=useState(''),[revision,setRevision]=useState(0)
  useEffect(()=>{let active=true;void repository.telecom('customer360.summary',{customer_id:customerId}).then(v=>{if(active){setSummary(v);setError('')}}).catch(e=>{if(active){setSummary(null);setError(safeMessage(e));if(e instanceof ProductUiError&&e.code==='access_denied')onAccessDenied?.()}});return()=>{active=false}},[repository,customerId,revision,onAccessDenied])
  useEffect(()=>{let active=true;const today=new Intl.DateTimeFormat('sv-SE',{timeZone:'Europe/Madrid'}).format(new Date()),shift=(days:number)=>new Date(Date.parse(today+'T12:00:00Z')+days*86400000).toISOString().slice(0,10);void repository.telecom('telecom.attention',{customer_id:customerId,window_from:shift(-30),window_to:shift(30),limit:5}).then(v=>{if(active){setAttention(v);setAttentionError('')}}).catch(e=>{if(active){setAttention(null);setAttentionError(safeMessage(e));if(e instanceof ProductUiError&&e.code==='access_denied')onAccessDenied?.()}});return()=>{active=false}},[repository,customerId,revision,onAccessDenied])

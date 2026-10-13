@@ -1,0 +1,11 @@
+# Positive receipt inspection on the admitted driver connection
+
+`inspectWorkerPositiveEffectV3` consumes the existing positive-only receipt inspector on the already admitted driver connection. The private nonce-owned fixture sink and immutable binding are validated before the first await. Backend/database/application are checked before and after the fixed readonly receipt query. Missing, duplicate, foreign or malformed receipts are unavailable; they never become zero effects. Close during a held query discards late facts and retires only the owned session. Raw SQL errors remain closed generic failures.
+
+The same two existing completion/reconciliation fixtures compare this result against their independent original receipt inspector, before the operation slice closes that same audit/receipt/operation connection. There is no additional sink, ledger, query primitive, resource, workflow, image or W5 restart implementation.
+
+Four new controlled-session tests cover pinned scope across waits, missing/foreign receipts and backend substitution, hostile sink/binding before SQL, and held-read closure/private-error refusal. Local validation requires 791 assistant tests, 18 focused connection/receipt tests, global types/lint and native script syntax. Physical same-connection receipt observations are prepared and NOT_RUN until this exact source executes its own native job.
+
+Own controls for this descendant require 1,351 tests (560+791), 360 browser checks, native driver audit and positive-receipt equality observations, Supabase107/valid-PDF transport/five50_29_21/cleanup4. Source135 rate citations and earlier driver audit are retained, but no committed SHA inherits their acceptance. Parent3C90 controls remain independent; original916 startup quota failure remains preserved.
+
+This connects the existing effectCount1 measurement to the driver's own connection. Audit13 + operation2 + positive receipt1 remain only16/21 measured fields. Commercial handler effects, verified absence, quiescence, five unmeasured counters, full11/23, full scenario methods, before-effect kill and W5 resource/restart remain unproved. No source approval, RAG review/index/model activation or independent W4 acceptance is implied. AI writes OFF; five HIGH alerts unresolved; release NOT_ACCEPTED.

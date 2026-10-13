@@ -5,6 +5,10 @@ import {SIM_FIELDS_V1,SIM_LIST_FILTERS_V1}from './sim-specs-v1.ts'
 import type {SimOperationV1,SimInputsV1}from '../contracts/sim-v1'
 export const SIM_RPC_V1={'sim.create':'sim_v1_command','sim.assign':'sim_v1_command','sim.activate':'sim_v1_command','sim.replace':'sim_v1_command','sim.deactivate':'sim_v1_command','sim.cancel':'sim_v1_command','sim.list':'sim_v1_query','sim.get':'sim_v1_query','sim.history':'sim_v1_query'}as const
 const states=['prepared','assigned','active','replaced','inactive','cancelled'],sources=['manual','import','integration'],label=(v:unknown)=>typeof v==='string'&&v.trim().length>0&&[...v].length<=200&&!/[\x00-\x1f\x7f-\x9f]/.test(v),mask=(v:unknown)=>typeof v==='string'&&/^••••[0-9]{3}$/.test(v)
+// PostgreSQL supplies microseconds; Date.parse alone drops the last three digits.
+// Call only after instant() admits the grammar, including timezone offsets.
+const micros=(v:string)=>BigInt(Date.parse(v))*BigInt(1000)+BigInt((/\.(\d{1,6})(?:Z|[+-]\d{2}:\d{2})$/.exec(v)?.[1].padEnd(6,'0')??'000000').slice(3))
+const latestMicros=(a:string,b:string)=>micros(a)>micros(b)?micros(a):micros(b)
 export function isSimOperationV1(v:unknown):v is SimOperationV1{return typeof v==='string'&&Object.hasOwn(SIM_RPC_V1,v)}
 export function parseSimInputV1(op:SimOperationV1,value:unknown):SimInputsV1[SimOperationV1]|null{try{
  const snap=snapshotProductJsonV1(value);if(!isSimOperationV1(op)||!plain(snap))return null;const v={...snap},req:readonly string[]=SIM_FIELDS_V1[op],opt:readonly string[]=op==='sim.list'?SIM_LIST_FILTERS_V1:op==='sim.history'?['limit','after_id']:[]
@@ -19,14 +23,15 @@ export function parseSimInputV1(op:SimOperationV1,value:unknown):SimInputsV1[Sim
  }catch{return null}}
 function row(r:unknown){
  if(!plain(r)||!exact(r,'id,version,customer_id,operator_id,kind,display_label,status,source,masked_iccid,masked_eid,assigned_line_id,activated_at,replaced_at,deactivated_at,cancelled_at,created_at,updated_at')||!uuid(r.id)||!natural(r.version)||(r.version as number)<1||!uuid(r.customer_id)||!uuid(r.operator_id)||!['physical','esim'].includes(r.kind as string)||!label(r.display_label)||!states.includes(r.status as string)||!sources.includes(r.source as string)||r.masked_iccid!==null&&!mask(r.masked_iccid)||r.masked_eid!==null&&(!mask(r.masked_eid)||r.kind!=='esim')||r.assigned_line_id!==null&&!uuid(r.assigned_line_id)||!instant(r.created_at)||!instant(r.updated_at))return false
- for(const k of ['activated_at','replaced_at','deactivated_at','cancelled_at'])if(r[k]!==null&&(!instant(r[k])||Date.parse(r[k]as string)<Date.parse(r.created_at as string)))return false
+ if(micros(r.updated_at as string)<micros(r.created_at as string))return false
+ for(const k of ['activated_at','replaced_at','deactivated_at','cancelled_at'])if(r[k]!==null&&(!instant(r[k])||micros(r[k]as string)<micros(r.created_at as string)))return false
  if(['assigned','active'].includes(r.status as string)?r.assigned_line_id===null||r.masked_iccid===null:r.assigned_line_id!==null)return false
  if(['prepared','assigned'].includes(r.status as string)&&r.activated_at!==null||r.status==='active'&&r.activated_at===null||r.status==='replaced'&&r.replaced_at===null||r.status==='inactive'&&r.deactivated_at===null||r.status==='cancelled'&&r.cancelled_at===null)return false
  for(const[k,status]of [['replaced_at','replaced'],['deactivated_at','inactive'],['cancelled_at','cancelled']])if(r[k]!==null&&r.status!==status)return false
  return true
 }
 function association(r:unknown,line:unknown){
- if(!plain(r)||!exact(r,'id,sim_id,line_id,kind,masked_iccid,masked_eid,status,assigned_at,activated_at,ended_at,replacement_sim_id')||!uuid(r.id)||!uuid(r.sim_id)||r.line_id!==line||!['physical','esim'].includes(r.kind as string)||!mask(r.masked_iccid)||r.masked_eid!==null&&(!mask(r.masked_eid)||r.kind!=='esim')||!['assigned','active','replaced','inactive'].includes(r.status as string)||!instant(r.assigned_at)||r.activated_at!==null&&(!instant(r.activated_at)||Date.parse(r.activated_at as string)<Date.parse(r.assigned_at as string))||r.ended_at!==null&&(!instant(r.ended_at)||Date.parse(r.ended_at as string)<Math.max(Date.parse(r.assigned_at as string),r.activated_at===null?0:Date.parse(r.activated_at as string))))return false
+ if(!plain(r)||!exact(r,'id,sim_id,line_id,kind,masked_iccid,masked_eid,status,assigned_at,activated_at,ended_at,replacement_sim_id')||!uuid(r.id)||!uuid(r.sim_id)||r.line_id!==line||!['physical','esim'].includes(r.kind as string)||!mask(r.masked_iccid)||r.masked_eid!==null&&(!mask(r.masked_eid)||r.kind!=='esim')||!['assigned','active','replaced','inactive'].includes(r.status as string)||!instant(r.assigned_at)||r.activated_at!==null&&(!instant(r.activated_at)||micros(r.activated_at as string)<micros(r.assigned_at as string))||r.ended_at!==null&&(!instant(r.ended_at)||micros(r.ended_at as string)<latestMicros(r.assigned_at as string,(r.activated_at??r.assigned_at)as string)))return false
  return r.status==='replaced'?r.ended_at!==null&&uuid(r.replacement_sim_id)&&r.replacement_sim_id!==r.sim_id:r.replacement_sim_id===null&&(r.status==='inactive'?r.ended_at!==null:r.ended_at===null&&(r.status==='active'?r.activated_at!==null:r.activated_at===null))
 }
 export function parseSimResultV1(op:SimOperationV1,input:SimInputsV1[SimOperationV1],value:unknown){try{

@@ -11,6 +11,9 @@ import type { CustomerRowV1 } from '@/lib/contracts/telecom-collections-v1'
 /** Display context only: exact ordinary identity before any dependent read.
  * A URL reference grants no tenant authority and is never sent to a model. */
 export function AuthorizedCustomerContext({ id, onAccessDenied }: { id: string; onAccessDenied: () => void }) {
+  return <ScopedAuthorizedCustomerContext key={id} id={id} onAccessDenied={onAccessDenied}/>
+}
+function ScopedAuthorizedCustomerContext({ id, onAccessDenied }: { id: string; onAccessDenied: () => void }) {
   const { repository } = useProduct()
   const [customer, setCustomer] = useState<CustomerRowV1 | null>(null)
   const [error, setError] = useState(''), [revision, setRevision] = useState(0)

@@ -1,0 +1,11 @@
+# Fiscal profile clarity — W2 presentation unit
+
+The actual PR125 E98 issuer/customer recovery screenshots placed City and Region before legal identity because the editor used the profile object's key order. FiscalEditor now has explicit sections: legal name and tax identity, then address, postal code, city, region and country. It uses associated labels, browser address autofill hints, one column on mobile and two for short address fields on larger screens. Required fields, existing labels and maximum lengths are unchanged.
+
+The component is extracted from IntegratedBilling. It retains the existing lazy profile initialization, disabled fields during uncertain/conflicting/refresh-required states, exact-retry label, safe error projection and explicit close-and-reload control. The parent still owns commands, current authorization, version, pending command identity and post-commit refresh. No new fetch, schema, RPC, permission, dependency or workflow is introduced. Stored or selected invoice dates are not rewritten.
+
+The existing ordinary invoice-proposal browser assertion also used a UTC expected day after the product changed to Madrid. That single assertion now independently formats the current day in Europe/Madrid. Its exact date equality, requires-review/no-save checks and the separate five controlled-clock real UI/backend cases remain intact. This avoids a false integration failure around Madrid midnight; it is not a relaxed assertion or a changed product date calculation.
+
+The React review checks associated labels, stable field keys, lazy initialization, immutable functional state updates, unchanged disable/retry boundaries, and no new effects or requests. Local scoped checks do not prove a browser layout. Own lint/types/build, complete journeys and actual viewport captures must be reviewed at this unit's exact source before consuming it. Existing fiscal conflict/read-failure/save-after-reviewed-refresh journeys are retained; no new test merely mirrors the reversible presentation change.
+
+Business AI remains OFF. Physical issue10 and independent W4 review, issue22 recovery acceptance, issue29 audit, active model, persistent Windows installation and release acceptance remain pending. This unit does not establish those capabilities. No main, W4/W5 source, production, VPS, provider or real data changes.

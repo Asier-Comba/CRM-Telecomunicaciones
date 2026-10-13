@@ -3,7 +3,8 @@ import { validOperationRef } from './durable-contracts.ts'
 import { isSafeEvidenceText } from './context-budget.ts'
 
 /** Historical reference-model boundary, NOT the production/runtime port.
- * W5 must implement ReconciliationPersistence in durable-db-contract.ts.
+ * W2 implements ReconciliationPersistence in durable-db-contract.ts; W5 owns
+ * only the agreed runtime/disposable fixture and W4 independently accepts it.
  * This experiment's safeResultRef/replayed/inspect/workspace-only worker API is
  * not authorization or fenced durable delivery. Keep only for reference tests.
  * Precondition: server authorization, independent verification and registered
