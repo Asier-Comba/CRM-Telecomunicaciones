@@ -1,0 +1,9 @@
+# W5: registro presupuestario y coordinacion de reserva en union86
+
+Merge normal de propietario elegible78de62d91bd5e11e2bc5d62082d781e7d595bcb4 sobre fuente propia150b7e. Antes del merge:610bootstrap/819assistant/lint/types/buildPASS,audit5HIGHFAIL; Sup107/85/4037/teardown,resource16,canonical85 ydelivered86 reinicio independientePASS. Arbol7f2900600848b38d67a303f24cce664cbfb1f6b0 igualejecutado6ce1820751d47d6c91f6760548bfe06978e18d18.
+
+Fuente propietaria conserva fallo0B8, sin reetiquetarlo: E35 agrega fases cerradas sin cambiar acciones/timeouts/aserciones y tiene107 propios. Ledger local rechaza registros corruptos antes de admitir y dentro de cada operacion; coordinador une reserva previa, transporte unico inerte y liquidacion del uso observado, retiene reservas ante uso desconocido y replay nunca vuelve a enviar. Dos negativos del padre y pruebas reales SQLite/procesos del propietario no acreditan perdida de energia, autenticidad criptografica del archivo, presupuesto canónico global aprobado, tarifa/tokenbounds verificados ni wiring/backend/provider.
+
+Todo codigo W2/W3 incorporado por merge, sin ediciones propias. Procedencia version11 mantiene655blobs/four infra paths/86exactmigrations/extension700d. Resource/parser/pins/timing/criterios congelados. PR151 cache verificada NO incorporada, mantiene su revisionW4/ACKtecnico noadopcion y Sup106/1 CASE_NOTE_CURSOR/causeUNKNOWN. Fuente posterior60ac pendienteSup/noelegible no consumida. La integracion actual no contiene su nueva denegacion de proveedor backend; ninguna clave/call ni evaluacion real autorizada aqui.
+
+Toda prueba debe ser nueva de esta fuente. CI propia pendiente, composition_accepted=false; npm/vendor/history, revisionW4/full23/ausencia/quiescencia/handler/staging siguen abiertos. IA writesOFF/releaseNOT_ACCEPTED/modeloNOT_RUN/OpenAI0calls0reservas$0; W3 unico consumidor cuando secreto/contador global revisados.
