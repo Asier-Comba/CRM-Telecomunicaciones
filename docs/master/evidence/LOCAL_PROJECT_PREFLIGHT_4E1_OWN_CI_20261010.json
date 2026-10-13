@@ -1,0 +1,99 @@
+{
+  "source": "4e1ae60d34762cd51f9f1a03f7c2b2c2dec9515b",
+  "executed": "defd070b22090a50efd4d700c9a08a3b8d1cf335",
+  "tree": "26684bc06ade0d1fa891ff6bdbb2b50224e1f7f2",
+  "base": "cd45899594a82b76d9cf8d8a62562ff728ae64fc",
+  "quality": 38055530947,
+  "quality_job": 114223077754,
+  "native_postgres_job": 114223077981,
+  "preview_job": 114223077760,
+  "secret_scan_job": 114223077591,
+  "quality_functional": "PASS_512_BOOTSTRAP_493_ASSISTANT_LINT_TYPES_BUILD66",
+  "native_restore": {
+    "kind": "native_postgresql_restore_test_only",
+    "migration_count": 73,
+    "migration_head": "20261007214224_assistant_turn_single_clock.sql",
+    "dump_sha256": "ce4388071d0e26c3754b12406fd3a8895c07ccea77e05dd0a6b3e8cd7a7823e0",
+    "schema": "pass",
+    "rows": "pass",
+    "assistant_rows": "pass",
+    "rls": "pass",
+    "scope": "pass",
+    "restored_privilege_matrix": "pass",
+    "fresh_role_calls": "pass",
+    "restored_role_calls": "pass",
+    "acl_loss_negative_control": "pass",
+    "production_backup": false
+  },
+  "preview": "PASS_82_OWN_INVOICE_SHELL_STARTUP_HISTORY_RELOAD_ROUTE_SSR_CASES",
+  "unit_acceptance": "OWN_CI1005_READONLY_PREFLIGHT_NATIVE_PREVIEW_PASS_AUDIT_FAIL_NO_INSTALLATION_OR_PRODUCT_ACCEPTANCE",
+  "local_validation": {
+    "source": "4e1ae60d34762cd51f9f1a03f7c2b2c2dec9515b",
+    "tree": "26684bc06ade0d1fa891ff6bdbb2b50224e1f7f2",
+    "base": "cd45899594a82b76d9cf8d8a62562ff728ae64fc",
+    "files": [
+      "docs/master/LOCAL_RECOVERY_WINDOWS_20261009.md",
+      "scripts/local-recovery-doctor.mjs",
+      "tests/bootstrap/local-recovery-doctor.test.mjs"
+    ],
+    "blobs": {
+      "docs/master/LOCAL_RECOVERY_WINDOWS_20261009.md": "ab2a091ddeecbda31eb5006854abbdeb0c78a3b1",
+      "scripts/local-recovery-doctor.mjs": "c65640fb82fe8e57f43ba8fe5065cb7ac8818d2b",
+      "tests/bootstrap/local-recovery-doctor.test.mjs": "64d8410aba99e5ca10304c06eefbc0a69daa00a8"
+    },
+    "before": {
+      "scope": "SYNTHETIC_REAL_CONFIG_FILE_INJECTED_COMMAND_MEMORY_PORT_PREREQUISITES_NO_SERVICES",
+      "module_sha256": "b5205e5215a21e7e037d51b3d4eeaaabd97158a279906c0a8ec1cd4e408a89d8",
+      "results": [
+        {
+          "name": "ordinary_root",
+          "project_files": "PRESENT_LOCAL_PROJECT",
+          "preflight": "PREREQUISITES_OBSERVED_ACCEPTANCE_STILL_REQUIRED"
+        },
+        {
+          "name": "commented_match_wrong_root",
+          "project_files": "PRESENT_LOCAL_PROJECT",
+          "preflight": "PREREQUISITES_OBSERVED_ACCEPTANCE_STILL_REQUIRED"
+        },
+        {
+          "name": "table_match_missing_root",
+          "project_files": "PRESENT_LOCAL_PROJECT",
+          "preflight": "PREREQUISITES_OBSERVED_ACCEPTANCE_STILL_REQUIRED"
+        }
+      ]
+    },
+    "after": {
+      "scope": "SYNTHETIC_REAL_CONFIG_FILE_INJECTED_COMMAND_MEMORY_PORT_PREREQUISITES_NO_SERVICES",
+      "module_sha256": "365f0be5f932afce62f252feaae1fe335d69a6f43603854cb7b6d30e400b35c9",
+      "results": [
+        {
+          "name": "ordinary_root",
+          "project_files": "PRESENT_LOCAL_PROJECT",
+          "preflight": "PREREQUISITES_OBSERVED_ACCEPTANCE_STILL_REQUIRED"
+        },
+        {
+          "name": "commented_match_wrong_root",
+          "project_files": "MISSING_OR_WRONG_PROJECT",
+          "preflight": "BLOCKED_REVIEW_REPORT"
+        },
+        {
+          "name": "table_match_missing_root",
+          "project_files": "MISSING_OR_WRONG_PROJECT",
+          "preflight": "BLOCKED_REVIEW_REPORT"
+        }
+      ]
+    },
+    "passed_tests": 6,
+    "lint": "PASS_SCOPED_MJS_NO_REACT_COMPONENTS",
+    "secret_scan": "PASS_REACHABLE_HEAD_ONLY",
+    "memory_limit_mb": 256,
+    "local_full_types_build_browser_stack": "NOT_RUN_RESOURCE_LIMITED",
+    "scope": "READ_ONLY_PREFLIGHT_PROJECT_ROOT_NO_INSTALLATION_OR_APPLICATION_ACCEPTANCE",
+    "recorded_at": "2026-10-10T15:23:14.784117+02:00"
+  },
+  "kind": "historical readonly preflight unit CI only; no own107/55 or new composition acceptance",
+  "audit": "five HIGH; FAIL",
+  "business_actions_enabled": false,
+  "installation": "not established",
+  "independent_review": "pending"
+}

@@ -1,0 +1,46 @@
+name: W5 native resource
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'scripts/platform/durable-native-fixture.mjs'
+      - 'scripts/platform/native-resource-query-error.mjs'
+      - 'tests/platform/durable-native-fixture.test.mjs'
+      - 'scripts/security/native-postgres/expected-image.mjs'
+      - 'scripts/security/native-postgres/persistent-fixture-session.mjs'
+      - '.github/workflows/durable-native-resource.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: w5-native-resource-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  native-resource:
+    name: Owned disposable PostgreSQL resource and actual restart
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      CI: 'true'
+      TELECOM_NATIVE_RESOURCE_DISPOSABLE: 'true'
+      DOCKER_HOST: unix:///var/run/docker.sock
+      DOCKER_CONTEXT: ''
+      NODE_ENV: test
+      APP_ENV: test
+      ALLOW_PRODUCTION_TESTS: 'false'
+      RUN_NATIVE_RESOURCE_PROOF: 'true'
+    steps:
+      - name: Exact source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Node runtime without application dependencies
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version-file: .nvmrc
+      - name: Closed negative controls and native storage restart proof
+        run: node --test tests/platform/durable-native-fixture.test.mjs

@@ -5,7 +5,12 @@ import {safeMessage} from './repository'
 import {control} from '@/features/product/ui'
 import type {TelecomCollectionPageV1} from '@/lib/contracts/telecom-collections-v1'
 /** Ordinary active assignees, available to every normal reader role. */
-export function AssigneeSelect({value,onChange,disabled=false,allowClear=false,clearLabel='Sin responsable'}:{value:string;onChange:(id:string)=>void;disabled?:boolean;allowClear?:boolean;clearLabel?:string}) {
+type AssigneeSelectProps={value:string;onChange:(id:string)=>void;disabled?:boolean;allowClear?:boolean;clearLabel?:string}
+export function AssigneeSelect(props:AssigneeSelectProps){
+ const {actorId,workspaceId,role}=useProduct()
+ return <ScopedAssigneeSelect key={JSON.stringify([actorId,workspaceId,role])} {...props}/>
+}
+function ScopedAssigneeSelect({value,onChange,disabled=false,allowClear=false,clearLabel='Sin responsable'}:AssigneeSelectProps) {
   const {repository,actorId}=useProduct()
   const [page,setPage]=useState<TelecomCollectionPageV1<'assignee.list'>|null>(null)
   const [cursors,setCursors]=useState<string[]>([]),[error,setError]=useState(''),[revision,setRevision]=useState(0)

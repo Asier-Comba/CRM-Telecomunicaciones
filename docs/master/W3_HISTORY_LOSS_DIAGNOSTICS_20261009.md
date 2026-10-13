@@ -1,0 +1,13 @@
+# W3 — History delivery-loss diagnostics
+
+Owner W3 fixture diagnostics. Base accepted composition38@6b31dea11a5a833c57face2219a5356ce2a962ca. Its history browser fixture is byte-identical to the one that failed in W2 source56@efe4574667a1f832212c2a2b61697a5097f5c24d. No pending W2 source imported and no application/assistant kernel/API/schema change.
+
+Actual failure37879102026 attempt1/job113654407220 executed55ac1f882c8a5b5e63e56327fe8f773ff4b38397, identical treedde50587f56a175adef4ccf35c1c4310a6e3f262. It failed before W2 at W3_HISTORY_UI_CREATE_LOST_DELIVERY_TIMEOUT, after73 migrations; full backend/UI counts were not reached, teardown PASS. Screenshot11594056391 shows history loading, a disabled new-conversation button and no uncertain-result alert. That screenshot was captured after route cleanup; it cannot establish the exact pre-cleanup state or the cause. An unchanged-source attempt2 remains a diagnostic rerun, not a correction.
+
+The fixture now captures a second screenshot and a bounded safe JSON snapshot before its existing awaited route cleanup. JSON includes only the fixed phase, upstream HTTP status, number of intercepted creates, boolean equality of the first two inputs, at most32 recognized history-operation/status/time events and closed busy/disabled/button/uncertain-alert booleans. It excludes bodies, titles, identifiers, URLs, cookies, headers, storage, raw errors and credentials. The existing screenshot directory artifact already uploads this directory. Snapshot failure cannot replace the original failure; cleanup and the original exception remain.
+
+No HTTP fault/route ordering,30s page/upstream budget,5s expect budget, assertion, case name, retry identity, role, scope, CAS, persistence or revocation rule changes. Local syntax/lint/types/diff checks and fixture-check-name equivalence are required; full exact-source Supabase107/Auth/history/context/grounding/teardown and quality/build remain PENDING at commit. No root cause or functional fix is claimed by adding diagnostics. Five HIGH npm findings remain unsuppressed under #29.
+
+PUBLIC critical/PRIVATE recommended without visibility change. Physical AI business durability NOT_TESTED, #10 and independent W4 pending, business writes disabled. Windows persistent Supabase installation remains resource-blocked; Docker not started. W4/W5 infrastructure, accounts, providers, VPS/production untouched. No main merge or force push.
+
+Next three: obtain this source's own gate and exact before-drain evidence if a failure occurs; diagnose from actual events/state without weakening expectations; consume accepted sources and require the composed source's own complete gates.

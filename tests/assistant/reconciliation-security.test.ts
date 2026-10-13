@@ -47,7 +47,7 @@ function fixture(options: {
     },
     async commitVerifiedReconciliation(command) {
       transitions++
-      current = { ...current, state: 'completed', version: 5 }
+      current = { ...current, state: 'completed', version: 5, result: command.resolution.outcome === 'completed' ? structuredClone(command.resolution.result) : undefined }
       return { status: 'applied', record: structuredClone(current), eventRef: command.eventRef, auditIntentPersisted: true }
     },
   } satisfies ReconciliationPersistence

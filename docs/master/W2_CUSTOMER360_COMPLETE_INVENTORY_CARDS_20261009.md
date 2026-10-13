@@ -1,0 +1,15 @@
+# W2 — Customer360 line, renewal, permanence and opportunity readability
+
+Owner: W2 presentation and existing ordinary-read browser consumer. Base: accepted source55@e299463de904919a2cc6d84c41298a08f8723865/tree0e77312fe4b5d755c3d31e562539751bca318775, own107 in37876172793/job113645181136. This new source needs its own exact-tree whole gates; no green is inherited. Original snapshots00–19 are unavailable; versioned collection contracts and current consumers provide the required field/authority decisions.
+
+The previous Customer360 line table switched on at768 despite twelve fields, while the existing loaded-telecom journey explicitly excluded lines from its strict full-card field checks. Renewal, permanence and opportunity collections likewise used tables from768 and had no strict first-record width evidence. Existing contract/SIM/case/portability cards are retained. Lines now use cards below1536; renewals/permanences/opportunities use cards below1280. Existing larger-width tables, fields, cursor/filter/reload behavior, masks and ordinary authorized reads remain.
+
+Renewal attention and permanence timing use exhaustive typed Spanish maps of the current collection enums. Unknown values retain their literal fallback. The renewal fallback caption is Renovación; the DTO has no display name/title. This changes presentation only; it does not calculate dates, deadlines, money, counters or state in the browser.
+
+The original twelve independent-domain reads still compare every rendered UUID with the actual HTTP items. That same journey adds nine captures for the first real renewal/permanence/opportunity record at1440/768/390, requiring the actual first-row UUID, every card field or desktop cell fully in the viewport (ratio1), the same selected tab and no document overflow. The original loaded-telecom journey now includes all twelve line fields in its strict card checks, also at1440. Previous screenshots/SQL task-history fixture/filter/cursor/navigation/privacy checks and all107 case names/budgets remain. No fake successful HTTP, private editor, new write, skip or timeout extension.
+
+Local lint/types/syntax/diff and unchanged-case-name checks are required before publication. Own Supabase107/Auth/history/context/grounding/teardown, quality411+482/build and actual screenshots are PENDING at commit. First-row evidence does not imply all rows in one frame, full premium acceptance or persistent Windows installation.
+
+No API/RPC/schema/dependency/assistant-kernel or W4/W5 infrastructure change. Business AI writes remain off pending #10 physical durability and independent W4. Full audit five HIGH remains enforced under #29. PUBLIC remains a critical governance risk; PRIVATE recommended without a visibility change. Windows resource constraints keep Docker stopped; disposable real CI is not the persistent local install. No main merge/force push/production/VPS/provider operation.
+
+Next three: exact new source107/quality and review its twelve first-record frames; compose only accepted sources with fresh canonical gates; continue product and independent security/local/W5 contracts.

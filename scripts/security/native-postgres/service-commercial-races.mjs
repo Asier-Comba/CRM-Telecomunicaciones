@@ -3,10 +3,11 @@ import { randomUUID } from 'node:crypto'
 import assert from 'node:assert/strict'
 import { spawn, spawnSync } from 'node:child_process'
 import { readFileSync, readdirSync } from 'node:fs'
+import { isExpectedNativeImage } from './expected-image.mjs'
 const container = process.env.TELECOM_NATIVE_TEST_CONTAINER ?? ''
 assert.match(container, /^[0-9a-f]{12,64}$/)
 const image = spawnSync('docker',['inspect','--format={{.Config.Image}}',container],{encoding:'utf8'})
-assert.equal(image.status,0);assert.match(image.stdout.trim(),/^postgres:16/)
+assert.equal(image.status,0);assert.ok(isExpectedNativeImage(image.stdout.trim()),'unexpected PostgreSQL container image')
 const database='telecom_service_commercial_race_test'
 function docker(args,input) {
  return new Promise((resolve,reject)=>{

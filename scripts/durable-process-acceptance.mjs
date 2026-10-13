@@ -1,68 +1,52 @@
-import { fork } from 'node:child_process'
 import { isAbsolute } from 'node:path'
-import { pathToFileURL, fileURLToPath } from 'node:url'
+import { pathToFileURL } from 'node:url'
 import assert from 'node:assert/strict'
-import { DURABLE_PROCESS_CONTRACT, DURABLE_PROCESS_SCENARIOS, validateDurableObservation, validateRollbackEvidence, validateDatabaseRestartEvidence } from '../src/assistant/durable-process-spec.ts'
+import {launchDurableWorkerV3} from './durable-process-worker-controller-v3.mjs'
+import { DURABLE_PROCESS_CONTRACT, DURABLE_PROCESS_SCENARIOS, validateDurableObservation, validateAuditOutageObservation, validateRollbackEvidence, validateDatabaseRestartEvidence, validateClaimFenceEvidence, validateImmutableAuditEvidence } from '../src/assistant/durable-process-spec-v3.ts'
 
 // Usage on repository Node24: node scripts/durable-process-acceptance.mjs /absolute/W2-driver.mjs
 // Driver receives credentials through its own approved local environment, never CLI JSON.
+async function main() {
 const modulePath = process.argv[2]
 if (!modulePath || !isAbsolute(modulePath)) {
   console.error('Required: absolute local W2 acceptance driver path; no database evidence produced.')
-  process.exit(2)
+  process.exitCode = 2; return
 }
 let driver
 try { driver = await import(pathToFileURL(modulePath).href) } catch {
-  console.error('adapter_load_failed'); process.exit(2)
+  console.error('adapter_load_failed'); process.exitCode = 2; return
 }
 if (!driver.metadata || Object.keys(driver.metadata).sort().join(',') !== 'backend,contract,disposable' ||
   driver.metadata.contract !== DURABLE_PROCESS_CONTRACT || driver.metadata.backend !== 'native_postgres' || driver.metadata.disposable !== true) {
-  console.error('disposable_native_postgres_driver_required'); process.exit(2)
+  console.error('disposable_native_postgres_driver_required'); process.exitCode = 2; return
 }
-const workerPath = fileURLToPath(new URL('./durable-process-worker.mjs', import.meta.url))
+const requiredExports = ['setupScenario', 'connectWorker', 'execute', 'inspectBoundary', 'inspectScenario', 'cleanupScenario']
+if (requiredExports.some(name => typeof driver[name] !== 'function')) {
+  console.error('durable_driver_exports_required'); process.exitCode = 2; return
+}
 const active = new Set()
-function launch(job) {
-  const child = fork(workerPath, [modulePath], { stdio: ['ignore', 'ignore', 'ignore', 'ipc'] })
-  active.add(child)
-  const identity = { clientPid: child.pid, backendPid: undefined }
-  let release
-  const ready = new Promise(resolve => { release = resolve })
-  let reached = false
-  let done = false
-  const result = new Promise((resolve, reject) => {
-    const timer = setTimeout(() => { child.kill('SIGKILL'); reject(new Error('worker_timeout')) }, 30000)
-    child.on('message', message => {
-      if (message.type === 'ready') { identity.backendPid = message.backendPid; release() }
-      if (message.type === 'checkpoint' && message.name === job.killAt) { reached = true; child.kill('SIGKILL') }
-      if (message.type === 'result') { done = true; clearTimeout(timer); resolve(message.result) }
-      if (message.type === 'error') { clearTimeout(timer); reject(new Error('worker_failed')) }
-    })
-    child.on('error', () => { clearTimeout(timer); release(); reject(new Error('worker_launch_failed')) })
-    child.on('exit', (code, signal) => {
-      active.delete(child); clearTimeout(timer); release()
-      if (reached && signal === 'SIGKILL') resolve({ killedAt: job.killAt })
-      else if (!done) reject(new Error('worker_exited_without_result'))
-    })
-  })
-  // Observe errors even if a worker dies before every peer reaches the barrier.
-  void result.catch(() => {})
-  return { identity, ready, start() { child.send(job) }, result }
-}
+const launch=job=>launchDurableWorkerV3({modulePath,job,active})
 
 const report = []
+let stage='setup',currentScenario=null
 try {
   for (const scenario of DURABLE_PROCESS_SCENARIOS) {
+    currentScenario=scenario.id;stage='setup'
     const fixture = await driver.setupScenario(scenario.id)
     assert.equal(typeof fixture, 'string') // opaque synthetic fixture ref only
     assert.match(fixture, /^[A-Za-z0-9_-]{1,160}$/)
     try {
       const jobs = Array.from({ length: scenario.workers }, () => launch({ fixture, scenario: scenario.id, action: scenario.action, ...('killAt' in scenario ? { killAt: scenario.killAt } : {}) }))
+      stage='worker_ready'
       await Promise.all(jobs.map(job => job.ready))
+      stage='worker_identity'
       assert.equal(new Set(jobs.map(job => job.identity.clientPid)).size, scenario.workers)
       assert.ok(jobs.every(job => Number.isSafeInteger(job.identity.backendPid) && job.identity.backendPid > 0))
       assert.equal(new Set(jobs.map(job => job.identity.backendPid)).size, scenario.workers)
-      jobs.forEach(job => job.start())
+      stage='worker_start';jobs.forEach(job => job.start())
+      stage='worker_results'
       const outcomes = await Promise.all(jobs.map(job => job.result))
+      stage='worker_outcome_constraints'
       if ('killAt' in scenario) assert.equal(outcomes[0]?.killedAt, scenario.killAt)
       if (scenario.workers === 20) assert.equal(outcomes.filter(o => o?.authorization === 'granted').length, 1)
       if (scenario.id === 'lease_expiry') {
@@ -76,37 +60,30 @@ try {
         assert.equal(validateDatabaseRestartEvidence(await driver.inspectBoundary(fixture)), true)
       }
       if (scenario.id === 'claim_fencing') {
-        const evidence = await driver.inspectBoundary(fixture)
-        assert.deepEqual(Object.keys(evidence).sort(), ['changedRows', 'currentFence', 'priorFence', 'rejected'])
-        assert.ok(Number.isSafeInteger(evidence.priorFence) && evidence.priorFence >= 1)
-        assert.ok(Number.isSafeInteger(evidence.currentFence) && evidence.currentFence > evidence.priorFence)
-        assert.deepEqual(evidence.rejected, ['expired_owner', 'stale_version', 'wrong_worker', 'wrong_workspace', 'wrong_operation', 'old_fence', 'future_fence'])
-        assert.equal(evidence.changedRows, 0)
+        assert.equal(validateClaimFenceEvidence(await driver.inspectBoundary(fixture)), true)
       }
       if (['audit_ack_loss', 'audit_content_conflict', 'kill_after_transition'].includes(scenario.id)) {
-        const evidence = await driver.inspectBoundary(fixture)
-        assert.deepEqual(Object.keys(evidence).sort(), ['changedContentRejected', 'originalDigest', 'persistedDigest'])
-        assert.match(evidence.originalDigest, /^[a-f0-9]{64}$/)
-        assert.equal(evidence.persistedDigest, evidence.originalDigest)
-        assert.equal(evidence.changedContentRejected, true)
+        assert.equal(validateImmutableAuditEvidence(await driver.inspectBoundary(fixture)), true)
       }
       if (scenario.id === 'audit_delivery_outage') {
         const beforeDrain = await driver.inspectScenario(fixture)
-        assert.equal(beforeDrain.originalAuditIntents, 1)
-        assert.equal(beforeDrain.pendingOriginalEvents, 1)
-        assert.equal(beforeDrain.deliveredOriginalEvents, 0)
+        assert.equal(validateAuditOutageObservation(beforeDrain), true)
       }
       const identities = jobs.map(job => job.identity)
       if (scenario.recover) {
         // Fresh independent process/connection after crash; adapter verifies receipt
         // or absence before any retry. Recovery includes draining the original audit.
         const recovery = launch({ fixture, scenario: scenario.id, action: 'recover_and_drain' })
-        await recovery.ready; recovery.start(); await recovery.result
+        stage='recovery_ready'
+        await recovery.ready
+        stage='recovery_identity'
         assert.ok(Number.isSafeInteger(recovery.identity.backendPid) && recovery.identity.backendPid > 0)
         assert.ok(!identities.some(id => id.clientPid === recovery.identity.clientPid))
+        assert.ok(!identities.some(id => id.backendPid === recovery.identity.backendPid))
+        stage='recovery_start';recovery.start();stage='recovery_result';await recovery.result
         identities.push(recovery.identity)
       }
-      const observation = await driver.inspectScenario(fixture)
+      stage='scenario_observation';const observation = await driver.inspectScenario(fixture)
       assert.equal(validateDurableObservation(scenario.id, observation), true, `invalid evidence: ${scenario.id}`)
       report.push({ scenario: scenario.id, workers: scenario.workers, identities, ...('killAt' in scenario ? { killedAt: scenario.killAt, signal: 'SIGKILL' } : {}), passed: true })
     } finally {
@@ -120,8 +97,10 @@ try {
   console.log(JSON.stringify({ contract: DURABLE_PROCESS_CONTRACT, backend: 'native_postgres', scenarios: report }))
 } catch {
   // Do not serialize raw adapter errors/observations, which may contain DSNs.
-  console.error(JSON.stringify({ code: 'durable_acceptance_failed', completed: report }))
+  console.error(JSON.stringify({ code: 'durable_acceptance_failed', completed: report,scenario:currentScenario,stage }))
   process.exitCode = 1
 } finally {
   for (const child of active) child.kill('SIGKILL')
 }
+}
+await main()

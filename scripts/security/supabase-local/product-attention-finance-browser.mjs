@@ -3,6 +3,7 @@ import {resolve} from 'node:path'
 export async function attentionFinanceBrowser({page,origin,id,check,screenshotDir,report}){
  const step=name=>{if(report)report.w2_ui_action_step=name}
  const wait=(op,currency)=>page.waitForResponse(r=>{try{return r.request().method()==='POST'&&r.request().postDataJSON().operation===op&&(!currency||r.request().postDataJSON().input.currency===currency)}catch{return false}})
+ const attentionWait=(kind='',cursor=null)=>page.waitForResponse(r=>{try{const q=r.request().postDataJSON(),i=q.input;return r.request().method()==='POST'&&new URL(r.url()).pathname==='/api/telecom/attention/v1'&&q.operation==='telecom.attention'&&i.limit===20&&!i.customer_id&&!i.owner_user_id&&(i.kind??'')===kind&&(i.after_id??null)===(cursor?.after_id??null)&&(i.after_kind??null)===(cursor?.after_kind??null)&&(i.after_sort_on??null)===(cursor?.after_sort_on??null)}catch{return false}})
  async function attention(pending){const response=await pending;if(response.status()!==200)throw Error('ATTENTION_NORMAL_COOKIE_FAILED');const body=await response.json();if(!body.ok||body.data.items.length>20)throw Error('ATTENTION_CLOSED_PAGE');await expect.poll(()=>page.locator('[data-attention-ref]').evaluateAll(rows=>rows.map(r=>r.dataset.attentionRef).sort())).toEqual(body.data.items.map(r=>r.kind+':'+r.id).sort());return body.data}
  await check('confirmation_native_focus_cycle_escape_restores_trigger_without_write',async()=>{
   await page.goto(origin+'/clients/'+id);const trigger=page.getByRole('button',{name:'Archivar cliente',exact:true});await expect(trigger).toBeVisible();let writes=0;const observe=request=>{try{if(request.postDataJSON()?.operation==='customer.archive')writes++}catch{}};page.on('request',observe)
@@ -10,10 +11,10 @@ export async function attentionFinanceBrowser({page,origin,id,check,screenshotDi
   finally{page.off('request',observe)}
  })
  await check('attention_normal_scoped_filters_cursor_truth_and_three_widths',async()=>{
-  let pending=wait('telecom.attention');await page.goto(origin+'/attention');let first=await attention(pending)
-  if(first.next_cursor){pending=wait('telecom.attention');await page.getByRole('button',{name:'Siguiente página de atención',exact:true}).click();const next=await attention(pending);if(next.items.some(r=>first.items.some(f=>f.id===r.id&&f.kind===r.kind)))throw Error('ATTENTION_CURSOR_DUPLICATES')}
-  pending=wait('telecom.attention');await page.getByLabel('Tipo de seguimiento',{exact:true}).selectOption('task');const tasks=await attention(pending);if(tasks.items.some(r=>r.kind!=='task'))throw Error('ATTENTION_KIND_FILTER');await expect(page.getByRole('button',{name:'Página anterior de atención',exact:true})).toBeDisabled()
-  pending=wait('telecom.attention');await page.getByLabel('Tipo de seguimiento',{exact:true}).selectOption('');first=await attention(pending)
+  step('attention:workspace_read');let pending=attentionWait();await page.goto(origin+'/attention');await expect(page.getByRole('heading',{name:'Centro de atención',exact:true})).toBeVisible();let first=await attention(pending)
+  if(first.next_cursor){step('attention:cursor');pending=attentionWait('',first.next_cursor);await page.getByRole('button',{name:'Siguiente página de atención',exact:true}).click();const next=await attention(pending);if(next.items.some(r=>first.items.some(f=>f.id===r.id&&f.kind===r.kind)))throw Error('ATTENTION_CURSOR_DUPLICATES')}
+  step('attention:task_filter');pending=attentionWait('task');await page.getByLabel('Tipo de seguimiento',{exact:true}).selectOption('task');const tasks=await attention(pending);if(tasks.items.some(r=>r.kind!=='task'))throw Error('ATTENTION_KIND_FILTER');await expect(page.getByRole('button',{name:'Página anterior de atención',exact:true})).toBeDisabled()
+  step('attention:clear_filter');pending=attentionWait();await page.getByLabel('Tipo de seguimiento',{exact:true}).selectOption('');first=await attention(pending)
   for(const width of [1440,768,390]){await page.setViewportSize({width,height:960});await expect(page.getByRole('heading',{name:'Centro de atención',exact:true})).toBeVisible();if(first.items.length)await expect(page.locator('[data-attention-ref]').first()).toBeVisible();await page.screenshot({path:resolve(screenshotDir,'attention-centre-'+width+'.png'),fullPage:true});if(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1))throw Error('ATTENTION_LAYOUT_OVERFLOW')}
  })
  await check('telecom_nine_reports_real_aggregate_rows_three_widths',async()=>{

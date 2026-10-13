@@ -1,0 +1,528 @@
+{
+  "schema_version": 1,
+  "reviewed_at": "2026-10-13",
+  "accepted_source": "a8851dc75eccae082c9f3ab8f9b67be748f7fb46",
+  "candidate_source": "5da315ad67717e929fba067e8f2c1ff21a15a082",
+  "candidate_pr": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142",
+  "inherited_baseline": {
+    "source_sha": "a8851dc75eccae082c9f3ab8f9b67be748f7fb46",
+    "executed_sha": "19f9ca8d7f2c3ad4186faeb3e6eed16a9411625e",
+    "tree_sha": "42616cb1d8791d93174d65bffed32e58d5bab5c8",
+    "ci_run": 38134874228,
+    "supabase_run": 38134874097,
+    "functional": 1140,
+    "browser_ci": 154,
+    "auth_browser": 107,
+    "reviewed_images": 7,
+    "scope": "Own root functional acceptance only. Seven approved current core frames reviewed: three loaded catalog-version frames; three initial Customer360 and one initial agenda frame still contain pending reads. Not full loaded visual or full342 acceptance; no inheritance across source/execution/tree."
+  },
+  "candidate_verification": {
+    "source_sha": "5da315ad67717e929fba067e8f2c1ff21a15a082",
+    "executed_sha": "860d1b88d79ecbc87b51d70dcdb0767ebed61114",
+    "tree_sha": "6809baa855dfc1361960a6e7dccd6604df30f15c",
+    "native_run": 38141429366,
+    "native_job": 114475926402,
+    "native_status": "PASS85_320_FRESH_RESTORE_RLS_ACL_ROLES",
+    "quality_job": 114475926440,
+    "functional": 1140,
+    "browser_ci": 202,
+    "lint_types_build": "PASS",
+    "supabase_run": 38141429504,
+    "supabase_job": 114475926653,
+    "supabase_status": "PASS107",
+    "audit": "FAIL5HIGH",
+    "scope": "Own candidate only;root composition NOT_TESTED. Original normal/positive postcommit SIGKILL,whole record and14 normal audits proven primitives,not full23/verified absence.12 dedicated loaded collection frames reviewed,not full row or W4. B423 ownHTTP500/B57/D3ac failures retained."
+  },
+  "global_release_blockers": [
+    {
+      "priority": "P0",
+      "issue": 10,
+      "owner": "W2 physical / W3 semantic / W5 runtime / W4 review",
+      "pending": "Ten complete physical methods plus positive completed reconciliation implemented and locally/native proven within bounded scopes;independently authoritative verified absence with fencing/quiescence,real handlers,full23/four complete20 Node races/six ordered cuts/before-effect kill/restart and independent W4 remain pending. IA business writes OFF."
+    },
+    {
+      "priority": "P0",
+      "issue": 12,
+      "owner": "W4/W5",
+      "pending": "Independent enterprise Auth/RLS staging acceptance remains open; local Auth acceptance does not close it."
+    },
+    {
+      "priority": "P0",
+      "issue": 22,
+      "owner": "W4/W5",
+      "pending": "Independent exact union restore/ACL acceptance remains open."
+    },
+    {
+      "priority": "P0",
+      "issue": 29,
+      "owner": "W4 with W1/W2/W3 corrections",
+      "pending": "Five HIGH dependency findings remain unsuppressed."
+    },
+    {
+      "priority": "P0",
+      "issue": 67,
+      "owner": "Repository owner and W4/W5",
+      "pending": "Repository PUBLIC; privacy decision, historical scanner/provider review, joined source and independent release acceptance outstanding."
+    }
+  ],
+  "row_reviews": {
+    "PAR-217": {
+      "source_sha": "8d0ea9967a069dd467ffbbb052bfe4636d87e120",
+      "owner": "W2 physical / W3 connection / W4 review",
+      "priority": "P0",
+      "stages": {
+        "IMPLEMENTED": "PARTIAL",
+        "PROVEN_BACKEND": "PARTIAL"
+      },
+      "permissions": "Current DB membership checked; all client/service-role calls denied. Full actual Auth/target-resource authority and W4 acceptance pending.",
+      "mobile": "NOT_RECONCILED",
+      "pending": "Ten methods plus positive completed reconciliation exist. Independent verified absence/fencing-quiescence,real business handlers,full23/four complete20Node scenarios/six cuts/before-effect kill/restart,UI confirmation and W4 remain pending;writes OFF.",
+      "evidence": [
+        {
+          "source_sha": "b90178172ed40221499484023dd245e4b5c6998c",
+          "kind": "LOCAL_EMBEDDED",
+          "scope": "PARTIAL_ROW",
+          "stage": "PROVEN_BACKEND",
+          "positive": "Issued proof plus consume/operation/command/outbox/original audit/delivery and exact replay; embedded74-migration fixture PASS.",
+          "negative": "Invented/changed/expired proof, denied roles, six rollback cuts, omitted-delivery mutant rejected.",
+          "execution": "LOCAL_EMBEDDED_ONLY; native candidate jobs pending when reviewed",
+          "paths": [
+            "supabase/migrations/20261011010500_assistant_confirm_reserve_atomic.sql",
+            "supabase/tests/assistant-confirm-reserve-atomic.sql",
+            "supabase/tests/assistant-reservation-role-boundary.sql"
+          ]
+        },
+        {
+          "source_sha": "8d0ea9967a069dd467ffbbb052bfe4636d87e120",
+          "kind": "NATIVE",
+          "scope": "PARTIAL_ROW",
+          "stage": "PROVEN_BACKEND",
+          "positive": "Registered confirmation/reservation/material and complete ten-method constructor exercised by owned native fixture;only bounded subflows.",
+          "negative": "Changed proof/digest/grant and rollback controls rejected;no confirmed20Node full business scenario claim.",
+          "execution": "OWN_SOURCE8D0_EXECUTED84C13_TREE39F7_CI38139035264_NATIVE114468860435_PASS;NOT_FULL_ROW_NOT_W4",
+          "paths": [
+            "scripts/security/native-postgres/assistant-safe-completion-races.mjs",
+            "scripts/security/native-postgres/positive-reconciliation-process-cut.mjs",
+            "docs/master/W3_VERIFIED_RECONCILIATION_READBACK_20261011.md"
+          ]
+        }
+      ]
+    },
+    "PAR-218": {
+      "source_sha": "8d0ea9967a069dd467ffbbb052bfe4636d87e120",
+      "owner": "W2/W3; W4 acceptance",
+      "priority": "P0",
+      "stages": {
+        "IMPLEMENTED": "PARTIAL",
+        "PROVEN_BACKEND": "PARTIAL"
+      },
+      "pending": "Bounded operation states/completion/reconciliation and recovery are proven;complete authorized UI status flow,verified absence and full23 runtime/W4 acceptance remain pending.",
+      "evidence": [
+        {
+          "source_sha": "b90178172ed40221499484023dd245e4b5c6998c",
+          "kind": "SOURCE",
+          "scope": "PARTIAL_ROW",
+          "paths": [
+            "src/assistant/durable-db-contract.ts",
+            "supabase/migrations/20261011010500_assistant_confirm_reserve_atomic.sql"
+          ]
+        },
+        {
+          "source_sha": "8d0ea9967a069dd467ffbbb052bfe4636d87e120",
+          "kind": "NATIVE",
+          "scope": "PARTIAL_ROW",
+          "stage": "PROVEN_BACKEND",
+          "positive": "Normal completion20 distinct Node/backends produces one completion19 conflicts;authorized full original record/result/receipt recovery after actual postcommit SIGKILL.",
+          "negative": "Rollback/retry,grant expiry after observed customer lock,five SQL mutants restored;all eight ledger fingerprints unchanged during recovery.",
+          "execution": "OWN_SOURCE8D0_EXECUTED84C13_TREE39F7_CI38139035264_NATIVE114468860435_PASS;NOT_FULL_ROW_NOT_W4",
+          "paths": [
+            "scripts/security/native-postgres/assistant-safe-completion-races.mjs",
+            "scripts/security/native-postgres/positive-reconciliation-process-cut.mjs",
+            "docs/master/W3_VERIFIED_RECONCILIATION_READBACK_20261011.md"
+          ]
+        }
+      ]
+    },
+    "PAR-220": {
+      "source_sha": "8d0ea9967a069dd467ffbbb052bfe4636d87e120",
+      "owner": "W2/W3; W4 acceptance",
+      "priority": "P0",
+      "stages": {
+        "IMPLEMENTED": "PARTIAL",
+        "PROVEN_BACKEND": "PARTIAL"
+      },
+      "pending": "Exact replay and real postcommit completion crash recovery cover bounded primitives. Real effects/full business handlers,verified absence,full23/four complete races/six cuts/before-effect kill/restart and complete UI recovery/W4 remain pending.",
+      "evidence": [
+        {
+          "source_sha": "b90178172ed40221499484023dd245e4b5c6998c",
+          "kind": "LOCAL_EMBEDDED",
+          "scope": "PARTIAL_ROW",
+          "stage": "PROVEN_BACKEND",
+          "positive": "Exact reservation association replay retains original request and a single obligation.",
+          "negative": "Changed digest/consumed proof and six failed transactions rejected; audit-delivery mutant rejected.",
+          "execution": "LOCAL_EMBEDDED_ONLY",
+          "paths": [
+            "supabase/tests/assistant-confirm-reserve-atomic.sql",
+            "scripts/security/native-postgres/assistant-reservation-races.mjs"
+          ]
+        },
+        {
+          "source_sha": "8d0ea9967a069dd467ffbbb052bfe4636d87e120",
+          "kind": "NATIVE",
+          "scope": "PARTIAL_ROW",
+          "stage": "PROVEN_BACKEND",
+          "positive": "Own normal and positive postcommit process cuts recover full original records in fresh Node/native backends;normal14 originals include full eleven-field completion payloads and are drained.",
+          "negative": "Original receipts/results/audit content unchanged;wrong/stale bindings,rollback cuts and SQL mutants rejected. No before-effect kill/restart/full23 proof.",
+          "execution": "OWN_SOURCE8D0_EXECUTED84C13_TREE39F7_CI38139035264_NATIVE114468860435_PASS;NOT_FULL_ROW_NOT_W4",
+          "paths": [
+            "scripts/security/native-postgres/assistant-safe-completion-races.mjs",
+            "scripts/security/native-postgres/positive-reconciliation-process-cut.mjs",
+            "docs/master/W3_VERIFIED_RECONCILIATION_READBACK_20261011.md"
+          ]
+        }
+      ]
+    },
+    "PAR-224": {
+      "source_sha": "8d0ea9967a069dd467ffbbb052bfe4636d87e120",
+      "owner": "W2 physical / W3 authority / W4 review",
+      "priority": "P0",
+      "stages": {
+        "IMPLEMENTED": "PARTIAL",
+        "PROVEN_BACKEND": "PARTIAL"
+      },
+      "permissions": "Scope resolves auth.uid plus locked active DB membership; no caller-supplied actor authority; inert function grants denied.",
+      "pending": "Native permission/expiry negatives cover bounded subflows. Independent stagingAuth/RLS,complete resource authority/concurrent revocation/full runtime and W4 acceptance remain pending.",
+      "evidence": [
+        {
+          "source_sha": "b90178172ed40221499484023dd245e4b5c6998c",
+          "kind": "LOCAL_EMBEDDED",
+          "scope": "PARTIAL_ROW",
+          "stage": "PROVEN_BACKEND",
+          "positive": "Synthetic authorized owner issues/reserves.",
+          "negative": "Viewer/foreign workspace and actual anon/authenticated/service-role calls denied.",
+          "execution": "LOCAL_EMBEDDED_ONLY; not real Auth JWT or independent review",
+          "paths": [
+            "supabase/tests/assistant-confirm-reserve-atomic.sql",
+            "supabase/tests/assistant-reservation-role-boundary.sql"
+          ]
+        },
+        {
+          "source_sha": "8d0ea9967a069dd467ffbbb052bfe4636d87e120",
+          "kind": "NATIVE",
+          "scope": "PARTIAL_ROW",
+          "stage": "PROVEN_BACKEND",
+          "positive": "Own fresh/restored320-function privilege matrices,real role calls and current-grant private native paths pass.",
+          "negative": "PUBLIC/anon/authenticated/service-role boundaries,ACL-loss mutant and grant expiry after independently observed blocking locks are exercised.",
+          "execution": "OWN_SOURCE8D0_EXECUTED84C13_TREE39F7_CI38139035264_NATIVE114468860435_PASS;NOT_FULL_ROW_NOT_W4",
+          "paths": [
+            "scripts/security/native-postgres/assistant-safe-completion-races.mjs",
+            "scripts/security/native-postgres/positive-reconciliation-process-cut.mjs",
+            "docs/master/W3_VERIFIED_RECONCILIATION_READBACK_20261011.md"
+          ]
+        }
+      ]
+    },
+    "PAR-042": {
+      "source_sha": "5da315ad67717e929fba067e8f2c1ff21a15a082",
+      "owner": "W2 UI / W1 contracts / W4 independent acceptance",
+      "priority": "P1",
+      "stages": {
+        "IMPLEMENTED": "PARTIAL",
+        "PROVEN_BACKEND": "PARTIAL",
+        "CONSUMED_UI": "PARTIAL",
+        "BROWSER_ACCEPTED": "PARTIAL"
+      },
+      "permissions": "Actual cookie reads on disposable local Auth/SQL;complete per-row role/revocation/foreign-workspace staging acceptance and W4 remain pending.",
+      "mobile": "NOT_RECONCILED",
+      "external_blocked": "BLOCKED",
+      "pending": "Complete row-specific permission/state/cursor/creation/lifecycle acceptance and independent W4;no PASS/no RELEASE_READY.Current root fresh gates pending.",
+      "evidence": [
+        {
+          "source_sha": "5da315ad67717e929fba067e8f2c1ff21a15a082",
+          "kind": "AUTH_BROWSER",
+          "scope": "PARTIAL_ROW",
+          "stage": "BROWSER_ACCEPTED",
+          "positive": "Ordinary contact list rendered under cookie authority;no email/phone fields and no eager privileged contact.editors request.",
+          "negative": "Ordinary contact payload containing email/phone and eager contact.editors request are rejected. Complete role/state/cursor matrix pending.",
+          "execution": "OWN_SOURCE5DA_EXECUTED860D1_TREE6809_SUPABASE38141429504_JOB114475926653_PASS107;PARTIAL_ROW_NOT_W4_NOT_ROOT_ACCEPTANCE",
+          "paths": [
+            "scripts/security/supabase-local/product-customer360-collections-browser.mjs",
+            "docs/master/W2_CUSTOMER360_LOADED_REVIEW_20261011.md",
+            "src/features/customers/IntegratedCustomerDetail.tsx"
+          ]
+        }
+      ]
+    },
+    "PAR-047": {
+      "source_sha": "5da315ad67717e929fba067e8f2c1ff21a15a082",
+      "owner": "W2 UI / W1 contracts / W4 independent acceptance",
+      "priority": "P1",
+      "stages": {
+        "IMPLEMENTED": "PARTIAL",
+        "PROVEN_BACKEND": "PARTIAL",
+        "CONSUMED_UI": "PARTIAL",
+        "BROWSER_ACCEPTED": "PARTIAL",
+        "VISUAL_ACCEPTED": "PARTIAL"
+      },
+      "permissions": "Actual cookie reads on disposable local Auth/SQL;complete per-row role/revocation/foreign-workspace staging acceptance and W4 remain pending.",
+      "mobile": "PARTIAL_LOADED390_768_1440",
+      "external_blocked": "BLOCKED",
+      "pending": "Complete row-specific permission/state/cursor/creation/lifecycle acceptance and independent W4;no PASS/no RELEASE_READY.Current root fresh gates pending.",
+      "evidence": [
+        {
+          "source_sha": "5da315ad67717e929fba067e8f2c1ff21a15a082",
+          "kind": "AUTH_BROWSER",
+          "scope": "PARTIAL_ROW",
+          "stage": "BROWSER_ACCEPTED",
+          "positive": "Loaded Customer360 line ids match normal authenticated response ;customer fixture selected from persisted SQL rows;all twelve displayed line labels verified390/768/1440.",
+          "negative": "Exact visible-id equality, twelve field labels, record/field viewport checks and document overflow checks reject missing/mismatched loaded rows. Complete role/state/cursor matrix pending.",
+          "execution": "OWN_SOURCE5DA_EXECUTED860D1_TREE6809_SUPABASE38141429504_JOB114475926653_PASS107;PARTIAL_ROW_NOT_W4_NOT_ROOT_ACCEPTANCE",
+          "paths": [
+            "scripts/security/supabase-local/product-customer360-collections-browser.mjs",
+            "docs/master/W2_CUSTOMER360_LOADED_REVIEW_20261011.md",
+            "src/features/customers/CustomerDomainPages.tsx",
+            "src/features/portfolio/CustomerLinesInventory.tsx"
+          ]
+        },
+        {
+          "source_sha": "5da315ad67717e929fba067e8f2c1ff21a15a082",
+          "kind": "VISUAL",
+          "scope": "PARTIAL_ROW",
+          "stage": "VISUAL_ACCEPTED",
+          "positive": "Three dedicated loaded domain frames390/768/1440 reviewed;current row,labels and related operator readable.",
+          "negative": "No overlap or horizontal overflow observed;does not inspect all records,states or content outside frame.",
+          "execution": "OWN5DA_PRODUCT_ARTIFACT11703831286;EXACT_ZIP_SHA_IN_REVIEW_DOCUMENT;NOT_FULL_ROW",
+          "paths": [
+            "docs/master/W2_CUSTOMER360_LOADED_REVIEW_20261011.md",
+            "scripts/security/supabase-local/product-customer360-collections-browser.mjs"
+          ]
+        }
+      ]
+    },
+    "TEL-038": {
+      "source_sha": "5da315ad67717e929fba067e8f2c1ff21a15a082",
+      "owner": "W2 UI / W1 contracts / W4 independent acceptance",
+      "priority": "P1",
+      "stages": {
+        "IMPLEMENTED": "PARTIAL",
+        "PROVEN_BACKEND": "PARTIAL",
+        "CONSUMED_UI": "PARTIAL",
+        "BROWSER_ACCEPTED": "PARTIAL",
+        "VISUAL_ACCEPTED": "PARTIAL"
+      },
+      "permissions": "Actual cookie reads on disposable local Auth/SQL;complete per-row role/revocation/foreign-workspace staging acceptance and W4 remain pending.",
+      "mobile": "PARTIAL_LOADED390_768_1440",
+      "external_blocked": "BLOCKED",
+      "pending": "Complete row-specific permission/state/cursor/creation/lifecycle acceptance and independent W4;no PASS/no RELEASE_READY.Current root fresh gates pending.",
+      "evidence": [
+        {
+          "source_sha": "5da315ad67717e929fba067e8f2c1ff21a15a082",
+          "kind": "AUTH_BROWSER",
+          "scope": "PARTIAL_ROW",
+          "stage": "BROWSER_ACCEPTED",
+          "positive": "Loaded ordinary portability ids match authenticated list ;customer fixture selected from persisted SQL rows;all ten displayed labels verified390/768/1440.",
+          "negative": "Exact visible-id equality, ten field labels, record/field viewport checks and document overflow checks reject missing/mismatched loaded portabilities. Complete role/state/cursor matrix pending.",
+          "execution": "OWN_SOURCE5DA_EXECUTED860D1_TREE6809_SUPABASE38141429504_JOB114475926653_PASS107;PARTIAL_ROW_NOT_W4_NOT_ROOT_ACCEPTANCE",
+          "paths": [
+            "scripts/security/supabase-local/product-customer360-collections-browser.mjs",
+            "docs/master/W2_CUSTOMER360_LOADED_REVIEW_20261011.md",
+            "src/features/customers/CustomerDomainPages.tsx",
+            "src/lib/contracts/portability-v1.ts"
+          ]
+        },
+        {
+          "source_sha": "5da315ad67717e929fba067e8f2c1ff21a15a082",
+          "kind": "VISUAL",
+          "scope": "PARTIAL_ROW",
+          "stage": "VISUAL_ACCEPTED",
+          "positive": "Three dedicated loaded domain frames390/768/1440 reviewed;current row,labels and related operator readable.",
+          "negative": "No overlap or horizontal overflow observed;does not inspect all records,states or content outside frame.",
+          "execution": "OWN5DA_PRODUCT_ARTIFACT11703831286;EXACT_ZIP_SHA_IN_REVIEW_DOCUMENT;NOT_FULL_ROW",
+          "paths": [
+            "docs/master/W2_CUSTOMER360_LOADED_REVIEW_20261011.md",
+            "scripts/security/supabase-local/product-customer360-collections-browser.mjs"
+          ]
+        }
+      ]
+    },
+    "PAR-109": {
+      "source_sha": "662bcb1fec12cd0de65d6cb92724e458252eb3f2",
+      "owner": "W1/W2 billing; W4 independent acceptance",
+      "priority": "P1",
+      "stages": {
+        "IMPLEMENTED": "PARTIAL",
+        "PROVEN_BACKEND": "PARTIAL",
+        "CONSUMED_UI": "PARTIAL",
+        "BROWSER_ACCEPTED": "PARTIAL",
+        "VISUAL_ACCEPTED": "PARTIAL"
+      },
+      "permissions": "Actual disposable cookie/JWT checks for owner, member/viewer, foreign workspace, archive and live revocation; complete per-row roles/staging/W4 pending.",
+      "mobile": "NOT_RECONCILED",
+      "external_blocked": "BLOCKED",
+      "pending": "Complete mobile/tablet/desktop private-PDF UI, fiscal layout/accessibility/Unicode and independently accepted stored-file/W4 scope. Ordinary words split across lines in current renderer. No FULL_ROW/PASS or release claim.",
+      "evidence": [
+        {
+          "source_sha": "c38e5459ddad12b6eb5fa4ef80f0416a1f8377d5",
+          "kind": "AUTH_BROWSER",
+          "scope": "PARTIAL_ROW",
+          "stage": "PROVEN_BACKEND",
+          "positive": "Canonical private PDF on issue; real Storage byte equality; byte preservation after paid/archive+restore; canonical repair revision2 with20 identical replays and immutable revision count2.",
+          "negative": "Member/viewer/foreign owner API+RPC refusal, foreign workspace, archive refusal, corrupted stored bytes409, changed artifact intent409 and valid-JWT live revocation403.",
+          "execution": "C38_EXECUTED59D920_TREE1E315_SUPABASE38152137515_JOB114507596897_PASS107_SAFE11707995618;fixed source unconditionally awaits billingArtifactAcceptance;check throws on failure. Source/run inference, individual artifact fields not emitted by approved consumer whitelist.",
+          "paths": [
+            "scripts/security/supabase-local/acceptance.mjs",
+            "scripts/security/supabase-local/billing-artifact-acceptance.mjs",
+            "src/lib/server/billing-artifact-service-v1.ts"
+          ]
+        },
+        {
+          "source_sha": "c38e5459ddad12b6eb5fa4ef80f0416a1f8377d5",
+          "kind": "AUTH_BROWSER",
+          "scope": "PARTIAL_ROW",
+          "stage": "BROWSER_ACCEPTED",
+          "positive": "Real owner browser issues fiscal invoice, retains committed receipt under deliberately unavailable Storage, restores Storage and persists/downloads private PDF without reissuing.",
+          "negative": "Storage failure must expose pending private-file action while issued invoice remains; recovery must preserve issued count and return PDF bytes.",
+          "execution": "C38_EXECUTED59D920_TREE1E315_SUPABASE38152137515_SAFE11707995618_TIMING_billing_fiscal_commit_survives_storage_failure_and_private_retry_PASS; screenshot widget not reviewed, no UI width/full-row claim.",
+          "paths": [
+            "scripts/security/supabase-local/product-browser-acceptance.mjs",
+            "src/features/billing/PrivateInvoicePdf.tsx"
+          ]
+        },
+        {
+          "source_sha": "c38e5459ddad12b6eb5fa4ef80f0416a1f8377d5",
+          "kind": "VISUAL",
+          "scope": "PARTIAL_ROW",
+          "stage": "VISUAL_ACCEPTED",
+          "positive": "Eight local canonical renderer pages actually reviewed:50 valid300-character descriptions, fixed issuer/customer, sequential concepts and visible72/15/11/76EUR totals and footers.",
+          "negative": "Contract rejects controls/newlines; sample preserves exact frozen bytes after paid display change. Not a new native negative, not HTTP/Storage PDF visual acceptance.",
+          "execution": "LOCAL_RENDERER_SOURCE8a0261bc3c964419ef3d6a023f47105da8ce8f81_TREE8ade84ae133e51467e498a747d019700632a39a8;renderer blobs identical to accepted C38;controlled DTO and all8PNG hashes saved locally. Not Supabase artifact or W4.",
+          "paths": [
+            "src/lib/server/billing-pdf-v1.ts",
+            "src/lib/server/billing-artifact-runtime-v1.ts",
+            "tests/bootstrap/billing-pdf-v1.test.mjs",
+            "tests/bootstrap/billing-artifact-v1.test.mjs"
+          ]
+        },
+        {
+          "source_sha": "662bcb1fec12cd0de65d6cb92724e458252eb3f2",
+          "kind": "AUTH_BROWSER",
+          "scope": "PARTIAL_ROW",
+          "stage": "BROWSER_ACCEPTED",
+          "positive": "Own real browser issues invoice and recovers its private PDF after deliberately unavailable Storage, preserving number A/2026/000007 and total48.40EUR.",
+          "negative": "Storage outage leaves private-copy action pending while fiscal issuance stays committed; recovery must not reissue or create a second invoice.",
+          "execution": "ROOT662_EXECUTEDaf0f05720820d1b178c48eb7205aadd743654f69_TREE9c790de9499e1c9727ce79e70df4d4d297d63d2b_SUPABASE38159906851_JOB114530454579_SAFE11710333151_TIMING_billing_fiscal_commit_survives_storage_failure_and_private_retry_PASS",
+          "paths": [
+            "scripts/security/supabase-local/product-browser-acceptance.mjs",
+            "src/features/billing/PrivateInvoicePdf.tsx"
+          ]
+        },
+        {
+          "source_sha": "662bcb1fec12cd0de65d6cb92724e458252eb3f2",
+          "kind": "VISUAL",
+          "scope": "PARTIAL_ROW",
+          "stage": "VISUAL_ACCEPTED",
+          "positive": "Two own1440px frames actually reviewed: emitted invoice retains exact number/48.40EUR while private copy is pending; recovered widget exposes integrity-checked download. Own390px current invoice frame also shows conserved private-copy controls.",
+          "negative": "Observed deliberate pending/recovered Storage states, not an inferred rendering of stored PDF pages. No complete responsive/accessibility/Unicode/fiscal-layout or independent W4 acceptance.",
+          "execution": "ROOT662_PRODUCT11710023620_SHA256012ee517cd5fbd0c6c9adf69b03fd91b9d0a0e07e136cbd3d3e26059d96d816e_invoice-private-pending.png_invoice-private-recovered.png_billing-confirmed-current-invoice-390.png_ACTUALLY_VIEWED;stored PDF page bytes NOT_VIEWED",
+          "paths": [
+            "src/features/billing/PrivateInvoicePdf.tsx",
+            "scripts/security/supabase-local/product-browser-acceptance.mjs"
+          ]
+        },
+        {
+          "source_sha": "662bcb1fec12cd0de65d6cb92724e458252eb3f2",
+          "kind": "VISUAL",
+          "scope": "PARTIAL_ROW",
+          "stage": "VISUAL_ACCEPTED",
+          "positive": "Actual owner-cookie private PDF download rendered and first page reviewed: invoice A/2026/000006, base120.00EUR, VAT25.20EUR, withholding0.00EUR, total145.20EUR.",
+          "negative": "Only the first page was rendered. Status remains English issued and Emision lacks an accent; later pages, complete Unicode/accessibility/fiscal layout and independent W4 acceptance remain unreviewed. Frozen v1 PDF bytes must not be silently changed.",
+          "execution": "ROOT662_EXECUTEDaf0f05720820d1b178c48eb7205aadd743654f69_PRODUCT11710023620_ZIP_SHA256012ee517cd5fbd0c6c9adf69b03fd91b9d0a0e07e136cbd3d3e26059d96d816e_FIRST_PAGE_SHA25606ddca8943215822f39768a1aa182055643f597500521c73dd20aaf6f33234b3_ACTUALLY_VIEWED",
+          "paths": [
+            "scripts/security/supabase-local/product-browser-acceptance.mjs",
+            "src/lib/server/billing-pdf-v1.ts",
+            "src/lib/server/billing-artifact-service-v1.ts"
+          ]
+        }
+      ]
+    },
+    "PAR-107": {
+      "source_sha": "fdc00b9542aa471bac6a60e3bf067669d6640608",
+      "owner": "W1/W2 billing; W4 independent acceptance",
+      "priority": "P1",
+      "stages": {
+        "IMPLEMENTED": "PARTIAL",
+        "PROVEN_BACKEND": "PARTIAL",
+        "CONSUMED_UI": "PARTIAL",
+        "BROWSER_ACCEPTED": "PARTIAL",
+        "VISUAL_ACCEPTED": "PARTIAL"
+      },
+      "permissions": "Owner actual cookie/JWT issuance; role/foreign draft denial is not complete issue-specific permission acceptance. W4 NOT_ACCEPTED.",
+      "mobile": "Issued current-record state actually viewed at1440/768/390; confirmation dialog keyboard/focus/Escape at all widths NOT_RECONCILED.",
+      "external_blocked": "BLOCKED",
+      "pending": "Issue-specific owner/admin/member/viewer/foreign/revoked membership negatives; cancel-before-confirm no-write; repeated confirmation/reload and keyboard/focus/Escape; complete visual confirmation dialog; independent W4. No FULL_ROW/PASS/release and no evidence inheritance to78D or descendants.",
+      "evidence": [
+        {
+          "source_sha": "fdc00b9542aa471bac6a60e3bf067669d6640608",
+          "kind": "AUTH_BROWSER",
+          "scope": "PARTIAL_ROW",
+          "stage": "PROVEN_BACKEND",
+          "positive": "Owner issues through actual JWT RPC; replay keeps original number and exact fiscal money snapshot. Browser confirmation persists issued invoice and authentic PDF, then paid state without changing frozen private PDF bytes.",
+          "negative": "Same issued version with a new command fails CAS; issued invoice cannot move to draft trash. Draft member/viewer/foreign denial does not substitute for issue-specific role matrix.",
+          "execution": "SOURCEfdc00b9542aa471bac6a60e3bf067669d6640608/TREE3341a69ea236e47d6ce9fc1cb479bb67c1994b61/EXECUTEDf14958d262d0105a7ebd4b16dd00dc4615f0005a/SUP38459142273/JOB115509472614/SAFE11847101090;billing-acceptance mandatory RPC checks inferred from closed acceptance source; individual RPC fields not emitted by safe whitelist. Browser timing billing_fiscal_draft_issue_pdf_paid PASS and billing_exact_lines_discount_tax_withholding_fx_review_and_replay PASS.",
+          "paths": [
+            "scripts/security/supabase-local/billing-acceptance.mjs",
+            "scripts/security/supabase-local/product-browser-acceptance.mjs",
+            "src/features/billing/IntegratedBilling.tsx",
+            "src/lib/server/billing-service-v1.ts",
+            "docs/master/W2_BILLING_EXPLICIT_ISSUANCE_ROW_20261013.md"
+          ]
+        },
+        {
+          "source_sha": "fdc00b9542aa471bac6a60e3bf067669d6640608",
+          "kind": "AUTH_BROWSER",
+          "scope": "PARTIAL_ROW",
+          "stage": "BROWSER_ACCEPTED",
+          "positive": "Confirmed issuance remains committed when the next read fails. UI exposes only current-record recovery; read retry keeps version3, original series/year/sequence and one invoice.",
+          "negative": "Read loss cannot display an invented issuance receipt or resend issuance; new-draft action disabled while awaiting authoritative recovery.",
+          "execution": "SOURCEfdc00b9542aa471bac6a60e3bf067669d6640608/TREE3341a69ea236e47d6ce9fc1cb479bb67c1994b61/EXECUTEDf14958d262d0105a7ebd4b16dd00dc4615f0005a/SUP38459142273/JOB115509472614/SAFE11847101090;product-billing-exact-browser invokes billingConfirmedReadBrowser unconditionally inside own PASS billing_exact_lines_discount_tax_withholding_fx_review_and_replay; no separate timing claim.",
+          "paths": [
+            "scripts/security/supabase-local/product-billing-exact-browser.mjs",
+            "scripts/security/supabase-local/product-billing-confirmed-read-browser.mjs",
+            "docs/master/W2_BILLING_EXPLICIT_ISSUANCE_ROW_20261013.md"
+          ]
+        },
+        {
+          "source_sha": "fdc00b9542aa471bac6a60e3bf067669d6640608",
+          "kind": "VISUAL",
+          "scope": "PARTIAL_ROW",
+          "stage": "VISUAL_ACCEPTED",
+          "positive": "Current issued detail actually viewed at1440/768/390: A/2026/000008, Emitida, server-confirmed30.25EUR, fiscal/private-copy distinction and controls fit widths.",
+          "negative": "1440 screenshot still loading private PDF metadata;768/390 show conserved private copy. These images do not accept loading completeness, confirmation dialog, keyboard, all-page financial totals or PDF page contents.",
+          "execution": "SOURCEfdc00b9542aa471bac6a60e3bf067669d6640608/TREE3341a69ea236e47d6ce9fc1cb479bb67c1994b61/EXECUTEDf14958d262d0105a7ebd4b16dd00dc4615f0005a/SUP38459142273/JOB115509472614/SAFE11847101090/PRODUCT11846831208/ZIP_SHA25602eb31259d46ccb954805c9412230629485983223958d86c34f85d7dd71868b3; exact three image hashes in accompanying doc; ACTUALLY_VIEWED",
+          "paths": [
+            "src/features/billing/IntegratedBilling.tsx",
+            "src/features/billing/PrivateInvoicePdf.tsx",
+            "docs/master/W2_BILLING_EXPLICIT_ISSUANCE_ROW_20261013.md"
+          ]
+        }
+      ]
+    }
+  },
+  "next_3": [
+    {
+      "priority": "P0",
+      "owner": "W2/W3",
+      "work": "Compose eligible8d0 Customer360 identity lifetime/pipeline occupancy and normal crash recovery into root38;close fresh own root gates;retain B57/D3ac/D17 failures and fiveHIGH. Separate local incidence/SIM/portability/service lifetime work until own gates."
+    },
+    {
+      "priority": "P0",
+      "owner": "W2 physical/W3 semantics;W5 resource/runtime;W4 review",
+      "work": "Finish independently authoritative verified absence and full durable-process.v3 driver23 scenarios/four complete20 Node races/six ordered cuts;W5 owns scoped resource/restart module,never infer adoption from silence."
+    },
+    {
+      "priority": "P1",
+      "owner": "W1/W2/W3",
+      "work": "Reconcile current row-specific evidence without aggregate promotions. Four rows remain partial,338 unreviewed,0 release. Three component Customer360 frames and bounded initial core frames do not prove complete loaded visual/Auth/RLS/full342 acceptance."
+    }
+  ]
+}

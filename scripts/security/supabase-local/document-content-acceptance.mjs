@@ -1,9 +1,10 @@
 import {randomUUID}from 'node:crypto'
 import {createServerClient}from '@supabase/ssr'
+import {createSyntheticTelecomPdfBytesV1} from './synthetic-telecom-pdf-fixture-v1.mjs'
 /** Real synthetic USER-JWT/Storage/SSR transport; no service-role content writes. */
 export async function documentContentAcceptance({rpc,sql,check,http,users,wa,wb,ca,cb,url,anon,appUrl}){
  const call=(op,input,u=users.ownerA,w=wa)=>rpc('document_content_v1_'+op,{p_workspace_id:w,p_input:input},u.token)
- const bytes=Buffer.from('%PDF-1.7\nSynthetic private upload acceptance only\n%%EOF\n')
+ const bytes=createSyntheticTelecomPdfBytesV1()
  const input={command_id:randomUUID(),target_kind:'customer',target_id:ca,document_kind:'general',file_name:'Synthetic.pdf',media_type:'application/pdf',size_bytes:bytes.length}
  const requests=await Promise.all(Array.from({length:20},()=>call('request_upload',input)))
  check(requests.every(r=>r.status===200&&JSON.stringify(r.json)===JSON.stringify(requests[0].json)),'content20_same_upload_intent_replays')

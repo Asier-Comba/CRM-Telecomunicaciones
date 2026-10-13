@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useId, useState } from 'react'
 import Link from 'next/link'
 import { Plus, LayoutGrid, List } from 'lucide-react'
 import { PageHeader } from '@/components/PageHeader'
@@ -27,6 +27,7 @@ export function Opportunities({
   onMoveStage,
   canMove,
   pendingMove,
+  queryStatus='ready',
 }: {
   items: readonly OpportunityItemV1[]
   stageCatalog?:readonly {id:string;label:string;movable?:boolean}[]
@@ -35,11 +36,15 @@ export function Opportunities({
   onMoveStage?:(id:string,stageId:string)=>void
   canMove?:(id:string)=>boolean
   pendingMove?:{id:string;stageId:string}|null
+  queryStatus?:'idle'|'pending'|'loading'|'ready'|'error'
 }) {
   const [mode, setMode] = useState('board'),
     [query, setQuery] = useState(''),
     [owner, setOwner] = useState(''),
-    [selected, setSelected] = useState<OpportunityItemV1 | null>(null)
+    [selected, setSelected] = useState<OpportunityItemV1 | null>(null),
+    [showEmptyStages, setShowEmptyStages] = useState(false),
+    [showSummary, setShowSummary] = useState(false)
+  const boardId=useId(),summaryId=useId()
   const rows = items.filter(
       (o) =>
         (!query ||
@@ -48,7 +53,12 @@ export function Opportunities({
           )) &&
         (!owner || o.owner?.display_name === owner),
     ),
-    stages = stageCatalog??[...new Map(items.map(o=>[o.stage.id,{id:o.stage.id,label:o.stage.display_name,movable:false}])).values()]
+    catalogStages = stageCatalog??[...new Map(items.map(o=>[o.stage.id,{id:o.stage.id,label:o.stage.display_name,movable:false}])).values()]
+  const catalogStageIds=new Set(catalogStages.map(s=>s.id))
+  const stages=[...catalogStages,...new Map(items.filter(o=>!catalogStageIds.has(o.stage.id)).map(o=>[o.stage.id,{id:o.stage.id,label:o.stage.display_name,movable:false}])).values()]
+  const occupiedStageIds=new Set(rows.map(o=>o.stage.id))
+  const emptyStageCount=stages.filter(s=>!occupiedStageIds.has(s.id)&&pendingMove?.stageId!==s.id).length
+  const visibleStages=showEmptyStages?stages:stages.filter(s=>occupiedStageIds.has(s.id)||pendingMove?.stageId===s.id)
   const card = (o: OpportunityItemV1) => (
     <div key={o.id} className="space-y-2">
     <button
@@ -107,7 +117,7 @@ export function Opportunities({
         }
       />
       <PreviewNotice />
-      <Kpis
+      {queryStatus==='ready'&&<><button className={`${control} md:hidden`} aria-expanded={showSummary} aria-controls={summaryId} onClick={()=>setShowSummary(v=>!v)}>{showSummary?'Ocultar':'Mostrar'} resumen del pipeline</button><div id={summaryId} className={showSummary?'block':'hidden md:block'}><Kpis
         items={[
           {
             label: 'Oportunidades abiertas',
@@ -123,10 +133,10 @@ export function Opportunities({
             value: items.filter((o) => !o.next_follow_up_at).length,
             tone: 'text-amber-600',
           },
-          { label: 'Etapas publicadas', value: stages.length },
+          { label: 'Etapas publicadas', value: catalogStages.length },
         ]}
-      />
-      <div className="flex flex-wrap items-center gap-2 rounded-xl border bg-white p-3">
+      /></div></>}
+      {queryStatus==='ready'&&<><div className="flex flex-wrap items-center gap-2 rounded-xl border bg-white p-3">
         <input
           aria-label="Buscar oportunidades"
           value={query}
@@ -165,10 +175,11 @@ export function Opportunities({
         >
           <List className="h-4 w-4" />
         </button>
+        {mode==='board'&&emptyStageCount>0&&<button className={control} aria-expanded={showEmptyStages} aria-controls={boardId} onClick={()=>setShowEmptyStages(v=>!v)}>{showEmptyStages?'Ocultar':'Mostrar'} etapas vacías ({emptyStageCount})</button>}
       </div>
       {mode === 'board' ? (
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-          {stages.map((stage) => (
+        <div id={boardId} className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          {visibleStages.map((stage) => (
             <section
               key={stage.id}
               data-stage-id={stage.id}
@@ -209,6 +220,7 @@ export function Opportunities({
           }}
         />
       )}
+      </>}
       {selected && (
         <Drawer title={selected.title} onClose={() => setSelected(null)}>
           {card(selected)}

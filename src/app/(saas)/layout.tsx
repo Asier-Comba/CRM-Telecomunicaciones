@@ -24,7 +24,7 @@ export default async function SaasLayout({
   const role = tenant && !('error' in tenant) ? tenant.role : null
   return (
     <AuthGate integrated={integrated}>
-      <ProductProvider integrated={integrated} role={role} actorId={tenant && !('error' in tenant) ? tenant.userId : null}>
+      <ProductProvider integrated={integrated} role={role} actorId={tenant && !('error' in tenant) ? tenant.userId : null} workspaceId={tenant && !('error' in tenant) ? tenant.workspaceId : null}>
       <WorkspaceIdentityProvider>
         <AppShell search={syntheticPreviewAllowed() ? searchItems() : []}>
           {children}
