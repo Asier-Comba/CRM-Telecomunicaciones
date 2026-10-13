@@ -44,7 +44,7 @@ async function main(){
   const observations=records.filter(row=>row.kind==='durable_v3_owned_resource_committed_restart_observation')
   if(observations.length!==1)throw fail()
   const observed=observations[0]
-  if(observed.positiveEffectCount!==1||['committedLedgerUnchanged','originalAudit13Unchanged','preEffectBaselinePreserved','freshAdmittedConnection','authorizedReplayUnchanged','originalExpiredGrantPreserved'].some(k=>observed[k]!==true)
+  if(observed.positiveEffectCount!==1||['committedLedgerUnchanged','originalAudit13Unchanged','preEffectBaselinePreserved','freshAdmittedConnection','authorizedReplayUnchanged','originalExpiredGrantPreserved','independentRestartBoundaryV3'].some(k=>observed[k]!==true)
    ||observed.full23!=='NOT_RUN'||observed.verifiedAbsence!=='NOT_RUN'||observed.businessAiWrites!=='OFF')throw fail()
   diagnostic.stage='RESOURCE_CLOSE';await relay.close();await resource.close();closed=true;diagnostic.teardown='PASS'
   const source=execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim();if(!/^[a-f0-9]{40}$/.test(source))throw fail()

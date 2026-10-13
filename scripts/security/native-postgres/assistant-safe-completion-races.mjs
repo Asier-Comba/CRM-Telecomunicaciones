@@ -244,11 +244,17 @@ try{
   const {requestOwnedResourceRestartV1}=await import('./owned-resource-restart-channel-v1.mjs')
   const {createDurableNativeWorkerConnectionV3}=await import('./durable-native-driver-connection-v3.mjs')
   const {openPersistentNativeFixtureSessionV1}=await import('./persistent-fixture-session.mjs')
+  const {createNativeDatabaseRestartInspectorV3}=await import('./durable-database-restart-inspection-v3.mjs')
+  const {validateDatabaseRestartEvidence}=await import('../../../src/assistant/durable-process-spec-v3.ts')
+  const restartBoundary=createNativeDatabaseRestartInspectorV3(sql,{...binding,operationRef:candidate.operationRef})
+  await restartBoundary.capture()
   const phase=value=>console.log(JSON.stringify({kind:'durable_v3_owned_resource_consumer_phase',phase:value}))
   const beforeRestart=hash(await aggregate())
   phase('COMMITTED_BEFORE_RESTART')
   await requestOwnedResourceRestartV1()
   phase('RESTART_OWNER_ACK')
+  const privateBoundary=await restartBoundary.inspect()
+  assert.equal(validateDatabaseRestartEvidence(privateBoundary),true)
   assert.equal(hash(await aggregate()),beforeRestart)
   assert.deepEqual(await auditInspector.inspect(),finalAudit)
   phase('LEDGER_AFTER_RESTART_MATCHED')
@@ -274,7 +280,7 @@ try{
   }finally{await fresh.closeWorker()}
   console.log(JSON.stringify({kind:'durable_v3_owned_resource_committed_restart_observation',scenario:'completion_primitive',
    committedLedgerUnchanged:true,originalAudit13Unchanged:true,preEffectBaselinePreserved:true,
-   freshAdmittedConnection:true,positiveEffectCount:1,authorizedReplayUnchanged:true,originalExpiredGrantPreserved:true,
+   freshAdmittedConnection:true,positiveEffectCount:1,authorizedReplayUnchanged:true,originalExpiredGrantPreserved:true,independentRestartBoundaryV3:true,
    full23:'NOT_RUN',verifiedAbsence:'NOT_RUN',businessAiWrites:'OFF'}))
  }
  console.log('SAFE COMPLETION NATIVE PASS:20 distinct independent Node processes/native backends same persistent connection;one completion19 conflicts;registered result producer;original receipt;postcommit loss/authorized replay;real postcommit SIGKILL observed after independent persisted full record/audit inspection;fresh Node/backend recovers identical full record/result/receipt and eight ledgers unchanged;atomic rollback/retry;grant expiry after observed customer lock;five SQL mutants restored;fourteen original audits including full eleven-field completion payloads drained;NOT full23/four complete Node scenarios/business handler/before-effect SIGKILL/restart')
