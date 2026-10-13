@@ -16,7 +16,7 @@ export function launchDurableWorkerV3({modulePath,job,active,timeoutMs=30000}) {
   const child=fork(workerPath,[modulePath],{stdio:['ignore','ignore','ignore','ipc']})
   active.add(child)
   const identity={clientPid:child.pid,backendPid:undefined}
-  let phase='connecting',failure=null,outcome,resolveReady,rejectReady,resolveResult,rejectResult
+  let phase='connecting',failure=null,outcome,exitObservation=null,channelClosed=false,resolveReady,rejectReady,resolveResult,rejectResult
   const ready=new Promise((resolve,reject)=>{resolveReady=resolve;rejectReady=reject})
   const result=new Promise((resolve,reject)=>{resolveResult=resolve;rejectResult=reject})
   // Parent may still be collecting peer barriers when either promise rejects.
@@ -28,14 +28,14 @@ export function launchDurableWorkerV3({modulePath,job,active,timeoutMs=30000}) {
   }
   const timer=setTimeout(()=>fail('worker_timeout'),timeoutMs)
   child.on('message',message=>{
-    if(failure)return
+    if(failure||channelClosed)return
     if(exact(message,['type','backendPid'])&&message.type==='ready'){
-      if(phase!=='connecting'||!Number.isSafeInteger(message.backendPid)||message.backendPid<1)return fail('worker_protocol_invalid')
+      if(phase!=='connecting'||exitObservation||!Number.isSafeInteger(message.backendPid)||message.backendPid<1)return fail('worker_protocol_invalid')
       identity.backendPid=message.backendPid;Object.freeze(identity)
       phase='ready';resolveReady();return
     }
     if(exact(message,['type','name'])&&message.type==='checkpoint'){
-      if(phase!=='started'||!work.killAt||message.name!==work.killAt)return fail('worker_protocol_invalid')
+      if(phase!=='started'||exitObservation||!work.killAt||message.name!==work.killAt)return fail('worker_protocol_invalid')
       phase='cut';child.kill('SIGKILL');return
     }
     if(exact(message,['type','result'])&&message.type==='result'){
@@ -47,14 +47,24 @@ export function launchDurableWorkerV3({modulePath,job,active,timeoutMs=30000}) {
   })
   child.on('error',()=>fail('worker_launch_failed'))
   child.on('exit',(code,signal)=>{
+    active.delete(child)
+    if(!exitObservation)exitObservation={code,signal}
+  })
+  // exit can precede delivery of an already-buffered IPC result. close follows
+  // process exit and channel drainage; require BOTH observations before success.
+  // Late duplicates/errors before close still fail, never become accepted output.
+  child.on('close',(code,signal)=>{
+    if(channelClosed)return
+    channelClosed=true
     clearTimeout(timer);active.delete(child)
     if(failure)return
+    if(!exitObservation||exitObservation.code!==code||exitObservation.signal!==signal)return fail('worker_exited_without_result')
     if(phase==='cut'&&code===null&&signal==='SIGKILL')resolveResult({killedAt:work.killAt})
     else if(phase==='reported'&&code===0&&signal===null)resolveResult(outcome)
     else fail('worker_exited_without_result')
   })
   return {identity,ready,result,start(){
-    if(phase!=='ready'||failure){fail('worker_protocol_invalid');throw Error('worker_protocol_invalid')}
+    if(phase!=='ready'||failure||exitObservation){fail('worker_protocol_invalid');throw Error('worker_protocol_invalid')}
     phase='started'
     child.send(work,error=>{if(error)fail('worker_launch_failed')})
   }}

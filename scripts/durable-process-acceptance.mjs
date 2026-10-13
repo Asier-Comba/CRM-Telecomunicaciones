@@ -28,19 +28,25 @@ const active = new Set()
 const launch=job=>launchDurableWorkerV3({modulePath,job,active})
 
 const report = []
+let stage='setup',currentScenario=null
 try {
   for (const scenario of DURABLE_PROCESS_SCENARIOS) {
+    currentScenario=scenario.id;stage='setup'
     const fixture = await driver.setupScenario(scenario.id)
     assert.equal(typeof fixture, 'string') // opaque synthetic fixture ref only
     assert.match(fixture, /^[A-Za-z0-9_-]{1,160}$/)
     try {
       const jobs = Array.from({ length: scenario.workers }, () => launch({ fixture, scenario: scenario.id, action: scenario.action, ...('killAt' in scenario ? { killAt: scenario.killAt } : {}) }))
+      stage='worker_ready'
       await Promise.all(jobs.map(job => job.ready))
+      stage='worker_identity'
       assert.equal(new Set(jobs.map(job => job.identity.clientPid)).size, scenario.workers)
       assert.ok(jobs.every(job => Number.isSafeInteger(job.identity.backendPid) && job.identity.backendPid > 0))
       assert.equal(new Set(jobs.map(job => job.identity.backendPid)).size, scenario.workers)
-      jobs.forEach(job => job.start())
+      stage='worker_start';jobs.forEach(job => job.start())
+      stage='worker_results'
       const outcomes = await Promise.all(jobs.map(job => job.result))
+      stage='worker_outcome_constraints'
       if ('killAt' in scenario) assert.equal(outcomes[0]?.killedAt, scenario.killAt)
       if (scenario.workers === 20) assert.equal(outcomes.filter(o => o?.authorization === 'granted').length, 1)
       if (scenario.id === 'lease_expiry') {
@@ -68,14 +74,16 @@ try {
         // Fresh independent process/connection after crash; adapter verifies receipt
         // or absence before any retry. Recovery includes draining the original audit.
         const recovery = launch({ fixture, scenario: scenario.id, action: 'recover_and_drain' })
+        stage='recovery_ready'
         await recovery.ready
+        stage='recovery_identity'
         assert.ok(Number.isSafeInteger(recovery.identity.backendPid) && recovery.identity.backendPid > 0)
         assert.ok(!identities.some(id => id.clientPid === recovery.identity.clientPid))
         assert.ok(!identities.some(id => id.backendPid === recovery.identity.backendPid))
-        recovery.start(); await recovery.result
+        stage='recovery_start';recovery.start();stage='recovery_result';await recovery.result
         identities.push(recovery.identity)
       }
-      const observation = await driver.inspectScenario(fixture)
+      stage='scenario_observation';const observation = await driver.inspectScenario(fixture)
       assert.equal(validateDurableObservation(scenario.id, observation), true, `invalid evidence: ${scenario.id}`)
       report.push({ scenario: scenario.id, workers: scenario.workers, identities, ...('killAt' in scenario ? { killedAt: scenario.killAt, signal: 'SIGKILL' } : {}), passed: true })
     } finally {
@@ -89,7 +97,7 @@ try {
   console.log(JSON.stringify({ contract: DURABLE_PROCESS_CONTRACT, backend: 'native_postgres', scenarios: report }))
 } catch {
   // Do not serialize raw adapter errors/observations, which may contain DSNs.
-  console.error(JSON.stringify({ code: 'durable_acceptance_failed', completed: report }))
+  console.error(JSON.stringify({ code: 'durable_acceptance_failed', completed: report,scenario:currentScenario,stage }))
   process.exitCode = 1
 } finally {
   for (const child of active) child.kill('SIGKILL')

@@ -1,0 +1,440 @@
+{
+  "contract": "assistant.owned-consumer-migrations.v1",
+  "canonical_source": "46181bdfb2e87d85a51ade317472ffebd1f6d11e",
+  "canonical_count": 85,
+  "canonical": [
+    {
+      "name": "20260925153500_core_tenant_identity.sql",
+      "sha256": "46284301c8e56f7b5b982e1dd824890c55b05e84560afd4d34183178614ae3a4",
+      "git_blob": "1d82e336950155a964112ce54cd748d900411f4d"
+    },
+    {
+      "name": "20260926120000_atomic_workspace_onboarding.sql",
+      "sha256": "2d73a537040a5a76c9d457689d2b07b6c0f31b6a555d1f045a6797b7d9cb626c",
+      "git_blob": "543ba64015041a81bf629ad8a27cd486419723ea"
+    },
+    {
+      "name": "20260926143000_enforce_active_workspace_authorization.sql",
+      "sha256": "56af5c9d55eb16c45e5584ff5c0954d45db785ea283ce702ed3869aa354f80a7",
+      "git_blob": "7ff934ec6260c20e54c4046f42d7b2aa53866074"
+    },
+    {
+      "name": "20260926160000_telecom_customer_contacts.sql",
+      "sha256": "1a1d43d3cac43e0cc36491f86695b766361cdd98d4cf16dfb2cd33bc3c813a99",
+      "git_blob": "60e020ae067f51881ea015c6b6a84ec8c60eea2a"
+    },
+    {
+      "name": "20260926161000_telecom_operator_plan_catalog.sql",
+      "sha256": "a97911f5b63b38c66a21b62927442b89375ea48c36a83126b77ff83708e9e122",
+      "git_blob": "5bdebbdb7a3c4e74e1e4c8995e4e006e33a0ce83"
+    },
+    {
+      "name": "20260926162000_telecom_contract_service_portfolio.sql",
+      "sha256": "21214295fc64cd3c405a29c1e8f83c4e46e72ab62022dda7df7dfbad5138b08f",
+      "git_blob": "6c7fc210daa2cd9f64ab2b018156cc770a02cf71"
+    },
+    {
+      "name": "20260926163000_telecom_commercial_operations.sql",
+      "sha256": "7456254e3ca20017b29a18fc800b484a6328c34b4a9e36e68a6bc21fbc2af6a8",
+      "git_blob": "dedaaad837ed77a3424872fa5da37b286b30d602"
+    },
+    {
+      "name": "20260926164000_telecom_service_cases_documents.sql",
+      "sha256": "35d568ac6804d68744c46b72c7b89bc18e9a546adf379059d9ce1ecad045f40a",
+      "git_blob": "b67c00e72161a6c83b1581e806e417f7212449ac"
+    },
+    {
+      "name": "20260926165000_import_audit_foundation.sql",
+      "sha256": "a3327da21638b1144e0565e863c701414ac0b592b6b7cf7e30f5b20543153030",
+      "git_blob": "2bafda8be8df8ef8838de635595bd321a03bf25b"
+    },
+    {
+      "name": "20260927090000_fix_provision_workspace_profile_conflict.sql",
+      "sha256": "d9e3015af2a0a6925af284a7ed04ad078cfcdfe940701dd52652d8dfd2bf93b9",
+      "git_blob": "84bb8925dce2a8a511bea5db146d50345d6659a4"
+    },
+    {
+      "name": "20260927161000_harden_shared_trigger_record_guards.sql",
+      "sha256": "f2b3072589408414c5b4722f02f2456b7880ddb441577d816551c3797cb643bd",
+      "git_blob": "df2183dfc35b9d384cc2080a250847e55b9caef3"
+    },
+    {
+      "name": "20260927162000_enforce_import_job_initial_state.sql",
+      "sha256": "20148daf663d6f03e549389d8c8e77bf9ce927d7e4e76f1726117c01e120d6f1",
+      "git_blob": "b6150ac64e5aa6619a19c400da68c25280483ce4"
+    },
+    {
+      "name": "20260927170000_telecom_v1_customer_read_rpc.sql",
+      "sha256": "8408b7f1c61467997dce33a9c998336a6d2581574a030217b66f18b6e24d1167",
+      "git_blob": "7208e2266c878772360a57bfab34ce8078d91f6c"
+    },
+    {
+      "name": "20260927171000_telecom_v1_customer_summary_rpc.sql",
+      "sha256": "38198193e94392210ed2686b00b695f20e8d8cbce1e4d9b4e82c04f8411c40db",
+      "git_blob": "547d1e92b39c8c3cccbb572640520f683f9cf085"
+    },
+    {
+      "name": "20260927172000_telecom_v1_contract_read_rpc.sql",
+      "sha256": "e226036182894af74d64e73707a9b45ae423761f943175afd19d7fbea341f577",
+      "git_blob": "57adf6a3a7484354c1b6df9b5a049a165acc66c0"
+    },
+    {
+      "name": "20260927173000_telecom_v1_service_line_read_rpc.sql",
+      "sha256": "ab34316f06768e378105aa1f0ff8b64f51f8df7115dd97cfefcf42d4f070d9ce",
+      "git_blob": "b539c6de1d26f798f6349814123a1d2e37fb6d67"
+    },
+    {
+      "name": "20260927174000_telecom_v1_activity_opportunity_read_rpc.sql",
+      "sha256": "dfd8da004c171d257dccc0aebd06a3f3c69a87a603d3ad6e92323cd3935057e7",
+      "git_blob": "7fa6459a4095a6a06517ba0e8b57ccc8a9be540c"
+    },
+    {
+      "name": "20260927175000_telecom_v1_task_meeting_read_rpc.sql",
+      "sha256": "c19565ae4e6eabfe0406d4d49f61bbfd20fd3f25d4e49589b6472261d8971748",
+      "git_blob": "026472afca663f1b1d5705dbf7ded8c9101a6306"
+    },
+    {
+      "name": "20260927180000_telecom_v1_renewal_permanence_read_rpc.sql",
+      "sha256": "39c3176e4411aceaff9a87cfbe1c701070fd26d18192675d3443bf5c37c24d6b",
+      "git_blob": "5a49a8a5ecc77fb1a4badb8d899d51f6a339d384"
+    },
+    {
+      "name": "20260927181000_telecom_v1_dashboard_scope_rpc.sql",
+      "sha256": "291de3e5f83483f696006c6cc3ab461d3522460e40edf4b66cb7ed175a7a29f3",
+      "git_blob": "7a038bf6ec28ae129c5dc0fa2275a0d10594336b"
+    },
+    {
+      "name": "20260927182000_private_document_storage.sql",
+      "sha256": "22d217bac21c6bcd6a3eefb03fd915c1eaa4e349707153072461e8658f309947",
+      "git_blob": "91edeea19c7ae1509bd19a8d2d06b667d2813b07"
+    },
+    {
+      "name": "20260927183000_assistant_durable_foundation.sql",
+      "sha256": "6f1f4574e192fd362c0ba787201e4dc6dd6424058f6060a06170e32e72c52c04",
+      "git_blob": "cf2b0952ad5ec8717aa48b3506bd1dd3555312e4"
+    },
+    {
+      "name": "20260927184000_restrict_document_object_read.sql",
+      "sha256": "734cd38b172b6fb2167aa7db301555f16013ec7a83a5dee5fbdda51524757076",
+      "git_blob": "d823d56b845410e14984cd22bd3f62368ec10ca1"
+    },
+    {
+      "name": "20260927185000_fix_customer_search_collation.sql",
+      "sha256": "1e2267f4b714870937f3ace30e7fc9b0bcfc6fca041205abf9d2685217bd1742",
+      "git_blob": "ce3a2c25ad949f11a1ef004b18b1e7712eb7b90e"
+    },
+    {
+      "name": "20260929212000_align_assistant_durable_contract.sql",
+      "sha256": "d832c684d2f107562686b1c1500243f88bc4dd073e62debea58c7203da969fca",
+      "git_blob": "f89f2f7f016b1182ca0287efed044b249551a23e"
+    },
+    {
+      "name": "20261003132000_product_customer_contact_commands.sql",
+      "sha256": "3e4b4126d1fcf46df5df721a37cf829451d81dba9142fa04292260d6c8564287",
+      "git_blob": "2d39381c414a52783e79351d88b5f01bc203fbaf"
+    },
+    {
+      "name": "20261003134000_product_identity_editor_reads.sql",
+      "sha256": "b5339c6887eba7993d0f34829a6af2089f7d5537b55f418b11601ef57eca688a",
+      "git_blob": "fed0da5b2ab5dda3dd118d113ec6fa2fc51e0dea"
+    },
+    {
+      "name": "20261004160000_product_work_commands.sql",
+      "sha256": "3bc4796435f546879f46ac647154bd7a3d2c9f1a8cdacea2683b70cc57fb2f5b",
+      "git_blob": "581d0cd230097c6a3ec8f2b21ebe760a0ecaac82"
+    },
+    {
+      "name": "20261004162000_product_work_reads.sql",
+      "sha256": "cd90b05178351a47dbdc4dc2ddd8e2913fe7107b1db260cfcdd271c6b4b8abbb",
+      "git_blob": "07a0ab962638b053d83c5bafb7fd34e63b57543b"
+    },
+    {
+      "name": "20261004163000_product_identity_commercial_policy.sql",
+      "sha256": "e7d692bd3fcfcc91a6a32e66297edfb7c5d21ca6338f250d0f3573a8b2e7f7d7",
+      "git_blob": "2ed3dcc0d85e816d146e5785d694bcdef8a006b3"
+    },
+    {
+      "name": "20261004170000_product_dashboard_search.sql",
+      "sha256": "e38237d809a2dc4970a2b02eaae6cba16a3dfce702070c4cec69d0a63d86df23",
+      "git_blob": "9de3bb1a409af347402b03b3faacb34bb2d6bf6a"
+    },
+    {
+      "name": "20261004173000_billing_exact_issue.sql",
+      "sha256": "189956cc71427a945888fbc8359594d5f0bad0c3a1979218e3c02f89fd5867ef",
+      "git_blob": "3d9d70db74fec31bc417b36b155daa5aaab47d60"
+    },
+    {
+      "name": "20261004174000_billing_protected_reads.sql",
+      "sha256": "3f26a7f74ee20328aea0e9426f3f66009aad0627e594c9bc9ff974f21e64f0ca",
+      "git_blob": "d50dbee5d35a881a6227e7b3f6e93be11427dbd1"
+    },
+    {
+      "name": "20261004175000_product_dashboard_financial.sql",
+      "sha256": "4c1366d8e4fe999270c9d2a33fbee3848759395c7bd20c01a68033575693ee16",
+      "git_blob": "be39eea27ca646f91e206690ccf654eecab5b689"
+    },
+    {
+      "name": "20261004180000_billing_normalized_proposal.sql",
+      "sha256": "5e1cca230a6ec6c2b6a48515c4b54963f738cdee968a82d4a269a320beba4335",
+      "git_blob": "ed2b351197f5bc3289f21a93be9591678918c637"
+    },
+    {
+      "name": "20261004183000_team_protected_management.sql",
+      "sha256": "ce1ac3ba62db8fd95aaa240096d1d7297c172279e5b2f96530cc08336d8656d1",
+      "git_blob": "7d9be45518ba34f4de5384966327e6f78c63f6da"
+    },
+    {
+      "name": "20261004190000_portfolio_human_commands.sql",
+      "sha256": "9c08ee2040aaae9a7868f35d77f6672341f5becd4d1eb4181a214486074bf0fa",
+      "git_blob": "26fd936d53bfdf6bd005f29f0e79126cc6e89784"
+    },
+    {
+      "name": "20261004193000_portfolio_deadline_commands.sql",
+      "sha256": "1f1d500ccd44487e5e3a277a5bcbbcf821216fcb3d25ef77191cd866f67a8d03",
+      "git_blob": "2a9f76e0110482ef390e7e516a545e4d8233aa01"
+    },
+    {
+      "name": "20261004200000_product_protected_invoice_search.sql",
+      "sha256": "196b051fa84ff97be18fb7eaceef1ab1efbbf73c075f8e446fa1c7859de04166",
+      "git_blob": "219543447b3ca93315fb1682c11cdd5662c4f2ac"
+    },
+    {
+      "name": "20261004203000_document_metadata_commands.sql",
+      "sha256": "21cc8c4c82ee80c847086c99771bcdf0a16fcf1d06f0ba64db84134540cd550c",
+      "git_blob": "6f3ac77a0d44ad28eec999f00526b832c515e81b"
+    },
+    {
+      "name": "20261004204500_portfolio_explicit_child_provenance.sql",
+      "sha256": "7341e1b6fe284a7016abfdca5aaa6f2316cc33024f25aaa3d332ae0cc0f4b138",
+      "git_blob": "e45d89e8a0daca167103d4f7137a451900be6122"
+    },
+    {
+      "name": "20261005120000_document_content_workflow.sql",
+      "sha256": "4437725149fd9ced430b8645abb92fb04ac8c7b266d1ba1f9acdaddadbe7bd6c",
+      "git_blob": "b844f527fe877c4d7a49d0098c429801e8e9e679"
+    },
+    {
+      "name": "20261005123000_private_invoice_pdf_artifacts.sql",
+      "sha256": "e37835f73f655271799557dc784ccb8a6820f8641bc023ea60f6cb5f7e52e6d9",
+      "git_blob": "e61d6620e2f79cf3c7aec0df5181300f578226f7"
+    },
+    {
+      "name": "20261005130000_import_job_product_management.sql",
+      "sha256": "4c183d14bb9889a0ac5faeacc7bb00dd3fb8140bac7e9b605ca91895d3f2b293",
+      "git_blob": "2ade3537f1cbb0d4fd08de8aac62e4b3c101e31e"
+    },
+    {
+      "name": "20261005133000_internal_inbox_domain.sql",
+      "sha256": "e3e4cc891ad1376c38474e1b2aee27829b76957826c63de676cde158ae7cd43c",
+      "git_blob": "958ee79e3dcc7ff5ca375b1ae83fae1a9d269cdd"
+    },
+    {
+      "name": "20261005140000_personal_notification_center.sql",
+      "sha256": "fca59c25f8080c2636372d8fc00669732a976a8d896d6174b3f04e8a1d7c32b6",
+      "git_blob": "4cce778aff5b809de8cc9b7877f8a32a7132592c"
+    },
+    {
+      "name": "20261005143000_registered_internal_automations.sql",
+      "sha256": "0ba2fe39889c8657fa8b87f48b1230d0cad904a44354ab80763571b243e9e72b",
+      "git_blob": "0a25f613933ebdb7375d32998273d657c13ba35b"
+    },
+    {
+      "name": "20261005150000_product_settings_profiles.sql",
+      "sha256": "6f2029b6848797503d698e22765df32fe9d9e0fbe20ab9ef9dc3e41f2283a281",
+      "git_blob": "f4cf17588c0d5d601f655b2911560758e4162c2e"
+    },
+    {
+      "name": "20261005153000_requested_sensitive_reveal.sql",
+      "sha256": "c201d80a4eb2d014b9935a3fea722d1bea6ac7e499752a5a881e2294f211c11d",
+      "git_blob": "4add722b551b9ae16057e30b17c1fa00203e5327"
+    },
+    {
+      "name": "20261005160000_team_expiry_manual_origin.sql",
+      "sha256": "291968f610f1d2470465b867df96e1b6fead4bcc91ad5dd11edd6bf902e62ed9",
+      "git_blob": "9bbb3390fae09e2d1bb7eef77d4deb3e17df3c5c"
+    },
+    {
+      "name": "20261005160500_contact_origin_without_legacy_source.sql",
+      "sha256": "e62f22711b3d6eac4cba8325e808dd16b407ba32126c9ad92c973acbc820fdd1",
+      "git_blob": "24a17a201bfa80b2d7b7de8372877f18cbc86e7c"
+    },
+    {
+      "name": "20261005163000_document_integrity_expired_cleanup.sql",
+      "sha256": "92ebe0932250c2b072c79845ac1b47194a7a2d0818868d4ca29ddf9555ac120c",
+      "git_blob": "25cd18995ad482e79582b4e152703175751f4985"
+    },
+    {
+      "name": "20261005164500_document_target_ancestry_serialization.sql",
+      "sha256": "77d21735511cd058d39bdd1ed16b48ec9b02c881a3b77af72dc4b316d9af8b27",
+      "git_blob": "d67118e28555d5a8583f67bcd53e93da7024cf09"
+    },
+    {
+      "name": "20261005203000_document_cleanup_replay_serialization.sql",
+      "sha256": "8859a644e11db7c0d72d44e45d15d34cb518d035d0588bf09c019f7cfa3d1082",
+      "git_blob": "09a802f03758de45654057045fcae45f69a3a6ee"
+    },
+    {
+      "name": "20261005213000_telecom_commercial_collections.sql",
+      "sha256": "528931de801fabd19f953d2d9564ffd7b6b25e9b3390b93936bce933b127799d",
+      "git_blob": "e50683da28911161322e327d83a2c1bea3e49c54"
+    },
+    {
+      "name": "20261005220000_protected_telecom_identifiers.sql",
+      "sha256": "3b56e254b9324c2fa94488f4f0eb97d7db39e070c54e641fcc9c8e89cf7b1d77",
+      "git_blob": "f08c332279a8c47c5bc9cccfdcd85f5b97db6c4c"
+    },
+    {
+      "name": "20261005223000_immutable_commercial_catalog.sql",
+      "sha256": "759f9d6b3aa1b8e50e0e64b03a435dfccc8221c39f8d6fd6124a1acac571c4da",
+      "git_blob": "5584a002717c48555cec302e945be84ccdb1fd75"
+    },
+    {
+      "name": "20261006110000_commercial_portability_workflow.sql",
+      "sha256": "2ec35807630a626795a49cd09721accb668821a359a019a29a1ba82c65d606c8",
+      "git_blob": "2a2243e30c3b077f728d16a8098ac1bcd8b58cc7"
+    },
+    {
+      "name": "20261006113000_product_service_case_workflow.sql",
+      "sha256": "78323eb49f5ede3a5538747df50612dce7119992b9891149ba226f152d0cc649",
+      "git_blob": "611c5c5ae23cd0e18d02a1bdd0e7c5abdbfb6278"
+    },
+    {
+      "name": "20261006120000_commercial_sim_esim_history.sql",
+      "sha256": "0df8d32c8dc09234018a68b771de4cca1d44eecc428eb3f8eda41eea9ebaca06",
+      "git_blob": "600a9abf4f20e1a15d1c979d9132f94dc6c38ce4"
+    },
+    {
+      "name": "20261006123000_sim_association_snapshot_cas.sql",
+      "sha256": "169273dd12ae8c6e9d963b062b3311024a880b3e6e8d96a616d6eb7c6ab9649c",
+      "git_blob": "99794cffd149181b4191d18e5cc65f3c758d0dfe"
+    },
+    {
+      "name": "20261006130000_telecom_customer360_report_reads.sql",
+      "sha256": "5ae5dd4f643de7e4af55109e6da98993e8d3514a1c147197e2055dcc630d4876",
+      "git_blob": "4bee7a900dc6296b1fe5819f96d8bd0bfccba948"
+    },
+    {
+      "name": "20261006133000_dense_masked_line_collection.sql",
+      "sha256": "bb1a639032308f2459a63b7b459ff1ab58ee368d0539cf92ca00b028166f058c",
+      "git_blob": "1d897c38332f6ea38f638a22aaabb7685c6c8107"
+    },
+    {
+      "name": "20261006140000_deterministic_telecom_attention.sql",
+      "sha256": "3fc65dc1579c0ad39b7fa52ec0abb06bd0e6b6c388f805728d1aafcb1261d570",
+      "git_blob": "6a1abe4397c60db536c827e131106e4cad9f7a85"
+    },
+    {
+      "name": "20261006143000_currency_separated_billing_cohort_reads.sql",
+      "sha256": "2642d76790b873cee0016d811978eaba72a7c02d6a179ecc95aa6f26b0ef8e0f",
+      "git_blob": "cc0d8af27e145d2ec0aa790c76f17cb96e5c255b"
+    },
+    {
+      "name": "20261006150000_full_customer360_work_collections.sql",
+      "sha256": "97338cbadb84c5e0407615125d3ae08b918ab2040df57747d584bd19f5052de6",
+      "git_blob": "5d5d56077695afc978323f36d7f8f4b3d8a044fc"
+    },
+    {
+      "name": "20261006153000_service_installation_and_addon_history.sql",
+      "sha256": "21b0272260fd3bc8c2f137dec793531012ecdf3f6ba08cd6cc8bddd9584ea2b7",
+      "git_blob": "fcc64c25ab8bb7026d0e6dc660dad8dae86a4043"
+    },
+    {
+      "name": "20261006160000_normalized_private_service_locations.sql",
+      "sha256": "5e3e76174e5aec3f33f70d756f173d60819c85dff8b4e844ea49e54cebe28926",
+      "git_blob": "87e2025672cbad7962e0f086dbde1a21da696a27"
+    },
+    {
+      "name": "20261006163000_bounded_commercial_equipment.sql",
+      "sha256": "9484f47d5e427933afec457960b5687e49445f0a1199515f3ec69736509df2b6",
+      "git_blob": "b56b7ad7f8dc0cf48a40ee1b79eed43257bed7d2"
+    },
+    {
+      "name": "20261006221429_assistant_conversations_v2.sql",
+      "sha256": "fc8c5fb41d3750ea58db4cd2b74f42c217e08541314c2bf36251955daacf51f5",
+      "git_blob": "73b0b082eeeecd55219fcb78add8ec623e4b8739"
+    },
+    {
+      "name": "20261006221500_registered_external_identities.sql",
+      "sha256": "93c5692cd69230080fa4fd773f67d2150c85f33414ff704fad6f4897a5c0065c",
+      "git_blob": "deab96f78d72a9ed9e8fac0e387db806ce79b124"
+    },
+    {
+      "name": "20261006224734_assistant_history_rpc_only.sql",
+      "sha256": "509888a02b71d7fed8a26c11ea7b12ae16c5506e0f8273b964c1f4aa21168547",
+      "git_blob": "d000a1e402357831b189460b233b5509779431b6"
+    },
+    {
+      "name": "20261007214224_assistant_turn_single_clock.sql",
+      "sha256": "fef6cbb714ad7b30e7fe5f770c838ca57d7739d876f1e8862c5a9385c7de1a8f",
+      "git_blob": "ee0d7bdaa530e8a9de07b2321cf476f25b1f9b95"
+    },
+    {
+      "name": "20261011010500_assistant_confirm_reserve_atomic.sql",
+      "sha256": "7f339e6a0930b406118753f054527d83c2f7aa475d6b0a3a0cff0f5e718493fd",
+      "git_blob": "100d539b9403bf28cbcd38ccba3d2dd53fe0df9c"
+    },
+    {
+      "name": "20261011012500_assistant_reservation_record_projection.sql",
+      "sha256": "6726f354cdff94cff9194f70cd407d57f1eb3a56be1bb2da34b11d95afb3b8c0",
+      "git_blob": "31fdd67d0bdc27b959bae4cd15757f1db3567a63"
+    },
+    {
+      "name": "20261011014500_assistant_confirmation_cancel.sql",
+      "sha256": "114da085ac683e6a7cc78bc23bdbceb04bce8dbea50dd4fb1c59be8c71086e0f",
+      "git_blob": "e020a084c436a9a5a24f941f74a76bbb764d4f76"
+    },
+    {
+      "name": "20261011023000_assistant_operation_recovery.sql",
+      "sha256": "974b44a7ae6ef2471477ddeca4efdc1a7da2665a734cea06561f6458a59c8278",
+      "git_blob": "e989221c52e83ba75b740907b42207d2b54f99b5"
+    },
+    {
+      "name": "20261011031500_assistant_start_execution.sql",
+      "sha256": "de72b2913de282a01042127ba889b8d001c26b26eab1df792db4605d06580308",
+      "git_blob": "f5ccdf865a23cf891d68d4bb0f04900c459bd173"
+    },
+    {
+      "name": "20261011034500_assistant_audit_delivery_workers.sql",
+      "sha256": "865b3a589379453a057d53efd9c6bbf0e5ad7206371ce04845dc02239db2f2e4",
+      "git_blob": "916401af4533c66fba7c4c605a46559e478670e1"
+    },
+    {
+      "name": "20261011040500_assistant_audit_queue.sql",
+      "sha256": "07016eec860b63b6cc37dea89015609623492c12fa10d87c09b28b3134196567",
+      "git_blob": "8672c2cb4aa5c462597f6d5bb9adde122eb1ce86"
+    },
+    {
+      "name": "20261011050000_assistant_command_material.sql",
+      "sha256": "3ed1e21ebf1373d148b5ee6cde5ab4d566608e289b228df748ad47687b0f022f",
+      "git_blob": "d61804af61c79f44e3213e16bd5c37ef81f57f83"
+    },
+    {
+      "name": "20261011060000_assistant_effect_workers.sql",
+      "sha256": "4096997dc8ba8493083d12f33cb19edde5465f5adc85de00682c5d05fc010664",
+      "git_blob": "8611590263216090aed69f60156977123c8213e8"
+    },
+    {
+      "name": "20261011070000_assistant_safe_completion.sql",
+      "sha256": "7b8fe7214836333781b68f681bb96920d6ee3aa3043964f778efd48e4e5b985e",
+      "git_blob": "5f7fe1cfada48dae220737adb42824275be1fd7e"
+    },
+    {
+      "name": "20261011080000_assistant_unconfirmed_reservation.sql",
+      "sha256": "031b898bb678ece80ca29bfd342918f31f69c52eb8054c3d8c2bd76e7987b03e",
+      "git_blob": "2774d0a6c6fac02d8aff0023b8e125f2cbd871a7"
+    },
+    {
+      "name": "20261011090000_assistant_verified_completed_reconciliation.sql",
+      "sha256": "17159132d207ea2f10bba3597d93e29b3cd900c696f2dbbef581be639fc30f18",
+      "git_blob": "d1e43684532686ccc0204dc9098800e604cec173"
+    }
+  ],
+  "owner_extension": {
+    "name": "20261008010000_align_provider_rpc_execution_grants.sql",
+    "sha256": "700d2dea9db5351cb97a0256461e67e93d399d9c0b8320bbd2e8b96ed4f6da9b",
+    "git_blob": "20bfa6da1b1a0235f3e3ebc1311524f3d32f5d14",
+    "owner_source": "a1b4357f890e0c5dda551dea57b2727e0f9984ac",
+    "request": 6146872077,
+    "scope": "DELIVERED_GRANT_ALIGNMENT_NATIVE_COMPATIBILITY_NOT_W4_ACCEPTANCE"
+  }
+}
