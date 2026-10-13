@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "reviewed_at": "2026-10-11",
+  "reviewed_at": "2026-10-13",
   "acceptance_policy": "No inherited or aggregate PASS promotions. NOT_RECONCILED means unverified here, not absent in the product.",
   "accepted_source": "a8851dc75eccae082c9f3ab8f9b67be748f7fb46",
   "candidate_source": "5da315ad67717e929fba067e8f2c1ff21a15a082",
@@ -78,7 +78,7 @@
     },
     {
       "path": "docs/master/PRODUCT_RELEASE_REVIEWS.json",
-      "sha256": "24c8c57764d47c1b1ee6637d64f21809e26f8f5162a793101befd528c9463eeb"
+      "sha256": "6491187b3d39f587f85a9a6c6147e39d0b32f71e2286c3cdad887537905da734"
     }
   ],
   "reference_documents": [
@@ -103,8 +103,8 @@
     "total": 342,
     "parity": 244,
     "telecom": 98,
-    "reviewed_partial": 8,
-    "unreconciled": 334,
+    "reviewed_partial": 9,
+    "unreconciled": 333,
     "release_ready": 0
   },
   "next_3": [
@@ -3778,21 +3778,66 @@
       "capability": "Facturación PRO: Emisión explícita",
       "family": "parity",
       "REQUIRED": true,
-      "IMPLEMENTED": "NOT_RECONCILED",
-      "PROVEN_BACKEND": "NOT_RECONCILED",
-      "CONSUMED_UI": "NOT_RECONCILED",
-      "BROWSER_ACCEPTED": "NOT_RECONCILED",
-      "VISUAL_ACCEPTED": "NOT_RECONCILED",
+      "IMPLEMENTED": "PARTIAL",
+      "PROVEN_BACKEND": "PARTIAL",
+      "CONSUMED_UI": "PARTIAL",
+      "BROWSER_ACCEPTED": "PARTIAL",
+      "VISUAL_ACCEPTED": "PARTIAL",
       "SECURITY_ACCEPTED": "NOT_RECONCILED",
-      "EXTERNAL_BLOCKED": "NOT_RECONCILED",
+      "EXTERNAL_BLOCKED": "BLOCKED",
       "RELEASE_READY": false,
-      "owner": "W2; W1 contracts; W4 acceptance",
+      "owner": "W1/W2 billing; W4 independent acceptance",
       "priority": "P1",
-      "source_sha": null,
-      "evidence": [],
-      "permissions": "NOT_RECONCILED",
-      "mobile": "NOT_RECONCILED",
-      "pending": "Map current implementation and row-specific positive, negative, permission, responsive and visual evidence before promotion.",
+      "source_sha": "fdc00b9542aa471bac6a60e3bf067669d6640608",
+      "evidence": [
+        {
+          "source_sha": "fdc00b9542aa471bac6a60e3bf067669d6640608",
+          "kind": "AUTH_BROWSER",
+          "scope": "PARTIAL_ROW",
+          "stage": "PROVEN_BACKEND",
+          "positive": "Owner issues through actual JWT RPC; replay keeps original number and exact fiscal money snapshot. Browser confirmation persists issued invoice and authentic PDF, then paid state without changing frozen private PDF bytes.",
+          "negative": "Same issued version with a new command fails CAS; issued invoice cannot move to draft trash. Draft member/viewer/foreign denial does not substitute for issue-specific role matrix.",
+          "execution": "SOURCEfdc00b9542aa471bac6a60e3bf067669d6640608/TREE3341a69ea236e47d6ce9fc1cb479bb67c1994b61/EXECUTEDf14958d262d0105a7ebd4b16dd00dc4615f0005a/SUP38459142273/JOB115509472614/SAFE11847101090;billing-acceptance mandatory RPC checks inferred from closed acceptance source; individual RPC fields not emitted by safe whitelist. Browser timing billing_fiscal_draft_issue_pdf_paid PASS and billing_exact_lines_discount_tax_withholding_fx_review_and_replay PASS.",
+          "paths": [
+            "scripts/security/supabase-local/billing-acceptance.mjs",
+            "scripts/security/supabase-local/product-browser-acceptance.mjs",
+            "src/features/billing/IntegratedBilling.tsx",
+            "src/lib/server/billing-service-v1.ts",
+            "docs/master/W2_BILLING_EXPLICIT_ISSUANCE_ROW_20261013.md"
+          ]
+        },
+        {
+          "source_sha": "fdc00b9542aa471bac6a60e3bf067669d6640608",
+          "kind": "AUTH_BROWSER",
+          "scope": "PARTIAL_ROW",
+          "stage": "BROWSER_ACCEPTED",
+          "positive": "Confirmed issuance remains committed when the next read fails. UI exposes only current-record recovery; read retry keeps version3, original series/year/sequence and one invoice.",
+          "negative": "Read loss cannot display an invented issuance receipt or resend issuance; new-draft action disabled while awaiting authoritative recovery.",
+          "execution": "SOURCEfdc00b9542aa471bac6a60e3bf067669d6640608/TREE3341a69ea236e47d6ce9fc1cb479bb67c1994b61/EXECUTEDf14958d262d0105a7ebd4b16dd00dc4615f0005a/SUP38459142273/JOB115509472614/SAFE11847101090;product-billing-exact-browser invokes billingConfirmedReadBrowser unconditionally inside own PASS billing_exact_lines_discount_tax_withholding_fx_review_and_replay; no separate timing claim.",
+          "paths": [
+            "scripts/security/supabase-local/product-billing-exact-browser.mjs",
+            "scripts/security/supabase-local/product-billing-confirmed-read-browser.mjs",
+            "docs/master/W2_BILLING_EXPLICIT_ISSUANCE_ROW_20261013.md"
+          ]
+        },
+        {
+          "source_sha": "fdc00b9542aa471bac6a60e3bf067669d6640608",
+          "kind": "VISUAL",
+          "scope": "PARTIAL_ROW",
+          "stage": "VISUAL_ACCEPTED",
+          "positive": "Current issued detail actually viewed at1440/768/390: A/2026/000008, Emitida, server-confirmed30.25EUR, fiscal/private-copy distinction and controls fit widths.",
+          "negative": "1440 screenshot still loading private PDF metadata;768/390 show conserved private copy. These images do not accept loading completeness, confirmation dialog, keyboard, all-page financial totals or PDF page contents.",
+          "execution": "SOURCEfdc00b9542aa471bac6a60e3bf067669d6640608/TREE3341a69ea236e47d6ce9fc1cb479bb67c1994b61/EXECUTEDf14958d262d0105a7ebd4b16dd00dc4615f0005a/SUP38459142273/JOB115509472614/SAFE11847101090/PRODUCT11846831208/ZIP_SHA25602eb31259d46ccb954805c9412230629485983223958d86c34f85d7dd71868b3; exact three image hashes in accompanying doc; ACTUALLY_VIEWED",
+          "paths": [
+            "src/features/billing/IntegratedBilling.tsx",
+            "src/features/billing/PrivateInvoicePdf.tsx",
+            "docs/master/W2_BILLING_EXPLICIT_ISSUANCE_ROW_20261013.md"
+          ]
+        }
+      ],
+      "permissions": "Owner actual cookie/JWT issuance; role/foreign draft denial is not complete issue-specific permission acceptance. W4 NOT_ACCEPTED.",
+      "mobile": "Issued current-record state actually viewed at1440/768/390; confirmation dialog keyboard/focus/Escape at all widths NOT_RECONCILED.",
+      "pending": "Issue-specific owner/admin/member/viewer/foreign/revoked membership negatives; cancel-before-confirm no-write; repeated confirmation/reload and keyboard/focus/Escape; complete visual confirmation dialog; independent W4. No FULL_ROW/PASS/release and no evidence inheritance to78D or descendants.",
       "historical_snapshot": {
         "id": "PAR-107",
         "capability": "Facturación PRO: Emisión explícita",
