@@ -238,6 +238,31 @@ try{
  assert.equal(finalAudit.outcomeDeliveredEvents,1);assert.equal(finalAudit.outcomePendingEvents,0);assert.equal(finalAudit.baselinePendingOriginalEvents,2)
  assert.equal(finalAudit.baselineAuditContentDigest,finalAudit.persistedBaselineAuditContentDigest)
  console.log(JSON.stringify({kind:'durable_v3_native_audit_observation',scenario:'completion_primitive',ledger:finalAudit,full23:'NOT_RUN'}))
+ if(process.env.TELECOM_NATIVE_RESOURCE_RESTART_CHANNEL==='true'){
+  // The parent owns the exact W5 handle. Existing independent audit baseline
+  // stays in this process; only the captured resource may be restarted via IPC.
+  const {requestOwnedResourceRestartV1}=await import('./owned-resource-restart-channel-v1.mjs')
+  const {createDurableNativeWorkerConnectionV3}=await import('./durable-native-driver-connection-v3.mjs')
+  const {openPersistentNativeFixtureSessionV1}=await import('./persistent-fixture-session.mjs')
+  const beforeRestart=hash(await aggregate())
+  await requestOwnedResourceRestartV1()
+  assert.equal(hash(await aggregate()),beforeRestart)
+  assert.deepEqual(await auditInspector.inspect(),finalAudit)
+  const fresh=createDurableNativeWorkerConnectionV3(openPersistentNativeFixtureSessionV1)
+  try{
+   const freshBackend=await fresh.connectWorker()
+   assert.deepEqual(await fresh.inspectWorkerConnection(),{backend:freshBackend})
+   assert.deepEqual(await fresh.inspectWorkerOperation({...binding,operationRef:candidate.operationRef}),driverOperation.operation)
+   assert.deepEqual(await fresh.inspectWorkerPositiveEffect(sink,{...binding,operationRef:candidate.operationRef}),positiveEffect)
+   const restartedReplay=await completion.loadAuthorizedOperation({...context,requestId:'completion_restart_replay_'+nonce},candidate.operationRef,new Date())
+   assert.equal(restartedReplay.state,'completed');assert.equal(restartedReplay.version,4);assert.deepEqual(restartedReplay.result,candidate.result)
+   assert.equal(hash(await aggregate()),beforeRestart)
+  }finally{await fresh.closeWorker()}
+  console.log(JSON.stringify({kind:'durable_v3_owned_resource_committed_restart_observation',scenario:'completion_primitive',
+   committedLedgerUnchanged:true,originalAudit13Unchanged:true,preEffectBaselinePreserved:true,
+   freshAdmittedConnection:true,positiveEffectCount:1,authorizedReplayUnchanged:true,
+   full23:'NOT_RUN',verifiedAbsence:'NOT_RUN',businessAiWrites:'OFF'}))
+ }
  console.log('SAFE COMPLETION NATIVE PASS:20 distinct independent Node processes/native backends same persistent connection;one completion19 conflicts;registered result producer;original receipt;postcommit loss/authorized replay;real postcommit SIGKILL observed after independent persisted full record/audit inspection;fresh Node/backend recovers identical full record/result/receipt and eight ledgers unchanged;atomic rollback/retry;grant expiry after observed customer lock;five SQL mutants restored;fourteen original audits including full eleven-field completion payloads drained;NOT full23/four complete Node scenarios/business handler/before-effect SIGKILL/restart')
 }finally{
  let driverCloseError;try{await closeWorkerV3()}catch(error){driverCloseError=error}

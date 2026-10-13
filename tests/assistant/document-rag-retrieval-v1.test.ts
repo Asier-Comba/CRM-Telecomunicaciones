@@ -76,6 +76,24 @@ test('document retrieval requires every queried rate pair and preserves exact co
   assert.equal(swapped.status,'no_match');assert.deepEqual(swapped.citations,[])
  }
 })
+test('document retrieval preserves rate-pair meaning across PDF line breaks',async()=>{
+ for(const separator of ['\n','\r\n','\r']){
+  const text='Fibra 600'+separator+'Mbps. Permanencia 12 meses.',f=await fixture([text])
+  const result=await retrieveAdmittedDocumentChunksV1('Fibra 600Mbps',f.deps)
+  assert.equal(result.status,'matched');assert.equal(result.citations[0]!.text,text)
+  assert.equal(result.citations[0]!.sha256,createHash('sha256').update(text).digest('hex'))
+  assert.equal((await retrieveAdmittedDocumentChunksV1('Fibra 600MBps',f.deps)).status,'no_match')
+ }
+})
+
+test('document retrieval cannot detach a queried rate number from its unit at a line break',async()=>{
+ const f=await fixture(['Fibra 6 Mbps. Archivo de 600 páginas.'])
+ const result=await retrieveAdmittedDocumentChunksV1('Fibra 600\nMbps',f.deps)
+ assert.equal(result.status,'no_match');assert.deepEqual(result.citations,[])
+ const swapped=await fixture(['Fibra 600 Kbps. Respaldo 6 Mbps.'])
+ assert.equal((await retrieveAdmittedDocumentChunksV1('600\r\nMbps 6\nKbps',swapped.deps)).status,'no_match')
+})
+
 test('document retrieval refuses invalid or unbounded questions before reading private sources',async()=>{
   const f=await fixture()
   for(const query of ['',{},'que la el','x'.repeat(401),'uno dos tres cuatro cinco seis siete ocho nueve']){

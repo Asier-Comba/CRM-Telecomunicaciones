@@ -27,7 +27,9 @@ const tokens=(text:string)=>{
   }
   return result
 }
-const ratePairs=(text:string)=>[...text.normalize('NFKD').matchAll(/(?<![A-Za-z0-9_.,])(\d+)[ \t]*([kKmMgG])([bB])ps(?![A-Za-z0-9_])/g)]
+// PDF soft line breaks may separate a rate number from its unit. Keep the
+// pair constraint across CR/LF, while retaining the original literal citation.
+const ratePairs=(text:string)=>[...text.normalize('NFKD').matchAll(/(?<![A-Za-z0-9_.,])(\d+)[ \t\r\n]*([kKmMgG])([bB])ps(?![A-Za-z0-9_])/g)]
   .map(match=>match[1]+':'+match[2]!.toLowerCase()+match[3]+'ps')
 type ChunkMatchV1={citation:DocumentRagCitationV1;score:number;source:number;mask:number}
 function completePageCover(chunks:readonly ChunkMatchV1[],full:number,checkBudget:()=>void):readonly ChunkMatchV1[]|null{
