@@ -4,6 +4,8 @@ on:
   workflow_dispatch:
   pull_request:
     paths:
+      - 'scripts/platform/composition.mjs'
+      - 'docs/master/platform/ENTERPRISE_4_COMPATIBILITY.json'
       - '.github/workflows/reviewed-pdf-runtime.yml'
       - 'infra/platform/pdf-extraction-runtime.requirements.txt'
       - 'scripts/assistant/extract-reviewed-pdf-v1.py'

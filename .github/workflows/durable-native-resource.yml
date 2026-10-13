@@ -4,6 +4,8 @@ on:
   workflow_dispatch:
   pull_request:
     paths:
+      - 'scripts/platform/composition.mjs'
+      - 'docs/master/platform/ENTERPRISE_4_COMPATIBILITY.json'
       - 'scripts/platform/durable-native-fixture.mjs'
       - 'scripts/platform/native-resource-query-error.mjs'
       - 'tests/platform/durable-native-fixture.test.mjs'
