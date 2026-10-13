@@ -19,6 +19,7 @@ export function ConfirmDialog({
   destructive = false,
   loading = false,
   confirmDisabled = false,
+  cancelDisabled = false,
   error,
   onConfirm,
   onCancel,
@@ -32,6 +33,7 @@ export function ConfirmDialog({
   destructive?: boolean
   loading?: boolean
   confirmDisabled?: boolean
+  cancelDisabled?: boolean
   error?: string | null
   onConfirm: () => void
   onCancel: () => void
@@ -57,8 +59,8 @@ export function ConfirmDialog({
         else if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}
         else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}
       }}
-      onCancel={e=>{e.preventDefault();if(!loading)onCancel()}}
-      onClick={e=>{if(e.target===e.currentTarget&&!loading)onCancel()}}
+      onCancel={e=>{e.preventDefault();if(!loading&&!cancelDisabled)onCancel()}}
+      onClick={e=>{if(e.target===e.currentTarget&&!loading&&!cancelDisabled)onCancel()}}
       className="m-auto w-[min(28rem,calc(100vw-2rem))] overflow-hidden rounded-2xl border border-gray-200 bg-white p-0 shadow-2xl backdrop:bg-slate-950/55 backdrop:backdrop-blur-sm">
         <div className="flex items-start gap-3.5 p-5">
           <div className={cn('flex h-10 w-10 shrink-0 items-center justify-center rounded-xl', destructive ? 'bg-red-50 text-red-600' : 'bg-indigo-50 text-indigo-600')}>
@@ -71,16 +73,16 @@ export function ConfirmDialog({
           </div>
           <button
             type="button"
-            onClick={() => { if (!loading) onCancel() }}
+            onClick={() => { if (!loading&&!cancelDisabled) onCancel() }}
             aria-label="Cerrar"
-            disabled={loading}
+            disabled={loading||cancelDisabled}
             className="-mr-1 -mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600 disabled:opacity-40"
           >
             <X className="h-4 w-4" />
           </button>
         </div>
         <div className="flex justify-end gap-2 border-t border-gray-100 bg-gray-50/70 px-5 py-3">
-          <Button ref={cancelRef} variant="secondary" size="sm" onClick={onCancel} disabled={loading}>{cancelLabel}</Button>
+          <Button ref={cancelRef} variant="secondary" size="sm" onClick={onCancel} disabled={loading||cancelDisabled}>{cancelLabel}</Button>
           <Button variant={destructive ? 'danger' : 'primary'} size="sm" loading={loading} disabled={confirmDisabled} onClick={onConfirm}>
             {loading ? (loadingLabel ?? confirmLabel) : confirmLabel}
           </Button>
