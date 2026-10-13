@@ -12,11 +12,10 @@ import {CustomerDomainPages,NamedCustomer} from '@/features/customers/CustomerDo
 import {customerCollectionIdentity} from '@/features/customers/customer-identity'
 import {Drawer,control,primary,Status,statusLabel} from '@/features/product/ui'
 import {productDate} from '@/features/product/presentation'
+import {caseResolutionLabelsV1 as resolutions,caseCancellationLabelsV1 as cancellations} from './presentation'
 import type {CaseInputsV1,CaseOperationV1,CaseRowV1,CaseNotePageV1,CaseTypeV1,CasePriorityV1,CaseResolutionV1,CaseCancellationV1,CaseReceiptV1} from '@/lib/contracts/case-v1'
 const types:Record<CaseTypeV1,string>={activation:'Activación',portability:'Portabilidad',technical:'Técnica',billing:'Facturación',renewal:'Renovación',cancellation:'Cancelación',documentation:'Documentación',other:'Otra'}
 const priorities:Record<CasePriorityV1,string>={low:'Baja',normal:'Normal',high:'Alta',urgent:'Urgente'}
-const resolutions:Record<CaseResolutionV1,string>={issue_fixed:'Problema corregido',request_fulfilled:'Solicitud atendida',customer_confirmed:'Confirmado por el cliente',no_action_required:'No requiere actuación'}
-const cancellations:Record<CaseCancellationV1,string>={customer_withdrew:'El cliente retiró la solicitud',duplicate:'Duplicada',no_longer_needed:'Ya no es necesaria',entered_in_error:'Registro incorrecto'}
 type Write=Exclude<CaseOperationV1,'case.get'|'case.list'|'case.note_list'>
 type Proposal={[O in Write]:{operation:O;input:CaseInputsV1[O];description:string}}[Write]
 export function CaseInventory({customerId,createAllowed=false,onCreated}:{customerId?:string;createAllowed?:boolean;onCreated?:()=>void}){

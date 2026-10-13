@@ -33,7 +33,15 @@ export class DocumentContentServiceV1{
   }catch{return fail('internal_safe')}
  }
  async download(id:string,ticket:string){
-  try{const r=await this.#manifest(id,ticket);if(!r.ok)return r;const bytes=await this.#port.download(r.path);if(!bytes)return fail('access_denied');if(bytes.byteLength!==r.manifest.size_bytes)return fail('internal_safe');if(r.manifest.sha256&&createHash('sha256').update(bytes).digest('hex')!==r.manifest.sha256)return fail('conflict');return{ok:true as const,bytes,mime:r.manifest.media_type}}
+  try{const r=await this.#manifest(id,ticket);if(!r.ok)return r;const received=await this.#port.download(r.path);if(!received)return fail('access_denied');if(received.byteLength!==r.manifest.size_bytes)return fail('internal_safe')
+   // Pin exactly the bytes whose length/hash are validated before another await.
+   const bytes=new Uint8Array(received)
+   if(r.manifest.sha256&&createHash('sha256').update(bytes).digest('hex')!==r.manifest.sha256)return fail('conflict')
+   // The Storage wait cannot freeze role/workspace/target/ticket admission. The
+   // same existing manifest RPC rechecks permission and current descriptor.
+   const current=await this.#manifest(id,ticket);if(!current.ok)return current
+   if(current.path!==r.path||current.manifest.media_type!==r.manifest.media_type||current.manifest.size_bytes!==r.manifest.size_bytes||(current.manifest.sha256??null)!==(r.manifest.sha256??null))return fail('conflict')
+   return{ok:true as const,bytes,mime:r.manifest.media_type}}
   catch{return fail('internal_safe')}
  }
 }
