@@ -27,6 +27,8 @@ const tokens=(text:string)=>{
   }
   return result
 }
+const ratePairs=(text:string)=>[...text.normalize('NFKD').matchAll(/(?<![A-Za-z0-9_.,])(\d+)[ \t]*([kKmMgG])([bB])ps(?![A-Za-z0-9_])/g)]
+  .map(match=>match[1]+':'+match[2]!.toLowerCase()+match[3]+'ps')
 const same=(a:ReadAuthorityV2|null,b:ReadAuthorityV2)=>!!a&&['actorId','workspaceId','scopeEpoch','role'].every(key=>a[key as keyof ReadAuthorityV2]===b[key as keyof ReadAuthorityV2])
 function authority(raw:unknown):ReadAuthorityV2|null{
   const value=snapshotProductJsonV1(raw)
@@ -63,6 +65,7 @@ export async function retrieveAdmittedDocumentChunksV1(query:unknown,raw:Documen
   if(typeof query!=='string'||!query.trim()||Buffer.byteLength(query)>800||query.length>400||containsHighConfidenceSecret(query))return finish('invalid_input')
   const terms=[...new Set(tokens(query).filter(term=>!stopwords.has(term)))]
   if(!terms.length||terms.length>8)return finish('invalid_input')
+  const requiredRates=[...new Set(ratePairs(query))]
   let deps:DocumentRagRetrievalDependenciesV1,selected:DocumentRagRetrievalDependenciesV1['sources']|null
   try{
     if(!raw||typeof raw!=='object'||Object.getPrototypeOf(raw)!==Object.prototype)return finish('invalid_input')
@@ -101,6 +104,10 @@ export async function retrieveAdmittedDocumentChunksV1(query:unknown,raw:Documen
       const counts=new Map<string,number>()
       for(const token of tokens(chunk.text))counts.set(token,(counts.get(token)??0)+1)
       if(!terms.every(term=>counts.has(term)))continue
+      // A number elsewhere in the fragment cannot satisfy another rate's unit.
+      // Keep the original term ceiling/ranking and every quoted byte unchanged.
+      const rates=new Set(ratePairs(chunk.text))
+      if(!requiredRates.every(rate=>rates.has(rate)))continue
       const score=terms.reduce((sum,term)=>sum+counts.get(term)!,0)
       matches.push({source,score,citation:Object.freeze({reference,version:material.source.version,documentSha256:material.source.sha256,
         page:chunk.page,start:chunk.start,end:chunk.end,text:chunk.text,sha256:chunk.sha256})})

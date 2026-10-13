@@ -61,6 +61,21 @@ test('document retrieval never converts bit-rate magnitudes, byte-rate case or e
  const compact=await fixture(['Fibra 600Mbps.'])
  assert.equal((await retrieveAdmittedDocumentChunksV1('Fibra 600MBps',compact.deps)).status,'no_match')
 })
+test('document retrieval binds the queried integer and rate unit instead of joining unrelated numbers and units',async()=>{
+ for(const text of ['Fibra 6Mbps. Expediente de 600 páginas.','Fibra 600Kbps. Otro enlace de 6Mbps.','Fibra 1.600 Mbps. Expediente 600.']){
+  const f=await fixture([text]),result=await retrieveAdmittedDocumentChunksV1('Fibra 600Mbps',f.deps)
+  assert.equal(result.status,'no_match');assert.deepEqual(result.citations,[])
+ }
+})
+test('document retrieval requires every queried rate pair and preserves exact compact or spaced source citations',async()=>{
+ for(const text of ['Fibra 600Mbps. Respaldo 128 Kbps.','Fibra 600 Mbps. Respaldo 128Kbps.']){
+  const f=await fixture([text]),matched=await retrieveAdmittedDocumentChunksV1('600 Mbps 128Kbps',f.deps)
+  assert.equal(matched.status,'matched');assert.equal(matched.citations[0]!.text,text)
+  assert.equal(matched.citations[0]!.sha256,createHash('sha256').update(text).digest('hex'))
+  const swapped=await retrieveAdmittedDocumentChunksV1('128Mbps 600Kbps',f.deps)
+  assert.equal(swapped.status,'no_match');assert.deepEqual(swapped.citations,[])
+ }
+})
 test('document retrieval refuses invalid or unbounded questions before reading private sources',async()=>{
   const f=await fixture()
   for(const query of ['',{},'que la el','x'.repeat(401),'uno dos tres cuatro cinco seis siete ocho nueve']){
