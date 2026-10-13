@@ -9,10 +9,13 @@ on:
       - 'scripts/assistant/extract-reviewed-pdf-v1.py'
       - 'scripts/assistant/pdf-extraction-requirements.txt'
       - 'scripts/assistant/verify-reviewed-pdf-extraction-v1.mjs'
+      - 'scripts/assistant/verify-document-retrieval-physical-v1.mjs'
       - 'src/assistant/document-rag-pdf-extractor-v1.ts'
       - 'src/assistant/document-rag-source-v1.ts'
+      - 'src/assistant/document-rag-retrieval-v1.ts'
       - 'tests/assistant/document-rag-pdf-extractor-v1.test.ts'
       - 'tests/assistant/document-rag-source-v1.test.ts'
+      - 'tests/assistant/document-rag-retrieval-v1.test.ts'
       - 'tests/assistant/support/physical-pdf-extraction-fixture.py'
 
 permissions:
@@ -45,7 +48,7 @@ jobs:
         with:
           python-version: '3.12.14'
       - name: Existing source and extractor controls
-        run: node --experimental-transform-types --test tests/assistant/document-rag-pdf-extractor-v1.test.ts tests/assistant/document-rag-source-v1.test.ts
+        run: node --experimental-transform-types --test tests/assistant/document-rag-pdf-extractor-v1.test.ts tests/assistant/document-rag-source-v1.test.ts tests/assistant/document-rag-retrieval-v1.test.ts
       - name: Physical parser in an isolated synthetic fixture
         shell: bash
         run: |
@@ -67,6 +70,23 @@ jobs:
           assert.equal(result.physical_cancel,'PASS_OWNED_PYTHON_SIGKILL_OBSERVED');
           assert.equal(result.actual_auth_storage,'NOT_RUN');
           assert.equal(result.index_retrieval,'NOT_IMPLEMENTED');
+          assert.equal(result.live_model,'NOT_RUN');
+          assert.equal(result.business_ai,'OFF');
+          assert.equal(result.release,'NOT_ACCEPTED');
+          const source=execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim();
+          console.log(JSON.stringify({source,...result}));
+          NODE
+          node --experimental-transform-types scripts/assistant/verify-document-retrieval-physical-v1.mjs "$runtime/venv/bin/python" "${GITHUB_WORKSPACE}/src/assistant/document-rag-pdf-extractor-v1.ts" "$runtime/fixtures/reviewed.pdf" > "$runtime/retrieval.json"
+          node --input-type=module - "$runtime/retrieval.json" <<'NODE'
+          import assert from 'node:assert/strict';
+          import {readFileSync} from 'node:fs';
+          import {execFileSync} from 'node:child_process';
+          const result=JSON.parse(readFileSync(process.argv[2],'utf8'));
+          assert.equal(result.contract,'assistant.document-retrieval-physical.v1');
+          assert.equal(result.physical_retrieval,'PASS_REAL_PDF_TEXT_LEXICAL_PAGE1_PAGE2_EXACT_QUOTE_HASH_NO_MATCH_SELECTED_SCOPE_WITHDRAWAL');
+          assert.equal(result.auth_download,'SYNTHETIC_SEAMS');
+          assert.equal(result.actual_auth_storage,'NOT_RUN');
+          assert.equal(result.persistent_index_embeddings,'NOT_IMPLEMENTED');
           assert.equal(result.live_model,'NOT_RUN');
           assert.equal(result.business_ai,'OFF');
           assert.equal(result.release,'NOT_ACCEPTED');
