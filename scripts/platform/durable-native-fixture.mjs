@@ -5,6 +5,7 @@ import { tmpdir } from 'node:os'
 import { basename, dirname, join, resolve } from 'node:path'
 import { setTimeout as delay } from 'node:timers/promises'
 import { NATIVE_POSTGRES_OFFICIAL_IMAGE } from '../security/native-postgres/expected-image.mjs'
+import { nativeResourceQueryFailureCategory } from './native-resource-query-error.mjs'
 
 const contract = 'telecom.native-resource.v1'
 const label = 'telecom.native-resource'
@@ -63,7 +64,10 @@ export async function createDurableNativeFixtureV1(...argumentsReceived) {
         env: environment, encoding: 'utf8', timeout, maxBuffer: 65536,
         windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'],
       }).trim()
-    } catch (error) { throw code === 'IMAGE_PULL_UNAVAILABLE' ? pullFailure(error) : fail(code) }
+    } catch (error) {
+      if (code === 'IMAGE_PULL_UNAVAILABLE') throw pullFailure(error)
+      throw fail(code === 'QUERY_UNAVAILABLE' ? 'QUERY_' + nativeResourceQueryFailureCategory(error) : code)
+    }
   }
   function json(args) {
     try { return JSON.parse(docker(args)) } catch { throw fail('INSPECTION_UNAVAILABLE') }
@@ -99,19 +103,24 @@ export async function createDurableNativeFixtureV1(...argumentsReceived) {
   }
   function readSnapshot() {
     let s
-    try { s = JSON.parse(docker(['exec', '-u', 'postgres', container, 'psql', '-X', '-qAt', '-v', 'ON_ERROR_STOP=1', '-U', 'postgres', '-d', 'telecom_test', '-c', snapshotSql], 'QUERY_UNAVAILABLE', 5000)) } catch { throw fail('QUERY_UNAVAILABLE') }
+    // The entrypoint's temporary initialization postmaster is socket-only.
+    // Loopback TCP inside this network-none container admits only final startup.
+    const raw = docker(['exec', '-u', 'postgres', container, 'psql', '-h', '127.0.0.1', '-X', '-qAt', '-v', 'ON_ERROR_STOP=1', '-U', 'postgres', '-d', 'telecom_test', '-c', snapshotSql], 'QUERY_UNAVAILABLE', 5000)
+    try { s = JSON.parse(raw) } catch { throw fail('QUERY_RESPONSE_INVALID') }
     if (!s || Object.keys(s).sort().join(',') !== 'database,publicRelations,started,system' || s.database !== 'telecom_test' || !/^[0-9]{1,20}$/.test(s.system) || !Number.isSafeInteger(s.started) || s.started <= 0 || !Number.isSafeInteger(s.publicRelations) || s.publicRelations < 0) throw fail('SNAPSHOT_REJECTED')
     return s
   }
   async function ready() {
     const until = performance.now() + 60000
+    let lastCategory = 'UNAVAILABLE'
     while (performance.now() < until) {
       try { return readSnapshot() } catch (error) {
-        if (error.message !== 'NATIVE_RESOURCE_QUERY_UNAVAILABLE') throw error
+        if (!/^NATIVE_RESOURCE_QUERY_(TIMEOUT|OUTPUT_LIMIT|SQL_FAILED|TRANSPORT_FAILED|CLIENT_UNAVAILABLE|INTERRUPTED|CLIENT_OR_SQL_FAILED|UNAVAILABLE)$/.test(error.message)) throw error
+        lastCategory = error.message.slice('NATIVE_RESOURCE_QUERY_'.length)
       }
       await delay(250)
     }
-    throw fail('READINESS_TIMEOUT')
+    throw fail('READINESS_TIMEOUT_' + lastCategory)
   }
   function removePrivateConfiguration() {
     try {
