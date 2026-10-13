@@ -110,6 +110,16 @@ test('completed replay revalidates private original outcome and current returned
  f.setReadable(false);await assert.rejects(f.port.loadAuthorizedOperation(actor,before.operationRef,new Date()))
  assert.ok(f.calls.every(x=>x.name==='assistant_durable_v1_load_result'))
 })
+test('completed replay keeps an expired original grant denied and accepts a separately admitted current worker',async()=>{
+ const f=fixture(),expired={...f.worker(),grantVersion:2},fresh={...f.worker(),workerRef:'fresh_restart_worker_reference_001',grantVersion:1}
+ f.setWorker(expired)
+ f.completionDeps.invoke=async(name,p,signal)=>{f.calls.push({name,p,signal});return p.p_worker===fresh.workerRef&&p.p_authority_version==='1'?{data:{record:completed,command},error:null}:{data:null,error:{code:'42501'}}}
+ await assert.rejects(f.port.loadAuthorizedOperation(actor,before.operationRef,new Date()))
+ const current=createDurableCompletionPortV1({...f.completionDeps,currentWorker:async()=>fresh})
+ const replay=await current.loadAuthorizedOperation(actor,before.operationRef,new Date());assert.ok(replay);assert.deepEqual(replay.result,result)
+ assert.equal(f.worker().grantVersion,2);assert.equal(f.worker().workerRef,expired.workerRef)
+ assert.deepEqual(f.calls.map(call=>[call.p.p_worker,call.p.p_authority_version]),[[expired.workerRef,'2'],[fresh.workerRef,'1']])
+})
 test('returned resource revocation after the committed reply blocks result exposure without a second mutation',async()=>{
  const f=fixture();f.completionDeps.invoke=async(name,p,signal)=>{f.calls.push({name,p,signal});f.setReadable(false);return {data:{status:'applied',record:structuredClone(completed)},error:null}}
  await assert.rejects(createDurableCompletionPortV1(f.completionDeps).completeOperationWithAuditIntent(actor,input))
