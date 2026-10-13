@@ -16,6 +16,10 @@ import { ConfirmDialog } from '@/components/ConfirmDialog'
 import type { ProductReceiptV1 } from '@/lib/contracts/product-v1'
 
 export function IntegratedCustomerDetail({ id }: { id: string }) {
+  return <ScopedCustomerDetail key={id} id={id}/>
+}
+// A new resource must start with empty reads, editors and command intents.
+function ScopedCustomerDetail({ id }: { id: string }) {
   const { repository, role } = useProduct()
   const [customer,setCustomer] = useState<CustomerIdentity|null>(null), [contacts,setContacts] = useState<TelecomCollectionPageV1<'contact.list'>|null>(null)
   const [error,setError] = useState(''), [edit,setEdit] = useState(false), [contact,setContact] = useState<ContactRowV1|'new'|null>(null)
@@ -24,14 +28,18 @@ export function IntegratedCustomerDetail({ id }: { id: string }) {
   const [area,setArea]=useState('Resumen')
   const [inventoryRevision,setInventoryRevision]=useState(0)
   const archiveIntent = useRef<{execute:()=>Promise<ProductReceiptV1>}|null>(null)
+  const customerReadEpoch = useRef(0)
   const canWrite = role !== null && role !== 'viewer'
   const readCustomer=useCallback(()=>role==='viewer'?customerCollectionIdentity(repository,id):repository.customer(id),[repository,id,role])
   const load = useCallback(async()=>{
+    const epoch=++customerReadEpoch.current
     setError('')
-    try {setCustomer(await readCustomer());setContacts(null);setContactCursors([]);setContactRevision(v=>v+1)}
-    catch(e){setCustomer(null);setContacts(null);setError(safeMessage(e))}
+    try {const current=await readCustomer();if(epoch!==customerReadEpoch.current)return;setCustomer(current);setContacts(null);setContactCursors([]);setContactRevision(v=>v+1)}
+    catch(e){if(epoch!==customerReadEpoch.current)return;setCustomer(null);setContacts(null);setError(safeMessage(e))}
   },[readCustomer])
-  useEffect(()=>{let active=true; void (async()=>{try {const c=await readCustomer();if(active){setCustomer(c);setError('')}}catch(e){if(active)setError(safeMessage(e))}})();return()=>{active=false}},[readCustomer])
+  // Initial and manual/post-command reads share one order. An earlier success
+  // must not undo the newest version or a later denied/unavailable observation.
+  useEffect(()=>{const reads=customerReadEpoch,epoch=++reads.current; void (async()=>{try {const c=await readCustomer();if(epoch===reads.current){setCustomer(c);setError('')}}catch(e){if(epoch===reads.current)setError(safeMessage(e))}})();return()=>{reads.current++}},[readCustomer])
   useEffect(()=>{let active=true;void repository.collection('contact.list',{customer_id:id,limit:20,sort:'id_asc',...(contactCursors.length?{after_id:contactCursors.at(-1)}:{})}).then(v=>{if(active){setContacts(v);setContactsError('')}}).catch(e=>{if(active){setContacts(null);setContactsError(safeMessage(e))}});return()=>{active=false}},[repository,id,contactCursors,contactRevision])
   async function archive() {
     if(!customer || busy)return
@@ -50,7 +58,7 @@ export function IntegratedCustomerDetail({ id }: { id: string }) {
       <Customer360Overview key={contactRevision+':'+inventoryRevision} customerId={id}/><Tabs prefix="customer360-" items={customerAreas} value={area} onChange={setArea}/><section tabIndex={0} role="tabpanel" id={`customer360-panel-${area}`} aria-labelledby={`customer360-tab-${area}`} className="space-y-4"><CustomerIntegratedPanels key={area+':'+contactRevision} customer={customer} area={area} onRecordCreated={()=>setInventoryRevision(v=>v+1)}/>
       {(area==='Resumen'||area==='Contactos')&&<section className="rounded-xl border bg-white p-5"><div className="mb-4 flex items-center justify-between gap-3"><h2 className="font-semibold">Contactos</h2>{canWrite && customer.status!=='archived' && <button className={primary} onClick={()=>setContact('new')}>Añadir contacto</button>}</div><p className="mb-3 text-xs text-slate-500">Datos protegidos para esta sesión. No se guardan en el navegador.</p>
         {contacts?.items.map(c=><article key={c.id} className="flex flex-wrap items-center justify-between gap-3 border-t py-3"><div><h3 className="font-medium">{c.display_name}{c.is_primary?' · Principal':''}</h3><p className="text-sm text-slate-500">{c.job_title??'Cargo no registrado'} · {c.has_email?'Correo registrado':'Sin correo'} · {c.has_phone?'Teléfono registrado':'Sin teléfono'}</p><Status value={c.status}/><OriginProof kind="contact" id={c.id}/></div><div className="flex flex-wrap gap-2">{c.status==='active'&&customer.status==='active'&&<><SensitiveReveal entityKind="contact" entityId={c.id} field="email"/><SensitiveReveal entityKind="contact" entityId={c.id} field="phone"/></>}{canWrite && <button className={control} onClick={()=>setContact(c)}>Editar contacto</button>}</div></article>)}
-        {contactsError&&<p role="alert" className="text-sm text-red-700">{contactsError}</p>}{!contacts&&!contactsError&&<p role="status" className="text-sm text-slate-500">Cargando contactos autorizados…</p>}
+        {contactsError&&<div className="space-y-2"><p role="alert" className="text-sm text-red-700">{contactsError}</p><button className={control} onClick={()=>{setContacts(null);setContactsError('');setContactRevision(v=>v+1)}}>Volver a consultar contactos</button></div>}{!contacts&&!contactsError&&<p role="status" className="text-sm text-slate-500">Cargando contactos autorizados…</p>}
         {contacts&&!contacts.items.length && <p className="text-sm text-slate-500">Sin contactos en esta página.</p>}
         <div className="mt-4 flex flex-wrap items-center gap-3"><button className={control} disabled={!contacts||!contactCursors.length} onClick={()=>{setContacts(null);setContactsError('');setContactCursors(v=>v.slice(0,-1))}}>Página anterior de contactos</button><span className="text-xs text-slate-500">Página {contactCursors.length+1} · Hasta 20 contactos</span><button className={control} disabled={!contacts?.next_id} onClick={()=>{if(contacts?.next_id){setContactCursors(v=>[...v,contacts.next_id!]);setContacts(null);setContactsError('')}}}>Siguiente página de contactos</button></div>
       </section>}</section>

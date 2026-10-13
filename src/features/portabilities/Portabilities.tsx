@@ -57,6 +57,9 @@ function LineNumberEntry({lineId,onClose,onCreated}:{lineId:string;onClose:()=>v
  return <Drawer title="Número protegido de la línea" onClose={()=>{if(!command.locked){setRaw('');onClose()}}}><form className="space-y-3" onSubmit={e=>{e.preventDefault();command.propose({input:{command_id:crypto.randomUUID(),entity_kind:'line',entity_id:lineId,identifier_kind:'msisdn',canonical_value:raw},description:'Registrar número terminado en '+raw.slice(-3)+'. El valor completo no aparecerá en el inventario ni se enviará al operador.'})}}><label className="block text-sm">Número internacional<input aria-label="Número internacional protegido" className={control+' mt-1 w-full'} autoComplete="off" inputMode="tel" required pattern="\+[1-9][0-9]{7,14}" maxLength={16} value={raw} disabled={command.locked} onChange={e=>setRaw(e.target.value)} placeholder="+ y prefijo internacional"/></label><button className={primary} disabled={command.locked}>Revisar número protegido</button></form>{command.feedback}</Drawer>
 }
 export function PortabilityDetail({id}:{id:string}){
+ return <ScopedPortabilityDetail key={id} id={id}/>
+}
+function ScopedPortabilityDetail({id}:{id:string}){
  const {repository}=useProduct(),[core,setCore]=useState<{row:PortabilityRowV1;context:LineContext;customerActive:boolean}>(),[error,setError]=useState(''),[revision,setRevision]=useState(0)
  const read=useCallback(async()=>{const row=(await repository.telecom('portability.get',{id})).record,[context,customer]=await Promise.all([readLineContext(repository,row.line_id,row.customer_id),customerCollectionIdentity(repository,row.customer_id)]);return{row,context,customerActive:customer.status==='active'}},[repository,id])
  const refresh=useCallback(async()=>{setCore(await read());setError('')},[read])

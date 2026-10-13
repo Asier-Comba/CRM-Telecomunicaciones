@@ -1,0 +1,11 @@
+# Driver whole-audit inspection on its owned connection
+
+The partial native driver now exposes `createWorkerAuditInspectorV3`, which consumes the existing audit inspector and its opaque pre-effect baseline. The binding is captured synchronously. Each baseline capture and final inspection checks the admitted backend/database/application before and after the existing fixed readonly LEFT JOIN query. Late reads after close, substituted backend identity, changed original content and invalid/missing baseline fail closed. No private ledger or SQL error is returned.
+
+The two existing completion/reconciliation fixtures prepare the driver's baseline before their original work. At final inspection they require all thirteen measured audit fields to equal the independent existing fixture inspector. The operation slice then consumes that same admitted connection and closes it; an independent fixture query verifies disappearance of the owned backend. Fixture cleanup still runs if driver close fails. No second resource, ledger, primitive, W5 restart helper, workflow or image is introduced.
+
+Four new controlled-session tests cover baseline/final equality, hostile binding before SQL, backend/content substitution and close during a held ledger query. Local assistant suite expects 785 tests; 19 focused driver/audit tests pass. Global types, lint and syntax are required before publication. These tests are synthetic; both native whole-audit observations are NOT_RUN until this exact source executes.
+
+Full metadata/setupScenario/execute/inspectBoundary/inspectScenario/cleanupScenario remain absent. Connecting these thirteen audit fields does not add new fields to the prior 16/21 measurements. The five unmeasured counters, full11/23, four complete races, six cuts, business-effect absence, quiescence, before-effect kill and W5 native restart remain unproved. No silence counts as W4/W5 acceptance.
+
+Parent916 retains its PostgreSQL image-pull quota startup failure, with every native control NOT_RUN; this descendant inherits no PASS. Existing source-specific valid-PDF transport and synthetic planner results remain separate from actual parser, approved indexing, operational RAG and a live model. AI writes OFF, five HIGH alerts unresolved, release NOT_ACCEPTED.

@@ -1,5 +1,16 @@
 # W1 mapping for W3 durable assistant operations
 
+> Historical candidate mapping. The current implementation handoff is
+> [W3 durable DB contract v1](ai/W3_DURABLE_DB_CONTRACT_V1.md), its Iteration 6.0
+> ownership decision and `src/assistant/durable-db-contract.ts`. W2 owns the
+> physical port, schema/SQL/RLS and local acceptance driver; W3 owns semantics
+> and adapter integration; W5 coordinates future infrastructure; W4 independently
+> accepts. Relation names and the conformance plan below belong to this older
+> mapping and do not replace the current seven persisted concepts, transactional
+> audit intent plus delivery outbox, current authorization or process protocol v2.
+> Neither this mapping nor the clarification implements a physical adapter or
+> authorizes AI business writes, production or deployment.
+
 - Reviewed source: `w3/assistant-runtime-foundation@c6e869e`
 - W3 contract: `src/assistant/durable-contracts.ts`
 - Status: offline candidate only; no migration, adapter, route or production use

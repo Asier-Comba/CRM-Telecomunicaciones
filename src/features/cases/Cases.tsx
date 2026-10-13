@@ -12,11 +12,10 @@ import {CustomerDomainPages,NamedCustomer} from '@/features/customers/CustomerDo
 import {customerCollectionIdentity} from '@/features/customers/customer-identity'
 import {Drawer,control,primary,Status,statusLabel} from '@/features/product/ui'
 import {productDate} from '@/features/product/presentation'
+import {caseResolutionLabelsV1 as resolutions,caseCancellationLabelsV1 as cancellations} from './presentation'
 import type {CaseInputsV1,CaseOperationV1,CaseRowV1,CaseNotePageV1,CaseTypeV1,CasePriorityV1,CaseResolutionV1,CaseCancellationV1,CaseReceiptV1} from '@/lib/contracts/case-v1'
 const types:Record<CaseTypeV1,string>={activation:'Activación',portability:'Portabilidad',technical:'Técnica',billing:'Facturación',renewal:'Renovación',cancellation:'Cancelación',documentation:'Documentación',other:'Otra'}
 const priorities:Record<CasePriorityV1,string>={low:'Baja',normal:'Normal',high:'Alta',urgent:'Urgente'}
-const resolutions:Record<CaseResolutionV1,string>={issue_fixed:'Problema corregido',request_fulfilled:'Solicitud atendida',customer_confirmed:'Confirmado por el cliente',no_action_required:'No requiere actuación'}
-const cancellations:Record<CaseCancellationV1,string>={customer_withdrew:'El cliente retiró la solicitud',duplicate:'Duplicada',no_longer_needed:'Ya no es necesaria',entered_in_error:'Registro incorrecto'}
 type Write=Exclude<CaseOperationV1,'case.get'|'case.list'|'case.note_list'>
 type Proposal={[O in Write]:{operation:O;input:CaseInputsV1[O];description:string}}[Write]
 export function CaseInventory({customerId,createAllowed=false,onCreated}:{customerId?:string;createAllowed?:boolean;onCreated?:()=>void}){
@@ -52,6 +51,9 @@ function CaseFields({title,setTitle,type,setType,priority,setPriority,due,setDue
  return <><label className="block text-sm">Título de incidencia<input aria-label="Título de incidencia" className={control+' mt-1 w-full'} value={title} maxLength={200} required disabled={disabled} onChange={e=>setTitle(e.target.value)}/></label><div className="grid gap-3 sm:grid-cols-2"><label className="text-sm">Tipo de incidencia<select aria-label="Tipo de incidencia" className={control+' mt-1 w-full'} value={type} disabled={disabled} onChange={e=>setType(e.target.value as CaseTypeV1)}>{Object.entries(types).map(([v,name])=><option key={v} value={v}>{name}</option>)}</select></label><label className="text-sm">Prioridad de incidencia<select aria-label="Prioridad de incidencia" className={control+' mt-1 w-full'} value={priority} disabled={disabled} onChange={e=>setPriority(e.target.value as CasePriorityV1)}>{Object.entries(priorities).map(([v,name])=><option key={v} value={v}>{name}</option>)}</select></label></div><label className="block text-sm">Vencimiento de incidencia<input aria-label="Vencimiento de incidencia" type="date" min="1900-01-01" max="2199-12-31" className={control+' mt-1 w-full'} value={due} disabled={disabled} onChange={e=>setDue(e.target.value)}/></label></>
 }
 export function CaseDetail({id}:{id:string}){
+ return <ScopedCaseDetail key={id} id={id}/>
+}
+function ScopedCaseDetail({id}:{id:string}){
  const {repository}=useProduct(),[core,setCore]=useState<{row:CaseRowV1;customerActive:boolean}>(),[error,setError]=useState(''),[revision,setRevision]=useState(0)
  const refresh=useCallback(async()=>{const r=await repository.telecom('case.get',{id}),customer=await customerCollectionIdentity(repository,r.record.customer_id);setCore({row:r.record,customerActive:customer.status==='active'});setError('')},[repository,id])
  useEffect(()=>{let active=true;void repository.telecom('case.get',{id}).then(async r=>{const customer=await customerCollectionIdentity(repository,r.record.customer_id);if(active){setCore({row:r.record,customerActive:customer.status==='active'});setError('')}}).catch(e=>{if(active){setCore(undefined);setError(safeMessage(e))}});return()=>{active=false}},[repository,id,revision])

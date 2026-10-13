@@ -154,3 +154,296 @@ The new composition normally merges tested907cb and accepted509a into accepted9a
 After restart15.7GiB total/3.19GiB free remains below the full-stack guide7GiB. Docker stays stopped, no personal processes/settings/volumes changed, and disposable CI is not a persistent Windows installation. IndependentW4,issue29 fullaudit,issue10 physical business durability,live semantic/premium/commercial acceptance remain open;AI business writes OFF. W5d365 compatibility was checked statically against9ab:all73 product/71 platform blobs identical in74 union,manifest296/295 and38 revokes match,src/lib/assistant unchanged. Owner's priorac60 actual107 in37919617891/job113784227189/execa3c12f033511e0ff3a4642a8d0ba140b6e7e1bcc/74migrations was verified by closed report; no result transfers to d365,new product or business durability. No W4 findings published,vendor candidate adoption,production/VPS/DNS/mail/operator effects.
 
 Next three:complete exact local checks and push this combined product candidate;collect its own107/quality and review its fresh target frames;handoff only a verified exact product checkpoint to W5 through67 while continuing the authorised product/local work within independent gates.
+
+
+## Billing, portfolio and mobile team composition after recovery — 9 October 2026
+
+The following own candidates are now consumed by ordinary merges. Their scoped
+evidence belongs to their recorded executions. This composition adds the recovery
+doctor, native driver contract and this ledger, so its new source/tree must earn
+its own full107/Auth/history/context/grounding/Storage/teardown, quality and fresh
+36 target-frame review. No prior green transfers to this new canonical tree.
+
+| Candidate | Source / actual executed / identical tree | Own run / job and reviewed scope |
+|---|---|---|
+| Billing88 | 18472b45fa164c79adbc4561edd3b7666195d702 / 7bb01a6661fec4b23c6d0da8c65e1f94f46e3f00 / e0c40845d000dae14d411a9ca6a0704d1fbba79a | 37962817594 / 113929668624 SUCCESS107/107; 33 actually reviewed billing/Customer360 frames at1440/768/390. Tablet status/USD tokens complete. |
+| Portfolio95 | 5434e6287d16177af990868ab92612af201760be / 655be7f58fc4eaf10c60b0a56bc5bcb4c461a0fe / 0594852ed4aa48364e82a6b11effc4958cc76ab6 | 37963658888 / 113932491946 SUCCESS107/107; 33 billing/Customer360 plus6 portfolio frames actually reviewed. Inventory geometry and current referenced article complete; supplemental customer/operator labels still loading in the top inventory frames. |
+| Team96 | ce413350dc0f50f77b659cc54a653e98afba8190 / a3ca711c0b78177b40beaf6d75638b60c733c82b / d1a69d4bdf422fded713dfea6fcf8a780cf3487f | 37967937923 / 113946914234 SUCCESS107/107; 36 fresh target frames actually reviewed. Four team fields/controls complete in mobile cards and tablet/desktop table. |
+| Recovery93 | a95da69beb3e4c7c95ab2eed39ebc92c41eee3e5 / 0d6425d8dd906cf4dc931905d30f66197f7eb921 / 2bb2028c4960eab914af7b55b79d524c2f2fe457 | 37957997644 / 113913311198 lint/types413+482/build66 PASS; audit5HIGH FAIL. Two native Windows privacy/dirty-tree/remote-Docker tests PASS. Read-only diagnosis, no installation or107 claim. |
+| Driver contract94 | 5c1a54a0cbc826776dc8f911fb5aed4886d7161f / d5db9435b0a53f1f77009478f9159a9a6d1de166 / 5d232303af522c8a1bc0e78725964999c30da1ea | 37958946595 / 113916547418 lint/types411+482/build66 PASS; audit5HIGH FAIL. Document only; no native adapter/scenario executed. |
+
+The three product candidates retain Auth200,3535+227 backend checks,73 migrations,
+history backend/API/browser/CAS/cursor/revocation, authorized context/read-grounding,
+Storage, teardown PASS and0pageerrors. Their exact functional quality jobs
+113929668100/113932492339/113946914067 pass lint/types413+482/build66 and preserve
+the fiveHIGH audit failure; all independent jobs pass and dependents are skipped.
+Actual safe/product artifacts for96: 11635037733/11635142598.
+
+Billing composes fiscal current-read recovery, complete five-field invoice rows
+and authorized client relation choices. The token fix applies nowrap only to the
+status/money spans; the existing assertions now check all received invoice tokens.
+Current-invoice PDF metadata is pending in some desktop frames; target frame
+acceptance does not assert all asynchronous components ready in every screenshot.
+
+Portfolio correlates the exact ordinary current-navigation portfolio.get request,
+HTTP200/closed envelope/current kind-id DTO before the unchanged5s render check.
+Native real components/repository/parsers with explicit in-memory HTTP demonstrate
+valid6500ms transport: old TIMEOUT5091ms, correlated PASS6861ms;503 and foreign DTO
+refused,4reads0commands0errors. This mechanism does not establish the original
+server delay in W5#92. Existing5s/15s/30s budgets and55 main names remain.
+
+Team changes only presentation of the four table cells plus removed→Retirado.
+Native real components/roles/repository/parsers/ConfirmDialog/Button/Geist show
+old390 overflow, complete updated6rows at1440/768/390, protected self/owner/removed/
+admin peers, Escape0commands and four explicit memory actions with CAS1/2/3/4,
+distinct command IDs and receipt versions2/3/4/5. This is not native Auth/DB proof.
+The real full suite and36 reviewed frames provide the separate integrated proof.
+
+All product/backend/assistant/migration/package/workflow and acceptance-helper
+blobs are identical to the accepted96 execution. Recovery93 adds only its three
+files;94 changes only the driver contract document. No main or W4/W5 branch is
+changed, no force push. Exact canonical execution/result will be recorded in its
+remote checkpoint rather than a new status-only source commit.
+
+Historical canonicald6 retains original37929913690/job113817820638 SUCCESS107 and
+repeat37933829500/job113830819477 FAILURE106 financial_currency_comparison, precise
+cause unisolated. BillingF09 retains37949967801/job113885892552 FAILURE106;311 retains
+37954177106/job113900335163 early history CREATE_UPSTREAM HTTP500. A035 retains
+37957116328/job113910333057 SUCCESS107 plus its actually reviewed tablet token and
+team clipping gaps; its diagnostic categories do not establish that500's cause.
+W5#92 owner035de4c retains37956588534/job113908530775 FAILURE106, mobile portfolio
+exact_reference TIMEOUT. No prior failure/cancellation is erased or relabelled.
+
+Issue29/audit5HIGH remains enforced without downgrade/override/suppression;
+issue10 physical native adapter/23 scenarios/four20-worker races/six rollback
+points/SIGKILL/Postgres restart and independent W4 remain unaccepted. Fixed
+synthetic planner grounding does not prove live model semantics. Persistent
+Windows installation remains blocked by memory/prerequisites and five POSIX
+private-file tests; the doctor does not start Docker or claim acceptance. W5's
+fixture/recovery proof does not establish business durability. AI business writes
+remain OFF; no accounts, production/VPS/DNS/email/n8n/provider changes.
+
+Next three: collect this new canonical's exact own107/quality and36 fresh frames;
+handoff only its verified SHA/tree evidence to W5 via the existing checkpoints;
+continue scoped product/local/native adapter work while preserving independent
+security, resource and commercial gates.
+
+
+## Current import reads and driver admission composition — 9 October 2026
+
+Ordinary merges now consume the following own executed commits. No main or owner
+W4/W5 branch is changed. Previous canonical56b source56b812e48ae6c1ef8f6fe72fdf71d3dbb6e0317f,
+executed0d381b3fbf303d3bcfeeaa8ef469c6ed3ac0f04d/tree7e5022dc22108da819618c4bcd3ac0df2f3370cd,
+closed its own37971192526/job113957939952 SUCCESS107 and36 fresh reviewed frames.
+CI37971192581/job113957943553 lint/types415+482/build66 PASS, audit5HIGH FAIL;
+independent jobs PASS. This historical acceptance does not transfer to this tree.
+
+| Own candidate | Source / executed / identical tree | Closed evidence |
+|---|---|---|
+| Import labels97, included by98 | c9605698efc3d2d89a434885280a970056ea5112 / edc06b00a72741375395b9e189284b033a7fa25e / 15b20befb2f67ddbf7fb229c952790326b551b72 | Supabase37970661693/job113956133872 SUCCESS107, quality37970661659/job113956133401413+482/build66 PASS/audit5HIGH FAIL,43 actual reviewed frames. Existing management frame was above import panel, not visual cancellation proof. |
+| Current import read98 | 3aaba3628b0b45537067d8c4258da6a1a90ec815 / 0827f55ea81297cd179029b42d13c3e6b459b44d / 9d8c299d7506b9e88361800e332e226ff65c2590 | Supabase37973646837/job113966447102 SUCCESS107; quality37973646914/job113966320572413+482/build66 PASS/audit5HIGH FAIL.46 actual reviewed fresh frames, safe11639700108/product11639635231. |
+| Driver export admission99 | 3749000bc151813a17111cb23ff12e78c1472ef5 / c0779660dc72f78256ad52d6bc2984a8a7c0f9e2 / 963914282c6e4d5e0e6cc44e72e28b166e38f8a4 | CI37975483707/job113972590794415+483/build66 PASS/audit5HIGH FAIL. All independent jobs PASS. Runner/test/doc scope does not trigger a new Supabase run; no107 claim for this unit. |
+
+Import97 fixes ten missing family labels and renders eight closed states in
+Spanish while preserving their values/colors, handlers, filters, pagination,
+roles, CAS and cancellation confirmation. Native real components/repository/
+parsers/React/Tailwind/Geist proof at18families/eightstates/threewidths has57reads,
+zero commands;14 existing import/client tests, exactlint/types PASS.
+
+Import98 correlates the ordinary Actualizar importaciones click to its exact
+same-originPOST/api/import/v1 importjob.list request with only limit20, HTTP200,
+closed envelope and actual parser. Expected already-cancelled synthetic job must
+match id/kind/status. Every received row's family/state/counter/button is checked
+inside main and viewport after ordinary vertical scroll, then three new frames
+are captured. The prior management frame receives only scrollIntoViewIfNeeded.
+Main outside the single import/call and capture focus is byte-identical;55 main
+names/order,107checks and all existing budgets remain. Native69reads/0commands/
+0errors,18families/eightstates/threewidths,503/extraDTO/missingrequiredID refused;
+member/viewer no panel/read. Native memory HTTP is not Auth/SQL cancellation.
+
+Own98 full gate proves Auth200,73 migrations,3535+227 backend checks,historyAPI/
+browser/CAS/cursor/revocation/context/grounding/Storage/teardown PASS,0pageerrors.
+Document responses200 with headers/body182/188ms and757/760ms. All46 actual frames
+reviewed: five current jobs complete on1440/768/390, fourCancelado/oneCargado,
+Identificadores protegidos/Clientes/Servicios,0filas andVertrabajo; management
+now shows four cancelled records. Separate107 checks SQL cancellation+reload.
+Six portfolio frames include still-loading supplemental labels in upper inventory;
+no all-enrichment-ready claim. Billing currentA/2026/000008 EUR30.25 controls complete,
+desktop list/PDFmetadata pending, tablet/mobile PDFmetadata ready; tablet status/
+USD tokens intact. Mobile invoice frame shows complete paid/current EUR cards,
+other rows checked via normal scroll. Team six desktop/tablet rows complete;
+mobile top administrator and retired-member cards complete, remainder checked
+via helper scroll. Customer360 sixSIM/sevenpermanence/sevencase/tenportability
+fields complete on three widths, masked portability061 and phase-specific counts.
+
+Driver99 rejects twelve incomplete-interface variants before setup with exit2,
+zero setup/zero stdout and closed durable_driver_exports_required. Complete six
+functions still reach setup and retain existing closed failure reporting. Prior
+synthetic marker reproduced setup despite missing exports before the fix. Two
+native regression tests and exact lint/types PASS; temporary checkout restored.
+This structural admission is not driver approval, import-effect sandboxing,
+credential validation, adapter/store/SQL/provider implementation or physical
+durability proof. Existing23scenario/20worker/SIGKILL/rollback/fence/restart oracles
+are unchanged. Business AI writes remain OFF until issue10 and independentW4.
+
+All product/backend/migration/package/workflow/security-helper blobs in this new
+composition match accepted98 exactly. Driver runner/test/doc match99 exactly.
+Only the prior doctor/bootstrap/doc and acceptance ledger supplement them.
+The new source/tree requires its own107/Auth/history/grounding/Storage/teardown,
+quality and46 fresh actual reviewed frames. Unit results are not inherited.
+
+Historical98@576f6d9524cc7e470402b29fd04d5ea606197a72/exec35bbf3b2ada28203d8078e146a0300f1b6280553/
+tree9989771bdf1ddd978f8d672557fa2b9795159b9e retains37973268822 CANCELLED after
+ordinary source advancement, quality37973268627/job113965026596413+482/build66 PASS/
+audit5HIGH FAIL. All earlier106/500/cancellation/QA failures above remain recorded.
+FiveHIGH audit failure remains enforced, no overrides/downgrades/suppression;
+physical adapter/independentW4/liveLLM/persistentWindows/commercial acceptance
+remain open. Read-only doctor reports about2GiB free, localDocker stopped and
+preflightBLOCKED; no heavy local stack or personal process is changed.
+
+Next three: close this exact new canonical's own107/quality and46fresh QA; publish
+only verified checkpoint SHA/tree to W5; continue open product/local/durability
+tasks within ownership and resource limits. Production/VPS/DNS/accounts/provider
+boundaries remain unchanged.
+
+
+## Current labels, access recovery and closed evidence composition — 9 October 2026
+
+
+Previous canonical source9cf6c10eae9b6c301b6f79753ffbaafd6eebc7ad, executed84cd318697882505890484730e42c83eb9fa7366, treefcc2485c06f6693ab3ec71c9dd747abf4ec8f43c closed own107 and46 actually reviewed frames. Quality415+483/build66/lint/types PASS, audit5HIGH FAIL. That acceptance does not transfer to this new composition.
+
+
+| Own unit | Source / consumed executed / identical tree | Own closed evidence |
+|---|---|---|
+
+| PR100 | 2c7fcacd6b6839af356441dd40fad5ff156eb50a / e57809cc2a63b97893c7d2b393f191676f2845e3 / d10eea79706c3003bb496885ef6899f00d8b3731 | Supabase37984596356/job114003299332 SUCCESS107; CI37984596418/job114003298193 PASS_422_483_BUILD66, audit5HIGH FAIL, independents PASS; 55 fresh actual reviewed frames in own manifest. |
+
+| PR103 | f8e711d47cd22f9403e60719fff20349c88579ad / 7a50e0e70ddee41282b77571da11d06ca579b241 / 05ee586dd1114d883021a3d9346e2e341c990110 | Supabase37981798580/job114004947233 SUCCESS107; CI37981798548/job113993896841 PASS_415_485_BUILD66, audit5HIGH FAIL, independents PASS; 46 fresh actual reviewed frames in own manifest. |
+
+| PR104 | fe01f3869d494d954a6f086f019a07111fe2b79f / 9b39a4d25c669edc60ff54a7be370ee245e9a3ec / 782810a235f0fa1542d648f8005b20696d29756a | Supabase37985766380/job114007242106 SUCCESS107; CI37985685245/job114006978639 PASS_420_483_BUILD66, audit5HIGH FAIL, independents PASS; 46 fresh actual reviewed frames in own manifest. |
+
+| PR105 | 586e06d4849afdbb1db30f36425000af54bfbd4d / 79240e4ccd711907248be751bb13ed50c0be1efb / 7120a2b23c5188608ec331ef26a9c3c71f8f4174 | Supabase37986414270/job114009402297 SUCCESS107; CI37986414361/job114009403465 PASS_417_483_BUILD66, audit5HIGH FAIL, independents PASS; 46 fresh actual reviewed frames in own manifest. |
+
+| PR106 | 0a4ee2f0b0bc53c6181b3006eb5b0a2f8d9f1efb / 2abfa1908da142c39ce697f5a70dbeecfc2052b4 / cb18d94e2f3edb91374cc8b26e4543600b2816b8 | Supabase37987401757/job114012708418 SUCCESS107; CI37987401404/job114012708795 PASS_424_483_BUILD66, audit5HIGH FAIL, independents PASS; 55 fresh actual reviewed frames in own manifest. |
+
+
+
+PR100 supplies progressive current reference labels, with actual complete contract inventory20rows/threewidths/18reads/zero commands native proof; late publishers are disposed and previous repository/rows identities are hidden synchronously. PR102 current-document closed history reload is included identically by100 and106. PR103 rejects accessors/hidden/symbol/proxy/dense-array-invalid evidence without executing getters; it is structural admission, not physical durability. PR104 closes rejected getUser access checks and redirects to the existing login error; disposed responses stay inert. Its source dispatch and consumed CI merge have identical trees. PR105 includes101 explicit branch recovery doctor/tests/documentation, adding only the AuthGate workflow path. PR106 observes bounded current-main-document Auth user HTTP headers/categories only and handles both pending navigation/request rejections. These counters never prove authorization.
+
+
+
+Every overlapping unit blob was identical before mutation; every resulting changed blob equals its accepted executed unit. Protected schema/RLS/SDK/durable DB contract/package/security DB helpers are byte-identical to9cf. Workflow differs only by one AuthGate path; existing107 names/checks,55 main checks, budgets/retries/skips/commands and permissions are preserved. No W4/W5 owner adoption, main, force push, production, VPS, DNS, accounts, providers or real data.
+
+
+
+Historical100@448/39c HISTORY_RENAME_TIMEOUT before W2 remains FAILURE. PR103 attempt1 run37981798580/job113993896737 remains FAILURE106/107 at portfolio768 current request; reviewed frame showed Verificando acceso… before portfolio.get, original cause unknown. Attempt2 same source/executed closed107, demonstrating compatibility on that run without claiming root cause/stability. All older failures/cancellations recorded above remain.
+
+
+
+Fresh manifests retain asynchronous list/PDF/label loads and mobile content below viewport; ordinary helper scrolling is distinct from what each screenshot shows. Native memory transport proofs do not establish Auth/SQL/full app/physical driver behavior. Five HIGH audit remains enforced; no suppression/override/downgrade. Issue10 physical adapter/store/registered dispatcher/native23scenarios, independent W4, persistent Windows stack, live and commercial acceptance stay open. Business AI writes OFF.
+
+
+
+This new source requires its own exact107/Auth/history/grounding/Storage/teardown, quality and55 fresh actually reviewed frames. Before those gates close it is a candidate, with9cf remaining the last scoped accepted canonical. Next: native exact composition checks, ordinary push and own gates, fresh visual review and verified checkpoints.
+
+
+## Native PostgreSQL registry recovery composition — 9 October 2026
+
+Previous source 52f9f0d226664b32f94d0fb732b32ffcbdf1dd5a, executed f7f0f886c5eac2eccb36512c6b98c7b7d7872d4b, tree 900225e2d6a76fd244bf83ddc31d0fc3b0fa8703: own Supabase 37990750515/job 114023972661 SUCCESS107 and55 fresh actually reviewed frames; quality434+485/build66/lint/types PASS, audit5HIGH FAIL. Its two native PostgreSQL jobs114023972625 and114027230729 failed before startup on Docker Hub pull-rate limit; both remain FAILURE, no native DB evidence attributed to that tree. Product evidence does not make its overall CI green.
+
+Consumed isolated PR107 source ab95daa94f552114f7c1d441060f748e0431bc53, executed 18976e7d7186c2ff5b2a1082bc839792826a4eed, identical tree 355f055bb459352c033d3e6553ea2fc1ce369049: own CI 37992182312/native job 114028919906 SUCCESS73 migrations, fresh/restored296-function privilege matrix/RLS/roles, ACL-loss negative control and independent20-process product/B3/notification/automation/service-commercial races; native teardown PASS. Quality437+485/build66/lint/types and12 synthetic preview browser tests PASS, audit5HIGH FAIL, two dependent gates SKIPPED. Three local image-boundary tests/lint4/Bash syntax/diff PASS. No unit Supabase107 or product QA claimed for this CI-only diff; SQL Auth/Storage fixtures do not prove real JWT/Storage or W4/#22/issue10.
+
+Both official registries were queried read-only and gave the same postgres:16 OCI index and Linux/amd64 digest. Exact ECR Public index pinned; shell and both race scripts admit only that digest or exact legacy local postgres:16. All seven accepted unit blobs verified identical after ordinary merge. Product, schema/RLS, SQL fixtures, packages and Supabase acceptance workflow are byte-identical to previous52f. W5 received proposal/evidence through its existing GitHub checkpoint; its owner branches/enterprise infrastructure are untouched.
+
+This new tree requires own native PostgreSQL, lint/types/tests/build, Supabase107/Auth/history/grounding/Storage/teardown and55 fresh reviewed frames; no inherited gates. Until those close, canonical acceptance remains pending, last earlier accepted scope9cf remains recorded. Issue10 physical adapter/dispatcher/23process scenarios, independent W4, five-HIGH audit, Windows persistent stack, live and commercial acceptance stay open; business AI writes OFF. No main/force push/production/VPS/DNS/accounts/providers/real data.
+
+
+## Current-history proof, private PDF and first-row recovery composition — 10 October 2026
+
+Previous canonical 158682461863fc16609db44d18de14389a947841, executed c6c3446c79dea4ba5fa8e9fd43b59c26dcce33a8, tree 26b2fc04f2c3220b9850600fca5878872a558836, earned own107/55 actually reviewed frames,437+485/lint/types/build66/native73/296/preview12. Audit5HIGH remains FAIL. The frozen own158 evidence and frame/archive hashes are versioned below; no acceptance transfers to this new tree.
+
+Consumed PR110: source 7ab25740ea1a3a0f01bf9d1f6e12a833ac97b5d4; executed c12cbeea559b77944212c3ad585d5a3031ef182c; identical tree 3b1ca363ad7d378e3d11541947219f7aa8acdff4. Own CI 37998353415/quality job 114050009619: PASS_441_BOOTSTRAP_485_ASSISTANT_LINT_TYPES_BUILD66; native job 114050009468: PASS_OWN_73_FRESH_RESTORE_296_PRIVILEGES_SCOPE_RACES; audit5HIGH FAIL. Own Supabase 37998353417/job 114050009295:107/107,Auth200,73migrations,3535+227backend,history API/browser/CAS/cursor/revocation/context/grounding/Storage and teardown PASS.55 fresh actually reviewed own frames with per-source asynchronous limits. Preview18/34 includes six actual desktop/mobile reset/409/committed200 transport cases;116 includes four current-document reload200/403, six actual-component SSR/hydration and six actual history-codec current reopen200/HTML500/foreign-DTO cases. The marker is diagnostic only, never identity or authorization evidence. No physical business durability or live-model proof.
+
+Consumed PR116: source b14f839def6a6053c6d989123e964fcfdd52063e; executed e920a85e24bd02a18493b92945cbe35bf45a18dc; identical tree 1b7e1205ae253fd204ef3770b717de9abfe36a89. Own CI 38009039691/quality job 114084496404: PASS_456_BOOTSTRAP_485_ASSISTANT_LINT_TYPES_BUILD66; native job 114084496538: PASS_OWN_73_FRESH_RESTORE_296_PRIVILEGES_SCOPE_RACES; audit5HIGH FAIL. Own Supabase 38009039655/job 114084496416:107/107,Auth200,73migrations,3535+227backend,history API/browser/CAS/cursor/revocation/context/grounding/Storage and teardown PASS.55 fresh actually reviewed own frames with per-source asynchronous limits. Preview18/34 includes six actual desktop/mobile reset/409/committed200 transport cases;116 includes four current-document reload200/403, six actual-component SSR/hydration and six actual history-codec current reopen200/HTML500/foreign-DTO cases. The marker is diagnostic only, never identity or authorization evidence. No physical business durability or live-model proof.
+
+Consumed PR112: source da6d073eedf249d3cb35dc182b4b989070be1aec; executed 7024b6cd6865fcc041695882cc697ca00fdbee2f; identical tree 023a3496799fe780e4c13517dd4b91ccfbb86c10. Own CI 37999994765/quality job 114055465222: PASS_447_BOOTSTRAP_485_ASSISTANT_LINT_TYPES_BUILD66; native job 114055465036: PASS_OWN_73_FRESH_RESTORE_296_PRIVILEGES_SCOPE_RACES; audit5HIGH FAIL. Own Supabase 37999994843/job 114055464919:107/107,Auth200,73migrations,3535+227backend,history API/browser/CAS/cursor/revocation/context/grounding/Storage and teardown PASS.55 fresh actually reviewed own frames with per-source asynchronous limits. Preview18/34 includes six actual desktop/mobile reset/409/committed200 transport cases;116 includes four current-document reload200/403, six actual-component SSR/hydration and six actual history-codec current reopen200/HTML500/foreign-DTO cases. The marker is diagnostic only, never identity or authorization evidence. No physical business durability or live-model proof.
+
+Consumed PR109: source 2b324d3d37630c36803ae2db7fca51f1efeb053f; executed 3ff4daf38f05c0296619150e454ddf2fc39c56d0; identical tree 7a9bba15ad633f71b769f44c1eb6b36fd5d05612. Own CI 37995863849/quality job 114041656366: PASS_437_BOOTSTRAP_485_ASSISTANT_LINT_TYPES_BUILD66; native job 114041656645: PASS_OWN_73_FRESH_RESTORE_296_PRIVILEGES_SCOPE_RACES; audit5HIGH FAIL. Two owner documents; current Iteration6 W2 physical adapter, W3 behavior, W5 infrastructure, W4 independent acceptance; no physical implementation. No107 or visual proof claimed for documentation.
+
+Consumed PR114: source c827490ff4a4777df21101a72cd05c70925ca366; executed 4664e334b4ceef3a121988470c1b5112fb9eee9d; identical tree fd0f77d55b5e1e1f25065dc6c9078038cf5c76d8. Own CI 38005815336/quality job 114074231489: PASS_437_BOOTSTRAP_485_ASSISTANT_LINT_TYPES_BUILD66; native job 114074232575: PASS_OWN_73_FRESH_RESTORE_296_PRIVILEGES_SCOPE_RACES; audit5HIGH FAIL. One current Windows recovery guide; current38/67 checkpoints, historical88 distinction, source/execution/tree/run/job, preservation and resource limits; no Windows installation claim. No107 or visual proof claimed for documentation.
+
+Original PR108@33d run37995229138/job114039443447 remains FAILURE after53 UI completion events, no final safe report/teardown unconfirmed; exact socket-reset root cause not established. Recovery108@6c8 run38001908294/job114061723637 remains FAILURE106/107 at admin:reloaded_customer_read, teardownPASS. Its closed trace shows a previous-document response during reload but does not establish the exact original server/protocol cause. PR113@afb run38004901162/job114071322553 remains FAILURE106/107 at desktop portfolio current_request with0 auth-user GET requests and the access-check spinner; admin passed that attempt, exact original cause unknown. An installed-SDK in-process callback probe did not reproduce a deadlock. PR115@c442 run38007717467/job114080266793 remains FAILURE beforeW2 at W3_HISTORY_UI_HISTORY_REOPEN_MESSAGES_TIMEOUT,Auth/73migrations/teardownPASS, no107 result or W2 product artifact. Its one actually viewed failure frame shows an invalid-history alert; generic/network/syntax server categories do not establish the exact cause. Accepted116@b14 preserves the queue/test and110/admin/lifecycle blobs and earns independent full gates for its own tree, including current ordinary reopen reads in parallel with the original20-message assertion. This does not relabel108/113/115 as PASS or claim the original upstream cause was fixed. Original PR111@665 secret-scan job114053584876 remains FAILURE on the closed evidence-label false positive; its own107 does not clear the scan or become replacement112 evidence. Replacement112 has independent scan and full gates, with no allowlist/history rewrite/force push. All previous52f failures and older partial/cancelled runs remain recorded.
+
+Accepted unit blobs are identical after ordinary merges. Schema, RLS, assistant contracts, workflow and package files remain byte-identical to158;109 changes only two owner documents;114 changes only the existing recovery guide. New source requires own462+485/lint/types/build66/native73/296/preview34/Supabase107/55 fresh reviewed frames. These are pending, not inferred from units. Physical23 durable scenarios, W4/#22,5HIGH audit,40live,Windows persistent stack and commercial/release remain open; business AI effects OFF. No main/production/VPS/DNS/accounts/providers/real data or W4/W5 branch adoption.
+
+
+Unpublished local composition46eadc66bd42c709fa3edb69b367d19688af4834 remains rejected and preserved:63 relevant regressions/lint/diff passed,but the reachable-HEAD scanner flagged two assistant-written historical header-observation notes under the access field. Private adjudication matched both verbatim to frozen own110/112 notes; neither is a credential. The replacement starts from the same verified ordinary-merge parent and applies the documentation record without making46e an ancestor. Only those two evidence field names become read_observation_notes; text remains unchanged,field mapping and original-note hashes are explicit. No source-unit blob,product,authorization,schema,dependency,workflow,scanner rule or allowlist changes; no reset/force push or rejection relabelledPASS. Replacement checks must run on its exact source.
+
+
+The second unpublished candidatefe6668c8f7c22c7f5bef5ad183844d4e7fa70d72 also remains rejected and preserved:63 regressions/lint/diff passed,but two original_access_note_sha256 fields matched the generic API-key heuristic. Each flagged value was privately recomputed as the exact SHA256 of the unchanged frozen own review text; neither is a credential. The current representation uses original_note_sha256 with identical values and mapping. The same approved ordinary-merge parent is retained; neither rejected candidate is an ancestor. All rules remain enabled; a preliminary stdin scan precedes this commit and a separate reachable-HEAD scan and exact-source checks remain mandatory before push.
+
+
+## Exact reconciliation version recovery composition — 10 October 2026
+
+Previous canonical source 3cfdc1aa0718f7f4306b99ad090fcc04acef217c, executed 1e7a297cff3a458c51ab4889bb4b218038c38b2d, tree 32df2e2ab7415e75819a32a3acca795983096453: own CI 38011435357/quality 114092113675,462+485/lint/types/build66/native73/restored296/preview34; own Supabase 38011435371/job 114092114338:107/107, Auth200,73migrations,3535+227backend,history/context/grounding/Storage/teardown PASS and55 directly reviewed own frames with asynchronous and viewport limits. Audit5HIGH FAIL. Its immutable historical proof below does not accept this new source.
+
+Ordinary merge of W3-owned PR117 source 6205750d7d2033847f8cbe6ac51e338553ab076d, executed c9669a47e35bb88f30558565b91fe2a4dde423c3, tree 94c21c611b023e91f0d407ca5e2a67ece9c03f12: reproduces and fixes skipped4→6 version acceptance and MAX_SAFE_INTEGER admission; requires exactly expectedVersion+1 and rejects an exhausted counter before lookup/commit. Two regressions initially failed, then all487 local assistant tests passed. Own CI 38013617746/quality 114098964559:462+487/lint/types/build66/native73/restored296/preview34/scanner/private-value boundary PASS, audit5HIGH FAIL. Own Supabase 38013617690/job 114098964254:107/107,Auth200,73migrations,3535+227backend,history/context/grounding/Storage/teardown PASS,55 new directly reviewed own frames with distinct list order, masked portability ending627, team ordering and async limits. Fixture tests are in process, not native business durability acceptance.
+
+All three accepted unit blobs are byte-identical after merge. Database schema/RLS, UI, workflows, dependencies and other assistant implementation remain unchanged. The new composition requires its own CI,107/Auth/history/context/Storage/teardown and55 fresh actual visual reviews; no gate inheritance. The prior accepted3cfd remains the last closed canonical until those checks finish. Original failures108/111/113/115 remain frozen. Physical driver23 scenarios and independent W4, restoration privilege tracking#22,5HIGH audit#29,live model,persistent Windows installation and commercial release remain open. Business AI effects OFF. Main,W4/W5 owner branches,production,VPS,DNS/accounts/providers/real data unchanged.
+
+
+## Invoice, shell arrival and portfolio startup observation composition — 10 October 2026
+
+Previous canonical 81d4168fd1c2eab084a435d7e8b37182dfe8a90a, executed e0ce2bb7e71a55d4b62580b2fe27207c66314916, tree 5ebb5265a809c3b8503c7db8cb0f0aa94e5fc21d remains frozen FAIL106/107 in billing, with Auth200/73migrations/3535+227backend/teardown PASS and only two diagnostic images viewed; no55QA or acceptance. Historical last accepted canonical3cfd remains separate. Intermediate118 sources8fe (own107 but failed preview fixture) andEDF (106 shell route10 timeout, billing PASS) remain frozen without retry or55QA. Source64 remains frozen106/107 at portfolio1440/current_request, before_effect with zero observed Auth requests and one diagnostic frame; no55QA or acceptance. Neither original billing, Reports server nor portfolio startup root cause is established.
+
+Ordinary integration merge of W1-owned PR118@1f364eaeb669805fc45b9ac37d85d803c79d2657, executed 77e9cda904f6cfbdfb961ca4b5081648ef4a421b, tree d883855f17377a3cc8bda37a1421a1388ccaa972. The billing observer records a closed width/step/kind while retaining the original exception/action/ratio1/version3. The local route observer is armed before one original click, uses the existing30s page navigation budget before the unchanged5s path poll and additionally checks the Informes heading. Controlled loopback real-browser sequencing reproduces the premature poll; it does not establish the original Next/backend cause or application performance. The current-document startup observer captures bounded same-origin script headers and closed page-error counts; it does not establish hydration, authorization, all early requests or original failure cause. Own startup snapshots8OK scripts each width and no page errors finish after successor document with ready unavailable; Auth observations retain one pending request at tablet/mobile. No retry, warmup, configured timeout change, UI/router/API, SQL/RLS, dependency or permission changes. All sixteen unit blobs remain identical in the composition.
+
+Own unit CI 38038588589/job114174135577:479+487=966/lint/types/build66/native73/restored296/preview52/scanner/private-boundary PASS; audit5HIGH FAIL. Own Supabase 38038588569/job114174135518:107/107,Auth200,73migrations,3535+227backend/history/context/grounding/Storage/teardown PASS. All55 own frames directly reviewed with exact hashes and async/viewport limits in the historical unit proof. These results do not accept the new composition: its own CI/107/55 remain required. Physical assistant driver23, W4 independent review, #10/#22/#29, live model, persistent Windows installation and commercial release stay open. Business writes OFF; main/W4/W5/production/VPS/DNS/accounts/providers/real data untouched.
+
+
+## Independent document observation and portfolio document correlation — 10 October 2026
+
+Previous canonical 6f178edb9b65f0ecdb0d73d1ddcf77cbcf5387fd, executed 3bc5a0e1afd695c664a7e1756192439933546159, tree 783b805fa7c0af516a6fcbf8c0baaca4ef9e5916 remains frozen FAIL106/107 in expired pending document cleanup; one failed dialog viewed, no55QA. Historical acceptance of3cfd/620/1f3 remains separate. Original cleanup cause is unestablished. Portfolio4cba remains frozen106/107 in current document classification; one gate frame viewed, no55QA. Its specific original frame event is not established. No retry or cancellation.
+
+Ordinary integration of own PR120@1c92f0a0a8a3994ef9d7ef4b5b0fdc77d8482dce, executed 35e3077589005d0d360770725eab1fdcf191b9f2, tree a58a61a6d69b2d411d3f31ded9b162d05a3171ac: own PASS_487_BOOTSTRAP_487_ASSISTANT_LINT_TYPES_BUILD66, native73/restored296, PASS_64_OWN_INVOICE_SHELL_STARTUP_HISTORY_RELOAD_ROUTE_SSR_CASES, scanner/private boundary PASS; auditfiveHIGH FAIL. Own Supabase38043371121/job114187908561107/107, Auth200/73migrations/3535+227backend/history/context/grounding/Storage/teardown PASS; all55 fresh images directly reviewed, hashes and async limits preserved in the corresponding historical proof. Six unit blobs identical after composition. These facts do not accept the composed source.
+
+Ordinary integration of own PR119@640f0f501d984ddf6d74e552ba0daed4c420f1e4, executed 21b2729a1855768050efa05850fba501ae06a15d, tree bd16a615dff743607e2b5b70b49e97fe7aaad524: own PASS_490_BOOTSTRAP_487_ASSISTANT_LINT_TYPES_BUILD66, native73/restored296, PASS_70_OWN_INVOICE_SHELL_STARTUP_HISTORY_RELOAD_ROUTE_SSR_CASES, scanner/private boundary PASS; auditfiveHIGH FAIL. Own Supabase38044325303/job114190673101107/107, Auth200/73migrations/3535+227backend/history/context/grounding/Storage/teardown PASS; all55 fresh images directly reviewed, hashes and async limits preserved in the corresponding historical proof. Six unit blobs identical after composition. These facts do not accept the composed source.
+
+Document observation retains only closed operation/step/kind before sanitization, preserves original actions/errors and blocks uncertain retry. Portfolio capture pairs main-frame document navigation requests with commits; same-URL history updates preserve the current reference, but changed destinations and real same-URL reloads invalidate it. Capture occurs before navigation; ordinary request wait starts after goto. Historical startup document_changed flags do not distinguish same-document history events from actual replacement; successor-document and completed-hydration claims are not established by those flags. Original exact body/HTTP200/envelope/DTO and existing budgets retained. No application/Auth/router/API/SQL/RLS/dependency/workflow/permission changes, warmup or production retry.
+
+New source requires its own CI985/build66/native73/restored296/preview82, Supabase107 and55 fresh actually reviewed images. Local targeted598 regressions are independent and cannot substitute. Physical assistant driver23, W4 independent review, #10/#22/#29, live model, persistent Windows and commercial release remain open. Business AI OFF. Main/W4/W5/production/VPS/DNS/accounts/providers/real data untouched.
+
+
+## Independent production type scope and Madrid calendar day — 10 October2026
+
+Previous canonical d22dac57c1f3357433565c4d38210879b0958f4a, executed 36ca2dbbeb6b4b75a338f4c1c4d72ac82b2c4c1b, tree 0388764759511fc38770fbbf4908c0a211c32b48 remains frozen unaccepted:985 functional/build66/native73/restored296 and82 browser runtime PASS, production fixture closure FAIL generated development validator TS1005/TS1002/TS1128, launcher skipped, auditfiveHIGH FAIL. Its107/107 withAuth200/73/backend3535+227/history/context/Storage/teardown PASS cannot replace failed CI; no55QA. Original generated-file corruption cause is not established.
+
+Ordinary integration own PR121@3215f36c15046585b31f9ddb981fd3bd9a816fb4, Supabase checkout3215f36c15046585b31f9ddb981fd3bd9a816fb4, treea86f66c9d7ee0462ee92f915a31efe8d2375818d: PASS_503_BOOTSTRAP_487_ASSISTANT_LINT_TYPES_BUILD66; native73/restored296; own82 real browser runtime plus production fixture/SSR/demo/launcher/port cleanup PASS; scanner/private boundary PASS. AuditfiveHIGH FAIL. Own Supabase38046879262/job114198089015107/107, all55 fresh images directly viewed with nine actual notes and frame/ZIP hashes. Four changed unit blobs identical after integration. Own evidence cannot accept the new composition.
+
+Ordinary integration own PR122@0a8ecf51f297dae8f5ddb8474b8f12b421729957, Supabase checkout9914309232b0c4ba0f26920f4616b46a5bbdfc46, tree0b71eb141fd63926983ffe3cd0de16bd3b594b9c: PASS_510_BOOTSTRAP_487_ASSISTANT_LINT_TYPES_BUILD66; native73/restored296; own82 real browser runtime plus production fixture/SSR/demo/launcher/port cleanup PASS; scanner/private boundary PASS. AuditfiveHIGH FAIL. Own Supabase38047853504/job114200898696107/107, all55 fresh images directly viewed with nine actual notes and frame/ZIP hashes. Four changed unit blobs identical after integration. Own evidence cannot accept the new composition.
+
+Production-build-only tsconfig scope inherits strict application/tests/fresh production route types and excludes .next/dev; development config remains unchanged. Five real compiler regressions retain positive/negative controls; no ignoreBuildErrors, cache deletion, dependency/workflow change or retry. Calendar and integrated initial anchor reuse existing Europe/Madrid calendarDate, preserving literal civil dates. Seven actual React SSR regressions pass, five fail on old actual components and two controls pass; SSR does not execute effects or establish the first API request or a midnight browser journey. Hook order and accessible selection retained; no business commands/permissions changes.
+
+New composition needs its own997/build66/native73/restored296/82browser with production closure, Supabase107 and55 fresh actually reviewed images. Local610 targeted regressions cannot substitute. Physical business driver23, independent W4, #10/#22/#29, live model, Windows persistent installation and commercial release remain pending. Business AI OFF; main/W4/W5/production/VPS/DNS/accounts/providers/real data unchanged.
+
+
+## Native boundary evidence admission —10 October2026
+
+Previous canonical 9698c2ba5d9eb84dfaae9257836ffd77c2745bfd, executed9cc908e37525a1d10a38afae52daaf1223e569f0, tree5ba2335da4c18f6682e8c4f71e45a2c5e71900fe: own997 functional/build66/native73/restored296/82 actual browser with production closure/SSR/demo/launcher/scanner/boundary PASS; own107 Auth200/73/backend3535+227/history/context/Storage/teardown PASS;55 actual fresh visual reviews/nine notes/frame and ZIP hashes. AuditfiveHIGH FAIL, release blocked. Its own scoped acceptance remains frozen and cannot accept a successor.
+
+Ordinary integration own PR123@b02b3a66c39dc3a69cd02be72e1e02cfab2c0581, executed8c2713672471233a9dbfde3a7297ded66017f911, tree1aced43f5115ea8b7c5f202af71a76eb671fd86e:1003 functional/build66/native73/restored296/82 actual browser plus production closure/SSR/demo/launcher/scanner/boundary PASS; own Supabase38050764357/job114209249594107/107 and55 direct fresh visual reviews/nine notes/frame and ZIP hashes. AuditfiveHIGH FAIL. Four unit files identical after integration.
+
+Two actual runner blocks previously admitted six synthetic ordinary/adversarial cases and invoked11 getters. Reused strict evidence data-record and dense-array readers now admit two ordinary controls, reject four unsafe cases and invoke zero getters. Six regressions cover descriptor/prototype failures, revoked proxies, hidden/symbol fields and unsafe arrays. This is evidence admission only: no physical driver/factory/SQL/catalog/dispatcher, no database or business effects, no independent W4 approval. All23 native scenarios and four20-worker races remain required.
+
+New composition requires own1003/build66/native73/restored296/82 actual browser plus production closure and107/55 new reviewed evidence. Local616 targeted checks cannot substitute. #10/#22/#29, physical driver23, independent W4, live model, persistent Windows and commercial acceptance remain pending; AI business writes OFF. Main/W4/W5/production/VPS/DNS/accounts/providers/real data untouched.
+
+
+## Local recovery project root scope — 10 October 2026
+
+Previous canonical cd45899594a82b76d9cf8d8a62562ff728ae64fc, executed c08aec0acb73ec03ecfd8679737c85193f32923d, tree fdb4fdcfb1d88343cbba9d5c55430af7c0fefc89: own 1,003 functional tests, lint/types/build 66, native PostgreSQL 73/restored privileges 296, 82 browser cases with production/SSR/demo/launcher/port closure, scanner and private boundary PASS. Own 107 Auth/Storage/history/context journeys and 55 images directly reviewed with nine notes and image/ZIP hashes. Audit five HIGH FAIL; scoped functional acceptance only. This historical review does not accept a successor.
+
+Ordinary integration of own PR 124@4e1ae60d34762cd51f9f1a03f7c2b2c2dec9515b, executed defd070b22090a50efd4d700c9a08a3b8d1cf335, tree 26684bc06ade0d1fa891ff6bdbb2b50224e1f7f2: 512 bootstrap + 493 assistant tests (1,005), lint/types/build 66, native PostgreSQL 73/restored privileges 296, 82 browser cases with production closure and scanner PASS. Audit five HIGH FAIL. The unit changes only recovery diagnosis, its tests and documentation; unchanged Supabase workflow filters do not select it, and no own 107/55 product acceptance is claimed for that readonly unit.
+
+The actual old doctor admitted a comment naming the local project alongside a foreign root and a table field with no root project. The revised doctor preserves the ordinary root declaration and blocks both cases; six focused tests preserve Git changes, privacy and remote Docker refusal. Root recognition is a closed preflight dialect, not a general TOML validator or installation approval. Three unit files remain identical after integration. App, SQL, Supabase configuration, dependencies and workflows were unchanged by the unit.
+
+This composition requires its own complete CI and Supabase 107/55 gates. Local targeted tests cannot substitute. Driver 23, independent W4, issue 29, live model, persistent Windows and commercial acceptance remain pending; AI business writes OFF. Main/W4/W5/production/VPS/DNS/accounts/providers/real data preserved.

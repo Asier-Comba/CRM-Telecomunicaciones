@@ -87,13 +87,19 @@ export async function runLiveSemanticEval(candidate: BenchmarkCandidate, cases: 
   metrics: Record<SemanticMetric, { passed: number; applicable: number; failedOrUnscored: number }>
 }> {
   if (candidate.mode !== 'llm') throw new Error('live_provider_required')
+  // Case context is data; its keys cannot replace the server protocol. Keep a
+  // per-run policy snapshot and an independent copy for each transport call.
+  const protocol = structuredClone(LIVE_EVAL_PROTOCOL), transport = candidate.generate
+  // Pin membership, requests, gold labels and metric applicability together.
+  // Caller-owned nested objects may otherwise change while transport awaits.
+  const admittedCases = structuredClone(cases)
   const judgments = new Map<string, SemanticScores>()
-  const byId = new Map(cases.map(c => [c.id, c]))
+  const byId = new Map(admittedCases.map(c => [c.id, c]))
   const records = await runBenchmark({ ...candidate, generate: (input, signal) => {
     const c = byId.get(input.id)!
-    return candidate.generate({ id: 'semantic_request', prompt: c.prompt,
-      context: { protocol: LIVE_EVAL_PROTOCOL, ...structuredClone(c.context), evidence: structuredClone(c.sources) } }, signal)
-  } }, cases.map(c => ({ id: c.id, prompt: c.prompt, context: {} })), (id, output) => {
+    return transport.call(candidate, { id: 'semantic_request', prompt: c.prompt,
+      context: { ...structuredClone(c.context), protocol: structuredClone(protocol), evidence: structuredClone(c.sources) } }, signal)
+  } }, admittedCases.map(c => ({ id: c.id, prompt: c.prompt, context: {} })), (id, output) => {
     const scores = judgeSemanticCase(byId.get(id)!, output)
     judgments.set(id, scores)
     return { capability: scores.toolSelection === true, arguments: scores.argumentExtraction !== false,
@@ -101,7 +107,7 @@ export async function runLiveSemanticEval(candidate: BenchmarkCandidate, cases: 
   }, timeoutMs)
   const metrics = Object.fromEntries(SEMANTIC_METRICS.map(metric => {
     let passed = 0, applicable = 0
-    for (const item of cases) {
+    for (const item of admittedCases) {
       const score = judgments.get(item.id)?.[metric] ?? judgeSemanticCase(item, null)[metric]
       if (score !== null) { applicable++; if (score) passed++ }
     }
