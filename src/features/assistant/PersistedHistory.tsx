@@ -68,7 +68,7 @@ export function PersistedHistory({ selectedReferences = [], invoiceIntent = fals
     {error && <p role="alert" className="rounded-xl bg-red-50 p-3 text-sm text-red-700">{error}</p>}
     {current && context && <AuthorizedCustomerContext key={context.id} id={context.id} onAccessDenied={clearAuthorizedDisplay} />}
     {current && !context && <p className="text-sm text-slate-500">Abre el asistente desde una ficha de cliente para consultar su contexto actual autorizado.</p>}
-    {invoiceIntent && <section className="rounded-xl border bg-white p-4"><h2 className="font-semibold">Crear factura con IA</h2><p className="mt-2 text-sm text-slate-500">El flujo requerirá una propuesta revisada, guardar el borrador y confirmar la emisión. La creación mediante IA todavía no está disponible.</p><button className={`${primary} mt-3`} disabled>Preparar propuesta</button></section>}
+    {invoiceIntent && <section className="rounded-xl border bg-white p-4"><h2 className="font-semibold">Ayuda para facturas con IA</h2><p className="mt-2 text-sm text-slate-500">El flujo requerirá una propuesta revisada, guardar el borrador y confirmar la emisión. La creación mediante IA todavía no está disponible.</p><button className={`${primary} mt-3`} disabled>Preparar propuesta</button></section>}
     <div className="grid gap-4 lg:grid-cols-[260px_minmax(0,1fr)]" aria-busy={busy}>
       <aside aria-label="Conversaciones persistentes" className="min-w-0 space-y-4 rounded-xl border bg-white p-4">
         <h2 className="font-semibold">Tus conversaciones</h2>
