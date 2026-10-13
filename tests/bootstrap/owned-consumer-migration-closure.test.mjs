@@ -31,6 +31,18 @@ test('owner directory86 is admitted only with exact source-pinned extension, nev
   assert.equal(union.count,86);assert.equal(union.closure,'owner_directory_86')
   assert.throws(()=>loadOwnedConsumerMigrationsV1(f.root,'delivered_grants_86'),/OWNED_CONSUMER_MIGRATION_CLOSURE_REJECTED/)
 })
+test('fresh LF checkout and CRLF checkout map to identical pinned Git SQL while other changes remain rejected',t=>{
+  const a=files(t),b=files(t)
+  for(const row of manifest.canonical){
+    const sql=readFileSync(join(a.migrationDir,row.name),'utf8').replaceAll('\r\n','\n')
+    writeFileSync(join(a.migrationDir,row.name),sql)
+    writeFileSync(join(b.migrationDir,row.name),sql.replaceAll('\n','\r\n'))
+  }
+  assert.deepEqual(loadOwnedConsumerMigrationsV1(a.root).migrations,loadOwnedConsumerMigrationsV1(b.root).migrations)
+  const first=manifest.canonical[0].name
+  writeFileSync(join(b.migrationDir,first),readFileSync(join(b.migrationDir,first),'utf8')+'-- changed\r\n')
+  assert.throws(()=>loadOwnedConsumerMigrationsV1(b.root),/OWNED_CONSUMER_MIGRATION_CLOSURE_REJECTED/)
+})
 test('same migration count with modified canonical SQL or substituted extra SQL fails before caller application',t=>{
   const a=files(t),first=manifest.canonical[0].name
   writeFileSync(join(a.migrationDir,first),readFileSync(join(a.migrationDir,first),'utf8')+'\n-- changed\n')

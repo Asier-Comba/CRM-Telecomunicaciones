@@ -26,9 +26,13 @@ export function loadOwnedConsumerMigrationsV1(root,mode='directory'){
     const entries=names.map(name=>{
       const path=join(directory,name),stat=lstatSync(path)
       if(!stat.isFile()||stat.isSymbolicLink()||stat.size>2_000_000)throw fail()
-      const wire=readFileSync(path)
-      if(hash(wire)!==pins.get(name))throw fail()
-      return Object.freeze({name,sql:decode(wire)})
+      const wire=readFileSync(path),raw=decode(wire)
+      // Git checkout may add CRLF on Windows. Admit only bytes that map back
+      // exactly to the pinned Git object, then APPLY those pinned bytes (LF).
+      // No trimming, whitespace rewriting or arbitrary content normalization.
+      const sql=hash(wire)===pins.get(name)?raw:raw.replaceAll('\r\n','\n')
+      if(hash(Buffer.from(sql,'utf8'))!==pins.get(name))throw fail()
+      return Object.freeze({name,sql})
     })
     if(mode==='delivered_grants_86'){
       if(delivered.contract!=='assistant.delivered-native-grants-fixture.v1'||delivered.owner_source!==extension.owner_source
