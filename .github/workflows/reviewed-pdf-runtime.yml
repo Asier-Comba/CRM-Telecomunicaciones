@@ -1,0 +1,75 @@
+name: W5 reviewed PDF runtime
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - '.github/workflows/reviewed-pdf-runtime.yml'
+      - 'infra/platform/pdf-extraction-runtime.requirements.txt'
+      - 'scripts/assistant/extract-reviewed-pdf-v1.py'
+      - 'scripts/assistant/pdf-extraction-requirements.txt'
+      - 'scripts/assistant/verify-reviewed-pdf-extraction-v1.mjs'
+      - 'src/assistant/document-rag-pdf-extractor-v1.ts'
+      - 'src/assistant/document-rag-source-v1.ts'
+      - 'tests/assistant/document-rag-pdf-extractor-v1.test.ts'
+      - 'tests/assistant/document-rag-source-v1.test.ts'
+      - 'tests/assistant/support/physical-pdf-extraction-fixture.py'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: w5-reviewed-pdf-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  reviewed-pdf-runtime:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      NODE_ENV: test
+      APP_ENV: test
+      ALLOW_PRODUCTION_TESTS: 'false'
+    steps:
+      - name: Exact source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Node runtime without application dependencies
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version-file: .nvmrc
+      - name: Fixed Python runtime
+        uses: actions/setup-python@e797f83bcb11b83ae66e0230d6156d7c80228e7c
+        with:
+          python-version: '3.12.14'
+      - name: Existing source and extractor controls
+        run: node --experimental-transform-types --test tests/assistant/document-rag-pdf-extractor-v1.test.ts tests/assistant/document-rag-source-v1.test.ts
+      - name: Physical parser in an isolated synthetic fixture
+        shell: bash
+        run: |
+          set -euo pipefail
+          umask 077
+          runtime="$(mktemp -d "${RUNNER_TEMP}/w5-reviewed-pdf.XXXXXXXX")"
+          python -m venv "$runtime/venv"
+          "$runtime/venv/bin/python" -m pip install --disable-pip-version-check --no-deps --only-binary=:all: --require-hashes -r infra/platform/pdf-extraction-runtime.requirements.txt
+          "$runtime/venv/bin/python" tests/assistant/support/physical-pdf-extraction-fixture.py "$runtime/fixtures"
+          node --experimental-transform-types scripts/assistant/verify-reviewed-pdf-extraction-v1.mjs "$runtime/venv/bin/python" "$runtime/fixtures" > "$runtime/result.json"
+          node --input-type=module - "$runtime/result.json" <<'NODE'
+          import assert from 'node:assert/strict';
+          import {readFileSync} from 'node:fs';
+          import {execFileSync} from 'node:child_process';
+          const result=JSON.parse(readFileSync(process.argv[2],'utf8'));
+          assert.equal(result.contract,'assistant.pdf-extraction-physical.v1');
+          assert.equal(result.parser,'pypdf6.10.0');
+          assert.equal(result.physical_pdf,'PASS_TWO_REAL_PAGES_LONG_TEXT_ENCRYPTED_MALFORMED_PAGE_TEXT_BOUNDS');
+          assert.equal(result.physical_cancel,'PASS_OWNED_PYTHON_SIGKILL_OBSERVED');
+          assert.equal(result.actual_auth_storage,'NOT_RUN');
+          assert.equal(result.index_retrieval,'NOT_IMPLEMENTED');
+          assert.equal(result.live_model,'NOT_RUN');
+          assert.equal(result.business_ai,'OFF');
+          assert.equal(result.release,'NOT_ACCEPTED');
+          const source=execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim();
+          console.log(JSON.stringify({source,...result}));
+          NODE
