@@ -78,7 +78,7 @@
     },
     {
       "path": "docs/master/PRODUCT_RELEASE_REVIEWS.json",
-      "sha256": "7a4bca452293d87d98b137dbe3326d462db5a9b12af5b462eee1e4b82399d0ff"
+      "sha256": "751fa35bdd406a6f69e2055592d62e854e727471b9f76a826768708c07ac04b5"
     }
   ],
   "reference_documents": [
@@ -103,8 +103,8 @@
     "total": 342,
     "parity": 244,
     "telecom": 98,
-    "reviewed_partial": 12,
-    "unreconciled": 330,
+    "reviewed_partial": 13,
+    "unreconciled": 329,
     "release_ready": 0
   },
   "next_3": [
@@ -3161,21 +3161,50 @@
       "capability": "Calendario: Agenda",
       "family": "parity",
       "REQUIRED": true,
-      "IMPLEMENTED": "NOT_RECONCILED",
+      "IMPLEMENTED": "PARTIAL",
       "PROVEN_BACKEND": "NOT_RECONCILED",
-      "CONSUMED_UI": "NOT_RECONCILED",
+      "CONSUMED_UI": "PARTIAL",
       "BROWSER_ACCEPTED": "NOT_RECONCILED",
-      "VISUAL_ACCEPTED": "NOT_RECONCILED",
+      "VISUAL_ACCEPTED": "PARTIAL",
       "SECURITY_ACCEPTED": "NOT_RECONCILED",
-      "EXTERNAL_BLOCKED": "NOT_RECONCILED",
+      "EXTERNAL_BLOCKED": "BLOCKED",
       "RELEASE_READY": false,
-      "owner": "W2; W1 contracts; W4 acceptance",
+      "owner": "W2-X commercial agenda; W1 backend; W4 independent acceptance",
       "priority": "P1",
-      "source_sha": null,
-      "evidence": [],
-      "permissions": "NOT_RECONCILED",
-      "mobile": "NOT_RECONCILED",
-      "pending": "Map current implementation and row-specific positive, negative, permission, responsive and visual evidence before promotion.",
+      "source_sha": "282f2e1efb8d38d9d06682060ae80bd2d8042434",
+      "evidence": [
+        {
+          "source_sha": "282f2e1efb8d38d9d06682060ae80bd2d8042434",
+          "kind": "SOURCE",
+          "scope": "PARTIAL_ROW_CONTROLLED_HTTP",
+          "stage": "CONSUMED_UI",
+          "positive": "Real integrated calendar and repository preserve task reopening intent after lost/unreadable receipt. Completed/cancelled task retry is reachable; same operation, command UUID, body and expected version with one simulated effect. Create/update/complete task/meeting regressions exercised in same run.",
+          "negative": "403 leaves zero simulated effect and permits closing; terminal records without pending commands cannot save; uncertain fields and close remain disabled. Not actual Auth/DB.",
+          "execution": "282F2E1_TREE220DEF_OWN72_HTTP_CONTROLLED_PASS_18_REOPEN_PLUS54_REGRESSIONS; handoff6164978509; AUTH_DB_NOT_RUN",
+          "paths": [
+            "src/features/calendar/IntegratedCalendar.tsx",
+            "tests/e2e-preview/agenda-reopen-recovery.spec.ts",
+            "tests/e2e-preview/agenda-invalid-receipt.spec.ts",
+            "tests/e2e-preview/agenda-uncertain-intent.spec.ts"
+          ]
+        },
+        {
+          "source_sha": "282f2e1efb8d38d9d06682060ae80bd2d8042434",
+          "kind": "VISUAL",
+          "scope": "PARTIAL_ROW",
+          "stage": "VISUAL_ACCEPTED",
+          "positive": "Three inspected completed-task retry panels at390/768/1440 show reachable retry, readable notice, disabled fields and close, and no horizontal overflow.",
+          "negative": "Controlled HTTP and synthetic records; not full agenda states, all roles, actual Auth or accessibility acceptance.",
+          "execution": "282F2E1_COMPLETED_TRANSPORT_390_768_1440_ACTUALLY_VIEWED; image hashes in source documentation",
+          "paths": [
+            "docs/master/W2X_AGENDA_REOPEN_RECOVERY_20261014.md",
+            "tests/e2e-preview/agenda-reopen-recovery.spec.ts"
+          ]
+        }
+      ],
+      "permissions": "HTTP403 negatives without simulated effects; actual Auth/JWT/RLS and complete role matrix remain NOT_RECONCILED. No backend or authorization changes.",
+      "mobile": "PARTIAL_CONTROLLED_HTTP_390_768_1440",
+      "pending": "Complete agenda/day/week/month flows, timezone and pagination coverage, actual disposable Auth/DB, role matrix, cross-module journey, full accessibility/visual acceptance and independent W4 pending. No complete-row or release acceptance.",
       "historical_snapshot": {
         "id": "PAR-086",
         "capability": "Calendario: Agenda",
