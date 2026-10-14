@@ -1,0 +1,13 @@
+# Activación reproducible en laboratorio desechable
+
+W5CLAIM6166516941. company:plan sigue siendo solo planificación empresarial; hosted-bootstrap permanece denegado. El adaptador nuevo ofrece ejecución real del ámbito LOCAL sin convertir cuentas o proveedores no disponibles en una aprobación ficticia.
+
+`node scripts/platform/disposable-activation.mjs plan` genera el plan de fuente limpia exacta y manifiesto/configuración canónicos. `execute` está limitado a Linux/GitHubActions/CI/PLATFORM_TARGET=LOCAL; rechaza producción, proyecto enlazado, credenciales Supabase empresariales/OpenAI, duplicación de viaje UIW2, buildausente y artefacto Safe anterior. No acepta URL/proyecto/container/key del usuario ni hace provisioning de proveedor. El harness existente exige runner vacío y CLI2.119.0 antes de arrancar.
+
+El job reconstruction-recovery construye la misma fuente y ejecuta una sola vez el harness run-stack/recovery ya existente. No añade DB, planner, RAG, worker ni una segunda implementación de restore. Guarda el Safe recién generado y un resumen de fases:bootstrap/verify/backup/restore/teardown. Fuente, configuración, número y cabeza de migraciones tienen que coincidir. Un reportede otroSHA o ausencia deSafe produceFAIL/teardownUNKNOWN; un exitnozero no se aprueba aunque quede reporte parcial.
+
+Restore requiere dos reconstrucciones desde vacío, schema/rowhashes/bytes+metadataStorage iguales,16 sesiones Auth actuales de ocho actores,34denegacionesRPC únicas y rebaja admin→viewer preservada. Backup exige AES256GCM, bytesDB/Storage y11negativos completos (archivo corrupto/claveincorrecta/formatos/migraciones/config). No se publican objetos, claves, payloads, emails, tokens ni errores privados del proceso. Archivo fuenteSafe permanece en runner temporal; resumen incluye solo metadatos cerrados y contadores.
+
+ReleaseCandidate quedaBLOCKED aunque el laboratorio pase:organización/credenciales/DNS/correo/MFA/offsite/staging real, seguridad y W4 siguen sin acreditar. El adaptador no activa el hostedguard, servicios pagados ni escrituraIA. ModelNOT_RUN/W5zeroAPI. La prueba local8controlesPASS cubre guards, vínculo, partialexit, roles/denials, negativos y descarte de valores; es prueba de contrato, NO ejecución Auth. La ejecución física propia nueva debe registrarse en CI sobre el SHA consolidado dePR150.
+
+Sin Docker/CLI local aceptados no se intenta crear infraestrutura en Windows. El mismo jobLinux autorizado aportará el ensayo físico; no se traslada el PASS de recuperación328 a esteadaptador ni al futuroHEAD. npm/vendor/historial y full23 permanecen pendientes, sin autoaceptación.

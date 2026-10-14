@@ -150,11 +150,13 @@ jobs:
       - name: Install browser required by composed assistant-history acceptance
         run: npx playwright install --with-deps chromium
       - name: Real synthetic A to empty B, authenticated DB and Storage recovery
-        run: node --experimental-transform-types scripts/security/supabase-local/run-stack.mjs
+        run: node scripts/platform/disposable-activation.mjs execute
       - name: Safe evidence only; no archives, keys, rows or objects
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: w5-enterprise-local-safe-evidence
-          path: ${{ runner.temp }}/w4-supabase-safe-evidence.json
+          path: |
+            ${{ runner.temp }}/w4-supabase-safe-evidence.json
+            ${{ runner.temp }}/w5-disposable-activation.json
           retention-days: 7
