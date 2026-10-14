@@ -78,7 +78,7 @@
     },
     {
       "path": "docs/master/PRODUCT_RELEASE_REVIEWS.json",
-      "sha256": "9aada040c63fe8c556f155fe1df8c31ea916554d26cb39bf62bef16fc1e8922e"
+      "sha256": "ae09cfa2f535b1b597d1346a3c0758e6f5ce5daccfefcd641159d66b2dac42ea"
     }
   ],
   "reference_documents": [
@@ -3815,7 +3815,7 @@
       "RELEASE_READY": false,
       "owner": "W1/W2 billing; W4 independent acceptance",
       "priority": "P1",
-      "source_sha": "fdc00b9542aa471bac6a60e3bf067669d6640608",
+      "source_sha": "37a5f0ef91ca436122327d18d59cbe723e92cc84",
       "evidence": [
         {
           "source_sha": "fdc00b9542aa471bac6a60e3bf067669d6640608",
@@ -3860,11 +3860,38 @@
             "src/features/billing/PrivateInvoicePdf.tsx",
             "docs/master/W2_BILLING_EXPLICIT_ISSUANCE_ROW_20261013.md"
           ]
+        },
+        {
+          "source_sha": "37a5f0ef91ca436122327d18d59cbe723e92cc84",
+          "kind": "AUTH_BROWSER",
+          "scope": "PARTIAL_ROW",
+          "stage": "BROWSER_ACCEPTED",
+          "positive": "Actual normal owner invoice.issue commits before reply loss; identical command/input replay preserves the recorded invoice identity and number. Current readback verifies the receipt; exactly one revision increment, product_command and audit event.",
+          "negative": "Uncertain issuance confirmation refuses Cancel/X/Escape; alternative billing filters/selections/actions cannot replace the pending intent. The seven-command consumer includes issuance but does not certify its complete role/revocation matrix.",
+          "execution": "SOURCE37a5f0ef91ca436122327d18d59cbe723e92cc84/TREEed9189e41f293ff74daa6ab4f71ea6682911efd8/EXECUTED60d3b09bb3663a9864d5ed2619785ebdf97e05ee/SUP38495080336/JOB115628904611/SAFE11864566686/PASS112_AUTH_TEARDOWN;billing_lost_receipt_seven_commands_same_intent_single_persisted_effect PASS;NOT_FULL_ROW_NOT_W4_NO_PARENT_PASS_INHERITANCE",
+          "paths": [
+            "scripts/security/supabase-local/product-billing-uncertain-browser.mjs",
+            "src/features/billing/IntegratedBilling.tsx",
+            "docs/master/W2X_PAR107_INDIVIDUAL_REVIEW_20261014.md"
+          ]
+        },
+        {
+          "source_sha": "37a5f0ef91ca436122327d18d59cbe723e92cc84",
+          "kind": "VISUAL",
+          "scope": "PARTIAL_ROW",
+          "stage": "VISUAL_ACCEPTED",
+          "positive": "Actual disposable Auth/DB issuance lost-reply confirmation inspected at390/768/1440: pending-result explanation, safe error, disabled cancellation and visible same-action retry; no horizontal overflow measured by its physical consumer.",
+          "negative": "Images cover the recovery confirmation, not every loaded detail/PDF/role/filter state or the complete keyboard/focus flow. Backend fiscal numbering acceptance remains scoped to the source check, not inferred from blurred background images.",
+          "execution": "SOURCE37A5/SUP38495080336/PRODUCT11864661596/billing-uncertain-invoice.issue-390,768,1440.png;ACTUALLY_VIEWED;SHA256 manifest in W2X_PAR107_INDIVIDUAL_REVIEW_20261014.md;PARTIAL_NOT_RELEASE",
+          "paths": [
+            "scripts/security/supabase-local/product-billing-uncertain-browser.mjs",
+            "docs/master/W2X_PAR107_INDIVIDUAL_REVIEW_20261014.md"
+          ]
         }
       ],
       "permissions": "Owner actual cookie/JWT issuance; role/foreign draft denial is not complete issue-specific permission acceptance. W4 NOT_ACCEPTED.",
-      "mobile": "Issued current-record state actually viewed at1440/768/390; confirmation dialog keyboard/focus/Escape at all widths NOT_RECONCILED.",
-      "pending": "Issue-specific owner/admin/member/viewer/foreign/revoked membership negatives; cancel-before-confirm no-write; repeated confirmation/reload and keyboard/focus/Escape; complete visual confirmation dialog; independent W4. No FULL_ROW/PASS/release and no evidence inheritance to78D or descendants.",
+      "mobile": "PARTIAL_ACTUAL_AUTH_UNCERTAIN_ISSUANCE_CONFIRMATION390_768_1440_SOURCE37A5;OLDER_ISSUED_DETAIL_FDC_EVIDENCE_RETAINED",
+      "pending": "Complete issue-specific owner/admin/member/viewer/foreign/revoked-membership negatives; cancel-before-first-confirm no-write, complete keyboard/focus and ordinary repeated-confirmation/reload coverage, full loaded visual issuance cycle, staging and independent W4. Source37a5 only adds scoped lost-reply confirmation/replay acceptance; later compositions require their own controls. No FULL_ROW/PASS/SECURITY/release promotion.",
       "historical_snapshot": {
         "id": "PAR-107",
         "capability": "Facturación PRO: Emisión explícita",
