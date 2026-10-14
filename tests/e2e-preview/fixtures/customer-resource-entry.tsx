@@ -20,10 +20,10 @@ function Fixture(){
  if(kind==='cleanup')return uploadOpen?<DocumentCleanup onClose={()=>setUploadOpen(false)}/>:<p>Panel de limpieza cerrado</p>
  if(kind==='documents')return <IntegratedDocuments customerId={id}/>
  if(kind==='customer-document-targets')return <CustomerDocuments customerId={id}/>
- if(kind==='documents-integrity')return <IntegratedDocuments customerId={id} contentEnabled maintenanceEnabled/>
+ if(kind==='documents-integrity'||kind==='documents-integrity-lifetime')return <IntegratedDocuments customerId={id} contentEnabled maintenanceEnabled/>
  if(kind==='imports')return <ImportJobs/>
  if(kind==='new-customer')return <>{saved&&<p role="status">Cliente sintético confirmado</p>}{newOpen?<CustomerEditor onClose={()=>setNewOpen(false)} onSaved={()=>{setSaved(true);setNewOpen(false)}}/>:<button onClick={()=>setNewOpen(true)}>Nuevo cliente sintético</button>}</>
  if(kind==='upload')return <>{uploadSaved&&<p role="status">Documento sintético confirmado</p>}{uploadOpen?<DocumentUpload customerId={id} onClose={()=>setUploadOpen(false)} onSaved={async()=>setUploadSaved(true)}/>:<button onClick={()=>setUploadOpen(true)}>Nueva subida sintética</button>}</>
  return <><nav aria-label="Cliente sintético seleccionado">{['A','B','C','D'].map((name,i)=><button key={name} onClick={()=>setId(`10000000-0000-4000-8000-${String(i+1).padStart(12,'0')}`)}>Seleccionar cliente {name}</button>)}<output aria-label="Referencia sintética actual">{id}</output><output aria-label="Avisos de acceso">{denials}</output></nav>{kind==='case'?<CaseDetail id={id}/>:kind==='context'?<AuthorizedCustomerContext id={id} onAccessDenied={deny}/>:kind==='overview'?<Customer360Overview customerId={id} onAccessDenied={deny}/>:<IntegratedCustomerDetail id={id}/>}</>
 }
-createRoot(document.getElementById('app')!).render(<PipelineFixtureProvider><Fixture/></PipelineFixtureProvider>)
+createRoot(document.getElementById('app')!).render(<PipelineFixtureProvider resetOnScopeChange={new URLSearchParams(location.search).get('kind')==='documents-integrity-lifetime'}><Fixture/></PipelineFixtureProvider>)
