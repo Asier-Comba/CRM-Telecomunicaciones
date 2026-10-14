@@ -176,13 +176,18 @@ jobs:
           retention-days: 7
 
   preview-browser:
-    name: Synthetic telecom browser preview
+    name: Synthetic telecom browser preview (${{ matrix.project }})
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        project: [desktop, mobile]
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
+          ref: ${{ github.sha }}
           persist-credentials: false
       - name: Set up Node
         uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
@@ -192,8 +197,18 @@ jobs:
         run: npm ci
       - name: Install Chromium (setup retry only)
         run: npx playwright install --with-deps chromium || npx playwright install --with-deps chromium
+      - name: Collect the complete two-project inventory on this exact source
+        env:
+          PLAYWRIGHT_JSON_OUTPUT_FILE: preview-collection.json
+        run: |
+          npm run test:e2e:preview -- --list --reporter=json
+          node scripts/ci/preview-coverage.mjs manifest preview-collection.json preview-manifest.json
       - name: Browser journey (no test retries)
-        run: npm run test:e2e:preview
+        env:
+          PLAYWRIGHT_JSON_OUTPUT_FILE: preview-execution.json
+        run: |
+          npm run test:e2e:preview -- --project=${{ matrix.project }} --reporter=line,html,json
+          node scripts/ci/preview-coverage.mjs shard preview-execution.json preview-manifest.json ${{ matrix.project }} preview-proof.json
       - name: Production fixture closure (explicit demo flag)
         run: npm run build && node scripts/preview-production-check.mjs
       - name: Local launcher and child cleanup
@@ -202,7 +217,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
-          name: synthetic-telecom-browser
+          name: synthetic-telecom-browser-${{ matrix.project }}
           path: |
             playwright-report/
             test-results/
@@ -211,8 +226,52 @@ jobs:
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
-          name: synthetic-product-screenshots
+          name: synthetic-product-screenshots-${{ matrix.project }}
           path: test-results/**/*.png
+          retention-days: 7
+      - name: Retain source and run bound coverage evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: preview-coverage-${{ matrix.project }}
+          path: |
+            preview-manifest.json
+            preview-proof.json
+          if-no-files-found: error
+          retention-days: 7
+
+  preview-coverage:
+    name: Exact preview project union
+    needs: preview-browser
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout the same workflow source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Set up Node
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version-file: .nvmrc
+      - name: Download both independently retained project proofs
+        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0
+        with:
+          pattern: preview-coverage-*
+          path: preview-coverage-inputs
+      - name: Require successful jobs and exactly the complete collected union
+        env:
+          PREVIEW_JOBS_RESULT: ${{ needs.preview-browser.result }}
+        run: node scripts/ci/preview-coverage.mjs union preview-coverage-inputs preview-union.json
+      - name: Retain exact union result
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: preview-project-union
+          path: preview-union.json
+          if-no-files-found: error
           retention-days: 7
 
   preview-windows:
