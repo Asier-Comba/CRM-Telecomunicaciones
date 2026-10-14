@@ -21,9 +21,10 @@ function prepare(t) {
     Object.assign(process.env, previous)
   })
 }
+const imageRecord = () => ({ Id: 'sha256:' + 'b'.repeat(64), Os: 'linux', RepoDigests: [NATIVE_POSTGRES_OFFICIAL_IMAGE] })
 function engine(t, options = {}) {
   prepare(t)
-  const state = { calls: [], mutations: [], container: null, volume: null, start: 1700000000000, system: '7342561234567891234', config: null, refuseVolume: false, ...options }
+  const state = { calls: [], mutations: [], container: null, volume: null, start: 1700000000000, system: '7342561234567891234', config: null, refuseVolume: false, image: null, ...options }
   t.mock.method(childProcess, 'execFileSync', (file, args, settings) => {
     assert.equal(file, 'docker')
     assert.equal(args[0], '--config'); assert.equal(args[2], '--host')
@@ -34,7 +35,17 @@ function engine(t, options = {}) {
     state.config = args[1]
     const a = args.slice(4); state.calls.push(a)
     if (a[0] === 'info') return 'linux\n'
-    if (a[0] === 'pull') { if (state.pullFailure) throw Object.assign(Error(privateMarker), state.pullError ?? {}); assert.equal(a.at(-1), NATIVE_POSTGRES_OFFICIAL_IMAGE); assert.ok(a.includes('--quiet')); return '' }
+    if (a[0] === 'image' && a[1] === 'inspect') {
+      assert.equal(a[2], NATIVE_POSTGRES_OFFICIAL_IMAGE)
+      if (state.imageInspectionError) throw Object.assign(Error(privateMarker), state.imageInspectionError)
+      if (!state.image) throw Object.assign(Error(privateMarker), { status: 1, stderr: 'Error response from daemon: No such image: ' + NATIVE_POSTGRES_OFFICIAL_IMAGE })
+      return state.imageRaw ?? JSON.stringify([state.image])
+    }
+    if (a[0] === 'pull') {
+      if (state.pullFailure) throw Object.assign(Error(privateMarker), state.pullError ?? {})
+      assert.equal(a.at(-1), NATIVE_POSTGRES_OFFICIAL_IMAGE); assert.ok(a.includes('--quiet'))
+      state.image = state.afterPullImage ?? imageRecord(); return ''
+    }
     if (a[0] === 'volume') {
       if (a[1] === 'create') {
         const labels = Object.fromEntries(a.flatMap((v, i) => v === '--label' ? [a[i + 1].split('=')] : []))
@@ -47,6 +58,7 @@ function engine(t, options = {}) {
     }
     if (a[0] === 'container') {
       if (a[1] === 'create') {
+        assert.equal(a[a.indexOf('--pull') + 1], 'never')
         const labels = Object.fromEntries(a.flatMap((v, i) => v === '--label' ? [a[i + 1].split('=')] : []))
         state.container = { Id: 'a'.repeat(64), Name: '/' + a[a.indexOf('--name') + 1], Created: '2026-10-13T08:00:00Z', Image: 'sha256:' + 'b'.repeat(64), Config: { Image: a.at(-1), Labels: labels }, HostConfig: { NetworkMode: 'none', Privileged: false, PidMode: '', PortBindings: {} }, Mounts: [{ Type: 'volume', Name: state.volume.Name, Destination: '/var/lib/postgresql/data', RW: true }] }
         assert.ok(a.includes('POSTGRES_DB=telecom_test')); state.mutations.push('create-container')
@@ -215,6 +227,66 @@ test('pull diagnostics expose only fixed categories and discard all provider tex
     assert.equal(s.mutations.length, 0); assert.ok(!existsSync(s.config))
   }
 })
+test('verified local immutable image avoids registry access even when pull is rate limited', async t => {
+  const s = engine(t, { image: imageRecord(), pullFailure: true, pullError: {stderr: 'toomanyrequests ' + privateMarker} })
+  const f = await createDurableNativeFixtureV1()
+  try { await f.restart(); assert.equal(s.calls.filter(a => a[0] === 'pull').length, 0) }
+  finally { await f.close() }
+  assert.equal(s.container, null); assert.equal(s.volume, null); assert.ok(s.image)
+})
+
+test('only a true missing exact image pulls once and admits its inspected ID before creating resources', async t => {
+  const s = engine(t), f = await createDurableNativeFixtureV1()
+  try {
+    assert.equal(s.calls.filter(a => a[0] === 'pull').length, 1)
+    assert.equal(s.calls.filter(a => a[0] === 'image').length, 2)
+    assert.ok(s.calls.findIndex(a => a[0] === 'image' && s.calls.indexOf(a) > 1) < s.calls.findIndex(a => a[0] === 'volume' && a[1] === 'create'))
+  } finally { await f.close() }
+})
+
+test('tags, foreign or missing digests, malformed records and nonlinux images never gain cache admission', async t => {
+  const s = engine(t)
+  for (const image of [
+    {...imageRecord(), RepoDigests: []},
+    {...imageRecord(), RepoDigests: ['postgres:16']},
+    {...imageRecord(), RepoDigests: [NATIVE_POSTGRES_OFFICIAL_IMAGE.replace('ca0bd4', 'ba0bd4')]},
+    {...imageRecord(), Id: 'sha256:bad'},
+    {...imageRecord(), Os: 'windows'},
+  ]) {
+    s.image = image
+    await assert.rejects(createDurableNativeFixtureV1(), closedError('IMAGE_IDENTITY_REJECTED'))
+    assert.equal(s.mutations.length, 0); assert.equal(s.calls.filter(a => a[0] === 'pull').length, 0)
+    assert.ok(!existsSync(s.config))
+  }
+  s.image = imageRecord()
+  for (const raw of ['not-json', '[]', JSON.stringify([imageRecord(), imageRecord()])]) {
+    s.imageRaw = raw
+    await assert.rejects(createDurableNativeFixtureV1(), closedError('IMAGE_IDENTITY_REJECTED'))
+    assert.equal(s.mutations.length, 0); assert.ok(!existsSync(s.config))
+  }
+})
+
+test('inspection transport errors, timeouts and wrong missing references cannot trigger pull or resource creation', async t => {
+  const s = engine(t)
+  for (const error of [
+    {status: 1, stderr: privateMarker},
+    {code: 'ETIMEDOUT', status: 1, stderr: 'Error response from daemon: No such image: ' + NATIVE_POSTGRES_OFFICIAL_IMAGE},
+    {code: 'ENOBUFS', stderr: privateMarker},
+    {status: 1, signal: 'SIGTERM', stderr: 'Error: No such image: ' + NATIVE_POSTGRES_OFFICIAL_IMAGE},
+    {status: 1, stderr: 'Error: No such image: postgres:16'},
+  ]) {
+    s.imageInspectionError = error
+    await assert.rejects(createDurableNativeFixtureV1(), closedError('IMAGE_INSPECTION_UNAVAILABLE'))
+    assert.equal(s.calls.filter(a => a[0] === 'pull').length, 0); assert.equal(s.mutations.length, 0); assert.ok(!existsSync(s.config))
+  }
+})
+
+test('a successful pull with a wrong digest cannot create a volume or container', async t => {
+  const s = engine(t, {afterPullImage: {...imageRecord(), RepoDigests: []}})
+  await assert.rejects(createDurableNativeFixtureV1(), closedError('IMAGE_IDENTITY_REJECTED'))
+  assert.equal(s.calls.filter(a => a[0] === 'pull').length, 1); assert.equal(s.mutations.length, 0); assert.ok(!existsSync(s.config))
+})
+
 test('close refuses a shared volume instead of forcing removal and can retry safely', async t => {
   const s = engine(t), f = await createDurableNativeFixtureV1()
   s.refuseVolume = true
@@ -224,7 +296,7 @@ test('close refuses a shared volume instead of forcing removal and can retry saf
   assert.equal(s.volume, null); assert.ok(!existsSync(s.config))
 })
 
-test('native own resource, independent consumer sessions, persisted storage, actual restart and teardown', { skip: process.env.RUN_NATIVE_RESOURCE_PROOF !== 'true' }, async () => {
+test('native own resource, independent consumer sessions, persisted storage, actual restart and teardown', { skip: process.env.RUN_NATIVE_RESOURCE_PROOF !== 'true' }, async t => {
   let source
   try { source = childProcess.execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }).trim() }
   catch { throw Error('NATIVE_RESOURCE_PROOF_SOURCE_UNAVAILABLE') }
@@ -271,5 +343,31 @@ test('native own resource, independent consumer sessions, persisted storage, act
   }
   assert.ok(safeDocker(['container', 'ls', '-a', '-q', '--filter', 'id=' + container]) === '', 'OWN_CONTAINER_REMOVAL_CONFIRMED')
   assert.ok(safeDocker(['volume', 'ls', '--filter', 'name=^' + volume + '$', '--format', '{{.Name}}']) === '', 'OWN_VOLUME_REMOVAL_CONFIRMED')
-  console.log(JSON.stringify({ contract, source, scope: 'RESOURCE_ONLY_NOT_BUSINESS_DURABILITY', result: 'PASS', final_postmaster: 'PASS_PID1_POSTGRES_BEFORE_FIRST_QUERY', independent_connections: 2, same_cluster_restart: 'PASS', storage: 'PASS_SYNTHETIC_PROBE', teardown: 'PASS', full23: 'NOT_RUN', business_ai_writes: 'OFF' }))
+  // Same approved daemon image, new isolated resource. Deliberately reject
+  // any pull on this warm path; the registry is not consulted by the factory.
+  const runDocker = childProcess.execFileSync
+  let forbiddenPulls = 0
+  t.mock.method(childProcess, 'execFileSync', (file, args, settings) => {
+    if (file === 'docker' && args.includes('pull')) {
+      forbiddenPulls++
+      throw Object.assign(Error(privateMarker), {status:1, stderr:'toomanyrequests ' + privateMarker})
+    }
+    return runDocker(file, args, settings)
+  })
+  const warmFixture = await createDurableNativeFixtureV1()
+  const warmContainer = warmFixture.environment.TELECOM_NATIVE_TEST_CONTAINER
+  let warmVolume
+  try {
+    const warm = privateJson(safeDocker(['container', 'inspect', warmContainer]))[0]
+    warmVolume = warm.Mounts[0].Name
+    const coldImage = privateJson(safeDocker(['image', 'inspect', NATIVE_POSTGRES_OFFICIAL_IMAGE]))[0]
+    assert.ok(coldImage.RepoDigests.includes(NATIVE_POSTGRES_OFFICIAL_IMAGE) && warm.Image === coldImage.Id, 'EXACT_APPROVED_CACHE_IMAGE_ID')
+    assert.ok(warmContainer !== container && warmVolume !== volume, 'NEW_ISOLATED_CONTAINER_AND_VOLUME')
+    await warmFixture.restart()
+    assert.equal(forbiddenPulls, 0, 'WARM_RESOURCE_WITH_REGISTRY_PULL_FORBIDDEN')
+  } finally { await warmFixture.close(); await warmFixture.close() }
+  assert.equal(safeDocker(['container', 'ls', '-a', '-q', '--filter', 'id=' + warmContainer]), '', 'WARM_OWN_CONTAINER_REMOVED')
+  assert.equal(safeDocker(['volume', 'ls', '--filter', 'name=^' + warmVolume + '$', '--format', '{{.Name}}']), '', 'WARM_OWN_VOLUME_REMOVED')
+  assert.ok(privateJson(safeDocker(['image', 'inspect', NATIVE_POSTGRES_OFFICIAL_IMAGE]))[0].RepoDigests.includes(NATIVE_POSTGRES_OFFICIAL_IMAGE), 'SHARED_APPROVED_IMAGE_NOT_REMOVED')
+  console.log(JSON.stringify({ contract, source, scope: 'RESOURCE_ONLY_NOT_BUSINESS_DURABILITY', result: 'PASS', verified_local_image: 'PASS_EXACT_REPODIGEST_AND_IMAGE_ID_WARM_REGISTRY_FORBIDDEN_NEW_ISOLATED_RESOURCE_TEARDOWN', final_postmaster: 'PASS_PID1_POSTGRES_BEFORE_FIRST_QUERY', independent_connections: 2, same_cluster_restart: 'PASS', storage: 'PASS_SYNTHETIC_PROBE', teardown: 'PASS', full23: 'NOT_RUN', business_ai_writes: 'OFF' }))
 })
