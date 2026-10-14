@@ -78,7 +78,7 @@
     },
     {
       "path": "docs/master/PRODUCT_RELEASE_REVIEWS.json",
-      "sha256": "751fa35bdd406a6f69e2055592d62e854e727471b9f76a826768708c07ac04b5"
+      "sha256": "797acd723b9529be7997a509029e879d86272eed325382f524d538c2ad1b0a43"
     }
   ],
   "reference_documents": [
@@ -103,8 +103,8 @@
     "total": 342,
     "parity": 244,
     "telecom": 98,
-    "reviewed_partial": 13,
-    "unreconciled": 329,
+    "reviewed_partial": 14,
+    "unreconciled": 328,
     "release_ready": 0
   },
   "next_3": [
@@ -1996,21 +1996,49 @@
       "capability": "Customer360: Documentos",
       "family": "parity",
       "REQUIRED": true,
-      "IMPLEMENTED": "NOT_RECONCILED",
+      "IMPLEMENTED": "PARTIAL",
       "PROVEN_BACKEND": "NOT_RECONCILED",
-      "CONSUMED_UI": "NOT_RECONCILED",
+      "CONSUMED_UI": "PARTIAL",
       "BROWSER_ACCEPTED": "NOT_RECONCILED",
-      "VISUAL_ACCEPTED": "NOT_RECONCILED",
+      "VISUAL_ACCEPTED": "PARTIAL",
       "SECURITY_ACCEPTED": "NOT_RECONCILED",
-      "EXTERNAL_BLOCKED": "NOT_RECONCILED",
+      "EXTERNAL_BLOCKED": "BLOCKED",
       "RELEASE_READY": false,
-      "owner": "W2; W1 contracts; W4 acceptance",
+      "owner": "W2-X commercial document selection; W1 backend; W4 independent acceptance",
       "priority": "P1",
-      "source_sha": null,
-      "evidence": [],
-      "permissions": "NOT_RECONCILED",
-      "mobile": "NOT_RECONCILED",
-      "pending": "Map current implementation and row-specific positive, negative, permission, responsive and visual evidence before promotion.",
+      "source_sha": "27b627cc1441a4fc7e782ffbd3fe16f9761e6b44",
+      "evidence": [
+        {
+          "source_sha": "27b627cc1441a4fc7e782ffbd3fe16f9761e6b44",
+          "kind": "SOURCE",
+          "scope": "PARTIAL_ROW_CONTROLLED_HTTP",
+          "stage": "CONSUMED_UI",
+          "positive": "Actual CustomerDocuments and repository distinguish same-date contracts by authorized operator and status;20-row keyset paging preserves customer filter and exact document target. Two distinct operators cause two label reads, reusing existing resolver.",
+          "negative": "Contract403 disables selection until explicit read retry; operator403 renders unavailable label, not invented identity. No command requests. HTTP and data are synthetic, not actual backend permission acceptance.",
+          "execution": "27B627C_OWN24_FINAL_HTTP_CONTROLLED_PASS_12_CONTRACT_CASES_PLUS12_METADATA_REGRESSIONS; handoff6166071950; AUTH_DB_STORAGE_NOT_RUN",
+          "paths": [
+            "src/features/customers/CustomerDocuments.tsx",
+            "tests/e2e-preview/document-contract-selection.spec.ts",
+            "tests/e2e-preview/document-current-selection.spec.ts"
+          ]
+        },
+        {
+          "source_sha": "27b627cc1441a4fc7e782ffbd3fe16f9761e6b44",
+          "kind": "VISUAL",
+          "scope": "PARTIAL_ROW",
+          "stage": "VISUAL_ACCEPTED",
+          "positive": "Three final frames390/768/1440 inspected; selected operator precedes date and remains distinguishable on mobile, full selected contract heading readable, no horizontal overflow.",
+          "negative": "Native selector may truncate remaining date/status; full label is repeated in heading. Partial synthetic empty-document-list state, not all document flows or accessibility acceptance.",
+          "execution": "27B627C_DOCUMENT_CONTRACT_LABELS_390_768_1440_ACTUALLY_VIEWED; final image hashes in local checkpoint",
+          "paths": [
+            "docs/master/W2X_DOCUMENT_CONTRACT_SELECTION_20261014.md",
+            "tests/e2e-preview/document-contract-selection.spec.ts"
+          ]
+        }
+      ],
+      "permissions": "Controlled HTTP contract/operator403 cases and zero command requests; actual Auth/JWT/RLS and complete role matrix NOT_RECONCILED. Existing authorization unchanged.",
+      "mobile": "PARTIAL_CONTROLLED_HTTP_390_768_1440",
+      "pending": "All Customer360 document destinations, content upload/download, actual disposable Auth/DB/Storage, all role negatives, full accessibility and independent W4 remain unaccepted. Contract selector evidence is a partial row only.",
       "historical_snapshot": {
         "id": "PAR-053",
         "capability": "Customer360: Documentos",
