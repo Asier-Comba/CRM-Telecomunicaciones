@@ -28,6 +28,7 @@ function ScopedCustomerDetail({ id }: { id: string }) {
   const [area,setArea]=useState('Resumen')
   const [inventoryRevision,setInventoryRevision]=useState(0)
   const archiveIntent = useRef<{execute:()=>Promise<ProductReceiptV1>}|null>(null)
+  const [archiveUncertain,setArchiveUncertain]=useState(false)
   const customerReadEpoch = useRef(0)
   const contactPageFocus=useRef<HTMLSpanElement>(null),contactErrorFocus=useRef<HTMLParagraphElement>(null),contactNavigationFocus=useRef(false)
   const canWrite = role !== null && role !== 'viewer'
@@ -47,8 +48,8 @@ function ScopedCustomerDetail({ id }: { id: string }) {
     if(!customer || busy)return
     setBusy(true);setError('')
     if(!archiveIntent.current){const action=commandIntent(customer.status==='archived'?'customer.restore':'customer.archive',{id,expected_version:customer.version});archiveIntent.current={execute:()=>action.execute(repository)}}
-    try {await archiveIntent.current.execute();archiveIntent.current=null;setConfirm(false);setMessage('Cambio guardado.');await load()}
-    catch(e){setError(safeMessage(e));if(!(e instanceof ProductUiError && e.code==='transport_uncertain'))archiveIntent.current=null}
+    try {await archiveIntent.current.execute();archiveIntent.current=null;setArchiveUncertain(false);setConfirm(false);setMessage('Cambio guardado.');await load()}
+    catch(e){setError(safeMessage(e));setArchiveUncertain(e instanceof ProductUiError && e.code==='transport_uncertain');if(!(e instanceof ProductUiError && e.code==='transport_uncertain'))archiveIntent.current=null}
     finally{setBusy(false)}
   }
   return <div className="space-y-4">
@@ -67,7 +68,7 @@ function ScopedCustomerDetail({ id }: { id: string }) {
 
       {edit && !('display_name'in customer) && <CustomerEditor customer={customer} onClose={()=>setEdit(false)} onSaved={async()=>{setEdit(false);setMessage('Cliente guardado.');await load()}} onReload={async()=>{setEdit(false);await load();setMessage('Versión actual recargada. Abre el editor para revisar los cambios.')}}/>}
       {contact && <ContactEditor customerId={id} contact={contact==='new'?undefined:contact} onClose={()=>setContact(null)} onSaved={async()=>{setContact(null);setMessage('Contacto guardado.');await load()}} onReload={async()=>{setContact(null);await load()}}/>}
-      <ConfirmDialog open={confirm} title={customer.status==='archived'?'Restaurar cliente':'Archivar cliente'} description="El cambio se guardará en la base de prueba local." loading={busy} error={error} onConfirm={archive} onCancel={()=>{if(!busy){setConfirm(false);archiveIntent.current=null}}}/>
+      <ConfirmDialog cancelDisabled={archiveUncertain} confirmLabel={archiveUncertain?'Reintentar la misma acción':'Confirmar'} open={confirm} title={customer.status==='archived'?'Restaurar cliente':'Archivar cliente'} description={archiveUncertain?'El resultado está pendiente de confirmación. Reintenta la misma acción antes de cerrar.':'El cambio se guardará en la base de prueba local.'} loading={busy} error={error} onConfirm={archive} onCancel={()=>{if(!busy&&!archiveUncertain){setConfirm(false);archiveIntent.current=null}}}/>
     </>}
   </div>
 }
