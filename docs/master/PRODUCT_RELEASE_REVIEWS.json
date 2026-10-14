@@ -680,6 +680,67 @@
           ]
         }
       ]
+    },
+    "PAR-083": {
+      "source_sha": "97428782b38475f01aeeed0e1f3b9a06e54da6f7",
+      "owner": "W2-X product; W1 contracts; W4 independent acceptance",
+      "priority": "P1",
+      "stages": {
+        "IMPLEMENTED": "PARTIAL",
+        "PROVEN_BACKEND": "NOT_RECONCILED",
+        "CONSUMED_UI": "PARTIAL",
+        "BROWSER_ACCEPTED": "NOT_RECONCILED",
+        "VISUAL_ACCEPTED": "PARTIAL",
+        "SECURITY_ACCEPTED": "NOT_RECONCILED"
+      },
+      "permissions": "Explicit HTTP403 with zero simulated effect. Actual Auth/JWT/RLS and complete role/state matrix NOT_RECONCILED; existing guards unchanged, not independently accepted.",
+      "mobile": "PARTIAL_CONTROLLED_HTTP_390_768_1440",
+      "external_blocked": "BLOCKED",
+      "pending": "Only opportunity stage/reopen recovery reviewed. Complete state transitions and linked entities, real disposable Auth/DB, all roles/origins, full responsive UX/accessibility, staging and independent W4 remain pending. No FULL_ROW/PASS or release claim.",
+      "evidence": [
+        {
+          "source_sha": "c7eab4bcbf5547c3c8ae03f773a1fa731e3334c1",
+          "kind": "SOURCE",
+          "scope": "PARTIAL_ROW_CONTROLLED_HTTP",
+          "stage": "CONSUMED_UI",
+          "positive": "Actual frontend/repository/browser: stage move recovers unreadable or lost receipt with two identical requests and one simulated effect. Confirmed receipt followed by read failure emits one command.",
+          "negative": "Explicit403 has one request and zero simulated effect; pending move disables select/drag; catalogue, latest-query and scope regressions retained. Not actual Auth/DB.",
+          "execution": "C7EAB4B_TREE7F76E9_21_CONTROLLED_HTTP_CASES_PASS_12_STAGE_RECOVERY_PLUS9_EXISTING; handoff6164102586; NOT_LIVE_AUTH_DB",
+          "paths": [
+            "src/features/opportunities/IntegratedOpportunities.tsx",
+            "tests/e2e-preview/pipeline-stage-receipt.spec.ts",
+            "tests/e2e-preview/pipeline-current-query.spec.ts",
+            "tests/e2e-preview/pipeline-catalog-recovery.spec.ts"
+          ]
+        },
+        {
+          "source_sha": "97428782b38475f01aeeed0e1f3b9a06e54da6f7",
+          "kind": "SOURCE",
+          "scope": "PARTIAL_ROW_CONTROLLED_HTTP",
+          "stage": "IMPLEMENTED",
+          "positive": "Won/lost reopening retains operation opportunity.reopen, UUID, expected version and body after unreadable/lost receipt; retry becomes enabled and returns the card to its open stage.",
+          "negative": "New saves stay disabled for closed records;403 has no simulated effect; receipt-confirmed read recovery emits one write. Original disabled-retry failure preserved.",
+          "execution": "9742878_TREEBCE61C_39_CONTROLLED_HTTP_CASES_PASS_24_REOPEN_PLUS15_REGRESSIONS; handoff6164285960; NOT_LIVE_AUTH_DB",
+          "paths": [
+            "src/features/opportunities/IntegratedOpportunities.tsx",
+            "tests/e2e-preview/opportunity-reopen-recovery.spec.ts",
+            "tests/e2e-preview/opportunity-recovery-close.spec.ts"
+          ]
+        },
+        {
+          "source_sha": "97428782b38475f01aeeed0e1f3b9a06e54da6f7",
+          "kind": "VISUAL",
+          "scope": "PARTIAL_ROW",
+          "stage": "VISUAL_ACCEPTED",
+          "positive": "Three actually viewed won-reopening recovery frames at390/768/1440 show reachable retry with fields/close disabled and no horizontal overflow.",
+          "negative": "Scrolled recovery panel, controlled HTTP and synthetic records only. No full-screen/all-state/accessibility or live Auth visual acceptance.",
+          "execution": "9742878_OPPORTUNITY_REOPEN_WON_TRANSPORT_390_768_1440_ACTUALLY_VIEWED; hashes in docs/master/W2X_PAR083_INDIVIDUAL_REVIEW_20261014.md",
+          "paths": [
+            "docs/master/W2X_PAR083_INDIVIDUAL_REVIEW_20261014.md",
+            "tests/e2e-preview/opportunity-reopen-recovery.spec.ts"
+          ]
+        }
+      ]
     }
   },
   "next_3": [
