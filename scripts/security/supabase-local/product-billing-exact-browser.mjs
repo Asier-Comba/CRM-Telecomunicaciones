@@ -22,4 +22,7 @@ export async function billingExactBrowser({page,origin,check,sql,wa,customerId,d
  await check('billing_lost_receipt_seven_commands_same_intent_single_persisted_effect',async()=>{
   await billingUncertainBrowser({page,origin,sql,wa,customerId,screenshotDir,report})
  })
+ await check('billing_invalid_receipt_seven_commands_same_intent_single_persisted_effect',async()=>{
+  await billingUncertainBrowser({page,origin,sql,wa,customerId,screenshotDir,report,invalidReceipt:true})
+ })
 }
