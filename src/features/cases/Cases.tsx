@@ -56,7 +56,7 @@ export function CaseDetail({id}:{id:string}){
 function ScopedCaseDetail({id}:{id:string}){
  const {repository}=useProduct(),[core,setCore]=useState<{row:CaseRowV1;customerActive:boolean}>(),[error,setError]=useState(''),[revision,setRevision]=useState(0)
  const refresh=useCallback(async()=>{const r=await repository.telecom('case.get',{id}),customer=await customerCollectionIdentity(repository,r.record.customer_id);setCore({row:r.record,customerActive:customer.status==='active'});setError('')},[repository,id])
- useEffect(()=>{let active=true;void repository.telecom('case.get',{id}).then(async r=>{const customer=await customerCollectionIdentity(repository,r.record.customer_id);if(active){setCore({row:r.record,customerActive:customer.status==='active'});setError('')}}).catch(e=>{if(active){setCore(undefined);setError(safeMessage(e))}});return()=>{active=false}},[repository,id,revision])
+ useEffect(()=>{let active=true;void repository.telecom('case.get',{id}).then(async r=>{if(!active)return;const customer=await customerCollectionIdentity(repository,r.record.customer_id);if(active){setCore({row:r.record,customerActive:customer.status==='active'});setError('')}}).catch(e=>{if(active){setCore(undefined);setError(safeMessage(e))}});return()=>{active=false}},[repository,id,revision])
  if(error)return <div><p role="alert">{error}</p><button className={control} onClick={()=>setRevision(v=>v+1)}>Reintentar incidencia</button></div>
  if(!core)return <p role="status">Consultando incidencia…</p>
  return <CaseEditor key={core.row.version} {...core} onRefresh={refresh}/>
