@@ -3,7 +3,7 @@ import {resolve} from 'node:path'
 
 // Ordinary authenticated product commands only. Lose the reply after route.fetch
 // confirms the disposable backend effect; SQL is used only for independent proof.
-export async function billingUncertainBrowser({page,origin,sql,wa,customerId,screenshotDir,report}){
+export async function billingUncertainBrowser({page,origin,sql,wa,customerId,screenshotDir,report,invalidReceipt=false}){
  const button=name=>page.getByRole('button',{name,exact:true})
  const invoiceCount=()=>Number(sql(`select count(*) from public.billing_invoices where workspace_id='${wa}'`))
  const before=invoiceCount()
@@ -12,24 +12,33 @@ export async function billingUncertainBrowser({page,origin,sql,wa,customerId,scr
   const routeCommand=async route=>{
    const q=route.request().postDataJSON();if(q.operation!==operation)return route.continue()
    bodies.push(q.input)
-   if(bodies.length===1){const response=await route.fetch();committedStatus=response.status();return route.abort('failed')}
+   if(bodies.length===1){
+    const response=await route.fetch();committedStatus=response.status()
+    if(invalidReceipt&&committedStatus===200){
+     if(operation==='invoice.issue'||operation==='issuer.set')return route.fulfill({status:200,contentType:'application/json',body:'{'})
+     const body=await response.json()
+     if(operation==='invoice.mark_paid'||operation==='invoice.trash'||operation==='customer_fiscal.set')return route.fulfill({json:{...body,receipt:{...body.receipt,command_id:'70000000-0000-4000-8000-000000000009'}}})
+     return route.fulfill({json:{...body,extra:'invalid-envelope'}})
+    }
+    return route.abort('failed')
+   }
    return route.continue()
   }
   await page.route('**/api/billing/v1/commands',routeCommand)
   try{
    const dialog=page.getByRole('dialog',{name:title,exact:true})
-   report.w2_ui_action_step='billing_uncertain:'+operation+':first_effect';await dialog.getByRole('button',{name:submit,exact:true}).click()
-   await expect(dialog.getByRole('alert')).toContainText('No se pudo confirmar el resultado.')
+   report.w2_ui_action_step=(invalidReceipt?'billing_invalid_receipt:':'billing_uncertain:')+operation+':first_effect';await dialog.getByRole('button',{name:submit,exact:true}).click()
+   await expect(dialog.getByRole('alert')).toContainText(invalidReceipt?'No se pudo completar la acción.':'No se pudo confirmar el resultado.')
    if(committedStatus!==200||bodies.length!==1)throw Error('BILLING_UNCERTAIN_EFFECT_NOT_CONFIRMED')
    const close=dialog.getByRole('button',{name:operation.endsWith('.set')?'Cerrar panel':'Cancelar',exact:true})
    await expect(close).toBeDisabled();await close.evaluate(b=>b.click());await page.keyboard.press('Escape');await expect(dialog).toBeVisible()
    for(const width of [390,768,1440]){
-    report.w2_ui_action_step='billing_uncertain:'+operation+':review_'+width;await page.setViewportSize({width,height:960})
+    report.w2_ui_action_step=(invalidReceipt?'billing_invalid_receipt:':'billing_uncertain:')+operation+':review_'+width;await page.setViewportSize({width,height:960})
     const retry=dialog.getByRole('button',{name:'Reintentar la misma acción',exact:true});await retry.scrollIntoViewIfNeeded();await expect(retry).toBeInViewport({ratio:1})
-    await page.screenshot({path:resolve(screenshotDir,'billing-uncertain-'+operation+'-'+width+'.png'),fullPage:false})
+    await page.screenshot({path:resolve(screenshotDir,(invalidReceipt?'billing-invalid-':'billing-uncertain-')+operation+'-'+width+'.png'),fullPage:false})
     if(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1))throw Error('BILLING_UNCERTAIN_OVERFLOW')
    }
-   report.w2_ui_action_step='billing_uncertain:'+operation+':same_command_replay';await dialog.getByRole('button',{name:'Reintentar la misma acción',exact:true}).click();await expect(dialog).toHaveCount(0)
+   report.w2_ui_action_step=(invalidReceipt?'billing_invalid_receipt:':'billing_uncertain:')+operation+':same_command_replay';await dialog.getByRole('button',{name:'Reintentar la misma acción',exact:true}).click();await expect(dialog).toHaveCount(0)
    if(bodies.length!==2||JSON.stringify(bodies[0])!==JSON.stringify(bodies[1]))throw Error('BILLING_UNCERTAIN_CHANGED_INTENT')
    const input=bodies[0],command=input.command_id,auditOperation={'invoice.issue':'invoice.issued','invoice.mark_paid':'invoice.paid','invoice.reverse_payment':'invoice.payment_reversed','invoice.trash':'invoice.trashed','invoice.restore':'invoice.restored'}[operation]??operation
    if(Number(sql(`select count(*) from public.product_commands where workspace_id='${wa}' and command_id='${command}' and operation='${operation}'`))!==1||Number(sql(`select count(*) from public.product_audit_events where workspace_id='${wa}' and command_id='${command}' and operation='${auditOperation}'`))!==1)throw Error('BILLING_UNCERTAIN_NOT_SINGLE_COMMAND_AUDIT')
@@ -54,5 +63,5 @@ export async function billingUncertainBrowser({page,origin,sql,wa,customerId,scr
   await button(open).click();await replay(operation,title,'Confirmar');await expect(button(next)).toBeVisible()
  }
  if(invoiceCount()!==before+2)throw Error('BILLING_UNCERTAIN_DUPLICATED_INVOICES')
- report.w2_billing_uncertain_command_replay='PASS_7_ORDINARY_AUTH_COMMANDS_SAME_BODY_SINGLE_REVISION_COMMAND_AUDIT'
+ report[invalidReceipt?'w2_billing_invalid_receipt_command_replay':'w2_billing_uncertain_command_replay']='PASS_7_ORDINARY_AUTH_COMMANDS_SAME_BODY_SINGLE_REVISION_COMMAND_AUDIT'
 }
