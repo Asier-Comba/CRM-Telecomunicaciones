@@ -1,3 +1,4 @@
+import {billingArchivedCustomerBrowser} from './product-billing-archived-customer-browser.mjs'
 import {billingCreateReadLifetimeBrowser} from './product-billing-create-read-lifetime-browser.mjs'
 import {confirmImportCancelWithLostReply} from './product-import-cancel-recovery-browser.mjs'
 import {confirmDocumentStateWithLostReply} from './product-document-state-recovery-browser.mjs'
@@ -367,6 +368,7 @@ export async function productBrowserAcceptance({ users, wa, ca, sql, url, anon, 
     await page.goto(origin+'/settings')
     await billingExactBrowser({page,origin,check,sql,wa,customerId:id,day,screenshotDir,report})
     await billingCreateReadLifetimeBrowser({page,origin,check,sql,wa,customerId:id,screenshotDir})
+    await billingArchivedCustomerBrowser({page,origin,check,sql,wa,day,screenshotDir})
     await reportsBrowser({page,origin,check,screenshotDir,customerId:id,report})
     await notificationsAutomationsBrowser({page,origin,check,sql,wa,users,day,screenshotDir})
     await settingsSensitiveBrowser({page,origin,check,sql,wa,users,day,customerId:id,screenshotDir,report})
