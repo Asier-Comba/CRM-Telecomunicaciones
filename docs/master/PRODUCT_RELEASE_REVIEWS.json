@@ -634,6 +634,52 @@
           ]
         }
       ]
+    },
+    "PAR-096": {
+      "source_sha": "1dd4272232403ae901ea3f3f5e11becfb874fe65",
+      "owner": "W1/W2 meeting creation; W4 independent security acceptance",
+      "priority": "P1",
+      "stages": {
+        "IMPLEMENTED": "PARTIAL",
+        "PROVEN_BACKEND": "PARTIAL",
+        "CONSUMED_UI": "PARTIAL",
+        "BROWSER_ACCEPTED": "PARTIAL",
+        "VISUAL_ACCEPTED": "PARTIAL"
+      },
+      "permissions": "Ordinary owner cookie/Auth meeting creation linked to one authorized synthetic customer only; full member/viewer/admin and cross-company/revoked scope NOT_ACCEPTED. Independent W4 required.",
+      "mobile": "PARTIAL_ACTUAL_AUTH_MEETING_CREATE_UNKNOWN_REPLY_RECOVERY390_768_1440_SOURCE1DD",
+      "external_blocked": "BLOCKED",
+      "pending": "Complete per-role/foreign-company/revocation and input boundaries, all-day/timezone/DST/assignee/overlap/date range, full normal success journey/keyboard/focus, staging and independent W4. Source1DD loss-reply evidence does not accept new E936 invalid-receipt behavior or all creation modes. No FULL_ROW/PASS/security/release promotion.",
+      "evidence": [
+        {
+          "source_sha": "1dd4272232403ae901ea3f3f5e11becfb874fe65",
+          "kind": "AUTH_BROWSER",
+          "scope": "PARTIAL_ROW",
+          "stage": "BROWSER_ACCEPTED",
+          "positive": "Ordinary owner meeting.create persists before deliberately lost reply; identical command UUID/body replay produces one receipt, one command/audit and version1 calendar_event linked to the chosen customer. Reopening the current meeting verifies the title.",
+          "negative": "Pending creation cannot be dismissed with X/Escape or edited; retry produces no second persisted meeting. This is a bounded recovery check, not complete RLS/date/role/calendar acceptance.",
+          "execution": "SOURCE1dd4272232403ae901ea3f3f5e11becfb874fe65/EXECUTED0b4401542acc67440e7546b67b5ecced4f1a841b/TREE61d8fdcd2320794374d5cccdae4f91e737a69024/SUP38499685299/JOB115643420270/SAFE11865618357/PRODUCT11865778215;agenda_task_meeting_create_update_complete_exact_lost_response_single_effect PASS;NOT_FULL_ROW",
+          "paths": [
+            "scripts/security/supabase-local/product-agenda-uncertain-browser.mjs",
+            "src/features/calendar/IntegratedCalendar.tsx",
+            "docs/master/W2X_PAR096_INDIVIDUAL_REVIEW_20261014.md"
+          ]
+        },
+        {
+          "source_sha": "1dd4272232403ae901ea3f3f5e11becfb874fe65",
+          "kind": "VISUAL",
+          "scope": "PARTIAL_ROW",
+          "stage": "VISUAL_ACCEPTED",
+          "positive": "Three actual disposable-Auth meeting.create recovery frames inspected at390/768/1440; selected customer, meeting title/start/end, pending notice, locked fields and same-action retry are visible.",
+          "negative": "Only the unknown-reply recovery view; not the complete successful creation, keyboard/focus, every locale/timezone or full calendar layout.",
+          "execution": "SOURCE1dd4272232403ae901ea3f3f5e11becfb874fe65/EXECUTED0b4401542acc67440e7546b67b5ecced4f1a841b/TREE61d8fdcd2320794374d5cccdae4f91e737a69024/SUP38499685299/JOB115643420270/SAFE11865618357/PRODUCT11865778215;agenda_task_meeting_create_update_complete_exact_lost_response_single_effect PASS;NOT_FULL_ROW;ACTUALLY_VIEWED_3_IMAGES",
+          "paths": [
+            "scripts/security/supabase-local/product-agenda-uncertain-browser.mjs",
+            "src/features/calendar/IntegratedCalendar.tsx",
+            "docs/master/W2X_PAR096_INDIVIDUAL_REVIEW_20261014.md"
+          ]
+        }
+      ]
     }
   },
   "next_3": [
