@@ -1,0 +1,11 @@
+# Customer editor preserves an unverified save
+
+CLAIM6162079324. The original customer.create browser reproduction supplies a committed synthetic effect with unreadable200 JSON. The editor's Close button and fields remained enabled because internal_safe cleared its save intent. The original failed assertion is preserved; this is independent of the historical9DB timeout and other fixture failures.
+
+The existing CustomerEditor guard now includes internal_safe while its receipt is unconfirmed. Exact UUID/body retry remains available and closing/field edits stay blocked. A confirmed receipt retains its existing read-only customerSaveIntent recovery through Comprobar cliente guardado; the shared repository/save-intent contract is unchanged. Explicit403 denial stays closable. No roles, RLS, private contact values, API contracts, scope remounting or primitive changes.
+
+Measured24 controlled HTTP browser checks PASS:6 invalid-receipt create/update cases over390/768/1440 (JSON/UUID/envelope),6 explicit403 no-effect negatives, and12 prior transport-lost/confirmed-read-failed cases. Unconfirmed replay uses the same body and one simulated effect; confirmed read recovery keeps one commercial command. Build66/lint/syntax/scan PASS. Three partial create-recovery views are reviewed: retained company fields, pending message, disabled close and visible same-intent retry. Their assignee lookup is intentionally denied by the closed fixture; these are not full Customer360/product visual acceptance or actual Auth evidence.
+
+The existing real customer.update lost-response check is extracted into a common consumer without changing its revision, command/audit, UUID/body, saved-status or dismissal assertions. The new customer360_customer_three_invalid_receipts_same_command_single_revision entry runs the same ordinary committed update and corrupts the first reply at three widths, then checks exact retry and one revision/audit per case. Own Auth is NOT_RUN. A later composed source expects377 local/954 preview/120 Auth until measured; currentefb365 and8f69 remote results are not inherited.
+
+W2-X branches only, resources/dependencies reused. Principal38/142/W3/W5 unchanged; fiveHIGH/W4/principalACK pending, modelNOT_RUN/API0, IA writesOFF, issue10OPEN and releaseNOT_ACCEPTED.9DB/B1B/F736 unknown historical causes remain preserved.

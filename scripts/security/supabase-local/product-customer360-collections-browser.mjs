@@ -81,28 +81,46 @@ export async function customer360CollectionsBrowser({page,origin,id,sql,wa,users
    await expect(page.getByRole('heading',{name:label,exact:true})).toBeVisible()
   }finally{await page.unroute('**/api/product/v1/commands',observe);await page.setViewportSize(previous)}
  })
- await check('customer360_customer_lost_receipt_same_command_and_single_revision',async()=>{
+ await check('customer360_customer_lost_receipt_same_command_and_single_revision',()=>customerEditorReceiptRecovery({page,origin,sql,wa,id,report},null))
+}
+
+async function customerEditorReceiptRecovery({page,origin,sql,wa,id,report,screenshotDir},replyWidth){
   const bodies=[],version=Number(sql(`select version from public.customers where workspace_id='${wa}' and id='${id}'`))
   let lost=true
   const observe=async route=>{
    const q=route.request().postDataJSON();if(q.operation!=='customer.update')return route.continue()
    bodies.push(JSON.stringify(q))
-   if(lost){lost=false;const result=await route.fetch();if(result.status()!==200)throw Error('CUSTOMER_EFFECT_NOT_COMMITTED');return route.abort('failed')}
+   if(lost){
+    lost=false;const result=await route.fetch();if(result.status()!==200)throw Error('CUSTOMER_EFFECT_NOT_COMMITTED')
+    if(replyWidth){
+     if(replyWidth===390)return route.fulfill({status:200,contentType:'application/json',body:'{'})
+     const body=await result.json()
+     return route.fulfill(replyWidth===768?{json:{...body,receipt:{...body.receipt,command_id:'70000000-0000-4000-8000-000000000009'}}}:{json:{...body,extra:'invalid-envelope'}})
+    }
+    return route.abort('failed')
+   }
    return route.continue()
   }
   await page.route('**/api/product/v1/commands',observe)
   try{
-   if(report)report.w2_ui_action_step='customer_uncertain:open';await page.goto(origin+'/clients/'+id);await page.getByRole('button',{name:'Editar cliente',exact:true}).click()
+   if(report)report.w2_ui_action_step=replyWidth?'customer_invalid_receipt:open:'+replyWidth:'customer_uncertain:open';await page.goto(origin+'/clients/'+id);await page.getByRole('button',{name:'Editar cliente',exact:true}).click()
    const drawer=page.getByRole('dialog',{name:'Editar cliente',exact:true})
    // Existing authorized fields are unchanged; only the normal command revision is measured.
    await drawer.getByRole('button',{name:'Guardar cliente',exact:true}).click()
-   await expect(drawer.getByRole('alert',{name:'Resultado del guardado',exact:true})).toHaveText('No se pudo confirmar el resultado. Reintenta la misma acción para comprobarlo.')
+   await expect(drawer.getByRole('alert',{name:'Resultado del guardado',exact:true})).toHaveText(replyWidth?'No se pudo completar la acción.':'No se pudo confirmar el resultado. Reintenta la misma acción para comprobarlo.')
    await expect(drawer.getByRole('button',{name:'Cerrar panel',exact:true})).toBeDisabled();await page.keyboard.press('Escape');await expect(drawer).toBeVisible()
-   if(report)report.w2_ui_action_step='customer_uncertain:confirm';await drawer.getByRole('button',{name:'Reintentar la misma acción',exact:true}).click();await expect(drawer).toHaveCount(0)
+   if(replyWidth){const retry=drawer.getByRole('button',{name:'Reintentar la misma acción',exact:true});await retry.scrollIntoViewIfNeeded();await expect(retry).toBeInViewport({ratio:1});await page.screenshot({path:resolve(screenshotDir,'customer-invalid-receipt-'+replyWidth+'.png')})}
+   if(report)report.w2_ui_action_step=replyWidth?'customer_invalid_receipt:confirm:'+replyWidth:'customer_uncertain:confirm';await drawer.getByRole('button',{name:'Reintentar la misma acción',exact:true}).click();await expect(drawer).toHaveCount(0)
    if(bodies.length!==2||bodies[0]!==bodies[1])throw Error('CUSTOMER_REPLAY_CHANGED')
    const command=JSON.parse(bodies[0]).input.command_id;if(!/^[0-9a-f-]{36}$/.test(command))throw Error('CUSTOMER_COMMAND_INVALID')
    if(Number(sql(`select version from public.customers where workspace_id='${wa}' and id='${id}'`))!==version+1||sql(`select count(*) from public.product_commands where workspace_id='${wa}' and command_id='${command}' and operation='customer.update'`)!=='1'||sql(`select count(*) from public.product_audit_events where workspace_id='${wa}' and command_id='${command}' and operation='customer.update'`)!=='1')throw Error('CUSTOMER_REVISION_LEDGER_AUDIT_NOT_SINGLE')
    await expect(page.getByRole('status').filter({hasText:'Cliente guardado.'})).toBeVisible()
   }finally{await page.unroute('**/api/product/v1/commands',observe)}
+}
+
+export async function customerInvalidReceiptBrowser(options){
+ const {page,check}=options,previous=page.viewportSize()
+ await check('customer360_customer_three_invalid_receipts_same_command_single_revision',async()=>{
+  try{for(const width of [390,768,1440]){await page.setViewportSize({width,height:960});await customerEditorReceiptRecovery(options,width)}}finally{await page.setViewportSize(previous)}
  })
 }
