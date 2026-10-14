@@ -45,12 +45,7 @@ while IFS= read -r action_ref; do
   fi
 done < <(grep -hE '^[[:space:]]*uses:[[:space:]]+' "$repo_root"/.github/workflows/*.yml | sed -E 's/^[[:space:]]*uses:[[:space:]]+//')
 
-checkout_count="$(grep -hEc '^[[:space:]]*uses:[[:space:]]+actions/checkout@' "$repo_root"/.github/workflows/*.yml)"
-credential_guard_count="$(grep -hEc '^[[:space:]]+persist-credentials:[[:space:]]+false([[:space:]]|$)' "$repo_root"/.github/workflows/*.yml)"
-if [[ "$checkout_count" -ne "$credential_guard_count" ]]; then
-  echo "Every checkout step must disable persisted GitHub credentials" >&2
-  exit 1
-fi
+node "$repo_root/scripts/ci/check-checkout-credentials.mjs" "$repo_root/.github/workflows"
 
 if grep -q 'DEPENDENCY_REVIEW_ENABLED !=' "$repo_root/.github/workflows/ci.yml"; then
   echo "Disabled Dependency Review must not report a misleading successful job" >&2
