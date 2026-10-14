@@ -41,8 +41,12 @@ export async function billingCreateReadLifetimeBrowser({page,origin,check,sql,wa
     for(const item of held){await item.route.fulfill({response:item.response});item.released=true}
     step('cancelled_bodies_consumed',width)
     await expect.poll(()=>page.evaluate(()=>window.billingPreparationBodies)).toBe(2);await page.evaluate(()=>new Promise(accept=>requestAnimationFrame(()=>requestAnimationFrame(accept))))
-    step('cancelled_context_no_editor_or_error',width)
-    await expect(page.getByRole('dialog',{name:'Revisar borrador local',exact:true})).toHaveCount(0);await expect(page.getByLabel('Cliente para facturación',{exact:true})).toHaveValue('');await expect(page.getByRole('alert')).toHaveCount(0)
+    step('cancelled_editor_absent',width)
+    await expect(page.getByRole('dialog',{name:'Revisar borrador local',exact:true})).toHaveCount(0)
+    step('cancelled_customer_selection_empty',width)
+    await expect(page.getByLabel('Cliente para facturación',{exact:true})).toHaveValue('')
+    step('cancelled_alerts_absent',width)
+    await expect(page.getByRole('alert')).toHaveCount(0)
     if(commands.length)throw Error('BILLING_PREPARATION_CANCEL_CREATED_COMMAND')
     await page.screenshot({path:resolve(screenshotDir,'billing-cancelled-preparation-'+width+'.png')})
    }finally{for(const item of held)if(!item.released){try{await item.route.abort('failed')}catch{}}await page.unroute(pattern,handler)}

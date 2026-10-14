@@ -36,7 +36,7 @@ async function build() {
  })()
  return assets
 }
-exports.startBillingFocusFixture = async function startBillingFocusFixture({preparationCustomer=false}={}) {
+exports.startBillingFocusFixture = async function startBillingFocusFixture({preparationCustomer=false,loadedPreparation=false}={}) {
  const compiled=await build(), requests=[], held=new Set(), heldPdf=new Set()
  const id='10000000-0000-4000-8000-000000000001'
  const profile={legal_name:'Synthetic Company',tax_id:'SYNTHETIC',address:'Synthetic Street',postal_code:'48001',city:'Bilbao',region:'Bizkaia',country:'ES'}
@@ -58,9 +58,10 @@ exports.startBillingFocusFixture = async function startBillingFocusFixture({prep
    if(query.operation==='customer.editor'&&query.input?.id===customerId){json(response,{ok:true,data:{contract_version:'product.v1',id:customerId,version:1,account_kind:'legal_entity',legal_name:'Synthetic preparation customer',trade_name:null,lifecycle:'customer',status:'active',source:'manual',assigned_user_id:null}});return}
    if(['contract.list','service.list','opportunity.list'].includes(query.operation)){json(response,{ok:true,data:{contract_version:'telecom.collections.v1',operation:query.operation,items:[],next_id:null}});return}
   }
+  if(query.operation==='invoice.list'&&loadedPreparation){json(response,{ok:true,data:{contract_version:'billing.v1',operation:query.operation,items:[],next_id:null}});return}
   if(query.operation==='invoice.list'){held.add(response);response.once('close',()=>held.delete(response));return}
   if(query.operation==='invoice.get'){json(response,{ok:true,data:{contract_version:'billing.v1',operation:query.operation,invoice}});return}
-  if(query.operation==='invoice.financial_summary'){json(response,{ok:true,data:{contract_version:'billing.v1',operation:query.operation,period:'month',from:'2026-10-01',to:'2026-11-01',as_of:'2026-10-11',currencies:[]}});return}
+  if(query.operation==='invoice.financial_summary'){json(response,{ok:true,data:{contract_version:'billing.v1',operation:query.operation,period:'month',from:'2026-10-01',to:'2026-11-01',as_of:'2026-10-11',currencies:loadedPreparation?[{currency:'EUR',issued_minor:10000,paid_minor:6000,outstanding_minor:4000,overdue_minor:0,issued_count:2,paid_count:1,outstanding_count:1,overdue_count:0}]:[]}});return}
   if(query.operation==='configuration.get'){json(response,{ok:true,data:{contract_version:'billing.v1',operation:query.operation,issuer:{version:1,profile,currency:'EUR',default_series:'A'},customer:null}});return}
   if(query.operation==='invoice.private_pdf_reference'){heldPdf.add(response);response.once('close',()=>heldPdf.delete(response));return}
   json(response,{ok:false,error:'access_denied'},403)
