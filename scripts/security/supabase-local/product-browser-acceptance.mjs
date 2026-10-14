@@ -20,6 +20,7 @@ import {customer360CollectionsBrowser} from './product-customer360-collections-b
 import {customerCollectionsBrowser,showCustomerCollectionRow} from './product-customer-collections-browser.mjs'
 import {browserErrorKind,observeNextDiagnostics} from './product-browser-diagnostics.mjs'
 import {documentMaintenanceBrowser} from './product-document-maintenance-browser.mjs'
+import {documentUploadUncertainBrowser} from './product-document-upload-uncertain-browser.mjs'
 import { spawn, execFileSync } from 'node:child_process'
 import { chromium, expect } from '@playwright/test'
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
@@ -351,6 +352,7 @@ export async function productBrowserAcceptance({ users, wa, ca, sql, url, anon, 
     })
     await check('team_remove_suspended_member',async()=>{const row=page.getByRole('row').filter({hasText:'Usuario '+users.memberA.id.slice(0,8)});await row.getByRole('button',{name:'Retirar',exact:true}).click();await page.getByRole('button',{name:'Confirmar',exact:true}).click();await expect(page.getByRole('dialog')).toHaveCount(0);if(sql(`select status from public.workspace_members where workspace_id='${wa}' and user_id='${users.memberA.id}'`)!=='removed')throw Error('MEMBER_REMOVE_NOT_PERSISTED');await expect(row.getByRole('button',{name:'Reactivar',exact:true})).toHaveCount(0)})
     await documentMaintenanceBrowser({page,origin,check,sql,wa,id,screenshotDir,report})
+    await documentUploadUncertainBrowser({page,origin,check,sql,wa,id,screenshotDir,report})
     await teamOriginBrowser({page,origin,check,sql,wa,id,ca,screenshotDir,report})
     await opportunityLinksBrowser({page,origin,check,sql,wa,customerId:id,ca,uiContract,openStage,screenshotDir})
     await page.goto(origin+'/documents?customer='+ca)
