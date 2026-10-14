@@ -1,6 +1,7 @@
 import {useCallback,useState} from 'react'
 import {createRoot} from 'react-dom/client'
 import {IntegratedCustomerDetail} from '../../../src/features/customers/IntegratedCustomerDetail'
+import {CustomerDocuments} from '../../../src/features/customers/CustomerDocuments'
 import {CustomerEditor} from '../../../src/features/customers/CustomerEditor'
 import {Customer360Overview} from '../../../src/features/customers/Customer360Overview'
 import {AuthorizedCustomerContext} from '../../../src/features/assistant/AuthorizedCustomerContext'
@@ -18,6 +19,7 @@ function Fixture(){
  const [uploadOpen,setUploadOpen]=useState(true),[uploadSaved,setUploadSaved]=useState(false)
  if(kind==='cleanup')return uploadOpen?<DocumentCleanup onClose={()=>setUploadOpen(false)}/>:<p>Panel de limpieza cerrado</p>
  if(kind==='documents')return <IntegratedDocuments customerId={id}/>
+ if(kind==='customer-document-targets')return <CustomerDocuments customerId={id}/>
  if(kind==='documents-integrity')return <IntegratedDocuments customerId={id} contentEnabled maintenanceEnabled/>
  if(kind==='imports')return <ImportJobs/>
  if(kind==='new-customer')return <>{saved&&<p role="status">Cliente sintético confirmado</p>}{newOpen?<CustomerEditor onClose={()=>setNewOpen(false)} onSaved={()=>{setSaved(true);setNewOpen(false)}}/>:<button onClick={()=>setNewOpen(true)}>Nuevo cliente sintético</button>}</>
