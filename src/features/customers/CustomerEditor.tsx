@@ -12,7 +12,7 @@ export function CustomerEditor({ customer, onClose, onSaved, onReload }: { custo
   const [busy, setBusy] = useState(false), [error, setError] = useState<unknown>(null)
   const [writeConfirmed,setWriteConfirmed] = useState(false)
   const intent = useRef<{ execute: () => Promise<ProductReceiptV1>;readonly confirmed:boolean } | null>(null)
-  const uncertain = error instanceof ProductUiError && error.code === 'transport_uncertain'
+  const uncertain = !writeConfirmed && error instanceof ProductUiError && (error.code === 'transport_uncertain' || error.code === 'internal_safe')
   const conflict = error instanceof ProductUiError && error.code === 'conflict'
   async function save(e: React.FormEvent) {
     e.preventDefault(); if (busy || conflict) return
@@ -22,7 +22,7 @@ export function CustomerEditor({ customer, onClose, onSaved, onReload }: { custo
       intent.current = { execute: () => action.execute(repository),get confirmed(){return action.confirmed} }
     }
     try { const receipt = await intent.current.execute(); setWriteConfirmed(true); await onSaved(receipt); intent.current = null }
-    catch (e) { setError(e);setWriteConfirmed(intent.current?.confirmed??false); if (!intent.current?.confirmed && !(e instanceof ProductUiError && e.code === 'transport_uncertain')) intent.current = null }
+    catch (e) { setError(e);setWriteConfirmed(intent.current?.confirmed??false); if (!intent.current?.confirmed && !(e instanceof ProductUiError && (e.code === 'transport_uncertain' || e.code === 'internal_safe'))) intent.current = null }
     finally { setBusy(false) }
   }
   function change<K extends keyof CustomerFieldsV1>(key: K, value: CustomerFieldsV1[K]) {
