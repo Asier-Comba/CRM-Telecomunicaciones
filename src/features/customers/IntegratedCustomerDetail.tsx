@@ -30,10 +30,13 @@ function ScopedCustomerDetail({ id }: { id: string }) {
   const archiveIntent = useRef<{execute:()=>Promise<ProductReceiptV1>}|null>(null)
   const [archiveUncertain,setArchiveUncertain]=useState(false)
   const customerReadEpoch = useRef(0)
+  const mounted = useRef(false)
+  useEffect(()=>{mounted.current=true;return()=>{mounted.current=false}},[])
   const contactPageFocus=useRef<HTMLSpanElement>(null),contactErrorFocus=useRef<HTMLParagraphElement>(null),contactNavigationFocus=useRef(false)
   const canWrite = role !== null && role !== 'viewer'
   const readCustomer=useCallback(()=>role==='viewer'?customerCollectionIdentity(repository,id):repository.customer(id),[repository,id,role])
   const load = useCallback(async()=>{
+    if(!mounted.current)return
     const epoch=++customerReadEpoch.current
     setError('')
     try {const current=await readCustomer();if(epoch!==customerReadEpoch.current)return;setCustomer(current);setContacts(null);setContactCursors([]);setContactRevision(v=>v+1)}
