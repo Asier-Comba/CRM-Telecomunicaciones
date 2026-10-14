@@ -125,35 +125,6 @@
       "required_when": null
     },
     {
-      "name": "AI_PROVIDER",
-      "type": "string",
-      "secret": false,
-      "target": [
-        "LOCAL",
-        "DEV",
-        "STAGING",
-        "PROD"
-      ],
-      "required": {
-        "LOCAL": false,
-        "DEV": false,
-        "STAGING": false,
-        "PROD": false
-      },
-      "owner": "W5",
-      "consumer": [
-        "src/lib/server/ai-provider-v2.ts"
-      ],
-      "validation_rule": "string",
-      "description": "Configuration binding for AI_PROVIDER; presence does not prove provider readiness.",
-      "rotation_expectation": "Review on release/config change.",
-      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
-      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
-      "provider": "application",
-      "destination": "environment-specific configuration",
-      "required_when": null
-    },
-    {
       "name": "ALLOW_PRODUCTION_TESTS",
       "type": "string",
       "secret": false,
@@ -2650,8 +2621,7 @@
         "docs/master/contracts/product-environment.json",
         "src/lib/agents/nowlabs-main-agent.ts",
         "src/lib/agents/planner/shadow-hook.ts",
-        "src/lib/agents/whatsapp-agent.ts",
-        "src/lib/server/ai-provider-v2.ts"
+        "src/lib/agents/whatsapp-agent.ts"
       ],
       "validation_rule": "private_reference_or_key",
       "description": "Existing future AI provider placeholder; no registration/live execution",
@@ -2711,40 +2681,10 @@
       "owner": "W3",
       "consumer": [
         "src/lib/agents/whatsapp-agent.ts",
-        "src/lib/config-status.ts",
-        "src/lib/server/ai-provider-v2.ts"
+        "src/lib/config-status.ts"
       ],
       "validation_rule": "string",
       "description": "Configuration binding for OPENAI_MODEL; presence does not prove provider readiness.",
-      "rotation_expectation": "Review on release/config change.",
-      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
-      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
-      "provider": "application",
-      "destination": "environment-specific configuration",
-      "required_when": null
-    },
-    {
-      "name": "OPENAI_PROJECT_ID",
-      "type": "string",
-      "secret": false,
-      "target": [
-        "LOCAL",
-        "DEV",
-        "STAGING",
-        "PROD"
-      ],
-      "required": {
-        "LOCAL": false,
-        "DEV": false,
-        "STAGING": false,
-        "PROD": false
-      },
-      "owner": "W3",
-      "consumer": [
-        "src/lib/server/ai-provider-v2.ts"
-      ],
-      "validation_rule": "string",
-      "description": "Configuration binding for OPENAI_PROJECT_ID; presence does not prove provider readiness.",
       "rotation_expectation": "Review on release/config change.",
       "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
       "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
