@@ -47,7 +47,7 @@ function ScopedCustomerDetail({ id }: { id: string }) {
     setBusy(true);setError('')
     if(!archiveIntent.current){const action=commandIntent(customer.status==='archived'?'customer.restore':'customer.archive',{id,expected_version:customer.version});archiveIntent.current={execute:()=>action.execute(repository)}}
     try {await archiveIntent.current.execute();archiveIntent.current=null;setArchiveUncertain(false);setConfirm(false);setMessage('Cambio guardado.');await load()}
-    catch(e){setError(safeMessage(e));setArchiveUncertain(e instanceof ProductUiError && e.code==='transport_uncertain');if(!(e instanceof ProductUiError && e.code==='transport_uncertain'))archiveIntent.current=null}
+    catch(e){setError(safeMessage(e));const unknown=!!archiveIntent.current&&e instanceof ProductUiError&&(e.code==='transport_uncertain'||e.code==='internal_safe');setArchiveUncertain(unknown);if(!unknown)archiveIntent.current=null}
     finally{setBusy(false)}
   }
   return <div className="space-y-4">
