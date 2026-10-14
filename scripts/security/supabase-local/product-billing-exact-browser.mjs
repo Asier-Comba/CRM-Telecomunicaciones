@@ -4,6 +4,7 @@ import {billingConfirmedReadBrowser} from './product-billing-confirmed-read-brow
 import {billingMobileRowsBrowser} from './product-billing-mobile-rows-browser.mjs'
 import {billingCurrentMadridDayBrowser} from './billing-current-madrid-day-browser.mjs'
 import {billingAuthorizedRelationsBrowser} from './product-billing-authorized-relations-browser.mjs'
+import {billingUncertainBrowser} from './product-billing-uncertain-browser.mjs'
 export async function billingExactBrowser({page,origin,check,sql,wa,customerId,day,screenshotDir,report}){
  const button=name=>page.getByRole('button',{name,exact:true}),field=name=>page.getByLabel(name,{exact:true}),money=minor=>new Intl.NumberFormat('es-ES',{style:'currency',currency:'USD'}).format(minor/100)
  await check('billing_exact_lines_discount_tax_withholding_fx_review_and_replay',async()=>{
@@ -17,5 +18,8 @@ export async function billingExactBrowser({page,origin,check,sql,wa,customerId,d
   await billingConfirmedReadBrowser({page,origin,sql,wa,customerId,day,screenshotDir,report})
   await billingMobileRowsBrowser({page,origin,sql,wa,customerId,screenshotDir,report})
   await billingAuthorizedRelationsBrowser({page,origin,sql,wa,customerId,day,screenshotDir,report})
+ })
+ await check('billing_lost_receipt_seven_commands_same_intent_single_persisted_effect',async()=>{
+  await billingUncertainBrowser({page,origin,sql,wa,customerId,screenshotDir,report})
  })
 }
