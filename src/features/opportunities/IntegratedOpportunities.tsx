@@ -72,8 +72,8 @@ function OpportunityEditor({record,stages,customers,canWrite,onClose,onSaved}:{r
   const [confirmArchive,setConfirmArchive]=useState(false)
   const [assignee,setAssignee]=useState(r?.owner_user_id??'')
   const [amount,setAmount]=useState(r?.amount_minor===null||r?.amount_minor===undefined?'':String(r.amount_minor/100)),[currency,setCurrency]=useState(r?.currency??'EUR'),[expectedClose,setExpectedClose]=useState(r?.expected_close_date??''),[nextAction,setNextAction]=useState(r?.next_action??''),[reason,setReason]=useState('customer_decision'),[busy,setBusy]=useState(false),[error,setError]=useState<unknown>(null)
-  const [confirmed,setConfirmed]=useState(false)
-  const pending=useRef<{execute:()=>Promise<ProductReceiptV1>;receipt?:ProductReceiptV1}|null>(null),uncertain=!confirmed&&error instanceof ProductUiError&&error.code==='transport_uncertain',conflict=error instanceof ProductUiError&&error.code==='conflict'
+  const [confirmed,setConfirmed]=useState(false),[uncertain,setUncertain]=useState(false)
+  const pending=useRef<{execute:()=>Promise<ProductReceiptV1>;receipt?:ProductReceiptV1}|null>(null),conflict=error instanceof ProductUiError&&error.code==='conflict'
   const stage=stages.items.find(s=>s.id===stageId)
   async function execute(action:'save'|'stage'|'archive'|'assign'){
     if(busy||conflict||!canWrite||r?.source==='import'||r?.source==='integration'||r?.status==='cancelled'||!pending.current?.receipt&&r&&action!=='stage'&&r.status!=='open')return;setBusy(true);setError(null)
@@ -84,8 +84,8 @@ function OpportunityEditor({record,stages,customers,canWrite,onClose,onSaved}:{r
       else{if(amount&&!/^\d+(\.\d{1,2})?$/.test(amount))throw new ProductUiError('validation');const fields={title,amount_minor:amount?Math.round(Number(amount)*100):null,currency:amount?currency as 'EUR'|'USD'|'GBP':null,expected_close_date:expectedClose||null,next_action:nextAction||null,...(linksTouched?{contract_id:contractId,service_id:serviceId}:{})};command=base?commandIntent('opportunity.update',{...base,...fields}):commandIntent('opportunity.create',{...fields,customer_id:customerId,stage_id:stageId})}
       pending.current={execute:()=>command.execute(repository)}
     }
-    const intent=pending.current;intent.receipt??=await intent.execute();setConfirmed(true);setConfirmArchive(false);await onSaved(intent.receipt);pending.current=null;setConfirmed(false)
-    }catch(e){setError(e);if(!pending.current?.receipt&&!(e instanceof ProductUiError&&e.code==='transport_uncertain'))pending.current=null}finally{setBusy(false)}
+    const intent=pending.current;intent.receipt??=await intent.execute();setUncertain(false);setConfirmed(true);setConfirmArchive(false);await onSaved(intent.receipt);pending.current=null;setConfirmed(false)
+    }catch(e){setError(e);const unknown=!!pending.current&&!pending.current.receipt&&e instanceof ProductUiError&&(e.code==='transport_uncertain'||e.code==='internal_safe');setUncertain(unknown);if(!pending.current?.receipt&&!unknown)pending.current=null}finally{setBusy(false)}
   }
   const editable=!r||r.status==='open'
   const canStage=!!r&&!!stage&&(['won','lost'].includes(r.status)?!stage.outcome:r.status==='open')
