@@ -1,0 +1,11 @@
+# Expired upload cleanup receipt recovery
+
+W2-X CLAIM6159821608, own branch codex/w2x-document-cleanup-recovery-20261014. Only DocumentCleanup and its product consumers change. The original UI reproduced Cancel discarding the confirmation and pending command after a simulated committed cleanup claim with a lost reply. The preceding fixture-path failure is preserved separately and does not prove that defect.
+
+The existing Drawer/ConfirmDialog now prevent Cancel, X and Escape while the cleanup outcome is unknown. Retry retains the exact command ID, operation, document and expected version. A confirmed access denial permits ordinary dismissal. Unknown internal-safe responses retain intent too. Successful reservation and cleanup return to the existing flow. DocumentIntegrity remains byte exact; no backend, storage policy, deletion authority, credentials or shared primitive changes.
+
+Nine browser controls pass: claim/finish lost reply at390/768/1440 plus confirmed refusal at each width. Production build66 and lint pass. Three synthetic recovery views were inspected; these are controlled HTTP UI tests, not actual Auth/Storage acceptance. The existing physical document_expired_pending_claim_finish_exact_retry_active_preserved consumer now exercises lost claim as well as lost finish, exact replay and blocked dismissal, retaining its archived metadata, removed pending object and preserved active objects assertions. That changed physical consumer is NOT_RUN for this source until its own controls close; no inherited PASS from1DD orB1B.
+
+Preserved preparation failures: the initial fixture route incorrectly assumed a trailing endpoint segment; the corrected original UI then reproduced the actual Cancel loss. A command launched from the workspace rather than checkout failed configuration discovery; final tests use the existing local runner. Visual output was overwritten by the separate refusal run, so the complete nine-control run saved it in a separate output directory. No limits or assertions relaxed.
+
+Publish the independent source and checkpoint, then consume through existing PR153 only after every current B1B check/run is terminal and eligible. No cancellation, force push, new PR or principal38/142 writes. FiveHIGH, W4 independent review, IA commercial writesOFF, modelNOT_RUN/API0, issue10OPEN and releaseNOT_ACCEPTED remain.

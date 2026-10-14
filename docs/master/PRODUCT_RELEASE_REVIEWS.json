@@ -223,19 +223,20 @@
       ]
     },
     "PAR-042": {
-      "source_sha": "5da315ad67717e929fba067e8f2c1ff21a15a082",
+      "source_sha": "9c361c9ce7e32ba202f0c6e24aacd371c5026e04",
       "owner": "W2 UI / W1 contracts / W4 independent acceptance",
       "priority": "P1",
       "stages": {
         "IMPLEMENTED": "PARTIAL",
         "PROVEN_BACKEND": "PARTIAL",
         "CONSUMED_UI": "PARTIAL",
-        "BROWSER_ACCEPTED": "PARTIAL"
+        "BROWSER_ACCEPTED": "PARTIAL",
+        "VISUAL_ACCEPTED": "PARTIAL"
       },
       "permissions": "Actual cookie reads on disposable local Auth/SQL;complete per-row role/revocation/foreign-workspace staging acceptance and W4 remain pending.",
-      "mobile": "NOT_RECONCILED",
+      "mobile": "PARTIAL_ACTUAL_AUTH_UNCERTAIN_CONTACT_EDITOR390_768_1440_SOURCE9C361",
       "external_blocked": "BLOCKED",
-      "pending": "Complete row-specific permission/state/cursor/creation/lifecycle acceptance and independent W4;no PASS/no RELEASE_READY.Current root fresh gates pending.",
+      "pending": "Complete per-row role/revocation/foreign-workspace, principal, cursor, lifecycle and staging acceptance plus independent W4. Source9c361 has partial lost-response creation acceptance only; uniond764 requires its own active CI38483489804/Sup38483489916 and is not covered by this evidence. No full-row PASS or release.",
       "evidence": [
         {
           "source_sha": "5da315ad67717e929fba067e8f2c1ff21a15a082",
@@ -250,11 +251,38 @@
             "docs/master/W2_CUSTOMER360_LOADED_REVIEW_20261011.md",
             "src/features/customers/IntegratedCustomerDetail.tsx"
           ]
+        },
+        {
+          "source_sha": "9c361c9ce7e32ba202f0c6e24aacd371c5026e04",
+          "kind": "AUTH_BROWSER",
+          "scope": "PARTIAL_ROW",
+          "stage": "BROWSER_ACCEPTED",
+          "positive": "Actual normal authenticated contact.create commits before its response is lost; retry uses identical command_id and inputs. Exactly one contact, product_command and audit event; ordinary paginated readback exposes the persisted label.",
+          "negative": "Uncertain editor refuses close/Escape and field changes until confirmation. No duplicate effect/command/audit; existing privacy and authority boundaries stay active. This case does not prove every role, revocation, lifecycle or foreign parent.",
+          "execution": "OWN_SOURCE9C361_EXECUTED781E200_TREEE54DA_SUP38480433895_JOB115581395988_PASS108_AUTH_TEARDOWN;required customer360_contact_lost_receipt_keeps_intent_and_single_persisted_effect PASS;NOT_FULL_ROW_NOT_W4_NOT_D764",
+          "paths": [
+            "scripts/security/supabase-local/product-customer360-collections-browser.mjs",
+            "src/features/customers/IntegratedCustomerDetail.tsx",
+            "docs/master/W2X_PAR042_INDIVIDUAL_REVIEW_20261014.md"
+          ]
+        },
+        {
+          "source_sha": "9c361c9ce7e32ba202f0c6e24aacd371c5026e04",
+          "kind": "VISUAL",
+          "scope": "PARTIAL_ROW",
+          "stage": "VISUAL_ACCEPTED",
+          "positive": "Actual disposable Auth/DB loaded uncertain create editor inspected at390/768/1440: contextual warning, disabled close/fields and enabled same-action retry; no horizontal overflow.",
+          "negative": "These images cover the uncertain editor; no claim that all contact inventory pages, lifecycle states or role combinations received loaded visual acceptance.",
+          "execution": "SOURCE9C361_SUP38480433895_PRODUCT11857332694_contact-uncertain-390/768/1440.png;SHA256 manifest in W2X_PAR042_INDIVIDUAL_REVIEW_20261014.md;PARTIAL_VISUAL_NOT_FULL_ROW",
+          "paths": [
+            "scripts/security/supabase-local/product-customer360-collections-browser.mjs",
+            "docs/master/W2X_PAR042_INDIVIDUAL_REVIEW_20261014.md"
+          ]
         }
       ]
     },
     "PAR-047": {
-      "source_sha": "5da315ad67717e929fba067e8f2c1ff21a15a082",
+      "source_sha": "37a5f0ef91ca436122327d18d59cbe723e92cc84",
       "owner": "W2 UI / W1 contracts / W4 independent acceptance",
       "priority": "P1",
       "stages": {
@@ -265,9 +293,9 @@
         "VISUAL_ACCEPTED": "PARTIAL"
       },
       "permissions": "Actual cookie reads on disposable local Auth/SQL;complete per-row role/revocation/foreign-workspace staging acceptance and W4 remain pending.",
-      "mobile": "PARTIAL_LOADED390_768_1440",
+      "mobile": "PARTIAL_ACTUAL_AUTH_LOADED_LINE12_FIELDS390_768_1440_SOURCE37A5;OLDER5DA_EVIDENCE_RETAINED",
       "external_blocked": "BLOCKED",
-      "pending": "Complete row-specific permission/state/cursor/creation/lifecycle acceptance and independent W4;no PASS/no RELEASE_READY.Current root fresh gates pending.",
+      "pending": "Complete line-specific role/revocation/foreign-workspace, all cursor pages/filter transitions, manual creation and lifecycle acceptance, full visual state coverage, staging and independent W4. Source37a5 adds ordinary loaded historical-line presentation only; later candidates need their own controls. No FULL_ROW/PASS/SECURITY/release promotion.",
       "evidence": [
         {
           "source_sha": "5da315ad67717e929fba067e8f2c1ff21a15a082",
@@ -295,6 +323,33 @@
           "paths": [
             "docs/master/W2_CUSTOMER360_LOADED_REVIEW_20261011.md",
             "scripts/security/supabase-local/product-customer360-collections-browser.mjs"
+          ]
+        },
+        {
+          "source_sha": "37a5f0ef91ca436122327d18d59cbe723e92cc84",
+          "kind": "AUTH_BROWSER",
+          "scope": "PARTIAL_ROW",
+          "stage": "BROWSER_ACCEPTED",
+          "positive": "Ordinary authenticated Customer360 line.list agrees with rendered rows; selected customer summary line count matches its current DTO. The loaded telecom control waits for operator/tariff labels to settle and checks one visible line with all12 fields at390/768/1440, selected-tab bounds and no horizontal overflow.",
+          "negative": "A finished historical line is displayed with a masked number and completed portability. Absent tariff/ICCID/EID/SIM references are shown as not registered; this source case does not certify every line state, page, role, revocation or private identifier reveal.",
+          "execution": "SOURCE37a5f0ef91ca436122327d18d59cbe723e92cc84/TREEed9189e41f293ff74daa6ab4f71ea6682911efd8/EXECUTED60d3b09bb3663a9864d5ed2619785ebdf97e05ee/SUP38495080336/JOB115628904611/SAFE11864566686/PASS112_AUTH_TEARDOWN;customer360_exact_summary_safe_contacts_independent_domains and customer360_loaded_telecom_desktop_tablet_mobile PASS;PARTIAL_ROW_NOT_W4_NOT_MODEL",
+          "paths": [
+            "scripts/security/supabase-local/product-customer360-collections-browser.mjs",
+            "src/features/portfolio/CustomerLinesInventory.tsx",
+            "docs/master/W2X_PAR047_INDIVIDUAL_REVIEW_20261014.md"
+          ]
+        },
+        {
+          "source_sha": "37a5f0ef91ca436122327d18d59cbe723e92cc84",
+          "kind": "VISUAL",
+          "scope": "PARTIAL_ROW",
+          "stage": "VISUAL_ACCEPTED",
+          "positive": "Actual disposable Auth/DB loaded line screenshots inspected at390/768/1440: masked number, finished state, operator, sold tariff, service, ICCID/EID, SIM, completed portability, permanence counts/date and activation fit the line card.",
+          "negative": "One historical line, page1 only. Not registered placeholders are absence, not loaded current values. No complete pagination/filter/creation/lifecycle/role visual acceptance or security approval inferred.",
+          "execution": "SOURCE37A5/SUP38495080336/PRODUCT11864661596/customer360-line-390,768,1440.png;ACTUALLY_VIEWED;SHA256 manifest in W2X_PAR047_INDIVIDUAL_REVIEW_20261014.md;PARTIAL_NOT_RELEASE",
+          "paths": [
+            "scripts/security/supabase-local/product-customer360-collections-browser.mjs",
+            "docs/master/W2X_PAR047_INDIVIDUAL_REVIEW_20261014.md"
           ]
         }
       ]
@@ -446,7 +501,7 @@
       ]
     },
     "PAR-107": {
-      "source_sha": "fdc00b9542aa471bac6a60e3bf067669d6640608",
+      "source_sha": "37a5f0ef91ca436122327d18d59cbe723e92cc84",
       "owner": "W1/W2 billing; W4 independent acceptance",
       "priority": "P1",
       "stages": {
@@ -457,9 +512,9 @@
         "VISUAL_ACCEPTED": "PARTIAL"
       },
       "permissions": "Owner actual cookie/JWT issuance; role/foreign draft denial is not complete issue-specific permission acceptance. W4 NOT_ACCEPTED.",
-      "mobile": "Issued current-record state actually viewed at1440/768/390; confirmation dialog keyboard/focus/Escape at all widths NOT_RECONCILED.",
+      "mobile": "PARTIAL_ACTUAL_AUTH_UNCERTAIN_ISSUANCE_CONFIRMATION390_768_1440_SOURCE37A5;OLDER_ISSUED_DETAIL_FDC_EVIDENCE_RETAINED",
       "external_blocked": "BLOCKED",
-      "pending": "Issue-specific owner/admin/member/viewer/foreign/revoked membership negatives; cancel-before-confirm no-write; repeated confirmation/reload and keyboard/focus/Escape; complete visual confirmation dialog; independent W4. No FULL_ROW/PASS/release and no evidence inheritance to78D or descendants.",
+      "pending": "Complete issue-specific owner/admin/member/viewer/foreign/revoked-membership negatives; cancel-before-first-confirm no-write, complete keyboard/focus and ordinary repeated-confirmation/reload coverage, full loaded visual issuance cycle, staging and independent W4. Source37a5 only adds scoped lost-reply confirmation/replay acceptance; later compositions require their own controls. No FULL_ROW/PASS/SECURITY/release promotion.",
       "evidence": [
         {
           "source_sha": "fdc00b9542aa471bac6a60e3bf067669d6640608",
@@ -503,6 +558,125 @@
             "src/features/billing/IntegratedBilling.tsx",
             "src/features/billing/PrivateInvoicePdf.tsx",
             "docs/master/W2_BILLING_EXPLICIT_ISSUANCE_ROW_20261013.md"
+          ]
+        },
+        {
+          "source_sha": "37a5f0ef91ca436122327d18d59cbe723e92cc84",
+          "kind": "AUTH_BROWSER",
+          "scope": "PARTIAL_ROW",
+          "stage": "BROWSER_ACCEPTED",
+          "positive": "Actual normal owner invoice.issue commits before reply loss; identical command/input replay preserves the recorded invoice identity and number. Current readback verifies the receipt; exactly one revision increment, product_command and audit event.",
+          "negative": "Uncertain issuance confirmation refuses Cancel/X/Escape; alternative billing filters/selections/actions cannot replace the pending intent. The seven-command consumer includes issuance but does not certify its complete role/revocation matrix.",
+          "execution": "SOURCE37a5f0ef91ca436122327d18d59cbe723e92cc84/TREEed9189e41f293ff74daa6ab4f71ea6682911efd8/EXECUTED60d3b09bb3663a9864d5ed2619785ebdf97e05ee/SUP38495080336/JOB115628904611/SAFE11864566686/PASS112_AUTH_TEARDOWN;billing_lost_receipt_seven_commands_same_intent_single_persisted_effect PASS;NOT_FULL_ROW_NOT_W4_NO_PARENT_PASS_INHERITANCE",
+          "paths": [
+            "scripts/security/supabase-local/product-billing-uncertain-browser.mjs",
+            "src/features/billing/IntegratedBilling.tsx",
+            "docs/master/W2X_PAR107_INDIVIDUAL_REVIEW_20261014.md"
+          ]
+        },
+        {
+          "source_sha": "37a5f0ef91ca436122327d18d59cbe723e92cc84",
+          "kind": "VISUAL",
+          "scope": "PARTIAL_ROW",
+          "stage": "VISUAL_ACCEPTED",
+          "positive": "Actual disposable Auth/DB issuance lost-reply confirmation inspected at390/768/1440: pending-result explanation, safe error, disabled cancellation and visible same-action retry; no horizontal overflow measured by its physical consumer.",
+          "negative": "Images cover the recovery confirmation, not every loaded detail/PDF/role/filter state or the complete keyboard/focus flow. Backend fiscal numbering acceptance remains scoped to the source check, not inferred from blurred background images.",
+          "execution": "SOURCE37A5/SUP38495080336/PRODUCT11864661596/billing-uncertain-invoice.issue-390,768,1440.png;ACTUALLY_VIEWED;SHA256 manifest in W2X_PAR107_INDIVIDUAL_REVIEW_20261014.md;PARTIAL_NOT_RELEASE",
+          "paths": [
+            "scripts/security/supabase-local/product-billing-uncertain-browser.mjs",
+            "docs/master/W2X_PAR107_INDIVIDUAL_REVIEW_20261014.md"
+          ]
+        }
+      ]
+    },
+    "PAR-200": {
+      "source_sha": "1dd4272232403ae901ea3f3f5e11becfb874fe65",
+      "owner": "W1/W2 document upload; W4 independent security acceptance",
+      "priority": "P1",
+      "stages": {
+        "IMPLEMENTED": "PARTIAL",
+        "PROVEN_BACKEND": "PARTIAL",
+        "CONSUMED_UI": "PARTIAL",
+        "BROWSER_ACCEPTED": "PARTIAL",
+        "VISUAL_ACCEPTED": "PARTIAL"
+      },
+      "permissions": "Actual owner cookie/Auth upload and private Storage fixture only. Complete role, foreign company, revoked membership and every upload target RLS matrix NOT_ACCEPTED; W4 independent.",
+      "mobile": "PARTIAL_ACTUAL_AUTH_UPLOAD_UNCERTAIN_PREPARE_UPLOAD_FINALIZE390_768_1440_SOURCE1DD",
+      "external_blocked": "BLOCKED",
+      "pending": "Complete per-role/cross-company/revocation and all target-kind upload acceptance, MIME/size/expiry negatives tied to exact source, full normal upload/keyboard/focus visual journey, staging and independent W4. These recovery frames do not establish antivirus scan or independently verified file integrity. No full-row/PASS/security/release promotion or inheritance to later compositions.",
+      "evidence": [
+        {
+          "source_sha": "1dd4272232403ae901ea3f3f5e11becfb874fe65",
+          "kind": "AUTH_BROWSER",
+          "scope": "PARTIAL_ROW",
+          "stage": "BROWSER_ACCEPTED",
+          "positive": "Ordinary owner prepare/upload/finalize each commits before a deliberate reply loss. Replay keeps UUID/body or identical upload bytes, one finalized document and one private Storage object per case; exact command/audit and version2 current list card are checked.",
+          "negative": "Cancel/X/Escape and changed file/target cannot discard unknown step; identical replay creates no second document/object. This is bounded recovery evidence, not complete RLS role/target or content-safety acceptance.",
+          "execution": "SOURCE1dd4272232403ae901ea3f3f5e11becfb874fe65/EXECUTED0b4401542acc67440e7546b67b5ecced4f1a841b/TREE61d8fdcd2320794374d5cccdae4f91e737a69024/SUP38499685299/JOB115643420270/SAFE11865618357/PRODUCT11865778215;115 own passed checks, Auth/DB/Storage and teardown PASS; NOT_FULL_ROW;document_upload_three_uncertain_steps_same_intent_single_document_object PASS",
+          "paths": [
+            "scripts/security/supabase-local/product-document-upload-uncertain-browser.mjs",
+            "src/features/documents/DocumentUpload.tsx",
+            "docs/master/W2X_PAR200_INDIVIDUAL_REVIEW_20261014.md"
+          ]
+        },
+        {
+          "source_sha": "1dd4272232403ae901ea3f3f5e11becfb874fe65",
+          "kind": "VISUAL",
+          "scope": "PARTIAL_ROW",
+          "stage": "VISUAL_ACCEPTED",
+          "positive": "Nine actual disposable-Auth recovery frames for prepare/upload/finalize at390/768/1440 inspected; chosen file, pending step, disabled close and visible same-step retry fit each width.",
+          "negative": "Frames show uncertain recovery only, not complete success journey, every file/target, keyboard/focus, scan or integrity acceptance.",
+          "execution": "SOURCE1dd4272232403ae901ea3f3f5e11becfb874fe65/EXECUTED0b4401542acc67440e7546b67b5ecced4f1a841b/TREE61d8fdcd2320794374d5cccdae4f91e737a69024/SUP38499685299/JOB115643420270/SAFE11865618357/PRODUCT11865778215;115 own passed checks, Auth/DB/Storage and teardown PASS; NOT_FULL_ROW;ACTUALLY_VIEWED_9_IMAGES;exact hashes in review doc",
+          "paths": [
+            "scripts/security/supabase-local/product-document-upload-uncertain-browser.mjs",
+            "src/features/documents/DocumentUpload.tsx",
+            "docs/master/W2X_PAR200_INDIVIDUAL_REVIEW_20261014.md"
+          ]
+        }
+      ]
+    },
+    "PAR-096": {
+      "source_sha": "1dd4272232403ae901ea3f3f5e11becfb874fe65",
+      "owner": "W1/W2 meeting creation; W4 independent security acceptance",
+      "priority": "P1",
+      "stages": {
+        "IMPLEMENTED": "PARTIAL",
+        "PROVEN_BACKEND": "PARTIAL",
+        "CONSUMED_UI": "PARTIAL",
+        "BROWSER_ACCEPTED": "PARTIAL",
+        "VISUAL_ACCEPTED": "PARTIAL"
+      },
+      "permissions": "Ordinary owner cookie/Auth meeting creation linked to one authorized synthetic customer only; full member/viewer/admin and cross-company/revoked scope NOT_ACCEPTED. Independent W4 required.",
+      "mobile": "PARTIAL_ACTUAL_AUTH_MEETING_CREATE_UNKNOWN_REPLY_RECOVERY390_768_1440_SOURCE1DD",
+      "external_blocked": "BLOCKED",
+      "pending": "Complete per-role/foreign-company/revocation and input boundaries, all-day/timezone/DST/assignee/overlap/date range, full normal success journey/keyboard/focus, staging and independent W4. Source1DD loss-reply evidence does not accept new E936 invalid-receipt behavior or all creation modes. No FULL_ROW/PASS/security/release promotion.",
+      "evidence": [
+        {
+          "source_sha": "1dd4272232403ae901ea3f3f5e11becfb874fe65",
+          "kind": "AUTH_BROWSER",
+          "scope": "PARTIAL_ROW",
+          "stage": "BROWSER_ACCEPTED",
+          "positive": "Ordinary owner meeting.create persists before deliberately lost reply; identical command UUID/body replay produces one receipt, one command/audit and version1 calendar_event linked to the chosen customer. Reopening the current meeting verifies the title.",
+          "negative": "Pending creation cannot be dismissed with X/Escape or edited; retry produces no second persisted meeting. This is a bounded recovery check, not complete RLS/date/role/calendar acceptance.",
+          "execution": "SOURCE1dd4272232403ae901ea3f3f5e11becfb874fe65/EXECUTED0b4401542acc67440e7546b67b5ecced4f1a841b/TREE61d8fdcd2320794374d5cccdae4f91e737a69024/SUP38499685299/JOB115643420270/SAFE11865618357/PRODUCT11865778215;agenda_task_meeting_create_update_complete_exact_lost_response_single_effect PASS;NOT_FULL_ROW",
+          "paths": [
+            "scripts/security/supabase-local/product-agenda-uncertain-browser.mjs",
+            "src/features/calendar/IntegratedCalendar.tsx",
+            "docs/master/W2X_PAR096_INDIVIDUAL_REVIEW_20261014.md"
+          ]
+        },
+        {
+          "source_sha": "1dd4272232403ae901ea3f3f5e11becfb874fe65",
+          "kind": "VISUAL",
+          "scope": "PARTIAL_ROW",
+          "stage": "VISUAL_ACCEPTED",
+          "positive": "Three actual disposable-Auth meeting.create recovery frames inspected at390/768/1440; selected customer, meeting title/start/end, pending notice, locked fields and same-action retry are visible.",
+          "negative": "Only the unknown-reply recovery view; not the complete successful creation, keyboard/focus, every locale/timezone or full calendar layout.",
+          "execution": "SOURCE1dd4272232403ae901ea3f3f5e11becfb874fe65/EXECUTED0b4401542acc67440e7546b67b5ecced4f1a841b/TREE61d8fdcd2320794374d5cccdae4f91e737a69024/SUP38499685299/JOB115643420270/SAFE11865618357/PRODUCT11865778215;agenda_task_meeting_create_update_complete_exact_lost_response_single_effect PASS;NOT_FULL_ROW;ACTUALLY_VIEWED_3_IMAGES",
+          "paths": [
+            "scripts/security/supabase-local/product-agenda-uncertain-browser.mjs",
+            "src/features/calendar/IntegratedCalendar.tsx",
+            "docs/master/W2X_PAR096_INDIVIDUAL_REVIEW_20261014.md"
           ]
         }
       ]

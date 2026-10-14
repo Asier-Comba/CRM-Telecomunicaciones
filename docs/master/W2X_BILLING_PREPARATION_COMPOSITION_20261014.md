@@ -1,0 +1,7 @@
+# Preserve cancelled invoice preparation with all commercial recovery
+
+W2-X own composition over functionally qualified Source856, with own c80 singular-count copy and de5992 cancelled-preparation lifetime correction. Reuses the existing commercial checkout/dependencies. History preserves all customer/contact, Cartera, billing receipts, documents, agenda, opportunities, import cancellation, case notes and collection focus controls. Billing execute/recorded/pending/fiscal/save recovery remains byte exact; no backend/roles/core/W5 or shared primitive changes.
+
+Own local265 browser controls and build66/lint/queue PASS are measured. Preview730 and Auth116 remain expectations until this source runs its own remote controls. Source856 owns1430/712/Auth115/native85/build66; its closed evidence and original B1B/F736 unknown causes remain, without inheritance or retrospective correction. One new physical cancelled-preparation check measures normal owner reads, suppressed late UI/context changes, zero invoice/command effects and positive fresh preparation. Model live NOT_RUN.
+
+Publish through the existing PR153 only after all Source856 runs/checks are terminal and its evidence archived. No additional workflow just for copy, new PR/checkouts/dependencies, cancellation, force push or edits to principal38/142 without exact ACK. New source must close its own checks. Matrix342/10PARTIAL/332UNRECONCILED/0READY, fiveHIGH, independent W4, IA writesOFF, API0 for this Work, issue10OPEN and releaseNOT_ACCEPTED remain. Then continue useful independent product work.
