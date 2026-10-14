@@ -1,7 +1,7 @@
 import {expect} from '@playwright/test'
 import {resolve} from 'node:path'
 export async function customer360CollectionsBrowser({page,origin,id,sql,wa,users,check,screenshotDir,report}){
- const wait=op=>page.waitForResponse(r=>{try{return r.request().method()==='POST'&&r.request().postDataJSON().operation===op}catch{return false}})
+ const wait=op=>{const pending=page.waitForResponse(r=>{try{return r.request().method()==='POST'&&r.request().postDataJSON().operation===op}catch{return false}});void pending.catch(()=>{});return pending}
  const visible=()=>page.locator('[data-domain-id]:visible')
  async function sameRows(pending){const response=await pending;if(response.status()!==200)throw Error('C360_NORMAL_COOKIE_READ_FAILED');const result=await response.json();if(!result.ok)throw Error('C360_CLOSED_READ_FAILED');await expect.poll(()=>visible().evaluateAll(rows=>rows.map(r=>r.dataset.domainId))).toEqual(result.data.items.map(r=>r.id));return result.data}
  const additionalFields={Renovaciones:['Fecha objetivo','Ventana desde','Ventana hasta','Seguimiento','Estado','Origen'],Permanencias:['Compromiso','Inicio','Fin','Días restantes','Vigencia','Estado','Origen'],Oportunidades:['Estado','Moneda','Importe','Cierre previsto','Próximo seguimiento','Próxima acción registrada','Origen']}
@@ -62,7 +62,7 @@ export async function customer360CollectionsBrowser({page,origin,id,sql,wa,users
    if(lost){lost=false;const result=await route.fetch();if(result.status()!==200)throw Error('CONTACT_EFFECT_NOT_COMMITTED');return route.abort('failed')}
    return route.continue()
   }
-  const contactResponse=()=>page.waitForResponse(r=>{try{const q=r.request().postDataJSON();return r.request().method()==='POST'&&q.operation==='contact.list'&&q.input.customer_id===id}catch{return false}})
+  const contactResponse=()=>{const pending=page.waitForResponse(r=>{try{const q=r.request().postDataJSON();return r.request().method()==='POST'&&q.operation==='contact.list'&&q.input.customer_id===id}catch{return false}});void pending.catch(()=>{});return pending}
   await page.route('**/api/product/v1/commands',observe)
   try{
    if(report)report.w2_ui_action_step='contact_uncertain:open';const initial=contactResponse();await page.goto(origin+'/clients/'+id);if((await initial).status()!==200)throw Error('CONTACT_INITIAL_READ_FAILED');await page.getByRole('tab',{name:'Contactos',exact:true}).click();await page.getByRole('button',{name:'Añadir contacto',exact:true}).click()
