@@ -787,6 +787,53 @@
           ]
         }
       ]
+    },
+    "PAR-132": {
+      "source_sha": "9dc616fe72e0e890fc915bf87ae3a1b7e9dbc6f7",
+      "owner": "W2-X commercial invoice links; W1 backend; W4 independent acceptance",
+      "priority": "P1",
+      "stages": {
+        "IMPLEMENTED": "PARTIAL",
+        "PROVEN_BACKEND": "NOT_RECONCILED",
+        "CONSUMED_UI": "PARTIAL",
+        "BROWSER_ACCEPTED": "NOT_RECONCILED",
+        "VISUAL_ACCEPTED": "PARTIAL",
+        "SECURITY_ACCEPTED": "NOT_RECONCILED"
+      },
+      "permissions": "Controlled HTTP contract/operator403 and mismatching-customer negatives; actual Auth/JWT/RLS and complete role matrix NOT_RECONCILED. No commercial command dispatched in these selection cases.",
+      "mobile": "PARTIAL_CONTROLLED_HTTP_390_768_1440",
+      "external_blocked": "BLOCKED",
+      "pending": "Full customer/opportunity/contract/service link lifecycle, save and readback persistence, actual disposable Auth/DB, complete role negatives and independent W4 remain unaccepted. This evidence covers contract selection and its service filter only.",
+      "evidence": [
+        {
+          "source_sha": "9dc616fe72e0e890fc915bf87ae3a1b7e9dbc6f7",
+          "kind": "SOURCE",
+          "scope": "PARTIAL_ROW_CONTROLLED_HTTP",
+          "stage": "CONSUMED_UI",
+          "positive": "Actual invoice editor distinguishes same-date contracts by current operator, date and status;20-row page, next cursor and selected-id limit1 verification preserve customer filters. Service list uses the selected contract and customer. Existing label resolver deduplicates two operators across20 rows.",
+          "negative": "Contract403 disables selection and explicit refresh recovers; operator403 shows unavailable label; different customer is rejected before operator reads. No save/issue command, real backend or role acceptance claimed.",
+          "execution": "9DC616F_OWN42_FINAL_HTTP_CONTROLLED_PASS_15_LINK_CASES_PLUS27_PREPARATION_ARCHIVED_CUSTOMER_REGRESSIONS; handoff6166959203; AUTH_DB_STORAGE_NOT_RUN",
+          "paths": [
+            "src/features/billing/InvoiceRelationSelect.tsx",
+            "tests/e2e-preview/invoice-contract-selection.spec.ts",
+            "tests/e2e-preview/billing-archived-customer.spec.ts",
+            "tests/e2e-preview/billing-create-read-lifetime.spec.ts"
+          ]
+        },
+        {
+          "source_sha": "9dc616fe72e0e890fc915bf87ae3a1b7e9dbc6f7",
+          "kind": "VISUAL",
+          "scope": "PARTIAL_ROW",
+          "stage": "VISUAL_ACCEPTED",
+          "positive": "Three final frames390/768/1440 inspected after widening authorized link rows. Operator identifiable on mobile with complete selected caption;768/1440 select shows operator/date/status and controls wrap within panel.",
+          "negative": "Partial invoice link panel only; no complete saved invoice, all-link states or accessibility audit. Initial narrow three-column frames retained separately.",
+          "execution": "9DC616F_INVOICE_CONTRACT_LABELS_390_768_1440_FINAL_WIDE_ACTUALLY_VIEWED; image hashes in checkpoint",
+          "paths": [
+            "docs/master/W2X_INVOICE_CONTRACT_SELECTION_20261014.md",
+            "tests/e2e-preview/invoice-contract-selection.spec.ts"
+          ]
+        }
+      ]
     }
   },
   "next_3": [
