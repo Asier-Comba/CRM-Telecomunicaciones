@@ -94,8 +94,12 @@ export async function runBenchmark(
         try {
           const judgment = judge(input.id, result.output)
           const keys = ['capability', 'arguments', 'policy', 'grounding']
-          if (!judgment || Object.keys(judgment).length !== 4 || !keys.every(k => typeof judgment[k as keyof GoldenJudgment] === 'boolean')) throw new Error('invalid_judgment')
-          record.judgment = { ...judgment }
+          if (!judgment || Object.getPrototypeOf(judgment)!==Object.prototype) throw new Error('invalid_judgment')
+          const fields=Object.getOwnPropertyDescriptors(judgment)
+          if(Reflect.ownKeys(fields).length!==4||!keys.every(k=>fields[k]?.enumerable&&'value' in fields[k]&&typeof fields[k].value==='boolean')) throw new Error('invalid_judgment')
+          // Record the admitted data once; accessor or Proxy reads must not
+          // upgrade a failed quality judgment after its shape was validated.
+          record.judgment = Object.freeze(Object.fromEntries(keys.map(k=>[k,fields[k].value]))) as GoldenJudgment
           record.status = 'scored'
         } catch { record.status = 'judge_failure' }
       }

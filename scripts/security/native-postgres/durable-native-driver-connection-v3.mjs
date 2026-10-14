@@ -8,8 +8,16 @@ const statement="select jsonb_build_object('backend',pg_backend_pid(),'database'
  * driver supplies the existing owned native-session constructor. */
 export function createDurableNativeWorkerConnectionV3(open){
  if(typeof open!=='function')throw unavailable()
- let phase='idle',session,backend,application,query,close,opening,closing
- const retire=async()=>{if(close){const ownedClose=close;close=null;await ownedClose.call(session)}}
+ let phase='idle',session,backend,application,query,close,opening,closing,retirement
+ const retire=()=>{
+  if(retirement)return retirement
+  if(!close)return Promise.resolve()
+  const ownedClose=close;close=null
+  // Retain the one owned close operation, including rejection. A concurrent or
+  // later close must join its completion rather than admit absent cleanup facts.
+  retirement=Promise.resolve().then(()=>ownedClose.call(session))
+  return retirement
+ }
  async function connectWorker(){
   if(phase!=='idle')throw unavailable()
   phase='connecting'

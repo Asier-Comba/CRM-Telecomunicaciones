@@ -172,7 +172,7 @@ function TemporaryAssistant({ context, selectedReferences = [], invoiceIntent = 
       />
       <PreviewNotice />
       {integrated && <p role="status" className="rounded-lg border border-amber-100 bg-amber-50 p-3 text-sm text-amber-900">Asistente en preparación. Las consultas y acciones IA estarán disponibles cuando la integración y el historial seguro estén habilitados.</p>}
-      {invoiceIntent && <section className="rounded-xl border bg-white p-4"><h2 className="font-semibold">Crear factura con IA</h2><p className="mt-2 text-sm text-slate-500">El flujo requerirá una propuesta revisada, guardar el borrador y confirmar la emisión. La creación mediante IA todavía no está disponible.</p><button className={`${primary} mt-3`} disabled>Preparar propuesta</button></section>}
+      {invoiceIntent && <section className="rounded-xl border bg-white p-4"><h2 className="font-semibold">Ayuda para facturas con IA</h2><p className="mt-2 text-sm text-slate-500">El flujo requerirá una propuesta revisada, guardar el borrador y confirmar la emisión. La creación mediante IA todavía no está disponible.</p><button className={`${primary} mt-3`} disabled>Preparar propuesta</button></section>}
       <div className="xl:hidden"><Tabs prefix="assistant-mobile-" items={['Conversaciones','Consulta','Contexto']} value={mobilePane} onChange={setMobilePane}/></div>
       <div className="grid items-start gap-4 xl:grid-cols-[210px_minmax(0,1fr)_230px]">
         <aside id="assistant-mobile-panel-Conversaciones" aria-label="Conversaciones del asistente" className={`${mobilePane==='Conversaciones'?'':'hidden xl:block'} rounded-xl border border-slate-200 bg-white p-3`}>

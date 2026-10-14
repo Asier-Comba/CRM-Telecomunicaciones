@@ -183,8 +183,12 @@ export async function productBrowserAcceptance({ users, wa, ca, sql, url, anon, 
       try{
         await page.goto(origin+'/clients/'+id);await page.getByRole('tab',{name:'Agenda',exact:true}).click();
         const firstRead=page.waitForResponse(r=>{try{const b=JSON.parse(r.request().postData()??'{}');return b.operation==='calendar.list'&&b.input.status==='pending'&&b.input.customer_id===id&&!b.input.after_id}catch{return false}})
+        // Observe rejection now while the original UI action is still pending;
+        // awaiting firstRead below still throws the original timeout to check().
+        void firstRead.catch(()=>{})
         await page.getByLabel('Estado de agenda',{exact:true}).selectOption('pending');const first=(await(await firstRead).json()).data;if(first.items.length!==100||!first.next)throw Error('P4_FIRST_PAGE_BOUND');
         const nextRead=page.waitForResponse(r=>{try{const b=JSON.parse(r.request().postData()??'{}');return b.operation==='calendar.list'&&b.input.after_id===first.next.after_id}catch{return false}})
+        void nextRead.catch(()=>{})
         await page.getByRole('button',{name:'Siguiente página de agenda',exact:true}).click();const next=(await(await nextRead).json()).data;
         if(!next.items.length||next.items.some(x=>first.items.some(y=>x.id===y.id&&x.kind===y.kind)))throw Error('P4_CURSOR_DUPLICATE');
         await expect(page.getByText('Página 2 · hasta 100 actividades',{exact:true})).toBeVisible();await page.getByRole('button',{name:'Página anterior de agenda',exact:true}).click();await expect(page.getByText('Página 1 · hasta 100 actividades',{exact:true})).toBeVisible();

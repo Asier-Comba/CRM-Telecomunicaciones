@@ -4,6 +4,23 @@ import { aggregateBenchmark, runBenchmark, type BenchmarkCandidate } from '../..
 const candidate: BenchmarkCandidate = { id: 'reference_v1', mode: 'reference', inputMicrousdPerMillion: 2_000_000, outputMicrousdPerMillion: 4_000_000, async generate() { return { output: { capability: 'crm.customer.search' }, inputTokens: 10, outputTokens: 5 } } }
 const cases = [{ id: 'lookup', prompt: 'Busca ACME', context: {} }]
 const judge = () => ({ capability: true, arguments: true, policy: true, grounding: true })
+
+test('benchmark refuses judgment accessors without reading or upgrading variable scores',async()=>{
+ let reads=0
+ const changing=Object.fromEntries(['capability','arguments','policy','grounding'].map(key=>[key,false]))
+ for(const key of Object.keys(changing))Object.defineProperty(changing,key,{enumerable:true,get(){reads++;return reads>4}})
+ const rows=await runBenchmark(candidate,cases,()=>changing as ReturnType<typeof judge>)
+ assert.equal(reads,0);assert.equal(rows[0]!.status,'judge_failure');assert.equal(rows[0]!.judgment,null)
+ assert.equal(rows[0]!.costMicrousd,40);assert.equal(aggregateBenchmark(rows)?.fullPassRate,0)
+})
+
+test('benchmark records judgment descriptors rather than substituted Proxy reads',async()=>{
+ let reads=0
+ const score={capability:false,arguments:false,policy:false,grounding:false}
+ const rows=await runBenchmark(candidate,cases,()=>new Proxy(score,{get(){reads++;return true}}))
+ assert.equal(reads,0);assert.deepEqual(rows[0]!.judgment,score)
+ assert.equal(rows[0]!.status,'scored');assert.equal(aggregateBenchmark(rows)?.fullPassRate,0)
+})
 test('direct benchmark keeps original case membership and denominator across adapter mutation',async()=>{
  const selected=[{id:'first_original',prompt:'Consulta original',context:{}},{id:'second_original',prompt:'Otra consulta original',context:{}}]
  let calls=0

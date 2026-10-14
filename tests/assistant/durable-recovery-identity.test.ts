@@ -42,7 +42,8 @@ export function cleanupScenario(){writeFileSync(${JSON.stringify(cleanup)},'owne
    const report=JSON.parse(line)
    assert.equal(report.completed.length,reused?0:1)
    const ids=(await readFile(connections,'utf8')).trim().split('\n').map(Number)
-   assert.equal(ids.length,21);assert.equal(new Set(ids.slice(0,20)).size,20)
+   const stage=typeof report.stage==='string'&&/^(setup|worker_ready|worker_identity|worker_start|worker_results|worker_outcome_constraints|recovery_ready|recovery_identity|recovery_start|recovery_result|scenario_observation)$/.test(report.stage)?report.stage:'NOT_OBSERVED'
+   assert.equal(ids.length,21,'runner_stage='+stage+'; synthetic_connection_rows');assert.equal(new Set(ids.slice(0,20)).size,20)
    assert.equal(ids.slice(0,20).includes(ids[20]!),reused)
    assert.equal(await readFile(cleanup,'utf8'),'owned cleanup executed')
    if(reused)await assert.rejects(access(recovery),{code:'ENOENT'})
