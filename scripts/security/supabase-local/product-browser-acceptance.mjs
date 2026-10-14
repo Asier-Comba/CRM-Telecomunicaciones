@@ -13,6 +13,8 @@ import {simConsumerBrowser,viewerSimConsumerBrowser} from './product-sim-consume
 import {caseConsumerBrowser,viewerCaseConsumerBrowser} from './product-case-consumer-browser.mjs'
 import {serviceConsumerBrowser,viewerServiceConsumerBrowser} from './product-service-consumer-browser.mjs'
 import {portfolioReceiptBrowser} from './product-portfolio-receipt-browser.mjs'
+import {agendaUncertainBrowser} from './product-agenda-uncertain-browser.mjs'
+import {opportunityRecoveryBrowser} from './product-opportunity-recovery-browser.mjs'
 import {catalogBrowser} from './product-catalog-browser.mjs'
 import {attentionFinanceBrowser} from './product-attention-finance-browser.mjs'
 import {equipmentBrowser} from './product-equipment-browser.mjs'
@@ -20,6 +22,7 @@ import {customer360CollectionsBrowser} from './product-customer360-collections-b
 import {customerCollectionsBrowser,showCustomerCollectionRow} from './product-customer-collections-browser.mjs'
 import {browserErrorKind,observeNextDiagnostics} from './product-browser-diagnostics.mjs'
 import {documentMaintenanceBrowser} from './product-document-maintenance-browser.mjs'
+import {documentUploadUncertainBrowser} from './product-document-upload-uncertain-browser.mjs'
 import { spawn, execFileSync } from 'node:child_process'
 import { chromium, expect } from '@playwright/test'
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
@@ -373,6 +376,7 @@ export async function productBrowserAcceptance({ users, wa, ca, sql, url, anon, 
     })
     await check('team_remove_suspended_member',async()=>{const row=page.getByRole('row').filter({hasText:'Usuario '+users.memberA.id.slice(0,8)});await row.getByRole('button',{name:'Retirar',exact:true}).click();await page.getByRole('button',{name:'Confirmar',exact:true}).click();await expect(page.getByRole('dialog')).toHaveCount(0);if(sql(`select status from public.workspace_members where workspace_id='${wa}' and user_id='${users.memberA.id}'`)!=='removed')throw Error('MEMBER_REMOVE_NOT_PERSISTED');await expect(row.getByRole('button',{name:'Reactivar',exact:true})).toHaveCount(0)})
     await documentMaintenanceBrowser({page,origin,check,sql,wa,id,screenshotDir,report})
+    await documentUploadUncertainBrowser({page,origin,check,sql,wa,id,screenshotDir,report})
     await teamOriginBrowser({page,origin,check,sql,wa,id,ca,screenshotDir,report})
     await opportunityLinksBrowser({page,origin,check,sql,wa,customerId:id,ca,uiContract,openStage,screenshotDir})
     await page.goto(origin+'/documents?customer='+ca)
@@ -413,6 +417,8 @@ export async function productBrowserAcceptance({ users, wa, ca, sql, url, anon, 
     await check('critical_dialogs_desktop_tablet_mobile',async()=>{for(const width of [1440,768,390]){await page.setViewportSize({width,height:960});await page.goto(origin+'/clients/'+id);await page.getByRole('button',{name:'Editar cliente',exact:true}).click();await expect(page.getByLabel('Nombre comercial',{exact:true})).toHaveValue('W2 UI concurrent change');await page.screenshot({path:resolve(screenshotDir,'customer-editor-'+width+'.png'),fullPage:true});await page.getByRole('button',{name:'Cerrar panel',exact:true}).click();await page.goto(origin+'/calendar');await page.getByRole('button',{name:'Nueva cita',exact:true}).click();await page.getByRole('dialog').getByLabel('Tipo',{exact:true}).selectOption('task');await page.getByLabel('Título',{exact:true}).fill('W2 UI Visual Draft');await page.screenshot({path:resolve(screenshotDir,'work-editor-'+width+'.png'),fullPage:true});await page.getByRole('button',{name:'Cerrar panel',exact:true}).click();await page.goto(origin+'/facturacion?customer='+id);await expect(page.getByRole('button',{name:'Configurar emisor',exact:true})).toBeEnabled();await page.getByRole('button',{name:'Nuevo borrador local',exact:true}).click();await page.getByLabel('Concepto 1',{exact:true}).fill('W2 UI Visual Draft');await page.getByLabel('Precio 1',{exact:true}).fill('120');await expect(page.getByRole('dialog',{name:'Revisar borrador local',exact:true}).getByText('W2 Issuer Synthetic Company',{exact:true})).toBeVisible();await page.screenshot({path:resolve(screenshotDir,'invoice-editor-'+width+'.png'),fullPage:true});await page.getByRole('button',{name:'Cerrar panel',exact:true}).click()}})
     await customer360CollectionsBrowser({page,origin,id,sql,wa,users,check,screenshotDir,report})
     await portfolioReceiptBrowser({page,origin,uiContract,sql,wa,check})
+    await agendaUncertainBrowser({page,origin,check,sql,wa,id,day,screenshotDir,report})
+    await opportunityRecoveryBrowser({page,origin,check,sql,wa,id,screenshotDir,report})
     await equipmentBrowser({page,origin,id,sql,wa,users,check,screenshotDir,report})
     await attentionFinanceBrowser({page,origin,id,check,screenshotDir,report})
     await catalogBrowser({page,origin,check,screenshotDir})
