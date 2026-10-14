@@ -1,5 +1,21 @@
 import {expect} from '@playwright/test'
 export async function portfolioReceiptBrowser({page,origin,uiContract,sql,wa,check}){
+ await check('portfolio_bounded_search_partial_denial_keeps_authorized_contract',async()=>{
+  await page.goto(origin+'/portfolio');let refused=0,writes=0
+  const deniedIds=new Set(),handler=async route=>{
+   const q=route.request().postDataJSON()
+   if(route.request().url().endsWith('/commands'))writes++
+   if(q.operation==='portfolio.get'&&q.input.id!==uiContract){refused++;deniedIds.add(q.input.id);return route.fulfill({status:403,json:{ok:false,error:'access_denied'}})}
+   return route.continue()
+  }
+  await page.route('**/api/portfolio/v1/**',handler)
+  try{
+   await page.getByLabel('Consultar cartera local',{exact:true}).fill('W2 UI Portfolio');await page.getByRole('button',{name:'Consultar cartera',exact:true}).click()
+   await expect(page.locator(`article[data-portfolio-id="${uiContract}"]`)).toBeVisible();await expect(page.getByRole('alert').filter({hasText:'Algunos activos no están disponibles.'})).toBeVisible()
+   if(refused<1||writes!==0)throw Error('PORTFOLIO_PARTIAL_DENIAL_NOT_EXERCISED_READ_ONLY')
+   for(const id of deniedIds)await expect(page.locator(`article[data-portfolio-id="${id}"]`)).toHaveCount(0)
+  }finally{await page.unroute('**/api/portfolio/v1/**',handler)}
+ })
  await check('portfolio_confirmed_create_read_failure_retry_never_repeats_command',async()=>{
   await page.setViewportSize({width:1440,height:960});await page.goto(origin+'/portfolio?kind=contract&id='+uiContract)
   await expect(page.getByRole('dialog')).toBeVisible();await page.getByRole('button',{name:'Cerrar panel',exact:true}).click()
