@@ -14,6 +14,7 @@ import {caseConsumerBrowser,viewerCaseConsumerBrowser} from './product-case-cons
 import {serviceConsumerBrowser,viewerServiceConsumerBrowser} from './product-service-consumer-browser.mjs'
 import {portfolioReceiptBrowser} from './product-portfolio-receipt-browser.mjs'
 import {agendaUncertainBrowser} from './product-agenda-uncertain-browser.mjs'
+import {opportunityRecoveryBrowser} from './product-opportunity-recovery-browser.mjs'
 import {catalogBrowser} from './product-catalog-browser.mjs'
 import {attentionFinanceBrowser} from './product-attention-finance-browser.mjs'
 import {equipmentBrowser} from './product-equipment-browser.mjs'
@@ -395,6 +396,7 @@ export async function productBrowserAcceptance({ users, wa, ca, sql, url, anon, 
     await customer360CollectionsBrowser({page,origin,id,sql,wa,users,check,screenshotDir,report})
     await portfolioReceiptBrowser({page,origin,uiContract,sql,wa,check})
     await agendaUncertainBrowser({page,origin,check,sql,wa,id,day,screenshotDir,report})
+    await opportunityRecoveryBrowser({page,origin,check,sql,wa,id,screenshotDir,report})
     await equipmentBrowser({page,origin,id,sql,wa,users,check,screenshotDir,report})
     await attentionFinanceBrowser({page,origin,id,check,screenshotDir,report})
     await catalogBrowser({page,origin,check,screenshotDir})
