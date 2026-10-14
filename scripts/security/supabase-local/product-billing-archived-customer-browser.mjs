@@ -6,7 +6,7 @@ export async function billingArchivedCustomerBrowser({page,origin,check,sql,wa,d
  await check('billing_archived_customer_draft_preparation_refused_history_and_inactive_preserved',async()=>{
   const label='W2 archived billing boundary'
   async function command(endpoint,operation,input){
-   const value=await page.evaluate(async({endpoint,operation,input})=>{const response=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({operation,input})});const body=await response.json();return{status:response.status(),ok:body.ok,receipt:body.ok?body.receipt:null}},{endpoint,operation,input})
+   const value=await page.evaluate(async({endpoint,operation,input})=>{const response=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({operation,input})});const body=await response.json();return{status:response.status,ok:body.ok,receipt:body.ok?body.receipt:null}},{endpoint,operation,input})
    if(value.status!==200||value.ok!==true||!value.receipt||!/^[0-9a-f-]{36}$/.test(value.receipt.id))throw Error('BILLING_CUSTOMER_STATE_FIXTURE_COMMAND_REFUSED')
    return value.receipt
   }

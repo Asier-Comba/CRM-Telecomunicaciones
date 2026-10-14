@@ -36,7 +36,7 @@ async function build() {
  })()
  return assets
 }
-exports.startBillingFocusFixture = async function startBillingFocusFixture() {
+exports.startBillingFocusFixture = async function startBillingFocusFixture({preparationCustomer=false}={}) {
  const compiled=await build(), requests=[], held=new Set(), heldPdf=new Set()
  const id='10000000-0000-4000-8000-000000000001'
  const profile={legal_name:'Synthetic Company',tax_id:'SYNTHETIC',address:'Synthetic Street',postal_code:'48001',city:'Bilbao',region:'Bizkaia',country:'ES'}
@@ -48,10 +48,16 @@ exports.startBillingFocusFixture = async function startBillingFocusFixture() {
  const server=createServer(async(request,response)=>{
   if(request.method==='GET'&&request.url==='/component.js'){response.writeHead(200,{'Content-Type':'text/javascript; charset=utf-8'});response.end(compiled.js);return}
   if(request.method==='GET'&&request.url==='/styles.css'){response.writeHead(200,{'Content-Type':'text/css; charset=utf-8'});response.end(compiled.css);return}
-  if(request.method==='GET'&&request.url==='/'){response.writeHead(200,{'Content-Type':'text/html; charset=utf-8'});response.end('<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="/styles.css"><style>body{font-family:Arial,sans-serif}#main-content{height:calc(100vh - 64px);overflow:auto;padding:24px;overflow-anchor:none}header{height:64px;background:white}#app{max-width:1200px;margin:auto}</style><header>CRM synthetic billing fixture</header><main id="main-content"><div id="app"></div></main><script src="/component.js"></script>');return}
+  if(request.method==='GET'&&(request.url==='/'||new URL(request.url,'http://fixture.invalid').pathname==='/facturacion')){response.writeHead(200,{'Content-Type':'text/html; charset=utf-8'});response.end('<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="/styles.css"><style>body{font-family:Arial,sans-serif}#main-content{height:calc(100vh - 64px);overflow:auto;padding:24px;overflow-anchor:none}header{height:64px;background:white}#app{max-width:1200px;margin:auto}</style><header>CRM synthetic billing fixture</header><main id="main-content"><div id="app"></div></main><script src="/component.js"></script>');return}
   let body='';for await(const chunk of request){body+=chunk;if(body.length>10000){json(response,{ok:false,error:'validation'},400);return}}
   const query=JSON.parse(body||'{}');requests.push({method:request.method,url:request.url,operation:query.operation})
   if(request.method!=='POST'||request.url.includes('/commands')){json(response,{ok:false,error:'access_denied'},403);return}
+  if(preparationCustomer){
+   const customerId='10000000-0000-4000-8000-000000000002'
+   if(query.operation==='global.search'){json(response,{ok:true,data:{contract_version:'product.v1',items:[{kind:'customer',id:customerId,customer_id:customerId,label:'Synthetic preparation customer',status:'active'}]}});return}
+   if(query.operation==='customer.editor'&&query.input?.id===customerId){json(response,{ok:true,data:{contract_version:'product.v1',id:customerId,version:1,account_kind:'legal_entity',legal_name:'Synthetic preparation customer',trade_name:null,lifecycle:'customer',status:'active',source:'manual',assigned_user_id:null}});return}
+   if(['contract.list','service.list','opportunity.list'].includes(query.operation)){json(response,{ok:true,data:{contract_version:'telecom.collections.v1',operation:query.operation,items:[],next_id:null}});return}
+  }
   if(query.operation==='invoice.list'){held.add(response);response.once('close',()=>held.delete(response));return}
   if(query.operation==='invoice.get'){json(response,{ok:true,data:{contract_version:'billing.v1',operation:query.operation,invoice}});return}
   if(query.operation==='invoice.financial_summary'){json(response,{ok:true,data:{contract_version:'billing.v1',operation:query.operation,period:'month',from:'2026-10-01',to:'2026-11-01',as_of:'2026-10-11',currencies:[]}});return}
