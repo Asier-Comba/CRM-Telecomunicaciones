@@ -4,6 +4,7 @@ import {IntegratedCustomerDetail} from '../../../src/features/customers/Integrat
 import {CustomerDocuments} from '../../../src/features/customers/CustomerDocuments'
 import {CustomerEditor} from '../../../src/features/customers/CustomerEditor'
 import {Customer360Overview} from '../../../src/features/customers/Customer360Overview'
+import {IntegratedDashboard} from '../../../src/features/dashboard/IntegratedDashboard'
 import {AuthorizedCustomerContext} from '../../../src/features/assistant/AuthorizedCustomerContext'
 import {CaseDetail} from '../../../src/features/cases/Cases'
 import {DocumentUpload} from '../../../src/features/documents/DocumentUpload'
@@ -17,6 +18,7 @@ function Fixture(){
  const kind=new URLSearchParams(location.search).get('kind')
  const [newOpen,setNewOpen]=useState(true),[saved,setSaved]=useState(false)
  const [uploadOpen,setUploadOpen]=useState(true),[uploadSaved,setUploadSaved]=useState(false)
+ if(kind==='dashboard-current-day')return <IntegratedDashboard/>
  if(kind==='cleanup')return uploadOpen?<DocumentCleanup onClose={()=>setUploadOpen(false)}/>:<p>Panel de limpieza cerrado</p>
  if(kind==='documents')return <IntegratedDocuments customerId={id}/>
  if(kind==='customer-document-targets')return <CustomerDocuments customerId={id}/>
