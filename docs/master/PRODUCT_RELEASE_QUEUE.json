@@ -78,7 +78,7 @@
     },
     {
       "path": "docs/master/PRODUCT_RELEASE_REVIEWS.json",
-      "sha256": "1268523e65815001c0ee9752f872474cc517d3c6f594d467c1c11772817f2ba4"
+      "sha256": "9ecfce52a77a48197630491d748ca722ac9ee710c564dbae789b986dd02732de"
     }
   ],
   "reference_documents": [
@@ -103,8 +103,8 @@
     "total": 342,
     "parity": 244,
     "telecom": 98,
-    "reviewed_partial": 19,
-    "unreconciled": 323,
+    "reviewed_partial": 20,
+    "unreconciled": 322,
     "release_ready": 0
   },
   "next_3": [
@@ -9774,21 +9774,49 @@
       "capability": "fixed service operational facts",
       "family": "telecom",
       "REQUIRED": true,
-      "IMPLEMENTED": "NOT_RECONCILED",
+      "IMPLEMENTED": "PARTIAL",
       "PROVEN_BACKEND": "NOT_RECONCILED",
-      "CONSUMED_UI": "NOT_RECONCILED",
+      "CONSUMED_UI": "PARTIAL",
       "BROWSER_ACCEPTED": "NOT_RECONCILED",
-      "VISUAL_ACCEPTED": "NOT_RECONCILED",
+      "VISUAL_ACCEPTED": "PARTIAL",
       "SECURITY_ACCEPTED": "NOT_RECONCILED",
-      "EXTERNAL_BLOCKED": "NOT_RECONCILED",
+      "EXTERNAL_BLOCKED": "BLOCKED",
       "RELEASE_READY": false,
-      "owner": "W1/W2; W4 acceptance",
+      "owner": "W2-X service installation UI; W1 operational facts backend; W4 independent acceptance",
       "priority": "P1",
-      "source_sha": null,
-      "evidence": [],
-      "permissions": "NOT_RECONCILED",
-      "mobile": "NOT_RECONCILED",
-      "pending": "Map current implementation and row-specific positive, negative, permission, responsive and visual evidence before promotion.",
+      "source_sha": "ff5e5a7feb2c63ab2d19391d30ca12d6bd977aec",
+      "evidence": [
+        {
+          "source_sha": "ff5e5a7feb2c63ab2d19391d30ca12d6bd977aec",
+          "kind": "SOURCE",
+          "scope": "PARTIAL_ROW_CONTROLLED_HTTP",
+          "stage": "CONSUMED_UI",
+          "positive": "Actual ServiceDetail/repository/parsers record synthetic site change with valid version2 receipt and subsequent current service/installation read. Own75 includes30 two-phase lifecycle cases and45 current telecom regressions. Same-source global1065 passed22.4min.",
+          "negative": "Held installation command/service refresh after reference/company/actor/reader retirement does not start old service/parent reads. Current input/version body remains one command. Original2FAIL/2PASS before correction retained; no SQL effect inferred.",
+          "execution": "FF5E5A7_OWN75_AND_GLOBAL1065_HTTP_CONTROLLED_PASS;HANDOFF6203119059;AUTH_DB_STORAGE_MODEL_NOT_RUN",
+          "paths": [
+            "src/features/services/ServiceDetail.tsx",
+            "tests/e2e-preview/service-command-read-lifetime.spec.ts",
+            "tests/e2e-preview/service-parent-read-lifetime.spec.ts"
+          ]
+        },
+        {
+          "source_sha": "ff5e5a7feb2c63ab2d19391d30ca12d6bd977aec",
+          "kind": "VISUAL",
+          "scope": "PARTIAL_ROW",
+          "stage": "VISUAL_ACCEPTED",
+          "positive": "Six actual command/refresh current frames390/768/1440 inspected:updated site, installation date/contact controls and primary action legible.",
+          "negative": "Mobile header and lower sections outside scrolled viewport; empty contacts/locations/terms fixtures do not prove edits, persistence, private address access or full service capability.",
+          "execution": "FF5E5A7_SERVICE_CURRENT_6_FRAMES_ACTUALLY_VIEWED;IMAGE_HASHES_IN_REVIEW_DOC",
+          "paths": [
+            "docs/master/W2X_SERVICE_FACTS_INDIVIDUAL_REVIEW_20261015.md",
+            "tests/e2e-preview/service-command-read-lifetime.spec.ts"
+          ]
+        }
+      ],
+      "permissions": "Controlled HTTP scope retirement/current confirmation; actual Auth/JWT/RLS and complete role negatives NOT_RECONCILED.",
+      "mobile": "PARTIAL_CONTROLLED_HTTP_390_768_1440",
+      "pending": "Current JWT/RLS, persisted installation and private address permission/revocation, location/contact edits, complete sold tariff/add-on flow, all roles and independent W4 remain unaccepted. A controlled receipt/readback and partial screen are not a complete operational-facts acceptance.",
       "historical_snapshot": {
         "section": "Services",
         "requirement": "fixed service operational facts",
