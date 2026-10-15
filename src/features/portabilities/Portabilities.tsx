@@ -61,9 +61,9 @@ export function PortabilityDetail({id}:{id:string}){
 }
 function ScopedPortabilityDetail({id}:{id:string}){
  const {repository}=useProduct(),[core,setCore]=useState<{row:PortabilityRowV1;context:LineContext;customerActive:boolean}>(),[error,setError]=useState(''),[revision,setRevision]=useState(0)
- const read=useCallback(async()=>{const row=(await repository.telecom('portability.get',{id})).record,[context,customer]=await Promise.all([readLineContext(repository,row.line_id,row.customer_id),customerCollectionIdentity(repository,row.customer_id)]);return{row,context,customerActive:customer.status==='active'}},[repository,id])
- const refresh=useCallback(async()=>{setCore(await read());setError('')},[read])
- useEffect(()=>{let active=true;void read().then(c=>{if(active){setCore(c);setError('')}}).catch(e=>{if(active){setCore(undefined);setError(safeMessage(e))}});return()=>{active=false}},[read,revision])
+ const read=useCallback(async(isCurrent:()=>boolean=()=>true)=>{const row=(await repository.telecom('portability.get',{id})).record;if(!isCurrent())return;const [context,customer]=await Promise.all([readLineContext(repository,row.line_id,row.customer_id),customerCollectionIdentity(repository,row.customer_id)]);if(!isCurrent())return;return{row,context,customerActive:customer.status==='active'}},[repository,id])
+ const refresh=useCallback(async()=>{const value=await read();if(value){setCore(value);setError('')}},[read])
+ useEffect(()=>{let active=true;void read(()=>active).then(c=>{if(active&&c){setCore(c);setError('')}}).catch(e=>{if(active){setCore(undefined);setError(safeMessage(e))}});return()=>{active=false}},[read,revision])
  return error?<div><p role="alert">{error}</p><button className={control} onClick={()=>setRevision(v=>v+1)}>Reintentar portabilidad</button></div>:!core?<p role="status">Consultando portabilidad…</p>:<PortabilityEditor key={core.row.version} {...core} onRefresh={refresh}/>
 }
 function PortabilityEditor({row,context,customerActive,onRefresh}:{row:PortabilityRowV1;context:LineContext;customerActive:boolean;onRefresh:()=>Promise<void>}){
