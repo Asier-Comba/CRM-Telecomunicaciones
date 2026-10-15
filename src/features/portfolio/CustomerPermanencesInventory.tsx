@@ -1,5 +1,5 @@
 'use client'
-import {useState} from 'react'
+import {useEffect,useRef,useState} from 'react'
 import Link from 'next/link'
 import {CustomerDomainPages} from '@/features/customers/CustomerDomainPages'
 import {customerName,type CustomerIdentity} from '@/features/customers/customer-identity'
@@ -14,6 +14,8 @@ import type {PortfolioGetV1,PortfolioReceiptV1} from '@/lib/contracts/portfolio-
 export function CustomerPermanencesInventory({customer,createAllowed=false,onCreated}:{customer:CustomerIdentity;createAllowed?:boolean;onCreated?:()=>void}){
  const {repository,role}=useProduct(),[creating,setCreating]=useState(false),[contractId,setContractId]=useState(''),[parent,setParent]=useState<{value:PortfolioGetV1;label:string}|null>(null)
  const [busy,setBusy]=useState(false),[error,setError]=useState(''),[revision,setRevision]=useState(0),[created,setCreated]=useState<{id:string;start:string;end:string}|null>(null)
+ const lifetime=useRef({active:true})
+ useEffect(()=>{const current={active:true};lifetime.current=current;return()=>{current.active=false}},[repository,customer.id])
  async function prepare(){
   if(!contractId||busy)return;setBusy(true);setError('')
   try{
@@ -24,10 +26,14 @@ export function CustomerPermanencesInventory({customer,createAllowed=false,onCre
   }catch(e){setError(safeMessage(e))}finally{setBusy(false)}
  }
  async function saved(receipt:PortfolioReceiptV1){
+  const current=lifetime.current
+  if(!current.active)return
   if(receipt.operation!=='permanence.create_manual'||receipt.source!=='manual'||parent?.value.kind!=='contract')throw new ProductUiError('internal_safe')
   const value=await repository.portfolio('permanence',receipt.id)
+  if(!current.active)return
   if(value.kind!=='permanence'||value.record.id!==receipt.id||value.record.contract_id!==parent.value.record.id||value.record.service_id!==null||value.record.commitment_kind!=='minimum_term'||value.record.reason_code!=='manual_record'||value.record.source!=='manual'||value.record.version<receipt.version)throw new ProductUiError('internal_safe')
   const contract=await repository.portfolio('contract',value.record.contract_id)
+  if(!current.active)return
   if(contract.kind!=='contract'||contract.record.id!==parent.value.record.id||contract.record.customer_id!==customer.id)throw new ProductUiError('internal_safe')
   setCreated({id:value.record.id,start:value.record.starts_on,end:value.record.ends_on});setCreating(false);setParent(null);setRevision(v=>v+1);onCreated?.()
  }

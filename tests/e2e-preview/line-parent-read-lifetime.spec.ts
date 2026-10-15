@@ -63,7 +63,7 @@ for(const mode of ['retired_company','retired_actor','retired_reader','retired_i
     await prepared.getByLabel('Nombre del nuevo activo').fill(lineRecord.display_name)
     await prepared.getByRole('button',{name:'Guardar activo manual',exact:true}).click()
     if(mode==='saved_current'){
-     await expect(page.getByRole('status')).toContainText('Línea manual registrada: '+lineRecord.display_name)
+     await expect(page.getByRole('status').filter({has:page.getByRole('link',{name:'Ver línea registrada',exact:true})})).toContainText('Línea manual registrada: '+lineRecord.display_name)
      await expect(page.getByRole('link',{name:'Ver línea registrada',exact:true})).toHaveAttribute('href','/portfolio?kind=line&id='+line)
      expect(serviceGets).toBe(2);expect(reads.filter(q=>q.operation==='portfolio.get'&&q.input.kind==='contract')).toHaveLength(2)
     }else{
