@@ -1,5 +1,5 @@
 'use client'
-import {useState} from 'react'
+import {useEffect,useRef,useState} from 'react'
 import Link from 'next/link'
 import {CustomerDomainPages} from '@/features/customers/CustomerDomainPages'
 import {customerName,type CustomerIdentity} from '@/features/customers/customer-identity'
@@ -13,26 +13,38 @@ import type {PortfolioGetV1,PortfolioReceiptV1} from '@/lib/contracts/portfolio-
 export function CustomerLinesInventory({customer,createAllowed=false,onCreated}:{customer:CustomerIdentity;createAllowed?:boolean;onCreated?:()=>void}){
  const {repository,role}=useProduct(),[creating,setCreating]=useState(false),[serviceId,setServiceId]=useState(''),[parent,setParent]=useState<{value:PortfolioGetV1;label:string}|null>(null)
  const [busy,setBusy]=useState(false),[error,setError]=useState(''),[revision,setRevision]=useState(0),[created,setCreated]=useState<{id:string;name:string}|null>(null)
- async function readParent(id:string){
+ const lifetime=useRef({active:true})
+ useEffect(()=>{const current={active:true};lifetime.current=current;return()=>{current.active=false}},[repository,customer.id])
+ async function readParent(id:string,isCurrent:()=>boolean){
+  if(!isCurrent())return null
   const value=await repository.portfolio('service',id)
+  if(!isCurrent())return null
   if(value.kind!=='service'||value.record.id!==id||value.record.customer_id!==customer.id)throw new ProductUiError('not_found')
   const contract=await repository.portfolio('contract',value.record.contract_id)
+  if(!isCurrent())return null
   if(contract.kind!=='contract'||contract.record.id!==value.record.contract_id||contract.record.customer_id!==customer.id)throw new ProductUiError('not_found')
   return {value,contract}
  }
  async function prepare(){
-  if(!serviceId||busy)return;setBusy(true);setError('')
+  const current=lifetime.current
+  if(!current.active||!serviceId||busy)return;setBusy(true);setError('')
   try{
-   const {value,contract}=await readParent(serviceId)
+   const parent=await readParent(serviceId,()=>current.active)
+   if(!parent)return
+   const {value,contract}=parent
    if(value.record.source!=='manual'||contract.record.source!=='manual'||!['pending','active','suspended'].includes(value.record.status)||!['draft','active'].includes(contract.record.status)){setError('Selecciona un servicio manual pendiente, activo o suspendido bajo un contrato manual en borrador o activo.');return}
    setParent({value,label:customerName(customer)+' · '+value.record.display_name})
-  }catch(e){setError(safeMessage(e))}finally{setBusy(false)}
+  }catch(e){if(current.active)setError(safeMessage(e))}finally{if(current.active)setBusy(false)}
  }
  async function saved(receipt:PortfolioReceiptV1){
+  const current=lifetime.current
+  if(!current.active)return
   if(receipt.operation!=='line.create_manual'||receipt.source!=='manual'||parent?.value.kind!=='service')throw new ProductUiError('internal_safe')
   const value=await repository.portfolio('line',receipt.id)
+  if(!current.active)return
   if(value.kind!=='line'||value.record.id!==receipt.id||value.record.service_id!==parent.value.record.id||value.record.source!=='manual'||value.record.version<receipt.version)throw new ProductUiError('internal_safe')
-  const ancestry=await readParent(value.record.service_id)
+  const ancestry=await readParent(value.record.service_id,()=>current.active)
+  if(!ancestry)return
   if(ancestry.value.record.contract_id!==parent.value.record.contract_id)throw new ProductUiError('internal_safe')
   setCreated({id:value.record.id,name:value.record.display_name??'Línea'});setCreating(false);setParent(null);setRevision(v=>v+1);onCreated?.()
  }
