@@ -16,4 +16,4 @@ function Fixture(){
  </>
  return <><nav aria-label="Referencia comercial sintética">{['A','B','C','D'].map((name,i)=><button key={name} onClick={()=>setId(`40000000-0000-4000-8000-${String(i+1).padStart(12,'0')}`)}>Seleccionar referencia {name}</button>)}<output aria-label="Referencia comercial actual">{id}</output></nav>{kind==='portability'?<PortabilityDetail id={id}/>:<ServiceDetail id={id}/>}</>
 }
-createRoot(document.getElementById('app')!).render(<PipelineFixtureProvider><Fixture/></PipelineFixtureProvider>)
+createRoot(document.getElementById('app')!).render(<PipelineFixtureProvider resetOnScopeChange={new URLSearchParams(location.search).get('reset_scope')==='1'}><Fixture/></PipelineFixtureProvider>)
