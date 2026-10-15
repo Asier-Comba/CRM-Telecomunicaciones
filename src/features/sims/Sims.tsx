@@ -23,14 +23,18 @@ export function SimInventory({customerId,createAllowed=false,onCreated}:{custome
 }
 function SimCreate({customerId,onClose,onCreated}:{customerId:string;onClose:()=>void;onCreated:(row:SimRowV1)=>void}){
  const {repository}=useProduct(),[label,setLabel]=useState(''),[kind,setKind]=useState<'physical'|'esim'>('physical'),[operator,setOperator]=useState('')
+ const mounted=useRef(true)
+ useEffect(()=>{mounted.current=true;return()=>{mounted.current=false}},[repository,customerId])
  const confirmed=useRef<{input:SimInputsV1['sim.create'];receipt:SimReceiptV1}|undefined>(undefined)
  const command=useReviewedCommand<{operation:'sim.create';input:SimInputsV1['sim.create'];description:string}>(async p=>{
   const receipt=await repository.telecom(p.operation,p.input)
   if(receipt.operation!=='sim.create'||receipt.command_id!==p.input.command_id||receipt.source!=='manual')throw new ProductUiError('internal_safe')
   confirmed.current={input:p.input,receipt};return receipt
  },async()=>{
+  if(!mounted.current)return
   if(!confirmed.current)throw new ProductUiError('internal_safe')
   const {input,receipt}=confirmed.current,{record}=await repository.telecom('sim.get',{id:receipt.id})
+  if(!mounted.current)return
   if(record.id!==receipt.id||record.customer_id!==customerId||record.customer_id!==input.customer_id||record.operator_id!==input.operator_id||record.kind!==input.kind||record.display_label!==input.display_label||record.source!=='manual'||record.version<receipt.version)throw new ProductUiError('internal_safe')
   onCreated(record)
  },'Registrar SIM/eSIM')
