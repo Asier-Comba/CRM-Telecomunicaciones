@@ -881,6 +881,53 @@
           ]
         }
       ]
+    },
+    "PAR-070": {
+      "source_sha": "136749b9f6a59bea379f695eeb6b892db92e417d",
+      "owner": "W2-X customer renewal UI; W1 backend; W4 independent acceptance",
+      "priority": "P1",
+      "stages": {
+        "IMPLEMENTED": "PARTIAL",
+        "PROVEN_BACKEND": "NOT_RECONCILED",
+        "CONSUMED_UI": "PARTIAL",
+        "BROWSER_ACCEPTED": "NOT_RECONCILED",
+        "VISUAL_ACCEPTED": "PARTIAL",
+        "SECURITY_ACCEPTED": "NOT_RECONCILED"
+      },
+      "permissions": "Controlled HTTP actor/reader/company retirement and403 child/parent negatives; actual JWT/Auth/RLS and full role matrix NOT_RECONCILED.",
+      "mobile": "PARTIAL_CONTROLLED_HTTP_390_768_1440",
+      "external_blocked": "BLOCKED",
+      "pending": "Full renewal inventory/filter/pagination/edit/resolve/dismiss lifecycle and opportunity integration remain unaccepted. Actual disposable Auth/DB persistence, all roles, live collection after save, full visual/accessibility and independent W4 required. Current fixture collection stays empty after command; saved notice/link is not proof of persisted inventory.",
+      "evidence": [
+        {
+          "source_sha": "136749b9f6a59bea379f695eeb6b892db92e417d",
+          "kind": "SOURCE",
+          "scope": "PARTIAL_ROW_CONTROLLED_HTTP",
+          "stage": "CONSUMED_UI",
+          "positive": "Actual Customer360 manual renewal create uses contract and customer references, civil dates and command identity. Same-source214 includes27 renewal followup cases: current saved readback/link, four retired contexts and four child/parent denied or mismatched cases across390/768/1440. Creation invalid/lost receipt retains exact intent; known403 allows close.",
+          "negative": "Retired customer/company/actor/reader does not chain old contract read after child response. Child/parent403 and mismatched reference do not publish successful readback. No duplicate SQL, actual Auth or entire-module acceptance inferred from HTTP effects.",
+          "execution": "136749B_OWN214_HTTP_CONTROLLED_PASS; HANDOFF6199674583; AUTH_DB_STORAGE_MODEL_NOT_RUN",
+          "paths": [
+            "src/features/portfolio/CustomerRenewalsInventory.tsx",
+            "src/features/portfolio/PortfolioCreate.tsx",
+            "tests/e2e-preview/contract-followup-read-lifetime.spec.ts",
+            "tests/e2e-preview/portfolio-invalid-receipt-recovery.spec.ts"
+          ]
+        },
+        {
+          "source_sha": "136749b9f6a59bea379f695eeb6b892db92e417d",
+          "kind": "VISUAL",
+          "scope": "PARTIAL_ROW",
+          "stage": "VISUAL_ACCEPTED",
+          "positive": "Three actual current renewal frames390/768/1440 inspected from same-source214. Saved renewal date and record link visible; manual-create action and empty collection controls wrap within viewport.",
+          "negative": "Only saved-readback notice and empty synthetic collection; no populated inventory, edited/resolved renewal, actual database or full commercial walkthrough acceptance.",
+          "execution": "136749B_RENEWAL_CURRENT_390_768_1440_ACTUALLY_VIEWED; IMAGE_HASHES_IN_W2X_RENEWAL_REVIEW_DOC",
+          "paths": [
+            "docs/master/W2X_RENEWAL_INDIVIDUAL_REVIEW_20261015.md",
+            "tests/e2e-preview/contract-followup-read-lifetime.spec.ts"
+          ]
+        }
+      ]
     }
   },
   "next_3": [
