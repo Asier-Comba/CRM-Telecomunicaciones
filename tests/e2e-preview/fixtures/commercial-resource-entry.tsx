@@ -1,6 +1,6 @@
 import {useState} from 'react'
 import {createRoot} from 'react-dom/client'
-import {PortabilityDetail} from '../../../src/features/portabilities/Portabilities'
+import {PortabilityDetail,PortabilityInventory} from '../../../src/features/portabilities/Portabilities'
 import {ServiceDetail} from '../../../src/features/services/ServiceDetail'
 import {PipelineFixtureProvider} from './pipeline-current-provider'
 import {IntegratedPortfolio} from '../../../src/features/portfolio/IntegratedPortfolio'
@@ -9,6 +9,7 @@ function Fixture(){
  const [portfolioReference,setPortfolioReference]=useState(()=>new URLSearchParams(location.search).get('portfolio_reference'))
  const [contextTick,setContextTick]=useState(0)
  const kind=new URLSearchParams(location.search).get('kind')
+ if(kind==='portability-create')return <PortabilityInventory customerId="10000000-0000-4000-8000-000000000001" createAllowed/>
  if(kind==='portfolio')return <>
   {portfolioReference&&<nav aria-label="Contexto de referencia sintética"><button onClick={()=>setContextTick(t=>t+1)}>Actualizar contexto sintético</button>
    <button onClick={()=>setPortfolioReference('60000000-0000-4000-8000-000000000002')}>Cambiar referencia sintética</button><output aria-label="Versión de contexto sintético">{contextTick}</output></nav>}
