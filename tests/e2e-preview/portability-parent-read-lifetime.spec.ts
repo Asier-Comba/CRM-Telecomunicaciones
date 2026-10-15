@@ -13,14 +13,14 @@ for(const mode of modes)for(const width of widths)test('portability parent read 
  page.on('pageerror',e=>errors.push(e.message))
  await page.route('**/api/**',async route=>{
   const q=route.request().postDataJSON(),{operation,input}=q;reads.push(q);const n=Number(String(input.customer_id??input.service_id??input.id??id(1,1)).slice(-12))
-  if(route.request().url().endsWith('/commands')){commands.push(q);await route.fulfill({status:403,json:{ok:false,error:'access_denied'}});return}
+  if(operation==='portability.update_draft'){commands.push(q);await route.fulfill({status:403,json:{ok:false,error:'access_denied'}});return}
   if(operation==='portability.get'){if(n===1&&!held){held=true;await gate}await route.fulfill({json:{ok:true,data:{contract_version:'portability.v1',operation,record:row(n)}}});return}
   if(operation==='portfolio.get'){await route.fulfill({json:{ok:true,data:{contract_version:'portfolio.v1',kind:input.kind,record:input.kind==='service'?service(n):contract(n)}}});return}
   if(operation==='line.list'){await route.fulfill({json:{ok:true,data:{contract_version:'telecom.collections.v1',operation,items:[line(n)],next_id:null}}});return}
   if(operation==='customer.list'){const wanted=Number(String(input.after_id).slice(-12))+1;await route.fulfill({json:{ok:true,data:{contract_version:'telecom.collections.v1',operation,items:[{id:id(1,wanted),version:1,display_name:'Synthetic customer '+wanted,account_kind:'legal_entity',lifecycle:'customer',status:'active',source:'manual',assigned_user_id:null}],next_id:null}}});return}
   const operator=(prefix:number)=>({id:id(prefix,1),version:1,code:'synthetic_'+prefix,display_name:'Synthetic operator '+prefix,status:'active',source:'manual'})
   if(operation==='operator.get'){await route.fulfill({json:{ok:true,data:{contract_version:'telecom.collections.v1',operation,record:operator(Number(String(input.id)[0]))}}});return}
-  if(operation==='operator.list'){const operators=[2,3].map(operator);await route.fulfill({json:{ok:true,data:{contract_version:'telecom.collections.v1',operation,items:input.limit===1?operators.filter(o=>o.id>String(input.after_id)).slice(0,1):operators,next_id:null}}});return}
+  if(operation==='operator.list'){const operators=(mode==='current'?[2,3,8]:[2,3]).map(operator);await route.fulfill({json:{ok:true,data:{contract_version:'telecom.collections.v1',operation,items:input.limit===1?operators.filter(o=>o.id>String(input.after_id)).slice(0,1):operators,next_id:null}}});return}
   if(['assignee.list','contact.list'].includes(operation)){await route.fulfill({json:{ok:true,data:{contract_version:'telecom.collections.v1',operation,items:[],next_id:null}}});return}
   await route.fulfill({status:403,json:{ok:false,error:'access_denied'}})
  })
@@ -34,6 +34,21 @@ for(const mode of modes)for(const width of widths)test('portability parent read 
   const lines=reads.filter(q=>q.operation==='line.list'&&q.input.customer_id===id(1,1)),customers=reads.filter(q=>q.operation==='customer.list'&&q.input.after_id===id(1,0))
   if(mode==='current'){expect(lines).toHaveLength(1);expect(customers.length).toBeGreaterThan(0);expect(lines[0].input.limit).toBe(1)}
   else{expect(lines.length-before.lines).toBe(0);expect(customers.length-before.customers).toBe(0)}
-  expect(commands).toEqual([]);expect(errors).toEqual([]);expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);await page.screenshot({path:info.outputPath('portability-parent-'+mode+'-'+width+'.png')})
+  if(mode==='current'){
+   const origin=page.getByRole('combobox',{name:'Operador origen de portabilidad',exact:true}),target=page.getByRole('combobox',{name:'Operador destino de portabilidad',exact:true}),review=page.getByRole('button',{name:'Revisar borrador de portabilidad',exact:true})
+   await expect(origin.locator('..')).toContainText('Operador de origen');await expect(target.locator('..')).toContainText('Operador de destino')
+   await expect(origin.locator('option[value=""]')).toHaveText('Selecciona operador de origen');await expect(target.locator('option[value=""]')).toHaveText('Selecciona operador de destino')
+   await expect(origin).toHaveValue(id(3,1));await expect(target).toHaveValue(id(2,1))
+   await origin.selectOption('');await expect(review).toBeDisabled();await expect(target).toHaveValue(id(2,1))
+   await origin.selectOption(id(2,1));await expect(review).toBeDisabled()
+   await origin.selectOption(id(8,1));await expect(review).toBeEnabled();await target.selectOption(id(3,1));await expect(origin).toHaveValue(id(8,1));await target.selectOption(id(2,1));await expect(review).toBeEnabled()
+   await target.scrollIntoViewIfNeeded();await expect(origin).toBeInViewport({ratio:1});await expect(target).toBeInViewport({ratio:1});await page.screenshot({path:info.outputPath('portability-operator-captions-'+width+'.png')})
+   await review.click();const confirmation=page.getByRole('dialog',{name:'Confirmar cambio de portabilidad',exact:true});await confirmation.getByRole('button',{name:'Confirmar cambio',exact:true}).click()
+   await expect(confirmation.getByRole('alert')).toHaveText('No tienes permiso para esta acción.')
+   expect(commands).toHaveLength(1);const command=commands[0] as {operation:string;input:Record<string,unknown>}
+   expect(command.operation).toBe('portability.update_draft');expect(command.input.donor_operator_id).toBe(id(8,1));expect(command.input.target_operator_id).toBe(id(2,1));expect(command.input.id).toBe(id(4,1));expect(command.input.expected_version).toBe(1)
+   await expect(confirmation.getByRole('button',{name:'Cancelar',exact:true})).toBeEnabled();await confirmation.getByRole('button',{name:'Cancelar',exact:true}).click();await expect(confirmation).toHaveCount(0)
+  }else expect(commands).toEqual([])
+  expect(errors).toEqual([]);expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);await page.screenshot({path:info.outputPath('portability-parent-'+mode+'-'+width+'.png')})
  }finally{release();await writeFile(info.outputPath('observations.json'),JSON.stringify({mode,width,before,reads,commands,errors},null,2));await page.close();await fixture.close()}
 })
