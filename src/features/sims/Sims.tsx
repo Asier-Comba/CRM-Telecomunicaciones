@@ -41,9 +41,9 @@ export function SimDetail({id}:{id:string}){
 }
 function ScopedSimDetail({id}:{id:string}){
  const {repository}=useProduct(),[core,setCore]=useState<{row:SimRowV1;customerActive:boolean;context?:Context}>(),[error,setError]=useState(''),[revision,setRevision]=useState(0)
- const read=useCallback(async()=>{const row=(await repository.telecom('sim.get',{id})).record,[customer,context]=await Promise.all([customerCollectionIdentity(repository,row.customer_id),row.assigned_line_id?readLineContext(repository,row.assigned_line_id,row.customer_id):Promise.resolve(undefined)]);return{row,customerActive:customer.status==='active',context}},[repository,id])
- const refresh=useCallback(async()=>{setCore(await read());setError('')},[read])
- useEffect(()=>{let active=true;void read().then(c=>{if(active){setCore(c);setError('')}}).catch(e=>{if(active){setCore(undefined);setError(safeMessage(e))}});return()=>{active=false}},[read,revision])
+ const read=useCallback(async(isCurrent:()=>boolean=()=>true)=>{const row=(await repository.telecom('sim.get',{id})).record;if(!isCurrent())return;const [customer,context]=await Promise.all([customerCollectionIdentity(repository,row.customer_id),row.assigned_line_id?readLineContext(repository,row.assigned_line_id,row.customer_id):Promise.resolve(undefined)]);if(!isCurrent())return;return{row,customerActive:customer.status==='active',context}},[repository,id])
+ const refresh=useCallback(async()=>{const value=await read();if(value){setCore(value);setError('')}},[read])
+ useEffect(()=>{let active=true;void read(()=>active).then(c=>{if(active&&c){setCore(c);setError('')}}).catch(e=>{if(active){setCore(undefined);setError(safeMessage(e))}});return()=>{active=false}},[read,revision])
  return error?<div><p role="alert">{error}</p><button className={control} onClick={()=>setRevision(v=>v+1)}>Reintentar SIM/eSIM</button></div>:!core?<p role="status">Consultando SIM/eSIM…</p>:<SimEditor key={JSON.stringify([core.row.version,core.row.masked_iccid,core.row.masked_eid])} {...core} onRefresh={refresh}/>
 }
 function SimEditor({row,customerActive,context,onRefresh}:{row:SimRowV1;customerActive:boolean;context?:Context;onRefresh:()=>Promise<void>}){
