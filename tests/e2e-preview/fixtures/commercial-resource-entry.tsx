@@ -9,6 +9,7 @@ function Fixture(){
  const [portfolioReference,setPortfolioReference]=useState(()=>new URLSearchParams(location.search).get('portfolio_reference'))
  const [contextTick,setContextTick]=useState(0)
  const kind=new URLSearchParams(location.search).get('kind')
+ if(kind==='portability-create-lifetime')return <><button onClick={()=>setId('40000000-0000-4000-8000-000000000002')}>Seleccionar cliente B</button><PortabilityInventory key={id} customerId={'10000000-0000-4000-8000-'+id.slice(-12)} createAllowed/></>
  if(kind==='portability-create')return <PortabilityInventory customerId="10000000-0000-4000-8000-000000000001" createAllowed/>
  if(kind==='portfolio')return <>
   {portfolioReference&&<nav aria-label="Contexto de referencia sintética"><button onClick={()=>setContextTick(t=>t+1)}>Actualizar contexto sintético</button>

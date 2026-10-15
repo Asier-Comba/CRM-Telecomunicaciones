@@ -29,17 +29,22 @@ export function PortabilityInventory({customerId,createAllowed=false,onCreated}:
 function OperatorFields({donor,target,setDonor,setTarget,disabled,fixedSide}:{donor:string;target:string;setDonor:(v:string)=>void;setTarget:(v:string)=>void;disabled:boolean;fixedSide?:'origin'|'destination'}){return <div className="grid gap-3 sm:grid-cols-2"><OperatorSelect activeOnly paginationLabel="origen" label="Operador origen de portabilidad" displayLabel="Operador de origen" emptyLabel="Selecciona operador de origen" value={donor} onChange={setDonor} disabled={disabled||fixedSide==='origin'}/><OperatorSelect activeOnly paginationLabel="destino" label="Operador destino de portabilidad" displayLabel="Operador de destino" emptyLabel="Selecciona operador de destino" value={target} onChange={setTarget} disabled={disabled||fixedSide==='destination'}/>{fixedSide&&<p className="text-xs text-slate-500 sm:col-span-2">El operador de {fixedSide==='origin'?'origen':'destino'} lo determina la línea vinculada.</p>}</div>}
 function PortabilityCreate({customerId,onClose,onCreated}:{customerId:string;onClose:()=>void;onCreated:(row:PortabilityRowV1)=>void}){
  const {repository}=useProduct(),[line,setLine]=useState<LineRowV1>(),[context,setContext]=useState<LineContext>(),[direction,setDirection]=useState<'inbound'|'outbound'>('inbound'),[donor,setDonor]=useState(''),[target,setTarget]=useState(''),[requested,setRequested]=useState(today),[owner,setOwner]=useState(''),[number,setNumber]=useState(''),[numberEntry,setNumberEntry]=useState(false),[revision,setRevision]=useState(0),[error,setError]=useState('')
+ const mounted=useRef(true)
+ useEffect(()=>{mounted.current=true;return()=>{mounted.current=false}},[repository,customerId])
  const confirmed=useRef<{input:PortabilityInputsV1['portability.create'];receipt:PortabilityReceiptV1}|undefined>(undefined)
  const command=useReviewedCommand<{operation:'portability.create';input:PortabilityInputsV1['portability.create'];description:string}>(async p=>{
   const receipt=await repository.telecom(p.operation,p.input)
   if(receipt.operation!=='portability.create'||receipt.command_id!==p.input.command_id||receipt.source!=='manual'||receipt.line_effect!==null)throw new ProductUiError('internal_safe')
   confirmed.current={input:p.input,receipt};return receipt
  },async()=>{
+  if(!mounted.current)return
   if(!confirmed.current)throw new ProductUiError('internal_safe')
   const {input,receipt}=confirmed.current,{record}=await repository.telecom('portability.get',{id:receipt.id})
+  if(!mounted.current)return
   if(record.id!==receipt.id||record.customer_id!==customerId||record.line_id!==input.line_id||record.number_identifier_id!==input.number_identifier_id||record.direction!==input.direction||record.source!=='manual'||record.version<receipt.version)throw new ProductUiError('internal_safe')
   if(record.version===receipt.version&&(record.donor_operator_id!==input.donor_operator_id||record.target_operator_id!==input.target_operator_id||record.requested_on!==input.requested_on||record.owner_user_id!==input.owner_user_id))throw new ProductUiError('internal_safe')
   const actual=await readLineContext(repository,record.line_id,customerId)
+  if(!mounted.current)return
   if(actual.line.contract_id!==record.contract_id||actual.line.service_id!==record.service_id)throw new ProductUiError('internal_safe')
   onCreated(record)
  },'Registrar portabilidad')
