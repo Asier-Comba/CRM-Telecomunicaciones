@@ -78,7 +78,7 @@
     },
     {
       "path": "docs/master/PRODUCT_RELEASE_REVIEWS.json",
-      "sha256": "f82465695004ef3ccf6673b4cad5ae84823a59cd3da68875847363071300f4af"
+      "sha256": "eac1520418915c47e2a7b06e6d8e70d7b756dee9f5cb9dd1567b9141b99a59fa"
     }
   ],
   "reference_documents": [
@@ -103,8 +103,8 @@
     "total": 342,
     "parity": 244,
     "telecom": 98,
-    "reviewed_partial": 17,
-    "unreconciled": 325,
+    "reviewed_partial": 18,
+    "unreconciled": 324,
     "release_ready": 0
   },
   "next_3": [
@@ -12139,21 +12139,50 @@
       "capability": "sim.get",
       "family": "telecom",
       "REQUIRED": true,
-      "IMPLEMENTED": "NOT_RECONCILED",
+      "IMPLEMENTED": "PARTIAL",
       "PROVEN_BACKEND": "NOT_RECONCILED",
-      "CONSUMED_UI": "NOT_RECONCILED",
+      "CONSUMED_UI": "PARTIAL",
       "BROWSER_ACCEPTED": "NOT_RECONCILED",
-      "VISUAL_ACCEPTED": "NOT_RECONCILED",
+      "VISUAL_ACCEPTED": "PARTIAL",
       "SECURITY_ACCEPTED": "NOT_RECONCILED",
-      "EXTERNAL_BLOCKED": "NOT_RECONCILED",
+      "EXTERNAL_BLOCKED": "BLOCKED",
       "RELEASE_READY": false,
-      "owner": "W1/W2; W4 acceptance",
+      "owner": "W2-X SIM detail UI; W1 query backend; W4 independent acceptance",
       "priority": "P1",
-      "source_sha": null,
-      "evidence": [],
-      "permissions": "NOT_RECONCILED",
-      "mobile": "NOT_RECONCILED",
-      "pending": "Map current implementation and row-specific positive, negative, permission, responsive and visual evidence before promotion.",
+      "source_sha": "237dc1e5bef5b510c9dac7ba06598a9ce19f5673",
+      "evidence": [
+        {
+          "source_sha": "237dc1e5bef5b510c9dac7ba06598a9ce19f5673",
+          "kind": "SOURCE",
+          "scope": "PARTIAL_ROW_CONTROLLED_HTTP",
+          "stage": "CONSUMED_UI",
+          "positive": "Actual SimDetail/repository/parsers load valid physical/eSIM active assigned records with masked ICCID/EID and bounded current customer/line context. Own54 includes30 initial-lifetime cases and24 replacement/resource regressions.",
+          "negative": "Primary sim.get response after reference/company/actor/reader retirement does not initiate old dependent reads; deltas measured when new context keeps IDs. Current point denial clears old resource in scope regression. No real SQL or permission acceptance inferred.",
+          "execution": "237DC1E_OWN54_HTTP_CONTROLLED_PASS;HANDOFF6202769277;AUTH_DB_STORAGE_MODEL_NOT_RUN",
+          "paths": [
+            "src/features/sims/Sims.tsx",
+            "tests/e2e-preview/sim-parent-read-lifetime.spec.ts",
+            "tests/e2e-preview/telecom-resource-scope.spec.ts",
+            "tests/e2e-preview/sim-replacement-read-recovery.spec.ts"
+          ]
+        },
+        {
+          "source_sha": "237dc1e5bef5b510c9dac7ba06598a9ce19f5673",
+          "kind": "VISUAL",
+          "scope": "PARTIAL_ROW",
+          "stage": "VISUAL_ACCEPTED",
+          "positive": "Six actual loaded physical/eSIM frames390/768/1440 inspected: masked identifiers, current customer/operator, line link and initial replacement UI.",
+          "negative": "Lower mobile sections beyond viewport; no actual activation, complete history, full accessibility or real persisted change certified.",
+          "execution": "237DC1E_PHYSICAL_ESIM_CURRENT_6_FRAMES_ACTUALLY_VIEWED;IMAGE_HASHES_IN_REVIEW_DOC",
+          "paths": [
+            "docs/master/W2X_SIM_GET_INDIVIDUAL_REVIEW_20261015.md",
+            "tests/e2e-preview/sim-parent-read-lifetime.spec.ts"
+          ]
+        }
+      ],
+      "permissions": "Controlled HTTP current reference403 and company/actor/reader retirement; actual Auth/JWT/RLS and complete roles NOT_RECONCILED.",
+      "mobile": "PARTIAL_CONTROLLED_HTTP_390_768_1440",
+      "pending": "Real authorized point-read/JWT/RLS, foreign references, complete invalid/stale snapshot and relation negatives, all roles, full lifecycle and independent W4 remain unaccepted. Initial UI and masked fields do not prove provisioning, persistence or every query contract.",
       "historical_snapshot": {
         "section": "SIM/eSIM",
         "requirement": "sim.get",
