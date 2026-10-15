@@ -78,7 +78,7 @@
     },
     {
       "path": "docs/master/PRODUCT_RELEASE_REVIEWS.json",
-      "sha256": "26bd5c532938eb3c9fc9da92f199822775dd3eec1bf07fd11e05260d848fd3f9"
+      "sha256": "f82465695004ef3ccf6673b4cad5ae84823a59cd3da68875847363071300f4af"
     }
   ],
   "reference_documents": [
@@ -103,8 +103,8 @@
     "total": 342,
     "parity": 244,
     "telecom": 98,
-    "reviewed_partial": 16,
-    "unreconciled": 326,
+    "reviewed_partial": 17,
+    "unreconciled": 325,
     "release_ready": 0
   },
   "next_3": [
@@ -2733,21 +2733,55 @@
       "capability": "Cartera y oportunidades: Pipeline por etapas",
       "family": "parity",
       "REQUIRED": true,
-      "IMPLEMENTED": "NOT_RECONCILED",
+      "IMPLEMENTED": "PARTIAL",
       "PROVEN_BACKEND": "NOT_RECONCILED",
-      "CONSUMED_UI": "NOT_RECONCILED",
+      "CONSUMED_UI": "PARTIAL",
       "BROWSER_ACCEPTED": "NOT_RECONCILED",
-      "VISUAL_ACCEPTED": "NOT_RECONCILED",
+      "VISUAL_ACCEPTED": "PARTIAL",
       "SECURITY_ACCEPTED": "NOT_RECONCILED",
-      "EXTERNAL_BLOCKED": "NOT_RECONCILED",
+      "EXTERNAL_BLOCKED": "BLOCKED",
       "RELEASE_READY": false,
-      "owner": "W2; W1 contracts; W4 acceptance",
+      "owner": "W2-X pipeline UX; W1 work backend; W4 independent acceptance",
       "priority": "P1",
-      "source_sha": null,
-      "evidence": [],
-      "permissions": "NOT_RECONCILED",
-      "mobile": "NOT_RECONCILED",
-      "pending": "Map current implementation and row-specific positive, negative, permission, responsive and visual evidence before promotion.",
+      "source_sha": "a4ef01b90025614ff5e42cff10225e9b5bc11e1f",
+      "evidence": [
+        {
+          "source_sha": "a4ef01b90025614ff5e42cff10225e9b5bc11e1f",
+          "kind": "SOURCE",
+          "scope": "PARTIAL_ROW_CONTROLLED_HTTP",
+          "stage": "CONSUMED_UI",
+          "positive": "Stage catalogue and scoped search drive actual pipeline; current stage movement and editor saved readback verified with exact id/expected_version and one synthetic command. Invalid/lost receipt recovery preserves command intent; current editor/title/stage rendered. Own102 includes24 command-lifetime cases and78 pipeline/editor regressions.",
+          "negative": "Company/actor/reader retirement after pending command prevents old work.get; catalogue failure can be retried without losing search, known403 denies effect in fixture, invalid/lost replies retain exact recovery. No real backend, independent security or entire-stage-lifecycle acceptance inferred.",
+          "execution": "A4EF01B_OWN102_HTTP_CONTROLLED_PASS_3_8MIN;HANDOFF6200357417;ORIGINAL102_SHELL_ABORT_TOTALS_UNKNOWN_PRESERVED;AUTH_DB_STORAGE_MODEL_NOT_RUN",
+          "paths": [
+            "src/features/opportunities/IntegratedOpportunities.tsx",
+            "src/features/opportunities/Opportunities.tsx",
+            "tests/e2e-preview/opportunity-command-read-lifetime.spec.ts",
+            "tests/e2e-preview/pipeline-stage-receipt.spec.ts",
+            "tests/e2e-preview/pipeline-catalog-recovery.spec.ts",
+            "tests/e2e-preview/pipeline-current-query.spec.ts",
+            "tests/e2e-preview/opportunity-invalid-receipt.spec.ts",
+            "tests/e2e-preview/opportunity-recovery-close.spec.ts",
+            "tests/e2e-preview/opportunity-reopen-recovery.spec.ts"
+          ]
+        },
+        {
+          "source_sha": "a4ef01b90025614ff5e42cff10225e9b5bc11e1f",
+          "kind": "VISUAL",
+          "scope": "PARTIAL_ROW",
+          "stage": "VISUAL_ACCEPTED",
+          "positive": "Six actual current stage/editor frames390/768/1440 inspected: saved-stage notice, stage grouping and changed title visible; controls wrap in mobile and desktop layouts.",
+          "negative": "Mobile lower card/control extends below captured viewport. No complete drag/drop, keyboard accessibility, real persistence or complete populated workspace acceptance.",
+          "execution": "A4EF01B_STAGE_EDITOR_CURRENT_6_FRAMES_ACTUALLY_VIEWED;IMAGE_HASHES_IN_REVIEW_DOC",
+          "paths": [
+            "docs/master/W2X_PIPELINE_INDIVIDUAL_REVIEW_20261015.md",
+            "tests/e2e-preview/opportunity-command-read-lifetime.spec.ts"
+          ]
+        }
+      ],
+      "permissions": "Controlled HTTP403 for catalog/commands and company/actor/reader retirement; real Auth/JWT/RLS and complete role matrix NOT_RECONCILED.",
+      "mobile": "PARTIAL_CONTROLLED_HTTP_390_768_1440",
+      "pending": "Full pipeline row: all stage/outcome lifecycles, persisted movement and complete inventory/filter behavior, drag/drop and keyboard accessibility, all real roles, disposable Auth/DB, complete responsive walkthrough and independent W4 remain unaccepted. Six loaded frames do not certify whole module.",
       "historical_snapshot": {
         "id": "PAR-073",
         "capability": "Cartera y oportunidades: Pipeline por etapas",
