@@ -29,17 +29,22 @@ function CaseCreateEntry({customerId,onClose,onCreated}:{customerId?:string;onCl
 }
 function CaseCreate({customerId,onClose,onCreated}:{customerId:string;onClose:()=>void;onCreated:(row:CaseRowV1)=>void}){
  const {repository}=useProduct(),[title,setTitle]=useState(''),[type,setType]=useState<CaseTypeV1>('technical'),[priority,setPriority]=useState<CasePriorityV1>('normal'),[due,setDue]=useState(''),[owner,setOwner]=useState(''),[contract,setContract]=useState(''),[service,setService]=useState(''),[line,setLine]=useState(''),[proposal,setProposal]=useState<CaseInputsV1['case.create']>(),[busy,setBusy]=useState(false),[frozen,setFrozen]=useState(false),[error,setError]=useState(''),[blocked,setBlocked]=useState(false),[reading,setReading]=useState(false),recorded=useRef<{input:CaseInputsV1['case.create'];receipt:CaseReceiptV1}|undefined>(undefined),pending=useRef<CaseInputsV1['case.create']|undefined>(undefined),inFlight=useRef(false)
+ const mounted=useRef(true)
+ useEffect(()=>{mounted.current=true;return()=>{mounted.current=false}},[repository,customerId])
  async function save(){
-  if(inFlight.current||blocked||!proposal&&!recorded.current)return
+  if(!mounted.current||inFlight.current||blocked||!proposal&&!recorded.current)return
   const input=recorded.current?.input??pending.current??proposal;if(!input)return
   inFlight.current=true;setBusy(true);setError('')
   try{
    if(!recorded.current){
     pending.current=input;setFrozen(true);const receipt=await repository.telecom('case.create',input)
+    if(!mounted.current)return
     if(receipt.operation!=='case.create'||receipt.command_id!==input.command_id||receipt.source!=='manual')throw new ProductUiError('internal_safe')
     recorded.current={input,receipt};pending.current=undefined;setFrozen(false);setProposal(undefined);setReading(true)
    }
+   if(!mounted.current)return
    const {receipt}=recorded.current,{record}=await repository.telecom('case.get',{id:receipt.id})
+   if(!mounted.current)return
    if(record.id!==receipt.id||record.customer_id!==customerId||record.customer_id!==input.customer_id||record.contract_id!==input.contract_id||record.service_id!==input.service_id||record.line_id!==input.line_id||record.source!=='manual'||record.version<receipt.version)throw new ProductUiError('internal_safe')
    if(record.version===receipt.version&&(record.title!==input.title||record.case_type!==input.case_type||record.priority!==input.priority||record.due_on!==input.due_on||record.assigned_user_id!==input.assigned_user_id))throw new ProductUiError('internal_safe')
    onCreated(record)
