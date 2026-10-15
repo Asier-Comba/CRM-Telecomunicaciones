@@ -78,7 +78,7 @@
     },
     {
       "path": "docs/master/PRODUCT_RELEASE_REVIEWS.json",
-      "sha256": "9ecfce52a77a48197630491d748ca722ac9ee710c564dbae789b986dd02732de"
+      "sha256": "2c1ba2296fb9961d7dc83ea0136fcb8cdf75a1759c6946fe5e89ce6a4004c93c"
     }
   ],
   "reference_documents": [
@@ -103,8 +103,8 @@
     "total": 342,
     "parity": 244,
     "telecom": 98,
-    "reviewed_partial": 20,
-    "unreconciled": 322,
+    "reviewed_partial": 21,
+    "unreconciled": 321,
     "release_ready": 0
   },
   "next_3": [
@@ -10090,21 +10090,49 @@
       "capability": "sim.create",
       "family": "telecom",
       "REQUIRED": true,
-      "IMPLEMENTED": "NOT_RECONCILED",
+      "IMPLEMENTED": "PARTIAL",
       "PROVEN_BACKEND": "NOT_RECONCILED",
-      "CONSUMED_UI": "NOT_RECONCILED",
+      "CONSUMED_UI": "PARTIAL",
       "BROWSER_ACCEPTED": "NOT_RECONCILED",
-      "VISUAL_ACCEPTED": "NOT_RECONCILED",
+      "VISUAL_ACCEPTED": "PARTIAL",
       "SECURITY_ACCEPTED": "NOT_RECONCILED",
-      "EXTERNAL_BLOCKED": "NOT_RECONCILED",
+      "EXTERNAL_BLOCKED": "BLOCKED",
       "RELEASE_READY": false,
-      "owner": "W1/W2; W4 acceptance",
+      "owner": "W2-X SIM creation UI; W1 manual record backend; W4 independent acceptance",
       "priority": "P1",
-      "source_sha": null,
-      "evidence": [],
-      "permissions": "NOT_RECONCILED",
-      "mobile": "NOT_RECONCILED",
-      "pending": "Map current implementation and row-specific positive, negative, permission, responsive and visual evidence before promotion.",
+      "source_sha": "452b920ad9c86aceac7be0bbdbfd6c6f2fcecdda",
+      "evidence": [
+        {
+          "source_sha": "452b920ad9c86aceac7be0bbdbfd6c6f2fcecdda",
+          "kind": "SOURCE",
+          "scope": "PARTIAL_ROW_CONTROLLED_HTTP",
+          "stage": "CONSUMED_UI",
+          "positive": "Actual SimInventory/SimCreate/repository/parsers, two kinds, valid prepared/manual/no-association receipt and exact current record readback;collection/link update. Own165 includes30 creation lifetime cases and135 current SIM/CaseCreate regressions.",
+          "negative": "Held create receipt after reference/company/actor/reader retirement does not initiate old sim.get. Eight original failures and two current positives retained. One exact command;no raw identifier or activation created by this operation. No persisted SQL effect inferred.",
+          "execution": "452B920_OWN165_HTTP_CONTROLLED_PASS;HANDOFF6203995699;AUTH_DB_STORAGE_MODEL_NOT_RUN",
+          "paths": [
+            "src/features/sims/Sims.tsx",
+            "tests/e2e-preview/sim-create-read-lifetime.spec.ts",
+            "tests/e2e-preview/fixtures/telecom-resource-entry.tsx"
+          ]
+        },
+        {
+          "source_sha": "452b920ad9c86aceac7be0bbdbfd6c6f2fcecdda",
+          "kind": "VISUAL",
+          "scope": "PARTIAL_ROW",
+          "stage": "VISUAL_ACCEPTED",
+          "positive": "Six physical/eSIM current390/768/1440 frames actually viewed:registration link,prepared/manual row or card,type,not-registered identifiers and activation facts.",
+          "negative": "No complete provisioning lifecycle,actual persisted record,JWTRLS,operator call or full accessibility certified. Empty identifier/activation DTO values describe a prepared record only.",
+          "execution": "452B920_SIM_CREATION_6_FRAMES_ACTUALLY_VIEWED;IMAGE_HASHES_IN_REVIEW_DOC",
+          "paths": [
+            "docs/master/W2X_SIM_CREATE_INDIVIDUAL_REVIEW_20261015.md",
+            "tests/e2e-preview/sim-create-read-lifetime.spec.ts"
+          ]
+        }
+      ],
+      "permissions": "Controlled HTTP company/actor/reader/reference retirement; current JWT/RLS and complete role negatives NOT_RECONCILED.",
+      "mobile": "PARTIAL_CONTROLLED_HTTP_390_768_1440",
+      "pending": "Persisted prepared creation/replay, current authorization/JWT/RLS, foreign customer/operator references, all roles and independent W4 remain unaccepted. Carrier activation and identifier assignment are outside this create operation and are not inferred from a prepared row.",
       "historical_snapshot": {
         "section": "SIM/eSIM",
         "requirement": "sim.create",
