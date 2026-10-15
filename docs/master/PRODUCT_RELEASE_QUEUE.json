@@ -78,7 +78,7 @@
     },
     {
       "path": "docs/master/PRODUCT_RELEASE_REVIEWS.json",
-      "sha256": "eac1520418915c47e2a7b06e6d8e70d7b756dee9f5cb9dd1567b9141b99a59fa"
+      "sha256": "1268523e65815001c0ee9752f872474cc517d3c6f594d467c1c11772817f2ba4"
     }
   ],
   "reference_documents": [
@@ -103,8 +103,8 @@
     "total": 342,
     "parity": 244,
     "telecom": 98,
-    "reviewed_partial": 18,
-    "unreconciled": 324,
+    "reviewed_partial": 19,
+    "unreconciled": 323,
     "release_ready": 0
   },
   "next_3": [
@@ -10315,21 +10315,49 @@
       "capability": "portability.create",
       "family": "telecom",
       "REQUIRED": true,
-      "IMPLEMENTED": "NOT_RECONCILED",
+      "IMPLEMENTED": "PARTIAL",
       "PROVEN_BACKEND": "NOT_RECONCILED",
-      "CONSUMED_UI": "NOT_RECONCILED",
+      "CONSUMED_UI": "PARTIAL",
       "BROWSER_ACCEPTED": "NOT_RECONCILED",
-      "VISUAL_ACCEPTED": "NOT_RECONCILED",
+      "VISUAL_ACCEPTED": "PARTIAL",
       "SECURITY_ACCEPTED": "NOT_RECONCILED",
-      "EXTERNAL_BLOCKED": "NOT_RECONCILED",
+      "EXTERNAL_BLOCKED": "BLOCKED",
       "RELEASE_READY": false,
-      "owner": "W1/W2; W4 acceptance",
+      "owner": "W2-X portability creation UI; W1 backend; W4 independent acceptance",
       "priority": "P1",
-      "source_sha": null,
-      "evidence": [],
-      "permissions": "NOT_RECONCILED",
-      "mobile": "NOT_RECONCILED",
-      "pending": "Map current implementation and row-specific positive, negative, permission, responsive and visual evidence before promotion.",
+      "source_sha": "a24a6d811ce2c6013067576f4dadbc4394539ef2",
+      "evidence": [
+        {
+          "source_sha": "a24a6d811ce2c6013067576f4dadbc4394539ef2",
+          "kind": "SOURCE",
+          "scope": "PARTIAL_ROW_CONTROLLED_HTTP",
+          "stage": "CONSUMED_UI",
+          "positive": "Real inventory/create form/repository/parsers; registered masked number; fixed linked operator side for inbound/outbound; exact typed create command. Own45 includes6 creation-direction flows and39 current regressions.",
+          "negative": "Empty or same operator blocks review, linked side cannot be edited, command403 allows cancel without duplicate. Six original enabled-fixed-side failures retained before correction. No SQL acceptance inferred.",
+          "execution": "A24A6D8_OWN45_HTTP_CONTROLLED_PASS;HANDOFF6203044431;AUTH_DB_STORAGE_MODEL_NOT_RUN",
+          "paths": [
+            "src/features/portabilities/Portabilities.tsx",
+            "tests/e2e-preview/portability-create-direction.spec.ts",
+            "tests/e2e-preview/portability-parent-read-lifetime.spec.ts"
+          ]
+        },
+        {
+          "source_sha": "a24a6d811ce2c6013067576f4dadbc4394539ef2",
+          "kind": "VISUAL",
+          "scope": "PARTIAL_ROW",
+          "stage": "VISUAL_ACCEPTED",
+          "positive": "Six actual inbound/outbound create frames390/768/1440 inspected:direction, registered masked number, linked disabled side, alternate operator, explanation/date/assignee/primary action.",
+          "negative": "390lower footer beyond viewport; no complete accessibility, persisted creation or external operation certified.",
+          "execution": "A24A6D8_CREATE_DIRECTION_6_FRAMES_ACTUALLY_VIEWED;IMAGE_HASHES_IN_REVIEW_DOC",
+          "paths": [
+            "docs/master/W2X_PORTABILITY_CREATE_INDIVIDUAL_REVIEW_20261015.md",
+            "tests/e2e-preview/portability-create-direction.spec.ts"
+          ]
+        }
+      ],
+      "permissions": "One explicit403 controlled HTTP command can be cancelled. Real Auth/JWT/RLS and complete roles NOT_RECONCILED.",
+      "mobile": "PARTIAL_CONTROLLED_HTTP_390_768_1440",
+      "pending": "Real persisted creation/replay/CAS, current authorization and foreign references, protected identifier lifecycle, complete roles and independent W4 remain unaccepted. HTTP403 and a valid body do not prove a committed create or external operator action.",
       "historical_snapshot": {
         "section": "Portabilities",
         "requirement": "portability.create",
