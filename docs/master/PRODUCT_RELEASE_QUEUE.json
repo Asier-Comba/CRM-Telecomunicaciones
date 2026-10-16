@@ -78,7 +78,7 @@
     },
     {
       "path": "docs/master/PRODUCT_RELEASE_REVIEWS.json",
-      "sha256": "068ace6fda06d3a963fd90a9c7c18e5b0a39a790ba28c978452715e8c523a767"
+      "sha256": "ac294966717b47885bd015da3aa87c21977eaa614d2d6b068eda1d880982a5cf"
     }
   ],
   "reference_documents": [
@@ -103,8 +103,8 @@
     "total": 342,
     "parity": 244,
     "telecom": 98,
-    "reviewed_partial": 22,
-    "unreconciled": 320,
+    "reviewed_partial": 23,
+    "unreconciled": 319,
     "release_ready": 0
   },
   "next_3": [
@@ -11295,21 +11295,50 @@
       "capability": "customer360.summary",
       "family": "telecom",
       "REQUIRED": true,
-      "IMPLEMENTED": "NOT_RECONCILED",
+      "IMPLEMENTED": "PARTIAL",
       "PROVEN_BACKEND": "NOT_RECONCILED",
-      "CONSUMED_UI": "NOT_RECONCILED",
+      "CONSUMED_UI": "PARTIAL",
       "BROWSER_ACCEPTED": "NOT_RECONCILED",
-      "VISUAL_ACCEPTED": "NOT_RECONCILED",
+      "VISUAL_ACCEPTED": "PARTIAL",
       "SECURITY_ACCEPTED": "NOT_RECONCILED",
-      "EXTERNAL_BLOCKED": "NOT_RECONCILED",
+      "EXTERNAL_BLOCKED": "BLOCKED",
       "RELEASE_READY": false,
-      "owner": "W1/W2; W4 acceptance",
+      "owner": "W2-X Customer360 summary UI; W1 counts/backend; W4 independent acceptance",
       "priority": "P1",
-      "source_sha": null,
-      "evidence": [],
-      "permissions": "NOT_RECONCILED",
-      "mobile": "NOT_RECONCILED",
-      "pending": "Map current implementation and row-specific positive, negative, permission, responsive and visual evidence before promotion.",
+      "source_sha": "4221edc8023e68d3497092e92a428838baea1e32",
+      "evidence": [
+        {
+          "source_sha": "4221edc8023e68d3497092e92a428838baea1e32",
+          "kind": "SOURCE",
+          "scope": "PARTIAL_ROW_CONTROLLED_HTTP",
+          "stage": "CONSUMED_UI",
+          "positive": "Own78 browser at this exact source includes9 Customer360 detail/context/overview scope cases and18 post-command plus6 reload-order regressions, besides45 attention context/identity cases. Actual Customer360Overview requests customer360.summary for A/B/C/D and renders synthetic contracts11/22/33 with other counts1 and as_of.",
+          "negative": "Held B and late B responses do not restore counters after C selection; HTTP403 D clears previous customer counts and exposes error. Uses real repository/parsers and controlled transport, not persisted exact-count or normal-reader authorization proof.",
+          "execution": "4221edc8023e68d3497092e92a428838baea1e32_OWN78_PASS1.4M_BUILD66_LINT0ERRORS3WARN_SCAN_PASS;AUTH_DB_MODEL_NOT_RUN;GLOBAL1311_SEPARATE_PENDING",
+          "paths": [
+            "src/features/customers/Customer360Overview.tsx",
+            "tests/e2e-preview/customer-resource-scope.spec.ts",
+            "tests/e2e-preview/customer-post-command-lifetime.spec.ts",
+            "tests/e2e-preview/customer-reload-order.spec.ts"
+          ]
+        },
+        {
+          "source_sha": "4221edc8023e68d3497092e92a428838baea1e32",
+          "kind": "VISUAL",
+          "scope": "PARTIAL_ROW",
+          "stage": "VISUAL_ACCEPTED",
+          "positive": "Three actually viewed loaded overview frames390/768/1440 show customerC contracts33 and remaining synthetic KPI1/renewal-permanence1/1, date and summary text readable; priorities collapsed.",
+          "negative": "Only summary panel; fixture reference controls/raw synthetic UUID are not product UI. No expanded priorities, all tabs/roles/null-field matrix or full Customer360 visual acceptance.",
+          "execution": "4221edc8023e68d3497092e92a428838baea1e32_3_OVERVIEW_FRAMES_ACTUALLY_VIEWED;HASHES_IN_REVIEW_DOC",
+          "paths": [
+            "docs/master/W2X_CUSTOMER_SUMMARY_INDIVIDUAL_REVIEW_20261016.md",
+            "tests/e2e-preview/customer-resource-scope.spec.ts"
+          ]
+        }
+      ],
+      "permissions": "Synthetic customer reference switching and HTTP403 only; real Auth/JWT/RLS, exact complete counters and full role matrix NOT_RECONCILED.",
+      "mobile": "PARTIAL_CONTROLLED_HTTP_390_768_1440",
+      "pending": "Only bounded summary consumption/current customer/late response denial presentation and three loaded KPI frames reviewed. Real persisted exact counts, every category/state/origin, protected/null counts under real roles, full Customer360 tabs, JWT revocation, integrated Next, accessibility and independent W4 remain unaccepted.",
       "historical_snapshot": {
         "section": "Customer360",
         "requirement": "customer360.summary",
