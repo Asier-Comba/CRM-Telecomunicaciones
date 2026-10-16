@@ -1307,6 +1307,53 @@
           ]
         }
       ]
+    },
+    "PAR-140": {
+      "source_sha": "dd6233cbd7e7d6a3ef3a2e64eb8d6458541d0969",
+      "owner": "W2-X editable billing proposal consumer; W1 persistence; W4 independent acceptance",
+      "priority": "P1",
+      "stages": {
+        "IMPLEMENTED": "PARTIAL",
+        "PROVEN_BACKEND": "NOT_RECONCILED",
+        "CONSUMED_UI": "PARTIAL",
+        "BROWSER_ACCEPTED": "NOT_RECONCILED",
+        "VISUAL_ACCEPTED": "PARTIAL",
+        "SECURITY_ACCEPTED": "NOT_RECONCILED"
+      },
+      "permissions": "Synthetic owner-role fixture and strict transport validators only;actual Auth/JWT/RLS/all-role matrix NOT_RECONCILED.",
+      "mobile": "PARTIAL_CONTROLLED_HTTP_390_768_1440",
+      "external_blocked": "BLOCKED",
+      "pending": "Only deterministic text proposal and bounded edit/manual-save consumer reviewed. Actual model/audio quality, complete proposal validation/date/currency/customer/link combinations, integrated Next routing, real disposable Auth/DB persistence, all roles/JWT/RLS, complete editor visual/accessibility and independent W4 remain unaccepted. Simulated receipt/readback is not persisted SQL proof. PAR-141 remains separately unreconciled.",
+      "evidence": [
+        {
+          "source_sha": "dd6233cbd7e7d6a3ef3a2e64eb8d6458541d0969",
+          "kind": "SOURCE",
+          "scope": "PARTIAL_ROW_CONTROLLED_HTTP",
+          "stage": "CONSUMED_UI",
+          "positive": "Local parser opens editable proposal. Edit description/quantity2/unit price200/IVA21%;base400/tax84/total484. Explicit reviewed manual click sends edited values and strict receipt/readback reaches draft detail.",
+          "negative": "Proposal alone sends no write and Save disabled;editing notes after review unchecks review and disables Save;no invoice.issue. First9:3FAIL/6PASS due fixture data instead of receipt;only failed3 rechecked after envelope-only correction,3PASS10.5s. Product unchanged. Not9singlePASS.",
+          "execution": "DD6233C_6_ORIGINAL_PLUS3_COMPLEMENTARY_PASS_ORIGINAL9_FAIL_RETAINED_BUILD66_LINT0ERRORS3WARN_SCAN;AUTH_DB_MODEL_NOT_RUN_API0",
+          "paths": [
+            "src/features/billing/IntegratedBilling.tsx",
+            "src/features/billing/Editor.tsx",
+            "tests/e2e-preview/billing-proposal-review-commercial.spec.ts",
+            "docs/master/W2X_PROPOSAL_REVIEW_COMMERCIAL_20261016.md"
+          ]
+        },
+        {
+          "source_sha": "dd6233cbd7e7d6a3ef3a2e64eb8d6458541d0969",
+          "kind": "VISUAL",
+          "scope": "PARTIAL_ROW",
+          "stage": "VISUAL_ACCEPTED",
+          "positive": "Five actually viewed frames:edited concepts/numeric fields/totals/review/save390/768/1440;review invalidated390/1440.",
+          "negative": "Lower drawer only;customer/date header outside viewport. Not entire billing module,all states or backend/model acceptance.",
+          "execution": "DD6233C_5_FRAMES_ACTUALLY_VIEWED_HASHES_IN_CHECKPOINT_AND_REVIEW_DOC",
+          "paths": [
+            "docs/master/W2X_PROPOSAL_EDITABLE_INDIVIDUAL_REVIEW_20261016.md",
+            "tests/e2e-preview/billing-proposal-review-commercial.spec.ts"
+          ]
+        }
+      ]
     }
   },
   "next_3": [
