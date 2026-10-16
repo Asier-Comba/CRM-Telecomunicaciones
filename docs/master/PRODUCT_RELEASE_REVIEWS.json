@@ -1260,6 +1260,53 @@
           ]
         }
       ]
+    },
+    "TEL-018": {
+      "source_sha": "509480f4433422bc6baa15d2de2fb66352a72f84",
+      "owner": "W2-X invoice contract consumer; W1 normal contract reads; W4 independent acceptance",
+      "priority": "P1",
+      "stages": {
+        "IMPLEMENTED": "PARTIAL",
+        "PROVEN_BACKEND": "NOT_RECONCILED",
+        "CONSUMED_UI": "PARTIAL",
+        "BROWSER_ACCEPTED": "NOT_RECONCILED",
+        "VISUAL_ACCEPTED": "PARTIAL",
+        "SECURITY_ACCEPTED": "NOT_RECONCILED"
+      },
+      "permissions": "HTTP403 and customer mismatch presentation using real parsers only; ordinary real Auth/JWT/RLS roles/revocation and full read matrix NOT_RECONCILED.",
+      "mobile": "PARTIAL_CONTROLLED_HTTP_390_768_1440",
+      "external_blocked": "BLOCKED",
+      "pending": "Only invoice relation consumer of contract.list reviewed, not complete contract inventory or all consumers. Real persisted keyset pages, all statuses/origins/role permissions, current JWT revocation, integrated Next routing, full editor/inventory visual/accessibility and independent W4 remain unaccepted. Historical backend evidence is retained, not inherited as current acceptance.",
+      "evidence": [
+        {
+          "source_sha": "509480f4433422bc6baa15d2de2fb66352a72f84",
+          "kind": "SOURCE",
+          "scope": "PARTIAL_ROW_CONTROLLED_HTTP",
+          "stage": "CONSUMED_UI",
+          "positive": "Own36 at exact source:12 selected-point verification modes/3widths,15 existing contract selection/pagination cases and9 preparation regressions. Ordinary contract.list uses customer_id/limit20/sort id_asc; next after20 selects21; selected id21 uses after20 limit1. Actual operator labels and actual onVerified callback are consumed. Pending outside-page option distinguishes checking from unavailable.",
+          "negative": "Held point does not report unavailable before settlement;403 and wrong customer do not publish verified link. Existing list403/customer mismatch recover with refresh; operator403 shows unavailable operator label without inventing identity. No business command in new point bank. Not actual DB/Auth permission or verified absence proof.",
+          "execution": "509480f4433422bc6baa15d2de2fb66352a72f84_OWN36_PASS51.2S_BUILD66_LINT0ERRORS3WARN_SCAN_PASS;ORIGINAL1FAIL1PASS21.6S_RETAINED;AUTH_DB_MODEL_NOT_RUN",
+          "paths": [
+            "src/features/billing/InvoiceRelationSelect.tsx",
+            "tests/e2e-preview/invoice-relation-verification.spec.ts",
+            "tests/e2e-preview/invoice-contract-selection.spec.ts",
+            "tests/e2e-preview/billing-create-read-lifetime.spec.ts"
+          ]
+        },
+        {
+          "source_sha": "509480f4433422bc6baa15d2de2fb66352a72f84",
+          "kind": "VISUAL",
+          "scope": "PARTIAL_ROW",
+          "stage": "VISUAL_ACCEPTED",
+          "positive": "Seven actually viewed current captures:pending at390/768/1440,valid and denied at390/1440. Selected contract label and pending/unavailable presentation readable;long mobile selected text complemented by wrapped label.",
+          "negative": "Isolated real component, not full editor/inventory. Fixture JSON callback/UUID display excluded from product review;not all modes visually accepted or real absence/Auth evidence.",
+          "execution": "509480f4433422bc6baa15d2de2fb66352a72f84_7_VERIFICATION_FRAMES_ACTUALLY_VIEWED;HASHES_IN_REVIEW_DOC",
+          "paths": [
+            "docs/master/W2X_CONTRACT_LIST_INDIVIDUAL_REVIEW_20261016.md",
+            "tests/e2e-preview/invoice-relation-verification.spec.ts"
+          ]
+        }
+      ]
     }
   },
   "next_3": [
