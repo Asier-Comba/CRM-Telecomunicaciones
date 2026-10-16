@@ -37,7 +37,7 @@ for(const kind of ['physical','esim'] as const)for(const width of [390,768,1440]
   await review.scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath('sim-assignment-checking-'+kind+'-'+width+'.png')})
   expect(commands).toEqual([])
   const response=page.waitForResponse(r=>{const q=r.request().postDataJSON();return q?.operation==='line.list'&&q?.input.limit===1&&q?.input.after_id===id(5,0)})
-  releaseB();releaseA();await (await response).finished();await page.waitForLoadState('networkidle');await expect(review).toBeDisabled()
+  releaseB();releaseA();await (await response).finished();await page.waitForLoadState('networkidle');expect(reads.filter(q=>q.operation==='portfolio.get'&&q.input.kind==='service'&&q.input.id===id(7,2))).toHaveLength(0);await expect(review).toBeDisabled()
   await expect(page.getByText('La línea seleccionada no está disponible para esta asignación. Actualiza las líneas disponibles antes de continuar.',{exact:true})).toBeVisible()
   await review.scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath('sim-assignment-unavailable-'+kind+'-'+width+'.png')})
   await page.getByRole('button',{name:'Actualizar líneas disponibles',exact:true}).click();await select.selectOption(id(5,1));await expect(review).toBeEnabled()
