@@ -29,7 +29,7 @@ export function PromptBuilder({
   onGenerate,
   asOf,
 }: {
-  asOf?:string
+  asOf?:string|(()=>string)
   customers: { id: string; name: string }[]
   onGenerate: (result: InvoiceParseResult, source: 'text'|'audio') => void
 }) {
@@ -120,7 +120,7 @@ export function PromptBuilder({
           type="button"
           disabled={!text.trim() || listening}
           className={primary}
-          onClick={() => onGenerate(parseInvoiceText(text, customers,asOf),source)}
+          onClick={() => onGenerate(parseInvoiceText(text, customers,typeof asOf==='function'?asOf():asOf),source)}
         >
           <Wand2 className="h-4 w-4" />
           Generar propuesta
