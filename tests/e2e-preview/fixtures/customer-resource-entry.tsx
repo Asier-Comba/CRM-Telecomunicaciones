@@ -1,3 +1,4 @@
+import {IntegratedAttention} from '../../../src/features/attention/IntegratedAttention'
 import {useCallback,useState} from 'react'
 import {createRoot} from 'react-dom/client'
 import {IntegratedCustomerDetail} from '../../../src/features/customers/IntegratedCustomerDetail'
@@ -23,6 +24,7 @@ function Fixture(){
  const [uploadOpen,setUploadOpen]=useState(true),[uploadSaved,setUploadSaved]=useState(false)
  if(kind==='contract-followup-lifetime'){const Inventory=new URLSearchParams(location.search).get('flow')==='renewal'?CustomerRenewalsInventory:CustomerPermanencesInventory;return <><button onClick={()=>setNewOpen(false)}>Cerrar seguimiento sintético</button>{newOpen?<Inventory customer={{id,version:1,display_name:'Cliente sintético A',account_kind:'legal_entity',lifecycle:'customer',status:'active',source:'manual',assigned_user_id:null}} createAllowed/>:<p>Seguimiento sintético cerrado</p>}</>}
  if(kind==='line-parent-lifetime')return <><button onClick={()=>setNewOpen(false)}>Cerrar inventario sintético</button>{newOpen?<CustomerLinesInventory customer={{id,version:1,display_name:'Cliente sintético A',account_kind:'legal_entity',lifecycle:'customer',status:'active',source:'manual',assigned_user_id:null}} createAllowed/>:<p>Inventario sintético cerrado</p>}</>
+ if(kind==='attention-context')return <IntegratedAttention {...{initialCustomerId:new URLSearchParams(location.search).get('customer')??undefined}}/>
  if(kind==='dashboard-current-day')return <IntegratedDashboard/>
  if(kind==='cleanup')return uploadOpen?<DocumentCleanup onClose={()=>setUploadOpen(false)}/>:<p>Panel de limpieza cerrado</p>
  if(kind==='documents')return <IntegratedDocuments customerId={id}/>
