@@ -78,7 +78,7 @@
     },
     {
       "path": "docs/master/PRODUCT_RELEASE_REVIEWS.json",
-      "sha256": "2c1ba2296fb9961d7dc83ea0136fcb8cdf75a1759c6946fe5e89ce6a4004c93c"
+      "sha256": "068ace6fda06d3a963fd90a9c7c18e5b0a39a790ba28c978452715e8c523a767"
     }
   ],
   "reference_documents": [
@@ -103,8 +103,8 @@
     "total": 342,
     "parity": 244,
     "telecom": 98,
-    "reviewed_partial": 21,
-    "unreconciled": 321,
+    "reviewed_partial": 22,
+    "unreconciled": 320,
     "release_ready": 0
   },
   "next_3": [
@@ -11327,21 +11327,51 @@
       "capability": "deterministic telecom attention",
       "family": "telecom",
       "REQUIRED": true,
-      "IMPLEMENTED": "NOT_RECONCILED",
+      "IMPLEMENTED": "PARTIAL",
       "PROVEN_BACKEND": "NOT_RECONCILED",
-      "CONSUMED_UI": "NOT_RECONCILED",
+      "CONSUMED_UI": "PARTIAL",
       "BROWSER_ACCEPTED": "NOT_RECONCILED",
-      "VISUAL_ACCEPTED": "NOT_RECONCILED",
+      "VISUAL_ACCEPTED": "PARTIAL",
       "SECURITY_ACCEPTED": "NOT_RECONCILED",
-      "EXTERNAL_BLOCKED": "NOT_RECONCILED",
+      "EXTERNAL_BLOCKED": "BLOCKED",
       "RELEASE_READY": false,
-      "owner": "W1/W2; W4 acceptance",
+      "owner": "W2-X attention presentation; W1 contracts/backend; W4 independent acceptance",
       "priority": "P1",
-      "source_sha": null,
-      "evidence": [],
-      "permissions": "NOT_RECONCILED",
-      "mobile": "NOT_RECONCILED",
-      "pending": "Map current implementation and row-specific positive, negative, permission, responsive and visual evidence before promotion.",
+      "source_sha": "4221edc8023e68d3497092e92a428838baea1e32",
+      "evidence": [
+        {
+          "source_sha": "4221edc8023e68d3497092e92a428838baea1e32",
+          "kind": "SOURCE",
+          "scope": "PARTIAL_ROW_CONTROLLED_HTTP",
+          "stage": "CONSUMED_UI",
+          "positive": "Own78 at this exact source:27 customer context,18 customer identity,33 Customer360 regressions. Actual overview href carries customer; destination component validates initial UUID, retains customer through cursor/page/update, explicitly clears customer/cursor. Full20 strictly ordered synthetic case page matches tuple20; next page empty is fixture data. Identity uses existing normal reader with current key.",
+          "negative": "Missing/bad/36-dash customer falls back to general view; HTTP403 attention retains filter and permits same-filter retry without claiming empty records. Identity403 displays unavailable. Held identity after customer/company/actor/reader change retires old name. Original5FAIL4PASS context and original1FAIL missing identity retained, no backend effect inferred.",
+          "execution": "4221edc8023e68d3497092e92a428838baea1e32_OWN78_BROWSER_PASS_1.4M_BUILD66_LINT0ERRORS3WARN_SCAN_PASS;AUTH_DB_MODEL_NEXT_INTEGRATED_NOT_RUN",
+          "paths": [
+            "src/features/attention/IntegratedAttention.tsx",
+            "src/features/customers/Customer360Overview.tsx",
+            "src/app/(saas)/attention/page.tsx",
+            "tests/e2e-preview/customer-attention-context.spec.ts",
+            "tests/e2e-preview/attention-customer-identity.spec.ts"
+          ]
+        },
+        {
+          "source_sha": "4221edc8023e68d3497092e92a428838baea1e32",
+          "kind": "VISUAL",
+          "scope": "PARTIAL_ROW",
+          "stage": "VISUAL_ACCEPTED",
+          "positive": "Nine actually viewed loaded/reader/denied identity/filter frames at390/768/1440; name, Customer360 link and unavailable state readable.",
+          "negative": "Filtered empty-page fixtures, not complete attention list or all seven family visuals; mobile lower controls outside viewport, no full module/accessibility acceptance.",
+          "execution": "4221edc8023e68d3497092e92a428838baea1e32_9_IDENTITY_FRAMES_ACTUALLY_VIEWED;HASHES_IN_REVIEW_DOC",
+          "paths": [
+            "docs/master/W2X_ATTENTION_INDIVIDUAL_REVIEW_20261016.md",
+            "tests/e2e-preview/attention-customer-identity.spec.ts"
+          ]
+        }
+      ],
+      "permissions": "Controlled HTTP denied attention and identity, and synthetic scope retirement only; actual Auth/JWT/RLS and complete roles NOT_RECONCILED.",
+      "mobile": "PARTIAL_CONTROLLED_HTTP_390_768_1440",
+      "pending": "Only Customer360 customer handoff, customer filter, exact cursor preservation/clear, current identity, retry/denial presentation reviewed. Full seven factual families, all priority/date windows, actual disposable Auth/DB and JWT revocation, integrated Next routing, accessibility and independent W4 remain unaccepted. No complete capability or release acceptance.",
       "historical_snapshot": {
         "section": "Attention",
         "requirement": "deterministic telecom attention",
