@@ -1,0 +1,11 @@
+# Propuesta editable y guardado manual: recorrido comercial controlado
+
+CLAIM6214203401. Base672b59c8a238f4e2857371523206b6f73b23ffda; rama propia codex/w2x-proposal-review-commercial-20261016. Solo prueba y documentación nuevas; fuentes de producto intactas.
+
+Tres recorridos en390/768/1440: propuesta sola sin comandos ni guardado habilitado; revisión marcada y posterior cambio de notas que desmarca revisión y bloquea guardar; propuesta con concepto editado,cantidad2,precio200,IVA21%,base400,impuesto84,total484. Solo después de revisión y click manual se envía un create_draft con valores editados y se valida recibo y lectura posterior del mismo identificador/cliente/versión/estado. Nunca invoice.issue. Esto acredita el consumidor de UI y sus validadores con HTTP controlado;no acredita persistencia SQL ni ausencia de efectos backend.
+
+Primer intento9:3FAIL/6PASS1.0min. Causa exacta del fixture: respondía al comando con `{ok:true,data:...}` cuando el consumidor exige `{ok:true,receipt:...}`. No defecto de producto acreditado. Fuente original de prueba,logs,trazas y capturas conservadas externamente. Una corrección exclusiva del sobre del comando;solo los3fallidos repetidos,3PASS10.5s. Los6verdes no se repiten. Resultado6+3complementarios,no9singlePASS;producto sin cambios entre intentos. Compilación/lint propios posteriores al arreglo registrados en checkpoint externo.
+
+Cinco capturas realmente vistas:acciones de guardado editado390/768/1440 yrevisión invalidada390/1440. Concepto,campos numéricos,totales,checkbox yacciones son visibles;390 ocupa el ancho sin desbordamiento horizontal. Revisión visual parcial del tramo inferior del drawer,no cabecera de cliente/fechas ni aceptación de todoFacturación. Los otros estados tienen capturas pero no se presentan como visualmente revisados.
+
+Parser local determinista de texto y cálculo real,componentes/repositorio/validadores reales,DTOs sintéticos. Sin modelo vivo,API0,Auth/DB/JWT/RLS/Next integradoNOT_RUN. Ninguna aceptación de capacidades de IA ni audio real. Global1362fuenteFA3 es independiente;ningún verde previo se hereda. Cola342/24PARTIAL/318sinreconciliar/0READY antes de eventual revisión individual posterior. CincoHIGH/W4 pendientes;IA comercialwritesOFF,issue10OPEN,releaseNOT_ACCEPTED. F736/B9/981 yfallos históricos intactos. Sin cambios en fuentes ajenas/W3/W4/W5/recurso.
