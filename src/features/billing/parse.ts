@@ -99,9 +99,9 @@ function parseWithholding(n: string): number {
 }
 function parseDiscount(n: string): number {
   const m =
-    n.match(/(?:descuento|dto\.?)\s*(?:del?\s*)?(\d{1,2})\s*%?/) ||
-    n.match(/(\d{1,2})\s*%\s*(?:de\s*)?(?:descuento|dto)/)
-  return m ? Number(m[1]) : 0
+    n.match(/(?:descuento|dto\.?)\s*(?:del?\s*)?(-?\d+(?:[.,]\d+)?)(?![\d.,])/) ||
+    n.match(/(?<![\d.,-])(-?\d+(?:[.,]\d+)?)\s*%\s*(?:de\s*)?(?:descuento|dto)/)
+  return m ? Number(m[1].replace(',', '.')) : 0
 }
 function parseDue(n: string, issueDate: string): string | null {
   const m =
