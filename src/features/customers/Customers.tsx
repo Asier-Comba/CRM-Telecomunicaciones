@@ -282,7 +282,7 @@ export function Customers({ rows, onCreate, collection }: { rows: CustomerRow[];
                   <td className="max-w-56 p-3">
                     <Link
                       href={`/clients/${r.id}`}
-                      className="flex gap-2 font-semibold text-slate-900 hover:text-indigo-600"
+                      className="min-w-0 [overflow-wrap:anywhere] flex gap-2 font-semibold text-slate-900 hover:text-indigo-600"
                     >
                       <Building2 className="mt-0.5 h-4 w-4 shrink-0 text-indigo-500" />
                       {r.name}

@@ -1,3 +1,5 @@
+import {AppRouterContext,type AppRouterInstance} from 'next/dist/shared/lib/app-router-context.shared-runtime'
+import {IntegratedCustomers} from '../../../src/features/customers/IntegratedCustomers'
 import {IntegratedAttention} from '../../../src/features/attention/IntegratedAttention'
 import {useCallback,useState} from 'react'
 import {createRoot} from 'react-dom/client'
@@ -16,12 +18,14 @@ import {CustomerLinesInventory} from '../../../src/features/portfolio/CustomerLi
 import {CustomerRenewalsInventory} from '../../../src/features/portfolio/CustomerRenewalsInventory'
 import {CustomerPermanencesInventory} from '../../../src/features/portfolio/CustomerPermanencesInventory'
 import {PipelineFixtureProvider} from './pipeline-current-provider'
+const listRouter:AppRouterInstance={bfcacheId:'synthetic-customer-list',back(){},forward(){},refresh(){},push(href){history.pushState(null,'',href)},replace(href){history.replaceState(null,'',href)},prefetch(){}}
 function Fixture(){
  const [id,setId]=useState('10000000-0000-4000-8000-000000000001'),[denials,setDenials]=useState(0)
  const deny=useCallback(()=>setDenials(n=>n+1),[])
  const kind=new URLSearchParams(location.search).get('kind')
  const [newOpen,setNewOpen]=useState(true),[saved,setSaved]=useState(false)
  const [uploadOpen,setUploadOpen]=useState(true),[uploadSaved,setUploadSaved]=useState(false)
+ if(kind==='customers-list')return <AppRouterContext.Provider value={listRouter}><IntegratedCustomers/></AppRouterContext.Provider>
  if(kind==='contract-followup-lifetime'){const Inventory=new URLSearchParams(location.search).get('flow')==='renewal'?CustomerRenewalsInventory:CustomerPermanencesInventory;return <><button onClick={()=>setNewOpen(false)}>Cerrar seguimiento sintético</button>{newOpen?<Inventory customer={{id,version:1,display_name:'Cliente sintético A',account_kind:'legal_entity',lifecycle:'customer',status:'active',source:'manual',assigned_user_id:null}} createAllowed/>:<p>Seguimiento sintético cerrado</p>}</>}
  if(kind==='line-parent-lifetime')return <><button onClick={()=>setNewOpen(false)}>Cerrar inventario sintético</button>{newOpen?<CustomerLinesInventory customer={{id,version:1,display_name:'Cliente sintético A',account_kind:'legal_entity',lifecycle:'customer',status:'active',source:'manual',assigned_user_id:null}} createAllowed/>:<p>Inventario sintético cerrado</p>}</>
  if(kind==='attention-context')return <IntegratedAttention {...{initialCustomerId:new URLSearchParams(location.search).get('customer')??undefined}}/>
