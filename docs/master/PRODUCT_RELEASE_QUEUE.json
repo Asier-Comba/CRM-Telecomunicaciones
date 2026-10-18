@@ -78,7 +78,7 @@
     },
     {
       "path": "docs/master/PRODUCT_RELEASE_REVIEWS.json",
-      "sha256": "e6126b873efd42486e22db12eec51dde6cd3315b2329c1b623e9ce875c9588e5"
+      "sha256": "87c1d193887eebca4ee860f2b702d87ae3e6bc5fc6afc41748a99c0b954bd691"
     }
   ],
   "reference_documents": [
@@ -10767,6 +10767,33 @@
           "paths": [
             "docs/master/W2X_PORTABILITY_CREATE_INDIVIDUAL_REVIEW_20261015.md",
             "tests/e2e-preview/portability-create-direction.spec.ts"
+          ]
+        },
+        {
+          "source_sha": "ddf5501af84e91951349e7991cf013e6427cff2b",
+          "kind": "SOURCE",
+          "scope": "PARTIAL_ROW_CONTROLLED_HTTP",
+          "stage": "CONSUMED_UI",
+          "positive": "Own189PASS5.4m:24Portability recovery flows and12protected-number prerequisite flows;153other regressions are context,not189capabilities. Bidirectional exact typed create/replay;uncertainty same command_id;confirmed503 retries only GET;403 permits exit and fresh explicit command. Nested Escape preserves uncertain parent and cancels normal review/child in steps;reopenempty and no accidental portability.create during number entry. Synthetic effects only.",
+          "negative": "Rootclose original6FAIL2PASS1.5m on6ab61af;numberX original2FAIL1PASS30.6s on1fd0d94;firstchild-only186=183PASS3FAIL6.2m preserved. Complementary productSRCexact1fd:Escape1FAIL removes3panels,Tab1PASS retains3,25.3s. Preload module failureNOT_RUN separate. Final189 isfreshcorrectedsource88,not183+recheck or inheritedPASS. No AuthDB/JWT/RLS/SQL/native/memory-erasure authority acceptance.",
+          "execution": "DDF5501_OWN189_PASS5.4M_BUILD66_LINT0ERRORS3WARN_SCAN;DIRECT24_CREATE_RECOVERY_PLUS12_NUMBER_PREREQUISITE_CONTEXT153;FUNCTIONAL_NOT_RUN_UI_POLICY_CONSUMPTION;AUTH_DB_MODEL_NOT_RUN_API0",
+          "paths": [
+            "src/features/portabilities/Portabilities.tsx",
+            "tests/e2e-preview/portability-recovery-close.spec.ts",
+            "tests/e2e-preview/line-number-recovery-close.spec.ts",
+            "docs/master/W2X_LINE_NUMBER_RECOVERY_CLOSE_20261018.md"
+          ]
+        },
+        {
+          "source_sha": "ddf5501af84e91951349e7991cf013e6427cff2b",
+          "kind": "VISUAL",
+          "scope": "PARTIAL_ROW",
+          "stage": "VISUAL_ACCEPTED",
+          "positive": "28framesactuallyviewedfromsource88own189execution:12numberentry plus16Portability recovery. Confirmedstatus/readretry andsame-order uncertain retry;normal/denied exits andregistered masked-link context;parent retained afternumberEscape. Additional16reviewednowfromcorrected88results,notold87images.",
+          "negative": "28actuallyviewedcurrent-source88frames:12protectedNumber(uncertain/review/EscapeReview/denied×3widths) and16Portability(12criticaluncertain/readfailedbothdirections×3widths plusreview/deniedinbound390/outbound1440). Additional16readfromown88correctedresults,notinherited87frames. Mobilefooterclipped;readfailedmobiletopidentityscrolled,desktoperrorbelowviewport. ParentblurDOMonly;newmaskedoptionclosedselectDOMonly. DeclaredfixturesnotSQL/fullroles/W4. No full accessibility,roles,foreign references,persisted create,idempotencySQL,protectedstorage or independent security acceptance. Originalsourcea24evidence/stages retained.",
+          "execution": "DDF5501_28_CURRENT_FRAMES_HASHED_IN_INDIVIDUAL_REVIEW;METADATA89_RUNTIME_NOT_RUN",
+          "paths": [
+            "docs/master/W2X_PORTABILITY_RECOVERY_INDIVIDUAL_REVIEW_20261018.md"
           ]
         }
       ],
