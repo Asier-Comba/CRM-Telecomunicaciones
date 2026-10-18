@@ -1790,6 +1790,53 @@
           ]
         }
       ]
+    },
+    "PAR-046": {
+      "source_sha": "3baf2ebef46e3ea8d48e84078f4841d9048f492a",
+      "owner": "W2-X Customer360 services UI; W1 contract/backend; W4 independent security acceptance",
+      "priority": "P1",
+      "stages": {
+        "IMPLEMENTED": "PARTIAL",
+        "PROVEN_BACKEND": "NOT_RECONCILED",
+        "CONSUMED_UI": "PARTIAL",
+        "BROWSER_ACCEPTED": "PARTIAL",
+        "VISUAL_ACCEPTED": "PARTIAL",
+        "SECURITY_ACCEPTED": "NOT_RECONCILED"
+      },
+      "permissions": "Controlled owner-context HTTP fixture and403response only;no actualAuth/JWT/RLS/role or tenant isolation acceptance.",
+      "mobile": "PARTIAL_CONTROLLED_HTTP_390_768_1440",
+      "external_blocked": "BLOCKED",
+      "pending": "Browse/pagination/status-filter/scope-retirement/focus/title consumption only. No realAuthDB/RLS/roles,write/create/edit/suspend/end/change-plan operations,full service/customer relation acceptance,all table columns or accessibility/touch sign-off. W4 and release remain unaccepted.",
+      "evidence": [
+        {
+          "source_sha": "3baf2ebef46e3ea8d48e84078f4841d9048f492a",
+          "kind": "SOURCE",
+          "scope": "PARTIAL_ROW_CONTROLLED_HTTP",
+          "stage": "CONSUMED_UI",
+          "positive": "Own75 contains15pertinent cases:9long/ordinary/denied title cases and6scope/pagination/focus cases. Client-specific service.list scope/cursor/status/limit,exactservicehref,operator label,keyboard next/previous and latest collection are consumed through realrepository/parsers with controlledHTTP.60Case/SIM/Contract cases are contextual,not additional service capabilities.",
+          "negative": "Same-source403removes rows andrawprivatebody;oldcollection delayed response cannot replace current selection;cursor/status reset on change. Original parent title long390fails/ordinarypasses1FAIL1PASS21.8s retained separately;not a second own94execution. No SQL/current-membership proof.",
+          "execution": "3BAF2EB_OWN75_PASS2.1M_BUILD66_LINT_EXIT0_3WARN_SCAN_QUEUE;15PERTINENT60CONTEXT;AUTH_DB_MODEL_NOT_RUN_API0",
+          "paths": [
+            "src/features/customers/CustomerDomainPages.tsx",
+            "tests/e2e-preview/customer-domain-title-wrap.spec.ts",
+            "tests/e2e-preview/customer-domain-page-focus.spec.ts",
+            "tests/e2e-preview/customer-domain-scope.spec.ts",
+            "docs/master/W2X_CUSTOMER_DOMAIN_TITLE_WRAP_20261019.md"
+          ]
+        },
+        {
+          "source_sha": "3baf2ebef46e3ea8d48e84078f4841d9048f492a",
+          "kind": "VISUAL",
+          "scope": "PARTIAL_ROW",
+          "stage": "VISUAL_ACCEPTED",
+          "positive": "Nine actually viewed source94frames:long/ordinary/denied3907681440. Full service title/card at390768,normal fields/operator andsafeerror shown. Exacthashes below in individualreview. Reviewdoc is new metadata carrier of original94image hashes,not a runtime file in94.",
+          "negative": "Desktop1440uses unchanged table with intentionalhorizontal scroll;longtitle may put other columns outside viewport. No allcolumns,otherdomains,commercialshell,roles,a11y or touch acceptance. New reviewmetadataSHA has no runtime execution.",
+          "execution": "3BAF2EB_9FRAMES_ACTUALLY_VIEWED_RAW_SHA256_IN_REVIEW_DOC",
+          "paths": [
+            "docs/master/W2X_CUSTOMER_SERVICES_INDIVIDUAL_REVIEW_20261019.md"
+          ]
+        }
+      ]
     }
   },
   "next_3": [
