@@ -1,7 +1,7 @@
 'use client'
 import {AssignedCommercial} from '@/features/product/integration/AssignedCommercial'
 import {OperatorSelect} from '@/features/product/integration/OperatorSelect'
-import { useId, useState } from 'react'
+import { useId, useState, type Ref } from 'react'
 import Link from 'next/link'
 import { Building2, Plus, ChevronLeft, ChevronRight } from 'lucide-react'
 import { PageHeader } from '@/components/PageHeader'
@@ -20,6 +20,7 @@ import { useProduct } from '@/features/product/integration/Provider'
 import {AssigneeSelect} from '@/features/product/integration/AssigneeSelect'
 export type CustomerCollectionControls = {
   filtersExpanded?:boolean;onToggleFilters?:()=>void
+  pageStatusRef?:Ref<HTMLParagraphElement>
   page:number;busy:boolean;failed?:boolean;hasNext:boolean
   values:{status:string;owner:string;source:string;lifecycle:string;operator:string}
   onFilter:(key:'status'|'owner'|'source'|'lifecycle'|'operator',value:string)=>void
@@ -341,8 +342,8 @@ export function Customers({ rows, onCreate, collection }: { rows: CustomerRow[];
         </div>
         {!visible.length&&!collection?.busy&&!collection?.failed && <Empty reset={collection?undefined:reset} />}
         <footer className="flex flex-wrap items-center justify-between gap-3 border-t border-slate-100 px-4 py-3">
-          <p role="status" className="text-xs text-slate-500">
-            {collection?(collection.busy?'Cargando clientes…':collection.failed?'Clientes no disponibles':`Página ${collection.page} · ${rows.length} empresas en esta página`):`${filtered.length} resultados · página ${current + 1} de ${totalPages}`}
+          <p ref={collection?.pageStatusRef} tabIndex={collection?-1:undefined} role="status" className="text-xs text-slate-500 focus-visible:outline-2 focus-visible:outline-indigo-500">
+            {collection?(collection.busy?'Cargando clientes…':collection.failed?'Clientes no disponibles':`Página ${collection.page} · ${rows.length} ${rows.length===1?'empresa':'empresas'} en esta página`):`${filtered.length} resultados · página ${current + 1} de ${totalPages}`}
           </p>
           <div className="flex gap-2">
             <button

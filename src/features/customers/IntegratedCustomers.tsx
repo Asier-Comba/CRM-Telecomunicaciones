@@ -1,5 +1,5 @@
 'use client'
-import {useEffect,useState} from 'react'
+import {useEffect,useRef,useState} from 'react'
 import {useRouter} from 'next/navigation'
 import {Customers} from './Customers'
 import {CustomerEditor} from './CustomerEditor'
@@ -16,6 +16,7 @@ export function IntegratedCustomers({initialCreate=false}:{initialCreate?:boolea
   const [filters,setFilters]=useState(initial),[cursors,setCursors]=useState<string[]>([]),[revision,setRevision]=useState(0)
   const [filtersExpanded,setFiltersExpanded]=useState(false)
   const [create,setCreate]=useState(initialCreate&&role!==null&&role!=='viewer'),[error,setError]=useState('')
+  const navigationFocus=useRef(false),pageStatus=useRef<HTMLParagraphElement>(null),pageError=useRef<HTMLParagraphElement>(null)
   useEffect(()=>{
     let active=true
     const input={limit:20,sort:'id_asc',...(cursors.length?{after_id:cursors.at(-1)}:{}),...(filters.status?{status:filters.status}:{}),...(filters.owner?{assigned_user_id:filters.owner}:{}),...(filters.source?{source:filters.source}:{}),...(filters.lifecycle?{lifecycle:filters.lifecycle}:{}),...(filters.operator?{operator_id:filters.operator}:{})} as TelecomCollectionInputsV1['customer.list']
@@ -23,12 +24,13 @@ export function IntegratedCustomers({initialCreate=false}:{initialCreate?:boolea
     return()=>{active=false}
   },[repository,filters,cursors,revision])
   useEffect(()=>{let active=true;void repository.collection('assignee.list',{limit:100,sort:'id_asc'}).then(v=>{if(active)setAssignees(v)}).catch(()=>{if(active)setAssignees(null)});return()=>{active=false}},[repository,revision])
-  function filter(key:keyof typeof initial,value:string){setData(null);setError('');setCursors([]);setFilters(v=>({...v,[key]:value}))}
-  function reload(){setData(null);setError('');setCursors([]);setRevision(v=>v+1)}
+  useEffect(()=>{if(!navigationFocus.current||(!data&&!error))return;navigationFocus.current=false;if(document.activeElement===document.body)(error?pageError.current:pageStatus.current)?.focus()},[data,error])
+  function filter(key:keyof typeof initial,value:string){navigationFocus.current=false;setData(null);setError('');setCursors([]);setFilters(v=>({...v,[key]:value}))}
+  function reload(){navigationFocus.current=false;setData(null);setError('');setCursors([]);setRevision(v=>v+1)}
   const rows:CustomerRow[]=(data?.items??[]).map(c=>({id:c.id,name:c.display_name,tradeName:null,status:c.status,lifecycle:c.lifecycle,source:c.source,assignedUserId:c.assigned_user_id,owner:c.assigned_user_id?assignees?.items.find(a=>a.user_id===c.assigned_user_id)?.display_name??'Responsable asignado':'Sin asignar',operators:[],services:null,lines:null,renewal:null,permanence:null,opportunity:null,nextAction:null}))
   return <div className="space-y-4">
-    {error&&<div><p role="alert" className="text-sm text-red-700">{error}</p><button className={control} onClick={reload}>Reintentar clientes</button></div>}
-    <Customers key={JSON.stringify([filters,cursors,revision])} rows={rows} onCreate={role&&role!=='viewer'?()=>setCreate(true):undefined} collection={{page:cursors.length+1,busy:!data&&!error,hasNext:!!data?.next_id,failed:!!error,values:filters,onFilter:filter,filtersExpanded,onToggleFilters:()=>setFiltersExpanded(v=>!v),reload,next:()=>{if(data?.next_id){setData(null);setError('');setCursors(v=>[...v,data.next_id!])}},previous:()=>{setData(null);setError('');setCursors(v=>v.slice(0,-1))}}}/>
+    {error&&<div><p ref={pageError} tabIndex={-1} role="alert" className="text-sm text-red-700 focus-visible:outline-2 focus-visible:outline-indigo-500">{error}</p><button className={control} onClick={reload}>Reintentar clientes</button></div>}
+    <Customers key={JSON.stringify([filters,cursors,revision])} rows={rows} onCreate={role&&role!=='viewer'?()=>setCreate(true):undefined} collection={{page:cursors.length+1,busy:!data&&!error,hasNext:!!data?.next_id,failed:!!error,values:filters,onFilter:filter,pageStatusRef:pageStatus,filtersExpanded,onToggleFilters:()=>setFiltersExpanded(v=>!v),reload,next:()=>{if(data?.next_id){navigationFocus.current=true;setData(null);setError('');setCursors(v=>[...v,data.next_id!])}},previous:()=>{navigationFocus.current=true;setData(null);setError('');setCursors(v=>v.slice(0,-1))}}}/>
     <p className="text-xs text-slate-500">Usa la búsqueda global para localizar una empresa. Los filtros de esta vista consultan la colección completa; los recuentos corresponden a la página visible.</p>
     {create&&<CustomerEditor onClose={()=>setCreate(false)} onSaved={receipt=>{setCreate(false);router.push('/clients/'+receipt.id)}}/>}
   </div>
