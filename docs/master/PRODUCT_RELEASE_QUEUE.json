@@ -78,7 +78,7 @@
     },
     {
       "path": "docs/master/PRODUCT_RELEASE_REVIEWS.json",
-      "sha256": "38aa243821412eac7c8d2b669175170d26f2f05cac7bd9579d1bf4c6ded4eac8"
+      "sha256": "c3bf1b652f28500a6e7a53c9a7bca138e95eaf6789a332bddf9bfe9a2ff48f20"
     }
   ],
   "reference_documents": [
@@ -3966,7 +3966,7 @@
       "RELEASE_READY": false,
       "owner": "W2-X manual draft save UI; W1 persistence; W4 independent acceptance",
       "priority": "P1",
-      "source_sha": "1816c21436d48afa9f8c04da181fe4e1becd8835",
+      "source_sha": "b34f6d60b9b64a5ba218376ef0a8038c6135e39f",
       "evidence": [
         {
           "source_sha": "45738ab9e830c9c65150231fa691778d3c08aa52",
@@ -4007,6 +4007,36 @@
           "paths": [
             "docs/master/W2X_DRAFT_SAVE_INDIVIDUAL_REVIEW_20261018.md",
             "tests/e2e-preview/billing-draft-registered.spec.ts"
+          ]
+        },
+        {
+          "source_sha": "b34f6d60b9b64a5ba218376ef0a8038c6135e39f",
+          "kind": "SOURCE",
+          "scope": "PARTIAL_ROW_CONTROLLED_HTTP",
+          "stage": "CONSUMED_UI",
+          "positive": "Own63 single run passes: create/update exact availability18, draft receipts18, registered read recovery18, manual proposal review9. Invalid precision/contract-total preview disables save; correction resets review; review again then one simulated command/read confirms484 with payload/CAS.",
+          "negative": "Original2FAIL/1PASS50.6s retained at parent2a85975. No invalid SQL write reproduced. Existing repository validation and exact calculation unchanged. Historical source1816C21 retains12+6 complementary evidence; new63 does not rewrite its result or establish real persistence/Auth/RLS.",
+          "execution": "B34F6D6_OWN63_PASS1.7M_BUILD66_LINT0ERRORS3WARN_SCAN;AUTH_DB_MODEL_NOT_RUN_API0",
+          "paths": [
+            "src/features/billing/Editor.tsx",
+            "tests/e2e-preview/billing-exact-save.spec.ts",
+            "tests/e2e-preview/billing-draft-receipt.spec.ts",
+            "tests/e2e-preview/billing-draft-registered.spec.ts",
+            "tests/e2e-preview/billing-proposal-review-commercial.spec.ts",
+            "docs/master/W2X_BILLING_EXACT_SAVE_20261018.md"
+          ]
+        },
+        {
+          "source_sha": "b34f6d60b9b64a5ba218376ef0a8038c6135e39f",
+          "kind": "VISUAL",
+          "scope": "PARTIAL_ROW",
+          "stage": "VISUAL_ACCEPTED",
+          "positive": "Six actually viewed lower editor frames:create precision/update overflow3907681440; amounts, unavailable totals, warning, checked review and disabled save readable.",
+          "negative": "Customer/fiscal/date fields outside these frames;corrected/current positives measured in HTTP tests,not individually visually accepted. Fixture background excluded;no full accessibility/Next/fiscal/security acceptance.",
+          "execution": "B34F6D6_6_FRAMES_ACTUALLY_VIEWED_HASHES_IN_SOURCE_DOC",
+          "paths": [
+            "docs/master/W2X_BILLING_EXACT_SAVE_20261018.md",
+            "docs/master/W2X_EXACT_SAVE_INDIVIDUAL_REVIEW_20261018.md"
           ]
         }
       ],
