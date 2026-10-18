@@ -27,12 +27,16 @@ for(const [instant,expected] of [
  ['2026-10-10T12:30:00Z','2026-10-10'],
 ])for(const site of sites)test('actual billing date expression '+site.name+' at '+instant,()=>{
  class FixedDate extends Date{constructor(...args){super(...(args.length?args:[instant]))}static now(){return Date.parse(instant)}}
- const day=runInNewContext(site.expression,{Date:FixedDate,calendarDate},{timeout:1000})
+ const evaluated=runInNewContext(site.expression,{Date:FixedDate,calendarDate},{timeout:1000})
  if(site.name==='proposal'){
+  // PromptBuilder resolves the current-day callback when generating a proposal.
+  assert.equal(typeof evaluated,'function')
+  const day=evaluated()
+  assert.equal(day,expected)
   const proposal=parseInvoiceText('Factura a Synthetic Date Company por conectividad 100 euros más IVA, vencimiento en 15 días',[{id:'synthetic-date-company',name:'Synthetic Date Company'}],day)
   assert.equal(proposal.draft.clientId,'synthetic-date-company')
   assert.equal(proposal.draft.issueDate,expected)
   const due=new Date(expected+'T12:00:00Z');due.setUTCDate(due.getUTCDate()+15)
   assert.equal(proposal.draft.dueDate,due.toISOString().slice(0,10))
- }else assert.equal(day,expected)
+ }else assert.equal(evaluated,expected)
 })
