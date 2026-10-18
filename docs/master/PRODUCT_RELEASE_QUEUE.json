@@ -78,7 +78,7 @@
     },
     {
       "path": "docs/master/PRODUCT_RELEASE_REVIEWS.json",
-      "sha256": "afe99e9eb9733ae13ab65a3aecfe114fa43fda4063f50371d08148fc115c16e8"
+      "sha256": "e6126b873efd42486e22db12eec51dde6cd3315b2329c1b623e9ce875c9588e5"
     }
   ],
   "reference_documents": [
@@ -103,8 +103,8 @@
     "total": 342,
     "parity": 244,
     "telecom": 98,
-    "reviewed_partial": 30,
-    "unreconciled": 312,
+    "reviewed_partial": 31,
+    "unreconciled": 311,
     "release_ready": 0
   },
   "next_3": [
@@ -8008,21 +8008,48 @@
       "capability": "Asistente: Panel contextual",
       "family": "parity",
       "REQUIRED": true,
-      "IMPLEMENTED": "NOT_RECONCILED",
+      "IMPLEMENTED": "PARTIAL",
       "PROVEN_BACKEND": "NOT_RECONCILED",
-      "CONSUMED_UI": "NOT_RECONCILED",
+      "CONSUMED_UI": "PARTIAL",
       "BROWSER_ACCEPTED": "NOT_RECONCILED",
-      "VISUAL_ACCEPTED": "NOT_RECONCILED",
+      "VISUAL_ACCEPTED": "PARTIAL",
       "SECURITY_ACCEPTED": "NOT_RECONCILED",
-      "EXTERNAL_BLOCKED": "NOT_RECONCILED",
+      "EXTERNAL_BLOCKED": "BLOCKED",
       "RELEASE_READY": false,
-      "owner": "W2/W3; W4 acceptance",
+      "owner": "W2 authorized customer display; W3 assistant integration; W4 independent acceptance",
       "priority": "P1",
-      "source_sha": null,
-      "evidence": [],
+      "source_sha": "7218b7bc6d3a079feb8b8f457edbf48045fa02a0",
+      "evidence": [
+        {
+          "source_sha": "7218b7bc6d3a079feb8b8f457edbf48045fa02a0",
+          "kind": "SOURCE",
+          "scope": "PARTIAL_ROW_CONTROLLED_HTTP",
+          "stage": "CONSUMED_UI",
+          "positive": "Actual AuthorizedCustomerContext mounted with ordinary identity lookup before dependent summary/attention;long andordinary identity at390/768/1440,exact customer link and dependent customer IDs preserved. Nine directly pertinent cases within own107;98 contextual cases(27 C360,59 regressions,12 Documents) are not107 panel capabilities.",
+          "negative": "Original long-name390 right870.72/main390scroll871 fails while ordinary passes,1FAIL1PASS24.2s retained. Controlled403 shows no identity/link and issues no dependent reads. This does not establish backend authority, privacy, SQL counts or real JWT/RLS. Fixture counts1/null/empty priority are declared,not real measurements.",
+          "execution": "7218B7B_OWN107_PASS1.7M_BUILD66_LINT0ERRORS3WARN_SCAN;DIRECT9_CONTEXT98;FUNCTIONAL_NOT_RUN_UI_STYLE_ONLY;AUTH_DB_MODEL_NOT_RUN_API0",
+          "paths": [
+            "src/features/assistant/AuthorizedCustomerContext.tsx",
+            "tests/e2e-preview/assistant-customer-name-wrap.spec.ts",
+            "docs/master/W2X_ASSISTANT_CUSTOMER_NAME_WRAP_20261018.md"
+          ]
+        },
+        {
+          "source_sha": "7218b7bc6d3a079feb8b8f457edbf48045fa02a0",
+          "kind": "VISUAL",
+          "scope": "PARTIAL_ROW",
+          "stage": "VISUAL_ACCEPTED",
+          "positive": "Nine current-source frames actually viewed:long/ordinary/denied at3907681440. Full identity wraps,customer link visible for positives,denial shows neither identity nor summary. Six positive geometry records stay within viewport.",
+          "negative": "Direct component fixture,not entire Assistant screen. Mobile harness is partly clipped,priorities stay closed;summary values and zero page count are declared fixtures. No context refresh/link click/model dispatch or complete accessibility/security acceptance in these9 frames. Source79 Document images are not inherited here.",
+          "execution": "7218B7B_9_FRAMES_ACTUALLY_VIEWED_HASHES_IN_SOURCE_DOC;PARTIAL_VISUAL_ONLY",
+          "paths": [
+            "docs/master/W2X_ASSISTANT_CUSTOMER_NAME_WRAP_20261018.md"
+          ]
+        }
+      ],
       "permissions": "NOT_RECONCILED",
-      "mobile": "NOT_RECONCILED",
-      "pending": "Map current implementation and row-specific positive, negative, permission, responsive and visual evidence before promotion.",
+      "mobile": "PARTIAL_CONTROLLED_COMPONENT_ONLY",
+      "pending": "Complete Assistant shell/navigation and role/state matrix, real authenticated DB/RLS and current-read producer evidence, full responsive/accessibility review and independent W4 remain unaccepted. No model/RAG/reasoning/authority acceptance from this display test. No full-row PASS or release promotion.",
       "historical_snapshot": {
         "id": "PAR-209",
         "capability": "Asistente: Panel contextual",
