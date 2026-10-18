@@ -66,7 +66,7 @@ function parseAmount(text: string): number | null {
 function parseTax(n: string): { rate: number; included: boolean } {
   if (
     /\bsin\s+iva\b/.test(n) ||
-    /\biva\s+0\s*%?/.test(n) ||
+    /\biva\s+0(?![\d.,])\s*%?/.test(n) ||
     /\bexento\b/.test(n)
   )
     return { rate: 0, included: false }
