@@ -78,7 +78,7 @@
     },
     {
       "path": "docs/master/PRODUCT_RELEASE_REVIEWS.json",
-      "sha256": "c3bf1b652f28500a6e7a53c9a7bca138e95eaf6789a332bddf9bfe9a2ff48f20"
+      "sha256": "1ecac903fd763cc9a7e0842468b57febca6644f76539d8eafe35e2a89c621927"
     }
   ],
   "reference_documents": [
@@ -103,8 +103,8 @@
     "total": 342,
     "parity": 244,
     "telecom": 98,
-    "reviewed_partial": 27,
-    "unreconciled": 315,
+    "reviewed_partial": 28,
+    "unreconciled": 314,
     "release_ready": 0
   },
   "next_3": [
@@ -5232,21 +5232,82 @@
       "capability": "Facturación PRO: Parser determinista",
       "family": "parity",
       "REQUIRED": true,
-      "IMPLEMENTED": "NOT_RECONCILED",
+      "IMPLEMENTED": "PARTIAL",
       "PROVEN_BACKEND": "NOT_RECONCILED",
-      "CONSUMED_UI": "NOT_RECONCILED",
+      "CONSUMED_UI": "PARTIAL",
       "BROWSER_ACCEPTED": "NOT_RECONCILED",
-      "VISUAL_ACCEPTED": "NOT_RECONCILED",
+      "VISUAL_ACCEPTED": "PARTIAL",
       "SECURITY_ACCEPTED": "NOT_RECONCILED",
-      "EXTERNAL_BLOCKED": "NOT_RECONCILED",
+      "EXTERNAL_BLOCKED": "BLOCKED",
       "RELEASE_READY": false,
-      "owner": "W2; W1 contracts; W4 acceptance",
+      "owner": "W2 local invoice parser and UI;W1 contracts;W4 independent acceptance",
       "priority": "P1",
-      "source_sha": null,
-      "evidence": [],
-      "permissions": "NOT_RECONCILED",
-      "mobile": "NOT_RECONCILED",
-      "pending": "Map current implementation and row-specific positive, negative, permission, responsive and visual evidence before promotion.",
+      "source_sha": "d65880a3af08bcc861d14846d399a75235f65a76",
+      "evidence": [
+        {
+          "source_sha": "56fbaee765fb4681aa43943cec4e305eb2afbd67",
+          "kind": "SOURCE",
+          "scope": "PARTIAL_ROW_CONTROLLED_HTTP",
+          "stage": "CONSUMED_UI",
+          "positive": "Own144 browser/24 functional at source56fbaee:discount42,tax/withholding84,zero-tax boundary18;percent100/decimal comma-point/ordinary and zero/sinIVA preserve exact fields and totals. Native review remains unchecked;new banks send no commands.",
+          "negative": "Out-of-range,negative,excess precision are rejected before invoice.propose/editor;original source-specific failures retained. Not whole grammar or real backend/security acceptance. No144 PASS inherited by metadata/current65.",
+          "execution": "56FBAEE_OWN144_PASS2.4M_FUNCTIONAL24_PASS765.2553MS_BUILD66_LINT0ERRORS3WARN_SCAN;AUTH_DB_MODEL_NOT_RUN_API0",
+          "paths": [
+            "src/features/billing/parse.ts",
+            "tests/e2e-preview/billing-proposal-discount.spec.ts",
+            "tests/e2e-preview/billing-proposal-rates.spec.ts",
+            "tests/e2e-preview/billing-proposal-zero-tax.spec.ts",
+            "docs/master/W2X_BILLING_PROPOSAL_ZERO_TAX_20261018.md"
+          ]
+        },
+        {
+          "source_sha": "d65880a3af08bcc861d14846d399a75235f65a76",
+          "kind": "SOURCE",
+          "scope": "PARTIAL_ROW_CONTROLLED_HTTP",
+          "stage": "CONSUMED_UI",
+          "positive": "Own99 browser/49 functional on65:18 provenance cases preserve included-VAT warning and missing-amount notice,ordinary gets no invented notice,new manual draft does not reuse prior notices. Current pure parser/date/financial banks49 ran separately on65. Zero-total regression18 includes9create cases that use parser;9edit cases are context,not extra parser cases.",
+          "negative": "Original2FAIL1PASS39.2s on64 retained. Missing amount draft value unchanged;this is provenance display,not complete validation or a model result. Existing review gate remains;no new-bank commands. Do not aggregate144source63+99source65 as own243PASS or claim full1755/1773 here.",
+          "execution": "D65880A_OWN99_PASS2.2M_FUNCTIONAL49_PASS951.7612MS_BUILD66_LINT0ERRORS3WARN_SCAN;AUTH_DB_MODEL_NOT_RUN_API0",
+          "paths": [
+            "src/features/billing/IntegratedBilling.tsx",
+            "src/features/billing/PromptBuilder.tsx",
+            "src/features/billing/parse.ts",
+            "tests/e2e-preview/billing-proposal-warnings.spec.ts",
+            "tests/bootstrap/billing-current-madrid-day.test.mjs",
+            "tests/bootstrap/product-rebuild.test.mjs",
+            "docs/master/W2X_BILLING_PROPOSAL_WARNINGS_20261018.md"
+          ]
+        },
+        {
+          "source_sha": "56fbaee765fb4681aa43943cec4e305eb2afbd67",
+          "kind": "VISUAL",
+          "scope": "PARTIAL_ROW",
+          "stage": "VISUAL_ACCEPTED",
+          "positive": "Six actually viewed lower editor/rejection frames:half-percent comma3907681440,exactzero1440,precision3901440;concept/rates/totals/review/save or safe rejection visible.",
+          "negative": "Upper customer/fiscal/date fields excluded;not complete editor,grammar,accessibility or fiscal/security acceptance.",
+          "execution": "56FBAEE_6_FRAMES_ACTUALLY_VIEWED_HASHES_IN_SOURCE_DOC",
+          "paths": [
+            "docs/master/W2X_BILLING_PROPOSAL_ZERO_TAX_20261018.md",
+            "docs/master/W2X_DETERMINISTIC_PARSER_REVIEW_20261018.md"
+          ]
+        },
+        {
+          "source_sha": "d65880a3af08bcc861d14846d399a75235f65a76",
+          "kind": "VISUAL",
+          "scope": "PARTIAL_ROW",
+          "stage": "VISUAL_ACCEPTED",
+          "positive": "Eight actually viewed upper provenance frames:included/missing3907681440,newblank afterincluded390/aftermissing1440;notice and upper form readable,expected prior-notice position empty on newblank.",
+          "negative": "Concepts/amounts/totals/review/actions mostly outside these frames;fixture background excluded. No visual inference of SQL persistence,absence or complete routing.",
+          "execution": "D65880A_8_FRAMES_ACTUALLY_VIEWED_HASHES_IN_SOURCE_DOC",
+          "paths": [
+            "docs/master/W2X_BILLING_PROPOSAL_WARNINGS_20261018.md",
+            "docs/master/W2X_DETERMINISTIC_PARSER_REVIEW_20261018.md"
+          ]
+        }
+      ],
+      "permissions": "Selected-customer controlled HTTP fixture only;real roles/AuthDB/JWT/RLS not accepted. Pure parser is not a permission or write authority.",
+      "mobile": "PARTIAL_CONTROLLED_HTTP_390_768_1440",
+      "pending": "Partial local deterministic parser and controlled HTTP consumer only. Full grammar,unsupported formats/conflicting clauses,all amount/quantity/currency/date/client/ambiguity combinations,dictation accessibility and complete production routing remain unaccepted. No live model,real AuthDB/JWT/RLS,backend persistence/authority or independent W4 acceptance inferred;manual review remains required.",
       "historical_snapshot": {
         "id": "PAR-135",
         "capability": "Facturación PRO: Parser determinista",
