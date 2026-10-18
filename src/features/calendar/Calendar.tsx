@@ -119,9 +119,9 @@ export function Calendar({
       data-calendar-id={e.id}
       title={e.title}
       onClick={() => onSelect ? onSelect(e) : setSelected(e)}
-      className={`mb-1 block w-full rounded border-l-2 p-1.5 ${compact?'h-12 overflow-hidden':''} text-left text-[10px] leading-4 ${colors[e.type]}`}
+      className={`mb-1 block min-w-0 w-full rounded border-l-2 p-1.5 ${compact?'h-12 overflow-hidden':''} text-left text-[10px] leading-4 ${colors[e.type]}`}
     >
-      <span className={compact?'block truncate font-semibold':'block font-semibold'}>
+      <span className={compact?'block truncate font-semibold':'block min-w-0 [overflow-wrap:anywhere] font-semibold'}>
         {e.allDay ? types[e.type] : time(e.date)} · {e.title}
       </span>
       <span className="block truncate opacity-80">{e.customer}</span>
