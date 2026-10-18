@@ -1570,6 +1570,53 @@
           ]
         }
       ]
+    },
+    "PAR-103": {
+      "source_sha": "44d807ec2c8b85540e648643eaeecbd8474de967",
+      "owner": "W2 billing customer search/filter UI;W1 read contracts;W4 independent acceptance",
+      "priority": "P1",
+      "stages": {
+        "IMPLEMENTED": "PARTIAL",
+        "PROVEN_BACKEND": "NOT_RECONCILED",
+        "CONSUMED_UI": "PARTIAL",
+        "BROWSER_ACCEPTED": "NOT_RECONCILED",
+        "VISUAL_ACCEPTED": "PARTIAL",
+        "SECURITY_ACCEPTED": "NOT_RECONCILED"
+      },
+      "permissions": "Synthetic owner fixture and controlled403 display only;real roles/AuthDB/JWT/RLS not accepted. UI readiness is not write authority.",
+      "mobile": "PARTIAL_CONTROLLED_HTTP_390_768_1440",
+      "external_blocked": "BLOCKED",
+      "pending": "Only customer search/selection/filter and initial identity lifetime reviewed with controlled HTTP. Loaded invoice rows,complete pagination/status/period/search combinations,financial summary accuracy on real data,all roles and real AuthDB/JWT/RLS,full module/accessibility/Next routing and independent W4 remain unaccepted. Empty fixture is not real absence. Other search-lifetime combinations are not accepted merely by preserving late initial identity.",
+      "evidence": [
+        {
+          "source_sha": "44d807ec2c8b85540e648643eaeecbd8474de967",
+          "kind": "SOURCE",
+          "scope": "PARTIAL_ROW_CONTROLLED_HTTP",
+          "stage": "CONSUMED_UI",
+          "positive": "Within own78,18 initial identity/search/selected cases and15 customer-filter cases directly support this row. LateA updates its entry without deleting searchedB;B ID/name/readiness and typed proposal survive. Active/archive initial controls preserved. Customer filter remains explicit after denied/notfound/transport/malformed/current identity and refresh;manual clear intentionally broadens once,financial query stays workspace-scoped.",
+          "negative": "Original1FAIL1PASS23.5s on metadata66 retained;final text preservation adds coverage without claiming an original text-loss assertion.45 other cases in78 are contextual regression,not full row acceptance. Invoice list is empty controlled fixture;no real loaded rows,pagination or SQL absence. No78 inherited by metadata.",
+          "execution": "44D807E_OWN78_PASS1.8M_FUNCTIONAL49_PASS830.8381MS_BUILD66_LINT0ERRORS3WARN_SCAN;AUTH_DB_MODEL_NOT_RUN_API0",
+          "paths": [
+            "src/features/billing/IntegratedBilling.tsx",
+            "tests/e2e-preview/billing-initial-customer-merge.spec.ts",
+            "tests/e2e-preview/billing-customer-filter.spec.ts",
+            "docs/master/W2X_BILLING_INITIAL_CUSTOMER_MERGE_20261018.md"
+          ]
+        },
+        {
+          "source_sha": "44d807ec2c8b85540e648643eaeecbd8474de967",
+          "kind": "VISUAL",
+          "scope": "PARTIAL_ROW",
+          "stage": "VISUAL_ACCEPTED",
+          "positive": "Six actually viewed selectedB frames3907681440 with initialA active/archive:searched name,new-draft action and typed proposal readable;no inappropriate archive banner forB.",
+          "negative": "Closed select does not visually prove other options or initialA status;those use HTTP/DOM. Mobile lower list clipped,empty list fixture not real absence,fixture banner excluded. No full module/accessibility/security acceptance.",
+          "execution": "44D807E_6_FRAMES_ACTUALLY_VIEWED_HASHES_IN_SOURCE_DOC",
+          "paths": [
+            "docs/master/W2X_BILLING_INITIAL_CUSTOMER_MERGE_20261018.md",
+            "docs/master/W2X_BILLING_SEARCH_REVIEW_20261018.md"
+          ]
+        }
+      ]
     }
   },
   "next_3": [
