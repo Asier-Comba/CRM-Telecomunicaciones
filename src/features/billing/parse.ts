@@ -71,9 +71,9 @@ function parseTax(n: string): { rate: number; included: boolean } {
   )
     return { rate: 0, included: false }
   const m =
-    n.match(/iva\s*(?:del?\s*)?(\d{1,2})\s*%?/) ||
-    n.match(/(\d{1,2})\s*%\s*(?:de\s*)?iva/)
-  const rate = m ? Number(m[1]) : 21 // por defecto IVA general
+    n.match(/iva\s*(?:del?\s*)?(-?\d+(?:[.,]\d+)?)(?![\d.,])/) ||
+    n.match(/(?<![\d.,-])(-?\d+(?:[.,]\d+)?)\s*%\s*(?:de\s*)?iva/)
+  const rate = m ? Number(m[1].replace(',', '.')) : 21 // por defecto IVA general
   // ¿el importe escrito es bruto (IVA incluido) o neto (IVA aparte)?
   const excluded =
     /(m[aá]s\s+iva|\+\s*iva|iva\s+(?:no\s+incluido|aparte|excluido|no\s+incl)|sin\s+incluir|base\s+imponible)/.test(
@@ -93,9 +93,9 @@ function parseNotes(text: string): string | null {
 }
 function parseWithholding(n: string): number {
   const m =
-    n.match(/(?:irpf|retenci[oó]n)\s*(?:del?\s*)?(\d{1,2})\s*%?/) ||
-    n.match(/(\d{1,2})\s*%\s*(?:de\s*)?(?:irpf|retenci[oó]n)/)
-  return m ? Number(m[1]) : 0
+    n.match(/(?:irpf|retenci[oó]n)\s*(?:del?\s*)?(-?\d+(?:[.,]\d+)?)(?![\d.,])/) ||
+    n.match(/(?<![\d.,-])(-?\d+(?:[.,]\d+)?)\s*%\s*(?:de\s*)?(?:irpf|retenci[oó]n)/)
+  return m ? Number(m[1].replace(',', '.')) : 0
 }
 function parseDiscount(n: string): number {
   const m =
