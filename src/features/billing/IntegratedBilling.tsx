@@ -64,7 +64,7 @@ function ScopedIntegratedBilling({initialInvoiceId,initialCustomerId,contentEnab
     if(authorized&&initialInvoiceId)void repository.billing('invoice.get',{id:initialInvoiceId}).then(result=>{if(invoiceRequest.current===request&&!recorded.current){setInvoice(result.invoice);setError(null)}}).catch(e=>{if(invoiceRequest.current===request&&!recorded.current){setInvoice(null);setError(e)}})
     return invalidateInvoiceRequests
   },[authorized,initialInvoiceId,repository,invalidateInvoiceRequests])
-  useEffect(()=>{if(!authorized||!initialCustomerId)return;let current=true;void repository.customer(initialCustomerId).then(c=>{if(current)setCustomers([{id:c.id,name:c.trade_name??c.legal_name,status:c.status}])}).catch(e=>{if(current)setError(e)});return()=>{current=false}},[authorized,initialCustomerId,repository])
+  useEffect(()=>{if(!authorized||!initialCustomerId)return;let current=true;void repository.customer(initialCustomerId).then(c=>{if(current)setCustomers(previous=>[...previous.filter(item=>item.id!==c.id),{id:c.id,name:c.trade_name??c.legal_name,status:c.status}])}).catch(e=>{if(current)setError(e)});return()=>{current=false}},[authorized,initialCustomerId,repository])
   function cancelCreation(){creationRequest.current++;setCreateCustomer(false);setBusy(false)}
   async function prepareCreation(){
     if(busy||!newCustomer)return
