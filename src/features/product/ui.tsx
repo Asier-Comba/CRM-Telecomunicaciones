@@ -278,10 +278,10 @@ export function Drawer({
       className="fixed inset-y-0 left-auto right-0 m-0 h-dvh max-h-none w-[min(36rem,100vw)] max-w-none border-l border-slate-200 bg-white p-0 shadow-2xl backdrop:bg-slate-950/35"
     >
       <header className="sticky top-0 z-10 flex items-center justify-between gap-3 border-b bg-white px-5 py-4">
-        <h2 id={id} className="text-lg font-bold text-slate-900">
+        <h2 id={id} className="min-w-0 [overflow-wrap:anywhere] text-lg font-bold text-slate-900">
           {title}
         </h2>
-        <button onClick={onClose} disabled={closeDisabled} aria-label="Cerrar panel" className={control}>
+        <button onClick={onClose} disabled={closeDisabled} aria-label="Cerrar panel" className={control+' shrink-0'}>
           <X className="h-4 w-4" />
         </button>
       </header>
