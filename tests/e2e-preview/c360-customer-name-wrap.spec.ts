@@ -2,7 +2,7 @@ import {expect,test} from '@playwright/test'
 import {writeFile} from 'node:fs/promises'
 import {startCustomerResourceFixture} from './fixtures/customer-resource-server.cjs'
 
-for(const mode of ['company','brand','current'] as const)for(const width of [390,768,1440])test('C360 customer name '+mode+' at '+width,async({page},info)=>{
+for(const area of ['header','facts'] as const)for(const mode of ['company','brand','current'] as const)for(const width of [390,768,1440])test('C360 customer name '+area+' '+mode+' at '+width,async({page},info)=>{
  const fixture=await startCustomerResourceFixture(),id='10000000-0000-4000-8000-000000000001',long='Synthetic Empresa '+('X'.repeat(80)),legal=mode==='company'?long:'Synthetic Empresa ordinaria',brand=mode==='brand'?long:null,calls:{operation:string;input:Record<string,unknown>}[]=[],errors:string[]=[]
  page.on('pageerror',e=>errors.push(e.message))
  await page.route('**/api/**',async route=>{
@@ -16,8 +16,9 @@ for(const mode of ['company','brand','current'] as const)for(const width of [390
  try{
   await page.setViewportSize({width,height:960});await page.goto(fixture.url+'/?kind=detail');const heading=page.getByRole('heading',{name:legal,exact:true,level:1}),header=page.locator('header').filter({has:heading})
   await expect(heading).toBeVisible();if(brand)await expect(header).toContainText(brand)
-  const metrics=await header.evaluate(node=>({width:node.clientWidth,scroll:node.scrollWidth,mainWidth:document.getElementById('main-content')!.clientWidth,mainScroll:document.getElementById('main-content')!.scrollWidth}));expect(metrics.scroll).toBeLessThanOrEqual(metrics.width+1);expect(metrics.mainScroll).toBeLessThanOrEqual(metrics.mainWidth+1)
+  if(area==='facts')await page.getByRole('tab',{name:'Empresa',exact:true}).click();const target=area==='header'?header:page.getByRole('heading',{name:'Datos de empresa',exact:true}).locator('..');await expect(target).toBeVisible();if(area==='facts'){await expect(target).toContainText(legal);if(brand)await expect(target).toContainText(brand)}
+  const metrics=await target.evaluate(node=>({width:node.clientWidth,scroll:node.scrollWidth,mainWidth:document.getElementById('main-content')!.clientWidth,mainScroll:document.getElementById('main-content')!.scrollWidth}));expect(metrics.scroll).toBeLessThanOrEqual(metrics.width+1);expect(metrics.mainScroll).toBeLessThanOrEqual(metrics.mainWidth+1)
   await expect(header.getByRole('button',{name:'Editar cliente',exact:true})).toBeVisible();await expect(header.getByRole('button',{name:'Archivar cliente',exact:true})).toBeVisible();expect(calls.filter(q=>q.operation==='customer.editor')).toHaveLength(1);expect(calls.some(q=>q.operation.endsWith('.create')||q.operation.endsWith('.update')||q.operation.endsWith('.archive'))).toBe(false);expect(errors).toEqual([])
-  await header.scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath('customer-name-'+mode+'-'+width+'.png')});await writeFile(info.outputPath('metrics.json'),JSON.stringify(metrics,null,2))
- }finally{await writeFile(info.outputPath('observations.json'),JSON.stringify({mode,width,legal,brand,calls,errors},null,2));await page.close();await fixture.close()}
+  await target.scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath('customer-name-'+area+'-'+mode+'-'+width+'.png')});await writeFile(info.outputPath('metrics.json'),JSON.stringify(metrics,null,2))
+ }finally{await writeFile(info.outputPath('observations.json'),JSON.stringify({area,mode,width,legal,brand,calls,errors},null,2));await page.close();await fixture.close()}
 })
