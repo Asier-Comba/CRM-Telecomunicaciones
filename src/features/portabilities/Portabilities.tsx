@@ -43,7 +43,7 @@ function PortabilityCreate({customerId,onClose,onCreated}:{customerId:string;onC
   if(!mounted.current)return
   if(record.id!==receipt.id||record.customer_id!==customerId||record.line_id!==input.line_id||record.number_identifier_id!==input.number_identifier_id||record.direction!==input.direction||record.source!=='manual'||record.version<receipt.version)throw new ProductUiError('internal_safe')
   if(record.version===receipt.version&&(record.donor_operator_id!==input.donor_operator_id||record.target_operator_id!==input.target_operator_id||record.requested_on!==input.requested_on||record.owner_user_id!==input.owner_user_id))throw new ProductUiError('internal_safe')
-  const actual=await readLineContext(repository,record.line_id,customerId)
+  const actual=await readLineContext(repository,record.line_id,customerId,()=>mounted.current)
   if(!mounted.current)return
   if(actual.line.contract_id!==record.contract_id||actual.line.service_id!==record.service_id)throw new ProductUiError('internal_safe')
   onCreated(record)
