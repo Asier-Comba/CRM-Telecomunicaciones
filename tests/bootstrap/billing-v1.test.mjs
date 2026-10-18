@@ -65,3 +65,19 @@ test('normalized invoice proposal is bounded, computes exact totals and requires
  let calls=0;const service=new BillingServiceV1({resolve:async()=>({workspaceId:id,role:'member'}),rpc:async()=>{calls++;throw Error('private')}})
  assert.deepEqual(await service.read('invoice.propose',input),{ok:false,error:'access_denied'});assert.equal(calls,0)
 })
+
+test('billing list response binds explicit filters while preserving workspace reads and valid overdue',()=>{
+ const foreign='20000000-0000-4000-8000-000000000007',row={id,customer_id:id,version:1,status:'issued',issue_on:'2026-10-04',due_on:null,series:'A',currency:'EUR',number:{series:'A',year:2026,sequence:1},totals:{subtotal_minor:100,tax_minor:21,withholding_minor:0,total_minor:121},overdue:false}
+ const data=item=>({contract_version:'billing.v1',operation:'invoice.list',items:[item],next_id:null})
+ assert.ok(parseBillingReadV1('invoice.list',{limit:50,customer_id:id,status:'issued'},data(row)))
+ assert.equal(parseBillingReadV1('invoice.list',{limit:50,customer_id:id},data({...row,customer_id:foreign})),null)
+ assert.equal(parseBillingReadV1('invoice.list',{limit:50,status:'issued'},data({...row,status:'paid'})),null)
+ assert.equal(parseBillingReadV1('invoice.list',{limit:50,status:'overdue'},data(row)),null)
+ assert.ok(parseBillingReadV1('invoice.list',{limit:50,status:'overdue'},data({...row,overdue:true})))
+ assert.ok(parseBillingReadV1('invoice.list',{limit:50},data({...row,customer_id:foreign,status:'paid'})))
+ for(const status of ['draft','trashed','issued','paid']){
+  const matching={...row,status,number:['draft','trashed'].includes(status)?null:row.number}
+  assert.ok(parseBillingReadV1('invoice.list',{limit:50,customer_id:id,status},data(matching)))
+  assert.equal(parseBillingReadV1('invoice.list',{limit:50,customer_id:id,status},data({...matching,customer_id:foreign})),null)
+ }
+})

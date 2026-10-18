@@ -63,7 +63,7 @@ export function parseBillingReadV1(q:BillingQueryV1,input:BillingQueriesV1[Billi
  }else if(q==='invoice.list'){
   if(!closed(v,'contract_version,items,next_id,operation')||!array(v.items)||v.items.length>('limit' in input?input.limit??20:20))return null
   let last='after_id' in input?input.after_id??'':''
-  for(const row of v.items){if(!invoice(row)||!plain(row)||(row.id as string)<=last)return null;last=row.id as string}
+  for(const row of v.items){if(!invoice(row)||!plain(row)||(row.id as string)<=last||'customer_id' in input&&input.customer_id!==undefined&&row.customer_id!==input.customer_id||'status' in input&&input.status!==undefined&&(input.status==='overdue'?row.status!=='issued'||row.overdue!==true:row.status!==input.status))return null;last=row.id as string}
   if(v.next_id!==null&&(v.next_id!==last||v.items.length!==('limit' in input?input.limit??20:20)))return null
  }else if(q==='invoice.financial_summary'){
   if(!closed(v,'as_of,contract_version,currencies,from,operation,period,to')||v.period!==('period' in input?input.period??'month':'month')||!billingDateV1(v.as_of)||!array(v.currencies)||v.currencies.length>3||(v.period==='all'?v.from!==null||v.to!==null:!billingDateV1(v.from)||!billingDateV1(v.to)||(v.to as string)<=(v.from as string)))return null
