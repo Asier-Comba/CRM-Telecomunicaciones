@@ -6,7 +6,7 @@ Causal **2FAIL/1PASS34,6s**. Nombre de empresa sintético válido80caracteres:re
 
 Dos clases de contención (min-w-0/max-w-full/overflow-wrap:anywhere) en elbotón deresultado yheading deldestino. Componentes,búsqueda,selección,servicios,lecturas,permisos,estado yefectos existentes. No truncar identidad,añadir pantallas,exponer nombres privados dearchivo ni rutas/contenido. Reversión exacta devuelvepadre;pruebasfinales idénticas alcausal completo.
 
-162 passed (3.2m) propios:12casosdeidentidad(resultados/seleccionado/ordinario/403×3907681440),150regresiones de selección,archivo,descarga,preview,integridad,subida. Una búsquedaporcaso;destino seleccionado produce exactamente document.list concustomeridB/statusactive/limit20. Negativo403 nointroduce destino ninueva consulta delista. Ningúncomando niotraoperaciónenlos12nuevos. Geometría9positivosdentrodepanel/viewport. Build66/lint0errores3warnings/scan/diff/cola/bundle;funcionalesNOT_RUN_UI_STYLE_ONLY,sinheredarNode78.
+162 passed (3.2m) propios:12casosdeidentidad(resultados/seleccionado/ordinario/403×3907681440),150regresiones de selección,archivo,descarga,preview,integridad,subida. Una búsquedaporcaso;destino seleccionado produce exactamente document.list concustomeridB/statusactive/limit20. Negativo403 nointroduce destino ninueva consulta delista. Ningúncomando niotraoperaciónenlos12nuevos. Geometría9positivosdentrodepanel/viewport. Build66/lint0errores4warnings (tres previos y una constante de fixture sin usar; se corrige en fuente posterior, log79 conservado)/scan/diff/cola/bundle;funcionalesNOT_RUN_UI_STYLE_ONLY,sinheredarNode78.
 
 ## Visual individual
 

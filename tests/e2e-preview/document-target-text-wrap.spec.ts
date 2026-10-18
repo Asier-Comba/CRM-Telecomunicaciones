@@ -1,7 +1,7 @@
 import {expect,test} from '@playwright/test'
 import {writeFile} from 'node:fs/promises'
 import {startCustomerResourceFixture} from './fixtures/customer-resource-server.cjs'
-const a='10000000-0000-4000-8000-000000000001',b='20000000-0000-4000-8000-000000000002'
+const b='20000000-0000-4000-8000-000000000002'
 for(const mode of ['results','selected','current','denied'] as const)for(const width of [390,768,1440])test('document target label '+mode+' at '+width,async({page},info)=>{
  const fixture=await startCustomerResourceFixture(),label=mode==='current'?'Synthetic document company':'Synthetic'+ 'Z'.repeat(71),calls:{operation:string;input:Record<string,unknown>}[]=[],errors:string[]=[]
  page.on('pageerror',e=>errors.push(e.message))

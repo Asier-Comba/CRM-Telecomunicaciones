@@ -31,7 +31,7 @@ function ScopedAuthorizedCustomerContext({ id, onAccessDenied }: { id: string; o
   return <section aria-label="Contexto autorizado del cliente" className="space-y-3 rounded-xl border bg-white p-4">
     <div className="flex flex-wrap items-center justify-between gap-2"><h2 className="font-semibold">Contexto del cliente</h2><button className={control} onClick={() => { setCustomer(null); setError(''); setRevision(value => value + 1) }}>Actualizar contexto</button></div>
     {error ? <p role="alert" className="text-sm text-red-700">{error}</p> : !customer ? <p role="status" className="text-sm text-slate-500">Consultando el cliente autorizado…</p> : <>
-      <div className="flex flex-wrap items-center justify-between gap-2"><h3 className="break-words font-semibold">{customer.display_name}</h3><Link className={control} href={'/clients/' + customer.id}>Abrir ficha del cliente</Link></div>
+      <div className="flex flex-wrap items-center justify-between gap-2"><h3 className="min-w-0 max-w-full break-words font-semibold [overflow-wrap:anywhere]">{customer.display_name}</h3><Link className={control} href={'/clients/' + customer.id}>Abrir ficha del cliente</Link></div>
       <p className="text-sm text-slate-500">Datos actuales consultados para tu acceso. Este contexto no sustituye los mensajes históricos ni se ha enviado a un proveedor IA.</p>
       <Customer360Overview key={revision} customerId={customer.id} onAccessDenied={onAccessDenied} />
     </>}
