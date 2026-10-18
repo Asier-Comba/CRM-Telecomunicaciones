@@ -1,7 +1,7 @@
 'use client'
 import {AssignedCommercial} from '@/features/product/integration/AssignedCommercial'
 import {OperatorSelect} from '@/features/product/integration/OperatorSelect'
-import { useState } from 'react'
+import { useId, useState } from 'react'
 import Link from 'next/link'
 import { Building2, Plus, ChevronLeft, ChevronRight } from 'lucide-react'
 import { PageHeader } from '@/components/PageHeader'
@@ -19,6 +19,7 @@ import { previewDate } from '@/lib/telecom-preview/presentation'
 import { useProduct } from '@/features/product/integration/Provider'
 import {AssigneeSelect} from '@/features/product/integration/AssigneeSelect'
 export type CustomerCollectionControls = {
+  filtersExpanded?:boolean;onToggleFilters?:()=>void
   page:number;busy:boolean;failed?:boolean;hasNext:boolean
   values:{status:string;owner:string;source:string;lifecycle:string;operator:string}
   onFilter:(key:'status'|'owner'|'source'|'lifecycle'|'operator',value:string)=>void
@@ -33,6 +34,7 @@ const initial = {
 }
 export function Customers({ rows, onCreate, collection }: { rows: CustomerRow[]; onCreate?: () => void;collection?:CustomerCollectionControls }) {
   const integrated = useProduct().repository.mode === 'integrated_local'
+  const filtersId=useId()
   const [localFilters, setFilters] = useState(initial),
     [page, setPage] = useState(0),
     [sort, setSort] = useState<'name' | 'services' | 'renewal'>('name'),
@@ -113,7 +115,8 @@ export function Customers({ rows, onCreate, collection }: { rows: CustomerRow[];
         ]}
       />
       <section className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
-        <div className="flex flex-wrap items-center gap-2 border-b border-slate-100 p-3">
+        {collection?.onToggleFilters&&<button type="button" aria-controls={filtersId} aria-expanded={collection.filtersExpanded??false} onClick={collection.onToggleFilters} className={`${control} m-3 mb-0 inline-flex items-center gap-2 md:hidden`}>Filtros de clientes{Object.values(collection.values).some(Boolean)&&<span className="rounded bg-indigo-50 px-2 py-0.5 text-xs text-indigo-700">Aplicados</span>}</button>}
+        <div id={filtersId} className={`${collection?.onToggleFilters&&!collection.filtersExpanded?'hidden':'flex'} flex-wrap items-center gap-2 border-b border-slate-100 p-3 md:flex`}>
           {!collection&&<input
             aria-label="Buscar clientes"
             placeholder="Buscar empresa o nombre comercial"

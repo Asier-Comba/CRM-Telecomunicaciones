@@ -30,6 +30,7 @@ for(const width of [390,768,1440])for(const mode of ['long','ordinary','denied']
    expect(geometry.text).toBe(title);expect(geometry.scroll,'name does not overflow its clickable cell').toBeLessThanOrEqual(geometry.client+1)
    await row.getByRole('checkbox',{name:'Seleccionar '+title,exact:true}).check();await expect(page.getByRole('status').filter({hasText:'1 seleccionados'})).toBeVisible()
    await page.getByRole('button',{name:'Quitar selección',exact:true}).click();await expect(row.getByRole('checkbox')).not.toBeChecked()
+   if(width<768)await page.getByRole('button',{name:/^Filtros de clientes/}).click()
    await row.getByRole('checkbox').check();await page.getByRole('combobox',{name:'Estado de cliente',exact:true}).selectOption('active')
    await expect.poll(()=>reads.filter(q=>q.operation==='customer.list'&&q.input.status==='active').length).toBe(1);await expect(link).toBeVisible();await expect(row.getByRole('checkbox')).not.toBeChecked();await expect(page.getByRole('button',{name:'Quitar selección',exact:true})).toHaveCount(0)
    await expect(row.getByRole('link',{name:'Abrir 360',exact:true})).toHaveAttribute('href','/clients/'+id)

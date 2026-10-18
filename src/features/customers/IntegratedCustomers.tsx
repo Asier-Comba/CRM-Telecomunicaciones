@@ -14,6 +14,7 @@ export function IntegratedCustomers({initialCreate=false}:{initialCreate?:boolea
   const [data,setData]=useState<TelecomCollectionPageV1<'customer.list'>|null>(null)
   const [assignees,setAssignees]=useState<TelecomCollectionPageV1<'assignee.list'>|null>(null)
   const [filters,setFilters]=useState(initial),[cursors,setCursors]=useState<string[]>([]),[revision,setRevision]=useState(0)
+  const [filtersExpanded,setFiltersExpanded]=useState(false)
   const [create,setCreate]=useState(initialCreate&&role!==null&&role!=='viewer'),[error,setError]=useState('')
   useEffect(()=>{
     let active=true
@@ -27,7 +28,7 @@ export function IntegratedCustomers({initialCreate=false}:{initialCreate?:boolea
   const rows:CustomerRow[]=(data?.items??[]).map(c=>({id:c.id,name:c.display_name,tradeName:null,status:c.status,lifecycle:c.lifecycle,source:c.source,assignedUserId:c.assigned_user_id,owner:c.assigned_user_id?assignees?.items.find(a=>a.user_id===c.assigned_user_id)?.display_name??'Responsable asignado':'Sin asignar',operators:[],services:null,lines:null,renewal:null,permanence:null,opportunity:null,nextAction:null}))
   return <div className="space-y-4">
     {error&&<div><p role="alert" className="text-sm text-red-700">{error}</p><button className={control} onClick={reload}>Reintentar clientes</button></div>}
-    <Customers key={JSON.stringify([filters,cursors,revision])} rows={rows} onCreate={role&&role!=='viewer'?()=>setCreate(true):undefined} collection={{page:cursors.length+1,busy:!data&&!error,hasNext:!!data?.next_id,failed:!!error,values:filters,onFilter:filter,reload,next:()=>{if(data?.next_id){setData(null);setError('');setCursors(v=>[...v,data.next_id!])}},previous:()=>{setData(null);setError('');setCursors(v=>v.slice(0,-1))}}}/>
+    <Customers key={JSON.stringify([filters,cursors,revision])} rows={rows} onCreate={role&&role!=='viewer'?()=>setCreate(true):undefined} collection={{page:cursors.length+1,busy:!data&&!error,hasNext:!!data?.next_id,failed:!!error,values:filters,onFilter:filter,filtersExpanded,onToggleFilters:()=>setFiltersExpanded(v=>!v),reload,next:()=>{if(data?.next_id){setData(null);setError('');setCursors(v=>[...v,data.next_id!])}},previous:()=>{setData(null);setError('');setCursors(v=>v.slice(0,-1))}}}/>
     <p className="text-xs text-slate-500">Usa la búsqueda global para localizar una empresa. Los filtros de esta vista consultan la colección completa; los recuentos corresponden a la página visible.</p>
     {create&&<CustomerEditor onClose={()=>setCreate(false)} onSaved={receipt=>{setCreate(false);router.push('/clients/'+receipt.id)}}/>}
   </div>
