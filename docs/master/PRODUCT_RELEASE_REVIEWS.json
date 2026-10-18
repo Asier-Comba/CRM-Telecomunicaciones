@@ -1401,6 +1401,66 @@
           ]
         }
       ]
+    },
+    "PAR-105": {
+      "source_sha": "1816c21436d48afa9f8c04da181fe4e1becd8835",
+      "owner": "W2-X manual draft save UI; W1 persistence; W4 independent acceptance",
+      "priority": "P1",
+      "stages": {
+        "IMPLEMENTED": "PARTIAL",
+        "PROVEN_BACKEND": "NOT_RECONCILED",
+        "CONSUMED_UI": "PARTIAL",
+        "BROWSER_ACCEPTED": "NOT_RECONCILED",
+        "VISUAL_ACCEPTED": "PARTIAL",
+        "SECURITY_ACCEPTED": "NOT_RECONCILED"
+      },
+      "permissions": "HTTP403 display/recovery only at explicit source45738AB;actual Auth/JWT/RLS/all roles NOT_RECONCILED.",
+      "mobile": "PARTIAL_CONTROLLED_HTTP_390_768_1440",
+      "external_blocked": "BLOCKED",
+      "pending": "Only controlled HTTP manual draft-save consumer,receipt rejection and registered read recovery reviewed. Real disposable Auth/DB persistence,idempotent SQL,all roles and JWT/RLS,current issuer/customer fiscal validation,all validation/date/currency/link combinations,full editor/accessibility/Next routing and independent W4 remain unaccepted. No backend absence or completed durable method inferred from UI or simulated receipt.",
+      "evidence": [
+        {
+          "source_sha": "45738ab9e830c9c65150231fa691778d3c08aa52",
+          "kind": "SOURCE",
+          "scope": "PARTIAL_ROW_CONTROLLED_HTTP",
+          "stage": "CONSUMED_UI",
+          "positive": "Own18 covers create/update with current/invalid/denied responses3widths. Edited description,quantity2,unit price200,tax21 payload and strict valid receipt/readback484. Current create one command.",
+          "negative": "Create malformed JSON/wrong command_id/extra envelope keeps intent;exact retry preserves command_id/payload. HTTP403 retains editing and allows closing. This historical source has visually enabled no-op X while uncertain;do not claim current close-disabled here. No SQL effect/persistence/idempotency accepted.",
+          "execution": "45738AB_OWN18_PASS44.7S_BUILD66_LINT0ERRORS3WARN_SCAN;AUTH_DB_MODEL_NOT_RUN_API0",
+          "paths": [
+            "src/features/billing/IntegratedBilling.tsx",
+            "src/features/billing/Editor.tsx",
+            "tests/e2e-preview/billing-draft-receipt.spec.ts",
+            "docs/master/W2X_BILLING_DRAFT_RECEIPT_20261018.md"
+          ]
+        },
+        {
+          "source_sha": "1816c21436d48afa9f8c04da181fe4e1becd8835",
+          "kind": "SOURCE",
+          "scope": "PARTIAL_ROW_CONTROLLED_HTTP",
+          "stage": "CONSUMED_UI",
+          "positive": "After valid create receipt,failed malformed/foreign-customer/503 read retains registered state and read-only recovery. Read retry returns same id/version/draft;timeline command/read/read and one command.",
+          "negative": "No command retry after valid receipt,fields/close blocked,Escape preserves state. Original18FAIL6/PASS12 due fixture same customer UUID;only failed6 refined with distinct foreign UUID then6PASS17.3s. 12+6complementary,not18singlePASS. Product unchanged;no persistence/auth proof.",
+          "execution": "1816C21_12_PLUS6_COMPLEMENTARY_PASS_ORIGINAL18FAIL_RETAINED_BUILD66_LINT0ERRORS3WARN_SCAN;AUTH_DB_MODEL_NOT_RUN_API0",
+          "paths": [
+            "tests/e2e-preview/billing-draft-registered.spec.ts",
+            "docs/master/W2X_BILLING_DRAFT_REGISTERED_20261018.md"
+          ]
+        },
+        {
+          "source_sha": "1816c21436d48afa9f8c04da181fe4e1becd8835",
+          "kind": "VISUAL",
+          "scope": "PARTIAL_ROW",
+          "stage": "VISUAL_ACCEPTED",
+          "positive": "Seven actually viewed registered recovery upper drawer frames:malformedcreate3widths,foreigncustomer create390/update1440,503update390/create1440;notice,read action,error,disabled X/fields readable.",
+          "negative": "Includes update examples as context;not full save row. Lower concepts/totals/actions outside viewport,not full editor/accessibility/Auth acceptance.",
+          "execution": "1816C21_7_REGISTERED_FRAMES_ACTUALLY_VIEWED_HASHES_IN_REVIEW_DOC",
+          "paths": [
+            "docs/master/W2X_DRAFT_SAVE_INDIVIDUAL_REVIEW_20261018.md",
+            "tests/e2e-preview/billing-draft-registered.spec.ts"
+          ]
+        }
+      ]
     }
   },
   "next_3": [
