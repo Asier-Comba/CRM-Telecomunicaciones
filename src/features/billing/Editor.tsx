@@ -24,6 +24,7 @@ export function InvoiceEditor({
   onClose,
   integrated = false,
   locked = false,
+  closeDisabled = false,
   serverError,
   onRetry,
   onReload,
@@ -41,6 +42,7 @@ export function InvoiceEditor({
   onClose: () => void
   integrated?: boolean
   locked?: boolean
+  closeDisabled?: boolean
   serverError?: string
   onRetry?: () => void
   onReload?: () => void
@@ -151,7 +153,7 @@ export function InvoiceEditor({
     setTimeout(() => URL.revokeObjectURL(url), 1000)
   }
   return (
-    <Drawer title="Revisar borrador local" onClose={onClose}>
+    <Drawer title="Revisar borrador local" onClose={onClose} closeDisabled={closeDisabled}>
       <p className="rounded-lg bg-amber-50 p-3 text-xs leading-5 text-amber-800">
         {integrated ? 'Datos sintéticos locales. Los importes son una vista previa; el servidor recalcula y guarda el borrador sin reservar número. La emisión requiere una confirmación posterior.' : 'Solo datos de prueba. No se persiste en el servidor y no reserva número fiscal. Los borradores de esta sesión se pierden al salir del módulo.'}
       </p>

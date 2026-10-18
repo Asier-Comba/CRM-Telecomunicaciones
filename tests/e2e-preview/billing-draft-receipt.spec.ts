@@ -35,7 +35,7 @@ for(const action of ['create','update'] as const)for(const mode of ['invalid','d
   if(mode==='invalid'){
    await expect(editor.getByRole('alert')).toHaveText('No se pudo completar la acción.');await expect(concept).toBeDisabled();await expect(save).toBeDisabled();expect(commands).toHaveLength(1);expect(accepted).toBe(false)
    const gets=reads.filter(x=>x==='invoice.get').length
-   await editor.getByRole('button',{name:'Cerrar panel',exact:true}).click();await expect(editor).toBeVisible();await page.keyboard.press('Escape');await expect(editor).toBeVisible();await expect(page.getByRole('button',{name:'Actualizar facturas',exact:true})).toBeDisabled();expect(reads.filter(x=>x==='invoice.get')).toHaveLength(gets)
+   await expect(editor.getByRole('button',{name:'Cerrar panel',exact:true})).toBeDisabled();await editor.getByRole('button',{name:'Cerrar panel',exact:true}).evaluate((b:HTMLButtonElement)=>b.click());await expect(editor).toBeVisible();await page.keyboard.press('Escape');await expect(editor).toBeVisible();await expect(page.getByRole('button',{name:'Actualizar facturas',exact:true})).toBeDisabled();expect(reads.filter(x=>x==='invoice.get')).toHaveLength(gets)
    await editor.getByRole('button',{name:'Reintentar la misma acción',exact:true}).scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath('draft-receipt-'+action+'-invalid-'+width+'.png')})
    await editor.getByRole('button',{name:'Reintentar la misma acción',exact:true}).click()
   }else if(mode==='denied'){
