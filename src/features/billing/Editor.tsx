@@ -90,7 +90,7 @@ export function InvoiceEditor({
       currentLinks,
     )
     setErrors(next)
-    if (!next.length && reviewed) onSave(structuredClone(form))
+    if (!next.length && reviewed && (!integrated || exact)) onSave(structuredClone(form))
   }
   function pdf() {
     const next = validateDraft(
@@ -454,7 +454,7 @@ export function InvoiceEditor({
         <button
           type="button"
           className={primary}
-          disabled={!reviewed}
+          disabled={!reviewed || (integrated && !exact)}
           onClick={save}
         >
           Guardar borrador local
