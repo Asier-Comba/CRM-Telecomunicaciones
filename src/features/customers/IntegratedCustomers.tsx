@@ -26,7 +26,7 @@ export function IntegratedCustomers({initialCreate=false}:{initialCreate?:boolea
   useEffect(()=>{let active=true;void repository.collection('assignee.list',{limit:100,sort:'id_asc'}).then(v=>{if(active)setAssignees(v)}).catch(()=>{if(active)setAssignees(null)});return()=>{active=false}},[repository,revision])
   useEffect(()=>{if(!navigationFocus.current||(!data&&!error))return;navigationFocus.current=false;if(document.activeElement===document.body)(error?pageError.current:pageStatus.current)?.focus()},[data,error])
   function filter(key:keyof typeof initial,value:string){navigationFocus.current=false;setData(null);setError('');setCursors([]);setFilters(v=>({...v,[key]:value}))}
-  function reload(){navigationFocus.current=false;setData(null);setError('');setCursors([]);setRevision(v=>v+1)}
+  function reload(){navigationFocus.current=true;setData(null);setError('');setCursors([]);setRevision(v=>v+1)}
   const rows:CustomerRow[]=(data?.items??[]).map(c=>({id:c.id,name:c.display_name,tradeName:null,status:c.status,lifecycle:c.lifecycle,source:c.source,assignedUserId:c.assigned_user_id,owner:c.assigned_user_id?assignees?.items.find(a=>a.user_id===c.assigned_user_id)?.display_name??'Responsable asignado':'Sin asignar',operators:[],services:null,lines:null,renewal:null,permanence:null,opportunity:null,nextAction:null}))
   return <div className="space-y-4">
     {error&&<div><p ref={pageError} tabIndex={-1} role="alert" className="text-sm text-red-700 focus-visible:outline-2 focus-visible:outline-indigo-500">{error}</p><button className={control} onClick={reload}>Reintentar clientes</button></div>}
