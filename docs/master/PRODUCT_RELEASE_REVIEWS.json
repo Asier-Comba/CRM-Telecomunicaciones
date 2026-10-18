@@ -1586,7 +1586,7 @@
       "permissions": "Synthetic owner fixture and controlled403 display only;real roles/AuthDB/JWT/RLS not accepted. UI readiness is not write authority.",
       "mobile": "PARTIAL_CONTROLLED_HTTP_390_768_1440",
       "external_blocked": "BLOCKED",
-      "pending": "Only customer search/selection/filter and initial identity lifetime reviewed with controlled HTTP. Loaded invoice rows,complete pagination/status/period/search combinations,financial summary accuracy on real data,all roles and real AuthDB/JWT/RLS,full module/accessibility/Next routing and independent W4 remain unaccepted. Empty fixture is not real absence. Other search-lifetime combinations are not accepted merely by preserving late initial identity.",
+      "pending": "Only customer search/selection/filter and initial identity lifetime reviewed with controlled HTTP. Loaded invoice rows,complete pagination/status/period/search combinations,financial summary accuracy on real data,all roles and real AuthDB/JWT/RLS,full module/accessibility/Next routing and independent W4 remain unaccepted. Empty fixture is not real absence. Other search-lifetime combinations are not accepted merely by preserving late initial identity. Subsequent successful-search preservation and explicit customer reset now have separate source69 partial evidence;this does not accept remaining search-lifetime combinations or full module.",
       "evidence": [
         {
           "source_sha": "44d807ec2c8b85540e648643eaeecbd8474de967",
@@ -1614,6 +1614,33 @@
           "paths": [
             "docs/master/W2X_BILLING_INITIAL_CUSTOMER_MERGE_20261018.md",
             "docs/master/W2X_BILLING_SEARCH_REVIEW_20261018.md"
+          ]
+        },
+        {
+          "source_sha": "4964b61330e7f3abeb86349c9c3cb1f9260ca728",
+          "kind": "SOURCE",
+          "scope": "PARTIAL_ROW_CONTROLLED_HTTP",
+          "stage": "CONSUMED_UI",
+          "positive": "15 new search/selection cases:other replaces obsolete B with C while preserving selectedA identity/readiness/text;empty and matching search preserveA;explicit changeB resets proposal;HTTP403 retains unverified/disabled failclosed. At3907681440. Initial identity67 remains covered among96 contextual regressions. Invoice.list remains explicitly customer-filtered;no new commands.",
+          "negative": "First3FAIL fixture queries rejected by strict DTO parser,not product cause;corrected same-parent2FAIL1PASS29.6s before fix preserved separately. No acceptance of real loaded rows,pagination/status/period,real authority or whole row. No111PASS inherited to metadata.",
+          "execution": "4964B61_OWN111_PASS2.2M_FUNCTIONAL49_PASS874.1793MS_BUILD66_LINT0ERRORS3WARN_SCAN;AUTH_DB_MODEL_VOICE_NOT_RUN_API0",
+          "paths": [
+            "src/features/billing/IntegratedBilling.tsx",
+            "tests/e2e-preview/billing-search-selection.spec.ts",
+            "docs/master/W2X_BILLING_SEARCH_SELECTION_20261018.md"
+          ]
+        },
+        {
+          "source_sha": "4964b61330e7f3abeb86349c9c3cb1f9260ca728",
+          "kind": "VISUAL",
+          "scope": "PARTIAL_ROW",
+          "stage": "VISUAL_ACCEPTED",
+          "positive": "Nine actually viewed other/change/denied frames3907681440:retainedA/name/text/newdraft;changedB with empty placeholder and disabledGenerate;403 with safe permission message,unverified selection,disabledNew,noPrompt.",
+          "negative": "Closed options/obsolete result replacement measured DOM,not visible pixels;mobile lower list clipped;empty fixture not SQL absence;fixture banner excluded. No full module/accessibility/security acceptance.",
+          "execution": "4964B61_9_FRAMES_ACTUALLY_VIEWED_HASHES_IN_SOURCE_DOC",
+          "paths": [
+            "docs/master/W2X_BILLING_SEARCH_SELECTION_20261018.md",
+            "docs/master/W2X_BILLING_SELECTION_REVIEW_20261018.md"
           ]
         }
       ]
