@@ -59,12 +59,14 @@ export function Calendar({
   onCreate,
   onSelect,
   onRange,
+  onToday,
 }: {
   entries: CalendarEntry[]
   asOf: string
   onCreate?: () => void
   onSelect?: (entry: CalendarEntry) => void
   onRange?: (anchor: string) => void
+  onToday?: () => string
 }) {
   const today = calendarDate(asOf),
     [anchor, setAnchor] = useState(today),
@@ -250,7 +252,7 @@ export function Calendar({
         <section aria-label="Agenda y vistas del calendario" className="min-w-0 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
           <header className="flex flex-wrap items-center justify-between gap-2 border-b p-3">
             <div className="flex flex-wrap items-center gap-2">
-              <button className={control} onClick={() => setAnchor(today)}>
+              <button className={control} onClick={() => setAnchor(onToday?.() ?? today)}>
                 Hoy
               </button>
               <button
