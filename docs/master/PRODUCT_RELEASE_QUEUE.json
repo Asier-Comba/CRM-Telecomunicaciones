@@ -78,7 +78,7 @@
     },
     {
       "path": "docs/master/PRODUCT_RELEASE_REVIEWS.json",
-      "sha256": "3e8e1ac31612421867f66b42ad36fd70e005424927871e153e95dc34a605c60e"
+      "sha256": "afe99e9eb9733ae13ab65a3aecfe114fa43fda4063f50371d08148fc115c16e8"
     }
   ],
   "reference_documents": [
@@ -103,8 +103,8 @@
     "total": 342,
     "parity": 244,
     "telecom": 98,
-    "reviewed_partial": 29,
-    "unreconciled": 313,
+    "reviewed_partial": 30,
+    "unreconciled": 312,
     "release_ready": 0
   },
   "next_3": [
@@ -1490,21 +1490,48 @@
       "capability": "Customer360: Datos de empresa",
       "family": "parity",
       "REQUIRED": true,
-      "IMPLEMENTED": "NOT_RECONCILED",
+      "IMPLEMENTED": "PARTIAL",
       "PROVEN_BACKEND": "NOT_RECONCILED",
-      "CONSUMED_UI": "NOT_RECONCILED",
+      "CONSUMED_UI": "PARTIAL",
       "BROWSER_ACCEPTED": "NOT_RECONCILED",
-      "VISUAL_ACCEPTED": "NOT_RECONCILED",
+      "VISUAL_ACCEPTED": "PARTIAL",
       "SECURITY_ACCEPTED": "NOT_RECONCILED",
-      "EXTERNAL_BLOCKED": "NOT_RECONCILED",
+      "EXTERNAL_BLOCKED": "BLOCKED",
       "RELEASE_READY": false,
-      "owner": "W2; W1 contracts; W4 acceptance",
+      "owner": "W2 Customer360 company-data UI; W1 identity contracts; W4 independent acceptance",
       "priority": "P1",
-      "source_sha": null,
-      "evidence": [],
-      "permissions": "NOT_RECONCILED",
-      "mobile": "NOT_RECONCILED",
-      "pending": "Map current implementation and row-specific positive, negative, permission, responsive and visual evidence before promotion.",
+      "source_sha": "194057f50a1d9d9ce60b8003065fa3c06cd7e5d3",
+      "evidence": [
+        {
+          "source_sha": "194057f50a1d9d9ce60b8003065fa3c06cd7e5d3",
+          "kind": "SOURCE",
+          "scope": "PARTIAL_ROW_CONTROLLED_HTTP",
+          "stage": "CONSUMED_UI",
+          "positive": "Within own77,9 Empresa cases directly cover legal/trade/ordinary names at3907681440. Existing fields remain legible in one/two columns without horizontal overflow. One identity per case;no commands. Header9 and59 other regressions are68 contextual cases,not full row acceptance. Panel/main geometry recorded for18 combined cases.",
+          "negative": "Original Empresa390 legal-name panel340/scroll767 fails while ordinary passes,1FAIL1PASS22.0s preserved. Header original74 is a distinct prior cause/source,not another original75 failure. Fiscal reveal,origin andedit/archive not exercised;no SQL/AuthDB proof.",
+          "execution": "194057F_OWN77_PASS1.3M_BUILD66_LINT0ERRORS3WARN_SCAN;FUNCTIONAL_NOT_RUN_UI_STYLE_ONLY;AUTH_DB_MODEL_NOT_RUN_API0",
+          "paths": [
+            "src/features/customers/CustomerIntegratedPanels.tsx",
+            "tests/e2e-preview/c360-customer-name-wrap.spec.ts",
+            "docs/master/W2X_C360_COMPANY_FACTS_WRAP_20261018.md"
+          ]
+        },
+        {
+          "source_sha": "194057f50a1d9d9ce60b8003065fa3c06cd7e5d3",
+          "kind": "VISUAL",
+          "scope": "PARTIAL_ROW",
+          "stage": "VISUAL_ACCEPTED",
+          "positive": "Eight actually viewed current-source frames:Empresa legal/trade at3907681440,ordinaryEmpresa1440,headerlegal390. Six long-name Empresa frames show full names,relation,status,origin andunassigned value within bounds.",
+          "negative": "OrdinaryEmpresa1440 bottom fields outside viewport;header frame is context,not another Empresa frame. Harness/UUID/banner excluded. Count1 tiles andempty priorities are declared fixture data,not SQL evidence. Fiscal-reveal button not invoked.",
+          "execution": "194057F_8_FRAMES_ACTUALLY_VIEWED_HASHES_IN_SOURCE_DOC",
+          "paths": [
+            "docs/master/W2X_C360_COMPANY_FACTS_WRAP_20261018.md"
+          ]
+        }
+      ],
+      "permissions": "Controlled owner DTO fixture only. Fiscal reveal,edit/archive buttons are displayed,not accepted operations;real roles/AuthDB/JWT/RLS remain unaccepted.",
+      "mobile": "PARTIAL_CONTROLLED_HTTP_390_768_1440",
+      "pending": "Only ordinary company fields and long-name layout are partially evidenced. No fiscal reveal,editing,archival,registered origin,real AuthDB/RLS/current membership,full accessibility or independent W4 acceptance. Synthetic count1/empty attention fixtures are not SQL counts or absence.",
       "historical_snapshot": {
         "id": "PAR-041",
         "capability": "Customer360: Datos de empresa",
@@ -3954,11 +3981,40 @@
             "docs/master/W2X_BILLING_SEARCH_SELECTION_20261018.md",
             "docs/master/W2X_BILLING_SELECTION_REVIEW_20261018.md"
           ]
+        },
+        {
+          "source_sha": "a33a0e1dd609d15ab78fea2fd1a2e8e3c41fe6d4",
+          "kind": "SOURCE",
+          "scope": "PARTIAL_ROW_CONTROLLED_HTTP",
+          "stage": "CONSUMED_UI",
+          "positive": "Fresh own156 contains93 directly pertinent cases:initial identity18,customer-filter15,search-selection15,loaded pages18,filter-response18 andselected-name9;63 archive/preparation/proposal/warnings cases are contextual. Loaded pages use50 sorted IDs/last-ID cursor;scope/status/overdue mismatches rejected;manual clear alone broadens workspace;complete selected name wraps.",
+          "negative": "This is not156 complete row capabilities. Original72=144PASS3fixtureFAIL then3PASS complementary remains unchanged;source73 actually reruns156 uniformly after workspace fixture repair. Overdue positive binds a declared flag with null due date,not calendar derivation/financial truth. Real AuthDB/RLS,all period/status/pagination/roles andW4 remain unaccepted.",
+          "execution": "A33A0E1_OWN156_PASS2.9M_FUNCTIONAL50_PASS753.2677MS_BUILD66_LINT0ERRORS3WARN_SCAN;AUTH_DB_MODEL_NOT_RUN_API0",
+          "paths": [
+            "src/features/billing/IntegratedBilling.tsx",
+            "src/lib/server/billing-query-runtime-v1.ts",
+            "tests/e2e-preview/billing-loaded-pages.spec.ts",
+            "tests/e2e-preview/billing-list-filter-response.spec.ts",
+            "tests/e2e-preview/billing-selected-customer-label.spec.ts",
+            "docs/master/W2X_BILLING_SELECTED_CUSTOMER_LABEL_20261018.md"
+          ]
+        },
+        {
+          "source_sha": "a33a0e1dd609d15ab78fea2fd1a2e8e3c41fe6d4",
+          "kind": "VISUAL",
+          "scope": "PARTIAL_ROW",
+          "stage": "VISUAL_ACCEPTED",
+          "positive": "Nine actually viewed selected-name long/clear/denied frames3907681440 show complete wrapped identity beside truncated native select,manual-clear workspace state andsafe denied/unverified state.",
+          "negative": "These nine images do not visually certify every loaded-page/status-filter case in156. Mobile lower proposal/list/paging partly outside viewport;empty fixture not SQL absence;banner excluded. No full module/accessibility/security acceptance.",
+          "execution": "A33A0E1_9_FRAMES_ACTUALLY_VIEWED_HASHES_IN_SOURCE_DOC",
+          "paths": [
+            "docs/master/W2X_BILLING_SELECTED_CUSTOMER_LABEL_20261018.md"
+          ]
         }
       ],
       "permissions": "Synthetic owner fixture and controlled403 display only;real roles/AuthDB/JWT/RLS not accepted. UI readiness is not write authority.",
       "mobile": "PARTIAL_CONTROLLED_HTTP_390_768_1440",
-      "pending": "Only customer search/selection/filter and initial identity lifetime reviewed with controlled HTTP. Loaded invoice rows,complete pagination/status/period/search combinations,financial summary accuracy on real data,all roles and real AuthDB/JWT/RLS,full module/accessibility/Next routing and independent W4 remain unaccepted. Empty fixture is not real absence. Other search-lifetime combinations are not accepted merely by preserving late initial identity. Subsequent successful-search preservation and explicit customer reset now have separate source69 partial evidence;this does not accept remaining search-lifetime combinations or full module.",
+      "pending": "Only customer search/selection/filter and initial identity lifetime reviewed with controlled HTTP. Loaded invoice rows,complete pagination/status/period/search combinations,financial summary accuracy on real data,all roles and real AuthDB/JWT/RLS,full module/accessibility/Next routing and independent W4 remain unaccepted. Empty fixture is not real absence. Other search-lifetime combinations are not accepted merely by preserving late initial identity. Subsequent successful-search preservation and explicit customer reset now have separate source69 partial evidence;this does not accept remaining search-lifetime combinations or full module. Source73 adds current-source controlled loaded-page/filter-response/name evidence,without accepting remaining real-data,financial/calendar,permission orfull-module criteria. Shared read validation72 still requires owner review/consumption.",
       "historical_snapshot": {
         "id": "PAR-103",
         "capability": "Facturación PRO: Listado, búsqueda y filtros",
