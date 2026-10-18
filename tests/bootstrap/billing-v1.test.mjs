@@ -73,11 +73,24 @@ test('billing list response binds explicit filters while preserving workspace re
  assert.equal(parseBillingReadV1('invoice.list',{limit:50,customer_id:id},data({...row,customer_id:foreign})),null)
  assert.equal(parseBillingReadV1('invoice.list',{limit:50,status:'issued'},data({...row,status:'paid'})),null)
  assert.equal(parseBillingReadV1('invoice.list',{limit:50,status:'overdue'},data(row)),null)
- assert.ok(parseBillingReadV1('invoice.list',{limit:50,status:'overdue'},data({...row,overdue:true})))
+ assert.ok(parseBillingReadV1('invoice.list',{limit:50,status:'overdue'},data({...row,issue_on:'2026-10-01',due_on:'2026-10-05',overdue:true})))
  assert.ok(parseBillingReadV1('invoice.list',{limit:50},data({...row,customer_id:foreign,status:'paid'})))
  for(const status of ['draft','trashed','issued','paid']){
   const matching={...row,status,number:['draft','trashed'].includes(status)?null:row.number}
   assert.ok(parseBillingReadV1('invoice.list',{limit:50,customer_id:id,status},data(matching)))
   assert.equal(parseBillingReadV1('invoice.list',{limit:50,customer_id:id,status},data({...matching,customer_id:foreign})),null)
+ }
+})
+
+test('billing overdue reads require a due date while undated non-overdue invoices remain valid',()=>{
+ const profile={legal_name:'Synthetic',tax_id:'SYNTHETIC',address:'Synthetic 1',postal_code:'00000',city:'Synthetic',region:'Synthetic',country:'ES'}
+ const full={id,version:2,status:'issued',customer_id:id,issue_on:'2026-10-01',due_on:'2026-10-05',series:'A',currency:'EUR',number:{series:'A',year:2026,sequence:1},totals:calculateBillingV1([line]),overdue:true,lines:[line],notes:null,contract_id:null,service_id:null,opportunity_id:null,issuer:{...profile,currency:'EUR',default_series:'A'},customer_fiscal:profile,issued_at:'2026-10-01T16:00:00.000Z',paid_at:null,fx:null}
+ const summary=Object.fromEntries(['currency','customer_id','due_on','id','issue_on','number','overdue','series','status','totals','version'].map(key=>[key,full[key]]))
+ for(const operation of ['invoice.get','invoice.summary','invoice.list']){
+  const invoice=operation==='invoice.get'?full:summary,input=operation==='invoice.list'?{limit:50,customer_id:id}:{id}
+  const response=item=>operation==='invoice.list'?{contract_version:'billing.v1',operation,items:[item],next_id:null}:{contract_version:'billing.v1',operation,invoice:item}
+  assert.ok(parseBillingReadV1(operation,input,response(invoice)))
+  assert.equal(parseBillingReadV1(operation,input,response({...invoice,due_on:null})),null)
+  assert.ok(parseBillingReadV1(operation,input,response({...invoice,due_on:null,overdue:false})))
  }
 })

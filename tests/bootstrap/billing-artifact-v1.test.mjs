@@ -7,7 +7,7 @@ import {calculateBillingV1}from '../../src/lib/server/billing-runtime-v1.ts'
 const fid='10000000-0000-4000-8000-000000000001'
 const line={description:'Synthetic private PDF',quantity_milli:1500,unit_price_minor:101,discount_bps:500,tax_bps:2100,withholding_bps:1500}
 const profile={legal_name:'Synthetic Company',tax_id:'SYNTHETIC-NOT-VALID',address:'Synthetic Street',postal_code:'00000',city:'Synthetic',region:'Synthetic',country:'ES'}
-const invoice={id:fid,version:2,status:'issued',customer_id:fid,issue_on:'2026-10-04',due_on:null,series:'A',currency:'EUR',number:{series:'A',year:2026,sequence:1},totals:calculateBillingV1([line]),overdue:false,lines:[line],notes:null,contract_id:null,service_id:null,opportunity_id:null,issuer:{...profile,currency:'EUR',default_series:'A'},customer_fiscal:profile,issued_at:'2026-10-04T16:00:00Z',paid_at:null,fx:null}
+const invoice={id:fid,version:2,status:'issued',customer_id:fid,issue_on:'2026-10-04',due_on:'2026-10-05',series:'A',currency:'EUR',number:{series:'A',year:2026,sequence:1},totals:calculateBillingV1([line]),overdue:false,lines:[line],notes:null,contract_id:null,service_id:null,opportunity_id:null,issuer:{...profile,currency:'EUR',default_series:'A'},customer_fiscal:profile,issued_at:'2026-10-04T16:00:00Z',paid_at:null,fx:null}
 const id=invoice.id,document='e9100000-0000-4000-8000-000000000001',command='f9100000-0000-4000-8000-000000000001'
 test('frozen persisted PDF bytes survive paid/overdue display changes and reject unissued/forged fiscal truth',()=>{
  const expected=renderFrozenInvoicePdfV1(invoice)

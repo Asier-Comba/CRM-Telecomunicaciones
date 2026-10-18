@@ -37,7 +37,7 @@ function instant(v:unknown):boolean{return typeof v==='string' && isStrictInstan
 function invoice(v:unknown,full=false):boolean {
  if(!closed(v,full?'contract_id,currency,customer_fiscal,customer_id,due_on,fx,id,issue_on,issued_at,issuer,lines,notes,number,opportunity_id,overdue,paid_at,series,service_id,status,totals,version':basicKeys)||!uuid(v.id)||!uuid(v.customer_id)||!integer(v.version,1,999999999999999)||!['draft','trashed','issued','paid'].includes(v.status as string)||!billingDateV1(v.issue_on)||v.due_on!==null&&(!billingDateV1(v.due_on)||v.due_on<v.issue_on)||typeof v.series!=='string'||!/^[A-Z0-9-]{1,8}$/.test(v.series)||!['EUR','USD','GBP'].includes(v.currency as string)||typeof v.overdue!=='boolean'||!totals(v.totals))return false
  if((v.status==='issued'||v.status==='paid')?!number(v.number)||v.number?.series!==v.series:v.number!==null)return false
- if(v.overdue&&v.status!=='issued')return false
+ if(v.overdue&&(v.status!=='issued'||v.due_on===null))return false
  if(!full)return true
  if(parseBillingLinesV1(v.lines)===null||JSON.stringify(calculateBillingV1(v.lines as import('../contracts/billing-v1').BillingLineV1[]))!==JSON.stringify(Object.fromEntries(['subtotal_minor','tax_minor','withholding_minor','total_minor'].map(k=>[k,(v.totals as Record<string,unknown>)[k]]))))return false
  if(v.notes!==null&&!text(v.notes,2000)||['contract_id','service_id','opportunity_id'].some(k=>v[k]!==null&&!uuid(v[k])))return false

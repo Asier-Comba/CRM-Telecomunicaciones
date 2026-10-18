@@ -11,7 +11,7 @@ for(const mode of ['customer','status','overdue','current','workspace','current-
   if(q.operation==='customer.editor'){await reply({contract_version:'product.v1',id:a,version:1,account_kind:'legal_entity',legal_name:'Synthetic filtered company A',trade_name:null,lifecycle:'customer',status:'active',source:'manual',assigned_user_id:null});return}
   if(q.operation==='invoice.list'){
    const summary=Object.fromEntries(['currency','customer_id','due_on','id','issue_on','number','overdue','series','status','totals','version'].map(key=>[key,fixture.invoice[key as keyof typeof fixture.invoice]]))
-   const invoice={...summary,id,customer_id:mode==='customer'||mode==='workspace'&&q.input.customer_id===undefined?b:a,status:mode==='status'&&q.input.status?'paid':'issued',overdue:mode==='current-overdue'&&q.input.status==='overdue',number:{series:'A',year:2026,sequence:12}}
+   const invoice={...summary,id,customer_id:mode==='customer'||mode==='workspace'&&q.input.customer_id===undefined?b:a,status:mode==='status'&&q.input.status?'paid':'issued',overdue:mode==='current-overdue'&&q.input.status==='overdue',...(mode==='current-overdue'&&q.input.status==='overdue'?{issue_on:'2026-10-01',due_on:'2026-10-05'}:{}),number:{series:'A',year:2026,sequence:12}}
    const data={contract_version:'billing.v1',operation:q.operation,items:[invoice],next_id:null}
    expect(parseBillingReadV1('invoice.list',{limit:50},data)).not.toBeNull();await reply(data);return
   }
