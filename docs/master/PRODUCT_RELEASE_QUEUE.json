@@ -78,7 +78,7 @@
     },
     {
       "path": "docs/master/PRODUCT_RELEASE_REVIEWS.json",
-      "sha256": "1c347a0ca485742029202f9f052ff22e817359fbf011e30d69add7f4d1a1c0cb"
+      "sha256": "fde7791975057d6010b04a821a4aa404152a482d5c668df3bdf795d6d9481f18"
     }
   ],
   "reference_documents": [
@@ -103,8 +103,8 @@
     "total": 342,
     "parity": 244,
     "telecom": 98,
-    "reviewed_partial": 32,
-    "unreconciled": 310,
+    "reviewed_partial": 33,
+    "unreconciled": 309,
     "release_ready": 0
   },
   "next_3": [
@@ -1116,21 +1116,50 @@
       "capability": "Clientes: Paginación",
       "family": "parity",
       "REQUIRED": true,
-      "IMPLEMENTED": "NOT_RECONCILED",
+      "IMPLEMENTED": "PARTIAL",
       "PROVEN_BACKEND": "NOT_RECONCILED",
-      "CONSUMED_UI": "NOT_RECONCILED",
-      "BROWSER_ACCEPTED": "NOT_RECONCILED",
-      "VISUAL_ACCEPTED": "NOT_RECONCILED",
+      "CONSUMED_UI": "PARTIAL",
+      "BROWSER_ACCEPTED": "PARTIAL",
+      "VISUAL_ACCEPTED": "PARTIAL",
       "SECURITY_ACCEPTED": "NOT_RECONCILED",
-      "EXTERNAL_BLOCKED": "NOT_RECONCILED",
+      "EXTERNAL_BLOCKED": "BLOCKED",
       "RELEASE_READY": false,
-      "owner": "W2; W1 contracts; W4 acceptance",
+      "owner": "W2-X customer inventory pagination; W1 contract/backend; W4 independent acceptance",
       "priority": "P1",
-      "source_sha": null,
-      "evidence": [],
-      "permissions": "NOT_RECONCILED",
-      "mobile": "NOT_RECONCILED",
-      "pending": "Map current implementation and row-specific positive, negative, permission, responsive and visual evidence before promotion.",
+      "source_sha": "f40091a9f0e03d52ae9792ba002721c1709a0e66",
+      "evidence": [
+        {
+          "source_sha": "f40091a9f0e03d52ae9792ba002721c1709a0e66",
+          "kind": "SOURCE",
+          "scope": "PARTIAL_ROW_CONTROLLED_HTTP",
+          "stage": "CONSUMED_UI",
+          "positive": "Twelve pertinent browser cases in own78:success,denial,chosenfocus,filter_supersedes3907681440. Validfixture20+1;observednextrequest exactlylimit20/sortid_asc/after_id20. Enter starts nextpage,oldrows retire whileheld,responseorerror gets focus unlessanothercontrolchosen;previousafter403recoverspage1bykeyboard. Filter retires oldfocusintent andlatepage21.66othercases arecontext,notpaginationcapabilities.",
+          "negative": "Original2FAIL1PASS49.6s onsameparent:success/denied focusBODY despitevisible result;chosenBUTTONpositive. Same-source403leaves no rows/privatefixturebody;notbackendsecurity proof. No terminalbutton limit orreal dataset acceptance.",
+          "execution": "F40091A_OWN78_PASS1.7M_BUILD66_LINT_EXIT0_3WARN_SCAN_QUEUE_PUBLISHED;12PERTINENT66CONTEXT;AUTH_DB_MODEL_NOT_RUN_API0",
+          "paths": [
+            "src/features/customers/IntegratedCustomers.tsx",
+            "src/features/customers/Customers.tsx",
+            "tests/e2e-preview/customer-list-page-focus.spec.ts",
+            "docs/master/W2X_CUSTOMER_LIST_PAGE_FOCUS_20261019.md"
+          ]
+        },
+        {
+          "source_sha": "f40091a9f0e03d52ae9792ba002721c1709a0e66",
+          "kind": "VISUAL",
+          "scope": "PARTIAL_ROW",
+          "stage": "VISUAL_ACCEPTED",
+          "positive": "Twelve originalsource99frames actuallyviewed,success/denied/chosen/filter_supersedes at3907681440. Result/alert focus outline andchosenbutton are visible;hashes revalidated inreview.",
+          "negative": "Screenshotdeniedprecedeskeyboardreturntofirstpage (DOMassertionafterimage). Filter390recordbelowviewportwhilefiltersopen,DOMonly. No allcolumns/fields/roles/a11y/touch or integratedNextnavigation acceptance. Newreviewdoc is metadata carrier,not runtimefile executedin99.",
+          "execution": "F40091A_12_FRAMES_ACTUALLY_VIEWED_RAW_SHA256_IN_REVIEW_DOC;METADATA_RUNTIME_NOT_RUN",
+          "paths": [
+            "docs/master/W2X_CUSTOMER_LIST_PAGE_FOCUS_20261019.md",
+            "docs/master/W2X_CUSTOMER_PAGINATION_INDIVIDUAL_REVIEW_20261019.md"
+          ]
+        }
+      ],
+      "permissions": "Controlled owner HTTPfixture and403response only,no actualAuth/JWT/RLS/roles or currentmembership proof.",
+      "mobile": "PARTIAL_CONTROLLED_HTTP_390_768_1440",
+      "pending": "No realAuthDB/RLS/role acceptance,arbitrary multi-page dataset or concurrent insertion/deletion ordering,terminalbutton boundary assertion,all filters/accessibility/touch or independentW4. Fixture20+1is not realcustomer count.",
       "historical_snapshot": {
         "id": "PAR-030",
         "capability": "Clientes: Paginación",
