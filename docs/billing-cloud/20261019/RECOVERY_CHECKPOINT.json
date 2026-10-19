@@ -1,8 +1,8 @@
 {
   "schema": "oier.billing-night-recovery.v1",
-  "recorded_at": "2026-10-19T21:58:21.025601+00:00",
+  "recorded_at": "2026-10-19T22:00:39.574939+00:00",
   "branch": "oier/billing-pro-parity-voice-qa-20261019",
-  "published_parent": "50bab412ed964c4ef7cec763f6f757221e6dbdf7",
+  "published_parent": "173f05c0852ec4ff16b5f22a3d0e8c7d7a7b58d0",
   "authorization_attachment_id": "2edf830a-fe09-4355-974b-6d04df8533f3",
   "ownership": "Oier QA/new tools/docs only; exact Asier ACK required before changing any commercial source",
   "current_owner_ACK": "PENDING_NOT_INFERRED",
@@ -10,7 +10,8 @@
     6277961733,
     6278113753,
     6278216566,
-    6278266211
+    6278266211,
+    6278326863
   ],
   "observed_upstream_sources": {
     "PR156": "888ecaae57e9021ca0cb25d4da0657c1f6ac9b40",
@@ -53,9 +54,16 @@
     },
     {
       "unit": "06",
-      "commit": "this checkpoint commit; resolve from Git history",
+      "commit": "173f05c0852ec4ff16b5f22a3d0e8c7d7a7b58d0",
       "evidence": "evidence/proposal-context-candidate.json",
       "result": "PREPARED_UNAPPLIED_DIFF_AND_SYNTAX_CHECK_ONLY"
+    },
+    {
+      "unit": "07",
+      "commit": "this checkpoint commit; resolve from Git history",
+      "evidence": "evidence/netlify-authenticated-edge-not-found.png",
+      "result": "NETLIFY_AUTHENTICATED_EDGE_ACCESS_NOT_FOUND_NOT_PRODUCT_404",
+      "capture_sha256": "b9e7901a081204abd01f88a22ca9e2e90a5edd755548dab62852085a7d29b02b"
     }
   ],
   "candidate_changes": {
@@ -73,7 +81,7 @@
     "migrations_visible": 87,
     "reset_or_reapply": false,
     "full_schema_SQL_RLS_ACL_compatibility": "NOT_VERIFIED",
-    "Netlify": "TEAM_LOGIN_REQUIRED",
+    "Netlify": "AUTHENTICATED_NETLIFY_ACCOUNT_EDGE_ACCESS_NOT_FOUND_NOT_PRODUCT_AUTH",
     "deployed_source_SHA": null,
     "cohort_QA_window": "PENDING_AUTHORIZED_IDENTITIES_ROLES_ACTIONS_CLEANUP",
     "commercial_persistence": "NOT_RUN",
@@ -85,7 +93,7 @@
     "On exact Asier delegation of parse.ts: check agreed source blob, apply candidate in own branch, run original acceptance, unit03 owner phrase, unit04 comma and existing billing regressions; fix before own commit/push/PR.",
     "On exact Asier delegation of IntegratedBilling: review/apply stale-response candidate; run unit04 positives and negatives plus billing context/uncertain receipt regressions. Do not inherit prior greens.",
     "If no delegation: owner may integrate prepared deltas; continue only a specific independent useful task, no redundant broad audits or artificial tests.",
-    "Netlify functional QA requires invited login, deployed SHA and authorized synthetic cohort/window. Do not use Supabase admin panel to create users or bypass gates.",
+    "W5 must verify the exact site/team and invited access for the already authenticated account; then exact deployed SHA and authorized synthetic QA window. Do not remove protection or create users via Supabase panel.",
     "Validate MCP once after a real host connection refresh; no repeated OAuth grants or credential copying.",
     "Keep failed outputs/trace hashes and distinguish source-parser, controlledHTTP, disposableAuthDB, hostedAuthDB, voice/model, W4 and release."
   ],
