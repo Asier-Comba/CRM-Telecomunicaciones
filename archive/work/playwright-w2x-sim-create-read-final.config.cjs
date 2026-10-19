@@ -1,0 +1,1 @@
+const previous=require('./playwright-w2x-sim-assignment-selection-final.config.cjs');module.exports={...previous,testMatch:[...previous.testMatch,'sim-create-read-lifetime.spec.ts','case-create-read-lifetime.spec.ts'],outputDir:require('node:path').resolve(__dirname,'w2x-sim-create-read-final-results')}

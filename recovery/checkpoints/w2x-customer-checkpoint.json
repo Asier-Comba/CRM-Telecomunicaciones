@@ -1,0 +1,132 @@
+{
+  "utc": "2026-10-13T23:08:11.057637+00:00",
+  "work": "W2-X",
+  "path": "${WORKSPACE}\\work\\crm-w2x-customer-uncertain",
+  "branch": "codex/w2x-customer-uncertain-20261014",
+  "base": "60acdc5d6a2ae41ff3d751724582ade0c0762788",
+  "sha": "563948981dff3e1216beeb3fcec3c7e9219596a4",
+  "tree": "6c690110a546148c369750396b44de2fdbfd006f",
+  "published_sha": "563948981dff3e1216beeb3fcec3c7e9219596a4",
+  "clean": true,
+  "claim": 6157018709,
+  "handoff": 6157103096,
+  "existing_pr": 153,
+  "status": "PUBLISHED_INDEPENDENT_DELTA_WAITING_FOR_153_SUPABASE_BEFORE_OWN_COMPOSITION",
+  "integration_ack": "NOT_RECEIVED",
+  "checks": {
+    "controlled_browser": "12/12_CREATE_UPDATE_LOST_RESPONSE_OR_CONFIRMED_READ_FAILED_WIDTHS3",
+    "visual": "UNCERTAIN_LOADED_EDITOR_THREE_WIDTHS_INSPECTED_AUXILIARY_DENIAL_FIXTURE_LIMIT",
+    "typecheck": "PASS",
+    "lint": "PASS",
+    "gitleaks": "PASS",
+    "auth_db": "NEW_CUSTOMER_SINGLE_REVISION_CONTROL_NOT_RUN",
+    "ci": "NOT_RUN_INDEPENDENT_DELTA",
+    "model": "NOT_RUN"
+  },
+  "drawer_dependency": {
+    "source": "9c361c9ce7e32ba202f0c6e24aacd371c5026e04",
+    "same_blob": true,
+    "auth_db": "PENDING"
+  },
+  "units": [
+    {
+      "pr": 152,
+      "sha": "a650a9b348cade254a115fcda89bd2b49ecbbb83",
+      "checkpoint": "${WORKSPACE}\\work\\w2x-case-notes-checkpoint.json",
+      "ci_run": 38479194108,
+      "supabase_run": 38479194069
+    },
+    {
+      "pr": 153,
+      "sha": "9c361c9ce7e32ba202f0c6e24aacd371c5026e04",
+      "checkpoint": "${WORKSPACE}\\work\\w2x-contacts-checkpoint.json",
+      "ci_run": 38480433850,
+      "supabase_run": 38480433895
+    },
+    {
+      "sha": "2b8f7b0f72f731b9bf4c1513c74fe5cabeb54b12",
+      "branch": "codex/w2x-contact-customer-state-20261014",
+      "checkpoint": "${WORKSPACE}\\work\\w2x-contact-state-checkpoint.json",
+      "claim": 6156910547,
+      "ci": "NOT_RUN_INDEPENDENT_DELTA"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-original-fail.txt",
+      "sha256": "5d0a43bd7176fb02d5aed1a1bcfb1513d99d5160ecda5d45756311e6c56fc8ea"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-focused.txt",
+      "sha256": "b6f0432bd628145cfd52aa301970740430a3779ea9e31501c1f17f93bb8476b7"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-types.txt",
+      "sha256": "09698db0dd661e366e31bb0aa12a64958690641809896ed8445717ab71ea6759"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-lint.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-physical-lint.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-uncertain-published.bundle",
+      "sha256": "40e9adeba9a6f840dee1af0a91b5e32f0bccef36735f2cfaa2a1211627053ffc"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-uncertain-results\\customer-uncertain-intent--1837e-ost-response-intent-at-1440\\customer-create-lost_response-1440.png",
+      "sha256": "dfe155ed98b7f4614f5ec4ad57b211efe96e6a383a84a49b94ef87587743afb3"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-uncertain-results\\customer-uncertain-intent--3f049--read-failed-intent-at-1440\\customer-create-confirmed_read_failed-1440.png",
+      "sha256": "7a91b99b97cb4cbd505f1681acda3650dfc684de0350b5bfb169a7206bdcaee2"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-uncertain-results\\customer-uncertain-intent--55d6f-lost-response-intent-at-768\\customer-create-lost_response-768.png",
+      "sha256": "40bb17373ac648cad01627552451bab9bd23ee149bcdf8ca844c12e947d1a478"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-uncertain-results\\customer-uncertain-intent--582ae--read-failed-intent-at-1440\\customer-update-confirmed_read_failed-1440.png",
+      "sha256": "c6e4b5228f8ca65756b128f345bc3ae9bbca21194fd3581964ba268d5b4daeab"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-uncertain-results\\customer-uncertain-intent--5cea3-d-read-failed-intent-at-390\\customer-update-confirmed_read_failed-390.png",
+      "sha256": "984dc1454cec50dece21975f0335438894b35a3340fc19843206c408a161a133"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-uncertain-results\\customer-uncertain-intent--72f16-ost-response-intent-at-1440\\customer-update-lost_response-1440.png",
+      "sha256": "c1971377741ee72be15a063ad12d0625f6c68fe84dce4e42771fcb2d2d5bfa1d"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-uncertain-results\\customer-uncertain-intent--78f85-d-read-failed-intent-at-390\\customer-create-confirmed_read_failed-390.png",
+      "sha256": "bd67274c9852402f2db8dcd6c7d1d0b1282765a5adc0c7573f861006036885a3"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-uncertain-results\\customer-uncertain-intent--9ef24-lost-response-intent-at-390\\customer-create-lost_response-390.png",
+      "sha256": "69ed1425f849a47f138ca6b88651b103d4d8138d74a6febb7d169abcdc61041a"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-uncertain-results\\customer-uncertain-intent--a3ad7-d-read-failed-intent-at-768\\customer-update-confirmed_read_failed-768.png",
+      "sha256": "a6f4755d4965db721d5916728c69634ee1b707e01a02910c9ba71c86369f7163"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-uncertain-results\\customer-uncertain-intent--b35db-d-read-failed-intent-at-768\\customer-create-confirmed_read_failed-768.png",
+      "sha256": "bebe44ea3ed82c204624a28399d7158ecad894742084daf35237b566b38d8687"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-uncertain-results\\customer-uncertain-intent--bf5e3-lost-response-intent-at-768\\customer-update-lost_response-768.png",
+      "sha256": "9d6eee1563715b4befd46889ac74e981403579c893602eff11bfb91c62ea4bdf"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-uncertain-results\\customer-uncertain-intent--cb200-lost-response-intent-at-390\\customer-update-lost_response-390.png",
+      "sha256": "e2387d80bea61fa68a954f445db056d5f5a84afd449e6bc831a7bd7875441bb2"
+    }
+  ],
+  "next": "CLOSE_152_SUPABASE_SAFE_EVIDENCE_AND_153_OWN_SUPABASE_THEN_COMPOSE_CONTACT_STATE_2B8F_AND_CUSTOMER_563948_ON_OWN_PR153_WITH_SEMANTIC_C360_BOTH_CHECKS_UNION;NEW_SHA_CONTROLS_NO_PASS_INHERITANCE;PR38_NO_WRITE_WITHOUT_ACK",
+  "writes": "OFF",
+  "release": "NOT_ACCEPTED",
+  "high": 5
+}

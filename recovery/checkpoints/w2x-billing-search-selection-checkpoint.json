@@ -1,0 +1,161 @@
+{
+  "unit": 69,
+  "claim": 6252718955,
+  "claim_amendment": 6252756216,
+  "base": "9c2aac6e78fba83785cf47cc1457e40ddd3b64ea",
+  "branch": "codex/w2x-billing-search-selection-20261018",
+  "status": "PUBLISHED_OWN111_BUILD66_VISUAL_PARTIAL",
+  "causal_session": 82842,
+  "corrected_causal_session": 32166,
+  "product_changed": true,
+  "release": "NOT_ACCEPTED",
+  "checks": {
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN",
+    "paid_api": 0,
+    "global": "NOT_RUN_CURRENT_SHA",
+    "browser": "111_PASS_OWN_SOURCE",
+    "build": "66_PASS",
+    "functional": "49_PASS_OWN_SOURCE",
+    "lint": "EXIT0_WARNINGS_PRESERVED",
+    "scan": "PASS"
+  },
+  "fixture_failure": {
+    "source": "9c2aac6e78fba83785cf47cc1457e40ddd3b64ea",
+    "correction": "Queries match labels;same/change Synthetic,other company B/company C,empty Synthetic none. Only original3failed rechecked before product changes.",
+    "attempt": 1,
+    "original_log": "work/w2x-billing-search-selection-causal.txt",
+    "additional_unexecuted_fixture_issue": "Global search customer statuses allow active/inactive,not archived;replace intended negative boundary with HTTP403 without changing parser.",
+    "original_test": "work/w2x-billing-search-selection-fixture-attempt1-test.ts",
+    "cause": "Fixture query First search does not occur in returned labels;strict parseGlobalSearchV1 rejects DTO,search catch clears customers. Same positive fails for fixture reason;not causal product evidence.",
+    "failed": 3,
+    "passed": "NONE_REPORTED"
+  },
+  "original_product": {
+    "failed": 2,
+    "passed": 1,
+    "duration": "29.6s",
+    "log": "work/w2x-billing-search-selection-causal-corrected.txt",
+    "cause": "Valid nonmatching search removes current verifiedA;explicit changeAtoB retains proposal textA because PromptBuilder unkeyed. Matching positive passes. First3fixtureFAILs are separate,not product evidence."
+  },
+  "next": "Close own111/functional49/build/lint/visual/scan/publication. Coalesce current customer-lifetime fixes67/69 in full1806/104 only after active1773terminal/PUBLISHED;no duplicate,cancel or inheritedPASS. Then individual evidence update or useful commercial defect.",
+  "controls_session": 11261,
+  "visual_review": {
+    "status": "ACTUALLY_VIEWED",
+    "scope": "Nine frames other/change/denied at3907681440. Other retains selectedA identity/readiness/text;explicit changeB resets text to empty placeholder and disables Generate;403 shows safe permission error,unverified selection,disabled New and no prompt. Closed options/replaced results measured DOM,not pixels;mobile lower list clipped,empty fixture not SQL absence;fixture banner excluded. Voice NOT_RUN;partial visual only.",
+    "frames": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-search-selection-final-results\\billing-search-selection-b-08ca3-ch-selection-denied-at-1440\\search-selection-denied-1440.png",
+        "sha256": "40c6096ff591a56c199a595ab8fd87e6d66e4f5718a626379b78bea6ce8d9811"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-search-selection-final-results\\billing-search-selection-b-344a9-rch-selection-change-at-768\\search-selection-change-768.png",
+        "sha256": "63301603a1e8050e899e900a169f80345209d20e9cfda21233f77a30a1a256bc"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-search-selection-final-results\\billing-search-selection-b-37b59-arch-selection-other-at-390\\search-selection-other-390.png",
+        "sha256": "67dca3153801bb47c136f325ee324ca7bb3b84920d946fd39a5480751558edff"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-search-selection-final-results\\billing-search-selection-b-4d03e-rch-selection-change-at-390\\search-selection-change-390.png",
+        "sha256": "03a313200e54a65f0b5a5392bff3c531da67f7f7e1e26aa69aeec3026d78a1c0"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-search-selection-final-results\\billing-search-selection-b-878ce-rch-selection-denied-at-768\\search-selection-denied-768.png",
+        "sha256": "2a7e16f7fb918f63b2c66ce8e45c58b14bc51a3725304116a24eef0dd6286896"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-search-selection-final-results\\billing-search-selection-b-9a0bc-arch-selection-other-at-768\\search-selection-other-768.png",
+        "sha256": "04490ef19e827a0903cf703bdcec0644b52ff93432f40228714349e460bb8111"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-search-selection-final-results\\billing-search-selection-b-a01db-rch-selection-denied-at-390\\search-selection-denied-390.png",
+        "sha256": "4df7e8d03fb3f08bcd3150a1ad8c63baa705eb02a002044f80a7fbc59e99b8a0"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-search-selection-final-results\\billing-search-selection-b-cfda9-rch-selection-other-at-1440\\search-selection-other-1440.png",
+        "sha256": "d8ddb5a9ef058a3c022f085e7ac96673d830383bbfa8289d49698871a51e2541"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-search-selection-final-results\\billing-search-selection-b-e1293-ch-selection-change-at-1440\\search-selection-change-1440.png",
+        "sha256": "f23068f4da52731e30375b487adb32b9dd843b536ab54276efa85802391c4907"
+      }
+    ]
+  },
+  "known_remaining_defects": {
+    "whole_product": "NOT_RECONCILED",
+    "auth_db": "NOT_RUN",
+    "live_model": "NOT_RUN",
+    "security": "W4_PENDING_HIGH5",
+    "release": "NOT_ACCEPTED"
+  },
+  "candidate_fingerprints": [
+    {
+      "path": "src/features/billing/IntegratedBilling.tsx",
+      "sha256_utf8_lf": "00e6db41036432ef643aa56c2a32c95351656acd7ff34043fb681c97dd8f53d8"
+    },
+    {
+      "path": "tests/e2e-preview/billing-search-selection.spec.ts",
+      "sha256_utf8_lf": "4ad972c41111eec9b06a4a1f71d82d7aedbc789998bf5577894d16fcf88116c4"
+    },
+    {
+      "path": "docs/master/W2X_BILLING_SEARCH_SELECTION_20261018.md",
+      "sha256_utf8_lf": "d7bc98f732925e5365e2e4c653ace3cd544b7614a5eb0775877f4b06873f9530"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-search-selection-causal.txt",
+      "sha256": "ff9582f5ddd9a5974babef71cc0db27e998cc8a5cbeb6d2dc8729861a99863b4"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-search-selection-causal-corrected.txt",
+      "sha256": "c53bcf365d8616fef3902fb32624829355a3d5388abc4d6eb4c7c7c7f0b6f9dd"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-search-selection-browser.txt",
+      "sha256": "136ae82a2af1cb93798e495724396aba9f1c73c0ac3457a93c02c9b9962fa056"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-search-selection-functional.txt",
+      "sha256": "04f33a3f22cf18ca0c44b460070d5619d44ad6fb66fb1f1ec80f54b549c88a83"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-search-selection-lint.txt",
+      "sha256": "77e52456c3bf671c8ed5a0154c9dbfdd998b31f3c61494ca11430b416d294dad"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-search-selection-build.txt",
+      "sha256": "6f99bfeacaeca56c5a0b654e75d43dc0a94edda6a3673e4511d5258489e92869"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-search-selection-scan.txt",
+      "sha256": "2024fac40230e55e8c81b04f4a974bda23065643d275e574b1b757dd1315c6e7"
+    }
+  ],
+  "sha": "4964b61330e7f3abeb86349c9c3cb1f9260ca728",
+  "publication": "PUBLISHED",
+  "handoffs": [
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6252930989",
+      "id": 6252930989,
+      "issue": 67
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6252931172",
+      "id": 6252931172,
+      "issue": 153
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6252931307",
+      "id": 6252931307,
+      "issue": 38
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6252931438",
+      "id": 6252931438,
+      "issue": 142
+    }
+  ],
+  "tree": "2edf6eb3e5b4bef06abb2dce7124e12dd019ef41"
+}

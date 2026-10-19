@@ -1,0 +1,1 @@
+const p=require('./playwright-w2x-billing-draft-receipt.config.cjs');module.exports={...p,testMatch:['assistant-customer-name-wrap.spec.ts'],outputDir:require('node:path').resolve(__dirname,'w2x-assistant-customer-name-wrap-causal-results')}

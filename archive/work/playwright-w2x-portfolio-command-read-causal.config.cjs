@@ -1,0 +1,1 @@
+const previous=require('./playwright-w2x-editor-pending-aware-final.config.cjs');module.exports={...previous,testMatch:['portfolio-command-read-lifetime.spec.ts'],outputDir:require('node:path').resolve(__dirname,'w2x-portfolio-command-read-causal-results')}

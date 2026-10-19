@@ -1,0 +1,147 @@
+{
+  "checks": {
+    "model": "NOT_RUN",
+    "global": "NOT_RUN_CURRENT_SHA",
+    "paid_api": 0,
+    "auth_db": "NOT_RUN",
+    "functional": "NOT_RUN_NO_PRODUCT_CHANGE",
+    "browser": "18_PASS_OWN_SOURCE",
+    "build": "66_PASS",
+    "lint": "EXIT0_WARNINGS_PRESERVED",
+    "scan": "PASS"
+  },
+  "product_changed": false,
+  "next": "Close18/build/lint/visual;preserve any fixture/product failure before retry;publish checkpoint then useful independent unit. Global1806source69 unique18288 remains frozen14.",
+  "claim": 6252963108,
+  "branch": "codex/w2x-billing-loaded-pages-20261018",
+  "status": "PUBLISHED_OWN18_BUILD66_VISUAL_PARTIAL",
+  "release": "NOT_ACCEPTED",
+  "unit": 71,
+  "base": "d6cca70f59307c69f0a8d88d4497d1cba25af55c",
+  "controls_session": 95274,
+  "observed_failure": {
+    "cause": "Strict billing list parser rejects one-row page with next_id at limit50;requires full50 and lastIDcursor",
+    "status": "FIRST_ATTEMPT_STILL_RUNNING_NO_CANCELLATION",
+    "next": "After terminal preserve allfailed count/log/snapshot and rerun only failed with full50-row DTO;no product/validator/limit/assertion relaxation",
+    "correction_script": "work/correct-w2x-billing-loaded-pages-fixture.py",
+    "scope": "FIXTURE_NOT_PRODUCT"
+  },
+  "fixture_failure": {
+    "attempt": 1,
+    "source": "d6cca70f59307c69f0a8d88d4497d1cba25af55c",
+    "failed": 18,
+    "passed": "NONE_REPORTED",
+    "cause": "Fixture returns next_id with1row for limit50;parseBillingReadV1 requires a full page and lastID cursor,so rejects initial DTO before pagination behavior. Not product defect.",
+    "primary": "src/lib/server/billing-query-runtime-v1.ts:67",
+    "correction": "Firstpage50 ascending uniqueIDs11..60,cursor60;secondID61. Preserve all behavioral assertions;add primary parser positive for every fixture page. Product/validator/limits unchanged.",
+    "original_log": "work/w2x-billing-loaded-pages-browser.txt",
+    "original_test": "work/w2x-billing-loaded-pages-fixture-attempt1-test.ts",
+    "retry": "Only original18failed cases on unchanged product;new log/output distinct,no PASS aggregation."
+  },
+  "visual_review": {
+    "status": "ACTUALLY_VIEWED",
+    "scope": "Eight frames:next/denied-recovered3907681440,status/customer1440. Next invoice12,issued,due2026-10-25,total30.25EUR/actions readable. Pagination2/previousenabled/nextdisabled visible7681440,but below mobile viewport. Statusissued invoice13/page1 and customerB invoice14/page1 visible1440;B label clipped in closed narrowselect so full identity is DOM evidence. Denied screenshots AFTER recovery show first50-row page top,not error pixels or pagination;negative403 measured HTTP/DOM only. Mobile stackedcards and desktoptable readable;50row remainder andupperheader outside recovered viewport. Fixture banner excluded;partial visual,no wholemodule/accessibility/security acceptance.",
+    "frames": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-loaded-pages-corrected-results\\billing-loaded-pages-billing-loaded-pages-customer-at-1440\\loaded-pages-customer-1440.png",
+        "sha256": "f76d77a1cf54f0a52da184a723312061e36e015f96a318a18bfba5aac2a49c6a"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-loaded-pages-corrected-results\\billing-loaded-pages-billing-loaded-pages-denied-at-1440\\loaded-pages-denied-1440.png",
+        "sha256": "39d11297ac345e9be56d7921daecd65864e82b04250239474b4ea262acb33b7f"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-loaded-pages-corrected-results\\billing-loaded-pages-billing-loaded-pages-denied-at-390\\loaded-pages-denied-390.png",
+        "sha256": "c00527a23cfd8f9fa758e91d5fe9115517cd9d1061c394caaa0705e8389f5540"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-loaded-pages-corrected-results\\billing-loaded-pages-billing-loaded-pages-denied-at-768\\loaded-pages-denied-768.png",
+        "sha256": "bfa6c5a67b346210cef2fa7d8a5dc1d833416575335c7fd50ed38b5e06ee5c72"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-loaded-pages-corrected-results\\billing-loaded-pages-billing-loaded-pages-next-at-1440\\loaded-pages-next-1440.png",
+        "sha256": "b705e31c04466acec9f9faefeded6c79958ab903ad94e67e1edb30c81c7427c7"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-loaded-pages-corrected-results\\billing-loaded-pages-billing-loaded-pages-next-at-390\\loaded-pages-next-390.png",
+        "sha256": "3777d576de172aa1b38172b032800d9f7ec472202dfc1897bdfa9e5e0c556084"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-loaded-pages-corrected-results\\billing-loaded-pages-billing-loaded-pages-next-at-768\\loaded-pages-next-768.png",
+        "sha256": "39bfc2ab6385ac63e23f6231d281538793350cdf74669c45f6cf0db9bc837fab"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-loaded-pages-corrected-results\\billing-loaded-pages-billing-loaded-pages-status-at-1440\\loaded-pages-status-1440.png",
+        "sha256": "9f185d96adbfaa77c2843a7401588400c1bf0a2ba57ec42a46ece727def66116"
+      }
+    ]
+  },
+  "known_remaining_defects": {
+    "whole_product": "NOT_RECONCILED",
+    "auth_db": "NOT_RUN",
+    "live_model": "NOT_RUN",
+    "security": "W4_PENDING_HIGH5",
+    "release": "NOT_ACCEPTED"
+  },
+  "candidate_fingerprints": [
+    {
+      "path": "tests/e2e-preview/billing-loaded-pages.spec.ts",
+      "sha256_utf8_lf": "c3b5138fc257478ab5ec29028a462a8b953ba8fba2a009fea2ca17bc77ab481e"
+    },
+    {
+      "path": "docs/master/W2X_BILLING_LOADED_PAGES_20261018.md",
+      "sha256_utf8_lf": "d06a81f78c502dd8167b372968986e4151e250d551d38660e9888d5c0ae77e48"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-loaded-pages-collection.txt",
+      "sha256": "910902776e0bddbc4b3a87c51a19390eee08fd77804bcec076884b8abec02c67"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-loaded-pages-browser.txt",
+      "sha256": "8b2184ef823b9a8c50910c975ca18b93f5b79b5b190563440d09ea744863358b"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-loaded-pages-corrected-browser.txt",
+      "sha256": "acfd107db244afaa22e06a0bd4c85789c887917b93de679088145c53a64743c2"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-loaded-pages-lint.txt",
+      "sha256": "77e52456c3bf671c8ed5a0154c9dbfdd998b31f3c61494ca11430b416d294dad"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-loaded-pages-build.txt",
+      "sha256": "1e0ad08010b302bf0728e70c059cb7c7086272108c1c16039071155825b6bdfd"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-loaded-pages-scan.txt",
+      "sha256": "721c16534c381015d12f6955dc11df945c52f468fc57c2ab4de112b4aad7c54c"
+    }
+  ],
+  "sha": "917f4a475477c2b8aa544fcca55badf87fc08b3f",
+  "publication": "PUBLISHED",
+  "tree": "956b2eb1418cc31337d7e4de089f190a8c50892d",
+  "handoffs": [
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6253043970",
+      "issue": 67,
+      "id": 6253043970
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6253044149",
+      "issue": 153,
+      "id": 6253044149
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6253044326",
+      "issue": 38,
+      "id": 6253044326
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6253044451",
+      "issue": 142,
+      "id": 6253044451
+    }
+  ]
+}

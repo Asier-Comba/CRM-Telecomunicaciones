@@ -1,0 +1,93 @@
+{
+  "unit": 60,
+  "claim": 6251822244,
+  "claim_amendment": 6251831370,
+  "base": "6b03869d9c86a6876aaef37fa9408d954798de84",
+  "branch": "codex/w2x-billing-functional-date-20261018",
+  "status": "PUBLISHED_OWN5_PASS_ORIGINAL35PASS5FAIL_SOURCE58_PRESERVED",
+  "product_changed": false,
+  "test_changed": true,
+  "release": "NOT_ACCEPTED",
+  "original": {
+    "source": "b34f6d60b9b64a5ba218376ef0a8038c6135e39f",
+    "tests": 40,
+    "passed": 35,
+    "failed": 5,
+    "duration_ms": 770.0598,
+    "cause": "AST adapter evaluates proposal asOf callback but passes function directly as date to parser. PromptBuilder invokes callback. Not a product date reproduction."
+  },
+  "checks": {
+    "failed5": "5_PASS_617.5855MS_OWN_NEW_CANDIDATE",
+    "lint": "TARGET_FILE_EXIT0",
+    "browser": "NOT_RUN_TEST_ONLY_CHANGE",
+    "build": "NOT_RUN_SRC_UNCHANGED",
+    "visual": "NOT_RUN_TEST_ONLY_CHANGE",
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN",
+    "paid_api": 0,
+    "aggregate": "NO_40_PASS_OR_SAME_SHA_COMPLEMENTARY_CLAIM"
+  },
+  "next": "Continue independent commercial defect reproduction;global1575 source57 runs once,do not cancel/duplicate;source58 full current validation remains pending. No green reruns without changed source or relevant failure.",
+  "candidate_fingerprints": [
+    {
+      "path": "tests/bootstrap/billing-current-madrid-day.test.mjs",
+      "sha256_utf8_lf": "1f1bf7320085896da6f9e99cd5cd91c182296bee6f5b054dbd8a98524667e237"
+    },
+    {
+      "path": "docs/master/W2X_BILLING_FUNCTIONAL_DATE_20261018.md",
+      "sha256_utf8_lf": "0da20375433dae13b49e0422009d7391e758a0a79b9b863be48a3e1541e88344"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-functional-own-original.txt",
+      "sha256": "99d61cf70c46e906a332f2ed57656aac7587d7ec8a2d1d60f9fe533d354d8d31"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-functional-date-failed5.txt",
+      "sha256": "cb4f12f33d94e6130513c0e419e6caa5cdbeb60bd910e055064e1990c5e89c5e"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-functional-date-lint.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-functional-date-scan.txt",
+      "sha256": "20faa79b4320b761e65d1ddfba4a70f8828b9cf7b9945796f596a8d4f4d39536"
+    }
+  ],
+  "tree": "ab814d93b34931de07f0e5d952b16ae54b62fefe",
+  "publication": "PUBLISHED",
+  "sha": "8a3fc1cd0996dfb041299db07ac36f40ca3154a6",
+  "handoffs": [
+    {
+      "id": 6251852279,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6251852279",
+      "issue": 67
+    },
+    {
+      "id": 6251852460,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6251852460",
+      "issue": 153
+    },
+    {
+      "id": 6251852602,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6251852602",
+      "issue": 38
+    },
+    {
+      "id": 6251852752,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6251852752",
+      "issue": 142
+    }
+  ],
+  "known_remaining_defects": {
+    "discount": {
+      "reproduced_source": "8a3fc1cd0996dfb041299db07ac36f40ca3154a6",
+      "original": "3FAIL_1PASS_40.8S",
+      "checkpoint": "work/w2x-billing-proposal-discount-checkpoint.json",
+      "fixed_source": "b193330f61fa097cb0bb73b1328c81fc01bd91ba",
+      "scope": "Local proposal extraction;no save command or SQL effect. Original source not wholly qualified."
+    }
+  }
+}

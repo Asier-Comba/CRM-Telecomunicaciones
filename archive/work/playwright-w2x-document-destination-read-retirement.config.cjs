@@ -1,0 +1,1 @@
+const p=require('./playwright-w2x-communications-customer-scope.config.cjs');module.exports={...p,testMatch:['document-destination-read-retirement.spec.ts'],outputDir:require('node:path').resolve(__dirname,'w2x-document-destination-read-retirement-results')}

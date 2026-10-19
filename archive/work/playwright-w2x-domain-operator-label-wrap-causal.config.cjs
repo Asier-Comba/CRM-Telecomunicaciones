@@ -1,0 +1,1 @@
+const p=require('./playwright-w2x-domain-customer-label-wrap-final.config.cjs');module.exports={...p,testMatch:['domain-operator-label-wrap.spec.ts'],outputDir:require('node:path').resolve(__dirname,'w2x-domain-operator-label-wrap-causal-results')}

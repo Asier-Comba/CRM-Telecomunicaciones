@@ -1,0 +1,90 @@
+{
+  "utc": "2026-10-14T10:16:45.140971+00:00",
+  "work": "W2-X",
+  "claim": 6165893506,
+  "path": "${WORKSPACE}\\work\\crm-w2x-document-upload-uncertain",
+  "branch": "codex/w2x-document-contract-selection-20261014",
+  "base": "273e3f1704b65d2c01967f6c39b1219205ccb790",
+  "status": "OWN24_FINAL_BUILD66_LINT_SCAN_PASS_AUTH_NOT_RUN",
+  "published": true,
+  "release": "NOT_ACCEPTED",
+  "original_failure": "w2x-document-contract-selection-diagnostic-repro.txt",
+  "attempts": "w2x-document-contract-selection-repro-attempts.json",
+  "next": "CLAIM6166071950_PAR053_PARTIAL_REVIEW",
+  "visual_finding": "390px label prefix date obscures distinguishing operator in select; move operator before date after active build terminates",
+  "first_product_sha256": "ab2ee2d7c880a4b6d6eab877d773815c8cf045f24e3463022984b78a73031bb7",
+  "first_controls": {
+    "browser": 24,
+    "build": "PASS66",
+    "lint": "PASS"
+  },
+  "sha": "27b627cc1441a4fc7e782ffbd3fe16f9761e6b44",
+  "tree": "66eddcda8d065449057a0c7b2a47d642b2482cb7",
+  "clean": true,
+  "handoff": 6166071950,
+  "checks": {
+    "controlled_http": 24,
+    "lint": "PASS_FULL_INITIAL_AND_CHANGED_FILES_FINAL",
+    "build": "PASS66_FINAL",
+    "scan": "PASS",
+    "visual": "THREE_FINAL_FRAMES_VIEWED_PARTIAL",
+    "auth_db": "NOT_RUN",
+    "storage": "NOT_RUN",
+    "model": "NOT_RUN"
+  },
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-contract-selection-original-repro.txt",
+      "sha256": "9cb69e4e969417613907fd22b35b5358ec3fbcc7a55575bb72d8417fbbeff6fb"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-contract-selection-causal-repro.txt",
+      "sha256": "497a557e4b7ac02ecf4f77d83462e2d82703181aed683d704b75e48e0eeeaf9f"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-contract-selection-diagnostic-repro.txt",
+      "sha256": "8819282dfae198b0232d75f78d0b82efabf9c9d3e3ff057d449172a9230a20bf"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-contract-selection-browser.txt",
+      "sha256": "8fdfd21888197f300d9989a042750d7b071f68360fadff056cc8d325f6a07a0f"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-contract-selection-build.txt",
+      "sha256": "453b17d2ef13ca1a7bfca0f29fd2fd84ee0c7acf311f0286261f24f2aead71fd"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-contract-selection-mobile-browser.txt",
+      "sha256": "57c19042bfc817d9f486f2793e379bb269ad27d893f471149022270ca1c43a2e"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-contract-selection-mobile-lint.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-contract-selection-mobile-build.txt",
+      "sha256": "a07305c4183fe0b14516ce2d4b7075e46481e9a0548dd9e4aab6ac06978cc87b"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-contract-selection-scan.txt",
+      "sha256": "48bedcefc35242c31f075be556e3b4aff0abf6cf2c55f4ec51c1a1fa526033b3"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-contract-selection-repro-attempts.json",
+      "sha256": "7de094d847f5deafd5d7854a19d8f5907d4896464f8105000783c6d54214f75c"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-contract-selection-mobile-results\\document-contract-selectio-69c26-ent-contracts-labels-at-390\\document-contract-labels-390.png",
+      "sha256": "cb660dafac7c1eba1d97980f65c0a98635ea6cfa1e48d82b7d7f9a20a44ab0a3"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-contract-selection-mobile-results\\document-contract-selectio-92416-nt-contracts-labels-at-1440\\document-contract-labels-1440.png",
+      "sha256": "842c305f6e5473c0f6175edc3d7c28da2a742d6b96ea064c3b56f26ebb114e8d"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-contract-selection-mobile-results\\document-contract-selectio-cc40e-ent-contracts-labels-at-768\\document-contract-labels-768.png",
+      "sha256": "3c808cf3131faf20472c0f3ce56d5f7d875f7f9aadd8572f2fdcdfda436b72c4"
+    }
+  ],
+  "bundle_sha256": "d2684edcc06a7603ca353ac7b804912c92fbe2950b3fec8be278b0f1d0f07c83"
+}

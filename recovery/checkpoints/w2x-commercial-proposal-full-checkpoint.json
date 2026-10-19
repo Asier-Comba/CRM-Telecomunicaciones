@@ -1,0 +1,92 @@
+{
+  "claim": 6252266133,
+  "sha": "d65880a3af08bcc861d14846d399a75235f65a76",
+  "tree": "6bad9873d4160a65355ed296991e5be069e1c9d6",
+  "branch": "codex/w2x-billing-proposal-warnings-20261018",
+  "status": "OWN1773_FULL_PASS",
+  "browser_status": "PASS1773",
+  "browser_exit": 0,
+  "browser_summary": [
+    "1773 passed (34.4m)"
+  ],
+  "source_clean": true,
+  "own_source_checks": {
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN",
+    "paid_api": 0,
+    "global": "NOT_RUN_CURRENT_SHA",
+    "browser": "99_PASS_OWN_SOURCE",
+    "build": "66_PASS",
+    "functional": "49_PASS_OWN_SOURCE",
+    "lint": "EXIT0_WARNINGS_PRESERVED",
+    "scan": "PASS"
+  },
+  "known_remaining_defects": {
+    "whole_product": "NOT_RECONCILED_NO_ABSENCE_OR_FULL_ACCEPTANCE_INFERRED",
+    "initial_customer_search": {
+      "reproduced_source": "2b7dd80ff93e22ac8fc8bd75ff48d99fb396502a",
+      "original": "1FAIL_1PASS_23.5S",
+      "checkpoint": "work/w2x-billing-initial-customer-merge-checkpoint.json",
+      "fixed_source": "44d807ec2c8b85540e648643eaeecbd8474de967",
+      "source65_inference": "Metadata66 changed no src/tests;initial identity callback unchanged. This is not a separately executed source65 failure. Full1773 lacks the new18 bank and fix67;not whole-product qualification."
+    }
+  },
+  "auth_db": "NOT_RUN",
+  "model": "NOT_RUN",
+  "paid_api": 0,
+  "release": "NOT_ACCEPTED",
+  "next": "Continue useful independent W2 commercial unit;no repeat green without changed source or relevant failure.",
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-commercial-proposal-full-collection.txt",
+      "sha256": "73b7cc9047736822e7effb71926624e851e11dae384b016599999cef338a5fc7"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-commercial-proposal-full-browser.txt",
+      "sha256": "6a69a530c3019686440ccd8993fa828e306163c1d469f04017ec87048b1c11d0"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-proposal-warnings-browser.txt",
+      "sha256": "68e40e8891b818fcbad391273e47cf360a377df10d90be0f0d25e428fcfd29b2"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-proposal-warnings-functional.txt",
+      "sha256": "9cac9e528b1f3a63a03779870707a7d0766a638acd7257d1174362634b04a619"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-proposal-warnings-build.txt",
+      "sha256": "d67d53d4de613c41a3ba8ae90b5ff2e3789a5a06459aad2bdd20d09fd94ce623"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-proposal-warnings-lint.txt",
+      "sha256": "77e52456c3bf671c8ed5a0154c9dbfdd998b31f3c61494ca11430b416d294dad"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-proposal-warnings-scan.txt",
+      "sha256": "4ebe3ed9bc69d5bfefd5e1f99f030248b5cc0064c802629d7c1460063121be23"
+    }
+  ],
+  "handoffs": [
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6252930588",
+      "id": 6252930588,
+      "issue": 67
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6252930731",
+      "id": 6252930731,
+      "issue": 153
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6252930880",
+      "id": 6252930880,
+      "issue": 38
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6252931011",
+      "id": 6252931011,
+      "issue": 142
+    }
+  ],
+  "publication": "PUBLISHED"
+}

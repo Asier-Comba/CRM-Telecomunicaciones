@@ -1,0 +1,64 @@
+{
+  "utc": "2026-10-14T08:16:12.966264+00:00",
+  "work": "W2-X",
+  "claim": 6163867180,
+  "handoff": 6163992754,
+  "sha": "1b0ab8837a23b70d82ddb2ed9da2d4674422982b",
+  "tree": "a9659828e12adfde50cbd4cfce49c9432ce57f84",
+  "branch": "codex/w2x-opportunity-invalid-receipt-20261014",
+  "path": "${WORKSPACE}\\work\\crm-w2x-document-upload-uncertain",
+  "published": true,
+  "clean": true,
+  "checks": {
+    "controlled_http_browser": 33,
+    "invalid_receipts": 9,
+    "explicit_denial": 9,
+    "regressions": 15,
+    "build": "PASS66",
+    "lint": "PASS",
+    "scan": "PASS",
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN"
+  },
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-opportunity-invalid-original-repro.txt",
+      "sha256": "9d509cef9afa31a8b4eae6b8bbd54f40d04519f14a04c9f7eaee6e9d50d54908"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-opportunity-invalid-browser.txt",
+      "sha256": "036b1d4cc1f0cfba473992389d50664235ee2d89c147c1139bd3047308f25510"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-opportunity-invalid-build.txt",
+      "sha256": "dc8e5ae993b0991d27baab8817c3ba2d56885ec9366db65f4e316a89e1b26606"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-opportunity-invalid-lint.txt",
+      "sha256": "dda21574b74ba6a9edea377d67b00a3846ea8ae6ee11171eb3102a4a59f30d98"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-opportunity-invalid-scan.txt",
+      "sha256": "41081665332096418b757c38d4fceff5e3407384cd058adb318f8c936c4d10c5"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-opportunity-invalid-fixed-results\\opportunity-invalid-receip-0417b-lid-receipt-recovery-at-768\\opportunity-create_uncertain-invalid-768.png",
+      "sha256": "0c3c82e5948f8340caac58ba2450c463b97281d252403805bafa79dda10e23f3"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-opportunity-invalid-fixed-results\\opportunity-invalid-receip-94b6b-id-receipt-recovery-at-1440\\opportunity-create_uncertain-invalid-1440.png",
+      "sha256": "4538983f54283d4b2c890a8337890de8b64d83ef2dc0a3092b1ff4813c444f86"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-opportunity-invalid-fixed-results\\opportunity-invalid-receip-baa3a-lid-receipt-recovery-at-390\\opportunity-create_uncertain-invalid-390.png",
+      "sha256": "e46472cc47aeefe537dae8b472157c0e546f5c4b581096e3d8523b2d49422922"
+    }
+  ],
+  "visual": "THREE_WIDTHS_RECOVERY_PARTIAL_VIEWED_NOT_FULL_AUTH",
+  "bundle_sha256": "7ea79b5bbca33f26a54e574f160a56ad039b247a65bf7ad3a307bd6c2b1de2bf",
+  "next": "INSPECT_PIPELINE_CARD_STAGE_RECOVERY_AND_FINISH118_OWN_CONTROLS",
+  "release": "NOT_ACCEPTED",
+  "five_high": "UNRESOLVED",
+  "ai_writes": "OFF",
+  "api_calls": 0
+}

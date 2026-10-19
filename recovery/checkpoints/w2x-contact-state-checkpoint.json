@@ -1,0 +1,140 @@
+{
+  "utc": "2026-10-13T22:59:08.246898+00:00",
+  "work": "W2-X",
+  "path": "${WORKSPACE}\\work\\crm-w2x-contact-state",
+  "branch": "codex/w2x-contact-customer-state-20261014",
+  "base": "60acdc5d6a2ae41ff3d751724582ade0c0762788",
+  "sha": "2b8f7b0f72f731b9bf4c1513c74fe5cabeb54b12",
+  "tree": "627b627ae9b8556dfdad10e8aeb834c358fd0ad9",
+  "published_sha": "2b8f7b0f72f731b9bf4c1513c74fe5cabeb54b12",
+  "clean": true,
+  "claim": 6156910547,
+  "handoff": 6156984871,
+  "existing_pr": 153,
+  "status": "PUBLISHED_INDEPENDENT_DELTA_WAITING_FOR_153_CHECKS_BEFORE_OWN_COMPOSITION",
+  "integration_ack": "NOT_RECEIVED",
+  "checks": {
+    "controlled_browser": "18/18_STATUS3_UI_ROLES2_WIDTHS3",
+    "visual": "LOADED_CONTACT_PANEL_390_768_1440_INSPECTED",
+    "typecheck": "PASS",
+    "lint": "PASS",
+    "gitleaks": "PASS",
+    "auth_db": "NOT_RUN_NEW_DELTA",
+    "ci": "NOT_RUN_NO_DUPLICATE_PR",
+    "model": "NOT_RUN"
+  },
+  "units": [
+    {
+      "pr": 152,
+      "sha": "a650a9b348cade254a115fcda89bd2b49ecbbb83",
+      "checkpoint": "${WORKSPACE}\\work\\w2x-case-notes-checkpoint.json",
+      "ci_run": 38479194108,
+      "supabase_run": 38479194069
+    },
+    {
+      "pr": 153,
+      "sha": "9c361c9ce7e32ba202f0c6e24aacd371c5026e04",
+      "checkpoint": "${WORKSPACE}\\work\\w2x-contacts-checkpoint.json",
+      "ci_run": 38480433850,
+      "supabase_run": 38480433895
+    }
+  ],
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contact-state-original-fail.txt",
+      "sha256": "a1032f0d6b797cf9300a6c5cce35fae23109b58490da4e47998b08e0486767d4"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contact-state-focused-final.txt",
+      "sha256": "0ffd7fa5629723bece8035c5d8a348a457574d38ad19824878a353f96e92b8d1"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contact-state-types.txt",
+      "sha256": "09698db0dd661e366e31bb0aa12a64958690641809896ed8445717ab71ea6759"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contact-state-lint.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contact-state-published.bundle",
+      "sha256": "9e2f2f4da5accf6b2ef6bc9690df15d16a7d39b95d4474230ca1df68a00fa1a8"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contact-state-results\\contact-customer-state-con-18d32-ustomer-and-owner-UI-at-390\\contacts-archived-owner-390.png",
+      "sha256": "a3b4937b5022affb5c9a83477e295f1b1dbb2fff105fa866048fc960364145c6"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contact-state-results\\contact-customer-state-con-1d009-tomer-and-viewer-UI-at-1440\\contacts-active-viewer-1440.png",
+      "sha256": "e66532bf85972dab265caeda43ca3edd82acaa98c73a9abda67f26e2011cac50"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contact-state-results\\contact-customer-state-con-1ddf7-tomer-and-viewer-UI-at-1440\\contacts-inactive-viewer-1440.png",
+      "sha256": "7a9c12009044abf2dd5be912e200f9e09d51df76a1b36058f87b701790a7e157"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contact-state-results\\contact-customer-state-con-2c245-stomer-and-viewer-UI-at-768\\contacts-inactive-viewer-768.png",
+      "sha256": "7c621aa894b8ab7adfa22d2d7fad03a82383a738344986de17543f8bd4f94bc0"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contact-state-results\\contact-customer-state-con-34b78-tomer-and-viewer-UI-at-1440\\contacts-archived-viewer-1440.png",
+      "sha256": "bc73eb1617691f2f2231ed84cc1c2917976056edf7662b3fc96a3938a4b5655a"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contact-state-results\\contact-customer-state-con-3ca64-stomer-and-owner-UI-at-1440\\contacts-inactive-owner-1440.png",
+      "sha256": "77a3d5faaa83f74ac300557b8bc9040c0607605bdf3551065d84b9f9cefb1123"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contact-state-results\\contact-customer-state-con-55b82-ustomer-and-owner-UI-at-390\\contacts-inactive-owner-390.png",
+      "sha256": "6d71a9c53fc19c7182f7c2864b717d90d549caa083d433b9065fc7a659bfe22f"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contact-state-results\\contact-customer-state-con-5b8c2-stomer-and-viewer-UI-at-768\\contacts-archived-viewer-768.png",
+      "sha256": "d7f9d77b861887840d96346f4447c9e0312220e2a29da8805b894ef6c41fe39b"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contact-state-results\\contact-customer-state-con-5d8c7-ustomer-and-owner-UI-at-768\\contacts-archived-owner-768.png",
+      "sha256": "3a0217a6f595334ad2dd03393da73a1c0cf3ca462c06d7a4ed70e6883931b83b"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contact-state-results\\contact-customer-state-con-5e45e-stomer-and-owner-UI-at-1440\\contacts-active-owner-1440.png",
+      "sha256": "6e3ac8edbff723a9c64a614d0d4102710acfe14bb361f05f94c3335fa26c88b8"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contact-state-results\\contact-customer-state-con-68118-stomer-and-viewer-UI-at-390\\contacts-active-viewer-390.png",
+      "sha256": "c750ee96bdbbdf41ed9e80409886ebbe2cb9b986325f1798e5b2ff4b7864e537"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contact-state-results\\contact-customer-state-con-85de3-ustomer-and-owner-UI-at-768\\contacts-active-owner-768.png",
+      "sha256": "a75ee26f729145b7271bd34e8482c7a2ebb7a333dc93d359b5cb211618c188b1"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contact-state-results\\contact-customer-state-con-99e6e-stomer-and-viewer-UI-at-390\\contacts-inactive-viewer-390.png",
+      "sha256": "d5cf13d45e8f0519c54080caad8bd257de65a7715f3ed4b137eafedca3d5e7d3"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contact-state-results\\contact-customer-state-con-a260d-ustomer-and-owner-UI-at-390\\contacts-active-owner-390.png",
+      "sha256": "cf7f98d0bc94a841c60f27008f9871fdd961311a70df9c089b7b53cec90d14b9"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contact-state-results\\contact-customer-state-con-a4d5d-stomer-and-viewer-UI-at-768\\contacts-active-viewer-768.png",
+      "sha256": "4ad6ce3ff5db506e932eb5247c8cfc883f90e725681d202b490bdf209bcc1fcf"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contact-state-results\\contact-customer-state-con-aac1f-stomer-and-viewer-UI-at-390\\contacts-archived-viewer-390.png",
+      "sha256": "29480d9fcd19a4390ab45bc8819f35034959059848b0f50f0a54217cc9acf86b"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contact-state-results\\contact-customer-state-con-bc452-stomer-and-owner-UI-at-1440\\contacts-archived-owner-1440.png",
+      "sha256": "ac8c915cabcf8e27fb751cb52e9b2e2ef3736109370c91b63b782cac72f76067"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contact-state-results\\contact-customer-state-con-f9177-ustomer-and-owner-UI-at-768\\contacts-inactive-owner-768.png",
+      "sha256": "cf9004f81e1d9b579d9c210ce031390a5716ada22e0016fa925bf28933ab43e4"
+    }
+  ],
+  "next": "CLOSE_OWN_152_153_CONTROLS_RETAIN_FAILURES_THEN_COMPOSE_CONTACT_STATE_DELTA_ON_OWN_PR153_ONLY_WHEN_ALL_CHECKS_TERMINAL_AND_TEST_NEW_SHA;INDEPENDENT_CUSTOMER_EDITOR_INVESTIGATION",
+  "writes": "OFF",
+  "release": "NOT_ACCEPTED",
+  "high": 5
+}

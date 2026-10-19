@@ -1,0 +1,81 @@
+{
+  "utc": "2026-10-14T12:13:54.826679+00:00",
+  "work": "W2-X",
+  "claim": 6167770255,
+  "path": "${WORKSPACE}\\work\\crm-w2x-commercial-composition",
+  "branch": "codex/w2x-case-commercial-composition-20261014",
+  "sha": "71fe4471335742983aff453ce9863fdb3f8fdc2f",
+  "source": "71fe4471335742983aff453ce9863fdb3f8fdc2f",
+  "tree": "40c6af27d6334ed290804be349c8aaf9b2e87fdf",
+  "parents": [
+    "2c4577eca2d62397d1efb8f7943d16cad3a82071",
+    "08582224a37c158a9345dbc2b204581ab42395b8"
+  ],
+  "status": "OWN620_BUILD66_LINT_QUEUE_SCAN_PASS_VISUAL_PARTIAL_AUTH_NOT_RUN",
+  "published": true,
+  "clean": true,
+  "initial_expectation": {
+    "controlled_http": 620
+  },
+  "release": "NOT_ACCEPTED",
+  "next": "CLAIM_AND_REPRO_CASE_COMMAND_ONREFRESH_AFTER_NAVIGATION;VERIFY_ISOLATED_CI_DELIVERY_IF_RECEIVED;NO_GREEN_RERUN",
+  "session": 94535,
+  "publication_gate_session": 54143,
+  "publication_gate_script": "${WORKSPACE}\\work\\publish-w2x-71fe-after-own-checks.ps1",
+  "checks": {
+    "controlled_http": 620,
+    "lint": "PASS",
+    "build": "PASS66",
+    "queue": "342_15PARTIAL_327UNRECONCILED_0READY",
+    "scan": "PASS",
+    "visual": "THREE_CURRENT_SOURCE_FRAMES_VIEWED_PARTIAL",
+    "auth_db": "NOT_RUN",
+    "storage": "NOT_RUN",
+    "model": "NOT_RUN"
+  },
+  "handoff": 6168013318,
+  "bundle_sha256": "9df3f0d54853fd65b1919737dab8212f961af5fcaa051225269b071822f50907",
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-case-commercial-composition-browser.txt",
+      "sha256": "8211db9d8b133e901f687c74709178e2f3115776eb07422a20c20b53a7f2a477"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-case-commercial-composition-lint.txt",
+      "sha256": "dda21574b74ba6a9edea377d67b00a3846ea8ae6ee11171eb3102a4a59f30d98"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-case-commercial-composition-build.txt",
+      "sha256": "71c2a8a8610ac419a671eb7321fa6562333a76d7e2bb2d1af512395475bfe0bd"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-case-commercial-composition-queue.txt",
+      "sha256": "03f1587869842e4a8b10fa7ee33a8b075f28a1fe4c73b8a7380c3c8746f196ff"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-case-commercial-composition-scan.txt",
+      "sha256": "0955b658c1bf6fe1cc808b99c6d4b4d456c10b5c4b13dc32d4a30671c671b4be"
+    }
+  ],
+  "visual_review": {
+    "source": "71fe4471335742983aff453ce9863fdb3f8fdc2f",
+    "scope": "Case detail2 and customer2/header/form fields; partial only, no whole-app acceptance",
+    "frames": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-case-commercial-composition-results\\case-detail-read-lifetime--26991-ter-selection-change-at-768\\case-detail-late-case_success-768.png",
+        "sha256": "db193e415ea7c7de52f52cb347816c0a9cdc6a7fe763e2857717a0e4b9d89157"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-case-commercial-composition-results\\case-detail-read-lifetime--e1179-er-selection-change-at-1440\\case-detail-late-case_success-1440.png",
+        "sha256": "4242f679cac7b77a7132f4858fc35003450f79ab6d843faba0720052b8defca6"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-case-commercial-composition-results\\case-detail-read-lifetime--f4e73-ter-selection-change-at-390\\case-detail-late-case_success-390.png",
+        "sha256": "df83a3a92736ff5d02f1014dc9bfc9dc7fe17aed90da5d3170382d993f9e1d06"
+      }
+    ]
+  },
+  "quota_indicator_at_checkpoint": 100,
+  "quota_limit_block_confirmed": false,
+  "quota_scope": "ACCOUNT_SHARED_WEEKLY_INDICATOR;ordinaryUsageAllowed still true at last reading; no credits purchased"
+}

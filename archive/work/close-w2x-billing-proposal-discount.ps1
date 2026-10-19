@@ -1,0 +1,38 @@
+$ErrorActionPreference='Stop'
+$root=Split-Path -Parent $PSScriptRoot
+Set-Location $root
+$prefix='w2x-billing-proposal-discount';$repo=Join-Path $PSScriptRoot 'crm-w2x-document-upload-uncertain'
+if(Test-Path ('work/'+$prefix+'-close-requested.json')){throw 'ALREADY_REQUESTED'}
+@{state='WAIT_EXISTING_CONTROLS';session=2168}|ConvertTo-Json|Set-Content ('work/'+$prefix+'-close-requested.json')
+$watch=[Diagnostics.Stopwatch]::StartNew()
+while(-not(Test-Path ('work/'+$prefix+'-build-exit.txt'))){if($watch.Elapsed.TotalMinutes -gt 45){throw 'NO_TERMINAL_CONTROLS'};Start-Sleep -Seconds 5}
+python ('work/checkpoint-'+$prefix+'.py') preflight
+if($LASTEXITCODE){throw 'CONTROLS_OR_FINGERPRINT_FAILURE_PRESERVED'}
+node work/crm-w2x-document-upload-uncertain/scripts/product/build-release-queue.mjs --check *> ('work/'+$prefix+'-queue.txt')
+if($LASTEXITCODE){throw 'QUEUE_FAILED'}
+$cp=Get-Content ('work/'+$prefix+'-checkpoint.json') -Raw|ConvertFrom-Json
+$remote=git -C $repo ls-remote --heads origin ('refs/heads/'+$cp.branch)
+if($LASTEXITCODE -ne 0 -or $remote){throw 'REMOTE_EXISTS_OR_UNAVAILABLE'}
+git -C $repo add -- @($cp.candidate_fingerprints|ForEach-Object {$_.path})
+if($LASTEXITCODE){throw 'STAGING_FAILED'}
+git -C $repo commit -m 'fix(billing): parse complete discount percentages'
+if($LASTEXITCODE){throw 'COMMIT_FAILED'}
+$sha=(git -C $repo rev-parse HEAD).Trim();$tree=(git -C $repo rev-parse 'HEAD^{tree}').Trim()
+$publication=@{sha=$sha;tree=$tree;publication='LOCAL_COMMIT_PUSH_PENDING';handoffs=@()}
+$publication|ConvertTo-Json -Depth 8|Set-Content ('work/'+$prefix+'-publication.json')
+git -C $repo push origin ('HEAD:refs/heads/'+$cp.branch)
+if($LASTEXITCODE){throw 'PUSH_UNCERTAIN_INSPECT_NO_RETRY'}
+$bundle=Join-Path $PSScriptRoot ($prefix+'.bundle');git -C $repo bundle create $bundle HEAD
+if($LASTEXITCODE){throw 'BUNDLE_FAILED'}
+git -C $repo bundle verify $bundle
+if($LASTEXITCODE){throw 'BUNDLE_VERIFY_FAILED'}
+. ./work/CrmGitHub.ps1
+$nl=[string][char]10+[char]10
+$body='HANDOFF W2-X61 — descuento completo en propuesta local. Fuente '+$sha+', árbol '+$tree+', rama '+$cp.branch+', base '+$cp.base+'. CLAIM6251873167.'+$nl+'Original3FAIL/1PASS40,8s preservado:100%->10%,10,5%->10%,101%->10%;ordinario10% pasa. Solo parseDiscount consume porcentaje completo con signo/decimales coma-punto y sin sufijos parciales. Normalizador/contrato existentes rechazan límites/precisión antes del envío. Guardas: resto del parser/editor/cálculo/repositorio intactos; reversión de la única función devuelve el padre. Sin nuevo helper ni comando automático.'+$nl+'Propios141/141 browser2,7min y24/24 funcionales724,0069ms.42nuevos: prefijo/sufijo,100/10coma5/10punto5/10/101/-1/10coma123 en390/768/1440. Positivos conservan precio100/cantidad1/IVA21 y descuento exacto;totales0/108,30/108,90. Revisión desmarcada,Guardar disabled. Inválidos no envían invoice.propose ni abren editor;error seguro. Nuevo banco sin comandos.99regresiones recibos/registrado/previsión/contexto/fecha/revisión. Build66;lint0errores/3warnings;scan/diff/cola/bundle propios.'+$nl+'Siete capturas realmente vistas:100prefijo/10coma5sufijo3907681440 y101inválido1440. Móvil muestra descuento ytotales0/108,30 con revisión desmarcada;acciones fuera.768/1440 muestra superior ydescuento al borde,inferior totales/acciones no visibles. Inválido:error seguro sin editor. Fixture excluido;visual parcial, sin aceptación integral fiscal/accesibilidad/seguridad. HTTP/DTO sintético, componentes/repositorio/parsers reales;AuthDB/JWT/RLS/Next integrado/modelo vivoNOT_RUN/API0.'+$nl+'Global1575fuente57 activo una vez y sin58/61;no herencia ni cancelación. Matriz342/27PARTIAL/315sinreconciliar/0READY;HIGH5/W4 pendientes, IA writesOFF, issue10OPEN, releaseNOT_ACCEPTED. F736/B9/981/1266/fixtures/preparación intactos;fuentes ajenas/PR38/142/153/main/W3/W4/W5/recurso intactos. Siguiente: reproducir porcentajes completos IVA/IRPF de propuesta local; no asumir su corrección por este banco ni rehacer cálculo/contrato.'
+foreach($n in @(67,153,38,142)){$c=Invoke-CrmApi ('/issues/'+$n+'/comments') Post @{body=$body};$publication.handoffs+=@{issue=$n;id=$c.id;url=$c.html_url};$publication.publication='PARTIAL_HANDOFF';$publication|ConvertTo-Json -Depth 8|Set-Content ('work/'+$prefix+'-publication.json')}
+$publication.publication='PUBLISHED';$publication|ConvertTo-Json -Depth 8|Set-Content ('work/'+$prefix+'-publication.json')
+python ('work/checkpoint-'+$prefix+'.py') published
+if($LASTEXITCODE){throw 'CHECKPOINT_FAILED_INSPECT'}
+
+
+

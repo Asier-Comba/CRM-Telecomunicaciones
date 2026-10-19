@@ -1,0 +1,1 @@
+const previous=require('./playwright-w2x-sim-parent-read-causal.config.cjs');module.exports={...previous,testDir:require('node:path').resolve(__dirname,'crm-w2x-document-upload-uncertain/tests/e2e-preview'),testMatch:['sim-assignment-selection.spec.ts'],outputDir:require('node:path').resolve(__dirname,'w2x-sim-assignment-selection-causal-results')}

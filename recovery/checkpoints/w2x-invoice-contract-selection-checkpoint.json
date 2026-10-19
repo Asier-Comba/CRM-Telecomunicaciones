@@ -1,0 +1,91 @@
+{
+  "utc": "2026-10-14T11:08:28.998794+00:00",
+  "work": "W2-X",
+  "claim": 6166621850,
+  "path": "${WORKSPACE}\\work\\crm-w2x-document-upload-uncertain",
+  "branch": "codex/w2x-invoice-contract-selection-20261014",
+  "base": "94816d3bd36218bc60f646e3541089e4f04fe8c2",
+  "status": "OWN42_FINAL_BUILD66_LINT_SCAN_PASS_AUTH_NOT_RUN",
+  "published": true,
+  "product_modified": true,
+  "release": "NOT_ACCEPTED",
+  "next": "COMPOSE_4D25_WITH9DC_NEW581_EXPECTED_NOT_RUN",
+  "gate": "w2x-document-lifetime-composition-browser-exit.txt",
+  "original_failure": "w2x-invoice-contract-selection-causal-repro.txt",
+  "preparation_failure": "w2x-invoice-contract-selection-original-repro.txt",
+  "preparation_cause": "FULL_TITLE_GREP_START_ANCHOR_EXCLUDED_CASE_NO_TEST_EXECUTED",
+  "first_browser": 42,
+  "visual_finding": "768/1440: three-column relation layout clips operator in select; full selected caption is readable. Widen authorized relation rows after all current checks terminate; preserve original42 and rerun changed source.",
+  "first_product_sha256": "3fed822f6b1a46ab7faf377abdc0e5a6d3cb63ec5ec1457c4bb5c1b1cc9d4963",
+  "first_controls": {
+    "controlled_http": 42,
+    "lint": "PASS",
+    "build": "PASS66"
+  },
+  "session": 20014,
+  "sha": "9dc616fe72e0e890fc915bf87ae3a1b7e9dbc6f7",
+  "tree": "5df315bdf8589198a7cd9aa92362e0c1e69deca1",
+  "clean": true,
+  "handoff": 6166959203,
+  "checks": {
+    "controlled_http": 42,
+    "lint": "PASS_FULL_INITIAL_PLUS_FINAL_CHANGED_FILES",
+    "build": "PASS66_FINAL",
+    "scan": "PASS",
+    "visual": "THREE_FINAL_FRAMES_VIEWED_PARTIAL",
+    "auth_db": "NOT_RUN",
+    "storage": "NOT_RUN",
+    "model": "NOT_RUN"
+  },
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-invoice-contract-selection-original-repro.txt",
+      "sha256": "7a5f6b10ad960513c61ff1ddfc9987a6614355a32689f0888501aec42d2da281"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-invoice-contract-selection-causal-repro.txt",
+      "sha256": "e70cbc952493d313cfa699cb72d820fa31db58ed06988ec31f553aef8c5cf33d"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-invoice-contract-selection-browser.txt",
+      "sha256": "9214e643c96a6722d98db079af0b9147f8f2150d8631feb783010185251622d7"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-invoice-contract-selection-lint.txt",
+      "sha256": "dda21574b74ba6a9edea377d67b00a3846ea8ae6ee11171eb3102a4a59f30d98"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-invoice-contract-selection-build.txt",
+      "sha256": "d2985a8abd8cdb053a38cc39d63bacc1fa59c8f0467cd6c43433c8d1fd4a9416"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-invoice-contract-selection-wide-browser.txt",
+      "sha256": "32914779f2df41089106ff6fa4f83c99ef9405f6a2a69909f1f040f01228dfa3"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-invoice-contract-selection-wide-lint.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-invoice-contract-selection-wide-build.txt",
+      "sha256": "448171a0cf7526dd567a24224c9c2f4cf8c3635883a775f69ac510d5e241d05f"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-invoice-contract-selection-scan.txt",
+      "sha256": "2881c25f96714b6970ba33a4ae2d04ea29f03fba66935062761e26152e51609b"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-invoice-contract-selection-wide-results\\invoice-contract-selection-19ac8-ct-selection-labels-at-1440\\invoice-contract-labels-1440.png",
+      "sha256": "c3d2e4d1d9a6bc5a5f270b1c6bf03b2c1e42b8593d57d67ed3fe6fc4446b9581"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-invoice-contract-selection-wide-results\\invoice-contract-selection-759e5-act-selection-labels-at-390\\invoice-contract-labels-390.png",
+      "sha256": "19cc491d036c5119989fbc06400baa0305ea4d64b0b4ebd442a58b29514c9788"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-invoice-contract-selection-wide-results\\invoice-contract-selection-9ba75-act-selection-labels-at-768\\invoice-contract-labels-768.png",
+      "sha256": "b4de6d588799a68a0980b5dc47444bb02b61649fc12ac2abb00f6bc99b943068"
+    }
+  ],
+  "bundle_sha256": "f73460f5ce1ba1404ccf16f9d37181baca196c498370d63f344aad6cc0b1391b"
+}

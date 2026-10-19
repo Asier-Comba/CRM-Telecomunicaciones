@@ -1,0 +1,1039 @@
+{
+  "utc": "2026-10-14T02:51:35.976073+00:00",
+  "work": "W2-X",
+  "path": "${WORKSPACE}\\work\\crm-w2x-portfolio-receipt-close",
+  "branch": "codex/w2x-alta-recovery-composition-20261014",
+  "pr_branch": "codex/w2x-contact-uncertain-20261014",
+  "sha": "b1b94158a3d6bd9333e02400c7ffcd6e60ff5412",
+  "tree": "27b12edeeaaa7a112502270b05c68ca4486e26ad",
+  "published_sha": "b1b94158a3d6bd9333e02400c7ffcd6e60ff5412",
+  "clean": true,
+  "claim": 6159673671,
+  "pr": 153,
+  "status": "OWN_B1B_AUTH114_1_FAIL_CAUSE_UNKNOWN_1430_658_NATIVE_PASS_HIGH5_NOT_RELEASE",
+  "integration_ack": "NOT_RECEIVED",
+  "checks": {
+    "local_browser_total": 214,
+    "build": "PASS66",
+    "lint": "PASS",
+    "queue": "342_9PARTIAL_333UNRECONCILED_0READY",
+    "gitleaks": "PASS",
+    "full_preview": "658_PASS_OWN_EXECUTED_TREE",
+    "auth_db_storage": "114_PASS_1_FAIL_AUTH_TEARDOWN_PASS_BACKEND4042_CAUSE_UNKNOWN",
+    "native": "85_RESTORE_PASS_OWN_EXECUTED_TREE",
+    "model": "NOT_RUN",
+    "ci_run": 38503178760,
+    "supabase_run": 38503178741,
+    "own_quality": {
+      "source": "b1b94158a3d6bd9333e02400c7ffcd6e60ff5412",
+      "executed": "a2595f6a5ecbbfd55c14f323132c11d3ecaa0af7",
+      "tree": "27b12edeeaaa7a112502270b05c68ca4486e26ad",
+      "ci": 38503178760,
+      "functional": {
+        "bootstrap": 611,
+        "assistant": 819,
+        "total": 1430,
+        "build": "PASS66",
+        "preview": 658,
+        "native_restore": {
+          "kind": "native_postgresql_restore_test_only",
+          "migration_count": 85,
+          "migration_head": "20261011090000_assistant_verified_completed_reconciliation.sql",
+          "dump_sha256": "1d72d4f30b9ff8acafc8869920ff02cf88ca5cbda50c89451f64fd9b1ea04c01",
+          "schema": "pass",
+          "rows": "pass",
+          "assistant_rows": "pass",
+          "rls": "pass",
+          "scope": "pass",
+          "restored_privilege_matrix": "pass",
+          "fresh_role_calls": "pass",
+          "restored_role_calls": "pass",
+          "acl_loss_negative_control": "pass",
+          "production_backup": false
+        }
+      },
+      "audit": "FAIL_FIVE_HIGH",
+      "supabase": {
+        "sha": "a2595f6a5ecbbfd55c14f323132c11d3ecaa0af7",
+        "environment": "LOCAL_SUPABASE_DOCKER",
+        "result": "FAIL",
+        "failed_stage": "w2_product_browser",
+        "error": "W2_UI_FAILED_JOURNEYS",
+        "auth": "PASS",
+        "migration_count": 85,
+        "assistant_history": "PASS_ACTUAL_AUTH_POSTGREST_SCOPE_REPLAY_CAS_REVOCATION",
+        "assistant_history_application_api": "PASS_ACTUAL_COOKIE_THREAD_LIFECYCLE",
+        "assistant_history_browser": "PASS_ACTUAL_COOKIE_BROWSER_HISTORY_CAS_PAGINATION_REVOCATION",
+        "assistant_read_grounding": "PASS_ACTUAL_AUTH_COOKIE_READ_GROUNDING_PARTIALITY_REVOCATION_SYNTHETIC_PLANNER",
+        "assistant_business_durability": "NOT_TESTED",
+        "w1_backend_checks": 3815,
+        "w2_backend_takeover_checks": 227,
+        "w2_ui_failure_details": [
+          {
+            "check": "desktop_tablet_mobile_layouts",
+            "action": "layout:portfolio:1440:exact_reference:current_request",
+            "kind": "TIMEOUT"
+          }
+        ],
+        "w2_product_ui_failed_checks": [
+          "desktop_tablet_mobile_layouts"
+        ],
+        "w2_ui_alert_codes": [],
+        "w2_login_stage": "PASS",
+        "w2_ui_auth_token_status": 200,
+        "w2_browser_error_kinds": null,
+        "w2_document_upload_observations": [
+          {
+            "status": 200,
+            "headers_elapsed_ms": 159,
+            "body_elapsed_ms": 162
+          },
+          {
+            "status": 200,
+            "headers_elapsed_ms": 848,
+            "body_elapsed_ms": 851
+          }
+        ],
+        "w2_next_diagnostics": null,
+        "teardown": "PASS",
+        "command_failure": null,
+        "document_upload": null,
+        "document_finalize": null,
+        "document_proxy_download": null,
+        "document_content_revocation": null,
+        "document_content_expiry": null,
+        "document_content_transport": null,
+        "document_content_scan": null,
+        "document_content_verified_sha256": null,
+        "w2_portfolio_access_observations": [
+          {
+            "scope": "CURRENT_MAIN_DOCUMENT_AUTH_USER_HEADERS_NOT_AUTHORIZATION",
+            "width": 1440,
+            "document_observed": true,
+            "navigation_completed": true,
+            "gate_stage": "before_effect",
+            "requests": 0,
+            "responses": 0,
+            "failures": 0,
+            "pending": 0,
+            "status_counts": {
+              "ok": 0,
+              "denied": 0,
+              "client_error": 0,
+              "server_error": 0,
+              "other": 0
+            },
+            "truncated": false
+          }
+        ],
+        "w2_ui_billing_current_invoice_failure": null,
+        "w2_portfolio_startup_observations": [
+          {
+            "scope": "CURRENT_MAIN_DOCUMENT_NEXT_SCRIPT_HEADERS_NOT_HYDRATION_OR_AUTHORIZATION",
+            "width": 1440,
+            "document_observed": true,
+            "document_changed": false,
+            "navigation_completed": true,
+            "document_ready": "complete",
+            "requests": 5,
+            "responses": 5,
+            "failures": 0,
+            "pending": 0,
+            "body_finished": 5,
+            "body_unfinished": 0,
+            "status_counts": {
+              "ok": 5,
+              "redirect": 0,
+              "client_error": 0,
+              "server_error": 0,
+              "other": 0
+            },
+            "truncated": false,
+            "page_errors": {
+              "chunk_load": 0,
+              "syntax": 0,
+              "other": 0
+            },
+            "page_errors_truncated": false
+          }
+        ],
+        "w2_document_maintenance_step_failures": null,
+        "w2_ui_billing_madrid_date": [
+          {
+            "expected_day": "2026-10-10",
+            "draft": "PASS",
+            "proposal": "PASS",
+            "due_date": "PASS",
+            "customer_create": "PASS",
+            "commands": 0
+          },
+          {
+            "expected_day": "2026-07-01",
+            "draft": "PASS",
+            "proposal": "PASS",
+            "due_date": "PASS",
+            "customer_create": "PASS",
+            "commands": 0
+          },
+          {
+            "expected_day": "2027-01-01",
+            "draft": "PASS",
+            "proposal": "PASS",
+            "due_date": "PASS",
+            "customer_create": "PASS",
+            "commands": 0
+          },
+          {
+            "expected_day": "2028-02-29",
+            "draft": "PASS",
+            "proposal": "PASS",
+            "due_date": "PASS",
+            "customer_create": "PASS",
+            "commands": 0
+          },
+          {
+            "expected_day": "2026-10-10",
+            "draft": "PASS",
+            "proposal": "PASS",
+            "due_date": "PASS",
+            "customer_create": "PASS",
+            "commands": 0
+          }
+        ],
+        "assistant_server_diagnostics": [
+          {
+            "category": "SERVER_ERROR_UNCLASSIFIED"
+          },
+          {
+            "category": "UPSTREAM_NETWORK_FAILURE"
+          }
+        ],
+        "passed": 114,
+        "failed": 1,
+        "timings": [
+          {
+            "check": "real_browser_login",
+            "elapsed_ms": 8907,
+            "result": "PASS"
+          },
+          {
+            "check": "existing_customer_detail_authorized",
+            "elapsed_ms": 7992,
+            "result": "PASS"
+          },
+          {
+            "check": "customer_create",
+            "elapsed_ms": 3022,
+            "result": "PASS"
+          },
+          {
+            "check": "customer_edit_and_reload",
+            "elapsed_ms": 3268,
+            "result": "PASS"
+          },
+          {
+            "check": "contact_create_primary",
+            "elapsed_ms": 3497,
+            "result": "PASS"
+          },
+          {
+            "check": "contact_update_primary_switch",
+            "elapsed_ms": 4534,
+            "result": "PASS"
+          },
+          {
+            "check": "contact_archive_restore_readonly",
+            "elapsed_ms": 6011,
+            "result": "PASS"
+          },
+          {
+            "check": "customer_archive_restore_persist",
+            "elapsed_ms": 7670,
+            "result": "PASS"
+          },
+          {
+            "check": "contact_pii_not_persisted",
+            "elapsed_ms": 12,
+            "result": "PASS"
+          },
+          {
+            "check": "dashboard_and_global_search",
+            "elapsed_ms": 3243,
+            "result": "PASS"
+          },
+          {
+            "check": "task_create_complete_persist",
+            "elapsed_ms": 4957,
+            "result": "PASS"
+          },
+          {
+            "check": "meeting_create_reschedule_cancel_persist",
+            "elapsed_ms": 4723,
+            "result": "PASS"
+          },
+          {
+            "check": "task_reopen_start_update_cancel",
+            "elapsed_ms": 5937,
+            "result": "PASS"
+          },
+          {
+            "check": "meeting_update_complete_no_show",
+            "elapsed_ms": 4138,
+            "result": "PASS"
+          },
+          {
+            "check": "calendar_customer_association_persist",
+            "elapsed_ms": 10569,
+            "result": "PASS"
+          },
+          {
+            "check": "calendar_real_cursor_next_previous",
+            "elapsed_ms": 5380,
+            "result": "PASS"
+          },
+          {
+            "check": "dashboard_operational_scope_period",
+            "elapsed_ms": 5681,
+            "result": "PASS"
+          },
+          {
+            "check": "stale_editor_conflict_no_overwrite",
+            "elapsed_ms": 2330,
+            "result": "PASS"
+          },
+          {
+            "check": "valid_jwt_revocation_denies_ui_write",
+            "elapsed_ms": 643,
+            "result": "PASS"
+          },
+          {
+            "check": "owner_real_browser_login",
+            "elapsed_ms": 3982,
+            "result": "PASS"
+          },
+          {
+            "check": "customer_authorized_assignment",
+            "elapsed_ms": 4632,
+            "result": "PASS"
+          },
+          {
+            "check": "opportunity_create_edit_win_reopen_lose",
+            "elapsed_ms": 5740,
+            "result": "PASS"
+          },
+          {
+            "check": "opportunity_reopen_archive_terminal_readonly",
+            "elapsed_ms": 1646,
+            "result": "PASS"
+          },
+          {
+            "check": "opportunity_real_drag_keyboard_conflict",
+            "elapsed_ms": 6031,
+            "result": "PASS"
+          },
+          {
+            "check": "global_search_keyboard_quick_actions",
+            "elapsed_ms": 5634,
+            "result": "PASS"
+          },
+          {
+            "check": "inbox_internal_create_note_marker_link_assign_lifecycle",
+            "elapsed_ms": 17318,
+            "result": "PASS"
+          },
+          {
+            "check": "inbox_uncertain_replay_and_cas_no_duplicate",
+            "elapsed_ms": 1654,
+            "result": "PASS"
+          },
+          {
+            "check": "inbox_actual_thread_cursor_mobile_context",
+            "elapsed_ms": 1364,
+            "result": "PASS"
+          },
+          {
+            "check": "portfolio_manual_service_line_renewal_source",
+            "elapsed_ms": 16771,
+            "result": "PASS"
+          },
+          {
+            "check": "calendar_manual_renewal_update_resolve",
+            "elapsed_ms": 3487,
+            "result": "PASS"
+          },
+          {
+            "check": "portfolio_contract_create_assign_activate_cancel",
+            "elapsed_ms": 7762,
+            "result": "PASS"
+          },
+          {
+            "check": "portfolio_service_line_labels_and_transitions",
+            "elapsed_ms": 17739,
+            "result": "PASS"
+          },
+          {
+            "check": "portfolio_permanence_create_update_cancel_and_renewal_dismiss",
+            "elapsed_ms": 11466,
+            "result": "PASS"
+          },
+          {
+            "check": "importjob_list_get_cancel_processing_blocked",
+            "elapsed_ms": 7416,
+            "result": "PASS"
+          },
+          {
+            "check": "billing_fiscal_draft_issue_pdf_paid",
+            "elapsed_ms": 12341,
+            "result": "PASS"
+          },
+          {
+            "check": "billing_reverse_payment_trash_restore",
+            "elapsed_ms": 4082,
+            "result": "PASS"
+          },
+          {
+            "check": "billing_financial_currency_comparison_scoped_period",
+            "elapsed_ms": 3107,
+            "result": "PASS"
+          },
+          {
+            "check": "billing_issuer_and_text_proposal_requires_review",
+            "elapsed_ms": 15152,
+            "result": "PASS"
+          },
+          {
+            "check": "billing_fiscal_commit_survives_storage_failure_and_private_retry",
+            "elapsed_ms": 4065,
+            "result": "PASS"
+          },
+          {
+            "check": "billing_exact_lines_discount_tax_withholding_fx_review_and_replay",
+            "elapsed_ms": 61444,
+            "result": "PASS"
+          },
+          {
+            "check": "billing_lost_receipt_seven_commands_same_intent_single_persisted_effect",
+            "elapsed_ms": 18827,
+            "result": "PASS"
+          },
+          {
+            "check": "reports_exact_scope_period_export_and_error_mobile",
+            "elapsed_ms": 9555,
+            "result": "PASS"
+          },
+          {
+            "check": "invoice_minimized_summary_actual_reader_and_mobile",
+            "elapsed_ms": 3704,
+            "result": "PASS"
+          },
+          {
+            "check": "notifications_self_refresh_mark_read_all_and_mobile",
+            "elapsed_ms": 8713,
+            "result": "PASS"
+          },
+          {
+            "check": "automation_create_update_enable_notification_effect_disable",
+            "elapsed_ms": 16555,
+            "result": "PASS"
+          },
+          {
+            "check": "automation_task_lost_response_exact_replay_no_duplicate",
+            "elapsed_ms": 11411,
+            "result": "PASS"
+          },
+          {
+            "check": "automation_conflict_terminal_failure_truth_mobile",
+            "elapsed_ms": 12437,
+            "result": "PASS"
+          },
+          {
+            "check": "document_valid_image_private_preview_reauthorization_and_revoke",
+            "elapsed_ms": 8281,
+            "result": "PASS"
+          },
+          {
+            "check": "settings_profile_exact_replay_company_logo_integrations_mobile",
+            "elapsed_ms": 11070,
+            "result": "PASS"
+          },
+          {
+            "check": "settings_company_cas_and_notification_optout_truth",
+            "elapsed_ms": 10887,
+            "result": "PASS"
+          },
+          {
+            "check": "sensitive_requested_field_audit_copy_revocation_mobile",
+            "elapsed_ms": 4928,
+            "result": "PASS"
+          },
+          {
+            "check": "team_invite_role_suspend_resume",
+            "elapsed_ms": 5023,
+            "result": "PASS"
+          },
+          {
+            "check": "team_remove_suspended_member",
+            "elapsed_ms": 426,
+            "result": "PASS"
+          },
+          {
+            "check": "document_integrity_exact_lost_response_private_proof_mobile",
+            "elapsed_ms": 4813,
+            "result": "PASS"
+          },
+          {
+            "check": "document_expired_pending_claim_finish_exact_retry_active_preserved",
+            "elapsed_ms": 4560,
+            "result": "PASS"
+          },
+          {
+            "check": "document_upload_three_uncertain_steps_same_intent_single_document_object",
+            "elapsed_ms": 12656,
+            "result": "PASS"
+          },
+          {
+            "check": "team_expired_invite_list_reissue_exact_retry_cancel_mobile",
+            "elapsed_ms": 4757,
+            "result": "PASS"
+          },
+          {
+            "check": "manual_origin_new_proof_legacy_and_denied_refresh",
+            "elapsed_ms": 6223,
+            "result": "PASS"
+          },
+          {
+            "check": "opportunity_actual_product_links_same_customer_replay_cas_mobile",
+            "elapsed_ms": 24277,
+            "result": "PASS"
+          },
+          {
+            "check": "document_metadata_archive_restore",
+            "elapsed_ms": 5151,
+            "result": "PASS"
+          },
+          {
+            "check": "document_upload_finalize_private_download",
+            "elapsed_ms": 4065,
+            "result": "PASS"
+          },
+          {
+            "check": "document_ticket_metadata_revocation",
+            "elapsed_ms": 925,
+            "result": "PASS"
+          },
+          {
+            "check": "document_ticket_actual_expiry_and_fresh_retry",
+            "elapsed_ms": 33031,
+            "result": "PASS"
+          },
+          {
+            "check": "desktop_tablet_mobile_layouts",
+            "elapsed_ms": 74187,
+            "result": "FAIL"
+          },
+          {
+            "check": "polished_contacts_cursor_settings_assistant_day",
+            "elapsed_ms": 11999,
+            "result": "PASS"
+          },
+          {
+            "check": "document_real_target_drag_invalid_no_request",
+            "elapsed_ms": 7208,
+            "result": "PASS"
+          },
+          {
+            "check": "critical_dialogs_desktop_tablet_mobile",
+            "elapsed_ms": 25465,
+            "result": "PASS"
+          },
+          {
+            "check": "customer360_exact_summary_safe_contacts_independent_domains",
+            "elapsed_ms": 10150,
+            "result": "PASS"
+          },
+          {
+            "check": "customer360_undated_completed_tasks_cursor_filter_navigation",
+            "elapsed_ms": 4847,
+            "result": "PASS"
+          },
+          {
+            "check": "customer360_loaded_telecom_desktop_tablet_mobile",
+            "elapsed_ms": 15373,
+            "result": "PASS"
+          },
+          {
+            "check": "customer360_contact_lost_receipt_keeps_intent_and_single_persisted_effect",
+            "elapsed_ms": 4644,
+            "result": "PASS"
+          },
+          {
+            "check": "customer360_customer_lost_receipt_same_command_and_single_revision",
+            "elapsed_ms": 4801,
+            "result": "PASS"
+          },
+          {
+            "check": "portfolio_bounded_search_partial_denial_keeps_authorized_contract",
+            "elapsed_ms": 5833,
+            "result": "PASS"
+          },
+          {
+            "check": "portfolio_confirmed_create_read_failure_retry_never_repeats_command",
+            "elapsed_ms": 6784,
+            "result": "PASS"
+          },
+          {
+            "check": "portfolio_confirmed_edit_read_failure_keeps_context_and_only_read_retry",
+            "elapsed_ms": 1913,
+            "result": "PASS"
+          },
+          {
+            "check": "agenda_task_meeting_create_update_complete_exact_lost_response_single_effect",
+            "elapsed_ms": 41381,
+            "result": "PASS"
+          },
+          {
+            "check": "opportunity_uncertain_create_archive_confirmed_update_read_only_recovery",
+            "elapsed_ms": 20138,
+            "result": "PASS"
+          },
+          {
+            "check": "equipment_real_collection_cursor_filters_three_widths",
+            "elapsed_ms": 5749,
+            "result": "PASS"
+          },
+          {
+            "check": "equipment_normal_create_assign_lost_response_exact_retry_replace_return_cancel_history",
+            "elapsed_ms": 17552,
+            "result": "PASS"
+          },
+          {
+            "check": "portfolio_real_inventory_independent_collections",
+            "elapsed_ms": 10926,
+            "result": "PASS"
+          },
+          {
+            "check": "confirmation_native_focus_cycle_escape_restores_trigger_without_write",
+            "elapsed_ms": 2998,
+            "result": "PASS"
+          },
+          {
+            "check": "attention_normal_scoped_filters_cursor_truth_and_three_widths",
+            "elapsed_ms": 4683,
+            "result": "PASS"
+          },
+          {
+            "check": "telecom_nine_reports_real_aggregate_rows_three_widths",
+            "elapsed_ms": 8201,
+            "result": "PASS"
+          },
+          {
+            "check": "billing_analytics_real_cohorts_exact_money_currency_and_accessible_tables",
+            "elapsed_ms": 4375,
+            "result": "PASS"
+          },
+          {
+            "check": "catalog_normal_operator_create_update_deactivate_activate_plan_create",
+            "elapsed_ms": 12776,
+            "result": "PASS"
+          },
+          {
+            "check": "catalog_actual_version_terms_and_three_widths",
+            "elapsed_ms": 2745,
+            "result": "PASS"
+          },
+          {
+            "check": "case_normal_customer_contract_service_line_creation_and_actual_ancestry",
+            "elapsed_ms": 9058,
+            "result": "PASS"
+          },
+          {
+            "check": "case_metadata_assignment_states_resolve_reopen_exact_lost_response",
+            "elapsed_ms": 11817,
+            "result": "PASS"
+          },
+          {
+            "check": "case_private_notes_explicit_cursor_reveal_revocation_closed_history_and_global_cancel",
+            "elapsed_ms": 26893,
+            "result": "PASS"
+          },
+          {
+            "check": "sim_ui_create_protected_identifier_and_scoped_assignment_exact_line_cas",
+            "elapsed_ms": 17481,
+            "result": "PASS"
+          },
+          {
+            "check": "sim_manual_activation_confirmation_lost_response_replacement_and_history",
+            "elapsed_ms": 24222,
+            "result": "PASS"
+          },
+          {
+            "check": "sim_deactivate_cancel_identifier_retire_and_immutable_line_history",
+            "elapsed_ms": 19278,
+            "result": "PASS"
+          },
+          {
+            "check": "portability_ui_masked_number_draft_assignment_and_parent_scoped_creation",
+            "elapsed_ms": 18496,
+            "result": "PASS"
+          },
+          {
+            "check": "portability_requested_scheduled_progress_confirmed_no_line_action_read_retry",
+            "elapsed_ms": 5755,
+            "result": "PASS"
+          },
+          {
+            "check": "portability_rejected_cancelled_preserve_previous_masked_history",
+            "elapsed_ms": 36861,
+            "result": "PASS"
+          },
+          {
+            "check": "service_locations_normal_create_explicit_reveal_masked_cursor_three_widths",
+            "elapsed_ms": 26833,
+            "result": "PASS"
+          },
+          {
+            "check": "service_installation_location_assignment_exact_retry_no_provider_activation",
+            "elapsed_ms": 9538,
+            "result": "PASS"
+          },
+          {
+            "check": "service_addon_actual_sold_component_assign_end_frozen_history_three_widths",
+            "elapsed_ms": 7701,
+            "result": "PASS"
+          },
+          {
+            "check": "contract_first_manual_record_for_empty_customer_normal_ui",
+            "elapsed_ms": 10012,
+            "result": "PASS"
+          },
+          {
+            "check": "contract_sold_version_terms_unknown_response_exact_retry",
+            "elapsed_ms": 6434,
+            "result": "PASS"
+          },
+          {
+            "check": "contract_confirmed_write_get_failure_retries_only_read",
+            "elapsed_ms": 5165,
+            "result": "PASS"
+          },
+          {
+            "check": "viewer_login_no_write_controls",
+            "elapsed_ms": 20186,
+            "result": "PASS"
+          },
+          {
+            "check": "viewer_portfolio_ancestry_ordinary_identity_never_privileged_editor",
+            "elapsed_ms": 9827,
+            "result": "PASS"
+          },
+          {
+            "check": "equipment_viewer_normal_read_has_no_lifecycle_controls",
+            "elapsed_ms": 3897,
+            "result": "PASS"
+          },
+          {
+            "check": "service_viewer_normal_masked_location_installation_addon_read_without_writes",
+            "elapsed_ms": 6449,
+            "result": "PASS"
+          },
+          {
+            "check": "portability_viewer_masked_terminal_detail_no_commands_three_widths",
+            "elapsed_ms": 8520,
+            "result": "PASS"
+          },
+          {
+            "check": "sim_viewer_masked_detail_no_lifecycle_writes_three_widths",
+            "elapsed_ms": 8233,
+            "result": "PASS"
+          },
+          {
+            "check": "contract_viewer_inventory_and_customer_have_no_creation",
+            "elapsed_ms": 8121,
+            "result": "PASS"
+          },
+          {
+            "check": "case_viewer_current_normal_detail_no_notes_or_writes_three_widths",
+            "elapsed_ms": 7979,
+            "result": "PASS"
+          },
+          {
+            "check": "admin_real_login_write_and_owner_protection",
+            "elapsed_ms": 20448,
+            "result": "PASS"
+          },
+          {
+            "check": "inbox_member_reassignment_revokes_private_body",
+            "elapsed_ms": 12849,
+            "result": "PASS"
+          },
+          {
+            "check": "customer_collection_real_cursor_filters_reload_member",
+            "elapsed_ms": 9421,
+            "result": "PASS"
+          },
+          {
+            "check": "customer_collection_loaded_desktop_tablet_mobile",
+            "elapsed_ms": 251,
+            "result": "PASS"
+          },
+          {
+            "check": "customer_collection_revoked_authority_clears_rows",
+            "elapsed_ms": 467,
+            "result": "PASS"
+          },
+          {
+            "check": "shell_mobile_routes_escape_focus_and_real_logout",
+            "elapsed_ms": 13829,
+            "result": "PASS"
+          }
+        ]
+      },
+      "integration_ack": "NOT_RECEIVED",
+      "release": "NOT_ACCEPTED",
+      "model": "NOT_RUN",
+      "logs": [
+        {
+          "job": 115654596036,
+          "sha256": "9384de4bf2f9749ffc4497c3a0bcfda7deefa7a6ea4cdace542cb33e41ebeecf"
+        },
+        {
+          "job": 115654595907,
+          "sha256": "e084069053e25fb49fab3b87ca050e58c17a2041a6cf0be66966b03daa521c8c"
+        },
+        {
+          "job": 115654596089,
+          "sha256": "daa0bd4aaaead3d9b7da1ac8b518ebac8b815596bc4e34cf8794db50c722311a"
+        }
+      ],
+      "utc": "2026-10-14T03:27:23.054696+00:00",
+      "supabase_run": 38503178741,
+      "supabase_job": 115654595579,
+      "qualified": false,
+      "complete_cause": "UNKNOWN",
+      "first_failure": "desktop_tablet_mobile_layouts/layout:portfolio:1440:exact_reference:current_request/TIMEOUT",
+      "original_observation": "same current document/navigation complete/gate before_effect/auth user reads0/next script requests5 responses5 bodies_finished5/page_errors0; not complete hydration or authorization evidence",
+      "scope": "ACTUAL_DISPOSABLE_AUTH_114_PASS_1_FAIL_WITH_TEARDOWN_NO_RELEASE_NOT_RCA_F736",
+      "required_alta_check": "PASS_OWN_B1B_SINGLE_CHECK_NOT_FULL_FUNCTIONAL_QUALIFICATION",
+      "artifact_sha256": {
+        "safe": "530938cc3b2270db685ae753ab866c723fccf9bac4db0d220cdf38231c218497",
+        "product": "8f1d18477fa9a4e8b74ae7a5c9ec8ffa1ae63305d8679aad96648f7da0969da0",
+        "history": "1fb4bb3ee7ecaf4bbb4200c2bab359070b4b8530c6dc0abcdee249b39a9d91b0"
+      }
+    }
+  },
+  "qualified_previous_source": {
+    "sha": "1dd4272232403ae901ea3f3f5e11becfb874fe65",
+    "metadata": "${WORKSPACE}\\work\\w2x-second-commercial-closed-metadata.json",
+    "checkpoint": "${WORKSPACE}\\work\\w2x-second-commercial-composition-checkpoint.json",
+    "scope": "OWN1430_622_AUTH115_NATIVE85_BUILD66_HIGH5_NOT_RELEASE_NOT_INHERITED"
+  },
+  "historical_failure_refs": [
+    "${WORKSPACE}\\work\\w2x-d764-failed-metadata.json",
+    "${WORKSPACE}\\work\\w2x-f79-native-quota-original-failure.json",
+    "${WORKSPACE}\\work\\w2x-f79-auth-closed-native-quota-blocked.json",
+    "${WORKSPACE}\\work\\w2x-dd764-auth-failed-closed.json",
+    "${WORKSPACE}\\work\\w2x-b1b-auth-failed-closed.json"
+  ],
+  "previous_checkpoint": "${WORKSPACE}\\work\\w2x-second-commercial-composition-checkpoint.json",
+  "next": "CLOSE_OWN_B1B_RUNS_EXACT_EXECUTED_TREE_COUNTS_REQUIRED_CHECKS_WHILE_INDEPENDENT_COMMERCIAL_REPRO_ONLY_NO_ALIAS_PUSH_ACTIVE",
+  "release": "NOT_ACCEPTED",
+  "ai_commercial_writes": "OFF",
+  "five_high": "UNRESOLVED",
+  "live_model": "NOT_RUN",
+  "api_spend_usd": 0,
+  "independent_published": {
+    "utc": "2026-10-14T03:08:05.924452+00:00",
+    "work": "W2-X",
+    "claim": 6159928851,
+    "handoff": 6159980755,
+    "path": "${WORKSPACE}\\work\\crm-w2x-document-upload-uncertain",
+    "branch": "codex/w2x-document-state-recovery-20261014",
+    "sha": "ee6a37a6ccb1ef83397b9a854b50480026ca5fe1",
+    "tree": "b276857c9bb283c74052868f00a4317a8d271a3e",
+    "published": true,
+    "clean": true,
+    "status": "OWN_SOURCE_PUBLISHED_19_SYNTHETIC_BROWSER_BUILD66_PASS_ACTUAL_AUTH_NOT_RUN",
+    "checks": {
+      "recovery_browser": 6,
+      "existing_metadata_regression": 12,
+      "confirmed_denial": 1,
+      "total": 19,
+      "build": "PASS66",
+      "lint": "PASS",
+      "gitleaks": "PASS",
+      "consumer_syntax": "PASS",
+      "physical_previous_steps_assertions": "PRESERVED",
+      "auth_db_storage": "NOT_RUN_OWN_CHANGED_CONSUMER",
+      "model": "NOT_RUN"
+    },
+    "visual": {
+      "scope": "SYNTHETIC_HTTP_UI_NOT_ACTUAL_AUTH",
+      "review": "THREE_WIDTHS_VIEWED",
+      "images": [
+        {
+          "path": "${WORKSPACE}\\work\\w2x-document-state-confirmation-390.png",
+          "sha256": "d2b1dfd03b0dd228144bf3f9eeb5937edc0669bad40b928d170630cf78760250",
+          "width": 390
+        },
+        {
+          "path": "${WORKSPACE}\\work\\w2x-document-state-confirmation-768.png",
+          "sha256": "013ed0c9b517533f00a8f30847b7e33620f561d972cd30d34faf6b8725afaf10",
+          "width": 768
+        },
+        {
+          "path": "${WORKSPACE}\\work\\w2x-document-state-confirmation-1440.png",
+          "sha256": "fa783846ea88ed2ecabf349c55542e198b8ecd58c93869147a3febbbf0d5a806",
+          "width": 1440
+        }
+      ]
+    },
+    "previous_unit": "${WORKSPACE}\\work\\w2x-document-cleanup-checkpoint.json",
+    "bundle_sha256": "6e5264fcc1f38110d87b6fa6a4c86d5187ce867c19e44a7ddb7fc56d5d44bcfc",
+    "next": "CLOSE_B1B_SOURCE_CONTROLS_THEN_CONSUME_CLEANUP_AND_STATE_IN_EXISTING153_ONLY_NEW_SHA_CONTROLS",
+    "release": "NOT_ACCEPTED",
+    "five_high": "UNRESOLVED",
+    "ai_writes": "OFF"
+  },
+  "handoff": 6159805686,
+  "independent_previous_published": {
+    "utc": "2026-10-14T03:01:41.874278+00:00",
+    "work": "W2-X",
+    "claim": 6159821608,
+    "handoff": 6159913835,
+    "path": "${WORKSPACE}\\work\\crm-w2x-document-upload-uncertain",
+    "branch": "codex/w2x-document-cleanup-recovery-20261014",
+    "sha": "73dd63775de090de6cfe8739b0d87f298f62a902",
+    "tree": "db1db89e292deae27e10c3b282cb32e5cd1cd568",
+    "published": true,
+    "clean": true,
+    "status": "OWN_SOURCE_PUBLISHED_9_SYNTHETIC_BROWSER_BUILD66_PASS_ACTUAL_AUTH_NOT_RUN",
+    "checks": {
+      "browser_total": 9,
+      "build": "PASS66",
+      "lint": "PASS",
+      "gitleaks": "PASS",
+      "consumer_syntax": "PASS",
+      "physical_old_assertions": "PRESERVED",
+      "document_integrity": "BYTE_EXACT_BASE_B1B",
+      "auth_db_storage": "NOT_RUN_OWN_CHANGED_CONSUMER",
+      "model": "NOT_RUN"
+    },
+    "visual": {
+      "scope": "CONTROLLED_HTTP_SYNTHETIC_UI_NOT_ACTUAL_AUTH_STORAGE",
+      "images": [
+        {
+          "path": "${WORKSPACE}\\work\\w2x-cleanup-confirmation-390.png",
+          "sha256": "093f52876487e85b3c908d637d1ffa7afa07c1cc1fab5aa2cf0a686f9c784729",
+          "width": 390
+        },
+        {
+          "path": "${WORKSPACE}\\work\\w2x-cleanup-confirmation-768.png",
+          "sha256": "b03c38d2d9cdcc062ee14e2b3d8d9566de2ecb7bd1d19f12b0407b096cff0f6e",
+          "width": 768
+        },
+        {
+          "path": "${WORKSPACE}\\work\\w2x-cleanup-confirmation-1440.png",
+          "sha256": "da9963d383b5e3b01542398f84a4ac5947b360b905001f920f99a016be3738c7",
+          "width": 1440
+        }
+      ]
+    },
+    "preserved_failures": [
+      "w2x-cleanup-original-repro.txt:fixture endpoint miss",
+      "w2x-cleanup-original-causal-repro.txt:actual Cancel removes dialog",
+      "workspace runner wrong directory configuration failure",
+      "visual output overwrite recovered by complete nine-control run"
+    ],
+    "bundle_sha256": "467c50a1bb73a28f91022424cdacbf2a40e4f5f28863b5da60970a09afbc8bea",
+    "next": "WAIT_ALL_B1B_RUNS_TERMINAL_AND_OWN_CLOSURE_THEN_CONSUME_EXISTING153_WITH_NEW_SOURCE_CONTROLS",
+    "release": "NOT_ACCEPTED",
+    "five_high": "UNRESOLVED",
+    "ai_writes": "OFF"
+  },
+  "independent_par200_published": {
+    "utc": "2026-10-14T03:13:46.580410+00:00",
+    "work": "W2-X",
+    "claim": 6160024414,
+    "handoff": 6160045130,
+    "path": "${WORKSPACE}\\work\\crm-w2x-par042-review",
+    "branch": "codex/w2x-par200-upload-evidence-20261014",
+    "sha": "4e1ed0e5beefca83ad68626f50ae3a55884ed980",
+    "tree": "90d217b1600db0c83bf802b5e5d8388b98036d51",
+    "published": true,
+    "clean": true,
+    "scope": "ONLY_PAR200_REVIEW_QUEUE_DOC_OTHER341_EXACT",
+    "evidence_source": "1dd4272232403ae901ea3f3f5e11becfb874fe65",
+    "evidence_metadata": "${WORKSPACE}\\work\\w2x-second-commercial-closed-metadata.json",
+    "queue": "342_10PARTIAL_332UNRECONCILED_0READY",
+    "security": "NOT_RECONCILED",
+    "release": "NOT_ACCEPTED",
+    "visual_manifest": "${WORKSPACE}\\work\\w2x-par200-visual-manifest.json",
+    "checks": {
+      "individual_diff": "PASS",
+      "queue": "PASS",
+      "gitleaks": "PASS",
+      "new_functional_run": "NOT_NEEDED_METADATA_ONLY"
+    },
+    "next": "CONSUME_IN_OWN153_AFTER_B1B_RUNS_TERMINAL_NO_NEW_PASS"
+  },
+  "independent_import_published": {
+    "utc": "2026-10-14T03:19:37.894900+00:00",
+    "work": "W2-X",
+    "claim": 6160054871,
+    "handoff": 6160117671,
+    "path": "${WORKSPACE}\\work\\crm-w2x-document-upload-uncertain",
+    "branch": "codex/w2x-import-cancel-recovery-20261014",
+    "sha": "26b74191dbb657e0a6a891cc6b7042aeb7c7a39b",
+    "tree": "0cc0bb79d0e7ec50d9b63d21b45047bbcfe960fc",
+    "published": true,
+    "clean": true,
+    "checks": {
+      "final_browser": 5,
+      "build": "PASS66",
+      "lint": "PASS",
+      "gitleaks": "PASS",
+      "auth": "NOT_RUN_CHANGED_CONSUMER",
+      "model": "NOT_RUN"
+    },
+    "visual": {
+      "scope": "SYNTHETIC_HTTP_NOT_ACTUAL_AUTH",
+      "images": [
+        {
+          "path": "${WORKSPACE}\\work\\w2x-import-cancel-confirmation-390.png",
+          "sha256": "f8bca1b3f4082a7ded314f129e0c1be6c72daacb29910c87a7ded6f43aa4e741",
+          "width": 390
+        },
+        {
+          "path": "${WORKSPACE}\\work\\w2x-import-cancel-confirmation-768.png",
+          "sha256": "3df9f3874eb3095660b13dc80181744577660d21c509071fc0e7166214180db6",
+          "width": 768
+        },
+        {
+          "path": "${WORKSPACE}\\work\\w2x-import-cancel-confirmation-1440.png",
+          "sha256": "b96015f4ccc97693da178e83b95b98138d43453b6f3831cefb8edc85a004d399",
+          "width": 1440
+        }
+      ]
+    },
+    "preserved_failure": "w2x-import-cancel-lint.txt refs render; fixed explicit state and all five checks rerun",
+    "previous_unit": "${WORKSPACE}\\work\\w2x-document-state-checkpoint.json",
+    "bundle_sha256": "8f83f4af69827a4b2b6da47500db616c964982134c4db74ad9611f064fca4447",
+    "next": "PREPARE_OWN_COMPOSITION_WITH4E1_METADATA_NO_ACTIVE153_PUSH",
+    "release": "NOT_ACCEPTED",
+    "ai_writes": "OFF",
+    "five_high": "UNRESOLVED"
+  },
+  "queued_composition": {
+    "claim": 6160126426,
+    "branch": "codex/w2x-document-recovery-composition-20261014",
+    "path": "${WORKSPACE}\\work\\crm-w2x-commercial-composition",
+    "assembled_sha": "bd7f7c4b977ee4eb574602ec58a570f61a56ae80",
+    "status": "LOCAL_CONTROLS_IN_PROGRESS_ALIAS153_B1B_AUTH_ACTIVE_INTACT",
+    "expected_local": 247,
+    "expected_preview": 700,
+    "expected_auth": 115,
+    "publication": false,
+    "publication_to_alias": "BLOCKED_UNTIL_B1B_FAILURE_CLOSED_AND_ELIGIBILITY_REVIEW"
+  },
+  "closed_metadata": "${WORKSPACE}\\work\\w2x-b1b-auth-failed-closed.json"
+}

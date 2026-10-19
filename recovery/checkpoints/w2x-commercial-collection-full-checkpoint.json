@@ -1,0 +1,98 @@
+{
+  "claim": 6256461650,
+  "sha": "b84295e96a4396d0e3691407bac11eace28c53fe",
+  "tree": "309da6eeed8800d49c89251ed29b73991d37717d",
+  "branch": "codex/w2x-customer-domain-table-title-wrap-20261019",
+  "status": "OWN2172_FULL_PASS",
+  "browser_status": "PASS2172",
+  "browser_exit": 0,
+  "browser_summary": [
+    "2172 passed (52.1m)"
+  ],
+  "source_clean": true,
+  "own_source_checks": {
+    "browser": "81_PASS_OWN_SOURCE",
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN",
+    "paid_api": 0,
+    "global": "NOT_RUN_CURRENT_SHA",
+    "functional": "NOT_RUN_UI_PRESENTATION_ONLY",
+    "build": "66_PASS",
+    "lint": "EXIT0_WARNINGS_PRESERVED",
+    "scan": "PASS"
+  },
+  "known_remaining_defects": {
+    "whole_product": "NOT_RECONCILED",
+    "router_navigation": "NOT_RUN_CONTROLLED_CONTEXT_ONLY",
+    "security": "W4_PENDING_HIGH5",
+    "release": "NOT_ACCEPTED",
+    "global_customer_label": {
+      "status": "REPRODUCED_ON_THIS_PRODUCT_SOURCE",
+      "source": "b84295e96a4396d0e3691407bac11eace28c53fe",
+      "evidence": "work/w2x-domain-customer-label-wrap-causal.txt",
+      "original": "3FAIL3PASS38.5s,table2229.953125/client1198,customerCell1285.953125",
+      "fixture_scope": "Addedoptionalglobalmode;productsrcunchangedbeforecausal",
+      "fix_candidate": {
+        "unit": 103,
+        "branch": "codex/w2x-domain-customer-label-wrap-20261019",
+        "status": "PUBLISHED_OWN90_BUILD66_VISUAL9_SEPARATE_SOURCE",
+        "sha": "002c2565894e26eafa6349e29aac391c1e607873"
+      },
+      "scope": "81own/2172global source102 do not include the newglobal-label bank. Not corrected on source102."
+    }
+  },
+  "auth_db": "NOT_RUN",
+  "model": "NOT_RUN",
+  "paid_api": 0,
+  "release": "NOT_ACCEPTED",
+  "next": "Continue useful independent W2 commercial unit;no repeat green without changed source or relevant failure.",
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-commercial-collection-full-collection.txt",
+      "sha256": "9d07eea7260afde2ec71416a501d0390d61928bc740c06842a137e25d30a7c77"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-commercial-collection-full-browser.txt",
+      "sha256": "3aee7b54eb1de67f41f3ce0f454b09f88f051567b3d1a37ba3b0bf2ad028870e"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-domain-table-title-wrap-browser.txt",
+      "sha256": "2ab2bd985e65bd1a4d89dbfed801d65dbc0df1b79cfd3c49ad8d9895dc9f9ee6"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-domain-table-title-wrap-build.txt",
+      "sha256": "7cb5cf802a54db7843ca0fc74b94a521a0531b081341d0582d69d6a61c9b0848"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-domain-table-title-wrap-lint.txt",
+      "sha256": "77e52456c3bf671c8ed5a0154c9dbfdd998b31f3c61494ca11430b416d294dad"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-domain-table-title-wrap-scan.txt",
+      "sha256": "16a97982cfe3bdf4928f6e064248034c6fd5e00fe5931e526ee365c722162a38"
+    }
+  ],
+  "handoffs": [
+    {
+      "issue": 67,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6257745827",
+      "id": 6257745827
+    },
+    {
+      "issue": 153,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6257745999",
+      "id": 6257745999
+    },
+    {
+      "issue": 38,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6257746165",
+      "id": 6257746165
+    },
+    {
+      "issue": 142,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6257746312",
+      "id": 6257746312
+    }
+  ],
+  "publication": "PUBLISHED"
+}

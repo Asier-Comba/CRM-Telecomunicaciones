@@ -1,0 +1,64 @@
+{
+  "claim": 6212988281,
+  "base": "4221edc8023e68d3497092e92a428838baea1e32",
+  "branch": "codex/w2x-attention-individual-review-20261016",
+  "status": "TEL069_INDIVIDUAL_PARTIAL_REVIEW_PUBLISHED",
+  "evidence_source": "4221edc8023e68d3497092e92a428838baea1e32",
+  "runtime": "NOT_RUN_METADATA_SHA",
+  "release": "NOT_ACCEPTED",
+  "next": "Independent reproduced commercial defect with fresh CLAIM;global1266source2741fb8 still separate;no green rerun for metadata",
+  "candidate_fingerprints": [
+    {
+      "path": "docs/master/PRODUCT_RELEASE_REVIEWS.json",
+      "sha256_utf8_lf": "068ace6fda06d3a963fd90a9c7c18e5b0a39a790ba28c978452715e8c523a767"
+    },
+    {
+      "path": "docs/master/PRODUCT_RELEASE_QUEUE.json",
+      "sha256_utf8_lf": "11409d7d4023ac3798121295cc3f0a2527faa6c07df8f91cd01c133440b05c7e"
+    },
+    {
+      "path": "docs/master/W2X_ATTENTION_INDIVIDUAL_REVIEW_20261016.md",
+      "sha256_utf8_lf": "e5c2e9a274b72b87d79c1163250e042ff4005f611a6dfc1c3ebc13e0ce4be65c"
+    }
+  ],
+  "queue": {
+    "total": 342,
+    "parity": 244,
+    "telecom": 98,
+    "reviewed_partial": 22,
+    "unreconciled": 320,
+    "release_ready": 0
+  },
+  "guards": [
+    "21prior_reviews_identical",
+    "341other_rows_identical",
+    "global_acceptance_fields_identical",
+    "src_tests_unchanged_from_parent",
+    "diff_scan_queue_pass"
+  ],
+  "publication": "PUBLISHED",
+  "handoffs": [
+    {
+      "id": 6213008959,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6213008959",
+      "issue": 67
+    },
+    {
+      "id": 6213009283,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6213009283",
+      "issue": 153
+    },
+    {
+      "id": 6213009569,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6213009569",
+      "issue": 38
+    },
+    {
+      "id": 6213009982,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6213009982",
+      "issue": 142
+    }
+  ],
+  "sha": "43a314ad123b988290ebf94204a6847611371fcb",
+  "tree": "9407b4ae653decce1f234bbfd9e895f5ff16d831"
+}

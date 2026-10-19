@@ -1,0 +1,4 @@
+from pathlib import Path
+w=Path('work')
+(w/'playwright-w2x-commercial-mobile-product-full.config.cjs').write_text("const p=require('./playwright-w2x-commercial-drawer-full.config.cjs');module.exports={...p,testMatch:[...p.testMatch,'calendar-event-title-wrap.spec.ts','customer-domain-title-wrap.spec.ts','customer-list-name-wrap.spec.ts','customer-list-filter-priority.spec.ts'],outputDir:require('node:path').resolve(__dirname,'w2x-commercial-mobile-product-full-results')}\n",encoding='utf-8')
+(w/'playwright-w2x-commercial-mobile-product-full-candidate.config.cjs').write_text("const p=require('./playwright-w2x-commercial-mobile-product-full.config.cjs');module.exports={...p,testDir:require('node:path').resolve(__dirname,'crm-w2x-document-upload-uncertain/tests/e2e-preview')}\n",encoding='utf-8')

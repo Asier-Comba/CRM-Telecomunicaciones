@@ -1,0 +1,1 @@
+const previous=require('./playwright-w2x-portability-command-read-final.config.cjs');module.exports={...previous,testMatch:[...previous.testMatch,'portability-create-read-lifetime.spec.ts','sim-create-read-lifetime.spec.ts','case-create-read-lifetime.spec.ts'],outputDir:require('node:path').resolve(__dirname,'w2x-portability-create-read-corrected-final-results')}

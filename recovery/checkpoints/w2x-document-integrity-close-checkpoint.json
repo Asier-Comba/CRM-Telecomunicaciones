@@ -1,0 +1,79 @@
+{
+  "utc": "2026-10-14T09:57:47.067656+00:00",
+  "work": "W2-X",
+  "claim": 6165613407,
+  "path": "${WORKSPACE}\\work\\crm-w2x-document-upload-uncertain",
+  "branch": "codex/w2x-document-integrity-close-20261014",
+  "base": "61dff0ab46ea8ff86023ecce120b0654f2096960",
+  "published": true,
+  "status": "OWN49_PLUS9_BUILD66_LINT_TYPECHECK_SCAN_PASS_AUTH_NOT_RUN",
+  "release": "NOT_ACCEPTED",
+  "next": "CLAIM6165737433_COMPOSE_AFTER_ACTIVE497_TERMINATES",
+  "original_failure": "w2x-document-integrity-close-original-repro.txt",
+  "scope_test_preparation": "ASSERTION_FAILED_BEFORE_WRITING_NO_SCOPE_TESTS_YET",
+  "sha": "273e3f1704b65d2c01967f6c39b1219205ccb790",
+  "tree": "eca17f31833404958720341462473f5f64dd7fc6",
+  "clean": true,
+  "handoff": 6165737433,
+  "checks": {
+    "controlled_http": [
+      49,
+      9
+    ],
+    "lint": "PASS",
+    "build": "PASS66",
+    "typecheck": "PASS",
+    "scan": "PASS",
+    "visual": "THREE_FRAMES_VIEWED_PARTIAL",
+    "auth_db": "NOT_RUN",
+    "storage": "NOT_RUN",
+    "model": "NOT_RUN"
+  },
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-integrity-close-original-repro.txt",
+      "sha256": "5cd25dcf8e73bd9ae17251b2828d942264d41b5406bc90bb2aadba0cc020b2bd"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-integrity-close-browser.txt",
+      "sha256": "21b861b7f21e99c43425e3c298b0e8fb882be0e6e3360c485469ccd890c11bd4"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-integrity-close-lint.txt",
+      "sha256": "dda21574b74ba6a9edea377d67b00a3846ea8ae6ee11171eb3102a4a59f30d98"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-integrity-close-build.txt",
+      "sha256": "35ac006a7f145e5f4a19f0cabff258c2439be692ab138dcffb978cc34846b65a"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-integrity-close-scan.txt",
+      "sha256": "933c3d61954466780f6e910a4ad80839107d6bff45a139f48ea3a59c6e8d6ba9"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-integrity-scope-browser.txt",
+      "sha256": "230d3d284ff7c8c953434fc421da61e93e634cf921409b6b22a3a45d8b968bcd"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-integrity-scope-lint.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-integrity-scope-typecheck.txt",
+      "sha256": "09698db0dd661e366e31bb0aa12a64958690641809896ed8445717ab71ea6759"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-integrity-close-fixed-results\\document-integrity-receipt-092c5-grity-verify-invalid-at-768\\document-integrity-verify-invalid-768.png",
+      "sha256": "fd3131d1f01079f52551cb7818ad84130c4ded68ca226871a96d682d20c69964"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-integrity-close-fixed-results\\document-integrity-receipt-1dc67-grity-verify-invalid-at-390\\document-integrity-verify-invalid-390.png",
+      "sha256": "273d64b6a5c25785e2ee7084880cb830ea361a10d6008c48a96d87aeab83cbeb"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-integrity-close-fixed-results\\document-integrity-receipt-2ef29-rity-verify-invalid-at-1440\\document-integrity-verify-invalid-1440.png",
+      "sha256": "2f677d5c6b65c8fe5527a07bd74c42b6b4ca91335b838dfcca9772afe7ad4590"
+    }
+  ],
+  "bundle_sha256": "4f62c98b1493fb01cdc2f52453fd2f836b4683f589a96d8c9255b51b039c2af5"
+}

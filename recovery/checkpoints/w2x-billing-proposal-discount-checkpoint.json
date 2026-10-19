@@ -1,0 +1,137 @@
+{
+  "unit": 61,
+  "claim": 6251873167,
+  "base": "8a3fc1cd0996dfb041299db07ac36f40ca3154a6",
+  "branch": "codex/w2x-billing-proposal-discount-20261018",
+  "status": "PUBLISHED_OWN141_BUILD66_VISUAL_PARTIAL",
+  "causal_session": 39011,
+  "product_changed": true,
+  "release": "NOT_ACCEPTED",
+  "checks": {
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN",
+    "paid_api": 0,
+    "global": "NOT_RUN_CURRENT_SHA",
+    "browser": "141_PASS_OWN_SOURCE",
+    "build": "66_PASS",
+    "functional": "24_PASS_OWN_SOURCE",
+    "lint": "EXIT0_WARNINGS_PRESERVED",
+    "scan": "PASS"
+  },
+  "original": {
+    "failed": 3,
+    "passed": 1,
+    "duration": "40.8s",
+    "cause": "Local invoice proposal truncates percentage discount:100->10,10comma5->10,101->10 bypassing existing input range validation. Ordinary10 positive passes. Controlled HTTP only,no save commands."
+  },
+  "next": "Close own141/browser,functional24,build/lint/visual/scan/publication. Continue commercial work;source57 global1575 active once,does not include58/61;no inheritedPASS.",
+  "visual_review": {
+    "status": "ACTUALLY_VIEWED",
+    "scope": "Seven frames:prefix100/suffix10comma5 at3907681440 and invalid101prefix1440. Mobile shows rates and exact0/108.30 totals with unchecked review;7681440 positive frames show upper fields and discount near bottom,totals/actions outside viewport. Invalid frame shows safe validation error and no editor. Fixture background excluded;not full visual/editor/financial/security acceptance.",
+    "frames": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-proposal-discount-final-results\\billing-proposal-discount--18495-ount-prefix-hundred-at-1440\\discount-prefix-hundred-1440.png",
+        "sha256": "5e479caf25cbb0ea3cf781a36dba98ecf3982b5f5df604f50815027c42c4015f"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-proposal-discount-final-results\\billing-proposal-discount--4a677-iscount-suffix-comma-at-390\\discount-suffix-comma-390.png",
+        "sha256": "af5074d8baa152bc2f884968d004e39e626b2ea27a2bb0ccbf78930364d0fa28"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-proposal-discount-final-results\\billing-proposal-discount--7978a-scount-suffix-comma-at-1440\\discount-suffix-comma-1440.png",
+        "sha256": "ebd8cfaaf9a929d9482122eea984cde11695114c1dc7107d4801e272332fec3e"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-proposal-discount-final-results\\billing-proposal-discount--cd2c4-iscount-suffix-comma-at-768\\discount-suffix-comma-768.png",
+        "sha256": "8065ca666ea8b38d68ad43471f0aaea7a2eb21fd55079081f32477abad6ce87a"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-proposal-discount-final-results\\billing-proposal-discount--eb5a1-count-prefix-hundred-at-768\\discount-prefix-hundred-768.png",
+        "sha256": "4c0bd8b024aaef4a83db0073e7eb67501626f2f0992ab287de3a0769d238a7ef"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-proposal-discount-final-results\\billing-proposal-discount--f3119-iscount-prefix-over-at-1440\\discount-prefix-over-1440.png",
+        "sha256": "f2b4ff9d092137f2d29ccf6b5fc764ad9de0f1f6942fd3c5b6085eca89b560be"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-proposal-discount-final-results\\billing-proposal-discount--febba-count-prefix-hundred-at-390\\discount-prefix-hundred-390.png",
+        "sha256": "2e7f2d0ef79b81f567076a78cefe90d69f5ff52645e97fc664b84bf8c4a9b362"
+      }
+    ]
+  },
+  "controls_session": 2168,
+  "candidate_fingerprints": [
+    {
+      "path": "src/features/billing/parse.ts",
+      "sha256_utf8_lf": "4195657c32eed54483384078c1f685d4bbaf8589dc9cd06e6a2c11cf3bfc4281"
+    },
+    {
+      "path": "tests/e2e-preview/billing-proposal-discount.spec.ts",
+      "sha256_utf8_lf": "76b9f15656add15ce850b50738291c830f734c888ff2bd7a2d1a1d1e156f6d6c"
+    },
+    {
+      "path": "docs/master/W2X_BILLING_PROPOSAL_DISCOUNT_20261018.md",
+      "sha256_utf8_lf": "7446d964ae6a3f905b24058666b339957475f20c2ab60e2215cd5bafe9cd92e5"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-proposal-discount-causal.txt",
+      "sha256": "0ad32f82e5ef573e747b0696c8166ee7da423a5682a374d51960615fdac7fa9b"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-proposal-discount-browser.txt",
+      "sha256": "21250050b2bd07599b5602798e92d94b8b6a78f03d892ae956d2bfc125322d4e"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-proposal-discount-functional.txt",
+      "sha256": "096c32a3b8e516d1b8a9571c795872296870361d1b0757180eab0b0e5684c901"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-proposal-discount-lint.txt",
+      "sha256": "91a5c63f9a9a0a42f92a00caa38da32336b62b940ccf4738d08ef97c55d9996c"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-proposal-discount-build.txt",
+      "sha256": "12197f16950033119c8687918ad8d81bb20cbf74aef8389d09b6851d1486c199"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-proposal-discount-scan.txt",
+      "sha256": "3b90f6f481547716f6dd9ba7dfcac88124d2cc4c563ae5f1d94a5c1ce10aafe7"
+    }
+  ],
+  "tree": "eaa05ba2e1e43f48edfe55c00efa53719d5a79de",
+  "publication": "PUBLISHED",
+  "sha": "b193330f61fa097cb0bb73b1328c81fc01bd91ba",
+  "handoffs": [
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6251949924",
+      "id": 6251949924,
+      "issue": 67
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6251950108",
+      "id": 6251950108,
+      "issue": 153
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6251950257",
+      "id": 6251950257,
+      "issue": 38
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6251950409",
+      "id": 6251950409,
+      "issue": 142
+    }
+  ],
+  "known_remaining_defects": {
+    "tax_withholding": {
+      "reproduced_source": "b193330f61fa097cb0bb73b1328c81fc01bd91ba",
+      "original": "6FAIL_2PASS_1.5M",
+      "checkpoint": "work/w2x-billing-proposal-rates-checkpoint.json",
+      "fixed_source": "24a7b0da7d7d5dfd822cf2e07981ce2659b93d7f",
+      "scope": "Local proposal percentages;not complete fiscal acceptance."
+    }
+  }
+}

@@ -1,0 +1,127 @@
+{
+  "claim": 6202876422,
+  "base": "eb3bc5d9f4f4f642f4f09aa65588397593485051",
+  "branch": "codex/w2x-portability-create-direction-20261015",
+  "status": "OWN45_BUILD66_LINT0ERRORS3WARN_SCAN_PASS_VISUAL_PARTIAL_AUTH_NOT_RUN",
+  "path": "${WORKSPACE}\\work\\crm-w2x-commercial-composition",
+  "scope": "PortabilityCreate direction-linked operator UI, existing SQL unchanged",
+  "next": "ACTUAL_VISUAL_REVIEW;GLOBAL999_SOURCE_D889_ONLY;NEXT_INDEPENDENT_COMMERCIAL_UNIT",
+  "release": "NOT_ACCEPTED",
+  "product_changed": true,
+  "causal": {
+    "failed": 6,
+    "log": "w2x-portability-create-direction-causal.txt",
+    "scope": "All six failed on fixed-side enabled, valid parsed context, before command",
+    "preflight": "w2x-portability-create-direction-preflight-no-tests.txt"
+  },
+  "candidate_fingerprints": [
+    {
+      "path": "src/features/portabilities/Portabilities.tsx",
+      "sha256_utf8_lf": "317dd98be05bfb09ab11705e85afad14e7db5c00a2e8da38f349ab4f6a9110cd"
+    },
+    {
+      "path": "tests/e2e-preview/fixtures/commercial-resource-entry.tsx",
+      "sha256_utf8_lf": "4155327e3502e3516155e6951f60db271f8d87790865f7f856b82d3dbc293a07"
+    },
+    {
+      "path": "tests/e2e-preview/portability-create-direction.spec.ts",
+      "sha256_utf8_lf": "7824881e533fdbd89cd460e8e9b912d4a340348d36405b7ad1515467e4559b6a"
+    },
+    {
+      "path": "docs/master/W2X_PORTABILITY_CREATE_DIRECTION_20261015.md",
+      "sha256_utf8_lf": "5cbd842d50b6e405180d7c6d4d7b74e7d05390b74998f02baac695eec7c33f19"
+    }
+  ],
+  "checks": {
+    "browser": 45,
+    "build": 66,
+    "lint": "0_ERRORS_3_WARNINGS_VISIBLE",
+    "scan": "PASS",
+    "visual": "PARTIAL_6_CREATE_DIRECTION_FIELDS_FRAMES_ACTUALLY_VIEWED",
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN"
+  },
+  "published": true,
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portability-create-direction-causal.txt",
+      "sha256": "530743d4e20c77f17ddca0a8c50fc489c4d4e5fea80f26c864336afeaba559b9"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portability-create-direction-browser.txt",
+      "sha256": "5f9252dea8df0085ac426f8761b23129ece4beb1d10a98eef7e4e96226141ad2"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portability-create-direction-lint.txt",
+      "sha256": "46b06a074950b0d83fe6c1c979beaeab9a24b2e4e4e51999ab23fa4d1236b1b4"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portability-create-direction-build.txt",
+      "sha256": "865605c9dd261d6c88952bfb920d3ce212b441f241fce96b2b92717cb20ab573"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portability-create-direction-scan.txt",
+      "sha256": "1701b299c6774cd218f4e9785ddc26c215ad66e04837ec8e843ad889b0916909"
+    }
+  ],
+  "publication_preflight_failure": {
+    "status": "NO_COMMIT_NO_PUSH",
+    "cause": "Template inherited wrong test path;git add failed atomically and commit found no stage",
+    "repair": "Use exact candidate_fingerprints paths;no product/test changes;checks not repeated"
+  },
+  "publication": "PUBLISHED",
+  "sha": "a24a6d811ce2c6013067576f4dadbc4394539ef2",
+  "tree": "cf2a27f632ba8d4853cacd535495678b19784944",
+  "handoffs": [
+    {
+      "issue": 67,
+      "id": 6203044431,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6203044431"
+    },
+    {
+      "issue": 153,
+      "id": 6203044682,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6203044682"
+    },
+    {
+      "issue": 38,
+      "id": 6203044886,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6203044886"
+    },
+    {
+      "issue": 142,
+      "id": 6203045099,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6203045099"
+    }
+  ],
+  "visual_review": {
+    "status": "ACTUALLY_VIEWED",
+    "frames": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portability-create-direction-final-results\\portability-create-directi-0ac99-e-direction-outbound-at-768\\portability-create-outbound-768.png",
+        "sha256": "0e4548df981d45467808a5d0157858db22e74ec5e5cc59c7e9361c3945d80778"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portability-create-direction-final-results\\portability-create-directi-2276a--direction-outbound-at-1440\\portability-create-outbound-1440.png",
+        "sha256": "4eb64bade8ea0c61905522194368023bfc6b58b75942034efb5c1ec4c68a939c"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portability-create-direction-final-results\\portability-create-directi-5d3a4-te-direction-inbound-at-768\\portability-create-inbound-768.png",
+        "sha256": "038221e1686527609e12508b8773d4db1cfb61fa39f157c09080c4aab2784433"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portability-create-direction-final-results\\portability-create-directi-7a3fa-e-direction-outbound-at-390\\portability-create-outbound-390.png",
+        "sha256": "f9a880275b1c144f5072749424281b83d0828fcc392bccddf873c44ccc7b9b69"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portability-create-direction-final-results\\portability-create-directi-7bc2a-e-direction-inbound-at-1440\\portability-create-inbound-1440.png",
+        "sha256": "463a0604e2eb5b3e214a816fd2d7ae4faf9f796adf00b01f7f1d7502b65cd5b7"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portability-create-direction-final-results\\portability-create-directi-e7bb7-te-direction-inbound-at-390\\portability-create-inbound-390.png",
+        "sha256": "b34a27027c31c856fd425dac3dad6a41887843e02aac1d527e2a665b926f7c74"
+      }
+    ],
+    "observation": "Both operators, linked hint, direction, masked number, date/assignee and primary action legible;390lower footer below viewport,scroll required;no whole-module acceptance"
+  }
+}

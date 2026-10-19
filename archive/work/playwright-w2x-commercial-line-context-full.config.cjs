@@ -1,0 +1,1 @@
+const p=require('./playwright-w2x-commercial-calendar-full.config.cjs');module.exports={...p,testMatch:[...new Set([...p.testMatch,'portability-line-retirement.spec.ts','portability-detail-line.spec.ts','sim-detail-line.spec.ts','portability-create-parents.spec.ts'])],outputDir:require('node:path').resolve(__dirname,'w2x-commercial-line-context-full-results')}

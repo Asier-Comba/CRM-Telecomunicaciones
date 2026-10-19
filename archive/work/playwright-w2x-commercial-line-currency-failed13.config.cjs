@@ -1,0 +1,1 @@
+const p=require('./playwright-w2x-commercial-line-currency-full.config.cjs');module.exports={...p,testMatch:['c360-failure-waiters.spec.ts','document-current-selection.spec.ts'],outputDir:require('node:path').resolve(__dirname,'w2x-commercial-line-currency-failed13-results')}

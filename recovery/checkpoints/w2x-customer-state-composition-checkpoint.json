@@ -1,0 +1,369 @@
+{
+  "utc": "2026-10-14T00:30:36.994886+00:00",
+  "work": "W2-X",
+  "path": "${WORKSPACE}\\work\\crm-w2x-customer-state-composition",
+  "branch": "codex/w2x-customer-state-failure-composition-20261014",
+  "pr_branch": "codex/w2x-contact-uncertain-20261014",
+  "sha": "dd764f7405049ea8d3e17dd51e678458f33597f8",
+  "tree": "abb58fded7fc84ecb3fc006a8f12918434ec5e73",
+  "published_sha": "dd764f7405049ea8d3e17dd51e678458f33597f8",
+  "clean": true,
+  "claim": 6157969093,
+  "handoff": 6158125168,
+  "pr": 153,
+  "status": "OWN_DD764_CLOSED96_13_FAIL_NOT_ELIGIBLE_1430_460_NATIVE85_PASS_HIGH5",
+  "integration_ack": "NOT_RECEIVED",
+  "checks": {
+    "focal_browser": "51/51_NEW_UNION",
+    "build_types": "PASS_CLEAN_AFTER_PRESERVED_PREPARATION_CACHE_FAILURES",
+    "lint": "PASS",
+    "queue": "MEASURED342_9PARTIAL_333UNRECONCILED_0READY",
+    "utf8_preservation": "EXACT_F79_PLUS_A976_AND_ARCHIVE_PROOFS_PRESERVED",
+    "gitleaks": "PASS",
+    "ci_run": 38490340882,
+    "supabase_run": 38490340885,
+    "full_preview": "460_PASS_OWN_EXECUTED_TREE",
+    "auth_db": "FAIL96_13_AUTH_TEARDOWN_PASS_FULL_CAUSE_UNKNOWN",
+    "native": "85_MIGRATIONS_RESTORE_PASS_OWN",
+    "model": "NOT_RUN",
+    "own_quality": {
+      "source": "dd764f7405049ea8d3e17dd51e678458f33597f8",
+      "executed": "8533d2f6336c3f72d042b656149e72b0af2d7ae4",
+      "tree": "abb58fded7fc84ecb3fc006a8f12918434ec5e73",
+      "ci": 38490340882,
+      "functional": {
+        "bootstrap": 611,
+        "assistant": 819,
+        "total": 1430,
+        "build": "PASS66",
+        "preview": 460,
+        "native_restore": {
+          "kind": "native_postgresql_restore_test_only",
+          "migration_count": 85,
+          "migration_head": "20261011090000_assistant_verified_completed_reconciliation.sql",
+          "dump_sha256": "f94880e98c515ccdc87414d3f8b2478a1a390dcc3661127fef7f17cd645f483a",
+          "schema": "pass",
+          "rows": "pass",
+          "assistant_rows": "pass",
+          "rls": "pass",
+          "scope": "pass",
+          "restored_privilege_matrix": "pass",
+          "fresh_role_calls": "pass",
+          "restored_role_calls": "pass",
+          "acl_loss_negative_control": "pass",
+          "production_backup": false
+        }
+      },
+      "audit": "FAIL_FIVE_HIGH",
+      "supabase": "PENDING_OWN38490340885",
+      "integration_ack": "NOT_RECEIVED",
+      "release": "NOT_ACCEPTED",
+      "model": "NOT_RUN",
+      "logs": [
+        {
+          "job": 115613779286,
+          "sha256": "e1187e844f937c8e0e12b553fafc10e59b334d991e60fab24d272528f2ba34a7"
+        },
+        {
+          "job": 115613779589,
+          "sha256": "8b506471ce8469a4b9b344692016fdfd6a8f78dc5a1d6d26a7cbc4aef7ea65c9"
+        },
+        {
+          "job": 115613779345,
+          "sha256": "d6ae95ca822ce410ca85c5f5a558f6f86a3e0023b87bc6b27f2bfbce0d01c79d"
+        }
+      ],
+      "utc": "2026-10-14T00:44:42.326424+00:00"
+    }
+  },
+  "historical_failure_refs": [
+    "${WORKSPACE}\\work\\w2x-d764-failed-metadata.json",
+    "${WORKSPACE}\\work\\w2x-f79-native-quota-original-failure.json",
+    "${WORKSPACE}\\work\\w2x-f79-auth-closed-native-quota-blocked.json"
+  ],
+  "cache_failure_preserved_at": "${WORKSPACE}\\work\\w2x-state-next-incomplete-cache-20261014",
+  "units": [
+    {
+      "pr": 152,
+      "sha": "a650a9b348cade254a115fcda89bd2b49ecbbb83",
+      "checkpoint": "${WORKSPACE}\\work\\w2x-case-notes-checkpoint.json",
+      "ci_run": 38479194108,
+      "supabase_run": 38479194069
+    },
+    {
+      "pr": 153,
+      "sha": "9c361c9ce7e32ba202f0c6e24aacd371c5026e04",
+      "checkpoint": "${WORKSPACE}\\work\\w2x-contacts-checkpoint.json",
+      "ci_run": 38480433850,
+      "supabase_run": 38480433895
+    },
+    {
+      "sha": "2b8f7b0f72f731b9bf4c1513c74fe5cabeb54b12",
+      "branch": "codex/w2x-contact-customer-state-20261014",
+      "checkpoint": "${WORKSPACE}\\work\\w2x-contact-state-checkpoint.json",
+      "claim": 6156910547,
+      "ci": "NOT_RUN_INDEPENDENT_DELTA"
+    },
+    {
+      "sha": "563948981dff3e1216beeb3fcec3c7e9219596a4",
+      "branch": "codex/w2x-customer-uncertain-20261014",
+      "checkpoint": "${WORKSPACE}\\work\\w2x-customer-checkpoint.json",
+      "claim": 6157018709,
+      "ci": "NOT_RUN_INDEPENDENT_DELTA"
+    },
+    {
+      "sha": "4107e9f10d206864ade102cbe25d2507ead4d349",
+      "checkpoint": "${WORKSPACE}\\work\\w2x-par042-review-checkpoint.json",
+      "claim": 6157289777
+    },
+    {
+      "sha": "27fdcc53790e3c43afc4534ccf7c438bed7a68f8",
+      "checkpoint": "${WORKSPACE}\\work\\w2x-contact-page-focus-checkpoint.json",
+      "claim": 6157389360
+    },
+    {
+      "sha": "d76426fa195bc7c29bd77811e1bb987cddfade3d",
+      "checkpoint": "${WORKSPACE}\\work\\w2x-composition-checkpoint.json",
+      "state": "ORIGINAL_FAIL_PRESERVED"
+    },
+    {
+      "sha": "a9761de5c785a57ae6e733c98c5a2c40626fe29f",
+      "checkpoint": "${WORKSPACE}\\work\\w2x-c360-waiters-checkpoint.json",
+      "claim": 6157715752
+    },
+    {
+      "sha": "c7da250880d7c529423086bfcca7ec95a79d460e",
+      "checkpoint": "${WORKSPACE}\\work\\w2x-customer-state-uncertain-checkpoint.json",
+      "claim": 6157869961
+    },
+    {
+      "sha": "f79a39faca70591b6ca2d477358b5cd18fbbe3cc",
+      "checkpoint": "${WORKSPACE}\\work\\w2x-customer-final-checkpoint.json",
+      "status": "AUTH109_PASS_NATIVE_RESOURCE_QUOTA_NOT_QUALIFIED"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-state-composition-browser-final.txt",
+      "sha256": "d550e50d5cfe44a939b926f8da0cd2eb7e2f92fa0f43931bd7d4be70abfc65e6"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-state-composition-build-clean.txt",
+      "sha256": "0c289ece44020be019329e4f54da521cf0bdd42436a1b8de95d55602949c3e4d"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-state-composition-lint-final.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-state-composition-queue-final.txt",
+      "sha256": "e5af9d62c7bd7d5159086aa48b79910b370650d6ec054e7f4fd700868f351f5a"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-state-composition-fixture-copy-incomplete-browser.txt",
+      "sha256": "2c76a2bcf811a878a9c7818328fe1a660665dc5c976960fa2b473942e894ae41"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-state-composition-fixture-copy-incomplete-build.txt",
+      "sha256": "38869588a14e54a913fead3f3b15a0aa61101906833572e64ec8492a87af3250"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-state-composition-stale-cache-build.txt",
+      "sha256": "ff85a4f609d6c6e13c7c94ac92efe7afa6b46a2c4483843d02ffa29b555cb74e"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-state-composition-published.bundle",
+      "sha256": "6059675d77658828ca9b149757bea086433d8f8c69f823be69d6541f2cf2a854"
+    }
+  ],
+  "next": "ASSEMBLE_OWN_COMMERCIAL_COMPOSITION_CLAIM6158632189_KEEP_DD764_FAIL96_13;NEW90_FOCAL_538_PREVIEW_112_AUTH_EXPECTED_NOT_MEASURED",
+  "writes": "OFF",
+  "release": "NOT_ACCEPTED",
+  "high": 5,
+  "independent_pending_composition": {
+    "utc": "2026-10-14T00:51:21.518723+00:00",
+    "work": "W2-X",
+    "path": "${WORKSPACE}\\work\\crm-w2x-billing-uncertain",
+    "branch": "codex/w2x-billing-uncertain-20261014",
+    "sha": "ed048f7706e44861d096fc4c73ec96e3704e3b75",
+    "tree": "38e73c990b59abd9a1b266912edf22aef7d77b0f",
+    "published_sha": "ed048f7706e44861d096fc4c73ec96e3704e3b75",
+    "clean": true,
+    "claim": 6158227631,
+    "pr_comment": 6158382879,
+    "handoff": 6158382652,
+    "pr": 153,
+    "status": "INDEPENDENT_BILLING_DELTA_PUBLISHED_WAITING_CURRENT_PR153_CHECKS_BEFORE_COMPOSITION",
+    "checks": {
+      "browser_new": 21,
+      "browser_regressions": 25,
+      "build": "PASS66",
+      "types": "PASS",
+      "lint": "PASS",
+      "gitleaks": "PASS",
+      "auth_db": "NOT_RUN_PREPARED_SEVEN_COMMAND_CHECK",
+      "model": "NOT_RUN"
+    },
+    "evidence": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-uncertain-parent-failure.txt",
+        "sha256": "622ad4b9a69acecb5502e1194d695827c65a54e7e9b9054ee5916b515d772400"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-uncertain-parent-reproduction.txt",
+        "sha256": "942c8e39569eec688c24b5966340b8e5c26c731af0fcc3a7f79b1c91826c6652"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-uncertain-fixed-first.txt",
+        "sha256": "5dde7d1a7527d7f9655eaa600bf2bd5bce2e87954c55e768128dbe64d62ce650"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-uncertain-fixed-final.txt",
+        "sha256": "13fd703c583cadce34e42a27e6ab8cf251efbc8625041c88b2f1f696e0ac4603"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-uncertain-21-final.txt",
+        "sha256": "ae783a60f030045857ce8a2892eb4b4197eea762ac893f36b04f55ae2f5e302b"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-uncertain-21-corrected.txt",
+        "sha256": "6d6a1b0449d42c6dd9c5804feeb6d86e6a4172331f7bffa44a4a2883002d892b"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-uncertain-regressions.txt",
+        "sha256": "dc6620c1f469851247d849b1bf2978b379a7cd6d0a10cb5fb7195083b48fb7d6"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-uncertain-types-final.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-uncertain-lint-final.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-uncertain-consumer-lint.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-uncertain-build.txt",
+        "sha256": "4cb3e0e60305a8675cf8c0ed0c495d1fa1459f9c8c856785bae1452ca101cefa"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-uncertain-gitleaks.txt",
+        "sha256": "d6cba9b2d342d9accfaca13dc7d333afe276336058fb93851a5e617cebae15af"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-uncertain-published.bundle",
+        "sha256": "dc12825cfd620d1e11bdc8c45c28034bee1e589dd057ea509d44dff84251891a"
+      }
+    ],
+    "permission_contract_changes": false,
+    "integration_ack": "NOT_RECEIVED",
+    "writes": "OFF",
+    "release": "NOT_ACCEPTED",
+    "high": 5,
+    "next": "CLOSE_DD764_SUP38490340885_BEFORE_OWN153_COMPOSITION_DD764_PLUS_ED048_THEN_OWN_NEW_SHA_FULL_CONTROLS_502_PREVIEW_110_AUTH_EXPECTED_NOT_MEASURED"
+  },
+  "coordination_d764_diagnosis": {
+    "response": 6158104238,
+    "observed_checks": 66,
+    "passed": 65,
+    "failed": 1,
+    "first_failed": "customer360_exact_summary_safe_contacts_independent_domains",
+    "fatal": "ORPHAN_WAIT_FOR_RESPONSE_TIMEOUT_OBSERVED_W5",
+    "auth_final": "UNKNOWN",
+    "teardown_final": "UNKNOWN",
+    "complete_cause": "NOT_FULLY_MEASURED"
+  },
+  "closed_metadata": "${WORKSPACE}\\work\\w2x-dd764-auth-failed-closed.json",
+  "independent_portfolio_pending_composition": {
+    "utc": "2026-10-14T01:12:19.676765+00:00",
+    "work": "W2-X",
+    "path": "${WORKSPACE}\\work\\crm-w2x-portfolio-receipt-close",
+    "branch": "codex/w2x-portfolio-receipt-close-20261014",
+    "sha": "2976cdda8c02ff2e6a13983ea11edeb8b79e7a8c",
+    "tree": "de307e152cdcd8d24f199450a214618fc775980c",
+    "published_sha": "2976cdda8c02ff2e6a13983ea11edeb8b79e7a8c",
+    "clean": true,
+    "claim": 6158524273,
+    "handoff": 6158631996,
+    "pr": 153,
+    "status": "PUBLISHED_INDEPENDENT_PRODUCT_PARTIALITY_REPRODUCED_NO_ORIGINAL_DD764_RCA_CLAIM",
+    "historical_receipt_source": "b1d93a0e0693f522ee6249dea71710ee6f8ba708",
+    "checks": {
+      "new_partial_browser": 12,
+      "complete_portfolio_browser": 36,
+      "build": "PASS66",
+      "types": "PASS",
+      "lint": "PASS",
+      "gitleaks": "PASS",
+      "auth_db": "NOT_RUN_PREPARED_PARTIAL_DENIAL_AND_RECEIPT_CHECKS",
+      "model": "NOT_RUN"
+    },
+    "evidence": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portfolio-partial-parent.txt",
+        "sha256": "b7cb10b1fb483ca89f24cefac33eb9bcac6f369350f2adf5e0cb5dcc65195166"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portfolio-partial-parent-card.txt",
+        "sha256": "c103986c3af27ed161dc9262f0547164bbaf0d36855f9f880f44a79a7dc93b8d"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portfolio-partial-fixed.txt",
+        "sha256": "823787f067faf0df5a6aeead17a2e7b7c5065233e5289f99e4315d1176d3ff9d"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portfolio-partial-corrected.txt",
+        "sha256": "31c95a7db7ddadf20b7371a64f4bb53bb6e6ee877a52d4be7b281a8aac90142e"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portfolio-partial-complete.txt",
+        "sha256": "fda63013599ff80cfd5ee4a17f379c765d7cb22b64be7de55255975effcf8474"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portfolio-partial-types-final.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portfolio-partial-lint-final.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portfolio-partial-build.txt",
+        "sha256": "be03ce8abee8199cd6aee32e4275812ec144ce57c784e606bc85e8fd079e2b2f"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portfolio-partial-gitleaks.txt",
+        "sha256": "34513939039d826dd0b8b759c23a0e25648e61516a903868e250e96b6323aa51"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portfolio-partial-published.bundle",
+        "sha256": "53234b5633cbfd80e9b53801a02d8ebbc39fa58278f3697f23f902eff1d6986a"
+      }
+    ],
+    "permission_contract_changes": false,
+    "integration_ack": "NOT_RECEIVED",
+    "writes": "OFF",
+    "release": "NOT_ACCEPTED",
+    "high": 5
+  },
+  "queued_commercial_composition": {
+    "claim": 6158632189,
+    "path": "${WORKSPACE}\\work\\crm-w2x-commercial-composition",
+    "branch": "codex/w2x-commercial-recovery-composition-20261014",
+    "base": "9c361c9ce7e32ba202f0c6e24aacd371c5026e04",
+    "parents": [
+      "dd764f7405049ea8d3e17dd51e678458f33597f8",
+      "ed048f7706e44861d096fc4c73ec96e3704e3b75",
+      "2976cdda8c02ff2e6a13983ea11edeb8b79e7a8c"
+    ],
+    "status": "ASSEMBLED_OWN_LOCAL_COPY_DEPENDENCIES_RUNNING_NO_TESTS_YET",
+    "assembled_sha": "a5adf44cdd465e2132df51ef7eb436b63994fd58",
+    "expected_browser": 133,
+    "expected_preview": 538,
+    "expected_auth": 112,
+    "parent_dd764": "FAIL96_13_PRESERVED_NOT_ELIGIBLE_NO_PASS_INHERITANCE"
+  }
+}

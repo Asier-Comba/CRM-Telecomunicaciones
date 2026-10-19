@@ -1,0 +1,1 @@
+const p=require('./playwright-w2x-customer-attention-context-final.config.cjs');module.exports={...p,testMatch:['attention-customer-identity.spec.ts'],grep:/identity loaded at 1440$/,outputDir:require('node:path').resolve(__dirname,'w2x-attention-customer-identity-causal-results')}

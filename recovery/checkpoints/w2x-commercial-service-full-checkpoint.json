@@ -1,0 +1,104 @@
+{
+  "claim": 6200094084,
+  "sha": "6b4692df7ccc47cf9814beecc09d69c41d333256",
+  "tree": "d8e5f42e7f1d6854ea4436383c58e6dc19213866",
+  "branch": "codex/w2x-service-parent-read-lifetime-20261015",
+  "status": "SAME_SHA_COMPLEMENTARY979_PLUS2_PASS_ORIGINAL981_FAILURE_PRESERVED",
+  "browser_status": "FAIL_OR_INCOMPLETE_PRESERVED",
+  "browser_exit": 1,
+  "browser_summary": [
+    "2 failed",
+    "979 passed (1.8h)"
+  ],
+  "source_clean": true,
+  "own_source_checks": {
+    "browser": 21,
+    "build": 66,
+    "lint": "0_ERRORS_3_WARNINGS_VISIBLE",
+    "scan": "PASS",
+    "visual": "PARTIAL_3_CURRENT_FRAMES_ACTUALLY_VIEWED",
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN"
+  },
+  "release": "NOT_ACCEPTED",
+  "next": "SOURCE14_FREE_AFTER_THIS_CHECKPOINT;NEW_CLAIM_BEFORE_INDEPENDENT_WORK;NO981_SINGLE_PASS_OR_RELEASE_PROMOTION",
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-commercial-service-full-collection.txt",
+      "sha256": "bc1ee5fb9a0d2eb88458a59b57d3c446ab2d4a939c982430642a007174506cb4"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-commercial-service-full-browser.txt",
+      "sha256": "6704446d9cb6527f6fa3d402bf2bbff632fd3d493f5c0d2096a7432dcf0a3199"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-service-parent-read-browser.txt",
+      "sha256": "d55a02a42c242da5ac29824d080666a108a6a5ba688bee7066727f9e2dde1bc0"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-service-parent-read-lint.txt",
+      "sha256": "644ec5be3182a554294c5e43e0604f507d5bb3527f6237d9cdebfb726e70f162"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-service-parent-read-build.txt",
+      "sha256": "392db3ac6d0441430aeadabf98b39cdbefc4dd3b6d04d0a80a00a924d3fe7e98"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-service-parent-read-scan.txt",
+      "sha256": "825a574dd210d37e4aece2e13f0be07aa41bb3e5c51baf508ac64ce70de09802"
+    }
+  ],
+  "handoffs": [
+    {
+      "issue": 67,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6202379345",
+      "id": 6202379345
+    },
+    {
+      "issue": 153,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6202379567",
+      "id": 6202379567
+    },
+    {
+      "issue": 38,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6202379794",
+      "id": 6202379794
+    },
+    {
+      "issue": 142,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6202380045",
+      "id": 6202380045
+    }
+  ],
+  "publication": "PUBLISHED",
+  "failure_diagnosis": {
+    "first": "page.goto ERR_NETWORK_IO_SUSPENDED; artifact19:43:01 local during measured power transition",
+    "second": "60000ms timeout in setup, page.route before navigation; failure artifact21:07:26 at wake. Full causal chain not independently closed.",
+    "power_event": {
+      "event_time": "2026-10-15T21:07:26.9784962+02:00",
+      "provider": "Microsoft-Windows-Power-Troubleshooter",
+      "measured_event_fields": {
+        "SleepTime": "2026-10-15T17:42:59.0454217Z",
+        "EffectiveState": "5",
+        "SleepDuration": "4221",
+        "WakeDuration": "1275",
+        "WakeTime": "2026-10-15T19:07:25.7765541Z",
+        "TargetState": "5"
+      },
+      "id": 1,
+      "event_record": 753411
+    },
+    "causal_status": "HOST_SUSPENSION_OBSERVED_SECOND_FULL_RCA_NOT_CLOSED",
+    "policy": "Original981 remains FAIL; bounded sameSHA recheck only2, no repeat979 greens, no change to limits/assertions/source/power settings. A new PASS does not prove a causal fix."
+  },
+  "complementary_recheck": {
+    "passed": 2,
+    "exit": 0,
+    "scope": "Only original two failed cases, same exact source/test/config limits; 979 greens not repeated.",
+    "log": "${WORKSPACE}\\work\\w2x-commercial-service-failed2-browser.txt",
+    "log_sha256": "a545f96013663ac0fe54438c19b6776cba28fca479411240ae1eb49bb6ce9ae3",
+    "test_blob": "a475aa0f30c18acd86d652d6580cee39ba7c2285",
+    "test_sha256": "49d8d429dedf361a8eed9a71fadaee9c382db414b263591d29c41fd9397066a3",
+    "causal_status": "POWER_TRANSITION_OBSERVED_SECOND_FULL_RCA_NOT_CLOSED;PASS_DOES_NOT_PROVE_FIX"
+  }
+}

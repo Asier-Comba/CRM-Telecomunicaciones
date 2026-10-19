@@ -1,0 +1,2 @@
+const previous=require('./playwright-w2x-commercial-case-contract-full.config.cjs')
+module.exports={...previous,testMatch:[...previous.testMatch,'line-parent-read-lifetime.spec.ts','contract-followup-read-lifetime.spec.ts','portfolio-invalid-receipt-identity.spec.ts','portfolio-invalid-receipt-recovery.spec.ts'],outputDir:require('node:path').resolve(__dirname,'w2x-commercial-portfolio-invalid-full-results')}

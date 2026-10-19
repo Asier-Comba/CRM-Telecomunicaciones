@@ -1,0 +1,106 @@
+{
+  "claim": 6200094084,
+  "base": "a4ef01b90025614ff5e42cff10225e9b5bc11e1f",
+  "branch": "codex/w2x-service-parent-read-lifetime-20261015",
+  "status": "OWN21_BUILD66_LINT0ERRORS3WARN_SCAN_PASS_VISUAL_PARTIAL_AUTH_NOT_RUN",
+  "causal_session": 69041,
+  "product_changed": true,
+  "next": "SOURCE16_OWN36_RUNNING;GLOBAL981_CURRENT_SOURCE15_RUNNING_ONCE",
+  "release": "NOT_ACCEPTED",
+  "causal": {
+    "failed": 1,
+    "passed": 1,
+    "log": "w2x-service-parent-read-causal.txt",
+    "scope": "Initial service read retirement only; postcommand callback not accepted"
+  },
+  "candidate_fingerprints": [
+    {
+      "path": "src/features/services/ServiceDetail.tsx",
+      "sha256_utf8_lf": "d70a7bcb5803491de53cd21ffe3f4384d263b21cb7cd9df75a6d11130323e0c6"
+    },
+    {
+      "path": "tests/e2e-preview/service-parent-read-lifetime.spec.ts",
+      "sha256_utf8_lf": "92b165086f7bfd2e4ce3f6f0387d0fe26a84bc903af577f1bfdbe5935aeab44f"
+    },
+    {
+      "path": "docs/master/W2X_SERVICE_PARENT_READ_LIFETIME_20261015.md",
+      "sha256_utf8_lf": "2ec63f3b4d92aef3a9a6f69682dd967ea74b90acc85d606dd77a924db7ca4a25"
+    }
+  ],
+  "composed_source14": "a4ef01b90025614ff5e42cff10225e9b5bc11e1f",
+  "checks": {
+    "browser": 21,
+    "build": 66,
+    "lint": "0_ERRORS_3_WARNINGS_VISIBLE",
+    "scan": "PASS",
+    "visual": "PARTIAL_3_CURRENT_FRAMES_ACTUALLY_VIEWED",
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN"
+  },
+  "published": true,
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-service-parent-read-causal.txt",
+      "sha256": "51b900aa191ca9048fde3ed50ef9680dc93cb86abb6289cae26dbf332bd6e5d9"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-service-parent-read-browser.txt",
+      "sha256": "d55a02a42c242da5ac29824d080666a108a6a5ba688bee7066727f9e2dde1bc0"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-service-parent-read-lint.txt",
+      "sha256": "644ec5be3182a554294c5e43e0604f507d5bb3527f6237d9cdebfb726e70f162"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-service-parent-read-build.txt",
+      "sha256": "392db3ac6d0441430aeadabf98b39cdbefc4dd3b6d04d0a80a00a924d3fe7e98"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-service-parent-read-scan.txt",
+      "sha256": "825a574dd210d37e4aece2e13f0be07aa41bb3e5c51baf508ac64ce70de09802"
+    }
+  ],
+  "handoffs": [
+    {
+      "issue": 67,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6200448213",
+      "id": 6200448213
+    },
+    {
+      "issue": 153,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6200448503",
+      "id": 6200448503
+    },
+    {
+      "issue": 38,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6200448818",
+      "id": 6200448818
+    },
+    {
+      "issue": 142,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6200449138",
+      "id": 6200449138
+    }
+  ],
+  "tree": "d8e5f42e7f1d6854ea4436383c58e6dc19213866",
+  "publication": "PUBLISHED",
+  "sha": "6b4692df7ccc47cf9814beecc09d69c41d333256",
+  "visual": {
+    "source_sha": "6b4692df7ccc47cf9814beecc09d69c41d333256",
+    "scope": "Three actual current service390/768/1440 frames inspected. Service/customer/operator and initial installation fields loaded/legible, controls wrap; lower sections beyond viewport, no full saved command or fiscal/Auth acceptance.",
+    "images": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-service-parent-read-final-results\\service-parent-read-lifeti-b6778--parent-read-current-at-390\\service-parent-current-390.png",
+        "sha256": "40e567a58061f41702ca2f0465b4d7ef858462e9b8f7f2a4becffbf4e8642d62"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-service-parent-read-final-results\\service-parent-read-lifeti-bd825--parent-read-current-at-768\\service-parent-current-768.png",
+        "sha256": "ce5e53972fb27adcd74993bf22443401ece99ebcac8bb4210a611d92582a66a3"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-service-parent-read-final-results\\service-parent-read-lifeti-dd330-parent-read-current-at-1440\\service-parent-current-1440.png",
+        "sha256": "f23335170bfa67e2f393911eda32fe94a90f52fbf7999520a9d274a5daaf8838"
+      }
+    ]
+  }
+}

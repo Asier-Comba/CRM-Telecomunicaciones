@@ -1,0 +1,1 @@
+const previous=require('./playwright-w2x-sim-parent-read-causal.config.cjs');module.exports={...previous,testMatch:['sim-command-read-lifetime.spec.ts'],outputDir:require('node:path').resolve(__dirname,'w2x-sim-command-read-causal-results')}

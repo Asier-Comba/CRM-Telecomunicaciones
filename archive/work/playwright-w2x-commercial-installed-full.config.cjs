@@ -1,0 +1,1 @@
+const previous=require('./playwright-w2x-commercial-direction-full.config.cjs');module.exports={...previous,testMatch:[...previous.testMatch,'sim-parent-read-lifetime.spec.ts','portability-create-direction.spec.ts','service-command-read-lifetime.spec.ts'],outputDir:require('node:path').resolve(__dirname,'w2x-commercial-installed-full-results')}

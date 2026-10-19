@@ -1,0 +1,85 @@
+{
+  "utc": "2026-10-14T00:51:21.518723+00:00",
+  "work": "W2-X",
+  "path": "${WORKSPACE}\\work\\crm-w2x-billing-uncertain",
+  "branch": "codex/w2x-billing-uncertain-20261014",
+  "sha": "ed048f7706e44861d096fc4c73ec96e3704e3b75",
+  "tree": "38e73c990b59abd9a1b266912edf22aef7d77b0f",
+  "published_sha": "ed048f7706e44861d096fc4c73ec96e3704e3b75",
+  "clean": true,
+  "claim": 6158227631,
+  "pr_comment": 6158382879,
+  "handoff": 6158382652,
+  "pr": 153,
+  "status": "INDEPENDENT_BILLING_DELTA_PUBLISHED_WAITING_CURRENT_PR153_CHECKS_BEFORE_COMPOSITION",
+  "checks": {
+    "browser_new": 21,
+    "browser_regressions": 25,
+    "build": "PASS66",
+    "types": "PASS",
+    "lint": "PASS",
+    "gitleaks": "PASS",
+    "auth_db": "NOT_RUN_PREPARED_SEVEN_COMMAND_CHECK",
+    "model": "NOT_RUN"
+  },
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-uncertain-parent-failure.txt",
+      "sha256": "622ad4b9a69acecb5502e1194d695827c65a54e7e9b9054ee5916b515d772400"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-uncertain-parent-reproduction.txt",
+      "sha256": "942c8e39569eec688c24b5966340b8e5c26c731af0fcc3a7f79b1c91826c6652"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-uncertain-fixed-first.txt",
+      "sha256": "5dde7d1a7527d7f9655eaa600bf2bd5bce2e87954c55e768128dbe64d62ce650"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-uncertain-fixed-final.txt",
+      "sha256": "13fd703c583cadce34e42a27e6ab8cf251efbc8625041c88b2f1f696e0ac4603"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-uncertain-21-final.txt",
+      "sha256": "ae783a60f030045857ce8a2892eb4b4197eea762ac893f36b04f55ae2f5e302b"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-uncertain-21-corrected.txt",
+      "sha256": "6d6a1b0449d42c6dd9c5804feeb6d86e6a4172331f7bffa44a4a2883002d892b"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-uncertain-regressions.txt",
+      "sha256": "dc6620c1f469851247d849b1bf2978b379a7cd6d0a10cb5fb7195083b48fb7d6"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-uncertain-types-final.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-uncertain-lint-final.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-uncertain-consumer-lint.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-uncertain-build.txt",
+      "sha256": "4cb3e0e60305a8675cf8c0ed0c495d1fa1459f9c8c856785bae1452ca101cefa"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-uncertain-gitleaks.txt",
+      "sha256": "d6cba9b2d342d9accfaca13dc7d333afe276336058fb93851a5e617cebae15af"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-uncertain-published.bundle",
+      "sha256": "dc12825cfd620d1e11bdc8c45c28034bee1e589dd057ea509d44dff84251891a"
+    }
+  ],
+  "permission_contract_changes": false,
+  "integration_ack": "NOT_RECEIVED",
+  "writes": "OFF",
+  "release": "NOT_ACCEPTED",
+  "high": 5,
+  "next": "CLOSE_DD764_SUP38490340885_BEFORE_OWN153_COMPOSITION_DD764_PLUS_ED048_THEN_OWN_NEW_SHA_FULL_CONTROLS_502_PREVIEW_110_AUTH_EXPECTED_NOT_MEASURED"
+}

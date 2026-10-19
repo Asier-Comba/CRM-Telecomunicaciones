@@ -1,0 +1,1 @@
+const p=require('./playwright-w2x-commercial-proposal-full.config.cjs');module.exports={...p,testMatch:[...new Set([...p.testMatch,'billing-initial-customer-merge.spec.ts','billing-search-selection.spec.ts'])],outputDir:require('node:path').resolve(__dirname,'w2x-commercial-customer-full-results')}

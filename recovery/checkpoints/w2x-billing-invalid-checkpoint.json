@@ -1,0 +1,60 @@
+{
+  "utc": "2026-10-14T06:05:04.073250+00:00",
+  "work": "W2-X",
+  "claim": 6161935628,
+  "handoff": 6162030136,
+  "path": "${WORKSPACE}\\work\\crm-w2x-document-upload-uncertain",
+  "branch": "codex/w2x-billing-invalid-receipt-20261014",
+  "sha": "642d1aa3d64e54646338ea36e6f10e4ddea93389",
+  "tree": "79665d2246f7061c26078a8845c5f908be43f0e6",
+  "published": true,
+  "clean": true,
+  "checks": {
+    "invalid_receipt": 21,
+    "explicit_denial": 21,
+    "transport_regressions": 21,
+    "confirmed_receipt_read_only_recovery": 3,
+    "browser_total": 66,
+    "build": "PASS66",
+    "lint": "PASS",
+    "syntax": "PASS",
+    "gitleaks": "PASS",
+    "auth": "NOT_RUN",
+    "model": "NOT_RUN"
+  },
+  "visual": {
+    "scope": "CONTROLLED_HTTP_INVOICE_ISSUE_UNCERTAIN_RECOVERY_NOT_AUTH",
+    "images": [
+      {
+        "width": 390,
+        "path": "${WORKSPACE}\\work\\w2x-billing-invalid-invoice-issue-390.png",
+        "sha256": "4942c7f9e8b353fc25f36c8ad2fd56b31b702e39ae69a57dc2f5a0f106c03d62"
+      },
+      {
+        "width": 768,
+        "path": "${WORKSPACE}\\work\\w2x-billing-invalid-invoice-issue-768.png",
+        "sha256": "000c2506ecb0df9b415ef000e8f9352dd3030b9b5912cf85fef4d67a199b6e45"
+      },
+      {
+        "width": 1440,
+        "path": "${WORKSPACE}\\work\\w2x-billing-invalid-invoice-issue-1440.png",
+        "sha256": "7e0d991909a4adcf0b9b8ba25e0d87aed9f2f87549927a3e0183cdbfdfcf6ebe"
+      }
+    ]
+  },
+  "preserved_failures": [
+    "w2x-billing-invalid-original-repro.txt:issue_unreadable_receipt_cancel_drops_intent",
+    "workdir_python_relative_spec_not_found:preparation_failure_no_source_change"
+  ],
+  "expected_unmeasured": {
+    "local": 365,
+    "preview": 930,
+    "auth": 119
+  },
+  "bundle_sha256": "aee34f295ef20f059688fa6827d30410b13a4ce52cc0bc6de97e50c790d13978",
+  "next": "CLOSE_OWN_COMPOSITION_EFB365;NO_ALIAS_PUSH_OVER8F69_ACTIVE_CHECKS",
+  "release": "NOT_ACCEPTED",
+  "five_high": "UNRESOLVED",
+  "ai_writes": "OFF",
+  "api_calls": 0
+}

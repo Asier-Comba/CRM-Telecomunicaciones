@@ -1,0 +1,128 @@
+{
+  "claim": 6212889445,
+  "base": "991022ddd9aebff79fc7450584f44cffd131b995",
+  "branch": "codex/w2x-attention-customer-identity-20261016",
+  "status": "PUBLISHED_OWN78_BUILD66_VISUAL_PARTIAL9_AUTH_NOT_RUN",
+  "release": "NOT_ACCEPTED",
+  "original": {
+    "failed": 1,
+    "scope": "Name and Customer360 link absent from filtered attention, loaded1440",
+    "log": "work/w2x-attention-customer-identity-causal.txt"
+  },
+  "controls_session": 89193,
+  "candidate_fingerprints": [
+    {
+      "path": "src/features/attention/IntegratedAttention.tsx",
+      "sha256_utf8_lf": "ef6d01fe87efed26b767fbfb3f7c5f88abca5efb46f870782157dfe12d51e6a0"
+    },
+    {
+      "path": "tests/e2e-preview/attention-customer-identity.spec.ts",
+      "sha256_utf8_lf": "4cad35d06b83ad57d48c185c22181616d6a772d2bf2c2dfc44fceec25a7a3bd4"
+    },
+    {
+      "path": "docs/master/W2X_ATTENTION_CUSTOMER_IDENTITY_20261016.md",
+      "sha256_utf8_lf": "509ac569ccc9bde448cde8b5f0aa8f7c7bb582fa4ac0438eca4c7135bbb55546"
+    }
+  ],
+  "checks": {
+    "browser": "78_PASS_OWN_SOURCE",
+    "build": "66_PASS",
+    "visual": "PARTIAL9_ACTUALLY_VIEWED",
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN",
+    "paid_api": 0,
+    "lint": "EXIT0_WARNINGS_RETAINED_IN_LOG",
+    "scan": "PASS",
+    "global": "NOT_RUN_CURRENT_SHA"
+  },
+  "next": "TEL069 individual bounded review with fresh CLAIM after publication; no inheritance of global1266 or whole capability acceptance",
+  "visual_review": {
+    "status": "ACTUALLY_VIEWED",
+    "scope": "Partial loaded/reader/denied identity banner at three widths;mobile lower controls outside viewport",
+    "frames": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-attention-customer-identity-final-results\\attention-customer-identit-10d67-omer-identity-denied-at-768\\attention-identity-denied-768.png",
+        "sha256": "4969e389738067472828698a37bed577a5cb18fb129e856b0621d0d07dfeb2c4"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-attention-customer-identity-final-results\\attention-customer-identit-43b02-mer-identity-reader-at-1440\\attention-identity-reader-1440.png",
+        "sha256": "3fdbf139d5d94e9f6d5e52126436ea7e47c62dc71884a4134fd262de33109aa6"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-attention-customer-identity-final-results\\attention-customer-identit-4aec7-omer-identity-loaded-at-768\\attention-identity-loaded-768.png",
+        "sha256": "4b5e5a096cd6d12acee6fccc87b6bed6c14421a4b14bb08ac6555ec278e5663c"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-attention-customer-identity-final-results\\attention-customer-identit-4e615-mer-identity-loaded-at-1440\\attention-identity-loaded-1440.png",
+        "sha256": "4f5dc1dfa3f8d055586df098b2933925f3fb31786d55f5186a40f1348f579f8e"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-attention-customer-identity-final-results\\attention-customer-identit-640e8-omer-identity-loaded-at-390\\attention-identity-loaded-390.png",
+        "sha256": "3cfc53f730ba61b3612f56a957a4e0394f3640ad6df6fce9d7f3c4db0bea04d4"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-attention-customer-identity-final-results\\attention-customer-identit-77048-omer-identity-reader-at-390\\attention-identity-reader-390.png",
+        "sha256": "dfc0be730da72347ead212a66c36cc209df8e95d6fb7527c252655ae9d51ad64"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-attention-customer-identity-final-results\\attention-customer-identit-84ee7-omer-identity-denied-at-390\\attention-identity-denied-390.png",
+        "sha256": "74b10c463088e2b16474027cf4caeda3038cae97c3fd112b0af9c5aa248809d3"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-attention-customer-identity-final-results\\attention-customer-identit-8645a-mer-identity-denied-at-1440\\attention-identity-denied-1440.png",
+        "sha256": "7a4004a47b5f8fb3b0ec9a1cfb6acda34eb4a133235f27c1cd66d9324455084a"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-attention-customer-identity-final-results\\attention-customer-identit-bdfe7-omer-identity-reader-at-768\\attention-identity-reader-768.png",
+        "sha256": "a22b7f6594cbae36f9ef7670b9718d3390ec4349934e0ed4db5187ab4eeebbef"
+      }
+    ]
+  },
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-attention-customer-identity-causal.txt",
+      "sha256": "8d084ba90afb97d54b75032f37a4f1a546112712795281f57c6bd81d14324f54"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-attention-customer-identity-browser.txt",
+      "sha256": "c59d675333c27adb85ae1a4d122812614b1872c6988cfad191752392c2f1904d"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-attention-customer-identity-lint.txt",
+      "sha256": "91a5c63f9a9a0a42f92a00caa38da32336b62b940ccf4738d08ef97c55d9996c"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-attention-customer-identity-build.txt",
+      "sha256": "f2d9819bfcd9babbc8f6a14f100e8511fa38a9fc313cbb69e767b380b97f6117"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-attention-customer-identity-scan.txt",
+      "sha256": "988affe5f2c79f3e7ccfd9792de8eff1a36c4a3f10dc95270779eaecb86fa55c"
+    }
+  ],
+  "tree": "1b0f11a0c721d7103d7393d360d4d5026cf0474e",
+  "sha": "4221edc8023e68d3497092e92a428838baea1e32",
+  "handoffs": [
+    {
+      "id": 6212978900,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6212978900",
+      "issue": 67
+    },
+    {
+      "id": 6212979462,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6212979462",
+      "issue": 153
+    },
+    {
+      "id": 6212979832,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6212979832",
+      "issue": 38
+    },
+    {
+      "id": 6212980049,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6212980049",
+      "issue": 142
+    }
+  ],
+  "publication": "PUBLISHED"
+}

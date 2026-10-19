@@ -1,0 +1,131 @@
+{
+  "unit": 50,
+  "claim": 6251143949,
+  "base": "45738ab9e830c9c65150231fa691778d3c08aa52",
+  "branch": "codex/w2x-billing-draft-close-20261018",
+  "status": "PUBLISHED_OWN60_BUILD66_VISUAL_PARTIAL",
+  "causal_session": 46732,
+  "product_changed": true,
+  "release": "NOT_ACCEPTED",
+  "checks": {
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN",
+    "paid_api": 0,
+    "global": "NOT_RUN_CURRENT_SHA",
+    "browser": "60_PASS_OWN_SOURCE",
+    "build": "66_PASS",
+    "lint": "EXIT0_WARNINGS_PRESERVED",
+    "scan": "PASS"
+  },
+  "next": "Finish original reproduction;only then use existing blocked to disable close control,own60/build/lint/visual/scan/publish;no inherited1416.",
+  "controls_session": 36896,
+  "original": {
+    "failed": 2,
+    "cause": "Close button enabled while existing blocked rejects close after uncertain create/update receipt",
+    "log": "work/w2x-billing-draft-close-causal.txt"
+  },
+  "react_review": {
+    "skill": "vercel:react-best-practices",
+    "status": "REVIEWED_CHANGE_SCOPE",
+    "scope": "Existing derived blocked boolean passed via optional false default prop to existing Drawer native disabled/escape/outside handlers;no new state,effect,query,dependency or network path;existing handler defense remains;conflict field lock separate."
+  },
+  "visual_review": {
+    "status": "ACTUALLY_VIEWED",
+    "scope": "Seven frames:uncertain create3widths/update3901440 upper drawer with disabled X/error/retry/disabled fields;denied create390/update1440 lower fields/totals/actions,header/error not in those frames;partial only.",
+    "frames": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-draft-close-final-results\\billing-draft-receipt-bill-7109a-ceipt-update-invalid-at-390\\draft-receipt-update-invalid-390.png",
+        "sha256": "83376f5d2e1c00cf1d968359bef6a89c69241d4eab7ec938d01673860f754b27"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-draft-close-final-results\\billing-draft-receipt-bill-87f2c-eceipt-create-denied-at-390\\draft-receipt-create-denied-390.png",
+        "sha256": "f5eac5e224ab6f251c2ad53f63a8033d3ec63afb736974dde0f273850dc53408"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-draft-close-final-results\\billing-draft-receipt-bill-88883-ceipt-create-invalid-at-390\\draft-receipt-create-invalid-390.png",
+        "sha256": "a09f495767abbdcd7ac7881662a2ea85b36307653467b299855a277e52df5fbd"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-draft-close-final-results\\billing-draft-receipt-bill-8cc11-eipt-create-invalid-at-1440\\draft-receipt-create-invalid-1440.png",
+        "sha256": "cbb6d692f3cffe023e101c52125e0541718380551cd5b21f91f43ca8128b9d04"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-draft-close-final-results\\billing-draft-receipt-bill-c47cc-ceipt-update-denied-at-1440\\draft-receipt-update-denied-1440.png",
+        "sha256": "bbf243debe697934e77bd7b7e90a49309f4e1175df787b32684b84f0475ce94e"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-draft-close-final-results\\billing-draft-receipt-bill-e31e0-ceipt-create-invalid-at-768\\draft-receipt-create-invalid-768.png",
+        "sha256": "75d32db2e51359a78d6f98ddcc226a6ddbe7b1d0dde2bd5186f4329da7c7aedb"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-draft-close-final-results\\billing-draft-receipt-bill-f42cc-eipt-update-invalid-at-1440\\draft-receipt-update-invalid-1440.png",
+        "sha256": "3cd8aafdfa4ddcb15f2a74dec2dbc8a6871217ac5cd30f61601e2c4b5ee53d6d"
+      }
+    ]
+  },
+  "candidate_fingerprints": [
+    {
+      "path": "src/features/billing/Editor.tsx",
+      "sha256_utf8_lf": "7631ea211cbc392d56bb2a0dd99f5fe21de415b751ba6a78f97c6ac2b14672e1"
+    },
+    {
+      "path": "src/features/billing/IntegratedBilling.tsx",
+      "sha256_utf8_lf": "315eb9bc13e21cd54288c1c27f467d571b249e7343a2583faeb753dd241ffd2c"
+    },
+    {
+      "path": "tests/e2e-preview/billing-draft-receipt.spec.ts",
+      "sha256_utf8_lf": "bef2d554bb53f040eee0de6bd8afa3ca18ed1f0b00f169531878e4739e292fef"
+    },
+    {
+      "path": "docs/master/W2X_BILLING_DRAFT_CLOSE_20261018.md",
+      "sha256_utf8_lf": "0866880684e89b49f4899ceb7fffd91c967806e125e8d0c5bf5b4f6ce542b7d8"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-draft-close-causal.txt",
+      "sha256": "5ffaf5bdbfd4c9d6adddee8a114948f5a7ad60d6f6a9cdd4c250a0790845ac7f"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-draft-close-browser.txt",
+      "sha256": "c6119ed6253847a7a0e24338e7082fad33ecc43b5c46be27197aefbafa62d8f6"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-draft-close-lint.txt",
+      "sha256": "91a5c63f9a9a0a42f92a00caa38da32336b62b940ccf4738d08ef97c55d9996c"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-draft-close-build.txt",
+      "sha256": "6dc821a5ac4468de369943750a5895e07d233af22b508866658ff53a048a9a18"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-draft-close-scan.txt",
+      "sha256": "bc02b4424a8f67742b468040ad8f8f1c5ebfe4d2ccd8c90982d462f09d7d85cd"
+    }
+  ],
+  "tree": "d3b0d35ffb8b00220c5b198231c711108f62b91c",
+  "publication": "PUBLISHED",
+  "sha": "bc3b3c12bd92eb76897c96b007af01bcbf8c2948",
+  "handoffs": [
+    {
+      "id": 6251191256,
+      "issue": 67,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6251191256"
+    },
+    {
+      "id": 6251191409,
+      "issue": 153,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6251191409"
+    },
+    {
+      "id": 6251191555,
+      "issue": 38,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6251191555"
+    },
+    {
+      "id": 6251191677,
+      "issue": 142,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6251191677"
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+const p=require('./playwright-w2x-attention-current-day-final.config.cjs');module.exports={...p,testMatch:['invoice-contract-selection.spec.ts','billing-create-read-lifetime.spec.ts'],outputDir:require('node:path').resolve(__dirname,'w2x-invoice-relation-compact-final-results')}

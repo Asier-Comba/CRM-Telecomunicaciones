@@ -1,0 +1,1 @@
+const p=require('./playwright-w2x-proposal-review-commercial.config.cjs');module.exports={...p,testMatch:['billing-proposal-day.spec.ts'],outputDir:require('node:path').resolve(__dirname,'w2x-billing-proposal-day-causal-results')}

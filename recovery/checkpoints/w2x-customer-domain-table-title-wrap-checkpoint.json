@@ -1,0 +1,520 @@
+{
+  "unit": 102,
+  "claim": 6256461650,
+  "branch": "codex/w2x-customer-domain-table-title-wrap-20261019",
+  "base": "6f37dc79c6ae971e5eba9f2c3ad77e55f6f8c1ae",
+  "status": "PUBLISHED_OWN81_BUILD66_VISUAL_PARTIAL",
+  "publication": "PUBLISHED",
+  "product_changed": true,
+  "release": "NOT_ACCEPTED",
+  "checks": {
+    "browser": "81_PASS_OWN_SOURCE",
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN",
+    "paid_api": 0,
+    "global": "NOT_RUN_CURRENT_SHA",
+    "functional": "NOT_RUN_UI_PRESENTATION_ONLY",
+    "build": "66_PASS",
+    "lint": "EXIT0_WARNINGS_PRESERVED",
+    "scan": "PASS"
+  },
+  "matrix": {
+    "total": 342,
+    "reviewed_partial": 33,
+    "unreconciled": 309,
+    "release_ready": 0
+  },
+  "failures": [],
+  "next": "Continue independent commercial unit after fresh CLAIM. Preserve2043source88/2109source92FIFO;source93globalNOT_RUN,noinheritedPASS.",
+  "working_head": "b84295e96a4396d0e3691407bac11eace28c53fe",
+  "clean": true,
+  "causal": {
+    "failed": 3,
+    "passed": 3,
+    "duration": "43.9s",
+    "long": "scroller1198/table2071.296875,firstcell1287.296875,operatoroutsideclippingviewportat128014401920",
+    "ordinary": "scroller1198/table1198,firstcell201.046875,operatorvisible",
+    "scope": "serviceDTO160controlledHTTP/repository/parsers;label-inducedoverflowonly,notdenyinglegitimatewide-domain scroll orfullAuthDBacceptance"
+  },
+  "preparation_notes": [
+    "work/w2x-unit102-coordination-classification.json"
+  ],
+  "browser_summary": "81 passed (1.4m)",
+  "controls_session": 71101,
+  "visual_review": {
+    "status": "ACTUALLY_VIEWED",
+    "scope": "6currentservice-tableframes long/ordinary128014401920;completeprovidedname/operatorvisible;notallrecords/domains/fields/Nextnavigation/roles/a11yacceptance",
+    "frames": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-customer-domain-table-title-wrap-final-results\\customer-domain-table-titl-543da-able-title-ordinary-at-1280\\customer-service-table-title-ordinary-1280.png",
+        "sha256": "b81bd32e8608fd1bc052c9f322e5fa1de6f65919d7ec965e64a9021a6d0dd814"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-customer-domain-table-title-wrap-final-results\\customer-domain-table-titl-6158f-ce-table-title-long-at-1920\\customer-service-table-title-long-1920.png",
+        "sha256": "3605ac9e5a2935d7e80724f7b8409a867aba65635c9ae92ce861f8c0ef2e25a2"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-customer-domain-table-title-wrap-final-results\\customer-domain-table-titl-6df71-ce-table-title-long-at-1280\\customer-service-table-title-long-1280.png",
+        "sha256": "7aa82218942d7bbb67b47d313a1e77227e090822c4a730e0408b0e2a41e090dd"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-customer-domain-table-title-wrap-final-results\\customer-domain-table-titl-856c1-able-title-ordinary-at-1440\\customer-service-table-title-ordinary-1440.png",
+        "sha256": "7d7fea343ca370384186c2399f73b6e2937bf14654747f3e0a86d1117eb326ed"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-customer-domain-table-title-wrap-final-results\\customer-domain-table-titl-8b636-ce-table-title-long-at-1440\\customer-service-table-title-long-1440.png",
+        "sha256": "24619da18a5cf046ff1ea6e07072c1a031ebcdc53821e4c9d97f3987686f880c"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-customer-domain-table-title-wrap-final-results\\customer-domain-table-titl-8f788-able-title-ordinary-at-1920\\customer-service-table-title-ordinary-1920.png",
+        "sha256": "8a74c76458a24c6a2b6f197a08fbd4f4fb19345802a557715bd4f7d6bb1c47a3"
+      }
+    ]
+  },
+  "observations": [
+    {
+      "width": 1280,
+      "mode": "ordinary",
+      "titleLength": 19,
+      "geometry": {
+        "viewportLeft": 41,
+        "viewportRight": 1239,
+        "client": 1198,
+        "scroll": 1198,
+        "tableWidth": 1198,
+        "firstCellWidth": 201.046875,
+        "documentWidth": 1280,
+        "windowWidth": 1280
+      },
+      "titleBox": {
+        "x": 53,
+        "y": 285,
+        "width": 116.734375,
+        "height": 14
+      },
+      "operatorBox": {
+        "x": 523.515625,
+        "y": 270,
+        "width": 152.53125,
+        "height": 44
+      },
+      "interaction": "TITLE_AND_OPERATOR_IN_VIEW_PASS",
+      "reads": [
+        {
+          "operation": "service.list",
+          "input": {
+            "customer_id": "10000000-0000-4000-8000-000000000001",
+            "limit": 20,
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "customer.list",
+          "input": {
+            "limit": 1,
+            "sort": "id_asc",
+            "after_id": "10000000-0000-4000-8000-000000000000"
+          }
+        },
+        {
+          "operation": "operator.get",
+          "input": {
+            "id": "20000000-0000-4000-8000-000000000001"
+          }
+        }
+      ],
+      "commands": [],
+      "unexpected": [],
+      "errors": []
+    },
+    {
+      "width": 1920,
+      "mode": "long",
+      "titleLength": 160,
+      "geometry": {
+        "viewportLeft": 361,
+        "viewportRight": 1559,
+        "client": 1198,
+        "scroll": 1198,
+        "tableWidth": 1198,
+        "firstCellWidth": 411.890625,
+        "documentWidth": 1920,
+        "windowWidth": 1920
+      },
+      "titleBox": {
+        "x": 373,
+        "y": 283,
+        "width": 384.1875,
+        "height": 62
+      },
+      "operatorBox": {
+        "x": 996.890625,
+        "y": 270,
+        "width": 114.09375,
+        "height": 88
+      },
+      "interaction": "TITLE_AND_OPERATOR_IN_VIEW_PASS",
+      "reads": [
+        {
+          "operation": "service.list",
+          "input": {
+            "customer_id": "10000000-0000-4000-8000-000000000001",
+            "limit": 20,
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "customer.list",
+          "input": {
+            "limit": 1,
+            "sort": "id_asc",
+            "after_id": "10000000-0000-4000-8000-000000000000"
+          }
+        },
+        {
+          "operation": "operator.get",
+          "input": {
+            "id": "20000000-0000-4000-8000-000000000001"
+          }
+        }
+      ],
+      "commands": [],
+      "unexpected": [],
+      "errors": []
+    },
+    {
+      "width": 1280,
+      "mode": "long",
+      "titleLength": 160,
+      "geometry": {
+        "viewportLeft": 41,
+        "viewportRight": 1239,
+        "client": 1198,
+        "scroll": 1198,
+        "tableWidth": 1198,
+        "firstCellWidth": 411.890625,
+        "documentWidth": 1280,
+        "windowWidth": 1280
+      },
+      "titleBox": {
+        "x": 53,
+        "y": 283,
+        "width": 384.1875,
+        "height": 62
+      },
+      "operatorBox": {
+        "x": 676.890625,
+        "y": 270,
+        "width": 114.09375,
+        "height": 88
+      },
+      "interaction": "TITLE_AND_OPERATOR_IN_VIEW_PASS",
+      "reads": [
+        {
+          "operation": "service.list",
+          "input": {
+            "customer_id": "10000000-0000-4000-8000-000000000001",
+            "limit": 20,
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "customer.list",
+          "input": {
+            "limit": 1,
+            "sort": "id_asc",
+            "after_id": "10000000-0000-4000-8000-000000000000"
+          }
+        },
+        {
+          "operation": "operator.get",
+          "input": {
+            "id": "20000000-0000-4000-8000-000000000001"
+          }
+        }
+      ],
+      "commands": [],
+      "unexpected": [],
+      "errors": []
+    },
+    {
+      "width": 1440,
+      "mode": "ordinary",
+      "titleLength": 19,
+      "geometry": {
+        "viewportLeft": 121,
+        "viewportRight": 1319,
+        "client": 1198,
+        "scroll": 1198,
+        "tableWidth": 1198,
+        "firstCellWidth": 201.046875,
+        "documentWidth": 1440,
+        "windowWidth": 1440
+      },
+      "titleBox": {
+        "x": 133,
+        "y": 285,
+        "width": 116.734375,
+        "height": 14
+      },
+      "operatorBox": {
+        "x": 603.515625,
+        "y": 270,
+        "width": 152.53125,
+        "height": 44
+      },
+      "interaction": "TITLE_AND_OPERATOR_IN_VIEW_PASS",
+      "reads": [
+        {
+          "operation": "service.list",
+          "input": {
+            "customer_id": "10000000-0000-4000-8000-000000000001",
+            "limit": 20,
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "customer.list",
+          "input": {
+            "limit": 1,
+            "sort": "id_asc",
+            "after_id": "10000000-0000-4000-8000-000000000000"
+          }
+        },
+        {
+          "operation": "operator.get",
+          "input": {
+            "id": "20000000-0000-4000-8000-000000000001"
+          }
+        }
+      ],
+      "commands": [],
+      "unexpected": [],
+      "errors": []
+    },
+    {
+      "width": 1440,
+      "mode": "long",
+      "titleLength": 160,
+      "geometry": {
+        "viewportLeft": 121,
+        "viewportRight": 1319,
+        "client": 1198,
+        "scroll": 1198,
+        "tableWidth": 1198,
+        "firstCellWidth": 411.890625,
+        "documentWidth": 1440,
+        "windowWidth": 1440
+      },
+      "titleBox": {
+        "x": 133,
+        "y": 283,
+        "width": 384.1875,
+        "height": 62
+      },
+      "operatorBox": {
+        "x": 756.890625,
+        "y": 270,
+        "width": 114.09375,
+        "height": 88
+      },
+      "interaction": "TITLE_AND_OPERATOR_IN_VIEW_PASS",
+      "reads": [
+        {
+          "operation": "service.list",
+          "input": {
+            "customer_id": "10000000-0000-4000-8000-000000000001",
+            "limit": 20,
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "customer.list",
+          "input": {
+            "limit": 1,
+            "sort": "id_asc",
+            "after_id": "10000000-0000-4000-8000-000000000000"
+          }
+        },
+        {
+          "operation": "operator.get",
+          "input": {
+            "id": "20000000-0000-4000-8000-000000000001"
+          }
+        }
+      ],
+      "commands": [],
+      "unexpected": [],
+      "errors": []
+    },
+    {
+      "width": 1920,
+      "mode": "ordinary",
+      "titleLength": 19,
+      "geometry": {
+        "viewportLeft": 361,
+        "viewportRight": 1559,
+        "client": 1198,
+        "scroll": 1198,
+        "tableWidth": 1198,
+        "firstCellWidth": 201.046875,
+        "documentWidth": 1920,
+        "windowWidth": 1920
+      },
+      "titleBox": {
+        "x": 373,
+        "y": 285,
+        "width": 116.734375,
+        "height": 14
+      },
+      "operatorBox": {
+        "x": 843.515625,
+        "y": 270,
+        "width": 152.53125,
+        "height": 44
+      },
+      "interaction": "TITLE_AND_OPERATOR_IN_VIEW_PASS",
+      "reads": [
+        {
+          "operation": "service.list",
+          "input": {
+            "customer_id": "10000000-0000-4000-8000-000000000001",
+            "limit": 20,
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "customer.list",
+          "input": {
+            "limit": 1,
+            "sort": "id_asc",
+            "after_id": "10000000-0000-4000-8000-000000000000"
+          }
+        },
+        {
+          "operation": "operator.get",
+          "input": {
+            "id": "20000000-0000-4000-8000-000000000001"
+          }
+        }
+      ],
+      "commands": [],
+      "unexpected": [],
+      "errors": []
+    }
+  ],
+  "candidate_fingerprints": [
+    {
+      "path": "src/features/customers/CustomerDomainPages.tsx",
+      "sha256_utf8_lf": "13c96639998716b1b4db60e7ae22b1f763fdb9faff55cbc5ddd7d364d93d74df"
+    },
+    {
+      "path": "tests/e2e-preview/customer-domain-table-title-wrap.spec.ts",
+      "sha256_utf8_lf": "d2b9a66cf83994c5d995c27ff08c4eca8363982136bb96f6bb2cdbc90ba5cccd"
+    },
+    {
+      "path": "docs/master/W2X_CUSTOMER_DOMAIN_TABLE_TITLE_WRAP_20261019.md",
+      "sha256_utf8_lf": "c735a2d282799b23c5349e60132bd04fb230fbff6df26347143e86aba3390ff8"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-domain-table-title-wrap-browser-exit.txt",
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-domain-table-title-wrap-browser.txt",
+      "sha256": "2ab2bd985e65bd1a4d89dbfed801d65dbc0df1b79cfd3c49ad8d9895dc9f9ee6"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-domain-table-title-wrap-build-exit.txt",
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-domain-table-title-wrap-build.txt",
+      "sha256": "7cb5cf802a54db7843ca0fc74b94a521a0531b081341d0582d69d6a61c9b0848"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-domain-table-title-wrap-causal-exit.txt",
+      "sha256": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-domain-table-title-wrap-causal.txt",
+      "sha256": "d37743fcc0a38d9dd798dbb259e4300e5f3e0e9205747cdc51f2a15ed3d9e961"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-domain-table-title-wrap-collection-exit.txt",
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-domain-table-title-wrap-collection.txt",
+      "sha256": "2e89e3d158a0786ce1102cfcac8fd95aa8c5a2a01708774c0a32e64955a7c8e8"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-domain-table-title-wrap-lint-exit.txt",
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-domain-table-title-wrap-lint.txt",
+      "sha256": "77e52456c3bf671c8ed5a0154c9dbfdd998b31f3c61494ca11430b416d294dad"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-domain-table-title-wrap-scan.txt",
+      "sha256": "16a97982cfe3bdf4928f6e064248034c6fd5e00fe5931e526ee365c722162a38"
+    }
+  ],
+  "known_remaining_defects": {
+    "whole_product": "NOT_RECONCILED",
+    "router_navigation": "NOT_RUN_CONTROLLED_CONTEXT_ONLY",
+    "security": "W4_PENDING_HIGH5",
+    "release": "NOT_ACCEPTED",
+    "global_customer_label": {
+      "status": "REPRODUCED_ON_THIS_PRODUCT_SOURCE",
+      "source": "b84295e96a4396d0e3691407bac11eace28c53fe",
+      "evidence": "work/w2x-domain-customer-label-wrap-causal.txt",
+      "original": "3FAIL3PASS38.5s,table2229.953125/client1198,customerCell1285.953125",
+      "fixture_scope": "Addedoptionalglobalmode;productsrcunchangedbeforecausal",
+      "fix_candidate": {
+        "unit": 103,
+        "branch": "codex/w2x-domain-customer-label-wrap-20261019",
+        "status": "PUBLISHED_OWN90_BUILD66_VISUAL9_SEPARATE_SOURCE",
+        "sha": "002c2565894e26eafa6349e29aac391c1e607873"
+      },
+      "scope": "81own/2172global source102 do not include the newglobal-label bank. Not corrected on source102."
+    }
+  },
+  "handoffs": [
+    {
+      "issue": 67,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6256525198",
+      "id": 6256525198
+    },
+    {
+      "issue": 153,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6256525324",
+      "id": 6256525324
+    },
+    {
+      "issue": 38,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6256525454",
+      "id": 6256525454
+    },
+    {
+      "issue": 142,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6256525574",
+      "id": 6256525574
+    }
+  ],
+  "tree": "309da6eeed8800d49c89251ed29b73991d37717d",
+  "sha": "b84295e96a4396d0e3691407bac11eace28c53fe",
+  "coalesced_global_request": {
+    "checkpoint": "work/w2x-commercial-collection-full-checkpoint.json",
+    "source": "b84295e96a4396d0e3691407bac11eace28c53fe",
+    "tests": 2172,
+    "files": 128,
+    "session": 76705,
+    "status": "WAIT_PRIOR2139_TERMINAL_PUBLISHED_PASS",
+    "dispatch": "NOT_DISPATCHED",
+    "scope": "Actualcollection2172;own10281qualified;noPASSuntilthisSHAcompletes. Preserve2109/2139pinnedFIFO."
+  }
+}

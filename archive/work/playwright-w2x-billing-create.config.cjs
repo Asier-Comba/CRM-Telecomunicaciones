@@ -1,0 +1,2 @@
+const previous=require('./playwright-w2x-second-commercial.config.cjs')
+module.exports={...previous,testDir:require('node:path').resolve(__dirname,'crm-w2x-document-upload-uncertain/tests/e2e-preview'),testMatch:['billing-create-read-lifetime.spec.ts','billing-current-selection.spec.ts','billing-initial-context.spec.ts','billing-uncertain-intent.spec.ts'],outputDir:require('node:path').resolve(__dirname,'w2x-billing-create-results')}

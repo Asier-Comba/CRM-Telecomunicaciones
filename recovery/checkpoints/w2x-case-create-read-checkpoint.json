@@ -1,0 +1,117 @@
+{
+  "claim": 6203638233,
+  "base": "63f4fd6b12d1bc7c7f90f0cd43f7b6aaaf9d0b6a",
+  "branch": "codex/w2x-case-create-read-lifetime-20261015",
+  "path": "${WORKSPACE}\\work\\crm-w2x-document-upload-uncertain",
+  "status": "OWN63_BUILD66_LINT0ERRORS3WARN_SCAN_PASS_VISUAL_PARTIAL_AUTH_NOT_RUN",
+  "production_changed": true,
+  "runtime": "ORIGINAL5_HTTP_CONTROLLED_RUNNING",
+  "release": "NOT_ACCEPTED",
+  "next": "NEXT_SIM_CREATE_READ_LIFETIME_REPRO_WITH_NEW_CLAIM;GLOBAL1065_FF5E5A7_SEPARATE;NO_INHERITED_PASS",
+  "causal": {
+    "failed": 4,
+    "passed": 1,
+    "duration": "47.1s",
+    "log": "w2x-case-create-read-causal.txt",
+    "scope": "reference/company/actor/reader1440,oldcase.get after heldcreate;currentvalidreceipt/readback"
+  },
+  "candidate_fingerprints": [
+    {
+      "path": "src/features/cases/Cases.tsx",
+      "sha256_utf8_lf": "e14a939f2c94748ecd950f63b5cb63ea9887a0886c8d8243727f5443b117b341"
+    },
+    {
+      "path": "tests/e2e-preview/fixtures/telecom-resource-entry.tsx",
+      "sha256_utf8_lf": "5e284a7b4207a963b6e53510ee97aebd8f78123af5eaf3fd644dadd85b410e3c"
+    },
+    {
+      "path": "tests/e2e-preview/case-create-read-lifetime.spec.ts",
+      "sha256_utf8_lf": "044279921fb5d70e86e941d7276f8bcb16c99c930dbe45a8ece6c8765c33d8c6"
+    },
+    {
+      "path": "docs/master/W2X_CASE_CREATE_READ_LIFETIME_20261015.md",
+      "sha256_utf8_lf": "2acf9efa99b21fe8898531fc0aeb37f7bccdb2298f0c64a74e12b129a7220e99"
+    }
+  ],
+  "collection": {
+    "claim": 6203638233,
+    "state": "REQUESTED_ONCE",
+    "files": 5,
+    "tests": 63
+  },
+  "visual_review": {
+    "status": "ACTUALLY_VIEWED",
+    "frames": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-case-create-read-final-results\\case-create-read-lifetime-case-create-read-current-at-1440\\case-create-current-1440.png",
+        "sha256": "cc57ac7162bced9ba3b17d3611804ce4d67a26ea7cca99cda08ee8d3a8856f87"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-case-create-read-final-results\\case-create-read-lifetime-case-create-read-current-at-390\\case-create-current-390.png",
+        "sha256": "48dc6abdf6aac780c5047ed035000c2cef319b31dbe1be3f4945dd354f8f725e"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-case-create-read-final-results\\case-create-read-lifetime-case-create-read-current-at-768\\case-create-current-768.png",
+        "sha256": "ca7e597b5c6fddb2df64a0a25f9917ba923bae7680d9a6ed14c0d8ee040bc3aa"
+      }
+    ],
+    "observation": "Loaded current creation consumed:success/link,manual case row/card,technical/normal/open and responsive list filters/pagination visible390/768/1440. Synthetic note_count0 is DTO,no DB proof;partial workflow only."
+  },
+  "checks": {
+    "browser": 63,
+    "build": 66,
+    "lint": "0_ERRORS_3_WARNINGS_VISIBLE",
+    "scan": "PASS",
+    "visual": "PARTIAL_3_CURRENT_CASE_CREATION_FRAMES_ACTUALLY_VIEWED",
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN"
+  },
+  "published": true,
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-case-create-read-causal.txt",
+      "sha256": "903af7d174708722fba31b91a236e55a9b49961bb3a48fb0b428b3562ce18f71"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-case-create-read-browser.txt",
+      "sha256": "943b2c5ef49ee0228304dcf75444a63bc973ab9f4b445464da41ef1729a406e5"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-case-create-read-lint.txt",
+      "sha256": "d43cca0e0c75ec88e8b3386ab7e71b68cbdbd10c06090c65999e17443cfae5b1"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-case-create-read-build.txt",
+      "sha256": "2e106748788303874f41a6da48fbbdf3f13285d99157fadd9495f85da7b27a04"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-case-create-read-scan.txt",
+      "sha256": "d2173431b32ab39548d8b2f2990e8ac893cb160d0a60027ff48dd956ad009451"
+    }
+  ],
+  "handoffs": [
+    {
+      "id": 6203789266,
+      "issue": 67,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6203789266"
+    },
+    {
+      "id": 6203789570,
+      "issue": 153,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6203789570"
+    },
+    {
+      "id": 6203789807,
+      "issue": 38,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6203789807"
+    },
+    {
+      "id": 6203790003,
+      "issue": 142,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6203790003"
+    }
+  ],
+  "publication": "PUBLISHED",
+  "sha": "4c9cd97250c806f0d84bd47d513cd2537c6ff8bf",
+  "tree": "3fe597a3d6c611025685c5699e220c7e61727ee3"
+}

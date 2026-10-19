@@ -1,0 +1,120 @@
+{
+  "claim": 6203001640,
+  "base": "a24a6d811ce2c6013067576f4dadbc4394539ef2",
+  "branch": "codex/w2x-service-command-read-lifetime-20261015",
+  "status": "OWN75_BUILD66_LINT0ERRORS3WARN_SCAN_PASS_VISUAL_PARTIAL_AUTH_NOT_RUN",
+  "scope": "Service installation post-command refresh read lifetime; command pending/refresh pending phases",
+  "release": "NOT_ACCEPTED",
+  "next": "ACTUAL_VISUAL_REVIEW;GLOBAL999_SOURCE_D889_ONLY;NEXT_INDEPENDENT_COMMERCIAL_UNIT",
+  "causal": {
+    "failed": 2,
+    "passed": 2,
+    "seconds": 42.2,
+    "log": "w2x-service-command-read-causal.txt",
+    "scope": "command pending resumes old service read;refresh pending resumes old contract read;reference1440;both current positives passed",
+    "fixture_adjustment": "For full scope cases, already written refresh-phase synthetic record uses updated site also in remounted context; causal four reference/current unchanged."
+  },
+  "product_changed": true,
+  "original_base": "eb3bc5d9f4f4f642f4f09aa65588397593485051",
+  "candidate_fingerprints": [
+    {
+      "path": "src/features/services/ServiceDetail.tsx",
+      "sha256_utf8_lf": "029ab4666ac718125b5af0d9310e7c12baa0282ba36a07cfb7c25cca25645d7a"
+    },
+    {
+      "path": "tests/e2e-preview/service-command-read-lifetime.spec.ts",
+      "sha256_utf8_lf": "4f45f9d15dec4454ec010e9bc17dca155f0f44c6a95d767bbca51e9f432cfc9f"
+    },
+    {
+      "path": "docs/master/W2X_SERVICE_COMMAND_READ_LIFETIME_20261015.md",
+      "sha256_utf8_lf": "e433c5ef20abc69f8499580c4f20ff0a851a3e40e8f90d7a66df9f73f5ebc091"
+    }
+  ],
+  "checks": {
+    "browser": 75,
+    "build": 66,
+    "lint": "0_ERRORS_3_WARNINGS_VISIBLE",
+    "scan": "PASS",
+    "visual": "PARTIAL_6_CURRENT_SERVICE_INSTALLATION_FRAMES_ACTUALLY_VIEWED",
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN"
+  },
+  "published": true,
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-service-command-read-causal.txt",
+      "sha256": "1b1c673aefd4232c3fbf70aa4dd6c334378bf5cc8d47facaf7acc5af01ac02ad"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-service-command-read-browser.txt",
+      "sha256": "e3fa96a20e45351ec5387b7f6bf68ca8e284d32fe77f17e1694c6bcc0137da09"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-service-command-read-lint.txt",
+      "sha256": "d43cca0e0c75ec88e8b3386ab7e71b68cbdbd10c06090c65999e17443cfae5b1"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-service-command-read-build.txt",
+      "sha256": "c94821a64df31203f0aa3cc2d1b057ceff9e1f64e134ab3b610cb194a8d70b2d"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-service-command-read-scan.txt",
+      "sha256": "06751ebbc3011dbfbff914948d5358d40b2194e43c2b4b5aaf84dec2c15d7d3d"
+    }
+  ],
+  "publication": "PUBLISHED",
+  "tree": "c573effb7b6fc43566fe279e8da68e857d0df338",
+  "handoffs": [
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6203119059",
+      "issue": 67,
+      "id": 6203119059
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6203119280",
+      "issue": 153,
+      "id": 6203119280
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6203119520",
+      "issue": 38,
+      "id": 6203119520
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6203119713",
+      "issue": 142,
+      "id": 6203119713
+    }
+  ],
+  "sha": "ff5e5a7feb2c63ab2d19391d30ca12d6bd977aec",
+  "visual_review": {
+    "status": "ACTUALLY_VIEWED",
+    "frames": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-service-command-read-final-results\\service-command-read-lifet-2ca02-read-refresh-current-at-768\\service-command-current-refresh-768.png",
+        "sha256": "d97e7ee6212ede1751b00f20e2d4ea92846cf8a3ad5479a7506c98d3d1efb20f"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-service-command-read-final-results\\service-command-read-lifet-6bfd5-ead-refresh-current-at-1440\\service-command-current-refresh-1440.png",
+        "sha256": "457816ac081c07fe0c86c219c3e044c71adf609140ef38534d92970a15c0bb97"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-service-command-read-final-results\\service-command-read-lifet-b0eaf-ead-command-current-at-1440\\service-command-current-command-1440.png",
+        "sha256": "24d1b5af0996b777594a3910840669308224c86d992a726bcd8dcf1d44781b57"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-service-command-read-final-results\\service-command-read-lifet-e4c8c-read-command-current-at-768\\service-command-current-command-768.png",
+        "sha256": "d97e7ee6212ede1751b00f20e2d4ea92846cf8a3ad5479a7506c98d3d1efb20f"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-service-command-read-final-results\\service-command-read-lifet-f644c-read-command-current-at-390\\service-command-current-command-390.png",
+        "sha256": "a865a39ffd000702ee36a10602799a9cf75e349e59d6aba4609c575334b7f4e1"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-service-command-read-final-results\\service-command-read-lifet-fef06-read-refresh-current-at-390\\service-command-current-refresh-390.png",
+        "sha256": "a865a39ffd000702ee36a10602799a9cf75e349e59d6aba4609c575334b7f4e1"
+      }
+    ],
+    "observation": "Both phases390/768/1440 show updated site, installation date/contact and primary action. Mobile heading above viewport and lower locations/components outside;partial scope only."
+  }
+}

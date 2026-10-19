@@ -1,0 +1,124 @@
+{
+  "claim": 6203802349,
+  "base": "4c9cd97250c806f0d84bd47d513cd2537c6ff8bf",
+  "branch": "codex/w2x-sim-create-read-lifetime-20261015",
+  "path": "${WORKSPACE}\\work\\crm-w2x-document-upload-uncertain",
+  "status": "OWN165_BUILD66_LINT0ERRORS3WARN_SCAN_PASS_VISUAL_PARTIAL_AUTH_NOT_RUN",
+  "production_changed": true,
+  "runtime": "ORIGINAL10_HTTP_CONTROLLED_RUNNING",
+  "release": "NOT_ACCEPTED",
+  "next": "SOURCE31_WAITER23831_COMPOSE_THEN_OWN210;ONE_GLOBAL_AFTER_BOTH;GLOBAL1065_FF5E5A7_SEPARATE;NO_INHERITED_PASS",
+  "causal_session": 58228,
+  "causal": {
+    "failed": 8,
+    "passed": 2,
+    "duration": "54.9s",
+    "log": "w2x-sim-create-read-causal.txt",
+    "scope": "physical/eSIM reference/company/actor/reader1440 starts oldsim.get after heldcreate;current validclosed DTO"
+  },
+  "candidate_fingerprints": [
+    {
+      "path": "src/features/sims/Sims.tsx",
+      "sha256_utf8_lf": "b4bea99983d78e39a55ab1172c3aac3fbea12ae1069416308d3bc788a1aa8067"
+    },
+    {
+      "path": "tests/e2e-preview/fixtures/telecom-resource-entry.tsx",
+      "sha256_utf8_lf": "9dd63b3ec5f51e1d71a6fe4cfbd9b2eb0dc26f208efc94d5ab981673c7c3bbce"
+    },
+    {
+      "path": "tests/e2e-preview/sim-create-read-lifetime.spec.ts",
+      "sha256_utf8_lf": "ee8fd63905351d73f2d0c899ef098f6e1d5d87d14bc02a8f9dc9e87cade47155"
+    },
+    {
+      "path": "docs/master/W2X_SIM_CREATE_READ_LIFETIME_20261015.md",
+      "sha256_utf8_lf": "1c01ce1a814f1b032f2bcd50d4cb1be32946afad72da3ca34d45f298b59b658a"
+    }
+  ],
+  "visual_review": {
+    "status": "ACTUALLY_VIEWED",
+    "frames": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-sim-create-read-final-results\\sim-create-read-lifetime-S-12060-e-read-esim-current-at-1440\\sim-create-current-esim-1440.png",
+        "sha256": "9844bdc864d09c30a5d32e09b8b70151ffbbfa0cb2d33ea4742115ac788d504e"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-sim-create-read-final-results\\sim-create-read-lifetime-S-73453-ad-physical-current-at-1440\\sim-create-current-physical-1440.png",
+        "sha256": "8e0e7c3c27dede6d2c35fe4b2d78459a30beb789852c52af32b844712b719423"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-sim-create-read-final-results\\sim-create-read-lifetime-S-c2444-ead-physical-current-at-768\\sim-create-current-physical-768.png",
+        "sha256": "9bbdac0b856f899f145bc55b153529fa30b1f4ed108af224490bab99b9677d14"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-sim-create-read-final-results\\sim-create-read-lifetime-S-d445a-ead-physical-current-at-390\\sim-create-current-physical-390.png",
+        "sha256": "b34f2407323f03b7ea020ab82836bade574ae8468618e0c320ba6dc86bfff7a3"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-sim-create-read-final-results\\sim-create-read-lifetime-SIM-create-read-esim-current-at-390\\sim-create-current-esim-390.png",
+        "sha256": "49890139d90530dc81e192a68a1a6ae8bedda9ad148f7edf73fc0eefdf7989b9"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-sim-create-read-final-results\\sim-create-read-lifetime-SIM-create-read-esim-current-at-768\\sim-create-current-esim-768.png",
+        "sha256": "76f330c7b19fc5165b3d9a893743cc665fa631d7c70ab279d2a504f10894f7f0"
+      }
+    ],
+    "observation": "Six physical/eSIM current390/768/1440 inspected:prepared/manual collection row or card,registration link,name and correct no-identifier/no-activation facts visible. No raw identifiers or external activation;partial workflow,not persisted DB acceptance."
+  },
+  "checks": {
+    "browser": 165,
+    "build": 66,
+    "lint": "0_ERRORS_3_WARNINGS_VISIBLE",
+    "scan": "PASS",
+    "visual": "PARTIAL_6_CURRENT_SIM_CREATION_FRAMES_ACTUALLY_VIEWED",
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN"
+  },
+  "published": true,
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-sim-create-read-causal.txt",
+      "sha256": "bb24084af15567477166d247951e4fe539b3727e758bb70618c8a2cad8b959f0"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-sim-create-read-browser.txt",
+      "sha256": "3fd5688ef266f8b088a52990e84d17b93e42d7ef540d914d057d87401d9442fb"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-sim-create-read-lint.txt",
+      "sha256": "d43cca0e0c75ec88e8b3386ab7e71b68cbdbd10c06090c65999e17443cfae5b1"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-sim-create-read-build.txt",
+      "sha256": "853b3697c584f2639792fa4ccdb6188d6287db0da7746c40fb9fffe44f49e442"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-sim-create-read-scan.txt",
+      "sha256": "4f54af3416f7f6f31884e634cb713971aea12c45f56475949124d39c67c9ebb4"
+    }
+  ],
+  "handoffs": [
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6203995699",
+      "id": 6203995699,
+      "issue": 67
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6203995907",
+      "id": 6203995907,
+      "issue": 153
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6203996190",
+      "id": 6203996190,
+      "issue": 38
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6203996481",
+      "id": 6203996481,
+      "issue": 142
+    }
+  ],
+  "tree": "41937480511632b8adb891ff5ad9775816c13df1",
+  "publication": "PUBLISHED",
+  "sha": "452b920ad9c86aceac7be0bbdbfd6c6f2fcecdda"
+}

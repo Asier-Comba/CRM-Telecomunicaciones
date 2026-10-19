@@ -1,0 +1,1 @@
+const previous=require('./playwright-w2x-portability-parent-read-causal.config.cjs');module.exports={...previous,testDir:require('node:path').resolve(__dirname,'crm-w2x-commercial-composition/tests/e2e-preview'),testMatch:['portability-create-direction.spec.ts'],outputDir:require('node:path').resolve(__dirname,'w2x-portability-create-direction-causal-results')}

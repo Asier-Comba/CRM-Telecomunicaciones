@@ -1,0 +1,45 @@
+{
+  "utc": "2026-10-14T02:10:15.230684+00:00",
+  "work": "W2-X",
+  "path": "${WORKSPACE}\\work\\crm-w2x-par042-review",
+  "branch": "codex/w2x-par107-evidence-20261014",
+  "sha": "5ee15a37f87a3a041142ebb62ec23950df2b8e45",
+  "tree": "0686e4e92f47f6b2679b05568e7b04fd3be5512f",
+  "published_sha": "5ee15a37f87a3a041142ebb62ec23950df2b8e45",
+  "clean": true,
+  "claim": 6159271321,
+  "handoff": 6159323548,
+  "status": "SINGLE_ROW_PAR107_PARTIAL_EVIDENCE_REVIEW_PUBLISHED",
+  "evidence_source": "37a5f0ef91ca436122327d18d59cbe723e92cc84",
+  "checks": {
+    "scope": "ONLY_PAR107_341_OTHER_ROWS_HEADERS_STAGES_OLD3_EVIDENCE_EXACT",
+    "queue": "MEASURED342_9PARTIAL_333UNRECONCILED_0READY",
+    "gitleaks": "PASS",
+    "model": "NOT_RUN"
+  },
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-par107-queue-write.txt",
+      "sha256": "fe3dd205182f035bc8f0199b6a4ad17d89e31c43961734acecaccb5a8effcb6c"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-par107-queue-check.txt",
+      "sha256": "e5af9d62c7bd7d5159086aa48b79910b370650d6ec054e7f4fd700868f351f5a"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-par107-gitleaks.txt",
+      "sha256": "37072905ec9e7a0f84cd7e50c0fd09b49e5d4274088873ec36eb9b2fc912fbde"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-par107-visual-manifest.json",
+      "sha256": "7999b631a3eb2eb0914b8ac9de7f5d5c76884a1db589abba541fe99f04f10bd9"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-par107-review-published.bundle",
+      "sha256": "580f6339762f7df0f77dc6f5fdc9d28bb0d51de561282d75f66df6ca6401284c"
+    }
+  ],
+  "release": "NOT_ACCEPTED",
+  "writes": "OFF",
+  "high": 5
+}

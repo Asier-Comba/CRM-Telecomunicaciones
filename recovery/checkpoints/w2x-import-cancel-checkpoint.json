@@ -1,0 +1,47 @@
+{
+  "utc": "2026-10-14T03:19:37.894900+00:00",
+  "work": "W2-X",
+  "claim": 6160054871,
+  "handoff": 6160117671,
+  "path": "${WORKSPACE}\\work\\crm-w2x-document-upload-uncertain",
+  "branch": "codex/w2x-import-cancel-recovery-20261014",
+  "sha": "26b74191dbb657e0a6a891cc6b7042aeb7c7a39b",
+  "tree": "0cc0bb79d0e7ec50d9b63d21b45047bbcfe960fc",
+  "published": true,
+  "clean": true,
+  "checks": {
+    "final_browser": 5,
+    "build": "PASS66",
+    "lint": "PASS",
+    "gitleaks": "PASS",
+    "auth": "NOT_RUN_CHANGED_CONSUMER",
+    "model": "NOT_RUN"
+  },
+  "visual": {
+    "scope": "SYNTHETIC_HTTP_NOT_ACTUAL_AUTH",
+    "images": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-import-cancel-confirmation-390.png",
+        "sha256": "f8bca1b3f4082a7ded314f129e0c1be6c72daacb29910c87a7ded6f43aa4e741",
+        "width": 390
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-import-cancel-confirmation-768.png",
+        "sha256": "3df9f3874eb3095660b13dc80181744577660d21c509071fc0e7166214180db6",
+        "width": 768
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-import-cancel-confirmation-1440.png",
+        "sha256": "b96015f4ccc97693da178e83b95b98138d43453b6f3831cefb8edc85a004d399",
+        "width": 1440
+      }
+    ]
+  },
+  "preserved_failure": "w2x-import-cancel-lint.txt refs render; fixed explicit state and all five checks rerun",
+  "previous_unit": "${WORKSPACE}\\work\\w2x-document-state-checkpoint.json",
+  "bundle_sha256": "8f83f4af69827a4b2b6da47500db616c964982134c4db74ad9611f064fca4447",
+  "next": "PREPARE_OWN_COMPOSITION_WITH4E1_METADATA_NO_ACTIVE153_PUSH",
+  "release": "NOT_ACCEPTED",
+  "ai_writes": "OFF",
+  "five_high": "UNRESOLVED"
+}

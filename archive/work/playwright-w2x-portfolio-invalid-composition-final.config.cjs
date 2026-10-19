@@ -1,0 +1,2 @@
+const previous=require('./playwright-w2x-portfolio-invalid-causal.config.cjs')
+module.exports={...previous,testMatch:['portfolio-invalid-receipt-identity.spec.ts','portfolio-invalid-receipt-recovery.spec.ts','portfolio-create-receipt-close.spec.ts','line-parent-read-lifetime.spec.ts','case-contract-selection.spec.ts','contract-followup-read-lifetime.spec.ts'],outputDir:require('node:path').resolve(__dirname,'w2x-portfolio-invalid-composition-final-results')}

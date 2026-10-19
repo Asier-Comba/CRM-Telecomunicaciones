@@ -1,0 +1,1 @@
+const previous=require('./playwright-w2x-portability-parent-read-final.config.cjs');module.exports={...previous,testMatch:['portability-parent-read-lifetime.spec.ts'],grep:/portability parent read current/,outputDir:require('node:path').resolve(__dirname,'w2x-portability-operator-captions-causal-results')}

@@ -1,0 +1,75 @@
+{
+  "work": "W2-X",
+  "claim": 6165347515,
+  "path": "${WORKSPACE}\\work\\crm-w2x-document-upload-uncertain",
+  "branch": "codex/w2x-document-integrity-receipt-20261014",
+  "base": "dbcdb15b221518117078f6b73d446d8b33643c0c",
+  "status": "OWN37_BUILD66_LINT_SCAN_PASS_AUTH_NOT_RUN",
+  "published": true,
+  "release": "NOT_ACCEPTED",
+  "original_failure": "w2x-document-integrity-original-repro.txt",
+  "next": "DOCUMENT_INTEGRITY_CLOSE_CLAIM6165613407",
+  "utc": "2026-10-14T09:50:44.147402+00:00",
+  "interruption": "w2x-20261014-session-interruption.json",
+  "sha": "61dff0ab46ea8ff86023ecce120b0654f2096960",
+  "tree": "ed76a1559a36354f9543404d474f0ae302f754fc",
+  "clean": true,
+  "handoff": 6165613407,
+  "checks": {
+    "controlled_http": 37,
+    "lint": "PASS",
+    "build": "PASS66",
+    "scan": "PASS",
+    "visual": "THREE_FRAMES_VIEWED_PARTIAL",
+    "auth_db": "NOT_RUN",
+    "storage": "NOT_RUN",
+    "model": "NOT_RUN"
+  },
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-integrity-original-repro.txt",
+      "sha256": "999d6cd592e3fb923b8e4107cc7136db1a69e7544e77ca47c3b639098b331591"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-integrity-browser.txt",
+      "sha256": "6c4574d2ad215c61a333e6a94d684145164839eeaea61759b6811e4277f32e1a"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-integrity-lint.txt",
+      "sha256": "dda21574b74ba6a9edea377d67b00a3846ea8ae6ee11171eb3102a4a59f30d98"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-20261014-session-interruption.json",
+      "sha256": "fdb4d48fb29d9f5e6c0a35c034c544dabd609ea11df8ee14974cb584c5a5d0fc"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-integrity-resumed-browser.txt",
+      "sha256": "28592ed9a9b4d5662f95eeeed70b18f24d72e779974873797e9c0da6d3cd5de2"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-integrity-resumed-lint.txt",
+      "sha256": "dda21574b74ba6a9edea377d67b00a3846ea8ae6ee11171eb3102a4a59f30d98"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-integrity-resumed-build.txt",
+      "sha256": "459314da7c46ad6faa054ee6d2d008c1a6c04bc005d5f5871dad4c29a4fa4f51"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-integrity-scan.txt",
+      "sha256": "06cb0528c88cdb51e8bf7b3909189a45ae42d84974fe7d7a451028ed9aa009e0"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-integrity-resumed-results\\document-integrity-receipt-092c5-grity-verify-invalid-at-768\\document-integrity-verify-invalid-768.png",
+      "sha256": "6f0e90107a7005e2bad71ffd6871e02bdc6e530d13ff6510e594fa5666da66f3"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-integrity-resumed-results\\document-integrity-receipt-1dc67-grity-verify-invalid-at-390\\document-integrity-verify-invalid-390.png",
+      "sha256": "e02e1339d87e81977f9e2773ab1705ff6e347cd12b641a9cd3af65cac0760c07"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-integrity-resumed-results\\document-integrity-receipt-2ef29-rity-verify-invalid-at-1440\\document-integrity-verify-invalid-1440.png",
+      "sha256": "16cec67a0d68186e88a4e3b0c48262d59d444164b6832731081d7f8bae3e5f30"
+    }
+  ],
+  "bundle_sha256": "6272f5c492502667874e8abc134b22dfa7fff6c349ab6d990df834e0c7a55ff1"
+}

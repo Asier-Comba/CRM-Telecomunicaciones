@@ -1,0 +1,1 @@
+const p=require('./playwright-w2x-line-number-nested-key-causal.config.cjs');module.exports={...p,outputDir:require('node:path').resolve(__dirname,'w2x-line-number-nested-key-loaded-causal-results')}

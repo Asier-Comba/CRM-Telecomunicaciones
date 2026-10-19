@@ -1,0 +1,73 @@
+{
+  "utc": "2026-10-14T10:44:56.640483+00:00",
+  "work": "W2-X",
+  "claim": 6166236481,
+  "path": "${WORKSPACE}\\work\\crm-w2x-document-upload-uncertain",
+  "branch": "codex/w2x-document-integrity-lifetime-20261014",
+  "base": "363f5ccd2077af1f8db4cc30254f5c00b576a2b4",
+  "status": "OWN85_BUILD66_LINT_SCAN_PASS_AUTH_NOT_RUN",
+  "published": true,
+  "product_modified": true,
+  "expected_unmeasured": {
+    "new_browser": 27,
+    "regressions": 58
+  },
+  "release": "NOT_ACCEPTED",
+  "next": "COMPOSE_B523_WITH948_OWN566_EXPECTED_NOT_RUN",
+  "session": 51230,
+  "original_failure": "w2x-document-integrity-lifetime-original-repro.txt",
+  "observations": "w2x-document-integrity-lifetime-original-results/document-integrity-lifetim-f6737-after-company-change-at-390/observations.json",
+  "sha": "94816d3bd36218bc60f646e3541089e4f04fe8c2",
+  "tree": "fdbb324768c3cccff85d18478bb459b592d7d4c6",
+  "clean": true,
+  "handoff": 6166562418,
+  "checks": {
+    "controlled_http": 85,
+    "lint": "PASS",
+    "build": "PASS66",
+    "scan": "PASS",
+    "visual": "THREE_FRAMES_VIEWED_PARTIAL",
+    "auth_db": "NOT_RUN",
+    "storage": "NOT_RUN",
+    "model": "NOT_RUN"
+  },
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-integrity-lifetime-browser.txt",
+      "sha256": "bc980c6179d0ab8d31072fb2963d8b38414ff5364ac6419fba3d07f6f2b02ed8"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-integrity-lifetime-lint.txt",
+      "sha256": "dda21574b74ba6a9edea377d67b00a3846ea8ae6ee11171eb3102a4a59f30d98"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-integrity-lifetime-build.txt",
+      "sha256": "a6b9866f23e5a021c8ca54411e63480c2a38445d8fe46d5bf23c0ed5890772d1"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-integrity-lifetime-scan.txt",
+      "sha256": "19fa66dd3dbf2aa6b82e73d42d9a8d5ed7048a13eb650b49027d62d62c584b5a"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-integrity-lifetime-original-repro.txt",
+      "sha256": "337cfb7c8b60155de6645b15f6d92889ce5246a42772f3cdaf6ee240389cd334"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-integrity-lifetime-fixed-results\\document-integrity-lifetim-6ae50-after-company-change-at-390\\document-integrity-late-verify-company-390.png",
+      "sha256": "0bafed98cf61b859fefbb8dc93a49b36babcde7e53464dd1d128c48c10be02ee"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-integrity-lifetime-fixed-results\\document-integrity-lifetim-a3167-after-company-change-at-768\\document-integrity-late-verify-company-768.png",
+      "sha256": "97cfeb5b6fe9fc876dbae7d15b832f306dfb31a77742173656dae038152a38ee"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-integrity-lifetime-fixed-results\\document-integrity-lifetim-e8112-fter-company-change-at-1440\\document-integrity-late-verify-company-1440.png",
+      "sha256": "9ddce43b4dbc00146897c1331ed3f303fdbedb32eac39c2419843ffca4153dad"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-integrity-lifetime-original-results\\document-integrity-lifetim-f6737-after-company-change-at-390\\observations.json",
+      "sha256": "340b1fad5a2d9f8af87de7da457b18e318b5454e43759f6b16eb87e633c3b9eb"
+    }
+  ],
+  "bundle_sha256": "a6ba2d09c41585200aa258c2c2e1022475c3ec9fefc6ec2fa459bf5b0eae636c"
+}

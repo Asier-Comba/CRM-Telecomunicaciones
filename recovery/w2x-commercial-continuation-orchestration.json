@@ -1,0 +1,1007 @@
+{
+  "date": "2026-10-15",
+  "owner": "W2-X",
+  "source13": {
+    "claim": 6199739994,
+    "base": "2468b2d376d8d1de5a1303e175de4833b312467d",
+    "controls_session": 9960,
+    "publication_waiter_session": 26546,
+    "checkpoint": "work/w2x-portfolio-command-read-checkpoint.json",
+    "browser_exit": "work/w2x-portfolio-command-read-browser-exit.txt",
+    "publication": "work/w2x-portfolio-command-read-publication.json",
+    "close_marker": "work/w2x-portfolio-command-read-close-requested.json"
+  },
+  "source14": {
+    "claim": 6199848668,
+    "original_session": 30868,
+    "positive_session": 88709,
+    "targeted_lint_session": 13203,
+    "composition_controls_waiter_session": 21934,
+    "publication_waiter_session": 48892,
+    "checkpoint": "work/w2x-opportunity-command-read-checkpoint.json",
+    "controls_marker": "work/w2x-opportunity-command-read-controls-requested.json",
+    "close_marker": "work/w2x-opportunity-command-read-close-requested.json",
+    "publication": "work/w2x-opportunity-command-read-publication.json",
+    "original_controls_session": 21934,
+    "browser_harness_resume_session": 99479,
+    "harness_failure": "work/w2x-opportunity-command-read-browser-harness-failure.json",
+    "resume_marker": "work/w2x-opportunity-command-read-browser-harness-resume-requested.json"
+  },
+  "instructions": "Poll existing sessions/markers only.13 controls244 and publish if all guards pass;14 advances directly to published13 preserving three candidate files, then own102 controls and guarded publication. No edit14 checkout while244 active or15 checkout while102 active. Do not duplicate waiters, dispatches, commits or comments. If a guard fails, inspect exact failure before any resume; preserve original attempts. Actual visual review still required. No execution promised if session/app unavailable. Source14 first102 browser controller aborted on WindowsPS5 native stderr warning; totalsUNKNOWN, preserved. Resume99479 only browser102 same source, lint/build not repeated. Source15 sleeping waiter was replaced before any controls (no check cancelled); only71149 owns controls. BOM-aware strict log readers preserve UTF16 original bytes.",
+  "next": "Continue useful independent W2 commercial unit;no repeat green without changed source or relevant failure.",
+  "release": "NOT_ACCEPTED",
+  "source15": {
+    "claim": 6200094084,
+    "base": "be524199a28af226bd492004a32311b0873672fd",
+    "checkpoint": "work/w2x-service-parent-read-checkpoint.json",
+    "initial_causal_session": 69041,
+    "original_waiter_session": 79550,
+    "replacement_waiter_session": 71149,
+    "publication_waiter_session": 3936,
+    "waiting_only_replacement": "work/w2x-service-parent-read-waiter-replacement.json",
+    "controls_marker": "work/w2x-service-parent-read-controls-requested.json",
+    "resume_marker": "work/w2x-service-parent-read-launcher-resume-requested.json"
+  },
+  "global_latest": {
+    "waiter_session": 43115,
+    "wait_marker": "work/w2x-commercial-service-full-wait-requested.json",
+    "dispatch_marker": "work/w2x-commercial-service-full-requested.json",
+    "expected_after_source15": 981,
+    "expected_files": 70,
+    "config": "work/playwright-w2x-commercial-service-full.config.cjs",
+    "instructions": "Source15 published clean in checkout14 only; one dispatch after actual collection981. Full966 not dispatched.",
+    "status": "CLOSED_981FAIL_979PLUS2_COMPLEMENTARY",
+    "sha": "6b4692df7ccc47cf9814beecc09d69c41d333256",
+    "actual_collection": 981,
+    "files": 70,
+    "recheck_session": 44864,
+    "second_rca": "NOT_CLOSED"
+  },
+  "source16": {
+    "claim": 6200377934,
+    "base": "6b4692df7ccc47cf9814beecc09d69c41d333256",
+    "branch": "codex/w2x-portability-parent-read-lifetime-20261015",
+    "status": "PUBLISHED_OWN36_VISUAL_PARTIAL",
+    "causal_session": 55646,
+    "product_changed": false,
+    "next": "INSPECT_ORIGINAL_REFERENCE_CURRENT_TERMINAL;NO_EDIT_WHILE_RUNNING;COMPOSE_PUBLISHED15_BEFORE_FINAL_CONTROLS;DO_NOT_TOUCH_SHARED_LINE_CONTEXT",
+    "release": "NOT_ACCEPTED",
+    "checkpoint": "${WORKSPACE}\\work\\w2x-portability-parent-read-checkpoint.json",
+    "controls_session": 26752,
+    "publication_waiter_session": 61996,
+    "controls_marker": "work/w2x-portability-parent-read-controls-requested.json",
+    "close_marker": "work/w2x-portability-parent-read-close-requested.json",
+    "sha": "57e97ed72199fc5de085a3f76e6dacdaf3983027"
+  },
+  "source17": {
+    "claim": 6200553279,
+    "base": "57e97ed72199fc5de085a3f76e6dacdaf3983027",
+    "branch": "codex/w2x-portability-operator-captions-lifetime-20261015",
+    "status": "OWN3_FINAL_PLUS33_COMPLEMENTARY_BUILD66_SCAN_PASS_VISUAL_PARTIAL_AUTH_NOT_RUN",
+    "causal_session": 31532,
+    "product_changed": false,
+    "scope": "Visible donor/target captions and contextual empty choices; preserve draft input mapping, defaults and current read controls.",
+    "next": "INSPECT_CAUSAL3_TERMINAL;THEN_OPTIONAL_DISPLAY_LABEL_EMPTY_LABEL_ON_EXISTING_SELECTOR;OWN36_AND_ACTUAL_SCROLLED_VISUAL",
+    "release": "NOT_ACCEPTED",
+    "checkpoint": "${WORKSPACE}\\work\\w2x-portability-operator-captions-checkpoint.json",
+    "sha": "d56ae41202464c793d46a3ab9058126b08450732",
+    "first36_session": 10270,
+    "final3_session": 41685,
+    "publication_session": 48443
+  },
+  "source18": {
+    "claim": 6202367152,
+    "base": "d56ae41202464c793d46a3ab9058126b08450732",
+    "branch": "codex/w2x-portability-draft-direction-20261015",
+    "status": "PUBLISHED_OWN39_VISUAL_PARTIAL",
+    "causal_session": 68751,
+    "product_changed": false,
+    "scope": "Draft editor only: inbound destination/outbound origin fixed by linked line; shared queries/create not modified.",
+    "next": "INSPECT_ORIGINAL6_TERMINAL;THEN_FIXED_SIDE_HINT_DRAFT_REVIEW_VALIDATION;OWN39;KEEP_SOURCE14_GLOBAL981_FROZEN",
+    "release": "NOT_ACCEPTED",
+    "checkpoint": "${WORKSPACE}\\work\\w2x-portability-draft-direction-checkpoint.json",
+    "sha": "d889bf293bd0ce96d73d376e57c37615ad943222",
+    "controls_session": 78311,
+    "publication_session": 50688
+  },
+  "source19": {
+    "claim": 6202518221,
+    "base": "d889bf293bd0ce96d73d376e57c37615ad943222",
+    "investigation_base": "d56ae41202464c793d46a3ab9058126b08450732",
+    "branch": "codex/w2x-pipeline-individual-review-20261015",
+    "status": "PAR073_INDIVIDUAL_PARTIAL_REVIEW_PUBLISHED",
+    "evidence_source": "a4ef01b90025614ff5e42cff10225e9b5bc11e1f",
+    "runtime": "NOT_RUN_METADATA_ONLY",
+    "next": "NEW_CLAIM_INDEPENDENT_COMMERCIAL_UNIT;RUNTIME_NOT_RUN_METADATA_ONLY",
+    "release": "NOT_ACCEPTED",
+    "checks": {
+      "queue": "342_17PARTIAL_325UNRECONCILED_0READY",
+      "prior16_reviews": "IDENTICAL",
+      "other341_rows": "IDENTICAL",
+      "global_acceptance_fields": "IDENTICAL",
+      "scan": "PASS",
+      "runtime": "NOT_RUN_METADATA_ONLY"
+    },
+    "tree": "4b558f22988fa9150306d9f393b7ec9c3c1c7e60",
+    "handoffs": [
+      {
+        "issue": 67,
+        "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6202586364",
+        "id": 6202586364
+      },
+      {
+        "issue": 153,
+        "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6202586596",
+        "id": 6202586596
+      },
+      {
+        "issue": 38,
+        "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6202586785",
+        "id": 6202586785
+      },
+      {
+        "issue": 142,
+        "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6202586971",
+        "id": 6202586971
+      }
+    ],
+    "publication": "PUBLISHED",
+    "sha": "f5e167b39aadd8d7c99c4894fc8b26845f05d61b",
+    "clean": true
+  },
+  "global_direction": {
+    "session": 77426,
+    "sha": "d889bf293bd0ce96d73d376e57c37615ad943222",
+    "status": "RUNNING_OWN999",
+    "collection": 999,
+    "files": 71,
+    "marker": "work/w2x-commercial-direction-full-requested.json",
+    "checkout": "crm-w2x-document-upload-uncertain",
+    "instructions": "Keep checkout15 pinned until global terminal/closure. No edits or publication over this SHA."
+  },
+  "source20": {
+    "claim": 6202649389,
+    "base": "f5e167b39aadd8d7c99c4894fc8b26845f05d61b",
+    "branch": "codex/w2x-sim-parent-read-lifetime-20261015",
+    "status": "PUBLISHED_OWN54_VISUAL_PARTIAL",
+    "product_changed": true,
+    "causal": {
+      "failed": 2,
+      "passed": 2,
+      "log": "w2x-sim-parent-read-causal.txt",
+      "original_test": "w2x-sim-parent-read-original-test.ts",
+      "scope": "Physical/eSIM valid active assigned records; initial dependency read only."
+    },
+    "candidate_fingerprints": [
+      {
+        "path": "src/features/sims/Sims.tsx",
+        "sha256_utf8_lf": "74fae197c24faf992e93a2a2a958021aab47697d6dcd81b94b9fff6c7c39c8fb"
+      },
+      {
+        "path": "tests/e2e-preview/fixtures/telecom-resource-entry.tsx",
+        "sha256_utf8_lf": "8bbc05d05666528b8f5d870adafe2c192f62840bec704ac9fcdfa323d7a608cf"
+      },
+      {
+        "path": "tests/e2e-preview/sim-parent-read-lifetime.spec.ts",
+        "sha256_utf8_lf": "810c130b51759190af60a90b441b262e051e1ee352c682a52c98bc4fb557d35d"
+      },
+      {
+        "path": "docs/master/W2X_SIM_PARENT_READ_LIFETIME_20261015.md",
+        "sha256_utf8_lf": "7136a2c301d790dd2071aad4f431daf2f564633369af6ef00c2886e1a978baa0"
+      }
+    ],
+    "next": "OWN54_LINT_BUILD_BROWSER_SCAN_VISUAL;PUBLISH_BEFORE_NEXT_UNIT;GLOBAL999_CHECKOUT15_FROZEN",
+    "release": "NOT_ACCEPTED",
+    "controls_session": 72976,
+    "collection": {
+      "tests": 54,
+      "files": 3
+    },
+    "checkpoint": "${WORKSPACE}\\work\\w2x-sim-parent-read-checkpoint.json",
+    "sha": "237dc1e5bef5b510c9dac7ba06598a9ce19f5673",
+    "publication_session": 99658
+  },
+  "source21": {
+    "claim": 6202826825,
+    "base": "237dc1e5bef5b510c9dac7ba06598a9ce19f5673",
+    "branch": "codex/w2x-sim-get-individual-review-20261015",
+    "status": "TEL097_INDIVIDUAL_PARTIAL_REVIEW_PUBLISHED",
+    "checks": {
+      "queue": "342_18PARTIAL_324UNRECONCILED_0READY",
+      "other341_rows": "IDENTICAL",
+      "prior17_reviews": "IDENTICAL",
+      "global_fields": "IDENTICAL",
+      "scan": "PASS",
+      "runtime": "NOT_RUN_METADATA_ONLY"
+    },
+    "release": "NOT_ACCEPTED",
+    "next": "NEW_CLAIM_PORTABILITY_CREATE_DIRECTION;GLOBAL999_STILL_SEPARATE",
+    "handoffs": [
+      {
+        "issue": 67,
+        "id": 6202850339,
+        "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6202850339"
+      },
+      {
+        "issue": 153,
+        "id": 6202850617,
+        "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6202850617"
+      },
+      {
+        "issue": 38,
+        "id": 6202850866,
+        "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6202850866"
+      },
+      {
+        "issue": 142,
+        "id": 6202851081,
+        "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6202851081"
+      }
+    ],
+    "publication": "PUBLISHED",
+    "tree": "b1fc61a2a2fa3ecff49ec87ee4e3fbb2ad805a1a",
+    "sha": "eb3bc5d9f4f4f642f4f09aa65588397593485051",
+    "clean": true
+  },
+  "global_direction_999": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-commercial-direction-full-checkpoint.json",
+    "sha": "d889bf293bd0ce96d73d376e57c37615ad943222",
+    "status": "OWN999_FULL_PASS",
+    "publication": "PUBLISHED"
+  },
+  "source22": {
+    "checkpoint": "work/w2x-portability-create-direction-checkpoint.json",
+    "status": "PUBLISHED_OWN45_VISUAL_PARTIAL",
+    "sha": "a24a6d811ce2c6013067576f4dadbc4394539ef2"
+  },
+  "source23": {
+    "checkpoint": "work/w2x-service-command-read-checkpoint.json",
+    "claim": 6203001640,
+    "status": "PUBLISHED_OWN75_VISUAL_PARTIAL",
+    "sha": "ff5e5a7feb2c63ab2d19391d30ca12d6bd977aec"
+  },
+  "source24": {
+    "checkpoint": "work/w2x-portability-create-review-checkpoint.json",
+    "claim": 6203076867,
+    "status": "TEL040_INDIVIDUAL_PARTIAL_REVIEW_PUBLISHED",
+    "sha": "b431287d5432c2323ec9d0f0ae477426f0b92b7d"
+  },
+  "source25": {
+    "checkpoint": "work/w2x-sim-command-read-checkpoint.json",
+    "claim": 6203149786,
+    "causal_session": 72904,
+    "status": "OWN114_BUILD66_LINT0ERRORS3WARN_SCAN_PASS_VISUAL_PARTIAL_AUTH_NOT_RUN",
+    "controls_session": 5652,
+    "fixture_refinement_waiter_session": 27738,
+    "fixture_marker": "work/w2x-sim-command-read-fixture-correction-requested.json",
+    "instructions": "Do not publish based on first114. Waiter27738 owns one fixture correction and final114/lint/build AFTER first build terminal. Original logs/results retained. No edits checkout14 until waiter terminal;global1065checkout15frozen.",
+    "sha": "3712b2f72bd8ec19935521525b182f12c065f20b",
+    "publication": "PUBLISHED",
+    "published": true
+  },
+  "global_installed_1065": {
+    "session": 83547,
+    "checkpoint": "work/w2x-commercial-installed-full-checkpoint.json",
+    "dispatch_marker": "work/w2x-commercial-installed-full-requested.json",
+    "sha": "ff5e5a7feb2c63ab2d19391d30ca12d6bd977aec",
+    "status": "OWN1065_FULL_PASS",
+    "tests": 1065,
+    "files": 74,
+    "publication": "PUBLISHED",
+    "summary": [
+      "1065 passed (22.4m)"
+    ]
+  },
+  "source26": {
+    "claim": 6203275119,
+    "checkpoint": "${WORKSPACE}\\work\\w2x-portability-command-read-checkpoint.json",
+    "status": "PUBLISHED_OWN105_VISUAL_PARTIAL6",
+    "candidate": "work/w2x-portability-command-read-candidate.spec.ts",
+    "instructions": "Apply ONLY after25published,checkout14free;newownbranch from25;original4 before product fix. No edits while114 orbuildactive. No duplicate claimant/tests.",
+    "causal_session": 21782,
+    "base": "3712b2f72bd8ec19935521525b182f12c065f20b",
+    "candidate_applied": true,
+    "controls_session": 76064,
+    "visual": "PARTIAL_6_ACTUALLY_VIEWED",
+    "sha": "ddcffe793b46c3024c1a762d094c8359d1ab9b82",
+    "publication": "PUBLISHED"
+  },
+  "quota_snapshot": {
+    "ordinaryUsageAllowed": true,
+    "primaryUsedPercent": 38,
+    "weeklyUsedPercent": 36,
+    "resets_redeemed": false
+  },
+  "source27": {
+    "checkpoint": "work/w2x-sim-assignment-selection-checkpoint.json",
+    "claim": 6203419872,
+    "status": "OWN120_BUILD66_LINT0ERRORS3WARN_SCAN_PASS_VISUAL_PARTIAL_AUTH_NOT_RUN",
+    "candidate": "work/w2x-sim-assignment-selection-candidate.spec.ts",
+    "instructions": "Apply only after checkout control terminal;freshbranch from published source;original6 before fix;do not edit sources while105/1065active.",
+    "causal_session": 89697,
+    "base": "ddcffe793b46c3024c1a762d094c8359d1ab9b82",
+    "sha": "d55fc36c9f5343f5e100acb18ea1df0671fb65e5",
+    "publication": "PUBLISHED"
+  },
+  "global_refreshed_1155": {
+    "session": 24265,
+    "checkpoint": "work/w2x-commercial-refreshed-full-checkpoint.json",
+    "dispatch_marker": "work/w2x-commercial-refreshed-full-requested.json",
+    "sha": "ddcffe793b46c3024c1a762d094c8359d1ab9b82",
+    "status": "OWN1155_FULL_PASS",
+    "tests": 1155,
+    "files": 76,
+    "publication": "PUBLISHED",
+    "summary": [
+      "1155 passed (22.3m)"
+    ]
+  },
+  "source28": {
+    "checkpoint": "work/w2x-service-facts-review-checkpoint.json",
+    "claim": 6203572683,
+    "status": "TEL024_INDIVIDUAL_PARTIAL_REVIEW_PUBLISHED",
+    "sha": "63f4fd6b12d1bc7c7f90f0cd43f7b6aaaf9d0b6a",
+    "publication": "PUBLISHED"
+  },
+  "source29": {
+    "checkpoint": "work/w2x-case-create-read-checkpoint.json",
+    "claim": 6203638233,
+    "causal_session": 82675,
+    "status": "OWN63_BUILD66_LINT0ERRORS3WARN_SCAN_PASS_VISUAL_PARTIAL_AUTH_NOT_RUN",
+    "path": "${WORKSPACE}\\work\\crm-w2x-document-upload-uncertain",
+    "sha": "4c9cd97250c806f0d84bd47d513cd2537c6ff8bf",
+    "publication": "PUBLISHED"
+  },
+  "source30": {
+    "checkpoint": "work/w2x-sim-create-read-checkpoint.json",
+    "claim": 6203802349,
+    "base": "4c9cd97250c806f0d84bd47d513cd2537c6ff8bf",
+    "causal_session": 58228,
+    "status": "OWN165_BUILD66_LINT0ERRORS3WARN_SCAN_PASS_VISUAL_PARTIAL_AUTH_NOT_RUN",
+    "path": "${WORKSPACE}\\work\\crm-w2x-document-upload-uncertain",
+    "sha": "452b920ad9c86aceac7be0bbdbfd6c6f2fcecdda",
+    "publication": "PUBLISHED"
+  },
+  "source31": {
+    "checkpoint": "work/w2x-portability-create-read-checkpoint.json",
+    "claim": 6203863765,
+    "base": "4c9cd97250c806f0d84bd47d513cd2537c6ff8bf",
+    "causal_session": 2613,
+    "status": "OWN210_BUILD66_LINT0ERRORS3WARN_SCAN_PASS_VISUAL_PARTIAL_AUTH_NOT_RUN",
+    "path": "${WORKSPACE}\\work\\crm-w2x-commercial-composition",
+    "must_compose_after30_published": true,
+    "controls_session": 64946,
+    "original_controls_session": 23831,
+    "fixture_correction": "work/w2x-portability-create-read-fixture-readiness-correction-requested.json",
+    "composed_parent": "452b920ad9c86aceac7be0bbdbfd6c6f2fcecdda",
+    "preview_source_gates": "PASS5",
+    "sha": "21a75fa2207337917406f70373b4bb0e4f79a324",
+    "publication": "PUBLISHED"
+  },
+  "source32": {
+    "checkpoint": "work/w2x-sim-create-review-checkpoint.json",
+    "claim": 6204084835,
+    "status": "TEL033_INDIVIDUAL_PARTIAL_REVIEW_PUBLISHED",
+    "path": "${WORKSPACE}\\work\\crm-w2x-document-upload-uncertain",
+    "must_compose_after31_published": true,
+    "sha": "a0a3d0476feea251342ac48251fc3acd6f49402d",
+    "publication": "PUBLISHED"
+  },
+  "source33": {
+    "checkpoint": "work\\w2x-line-context-retirement-checkpoint.json",
+    "claim": 6204361588,
+    "status": "PUBLISHED_OWN330_BUILD66_VISUAL_NOT_REVIEWED_AUTH_NOT_RUN",
+    "controls_session": 7424,
+    "base": "a0a3d0476feea251342ac48251fc3acd6f49402d",
+    "sha": "2741fb82047534ecdf27044f25514f0d690b69e3",
+    "publication": "PUBLISHED"
+  },
+  "global_creations_1266": {
+    "session": 93902,
+    "sha": "21a75fa2207337917406f70373b4bb0e4f79a324",
+    "status": "OWN1266_FULL_PASS_PUBLISHED",
+    "checkpoint": "work/w2x-commercial-creations-full-checkpoint.json",
+    "marker": "work/w2x-commercial-creations-full-requested.json"
+  },
+  "global_line_currency_1266": {
+    "session": 45963,
+    "sha": "2741fb82047534ecdf27044f25514f0d690b69e3",
+    "status": "SAME_SHA_COMPLEMENTARY1253_PLUS13_PASS_ORIGINAL1266_FAILURE_PRESERVED",
+    "checkpoint": "work/w2x-commercial-line-currency-full-checkpoint.json",
+    "marker": "work/w2x-commercial-line-currency-full-requested.json",
+    "publication": "PUBLISHED",
+    "failed13_session": 16330,
+    "failed13_status": "PASS13_SAME_SHA",
+    "full_single_run": "FAIL1253PASS13FAIL"
+  },
+  "source34": {
+    "claim": 6212750000,
+    "base": "2741fb82047534ecdf27044f25514f0d690b69e3",
+    "branch": "codex/w2x-customer-attention-context-20261016",
+    "checkpoint": "work\\w2x-customer-attention-context-checkpoint.json",
+    "session": 84061,
+    "status": "PUBLISHED_OWN60_BUILD66_VISUAL_PARTIAL6_AUTH_NOT_RUN",
+    "sha": "991022ddd9aebff79fc7450584f44cffd131b995",
+    "publication": "PUBLISHED"
+  },
+  "source35": {
+    "claim": 6212889445,
+    "base": "991022ddd9aebff79fc7450584f44cffd131b995",
+    "branch": "codex/w2x-attention-customer-identity-20261016",
+    "checkpoint": "work\\w2x-attention-customer-identity-checkpoint.json",
+    "status": "PUBLISHED_OWN78_BUILD66_VISUAL_PARTIAL9_AUTH_NOT_RUN",
+    "session": 89193,
+    "sha": "4221edc8023e68d3497092e92a428838baea1e32",
+    "publication": "PUBLISHED"
+  },
+  "source36": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-attention-individual-review-checkpoint.json",
+    "claim": 6212988281,
+    "status": "TEL069_INDIVIDUAL_PARTIAL_REVIEW_PUBLISHED",
+    "sha": "43a314ad123b988290ebf94204a6847611371fcb",
+    "publication": "PUBLISHED"
+  },
+  "source37": {
+    "checkpoint": "work/w2x-billing-customer-filter-checkpoint.json",
+    "claim": 6213045963,
+    "base": "43a314ad123b988290ebf94204a6847611371fcb",
+    "branch": "codex/w2x-billing-customer-filter-20261016",
+    "status": "PUBLISHED_OWN43_BUILD66_VISUAL_PARTIAL_FINAL9_AUTH_NOT_RUN",
+    "causal_session": 35506,
+    "release": "NOT_ACCEPTED",
+    "next": "77094 owns one correction only after86176 build terminal; then fresh43/lint/build,actual final visual and guarded commit/push. Do not duplicate controls or edit source now.",
+    "first_controls_session": 86176,
+    "visual_refinement_session": 77094,
+    "sha": "f0f0b2b491412292b2123c096c136f6898329aaa",
+    "publication": "PUBLISHED"
+  },
+  "global_attention_1311": {
+    "session": 69813,
+    "status": "OWN1311_FULL_PASS",
+    "source": "4221edc8023e68d3497092e92a428838baea1e32",
+    "marker": "work/w2x-commercial-attention-full-wait-requested.json",
+    "checkpoint": "work/w2x-commercial-attention-full-checkpoint.json",
+    "waiter_exit": 1,
+    "reason": "PRIOR_FAILED_OR_WRONG_SOURCE_NO_DISPATCH",
+    "original_waiter_session": 45298,
+    "resume_session": 69813,
+    "resume_marker": "work/w2x-commercial-attention-full-launcher-cwd-resume-requested.json",
+    "publication": "PUBLISHED",
+    "summary": "1311PASS28.3M"
+  },
+  "source38": {
+    "checkpoint": "work/w2x-billing-proposal-context-checkpoint.json",
+    "claim": 6213214507,
+    "base": "f0f0b2b491412292b2123c096c136f6898329aaa",
+    "branch": "codex/w2x-billing-proposal-context-20261016",
+    "status": "PUBLISHED_OWN61_BUILD66_VISUAL_PARTIAL9_AUTH_NOT_RUN",
+    "original": {
+      "failed": 1,
+      "passed": 1,
+      "duration": "30.2s",
+      "cause": "Editor0 expected/editor1 observed after explicit customer-clear and delayed proposal success",
+      "log": "work/w2x-billing-proposal-context-causal.txt"
+    },
+    "release": "NOT_ACCEPTED",
+    "next": "Own61/lint/build/actual visual/hash/scan/commit/push/handoff;no inheritance43 or globals;do not edit14 active global",
+    "sha": "31a72415c5daef04d743742848c292d230ba087b",
+    "publication": "PUBLISHED"
+  },
+  "source39": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-customer-summary-review-checkpoint.json",
+    "claim": 6213356728,
+    "status": "TEL068_INDIVIDUAL_PARTIAL_REVIEW_PUBLISHED",
+    "sha": "2c4512fe0e7e4d2d029d247b462d24044a23365c",
+    "publication": "PUBLISHED"
+  },
+  "source40": {
+    "checkpoint": "work/w2x-attention-current-day-checkpoint.json",
+    "claim": 6213430782,
+    "base": "2c4512fe0e7e4d2d029d247b462d24044a23365c",
+    "branch": "codex/w2x-attention-current-day-20261016",
+    "status": "PUBLISHED_OWN63_BUILD66_VISUAL_PARTIAL9_AUTH_NOT_RUN",
+    "causal_session": 98891,
+    "product_changed": false,
+    "release": "NOT_ACCEPTED",
+    "next": "Inspect original6 terminal cause;only then reuse current madridDay on explicit clear, preserving manual refresh;own63/build/lint/visual/scan/publication before nextunit",
+    "sha": "fa3e16853b4467e554d96af49ac9aeb315978761",
+    "publication": "PUBLISHED"
+  },
+  "source41": {
+    "checkpoint": "work\\w2x-invoice-relation-compact-checkpoint.json",
+    "claim": 6213599725,
+    "status": "PUBLISHED_OWN24_BUILD66_VISUAL_PARTIAL6_AUTH_NOT_RUN",
+    "controls_session": 21615,
+    "publication_session": 6324,
+    "sha": "8f0911c1d4790b2a78b3baf7f5f3073ed4ae83a1",
+    "publication": "PUBLISHED",
+    "publication_resume_session": 60387,
+    "publication_harness_failure": "work/w2x-invoice-relation-compact-publication-harness-failure.json"
+  },
+  "global_grouped_1362": {
+    "session": 62561,
+    "source": "fa3e16853b4467e554d96af49ac9aeb315978761",
+    "status": "RUNNING_OWN1362_CWD_PREFLIGHT_PASS",
+    "marker": "work/w2x-commercial-grouped-full-wait-requested.json",
+    "checkpoint": "work/w2x-commercial-grouped-full-checkpoint.json"
+  },
+  "source42": {
+    "checkpoint": "work/w2x-invoice-relation-verification-checkpoint.json",
+    "claim": 6213765269,
+    "base": "8f0911c1d4790b2a78b3baf7f5f3073ed4ae83a1",
+    "branch": "codex/w2x-invoice-relation-verification-20261016",
+    "status": "PUBLISHED_OWN36_BUILD66_VISUAL_PARTIAL7_AUTH_NOT_RUN",
+    "causal_session": 8003,
+    "product_changed": true,
+    "release": "NOT_ACCEPTED",
+    "next": "Inspect original pending/current2;only then adjust derived option wording with existing selectedKey;own36/build/lint/visual/hash/scan/commit/push/handoffs;no new query/state/helper",
+    "controls_session": 4201,
+    "sha": "509480f4433422bc6baa15d2de2fb66352a72f84",
+    "publication": "PUBLISHED"
+  },
+  "source43": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-contract-list-review-checkpoint.json",
+    "claim": 6213916629,
+    "status": "TEL018_INDIVIDUAL_PARTIAL_REVIEW_PUBLISHED",
+    "sha": "5f5ca62677c0db962b4f93cbae5d9b39b9b21996",
+    "publication": "PUBLISHED"
+  },
+  "source44": {
+    "checkpoint": "work/w2x-billing-read-error-checkpoint.json",
+    "claim": 6213990000,
+    "base": "5f5ca62677c0db962b4f93cbae5d9b39b9b21996",
+    "branch": "codex/w2x-billing-read-error-20261016",
+    "status": "PUBLISHED_OWN91_BUILD66_VISUAL_PARTIAL7_AUTH_NOT_RUN",
+    "causal_session": 24357,
+    "product_changed": true,
+    "release": "NOT_ACCEPTED",
+    "next": "Inspect original5 exactly;only then clear matched own read error by captured reference,never unrelated identity/uncertain-command errors;own91 actual collection/lint/build/visual/scan/publish",
+    "controls_session": 16651,
+    "sha": "672b59c8a238f4e2857371523206b6f73b23ffda",
+    "publication": "PUBLISHED"
+  },
+  "source45": {
+    "status": "PUBLISHED_6_PLUS3_COMPLEMENTARY_NOT9_SINGLE_PASS",
+    "sha": "dd6233cbd7e7d6a3ef3a2e64eb8d6458541d0969",
+    "publication": "PUBLISHED"
+  },
+  "source46": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-proposal-editable-review-checkpoint.json",
+    "claim": 6214354208,
+    "status": "PAR140_INDIVIDUAL_PARTIAL_REVIEW_PUBLISHED",
+    "sha": "e286603676b5ba6675a80326bf98287ed066a328",
+    "publication": "PUBLISHED"
+  },
+  "source47": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-human-review-individual-checkpoint.json",
+    "claim": 6214383827,
+    "status": "PAR141_INDIVIDUAL_PARTIAL_REVIEW_PUBLISHED",
+    "sha": "5dd9be771a5dde8305286c50567521ecb5c94356",
+    "publication": "PUBLISHED"
+  },
+  "source48": {
+    "status": "PUBLISHED_OWN45_BUILD66_VISUAL_PARTIAL",
+    "sha": "bf72cf94f203a4b72b1b7124b4efdbfb050b36b1",
+    "publication": "PUBLISHED"
+  },
+  "commercial_billing_full_coverage": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-commercial-billing-full-checkpoint.json",
+    "sha": "bf72cf94f203a4b72b1b7124b4efdbfb050b36b1",
+    "status": "OWN1416_FULL_PASS",
+    "publication": "PUBLISHED",
+    "release": "NOT_ACCEPTED",
+    "frozen": false
+  },
+  "source49": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-billing-draft-receipt-checkpoint.json",
+    "status": "PUBLISHED_OWN18_BUILD66_VISUAL_PARTIAL",
+    "sha": "45738ab9e830c9c65150231fa691778d3c08aa52",
+    "publication": "PUBLISHED"
+  },
+  "source50": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-billing-draft-close-checkpoint.json",
+    "status": "PUBLISHED_OWN60_BUILD66_VISUAL_PARTIAL",
+    "sha": "bc3b3c12bd92eb76897c96b007af01bcbf8c2948",
+    "publication": "PUBLISHED"
+  },
+  "source51": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-billing-draft-registered-checkpoint.json",
+    "status": "PUBLISHED_12_PLUS6_COMPLEMENTARY_NOT18_SINGLE_PASS",
+    "sha": "1816c21436d48afa9f8c04da181fe4e1becd8835",
+    "publication": "PUBLISHED"
+  },
+  "commercial_draft_full_coverage": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-commercial-draft-full-checkpoint.json",
+    "sha": "bc3b3c12bd92eb76897c96b007af01bcbf8c2948",
+    "status": "OWN1434_FULL_PASS",
+    "publication": "PUBLISHED",
+    "release": "NOT_ACCEPTED",
+    "frozen": false
+  },
+  "source52": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-draft-save-review-checkpoint.json",
+    "claim": 6251264772,
+    "status": "PAR105_INDIVIDUAL_PARTIAL_REVIEW_PUBLISHED",
+    "sha": "08407e1279b0088ca3817e0b7ce1ffe3494ca681",
+    "publication": "PUBLISHED"
+  },
+  "source53": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-calendar-today-checkpoint.json",
+    "status": "PUBLISHED_OWN57_BUILD66_VISUAL_PARTIAL",
+    "sha": "4deb73d92f5136a6ce511af586fd5c98f329a9bf",
+    "publication": "PUBLISHED"
+  },
+  "source54": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-portability-line-retirement-checkpoint.json",
+    "status": "PUBLISHED_OWN84_BUILD66_VISUAL_PARTIAL",
+    "sha": "dd4b9f5231527adaa72779010ffcd2569571fbb4",
+    "publication": "PUBLISHED"
+  },
+  "source55": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-portability-detail-line-checkpoint.json",
+    "status": "PUBLISHED_OWN66_BUILD66_VISUAL_PARTIAL",
+    "sha": "dfeb8228e3b56b785049d111a9ee48349d956a69",
+    "publication": "PUBLISHED"
+  },
+  "source56": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-sim-detail-line-checkpoint.json",
+    "status": "PUBLISHED_OWN120_BUILD66_VISUAL_PARTIAL",
+    "sha": "de72a8096a3e4dbce2109fae5d8c750871615f0a",
+    "publication": "PUBLISHED"
+  },
+  "source57": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-portability-create-parents-checkpoint.json",
+    "status": "PUBLISHED_OWN114_BUILD66_VISUAL_PARTIAL",
+    "sha": "2a8597537737cec349650496e874d86ca6e5633a",
+    "publication": "PUBLISHED"
+  },
+  "source58": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-billing-exact-save-checkpoint.json",
+    "status": "PUBLISHED_OWN63_BUILD66_VISUAL_PARTIAL",
+    "sha": "b34f6d60b9b64a5ba218376ef0a8038c6135e39f",
+    "publication": "PUBLISHED"
+  },
+  "source59": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-exact-save-review-checkpoint.json",
+    "claim": 6251793065,
+    "status": "PAR105_INDIVIDUAL_PARTIAL_REVIEW_PUBLISHED",
+    "sha": "6b03869d9c86a6876aaef37fa9408d954798de84",
+    "publication": "PUBLISHED"
+  },
+  "commercial_calendar_full_coverage": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-commercial-calendar-full-checkpoint.json",
+    "sha": "4deb73d92f5136a6ce511af586fd5c98f329a9bf",
+    "status": "OWN1479_FULL_PASS",
+    "publication": "PUBLISHED",
+    "release": "NOT_ACCEPTED",
+    "frozen": false
+  },
+  "source60": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-billing-functional-date-checkpoint.json",
+    "sha": "8a3fc1cd0996dfb041299db07ac36f40ca3154a6",
+    "status": "PUBLISHED_OWN5_PASS_ORIGINAL35PASS5FAIL_SOURCE58_PRESERVED",
+    "publication": "PUBLISHED"
+  },
+  "source61": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-billing-proposal-discount-checkpoint.json",
+    "status": "PUBLISHED_OWN141_BUILD66_VISUAL_PARTIAL",
+    "sha": "b193330f61fa097cb0bb73b1328c81fc01bd91ba",
+    "publication": "PUBLISHED"
+  },
+  "source62": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-billing-proposal-rates-checkpoint.json",
+    "status": "PUBLISHED_OWN225_BUILD66_VISUAL_PARTIAL",
+    "sha": "24a7b0da7d7d5dfd822cf2e07981ce2659b93d7f",
+    "publication": "PUBLISHED"
+  },
+  "source63": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-billing-proposal-zero-tax-checkpoint.json",
+    "status": "PUBLISHED_OWN144_BUILD66_VISUAL_PARTIAL",
+    "sha": "56fbaee765fb4681aa43943cec4e305eb2afbd67",
+    "publication": "PUBLISHED"
+  },
+  "source64": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-billing-zero-total-draft-checkpoint.json",
+    "status": "PUBLISHED_OWN18_FUNCTIONAL49_BUILD66_VISUAL_PARTIAL",
+    "sha": "a82920d0642236769b4407ab138dda1dafd6f410",
+    "publication": "PUBLISHED"
+  },
+  "commercial_line_context_full_coverage": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-commercial-line-context-full-checkpoint.json",
+    "sha": "2a8597537737cec349650496e874d86ca6e5633a",
+    "status": "OWN1575_FULL_PASS",
+    "publication": "PUBLISHED",
+    "release": "NOT_ACCEPTED",
+    "frozen": false
+  },
+  "source65": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-billing-proposal-warnings-checkpoint.json",
+    "status": "PUBLISHED_OWN99_BUILD66_VISUAL_PARTIAL",
+    "sha": "d65880a3af08bcc861d14846d399a75235f65a76",
+    "publication": "PUBLISHED"
+  },
+  "source66": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-deterministic-parser-review-checkpoint.json",
+    "claim": 6252380985,
+    "status": "PAR135_INDIVIDUAL_PARTIAL_REVIEW_PUBLISHED",
+    "sha": "2b7dd80ff93e22ac8fc8bd75ff48d99fb396502a",
+    "publication": "PUBLISHED"
+  },
+  "source67": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-billing-initial-customer-merge-checkpoint.json",
+    "status": "PUBLISHED_OWN78_BUILD66_VISUAL_PARTIAL",
+    "sha": "44d807ec2c8b85540e648643eaeecbd8474de967",
+    "publication": "PUBLISHED"
+  },
+  "commercial_financial_full_coverage": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-commercial-proposal-full-checkpoint.json",
+    "sha": "d65880a3af08bcc861d14846d399a75235f65a76",
+    "status": "OWN1773_FULL_PASS",
+    "publication": "PUBLISHED",
+    "frozen": false,
+    "release": "NOT_ACCEPTED"
+  },
+  "source68": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-billing-search-review-checkpoint.json",
+    "claim": 6252658014,
+    "status": "PAR103_INDIVIDUAL_PARTIAL_REVIEW_PUBLISHED",
+    "sha": "9c2aac6e78fba83785cf47cc1457e40ddd3b64ea",
+    "publication": "PUBLISHED"
+  },
+  "source69": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-billing-search-selection-checkpoint.json",
+    "status": "PUBLISHED_OWN111_BUILD66_VISUAL_PARTIAL",
+    "sha": "4964b61330e7f3abeb86349c9c3cb1f9260ca728",
+    "publication": "PUBLISHED"
+  },
+  "source70": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-billing-selection-review-checkpoint.json",
+    "claim": 6252941414,
+    "status": "PAR103_INDIVIDUAL_PARTIAL_REVIEW_PUBLISHED",
+    "sha": "d6cca70f59307c69f0a8d88d4497d1cba25af55c",
+    "publication": "PUBLISHED"
+  },
+  "source71": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-billing-loaded-pages-checkpoint.json",
+    "status": "PUBLISHED_OWN18_BUILD66_VISUAL_PARTIAL",
+    "sha": "917f4a475477c2b8aa544fcca55badf87fc08b3f",
+    "publication": "PUBLISHED"
+  },
+  "source72": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-billing-list-filter-response-checkpoint.json",
+    "status": "PUBLISHED_OWN144_PLUS3_COMPLEMENT_FUNCTIONAL50_BUILD66_VISUAL_PARTIAL",
+    "sha": "afe91b013554a8035281962d752fec3f40037e2c",
+    "publication": "PUBLISHED"
+  },
+  "source73": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-billing-selected-customer-label-checkpoint.json",
+    "status": "PUBLISHED_OWN156_FUNCTIONAL50_BUILD66_VISUAL_PARTIAL",
+    "sha": "a33a0e1dd609d15ab78fea2fd1a2e8e3c41fe6d4",
+    "publication": "PUBLISHED"
+  },
+  "source74": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-c360-customer-name-wrap-checkpoint.json",
+    "status": "PUBLISHED_OWN68_UI_STYLE_ONLY_BUILD66_VISUAL_PARTIAL",
+    "sha": "db68a3713aaae5015bafa7d32342f4f508fb49d4",
+    "publication": "PUBLISHED"
+  },
+  "commercial_customer_full_coverage": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-commercial-customer-full-checkpoint.json",
+    "sha": "4964b61330e7f3abeb86349c9c3cb1f9260ca728",
+    "status": "OWN1806_FULL_PASS",
+    "publication": "PUBLISHED",
+    "frozen": false,
+    "release": "NOT_ACCEPTED"
+  },
+  "source75": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-c360-company-facts-wrap-checkpoint.json",
+    "status": "PUBLISHED_OWN77_UI_STYLE_ONLY_BUILD66_VISUAL_PARTIAL",
+    "sha": "194057f50a1d9d9ce60b8003065fa3c06cd7e5d3",
+    "publication": "PUBLISHED"
+  },
+  "source76": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-company-billing-review-checkpoint.json",
+    "claim": 6253455065,
+    "status": "INDIVIDUAL_COMPANY_BILLING_PARTIAL_REVIEW_PUBLISHED",
+    "sha": "17621f66a87c3461772e468aacf136361fbec2b2",
+    "publication": "PUBLISHED"
+  },
+  "source77": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-c360-contact-text-wrap-checkpoint.json",
+    "status": "PUBLISHED_OWN86_UI_STYLE_ONLY_BUILD66_VISUAL_PARTIAL",
+    "sha": "3124717317606ed013e1dd00e5cb4f4de0e3378e",
+    "publication": "PUBLISHED"
+  },
+  "commercial_filter_full_coverage": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-commercial-filter-full-checkpoint.json",
+    "sha": "afe91b013554a8035281962d752fec3f40037e2c",
+    "status": "OWN1842_FULL_PASS",
+    "publication": "PUBLISHED",
+    "frozen": false,
+    "release": "NOT_ACCEPTED"
+  },
+  "source78": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-billing-overdue-date-response-checkpoint.json",
+    "status": "PUBLISHED_OWN165_FUNCTIONAL49_PLUS2_COMPLEMENTARY_BUILD66_VISUAL_PARTIAL",
+    "sha": "988c0ba7842503740959dbab2bc099467527e788",
+    "publication": "PUBLISHED"
+  },
+  "source79": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-document-target-text-wrap-checkpoint.json",
+    "status": "PUBLISHED_OWN162_BUILD66_VISUAL_PARTIAL",
+    "sha": "46c51d1bb448cb790051a1e046de46932638249f",
+    "publication": "PUBLISHED"
+  },
+  "source80": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-assistant-customer-name-wrap-checkpoint.json",
+    "status": "PUBLISHED_OWN107_BUILD66_VISUAL_PARTIAL",
+    "sha": "7218b7bc6d3a079feb8b8f457edbf48045fa02a0",
+    "publication": "PUBLISHED"
+  },
+  "commercial_name_full_coverage": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-commercial-name-full-checkpoint.json",
+    "sha": "194057f50a1d9d9ce60b8003065fa3c06cd7e5d3",
+    "status": "OWN1869_FULL_PASS",
+    "publication": "PUBLISHED",
+    "frozen": false,
+    "release": "NOT_ACCEPTED"
+  },
+  "source81": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-assistant-panel-review-checkpoint.json",
+    "claim": 6254055437,
+    "status": "INDIVIDUAL_ASSISTANT_PANEL_PARTIAL_REVIEW_PUBLISHED",
+    "sha": "c44e5c57e713f78f67b894fbbbd46f55fefaeddc",
+    "publication": "PUBLISHED"
+  },
+  "source82": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-case-recovery-close-checkpoint.json",
+    "status": "PUBLISHED_OWN81_BUILD66_VISUAL_PARTIAL",
+    "sha": "4b0e19941fcf34946c5730b401493044c66831d5",
+    "publication": "PUBLISHED"
+  },
+  "source83": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-sim-recovery-close-checkpoint.json",
+    "status": "PUBLISHED_OWN297_BUILD66_VISUAL_PARTIAL",
+    "sha": "744c8c4430a59f8d835f9ec6f36578ca54adca39",
+    "publication": "PUBLISHED"
+  },
+  "source84": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-contract-recovery-close-checkpoint.json",
+    "status": "PUBLISHED_OWN117_BUILD66_VISUAL_PARTIAL",
+    "sha": "b4a8505ebaf97c5b23185d1e0c61c557eb450d5f",
+    "publication": "PUBLISHED"
+  },
+  "commercial_overdue_full_coverage": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-commercial-overdue-full-checkpoint.json",
+    "sha": "988c0ba7842503740959dbab2bc099467527e788",
+    "status": "OWN1887_FULL_PASS",
+    "publication": "PUBLISHED",
+    "frozen": false,
+    "release": "NOT_ACCEPTED"
+  },
+  "source85": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-contract-created-read-binding-checkpoint.json",
+    "status": "PUBLISHED_OWN141_BUILD66_VISUAL_PARTIAL",
+    "sha": "e7bc18e3f6d0ca0d18d966e99bae0f4571946314",
+    "publication": "PUBLISHED"
+  },
+  "source86": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-contract-create-read-retirement-checkpoint.json",
+    "status": "PUBLISHED_OWN156_BUILD66_VISUAL_PARTIAL",
+    "sha": "6ab61afddbf4a56b931cb54a1a98609ff7e295d4",
+    "publication": "PUBLISHED"
+  },
+  "commercial_context_full_coverage": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-commercial-context-full-checkpoint.json",
+    "sha": "7218b7bc6d3a079feb8b8f457edbf48045fa02a0",
+    "status": "OWN1908_FULL_PASS",
+    "publication": "PUBLISHED",
+    "frozen": false,
+    "release": "NOT_ACCEPTED"
+  },
+  "commercial_contract_lifetime_full_coverage": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-commercial-contract-lifetime-full-checkpoint.json",
+    "sha": "6ab61afddbf4a56b931cb54a1a98609ff7e295d4",
+    "status": "OWN2007_FULL_PASS",
+    "publication": "PUBLISHED",
+    "frozen": false,
+    "release": "NOT_ACCEPTED"
+  },
+  "source87": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-portability-recovery-close-checkpoint.json",
+    "status": "PUBLISHED_OWN177_BUILD66_VISUAL_PARTIAL",
+    "sha": "1fd0d94da7687881d073c24b6edd550d2e4a2cdd",
+    "publication": "PUBLISHED"
+  },
+  "source88": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-line-number-recovery-close-checkpoint.json",
+    "status": "PUBLISHED_OWN189_BUILD66_VISUAL_PARTIAL",
+    "sha": "ddf5501af84e91951349e7991cf013e6427cff2b",
+    "publication": "PUBLISHED"
+  },
+  "commercial_number_full_coverage": {
+    "checkpoint": "work/w2x-commercial-number-full-checkpoint.json",
+    "source": "ddf5501af84e91951349e7991cf013e6427cff2b",
+    "session": 53189,
+    "tests": 2043,
+    "files": 118,
+    "status": "OWN2043_FULL_PASS",
+    "dispatch": "TERMINAL",
+    "release": "NOT_ACCEPTED",
+    "next": "Continue useful independent W2 commercial unit;no repeat green without changed source or relevant failure.",
+    "publication": "PUBLISHED"
+  },
+  "source89": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-portability-recovery-review-checkpoint.json",
+    "claim": 6255173413,
+    "status": "INDIVIDUAL_PORTABILITY_RECOVERY_PARTIAL_REVIEW_PUBLISHED",
+    "sha": "2260d57543582969baeccde2e07b04b5c1c788a0",
+    "publication": "PUBLISHED"
+  },
+  "commercial_contract_full_coverage": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-commercial-contract-full-checkpoint.json",
+    "sha": "b4a8505ebaf97c5b23185d1e0c61c557eb450d5f",
+    "status": "OWN1968_FULL_PASS",
+    "publication": "PUBLISHED",
+    "frozen": false,
+    "release": "NOT_ACCEPTED"
+  },
+  "source90": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-sim-identifier-recovery-close-checkpoint.json",
+    "status": "PUBLISHED_OWN237_BUILD66_VISUAL_PARTIAL",
+    "sha": "8063adea3a187dae875c67152eec6cd65564c687",
+    "publication": "PUBLISHED"
+  },
+  "source91": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-portfolio-result-label-wrap-checkpoint.json",
+    "status": "PUBLISHED_OWN36_BUILD66_VISUAL_PARTIAL",
+    "sha": "b2e037e4d4e8f1a9877176eb5146830d2b4034b1",
+    "publication": "PUBLISHED"
+  },
+  "source92": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-portfolio-selected-title-wrap-checkpoint.json",
+    "status": "PUBLISHED_OWN282_BUILD66_VISUAL_PARTIAL",
+    "sha": "f20dfd511bb36e5064761d27b303cba3b3c89e2f",
+    "publication": "PUBLISHED"
+  },
+  "commercial_drawer_full_coverage": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-commercial-drawer-full-checkpoint.json",
+    "sha": "f20dfd511bb36e5064761d27b303cba3b3c89e2f",
+    "status": "OWN2109_FULL_PASS",
+    "publication": "PUBLISHED",
+    "frozen": false,
+    "release": "NOT_ACCEPTED"
+  },
+  "commercial_mobile_product_full_coverage": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-commercial-mobile-product-full-checkpoint.json",
+    "sha": "8d1f8e6bb73056f8f0dafde1479f63591e165a4b",
+    "status": "OWN2139_FULL_PASS",
+    "publication": "PUBLISHED",
+    "frozen": false,
+    "release": "NOT_ACCEPTED"
+  },
+  "commercial_collection_full_coverage": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-commercial-collection-full-checkpoint.json",
+    "sha": "b84295e96a4396d0e3691407bac11eace28c53fe",
+    "status": "OWN2172_FULL_PASS",
+    "publication": "PUBLISHED",
+    "frozen": false,
+    "release": "NOT_ACCEPTED"
+  },
+  "commercial_customer_journey_full_coverage": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-commercial-customer-journey-full-checkpoint.json",
+    "sha": "f48425b5d30a071049392486ba669bd23cfa5044",
+    "status": "OWN2214_FULL_PASS",
+    "publication": "PUBLISHED",
+    "frozen": false,
+    "release": "NOT_ACCEPTED"
+  },
+  "commercial_document_recovery_full_coverage": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-commercial-document-recovery-full-checkpoint.json",
+    "sha": "5e364a786015d5b627ed2ba1dff7158e136189b4",
+    "status": "OWN2256_FULL_PASS",
+    "publication": "PUBLISHED",
+    "frozen": false,
+    "release": "NOT_ACCEPTED"
+  }
+}

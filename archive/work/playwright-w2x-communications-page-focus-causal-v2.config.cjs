@@ -1,0 +1,1 @@
+const p=require('./playwright-w2x-domain-retry-focus-final.config.cjs');module.exports={...p,testMatch:['communications-page-focus.spec.ts'],outputDir:require('node:path').resolve(__dirname,'w2x-communications-page-focus-causal-v2-results')}

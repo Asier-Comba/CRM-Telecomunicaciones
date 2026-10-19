@@ -1,0 +1,70 @@
+{
+  "utc": "2026-10-14T11:30:05.212582+00:00",
+  "work": "W2-X",
+  "claim": 6167049367,
+  "path": "${WORKSPACE}\\work\\crm-w2x-document-upload-uncertain",
+  "branch": "codex/w2x-dashboard-current-day-20261014",
+  "base": "60c81396e20ba368ce07f141aaa081c9846c794e",
+  "status": "OWN39_BUILD66_LINT_SCAN_PASS_AUTH_NOT_RUN",
+  "published": true,
+  "product_modified": true,
+  "release": "NOT_ACCEPTED",
+  "next": "COMPOSE33DC_WITHA21_NEW611_NO_INHERITANCE",
+  "session": 18765,
+  "gate": "w2x-invoice-document-composition-browser-exit.txt",
+  "preflight_lint": "PASS",
+  "expected_unmeasured": {
+    "new_browser": 30,
+    "regressions": 9
+  },
+  "original_failure": "w2x-dashboard-current-day-original-repro.txt",
+  "sha": "a21bdabe9e3c3b14c040803075515fb97ebb3be4",
+  "tree": "39bacb2eee3d41473cda530be31c67b98d961578",
+  "clean": true,
+  "handoff": 6167308609,
+  "checks": {
+    "controlled_http": 39,
+    "lint": "PASS",
+    "build": "PASS66",
+    "scan": "PASS",
+    "visual": "THREE_OWN_FRAMES_VIEWED_PARTIAL",
+    "auth_db": "NOT_RUN",
+    "storage": "NOT_RUN",
+    "model": "NOT_RUN"
+  },
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-dashboard-current-day-original-repro.txt",
+      "sha256": "c784f2adbeb9f03bb200fbb58deb1853fd169658078d4cfe0d7a1326cb4c9678"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-dashboard-current-day-browser.txt",
+      "sha256": "8a8e0877468423db7f0e675dc5b8fd62fcede00f82e4924b5475c61ac986dc7c"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-dashboard-current-day-lint.txt",
+      "sha256": "dda21574b74ba6a9edea377d67b00a3846ea8ae6ee11171eb3102a4a59f30d98"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-dashboard-current-day-build.txt",
+      "sha256": "cb1700a9ef40d1e24729e34a571d0eb7f21ab4cadfb9bf00859c79aefde3c1c7"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-dashboard-current-day-scan.txt",
+      "sha256": "a375f1d324b77b099ae363b136eb3efb2008fd78ec8c2965152207f6e86099c5"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-dashboard-current-day-fixed-results\\dashboard-current-day-dash-8a9ad-rrent-day-summer-my-at-1440\\dashboard-current-day-summer-my-1440.png",
+      "sha256": "5c5b9ec7d63ac57b413ad2dd6fb260950ba50fa44fdfc25f12110ab85b20d304"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-dashboard-current-day-fixed-results\\dashboard-current-day-dashboard-current-day-summer-my-at-390\\dashboard-current-day-summer-my-390.png",
+      "sha256": "e34f1359ec7adcf04890d323c51bf1481ef1839558d5cd6e41b033ede5b66453"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-dashboard-current-day-fixed-results\\dashboard-current-day-dashboard-current-day-summer-my-at-768\\dashboard-current-day-summer-my-768.png",
+      "sha256": "129292007103d2ca3b7ff222f412efdfa499c4e34f0455476b1b42a5215e6e2e"
+    }
+  ],
+  "bundle_sha256": "c924d5a1cbef56961e1767fd438fddc122af6e9fc0d54175189dc132d14aa00a"
+}

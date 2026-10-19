@@ -1,0 +1,1 @@
+const p=require('./playwright-w2x-customer-attention-context-final.config.cjs');module.exports={...p,testMatch:['billing-customer-filter.spec.ts'],grep:/at 1440$/,outputDir:require('node:path').resolve(__dirname,'w2x-billing-customer-filter-causal-results')}

@@ -1,0 +1,1 @@
+const p=require('./playwright-w2x-billing-draft-receipt.config.cjs');module.exports={...p,testMatch:['billing-exact-save.spec.ts','billing-draft-receipt.spec.ts','billing-draft-registered.spec.ts','billing-proposal-review-commercial.spec.ts'],outputDir:require('node:path').resolve(__dirname,'w2x-billing-exact-save-final-results')}

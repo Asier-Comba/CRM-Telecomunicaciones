@@ -1,0 +1,1 @@
+const p=require('./playwright-w2x-commercial-customer-journey-full.config.cjs');module.exports={...p,testMatch:[...p.testMatch,'collection-page-error-back.spec.ts','communications-customer-scope.spec.ts','customer-documents-read-recovery.spec.ts'],outputDir:require('node:path').resolve(__dirname,'w2x-commercial-document-recovery-full-results')}

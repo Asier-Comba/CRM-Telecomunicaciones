@@ -1,0 +1,1 @@
+const p=require('./playwright-w2x-billing-read-error-final.config.cjs');module.exports={...p,testMatch:['billing-proposal-review-commercial.spec.ts'],outputDir:require('node:path').resolve(__dirname,'w2x-proposal-review-commercial-results')}

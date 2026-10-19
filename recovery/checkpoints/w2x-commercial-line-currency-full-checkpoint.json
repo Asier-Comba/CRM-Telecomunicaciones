@@ -1,0 +1,122 @@
+{
+  "claim": 6204361588,
+  "sha": "2741fb82047534ecdf27044f25514f0d690b69e3",
+  "tree": "00fe47b03c5cd68b64bb6038b3df7ec5177de4d5",
+  "branch": "codex/w2x-line-context-retirement-20261015",
+  "status": "SAME_SHA_COMPLEMENTARY1253_PLUS13_PASS_ORIGINAL1266_FAILURE_PRESERVED",
+  "browser_status": "FAIL_OR_INCOMPLETE_PRESERVED",
+  "browser_exit": 1,
+  "browser_summary": [
+    "13 failed",
+    "1253 passed (28.4m)"
+  ],
+  "source_clean": true,
+  "own_source_checks": {
+    "browser": "330_PASS_OWN_SOURCE",
+    "visual": "NOT_REVIEWED_CURRENT_SHA",
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN",
+    "paid_api": 0,
+    "build": "66_PASS",
+    "lint": "EXIT0_WARNINGS_RETAINED_IN_LOG",
+    "scan": "PASS",
+    "global": "NOT_RUN_CURRENT_SHA"
+  },
+  "release": "NOT_ACCEPTED",
+  "next": "Publish same-source13 complementary closure then resume first1311 dispatch from repository CWD;original1266 failure remains",
+  "known_remaining_defects": "NOT_RECONCILED_FOR_WHOLE_PRODUCT",
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-commercial-line-currency-full-collection.txt",
+      "sha256": "341332ff8fcf9b4ffa5556f14bdbdc6e3993c740f72779c232296e6f66e29d37"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-commercial-line-currency-full-browser.txt",
+      "sha256": "8f07b387af9a0bd8d801439b5728c97fe8134cc272d09f1e66ba061c4bcb2cf1"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-line-context-retirement-browser.txt",
+      "sha256": "1d08c0bbe97501179eda6b73818a8125c9d412f69be54ef88493b972946537b7"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-line-context-retirement-lint.txt",
+      "sha256": "91a5c63f9a9a0a42f92a00caa38da32336b62b940ccf4738d08ef97c55d9996c"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-line-context-retirement-build.txt",
+      "sha256": "a4eed19dc1dcf82ec934a39bd887a6e98f5ea6ece782ee6193c8e5be66a1cf47"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-line-context-retirement-scan.txt",
+      "sha256": "e7bff81e578f522a18876812341e13ebee54b6bafcc2546fc251fab5f2eaa8cc"
+    }
+  ],
+  "publication": "PUBLISHED",
+  "handoffs": [
+    {
+      "issue": 67,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6213269102",
+      "id": 6213269102
+    },
+    {
+      "issue": 153,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6213269380",
+      "id": 6213269380
+    },
+    {
+      "issue": 38,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6213269623",
+      "id": 6213269623
+    },
+    {
+      "issue": 142,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6213269849",
+      "id": 6213269849
+    }
+  ],
+  "full_single_run": "FAIL1253PASS13FAIL_EXIT1",
+  "launcher_cause": "Coordinator root CWD; child path under coordinator/tests nonexistent and React resolve paths at coordinator absent. Test launch used root, unlike repository CWD of prior full runner. No assertions changed.",
+  "failed13_recheck": {
+    "status": "PASS13_SAME_SHA_ORIGINAL_FAILED_ONLY",
+    "duration": "16.1s",
+    "browser_exit": 0,
+    "session": 16330,
+    "collection": 13,
+    "files": 2,
+    "original_log_sha256": "8f07b387af9a0bd8d801439b5728c97fe8134cc272d09f1e66ba061c4bcb2cf1",
+    "evidence": [
+      {
+        "path": "work\\w2x-commercial-line-currency-failed13-collection.txt",
+        "sha256": "49c1cc0791191099cffd6548985ac1dcf77b53068bc7c7c45e3295f163a14fa4"
+      },
+      {
+        "path": "work\\w2x-commercial-line-currency-failed13-browser.txt",
+        "sha256": "69e0cce51dbb7144bfc2b08dcf587b8feaeca97316afca5fa5eb8f31148e1a86"
+      }
+    ],
+    "source": "2741fb82047534ecdf27044f25514f0d690b69e3",
+    "handoffs": [
+      {
+        "id": 6213328876,
+        "issue": 67,
+        "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6213328876"
+      },
+      {
+        "id": 6213329129,
+        "issue": 153,
+        "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6213329129"
+      },
+      {
+        "id": 6213329390,
+        "issue": 38,
+        "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6213329390"
+      },
+      {
+        "id": 6213329649,
+        "issue": 142,
+        "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6213329649"
+      }
+    ],
+    "publication": "PUBLISHED"
+  }
+}

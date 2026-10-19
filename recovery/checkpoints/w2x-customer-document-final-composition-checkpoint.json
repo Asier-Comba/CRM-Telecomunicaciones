@@ -1,0 +1,100 @@
+{
+  "utc": "2026-10-14T10:39:37.762273+00:00",
+  "work": "W2-X",
+  "claim": 6166110290,
+  "claim_correction": 6166155412,
+  "path": "${WORKSPACE}\\work\\crm-w2x-commercial-composition",
+  "branch": "codex/w2x-customer-document-final-composition-20261014",
+  "source": "b523219c81f5e69e35cdb5da251cd108cc51d82e",
+  "tree": "ac8394c78450cde010c49042423f06be4f0489c9",
+  "parents": [
+    "1fcbcc11c5799ef812c53c213c33fc471f28001c",
+    "363f5ccd2077af1f8db4cc30254f5c00b576a2b4"
+  ],
+  "published": true,
+  "clean": true,
+  "status": "OWN539_BUILD66_LINT_QUEUE_SCAN_PASS_AUTH_NOT_RUN",
+  "expected_unmeasured": {
+    "controlled_http": 539,
+    "remote_preview": 1278,
+    "auth_db": 122
+  },
+  "checks": {
+    "queue": "342_14PARTIAL_328UNRECONCILED_0READY",
+    "scan": "PASS",
+    "controlled_http": 539,
+    "lint": "PASS",
+    "build": "PASS66",
+    "auth_db": "NOT_RUN"
+  },
+  "preserved_failed_composition": "${WORKSPACE}\\work\\w2x-document-commercial-composition-checkpoint.json",
+  "release": "NOT_ACCEPTED",
+  "model": "NOT_RUN",
+  "next": "CONTINUE_CLAIM6166236481_DOCUMENT_LIFETIME_KEEP3C7_FAILURE_UNKNOWN",
+  "remote_collection": {
+    "source": "b523219c81f5e69e35cdb5da251cd108cc51d82e",
+    "kind": "COLLECTION_ONLY_NOT_EXECUTION",
+    "total_collected": 1278,
+    "project_counts": {
+      "desktop": 639,
+      "mobile": 639
+    },
+    "same_case_set": true,
+    "unique_cases": true,
+    "workers": 1,
+    "retries": 0,
+    "timeout": 180000,
+    "manifest_sha256": "ce107faba5bd5312aa7d96b5248371e1979708328d210a2133779a234cc14c5c",
+    "execution": "NOT_RUN",
+    "auth_expected": 122,
+    "auth_execution": "NOT_RUN"
+  },
+  "handoff": 6166452679,
+  "bundle_sha256": "0490ce6d576a60e79961249104a4ab7298018bff5f159d77bcb9cf66b3ea8bf1",
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-document-final-composition-browser.txt",
+      "sha256": "8477ca03b52516bf4ffd7692e6c617d7ea33f6ff4861eda02bd2028e4082f37b"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-document-final-composition-lint.txt",
+      "sha256": "dda21574b74ba6a9edea377d67b00a3846ea8ae6ee11171eb3102a4a59f30d98"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-document-final-composition-build.txt",
+      "sha256": "74d9630599021320c96921369870d58fc647c641dde05d2eb759c9ad68b1d4a8"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-document-final-composition-queue.txt",
+      "sha256": "427c92dbd6ed24f775d19b1f116df500ed344ff9e3720b5740189da25677e225"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-document-final-composition-scan.txt",
+      "sha256": "1a08d3f6471950bca6090ac289a4bc6d48c4b9d93349b70477607fa2dbad8d98"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-b523-remote-preview-inventory.json",
+      "sha256": "0d5496a3d70e68c1e7564edc13434f943f30fda2323f7d97a8a494f1f521a478"
+    }
+  ],
+  "visual_review": {
+    "utc": "2026-10-14T10:50:30.133555+00:00",
+    "source": "b523219c81f5e69e35cdb5da251cd108cc51d82e",
+    "status": "THREE_CURRENT_SOURCE_FRAMES_VIEWED_PARTIAL",
+    "scope": "contract selector390/768/1440: operator visible, complete heading wraps, no horizontal overflow visible; empty document collection only, no upload/download acceptance",
+    "frames": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-customer-document-final-composition-results\\document-contract-selectio-69c26-ent-contracts-labels-at-390\\document-contract-labels-390.png",
+        "sha256": "cb660dafac7c1eba1d97980f65c0a98635ea6cfa1e48d82b7d7f9a20a44ab0a3"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-customer-document-final-composition-results\\document-contract-selectio-92416-nt-contracts-labels-at-1440\\document-contract-labels-1440.png",
+        "sha256": "2f2ff7f66341bfe9f6c72494e9c4ed6c493eacfb2e8d17b4530a5ba932bf4402"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-customer-document-final-composition-results\\document-contract-selectio-cc40e-ent-contracts-labels-at-768\\document-contract-labels-768.png",
+        "sha256": "3c808cf3131faf20472c0f3ce56d5f7d875f7f9aadd8572f2fdcdfda436b72c4"
+      }
+    ]
+  }
+}

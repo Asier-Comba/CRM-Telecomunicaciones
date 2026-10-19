@@ -1,0 +1,1 @@
+const p=require('./playwright-w2x-customer-list-name-wrap-final.config.cjs');module.exports={...p,testMatch:['customer-list-filter-priority.spec.ts'],outputDir:require('node:path').resolve(__dirname,'w2x-customer-list-filter-priority-row-probe-results')}

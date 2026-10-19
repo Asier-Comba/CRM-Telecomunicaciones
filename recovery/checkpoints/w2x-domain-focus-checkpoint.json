@@ -1,0 +1,56 @@
+{
+  "utc": "2026-10-14T03:55:12.917391+00:00",
+  "work": "W2-X",
+  "claim": 6160440164,
+  "handoff": 6160520934,
+  "path": "${WORKSPACE}\\work\\crm-w2x-document-upload-uncertain",
+  "branch": "codex/w2x-domain-page-focus-20261014",
+  "sha": "856cd3e83feaf5c0b567bff54de9f83f91346e93",
+  "tree": "741069c355ffcad640beb4e90e0465ef23896833",
+  "published": true,
+  "clean": true,
+  "status": "OWN_DOMAIN_FOCUS_6_BROWSER_BUILD66_PASS_FULL_COMPOSITION_CONTROLS_PENDING",
+  "checks": {
+    "new_focus_browser": 3,
+    "existing_scope_regressions": 3,
+    "total": 6,
+    "build": "PASS66",
+    "lint": "PASS",
+    "gitleaks": "PASS",
+    "physical_original_assertions": "BYTE_EXACT_AFTER_ONE_ADDED_FOCUS_ASSERTION",
+    "auth": "NOT_RUN_NEW_SCOPE",
+    "model": "NOT_RUN"
+  },
+  "visual": {
+    "scope": "CONTROLLED_HTTP_UI_NOT_AUTH_DB",
+    "images": [
+      {
+        "width": 390,
+        "path": "${WORKSPACE}\\work\\w2x-domain-focus-loaded-390.png",
+        "sha256": "e426ae45e1d5a01314e0ce5495a2a708ea0b515b10821d4c266b3f314fb5fb8d"
+      },
+      {
+        "width": 768,
+        "path": "${WORKSPACE}\\work\\w2x-domain-focus-loaded-768.png",
+        "sha256": "48a3677f5601fa688aec8b0c4f0f78a5a2b2892cb248d8c7d568150761706df3"
+      },
+      {
+        "width": 1440,
+        "path": "${WORKSPACE}\\work\\w2x-domain-focus-loaded-1440.png",
+        "sha256": "234dca2ef86768e7c421f02dc3312dfe3e3d8a69a5fc5568a518624cf58e4851"
+      }
+    ]
+  },
+  "parent_case_composition": "${WORKSPACE}\\work\\w2x-case-document-composition-checkpoint.json",
+  "candidate_expected": {
+    "local": 256,
+    "preview": 712,
+    "auth": 115,
+    "counts": "EXPECTED_UNTIL_MEASURED"
+  },
+  "bundle_sha256": "e7ec7755d86640c380665e4aff6a3e2a111a2516a9498cec8199ffe0dac6a1d1",
+  "next": "FULL256_LOCAL_CURRENT856_RUNNING;PREVIOUS_E345_CLOSED_115_700_1430;THEN_PUBLISH_EXISTING153_CANDIDATE856_WITH_NEW712_AUTH115_CONTROLS_NO_PASS_INHERITANCE",
+  "release": "NOT_ACCEPTED",
+  "five_high": "UNRESOLVED",
+  "ai_writes": "OFF"
+}

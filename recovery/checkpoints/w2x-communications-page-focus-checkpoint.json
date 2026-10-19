@@ -1,0 +1,565 @@
+{
+  "unit": 106,
+  "claim": 6256801949,
+  "branch": "codex/w2x-communications-page-focus-20261019",
+  "base": "2560ceb3e4c1ec254eba04671a3d46194e8b30e4",
+  "status": "PUBLISHED_OWN21_BUILD66_VISUAL_PARTIAL",
+  "publication": "PUBLISHED",
+  "product_changed": true,
+  "release": "NOT_ACCEPTED",
+  "checks": {
+    "browser": "21_PASS_OWN_SOURCE",
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN",
+    "paid_api": 0,
+    "global": "NOT_RUN_CURRENT_SHA",
+    "functional": "NOT_RUN_UI_PRESENTATION_ONLY",
+    "build": "66_PASS",
+    "lint": "EXIT0_WARNINGS_PRESERVED",
+    "scan": "PASS"
+  },
+  "matrix": {
+    "total": 342,
+    "reviewed_partial": 33,
+    "unreconciled": 309,
+    "release_ready": 0
+  },
+  "failures": [
+    {
+      "kind": "FIXTURE_SELECTOR_FAILURE_NOT_PRODUCT_REPRODUCTION",
+      "original": "4FAILbeforecausalassertions",
+      "log": "work/w2x-communications-page-focus-causal.txt",
+      "results": "work/w2x-communications-page-focus-causal-results",
+      "bank": "work/w2x-communications-page-focus-causal-bank.ts",
+      "cause": "role=status also matches two fixture output elements;scope selector toloadingtext,keep originalassertion. Product unchangedbeforev2."
+    }
+  ],
+  "next": "Continue independent commercial unit after fresh CLAIM. Preserve2139source97/2172source102FIFO;source106globalNOT_RUN,noinheritedPASS.",
+  "working_head": "f48425b5d30a071049392486ba669bd23cfa5044",
+  "clean": true,
+  "causal": {
+    "failed": 3,
+    "passed": 1,
+    "duration": "1 passed (47.5s)",
+    "width": 390,
+    "scope": "Correctedselector;product unchangedbeforecausalv2;newbankfinal12otherwidthsnotpreviouslyreproduced"
+  },
+  "browser_summary": "21 passed (35.2s)",
+  "controls_session": 26832,
+  "visual_review": {
+    "status": "ACTUALLY_VIEWED",
+    "scope": "12linkedcommunications paginationframes success/denied/chosen/empty3907681440;one syntheticterminalpage/record21;notallconversations/roles/Nextnavigation/a11yacceptance",
+    "frames": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-communications-page-focus-final-results\\communications-page-focus--0cb7b-s-page-focus-chosen-at-1440\\communications-page-focus-chosen-1440.png",
+        "sha256": "0bf2c532dd187809a6bc50f3cf7144525dff3bc5fd87b9bbe55b10b5809b104d"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-communications-page-focus-final-results\\communications-page-focus--24459-s-page-focus-success-at-390\\communications-page-focus-success-390.png",
+        "sha256": "14b052b54e5022e40f3230f8c1c6d496296c20b1642e3f227cf87be1357ad26d"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-communications-page-focus-final-results\\communications-page-focus--47d42-ns-page-focus-chosen-at-768\\communications-page-focus-chosen-768.png",
+        "sha256": "63470d8c410d3c305f3f3da4761a205248a255e0001d2b39f3accd431329e3ad"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-communications-page-focus-final-results\\communications-page-focus--48be9-ons-page-focus-empty-at-768\\communications-page-focus-empty-768.png",
+        "sha256": "4fe1624ab991def57e344ed1c7fd41e88e6f5b402bbfde8f8ea9b813ff7a9c9d"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-communications-page-focus-final-results\\communications-page-focus--77963-ns-page-focus-denied-at-768\\communications-page-focus-denied-768.png",
+        "sha256": "54563324a8e663c079b239059c3149c8e7ecdef527a8eb920420175d2d5e4cef"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-communications-page-focus-final-results\\communications-page-focus--a4cdd-ns-page-focus-chosen-at-390\\communications-page-focus-chosen-390.png",
+        "sha256": "5a50e6c0f18cb84e8666d8a27b1c717d757eef85120436312c5826257dee45af"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-communications-page-focus-final-results\\communications-page-focus--ad3de-ns-page-focus-empty-at-1440\\communications-page-focus-empty-1440.png",
+        "sha256": "b679cb665fffa29dce553144c26474b9a972ebf4294a1e2d4b5e87d08dc37cb2"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-communications-page-focus-final-results\\communications-page-focus--c0351-ons-page-focus-empty-at-390\\communications-page-focus-empty-390.png",
+        "sha256": "c5650fda2aeccebafa2a9b8f88bdfb51c81bcd2fbfdca29dc9059868474b2e9d"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-communications-page-focus-final-results\\communications-page-focus--c4506-s-page-focus-denied-at-1440\\communications-page-focus-denied-1440.png",
+        "sha256": "4d67e69d77c26bdc48b7966e0c3190def390393c2c6fb9ccb50d5db9bfd0d697"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-communications-page-focus-final-results\\communications-page-focus--ccd20-ns-page-focus-denied-at-390\\communications-page-focus-denied-390.png",
+        "sha256": "fd2c7628758c681eed8dd661cdb2bc6d68ff5130832f15f80017ed52846f2c68"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-communications-page-focus-final-results\\communications-page-focus--e48ad-s-page-focus-success-at-768\\communications-page-focus-success-768.png",
+        "sha256": "69a1065858c1b986929a2fdba971b3b22d7ccb48c4c5a91d9932b7652826e757"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-communications-page-focus-final-results\\communications-page-focus--f2b6e--page-focus-success-at-1440\\communications-page-focus-success-1440.png",
+        "sha256": "ad6da7f051812c6ea91cc15ec1c87529ef511404110f1c1128e29c46c94b32a5"
+      }
+    ]
+  },
+  "observations": [
+    {
+      "width": 1440,
+      "mode": "chosen",
+      "focus": {
+        "tag": "BUTTON",
+        "text": "Actualizar comunicaciones",
+        "body": false
+      },
+      "interaction": "LINKED_CONVERSATION_PAGINATION_FOCUS_AND_CHOSEN_CONTROL",
+      "reads": [
+        {
+          "operation": "inbox.list",
+          "input": {
+            "limit": 20
+          }
+        },
+        {
+          "operation": "inbox.list",
+          "input": {
+            "limit": 20,
+            "after_id": "20000000-0000-4000-8000-000000000020"
+          }
+        }
+      ],
+      "commands": [],
+      "unexpected": [],
+      "errors": []
+    },
+    {
+      "width": 390,
+      "mode": "success",
+      "focus": {
+        "tag": "SPAN",
+        "text": "Página 2",
+        "body": false
+      },
+      "interaction": "LINKED_CONVERSATION_PAGINATION_FOCUS_AND_CHOSEN_CONTROL",
+      "reads": [
+        {
+          "operation": "inbox.list",
+          "input": {
+            "limit": 20
+          }
+        },
+        {
+          "operation": "inbox.list",
+          "input": {
+            "limit": 20,
+            "after_id": "20000000-0000-4000-8000-000000000020"
+          }
+        }
+      ],
+      "commands": [],
+      "unexpected": [],
+      "errors": []
+    },
+    {
+      "width": 768,
+      "mode": "chosen",
+      "focus": {
+        "tag": "BUTTON",
+        "text": "Actualizar comunicaciones",
+        "body": false
+      },
+      "interaction": "LINKED_CONVERSATION_PAGINATION_FOCUS_AND_CHOSEN_CONTROL",
+      "reads": [
+        {
+          "operation": "inbox.list",
+          "input": {
+            "limit": 20
+          }
+        },
+        {
+          "operation": "inbox.list",
+          "input": {
+            "limit": 20,
+            "after_id": "20000000-0000-4000-8000-000000000020"
+          }
+        }
+      ],
+      "commands": [],
+      "unexpected": [],
+      "errors": []
+    },
+    {
+      "width": 768,
+      "mode": "empty",
+      "focus": {
+        "tag": "SPAN",
+        "text": "Página 2",
+        "body": false
+      },
+      "interaction": "LINKED_CONVERSATION_PAGINATION_FOCUS_AND_CHOSEN_CONTROL",
+      "reads": [
+        {
+          "operation": "inbox.list",
+          "input": {
+            "limit": 20
+          }
+        },
+        {
+          "operation": "inbox.list",
+          "input": {
+            "limit": 20,
+            "after_id": "20000000-0000-4000-8000-000000000020"
+          }
+        }
+      ],
+      "commands": [],
+      "unexpected": [],
+      "errors": []
+    },
+    {
+      "width": 768,
+      "mode": "denied",
+      "focus": {
+        "tag": "P",
+        "text": "No se pudo completar la acción.",
+        "body": false
+      },
+      "interaction": "LINKED_CONVERSATION_PAGINATION_FOCUS_AND_CHOSEN_CONTROL",
+      "reads": [
+        {
+          "operation": "inbox.list",
+          "input": {
+            "limit": 20
+          }
+        },
+        {
+          "operation": "inbox.list",
+          "input": {
+            "limit": 20,
+            "after_id": "20000000-0000-4000-8000-000000000020"
+          }
+        }
+      ],
+      "commands": [],
+      "unexpected": [],
+      "errors": []
+    },
+    {
+      "width": 390,
+      "mode": "chosen",
+      "focus": {
+        "tag": "BUTTON",
+        "text": "Actualizar comunicaciones",
+        "body": false
+      },
+      "interaction": "LINKED_CONVERSATION_PAGINATION_FOCUS_AND_CHOSEN_CONTROL",
+      "reads": [
+        {
+          "operation": "inbox.list",
+          "input": {
+            "limit": 20
+          }
+        },
+        {
+          "operation": "inbox.list",
+          "input": {
+            "limit": 20,
+            "after_id": "20000000-0000-4000-8000-000000000020"
+          }
+        }
+      ],
+      "commands": [],
+      "unexpected": [],
+      "errors": []
+    },
+    {
+      "width": 1440,
+      "mode": "empty",
+      "focus": {
+        "tag": "SPAN",
+        "text": "Página 2",
+        "body": false
+      },
+      "interaction": "LINKED_CONVERSATION_PAGINATION_FOCUS_AND_CHOSEN_CONTROL",
+      "reads": [
+        {
+          "operation": "inbox.list",
+          "input": {
+            "limit": 20
+          }
+        },
+        {
+          "operation": "inbox.list",
+          "input": {
+            "limit": 20,
+            "after_id": "20000000-0000-4000-8000-000000000020"
+          }
+        }
+      ],
+      "commands": [],
+      "unexpected": [],
+      "errors": []
+    },
+    {
+      "width": 390,
+      "mode": "empty",
+      "focus": {
+        "tag": "SPAN",
+        "text": "Página 2",
+        "body": false
+      },
+      "interaction": "LINKED_CONVERSATION_PAGINATION_FOCUS_AND_CHOSEN_CONTROL",
+      "reads": [
+        {
+          "operation": "inbox.list",
+          "input": {
+            "limit": 20
+          }
+        },
+        {
+          "operation": "inbox.list",
+          "input": {
+            "limit": 20,
+            "after_id": "20000000-0000-4000-8000-000000000020"
+          }
+        }
+      ],
+      "commands": [],
+      "unexpected": [],
+      "errors": []
+    },
+    {
+      "width": 1440,
+      "mode": "denied",
+      "focus": {
+        "tag": "P",
+        "text": "No se pudo completar la acción.",
+        "body": false
+      },
+      "interaction": "LINKED_CONVERSATION_PAGINATION_FOCUS_AND_CHOSEN_CONTROL",
+      "reads": [
+        {
+          "operation": "inbox.list",
+          "input": {
+            "limit": 20
+          }
+        },
+        {
+          "operation": "inbox.list",
+          "input": {
+            "limit": 20,
+            "after_id": "20000000-0000-4000-8000-000000000020"
+          }
+        }
+      ],
+      "commands": [],
+      "unexpected": [],
+      "errors": []
+    },
+    {
+      "width": 390,
+      "mode": "denied",
+      "focus": {
+        "tag": "P",
+        "text": "No se pudo completar la acción.",
+        "body": false
+      },
+      "interaction": "LINKED_CONVERSATION_PAGINATION_FOCUS_AND_CHOSEN_CONTROL",
+      "reads": [
+        {
+          "operation": "inbox.list",
+          "input": {
+            "limit": 20
+          }
+        },
+        {
+          "operation": "inbox.list",
+          "input": {
+            "limit": 20,
+            "after_id": "20000000-0000-4000-8000-000000000020"
+          }
+        }
+      ],
+      "commands": [],
+      "unexpected": [],
+      "errors": []
+    },
+    {
+      "width": 768,
+      "mode": "success",
+      "focus": {
+        "tag": "SPAN",
+        "text": "Página 2",
+        "body": false
+      },
+      "interaction": "LINKED_CONVERSATION_PAGINATION_FOCUS_AND_CHOSEN_CONTROL",
+      "reads": [
+        {
+          "operation": "inbox.list",
+          "input": {
+            "limit": 20
+          }
+        },
+        {
+          "operation": "inbox.list",
+          "input": {
+            "limit": 20,
+            "after_id": "20000000-0000-4000-8000-000000000020"
+          }
+        }
+      ],
+      "commands": [],
+      "unexpected": [],
+      "errors": []
+    },
+    {
+      "width": 1440,
+      "mode": "success",
+      "focus": {
+        "tag": "SPAN",
+        "text": "Página 2",
+        "body": false
+      },
+      "interaction": "LINKED_CONVERSATION_PAGINATION_FOCUS_AND_CHOSEN_CONTROL",
+      "reads": [
+        {
+          "operation": "inbox.list",
+          "input": {
+            "limit": 20
+          }
+        },
+        {
+          "operation": "inbox.list",
+          "input": {
+            "limit": 20,
+            "after_id": "20000000-0000-4000-8000-000000000020"
+          }
+        }
+      ],
+      "commands": [],
+      "unexpected": [],
+      "errors": []
+    }
+  ],
+  "candidate_fingerprints": [
+    {
+      "path": "src/features/customers/CustomerCommunications.tsx",
+      "sha256_utf8_lf": "09dd1c6e23d319cdb06cc15828f0dc510d0dc276f9748d60c935ed6926c179ee"
+    },
+    {
+      "path": "tests/e2e-preview/communications-page-focus.spec.ts",
+      "sha256_utf8_lf": "788fe9fdf97be4a35af8416f2fa9da7958207700dc8a8f392b9c7f0290234279"
+    },
+    {
+      "path": "tests/e2e-preview/fixtures/customer-resource-entry.tsx",
+      "sha256_utf8_lf": "e5067691e928f7d147a7de72f40e70c4291f8571cbdb7e8bfc1a8727c2577f59"
+    },
+    {
+      "path": "docs/master/W2X_COMMUNICATIONS_PAGE_FOCUS_20261019.md",
+      "sha256_utf8_lf": "ecf3ebdda417b7695a2d8e2d0a061600e6137c423172d5f0545c2e4b2fa0c603"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-communications-page-focus-browser-exit.txt",
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-communications-page-focus-browser.txt",
+      "sha256": "e32ac34bcee1b6e3c26eb455ab226f81c14a1763e2ac92bc8787b53af9823783"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-communications-page-focus-build-exit.txt",
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-communications-page-focus-build.txt",
+      "sha256": "9f519f2f8165e9dd70905befc90a9fce6229d651436bd8fad9f1ebd17b19d81d"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-communications-page-focus-causal-exit.txt",
+      "sha256": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-communications-page-focus-causal-v2-exit.txt",
+      "sha256": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-communications-page-focus-causal-v2.txt",
+      "sha256": "51e76a6988a43092ba5ba826f191c8199dcfa5b5274f6b51814a11e9c26e52b2"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-communications-page-focus-causal.txt",
+      "sha256": "8ebfccd2bceed85c82d3ec863b568a8907f124c9d2fed66901d50cd372ce7b1a"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-communications-page-focus-collection-exit.txt",
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-communications-page-focus-collection.txt",
+      "sha256": "dacfae3b184bb78e43c90ebf0482ac30a396286b9ee7bf3cd13f379d8391f0b0"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-communications-page-focus-lint-exit.txt",
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-communications-page-focus-lint.txt",
+      "sha256": "77e52456c3bf671c8ed5a0154c9dbfdd998b31f3c61494ca11430b416d294dad"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-communications-page-focus-scan.txt",
+      "sha256": "2aafaef61ecdf6a1f3af730f025b5fd815c8e0d6d4d990897013c3dcba3e4c16"
+    }
+  ],
+  "known_remaining_defects": {
+    "whole_product": "NOT_RECONCILED",
+    "router_navigation": "NOT_RUN_CONTROLLED_CONTEXT_ONLY",
+    "security": "W4_PENDING_HIGH5",
+    "release": "NOT_ACCEPTED",
+    "page_error_back": {
+      "status": "STATIC_BLOB_MATCH_TO_MEASURED_METADATA_SOURCE107_NOT_DIRECT106_EXECUTION",
+      "source106": "f48425b5d30a071049392486ba669bd23cfa5044",
+      "measured_product_sha": "e8b45e225760b372d4e2600e06abd0284befcd19",
+      "identical_blobs": {
+        "src/features/customers/CustomerDomainPages.tsx": "715fb23a7d9dc9d1c621b6bc4d4c6ec440939f79",
+        "src/features/customers/CustomerCommunications.tsx": "874bfa84708031176f7ea4cfd8bdf5530729bcda"
+      },
+      "evidence": "work/w2x-collection-page-error-back-causal.txt",
+      "fix_source": "ee157165f1cd4e9fd3d5ad4c72d5f2b9025ef467",
+      "scope": "2214bank lacks18newcases/108fix;do not promote106orcallitphysicallyfailedbasedonanotherSHA."
+    }
+  },
+  "handoffs": [
+    {
+      "issue": 67,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6256844929",
+      "id": 6256844929
+    },
+    {
+      "issue": 153,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6256845094",
+      "id": 6256845094
+    },
+    {
+      "issue": 38,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6256845246",
+      "id": 6256845246
+    },
+    {
+      "issue": 142,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6256845402",
+      "id": 6256845402
+    }
+  ],
+  "tree": "4481e458d2f5367f085b2210000e31cd843ea79f",
+  "sha": "f48425b5d30a071049392486ba669bd23cfa5044",
+  "coalesced_global_request": {
+    "checkpoint": "work/w2x-commercial-customer-journey-full-checkpoint.json",
+    "source": "f48425b5d30a071049392486ba669bd23cfa5044",
+    "tests": 2214,
+    "files": 132,
+    "session": 16884,
+    "status": "WAIT_PRIOR2172_TERMINAL_PUBLISHED_PASS",
+    "dispatch": "NOT_DISPATCHED",
+    "scope": "Collection2214actuallyverified;after2139/2172FIFO,noPASSbeforeexecutedthissource."
+  }
+}

@@ -1,0 +1,139 @@
+{
+  "unit": 62,
+  "claim": 6251956555,
+  "base": "b193330f61fa097cb0bb73b1328c81fc01bd91ba",
+  "branch": "codex/w2x-billing-proposal-rates-20261018",
+  "status": "PUBLISHED_OWN225_BUILD66_VISUAL_PARTIAL",
+  "causal_session": 89129,
+  "product_changed": true,
+  "release": "NOT_ACCEPTED",
+  "checks": {
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN",
+    "paid_api": 0,
+    "global": "NOT_RUN_CURRENT_SHA",
+    "browser": "225_PASS_OWN_SOURCE",
+    "build": "66_PASS",
+    "functional": "24_PASS_OWN_SOURCE",
+    "lint": "EXIT0_WARNINGS_PRESERVED",
+    "scan": "PASS"
+  },
+  "original": {
+    "failed": 6,
+    "passed": 2,
+    "duration": "1.5m",
+    "cause": "Both local tax and withholding truncate100/10comma5/101 to10;ordinary10 positives pass. Controlled HTTP proposal,no save commands."
+  },
+  "next": "Wait original causal8 terminal;only then scoped extraction fix if demonstrated,own225/functional24/build/lint/visual/scan/publication;global1575 source57 remains active once.",
+  "controls_session": 42682,
+  "visual_review": {
+    "status": "ACTUALLY_VIEWED",
+    "scope": "Seven frames:tax and withholding prefix10comma5 at3907681440 plus invalid tax101prefix1440. Positive frames show concepts/rates/subtotal/tax/withholding/total/unchecked review at all widths;save visible except tax390. Upper customer/fiscal/date fields outside these frames;no full visual/fiscal/security acceptance. Fixture background excluded.",
+    "frames": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-proposal-rates-final-results\\billing-proposal-rates-bil-6b524-tes-tax-prefix-comma-at-390\\rates-tax-prefix-comma-390.png",
+        "sha256": "479f0e9fad423cefb4eaf3073718f7e246ad67b72066057b10c6702667924444"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-proposal-rates-final-results\\billing-proposal-rates-bil-98e85-holding-prefix-comma-at-768\\rates-withholding-prefix-comma-768.png",
+        "sha256": "66598a943c1a5caed5093cd625e34baffe37ea287d7061e7edfbbf8f2ea3f61d"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-proposal-rates-final-results\\billing-proposal-rates-bil-c42d9-olding-prefix-comma-at-1440\\rates-withholding-prefix-comma-1440.png",
+        "sha256": "1f15541c4c9526c2149ba008a12f32751d5ad117c3d36114a0809b2c66a98d42"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-proposal-rates-final-results\\billing-proposal-rates-bil-cd072-tes-tax-prefix-over-at-1440\\rates-tax-prefix-over-1440.png",
+        "sha256": "d88677cdd12e756c23eee625a45ca1cef56dae5692a94d5292f38bd52cb5f3ce"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-proposal-rates-final-results\\billing-proposal-rates-bil-d0edf-es-tax-prefix-comma-at-1440\\rates-tax-prefix-comma-1440.png",
+        "sha256": "4e0c6faa88a172b764216557137aadcabd69cf502d2304fd7ab23e168b99d8b9"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-proposal-rates-final-results\\billing-proposal-rates-bil-db487-tes-tax-prefix-comma-at-768\\rates-tax-prefix-comma-768.png",
+        "sha256": "589e0c6100c864a240a6c444c5c5b8d088dd6a7ccda5f5a694ab880205b1f963"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-proposal-rates-final-results\\billing-proposal-rates-bil-f4fd1-holding-prefix-comma-at-390\\rates-withholding-prefix-comma-390.png",
+        "sha256": "7e29d26de929539b54dd5bf5d8aa7a906eb55540d59819571316076e1ca110e7"
+      }
+    ]
+  },
+  "candidate_fingerprints": [
+    {
+      "path": "src/features/billing/parse.ts",
+      "sha256_utf8_lf": "d65266beb26d00b0163a76ebd68218fc0967315e10fef9613afcd48b1fbd34ef"
+    },
+    {
+      "path": "tests/e2e-preview/billing-proposal-rates.spec.ts",
+      "sha256_utf8_lf": "e00e5f78cbbc60d7d9b117b15603b7104375065641fb97e28f4bb40bae10db57"
+    },
+    {
+      "path": "docs/master/W2X_BILLING_PROPOSAL_RATES_20261018.md",
+      "sha256_utf8_lf": "31f8715eef58c7ae0bd62c51ce80bcde394944b57cd752d6e03cfd30f1c6c05d"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-proposal-rates-causal.txt",
+      "sha256": "0b1ab1dea547ffdcf84f06a55c4d8e67686830e6b94f22d789b663963d57b09d"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-proposal-rates-browser.txt",
+      "sha256": "ca233a89a1daab51e3de1311364e8a15daf15c889fb4882755a57a98609adf35"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-proposal-rates-functional.txt",
+      "sha256": "13dd879e531c6b2ca59d822f7bd1287f963a28487d72d64e4546a2fb34185609"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-proposal-rates-lint.txt",
+      "sha256": "91a5c63f9a9a0a42f92a00caa38da32336b62b940ccf4738d08ef97c55d9996c"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-proposal-rates-build.txt",
+      "sha256": "82fc591f895783574d93e8b8420bb3b80a188c60d550fc613bcf3817c0056815"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-proposal-rates-scan.txt",
+      "sha256": "7ecc3a72485a325012325070e4878868a5be4793c219456868171ea87a6141d1"
+    }
+  ],
+  "tree": "442019f9466ca7734cdcc654606845c4d836c73c",
+  "sha": "24a7b0da7d7d5dfd822cf2e07981ce2659b93d7f",
+  "publication": "PUBLISHED",
+  "handoffs": [
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6252044219",
+      "id": 6252044219,
+      "issue": 67
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6252044366",
+      "id": 6252044366,
+      "issue": 153
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6252044522",
+      "id": 6252044522,
+      "issue": 38
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6252044657",
+      "id": 6252044657,
+      "issue": 142
+    }
+  ],
+  "known_remaining_defects": {
+    "zero_tax_decimal": {
+      "reproduced_source": "24a7b0da7d7d5dfd822cf2e07981ce2659b93d7f",
+      "original": "2FAIL_1PASS_31.8S",
+      "checkpoint": "work/w2x-billing-proposal-zero-tax-checkpoint.json",
+      "fixed_source": "56fbaee765fb4681aa43943cec4e305eb2afbd67",
+      "scope": "IVA0 shortcut;225 bank does not measure new18 zero-boundary cases. No whole-product qualification."
+    }
+  },
+  "followup_unmeasured_at_publication": "Read-only suspicion: parseTax explicit IVA0 shortcut may consume decimal0comma5 before numeric extraction. NOT_REPRODUCED;do not claim fixed or accepted. Reproduce after closing own225,without editing active candidate.",
+  "followup_measured": "Own63 original2FAIL1PASS31.8s on source24a7b0d;fixed source56fbaee,scoped own144/24/build evidence. Prior unmeasured marker remains historical."
+}

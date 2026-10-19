@@ -1,0 +1,83 @@
+{
+  "utc": "2026-10-14T09:58:53.492127+00:00",
+  "work": "W2-X",
+  "claim": 6165290029,
+  "path": "${WORKSPACE}\\work\\crm-w2x-commercial-composition",
+  "branch": "codex/w2x-agenda-sim-commercial-composition-20261014",
+  "source": "1fcbcc11c5799ef812c53c213c33fc471f28001c",
+  "tree": "9e6aec32c9b3b87ecc644b1c3ed440c803df089e",
+  "published": true,
+  "clean": true,
+  "status": "OWN497_BUILD66_LINT_QUEUE_SCAN_PASS_AUTH_NOT_RUN",
+  "parents": [
+    "bb894022196bce61a90146e72fba54b5501adb14",
+    "dbcdb15b221518117078f6b73d446d8b33643c0c"
+  ],
+  "expected_unmeasured": {
+    "controlled_http": 497,
+    "remote_preview": 1194,
+    "auth_db": 122
+  },
+  "checks": {
+    "queue": "342_13PARTIAL_329UNRECONCILED_0READY",
+    "scan": "PASS",
+    "build": "PASS66",
+    "lint": "PASS",
+    "controlled_http": 497,
+    "auth_db": "NOT_RUN"
+  },
+  "release": "NOT_ACCEPTED",
+  "model": "NOT_RUN",
+  "next": "CLAIM6165737433_DOCUMENT_COMPOSITION_OWN527",
+  "interruption": "w2x-20261014-session-interruption.json",
+  "remote_collection": {
+    "source": "1fcbcc11c5799ef812c53c213c33fc471f28001c",
+    "kind": "COLLECTION_ONLY_NOT_EXECUTION",
+    "total_collected": 1194,
+    "project_counts": {
+      "desktop": 597,
+      "mobile": 597
+    },
+    "same_case_set": true,
+    "unique_cases": true,
+    "workers": 1,
+    "retries": 0,
+    "timeout": 180000,
+    "manifest_sha256": "3123d5c72e430385fe48150ebb6ca0b069c11fd949088cadb06ac6f6e6aac5d8",
+    "execution": "NOT_RUN",
+    "auth_expected": 122,
+    "auth_execution": "NOT_RUN"
+  },
+  "handoff": 6165757337,
+  "bundle_sha256": "6d06abcebf6ffda4499241894a9d4d8f21829210a9e28bab9df9acb0aa9ae9df",
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-agenda-sim-commercial-composition-browser.txt",
+      "sha256": "2b5818920c0cc3df678f09eceacfbe5d82edcd6176677a6e2b2dc776634deca2"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-agenda-sim-commercial-composition-resumed-browser.txt",
+      "sha256": "11ea4be7d471b750aa39df403d42c9d184c1ce8371d28d7e795c02b365694752"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-agenda-sim-commercial-composition-lint.txt",
+      "sha256": "dda21574b74ba6a9edea377d67b00a3846ea8ae6ee11171eb3102a4a59f30d98"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-agenda-sim-commercial-composition-build.txt",
+      "sha256": "af48a5a05320cc645ef348c75b5f83310c22c75426ecda3ae6bbca246595bd20"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-agenda-sim-commercial-composition-queue.txt",
+      "sha256": "b315215b68dfeef6b6547d33d6af53a5d734197890b2396c9d57244abd0925d5"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-agenda-sim-commercial-composition-scan.txt",
+      "sha256": "bbce51747a51c4d4d2851ebe25715739784d251640f0bac6c82ddb4407577082"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-1fcb-remote-preview-inventory.json",
+      "sha256": "dca8cf3832c028554de5dc3771f52d3ee4853adc4f1f72f1378714d849088662"
+    }
+  ]
+}

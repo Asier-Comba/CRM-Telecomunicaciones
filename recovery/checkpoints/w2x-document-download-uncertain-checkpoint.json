@@ -1,0 +1,98 @@
+{
+  "utc": "2026-10-15T00:07:13.024080+00:00",
+  "claim": 6181243189,
+  "path": "${WORKSPACE}\\work\\crm-w2x-commercial-composition",
+  "branch": "codex/w2x-document-download-uncertain-20261015",
+  "base": "dec2edcad7f4796440daff2c1e59dde6ca7981c1",
+  "status": "OWN91_BUILD66_LINT_SCAN_PASS_VISUAL_PARTIAL_AUTH_NOT_RUN",
+  "repro_session": 5921,
+  "test_backup": "${WORKSPACE}\\work\\w2x-document-download-uncertain-prepared-test.ts",
+  "test_sha256": "133815e306f4e685dca6f75a363d004306a430e278260066c28e0ce462e4090d",
+  "browser": "NOT_RUN",
+  "product_changed": true,
+  "release": "NOT_ACCEPTED",
+  "next": "COLLECT_AND_RUN_OWN722_ONCE;NO_704_PASS_INHERITANCE",
+  "causal": {
+    "kind": "INVALID_TICKET_RETRY_GENERATES_DIFFERENT_COMMAND_ID",
+    "log": "w2x-document-download-uncertain-causal-repro.txt"
+  },
+  "browser_session": 92765,
+  "lint_build_session": 72894,
+  "source_backup": "${WORKSPACE}\\work\\w2x-document-download-uncertain-fixed-source.tsx",
+  "sha": "4ceac7fac6fa2abef8d0f7e8042b23cd6286fc22",
+  "tree": "72fbb27fb4c91d536af8d2208fed033cc5169a97",
+  "published": true,
+  "clean": true,
+  "checks": {
+    "browser": 91,
+    "lint": "PASS",
+    "build": "PASS66",
+    "scan": "PASS",
+    "visual": "THREE_CURRENT_FRAMES_VIEWED_PARTIAL",
+    "auth_db": "NOT_RUN",
+    "storage": "NOT_RUN",
+    "model": "NOT_RUN"
+  },
+  "handoffs": [
+    {
+      "issue": 67,
+      "id": 6187406870,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6187406870"
+    },
+    {
+      "issue": 153,
+      "id": 6187407110,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6187407110"
+    },
+    {
+      "issue": 38,
+      "id": 6187407381,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6187407381"
+    },
+    {
+      "issue": 142,
+      "id": 6187407603,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6187407603"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-download-uncertain-causal-repro.txt",
+      "sha256": "2adfae5c3b6e0bfda100f0343113aa673a29ee610bd8fba4fadfc84f19e50eab"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-download-uncertain-browser.txt",
+      "sha256": "098c44248df212e3e95c42d1597327ff319596a19923489c9b1731ecb0265f36"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-download-uncertain-lint.txt",
+      "sha256": "bcd1b5eb029080a6847f1ee5cb93ebef42ca6f73f4cea5443b76bc5d9bbe613b"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-download-uncertain-build.txt",
+      "sha256": "84295ef8d6ab5bf1c71b8b01e3c519b0b4b4bc416d61542d59c9dfa0c7aff346"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-download-uncertain-scan.txt",
+      "sha256": "4e82cdca7fe232a56df62c0270799b28cdfd168dc47f01b283686fb6daff5402"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-download-uncertain-published.bundle",
+      "sha256": "f3481dd5d94fe2c8f6d458d537b829e466b8568472b05b51612445a31baa8218"
+    }
+  ],
+  "visual": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-download-uncertain-final-results\\document-download-uncertai-33ffe-etains-exact-attempt-at-390\\document-download-attempt-ticket_invalid-390.png",
+      "sha256": "92e3c24f4b91ae74614364e3aed151de9d3cc9f5d2534083f854d46aec093a72"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-download-uncertain-final-results\\document-download-uncertai-73c66-tains-exact-attempt-at-1440\\document-download-attempt-ticket_invalid-1440.png",
+      "sha256": "2ce0ba23178cb90c3ef821d8d06c0109cb4244ca670e8bedcb495e6dfcde187a"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-download-uncertain-final-results\\document-download-uncertai-7bfdb-etains-exact-attempt-at-768\\document-download-attempt-ticket_invalid-768.png",
+      "sha256": "fb72c7e1e9651cd4f62ad5b6c37c492077974b357d0f83dc1858f5505ca23ff8"
+    }
+  ]
+}

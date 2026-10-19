@@ -1,0 +1,3 @@
+from pathlib import Path
+import json
+w=Path('work');own=json.loads((w/'w2x-line-number-recovery-close-checkpoint.json').read_text(encoding='utf-8-sig'));assert own['publication']=='PUBLISHED' and own['checks']['browser']=='189_PASS_OWN_SOURCE';f=w/'w2x-portability-recovery-close-checkpoint.json';j=json.loads(f.read_text(encoding='utf-8-sig'));j['known_remaining_defects']['protected_number_nested_escape']['fix_candidate']={'sha':own['sha'],'tree':own['tree'],'checkpoint':'work/w2x-line-number-recovery-close-checkpoint.json','status':'PUBLISHED_OWN189_BUILD66_LINT_SCAN_VISUAL_PARTIAL','scope':'Separate source88;source87 itself remains defective,no inheritedPASS'};f.write_text(json.dumps(j,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')

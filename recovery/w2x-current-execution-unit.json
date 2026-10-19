@@ -1,0 +1,1522 @@
+{
+  "utc": "2026-10-14T09:33:14.457110+00:00",
+  "work": "W2-X",
+  "path": "${WORKSPACE}\\work\\crm-w2x-contacts",
+  "branch": "codex/w2x-contact-uncertain-20261014",
+  "pr_branch": "codex/w2x-contact-uncertain-20261014",
+  "candidate_path": "${WORKSPACE}\\work\\crm-w2x-commercial-composition",
+  "candidate_branch": "codex/w2x-customer-receipt-commercial-composition-20261014",
+  "sha": "7f6626e32a609eb22ffdd8052c9cc59e60d98453",
+  "tree": "2ad703ee08f8c091186cba08ffdbeb9404fc162b",
+  "published_sha": "7f6626e32a609eb22ffdd8052c9cc59e60d98453",
+  "clean": true,
+  "claim": 6162180389,
+  "pr": 153,
+  "status": "OWN7F1430_BUILD_NATIVE85_PASS_PREVIEW20M_CANCELLED_SUPSAFEABSENT_NOT_QUALIFIED",
+  "checks": {
+    "local_browser_total": 377,
+    "build": "PASS66",
+    "lint": "PASS",
+    "gitleaks": "PASS",
+    "queue": "34211PARTIAL331UNRECONCILED0READY",
+    "internal": "1430_PASS_OWN_EXECUTED_TREE",
+    "full_preview": "CANCELLED_JOB20M_NO954PASS",
+    "auth_db_storage": "FAIL_SAFE_ABSENT_AUTH_TEARDOWN_UI_UNKNOWN",
+    "native": "85_RESTORE_PASS_OWN_EXECUTED_TREE",
+    "model": "NOT_RUN",
+    "ci_run": 38522253882,
+    "supabase_run": 38522253913,
+    "executed_expected": "44af6970c7e490264ddd30addf11ac07e40b3cc0",
+    "own_quality": {
+      "source": "7f6626e32a609eb22ffdd8052c9cc59e60d98453",
+      "executed": "44af6970c7e490264ddd30addf11ac07e40b3cc0",
+      "tree": "2ad703ee08f8c091186cba08ffdbeb9404fc162b",
+      "ci": 38522253882,
+      "qa_job": 115714408244,
+      "native_job": 115714408122,
+      "functional": {
+        "bootstrap": 611,
+        "assistant": 819,
+        "total": 1430,
+        "build": "PASS66",
+        "native_restore": {
+          "kind": "native_postgresql_restore_test_only",
+          "migration_count": 85,
+          "migration_head": "20261011090000_assistant_verified_completed_reconciliation.sql",
+          "dump_sha256": "d87615930738b879d0c45fe10d131afbaab2dd77fb5ce1d64a0db407213425a9",
+          "schema": "pass",
+          "rows": "pass",
+          "assistant_rows": "pass",
+          "rls": "pass",
+          "scope": "pass",
+          "restored_privilege_matrix": "pass",
+          "fresh_role_calls": "pass",
+          "restored_role_calls": "pass",
+          "acl_loss_negative_control": "pass",
+          "production_backup": false
+        }
+      },
+      "audit": "FAIL_FIVE_HIGH",
+      "preview": {
+        "result": "CANCELLED_BY_JOB_20M_DEADLINE_CONFIRMED_CHECK_ANNOTATION",
+        "job": 115714408020,
+        "expected_total": 954,
+        "completed_pass_total": "NOT_MEASURED",
+        "last_started_index": 943,
+        "last_index_is_not_pass_count": true,
+        "production_fixture_launcher": "NOT_MEASURED",
+        "retry": "NOT_REQUESTED"
+      },
+      "supabase": {
+        "result": "FAIL_SAFE_ARTIFACT_ABSENT",
+        "run": 38522253913,
+        "job": 115714407936,
+        "auth": "UNKNOWN",
+        "teardown": "UNKNOWN",
+        "ui_totals": "UNKNOWN",
+        "cause": "UNKNOWN_COMPLETE_CAUSE",
+        "original_failed_frame": "failed-billing_lost_receipt_seven_commands_same_intent_single_persisted_effect.png",
+        "retrospective_request": 6162715998
+      },
+      "qualified": false,
+      "logs": [
+        {
+          "job": 115714408244,
+          "sha256": "a609c2854b183064540329da1345fa2102b159537e9402afd90715e8477558f1"
+        },
+        {
+          "job": 115714408122,
+          "sha256": "d3ee1f3585db4b8137213b560693c6fc1478887379769d2b890b6a9086f0c78b"
+        }
+      ],
+      "utc": "2026-10-14T06:57:11.198587+00:00",
+      "artifact_sha256": {
+        "w2x-7f-product-original.zip": "aea74a540d60714673e11092dde92724b387560e6043b305562501080e45050a",
+        "w2x-7f-history-original.zip": "6065a216fca0c9ce69e2b5526e3bf10776abcb5bdfadff3d5318c5745cd27664",
+        "job-115714408020.txt": "e3bbfd96313ae2b98d44c01c21adc33b60527c7aa1fafec3527a513db00c9184"
+      },
+      "supabase_terminal": {
+        "id": 38522253913,
+        "head": "7f6626e32a609eb22ffdd8052c9cc59e60d98453",
+        "status": "completed",
+        "conclusion": "failure",
+        "event": "pull_request",
+        "attempt": 1,
+        "created": "2026-10-14T06:26:52Z",
+        "updated": "2026-10-14T06:39:33Z",
+        "actor": "oierdu",
+        "trigger": "oierdu",
+        "jobs": [
+          {
+            "id": 115714407609,
+            "name": "Browser bundle private-value boundary",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-14T06:26:54Z",
+            "completed_at": "2026-10-14T06:27:48Z"
+          },
+          {
+            "id": 115714407936,
+            "name": "Supabase local Auth PostgREST Storage acceptance",
+            "status": "completed",
+            "conclusion": "failure",
+            "started_at": "2026-10-14T06:26:54Z",
+            "completed_at": "2026-10-14T06:39:32Z"
+          }
+        ]
+      },
+      "ci_terminal": {
+        "id": 38522253882,
+        "head": "7f6626e32a609eb22ffdd8052c9cc59e60d98453",
+        "status": "completed",
+        "conclusion": "failure",
+        "event": "pull_request",
+        "attempt": 1,
+        "created": "2026-10-14T06:26:51Z",
+        "updated": "2026-10-14T06:47:31Z",
+        "actor": "oierdu",
+        "trigger": "oierdu",
+        "jobs": [
+          {
+            "id": 115714407673,
+            "name": "Baseline guardrails",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-14T06:26:54Z",
+            "completed_at": "2026-10-14T06:27:07Z"
+          },
+          {
+            "id": 115714407944,
+            "name": "Embedded PGlite schema and scope fixtures",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-14T06:26:54Z",
+            "completed_at": "2026-10-14T06:27:21Z"
+          },
+          {
+            "id": 115714408020,
+            "name": "Synthetic telecom browser preview",
+            "status": "completed",
+            "conclusion": "cancelled",
+            "started_at": "2026-10-14T06:26:54Z",
+            "completed_at": "2026-10-14T06:47:30Z"
+          },
+          {
+            "id": 115714408085,
+            "name": "Migration policy",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-14T06:26:54Z",
+            "completed_at": "2026-10-14T06:27:01Z"
+          },
+          {
+            "id": 115714408122,
+            "name": "Native PostgreSQL zero-to-head and synthetic restore",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-14T06:26:54Z",
+            "completed_at": "2026-10-14T06:30:40Z"
+          },
+          {
+            "id": 115714408134,
+            "name": "Windows synthetic launcher (path with spaces)",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-14T06:26:54Z",
+            "completed_at": "2026-10-14T06:28:13Z"
+          },
+          {
+            "id": 115714408238,
+            "name": "Secret scan",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-14T06:26:54Z",
+            "completed_at": "2026-10-14T06:27:05Z"
+          },
+          {
+            "id": 115714408244,
+            "name": "Lint, types, tests, build",
+            "status": "completed",
+            "conclusion": "failure",
+            "started_at": "2026-10-14T06:26:54Z",
+            "completed_at": "2026-10-14T06:28:22Z"
+          },
+          {
+            "id": 115714409043,
+            "name": "Dependency review (Dependency Graph required)",
+            "status": "completed",
+            "conclusion": "skipped",
+            "started_at": "2026-10-14T06:26:52Z",
+            "completed_at": "2026-10-14T06:26:52Z"
+          },
+          {
+            "id": 115714878613,
+            "name": "Critical Playwright",
+            "status": "completed",
+            "conclusion": "skipped",
+            "started_at": "2026-10-14T06:28:23Z",
+            "completed_at": "2026-10-14T06:28:22Z"
+          }
+        ]
+      },
+      "release": "NOT_ACCEPTED",
+      "model": "NOT_RUN"
+    }
+  },
+  "qualified_previous_source": {
+    "sha": "856cd3e83feaf5c0b567bff54de9f83f91346e93",
+    "metadata": "${WORKSPACE}\\work\\w2x-domain-composition-closed-metadata.json",
+    "checkpoint": "${WORKSPACE}\\work\\w2x-domain-composition-checkpoint.json",
+    "scope": "OWN1430_712_AUTH115_NATIVE85_BUILD66_NOT_RELEASE_NOT_INHERITED"
+  },
+  "historical_failure_refs": [
+    "${WORKSPACE}\\work\\w2x-d764-failed-metadata.json",
+    "${WORKSPACE}\\work\\w2x-f79-native-quota-original-failure.json",
+    "${WORKSPACE}\\work\\w2x-f79-auth-closed-native-quota-blocked.json",
+    "${WORKSPACE}\\work\\w2x-dd764-auth-failed-closed.json",
+    "${WORKSPACE}\\work\\w2x-b1b-auth-failed-closed.json",
+    "${WORKSPACE}\\work\\w2x-9db-auth-failed-closed.json",
+    "${WORKSPACE}\\work\\w2x-8f69-auth-failed-closed.json",
+    "${WORKSPACE}\\work\\w2x-7f-failed-closed-metadata.json"
+  ],
+  "b1b_w5_retrospective": "${WORKSPACE}\\work\\w2x-b1b-w5-retrospective.json",
+  "new_billing_unit": "${WORKSPACE}\\work\\w2x-billing-create-checkpoint.json",
+  "release": "NOT_ACCEPTED",
+  "five_high": "UNRESOLVED",
+  "ai_commercial_writes": "OFF",
+  "integration_ack": "NOT_RECEIVED",
+  "model": "NOT_RUN",
+  "api_calls_this_work": 0,
+  "next": "Final corrected21064946 controls source31;preserve192PASS18fixtureFAIL,do not reuse;metadata32 waits31PUBLISHED before FF and metadata-only guards. Global1155 closed,one newglobal after combined sources.",
+  "handoff": 6162343269,
+  "closed_metadata": "${WORKSPACE}\\work\\w2x-7f-failed-closed-metadata.json",
+  "independent_billing_archived": "${WORKSPACE}\\work\\w2x-billing-archived-checkpoint.json",
+  "independent_billing_diagnostics": "${WORKSPACE}\\work\\w2x-billing-physical-checkpoint.json",
+  "independent_par096": "${WORKSPACE}\\work\\w2x-par096-checkpoint.json",
+  "independent_billing_invalid": "${WORKSPACE}\\work\\w2x-billing-invalid-checkpoint.json",
+  "independent_customer_invalid": "${WORKSPACE}\\work\\w2x-customer-invalid-checkpoint.json",
+  "previous_failed8f69": "${WORKSPACE}\\work\\w2x-8f69-auth-failed-closed.json",
+  "bundle_sha256": "687500855e05d367807eee1346932a364fa8138b214ad8baa7218221b68ef2af",
+  "independent_billing_context_diagnostics": "${WORKSPACE}\\work\\w2x-billing-context-diagnostics-checkpoint.json",
+  "independent_contact_invalid": "${WORKSPACE}\\work\\w2x-contact-invalid-checkpoint.json",
+  "queued_composition": {
+    "utc": "2026-10-14T12:13:54.826679+00:00",
+    "work": "W2-X",
+    "claim": 6167770255,
+    "path": "${WORKSPACE}\\work\\crm-w2x-commercial-composition",
+    "branch": "codex/w2x-case-commercial-composition-20261014",
+    "sha": "71fe4471335742983aff453ce9863fdb3f8fdc2f",
+    "source": "71fe4471335742983aff453ce9863fdb3f8fdc2f",
+    "tree": "40c6af27d6334ed290804be349c8aaf9b2e87fdf",
+    "parents": [
+      "2c4577eca2d62397d1efb8f7943d16cad3a82071",
+      "08582224a37c158a9345dbc2b204581ab42395b8"
+    ],
+    "status": "OWN620_BUILD66_LINT_QUEUE_SCAN_PASS_VISUAL_PARTIAL_AUTH_NOT_RUN",
+    "published": true,
+    "clean": true,
+    "initial_expectation": {
+      "controlled_http": 620
+    },
+    "release": "NOT_ACCEPTED",
+    "next": "CLAIM_AND_REPRO_CASE_COMMAND_ONREFRESH_AFTER_NAVIGATION;VERIFY_ISOLATED_CI_DELIVERY_IF_RECEIVED;NO_GREEN_RERUN",
+    "session": 94535,
+    "publication_gate_session": 54143,
+    "publication_gate_script": "${WORKSPACE}\\work\\publish-w2x-71fe-after-own-checks.ps1",
+    "checks": {
+      "controlled_http": 620,
+      "lint": "PASS",
+      "build": "PASS66",
+      "queue": "342_15PARTIAL_327UNRECONCILED_0READY",
+      "scan": "PASS",
+      "visual": "THREE_CURRENT_SOURCE_FRAMES_VIEWED_PARTIAL",
+      "auth_db": "NOT_RUN",
+      "storage": "NOT_RUN",
+      "model": "NOT_RUN"
+    },
+    "handoff": 6168013318,
+    "bundle_sha256": "9df3f0d54853fd65b1919737dab8212f961af5fcaa051225269b071822f50907",
+    "evidence": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-case-commercial-composition-browser.txt",
+        "sha256": "8211db9d8b133e901f687c74709178e2f3115776eb07422a20c20b53a7f2a477"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-case-commercial-composition-lint.txt",
+        "sha256": "dda21574b74ba6a9edea377d67b00a3846ea8ae6ee11171eb3102a4a59f30d98"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-case-commercial-composition-build.txt",
+        "sha256": "71c2a8a8610ac419a671eb7321fa6562333a76d7e2bb2d1af512395475bfe0bd"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-case-commercial-composition-queue.txt",
+        "sha256": "03f1587869842e4a8b10fa7ee33a8b075f28a1fe4c73b8a7380c3c8746f196ff"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-case-commercial-composition-scan.txt",
+        "sha256": "0955b658c1bf6fe1cc808b99c6d4b4d456c10b5c4b13dc32d4a30671c671b4be"
+      }
+    ],
+    "visual_review": {
+      "source": "71fe4471335742983aff453ce9863fdb3f8fdc2f",
+      "scope": "Case detail2 and customer2/header/form fields; partial only, no whole-app acceptance",
+      "frames": [
+        {
+          "path": "${WORKSPACE}\\work\\w2x-case-commercial-composition-results\\case-detail-read-lifetime--26991-ter-selection-change-at-768\\case-detail-late-case_success-768.png",
+          "sha256": "db193e415ea7c7de52f52cb347816c0a9cdc6a7fe763e2857717a0e4b9d89157"
+        },
+        {
+          "path": "${WORKSPACE}\\work\\w2x-case-commercial-composition-results\\case-detail-read-lifetime--e1179-er-selection-change-at-1440\\case-detail-late-case_success-1440.png",
+          "sha256": "4242f679cac7b77a7132f4858fc35003450f79ab6d843faba0720052b8defca6"
+        },
+        {
+          "path": "${WORKSPACE}\\work\\w2x-case-commercial-composition-results\\case-detail-read-lifetime--f4e73-ter-selection-change-at-390\\case-detail-late-case_success-390.png",
+          "sha256": "df83a3a92736ff5d02f1014dc9bfc9dc7fe17aed90da5d3170382d993f9e1d06"
+        }
+      ]
+    },
+    "quota_indicator_at_checkpoint": 100,
+    "quota_limit_block_confirmed": false,
+    "quota_scope": "ACCOUNT_SHARED_WEEKLY_INDICATOR;ordinaryUsageAllowed still true at last reading; no credits purchased"
+  },
+  "w5_retrospective_received": {
+    "comment": 6162383757,
+    "technical_receipt_ack": 6162524696,
+    "cached": "${WORKSPACE}\\work\\w2x-9db-8f69-w5-retrospective.json",
+    "scope": "UNKNOWN_HISTORICAL_ASSERTION_NO_EFFECT_PROOF_NO_PRINCIPAL_ACK_NO_W4_RELEASE"
+  },
+  "independent_customer_state_invalid": "${WORKSPACE}\\work\\w2x-customer-state-invalid-checkpoint.json",
+  "independent_opportunity_invalid": "${WORKSPACE}\\work\\w2x-opportunity-invalid-checkpoint.json",
+  "previous_queued_composition": {
+    "utc": "2026-10-14T11:47:13.046394+00:00",
+    "work": "W2-X",
+    "claim": 6167308609,
+    "path": "${WORKSPACE}\\work\\crm-w2x-commercial-composition",
+    "branch": "codex/w2x-dashboard-commercial-composition-20261014",
+    "sha": "2c4577eca2d62397d1efb8f7943d16cad3a82071",
+    "source": "2c4577eca2d62397d1efb8f7943d16cad3a82071",
+    "tree": "8e76309a735b99dbb527972fa1278917b0bdcd1f",
+    "parents": [
+      "33dc605ddff1ba149c52db6cef7d4296dd12d172",
+      "a21bdabe9e3c3b14c040803075515fb97ebb3be4"
+    ],
+    "status": "OWN611_BUILD66_LINT_QUEUE_SCAN_PASS_AUTH_NOT_RUN",
+    "published": true,
+    "clean": true,
+    "release": "NOT_ACCEPTED",
+    "next": "CLOSE_CASE_DETAIL_READ_LIFETIME21_THEN_NEXT_AUTHORIZED_UNIT",
+    "session": 97395,
+    "initial_expected_before_execution": {
+      "controlled_http": 611
+    },
+    "handoff": 6167612997,
+    "checks": {
+      "controlled_http": 611,
+      "lint": "PASS",
+      "build": "PASS66",
+      "queue": "342_15PARTIAL_327UNRECONCILED_0READY",
+      "scan": "PASS",
+      "visual": "THREE_OWN_FRAMES_VIEWED_PARTIAL",
+      "auth_db": "NOT_RUN",
+      "storage": "NOT_RUN",
+      "model": "NOT_RUN"
+    },
+    "evidence": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-dashboard-commercial-composition-browser.txt",
+        "sha256": "37074f97c94371084b8a6fda3c058671ef574e085ee8de4ce8f390435b0070de"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-dashboard-commercial-composition-lint.txt",
+        "sha256": "dda21574b74ba6a9edea377d67b00a3846ea8ae6ee11171eb3102a4a59f30d98"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-dashboard-commercial-composition-build.txt",
+        "sha256": "059b6769f57727faa93d4107e174e1a115be3d7d3f2fff710373c5ae95206f66"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-dashboard-commercial-composition-queue.txt",
+        "sha256": "03f1587869842e4a8b10fa7ee33a8b075f28a1fe4c73b8a7380c3c8746f196ff"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-dashboard-commercial-composition-scan.txt",
+        "sha256": "f14e211bd7d8cb1a66c80d042ed09fd9d7be7d8332848a0a5c2f5068075126b2"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-2c457-remote-preview-inventory.json",
+        "sha256": "5e8b81e91409cf71d4595099bb948ec5a2cb07d72d8dcede3e20d71dc2a997b5"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-dashboard-commercial-composition-results\\dashboard-current-day-dash-8a9ad-rrent-day-summer-my-at-1440\\dashboard-current-day-summer-my-1440.png",
+        "sha256": "5c5b9ec7d63ac57b413ad2dd6fb260950ba50fa44fdfc25f12110ab85b20d304"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-dashboard-commercial-composition-results\\dashboard-current-day-dashboard-current-day-summer-my-at-390\\dashboard-current-day-summer-my-390.png",
+        "sha256": "e34f1359ec7adcf04890d323c51bf1481ef1839558d5cd6e41b033ede5b66453"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-dashboard-commercial-composition-results\\dashboard-current-day-dashboard-current-day-summer-my-at-768\\dashboard-current-day-summer-my-768.png",
+        "sha256": "129292007103d2ca3b7ff222f412efdfa499c4e34f0455476b1b42a5215e6e2e"
+      }
+    ],
+    "bundle_sha256": "e103c3befff0c0f96a54818761a70afd0e87ef8edd69d198f23c8c29cf3dfc77"
+  },
+  "independent_pipeline_stage": "${WORKSPACE}\\work\\w2x-pipeline-stage-checkpoint.json",
+  "independent_opportunity_reopen": "${WORKSPACE}\\work\\w2x-opportunity-reopen-checkpoint.json",
+  "independent_par083": "${WORKSPACE}\\work\\w2x-par083-checkpoint.json",
+  "independent_agenda_reopen": "${WORKSPACE}\\work\\w2x-agenda-reopen-checkpoint.json",
+  "independent_sim_replacement": "${WORKSPACE}\\work\\w2x-sim-replacement-checkpoint.json",
+  "independent_par086": "${WORKSPACE}\\work\\w2x-par086-checkpoint.json",
+  "independent_document_integrity": "${WORKSPACE}\\work\\w2x-document-integrity-checkpoint.json",
+  "independent_document_integrity_close": "${WORKSPACE}\\work\\w2x-document-integrity-close-checkpoint.json",
+  "independent_document_contract_selection": "${WORKSPACE}\\work\\w2x-document-contract-selection-checkpoint.json",
+  "independent_par053": "${WORKSPACE}\\work\\w2x-par053-checkpoint.json",
+  "independent_document_integrity_lifetime": "${WORKSPACE}\\work\\w2x-document-integrity-lifetime-checkpoint.json",
+  "w5_ci_delivery": {
+    "id": 6166572940,
+    "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6166572940",
+    "source": "32862fafbdf35c1c33b84a88ef1e7710cdac9388",
+    "status": "RECEIVED_REVIEWED_REQUEST_ISOLATED_NORMAL_MERGE_DELIVERY"
+  },
+  "independent_invoice_contract_selection": "${WORKSPACE}\\work\\w2x-invoice-contract-selection-checkpoint.json",
+  "independent_par132": "${WORKSPACE}\\work\\w2x-par132-checkpoint.json",
+  "queued_metadata_after_controls": {
+    "utc": "2026-10-14T11:11:51.646889+00:00",
+    "work": "W2-X",
+    "claim": 6166986533,
+    "handoff": 6167023642,
+    "path": "${WORKSPACE}\\work\\crm-w2x-document-upload-uncertain",
+    "branch": "codex/w2x-par132-invoice-links-review-20261014",
+    "base": "9dc616fe72e0e890fc915bf87ae3a1b7e9dbc6f7",
+    "sha": "60c81396e20ba368ce07f141aaa081c9846c794e",
+    "tree": "41f47751384671a4b0292b39b4ae15eed532d314",
+    "status": "METADATA_ONLY_VERIFIED_NO_RUNTIME_PASS_INHERITANCE",
+    "published": true,
+    "clean": true,
+    "release": "NOT_ACCEPTED",
+    "checks": {
+      "unchanged_rows": 341,
+      "unchanged_prior_reviews": 13,
+      "headers_blockers": "UNCHANGED",
+      "queue": "342_14PARTIAL_328UNRECONCILED_0READY",
+      "scan": "PASS",
+      "runtime": "NOT_RUN_METADATA_ONLY"
+    },
+    "runtime_evidence_source": "9dc616fe72e0e890fc915bf87ae3a1b7e9dbc6f7",
+    "next": "WAIT7E015_581_TERMINAL_THEN_MERGE_METADATA_VERIFY_RUNTIME_BLOBS_IDENTICAL",
+    "bundle_sha256": "ebbf20b114917f6a92864272836ccbacf3b393eb509a699856e8ae7667b9d5c8",
+    "consumed_as": "33dc605ddff1ba149c52db6cef7d4296dd12d172"
+  },
+  "independent_dashboard_current_day": "${WORKSPACE}\\work\\w2x-dashboard-current-day-checkpoint.json",
+  "independent_case_detail_read_lifetime": "${WORKSPACE}\\work\\w2x-case-detail-read-lifetime-checkpoint.json",
+  "active_commercial_unit": {
+    "unit": 113,
+    "claim": 6257170620,
+    "branch": "codex/w2x-document-destination-read-retirement-20261019",
+    "base": "561488d948730acec047439224897f9a27a7cf10",
+    "status": "PUBLISHED_OWN21_CORRECTED_TEST_FIXTURE_VISUAL_PARTIAL",
+    "publication": "PUBLISHED",
+    "product_changed": false,
+    "release": "NOT_ACCEPTED",
+    "checks": {
+      "browser": "21_CORRECTED_QA_PASS_OWN_SOURCE_ORIGINAL9_FIXTURE_FAIL_PRESERVED",
+      "build": "NOT_RUN_TEST_FIXTURE_ONLY_SRC_UNCHANGED",
+      "auth_db": "NOT_RUN",
+      "model": "NOT_RUN",
+      "paid_api": 0,
+      "global": "NOT_RUN_CURRENT_SHA",
+      "lint": "PASS_DIRECTED_BANK_AND_EXISTING_FIXTURE_0_ERRORS_0_WARNINGS",
+      "scan": "PASS",
+      "source_fixture_reversal": "SRC_UNCHANGED_EXISTING_FIXTURE_OPTIONAL_PROBE_REVERSIBLE_DEFAULT_CONTRACT12_RERUN"
+    },
+    "matrix": {
+      "total": 342,
+      "reviewed_partial": 34,
+      "unreconciled": 308,
+      "release_ready": 0
+    },
+    "failures": [
+      {
+        "kind": "FIXTURE_CUSTOMER_CONTROL_ABSENT_NOT_PRODUCT",
+        "original_exit": 1,
+        "original_summary": "3FIXTURE_FAIL6PASS3.6m",
+        "failed_cases": "customer_supersedes3907681440_beforepropchange",
+        "original_bank": "work/w2x-document-destination-read-retirement-original-bank.ts",
+        "original_log": "work/w2x-document-destination-read-retirement-browser.txt",
+        "original_results": "work/w2x-document-destination-read-retirement-results",
+        "cause": "Existingmodeearlyreturnswithoutcustomerselectionnav;missingbuttonB. Threeoriginalscreenshot/errorcontexts retained;no originalpassed9.",
+        "amended_claim": 6257170620,
+        "amend_marker": "AMEND_EXISTING_FIXTURE_CUSTOMER_PROBE",
+        "fix_scope": "Existingentryoptionalprobe/queryparamonly,SRCunchanged;21correctedowncasesinclude12defaultcontractcontexts."
+      }
+    ],
+    "next": "Continue independent commercial unit after fresh CLAIM. Preserve2139source97/2172source102FIFO;source113globalNOT_RUN,noinheritedPASS.",
+    "working_head": "d1880f3af3a8a719bde3367825f900108f9edc29",
+    "clean": true,
+    "controls_session": 20395,
+    "original_attempt": {
+      "session": 41162,
+      "status": "TERMINAL_ORIGINAL_FIXTURE_FAILURE_PRESERVED",
+      "known_fixture_failure": "CustomerDocumentsfixturemodeearlyreturnomitscustomerselector;customer_supersedesfailsbeforepropchange. Productnotreproducedforthatcase.",
+      "next": "Preserveoriginalterminaltotals/log/results/bank;onlythenoptionalcustomerProbeonexistingentry+corrected21(9new12defaultcontractcontexts),differentresultsfolder.",
+      "browser_exit": 1,
+      "browser_summary": "6passed3fixturefailed3.6m",
+      "lint_exit": 0,
+      "artifact_hashes": [
+        {
+          "path": "${WORKSPACE}\\work\\w2x-document-destination-read-retirement-results\\document-destination-read--04546-read-kind-supersedes-at-768\\observations.json",
+          "sha256": "fa808d2b7a7cd5f43c2d6287ad78dffe8638062688f22e0821e0e5eb9994c0a2"
+        },
+        {
+          "path": "${WORKSPACE}\\work\\w2x-document-destination-read-retirement-results\\document-destination-read--04a12--read-chosen-control-at-768\\observations.json",
+          "sha256": "eadbc4e5e5fb7249d461252f83a5bb732d23c45b4bbdaa9b83fe1edee86b205d"
+        },
+        {
+          "path": "${WORKSPACE}\\work\\w2x-document-destination-read-retirement-results\\document-destination-read--5a202--read-chosen-control-at-390\\observations.json",
+          "sha256": "4bc7f3aad7e8b052cc783bdab796d4771689aed8071a33930db69feaea82590d"
+        },
+        {
+          "path": "${WORKSPACE}\\work\\w2x-document-destination-read-retirement-results\\document-destination-read--79b55-read-kind-supersedes-at-390\\observations.json",
+          "sha256": "f7e1ffdd5b7a0c7b8ad812d27e034b6d84137c56e5a0e680d9aecb680676d534"
+        },
+        {
+          "path": "${WORKSPACE}\\work\\w2x-document-destination-read-retirement-results\\document-destination-read--823db-read-chosen-control-at-1440\\observations.json",
+          "sha256": "26216660f2c43c14e89d85691f9807bba09a6722e5762e8916e495bf999bb3b5"
+        },
+        {
+          "path": "${WORKSPACE}\\work\\w2x-document-destination-read-retirement-results\\document-destination-read--84a3c-ead-kind-supersedes-at-1440\\observations.json",
+          "sha256": "aa5b24a71e97ca16f4d1c73ec620fb9f970e6361ed54146f4a4085f2dac48c5e"
+        },
+        {
+          "path": "${WORKSPACE}\\work\\w2x-document-destination-read-retirement-results\\document-destination-read--a2352--customer-supersedes-at-390\\test-failed-1.png",
+          "sha256": "e3b10d234b4153a007c2256b70c02b25b40bf68382fa216236ce1572478616aa"
+        },
+        {
+          "path": "${WORKSPACE}\\work\\w2x-document-destination-read-retirement-results\\document-destination-read--c0e6a--customer-supersedes-at-768\\test-failed-1.png",
+          "sha256": "76490e16537c8a812b9d48f18e280e688fd4b29867fd55c6b9437c2ac2928c29"
+        },
+        {
+          "path": "${WORKSPACE}\\work\\w2x-document-destination-read-retirement-results\\document-destination-read--d2737-customer-supersedes-at-1440\\test-failed-1.png",
+          "sha256": "585ab8d20c34106ef6ce8f7aa7add68d08da7c1282b088a936e7c66c7a91b430"
+        },
+        {
+          "path": "${WORKSPACE}\\work\\w2x-document-destination-read-retirement-browser.txt",
+          "sha256": "3f87c27ae9468e649763f84eff4278aa45885a422050f505656e74672891db53"
+        },
+        {
+          "path": "${WORKSPACE}\\work\\w2x-document-destination-read-retirement-original-bank.ts",
+          "sha256": "e913c70166d64274568edc584bcf3d19f64326ecb64bcf30bd790701f71dbaa6"
+        }
+      ]
+    },
+    "fixture_changed": true,
+    "corrected_attempt": {
+      "state": "TERMINAL_PASS",
+      "primary": 9,
+      "default_contract_context": 12,
+      "results": "work/w2x-document-destination-read-retirement-corrected-results",
+      "source_changes": "SRC_UNCHANGED_EXISTING_FIXTURE_OPTIONAL_PROBE",
+      "controls_session": 20395,
+      "original_controls_session": 41162,
+      "browser_exit": 0,
+      "summary": "21 passed (39.0s)",
+      "lint_exit": 0
+    },
+    "browser_summary": "21 passed (39.0s)",
+    "runtime_input_identity": {
+      "base_sha": "561488d948730acec047439224897f9a27a7cf10",
+      "src_tree": "2538b52c0379cd4f6c7da7cd4970b524f0c7a428",
+      "base_fixture_blob": "2036d47c2ab2ae4acc694bf5af0fd8844706575c",
+      "fixture_delta": "OptionalcustomerProbe=1only;exactreversal+12defaultcontractregressions;notwholefixtureunchanged",
+      "scope": "NoSRCproductionchanges/no24or66inheritance"
+    },
+    "visual_review": {
+      "status": "ACTUALLY_VIEWED",
+      "scope": "9currentcorrectedframes chosen/kind/customer3907681440;probeinputnotproductscreen;key/focus/oldresultDOM;boundedbody+twoframesnotAuthDB/Next/a11y",
+      "frames": [
+        {
+          "path": "${WORKSPACE}\\work\\w2x-document-destination-read-retirement-corrected-results\\document-destination-read--04546-read-kind-supersedes-at-768\\document-destination-retirement-kind_supersedes-768.png",
+          "sha256": "4455691debe9b86eccd378ef19b0064057b742f6d01b7da595e5aa37ef32c272"
+        },
+        {
+          "path": "${WORKSPACE}\\work\\w2x-document-destination-read-retirement-corrected-results\\document-destination-read--04a12--read-chosen-control-at-768\\document-destination-retirement-chosen_control-768.png",
+          "sha256": "d284ee103d77c6467fdd289983e0fabdc94eb475d77aa217bab3252af5954f37"
+        },
+        {
+          "path": "${WORKSPACE}\\work\\w2x-document-destination-read-retirement-corrected-results\\document-destination-read--5a202--read-chosen-control-at-390\\document-destination-retirement-chosen_control-390.png",
+          "sha256": "f636c5b767fe09731077cd5e862f9da1763d113ff9944546df834571faaba9f6"
+        },
+        {
+          "path": "${WORKSPACE}\\work\\w2x-document-destination-read-retirement-corrected-results\\document-destination-read--79b55-read-kind-supersedes-at-390\\document-destination-retirement-kind_supersedes-390.png",
+          "sha256": "b448f724db77ab01d0d78b33a42a1fa260f1d3e4f653e35033c6aad9dae903a1"
+        },
+        {
+          "path": "${WORKSPACE}\\work\\w2x-document-destination-read-retirement-corrected-results\\document-destination-read--823db-read-chosen-control-at-1440\\document-destination-retirement-chosen_control-1440.png",
+          "sha256": "30d7a97dff80a46a89c161458bf7ee3b62a3f4635b20f22cd45967003ebc3517"
+        },
+        {
+          "path": "${WORKSPACE}\\work\\w2x-document-destination-read-retirement-corrected-results\\document-destination-read--84a3c-ead-kind-supersedes-at-1440\\document-destination-retirement-kind_supersedes-1440.png",
+          "sha256": "e5bb57f733fb3452120bef58537c026d516fbc172f848a7a9d609d61b2a7807c"
+        },
+        {
+          "path": "${WORKSPACE}\\work\\w2x-document-destination-read-retirement-corrected-results\\document-destination-read--a2352--customer-supersedes-at-390\\document-destination-retirement-customer_supersedes-390.png",
+          "sha256": "316e1c20f3708142b48744a4fde960fc846dd6debe9b9ced4529288a8a9a5f5f"
+        },
+        {
+          "path": "${WORKSPACE}\\work\\w2x-document-destination-read-retirement-corrected-results\\document-destination-read--c0e6a--customer-supersedes-at-768\\document-destination-retirement-customer_supersedes-768.png",
+          "sha256": "fbbe1f207961a52434bf264db515c39299c3d3559f48cbd193b60b0a39ff7a37"
+        },
+        {
+          "path": "${WORKSPACE}\\work\\w2x-document-destination-read-retirement-corrected-results\\document-destination-read--d2737-customer-supersedes-at-1440\\document-destination-retirement-customer_supersedes-1440.png",
+          "sha256": "50c83ca87d25f2f57c965c92a2c3c5f5e38ac7c062eff8d7ed53dc41afe41b22"
+        }
+      ]
+    },
+    "observations": [
+      {
+        "width": 768,
+        "mode": "kind_supersedes",
+        "interaction": "CHOSEN_CONTROL_AND_DESTINATION_CUSTOMER_RETIREMENT_UI_PASS",
+        "transportComplete": true,
+        "retiredCase": true,
+        "observationWindow": "BODY_FINISHED_THEN_TWO_ANIMATION_FRAMES",
+        "focus": {
+          "tag": "BODY",
+          "body": true
+        },
+        "reads": [
+          {
+            "operation": "document.list",
+            "input": {
+              "target_kind": "customer",
+              "target_id": "10000000-0000-4000-8000-000000000001",
+              "status": "active",
+              "limit": 20
+            }
+          },
+          {
+            "operation": "service.list",
+            "input": {
+              "customer_id": "10000000-0000-4000-8000-000000000001",
+              "limit": 20
+            }
+          },
+          {
+            "operation": "service.list",
+            "input": {
+              "customer_id": "10000000-0000-4000-8000-000000000001",
+              "limit": 20
+            }
+          },
+          {
+            "operation": "document.list",
+            "input": {
+              "target_kind": "customer",
+              "target_id": "10000000-0000-4000-8000-000000000001",
+              "status": "active",
+              "limit": 20
+            }
+          }
+        ],
+        "commands": [],
+        "unexpected": [],
+        "errors": []
+      },
+      {
+        "width": 768,
+        "mode": "chosen_control",
+        "interaction": "CHOSEN_CONTROL_AND_DESTINATION_CUSTOMER_RETIREMENT_UI_PASS",
+        "transportComplete": true,
+        "retiredCase": false,
+        "observationWindow": "BODY_FINISHED_THEN_TWO_ANIMATION_FRAMES",
+        "focus": {
+          "tag": "SELECT",
+          "body": false
+        },
+        "reads": [
+          {
+            "operation": "document.list",
+            "input": {
+              "target_kind": "customer",
+              "target_id": "10000000-0000-4000-8000-000000000001",
+              "status": "active",
+              "limit": 20
+            }
+          },
+          {
+            "operation": "service.list",
+            "input": {
+              "customer_id": "10000000-0000-4000-8000-000000000001",
+              "limit": 20
+            }
+          },
+          {
+            "operation": "service.list",
+            "input": {
+              "customer_id": "10000000-0000-4000-8000-000000000001",
+              "limit": 20
+            }
+          }
+        ],
+        "commands": [],
+        "unexpected": [],
+        "errors": []
+      },
+      {
+        "width": 390,
+        "mode": "chosen_control",
+        "interaction": "CHOSEN_CONTROL_AND_DESTINATION_CUSTOMER_RETIREMENT_UI_PASS",
+        "transportComplete": true,
+        "retiredCase": false,
+        "observationWindow": "BODY_FINISHED_THEN_TWO_ANIMATION_FRAMES",
+        "focus": {
+          "tag": "SELECT",
+          "body": false
+        },
+        "reads": [
+          {
+            "operation": "document.list",
+            "input": {
+              "target_kind": "customer",
+              "target_id": "10000000-0000-4000-8000-000000000001",
+              "status": "active",
+              "limit": 20
+            }
+          },
+          {
+            "operation": "service.list",
+            "input": {
+              "customer_id": "10000000-0000-4000-8000-000000000001",
+              "limit": 20
+            }
+          },
+          {
+            "operation": "service.list",
+            "input": {
+              "customer_id": "10000000-0000-4000-8000-000000000001",
+              "limit": 20
+            }
+          }
+        ],
+        "commands": [],
+        "unexpected": [],
+        "errors": []
+      },
+      {
+        "width": 390,
+        "mode": "kind_supersedes",
+        "interaction": "CHOSEN_CONTROL_AND_DESTINATION_CUSTOMER_RETIREMENT_UI_PASS",
+        "transportComplete": true,
+        "retiredCase": true,
+        "observationWindow": "BODY_FINISHED_THEN_TWO_ANIMATION_FRAMES",
+        "focus": {
+          "tag": "BODY",
+          "body": true
+        },
+        "reads": [
+          {
+            "operation": "document.list",
+            "input": {
+              "target_kind": "customer",
+              "target_id": "10000000-0000-4000-8000-000000000001",
+              "status": "active",
+              "limit": 20
+            }
+          },
+          {
+            "operation": "service.list",
+            "input": {
+              "customer_id": "10000000-0000-4000-8000-000000000001",
+              "limit": 20
+            }
+          },
+          {
+            "operation": "service.list",
+            "input": {
+              "customer_id": "10000000-0000-4000-8000-000000000001",
+              "limit": 20
+            }
+          },
+          {
+            "operation": "document.list",
+            "input": {
+              "target_kind": "customer",
+              "target_id": "10000000-0000-4000-8000-000000000001",
+              "status": "active",
+              "limit": 20
+            }
+          }
+        ],
+        "commands": [],
+        "unexpected": [],
+        "errors": []
+      },
+      {
+        "width": 1440,
+        "mode": "chosen_control",
+        "interaction": "CHOSEN_CONTROL_AND_DESTINATION_CUSTOMER_RETIREMENT_UI_PASS",
+        "transportComplete": true,
+        "retiredCase": false,
+        "observationWindow": "BODY_FINISHED_THEN_TWO_ANIMATION_FRAMES",
+        "focus": {
+          "tag": "SELECT",
+          "body": false
+        },
+        "reads": [
+          {
+            "operation": "document.list",
+            "input": {
+              "target_kind": "customer",
+              "target_id": "10000000-0000-4000-8000-000000000001",
+              "status": "active",
+              "limit": 20
+            }
+          },
+          {
+            "operation": "service.list",
+            "input": {
+              "customer_id": "10000000-0000-4000-8000-000000000001",
+              "limit": 20
+            }
+          },
+          {
+            "operation": "service.list",
+            "input": {
+              "customer_id": "10000000-0000-4000-8000-000000000001",
+              "limit": 20
+            }
+          }
+        ],
+        "commands": [],
+        "unexpected": [],
+        "errors": []
+      },
+      {
+        "width": 1440,
+        "mode": "kind_supersedes",
+        "interaction": "CHOSEN_CONTROL_AND_DESTINATION_CUSTOMER_RETIREMENT_UI_PASS",
+        "transportComplete": true,
+        "retiredCase": true,
+        "observationWindow": "BODY_FINISHED_THEN_TWO_ANIMATION_FRAMES",
+        "focus": {
+          "tag": "BODY",
+          "body": true
+        },
+        "reads": [
+          {
+            "operation": "document.list",
+            "input": {
+              "target_kind": "customer",
+              "target_id": "10000000-0000-4000-8000-000000000001",
+              "status": "active",
+              "limit": 20
+            }
+          },
+          {
+            "operation": "service.list",
+            "input": {
+              "customer_id": "10000000-0000-4000-8000-000000000001",
+              "limit": 20
+            }
+          },
+          {
+            "operation": "service.list",
+            "input": {
+              "customer_id": "10000000-0000-4000-8000-000000000001",
+              "limit": 20
+            }
+          },
+          {
+            "operation": "document.list",
+            "input": {
+              "target_kind": "customer",
+              "target_id": "10000000-0000-4000-8000-000000000001",
+              "status": "active",
+              "limit": 20
+            }
+          }
+        ],
+        "commands": [],
+        "unexpected": [],
+        "errors": []
+      },
+      {
+        "width": 390,
+        "mode": "customer_supersedes",
+        "interaction": "CHOSEN_CONTROL_AND_DESTINATION_CUSTOMER_RETIREMENT_UI_PASS",
+        "transportComplete": true,
+        "retiredCase": true,
+        "observationWindow": "BODY_FINISHED_THEN_TWO_ANIMATION_FRAMES",
+        "focus": {
+          "tag": "BUTTON",
+          "body": false
+        },
+        "reads": [
+          {
+            "operation": "document.list",
+            "input": {
+              "target_kind": "customer",
+              "target_id": "10000000-0000-4000-8000-000000000001",
+              "status": "active",
+              "limit": 20
+            }
+          },
+          {
+            "operation": "service.list",
+            "input": {
+              "customer_id": "10000000-0000-4000-8000-000000000001",
+              "limit": 20
+            }
+          },
+          {
+            "operation": "service.list",
+            "input": {
+              "customer_id": "10000000-0000-4000-8000-000000000001",
+              "limit": 20
+            }
+          },
+          {
+            "operation": "document.list",
+            "input": {
+              "target_kind": "customer",
+              "target_id": "10000000-0000-4000-8000-000000000002",
+              "status": "active",
+              "limit": 20
+            }
+          }
+        ],
+        "commands": [],
+        "unexpected": [],
+        "errors": []
+      },
+      {
+        "width": 768,
+        "mode": "customer_supersedes",
+        "interaction": "CHOSEN_CONTROL_AND_DESTINATION_CUSTOMER_RETIREMENT_UI_PASS",
+        "transportComplete": true,
+        "retiredCase": true,
+        "observationWindow": "BODY_FINISHED_THEN_TWO_ANIMATION_FRAMES",
+        "focus": {
+          "tag": "BUTTON",
+          "body": false
+        },
+        "reads": [
+          {
+            "operation": "document.list",
+            "input": {
+              "target_kind": "customer",
+              "target_id": "10000000-0000-4000-8000-000000000001",
+              "status": "active",
+              "limit": 20
+            }
+          },
+          {
+            "operation": "service.list",
+            "input": {
+              "customer_id": "10000000-0000-4000-8000-000000000001",
+              "limit": 20
+            }
+          },
+          {
+            "operation": "service.list",
+            "input": {
+              "customer_id": "10000000-0000-4000-8000-000000000001",
+              "limit": 20
+            }
+          },
+          {
+            "operation": "document.list",
+            "input": {
+              "target_kind": "customer",
+              "target_id": "10000000-0000-4000-8000-000000000002",
+              "status": "active",
+              "limit": 20
+            }
+          }
+        ],
+        "commands": [],
+        "unexpected": [],
+        "errors": []
+      },
+      {
+        "width": 1440,
+        "mode": "customer_supersedes",
+        "interaction": "CHOSEN_CONTROL_AND_DESTINATION_CUSTOMER_RETIREMENT_UI_PASS",
+        "transportComplete": true,
+        "retiredCase": true,
+        "observationWindow": "BODY_FINISHED_THEN_TWO_ANIMATION_FRAMES",
+        "focus": {
+          "tag": "BUTTON",
+          "body": false
+        },
+        "reads": [
+          {
+            "operation": "document.list",
+            "input": {
+              "target_kind": "customer",
+              "target_id": "10000000-0000-4000-8000-000000000001",
+              "status": "active",
+              "limit": 20
+            }
+          },
+          {
+            "operation": "service.list",
+            "input": {
+              "customer_id": "10000000-0000-4000-8000-000000000001",
+              "limit": 20
+            }
+          },
+          {
+            "operation": "service.list",
+            "input": {
+              "customer_id": "10000000-0000-4000-8000-000000000001",
+              "limit": 20
+            }
+          },
+          {
+            "operation": "document.list",
+            "input": {
+              "target_kind": "customer",
+              "target_id": "10000000-0000-4000-8000-000000000002",
+              "status": "active",
+              "limit": 20
+            }
+          }
+        ],
+        "commands": [],
+        "unexpected": [],
+        "errors": []
+      }
+    ],
+    "candidate_fingerprints": [
+      {
+        "path": "tests/e2e-preview/document-destination-read-retirement.spec.ts",
+        "sha256_utf8_lf": "c935e558a3abeb6f172bdb724b6505cb182ded800037d148dcde03cd54f5d884"
+      },
+      {
+        "path": "tests/e2e-preview/fixtures/customer-resource-entry.tsx",
+        "sha256_utf8_lf": "150f991bcf9ac52baac97ae643bc7a22894726f028c0de6633c527d3c80865bd"
+      },
+      {
+        "path": "docs/master/W2X_DOCUMENT_DESTINATION_READ_RETIREMENT_20261019.md",
+        "sha256_utf8_lf": "89c0525790cb554126691a4148b0cb7e5d013b775d7090baf80bea82afd31366"
+      }
+    ],
+    "known_remaining_defects": {
+      "whole_product": "NOT_RECONCILED",
+      "authority": "NOT_RUN_AUTHDB_RLS_MEMBERSHIP",
+      "company_boundary": "NOT_RUN_REAL_PRODUCT_PROVIDER_TENANT",
+      "security": "W4_PENDING_HIGH5",
+      "release": "NOT_ACCEPTED"
+    },
+    "handoffs": [
+      {
+        "issue": 67,
+        "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6257278937",
+        "id": 6257278937
+      },
+      {
+        "issue": 153,
+        "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6257279131",
+        "id": 6257279131
+      },
+      {
+        "issue": 38,
+        "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6257279292",
+        "id": 6257279292
+      },
+      {
+        "issue": 142,
+        "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6257279481",
+        "id": 6257279481
+      }
+    ],
+    "tree": "78f52737c1a2096cb842f4c11a7c3ccb7a9b0ea6",
+    "sha": "d1880f3af3a8a719bde3367825f900108f9edc29"
+  },
+  "independent_case_command_refresh": "${WORKSPACE}\\work\\w2x-case-command-refresh-lifetime-checkpoint.json",
+  "independent_customer_post_command": "${WORKSPACE}\\work\\w2x-customer-post-command-lifetime-checkpoint.json",
+  "independent_private_fiscal_pdf": "${WORKSPACE}\\work\\w2x-private-fiscal-pdf-lifetime-checkpoint.json",
+  "closed_commercial_coverage": "${WORKSPACE}\\work\\w2x-commercial-lifetime-full-checkpoint.json",
+  "independent_authorized_pdf": "${WORKSPACE}\\work\\w2x-authorized-pdf-lifetime-checkpoint.json",
+  "independent_document_download": "${WORKSPACE}\\work\\w2x-document-download-lifetime-checkpoint.json",
+  "closed_commercial_pdf_coverage": "${WORKSPACE}\\work\\w2x-commercial-pdf-full-checkpoint.json",
+  "independent_document_download_uncertain": "${WORKSPACE}\\work\\w2x-document-download-uncertain-checkpoint.json",
+  "closed_commercial_document_coverage": "${WORKSPACE}\\work\\w2x-commercial-download-uncertain-full-checkpoint.json",
+  "independent_case_contract_selection": "${WORKSPACE}\\work\\w2x-case-contract-selection-checkpoint.json",
+  "closed_commercial_download_uncertain_coverage": "${WORKSPACE}\\work\\w2x-commercial-download-uncertain-full-checkpoint.json",
+  "independent_line_parent_read_lifetime": "${WORKSPACE}\\work\\w2x-line-parent-read-lifetime-checkpoint.json",
+  "pending_commercial_case_contract_coverage": "${WORKSPACE}\\work\\w2x-commercial-case-contract-full-checkpoint.json",
+  "independent_contract_followup_read_lifetime": "${WORKSPACE}\\work\\w2x-contract-followup-read-lifetime-checkpoint.json",
+  "closed_commercial_case_contract_coverage": "${WORKSPACE}\\work\\w2x-commercial-case-contract-full-checkpoint.json",
+  "independent_portfolio_invalid_receipt": "${WORKSPACE}\\work\\w2x-portfolio-invalid-receipt-checkpoint.json",
+  "pending_commercial_portfolio_invalid_coverage": "${WORKSPACE}\\work\\w2x-commercial-portfolio-invalid-full-checkpoint.json",
+  "independent_portfolio_editor_invalid_receipt": "${WORKSPACE}\\work\\w2x-portfolio-editor-invalid-receipt-checkpoint.json",
+  "pending_aware_orchestration": "${WORKSPACE}\\work\\w2x-editor-pending-aware-orchestration.json",
+  "closed_commercial_portfolio_invalid_coverage": "${WORKSPACE}\\work\\w2x-commercial-portfolio-invalid-full-checkpoint.json",
+  "closed_portfolio_editor": {
+    "sha": "136749b9f6a59bea379f695eeb6b892db92e417d",
+    "checkpoint": "${WORKSPACE}\\work\\w2x-portfolio-editor-invalid-receipt-checkpoint.json",
+    "status": "OWN214_BUILD66_LINT_SCAN_PASS_VISUAL_PARTIAL_AUTH_NOT_RUN",
+    "published": true
+  },
+  "closed_renewal_individual_review": "${WORKSPACE}\\work\\w2x-renewal-individual-review-checkpoint.json",
+  "independent_opportunity_command_read": "${WORKSPACE}\\work\\w2x-opportunity-command-read-checkpoint.json",
+  "commercial_continuation_orchestration": "${WORKSPACE}\\work\\w2x-commercial-continuation-orchestration.json",
+  "closed_portfolio_command_read": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-portfolio-command-read-checkpoint.json",
+    "sha": "be524199a28af226bd492004a32311b0873672fd",
+    "status": "OWN244_BUILD66_LINT0ERRORS3WARN_SCAN_PASS_VISUAL_PARTIAL_AUTH_NOT_RUN",
+    "published": true
+  },
+  "independent_service_parent_read": "${WORKSPACE}\\work\\w2x-service-parent-read-checkpoint.json",
+  "closed_opportunity_command_read": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-opportunity-command-read-checkpoint.json",
+    "sha": "a4ef01b90025614ff5e42cff10225e9b5bc11e1f",
+    "status": "OWN102_BUILD66_LINT0ERRORS3WARN_SCAN_PASS_VISUAL_PARTIAL_AUTH_NOT_RUN",
+    "published": true
+  },
+  "independent_portability_parent_read": "${WORKSPACE}\\work\\w2x-portability-parent-read-checkpoint.json",
+  "closed_service_parent_read": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-service-parent-read-checkpoint.json",
+    "sha": "6b4692df7ccc47cf9814beecc09d69c41d333256",
+    "status": "OWN21_BUILD66_LINT0ERRORS3WARN_SCAN_PASS_VISUAL_PARTIAL_AUTH_NOT_RUN",
+    "published": true
+  },
+  "commercial_service_full_coverage": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-commercial-service-full-checkpoint.json",
+    "sha": "6b4692df7ccc47cf9814beecc09d69c41d333256",
+    "status": "SAME_SHA_COMPLEMENTARY979_PLUS2_PASS_ORIGINAL981_FAILURE_PRESERVED",
+    "original_browser_exit": 1,
+    "recheck2_exit": 0
+  },
+  "closed_portability_parent_read": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-portability-parent-read-checkpoint.json",
+    "sha": "57e97ed72199fc5de085a3f76e6dacdaf3983027",
+    "status": "OWN36_BUILD66_LINT0ERRORS3WARN_SCAN_PASS_VISUAL_PARTIAL_AUTH_NOT_RUN",
+    "published": true
+  },
+  "closed_portability_operator_captions": {
+    "sha": "d56ae41202464c793d46a3ab9058126b08450732",
+    "branch": "codex/w2x-portability-operator-captions-lifetime-20261015",
+    "checkpoint": "${WORKSPACE}\\work\\w2x-portability-operator-captions-checkpoint.json",
+    "status": "OWN3_FINAL_PLUS33_COMPLEMENTARY_BUILD66_SCAN_PASS_VISUAL_PARTIAL_AUTH_NOT_RUN",
+    "published": true
+  },
+  "closed_portability_draft_direction": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-portability-draft-direction-checkpoint.json",
+    "sha": "d889bf293bd0ce96d73d376e57c37615ad943222",
+    "status": "OWN39_BUILD66_LINT0ERRORS3WARN_SCAN_PASS_VISUAL_NOT_REVIEWED_AUTH_NOT_RUN",
+    "published": true
+  },
+  "closed_pipeline_individual_review": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-pipeline-individual-review-checkpoint.json",
+    "sha": "f5e167b39aadd8d7c99c4894fc8b26845f05d61b",
+    "branch": "codex/w2x-pipeline-individual-review-20261015",
+    "status": "PAR073_INDIVIDUAL_PARTIAL_REVIEW_PUBLISHED",
+    "published": true,
+    "evidence_source": "a4ef01b90025614ff5e42cff10225e9b5bc11e1f"
+  },
+  "commercial_direction_full_coverage": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-commercial-direction-full-checkpoint.json",
+    "sha": "d889bf293bd0ce96d73d376e57c37615ad943222",
+    "status": "OWN999_FULL_PASS",
+    "publication": "PUBLISHED",
+    "handoff67": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6202882857"
+  },
+  "closed_sim_parent_read": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-sim-parent-read-checkpoint.json",
+    "sha": "237dc1e5bef5b510c9dac7ba06598a9ce19f5673",
+    "status": "OWN54_BUILD66_LINT0ERRORS3WARN_SCAN_PASS_VISUAL_PARTIAL_AUTH_NOT_RUN",
+    "published": true
+  },
+  "closed_sim_get_individual_review": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-sim-get-review-checkpoint.json",
+    "claim": 6202826825,
+    "sha": "eb3bc5d9f4f4f642f4f09aa65588397593485051",
+    "branch": "codex/w2x-sim-get-individual-review-20261015",
+    "status": "TEL097_INDIVIDUAL_PARTIAL_REVIEW_PUBLISHED",
+    "published": true,
+    "next": "NEW_CLAIM_PORTABILITY_CREATE_DIRECTION;GLOBAL999_STILL_SEPARATE"
+  },
+  "closed_portability_create_direction": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-portability-create-direction-checkpoint.json",
+    "sha": "a24a6d811ce2c6013067576f4dadbc4394539ef2",
+    "status": "OWN45_BUILD66_LINT0ERRORS3WARN_SCAN_PASS_VISUAL_PARTIAL_AUTH_NOT_RUN",
+    "published": true
+  },
+  "closed_service_command_read": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-service-command-read-checkpoint.json",
+    "sha": "ff5e5a7feb2c63ab2d19391d30ca12d6bd977aec",
+    "status": "PUBLISHED_OWN75_VISUAL_PARTIAL",
+    "published": true
+  },
+  "closed_portability_create_review": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-portability-create-review-checkpoint.json",
+    "sha": "b431287d5432c2323ec9d0f0ae477426f0b92b7d",
+    "status": "TEL040_INDIVIDUAL_PARTIAL_REVIEW_PUBLISHED",
+    "published": true
+  },
+  "commercial_installed_full_coverage": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-commercial-installed-full-checkpoint.json",
+    "sha": "ff5e5a7feb2c63ab2d19391d30ca12d6bd977aec",
+    "status": "OWN1065_FULL_PASS"
+  },
+  "closed_sim_command_read": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-sim-command-read-checkpoint.json",
+    "sha": "3712b2f72bd8ec19935521525b182f12c065f20b",
+    "status": "PUBLISHED_OWN114_FINAL_FIXTURE_BUILD66_VISUAL_PARTIAL12",
+    "published": true
+  },
+  "closed_portability_command_read": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-portability-command-read-checkpoint.json",
+    "sha": "ddcffe793b46c3024c1a762d094c8359d1ab9b82",
+    "status": "PUBLISHED_OWN105_BUILD66_VISUAL_PARTIAL6",
+    "published": true
+  },
+  "commercial_refreshed_full_coverage": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-commercial-refreshed-full-checkpoint.json",
+    "sha": "ddcffe793b46c3024c1a762d094c8359d1ab9b82",
+    "status": "OWN1155_FULL_PASS"
+  },
+  "closed_sim_assignment_selection": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-sim-assignment-selection-checkpoint.json",
+    "sha": "d55fc36c9f5343f5e100acb18ea1df0671fb65e5",
+    "status": "OWN120_BUILD66_LINT0ERRORS3WARN_SCAN_PASS_VISUAL_PARTIAL_AUTH_NOT_RUN",
+    "published": true
+  },
+  "closed_service_facts_review": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-service-facts-review-checkpoint.json",
+    "sha": "63f4fd6b12d1bc7c7f90f0cd43f7b6aaaf9d0b6a",
+    "status": "TEL024_INDIVIDUAL_PARTIAL_REVIEW_PUBLISHED",
+    "published": true
+  },
+  "closed_case_create_read": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-case-create-read-checkpoint.json",
+    "sha": "4c9cd97250c806f0d84bd47d513cd2537c6ff8bf",
+    "status": "OWN63_BUILD66_LINT0ERRORS3WARN_SCAN_PASS_VISUAL_PARTIAL_AUTH_NOT_RUN",
+    "published": true
+  },
+  "parallel_independent_unit": {
+    "claim": 6204084835,
+    "base": "452b920ad9c86aceac7be0bbdbfd6c6f2fcecdda",
+    "branch": "codex/w2x-sim-create-individual-review-20261015",
+    "path": "${WORKSPACE}\\work\\crm-w2x-document-upload-uncertain",
+    "status": "TEL033_METADATA_PREPARED_WAITING_SOURCE31",
+    "evidence_source": "452b920ad9c86aceac7be0bbdbfd6c6f2fcecdda",
+    "runtime": "NOT_RUN_METADATA_SHA",
+    "release": "NOT_ACCEPTED",
+    "next": "Compose31onlyafterpublished210;queue21PARTIAL321;check20priorreviews341rows/globalfields/src_tests;scan/commit/push/handoff;nextmeasuredreadretirement",
+    "checkpoint": "${WORKSPACE}\\work\\w2x-sim-create-review-checkpoint.json"
+  },
+  "closed_sim_create_read": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-sim-create-read-checkpoint.json",
+    "sha": "452b920ad9c86aceac7be0bbdbfd6c6f2fcecdda",
+    "status": "OWN165_BUILD66_LINT0ERRORS3WARN_SCAN_PASS_VISUAL_PARTIAL_AUTH_NOT_RUN",
+    "published": true
+  },
+  "closed_portability_create_read": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-portability-create-read-checkpoint.json",
+    "sha": "21a75fa2207337917406f70373b4bb0e4f79a324",
+    "status": "OWN210_BUILD66_LINT0ERRORS3WARN_SCAN_PASS_VISUAL_PARTIAL_AUTH_NOT_RUN",
+    "published": true
+  },
+  "closed_sim_create_review": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-sim-create-review-checkpoint.json",
+    "sha": "a0a3d0476feea251342ac48251fc3acd6f49402d",
+    "status": "TEL033_INDIVIDUAL_PARTIAL_REVIEW_PUBLISHED",
+    "published": true
+  },
+  "commercial_creations_full_coverage": {
+    "checkpoint": "work/w2x-commercial-creations-full-checkpoint.json",
+    "sha": "21a75fa2207337917406f70373b4bb0e4f79a324",
+    "status": "OWN1266_FULL_PASS",
+    "publication": "PUBLISHED"
+  },
+  "latest_partial_review": {
+    "checkpoint": "work/w2x-customer-documents-recovery-review-checkpoint.json",
+    "sha": "561488d948730acec047439224897f9a27a7cf10",
+    "reviewed_partial": 34,
+    "unreconciled": 308,
+    "ready": 0,
+    "row": "PAR-053",
+    "evidence_source": "5e364a786015d5b627ed2ba1dff7158e136189b4",
+    "runtime": "NOT_RUN_METADATA_SHA"
+  },
+  "commercial_line_currency_full_coverage": {
+    "checkpoint": "work/w2x-commercial-line-currency-full-checkpoint.json",
+    "sha": "2741fb82047534ecdf27044f25514f0d690b69e3",
+    "status": "SAME_SHA_COMPLEMENTARY1253_PLUS13_PASS_ORIGINAL1266_FAILURE_PRESERVED",
+    "original_browser_exit": 1,
+    "original_summary": [
+      "13 failed",
+      "1253 passed (28.4m)"
+    ],
+    "failed13": "PASS13_SAME_SHA_ORIGINAL_FAILED_ONLY",
+    "publication": "PUBLISHED"
+  },
+  "commercial_attention_full_coverage": {
+    "checkpoint": "work/w2x-commercial-attention-full-checkpoint.json",
+    "sha": "4221edc8023e68d3497092e92a428838baea1e32",
+    "status": "OWN1311_FULL_PASS",
+    "publication": "PUBLISHED"
+  },
+  "commercial_grouped_full_coverage": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-commercial-grouped-full-checkpoint.json",
+    "sha": "fa3e16853b4467e554d96af49ac9aeb315978761",
+    "status": "OWN1362_FULL_PASS"
+  },
+  "commercial_billing_full_coverage": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-commercial-billing-full-checkpoint.json",
+    "sha": "bf72cf94f203a4b72b1b7124b4efdbfb050b36b1",
+    "status": "OWN1416_FULL_PASS"
+  },
+  "commercial_draft_full_coverage": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-commercial-draft-full-checkpoint.json",
+    "sha": "bc3b3c12bd92eb76897c96b007af01bcbf8c2948",
+    "status": "OWN1434_FULL_PASS"
+  },
+  "commercial_calendar_full_coverage": {
+    "checkpoint": "work/w2x-commercial-calendar-full-checkpoint.json",
+    "source": "4deb73d92f5136a6ce511af586fd5c98f329a9bf",
+    "session": 15039,
+    "status": "OWN1479_FULL_PASS",
+    "tests": 1479,
+    "files": 92,
+    "dispatch": "TERMINAL",
+    "next": "Keep checkout14 onBC3 while1434 runs;waiter15039 owns next1479 source53;do not duplicate/cancel/publish over active checks.",
+    "publication": "PUBLISHED"
+  },
+  "continuation_units49_54": {
+    "manifest": "work/w2x-units49-54-recovery-manifest.json",
+    "active_unit": 54,
+    "client_date": "2026-10-18"
+  },
+  "latest_continuation_manifest": {
+    "manifest": "work/w2x-units49-113-recovery-manifest.json",
+    "active_unit": 113,
+    "client_date": "2026-10-19"
+  },
+  "commercial_line_context_full_coverage": {
+    "checkpoint": "work/w2x-commercial-line-context-full-checkpoint.json",
+    "source": "2a8597537737cec349650496e874d86ca6e5633a",
+    "session": 93249,
+    "tests": 1575,
+    "files": 96,
+    "status": "OWN1575_FULL_PASS",
+    "dispatch": "TERMINAL",
+    "own57": "PUBLISHED_OWN114_BUILD66_VISUAL_PARTIAL",
+    "next": "Own1575 source57 closed;follow newer financial/proposal queue for current checkout14 ownership. No PASS inheritance to descendants.",
+    "publication": "PUBLISHED"
+  },
+  "commercial_financial_full_coverage": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-commercial-proposal-full-checkpoint.json",
+    "sha": "d65880a3af08bcc861d14846d399a75235f65a76",
+    "status": "OWN1773_FULL_PASS",
+    "publication": "PUBLISHED",
+    "frozen": false,
+    "release": "NOT_ACCEPTED"
+  },
+  "commercial_proposal_full_coverage": {
+    "checkpoint": "work/w2x-commercial-proposal-full-checkpoint.json",
+    "source": "d65880a3af08bcc861d14846d399a75235f65a76",
+    "session": 76632,
+    "tests": 1773,
+    "files": 102,
+    "status": "RUNNING_ONCE",
+    "dispatch": "REQUESTED_ONCE",
+    "own65": "PUBLISHED_OWN99_FUNCTIONAL49_BUILD66_VISUAL_PARTIAL",
+    "release": "NOT_ACCEPTED",
+    "next": "Keep checkout14 frozen at65 while unique1773controller76632 runs. No duplicate,cancel or inheritedPASS.",
+    "frozen": true
+  },
+  "commercial_customer_full_coverage": {
+    "checkpoint": "work/w2x-commercial-customer-full-checkpoint.json",
+    "source": "4964b61330e7f3abeb86349c9c3cb1f9260ca728",
+    "session": 18288,
+    "tests": 1806,
+    "files": 104,
+    "status": "OWN1806_FULL_PASS",
+    "dispatch": "TERMINAL",
+    "frozen": false,
+    "release": "NOT_ACCEPTED",
+    "next": "1806source69 terminal;preserve exact published result and consult newer filter/name coverage for checkout14 ownership. No inheritedPASS.",
+    "publication": "PUBLISHED"
+  },
+  "commercial_filter_full_coverage": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-commercial-filter-full-checkpoint.json",
+    "sha": "afe91b013554a8035281962d752fec3f40037e2c",
+    "status": "OWN1842_FULL_PASS",
+    "publication": "PUBLISHED",
+    "frozen": false,
+    "release": "NOT_ACCEPTED"
+  },
+  "commercial_name_full_coverage": {
+    "checkpoint": "work/w2x-commercial-name-full-checkpoint.json",
+    "source": "194057f50a1d9d9ce60b8003065fa3c06cd7e5d3",
+    "session": 65756,
+    "tests": 1869,
+    "files": 108,
+    "status": "OWN1869_FULL_PASS",
+    "dispatch": "TERMINAL",
+    "release": "NOT_ACCEPTED",
+    "next": "Continue useful independent W2 commercial unit;no repeat green without changed source or relevant failure.",
+    "publication": "PUBLISHED",
+    "frozen": false
+  },
+  "commercial_overdue_full_coverage": {
+    "checkpoint": "work/w2x-commercial-overdue-full-checkpoint.json",
+    "source": "988c0ba7842503740959dbab2bc099467527e788",
+    "session": 46411,
+    "tests": 1887,
+    "files": 109,
+    "status": "OWN1887_FULL_PASS",
+    "dispatch": "TERMINAL",
+    "release": "NOT_ACCEPTED",
+    "next": "Continue useful independent W2 commercial unit;no repeat green without changed source or relevant failure.",
+    "publication": "PUBLISHED",
+    "frozen": false
+  },
+  "commercial_context_full_coverage": {
+    "checkpoint": "work/w2x-commercial-context-full-checkpoint.json",
+    "source": "7218b7bc6d3a079feb8b8f457edbf48045fa02a0",
+    "session": 56843,
+    "tests": 1908,
+    "files": 111,
+    "status": "OWN1908_FULL_PASS",
+    "dispatch": "TERMINAL",
+    "release": "NOT_ACCEPTED",
+    "next": "Continue useful independent W2 commercial unit;no repeat green without changed source or relevant failure.",
+    "publication": "PUBLISHED",
+    "frozen": false
+  },
+  "commercial_contract_full_coverage": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-commercial-contract-full-checkpoint.json",
+    "sha": "b4a8505ebaf97c5b23185d1e0c61c557eb450d5f",
+    "status": "OWN1968_FULL_PASS",
+    "publication": "PUBLISHED",
+    "frozen": false,
+    "release": "NOT_ACCEPTED"
+  },
+  "commercial_contract_lifetime_full_coverage": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-commercial-contract-lifetime-full-checkpoint.json",
+    "sha": "6ab61afddbf4a56b931cb54a1a98609ff7e295d4",
+    "status": "OWN2007_FULL_PASS",
+    "publication": "PUBLISHED",
+    "frozen": false,
+    "release": "NOT_ACCEPTED"
+  },
+  "commercial_number_full_coverage": {
+    "checkpoint": "work/w2x-commercial-number-full-checkpoint.json",
+    "source": "ddf5501af84e91951349e7991cf013e6427cff2b",
+    "session": 53189,
+    "tests": 2043,
+    "files": 118,
+    "status": "OWN2043_FULL_PASS",
+    "dispatch": "TERMINAL",
+    "release": "NOT_ACCEPTED",
+    "next": "Continue useful independent W2 commercial unit;no repeat green without changed source or relevant failure.",
+    "publication": "PUBLISHED"
+  },
+  "commercial_drawer_full_coverage": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-commercial-drawer-full-checkpoint.json",
+    "sha": "f20dfd511bb36e5064761d27b303cba3b3c89e2f",
+    "status": "OWN2109_FULL_PASS",
+    "publication": "PUBLISHED",
+    "frozen": false,
+    "release": "NOT_ACCEPTED"
+  },
+  "commercial_mobile_product_full_coverage": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-commercial-mobile-product-full-checkpoint.json",
+    "sha": "8d1f8e6bb73056f8f0dafde1479f63591e165a4b",
+    "status": "OWN2139_FULL_PASS",
+    "publication": "PUBLISHED",
+    "frozen": false,
+    "release": "NOT_ACCEPTED"
+  },
+  "commercial_collection_full_coverage": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-commercial-collection-full-checkpoint.json",
+    "sha": "b84295e96a4396d0e3691407bac11eace28c53fe",
+    "status": "OWN2172_FULL_PASS",
+    "publication": "PUBLISHED",
+    "frozen": false,
+    "release": "NOT_ACCEPTED"
+  },
+  "commercial_customer_journey_full_coverage": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-commercial-customer-journey-full-checkpoint.json",
+    "sha": "f48425b5d30a071049392486ba669bd23cfa5044",
+    "status": "OWN2214_FULL_PASS",
+    "publication": "PUBLISHED",
+    "frozen": false,
+    "release": "NOT_ACCEPTED"
+  },
+  "commercial_document_recovery_full_coverage": {
+    "checkpoint": "${WORKSPACE}\\work\\w2x-commercial-document-recovery-full-checkpoint.json",
+    "sha": "5e364a786015d5b627ed2ba1dff7158e136189b4",
+    "status": "OWN2256_FULL_PASS",
+    "publication": "PUBLISHED",
+    "frozen": false,
+    "release": "NOT_ACCEPTED"
+  }
+}

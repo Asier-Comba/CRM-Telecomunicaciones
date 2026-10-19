@@ -1,0 +1,1 @@
+const p=require('./playwright-w2x-contract-created-read-binding-causal.config.cjs');module.exports={...p,outputDir:require('node:path').resolve(__dirname,'w2x-contract-created-read-binding-receipt-corrected-causal-results')}

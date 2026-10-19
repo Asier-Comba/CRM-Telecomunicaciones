@@ -1,0 +1,96 @@
+{
+  "claim": 6256801949,
+  "sha": "f48425b5d30a071049392486ba669bd23cfa5044",
+  "tree": "4481e458d2f5367f085b2210000e31cd843ea79f",
+  "branch": "codex/w2x-communications-page-focus-20261019",
+  "status": "OWN2214_FULL_PASS",
+  "browser_status": "PASS2214",
+  "browser_exit": 0,
+  "browser_summary": [
+    "2214 passed (52.0m)"
+  ],
+  "source_clean": true,
+  "own_source_checks": {
+    "browser": "21_PASS_OWN_SOURCE",
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN",
+    "paid_api": 0,
+    "global": "NOT_RUN_CURRENT_SHA",
+    "functional": "NOT_RUN_UI_PRESENTATION_ONLY",
+    "build": "66_PASS",
+    "lint": "EXIT0_WARNINGS_PRESERVED",
+    "scan": "PASS"
+  },
+  "known_remaining_defects": {
+    "whole_product": "NOT_RECONCILED",
+    "router_navigation": "NOT_RUN_CONTROLLED_CONTEXT_ONLY",
+    "security": "W4_PENDING_HIGH5",
+    "release": "NOT_ACCEPTED",
+    "page_error_back": {
+      "status": "STATIC_BLOB_MATCH_TO_MEASURED_METADATA_SOURCE107_NOT_DIRECT106_EXECUTION",
+      "source106": "f48425b5d30a071049392486ba669bd23cfa5044",
+      "measured_product_sha": "e8b45e225760b372d4e2600e06abd0284befcd19",
+      "identical_blobs": {
+        "src/features/customers/CustomerDomainPages.tsx": "715fb23a7d9dc9d1c621b6bc4d4c6ec440939f79",
+        "src/features/customers/CustomerCommunications.tsx": "874bfa84708031176f7ea4cfd8bdf5530729bcda"
+      },
+      "evidence": "work/w2x-collection-page-error-back-causal.txt",
+      "fix_source": "ee157165f1cd4e9fd3d5ad4c72d5f2b9025ef467",
+      "scope": "2214bank lacks18newcases/108fix;do not promote106orcallitphysicallyfailedbasedonanotherSHA."
+    }
+  },
+  "auth_db": "NOT_RUN",
+  "model": "NOT_RUN",
+  "paid_api": 0,
+  "release": "NOT_ACCEPTED",
+  "next": "Continue useful independent W2 commercial unit;no repeat green without changed source or relevant failure.",
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-commercial-customer-journey-full-collection.txt",
+      "sha256": "95b40490d1cc591ce6ad59fd8409df5bce26197802759cc4587f698d1b4d165d"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-commercial-customer-journey-full-browser.txt",
+      "sha256": "fc8541c4156528cfd252f1503e3341443469c4095c370ac0596810d8f6e33ee0"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-communications-page-focus-browser.txt",
+      "sha256": "e32ac34bcee1b6e3c26eb455ab226f81c14a1763e2ac92bc8787b53af9823783"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-communications-page-focus-build.txt",
+      "sha256": "9f519f2f8165e9dd70905befc90a9fce6229d651436bd8fad9f1ebd17b19d81d"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-communications-page-focus-lint.txt",
+      "sha256": "77e52456c3bf671c8ed5a0154c9dbfdd998b31f3c61494ca11430b416d294dad"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-communications-page-focus-scan.txt",
+      "sha256": "2aafaef61ecdf6a1f3af730f025b5fd815c8e0d6d4d990897013c3dcba3e4c16"
+    }
+  ],
+  "handoffs": [
+    {
+      "issue": 67,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6258311564",
+      "id": 6258311564
+    },
+    {
+      "issue": 153,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6258311742",
+      "id": 6258311742
+    },
+    {
+      "issue": 38,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6258311904",
+      "id": 6258311904
+    },
+    {
+      "issue": 142,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6258312083",
+      "id": 6258312083
+    }
+  ],
+  "publication": "PUBLISHED"
+}

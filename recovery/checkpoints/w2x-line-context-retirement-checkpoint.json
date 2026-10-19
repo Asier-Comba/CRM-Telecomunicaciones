@@ -1,0 +1,90 @@
+{
+  "claim": 6204361588,
+  "base": "a0a3d0476feea251342ac48251fc3acd6f49402d",
+  "branch": "codex/w2x-line-context-retirement-20261015",
+  "status": "PUBLISHED_OWN330_BUILD66_VISUAL_NOT_REVIEWED_AUTH_NOT_RUN",
+  "release": "NOT_ACCEPTED",
+  "next": "Fresh CLAIM independent reproduced Customer360/Contact commercial defect; do not inherit global1266 from21a75fa or release acceptance",
+  "controls_session": 7424,
+  "original": {
+    "failed": 2,
+    "cause": "Expected0Received1RetiredServiceBRead",
+    "log": "work/w2x-line-context-retirement-causal.txt"
+  },
+  "candidate_fingerprints": [
+    {
+      "path": "src/features/product/integration/line-context.ts",
+      "sha256_utf8_lf": "b23c4fe87a430d387f90e65095a09bf30f0bb2ca59f4c077592fdc82f6e39026"
+    },
+    {
+      "path": "src/features/sims/Sims.tsx",
+      "sha256_utf8_lf": "671169e8ae1cab1fc2a43dda554c279f014a47a7d3e608b3101a8db6c245871b"
+    },
+    {
+      "path": "tests/e2e-preview/sim-assignment-selection.spec.ts",
+      "sha256_utf8_lf": "53a982c5d66dd533fb9af264e4af8467f586d33b5fbfe10cd03ffe41b6d0ca4f"
+    },
+    {
+      "path": "docs/master/W2X_LINE_CONTEXT_RETIREMENT_20261015.md",
+      "sha256_utf8_lf": "f80bb7526a784e31b3f308bde4fb54d7a35745590969e0afcff0430bf624239f"
+    }
+  ],
+  "checks": {
+    "browser": "330_PASS_OWN_SOURCE",
+    "visual": "NOT_REVIEWED_CURRENT_SHA",
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN",
+    "paid_api": 0,
+    "build": "66_PASS",
+    "lint": "EXIT0_WARNINGS_RETAINED_IN_LOG",
+    "scan": "PASS",
+    "global": "NOT_RUN_CURRENT_SHA"
+  },
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-line-context-retirement-causal.txt",
+      "sha256": "f00455c24d76ff41cd802e34ec92794efecf4b344aa26bb35816943f7fdac906"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-line-context-retirement-browser.txt",
+      "sha256": "1d08c0bbe97501179eda6b73818a8125c9d412f69be54ef88493b972946537b7"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-line-context-retirement-lint.txt",
+      "sha256": "91a5c63f9a9a0a42f92a00caa38da32336b62b940ccf4738d08ef97c55d9996c"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-line-context-retirement-build.txt",
+      "sha256": "a4eed19dc1dcf82ec934a39bd887a6e98f5ea6ece782ee6193c8e5be66a1cf47"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-line-context-retirement-scan.txt",
+      "sha256": "e7bff81e578f522a18876812341e13ebee54b6bafcc2546fc251fab5f2eaa8cc"
+    }
+  ],
+  "publication": "PUBLISHED",
+  "sha": "2741fb82047534ecdf27044f25514f0d690b69e3",
+  "handoffs": [
+    {
+      "issue": 67,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6212720676",
+      "id": 6212720676
+    },
+    {
+      "issue": 153,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6212721031",
+      "id": 6212721031
+    },
+    {
+      "issue": 38,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6212721349",
+      "id": 6212721349
+    },
+    {
+      "issue": 142,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6212721631",
+      "id": 6212721631
+    }
+  ],
+  "tree": "00fe47b03c5cd68b64bb6038b3df7ec5177de4d5"
+}

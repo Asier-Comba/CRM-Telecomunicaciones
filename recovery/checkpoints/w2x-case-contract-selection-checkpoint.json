@@ -1,0 +1,137 @@
+{
+  "utc": "2026-10-15T08:27:00.693403+00:00",
+  "claim": 6187486280,
+  "path": "${WORKSPACE}\\work\\crm-w2x-document-upload-uncertain",
+  "branch": "codex/w2x-case-contract-selection-20261015",
+  "base": "4ceac7fac6fa2abef8d0f7e8042b23cd6286fc22",
+  "status": "OWN45_BUILD66_LINT_SCAN_PASS_VISUAL_PARTIAL_AUTH_NOT_RUN",
+  "repro_session": 54898,
+  "test_backup": "${WORKSPACE}\\work\\w2x-case-contract-selection-prepared-test.ts",
+  "test_sha256": "4646394f74c9b28f7b530dc0ddbe5b6cbcf7517f52df079d1119ba56eac3b181",
+  "fixture_changed": true,
+  "product_changed": true,
+  "browser": "NOT_RUN",
+  "release": "NOT_ACCEPTED",
+  "next": "PUBLISH_HANDOFF;DISPATCH_OWN740_ONCE;CLAIM_NEXT_INDEPENDENT_LINE_PREPARATION_DEFECT",
+  "browser_session": 67442,
+  "lint_build_session": 9160,
+  "causal": {
+    "kind": "CONTRACT_OPTIONS_LOADED_21_BUT_OPERATOR_LABEL_MISSING",
+    "observed": "Contrato del 01 oct 2026 · Activo",
+    "expected": "Operador sintético Norte",
+    "log": "w2x-case-contract-selection-causal-repro.txt"
+  },
+  "browser_first_attempt": {
+    "result": "45_PASS",
+    "visual": "FAIL_SEPARATOR_ENCODING_DETECTED_BY_REVIEW",
+    "log": "w2x-case-contract-selection-browser.txt",
+    "source": "UNCOMMITTED_FIRST_FIX",
+    "not_final": true
+  },
+  "first_build": {
+    "result": "FAIL",
+    "cause": "invalid utf-8 sequence of 1 bytes from index 2241",
+    "log": "w2x-case-contract-selection-build.txt"
+  },
+  "scan": "PASS",
+  "full_collection": {
+    "tests": 740,
+    "files": 62,
+    "run": "NOT_RUN",
+    "queue": "342/15PARTIAL/327UNRECONCILED/0READY"
+  },
+  "utf8_intermediate": {
+    "browser": 45,
+    "lint_exit": 0,
+    "build_exit": 0,
+    "visual": "THREE_FRAMES_VIEWED_PARTIAL",
+    "normalization": "CRCRLF artifact removed before final source controls; no functional code change"
+  },
+  "sha": "b509327bb4ed14fd593ab702b7a905990063b59e",
+  "tree": "7fc1a70bfe803e471655a5017bd658b82070ccfc",
+  "published": true,
+  "clean": true,
+  "publication": "PUBLISHED",
+  "checks": {
+    "browser": 45,
+    "lint": "PASS",
+    "lint_warnings": 1,
+    "lint_warning_scope": "Existing IntegratedBilling creationRequest.current cleanup warning retained",
+    "build": "PASS66",
+    "scan": "PASS",
+    "visual": "THREE_CURRENT_FRAMES_VIEWED_PARTIAL",
+    "auth_db": "NOT_RUN",
+    "storage": "NOT_RUN",
+    "model": "NOT_RUN"
+  },
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-case-contract-selection-causal-repro.txt",
+      "sha256": "4938ebf1b80db240e899ceb1c6791bf350a550f5c76510de9431359ff3cc884c"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-case-contract-selection-browser.txt",
+      "sha256": "0cd47a3280c7d9d1575e8870e72a41bb23ec48a243c0e0e43c20da33446c2f28"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-case-contract-selection-build.txt",
+      "sha256": "3fdd871ce413e1a33fe6d2ec8fc0a5dd793a85913c8cb3cb337a6ac854c734e9"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-case-contract-selection-published-browser.txt",
+      "sha256": "f7e408691922fd7a13be669b5f330843cba6bc6801c631bac7a7c67e5b38bb9f"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-case-contract-selection-published-lint.txt",
+      "sha256": "4e6696b2d0106e766166cc650e119817eb8e00e3858ad41955d1b163b00b554a"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-case-contract-selection-published-build.txt",
+      "sha256": "9600cdbd1881dcfa42526ceac387a81a914283f9bab5fb07d20cac12397a4b65"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-case-contract-selection-scan.txt",
+      "sha256": "50cfa05644c9f0223a8626bbde1133f9b46cb3c11bcc96d2ea4d811ff7c9eebc"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-case-contract-selection-published.bundle",
+      "sha256": "d451af70cced951330cbf427a624280676b5bca2684d8433c881e46baa856fbb"
+    }
+  ],
+  "visual": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-case-contract-selection-published-final-results\\case-contract-selection-ca-21928-ct-selection-labels-at-1440\\case-contract-labels-1440.png",
+      "sha256": "dab367fadd64856a24cdbc6a34ad360f3d51c6959e73459732025d3f8f497272"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-case-contract-selection-published-final-results\\case-contract-selection-ca-9c654-act-selection-labels-at-390\\case-contract-labels-390.png",
+      "sha256": "104bf186f61fdd9e8071e8ed93d640fc3397a3fb7f926473d241fb3f93af2160"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-case-contract-selection-published-final-results\\case-contract-selection-ca-bec67-act-selection-labels-at-768\\case-contract-labels-768.png",
+      "sha256": "289d1bc193c771867c470d99b762b0f4e5c2e05a940ce90a26abb3f537a5ecc4"
+    }
+  ],
+  "handoffs": [
+    {
+      "issue": 67,
+      "id": 6188089728,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6188089728"
+    },
+    {
+      "issue": 153,
+      "id": 6188090115,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6188090115"
+    },
+    {
+      "issue": 38,
+      "id": 6188090477,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6188090477"
+    },
+    {
+      "issue": 142,
+      "id": 6188090722,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6188090722"
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+const p=require('./playwright-w2x-billing-draft-receipt.config.cjs');module.exports={...p,testMatch:['portability-detail-line.spec.ts','portability-parent-read-lifetime.spec.ts','portability-command-read-lifetime.spec.ts'],outputDir:require('node:path').resolve(__dirname,'w2x-portability-detail-line-final-results')}

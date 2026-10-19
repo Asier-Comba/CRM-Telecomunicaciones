@@ -1,0 +1,1 @@
+const previous=require('./playwright-w2x-opportunity-command-read-causal.config.cjs');module.exports={...previous,testMatch:['opportunity-*.spec.ts','pipeline-*.spec.ts'],outputDir:require('node:path').resolve(__dirname,'w2x-opportunity-command-read-final-results')}

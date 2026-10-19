@@ -1,0 +1,165 @@
+{
+  "utc": "2026-10-15T16:45:11.772945+00:00",
+  "claim": 6188888730,
+  "path": "${WORKSPACE}\\work\\crm-w2x-commercial-composition",
+  "branch": "codex/w2x-portfolio-editor-invalid-receipt-20261015",
+  "investigation_base": "2268fbe53d03cbe5bebff5eff2f7234c02751675",
+  "base": "9956bd10cde0e6d2ff09a3a9f6e6f15a67ce2b56",
+  "status": "OWN214_BUILD66_LINT_SCAN_PASS_VISUAL_PARTIAL_AUTH_NOT_RUN",
+  "product_changed": true,
+  "browser": "NOT_RUN",
+  "release": "NOT_ACCEPTED",
+  "next": "PAR070_INDIVIDUAL_PARTIAL_REVIEW_CLAIM6199673287;NO_FULL_ROW_OR_RELEASE_PROMOTION",
+  "repro_session": 85946,
+  "browser_session": 36719,
+  "lint_build_session": 62551,
+  "causal": {
+    "log": "w2x-portfolio-editor-invalid-causal-repro.txt",
+    "result": "3_ORIGINAL_COMMAND_ID_MISMATCH_FAILURES",
+    "methods": [
+      "execute(contract.activate)",
+      "saveLabel(service.update_label)",
+      "saveAssignment(contract.update_allowed_metadata)"
+    ],
+    "scope": "Different command_id on invalid receipt retry; no assertion of duplicate SQL effects",
+    "original_test_backup": "${WORKSPACE}\\work\\w2x-portfolio-editor-original-causal-test.ts",
+    "original_test_sha256": "5e7a5868453ebb0bdc451b9b0c5eaf5b6f6059af4cba9e8615ad8575703867f2"
+  },
+  "collection": {
+    "tests": 205,
+    "files": 8
+  },
+  "first205": {
+    "log": "w2x-portfolio-editor-invalid-browser.txt",
+    "cause": "Passive parent read safe rejection treated as unknown write despite no pending command; original failing preparation fixture preserves evidence",
+    "passed": 190,
+    "failed": 15
+  },
+  "pending_aware_source_sha256": "295096b202d0af46b642756d9211c42c9f576ce3bc090f9926ca9846c77721c0",
+  "candidate_files_fingerprints": [
+    {
+      "path": "src\\features\\portfolio\\IntegratedPortfolio.tsx",
+      "sha256_utf8_lf": "295096b202d0af46b642756d9211c42c9f576ce3bc090f9926ca9846c77721c0"
+    },
+    {
+      "path": "tests\\e2e-preview\\portfolio-editor-invalid-identity.spec.ts",
+      "sha256_utf8_lf": "92a8c26c2619655250119ab18f8f440934c326660435b1841340e289ce55017c"
+    },
+    {
+      "path": "docs\\master\\W2X_PORTFOLIO_EDITOR_INVALID_RECEIPT_20261015.md",
+      "sha256_utf8_lf": "d0e35c09f68b950eec89b92ac514104e0739aa381f71144018c25d6b293a1726"
+    }
+  ],
+  "published": true,
+  "clean": true,
+  "checks": {
+    "browser": 214,
+    "lint": "PASS",
+    "build": "PASS66",
+    "scan": "PASS",
+    "visual": "PARTIAL_9_CURRENT_FRAMES_390_768_1440_ACTUALLY_REVIEWED",
+    "auth_db": "NOT_RUN",
+    "storage": "NOT_RUN",
+    "model": "NOT_RUN"
+  },
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portfolio-editor-invalid-causal-repro.txt",
+      "sha256": "ccec6e114dfd8ab6fd6ade13b7d4f118c3b78a6eab494658121da050cf9720e0"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portfolio-editor-invalid-browser.txt",
+      "sha256": "f5c988f8c4487d2f0ba3f2b3b837e9c4211997943c31b6d813022eb112aeff74"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-editor-pending-aware-browser.txt",
+      "sha256": "90be8c0f35d7d74314fc1fe09cc532ded26c4f0ebb42f8c503df635646eb0f22"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-editor-pending-aware-lint.txt",
+      "sha256": "bcd1b5eb029080a6847f1ee5cb93ebef42ca6f73f4cea5443b76bc5d9bbe613b"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-editor-pending-aware-build.txt",
+      "sha256": "6f68e6f15ffb7ae9a34093188e63b7408d848e678690e216c4f40d83ae751ad9"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-editor-pending-aware-scan.txt",
+      "sha256": "434caaca05c86e050bebb49c948053f2159cb08c83150f99e1d66f50f6585ce9"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-editor-pending-aware-published.bundle",
+      "sha256": "a691cb8e01eefaa3b79e640ae2395196b6f81c84d315d3da772e122d807631a3"
+    }
+  ],
+  "sha": "136749b9f6a59bea379f695eeb6b892db92e417d",
+  "tree": "0103ae6d9e23b791b8030a80c87ba2b133cbf0a9",
+  "publication": "PUBLISHED",
+  "handoffs": [
+    {
+      "issue": 67,
+      "id": 6199674583,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6199674583"
+    },
+    {
+      "issue": 153,
+      "id": 6199674929,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6199674929"
+    },
+    {
+      "issue": 38,
+      "id": 6199675257,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6199675257"
+    },
+    {
+      "issue": 142,
+      "id": 6199675616,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6199675616"
+    }
+  ],
+  "visual": {
+    "scope": "Three editor recovery paths: activation confirmation, name and assignee; nine actual invalid-receipt frames inspected. Controls and retry legible in390/768/1440; lock and command equality assertions in same source214. Name/assignee frames retain auxiliary relation-unavailable notices; not full module acceptance.",
+    "images": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-editor-pending-aware-final-results\\portfolio-editor-invalid-i-300d5-ceipt-exact-recovery-at-768\\portfolio-editor-label-invalid_receipt-768.png",
+        "sha256": "74fb961ab892dce547623407e24f7a9d1f348bf939865864e0f708b83e0db8af"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-editor-pending-aware-final-results\\portfolio-editor-invalid-i-37209-ceipt-exact-recovery-at-390\\portfolio-editor-label-invalid_receipt-390.png",
+        "sha256": "0e2fcaa23d61989b86604b4576b0439c8d472b988bd2698f41dfc7863e9d6083"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-editor-pending-aware-final-results\\portfolio-editor-invalid-i-632a6-eipt-exact-recovery-at-1440\\portfolio-editor-label-invalid_receipt-1440.png",
+        "sha256": "ff064f9214e6e407e101209391e34795f466a6cc2d382baf89e0d3443adc6bca"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-editor-pending-aware-final-results\\portfolio-editor-invalid-i-68a0e-ceipt-exact-recovery-at-390\\portfolio-editor-activate-invalid_receipt-390.png",
+        "sha256": "f5119626ac58faaae505634865b4943073018cc351d55660b9b14145db49eedf"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-editor-pending-aware-final-results\\portfolio-editor-invalid-i-7e9b7-eipt-exact-recovery-at-1440\\portfolio-editor-activate-invalid_receipt-1440.png",
+        "sha256": "8fe0f5f9b933fb6c7d4d4ff5a1e6a15717d6dcccdfddec63bd9f670a42b8bb45"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-editor-pending-aware-final-results\\portfolio-editor-invalid-i-86798-ceipt-exact-recovery-at-768\\portfolio-editor-activate-invalid_receipt-768.png",
+        "sha256": "faa93a8b67557f10525ed4a81634fe3c1b76cca7016467863b0f9d9a3b7a4648"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-editor-pending-aware-final-results\\portfolio-editor-invalid-i-be69f-ceipt-exact-recovery-at-768\\portfolio-editor-assignment-invalid_receipt-768.png",
+        "sha256": "8987b382572934eb2647686d2597ee7f6b54907a9f05725bfd2f5e4607436cc4"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-editor-pending-aware-final-results\\portfolio-editor-invalid-i-dd966-ceipt-exact-recovery-at-390\\portfolio-editor-assignment-invalid_receipt-390.png",
+        "sha256": "691168d0204701295240e8d0004bdca5085cdf3ca77722da5886b94469947095"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-editor-pending-aware-final-results\\portfolio-editor-invalid-i-e47d7-eipt-exact-recovery-at-1440\\portfolio-editor-assignment-invalid_receipt-1440.png",
+        "sha256": "e83889054326f635d3a7e60bfdb90eeaed120b7679410795b19046ffeb457027"
+      }
+    ]
+  },
+  "publication_preflight_failure": {
+    "path": "work/w2x-editor-publication-preflight-failure.txt",
+    "cause": "Exact authorized-path assertion compared Git forward slashes with Windows backslashes; normalized separators only; no runtime/source change or green rerun."
+  }
+}

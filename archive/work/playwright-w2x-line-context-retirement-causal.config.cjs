@@ -1,0 +1,1 @@
+const p=require('./playwright-w2x-sim-create-read-final.config.cjs');module.exports={...p,testMatch:['sim-assignment-selection.spec.ts'],grep:/at 1440$/,outputDir:require('node:path').resolve(__dirname,'w2x-line-context-retirement-causal-results')}

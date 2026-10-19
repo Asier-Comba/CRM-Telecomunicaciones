@@ -1,0 +1,154 @@
+{
+  "unit": 53,
+  "claim": 6251289927,
+  "base": "08407e1279b0088ca3817e0b7ce1ffe3494ca681",
+  "branch": "codex/w2x-calendar-today-20261018",
+  "status": "PUBLISHED_OWN57_BUILD66_VISUAL_PARTIAL",
+  "causal_session": 18332,
+  "product_changed": true,
+  "release": "NOT_ACCEPTED",
+  "checks": {
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN",
+    "paid_api": 0,
+    "global": "NOT_RUN_CURRENT_SHA",
+    "browser": "57_PASS_OWN_SOURCE",
+    "build": "66_PASS",
+    "lint": "EXIT0_WARNINGS_PRESERVED",
+    "scan": "PASS"
+  },
+  "next": "Close own57/lint/build/visual/scan/publication;then next independent commercial unit;global1434BC3 frozen separate.",
+  "controls_session": 30444,
+  "original": {
+    "failed": 1,
+    "passed": 2,
+    "duration": "25.9s",
+    "cause": "Hoy reuses captured mount-day after Madrid midnight;current and manual-refresh positives pass."
+  },
+  "react_review": {
+    "skill": "vercel:react-best-practices",
+    "scope": "Reuse existing asOf state with setter only on explicit Today callback;no timer/effect/query or duplicate state;optional callback preserves preview asOf. Existing onRange and native button labels remain."
+  },
+  "visual_review": {
+    "status": "ACTUALLY_VIEWED",
+    "scope": "Nine current midnight frames summer/winter/leap3907681440:Today/day heading/current-day highlight/status pending;upper empty day grid only,lower hours/sidebar mobile not fully visible. Fixture context-switch controls excluded from product review. Empty fixture is not actual absence proof.",
+    "frames": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-calendar-today-final-results\\calendar-today-calendar-today-leap-midnight-at-1440\\calendar-today-leap-midnight-1440.png",
+        "sha256": "8bc4dc53d4ff69120c6a1db8ee4032df818fb411c8e1da9d01ea56153cdfe982"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-calendar-today-final-results\\calendar-today-calendar-today-leap-midnight-at-390\\calendar-today-leap-midnight-390.png",
+        "sha256": "34090223145f5640f4421cf36177faabaa59c2966afc7e3440698a6e22410a8f"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-calendar-today-final-results\\calendar-today-calendar-today-leap-midnight-at-768\\calendar-today-leap-midnight-768.png",
+        "sha256": "2d8c214f62a4c162cb94f4243186fa8b65269f977e75dd29823552d6f52f328e"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-calendar-today-final-results\\calendar-today-calendar-today-summer-midnight-at-1440\\calendar-today-summer-midnight-1440.png",
+        "sha256": "77ecc2171f5056a0cb447c306407bd1d43b9ac0b53069efa514f28eba475cd07"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-calendar-today-final-results\\calendar-today-calendar-today-summer-midnight-at-390\\calendar-today-summer-midnight-390.png",
+        "sha256": "f95fcc3ca86df8c6854c12dcfdcf04f2132a67c88d51f901888515f757a1ac4f"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-calendar-today-final-results\\calendar-today-calendar-today-summer-midnight-at-768\\calendar-today-summer-midnight-768.png",
+        "sha256": "b53897e7a4a5d387662c128dde6eb2a9c06efe7b1f6c8b1f5aa54d8edb6eb9ce"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-calendar-today-final-results\\calendar-today-calendar-today-winter-midnight-at-1440\\calendar-today-winter-midnight-1440.png",
+        "sha256": "017c4501f032288c7ab925edbcfc9d0518cfc10aa992cf06f48ff4f355336beb"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-calendar-today-final-results\\calendar-today-calendar-today-winter-midnight-at-390\\calendar-today-winter-midnight-390.png",
+        "sha256": "0cc0473c2c1c69e3372a0c2b6a2cbbbd460aa210aef2f3d94729be9011bd6522"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-calendar-today-final-results\\calendar-today-calendar-today-winter-midnight-at-768\\calendar-today-winter-midnight-768.png",
+        "sha256": "a2144ba1cc4cd3dfba7ce494b64ccbed8458bd48dafb401330972cfdba55c1d1"
+      }
+    ]
+  },
+  "candidate_fingerprints": [
+    {
+      "path": "src/features/calendar/Calendar.tsx",
+      "sha256_utf8_lf": "7d507e06546b55c476fcbafba0357fd8e8c2e15369fbd723c7f5912388fc951e"
+    },
+    {
+      "path": "src/features/calendar/IntegratedCalendar.tsx",
+      "sha256_utf8_lf": "140f762224287f2b732b3ea5cbed1fd3dafcfdc62e1ef549d9163d4216c867e6"
+    },
+    {
+      "path": "tests/e2e-preview/calendar-today.spec.ts",
+      "sha256_utf8_lf": "9a061f0e76beb3a74ab9455805b700e2d97d0ac72439113fd7ac8847b0432d31"
+    },
+    {
+      "path": "docs/master/W2X_CALENDAR_TODAY_20261018.md",
+      "sha256_utf8_lf": "f8d40f86d6e23dce89b5ca221b8cc1de0a60aa884b77c48b76a00c4589acd9ff"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-calendar-today-causal.txt",
+      "sha256": "fa2938a1b646d6911fa956248ec234427dda9cb63cb28486537f46de5136ec95"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-calendar-today-browser.txt",
+      "sha256": "3ad56521e24719553d6938e7e70e0e4d7d005370ed91e8cf20a37355e441fce6"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-calendar-today-lint.txt",
+      "sha256": "91a5c63f9a9a0a42f92a00caa38da32336b62b940ccf4738d08ef97c55d9996c"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-calendar-today-build.txt",
+      "sha256": "bdcfc7c9ffce3916ad01047e190b3bd5926c8622f818be524db66039bab91303"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-calendar-today-scan.txt",
+      "sha256": "d39bfc541eceaffb1364fd4b9790cde2fb6f187efee4c29035d1943732bac938"
+    }
+  ],
+  "tree": "a8205d8e5b291459a98050875682a7c7ee945fd6",
+  "sha": "4deb73d92f5136a6ce511af586fd5c98f329a9bf",
+  "handoffs": [
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6251349503",
+      "id": 6251349503,
+      "issue": 67
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6251349643",
+      "id": 6251349643,
+      "issue": 153
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6251349773",
+      "id": 6251349773,
+      "issue": 38
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6251349914",
+      "id": 6251349914,
+      "issue": 142
+    }
+  ],
+  "publication": "PUBLISHED",
+  "known_remaining_defects": {
+    "portability_create_retired_line": {
+      "reproduced_source": "4deb73d92f5136a6ce511af586fd5c98f329a9bf",
+      "original": "2FAIL1PASS34.2S",
+      "fixed_source": "dd4b9f5231527adaa72779010ffcd2569571fbb4",
+      "included_in_source53_global": false
+    },
+    "portability_detail_retired_line": {
+      "reproduced_source": "dd4b9f5231527adaa72779010ffcd2569571fbb4",
+      "original": "1FAIL1PASS20.7S",
+      "followup": "work/w2x-portability-detail-line-checkpoint.json",
+      "physically_reproduced_at_source53": false
+    },
+    "whole_product": "NOT_RECONCILED_RELEASE_NOT_ACCEPTED"
+  }
+}

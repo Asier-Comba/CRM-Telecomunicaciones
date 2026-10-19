@@ -1,0 +1,129 @@
+{
+  "unit": 67,
+  "claim": 6252473013,
+  "base": "2b7dd80ff93e22ac8fc8bd75ff48d99fb396502a",
+  "branch": "codex/w2x-billing-initial-customer-merge-20261018",
+  "status": "PUBLISHED_OWN78_BUILD66_VISUAL_PARTIAL",
+  "causal_session": 85391,
+  "controls_session": 54078,
+  "product_changed": true,
+  "release": "NOT_ACCEPTED",
+  "checks": {
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN",
+    "paid_api": 0,
+    "global": "NOT_RUN_CURRENT_SHA",
+    "browser": "78_PASS_OWN_SOURCE",
+    "build": "66_PASS",
+    "functional": "49_PASS_OWN_SOURCE",
+    "lint": "EXIT0_WARNINGS_PRESERVED",
+    "scan": "PASS"
+  },
+  "original": {
+    "failed": 1,
+    "passed": 1,
+    "duration": "23.5s",
+    "cause": "InitialA successful identity replaces customers array after search/selectionB;B ID remains but becomes unverified placeholder and create disabled in captured error context. Initial no-search positive passes."
+  },
+  "test_refinement": "Original test saved unchanged;final bank additionally types proposal text before releasingA and verifies preservation after fix. No original text-loss assertion result invented.",
+  "next": "Close own78/functional49/build/lint/visual/scan/publication. Continue independently supported edit-draft row or product defect. Globals1755source64 andqueued1773source65 stay separate;no duplicate,cancel or inheritedPASS.",
+  "visual_review": {
+    "status": "ACTUALLY_VIEWED",
+    "scope": "Six selectedB frames at3907681440 with initialA active/archived. Search/selected labelB,enabled newdraft and typed proposal visible;no inappropriate archive notice forB. InitialA status and other dropdown options measured by HTTP/DOM,not visible in closed select. Empty invoice list is controlled fixture,not SQL absence;mobile lower list clipped;fixture banner excluded.",
+    "frames": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-initial-customer-merge-final-results\\billing-initial-customer-m-0c939-rge-active-selected-at-1440\\initial-customer-active-selected-1440.png",
+        "sha256": "d1b4af0f31eb8c588d4ade7879a0a8f087e08491714a0c911e65f5fcf58ddbcc"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-initial-customer-merge-final-results\\billing-initial-customer-m-56dbb-ge-archived-selected-at-768\\initial-customer-archived-selected-768.png",
+        "sha256": "0f3914a729c2956d9baef30b8bb9f3da6cee42b88c5b4209608438a02aa93b5b"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-initial-customer-merge-final-results\\billing-initial-customer-m-8d6dd-ge-archived-selected-at-390\\initial-customer-archived-selected-390.png",
+        "sha256": "d706b5ebac254594f45c69b88205ebb207f8ca123430f379fd18e971f5356329"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-initial-customer-merge-final-results\\billing-initial-customer-m-b11ad-e-archived-selected-at-1440\\initial-customer-archived-selected-1440.png",
+        "sha256": "d1b4af0f31eb8c588d4ade7879a0a8f087e08491714a0c911e65f5fcf58ddbcc"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-initial-customer-merge-final-results\\billing-initial-customer-m-d10a0-erge-active-selected-at-768\\initial-customer-active-selected-768.png",
+        "sha256": "acc02d575b85c43993804be03301f01a5f75bf14097797aa18b70be038f02bb4"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-initial-customer-merge-final-results\\billing-initial-customer-m-e92d2-erge-active-selected-at-390\\initial-customer-active-selected-390.png",
+        "sha256": "d706b5ebac254594f45c69b88205ebb207f8ca123430f379fd18e971f5356329"
+      }
+    ]
+  },
+  "original_test": {
+    "path": "${WORKSPACE}\\work\\w2x-billing-initial-customer-merge-original-test.ts",
+    "sha256": "18bca1055f6dc090d70211a4dca5ac1e9726cccfcfdbb1bd4c8ff1e1e7d82ba6"
+  },
+  "candidate_fingerprints": [
+    {
+      "path": "src/features/billing/IntegratedBilling.tsx",
+      "sha256_utf8_lf": "bcce31c4e2dc435d0b31fb74841f22b684834d53ab11da72f980a8548dc5eb45"
+    },
+    {
+      "path": "tests/e2e-preview/billing-initial-customer-merge.spec.ts",
+      "sha256_utf8_lf": "41ab6305a8ae9880f90abc7b3d1226db148004417de17f21f2cf5d25cb966b05"
+    },
+    {
+      "path": "docs/master/W2X_BILLING_INITIAL_CUSTOMER_MERGE_20261018.md",
+      "sha256_utf8_lf": "7d1dc65c039c193a2bbce6932c43c0e45621048d7def64266ab6f71c3edd13e3"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-initial-customer-merge-causal.txt",
+      "sha256": "7b6892b8463165c5f6ffc2d2ef51fddce4fde88f1dc341b2a2833367d99ce082"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-initial-customer-merge-browser.txt",
+      "sha256": "af516fd25604d76bd9e6418cfadeaeb09c9e3fc7d1fe543f24f2d7cb492a613f"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-initial-customer-merge-functional.txt",
+      "sha256": "fdee2310bc48b676934dc03c3d9c1a79615782a1a292fca7b62075bc6ae8bdcb"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-initial-customer-merge-lint.txt",
+      "sha256": "77e52456c3bf671c8ed5a0154c9dbfdd998b31f3c61494ca11430b416d294dad"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-initial-customer-merge-build.txt",
+      "sha256": "ad62ed92a64564e346e758184e7f25d9d02d98f4e6093a30585983817dfdfda3"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-initial-customer-merge-scan.txt",
+      "sha256": "38fdb907a0c468c56065de2bd3f703873f7ffe64255329ca41460d6a928f92cb"
+    }
+  ],
+  "handoffs": [
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6252570066",
+      "issue": 67,
+      "id": 6252570066
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6252570234",
+      "issue": 153,
+      "id": 6252570234
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6252570375",
+      "issue": 38,
+      "id": 6252570375
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6252570514",
+      "issue": 142,
+      "id": 6252570514
+    }
+  ],
+  "publication": "PUBLISHED",
+  "sha": "44d807ec2c8b85540e648643eaeecbd8474de967",
+  "tree": "dfa9e811d58f5c4e8ddf04a9269c7c6ce052a9f8"
+}

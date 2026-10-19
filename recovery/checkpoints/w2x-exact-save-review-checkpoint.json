@@ -1,0 +1,66 @@
+{
+  "unit": 59,
+  "claim": 6251793065,
+  "base": "b34f6d60b9b64a5ba218376ef0a8038c6135e39f",
+  "evidence_source": "b34f6d60b9b64a5ba218376ef0a8038c6135e39f",
+  "branch": "codex/w2x-exact-save-review-20261018",
+  "status": "PAR105_INDIVIDUAL_PARTIAL_REVIEW_PUBLISHED",
+  "product_changed": false,
+  "release": "NOT_ACCEPTED",
+  "runtime": "NOT_RUN_METADATA_SHA",
+  "candidate_fingerprints": [
+    {
+      "path": "docs/master/PRODUCT_RELEASE_REVIEWS.json",
+      "sha256_utf8_lf": "c3bf1b652f28500a6e7a53c9a7bca138e95eaf6789a332bddf9bfe9a2ff48f20"
+    },
+    {
+      "path": "docs/master/PRODUCT_RELEASE_QUEUE.json",
+      "sha256_utf8_lf": "5373ae2553e87a066ecb192410adbee64b2d1c202b79003b27e7c477bccbe8b1"
+    },
+    {
+      "path": "docs/master/W2X_EXACT_SAVE_INDIVIDUAL_REVIEW_20261018.md",
+      "sha256_utf8_lf": "9641ca2a06d71275a5c117431f438cad329c235da92710e1deb665fecf242543"
+    }
+  ],
+  "queue": {
+    "total": 342,
+    "parity": 244,
+    "telecom": 98,
+    "reviewed_partial": 27,
+    "unreconciled": 315,
+    "release_ready": 0
+  },
+  "guards": [
+    "26prior_reviews_identical",
+    "341other_rows_identical",
+    "global_acceptance_fields_identical",
+    "src_tests_unchanged_from_parent",
+    "diff_scan_queue_pass"
+  ],
+  "next": "Continue independent commercial defect reproduction or independently supported commercial acceptance;no green reruns;1479/source53 and1575/source57 independent;no inheritedPASS",
+  "sha": "6b03869d9c86a6876aaef37fa9408d954798de84",
+  "publication": "PUBLISHED",
+  "handoffs": [
+    {
+      "issue": 67,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6251804133",
+      "id": 6251804133
+    },
+    {
+      "issue": 153,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6251804302",
+      "id": 6251804302
+    },
+    {
+      "issue": 38,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6251804408",
+      "id": 6251804408
+    },
+    {
+      "issue": 142,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6251804557",
+      "id": 6251804557
+    }
+  ],
+  "tree": "1c8abeebc6b723513fab431fdb52947a4d0f7d31"
+}

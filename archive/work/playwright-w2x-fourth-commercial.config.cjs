@@ -1,0 +1,2 @@
+const previous=require('./playwright-w2x-third-commercial.config.cjs')
+module.exports={...previous,testDir:require('node:path').resolve(__dirname,'crm-w2x-commercial-composition/tests/e2e-preview'),testMatch:[...previous.testMatch,'document-cleanup-uncertain.spec.ts','document-state-uncertain.spec.ts','document-current-selection.spec.ts','import-cancel-uncertain.spec.ts'],outputDir:require('node:path').resolve(__dirname,'w2x-fourth-commercial-results')}

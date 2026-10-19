@@ -1,0 +1,86 @@
+{
+  "claim": 6254662742,
+  "sha": "6ab61afddbf4a56b931cb54a1a98609ff7e295d4",
+  "tree": "c1c87d2f5ddbf02be6f8c1deb5a1a75cf451005d",
+  "branch": "codex/w2x-contract-create-read-retirement-20261018",
+  "status": "OWN2007_FULL_PASS",
+  "browser_status": "PASS2007",
+  "browser_exit": 0,
+  "browser_summary": [
+    "2007 passed (55.8m)"
+  ],
+  "source_clean": true,
+  "own_source_checks": {
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN",
+    "paid_api": 0,
+    "global": "NOT_RUN_CURRENT_SHA",
+    "functional": "NOT_RUN_UI_COMPONENT_LIFETIME_BEFORE_DEPENDENT_READ",
+    "browser": "156_PASS_OWN_SOURCE",
+    "build": "66_PASS",
+    "lint": "EXIT0_WARNINGS_PRESERVED",
+    "scan": "PASS"
+  },
+  "known_remaining_defects": {
+    "whole_product": "NOT_RECONCILED",
+    "security": "W4_PENDING_HIGH5",
+    "after_get": "NOT_EXERCISED_ALREADY_ISSUED_REQUESTS_NOT_CANCELLED",
+    "authority": "CONTROLLED_REMOUNT_ONLY_NOT_REAL_REVOCATION",
+    "release": "NOT_ACCEPTED"
+  },
+  "auth_db": "NOT_RUN",
+  "model": "NOT_RUN",
+  "paid_api": 0,
+  "release": "NOT_ACCEPTED",
+  "next": "Continue useful independent W2 commercial unit;no repeat green without changed source or relevant failure.",
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-commercial-contract-lifetime-full-collection.txt",
+      "sha256": "35572f6bb0e051037b0cdedb55e5c25cfd3c7e577f5791d765c95beee9a24a38"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-commercial-contract-lifetime-full-browser.txt",
+      "sha256": "b407ba6fc17e2832f0c03a1ebf17522aeeac7169ac67e1d12a5026a25f69751e"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contract-create-read-retirement-browser.txt",
+      "sha256": "6871fa1f1fc8ee8ef1c4178bb4abb2ba4312caae5c76b66dc19dc17f9577c770"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contract-create-read-retirement-build.txt",
+      "sha256": "0662d4d987610587acc96d9c4165fdab4674f605212a541e20fe73f552540c40"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contract-create-read-retirement-lint.txt",
+      "sha256": "ebdc2743621ced64a5ed446e5adf61284a15dcbc0162b6cea468fc84da664f85"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contract-create-read-retirement-scan.txt",
+      "sha256": "4dc992669579bba907eb4b97be2c5efe80119592e8b200054ff74e9d933f1fc7"
+    }
+  ],
+  "handoffs": [
+    {
+      "issue": 67,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6255767983",
+      "id": 6255767983
+    },
+    {
+      "issue": 153,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6255768117",
+      "id": 6255768117
+    },
+    {
+      "issue": 38,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6255768254",
+      "id": 6255768254
+    },
+    {
+      "issue": 142,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6255768378",
+      "id": 6255768378
+    }
+  ],
+  "publication": "PUBLISHED",
+  "publication_encoding_repair": "${WORKSPACE}\\work\\w2x-commercial-contract-lifetime-full-publication-encoding-repair.json"
+}

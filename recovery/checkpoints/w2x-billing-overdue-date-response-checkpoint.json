@@ -1,0 +1,245 @@
+{
+  "unit": 78,
+  "claim": 6253675507,
+  "base": "3124717317606ed013e1dd00e5cb4f4de0e3378e",
+  "branch": "codex/w2x-billing-overdue-date-response-20261018",
+  "status": "PUBLISHED_OWN165_FUNCTIONAL49_PLUS2_COMPLEMENTARY_BUILD66_VISUAL_PARTIAL",
+  "causal_session": 53125,
+  "product_changed": true,
+  "release": "NOT_ACCEPTED",
+  "original": {
+    "failed": 1,
+    "passed": 1,
+    "duration": "24.8s",
+    "log": "work/w2x-billing-overdue-date-response-causal.txt",
+    "scope": "Controlled contradictory overdue=true/due_on=null underVencidas;dated positive passes. Not a SQL producer/real AuthDB defect reproduction."
+  },
+  "fixture_repair": {
+    "scope": "Only dates in old flag-only positive of browser72 andfunctional72;allassertions retained,original files stored.",
+    "dates": {
+      "issue_on": "2026-10-01",
+      "due_on": "2026-10-05"
+    },
+    "prior_results": "Source72/73flag-only results remain limited;do not retroactively certify dates."
+  },
+  "checks": {
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN",
+    "paid_api": 0,
+    "global": "1887_PASS_EXACT_SAME_SHA",
+    "functional_recheck": {
+      "passed": 2,
+      "failed": 0,
+      "duration_ms": 361.4868,
+      "coverage": "49 unaffected original passes plus2 rechecked affected cases;not51singlePASS or52cases"
+    },
+    "browser": "165_PASS_OWN_SOURCE",
+    "functional": "49_UNAFFECTED_PASS_PLUS2_RECHECK_PASS_COMPLEMENTARY",
+    "build": "66_PASS",
+    "lint": "EXIT0_WARNINGS_PRESERVED",
+    "scan": "PASS"
+  },
+  "matrix": {
+    "total": 342,
+    "parity": 244,
+    "telecom": 98,
+    "reviewed_partial": 30,
+    "unreconciled": 312,
+    "release_ready": 0
+  },
+  "next": "Publish own78 with originalfunctional50PASS1FAIL plus2affected recheckPASS complementary;requestW1review/consumption. Queue full1887 only after1869source75terminal/PUBLISHED/PASS. Continue independent W2 commercial work;no inheritedPASS.",
+  "controls_session": 66936,
+  "original_functional": {
+    "tests": 51,
+    "passed": 50,
+    "failed": 1,
+    "duration_ms": 791.8828,
+    "log": "work/w2x-billing-overdue-date-response-functional.txt",
+    "cause": "Private frozen PDF fixture toggles overdue=true while due_on=null;new shared invoice predicate rejects before projection,returnsnull not changedbytes. Exactstack billing-artifact-v1.test.mjs:15;runtime line9 validated before projection.",
+    "ownership_reference": "PR30 w2/product-integration-v2 integrates closed W1 private PDF contracts;no W4/W5 runtime/resource/Storage source edited.",
+    "correction": "Only immutable fixture due date2026-10-05 for issue2026-10-04,shared acrossbase/paid/overdue states;all byte-equality andnegative assertions unchanged.",
+    "recheck_scope": "Only frozen-byte case(previous FAIL) and download case(previous PASS but affecteddatefixture).49 unaffected original passes plus2rechecked is complementary51coverage,not51singlePASS."
+  },
+  "browser_product_after_run_fingerprints": [
+    {
+      "path": "src/lib/server/billing-query-runtime-v1.ts",
+      "sha256": "ebd9691fed1750ce76c5e1488017ddd579ef5308ab0d1fc7c030ebf4f71b0fb5"
+    },
+    {
+      "path": "tests/e2e-preview/billing-overdue-date-response.spec.ts",
+      "sha256": "983a93447480bb6df59cbc76b7f5377680a80e1e7d95f658a4147280b576c2b4"
+    },
+    {
+      "path": "tests/e2e-preview/billing-list-filter-response.spec.ts",
+      "sha256": "39fb551210ec0dcc96cebbab70bda722b77ac77fc979e6d8597a933158bd17f5"
+    }
+  ],
+  "visual_review": {
+    "status": "ACTUALLY_VIEWED",
+    "scope": "Nine frames actually viewed: missing/dated/undated at390,768,1440. Missing shows safe error;768/1440 empty table and disabled paging visible,390 table below viewport. Dated shows issued/Vencida,due2026-10-05,30.25EUR;undated shows Sin vencimiento without Vencida. Mobile cards/actions legible,top header partly outside positive screenshots. No action buttons invoked. Harness/banner/example placeholder excluded;synthetic invoice/date,not SQL truth or real absence.",
+    "frames": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-overdue-date-response-final-results\\billing-overdue-date-respo-0d4b1-g-overdue-date-dated-at-768\\overdue-date-dated-768.png",
+        "sha256": "4b80d9a231c5a51a5d5f439004db996bfe6bf4bd1664717854b459aebbdb0b08"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-overdue-date-response-final-results\\billing-overdue-date-respo-1f162-verdue-date-undated-at-1440\\overdue-date-undated-1440.png",
+        "sha256": "c65711dd4f806320c526d83a32e68b36a6ef5263038393c19dbf93a94b82c57c"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-overdue-date-response-final-results\\billing-overdue-date-respo-1f843-verdue-date-missing-at-1440\\overdue-date-missing-1440.png",
+        "sha256": "472080402545ab16dee3c013be21c69a5c9babbcd01aab761946e55df3bc64cb"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-overdue-date-response-final-results\\billing-overdue-date-respo-6103d-g-overdue-date-dated-at-390\\overdue-date-dated-390.png",
+        "sha256": "865f844f80baacf901283f52c1250c2fa8ddf1c6a62ddad1b9e338bc4186af97"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-overdue-date-response-final-results\\billing-overdue-date-respo-6cbbd-overdue-date-undated-at-768\\overdue-date-undated-768.png",
+        "sha256": "785b1a8828bef13210599922cc80499eb5a6411835823b992116c7a5615e8943"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-overdue-date-response-final-results\\billing-overdue-date-respo-86b31-overdue-date-missing-at-390\\overdue-date-missing-390.png",
+        "sha256": "2c851e5af2f46fec88880a5fb3fc71619c085f75527c090e7b3f2c4ffe57db1b"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-overdue-date-response-final-results\\billing-overdue-date-respo-88fe2-overdue-date-missing-at-768\\overdue-date-missing-768.png",
+        "sha256": "00d31187d4c17e5c57968d33020b2e02c3c5e6f839ab7db87bff7c403aa9d46c"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-overdue-date-response-final-results\\billing-overdue-date-respo-b254c--overdue-date-dated-at-1440\\overdue-date-dated-1440.png",
+        "sha256": "551bfd5f745c59e8cc23cc1cb6acb0caa4d415bbf37dd7d36110a18fc852d6f7"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-overdue-date-response-final-results\\billing-overdue-date-respo-f6cc3-overdue-date-undated-at-390\\overdue-date-undated-390.png",
+        "sha256": "4479925a36c9c5bc02cdc5d66e92f829ba2966bafb2d3ac4e18b72412fc858b8"
+      }
+    ]
+  },
+  "known_remaining_defects": {
+    "whole_product": "NOT_RECONCILED",
+    "auth_db": "NOT_RUN",
+    "live_model": "NOT_RUN",
+    "security": "W4_PENDING_HIGH5",
+    "shared_semantics": "W1_OWNER_REVIEW_CONSUMPTION_PENDING",
+    "overdue_derivation": "NO_CLOCK_AS_OF_SQL_PRODUCER_ACCEPTANCE",
+    "release": "NOT_ACCEPTED"
+  },
+  "candidate_fingerprints": [
+    {
+      "path": "src/lib/server/billing-query-runtime-v1.ts",
+      "sha256_utf8_lf": "8d2fe304f9fae3f47c9ff4dbdc95ae9f553bbee48ff0650750bbdcfd90e1fe7b"
+    },
+    {
+      "path": "tests/bootstrap/billing-v1.test.mjs",
+      "sha256_utf8_lf": "70b20bf5ee44fc2583c22e081aff23e6ce3252557db0b4620e270cc726f68848"
+    },
+    {
+      "path": "tests/e2e-preview/billing-list-filter-response.spec.ts",
+      "sha256_utf8_lf": "41af085d34cd397b27ea23978358371953bfbad8414bc1da5d63c04982e09c34"
+    },
+    {
+      "path": "tests/e2e-preview/billing-overdue-date-response.spec.ts",
+      "sha256_utf8_lf": "983a93447480bb6df59cbc76b7f5377680a80e1e7d95f658a4147280b576c2b4"
+    },
+    {
+      "path": "docs/master/W2X_BILLING_OVERDUE_DATE_RESPONSE_20261018.md",
+      "sha256_utf8_lf": "d60c52d2f11925d234609836f4f56c53ab92a1c52418e9cecc42bada6354733d"
+    },
+    {
+      "path": "tests/bootstrap/billing-artifact-v1.test.mjs",
+      "sha256_utf8_lf": "674e21ec699b64f8559be41472c7fa40fa2d3be7981cd8672e01812559dc52e9"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-overdue-date-response-causal.txt",
+      "sha256": "50b48fd292d06ed92be0a67da4f49f9a2fa29b3dc9d43bf180d7ec866957aa9e"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-overdue-date-response-collection.txt",
+      "sha256": "01fee3f8535a431dd38aefec43f743625086c161b5353710a0a9ffbcfd469bec"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-overdue-date-response-browser.txt",
+      "sha256": "dc952d7f647bad882948f30524d8edec0e2190fe94516555b21ab71279c42299"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-overdue-date-response-functional.txt",
+      "sha256": "3aa495199ecca6811a94d34f63c61263a2e9e5de1a6c98d1d0cb2ff7dd472b55"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-overdue-date-response-functional-recheck.txt",
+      "sha256": "040b5acf492b30ea3c5e0710b5296c7e91cf54659c1612ff8679e666ebb77604"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-overdue-date-response-lint.txt",
+      "sha256": "77e52456c3bf671c8ed5a0154c9dbfdd998b31f3c61494ca11430b416d294dad"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-overdue-date-response-build.txt",
+      "sha256": "4d1c978780b76f8a13ff6abcc418452389e45a775793a5ad772eb6a315e114b6"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-overdue-date-response-scan.txt",
+      "sha256": "359f5ac7e714b9b52e9283a4a857c4d748cd24e1ca3073ce94ebb3586ddcae43"
+    }
+  ],
+  "compatibility_snapshots": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-overdue-date-response-prior-filter-bank.ts",
+      "sha256": "1135ea2974ad0d559d75fef285721d9d4da50e6e4dd92decd7052e630b9d3224"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-overdue-date-response-prior-functional.mjs",
+      "sha256": "616b1751f11de2b91a6599fc4f2f90a6376aca313120fe8f5c9c5ed50888c9d6"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-overdue-date-response-prior-artifact-fixture.mjs",
+      "sha256": "7ce0733bbf2cce4024576a379584a11bbcdba880080446df27d75495329548e5"
+    }
+  ],
+  "handoffs": [
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6253880272",
+      "id": 6253880272,
+      "issue": 67
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6253880440",
+      "id": 6253880440,
+      "issue": 153
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6253880580",
+      "id": 6253880580,
+      "issue": 38
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6253880702",
+      "id": 6253880702,
+      "issue": 142
+    }
+  ],
+  "publication": "PUBLISHED",
+  "tree": "959a1e4a5d2e49df90b6b4d57de1d5fc4b5d3dce",
+  "sha": "988c0ba7842503740959dbab2bc099467527e788",
+  "preparation_failures": [
+    {
+      "path": "work/w2x-billing-overdue-date-response-preflight-preparation-failure.json",
+      "scope": "Verifier rawbytes/LF mismatch only;3raw fingerprintsmatch;no product/testchange or rerun."
+    }
+  ],
+  "full_validation": {
+    "sha": "988c0ba7842503740959dbab2bc099467527e788",
+    "tree": "959a1e4a5d2e49df90b6b4d57de1d5fc4b5d3dce",
+    "checkpoint": "work/w2x-commercial-overdue-full-checkpoint.json",
+    "publication": "work/w2x-commercial-overdue-full-publication.json",
+    "tests": 1887,
+    "summary": [
+      "1887 passed (37.4m)"
+    ],
+    "scope": "ControlledHTTPbrowser;notAuthDB/liveModel/W4/release. ExactSHAonly,noinheritance.",
+    "browser_log_sha256": "7bc35ca22348823fa234f6f0d5efd6ee7019b6381638a2be9c6c8cff1621e90d"
+  }
+}

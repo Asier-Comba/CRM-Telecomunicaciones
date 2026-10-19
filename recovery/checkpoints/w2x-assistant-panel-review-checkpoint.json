@@ -1,0 +1,66 @@
+{
+  "unit": 81,
+  "claim": 6254055437,
+  "base": "7218b7bc6d3a079feb8b8f457edbf48045fa02a0",
+  "branch": "codex/w2x-assistant-panel-review-20261018",
+  "status": "INDIVIDUAL_ASSISTANT_PANEL_PARTIAL_REVIEW_PUBLISHED",
+  "evidence_source": "7218b7bc6d3a079feb8b8f457edbf48045fa02a0",
+  "product_changed": false,
+  "runtime": "NOT_RUN_METADATA_SHA",
+  "release": "NOT_ACCEPTED",
+  "next": "Publish individual partial review;continue independent W2 commercial unit. Keep prior global sources frozen;no repeated green/no inheritedPASS.",
+  "candidate_fingerprints": [
+    {
+      "path": "docs/master/PRODUCT_RELEASE_REVIEWS.json",
+      "sha256_utf8_lf": "e6126b873efd42486e22db12eec51dde6cd3315b2329c1b623e9ce875c9588e5"
+    },
+    {
+      "path": "docs/master/PRODUCT_RELEASE_QUEUE.json",
+      "sha256_utf8_lf": "a10a640ab2b92686246771a19cba924c0082f26283839d2eaddb4625fef46ed2"
+    },
+    {
+      "path": "docs/master/W2X_ASSISTANT_PANEL_INDIVIDUAL_REVIEW_20261018.md",
+      "sha256_utf8_lf": "7e55de780014e1e28b2aa3ac2e03b46081a7af64f122e6f58895b8d9b08fb4c3"
+    }
+  ],
+  "queue": {
+    "total": 342,
+    "parity": 244,
+    "telecom": 98,
+    "reviewed_partial": 31,
+    "unreconciled": 311,
+    "release_ready": 0
+  },
+  "guards": [
+    "30other_reviews_identical",
+    "341other_rows_identical",
+    "global_acceptance_fields_identical",
+    "src_tests_unchanged",
+    "diff_scan_queue_pass"
+  ],
+  "handoffs": [
+    {
+      "issue": 67,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6254072527",
+      "id": 6254072527
+    },
+    {
+      "issue": 153,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6254072720",
+      "id": 6254072720
+    },
+    {
+      "issue": 38,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6254072857",
+      "id": 6254072857
+    },
+    {
+      "issue": 142,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6254073001",
+      "id": 6254073001
+    }
+  ],
+  "publication": "PUBLISHED",
+  "tree": "1d8bb22388161d4559b46f853717208f3bfbf3bb",
+  "sha": "c44e5c57e713f78f67b894fbbbd46f55fefaeddc"
+}

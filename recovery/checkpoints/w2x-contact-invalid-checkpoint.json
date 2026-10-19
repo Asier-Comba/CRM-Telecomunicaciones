@@ -1,0 +1,58 @@
+{
+  "utc": "2026-10-14T06:42:44.090037+00:00",
+  "work": "W2-X",
+  "claim": 6162415997,
+  "handoff": 6162524916,
+  "path": "${WORKSPACE}\\work\\crm-w2x-document-upload-uncertain",
+  "branch": "codex/w2x-contact-invalid-receipt-20261014",
+  "sha": "da1ef4be647e33463064fa915cc2724168b1a4c1",
+  "tree": "7811def324d58472a095a768b4e84185aa0b62ab",
+  "published": true,
+  "clean": true,
+  "checks": {
+    "invalid_receipt": 9,
+    "explicit_denial": 9,
+    "transport_regressions": 9,
+    "browser_total": 27,
+    "build": "PASS66",
+    "lint": "PASS",
+    "gitleaks": "PASS",
+    "syntax": "PASS",
+    "auth": "NOT_RUN",
+    "model": "NOT_RUN"
+  },
+  "visual": {
+    "scope": "CONTROLLED_HTTP_CONTACT_CREATE_RECOVERY_BACKGROUND_DENIED_NOT_FULL_AUTH_VISUAL",
+    "images": [
+      {
+        "width": 390,
+        "path": "${WORKSPACE}\\work\\w2x-contact-invalid-create-390.png",
+        "sha256": "95e161fda015fffbc54e301d1697647760c61e2158a25cbb7da3405a6bbeffd6"
+      },
+      {
+        "width": 768,
+        "path": "${WORKSPACE}\\work\\w2x-contact-invalid-create-768.png",
+        "sha256": "08b5a3a51f692dd81e018e2e7aa9fcc6af90cc25e3721d1b6e608625715dc866"
+      },
+      {
+        "width": 1440,
+        "path": "${WORKSPACE}\\work\\w2x-contact-invalid-create-1440.png",
+        "sha256": "8830bc47bb8d795515f20500130c54dde9f3c72e96ed5ea08b7f257aa1f17c73"
+      }
+    ]
+  },
+  "preserved_failures": [
+    "w2x-contact-invalid-original-repro.txt:CLOSE_ENABLED_AFTER_UNREADABLE_RECEIPT"
+  ],
+  "expected_unmeasured": {
+    "local": 395,
+    "preview": 990,
+    "auth": 121
+  },
+  "bundle_sha256": "973ee429d074d0b5e83e1f167e161f90880546325724d29fc54ba4a4163ac961",
+  "next": "OWN852722395_FULL_COMPOSITION_RUNNING_NO_ALIAS_PUSH_OVER7F_ACTIVE",
+  "release": "NOT_ACCEPTED",
+  "five_high": "UNRESOLVED",
+  "ai_writes": "OFF",
+  "api_calls": 0
+}

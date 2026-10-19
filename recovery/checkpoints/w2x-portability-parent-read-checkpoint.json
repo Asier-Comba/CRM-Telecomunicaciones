@@ -1,0 +1,106 @@
+{
+  "claim": 6200377934,
+  "base": "6b4692df7ccc47cf9814beecc09d69c41d333256",
+  "branch": "codex/w2x-portability-parent-read-lifetime-20261015",
+  "status": "OWN36_BUILD66_LINT0ERRORS3WARN_SCAN_PASS_VISUAL_PARTIAL_AUTH_NOT_RUN",
+  "causal_session": 55646,
+  "product_changed": true,
+  "next": "NEW_CLAIM_OPERATOR_VISIBLE_LABELS;KEEP_GLOBAL981_SOURCE15_PINNED",
+  "release": "NOT_ACCEPTED",
+  "causal": {
+    "failed": 1,
+    "passed": 1,
+    "log": "w2x-portability-parent-read-causal.txt",
+    "scope": "Retirement while primary portability.get pending; shared helper internals not accepted"
+  },
+  "candidate_fingerprints": [
+    {
+      "path": "src/features/portabilities/Portabilities.tsx",
+      "sha256_utf8_lf": "35101b03ef0201d60b37f7fe78129dbf10edd0ae479aab6a82749b7377beecd2"
+    },
+    {
+      "path": "tests/e2e-preview/portability-parent-read-lifetime.spec.ts",
+      "sha256_utf8_lf": "e539587d5999ff798c579b88b5c887d53e45d2e94d7d916187107fa5f184031a"
+    },
+    {
+      "path": "docs/master/W2X_PORTABILITY_PARENT_READ_LIFETIME_20261015.md",
+      "sha256_utf8_lf": "ebacde9719e5c44c6f59788f5836ab73e1b9126abc23bae7ee6e7af29a4bbc9b"
+    }
+  ],
+  "composed_source15": "6b4692df7ccc47cf9814beecc09d69c41d333256",
+  "checks": {
+    "browser": 36,
+    "build": 66,
+    "lint": "0_ERRORS_3_WARNINGS_VISIBLE",
+    "scan": "PASS",
+    "visual": "PARTIAL_3_CURRENT_FRAMES_ACTUALLY_VIEWED",
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN"
+  },
+  "published": true,
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portability-parent-read-causal.txt",
+      "sha256": "bc6962339938b8ba5ea22aed4203779b87fe68bcf8a2844c8dd6d29235f6025d"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portability-parent-read-browser.txt",
+      "sha256": "7bbe30e7b66140d4e74ee2bc297b86ffd01a16fe362ec113e7fd8dd8c89a3847"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portability-parent-read-lint.txt",
+      "sha256": "91a5c63f9a9a0a42f92a00caa38da32336b62b940ccf4738d08ef97c55d9996c"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portability-parent-read-build.txt",
+      "sha256": "da972d2ff36b58f34f6b8d6425689c99fa8e6b8941b176c715962e5a679a4937"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portability-parent-read-scan.txt",
+      "sha256": "f6d2150caabd6a4024ee3a40a69366928ad30b4bcdfe2398118165ceffc932c7"
+    }
+  ],
+  "publication": "PUBLISHED",
+  "tree": "ac3e7ddee5f39d4b7e011adc40504bb4747602eb",
+  "sha": "57e97ed72199fc5de085a3f76e6dacdaf3983027",
+  "handoffs": [
+    {
+      "issue": 67,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6200529343",
+      "id": 6200529343
+    },
+    {
+      "issue": 153,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6200529724",
+      "id": 6200529724
+    },
+    {
+      "issue": 38,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6200530032",
+      "id": 6200530032
+    },
+    {
+      "issue": 142,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6200530295",
+      "id": 6200530295
+    }
+  ],
+  "visual": {
+    "source_sha": "57e97ed72199fc5de085a3f76e6dacdaf3983027",
+    "scope": "Three actual current portability390/768/1440 frames inspected. Loaded masked number/customer/operators/relationships. Desktop/tablet draft and assignee sections visible; mobile lower fields below viewport. Actual clarity defect: both donor and target visible labels say Operador although aria names distinguish them. Next independent unit will address this; no full UX acceptance.",
+    "images": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portability-parent-read-final-results\\portability-parent-read-li-63291-parent-read-current-at-1440\\portability-parent-current-1440.png",
+        "sha256": "74d97e9f5194affa8f6aafaf8398968d84b2c45a9ca77ff726770110160a2513"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portability-parent-read-final-results\\portability-parent-read-li-ac699--parent-read-current-at-768\\portability-parent-current-768.png",
+        "sha256": "3e6a3da924cab022b93e23801bc37229bd0e309dc03e76d8a06af2f73e273495"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portability-parent-read-final-results\\portability-parent-read-li-b60c5--parent-read-current-at-390\\portability-parent-current-390.png",
+        "sha256": "3bbad4d537b1e7d67d4102f45fd5c0044615d92dadef99e9479fa5788d0a9720"
+      }
+    ]
+  }
+}

@@ -1,0 +1,1 @@
+const p=require('./playwright-w2x-customer-domain-title-wrap-final.config.cjs');module.exports={...p,testMatch:[...p.testMatch,'customer-domain-table-title-wrap.spec.ts'],outputDir:require('node:path').resolve(__dirname,'w2x-customer-domain-table-title-wrap-final-results')}

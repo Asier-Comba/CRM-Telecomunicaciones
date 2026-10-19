@@ -1,0 +1,144 @@
+{
+  "utc": "2026-10-15T07:30:21.086237+00:00",
+  "claim": 6188526258,
+  "path": "${WORKSPACE}\\work\\crm-w2x-document-upload-uncertain",
+  "branch": "codex/w2x-portfolio-invalid-receipt-20261015",
+  "base": "2268fbe53d03cbe5bebff5eff2f7234c02751675",
+  "status": "OWN172_BUILD66_LINT_SCAN_PASS_VISUAL_PARTIAL_AUTH_NOT_RUN",
+  "repro_session": 78769,
+  "product_changed": true,
+  "release": "NOT_ACCEPTED",
+  "next": "PUBLISH_HANDOFF10;COLLECT_DISPATCH_GLOBAL_OWN_SUITE_ONCE;CONTINUE_CLAIM6188888730",
+  "causal": {
+    "log": "w2x-portfolio-invalid-causal-repro.txt",
+    "kind": "INVALID_RECEIPT_RETRY_GENERATES_DIFFERENT_COMMAND_ID",
+    "expected": "Same exact command body and one measured synthetic effect identifier",
+    "observed": "Different command_id; original mock captured two identifiers, not SQL proof"
+  },
+  "identity_fixed": {
+    "log": "w2x-portfolio-invalid-identity-browser.txt",
+    "passed": 1
+  },
+  "new_flows_session": 3014,
+  "preliminary_new_flows": {
+    "passed": 1,
+    "failed": 1,
+    "log": "w2x-portfolio-invalid-new-flows-browser.txt",
+    "cause": "Contract search fixture label did not include input.query, rejected by unchanged parseGlobalSearchV1; product error was safe before create form. Fixture label corrected only."
+  },
+  "valid_contract_recheck_session": 29431,
+  "investigation_base": "c15f4620e49d839818d32455829644b32ad81f79",
+  "composition": "OWN_SOURCE_FAST_FORWARD;UNCOMMITTED_PORTFOLIOCREATE_FIX_SHA256_UNCHANGED",
+  "browser_session": 43918,
+  "lint_build_session": 81727,
+  "collection": {
+    "tests": 172,
+    "files": 6
+  },
+  "valid_contract_preliminary": {
+    "passed": 1,
+    "log": "w2x-portfolio-invalid-contract-valid-browser.txt"
+  },
+  "sha": "9956bd10cde0e6d2ff09a3a9f6e6f15a67ce2b56",
+  "tree": "34c07bfc0eb7047544404c0e1729f30bc75e1515",
+  "published": true,
+  "clean": true,
+  "publication": "PUBLISHED",
+  "checks": {
+    "browser": 172,
+    "lint": "PASS",
+    "lint_warnings": 1,
+    "build": "PASS66",
+    "scan": "PASS",
+    "visual": "SEVEN_CURRENT_FRAMES_VIEWED_PARTIAL",
+    "auth_db": "NOT_RUN",
+    "storage": "NOT_RUN",
+    "model": "NOT_RUN"
+  },
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portfolio-invalid-causal-repro.txt",
+      "sha256": "75cf859dd705b5748b29c4542433057192a1ceb42879586e69110d5fbe0bdc94"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portfolio-invalid-new-flows-browser.txt",
+      "sha256": "fad6a83b7607aa8918d8f288801e5f505adc84b4ae89a1549fef827b91171f43"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portfolio-invalid-contract-valid-browser.txt",
+      "sha256": "ba1048fa9090eaa76fe3d4c8bbe756fa1e6cca7a44cf33a5c78c90b7b08885ad"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portfolio-invalid-composition-browser.txt",
+      "sha256": "c373ca62cd76e4fb42493705a98bb96d4fc9f2f3d765758c886d64f7e61d3ec0"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portfolio-invalid-composition-lint.txt",
+      "sha256": "4e6696b2d0106e766166cc650e119817eb8e00e3858ad41955d1b163b00b554a"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portfolio-invalid-composition-build.txt",
+      "sha256": "0780cfaa090642297ea9e56be79350601c804e7eb294dbc692273634a5baf083"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portfolio-invalid-scan.txt",
+      "sha256": "f53e153de3dd21aae326f750c8ab340258ff055ff0dab4c4f78671b6a7f10f51"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portfolio-invalid-published.bundle",
+      "sha256": "5f86aa9d924696419aed60e9b5cc9edaa90852555808f314e3209e70a6f6f374"
+    }
+  ],
+  "visual": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portfolio-invalid-composition-final-results\\portfolio-invalid-receipt--04536-ceipt-exact-recovery-at-390\\portfolio-invalid-renewal-invalid_receipt-390.png",
+      "sha256": "2470db645b4cf67df0024816e265ec17eab22dcc8d99251281e30ef44e3afc2e"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portfolio-invalid-composition-final-results\\portfolio-invalid-receipt--06a14-ceipt-exact-recovery-at-390\\portfolio-invalid-contract-invalid_receipt-390.png",
+      "sha256": "3c727fe6176e496bb284f2d08328bf29621f44e7c672b9c087599ff48bb7fb91"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portfolio-invalid-composition-final-results\\portfolio-invalid-receipt--d93cc-eipt-exact-recovery-at-1440\\portfolio-invalid-line-invalid_receipt-1440.png",
+      "sha256": "46d210c61ca5a891c312248c43e66a8cf384ef1b94e6cc18759c2f75353469e4"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portfolio-invalid-composition-final-results\\portfolio-invalid-receipt--e20f5-ceipt-exact-recovery-at-768\\portfolio-invalid-line-invalid_receipt-768.png",
+      "sha256": "cb137b5471e547736c83d4227f3068e68d5713d73e9d70428832e5dde0dba560"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portfolio-invalid-composition-final-results\\portfolio-invalid-receipt--e23bc-ceipt-exact-recovery-at-390\\portfolio-invalid-permanence-invalid_receipt-390.png",
+      "sha256": "84b709b019db343997165437600101c9567e04c9bd2cfa71d8f0cc8d5e798ae6"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portfolio-invalid-composition-final-results\\portfolio-invalid-receipt--f9989-ceipt-exact-recovery-at-390\\portfolio-invalid-line-invalid_receipt-390.png",
+      "sha256": "1b3bf3249caaaf316d2101f69e102208a13272a3aec7325246f4faebc2a5645a"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portfolio-invalid-composition-final-results\\portfolio-invalid-receipt--fad8d-ceipt-exact-recovery-at-390\\portfolio-invalid-service-invalid_receipt-390.png",
+      "sha256": "e5aaea6513a4300a5c4a4cda16d43569723cd73059adc75b702566d4ebe5e8b8"
+    }
+  ],
+  "handoffs": [
+    {
+      "issue": 67,
+      "id": 6188941328,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6188941328"
+    },
+    {
+      "issue": 153,
+      "id": 6188941634,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6188941634"
+    },
+    {
+      "issue": 38,
+      "id": 6188941917,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6188941917"
+    },
+    {
+      "issue": 142,
+      "id": 6188942234,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6188942234"
+    }
+  ]
+}

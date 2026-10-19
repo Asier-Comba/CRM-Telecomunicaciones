@@ -1,0 +1,741 @@
+{
+  "unit": 96,
+  "claim": 6256007130,
+  "branch": "codex/w2x-customer-list-name-wrap-20261019",
+  "base": "becd6984d201cec807d91dc9e512ee254b05d9d6",
+  "status": "PUBLISHED_OWN60_BUILD66_VISUAL_PARTIAL",
+  "publication": "PUBLISHED",
+  "product_changed": true,
+  "release": "NOT_ACCEPTED",
+  "checks": {
+    "browser": "60_PASS_OWN_SOURCE",
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN",
+    "paid_api": 0,
+    "global": "NOT_RUN_CURRENT_SHA",
+    "functional": "NOT_RUN_UI_PRESENTATION_ONLY",
+    "build": "66_PASS",
+    "lint": "EXIT0_WARNINGS_PRESERVED",
+    "scan": "PASS"
+  },
+  "matrix": {
+    "total": 342,
+    "reviewed_partial": 32,
+    "unreconciled": 310,
+    "release_ready": 0
+  },
+  "failures": [
+    "work/w2x-customer-list-name-wrap-measurement-failure.json"
+  ],
+  "next": "Continue independent commercial unit after fresh CLAIM. Preserve2043source88/2109source92FIFO;source93globalNOT_RUN,noinheritedPASS.",
+  "working_head": "3a0c602ec3ebd3bbce34e4b05f65f92de1193864",
+  "clean": true,
+  "causal": {
+    "failed": 2,
+    "passed": 4,
+    "duration": "39.8s",
+    "product": "long name table768 client347/scroll1299;1440client363/scroll1299. Mobile390long+ordinary andtableordinary7681440pass.",
+    "preparation": "First2failed nulltd measurementonmobilearticle;correctancestor td/article,allattempts retained;not causalproduct.",
+    "scope": "RealIntegratedCustomers/Customers/repository/parsers,controlledHTTP+AppRouterContext fixture;no Nextnavigation/AuthDBacceptance."
+  },
+  "browser_summary": "60 passed (1.3m)",
+  "controls_session": 33611,
+  "visual_review": {
+    "status": "ACTUALLY_VIEWED",
+    "scope": "9initialframes long/ordinary/denied3907681440;tabletitlefixvisible7681440;positive390cardbelowfirstviewportDOMonly;notallcolumns orNextnavigation/roles/a11yacceptance",
+    "frames": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-customer-list-name-wrap-final-results\\customer-list-name-wrap-cu-03abf-nventory-name-denied-at-390\\customer-list-name-denied-390.png",
+        "sha256": "e94a0accac835953ca4aa22102f11463ce1af63f09b24f814541fa250c2cdc66"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-customer-list-name-wrap-final-results\\customer-list-name-wrap-cu-16b4a-entory-name-ordinary-at-390\\customer-list-name-ordinary-390.png",
+        "sha256": "64bb265f96283c9b628206fc68d722719821091b1dfd69af0efede7af091f3bf"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-customer-list-name-wrap-final-results\\customer-list-name-wrap-cu-17194-nventory-name-denied-at-768\\customer-list-name-denied-768.png",
+        "sha256": "33eaab529462249b2edfd7a05543a5ce7035f7600e19fad9c3c14e6786959645"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-customer-list-name-wrap-final-results\\customer-list-name-wrap-cu-31b94-ntory-name-ordinary-at-1440\\customer-list-name-ordinary-1440.png",
+        "sha256": "4b645e0e4e327f2cb056c5034ea4c6612f8fec17137a8f115d19f0ae41d294c6"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-customer-list-name-wrap-final-results\\customer-list-name-wrap-cu-49215-ventory-name-denied-at-1440\\customer-list-name-denied-1440.png",
+        "sha256": "713a0a6f869fe800f61e60486d6c0adee2fd02ea97bc9222bada762b7ec2c83e"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-customer-list-name-wrap-final-results\\customer-list-name-wrap-cu-b35aa-entory-name-ordinary-at-768\\customer-list-name-ordinary-768.png",
+        "sha256": "e35264e7aea5ffae99782e7824e23d0f214641366d4f5f5cde7e7ada9575e885"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-customer-list-name-wrap-final-results\\customer-list-name-wrap-customer-inventory-name-long-at-1440\\customer-list-name-long-1440.png",
+        "sha256": "2f58d0acd336b3451aa0abd23a587769b29e149ef83e282f60f82160c4759990"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-customer-list-name-wrap-final-results\\customer-list-name-wrap-customer-inventory-name-long-at-390\\customer-list-name-long-390.png",
+        "sha256": "64bb265f96283c9b628206fc68d722719821091b1dfd69af0efede7af091f3bf"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-customer-list-name-wrap-final-results\\customer-list-name-wrap-customer-inventory-name-long-at-768\\customer-list-name-long-768.png",
+        "sha256": "a40fb6ad3611d8d0c7b3afe2df335dc180c34af5a57c34eb1a265d3b43e415ca"
+      }
+    ]
+  },
+  "observations": [
+    {
+      "width": 390,
+      "mode": "denied",
+      "reads": [
+        {
+          "operation": "assignee.list",
+          "input": {
+            "limit": 100,
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "operator.list",
+          "input": {
+            "limit": 20,
+            "status": "active",
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "customer.list",
+          "input": {
+            "limit": 20,
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "assignee.list",
+          "input": {
+            "limit": 100,
+            "sort": "id_asc"
+          }
+        }
+      ],
+      "commands": [],
+      "unexpected": [],
+      "errors": []
+    },
+    {
+      "width": 390,
+      "mode": "ordinary",
+      "titleLength": 17,
+      "geometry": {
+        "left": 41,
+        "right": 189.5,
+        "client": 149,
+        "scroll": 149,
+        "cellRight": 365,
+        "text": "Empresa de prueba",
+        "documentWidth": 390,
+        "viewport": 390
+      },
+      "interaction": "SELECTION_CLEAR_FILTER_RESET_PASS",
+      "reads": [
+        {
+          "operation": "assignee.list",
+          "input": {
+            "limit": 100,
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "operator.list",
+          "input": {
+            "limit": 20,
+            "status": "active",
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "customer.list",
+          "input": {
+            "limit": 20,
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "assignee.list",
+          "input": {
+            "limit": 100,
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "assignee.list",
+          "input": {
+            "limit": 100,
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "operator.list",
+          "input": {
+            "limit": 20,
+            "status": "active",
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "customer.list",
+          "input": {
+            "limit": 20,
+            "sort": "id_asc",
+            "status": "active"
+          }
+        }
+      ],
+      "commands": [],
+      "unexpected": [],
+      "errors": []
+    },
+    {
+      "width": 768,
+      "mode": "denied",
+      "reads": [
+        {
+          "operation": "assignee.list",
+          "input": {
+            "limit": 100,
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "operator.list",
+          "input": {
+            "limit": 20,
+            "status": "active",
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "customer.list",
+          "input": {
+            "limit": 20,
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "assignee.list",
+          "input": {
+            "limit": 100,
+            "sort": "id_asc"
+          }
+        }
+      ],
+      "commands": [],
+      "unexpected": [],
+      "errors": []
+    },
+    {
+      "width": 1440,
+      "mode": "ordinary",
+      "titleLength": 17,
+      "geometry": {
+        "left": 203.484375,
+        "right": 483.125,
+        "client": 280,
+        "scroll": 280,
+        "cellRight": 495.125,
+        "text": "Empresa de prueba",
+        "documentWidth": 1440,
+        "viewport": 1440
+      },
+      "interaction": "SELECTION_CLEAR_FILTER_RESET_PASS",
+      "reads": [
+        {
+          "operation": "assignee.list",
+          "input": {
+            "limit": 100,
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "operator.list",
+          "input": {
+            "limit": 20,
+            "status": "active",
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "customer.list",
+          "input": {
+            "limit": 20,
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "assignee.list",
+          "input": {
+            "limit": 100,
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "assignee.list",
+          "input": {
+            "limit": 100,
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "operator.list",
+          "input": {
+            "limit": 20,
+            "status": "active",
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "customer.list",
+          "input": {
+            "limit": 20,
+            "sort": "id_asc",
+            "status": "active"
+          }
+        }
+      ],
+      "commands": [],
+      "unexpected": [],
+      "errors": []
+    },
+    {
+      "width": 1440,
+      "mode": "denied",
+      "reads": [
+        {
+          "operation": "assignee.list",
+          "input": {
+            "limit": 100,
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "operator.list",
+          "input": {
+            "limit": 20,
+            "status": "active",
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "customer.list",
+          "input": {
+            "limit": 20,
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "assignee.list",
+          "input": {
+            "limit": 100,
+            "sort": "id_asc"
+          }
+        }
+      ],
+      "commands": [],
+      "unexpected": [],
+      "errors": []
+    },
+    {
+      "width": 768,
+      "mode": "ordinary",
+      "titleLength": 17,
+      "geometry": {
+        "left": 104.65625,
+        "right": 372.140625,
+        "client": 267,
+        "scroll": 267,
+        "cellRight": 384.140625,
+        "text": "Empresa de prueba",
+        "documentWidth": 768,
+        "viewport": 768
+      },
+      "interaction": "SELECTION_CLEAR_FILTER_RESET_PASS",
+      "reads": [
+        {
+          "operation": "assignee.list",
+          "input": {
+            "limit": 100,
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "operator.list",
+          "input": {
+            "limit": 20,
+            "status": "active",
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "customer.list",
+          "input": {
+            "limit": 20,
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "assignee.list",
+          "input": {
+            "limit": 100,
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "assignee.list",
+          "input": {
+            "limit": 100,
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "operator.list",
+          "input": {
+            "limit": 20,
+            "status": "active",
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "customer.list",
+          "input": {
+            "limit": 20,
+            "sort": "id_asc",
+            "status": "active"
+          }
+        }
+      ],
+      "commands": [],
+      "unexpected": [],
+      "errors": []
+    },
+    {
+      "width": 1440,
+      "mode": "long",
+      "titleLength": 160,
+      "geometry": {
+        "left": 196.921875,
+        "right": 559.921875,
+        "client": 363,
+        "scroll": 363,
+        "cellRight": 571.921875,
+        "text": "EmpresaXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+        "documentWidth": 1440,
+        "viewport": 1440
+      },
+      "interaction": "SELECTION_CLEAR_FILTER_RESET_PASS",
+      "reads": [
+        {
+          "operation": "assignee.list",
+          "input": {
+            "limit": 100,
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "operator.list",
+          "input": {
+            "limit": 20,
+            "status": "active",
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "customer.list",
+          "input": {
+            "limit": 20,
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "assignee.list",
+          "input": {
+            "limit": 100,
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "assignee.list",
+          "input": {
+            "limit": 100,
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "operator.list",
+          "input": {
+            "limit": 20,
+            "status": "active",
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "customer.list",
+          "input": {
+            "limit": 20,
+            "sort": "id_asc",
+            "status": "active"
+          }
+        }
+      ],
+      "commands": [],
+      "unexpected": [],
+      "errors": []
+    },
+    {
+      "width": 390,
+      "mode": "long",
+      "titleLength": 160,
+      "geometry": {
+        "left": 41,
+        "right": 276.3125,
+        "client": 235,
+        "scroll": 235,
+        "cellRight": 365,
+        "text": "EmpresaXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+        "documentWidth": 390,
+        "viewport": 390
+      },
+      "interaction": "SELECTION_CLEAR_FILTER_RESET_PASS",
+      "reads": [
+        {
+          "operation": "assignee.list",
+          "input": {
+            "limit": 100,
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "operator.list",
+          "input": {
+            "limit": 20,
+            "status": "active",
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "customer.list",
+          "input": {
+            "limit": 20,
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "assignee.list",
+          "input": {
+            "limit": 100,
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "assignee.list",
+          "input": {
+            "limit": 100,
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "operator.list",
+          "input": {
+            "limit": 20,
+            "status": "active",
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "customer.list",
+          "input": {
+            "limit": 20,
+            "sort": "id_asc",
+            "status": "active"
+          }
+        }
+      ],
+      "commands": [],
+      "unexpected": [],
+      "errors": []
+    },
+    {
+      "width": 768,
+      "mode": "long",
+      "titleLength": 160,
+      "geometry": {
+        "left": 98.359375,
+        "right": 445.84375,
+        "client": 347,
+        "scroll": 347,
+        "cellRight": 457.84375,
+        "text": "EmpresaXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+        "documentWidth": 768,
+        "viewport": 768
+      },
+      "interaction": "SELECTION_CLEAR_FILTER_RESET_PASS",
+      "reads": [
+        {
+          "operation": "assignee.list",
+          "input": {
+            "limit": 100,
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "operator.list",
+          "input": {
+            "limit": 20,
+            "status": "active",
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "customer.list",
+          "input": {
+            "limit": 20,
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "assignee.list",
+          "input": {
+            "limit": 100,
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "assignee.list",
+          "input": {
+            "limit": 100,
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "operator.list",
+          "input": {
+            "limit": 20,
+            "status": "active",
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "customer.list",
+          "input": {
+            "limit": 20,
+            "sort": "id_asc",
+            "status": "active"
+          }
+        }
+      ],
+      "commands": [],
+      "unexpected": [],
+      "errors": []
+    }
+  ],
+  "candidate_fingerprints": [
+    {
+      "path": "src/features/customers/Customers.tsx",
+      "sha256_utf8_lf": "bb2ba3903432029eeef7ea8bdf64cb0a28b8fa90ef0ceac57bd10d3b2c43147e"
+    },
+    {
+      "path": "tests/e2e-preview/fixtures/customer-resource-entry.tsx",
+      "sha256_utf8_lf": "b41988ae1becb365fc24fda45c0a3d9868ad919dc3b1fadeef2217fb28015435"
+    },
+    {
+      "path": "tests/e2e-preview/customer-list-name-wrap.spec.ts",
+      "sha256_utf8_lf": "454a5726e17a6df0804cd5a2eb4f5d3bf69f7995623d3b0e698fbf1ff9cb8435"
+    },
+    {
+      "path": "docs/master/W2X_CUSTOMER_LIST_NAME_WRAP_20261019.md",
+      "sha256_utf8_lf": "ea7b003eb40a1e27e5429fcae9d2b2f345886fc3a3945e1ff0e0d1ac6c076f57"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-list-name-wrap-browser-exit.txt",
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-list-name-wrap-browser.txt",
+      "sha256": "fde61b610a1a46a3e79ba65f48fa4909414600b28189725ec38e64b97bf95415"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-list-name-wrap-build-exit.txt",
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-list-name-wrap-build.txt",
+      "sha256": "79e57ad0ebd60e284616fc7b30f321cbebf580af9dba09fc00d9645709cb8703"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-list-name-wrap-causal-corrected-exit.txt",
+      "sha256": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-list-name-wrap-causal-corrected.txt",
+      "sha256": "1013e39fe8732594ad57885cb6d36d8b1f8c0eccbf6425f1fffae367e1cb15f5"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-list-name-wrap-causal-exit.txt",
+      "sha256": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-list-name-wrap-causal.txt",
+      "sha256": "0ec3cdbb61916ae8105b841566905d3cec3c17848e7b852329818cb0beb162de"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-list-name-wrap-collection-exit.txt",
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-list-name-wrap-collection.txt",
+      "sha256": "6752f5395c445f21aeacc8cf17955396cbd691cd6a92b78743ff76e1b1905b92"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-list-name-wrap-lint-exit.txt",
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-list-name-wrap-lint.txt",
+      "sha256": "77e52456c3bf671c8ed5a0154c9dbfdd998b31f3c61494ca11430b416d294dad"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-list-name-wrap-scan.txt",
+      "sha256": "8c746d9437a93306757ac836291e8797e1a9b82a557ecc9819929fa89667f44c"
+    }
+  ],
+  "known_remaining_defects": {
+    "whole_product": "NOT_RECONCILED",
+    "router_navigation": "NOT_RUN_CONTROLLED_CONTEXT_ONLY",
+    "security": "W4_PENDING_HIGH5",
+    "release": "NOT_ACCEPTED"
+  },
+  "handoffs": [
+    {
+      "issue": 67,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6256072666",
+      "id": 6256072666
+    },
+    {
+      "issue": 153,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6256072843",
+      "id": 6256072843
+    },
+    {
+      "issue": 38,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6256072966",
+      "id": 6256072966
+    },
+    {
+      "issue": 142,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6256073071",
+      "id": 6256073071
+    }
+  ],
+  "tree": "987bf8c6f48f612d7ba21fc6b00ba86ee0d8d8ee",
+  "sha": "3a0c602ec3ebd3bbce34e4b05f65f92de1193864"
+}

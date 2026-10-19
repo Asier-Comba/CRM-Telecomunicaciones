@@ -1,0 +1,1 @@
+const previous=require('./playwright-w2x-commercial-service-full.config.cjs');module.exports={...previous,testMatch:['opportunity-reopen-recovery.spec.ts'],grep:/opportunity reopen won (invalid recovery at 1440|transport recovery at 390)$/,outputDir:require('node:path').resolve(__dirname,'w2x-commercial-service-failed2-results')}

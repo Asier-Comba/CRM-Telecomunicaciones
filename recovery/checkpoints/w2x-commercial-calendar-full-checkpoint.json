@@ -1,0 +1,89 @@
+{
+  "claim": 6251289927,
+  "sha": "4deb73d92f5136a6ce511af586fd5c98f329a9bf",
+  "tree": "a8205d8e5b291459a98050875682a7c7ee945fd6",
+  "branch": "codex/w2x-calendar-today-20261018",
+  "status": "OWN1479_FULL_PASS",
+  "browser_status": "PASS1479",
+  "browser_exit": 0,
+  "browser_summary": [
+    "1479 passed (32.5m)"
+  ],
+  "source_clean": true,
+  "own_source_checks": {
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN",
+    "paid_api": 0,
+    "global": "NOT_RUN_CURRENT_SHA",
+    "browser": "57_PASS_OWN_SOURCE",
+    "build": "66_PASS",
+    "lint": "EXIT0_WARNINGS_PRESERVED",
+    "scan": "PASS"
+  },
+  "release": "NOT_ACCEPTED",
+  "next": "INDEPENDENT_AUTHORIZED_COMMERCIAL_UNIT;NO_RERUN_GREEN_NO_RELEASE_PROMOTION",
+  "known_remaining_defects": {
+    "portability_create_retired_line": {
+      "reproduced_source": "4deb73d92f5136a6ce511af586fd5c98f329a9bf",
+      "original": "2FAIL1PASS34.2S",
+      "fixed_source": "dd4b9f5231527adaa72779010ffcd2569571fbb4",
+      "included_in_source53_global": false
+    },
+    "portability_detail_retired_line": {
+      "reproduced_source": "dd4b9f5231527adaa72779010ffcd2569571fbb4",
+      "original": "1FAIL1PASS20.7S",
+      "followup": "work/w2x-portability-detail-line-checkpoint.json",
+      "physically_reproduced_at_source53": false
+    },
+    "whole_product": "NOT_RECONCILED_RELEASE_NOT_ACCEPTED"
+  },
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-commercial-calendar-full-collection.txt",
+      "sha256": "da42d7ff7aa50b7d3351fd6cd115bdcdeeaee1b6ef1abc7a8e3ac2465c46174b"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-commercial-calendar-full-browser.txt",
+      "sha256": "30974c96d735a426a9bc591f6a36f37cb870f4acc06518756ff9dc4efef30e83"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-calendar-today-browser.txt",
+      "sha256": "3ad56521e24719553d6938e7e70e0e4d7d005370ed91e8cf20a37355e441fce6"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-calendar-today-lint.txt",
+      "sha256": "91a5c63f9a9a0a42f92a00caa38da32336b62b940ccf4738d08ef97c55d9996c"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-calendar-today-build.txt",
+      "sha256": "bdcfc7c9ffce3916ad01047e190b3bd5926c8622f818be524db66039bab91303"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-calendar-today-scan.txt",
+      "sha256": "d39bfc541eceaffb1364fd4b9790cde2fb6f187efee4c29035d1943732bac938"
+    }
+  ],
+  "publication": "PUBLISHED",
+  "handoffs": [
+    {
+      "issue": 67,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6251826762",
+      "id": 6251826762
+    },
+    {
+      "issue": 153,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6251826904",
+      "id": 6251826904
+    },
+    {
+      "issue": 38,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6251827044",
+      "id": 6251827044
+    },
+    {
+      "issue": 142,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6251827162",
+      "id": 6251827162
+    }
+  ]
+}

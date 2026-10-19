@@ -1,0 +1,157 @@
+{
+  "utc": "2026-10-15T07:20:53.242509+00:00",
+  "claim": 6188387840,
+  "path": "${WORKSPACE}\\work\\crm-w2x-commercial-composition",
+  "branch": "codex/w2x-contract-followup-read-lifetime-20261015",
+  "base": "c15f4620e49d839818d32455829644b32ad81f79",
+  "status": "OWN57_FINAL_BUILD66_LINT_SCAN_PASS_51_COMPLEMENTARY_INITIAL108_FAILED",
+  "browser": "NOT_RUN",
+  "product_changed": true,
+  "release": "NOT_ACCEPTED",
+  "next": "PUBLISH_EXACT_HANDOFF9;COMPOSE_OWN10_ON_TOP_AND_RUN_FRESH172_NO_PASS_INHERITANCE",
+  "repro_session": 41210,
+  "fixture_changed": true,
+  "browser_session": 68922,
+  "lint_build_session": 1646,
+  "causal": {
+    "log": "w2x-contract-followup-causal-repro.txt",
+    "result": "2_ORIGINAL_RETIREMENT_FAILURES_2_CURRENT_POSITIVES_PASS",
+    "flows": [
+      "renewal",
+      "permanence"
+    ],
+    "expected_total_contract_reads": 1,
+    "observed_total_contract_reads": 2,
+    "scope": "Additional old-scope read after held child response released; synthetic effects only"
+  },
+  "first_full_bank_issue": {
+    "kind": "TEST_LOCATOR_AMBIGUITY_AFTER_SUCCESS",
+    "log": "w2x-contract-followup-browser.txt",
+    "cause": "Bare getByRole(status) matches saved status and independent CustomerDomainPages loading status; product transition has completed. Must scope status to created-record link, preserve assertion and initial failures.",
+    "state": "RUNNING_NO_CANCEL_NO_SOURCE_EDIT"
+  },
+  "first_full_bank": {
+    "passed": 85,
+    "failed": 23,
+    "log": "w2x-contract-followup-browser.txt",
+    "causes": "23 strict-mode ambiguities: saved status plus independent collection-loading status; no product source change after initial controls",
+    "unchanged_regressions_retained": 51,
+    "no_single108_pass": true
+  },
+  "functional_source_blobs": [
+    {
+      "path": "src/features/portfolio/CustomerRenewalsInventory.tsx",
+      "sha256_utf8_lf": "397198871b3be565ded49ef16753f98067370c89ef2c06dc1f0c6324ca9f1877"
+    },
+    {
+      "path": "src/features/portfolio/CustomerPermanencesInventory.tsx",
+      "sha256_utf8_lf": "72770ca22edc19e3f3b063daf6b3f2db1abaa7e5ed9bdc549a8d656e6b01c6ca"
+    }
+  ],
+  "sha": "2268fbe53d03cbe5bebff5eff2f7234c02751675",
+  "tree": "cdbd2108d86e1d23345d0b4819b5734f01b26d88",
+  "published": true,
+  "clean": true,
+  "publication": "PUBLISHED",
+  "checks": {
+    "browser_final": 57,
+    "regressions_complementary_same_functional_code": 51,
+    "single108_pass": false,
+    "initial108": {
+      "passed": 85,
+      "failed": 23,
+      "cause": "TEST_STATUS_LOCATOR_AMBIGUITY"
+    },
+    "lint": "PASS",
+    "lint_initial_warnings": 1,
+    "lint_final_changed_tests": "PASS0WARN",
+    "build": "PASS66",
+    "scan": "PASS",
+    "visual": "SIX_CURRENT_FRAMES_VIEWED_PARTIAL",
+    "auth_db": "NOT_RUN",
+    "storage": "NOT_RUN",
+    "model": "NOT_RUN"
+  },
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contract-followup-causal-repro.txt",
+      "sha256": "42c45c111bb29088239734198fd875cf290a7837564f0e93ae0c6e55b454eefb"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contract-followup-browser.txt",
+      "sha256": "64c960f9b092d8c037bd552bf6b573bb4ca94086e0be6571aa7c57ca6faff253"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contract-followup-lint.txt",
+      "sha256": "bcd1b5eb029080a6847f1ee5cb93ebef42ca6f73f4cea5443b76bc5d9bbe613b"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contract-followup-status-final-browser.txt",
+      "sha256": "3af355371e4696be4c0c8577628751dabde04bda4a48a706f3e8ae5448553cd0"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contract-followup-status-final-lint.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contract-followup-status-final-build.txt",
+      "sha256": "e92fc20248bdaac6173242bb0e188754a8d449fa18c68c83decfc560e96ccb1b"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contract-followup-scan.txt",
+      "sha256": "4c68c9eba6e38665bce01f4a580dc90a4ad94da796d6ecf1fac38d9c048c060b"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contract-followup-published.bundle",
+      "sha256": "37309682b9e7c37b4139ab3713e1511b4e231cf4206d03e17ed5652cd6f6252c"
+    }
+  ],
+  "visual": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contract-followup-status-final-results\\contract-followup-read-lif-12d9c-owup-renewal-current-at-390\\followup-renewal-current-390.png",
+      "sha256": "1e7abc1828e8259b609cd84740c00761966ded82831cc08bc2644cd7648ca885"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contract-followup-status-final-results\\contract-followup-read-lif-51447-wup-renewal-current-at-1440\\followup-renewal-current-1440.png",
+      "sha256": "29792bb152ed4d1a8b48c79a5f2967156772dc8205314abe32f5f4c7ebd8f8e5"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contract-followup-status-final-results\\contract-followup-read-lif-5d389-p-permanence-current-at-768\\followup-permanence-current-768.png",
+      "sha256": "fc1b85be9d148869a8a9cb5fbec4d04b6ac050063b0ec5213663bd0211ce5bef"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contract-followup-status-final-results\\contract-followup-read-lif-e1e4b-p-permanence-current-at-390\\followup-permanence-current-390.png",
+      "sha256": "dd6d141eae37c5fa1efc30d4a34b651b9f39b674898bbfde62db2bb9c7a5e1dc"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contract-followup-status-final-results\\contract-followup-read-lif-e4dfb-owup-renewal-current-at-768\\followup-renewal-current-768.png",
+      "sha256": "60086c5c6245c4d2c94e7176486d956d0cd0f1e54b710d0984151173b1455ed6"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contract-followup-status-final-results\\contract-followup-read-lif-fca03--permanence-current-at-1440\\followup-permanence-current-1440.png",
+      "sha256": "33677c444892be8c02a84da46c5c2fc91a575f411e443921786f32be9a16e6ca"
+    }
+  ],
+  "handoffs": [
+    {
+      "issue": 67,
+      "id": 6188775572,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6188775572"
+    },
+    {
+      "issue": 153,
+      "id": 6188776186,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6188776186"
+    },
+    {
+      "issue": 38,
+      "id": 6188776687,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6188776687"
+    },
+    {
+      "issue": 142,
+      "id": 6188777034,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6188777034"
+    }
+  ]
+}

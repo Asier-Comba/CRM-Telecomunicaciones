@@ -1,0 +1,21 @@
+from pathlib import Path
+w=Path('work');s=(w/'close-w2x-customer-list-name-wrap.ps1').read_text(encoding='utf-8-sig').replace('customer-list-name-wrap','customer-list-filter-priority').replace('session=33611','session=35154').replace('preflight-unit96.py','preflight-unit97.py').replace("'fix(customers): contain full names within inventory table links'","'fix(customers): prioritize mobile inventory with persistent collapsible filters'")
+a=s.index('$body=@"');b=s.index('\nforeach($n in',a)
+body='''$body=@"
+HANDOFF W2-X97 — Clientes móvil: inventario primero, filtros desplegables y persistentes.
+
+Fuente $sha; árbol $tree; rama $($cp.branch); padre $($cp.base); CLAIM6256082724. Propios $($cp.browser_summary):15 casos relacionados con inventario y51 contextuales. Compilación66, analizador con avisos conservados, scan, diferencias, cola y copia Git verificada. Ningún60 del padre ni otra suite se hereda.
+
+Medición antes de editar, con títuloClientes alineado al borde superior para excluir el harness: nombre largo móvil y927–1119 dentro del área64–960. El ordinario sí muestra el nombre y927–951; su tarjeta y883–1055 solo deja77/172píxeles visibles. Primer banco2FAIL4PASS53s: largo recortado y nuevo botón aún ausente en ordinario; cuatro controles de escritorio pasan. Medición complementaria ordinaria1FAIL de tarjeta<50% antes de editar. Conservar causas distintas, todos los bancos/logs/resultados y la aserción adicional de tarjeta; sin fabricar dos fallos de nombre idénticos.
+
+Botón nativo Filtros de clientes en inventario integrado móvil, con aria-controls/expanded y aviso Aplicados. El estado de expansión vive en IntegratedCustomers: los cambios de filtro/cursor/actualización que remontan Customers conservan expansión y valores. En768/1440 los controles permanecen abiertos. Sin nueva pantalla, primitiva, API, servicio o consulta; selección y tabla preservadas. La interfaz añade controles de presentación opcionales; consumidores anteriores sin ellos mantienen el comportamiento abierto.
+
+El banco96 recibe solo abrir filtros antes de elegir estado en390; todas sus aserciones y datos se reconstruyen exactamente contra el padre. Nuevo banco conserva nombre en viewport y añade al menos50% de primera tarjeta, apertura, valor seleccionado, expansión tras cambio, cierre con foco, indicación Aplicados y reapertura. Quince casos directos y51 de Customer360/Servicios/foco/retirada se ejecutaron de nuevo en esta fuente.
+
+Diez capturas actuales realmente vistas: seis iniciales de prioridad, dos con filtros móviles abiertos y dos controles actuales de nombre390. El pie de la tarjeta larga del control sin alinear puede quedar fuera del primer cuadro; no se acepta toda la tarjeta por esa imagen. Las fotos96 que ocultaban la tarjeta conservan ese límite y no se reinterpretan. No aceptación visual de todos los campos/columnas/roles/accesibilidad/táctil.
+
+Componentes/repository/parsers reales, HTTP sintético y contexto Router de prueba existente, sin otro servidor o recurso. AuthDB/JWT/RLS/roles/membresía/multiempresa física/navegaciónNext integrada/modelo vivo NOT_RUN, API0. Primarios sin comandos; sin ausencia/quiescencia/reinicio/handler/full23. ProductProvider real conserva su remount; no se sustituye por una supuesta corrección de seguridad.
+
+Matriz342/32PARTIAL/310sinreconciliar/0READY y PAR046 con su evidencia94 intactos. CincoHIGH y revisión W4 pendientes, IA comercial writesOFF, issue10OPEN, releaseNOT_ACCEPTED.2043/source88 sigue una vez53189 y2109/source92 espera93887 tras2043terminal/PUBLISHED/PASS; ninguna acredita97. F736/B9 y originales conservan causa y alcance. Main, ramas principales/ajenas/congeladas, W3/W4/W5/recurso y producción intactos. Consumo principal requiere ACK exacto. Preparar regresión coalescida de cambios93/94/96/97 con colección real y continuar trabajo independiente, sin duplicar los controles ya solicitados.
+"@'''
+s=s[:a]+body+s[b:];(w/'close-w2x-customer-list-filter-priority.ps1').write_text(s,encoding='utf-8-sig')

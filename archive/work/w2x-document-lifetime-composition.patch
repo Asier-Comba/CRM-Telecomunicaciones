@@ -1,0 +1,157 @@
+diff --git a/docs/master/W2X_DOCUMENT_INTEGRITY_LIFETIME_20261014.md b/docs/master/W2X_DOCUMENT_INTEGRITY_LIFETIME_20261014.md
+new file mode 100644
+index 0000000..bbbbe40
+--- /dev/null
++++ b/docs/master/W2X_DOCUMENT_INTEGRITY_LIFETIME_20261014.md
+@@ -0,0 +1,26 @@
++# Integridad documental: retirar continuaciones al desmontar el panel
++
++CLAIM W2-X #67 /6166236481. Base363f5ccd2077af1f8db4cc30254f5c00b576a2b4.
++
++## Reproducción y alcance
++
++Una respuesta de descarga retenida llega después de cambiar de empresa y abrir otro documento. Antes de la corrección, la instancia retirada inicia document.verify_content y dos lecturas del documento anterior: comandos esperados1, observados2. El log fallido y observations.json se conservan sin sobrescribir.
++
++El Provider real ya remonta su árbol cuando cambian actor, espacio o rol. La prueba representa ese comportamiento mediante una opción aislada del fixture existente; no ejecuta una autenticación real. Por tanto, el defecto demostrado es la continuación de peticiones obsoletas después del desmontaje, no una fuga de permisos del servidor ni la sobrescritura demostrada del nuevo panel.
++
++## Corrección
++
++DocumentIntegrity identifica la vida de su instancia y la retira en la limpieza del efecto. Tras cada respuesta asíncrona comprueba que sigue activa antes de iniciar la siguiente operación, actualizar estado o llamar al panel padre. Una operación ya enviada no se cancela ni se da por deshecha. Los intentos recuperables conservan sus reglas mientras la instancia sigue activa; la retirada limpia su referencia local.
++
++Sin cambios de contratos, autorización backend, Storage, servicios ni infraestructura. Revisión React: efecto con limpieza, identidad local y reutilización del Provider/Drawer actuales; sin dependencias nuevas.
++
++## Evidencia propia
++
++- 85 pruebas de navegador HTTP controlado PASS (1.8min):27 nuevas para respuesta retenida en descarga/verificación/lectura, cambio de empresa/actor/rol y anchos390/768/1440;58 regresiones de integridad, cierre, contexto, estado y limpieza.
++- Lint y compilación de66 rutas PASS sobre los mismos cambios funcionales. Documento añadido después, sin cambios de producto ni repetición de pruebas verdes.
++- Tres capturas late-verify-company390/768/1440 inspeccionadas: el nuevo documento PNG sigue visible, cierre habilitado, título y acción legibles, sin desbordamiento horizontal visible. Revisión visual parcial.
++- Las observaciones de cada caso registran las peticiones efectivas del fixture; no son mediciones de campos de durabilidad ni de producción.
++
++Auth/DB/Storage reales NOT_RUN; modelo vivo NOT_RUN/API0. Esta evidencia no sustituye aceptación individual integral ni W4. HIGH5 visibles, IA comercial writesOFF, issue10OPEN y releaseNOT_ACCEPTED. Los fallos7F/F736/B9 y3c7 (timeout de preparación, causa completaUNKNOWN) se mantienen separados; este PASS no demuestra su corrección.
++
++Siguiente: composición propia conB523 y revisión de la entrega CI W5 exacta32862fa/6166382893. No avanzar ramas38/142 ni el alias fallido153 sin controles y coordinación correspondientes.
+diff --git a/src/features/documents/DocumentMaintenance.tsx b/src/features/documents/DocumentMaintenance.tsx
+index c8ea555..3d596ff 100644
+--- a/src/features/documents/DocumentMaintenance.tsx
++++ b/src/features/documents/DocumentMaintenance.tsx
+@@ -11,14 +11,17 @@ import {ConfirmDialog} from '@/components/ConfirmDialog'
+ export function DocumentIntegrity({document:d,onVerified,onCloseBlockedChange}:{document:DocumentMetadataV1;onVerified:()=>Promise<void>;onCloseBlockedChange?:(blocked:boolean)=>void}){
+  const {repository}=useProduct(),[retry,setRetry]=useState(false),[busy,setBusy]=useState(false),[error,setError]=useState(''),[receipt,setReceipt]=useState<DocumentMaintenanceReceiptV1|null>(null)
+  const pending=useRef<{download:DocumentContentInputsV1['document.request_download'];verify?:DocumentMaintenanceInputV1;receipt?:DocumentMaintenanceReceiptV1}|null>(null)
+- async function verify(){if(busy)return;setBusy(true);onCloseBlockedChange?.(true);setError('');try{
++ const lifetime=useRef({active:true})
++ useEffect(()=>{const mounted={active:true};lifetime.current=mounted;return()=>{mounted.active=false;pending.current=null}},[repository])
++ async function verify(){const mounted=lifetime.current;if(busy||!mounted.active)return;setBusy(true);onCloseBlockedChange?.(true);setError('');try{
+   pending.current??={download:Object.freeze({command_id:crypto.randomUUID(),id:d.id,expected_version:d.version})}
+   const p=pending.current
+-  if(!p.verify){const ticket=await repository.contentCommand('document.request_download',p.download);if(!ticket.ticket_id)throw new ProductUiError('internal_safe');p.verify=Object.freeze({command_id:crypto.randomUUID(),id:d.id,expected_version:d.version,ticket_id:ticket.ticket_id})}
++  if(!p.verify){const ticket=await repository.contentCommand('document.request_download',p.download);if(!mounted.active)return;if(!ticket.ticket_id)throw new ProductUiError('internal_safe');p.verify=Object.freeze({command_id:crypto.randomUUID(),id:d.id,expected_version:d.version,ticket_id:ticket.ticket_id})}
+   p.receipt??=await repository.maintenance('document.verify_content',p.verify)
+-  const fresh=(await repository.document(d.id)).record;if(fresh.version<p.receipt.version||fresh.status!=='active')throw new ProductUiError('conflict')
+-  await onVerified();setReceipt(p.receipt);pending.current=null;setRetry(false)
+- }catch(e){setReceipt(null);setError(safeMessage(e));if(!(e instanceof ProductUiError&&(e.code==='transport_uncertain'||e.code==='internal_safe'))&&!pending.current?.receipt)pending.current=null;setRetry(!!pending.current)}finally{setBusy(false);onCloseBlockedChange?.(!!pending.current)}}
++  if(!mounted.active)return
++  const fresh=(await repository.document(d.id)).record;if(!mounted.active)return;if(fresh.version<p.receipt.version||fresh.status!=='active')throw new ProductUiError('conflict')
++  await onVerified();if(!mounted.active)return;setReceipt(p.receipt);pending.current=null;setRetry(false)
++ }catch(e){if(!mounted.active)return;setReceipt(null);setError(safeMessage(e));if(!(e instanceof ProductUiError&&(e.code==='transport_uncertain'||e.code==='internal_safe'))&&!pending.current?.receipt)pending.current=null;setRetry(!!pending.current)}finally{if(mounted.active){setBusy(false);onCloseBlockedChange?.(!!pending.current)}}}
+  return <section className="mt-4 space-y-3 border-t pt-4"><h3 className="font-medium">Integridad del archivo</h3><p className="text-xs text-slate-500">El servidor compara los bytes privados y registra una prueba SHA-256 para esta versión. Sin análisis antivirus.</p>{error&&<p role="alert" className="text-red-700">{error}</p>}{receipt&&<p role="status" className="text-sm text-emerald-700">Integridad SHA-256 registrada · Versión {receipt.version} · Sin escanear</p>}<button className={control} disabled={busy||!!receipt} onClick={verify}>{busy?'Comprobando…':retry?'Reintentar comprobación exacta':'Verificar integridad privada'}</button></section>
+ }
+ type CleanupIntent={operation:'document.cleanup_claim'|'document.cleanup_finish';input:DocumentMaintenanceInputV1;receipt?:DocumentMaintenanceReceiptV1}
+diff --git a/tests/e2e-preview/document-integrity-lifetime.spec.ts b/tests/e2e-preview/document-integrity-lifetime.spec.ts
+new file mode 100644
+index 0000000..e9c5ee8
+--- /dev/null
++++ b/tests/e2e-preview/document-integrity-lifetime.spec.ts
+@@ -0,0 +1,57 @@
++import {expect,test} from '@playwright/test'
++import {writeFile} from 'node:fs/promises'
++import {startCustomerResourceFixture} from './fixtures/customer-resource-server.cjs'
++const first='70000000-0000-4000-8000-000000000001',second='70000000-0000-4000-8000-000000000002',customer='10000000-0000-4000-8000-000000000001',ticket='80000000-0000-4000-8000-000000000001'
++for(const stage of ['download','verify','read'] as const)for(const scope of ['company','actor','reader'] as const)for(const width of [390,768,1440])test(`document integrity late ${stage} after ${scope} change at ${width}`,async({page},info)=>{
++ const fixture=await startCustomerResourceFixture(),commands:{operation:string;input:Record<string,unknown>}[]=[],reads:string[]=[],errors:string[]=[]
++ let version=1,held=false,release:()=>void=()=>{}
++ const gate=new Promise<void>(resolve=>{release=resolve})
++ const record=(id:string)=>({id,version:id===first?version:1,status:'active',document_kind:'general',media_type:id===first?'application/pdf':'image/png',size_bytes:100,target:{kind:'customer',id:customer}})
++ const target=stage==='download'?'document.request_download':stage==='verify'?'document.verify_content':'document.get_metadata'
++ page.on('pageerror',e=>errors.push(e.message))
++ await page.route('**/api/**',async route=>{
++  const q=route.request().postDataJSON()
++  if(q.operation==='document.list'){await route.fulfill({json:{ok:true,data:{contract_version:'document.v1',operation:q.operation,items:[record(first),record(second)],next_id:null}}});return}
++  if(q.operation==='document.get_metadata'){
++   reads.push(q.input.id)
++   if(stage==='read'&&q.input.id===first&&version===2&&!held){held=true;await gate}
++   await route.fulfill({json:{ok:true,data:{contract_version:'document.v1',operation:q.operation,record:record(q.input.id)}}});return
++  }
++  if(!['document.request_download','document.verify_content'].includes(q.operation)){await route.fulfill({status:403,json:{ok:false,error:'access_denied'}});return}
++  commands.push(q)
++  if(q.operation==='document.verify_content')version=2
++  if(q.operation===target&&!held){held=true;await gate}
++  const receipt=q.operation==='document.request_download'?{contract_version:'document.content.v1',operation:q.operation,command_id:q.input.command_id,id:first,version:1,status:'active',expires_at:'2026-10-14T23:59:59Z',ticket_id:ticket}:{contract_version:'document.integrity.v1',operation:q.operation,command_id:q.input.command_id,id:first,version:2,status:'active',integrity:'verified_sha256',scan_status:'not_scanned'}
++  await route.fulfill({json:{ok:true,receipt}})
++ })
++ try{
++  await page.setViewportSize({width,height:960});await page.goto(fixture.url+'/?kind=documents-integrity-lifetime')
++  await page.locator(`[data-document-id="${first}"]`).getByRole('button',{name:'Ver metadatos',exact:true}).click()
++  const dialog=page.getByRole('dialog',{name:'Metadatos del documento',exact:true})
++  await dialog.getByRole('button',{name:'Verificar integridad privada',exact:true}).click();await expect.poll(()=>held).toBe(true)
++  await expect(dialog.getByRole('button',{name:'Cerrar panel',exact:true})).toBeDisabled()
++  const before={commands:commands.length,oldReads:reads.filter(id=>id===first).length}
++  const change=page.getByRole('button',{name:scope==='company'?'Cambiar empresa sintética':scope==='actor'?'Cambiar actor sintético':'Cambiar a lector sintético',exact:true})
++  // Simulate an external authorization/context change while the modal is open.
++  await change.evaluate((button:HTMLButtonElement)=>button.click());await expect(dialog).toHaveCount(0)
++  if(scope==='reader'){
++   await expect(page.getByText('Documentos disponibles para administradores del espacio.',{exact:true})).toBeVisible()
++   await change.evaluate((button:HTMLButtonElement)=>button.click())
++  }
++  await page.locator(`[data-document-id="${second}"]`).getByRole('button',{name:'Ver metadatos',exact:true}).click()
++  await expect(dialog.getByText('image/png',{exact:true})).toBeVisible()
++  const response=page.waitForResponse(r=>r.request().postDataJSON()?.operation===target&&r.request().postDataJSON()?.input.id===first)
++  release();await (await response).finished()
++  // Controlled routes have no background traffic. Await quiescence to observe
++  // any continuation from the retired panel, rather than checking too early.
++  await page.waitForLoadState('networkidle')
++  expect(commands).toHaveLength(before.commands);expect(reads.filter(id=>id===first)).toHaveLength(before.oldReads)
++  await expect(dialog.getByText('image/png',{exact:true})).toBeVisible();await expect(dialog.getByText('application/pdf',{exact:true})).toHaveCount(0)
++  await expect(dialog.getByRole('button',{name:'Cerrar panel',exact:true})).toBeEnabled();expect(errors).toEqual([])
++  await page.screenshot({path:info.outputPath(`document-integrity-late-${stage}-${scope}-${width}.png`)})
++ }finally{
++  release();await page.unrouteAll({behavior:'wait'})
++  await writeFile(info.outputPath('observations.json'),JSON.stringify({stage,scope,width,held,commands,reads,errors},null,2))
++  await page.close();await fixture.close()
++ }
++})
+diff --git a/tests/e2e-preview/fixtures/customer-resource-entry.tsx b/tests/e2e-preview/fixtures/customer-resource-entry.tsx
+index 5de0229..4c048ac 100644
+--- a/tests/e2e-preview/fixtures/customer-resource-entry.tsx
++++ b/tests/e2e-preview/fixtures/customer-resource-entry.tsx
+@@ -20,10 +20,10 @@ function Fixture(){
+  if(kind==='cleanup')return uploadOpen?<DocumentCleanup onClose={()=>setUploadOpen(false)}/>:<p>Panel de limpieza cerrado</p>
+  if(kind==='documents')return <IntegratedDocuments customerId={id}/>
+  if(kind==='customer-document-targets')return <CustomerDocuments customerId={id}/>
+- if(kind==='documents-integrity')return <IntegratedDocuments customerId={id} contentEnabled maintenanceEnabled/>
++ if(kind==='documents-integrity'||kind==='documents-integrity-lifetime')return <IntegratedDocuments customerId={id} contentEnabled maintenanceEnabled/>
+  if(kind==='imports')return <ImportJobs/>
+  if(kind==='new-customer')return <>{saved&&<p role="status">Cliente sintético confirmado</p>}{newOpen?<CustomerEditor onClose={()=>setNewOpen(false)} onSaved={()=>{setSaved(true);setNewOpen(false)}}/>:<button onClick={()=>setNewOpen(true)}>Nuevo cliente sintético</button>}</>
+  if(kind==='upload')return <>{uploadSaved&&<p role="status">Documento sintético confirmado</p>}{uploadOpen?<DocumentUpload customerId={id} onClose={()=>setUploadOpen(false)} onSaved={async()=>setUploadSaved(true)}/>:<button onClick={()=>setUploadOpen(true)}>Nueva subida sintética</button>}</>
+  return <><nav aria-label="Cliente sintético seleccionado">{['A','B','C','D'].map((name,i)=><button key={name} onClick={()=>setId(`10000000-0000-4000-8000-${String(i+1).padStart(12,'0')}`)}>Seleccionar cliente {name}</button>)}<output aria-label="Referencia sintética actual">{id}</output><output aria-label="Avisos de acceso">{denials}</output></nav>{kind==='case'?<CaseDetail id={id}/>:kind==='context'?<AuthorizedCustomerContext id={id} onAccessDenied={deny}/>:kind==='overview'?<Customer360Overview customerId={id} onAccessDenied={deny}/>:<IntegratedCustomerDetail id={id}/>}</>
+ }
+-createRoot(document.getElementById('app')!).render(<PipelineFixtureProvider><Fixture/></PipelineFixtureProvider>)
++createRoot(document.getElementById('app')!).render(<PipelineFixtureProvider resetOnScopeChange={new URLSearchParams(location.search).get('kind')==='documents-integrity-lifetime'}><Fixture/></PipelineFixtureProvider>)
+diff --git a/tests/e2e-preview/fixtures/pipeline-current-provider.tsx b/tests/e2e-preview/fixtures/pipeline-current-provider.tsx
+index 276e1bf..0d5bee6 100644
+--- a/tests/e2e-preview/fixtures/pipeline-current-provider.tsx
++++ b/tests/e2e-preview/fixtures/pipeline-current-provider.tsx
+@@ -1,10 +1,10 @@
+-import {createContext,useContext,useState,type ReactNode} from 'react'
++import {Fragment,createContext,useContext,useState,type ReactNode} from 'react'
+ import {IntegratedLocalProductRepository} from '../../../src/features/product/integration/repository'
+ const repository=new IntegratedLocalProductRepository()
+ const Context=createContext<{repository:IntegratedLocalProductRepository;role:'owner'|'viewer';actorId:string;workspaceId:string}>({repository,role:'owner',actorId:'40000000-0000-4000-8000-000000000001',workspaceId:'50000000-0000-4000-8000-000000000001'})
+ // Test binding changes only the supplied scope. Actual repository/parsers remain.
+-export function PipelineFixtureProvider({children}:{children:ReactNode}){
++export function PipelineFixtureProvider({children,resetOnScopeChange=false}:{children:ReactNode;resetOnScopeChange?:boolean}){
+  const [other,setOther]=useState(false),[otherActor,setOtherActor]=useState(false),[viewer,setViewer]=useState(false)
+- return <Context.Provider value={{repository,role:viewer?'viewer':'owner',actorId:otherActor?'40000000-0000-4000-8000-000000000002':'40000000-0000-4000-8000-000000000001',workspaceId:other?'50000000-0000-4000-8000-000000000002':'50000000-0000-4000-8000-000000000001'}}><div className="mb-4 flex flex-wrap gap-2"><button onClick={()=>setOther(v=>!v)}>Cambiar empresa sintética</button><button onClick={()=>setOtherActor(v=>!v)}>Cambiar actor sintético</button><button onClick={()=>setViewer(v=>!v)}>Cambiar a lector sintético</button><span>{other?'Empresa sintética B':'Empresa sintética A'}</span></div>{children}</Context.Provider>
++ return <Context.Provider value={{repository,role:viewer?'viewer':'owner',actorId:otherActor?'40000000-0000-4000-8000-000000000002':'40000000-0000-4000-8000-000000000001',workspaceId:other?'50000000-0000-4000-8000-000000000002':'50000000-0000-4000-8000-000000000001'}}><div className="mb-4 flex flex-wrap gap-2"><button onClick={()=>setOther(v=>!v)}>Cambiar empresa sintética</button><button onClick={()=>setOtherActor(v=>!v)}>Cambiar actor sintético</button><button onClick={()=>setViewer(v=>!v)}>Cambiar a lector sintético</button><span>{other?'Empresa sintética B':'Empresa sintética A'}</span></div>{resetOnScopeChange?<Fragment key={JSON.stringify([other,otherActor,viewer])}>{children}</Fragment>:children}</Context.Provider>
+ }
+ export function useProduct(){return useContext(Context)}

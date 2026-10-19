@@ -1,0 +1,1 @@
+const p=require('./playwright-w2x-portability-create-parents-final.config.cjs');module.exports={...p,testMatch:[...p.testMatch,'portability-recovery-close.spec.ts','sim-recovery-close.spec.ts','contract-recovery-close.spec.ts'],outputDir:require('node:path').resolve(__dirname,'w2x-portability-recovery-close-final-results')}

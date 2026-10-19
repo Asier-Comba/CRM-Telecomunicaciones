@@ -1,0 +1,60 @@
+{
+  "utc": "2026-10-14T04:51:09.279188+00:00",
+  "work": "W2-X",
+  "claim": 6160961899,
+  "handoff": 6161159097,
+  "path": "${WORKSPACE}\\work\\crm-w2x-document-upload-uncertain",
+  "branch": "codex/w2x-billing-create-read-lifetime-20261014",
+  "sha": "de5992a8bf19f4f7b79525d0cea744d6effe7420",
+  "tree": "8cef13c98fa62516cfdfc9a3046640d29f2cd0fa",
+  "published": true,
+  "clean": true,
+  "status": "OWN_BILLING_PREPARATION_UNIT_9_NEW_39_REGRESSIONS_BUILD66_PASS_AUTH_NOT_RUN",
+  "checks": {
+    "new_browser": 9,
+    "previous_regressions": 39,
+    "total_unique": 48,
+    "build": "PASS66",
+    "lint": "PASS",
+    "gitleaks": "PASS",
+    "consumer_syntax": "PASS",
+    "command_receipt_fiscal_recovery": "BYTE_EXACT_C80",
+    "auth": "NOT_RUN_NEW_CHECK",
+    "model": "NOT_RUN"
+  },
+  "visual": {
+    "scope": "SYNTHETIC_HTTP_READY_DRAFT_EDITOR_NOT_ACTUAL_AUTH",
+    "images": [
+      {
+        "width": 390,
+        "path": "${WORKSPACE}\\work\\w2x-billing-create-ready-390.png",
+        "sha256": "b1c47cb743086fcebfb1d1777a31c3a8a8b078893f6638b5a9e9d1f9852a704a"
+      },
+      {
+        "width": 768,
+        "path": "${WORKSPACE}\\work\\w2x-billing-create-ready-768.png",
+        "sha256": "3f73cd5fa28e9b471bba45fbbdb87da02ee33cd2e9f6879674c455d8fe65efd9"
+      },
+      {
+        "width": 1440,
+        "path": "${WORKSPACE}\\work\\w2x-billing-create-ready-1440.png",
+        "sha256": "846f3473b63c32f4974c67022f0950b9a4bcdb977fc66b3bd7a9e2ca93d62a5b"
+      }
+    ]
+  },
+  "preserved_failures": [
+    "w2x-billing-create-original-repro.txt:late_success_reopens_cancelled_editor",
+    "w2x-billing-create-browser.txt:three_positive_fixture_relation_list_absent_failures"
+  ],
+  "candidate_expected": {
+    "local": 265,
+    "preview": 730,
+    "auth": 116,
+    "scope": "EXPECTED_UNTIL_MEASURED"
+  },
+  "bundle_sha256": "72b6d551b342f2926456ab7c0dae6c61df50c2dc56bcc1d0899674c21b651de9",
+  "next": "COMPOSE_265_LOCAL_CURRENT_SOURCE_FROM_QUALIFIED856_C80_COPY_AND_NEWREADLIFETIME;NO_SOURCE_PASS_INHERITANCE;NEW730_AUTH116_CONTROLS",
+  "release": "NOT_ACCEPTED",
+  "five_high": "UNRESOLVED",
+  "ai_writes": "OFF"
+}

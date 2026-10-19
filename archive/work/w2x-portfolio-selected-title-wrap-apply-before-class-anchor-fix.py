@@ -1,0 +1,18 @@
+from pathlib import Path
+import json,re,subprocess
+w=Path('work');r=w/'crm-w2x-document-upload-uncertain';p='w2x-portfolio-selected-title-wrap';b=(w/(p+'-causal.txt')).read_bytes();log=b.decode('utf-16') if b.startswith(b'\xff\xfe') else b.decode('utf-8-sig');assert re.search(r'(?m)^\s*1 failed',log) and re.search(r'(?m)^\s*1 passed',log)
+obs={}
+for f in (w/(p+'-causal-results')).rglob('observations.json'):
+ o=json.loads(f.read_text(encoding='utf-8'));obs[o['mode']]=o;assert o['commands']==[] and o['errors']==[]
+assert set(obs)=={'long','ordinary'} and obs['long']['geometry']['titleLeft']<0 and obs['long']['geometry']['panelScroll']>obs['long']['geometry']['panelClient'] and obs['ordinary']['geometry']['panelScroll']==obs['ordinary']['geometry']['panelClient']
+assert not subprocess.check_output(['git','-C',str(r),'diff','--','src'],text=True).strip()
+changes=[['<h2 id={id} className="text-lg font-semibold">','<h2 id={id} className="min-w-0 [overflow-wrap:anywhere] text-lg font-semibold">'],['<button onClick={onClose} disabled={closeDisabled} aria-label="Cerrar panel" className={control}>','<button onClick={onClose} disabled={closeDisabled} aria-label="Cerrar panel" className={control+\' shrink-0\'}>']]
+f=r/'src/features/product/ui.tsx';s=f.read_text(encoding='utf-8')
+for old,new in changes:assert s.count(old)==1;s=s.replace(old,new)
+f.write_text(s,encoding='utf-8');(w/(p+'-changes.json')).write_text(json.dumps(changes,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+f=w/(p+'-checkpoint.json');j=json.loads(f.read_text(encoding='utf-8-sig'));j.update(status='REPRODUCED1FAIL1PASS_OWN282_PENDING',product_changed=True,causal_session=13651,original={'failed':1,'passed':1,'duration':'21.9s','geometry_long':obs['long']['geometry'],'geometry_ordinary':obs['ordinary']['geometry'],'scope':'Valid160selectedtitle aftercardwrap91;nativefocus/horizontalscroll clipsstart,titleLeft-1561,panelScroll1971/client389. Ordinarypanelkeepscompletegeometry/close. No commands/errors.'});j['checks']['functional']='NOT_RUN_UI_STYLE_ONLY';f.write_text(json.dumps(j,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+oldp='w2x-portfolio-result-label-wrap';s=(w/('checkpoint-'+oldp+'.py')).read_text(encoding='utf-8-sig').replace(oldp,p).replace("j['unit']==91","j['unit']==92").replace("'unit':91","'unit':92").replace("['source91']","['source92']").replace('OWN36','OWN282').replace('36_PASS','282_PASS').replace('36 passed','282 passed')
+a=s.index('paths=');bb=s.index("if mode!='running':",a);s=s[:a]+"paths=['src/features/product/ui.tsx','tests/e2e-preview/portfolio-selected-title-wrap.spec.ts','docs/master/W2X_PORTFOLIO_SELECTED_TITLE_WRAP_20261018.md']\n"+s[bb:]
+s=s.replace("assert obs['long']['geometry']['cardRight']>390 and obs['ordinary']['geometry']['cardRight']<=390","assert obs['long']['geometry']['titleLeft']<0 and obs['long']['geometry']['panelScroll']>389 and obs['ordinary']['geometry']['panelScroll']==389").replace('ONLY_RESULT_LABEL_CLASSES_DATA_ACTIONS_UNCHANGED','ONLY_EXISTING_DRAWER_TITLE_BUTTON_CLASSES_NO_API_LOGIC_CHANGE');(w/('checkpoint-'+p+'.py')).write_text(s,encoding='utf-8')
+s=(w/('run-'+oldp+'.ps1')).read_text(encoding='utf-8-sig').replace(oldp,p).replace('36 tests in 5 files','282 tests in 15 files').replace('tests=36;files=5','tests=282;files=15');(w/('run-'+p+'.ps1')).write_text(s,encoding='utf-8-sig')
+f=w/'reconcile-w2x-current-continuation.py';s=f.read_text(encoding='utf-8-sig').replace("'portfolio-result-label-wrap']","'portfolio-result-label-wrap','portfolio-selected-title-wrap']").replace('units49-91','units49-92').replace("'active_unit':91","'active_unit':92");f.write_text(s,encoding='utf-8')

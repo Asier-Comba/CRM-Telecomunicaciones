@@ -1,0 +1,1 @@
+const p=require('./playwright-w2x-invoice-relation-verification-final.config.cjs');module.exports={...p,testMatch:['billing-read-error.spec.ts'],grep:/at 1440$/,outputDir:require('node:path').resolve(__dirname,'w2x-billing-read-error-causal-results')}

@@ -1,0 +1,1 @@
+const p=require('./playwright-w2x-communications-page-focus-final.config.cjs');module.exports={...p,testMatch:['collection-page-error-back.spec.ts'],outputDir:require('node:path').resolve(__dirname,'w2x-collection-page-error-back-causal-results')}

@@ -1,0 +1,103 @@
+diff --git a/docs/master/W2X_CASE_DETAIL_READ_LIFETIME_20261014.md b/docs/master/W2X_CASE_DETAIL_READ_LIFETIME_20261014.md
+new file mode 100644
+index 0000000..049249d
+--- /dev/null
++++ b/docs/master/W2X_CASE_DETAIL_READ_LIFETIME_20261014.md
+@@ -0,0 +1,24 @@
++# Incidencias: retirar la lectura del cliente al cambiar de registro
++
++CLAIM W2-X #67 /6167356434. Basea21bdabe9e3c3b14c040803075515fb97ebb3be4.
++
++## Defecto y corrección
++
++Una respuesta case.get retenida llega después de seleccionar otra incidencia. La instancia anterior iniciaba customer.list de su cliente, aunque ya estuviera retirada: lecturas esperadas0/observadas1. El panel nuevo ya estaba protegido por su identidad; no se declara sobrescritura de su estado ni fuga de autorización del servidor.
++
++La carga inicial del detalle comprueba su condición active antes de iniciar la lectura de identidad del cliente, manteniendo la comprobación posterior existente. Sin cambios de backend, contratos, permisos, servicios ni comandos de incidencia. Alcance: carga inicial y cambio de registro; no se acredita toda continuación de cambios comerciales ni todos los cambios de contexto.
++
++## Fallos conservados
++
++El fallo causal original conserva peticiones y captura. La primera suite del producto corregido terminó12PASS/9FAIL (3.7min): el fixture omitía assignee.list del nuevo editor y devolvía403 por fallback, produciendo una alerta legítima. Se mantiene la aserción de ausencia de alertas; el fixture añade exclusivamente una página vacía válida del catálogo ordinario de responsables.
++
++Con ese fixture corregido se repite la reproducción sobre todos los blobs src originales dea21, comprobados por Git: vuelve a fallar0/1 customer.list. Después se restaura el fix desde copia con hash verificado. Original, fallo de fixture, reproducción refinada y resultado final permanecen separados. CASE_NOTE_CURSOR deB9 conserva causa completaUNKNOWN; esta corrección no se presenta como su reparación.
++
++## Evidencia propia final
++
++- 21 pruebas HTTP controlado PASS (37.9s):9 nuevas para case.get tardío exitoso/denegado y lectura de cliente ya iniciada, en390/768/1440;3 regresiones de notas privadas paginadas y9 de recursos Customer360.
++- Lint completo/build66 iniciales conservados; después de corregir fixture, lint de archivos cambiados y build66 final PASS. Escaneo del diff antes de publicar.
++- Tres capturas finales case_success390/768/1440 inspeccionadas: incidencia2, cliente2 y campos correctos visibles, sin alerta antigua ni desbordamiento horizontal visible. Revisión parcial del detalle, no aceptación visual integral de Incidencias.
++- Las pruebas registran las peticiones efectivas, mantienen la nueva selección y no envían comandos comerciales. No eliminan ni cancelan una petición ya enviada.
++
++Componentes, repositorio y validadores reales; HTTP y datos simulados. Auth/DB/Storage reales NOT_RUN; modelo vivo NOT_RUN/API0. HIGH5, W4 y ACK principal pendientes; IA writesOFF, issue10OPEN y releaseNOT_ACCEPTED. Fallos7F/F736/B9/3c7 y sus límites se conservan. La composición2c457 tiene sus611 propios; estas21 pertenecen exclusivamente a esta unidad y requieren composición con pruebas nuevas antes de integrarse.
+diff --git a/src/features/cases/Cases.tsx b/src/features/cases/Cases.tsx
+index 481a794..dfbcbdd 100644
+--- a/src/features/cases/Cases.tsx
++++ b/src/features/cases/Cases.tsx
+@@ -56,7 +56,7 @@ export function CaseDetail({id}:{id:string}){
+ function ScopedCaseDetail({id}:{id:string}){
+  const {repository}=useProduct(),[core,setCore]=useState<{row:CaseRowV1;customerActive:boolean}>(),[error,setError]=useState(''),[revision,setRevision]=useState(0)
+  const refresh=useCallback(async()=>{const r=await repository.telecom('case.get',{id}),customer=await customerCollectionIdentity(repository,r.record.customer_id);setCore({row:r.record,customerActive:customer.status==='active'});setError('')},[repository,id])
+- useEffect(()=>{let active=true;void repository.telecom('case.get',{id}).then(async r=>{const customer=await customerCollectionIdentity(repository,r.record.customer_id);if(active){setCore({row:r.record,customerActive:customer.status==='active'});setError('')}}).catch(e=>{if(active){setCore(undefined);setError(safeMessage(e))}});return()=>{active=false}},[repository,id,revision])
++ useEffect(()=>{let active=true;void repository.telecom('case.get',{id}).then(async r=>{if(!active)return;const customer=await customerCollectionIdentity(repository,r.record.customer_id);if(active){setCore({row:r.record,customerActive:customer.status==='active'});setError('')}}).catch(e=>{if(active){setCore(undefined);setError(safeMessage(e))}});return()=>{active=false}},[repository,id,revision])
+  if(error)return <div><p role="alert">{error}</p><button className={control} onClick={()=>setRevision(v=>v+1)}>Reintentar incidencia</button></div>
+  if(!core)return <p role="status">Consultando incidencia…</p>
+  return <CaseEditor key={core.row.version} {...core} onRefresh={refresh}/>
+diff --git a/tests/e2e-preview/case-detail-read-lifetime.spec.ts b/tests/e2e-preview/case-detail-read-lifetime.spec.ts
+new file mode 100644
+index 0000000..dbdfc37
+--- /dev/null
++++ b/tests/e2e-preview/case-detail-read-lifetime.spec.ts
+@@ -0,0 +1,54 @@
++import {expect,test} from '@playwright/test'
++import {writeFile} from 'node:fs/promises'
++import {startCustomerResourceFixture} from './fixtures/customer-resource-server.cjs'
++const id=(n:number)=>`10000000-0000-4000-8000-${String(n).padStart(12,'0')}`
++const customer=(n:number)=>({id:id(n),version:1,account_kind:'legal_entity',display_name:'Cliente sintético '+n,lifecycle:'customer',status:'active',source:'manual',assigned_user_id:null})
++const record=(n:number)=>({id:id(n),version:1,customer_id:id(n),contract_id:null,service_id:null,line_id:null,case_type:'technical',title:'Incidencia sintética '+n,priority:'normal',due_on:null,assigned_user_id:null,status:'open',source:'manual',resolved_at:null,closed_at:null,resolution_code:null,cancellation_code:null,internal_note_count:0,created_at:'2026-10-01T10:00:00.000Z',updated_at:'2026-10-01T10:00:00.000Z',overdue:false})
++for(const stage of ['case_success','case_denied','customer_success'] as const)for(const width of [390,768,1440])test(`case detail late ${stage} after selection change at ${width}`,async({page},info)=>{
++ const fixture=await startCustomerResourceFixture(),reads:{operation:string;input:Record<string,unknown>}[]=[],commands:string[]=[],errors:string[]=[]
++ let held=false,release:()=>void=()=>{}
++ const gate=new Promise<void>(resolve=>{release=resolve})
++ page.on('pageerror',e=>errors.push(e.message))
++ await page.route('**/api/**',async route=>{
++  const q=route.request().postDataJSON();reads.push(q)
++  if(route.request().url().includes('/commands')){commands.push(q.operation);await route.fulfill({status:403,json:{ok:false,error:'access_denied'}});return}
++  if(q.operation==='case.get'){
++   if(q.input.id===id(1)&&stage!=='customer_success'&&!held){held=true;await gate}
++   if(q.input.id===id(1)&&stage==='case_denied'){await route.fulfill({status:403,json:{ok:false,error:'access_denied'}});return}
++   await route.fulfill({json:{ok:true,data:{contract_version:'case.v1',operation:q.operation,record:record(q.input.id===id(1)?1:2)}}});return
++  }
++  if(q.operation==='customer.list'){
++   const n=q.input.after_id===id(0)?1:2
++   if(n===1&&stage==='customer_success'&&!held){held=true;await gate}
++   await route.fulfill({json:{ok:true,data:{contract_version:'telecom.collections.v1',operation:q.operation,items:[customer(n)],next_id:null}}});return
++  }
++  if(q.operation==='assignee.list'){
++   await route.fulfill({json:{ok:true,data:{contract_version:'telecom.collections.v1',operation:q.operation,items:[],next_id:null}}});return
++  }
++  await route.fulfill({status:403,json:{ok:false,error:'access_denied'}})
++ })
++ try{
++  await page.setViewportSize({width,height:960});await page.goto(fixture.url+'/?kind=case')
++  await expect.poll(()=>held).toBe(true)
++  const before=reads.filter(q=>q.operation==='customer.list'&&q.input.after_id===id(0)).length
++  await page.getByRole('button',{name:'Seleccionar cliente B',exact:true}).click()
++  await expect(page.getByRole('heading',{name:'Incidencia sintética 2',exact:true})).toBeVisible()
++  const operation=stage==='customer_success'?'customer.list':'case.get'
++  const response=page.waitForResponse(r=>{
++   const q=r.request().postDataJSON()
++   return q?.operation===operation&&(operation==='case.get'?q.input.id===id(1):q.input.after_id===id(0))
++  })
++  release();await (await response).finished();await page.waitForLoadState('networkidle')
++  expect(reads.filter(q=>q.operation==='customer.list'&&q.input.after_id===id(0))).toHaveLength(before)
++  await expect(page.getByRole('heading',{name:'Incidencia sintética 2',exact:true})).toBeVisible()
++  await expect(page.getByRole('heading',{name:'Incidencia sintética 1',exact:true})).toHaveCount(0)
++  await expect(page.getByRole('alert')).toHaveCount(0)
++  await expect(page.getByRole('button',{name:'Consultar notas internas',exact:true})).toBeEnabled()
++  expect(commands).toEqual([]);expect(errors).toEqual([])
++  await page.screenshot({path:info.outputPath(`case-detail-late-${stage}-${width}.png`)})
++ }finally{
++  release();await page.unrouteAll({behavior:'wait'})
++  await writeFile(info.outputPath('observations.json'),JSON.stringify({stage,width,held,reads,commands,errors},null,2))
++  await page.close();await fixture.close()
++ }
++})

@@ -1,0 +1,117 @@
+{
+  "claim": 6213599725,
+  "base": "fa3e16853b4467e554d96af49ac9aeb315978761",
+  "branch": "codex/w2x-invoice-relation-compact-20261016",
+  "status": "PUBLISHED_OWN24_BUILD66_VISUAL_PARTIAL6_AUTH_NOT_RUN",
+  "baseline": {
+    "browser": "1PASS11.0S",
+    "visual": "ACTUALLY_VIEWED390_INERT_OPPORTUNITY_PAGINATION_PUSHES_FIELDS",
+    "scope": "UX improvement;not a failing business invariant",
+    "log": "work/w2x-invoice-relation-compact-baseline.txt"
+  },
+  "release": "NOT_ACCEPTED",
+  "next": "Next independent investigation: pending selected invoice relation is labelled unavailable before verification;fresh CLAIM/reproduction required,do not change queries/primitives or active global sources",
+  "controls_session": 21615,
+  "candidate_fingerprints": [
+    {
+      "path": "src/features/billing/InvoiceRelationSelect.tsx",
+      "sha256_utf8_lf": "c3caa80226372dab799a3d38280aa4c784b7d78ba765cdace59014bf52e15fa6"
+    },
+    {
+      "path": "docs/master/W2X_INVOICE_RELATION_COMPACT_20261016.md",
+      "sha256_utf8_lf": "7cfeb0be245177c18560af043b09b7a956d3e40fd05e87d22ed498c4822eac21"
+    }
+  ],
+  "checks": {
+    "browser": "24_PASS_OWN_SOURCE",
+    "build": "66_PASS",
+    "visual": "PARTIAL6_ACTUALLY_VIEWED",
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN",
+    "paid_api": 0,
+    "lint": "EXIT0_WARNINGS_RETAINED_IN_LOG",
+    "scan": "PASS",
+    "global": "NOT_RUN_CURRENT_SHA"
+  },
+  "visual_review": {
+    "status": "ACTUALLY_VIEWED",
+    "scope": "Partial labels/page at390/768/1440;needed contract navigation and refresh remain,empty relation navigation removed;lower mobile form outside viewport",
+    "frames": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-invoice-relation-compact-final-results\\invoice-contract-selection-19ac8-ct-selection-labels-at-1440\\invoice-contract-labels-1440.png",
+        "sha256": "33d2f92beb64521147404b4338fab4548ac99479cebc71e86b44fbc44d40faae"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-invoice-relation-compact-final-results\\invoice-contract-selection-25652-ract-selection-page-at-1440\\invoice-contract-page-1440.png",
+        "sha256": "9989a2e600a74982fd05f5db64013033137161b7e35b6e6733a5977ac4e948ac"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-invoice-relation-compact-final-results\\invoice-contract-selection-6a528-tract-selection-page-at-390\\invoice-contract-page-390.png",
+        "sha256": "b00ad8cf75a82ba10019dd44c0fd5362611a6145c4f688fef4058413ad844b95"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-invoice-relation-compact-final-results\\invoice-contract-selection-759e5-act-selection-labels-at-390\\invoice-contract-labels-390.png",
+        "sha256": "88759d60e8568085eb5c911b4e4736c397e333a9b3ec90ea48ee2eb3fcfd657e"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-invoice-relation-compact-final-results\\invoice-contract-selection-9ba75-act-selection-labels-at-768\\invoice-contract-labels-768.png",
+        "sha256": "f09212838379bf7cea9a35eada89bfb3807e4c09665c77cdb7d0b622f681c25d"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-invoice-relation-compact-final-results\\invoice-contract-selection-a5fd7-tract-selection-page-at-768\\invoice-contract-page-768.png",
+        "sha256": "dad8c13f44c875696c0c4558594557865429c204104cb2ba4ceb37e579d5cafc"
+      }
+    ]
+  },
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-invoice-relation-compact-baseline.txt",
+      "sha256": "d54d6f46412e4f0764d6fc648cf7a5ede43ba7b220cccf4c1082dfc580480903"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-invoice-relation-compact-browser.txt",
+      "sha256": "9628008cffd7dbb2293b1e73670fda85b763a60abcc61c73ee0469d5f464012f"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-invoice-relation-compact-lint.txt",
+      "sha256": "91a5c63f9a9a0a42f92a00caa38da32336b62b940ccf4738d08ef97c55d9996c"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-invoice-relation-compact-build.txt",
+      "sha256": "d8168e2a63bc36d93331e0c8e08697c14db7400b6a0fc06f21f55bf17fc0f300"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-invoice-relation-compact-scan.txt",
+      "sha256": "cfad200a90b1dd8465e503fd47ab5e2cbdb188a720fe22fdc671e5e17f60d446"
+    }
+  ],
+  "publication_waiter_session": 6324,
+  "tree": "3afa23666b73dc6ef9051af3190d4f44120f556f",
+  "handoffs": [
+    {
+      "issue": 67,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6213714504",
+      "id": 6213714504
+    },
+    {
+      "issue": 153,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6213714853",
+      "id": 6213714853
+    },
+    {
+      "issue": 38,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6213715252",
+      "id": 6213715252
+    },
+    {
+      "issue": 142,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6213715571",
+      "id": 6213715571
+    }
+  ],
+  "sha": "8f0911c1d4790b2a78b3baf7f5f3073ed4ae83a1",
+  "publication": "PUBLISHED",
+  "publication_resume_session": 60387,
+  "publication_harness_failure": "work/w2x-invoice-relation-compact-publication-harness-failure.json",
+  "harness_notes_published": "work/w2x-invoice-relation-compact-harness-notes-published.json"
+}

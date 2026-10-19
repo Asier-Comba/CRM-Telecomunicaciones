@@ -1,0 +1,1 @@
+const p=require('./playwright-w2x-commercial-drawer-full.config.cjs');module.exports={...p,testMatch:[...p.testMatch,'calendar-event-title-wrap.spec.ts','customer-domain-title-wrap.spec.ts','customer-list-name-wrap.spec.ts','customer-list-filter-priority.spec.ts'],outputDir:require('node:path').resolve(__dirname,'w2x-commercial-mobile-product-full-results')}

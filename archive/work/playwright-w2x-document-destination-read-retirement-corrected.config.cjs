@@ -1,0 +1,1 @@
+const p=require('./playwright-w2x-document-destination-read-retirement.config.cjs');module.exports={...p,testMatch:['document-destination-read-retirement.spec.ts','document-contract-selection.spec.ts'],outputDir:require('node:path').resolve(__dirname,'w2x-document-destination-read-retirement-corrected-results')}

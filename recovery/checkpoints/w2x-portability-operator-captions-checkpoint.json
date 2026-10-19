@@ -1,0 +1,143 @@
+{
+  "claim": 6200553279,
+  "base": "57e97ed72199fc5de085a3f76e6dacdaf3983027",
+  "branch": "codex/w2x-portability-operator-captions-lifetime-20261015",
+  "status": "OWN3_FINAL_PLUS33_COMPLEMENTARY_BUILD66_SCAN_PASS_VISUAL_PARTIAL_AUTH_NOT_RUN",
+  "causal_session": 31532,
+  "product_changed": true,
+  "scope": "Visible donor/target captions and contextual empty choices; preserve draft input mapping, defaults and current read controls.",
+  "next": "NEW_CAUSAL_DRAFT_DIRECTION_GUARD;KEEP_GLOBAL981_SOURCE6B469_PINNED",
+  "release": "NOT_ACCEPTED",
+  "causal": {
+    "failed": 3,
+    "log": "w2x-portability-operator-captions-causal.txt",
+    "original_test": "w2x-portability-operator-captions-original-test.ts",
+    "test_sha256": "9623db77fa38daa213e97d53822fba48e1c7f851f7b65535c37eaef18a116552"
+  },
+  "candidate_fingerprints": [
+    {
+      "path": "src/features/product/integration/OperatorSelect.tsx",
+      "sha256_utf8_lf": "44918ac968a06381126fbc0016956c01d4df9addf238056c55b5d9d6ac609aee"
+    },
+    {
+      "path": "src/features/portabilities/Portabilities.tsx",
+      "sha256_utf8_lf": "e20888b2d6cea707252f68a278ae769775da41c145d3df4036084091d084a921"
+    },
+    {
+      "path": "tests/e2e-preview/portability-parent-read-lifetime.spec.ts",
+      "sha256_utf8_lf": "7ecb5e88ec3e2118403497afb893901d543621255584e4aa4d5fe22efb401d92"
+    },
+    {
+      "path": "docs/master/W2X_PORTABILITY_OPERATOR_CAPTIONS_20261015.md",
+      "sha256_utf8_lf": "c013009c04197b694111b3c29e3c4aef72ddd71cb17454138f2362bad093fcd7"
+    }
+  ],
+  "unchanged_ui_fingerprints": [
+    {
+      "path": "src/features/product/integration/OperatorSelect.tsx",
+      "sha256_utf8_lf": "44918ac968a06381126fbc0016956c01d4df9addf238056c55b5d9d6ac609aee"
+    },
+    {
+      "path": "src/features/portabilities/Portabilities.tsx",
+      "sha256_utf8_lf": "e20888b2d6cea707252f68a278ae769775da41c145d3df4036084091d084a921"
+    }
+  ],
+  "first36": {
+    "passed": 33,
+    "failed": 3,
+    "log": "w2x-portability-operator-captions-browser.txt",
+    "cause": "Fixture counted only /commands; actual portability.update_draft uses /api/portability/v1 and was observed in reads. Domain operation classification corrected; runtime unchanged.",
+    "test_backup": "w2x-operator-captions-first36-test.ts"
+  },
+  "published": true,
+  "checks": {
+    "browser_final": 3,
+    "prior_complementary": 33,
+    "first36": "33PASS_3FAIL_FIXTURE_PRESERVED",
+    "ui_fingerprints": "IDENTICAL_BETWEEN_ATTEMPTS",
+    "build_final": 66,
+    "lint": "PRIOR_FULL0ERRORS3WARN_FINAL_CHANGED_TEST0ERRORS0WARN",
+    "scan": "PASS",
+    "visual": "PARTIAL_3_SCROLLED_FIELDS_FRAMES_ACTUALLY_VIEWED",
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN"
+  },
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portability-operator-captions-causal.txt",
+      "sha256": "b0b2fcbd66407024b0c3b22a4fbce8492947e108a4ac7198554d94c22a60315b"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portability-operator-captions-browser.txt",
+      "sha256": "1b89a7ffcd0dd3c6184775ffbf2a69599818697961284270d32fa61665bf2072"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portability-operator-captions-final3-browser.txt",
+      "sha256": "eb0afa5045aec2a9edb52417aced6cd05fa441b2b3a451365ff1f10112353a42"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portability-operator-captions-lint.txt",
+      "sha256": "91a5c63f9a9a0a42f92a00caa38da32336b62b940ccf4738d08ef97c55d9996c"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portability-operator-captions-final3-lint.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portability-operator-captions-final3-build.txt",
+      "sha256": "1a8d2d3751882d9436eae9db6bdc53ca18e496067d772645f94b04bee77cd161"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portability-operator-captions-scan.txt",
+      "sha256": "60445b0982eec97d09ac196d6cd355208ba2f3613d8a3c3ee115e204a0157edc"
+    }
+  ],
+  "tree": "9a1048edaec286aeaf112c626d9c068ec77f4ee2",
+  "sha": "d56ae41202464c793d46a3ab9058126b08450732",
+  "publication": "PUBLISHED",
+  "handoffs": [
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6200756542",
+      "issue": 67,
+      "id": 6200756542
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6200756838",
+      "issue": 153,
+      "id": 6200756838
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6200757103",
+      "issue": 38,
+      "id": 6200757103
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6200757397",
+      "issue": 142,
+      "id": 6200757397
+    }
+  ],
+  "branch_reconciliation": {
+    "planned": "codex/w2x-portability-operator-captions-20261015",
+    "published": "codex/w2x-portability-operator-captions-lifetime-20261015",
+    "action": "Same exact publishedSHA; local renamed and5 comments reconciled. No extra push/branch/PR.",
+    "upstream": "NOT_CONFIGURED_BARE_ORIGIN_HAS_NO_FETCH_REFSPEC; explicit own remote ref verified at sameSHA; no shared remote configuration changed."
+  },
+  "visual": {
+    "scope": "Actual final390/768/1440 fields inspected in viewport. Distinct origin/destination labels, valid inbound draft8/2, date/review. Other sections/full accessibility/real save not certified.",
+    "images": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portability-operator-captions-final3-results\\portability-parent-read-li-63291-parent-read-current-at-1440\\portability-operator-captions-1440.png",
+        "sha256": "ae947102888e25df7a5d83d63442a377993f91304be72b74f882d62f9b9ac7b3"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portability-operator-captions-final3-results\\portability-parent-read-li-ac699--parent-read-current-at-768\\portability-operator-captions-768.png",
+        "sha256": "6c6d4cdafb690d0c79d1138a3dfd33d807b91f2ae0505c5d0d81825013c5a6d8"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portability-operator-captions-final3-results\\portability-parent-read-li-b60c5--parent-read-current-at-390\\portability-operator-captions-390.png",
+        "sha256": "63b16bef822056c2e79ef3dc77726de5f4da5c7d4958321e8aa2f6df8d8291f0"
+      }
+    ]
+  }
+}

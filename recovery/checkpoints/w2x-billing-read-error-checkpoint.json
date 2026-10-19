@@ -1,0 +1,124 @@
+{
+  "claim": 6213990000,
+  "base": "5f5ca62677c0db962b4f93cbae5d9b39b9b21996",
+  "branch": "codex/w2x-billing-read-error-20261016",
+  "status": "PUBLISHED_OWN91_BUILD66_VISUAL_PARTIAL7_AUTH_NOT_RUN",
+  "causal_session": 24357,
+  "product_changed": true,
+  "release": "NOT_ACCEPTED",
+  "next": "Next independent reproduced commercial defect or individually supported requirement with fresh CLAIM;do not repeat green91 or claim global1362 fromFA3 as current SHA",
+  "original": {
+    "failed": 3,
+    "passed": 2,
+    "duration": "55.5s",
+    "cause": "Resolved list/financial/configuration read failure remains in global error;identity403 and uncertain command positives retained",
+    "log": "work/w2x-billing-read-error-causal.txt"
+  },
+  "controls_session": 16651,
+  "candidate_fingerprints": [
+    {
+      "path": "src/features/billing/IntegratedBilling.tsx",
+      "sha256_utf8_lf": "6fede50b0ed29f725ec4a7f958689bf38c52e9206c983b2091c7670f472e0751"
+    },
+    {
+      "path": "tests/e2e-preview/billing-read-error.spec.ts",
+      "sha256_utf8_lf": "d51f38c6b451631a7fbe9a06714be1a082c7a76d280be4c48f840e991049fd76"
+    },
+    {
+      "path": "docs/master/W2X_BILLING_READ_ERROR_20261016.md",
+      "sha256_utf8_lf": "719363b22875903a7009b5a387c7034fe0e79b0b96bda99f4a3f424c82083270"
+    }
+  ],
+  "checks": {
+    "browser": "91_PASS_OWN_SOURCE",
+    "build": "66_PASS",
+    "visual": "PARTIAL7_ACTUALLY_VIEWED",
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN",
+    "paid_api": 0,
+    "lint": "EXIT0_WARNINGS_RETAINED_IN_LOG",
+    "scan": "PASS",
+    "global": "NOT_RUN_CURRENT_SHA"
+  },
+  "visual_review": {
+    "status": "ACTUALLY_VIEWED",
+    "scope": "Partial recovered list3widths and unrelated identity/uncertain-command390/1440;lower mobile content outside viewport;no SQL absence/Auth/module acceptance",
+    "frames": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-read-error-final-results\\billing-read-error-billing-10e25-ip-uncertain-command-at-390\\billing-read-error-uncertain-command-390.png",
+        "sha256": "37a088d4b8e7a3f6bc22d3e01663fb3d9e9ad4478107873b6744e9779aa0f4b0"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-read-error-final-results\\billing-read-error-billing-21621-error-ownership-list-at-390\\billing-read-error-list-390.png",
+        "sha256": "7ac7f5d4163f19eefc4a6115ff866cac56f6c6cce9f471950848951cb516fd68"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-read-error-final-results\\billing-read-error-billing-2bd9a-p-uncertain-command-at-1440\\billing-read-error-uncertain-command-1440.png",
+        "sha256": "5d11ef91b6a1ca495b1b8c68c419f2e5453c3c3e1b824d11d7ebb8c437b3e9d3"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-read-error-final-results\\billing-read-error-billing-532ec-rror-ownership-list-at-1440\\billing-read-error-list-1440.png",
+        "sha256": "904d54d66a196b8a09e5fa48ee611ab1cdf092e98539a18ab556744f1bfff153"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-read-error-final-results\\billing-read-error-billing-7667a-error-ownership-list-at-768\\billing-read-error-list-768.png",
+        "sha256": "06845c8f0d47eb4243583e37b3de927c1089232fdfcab23c8a40885ca0869774"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-read-error-final-results\\billing-read-error-billing-a9a98--ownership-identity-at-1440\\billing-read-error-identity-1440.png",
+        "sha256": "5b463d4f754c166cdad703b125c0a1b5dbfb0ee2d0c841710000104b5c7b13c8"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-read-error-final-results\\billing-read-error-billing-eb040-r-ownership-identity-at-390\\billing-read-error-identity-390.png",
+        "sha256": "b140eddab9f9584165be628f2a8a5ccd729b789f6f8f8cc69df88087d3a701c0"
+      }
+    ]
+  },
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-read-error-causal.txt",
+      "sha256": "e8725b72bb2c0c8e8a45a4b3ed7a6d3c078a648a62bce30c5e1f799341a250c8"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-read-error-browser.txt",
+      "sha256": "5bea0947dc0862c8569c45a08d60a1266b91f4da5e0ec8178114c3182345ca49"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-read-error-lint.txt",
+      "sha256": "91a5c63f9a9a0a42f92a00caa38da32336b62b940ccf4738d08ef97c55d9996c"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-read-error-build.txt",
+      "sha256": "719c42c5e188bf1f978b7617ab980a1a807eec01c987d3457b4d09e9b52ce5ff"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-read-error-scan.txt",
+      "sha256": "e7d59a65f90d815035b376a1a5fb906513cff1c5b5dae68a748031e484ac7603"
+    }
+  ],
+  "tree": "98a97503c7ccd4822f042f3caf7c7fae96fa8598",
+  "handoffs": [
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6214141558",
+      "id": 6214141558,
+      "issue": 67
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6214141921",
+      "id": 6214141921,
+      "issue": 153
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6214142200",
+      "id": 6214142200,
+      "issue": 38
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6214142437",
+      "id": 6214142437,
+      "issue": 142
+    }
+  ],
+  "sha": "672b59c8a238f4e2857371523206b6f73b23ffda",
+  "publication": "PUBLISHED"
+}

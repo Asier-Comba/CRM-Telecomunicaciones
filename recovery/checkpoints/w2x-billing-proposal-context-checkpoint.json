@@ -1,0 +1,130 @@
+{
+  "claim": 6213214507,
+  "base": "f0f0b2b491412292b2123c096c136f6898329aaa",
+  "branch": "codex/w2x-billing-proposal-context-20261016",
+  "status": "PUBLISHED_OWN61_BUILD66_VISUAL_PARTIAL9_AUTH_NOT_RUN",
+  "original": {
+    "failed": 1,
+    "passed": 1,
+    "duration": "30.2s",
+    "cause": "Editor0 expected/editor1 observed after explicit customer-clear and delayed proposal success",
+    "log": "work/w2x-billing-proposal-context-causal.txt"
+  },
+  "release": "NOT_ACCEPTED",
+  "next": "Next independent reproduced commercial defect with fresh CLAIM;first close original1266 failure plus same-source13 complementary controls and resume1311 only after guarded launcher CWD correction",
+  "controls_session": 59702,
+  "candidate_fingerprints": [
+    {
+      "path": "src/features/billing/IntegratedBilling.tsx",
+      "sha256_utf8_lf": "4d24cde633b3ca6d633d1ad42cbaca7ce58c3962e47221abf9fa948fefc7a01b"
+    },
+    {
+      "path": "tests/e2e-preview/billing-proposal-context.spec.ts",
+      "sha256_utf8_lf": "27763155549b564e202df679401e5e0bf7206d79036dd56d08d94243f33840ea"
+    },
+    {
+      "path": "docs/master/W2X_BILLING_PROPOSAL_CONTEXT_20261016.md",
+      "sha256_utf8_lf": "e8b20b49af8f4baeb6dbddff29864de385bb9903fbbfae4d48bee7c4acaee01b"
+    }
+  ],
+  "checks": {
+    "browser": "61_PASS_OWN_SOURCE",
+    "build": "66_PASS",
+    "visual": "PARTIAL9_ACTUALLY_VIEWED",
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN",
+    "paid_api": 0,
+    "lint": "EXIT0_WARNINGS_RETAINED_IN_LOG",
+    "scan": "PASS",
+    "global": "NOT_RUN_CURRENT_SHA"
+  },
+  "visual_review": {
+    "status": "ACTUALLY_VIEWED",
+    "scope": "Partial clear/current/latest top drawer/client/date frames;concepts/amounts/actions outside viewport,DOM assertions only;not whole module/Auth acceptance",
+    "frames": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-proposal-context-final-results\\billing-proposal-context-b-21f2b-rent-context-latest-at-1440\\billing-proposal-latest-1440.png",
+        "sha256": "c627d5c49cea07194522e5792c79ce66888a311ef2824fbd47ed4fbcafbec667"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-proposal-context-final-results\\billing-proposal-context-b-4fe88-rrent-context-latest-at-390\\billing-proposal-latest-390.png",
+        "sha256": "06028ef13a3045ee47729605178db2646ae6a5932a53832aa0055aea321f4720"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-proposal-context-final-results\\billing-proposal-context-b-502c7-ent-context-current-at-1440\\billing-proposal-current-1440.png",
+        "sha256": "f679077295733fee474651112c406497fd9d64766055b8f0851b706bb3505a26"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-proposal-context-final-results\\billing-proposal-context-b-72d02-urrent-context-clear-at-390\\billing-proposal-clear-390.png",
+        "sha256": "47a820526519ca4ff11b415810ac6242e687db1f411dee0d8f86cb524b47bdbd"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-proposal-context-final-results\\billing-proposal-context-b-8e818-rrent-context-latest-at-768\\billing-proposal-latest-768.png",
+        "sha256": "09b721f8c240761c762a78fbb7100361ebb7c40e0695949caa9ce9fc9bdc2d3c"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-proposal-context-final-results\\billing-proposal-context-b-a12e9-rent-context-current-at-390\\billing-proposal-current-390.png",
+        "sha256": "505e91be3db65b7a10970726050a63142c2798a8fcbb29bbbb4b0661ff58b578"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-proposal-context-final-results\\billing-proposal-context-b-bb559-rent-context-current-at-768\\billing-proposal-current-768.png",
+        "sha256": "758723a7c71855d3d311c0345940b2bfa6ce082ab548e627d8b4485c3a763130"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-proposal-context-final-results\\billing-proposal-context-b-ce6e0-urrent-context-clear-at-768\\billing-proposal-clear-768.png",
+        "sha256": "532b75d914009dfdee98827d66e2c682efe839c4f2d91c784b8acfb66fc34d62"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-proposal-context-final-results\\billing-proposal-context-b-e6986-rrent-context-clear-at-1440\\billing-proposal-clear-1440.png",
+        "sha256": "d595386dbd722347741314f4533c8d10a791ab9b4dc27880c9e31c2048f40714"
+      }
+    ]
+  },
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-proposal-context-causal.txt",
+      "sha256": "813d3500757fe72cda37db947fce1faca9741b4c33e3fb0caef050d71d2eb77a"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-proposal-context-browser.txt",
+      "sha256": "a7de9a9b635e8faedb135ddb2f1de428b28b82d0ebb89d721e45964de2190aa3"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-proposal-context-lint.txt",
+      "sha256": "91a5c63f9a9a0a42f92a00caa38da32336b62b940ccf4738d08ef97c55d9996c"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-proposal-context-build.txt",
+      "sha256": "680b6449661d1fb3e88512f9aa88f3bae543b311c953f67149c310de1613f823"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-proposal-context-scan.txt",
+      "sha256": "bd5ac53ae80f951c1e5f475ee9481dca210cd7be6ac068d8572d4033e4801d54"
+    }
+  ],
+  "tree": "63ecfe7461ad8de91443d08ddbcb6a1c794b7ce9",
+  "publication": "PUBLISHED",
+  "handoffs": [
+    {
+      "id": 6213319900,
+      "issue": 67,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6213319900"
+    },
+    {
+      "id": 6213320204,
+      "issue": 153,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6213320204"
+    },
+    {
+      "id": 6213320418,
+      "issue": 38,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6213320418"
+    },
+    {
+      "id": 6213320622,
+      "issue": 142,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6213320622"
+    }
+  ],
+  "sha": "31a72415c5daef04d743742848c292d230ba087b"
+}

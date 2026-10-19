@@ -1,0 +1,51 @@
+import {expect,test} from '@playwright/test'
+import {writeFile} from 'node:fs/promises'
+import {startCommercialResourceFixture} from './fixtures/commercial-resource-server.cjs'
+const id=(prefix:number,n:number)=>prefix+'0000000-0000-4000-8000-'+String(n).padStart(12,'0'),mask=(n:number)=>'••••'+(100+n)
+for(const direction of ['inbound','outbound'] as const)for(const mode of ['uncertain','read_failed','review','denied'] as const)for(const width of [390,768,1440])test('portability recovery close '+direction+' '+mode+' at '+width,async({page},info)=>{
+ const outbound=direction==='outbound',fixture=await startCommercialResourceFixture(),reads:{operation:string;input:Record<string,unknown>}[]=[],commands:{operation:string;input:Record<string,unknown>}[]=[],errors:string[]=[],applied=new Set<string>()
+ let written=false,effects=0,reject=mode==='denied',readFailed=false,effectsAfterDenied:number|undefined,controls:unknown
+ const contract=(n:number)=>({id:id(6,n),version:1,status:'active',source:'manual',customer_id:id(1,n),operator_id:id(2,1),plan_version_id:null,start_date:'2026-10-01',signed_date:'2026-10-01',end_date:null,assigned_user_id:null})
+ const service=(n:number)=>({id:id(4,n),version:1,status:'active',source:'manual',customer_id:id(1,n),contract_id:id(6,n),operator_id:id(2,1),plan_version_id:null,service_kind:'mobile',display_name:'Synthetic service '+n,activated_on:'2026-10-01',ended_on:null,status_effective_on:'2026-10-01'})
+ const line=(n:number)=>({id:id(5,n),version:1,service_id:id(4,n),customer_id:id(1,n),contract_id:id(6,n),operator_id:id(2,1),plan_version_id:null,display_name:'Synthetic line '+n,status:'active',source:'manual',activated_on:'2026-10-01',ended_on:null,service_kind:'mobile',masked_msisdn:mask(n),sim_id:null,sim_kind:null,sim_status:null,masked_iccid:null,masked_eid:null,portability_id:written?id(8,1):null,portability_status:written?'draft':null,open_commitment_count:0,next_commitment_ends_on:null})
+ const row={id:id(8,1),version:1,customer_id:id(1,1),contract_id:id(6,1),service_id:id(4,1),line_id:id(5,1),number_identifier_id:id(7,1),masked_display:mask(1),direction,donor_operator_id:id(outbound?2:8,1),target_operator_id:id(outbound?8:2,1),requested_on:'2026-10-15',submitted_on:null,scheduled_on:null,started_on:null,completed_on:null,closed_on:null,status:'draft',reason_code:null,owner_user_id:null,source:'manual',created_at:'2026-10-15T12:00:00Z',updated_at:'2026-10-15T12:00:00Z'}
+ page.on('pageerror',e=>errors.push(e.message))
+ await page.route('**/api/**',async route=>{
+  const q=route.request().postDataJSON(),{operation,input}=q;reads.push(q);const reply=(data:unknown)=>route.fulfill({json:{ok:true,data}})
+  if(operation==='portability.create'){commands.push(q);if(reject){await route.fulfill({status:403,json:{ok:false,error:'access_denied'}});return};if(!applied.has(String(input.command_id))){applied.add(String(input.command_id));effects++};written=true;if(mode==='uncertain'&&commands.length===1){await route.abort('failed');return};await reply({contract_version:'portability.v1',operation,command_id:input.command_id,id:row.id,version:1,status:'draft',source:'manual',line_effect:null});return}
+  if(operation==='portability.get'){if(mode==='read_failed'&&!readFailed){readFailed=true;await route.fulfill({status:503,json:{ok:false,error:'internal_safe'}});return};await reply({contract_version:'portability.v1',operation,record:row});return}
+  if(operation==='portability.list'){await reply({contract_version:'portability.v1',operation,items:written&&input.customer_id===id(1,1)?[row]:[],next_id:null});return}
+  if(operation==='portfolio.get'){await reply({contract_version:'portfolio.v1',kind:input.kind,record:input.kind==='service'?service(1):contract(1)});return}
+  if(operation==='line.list'){await reply({contract_version:'telecom.collections.v1',operation,items:[line(1)],next_id:null});return}
+  if(operation==='identifier.list'){await reply({contract_version:'identifiers.v1',operation,items:[{id:id(7,1),entity_kind:'line',entity_id:id(5,1),identifier_kind:'msisdn',masked_display:mask(1),status:'active',source:'manual',valid_from:'2026-10-01T12:00:00Z',valid_until:null,version:1}],next_id:null});return}
+  if(operation==='customer.list'){await reply({contract_version:'telecom.collections.v1',operation,items:[{id:id(1,1),version:1,display_name:'Synthetic customer 1',account_kind:'legal_entity',lifecycle:'customer',status:'active',source:'manual',assigned_user_id:null}],next_id:null});return}
+  const operator=(prefix:number)=>({id:id(prefix,1),version:1,code:'synthetic_'+prefix,display_name:'Synthetic operator '+prefix,status:'active',source:'manual'})
+  if(operation==='operator.get'){await reply({contract_version:'telecom.collections.v1',operation,record:operator(Number(String(input.id)[0]))});return}
+  if(operation==='operator.list'){const operators=[2,3,8].map(operator);await reply({contract_version:'telecom.collections.v1',operation,items:input.limit===1?operators.filter(o=>o.id>String(input.after_id)).slice(0,1):operators,next_id:null});return}
+  if(['assignee.list','contact.list'].includes(operation)){await reply({contract_version:'telecom.collections.v1',operation,items:[],next_id:null});return}
+  await route.fulfill({status:403,json:{ok:false,error:'access_denied'}})
+ })
+ const form=page.locator('dialog:not([aria-describedby])'),modal=page.locator('dialog[aria-describedby]')
+ async function review(){
+  await page.getByRole('button',{name:'Nueva portabilidad',exact:true}).click();await form.getByRole('combobox',{name:'Línea de portabilidad',exact:true}).selectOption(id(5,1));await form.getByRole('combobox',{name:'Número de portabilidad',exact:true}).selectOption(id(7,1));await form.getByRole('combobox',{name:'Dirección de portabilidad',exact:true}).selectOption(direction)
+  const origin=form.getByRole('combobox',{name:'Operador origen de portabilidad',exact:true}),target=form.getByRole('combobox',{name:'Operador destino de portabilidad',exact:true});await expect(outbound?origin:target).toHaveValue(id(2,1));await(outbound?target:origin).selectOption(id(8,1));await form.getByLabel('Fecha de solicitud de portabilidad',{exact:true}).fill('2026-10-15');await form.getByRole('button',{name:'Revisar alta de portabilidad',exact:true}).click()
+ }
+ try{
+  await page.setViewportSize({width,height:960});await page.goto(fixture.url+'/?kind=portability-create-lifetime&reset_scope=1');await review();const close=form.getByRole('button',{name:'Cerrar panel',exact:true}),cancel=modal.getByRole('button',{name:'Cancelar',exact:true})
+  if(mode==='review'){await expect(cancel).toBeEnabled();await cancel.click();await expect(modal).toHaveCount(0);await expect(close).toBeEnabled();await close.click();await expect(form).toHaveCount(0);expect(commands).toHaveLength(0);expect(effects).toBe(0)}
+  else{
+   await modal.getByRole('button',{name:'Confirmar cambio',exact:true}).click()
+   if(mode==='read_failed'){await expect(form.getByRole('status')).toHaveText('Cambio registrado. Reintentar solo actualiza la lectura.');await expect(form.getByRole('alert')).toBeVisible();controls={closeDisabled:await close.isDisabled()};await expect(close).toBeDisabled();await close.evaluate((b:HTMLButtonElement)=>b.click());await page.keyboard.press('Escape');await expect(form).toBeVisible();const retry=form.getByRole('button',{name:'Actualizar lectura',exact:true});await retry.scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath('portability-recovery-'+direction+'-'+mode+'-'+width+'.png')});await retry.click()}
+   else{
+    await expect(modal.getByRole('alert')).toBeVisible();controls={closeDisabled:await close.isDisabled(),cancelDisabled:await cancel.isDisabled()}
+    if(mode==='denied'){effectsAfterDenied=effects;expect(effectsAfterDenied).toBe(0);expect(commands).toHaveLength(1);await expect(cancel).toBeEnabled();await cancel.click();await expect(modal).toHaveCount(0);await expect(close).toBeEnabled();await close.click();await expect(form).toHaveCount(0);reject=false;await review();await modal.getByRole('button',{name:'Confirmar cambio',exact:true}).click()}
+    else{await expect(cancel).toBeDisabled();await expect(close).toBeDisabled();await close.evaluate((b:HTMLButtonElement)=>b.click());await page.keyboard.press('Escape');await expect(modal).toBeVisible();const retry=modal.getByRole('button',{name:'Reintentar misma operación',exact:true});await retry.scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath('portability-recovery-'+direction+'-'+mode+'-'+width+'.png')});await retry.click()}
+   }
+   await expect(form).toHaveCount(0);await expect(page.getByRole('link',{name:'Ver portabilidad registrada',exact:true})).toHaveAttribute('href','/portabilities/'+row.id);expect(effects).toBe(1);expect(commands).toHaveLength(mode==='read_failed'?1:2)
+   if(mode==='uncertain')expect(commands[1]).toEqual(commands[0]);if(mode==='denied'){expect(commands[1].input.command_id).not.toBe(commands[0].input.command_id);const {command_id:first,...input1}=commands[0].input,{command_id:second,...input2}=commands[1].input;expect(first).toBeTruthy();expect(second).toBeTruthy();expect(input2).toEqual(input1)}
+   expect(commands.every(q=>q.operation==='portability.create'&&q.input.line_id===id(5,1)&&q.input.direction===direction&&q.input.number_identifier_id===id(7,1)&&q.input.donor_operator_id===id(outbound?2:8,1)&&q.input.target_operator_id===id(outbound?8:2,1)&&q.input.requested_on==='2026-10-15'&&q.input.owner_user_id===null)).toBe(true)
+   const gets=reads.filter(q=>q.operation==='portability.get');expect(gets).toHaveLength(mode==='read_failed'?2:1);expect(gets.every(q=>q.input.id===row.id)).toBe(true)
+  }
+  if(['denied','review'].includes(mode))await page.screenshot({path:info.outputPath('portability-recovery-'+direction+'-'+mode+'-'+width+'.png')});expect(errors).toEqual([]);expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBe(true)
+ }finally{await writeFile(info.outputPath('observations.json'),JSON.stringify({direction,mode,width,controls,effects,effectsAfterDenied,commands,reads,errors,scope:'HTTP/DTO and synthetic effects only;not AuthDB/SQL/native acceptance'},null,2));await page.unrouteAll({behavior:'wait'});await page.close();await fixture.close()}
+})

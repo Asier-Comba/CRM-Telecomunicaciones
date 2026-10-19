@@ -1,0 +1,93 @@
+{
+  "claim": 6252130268,
+  "sha": "a82920d0642236769b4407ab138dda1dafd6f410",
+  "tree": "762fc42ba194bc6d08188d0187452a5e223d5209",
+  "branch": "codex/w2x-billing-zero-total-draft-20261018",
+  "status": "OWN1755_FULL_PASS",
+  "browser_status": "PASS1755",
+  "browser_exit": 0,
+  "browser_summary": [
+    "1755 passed (35.3m)"
+  ],
+  "source_clean": true,
+  "own_source_checks": {
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN",
+    "paid_api": 0,
+    "global": "NOT_RUN_CURRENT_SHA",
+    "browser": "18_PASS_OWN_SOURCE",
+    "functional": "49_PASS_OWN_SOURCE",
+    "build": "66_PASS",
+    "lint": "EXIT0_WARNINGS_PRESERVED",
+    "scan": "PASS"
+  },
+  "known_remaining_defects": {
+    "whole_product": "NOT_RECONCILED_NO_ABSENCE_OR_FULL_ACCEPTANCE_INFERRED",
+    "proposal_warnings": {
+      "reproduced_source": "a82920d0642236769b4407ab138dda1dafd6f410",
+      "original": "2FAIL_1PASS_39.2S",
+      "checkpoint": "work/w2x-billing-proposal-warnings-checkpoint.json",
+      "fixed_source": "d65880a3af08bcc861d14846d399a75235f65a76",
+      "scope": "Integrated editor drops parser provenance notices;no bad SQL write. Full1755 source64 does not include new warning18 cases or snapshot fix;not whole-product qualification.",
+      "fixed_source_pointer_at_original_snapshot": "PENDING_OWN65_PUBLICATION"
+    }
+  },
+  "auth_db": "NOT_RUN",
+  "model": "NOT_RUN",
+  "paid_api": 0,
+  "release": "NOT_ACCEPTED",
+  "next": "Continue useful independent W2 commercial unit;no repeat green without changed source or relevant failure.",
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-commercial-financial-full-collection.txt",
+      "sha256": "8ff1e8d8d6a05a0ddc790b45483380fb9579c88098fed6d11714fb559c784912"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-commercial-financial-full-browser.txt",
+      "sha256": "aabad9f372daecf4df149f2d5e9abe1701bb1aca4ed9b9721385140bd533882e"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-zero-total-draft-browser.txt",
+      "sha256": "64c4f598694f34223f697882b0554aa32d235c5de445b92a3458a24083fe76cd"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-zero-total-draft-functional.txt",
+      "sha256": "5990e6a53095680360b9284982397e0c4b703353655f3c03d4b0e08c83552fc8"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-zero-total-draft-build.txt",
+      "sha256": "39f6e260091c2ee8582bddad4ad97fb70b1877fb41dae43ab83b65a7cd01975a"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-zero-total-draft-lint.txt",
+      "sha256": "91a5c63f9a9a0a42f92a00caa38da32336b62b940ccf4738d08ef97c55d9996c"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-zero-total-draft-scan.txt",
+      "sha256": "983301a2c14f0359194e7f843bf25bf1195883718fd7fb5c61af563a57a05dfe"
+    }
+  ],
+  "publication": "PUBLISHED",
+  "handoffs": [
+    {
+      "id": 6252569417,
+      "issue": 67,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6252569417"
+    },
+    {
+      "id": 6252569602,
+      "issue": 153,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6252569602"
+    },
+    {
+      "id": 6252569742,
+      "issue": 38,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6252569742"
+    },
+    {
+      "id": 6252569898,
+      "issue": 142,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6252569898"
+    }
+  ]
+}

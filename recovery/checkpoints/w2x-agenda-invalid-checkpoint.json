@@ -1,0 +1,61 @@
+{
+  "utc": "2026-10-14T05:56:02.019832+00:00",
+  "work": "W2-X",
+  "claim": 6161764253,
+  "handoff": 6161851477,
+  "path": "${WORKSPACE}\\work\\crm-w2x-document-upload-uncertain",
+  "branch": "codex/w2x-agenda-invalid-receipt-20261014",
+  "sha": "e93653a8e58f0f59fb7fa85dc601a87371d8ba40",
+  "tree": "b412b6d7e8ba2dd542cf066f7908279e2d2035a4",
+  "published": true,
+  "clean": true,
+  "status": "OWN_E936320_FULL_LOCAL_BUILD66_LINT_SCAN_PASS_AUTH_NOT_RUN",
+  "checks": {
+    "invalid_receipt": 18,
+    "explicit_denial": 18,
+    "transport_regressions": 18,
+    "browser_total": 54,
+    "build": "PASS66",
+    "lint": "PASS",
+    "syntax": "PASS",
+    "gitleaks": "PASS",
+    "auth": "NOT_RUN",
+    "model": "NOT_RUN",
+    "full_composed_local_browser": 320
+  },
+  "visual": {
+    "scope": "CONTROLLED_HTTP_TASK_CREATE_RECOVERY_NOT_AUTH_OR_FULL_CALENDAR",
+    "images": [
+      {
+        "width": 390,
+        "path": "${WORKSPACE}\\work\\w2x-agenda-invalid-task-create-390.png",
+        "sha256": "98e2f1d8c0b5751b22f0226dd26841fd308295e25bfeeb3d634f07dcd3275106"
+      },
+      {
+        "width": 768,
+        "path": "${WORKSPACE}\\work\\w2x-agenda-invalid-task-create-768.png",
+        "sha256": "999f49c8d3b433896f9879a999ce4249330e55979c78aea28e923fbc963b59ea"
+      },
+      {
+        "width": 1440,
+        "path": "${WORKSPACE}\\work\\w2x-agenda-invalid-task-create-1440.png",
+        "sha256": "35caf9b36ff08b7d25516d7634652b74c9e8977e830601de863352277c793fc0"
+      }
+    ]
+  },
+  "preserved_failures": [
+    "w2x-agenda-invalid-original-repro.txt:task_create_response_json_unreadable_close_discards_intent",
+    "w2x-9db-auth-failed-closed.json:unrelated_timeout_unknown_cause"
+  ],
+  "expected_unmeasured": {
+    "local": 320,
+    "preview": 840,
+    "auth": 118
+  },
+  "bundle_sha256": "c88afc11727588e6ba61f022fcbc89cacf834a7809a1348deac7fda76950c77b",
+  "next": "AWAIT8F69_ALL_TERMINAL_NO_ALIAS_PUSH;NEXT_BILLING_INVALID_RECEIPT_UNIT_IN_OWN_BRANCH",
+  "release": "NOT_ACCEPTED",
+  "five_high": "UNRESOLVED",
+  "ai_writes": "OFF",
+  "api_calls": 0
+}

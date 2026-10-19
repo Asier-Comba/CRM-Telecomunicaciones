@@ -1,0 +1,236 @@
+{
+  "utc": "2026-10-14T00:15:28.681079+00:00",
+  "work": "W2-X",
+  "path": "${WORKSPACE}\\work\\crm-w2x-customer-final",
+  "branch": "codex/w2x-customer-contact-final-20261014",
+  "pr_branch": "codex/w2x-contact-uncertain-20261014",
+  "sha": "f79a39faca70591b6ca2d477358b5cd18fbbe3cc",
+  "tree": "81be4ea52d03d40c8c2d979415cd2d611992373b",
+  "published_sha": "f79a39faca70591b6ca2d477358b5cd18fbbe3cc",
+  "clean": true,
+  "claim": 6157492449,
+  "handoff_file": "${WORKSPACE}\\work\\w2x-customer-final-handoff.json",
+  "pr": 153,
+  "status": "OWN_F79_1430_446_AUTH109_PASS_NATIVE_RESOURCE_QUOTA_FAIL_NOT_FULLY_QUALIFIED",
+  "integration_ack": "NOT_RECEIVED",
+  "checks": {
+    "focal_browser": "44/44_NEW_UNION",
+    "build_types": "PASS",
+    "lint": "PASS",
+    "queue": "MEASURED342_9PARTIAL_333UNRECONCILED_0READY",
+    "gitleaks": "PASS",
+    "ci_run": 38486700821,
+    "supabase_run": 38486700849,
+    "full_preview": "446_PASS_OWN_EXECUTED_TREE",
+    "auth_db": "109/0_PASS_OWN_AUTH_TEARDOWN_BOTH_C360_POLISHED",
+    "physical_codec_fix": "AUTH_PENDING_NO_CLEANUP_CAUSALITY_CLAIM",
+    "model": "NOT_RUN",
+    "native": {
+      "source": "f79a39faca70591b6ca2d477358b5cd18fbbe3cc",
+      "ci_run": 38486700821,
+      "job": 115601961849,
+      "status": "ORIGINAL_NATIVE_FAIL_IMAGE_PULL_DATA_LIMIT_BEFORE_DB",
+      "pin": "public.ecr.aws/docker/library/postgres@sha256:ca0bd484cb98bf4b24eb1010e73fb3fcbd6714d240fbc1a10eea5b7dbecb641d",
+      "log": "${WORKSPACE}\\work\\job-115601961849.txt",
+      "log_sha256": "c126f2df2a28ae61505a689de707def00eecbe48a33e30c5e1b94c24669ef38b",
+      "migration_checks": "NOT_RUN",
+      "native_positive": "NOT_RUN",
+      "retry_requested": false,
+      "eligibility": "REQUIRES_OWN_SAME_SHA_PIN_PHYSICAL_POSITIVE_AND_ALL_RUNS_TERMINAL_MARKER_MAX_ONE",
+      "resource_positive_dispatch": "${WORKSPACE}\\work\\w2x-f79-resource-positive-dispatch.json"
+    },
+    "own_quality_with_quota_failure": {
+      "source": "f79a39faca70591b6ca2d477358b5cd18fbbe3cc",
+      "executed": "6fd48ab9ab6b472e620e5fea8253fc0dfa30eebf",
+      "tree": "81be4ea52d03d40c8c2d979415cd2d611992373b",
+      "ci": 38486700821,
+      "functional": {
+        "bootstrap": 611,
+        "assistant": 819,
+        "total": 1430,
+        "build": "PASS66",
+        "preview": 446
+      },
+      "native": {
+        "job": 115601961849,
+        "status": "ORIGINAL_FAIL_IMAGE_DATA_LIMIT_BEFORE_DB",
+        "checks": "NOT_RUN"
+      },
+      "resource_positive": {
+        "run": 38487922861,
+        "job": 115605958256,
+        "source": "f79a39faca70591b6ca2d477358b5cd18fbbe3cc",
+        "status": "ORIGINAL_FAIL_IMAGE_PULL_RATE_LIMITED",
+        "unit_controls": "15PASS1FAIL",
+        "physical_positive": "NOT_RUN"
+      },
+      "retry": {
+        "requested": false,
+        "eligible": false,
+        "reason": "OWN_SAME_SOURCE_PIN_PHYSICAL_POSITIVE_MISSING",
+        "repeat_resource_control": false,
+        "no_image_limits_assertions_change": true
+      },
+      "audit": "FAIL_FIVE_HIGH",
+      "supabase": "PENDING38486700849",
+      "qualified": false,
+      "release": "NOT_ACCEPTED",
+      "model": "NOT_RUN",
+      "utc": "2026-10-14T00:06:26.476149+00:00",
+      "logs": [
+        {
+          "job": 115601961661,
+          "sha256": "3e29ca0bd29d4743b4622141bc354add5c0ef1056108cbe51e98e76d78fa6d88"
+        },
+        {
+          "job": 115601961681,
+          "sha256": "a3738f79cff11849177a953b022ab106d9cd1ac0dff756d8f8de36ad5f1138d9"
+        },
+        {
+          "job": 115601961849,
+          "sha256": "c126f2df2a28ae61505a689de707def00eecbe48a33e30c5e1b94c24669ef38b"
+        },
+        {
+          "job": 115605958256,
+          "sha256": "99929d06f23bab2f168ee49800b3f2cd22bcdae16c44c78aab21ae81673e101d"
+        }
+      ]
+    }
+  },
+  "source_failure_preserved": {
+    "source": "d76426fa195bc7c29bd77811e1bb987cddfade3d",
+    "executed": "83d62370a9d30b4bb03cdf9f6dc4761cbe746a25",
+    "tree": "5ad1cf5188809d571db1052b479a011317e55218",
+    "run": 38483489916,
+    "job": 115591484517,
+    "status": "ORIGINAL_FAIL_NOT_FUNCTIONALLY_QUALIFIED",
+    "safe": "ABSENT",
+    "auth": "UNKNOWN",
+    "teardown": "UNKNOWN",
+    "checks_passed": "UNKNOWN",
+    "checks_failed": "UNKNOWN",
+    "source_cause": "EXACT_UTF8_AS_CP1252_TRANSFORM_IN_COMPOSITION",
+    "retention_cause": "NOT_FULLY_MEASURED_REQUEST6157549134",
+    "code_observation": "${WORKSPACE}\\work\\w2x-d764-codec-cause-and-repair.json",
+    "artifacts": [
+      {
+        "id": 11857779899,
+        "name": "w3-history-ui-synthetic-screenshots"
+      },
+      {
+        "id": 11857419994,
+        "name": "w2-product-ui-synthetic-screenshots"
+      }
+    ],
+    "artifact_sha256": {
+      "product": "77b2a4d9b3585ec43fc1da665308c022f422618e10a54c3dd2cfd2f2a1855f29",
+      "history": "e4eb4f7f24340f8453c689965128b280607faa2723bc67224e55d93e841bd9ba"
+    },
+    "new_measurements_do_not_claim_causal_cleanup_fix": true,
+    "release": "NOT_ACCEPTED"
+  },
+  "units": [
+    {
+      "pr": 152,
+      "sha": "a650a9b348cade254a115fcda89bd2b49ecbbb83",
+      "checkpoint": "${WORKSPACE}\\work\\w2x-case-notes-checkpoint.json",
+      "ci_run": 38479194108,
+      "supabase_run": 38479194069
+    },
+    {
+      "pr": 153,
+      "sha": "9c361c9ce7e32ba202f0c6e24aacd371c5026e04",
+      "checkpoint": "${WORKSPACE}\\work\\w2x-contacts-checkpoint.json",
+      "ci_run": 38480433850,
+      "supabase_run": 38480433895
+    },
+    {
+      "sha": "2b8f7b0f72f731b9bf4c1513c74fe5cabeb54b12",
+      "branch": "codex/w2x-contact-customer-state-20261014",
+      "checkpoint": "${WORKSPACE}\\work\\w2x-contact-state-checkpoint.json",
+      "claim": 6156910547,
+      "ci": "NOT_RUN_INDEPENDENT_DELTA"
+    },
+    {
+      "sha": "563948981dff3e1216beeb3fcec3c7e9219596a4",
+      "branch": "codex/w2x-customer-uncertain-20261014",
+      "checkpoint": "${WORKSPACE}\\work\\w2x-customer-checkpoint.json",
+      "claim": 6157018709,
+      "ci": "NOT_RUN_INDEPENDENT_DELTA"
+    },
+    {
+      "sha": "4107e9f10d206864ade102cbe25d2507ead4d349",
+      "checkpoint": "${WORKSPACE}\\work\\w2x-par042-review-checkpoint.json",
+      "claim": 6157289777
+    },
+    {
+      "sha": "27fdcc53790e3c43afc4534ccf7c438bed7a68f8",
+      "checkpoint": "${WORKSPACE}\\work\\w2x-contact-page-focus-checkpoint.json",
+      "claim": 6157389360
+    },
+    {
+      "sha": "d76426fa195bc7c29bd77811e1bb987cddfade3d",
+      "checkpoint": "${WORKSPACE}\\work\\w2x-composition-checkpoint.json",
+      "state": "ORIGINAL_FAIL_PRESERVED"
+    },
+    {
+      "sha": "a9761de5c785a57ae6e733c98c5a2c40626fe29f",
+      "checkpoint": "${WORKSPACE}\\work\\w2x-c360-waiters-checkpoint.json",
+      "claim": 6157715752
+    },
+    {
+      "sha": "c7da250880d7c529423086bfcca7ec95a79d460e",
+      "checkpoint": "${WORKSPACE}\\work\\w2x-customer-state-uncertain-checkpoint.json",
+      "claim": 6157869961
+    }
+  ],
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-final-browser.txt",
+      "sha256": "fd72e6804aaa862e318772096f8e4769c8ecef012c23ec1ccb249449836825ff"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-final-build.txt",
+      "sha256": "acc6aaa3a62bb2e2022e97fedc484899ff0b6d22935f698f49324f080d9511fe"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-final-lint.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-final-queue.txt",
+      "sha256": "e5af9d62c7bd7d5159086aa48b79910b370650d6ec054e7f4fd700868f351f5a"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-d764-codec-cause-and-repair.json",
+      "sha256": "247f02c11a4048e2a29d0e5672c4ece1f5d7057458b8d6ffe501b55d1032cfbb"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-final-published.bundle",
+      "sha256": "dd23cc2009a996657e379466d89d30c4be67c47ade72e44d623c039b305e261d"
+    }
+  ],
+  "next": "PREPARE_OWN_NEXT_COMPOSITION_F79_A976_C7DA_TEST_51_FOCAL_BUILD_TYPES_QUEUE;ALL_F79_RUNS_TERMINAL_THEN_FF_OWN_PR153_NEW_SHA_CONTROLS;NATIVE_RESOURCE_QUOTA_FAILURES_PRESERVED_NO_INELIGIBLE_RETRY;NO_PR38_OWNER_WRITE",
+  "writes": "OFF",
+  "release": "NOT_ACCEPTED",
+  "high": 5,
+  "resource_positive_control": {
+    "workflow": "durable-native-resource.yml",
+    "ref": "codex/w2x-contact-uncertain-20261014",
+    "kind": "OWN_PHYSICAL_POSITIVE_CONTROL_NOT_NATIVE_RETRY",
+    "dispatch_requested": true,
+    "pin": "public.ecr.aws/docker/library/postgres@sha256:ca0bd484cb98bf4b24eb1010e73fb3fcbd6714d240fbc1a10eea5b7dbecb641d",
+    "repeat_forbidden": true,
+    "source": "f79a39faca70591b6ca2d477358b5cd18fbbe3cc",
+    "run": 38487922861,
+    "job": 115605958256,
+    "status": "FAIL_IMAGE_RATE_LIMITED_15UNIT_PASS1PHYSICAL_FAIL_NO_RETRY",
+    "physical_positive": "NOT_RUN"
+  },
+  "independent_in_progress": {
+    "scope": "PREPARE_NEXT_OWN_CUSTOMER360_COMPOSITION_F79_A976_C7DA",
+    "expected_preview": "460_NOT_MEASURED",
+    "expected_auth": "109_NOT_MEASURED"
+  },
+  "closed_metadata": "${WORKSPACE}\\work\\w2x-f79-auth-closed-native-quota-blocked.json"
+}

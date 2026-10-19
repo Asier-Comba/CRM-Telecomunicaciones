@@ -1,0 +1,1 @@
+module.exports={testDir:require('node:path').resolve(__dirname,'crm-w2x-document-upload-uncertain/tests/e2e-preview'),testMatch:['document-cleanup-uncertain.spec.ts'],workers:1,retries:0,timeout:60000,reporter:'line',use:{browserName:'chromium',screenshot:'only-on-failure'},outputDir:require('node:path').resolve(__dirname,'w2x-cleanup-results')}

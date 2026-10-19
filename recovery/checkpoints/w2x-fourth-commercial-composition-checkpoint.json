@@ -1,0 +1,1028 @@
+{
+  "utc": "2026-10-14T03:31:20.365823+00:00",
+  "work": "W2-X",
+  "claim": 6160126426,
+  "handoff": 6160244432,
+  "path": "${WORKSPACE}\\work\\crm-w2x-commercial-composition",
+  "branch": "codex/w2x-document-recovery-composition-20261014",
+  "sha": "e345d74f66303c9b20ab388ec9786255362cad71",
+  "tree": "2298608a014e56999d222e420db5488e294d002a",
+  "published_sha": "e345d74f66303c9b20ab388ec9786255362cad71",
+  "published": true,
+  "clean": true,
+  "pr": 153,
+  "pr_alias_source": "b1b94158a3d6bd9333e02400c7ffcd6e60ff5412",
+  "pr_alias_advanced": false,
+  "status": "OWN_E345_1430_700_AUTH115_NATIVE85_BUILD66_PASS_HIGH5_NOT_RELEASE",
+  "checks": {
+    "local_browser_total": 247,
+    "build": "PASS66",
+    "lint": "PASS",
+    "queue": "342_10PARTIAL_332UNRECONCILED_0READY",
+    "gitleaks": "PASS",
+    "ci_run": 38506471174,
+    "supabase_run": 38506477117,
+    "executed_expected": "e345d74f66303c9b20ab388ec9786255362cad71",
+    "full_preview": "700_PASS_OWN_SOURCE_TREE",
+    "auth_db_storage": "115_PASS_OWN_ACTUAL_AUTH_DB_STORAGE_TEARDOWN_BACKEND4042",
+    "native": "OWN85_RESTORE_PASS",
+    "model": "NOT_RUN",
+    "own_quality_partial": {
+      "source": "e345d74f66303c9b20ab388ec9786255362cad71",
+      "executed": "e345d74f66303c9b20ab388ec9786255362cad71",
+      "tree": "2298608a014e56999d222e420db5488e294d002a",
+      "ci": 38506471174,
+      "functional": {
+        "bootstrap": 611,
+        "assistant": 819,
+        "total": 1430,
+        "build": "PASS66",
+        "native_restore": {
+          "kind": "native_postgresql_restore_test_only",
+          "migration_count": 85,
+          "migration_head": "20261011090000_assistant_verified_completed_reconciliation.sql",
+          "dump_sha256": "72544d0d82358df593bd34365b0ec28c887fa797dcf01824d3ba6f5e0cae82af",
+          "schema": "pass",
+          "rows": "pass",
+          "assistant_rows": "pass",
+          "rls": "pass",
+          "scope": "pass",
+          "restored_privilege_matrix": "pass",
+          "fresh_role_calls": "pass",
+          "restored_role_calls": "pass",
+          "acl_loss_negative_control": "pass",
+          "production_backup": false
+        },
+        "preview": "PENDING_OWN700_EXPECTED"
+      },
+      "audit": "FAIL_FIVE_HIGH",
+      "supabase": "PENDING_OWN38506477117",
+      "release": "NOT_ACCEPTED",
+      "model": "NOT_RUN",
+      "qualification": false,
+      "utc": "2026-10-14T03:37:01.643511+00:00",
+      "logs": [
+        {
+          "job": 115665038729,
+          "sha256": "05bfa513d4232cd6eaea760fb15fc4004dd34f8273c9f07d487568557b62679e"
+        },
+        {
+          "job": 115665038770,
+          "sha256": "9c371d51403e8b450035d861353c260023da4357ff0dac184463daa08df612b6"
+        }
+      ]
+    },
+    "internal": "OWN1430_PASS",
+    "ci_audit": "FAIL_FIVE_HIGH",
+    "own_quality": {
+      "source": "e345d74f66303c9b20ab388ec9786255362cad71",
+      "executed": "e345d74f66303c9b20ab388ec9786255362cad71",
+      "tree": "2298608a014e56999d222e420db5488e294d002a",
+      "ci": 38506471174,
+      "functional": {
+        "bootstrap": 611,
+        "assistant": 819,
+        "total": 1430,
+        "build": "PASS66",
+        "native_restore": {
+          "kind": "native_postgresql_restore_test_only",
+          "migration_count": 85,
+          "migration_head": "20261011090000_assistant_verified_completed_reconciliation.sql",
+          "dump_sha256": "72544d0d82358df593bd34365b0ec28c887fa797dcf01824d3ba6f5e0cae82af",
+          "schema": "pass",
+          "rows": "pass",
+          "assistant_rows": "pass",
+          "rls": "pass",
+          "scope": "pass",
+          "restored_privilege_matrix": "pass",
+          "fresh_role_calls": "pass",
+          "restored_role_calls": "pass",
+          "acl_loss_negative_control": "pass",
+          "production_backup": false
+        },
+        "preview": 700
+      },
+      "audit": "FAIL_FIVE_HIGH",
+      "supabase": {
+        "sha": "e345d74f66303c9b20ab388ec9786255362cad71",
+        "environment": "LOCAL_SUPABASE_DOCKER",
+        "result": "PASS",
+        "failed_stage": null,
+        "error": null,
+        "auth": "PASS",
+        "migration_count": 85,
+        "assistant_history": "PASS_ACTUAL_AUTH_POSTGREST_SCOPE_REPLAY_CAS_REVOCATION",
+        "assistant_history_application_api": "PASS_ACTUAL_COOKIE_THREAD_LIFECYCLE",
+        "assistant_history_browser": "PASS_ACTUAL_COOKIE_BROWSER_HISTORY_CAS_PAGINATION_REVOCATION",
+        "assistant_read_grounding": "PASS_ACTUAL_AUTH_COOKIE_READ_GROUNDING_PARTIALITY_REVOCATION_SYNTHETIC_PLANNER",
+        "assistant_business_durability": "NOT_TESTED",
+        "w1_backend_checks": 3815,
+        "w2_backend_takeover_checks": 227,
+        "w2_ui_failure_details": null,
+        "w2_product_ui_failed_checks": null,
+        "w2_ui_alert_codes": null,
+        "w2_login_stage": "PASS",
+        "w2_ui_auth_token_status": 200,
+        "w2_browser_error_kinds": null,
+        "w2_document_upload_observations": [
+          {
+            "status": 200,
+            "headers_elapsed_ms": 174,
+            "body_elapsed_ms": 178
+          },
+          {
+            "status": 200,
+            "headers_elapsed_ms": 864,
+            "body_elapsed_ms": 867
+          }
+        ],
+        "w2_next_diagnostics": [
+          {
+            "event": "CUSTOMER_DETAIL_COMPILE_START"
+          }
+        ],
+        "teardown": "PASS",
+        "command_failure": null,
+        "document_upload": "PASS",
+        "document_finalize": "PASS",
+        "document_proxy_download": "PASS",
+        "document_content_revocation": "PASS",
+        "document_content_expiry": "PASS",
+        "document_content_transport": "PASS",
+        "document_content_scan": "NOT_IMPLEMENTED",
+        "document_content_verified_sha256": "NOT_IMPLEMENTED",
+        "w2_portfolio_access_observations": [
+          {
+            "scope": "CURRENT_MAIN_DOCUMENT_AUTH_USER_HEADERS_NOT_AUTHORIZATION",
+            "width": 1440,
+            "document_observed": true,
+            "navigation_completed": true,
+            "gate_stage": "not_present",
+            "requests": 6,
+            "responses": 6,
+            "failures": 0,
+            "pending": 0,
+            "status_counts": {
+              "ok": 6,
+              "denied": 0,
+              "client_error": 0,
+              "server_error": 0,
+              "other": 0
+            },
+            "truncated": false
+          },
+          {
+            "scope": "CURRENT_MAIN_DOCUMENT_AUTH_USER_HEADERS_NOT_AUTHORIZATION",
+            "width": 768,
+            "document_observed": true,
+            "navigation_completed": true,
+            "gate_stage": "not_present",
+            "requests": 6,
+            "responses": 5,
+            "failures": 0,
+            "pending": 1,
+            "status_counts": {
+              "ok": 5,
+              "denied": 0,
+              "client_error": 0,
+              "server_error": 0,
+              "other": 0
+            },
+            "truncated": false
+          },
+          {
+            "scope": "CURRENT_MAIN_DOCUMENT_AUTH_USER_HEADERS_NOT_AUTHORIZATION",
+            "width": 390,
+            "document_observed": true,
+            "navigation_completed": true,
+            "gate_stage": "not_present",
+            "requests": 5,
+            "responses": 4,
+            "failures": 0,
+            "pending": 1,
+            "status_counts": {
+              "ok": 4,
+              "denied": 0,
+              "client_error": 0,
+              "server_error": 0,
+              "other": 0
+            },
+            "truncated": false
+          }
+        ],
+        "w2_ui_billing_current_invoice_failure": null,
+        "w2_portfolio_startup_observations": [
+          {
+            "scope": "CURRENT_MAIN_DOCUMENT_NEXT_SCRIPT_HEADERS_NOT_HYDRATION_OR_AUTHORIZATION",
+            "width": 1440,
+            "document_observed": true,
+            "document_changed": true,
+            "navigation_completed": true,
+            "document_ready": "unavailable",
+            "requests": 8,
+            "responses": 8,
+            "failures": 0,
+            "pending": 0,
+            "body_finished": 8,
+            "body_unfinished": 0,
+            "status_counts": {
+              "ok": 8,
+              "redirect": 0,
+              "client_error": 0,
+              "server_error": 0,
+              "other": 0
+            },
+            "truncated": false,
+            "page_errors": {
+              "chunk_load": 0,
+              "syntax": 0,
+              "other": 0
+            },
+            "page_errors_truncated": false
+          },
+          {
+            "scope": "CURRENT_MAIN_DOCUMENT_NEXT_SCRIPT_HEADERS_NOT_HYDRATION_OR_AUTHORIZATION",
+            "width": 768,
+            "document_observed": true,
+            "document_changed": true,
+            "navigation_completed": true,
+            "document_ready": "unavailable",
+            "requests": 8,
+            "responses": 8,
+            "failures": 0,
+            "pending": 0,
+            "body_finished": 8,
+            "body_unfinished": 0,
+            "status_counts": {
+              "ok": 8,
+              "redirect": 0,
+              "client_error": 0,
+              "server_error": 0,
+              "other": 0
+            },
+            "truncated": false,
+            "page_errors": {
+              "chunk_load": 0,
+              "syntax": 0,
+              "other": 0
+            },
+            "page_errors_truncated": false
+          },
+          {
+            "scope": "CURRENT_MAIN_DOCUMENT_NEXT_SCRIPT_HEADERS_NOT_HYDRATION_OR_AUTHORIZATION",
+            "width": 390,
+            "document_observed": true,
+            "document_changed": true,
+            "navigation_completed": true,
+            "document_ready": "unavailable",
+            "requests": 8,
+            "responses": 8,
+            "failures": 0,
+            "pending": 0,
+            "body_finished": 8,
+            "body_unfinished": 0,
+            "status_counts": {
+              "ok": 8,
+              "redirect": 0,
+              "client_error": 0,
+              "server_error": 0,
+              "other": 0
+            },
+            "truncated": false,
+            "page_errors": {
+              "chunk_load": 0,
+              "syntax": 0,
+              "other": 0
+            },
+            "page_errors_truncated": false
+          }
+        ],
+        "w2_document_maintenance_step_failures": null,
+        "w2_ui_billing_madrid_date": [
+          {
+            "expected_day": "2026-10-10",
+            "draft": "PASS",
+            "proposal": "PASS",
+            "due_date": "PASS",
+            "customer_create": "PASS",
+            "commands": 0
+          },
+          {
+            "expected_day": "2026-07-01",
+            "draft": "PASS",
+            "proposal": "PASS",
+            "due_date": "PASS",
+            "customer_create": "PASS",
+            "commands": 0
+          },
+          {
+            "expected_day": "2027-01-01",
+            "draft": "PASS",
+            "proposal": "PASS",
+            "due_date": "PASS",
+            "customer_create": "PASS",
+            "commands": 0
+          },
+          {
+            "expected_day": "2028-02-29",
+            "draft": "PASS",
+            "proposal": "PASS",
+            "due_date": "PASS",
+            "customer_create": "PASS",
+            "commands": 0
+          },
+          {
+            "expected_day": "2026-10-10",
+            "draft": "PASS",
+            "proposal": "PASS",
+            "due_date": "PASS",
+            "customer_create": "PASS",
+            "commands": 0
+          }
+        ],
+        "assistant_server_diagnostics": [
+          {
+            "category": "SERVER_ERROR_UNCLASSIFIED"
+          },
+          {
+            "category": "UPSTREAM_NETWORK_FAILURE"
+          },
+          {
+            "category": "SERVER_ERROR_UNCLASSIFIED"
+          },
+          {
+            "category": "UPSTREAM_NETWORK_FAILURE"
+          },
+          {
+            "category": "SERVER_ERROR_UNCLASSIFIED"
+          },
+          {
+            "category": "UPSTREAM_NETWORK_FAILURE"
+          }
+        ],
+        "passed": 115,
+        "failed": 0,
+        "timings": [
+          {
+            "check": "real_browser_login",
+            "elapsed_ms": 9366,
+            "result": "PASS"
+          },
+          {
+            "check": "existing_customer_detail_authorized",
+            "elapsed_ms": 10029,
+            "result": "PASS"
+          },
+          {
+            "check": "customer_create",
+            "elapsed_ms": 2279,
+            "result": "PASS"
+          },
+          {
+            "check": "customer_edit_and_reload",
+            "elapsed_ms": 2393,
+            "result": "PASS"
+          },
+          {
+            "check": "contact_create_primary",
+            "elapsed_ms": 2862,
+            "result": "PASS"
+          },
+          {
+            "check": "contact_update_primary_switch",
+            "elapsed_ms": 3736,
+            "result": "PASS"
+          },
+          {
+            "check": "contact_archive_restore_readonly",
+            "elapsed_ms": 5018,
+            "result": "PASS"
+          },
+          {
+            "check": "customer_archive_restore_persist",
+            "elapsed_ms": 6638,
+            "result": "PASS"
+          },
+          {
+            "check": "contact_pii_not_persisted",
+            "elapsed_ms": 7,
+            "result": "PASS"
+          },
+          {
+            "check": "dashboard_and_global_search",
+            "elapsed_ms": 2768,
+            "result": "PASS"
+          },
+          {
+            "check": "task_create_complete_persist",
+            "elapsed_ms": 4307,
+            "result": "PASS"
+          },
+          {
+            "check": "meeting_create_reschedule_cancel_persist",
+            "elapsed_ms": 3739,
+            "result": "PASS"
+          },
+          {
+            "check": "task_reopen_start_update_cancel",
+            "elapsed_ms": 4133,
+            "result": "PASS"
+          },
+          {
+            "check": "meeting_update_complete_no_show",
+            "elapsed_ms": 3242,
+            "result": "PASS"
+          },
+          {
+            "check": "calendar_customer_association_persist",
+            "elapsed_ms": 9018,
+            "result": "PASS"
+          },
+          {
+            "check": "calendar_real_cursor_next_previous",
+            "elapsed_ms": 4502,
+            "result": "PASS"
+          },
+          {
+            "check": "dashboard_operational_scope_period",
+            "elapsed_ms": 5201,
+            "result": "PASS"
+          },
+          {
+            "check": "stale_editor_conflict_no_overwrite",
+            "elapsed_ms": 1580,
+            "result": "PASS"
+          },
+          {
+            "check": "valid_jwt_revocation_denies_ui_write",
+            "elapsed_ms": 425,
+            "result": "PASS"
+          },
+          {
+            "check": "owner_real_browser_login",
+            "elapsed_ms": 2825,
+            "result": "PASS"
+          },
+          {
+            "check": "customer_authorized_assignment",
+            "elapsed_ms": 3726,
+            "result": "PASS"
+          },
+          {
+            "check": "opportunity_create_edit_win_reopen_lose",
+            "elapsed_ms": 4978,
+            "result": "PASS"
+          },
+          {
+            "check": "opportunity_reopen_archive_terminal_readonly",
+            "elapsed_ms": 1553,
+            "result": "PASS"
+          },
+          {
+            "check": "opportunity_real_drag_keyboard_conflict",
+            "elapsed_ms": 5096,
+            "result": "PASS"
+          },
+          {
+            "check": "global_search_keyboard_quick_actions",
+            "elapsed_ms": 4697,
+            "result": "PASS"
+          },
+          {
+            "check": "inbox_internal_create_note_marker_link_assign_lifecycle",
+            "elapsed_ms": 14911,
+            "result": "PASS"
+          },
+          {
+            "check": "inbox_uncertain_replay_and_cas_no_duplicate",
+            "elapsed_ms": 1334,
+            "result": "PASS"
+          },
+          {
+            "check": "inbox_actual_thread_cursor_mobile_context",
+            "elapsed_ms": 1108,
+            "result": "PASS"
+          },
+          {
+            "check": "portfolio_manual_service_line_renewal_source",
+            "elapsed_ms": 12435,
+            "result": "PASS"
+          },
+          {
+            "check": "calendar_manual_renewal_update_resolve",
+            "elapsed_ms": 2577,
+            "result": "PASS"
+          },
+          {
+            "check": "portfolio_contract_create_assign_activate_cancel",
+            "elapsed_ms": 5164,
+            "result": "PASS"
+          },
+          {
+            "check": "portfolio_service_line_labels_and_transitions",
+            "elapsed_ms": 13898,
+            "result": "PASS"
+          },
+          {
+            "check": "portfolio_permanence_create_update_cancel_and_renewal_dismiss",
+            "elapsed_ms": 9187,
+            "result": "PASS"
+          },
+          {
+            "check": "importjob_list_get_cancel_processing_blocked",
+            "elapsed_ms": 5562,
+            "result": "PASS"
+          },
+          {
+            "check": "billing_fiscal_draft_issue_pdf_paid",
+            "elapsed_ms": 9567,
+            "result": "PASS"
+          },
+          {
+            "check": "billing_reverse_payment_trash_restore",
+            "elapsed_ms": 3191,
+            "result": "PASS"
+          },
+          {
+            "check": "billing_financial_currency_comparison_scoped_period",
+            "elapsed_ms": 3333,
+            "result": "PASS"
+          },
+          {
+            "check": "billing_issuer_and_text_proposal_requires_review",
+            "elapsed_ms": 11771,
+            "result": "PASS"
+          },
+          {
+            "check": "billing_fiscal_commit_survives_storage_failure_and_private_retry",
+            "elapsed_ms": 3345,
+            "result": "PASS"
+          },
+          {
+            "check": "billing_exact_lines_discount_tax_withholding_fx_review_and_replay",
+            "elapsed_ms": 48784,
+            "result": "PASS"
+          },
+          {
+            "check": "billing_lost_receipt_seven_commands_same_intent_single_persisted_effect",
+            "elapsed_ms": 17421,
+            "result": "PASS"
+          },
+          {
+            "check": "reports_exact_scope_period_export_and_error_mobile",
+            "elapsed_ms": 10878,
+            "result": "PASS"
+          },
+          {
+            "check": "invoice_minimized_summary_actual_reader_and_mobile",
+            "elapsed_ms": 2848,
+            "result": "PASS"
+          },
+          {
+            "check": "notifications_self_refresh_mark_read_all_and_mobile",
+            "elapsed_ms": 7544,
+            "result": "PASS"
+          },
+          {
+            "check": "automation_create_update_enable_notification_effect_disable",
+            "elapsed_ms": 15521,
+            "result": "PASS"
+          },
+          {
+            "check": "automation_task_lost_response_exact_replay_no_duplicate",
+            "elapsed_ms": 10208,
+            "result": "PASS"
+          },
+          {
+            "check": "automation_conflict_terminal_failure_truth_mobile",
+            "elapsed_ms": 10418,
+            "result": "PASS"
+          },
+          {
+            "check": "document_valid_image_private_preview_reauthorization_and_revoke",
+            "elapsed_ms": 8895,
+            "result": "PASS"
+          },
+          {
+            "check": "settings_profile_exact_replay_company_logo_integrations_mobile",
+            "elapsed_ms": 10280,
+            "result": "PASS"
+          },
+          {
+            "check": "settings_company_cas_and_notification_optout_truth",
+            "elapsed_ms": 8960,
+            "result": "PASS"
+          },
+          {
+            "check": "sensitive_requested_field_audit_copy_revocation_mobile",
+            "elapsed_ms": 4450,
+            "result": "PASS"
+          },
+          {
+            "check": "team_invite_role_suspend_resume",
+            "elapsed_ms": 4146,
+            "result": "PASS"
+          },
+          {
+            "check": "team_remove_suspended_member",
+            "elapsed_ms": 374,
+            "result": "PASS"
+          },
+          {
+            "check": "document_integrity_exact_lost_response_private_proof_mobile",
+            "elapsed_ms": 4454,
+            "result": "PASS"
+          },
+          {
+            "check": "document_expired_pending_claim_finish_exact_retry_active_preserved",
+            "elapsed_ms": 4217,
+            "result": "PASS"
+          },
+          {
+            "check": "document_upload_three_uncertain_steps_same_intent_single_document_object",
+            "elapsed_ms": 9816,
+            "result": "PASS"
+          },
+          {
+            "check": "team_expired_invite_list_reissue_exact_retry_cancel_mobile",
+            "elapsed_ms": 3841,
+            "result": "PASS"
+          },
+          {
+            "check": "manual_origin_new_proof_legacy_and_denied_refresh",
+            "elapsed_ms": 5144,
+            "result": "PASS"
+          },
+          {
+            "check": "opportunity_actual_product_links_same_customer_replay_cas_mobile",
+            "elapsed_ms": 20898,
+            "result": "PASS"
+          },
+          {
+            "check": "document_metadata_archive_restore",
+            "elapsed_ms": 5303,
+            "result": "PASS"
+          },
+          {
+            "check": "document_upload_finalize_private_download",
+            "elapsed_ms": 3249,
+            "result": "PASS"
+          },
+          {
+            "check": "document_ticket_metadata_revocation",
+            "elapsed_ms": 927,
+            "result": "PASS"
+          },
+          {
+            "check": "document_ticket_actual_expiry_and_fresh_retry",
+            "elapsed_ms": 32950,
+            "result": "PASS"
+          },
+          {
+            "check": "desktop_tablet_mobile_layouts",
+            "elapsed_ms": 96731,
+            "result": "PASS"
+          },
+          {
+            "check": "polished_contacts_cursor_settings_assistant_day",
+            "elapsed_ms": 8173,
+            "result": "PASS"
+          },
+          {
+            "check": "document_real_target_drag_invalid_no_request",
+            "elapsed_ms": 5856,
+            "result": "PASS"
+          },
+          {
+            "check": "critical_dialogs_desktop_tablet_mobile",
+            "elapsed_ms": 19200,
+            "result": "PASS"
+          },
+          {
+            "check": "customer360_exact_summary_safe_contacts_independent_domains",
+            "elapsed_ms": 8806,
+            "result": "PASS"
+          },
+          {
+            "check": "customer360_undated_completed_tasks_cursor_filter_navigation",
+            "elapsed_ms": 3555,
+            "result": "PASS"
+          },
+          {
+            "check": "customer360_loaded_telecom_desktop_tablet_mobile",
+            "elapsed_ms": 12414,
+            "result": "PASS"
+          },
+          {
+            "check": "customer360_contact_lost_receipt_keeps_intent_and_single_persisted_effect",
+            "elapsed_ms": 4175,
+            "result": "PASS"
+          },
+          {
+            "check": "customer360_customer_lost_receipt_same_command_and_single_revision",
+            "elapsed_ms": 4189,
+            "result": "PASS"
+          },
+          {
+            "check": "portfolio_bounded_search_partial_denial_keeps_authorized_contract",
+            "elapsed_ms": 4849,
+            "result": "PASS"
+          },
+          {
+            "check": "portfolio_confirmed_create_read_failure_retry_never_repeats_command",
+            "elapsed_ms": 6268,
+            "result": "PASS"
+          },
+          {
+            "check": "portfolio_confirmed_edit_read_failure_keeps_context_and_only_read_retry",
+            "elapsed_ms": 1155,
+            "result": "PASS"
+          },
+          {
+            "check": "agenda_task_meeting_create_update_complete_exact_lost_response_single_effect",
+            "elapsed_ms": 34231,
+            "result": "PASS"
+          },
+          {
+            "check": "opportunity_uncertain_create_archive_confirmed_update_read_only_recovery",
+            "elapsed_ms": 15192,
+            "result": "PASS"
+          },
+          {
+            "check": "equipment_real_collection_cursor_filters_three_widths",
+            "elapsed_ms": 3949,
+            "result": "PASS"
+          },
+          {
+            "check": "equipment_normal_create_assign_lost_response_exact_retry_replace_return_cancel_history",
+            "elapsed_ms": 14930,
+            "result": "PASS"
+          },
+          {
+            "check": "portfolio_real_inventory_independent_collections",
+            "elapsed_ms": 7065,
+            "result": "PASS"
+          },
+          {
+            "check": "confirmation_native_focus_cycle_escape_restores_trigger_without_write",
+            "elapsed_ms": 2441,
+            "result": "PASS"
+          },
+          {
+            "check": "attention_normal_scoped_filters_cursor_truth_and_three_widths",
+            "elapsed_ms": 3946,
+            "result": "PASS"
+          },
+          {
+            "check": "telecom_nine_reports_real_aggregate_rows_three_widths",
+            "elapsed_ms": 8287,
+            "result": "PASS"
+          },
+          {
+            "check": "billing_analytics_real_cohorts_exact_money_currency_and_accessible_tables",
+            "elapsed_ms": 3660,
+            "result": "PASS"
+          },
+          {
+            "check": "catalog_normal_operator_create_update_deactivate_activate_plan_create",
+            "elapsed_ms": 9835,
+            "result": "PASS"
+          },
+          {
+            "check": "catalog_actual_version_terms_and_three_widths",
+            "elapsed_ms": 2176,
+            "result": "PASS"
+          },
+          {
+            "check": "case_normal_customer_contract_service_line_creation_and_actual_ancestry",
+            "elapsed_ms": 8172,
+            "result": "PASS"
+          },
+          {
+            "check": "case_metadata_assignment_states_resolve_reopen_exact_lost_response",
+            "elapsed_ms": 8164,
+            "result": "PASS"
+          },
+          {
+            "check": "case_private_notes_explicit_cursor_reveal_revocation_closed_history_and_global_cancel",
+            "elapsed_ms": 20509,
+            "result": "PASS"
+          },
+          {
+            "check": "sim_ui_create_protected_identifier_and_scoped_assignment_exact_line_cas",
+            "elapsed_ms": 16483,
+            "result": "PASS"
+          },
+          {
+            "check": "sim_manual_activation_confirmation_lost_response_replacement_and_history",
+            "elapsed_ms": 18421,
+            "result": "PASS"
+          },
+          {
+            "check": "sim_deactivate_cancel_identifier_retire_and_immutable_line_history",
+            "elapsed_ms": 15328,
+            "result": "PASS"
+          },
+          {
+            "check": "portability_ui_masked_number_draft_assignment_and_parent_scoped_creation",
+            "elapsed_ms": 15343,
+            "result": "PASS"
+          },
+          {
+            "check": "portability_requested_scheduled_progress_confirmed_no_line_action_read_retry",
+            "elapsed_ms": 4725,
+            "result": "PASS"
+          },
+          {
+            "check": "portability_rejected_cancelled_preserve_previous_masked_history",
+            "elapsed_ms": 29096,
+            "result": "PASS"
+          },
+          {
+            "check": "service_locations_normal_create_explicit_reveal_masked_cursor_three_widths",
+            "elapsed_ms": 22949,
+            "result": "PASS"
+          },
+          {
+            "check": "service_installation_location_assignment_exact_retry_no_provider_activation",
+            "elapsed_ms": 7739,
+            "result": "PASS"
+          },
+          {
+            "check": "service_addon_actual_sold_component_assign_end_frozen_history_three_widths",
+            "elapsed_ms": 5800,
+            "result": "PASS"
+          },
+          {
+            "check": "contract_first_manual_record_for_empty_customer_normal_ui",
+            "elapsed_ms": 9731,
+            "result": "PASS"
+          },
+          {
+            "check": "contract_sold_version_terms_unknown_response_exact_retry",
+            "elapsed_ms": 6000,
+            "result": "PASS"
+          },
+          {
+            "check": "contract_confirmed_write_get_failure_retries_only_read",
+            "elapsed_ms": 4667,
+            "result": "PASS"
+          },
+          {
+            "check": "viewer_login_no_write_controls",
+            "elapsed_ms": 19766,
+            "result": "PASS"
+          },
+          {
+            "check": "viewer_portfolio_ancestry_ordinary_identity_never_privileged_editor",
+            "elapsed_ms": 8029,
+            "result": "PASS"
+          },
+          {
+            "check": "equipment_viewer_normal_read_has_no_lifecycle_controls",
+            "elapsed_ms": 3378,
+            "result": "PASS"
+          },
+          {
+            "check": "service_viewer_normal_masked_location_installation_addon_read_without_writes",
+            "elapsed_ms": 5355,
+            "result": "PASS"
+          },
+          {
+            "check": "portability_viewer_masked_terminal_detail_no_commands_three_widths",
+            "elapsed_ms": 5958,
+            "result": "PASS"
+          },
+          {
+            "check": "sim_viewer_masked_detail_no_lifecycle_writes_three_widths",
+            "elapsed_ms": 7291,
+            "result": "PASS"
+          },
+          {
+            "check": "contract_viewer_inventory_and_customer_have_no_creation",
+            "elapsed_ms": 7344,
+            "result": "PASS"
+          },
+          {
+            "check": "case_viewer_current_normal_detail_no_notes_or_writes_three_widths",
+            "elapsed_ms": 6669,
+            "result": "PASS"
+          },
+          {
+            "check": "admin_real_login_write_and_owner_protection",
+            "elapsed_ms": 14858,
+            "result": "PASS"
+          },
+          {
+            "check": "inbox_member_reassignment_revokes_private_body",
+            "elapsed_ms": 11679,
+            "result": "PASS"
+          },
+          {
+            "check": "customer_collection_real_cursor_filters_reload_member",
+            "elapsed_ms": 6201,
+            "result": "PASS"
+          },
+          {
+            "check": "customer_collection_loaded_desktop_tablet_mobile",
+            "elapsed_ms": 202,
+            "result": "PASS"
+          },
+          {
+            "check": "customer_collection_revoked_authority_clears_rows",
+            "elapsed_ms": 339,
+            "result": "PASS"
+          },
+          {
+            "check": "shell_mobile_routes_escape_focus_and_real_logout",
+            "elapsed_ms": 12962,
+            "result": "PASS"
+          }
+        ]
+      },
+      "release": "NOT_ACCEPTED",
+      "model": "NOT_RUN",
+      "qualification": false,
+      "utc": "2026-10-14T03:59:18.487329+00:00",
+      "logs": [
+        {
+          "job": 115665038729,
+          "sha256": "05bfa513d4232cd6eaea760fb15fc4004dd34f8273c9f07d487568557b62679e"
+        },
+        {
+          "job": 115665038770,
+          "sha256": "9c371d51403e8b450035d861353c260023da4357ff0dac184463daa08df612b6"
+        },
+        {
+          "job": 115665038533,
+          "sha256": "3de65072477dd45cf24e96d6b2f4173b481fcbf2a69749ee180b9e2e84c49752"
+        }
+      ],
+      "supabase_run": 38506477117,
+      "supabase_job": 115665056790,
+      "required_checks": [
+        "billing_lost_receipt_seven_commands_same_intent_single_persisted_effect",
+        "portfolio_confirmed_edit_read_failure_keeps_context_and_only_read_retry",
+        "portfolio_bounded_search_partial_denial_keeps_authorized_contract",
+        "customer360_contact_lost_receipt_keeps_intent_and_single_persisted_effect",
+        "customer360_customer_lost_receipt_same_command_and_single_revision",
+        "customer_archive_restore_persist",
+        "customer360_exact_summary_safe_contacts_independent_domains",
+        "portfolio_manual_service_line_renewal_source",
+        "polished_contacts_cursor_settings_assistant_day",
+        "document_upload_three_uncertain_steps_same_intent_single_document_object",
+        "agenda_task_meeting_create_update_complete_exact_lost_response_single_effect",
+        "opportunity_uncertain_create_archive_confirmed_update_read_only_recovery",
+        "document_metadata_archive_restore",
+        "document_expired_pending_claim_finish_exact_retry_active_preserved",
+        "importjob_list_get_cancel_processing_blocked",
+        "desktop_tablet_mobile_layouts"
+      ],
+      "qualified": "FUNCTIONAL_SCOPED_SOURCE_FOR_OWNER_REVIEW_CONSUMPTION_NO_RELEASE_APPROVAL",
+      "artifacts": [
+        {
+          "id": 11869126510,
+          "name": "w2-product-ui-synthetic-screenshots",
+          "size_in_bytes": 37925141
+        },
+        {
+          "id": 11869006849,
+          "name": "w3-history-ui-synthetic-screenshots",
+          "size_in_bytes": 887295
+        },
+        {
+          "id": 11868867035,
+          "name": "supabase-local-safe-evidence",
+          "size_in_bytes": 22699
+        }
+      ],
+      "artifact_sha256": {
+        "safe": "b11bb3e6700602f00cfc3a213d5b52d6b9ddce91a1cccbd2b44af0b3f4c4c64a",
+        "product": "ead2fa8e66df7c1f8079427709dc758177fa3f539a3f334ab11674dab6a1a4f5",
+        "history": "7a356e5c9f903f6d64ff3f608395624ef473539f42a5c83d893b9f209551e0a1"
+      },
+      "b1b_failure": "114_1_CAUSE_UNKNOWN_PRESERVED_NOT_RETROSPECTIVELY_FIXED",
+      "integration_ack": "NOT_RECEIVED"
+    }
+  },
+  "dispatch_marker": "${WORKSPACE}\\work\\w2x-fourth-commercial-dispatch-marker.json",
+  "bundle_sha256": "0c243dc70ef87055292fd60fb60cd0b620da7fe8790b924546974295a08da30c",
+  "previous_failed_source": "${WORKSPACE}\\work\\w2x-b1b-auth-failed-closed.json",
+  "failure_request": 6160208418,
+  "release": "NOT_ACCEPTED",
+  "five_high": "UNRESOLVED",
+  "ai_writes": "OFF",
+  "model": "NOT_RUN",
+  "api_spend_usd": 0,
+  "integration_ack": "NOT_RECEIVED",
+  "next": "CLOSE_OWN_E345_CI38506471174_AND_AUTH38506477117_EXACT_SOURCE_TREE_REQUIRED_THREE_CHANGED_CONSUMERS;NO_DISPATCH_DUPLICATE_OR_ALIAS_PUSH_WHILE_ACTIVE;B1B_CAUSE_UNKNOWN_REQUEST6160208418;CONTINUE_INDEPENDENT_COMMERCIAL_DEFECT",
+  "w5_b1b_retrospective": {
+    "comment": 6160263910,
+    "request": 6160208418,
+    "status": "TECHNICAL_DELIVERY_RECEIVED_SCOPE_BOUNDED_CAUSE_STILL_UNKNOWN",
+    "comparison": "AuthGate/reference helper text equalF736; F736 did not measure body_finished; no inheritance",
+    "principal_ack": "NOT_RECEIVED",
+    "security": "NOT_ACCEPTED"
+  },
+  "closed_metadata": "${WORKSPACE}\\work\\w2x-fourth-commercial-closed-metadata.json"
+}

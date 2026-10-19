@@ -1,0 +1,148 @@
+{
+  "utc": "2026-10-13T23:37:58.575378+00:00",
+  "work": "W2-X",
+  "path": "${WORKSPACE}\\work\\crm-w2x-customer-composition",
+  "branch": "codex/w2x-customer-contact-composition-20261014",
+  "base": "60acdc5d6a2ae41ff3d751724582ade0c0762788",
+  "sha": "d76426fa195bc7c29bd77811e1bb987cddfade3d",
+  "tree": "5ad1cf5188809d571db1052b479a011317e55218",
+  "published_sha": "d76426fa195bc7c29bd77811e1bb987cddfade3d",
+  "clean": true,
+  "claim": 6157144196,
+  "existing_pr": 153,
+  "status": "ORIGINAL_D764_SUP_FAIL_MISSING_SAFE_NOT_ELIGIBLE",
+  "integration_ack": "NOT_RECEIVED",
+  "checks": {
+    "controlled_browser": "41/41_UNION_NEW_CODE",
+    "build_types": "PASS_NORMAL_OWN_DEPENDENCIES",
+    "lint": "PASS",
+    "gitleaks": "PASS",
+    "auth_db": "NEW_UNION_NOT_RUN_EXPECTED109_NOT_MEASURED",
+    "preview_full": "NEW_UNION_NOT_RUN_EXPECTED440_NOT_MEASURED",
+    "ci": "NEW_UNION_NOT_RUN",
+    "model": "NOT_RUN",
+    "ci_run": 38483489804,
+    "supabase_run": 38483489916,
+    "historical_9c361_own_auth": "108/0_PASS_ACTUAL_CONTACT_EFFECT1_COMMAND1_AUDIT1",
+    "historical_scope": "NOT_INHERITED_TO_D764",
+    "own_ci_quality": {
+      "source": "d76426fa195bc7c29bd77811e1bb987cddfade3d",
+      "executed": "83d62370a9d30b4bb03cdf9f6dc4761cbe746a25",
+      "tree": "5ad1cf5188809d571db1052b479a011317e55218",
+      "ci": 38483489804,
+      "functional": {
+        "bootstrap": 611,
+        "assistant": 819,
+        "total": 1430,
+        "build": "PASS_66",
+        "preview": 440,
+        "native_restore": {
+          "kind": "native_postgresql_restore_test_only",
+          "migration_count": 85,
+          "migration_head": "20261011090000_assistant_verified_completed_reconciliation.sql",
+          "dump_sha256": "0a89041ed1fa7b5002c1b5eaa4f35ed2e3b1bcde4e9dcb5c7ce70649baf1352e",
+          "schema": "pass",
+          "rows": "pass",
+          "assistant_rows": "pass",
+          "rls": "pass",
+          "scope": "pass",
+          "restored_privilege_matrix": "pass",
+          "fresh_role_calls": "pass",
+          "restored_role_calls": "pass",
+          "acl_loss_negative_control": "pass",
+          "production_backup": false
+        }
+      },
+      "audit": "FAIL_FIVE_HIGH",
+      "supabase": "PENDING_RUN38483489916",
+      "integration_ack": "NOT_RECEIVED",
+      "release": "NOT_ACCEPTED",
+      "model": "NOT_RUN",
+      "logs": [
+        {
+          "job": 115591491933,
+          "sha256": "e6f0c8f8fd9759a3e48a2fa68c5a0af73d1ffa6366bee34af295eafa246d0ca1"
+        },
+        {
+          "job": 115591482599,
+          "sha256": "59c66d431c9c8f2c3263f88770ca9b244c52a04ffa76541a10c8aa592b51e6eb"
+        },
+        {
+          "job": 115591473311,
+          "sha256": "b8e5bd0153dd1d908cb8426f597fb7fb15d877b419cfe34ae5b88fd1c64e28c0"
+        }
+      ],
+      "utc": "2026-10-13T23:34:50.353015+00:00"
+    }
+  },
+  "units": [
+    {
+      "pr": 152,
+      "sha": "a650a9b348cade254a115fcda89bd2b49ecbbb83",
+      "checkpoint": "${WORKSPACE}\\work\\w2x-case-notes-checkpoint.json",
+      "ci_run": 38479194108,
+      "supabase_run": 38479194069
+    },
+    {
+      "pr": 153,
+      "sha": "9c361c9ce7e32ba202f0c6e24aacd371c5026e04",
+      "checkpoint": "${WORKSPACE}\\work\\w2x-contacts-checkpoint.json",
+      "ci_run": 38480433850,
+      "supabase_run": 38480433895
+    },
+    {
+      "sha": "2b8f7b0f72f731b9bf4c1513c74fe5cabeb54b12",
+      "branch": "codex/w2x-contact-customer-state-20261014",
+      "checkpoint": "${WORKSPACE}\\work\\w2x-contact-state-checkpoint.json",
+      "claim": 6156910547,
+      "ci": "NOT_RUN_INDEPENDENT_DELTA"
+    },
+    {
+      "sha": "563948981dff3e1216beeb3fcec3c7e9219596a4",
+      "branch": "codex/w2x-customer-uncertain-20261014",
+      "checkpoint": "${WORKSPACE}\\work\\w2x-customer-checkpoint.json",
+      "claim": 6157018709,
+      "ci": "NOT_RUN_INDEPENDENT_DELTA"
+    },
+    {
+      "sha": "4107e9f10d206864ade102cbe25d2507ead4d349",
+      "checkpoint": "${WORKSPACE}\\work\\w2x-par042-review-checkpoint.json",
+      "claim": 6157289777
+    },
+    {
+      "sha": "27fdcc53790e3c43afc4534ccf7c438bed7a68f8",
+      "checkpoint": "${WORKSPACE}\\work\\w2x-contact-page-focus-checkpoint.json",
+      "claim": 6157389360
+    }
+  ],
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-composition-browser.txt",
+      "sha256": "4174b0b916633d6871ad6bfbea6009cecb84d5f856f36afe918783d1a8eb5800"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-composition-build.txt",
+      "sha256": "ef2217d5839ad267e0a492355e58e5cdbed12fe325f755986f85d828a0ce537f"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-composition-lint.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-composition-published.bundle",
+      "sha256": "31d5922a4822be1da5a5afba502fb031a95850f8b7fe907f83c38c995ecd1029"
+    }
+  ],
+  "next": "CLOSE_D764_OWN_SUP109_AND_RETAIN_BOTH_CHECKS;PREPARE_OWN_UNION_WITH_REVIEW4107_AND_FOCUS27FD;NO_PUSH_TO_PR153_WHILE_ACTIVE",
+  "writes": "OFF",
+  "release": "NOT_ACCEPTED",
+  "high": 5,
+  "pr": 153,
+  "handoff": 6157276565,
+  "independent_in_progress": {
+    "scope": "PREPARE_SECOND_OWN_COMPOSITION_D764_4107_27FD_NO_OVERWRITE_WHILE_CHECKS_ACTIVE",
+    "expected_preview": "446_NOT_MEASURED",
+    "auth": "109_EXPECTED_NOT_MEASURED"
+  },
+  "failed_metadata": "${WORKSPACE}\\work\\w2x-d764-failed-metadata.json"
+}

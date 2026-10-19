@@ -1,0 +1,83 @@
+{
+  "claim": 6251598765,
+  "sha": "2a8597537737cec349650496e874d86ca6e5633a",
+  "tree": "f8fe7df9c9c69727d25e267c1e12aaaab7c5255d",
+  "branch": "codex/w2x-portability-create-parents-20261018",
+  "status": "OWN1575_FULL_PASS",
+  "browser_status": "PASS1575",
+  "browser_exit": 0,
+  "browser_summary": [
+    "1575 passed (33.9m)"
+  ],
+  "source_clean": true,
+  "own_source_checks": {
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN",
+    "paid_api": 0,
+    "global": "NOT_RUN_CURRENT_SHA",
+    "browser": "114_PASS_OWN_SOURCE",
+    "build": "66_PASS",
+    "lint": "EXIT0_WARNINGS_PRESERVED",
+    "scan": "PASS"
+  },
+  "release": "NOT_ACCEPTED",
+  "next": "INDEPENDENT_AUTHORIZED_COMMERCIAL_UNIT;NO_RERUN_GREEN_NO_RELEASE_PROMOTION",
+  "known_remaining_defects": {
+    "billing_exact_save": {
+      "reproduced_source": "2a8597537737cec349650496e874d86ca6e5633a",
+      "causal_checkpoint": "work/w2x-billing-exact-save-checkpoint.json",
+      "original": "2FAIL_1PASS_50.6S",
+      "scope": "Enabled save without available exact preview,not invalid SQL write. New63-case bank absent from this source and global1575. Follow source58 own evidence;do not call this source wholly qualified."
+    },
+    "whole_product": "NOT_RECONCILED_RELEASE_NOT_ACCEPTED"
+  },
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-commercial-line-context-full-collection.txt",
+      "sha256": "139908383f5eff64eec82b9be6b8819bb1bab371b84232f273ec22619d891e42"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-commercial-line-context-full-browser.txt",
+      "sha256": "20b9cb1646e8a92d6e960617831613f2cc4af41f62e73d1f8b9c809ad1d3f29b"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portability-create-parents-browser.txt",
+      "sha256": "0eb9649cad07c965bfcfc640590065ddf3d0ab4aaafc4f1dde84721122a1a334"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portability-create-parents-lint.txt",
+      "sha256": "91a5c63f9a9a0a42f92a00caa38da32336b62b940ccf4738d08ef97c55d9996c"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portability-create-parents-build.txt",
+      "sha256": "ceab63149df8092041f3ab7d6bacd8fd83010bc4d90aeb20dc033b4c9a487a82"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portability-create-parents-scan.txt",
+      "sha256": "e0f2d5975f7c43f50d1db375fc1ad40d5f835762b00a899de688a903d0e1c6d5"
+    }
+  ],
+  "handoffs": [
+    {
+      "id": 6252173690,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6252173690",
+      "issue": 67
+    },
+    {
+      "id": 6252173894,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6252173894",
+      "issue": 153
+    },
+    {
+      "id": 6252174040,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6252174040",
+      "issue": 38
+    },
+    {
+      "id": 6252174168,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6252174168",
+      "issue": 142
+    }
+  ],
+  "publication": "PUBLISHED"
+}

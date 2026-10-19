@@ -1,0 +1,132 @@
+{
+  "claim": 6213430782,
+  "base": "2c4512fe0e7e4d2d029d247b462d24044a23365c",
+  "branch": "codex/w2x-attention-current-day-20261016",
+  "status": "PUBLISHED_OWN63_BUILD66_VISUAL_PARTIAL9_AUTH_NOT_RUN",
+  "causal_session": 98891,
+  "product_changed": true,
+  "release": "NOT_ACCEPTED",
+  "next": "Next independent reproduced commercial defect with fresh CLAIM;global1311source4221edc frozen;one future grouped full1362 only after current global closes and source40 published;no source or green inheritance",
+  "original": {
+    "failed": 3,
+    "passed": 3,
+    "duration": "52.2s",
+    "cause": "Clear reuses mount-day ±30 after Madrid midnight;manual refresh remains correct",
+    "log": "work/w2x-attention-current-day-causal.txt"
+  },
+  "controls_session": 88879,
+  "candidate_fingerprints": [
+    {
+      "path": "src/features/attention/IntegratedAttention.tsx",
+      "sha256_utf8_lf": "54deb73c0883ea27355d0fcaff2694792ea335aac39fe8f6781d5dd58c220c17"
+    },
+    {
+      "path": "tests/e2e-preview/attention-current-day.spec.ts",
+      "sha256_utf8_lf": "f9ef03e85d6877e3b00ef8e103bdb251b832526333c21332d87dfa7a0a1fb568"
+    },
+    {
+      "path": "docs/master/W2X_ATTENTION_CURRENT_DAY_20261016.md",
+      "sha256_utf8_lf": "16aa1eafe0b1d18b38a3a62493ed1d9c855a7b5d76196dcac250cf76f4f55383"
+    }
+  ],
+  "checks": {
+    "browser": "63_PASS_OWN_SOURCE",
+    "build": "66_PASS",
+    "visual": "PARTIAL9_ACTUALLY_VIEWED",
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN",
+    "paid_api": 0,
+    "lint": "EXIT0_WARNINGS_RETAINED_IN_LOG",
+    "scan": "PASS",
+    "global": "NOT_RUN_CURRENT_SHA"
+  },
+  "visual_review": {
+    "status": "ACTUALLY_VIEWED",
+    "scope": "Partial three clear-date boundaries at390/768/1440;synthetic clock/data,lower mobile controls outside viewport;not whole module or real DB absence",
+    "frames": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-attention-current-day-final-results\\attention-current-day-atte-0fc3c-t-day-leap-day-clear-at-390\\attention-day-leap-day-clear-390.png",
+        "sha256": "5982bdc91de620b44a5eb4402db44a6881ebb161fa5c461de5351fdaef175a84"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-attention-current-day-final-results\\attention-current-day-atte-40f90--day-leap-day-clear-at-1440\\attention-day-leap-day-clear-1440.png",
+        "sha256": "3f1b469a56aec5baf57d4cf52be3d51fafbed19fb649167ff44ac8232aad529a"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-attention-current-day-final-results\\attention-current-day-atte-4828f-inter-new-year-clear-at-390\\attention-day-winter-new-year-clear-390.png",
+        "sha256": "92d6aa693188de2d402767e6d7e27584382f591cf57f4e6b9f2eb8ce1ea2d080"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-attention-current-day-final-results\\attention-current-day-atte-92455-t-day-leap-day-clear-at-768\\attention-day-leap-day-clear-768.png",
+        "sha256": "e5ead49b3825e0fdd35a353d32731d5bb6e3201ed10035ee772e71ddb9bb82b0"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-attention-current-day-final-results\\attention-current-day-atte-ab7a3-ummer-midnight-clear-at-390\\attention-day-summer-midnight-clear-390.png",
+        "sha256": "2d8981586c96dcad2401fcaf6535809e775ccd6be1a61756a959320d9f4b5c7a"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-attention-current-day-final-results\\attention-current-day-atte-bf432-nter-new-year-clear-at-1440\\attention-day-winter-new-year-clear-1440.png",
+        "sha256": "95295db90cb3aaa0ccd1023bf02a77e311d3cb36da2d5ae63b995a49c49366ce"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-attention-current-day-final-results\\attention-current-day-atte-d10e6-mmer-midnight-clear-at-1440\\attention-day-summer-midnight-clear-1440.png",
+        "sha256": "65b58efd4efdf52fd9cea591089844e5b95f30468e0b7503509290e96e816d65"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-attention-current-day-final-results\\attention-current-day-atte-d71a6-ummer-midnight-clear-at-768\\attention-day-summer-midnight-clear-768.png",
+        "sha256": "b1dbcf21225a3a9e3353ae80903287243e3c80be4fe473816347df226daa607f"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-attention-current-day-final-results\\attention-current-day-atte-e013f-inter-new-year-clear-at-768\\attention-day-winter-new-year-clear-768.png",
+        "sha256": "5de42e2f92b473d8878786ff1d779ba748628535d2a4632dcf0ddeb105b13bce"
+      }
+    ]
+  },
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-attention-current-day-causal.txt",
+      "sha256": "fd042c01e7e893df556f64e13d51e510d801487add75c6f0ed1afe093398200d"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-attention-current-day-browser.txt",
+      "sha256": "883414d26a7aa7934e70b27e9cf9e2869ff4f0d821d748b25a2101f0b58cc926"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-attention-current-day-lint.txt",
+      "sha256": "91a5c63f9a9a0a42f92a00caa38da32336b62b940ccf4738d08ef97c55d9996c"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-attention-current-day-build.txt",
+      "sha256": "397b95a0d9f162d543ef6bd2f241e23461db5b93118f2796f65ad3d3b7728758"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-attention-current-day-scan.txt",
+      "sha256": "3f0abd42e723941e7c2d82e1b18ae8f39d4f5df0a90b741d8ad122f637a84b66"
+    }
+  ],
+  "tree": "d635cf00327bc69e386797ce7295cc857b86398e",
+  "publication": "PUBLISHED",
+  "sha": "fa3e16853b4467e554d96af49ac9aeb315978761",
+  "handoffs": [
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6213538830",
+      "id": 6213538830,
+      "issue": 67
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6213539146",
+      "id": 6213539146,
+      "issue": 153
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6213539457",
+      "id": 6213539457,
+      "issue": 38
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6213539681",
+      "id": 6213539681,
+      "issue": 142
+    }
+  ]
+}

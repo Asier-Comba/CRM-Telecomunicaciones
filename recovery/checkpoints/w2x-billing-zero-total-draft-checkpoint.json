@@ -1,0 +1,129 @@
+{
+  "unit": 64,
+  "claim": 6252130268,
+  "base": "56fbaee765fb4681aa43943cec4e305eb2afbd67",
+  "branch": "codex/w2x-billing-zero-total-draft-20261018",
+  "status": "PUBLISHED_OWN18_FUNCTIONAL49_BUILD66_VISUAL_PARTIAL",
+  "controls_session": 99610,
+  "product_changed": false,
+  "test_changed": true,
+  "original": "NEW_QA_BANK_NO_PRIOR_DEFECT_OR_PASS_CLAIM",
+  "checks": {
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN",
+    "paid_api": 0,
+    "global": "NOT_RUN_CURRENT_SHA",
+    "browser": "18_PASS_OWN_SOURCE",
+    "functional": "49_PASS_OWN_SOURCE",
+    "build": "66_PASS",
+    "lint": "EXIT0_WARNINGS_PRESERVED",
+    "scan": "PASS"
+  },
+  "release": "NOT_ACCEPTED",
+  "known_remaining_defects": {
+    "whole_product": "NOT_RECONCILED_NO_ABSENCE_OR_FULL_ACCEPTANCE_INFERRED",
+    "proposal_warnings": {
+      "reproduced_source": "a82920d0642236769b4407ab138dda1dafd6f410",
+      "original": "2FAIL_1PASS_39.2S",
+      "checkpoint": "work/w2x-billing-proposal-warnings-checkpoint.json",
+      "fixed_source": "d65880a3af08bcc861d14846d399a75235f65a76",
+      "scope": "Integrated editor drops parser provenance notices;no bad SQL write. Full1755 source64 does not include new warning18 cases or snapshot fix;not whole-product qualification.",
+      "fixed_source_pointer_at_original_snapshot": "PENDING_OWN65_PUBLICATION"
+    }
+  },
+  "next": "Close own18/functional49/build/lint/visual/scan/publication;single coalesced full1755/101 on exact64 only after active1575 terminal/PUBLISHED/PASS. Then useful independent commercial unit,no inheritedPASS or duplicate dispatch.",
+  "visual_review": {
+    "status": "ACTUALLY_VIEWED",
+    "scope": "Six lower editor frames:create reviewed/update unreviewed3907681440. Concepts/quantity/price/discount100/rates/all exact zero totals readable;checked enabled save versus unchecked disabled save. Upper customer/fiscal/date fields and saved detail not visually accepted;fixture background excluded. Controlled receipt/readback tested separately,not real persistence.",
+    "frames": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-zero-total-draft-results\\billing-zero-total-draft-b-1e103-raft-create-reviewed-at-390\\zero-total-create-reviewed-390.png",
+        "sha256": "698cbec21c4a55ad348def329255b7b60047d1056920e7883fe386afd7811826"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-zero-total-draft-results\\billing-zero-total-draft-b-96438-aft-create-reviewed-at-1440\\zero-total-create-reviewed-1440.png",
+        "sha256": "33bf2253275901117ee9a9ce13a0029b81fc6c078514b8ff107ba75c224eb73e"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-zero-total-draft-results\\billing-zero-total-draft-b-9e23c-ft-update-unreviewed-at-768\\zero-total-update-unreviewed-768.png",
+        "sha256": "b8ed396bd9db1c278ba68c1512535412027c728da1c63bdf8be8b186c762be49"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-zero-total-draft-results\\billing-zero-total-draft-b-adcd8-raft-create-reviewed-at-768\\zero-total-create-reviewed-768.png",
+        "sha256": "5a714492e51ca7aac7041871d3e18ea11d439499798a479af218346cc1bc6d7b"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-zero-total-draft-results\\billing-zero-total-draft-b-dbb80-ft-update-unreviewed-at-390\\zero-total-update-unreviewed-390.png",
+        "sha256": "e739da9c26dab3340742ac9167980c26036b0f9d66047e42117e9fb195a77d80"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-zero-total-draft-results\\billing-zero-total-draft-b-f2471-t-update-unreviewed-at-1440\\zero-total-update-unreviewed-1440.png",
+        "sha256": "0731f42912095dbd70bb403652688199bda92ef13ee1147aa2c306ad214d192d"
+      }
+    ]
+  },
+  "candidate_fingerprints": [
+    {
+      "path": "tests/e2e-preview/billing-zero-total-draft.spec.ts",
+      "sha256_utf8_lf": "b76315212d0097dfd553e189e34dd8b76927ca1577f370f4a5d5626e459cec3b"
+    },
+    {
+      "path": "docs/master/W2X_BILLING_ZERO_TOTAL_DRAFT_20261018.md",
+      "sha256_utf8_lf": "8edb0427e8af67e35abe4430d6a47d2974c1053692937e3004d00666dbeaf7fc"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-zero-total-draft-browser.txt",
+      "sha256": "64c4f598694f34223f697882b0554aa32d235c5de445b92a3458a24083fe76cd"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-zero-total-draft-functional.txt",
+      "sha256": "5990e6a53095680360b9284982397e0c4b703353655f3c03d4b0e08c83552fc8"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-zero-total-draft-lint.txt",
+      "sha256": "91a5c63f9a9a0a42f92a00caa38da32336b62b940ccf4738d08ef97c55d9996c"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-zero-total-draft-build.txt",
+      "sha256": "39f6e260091c2ee8582bddad4ad97fb70b1877fb41dae43ab83b65a7cd01975a"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-zero-total-draft-scan.txt",
+      "sha256": "983301a2c14f0359194e7f843bf25bf1195883718fd7fb5c61af563a57a05dfe"
+    }
+  ],
+  "preparation_failure": {
+    "stage": "CANDIDATE_COLLECTION_ONLY_NO_RUNTIME_DISPATCH",
+    "cause": "CLI from checkout15 loaded full config testDir checkout14;separate Playwright module instances reject test registration. Correct actual full runner uses CLI14/testDir14;not affected.",
+    "correction": "Candidate-only config overrides testDir15;CLI15/testDir15 aligned. Production full config remains testDir14.",
+    "original_log": "work/w2x-commercial-financial-full-candidate-collection.txt"
+  },
+  "full_waiter_session": 85193,
+  "handoffs": [
+    {
+      "id": 6252203622,
+      "issue": 67,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6252203622"
+    },
+    {
+      "id": 6252203772,
+      "issue": 153,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6252203772"
+    },
+    {
+      "id": 6252203919,
+      "issue": 38,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6252203919"
+    },
+    {
+      "id": 6252204052,
+      "issue": 142,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6252204052"
+    }
+  ],
+  "publication": "PUBLISHED",
+  "sha": "a82920d0642236769b4407ab138dda1dafd6f410",
+  "tree": "762fc42ba194bc6d08188d0187452a5e223d5209"
+}

@@ -1,0 +1,61 @@
+{
+  "utc": "2026-10-14T10:20:37.190977+00:00",
+  "work": "W2-X",
+  "claim": 6165737433,
+  "path": "${WORKSPACE}\\work\\crm-w2x-commercial-composition",
+  "branch": "codex/w2x-document-commercial-composition-20261014",
+  "source": "3c7dabadc9367b96d8098473c2f4207d637f8d79",
+  "tree": "5caf8c0b74ef019683607a0d9d482d727a9a6ce7",
+  "parents": [
+    "1fcbcc11c5799ef812c53c213c33fc471f28001c",
+    "273e3f1704b65d2c01967f6c39b1219205ccb790"
+  ],
+  "published": true,
+  "clean": true,
+  "status": "FAILED_OWN526PASS_1SETUP_TIMEOUT_NOT_QUALIFIED",
+  "expected_unmeasured": {
+    "controlled_http": 527,
+    "remote_preview": 1254,
+    "auth_db": 122
+  },
+  "release": "NOT_ACCEPTED",
+  "model": "NOT_RUN",
+  "next": "PUBLISH_FAILED_SOURCE_AND_DIAGNOSTIC;NEW_COMPOSITION_FROM_ELIGIBLE1FCB_PLUS363_PRESERVE_FAILURE",
+  "checks": {
+    "lint": "PASS",
+    "build": "PASS66",
+    "queue": "342_13PARTIAL_329UNRECONCILED_0READY",
+    "scan": "PASS"
+  },
+  "remote_collection": {
+    "source": "3c7dabadc9367b96d8098473c2f4207d637f8d79",
+    "kind": "COLLECTION_ONLY_NOT_EXECUTION",
+    "total_collected": 1254,
+    "project_counts": {
+      "desktop": 627,
+      "mobile": 627
+    },
+    "same_case_set": true,
+    "unique_cases": true,
+    "workers": 1,
+    "retries": 0,
+    "timeout": 180000,
+    "manifest_sha256": "1555b3e1084ec6bf3f51065959352e23ffa05d47820941aa8e233d4733f0d9b0",
+    "execution": "NOT_RUN",
+    "auth_expected": 122,
+    "auth_execution": "NOT_RUN"
+  },
+  "failure": {
+    "case": "agenda meeting.create retains uncertain intent at390",
+    "phase": "setting up acceptDownloads",
+    "timeout_ms": 60000,
+    "test_body": "NOT_ENTERED_PER_SETUP_DIAGNOSTIC",
+    "cause_complete": "UNKNOWN",
+    "passed": 526,
+    "failed": 1,
+    "log": "w2x-document-commercial-composition-browser.txt",
+    "log_sha256": "1b53b8004b7a045408c686f3bc5ee3cd7c90aaaab73ff037809bc76a1afe662b"
+  },
+  "handoff": 6166155412,
+  "bundle_sha256": "81bd64fd64bfe3b251f874f5120f54f06f4ee82cc311f7f3f36dc1f49cb81b8d"
+}

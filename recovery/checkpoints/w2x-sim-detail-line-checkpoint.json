@@ -1,0 +1,119 @@
+{
+  "unit": 56,
+  "claim": 6251524669,
+  "base": "dfeb8228e3b56b785049d111a9ee48349d956a69",
+  "branch": "codex/w2x-sim-detail-line-20261018",
+  "status": "PUBLISHED_OWN120_BUILD66_VISUAL_PARTIAL",
+  "causal_session": 38506,
+  "product_changed": true,
+  "release": "NOT_ACCEPTED",
+  "checks": {
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN",
+    "paid_api": 0,
+    "global": "NOT_RUN_CURRENT_SHA",
+    "browser": "120_PASS_OWN_SOURCE",
+    "build": "66_PASS",
+    "lint": "EXIT0_WARNINGS_PRESERVED",
+    "scan": "PASS"
+  },
+  "next": "Close own120/build/lint/visual/scan/publication;then independent commercial work;global1479source53 frozen and not inherited.",
+  "original": {
+    "failed": 1,
+    "passed": 1,
+    "duration": "19.3s",
+    "cause": "SIM detail retired during assigned line point still starts service/contract reads;current positive passes."
+  },
+  "controls_session": 97315,
+  "visual_review": {
+    "status": "ACTUALLY_VIEWED",
+    "scope": "Six current physical/eSIM frames3907681440:customer/operator/status,masked ICCID/EID,dates,line link and partial replacement/history panels. Fixture scope/navigation/raw UUID excluded. Retired contexts and lower mobile sections not visually accepted;query counts measured separately.",
+    "frames": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-sim-detail-line-final-results\\sim-detail-line-SIM-detail-392b7-xt-physical-current-at-1440\\sim-detail-line-physical-current-1440.png",
+        "sha256": "c943dbd9c6595397f7f3a65dca1a813d3d992546e3e8b7c8825a04af8c9bebbc"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-sim-detail-line-final-results\\sim-detail-line-SIM-detail-670cf-ext-physical-current-at-390\\sim-detail-line-physical-current-390.png",
+        "sha256": "f238d68bbe1affbede6fdf78b4712fe73f5b0274026d791b4387ccbe7010f238"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-sim-detail-line-final-results\\sim-detail-line-SIM-detail-bfa8f-ext-physical-current-at-768\\sim-detail-line-physical-current-768.png",
+        "sha256": "ff75927490a7f27beeedb5e5170b2a9bc3a8d07bc6734ae5161898cd26638ed5"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-sim-detail-line-final-results\\sim-detail-line-SIM-detail-line-context-esim-current-at-1440\\sim-detail-line-esim-current-1440.png",
+        "sha256": "10bda2bbb24924d3993fecbb7898bc8bf40a10cf4623550841c710f1179e17f9"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-sim-detail-line-final-results\\sim-detail-line-SIM-detail-line-context-esim-current-at-390\\sim-detail-line-esim-current-390.png",
+        "sha256": "c402f65b48abbc879701311c5a63f8f5b34f289c76d57715cb50f82ee4208f5d"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-sim-detail-line-final-results\\sim-detail-line-SIM-detail-line-context-esim-current-at-768\\sim-detail-line-esim-current-768.png",
+        "sha256": "0dabf0a2b0e70c3074339c99f3bfd557ec293a2c9c28f01789751397741d6f27"
+      }
+    ]
+  },
+  "candidate_fingerprints": [
+    {
+      "path": "src/features/sims/Sims.tsx",
+      "sha256_utf8_lf": "f8f673120294aa9837341dd9ab342eb63174e0259770347b931b66a0bf09c3c5"
+    },
+    {
+      "path": "tests/e2e-preview/sim-detail-line.spec.ts",
+      "sha256_utf8_lf": "65e1fcc1dda5e0c0ed5927a44811a1234454d15331203e52321cead74a8347ae"
+    },
+    {
+      "path": "docs/master/W2X_SIM_DETAIL_LINE_20261018.md",
+      "sha256_utf8_lf": "23b10547c3d91b7108e21164bacc4a50db9c3d5d9c3150d4b8bd95e9379b550a"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-sim-detail-line-causal.txt",
+      "sha256": "c3d97f6373120be87709a25b4f435568c14cc917fcf5948190113a5f1f0d0d53"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-sim-detail-line-browser.txt",
+      "sha256": "352588459add799433f795103c25829681f3f526335e22155e4671095d0f6520"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-sim-detail-line-lint.txt",
+      "sha256": "91a5c63f9a9a0a42f92a00caa38da32336b62b940ccf4738d08ef97c55d9996c"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-sim-detail-line-build.txt",
+      "sha256": "41be316191e13930b40b084868f804cce66dd9fe6d578b432db7d00937c9704b"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-sim-detail-line-scan.txt",
+      "sha256": "e8e35d7882fe0a02d5469bb3d50ef78378a24b5694723343661d15bb4ff8aa42"
+    }
+  ],
+  "tree": "5e968027e699fbeedf5d8c77c85f6013051fd691",
+  "publication": "PUBLISHED",
+  "sha": "de72a8096a3e4dbce2109fae5d8c750871615f0a",
+  "handoffs": [
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6251592209",
+      "issue": 67,
+      "id": 6251592209
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6251592380",
+      "issue": 153,
+      "id": 6251592380
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6251592532",
+      "issue": 38,
+      "id": 6251592532
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6251592657",
+      "issue": 142,
+      "id": 6251592657
+    }
+  ]
+}

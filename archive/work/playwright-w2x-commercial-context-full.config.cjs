@@ -1,0 +1,1 @@
+const p=require('./playwright-w2x-commercial-overdue-full.config.cjs');module.exports={...p,testMatch:[...p.testMatch,'document-target-text-wrap.spec.ts','assistant-customer-name-wrap.spec.ts'],outputDir:require('node:path').resolve(__dirname,'w2x-commercial-context-full-results')}

@@ -1,0 +1,1 @@
+const p=require('./playwright-w2x-commercial-creations-full.config.cjs');module.exports={...p,outputDir:require('node:path').resolve(__dirname,'w2x-commercial-line-currency-full-results')}

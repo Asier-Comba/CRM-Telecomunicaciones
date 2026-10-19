@@ -1,0 +1,80 @@
+{
+  "claim": 6214415919,
+  "sha": "bf72cf94f203a4b72b1b7124b4efdbfb050b36b1",
+  "tree": "1267cbc2c7248fe7f1557a949771d0d13a560af7",
+  "branch": "codex/w2x-billing-proposal-day-20261016",
+  "status": "OWN1416_FULL_PASS",
+  "browser_status": "PASS1416",
+  "browser_exit": 0,
+  "browser_summary": [
+    "1416 passed (28.1m)"
+  ],
+  "source_clean": true,
+  "own_source_checks": {
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN",
+    "paid_api": 0,
+    "global": "NOT_RUN_CURRENT_SHA",
+    "browser": "45_PASS_OWN_SOURCE",
+    "build": "66_PASS",
+    "lint": "EXIT0_WARNINGS_PRESERVED",
+    "scan": "PASS"
+  },
+  "release": "NOT_ACCEPTED",
+  "next": "INDEPENDENT_AUTHORIZED_COMMERCIAL_UNIT;NO_RERUN_GREEN_NO_RELEASE_PROMOTION",
+  "known_remaining_defects": "NOT_RECONCILED_FOR_WHOLE_PRODUCT",
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-commercial-billing-full-collection.txt",
+      "sha256": "6c5006ca320c08cf035eff8d31425c9d710925c7f52bf23a82838ea9204d54de"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-commercial-billing-full-browser.txt",
+      "sha256": "34af0fc162bf913be17b8b18b25f86d2ab27b096c6e79232f1e565d75ac888cd"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-proposal-day-browser.txt",
+      "sha256": "036ad3a68a53662b4c5d2513d6ebc3849a964896cb5b387291e729102512bc31"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-proposal-day-lint.txt",
+      "sha256": "91a5c63f9a9a0a42f92a00caa38da32336b62b940ccf4738d08ef97c55d9996c"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-proposal-day-build.txt",
+      "sha256": "582cf510f5340b78d2f613430c8f216843c0a01652251fb6e8c75632067cd3f3"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-proposal-day-scan.txt",
+      "sha256": "774113f9354277f246782535bd9012bf600695438ecd63829824c56c2c9bdd09"
+    }
+  ],
+  "handoffs": [
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6214960016",
+      "issue": 67,
+      "id": 6214960016
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6214960378",
+      "issue": 153,
+      "id": 6214960378
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6214960599",
+      "issue": 38,
+      "id": 6214960599
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6214960812",
+      "issue": 142,
+      "id": 6214960812
+    }
+  ],
+  "publication": "PUBLISHED",
+  "launcher_failure_preserved": {
+    "state": "PRE_DISPATCH_HARNESS_FAILURE_PRESERVED",
+    "recovery": "One separate resume keeps prior1362 guard path,original script/wait marker intact;no controls cancelled or repeated",
+    "cause": "Generated launcher rewrote prior1362 checkpoint filename to new1416 filename;missing file guard stopped before switch,collection,requested marker or test dispatch"
+  }
+}

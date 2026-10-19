@@ -1,0 +1,1 @@
+const p=require('./playwright-w2x-billing-draft-receipt.config.cjs');module.exports={...p,testDir:require('node:path').resolve(__dirname,'w2x-line-number-nested-key-bank'),testMatch:['nested-key.spec.ts'],outputDir:require('node:path').resolve(__dirname,'w2x-line-number-nested-key-causal-results')}

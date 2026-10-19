@@ -1,0 +1,82 @@
+{
+  "claim": 6180657019,
+  "source_base": "71fe4471335742983aff453ce9863fdb3f8fdc2f",
+  "branch": "codex/w2x-case-command-refresh-lifetime-20261015",
+  "status": "OWN36_BUILD66_LINT_SCAN_PASS_VISUAL_PARTIAL_AUTH_NOT_RUN",
+  "release": "NOT_ACCEPTED",
+  "next": "CLAIM_AND_REPRO_CUSTOMER360_POST_COMMAND_READ_LIFETIME",
+  "published": true,
+  "checks": {
+    "controlled_http": 36,
+    "lint": "PASS",
+    "build": "PASS66",
+    "visual": "THREE_CURRENT_FRAMES_VIEWED_PARTIAL",
+    "auth_db": "NOT_RUN",
+    "storage": "NOT_RUN",
+    "model": "NOT_RUN",
+    "scan": "PASS"
+  },
+  "original_failure": "w2x-case-command-refresh-lifetime-causal-repro.txt",
+  "fixture_failure": "w2x-case-command-refresh-lifetime-original-repro.txt",
+  "path": "${WORKSPACE}\\work\\crm-w2x-document-upload-uncertain",
+  "utc": "2026-10-14T23:24:06.406207+00:00",
+  "sha": "4405c13f0ad724ec3538735182e1187522ce4372",
+  "tree": "b556f817c67e3895ba04bbd97be8d22feadf625c",
+  "clean": true,
+  "handoffs": [
+    {
+      "endpoint": "/issues/67/comments",
+      "id": 6180711088,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6180711088"
+    },
+    {
+      "endpoint": "/issues/153/comments",
+      "id": 6180711270,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6180711270"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-case-command-refresh-lifetime-original-repro.txt",
+      "sha256": "a0cb18c60c14d4174280e1f317ad7c3c685a92f3c6191044e95402a50a26f6af"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-case-command-refresh-lifetime-causal-repro.txt",
+      "sha256": "1b8bb16d90d976384b6bf3c9755b9e121e75c395f63bf4731997ac136831d43d"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-case-command-refresh-lifetime-browser.txt",
+      "sha256": "d348cce9c27a21500996afd2e7446503def227fbd8012d49af3378bf355b30ff"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-case-command-refresh-lifetime-lint.txt",
+      "sha256": "dda21574b74ba6a9edea377d67b00a3846ea8ae6ee11171eb3102a4a59f30d98"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-case-command-refresh-lifetime-build.txt",
+      "sha256": "2a087be50d38b8b2e48c562f552736a5d42360c1487e891ad482448b2e087a31"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-case-command-refresh-lifetime-scan.txt",
+      "sha256": "5f10b81381b5b56d4f97b82c89b815a0f1560f80ea4f90e42080ccda17c39798"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-case-command-refresh-lifetime-published.bundle",
+      "sha256": "31a447949e8cb8f3b9eb7bb3959337d594c9016f2d9eacba20bb58352cf43532"
+    }
+  ],
+  "visual": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-case-command-refresh-final-results\\case-command-refresh-lifet-4d54a-mand-refresh-current-at-768\\case-command-refresh-current-768.png",
+      "sha256": "bd936b4a39cc2005d4133682885a18de060388c93135ea2f2ace69258198fbe3"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-case-command-refresh-final-results\\case-command-refresh-lifet-8ca3b-mand-refresh-current-at-390\\case-command-refresh-current-390.png",
+      "sha256": "7cd053f3d2bbb38485e16b14cbdc8dc8e528a5aeb49df3828787b989fa083ff9"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-case-command-refresh-final-results\\case-command-refresh-lifet-d8d66-and-refresh-current-at-1440\\case-command-refresh-current-1440.png",
+      "sha256": "36ba4404487e092e8ffb0166519928b90ef0f22bb59411545a93799b8648b5ac"
+    }
+  ]
+}

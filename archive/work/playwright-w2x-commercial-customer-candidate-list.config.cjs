@@ -1,0 +1,1 @@
+const path=require('node:path'),p=require('./playwright-w2x-commercial-customer-full.config.cjs');module.exports={...p,testDir:path.resolve(__dirname,'crm-w2x-document-upload-uncertain/tests/e2e-preview'),outputDir:path.resolve(__dirname,'w2x-commercial-customer-candidate-list-results')}

@@ -1,0 +1,128 @@
+{
+  "utc": "2026-10-15T06:58:30.712041+00:00",
+  "claim": 6188120947,
+  "path": "${WORKSPACE}\\work\\crm-w2x-commercial-composition",
+  "branch": "codex/w2x-line-parent-read-lifetime-20261015",
+  "base": "b509327bb4ed14fd593ab702b7a905990063b59e",
+  "status": "OWN54_BUILD66_LINT_SCAN_PASS_VISUAL_PARTIAL_AUTH_NOT_RUN",
+  "browser": "NOT_RUN",
+  "product_changed": true,
+  "release": "NOT_ACCEPTED",
+  "next": "HANDOFF67_153_38_142;CLAIM_NEXT_RENEWAL_PERMANENCE_RECOVERY_UNIT;NO_740_PASS_INHERITANCE",
+  "repro_session": 15777,
+  "first_attempt": {
+    "result": "TIMEOUT_60000_BEFORE_CAUSAL_ASSERTION",
+    "log": "w2x-line-parent-read-causal-repro.txt",
+    "page_state": "Original scope remains A; selected service and uncertain result visible; teardown also failed after timeout",
+    "cause": "Full cause not proven. Synthetic background scope pointer replaced with scope dispatch used in existing lifetime fixtures; same product and assertion retained."
+  },
+  "refined_attempt": {
+    "result": "PASS_BUT_INVALID_FIXTURE_NOT_PRODUCT_PROOF",
+    "log": "w2x-line-parent-read-refined-repro.txt",
+    "cause": "Service fixture active with activated_on:null violates parsePortfolioGetV1; product correctly rejects response before contract follow-up. Corrected active dates in fixture only, no parser/assertion/permission change."
+  },
+  "browser_session": 32085,
+  "causal": {
+    "kind": "SERVICE_RESPONSE_AFTER_SCOPE_RETIREMENT_STARTS_OLD_CONTRACT_READ",
+    "expected_contract_reads_after_retirement": 0,
+    "observed": 1,
+    "valid_original_positive": "PASS_CURRENT390_SAME_INVOCATION",
+    "log": "w2x-line-parent-read-valid-original.txt"
+  },
+  "lint_build_session": 75511,
+  "intermediate_browser": {
+    "passed": 45,
+    "log": "w2x-line-parent-read-browser.txt",
+    "scope": "27 line preparation and18case regressions; no post-save proof yet"
+  },
+  "sha": "c15f4620e49d839818d32455829644b32ad81f79",
+  "tree": "0a81a8802f7bef5e5b69031440a58c37a82b7093",
+  "published": true,
+  "clean": true,
+  "publication": "PUBLISHED",
+  "checks": {
+    "browser": 54,
+    "lint": "PASS",
+    "lint_warnings": 1,
+    "build": "PASS66",
+    "scan": "PASS",
+    "visual": "THREE_CURRENT_FRAMES_VIEWED_PARTIAL",
+    "auth_db": "NOT_RUN",
+    "storage": "NOT_RUN",
+    "model": "NOT_RUN"
+  },
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-line-parent-read-causal-repro.txt",
+      "sha256": "cfbbd60b2c8b353db9440db90c559a739312feb1d679fd6b9678a2c9769e8678"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-line-parent-read-refined-repro.txt",
+      "sha256": "949170eacac9654f6c62ea2c9c3c1b2d4af1368efcf831c47748fea40a015263"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-line-parent-read-valid-original.txt",
+      "sha256": "7d74996b91aba698870cb3422f76b3b4a0a9149c97b2c5eb816227e12568d1d7"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-line-parent-read-browser.txt",
+      "sha256": "fd90cf0d3fe3f479223d3754cad4cd0a0a934d6205667360287181897852fc2e"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-line-parent-read-complete-browser.txt",
+      "sha256": "7d81d301b607c5bd677abc1def6dfa1a979674ca0c3aadd7b0446a8af2eb7986"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-line-parent-read-lint.txt",
+      "sha256": "bcd1b5eb029080a6847f1ee5cb93ebef42ca6f73f4cea5443b76bc5d9bbe613b"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-line-parent-read-build.txt",
+      "sha256": "d1b60f747f31aa5391c1c0965e48eea46f56ba237a6a9f8b35406ba32244b237"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-line-parent-read-scan.txt",
+      "sha256": "0735b59fe6ceff1174fdfd5a44d1c1420d29ad169939a158fb75a6128dbacd42"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-line-parent-read-published.bundle",
+      "sha256": "b719364a958bef7136af70876d759fb36039072ed74f389ab2cff28fab0da706"
+    }
+  ],
+  "visual": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-line-parent-read-complete-results\\line-parent-read-lifetime--8a8a7--read-saved-current-at-1440\\line-parent-saved_current-1440.png",
+      "sha256": "cd10ff6cac41b7c8b25677146722509c740991776bb879d68d769e117fb19194"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-line-parent-read-complete-results\\line-parent-read-lifetime--ec38e-t-read-saved-current-at-390\\line-parent-saved_current-390.png",
+      "sha256": "0dcaad585288e8fc3a8afe9d25803459af5c5b80a0683bf4183265b1051e9eed"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-line-parent-read-complete-results\\line-parent-read-lifetime--f1bbf-t-read-saved-current-at-768\\line-parent-saved_current-768.png",
+      "sha256": "4e36bf3cfabb95f775d995c3c9264bb2cefebf52e8981528897fe62be2da62b6"
+    }
+  ],
+  "handoffs": [
+    {
+      "issue": 67,
+      "id": 6188374870,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6188374870"
+    },
+    {
+      "issue": 153,
+      "id": 6188375340,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6188375340"
+    },
+    {
+      "issue": 38,
+      "id": 6188375603,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6188375603"
+    },
+    {
+      "issue": 142,
+      "id": 6188375952,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6188375952"
+    }
+  ]
+}

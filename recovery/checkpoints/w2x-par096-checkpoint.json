@@ -1,0 +1,61 @@
+{
+  "utc": "2026-10-14T05:54:24.299249+00:00",
+  "work": "W2-X",
+  "claim": 6161873561,
+  "handoff": 6161905188,
+  "path": "${WORKSPACE}\\work\\crm-w2x-par042-review",
+  "branch": "codex/w2x-par096-meeting-evidence-20261014",
+  "sha": "403c0757d7d5d9a0590a1dd30372615bda6a0129",
+  "tree": "0531270673c9cd94bc131f35eec88584f78432c4",
+  "published": true,
+  "clean": true,
+  "evidence_source": "1dd4272232403ae901ea3f3f5e11becfb874fe65",
+  "checks": {
+    "queue": "342_11PARTIAL_331UNRECONCILED_0READY",
+    "same341_rows": "UTF8_EXACT_PASS",
+    "same10_reviews_headers_blockers": "EXACT_PASS",
+    "gitleaks": "PASS",
+    "fresh_runtime_tests": "NOT_RUN_METADATA_ONLY",
+    "model": "NOT_RUN"
+  },
+  "visual": {
+    "source": "1dd4272232403ae901ea3f3f5e11becfb874fe65",
+    "artifact": 11865778215,
+    "scope": "ACTUAL_DISPOSABLE_AUTH_MEETING_CREATE_UNCERTAIN_RECOVERY_ONLY",
+    "images": [
+      {
+        "width": 390,
+        "artifact_name": "agenda-uncertain-meeting.create-390.png",
+        "path": "${WORKSPACE}\\work\\w2x-par096-meeting-create-390.png",
+        "sha256": "3315ec2c7814aadf39571f8c407b23345ec2634c5b192c07d9fd3a572ae21707"
+      },
+      {
+        "width": 768,
+        "artifact_name": "agenda-uncertain-meeting.create-768.png",
+        "path": "${WORKSPACE}\\work\\w2x-par096-meeting-create-768.png",
+        "sha256": "3be8a627490bfe529300101df40a983559e9ff9223c54f49c037d70d57d6c56f"
+      },
+      {
+        "width": 1440,
+        "artifact_name": "agenda-uncertain-meeting.create-1440.png",
+        "path": "${WORKSPACE}\\work\\w2x-par096-meeting-create-1440.png",
+        "sha256": "15a0ff2e573ec95a070495445f6010ae1277aed3d545b64d650674474d36b038"
+      }
+    ]
+  },
+  "verification": {
+    "changed_rows": [
+      "PAR-096"
+    ],
+    "other_rows_exact": 341,
+    "release_ready": 0,
+    "original_verifier_failure": "WINDOWS_DEFAULT_CP1252_ON_READ_TEXT_NOT_SOURCE_CORRUPTION",
+    "corrected_verifier": "EXPLICIT_UTF8_PASS"
+  },
+  "bundle_sha256": "9673c3f4093d6ecdb62a2d7ca2764d8fec19f2bc49ce042c84fc16edfe376626",
+  "next": "OWNER_REVIEW_PARTIAL_ROW_ONLY;NO_RUNTIME_SOURCE_PASS_INHERITANCE",
+  "release": "NOT_ACCEPTED",
+  "five_high": "UNRESOLVED",
+  "ai_writes": "OFF",
+  "api_calls": 0
+}

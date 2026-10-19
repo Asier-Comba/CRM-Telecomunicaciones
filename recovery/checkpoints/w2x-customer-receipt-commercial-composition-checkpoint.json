@@ -1,0 +1,282 @@
+{
+  "utc": "2026-10-14T06:36:09.473284+00:00",
+  "work": "W2-X",
+  "path": "${WORKSPACE}\\work\\crm-w2x-contacts",
+  "branch": "codex/w2x-contact-uncertain-20261014",
+  "pr_branch": "codex/w2x-contact-uncertain-20261014",
+  "candidate_path": "${WORKSPACE}\\work\\crm-w2x-commercial-composition",
+  "candidate_branch": "codex/w2x-customer-receipt-commercial-composition-20261014",
+  "sha": "7f6626e32a609eb22ffdd8052c9cc59e60d98453",
+  "tree": "2ad703ee08f8c091186cba08ffdbeb9404fc162b",
+  "published_sha": "7f6626e32a609eb22ffdd8052c9cc59e60d98453",
+  "clean": true,
+  "claim": 6162180389,
+  "pr": 153,
+  "status": "OWN7F1430_BUILD_NATIVE85_PASS_PREVIEW20M_CANCELLED_SUPSAFEABSENT_NOT_QUALIFIED",
+  "checks": {
+    "local_browser_total": 377,
+    "build": "PASS66",
+    "lint": "PASS",
+    "gitleaks": "PASS",
+    "queue": "34211PARTIAL331UNRECONCILED0READY",
+    "internal": "1430_PASS_OWN_EXECUTED_TREE",
+    "full_preview": "CANCELLED_JOB20M_NO954PASS",
+    "auth_db_storage": "FAIL_SAFE_ABSENT_AUTH_TEARDOWN_UI_UNKNOWN",
+    "native": "85_RESTORE_PASS_OWN_EXECUTED_TREE",
+    "model": "NOT_RUN",
+    "ci_run": 38522253882,
+    "supabase_run": 38522253913,
+    "executed_expected": "44af6970c7e490264ddd30addf11ac07e40b3cc0",
+    "own_quality": {
+      "source": "7f6626e32a609eb22ffdd8052c9cc59e60d98453",
+      "executed": "44af6970c7e490264ddd30addf11ac07e40b3cc0",
+      "tree": "2ad703ee08f8c091186cba08ffdbeb9404fc162b",
+      "ci": 38522253882,
+      "qa_job": 115714408244,
+      "native_job": 115714408122,
+      "functional": {
+        "bootstrap": 611,
+        "assistant": 819,
+        "total": 1430,
+        "build": "PASS66",
+        "native_restore": {
+          "kind": "native_postgresql_restore_test_only",
+          "migration_count": 85,
+          "migration_head": "20261011090000_assistant_verified_completed_reconciliation.sql",
+          "dump_sha256": "d87615930738b879d0c45fe10d131afbaab2dd77fb5ce1d64a0db407213425a9",
+          "schema": "pass",
+          "rows": "pass",
+          "assistant_rows": "pass",
+          "rls": "pass",
+          "scope": "pass",
+          "restored_privilege_matrix": "pass",
+          "fresh_role_calls": "pass",
+          "restored_role_calls": "pass",
+          "acl_loss_negative_control": "pass",
+          "production_backup": false
+        }
+      },
+      "audit": "FAIL_FIVE_HIGH",
+      "preview": {
+        "result": "CANCELLED_BY_JOB_20M_DEADLINE_CONFIRMED_CHECK_ANNOTATION",
+        "job": 115714408020,
+        "expected_total": 954,
+        "completed_pass_total": "NOT_MEASURED",
+        "last_started_index": 943,
+        "last_index_is_not_pass_count": true,
+        "production_fixture_launcher": "NOT_MEASURED",
+        "retry": "NOT_REQUESTED"
+      },
+      "supabase": {
+        "result": "FAIL_SAFE_ARTIFACT_ABSENT",
+        "run": 38522253913,
+        "job": 115714407936,
+        "auth": "UNKNOWN",
+        "teardown": "UNKNOWN",
+        "ui_totals": "UNKNOWN",
+        "cause": "UNKNOWN_COMPLETE_CAUSE",
+        "original_failed_frame": "failed-billing_lost_receipt_seven_commands_same_intent_single_persisted_effect.png",
+        "retrospective_request": 6162715998
+      },
+      "qualified": false,
+      "logs": [
+        {
+          "job": 115714408244,
+          "sha256": "a609c2854b183064540329da1345fa2102b159537e9402afd90715e8477558f1"
+        },
+        {
+          "job": 115714408122,
+          "sha256": "d3ee1f3585db4b8137213b560693c6fc1478887379769d2b890b6a9086f0c78b"
+        }
+      ],
+      "utc": "2026-10-14T06:57:11.198587+00:00",
+      "artifact_sha256": {
+        "w2x-7f-product-original.zip": "aea74a540d60714673e11092dde92724b387560e6043b305562501080e45050a",
+        "w2x-7f-history-original.zip": "6065a216fca0c9ce69e2b5526e3bf10776abcb5bdfadff3d5318c5745cd27664",
+        "job-115714408020.txt": "e3bbfd96313ae2b98d44c01c21adc33b60527c7aa1fafec3527a513db00c9184"
+      },
+      "supabase_terminal": {
+        "id": 38522253913,
+        "head": "7f6626e32a609eb22ffdd8052c9cc59e60d98453",
+        "status": "completed",
+        "conclusion": "failure",
+        "event": "pull_request",
+        "attempt": 1,
+        "created": "2026-10-14T06:26:52Z",
+        "updated": "2026-10-14T06:39:33Z",
+        "actor": "oierdu",
+        "trigger": "oierdu",
+        "jobs": [
+          {
+            "id": 115714407609,
+            "name": "Browser bundle private-value boundary",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-14T06:26:54Z",
+            "completed_at": "2026-10-14T06:27:48Z"
+          },
+          {
+            "id": 115714407936,
+            "name": "Supabase local Auth PostgREST Storage acceptance",
+            "status": "completed",
+            "conclusion": "failure",
+            "started_at": "2026-10-14T06:26:54Z",
+            "completed_at": "2026-10-14T06:39:32Z"
+          }
+        ]
+      },
+      "ci_terminal": {
+        "id": 38522253882,
+        "head": "7f6626e32a609eb22ffdd8052c9cc59e60d98453",
+        "status": "completed",
+        "conclusion": "failure",
+        "event": "pull_request",
+        "attempt": 1,
+        "created": "2026-10-14T06:26:51Z",
+        "updated": "2026-10-14T06:47:31Z",
+        "actor": "oierdu",
+        "trigger": "oierdu",
+        "jobs": [
+          {
+            "id": 115714407673,
+            "name": "Baseline guardrails",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-14T06:26:54Z",
+            "completed_at": "2026-10-14T06:27:07Z"
+          },
+          {
+            "id": 115714407944,
+            "name": "Embedded PGlite schema and scope fixtures",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-14T06:26:54Z",
+            "completed_at": "2026-10-14T06:27:21Z"
+          },
+          {
+            "id": 115714408020,
+            "name": "Synthetic telecom browser preview",
+            "status": "completed",
+            "conclusion": "cancelled",
+            "started_at": "2026-10-14T06:26:54Z",
+            "completed_at": "2026-10-14T06:47:30Z"
+          },
+          {
+            "id": 115714408085,
+            "name": "Migration policy",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-14T06:26:54Z",
+            "completed_at": "2026-10-14T06:27:01Z"
+          },
+          {
+            "id": 115714408122,
+            "name": "Native PostgreSQL zero-to-head and synthetic restore",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-14T06:26:54Z",
+            "completed_at": "2026-10-14T06:30:40Z"
+          },
+          {
+            "id": 115714408134,
+            "name": "Windows synthetic launcher (path with spaces)",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-14T06:26:54Z",
+            "completed_at": "2026-10-14T06:28:13Z"
+          },
+          {
+            "id": 115714408238,
+            "name": "Secret scan",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-14T06:26:54Z",
+            "completed_at": "2026-10-14T06:27:05Z"
+          },
+          {
+            "id": 115714408244,
+            "name": "Lint, types, tests, build",
+            "status": "completed",
+            "conclusion": "failure",
+            "started_at": "2026-10-14T06:26:54Z",
+            "completed_at": "2026-10-14T06:28:22Z"
+          },
+          {
+            "id": 115714409043,
+            "name": "Dependency review (Dependency Graph required)",
+            "status": "completed",
+            "conclusion": "skipped",
+            "started_at": "2026-10-14T06:26:52Z",
+            "completed_at": "2026-10-14T06:26:52Z"
+          },
+          {
+            "id": 115714878613,
+            "name": "Critical Playwright",
+            "status": "completed",
+            "conclusion": "skipped",
+            "started_at": "2026-10-14T06:28:23Z",
+            "completed_at": "2026-10-14T06:28:22Z"
+          }
+        ]
+      },
+      "release": "NOT_ACCEPTED",
+      "model": "NOT_RUN"
+    }
+  },
+  "qualified_previous_source": {
+    "sha": "856cd3e83feaf5c0b567bff54de9f83f91346e93",
+    "metadata": "${WORKSPACE}\\work\\w2x-domain-composition-closed-metadata.json",
+    "checkpoint": "${WORKSPACE}\\work\\w2x-domain-composition-checkpoint.json",
+    "scope": "OWN1430_712_AUTH115_NATIVE85_BUILD66_NOT_RELEASE_NOT_INHERITED"
+  },
+  "historical_failure_refs": [
+    "${WORKSPACE}\\work\\w2x-d764-failed-metadata.json",
+    "${WORKSPACE}\\work\\w2x-f79-native-quota-original-failure.json",
+    "${WORKSPACE}\\work\\w2x-f79-auth-closed-native-quota-blocked.json",
+    "${WORKSPACE}\\work\\w2x-dd764-auth-failed-closed.json",
+    "${WORKSPACE}\\work\\w2x-b1b-auth-failed-closed.json",
+    "${WORKSPACE}\\work\\w2x-9db-auth-failed-closed.json",
+    "${WORKSPACE}\\work\\w2x-8f69-auth-failed-closed.json",
+    "${WORKSPACE}\\work\\w2x-7f-failed-closed-metadata.json"
+  ],
+  "b1b_w5_retrospective": "${WORKSPACE}\\work\\w2x-b1b-w5-retrospective.json",
+  "new_billing_unit": "${WORKSPACE}\\work\\w2x-billing-create-checkpoint.json",
+  "release": "NOT_ACCEPTED",
+  "five_high": "UNRESOLVED",
+  "ai_commercial_writes": "OFF",
+  "integration_ack": "NOT_RECEIVED",
+  "model": "NOT_RUN",
+  "api_calls_this_work": 0,
+  "next": "FINISH395_OWN_LOCAL_QUEUE_AND_CUSTOMERSTATE18_UNIT;NO_BLIND7F_RETRY;REQUEST6162715998_FOR_SAFE_ABSENCE;CI_SHARD_OWNER_ACK_BEFORE_WORKFLOW_CHANGE",
+  "handoff": 6162343269,
+  "closed_metadata": "${WORKSPACE}\\work\\w2x-7f-failed-closed-metadata.json",
+  "independent_billing_archived": "${WORKSPACE}\\work\\w2x-billing-archived-checkpoint.json",
+  "independent_billing_diagnostics": "${WORKSPACE}\\work\\w2x-billing-physical-checkpoint.json",
+  "independent_par096": "${WORKSPACE}\\work\\w2x-par096-checkpoint.json",
+  "independent_billing_invalid": "${WORKSPACE}\\work\\w2x-billing-invalid-checkpoint.json",
+  "independent_customer_invalid": "${WORKSPACE}\\work\\w2x-customer-invalid-checkpoint.json",
+  "previous_failed8f69": "${WORKSPACE}\\work\\w2x-8f69-auth-failed-closed.json",
+  "bundle_sha256": "687500855e05d367807eee1346932a364fa8138b214ad8baa7218221b68ef2af",
+  "independent_billing_context_diagnostics": "${WORKSPACE}\\work\\w2x-billing-context-diagnostics-checkpoint.json",
+  "independent_contact_invalid": "${WORKSPACE}\\work\\w2x-contact-invalid-checkpoint.json",
+  "queued_composition": {
+    "source": "8527229962ebe3b5a438c8b35cd59bfc77c8fee6",
+    "tree": "78862d67e6a0d2cdb7e27a0f31ccd96934c709a3",
+    "path": "${WORKSPACE}\\work\\crm-w2x-commercial-composition",
+    "branch": "codex/w2x-contact-receipt-commercial-composition-20261014",
+    "claim": 6162524916,
+    "status": "OWN_LOCAL395_RUNNING_NOT_PUBLISHED",
+    "active_local_test_session": 70213,
+    "expected_unmeasured": {
+      "local": 395,
+      "preview": 990,
+      "auth": 121
+    }
+  },
+  "w5_retrospective_received": {
+    "comment": 6162383757,
+    "technical_receipt_ack": 6162524696,
+    "cached": "${WORKSPACE}\\work\\w2x-9db-8f69-w5-retrospective.json",
+    "scope": "UNKNOWN_HISTORICAL_ASSERTION_NO_EFFECT_PROOF_NO_PRINCIPAL_ACK_NO_W4_RELEASE"
+  }
+}

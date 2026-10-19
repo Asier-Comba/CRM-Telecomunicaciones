@@ -1,0 +1,1 @@
+const p=require('./playwright-w2x-billing-list-filter-response-final.config.cjs');module.exports={...p,testMatch:[...p.testMatch,'billing-selected-customer-label.spec.ts'],outputDir:require('node:path').resolve(__dirname,'w2x-billing-selected-customer-label-final-results')}

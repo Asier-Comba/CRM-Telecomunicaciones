@@ -1,0 +1,178 @@
+{
+  "claim": 6203149786,
+  "base": "b431287d5432c2323ec9d0f0ae477426f0b92b7d",
+  "branch": "codex/w2x-sim-command-read-lifetime-20261015",
+  "status": "OWN114_BUILD66_LINT0ERRORS3WARN_SCAN_PASS_VISUAL_PARTIAL_AUTH_NOT_RUN",
+  "next": "NEXT_PORTABILITY_COMMAND_READ_CLAIM6203275119_ORIGINAL4;GLOBAL1065_FF5E5A7_SEPARATE;NO_INHERITED_PASS",
+  "release": "NOT_ACCEPTED",
+  "product_changed": true,
+  "causal": {
+    "failed": 4,
+    "passed": 4,
+    "duration": "1.0m",
+    "log": "w2x-sim-command-read-causal.txt",
+    "scope": "physical/eSIM,command pending starts old sim.get;refresh pending starts old customer/line dependencies;reference1440;current positives valid"
+  },
+  "candidate_fingerprints": [
+    {
+      "path": "src/features/sims/Sims.tsx",
+      "sha256_utf8_lf": "668c785201fe4205885d5bd71eb9c146b01604cf7a352d90e31cdab8a643d962"
+    },
+    {
+      "path": "tests/e2e-preview/sim-command-read-lifetime.spec.ts",
+      "sha256_utf8_lf": "8bbfa9ac90a7bd4e96357250ebae850ce30463a7f8cbe62570c20f1c8e6f1cad"
+    },
+    {
+      "path": "docs/master/W2X_SIM_COMMAND_READ_LIFETIME_20261015.md",
+      "sha256_utf8_lf": "f730965844bd0de11674f6c038ece946cfdd1d23310b91454e3e1bb45226a44b"
+    }
+  ],
+  "fixture_refinement": {
+    "cause": "unmeasured line version bump in initial synthetic snapshot;SQL activation leaves line version unchanged",
+    "sql_sources": [
+      "20261006120000_commercial_sim_esim_history.sql",
+      "20261006123000_sim_association_snapshot_cas.sql"
+    ],
+    "original_attempt": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-sim-command-read-attempt1-browser.txt",
+        "sha256": "6489207b06ecf6e17923726eb9b0750aba58775359794058c7da76e209e44c06"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-sim-command-read-attempt1-browser-exit.txt",
+        "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-sim-command-read-attempt1-lint.txt",
+        "sha256": "46b06a074950b0d83fe6c1c979beaeab9a24b2e4e4e51999ab23fa4d1236b1b4"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-sim-command-read-attempt1-lint-exit.txt",
+        "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-sim-command-read-attempt1-build.txt",
+        "sha256": "407e9e1f43a2be2056bf63ae2e401a886fc1771d9bcef3e45c12396220c41fb4"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-sim-command-read-attempt1-build-exit.txt",
+        "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+      }
+    ],
+    "original_results": "work/w2x-sim-command-read-final-results",
+    "production_code_unchanged": true,
+    "causal_read_deltas_independent_of_line_version": true
+  },
+  "visual_review": {
+    "status": "ACTUALLY_VIEWED",
+    "frames": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-sim-command-read-corrected-final-results\\sim-command-read-lifetime--1d08d-ical-refresh-current-at-768\\sim-command-current-physical-refresh-768.png",
+        "sha256": "bb2c5c0ec6f8971516f2650059809f2d12b52f011f1d6b6fef3837a4eaa14c75"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-sim-command-read-corrected-final-results\\sim-command-read-lifetime--2c9b6-esim-command-current-at-390\\sim-command-current-esim-command-390.png",
+        "sha256": "9f9c1f772746f6c4cebcee1c6c47f0b691ab6ebc7db492cdfd5e889681f888a8"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-sim-command-read-corrected-final-results\\sim-command-read-lifetime--325ef-ical-refresh-current-at-390\\sim-command-current-physical-refresh-390.png",
+        "sha256": "a72bf45b408dae97c714a81352b4e0da918f0bcdefe717992f76070a5c97f19f"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-sim-command-read-corrected-final-results\\sim-command-read-lifetime--468df-esim-refresh-current-at-768\\sim-command-current-esim-refresh-768.png",
+        "sha256": "f269f7234a9c9a6ba83f52cde4088dd78f7288ce7945391198d38b6cffe9338a"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-sim-command-read-corrected-final-results\\sim-command-read-lifetime--4c50d-sim-refresh-current-at-1440\\sim-command-current-esim-refresh-1440.png",
+        "sha256": "f9567806e0f0bc5122cb728027d34eea723557cfc2c3743b8390216dcec341b9"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-sim-command-read-corrected-final-results\\sim-command-read-lifetime--6a90b-ical-command-current-at-390\\sim-command-current-physical-command-390.png",
+        "sha256": "a72bf45b408dae97c714a81352b4e0da918f0bcdefe717992f76070a5c97f19f"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-sim-command-read-corrected-final-results\\sim-command-read-lifetime--6f7f0-cal-command-current-at-1440\\sim-command-current-physical-command-1440.png",
+        "sha256": "e2ab8ec310cebc6ee230cd738fda4e62c9a7b7400a1f95dbbecc2f77fce93913"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-sim-command-read-corrected-final-results\\sim-command-read-lifetime--86fb6-sim-command-current-at-1440\\sim-command-current-esim-command-1440.png",
+        "sha256": "dd6312c1cf537079f62abfde5c1a0593024ec5480480fcbcb18e5c5bbdccd84b"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-sim-command-read-corrected-final-results\\sim-command-read-lifetime--8e9a7-esim-refresh-current-at-390\\sim-command-current-esim-refresh-390.png",
+        "sha256": "9f9c1f772746f6c4cebcee1c6c47f0b691ab6ebc7db492cdfd5e889681f888a8"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-sim-command-read-corrected-final-results\\sim-command-read-lifetime--93ae6-cal-refresh-current-at-1440\\sim-command-current-physical-refresh-1440.png",
+        "sha256": "8e0ba24af807cd09ac79b2a8947699841d9845f6a9df6aef360f242d06db1227"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-sim-command-read-corrected-final-results\\sim-command-read-lifetime--cba17-esim-command-current-at-768\\sim-command-current-esim-command-768.png",
+        "sha256": "77ea1cd8318b194c28e879f9d038926f5ae28d46e32386877baebffaa8c751ab"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-sim-command-read-corrected-final-results\\sim-command-read-lifetime--ebaff-ical-command-current-at-768\\sim-command-current-physical-command-768.png",
+        "sha256": "5a8b2c5076cb010c902e229a24459d39179bb873e6c685e3260e227a72d5dff3"
+      }
+    ],
+    "source_component_sha256_utf8_lf": "668c785201fe4205885d5bd71eb9c146b01604cf7a352d90e31cdab8a643d962",
+    "observation": "Both kinds/phases390/768/1440:active,masked ICCID/EID,current customer/operator,line link and activation date legible. Lower mobile replacement controls/history beyond viewport;history collection is intentionally empty synthetic fixture and does not evidence persisted association or full cycle. Partial UI only."
+  },
+  "checks": {
+    "browser": 114,
+    "build": 66,
+    "lint": "0_ERRORS_3_WARNINGS_VISIBLE",
+    "scan": "PASS",
+    "visual": "PARTIAL_12_CURRENT_PHYSICAL_ESIM_FRAMES_ACTUALLY_VIEWED",
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN"
+  },
+  "published": true,
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-sim-command-read-causal.txt",
+      "sha256": "5c6684f6ee40b3473a8164ceb2f6b68213a6dde8e6425438f2302ae5c4b89d2d"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-sim-command-read-browser.txt",
+      "sha256": "a5f81db7372d45ef2a49032649b497b3e34d6aef06cc27f26b20d3af16a46c54"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-sim-command-read-lint.txt",
+      "sha256": "46b06a074950b0d83fe6c1c979beaeab9a24b2e4e4e51999ab23fa4d1236b1b4"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-sim-command-read-build.txt",
+      "sha256": "a94ade8a4358448b96e1ba615ecbf7fe6ab9310ee6eaa10b52954bd57551aad8"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-sim-command-read-scan.txt",
+      "sha256": "ff3d178888642e640b5aeee0cc8e696df1050133215c2bc459c24dc3ed1a2684"
+    }
+  ],
+  "tree": "761de92ad6663b10aacb407ad60d7422906d5af0",
+  "handoffs": [
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6203338048",
+      "issue": 67,
+      "id": 6203338048
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6203338328",
+      "issue": 153,
+      "id": 6203338328
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6203338491",
+      "issue": 38,
+      "id": 6203338491
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6203338705",
+      "issue": 142,
+      "id": 6203338705
+    }
+  ],
+  "publication": "PUBLISHED",
+  "sha": "3712b2f72bd8ec19935521525b182f12c065f20b"
+}

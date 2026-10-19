@@ -1,0 +1,151 @@
+{
+  "utc": "2026-10-13T22:52:21.947196+00:00",
+  "work": "W2-X",
+  "path": "${WORKSPACE}\\work\\crm-w2x-contacts",
+  "branch": "codex/w2x-contact-uncertain-20261014",
+  "base": "60acdc5d6a2ae41ff3d751724582ade0c0762788",
+  "sha": "9c361c9ce7e32ba202f0c6e24aacd371c5026e04",
+  "tree": "e54da184ac7eb8319b60d0ea9ac96ab385ff9130",
+  "published_sha": "9c361c9ce7e32ba202f0c6e24aacd371c5026e04",
+  "clean": true,
+  "claim": 6156727327,
+  "pr": 153,
+  "handoff": 6156884750,
+  "status": "OWN_PRODUCT_DELTA_FUNCTIONAL_CONTROLS_CLOSED_PENDING_OWNER_ACK_W4_RELEASE",
+  "integration_ack": "NOT_RECEIVED",
+  "checks": {
+    "controlled_browser": "11/11_CREATE_UPDATE_ARCHIVE_390_768_1440_AND_READ_RECOVERY_REFUSAL",
+    "visual": "UNCERTAIN_LOADED_THREE_WIDTHS_INSPECTED",
+    "build_types": "PASS",
+    "lint": "PASS",
+    "secret_scan": "PASS",
+    "ci_run": 38480433850,
+    "supabase_run": 38480433895,
+    "auth_db": "108/0_PASS_AUTH_TEARDOWN_OWN_EXECUTED_SHA",
+    "model": "NOT_RUN",
+    "own_ci_quality": {
+      "source": "9c361c9ce7e32ba202f0c6e24aacd371c5026e04",
+      "executed": "781e200c9d2891478f580b07ce8cadd768eae4fd",
+      "tree": "e54da184ac7eb8319b60d0ea9ac96ab385ff9130",
+      "ci": 38480433850,
+      "functional": {
+        "bootstrap": 611,
+        "assistant": 819,
+        "total": 1430,
+        "build": "PASS_66",
+        "preview": 380,
+        "native_restore": {
+          "kind": "native_postgresql_restore_test_only",
+          "migration_count": 85,
+          "migration_head": "20261011090000_assistant_verified_completed_reconciliation.sql",
+          "dump_sha256": "7a17ac75a6debfccd83795db2704cddf4d4eefa9235727263b84e89cb6368060",
+          "schema": "pass",
+          "rows": "pass",
+          "assistant_rows": "pass",
+          "rls": "pass",
+          "scope": "pass",
+          "restored_privilege_matrix": "pass",
+          "fresh_role_calls": "pass",
+          "restored_role_calls": "pass",
+          "acl_loss_negative_control": "pass",
+          "production_backup": false
+        }
+      },
+      "audit": "FAIL_FIVE_HIGH",
+      "supabase": "PENDING_RUN38480433895",
+      "integration_ack": "NOT_RECEIVED",
+      "release": "NOT_ACCEPTED",
+      "model": "NOT_RUN",
+      "logs": [
+        {
+          "job": 115581395912,
+          "sha256": "8959e3ef02e8df3320a7be4829d3026c395128b405c413893196fffd7998ee88"
+        },
+        {
+          "job": 115581396191,
+          "sha256": "52aec5228558da18f54b1e95ebeea408fbd30afc181e9162a82e206121dd2331"
+        },
+        {
+          "job": 115581396280,
+          "sha256": "e19a8b54ff88acf7d8b7b02506fb049044cff28b2316609008bf9cade80a6a71"
+        }
+      ],
+      "utc": "2026-10-13T23:04:07.535448+00:00"
+    }
+  },
+  "previous_units": [
+    {
+      "pr": 152,
+      "sha": "a650a9b348cade254a115fcda89bd2b49ecbbb83",
+      "checkpoint": "${WORKSPACE}\\work\\w2x-case-notes-checkpoint.json",
+      "ack": "NOT_RECEIVED"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contacts-original-focus-dismiss-fail.txt",
+      "sha256": "590de39e7d71820b1fa0e14aedc502ccc289a7f8774c0e26a8f42bfdeb50950b"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contacts-fixture-ambiguous-retry-locator.txt",
+      "sha256": "3ea9f3cd7af6069ab05fead6202893c0da2d69282bd4644e9ceeb12b5df34792"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contacts-focused-disabled-final.txt",
+      "sha256": "f5abc370bbd58a5013a4000279afb2f2d9a89518ff89751d03da19e5ae791e61"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contacts-build-final.txt",
+      "sha256": "e7acb367655c30f93f15125306b382e0227b1dd0941d70b7073c6b880443569f"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contacts-lint-disabled-final.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contacts-9c361c9.bundle",
+      "sha256": "16e88c48c77e2b0796a0a122b660d123ccafdb760c5f995c33fcbd5767823052"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contacts-results\\contact-uncertain-intent-c-2c2d8-t-and-confirms-once-at-1440\\contact-create-uncertain-1440.png",
+      "sha256": "1117fdfbd163b08afa82b2a5651e1b122f2ecac0b68f3b43ffd0a2b90476e5f5"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contacts-results\\contact-uncertain-intent-c-572b6-nt-and-confirms-once-at-390\\contact-archive-uncertain-390.png",
+      "sha256": "1385c5ed484ac5c2e72f5ef0f24098185a718b2ff6982cca4763da1a517c8f22"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contacts-results\\contact-uncertain-intent-c-761c7-t-and-confirms-once-at-1440\\contact-archive-uncertain-1440.png",
+      "sha256": "228a6020e51943d99beecc0fb0cd81304ade810f7067c770d6af5a2b98f1d30a"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contacts-results\\contact-uncertain-intent-c-7f7e8-nt-and-confirms-once-at-390\\contact-update-uncertain-390.png",
+      "sha256": "56ed6c007a596adda0b74aa1ecd267c32654769987997ba8da85495f4db4505f"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contacts-results\\contact-uncertain-intent-c-8506d-t-and-confirms-once-at-1440\\contact-update-uncertain-1440.png",
+      "sha256": "7eb21055d2d786994ddd7c16e97c261ed645229f3cf7fcbf295f3796fe9a2aff"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contacts-results\\contact-uncertain-intent-c-92a0c-nt-and-confirms-once-at-768\\contact-create-uncertain-768.png",
+      "sha256": "b56783884865607ac2987b5afeec2b87acbbdcdb96b0070b298cf52bad2738bc"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contacts-results\\contact-uncertain-intent-c-c5933-nt-and-confirms-once-at-768\\contact-archive-uncertain-768.png",
+      "sha256": "09eec8b4b815bcca481874be728e2823ac797a23bc7e02728906a39ea3c580ba"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contacts-results\\contact-uncertain-intent-c-ccbe4-nt-and-confirms-once-at-390\\contact-create-uncertain-390.png",
+      "sha256": "e59a9d8fafac8f5132a367cb147768c05d81395d4c0300670317cdfbc96d4f42"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contacts-results\\contact-uncertain-intent-c-fb624-nt-and-confirms-once-at-768\\contact-update-uncertain-768.png",
+      "sha256": "12fc00f789bd97af4de547c62904e1592b73eef91a759721c9a56d6dfedce03c"
+    }
+  ],
+  "next": "CLAIM_INDEPENDENT_PAR042_CUSTOMER_STATE_CONTACT_ACTIONS_AFTER_VERIFIED_SQL_REPRODUCTION",
+  "writes": "OFF",
+  "release": "NOT_ACCEPTED",
+  "high": 5,
+  "closed_metadata": "${WORKSPACE}\\work\\w2x-contacts-closed-metadata.json"
+}

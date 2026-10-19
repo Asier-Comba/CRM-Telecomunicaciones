@@ -1,0 +1,128 @@
+{
+  "claim": 6213765269,
+  "base": "8f0911c1d4790b2a78b3baf7f5f3073ed4ae83a1",
+  "branch": "codex/w2x-invoice-relation-verification-20261016",
+  "status": "PUBLISHED_OWN36_BUILD66_VISUAL_PARTIAL7_AUTH_NOT_RUN",
+  "causal_session": 8003,
+  "product_changed": true,
+  "release": "NOT_ACCEPTED",
+  "next": "Next individual bounded review of contract.list consumption if unreconciled,with fresh CLAIM;source42 own36 and partial images only;no backend/security/full release promotion",
+  "original": {
+    "failed": 1,
+    "passed": 1,
+    "duration": "21.6s",
+    "cause": "Expected pending option Comprobando relación;observed Relación no disponible before held selected point read completed",
+    "log": "work/w2x-invoice-relation-verification-causal.txt"
+  },
+  "controls_session": 4201,
+  "candidate_fingerprints": [
+    {
+      "path": "src/features/billing/InvoiceRelationSelect.tsx",
+      "sha256_utf8_lf": "5d6546fd94bd2de071ef2ce0daf5479e446b582d4be3a969f6cbee106a2e41b7"
+    },
+    {
+      "path": "tests/e2e-preview/fixtures/billing-focus-entry.tsx",
+      "sha256_utf8_lf": "d7a556faa154bb3c3008142a88b1d86e3bcc1dbf05d232677f1509906f825ada"
+    },
+    {
+      "path": "tests/e2e-preview/invoice-relation-verification.spec.ts",
+      "sha256_utf8_lf": "8554763f82bd94ceff9a95cde937368135e4b944d82ecf2aa5eb5fdea2647406"
+    },
+    {
+      "path": "docs/master/W2X_INVOICE_RELATION_VERIFICATION_20261016.md",
+      "sha256_utf8_lf": "15a76dbf319870d62346c215328eddb560f478934c3fee1b1d13a654e1fba2d2"
+    }
+  ],
+  "checks": {
+    "browser": "36_PASS_OWN_SOURCE",
+    "build": "66_PASS",
+    "visual": "PARTIAL7_ACTUALLY_VIEWED",
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN",
+    "paid_api": 0,
+    "lint": "EXIT0_WARNINGS_RETAINED_IN_LOG",
+    "scan": "PASS",
+    "global": "NOT_RUN_CURRENT_SHA"
+  },
+  "visual_review": {
+    "status": "ACTUALLY_VIEWED",
+    "scope": "Partial isolated component:pending3widths,valid/denied390/1440;fixture JSON/UUID excluded;not full editor or real absence/Auth acceptance",
+    "frames": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-invoice-relation-verification-final-results\\invoice-relation-verificat-2a7c5-tion-pending-denied-at-1440\\invoice-relation-settled-pending-denied-1440.png",
+        "sha256": "d85e958994839ca272f64bc8177e29b192dbfe72d0d9e2ec3977286b680d79ef"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-invoice-relation-verification-final-results\\invoice-relation-verificat-4aa7d-ation-pending-denied-at-390\\invoice-relation-settled-pending-denied-390.png",
+        "sha256": "6c3365abefea0da63ee4b22e48c86f2f5667185182f5489d8210393d7922b417"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-invoice-relation-verification-final-results\\invoice-relation-verificat-4db3a-cation-pending-found-at-768\\invoice-relation-pending-pending-found-768.png",
+        "sha256": "7b3e8ebe6960d7dede3740e56917beed847ce9dbb9acb38422fc22111b868415"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-invoice-relation-verification-final-results\\invoice-relation-verificat-588f0-cation-pending-found-at-390\\invoice-relation-pending-pending-found-390.png",
+        "sha256": "c46e582776a1fa6c59b0f548d831b203c5b70aaf3cb663aaf2f9a6a7b72e29a6"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-invoice-relation-verification-final-results\\invoice-relation-verificat-588f0-cation-pending-found-at-390\\invoice-relation-settled-pending-found-390.png",
+        "sha256": "2b1e260a994e27e99d6827c6531b1e8e07bf53e59746e69b807f1c076292e491"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-invoice-relation-verification-final-results\\invoice-relation-verificat-8afad-ation-pending-found-at-1440\\invoice-relation-pending-pending-found-1440.png",
+        "sha256": "e448df9e3f14b526a50adf23f8dcb7c32255b432eb709b637a30c6e5418d99cd"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-invoice-relation-verification-final-results\\invoice-relation-verificat-8afad-ation-pending-found-at-1440\\invoice-relation-settled-pending-found-1440.png",
+        "sha256": "cbb8c377d9fe8a957525131baf6bd68b2b5619d81c08466698b46fe24e704a42"
+      }
+    ]
+  },
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-invoice-relation-verification-causal.txt",
+      "sha256": "accd540587495d65263395806fbb2b508648e469fd028c223ea9927d963f3c7f"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-invoice-relation-verification-browser.txt",
+      "sha256": "a4403f7e7450010a66e4785b35d6c70a5ea2c8a0f862f4c041af1b35683d38fc"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-invoice-relation-verification-lint.txt",
+      "sha256": "91a5c63f9a9a0a42f92a00caa38da32336b62b940ccf4738d08ef97c55d9996c"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-invoice-relation-verification-build.txt",
+      "sha256": "449f47ba732d264e08de86fbe22ff36b61b6b47f393388545e5a7c0ed385c28e"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-invoice-relation-verification-scan.txt",
+      "sha256": "a3461e84ed5128b3fd095600ed60e14c5fb82179a64ad80f80e7d6f7ce7fbeac"
+    }
+  ],
+  "sha": "509480f4433422bc6baa15d2de2fb66352a72f84",
+  "publication": "PUBLISHED",
+  "handoffs": [
+    {
+      "issue": 67,
+      "id": 6213866902,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6213866902"
+    },
+    {
+      "issue": 153,
+      "id": 6213867241,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6213867241"
+    },
+    {
+      "issue": 38,
+      "id": 6213867497,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6213867497"
+    },
+    {
+      "issue": 142,
+      "id": 6213867770,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6213867770"
+    }
+  ],
+  "tree": "81a3c82a78aba8b0bbfd2893a46660931f159f24"
+}

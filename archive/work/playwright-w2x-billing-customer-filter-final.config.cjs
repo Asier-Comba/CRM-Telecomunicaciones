@@ -1,0 +1,1 @@
+const p=require('./playwright-w2x-customer-attention-context-final.config.cjs');module.exports={...p,testMatch:['billing-customer-filter.spec.ts','billing-archived-customer.spec.ts','billing-create-read-lifetime.spec.ts','billing-financial-refresh.spec.ts'],outputDir:require('node:path').resolve(__dirname,'w2x-billing-customer-filter-final-results')}

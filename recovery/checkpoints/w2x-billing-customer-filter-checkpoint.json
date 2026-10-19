@@ -1,0 +1,155 @@
+{
+  "claim": 6213045963,
+  "base": "43a314ad123b988290ebf94204a6847611371fcb",
+  "branch": "codex/w2x-billing-customer-filter-20261016",
+  "status": "PUBLISHED_OWN43_BUILD66_VISUAL_PARTIAL_FINAL9_AUTH_NOT_RUN",
+  "causal_session": 35506,
+  "release": "NOT_ACCEPTED",
+  "next": "Investigate and reproduce delayed invoice.propose response after changing customer context using existing invoiceRequest epoch;fresh CLAIM and own controls required;do not modify active global checkouts",
+  "original": {
+    "failed": 4,
+    "passed": 1,
+    "cause": "One unscoped invoice.list after each failed initial identity lookup",
+    "log": "work/w2x-billing-customer-filter-causal.txt"
+  },
+  "first_attempt": {
+    "browser": "43_PASS59.8S",
+    "visual": "390_SELECTOR_OUTSIDE_CARD_NOT_QUALIFIED",
+    "results": "work/w2x-billing-customer-filter-final-results",
+    "fingerprints": [
+      {
+        "path": "work\\w2x-billing-customer-filter-attempt1-source.tsx",
+        "sha256": "7a035bcd5ffc0d9afe932f2bf195add738792dbf97115f2aaabfb59ab45ce19d"
+      },
+      {
+        "path": "work\\w2x-billing-customer-filter-attempt1-test.ts",
+        "sha256": "76b1b50ad58b70a8224edb00a4f21493e9e8f885bceffc4bf50595adb392fb3c"
+      },
+      {
+        "path": "work\\w2x-billing-customer-filter-attempt1-browser.txt",
+        "sha256": "774925b69050a21d5e10ef686c87a499757664d61379b54ed4e0023243cd85aa"
+      }
+    ]
+  },
+  "first_controls_session": 86176,
+  "visual_refinement_session": 77094,
+  "final_controls_session": 77094,
+  "candidate_fingerprints": [
+    {
+      "path": "src/features/billing/IntegratedBilling.tsx",
+      "sha256_utf8_lf": "591926a414f17941aa5327222fe3b9f6dd81daf4801c907df15294582c545de5"
+    },
+    {
+      "path": "tests/e2e-preview/fixtures/billing-focus-entry.tsx",
+      "sha256_utf8_lf": "19ba3570e11c1784296060990993a4fed5315602b7ac3708241ce431b28a899b"
+    },
+    {
+      "path": "tests/e2e-preview/billing-customer-filter.spec.ts",
+      "sha256_utf8_lf": "963457342bd434d27236acf2b8eaa73dd6764c0b02ac865aeaf67db39a05da1d"
+    },
+    {
+      "path": "docs/master/W2X_BILLING_CUSTOMER_FILTER_20261016.md",
+      "sha256_utf8_lf": "6ce9d3707b25aab56197a0c77f6e469014a5c5030530a4927d78933c706a430d"
+    }
+  ],
+  "checks": {
+    "browser": "43_PASS_OWN_SOURCE",
+    "build": "66_PASS",
+    "visual": "PARTIAL9_FINAL_ACTUALLY_VIEWED",
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN",
+    "paid_api": 0,
+    "lint": "EXIT0_WARNINGS_RETAINED_IN_LOG",
+    "scan": "PASS",
+    "global": "NOT_RUN_CURRENT_SHA"
+  },
+  "visual_review": {
+    "status": "ACTUALLY_VIEWED",
+    "scope": "Partial corrected client selector/error/current form frames at390/768/1440;card bounds hold;mobile lower controls outside viewport;not complete billing/Auth acceptance",
+    "frames": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-customer-filter-corrected-final-results\\billing-customer-filter-bi-27184-ter-retained-current-at-768\\billing-customer-filter-current-768.png",
+        "sha256": "242046530d39337eacef5547f0bd095cbc9ebdcfd27dd1f4a2f7261e90cdf68f"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-customer-filter-corrected-final-results\\billing-customer-filter-bi-49485-ter-retained-current-at-390\\billing-customer-filter-current-390.png",
+        "sha256": "dbd19c3cd024fce397e853ed35b51966cebadb6aad26d95d5addcce3ae147348"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-customer-filter-corrected-final-results\\billing-customer-filter-bi-61aba-r-retained-malformed-at-768\\billing-customer-filter-malformed-768.png",
+        "sha256": "2ee9fa3e16068b5e6f03f6906a924583da277bae77dd6ff7cff66ed4ab3c0bf5"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-customer-filter-corrected-final-results\\billing-customer-filter-bi-73a89--retained-malformed-at-1440\\billing-customer-filter-malformed-1440.png",
+        "sha256": "c476c6245c72a3a0314bcabe1c61490dbc736814cf88ee77ef3e6720a7cdfdc3"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-customer-filter-corrected-final-results\\billing-customer-filter-bi-8948c-lter-retained-denied-at-768\\billing-customer-filter-denied-768.png",
+        "sha256": "8598a4cbdc4990ead74096cc4b1795b3eea74157b0dc1019420d328397d746ae"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-customer-filter-corrected-final-results\\billing-customer-filter-bi-94d5a-lter-retained-denied-at-390\\billing-customer-filter-denied-390.png",
+        "sha256": "b140eddab9f9584165be628f2a8a5ccd729b789f6f8f8cc69df88087d3a701c0"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-customer-filter-corrected-final-results\\billing-customer-filter-bi-b0350-r-retained-malformed-at-390\\billing-customer-filter-malformed-390.png",
+        "sha256": "53d88ccef7917c9dea3b2b4f7c92bffa47708763b35f2d6ec5237d4c00c12b5f"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-customer-filter-corrected-final-results\\billing-customer-filter-bi-bbaba-er-retained-current-at-1440\\billing-customer-filter-current-1440.png",
+        "sha256": "b4d2fe4837b8038e6912456fe1e8c947c6cb387ab8f06a0c3e3ea7e78ddc1547"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-customer-filter-corrected-final-results\\billing-customer-filter-bi-ec4a3-ter-retained-denied-at-1440\\billing-customer-filter-denied-1440.png",
+        "sha256": "a8f7a3d194495ace211e6c98bbc3b1bc1cefc0c6d3d01dc01d0a198835285e23"
+      }
+    ]
+  },
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-customer-filter-causal.txt",
+      "sha256": "30e685fdeaef8f3b2beb94f02ae6dc2d26d232c5c4cafe063825bfea9ccf28a1"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-customer-filter-browser.txt",
+      "sha256": "632f93ffc316b87913e0f3c1e4295c53b6856f631d97d9f5d291e3a937b92130"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-customer-filter-lint.txt",
+      "sha256": "91a5c63f9a9a0a42f92a00caa38da32336b62b940ccf4738d08ef97c55d9996c"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-customer-filter-build.txt",
+      "sha256": "fdd213c4f466e7118205ccf08a8a4dadc89fb39761eab7044ceb53c31900d118"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-customer-filter-scan.txt",
+      "sha256": "7ce1b2b1308daeb75b34146bdeffea6d306dac3d813d4eeaa4ec9e24a14fa47e"
+    }
+  ],
+  "sha": "f0f0b2b491412292b2123c096c136f6898329aaa",
+  "tree": "7bee7f0e6d29f24b2f8ba0ce40859e55b994b174",
+  "handoffs": [
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6213201939",
+      "issue": 67,
+      "id": 6213201939
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6213202234",
+      "issue": 153,
+      "id": 6213202234
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6213202450",
+      "issue": 38,
+      "id": 6213202450
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6213202688",
+      "issue": 142,
+      "id": 6213202688
+    }
+  ],
+  "publication": "PUBLISHED"
+}

@@ -1,0 +1,136 @@
+{
+  "claim": 6199739994,
+  "base": "2468b2d376d8d1de5a1303e175de4833b312467d",
+  "branch": "codex/w2x-portfolio-command-read-lifetime-20261015",
+  "checkpoint": "${WORKSPACE}\\work\\w2x-portfolio-command-read-checkpoint.json",
+  "status": "OWN244_BUILD66_LINT0ERRORS3WARN_SCAN_PASS_VISUAL_PARTIAL_AUTH_NOT_RUN",
+  "session": 9216,
+  "next": "SOURCE14_COMPOSED_RUNNING102;FOLLOW_WITH_SINGLE_GLOBAL_ON_LATEST_COMPOSITION",
+  "release": "NOT_ACCEPTED",
+  "fixture_failure": {
+    "log": "w2x-portfolio-command-read-causal.txt",
+    "tests_failed": 2,
+    "cause": "No opt-in provider scope reset in reused fixture; both failed before causal assertion. Production provider keyed by actor/workspace/role."
+  },
+  "refined_log": "w2x-portfolio-command-read-refined.txt",
+  "causal": {
+    "original_source": "2468b2d376d8d1de5a1303e175de4833b312467d",
+    "refined_failed": 2,
+    "refined_passed": 2,
+    "log": "w2x-portfolio-command-read-refined.txt"
+  },
+  "candidate_fingerprints": [
+    {
+      "path": "src/features/portfolio/IntegratedPortfolio.tsx",
+      "sha256_utf8_lf": "5652213d0f249f1dfd3b1fe55c95535606816ca3361315a453095644aeaac689"
+    },
+    {
+      "path": "tests/e2e-preview/fixtures/commercial-resource-entry.tsx",
+      "sha256_utf8_lf": "5e953f8881da117790db5b7f174dfad8fb0fb98ab8375fc3d4be216d47175bff"
+    },
+    {
+      "path": "tests/e2e-preview/portfolio-command-read-lifetime.spec.ts",
+      "sha256_utf8_lf": "25159e40092bd37e2dc0ca480eef84b7f9b5c961bf083d5d38fe7a23e69d6192"
+    },
+    {
+      "path": "docs/master/W2X_PORTFOLIO_COMMAND_READ_LIFETIME_20261015.md",
+      "sha256_utf8_lf": "421180a03e69bb3ebf771905864913e2362fd7d083309eef90cd6860aa9144de"
+    }
+  ],
+  "browser_session": 9960,
+  "collection": {
+    "tests": 244,
+    "files": 9
+  },
+  "checks": {
+    "browser": 244,
+    "build": 66,
+    "lint": "0_ERRORS_3_WARNINGS_VISIBLE",
+    "scan": "PASS",
+    "visual": "PARTIAL_6_CURRENT_FRAMES_ACTUALLY_VIEWED",
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN"
+  },
+  "published": true,
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portfolio-command-read-causal.txt",
+      "sha256": "8ba717512019405243fc6795d840536ef31f5bcb2de3784a49b7beed842e7e58"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portfolio-command-read-refined.txt",
+      "sha256": "93a1350796076e0a19d4c2597d4a58627d5bbd53adbaa656539d6ed53d937fdd"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portfolio-command-read-browser.txt",
+      "sha256": "50148fbf7b91ed39f0f536dc0bd8949738783511518071caef98fc5965d59e61"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portfolio-command-read-lint.txt",
+      "sha256": "49a26d49e4169181f87afa77effbec72bc4ee46acc2d62d58cb312f94dc54298"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portfolio-command-read-build.txt",
+      "sha256": "2821b831eaea4831b9d51d83399c511c353331f1442078aa3c0874bf78f9f805"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portfolio-command-read-scan.txt",
+      "sha256": "209481f43576ae997fc95e9be1fdb41208c00425c1ad32c070825c1850e49ce1"
+    }
+  ],
+  "handoffs": [
+    {
+      "issue": 67,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6200071429",
+      "id": 6200071429
+    },
+    {
+      "issue": 153,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6200071818",
+      "id": 6200071818
+    },
+    {
+      "issue": 38,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6200072199",
+      "id": 6200072199
+    },
+    {
+      "issue": 142,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6200072630",
+      "id": 6200072630
+    }
+  ],
+  "tree": "1308e2e51a5d288f66d0719e4a8b9d2a5ac7d303",
+  "publication": "PUBLISHED",
+  "sha": "be524199a28af226bd492004a32311b0873672fd",
+  "visual": {
+    "source_sha": "be524199a28af226bd492004a32311b0873672fd",
+    "scope": "Six current frames create/activate390/768/1440 inspected. Service creation card visible390/768/1440; activated card visible768/1440. Activation390 captures top of loaded page, card below viewport: not evidence of mobile activated-card layout. Empty synthetic inventory, partial quick-edit cards, not persisted/full commercial module.",
+    "images": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portfolio-command-read-final-results\\portfolio-command-read-lif-271a6-read-create-current-at-1440\\portfolio-command-create-current-1440.png",
+        "sha256": "e9e25ca8cd9b8ca3f72823a69b5840fcf183c7fd0e83edeb5e8acb844443f80b"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portfolio-command-read-final-results\\portfolio-command-read-lif-38413-ead-activate-current-at-768\\portfolio-command-activate-current-768.png",
+        "sha256": "df49d71a742e4a4ffbe0ab0988de22cac77e3304b57ebc269fa3dc6be78bc64e"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portfolio-command-read-final-results\\portfolio-command-read-lif-5b74a--read-create-current-at-390\\portfolio-command-create-current-390.png",
+        "sha256": "9504450587998913f339e255a4fbbaeefff9680fe64ba48136ba4fd92c257d27"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portfolio-command-read-final-results\\portfolio-command-read-lif-6dd06-ad-activate-current-at-1440\\portfolio-command-activate-current-1440.png",
+        "sha256": "98fbe24a94a04b1683d443df89314a3ce1cabfac95147cac0e7f33be5ea17b7e"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portfolio-command-read-final-results\\portfolio-command-read-lif-90b4a-ead-activate-current-at-390\\portfolio-command-activate-current-390.png",
+        "sha256": "cedf0126ea43c9d3d5a4098ce83b4bc61149b35481c688cb4b1dff6a1a3e6934"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portfolio-command-read-final-results\\portfolio-command-read-lif-b0caa--read-create-current-at-768\\portfolio-command-create-current-768.png",
+        "sha256": "7e16aa428032c8cc43883d567e371fa554fcef773098e1fd34530ab76c9aabfc"
+      }
+    ]
+  }
+}

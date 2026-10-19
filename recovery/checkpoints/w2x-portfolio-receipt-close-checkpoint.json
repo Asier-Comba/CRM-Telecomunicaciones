@@ -1,0 +1,68 @@
+{
+  "utc": "2026-10-14T01:02:10.499484+00:00",
+  "work": "W2-X",
+  "path": "${WORKSPACE}\\work\\crm-w2x-portfolio-receipt-close",
+  "branch": "codex/w2x-portfolio-receipt-close-20261014",
+  "sha": "b1d93a0e0693f522ee6249dea71710ee6f8ba708",
+  "tree": "95e6af2564d0211ab91b54c60799a072a8701de7",
+  "published_sha": "b1d93a0e0693f522ee6249dea71710ee6f8ba708",
+  "clean": true,
+  "claim": 6158397297,
+  "handoff": 6158511585,
+  "pr": 153,
+  "status": "INDEPENDENT_PORTFOLIO_RECEIPT_DELTA_PUBLISHED_NO_PARENT_PASS_INHERITANCE",
+  "checks": {
+    "browser_new": 6,
+    "browser_regressions": 18,
+    "build": "PASS66",
+    "types": "PASS",
+    "lint": "PASS",
+    "gitleaks": "PASS",
+    "auth_db": "NOT_RUN_PREPARED_EDIT_RECEIPT_CHECK",
+    "model": "NOT_RUN"
+  },
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portfolio-receipt-close-parent.txt",
+      "sha256": "5765bfdad46c0c92d34de330b2d7fc6167813137e1473ddb6e9bf778bb837f12"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portfolio-receipt-close-fixed.txt",
+      "sha256": "44d9ea6451c9f9e51d99640e31ffb62afe8222f08963bdc2f47fe2cdafb96f06"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portfolio-receipt-close-final.txt",
+      "sha256": "626210439b3f671bf78a58390a97d518fa04b065c48469a49fc61f91001caf81"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portfolio-receipt-close-regressions.txt",
+      "sha256": "209750fbcd5acca0df5421e0463a215e7f3ef02eec1c912ac97e6f3281281d72"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portfolio-receipt-close-types.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portfolio-receipt-close-lint-final.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portfolio-receipt-close-build.txt",
+      "sha256": "b48c854d097670a4749a749815d8d0e161817d55089da19ebd30a550b561e9e6"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portfolio-receipt-close-gitleaks.txt",
+      "sha256": "6eaf670c0327c010b1956c3c4f6917b9f26786738e53c9114bca71850407276a"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portfolio-receipt-close-published.bundle",
+      "sha256": "9c121cc1b40ac5e92d82e4b655516dd6117cf530db16ce4c2d61edfda4d099ef"
+    }
+  ],
+  "permission_contract_changes": false,
+  "integration_ack": "NOT_RECEIVED",
+  "writes": "OFF",
+  "release": "NOT_ACCEPTED",
+  "high": 5,
+  "next": "INVESTIGATE_DD764_SEARCH_BATCH_ALL_OR_NOTHING_WITH_CONTROLLED_OTHER_CANDIDATE_REFUSAL_NO_ORIGINAL_RCA_CLAIM;COMPOSE_INDEPENDENT_ED048_B1D93_ON_ELIGIBLE_9C_BASE_THEN_OWN_CONTROLS"
+}

@@ -1,0 +1,117 @@
+{
+  "claim": 6202367152,
+  "base": "d56ae41202464c793d46a3ab9058126b08450732",
+  "branch": "codex/w2x-portability-draft-direction-20261015",
+  "status": "OWN39_BUILD66_LINT0ERRORS3WARN_SCAN_PASS_VISUAL_PARTIAL_AUTH_NOT_RUN",
+  "causal_session": 68751,
+  "product_changed": true,
+  "scope": "Draft editor only: inbound destination/outbound origin fixed by linked line; shared queries/create not modified.",
+  "next": "PAR073_METADATA_CLAIM6202518221;NEXT_INDEPENDENT_COMMERCIAL_UNIT_AFTER_PUBLICATION",
+  "release": "NOT_ACCEPTED",
+  "causal": {
+    "failed": 6,
+    "log": "w2x-portability-draft-direction-causal.txt",
+    "scope": "Valid inbound/outbound rows; fixed-side expected disabled, observed enabled; before command.",
+    "original_test": "w2x-direction-original-test.ts"
+  },
+  "candidate_fingerprints": [
+    {
+      "path": "src/features/portabilities/Portabilities.tsx",
+      "sha256_utf8_lf": "2dffbb8124d131eee54bc138f0e3cccaebf0fb8f136900cfb0ce801815f4999d"
+    },
+    {
+      "path": "tests/e2e-preview/portability-parent-read-lifetime.spec.ts",
+      "sha256_utf8_lf": "f9b87cb084dc08cec263894ab26cfad782dd74872ce82e11c0e723b148887bce"
+    },
+    {
+      "path": "docs/master/W2X_PORTABILITY_DRAFT_DIRECTION_20261015.md",
+      "sha256_utf8_lf": "c57533cb9d9b8c6737fd09627d1f3a4a940bd4e4ad368bcb5eeeceb621b9ce4d"
+    }
+  ],
+  "checks": {
+    "browser": 39,
+    "build": 66,
+    "lint": "0_ERRORS_3_WARNINGS_VISIBLE",
+    "scan": "PASS",
+    "visual": "PARTIAL_6_CURRENT_DIRECTION_FIELDS_FRAMES_ACTUALLY_VIEWED",
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN"
+  },
+  "published": true,
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portability-draft-direction-causal.txt",
+      "sha256": "27c0401f2e4a1562e781e56a20fe93a9c9addcecb336f5c6edb89847f1f2bc28"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portability-draft-direction-browser.txt",
+      "sha256": "54b9371b8e506c995008bc7e06ec4150938c18107e8ccb0eabdc67361d6d8fc1"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portability-draft-direction-lint.txt",
+      "sha256": "91a5c63f9a9a0a42f92a00caa38da32336b62b940ccf4738d08ef97c55d9996c"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portability-draft-direction-build.txt",
+      "sha256": "fb34083aa5d18274c98e202c35267be8b93cbe025fca57c82f799447e8522432"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portability-draft-direction-scan.txt",
+      "sha256": "2dfd94a770bbc561df05894234d3167d979dcf98d473ee6d09c503a0601e2c32"
+    }
+  ],
+  "tree": "aba29bae2bce0118aef8f8981cc676aad808486a",
+  "publication": "PUBLISHED",
+  "handoffs": [
+    {
+      "id": 6202538453,
+      "issue": 67,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6202538453"
+    },
+    {
+      "id": 6202538752,
+      "issue": 153,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6202538752"
+    },
+    {
+      "id": 6202539048,
+      "issue": 38,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6202539048"
+    },
+    {
+      "id": 6202539325,
+      "issue": 142,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6202539325"
+    }
+  ],
+  "sha": "d889bf293bd0ce96d73d376e57c37615ad943222",
+  "visual": {
+    "scope": "Six inbound/outbound390/768/1440 frames actually inspected. Fixed operator side disabled and explanation visible, mutable alternative8, fields/date/review in viewport. Scope draft only; full page/real saved operation/accessibility not certified.",
+    "images": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portability-draft-direction-final-results\\portability-parent-read-li-5bef4-ad-current-outbound-at-1440\\portability-operator-direction-outbound-1440.png",
+        "sha256": "432561482ce3e6b7ecdee4409d9daa2f796e092b4064fa7c1fe0c440f6451f70"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portability-draft-direction-final-results\\portability-parent-read-li-63291-parent-read-current-at-1440\\portability-operator-direction-inbound-1440.png",
+        "sha256": "b899e5d123140b7be639a354da9488abbcfe3949ba8f6df82599ad7484bcbc6f"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portability-draft-direction-final-results\\portability-parent-read-li-ac699--parent-read-current-at-768\\portability-operator-direction-inbound-768.png",
+        "sha256": "ffb0da8d678cd19c6f6fbfb1066886f525e6006f863e5c701c373f9cd3020ac0"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portability-draft-direction-final-results\\portability-parent-read-li-ad01e-ead-current-outbound-at-768\\portability-operator-direction-outbound-768.png",
+        "sha256": "7ffcc5e244110773dbf2b7ab38eff50717611e2e46e894e6e5da8badf34fa098"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portability-draft-direction-final-results\\portability-parent-read-li-b60c5--parent-read-current-at-390\\portability-operator-direction-inbound-390.png",
+        "sha256": "21e2426e4a793084745c0511f4d20549a1f6e12c9a07881a7ea76f4a60457c57"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portability-draft-direction-final-results\\portability-parent-read-li-e41b9-ead-current-outbound-at-390\\portability-operator-direction-outbound-390.png",
+        "sha256": "11b6065be1a2e055925f5002163673c70ea9b9fbb3782ca7b372df4f4910a597"
+      }
+    ]
+  }
+}

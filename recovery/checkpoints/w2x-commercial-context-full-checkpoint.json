@@ -1,0 +1,86 @@
+{
+  "claim": 6253980196,
+  "sha": "7218b7bc6d3a079feb8b8f457edbf48045fa02a0",
+  "tree": "bc51573cd836d22d7645cb934fa20ff14b957206",
+  "branch": "codex/w2x-assistant-customer-name-wrap-20261018",
+  "status": "OWN1908_FULL_PASS",
+  "browser_status": "PASS1908",
+  "browser_exit": 0,
+  "browser_summary": [
+    "1908 passed (36.9m)"
+  ],
+  "source_clean": true,
+  "own_source_checks": {
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN",
+    "paid_api": 0,
+    "functional": "NOT_RUN_UI_STYLE_ONLY",
+    "global": "NOT_RUN_CURRENT_SHA",
+    "browser": "107_PASS_OWN_SOURCE",
+    "build": "66_PASS",
+    "lint": "EXIT0_WARNINGS_PRESERVED",
+    "scan": "PASS"
+  },
+  "known_remaining_defects": {
+    "whole_product": "NOT_RECONCILED",
+    "auth_db": "NOT_RUN",
+    "live_model": "NOT_RUN",
+    "security": "W4_PENDING_HIGH5",
+    "shared_semantics78": "W1_OWNER_REVIEW_CONSUMPTION_PENDING",
+    "release": "NOT_ACCEPTED"
+  },
+  "auth_db": "NOT_RUN",
+  "model": "NOT_RUN",
+  "paid_api": 0,
+  "release": "NOT_ACCEPTED",
+  "next": "Continue useful independent W2 commercial unit;no repeat green without changed source or relevant failure.",
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-commercial-context-full-collection.txt",
+      "sha256": "f222f2b75ee097bb2cffb5a6ce8ffddc06277e6eac86a7c8d1c903075b7fcd55"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-commercial-context-full-browser.txt",
+      "sha256": "ddc5dba14fd101ed6c29ebe8000bd739435da9fe8dbe94b0fcc17883f659d2d1"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-assistant-customer-name-wrap-browser.txt",
+      "sha256": "45c28305209191c00840439b4c5dbcc1a8d1c9eda399e1144a74f28c80f95cd4"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-assistant-customer-name-wrap-build.txt",
+      "sha256": "1138f4d6cefaaa4591a2bceabe1ff34740eb4513c0ed9566a2efafb65f86a774"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-assistant-customer-name-wrap-lint.txt",
+      "sha256": "77e52456c3bf671c8ed5a0154c9dbfdd998b31f3c61494ca11430b416d294dad"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-assistant-customer-name-wrap-scan.txt",
+      "sha256": "df514ef51f1b9a9c542fd6ccf46ecd185e31050037c772d22369ea8158bdcc6a"
+    }
+  ],
+  "handoffs": [
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6254822210",
+      "issue": 67,
+      "id": 6254822210
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6254822349",
+      "issue": 153,
+      "id": 6254822349
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6254822476",
+      "issue": 38,
+      "id": 6254822476
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6254822615",
+      "issue": 142,
+      "id": 6254822615
+    }
+  ],
+  "publication": "PUBLISHED"
+}

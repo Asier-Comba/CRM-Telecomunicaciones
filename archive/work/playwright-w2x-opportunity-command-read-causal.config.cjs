@@ -1,0 +1,1 @@
+const previous=require('./playwright-w2x-editor-pending-aware-final.config.cjs');module.exports={...previous,testDir:require('node:path').resolve(__dirname,'crm-w2x-document-upload-uncertain/tests/e2e-preview'),testMatch:['opportunity-command-read-lifetime.spec.ts'],outputDir:require('node:path').resolve(__dirname,'w2x-opportunity-command-read-causal-results')}

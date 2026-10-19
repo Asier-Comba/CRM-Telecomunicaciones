@@ -1,0 +1,1 @@
+const p=require('./playwright-w2x-commercial-mobile-product-full.config.cjs');module.exports={...p,testMatch:[...p.testMatch,'customer-list-page-focus.spec.ts','customer-list-refresh-focus.spec.ts','customer-domain-table-title-wrap.spec.ts'],outputDir:require('node:path').resolve(__dirname,'w2x-commercial-collection-full-results')}

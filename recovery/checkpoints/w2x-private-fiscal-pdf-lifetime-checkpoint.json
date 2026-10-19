@@ -1,0 +1,107 @@
+{
+  "utc": "2026-10-14T23:32:09.411934+00:00",
+  "claim": 6180781959,
+  "path": "${WORKSPACE}\\work\\crm-w2x-commercial-composition",
+  "branch": "codex/w2x-private-pdf-download-lifetime-20261015",
+  "base": "a2922568fe584e0dfec0930ef4e226505e53ccfa",
+  "status": "OWN15_BROWSER6_NODE_BUILD66_LINT_SCAN_PASS_VISUAL_PARTIAL_AUTH_NOT_RUN",
+  "repro_session": 42424,
+  "browser_dispatch": "AFTER_FULL653_EXIT_MARKER_ONLY;NO_PARALLEL_BROWSER_SUITE",
+  "test_backup": "${WORKSPACE}\\work\\w2x-private-fiscal-pdf-prepared-test.ts",
+  "test_sha256": "d0ecfab651c4b6ddb08101165a583ac82b719abd4f786003dc6a9c2dda1b1e98",
+  "checks": {
+    "browser": 15,
+    "node": 6,
+    "lint": "PASS",
+    "build": "PASS66",
+    "scan": "PASS",
+    "visual": "THREE_CURRENT_FRAMES_VIEWED_PARTIAL",
+    "auth_db": "NOT_RUN",
+    "storage": "NOT_RUN",
+    "model": "NOT_RUN"
+  },
+  "release": "NOT_ACCEPTED",
+  "next": "AUTHORIZED_GENERAL_PDF_REPRO_CLAIM6180977057",
+  "causal": {
+    "expected_downloads": 0,
+    "observed_downloads": 1,
+    "log": "w2x-private-fiscal-pdf-causal-repro.txt"
+  },
+  "browser_session": 28591,
+  "lint_build_session": 11639,
+  "preparation_failure": "First edit command used workspace-relative path from checkout cwd; FileNotFound before mutation; unmodified6-node log preserved separately and not inherited",
+  "sha": "8e5a2006170889df666c8439eec0ba50cd030a4c",
+  "tree": "5088f0903724b35bc1800ddb0370e2f4a979de91",
+  "published": true,
+  "clean": true,
+  "handoffs": [
+    {
+      "issue": 67,
+      "id": 6180969837,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6180969837"
+    },
+    {
+      "issue": 153,
+      "id": 6180970022,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6180970022"
+    },
+    {
+      "issue": 38,
+      "id": 6180970260,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6180970260"
+    },
+    {
+      "issue": 142,
+      "id": 6180970460,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6180970460"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-private-fiscal-pdf-causal-repro.txt",
+      "sha256": "7a5849cbb1165213552cebb5480687e4e0358469b10cb357a4b5702d06ac26aa"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-private-fiscal-pdf-node.txt",
+      "sha256": "0decf61de84ec457e3e01d54d02559f2920887ce72f3821982c1d0362d1aae83"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-private-fiscal-pdf-unmodified-node.txt",
+      "sha256": "1ed243376399567bb5bebf40d9d14124169489e02feeb3d0a5212951642c0624"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-private-fiscal-pdf-browser.txt",
+      "sha256": "4bddcb68b721b646f0ef592a1e0f48506e05f087acb6b7bc5baf7290b35751b4"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-private-fiscal-pdf-lint.txt",
+      "sha256": "dda21574b74ba6a9edea377d67b00a3846ea8ae6ee11171eb3102a4a59f30d98"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-private-fiscal-pdf-build.txt",
+      "sha256": "bb77432404317429bd413dcaa6496c1bbfc7ede90d15a3c77f30e99249c466e1"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-private-fiscal-pdf-scan.txt",
+      "sha256": "cd2b6cf3a8eab468ae4177af56057ded46631d8c90ebc6a3651611d7dcbb63c8"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-private-fiscal-pdf-published.bundle",
+      "sha256": "7d1fd68581e2b127c21b1edac3b2c2d50b1af99f394b96f7fdbcc78ed72c6e7b"
+    }
+  ],
+  "visual": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-private-fiscal-pdf-final-results\\private-fiscal-pdf-lifetim-560ce-e-fiscal-PDF-retired-at-390\\private-fiscal-pdf-retired-390.png",
+      "sha256": "e5dae74afea35db8a25d661f2bb4f2aab354491dadd64896c1f2ceef74b4b429"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-private-fiscal-pdf-final-results\\private-fiscal-pdf-lifetim-8e92d-e-fiscal-PDF-retired-at-768\\private-fiscal-pdf-retired-768.png",
+      "sha256": "04789be7b180c3b16be5b0776cf4863c9f0242a29e4f77b786002414859b0010"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-private-fiscal-pdf-final-results\\private-fiscal-pdf-lifetim-fa65c--fiscal-PDF-retired-at-1440\\private-fiscal-pdf-retired-1440.png",
+      "sha256": "be1d6fb8b8dea9c7cac0f4beff79ff1ddbf64ba523fa0825d48e247fbd74c2ed"
+    }
+  ]
+}

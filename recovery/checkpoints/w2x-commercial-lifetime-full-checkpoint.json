@@ -1,0 +1,95 @@
+{
+  "utc": "2026-10-14T23:29:28.600713+00:00",
+  "claim": 6180759354,
+  "path": "${WORKSPACE}\\work\\crm-w2x-document-upload-uncertain",
+  "branch": "codex/w2x-customer-post-command-lifetime-20261015",
+  "sha": "a2922568fe584e0dfec0930ef4e226505e53ccfa",
+  "tree": "9eadffa181f8f3f4c79c4eefdd9c3a9bdae333a3",
+  "status": "SAME_SHA_COMPLEMENTARY640_PLUS13_PASS_INITIAL_FULL_FAILURE_PRESERVED",
+  "session": 80961,
+  "expected": 653,
+  "collection_only": "653 tests in57 files",
+  "own_lint_build_scan": "${WORKSPACE}\\work\\w2x-customer-post-command-lifetime-checkpoint.json",
+  "release": "NOT_ACCEPTED",
+  "next": "PRIVATE_FISCAL_PDF_UNIT_RUNNING;AFTER_CLOSE_GENERAL_PDF_LIFETIME",
+  "queue": "342_15PARTIAL_327UNRECONCILED_0READY_PASS",
+  "passed": 640,
+  "failed": 13,
+  "first_attempt_exit": 1,
+  "cause": "CWD_COORDINATOR_ROOT;12 React module lookups and1 child script resolved outside checkout;MODULE_NOT_FOUND before product exercise",
+  "log_sha256": "aff93df927b50fada58541448d767dc796e276da1ca7c2a91f0156a0685b1e0b",
+  "coverage": {
+    "source": "a2922568fe584e0dfec0930ef4e226505e53ccfa",
+    "distinct_successful_cases": 653,
+    "first_attempt": {
+      "passed": 640,
+      "failed": 13,
+      "full_suite_pass": false
+    },
+    "complementary_attempt": {
+      "passed": 13,
+      "failed": 0,
+      "cwd": "crm-w2x-document-upload-uncertain",
+      "files": [
+        "c360-failure-waiters.spec.ts",
+        "document-current-selection.spec.ts"
+      ]
+    },
+    "source_and_tests_unchanged": true,
+    "inherited_pass": false
+  },
+  "handoffs": [
+    {
+      "issue": 67,
+      "id": 6180944501,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6180944501"
+    },
+    {
+      "issue": 153,
+      "id": 6180944675,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6180944675"
+    },
+    {
+      "issue": 38,
+      "id": 6180944893,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6180944893"
+    },
+    {
+      "issue": 142,
+      "id": 6180945089,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6180945089"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-commercial-lifetime-full-browser.txt",
+      "sha256": "aff93df927b50fada58541448d767dc796e276da1ca7c2a91f0156a0685b1e0b"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-commercial-lifetime-failed13-browser.txt",
+      "sha256": "65daf7ef3d502d154aeff4e2bd2c0ff9252fc0549dd6304ac702310c3aa7b342"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-commercial-lifetime-full-queue.txt",
+      "sha256": "03f1587869842e4a8b10fa7ee33a8b075f28a1fe4c73b8a7380c3c8746f196ff"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-commercial-lifetime-full-collection.txt",
+      "sha256": "1e67db10dedeb009ef1b622d9496228216131e0f221dd2b35a05c1b956a0a023"
+    }
+  ],
+  "visual": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-commercial-lifetime-full-results\\customer-post-command-life-14468-tomer-update-current-at-390\\customer-command-customer.update-current-390.png",
+      "sha256": "9412bb30bda006aa2010ae54c9588b402ede8ddd50d9f1680de30b5db2e04804"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-commercial-lifetime-full-results\\customer-post-command-life-81d16-omer-update-current-at-1440\\customer-command-customer.update-current-1440.png",
+      "sha256": "24c340deb3ef7772aedd54c07eae049abb895e9ff41f818db51404f8f85c0c99"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-commercial-lifetime-full-results\\customer-post-command-life-ecf43-tomer-update-current-at-768\\customer-command-customer.update-current-768.png",
+      "sha256": "4ca73b718692c31e7393551cb1723bb2e5e8f76e92b272836032aca4f5218c07"
+    }
+  ]
+}

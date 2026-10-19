@@ -1,0 +1,1 @@
+const p=require('./playwright-w2x-commercial-context-full.config.cjs');module.exports={...p,testMatch:[...p.testMatch,'case-recovery-close.spec.ts','sim-recovery-close.spec.ts'],outputDir:require('node:path').resolve(__dirname,'w2x-commercial-recovery-full-results')}

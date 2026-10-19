@@ -1,0 +1,1 @@
+const p=require('./playwright-w2x-sim-identifier-recovery-close-causal.config.cjs');module.exports={...p,outputDir:require('node:path').resolve(__dirname,'w2x-sim-identifier-recovery-close-companion-causal-results')}

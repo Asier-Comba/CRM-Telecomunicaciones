@@ -1,0 +1,136 @@
+{
+  "utc": "2026-10-13T22:40:26.144887+00:00",
+  "work": "W2-X",
+  "path": "${WORKSPACE}\\work\\crm-w2x-case-notes",
+  "branch": "codex/w2x-case-note-cursor-20261014",
+  "base": "60acdc5d6a2ae41ff3d751724582ade0c0762788",
+  "sha": "a650a9b348cade254a115fcda89bd2b49ecbbb83",
+  "tree": "2edb195b4f8efcdf8433f810da3f011329368be4",
+  "published_sha": "a650a9b348cade254a115fcda89bd2b49ecbbb83",
+  "clean": true,
+  "claim": 6156379414,
+  "pr": 152,
+  "handoff": 6156727112,
+  "status": "OWN_PRODUCT_DELTA_FUNCTIONAL_CONTROLS_CLOSED_PENDING_OWNER_ACK_W4_RELEASE",
+  "integration_ack": "NOT_RECEIVED",
+  "owner151_failure": "ACTION_FAILED_CASE_NOTE_CURSOR_ORIGINAL_CAUSE_UNKNOWN",
+  "checks": {
+    "controlled_browser": "3/3_390_768_1440",
+    "visual": "LOADED_PAGES_INSPECTED_THREE_WIDTHS",
+    "typecheck": "PASS",
+    "lint": "PASS",
+    "build": "PASS_OWN_DEPENDENCIES_AFTER_EXTERNAL_JUNCTION_FAIL",
+    "assistant": "819/819_PASS",
+    "bootstrap": "606/611_WINDOWS_POSIX_GUARD_FAILURES5_UNCHANGED",
+    "ci_run": 38479194108,
+    "supabase_run": 38479194069,
+    "auth_db": "107/0_PASS_AUTH_TEARDOWN_OWN_EXECUTED_SHA",
+    "model": "NOT_RUN",
+    "own_ci_quality": {
+      "source": "a650a9b348cade254a115fcda89bd2b49ecbbb83",
+      "executed": "6ac06af6e911b4c2a224fdfddf91f51405e4c710",
+      "tree": "2edb195b4f8efcdf8433f810da3f011329368be4",
+      "ci": 38479194108,
+      "functional": {
+        "bootstrap": 611,
+        "assistant": 819,
+        "total": 1430,
+        "build": "PASS_66",
+        "preview": 368,
+        "native_restore": {
+          "kind": "native_postgresql_restore_test_only",
+          "migration_count": 85,
+          "migration_head": "20261011090000_assistant_verified_completed_reconciliation.sql",
+          "dump_sha256": "f23a3bafee767150f0c389d4e41070e2824bbc2fa2077e8fff67a3da718f1000",
+          "schema": "pass",
+          "rows": "pass",
+          "assistant_rows": "pass",
+          "rls": "pass",
+          "scope": "pass",
+          "restored_privilege_matrix": "pass",
+          "fresh_role_calls": "pass",
+          "restored_role_calls": "pass",
+          "acl_loss_negative_control": "pass",
+          "production_backup": false
+        }
+      },
+      "audit": "FAIL_FIVE_HIGH",
+      "supabase": "PENDING_RUN38479194069",
+      "integration_ack": "NOT_RECEIVED",
+      "release": "NOT_ACCEPTED",
+      "model": "NOT_RUN",
+      "logs": [
+        {
+          "job": 115577326880,
+          "sha256": "c611c64ee48b906849bc4ea62c414556dd9adaa9f6d2123a1653e540f0750560"
+        },
+        {
+          "job": 115577326649,
+          "sha256": "5f0d2b0aa80ea97a8120fc3ca427f463dd1deeb086e4598c470cc9bc6e180abf"
+        },
+        {
+          "job": 115577326845,
+          "sha256": "d820aa95cc7c1921816442bffd4b0d45dc9b9f3c237a4ece5cbdbfb625bc83da"
+        }
+      ],
+      "utc": "2026-10-13T22:56:40.959723+00:00"
+    }
+  },
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-case-notes-parent-causal.txt",
+      "sha256": "2942e1df0d9a2081b0e1e2b5e2ac30c2705cd8b11887a0b8e3937fb8cbae0336"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-case-notes-fixture-missing-customer-list.txt",
+      "sha256": "51bc2d1ff26481b9799343b94ed91e78c45a19acfd9cfa03d5b92ae9dbbd4e72"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-case-notes-focused-final.txt",
+      "sha256": "aa29badef1e56bd672180b566ba46a6427a9602e98ad7d925662fc6481072cd1"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-case-notes-internal.txt",
+      "sha256": "a20816427634d5ac661652a39b933172aefcc17af1c4fdd4b7bdc3412460c24d"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-case-notes-assistant.txt",
+      "sha256": "8b12c657c70103045587bd489d97403826186b25737a118200d13e50415a8f5a"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-case-notes-build.txt",
+      "sha256": "e4daf7c0dc95d4ba229bec46dda7f3a62b5716b88dd9159f992aaae08e6b690a"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-case-notes-build-own-dependencies.txt",
+      "sha256": "2220bf36bee7162431b7dad2216bd7fa4a461f77863e01719c0ca21b47cc4d8e"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-case-notes-a650a9b.bundle",
+      "sha256": "540f97ceeffb88f96da32657a97b51dd745d9c0425a7053482e2e1cf7a4c4976"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-case-notes-results\\case-note-pagination-priva-4200a-oves-refused-content-at-768\\case-notes-current-page-768.png",
+      "sha256": "36937cc40c96cb8df509ddbf0187397ca6e7a7c0d270f2b94559d53f03f29fc0"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-case-notes-results\\case-note-pagination-priva-46af1-oves-refused-content-at-390\\case-notes-current-page-390.png",
+      "sha256": "bcbe52a0b3b9e0a2e5a95791f2785c0e4c953cac6bc7c9a9a5a15d9382719acb"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-case-notes-results\\case-note-pagination-priva-ff662-ves-refused-content-at-1440\\case-notes-current-page-1440.png",
+      "sha256": "9a18bc137fdab93bf33bdaa28d90c76a63fc56aa743c2035b58463db187f686b"
+    }
+  ],
+  "next": {
+    "claim": 6156727327,
+    "scope": "PAR042_CONTACT_EDITOR_UNCERTAIN_INTENT",
+    "path": "${WORKSPACE}\\work\\crm-w2x-contacts",
+    "branch": "codex/w2x-contact-uncertain-20261014",
+    "base": "60acdc5d6a2ae41ff3d751724582ade0c0762788"
+  },
+  "writes": "OFF",
+  "release": "NOT_ACCEPTED",
+  "high": 5,
+  "closed_metadata": "${WORKSPACE}\\work\\w2x-case-notes-closed-metadata.json"
+}

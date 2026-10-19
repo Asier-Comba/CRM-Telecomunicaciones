@@ -1,0 +1,1 @@
+const p=require('./playwright-w2x-line-context-retirement-final.config.cjs');module.exports={...p,testMatch:['customer-attention-context.spec.ts','customer-resource-scope.spec.ts','customer-post-command-lifetime.spec.ts','customer-reload-order.spec.ts'],outputDir:require('node:path').resolve(__dirname,'w2x-customer-attention-context-final-results')}

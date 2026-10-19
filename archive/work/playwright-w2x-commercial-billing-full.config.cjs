@@ -1,0 +1,1 @@
+const p=require('./playwright-w2x-commercial-grouped-full.config.cjs');module.exports={...p,testMatch:[...new Set([...p.testMatch,'invoice-relation-verification.spec.ts','billing-read-error.spec.ts','billing-proposal-review-commercial.spec.ts','billing-proposal-day.spec.ts'])],outputDir:require('node:path').resolve(__dirname,'w2x-commercial-billing-full-results')}

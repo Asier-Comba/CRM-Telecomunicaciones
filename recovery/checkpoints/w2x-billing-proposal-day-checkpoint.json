@@ -1,0 +1,135 @@
+{
+  "unit": 48,
+  "claim": 6214415919,
+  "base": "5dd9be771a5dde8305286c50567521ecb5c94356",
+  "branch": "codex/w2x-billing-proposal-day-20261016",
+  "status": "PUBLISHED_OWN45_BUILD66_VISUAL_PARTIAL",
+  "controls_session": 32270,
+  "product_changed": true,
+  "release": "NOT_ACCEPTED",
+  "checks": {
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN",
+    "paid_api": 0,
+    "global": "NOT_RUN_CURRENT_SHA",
+    "browser": "45_PASS_OWN_SOURCE",
+    "build": "66_PASS",
+    "lint": "EXIT0_WARNINGS_PRESERVED",
+    "scan": "PASS"
+  },
+  "original": {
+    "failed": 1,
+    "passed": 1,
+    "duration": "17.2s",
+    "cause": "Parent rendered asOf date captured before Madrid midnight;child text edit does not refresh parent prop. Proposal still uses previous day. Current-time positive passes."
+  },
+  "harness_failure": "${WORKSPACE}\\work\\w2x-billing-proposal-day-harness-failure.json",
+  "next": "Finish own45/build/lint/visual/scan/publication;then independent commercial work with fresh CLAIM;no inherited1362.",
+  "visual_review": {
+    "status": "ACTUALLY_VIEWED",
+    "scope": "Nine current midnight frames:summer/winter/leap390/768/1440;date/customer/series/currency/links header,lower concepts/totals/review not fully in viewport;partial only",
+    "frames": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-proposal-day-final-results\\billing-proposal-day-billi-0555d-al-day-leap-midnight-at-390\\proposal-day-leap-midnight-390.png",
+        "sha256": "c71fc13a0b3f6fe7ec4c015fc3558e4182a635a0980d453d9dbd8e9a04dca720"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-proposal-day-final-results\\billing-proposal-day-billi-173ea--day-summer-midnight-at-768\\proposal-day-summer-midnight-768.png",
+        "sha256": "db7207e0254365e25dd65e72e4d6178f68608538f423e1d261c32c50ceae652e"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-proposal-day-final-results\\billing-proposal-day-billi-339b3--day-winter-midnight-at-768\\proposal-day-winter-midnight-768.png",
+        "sha256": "11f3ca7c433215452a6ccc4f2c06b3ca56d37edf49d854f53f450eb85891ddf8"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-proposal-day-final-results\\billing-proposal-day-billi-45d21--day-summer-midnight-at-390\\proposal-day-summer-midnight-390.png",
+        "sha256": "39de4d627be80286cec2348fca3ceb4b1b1f3910c2174efcece4193f7fe77ea6"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-proposal-day-final-results\\billing-proposal-day-billi-511aa--day-winter-midnight-at-390\\proposal-day-winter-midnight-390.png",
+        "sha256": "c9e7e9dc6df6f347fa4667d4f385f098110e9f1b7d2ab6117f736694ade60883"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-proposal-day-final-results\\billing-proposal-day-billi-7ba55-day-summer-midnight-at-1440\\proposal-day-summer-midnight-1440.png",
+        "sha256": "5ea7cc73db36dbca18bb007d51575335102cfb8c74306f7a44d25326c44869c2"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-proposal-day-final-results\\billing-proposal-day-billi-c8c82-al-day-leap-midnight-at-768\\proposal-day-leap-midnight-768.png",
+        "sha256": "69d8f58caf22253ca49eb8656c2c20968bf0cf1a9a8f192b25d34a3bfb3410d3"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-proposal-day-final-results\\billing-proposal-day-billi-cada3-day-winter-midnight-at-1440\\proposal-day-winter-midnight-1440.png",
+        "sha256": "6d1cb4641fba42fa71b0fbf311c2eba8f481906b0d57bdab34d4212ae36d5d77"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-proposal-day-final-results\\billing-proposal-day-billi-d50a8-l-day-leap-midnight-at-1440\\proposal-day-leap-midnight-1440.png",
+        "sha256": "86d62265a9ad8ecb030a362cd252795354444347e49c65b3556baf2de352b87e"
+      }
+    ]
+  },
+  "candidate_fingerprints": [
+    {
+      "path": "src/features/billing/PromptBuilder.tsx",
+      "sha256_utf8_lf": "cbd23e265fe5b383f4779f20bdb8684e6e30489aca5eeff6d599ee91e40feff8"
+    },
+    {
+      "path": "src/features/billing/IntegratedBilling.tsx",
+      "sha256_utf8_lf": "e33dd850be45eb82771d09ed7187654d6ab0cd4fd2bbcf0de66b09c885a36838"
+    },
+    {
+      "path": "tests/e2e-preview/billing-proposal-day.spec.ts",
+      "sha256_utf8_lf": "8bad4ad175934dc6507d545a2912b2f5a30e75cfa1b3192af561a6dfb77530cb"
+    },
+    {
+      "path": "docs/master/W2X_BILLING_PROPOSAL_DAY_20261016.md",
+      "sha256_utf8_lf": "8c821e25b79dc3795e07b08ac56ea9bb511d475bc7f0f1199564332806ec819a"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-proposal-day-causal.txt",
+      "sha256": "d8820dd0787276677aa1f8a0944c3f2a01edb770a7a62b4807e24e07b7ed0d0e"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-proposal-day-browser.txt",
+      "sha256": "036ad3a68a53662b4c5d2513d6ebc3849a964896cb5b387291e729102512bc31"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-proposal-day-lint.txt",
+      "sha256": "91a5c63f9a9a0a42f92a00caa38da32336b62b940ccf4738d08ef97c55d9996c"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-proposal-day-build.txt",
+      "sha256": "582cf510f5340b78d2f613430c8f216843c0a01652251fb6e8c75632067cd3f3"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-proposal-day-scan.txt",
+      "sha256": "774113f9354277f246782535bd9012bf600695438ecd63829824c56c2c9bdd09"
+    }
+  ],
+  "sha": "bf72cf94f203a4b72b1b7124b4efdbfb050b36b1",
+  "handoffs": [
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6214486803",
+      "issue": 67,
+      "id": 6214486803
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6214487077",
+      "issue": 153,
+      "id": 6214487077
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6214487314",
+      "issue": 38,
+      "id": 6214487314
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6214487528",
+      "issue": 142,
+      "id": 6214487528
+    }
+  ],
+  "tree": "1267cbc2c7248fe7f1557a949771d0d13a560af7",
+  "publication": "PUBLISHED"
+}

@@ -1,0 +1,1 @@
+const p=require('./playwright-w2x-commercial-contract-lifetime-full.config.cjs');module.exports={...p,testMatch:[...p.testMatch,'portability-recovery-close.spec.ts','line-number-recovery-close.spec.ts'],outputDir:require('node:path').resolve(__dirname,'w2x-commercial-number-full-results')}

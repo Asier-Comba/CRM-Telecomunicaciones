@@ -1,0 +1,1 @@
+const p=require('./playwright-w2x-sim-create-read-final.config.cjs'),q=require('./playwright-w2x-portability-create-read-corrected-final.config.cjs');module.exports={...p,testMatch:[...new Set([...p.testMatch,...q.testMatch])],outputDir:require('node:path').resolve(__dirname,'w2x-line-context-retirement-final-results')}

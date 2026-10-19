@@ -1,0 +1,87 @@
+{
+  "utc": "2026-10-14T23:28:03.542935+00:00",
+  "work": "W2-X",
+  "path": "${WORKSPACE}\\work\\crm-w2x-document-upload-uncertain",
+  "claim": 6180715846,
+  "base": "4405c13f0ad724ec3538735182e1187522ce4372",
+  "branch": "codex/w2x-customer-post-command-lifetime-20261015",
+  "status": "OWN45_BUILD66_LINT_SCAN_PASS_VISUAL_PARTIAL_AUTH_NOT_RUN",
+  "checks": {
+    "controlled_http": 45,
+    "lint": "PASS",
+    "build": "PASS66",
+    "visual": "THREE_CURRENT_FRAMES_VIEWED_PARTIAL",
+    "auth_db": "NOT_RUN",
+    "storage": "NOT_RUN",
+    "model": "NOT_RUN",
+    "scan": "PASS"
+  },
+  "published": true,
+  "release": "NOT_ACCEPTED",
+  "next": "FULL653_OWN_SOURCE_RUNNING_NO_DUPLICATE",
+  "sha": "a2922568fe584e0dfec0930ef4e226505e53ccfa",
+  "tree": "9eadffa181f8f3f4c79c4eefdd9c3a9bdae333a3",
+  "clean": true,
+  "handoffs": [
+    {
+      "issue": 67,
+      "id": 6180759354,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6180759354"
+    },
+    {
+      "issue": 153,
+      "id": 6180759524,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6180759524"
+    },
+    {
+      "issue": 38,
+      "id": 6180759707,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6180759707"
+    },
+    {
+      "issue": 142,
+      "id": 6180759886,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6180759886"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-post-command-lifetime-causal-repro.txt",
+      "sha256": "a8b20e17eca6d24eaf8e14f6a5e640c694f5a610dc47ae9d4f490b86f9553030"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-post-command-lifetime-browser.txt",
+      "sha256": "09b88e4a9c91aa01b524b5866b23e894987482ece3a1b9c91872eb8fa754c317"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-post-command-lifetime-lint.txt",
+      "sha256": "dda21574b74ba6a9edea377d67b00a3846ea8ae6ee11171eb3102a4a59f30d98"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-post-command-lifetime-build.txt",
+      "sha256": "37272ad3249cc65c98b2ea7bac6006bd2e12d7c4a5094011d66019c5c1749724"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-post-command-lifetime-scan.txt",
+      "sha256": "7613f8436cd562dbe1c1fad12e59d4c377101665a76b6728d3ae98fae2d465bf"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-post-command-lifetime-published.bundle",
+      "sha256": "79c4b8e73e810648ac30e66986e244a47f3d0c559725b8f230304d46aee19839"
+    }
+  ],
+  "visual": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-post-command-final-results\\customer-post-command-life-14468-tomer-update-current-at-390\\customer-command-customer.update-current-390.png",
+      "sha256": "9412bb30bda006aa2010ae54c9588b402ede8ddd50d9f1680de30b5db2e04804"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-post-command-final-results\\customer-post-command-life-81d16-omer-update-current-at-1440\\customer-command-customer.update-current-1440.png",
+      "sha256": "24c340deb3ef7772aedd54c07eae049abb895e9ff41f818db51404f8f85c0c99"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-post-command-final-results\\customer-post-command-life-ecf43-tomer-update-current-at-768\\customer-command-customer.update-current-768.png",
+      "sha256": "4ca73b718692c31e7393551cb1723bb2e5e8f76e92b272836032aca4f5218c07"
+    }
+  ]
+}

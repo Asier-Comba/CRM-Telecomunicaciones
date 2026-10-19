@@ -1,0 +1,181 @@
+{
+  "claim": 6203863765,
+  "base": "452b920ad9c86aceac7be0bbdbfd6c6f2fcecdda",
+  "branch": "codex/w2x-portability-create-read-lifetime-20261015",
+  "path": "${WORKSPACE}\\work\\crm-w2x-commercial-composition",
+  "status": "OWN210_BUILD66_LINT0ERRORS3WARN_SCAN_PASS_VISUAL_PARTIAL_AUTH_NOT_RUN",
+  "production_changed": true,
+  "runtime": "FINAL210_HTTP_CONTROLLED_RUNNING_AFTER_FIXTURE_REFINEMENT",
+  "release": "NOT_ACCEPTED",
+  "next": "ONE_GLOBAL_COMBINED1266;SOURCE32_TEL033_METADATA_COMPOSE_AFTER_PUBLICATION;GLOBAL1065_FF5E5A7_SEPARATE;NO_INHERITED_PASS",
+  "causal_session": 2613,
+  "causal": {
+    "failed": 4,
+    "passed": 4,
+    "duration": "33.9s",
+    "log": "w2x-portability-create-read-causal.txt",
+    "scope": "in/out reference1440 command->oldprimary,refresh->oldline;4currentvalid DTO;line_effectnull lineversion1"
+  },
+  "candidate_fingerprints": [
+    {
+      "path": "src/features/portabilities/Portabilities.tsx",
+      "sha256_utf8_lf": "71f2c375810448f3d8be0cf3779bb83eaffd1b0995d93ad64a21aa5c6a6147be"
+    },
+    {
+      "path": "tests/e2e-preview/fixtures/commercial-resource-entry.tsx",
+      "sha256_utf8_lf": "f3b4970a99edca378af9d09aa027bc1fde5bb5d4dad6e6cfb2e7c905004728e7"
+    },
+    {
+      "path": "tests/e2e-preview/portability-create-read-lifetime.spec.ts",
+      "sha256_utf8_lf": "e924bda07da7ce10b2715a71b6d55d58a880f05dd2ce16ef4d6b0eee18cda5e7"
+    },
+    {
+      "path": "docs/master/W2X_PORTABILITY_CREATE_READ_LIFETIME_20261015.md",
+      "sha256_utf8_lf": "f1b83e7acb3385805d0b310fb6e89d04d8d272b276cf98fc7a2cfee0c848b440"
+    }
+  ],
+  "original_base": "4c9cd97250c806f0d84bd47d513cd2537c6ff8bf",
+  "composed_source30": "452b920ad9c86aceac7be0bbdbfd6c6f2fcecdda",
+  "fixture_readiness_correction": {
+    "original_failed": 18,
+    "original_passed": 192,
+    "duration": "7.1m",
+    "original_log": "w2x-portability-create-read-attempt1-browser.txt",
+    "original_results": "work/w2x-portability-create-read-final-results",
+    "cause": "fresh inventory may list already committed record during refresh-stage actor/reader change;mock company dataset must separate retired tenant",
+    "production_unchanged": true,
+    "positive_frames_same_product_pin": 12,
+    "same_retirement_assertions_limits_retries_image": true
+  },
+  "controls_session": 64946,
+  "original_controls_session": 23831,
+  "visual_review": {
+    "status": "ACTUALLY_VIEWED",
+    "frames": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portability-create-read-corrected-final-results\\portability-create-read-li-0e3b4-und-refresh-current-at-1440\\portability-create-current-outbound-refresh-1440.png",
+        "sha256": "59dc5cd0bc25017ef496e01c0e84efa614c1192822a1b5ec82d1f1d02db901df"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portability-create-read-corrected-final-results\\portability-create-read-li-245cd-ound-refresh-current-at-390\\portability-create-current-outbound-refresh-390.png",
+        "sha256": "b2e28a8fc4bf1539fa96a9cadcb3f6f7c0a4f104d91897020562df680b0c2275"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portability-create-read-corrected-final-results\\portability-create-read-li-2c341-ound-command-current-at-390\\portability-create-current-inbound-command-390.png",
+        "sha256": "863981ab01d312dece8ea05dfbe48cda011d2332d7958b44d7d7e444561ea9ae"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portability-create-read-corrected-final-results\\portability-create-read-li-2d45e-ound-refresh-current-at-390\\portability-create-current-inbound-refresh-390.png",
+        "sha256": "863981ab01d312dece8ea05dfbe48cda011d2332d7958b44d7d7e444561ea9ae"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portability-create-read-corrected-final-results\\portability-create-read-li-2f228-ound-command-current-at-390\\portability-create-current-outbound-command-390.png",
+        "sha256": "b2e28a8fc4bf1539fa96a9cadcb3f6f7c0a4f104d91897020562df680b0c2275"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portability-create-read-corrected-final-results\\portability-create-read-li-40308-ound-refresh-current-at-768\\portability-create-current-inbound-refresh-768.png",
+        "sha256": "67740685ca95e676d90f6874efa034f7d23f74543bab540a2c0c235944abe889"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portability-create-read-corrected-final-results\\portability-create-read-li-47481-und-command-current-at-1440\\portability-create-current-inbound-command-1440.png",
+        "sha256": "2f370a15ca01aa89420b1444abcc0080c1eeade8c4015ca6c6e4475c5a0fd2c0"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portability-create-read-corrected-final-results\\portability-create-read-li-65758-ound-command-current-at-768\\portability-create-current-outbound-command-768.png",
+        "sha256": "61828b22fa07f90f961b09353da52e58d20c21a8c1ec9924bd320c9f67223380"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portability-create-read-corrected-final-results\\portability-create-read-li-747d1-und-command-current-at-1440\\portability-create-current-outbound-command-1440.png",
+        "sha256": "59dc5cd0bc25017ef496e01c0e84efa614c1192822a1b5ec82d1f1d02db901df"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portability-create-read-corrected-final-results\\portability-create-read-li-a8245-ound-command-current-at-768\\portability-create-current-inbound-command-768.png",
+        "sha256": "67740685ca95e676d90f6874efa034f7d23f74543bab540a2c0c235944abe889"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portability-create-read-corrected-final-results\\portability-create-read-li-abbf2-und-refresh-current-at-1440\\portability-create-current-inbound-refresh-1440.png",
+        "sha256": "2f370a15ca01aa89420b1444abcc0080c1eeade8c4015ca6c6e4475c5a0fd2c0"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portability-create-read-corrected-final-results\\portability-create-read-li-b774e-ound-refresh-current-at-768\\portability-create-current-outbound-refresh-768.png",
+        "sha256": "61828b22fa07f90f961b09353da52e58d20c21a8c1ec9924bd320c9f67223380"
+      }
+    ],
+    "observation": "All12 corrected current inbound/outbound command/refresh390/768/1440 inspected:registered masked number,donor/target matching direction,draft/manual row/card,dates and link visible. No external operator completion or full module/AuthDB acceptance."
+  },
+  "preview_source_gates": {
+    "passed": 5,
+    "log": "w2x-portability-create-read-preview-gates.txt",
+    "scope": "Node source-only preview gates,not backend/1430/inference"
+  },
+  "checks": {
+    "browser": 210,
+    "build": 66,
+    "lint": "0_ERRORS_3_WARNINGS_VISIBLE",
+    "scan": "PASS",
+    "visual": "PARTIAL_12_CURRENT_PORTABILITY_CREATION_FRAMES_ACTUALLY_VIEWED",
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN",
+    "preview_source_gates": 5
+  },
+  "published": true,
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portability-create-read-causal.txt",
+      "sha256": "5ee8692e84d3427e73a0f243198d27f7d47b623e6435dde946292ce457d137cf"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portability-create-read-browser.txt",
+      "sha256": "35b111e582eccca1d33e33883a52bed7001ba14ad38d245bc6d1bea9a94fe1f9"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portability-create-read-lint.txt",
+      "sha256": "46b06a074950b0d83fe6c1c979beaeab9a24b2e4e4e51999ab23fa4d1236b1b4"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portability-create-read-build.txt",
+      "sha256": "b3b1ef0b2c8c757e63fecac34a7a293ff8aa13f3f1e682684ae0cc917f393146"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portability-create-read-scan.txt",
+      "sha256": "033e650b9940e87a00a2ff565bec90ff362212c4e4e2aca0e398319547d68a7f"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portability-create-read-preview-gates.txt",
+      "sha256": "a6f4acdb02c79a6f2bb52d5489c1a432b729d5ce08b4d64f5b6861b8ad6c1e77"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portability-create-read-attempt1-browser.txt",
+      "sha256": "75261d22ee5e28a4dfea35f74c0c2ae561dd268861910484bdd00a2590461af7"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portability-create-read-consumer-pin.json",
+      "sha256": "9fd6c9ea3947a5c3089b65b0cb87c3b0e572ff7d38f35a2a85e649f653f2381b"
+    }
+  ],
+  "publication": "PUBLISHED",
+  "tree": "31c493f0ed05ae9efb67ef0d3383c4e9be6f4ffd",
+  "handoffs": [
+    {
+      "issue": 67,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6204229374",
+      "id": 6204229374
+    },
+    {
+      "issue": 153,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6204229588",
+      "id": 6204229588
+    },
+    {
+      "issue": 38,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6204229749",
+      "id": 6204229749
+    },
+    {
+      "issue": 142,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6204229938",
+      "id": 6204229938
+    }
+  ],
+  "sha": "21a75fa2207337917406f70373b4bb0e4f79a324"
+}

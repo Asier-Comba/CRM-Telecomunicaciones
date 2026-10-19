@@ -1,0 +1,102 @@
+{
+  "claim": 6254341915,
+  "sha": "b4a8505ebaf97c5b23185d1e0c61c557eb450d5f",
+  "tree": "31e43a1e3538e6a8e0952456c75a624515b912f0",
+  "branch": "codex/w2x-contract-recovery-close-20261018",
+  "status": "OWN1968_FULL_PASS",
+  "browser_status": "PASS1968",
+  "browser_exit": 0,
+  "browser_summary": [
+    "1968 passed (39.8m)"
+  ],
+  "source_clean": true,
+  "own_source_checks": {
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN",
+    "paid_api": 0,
+    "global": "NOT_RUN_CURRENT_SHA",
+    "functional": "NOT_RUN_EXISTING_CONTROL_POLICY_CONSUMPTION",
+    "browser": "117_PASS_OWN_SOURCE",
+    "build": "66_PASS",
+    "lint": "EXIT0_WARNINGS_PRESERVED",
+    "scan": "PASS"
+  },
+  "known_remaining_defects": {
+    "whole_product": "NOT_RECONCILED",
+    "auth_db": "NOT_RUN",
+    "live_model": "NOT_RUN",
+    "security": "W4_PENDING_HIGH5",
+    "shared_semantics78": "W1_OWNER_REVIEW_CONSUMPTION_PENDING",
+    "post_receipt_field_binding": {
+      "status": "REPRODUCED_ON_THIS_EXACT_SHA",
+      "source_sha": "b4a8505ebaf97c5b23185d1e0c61c557eb450d5f",
+      "unit85_original": "work/w2x-contract-created-read-binding-causal.txt",
+      "business_failures": 5,
+      "fixture_failures": 1,
+      "positives": 2,
+      "scope": "Operator/date/plan/source/assignee validDTOaccepted;receipt2fixturealreadyblockedbyparser,notversionbug. Full1968bankdoesnotincludeunit85andcannotcredititsfix.",
+      "fix_candidate": {
+        "sha": "e7bc18e3f6d0ca0d18d966e99bae0f4571946314",
+        "unit": 85,
+        "status": "PUBLISHED_OWN141_BUILD66_VISUAL_PARTIAL",
+        "global": "NOT_RUN_ON85",
+        "scope": "Fixbelongs to85only;source84stillhascausalfailuresand1968cannotcredit85."
+      }
+    },
+    "release": "NOT_ACCEPTED"
+  },
+  "auth_db": "NOT_RUN",
+  "model": "NOT_RUN",
+  "paid_api": 0,
+  "release": "NOT_ACCEPTED",
+  "next": "Continue useful independent W2 commercial unit;no repeat green without changed source or relevant failure.",
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-commercial-contract-full-collection.txt",
+      "sha256": "d3010d2554101a9b22ee23af483efc3d5316b43d5210da2392ba13ec1fdaec27"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-commercial-contract-full-browser.txt",
+      "sha256": "ee8047ac32e44b90239e93d9ecd75ec6f751d643c8acf220f27f5d71764dbfee"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contract-recovery-close-browser.txt",
+      "sha256": "aaca417fa51f1468634514b4af3a8f9aeeeae454d0e6315822d52b432035c801"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contract-recovery-close-build.txt",
+      "sha256": "27cf2daa39adb3b5aca7e3f5b03562e47e30d22769b7fabeb0a97640e32c304e"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contract-recovery-close-lint.txt",
+      "sha256": "77e52456c3bf671c8ed5a0154c9dbfdd998b31f3c61494ca11430b416d294dad"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-contract-recovery-close-scan.txt",
+      "sha256": "d7b3f6d4c14c51d508ea7a56b2db5aa927a3c4860bc2e5c6eba27198249764a9"
+    }
+  ],
+  "publication": "PUBLISHED",
+  "handoffs": [
+    {
+      "id": 6255221957,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6255221957",
+      "issue": 67
+    },
+    {
+      "id": 6255222111,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6255222111",
+      "issue": 153
+    },
+    {
+      "id": 6255222254,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6255222254",
+      "issue": 38
+    },
+    {
+      "id": 6255222391,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6255222391",
+      "issue": 142
+    }
+  ]
+}

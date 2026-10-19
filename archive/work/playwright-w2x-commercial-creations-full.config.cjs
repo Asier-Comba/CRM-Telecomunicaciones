@@ -1,0 +1,1 @@
+const previous=require('./playwright-w2x-commercial-refreshed-full.config.cjs');module.exports={...previous,testMatch:[...previous.testMatch,'sim-assignment-selection.spec.ts','case-create-read-lifetime.spec.ts','sim-create-read-lifetime.spec.ts','portability-create-read-lifetime.spec.ts'],outputDir:require('node:path').resolve(__dirname,'w2x-commercial-creations-full-results')}

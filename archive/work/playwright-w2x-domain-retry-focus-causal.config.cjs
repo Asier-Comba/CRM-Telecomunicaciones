@@ -1,0 +1,1 @@
+const p=require('./playwright-w2x-domain-operator-label-wrap-final.config.cjs');module.exports={...p,testMatch:['domain-retry-focus.spec.ts'],outputDir:require('node:path').resolve(__dirname,'w2x-domain-retry-focus-causal-results')}

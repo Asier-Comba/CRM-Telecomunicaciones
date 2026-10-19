@@ -1,0 +1,143 @@
+{
+  "unit": 65,
+  "claim": 6252266133,
+  "base": "a82920d0642236769b4407ab138dda1dafd6f410",
+  "branch": "codex/w2x-billing-proposal-warnings-20261018",
+  "status": "PUBLISHED_OWN99_BUILD66_VISUAL_PARTIAL",
+  "causal_session": 91230,
+  "product_changed": true,
+  "release": "NOT_ACCEPTED",
+  "checks": {
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN",
+    "paid_api": 0,
+    "global": "NOT_RUN_CURRENT_SHA",
+    "browser": "99_PASS_OWN_SOURCE",
+    "build": "66_PASS",
+    "functional": "49_PASS_OWN_SOURCE",
+    "lint": "EXIT0_WARNINGS_PRESERVED",
+    "scan": "PASS"
+  },
+  "original": {
+    "failed": 2,
+    "passed": 1,
+    "duration": "39.2s",
+    "cause": "Integrated onGenerate retains draft but drops parser warnings/missingFields;included and missing amount lack editor provenance notices,ordinary positive passes. No commands sent."
+  },
+  "next": "Close own99/functional49/build/lint/visual/scan/publication;record source64 warning defect separately from active full1755. Continue useful independent product/individual acceptance;no inheritedPASS or duplicate full run.",
+  "controls_session": 3743,
+  "visual_review": {
+    "status": "ACTUALLY_VIEWED",
+    "scope": "Eight upper editor frames:included/missing current3907681440,then newblank afterincluded390/aftermissing1440. Provenance notice and upper customer/date/currency/issuer/relations readable;newblank expected warning position empty. Concepts/amounts/totals/review/actions mostly outside viewport,not full visual acceptance. Fixture background excluded.",
+    "frames": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-proposal-warnings-final-results\\billing-proposal-warnings--3f4b7-s-included-new-draft-at-390\\warnings-included-new-draft-390.png",
+        "sha256": "7820ecebe70933d453ce5a6de34cd32767426755b10f20954292d1de495339de"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-proposal-warnings-final-results\\billing-proposal-warnings--3fa28-s-missing-new-draft-at-1440\\warnings-missing-new-draft-1440.png",
+        "sha256": "74150641472937531056128099ee66750a59dd6ca0650158fef98d79f8c1c192"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-proposal-warnings-final-results\\billing-proposal-warnings--55a30-ings-missing-current-at-390\\warnings-missing-current-390.png",
+        "sha256": "6e6f15c5558a4c68f2264dff39b3aef88fcd66a0f28ed7b330f57e5e8451301b"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-proposal-warnings-final-results\\billing-proposal-warnings--6b894-gs-included-current-at-1440\\warnings-included-current-1440.png",
+        "sha256": "6b6e6d66c8dec7c4b9b74d502cfd4cd8b0d6c7c23b3bcc4973bffa82f2f7b68e"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-proposal-warnings-final-results\\billing-proposal-warnings--74afc-ngs-missing-current-at-1440\\warnings-missing-current-1440.png",
+        "sha256": "d44100edc80acf988e42518645833f48bb15bf363bebfebca1e72dc880e42a24"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-proposal-warnings-final-results\\billing-proposal-warnings--9b832-ngs-included-current-at-768\\warnings-included-current-768.png",
+        "sha256": "6bb9611350892ff3209092129dea7bf5f0c45999c71889889cb8fc6b1fd28f6d"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-proposal-warnings-final-results\\billing-proposal-warnings--c2184-ngs-included-current-at-390\\warnings-included-current-390.png",
+        "sha256": "06d2cb4e72dc854a5243e19f8d1d2372a17d2212ff08b05dc867a02123edf94e"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-proposal-warnings-final-results\\billing-proposal-warnings--fa9e3-ings-missing-current-at-768\\warnings-missing-current-768.png",
+        "sha256": "5a99a9a6963dfe83efa916b5ad23edd1be2bb06fc75fc7c583dd5d4e1e62cefc"
+      }
+    ]
+  },
+  "candidate_fingerprints": [
+    {
+      "path": "src/features/billing/IntegratedBilling.tsx",
+      "sha256_utf8_lf": "46bda89bfc14b82d87f4f21269d98ee9726560c0f3e37cec49ae0ef5e4db1778"
+    },
+    {
+      "path": "tests/e2e-preview/billing-proposal-warnings.spec.ts",
+      "sha256_utf8_lf": "e93ed22f98acdacdf682599b8c06723fcb20e04c702107de20a2756308ecc8c8"
+    },
+    {
+      "path": "docs/master/W2X_BILLING_PROPOSAL_WARNINGS_20261018.md",
+      "sha256_utf8_lf": "19b0756bc3a32777075de372bab8893dcc0742002d4d7f901d359d09c9ba4c7d"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-proposal-warnings-causal.txt",
+      "sha256": "fc27951525685d22c446336fafb1829394abccb00e3ec66905f3e91b852d0a29"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-proposal-warnings-browser.txt",
+      "sha256": "68e40e8891b818fcbad391273e47cf360a377df10d90be0f0d25e428fcfd29b2"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-proposal-warnings-functional.txt",
+      "sha256": "9cac9e528b1f3a63a03779870707a7d0766a638acd7257d1174362634b04a619"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-proposal-warnings-lint.txt",
+      "sha256": "77e52456c3bf671c8ed5a0154c9dbfdd998b31f3c61494ca11430b416d294dad"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-proposal-warnings-build.txt",
+      "sha256": "d67d53d4de613c41a3ba8ae90b5ff2e3789a5a06459aad2bdd20d09fd94ce623"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-proposal-warnings-scan.txt",
+      "sha256": "4ebe3ed9bc69d5bfefd5e1f99f030248b5cc0064c802629d7c1460063121be23"
+    }
+  ],
+  "publication": "PUBLISHED",
+  "tree": "6bad9873d4160a65355ed296991e5be069e1c9d6",
+  "sha": "d65880a3af08bcc861d14846d399a75235f65a76",
+  "handoffs": [
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6252344139",
+      "id": 6252344139,
+      "issue": 67
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6252344345",
+      "id": 6252344345,
+      "issue": 153
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6252344492",
+      "id": 6252344492,
+      "issue": 38
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6252344618",
+      "id": 6252344618,
+      "issue": 142
+    }
+  ],
+  "known_remaining_defects": {
+    "whole_product": "NOT_RECONCILED_NO_ABSENCE_OR_FULL_ACCEPTANCE_INFERRED",
+    "initial_customer_search": {
+      "reproduced_source": "2b7dd80ff93e22ac8fc8bd75ff48d99fb396502a",
+      "original": "1FAIL_1PASS_23.5S",
+      "checkpoint": "work/w2x-billing-initial-customer-merge-checkpoint.json",
+      "fixed_source": "44d807ec2c8b85540e648643eaeecbd8474de967",
+      "source65_inference": "Metadata66 changed no src/tests;initial identity callback unchanged. This is not a separately executed source65 failure. Full1773 lacks the new18 bank and fix67;not whole-product qualification."
+    }
+  },
+  "full_waiter_session": 76632
+}

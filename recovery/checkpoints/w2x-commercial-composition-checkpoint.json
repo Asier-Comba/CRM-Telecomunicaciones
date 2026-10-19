@@ -1,0 +1,501 @@
+{
+  "utc": "2026-10-14T01:20:46.837759+00:00",
+  "work": "W2-X",
+  "path": "${WORKSPACE}\\work\\crm-w2x-commercial-composition",
+  "branch": "codex/w2x-commercial-recovery-composition-20261014",
+  "pr_branch": "codex/w2x-contact-uncertain-20261014",
+  "sha": "37a5f0ef91ca436122327d18d59cbe723e92cc84",
+  "tree": "ed9189e41f293ff74daa6ab4f71ea6682911efd8",
+  "published_sha": "37a5f0ef91ca436122327d18d59cbe723e92cc84",
+  "clean": true,
+  "claim": 6158632189,
+  "handoff": 6158741503,
+  "pr": 153,
+  "status": "OWN37A5_FUNCTIONAL_SCOPED_1430_538_AUTH112_NATIVE85_QUALIFIED_FOR_OWNER_REVIEW_HIGH5_NOT_RELEASE",
+  "integration_ack": "NOT_RECEIVED",
+  "checks": {
+    "focal_browser": 90,
+    "existing_regression_browser": 43,
+    "local_browser_total": 133,
+    "build": "PASS66",
+    "lint": "PASS",
+    "queue": "342_9PARTIAL_333UNRECONCILED_0READY",
+    "gitleaks": "PASS",
+    "ci_run": 38495080313,
+    "supabase_run": 38495080336,
+    "executed_expected": "60d3b09bb3663a9864d5ed2619785ebdf97e05ee",
+    "full_preview": "538_PASS_OWN_EXECUTED_TREE",
+    "auth_db": "112_0_PASS_OWN_AUTH_TEARDOWN_THREE_NEW_COMMERCIAL_CONSUMERS_ALL_C360",
+    "native": "OWN85_MIGRATIONS_RESTORE_PASS_EXECUTED_TREE_VERIFIED",
+    "model": "NOT_RUN",
+    "own_quality": {
+      "source": "37a5f0ef91ca436122327d18d59cbe723e92cc84",
+      "executed": "60d3b09bb3663a9864d5ed2619785ebdf97e05ee",
+      "tree": "ed9189e41f293ff74daa6ab4f71ea6682911efd8",
+      "ci": 38495080313,
+      "functional": {
+        "bootstrap": 611,
+        "assistant": 819,
+        "total": 1430,
+        "build": "PASS66",
+        "preview": 538,
+        "native_restore": {
+          "kind": "native_postgresql_restore_test_only",
+          "migration_count": 85,
+          "migration_head": "20261011090000_assistant_verified_completed_reconciliation.sql",
+          "dump_sha256": "5af8c4a273fe7c792e9dcb3bb4784fb0eaa72fddd49d34a9bdb9d2dcee46c33c",
+          "schema": "pass",
+          "rows": "pass",
+          "assistant_rows": "pass",
+          "rls": "pass",
+          "scope": "pass",
+          "restored_privilege_matrix": "pass",
+          "fresh_role_calls": "pass",
+          "restored_role_calls": "pass",
+          "acl_loss_negative_control": "pass",
+          "production_backup": false
+        }
+      },
+      "audit": "FAIL_FIVE_HIGH",
+      "supabase": "PENDING_OWN38495080336",
+      "original_dd764_complete_cause": "UNKNOWN_REQUEST6158449023_NOT_INFERRED_FROM_THIS_SCOPE",
+      "integration_ack": "NOT_RECEIVED",
+      "release": "NOT_ACCEPTED",
+      "model": "NOT_RUN",
+      "logs": [
+        {
+          "job": 115628904260,
+          "sha256": "3cd59b6b4c584acbb4cd0d931955fdafe5130452344cb3dd9809753c4e722142"
+        },
+        {
+          "job": 115628904626,
+          "sha256": "13080e5b53aa2dd7c4e7e1864364f356d27fb840facbbc441ec7a94834b97b49"
+        },
+        {
+          "job": 115628904532,
+          "sha256": "a28cf5693b359aeb996a3e0548a3616fa7d8a2a3b6690ddbd3226da4ca17c14e"
+        }
+      ],
+      "utc": "2026-10-14T01:37:16.077788+00:00"
+    },
+    "auth_visual_review": {
+      "scope": "ACTUAL_DISPOSABLE_AUTH_BILLING_ISSUE_LOST_REPLY_RECOVERY_NOT_FULL_PRODUCT_VISUAL_ACCEPTANCE",
+      "widths": [
+        390,
+        768,
+        1440
+      ],
+      "images": [
+        {
+          "path": "${WORKSPACE}\\work\\w2x-commercial-auth-billing-uncertain-invoice.issue-390.png",
+          "sha256": "19a5d4b746cf816b7083fecca59a5358a97939be8217aa82285f79f1032db595"
+        },
+        {
+          "path": "${WORKSPACE}\\work\\w2x-commercial-auth-billing-uncertain-invoice.issue-768.png",
+          "sha256": "ca17e3b7b91f4fc9a0a07782cb6eb03b1bac066bd8219fbd5b13d83280a89986"
+        },
+        {
+          "path": "${WORKSPACE}\\work\\w2x-commercial-auth-billing-uncertain-invoice.issue-1440.png",
+          "sha256": "e1de25b2377d4666dd1e202f2e89ed37e772373f89697886c580b44725bbe855"
+        }
+      ]
+    }
+  },
+  "historical_failure_refs": [
+    "${WORKSPACE}\\work\\w2x-d764-failed-metadata.json",
+    "${WORKSPACE}\\work\\w2x-f79-native-quota-original-failure.json",
+    "${WORKSPACE}\\work\\w2x-f79-auth-closed-native-quota-blocked.json",
+    "${WORKSPACE}\\work\\w2x-dd764-auth-failed-closed.json"
+  ],
+  "units": [
+    {
+      "pr": 152,
+      "sha": "a650a9b348cade254a115fcda89bd2b49ecbbb83",
+      "checkpoint": "${WORKSPACE}\\work\\w2x-case-notes-checkpoint.json",
+      "ci_run": 38479194108,
+      "supabase_run": 38479194069
+    },
+    {
+      "pr": 153,
+      "sha": "9c361c9ce7e32ba202f0c6e24aacd371c5026e04",
+      "checkpoint": "${WORKSPACE}\\work\\w2x-contacts-checkpoint.json",
+      "ci_run": 38480433850,
+      "supabase_run": 38480433895
+    },
+    {
+      "sha": "2b8f7b0f72f731b9bf4c1513c74fe5cabeb54b12",
+      "branch": "codex/w2x-contact-customer-state-20261014",
+      "checkpoint": "${WORKSPACE}\\work\\w2x-contact-state-checkpoint.json",
+      "claim": 6156910547,
+      "ci": "NOT_RUN_INDEPENDENT_DELTA"
+    },
+    {
+      "sha": "563948981dff3e1216beeb3fcec3c7e9219596a4",
+      "branch": "codex/w2x-customer-uncertain-20261014",
+      "checkpoint": "${WORKSPACE}\\work\\w2x-customer-checkpoint.json",
+      "claim": 6157018709,
+      "ci": "NOT_RUN_INDEPENDENT_DELTA"
+    },
+    {
+      "sha": "4107e9f10d206864ade102cbe25d2507ead4d349",
+      "checkpoint": "${WORKSPACE}\\work\\w2x-par042-review-checkpoint.json",
+      "claim": 6157289777
+    },
+    {
+      "sha": "27fdcc53790e3c43afc4534ccf7c438bed7a68f8",
+      "checkpoint": "${WORKSPACE}\\work\\w2x-contact-page-focus-checkpoint.json",
+      "claim": 6157389360
+    },
+    {
+      "sha": "d76426fa195bc7c29bd77811e1bb987cddfade3d",
+      "checkpoint": "${WORKSPACE}\\work\\w2x-composition-checkpoint.json",
+      "state": "ORIGINAL_FAIL_PRESERVED"
+    },
+    {
+      "sha": "a9761de5c785a57ae6e733c98c5a2c40626fe29f",
+      "checkpoint": "${WORKSPACE}\\work\\w2x-c360-waiters-checkpoint.json",
+      "claim": 6157715752
+    },
+    {
+      "sha": "c7da250880d7c529423086bfcca7ec95a79d460e",
+      "checkpoint": "${WORKSPACE}\\work\\w2x-customer-state-uncertain-checkpoint.json",
+      "claim": 6157869961
+    },
+    {
+      "sha": "f79a39faca70591b6ca2d477358b5cd18fbbe3cc",
+      "checkpoint": "${WORKSPACE}\\work\\w2x-customer-final-checkpoint.json",
+      "status": "AUTH109_PASS_NATIVE_RESOURCE_QUOTA_NOT_QUALIFIED"
+    },
+    {
+      "sha": "dd764f7405049ea8d3e17dd51e678458f33597f8",
+      "checkpoint": "${WORKSPACE}\\work\\w2x-customer-state-composition-checkpoint.json",
+      "status": "FAIL96_13_AUTH_TEARDOWN_PASS_NOT_ELIGIBLE"
+    },
+    {
+      "sha": "ed048f7706e44861d096fc4c73ec96e3704e3b75",
+      "checkpoint": "${WORKSPACE}\\work\\w2x-billing-uncertain-checkpoint.json"
+    },
+    {
+      "sha": "b1d93a0e0693f522ee6249dea71710ee6f8ba708",
+      "checkpoint": "${WORKSPACE}\\work\\w2x-portfolio-receipt-close-checkpoint.json"
+    },
+    {
+      "sha": "2976cdda8c02ff2e6a13983ea11edeb8b79e7a8c",
+      "checkpoint": "${WORKSPACE}\\work\\w2x-portfolio-partial-checkpoint.json"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-commercial-composition-browser.txt",
+      "sha256": "3bedb8784b8b4dc1bc91cecc0b48ac0f859cbebbb5e03249bd06a188fdc3ea36"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-commercial-composition-build.txt",
+      "sha256": "66f01a8e90c1cc8998b3933a81b2a20efc12e53a9348bf4550360b0c47857cad"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-commercial-composition-lint.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-commercial-composition-queue.txt",
+      "sha256": "e5af9d62c7bd7d5159086aa48b79910b370650d6ec054e7f4fd700868f351f5a"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-commercial-composition-gitleaks.txt",
+      "sha256": "c097a7c01329f27061bfccc5d50c6a1696ca58ded769764f3b87b1005964351a"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-commercial-composition-published.bundle",
+      "sha256": "7de286a09cf6f4ba141d542f5435011d060453baaadd6a678fa6794e136e35a9"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-dd764-terminal-before-commercial-publication.json",
+      "sha256": "b5a52149368036c0651cd240969ade7f823bfd93686b45e31e5bf66296207c0d"
+    }
+  ],
+  "independent_active_unit": {
+    "utc": "2026-10-14T01:30:17.813300+00:00",
+    "work": "W2-X",
+    "path": "${WORKSPACE}\\work\\crm-w2x-document-upload-uncertain",
+    "branch": "codex/w2x-document-upload-uncertain-20261014",
+    "sha": "51c335f2561abb290c3b7f93024a699226b32351",
+    "tree": "a1c8253f7ce20f3f93162d6cb0a2e1b942015a8c",
+    "published_sha": "51c335f2561abb290c3b7f93024a699226b32351",
+    "clean": true,
+    "claim": 6158706182,
+    "handoff": 6158842624,
+    "pr": 153,
+    "status": "PUBLISHED_INDEPENDENT_DOCUMENT_UPLOAD_NO_AUTH_STORAGE_PASS_INFERRED",
+    "checks": {
+      "browser": 9,
+      "build": "PASS66",
+      "types": "PASS",
+      "lint": "PASS",
+      "gitleaks": "PASS",
+      "auth_db_storage": "NOT_RUN_PREPARED_THREE_STEP_ORDINARY_CONTENT_CONTROL",
+      "model": "NOT_RUN"
+    },
+    "evidence": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-document-upload-parent.txt",
+        "sha256": "31102c416f321c60b5a2a7a4608ae8fae6830c6a1da7167c924ef7e0eced3f19"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-document-upload-fixed.txt",
+        "sha256": "4a07a896119d0079689e880d6611f9f123fe133b9f17ae221ffb424dddd667f0"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-document-upload-types.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-document-upload-lint.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-document-upload-consumer-lint.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-document-upload-build.txt",
+        "sha256": "655a2ce72af9c5d59744609a1616f3945526e2d660ddcf2be48ef5e303c36ea4"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-document-upload-gitleaks.txt",
+        "sha256": "9db7fdb60eb04ab2a2f6521adbdc5ec250df84a42412a6e0c275629256b28235"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-document-upload-published.bundle",
+        "sha256": "23017c8f39a929c5874a2b9640f78734a867002b279c2d670d0bb332b5a38880"
+      }
+    ],
+    "permission_contract_changes": false,
+    "integration_ack": "NOT_RECEIVED",
+    "writes": "OFF",
+    "release": "NOT_ACCEPTED",
+    "high": 5,
+    "next": "PREPARE_OWN_DOC_COMPOSITION_AFTER37A5_TERMINAL;NEW142_LOCAL_556_PREVIEW_113_AUTH_EXPECTED_NOT_MEASURED;PRESERVE_CUSTOMER_FIXTURE_MODES_AND_BOTH_PRODUCT_CONSUMER_DELTAS_UTF8"
+  },
+  "next": "SECOND_COMMERCIAL_COMPOSITION_CLAIM6159200740_NORMAL_MERGE37A5_EC523;196_LOCAL_622_PREVIEW_115_AUTH_EXPECTED_NOT_MEASURED",
+  "writes": "OFF",
+  "release": "NOT_ACCEPTED",
+  "high": 5,
+  "original_dd764_complete_cause": "UNKNOWN_W5_RETROSPECTIVE_RESPONSE6158916484_OTHER_CANDIDATE_NOT_MEASURED",
+  "independent_next_unit": {
+    "utc": "2026-10-14T01:45:24.076104+00:00",
+    "work": "W2-X",
+    "path": "${WORKSPACE}\\work\\crm-w2x-document-upload-uncertain",
+    "branch": "codex/w2x-document-upload-uncertain-20261014",
+    "sha": "ab190eb918b74ca4b7346813ea3c22e445a599bd",
+    "tree": "451db35b652f2b1733175844d38f808154737711",
+    "published_sha": "ab190eb918b74ca4b7346813ea3c22e445a599bd",
+    "clean": true,
+    "claim": 6158886778,
+    "handoff": 6159017832,
+    "pr": 153,
+    "status": "PUBLISHED_INDEPENDENT_DOCS_AGENDA_NO_AUTH_DB_STORAGE_PASS_INFERRED",
+    "historical_document_source": "51c335f2561abb290c3b7f93024a699226b32351",
+    "document_core_exact_preserved": true,
+    "checks": {
+      "agenda_browser_new": 18,
+      "agenda_browser_regressions": 12,
+      "agenda_browser_total": 30,
+      "document_browser": "9_PASS_ON_HISTORICAL51C_EXACT_BLOBS_PRESERVED_NOT_RERUN_OR_INHERITED_FULL_ACCEPTANCE",
+      "build": "PASS66",
+      "types": "PASS",
+      "lint": "PASS",
+      "gitleaks": "PASS",
+      "auth_db_storage": "NOT_RUN_TWO_PREPARED_ORDINARY_CONTENT_WORK_CONTROLS",
+      "model": "NOT_RUN"
+    },
+    "evidence": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-agenda-uncertain-parent.txt",
+        "sha256": "2bbb781723ab1ff65581e91726cded7a3bc9564f2efc7f1c64ff1f055fb83de0"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-agenda-uncertain-fixed.txt",
+        "sha256": "95d94c4951c6662de823dcc585f53d220ae387498c1bac999b45f294823d9c81"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-agenda-uncertain-complete.txt",
+        "sha256": "969616eb1a3853d959b70d393cec3408d4727f567833d2b3ba5864ca49228195"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-agenda-uncertain-types.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-agenda-uncertain-lint.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-agenda-uncertain-consumer-lint.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-agenda-uncertain-build.txt",
+        "sha256": "05dcd286ea9d005c43b98e62ad66a0d08941ad3b3503d2b6bdd176d7c6eadae2"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-agenda-uncertain-gitleaks.txt",
+        "sha256": "2765604c59fedccb62793b06752645670eda50b5d8008d8938893767f4ea3360"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-agenda-uncertain-published.bundle",
+        "sha256": "6be2bb7d7c826ddece63251008d77cdbd0c90d6b3fc267b9d46243607c9e8db5"
+      }
+    ],
+    "permission_contract_changes": false,
+    "integration_ack": "NOT_RECEIVED",
+    "writes": "OFF",
+    "release": "NOT_ACCEPTED",
+    "high": 5,
+    "next": "CLOSE37A5_SUP38495080336_THEN_COMPOSE_DOCS_AGENDA_NORMAL_MERGE_PRESERVE_BOTH_CUSTOMER_FIXTURE_MODES_AND_CONSUMERS;NEW172_LOCAL_592_PREVIEW_114_AUTH_EXPECTED_NOT_MEASURED"
+  },
+  "coordination_dd764_response": {
+    "request": 6158449023,
+    "response": 6158916484,
+    "report": "${WORKSPACE}\\work\\w2x-dd764-w5-retrospective.json",
+    "scope": "READONLY_RECONSTRUCTION_NOT_RCA_COMPLETE_NOT_OWNER_ACK_NOT_W4"
+  },
+  "closed_metadata": "${WORKSPACE}\\work\\w2x-commercial-closed-metadata.json",
+  "independent_opportunity_active": {
+    "utc": "2026-10-14T02:00:36.887202+00:00",
+    "work": "W2-X",
+    "path": "${WORKSPACE}\\work\\crm-w2x-document-upload-uncertain",
+    "branch": "codex/w2x-document-upload-uncertain-20261014",
+    "sha": "ec5238cac41f11ad864b8878c651fe5944a0990e",
+    "tree": "5c847dabadabc91bdac0c7f704f277b2d670a18b",
+    "published_sha": "ec5238cac41f11ad864b8878c651fe5944a0990e",
+    "clean": true,
+    "claim": 6159050259,
+    "handoff": 6159200543,
+    "pr": 153,
+    "status": "PUBLISHED_INDEPENDENT_DOCS_AGENDA_OPPORTUNITY_NO_AUTH_DB_PASS_INFERRED",
+    "historical_sources": [
+      "51c335f2561abb290c3b7f93024a699226b32351",
+      "ab190eb918b74ca4b7346813ea3c22e445a599bd"
+    ],
+    "checks": {
+      "opportunity_browser_new": 15,
+      "opportunity_browser_regressions": 9,
+      "build": "PASS66",
+      "types": "PASS",
+      "lint": "PASS",
+      "gitleaks": "PASS",
+      "auth_db_storage": "NOT_RUN_THREE_PREPARED_ORDINARY_COMMERCIAL_CONSUMERS",
+      "model": "NOT_RUN"
+    },
+    "evidence": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-opportunity-recovery-parent.txt",
+        "sha256": "d727a6429e0d86ffcecc3fc9dda1f92f99ad8864fad1f73a5df987d44df76551"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-opportunity-recovery-parent-corrected.txt",
+        "sha256": "d6eaed75bbc0983d52bd39f6cf382d94396f03e0b6aee9f133d0e22a141ae92f"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-opportunity-recovery-parent-reproduction.txt",
+        "sha256": "d9bef8622befb6b74fdab713063b85f0c2545b8c2430c5404d9eb28f53582071"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-opportunity-recovery-fixed.txt",
+        "sha256": "f19909c37da5742fb161727d89b2de8251f40c0a45d1e50117c688f5387ba32f"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-opportunity-recovery-regressions.txt",
+        "sha256": "61ac5a4787181585bbd9617cda5cc24b9a483e0b564cd01b8a5c870c96e4ef07"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-opportunity-recovery-types.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-opportunity-recovery-lint.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-opportunity-recovery-build.txt",
+        "sha256": "5ee3aa8dc0f566d6d09dc777173d9f5c5555c44e616822d727cda7ed8370569a"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-opportunity-recovery-gitleaks.txt",
+        "sha256": "e15a1f0aaf8d9d1d23989345149a962a454c34f097bc1ffc2c9a33507af889bc"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-opportunity-recovery-published.bundle",
+        "sha256": "b216f313c5954cd04a6877ed9ef9bc2d74464ed8708001b710897f990607fec7"
+      }
+    ],
+    "permission_contract_changes": false,
+    "integration_ack": "NOT_RECEIVED",
+    "writes": "OFF",
+    "release": "NOT_ACCEPTED",
+    "high": 5,
+    "next": "SECOND_COMMERCIAL_COMPOSITION_CLAIM6159200740_NORMAL_MERGE37A5_EC523;196_LOCAL_622_PREVIEW_115_AUTH_EXPECTED_NOT_MEASURED"
+  },
+  "qualified_handoff": 6159115902,
+  "queued_second_commercial_composition": {
+    "claim": 6159200740,
+    "path": "${WORKSPACE}\\work\\crm-w2x-commercial-composition",
+    "branch": "codex/w2x-commercial-recovery-composition-20261014",
+    "qualified_base": "37a5f0ef91ca436122327d18d59cbe723e92cc84",
+    "incoming": "ec5238cac41f11ad864b8878c651fe5944a0990e",
+    "status": "ASSEMBLED_WITH_SINGLE_FIXTURE_CONFLICT_RESOLVED_LOCAL196_BROWSER_BUILD_LINT_RUNNING",
+    "expected_local": 196,
+    "expected_preview": 622,
+    "expected_auth": 115,
+    "assembled_sha": "ac60ad51fd6561b1e8835ed8db16d28a551554d4",
+    "fixture_resolution": "BOTH_NEW_CUSTOMER_AND_UPLOAD_HOOKS_BEFORE_CONDITIONAL_RETURNS",
+    "core_preservation": "EXACT37A5_AND_EC523_BLOBS_UTF8_ALL_CONSUMERS_PRESENT",
+    "published_alias_source": "37a5f0ef91ca436122327d18d59cbe723e92cc84"
+  },
+  "independent_par107_review": {
+    "utc": "2026-10-14T02:10:15.230684+00:00",
+    "work": "W2-X",
+    "path": "${WORKSPACE}\\work\\crm-w2x-par042-review",
+    "branch": "codex/w2x-par107-evidence-20261014",
+    "sha": "5ee15a37f87a3a041142ebb62ec23950df2b8e45",
+    "tree": "0686e4e92f47f6b2679b05568e7b04fd3be5512f",
+    "published_sha": "5ee15a37f87a3a041142ebb62ec23950df2b8e45",
+    "clean": true,
+    "claim": 6159271321,
+    "handoff": 6159323548,
+    "status": "SINGLE_ROW_PAR107_PARTIAL_EVIDENCE_REVIEW_PUBLISHED",
+    "evidence_source": "37a5f0ef91ca436122327d18d59cbe723e92cc84",
+    "checks": {
+      "scope": "ONLY_PAR107_341_OTHER_ROWS_HEADERS_STAGES_OLD3_EVIDENCE_EXACT",
+      "queue": "MEASURED342_9PARTIAL_333UNRECONCILED_0READY",
+      "gitleaks": "PASS",
+      "model": "NOT_RUN"
+    },
+    "evidence": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-par107-queue-write.txt",
+        "sha256": "fe3dd205182f035bc8f0199b6a4ad17d89e31c43961734acecaccb5a8effcb6c"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-par107-queue-check.txt",
+        "sha256": "e5af9d62c7bd7d5159086aa48b79910b370650d6ec054e7f4fd700868f351f5a"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-par107-gitleaks.txt",
+        "sha256": "37072905ec9e7a0f84cd7e50c0fd09b49e5d4274088873ec36eb9b2fc912fbde"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-par107-visual-manifest.json",
+        "sha256": "7999b631a3eb2eb0914b8ac9de7f5d5c76884a1db589abba541fe99f04f10bd9"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-par107-review-published.bundle",
+        "sha256": "580f6339762f7df0f77dc6f5fdc9d28bb0d51de561282d75f66df6ca6401284c"
+      }
+    ],
+    "release": "NOT_ACCEPTED",
+    "writes": "OFF",
+    "high": 5
+  }
+}

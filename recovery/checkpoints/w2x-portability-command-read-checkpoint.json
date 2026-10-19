@@ -1,0 +1,130 @@
+{
+  "claim": 6203275119,
+  "status": "OWN105_BUILD66_LINT0ERRORS3WARN_SCAN_PASS_VISUAL_PARTIAL_AUTH_NOT_RUN",
+  "branch": "codex/w2x-portability-command-read-lifetime-20261015",
+  "scope": "Post-command PortabilityDetail read lifetime, command/refresh phases",
+  "next": "NEXT_SIM_ASSIGNMENT_SELECTION_CURRENCY_REPRO_THEN_TEL024_PARTIAL_REVIEW;GLOBAL1065_FF5E5A7_SEPARATE;NO_INHERITED_PASS",
+  "runtime": "ORIGINAL4_CONTROLLED_HTTP_RUNNING",
+  "release": "NOT_ACCEPTED",
+  "base": "3712b2f72bd8ec19935521525b182f12c065f20b",
+  "production_changed": true,
+  "test_applied": true,
+  "causal": {
+    "failed": 2,
+    "passed": 2,
+    "duration": "34.4s",
+    "log": "w2x-portability-command-read-causal.txt",
+    "scope": "Command pending starts old portability.get;refresh pending starts old line.list;reference1440,current positives;line_effectnull"
+  },
+  "candidate_fingerprints": [
+    {
+      "path": "src/features/portabilities/Portabilities.tsx",
+      "sha256_utf8_lf": "ad8d936a6de33f5e0572ac1aa94dc12733c5c2bc6e6fcfbd6f12d8bdaef1d34d"
+    },
+    {
+      "path": "tests/e2e-preview/portability-command-read-lifetime.spec.ts",
+      "sha256_utf8_lf": "5ea6edc3eb15d8ace03e3e66f8d2a12fdbfb6660afeb8616eed24073581c2b06"
+    },
+    {
+      "path": "docs/master/W2X_PORTABILITY_COMMAND_READ_LIFETIME_20261015.md",
+      "sha256_utf8_lf": "c79477d84ce384343f8906824c97fd71f7b8917714220e0e08741271319517b0"
+    }
+  ],
+  "visual_review": {
+    "status": "ACTUALLY_VIEWED",
+    "frames": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portability-command-read-final-results\\portability-command-read-l-18d9b-read-command-current-at-390\\portability-command-current-command-390.png",
+        "sha256": "491813251ed7905c8050f93d94dcff7c6d9e5e0e01a926be697604f388b7b901"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portability-command-read-final-results\\portability-command-read-l-37067-read-command-current-at-768\\portability-command-current-command-768.png",
+        "sha256": "f9c7a0fcb6737116258dc7914cac3ad22190dec2a73a6ffbe50ce09bd53db1e7"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portability-command-read-final-results\\portability-command-read-l-3da02-read-refresh-current-at-768\\portability-command-current-refresh-768.png",
+        "sha256": "884abc1c9107494b7fdc764b5f90edb562be0baf8376d0688a358e521725e29a"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portability-command-read-final-results\\portability-command-read-l-5eefe-ead-refresh-current-at-1440\\portability-command-current-refresh-1440.png",
+        "sha256": "d3c99ebfadeea663c5a7166e6df3798ca908acc453b81fe8de48a72c777cadd5"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portability-command-read-final-results\\portability-command-read-l-86f2a-ead-command-current-at-1440\\portability-command-current-command-1440.png",
+        "sha256": "d3c99ebfadeea663c5a7166e6df3798ca908acc453b81fe8de48a72c777cadd5"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portability-command-read-final-results\\portability-command-read-l-e0569-read-refresh-current-at-390\\portability-command-current-refresh-390.png",
+        "sha256": "491813251ed7905c8050f93d94dcff7c6d9e5e0e01a926be697604f388b7b901"
+      }
+    ],
+    "observation": "Two phases390/768/1440:updated alternate operator/date,linked operator fixed,hint and review action visible. Mobile header above scrolled viewport;lower followup outside,partial UI only."
+  },
+  "checks": {
+    "browser": 105,
+    "build": 66,
+    "lint": "0_ERRORS_3_WARNINGS_VISIBLE",
+    "scan": "PASS",
+    "visual": "PARTIAL_6_CURRENT_PORTABILITY_FIELDS_FRAMES_ACTUALLY_VIEWED",
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN"
+  },
+  "published": true,
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portability-command-read-causal.txt",
+      "sha256": "5280fcd984920556d0b192273f9e3a776ccb6104ecd62437f56a5237a2bcd0b8"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portability-command-read-browser.txt",
+      "sha256": "528a86648bcac3cb8d5a0fccbb1fffd05606545915cc6642b81f7f90bd07e61a"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portability-command-read-lint.txt",
+      "sha256": "46b06a074950b0d83fe6c1c979beaeab9a24b2e4e4e51999ab23fa4d1236b1b4"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portability-command-read-build.txt",
+      "sha256": "d8aa4f717ec3d6be652e5749ff4566ffcb0c74b006d1a2fc04b5524d0be91de6"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portability-command-read-scan.txt",
+      "sha256": "056307e8785df99e4d3e49206735473f3f1f401e3095e4eec5ededcb8d95a241"
+    }
+  ],
+  "publication": "PUBLISHED",
+  "sha": "ddcffe793b46c3024c1a762d094c8359d1ab9b82",
+  "handoffs": [
+    {
+      "issue": 67,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6203447435",
+      "id": 6203447435
+    },
+    {
+      "issue": 153,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6203447664",
+      "id": 6203447664
+    },
+    {
+      "issue": 38,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6203447910",
+      "id": 6203447910
+    },
+    {
+      "issue": 142,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6203448081",
+      "id": 6203448081
+    }
+  ],
+  "tree": "0790d0a3d7c69a048e63762740fc7cf0be09f33c",
+  "known_remaining_defects": [
+    {
+      "claim": 6203419872,
+      "source_sha": "ddcffe793b46c3024c1a762d094c8359d1ab9b82",
+      "scope": "SIM assignment A-B-A reuses old eligible context during pending revalidation",
+      "causal_failures": 6,
+      "candidate_checkpoint": "${WORKSPACE}\\work\\w2x-sim-assignment-selection-checkpoint.json",
+      "acceptance": "OWN1155_DOES_NOT_INCLUDE_THIS_NEW_REGRESSION;NO_RELEASE_ACCEPTANCE"
+    }
+  ]
+}

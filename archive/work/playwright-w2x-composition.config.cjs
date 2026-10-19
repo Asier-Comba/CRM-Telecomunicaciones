@@ -1,0 +1,2 @@
+const {defineConfig}=require('./crm-w2x-customer-composition/node_modules/@playwright/test')
+module.exports=defineConfig({testDir:'./crm-w2x-customer-composition/tests/e2e-preview',testMatch:['contact-uncertain-intent.spec.ts','customer-contact-read-retry.spec.ts','contact-customer-state.spec.ts','customer-uncertain-intent.spec.ts'],workers:1,retries:0,timeout:60000,reporter:'line',outputDir:'./w2x-composition-results',use:{browserName:'chromium',screenshot:'only-on-failure'}})

@@ -1,0 +1,1 @@
+module.exports={testDir:require('node:path').resolve(__dirname,'crm-w2x-par042-review/tests/e2e-preview'),testMatch:['sim-replacement-read-recovery.spec.ts','telecom-resource-scope.spec.ts'],workers:1,retries:0,timeout:60000,reporter:'line',use:{browserName:'chromium',screenshot:'only-on-failure'},outputDir:require('node:path').resolve(__dirname,'w2x-sim-replacement-results')}

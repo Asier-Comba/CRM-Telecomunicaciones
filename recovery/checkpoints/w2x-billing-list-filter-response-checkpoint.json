@@ -1,0 +1,173 @@
+{
+  "branch": "codex/w2x-billing-list-filter-response-20261018",
+  "release": "NOT_ACCEPTED",
+  "base": "917f4a475477c2b8aa544fcca55badf87fc08b3f",
+  "unit": 72,
+  "checks": {
+    "paid_api": 0,
+    "global": "NOT_RUN_CURRENT_SHA",
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN",
+    "browser": "144_PASS_3_FIXTURE_FAIL_THEN3_PASS_COMPLEMENTARY",
+    "functional": "50_PASS_OWN_SOURCE",
+    "build": "66_PASS",
+    "lint": "EXIT0_WARNINGS_PRESERVED",
+    "scan": "PASS"
+  },
+  "causal_session": 11993,
+  "product_changed": true,
+  "claim": 6253057995,
+  "status": "PUBLISHED_OWN144_PLUS3_COMPLEMENT_FUNCTIONAL50_BUILD66_VISUAL_PARTIAL",
+  "next": "Close causal4;preserve exact cause before edits;no inheritedPASS. If product reproduced,strengthen existing list filter-response validation andown147browser/50functional/build/lint/visual;coordinate shared read semantics before owner integration. Global1806source69 unique18288 frozen14.",
+  "original": {
+    "failed": 3,
+    "passed": 1,
+    "duration": "46.8s",
+    "log": "work/w2x-billing-list-filter-response-causal.txt",
+    "cause": "DTO structurally valid for workspace passes request parser despite explicit customer/status/overdue mismatch;consumer displays row under contradictory filter. ControlledHTTP,not AuthDB/RLS leak proof."
+  },
+  "controls_session": 69080,
+  "workspace_fixture_failure": {
+    "attempt": 1,
+    "passed": 144,
+    "failed": 3,
+    "duration": "3.2m",
+    "scope": "Only workspace positive at3907681440",
+    "cause": "Fixture default /facturacion sets initialInvoiceId,causing invoice.get;test forbids unintended invoice reads. This is fixture setup,not filter-validator regression.",
+    "correction": "Start scopedA then manually clear customer to workspace;initial validA then unfilteredB;all no-command/unintended-read assertions retained. Only3failed rechecked;144old+3new complementary,not147singlePASS.",
+    "original_log": "work/w2x-billing-list-filter-response-browser.txt",
+    "original_test": "work/w2x-billing-list-filter-response-workspace-fixture-attempt1-test.ts"
+  },
+  "visual_review": {
+    "status": "ACTUALLY_VIEWED",
+    "scope": "Ten frames:customer mismatch/current3907681440,status/overdue mismatch1440,current-overdue1440 and correctedworkspace1440. Negatives no rows/no false empty conclusion,disabled paging;safe error visible7681440,above mobile viewport390. Current row12/issued/30.25EUR/actions readable;mobile filters above viewport. Overdue positive shows Vencidas and issued/Vencida flag but Sin vencimiento in syntheticDTO:tests explicit declared flag binding only,not overdue date derivation or financial truth. Workspace shows Todo el espacio/Newdisabled/noPrompt/currentrow,not customeridentity pixels. Fixture banner excluded;partial visual only.",
+    "frames": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-list-filter-response-final-results\\billing-list-filter-respon-1c100-ter-response-current-at-768\\filter-response-current-768.png",
+        "sha256": "5e89c14dc088a0854181c378d0c154af62c0dd2c7dc2d32f1a7bd12f5821c1d2"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-list-filter-response-final-results\\billing-list-filter-respon-2cce5-er-response-current-at-1440\\filter-response-current-1440.png",
+        "sha256": "3a48739def7126031321a331471d6b5a9b3e8dbca271d4b6bb7b0ce247d2f84e"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-list-filter-response-final-results\\billing-list-filter-respon-48273-ter-response-status-at-1440\\filter-response-status-1440.png",
+        "sha256": "8631479b74af7a191634acd3bf4d1cf5484475b4a2f2439f5e330537370dae62"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-list-filter-response-final-results\\billing-list-filter-respon-5e02d-r-response-customer-at-1440\\filter-response-customer-1440.png",
+        "sha256": "4dd3f04240371e63258c2a7162242d22c6a64ddac7819f3356c75230bfc3d9c5"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-list-filter-response-final-results\\billing-list-filter-respon-816f2-er-response-customer-at-768\\filter-response-customer-768.png",
+        "sha256": "26ab378f0cdb5dac43257ef3dd514f7bc19ac07ff08b54b1c28bf566aee7b5c2"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-list-filter-response-final-results\\billing-list-filter-respon-a974b-er-response-customer-at-390\\filter-response-customer-390.png",
+        "sha256": "31c72197317484a734a131a3eaf18bfcabf038a671e3114070d3811cc12e0cb0"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-list-filter-response-final-results\\billing-list-filter-respon-b4069-ter-response-current-at-390\\filter-response-current-390.png",
+        "sha256": "6b00b9084bca82633845dc6be39a1d21cab753a615bf83630da01285b32ffba6"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-list-filter-response-final-results\\billing-list-filter-respon-e1420-nse-current-overdue-at-1440\\filter-response-current-overdue-1440.png",
+        "sha256": "7ac67503781decb2bdbd0f7806bc42561aeaf3fee920843b78b7dd53b89f3390"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-list-filter-response-final-results\\billing-list-filter-respon-e6a97-er-response-overdue-at-1440\\filter-response-overdue-1440.png",
+        "sha256": "426370e8f377143d62cbf37a74fbaaf218be2d13a1685fae6a76bc3d70bb2195"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-list-filter-workspace-results\\billing-list-filter-respon-78a23--response-workspace-at-1440\\filter-response-workspace-1440.png",
+        "sha256": "66cba2ae82661db5edc30b97489ae1c6e364017034d0a68fd8b6c8cf5c2e43b4"
+      }
+    ]
+  },
+  "known_remaining_defects": {
+    "whole_product": "NOT_RECONCILED",
+    "auth_db": "NOT_RUN",
+    "live_model": "NOT_RUN",
+    "security": "W4_PENDING_HIGH5",
+    "shared_read_validation": "OWNER_REVIEW_CONSUMPTION_PENDING",
+    "overdue_date_derivation": "NOT_ACCEPTED_BY_DECLARED_FLAG_FIXTURE",
+    "release": "NOT_ACCEPTED"
+  },
+  "candidate_fingerprints": [
+    {
+      "path": "src/lib/server/billing-query-runtime-v1.ts",
+      "sha256_utf8_lf": "27273af9e38d3e04a7219b1142655f96189f413a22ce2d4d70bd1ce3d6027d5e"
+    },
+    {
+      "path": "tests/bootstrap/billing-v1.test.mjs",
+      "sha256_utf8_lf": "9c007022eeb3e0dc6fc44bb09c06fed7aadbd642fa4298a066d1dcdd1ce9458a"
+    },
+    {
+      "path": "tests/e2e-preview/billing-list-filter-response.spec.ts",
+      "sha256_utf8_lf": "a80e5e0287ce8484dac504f35f03d6efb2e78ca6ddc5f4d923f72c1882a49c5b"
+    },
+    {
+      "path": "docs/master/W2X_BILLING_LIST_FILTER_RESPONSE_20261018.md",
+      "sha256_utf8_lf": "6df8fe20f3dd9753bd209c6da77be172916c01f04540524ec368619549c22952"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-list-filter-response-causal.txt",
+      "sha256": "811d668e6aa47fd1760d15427f6bceb41c9bb1b62b7dffdf816b03ff28587790"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-list-filter-response-collection.txt",
+      "sha256": "4c7cfd7752a1b43178a715d63bf9a071ba0f4186056b48c7c8496667e0902e40"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-list-filter-response-browser.txt",
+      "sha256": "9bba88184573a148b2826a0ecd67388e1722c8f9652c40ecc6a2cfa3d1ab4553"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-list-filter-response-workspace.txt",
+      "sha256": "3fd7de57ea8d393f25fdf4e087879b3b7016a93ddffb0c2ddec4f67c6a35f09d"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-list-filter-response-functional.txt",
+      "sha256": "bbeca951df9eeaed98e007522f01e6fc43bf7339a472bad590b138bbf0285d27"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-list-filter-response-lint.txt",
+      "sha256": "77e52456c3bf671c8ed5a0154c9dbfdd998b31f3c61494ca11430b416d294dad"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-list-filter-response-build.txt",
+      "sha256": "81f9dfe8816a1b832494076cb3f9d6f63949f614cb87578c93f849e1df3de44e"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-list-filter-response-scan.txt",
+      "sha256": "e63e351ea8b1cfe0b21d36511b264897cbdb7f24a6208f78005cbd7daf38a22c"
+    }
+  ],
+  "handoffs": [
+    {
+      "id": 6253163860,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6253163860",
+      "issue": 67
+    },
+    {
+      "id": 6253163997,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6253163997",
+      "issue": 153
+    },
+    {
+      "id": 6253164136,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6253164136",
+      "issue": 38
+    },
+    {
+      "id": 6253164252,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6253164252",
+      "issue": 142
+    }
+  ],
+  "sha": "afe91b013554a8035281962d752fec3f40037e2c",
+  "publication": "PUBLISHED",
+  "tree": "6d233a5b29467dceada2d18a3c5b4b10d0c9d59d"
+}

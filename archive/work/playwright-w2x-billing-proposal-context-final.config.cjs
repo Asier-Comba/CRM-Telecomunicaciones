@@ -1,0 +1,1 @@
+const p=require('./playwright-w2x-billing-customer-filter-final.config.cjs');module.exports={...p,testMatch:[...p.testMatch,'billing-proposal-context.spec.ts'],outputDir:require('node:path').resolve(__dirname,'w2x-billing-proposal-context-final-results')}

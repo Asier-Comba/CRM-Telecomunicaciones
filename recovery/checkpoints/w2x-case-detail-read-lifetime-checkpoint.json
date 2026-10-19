@@ -1,0 +1,99 @@
+{
+  "utc": "2026-10-14T11:57:07.101710+00:00",
+  "work": "W2-X",
+  "claim": 6167356434,
+  "path": "${WORKSPACE}\\work\\crm-w2x-document-upload-uncertain",
+  "branch": "codex/w2x-case-detail-read-lifetime-20261014",
+  "base": "a21bdabe9e3c3b14c040803075515fb97ebb3be4",
+  "status": "OWN21_FINAL_BUILD66_LINT_SCAN_PASS_AUTH_NOT_RUN",
+  "published": true,
+  "product_modified": true,
+  "release": "NOT_ACCEPTED",
+  "next": "COMPOSE2C457_WITH085_NEW620_NO_INHERITANCE",
+  "session": 75845,
+  "preflight_lint": "PASS",
+  "gate": "w2x-dashboard-commercial-composition-browser-exit.txt",
+  "original_failure": "w2x-case-detail-read-lifetime-original-repro.txt",
+  "observations": "w2x-case-detail-read-lifetime-original-results/case-detail-read-lifetime--f4e73-ter-selection-change-at-390/observations.json",
+  "fixture_failure": "${WORKSPACE}\\work\\w2x-case-detail-read-lifetime-fixture-failure.json",
+  "refined_original": "w2x-case-detail-read-lifetime-refined-original-repro.txt",
+  "source_binding": "w2x-case-detail-read-lifetime-original-source-binding.json",
+  "active_log": "w2x-case-detail-read-lifetime-final-browser.txt",
+  "initial_coverage_plan": {
+    "new_browser": 9,
+    "regressions": 12
+  },
+  "sha": "08582224a37c158a9345dbc2b204581ab42395b8",
+  "tree": "ccc9ce6b088a7467ef4b97e411397aa9a6ef9243",
+  "clean": true,
+  "handoff": 6167770255,
+  "checks": {
+    "controlled_http": 21,
+    "lint": "PASS_FULL_INITIAL_PLUS_FINAL_CHANGED_FILES",
+    "build": "PASS66_FINAL",
+    "scan": "PASS",
+    "visual": "THREE_FINAL_FRAMES_VIEWED_PARTIAL",
+    "auth_db": "NOT_RUN",
+    "storage": "NOT_RUN",
+    "model": "NOT_RUN"
+  },
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-case-detail-read-lifetime-original-repro.txt",
+      "sha256": "c854f2b5abb4ae2bc99fc3b1656c6ff980e9dc1d40d4e72200c654466871bf21"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-case-detail-read-lifetime-browser.txt",
+      "sha256": "fbdb2bf0b425fa016a297528b0cffcfdfa64326302c8d5081227b8068f38a8d0"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-case-detail-read-lifetime-lint.txt",
+      "sha256": "dda21574b74ba6a9edea377d67b00a3846ea8ae6ee11171eb3102a4a59f30d98"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-case-detail-read-lifetime-build.txt",
+      "sha256": "83cb8401e353e0c1b27998f30110939b68e9da0b66443f33a263f303aec384bf"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-case-detail-read-lifetime-refined-original-repro.txt",
+      "sha256": "0e55ec7fb07ebac0bab79ddf0487352dfdeb6b7047e5ab2f29573083b2525b83"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-case-detail-read-lifetime-final-browser.txt",
+      "sha256": "63c70bb31c6dfc831329a262b26c34c1fb895d91bede17b711080c4f1b440418"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-case-detail-read-lifetime-final-lint.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-case-detail-read-lifetime-final-build.txt",
+      "sha256": "640117be28f5b29fbe042f0d374c05ed0c51688f3af67e1e7088edafca9fca17"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-case-detail-read-lifetime-scan.txt",
+      "sha256": "a16549605f26531950c6274d39b9cb83c441a453f5d859b4abc9e335d285e8d0"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-case-detail-read-lifetime-fixture-failure.json",
+      "sha256": "944428797a175e59743b0f22dcdd636a0f7886cbf2a30120f0d2a995f3c94576"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-case-detail-read-lifetime-original-source-binding.json",
+      "sha256": "f1674cf7923a8382cb066284498ba1010bff03ade9335c62ddd55459c3098c14"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-case-detail-read-lifetime-final-results\\case-detail-read-lifetime--26991-ter-selection-change-at-768\\case-detail-late-case_success-768.png",
+      "sha256": "db193e415ea7c7de52f52cb347816c0a9cdc6a7fe763e2857717a0e4b9d89157"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-case-detail-read-lifetime-final-results\\case-detail-read-lifetime--e1179-er-selection-change-at-1440\\case-detail-late-case_success-1440.png",
+      "sha256": "e387d10b49409eafbec93b952bc7779ea23e559a2ff7d6148af6c1908f65837b"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-case-detail-read-lifetime-final-results\\case-detail-read-lifetime--f4e73-ter-selection-change-at-390\\case-detail-late-case_success-390.png",
+      "sha256": "df83a3a92736ff5d02f1014dc9bfc9dc7fe17aed90da5d3170382d993f9e1d06"
+    }
+  ],
+  "bundle_sha256": "743abe0a15000e2055bb3fb015f6679f71c5fd482833f6e7a9b0977c4bfef9c2"
+}

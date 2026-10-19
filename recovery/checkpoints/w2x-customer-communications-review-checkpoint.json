@@ -1,0 +1,89 @@
+{
+  "unit": 107,
+  "claim": 6256861171,
+  "branch": "codex/w2x-customer-communications-review-20261019",
+  "base": "f48425b5d30a071049392486ba669bd23cfa5044",
+  "status": "PUBLISHED_METADATA_PAR056_PARTIAL34",
+  "publication": "PUBLISHED",
+  "product_changed": false,
+  "release": "NOT_ACCEPTED",
+  "checks": {
+    "runtime": "NOT_RUN_METADATA_SHA",
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN",
+    "paid_api": 0,
+    "global": "NOT_RUN_METADATA_SHA",
+    "metadata": "PASS_ONLY_PAR056_341ROWS_33REVIEWS_GLOBAL_SRC_TESTS_UNCHANGED",
+    "queue": "PASS342_34PARTIAL_308UNRECONCILED_0READY",
+    "scan": "PASS"
+  },
+  "matrix": {
+    "total": 342,
+    "reviewed_partial": 34,
+    "unreconciled": 308,
+    "release_ready": 0
+  },
+  "source_evidence": {
+    "sha": "f48425b5d30a071049392486ba669bd23cfa5044",
+    "tree": "4481e458d2f5367f085b2210000e31cd843ea79f",
+    "own21": "PASS_SOURCE106_ONLY",
+    "pertinent": 12,
+    "context": 9,
+    "viewed_frames": 12
+  },
+  "next": "Continue independent commercial unit after fresh CLAIM. Preserve2139/2172/2214FIFO;metadata107runtimeNOT_RUN,source106exactevidenceonly.",
+  "working_head": "e8b45e225760b372d4e2600e06abd0284befcd19",
+  "clean": true,
+  "candidate_fingerprints": [
+    {
+      "path": "docs/master/PRODUCT_RELEASE_REVIEWS.json",
+      "sha256_utf8_lf": "b48523ef2284b5be05d51fe601a4280720ce8240d6c589c30598bf28560b55f9"
+    },
+    {
+      "path": "docs/master/PRODUCT_RELEASE_QUEUE.json",
+      "sha256_utf8_lf": "5fa8cbca3a12ada5be9a5caaa397dcb6e286348e01b118c2a55aa7db910fff99"
+    },
+    {
+      "path": "docs/master/W2X_CUSTOMER_COMMUNICATIONS_INDIVIDUAL_REVIEW_20261019.md",
+      "sha256_utf8_lf": "54f1c24bf968edc03f3589a61c9896b6ee4e191530de0329b2580ef4beff2acd"
+    }
+  ],
+  "handoffs": [
+    {
+      "issue": 67,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6256878070",
+      "id": 6256878070
+    },
+    {
+      "issue": 153,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6256878265",
+      "id": 6256878265
+    },
+    {
+      "issue": 38,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6256878450",
+      "id": 6256878450
+    },
+    {
+      "issue": 142,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6256878602",
+      "id": 6256878602
+    }
+  ],
+  "tree": "72470476f87ebc54b2acf00bce9f724ae72446c6",
+  "sha": "e8b45e225760b372d4e2600e06abd0284befcd19",
+  "known_remaining_defects": {
+    "page_error_back": {
+      "status": "PRODUCT_SOURCE107_REPRODUCED_IN_LATER_UNIT108",
+      "measured_product_sha": "e8b45e225760b372d4e2600e06abd0284befcd19",
+      "evidence": "work/w2x-collection-page-error-back-causal.txt",
+      "original": "2FAIL4PASS46.2s390services+communications403page2previousdisabled",
+      "fix_source": {
+        "sha": "ee157165f1cd4e9fd3d5ad4c72d5f2b9025ef467",
+        "unit": 108,
+        "checks": "PUBLISHED_OWN45_BUILD66_VISUAL18"
+      },
+      "scope": "Originalmetadata107runtimecontrolsNOT_RUN;latercausalcomplementdoesnotmake107PASSorreleaseaccepted."
+    }
+  }
+}

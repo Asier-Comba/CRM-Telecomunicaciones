@@ -1,0 +1,1 @@
+const p=require('./playwright-w2x-contract-created-read-binding-final.config.cjs');module.exports={...p,testMatch:[...p.testMatch,'contract-create-read-retirement.spec.ts'],outputDir:require('node:path').resolve(__dirname,'w2x-contract-create-read-retirement-final-results')}

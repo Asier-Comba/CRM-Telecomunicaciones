@@ -1,0 +1,1 @@
+const p=require('./playwright-w2x-invoice-relation-compact-final.config.cjs');module.exports={...p,testMatch:[...p.testMatch,'invoice-relation-verification.spec.ts'],outputDir:require('node:path').resolve(__dirname,'w2x-invoice-relation-verification-final-results')}

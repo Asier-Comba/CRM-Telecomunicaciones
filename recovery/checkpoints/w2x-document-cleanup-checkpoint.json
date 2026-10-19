@@ -1,0 +1,55 @@
+{
+  "utc": "2026-10-14T03:01:41.874278+00:00",
+  "work": "W2-X",
+  "claim": 6159821608,
+  "handoff": 6159913835,
+  "path": "${WORKSPACE}\\work\\crm-w2x-document-upload-uncertain",
+  "branch": "codex/w2x-document-cleanup-recovery-20261014",
+  "sha": "73dd63775de090de6cfe8739b0d87f298f62a902",
+  "tree": "db1db89e292deae27e10c3b282cb32e5cd1cd568",
+  "published": true,
+  "clean": true,
+  "status": "OWN_SOURCE_PUBLISHED_9_SYNTHETIC_BROWSER_BUILD66_PASS_ACTUAL_AUTH_NOT_RUN",
+  "checks": {
+    "browser_total": 9,
+    "build": "PASS66",
+    "lint": "PASS",
+    "gitleaks": "PASS",
+    "consumer_syntax": "PASS",
+    "physical_old_assertions": "PRESERVED",
+    "document_integrity": "BYTE_EXACT_BASE_B1B",
+    "auth_db_storage": "NOT_RUN_OWN_CHANGED_CONSUMER",
+    "model": "NOT_RUN"
+  },
+  "visual": {
+    "scope": "CONTROLLED_HTTP_SYNTHETIC_UI_NOT_ACTUAL_AUTH_STORAGE",
+    "images": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-cleanup-confirmation-390.png",
+        "sha256": "093f52876487e85b3c908d637d1ffa7afa07c1cc1fab5aa2cf0a686f9c784729",
+        "width": 390
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-cleanup-confirmation-768.png",
+        "sha256": "b03c38d2d9cdcc062ee14e2b3d8d9566de2ecb7bd1d19f12b0407b096cff0f6e",
+        "width": 768
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-cleanup-confirmation-1440.png",
+        "sha256": "da9963d383b5e3b01542398f84a4ac5947b360b905001f920f99a016be3738c7",
+        "width": 1440
+      }
+    ]
+  },
+  "preserved_failures": [
+    "w2x-cleanup-original-repro.txt:fixture endpoint miss",
+    "w2x-cleanup-original-causal-repro.txt:actual Cancel removes dialog",
+    "workspace runner wrong directory configuration failure",
+    "visual output overwrite recovered by complete nine-control run"
+  ],
+  "bundle_sha256": "467c50a1bb73a28f91022424cdacbf2a40e4f5f28863b5da60970a09afbc8bea",
+  "next": "WAIT_ALL_B1B_RUNS_TERMINAL_AND_OWN_CLOSURE_THEN_CONSUME_EXISTING153_WITH_NEW_SOURCE_CONTROLS",
+  "release": "NOT_ACCEPTED",
+  "five_high": "UNRESOLVED",
+  "ai_writes": "OFF"
+}

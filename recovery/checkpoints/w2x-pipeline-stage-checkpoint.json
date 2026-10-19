@@ -1,0 +1,61 @@
+{
+  "utc": "2026-10-14T08:23:40.716714+00:00",
+  "work": "W2-X",
+  "claim": 6163999291,
+  "handoff": 6164102586,
+  "sha": "c7eab4bcbf5547c3c8ae03f773a1fa731e3334c1",
+  "tree": "7f76e9c7cdba6777452aec8b01ba260e52ec0cb2",
+  "path": "${WORKSPACE}\\work\\crm-w2x-document-upload-uncertain",
+  "branch": "codex/w2x-pipeline-stage-invalid-receipt-20261014",
+  "published": true,
+  "clean": true,
+  "checks": {
+    "controlled_browser": 21,
+    "receipt_recovery": 12,
+    "catalog_query_regressions": 9,
+    "build": "PASS66",
+    "lint": "PASS",
+    "scan": "PASS",
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN"
+  },
+  "visual": "THREE_WIDTHS_VIEWED_PARTIAL_CONTROLLED_HTTP",
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-pipeline-stage-original-repro.txt",
+      "sha256": "0a61bcb8640a5e7eec503e02f3abcd8603b8007b086dcc0473d0e494415afbc2"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-pipeline-stage-browser.txt",
+      "sha256": "3e61b50552efc262c3fcf56d51bd12e9acbb2c96f703f9480982dbb64f48263e"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-pipeline-stage-build.txt",
+      "sha256": "3ef8de3a45018e7a51fc041046f4bdc2ba680a0e6bbcc905ae3597a1a3057204"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-pipeline-stage-lint.txt",
+      "sha256": "dda21574b74ba6a9edea377d67b00a3846ea8ae6ee11171eb3102a4a59f30d98"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-pipeline-stage-scan.txt",
+      "sha256": "abfa8c3e656061d8103851c12c67ceb149c63484f5698721838b120d429668a4"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-pipeline-stage-fixed-results\\pipeline-stage-receipt-pip-5c874-ge-invalid-recovery-at-1440\\pipeline-stage-invalid-1440.png",
+      "sha256": "2e84ac0c3ce869d871014f1c6596bb761021b79f379fd44c8da079f48cae8968"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-pipeline-stage-fixed-results\\pipeline-stage-receipt-pip-7555b-age-invalid-recovery-at-390\\pipeline-stage-invalid-390.png",
+      "sha256": "5cf701915977c7bd1b1bc98251b2f889d867b953466624cf663bde65b7b8cdd1"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-pipeline-stage-fixed-results\\pipeline-stage-receipt-pip-9ca53-age-invalid-recovery-at-768\\pipeline-stage-invalid-768.png",
+      "sha256": "1430121551b1147a4ba27db8a1abaf4d8f36e5cb58d3805fcd0c03f038b2ed3f"
+    }
+  ],
+  "bundle_sha256": "f2b9e23f6c532ea173133f9336abbfaf99faa1a9a4fe563be2568d38d92e0cfb",
+  "release": "NOT_ACCEPTED",
+  "five_high": "UNRESOLVED",
+  "ai_writes": "OFF"
+}

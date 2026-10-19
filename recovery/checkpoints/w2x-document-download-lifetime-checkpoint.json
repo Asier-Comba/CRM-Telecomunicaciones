@@ -1,0 +1,103 @@
+{
+  "utc": "2026-10-14T23:51:21.851474+00:00",
+  "claim": 6181043016,
+  "path": "${WORKSPACE}\\work\\crm-w2x-document-upload-uncertain",
+  "branch": "codex/w2x-document-download-lifetime-20261015",
+  "base": "c13787ad27009022d54b3b1ef2231fdadaa4b00f",
+  "status": "OWN73_BUILD66_LINT_SCAN_PASS_VISUAL_PARTIAL_AUTH_NOT_RUN",
+  "repro_session": 46616,
+  "test_backup": "${WORKSPACE}\\work\\w2x-document-download-prepared-test.ts",
+  "test_sha256": "3c06e916633cba67429e6795e35e50531a3db4bf45b65d36086920466bcdac7f",
+  "browser": "NOT_RUN",
+  "product_changed": true,
+  "release": "NOT_ACCEPTED",
+  "next": "FULL704_PREPARE_ONCE;THEN_TICKET_RETRY_INVALID_RECEIPT_CLAIM_REPRO",
+  "planned_cases": "27 new plus45 regressions; collection not yet measured",
+  "causal": {
+    "expected_binary_requests": 0,
+    "observed_binary_requests": 1,
+    "log": "w2x-document-download-causal-repro.txt"
+  },
+  "browser_session": 93619,
+  "lint_build_session": 3523,
+  "sha": "dec2edcad7f4796440daff2c1e59dde6ca7981c1",
+  "tree": "d918183704f2d0936a93cadd784f044d4e81b7b8",
+  "published": true,
+  "clean": true,
+  "checks": {
+    "browser": 73,
+    "lint": "PASS",
+    "build": "PASS66",
+    "scan": "PASS",
+    "visual": "THREE_CURRENT_FRAMES_VIEWED_PARTIAL",
+    "auth_db": "NOT_RUN",
+    "storage": "NOT_RUN",
+    "model": "NOT_RUN"
+  },
+  "handoffs": [
+    {
+      "issue": 67,
+      "id": 6181197466,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6181197466"
+    },
+    {
+      "issue": 153,
+      "id": 6181197640,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6181197640"
+    },
+    {
+      "issue": 38,
+      "id": 6181197817,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6181197817"
+    },
+    {
+      "issue": 142,
+      "id": 6181197965,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6181197965"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-download-causal-repro.txt",
+      "sha256": "ce3be61613661c51c260a7a19f5205a95e50e6f0f287557337bb62c941a010b2"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-download-browser.txt",
+      "sha256": "4399a8cb42f697f38a9b064ce6022699c24e9a0ed5c5fe562e9e2f3680f19dbd"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-download-collection.txt",
+      "sha256": "9aafc83f4b4d300eae6ce7d7fabc8df49f3a67608618bc09fc6897216121a03d"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-download-lint.txt",
+      "sha256": "4e6696b2d0106e766166cc650e119817eb8e00e3858ad41955d1b163b00b554a"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-download-build.txt",
+      "sha256": "3b5b1450e3e56e9cbab699210ab787c596a701e92be1b0064277de13eeb39b67"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-download-scan.txt",
+      "sha256": "530e753c95a7700599dd914110fc349685b02e51b177bb9aca598418aaf47574"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-download-published.bundle",
+      "sha256": "1b8a9a5efde28c24fa6be2722736c1501a28f8ca9aa24c853d4ae861adeaed4f"
+    }
+  ],
+  "visual": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-download-final-results\\document-download-lifetime-36d49-icket-after-company-at-1440\\document-download-ticket-company-1440.png",
+      "sha256": "6d625817f64b1805e97131d5b296f6cf0dd03341c32643d4f1d6fecd61dd5e7b"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-download-final-results\\document-download-lifetime-b860e-ticket-after-company-at-390\\document-download-ticket-company-390.png",
+      "sha256": "93a28da7111732d42752468f7ea178f159a4134835564979d87d3c7b0ae5d217"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-download-final-results\\document-download-lifetime-c0145-ticket-after-company-at-768\\document-download-ticket-company-768.png",
+      "sha256": "149363be32842fdcdd10f976657f48ab6a5c3c6b9bcafd88791812c832389d8e"
+    }
+  ]
+}

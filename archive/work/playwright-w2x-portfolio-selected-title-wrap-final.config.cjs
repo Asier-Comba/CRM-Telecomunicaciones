@@ -1,0 +1,1 @@
+const p=require('./playwright-w2x-sim-identifier-recovery-close-final.config.cjs'),q=require('./playwright-w2x-portfolio-result-label-wrap-final.config.cjs');module.exports={...p,testMatch:[...p.testMatch,...q.testMatch,'portfolio-selected-title-wrap.spec.ts'],outputDir:require('node:path').resolve(__dirname,'w2x-portfolio-selected-title-wrap-final-results')}

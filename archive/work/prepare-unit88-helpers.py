@@ -1,0 +1,6 @@
+from pathlib import Path
+w=Path('work');old='w2x-portability-recovery-close';p='w2x-line-number-recovery-close'
+s=(w/('checkpoint-'+old+'.py')).read_text(encoding='utf-8-sig').replace(old,p).replace("j['unit']==87","j['unit']==88").replace("'unit':87","'unit':88").replace("['source87']","['source88']").replace('OWN177','OWN186').replace('177_PASS','186_PASS').replace('177 passed','186 passed').replace('6 failed','2 failed').replace('2 passed','1 passed').replace('W2X_PORTABILITY_RECOVERY_CLOSE','W2X_LINE_NUMBER_RECOVERY_CLOSE').replace('len(obs)==8','len(obs)==3').replace("o['mode'] in ['uncertain','read_failed']","o['mode']=='uncertain'")
+(w/('checkpoint-'+p+'.py')).write_text(s,encoding='utf-8')
+s=(w/('run-'+old+'.ps1')).read_text(encoding='utf-8-sig').replace(old,p).replace('177 tests in 7 files','186 tests in 8 files').replace('tests=177;files=7','tests=186;files=8');(w/('run-'+p+'.ps1')).write_text(s,encoding='utf-8-sig')
+f=w/'reconcile-w2x-current-continuation.py';s=f.read_text(encoding='utf-8-sig').replace("'portability-recovery-close']","'portability-recovery-close','line-number-recovery-close']").replace('units49-87','units49-88').replace("'active_unit':87","'active_unit':88");f.write_text(s,encoding='utf-8')

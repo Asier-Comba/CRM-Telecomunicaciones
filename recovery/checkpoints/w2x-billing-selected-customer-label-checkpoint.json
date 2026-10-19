@@ -1,0 +1,150 @@
+{
+  "causal_session": 13367,
+  "base": "afe91b013554a8035281962d752fec3f40037e2c",
+  "product_changed": true,
+  "release": "NOT_ACCEPTED",
+  "branch": "codex/w2x-billing-selected-customer-label-20261018",
+  "status": "PUBLISHED_OWN156_FUNCTIONAL50_BUILD66_VISUAL_PARTIAL",
+  "checks": {
+    "paid_api": 0,
+    "model": "NOT_RUN",
+    "auth_db": "NOT_RUN",
+    "global": "NOT_RUN_CURRENT_SHA",
+    "browser": "156_PASS_OWN_SOURCE",
+    "functional": "50_PASS_OWN_SOURCE",
+    "build": "66_PASS",
+    "lint": "EXIT0_WARNINGS_PRESERVED",
+    "scan": "PASS"
+  },
+  "unit": 73,
+  "next": "Close causal2 requirement UX/full selected name;preserve negative before adding derived caption. Own156/functional50/build/lint/visual then publication;1842source72 unique71901 waits1806source69 unique18288,keep14frozen.",
+  "claim": 6253173253,
+  "original": {
+    "failed": 1,
+    "passed": 1,
+    "duration": "23.0s",
+    "log": "work/w2x-billing-selected-customer-label-causal.txt",
+    "scope": "UX requirement:full verified selected-company identity outside closed native select not present;denied no-label control passes. Not loss of customerID/backend authority defect."
+  },
+  "controls_session": 27459,
+  "visual_review": {
+    "status": "ACTUALLY_VIEWED",
+    "scope": "Nine long/clear/denied frames3907681440. Full verified company name including80-character unbroken segment readable in new caption,wraps within card;native select still truncates as expected,caption disambiguates. Clear shows Todo el espacio,no selected caption or prompt,disabledNew. Denied shows safe permission error/unverified selection,no caption or prompt,disabledNew. Mobile lower proposal/list/paging partly outside viewport;fixture empty rows not SQL absence;banner excluded. Partial visual only,not full module/accessibility/security.",
+    "frames": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-selected-customer-label-final-results\\billing-selected-customer--2791a-elected-label-clear-at-1440\\selected-label-clear-1440.png",
+        "sha256": "4e15c22eef80939421ec628c1602eeef2eb5d78c11f343dc82afcadd7b121d9e"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-selected-customer-label-final-results\\billing-selected-customer--37321--selected-label-long-at-768\\selected-label-long-768.png",
+        "sha256": "862934a8c5218fcd34864d3352012be0fe8e51bcb04c610d2f3366d0674bf045"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-selected-customer-label-final-results\\billing-selected-customer--9ed54-elected-label-denied-at-768\\selected-label-denied-768.png",
+        "sha256": "640230c3ac5651c6d5cd3bafdce57052ab4b60b78c570790256d080ed6164ef0"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-selected-customer-label-final-results\\billing-selected-customer--bc0bc-selected-label-long-at-1440\\selected-label-long-1440.png",
+        "sha256": "8261ce2bfb2ed5762ba6620c584d029d189d775c9f3a7a7f37c01ccfaec61d9d"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-selected-customer-label-final-results\\billing-selected-customer--ca857-elected-label-denied-at-390\\selected-label-denied-390.png",
+        "sha256": "ab83459558557cf55fbfdc2dc2870789b018fbbe7bb9df7bd6b16036ff47ac54"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-selected-customer-label-final-results\\billing-selected-customer--cdca6--selected-label-long-at-390\\selected-label-long-390.png",
+        "sha256": "770fb62c768e2f4dcd873d83217fb46da305abfe33a2b2a8b61c7edd9888fc18"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-selected-customer-label-final-results\\billing-selected-customer--d1738-selected-label-clear-at-768\\selected-label-clear-768.png",
+        "sha256": "defe1e3a5e2674b96086a644564c1fc3559c5d07209adbbfe5368edf321fdcc1"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-selected-customer-label-final-results\\billing-selected-customer--ef525-selected-label-clear-at-390\\selected-label-clear-390.png",
+        "sha256": "3d3ab00c7c99740abc9ad17be6d75a9ab7c9a251bca169b09e116c2c7ba42e63"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-selected-customer-label-final-results\\billing-selected-customer--fa22d-lected-label-denied-at-1440\\selected-label-denied-1440.png",
+        "sha256": "83ae949ca0080cf118a523acac676b056b686f90d156a388a104b7b6f48d28ab"
+      }
+    ]
+  },
+  "known_remaining_defects": {
+    "whole_product": "NOT_RECONCILED",
+    "auth_db": "NOT_RUN",
+    "live_model": "NOT_RUN",
+    "security": "W4_PENDING_HIGH5",
+    "shared_read_validation72": "OWNER_REVIEW_CONSUMPTION_PENDING",
+    "overdue_date_derivation72": "NOT_ACCEPTED_BY_DECLARED_FLAG_FIXTURE",
+    "release": "NOT_ACCEPTED"
+  },
+  "candidate_fingerprints": [
+    {
+      "path": "src/features/billing/IntegratedBilling.tsx",
+      "sha256_utf8_lf": "549b6e394dabbaa3e5c4018af12617081afeeb9e7f9fd36f4259dc92576419e8"
+    },
+    {
+      "path": "tests/e2e-preview/billing-selected-customer-label.spec.ts",
+      "sha256_utf8_lf": "07e311321c6e3d485cd3e94a9cd04041a8e142737fdd764cbec9911720973a7c"
+    },
+    {
+      "path": "docs/master/W2X_BILLING_SELECTED_CUSTOMER_LABEL_20261018.md",
+      "sha256_utf8_lf": "bfe37cd59718a12d7ee7d05fc776e00a52b6103b6c75dd9bf4290996e5266faf"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-selected-customer-label-causal.txt",
+      "sha256": "8a3b65fdf57f4b9aa908055179c0ace0698ec8ad003c2a4f33722082a6dc0a1f"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-selected-customer-label-collection.txt",
+      "sha256": "a05475d938bf6cacf0111746f6e4e665ce4dd2868039ee90c86d410d78534e48"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-selected-customer-label-browser.txt",
+      "sha256": "eed0409afb486a83396367ce0dd3bcda8da6b6b78c698fc892ccfd7ac701cd35"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-selected-customer-label-functional.txt",
+      "sha256": "cada967c5424cafc04bb9c19a3fc75498e7a16ce35575985b7f21f9da63c1e5c"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-selected-customer-label-lint.txt",
+      "sha256": "77e52456c3bf671c8ed5a0154c9dbfdd998b31f3c61494ca11430b416d294dad"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-selected-customer-label-build.txt",
+      "sha256": "6079fa83c179d77924c8d22fda98ffa4238d27a76437ff591a3b257c95fb9fcb"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-selected-customer-label-scan.txt",
+      "sha256": "4b43d66968c61e7cc26d377b7631c84c7f7485ae389d69b9302369d8cdfa60ef"
+    }
+  ],
+  "sha": "a33a0e1dd609d15ab78fea2fd1a2e8e3c41fe6d4",
+  "tree": "c28bc67256bf93f2d94aca64f96524e3aa388e00",
+  "handoffs": [
+    {
+      "issue": 67,
+      "id": 6253247847,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6253247847"
+    },
+    {
+      "issue": 153,
+      "id": 6253248008,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6253248008"
+    },
+    {
+      "issue": 38,
+      "id": 6253248153,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6253248153"
+    },
+    {
+      "issue": 142,
+      "id": 6253248309,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6253248309"
+    }
+  ],
+  "publication": "PUBLISHED"
+}

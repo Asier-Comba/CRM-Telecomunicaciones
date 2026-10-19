@@ -1,0 +1,129 @@
+{
+  "unit": 58,
+  "claim": 6251720544,
+  "base": "2a8597537737cec349650496e874d86ca6e5633a",
+  "branch": "codex/w2x-billing-exact-save-20261018",
+  "status": "PUBLISHED_OWN63_BUILD66_VISUAL_PARTIAL",
+  "causal_session": 60695,
+  "controls_session": 50210,
+  "product_changed": true,
+  "release": "NOT_ACCEPTED",
+  "checks": {
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN",
+    "paid_api": 0,
+    "global": "NOT_RUN_CURRENT_SHA",
+    "browser": "63_PASS_OWN_SOURCE",
+    "build": "66_PASS",
+    "lint": "EXIT0_WARNINGS_PRESERVED",
+    "scan": "PASS"
+  },
+  "original": {
+    "failed": 2,
+    "passed": 1,
+    "duration": "50.6s",
+    "cause": "Integrated save enabled with missing exact preview for excessive price precision and contract total overflow; valid current positive passes. Repository validation remains unchanged; no bad SQL write reproduced."
+  },
+  "next": "Close own63/build/lint/visual/scan/publication;keep globals1479/source53 and1575/source57 separate. Then independent commercial defect or individually evidenced acceptance review.",
+  "visual_review": {
+    "status": "ACTUALLY_VIEWED",
+    "scope": "Six lower editor frames:create precision/update overflow3907681440. Edited amounts, unavailable totals, warning, checked review and native disabled save visible;upper customer/fiscal/date fields not reviewed in these frames. Fixture background excluded. Positive save and recovered exact484 measured separately in HTTP tests.",
+    "frames": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-exact-save-final-results\\billing-exact-save-billing-3bf65-ave-create-precision-at-768\\billing-exact-create-precision-768.png",
+        "sha256": "102ab169ffcaaf7c2693f8aa68fac5a47a70b1ea452ac26175ad9957965b9359"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-exact-save-final-results\\billing-exact-save-billing-794b3-ve-create-precision-at-1440\\billing-exact-create-precision-1440.png",
+        "sha256": "bf0ffaee89a02e96c55b42780b153315b0864d69d82609989d7561b0df4e1b7e"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-exact-save-final-results\\billing-exact-save-billing-ba1c8-ave-update-overflow-at-1440\\billing-exact-update-overflow-1440.png",
+        "sha256": "932eb354dbd540e60dc9fded1598b29940b3fab02c9136ba9652adebb1e6f8a2"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-exact-save-final-results\\billing-exact-save-billing-cfef2-ave-create-precision-at-390\\billing-exact-create-precision-390.png",
+        "sha256": "d4f13665b40176c60772ce3d105de335503f13e22ac42d884ac5019a52027ba8"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-exact-save-final-results\\billing-exact-save-billing-exact-save-update-overflow-at-390\\billing-exact-update-overflow-390.png",
+        "sha256": "8dffd59f6af2a191ca6427454bffe8ac1fedfd2a54969f5d27306a36e63feabd"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-billing-exact-save-final-results\\billing-exact-save-billing-exact-save-update-overflow-at-768\\billing-exact-update-overflow-768.png",
+        "sha256": "653d5811893cc51c45f0af98244015a576dd00236ea52999b71f43270226a0e2"
+      }
+    ]
+  },
+  "candidate_fingerprints": [
+    {
+      "path": "src/features/billing/Editor.tsx",
+      "sha256_utf8_lf": "4d128b28e14020f43019618b4d9b2fda161bb06dcd24c77376a926f2d89807a6"
+    },
+    {
+      "path": "tests/e2e-preview/billing-exact-save.spec.ts",
+      "sha256_utf8_lf": "0e83f98a0ded7f684272db3db91dad47a5953241b99a39548f780b715255cd6c"
+    },
+    {
+      "path": "docs/master/W2X_BILLING_EXACT_SAVE_20261018.md",
+      "sha256_utf8_lf": "b5a14fd39711122e16a9b80cc46ca2cc68da1d8dad4c4dec5fae36b21a2de0d6"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-exact-save-causal.txt",
+      "sha256": "a187cecba75cf6193888ba1381f0d623e9289b9047e4fe49ee2c35db5923fd9c"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-exact-save-browser.txt",
+      "sha256": "a5c2d5182b29cce94abd8da70f938b887d31045e4c676dc9445aa430ac02e8e4"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-exact-save-lint.txt",
+      "sha256": "91a5c63f9a9a0a42f92a00caa38da32336b62b940ccf4738d08ef97c55d9996c"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-exact-save-build.txt",
+      "sha256": "1ec718bed17c6ae087c71161b9c7be953fea646712e8532e0236751535475519"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-billing-exact-save-scan.txt",
+      "sha256": "fb546f06ccb611483d4e1fc7f0f1c2b13d1b43f512c4679b5dad473b0256e9f4"
+    }
+  ],
+  "tree": "76fbec872aa851ead5942cfdab5eeae33c29a86b",
+  "sha": "b34f6d60b9b64a5ba218376ef0a8038c6135e39f",
+  "publication": "PUBLISHED",
+  "handoffs": [
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6251786266",
+      "issue": 67,
+      "id": 6251786266
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6251786403",
+      "issue": 153,
+      "id": 6251786403
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6251786551",
+      "issue": 38,
+      "id": 6251786551
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6251786678",
+      "issue": 142,
+      "id": 6251786678
+    }
+  ],
+  "additional_functional_original": {
+    "source": "b34f6d60b9b64a5ba218376ef0a8038c6135e39f",
+    "tests": 40,
+    "passed": 35,
+    "failed": 5,
+    "duration_ms": 770.0598,
+    "exit": 1,
+    "checkpoint": "work/w2x-billing-functional-date-checkpoint.json",
+    "cause": "Proposal AST adapter passes callback as date;test-only fix source8a3fc1c,not a product date failure. No forty-PASS inheritance or erased original."
+  }
+}

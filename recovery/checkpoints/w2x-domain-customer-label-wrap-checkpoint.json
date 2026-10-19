@@ -1,0 +1,687 @@
+{
+  "unit": 103,
+  "claim": 6256563598,
+  "branch": "codex/w2x-domain-customer-label-wrap-20261019",
+  "base": "b84295e96a4396d0e3691407bac11eace28c53fe",
+  "status": "PUBLISHED_OWN90_BUILD66_VISUAL_PARTIAL",
+  "publication": "PUBLISHED",
+  "product_changed": true,
+  "release": "NOT_ACCEPTED",
+  "checks": {
+    "browser": "90_PASS_OWN_SOURCE",
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN",
+    "paid_api": 0,
+    "global": "NOT_RUN_CURRENT_SHA",
+    "functional": "NOT_RUN_UI_PRESENTATION_ONLY",
+    "build": "66_PASS",
+    "lint": "EXIT0_WARNINGS_PRESERVED",
+    "scan": "PASS"
+  },
+  "matrix": {
+    "total": 342,
+    "reviewed_partial": 33,
+    "unreconciled": 309,
+    "release_ready": 0
+  },
+  "failures": [],
+  "next": "Continue independent commercial unit after fresh CLAIM. Preserve2043source88/2109source92FIFO;source93globalNOT_RUN,noinheritedPASS.",
+  "working_head": "002c2565894e26eafa6349e29aac391c1e607873",
+  "clean": true,
+  "causal": {
+    "failed": 3,
+    "passed": 3,
+    "duration": "38.5s",
+    "long": "table2229.953125/viewport1198,customercell1285.953125,operatoroutsideclippedview128014401920",
+    "ordinary": "table1198/viewport1198,customercell141.859375,operatorvisible",
+    "scope": "Actualglobal serviceDTO/customerlabelrepository/parsers,controlledHTTP;no AuthDB/RLS/currentmembership orall-domain visualacceptance"
+  },
+  "browser_summary": "90 passed (1.7m)",
+  "controls_session": 84090,
+  "visual_review": {
+    "status": "ACTUALLY_VIEWED",
+    "scope": "9currentglobalserviceframes long/ordinary/denied128014401920;completeprovidedname/operatorvisible;notallrecords/domains/fields/Nextnavigation/roles/a11yacceptance",
+    "frames": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-domain-customer-label-wrap-final-results\\domain-customer-label-wrap-058be-customer-label-long-at-1920\\domain-customer-label-long-1920.png",
+        "sha256": "d985936d4c363eef44b39caa0f38baa694442a15101b8ec26f7627853bc51e4c"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-domain-customer-label-wrap-final-results\\domain-customer-label-wrap-801ec-customer-label-long-at-1440\\domain-customer-label-long-1440.png",
+        "sha256": "c87eff5c48a0be619b91417d46f912c22e9c8b02b18ec5da0f3d2c6e0c988a6a"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-domain-customer-label-wrap-final-results\\domain-customer-label-wrap-91b3f-stomer-label-denied-at-1920\\domain-customer-label-denied-1920.png",
+        "sha256": "242d2d5ef0f54d82454d409ec6a813d55ecc0269f78dd24630072c38aca4204e"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-domain-customer-label-wrap-final-results\\domain-customer-label-wrap-a65ef-omer-label-ordinary-at-1280\\domain-customer-label-ordinary-1280.png",
+        "sha256": "57cbe6a5d61bbce05c9cd383702d0fb7606a984306428963df745152f5edb4c1"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-domain-customer-label-wrap-final-results\\domain-customer-label-wrap-a6d98-omer-label-ordinary-at-1440\\domain-customer-label-ordinary-1440.png",
+        "sha256": "c7a4debf44ada5701074ed695370b8966d543f2989a4abd56b7d6910bd600357"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-domain-customer-label-wrap-final-results\\domain-customer-label-wrap-aaa2b-stomer-label-denied-at-1440\\domain-customer-label-denied-1440.png",
+        "sha256": "3ecf4e3543d4f1d55dc90cbf2155550ddb59704f9b0b816aa7623688d3bcf9fc"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-domain-customer-label-wrap-final-results\\domain-customer-label-wrap-b27d9-customer-label-long-at-1280\\domain-customer-label-long-1280.png",
+        "sha256": "e9fde4f0538cfb06f560a7e72e997495c361749a8b8ece736dc24bb709def79c"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-domain-customer-label-wrap-final-results\\domain-customer-label-wrap-d8a88-omer-label-ordinary-at-1920\\domain-customer-label-ordinary-1920.png",
+        "sha256": "02927075ba06a264ae4a3bf40a9c3e6fa51576847c701bfede4588c865ca1cc3"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-domain-customer-label-wrap-final-results\\domain-customer-label-wrap-e8a88-stomer-label-denied-at-1280\\domain-customer-label-denied-1280.png",
+        "sha256": "121a47b0ea594aaeb7f4830ce3721090203d9ad17e23388ea922b76c111ba128"
+      }
+    ]
+  },
+  "observations": [
+    {
+      "width": 1920,
+      "mode": "long",
+      "customerLength": 160,
+      "geometry": {
+        "viewportLeft": 361,
+        "viewportRight": 1559,
+        "client": 1198,
+        "scroll": 1198,
+        "tableWidth": 1198,
+        "firstCellWidth": 160,
+        "customerCellWidth": 252.859375,
+        "documentWidth": 1920,
+        "windowWidth": 1920
+      },
+      "customerBox": {
+        "x": 533,
+        "y": 283,
+        "width": 224.109375,
+        "height": 94
+      },
+      "operatorBox": {
+        "x": 997.859375,
+        "y": 270,
+        "width": 113.125,
+        "height": 120
+      },
+      "interaction": "CUSTOMER_LABEL_AND_OPERATOR_VISIBLE_SAFE_FALLBACK",
+      "reads": [
+        {
+          "operation": "service.list",
+          "input": {
+            "limit": 20,
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "customer.list",
+          "input": {
+            "limit": 1,
+            "sort": "id_asc",
+            "after_id": "10000000-0000-4000-8000-000000000000"
+          }
+        },
+        {
+          "operation": "operator.get",
+          "input": {
+            "id": "20000000-0000-4000-8000-000000000001"
+          }
+        }
+      ],
+      "commands": [],
+      "unexpected": [],
+      "errors": []
+    },
+    {
+      "width": 1440,
+      "mode": "long",
+      "customerLength": 160,
+      "geometry": {
+        "viewportLeft": 121,
+        "viewportRight": 1319,
+        "client": 1198,
+        "scroll": 1198,
+        "tableWidth": 1198,
+        "firstCellWidth": 160,
+        "customerCellWidth": 252.859375,
+        "documentWidth": 1440,
+        "windowWidth": 1440
+      },
+      "customerBox": {
+        "x": 293,
+        "y": 283,
+        "width": 224.109375,
+        "height": 94
+      },
+      "operatorBox": {
+        "x": 757.859375,
+        "y": 270,
+        "width": 113.125,
+        "height": 120
+      },
+      "interaction": "CUSTOMER_LABEL_AND_OPERATOR_VISIBLE_SAFE_FALLBACK",
+      "reads": [
+        {
+          "operation": "service.list",
+          "input": {
+            "limit": 20,
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "customer.list",
+          "input": {
+            "limit": 1,
+            "sort": "id_asc",
+            "after_id": "10000000-0000-4000-8000-000000000000"
+          }
+        },
+        {
+          "operation": "operator.get",
+          "input": {
+            "id": "20000000-0000-4000-8000-000000000001"
+          }
+        }
+      ],
+      "commands": [],
+      "unexpected": [],
+      "errors": []
+    },
+    {
+      "width": 1920,
+      "mode": "denied",
+      "customerLength": 18,
+      "geometry": {
+        "viewportLeft": 361,
+        "viewportRight": 1559,
+        "client": 1198,
+        "scroll": 1198,
+        "tableWidth": 1198,
+        "firstCellWidth": 176.03125,
+        "customerCellWidth": 149,
+        "documentWidth": 1920,
+        "windowWidth": 1920
+      },
+      "customerBox": {
+        "x": 549.03125,
+        "y": 285,
+        "width": 111.421875,
+        "height": 14
+      },
+      "operatorBox": {
+        "x": 932.46875,
+        "y": 270,
+        "width": 133.5625,
+        "height": 44
+      },
+      "interaction": "CUSTOMER_LABEL_AND_OPERATOR_VISIBLE_SAFE_FALLBACK",
+      "reads": [
+        {
+          "operation": "service.list",
+          "input": {
+            "limit": 20,
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "customer.list",
+          "input": {
+            "limit": 1,
+            "sort": "id_asc",
+            "after_id": "10000000-0000-4000-8000-000000000000"
+          }
+        },
+        {
+          "operation": "operator.get",
+          "input": {
+            "id": "20000000-0000-4000-8000-000000000001"
+          }
+        }
+      ],
+      "commands": [],
+      "unexpected": [],
+      "errors": []
+    },
+    {
+      "width": 1280,
+      "mode": "ordinary",
+      "customerLength": 18,
+      "geometry": {
+        "viewportLeft": 41,
+        "viewportRight": 1239,
+        "client": 1198,
+        "scroll": 1198,
+        "tableWidth": 1198,
+        "firstCellWidth": 177.234375,
+        "customerCellWidth": 141.859375,
+        "documentWidth": 1280,
+        "windowWidth": 1280
+      },
+      "customerBox": {
+        "x": 230.234375,
+        "y": 285,
+        "width": 104.0625,
+        "height": 14
+      },
+      "operatorBox": {
+        "x": 608.21875,
+        "y": 270,
+        "width": 134.46875,
+        "height": 44
+      },
+      "interaction": "CUSTOMER_LABEL_AND_OPERATOR_VISIBLE_SAFE_FALLBACK",
+      "reads": [
+        {
+          "operation": "service.list",
+          "input": {
+            "limit": 20,
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "customer.list",
+          "input": {
+            "limit": 1,
+            "sort": "id_asc",
+            "after_id": "10000000-0000-4000-8000-000000000000"
+          }
+        },
+        {
+          "operation": "operator.get",
+          "input": {
+            "id": "20000000-0000-4000-8000-000000000001"
+          }
+        }
+      ],
+      "commands": [],
+      "unexpected": [],
+      "errors": []
+    },
+    {
+      "width": 1440,
+      "mode": "ordinary",
+      "customerLength": 18,
+      "geometry": {
+        "viewportLeft": 121,
+        "viewportRight": 1319,
+        "client": 1198,
+        "scroll": 1198,
+        "tableWidth": 1198,
+        "firstCellWidth": 177.234375,
+        "customerCellWidth": 141.859375,
+        "documentWidth": 1440,
+        "windowWidth": 1440
+      },
+      "customerBox": {
+        "x": 310.234375,
+        "y": 285,
+        "width": 104.0625,
+        "height": 14
+      },
+      "operatorBox": {
+        "x": 688.21875,
+        "y": 270,
+        "width": 134.46875,
+        "height": 44
+      },
+      "interaction": "CUSTOMER_LABEL_AND_OPERATOR_VISIBLE_SAFE_FALLBACK",
+      "reads": [
+        {
+          "operation": "service.list",
+          "input": {
+            "limit": 20,
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "customer.list",
+          "input": {
+            "limit": 1,
+            "sort": "id_asc",
+            "after_id": "10000000-0000-4000-8000-000000000000"
+          }
+        },
+        {
+          "operation": "operator.get",
+          "input": {
+            "id": "20000000-0000-4000-8000-000000000001"
+          }
+        }
+      ],
+      "commands": [],
+      "unexpected": [],
+      "errors": []
+    },
+    {
+      "width": 1440,
+      "mode": "denied",
+      "customerLength": 18,
+      "geometry": {
+        "viewportLeft": 121,
+        "viewportRight": 1319,
+        "client": 1198,
+        "scroll": 1198,
+        "tableWidth": 1198,
+        "firstCellWidth": 176.03125,
+        "customerCellWidth": 149,
+        "documentWidth": 1440,
+        "windowWidth": 1440
+      },
+      "customerBox": {
+        "x": 309.03125,
+        "y": 285,
+        "width": 111.421875,
+        "height": 14
+      },
+      "operatorBox": {
+        "x": 692.46875,
+        "y": 270,
+        "width": 133.5625,
+        "height": 44
+      },
+      "interaction": "CUSTOMER_LABEL_AND_OPERATOR_VISIBLE_SAFE_FALLBACK",
+      "reads": [
+        {
+          "operation": "service.list",
+          "input": {
+            "limit": 20,
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "customer.list",
+          "input": {
+            "limit": 1,
+            "sort": "id_asc",
+            "after_id": "10000000-0000-4000-8000-000000000000"
+          }
+        },
+        {
+          "operation": "operator.get",
+          "input": {
+            "id": "20000000-0000-4000-8000-000000000001"
+          }
+        }
+      ],
+      "commands": [],
+      "unexpected": [],
+      "errors": []
+    },
+    {
+      "width": 1280,
+      "mode": "long",
+      "customerLength": 160,
+      "geometry": {
+        "viewportLeft": 41,
+        "viewportRight": 1239,
+        "client": 1198,
+        "scroll": 1198,
+        "tableWidth": 1198,
+        "firstCellWidth": 160,
+        "customerCellWidth": 252.859375,
+        "documentWidth": 1280,
+        "windowWidth": 1280
+      },
+      "customerBox": {
+        "x": 213,
+        "y": 283,
+        "width": 224.109375,
+        "height": 94
+      },
+      "operatorBox": {
+        "x": 677.859375,
+        "y": 270,
+        "width": 113.125,
+        "height": 120
+      },
+      "interaction": "CUSTOMER_LABEL_AND_OPERATOR_VISIBLE_SAFE_FALLBACK",
+      "reads": [
+        {
+          "operation": "service.list",
+          "input": {
+            "limit": 20,
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "customer.list",
+          "input": {
+            "limit": 1,
+            "sort": "id_asc",
+            "after_id": "10000000-0000-4000-8000-000000000000"
+          }
+        },
+        {
+          "operation": "operator.get",
+          "input": {
+            "id": "20000000-0000-4000-8000-000000000001"
+          }
+        }
+      ],
+      "commands": [],
+      "unexpected": [],
+      "errors": []
+    },
+    {
+      "width": 1920,
+      "mode": "ordinary",
+      "customerLength": 18,
+      "geometry": {
+        "viewportLeft": 361,
+        "viewportRight": 1559,
+        "client": 1198,
+        "scroll": 1198,
+        "tableWidth": 1198,
+        "firstCellWidth": 177.234375,
+        "customerCellWidth": 141.859375,
+        "documentWidth": 1920,
+        "windowWidth": 1920
+      },
+      "customerBox": {
+        "x": 550.234375,
+        "y": 285,
+        "width": 104.0625,
+        "height": 14
+      },
+      "operatorBox": {
+        "x": 928.21875,
+        "y": 270,
+        "width": 134.46875,
+        "height": 44
+      },
+      "interaction": "CUSTOMER_LABEL_AND_OPERATOR_VISIBLE_SAFE_FALLBACK",
+      "reads": [
+        {
+          "operation": "service.list",
+          "input": {
+            "limit": 20,
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "customer.list",
+          "input": {
+            "limit": 1,
+            "sort": "id_asc",
+            "after_id": "10000000-0000-4000-8000-000000000000"
+          }
+        },
+        {
+          "operation": "operator.get",
+          "input": {
+            "id": "20000000-0000-4000-8000-000000000001"
+          }
+        }
+      ],
+      "commands": [],
+      "unexpected": [],
+      "errors": []
+    },
+    {
+      "width": 1280,
+      "mode": "denied",
+      "customerLength": 18,
+      "geometry": {
+        "viewportLeft": 41,
+        "viewportRight": 1239,
+        "client": 1198,
+        "scroll": 1198,
+        "tableWidth": 1198,
+        "firstCellWidth": 176.03125,
+        "customerCellWidth": 149,
+        "documentWidth": 1280,
+        "windowWidth": 1280
+      },
+      "customerBox": {
+        "x": 229.03125,
+        "y": 285,
+        "width": 111.421875,
+        "height": 14
+      },
+      "operatorBox": {
+        "x": 612.46875,
+        "y": 270,
+        "width": 133.5625,
+        "height": 44
+      },
+      "interaction": "CUSTOMER_LABEL_AND_OPERATOR_VISIBLE_SAFE_FALLBACK",
+      "reads": [
+        {
+          "operation": "service.list",
+          "input": {
+            "limit": 20,
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "customer.list",
+          "input": {
+            "limit": 1,
+            "sort": "id_asc",
+            "after_id": "10000000-0000-4000-8000-000000000000"
+          }
+        },
+        {
+          "operation": "operator.get",
+          "input": {
+            "id": "20000000-0000-4000-8000-000000000001"
+          }
+        }
+      ],
+      "commands": [],
+      "unexpected": [],
+      "errors": []
+    }
+  ],
+  "candidate_fingerprints": [
+    {
+      "path": "src/features/customers/CustomerDomainPages.tsx",
+      "sha256_utf8_lf": "ca93466d215d8448bd49e705936e8767c7931f1e7cf3fd9cd81dd9ad661ea7cf"
+    },
+    {
+      "path": "tests/e2e-preview/domain-customer-label-wrap.spec.ts",
+      "sha256_utf8_lf": "019616afadefe8331ed7ceb3a838d94ecdaafbd8ec1c25016777e733984f8430"
+    },
+    {
+      "path": "tests/e2e-preview/fixtures/customer-domain-entry.tsx",
+      "sha256_utf8_lf": "488c28c74f53a521116c701bc44fabbdc6540893c597279d9696871a6a85d10f"
+    },
+    {
+      "path": "docs/master/W2X_DOMAIN_CUSTOMER_LABEL_WRAP_20261019.md",
+      "sha256_utf8_lf": "f9d399ae813ee8934523342cc49cc58cf50098b91c30bf2319cf701fcde39d30"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-domain-customer-label-wrap-browser-exit.txt",
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-domain-customer-label-wrap-browser.txt",
+      "sha256": "79f8bf877f34e4b9670cc2c5a924be2d8c1a650f0b98a3ce29a6b217dc260037"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-domain-customer-label-wrap-build-exit.txt",
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-domain-customer-label-wrap-build.txt",
+      "sha256": "c29ffc42d9c870631eadaec1bf2b4200170fe6102dd2b3f07c7f40c0879a0e0d"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-domain-customer-label-wrap-causal-exit.txt",
+      "sha256": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-domain-customer-label-wrap-causal.txt",
+      "sha256": "c536be8b09ced00b50d471dde009289b576536194a8bbb92c98bb7b8fa4eba4a"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-domain-customer-label-wrap-collection-exit.txt",
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-domain-customer-label-wrap-collection.txt",
+      "sha256": "ba9b64b6e3b1246e46944384f9ace55262c27c5301d56bf67dd5ed4bd045f52c"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-domain-customer-label-wrap-lint-exit.txt",
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-domain-customer-label-wrap-lint.txt",
+      "sha256": "77e52456c3bf671c8ed5a0154c9dbfdd998b31f3c61494ca11430b416d294dad"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-domain-customer-label-wrap-scan.txt",
+      "sha256": "a1f13c4923cf3f3bb7c08409f0adcd76391f91e994ee5a5edf1c3c90ad65e2e1"
+    }
+  ],
+  "known_remaining_defects": {
+    "whole_product": "NOT_RECONCILED",
+    "router_navigation": "NOT_RUN_CONTROLLED_CONTEXT_ONLY",
+    "security": "W4_PENDING_HIGH5",
+    "release": "NOT_ACCEPTED",
+    "global_operator_label": {
+      "status": "REPRODUCED_ON_THIS_PRODUCT_SOURCE",
+      "source": "002c2565894e26eafa6349e29aac391c1e607873",
+      "evidence": "work/w2x-domain-operator-label-wrap-causal.txt",
+      "original": "3FAIL6PASS1.0m;table2235.296875/client1198/operatorcell1291.296875",
+      "fix_candidate": {
+        "unit": 104,
+        "branch": "codex/w2x-domain-operator-label-wrap-20261019",
+        "sha": "a146988c246152d41176a091a00af6b6b4f9326c",
+        "status": "PUBLISHED_OWN99_BUILD66_VISUAL9_SEPARATE_SOURCE"
+      },
+      "scope": "Source103 has no operator fix;90 tests do not include104 bank."
+    }
+  },
+  "handoffs": [
+    {
+      "issue": 67,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6256673088",
+      "id": 6256673088
+    },
+    {
+      "issue": 153,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6256673240",
+      "id": 6256673240
+    },
+    {
+      "issue": 38,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6256673368",
+      "id": 6256673368
+    },
+    {
+      "issue": 142,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6256673497",
+      "id": 6256673497
+    }
+  ],
+  "tree": "bd1fad1bffd61a207538edd0e9ff57f1103500be",
+  "sha": "002c2565894e26eafa6349e29aac391c1e607873"
+}

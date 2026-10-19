@@ -1,0 +1,125 @@
+{
+  "claim": 6202649389,
+  "base": "f5e167b39aadd8d7c99c4894fc8b26845f05d61b",
+  "branch": "codex/w2x-sim-parent-read-lifetime-20261015",
+  "status": "OWN54_BUILD66_LINT0ERRORS3WARN_SCAN_PASS_VISUAL_PARTIAL_AUTH_NOT_RUN",
+  "product_changed": true,
+  "causal": {
+    "failed": 2,
+    "passed": 2,
+    "log": "w2x-sim-parent-read-causal.txt",
+    "original_test": "w2x-sim-parent-read-original-test.ts",
+    "scope": "Physical/eSIM valid active assigned records; initial dependency read only."
+  },
+  "candidate_fingerprints": [
+    {
+      "path": "src/features/sims/Sims.tsx",
+      "sha256_utf8_lf": "74fae197c24faf992e93a2a2a958021aab47697d6dcd81b94b9fff6c7c39c8fb"
+    },
+    {
+      "path": "tests/e2e-preview/fixtures/telecom-resource-entry.tsx",
+      "sha256_utf8_lf": "8bbc05d05666528b8f5d870adafe2c192f62840bec704ac9fcdfa323d7a608cf"
+    },
+    {
+      "path": "tests/e2e-preview/sim-parent-read-lifetime.spec.ts",
+      "sha256_utf8_lf": "810c130b51759190af60a90b441b262e051e1ee352c682a52c98bc4fb557d35d"
+    },
+    {
+      "path": "docs/master/W2X_SIM_PARENT_READ_LIFETIME_20261015.md",
+      "sha256_utf8_lf": "7136a2c301d790dd2071aad4f431daf2f564633369af6ef00c2886e1a978baa0"
+    }
+  ],
+  "next": "INDIVIDUAL_SIM_GET_REVIEW_WITH_NEW_CLAIM;GLOBAL999_SOURCE_D889_SEPARATE",
+  "release": "NOT_ACCEPTED",
+  "controls_session": 72976,
+  "collection": {
+    "tests": 54,
+    "files": 3
+  },
+  "checks": {
+    "browser": 54,
+    "build": 66,
+    "lint": "0_ERRORS_3_WARNINGS_VISIBLE",
+    "scan": "PASS",
+    "visual": "PARTIAL_6_CURRENT_PHYSICAL_ESIM_FRAMES_ACTUALLY_VIEWED",
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN"
+  },
+  "published": true,
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-sim-parent-read-causal.txt",
+      "sha256": "47c1e053a247b3c999a298239e8c2860a92ce3069f53512b1d996f98f5868252"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-sim-parent-read-browser.txt",
+      "sha256": "463dca2d76867e8e52e36b7bfe78fb17549bfb8e236c41464734e91a4661eda7"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-sim-parent-read-lint.txt",
+      "sha256": "49a26d49e4169181f87afa77effbec72bc4ee46acc2d62d58cb312f94dc54298"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-sim-parent-read-build.txt",
+      "sha256": "62d1221e9a6f9a7ed75d9208299d61f314149d8c5f0f59e7f07d5d1ecf1dc677"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-sim-parent-read-scan.txt",
+      "sha256": "100edef812260aa91707228b510327dc9efac4182d049b917f6efa9ebb450779"
+    }
+  ],
+  "tree": "06e1f2022a54577dbdce5f2e2322f9f5f7428734",
+  "publication": "PUBLISHED",
+  "sha": "237dc1e5bef5b510c9dac7ba06598a9ce19f5673",
+  "handoffs": [
+    {
+      "id": 6202769277,
+      "issue": 67,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6202769277"
+    },
+    {
+      "id": 6202769500,
+      "issue": 153,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6202769500"
+    },
+    {
+      "id": 6202769752,
+      "issue": 38,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6202769752"
+    },
+    {
+      "id": 6202770021,
+      "issue": 142,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6202770021"
+    }
+  ],
+  "visual": {
+    "scope": "Six physical/eSIM390/768/1440 loaded frames inspected. Masked ICCID/EID, customer/operator, linked line and initial replacement controls visible; mobile lower sections beyond viewport. No actual activation or full lifecycle acceptance.",
+    "images": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-sim-parent-read-final-results\\sim-parent-read-lifetime-S-4a5a3-t-read-esim-current-at-1440\\sim-parent-esim-current-1440.png",
+        "sha256": "10bda2bbb24924d3993fecbb7898bc8bf40a10cf4623550841c710f1179e17f9"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-sim-parent-read-final-results\\sim-parent-read-lifetime-S-4b9c4-ead-physical-current-at-390\\sim-parent-physical-current-390.png",
+        "sha256": "f238d68bbe1affbede6fdf78b4712fe73f5b0274026d791b4387ccbe7010f238"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-sim-parent-read-final-results\\sim-parent-read-lifetime-S-94f9f-ad-physical-current-at-1440\\sim-parent-physical-current-1440.png",
+        "sha256": "c943dbd9c6595397f7f3a65dca1a813d3d992546e3e8b7c8825a04af8c9bebbc"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-sim-parent-read-final-results\\sim-parent-read-lifetime-S-df251-ead-physical-current-at-768\\sim-parent-physical-current-768.png",
+        "sha256": "ff75927490a7f27beeedb5e5170b2a9bc3a8d07bc6734ae5161898cd26638ed5"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-sim-parent-read-final-results\\sim-parent-read-lifetime-SIM-parent-read-esim-current-at-390\\sim-parent-esim-current-390.png",
+        "sha256": "6782e34d23fc141df340add651768363a46a18792a21a05e39ed7673b46d1322"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-sim-parent-read-final-results\\sim-parent-read-lifetime-SIM-parent-read-esim-current-at-768\\sim-parent-esim-current-768.png",
+        "sha256": "0dabf0a2b0e70c3074339c99f3bfd557ec293a2c9c28f01789751397741d6f27"
+      }
+    ]
+  }
+}

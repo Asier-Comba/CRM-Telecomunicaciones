@@ -1,0 +1,58 @@
+{
+  "utc": "2026-10-14T05:32:53.212371+00:00",
+  "work": "W2-X",
+  "claim": 6161364120,
+  "path": "${WORKSPACE}\\work\\crm-w2x-document-upload-uncertain",
+  "branch": "codex/w2x-billing-archived-customer-20261014",
+  "sha": "3b26653c69627254dc0f16d391d2f10748f94ca6",
+  "tree": "52bf6fe8e635da09f9f67e4778faff8ef78111f1",
+  "published": true,
+  "clean": true,
+  "status": "OWN18_NEW30_REGRESSIONS_BUILD66_LINT_SCAN_PASS_AUTH_NOT_RUN",
+  "checks": {
+    "new_browser": 18,
+    "previous_regressions": 30,
+    "total_unique": 48,
+    "build": "PASS66",
+    "lint": "PASS",
+    "gitleaks": "PASS",
+    "consumer_syntax": "PASS",
+    "auth": "NOT_RUN",
+    "model": "NOT_RUN"
+  },
+  "visual": {
+    "scope": "SYNTHETIC_HTTP_ARCHIVED_NOTICE_AND_CURRENT_CUSTOMER_PARTIAL_HISTORY_NOT_AUTH",
+    "images": [
+      {
+        "width": 390,
+        "path": "${WORKSPACE}\\work\\w2x-billing-archived-history-390.png",
+        "sha256": "cb36a314d252e0ec7f151230c3df5f683b3bc3c33838bb1e8781fc80e8ea8e7d"
+      },
+      {
+        "width": 768,
+        "path": "${WORKSPACE}\\work\\w2x-billing-archived-history-768.png",
+        "sha256": "f5d34013679f03dfbb7031bb0f19b809e7c4a45d99d6b16647c9457ed19efae3"
+      },
+      {
+        "width": 1440,
+        "path": "${WORKSPACE}\\work\\w2x-billing-archived-history-1440.png",
+        "sha256": "c5a7268f1135e19c67e04cfc16aed8487d0eff43535e2c846b8c0d9aa842bb53"
+      }
+    ]
+  },
+  "preserved_failures": [
+    "w2x-billing-archived-original-repro.txt",
+    "w2x-billing-archived-visual-browser.txt:first390_notice_outside_frame"
+  ],
+  "expected_unmeasured": {
+    "local": 283,
+    "preview": 766,
+    "auth": 117
+  },
+  "bundle_sha256": "782cea05a3085817bc0b9f95d0d8158e8a0130569e43dd09774bacb877b139f0",
+  "next": "COMPOSE_AFTER_9DB_FAILURE_CAUSE_REPRODUCTION_WITH_OWN_CONTROLS; NO_PASS_INHERITANCE",
+  "five_high": "UNRESOLVED",
+  "release": "NOT_ACCEPTED",
+  "ai_writes": "OFF",
+  "api_calls": 0
+}

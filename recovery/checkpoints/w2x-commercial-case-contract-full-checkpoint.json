@@ -1,0 +1,69 @@
+{
+  "utc": "2026-10-15T07:06:26.053144+00:00",
+  "claim": 6187486280,
+  "sha": "b509327bb4ed14fd593ab702b7a905990063b59e",
+  "tree": "7fc1a70bfe803e471655a5017bd658b82070ccfc",
+  "branch": "codex/w2x-case-contract-selection-20261015",
+  "status": "OWN740_FULL_BUILD66_LINT_QUEUE_SCAN_PASS_VISUAL_PARTIAL_AUTH_NOT_RUN",
+  "expected": 740,
+  "release": "NOT_ACCEPTED",
+  "checks": {
+    "browser": 45,
+    "lint": "PASS",
+    "lint_warnings": 1,
+    "lint_warning_scope": "Existing IntegratedBilling creationRequest.current cleanup warning retained",
+    "build": "PASS66",
+    "scan": "PASS",
+    "visual": "THREE_CURRENT_FRAMES_VIEWED_PARTIAL",
+    "auth_db": "NOT_RUN",
+    "storage": "NOT_RUN",
+    "model": "NOT_RUN"
+  },
+  "next": "CLAIM_NEXT_COMMERCIAL_DEFECT_AFTER_SOURCE_CHECK;NO_GREEN_RERUN",
+  "browser_session": 30980,
+  "browser_exit": 0,
+  "full_suite_pass": true,
+  "publication": "PUBLISHED",
+  "handoffs": [
+    {
+      "issue": 67,
+      "id": 6188512118,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6188512118"
+    },
+    {
+      "issue": 153,
+      "id": 6188512727,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6188512727"
+    },
+    {
+      "issue": 38,
+      "id": 6188513075,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6188513075"
+    },
+    {
+      "issue": 142,
+      "id": 6188513355,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6188513355"
+    }
+  ],
+  "passed": 740,
+  "failed": 0,
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-commercial-case-contract-full-browser.txt",
+      "sha256": "59b499c36b5c045e9d9eccae1355160225c57f8eb749234861101d2438586389"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-commercial-case-contract-full-collection.txt",
+      "sha256": "c6564b952d57ea7391c2a07f49af4d0ca69f823a955b639588e9fb6e11636ea0"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-commercial-case-contract-full-queue.txt",
+      "sha256": "03f1587869842e4a8b10fa7ee33a8b075f28a1fe4c73b8a7380c3c8746f196ff"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-case-contract-selection-published.bundle",
+      "sha256": "d451af70cced951330cbf427a624280676b5bca2684d8433c881e46baa856fbb"
+    }
+  ]
+}

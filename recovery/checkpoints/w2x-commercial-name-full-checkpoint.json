@@ -1,0 +1,87 @@
+{
+  "claim": 6253342210,
+  "sha": "194057f50a1d9d9ce60b8003065fa3c06cd7e5d3",
+  "tree": "c2d0e434551ef7583f59031b508b0cd6bce90636",
+  "branch": "codex/w2x-c360-company-facts-wrap-20261018",
+  "status": "OWN1869_FULL_PASS",
+  "browser_status": "PASS1869",
+  "browser_exit": 0,
+  "browser_summary": [
+    "1869 passed (36.5m)"
+  ],
+  "source_clean": true,
+  "own_source_checks": {
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN",
+    "paid_api": 0,
+    "global": "NOT_RUN_CURRENT_SHA",
+    "functional": "NOT_RUN_UI_STYLE_ONLY",
+    "browser": "77_PASS_OWN_SOURCE",
+    "build": "66_PASS",
+    "lint": "EXIT0_WARNINGS_PRESERVED",
+    "scan": "PASS"
+  },
+  "known_remaining_defects": {
+    "whole_product": "NOT_RECONCILED",
+    "auth_db": "NOT_RUN",
+    "live_model": "NOT_RUN",
+    "security": "W4_PENDING_HIGH5",
+    "shared_read_validation72": "OWNER_REVIEW_CONSUMPTION_PENDING",
+    "overdue_date_derivation72": "NOT_ACCEPTED_BY_DECLARED_FLAG_FIXTURE",
+    "release": "NOT_ACCEPTED"
+  },
+  "auth_db": "NOT_RUN",
+  "model": "NOT_RUN",
+  "paid_api": 0,
+  "release": "NOT_ACCEPTED",
+  "next": "Continue useful independent W2 commercial unit;no repeat green without changed source or relevant failure.",
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-commercial-name-full-collection.txt",
+      "sha256": "f8812af113f2b5a067b2a8b9bcd8c8fce4d46fefb41cc0af7ef8f8f73245195b"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-commercial-name-full-browser.txt",
+      "sha256": "79a0473571e1d544a7fc5a8dadd64732586d39440c415e4bbb4cbe1477eb48c7"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-c360-company-facts-wrap-browser.txt",
+      "sha256": "7034ca9bf605468050e0095b3a7a0d44f1c71fc73a0cb5fde967fdbb059dbab4"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-c360-company-facts-wrap-build.txt",
+      "sha256": "12605a7170c2d6b280c762263b73db0df6a2f5524a65e199b1b83a3d86c88297"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-c360-company-facts-wrap-lint.txt",
+      "sha256": "77e52456c3bf671c8ed5a0154c9dbfdd998b31f3c61494ca11430b416d294dad"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-c360-company-facts-wrap-scan.txt",
+      "sha256": "e32a19aa0f4fd1c75e03e66b3e912c7ff3d6dd07f9262f8c60b6746ed6958665"
+    }
+  ],
+  "handoffs": [
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6254067966",
+      "id": 6254067966,
+      "issue": 67
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6254068077",
+      "id": 6254068077,
+      "issue": 153
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6254068177",
+      "id": 6254068177,
+      "issue": 38
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6254068300",
+      "id": 6254068300,
+      "issue": 142
+    }
+  ],
+  "publication": "PUBLISHED"
+}

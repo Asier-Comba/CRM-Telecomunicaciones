@@ -1,0 +1,51 @@
+{
+  "sha": "a9761de5c785a57ae6e733c98c5a2c40626fe29f",
+  "tree": "dadc8f00cdd27ab53188e8407498ef75e64891ed",
+  "branch": "codex/w2x-c360-failure-waiters-20261014",
+  "path": "${WORKSPACE}\\work\\crm-w2x-c360-failure-waiters",
+  "claim": 6157715752,
+  "handoff": 6157796200,
+  "clean": true,
+  "published": true,
+  "base": "9c361c9ce7e32ba202f0c6e24aacd371c5026e04",
+  "controls": "1/1_REAL_CONSUMER_CHROMIUM_NODE_SYNTHETIC_ORCHESTRATION",
+  "original": "4_CHECK_FAILURES_2_ORPHANED_REJECTIONS",
+  "fixed": "4_CHECK_FAILURES_NO_ORPHANED_REJECTION_FIRST_TIMEOUT_STILL_REJECTS",
+  "typecheck": "PASS",
+  "lint": "PASS",
+  "gitleaks": "PASS",
+  "auth_db": "NOT_RUN",
+  "physical_retention_causality": "NOT_CLAIMED_ORIGINAL_D764_NO_SAFE_CAUSE_NOT_COMPLETE",
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-c360-waiters-parent.txt",
+      "sha256": "80dbd822221fb59c05aea351f4396029b0b12afc678dc702f8019025cd9b8657"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-c360-waiters-causal-parent.txt",
+      "sha256": "5673c1876f3c1361657d327858ed02d4ad4568e433c7536c0335c60ddf4c3e74"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-c360-waiters-focused-final.txt",
+      "sha256": "02e97f395c8438de3817609ce0ae250fee03f04ef3696d9884009feedfeadff8"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-c360-waiters-causal-fixed.txt",
+      "sha256": "87dc4fe22bdb6dc8365c1e5f57041f32bbe74d877951abb61b7110391c7cec1c"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-c360-waiters-types.txt",
+      "sha256": "09698db0dd661e366e31bb0aa12a64958690641809896ed8445717ab71ea6759"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-c360-waiters-lint.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-c360-waiters-published.bundle",
+      "sha256": "208b3bf681fea57f23b3960127be7462c91853d1a9148d9175ae100b224f5d7f"
+    }
+  ],
+  "release": "NOT_ACCEPTED",
+  "integration_ack": "NOT_RECEIVED"
+}

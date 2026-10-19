@@ -1,0 +1,131 @@
+{
+  "claim": 6212750000,
+  "base": "2741fb82047534ecdf27044f25514f0d690b69e3",
+  "branch": "codex/w2x-customer-attention-context-20261016",
+  "status": "PUBLISHED_OWN60_BUILD66_VISUAL_PARTIAL6_AUTH_NOT_RUN",
+  "original": {
+    "failed": 5,
+    "passed": 4,
+    "scope": "two hrefs without customer;two initial requests missing customer;denied request missing customer",
+    "log": "work/w2x-customer-attention-context-causal.txt"
+  },
+  "fixture_refinement": "Cursor with empty items would be invalid; before final tests replaced with actual full20 strictly ordered items and matching last cursor. Original failures preceded cursor use, no invalid positive claimed.",
+  "release": "NOT_ACCEPTED",
+  "controls_session": 84061,
+  "global_current_sha": "NOT_RUN",
+  "next": "Fresh CLAIM for an independent reproduced commercial defect; do not modify frozen2741fb8 or inherit its global1266",
+  "candidate_fingerprints": [
+    {
+      "path": "src/features/customers/Customer360Overview.tsx",
+      "sha256_utf8_lf": "8a4754ba1ccf9eec7ab6da550b6b8eeeaebde760661494e9989ffc5ad6728487"
+    },
+    {
+      "path": "src/features/attention/IntegratedAttention.tsx",
+      "sha256_utf8_lf": "188060627f17e9b217ba1b3c1d70abeab6cf242bcd1c3aafa200019385abaf29"
+    },
+    {
+      "path": "src/app/(saas)/attention/page.tsx",
+      "sha256_utf8_lf": "2346d313fa013e0cb6e601f231bd9378aa5fa43e7cea31ede25b6e04f227d97f"
+    },
+    {
+      "path": "tests/e2e-preview/fixtures/customer-resource-entry.tsx",
+      "sha256_utf8_lf": "1c7845181e61e3181c03958c0315f285d95adfc4a0bc4c9e3929c04e38e243b8"
+    },
+    {
+      "path": "tests/e2e-preview/customer-attention-context.spec.ts",
+      "sha256_utf8_lf": "6ca1c1a5beb6f364d872ad605fb98e149ef7118378dc6cc71e5f97ec773f3314"
+    },
+    {
+      "path": "docs/master/W2X_CUSTOMER_ATTENTION_CONTEXT_20261016.md",
+      "sha256_utf8_lf": "16d1204bff5b7e26418011739e54594680c857ced078600420e5784976d76f26"
+    }
+  ],
+  "visual_review": {
+    "status": "ACTUALLY_VIEWED",
+    "scope": "Partial filters and empty second page;mobile lower controls outside viewport;not complete router/module/identity acceptance",
+    "frames": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-customer-attention-context-final-results\\customer-attention-context-19c22-on-context-scoped-B-at-1440\\attention-scoped-2-1440.png",
+        "sha256": "54d8f0c2891b3eeb6e3b7b1ebe1e253447a4841f287c7d1bb0a5f65563504568"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-customer-attention-context-final-results\\customer-attention-context-1bcbd-ion-context-scoped-A-at-390\\attention-scoped-1-390.png",
+        "sha256": "2f277ed94d7e923822d4fdb9f00cce67206788d933c7cb4a1a99b37953f51cbc"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-customer-attention-context-final-results\\customer-attention-context-61b00-on-context-scoped-A-at-1440\\attention-scoped-1-1440.png",
+        "sha256": "54d8f0c2891b3eeb6e3b7b1ebe1e253447a4841f287c7d1bb0a5f65563504568"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-customer-attention-context-final-results\\customer-attention-context-654b1-ion-context-scoped-A-at-768\\attention-scoped-1-768.png",
+        "sha256": "cf75ef08aa70d85b05703583af37402d007fba2b6cc31480745130ed073fee7f"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-customer-attention-context-final-results\\customer-attention-context-cebdc-ion-context-scoped-B-at-390\\attention-scoped-2-390.png",
+        "sha256": "2f277ed94d7e923822d4fdb9f00cce67206788d933c7cb4a1a99b37953f51cbc"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-customer-attention-context-final-results\\customer-attention-context-de79b-ion-context-scoped-B-at-768\\attention-scoped-2-768.png",
+        "sha256": "cf75ef08aa70d85b05703583af37402d007fba2b6cc31480745130ed073fee7f"
+      }
+    ]
+  },
+  "checks": {
+    "browser": "60_PASS_OWN_SOURCE",
+    "build": "66_PASS",
+    "visual": "PARTIAL_6_ACTUALLY_VIEWED",
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN",
+    "paid_api": 0,
+    "lint": "EXIT0_WARNINGS_RETAINED_IN_LOG",
+    "scan": "PASS",
+    "global": "NOT_RUN_CURRENT_SHA"
+  },
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-attention-context-causal.txt",
+      "sha256": "76f72630742228c5bcc9fcf10faaf7e98e20db2a037f9b0adbbba7cf4abb4f81"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-attention-context-browser.txt",
+      "sha256": "7d3a17253bae25fb84918f02197f2e09d2e3fd1fb593b3075dfa30d90be9636b"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-attention-context-lint.txt",
+      "sha256": "91a5c63f9a9a0a42f92a00caa38da32336b62b940ccf4738d08ef97c55d9996c"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-attention-context-build.txt",
+      "sha256": "52ece5716b584dda5e0408fdf0bac07fbda0e788434461944f5f618c2f79740d"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-attention-context-scan.txt",
+      "sha256": "68796701fd336ab0a1f7feafc50b116fbdee229e7e9a7dfcf9b81053cb1b8e68"
+    }
+  ],
+  "tree": "dfccfcb4f67bc2c14d36a42e792df29647dacc27",
+  "publication": "PUBLISHED",
+  "sha": "991022ddd9aebff79fc7450584f44cffd131b995",
+  "handoffs": [
+    {
+      "issue": 67,
+      "id": 6212872003,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6212872003"
+    },
+    {
+      "issue": 153,
+      "id": 6212872327,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6212872327"
+    },
+    {
+      "issue": 38,
+      "id": 6212872682,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6212872682"
+    },
+    {
+      "issue": 142,
+      "id": 6212872947,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6212872947"
+    }
+  ]
+}

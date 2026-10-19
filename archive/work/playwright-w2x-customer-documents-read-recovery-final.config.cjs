@@ -1,0 +1,1 @@
+const p=require('./playwright-w2x-communications-page-focus-final.config.cjs');module.exports={...p,testMatch:['customer-documents-read-recovery.spec.ts','document-contract-selection.spec.ts'],outputDir:require('node:path').resolve(__dirname,'w2x-customer-documents-read-recovery-final-results')}

@@ -1,0 +1,145 @@
+{
+  "claim": 6199848668,
+  "base": "be524199a28af226bd492004a32311b0873672fd",
+  "branch": "codex/w2x-opportunity-command-read-lifetime-20261015",
+  "status": "OWN102_BUILD66_LINT0ERRORS3WARN_SCAN_PASS_VISUAL_PARTIAL_AUTH_NOT_RUN",
+  "product_changed": true,
+  "original": {
+    "log": "w2x-opportunity-command-read-causal.txt",
+    "failed": 3,
+    "passed": 1,
+    "causal_failures": 2,
+    "editor_current": "Observed read delta0 before awaiting UI completion; refine positive readiness only, original source intact."
+  },
+  "positive_session": 88709,
+  "next": "SOURCE15_COMPOSED_OWN21_RUNNING;ONE_GLOBAL_ON_SOURCE15_IF_ALL_PASS",
+  "release": "NOT_ACCEPTED",
+  "positive": {
+    "log": "w2x-opportunity-command-read-positive.txt",
+    "passed": 1,
+    "scope": "Only prior failed editor current case; source unchanged"
+  },
+  "candidate_fingerprints": [
+    {
+      "path": "src/features/opportunities/IntegratedOpportunities.tsx",
+      "sha256_utf8_lf": "22291fa4aa20efb968db719cb8899bbb3b5100ff0dd086514a7bc27cacd6f131"
+    },
+    {
+      "path": "tests/e2e-preview/opportunity-command-read-lifetime.spec.ts",
+      "sha256_utf8_lf": "3877ac9ae016dce3b87d5899405a8f161f71a22933b3809904f04658bbca6784"
+    },
+    {
+      "path": "docs/master/W2X_OPPORTUNITY_COMMAND_READ_LIFETIME_20261015.md",
+      "sha256_utf8_lf": "e8a0c5b5da4a97e894cecc5de0e4a2bea76a12927d363a01fe33eaa057768e90"
+    }
+  ],
+  "collection": {
+    "tests": 102,
+    "files": 7
+  },
+  "targeted_lint": "PASS0_ERRORS0_WARNINGS",
+  "composed_source13": "be524199a28af226bd492004a32311b0873672fd",
+  "browser_harness_failure": {
+    "controller_session": 21934,
+    "controller_exit": 1,
+    "browser_exit": "UNKNOWN",
+    "browser_test_totals": "UNKNOWN_NO_COMPLETION_SUMMARY",
+    "error": "NativeCommandError in Windows PowerShell redirection under ErrorActionPreference=Stop: (node:18552) Warning: NO_COLOR env ignored due to FORCE_COLOR. Controller terminated before exit marker.",
+    "log": "work\\w2x-opportunity-command-read-browser-attempt1-powershell-failure.txt",
+    "sha256": "9991f87c2480f9ef1437a055d3b9e0f5cc18580882609f9264f2a9837d441bb0",
+    "cause_scope": "PowerShell launch harness treats redirected native stderr warning as terminating error; not a product assertion, not image quota, no manual cancellation.",
+    "remedy": "Continue native stderr collection while measuring actual LASTEXITCODE; preserve worker1/retries0/timeout60000, same source/config/assertions. Rerun browser102 only, prior lint/build not repeated."
+  },
+  "browser_resume_session": 99479,
+  "checks": {
+    "browser": 102,
+    "build": 66,
+    "lint": "0_ERRORS_3_WARNINGS_VISIBLE",
+    "scan": "PASS",
+    "visual": "PARTIAL_6_CURRENT_FRAMES_ACTUALLY_VIEWED",
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN"
+  },
+  "published": true,
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-opportunity-command-read-causal.txt",
+      "sha256": "a6aca3a781d80114b8fd0a9ff4af6d74b5991fa1d598fbc9c0e86ebc3b701de3"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-opportunity-command-read-positive.txt",
+      "sha256": "4a82a2e48cb2b103215cd8f893861e08d6d95cd8e3870b89eab1d2609ca1febe"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-opportunity-command-read-browser.txt",
+      "sha256": "f681cbf5fd6e704093676c05f12ddb9119026e79412eec03197c4d533434fae1"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-opportunity-command-read-lint.txt",
+      "sha256": "9866ff6e60815dba7d6eebc66d5e144ae461e31abbefc3d579e1a1f24179eae6"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-opportunity-command-read-build.txt",
+      "sha256": "915589ff7fea6aa40baccc4922d01b83bf41df3dca53af56c209e7452f960f3a"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-opportunity-command-read-scan.txt",
+      "sha256": "1bed8c0919f695667a5730c7c82741d94aeb8b08e0527c5338c4a36dd68f295d"
+    }
+  ],
+  "handoffs": [
+    {
+      "issue": 67,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6200357417",
+      "id": 6200357417
+    },
+    {
+      "issue": 153,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6200357783",
+      "id": 6200357783
+    },
+    {
+      "issue": 38,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6200358076",
+      "id": 6200358076
+    },
+    {
+      "issue": 142,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6200358379",
+      "id": 6200358379
+    }
+  ],
+  "tree": "e6dde8b10859823b5687ec456ab12f2313554031",
+  "publication": "PUBLISHED",
+  "sha": "a4ef01b90025614ff5e42cff10225e9b5bc11e1f",
+  "visual": {
+    "source_sha": "a4ef01b90025614ff5e42cff10225e9b5bc11e1f",
+    "scope": "Six actual stage/editor current frames390/768/1440. Updated title/current stage and confirmation notice visible; mobile lower card/control extends below viewport. Partial loaded UI only, no complete accessibility or actual AuthDB acceptance.",
+    "images": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-opportunity-command-read-final-results\\opportunity-command-read-l-07718-read-editor-current-at-1440\\opportunity-command-editor-current-1440.png",
+        "sha256": "0bdf3766bb04b1abcd92439f4f627bd14931e1ccfc53723ef893b96083a7cc9e"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-opportunity-command-read-final-results\\opportunity-command-read-l-710e4--read-editor-current-at-768\\opportunity-command-editor-current-768.png",
+        "sha256": "c672733275c1f95ac0a8a02a6e31cbcf06e94d8ad1d15e9b9f678ba10353968c"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-opportunity-command-read-final-results\\opportunity-command-read-l-b4329--read-editor-current-at-390\\opportunity-command-editor-current-390.png",
+        "sha256": "10a63f0ea5ff347e4552ae8ff9024c81fb4f875957aa4b30205bb66612363405"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-opportunity-command-read-final-results\\opportunity-command-read-l-cf8bf--read-stage-current-at-1440\\opportunity-command-stage-current-1440.png",
+        "sha256": "e0f27dadb3892efb30916ba2744038ee38732d37af26c51d1dcc59c045cc9378"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-opportunity-command-read-final-results\\opportunity-command-read-l-dfc68-d-read-stage-current-at-390\\opportunity-command-stage-current-390.png",
+        "sha256": "3526308035cdc7e483cddc68ea0910cefd155b9d1f8e50d207b65679b44a890f"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-opportunity-command-read-final-results\\opportunity-command-read-l-ed3b8-d-read-stage-current-at-768\\opportunity-command-stage-current-768.png",
+        "sha256": "cc8984473c36097ed36dad8ef4796fbe7395135290737ad1d5bb6a18b2ed245d"
+      }
+    ]
+  }
+}

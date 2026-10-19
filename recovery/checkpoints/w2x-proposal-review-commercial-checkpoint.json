@@ -1,0 +1,110 @@
+{
+  "unit": 45,
+  "claim": 6214203401,
+  "base": "672b59c8a238f4e2857371523206b6f73b23ffda",
+  "branch": "codex/w2x-proposal-review-commercial-20261016",
+  "status": "PUBLISHED_6_PLUS3_COMPLEMENTARY_NOT9_SINGLE_PASS",
+  "controls_session": 60461,
+  "product_changed": false,
+  "release": "NOT_ACCEPTED",
+  "checks": {
+    "browser": "6_ORIGINAL_PASS_PLUS3_FAILED_ONLY_COMPLEMENTARY_PASS_NOT9_SINGLE_PASS",
+    "build": "66_PASS",
+    "lint": "EXIT0_WARNINGS_PRESERVED",
+    "scan": "PASS",
+    "global": "NOT_RUN_CURRENT_SHA",
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN",
+    "paid_api": 0
+  },
+  "next": "Finish own new commercial review controls;preserve fixture failure separately;publish then individually reconcile supported requirement.",
+  "candidate_fingerprints": [
+    {
+      "path": "tests/e2e-preview/billing-proposal-review-commercial.spec.ts",
+      "sha256_utf8_lf": "3c7dd3026b8d267c3af1c02b998a63cf811615ad7e28a671c7f78d58826f9c99"
+    },
+    {
+      "path": "docs/master/W2X_PROPOSAL_REVIEW_COMMERCIAL_20261016.md",
+      "sha256_utf8_lf": "56ac2a910a2c8a763efe8f8629522eeb21db5d884dd2ee11af3e235e38cf3a9f"
+    }
+  ],
+  "original": {
+    "failed": 3,
+    "passed": 6,
+    "cause": "Test fixture command response used data instead of required receipt;no product defect established",
+    "log": "${WORKSPACE}\\work\\w2x-proposal-review-commercial-browser.txt"
+  },
+  "visual_review": {
+    "status": "ACTUALLY_VIEWED",
+    "scope": "Lower drawer concepts/numeric fields/totals/review/actions;edited3widths,review reset390/1440;customer/date header outside viewport;partial only",
+    "frames": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-proposal-review-commercial-failed3-results\\billing-proposal-review-co-25026-eview-editable-save-at-1440\\review-actions-editable-save-1440.png",
+        "sha256": "c6524852b748aa8b734474a25704b061c4c3a19dd88b61f0425f2c794ec9a016"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-proposal-review-commercial-failed3-results\\billing-proposal-review-co-75de7-review-editable-save-at-768\\review-actions-editable-save-768.png",
+        "sha256": "0916b7bec7354fa8b5be411295a431469370f638e10f6c825d60fd8173948e2a"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-proposal-review-commercial-failed3-results\\billing-proposal-review-co-c3b20-review-editable-save-at-390\\review-actions-editable-save-390.png",
+        "sha256": "96fa14834824163b1cd8c9a595227df27132d7b9730c02f2b67485ef396a35be"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-proposal-review-commercial-results\\billing-proposal-review-co-08286--review-review-reset-at-390\\review-actions-review-reset-390.png",
+        "sha256": "c7989410cb5f1e6f26c5bbd662bcb810114c6e0fe1994432423f3c3ec4622221"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-proposal-review-commercial-results\\billing-proposal-review-co-82f02-review-review-reset-at-1440\\review-actions-review-reset-1440.png",
+        "sha256": "ed8eec6515ee62852190070839b1d116101c5fbee3dadf5a4f5fcfdd404f353b"
+      }
+    ]
+  },
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-proposal-review-commercial-browser.txt",
+      "sha256": "8835eba0c50bccf70ef580957d0872ef70d2a25bba22e4b4fdefc4c9e7339ac6"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-proposal-review-commercial-failed3.txt",
+      "sha256": "03529a420034368ef2969471bdd50b8314c7c90140ea5967ee0eddbaf6737e15"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-proposal-review-commercial-lint.txt",
+      "sha256": "91a5c63f9a9a0a42f92a00caa38da32336b62b940ccf4738d08ef97c55d9996c"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-proposal-review-commercial-build.txt",
+      "sha256": "b6665e88472b98cd1d3fde048aa04fc01a519a5982301ba2198ab672c41a6bbe"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-proposal-review-commercial-scan.txt",
+      "sha256": "ae1362dad80e187203d257e9a6c1336e8e521c55ca8867e02e809b8bb7fb4277"
+    }
+  ],
+  "tree": "fb8eff1cf31a9acd471cfab3792c0a07298d90ab",
+  "publication": "PUBLISHED",
+  "handoffs": [
+    {
+      "issue": 67,
+      "id": 6214348589,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6214348589"
+    },
+    {
+      "issue": 153,
+      "id": 6214348862,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6214348862"
+    },
+    {
+      "issue": 38,
+      "id": 6214349175,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6214349175"
+    },
+    {
+      "issue": 142,
+      "id": 6214349385,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6214349385"
+    }
+  ],
+  "sha": "dd6233cbd7e7d6a3ef3a2e64eb8d6458541d0969"
+}

@@ -1,0 +1,1 @@
+const previous=require('./playwright-w2x-sim-parent-read-causal.config.cjs');module.exports={...previous,testMatch:['sim-parent-read-lifetime.spec.ts','sim-replacement-read-recovery.spec.ts','telecom-resource-scope.spec.ts'],outputDir:require('node:path').resolve(__dirname,'w2x-sim-parent-read-final-results')}

@@ -1,0 +1,63 @@
+{
+  "utc": "2026-10-14T01:30:17.813300+00:00",
+  "work": "W2-X",
+  "path": "${WORKSPACE}\\work\\crm-w2x-document-upload-uncertain",
+  "branch": "codex/w2x-document-upload-uncertain-20261014",
+  "sha": "51c335f2561abb290c3b7f93024a699226b32351",
+  "tree": "a1c8253f7ce20f3f93162d6cb0a2e1b942015a8c",
+  "published_sha": "51c335f2561abb290c3b7f93024a699226b32351",
+  "clean": true,
+  "claim": 6158706182,
+  "handoff": 6158842624,
+  "pr": 153,
+  "status": "PUBLISHED_INDEPENDENT_DOCUMENT_UPLOAD_NO_AUTH_STORAGE_PASS_INFERRED",
+  "checks": {
+    "browser": 9,
+    "build": "PASS66",
+    "types": "PASS",
+    "lint": "PASS",
+    "gitleaks": "PASS",
+    "auth_db_storage": "NOT_RUN_PREPARED_THREE_STEP_ORDINARY_CONTENT_CONTROL",
+    "model": "NOT_RUN"
+  },
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-upload-parent.txt",
+      "sha256": "31102c416f321c60b5a2a7a4608ae8fae6830c6a1da7167c924ef7e0eced3f19"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-upload-fixed.txt",
+      "sha256": "4a07a896119d0079689e880d6611f9f123fe133b9f17ae221ffb424dddd667f0"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-upload-types.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-upload-lint.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-upload-consumer-lint.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-upload-build.txt",
+      "sha256": "655a2ce72af9c5d59744609a1616f3945526e2d660ddcf2be48ef5e303c36ea4"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-upload-gitleaks.txt",
+      "sha256": "9db7fdb60eb04ab2a2f6521adbdc5ec250df84a42412a6e0c275629256b28235"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-document-upload-published.bundle",
+      "sha256": "23017c8f39a929c5874a2b9640f78734a867002b279c2d670d0bb332b5a38880"
+    }
+  ],
+  "permission_contract_changes": false,
+  "integration_ack": "NOT_RECEIVED",
+  "writes": "OFF",
+  "release": "NOT_ACCEPTED",
+  "high": 5,
+  "next": "PREPARE_OWN_DOC_COMPOSITION_AFTER37A5_TERMINAL;NEW142_LOCAL_556_PREVIEW_113_AUTH_EXPECTED_NOT_MEASURED;PRESERVE_CUSTOMER_FIXTURE_MODES_AND_BOTH_PRODUCT_CONSUMER_DELTAS_UTF8"
+}

@@ -1,0 +1,128 @@
+{
+  "unit": 57,
+  "claim": 6251598765,
+  "base": "de72a8096a3e4dbce2109fae5d8c750871615f0a",
+  "branch": "codex/w2x-portability-create-parents-20261018",
+  "status": "PUBLISHED_OWN114_BUILD66_VISUAL_PARTIAL",
+  "causal_session": 65847,
+  "product_changed": true,
+  "release": "NOT_ACCEPTED",
+  "checks": {
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN",
+    "paid_api": 0,
+    "global": "NOT_RUN_CURRENT_SHA",
+    "browser": "114_PASS_OWN_SOURCE",
+    "build": "66_PASS",
+    "lint": "EXIT0_WARNINGS_PRESERVED",
+    "scan": "PASS"
+  },
+  "next": "Own114/build/lint/visual/scan/publication;then coalesced global1575 only after current1479terminal/published,without cancellation or inheritedPASS.",
+  "original": {
+    "failed": 1,
+    "passed": 1,
+    "duration": "27.4s",
+    "cause": "After valid creation receipt and portability.get,retired form still starts service/contract queries when held line point returns;current positive passes."
+  },
+  "controls_session": 26218,
+  "visual_review": {
+    "status": "ACTUALLY_VIEWED",
+    "scope": "Six current inbound/outbound frames at390/768/1440: registered notice/link, masked number, operators, direction, dates, draft status, pagination. Fixture context/navigation excluded; retired contexts not visually accepted. Images do not establish SQL persistence or absence of queries.",
+    "frames": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portability-create-parents-final-results\\portability-create-parents-4f726-nts-inbound-current-at-1440\\portability-create-parents-current-inbound-1440.png",
+        "sha256": "2f370a15ca01aa89420b1444abcc0080c1eeade8c4015ca6c6e4475c5a0fd2c0"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portability-create-parents-final-results\\portability-create-parents-5e1ec-ents-inbound-current-at-768\\portability-create-parents-current-inbound-768.png",
+        "sha256": "67740685ca95e676d90f6874efa034f7d23f74543bab540a2c0c235944abe889"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portability-create-parents-final-results\\portability-create-parents-b9b6b-nts-outbound-current-at-768\\portability-create-parents-current-outbound-768.png",
+        "sha256": "61828b22fa07f90f961b09353da52e58d20c21a8c1ec9924bd320c9f67223380"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portability-create-parents-final-results\\portability-create-parents-c4f32-ents-inbound-current-at-390\\portability-create-parents-current-inbound-390.png",
+        "sha256": "863981ab01d312dece8ea05dfbe48cda011d2332d7958b44d7d7e444561ea9ae"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portability-create-parents-final-results\\portability-create-parents-d9688-ts-outbound-current-at-1440\\portability-create-parents-current-outbound-1440.png",
+        "sha256": "59dc5cd0bc25017ef496e01c0e84efa614c1192822a1b5ec82d1f1d02db901df"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-portability-create-parents-final-results\\portability-create-parents-e749b-nts-outbound-current-at-390\\portability-create-parents-current-outbound-390.png",
+        "sha256": "b2e28a8fc4bf1539fa96a9cadcb3f6f7c0a4f104d91897020562df680b0c2275"
+      }
+    ]
+  },
+  "candidate_fingerprints": [
+    {
+      "path": "src/features/portabilities/Portabilities.tsx",
+      "sha256_utf8_lf": "47b6c8a556501eb44d155fb71f6a8c463719bb1a5b7546cd7d5070f9d4d10cdc"
+    },
+    {
+      "path": "tests/e2e-preview/portability-create-parents.spec.ts",
+      "sha256_utf8_lf": "7329fd7751e46017319fd55c38eb58da62a455ebae93be16ea35d73db54ae60d"
+    },
+    {
+      "path": "docs/master/W2X_PORTABILITY_CREATE_PARENTS_20261018.md",
+      "sha256_utf8_lf": "ed985939c9b40ef8300c0a1e539859e825679e94a8829af136769c3e9cc793b4"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portability-create-parents-causal.txt",
+      "sha256": "d5f69856ea9a7089cdbfe453e48586e59bb814cd335b4ef03435a458579bef66"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portability-create-parents-browser.txt",
+      "sha256": "0eb9649cad07c965bfcfc640590065ddf3d0ab4aaafc4f1dde84721122a1a334"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portability-create-parents-lint.txt",
+      "sha256": "91a5c63f9a9a0a42f92a00caa38da32336b62b940ccf4738d08ef97c55d9996c"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portability-create-parents-build.txt",
+      "sha256": "ceab63149df8092041f3ab7d6bacd8fd83010bc4d90aeb20dc033b4c9a487a82"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portability-create-parents-scan.txt",
+      "sha256": "e0f2d5975f7c43f50d1db375fc1ad40d5f835762b00a899de688a903d0e1c6d5"
+    }
+  ],
+  "publication": "PUBLISHED",
+  "tree": "f8fe7df9c9c69727d25e267c1e12aaaab7c5255d",
+  "sha": "2a8597537737cec349650496e874d86ca6e5633a",
+  "handoffs": [
+    {
+      "id": 6251716915,
+      "issue": 67,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6251716915"
+    },
+    {
+      "id": 6251717069,
+      "issue": 153,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6251717069"
+    },
+    {
+      "id": 6251717217,
+      "issue": 38,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6251717217"
+    },
+    {
+      "id": 6251717352,
+      "issue": 142,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6251717352"
+    }
+  ],
+  "known_remaining_defects": {
+    "billing_exact_save": {
+      "reproduced_source": "2a8597537737cec349650496e874d86ca6e5633a",
+      "causal_checkpoint": "work/w2x-billing-exact-save-checkpoint.json",
+      "original": "2FAIL_1PASS_50.6S",
+      "scope": "Enabled save without available exact preview,not invalid SQL write. New63-case bank absent from this source and global1575. Follow source58 own evidence;do not call this source wholly qualified."
+    },
+    "whole_product": "NOT_RECONCILED_RELEASE_NOT_ACCEPTED"
+  }
+}

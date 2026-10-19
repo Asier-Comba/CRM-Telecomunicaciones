@@ -1,0 +1,468 @@
+{
+  "unit": 94,
+  "claim": 6255882075,
+  "branch": "codex/w2x-customer-domain-title-wrap-20261019",
+  "base": "93bf52435b1b8e10070880bd2c2109a8d282f170",
+  "status": "PUBLISHED_OWN75_BUILD66_VISUAL_PARTIAL",
+  "publication": "PUBLISHED",
+  "product_changed": true,
+  "release": "NOT_ACCEPTED",
+  "checks": {
+    "browser": "75_PASS_OWN_SOURCE",
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN",
+    "paid_api": 0,
+    "global": "NOT_RUN_CURRENT_SHA",
+    "functional": "NOT_RUN_UI_PRESENTATION_ONLY",
+    "build": "66_PASS",
+    "lint": "EXIT0_WARNINGS_PRESERVED",
+    "scan": "PASS"
+  },
+  "matrix": {
+    "total": 342,
+    "reviewed_partial": 31,
+    "unreconciled": 311,
+    "release_ready": 0
+  },
+  "failures": [],
+  "next": "Continue independent commercial unit after fresh CLAIM. Preserve2043source88/2109source92FIFO;source93globalNOT_RUN,noinheritedPASS.",
+  "working_head": "3baf2ebef46e3ea8d48e84078f4841d9048f492a",
+  "clean": true,
+  "causal": {
+    "failed": 1,
+    "passed": 1,
+    "duration": "21.8s",
+    "geometry_long": "titleClient308/scroll1684,cardClient340/scroll1700,linkRight1725.390625/cardRight365,document390",
+    "geometry_ordinary": "titleClient308/scroll308,cardClient340/scroll340,linkRight196.640625/cardRight365",
+    "scope": "Real CustomerDomainPages/repository/parsers with controlledHTTPvalidserviceDTO;no commands/errors/unexpectedops. NotrealAuthDBprivacy."
+  },
+  "browser_summary": "75 passed (2.1m)",
+  "controls_session": 38603,
+  "visual_review": {
+    "status": "ACTUALLY_VIEWED",
+    "scope": "9primary frames long/ordinary/denied at3907681440;cards390768,table1440withintentionalhorizontal scroll;no allcolumns/wholeproduct/roles/a11yacceptance",
+    "frames": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-customer-domain-title-wrap-final-results\\customer-domain-title-wrap-14917-rvice-title-ordinary-at-390\\customer-service-title-ordinary-390.png",
+        "sha256": "6efa28c1d4def675394de4bf7d339f9d8c0ee6b902789162a7fc3d6c63fe9707"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-customer-domain-title-wrap-final-results\\customer-domain-title-wrap-5c049-vice-title-ordinary-at-1440\\customer-service-title-ordinary-1440.png",
+        "sha256": "7d7fea343ca370384186c2399f73b6e2937bf14654747f3e0a86d1117eb326ed"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-customer-domain-title-wrap-final-results\\customer-domain-title-wrap-641fa-service-title-denied-at-768\\customer-service-title-denied-768.png",
+        "sha256": "109d5b487f3d0964f98565c1873ab01c30abb7301fe8f2ac03ae696aa0fd5b53"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-customer-domain-title-wrap-final-results\\customer-domain-title-wrap-65ccb-service-title-denied-at-390\\customer-service-title-denied-390.png",
+        "sha256": "00cde92fba6bb1bd79a54ade922c626cc65af786cd9360fd2ce90811cfc39055"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-customer-domain-title-wrap-final-results\\customer-domain-title-wrap-68f8d--service-title-long-at-1440\\customer-service-title-long-1440.png",
+        "sha256": "b219c61739644e2cb10e49c45bb94bb519c53c09a7f5d9ba1adb11c332104cf8"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-customer-domain-title-wrap-final-results\\customer-domain-title-wrap-8f37f-ervice-title-denied-at-1440\\customer-service-title-denied-1440.png",
+        "sha256": "75c5cc0a0a69c6c8e7a300cc972f609e5b40bbe06858ac132a0c70f74c00ca75"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-customer-domain-title-wrap-final-results\\customer-domain-title-wrap-8f3a3-r-service-title-long-at-390\\customer-service-title-long-390.png",
+        "sha256": "f287875531831a579f56eaf89aba3756c916fa980607da38d54f1650557abcf2"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-customer-domain-title-wrap-final-results\\customer-domain-title-wrap-daabe-rvice-title-ordinary-at-768\\customer-service-title-ordinary-768.png",
+        "sha256": "cc19b6dd24080043319f3ffd4d1d5b89e15c9ab8355554452c61650a79e4db28"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-customer-domain-title-wrap-final-results\\customer-domain-title-wrap-fc05d-r-service-title-long-at-768\\customer-service-title-long-768.png",
+        "sha256": "c29056c3b4409534362c392eff353694dc51d78e045867fbfe01ef671b051cbd"
+      }
+    ]
+  },
+  "observations": [
+    {
+      "width": 390,
+      "mode": "ordinary",
+      "titleLength": 19,
+      "geometry": {
+        "cardLeft": 25,
+        "cardRight": 365,
+        "client": 340,
+        "scroll": 340,
+        "titleClient": 308,
+        "titleScroll": 308,
+        "linkRight": 196.640625,
+        "titleText": "Servicio de empresa",
+        "documentWidth": 390,
+        "viewport": 390
+      },
+      "reads": [
+        {
+          "operation": "service.list",
+          "input": {
+            "customer_id": "10000000-0000-4000-8000-000000000001",
+            "limit": 20,
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "customer.list",
+          "input": {
+            "limit": 1,
+            "sort": "id_asc",
+            "after_id": "10000000-0000-4000-8000-000000000000"
+          }
+        },
+        {
+          "operation": "operator.get",
+          "input": {
+            "id": "20000000-0000-4000-8000-000000000001"
+          }
+        }
+      ],
+      "commands": [],
+      "unexpected": [],
+      "errors": []
+    },
+    {
+      "width": 1440,
+      "mode": "ordinary",
+      "titleLength": 19,
+      "geometry": null,
+      "reads": [
+        {
+          "operation": "service.list",
+          "input": {
+            "customer_id": "10000000-0000-4000-8000-000000000001",
+            "limit": 20,
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "customer.list",
+          "input": {
+            "limit": 1,
+            "sort": "id_asc",
+            "after_id": "10000000-0000-4000-8000-000000000000"
+          }
+        },
+        {
+          "operation": "operator.get",
+          "input": {
+            "id": "20000000-0000-4000-8000-000000000001"
+          }
+        }
+      ],
+      "commands": [],
+      "unexpected": [],
+      "errors": []
+    },
+    {
+      "width": 768,
+      "mode": "denied",
+      "reads": [
+        {
+          "operation": "service.list",
+          "input": {
+            "customer_id": "10000000-0000-4000-8000-000000000001",
+            "limit": 20,
+            "sort": "id_asc"
+          }
+        }
+      ],
+      "commands": [],
+      "unexpected": [],
+      "errors": []
+    },
+    {
+      "width": 390,
+      "mode": "denied",
+      "reads": [
+        {
+          "operation": "service.list",
+          "input": {
+            "customer_id": "10000000-0000-4000-8000-000000000001",
+            "limit": 20,
+            "sort": "id_asc"
+          }
+        }
+      ],
+      "commands": [],
+      "unexpected": [],
+      "errors": []
+    },
+    {
+      "width": 1440,
+      "mode": "long",
+      "titleLength": 160,
+      "geometry": null,
+      "reads": [
+        {
+          "operation": "service.list",
+          "input": {
+            "customer_id": "10000000-0000-4000-8000-000000000001",
+            "limit": 20,
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "customer.list",
+          "input": {
+            "limit": 1,
+            "sort": "id_asc",
+            "after_id": "10000000-0000-4000-8000-000000000000"
+          }
+        },
+        {
+          "operation": "operator.get",
+          "input": {
+            "id": "20000000-0000-4000-8000-000000000001"
+          }
+        }
+      ],
+      "commands": [],
+      "unexpected": [],
+      "errors": []
+    },
+    {
+      "width": 1440,
+      "mode": "denied",
+      "reads": [
+        {
+          "operation": "service.list",
+          "input": {
+            "customer_id": "10000000-0000-4000-8000-000000000001",
+            "limit": 20,
+            "sort": "id_asc"
+          }
+        }
+      ],
+      "commands": [],
+      "unexpected": [],
+      "errors": []
+    },
+    {
+      "width": 390,
+      "mode": "long",
+      "titleLength": 160,
+      "geometry": {
+        "cardLeft": 25,
+        "cardRight": 365,
+        "client": 340,
+        "scroll": 340,
+        "titleClient": 308,
+        "titleScroll": 308,
+        "linkRight": 348.71875,
+        "titleText": "ServicioXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+        "documentWidth": 390,
+        "viewport": 390
+      },
+      "reads": [
+        {
+          "operation": "service.list",
+          "input": {
+            "customer_id": "10000000-0000-4000-8000-000000000001",
+            "limit": 20,
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "customer.list",
+          "input": {
+            "limit": 1,
+            "sort": "id_asc",
+            "after_id": "10000000-0000-4000-8000-000000000000"
+          }
+        },
+        {
+          "operation": "operator.get",
+          "input": {
+            "id": "20000000-0000-4000-8000-000000000001"
+          }
+        }
+      ],
+      "commands": [],
+      "unexpected": [],
+      "errors": []
+    },
+    {
+      "width": 768,
+      "mode": "ordinary",
+      "titleLength": 19,
+      "geometry": {
+        "cardLeft": 25,
+        "cardRight": 743,
+        "client": 718,
+        "scroll": 718,
+        "titleClient": 686,
+        "titleScroll": 686,
+        "linkRight": 196.640625,
+        "titleText": "Servicio de empresa",
+        "documentWidth": 768,
+        "viewport": 768
+      },
+      "reads": [
+        {
+          "operation": "service.list",
+          "input": {
+            "customer_id": "10000000-0000-4000-8000-000000000001",
+            "limit": 20,
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "customer.list",
+          "input": {
+            "limit": 1,
+            "sort": "id_asc",
+            "after_id": "10000000-0000-4000-8000-000000000000"
+          }
+        },
+        {
+          "operation": "operator.get",
+          "input": {
+            "id": "20000000-0000-4000-8000-000000000001"
+          }
+        }
+      ],
+      "commands": [],
+      "unexpected": [],
+      "errors": []
+    },
+    {
+      "width": 768,
+      "mode": "long",
+      "titleLength": 160,
+      "geometry": {
+        "cardLeft": 25,
+        "cardRight": 743,
+        "client": 718,
+        "scroll": 718,
+        "titleClient": 686,
+        "titleScroll": 686,
+        "linkRight": 724,
+        "titleText": "ServicioXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+        "documentWidth": 768,
+        "viewport": 768
+      },
+      "reads": [
+        {
+          "operation": "service.list",
+          "input": {
+            "customer_id": "10000000-0000-4000-8000-000000000001",
+            "limit": 20,
+            "sort": "id_asc"
+          }
+        },
+        {
+          "operation": "customer.list",
+          "input": {
+            "limit": 1,
+            "sort": "id_asc",
+            "after_id": "10000000-0000-4000-8000-000000000000"
+          }
+        },
+        {
+          "operation": "operator.get",
+          "input": {
+            "id": "20000000-0000-4000-8000-000000000001"
+          }
+        }
+      ],
+      "commands": [],
+      "unexpected": [],
+      "errors": []
+    }
+  ],
+  "candidate_fingerprints": [
+    {
+      "path": "src/features/customers/CustomerDomainPages.tsx",
+      "sha256_utf8_lf": "968a24c01d1456bfef25113ea2b3b1ea357a7c302d6af9a60878ff043d4d8c70"
+    },
+    {
+      "path": "tests/e2e-preview/customer-domain-title-wrap.spec.ts",
+      "sha256_utf8_lf": "babc23a2462cae9091d2a98df9f257b9e30915aa1997ad9c275ba4a00c260f67"
+    },
+    {
+      "path": "docs/master/W2X_CUSTOMER_DOMAIN_TITLE_WRAP_20261019.md",
+      "sha256_utf8_lf": "09d129fd305d944a987f50d26335a1d86ed6bdb54b8613ab1569dbd4eff84f79"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-domain-title-wrap-browser-exit.txt",
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-domain-title-wrap-browser.txt",
+      "sha256": "08c5d4fa9b2de5c3c8a8e4824c67edc6e6cc37132f329fe2c45a30e71c779d62"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-domain-title-wrap-build-exit.txt",
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-domain-title-wrap-build.txt",
+      "sha256": "d460dfad42f7cdcbe083bf0bab4c80efb831e5c6f06b39a4525badefe4cd13c8"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-domain-title-wrap-causal-exit.txt",
+      "sha256": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-domain-title-wrap-causal.txt",
+      "sha256": "61d923aef5d2f13bb54d166d83c5e2cf1e02ff6ed5ee8ed983268e1c3b457751"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-domain-title-wrap-collection-exit.txt",
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-domain-title-wrap-collection.txt",
+      "sha256": "b7360596c91d489eb544f72fb4da4c7f3030443894b95546c0d9e5dcf901b75f"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-domain-title-wrap-lint-exit.txt",
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-domain-title-wrap-lint.txt",
+      "sha256": "77e52456c3bf671c8ed5a0154c9dbfdd998b31f3c61494ca11430b416d294dad"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-customer-domain-title-wrap-scan.txt",
+      "sha256": "80c22b571d90603413c67741852f36f66e476d5251372e3ee97552d85261610c"
+    }
+  ],
+  "known_remaining_defects": {
+    "whole_product": "NOT_RECONCILED",
+    "other_domain_labels": "NOT_INDIVIDUALLY_QUALIFIED_BY_SERVICE_LABEL_TESTS",
+    "security": "W4_PENDING_HIGH5",
+    "release": "NOT_ACCEPTED"
+  },
+  "handoffs": [
+    {
+      "issue": 67,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6255949353",
+      "id": 6255949353
+    },
+    {
+      "issue": 153,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6255949512",
+      "id": 6255949512
+    },
+    {
+      "issue": 38,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6255949654",
+      "id": 6255949654
+    },
+    {
+      "issue": 142,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6255949778",
+      "id": 6255949778
+    }
+  ],
+  "tree": "7d7130d8cd7cab3a1636b0c2e05ad48359db2d57",
+  "sha": "3baf2ebef46e3ea8d48e84078f4841d9048f492a"
+}

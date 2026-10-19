@@ -1,0 +1,1 @@
+const p=require('./playwright-w2x-commercial-name-full.config.cjs');module.exports={...p,testMatch:[...new Set([...p.testMatch,'billing-overdue-date-response.spec.ts'])],outputDir:require('node:path').resolve(__dirname,'w2x-commercial-overdue-full-results')}

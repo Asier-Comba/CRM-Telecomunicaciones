@@ -1,0 +1,1 @@
+module.exports={testDir:require('node:path').resolve(__dirname,'crm-w2x-case-notes/tests/e2e-preview'),testMatch:'case-note-pagination.spec.ts',workers:1,retries:0,timeout:60000,reporter:'line',use:{browserName:'chromium',screenshot:'only-on-failure'},outputDir:require('node:path').resolve(__dirname,'w2x-case-notes-results')}

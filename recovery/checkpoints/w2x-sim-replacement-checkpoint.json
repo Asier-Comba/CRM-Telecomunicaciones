@@ -1,0 +1,92 @@
+{
+  "utc": "2026-10-14T09:33:14.457110+00:00",
+  "claim": 6164978509,
+  "work": "W2-X",
+  "path": "${WORKSPACE}\\work\\crm-w2x-par042-review",
+  "branch": "codex/w2x-sim-replacement-read-recovery-20261014",
+  "base": "282f2e1efb8d38d9d06682060ae80bd2d8042434",
+  "published": true,
+  "status": "OWN24_BUILD66_LINT_SCAN_PASS_AUTH_NOT_RUN",
+  "release": "NOT_ACCEPTED",
+  "fixture_failure": "w2x-sim-replacement-fixture-failure.json",
+  "causal_failure": "w2x-sim-replacement-causal-repro.txt",
+  "verification_path": "${WORKSPACE}\\work\\crm-w2x-document-upload-uncertain",
+  "verification_branch": "codex/w2x-sim-replacement-validation-20261014",
+  "verification_build": "PASS66_SAME_PRODUCT_BLOBS_PHYSICAL_DEPENDENCIES",
+  "original_build": "FAIL_TURBOPACK_NODE_MODULES_JUNCTION_ROOT",
+  "page_fixture": "FIRST_SUITE_INVALID_CONTINUATION_RETAINED_ACTIVE;FIXTURE_REPAIR_PREPARED_IN_VERIFICATION_CHECKOUT",
+  "next": "COMPOSITION1FCB_OWN497_RUNNING",
+  "verification_fixture_lint": "PASS_REPAIRED_FIXTURE",
+  "review_skill": "vercel:react-best-practices; functional revision update, stable primitive key, existing effect cleanup, semantically labelled button and live status; no new dependencies",
+  "preserved_first_suite": {
+    "log": "w2x-sim-replacement-browser.txt",
+    "sha256": "b85f820932479333a721996a6df558e37cb681f63df9598817aa1c13457af312",
+    "failed": 15,
+    "passed": 9,
+    "reason": "Malformed continuation fixture, not product fix failure"
+  },
+  "sha": "dbcdb15b221518117078f6b73d446d8b33643c0c",
+  "tree": "eeaec8edd212d5ff459bcb87cc6f41663a3d6eb0",
+  "clean": true,
+  "handoff": 6165290029,
+  "checks": {
+    "controlled_http": 24,
+    "build": "PASS66_PHYSICAL_CHECKOUT_IDENTICAL_PRODUCT_TEST_BLOBS",
+    "lint": "PASS_SOURCE_AND_CORRECTED_FIXTURE",
+    "scan": "PASS",
+    "visual": "THREE_PARTIAL_FRAMES_ACTUALLY_VIEWED",
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN"
+  },
+  "bundle_sha256": "de27e8c7580ffbdbfd0e3292725e6910fd18b91049e7f601a13eafc91006c767",
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-sim-replacement-original-repro.txt",
+      "sha256": "0a8404759d47d7d57c6d7af1d5e2b8a41e4180a934d58a56601c3410b50ed1bc"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-sim-replacement-causal-repro.txt",
+      "sha256": "b5fdd5b2bfdcd36b7c23fa2ff4a513359e96b32659d65b4b5c3cd2742561b338"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-sim-replacement-browser.txt",
+      "sha256": "b85f820932479333a721996a6df558e37cb681f63df9598817aa1c13457af312"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-sim-replacement-build.txt",
+      "sha256": "1b98a0dd53c1e541d8eed53bb28e7a17ad2c81ff23738bab80c5c5d23b1efad6"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-sim-replacement-repaired-browser.txt",
+      "sha256": "cc1f73134283d3143fb6a89863c6f98598a2426c83b943593b154b51273fb2dc"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-sim-replacement-physical-build.txt",
+      "sha256": "fabb2a8e3ffbd33961e9fe5794f14ffc057dcaad65385af260f86eb002351740"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-sim-replacement-lint.txt",
+      "sha256": "dda21574b74ba6a9edea377d67b00a3846ea8ae6ee11171eb3102a4a59f30d98"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-sim-replacement-repaired-fixture-lint.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-sim-replacement-final-scan.txt",
+      "sha256": "eac5910b99407f97287b4a9ac4710da827dbfb970c51869f63f146f8e8c5b9e5"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-sim-replacement-repaired-results\\sim-replacement-read-recov-64b06-age-server-recovery-at-1440\\sim-replacement-first-server-1440.png",
+      "sha256": "a3c687bdb6e563c87ea0313691a6ed82da2c97297a1dca829a635fece34009f5"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-sim-replacement-repaired-results\\sim-replacement-read-recov-ae57c-page-server-recovery-at-390\\sim-replacement-first-server-390.png",
+      "sha256": "490400d5c847f83953e2a1de342192fde8057b1a6e045c48270dd9951015c106"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-sim-replacement-repaired-results\\sim-replacement-read-recov-debc9-page-server-recovery-at-768\\sim-replacement-first-server-768.png",
+      "sha256": "c0b169b102a5625115568f45cc1f0fbb0f949e518139e5c1f3a358b7a11890e7"
+    }
+  ]
+}

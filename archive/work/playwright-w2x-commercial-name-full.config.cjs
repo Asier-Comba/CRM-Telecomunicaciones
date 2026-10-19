@@ -1,0 +1,1 @@
+const p=require('./playwright-w2x-commercial-filter-full.config.cjs');module.exports={...p,testMatch:[...new Set([...p.testMatch,'billing-selected-customer-label.spec.ts','c360-customer-name-wrap.spec.ts'])],outputDir:require('node:path').resolve(__dirname,'w2x-commercial-name-full-results')}

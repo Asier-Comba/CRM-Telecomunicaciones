@@ -1,0 +1,5 @@
+from pathlib import Path
+import json
+w=Path('work');own=json.loads((w/'w2x-assistant-customer-name-wrap-checkpoint.json').read_text(encoding='utf-8-sig'));full=json.loads((w/'w2x-commercial-context-full-checkpoint.json').read_text(encoding='utf-8-sig'));pub=json.loads((w/'w2x-commercial-context-full-publication.json').read_text(encoding='utf-8-sig'));req=json.loads((w/'w2x-commercial-context-full-requested.json').read_text(encoding='utf-8-sig'));assert own['sha']==full['sha']==pub['sha']==req['sha'] and full['browser_status']=='PASS1908' and full['publication']=='PUBLISHED'
+own['checks']['global']='1908_PASS_EXACT_SAME_SHA';own['full_validation']={'checkpoint':'work/w2x-commercial-context-full-checkpoint.json','sha':full['sha'],'tree':full['tree'],'summary':full['browser_summary'],'handoffs':pub['handoffs'],'scope':'Sameexactsource80only;not metadata81 orfixes82-87,notreleaseacceptance'}
+(w/'w2x-assistant-customer-name-wrap-checkpoint.json').write_text(json.dumps(own,ensure_ascii=False,indent=2)+'\n',encoding='utf-8');(w/'w2x-exact-global80-association.json').write_text(json.dumps(own['full_validation'],ensure_ascii=False,indent=2)+'\n',encoding='utf-8')

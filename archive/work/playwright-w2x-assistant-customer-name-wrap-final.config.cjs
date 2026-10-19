@@ -1,0 +1,1 @@
+const p=require('./playwright-w2x-c360-contact-text-wrap-final.config.cjs');module.exports={...p,testMatch:[...p.testMatch,'assistant-customer-name-wrap.spec.ts','document-target-text-wrap.spec.ts'],outputDir:require('node:path').resolve(__dirname,'w2x-assistant-customer-name-wrap-final-results')}

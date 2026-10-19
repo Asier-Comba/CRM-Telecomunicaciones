@@ -1,0 +1,129 @@
+diff --git a/docs/master/W2X_DASHBOARD_CURRENT_DAY_20261014.md b/docs/master/W2X_DASHBOARD_CURRENT_DAY_20261014.md
+new file mode 100644
+index 0000000..9f36de3
+--- /dev/null
++++ b/docs/master/W2X_DASHBOARD_CURRENT_DAY_20261014.md
+@@ -0,0 +1,22 @@
++# Dashboard: actualizar la agenda del día vigente
++
++CLAIM W2-X #67 /6167049367. Base60c81396e20ba368ce07f141aaa081c9846c794e.
++
++## Defecto reproducido
++
++Una sesión abierta a23:59 de Madrid conserva el día inicial. Al cruzar medianoche y pulsar Actualizar, la petición calendar.list sigue usando la ventana anterior: range_start2026-10-07/range_end2026-11-15 en lugar de2026-10-08/2026-11-16. La prueba original falla comparando las peticiones observadas; log, contexto y captura se conservan.
++
++## Corrección
++
++La acción Actualizar toma de nuevo la fecha mediante calendarDate existente (Europe/Madrid), junto a la recarga. La ventana, Reuniones de hoy y los siete días visibles se calculan desde esa fecha actualizada. Se conservan ámbito personal/espacio, assigned_user_id, límite100 y las consultas existentes. Sin temporizador, nuevos servicios, contratos o cambios backend. La fecha se renueva mediante la acción explícita; no se acredita actualización automática de una sesión inactiva.
++
++## Verificación propia
++
++- 39 pruebas HTTP controlado PASS (53.6s):30 casos de día de verano, invierno, cambio de año, denegación tras actualizar y actualización dentro del mismo día, con ámbitos personal/espacio en390/768/1440;9 regresiones de retirada de recursos Customer360.
++- Se comprueban ventana exacta, ámbito, reunión vigente y ausencia de la reunión anterior tras cambiar de día. Una denegación retira reuniones previas. Sin comandos comerciales.
++- Lint y build66 PASS de esta fuente funcional. Escaneo del diff antes de publicar.
++- Tres capturas summer-my390/768/1440 inspeccionadas:15oct como día vigente, reunión correcta, acciones y estado legibles, sin desbordamiento horizontal visible. Revisión parcial de agenda; no aceptación completa de dashboard, periodos o métricas financieras.
++
++Reloj, respuestas y datos del fixture son controlados y sintéticos. Los recuentos y panel financiero simulados no son mediciones de DB, durabilidad o modelo. Componentes, repositorio, validadores y formato de Madrid reales. Auth/DB/Storage real NOT_RUN; modelo vivo NOT_RUN/API0.
++
++CincoHIGH, revisión W4 y ACK principal pendientes; IA writesOFF, issue10OPEN, releaseNOT_ACCEPTED. Los fallos7F/F736/B9/3c7 conservan su alcance y causa desconocida cuando corresponde. Estos39 no se atribuyen a la composición7e015 ni a33dc documental; una integración funcional nueva requiere controles propios.
+diff --git a/src/features/dashboard/IntegratedDashboard.tsx b/src/features/dashboard/IntegratedDashboard.tsx
+index add8983..d465e1c 100644
+--- a/src/features/dashboard/IntegratedDashboard.tsx
++++ b/src/features/dashboard/IntegratedDashboard.tsx
+@@ -19,7 +19,7 @@ const date=(day:string)=>new Intl.DateTimeFormat('es-ES',{dateStyle:'medium',tim
+ export function IntegratedDashboard() {
+  const {repository,role,actorId}=useProduct()
+  const [audience,setAudience]=useState<'my'|'workspace'>('my'),[period,setPeriod]=useState<Period>('month'),[reload,setReload]=useState(0)
+- const [today]=useState(()=>calendarDate(new Date().toISOString()))
++ const [today,setToday]=useState(()=>calendarDate(new Date().toISOString()))
+  const [state,setState]=useState<{data:DashboardV2|null;error:string;loading:boolean}>({data:null,error:'',loading:true})
+  const [agenda,setAgenda]=useState<{data:CalendarPageV1|null;error:string;loading:boolean}>({data:null,error:'',loading:true})
+  useEffect(()=>{const query=new URLSearchParams(window.location.search),p=query.get('period');if(periods.some(v=>v.value===p))queueMicrotask(()=>setPeriod(p as Period))},[])
+@@ -33,7 +33,7 @@ export function IntegratedDashboard() {
+  const meetings=active.filter(e=>e.kind==='meeting'&&dayOf(e)===today),tasks=active.filter(e=>e.kind==='task'),deadlines=active.filter(e=>e.kind==='renewal'||e.kind==='permanence')
+  function rows(items:readonly CalendarEntryV1[],empty:string){return <div className="space-y-2">{items.slice(0,6).map(e=><Link key={`${e.kind}:${e.id}`} href={e.customer_id?`/clients/${e.customer_id}`:'/calendar'} className="flex items-center justify-between gap-3 rounded-lg border border-slate-100 p-3 hover:border-indigo-200 hover:bg-indigo-50/40"><div className="min-w-0"><p className="break-words text-sm font-medium text-slate-800">{e.title}</p><p className="mt-1 text-xs text-slate-500">{kindLabels[e.kind]} · {date(dayOf(e))}{!e.all_day&&` · ${new Intl.DateTimeFormat('es-ES',{hour:'2-digit',minute:'2-digit',timeZone:'Europe/Madrid'}).format(new Date(e.at))}`}</p></div><Status value={e.status}/></Link>)}{!items.length&&<p className="rounded-lg bg-slate-50 p-4 text-sm text-slate-500">{empty}</p>}{items.length>6&&<Link href="/calendar" className="inline-flex text-xs font-semibold text-indigo-600">Ver agenda completa <ArrowRight className="ml-1 h-3 w-3"/></Link>}</div>}
+  return <div className="space-y-5"><PageHeader title="Dashboard telecom" description="Tu cartera, la actividad comercial y el siguiente paso" action={<Link className={primary} href="/assistant">Consultar al asistente <ArrowRight className="h-4 w-4"/></Link>}/><PreviewNotice/>
+-  <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white p-3"><div className="flex flex-wrap items-center gap-3"><select className={control} aria-label="Ámbito del dashboard" value={audience} onChange={e=>setAudience(e.target.value as typeof audience)}><option value="my">Mi actividad</option>{['owner','admin'].includes(role??'')&&<option value="workspace">Todo el espacio</option>}</select><PeriodSelect value={period} onChange={changePeriod}/></div><button className={`${control} inline-flex items-center gap-2`} disabled={state.loading} onClick={()=>setReload(v=>v+1)}><RefreshCw className="h-4 w-4"/>Actualizar</button></div>
++  <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white p-3"><div className="flex flex-wrap items-center gap-3"><select className={control} aria-label="Ámbito del dashboard" value={audience} onChange={e=>setAudience(e.target.value as typeof audience)}><option value="my">Mi actividad</option>{['owner','admin'].includes(role??'')&&<option value="workspace">Todo el espacio</option>}</select><PeriodSelect value={period} onChange={changePeriod}/></div><button className={`${control} inline-flex items-center gap-2`} disabled={state.loading} onClick={()=>{setToday(calendarDate(new Date().toISOString()));setReload(v=>v+1)}}><RefreshCw className="h-4 w-4"/>Actualizar</button></div>
+   {state.error&&<p role="alert" className="rounded-lg bg-red-50 p-4 text-red-700">{state.error}</p>}{state.loading&&<p role="status" className="rounded-lg bg-slate-100 p-4">Cargando métricas…</p>}
+   {data&&<><Kpis items={[{label:'Clientes',value:data.snapshot_counts.customers},{label:'Contratos',value:data.snapshot_counts.contracts},{label:'Servicios',value:data.snapshot_counts.services},{label:'Líneas',value:data.snapshot_counts.lines},{label:'Oportunidades',value:data.snapshot_counts.opportunities},{label:'Tareas',value:data.snapshot_counts.tasks},{label:'Renovaciones',value:data.snapshot_counts.renewals},{label:'Permanencias',value:data.snapshot_counts.permanences,tone:'text-amber-700'}].map(v=>({...v,note:'Cartera actual · ámbito seleccionado'}))}/>
+    <SectionCard title="Rendimiento del periodo" description={`${data.audience==='my'?'Mi actividad':'Todo el espacio'} · ${data.period.start?`${date(data.period.start)} — ${date(addDays(data.period.end_exclusive!,-1))}`:'Todo el histórico'}`}><Kpis items={Object.entries(data.period_counts).map(([key,value])=>({label:periodLabels[key as keyof typeof periodLabels],value}))}/></SectionCard>
+diff --git a/tests/e2e-preview/dashboard-current-day.spec.ts b/tests/e2e-preview/dashboard-current-day.spec.ts
+new file mode 100644
+index 0000000..7e6c9f2
+--- /dev/null
++++ b/tests/e2e-preview/dashboard-current-day.spec.ts
+@@ -0,0 +1,53 @@
++import {expect,test} from '@playwright/test'
++import {startCustomerResourceFixture} from './fixtures/customer-resource-server.cjs'
++const actor='40000000-0000-4000-8000-000000000001'
++const scenarios={
++ summer:{before:'2026-10-14T21:59:00Z',after:'2026-10-14T22:01:00Z',old:'2026-10-14',current:'2026-10-15'},
++ winter:{before:'2026-11-01T22:59:00Z',after:'2026-11-01T23:01:00Z',old:'2026-11-01',current:'2026-11-02'},
++ year:{before:'2026-12-31T22:59:00Z',after:'2026-12-31T23:01:00Z',old:'2026-12-31',current:'2027-01-01'},
++ denied:{before:'2026-10-14T21:59:00Z',after:'2026-10-14T22:01:00Z',old:'2026-10-14',current:'2026-10-15'},
++ same_day:{before:'2026-10-14T10:00:00Z',after:'2026-10-14T11:00:00Z',old:'2026-10-14',current:'2026-10-14'},
++} as const
++const shift=(day:string,n:number)=>new Date(Date.parse(day+'T12:00:00Z')+n*86400000).toISOString().slice(0,10)
++for(const scenario of Object.keys(scenarios) as (keyof typeof scenarios)[])for(const audience of ['my','workspace'])for(const width of [390,768,1440])test(`dashboard current day ${scenario} ${audience} at ${width}`,async({page},info)=>{
++ const dates=scenarios[scenario],fixture=await startCustomerResourceFixture(),reads:{operation:string;input:Record<string,unknown>}[]=[],commands:string[]=[],errors:string[]=[]
++ let refreshed=false
++ page.on('pageerror',e=>errors.push(e.message))
++ await page.clock.setFixedTime(new Date(dates.before))
++ await page.route('**/api/**',async route=>{
++  const q=route.request().postDataJSON();reads.push(q)
++  if(route.request().url().includes('/commands')){commands.push(q.operation);await route.fulfill({status:403,json:{ok:false,error:'access_denied'}});return}
++  if(q.operation==='dashboard.get'){
++   await route.fulfill({json:{ok:true,data:{contract_version:'product.dashboard.v2',audience:q.input.audience,period:{kind:q.input.period,start:refreshed?dates.current:dates.old,end_exclusive:shift(refreshed?dates.current:dates.old,1)},snapshot_counts:{customers:0,contracts:0,services:0,lines:0,opportunities:0,tasks:0,meetings:0,renewals:0,permanences:0},period_counts:{customers_created:0,tasks_due:0,meetings_scheduled:0,renewals_due:0,permanences_due:0,opportunities_closed:0},recent_activity:[],financial:{currencies:[]},financial_status:'available'}}});return
++  }
++  if(q.operation==='calendar.list'){
++   if(refreshed&&scenario==='denied'){await route.fulfill({status:403,json:{ok:false,error:'access_denied'}});return}
++   const days=dates.old===dates.current?[dates.old]:[dates.old,dates.current]
++   const items=days.map((day,i)=>({kind:'meeting',id:`60000000-0000-4000-8000-${String(i+1).padStart(12,'0')}`,version:1,title:'Reunión sintética '+day,status:'scheduled',customer_id:null,assigned_user_id:actor,at:day+'T10:00:00Z',ends_at:day+'T11:00:00Z',all_day:false,date:null}))
++   await route.fulfill({json:{ok:true,data:{contract_version:'product.v1',items,next:null}}});return
++  }
++  await route.fulfill({status:403,json:{ok:false,error:'access_denied'}})
++ })
++ try{
++  await page.setViewportSize({width,height:960});await page.goto(fixture.url+'/?kind=dashboard-current-day')
++  if(audience==='workspace')await page.getByRole('combobox',{name:'Ámbito del dashboard',exact:true}).selectOption('workspace')
++  const refresh=page.getByRole('button',{name:'Actualizar',exact:true})
++  await expect(page.getByText('Reunión sintética '+dates.old,{exact:true})).toBeVisible();await expect(refresh).toBeEnabled()
++  const before=reads.filter(q=>q.operation==='calendar.list').length
++  await page.clock.setFixedTime(new Date(dates.after));refreshed=true;await refresh.click()
++  await expect.poll(()=>reads.filter(q=>q.operation==='calendar.list').length).toBeGreaterThan(before)
++  await info.attach('calendar-requests-after-refresh',{body:JSON.stringify(reads.filter(q=>q.operation==='calendar.list')),contentType:'application/json'})
++  const latest=reads.filter(q=>q.operation==='calendar.list').at(-1)!.input
++  expect(latest).toEqual({range_start:shift(dates.current,-7)+'T00:00:00Z',range_end:shift(dates.current,32)+'T00:00:00Z',limit:100,...(audience==='my'?{assigned_user_id:actor}:{})})
++  if(scenario==='denied'){
++   await expect(page.getByRole('alert')).toHaveText('No tienes permiso para esta acción.')
++   await expect(page.getByText('Reunión sintética '+dates.old,{exact:true})).toHaveCount(0);await expect(page.getByText('Reunión sintética '+dates.current,{exact:true})).toHaveCount(0)
++  }else{
++   await expect(page.getByText('Reunión sintética '+dates.current,{exact:true})).toBeVisible()
++   if(dates.old!==dates.current)await expect(page.getByText('Reunión sintética '+dates.old,{exact:true})).toHaveCount(0)
++   await page.getByRole('heading',{name:'Reuniones de hoy',exact:true}).scrollIntoViewIfNeeded()
++  }
++  await page.screenshot({path:info.outputPath(`dashboard-current-day-${scenario}-${audience}-${width}.png`)})
++  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);expect(commands).toEqual([]);expect(errors).toEqual([])
++ }finally{await page.unrouteAll({behavior:'wait'});await page.close();await fixture.close()}
++})
+diff --git a/tests/e2e-preview/fixtures/customer-resource-entry.tsx b/tests/e2e-preview/fixtures/customer-resource-entry.tsx
+index 4c048ac..c4de520 100644
+--- a/tests/e2e-preview/fixtures/customer-resource-entry.tsx
++++ b/tests/e2e-preview/fixtures/customer-resource-entry.tsx
+@@ -4,6 +4,7 @@ import {IntegratedCustomerDetail} from '../../../src/features/customers/Integrat
+ import {CustomerDocuments} from '../../../src/features/customers/CustomerDocuments'
+ import {CustomerEditor} from '../../../src/features/customers/CustomerEditor'
+ import {Customer360Overview} from '../../../src/features/customers/Customer360Overview'
++import {IntegratedDashboard} from '../../../src/features/dashboard/IntegratedDashboard'
+ import {AuthorizedCustomerContext} from '../../../src/features/assistant/AuthorizedCustomerContext'
+ import {CaseDetail} from '../../../src/features/cases/Cases'
+ import {DocumentUpload} from '../../../src/features/documents/DocumentUpload'
+@@ -17,6 +18,7 @@ function Fixture(){
+  const kind=new URLSearchParams(location.search).get('kind')
+  const [newOpen,setNewOpen]=useState(true),[saved,setSaved]=useState(false)
+  const [uploadOpen,setUploadOpen]=useState(true),[uploadSaved,setUploadSaved]=useState(false)
++ if(kind==='dashboard-current-day')return <IntegratedDashboard/>
+  if(kind==='cleanup')return uploadOpen?<DocumentCleanup onClose={()=>setUploadOpen(false)}/>:<p>Panel de limpieza cerrado</p>
+  if(kind==='documents')return <IntegratedDocuments customerId={id}/>
+  if(kind==='customer-document-targets')return <CustomerDocuments customerId={id}/>

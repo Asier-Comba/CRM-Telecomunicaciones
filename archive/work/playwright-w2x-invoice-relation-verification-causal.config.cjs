@@ -1,0 +1,1 @@
+const p=require('./playwright-w2x-invoice-relation-compact-final.config.cjs');module.exports={...p,testMatch:['invoice-relation-verification.spec.ts'],grep:/verification (pending-found|current) at 1440$/,outputDir:require('node:path').resolve(__dirname,'w2x-invoice-relation-verification-causal-results')}

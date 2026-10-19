@@ -1,0 +1,58 @@
+{
+  "utc": "2026-10-14T06:16:40.575743+00:00",
+  "work": "W2-X",
+  "claim": 6162079324,
+  "handoff": 6162180389,
+  "path": "${WORKSPACE}\\work\\crm-w2x-document-upload-uncertain",
+  "branch": "codex/w2x-customer-invalid-receipt-20261014",
+  "sha": "d3c0e1d2203a07cc90486e0083929dfba6ea0a1c",
+  "tree": "569ce21cfa6a6ac7c6ca95800d0396332d0d3c85",
+  "published": true,
+  "clean": true,
+  "checks": {
+    "invalid_receipt": 6,
+    "explicit_denial": 6,
+    "transport_confirmed_read_regressions": 12,
+    "browser_total": 24,
+    "build": "PASS66",
+    "lint": "PASS",
+    "gitleaks": "PASS",
+    "syntax": "PASS",
+    "auth": "NOT_RUN",
+    "model": "NOT_RUN"
+  },
+  "visual": {
+    "scope": "CONTROLLED_HTTP_CREATE_RECOVERY_ASSIGNEE_DENIED_NOT_FULL_VISUAL_NOT_AUTH",
+    "images": [
+      {
+        "width": 390,
+        "path": "${WORKSPACE}\\work\\w2x-customer-invalid-create-390.png",
+        "sha256": "15d45b17205c18718466d5fce57d857f839e309ff0b3ae6c3c42e11f2e5e65e2"
+      },
+      {
+        "width": 768,
+        "path": "${WORKSPACE}\\work\\w2x-customer-invalid-create-768.png",
+        "sha256": "bd991cd2433abf9d9a1a89f9d4ae60eb7e078f8e62ef65398186e0512306df6d"
+      },
+      {
+        "width": 1440,
+        "path": "${WORKSPACE}\\work\\w2x-customer-invalid-create-1440.png",
+        "sha256": "8dea4412aa833dae429f8d82caec8ca7b45624f6c2d72377abea054e28f49e55"
+      }
+    ]
+  },
+  "preserved_failures": [
+    "w2x-customer-invalid-original-repro.txt:CLOSE_ENABLED_AFTER_UNREADABLE_RECEIPT"
+  ],
+  "expected_unmeasured": {
+    "local": 377,
+    "preview": 954,
+    "auth": 120
+  },
+  "bundle_sha256": "4a9a28a3d35c11d8c5af3ed28949c98bcba8d7321776cd0c15bb1c4489432a7c",
+  "next": "OWN7F6626_COMPOSITION377_RUNNING_NO_ALIAS_PUSH_OVER8F69_ACTIVE",
+  "release": "NOT_ACCEPTED",
+  "five_high": "UNRESOLVED",
+  "ai_writes": "OFF",
+  "api_calls": 0
+}

@@ -1,0 +1,1 @@
+const p=require('./playwright-w2x-customer-attention-context-final.config.cjs');module.exports={...p,testMatch:['attention-current-day.spec.ts','customer-attention-context.spec.ts','attention-customer-identity.spec.ts'],outputDir:require('node:path').resolve(__dirname,'w2x-attention-current-day-final-results')}

@@ -1,0 +1,1 @@
+const p=require('./playwright-w2x-commercial-draft-full.config.cjs');module.exports={...p,testMatch:[...new Set([...p.testMatch,'billing-draft-registered.spec.ts','calendar-today.spec.ts'])],outputDir:require('node:path').resolve(__dirname,'w2x-commercial-calendar-full-results')}

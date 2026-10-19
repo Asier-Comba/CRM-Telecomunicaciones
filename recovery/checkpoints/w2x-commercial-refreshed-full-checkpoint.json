@@ -1,0 +1,83 @@
+{
+  "claim": 6203275119,
+  "sha": "ddcffe793b46c3024c1a762d094c8359d1ab9b82",
+  "tree": "0790d0a3d7c69a048e63762740fc7cf0be09f33c",
+  "branch": "codex/w2x-portability-command-read-lifetime-20261015",
+  "status": "OWN1155_FULL_PASS",
+  "browser_status": "PASS1155",
+  "browser_exit": 0,
+  "browser_summary": [
+    "1155 passed (22.3m)"
+  ],
+  "source_clean": true,
+  "own_source_checks": {
+    "browser": 105,
+    "build": 66,
+    "lint": "0_ERRORS_3_WARNINGS_VISIBLE",
+    "scan": "PASS",
+    "visual": "PARTIAL_6_CURRENT_PORTABILITY_FIELDS_FRAMES_ACTUALLY_VIEWED",
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN"
+  },
+  "release": "NOT_ACCEPTED",
+  "next": "INDEPENDENT_AUTHORIZED_COMMERCIAL_UNIT;NO_RERUN_GREEN_NO_RELEASE_PROMOTION",
+  "known_remaining_defects": [
+    {
+      "claim": 6203419872,
+      "source_sha": "ddcffe793b46c3024c1a762d094c8359d1ab9b82",
+      "scope": "SIM assignment A-B-A reuses old eligible context during pending revalidation",
+      "causal_failures": 6,
+      "candidate_checkpoint": "${WORKSPACE}\\work\\w2x-sim-assignment-selection-checkpoint.json",
+      "acceptance": "OWN1155_DOES_NOT_INCLUDE_THIS_NEW_REGRESSION;NO_RELEASE_ACCEPTANCE"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-commercial-refreshed-full-collection.txt",
+      "sha256": "dc224b1a881a2966dc52ac9dafdd4bcba29b54de6dca19cb0dc0b0452867af94"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-commercial-refreshed-full-browser.txt",
+      "sha256": "ee1c6ec83f42b755929ea131b30770b5dc2d4b1407951b44bbd37e1388b7ad0f"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portability-command-read-browser.txt",
+      "sha256": "528a86648bcac3cb8d5a0fccbb1fffd05606545915cc6642b81f7f90bd07e61a"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portability-command-read-lint.txt",
+      "sha256": "46b06a074950b0d83fe6c1c979beaeab9a24b2e4e4e51999ab23fa4d1236b1b4"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portability-command-read-build.txt",
+      "sha256": "d8aa4f717ec3d6be652e5749ff4566ffcb0c74b006d1a2fc04b5524d0be91de6"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-portability-command-read-scan.txt",
+      "sha256": "056307e8785df99e4d3e49206735473f3f1f401e3095e4eec5ededcb8d95a241"
+    }
+  ],
+  "publication": "PUBLISHED",
+  "handoffs": [
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6203788955",
+      "id": 6203788955,
+      "issue": 67
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6203789242",
+      "id": 6203789242,
+      "issue": 153
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6203789546",
+      "id": 6203789546,
+      "issue": 38
+    },
+    {
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6203789786",
+      "id": 6203789786,
+      "issue": 142
+    }
+  ]
+}

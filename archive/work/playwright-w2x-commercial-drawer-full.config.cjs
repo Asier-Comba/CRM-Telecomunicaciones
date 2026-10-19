@@ -1,0 +1,1 @@
+const p=require('./playwright-w2x-commercial-number-full.config.cjs');module.exports={...p,testMatch:[...p.testMatch,'sim-identifier-recovery-close.spec.ts','portfolio-result-label-wrap.spec.ts','portfolio-selected-title-wrap.spec.ts'],outputDir:require('node:path').resolve(__dirname,'w2x-commercial-drawer-full-results')}

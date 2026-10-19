@@ -1,0 +1,420 @@
+{
+  "unit": 77,
+  "claim": 6253510540,
+  "base": "17621f66a87c3461772e468aacf136361fbec2b2",
+  "branch": "codex/w2x-c360-contact-text-wrap-20261018",
+  "status": "PUBLISHED_OWN86_UI_STYLE_ONLY_BUILD66_VISUAL_PARTIAL",
+  "causal_session": 74031,
+  "product_changed": true,
+  "release": "NOT_ACCEPTED",
+  "original": {
+    "failed": 1,
+    "passed": 1,
+    "duration": "19.9s",
+    "panel_client_width": 340,
+    "panel_scroll_width": 874,
+    "scope": "Contacts long name390;ordinary contact positive passes. Jobtitle/other widths are new coverage,not original measured failures.",
+    "log": "work/w2x-c360-contact-text-wrap-causal.txt"
+  },
+  "checks": {
+    "auth_db": "NOT_RUN",
+    "model": "NOT_RUN",
+    "paid_api": 0,
+    "global": "NOT_RUN_CURRENT_SHA",
+    "functional": "NOT_RUN_UI_STYLE_ONLY",
+    "browser": "86_PASS_OWN_SOURCE",
+    "build": "66_PASS",
+    "lint": "EXIT0_WARNINGS_PRESERVED",
+    "scan": "PASS"
+  },
+  "matrix": {
+    "total": 342,
+    "parity": 244,
+    "telecom": 98,
+    "reviewed_partial": 30,
+    "unreconciled": 312,
+    "release_ready": 0
+  },
+  "next": "Close own86/build/lint/visual/scan/publication;continue reproduced Customer360 list defect if present. Coalesce later product source after1869source75terminal/PUBLISHED/PASS;do not retarget65756 orinheritPASS.1842source72 active71901,keep14frozen.",
+  "controls_session": 43767,
+  "visual_review": {
+    "status": "ACTUALLY_VIEWED",
+    "scope": "Seven contacts frames:long name/jobtitle3907681440,ordinary1440. Complete wrapped contact name/jobtitle andPrincipal/status visible;long-case action controls andpaging visible. Ordinary1440 lower paging outside viewport. Reveal/copy/edit/add/origin buttons not invoked;no private values shown. Header/Empresa cases use DOM geometry,not visually inherited from older SHA. Harness/banner/UUID controls excluded;count1/empty attention/false has_email/has_phone are declared fixtures,not SQL counts orreal absence. Partial visual only.",
+    "frames": [
+      {
+        "path": "${WORKSPACE}\\work\\w2x-c360-contact-text-wrap-final-results\\c360-customer-name-wrap-C3-00785-name-contacts-brand-at-1440\\customer-name-contacts-brand-1440.png",
+        "sha256": "be5d79df1334e1b324078789d8ebdffc38e8b132fb83a6a7d2a11c6924d6cf32"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-c360-contact-text-wrap-final-results\\c360-customer-name-wrap-C3-194a1-ame-contacts-company-at-390\\customer-name-contacts-company-390.png",
+        "sha256": "cc3cb521b005e7020aa3af99a5bfc2120876a0cb82615e6f2123d66573269a03"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-c360-contact-text-wrap-final-results\\c360-customer-name-wrap-C3-2937c-me-contacts-company-at-1440\\customer-name-contacts-company-1440.png",
+        "sha256": "f6b04fd047e4bb9b025af41f586892b1e744f67a5af9b54be02a7888abcafbb4"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-c360-contact-text-wrap-final-results\\c360-customer-name-wrap-C3-55c6f--name-contacts-brand-at-390\\customer-name-contacts-brand-390.png",
+        "sha256": "01ec8eef702266eaa9829577665bb30b9608de2ba69e9c1991215689ddbd2116"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-c360-contact-text-wrap-final-results\\c360-customer-name-wrap-C3-652a4-ame-contacts-company-at-768\\customer-name-contacts-company-768.png",
+        "sha256": "5da4abfaa7c5cf56d7c236cd0f5dcc66b8d32da219312f273a9bd34ab759c1d7"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-c360-contact-text-wrap-final-results\\c360-customer-name-wrap-C3-d1c79--name-contacts-brand-at-768\\customer-name-contacts-brand-768.png",
+        "sha256": "e35ed081b8cf22ed62d026ce872c066ed20bb79598f1db3f16944037864b92f5"
+      },
+      {
+        "path": "${WORKSPACE}\\work\\w2x-c360-contact-text-wrap-final-results\\c360-customer-name-wrap-C3-e0e8d-me-contacts-current-at-1440\\customer-name-contacts-current-1440.png",
+        "sha256": "ba0fb06659469f0ef84bfcd99fff832c92dbf6df1abf4d21545d31cec131c372"
+      }
+    ]
+  },
+  "geometry_evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-c360-contact-text-wrap-final-results\\c360-customer-name-wrap-C3-00785-name-contacts-brand-at-1440\\metrics.json",
+      "sha256": "d22eccf81561269a790ba649fa7d4b2b1ae17b6a0b4ae9b0b8919741b596a7bb",
+      "metrics": {
+        "width": 1198,
+        "scroll": 1198,
+        "mainWidth": 1440,
+        "mainScroll": 1440
+      }
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-c360-contact-text-wrap-final-results\\c360-customer-name-wrap-C3-0782b--name-header-current-at-768\\metrics.json",
+      "sha256": "2539631b1288272eaa1a14b68c8b30e19cc610515b74377a82cb1eef8ea7979f",
+      "metrics": {
+        "width": 718,
+        "scroll": 718,
+        "mainWidth": 768,
+        "mainScroll": 768
+      }
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-c360-contact-text-wrap-final-results\\c360-customer-name-wrap-C3-1111f--name-header-current-at-390\\metrics.json",
+      "sha256": "d3aeefa659f301f0aac81999f859880d1af1cdfb52559225b3e7ef42c059310f",
+      "metrics": {
+        "width": 340,
+        "scroll": 340,
+        "mainWidth": 390,
+        "mainScroll": 390
+      }
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-c360-contact-text-wrap-final-results\\c360-customer-name-wrap-C3-194a1-ame-contacts-company-at-390\\metrics.json",
+      "sha256": "d3aeefa659f301f0aac81999f859880d1af1cdfb52559225b3e7ef42c059310f",
+      "metrics": {
+        "width": 340,
+        "scroll": 340,
+        "mainWidth": 390,
+        "mainScroll": 390
+      }
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-c360-contact-text-wrap-final-results\\c360-customer-name-wrap-C3-1bd5c-r-name-facts-company-at-390\\metrics.json",
+      "sha256": "d3aeefa659f301f0aac81999f859880d1af1cdfb52559225b3e7ef42c059310f",
+      "metrics": {
+        "width": 340,
+        "scroll": 340,
+        "mainWidth": 390,
+        "mainScroll": 390
+      }
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-c360-contact-text-wrap-final-results\\c360-customer-name-wrap-C3-23524-er-name-header-brand-at-768\\metrics.json",
+      "sha256": "2539631b1288272eaa1a14b68c8b30e19cc610515b74377a82cb1eef8ea7979f",
+      "metrics": {
+        "width": 718,
+        "scroll": 718,
+        "mainWidth": 768,
+        "mainScroll": 768
+      }
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-c360-contact-text-wrap-final-results\\c360-customer-name-wrap-C3-2937c-me-contacts-company-at-1440\\metrics.json",
+      "sha256": "d22eccf81561269a790ba649fa7d4b2b1ae17b6a0b4ae9b0b8919741b596a7bb",
+      "metrics": {
+        "width": 1198,
+        "scroll": 1198,
+        "mainWidth": 1440,
+        "mainScroll": 1440
+      }
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-c360-contact-text-wrap-final-results\\c360-customer-name-wrap-C3-51717-name-header-company-at-1440\\metrics.json",
+      "sha256": "d22eccf81561269a790ba649fa7d4b2b1ae17b6a0b4ae9b0b8919741b596a7bb",
+      "metrics": {
+        "width": 1198,
+        "scroll": 1198,
+        "mainWidth": 1440,
+        "mainScroll": 1440
+      }
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-c360-contact-text-wrap-final-results\\c360-customer-name-wrap-C3-55c6f--name-contacts-brand-at-390\\metrics.json",
+      "sha256": "d3aeefa659f301f0aac81999f859880d1af1cdfb52559225b3e7ef42c059310f",
+      "metrics": {
+        "width": 340,
+        "scroll": 340,
+        "mainWidth": 390,
+        "mainScroll": 390
+      }
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-c360-contact-text-wrap-final-results\\c360-customer-name-wrap-C3-61940-r-name-facts-company-at-768\\metrics.json",
+      "sha256": "2539631b1288272eaa1a14b68c8b30e19cc610515b74377a82cb1eef8ea7979f",
+      "metrics": {
+        "width": 718,
+        "scroll": 718,
+        "mainWidth": 768,
+        "mainScroll": 768
+      }
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-c360-contact-text-wrap-final-results\\c360-customer-name-wrap-C3-652a4-ame-contacts-company-at-768\\metrics.json",
+      "sha256": "2539631b1288272eaa1a14b68c8b30e19cc610515b74377a82cb1eef8ea7979f",
+      "metrics": {
+        "width": 718,
+        "scroll": 718,
+        "mainWidth": 768,
+        "mainScroll": 768
+      }
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-c360-contact-text-wrap-final-results\\c360-customer-name-wrap-C3-6e2e0-er-name-facts-brand-at-1440\\metrics.json",
+      "sha256": "d22eccf81561269a790ba649fa7d4b2b1ae17b6a0b4ae9b0b8919741b596a7bb",
+      "metrics": {
+        "width": 1198,
+        "scroll": 1198,
+        "mainWidth": 1440,
+        "mainScroll": 1440
+      }
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-c360-contact-text-wrap-final-results\\c360-customer-name-wrap-C3-8dd57--name-facts-current-at-1440\\metrics.json",
+      "sha256": "d22eccf81561269a790ba649fa7d4b2b1ae17b6a0b4ae9b0b8919741b596a7bb",
+      "metrics": {
+        "width": 1198,
+        "scroll": 1198,
+        "mainWidth": 1440,
+        "mainScroll": 1440
+      }
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-c360-contact-text-wrap-final-results\\c360-customer-name-wrap-C3-9db10--name-facts-company-at-1440\\metrics.json",
+      "sha256": "d22eccf81561269a790ba649fa7d4b2b1ae17b6a0b4ae9b0b8919741b596a7bb",
+      "metrics": {
+        "width": 1198,
+        "scroll": 1198,
+        "mainWidth": 1440,
+        "mainScroll": 1440
+      }
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-c360-contact-text-wrap-final-results\\c360-customer-name-wrap-C3-ad0ff-r-name-facts-current-at-768\\metrics.json",
+      "sha256": "2539631b1288272eaa1a14b68c8b30e19cc610515b74377a82cb1eef8ea7979f",
+      "metrics": {
+        "width": 718,
+        "scroll": 718,
+        "mainWidth": 768,
+        "mainScroll": 768
+      }
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-c360-contact-text-wrap-final-results\\c360-customer-name-wrap-C3-c1728-mer-name-facts-brand-at-768\\metrics.json",
+      "sha256": "2539631b1288272eaa1a14b68c8b30e19cc610515b74377a82cb1eef8ea7979f",
+      "metrics": {
+        "width": 718,
+        "scroll": 718,
+        "mainWidth": 768,
+        "mainScroll": 768
+      }
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-c360-contact-text-wrap-final-results\\c360-customer-name-wrap-C3-c26e8--name-header-company-at-390\\metrics.json",
+      "sha256": "d3aeefa659f301f0aac81999f859880d1af1cdfb52559225b3e7ef42c059310f",
+      "metrics": {
+        "width": 340,
+        "scroll": 340,
+        "mainWidth": 390,
+        "mainScroll": 390
+      }
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-c360-contact-text-wrap-final-results\\c360-customer-name-wrap-C3-c5ae1--name-header-company-at-768\\metrics.json",
+      "sha256": "2539631b1288272eaa1a14b68c8b30e19cc610515b74377a82cb1eef8ea7979f",
+      "metrics": {
+        "width": 718,
+        "scroll": 718,
+        "mainWidth": 768,
+        "mainScroll": 768
+      }
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-c360-contact-text-wrap-final-results\\c360-customer-name-wrap-C3-ceb16-name-header-current-at-1440\\metrics.json",
+      "sha256": "d22eccf81561269a790ba649fa7d4b2b1ae17b6a0b4ae9b0b8919741b596a7bb",
+      "metrics": {
+        "width": 1198,
+        "scroll": 1198,
+        "mainWidth": 1440,
+        "mainScroll": 1440
+      }
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-c360-contact-text-wrap-final-results\\c360-customer-name-wrap-C3-cf02d-r-name-facts-current-at-390\\metrics.json",
+      "sha256": "d3aeefa659f301f0aac81999f859880d1af1cdfb52559225b3e7ef42c059310f",
+      "metrics": {
+        "width": 340,
+        "scroll": 340,
+        "mainWidth": 390,
+        "mainScroll": 390
+      }
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-c360-contact-text-wrap-final-results\\c360-customer-name-wrap-C3-d1c79--name-contacts-brand-at-768\\metrics.json",
+      "sha256": "2539631b1288272eaa1a14b68c8b30e19cc610515b74377a82cb1eef8ea7979f",
+      "metrics": {
+        "width": 718,
+        "scroll": 718,
+        "mainWidth": 768,
+        "mainScroll": 768
+      }
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-c360-contact-text-wrap-final-results\\c360-customer-name-wrap-C3-e0e8d-me-contacts-current-at-1440\\metrics.json",
+      "sha256": "d22eccf81561269a790ba649fa7d4b2b1ae17b6a0b4ae9b0b8919741b596a7bb",
+      "metrics": {
+        "width": 1198,
+        "scroll": 1198,
+        "mainWidth": 1440,
+        "mainScroll": 1440
+      }
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-c360-contact-text-wrap-final-results\\c360-customer-name-wrap-C3-e1f1e-er-name-header-brand-at-390\\metrics.json",
+      "sha256": "d3aeefa659f301f0aac81999f859880d1af1cdfb52559225b3e7ef42c059310f",
+      "metrics": {
+        "width": 340,
+        "scroll": 340,
+        "mainWidth": 390,
+        "mainScroll": 390
+      }
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-c360-contact-text-wrap-final-results\\c360-customer-name-wrap-C3-e7dfe-ame-contacts-current-at-768\\metrics.json",
+      "sha256": "2539631b1288272eaa1a14b68c8b30e19cc610515b74377a82cb1eef8ea7979f",
+      "metrics": {
+        "width": 718,
+        "scroll": 718,
+        "mainWidth": 768,
+        "mainScroll": 768
+      }
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-c360-contact-text-wrap-final-results\\c360-customer-name-wrap-C3-e8c3d-ame-contacts-current-at-390\\metrics.json",
+      "sha256": "d3aeefa659f301f0aac81999f859880d1af1cdfb52559225b3e7ef42c059310f",
+      "metrics": {
+        "width": 340,
+        "scroll": 340,
+        "mainWidth": 390,
+        "mainScroll": 390
+      }
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-c360-contact-text-wrap-final-results\\c360-customer-name-wrap-C3-eaff5-r-name-header-brand-at-1440\\metrics.json",
+      "sha256": "d22eccf81561269a790ba649fa7d4b2b1ae17b6a0b4ae9b0b8919741b596a7bb",
+      "metrics": {
+        "width": 1198,
+        "scroll": 1198,
+        "mainWidth": 1440,
+        "mainScroll": 1440
+      }
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-c360-contact-text-wrap-final-results\\c360-customer-name-wrap-C3-f81c9-mer-name-facts-brand-at-390\\metrics.json",
+      "sha256": "d3aeefa659f301f0aac81999f859880d1af1cdfb52559225b3e7ef42c059310f",
+      "metrics": {
+        "width": 340,
+        "scroll": 340,
+        "mainWidth": 390,
+        "mainScroll": 390
+      }
+    }
+  ],
+  "known_remaining_defects": {
+    "whole_product": "NOT_RECONCILED",
+    "auth_db": "NOT_RUN",
+    "live_model": "NOT_RUN",
+    "security": "W4_PENDING_HIGH5",
+    "shared_read_validation72": "OWNER_REVIEW_CONSUMPTION_PENDING",
+    "overdue_date_derivation72": "NOT_ACCEPTED_BY_DECLARED_FLAG_FIXTURE",
+    "release": "NOT_ACCEPTED"
+  },
+  "candidate_fingerprints": [
+    {
+      "path": "src/features/customers/IntegratedCustomerDetail.tsx",
+      "sha256_utf8_lf": "cadfc2d4f437b4bbaa2e4e11d262bdcee6f91b12d79c2085f81808a4efb338ef"
+    },
+    {
+      "path": "tests/e2e-preview/c360-customer-name-wrap.spec.ts",
+      "sha256_utf8_lf": "3cea5d4f1d8c89ffa04c9caa22e7aed0c88304fd190a7ed65ba5d2948f41c33f"
+    },
+    {
+      "path": "docs/master/W2X_C360_CONTACT_TEXT_WRAP_20261018.md",
+      "sha256_utf8_lf": "6e16689aa044dd424f464dd092894184491ea722a2bb2a5634b889a9e84ad4dc"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "${WORKSPACE}\\work\\w2x-c360-contact-text-wrap-causal.txt",
+      "sha256": "768b04db0c34dc510b83b516dd444542ae5d5f47cd51457676a6e77fb07b394c"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-c360-contact-text-wrap-collection.txt",
+      "sha256": "df14308a3bde958c702631eb039ee38dc51c15ab05fddb422af9e0a90c8f4588"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-c360-contact-text-wrap-browser.txt",
+      "sha256": "372236bc7949327e7dde1778331f2a0a10a637020db1216cba72e1c38f600369"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-c360-contact-text-wrap-lint.txt",
+      "sha256": "77e52456c3bf671c8ed5a0154c9dbfdd998b31f3c61494ca11430b416d294dad"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-c360-contact-text-wrap-build.txt",
+      "sha256": "b5cdd8e2527a9add51cf155363be75a5303c182242ce670eaedc0cfac4ad3e29"
+    },
+    {
+      "path": "${WORKSPACE}\\work\\w2x-c360-contact-text-wrap-scan.txt",
+      "sha256": "e920b75263fbff148404ea69c0bf1753f9a33f88cdd0cacc46887eb3345346ae"
+    }
+  ],
+  "tree": "0fef37253820bc83889787c48800d2a5a00e96db",
+  "handoffs": [
+    {
+      "issue": 67,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6253638582",
+      "id": 6253638582
+    },
+    {
+      "issue": 153,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153#issuecomment-6253638714",
+      "id": 6253638714
+    },
+    {
+      "issue": 38,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38#issuecomment-6253638833",
+      "id": 6253638833
+    },
+    {
+      "issue": 142,
+      "url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/142#issuecomment-6253638985",
+      "id": 6253638985
+    }
+  ],
+  "sha": "3124717317606ed013e1dd00e5cb4f4de0e3378e",
+  "publication": "PUBLISHED"
+}
