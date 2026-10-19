@@ -1,0 +1,2857 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--config",
+      "tools/oier_billing_qa/final.config.ts"
+    ],
+    "configFile": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\final.config.ts",
+    "rootDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-billing-fixes-20261020/tools/oier_billing_qa",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-billing-fixes-20261020/final-attempt03/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "controlled-http-390",
+        "name": "controlled-http-390",
+        "testDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-billing-fixes-20261020/tools/oier_billing_qa",
+        "testIgnore": [],
+        "testMatch": [
+          "prompt-interaction.spec.ts",
+          "proposal-context.spec.ts",
+          "proposal-intent.spec.ts",
+          "speech-fallback.spec.ts",
+          "customer-prompt-context.spec.ts"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-billing-fixes-20261020/final-attempt03/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "controlled-http-768",
+        "name": "controlled-http-768",
+        "testDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-billing-fixes-20261020/tools/oier_billing_qa",
+        "testIgnore": [],
+        "testMatch": [
+          "prompt-interaction.spec.ts",
+          "proposal-context.spec.ts",
+          "proposal-intent.spec.ts",
+          "speech-fallback.spec.ts",
+          "customer-prompt-context.spec.ts"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-billing-fixes-20261020/final-attempt03/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "controlled-http-1440",
+        "name": "controlled-http-1440",
+        "testDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-billing-fixes-20261020/tools/oier_billing_qa",
+        "testIgnore": [],
+        "testMatch": [
+          "prompt-interaction.spec.ts",
+          "proposal-context.spec.ts",
+          "proposal-intent.spec.ts",
+          "speech-fallback.spec.ts",
+          "customer-prompt-context.spec.ts"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "line",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\final-attempt03\\results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.61.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "customer-prompt-context.spec.ts",
+      "file": "customer-prompt-context.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "changing customer clears the previous written invoice intent",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 941,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:45:07.427Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c56e746871a37052984d-0c6f3ae7e90aa83c58a6",
+          "file": "customer-prompt-context.spec.ts",
+          "line": 42,
+          "column": 5
+        },
+        {
+          "title": "changing customer aborts dictation and retires the old transcript handler",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 941,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:45:13.482Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c56e746871a37052984d-c54fa66c5e6b3f8708ca",
+          "file": "customer-prompt-context.spec.ts",
+          "line": 51,
+          "column": 5
+        },
+        {
+          "title": "a fresh written intent for the new customer still opens its own proposal",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1089,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:45:14.440Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c56e746871a37052984d-4bb6dea6c787c3ed7840",
+          "file": "customer-prompt-context.spec.ts",
+          "line": 64,
+          "column": 5
+        },
+        {
+          "title": "changing customer clears the previous written invoice intent",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1291,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:45:43.193Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c56e746871a37052984d-258673ec4de0fe735c12",
+          "file": "customer-prompt-context.spec.ts",
+          "line": 42,
+          "column": 5
+        },
+        {
+          "title": "changing customer aborts dictation and retires the old transcript handler",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1370,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:45:52.128Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c56e746871a37052984d-76a032ba159744b241f8",
+          "file": "customer-prompt-context.spec.ts",
+          "line": 51,
+          "column": 5
+        },
+        {
+          "title": "a fresh written intent for the new customer still opens its own proposal",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1118,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:45:53.512Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c56e746871a37052984d-c6df7f9202aa69e6a9fe",
+          "file": "customer-prompt-context.spec.ts",
+          "line": 64,
+          "column": 5
+        },
+        {
+          "title": "changing customer clears the previous written invoice intent",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1383,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:46:24.748Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c56e746871a37052984d-258f47d632ac362fcb3c",
+          "file": "customer-prompt-context.spec.ts",
+          "line": 42,
+          "column": 5
+        },
+        {
+          "title": "changing customer aborts dictation and retires the old transcript handler",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1318,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:46:33.372Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c56e746871a37052984d-0b78768839190fd0b3f0",
+          "file": "customer-prompt-context.spec.ts",
+          "line": 51,
+          "column": 5
+        },
+        {
+          "title": "a fresh written intent for the new customer still opens its own proposal",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1907,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:46:34.710Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c56e746871a37052984d-7c0a9e1dbff9a50d0092",
+          "file": "customer-prompt-context.spec.ts",
+          "line": 64,
+          "column": 5
+        }
+      ]
+    },
+    {
+      "title": "prompt-interaction.spec.ts",
+      "file": "prompt-interaction.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "empty prompt does not propose or write",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 739,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:45:15.569Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "42e8e14ed3ced1dcdd0a-eda907c3ae8f535bd805",
+          "file": "prompt-interaction.spec.ts",
+          "line": 74,
+          "column": 5
+        },
+        {
+          "title": "unsupported speech keeps text fallback usable and opens editable reviewed proposal",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 986,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:45:16.359Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "42e8e14ed3ced1dcdd0a-4ed3b67063ee78cd84e4",
+          "file": "prompt-interaction.spec.ts",
+          "line": 79,
+          "column": 5
+        },
+        {
+          "title": "controlled dictation uses Spanish and waits until stopped before proposing",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1092,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:45:17.358Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "42e8e14ed3ced1dcdd0a-4737c2d2d5ec473a7b14",
+          "file": "prompt-interaction.spec.ts",
+          "line": 90,
+          "column": 5
+        },
+        {
+          "title": "interim transcripts replace one another and editing changes provenance to text",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1271,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:45:18.465Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "42e8e14ed3ced1dcdd0a-5beafae052d6cf54d6e9",
+          "file": "prompt-interaction.spec.ts",
+          "line": 106,
+          "column": 5
+        },
+        {
+          "title": "controlled speech error retains text fallback without proposing",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1286,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:45:19.761Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "42e8e14ed3ced1dcdd0a-cfd2b375f6923e757bb9",
+          "file": "prompt-interaction.spec.ts",
+          "line": 116,
+          "column": 5
+        },
+        {
+          "title": "leaving the customer aborts recognition and retires transcript handlers",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 905,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:45:21.067Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "42e8e14ed3ced1dcdd0a-d68a15b6f4bf7b316aca",
+          "file": "prompt-interaction.spec.ts",
+          "line": 125,
+          "column": 5
+        },
+        {
+          "title": "owner phrase preserves complete concept and fifteen-day due date in editable proposal",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1010,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:45:21.989Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "42e8e14ed3ced1dcdd0a-f98e230cff28f3f672bb",
+          "file": "prompt-interaction.spec.ts",
+          "line": 135,
+          "column": 5
+        },
+        {
+          "title": "denied proposal failure is explained without opening editor or writing",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1017,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:45:23.014Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "unhandled-errors-observed",
+                      "contentType": "application/json",
+                      "body": "W10="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "42e8e14ed3ced1dcdd0a-667245800230d16b7e14",
+          "file": "prompt-interaction.spec.ts",
+          "line": 146,
+          "column": 65
+        },
+        {
+          "title": "malformed proposal failure is explained without opening editor or writing",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 938,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:45:24.053Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "unhandled-errors-observed",
+                      "contentType": "application/json",
+                      "body": "W10="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "42e8e14ed3ced1dcdd0a-a441fd708f3fe4b64345",
+          "file": "prompt-interaction.spec.ts",
+          "line": 146,
+          "column": 65
+        },
+        {
+          "title": "network proposal failure is explained without opening editor or writing",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1104,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:45:25.010Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "unhandled-errors-observed",
+                      "contentType": "application/json",
+                      "body": "W10="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "42e8e14ed3ced1dcdd0a-edb1793444c0763ad2ac",
+          "file": "prompt-interaction.spec.ts",
+          "line": 146,
+          "column": 65
+        },
+        {
+          "title": "empty prompt does not propose or write",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 927,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:45:54.673Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "42e8e14ed3ced1dcdd0a-30889f4b831c1fee6bf6",
+          "file": "prompt-interaction.spec.ts",
+          "line": 74,
+          "column": 5
+        },
+        {
+          "title": "unsupported speech keeps text fallback usable and opens editable reviewed proposal",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1570,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:45:55.643Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "42e8e14ed3ced1dcdd0a-ec94c537ff7532e7604c",
+          "file": "prompt-interaction.spec.ts",
+          "line": 79,
+          "column": 5
+        },
+        {
+          "title": "controlled dictation uses Spanish and waits until stopped before proposing",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1131,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:45:57.241Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "42e8e14ed3ced1dcdd0a-d83b47bfe73de3c01aab",
+          "file": "prompt-interaction.spec.ts",
+          "line": 90,
+          "column": 5
+        },
+        {
+          "title": "interim transcripts replace one another and editing changes provenance to text",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1276,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:45:58.400Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "42e8e14ed3ced1dcdd0a-3fcbcf466eb689f2099c",
+          "file": "prompt-interaction.spec.ts",
+          "line": 106,
+          "column": 5
+        },
+        {
+          "title": "controlled speech error retains text fallback without proposing",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 983,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:45:59.694Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "42e8e14ed3ced1dcdd0a-934bf00bbe9cb0863256",
+          "file": "prompt-interaction.spec.ts",
+          "line": 116,
+          "column": 5
+        },
+        {
+          "title": "leaving the customer aborts recognition and retires transcript handlers",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 899,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:46:00.694Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "42e8e14ed3ced1dcdd0a-6ef96297a9c7966eef61",
+          "file": "prompt-interaction.spec.ts",
+          "line": 125,
+          "column": 5
+        },
+        {
+          "title": "owner phrase preserves complete concept and fifteen-day due date in editable proposal",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1247,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:46:01.610Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "42e8e14ed3ced1dcdd0a-70cb5637020f4137a231",
+          "file": "prompt-interaction.spec.ts",
+          "line": 135,
+          "column": 5
+        },
+        {
+          "title": "denied proposal failure is explained without opening editor or writing",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1116,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:46:02.875Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "unhandled-errors-observed",
+                      "contentType": "application/json",
+                      "body": "W10="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "42e8e14ed3ced1dcdd0a-11c57ed801e78d2eec17",
+          "file": "prompt-interaction.spec.ts",
+          "line": 146,
+          "column": 65
+        },
+        {
+          "title": "malformed proposal failure is explained without opening editor or writing",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1039,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:46:04.009Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "unhandled-errors-observed",
+                      "contentType": "application/json",
+                      "body": "W10="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "42e8e14ed3ced1dcdd0a-c875b112c06b234e8a4d",
+          "file": "prompt-interaction.spec.ts",
+          "line": 146,
+          "column": 65
+        },
+        {
+          "title": "network proposal failure is explained without opening editor or writing",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 997,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:46:05.062Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "unhandled-errors-observed",
+                      "contentType": "application/json",
+                      "body": "W10="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "42e8e14ed3ced1dcdd0a-6f0d1656e54bde29525a",
+          "file": "prompt-interaction.spec.ts",
+          "line": 146,
+          "column": 65
+        },
+        {
+          "title": "empty prompt does not propose or write",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1255,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:46:36.682Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "42e8e14ed3ced1dcdd0a-dffaaf1f08979340e038",
+          "file": "prompt-interaction.spec.ts",
+          "line": 74,
+          "column": 5
+        },
+        {
+          "title": "unsupported speech keeps text fallback usable and opens editable reviewed proposal",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1821,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:46:37.989Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "42e8e14ed3ced1dcdd0a-272fe7cde47e0fcd6f10",
+          "file": "prompt-interaction.spec.ts",
+          "line": 79,
+          "column": 5
+        },
+        {
+          "title": "controlled dictation uses Spanish and waits until stopped before proposing",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1556,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:46:39.833Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "42e8e14ed3ced1dcdd0a-dea9f38faed01df22428",
+          "file": "prompt-interaction.spec.ts",
+          "line": 90,
+          "column": 5
+        },
+        {
+          "title": "interim transcripts replace one another and editing changes provenance to text",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1556,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:46:41.417Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "42e8e14ed3ced1dcdd0a-ab7dc3cd387b4a4dc5ff",
+          "file": "prompt-interaction.spec.ts",
+          "line": 106,
+          "column": 5
+        },
+        {
+          "title": "controlled speech error retains text fallback without proposing",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1364,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:46:42.995Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "42e8e14ed3ced1dcdd0a-bd1ab0be4f26f3b98aa8",
+          "file": "prompt-interaction.spec.ts",
+          "line": 116,
+          "column": 5
+        },
+        {
+          "title": "leaving the customer aborts recognition and retires transcript handlers",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1200,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:46:44.377Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "42e8e14ed3ced1dcdd0a-dbed3c52f4754d158265",
+          "file": "prompt-interaction.spec.ts",
+          "line": 125,
+          "column": 5
+        },
+        {
+          "title": "owner phrase preserves complete concept and fifteen-day due date in editable proposal",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1501,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:46:45.597Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "42e8e14ed3ced1dcdd0a-773b97056410680f1af1",
+          "file": "prompt-interaction.spec.ts",
+          "line": 135,
+          "column": 5
+        },
+        {
+          "title": "denied proposal failure is explained without opening editor or writing",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1444,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:46:47.119Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "unhandled-errors-observed",
+                      "contentType": "application/json",
+                      "body": "W10="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "42e8e14ed3ced1dcdd0a-0d3d3987f207e6c8cb54",
+          "file": "prompt-interaction.spec.ts",
+          "line": 146,
+          "column": 65
+        },
+        {
+          "title": "malformed proposal failure is explained without opening editor or writing",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1549,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:46:48.579Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "unhandled-errors-observed",
+                      "contentType": "application/json",
+                      "body": "W10="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "42e8e14ed3ced1dcdd0a-f10022b190e8dc5e3e44",
+          "file": "prompt-interaction.spec.ts",
+          "line": 146,
+          "column": 65
+        },
+        {
+          "title": "network proposal failure is explained without opening editor or writing",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1617,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:46:50.144Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "unhandled-errors-observed",
+                      "contentType": "application/json",
+                      "body": "W10="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "42e8e14ed3ced1dcdd0a-da0aaa6b68a7f5ceef82",
+          "file": "prompt-interaction.spec.ts",
+          "line": 146,
+          "column": 65
+        }
+      ]
+    },
+    {
+      "title": "proposal-context.spec.ts",
+      "file": "proposal-context.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "held proposal still opens when customer context is unchanged",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1236,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:45:26.155Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "observed-proposals",
+                      "contentType": "application/json",
+                      "body": "W3sic291cmNlIjoidGV4dCIsImRyYWZ0Ijp7ImN1c3RvbWVyX2lkIjoiMTAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiaXNzdWVfb24iOiIyMDI2LTEwLTIwIiwiZHVlX29uIjpudWxsLCJzZXJpZXMiOiJBIiwiY3VycmVuY3kiOiJFVVIiLCJsaW5lcyI6W3siZGVzY3JpcHRpb24iOiJzb3BvcnRlIiwicXVhbnRpdHlfbWlsbGkiOjEwMDAsInVuaXRfcHJpY2VfbWlub3IiOjMwMDAwLCJkaXNjb3VudF9icHMiOjAsInRheF9icHMiOjIxMDAsIndpdGhob2xkaW5nX2JwcyI6MH1dLCJub3RlcyI6bnVsbCwiY29udHJhY3RfaWQiOm51bGwsInNlcnZpY2VfaWQiOm51bGwsIm9wcG9ydHVuaXR5X2lkIjpudWxsfX1d"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5736f8ba29ccf0151c3b-4b5a61dfc7afbe89d4de",
+          "file": "proposal-context.spec.ts",
+          "line": 43,
+          "column": 5
+        },
+        {
+          "title": "old proposal is retired after customer switch",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 976,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:45:27.423Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "context-and-proposals",
+                      "contentType": "application/json",
+                      "body": "eyJzZWxlY3RlZCI6IjEwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMyIsInByb3Bvc2FscyI6W3sic291cmNlIjoidGV4dCIsImRyYWZ0Ijp7ImN1c3RvbWVyX2lkIjoiMTAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiaXNzdWVfb24iOiIyMDI2LTEwLTIwIiwiZHVlX29uIjpudWxsLCJzZXJpZXMiOiJBIiwiY3VycmVuY3kiOiJFVVIiLCJsaW5lcyI6W3siZGVzY3JpcHRpb24iOiJzb3BvcnRlIiwicXVhbnRpdHlfbWlsbGkiOjEwMDAsInVuaXRfcHJpY2VfbWlub3IiOjMwMDAwLCJkaXNjb3VudF9icHMiOjAsInRheF9icHMiOjIxMDAsIndpdGhob2xkaW5nX2JwcyI6MH1dLCJub3RlcyI6bnVsbCwiY29udHJhY3RfaWQiOm51bGwsInNlcnZpY2VfaWQiOm51bGwsIm9wcG9ydHVuaXR5X2lkIjpudWxsfX1dLCJlZGl0b3JDdXN0b21lciI6bnVsbH0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5736f8ba29ccf0151c3b-d17a728de3a479eba458",
+          "file": "proposal-context.spec.ts",
+          "line": 55,
+          "column": 32
+        },
+        {
+          "title": "old proposal is retired after customer removal",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1160,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:45:28.412Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "context-and-proposals",
+                      "contentType": "application/json",
+                      "body": "eyJzZWxlY3RlZCI6IiIsInByb3Bvc2FscyI6W3sic291cmNlIjoidGV4dCIsImRyYWZ0Ijp7ImN1c3RvbWVyX2lkIjoiMTAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiaXNzdWVfb24iOiIyMDI2LTEwLTIwIiwiZHVlX29uIjpudWxsLCJzZXJpZXMiOiJBIiwiY3VycmVuY3kiOiJFVVIiLCJsaW5lcyI6W3siZGVzY3JpcHRpb24iOiJzb3BvcnRlIiwicXVhbnRpdHlfbWlsbGkiOjEwMDAsInVuaXRfcHJpY2VfbWlub3IiOjMwMDAwLCJkaXNjb3VudF9icHMiOjAsInRheF9icHMiOjIxMDAsIndpdGhob2xkaW5nX2JwcyI6MH1dLCJub3RlcyI6bnVsbCwiY29udHJhY3RfaWQiOm51bGwsInNlcnZpY2VfaWQiOm51bGwsIm9wcG9ydHVuaXR5X2lkIjpudWxsfX1dLCJlZGl0b3JDdXN0b21lciI6bnVsbH0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5736f8ba29ccf0151c3b-4909cc9d21f375f6cb05",
+          "file": "proposal-context.spec.ts",
+          "line": 55,
+          "column": 32
+        },
+        {
+          "title": "failure from old customer does not contaminate a newer accepted proposal",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1134,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:45:29.585Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "observed-proposals",
+                      "contentType": "application/json",
+                      "body": "W3sic291cmNlIjoidGV4dCIsImRyYWZ0Ijp7ImN1c3RvbWVyX2lkIjoiMTAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiaXNzdWVfb24iOiIyMDI2LTEwLTIwIiwiZHVlX29uIjpudWxsLCJzZXJpZXMiOiJBIiwiY3VycmVuY3kiOiJFVVIiLCJsaW5lcyI6W3siZGVzY3JpcHRpb24iOiJzb3BvcnRlIiwicXVhbnRpdHlfbWlsbGkiOjEwMDAsInVuaXRfcHJpY2VfbWlub3IiOjMwMDAwLCJkaXNjb3VudF9icHMiOjAsInRheF9icHMiOjIxMDAsIndpdGhob2xkaW5nX2JwcyI6MH1dLCJub3RlcyI6bnVsbCwiY29udHJhY3RfaWQiOm51bGwsInNlcnZpY2VfaWQiOm51bGwsIm9wcG9ydHVuaXR5X2lkIjpudWxsfX0seyJzb3VyY2UiOiJ0ZXh0IiwiZHJhZnQiOnsiY3VzdG9tZXJfaWQiOiIxMDAwMDAwMC0wMDAwLTQwMDAtODAwMC0wMDAwMDAwMDAwMDMiLCJpc3N1ZV9vbiI6IjIwMjYtMTAtMjAiLCJkdWVfb24iOm51bGwsInNlcmllcyI6IkEiLCJjdXJyZW5jeSI6IkVVUiIsImxpbmVzIjpbeyJkZXNjcmlwdGlvbiI6InNvcG9ydGUiLCJxdWFudGl0eV9taWxsaSI6MTAwMCwidW5pdF9wcmljZV9taW5vciI6MzAwMDAsImRpc2NvdW50X2JwcyI6MCwidGF4X2JwcyI6MjEwMCwid2l0aGhvbGRpbmdfYnBzIjowfV0sIm5vdGVzIjpudWxsLCJjb250cmFjdF9pZCI6bnVsbCwic2VydmljZV9pZCI6bnVsbCwib3Bwb3J0dW5pdHlfaWQiOm51bGx9fV0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5736f8ba29ccf0151c3b-1b7aa5726387a6292ba1",
+          "file": "proposal-context.spec.ts",
+          "line": 69,
+          "column": 5
+        },
+        {
+          "title": "original comma concept opens an editable support proposal",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1074,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:45:30.735Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "observed-proposals",
+                      "contentType": "application/json",
+                      "body": "W3sic291cmNlIjoidGV4dCIsImRyYWZ0Ijp7ImN1c3RvbWVyX2lkIjoiMTAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiaXNzdWVfb24iOiIyMDI2LTEwLTIwIiwiZHVlX29uIjoiMjAyNi0xMS0wNCIsInNlcmllcyI6IkEiLCJjdXJyZW5jeSI6IkVVUiIsImxpbmVzIjpbeyJkZXNjcmlwdGlvbiI6InNvcG9ydGUiLCJxdWFudGl0eV9taWxsaSI6MTAwMCwidW5pdF9wcmljZV9taW5vciI6MzAwMDAsImRpc2NvdW50X2JwcyI6MCwidGF4X2JwcyI6MjEwMCwid2l0aGhvbGRpbmdfYnBzIjowfV0sIm5vdGVzIjpudWxsLCJjb250cmFjdF9pZCI6bnVsbCwic2VydmljZV9pZCI6bnVsbCwib3Bwb3J0dW5pdHlfaWQiOm51bGx9fV0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5736f8ba29ccf0151c3b-20e24b4ebf182acc0e30",
+          "file": "proposal-context.spec.ts",
+          "line": 84,
+          "column": 5
+        },
+        {
+          "title": "held proposal still opens when customer context is unchanged",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1108,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:46:06.112Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "observed-proposals",
+                      "contentType": "application/json",
+                      "body": "W3sic291cmNlIjoidGV4dCIsImRyYWZ0Ijp7ImN1c3RvbWVyX2lkIjoiMTAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiaXNzdWVfb24iOiIyMDI2LTEwLTIwIiwiZHVlX29uIjpudWxsLCJzZXJpZXMiOiJBIiwiY3VycmVuY3kiOiJFVVIiLCJsaW5lcyI6W3siZGVzY3JpcHRpb24iOiJzb3BvcnRlIiwicXVhbnRpdHlfbWlsbGkiOjEwMDAsInVuaXRfcHJpY2VfbWlub3IiOjMwMDAwLCJkaXNjb3VudF9icHMiOjAsInRheF9icHMiOjIxMDAsIndpdGhob2xkaW5nX2JwcyI6MH1dLCJub3RlcyI6bnVsbCwiY29udHJhY3RfaWQiOm51bGwsInNlcnZpY2VfaWQiOm51bGwsIm9wcG9ydHVuaXR5X2lkIjpudWxsfX1d"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5736f8ba29ccf0151c3b-0d6464f783509a577259",
+          "file": "proposal-context.spec.ts",
+          "line": 43,
+          "column": 5
+        },
+        {
+          "title": "old proposal is retired after customer switch",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1148,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:46:07.260Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "context-and-proposals",
+                      "contentType": "application/json",
+                      "body": "eyJzZWxlY3RlZCI6IjEwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMyIsInByb3Bvc2FscyI6W3sic291cmNlIjoidGV4dCIsImRyYWZ0Ijp7ImN1c3RvbWVyX2lkIjoiMTAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiaXNzdWVfb24iOiIyMDI2LTEwLTIwIiwiZHVlX29uIjpudWxsLCJzZXJpZXMiOiJBIiwiY3VycmVuY3kiOiJFVVIiLCJsaW5lcyI6W3siZGVzY3JpcHRpb24iOiJzb3BvcnRlIiwicXVhbnRpdHlfbWlsbGkiOjEwMDAsInVuaXRfcHJpY2VfbWlub3IiOjMwMDAwLCJkaXNjb3VudF9icHMiOjAsInRheF9icHMiOjIxMDAsIndpdGhob2xkaW5nX2JwcyI6MH1dLCJub3RlcyI6bnVsbCwiY29udHJhY3RfaWQiOm51bGwsInNlcnZpY2VfaWQiOm51bGwsIm9wcG9ydHVuaXR5X2lkIjpudWxsfX1dLCJlZGl0b3JDdXN0b21lciI6bnVsbH0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5736f8ba29ccf0151c3b-258256852af4deec36e7",
+          "file": "proposal-context.spec.ts",
+          "line": 55,
+          "column": 32
+        },
+        {
+          "title": "old proposal is retired after customer removal",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1302,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:46:08.423Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "context-and-proposals",
+                      "contentType": "application/json",
+                      "body": "eyJzZWxlY3RlZCI6IiIsInByb3Bvc2FscyI6W3sic291cmNlIjoidGV4dCIsImRyYWZ0Ijp7ImN1c3RvbWVyX2lkIjoiMTAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiaXNzdWVfb24iOiIyMDI2LTEwLTIwIiwiZHVlX29uIjpudWxsLCJzZXJpZXMiOiJBIiwiY3VycmVuY3kiOiJFVVIiLCJsaW5lcyI6W3siZGVzY3JpcHRpb24iOiJzb3BvcnRlIiwicXVhbnRpdHlfbWlsbGkiOjEwMDAsInVuaXRfcHJpY2VfbWlub3IiOjMwMDAwLCJkaXNjb3VudF9icHMiOjAsInRheF9icHMiOjIxMDAsIndpdGhob2xkaW5nX2JwcyI6MH1dLCJub3RlcyI6bnVsbCwiY29udHJhY3RfaWQiOm51bGwsInNlcnZpY2VfaWQiOm51bGwsIm9wcG9ydHVuaXR5X2lkIjpudWxsfX1dLCJlZGl0b3JDdXN0b21lciI6bnVsbH0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5736f8ba29ccf0151c3b-ea97e5d4684581aae431",
+          "file": "proposal-context.spec.ts",
+          "line": 55,
+          "column": 32
+        },
+        {
+          "title": "failure from old customer does not contaminate a newer accepted proposal",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1360,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:46:09.745Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "observed-proposals",
+                      "contentType": "application/json",
+                      "body": "W3sic291cmNlIjoidGV4dCIsImRyYWZ0Ijp7ImN1c3RvbWVyX2lkIjoiMTAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiaXNzdWVfb24iOiIyMDI2LTEwLTIwIiwiZHVlX29uIjpudWxsLCJzZXJpZXMiOiJBIiwiY3VycmVuY3kiOiJFVVIiLCJsaW5lcyI6W3siZGVzY3JpcHRpb24iOiJzb3BvcnRlIiwicXVhbnRpdHlfbWlsbGkiOjEwMDAsInVuaXRfcHJpY2VfbWlub3IiOjMwMDAwLCJkaXNjb3VudF9icHMiOjAsInRheF9icHMiOjIxMDAsIndpdGhob2xkaW5nX2JwcyI6MH1dLCJub3RlcyI6bnVsbCwiY29udHJhY3RfaWQiOm51bGwsInNlcnZpY2VfaWQiOm51bGwsIm9wcG9ydHVuaXR5X2lkIjpudWxsfX0seyJzb3VyY2UiOiJ0ZXh0IiwiZHJhZnQiOnsiY3VzdG9tZXJfaWQiOiIxMDAwMDAwMC0wMDAwLTQwMDAtODAwMC0wMDAwMDAwMDAwMDMiLCJpc3N1ZV9vbiI6IjIwMjYtMTAtMjAiLCJkdWVfb24iOm51bGwsInNlcmllcyI6IkEiLCJjdXJyZW5jeSI6IkVVUiIsImxpbmVzIjpbeyJkZXNjcmlwdGlvbiI6InNvcG9ydGUiLCJxdWFudGl0eV9taWxsaSI6MTAwMCwidW5pdF9wcmljZV9taW5vciI6MzAwMDAsImRpc2NvdW50X2JwcyI6MCwidGF4X2JwcyI6MjEwMCwid2l0aGhvbGRpbmdfYnBzIjowfV0sIm5vdGVzIjpudWxsLCJjb250cmFjdF9pZCI6bnVsbCwic2VydmljZV9pZCI6bnVsbCwib3Bwb3J0dW5pdHlfaWQiOm51bGx9fV0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5736f8ba29ccf0151c3b-6c66e4430727c4966064",
+          "file": "proposal-context.spec.ts",
+          "line": 69,
+          "column": 5
+        },
+        {
+          "title": "original comma concept opens an editable support proposal",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1239,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:46:11.121Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "observed-proposals",
+                      "contentType": "application/json",
+                      "body": "W3sic291cmNlIjoidGV4dCIsImRyYWZ0Ijp7ImN1c3RvbWVyX2lkIjoiMTAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiaXNzdWVfb24iOiIyMDI2LTEwLTIwIiwiZHVlX29uIjoiMjAyNi0xMS0wNCIsInNlcmllcyI6IkEiLCJjdXJyZW5jeSI6IkVVUiIsImxpbmVzIjpbeyJkZXNjcmlwdGlvbiI6InNvcG9ydGUiLCJxdWFudGl0eV9taWxsaSI6MTAwMCwidW5pdF9wcmljZV9taW5vciI6MzAwMDAsImRpc2NvdW50X2JwcyI6MCwidGF4X2JwcyI6MjEwMCwid2l0aGhvbGRpbmdfYnBzIjowfV0sIm5vdGVzIjpudWxsLCJjb250cmFjdF9pZCI6bnVsbCwic2VydmljZV9pZCI6bnVsbCwib3Bwb3J0dW5pdHlfaWQiOm51bGx9fV0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5736f8ba29ccf0151c3b-519fb4af26f6a028e42a",
+          "file": "proposal-context.spec.ts",
+          "line": 84,
+          "column": 5
+        },
+        {
+          "title": "held proposal still opens when customer context is unchanged",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1998,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:46:51.821Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "observed-proposals",
+                      "contentType": "application/json",
+                      "body": "W3sic291cmNlIjoidGV4dCIsImRyYWZ0Ijp7ImN1c3RvbWVyX2lkIjoiMTAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiaXNzdWVfb24iOiIyMDI2LTEwLTIwIiwiZHVlX29uIjpudWxsLCJzZXJpZXMiOiJBIiwiY3VycmVuY3kiOiJFVVIiLCJsaW5lcyI6W3siZGVzY3JpcHRpb24iOiJzb3BvcnRlIiwicXVhbnRpdHlfbWlsbGkiOjEwMDAsInVuaXRfcHJpY2VfbWlub3IiOjMwMDAwLCJkaXNjb3VudF9icHMiOjAsInRheF9icHMiOjIxMDAsIndpdGhob2xkaW5nX2JwcyI6MH1dLCJub3RlcyI6bnVsbCwiY29udHJhY3RfaWQiOm51bGwsInNlcnZpY2VfaWQiOm51bGwsIm9wcG9ydHVuaXR5X2lkIjpudWxsfX1d"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5736f8ba29ccf0151c3b-6c6253e226ed40c1ac5a",
+          "file": "proposal-context.spec.ts",
+          "line": 43,
+          "column": 5
+        },
+        {
+          "title": "old proposal is retired after customer switch",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1482,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:46:53.871Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "context-and-proposals",
+                      "contentType": "application/json",
+                      "body": "eyJzZWxlY3RlZCI6IjEwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMyIsInByb3Bvc2FscyI6W3sic291cmNlIjoidGV4dCIsImRyYWZ0Ijp7ImN1c3RvbWVyX2lkIjoiMTAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiaXNzdWVfb24iOiIyMDI2LTEwLTIwIiwiZHVlX29uIjpudWxsLCJzZXJpZXMiOiJBIiwiY3VycmVuY3kiOiJFVVIiLCJsaW5lcyI6W3siZGVzY3JpcHRpb24iOiJzb3BvcnRlIiwicXVhbnRpdHlfbWlsbGkiOjEwMDAsInVuaXRfcHJpY2VfbWlub3IiOjMwMDAwLCJkaXNjb3VudF9icHMiOjAsInRheF9icHMiOjIxMDAsIndpdGhob2xkaW5nX2JwcyI6MH1dLCJub3RlcyI6bnVsbCwiY29udHJhY3RfaWQiOm51bGwsInNlcnZpY2VfaWQiOm51bGwsIm9wcG9ydHVuaXR5X2lkIjpudWxsfX1dLCJlZGl0b3JDdXN0b21lciI6bnVsbH0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5736f8ba29ccf0151c3b-cd9a2512e823dded834a",
+          "file": "proposal-context.spec.ts",
+          "line": 55,
+          "column": 32
+        },
+        {
+          "title": "old proposal is retired after customer removal",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1545,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:46:55.371Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "context-and-proposals",
+                      "contentType": "application/json",
+                      "body": "eyJzZWxlY3RlZCI6IiIsInByb3Bvc2FscyI6W3sic291cmNlIjoidGV4dCIsImRyYWZ0Ijp7ImN1c3RvbWVyX2lkIjoiMTAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiaXNzdWVfb24iOiIyMDI2LTEwLTIwIiwiZHVlX29uIjpudWxsLCJzZXJpZXMiOiJBIiwiY3VycmVuY3kiOiJFVVIiLCJsaW5lcyI6W3siZGVzY3JpcHRpb24iOiJzb3BvcnRlIiwicXVhbnRpdHlfbWlsbGkiOjEwMDAsInVuaXRfcHJpY2VfbWlub3IiOjMwMDAwLCJkaXNjb3VudF9icHMiOjAsInRheF9icHMiOjIxMDAsIndpdGhob2xkaW5nX2JwcyI6MH1dLCJub3RlcyI6bnVsbCwiY29udHJhY3RfaWQiOm51bGwsInNlcnZpY2VfaWQiOm51bGwsIm9wcG9ydHVuaXR5X2lkIjpudWxsfX1dLCJlZGl0b3JDdXN0b21lciI6bnVsbH0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5736f8ba29ccf0151c3b-06707169bcd25122b06b",
+          "file": "proposal-context.spec.ts",
+          "line": 55,
+          "column": 32
+        },
+        {
+          "title": "failure from old customer does not contaminate a newer accepted proposal",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1592,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:46:56.934Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "observed-proposals",
+                      "contentType": "application/json",
+                      "body": "W3sic291cmNlIjoidGV4dCIsImRyYWZ0Ijp7ImN1c3RvbWVyX2lkIjoiMTAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiaXNzdWVfb24iOiIyMDI2LTEwLTIwIiwiZHVlX29uIjpudWxsLCJzZXJpZXMiOiJBIiwiY3VycmVuY3kiOiJFVVIiLCJsaW5lcyI6W3siZGVzY3JpcHRpb24iOiJzb3BvcnRlIiwicXVhbnRpdHlfbWlsbGkiOjEwMDAsInVuaXRfcHJpY2VfbWlub3IiOjMwMDAwLCJkaXNjb3VudF9icHMiOjAsInRheF9icHMiOjIxMDAsIndpdGhob2xkaW5nX2JwcyI6MH1dLCJub3RlcyI6bnVsbCwiY29udHJhY3RfaWQiOm51bGwsInNlcnZpY2VfaWQiOm51bGwsIm9wcG9ydHVuaXR5X2lkIjpudWxsfX0seyJzb3VyY2UiOiJ0ZXh0IiwiZHJhZnQiOnsiY3VzdG9tZXJfaWQiOiIxMDAwMDAwMC0wMDAwLTQwMDAtODAwMC0wMDAwMDAwMDAwMDMiLCJpc3N1ZV9vbiI6IjIwMjYtMTAtMjAiLCJkdWVfb24iOm51bGwsInNlcmllcyI6IkEiLCJjdXJyZW5jeSI6IkVVUiIsImxpbmVzIjpbeyJkZXNjcmlwdGlvbiI6InNvcG9ydGUiLCJxdWFudGl0eV9taWxsaSI6MTAwMCwidW5pdF9wcmljZV9taW5vciI6MzAwMDAsImRpc2NvdW50X2JwcyI6MCwidGF4X2JwcyI6MjEwMCwid2l0aGhvbGRpbmdfYnBzIjowfV0sIm5vdGVzIjpudWxsLCJjb250cmFjdF9pZCI6bnVsbCwic2VydmljZV9pZCI6bnVsbCwib3Bwb3J0dW5pdHlfaWQiOm51bGx9fV0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5736f8ba29ccf0151c3b-315ace7b95b27e8537a2",
+          "file": "proposal-context.spec.ts",
+          "line": 69,
+          "column": 5
+        },
+        {
+          "title": "original comma concept opens an editable support proposal",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 853,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:46:58.543Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "observed-proposals",
+                      "contentType": "application/json",
+                      "body": "W3sic291cmNlIjoidGV4dCIsImRyYWZ0Ijp7ImN1c3RvbWVyX2lkIjoiMTAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiaXNzdWVfb24iOiIyMDI2LTEwLTIwIiwiZHVlX29uIjoiMjAyNi0xMS0wNCIsInNlcmllcyI6IkEiLCJjdXJyZW5jeSI6IkVVUiIsImxpbmVzIjpbeyJkZXNjcmlwdGlvbiI6InNvcG9ydGUiLCJxdWFudGl0eV9taWxsaSI6MTAwMCwidW5pdF9wcmljZV9taW5vciI6MzAwMDAsImRpc2NvdW50X2JwcyI6MCwidGF4X2JwcyI6MjEwMCwid2l0aGhvbGRpbmdfYnBzIjowfV0sIm5vdGVzIjpudWxsLCJjb250cmFjdF9pZCI6bnVsbCwic2VydmljZV9pZCI6bnVsbCwib3Bwb3J0dW5pdHlfaWQiOm51bGx9fV0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5736f8ba29ccf0151c3b-5585b80da37dbad55670",
+          "file": "proposal-context.spec.ts",
+          "line": 84,
+          "column": 5
+        }
+      ]
+    },
+    {
+      "title": "proposal-intent.spec.ts",
+      "file": "proposal-intent.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "a late proposal cannot reopen a manually closed draft",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1432,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:45:31.869Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1b13fef3ce9451792509-983cbea42059ef546179",
+          "file": "proposal-intent.spec.ts",
+          "line": 40,
+          "column": 5
+        },
+        {
+          "title": "an old proposal error cannot contaminate a new manual draft",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1274,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:45:33.361Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1b13fef3ce9451792509-71431ba9c3b4f58e8e1b",
+          "file": "proposal-intent.spec.ts",
+          "line": 52,
+          "column": 5
+        },
+        {
+          "title": "a late proposal cannot replace the invoice opened afterwards",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1337,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:45:34.654Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1b13fef3ce9451792509-830d8b57d52ae27bdf86",
+          "file": "proposal-intent.spec.ts",
+          "line": 63,
+          "column": 5
+        },
+        {
+          "title": "a late proposal cannot reopen a manually closed draft",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1346,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:46:12.402Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1b13fef3ce9451792509-82affaec9955e12f54bb",
+          "file": "proposal-intent.spec.ts",
+          "line": 40,
+          "column": 5
+        },
+        {
+          "title": "an old proposal error cannot contaminate a new manual draft",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1506,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:46:13.805Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1b13fef3ce9451792509-77d0bc3a664da6216156",
+          "file": "proposal-intent.spec.ts",
+          "line": 52,
+          "column": 5
+        },
+        {
+          "title": "a late proposal cannot replace the invoice opened afterwards",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1304,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:46:15.331Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1b13fef3ce9451792509-555b2760c2c211db6bf5",
+          "file": "proposal-intent.spec.ts",
+          "line": 63,
+          "column": 5
+        },
+        {
+          "title": "a late proposal cannot reopen a manually closed draft",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1423,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:46:59.428Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1b13fef3ce9451792509-f9683dc0a27992729dbc",
+          "file": "proposal-intent.spec.ts",
+          "line": 40,
+          "column": 5
+        },
+        {
+          "title": "an old proposal error cannot contaminate a new manual draft",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1773,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:47:00.878Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1b13fef3ce9451792509-a98687af78264a70047b",
+          "file": "proposal-intent.spec.ts",
+          "line": 52,
+          "column": 5
+        },
+        {
+          "title": "a late proposal cannot replace the invoice opened afterwards",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1444,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:47:02.670Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1b13fef3ce9451792509-cf1dd21c895be2d7bfe3",
+          "file": "proposal-intent.spec.ts",
+          "line": 63,
+          "column": 5
+        }
+      ]
+    },
+    {
+      "title": "speech-fallback.spec.ts",
+      "file": "speech-fallback.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "written fallback survives speech constructor and retains text provenance",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1175,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:45:36.037Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "cb32d33d558dd360e2c4-e43de7322962b233babb",
+          "file": "speech-fallback.spec.ts",
+          "line": 9,
+          "column": 98
+        },
+        {
+          "title": "written fallback survives speech start and retains text provenance",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1501,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:45:37.243Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "cb32d33d558dd360e2c4-ae93d6d7129b3a9eccd1",
+          "file": "speech-fallback.spec.ts",
+          "line": 9,
+          "column": 98
+        },
+        {
+          "title": "written fallback survives speech error_without_words and retains text provenance",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1282,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:45:38.762Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "cb32d33d558dd360e2c4-891e8c36ffd7e3850b1a",
+          "file": "speech-fallback.spec.ts",
+          "line": 9,
+          "column": 98
+        },
+        {
+          "title": "written fallback survives speech end_without_words and retains text provenance",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1381,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:45:40.059Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "cb32d33d558dd360e2c4-b3b67d0057ab3b100088",
+          "file": "speech-fallback.spec.ts",
+          "line": 9,
+          "column": 98
+        },
+        {
+          "title": "written fallback survives speech constructor and retains text provenance",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1446,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:46:16.714Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "cb32d33d558dd360e2c4-e5693b216c2aeab3a88d",
+          "file": "speech-fallback.spec.ts",
+          "line": 9,
+          "column": 98
+        },
+        {
+          "title": "written fallback survives speech start and retains text provenance",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1249,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:46:18.198Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "cb32d33d558dd360e2c4-94fa626800fc93599de4",
+          "file": "speech-fallback.spec.ts",
+          "line": 9,
+          "column": 98
+        },
+        {
+          "title": "written fallback survives speech error_without_words and retains text provenance",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1690,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:46:19.468Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "cb32d33d558dd360e2c4-60dae601cc05a27eeaa5",
+          "file": "speech-fallback.spec.ts",
+          "line": 9,
+          "column": 98
+        },
+        {
+          "title": "written fallback survives speech end_without_words and retains text provenance",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1355,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:46:21.172Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "cb32d33d558dd360e2c4-525a843e9fd58fccad80",
+          "file": "speech-fallback.spec.ts",
+          "line": 9,
+          "column": 98
+        },
+        {
+          "title": "written fallback survives speech constructor and retains text provenance",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1364,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:47:04.172Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "cb32d33d558dd360e2c4-f8c37b31bde23ba05fe2",
+          "file": "speech-fallback.spec.ts",
+          "line": 9,
+          "column": 98
+        },
+        {
+          "title": "written fallback survives speech start and retains text provenance",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1393,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:47:05.591Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "cb32d33d558dd360e2c4-dc85b970ef05a82cf989",
+          "file": "speech-fallback.spec.ts",
+          "line": 9,
+          "column": 98
+        },
+        {
+          "title": "written fallback survives speech error_without_words and retains text provenance",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1612,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:47:07.001Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "cb32d33d558dd360e2c4-1747109863ca5d9ea38b",
+          "file": "speech-fallback.spec.ts",
+          "line": 9,
+          "column": 98
+        },
+        {
+          "title": "written fallback survives speech end_without_words and retains text provenance",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1575,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:47:08.633Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "cb32d33d558dd360e2c4-64f525991b3295e1b62e",
+          "file": "speech-fallback.spec.ts",
+          "line": 9,
+          "column": 98
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-19T22:45:06.690Z",
+    "duration": 124231.084,
+    "expected": 75,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

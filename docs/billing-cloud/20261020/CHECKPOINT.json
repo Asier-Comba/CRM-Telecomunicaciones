@@ -55,10 +55,11 @@
   "scope": "Actual product with synthetic input and controlled loopback HTTP / simulated speech; not hosted Auth/DB or real voice",
   "integration": "ASIER_ACK_REQUIRED",
   "next": {
-    "unit": "12",
-    "status": "RED_3PASS6FAIL_AT_390_768_1440_SOURCE_EA",
-    "claim": 6278946894,
-    "task": "Key existing PromptBuilder by customer to retire written intent and existing speech handlers. No shared contract or permission change."
+    "unit": "13",
+    "status": "ORIGINAL_DIALOG_CONTEXT_BANK_RUNNING_SOURCE_DDDD",
+    "task": "If causal failure reproduced, retire pending proposal on fiscal/summary/payment dialog open; same existing epoch, no commands or permission changes.",
+    "session": 18348,
+    "claim": 6279053269
   },
   "netlify": "EDGE_ACCESS_BLOCKED_W5_ASSIGNED_NO_BYPASS",
   "supabase": "87_MIGRATIONS_NO_RESET_REAPPLY_OR_MUTATION",
@@ -121,5 +122,30 @@
     "existing_billing_browser": "88PASS",
     "source_commit": "ea0f7f0010ab10b39e2fae221880e523d123e30a",
     "new_concept_bank": "4PASS6FAIL_TO_10PASS"
+  },
+  "completed_unit12": {
+    "concept_bank": "10PASS",
+    "typescript": 0,
+    "claim": 6278946894,
+    "real_voice": "NOT_RUN",
+    "source_commit": "dddd7a505313397c6a7ae76ae5b707c511469fac",
+    "lint": 0,
+    "red": "3PASS6FAIL",
+    "build": 0,
+    "composed_browser": "75PASS",
+    "original_parser": "24PASS",
+    "existing_billing_browser": "88PASS",
+    "bootstrap": "53PASS",
+    "customer_cases": "9PASS_INCLUDED_IN_COMPOSED75",
+    "hosted_auth_db": "NOT_RUN",
+    "total_unique_browser": 163,
+    "red_source": "ea0f7f0010ab10b39e2fae221880e523d123e30a"
+  },
+  "current_measured_product_source": "dddd7a505313397c6a7ae76ae5b707c511469fac",
+  "artifacts": {
+    "bundle": "evidence/artifacts-v1.zip",
+    "hashes": "EVIDENCE_MANIFEST.json",
+    "original_attempts": "Retained separately on disk; raw reports and archived artifacts published unchanged",
+    "map": "ARTIFACT_PATH_MAP.json"
   }
 }
