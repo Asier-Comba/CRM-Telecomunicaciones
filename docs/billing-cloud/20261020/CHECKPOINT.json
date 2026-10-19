@@ -55,12 +55,11 @@
   "scope": "Actual product with synthetic input and controlled loopback HTTP / simulated speech; not hosted Auth/DB or real voice",
   "integration": "ASIER_ACK_REQUIRED",
   "next": {
-    "claim": 6278663656,
-    "source": "6002039db9e6a8ce1a5d20fbd551acb1c30ab376",
-    "bank": "tools/oier_billing_qa/proposal-intent.spec.ts in own checkout, to publish with next unit",
-    "task": "Retire pending proposal when new manual draft or invoice selection supersedes it. Preserve RED, test own new SHA; publish only after active remote checks finish.",
-    "status": "RED_REPRODUCED_9FAIL_3RACES_AT_3_WIDTHS_NOT_YET_FIXED",
-    "unit": "09"
+    "status": "SPEECH_FAILURE_CAUSAL_RED_BANK_RUNNING_NO_PRODUCT_CHANGE_YET",
+    "claim": 6278810858,
+    "session": 87269,
+    "unit": "10",
+    "task": "Protect written fallback and text provenance when dictation cannot start or produces no words; preserve original failure bank then implement minimal own change."
   },
   "netlify": "EDGE_ACCESS_BLOCKED_W5_ASSIGNED_NO_BYPASS",
   "supabase": "87_MIGRATIONS_NO_RESET_REAPPLY_OR_MUTATION",
@@ -70,5 +69,29 @@
   "W4": "INDEPENDENT_PENDING",
   "HIGH": "FIVE_OPEN",
   "StorageP0": "OPEN",
-  "historical_failures": "F736 and CASE_NOTE_CURSOR preserved"
+  "historical_failures": "F736 and CASE_NOTE_CURSOR preserved",
+  "completed_unit09": {
+    "red": "9FAIL_EXIT1",
+    "context": "15PASS",
+    "visual": "PNG reviewed mobile current invoice stays visible; loopback only",
+    "claim": 6278663656,
+    "red_source": "6002039db9e6a8ce1a5d20fbd551acb1c30ab376",
+    "bootstrap": "53PASS",
+    "build": 0,
+    "typescript": 0,
+    "source_commit": "c6921752c3f137083fa3804b66a790f980e42ef2",
+    "windows": "Checkout correction separately measured on3eabefa; no remote PASS inherited",
+    "lint": 0,
+    "parser": "24PASS",
+    "prompt": "30PASS",
+    "intent": "9PASS",
+    "regression": "88PASS"
+  },
+  "remote_checks": {
+    "rule": "No PR branch update until existing runs terminal. Recovery alias can preserve new own work without synchronizing PR or cancelling checks.",
+    "W4": "BLOCKED_FINDINGS23",
+    "source": "2e5318cff28f59d172224fefba7125b61216277c",
+    "CI": "RUNNING_WITH_FAILURES_RECORDED",
+    "Supabase": "RUNNING"
+  }
 }
