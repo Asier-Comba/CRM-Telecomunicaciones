@@ -1,0 +1,536 @@
+
+Running 18 tests using 1 worker
+
+
+
+(node:33740) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1/18] [controlled-http-390] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent stale readback
+  1) [controlled-http-390] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent stale readback 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 1
+    Received: 0
+
+    Call Log:
+    - Timeout 4000ms exceeded while waiting on the predicate
+
+      31 |   const confirm=page.getByRole('dialog',{name:'Confirmar cambio de incidencia',exact:true})
+      32 |   await confirm.getByRole('button',{name:'Confirmar cambio',exact:true}).click()
+    > 33 |   await expect.poll(()=>readbacks).toBe(1)
+         |                                    ^
+      34 |   if(!['confirmed','newer'].includes(mode)){
+      35 |    await info.attach('case-readback-observation',{body:JSON.stringify({mode,commands,readbacks}),contentType:'application/json'})
+      36 |    await expect(confirm).toBeVisible()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\case-readback.spec.ts:33:36
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-cab2e-res-coherent-stale-readback-controlled-http-390\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-cab2e-res-coherent-stale-readback-controlled-http-390\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-cab2e-res-coherent-stale-readback-controlled-http-390\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-cab2e-res-coherent-stale-readback-controlled-http-390\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-cab2e-res-coherent-stale-readback-controlled-http-390\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:18172) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[2/18] [controlled-http-390] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent wrong_status readback
+  2) [controlled-http-390] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent wrong_status readback 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 1
+    Received: 0
+
+    Call Log:
+    - Timeout 4000ms exceeded while waiting on the predicate
+
+      31 |   const confirm=page.getByRole('dialog',{name:'Confirmar cambio de incidencia',exact:true})
+      32 |   await confirm.getByRole('button',{name:'Confirmar cambio',exact:true}).click()
+    > 33 |   await expect.poll(()=>readbacks).toBe(1)
+         |                                    ^
+      34 |   if(!['confirmed','newer'].includes(mode)){
+      35 |    await info.attach('case-readback-observation',{body:JSON.stringify({mode,commands,readbacks}),contentType:'application/json'})
+      36 |    await expect(confirm).toBeVisible()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\case-readback.spec.ts:33:36
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-12ea9-erent-wrong-status-readback-controlled-http-390\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-12ea9-erent-wrong-status-readback-controlled-http-390\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-12ea9-erent-wrong-status-readback-controlled-http-390\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-12ea9-erent-wrong-status-readback-controlled-http-390\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-12ea9-erent-wrong-status-readback-controlled-http-390\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:32896) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[3/18] [controlled-http-390] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent wrong_source readback
+  3) [controlled-http-390] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent wrong_source readback 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 1
+    Received: 0
+
+    Call Log:
+    - Timeout 4000ms exceeded while waiting on the predicate
+
+      31 |   const confirm=page.getByRole('dialog',{name:'Confirmar cambio de incidencia',exact:true})
+      32 |   await confirm.getByRole('button',{name:'Confirmar cambio',exact:true}).click()
+    > 33 |   await expect.poll(()=>readbacks).toBe(1)
+         |                                    ^
+      34 |   if(!['confirmed','newer'].includes(mode)){
+      35 |    await info.attach('case-readback-observation',{body:JSON.stringify({mode,commands,readbacks}),contentType:'application/json'})
+      36 |    await expect(confirm).toBeVisible()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\case-readback.spec.ts:33:36
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-6b1d6-erent-wrong-source-readback-controlled-http-390\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-6b1d6-erent-wrong-source-readback-controlled-http-390\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-6b1d6-erent-wrong-source-readback-controlled-http-390\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-6b1d6-erent-wrong-source-readback-controlled-http-390\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-6b1d6-erent-wrong-source-readback-controlled-http-390\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+(node:23176) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[4/18] [controlled-http-390] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent wrong_resolution readback
+  4) [controlled-http-390] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent wrong_resolution readback 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 1
+    Received: 0
+
+    Call Log:
+    - Timeout 4000ms exceeded while waiting on the predicate
+
+      31 |   const confirm=page.getByRole('dialog',{name:'Confirmar cambio de incidencia',exact:true})
+      32 |   await confirm.getByRole('button',{name:'Confirmar cambio',exact:true}).click()
+    > 33 |   await expect.poll(()=>readbacks).toBe(1)
+         |                                    ^
+      34 |   if(!['confirmed','newer'].includes(mode)){
+      35 |    await info.attach('case-readback-observation',{body:JSON.stringify({mode,commands,readbacks}),contentType:'application/json'})
+      36 |    await expect(confirm).toBeVisible()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\case-readback.spec.ts:33:36
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-1d15b-t-wrong-resolution-readback-controlled-http-390\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-1d15b-t-wrong-resolution-readback-controlled-http-390\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-1d15b-t-wrong-resolution-readback-controlled-http-390\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-1d15b-t-wrong-resolution-readback-controlled-http-390\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-1d15b-t-wrong-resolution-readback-controlled-http-390\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(node:31724) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[5/18] [controlled-http-390] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent confirmed readback
+  5) [controlled-http-390] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent confirmed readback 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 1
+    Received: 0
+
+    Call Log:
+    - Timeout 4000ms exceeded while waiting on the predicate
+
+      31 |   const confirm=page.getByRole('dialog',{name:'Confirmar cambio de incidencia',exact:true})
+      32 |   await confirm.getByRole('button',{name:'Confirmar cambio',exact:true}).click()
+    > 33 |   await expect.poll(()=>readbacks).toBe(1)
+         |                                    ^
+      34 |   if(!['confirmed','newer'].includes(mode)){
+      35 |    await info.attach('case-readback-observation',{body:JSON.stringify({mode,commands,readbacks}),contentType:'application/json'})
+      36 |    await expect(confirm).toBeVisible()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\case-readback.spec.ts:33:36
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-ea9fa-coherent-confirmed-readback-controlled-http-390\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-ea9fa-coherent-confirmed-readback-controlled-http-390\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-ea9fa-coherent-confirmed-readback-controlled-http-390\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-ea9fa-coherent-confirmed-readback-controlled-http-390\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-ea9fa-coherent-confirmed-readback-controlled-http-390\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:14164) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+
+(Use `node --trace-warnings ...` to show where the warning was created)
+[6/18] [controlled-http-390] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent newer readback
+  6) [controlled-http-390] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent newer readback 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 1
+    Received: 0
+
+    Call Log:
+    - Timeout 4000ms exceeded while waiting on the predicate
+
+      31 |   const confirm=page.getByRole('dialog',{name:'Confirmar cambio de incidencia',exact:true})
+      32 |   await confirm.getByRole('button',{name:'Confirmar cambio',exact:true}).click()
+    > 33 |   await expect.poll(()=>readbacks).toBe(1)
+         |                                    ^
+      34 |   if(!['confirmed','newer'].includes(mode)){
+      35 |    await info.attach('case-readback-observation',{body:JSON.stringify({mode,commands,readbacks}),contentType:'application/json'})
+      36 |    await expect(confirm).toBeVisible()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\case-readback.spec.ts:33:36
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-13611-res-coherent-newer-readback-controlled-http-390\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-13611-res-coherent-newer-readback-controlled-http-390\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-13611-res-coherent-newer-readback-controlled-http-390\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-13611-res-coherent-newer-readback-controlled-http-390\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-13611-res-coherent-newer-readback-controlled-http-390\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+(node:32884) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[7/18] [controlled-http-768] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent stale readback
+  7) [controlled-http-768] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent stale readback 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 1
+    Received: 0
+
+    Call Log:
+    - Timeout 4000ms exceeded while waiting on the predicate
+
+      31 |   const confirm=page.getByRole('dialog',{name:'Confirmar cambio de incidencia',exact:true})
+      32 |   await confirm.getByRole('button',{name:'Confirmar cambio',exact:true}).click()
+    > 33 |   await expect.poll(()=>readbacks).toBe(1)
+         |                                    ^
+      34 |   if(!['confirmed','newer'].includes(mode)){
+      35 |    await info.attach('case-readback-observation',{body:JSON.stringify({mode,commands,readbacks}),contentType:'application/json'})
+      36 |    await expect(confirm).toBeVisible()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\case-readback.spec.ts:33:36
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-cab2e-res-coherent-stale-readback-controlled-http-768\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-cab2e-res-coherent-stale-readback-controlled-http-768\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-cab2e-res-coherent-stale-readback-controlled-http-768\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-cab2e-res-coherent-stale-readback-controlled-http-768\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-cab2e-res-coherent-stale-readback-controlled-http-768\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:3348) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[8/18] [controlled-http-768] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent wrong_status readback
+  8) [controlled-http-768] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent wrong_status readback 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 1
+    Received: 0
+
+    Call Log:
+    - Timeout 4000ms exceeded while waiting on the predicate
+
+      31 |   const confirm=page.getByRole('dialog',{name:'Confirmar cambio de incidencia',exact:true})
+      32 |   await confirm.getByRole('button',{name:'Confirmar cambio',exact:true}).click()
+    > 33 |   await expect.poll(()=>readbacks).toBe(1)
+         |                                    ^
+      34 |   if(!['confirmed','newer'].includes(mode)){
+      35 |    await info.attach('case-readback-observation',{body:JSON.stringify({mode,commands,readbacks}),contentType:'application/json'})
+      36 |    await expect(confirm).toBeVisible()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\case-readback.spec.ts:33:36
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-12ea9-erent-wrong-status-readback-controlled-http-768\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-12ea9-erent-wrong-status-readback-controlled-http-768\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-12ea9-erent-wrong-status-readback-controlled-http-768\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-12ea9-erent-wrong-status-readback-controlled-http-768\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-12ea9-erent-wrong-status-readback-controlled-http-768\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:2064) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[9/18] [controlled-http-768] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent wrong_source readback
+  9) [controlled-http-768] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent wrong_source readback 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 1
+    Received: 0
+
+    Call Log:
+    - Timeout 4000ms exceeded while waiting on the predicate
+
+      31 |   const confirm=page.getByRole('dialog',{name:'Confirmar cambio de incidencia',exact:true})
+      32 |   await confirm.getByRole('button',{name:'Confirmar cambio',exact:true}).click()
+    > 33 |   await expect.poll(()=>readbacks).toBe(1)
+         |                                    ^
+      34 |   if(!['confirmed','newer'].includes(mode)){
+      35 |    await info.attach('case-readback-observation',{body:JSON.stringify({mode,commands,readbacks}),contentType:'application/json'})
+      36 |    await expect(confirm).toBeVisible()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\case-readback.spec.ts:33:36
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-6b1d6-erent-wrong-source-readback-controlled-http-768\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-6b1d6-erent-wrong-source-readback-controlled-http-768\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-6b1d6-erent-wrong-source-readback-controlled-http-768\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-6b1d6-erent-wrong-source-readback-controlled-http-768\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-6b1d6-erent-wrong-source-readback-controlled-http-768\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:20560) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[10/18] [controlled-http-768] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent wrong_resolution readback
+  10) [controlled-http-768] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent wrong_resolution readback 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 1
+    Received: 0
+
+    Call Log:
+    - Timeout 4000ms exceeded while waiting on the predicate
+
+      31 |   const confirm=page.getByRole('dialog',{name:'Confirmar cambio de incidencia',exact:true})
+      32 |   await confirm.getByRole('button',{name:'Confirmar cambio',exact:true}).click()
+    > 33 |   await expect.poll(()=>readbacks).toBe(1)
+         |                                    ^
+      34 |   if(!['confirmed','newer'].includes(mode)){
+      35 |    await info.attach('case-readback-observation',{body:JSON.stringify({mode,commands,readbacks}),contentType:'application/json'})
+      36 |    await expect(confirm).toBeVisible()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\case-readback.spec.ts:33:36
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-1d15b-t-wrong-resolution-readback-controlled-http-768\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-1d15b-t-wrong-resolution-readback-controlled-http-768\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-1d15b-t-wrong-resolution-readback-controlled-http-768\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-1d15b-t-wrong-resolution-readback-controlled-http-768\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-1d15b-t-wrong-resolution-readback-controlled-http-768\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(node:28000) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[11/18] [controlled-http-768] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent confirmed readback
+  11) [controlled-http-768] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent confirmed readback 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 1
+    Received: 0
+
+    Call Log:
+    - Timeout 4000ms exceeded while waiting on the predicate
+
+      31 |   const confirm=page.getByRole('dialog',{name:'Confirmar cambio de incidencia',exact:true})
+      32 |   await confirm.getByRole('button',{name:'Confirmar cambio',exact:true}).click()
+    > 33 |   await expect.poll(()=>readbacks).toBe(1)
+         |                                    ^
+      34 |   if(!['confirmed','newer'].includes(mode)){
+      35 |    await info.attach('case-readback-observation',{body:JSON.stringify({mode,commands,readbacks}),contentType:'application/json'})
+      36 |    await expect(confirm).toBeVisible()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\case-readback.spec.ts:33:36
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-ea9fa-coherent-confirmed-readback-controlled-http-768\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-ea9fa-coherent-confirmed-readback-controlled-http-768\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-ea9fa-coherent-confirmed-readback-controlled-http-768\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-ea9fa-coherent-confirmed-readback-controlled-http-768\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-ea9fa-coherent-confirmed-readback-controlled-http-768\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(node:31248) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[12/18] [controlled-http-768] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent newer readback
+  12) [controlled-http-768] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent newer readback 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 1
+    Received: 0
+
+    Call Log:
+    - Timeout 4000ms exceeded while waiting on the predicate
+
+      31 |   const confirm=page.getByRole('dialog',{name:'Confirmar cambio de incidencia',exact:true})
+      32 |   await confirm.getByRole('button',{name:'Confirmar cambio',exact:true}).click()
+    > 33 |   await expect.poll(()=>readbacks).toBe(1)
+         |                                    ^
+      34 |   if(!['confirmed','newer'].includes(mode)){
+      35 |    await info.attach('case-readback-observation',{body:JSON.stringify({mode,commands,readbacks}),contentType:'application/json'})
+      36 |    await expect(confirm).toBeVisible()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\case-readback.spec.ts:33:36
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-13611-res-coherent-newer-readback-controlled-http-768\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-13611-res-coherent-newer-readback-controlled-http-768\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-13611-res-coherent-newer-readback-controlled-http-768\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-13611-res-coherent-newer-readback-controlled-http-768\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-13611-res-coherent-newer-readback-controlled-http-768\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(node:28184) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[13/18] [controlled-http-1440] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent stale readback
+  13) [controlled-http-1440] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent stale readback 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 1
+    Received: 0
+
+    Call Log:
+    - Timeout 4000ms exceeded while waiting on the predicate
+
+      31 |   const confirm=page.getByRole('dialog',{name:'Confirmar cambio de incidencia',exact:true})
+      32 |   await confirm.getByRole('button',{name:'Confirmar cambio',exact:true}).click()
+    > 33 |   await expect.poll(()=>readbacks).toBe(1)
+         |                                    ^
+      34 |   if(!['confirmed','newer'].includes(mode)){
+      35 |    await info.attach('case-readback-observation',{body:JSON.stringify({mode,commands,readbacks}),contentType:'application/json'})
+      36 |    await expect(confirm).toBeVisible()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\case-readback.spec.ts:33:36
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-cab2e-res-coherent-stale-readback-controlled-http-1440\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-cab2e-res-coherent-stale-readback-controlled-http-1440\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-cab2e-res-coherent-stale-readback-controlled-http-1440\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-cab2e-res-coherent-stale-readback-controlled-http-1440\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\case-attempt01\artifacts\case-readback-case-resolut-cab2e-res-coherent-stale-readback-controlled-http-1440\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+

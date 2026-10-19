@@ -1,0 +1,83 @@
+✔ actual calendar initial selection: Madrid Monday after summer midnight (32.7912ms)
+✔ actual calendar initial selection: Sunday before Madrid midnight (9.5603ms)
+✔ actual calendar initial selection: summer month boundary (10.9384ms)
+✔ actual calendar initial selection: winter year boundary (9.9834ms)
+✔ actual calendar initial selection: winter leap-day boundary (8.4393ms)
+✔ actual calendar initial selection: civil date remains its literal day (8.8783ms)
+✔ actual integrated calendar renders Madrid Monday with its real provider and controlled clock (10.0267ms)
+✔ the original calendar response failure at page1 reaches the owned check and fixture cleanup (274.0903ms)
+✔ the original calendar response failure at page2 reaches the owned check and fixture cleanup (284.7136ms)
+(node:29172) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-commercial-20261020/src/features/product/model.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ calendar selection fixture date stays in the displayed Madrid week across UTC Sunday midnight and both DST seasons (69.3244ms)
+(node:3552) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-commercial-20261020/src/lib/server/portfolio-runtime-v1.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ portfolio accepts closed human inputs and rejects authority, protected identifiers and malformed dates (4.2649ms)
+✔ portfolio receipt verifies operation, command, expected version, lifecycle and provenance (1.1334ms)
+✔ portfolio editor rejects malformed lifecycle, foreign identity and sensitive extra fields (2.3491ms)
+✔ portfolio service resolves each call and maps CAS without exposing backend details (6.5426ms)
+✔ portfolio HTTP inherits exact Origin and rejects forged authority before dispatch (59.9564ms)
+✔ renewal window and permanence inputs preserve closed canonical dates and reasons (1.2715ms)
+✔ deadline receipts use entity lifecycle and CAS instead of contractual state (0.5763ms)
+✔ deadline editors validate window bounds and immutable association (1.0288ms)
+(node:16380) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-commercial-20261020/src/features/product/integration/line-context.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ line authority reads the exact customer-scoped row and both current portfolio ancestors (2.8014ms)
+✔ a neighboring line or mismatched ancestor never authorizes an association (2.0625ms)
+✔ external and terminal ancestors disable lifecycle writes; fixed voice permits portability but not SIM (1.3325ms)
+(node:6084) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-commercial-20261020/src/features/product/model.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ customer filtering composes all dimensions, folds accents and retains unknown versus zero (8.8333ms)
+✔ periods and calendar preserve Madrid day, leap dates and Monday weeks (55.9721ms)
+✔ invoice proposal retains amount, VAT, withholding, discount, due date and explicit ambiguity (9.0969ms)
+✔ invoice draft validation rejects fiscal, date, reference and numeric invalidity (1.5165ms)
+✔ local parser preserves calendar dates across DST and rejects invalid amounts (4.9844ms)
+✔ draft reference selection cannot link another customer or contract (1.0228ms)
+✔ optional AI extraction is closed, bounded and cannot authorize emission (1.8415ms)
+✔ ported generic PDF creates a real local draft without property coupling (16.6917ms)
+✔ all rebuilt modules omit legacy vocabulary and direct backend mutations (154.203ms)
+(node:15856) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-commercial-20261020/src/lib/server/product-service-v1.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ task.create validates its closed input; rejects authority and hostile runtime (5.3665ms)
+✔ task.update validates its closed input; rejects authority and hostile runtime (1.1826ms)
+✔ task.start validates its closed input; rejects authority and hostile runtime (0.7431ms)
+✔ task.complete validates its closed input; rejects authority and hostile runtime (0.596ms)
+✔ task.reopen validates its closed input; rejects authority and hostile runtime (0.606ms)
+✔ task.cancel validates its closed input; rejects authority and hostile runtime (0.3207ms)
+✔ meeting.create validates its closed input; rejects authority and hostile runtime (48.137ms)
+✔ meeting.update validates its closed input; rejects authority and hostile runtime (0.5119ms)
+✔ meeting.reschedule validates its closed input; rejects authority and hostile runtime (0.912ms)
+✔ meeting.complete validates its closed input; rejects authority and hostile runtime (0.8129ms)
+✔ meeting.cancel validates its closed input; rejects authority and hostile runtime (0.464ms)
+✔ meeting.no_show validates its closed input; rejects authority and hostile runtime (0.4235ms)
+✔ opportunity.create validates its closed input; rejects authority and hostile runtime (0.5166ms)
+✔ opportunity.update validates its closed input; rejects authority and hostile runtime (1.5737ms)
+✔ opportunity.change_stage validates its closed input; rejects authority and hostile runtime (0.4772ms)
+✔ opportunity.assign validates its closed input; rejects authority and hostile runtime (0.3589ms)
+✔ opportunity.win validates its closed input; rejects authority and hostile runtime (0.3708ms)
+✔ opportunity.lose validates its closed input; rejects authority and hostile runtime (0.5598ms)
+✔ opportunity.reopen validates its closed input; rejects authority and hostile runtime (0.3322ms)
+✔ opportunity.archive validates its closed input; rejects authority and hostile runtime (0.3437ms)
+✔ member product policy enables work and identity while viewer remains denied (4.6355ms)
+✔ strict instants distinguish fall DST offsets, reject rollover, missing offset and equal range (1.1194ms)
+✔ calendar validates actual overlap, stable closed cursors and bounded ranges (2.9508ms)
+✔ receipt cannot fake completed effect, identity or CAS version (0.5591ms)
+✔ getter arrays, cycles, symbols and output authority fail closed without getter execution (1.4898ms)
+ℹ tests 55
+ℹ suites 0
+ℹ pass 55
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1948.6499

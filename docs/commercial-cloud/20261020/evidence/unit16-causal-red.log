@@ -1,0 +1,575 @@
+
+Running 18 tests using 1 worker
+
+
+
+(node:32100) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1/18] [controlled-http-390] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent stale readback
+  1) [controlled-http-390] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent stale readback 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('dialog', { name: 'Confirmar cambio de incidencia', exact: true }).getByRole('alert')
+    Expected: visible
+    Timeout: 4000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Confirmar cambio de incidencia', exact: true }).getByRole('alert')
+
+
+      35 |    await info.attach('case-readback-observation',{body:JSON.stringify({mode,commands,readbacks}),contentType:'application/json'})
+      36 |    await expect(confirm).toBeVisible()
+    > 37 |    await expect(confirm.getByRole('alert')).toBeVisible()
+         |                                             ^
+      38 |    await confirm.getByRole('button',{name:'Cancelar',exact:true}).click()
+      39 |    const notice=page.getByRole('status').filter({hasText:'Cambio registrado. Reintentar solo actualiza la lectura.'})
+      40 |    await expect(notice).toBeVisible();await notice.scrollIntoViewIfNeeded()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\case-readback.spec.ts:37:45
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-cab2e-res-coherent-stale-readback-controlled-http-390\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-cab2e-res-coherent-stale-readback-controlled-http-390\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-cab2e-res-coherent-stale-readback-controlled-http-390\error-context.md
+
+    attachment #5: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-cab2e-res-coherent-stale-readback-controlled-http-390\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-cab2e-res-coherent-stale-readback-controlled-http-390\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+(node:5644) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[2/18] [controlled-http-390] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent wrong_status readback
+  2) [controlled-http-390] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent wrong_status readback 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('dialog', { name: 'Confirmar cambio de incidencia', exact: true }).getByRole('alert')
+    Expected: visible
+    Timeout: 4000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Confirmar cambio de incidencia', exact: true }).getByRole('alert')
+
+
+      35 |    await info.attach('case-readback-observation',{body:JSON.stringify({mode,commands,readbacks}),contentType:'application/json'})
+      36 |    await expect(confirm).toBeVisible()
+    > 37 |    await expect(confirm.getByRole('alert')).toBeVisible()
+         |                                             ^
+      38 |    await confirm.getByRole('button',{name:'Cancelar',exact:true}).click()
+      39 |    const notice=page.getByRole('status').filter({hasText:'Cambio registrado. Reintentar solo actualiza la lectura.'})
+      40 |    await expect(notice).toBeVisible();await notice.scrollIntoViewIfNeeded()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\case-readback.spec.ts:37:45
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-12ea9-erent-wrong-status-readback-controlled-http-390\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-12ea9-erent-wrong-status-readback-controlled-http-390\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-12ea9-erent-wrong-status-readback-controlled-http-390\error-context.md
+
+    attachment #5: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-12ea9-erent-wrong-status-readback-controlled-http-390\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-12ea9-erent-wrong-status-readback-controlled-http-390\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+(node:21500) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[3/18] [controlled-http-390] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent wrong_source readback
+  3) [controlled-http-390] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent wrong_source readback 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('dialog', { name: 'Confirmar cambio de incidencia', exact: true }).getByRole('alert')
+    Expected: visible
+    Timeout: 4000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Confirmar cambio de incidencia', exact: true }).getByRole('alert')
+
+
+      35 |    await info.attach('case-readback-observation',{body:JSON.stringify({mode,commands,readbacks}),contentType:'application/json'})
+      36 |    await expect(confirm).toBeVisible()
+    > 37 |    await expect(confirm.getByRole('alert')).toBeVisible()
+         |                                             ^
+      38 |    await confirm.getByRole('button',{name:'Cancelar',exact:true}).click()
+      39 |    const notice=page.getByRole('status').filter({hasText:'Cambio registrado. Reintentar solo actualiza la lectura.'})
+      40 |    await expect(notice).toBeVisible();await notice.scrollIntoViewIfNeeded()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\case-readback.spec.ts:37:45
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-6b1d6-erent-wrong-source-readback-controlled-http-390\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-6b1d6-erent-wrong-source-readback-controlled-http-390\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-6b1d6-erent-wrong-source-readback-controlled-http-390\error-context.md
+
+    attachment #5: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-6b1d6-erent-wrong-source-readback-controlled-http-390\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-6b1d6-erent-wrong-source-readback-controlled-http-390\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:32520) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[4/18] [controlled-http-390] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent wrong_resolution readback
+  4) [controlled-http-390] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent wrong_resolution readback 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('dialog', { name: 'Confirmar cambio de incidencia', exact: true }).getByRole('alert')
+    Expected: visible
+    Timeout: 4000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Confirmar cambio de incidencia', exact: true }).getByRole('alert')
+
+
+      35 |    await info.attach('case-readback-observation',{body:JSON.stringify({mode,commands,readbacks}),contentType:'application/json'})
+      36 |    await expect(confirm).toBeVisible()
+    > 37 |    await expect(confirm.getByRole('alert')).toBeVisible()
+         |                                             ^
+      38 |    await confirm.getByRole('button',{name:'Cancelar',exact:true}).click()
+      39 |    const notice=page.getByRole('status').filter({hasText:'Cambio registrado. Reintentar solo actualiza la lectura.'})
+      40 |    await expect(notice).toBeVisible();await notice.scrollIntoViewIfNeeded()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\case-readback.spec.ts:37:45
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-1d15b-t-wrong-resolution-readback-controlled-http-390\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-1d15b-t-wrong-resolution-readback-controlled-http-390\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-1d15b-t-wrong-resolution-readback-controlled-http-390\error-context.md
+
+    attachment #5: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-1d15b-t-wrong-resolution-readback-controlled-http-390\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-1d15b-t-wrong-resolution-readback-controlled-http-390\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:17264) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[5/18] [controlled-http-390] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent confirmed readback
+[6/18] [controlled-http-390] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent newer readback
+
+(node:32896) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[7/18] [controlled-http-768] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent stale readback
+  5) [controlled-http-768] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent stale readback 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('dialog', { name: 'Confirmar cambio de incidencia', exact: true }).getByRole('alert')
+    Expected: visible
+    Timeout: 4000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Confirmar cambio de incidencia', exact: true }).getByRole('alert')
+
+
+      35 |    await info.attach('case-readback-observation',{body:JSON.stringify({mode,commands,readbacks}),contentType:'application/json'})
+      36 |    await expect(confirm).toBeVisible()
+    > 37 |    await expect(confirm.getByRole('alert')).toBeVisible()
+         |                                             ^
+      38 |    await confirm.getByRole('button',{name:'Cancelar',exact:true}).click()
+      39 |    const notice=page.getByRole('status').filter({hasText:'Cambio registrado. Reintentar solo actualiza la lectura.'})
+      40 |    await expect(notice).toBeVisible();await notice.scrollIntoViewIfNeeded()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\case-readback.spec.ts:37:45
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-cab2e-res-coherent-stale-readback-controlled-http-768\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-cab2e-res-coherent-stale-readback-controlled-http-768\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-cab2e-res-coherent-stale-readback-controlled-http-768\error-context.md
+
+    attachment #5: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-cab2e-res-coherent-stale-readback-controlled-http-768\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-cab2e-res-coherent-stale-readback-controlled-http-768\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:13756) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[8/18] [controlled-http-768] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent wrong_status readback
+  6) [controlled-http-768] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent wrong_status readback 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('dialog', { name: 'Confirmar cambio de incidencia', exact: true }).getByRole('alert')
+    Expected: visible
+    Timeout: 4000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Confirmar cambio de incidencia', exact: true }).getByRole('alert')
+
+
+      35 |    await info.attach('case-readback-observation',{body:JSON.stringify({mode,commands,readbacks}),contentType:'application/json'})
+      36 |    await expect(confirm).toBeVisible()
+    > 37 |    await expect(confirm.getByRole('alert')).toBeVisible()
+         |                                             ^
+      38 |    await confirm.getByRole('button',{name:'Cancelar',exact:true}).click()
+      39 |    const notice=page.getByRole('status').filter({hasText:'Cambio registrado. Reintentar solo actualiza la lectura.'})
+      40 |    await expect(notice).toBeVisible();await notice.scrollIntoViewIfNeeded()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\case-readback.spec.ts:37:45
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-12ea9-erent-wrong-status-readback-controlled-http-768\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-12ea9-erent-wrong-status-readback-controlled-http-768\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-12ea9-erent-wrong-status-readback-controlled-http-768\error-context.md
+
+    attachment #5: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-12ea9-erent-wrong-status-readback-controlled-http-768\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-12ea9-erent-wrong-status-readback-controlled-http-768\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:27008) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[9/18] [controlled-http-768] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent wrong_source readback
+  7) [controlled-http-768] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent wrong_source readback 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('dialog', { name: 'Confirmar cambio de incidencia', exact: true }).getByRole('alert')
+    Expected: visible
+    Timeout: 4000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Confirmar cambio de incidencia', exact: true }).getByRole('alert')
+
+
+      35 |    await info.attach('case-readback-observation',{body:JSON.stringify({mode,commands,readbacks}),contentType:'application/json'})
+      36 |    await expect(confirm).toBeVisible()
+    > 37 |    await expect(confirm.getByRole('alert')).toBeVisible()
+         |                                             ^
+      38 |    await confirm.getByRole('button',{name:'Cancelar',exact:true}).click()
+      39 |    const notice=page.getByRole('status').filter({hasText:'Cambio registrado. Reintentar solo actualiza la lectura.'})
+      40 |    await expect(notice).toBeVisible();await notice.scrollIntoViewIfNeeded()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\case-readback.spec.ts:37:45
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-6b1d6-erent-wrong-source-readback-controlled-http-768\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-6b1d6-erent-wrong-source-readback-controlled-http-768\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-6b1d6-erent-wrong-source-readback-controlled-http-768\error-context.md
+
+    attachment #5: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-6b1d6-erent-wrong-source-readback-controlled-http-768\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-6b1d6-erent-wrong-source-readback-controlled-http-768\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:28092) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[10/18] [controlled-http-768] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent wrong_resolution readback
+  8) [controlled-http-768] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent wrong_resolution readback 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('dialog', { name: 'Confirmar cambio de incidencia', exact: true }).getByRole('alert')
+    Expected: visible
+    Timeout: 4000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Confirmar cambio de incidencia', exact: true }).getByRole('alert')
+
+
+      35 |    await info.attach('case-readback-observation',{body:JSON.stringify({mode,commands,readbacks}),contentType:'application/json'})
+      36 |    await expect(confirm).toBeVisible()
+    > 37 |    await expect(confirm.getByRole('alert')).toBeVisible()
+         |                                             ^
+      38 |    await confirm.getByRole('button',{name:'Cancelar',exact:true}).click()
+      39 |    const notice=page.getByRole('status').filter({hasText:'Cambio registrado. Reintentar solo actualiza la lectura.'})
+      40 |    await expect(notice).toBeVisible();await notice.scrollIntoViewIfNeeded()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\case-readback.spec.ts:37:45
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-1d15b-t-wrong-resolution-readback-controlled-http-768\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-1d15b-t-wrong-resolution-readback-controlled-http-768\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-1d15b-t-wrong-resolution-readback-controlled-http-768\error-context.md
+
+    attachment #5: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-1d15b-t-wrong-resolution-readback-controlled-http-768\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-1d15b-t-wrong-resolution-readback-controlled-http-768\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+(node:22756) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[11/18] [controlled-http-768] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent confirmed readback
+[12/18] [controlled-http-768] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent newer readback
+
+
+(node:28724) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[13/18] [controlled-http-1440] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent stale readback
+  9) [controlled-http-1440] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent stale readback 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('dialog', { name: 'Confirmar cambio de incidencia', exact: true }).getByRole('alert')
+    Expected: visible
+    Timeout: 4000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Confirmar cambio de incidencia', exact: true }).getByRole('alert')
+
+
+      35 |    await info.attach('case-readback-observation',{body:JSON.stringify({mode,commands,readbacks}),contentType:'application/json'})
+      36 |    await expect(confirm).toBeVisible()
+    > 37 |    await expect(confirm.getByRole('alert')).toBeVisible()
+         |                                             ^
+      38 |    await confirm.getByRole('button',{name:'Cancelar',exact:true}).click()
+      39 |    const notice=page.getByRole('status').filter({hasText:'Cambio registrado. Reintentar solo actualiza la lectura.'})
+      40 |    await expect(notice).toBeVisible();await notice.scrollIntoViewIfNeeded()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\case-readback.spec.ts:37:45
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-cab2e-res-coherent-stale-readback-controlled-http-1440\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-cab2e-res-coherent-stale-readback-controlled-http-1440\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-cab2e-res-coherent-stale-readback-controlled-http-1440\error-context.md
+
+    attachment #5: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-cab2e-res-coherent-stale-readback-controlled-http-1440\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-cab2e-res-coherent-stale-readback-controlled-http-1440\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+(node:27504) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[14/18] [controlled-http-1440] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent wrong_status readback
+  10) [controlled-http-1440] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent wrong_status readback 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('dialog', { name: 'Confirmar cambio de incidencia', exact: true })
+    Expected: visible
+    Timeout: 4000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Confirmar cambio de incidencia', exact: true })
+
+
+      34 |   if(!['confirmed','newer'].includes(mode)){
+      35 |    await info.attach('case-readback-observation',{body:JSON.stringify({mode,commands,readbacks}),contentType:'application/json'})
+    > 36 |    await expect(confirm).toBeVisible()
+         |                          ^
+      37 |    await expect(confirm.getByRole('alert')).toBeVisible()
+      38 |    await confirm.getByRole('button',{name:'Cancelar',exact:true}).click()
+      39 |    const notice=page.getByRole('status').filter({hasText:'Cambio registrado. Reintentar solo actualiza la lectura.'})
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\case-readback.spec.ts:36:26
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-12ea9-erent-wrong-status-readback-controlled-http-1440\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-12ea9-erent-wrong-status-readback-controlled-http-1440\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-12ea9-erent-wrong-status-readback-controlled-http-1440\error-context.md
+
+    attachment #5: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-12ea9-erent-wrong-status-readback-controlled-http-1440\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-12ea9-erent-wrong-status-readback-controlled-http-1440\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+(node:29656) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[15/18] [controlled-http-1440] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent wrong_source readback
+  11) [controlled-http-1440] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent wrong_source readback 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('dialog', { name: 'Confirmar cambio de incidencia', exact: true }).getByRole('alert')
+    Expected: visible
+    Timeout: 4000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Confirmar cambio de incidencia', exact: true }).getByRole('alert')
+
+
+      35 |    await info.attach('case-readback-observation',{body:JSON.stringify({mode,commands,readbacks}),contentType:'application/json'})
+      36 |    await expect(confirm).toBeVisible()
+    > 37 |    await expect(confirm.getByRole('alert')).toBeVisible()
+         |                                             ^
+      38 |    await confirm.getByRole('button',{name:'Cancelar',exact:true}).click()
+      39 |    const notice=page.getByRole('status').filter({hasText:'Cambio registrado. Reintentar solo actualiza la lectura.'})
+      40 |    await expect(notice).toBeVisible();await notice.scrollIntoViewIfNeeded()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\case-readback.spec.ts:37:45
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-6b1d6-erent-wrong-source-readback-controlled-http-1440\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-6b1d6-erent-wrong-source-readback-controlled-http-1440\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-6b1d6-erent-wrong-source-readback-controlled-http-1440\error-context.md
+
+    attachment #5: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-6b1d6-erent-wrong-source-readback-controlled-http-1440\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-6b1d6-erent-wrong-source-readback-controlled-http-1440\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:24064) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[16/18] [controlled-http-1440] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent wrong_resolution readback
+  12) [controlled-http-1440] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent wrong_resolution readback 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('dialog', { name: 'Confirmar cambio de incidencia', exact: true }).getByRole('alert')
+    Expected: visible
+    Timeout: 4000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Confirmar cambio de incidencia', exact: true }).getByRole('alert')
+
+
+      35 |    await info.attach('case-readback-observation',{body:JSON.stringify({mode,commands,readbacks}),contentType:'application/json'})
+      36 |    await expect(confirm).toBeVisible()
+    > 37 |    await expect(confirm.getByRole('alert')).toBeVisible()
+         |                                             ^
+      38 |    await confirm.getByRole('button',{name:'Cancelar',exact:true}).click()
+      39 |    const notice=page.getByRole('status').filter({hasText:'Cambio registrado. Reintentar solo actualiza la lectura.'})
+      40 |    await expect(notice).toBeVisible();await notice.scrollIntoViewIfNeeded()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\case-readback.spec.ts:37:45
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-1d15b-t-wrong-resolution-readback-controlled-http-1440\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-1d15b-t-wrong-resolution-readback-controlled-http-1440\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-1d15b-t-wrong-resolution-readback-controlled-http-1440\error-context.md
+
+    attachment #5: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-1d15b-t-wrong-resolution-readback-controlled-http-1440\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\case-attempt02\artifacts\case-readback-case-resolut-1d15b-t-wrong-resolution-readback-controlled-http-1440\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:30844) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+
+(Use `node --trace-warnings ...` to show where the warning was created)
+[17/18] [controlled-http-1440] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent confirmed readback
+[18/18] [controlled-http-1440] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent newer readback
+  12 failed
+    [controlled-http-390] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent stale readback 
+    [controlled-http-390] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent wrong_status readback 
+    [controlled-http-390] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent wrong_source readback 
+    [controlled-http-390] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent wrong_resolution readback 
+    [controlled-http-768] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent stale readback 
+    [controlled-http-768] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent wrong_status readback 
+    [controlled-http-768] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent wrong_source readback 
+    [controlled-http-768] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent wrong_resolution readback 
+    [controlled-http-1440] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent stale readback 
+    [controlled-http-1440] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent wrong_status readback 
+    [controlled-http-1440] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent wrong_source readback 
+    [controlled-http-1440] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent wrong_resolution readback 
+  6 passed (3.1m)

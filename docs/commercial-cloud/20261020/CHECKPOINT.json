@@ -1,39 +1,161 @@
 {
+  "preserved_failures": {
+    "bootstrap_selection_f99": "Node skipped absent path:55PASS0FAIL but case suite missing. Corrected selection61PASS; both logs kept. No invented bootstrap failure.",
+    "quota_27da": "Native PostgreSQL job118364535157 failed pull of exact pinnedECR image with Data limit exceeded before tests.0manual retries; W5 request6279686354. No inferred DB/RLS/restore acceptance.",
+    "lint_f99": "2 react-hooks/refs errors, log and source preserved. Corrected with state, rules unchanged; fresh full checks2b1.",
+    "case_fixture": "Own external-style command route mock confused telecom route/data envelope.13observed failure assertions before intended readback; local teardown stalled, own diagnostic interrupted, final reporter JSON absent. Explicit INTERRUPTED metadata and original bank/log/traces retained. No GitHub check cancelled.",
+    "historic": "F736 and CASE_NOTE_CURSOR retained, no causal correction attributed."
+  },
+  "HIGH": "FIVE_OPEN",
+  "base": "888ecaae57e9021ca0cb25d4da0657c1f6ac9b40",
+  "remote_checks": {
+    "PR161": {
+      "current_recovery": "NO_REMOTE_PASS_INHERITED",
+      "native_postgres": "FAIL_QUOTA_BEFORE_TESTS",
+      "runs": [
+        39341696719,
+        39341696625,
+        39341696669
+      ],
+      "head": "27da91d671b342f52ce4cd12be070a4da846b02e",
+      "active": "REFRESH_BEFORE_PUSH_NEVER_CANCEL"
+    },
+    "PR160": {
+      "runs": [
+        39341211547,
+        39341211568,
+        39341211560
+      ],
+      "head": "8fca4c8bfb921fd61ab02310999716ffaf9023cf"
+    }
+  },
   "integration": "DRAFT_ASIER_EXACT_ACK_REQUIRED",
-  "unit": 15,
-  "checks": {
-    "browser_existing_regression": 6,
-    "lint_exit": 0,
-    "typescript_exit": 0,
-    "browser_unique": 21,
-    "build_exit": 0,
-    "bootstrap_passed": 31,
-    "browser_causal": 15,
-    "bootstrap_failed": 0
+  "branch": "oier/portfolio-receipt-readback-20261020",
+  "next": {
+    "sync": "After exact PR161 runs terminal, preserve outcomes then fast-forward existing PR161 from own recovery; no force/cancellation. Fresh remote controls on new published head, exact Asier ACK before integration.",
+    "unit18": "Own external QA baseline documents-attempt02 running on unchanged2b1 product. Finish once, preserve original3FAIL27NOT_RUN harness package-resolution attempt separately. Confirm document source blob equals888 before minimum metadata intent fix; no Storage/download/cleanup changes."
+  },
+  "unit": 17,
+  "claim": 6279655169,
+  "scope": "Actual product/repository/validators, synthetic loopback HTTP; real voice/model/hostedAuthDB/staging persistence NOT_RUN",
+  "StorageP0": "OPEN",
+  "source_blobs": {
+    "src/features/portfolio/IntegratedPortfolio.tsx": "11e2a43c5bd18d459dbdbf3efac322bee8fea662",
+    "src/features/cases/Cases.tsx": "f98b587953af0abb50d6e41a246e58a6610be302",
+    "src/features/calendar/IntegratedCalendar.tsx": "67d2c93b839ecf5038b86c5dff0141ea37d17e49"
   },
   "release": "NOT_ACCEPTED",
-  "historical_failures": "F736 and CASE_NOTE_CURSOR preserved; no causal correction claimed",
-  "StorageP0": "OPEN",
-  "AI_commercial_writes": "OFF",
-  "red": {
-    "failed": 9,
-    "source": "888ecaae57e9021ca0cb25d4da0657c1f6ac9b40",
-    "preserved": true,
-    "passed": 6
-  },
-  "base": "888ecaae57e9021ca0cb25d4da0657c1f6ac9b40",
-  "cloud": "W5 Edge Access/deploy provenance/authorized cohort pending; no bypass, 87migrations untouched, no resellpro",
-  "HIGH": "FIVE_OPEN",
-  "code_scope": [
-    "src/features/portfolio/IntegratedPortfolio.tsx"
-  ],
-  "claim": 6279498568,
-  "visual": "TOP_OF_MOBILE_SUCCESS_SCREEN_REVIEWED_ONLY; registered-change notice visual NOT_RUN",
-  "evidence": "EVIDENCE_MANIFEST.json",
-  "next": "Publish own draft PR from verified remote SHA; continue independent CaseDetail receipt/readback causal bank after CLAIM. PR160 source8fca separate; do not duplicate billing fixes or push over active checks.",
-  "acceptance": "A stale read or incompatible status/provenance at receipt version is not accepted. Confirmed receipt retained, fields locked, confirmation dialog closed and drawer retained; recovery reads without another command. Exact and newer legitimate versions remain usable.",
-  "branch": "oier/portfolio-receipt-readback-20261020",
-  "source": "6932da4f68e01eb65fc8e365718dc30116e083b6",
   "W4": "INDEPENDENT",
-  "scope": "Actual product/repository/parsers in Chromium with synthetic loopback HTTP, no hosted AuthDB, staging persistence, SQL/RLS acceptance, real voice or live model"
+  "source": "2b1a70fd24decd38b09d40c397f205aa8265690d",
+  "delivery": "DOCS_ONLY_COMMIT_CONTAINS_MEASURED_CODE_UNCHANGED",
+  "baseline": {
+    "source": "27da91d671b342f52ce4cd12be070a4da846b02e",
+    "case_causal": {
+      "failed": 12,
+      "passed": 6,
+      "attempt": "case-attempt02"
+    },
+    "calendar_causal": {
+      "failed": 9,
+      "passed": 6,
+      "attempt": "calendar-attempt01"
+    }
+  },
+  "checks": {
+    "browser_composed": {
+      "startTime": "2026-10-19T23:42:59.645Z",
+      "duration": 158668.99,
+      "expected": 48,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "bootstrap": {
+      "passed": 61,
+      "failed": 0
+    },
+    "quality": {
+      "typescript": 0,
+      "build": 0,
+      "source": "2b1a70fd24decd38b09d40c397f205aa8265690d",
+      "bootstrap": 0,
+      "lint": 0
+    },
+    "visual": "SELECTED_CASE_PENDING390_CALENDAR_UNKNOWN768_PORTFOLIO_REGISTERED1440_REVIEWED; no blanket visual/cloud acceptance",
+    "browser_existing_regression": {
+      "startTime": "2026-10-19T23:42:59.722Z",
+      "duration": 70754.022,
+      "expected": 21,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "browser_unique": 69,
+    "source": "2b1a70fd24decd38b09d40c397f205aa8265690d"
+  },
+  "claims": {
+    "unit15": 6279498568,
+    "unit17": 6279655169,
+    "unit16": 6279611113,
+    "unit18_QA_only": 6279823476
+  },
+  "completed_unit15": {
+    "integration": "DRAFT_ASIER_EXACT_ACK_REQUIRED",
+    "unit": 15,
+    "checks": {
+      "browser_existing_regression": 6,
+      "lint_exit": 0,
+      "typescript_exit": 0,
+      "browser_unique": 21,
+      "build_exit": 0,
+      "bootstrap_passed": 31,
+      "browser_causal": 15,
+      "bootstrap_failed": 0
+    },
+    "release": "NOT_ACCEPTED",
+    "historical_failures": "F736 and CASE_NOTE_CURSOR preserved; no causal correction claimed",
+    "StorageP0": "OPEN",
+    "AI_commercial_writes": "OFF",
+    "red": {
+      "failed": 9,
+      "source": "888ecaae57e9021ca0cb25d4da0657c1f6ac9b40",
+      "preserved": true,
+      "passed": 6
+    },
+    "base": "888ecaae57e9021ca0cb25d4da0657c1f6ac9b40",
+    "cloud": "W5 Edge Access/deploy provenance/authorized cohort pending; no bypass, 87migrations untouched, no resellpro",
+    "HIGH": "FIVE_OPEN",
+    "code_scope": [
+      "src/features/portfolio/IntegratedPortfolio.tsx"
+    ],
+    "claim": 6279498568,
+    "visual": "TOP_OF_MOBILE_SUCCESS_SCREEN_REVIEWED_ONLY; registered-change notice visual NOT_RUN",
+    "evidence": "EVIDENCE_MANIFEST.json",
+    "next": "Publish own draft PR from verified remote SHA; continue independent CaseDetail receipt/readback causal bank after CLAIM. PR160 source8fca separate; do not duplicate billing fixes or push over active checks.",
+    "acceptance": "A stale read or incompatible status/provenance at receipt version is not accepted. Confirmed receipt retained, fields locked, confirmation dialog closed and drawer retained; recovery reads without another command. Exact and newer legitimate versions remain usable.",
+    "branch": "oier/portfolio-receipt-readback-20261020",
+    "source": "6932da4f68e01eb65fc8e365718dc30116e083b6",
+    "W4": "INDEPENDENT",
+    "scope": "Actual product/repository/parsers in Chromium with synthetic loopback HTTP, no hosted AuthDB, staging persistence, SQL/RLS acceptance, real voice or live model"
+  },
+  "attempt_map": {
+    "case-attempt01": "27da_INVALID_FIXTURE_INTERRUPTED_13OBSERVED_ASSERTION_FAILURES_NO_FINAL_REPORT_NOT_CAUSAL",
+    "regression-attempt02": "2b1_21PASS",
+    "portfolio-attempt02": "6932da4_15PASS",
+    "portfolio-regression01": "6932da4_6PASS",
+    "calendar-attempt01": "27da_CAUSAL_9FAIL6PASS",
+    "case-attempt02": "27da_CAUSAL_12FAIL6PASS",
+    "portfolio-attempt03": "27da_CODE_PLUS_QA_SCREENSHOT_CHANGE_3VISUAL_PASS",
+    "portfolio-attempt01": "888_BASELINE_9FAIL6PASS",
+    "composed-attempt01": "f99_48PASS_BUT_LINT2ERRORS_NOT_QUALIFIED",
+    "composed-attempt02": "2b1_48PASS",
+    "regression-attempt01": "f99_21PASS_BUT_LINT2ERRORS_NOT_QUALIFIED"
+  },
+  "cloud": "W5 Edge Access/deploy/cohort/window/roles/actions/cleanup; no bypass;87migrations untouched, no resellpro",
+  "changes": {
+    "portfolio": "Reject older read or incompatible same-version state/provenance, retain receipt and query only. Contextual copy distinguishes registered effect from unresolved current read.",
+    "cases": "Store actual confirmed receipt and validate id/version/state/source/resolution/cancellation before accepting refreshed detail. Both dialog and outside recovery pass receipt; no repeated command.",
+    "calendar": "Keep reviewed immutable intent for transport loss/internal_safe response; lock form and logical close until exact retry. Explicit pendingUncertain state satisfies React rules."
+  },
+  "AI_commercial_writes": "OFF"
 }
