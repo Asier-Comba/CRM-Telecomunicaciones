@@ -3,7 +3,7 @@ import type {TeamOperationV1} from '../contracts/team-v1'
 import {TEAM_RPC_V1,parseTeamInputV1,parseTeamReceiptV1,parseTeamListInputV1,parseTeamListV1,parseTeamInviteListV1} from './team-runtime-v1.ts'
 import type {ProductErrorV1} from '../contracts/product-v1'
 const failure=(error:ProductErrorV1)=>({ok:false as const,error})
-function dbError(code?:string):ProductErrorV1{return code==='42501'?'access_denied':code==='P0002'?'not_found':['40001','23505','40P01'].includes(code??'')?'conflict':['22023','22P02','23514'].includes(code??'')?'validation':'internal_safe'}
+function dbError(code?:string):ProductErrorV1{return code==='42501'?'access_denied':code==='P0002'?'not_found':['40001','PT409','23505','40P01'].includes(code??'')?'conflict':['22023','22P02','23514'].includes(code??'')?'validation':'internal_safe'}
 export class TeamServiceV1{
  readonly port:ProductUserPortV1
  constructor(port:ProductUserPortV1){this.port=port}

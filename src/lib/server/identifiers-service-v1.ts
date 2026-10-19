@@ -9,7 +9,7 @@ export class IdentifierServiceV1{
  const write=operation==='identifier.create_manual'||operation==='identifier.retire'
  const scope=await this.port.resolve();if(!scope||!(write?['owner','admin','member']:['owner','admin','member','viewer']).includes(scope.role))return{ok:false as const,error:'access_denied'as const}
  const r=await this.port.rpc(IDENTIFIER_RPC_V1[operation],{p_workspace_id:scope.workspaceId,p_operation:operation,p_input:input})
- if(r.error)return{ok:false as const,error:r.error.code==='42501'?'access_denied'as const:r.error.code==='P0002'?'not_found'as const:['40001','23505'].includes(r.error.code??'')?'conflict'as const:['22023','23514','22P02'].includes(r.error.code??'')?'validation'as const:'internal_safe'as const}
+ if(r.error)return{ok:false as const,error:r.error.code==='42501'?'access_denied'as const:r.error.code==='P0002'?'not_found'as const:['40001','PT409','23505'].includes(r.error.code??'')?'conflict'as const:['22023','23514','22P02'].includes(r.error.code??'')?'validation'as const:'internal_safe'as const}
  if(r.data===null)return{ok:false as const,error:'not_found'as const}
  const data=parseIdentifierResultV1(operation,input,r.data);return data?{ok:true as const,data}:{ok:false as const,error:'internal_safe'as const}
  }catch{return{ok:false as const,error:'internal_safe'as const}}}
