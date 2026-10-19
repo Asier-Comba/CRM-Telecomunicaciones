@@ -1,0 +1,13 @@
+# W2-X113: QA de foco y respuesta retirada en destinos de Documentos
+
+Intento original9:6PASS y3FIXTURE_FAIL en3,6min,exit1. Se conservan íntegros salida/banco/directorio,seis observations ytres capturas/errorcontexts. Las tres pruebas customer_supersedes fallaron al buscar botónB ausente:ese modo del fixture retorna antes del navegador de cliente. No llegaron a cambiarpropcliente ni acreditan defecto del producto;no reconstruir observaciones de esa fase ni llamar9PASS.
+
+CLAIM6257170620 ampliado con AMEND_EXISTING_FIXTURE_CUSTOMER_PROBE antes de editar. Se usa mismaentrada/estadoid/servidor customer-resource,sin nuevorecurso/W5/fixturearchivo ni producto. Solo customerProbe=1 añade navegaciónA/B de entrada sintética enmodo customer-document-targets. Sinflagnohay nuevosnodosDOM;otrasramasbyteidénticas yreversiónexactaregistrada. URL del banco cambia solo paracustomer_supersedes,sin quitar aserciones/relajar timeout60000. Src producción idéntico alpadre561488d948730acec047439224897f9a27a7cf10 (runtime111).
+
+Intentocorregido independiente:21PASS39,0s/2archivos,9primarios y12regresiones existentes de seleccióncontrato enmododefault. Nuevaejecución justificada porfixturemodificado,no suma27 nihereda6anteriores. Lintdirigido banco+fixture0errores0avisos;buildNOT_RUN_TEST_FIXTURE_ONLY_SRC_UNCHANGED,nohereda66/24del111. Logs/resultadoscorregidos enotro directorio,originales intactos.
+
+Tres escenarios×3907681440:guardia de foco conserva selector tiposelegidoduranteespera;tipo→Empresaretira selector deregistro/intención;clienteA→B mediantepropcontrolada resetea tipo/target ydocument.listva aB. Trasbodyfinished+dosanimationframes se observaUIactual,no resultadoantiguo/consulta document.list deservicio sinselección. Esa ventana no prueba ausencia/quiescencia/reinicio/handler/full23 niestadointerior de callbacks. Datos/HTTP/contextosintéticos con componentes/repositorios/parsers reales,no tenant/AuthDB/JWT/RLS/membresía/rolesreal/Next/W4.
+
+Nueve cuadros corregidos realmente vistos con hashes. Foco/value/querykeys yrechazoderesultadoantiguoDOM,imágenesfinalesselectoropanelemptycustomer;no unafotoporfase/nitodoslos20destinos/a11y/táctil.12contextualesdefaultPASScurrente,no aceptaciónvisualdetodoslosotrosmodos. Sin command/upload/borrado/privadobody/páginaerrores/operacionesinesperadas enprimarios. Modelo vivoNOT_RUN/API0.
+
+Matriz342/34PARTIAL/308sinreconciliar/0READY intacta;PAR053negativocontrolelegidoNOT_RUN111siguehistóricamenteasí,mediciónnueva113nosehereda. HIGH5/W4pendientes,IAwritesOFF,issue10OPEN,releaseNOT_ACCEPTED. F736/B9 yoriginales conservancausacompletadesconocida. FIFO2172/2214/2256 conserva pinesanteriores,noincluye113/probe. Principales/ajenas/congeladas,W3/W4/W5/recurso yproducción intactos.

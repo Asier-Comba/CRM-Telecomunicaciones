@@ -33,7 +33,7 @@ function Fixture(){
  if(kind==='dashboard-current-day')return <IntegratedDashboard/>
  if(kind==='cleanup')return uploadOpen?<DocumentCleanup onClose={()=>setUploadOpen(false)}/>:<p>Panel de limpieza cerrado</p>
  if(kind==='documents')return <IntegratedDocuments customerId={id}/>
- if(kind==='customer-document-targets')return <CustomerDocuments customerId={id}/>
+ if(kind==='customer-document-targets')return <>{new URLSearchParams(location.search).get('customerProbe')==='1'&&<nav aria-label="Cliente de destinos sintéticos">{['A','B'].map((name,i)=><button key={name} onClick={()=>setId(`10000000-0000-4000-8000-${String(i+1).padStart(12,'0')}`)}>Seleccionar cliente {name}</button>)}</nav>}<CustomerDocuments customerId={id}/></>
  if(kind==='documents-integrity'||kind==='documents-integrity-lifetime')return <IntegratedDocuments customerId={id} contentEnabled maintenanceEnabled/>
  if(kind==='imports')return <ImportJobs/>
  if(kind==='new-customer')return <>{saved&&<p role="status">Cliente sintético confirmado</p>}{newOpen?<CustomerEditor onClose={()=>setNewOpen(false)} onSaved={()=>{setSaved(true);setNewOpen(false)}}/>:<button onClick={()=>setNewOpen(true)}>Nuevo cliente sintético</button>}</>
