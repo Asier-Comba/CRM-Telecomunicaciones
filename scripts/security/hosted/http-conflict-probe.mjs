@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Hosted P1 probe: changed-intent and stale-version commands must return a
-// bounded HTTP error carrying SQLSTATE 40001 instead of hanging. Each request
+// bounded HTTP 409 (PT409) instead of hanging. Each request
 // records time-to-headers, total time, status, SQLSTATE and correlation ids so
 // a hang can be attributed to client, edge (cf-ray) or PostgREST (sb-request-id).
 //

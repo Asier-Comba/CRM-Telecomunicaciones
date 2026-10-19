@@ -30,14 +30,15 @@ export function classifyStorageRead({expect, status, bodySha256, expectedSha256}
 }
 
 // HTTP conflict contract: changed intent and stale version must answer quickly
-// with a transport error carrying SQLSTATE 40001 (PostgREST maps 40* to 500),
-// never hang, never succeed and never create a second effect.
+// with HTTP 409 carrying PT409 (non-retryable business conflict), never hang,
+// never succeed and never create a second effect. A 40001 is a regression: the
+// gateway retries it without bound.
 export function classifyConflict({timedOut, status, code, elapsedMs, budgetMs}) {
   if (timedOut) return {verdict: 'FAIL', reason: 'timeout'}
   if (status >= 200 && status < 300) return {verdict: 'FAIL', reason: 'unexpected_success'}
-  if (code !== '40001') return {verdict: 'FAIL', reason: `unexpected_code_${String(code ?? 'none').slice(0, 12)}`}
+  if (code !== 'PT409' || status !== 409) return {verdict: 'FAIL', reason: `unexpected_code_${String(code ?? 'none').slice(0, 12)}`}
   if (elapsedMs > budgetMs) return {verdict: 'FAIL', reason: 'slow_conflict'}
-  return {verdict: 'PASS', reason: 'conflict_40001'}
+  return {verdict: 'PASS', reason: 'conflict_pt409'}
 }
 
 export function summarize(checks) {

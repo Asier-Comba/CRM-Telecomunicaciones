@@ -17,8 +17,10 @@ test('conflict classification never accepts timeouts, success or slow conflicts'
   assert.equal(classifyConflict({timedOut: true, status: 0, code: null, elapsedMs: 20000, budgetMs: 5000}).reason, 'timeout')
   assert.equal(classifyConflict({timedOut: false, status: 200, code: null, elapsedMs: 10, budgetMs: 5000}).reason, 'unexpected_success')
   assert.equal(classifyConflict({timedOut: false, status: 500, code: '57014', elapsedMs: 8000, budgetMs: 5000}).verdict, 'FAIL')
-  assert.equal(classifyConflict({timedOut: false, status: 500, code: '40001', elapsedMs: 9000, budgetMs: 5000}).reason, 'slow_conflict')
-  assert.deepEqual(classifyConflict({timedOut: false, status: 500, code: '40001', elapsedMs: 120, budgetMs: 5000}), {verdict: 'PASS', reason: 'conflict_40001'})
+  assert.equal(classifyConflict({timedOut: false, status: 409, code: 'PT409', elapsedMs: 9000, budgetMs: 5000}).reason, 'slow_conflict')
+  assert.deepEqual(classifyConflict({timedOut: false, status: 409, code: 'PT409', elapsedMs: 120, budgetMs: 5000}), {verdict: 'PASS', reason: 'conflict_pt409'})
+  assert.equal(classifyConflict({timedOut: false, status: 500, code: '40001', elapsedMs: 120, budgetMs: 5000}).verdict, 'FAIL')
+  assert.equal(classifyConflict({timedOut: false, status: 500, code: 'PT409', elapsedMs: 120, budgetMs: 5000}).verdict, 'FAIL')
 })
 
 test('summary counts leaks and keeps failing ids', () => {
