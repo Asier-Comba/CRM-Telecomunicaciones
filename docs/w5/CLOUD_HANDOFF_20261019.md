@@ -26,11 +26,12 @@ OFF, Auth site URL `http://localhost:3000`, 10 cuentas sintéticas deshabilitada
 1. La política `telecom_v1_document_object_read` (y `document_content_v1_pending_read`)
    permite a `authenticated` leer los bytes **directamente** desde
    `/storage/v1/object[/authenticated]/telecom-documents/...` con su JWT.
-2. Esa ruta pasa por la CDN de Storage. Según la documentación oficial, en
-   buckets privados la caché es **por usuario** y la duración la marca el
-   `cacheControl` del objeto (por defecto 3600 s, que es lo que usan los
-   factories actuales al subir sin `cacheControl`). Un HIT no vuelve a evaluar
-   RLS en el origen. Revocar un token/permiso **no purga** la entrada.
+2. Esa ruta pasa por la CDN de Storage, que en buckets privados cachea **por
+   usuario**. Un HIT no vuelve a evaluar RLS en el origen y revocar un
+   token/permiso **no purga** la entrada. Corrección 19/10 17:15 UTC: el objeto
+   del fallo tiene `cacheControl = no-cache` en sus metadatos (comprobado en
+   `storage.objects`) y aun así hubo HIT, así que ajustar `cacheControl` en la
+   subida **no** basta para cerrar la fuga.
 3. Evidencia hospedada (handoff): mismo JWT + misma URL tras suspender/degradar
    → HTTP 200, 1013 bytes, `cf-cache-status: HIT`, mientras el helper SQL ya
    devolvía `false`. JWT nuevo → 400. Query única → 400/DYNAMIC (origen).
@@ -102,10 +103,21 @@ Hechos de código verificados:
   hubo respuesta alguna → el bloqueo está en transporte (cliente, borde o pool
   de PostgREST), no en la lógica SQL, que respondió `40001` por SQL directo.
 
-Hipótesis abiertas (sin evidencia suficiente para afirmar ninguna): conexiones
-del cliente de prueba con cuerpos no consumidos; saturación del pool de
-PostgREST del plan FREE por transacciones previas colgadas; comportamiento del
-borde ante 500. El arnés hospedado original no está en el repositorio.
+**Causa raíz confirmada (19/10, 17:05 UTC, sonda hospedada):** PostgREST 14.18
+(versión hospedada) trata `40001` lanzado por una función como fallo transitorio
+y **reintenta la transacción indefinidamente** (fallo conocido de PostgREST 14,
+corregido en 16; guía oficial de Supabase "SQLSTATE 40001 in an RPC function
+causes infinite retries"). Evidencia: create 588 ms y replay 73 ms; el primer
+changed-intent no recibe cabeceras en 30 s; todas las peticiones posteriores,
+incluido el replay, también se cuelgan; `pg_stat_activity` muestra backends
+`authenticator` en ciclo BEGIN→RPC→ABORT y los logs ~6000 `product_conflict`/min
+sostenidos tras terminar la sonda. Afecta a **todas** las RPC que usan `40001`
+como conflicto de negocio (product, billing, team, portfolio, document, inbox,
+notifications, settings, artifacts, importjob…).
+Corrección necesaria (contrato compartido W1/W2): sustituir `errcode='40001'`
+en los conflictos de negocio por un código no reintentable, p. ej.
+`raise sqlstate 'PT409'` (HTTP 409) o un código propio de clase `P0`, y adaptar
+`dbError` en los servicios. No reintentos en cliente.
 
 `scripts/security/hosted/http-conflict-probe.mjs` mide por petición tiempo a
 cabeceras, total, estado, SQLSTATE, `cf-ray` y `sb-request-id`, consume siempre

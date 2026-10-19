@@ -81,7 +81,7 @@ function hook(name) {
     if (name === 'restore_command') return 'SKIPPED'
     throw new Error('PROBE_REVOKE_COMMAND_REQUIRED')
   }
-  const r = spawnSync(command, {shell: true, stdio: ['ignore', 'ignore', 'ignore'], timeout: 60_000})
+  const r = spawnSync(command, {shell: true, stdio: ['ignore', 'ignore', 'ignore'], timeout: Number(process.env.PROBE_HOOK_TIMEOUT_MS ?? 60_000)})
   if (r.status !== 0) throw new Error(`PROBE_${name.toUpperCase()}_FAILED`)
   return 'OK'
 }
