@@ -1,0 +1,30 @@
+{
+  "source": "2f1b6dd7b449290aeff904f3bd13ca82f83ffecc",
+  "file": "supabase/migrations/20261020100000_business_conflict_non_retryable.sql",
+  "hosted_version": "20261019180534",
+  "hosted_name": "business_conflict_non_retryable",
+  "source_bytes": 2076,
+  "browser_copy_bytes": 2127,
+  "source_sha256": "5cb2704c505a82426b583f129be6a24d384b129ec4fd66d878dec91ea7524245",
+  "browser_copy_sha256": "052a532d69d6b1494434318902da41a541d94ececb8bfddc6a6fa98275b25534",
+  "byte_identical": false,
+  "LF_identical": false,
+  "diff": [
+    "--- PR159 source",
+    "+++ Supabase viewer copy",
+    "@@ -48,3 +48,4 @@",
+    " $$;",
+    " ",
+    " commit;",
+    "+;"
+  ],
+  "observed_at": "2026-10-19T21:15:52.176361+00:00",
+  "scope": "READ_ONLY_BROWSER_MIGRATION_VIEWER_COPY_NOT_LIVE_FUNCTION_PROOF",
+  "capture_method": "Select all / copy from readonly migration viewer textbox; no SQL execution",
+  "normalized_source_is_exact_prefix": true,
+  "suffix_after_source_LF": ";",
+  "qualification": "NOT_BYTE_IDENTICAL_NO_SCHEMA_OR_FUNCTION_ACCEPTANCE",
+  "live_function_definitions": "NOT_MEASURED",
+  "RLS_ACL": "NOT_MEASURED",
+  "sql_executed": false
+}
