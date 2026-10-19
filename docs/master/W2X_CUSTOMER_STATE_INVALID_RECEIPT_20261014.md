@@ -1,0 +1,11 @@
+# Customer archive and restore retain unverified receipts
+
+CLAIM6162560551. The original customer.archive reproduction applies a synthetic effect, returns unreadable200 JSON and accepts Cancel, discarding the command UUID before verifying its receipt. The original failed assertion remains preserved separately from7F/8f69/9DB CI failures.
+
+Only the archive/restore catch classification changes: transport_uncertain or internal_safe retains the intent and confirmation guard while archiveIntent still exists. Validated receipts keep the existing current read/load ordering and clear the flag; explicit403 denial remains cancellable. Read failures after a validated receipt are not converted to another commercial command. Customer/contact parent authority, active/inactive/archived lifecycle, read epochs, masks, fields, API/RPC/RLS/roles and primitives stay unchanged.
+
+Measured18 controlled HTTP browser checks PASS:6 invalid archive/restore receipts over three widths (JSON390/UUID768/envelope1440),6 explicit403 no-effect negatives and6 previous lost-transport cases. Unknown replay keeps its exact UUID/body and one simulated effect. Build66/lint/syntax/scan PASS. Three partial archive-confirmation views reviewed at390/768/1440 show pending result, disabled Cancel and same-action retry. These are not actual Auth/DB or complete Customer360/security acceptance.
+
+The existing ordinary authorized customer_archive_restore_persist consumer retains all its response-loss, exact replay, ledger/audit, reload and current label assertions through a common implementation. New customer_archive_restore_three_invalid_receipts_single_revision_audit repeats real ordinary archive/restore with each corrupted reply, validates one revision per command and captures recovery at each width. Own Auth is NOT_RUN. Future composition expects407 local/1014 preview/122 Auth until measured, not inherited from852395 or7F377.
+
+Current7F failed: preview exceeded its20m job limit; Supabase has no safe artifact, so final Auth/teardown/UI totals are UNKNOWN until bounded evidence is returned by W5. REQUEST6162715998 and CI-owner request6162753210 are separate. No limit/retry/permission/pin/cache changes or original run retries. Principal38/142/W3/W5 unchanged, fiveHIGH/W4/principalACK pending, modelNOT_RUN/API0, IA writesOFF, issue10OPEN and releaseNOT_ACCEPTED.

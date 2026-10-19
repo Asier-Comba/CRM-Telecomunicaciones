@@ -50,6 +50,13 @@ for(const failure of ['invalid','denied'] as const)for(const width of [390,768,1
   await expect(page.getByRole('button',{name:'Actualizar facturas',exact:true})).toBeDisabled()
   expect(commands).toHaveLength(1);expect(mutations).toBe(1)
   await page.screenshot({path:info.outputPath(`billing-invalid-${action.operation}-${width}.png`)})
+  if(width===1440&&action.next==='profile')for(const reviewWidth of [390,768,1440]){
+   await page.setViewportSize({width:reviewWidth,height:960})
+   const retry=dialog.getByRole('button',{name:'Reintentar la misma acción',exact:true})
+   await retry.scrollIntoViewIfNeeded()
+   await expect(retry).toBeInViewport({ratio:1})
+   await page.screenshot({path:info.outputPath(`billing-invalid-${action.operation}-transition-${reviewWidth}.png`)})
+  }
   await dialog.getByRole('button',{name:'Reintentar la misma acción',exact:true}).click()
   await expect(dialog).toHaveCount(0);expect(commands).toHaveLength(2);expect(commands[1]).toEqual(commands[0]);expect(mutations).toBe(1)
   expect(errors).toEqual([]);expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBe(true)

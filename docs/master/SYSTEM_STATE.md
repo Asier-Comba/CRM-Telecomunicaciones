@@ -1,5 +1,17 @@
 # CRM Telecom — system state
 
+## Integration checkpoint — 2026-10-19
+
+Candidate product source: `349549f820a8b5857f1180a7b2fec2f35005e056`, tree `6e5bbf01f7dde14007240843fb2280bfdd96f1d4`, branch `codex/product-integration-20261019`, draft PR #156 against W5/PR155. No accepted release source and no main merge.
+
+Eight bounded units integrate case-note focus, contact recovery/state, billing command/receipt recovery, fiscal retry visibility, and customer save/archive/restore recovery. Own verification on349549f:89 browser checks with controlled HTTP, lint, types and build66 PASS. Hosted Auth/DB and complete requirement acceptance are not established by those checks. [Latest handoff](../integration/HANDOFF_20261019.md) and [unit08 evidence](../integration/UNIT_08_CUSTOMER_STATE_20261019.md) distinguish exact sources and preserved failures; issue #67 records later CI.
+
+Cowork reports staging schema86 and a private preview at https://crm-telecom-staging-preview.netlify.app on olderc597+Netlify configuration, product flagsOFF and synthetic accounts disabled. This is not an integrated hosted acceptance. Storage/HTTP findings, application activation policy/cohort, applicable CI failures and independent W4 review remain blocking. Business AI writes remainOFF; no live model spending. No cloud mutation from this branch and no change to resellpro.
+
+## Historical snapshot — 2026-09-26
+
+The following snapshot is retained as historical evidence. Its provisioning and implementation gaps must not be interpreted as the current state; use the dated integration evidence above.
+
 Verified: 2026-09-26 UTC
 
 | Area | Verified head/state | Release consequence |
@@ -12,7 +24,7 @@ Verified: 2026-09-26 UTC
 | Staging | Not provisioned | No isolated environment or staging acceptance evidence |
 | Production | Untouched | No deploy, DNS, data, secrets or infrastructure mutation |
 
-## Open P0/P1
+### P0/P1 recorded in the historical snapshot
 
 - **P0:** no accepted canonical application/schema/auth/RLS base; PR #11 Secret Scan fails.
 - **P0:** suspended `workspaces` remain authorized when membership is active.

@@ -1,0 +1,68 @@
+{
+  "source": "349549f820a8b5857f1180a7b2fec2f35005e056",
+  "tree": "6e5bbf01f7dde14007240843fb2280bfdd96f1d4",
+  "integrated": [
+    "c7da250880d7c529423086bfcca7ec95a79d460e",
+    "3bd49ed45d039fcc8d31158cc7aff33d144b2d48"
+  ],
+  "causal": {
+    "failed": 4,
+    "passed": 2,
+    "width": 390
+  },
+  "interrupted_attempt": "NO_TERMINAL_RESULT_ACCEPTED_PASSES_ZERO",
+  "browser": {
+    "passed": 89,
+    "failed": 0,
+    "retries": 0,
+    "scope": "CONTROLLED_HTTP_NOT_AUTH_DB"
+  },
+  "lint": "PASS",
+  "typecheck": "PASS",
+  "build": "PASS66",
+  "official_preview_inventory": {
+    "collected": 674,
+    "files": 46,
+    "executed": false
+  },
+  "hosted": "NOT_RUN",
+  "release_ready": false,
+  "records": [
+    {
+      "name": "customer8-before.log",
+      "sha256": "15cfb8a981e2f3ad664c30c4cadb190bb7291178f856803e1242457b41c58d44"
+    },
+    {
+      "name": "customer8-after.log",
+      "sha256": "469c797f30712679d54b70723091e13f124962c8c7b48c4ffe22e37c41a64d2c"
+    },
+    {
+      "name": "unit8-lint.log",
+      "sha256": "dda21574b74ba6a9edea377d67b00a3846ea8ae6ee11171eb3102a4a59f30d98"
+    },
+    {
+      "name": "unit8-interruption-recovery.json",
+      "sha256": "c7d2251ff64922c4d9597af41d7be3edade46d2c4f72c6c1a758864ad07d5df3"
+    },
+    {
+      "name": "customer8-resumed.log",
+      "sha256": "3e8da4e730416c7378170deb58ab0124073686402f2e25ee05beee9dff82f0fb"
+    },
+    {
+      "name": "unit8-resumed-lint.log",
+      "sha256": "dda21574b74ba6a9edea377d67b00a3846ea8ae6ee11171eb3102a4a59f30d98"
+    },
+    {
+      "name": "unit8-resumed-types.log",
+      "sha256": "09698db0dd661e366e31bb0aa12a64958690641809896ed8445717ab71ea6759"
+    },
+    {
+      "name": "unit8-resumed-build.log",
+      "sha256": "a295ac629642d039035e58426818a50c984c8d26de36f7b36a5718101a7565db"
+    },
+    {
+      "name": "unit8-preview-list.log",
+      "sha256": "3ad44ea020837d98d2df1b3edb705236a66e66eab6990ca723c09bb80c5faa7a"
+    }
+  ]
+}
