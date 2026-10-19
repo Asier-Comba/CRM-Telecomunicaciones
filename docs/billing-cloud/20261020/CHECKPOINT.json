@@ -88,11 +88,39 @@
     "regression": "88PASS"
   },
   "remote_checks": {
-    "rule": "No PR branch update until existing runs terminal. Recovery alias can preserve new own work without synchronizing PR or cancelling checks.",
-    "W4": "BLOCKED_FINDINGS23",
+    "CI": "FAIL_HIGH5_SECRET_SCAN_WINDOWS_CHECKOUT",
+    "next": "Old runs terminal; PR160 can now fast-forward to this published code/evidence and run new own remote checks. No merge.",
+    "runs": [
+      {
+        "id": 39334979224,
+        "name": "W4 all-ref secret audit",
+        "status": "completed",
+        "conclusion": "failure",
+        "head_sha": "2e5318cff28f59d172224fefba7125b61216277c",
+        "html_url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/39334979224"
+      },
+      {
+        "id": 39334979116,
+        "name": "CI",
+        "status": "completed",
+        "conclusion": "failure",
+        "head_sha": "2e5318cff28f59d172224fefba7125b61216277c",
+        "html_url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/39334979116"
+      },
+      {
+        "id": 39334979170,
+        "name": "Supabase local acceptance",
+        "status": "completed",
+        "conclusion": "success",
+        "head_sha": "2e5318cff28f59d172224fefba7125b61216277c",
+        "html_url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/39334979170"
+      }
+    ],
     "source": "2e5318cff28f59d172224fefba7125b61216277c",
-    "CI": "RUNNING_WITH_FAILURES_RECORDED",
-    "Supabase": "RUNNING"
+    "inherit_pass": false,
+    "new_product_source": "dddd7a505313397c6a7ae76ae5b707c511469fac",
+    "Supabase": "SUCCESS_REAL_DISPOSABLE_AUTH_DB_POSTGREST_STORAGE_WORKFLOW_ONLY_THIS_SHA",
+    "W4": "BLOCKED_FINDINGS23"
   },
   "completed_unit10": {
     "build": 0,
