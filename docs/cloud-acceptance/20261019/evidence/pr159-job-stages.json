@@ -1,0 +1,101 @@
+[
+  {
+    "name": "W2 exact delivered grants86 and independent committed restart",
+    "status": "completed",
+    "run": 39300315993,
+    "failed_steps": [
+      {
+        "name": "Exact source closure and physical delivered-grant compatibility",
+        "number": 5,
+        "conclusion": "failure"
+      }
+    ],
+    "id": 118223485954,
+    "conclusion": "failure"
+  },
+  {
+    "name": "W2 committed operation and audit persistence across W5 restart",
+    "status": "completed",
+    "run": 39300316106,
+    "failed_steps": [
+      {
+        "name": "IPC closed controls and actual committed restart",
+        "number": 5,
+        "conclusion": "failure"
+      }
+    ],
+    "id": 118223505896,
+    "conclusion": "failure"
+  },
+  {
+    "name": "auth-mail",
+    "status": "completed",
+    "run": 39300315921,
+    "failed_steps": [],
+    "id": 118223485805,
+    "conclusion": "success"
+  },
+  {
+    "name": "container-package",
+    "status": "completed",
+    "run": 39300315921,
+    "failed_steps": [],
+    "id": 118223486094,
+    "conclusion": "success"
+  },
+  {
+    "name": "contracts",
+    "status": "completed",
+    "run": 39300315921,
+    "failed_steps": [
+      {
+        "name": "Run node scripts/platform/inventory.mjs --check",
+        "number": 5,
+        "conclusion": "failure"
+      }
+    ],
+    "id": 118223486183,
+    "conclusion": "failure"
+  },
+  {
+    "name": "reconstruction-recovery",
+    "status": "completed",
+    "run": 39300315921,
+    "failed_steps": [
+      {
+        "name": "Real synthetic A to empty B, authenticated DB and Storage recovery",
+        "number": 8,
+        "conclusion": "failure"
+      }
+    ],
+    "id": 118223486207,
+    "conclusion": "failure"
+  },
+  {
+    "name": "proxy-compose",
+    "status": "completed",
+    "run": 39300315921,
+    "failed_steps": [],
+    "id": 118223486228,
+    "conclusion": "success"
+  },
+  {
+    "name": "n8n-disposable",
+    "status": "completed",
+    "run": 39300315921,
+    "failed_steps": [
+      {
+        "name": "Retain independent vendor-image security gate even when native acceptance fails",
+        "number": 6,
+        "conclusion": "failure"
+      },
+      {
+        "name": "Independent pinned PostgreSQL image security gate",
+        "number": 7,
+        "conclusion": "failure"
+      }
+    ],
+    "id": 118223486417,
+    "conclusion": "failure"
+  }
+]

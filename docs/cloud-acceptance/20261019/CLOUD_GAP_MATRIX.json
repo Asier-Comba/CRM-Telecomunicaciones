@@ -1,0 +1,110 @@
+{
+  "utc": "2026-10-19T18:59:45.925355+00:00",
+  "overall": "CLOUD_PARTIAL",
+  "gaps": [
+    {
+      "id": "G01",
+      "severity": "P0",
+      "gap": "Storage revocation",
+      "owner": "W5/W4",
+      "next_proof": "Owner correction, private same-JWT/same-URL post-revocation proof incl.cache; no Oier exploit probe",
+      "status": "OPEN"
+    },
+    {
+      "id": "G02",
+      "severity": "P0",
+      "gap": "Independent security and multi-tenant cloud acceptance",
+      "owner": "W4/W5/Integrator",
+      "next_proof": "Authorized A/B/role/suspended-member hosted evidence on exact composition",
+      "status": "OPEN"
+    },
+    {
+      "id": "G03",
+      "severity": "P0",
+      "gap": "Public security disclosure risk",
+      "owner": "Owners/W4",
+      "next_proof": "Visibility decision/private evidence channel; no permission change by Oier",
+      "status": "OPEN"
+    },
+    {
+      "id": "G04",
+      "severity": "P1",
+      "gap": "Cloud metadata access",
+      "owner": "W5/Owner",
+      "next_proof": "Read-only project-scoped authorization or signed sanitized export; no credentials",
+      "status": "OPEN"
+    },
+    {
+      "id": "G05",
+      "severity": "P1",
+      "gap": "86/87 source-consumer composition",
+      "owner": "Integrator/W5",
+      "next_proof": "Review PR159 plus recent product deltas; ordered version/hash manifest and compatibility on new source",
+      "status": "OPEN"
+    },
+    {
+      "id": "G06",
+      "severity": "P1",
+      "gap": "Native closure86 blocks PR159",
+      "owner": "W5/consumer owners",
+      "next_proof": "Explicit agreed migration closure update and physical own-pin validation; do not merely bump count or duplicate resource",
+      "status": "OPEN"
+    },
+    {
+      "id": "G07",
+      "severity": "P1",
+      "gap": "Environment inventory drift",
+      "owner": "W5",
+      "next_proof": "Regenerate/review own manifest against chosen source; rerun --check without dropping assertions",
+      "status": "OPEN"
+    },
+    {
+      "id": "G08",
+      "severity": "P1",
+      "gap": "Deployment provenance/manual Netlify config",
+      "owner": "W5",
+      "next_proof": "Version sanitized netlify.toml; signed deploy ID/source SHA/config/build digest and secret reference names only",
+      "status": "OPEN"
+    },
+    {
+      "id": "G09",
+      "severity": "P1",
+      "gap": "Hosted QA window/cohort",
+      "owner": "Integrator/W5",
+      "next_proof": "Private preview access + synthetic cohort + precise permitted actions/time/cleanup; then18 prepared cases",
+      "status": "OPEN"
+    },
+    {
+      "id": "G10",
+      "severity": "P1",
+      "gap": "Backup/restore enterprise proof",
+      "owner": "W5/Owner",
+      "next_proof": "Plan/cost decision and DB/Auth/object/offsite restore with RPO/RTO; do not restore live staging",
+      "status": "OPEN"
+    },
+    {
+      "id": "G11",
+      "severity": "P1",
+      "gap": "CI and dependencies",
+      "owner": "Integrator/W5/W4",
+      "next_proof": "Five HIGH and all-ref/enterprise failures remain, preserve logs; exact-source successful required checks",
+      "status": "OPEN"
+    },
+    {
+      "id": "G12",
+      "severity": "P1",
+      "gap": "342 individual requirements",
+      "owner": "Integrator/Oier/W4",
+      "next_proof": "Map source contracts and per-row hosted/visual/security evidence; no global-count promotion",
+      "status": "OPEN"
+    },
+    {
+      "id": "G13",
+      "severity": "P1",
+      "gap": "Historical provenance",
+      "owner": "Owners/Oier",
+      "next_proof": "Resolve39 refs without exact-history proof and4060 unmatched files by ownership; no bulk upload",
+      "status": "OPEN"
+    }
+  ]
+}

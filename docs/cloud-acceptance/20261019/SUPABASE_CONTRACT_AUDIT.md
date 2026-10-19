@@ -1,0 +1,15 @@
+# SUPABASE_CONTRACT_AUDIT
+
+Fuente inicial PR156 `5332d9899eb1062a7db6b1800e9f0eda1151bac3`; observación posterior `2cbdc4b66315a52720c19c60e5d7ebe4e6adc996`; propuesta y deploy declarado W5/PR159 `bb16afe512be1cb04d6c86ecadb2064966a062aa`. Fecha de corte 2026-10-19T18:59:45.925355+00:00. CLAIM[6274698885](https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6274698885). Las fuentes son candidatas, no composición aceptada. No herencia de PASS entre SHAs.
+
+Estado propio: BLOCKER_ACCESS. Dos lecturas del conector devolvieron denegación. Ninguna consulta SQL ni operación de datos se ejecutó. SUPABASE_READONLY_PLAN.json describe ocho grupos de comprobación sin ejecutar ni aplicar SQL. El esquema cloud, grants, RLS, Auth, buckets y plan no se acreditan mediante los archivos Git.
+
+Versiones exactas: inicial5332 tiene86; PR159 añade20261020100000_business_conflict_non_retryable.sql, manteniendo byte a byte las86 compartidas según hashes del auditor. PR158 añade en cambio20261020090000_document_object_read_server_fetch.sql. Sus identidades distintas están en evidence/offline-audit.json/evidence/source-observations.json; ninguno de esos recuentos prueba aplicación hospedada. No se reaplicó, reparó, reseteó ni reescribió SQL.
+
+El P1 tiene15/15HTTP declarados por W5 en staging. En fuente,23 consumidores del inicial carecen del tokenPT409 y los23 dePR159 lo declaran. Es observación léxica estática, no evaluación de sus respuestas ni certificación de todas las RPC. El contrato requiere conservar conflictos no reintentables/CAS/idempotencia y negativos sin efecto en una composición futura.
+
+CI PR159: jobs118223485954 y118223505896 conservan OWNED_CONSUMER_MIGRATION_CLOSURE_REJECTED con marcadores86/87 y sin marcador de cuota en esos logs. Fuente identifica require_grants_86 y consumer estricto. No se modifica el recurso nativo entregado, su contrato o sus consumidores. W5 debe acordar la nueva clausura por versiones/hashes y validación física; subir un número no es prueba. Recovery118223486207 falla también, pero la causa completa no queda demostrada por esos marcadores: no se atribuye automáticamente al mismo mecanismo. Huellas de logs en evidence/pr159-safe-log-findings.json; raws privados no publicados.
+
+`node scripts/platform/inventory.mjs --check` sobre5332 reproduce ENV_INVENTORY_DRIFT, exit1, sin modificar el manifiesto. La fuente del guard/manifest/consumidor citada coincide estáticamente en2cbd; no se relanza el control para heredar unPASS. La manifestación es de contrato de entorno, no prueba de drift SQL cloud.
+
+Queda sin verificar: firmas RPC/owners/SECURITY DEFINER/search_path, políticas por operación/rol, vistas/triggers/índices/constraints, esquema API expuesto, SSL/red/región/plan, Auth callback/SMTP/MFA/refresh/sesiones, cohortes y ausencia de usuarios reales, Storage privado/MIME/integridad/caché y restore hospedado. Solicitar exportación redacted/fingerprint por canal privado. El P0 Storage continúa abierto hasta corrección y evidencia independiente con el mismo JWT/URL después de retirar permisos; no se publica un procedimiento de explotación.

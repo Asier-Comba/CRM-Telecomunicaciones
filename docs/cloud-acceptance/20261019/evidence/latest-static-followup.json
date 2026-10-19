@@ -1,0 +1,32 @@
+{
+  "initial_source": "5332d9899eb1062a7db6b1800e9f0eda1151bac3",
+  "later_observed_source": "2cbdc4b66315a52720c19c60e5d7ebe4e6adc996",
+  "utc": "2026-10-19T18:53:09.7787138Z",
+  "compared_files": [
+    {
+      "path": "src/features/product/integration/mode.ts",
+      "baseline_sha256": "8939bf10e20003077cb85619deb9de1dd4fbe6cfac5267a28b4954bdb963b4ac",
+      "latest_sha256": "8939bf10e20003077cb85619deb9de1dd4fbe6cfac5267a28b4954bdb963b4ac",
+      "same_bytes": true
+    },
+    {
+      "path": "infra/platform/environment-manifest.json",
+      "baseline_sha256": "a11e649a26af6ea673f3e12cfba5517b327daedf41d3dd4a4c3e74fcd9b896ae",
+      "latest_sha256": "a11e649a26af6ea673f3e12cfba5517b327daedf41d3dd4a4c3e74fcd9b896ae",
+      "same_bytes": true
+    },
+    {
+      "path": "scripts/security/native-postgres/consume-owned-resource-committed-restart-v1.mjs",
+      "baseline_sha256": "3e7361ca613a9b407ee6e3e2ea2d23c2e820cf61fdcff7930c9e5f4316cbbb50",
+      "latest_sha256": "3e7361ca613a9b407ee6e3e2ea2d23c2e820cf61fdcff7930c9e5f4316cbbb50",
+      "same_bytes": true
+    },
+    {
+      "path": "src/lib/server/billing-service-v1.ts",
+      "baseline_sha256": "dd89fc62450d4d6b96614004334498fba3cf933c1f8b0cda93e452620041959f",
+      "latest_sha256": "dd89fc62450d4d6b96614004334498fba3cf933c1f8b0cda93e452620041959f",
+      "same_bytes": true
+    }
+  ],
+  "rule": "Static blob equality only, not test inheritance. New product tests on initial or earlier source do not establish later-source acceptance."
+}

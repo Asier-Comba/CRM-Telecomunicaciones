@@ -1,0 +1,11 @@
+# CONSERVATION_FOLLOWUP
+
+Fuente inicial PR156 `5332d9899eb1062a7db6b1800e9f0eda1151bac3`; observación posterior `2cbdc4b66315a52720c19c60e5d7ebe4e6adc996`; propuesta y deploy declarado W5/PR159 `bb16afe512be1cb04d6c86ecadb2064966a062aa`. Fecha de corte 2026-10-19T18:59:45.925355+00:00. CLAIM[6274698885](https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6274698885). Las fuentes son candidatas, no composición aceptada. No herencia de PASS entre SHAs.
+
+Se retomó el inventario previo, sin repetir scripts históricos ni cambiarba91f640. Se consultaron391 cabezas remotas,380 disponibles en el bare local para historia;11 más recientes no se usaron como prueba negativa. Se añadió la historia publicada del archivo de conservación al cotejo de blobs.
+
+De46 referencias: **7** commits aparecen exactamente en historia remota; **36** tienen árbol idéntico a otro commit remoto, lo que conserva contenido pero no acredita ese commit/linaje; **3** no quedan probadas y la consulta de objeto GitHub devolvió404. No se declara pérdida ni propiedad por autor Git. Referencias, árboles y pruebas exactas en evidence/conservation-followup.json. Las tres pendientes son46eadc66,fe6668c8,d140695f; no se subieron ni eliminaron.
+
+De4.072 archivos: **7** blobs exactos y **5** equivalentes normalizandoLF aparecen en historia remota; **2.458** JSON sin coincidencia necesitan clasificación del propietario (la extensiónNOdemuestra que sean generados); **1.602** restantes son únicos o no clasificados en el alcance consultado. No son4.060 archivos pendientes de subir. El manifiesto público usa huellas de ruta/contenido, sin exponer nombres de archivos privados de otros ámbitos. La tabla detallada sigue local para propietario.
+
+Resultado del seguimiento: **SYNC_PARTIAL**. Quedan39referencias sin prueba de ese commit exacto y4.060archivos sin coincidencia de blob; algunos pueden ser material generado, redundante o inseguro de publicar. Se requiere inventario identificado por propietario, fuente/fecha/SHA, cambios propios y clasificación; no acceso ni stash/checkout de árboles activos de Asier. Sus workspaces externos sonNO_VERIFICADO/BLOCKER_ACCESS. No se vuelve a declarar que falta el recurso nativo W5 entregado.

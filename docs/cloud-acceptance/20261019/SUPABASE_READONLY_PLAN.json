@@ -1,0 +1,71 @@
+{
+  "project_id": "zgwotxnyqzfuzcnmgvtn",
+  "mode": "PREPARED_NOT_EXECUTED",
+  "no_sql_applied": true,
+  "checks": [
+    {
+      "id": "MIGRATION_HISTORY",
+      "owner": "W5",
+      "expected_metadata": "Ordered versions+checksums matched to a pinned Git source; count alone insufficient",
+      "status": "NOT_VERIFIED_BLOCKER_ACCESS",
+      "raw_evidence_channel": "PRIVATE_OWNER_REVIEWED; publish hashes and safe summary only"
+    },
+    {
+      "id": "RPC_CATALOG",
+      "owner": "W5/W1",
+      "expected_metadata": "Signatures, owner, SECURITY DEFINER, search_path, ACL fingerprints; no business rows",
+      "status": "NOT_VERIFIED_BLOCKER_ACCESS",
+      "raw_evidence_channel": "PRIVATE_OWNER_REVIEWED; publish hashes and safe summary only"
+    },
+    {
+      "id": "RELATIONS_RLS",
+      "owner": "W5/W4",
+      "expected_metadata": "Tables, RLS/FORCE flags, policy/role/grant inventory, views invoker, triggers/indexes/constraints",
+      "status": "NOT_VERIFIED_BLOCKER_ACCESS",
+      "raw_evidence_channel": "PRIVATE_OWNER_REVIEWED; publish hashes and safe summary only"
+    },
+    {
+      "id": "AUTH_CONFIG",
+      "owner": "W5/W4",
+      "expected_metadata": "Redacted Auth/site URL/callback/MFA/session/rate/SMTP configuration and synthetic-cohort authorization",
+      "status": "NOT_VERIFIED_BLOCKER_ACCESS",
+      "raw_evidence_channel": "PRIVATE_OWNER_REVIEWED; publish hashes and safe summary only"
+    },
+    {
+      "id": "API_NETWORK_REGION",
+      "owner": "W5",
+      "expected_metadata": "Data API exposure, SSL/network controls, region/residence, plan and limits",
+      "status": "NOT_VERIFIED_BLOCKER_ACCESS",
+      "raw_evidence_channel": "PRIVATE_OWNER_REVIEWED; publish hashes and safe summary only"
+    },
+    {
+      "id": "STORAGE_CONFIG",
+      "owner": "W5/W4",
+      "expected_metadata": "Private buckets/policies/cache metadata; active revocation flaw remains blocked, no own reproduction",
+      "status": "NOT_VERIFIED_BLOCKER_ACCESS",
+      "raw_evidence_channel": "PRIVATE_OWNER_REVIEWED; publish hashes and safe summary only"
+    },
+    {
+      "id": "HOSTED_SCHEMA_DRIFT",
+      "owner": "W5",
+      "expected_metadata": "Sanitized schema/catalog fingerprints and explained manual changes compared to same migration set",
+      "status": "NOT_VERIFIED_BLOCKER_ACCESS",
+      "raw_evidence_channel": "PRIVATE_OWNER_REVIEWED; publish hashes and safe summary only"
+    },
+    {
+      "id": "BACKUP_RECOVERY",
+      "owner": "W5",
+      "expected_metadata": "Protected backup inventory, DB+Auth+object restore evidence, RPO/RTO and offsite readback",
+      "status": "NOT_VERIFIED_BLOCKER_ACCESS",
+      "raw_evidence_channel": "PRIVATE_OWNER_REVIEWED; publish hashes and safe summary only"
+    }
+  ],
+  "prohibited": [
+    "create users",
+    "business/auth/storage mutations",
+    "apply/reset/repair migrations",
+    "credentials export",
+    "other projects",
+    "live vulnerability reproduction"
+  ]
+}

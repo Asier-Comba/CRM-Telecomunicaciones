@@ -1,0 +1,84 @@
+{
+  "utc": "2026-10-19T18:59:45.925355+00:00",
+  "services": [
+    {
+      "component": "PostgreSQL/schema",
+      "owner": "W5",
+      "evidence": "W5 reports87, own connector denied",
+      "status": "BLOCKED"
+    },
+    {
+      "component": "Auth",
+      "owner": "W5/W4",
+      "evidence": "Configuration/cohort/login/refresh/MFA not independently accessible",
+      "status": "NOT_VERIFIED"
+    },
+    {
+      "component": "Storage",
+      "owner": "W5/W4",
+      "evidence": "Active P0 owner-reported; PR158 not deployed per W5",
+      "status": "BLOCKED"
+    },
+    {
+      "component": "Frontend Netlify",
+      "owner": "W5",
+      "evidence": "Own anonymous HEAD / returns401; functional/deploy identity not independently proven",
+      "status": "PARTIAL"
+    },
+    {
+      "component": "Backend Next runtime",
+      "owner": "Integrator/W5",
+      "evidence": "Owner reports bb16afe+manual config; no own authenticated cloud E2E",
+      "status": "NOT_VERIFIED"
+    },
+    {
+      "component": "Persistent workers",
+      "owner": "W5/W3",
+      "evidence": "Delivered native resource retained; live hosted processes/restart proof not supplied here",
+      "status": "NOT_VERIFIED"
+    },
+    {
+      "component": "AI",
+      "owner": "W3/W5",
+      "evidence": "Business writesOFF, live model NOT_RUN, no paid dispatch by this auditor",
+      "status": "BLOCKED"
+    },
+    {
+      "component": "Auth/CRM mail",
+      "owner": "W5",
+      "evidence": "Owner reports CRM mailOFF; Auth mail configuration not accessible",
+      "status": "NOT_VERIFIED"
+    },
+    {
+      "component": "n8n/VPS",
+      "owner": "W5",
+      "evidence": "Configuration exists; no live service/operator evidence verified",
+      "status": "NOT_VERIFIED"
+    },
+    {
+      "component": "Backups/PITR/offsite",
+      "owner": "W5",
+      "evidence": "Local CI drills distinct from managed hosted recovery; plan unknown",
+      "status": "NOT_VERIFIED"
+    },
+    {
+      "component": "DNS/TLS",
+      "owner": "W5",
+      "evidence": "Only existing preview HTTPS boundary observed; no DNS changes or owned custom-domain proof",
+      "status": "PARTIAL"
+    },
+    {
+      "component": "Observability",
+      "owner": "W5",
+      "evidence": "Templates/contracts present; live retention/alerts/drill not independently checked",
+      "status": "NOT_VERIFIED"
+    },
+    {
+      "component": "CI/CD",
+      "owner": "Integrator/W5/W4",
+      "evidence": "GitHub runs observed per exact SHA; deployment link/manual config not versioned in observed trees",
+      "status": "PARTIAL"
+    }
+  ],
+  "environment_values_or_credentials_included": false
+}

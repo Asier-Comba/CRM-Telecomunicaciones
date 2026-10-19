@@ -1,0 +1,2726 @@
+[
+  {
+    "pr": 38,
+    "sha": "60acdc5d6a2ae41ff3d751724582ade0c0762788",
+    "migrations": 85,
+    "last_migrations": [
+      "supabase/migrations/20261011080000_assistant_unconfirmed_reservation.sql",
+      "supabase/migrations/20261011090000_assistant_verified_completed_reconciliation.sql"
+    ],
+    "netlify_toml_present": false,
+    "manifest_migration_inventory": null,
+    "platform_keys": []
+  },
+  {
+    "pr": 150,
+    "sha": "32862fafbdf35c1c33b84a88ef1e7710cdac9388",
+    "migrations": 86,
+    "last_migrations": [
+      "supabase/migrations/20261011080000_assistant_unconfirmed_reservation.sql",
+      "supabase/migrations/20261011090000_assistant_verified_completed_reconciliation.sql"
+    ],
+    "netlify_toml_present": false,
+    "manifest_migration_inventory": [
+      {
+        "name": "20260925153500_core_tenant_identity.sql",
+        "version": "20260925153500",
+        "sha256": "46284301c8e56f7b5b982e1dd824890c55b05e84560afd4d34183178614ae3a4"
+      },
+      {
+        "name": "20260926120000_atomic_workspace_onboarding.sql",
+        "version": "20260926120000",
+        "sha256": "2d73a537040a5a76c9d457689d2b07b6c0f31b6a555d1f045a6797b7d9cb626c"
+      },
+      {
+        "name": "20260926143000_enforce_active_workspace_authorization.sql",
+        "version": "20260926143000",
+        "sha256": "56af5c9d55eb16c45e5584ff5c0954d45db785ea283ce702ed3869aa354f80a7"
+      },
+      {
+        "name": "20260926160000_telecom_customer_contacts.sql",
+        "version": "20260926160000",
+        "sha256": "1a1d43d3cac43e0cc36491f86695b766361cdd98d4cf16dfb2cd33bc3c813a99"
+      },
+      {
+        "name": "20260926161000_telecom_operator_plan_catalog.sql",
+        "version": "20260926161000",
+        "sha256": "a97911f5b63b38c66a21b62927442b89375ea48c36a83126b77ff83708e9e122"
+      },
+      {
+        "name": "20260926162000_telecom_contract_service_portfolio.sql",
+        "version": "20260926162000",
+        "sha256": "21214295fc64cd3c405a29c1e8f83c4e46e72ab62022dda7df7dfbad5138b08f"
+      },
+      {
+        "name": "20260926163000_telecom_commercial_operations.sql",
+        "version": "20260926163000",
+        "sha256": "7456254e3ca20017b29a18fc800b484a6328c34b4a9e36e68a6bc21fbc2af6a8"
+      },
+      {
+        "name": "20260926164000_telecom_service_cases_documents.sql",
+        "version": "20260926164000",
+        "sha256": "35d568ac6804d68744c46b72c7b89bc18e9a546adf379059d9ce1ecad045f40a"
+      },
+      {
+        "name": "20260926165000_import_audit_foundation.sql",
+        "version": "20260926165000",
+        "sha256": "a3327da21638b1144e0565e863c701414ac0b592b6b7cf7e30f5b20543153030"
+      },
+      {
+        "name": "20260927090000_fix_provision_workspace_profile_conflict.sql",
+        "version": "20260927090000",
+        "sha256": "d9e3015af2a0a6925af284a7ed04ad078cfcdfe940701dd52652d8dfd2bf93b9"
+      },
+      {
+        "name": "20260927161000_harden_shared_trigger_record_guards.sql",
+        "version": "20260927161000",
+        "sha256": "f2b3072589408414c5b4722f02f2456b7880ddb441577d816551c3797cb643bd"
+      },
+      {
+        "name": "20260927162000_enforce_import_job_initial_state.sql",
+        "version": "20260927162000",
+        "sha256": "20148daf663d6f03e549389d8c8e77bf9ce927d7e4e76f1726117c01e120d6f1"
+      },
+      {
+        "name": "20260927170000_telecom_v1_customer_read_rpc.sql",
+        "version": "20260927170000",
+        "sha256": "8408b7f1c61467997dce33a9c998336a6d2581574a030217b66f18b6e24d1167"
+      },
+      {
+        "name": "20260927171000_telecom_v1_customer_summary_rpc.sql",
+        "version": "20260927171000",
+        "sha256": "38198193e94392210ed2686b00b695f20e8d8cbce1e4d9b4e82c04f8411c40db"
+      },
+      {
+        "name": "20260927172000_telecom_v1_contract_read_rpc.sql",
+        "version": "20260927172000",
+        "sha256": "e226036182894af74d64e73707a9b45ae423761f943175afd19d7fbea341f577"
+      },
+      {
+        "name": "20260927173000_telecom_v1_service_line_read_rpc.sql",
+        "version": "20260927173000",
+        "sha256": "ab34316f06768e378105aa1f0ff8b64f51f8df7115dd97cfefcf42d4f070d9ce"
+      },
+      {
+        "name": "20260927174000_telecom_v1_activity_opportunity_read_rpc.sql",
+        "version": "20260927174000",
+        "sha256": "dfd8da004c171d257dccc0aebd06a3f3c69a87a603d3ad6e92323cd3935057e7"
+      },
+      {
+        "name": "20260927175000_telecom_v1_task_meeting_read_rpc.sql",
+        "version": "20260927175000",
+        "sha256": "c19565ae4e6eabfe0406d4d49f61bbfd20fd3f25d4e49589b6472261d8971748"
+      },
+      {
+        "name": "20260927180000_telecom_v1_renewal_permanence_read_rpc.sql",
+        "version": "20260927180000",
+        "sha256": "39c3176e4411aceaff9a87cfbe1c701070fd26d18192675d3443bf5c37c24d6b"
+      },
+      {
+        "name": "20260927181000_telecom_v1_dashboard_scope_rpc.sql",
+        "version": "20260927181000",
+        "sha256": "291de3e5f83483f696006c6cc3ab461d3522460e40edf4b66cb7ed175a7a29f3"
+      },
+      {
+        "name": "20260927182000_private_document_storage.sql",
+        "version": "20260927182000",
+        "sha256": "22d217bac21c6bcd6a3eefb03fd915c1eaa4e349707153072461e8658f309947"
+      },
+      {
+        "name": "20260927183000_assistant_durable_foundation.sql",
+        "version": "20260927183000",
+        "sha256": "6f1f4574e192fd362c0ba787201e4dc6dd6424058f6060a06170e32e72c52c04"
+      },
+      {
+        "name": "20260927184000_restrict_document_object_read.sql",
+        "version": "20260927184000",
+        "sha256": "734cd38b172b6fb2167aa7db301555f16013ec7a83a5dee5fbdda51524757076"
+      },
+      {
+        "name": "20260927185000_fix_customer_search_collation.sql",
+        "version": "20260927185000",
+        "sha256": "1e2267f4b714870937f3ace30e7fc9b0bcfc6fca041205abf9d2685217bd1742"
+      },
+      {
+        "name": "20260929212000_align_assistant_durable_contract.sql",
+        "version": "20260929212000",
+        "sha256": "d832c684d2f107562686b1c1500243f88bc4dd073e62debea58c7203da969fca"
+      },
+      {
+        "name": "20261003132000_product_customer_contact_commands.sql",
+        "version": "20261003132000",
+        "sha256": "3e4b4126d1fcf46df5df721a37cf829451d81dba9142fa04292260d6c8564287"
+      },
+      {
+        "name": "20261003134000_product_identity_editor_reads.sql",
+        "version": "20261003134000",
+        "sha256": "b5339c6887eba7993d0f34829a6af2089f7d5537b55f418b11601ef57eca688a"
+      },
+      {
+        "name": "20261004160000_product_work_commands.sql",
+        "version": "20261004160000",
+        "sha256": "3bc4796435f546879f46ac647154bd7a3d2c9f1a8cdacea2683b70cc57fb2f5b"
+      },
+      {
+        "name": "20261004162000_product_work_reads.sql",
+        "version": "20261004162000",
+        "sha256": "cd90b05178351a47dbdc4dc2ddd8e2913fe7107b1db260cfcdd271c6b4b8abbb"
+      },
+      {
+        "name": "20261004163000_product_identity_commercial_policy.sql",
+        "version": "20261004163000",
+        "sha256": "e7d692bd3fcfcc91a6a32e66297edfb7c5d21ca6338f250d0f3573a8b2e7f7d7"
+      },
+      {
+        "name": "20261004170000_product_dashboard_search.sql",
+        "version": "20261004170000",
+        "sha256": "e38237d809a2dc4970a2b02eaae6cba16a3dfce702070c4cec69d0a63d86df23"
+      },
+      {
+        "name": "20261004173000_billing_exact_issue.sql",
+        "version": "20261004173000",
+        "sha256": "189956cc71427a945888fbc8359594d5f0bad0c3a1979218e3c02f89fd5867ef"
+      },
+      {
+        "name": "20261004174000_billing_protected_reads.sql",
+        "version": "20261004174000",
+        "sha256": "3f26a7f74ee20328aea0e9426f3f66009aad0627e594c9bc9ff974f21e64f0ca"
+      },
+      {
+        "name": "20261004175000_product_dashboard_financial.sql",
+        "version": "20261004175000",
+        "sha256": "4c1366d8e4fe999270c9d2a33fbee3848759395c7bd20c01a68033575693ee16"
+      },
+      {
+        "name": "20261004180000_billing_normalized_proposal.sql",
+        "version": "20261004180000",
+        "sha256": "5e1cca230a6ec6c2b6a48515c4b54963f738cdee968a82d4a269a320beba4335"
+      },
+      {
+        "name": "20261004183000_team_protected_management.sql",
+        "version": "20261004183000",
+        "sha256": "ce1ac3ba62db8fd95aaa240096d1d7297c172279e5b2f96530cc08336d8656d1"
+      },
+      {
+        "name": "20261004190000_portfolio_human_commands.sql",
+        "version": "20261004190000",
+        "sha256": "9c08ee2040aaae9a7868f35d77f6672341f5becd4d1eb4181a214486074bf0fa"
+      },
+      {
+        "name": "20261004193000_portfolio_deadline_commands.sql",
+        "version": "20261004193000",
+        "sha256": "1f1d500ccd44487e5e3a277a5bcbbcf821216fcb3d25ef77191cd866f67a8d03"
+      },
+      {
+        "name": "20261004200000_product_protected_invoice_search.sql",
+        "version": "20261004200000",
+        "sha256": "196b051fa84ff97be18fb7eaceef1ab1efbbf73c075f8e446fa1c7859de04166"
+      },
+      {
+        "name": "20261004203000_document_metadata_commands.sql",
+        "version": "20261004203000",
+        "sha256": "21cc8c4c82ee80c847086c99771bcdf0a16fcf1d06f0ba64db84134540cd550c"
+      },
+      {
+        "name": "20261004204500_portfolio_explicit_child_provenance.sql",
+        "version": "20261004204500",
+        "sha256": "7341e1b6fe284a7016abfdca5aaa6f2316cc33024f25aaa3d332ae0cc0f4b138"
+      },
+      {
+        "name": "20261005120000_document_content_workflow.sql",
+        "version": "20261005120000",
+        "sha256": "4437725149fd9ced430b8645abb92fb04ac8c7b266d1ba1f9acdaddadbe7bd6c"
+      },
+      {
+        "name": "20261005123000_private_invoice_pdf_artifacts.sql",
+        "version": "20261005123000",
+        "sha256": "e37835f73f655271799557dc784ccb8a6820f8641bc023ea60f6cb5f7e52e6d9"
+      },
+      {
+        "name": "20261005130000_import_job_product_management.sql",
+        "version": "20261005130000",
+        "sha256": "4c183d14bb9889a0ac5faeacc7bb00dd3fb8140bac7e9b605ca91895d3f2b293"
+      },
+      {
+        "name": "20261005133000_internal_inbox_domain.sql",
+        "version": "20261005133000",
+        "sha256": "e3e4cc891ad1376c38474e1b2aee27829b76957826c63de676cde158ae7cd43c"
+      },
+      {
+        "name": "20261005140000_personal_notification_center.sql",
+        "version": "20261005140000",
+        "sha256": "fca59c25f8080c2636372d8fc00669732a976a8d896d6174b3f04e8a1d7c32b6"
+      },
+      {
+        "name": "20261005143000_registered_internal_automations.sql",
+        "version": "20261005143000",
+        "sha256": "0ba2fe39889c8657fa8b87f48b1230d0cad904a44354ab80763571b243e9e72b"
+      },
+      {
+        "name": "20261005150000_product_settings_profiles.sql",
+        "version": "20261005150000",
+        "sha256": "6f2029b6848797503d698e22765df32fe9d9e0fbe20ab9ef9dc3e41f2283a281"
+      },
+      {
+        "name": "20261005153000_requested_sensitive_reveal.sql",
+        "version": "20261005153000",
+        "sha256": "c201d80a4eb2d014b9935a3fea722d1bea6ac7e499752a5a881e2294f211c11d"
+      },
+      {
+        "name": "20261005160000_team_expiry_manual_origin.sql",
+        "version": "20261005160000",
+        "sha256": "291968f610f1d2470465b867df96e1b6fead4bcc91ad5dd11edd6bf902e62ed9"
+      },
+      {
+        "name": "20261005160500_contact_origin_without_legacy_source.sql",
+        "version": "20261005160500",
+        "sha256": "e62f22711b3d6eac4cba8325e808dd16b407ba32126c9ad92c973acbc820fdd1"
+      },
+      {
+        "name": "20261005163000_document_integrity_expired_cleanup.sql",
+        "version": "20261005163000",
+        "sha256": "92ebe0932250c2b072c79845ac1b47194a7a2d0818868d4ca29ddf9555ac120c"
+      },
+      {
+        "name": "20261005164500_document_target_ancestry_serialization.sql",
+        "version": "20261005164500",
+        "sha256": "77d21735511cd058d39bdd1ed16b48ec9b02c881a3b77af72dc4b316d9af8b27"
+      },
+      {
+        "name": "20261005203000_document_cleanup_replay_serialization.sql",
+        "version": "20261005203000",
+        "sha256": "8859a644e11db7c0d72d44e45d15d34cb518d035d0588bf09c019f7cfa3d1082"
+      },
+      {
+        "name": "20261005213000_telecom_commercial_collections.sql",
+        "version": "20261005213000",
+        "sha256": "528931de801fabd19f953d2d9564ffd7b6b25e9b3390b93936bce933b127799d"
+      },
+      {
+        "name": "20261005220000_protected_telecom_identifiers.sql",
+        "version": "20261005220000",
+        "sha256": "3b56e254b9324c2fa94488f4f0eb97d7db39e070c54e641fcc9c8e89cf7b1d77"
+      },
+      {
+        "name": "20261005223000_immutable_commercial_catalog.sql",
+        "version": "20261005223000",
+        "sha256": "759f9d6b3aa1b8e50e0e64b03a435dfccc8221c39f8d6fd6124a1acac571c4da"
+      },
+      {
+        "name": "20261006110000_commercial_portability_workflow.sql",
+        "version": "20261006110000",
+        "sha256": "2ec35807630a626795a49cd09721accb668821a359a019a29a1ba82c65d606c8"
+      },
+      {
+        "name": "20261006113000_product_service_case_workflow.sql",
+        "version": "20261006113000",
+        "sha256": "78323eb49f5ede3a5538747df50612dce7119992b9891149ba226f152d0cc649"
+      },
+      {
+        "name": "20261006120000_commercial_sim_esim_history.sql",
+        "version": "20261006120000",
+        "sha256": "0df8d32c8dc09234018a68b771de4cca1d44eecc428eb3f8eda41eea9ebaca06"
+      },
+      {
+        "name": "20261006123000_sim_association_snapshot_cas.sql",
+        "version": "20261006123000",
+        "sha256": "169273dd12ae8c6e9d963b062b3311024a880b3e6e8d96a616d6eb7c6ab9649c"
+      },
+      {
+        "name": "20261006130000_telecom_customer360_report_reads.sql",
+        "version": "20261006130000",
+        "sha256": "5ae5dd4f643de7e4af55109e6da98993e8d3514a1c147197e2055dcc630d4876"
+      },
+      {
+        "name": "20261006133000_dense_masked_line_collection.sql",
+        "version": "20261006133000",
+        "sha256": "bb1a639032308f2459a63b7b459ff1ab58ee368d0539cf92ca00b028166f058c"
+      },
+      {
+        "name": "20261006140000_deterministic_telecom_attention.sql",
+        "version": "20261006140000",
+        "sha256": "3fc65dc1579c0ad39b7fa52ec0abb06bd0e6b6c388f805728d1aafcb1261d570"
+      },
+      {
+        "name": "20261006143000_currency_separated_billing_cohort_reads.sql",
+        "version": "20261006143000",
+        "sha256": "2642d76790b873cee0016d811978eaba72a7c02d6a179ecc95aa6f26b0ef8e0f"
+      },
+      {
+        "name": "20261006150000_full_customer360_work_collections.sql",
+        "version": "20261006150000",
+        "sha256": "97338cbadb84c5e0407615125d3ae08b918ab2040df57747d584bd19f5052de6"
+      },
+      {
+        "name": "20261006153000_service_installation_and_addon_history.sql",
+        "version": "20261006153000",
+        "sha256": "21b0272260fd3bc8c2f137dec793531012ecdf3f6ba08cd6cc8bddd9584ea2b7"
+      },
+      {
+        "name": "20261006160000_normalized_private_service_locations.sql",
+        "version": "20261006160000",
+        "sha256": "5e3e76174e5aec3f33f70d756f173d60819c85dff8b4e844ea49e54cebe28926"
+      },
+      {
+        "name": "20261006163000_bounded_commercial_equipment.sql",
+        "version": "20261006163000",
+        "sha256": "9484f47d5e427933afec457960b5687e49445f0a1199515f3ec69736509df2b6"
+      },
+      {
+        "name": "20261006221429_assistant_conversations_v2.sql",
+        "version": "20261006221429",
+        "sha256": "fc8c5fb41d3750ea58db4cd2b74f42c217e08541314c2bf36251955daacf51f5"
+      },
+      {
+        "name": "20261006221500_registered_external_identities.sql",
+        "version": "20261006221500",
+        "sha256": "93c5692cd69230080fa4fd773f67d2150c85f33414ff704fad6f4897a5c0065c"
+      },
+      {
+        "name": "20261006224734_assistant_history_rpc_only.sql",
+        "version": "20261006224734",
+        "sha256": "509888a02b71d7fed8a26c11ea7b12ae16c5506e0f8273b964c1f4aa21168547"
+      },
+      {
+        "name": "20261007214224_assistant_turn_single_clock.sql",
+        "version": "20261007214224",
+        "sha256": "fef6cbb714ad7b30e7fe5f770c838ca57d7739d876f1e8862c5a9385c7de1a8f"
+      },
+      {
+        "name": "20261008010000_align_provider_rpc_execution_grants.sql",
+        "version": "20261008010000",
+        "sha256": "700d2dea9db5351cb97a0256461e67e93d399d9c0b8320bbd2e8b96ed4f6da9b"
+      },
+      {
+        "name": "20261011010500_assistant_confirm_reserve_atomic.sql",
+        "version": "20261011010500",
+        "sha256": "7f339e6a0930b406118753f054527d83c2f7aa475d6b0a3a0cff0f5e718493fd"
+      },
+      {
+        "name": "20261011012500_assistant_reservation_record_projection.sql",
+        "version": "20261011012500",
+        "sha256": "6726f354cdff94cff9194f70cd407d57f1eb3a56be1bb2da34b11d95afb3b8c0"
+      },
+      {
+        "name": "20261011014500_assistant_confirmation_cancel.sql",
+        "version": "20261011014500",
+        "sha256": "114da085ac683e6a7cc78bc23bdbceb04bce8dbea50dd4fb1c59be8c71086e0f"
+      },
+      {
+        "name": "20261011023000_assistant_operation_recovery.sql",
+        "version": "20261011023000",
+        "sha256": "974b44a7ae6ef2471477ddeca4efdc1a7da2665a734cea06561f6458a59c8278"
+      },
+      {
+        "name": "20261011031500_assistant_start_execution.sql",
+        "version": "20261011031500",
+        "sha256": "de72b2913de282a01042127ba889b8d001c26b26eab1df792db4605d06580308"
+      },
+      {
+        "name": "20261011034500_assistant_audit_delivery_workers.sql",
+        "version": "20261011034500",
+        "sha256": "865b3a589379453a057d53efd9c6bbf0e5ad7206371ce04845dc02239db2f2e4"
+      },
+      {
+        "name": "20261011040500_assistant_audit_queue.sql",
+        "version": "20261011040500",
+        "sha256": "07016eec860b63b6cc37dea89015609623492c12fa10d87c09b28b3134196567"
+      },
+      {
+        "name": "20261011050000_assistant_command_material.sql",
+        "version": "20261011050000",
+        "sha256": "3ed1e21ebf1373d148b5ee6cde5ab4d566608e289b228df748ad47687b0f022f"
+      },
+      {
+        "name": "20261011060000_assistant_effect_workers.sql",
+        "version": "20261011060000",
+        "sha256": "4096997dc8ba8493083d12f33cb19edde5465f5adc85de00682c5d05fc010664"
+      },
+      {
+        "name": "20261011070000_assistant_safe_completion.sql",
+        "version": "20261011070000",
+        "sha256": "7b8fe7214836333781b68f681bb96920d6ee3aa3043964f778efd48e4e5b985e"
+      },
+      {
+        "name": "20261011080000_assistant_unconfirmed_reservation.sql",
+        "version": "20261011080000",
+        "sha256": "031b898bb678ece80ca29bfd342918f31f69c52eb8054c3d8c2bd76e7987b03e"
+      },
+      {
+        "name": "20261011090000_assistant_verified_completed_reconciliation.sql",
+        "version": "20261011090000",
+        "sha256": "17159132d207ea2f10bba3597d93e29b3cd900c696f2dbbef581be639fc30f18"
+      }
+    ],
+    "platform_keys": [
+      "AI_PROVIDER",
+      "NEXT_PUBLIC_SUPABASE_URL",
+      "OPENAI_PROJECT_ID",
+      "PLATFORM_TARGET",
+      "PRODUCT_V1_ENABLED",
+      "PRODUCT_V1_ORIGIN"
+    ]
+  },
+  {
+    "pr": 153,
+    "sha": "7f6626e32a609eb22ffdd8052c9cc59e60d98453",
+    "migrations": 85,
+    "last_migrations": [
+      "supabase/migrations/20261011080000_assistant_unconfirmed_reservation.sql",
+      "supabase/migrations/20261011090000_assistant_verified_completed_reconciliation.sql"
+    ],
+    "netlify_toml_present": false,
+    "manifest_migration_inventory": null,
+    "platform_keys": []
+  },
+  {
+    "pr": 155,
+    "sha": "da468c5fa4d596c077fa2be8a354468718062d4f",
+    "migrations": 86,
+    "last_migrations": [
+      "supabase/migrations/20261011080000_assistant_unconfirmed_reservation.sql",
+      "supabase/migrations/20261011090000_assistant_verified_completed_reconciliation.sql"
+    ],
+    "netlify_toml_present": false,
+    "manifest_migration_inventory": [
+      {
+        "name": "20260925153500_core_tenant_identity.sql",
+        "version": "20260925153500",
+        "sha256": "46284301c8e56f7b5b982e1dd824890c55b05e84560afd4d34183178614ae3a4"
+      },
+      {
+        "name": "20260926120000_atomic_workspace_onboarding.sql",
+        "version": "20260926120000",
+        "sha256": "2d73a537040a5a76c9d457689d2b07b6c0f31b6a555d1f045a6797b7d9cb626c"
+      },
+      {
+        "name": "20260926143000_enforce_active_workspace_authorization.sql",
+        "version": "20260926143000",
+        "sha256": "56af5c9d55eb16c45e5584ff5c0954d45db785ea283ce702ed3869aa354f80a7"
+      },
+      {
+        "name": "20260926160000_telecom_customer_contacts.sql",
+        "version": "20260926160000",
+        "sha256": "1a1d43d3cac43e0cc36491f86695b766361cdd98d4cf16dfb2cd33bc3c813a99"
+      },
+      {
+        "name": "20260926161000_telecom_operator_plan_catalog.sql",
+        "version": "20260926161000",
+        "sha256": "a97911f5b63b38c66a21b62927442b89375ea48c36a83126b77ff83708e9e122"
+      },
+      {
+        "name": "20260926162000_telecom_contract_service_portfolio.sql",
+        "version": "20260926162000",
+        "sha256": "21214295fc64cd3c405a29c1e8f83c4e46e72ab62022dda7df7dfbad5138b08f"
+      },
+      {
+        "name": "20260926163000_telecom_commercial_operations.sql",
+        "version": "20260926163000",
+        "sha256": "7456254e3ca20017b29a18fc800b484a6328c34b4a9e36e68a6bc21fbc2af6a8"
+      },
+      {
+        "name": "20260926164000_telecom_service_cases_documents.sql",
+        "version": "20260926164000",
+        "sha256": "35d568ac6804d68744c46b72c7b89bc18e9a546adf379059d9ce1ecad045f40a"
+      },
+      {
+        "name": "20260926165000_import_audit_foundation.sql",
+        "version": "20260926165000",
+        "sha256": "a3327da21638b1144e0565e863c701414ac0b592b6b7cf7e30f5b20543153030"
+      },
+      {
+        "name": "20260927090000_fix_provision_workspace_profile_conflict.sql",
+        "version": "20260927090000",
+        "sha256": "d9e3015af2a0a6925af284a7ed04ad078cfcdfe940701dd52652d8dfd2bf93b9"
+      },
+      {
+        "name": "20260927161000_harden_shared_trigger_record_guards.sql",
+        "version": "20260927161000",
+        "sha256": "f2b3072589408414c5b4722f02f2456b7880ddb441577d816551c3797cb643bd"
+      },
+      {
+        "name": "20260927162000_enforce_import_job_initial_state.sql",
+        "version": "20260927162000",
+        "sha256": "20148daf663d6f03e549389d8c8e77bf9ce927d7e4e76f1726117c01e120d6f1"
+      },
+      {
+        "name": "20260927170000_telecom_v1_customer_read_rpc.sql",
+        "version": "20260927170000",
+        "sha256": "8408b7f1c61467997dce33a9c998336a6d2581574a030217b66f18b6e24d1167"
+      },
+      {
+        "name": "20260927171000_telecom_v1_customer_summary_rpc.sql",
+        "version": "20260927171000",
+        "sha256": "38198193e94392210ed2686b00b695f20e8d8cbce1e4d9b4e82c04f8411c40db"
+      },
+      {
+        "name": "20260927172000_telecom_v1_contract_read_rpc.sql",
+        "version": "20260927172000",
+        "sha256": "e226036182894af74d64e73707a9b45ae423761f943175afd19d7fbea341f577"
+      },
+      {
+        "name": "20260927173000_telecom_v1_service_line_read_rpc.sql",
+        "version": "20260927173000",
+        "sha256": "ab34316f06768e378105aa1f0ff8b64f51f8df7115dd97cfefcf42d4f070d9ce"
+      },
+      {
+        "name": "20260927174000_telecom_v1_activity_opportunity_read_rpc.sql",
+        "version": "20260927174000",
+        "sha256": "dfd8da004c171d257dccc0aebd06a3f3c69a87a603d3ad6e92323cd3935057e7"
+      },
+      {
+        "name": "20260927175000_telecom_v1_task_meeting_read_rpc.sql",
+        "version": "20260927175000",
+        "sha256": "c19565ae4e6eabfe0406d4d49f61bbfd20fd3f25d4e49589b6472261d8971748"
+      },
+      {
+        "name": "20260927180000_telecom_v1_renewal_permanence_read_rpc.sql",
+        "version": "20260927180000",
+        "sha256": "39c3176e4411aceaff9a87cfbe1c701070fd26d18192675d3443bf5c37c24d6b"
+      },
+      {
+        "name": "20260927181000_telecom_v1_dashboard_scope_rpc.sql",
+        "version": "20260927181000",
+        "sha256": "291de3e5f83483f696006c6cc3ab461d3522460e40edf4b66cb7ed175a7a29f3"
+      },
+      {
+        "name": "20260927182000_private_document_storage.sql",
+        "version": "20260927182000",
+        "sha256": "22d217bac21c6bcd6a3eefb03fd915c1eaa4e349707153072461e8658f309947"
+      },
+      {
+        "name": "20260927183000_assistant_durable_foundation.sql",
+        "version": "20260927183000",
+        "sha256": "6f1f4574e192fd362c0ba787201e4dc6dd6424058f6060a06170e32e72c52c04"
+      },
+      {
+        "name": "20260927184000_restrict_document_object_read.sql",
+        "version": "20260927184000",
+        "sha256": "734cd38b172b6fb2167aa7db301555f16013ec7a83a5dee5fbdda51524757076"
+      },
+      {
+        "name": "20260927185000_fix_customer_search_collation.sql",
+        "version": "20260927185000",
+        "sha256": "1e2267f4b714870937f3ace30e7fc9b0bcfc6fca041205abf9d2685217bd1742"
+      },
+      {
+        "name": "20260929212000_align_assistant_durable_contract.sql",
+        "version": "20260929212000",
+        "sha256": "d832c684d2f107562686b1c1500243f88bc4dd073e62debea58c7203da969fca"
+      },
+      {
+        "name": "20261003132000_product_customer_contact_commands.sql",
+        "version": "20261003132000",
+        "sha256": "3e4b4126d1fcf46df5df721a37cf829451d81dba9142fa04292260d6c8564287"
+      },
+      {
+        "name": "20261003134000_product_identity_editor_reads.sql",
+        "version": "20261003134000",
+        "sha256": "b5339c6887eba7993d0f34829a6af2089f7d5537b55f418b11601ef57eca688a"
+      },
+      {
+        "name": "20261004160000_product_work_commands.sql",
+        "version": "20261004160000",
+        "sha256": "3bc4796435f546879f46ac647154bd7a3d2c9f1a8cdacea2683b70cc57fb2f5b"
+      },
+      {
+        "name": "20261004162000_product_work_reads.sql",
+        "version": "20261004162000",
+        "sha256": "cd90b05178351a47dbdc4dc2ddd8e2913fe7107b1db260cfcdd271c6b4b8abbb"
+      },
+      {
+        "name": "20261004163000_product_identity_commercial_policy.sql",
+        "version": "20261004163000",
+        "sha256": "e7d692bd3fcfcc91a6a32e66297edfb7c5d21ca6338f250d0f3573a8b2e7f7d7"
+      },
+      {
+        "name": "20261004170000_product_dashboard_search.sql",
+        "version": "20261004170000",
+        "sha256": "e38237d809a2dc4970a2b02eaae6cba16a3dfce702070c4cec69d0a63d86df23"
+      },
+      {
+        "name": "20261004173000_billing_exact_issue.sql",
+        "version": "20261004173000",
+        "sha256": "189956cc71427a945888fbc8359594d5f0bad0c3a1979218e3c02f89fd5867ef"
+      },
+      {
+        "name": "20261004174000_billing_protected_reads.sql",
+        "version": "20261004174000",
+        "sha256": "3f26a7f74ee20328aea0e9426f3f66009aad0627e594c9bc9ff974f21e64f0ca"
+      },
+      {
+        "name": "20261004175000_product_dashboard_financial.sql",
+        "version": "20261004175000",
+        "sha256": "4c1366d8e4fe999270c9d2a33fbee3848759395c7bd20c01a68033575693ee16"
+      },
+      {
+        "name": "20261004180000_billing_normalized_proposal.sql",
+        "version": "20261004180000",
+        "sha256": "5e1cca230a6ec6c2b6a48515c4b54963f738cdee968a82d4a269a320beba4335"
+      },
+      {
+        "name": "20261004183000_team_protected_management.sql",
+        "version": "20261004183000",
+        "sha256": "ce1ac3ba62db8fd95aaa240096d1d7297c172279e5b2f96530cc08336d8656d1"
+      },
+      {
+        "name": "20261004190000_portfolio_human_commands.sql",
+        "version": "20261004190000",
+        "sha256": "9c08ee2040aaae9a7868f35d77f6672341f5becd4d1eb4181a214486074bf0fa"
+      },
+      {
+        "name": "20261004193000_portfolio_deadline_commands.sql",
+        "version": "20261004193000",
+        "sha256": "1f1d500ccd44487e5e3a277a5bcbbcf821216fcb3d25ef77191cd866f67a8d03"
+      },
+      {
+        "name": "20261004200000_product_protected_invoice_search.sql",
+        "version": "20261004200000",
+        "sha256": "196b051fa84ff97be18fb7eaceef1ab1efbbf73c075f8e446fa1c7859de04166"
+      },
+      {
+        "name": "20261004203000_document_metadata_commands.sql",
+        "version": "20261004203000",
+        "sha256": "21cc8c4c82ee80c847086c99771bcdf0a16fcf1d06f0ba64db84134540cd550c"
+      },
+      {
+        "name": "20261004204500_portfolio_explicit_child_provenance.sql",
+        "version": "20261004204500",
+        "sha256": "7341e1b6fe284a7016abfdca5aaa6f2316cc33024f25aaa3d332ae0cc0f4b138"
+      },
+      {
+        "name": "20261005120000_document_content_workflow.sql",
+        "version": "20261005120000",
+        "sha256": "4437725149fd9ced430b8645abb92fb04ac8c7b266d1ba1f9acdaddadbe7bd6c"
+      },
+      {
+        "name": "20261005123000_private_invoice_pdf_artifacts.sql",
+        "version": "20261005123000",
+        "sha256": "e37835f73f655271799557dc784ccb8a6820f8641bc023ea60f6cb5f7e52e6d9"
+      },
+      {
+        "name": "20261005130000_import_job_product_management.sql",
+        "version": "20261005130000",
+        "sha256": "4c183d14bb9889a0ac5faeacc7bb00dd3fb8140bac7e9b605ca91895d3f2b293"
+      },
+      {
+        "name": "20261005133000_internal_inbox_domain.sql",
+        "version": "20261005133000",
+        "sha256": "e3e4cc891ad1376c38474e1b2aee27829b76957826c63de676cde158ae7cd43c"
+      },
+      {
+        "name": "20261005140000_personal_notification_center.sql",
+        "version": "20261005140000",
+        "sha256": "fca59c25f8080c2636372d8fc00669732a976a8d896d6174b3f04e8a1d7c32b6"
+      },
+      {
+        "name": "20261005143000_registered_internal_automations.sql",
+        "version": "20261005143000",
+        "sha256": "0ba2fe39889c8657fa8b87f48b1230d0cad904a44354ab80763571b243e9e72b"
+      },
+      {
+        "name": "20261005150000_product_settings_profiles.sql",
+        "version": "20261005150000",
+        "sha256": "6f2029b6848797503d698e22765df32fe9d9e0fbe20ab9ef9dc3e41f2283a281"
+      },
+      {
+        "name": "20261005153000_requested_sensitive_reveal.sql",
+        "version": "20261005153000",
+        "sha256": "c201d80a4eb2d014b9935a3fea722d1bea6ac7e499752a5a881e2294f211c11d"
+      },
+      {
+        "name": "20261005160000_team_expiry_manual_origin.sql",
+        "version": "20261005160000",
+        "sha256": "291968f610f1d2470465b867df96e1b6fead4bcc91ad5dd11edd6bf902e62ed9"
+      },
+      {
+        "name": "20261005160500_contact_origin_without_legacy_source.sql",
+        "version": "20261005160500",
+        "sha256": "e62f22711b3d6eac4cba8325e808dd16b407ba32126c9ad92c973acbc820fdd1"
+      },
+      {
+        "name": "20261005163000_document_integrity_expired_cleanup.sql",
+        "version": "20261005163000",
+        "sha256": "92ebe0932250c2b072c79845ac1b47194a7a2d0818868d4ca29ddf9555ac120c"
+      },
+      {
+        "name": "20261005164500_document_target_ancestry_serialization.sql",
+        "version": "20261005164500",
+        "sha256": "77d21735511cd058d39bdd1ed16b48ec9b02c881a3b77af72dc4b316d9af8b27"
+      },
+      {
+        "name": "20261005203000_document_cleanup_replay_serialization.sql",
+        "version": "20261005203000",
+        "sha256": "8859a644e11db7c0d72d44e45d15d34cb518d035d0588bf09c019f7cfa3d1082"
+      },
+      {
+        "name": "20261005213000_telecom_commercial_collections.sql",
+        "version": "20261005213000",
+        "sha256": "528931de801fabd19f953d2d9564ffd7b6b25e9b3390b93936bce933b127799d"
+      },
+      {
+        "name": "20261005220000_protected_telecom_identifiers.sql",
+        "version": "20261005220000",
+        "sha256": "3b56e254b9324c2fa94488f4f0eb97d7db39e070c54e641fcc9c8e89cf7b1d77"
+      },
+      {
+        "name": "20261005223000_immutable_commercial_catalog.sql",
+        "version": "20261005223000",
+        "sha256": "759f9d6b3aa1b8e50e0e64b03a435dfccc8221c39f8d6fd6124a1acac571c4da"
+      },
+      {
+        "name": "20261006110000_commercial_portability_workflow.sql",
+        "version": "20261006110000",
+        "sha256": "2ec35807630a626795a49cd09721accb668821a359a019a29a1ba82c65d606c8"
+      },
+      {
+        "name": "20261006113000_product_service_case_workflow.sql",
+        "version": "20261006113000",
+        "sha256": "78323eb49f5ede3a5538747df50612dce7119992b9891149ba226f152d0cc649"
+      },
+      {
+        "name": "20261006120000_commercial_sim_esim_history.sql",
+        "version": "20261006120000",
+        "sha256": "0df8d32c8dc09234018a68b771de4cca1d44eecc428eb3f8eda41eea9ebaca06"
+      },
+      {
+        "name": "20261006123000_sim_association_snapshot_cas.sql",
+        "version": "20261006123000",
+        "sha256": "169273dd12ae8c6e9d963b062b3311024a880b3e6e8d96a616d6eb7c6ab9649c"
+      },
+      {
+        "name": "20261006130000_telecom_customer360_report_reads.sql",
+        "version": "20261006130000",
+        "sha256": "5ae5dd4f643de7e4af55109e6da98993e8d3514a1c147197e2055dcc630d4876"
+      },
+      {
+        "name": "20261006133000_dense_masked_line_collection.sql",
+        "version": "20261006133000",
+        "sha256": "bb1a639032308f2459a63b7b459ff1ab58ee368d0539cf92ca00b028166f058c"
+      },
+      {
+        "name": "20261006140000_deterministic_telecom_attention.sql",
+        "version": "20261006140000",
+        "sha256": "3fc65dc1579c0ad39b7fa52ec0abb06bd0e6b6c388f805728d1aafcb1261d570"
+      },
+      {
+        "name": "20261006143000_currency_separated_billing_cohort_reads.sql",
+        "version": "20261006143000",
+        "sha256": "2642d76790b873cee0016d811978eaba72a7c02d6a179ecc95aa6f26b0ef8e0f"
+      },
+      {
+        "name": "20261006150000_full_customer360_work_collections.sql",
+        "version": "20261006150000",
+        "sha256": "97338cbadb84c5e0407615125d3ae08b918ab2040df57747d584bd19f5052de6"
+      },
+      {
+        "name": "20261006153000_service_installation_and_addon_history.sql",
+        "version": "20261006153000",
+        "sha256": "21b0272260fd3bc8c2f137dec793531012ecdf3f6ba08cd6cc8bddd9584ea2b7"
+      },
+      {
+        "name": "20261006160000_normalized_private_service_locations.sql",
+        "version": "20261006160000",
+        "sha256": "5e3e76174e5aec3f33f70d756f173d60819c85dff8b4e844ea49e54cebe28926"
+      },
+      {
+        "name": "20261006163000_bounded_commercial_equipment.sql",
+        "version": "20261006163000",
+        "sha256": "9484f47d5e427933afec457960b5687e49445f0a1199515f3ec69736509df2b6"
+      },
+      {
+        "name": "20261006221429_assistant_conversations_v2.sql",
+        "version": "20261006221429",
+        "sha256": "fc8c5fb41d3750ea58db4cd2b74f42c217e08541314c2bf36251955daacf51f5"
+      },
+      {
+        "name": "20261006221500_registered_external_identities.sql",
+        "version": "20261006221500",
+        "sha256": "93c5692cd69230080fa4fd773f67d2150c85f33414ff704fad6f4897a5c0065c"
+      },
+      {
+        "name": "20261006224734_assistant_history_rpc_only.sql",
+        "version": "20261006224734",
+        "sha256": "509888a02b71d7fed8a26c11ea7b12ae16c5506e0f8273b964c1f4aa21168547"
+      },
+      {
+        "name": "20261007214224_assistant_turn_single_clock.sql",
+        "version": "20261007214224",
+        "sha256": "fef6cbb714ad7b30e7fe5f770c838ca57d7739d876f1e8862c5a9385c7de1a8f"
+      },
+      {
+        "name": "20261008010000_align_provider_rpc_execution_grants.sql",
+        "version": "20261008010000",
+        "sha256": "700d2dea9db5351cb97a0256461e67e93d399d9c0b8320bbd2e8b96ed4f6da9b"
+      },
+      {
+        "name": "20261011010500_assistant_confirm_reserve_atomic.sql",
+        "version": "20261011010500",
+        "sha256": "7f339e6a0930b406118753f054527d83c2f7aa475d6b0a3a0cff0f5e718493fd"
+      },
+      {
+        "name": "20261011012500_assistant_reservation_record_projection.sql",
+        "version": "20261011012500",
+        "sha256": "6726f354cdff94cff9194f70cd407d57f1eb3a56be1bb2da34b11d95afb3b8c0"
+      },
+      {
+        "name": "20261011014500_assistant_confirmation_cancel.sql",
+        "version": "20261011014500",
+        "sha256": "114da085ac683e6a7cc78bc23bdbceb04bce8dbea50dd4fb1c59be8c71086e0f"
+      },
+      {
+        "name": "20261011023000_assistant_operation_recovery.sql",
+        "version": "20261011023000",
+        "sha256": "974b44a7ae6ef2471477ddeca4efdc1a7da2665a734cea06561f6458a59c8278"
+      },
+      {
+        "name": "20261011031500_assistant_start_execution.sql",
+        "version": "20261011031500",
+        "sha256": "de72b2913de282a01042127ba889b8d001c26b26eab1df792db4605d06580308"
+      },
+      {
+        "name": "20261011034500_assistant_audit_delivery_workers.sql",
+        "version": "20261011034500",
+        "sha256": "865b3a589379453a057d53efd9c6bbf0e5ad7206371ce04845dc02239db2f2e4"
+      },
+      {
+        "name": "20261011040500_assistant_audit_queue.sql",
+        "version": "20261011040500",
+        "sha256": "07016eec860b63b6cc37dea89015609623492c12fa10d87c09b28b3134196567"
+      },
+      {
+        "name": "20261011050000_assistant_command_material.sql",
+        "version": "20261011050000",
+        "sha256": "3ed1e21ebf1373d148b5ee6cde5ab4d566608e289b228df748ad47687b0f022f"
+      },
+      {
+        "name": "20261011060000_assistant_effect_workers.sql",
+        "version": "20261011060000",
+        "sha256": "4096997dc8ba8493083d12f33cb19edde5465f5adc85de00682c5d05fc010664"
+      },
+      {
+        "name": "20261011070000_assistant_safe_completion.sql",
+        "version": "20261011070000",
+        "sha256": "7b8fe7214836333781b68f681bb96920d6ee3aa3043964f778efd48e4e5b985e"
+      },
+      {
+        "name": "20261011080000_assistant_unconfirmed_reservation.sql",
+        "version": "20261011080000",
+        "sha256": "031b898bb678ece80ca29bfd342918f31f69c52eb8054c3d8c2bd76e7987b03e"
+      },
+      {
+        "name": "20261011090000_assistant_verified_completed_reconciliation.sql",
+        "version": "20261011090000",
+        "sha256": "17159132d207ea2f10bba3597d93e29b3cd900c696f2dbbef581be639fc30f18"
+      }
+    ],
+    "platform_keys": [
+      "AI_PROVIDER",
+      "NEXT_PUBLIC_SUPABASE_URL",
+      "OPENAI_PROJECT_ID",
+      "PLATFORM_TARGET",
+      "PRODUCT_V1_ENABLED",
+      "PRODUCT_V1_ORIGIN"
+    ]
+  },
+  {
+    "pr": 156,
+    "sha": "5332d9899eb1062a7db6b1800e9f0eda1151bac3",
+    "migrations": 86,
+    "last_migrations": [
+      "supabase/migrations/20261011080000_assistant_unconfirmed_reservation.sql",
+      "supabase/migrations/20261011090000_assistant_verified_completed_reconciliation.sql"
+    ],
+    "netlify_toml_present": false,
+    "manifest_migration_inventory": [
+      {
+        "name": "20260925153500_core_tenant_identity.sql",
+        "version": "20260925153500",
+        "sha256": "46284301c8e56f7b5b982e1dd824890c55b05e84560afd4d34183178614ae3a4"
+      },
+      {
+        "name": "20260926120000_atomic_workspace_onboarding.sql",
+        "version": "20260926120000",
+        "sha256": "2d73a537040a5a76c9d457689d2b07b6c0f31b6a555d1f045a6797b7d9cb626c"
+      },
+      {
+        "name": "20260926143000_enforce_active_workspace_authorization.sql",
+        "version": "20260926143000",
+        "sha256": "56af5c9d55eb16c45e5584ff5c0954d45db785ea283ce702ed3869aa354f80a7"
+      },
+      {
+        "name": "20260926160000_telecom_customer_contacts.sql",
+        "version": "20260926160000",
+        "sha256": "1a1d43d3cac43e0cc36491f86695b766361cdd98d4cf16dfb2cd33bc3c813a99"
+      },
+      {
+        "name": "20260926161000_telecom_operator_plan_catalog.sql",
+        "version": "20260926161000",
+        "sha256": "a97911f5b63b38c66a21b62927442b89375ea48c36a83126b77ff83708e9e122"
+      },
+      {
+        "name": "20260926162000_telecom_contract_service_portfolio.sql",
+        "version": "20260926162000",
+        "sha256": "21214295fc64cd3c405a29c1e8f83c4e46e72ab62022dda7df7dfbad5138b08f"
+      },
+      {
+        "name": "20260926163000_telecom_commercial_operations.sql",
+        "version": "20260926163000",
+        "sha256": "7456254e3ca20017b29a18fc800b484a6328c34b4a9e36e68a6bc21fbc2af6a8"
+      },
+      {
+        "name": "20260926164000_telecom_service_cases_documents.sql",
+        "version": "20260926164000",
+        "sha256": "35d568ac6804d68744c46b72c7b89bc18e9a546adf379059d9ce1ecad045f40a"
+      },
+      {
+        "name": "20260926165000_import_audit_foundation.sql",
+        "version": "20260926165000",
+        "sha256": "a3327da21638b1144e0565e863c701414ac0b592b6b7cf7e30f5b20543153030"
+      },
+      {
+        "name": "20260927090000_fix_provision_workspace_profile_conflict.sql",
+        "version": "20260927090000",
+        "sha256": "d9e3015af2a0a6925af284a7ed04ad078cfcdfe940701dd52652d8dfd2bf93b9"
+      },
+      {
+        "name": "20260927161000_harden_shared_trigger_record_guards.sql",
+        "version": "20260927161000",
+        "sha256": "f2b3072589408414c5b4722f02f2456b7880ddb441577d816551c3797cb643bd"
+      },
+      {
+        "name": "20260927162000_enforce_import_job_initial_state.sql",
+        "version": "20260927162000",
+        "sha256": "20148daf663d6f03e549389d8c8e77bf9ce927d7e4e76f1726117c01e120d6f1"
+      },
+      {
+        "name": "20260927170000_telecom_v1_customer_read_rpc.sql",
+        "version": "20260927170000",
+        "sha256": "8408b7f1c61467997dce33a9c998336a6d2581574a030217b66f18b6e24d1167"
+      },
+      {
+        "name": "20260927171000_telecom_v1_customer_summary_rpc.sql",
+        "version": "20260927171000",
+        "sha256": "38198193e94392210ed2686b00b695f20e8d8cbce1e4d9b4e82c04f8411c40db"
+      },
+      {
+        "name": "20260927172000_telecom_v1_contract_read_rpc.sql",
+        "version": "20260927172000",
+        "sha256": "e226036182894af74d64e73707a9b45ae423761f943175afd19d7fbea341f577"
+      },
+      {
+        "name": "20260927173000_telecom_v1_service_line_read_rpc.sql",
+        "version": "20260927173000",
+        "sha256": "ab34316f06768e378105aa1f0ff8b64f51f8df7115dd97cfefcf42d4f070d9ce"
+      },
+      {
+        "name": "20260927174000_telecom_v1_activity_opportunity_read_rpc.sql",
+        "version": "20260927174000",
+        "sha256": "dfd8da004c171d257dccc0aebd06a3f3c69a87a603d3ad6e92323cd3935057e7"
+      },
+      {
+        "name": "20260927175000_telecom_v1_task_meeting_read_rpc.sql",
+        "version": "20260927175000",
+        "sha256": "c19565ae4e6eabfe0406d4d49f61bbfd20fd3f25d4e49589b6472261d8971748"
+      },
+      {
+        "name": "20260927180000_telecom_v1_renewal_permanence_read_rpc.sql",
+        "version": "20260927180000",
+        "sha256": "39c3176e4411aceaff9a87cfbe1c701070fd26d18192675d3443bf5c37c24d6b"
+      },
+      {
+        "name": "20260927181000_telecom_v1_dashboard_scope_rpc.sql",
+        "version": "20260927181000",
+        "sha256": "291de3e5f83483f696006c6cc3ab461d3522460e40edf4b66cb7ed175a7a29f3"
+      },
+      {
+        "name": "20260927182000_private_document_storage.sql",
+        "version": "20260927182000",
+        "sha256": "22d217bac21c6bcd6a3eefb03fd915c1eaa4e349707153072461e8658f309947"
+      },
+      {
+        "name": "20260927183000_assistant_durable_foundation.sql",
+        "version": "20260927183000",
+        "sha256": "6f1f4574e192fd362c0ba787201e4dc6dd6424058f6060a06170e32e72c52c04"
+      },
+      {
+        "name": "20260927184000_restrict_document_object_read.sql",
+        "version": "20260927184000",
+        "sha256": "734cd38b172b6fb2167aa7db301555f16013ec7a83a5dee5fbdda51524757076"
+      },
+      {
+        "name": "20260927185000_fix_customer_search_collation.sql",
+        "version": "20260927185000",
+        "sha256": "1e2267f4b714870937f3ace30e7fc9b0bcfc6fca041205abf9d2685217bd1742"
+      },
+      {
+        "name": "20260929212000_align_assistant_durable_contract.sql",
+        "version": "20260929212000",
+        "sha256": "d832c684d2f107562686b1c1500243f88bc4dd073e62debea58c7203da969fca"
+      },
+      {
+        "name": "20261003132000_product_customer_contact_commands.sql",
+        "version": "20261003132000",
+        "sha256": "3e4b4126d1fcf46df5df721a37cf829451d81dba9142fa04292260d6c8564287"
+      },
+      {
+        "name": "20261003134000_product_identity_editor_reads.sql",
+        "version": "20261003134000",
+        "sha256": "b5339c6887eba7993d0f34829a6af2089f7d5537b55f418b11601ef57eca688a"
+      },
+      {
+        "name": "20261004160000_product_work_commands.sql",
+        "version": "20261004160000",
+        "sha256": "3bc4796435f546879f46ac647154bd7a3d2c9f1a8cdacea2683b70cc57fb2f5b"
+      },
+      {
+        "name": "20261004162000_product_work_reads.sql",
+        "version": "20261004162000",
+        "sha256": "cd90b05178351a47dbdc4dc2ddd8e2913fe7107b1db260cfcdd271c6b4b8abbb"
+      },
+      {
+        "name": "20261004163000_product_identity_commercial_policy.sql",
+        "version": "20261004163000",
+        "sha256": "e7d692bd3fcfcc91a6a32e66297edfb7c5d21ca6338f250d0f3573a8b2e7f7d7"
+      },
+      {
+        "name": "20261004170000_product_dashboard_search.sql",
+        "version": "20261004170000",
+        "sha256": "e38237d809a2dc4970a2b02eaae6cba16a3dfce702070c4cec69d0a63d86df23"
+      },
+      {
+        "name": "20261004173000_billing_exact_issue.sql",
+        "version": "20261004173000",
+        "sha256": "189956cc71427a945888fbc8359594d5f0bad0c3a1979218e3c02f89fd5867ef"
+      },
+      {
+        "name": "20261004174000_billing_protected_reads.sql",
+        "version": "20261004174000",
+        "sha256": "3f26a7f74ee20328aea0e9426f3f66009aad0627e594c9bc9ff974f21e64f0ca"
+      },
+      {
+        "name": "20261004175000_product_dashboard_financial.sql",
+        "version": "20261004175000",
+        "sha256": "4c1366d8e4fe999270c9d2a33fbee3848759395c7bd20c01a68033575693ee16"
+      },
+      {
+        "name": "20261004180000_billing_normalized_proposal.sql",
+        "version": "20261004180000",
+        "sha256": "5e1cca230a6ec6c2b6a48515c4b54963f738cdee968a82d4a269a320beba4335"
+      },
+      {
+        "name": "20261004183000_team_protected_management.sql",
+        "version": "20261004183000",
+        "sha256": "ce1ac3ba62db8fd95aaa240096d1d7297c172279e5b2f96530cc08336d8656d1"
+      },
+      {
+        "name": "20261004190000_portfolio_human_commands.sql",
+        "version": "20261004190000",
+        "sha256": "9c08ee2040aaae9a7868f35d77f6672341f5becd4d1eb4181a214486074bf0fa"
+      },
+      {
+        "name": "20261004193000_portfolio_deadline_commands.sql",
+        "version": "20261004193000",
+        "sha256": "1f1d500ccd44487e5e3a277a5bcbbcf821216fcb3d25ef77191cd866f67a8d03"
+      },
+      {
+        "name": "20261004200000_product_protected_invoice_search.sql",
+        "version": "20261004200000",
+        "sha256": "196b051fa84ff97be18fb7eaceef1ab1efbbf73c075f8e446fa1c7859de04166"
+      },
+      {
+        "name": "20261004203000_document_metadata_commands.sql",
+        "version": "20261004203000",
+        "sha256": "21cc8c4c82ee80c847086c99771bcdf0a16fcf1d06f0ba64db84134540cd550c"
+      },
+      {
+        "name": "20261004204500_portfolio_explicit_child_provenance.sql",
+        "version": "20261004204500",
+        "sha256": "7341e1b6fe284a7016abfdca5aaa6f2316cc33024f25aaa3d332ae0cc0f4b138"
+      },
+      {
+        "name": "20261005120000_document_content_workflow.sql",
+        "version": "20261005120000",
+        "sha256": "4437725149fd9ced430b8645abb92fb04ac8c7b266d1ba1f9acdaddadbe7bd6c"
+      },
+      {
+        "name": "20261005123000_private_invoice_pdf_artifacts.sql",
+        "version": "20261005123000",
+        "sha256": "e37835f73f655271799557dc784ccb8a6820f8641bc023ea60f6cb5f7e52e6d9"
+      },
+      {
+        "name": "20261005130000_import_job_product_management.sql",
+        "version": "20261005130000",
+        "sha256": "4c183d14bb9889a0ac5faeacc7bb00dd3fb8140bac7e9b605ca91895d3f2b293"
+      },
+      {
+        "name": "20261005133000_internal_inbox_domain.sql",
+        "version": "20261005133000",
+        "sha256": "e3e4cc891ad1376c38474e1b2aee27829b76957826c63de676cde158ae7cd43c"
+      },
+      {
+        "name": "20261005140000_personal_notification_center.sql",
+        "version": "20261005140000",
+        "sha256": "fca59c25f8080c2636372d8fc00669732a976a8d896d6174b3f04e8a1d7c32b6"
+      },
+      {
+        "name": "20261005143000_registered_internal_automations.sql",
+        "version": "20261005143000",
+        "sha256": "0ba2fe39889c8657fa8b87f48b1230d0cad904a44354ab80763571b243e9e72b"
+      },
+      {
+        "name": "20261005150000_product_settings_profiles.sql",
+        "version": "20261005150000",
+        "sha256": "6f2029b6848797503d698e22765df32fe9d9e0fbe20ab9ef9dc3e41f2283a281"
+      },
+      {
+        "name": "20261005153000_requested_sensitive_reveal.sql",
+        "version": "20261005153000",
+        "sha256": "c201d80a4eb2d014b9935a3fea722d1bea6ac7e499752a5a881e2294f211c11d"
+      },
+      {
+        "name": "20261005160000_team_expiry_manual_origin.sql",
+        "version": "20261005160000",
+        "sha256": "291968f610f1d2470465b867df96e1b6fead4bcc91ad5dd11edd6bf902e62ed9"
+      },
+      {
+        "name": "20261005160500_contact_origin_without_legacy_source.sql",
+        "version": "20261005160500",
+        "sha256": "e62f22711b3d6eac4cba8325e808dd16b407ba32126c9ad92c973acbc820fdd1"
+      },
+      {
+        "name": "20261005163000_document_integrity_expired_cleanup.sql",
+        "version": "20261005163000",
+        "sha256": "92ebe0932250c2b072c79845ac1b47194a7a2d0818868d4ca29ddf9555ac120c"
+      },
+      {
+        "name": "20261005164500_document_target_ancestry_serialization.sql",
+        "version": "20261005164500",
+        "sha256": "77d21735511cd058d39bdd1ed16b48ec9b02c881a3b77af72dc4b316d9af8b27"
+      },
+      {
+        "name": "20261005203000_document_cleanup_replay_serialization.sql",
+        "version": "20261005203000",
+        "sha256": "8859a644e11db7c0d72d44e45d15d34cb518d035d0588bf09c019f7cfa3d1082"
+      },
+      {
+        "name": "20261005213000_telecom_commercial_collections.sql",
+        "version": "20261005213000",
+        "sha256": "528931de801fabd19f953d2d9564ffd7b6b25e9b3390b93936bce933b127799d"
+      },
+      {
+        "name": "20261005220000_protected_telecom_identifiers.sql",
+        "version": "20261005220000",
+        "sha256": "3b56e254b9324c2fa94488f4f0eb97d7db39e070c54e641fcc9c8e89cf7b1d77"
+      },
+      {
+        "name": "20261005223000_immutable_commercial_catalog.sql",
+        "version": "20261005223000",
+        "sha256": "759f9d6b3aa1b8e50e0e64b03a435dfccc8221c39f8d6fd6124a1acac571c4da"
+      },
+      {
+        "name": "20261006110000_commercial_portability_workflow.sql",
+        "version": "20261006110000",
+        "sha256": "2ec35807630a626795a49cd09721accb668821a359a019a29a1ba82c65d606c8"
+      },
+      {
+        "name": "20261006113000_product_service_case_workflow.sql",
+        "version": "20261006113000",
+        "sha256": "78323eb49f5ede3a5538747df50612dce7119992b9891149ba226f152d0cc649"
+      },
+      {
+        "name": "20261006120000_commercial_sim_esim_history.sql",
+        "version": "20261006120000",
+        "sha256": "0df8d32c8dc09234018a68b771de4cca1d44eecc428eb3f8eda41eea9ebaca06"
+      },
+      {
+        "name": "20261006123000_sim_association_snapshot_cas.sql",
+        "version": "20261006123000",
+        "sha256": "169273dd12ae8c6e9d963b062b3311024a880b3e6e8d96a616d6eb7c6ab9649c"
+      },
+      {
+        "name": "20261006130000_telecom_customer360_report_reads.sql",
+        "version": "20261006130000",
+        "sha256": "5ae5dd4f643de7e4af55109e6da98993e8d3514a1c147197e2055dcc630d4876"
+      },
+      {
+        "name": "20261006133000_dense_masked_line_collection.sql",
+        "version": "20261006133000",
+        "sha256": "bb1a639032308f2459a63b7b459ff1ab58ee368d0539cf92ca00b028166f058c"
+      },
+      {
+        "name": "20261006140000_deterministic_telecom_attention.sql",
+        "version": "20261006140000",
+        "sha256": "3fc65dc1579c0ad39b7fa52ec0abb06bd0e6b6c388f805728d1aafcb1261d570"
+      },
+      {
+        "name": "20261006143000_currency_separated_billing_cohort_reads.sql",
+        "version": "20261006143000",
+        "sha256": "2642d76790b873cee0016d811978eaba72a7c02d6a179ecc95aa6f26b0ef8e0f"
+      },
+      {
+        "name": "20261006150000_full_customer360_work_collections.sql",
+        "version": "20261006150000",
+        "sha256": "97338cbadb84c5e0407615125d3ae08b918ab2040df57747d584bd19f5052de6"
+      },
+      {
+        "name": "20261006153000_service_installation_and_addon_history.sql",
+        "version": "20261006153000",
+        "sha256": "21b0272260fd3bc8c2f137dec793531012ecdf3f6ba08cd6cc8bddd9584ea2b7"
+      },
+      {
+        "name": "20261006160000_normalized_private_service_locations.sql",
+        "version": "20261006160000",
+        "sha256": "5e3e76174e5aec3f33f70d756f173d60819c85dff8b4e844ea49e54cebe28926"
+      },
+      {
+        "name": "20261006163000_bounded_commercial_equipment.sql",
+        "version": "20261006163000",
+        "sha256": "9484f47d5e427933afec457960b5687e49445f0a1199515f3ec69736509df2b6"
+      },
+      {
+        "name": "20261006221429_assistant_conversations_v2.sql",
+        "version": "20261006221429",
+        "sha256": "fc8c5fb41d3750ea58db4cd2b74f42c217e08541314c2bf36251955daacf51f5"
+      },
+      {
+        "name": "20261006221500_registered_external_identities.sql",
+        "version": "20261006221500",
+        "sha256": "93c5692cd69230080fa4fd773f67d2150c85f33414ff704fad6f4897a5c0065c"
+      },
+      {
+        "name": "20261006224734_assistant_history_rpc_only.sql",
+        "version": "20261006224734",
+        "sha256": "509888a02b71d7fed8a26c11ea7b12ae16c5506e0f8273b964c1f4aa21168547"
+      },
+      {
+        "name": "20261007214224_assistant_turn_single_clock.sql",
+        "version": "20261007214224",
+        "sha256": "fef6cbb714ad7b30e7fe5f770c838ca57d7739d876f1e8862c5a9385c7de1a8f"
+      },
+      {
+        "name": "20261008010000_align_provider_rpc_execution_grants.sql",
+        "version": "20261008010000",
+        "sha256": "700d2dea9db5351cb97a0256461e67e93d399d9c0b8320bbd2e8b96ed4f6da9b"
+      },
+      {
+        "name": "20261011010500_assistant_confirm_reserve_atomic.sql",
+        "version": "20261011010500",
+        "sha256": "7f339e6a0930b406118753f054527d83c2f7aa475d6b0a3a0cff0f5e718493fd"
+      },
+      {
+        "name": "20261011012500_assistant_reservation_record_projection.sql",
+        "version": "20261011012500",
+        "sha256": "6726f354cdff94cff9194f70cd407d57f1eb3a56be1bb2da34b11d95afb3b8c0"
+      },
+      {
+        "name": "20261011014500_assistant_confirmation_cancel.sql",
+        "version": "20261011014500",
+        "sha256": "114da085ac683e6a7cc78bc23bdbceb04bce8dbea50dd4fb1c59be8c71086e0f"
+      },
+      {
+        "name": "20261011023000_assistant_operation_recovery.sql",
+        "version": "20261011023000",
+        "sha256": "974b44a7ae6ef2471477ddeca4efdc1a7da2665a734cea06561f6458a59c8278"
+      },
+      {
+        "name": "20261011031500_assistant_start_execution.sql",
+        "version": "20261011031500",
+        "sha256": "de72b2913de282a01042127ba889b8d001c26b26eab1df792db4605d06580308"
+      },
+      {
+        "name": "20261011034500_assistant_audit_delivery_workers.sql",
+        "version": "20261011034500",
+        "sha256": "865b3a589379453a057d53efd9c6bbf0e5ad7206371ce04845dc02239db2f2e4"
+      },
+      {
+        "name": "20261011040500_assistant_audit_queue.sql",
+        "version": "20261011040500",
+        "sha256": "07016eec860b63b6cc37dea89015609623492c12fa10d87c09b28b3134196567"
+      },
+      {
+        "name": "20261011050000_assistant_command_material.sql",
+        "version": "20261011050000",
+        "sha256": "3ed1e21ebf1373d148b5ee6cde5ab4d566608e289b228df748ad47687b0f022f"
+      },
+      {
+        "name": "20261011060000_assistant_effect_workers.sql",
+        "version": "20261011060000",
+        "sha256": "4096997dc8ba8493083d12f33cb19edde5465f5adc85de00682c5d05fc010664"
+      },
+      {
+        "name": "20261011070000_assistant_safe_completion.sql",
+        "version": "20261011070000",
+        "sha256": "7b8fe7214836333781b68f681bb96920d6ee3aa3043964f778efd48e4e5b985e"
+      },
+      {
+        "name": "20261011080000_assistant_unconfirmed_reservation.sql",
+        "version": "20261011080000",
+        "sha256": "031b898bb678ece80ca29bfd342918f31f69c52eb8054c3d8c2bd76e7987b03e"
+      },
+      {
+        "name": "20261011090000_assistant_verified_completed_reconciliation.sql",
+        "version": "20261011090000",
+        "sha256": "17159132d207ea2f10bba3597d93e29b3cd900c696f2dbbef581be639fc30f18"
+      }
+    ],
+    "platform_keys": [
+      "AI_PROVIDER",
+      "NEXT_PUBLIC_SUPABASE_URL",
+      "OPENAI_PROJECT_ID",
+      "PLATFORM_TARGET",
+      "PRODUCT_V1_ENABLED",
+      "PRODUCT_V1_ORIGIN"
+    ]
+  },
+  {
+    "pr": 157,
+    "sha": "54ba9acea2b7f9077b4b0c2ba95f5a2e09a00795",
+    "migrations": 86,
+    "last_migrations": [
+      "supabase/migrations/20261011080000_assistant_unconfirmed_reservation.sql",
+      "supabase/migrations/20261011090000_assistant_verified_completed_reconciliation.sql"
+    ],
+    "netlify_toml_present": false,
+    "manifest_migration_inventory": [
+      {
+        "name": "20260925153500_core_tenant_identity.sql",
+        "version": "20260925153500",
+        "sha256": "46284301c8e56f7b5b982e1dd824890c55b05e84560afd4d34183178614ae3a4"
+      },
+      {
+        "name": "20260926120000_atomic_workspace_onboarding.sql",
+        "version": "20260926120000",
+        "sha256": "2d73a537040a5a76c9d457689d2b07b6c0f31b6a555d1f045a6797b7d9cb626c"
+      },
+      {
+        "name": "20260926143000_enforce_active_workspace_authorization.sql",
+        "version": "20260926143000",
+        "sha256": "56af5c9d55eb16c45e5584ff5c0954d45db785ea283ce702ed3869aa354f80a7"
+      },
+      {
+        "name": "20260926160000_telecom_customer_contacts.sql",
+        "version": "20260926160000",
+        "sha256": "1a1d43d3cac43e0cc36491f86695b766361cdd98d4cf16dfb2cd33bc3c813a99"
+      },
+      {
+        "name": "20260926161000_telecom_operator_plan_catalog.sql",
+        "version": "20260926161000",
+        "sha256": "a97911f5b63b38c66a21b62927442b89375ea48c36a83126b77ff83708e9e122"
+      },
+      {
+        "name": "20260926162000_telecom_contract_service_portfolio.sql",
+        "version": "20260926162000",
+        "sha256": "21214295fc64cd3c405a29c1e8f83c4e46e72ab62022dda7df7dfbad5138b08f"
+      },
+      {
+        "name": "20260926163000_telecom_commercial_operations.sql",
+        "version": "20260926163000",
+        "sha256": "7456254e3ca20017b29a18fc800b484a6328c34b4a9e36e68a6bc21fbc2af6a8"
+      },
+      {
+        "name": "20260926164000_telecom_service_cases_documents.sql",
+        "version": "20260926164000",
+        "sha256": "35d568ac6804d68744c46b72c7b89bc18e9a546adf379059d9ce1ecad045f40a"
+      },
+      {
+        "name": "20260926165000_import_audit_foundation.sql",
+        "version": "20260926165000",
+        "sha256": "a3327da21638b1144e0565e863c701414ac0b592b6b7cf7e30f5b20543153030"
+      },
+      {
+        "name": "20260927090000_fix_provision_workspace_profile_conflict.sql",
+        "version": "20260927090000",
+        "sha256": "d9e3015af2a0a6925af284a7ed04ad078cfcdfe940701dd52652d8dfd2bf93b9"
+      },
+      {
+        "name": "20260927161000_harden_shared_trigger_record_guards.sql",
+        "version": "20260927161000",
+        "sha256": "f2b3072589408414c5b4722f02f2456b7880ddb441577d816551c3797cb643bd"
+      },
+      {
+        "name": "20260927162000_enforce_import_job_initial_state.sql",
+        "version": "20260927162000",
+        "sha256": "20148daf663d6f03e549389d8c8e77bf9ce927d7e4e76f1726117c01e120d6f1"
+      },
+      {
+        "name": "20260927170000_telecom_v1_customer_read_rpc.sql",
+        "version": "20260927170000",
+        "sha256": "8408b7f1c61467997dce33a9c998336a6d2581574a030217b66f18b6e24d1167"
+      },
+      {
+        "name": "20260927171000_telecom_v1_customer_summary_rpc.sql",
+        "version": "20260927171000",
+        "sha256": "38198193e94392210ed2686b00b695f20e8d8cbce1e4d9b4e82c04f8411c40db"
+      },
+      {
+        "name": "20260927172000_telecom_v1_contract_read_rpc.sql",
+        "version": "20260927172000",
+        "sha256": "e226036182894af74d64e73707a9b45ae423761f943175afd19d7fbea341f577"
+      },
+      {
+        "name": "20260927173000_telecom_v1_service_line_read_rpc.sql",
+        "version": "20260927173000",
+        "sha256": "ab34316f06768e378105aa1f0ff8b64f51f8df7115dd97cfefcf42d4f070d9ce"
+      },
+      {
+        "name": "20260927174000_telecom_v1_activity_opportunity_read_rpc.sql",
+        "version": "20260927174000",
+        "sha256": "dfd8da004c171d257dccc0aebd06a3f3c69a87a603d3ad6e92323cd3935057e7"
+      },
+      {
+        "name": "20260927175000_telecom_v1_task_meeting_read_rpc.sql",
+        "version": "20260927175000",
+        "sha256": "c19565ae4e6eabfe0406d4d49f61bbfd20fd3f25d4e49589b6472261d8971748"
+      },
+      {
+        "name": "20260927180000_telecom_v1_renewal_permanence_read_rpc.sql",
+        "version": "20260927180000",
+        "sha256": "39c3176e4411aceaff9a87cfbe1c701070fd26d18192675d3443bf5c37c24d6b"
+      },
+      {
+        "name": "20260927181000_telecom_v1_dashboard_scope_rpc.sql",
+        "version": "20260927181000",
+        "sha256": "291de3e5f83483f696006c6cc3ab461d3522460e40edf4b66cb7ed175a7a29f3"
+      },
+      {
+        "name": "20260927182000_private_document_storage.sql",
+        "version": "20260927182000",
+        "sha256": "22d217bac21c6bcd6a3eefb03fd915c1eaa4e349707153072461e8658f309947"
+      },
+      {
+        "name": "20260927183000_assistant_durable_foundation.sql",
+        "version": "20260927183000",
+        "sha256": "6f1f4574e192fd362c0ba787201e4dc6dd6424058f6060a06170e32e72c52c04"
+      },
+      {
+        "name": "20260927184000_restrict_document_object_read.sql",
+        "version": "20260927184000",
+        "sha256": "734cd38b172b6fb2167aa7db301555f16013ec7a83a5dee5fbdda51524757076"
+      },
+      {
+        "name": "20260927185000_fix_customer_search_collation.sql",
+        "version": "20260927185000",
+        "sha256": "1e2267f4b714870937f3ace30e7fc9b0bcfc6fca041205abf9d2685217bd1742"
+      },
+      {
+        "name": "20260929212000_align_assistant_durable_contract.sql",
+        "version": "20260929212000",
+        "sha256": "d832c684d2f107562686b1c1500243f88bc4dd073e62debea58c7203da969fca"
+      },
+      {
+        "name": "20261003132000_product_customer_contact_commands.sql",
+        "version": "20261003132000",
+        "sha256": "3e4b4126d1fcf46df5df721a37cf829451d81dba9142fa04292260d6c8564287"
+      },
+      {
+        "name": "20261003134000_product_identity_editor_reads.sql",
+        "version": "20261003134000",
+        "sha256": "b5339c6887eba7993d0f34829a6af2089f7d5537b55f418b11601ef57eca688a"
+      },
+      {
+        "name": "20261004160000_product_work_commands.sql",
+        "version": "20261004160000",
+        "sha256": "3bc4796435f546879f46ac647154bd7a3d2c9f1a8cdacea2683b70cc57fb2f5b"
+      },
+      {
+        "name": "20261004162000_product_work_reads.sql",
+        "version": "20261004162000",
+        "sha256": "cd90b05178351a47dbdc4dc2ddd8e2913fe7107b1db260cfcdd271c6b4b8abbb"
+      },
+      {
+        "name": "20261004163000_product_identity_commercial_policy.sql",
+        "version": "20261004163000",
+        "sha256": "e7d692bd3fcfcc91a6a32e66297edfb7c5d21ca6338f250d0f3573a8b2e7f7d7"
+      },
+      {
+        "name": "20261004170000_product_dashboard_search.sql",
+        "version": "20261004170000",
+        "sha256": "e38237d809a2dc4970a2b02eaae6cba16a3dfce702070c4cec69d0a63d86df23"
+      },
+      {
+        "name": "20261004173000_billing_exact_issue.sql",
+        "version": "20261004173000",
+        "sha256": "189956cc71427a945888fbc8359594d5f0bad0c3a1979218e3c02f89fd5867ef"
+      },
+      {
+        "name": "20261004174000_billing_protected_reads.sql",
+        "version": "20261004174000",
+        "sha256": "3f26a7f74ee20328aea0e9426f3f66009aad0627e594c9bc9ff974f21e64f0ca"
+      },
+      {
+        "name": "20261004175000_product_dashboard_financial.sql",
+        "version": "20261004175000",
+        "sha256": "4c1366d8e4fe999270c9d2a33fbee3848759395c7bd20c01a68033575693ee16"
+      },
+      {
+        "name": "20261004180000_billing_normalized_proposal.sql",
+        "version": "20261004180000",
+        "sha256": "5e1cca230a6ec6c2b6a48515c4b54963f738cdee968a82d4a269a320beba4335"
+      },
+      {
+        "name": "20261004183000_team_protected_management.sql",
+        "version": "20261004183000",
+        "sha256": "ce1ac3ba62db8fd95aaa240096d1d7297c172279e5b2f96530cc08336d8656d1"
+      },
+      {
+        "name": "20261004190000_portfolio_human_commands.sql",
+        "version": "20261004190000",
+        "sha256": "9c08ee2040aaae9a7868f35d77f6672341f5becd4d1eb4181a214486074bf0fa"
+      },
+      {
+        "name": "20261004193000_portfolio_deadline_commands.sql",
+        "version": "20261004193000",
+        "sha256": "1f1d500ccd44487e5e3a277a5bcbbcf821216fcb3d25ef77191cd866f67a8d03"
+      },
+      {
+        "name": "20261004200000_product_protected_invoice_search.sql",
+        "version": "20261004200000",
+        "sha256": "196b051fa84ff97be18fb7eaceef1ab1efbbf73c075f8e446fa1c7859de04166"
+      },
+      {
+        "name": "20261004203000_document_metadata_commands.sql",
+        "version": "20261004203000",
+        "sha256": "21cc8c4c82ee80c847086c99771bcdf0a16fcf1d06f0ba64db84134540cd550c"
+      },
+      {
+        "name": "20261004204500_portfolio_explicit_child_provenance.sql",
+        "version": "20261004204500",
+        "sha256": "7341e1b6fe284a7016abfdca5aaa6f2316cc33024f25aaa3d332ae0cc0f4b138"
+      },
+      {
+        "name": "20261005120000_document_content_workflow.sql",
+        "version": "20261005120000",
+        "sha256": "4437725149fd9ced430b8645abb92fb04ac8c7b266d1ba1f9acdaddadbe7bd6c"
+      },
+      {
+        "name": "20261005123000_private_invoice_pdf_artifacts.sql",
+        "version": "20261005123000",
+        "sha256": "e37835f73f655271799557dc784ccb8a6820f8641bc023ea60f6cb5f7e52e6d9"
+      },
+      {
+        "name": "20261005130000_import_job_product_management.sql",
+        "version": "20261005130000",
+        "sha256": "4c183d14bb9889a0ac5faeacc7bb00dd3fb8140bac7e9b605ca91895d3f2b293"
+      },
+      {
+        "name": "20261005133000_internal_inbox_domain.sql",
+        "version": "20261005133000",
+        "sha256": "e3e4cc891ad1376c38474e1b2aee27829b76957826c63de676cde158ae7cd43c"
+      },
+      {
+        "name": "20261005140000_personal_notification_center.sql",
+        "version": "20261005140000",
+        "sha256": "fca59c25f8080c2636372d8fc00669732a976a8d896d6174b3f04e8a1d7c32b6"
+      },
+      {
+        "name": "20261005143000_registered_internal_automations.sql",
+        "version": "20261005143000",
+        "sha256": "0ba2fe39889c8657fa8b87f48b1230d0cad904a44354ab80763571b243e9e72b"
+      },
+      {
+        "name": "20261005150000_product_settings_profiles.sql",
+        "version": "20261005150000",
+        "sha256": "6f2029b6848797503d698e22765df32fe9d9e0fbe20ab9ef9dc3e41f2283a281"
+      },
+      {
+        "name": "20261005153000_requested_sensitive_reveal.sql",
+        "version": "20261005153000",
+        "sha256": "c201d80a4eb2d014b9935a3fea722d1bea6ac7e499752a5a881e2294f211c11d"
+      },
+      {
+        "name": "20261005160000_team_expiry_manual_origin.sql",
+        "version": "20261005160000",
+        "sha256": "291968f610f1d2470465b867df96e1b6fead4bcc91ad5dd11edd6bf902e62ed9"
+      },
+      {
+        "name": "20261005160500_contact_origin_without_legacy_source.sql",
+        "version": "20261005160500",
+        "sha256": "e62f22711b3d6eac4cba8325e808dd16b407ba32126c9ad92c973acbc820fdd1"
+      },
+      {
+        "name": "20261005163000_document_integrity_expired_cleanup.sql",
+        "version": "20261005163000",
+        "sha256": "92ebe0932250c2b072c79845ac1b47194a7a2d0818868d4ca29ddf9555ac120c"
+      },
+      {
+        "name": "20261005164500_document_target_ancestry_serialization.sql",
+        "version": "20261005164500",
+        "sha256": "77d21735511cd058d39bdd1ed16b48ec9b02c881a3b77af72dc4b316d9af8b27"
+      },
+      {
+        "name": "20261005203000_document_cleanup_replay_serialization.sql",
+        "version": "20261005203000",
+        "sha256": "8859a644e11db7c0d72d44e45d15d34cb518d035d0588bf09c019f7cfa3d1082"
+      },
+      {
+        "name": "20261005213000_telecom_commercial_collections.sql",
+        "version": "20261005213000",
+        "sha256": "528931de801fabd19f953d2d9564ffd7b6b25e9b3390b93936bce933b127799d"
+      },
+      {
+        "name": "20261005220000_protected_telecom_identifiers.sql",
+        "version": "20261005220000",
+        "sha256": "3b56e254b9324c2fa94488f4f0eb97d7db39e070c54e641fcc9c8e89cf7b1d77"
+      },
+      {
+        "name": "20261005223000_immutable_commercial_catalog.sql",
+        "version": "20261005223000",
+        "sha256": "759f9d6b3aa1b8e50e0e64b03a435dfccc8221c39f8d6fd6124a1acac571c4da"
+      },
+      {
+        "name": "20261006110000_commercial_portability_workflow.sql",
+        "version": "20261006110000",
+        "sha256": "2ec35807630a626795a49cd09721accb668821a359a019a29a1ba82c65d606c8"
+      },
+      {
+        "name": "20261006113000_product_service_case_workflow.sql",
+        "version": "20261006113000",
+        "sha256": "78323eb49f5ede3a5538747df50612dce7119992b9891149ba226f152d0cc649"
+      },
+      {
+        "name": "20261006120000_commercial_sim_esim_history.sql",
+        "version": "20261006120000",
+        "sha256": "0df8d32c8dc09234018a68b771de4cca1d44eecc428eb3f8eda41eea9ebaca06"
+      },
+      {
+        "name": "20261006123000_sim_association_snapshot_cas.sql",
+        "version": "20261006123000",
+        "sha256": "169273dd12ae8c6e9d963b062b3311024a880b3e6e8d96a616d6eb7c6ab9649c"
+      },
+      {
+        "name": "20261006130000_telecom_customer360_report_reads.sql",
+        "version": "20261006130000",
+        "sha256": "5ae5dd4f643de7e4af55109e6da98993e8d3514a1c147197e2055dcc630d4876"
+      },
+      {
+        "name": "20261006133000_dense_masked_line_collection.sql",
+        "version": "20261006133000",
+        "sha256": "bb1a639032308f2459a63b7b459ff1ab58ee368d0539cf92ca00b028166f058c"
+      },
+      {
+        "name": "20261006140000_deterministic_telecom_attention.sql",
+        "version": "20261006140000",
+        "sha256": "3fc65dc1579c0ad39b7fa52ec0abb06bd0e6b6c388f805728d1aafcb1261d570"
+      },
+      {
+        "name": "20261006143000_currency_separated_billing_cohort_reads.sql",
+        "version": "20261006143000",
+        "sha256": "2642d76790b873cee0016d811978eaba72a7c02d6a179ecc95aa6f26b0ef8e0f"
+      },
+      {
+        "name": "20261006150000_full_customer360_work_collections.sql",
+        "version": "20261006150000",
+        "sha256": "97338cbadb84c5e0407615125d3ae08b918ab2040df57747d584bd19f5052de6"
+      },
+      {
+        "name": "20261006153000_service_installation_and_addon_history.sql",
+        "version": "20261006153000",
+        "sha256": "21b0272260fd3bc8c2f137dec793531012ecdf3f6ba08cd6cc8bddd9584ea2b7"
+      },
+      {
+        "name": "20261006160000_normalized_private_service_locations.sql",
+        "version": "20261006160000",
+        "sha256": "5e3e76174e5aec3f33f70d756f173d60819c85dff8b4e844ea49e54cebe28926"
+      },
+      {
+        "name": "20261006163000_bounded_commercial_equipment.sql",
+        "version": "20261006163000",
+        "sha256": "9484f47d5e427933afec457960b5687e49445f0a1199515f3ec69736509df2b6"
+      },
+      {
+        "name": "20261006221429_assistant_conversations_v2.sql",
+        "version": "20261006221429",
+        "sha256": "fc8c5fb41d3750ea58db4cd2b74f42c217e08541314c2bf36251955daacf51f5"
+      },
+      {
+        "name": "20261006221500_registered_external_identities.sql",
+        "version": "20261006221500",
+        "sha256": "93c5692cd69230080fa4fd773f67d2150c85f33414ff704fad6f4897a5c0065c"
+      },
+      {
+        "name": "20261006224734_assistant_history_rpc_only.sql",
+        "version": "20261006224734",
+        "sha256": "509888a02b71d7fed8a26c11ea7b12ae16c5506e0f8273b964c1f4aa21168547"
+      },
+      {
+        "name": "20261007214224_assistant_turn_single_clock.sql",
+        "version": "20261007214224",
+        "sha256": "fef6cbb714ad7b30e7fe5f770c838ca57d7739d876f1e8862c5a9385c7de1a8f"
+      },
+      {
+        "name": "20261008010000_align_provider_rpc_execution_grants.sql",
+        "version": "20261008010000",
+        "sha256": "700d2dea9db5351cb97a0256461e67e93d399d9c0b8320bbd2e8b96ed4f6da9b"
+      },
+      {
+        "name": "20261011010500_assistant_confirm_reserve_atomic.sql",
+        "version": "20261011010500",
+        "sha256": "7f339e6a0930b406118753f054527d83c2f7aa475d6b0a3a0cff0f5e718493fd"
+      },
+      {
+        "name": "20261011012500_assistant_reservation_record_projection.sql",
+        "version": "20261011012500",
+        "sha256": "6726f354cdff94cff9194f70cd407d57f1eb3a56be1bb2da34b11d95afb3b8c0"
+      },
+      {
+        "name": "20261011014500_assistant_confirmation_cancel.sql",
+        "version": "20261011014500",
+        "sha256": "114da085ac683e6a7cc78bc23bdbceb04bce8dbea50dd4fb1c59be8c71086e0f"
+      },
+      {
+        "name": "20261011023000_assistant_operation_recovery.sql",
+        "version": "20261011023000",
+        "sha256": "974b44a7ae6ef2471477ddeca4efdc1a7da2665a734cea06561f6458a59c8278"
+      },
+      {
+        "name": "20261011031500_assistant_start_execution.sql",
+        "version": "20261011031500",
+        "sha256": "de72b2913de282a01042127ba889b8d001c26b26eab1df792db4605d06580308"
+      },
+      {
+        "name": "20261011034500_assistant_audit_delivery_workers.sql",
+        "version": "20261011034500",
+        "sha256": "865b3a589379453a057d53efd9c6bbf0e5ad7206371ce04845dc02239db2f2e4"
+      },
+      {
+        "name": "20261011040500_assistant_audit_queue.sql",
+        "version": "20261011040500",
+        "sha256": "07016eec860b63b6cc37dea89015609623492c12fa10d87c09b28b3134196567"
+      },
+      {
+        "name": "20261011050000_assistant_command_material.sql",
+        "version": "20261011050000",
+        "sha256": "3ed1e21ebf1373d148b5ee6cde5ab4d566608e289b228df748ad47687b0f022f"
+      },
+      {
+        "name": "20261011060000_assistant_effect_workers.sql",
+        "version": "20261011060000",
+        "sha256": "4096997dc8ba8493083d12f33cb19edde5465f5adc85de00682c5d05fc010664"
+      },
+      {
+        "name": "20261011070000_assistant_safe_completion.sql",
+        "version": "20261011070000",
+        "sha256": "7b8fe7214836333781b68f681bb96920d6ee3aa3043964f778efd48e4e5b985e"
+      },
+      {
+        "name": "20261011080000_assistant_unconfirmed_reservation.sql",
+        "version": "20261011080000",
+        "sha256": "031b898bb678ece80ca29bfd342918f31f69c52eb8054c3d8c2bd76e7987b03e"
+      },
+      {
+        "name": "20261011090000_assistant_verified_completed_reconciliation.sql",
+        "version": "20261011090000",
+        "sha256": "17159132d207ea2f10bba3597d93e29b3cd900c696f2dbbef581be639fc30f18"
+      }
+    ],
+    "platform_keys": [
+      "AI_PROVIDER",
+      "NEXT_PUBLIC_SUPABASE_URL",
+      "OPENAI_PROJECT_ID",
+      "PLATFORM_TARGET",
+      "PRODUCT_V1_ENABLED",
+      "PRODUCT_V1_ORIGIN"
+    ]
+  },
+  {
+    "pr": 158,
+    "sha": "be71f30e534c0e7d365e3b149dc500f5752a9914",
+    "migrations": 87,
+    "last_migrations": [
+      "supabase/migrations/20261011090000_assistant_verified_completed_reconciliation.sql",
+      "supabase/migrations/20261020090000_document_object_read_server_fetch.sql"
+    ],
+    "netlify_toml_present": false,
+    "manifest_migration_inventory": [
+      {
+        "name": "20260925153500_core_tenant_identity.sql",
+        "version": "20260925153500",
+        "sha256": "46284301c8e56f7b5b982e1dd824890c55b05e84560afd4d34183178614ae3a4"
+      },
+      {
+        "name": "20260926120000_atomic_workspace_onboarding.sql",
+        "version": "20260926120000",
+        "sha256": "2d73a537040a5a76c9d457689d2b07b6c0f31b6a555d1f045a6797b7d9cb626c"
+      },
+      {
+        "name": "20260926143000_enforce_active_workspace_authorization.sql",
+        "version": "20260926143000",
+        "sha256": "56af5c9d55eb16c45e5584ff5c0954d45db785ea283ce702ed3869aa354f80a7"
+      },
+      {
+        "name": "20260926160000_telecom_customer_contacts.sql",
+        "version": "20260926160000",
+        "sha256": "1a1d43d3cac43e0cc36491f86695b766361cdd98d4cf16dfb2cd33bc3c813a99"
+      },
+      {
+        "name": "20260926161000_telecom_operator_plan_catalog.sql",
+        "version": "20260926161000",
+        "sha256": "a97911f5b63b38c66a21b62927442b89375ea48c36a83126b77ff83708e9e122"
+      },
+      {
+        "name": "20260926162000_telecom_contract_service_portfolio.sql",
+        "version": "20260926162000",
+        "sha256": "21214295fc64cd3c405a29c1e8f83c4e46e72ab62022dda7df7dfbad5138b08f"
+      },
+      {
+        "name": "20260926163000_telecom_commercial_operations.sql",
+        "version": "20260926163000",
+        "sha256": "7456254e3ca20017b29a18fc800b484a6328c34b4a9e36e68a6bc21fbc2af6a8"
+      },
+      {
+        "name": "20260926164000_telecom_service_cases_documents.sql",
+        "version": "20260926164000",
+        "sha256": "35d568ac6804d68744c46b72c7b89bc18e9a546adf379059d9ce1ecad045f40a"
+      },
+      {
+        "name": "20260926165000_import_audit_foundation.sql",
+        "version": "20260926165000",
+        "sha256": "a3327da21638b1144e0565e863c701414ac0b592b6b7cf7e30f5b20543153030"
+      },
+      {
+        "name": "20260927090000_fix_provision_workspace_profile_conflict.sql",
+        "version": "20260927090000",
+        "sha256": "d9e3015af2a0a6925af284a7ed04ad078cfcdfe940701dd52652d8dfd2bf93b9"
+      },
+      {
+        "name": "20260927161000_harden_shared_trigger_record_guards.sql",
+        "version": "20260927161000",
+        "sha256": "f2b3072589408414c5b4722f02f2456b7880ddb441577d816551c3797cb643bd"
+      },
+      {
+        "name": "20260927162000_enforce_import_job_initial_state.sql",
+        "version": "20260927162000",
+        "sha256": "20148daf663d6f03e549389d8c8e77bf9ce927d7e4e76f1726117c01e120d6f1"
+      },
+      {
+        "name": "20260927170000_telecom_v1_customer_read_rpc.sql",
+        "version": "20260927170000",
+        "sha256": "8408b7f1c61467997dce33a9c998336a6d2581574a030217b66f18b6e24d1167"
+      },
+      {
+        "name": "20260927171000_telecom_v1_customer_summary_rpc.sql",
+        "version": "20260927171000",
+        "sha256": "38198193e94392210ed2686b00b695f20e8d8cbce1e4d9b4e82c04f8411c40db"
+      },
+      {
+        "name": "20260927172000_telecom_v1_contract_read_rpc.sql",
+        "version": "20260927172000",
+        "sha256": "e226036182894af74d64e73707a9b45ae423761f943175afd19d7fbea341f577"
+      },
+      {
+        "name": "20260927173000_telecom_v1_service_line_read_rpc.sql",
+        "version": "20260927173000",
+        "sha256": "ab34316f06768e378105aa1f0ff8b64f51f8df7115dd97cfefcf42d4f070d9ce"
+      },
+      {
+        "name": "20260927174000_telecom_v1_activity_opportunity_read_rpc.sql",
+        "version": "20260927174000",
+        "sha256": "dfd8da004c171d257dccc0aebd06a3f3c69a87a603d3ad6e92323cd3935057e7"
+      },
+      {
+        "name": "20260927175000_telecom_v1_task_meeting_read_rpc.sql",
+        "version": "20260927175000",
+        "sha256": "c19565ae4e6eabfe0406d4d49f61bbfd20fd3f25d4e49589b6472261d8971748"
+      },
+      {
+        "name": "20260927180000_telecom_v1_renewal_permanence_read_rpc.sql",
+        "version": "20260927180000",
+        "sha256": "39c3176e4411aceaff9a87cfbe1c701070fd26d18192675d3443bf5c37c24d6b"
+      },
+      {
+        "name": "20260927181000_telecom_v1_dashboard_scope_rpc.sql",
+        "version": "20260927181000",
+        "sha256": "291de3e5f83483f696006c6cc3ab461d3522460e40edf4b66cb7ed175a7a29f3"
+      },
+      {
+        "name": "20260927182000_private_document_storage.sql",
+        "version": "20260927182000",
+        "sha256": "22d217bac21c6bcd6a3eefb03fd915c1eaa4e349707153072461e8658f309947"
+      },
+      {
+        "name": "20260927183000_assistant_durable_foundation.sql",
+        "version": "20260927183000",
+        "sha256": "6f1f4574e192fd362c0ba787201e4dc6dd6424058f6060a06170e32e72c52c04"
+      },
+      {
+        "name": "20260927184000_restrict_document_object_read.sql",
+        "version": "20260927184000",
+        "sha256": "734cd38b172b6fb2167aa7db301555f16013ec7a83a5dee5fbdda51524757076"
+      },
+      {
+        "name": "20260927185000_fix_customer_search_collation.sql",
+        "version": "20260927185000",
+        "sha256": "1e2267f4b714870937f3ace30e7fc9b0bcfc6fca041205abf9d2685217bd1742"
+      },
+      {
+        "name": "20260929212000_align_assistant_durable_contract.sql",
+        "version": "20260929212000",
+        "sha256": "d832c684d2f107562686b1c1500243f88bc4dd073e62debea58c7203da969fca"
+      },
+      {
+        "name": "20261003132000_product_customer_contact_commands.sql",
+        "version": "20261003132000",
+        "sha256": "3e4b4126d1fcf46df5df721a37cf829451d81dba9142fa04292260d6c8564287"
+      },
+      {
+        "name": "20261003134000_product_identity_editor_reads.sql",
+        "version": "20261003134000",
+        "sha256": "b5339c6887eba7993d0f34829a6af2089f7d5537b55f418b11601ef57eca688a"
+      },
+      {
+        "name": "20261004160000_product_work_commands.sql",
+        "version": "20261004160000",
+        "sha256": "3bc4796435f546879f46ac647154bd7a3d2c9f1a8cdacea2683b70cc57fb2f5b"
+      },
+      {
+        "name": "20261004162000_product_work_reads.sql",
+        "version": "20261004162000",
+        "sha256": "cd90b05178351a47dbdc4dc2ddd8e2913fe7107b1db260cfcdd271c6b4b8abbb"
+      },
+      {
+        "name": "20261004163000_product_identity_commercial_policy.sql",
+        "version": "20261004163000",
+        "sha256": "e7d692bd3fcfcc91a6a32e66297edfb7c5d21ca6338f250d0f3573a8b2e7f7d7"
+      },
+      {
+        "name": "20261004170000_product_dashboard_search.sql",
+        "version": "20261004170000",
+        "sha256": "e38237d809a2dc4970a2b02eaae6cba16a3dfce702070c4cec69d0a63d86df23"
+      },
+      {
+        "name": "20261004173000_billing_exact_issue.sql",
+        "version": "20261004173000",
+        "sha256": "189956cc71427a945888fbc8359594d5f0bad0c3a1979218e3c02f89fd5867ef"
+      },
+      {
+        "name": "20261004174000_billing_protected_reads.sql",
+        "version": "20261004174000",
+        "sha256": "3f26a7f74ee20328aea0e9426f3f66009aad0627e594c9bc9ff974f21e64f0ca"
+      },
+      {
+        "name": "20261004175000_product_dashboard_financial.sql",
+        "version": "20261004175000",
+        "sha256": "4c1366d8e4fe999270c9d2a33fbee3848759395c7bd20c01a68033575693ee16"
+      },
+      {
+        "name": "20261004180000_billing_normalized_proposal.sql",
+        "version": "20261004180000",
+        "sha256": "5e1cca230a6ec6c2b6a48515c4b54963f738cdee968a82d4a269a320beba4335"
+      },
+      {
+        "name": "20261004183000_team_protected_management.sql",
+        "version": "20261004183000",
+        "sha256": "ce1ac3ba62db8fd95aaa240096d1d7297c172279e5b2f96530cc08336d8656d1"
+      },
+      {
+        "name": "20261004190000_portfolio_human_commands.sql",
+        "version": "20261004190000",
+        "sha256": "9c08ee2040aaae9a7868f35d77f6672341f5becd4d1eb4181a214486074bf0fa"
+      },
+      {
+        "name": "20261004193000_portfolio_deadline_commands.sql",
+        "version": "20261004193000",
+        "sha256": "1f1d500ccd44487e5e3a277a5bcbbcf821216fcb3d25ef77191cd866f67a8d03"
+      },
+      {
+        "name": "20261004200000_product_protected_invoice_search.sql",
+        "version": "20261004200000",
+        "sha256": "196b051fa84ff97be18fb7eaceef1ab1efbbf73c075f8e446fa1c7859de04166"
+      },
+      {
+        "name": "20261004203000_document_metadata_commands.sql",
+        "version": "20261004203000",
+        "sha256": "21cc8c4c82ee80c847086c99771bcdf0a16fcf1d06f0ba64db84134540cd550c"
+      },
+      {
+        "name": "20261004204500_portfolio_explicit_child_provenance.sql",
+        "version": "20261004204500",
+        "sha256": "7341e1b6fe284a7016abfdca5aaa6f2316cc33024f25aaa3d332ae0cc0f4b138"
+      },
+      {
+        "name": "20261005120000_document_content_workflow.sql",
+        "version": "20261005120000",
+        "sha256": "4437725149fd9ced430b8645abb92fb04ac8c7b266d1ba1f9acdaddadbe7bd6c"
+      },
+      {
+        "name": "20261005123000_private_invoice_pdf_artifacts.sql",
+        "version": "20261005123000",
+        "sha256": "e37835f73f655271799557dc784ccb8a6820f8641bc023ea60f6cb5f7e52e6d9"
+      },
+      {
+        "name": "20261005130000_import_job_product_management.sql",
+        "version": "20261005130000",
+        "sha256": "4c183d14bb9889a0ac5faeacc7bb00dd3fb8140bac7e9b605ca91895d3f2b293"
+      },
+      {
+        "name": "20261005133000_internal_inbox_domain.sql",
+        "version": "20261005133000",
+        "sha256": "e3e4cc891ad1376c38474e1b2aee27829b76957826c63de676cde158ae7cd43c"
+      },
+      {
+        "name": "20261005140000_personal_notification_center.sql",
+        "version": "20261005140000",
+        "sha256": "fca59c25f8080c2636372d8fc00669732a976a8d896d6174b3f04e8a1d7c32b6"
+      },
+      {
+        "name": "20261005143000_registered_internal_automations.sql",
+        "version": "20261005143000",
+        "sha256": "0ba2fe39889c8657fa8b87f48b1230d0cad904a44354ab80763571b243e9e72b"
+      },
+      {
+        "name": "20261005150000_product_settings_profiles.sql",
+        "version": "20261005150000",
+        "sha256": "6f2029b6848797503d698e22765df32fe9d9e0fbe20ab9ef9dc3e41f2283a281"
+      },
+      {
+        "name": "20261005153000_requested_sensitive_reveal.sql",
+        "version": "20261005153000",
+        "sha256": "c201d80a4eb2d014b9935a3fea722d1bea6ac7e499752a5a881e2294f211c11d"
+      },
+      {
+        "name": "20261005160000_team_expiry_manual_origin.sql",
+        "version": "20261005160000",
+        "sha256": "291968f610f1d2470465b867df96e1b6fead4bcc91ad5dd11edd6bf902e62ed9"
+      },
+      {
+        "name": "20261005160500_contact_origin_without_legacy_source.sql",
+        "version": "20261005160500",
+        "sha256": "e62f22711b3d6eac4cba8325e808dd16b407ba32126c9ad92c973acbc820fdd1"
+      },
+      {
+        "name": "20261005163000_document_integrity_expired_cleanup.sql",
+        "version": "20261005163000",
+        "sha256": "92ebe0932250c2b072c79845ac1b47194a7a2d0818868d4ca29ddf9555ac120c"
+      },
+      {
+        "name": "20261005164500_document_target_ancestry_serialization.sql",
+        "version": "20261005164500",
+        "sha256": "77d21735511cd058d39bdd1ed16b48ec9b02c881a3b77af72dc4b316d9af8b27"
+      },
+      {
+        "name": "20261005203000_document_cleanup_replay_serialization.sql",
+        "version": "20261005203000",
+        "sha256": "8859a644e11db7c0d72d44e45d15d34cb518d035d0588bf09c019f7cfa3d1082"
+      },
+      {
+        "name": "20261005213000_telecom_commercial_collections.sql",
+        "version": "20261005213000",
+        "sha256": "528931de801fabd19f953d2d9564ffd7b6b25e9b3390b93936bce933b127799d"
+      },
+      {
+        "name": "20261005220000_protected_telecom_identifiers.sql",
+        "version": "20261005220000",
+        "sha256": "3b56e254b9324c2fa94488f4f0eb97d7db39e070c54e641fcc9c8e89cf7b1d77"
+      },
+      {
+        "name": "20261005223000_immutable_commercial_catalog.sql",
+        "version": "20261005223000",
+        "sha256": "759f9d6b3aa1b8e50e0e64b03a435dfccc8221c39f8d6fd6124a1acac571c4da"
+      },
+      {
+        "name": "20261006110000_commercial_portability_workflow.sql",
+        "version": "20261006110000",
+        "sha256": "2ec35807630a626795a49cd09721accb668821a359a019a29a1ba82c65d606c8"
+      },
+      {
+        "name": "20261006113000_product_service_case_workflow.sql",
+        "version": "20261006113000",
+        "sha256": "78323eb49f5ede3a5538747df50612dce7119992b9891149ba226f152d0cc649"
+      },
+      {
+        "name": "20261006120000_commercial_sim_esim_history.sql",
+        "version": "20261006120000",
+        "sha256": "0df8d32c8dc09234018a68b771de4cca1d44eecc428eb3f8eda41eea9ebaca06"
+      },
+      {
+        "name": "20261006123000_sim_association_snapshot_cas.sql",
+        "version": "20261006123000",
+        "sha256": "169273dd12ae8c6e9d963b062b3311024a880b3e6e8d96a616d6eb7c6ab9649c"
+      },
+      {
+        "name": "20261006130000_telecom_customer360_report_reads.sql",
+        "version": "20261006130000",
+        "sha256": "5ae5dd4f643de7e4af55109e6da98993e8d3514a1c147197e2055dcc630d4876"
+      },
+      {
+        "name": "20261006133000_dense_masked_line_collection.sql",
+        "version": "20261006133000",
+        "sha256": "bb1a639032308f2459a63b7b459ff1ab58ee368d0539cf92ca00b028166f058c"
+      },
+      {
+        "name": "20261006140000_deterministic_telecom_attention.sql",
+        "version": "20261006140000",
+        "sha256": "3fc65dc1579c0ad39b7fa52ec0abb06bd0e6b6c388f805728d1aafcb1261d570"
+      },
+      {
+        "name": "20261006143000_currency_separated_billing_cohort_reads.sql",
+        "version": "20261006143000",
+        "sha256": "2642d76790b873cee0016d811978eaba72a7c02d6a179ecc95aa6f26b0ef8e0f"
+      },
+      {
+        "name": "20261006150000_full_customer360_work_collections.sql",
+        "version": "20261006150000",
+        "sha256": "97338cbadb84c5e0407615125d3ae08b918ab2040df57747d584bd19f5052de6"
+      },
+      {
+        "name": "20261006153000_service_installation_and_addon_history.sql",
+        "version": "20261006153000",
+        "sha256": "21b0272260fd3bc8c2f137dec793531012ecdf3f6ba08cd6cc8bddd9584ea2b7"
+      },
+      {
+        "name": "20261006160000_normalized_private_service_locations.sql",
+        "version": "20261006160000",
+        "sha256": "5e3e76174e5aec3f33f70d756f173d60819c85dff8b4e844ea49e54cebe28926"
+      },
+      {
+        "name": "20261006163000_bounded_commercial_equipment.sql",
+        "version": "20261006163000",
+        "sha256": "9484f47d5e427933afec457960b5687e49445f0a1199515f3ec69736509df2b6"
+      },
+      {
+        "name": "20261006221429_assistant_conversations_v2.sql",
+        "version": "20261006221429",
+        "sha256": "fc8c5fb41d3750ea58db4cd2b74f42c217e08541314c2bf36251955daacf51f5"
+      },
+      {
+        "name": "20261006221500_registered_external_identities.sql",
+        "version": "20261006221500",
+        "sha256": "93c5692cd69230080fa4fd773f67d2150c85f33414ff704fad6f4897a5c0065c"
+      },
+      {
+        "name": "20261006224734_assistant_history_rpc_only.sql",
+        "version": "20261006224734",
+        "sha256": "509888a02b71d7fed8a26c11ea7b12ae16c5506e0f8273b964c1f4aa21168547"
+      },
+      {
+        "name": "20261007214224_assistant_turn_single_clock.sql",
+        "version": "20261007214224",
+        "sha256": "fef6cbb714ad7b30e7fe5f770c838ca57d7739d876f1e8862c5a9385c7de1a8f"
+      },
+      {
+        "name": "20261008010000_align_provider_rpc_execution_grants.sql",
+        "version": "20261008010000",
+        "sha256": "700d2dea9db5351cb97a0256461e67e93d399d9c0b8320bbd2e8b96ed4f6da9b"
+      },
+      {
+        "name": "20261011010500_assistant_confirm_reserve_atomic.sql",
+        "version": "20261011010500",
+        "sha256": "7f339e6a0930b406118753f054527d83c2f7aa475d6b0a3a0cff0f5e718493fd"
+      },
+      {
+        "name": "20261011012500_assistant_reservation_record_projection.sql",
+        "version": "20261011012500",
+        "sha256": "6726f354cdff94cff9194f70cd407d57f1eb3a56be1bb2da34b11d95afb3b8c0"
+      },
+      {
+        "name": "20261011014500_assistant_confirmation_cancel.sql",
+        "version": "20261011014500",
+        "sha256": "114da085ac683e6a7cc78bc23bdbceb04bce8dbea50dd4fb1c59be8c71086e0f"
+      },
+      {
+        "name": "20261011023000_assistant_operation_recovery.sql",
+        "version": "20261011023000",
+        "sha256": "974b44a7ae6ef2471477ddeca4efdc1a7da2665a734cea06561f6458a59c8278"
+      },
+      {
+        "name": "20261011031500_assistant_start_execution.sql",
+        "version": "20261011031500",
+        "sha256": "de72b2913de282a01042127ba889b8d001c26b26eab1df792db4605d06580308"
+      },
+      {
+        "name": "20261011034500_assistant_audit_delivery_workers.sql",
+        "version": "20261011034500",
+        "sha256": "865b3a589379453a057d53efd9c6bbf0e5ad7206371ce04845dc02239db2f2e4"
+      },
+      {
+        "name": "20261011040500_assistant_audit_queue.sql",
+        "version": "20261011040500",
+        "sha256": "07016eec860b63b6cc37dea89015609623492c12fa10d87c09b28b3134196567"
+      },
+      {
+        "name": "20261011050000_assistant_command_material.sql",
+        "version": "20261011050000",
+        "sha256": "3ed1e21ebf1373d148b5ee6cde5ab4d566608e289b228df748ad47687b0f022f"
+      },
+      {
+        "name": "20261011060000_assistant_effect_workers.sql",
+        "version": "20261011060000",
+        "sha256": "4096997dc8ba8493083d12f33cb19edde5465f5adc85de00682c5d05fc010664"
+      },
+      {
+        "name": "20261011070000_assistant_safe_completion.sql",
+        "version": "20261011070000",
+        "sha256": "7b8fe7214836333781b68f681bb96920d6ee3aa3043964f778efd48e4e5b985e"
+      },
+      {
+        "name": "20261011080000_assistant_unconfirmed_reservation.sql",
+        "version": "20261011080000",
+        "sha256": "031b898bb678ece80ca29bfd342918f31f69c52eb8054c3d8c2bd76e7987b03e"
+      },
+      {
+        "name": "20261011090000_assistant_verified_completed_reconciliation.sql",
+        "version": "20261011090000",
+        "sha256": "17159132d207ea2f10bba3597d93e29b3cd900c696f2dbbef581be639fc30f18"
+      }
+    ],
+    "platform_keys": [
+      "AI_PROVIDER",
+      "NEXT_PUBLIC_SUPABASE_URL",
+      "OPENAI_PROJECT_ID",
+      "PLATFORM_TARGET",
+      "PRODUCT_V1_ENABLED",
+      "PRODUCT_V1_ORIGIN"
+    ]
+  },
+  {
+    "pr": 159,
+    "sha": "bb16afe512be1cb04d6c86ecadb2064966a062aa",
+    "migrations": 87,
+    "last_migrations": [
+      "supabase/migrations/20261011090000_assistant_verified_completed_reconciliation.sql",
+      "supabase/migrations/20261020100000_business_conflict_non_retryable.sql"
+    ],
+    "netlify_toml_present": false,
+    "manifest_migration_inventory": [
+      {
+        "name": "20260925153500_core_tenant_identity.sql",
+        "version": "20260925153500",
+        "sha256": "46284301c8e56f7b5b982e1dd824890c55b05e84560afd4d34183178614ae3a4"
+      },
+      {
+        "name": "20260926120000_atomic_workspace_onboarding.sql",
+        "version": "20260926120000",
+        "sha256": "2d73a537040a5a76c9d457689d2b07b6c0f31b6a555d1f045a6797b7d9cb626c"
+      },
+      {
+        "name": "20260926143000_enforce_active_workspace_authorization.sql",
+        "version": "20260926143000",
+        "sha256": "56af5c9d55eb16c45e5584ff5c0954d45db785ea283ce702ed3869aa354f80a7"
+      },
+      {
+        "name": "20260926160000_telecom_customer_contacts.sql",
+        "version": "20260926160000",
+        "sha256": "1a1d43d3cac43e0cc36491f86695b766361cdd98d4cf16dfb2cd33bc3c813a99"
+      },
+      {
+        "name": "20260926161000_telecom_operator_plan_catalog.sql",
+        "version": "20260926161000",
+        "sha256": "a97911f5b63b38c66a21b62927442b89375ea48c36a83126b77ff83708e9e122"
+      },
+      {
+        "name": "20260926162000_telecom_contract_service_portfolio.sql",
+        "version": "20260926162000",
+        "sha256": "21214295fc64cd3c405a29c1e8f83c4e46e72ab62022dda7df7dfbad5138b08f"
+      },
+      {
+        "name": "20260926163000_telecom_commercial_operations.sql",
+        "version": "20260926163000",
+        "sha256": "7456254e3ca20017b29a18fc800b484a6328c34b4a9e36e68a6bc21fbc2af6a8"
+      },
+      {
+        "name": "20260926164000_telecom_service_cases_documents.sql",
+        "version": "20260926164000",
+        "sha256": "35d568ac6804d68744c46b72c7b89bc18e9a546adf379059d9ce1ecad045f40a"
+      },
+      {
+        "name": "20260926165000_import_audit_foundation.sql",
+        "version": "20260926165000",
+        "sha256": "a3327da21638b1144e0565e863c701414ac0b592b6b7cf7e30f5b20543153030"
+      },
+      {
+        "name": "20260927090000_fix_provision_workspace_profile_conflict.sql",
+        "version": "20260927090000",
+        "sha256": "d9e3015af2a0a6925af284a7ed04ad078cfcdfe940701dd52652d8dfd2bf93b9"
+      },
+      {
+        "name": "20260927161000_harden_shared_trigger_record_guards.sql",
+        "version": "20260927161000",
+        "sha256": "f2b3072589408414c5b4722f02f2456b7880ddb441577d816551c3797cb643bd"
+      },
+      {
+        "name": "20260927162000_enforce_import_job_initial_state.sql",
+        "version": "20260927162000",
+        "sha256": "20148daf663d6f03e549389d8c8e77bf9ce927d7e4e76f1726117c01e120d6f1"
+      },
+      {
+        "name": "20260927170000_telecom_v1_customer_read_rpc.sql",
+        "version": "20260927170000",
+        "sha256": "8408b7f1c61467997dce33a9c998336a6d2581574a030217b66f18b6e24d1167"
+      },
+      {
+        "name": "20260927171000_telecom_v1_customer_summary_rpc.sql",
+        "version": "20260927171000",
+        "sha256": "38198193e94392210ed2686b00b695f20e8d8cbce1e4d9b4e82c04f8411c40db"
+      },
+      {
+        "name": "20260927172000_telecom_v1_contract_read_rpc.sql",
+        "version": "20260927172000",
+        "sha256": "e226036182894af74d64e73707a9b45ae423761f943175afd19d7fbea341f577"
+      },
+      {
+        "name": "20260927173000_telecom_v1_service_line_read_rpc.sql",
+        "version": "20260927173000",
+        "sha256": "ab34316f06768e378105aa1f0ff8b64f51f8df7115dd97cfefcf42d4f070d9ce"
+      },
+      {
+        "name": "20260927174000_telecom_v1_activity_opportunity_read_rpc.sql",
+        "version": "20260927174000",
+        "sha256": "dfd8da004c171d257dccc0aebd06a3f3c69a87a603d3ad6e92323cd3935057e7"
+      },
+      {
+        "name": "20260927175000_telecom_v1_task_meeting_read_rpc.sql",
+        "version": "20260927175000",
+        "sha256": "c19565ae4e6eabfe0406d4d49f61bbfd20fd3f25d4e49589b6472261d8971748"
+      },
+      {
+        "name": "20260927180000_telecom_v1_renewal_permanence_read_rpc.sql",
+        "version": "20260927180000",
+        "sha256": "39c3176e4411aceaff9a87cfbe1c701070fd26d18192675d3443bf5c37c24d6b"
+      },
+      {
+        "name": "20260927181000_telecom_v1_dashboard_scope_rpc.sql",
+        "version": "20260927181000",
+        "sha256": "291de3e5f83483f696006c6cc3ab461d3522460e40edf4b66cb7ed175a7a29f3"
+      },
+      {
+        "name": "20260927182000_private_document_storage.sql",
+        "version": "20260927182000",
+        "sha256": "22d217bac21c6bcd6a3eefb03fd915c1eaa4e349707153072461e8658f309947"
+      },
+      {
+        "name": "20260927183000_assistant_durable_foundation.sql",
+        "version": "20260927183000",
+        "sha256": "6f1f4574e192fd362c0ba787201e4dc6dd6424058f6060a06170e32e72c52c04"
+      },
+      {
+        "name": "20260927184000_restrict_document_object_read.sql",
+        "version": "20260927184000",
+        "sha256": "734cd38b172b6fb2167aa7db301555f16013ec7a83a5dee5fbdda51524757076"
+      },
+      {
+        "name": "20260927185000_fix_customer_search_collation.sql",
+        "version": "20260927185000",
+        "sha256": "1e2267f4b714870937f3ace30e7fc9b0bcfc6fca041205abf9d2685217bd1742"
+      },
+      {
+        "name": "20260929212000_align_assistant_durable_contract.sql",
+        "version": "20260929212000",
+        "sha256": "d832c684d2f107562686b1c1500243f88bc4dd073e62debea58c7203da969fca"
+      },
+      {
+        "name": "20261003132000_product_customer_contact_commands.sql",
+        "version": "20261003132000",
+        "sha256": "3e4b4126d1fcf46df5df721a37cf829451d81dba9142fa04292260d6c8564287"
+      },
+      {
+        "name": "20261003134000_product_identity_editor_reads.sql",
+        "version": "20261003134000",
+        "sha256": "b5339c6887eba7993d0f34829a6af2089f7d5537b55f418b11601ef57eca688a"
+      },
+      {
+        "name": "20261004160000_product_work_commands.sql",
+        "version": "20261004160000",
+        "sha256": "3bc4796435f546879f46ac647154bd7a3d2c9f1a8cdacea2683b70cc57fb2f5b"
+      },
+      {
+        "name": "20261004162000_product_work_reads.sql",
+        "version": "20261004162000",
+        "sha256": "cd90b05178351a47dbdc4dc2ddd8e2913fe7107b1db260cfcdd271c6b4b8abbb"
+      },
+      {
+        "name": "20261004163000_product_identity_commercial_policy.sql",
+        "version": "20261004163000",
+        "sha256": "e7d692bd3fcfcc91a6a32e66297edfb7c5d21ca6338f250d0f3573a8b2e7f7d7"
+      },
+      {
+        "name": "20261004170000_product_dashboard_search.sql",
+        "version": "20261004170000",
+        "sha256": "e38237d809a2dc4970a2b02eaae6cba16a3dfce702070c4cec69d0a63d86df23"
+      },
+      {
+        "name": "20261004173000_billing_exact_issue.sql",
+        "version": "20261004173000",
+        "sha256": "189956cc71427a945888fbc8359594d5f0bad0c3a1979218e3c02f89fd5867ef"
+      },
+      {
+        "name": "20261004174000_billing_protected_reads.sql",
+        "version": "20261004174000",
+        "sha256": "3f26a7f74ee20328aea0e9426f3f66009aad0627e594c9bc9ff974f21e64f0ca"
+      },
+      {
+        "name": "20261004175000_product_dashboard_financial.sql",
+        "version": "20261004175000",
+        "sha256": "4c1366d8e4fe999270c9d2a33fbee3848759395c7bd20c01a68033575693ee16"
+      },
+      {
+        "name": "20261004180000_billing_normalized_proposal.sql",
+        "version": "20261004180000",
+        "sha256": "5e1cca230a6ec6c2b6a48515c4b54963f738cdee968a82d4a269a320beba4335"
+      },
+      {
+        "name": "20261004183000_team_protected_management.sql",
+        "version": "20261004183000",
+        "sha256": "ce1ac3ba62db8fd95aaa240096d1d7297c172279e5b2f96530cc08336d8656d1"
+      },
+      {
+        "name": "20261004190000_portfolio_human_commands.sql",
+        "version": "20261004190000",
+        "sha256": "9c08ee2040aaae9a7868f35d77f6672341f5becd4d1eb4181a214486074bf0fa"
+      },
+      {
+        "name": "20261004193000_portfolio_deadline_commands.sql",
+        "version": "20261004193000",
+        "sha256": "1f1d500ccd44487e5e3a277a5bcbbcf821216fcb3d25ef77191cd866f67a8d03"
+      },
+      {
+        "name": "20261004200000_product_protected_invoice_search.sql",
+        "version": "20261004200000",
+        "sha256": "196b051fa84ff97be18fb7eaceef1ab1efbbf73c075f8e446fa1c7859de04166"
+      },
+      {
+        "name": "20261004203000_document_metadata_commands.sql",
+        "version": "20261004203000",
+        "sha256": "21cc8c4c82ee80c847086c99771bcdf0a16fcf1d06f0ba64db84134540cd550c"
+      },
+      {
+        "name": "20261004204500_portfolio_explicit_child_provenance.sql",
+        "version": "20261004204500",
+        "sha256": "7341e1b6fe284a7016abfdca5aaa6f2316cc33024f25aaa3d332ae0cc0f4b138"
+      },
+      {
+        "name": "20261005120000_document_content_workflow.sql",
+        "version": "20261005120000",
+        "sha256": "4437725149fd9ced430b8645abb92fb04ac8c7b266d1ba1f9acdaddadbe7bd6c"
+      },
+      {
+        "name": "20261005123000_private_invoice_pdf_artifacts.sql",
+        "version": "20261005123000",
+        "sha256": "e37835f73f655271799557dc784ccb8a6820f8641bc023ea60f6cb5f7e52e6d9"
+      },
+      {
+        "name": "20261005130000_import_job_product_management.sql",
+        "version": "20261005130000",
+        "sha256": "4c183d14bb9889a0ac5faeacc7bb00dd3fb8140bac7e9b605ca91895d3f2b293"
+      },
+      {
+        "name": "20261005133000_internal_inbox_domain.sql",
+        "version": "20261005133000",
+        "sha256": "e3e4cc891ad1376c38474e1b2aee27829b76957826c63de676cde158ae7cd43c"
+      },
+      {
+        "name": "20261005140000_personal_notification_center.sql",
+        "version": "20261005140000",
+        "sha256": "fca59c25f8080c2636372d8fc00669732a976a8d896d6174b3f04e8a1d7c32b6"
+      },
+      {
+        "name": "20261005143000_registered_internal_automations.sql",
+        "version": "20261005143000",
+        "sha256": "0ba2fe39889c8657fa8b87f48b1230d0cad904a44354ab80763571b243e9e72b"
+      },
+      {
+        "name": "20261005150000_product_settings_profiles.sql",
+        "version": "20261005150000",
+        "sha256": "6f2029b6848797503d698e22765df32fe9d9e0fbe20ab9ef9dc3e41f2283a281"
+      },
+      {
+        "name": "20261005153000_requested_sensitive_reveal.sql",
+        "version": "20261005153000",
+        "sha256": "c201d80a4eb2d014b9935a3fea722d1bea6ac7e499752a5a881e2294f211c11d"
+      },
+      {
+        "name": "20261005160000_team_expiry_manual_origin.sql",
+        "version": "20261005160000",
+        "sha256": "291968f610f1d2470465b867df96e1b6fead4bcc91ad5dd11edd6bf902e62ed9"
+      },
+      {
+        "name": "20261005160500_contact_origin_without_legacy_source.sql",
+        "version": "20261005160500",
+        "sha256": "e62f22711b3d6eac4cba8325e808dd16b407ba32126c9ad92c973acbc820fdd1"
+      },
+      {
+        "name": "20261005163000_document_integrity_expired_cleanup.sql",
+        "version": "20261005163000",
+        "sha256": "92ebe0932250c2b072c79845ac1b47194a7a2d0818868d4ca29ddf9555ac120c"
+      },
+      {
+        "name": "20261005164500_document_target_ancestry_serialization.sql",
+        "version": "20261005164500",
+        "sha256": "77d21735511cd058d39bdd1ed16b48ec9b02c881a3b77af72dc4b316d9af8b27"
+      },
+      {
+        "name": "20261005203000_document_cleanup_replay_serialization.sql",
+        "version": "20261005203000",
+        "sha256": "8859a644e11db7c0d72d44e45d15d34cb518d035d0588bf09c019f7cfa3d1082"
+      },
+      {
+        "name": "20261005213000_telecom_commercial_collections.sql",
+        "version": "20261005213000",
+        "sha256": "528931de801fabd19f953d2d9564ffd7b6b25e9b3390b93936bce933b127799d"
+      },
+      {
+        "name": "20261005220000_protected_telecom_identifiers.sql",
+        "version": "20261005220000",
+        "sha256": "3b56e254b9324c2fa94488f4f0eb97d7db39e070c54e641fcc9c8e89cf7b1d77"
+      },
+      {
+        "name": "20261005223000_immutable_commercial_catalog.sql",
+        "version": "20261005223000",
+        "sha256": "759f9d6b3aa1b8e50e0e64b03a435dfccc8221c39f8d6fd6124a1acac571c4da"
+      },
+      {
+        "name": "20261006110000_commercial_portability_workflow.sql",
+        "version": "20261006110000",
+        "sha256": "2ec35807630a626795a49cd09721accb668821a359a019a29a1ba82c65d606c8"
+      },
+      {
+        "name": "20261006113000_product_service_case_workflow.sql",
+        "version": "20261006113000",
+        "sha256": "78323eb49f5ede3a5538747df50612dce7119992b9891149ba226f152d0cc649"
+      },
+      {
+        "name": "20261006120000_commercial_sim_esim_history.sql",
+        "version": "20261006120000",
+        "sha256": "0df8d32c8dc09234018a68b771de4cca1d44eecc428eb3f8eda41eea9ebaca06"
+      },
+      {
+        "name": "20261006123000_sim_association_snapshot_cas.sql",
+        "version": "20261006123000",
+        "sha256": "169273dd12ae8c6e9d963b062b3311024a880b3e6e8d96a616d6eb7c6ab9649c"
+      },
+      {
+        "name": "20261006130000_telecom_customer360_report_reads.sql",
+        "version": "20261006130000",
+        "sha256": "5ae5dd4f643de7e4af55109e6da98993e8d3514a1c147197e2055dcc630d4876"
+      },
+      {
+        "name": "20261006133000_dense_masked_line_collection.sql",
+        "version": "20261006133000",
+        "sha256": "bb1a639032308f2459a63b7b459ff1ab58ee368d0539cf92ca00b028166f058c"
+      },
+      {
+        "name": "20261006140000_deterministic_telecom_attention.sql",
+        "version": "20261006140000",
+        "sha256": "3fc65dc1579c0ad39b7fa52ec0abb06bd0e6b6c388f805728d1aafcb1261d570"
+      },
+      {
+        "name": "20261006143000_currency_separated_billing_cohort_reads.sql",
+        "version": "20261006143000",
+        "sha256": "2642d76790b873cee0016d811978eaba72a7c02d6a179ecc95aa6f26b0ef8e0f"
+      },
+      {
+        "name": "20261006150000_full_customer360_work_collections.sql",
+        "version": "20261006150000",
+        "sha256": "97338cbadb84c5e0407615125d3ae08b918ab2040df57747d584bd19f5052de6"
+      },
+      {
+        "name": "20261006153000_service_installation_and_addon_history.sql",
+        "version": "20261006153000",
+        "sha256": "21b0272260fd3bc8c2f137dec793531012ecdf3f6ba08cd6cc8bddd9584ea2b7"
+      },
+      {
+        "name": "20261006160000_normalized_private_service_locations.sql",
+        "version": "20261006160000",
+        "sha256": "5e3e76174e5aec3f33f70d756f173d60819c85dff8b4e844ea49e54cebe28926"
+      },
+      {
+        "name": "20261006163000_bounded_commercial_equipment.sql",
+        "version": "20261006163000",
+        "sha256": "9484f47d5e427933afec457960b5687e49445f0a1199515f3ec69736509df2b6"
+      },
+      {
+        "name": "20261006221429_assistant_conversations_v2.sql",
+        "version": "20261006221429",
+        "sha256": "fc8c5fb41d3750ea58db4cd2b74f42c217e08541314c2bf36251955daacf51f5"
+      },
+      {
+        "name": "20261006221500_registered_external_identities.sql",
+        "version": "20261006221500",
+        "sha256": "93c5692cd69230080fa4fd773f67d2150c85f33414ff704fad6f4897a5c0065c"
+      },
+      {
+        "name": "20261006224734_assistant_history_rpc_only.sql",
+        "version": "20261006224734",
+        "sha256": "509888a02b71d7fed8a26c11ea7b12ae16c5506e0f8273b964c1f4aa21168547"
+      },
+      {
+        "name": "20261007214224_assistant_turn_single_clock.sql",
+        "version": "20261007214224",
+        "sha256": "fef6cbb714ad7b30e7fe5f770c838ca57d7739d876f1e8862c5a9385c7de1a8f"
+      },
+      {
+        "name": "20261008010000_align_provider_rpc_execution_grants.sql",
+        "version": "20261008010000",
+        "sha256": "700d2dea9db5351cb97a0256461e67e93d399d9c0b8320bbd2e8b96ed4f6da9b"
+      },
+      {
+        "name": "20261011010500_assistant_confirm_reserve_atomic.sql",
+        "version": "20261011010500",
+        "sha256": "7f339e6a0930b406118753f054527d83c2f7aa475d6b0a3a0cff0f5e718493fd"
+      },
+      {
+        "name": "20261011012500_assistant_reservation_record_projection.sql",
+        "version": "20261011012500",
+        "sha256": "6726f354cdff94cff9194f70cd407d57f1eb3a56be1bb2da34b11d95afb3b8c0"
+      },
+      {
+        "name": "20261011014500_assistant_confirmation_cancel.sql",
+        "version": "20261011014500",
+        "sha256": "114da085ac683e6a7cc78bc23bdbceb04bce8dbea50dd4fb1c59be8c71086e0f"
+      },
+      {
+        "name": "20261011023000_assistant_operation_recovery.sql",
+        "version": "20261011023000",
+        "sha256": "974b44a7ae6ef2471477ddeca4efdc1a7da2665a734cea06561f6458a59c8278"
+      },
+      {
+        "name": "20261011031500_assistant_start_execution.sql",
+        "version": "20261011031500",
+        "sha256": "de72b2913de282a01042127ba889b8d001c26b26eab1df792db4605d06580308"
+      },
+      {
+        "name": "20261011034500_assistant_audit_delivery_workers.sql",
+        "version": "20261011034500",
+        "sha256": "865b3a589379453a057d53efd9c6bbf0e5ad7206371ce04845dc02239db2f2e4"
+      },
+      {
+        "name": "20261011040500_assistant_audit_queue.sql",
+        "version": "20261011040500",
+        "sha256": "07016eec860b63b6cc37dea89015609623492c12fa10d87c09b28b3134196567"
+      },
+      {
+        "name": "20261011050000_assistant_command_material.sql",
+        "version": "20261011050000",
+        "sha256": "3ed1e21ebf1373d148b5ee6cde5ab4d566608e289b228df748ad47687b0f022f"
+      },
+      {
+        "name": "20261011060000_assistant_effect_workers.sql",
+        "version": "20261011060000",
+        "sha256": "4096997dc8ba8493083d12f33cb19edde5465f5adc85de00682c5d05fc010664"
+      },
+      {
+        "name": "20261011070000_assistant_safe_completion.sql",
+        "version": "20261011070000",
+        "sha256": "7b8fe7214836333781b68f681bb96920d6ee3aa3043964f778efd48e4e5b985e"
+      },
+      {
+        "name": "20261011080000_assistant_unconfirmed_reservation.sql",
+        "version": "20261011080000",
+        "sha256": "031b898bb678ece80ca29bfd342918f31f69c52eb8054c3d8c2bd76e7987b03e"
+      },
+      {
+        "name": "20261011090000_assistant_verified_completed_reconciliation.sql",
+        "version": "20261011090000",
+        "sha256": "17159132d207ea2f10bba3597d93e29b3cd900c696f2dbbef581be639fc30f18"
+      }
+    ],
+    "platform_keys": [
+      "AI_PROVIDER",
+      "NEXT_PUBLIC_SUPABASE_URL",
+      "OPENAI_PROJECT_ID",
+      "PLATFORM_TARGET",
+      "PRODUCT_V1_ENABLED",
+      "PRODUCT_V1_ORIGIN"
+    ]
+  }
+]

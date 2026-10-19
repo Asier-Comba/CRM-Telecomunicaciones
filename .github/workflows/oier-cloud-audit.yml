@@ -1,0 +1,36 @@
+name: Oier independent offline cloud audit
+on:
+  push:
+    branches: [oier/cloud-acceptance-audit-20261019]
+    paths:
+      - tools/oier_cloud_audit/**
+      - docs/cloud-acceptance/20261019/**
+      - .github/workflows/oier-cloud-audit.yml
+permissions:
+  contents: read
+concurrency:
+  group: oier-independent-cloud-audit-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  offline-auditor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - name: Pin public source objects only
+        run: |
+          git fetch --no-tags --depth=1 origin 5332d9899eb1062a7db6b1800e9f0eda1151bac3 bb16afe512be1cb04d6c86ecadb2064966a062aa
+      - name: Auditor safety negatives (not product tests)
+        run: python3 -m unittest discover -s tools/oier_cloud_audit -p 'test_*.py' -v
+      - name: Reproduce exact source audit without services or secrets
+        run: |
+          python3 tools/oier_cloud_audit/verify.py --repo . --source-ref 5332d9899eb1062a7db6b1800e9f0eda1151bac3 --compare-ref bb16afe512be1cb04d6c86ecadb2064966a062aa > "$RUNNER_TEMP/oier-cloud-audit.json"
+          python3 -c "import json,os; p=json.load(open(os.environ['RUNNER_TEMP']+'/oier-cloud-audit.json')); assert len(p['requirements'])==342 and not p['cloud_ready']; print('OFFLINE_AUDITOR_REPRODUCED; HOSTED_ACCEPTANCE_NOT_RUN')"
+      - name: Publish non-sensitive source observations
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: oier-offline-cloud-audit-${{ github.sha }}
+          path: ${{ runner.temp }}/oier-cloud-audit.json
+          retention-days: 7
