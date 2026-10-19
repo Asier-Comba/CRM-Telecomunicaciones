@@ -55,11 +55,10 @@
   "scope": "Actual product with synthetic input and controlled loopback HTTP / simulated speech; not hosted Auth/DB or real voice",
   "integration": "ASIER_ACK_REQUIRED",
   "next": {
-    "unit": "13",
-    "status": "ORIGINAL_DIALOG_CONTEXT_BANK_RUNNING_SOURCE_DDDD",
-    "task": "If causal failure reproduced, retire pending proposal on fiscal/summary/payment dialog open; same existing epoch, no commands or permission changes.",
-    "session": 18348,
-    "claim": 6279053269
+    "task": "FIRST refresh local cleanliness, PR160 head, issue67 CLAIM/ACK and run39337759538/39337759614. Do not duplicate or cancel active checks. If terminal, preserve every outcome, verify this qualified recovery source/code blobs, fast-forward existing PR160 branch to recovery head (no force), verify remote SHA and run fresh own remote controls. Never inherit PASS or merge without exact Asier ACK.",
+    "independent_followup": "Evaluate explicitly named customer versus selected customer conflict with a causal bank before changing behavior; NOT_RUN, no acceptance claimed.",
+    "security": "W4 owns independent security review and findings triage; five HIGH visible, IA writes OFF, release NOT_ACCEPTED.",
+    "cloud": "W5 owns Edge Access, exact deploy/source and authorized synthetic cohort/window/roles/actions/cleanup; no bypass, migration reset or resellpro."
   },
   "netlify": "EDGE_ACCESS_BLOCKED_W5_ASSIGNED_NO_BYPASS",
   "supabase": "87_MIGRATIONS_NO_RESET_REAPPLY_OR_MUTATION",
@@ -88,39 +87,30 @@
     "regression": "88PASS"
   },
   "remote_checks": {
-    "CI": "FAIL_HIGH5_SECRET_SCAN_WINDOWS_CHECKOUT",
-    "next": "Old runs terminal; PR160 can now fast-forward to this published code/evidence and run new own remote checks. No merge.",
-    "runs": [
-      {
-        "id": 39334979224,
-        "name": "W4 all-ref secret audit",
-        "status": "completed",
-        "conclusion": "failure",
-        "head_sha": "2e5318cff28f59d172224fefba7125b61216277c",
-        "html_url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/39334979224"
-      },
-      {
-        "id": 39334979116,
-        "name": "CI",
-        "status": "completed",
-        "conclusion": "failure",
-        "head_sha": "2e5318cff28f59d172224fefba7125b61216277c",
-        "html_url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/39334979116"
-      },
-      {
-        "id": 39334979170,
-        "name": "Supabase local acceptance",
-        "status": "completed",
-        "conclusion": "success",
-        "head_sha": "2e5318cff28f59d172224fefba7125b61216277c",
-        "html_url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/39334979170"
-      }
-    ],
-    "source": "2e5318cff28f59d172224fefba7125b61216277c",
-    "inherit_pass": false,
-    "new_product_source": "dddd7a505313397c6a7ae76ae5b707c511469fac",
-    "Supabase": "SUCCESS_REAL_DISPOSABLE_AUTH_DB_POSTGREST_STORAGE_WORKFLOW_ONLY_THIS_SHA",
-    "W4": "BLOCKED_FINDINGS23"
+    "Supabase": {
+      "run": 39337759538,
+      "status": "IN_PROGRESS",
+      "scope": "Disposable real-local Auth/PostgREST/Storage; not hosted staging87"
+    },
+    "source": "f519e60236f88a031f2625e382114b72e8a95030",
+    "latest_unit13": "Published only in isolated recovery alias until current PR runs terminal",
+    "W4": {
+      "run": 39337759548,
+      "count": 23,
+      "status": "BLOCKED_FINDINGS",
+      "exceptions": 0,
+      "raw_published": false
+    },
+    "CI": {
+      "windows_launcher": "SUCCESS_JOB118351422191",
+      "audit": "HIGH5_EXIT1",
+      "run": 39337759614,
+      "history_secret_scan": "FAIL",
+      "application_tests": "620plus825_FAIL0",
+      "status": "IN_PROGRESS_WITH_KNOWN_FAILURES"
+    },
+    "PR160": "DRAFT_HEAD_F519",
+    "inherit_pass": false
   },
   "completed_unit10": {
     "build": 0,
@@ -169,11 +159,38 @@
     "total_unique_browser": 163,
     "red_source": "ea0f7f0010ab10b39e2fae221880e523d123e30a"
   },
-  "current_measured_product_source": "dddd7a505313397c6a7ae76ae5b707c511469fac",
+  "current_measured_product_source": "7b54d09dad42cfeff92ea9a00cc1e73be620e42c",
   "artifacts": {
     "bundle": "evidence/artifacts-v1.zip",
     "hashes": "EVIDENCE_MANIFEST.json",
     "original_attempts": "Retained separately on disk; raw reports and archived artifacts published unchanged",
     "map": "ARTIFACT_PATH_MAP.json"
+  },
+  "completed_unit13": {
+    "source_commit": "7b54d09dad42cfeff92ea9a00cc1e73be620e42c",
+    "composed_browser": "87PASS",
+    "red_source": "dddd7a505313397c6a7ae76ae5b707c511469fac",
+    "claim": 6279053269,
+    "real_voice": "NOT_RUN",
+    "visual": "Reviewed selected payment390,issuer768,summary1440 captures only; deliberate summary403; not hosted or blanket visual acceptance",
+    "concept_bank": "10PASS",
+    "original_parser": "24PASS",
+    "hosted_auth_db": "NOT_RUN",
+    "bootstrap": "53PASS",
+    "red": "12FAIL_ALL_STALE_EDITOR_APPEARED",
+    "live_model": "NOT_RUN",
+    "existing_billing_browser": "88PASS",
+    "total_unique_browser": 175,
+    "dialog_cases": "12PASS_INCLUDED_IN_COMPOSED87_WITH_FRESH_PROPOSAL_POSITIVE",
+    "scope": "SYNTHETIC_INPUT_CONTROLLED_LOOPBACK_HTTP_STUB_SPEECH",
+    "typescript": 0,
+    "build": 0,
+    "lint": 0,
+    "windows_full_checkout": "PASS_SOURCE7B54_PATH_SPACES_CORE_LONGPATHS_FALSE"
+  },
+  "local_active_work": {
+    "status": "NO_LONG_RUNNING_LOCAL_PROCESS",
+    "next_remote_checks": "Already running on F519; latest UNIT13 recovery not synchronized over them",
+    "product_checks_complete": true
   }
 }
