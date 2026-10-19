@@ -16,8 +16,8 @@ do $$declare w uuid:='b9000000-0000-4000-8000-000000000001';id uuid:='d9000000-0
  v:=jsonb_build_object('command_id','99000000-0000-4000-8000-000000000010','id',id,'expected_version',1);
  r:=public.document_v1_archive(w,v);perform pg_temp.doc_assert(r->>'version'='2'and r->>'status'='archived'and r=public.document_v1_archive(w,v));
  perform pg_temp.doc_assert(not public.telecom_v1_can_read_document_object('b9000000-0000-4000-8000-000000000001/documents/d9000000-0000-4000-8000-000000000001/99000000-0000-4000-8000-000000000001'));
- perform pg_temp.doc_deny(format('select public.document_v1_archive(%L,%L)',w,(v||'{"expected_version":2}')::text),'40001');
- perform pg_temp.doc_deny(format('select public.document_v1_restore(%L,%L)',w,(v||jsonb_build_object('command_id',gen_random_uuid()))::text),'40001');
+ perform pg_temp.doc_deny(format('select public.document_v1_archive(%L,%L)',w,(v||'{"expected_version":2}')::text),'PT409');
+ perform pg_temp.doc_deny(format('select public.document_v1_restore(%L,%L)',w,(v||jsonb_build_object('command_id',gen_random_uuid()))::text),'PT409');
  r:=public.document_v1_restore(w,v||jsonb_build_object('command_id',gen_random_uuid(),'expected_version',2));perform pg_temp.doc_assert(r->>'version'='3'and r->>'status'='active');
  perform pg_temp.doc_assert(public.telecom_v1_can_read_document_object('b9000000-0000-4000-8000-000000000001/documents/d9000000-0000-4000-8000-000000000001/99000000-0000-4000-8000-000000000001'));
  perform pg_temp.doc_deny(format('select public.document_v1_list(%L,%L)',w,'{"target_kind":"customer","target_id":"c9000000-0000-4000-8000-000000000001","limit":101}'),'22023');

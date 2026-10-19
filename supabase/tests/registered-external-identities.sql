@@ -14,7 +14,7 @@ do $$declare w uuid:=md5('density.workspace.1')::uuid;c jsonb;other jsonb;g json
  r:=public.external_identity_v1_command(w,'external_identity.bind',i);insert into saved_identity values('external_identity.bind',i,r);
  perform pg_temp.assert_identity(r=public.external_identity_v1_command(w,'external_identity.bind',i)and r->>'version'='1');
  perform pg_temp.assert_identity(r->>'id'=(public.external_identity_v1_command(w,'external_identity.bind',i||jsonb_build_object('command_id',gen_random_uuid())))->>'id');
- perform pg_temp.deny_identity(format('select public.external_identity_v1_command(%L,%L,%L)',w,'external_identity.bind',(i||jsonb_build_object('command_id',gen_random_uuid(),'local_entity_id',other->>'id'))::text),'40001');
+ perform pg_temp.deny_identity(format('select public.external_identity_v1_command(%L,%L,%L)',w,'external_identity.bind',(i||jsonb_build_object('command_id',gen_random_uuid(),'local_entity_id',other->>'id'))::text),'PT409');
  perform pg_temp.deny_identity(format('select public.external_identity_v1_command(%L,%L,%L)',w,'external_identity.bind',(i||jsonb_build_object('command_id',gen_random_uuid(),'local_entity_id',gen_random_uuid()))::text),'P0002');
  perform pg_temp.deny_identity(format('select public.external_identity_v1_command(%L,%L,%L)',md5('density.workspace.2')::uuid,'external_identity.bind',i::text),'42501');
  perform pg_temp.deny_identity(format('select public.external_identity_v1_command(%L,%L,%L)',w,'external_identity.bind',(i||jsonb_build_object('command_id',gen_random_uuid(),'external_id','https://invalid'))::text),'22023');
@@ -26,7 +26,7 @@ do $$declare w uuid:=md5('density.workspace.1')::uuid;c jsonb;other jsonb;g json
  perform pg_temp.assert_identity((public.external_identity_v1_query(w,'external_identity.integration_list','{}')->'items'->0->>'external_effect')='disabled');
  i:=jsonb_build_object('command_id',gen_random_uuid(),'id',r->>'id','expected_version',1);r:=public.external_identity_v1_command(w,'external_identity.retire',i);insert into saved_identity values('external_identity.retire',i,r);
  perform pg_temp.assert_identity(r->>'version'='2'and r->>'status'='retired'and r=public.external_identity_v1_command(w,'external_identity.retire',i));
- perform pg_temp.deny_identity(format('select public.external_identity_v1_command(%L,%L,%L)',w,'external_identity.retire',(i||jsonb_build_object('command_id',gen_random_uuid()))::text),'40001');
+ perform pg_temp.deny_identity(format('select public.external_identity_v1_command(%L,%L,%L)',w,'external_identity.retire',(i||jsonb_build_object('command_id',gen_random_uuid()))::text),'PT409');
  perform pg_temp.assert_identity(jsonb_array_length(public.external_identity_v1_query(w,'external_identity.list',jsonb_build_object('local_entity_kind','customer','local_entity_id',c->>'id','status','retired'))->'items')=1);
 end$$;
 reset role;

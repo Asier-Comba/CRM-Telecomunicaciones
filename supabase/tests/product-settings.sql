@@ -11,7 +11,7 @@ do $$declare w uuid:='82000000-0000-4000-8000-000000000001';i jsonb;r jsonb;begi
  i:=jsonb_build_object('command_id',gen_random_uuid(),'expected_version',0,'profile',jsonb_build_object('display_name','Synthetic preference','timezone','Europe/Madrid','locale','es-ES','notification_preferences',jsonb_build_object('in_app',false)));
  r:=public.settings_v1_profile_update(w,i);perform pg_temp.assert_s(r->>'version'='1'and r=public.settings_v1_profile_update(w,i));
  perform pg_temp.assert_s(public.settings_v1_profile_get(w,'{}')->'profile'->'notification_preferences'->>'in_app'='false');
- perform pg_temp.deny_s(format('select public.settings_v1_profile_update(%L,%L)',w,(i||'{"expected_version":1}'::jsonb)::text),'40001');
+ perform pg_temp.deny_s(format('select public.settings_v1_profile_update(%L,%L)',w,(i||'{"expected_version":1}'::jsonb)::text),'PT409');
  perform pg_temp.deny_s(format('select public.settings_v1_company_update(%L,%L)',w,i::text),'42501');
  perform pg_temp.deny_s(format('select public.settings_v1_profile_update(%L,%L)',w,(i||jsonb_build_object('command_id',gen_random_uuid(),'actor_id','81000000-0000-4000-8000-000000000001'))::text),'22023');
 end$$;

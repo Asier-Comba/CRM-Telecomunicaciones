@@ -26,7 +26,7 @@ begin
  v:=jsonb_build_object('command_id',gen_random_uuid(),'title','Synthetic task','due_at','2026-10-25T02:30:00+02:00','customer_id',customer,'priority','high');
  r:=public.product_v1_task_create(w,v);task:=(r->>'id')::uuid;
  perform pg_temp.b3_assert(r=public.product_v1_task_create(w,v) and r->>'status'='pending');
- perform pg_temp.b3_denied(format('select public.product_v1_task_create(%L,%L)',w,(v||'{"title":"Changed"}')::text),'40001');
+ perform pg_temp.b3_denied(format('select public.product_v1_task_create(%L,%L)',w,(v||'{"title":"Changed"}')::text),'PT409');
  perform pg_temp.b3_denied(format('select public.product_v1_task_create(%L,%L)',w,(v||jsonb_build_object('command_id',gen_random_uuid(),'workspace_id',w))::text),'22023');
  perform pg_temp.b3_denied(format('select public.product_v1_task_create(%L,%L)',w,(v||jsonb_build_object('command_id',gen_random_uuid(),'customer_id','83000000-0000-4000-8000-000000000002'))::text),'P0002');
  perform pg_temp.b3_denied(format('select public.product_v1_task_create(%L,%L)',w,(v||jsonb_build_object('command_id',gen_random_uuid(),'assigned_user_id','81000000-0000-4000-8000-000000000004'))::text),'22023');
@@ -34,7 +34,7 @@ begin
  perform pg_temp.b3_denied(format('select public.product_v1_task_create(%L,%L)',w,(v||jsonb_build_object('command_id',gen_random_uuid(),'due_at','2026-10-25T02:30:00'))::text),'22023');
  v:=jsonb_build_object('command_id',gen_random_uuid(),'id',task,'expected_version',1);
  r:=public.product_v1_task_start(w,v);perform pg_temp.b3_assert(r->>'version'='2' and r->>'status'='in_progress');
- perform pg_temp.b3_denied(format('select public.product_v1_task_complete(%L,%L)',w,(v||jsonb_build_object('command_id',gen_random_uuid()))::text),'40001');
+ perform pg_temp.b3_denied(format('select public.product_v1_task_complete(%L,%L)',w,(v||jsonb_build_object('command_id',gen_random_uuid()))::text),'PT409');
  r:=public.product_v1_task_complete(w,v||jsonb_build_object('command_id',gen_random_uuid(),'expected_version',2));
  perform pg_temp.b3_assert(r->>'status'='completed');
  perform pg_temp.b3_denied(format('select public.product_v1_task_update(%L,%L)',w,(v||jsonb_build_object('command_id',gen_random_uuid(),'expected_version',3,'title','Closed'))::text),'22023');

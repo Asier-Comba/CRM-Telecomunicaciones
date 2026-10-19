@@ -20,7 +20,7 @@ do $$declare w uuid:=md5('density.workspace.1')::uuid;customer uuid:=md5('densit
  perform public.identifier_v1_command(w,'identifier.create_manual',jsonb_build_object('command_id',gen_random_uuid(),'entity_kind','sim','entity_id',newsim->>'id','identifier_kind','iccid','canonical_value','89'||repeat('0',14)||'181'));
  eid:=public.identifier_v1_command(w,'identifier.create_manual',jsonb_build_object('command_id',gen_random_uuid(),'entity_kind','sim','entity_id',newsim->>'id','identifier_kind','eid','canonical_value','89'||repeat('0',27)||'181'));
  i:=jsonb_build_object('command_id',gen_random_uuid(),'id',oldsim->>'id','expected_version',3,'replacement_sim_id',newsim->>'id','expected_replacement_version',1,'expected_line_version',2,'replacement_status','active','evidence_source','manual','provider_confirmation','confirmed_active');
- perform pg_temp.deny_sim(format('select public.sim_v1_command(%L,%L,%L)',w,'sim.replace',i::text),'40001');
+ perform pg_temp.deny_sim(format('select public.sim_v1_command(%L,%L,%L)',w,'sim.replace',i::text),'PT409');
  i:=i||jsonb_build_object('expected_line_version',1);r:=public.sim_v1_command(w,'sim.replace',i);insert into saved_sim values('sim.replace',i,r);perform pg_temp.assert_sim(r->>'status'='replaced'and r->>'replacement_status'='active'and r->>'replacement_version'='2');
  perform pg_temp.assert_sim((select q.value->>'sim_id'=newsim->>'id'and q.value->>'sim_kind'='esim'and q.value->>'masked_eid'='••••181'from jsonb_array_elements(public.telecom_collection_v1_query(w,'line.list',jsonb_build_object('service_id',md5('density.service.1.1.1')::uuid))->'items')q(value)where q.value->>'id'=line::text));
  perform pg_temp.assert_sim(public.sim_v1_query(w,'sim.get',jsonb_build_object('id',newsim->>'id'))->'record'->>'masked_eid'='••••181');
@@ -30,7 +30,7 @@ do $$declare w uuid:=md5('density.workspace.1')::uuid;customer uuid:=md5('densit
  unused:=public.sim_v1_command(w,'sim.create',jsonb_build_object('command_id',gen_random_uuid(),'customer_id',customer,'operator_id',operator,'kind','esim','display_label','Synthetic Unused Profile'));
  -- One eUICC can hold multiple profiles: shared EID is a valid fact.
  perform public.identifier_v1_command(w,'identifier.create_manual',jsonb_build_object('command_id',gen_random_uuid(),'entity_kind','sim','entity_id',unused->>'id','identifier_kind','eid','canonical_value','89'||repeat('0',27)||'181'));
- perform pg_temp.deny_sim(format('select public.identifier_v1_command(%L,%L,%L)',w,'identifier.create_manual',jsonb_build_object('command_id',gen_random_uuid(),'entity_kind','sim','entity_id',unused->>'id','identifier_kind','iccid','canonical_value','89'||repeat('0',14)||'180')::text),'40001');
+ perform pg_temp.deny_sim(format('select public.identifier_v1_command(%L,%L,%L)',w,'identifier.create_manual',jsonb_build_object('command_id',gen_random_uuid(),'entity_kind','sim','entity_id',unused->>'id','identifier_kind','iccid','canonical_value','89'||repeat('0',14)||'180')::text),'PT409');
  i:=jsonb_build_object('command_id',gen_random_uuid(),'id',unused->>'id','expected_version',1);r:=public.sim_v1_command(w,'sim.cancel',i);insert into saved_sim values('sim.cancel',i,r);
  perform pg_temp.assert_sim(jsonb_array_length(public.sim_v1_query(w,'sim.list',jsonb_build_object('customer_id',customer))->'items')=3);
  for r in select jsonb_build_object('op',t.op,'i',t.i,'r',t.r)from saved_sim t loop perform pg_temp.assert_sim(public.sim_v1_command(w,r->>'op',r->'i')=r->'r');end loop;
