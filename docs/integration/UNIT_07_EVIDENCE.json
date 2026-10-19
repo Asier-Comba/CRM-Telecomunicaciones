@@ -1,0 +1,57 @@
+{
+  "source": "8f83f90534396a1220546104d4d3a96dd13294f0",
+  "tree": "cff28e3e87315cb9ab91d377a0349c9ac0cbf818",
+  "integrated": [
+    "563948981dff3e1216beeb3fcec3c7e9219596a4",
+    "d3c0e1d2203a07cc90486e0083929dfba6ea0a1c"
+  ],
+  "causal": {
+    "failed": 6,
+    "passed": 2,
+    "width": 390
+  },
+  "browser": {
+    "passed": 71,
+    "failed": 0,
+    "invocations": [
+      68,
+      3
+    ],
+    "scope": "CONTROLLED_HTTP_NOT_AUTH_DB"
+  },
+  "lint": "PASS",
+  "typecheck": "PASS",
+  "build": "PASS66",
+  "hosted": "NOT_RUN",
+  "release_ready": false,
+  "records": [
+    {
+      "name": "customer7-before.log",
+      "sha256": "b7432fc1f761506a856515e789f4dd6d02336cc0abc6cd2f5326505c63abf970"
+    },
+    {
+      "name": "customer7-causal.log",
+      "sha256": "a6144d1da94ab5e6b66a2c0f6b59b09253a9812ed20196984bfcfa50b60055e9"
+    },
+    {
+      "name": "customer7-after.log",
+      "sha256": "3a9b26972d81c584e5358231b2c659fcfd1f7b0eb204257e0346771915870244"
+    },
+    {
+      "name": "customer7-cases.log",
+      "sha256": "08d1098aa3078e3204828771f8ae369d1a0ed17962ca69b47f5285c476366e41"
+    },
+    {
+      "name": "unit7-lint.log",
+      "sha256": "dda21574b74ba6a9edea377d67b00a3846ea8ae6ee11171eb3102a4a59f30d98"
+    },
+    {
+      "name": "unit7-types.log",
+      "sha256": "09698db0dd661e366e31bb0aa12a64958690641809896ed8445717ab71ea6759"
+    },
+    {
+      "name": "unit7-build.log",
+      "sha256": "a2b70f4bfc4df9f4802f717b974d7d8cb19e52540e2a8e71029b0728b5c94575"
+    }
+  ]
+}
