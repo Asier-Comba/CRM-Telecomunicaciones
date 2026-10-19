@@ -184,3 +184,33 @@ Costes que requieren autorización del propietario (no se ha incurrido en ningun
 - `getSignedDocumentUrl` (`src/lib/supabase-queries.ts`) firma URLs desde el
   navegador; confirmad que no se usa con `telecom-documents` (las URL firmadas
   también se cachean y revocar no purga).
+
+## 8. Línea base hospedada (19/10/2026, 17:05–17:23 UTC) — autorizada por el propietario
+
+Staging `zgwotxnyqzfuzcnmgvtn` verificado antes: 86 migraciones, 90/90 RLS, 319
+funciones, 10 usuarios sintéticos baneados, 0 sesiones, 1 objeto, 1 fila de clave.
+Sólo cuentas sintéticas `w5p0-20261019-*@example.invalid`; contraseñas generadas
+y hasheadas en local (sólo el hash bcrypt viajó a SQL), rotadas a valores
+desconocidos y cuentas re-baneadas al terminar.
+
+**P1 HTTP — FAIL reproducido, causa confirmada** (`evidence/hosted-http-conflict-baseline-20261019.json`):
+create 588 ms y replay exacto 73 ms PASS; changed-intent y stale-version
+(secuencial y 4+4 en paralelo) sin cabeceras en 30 s; el replay posterior
+también colgado. PostgREST 14.18 entró en bucle de reintentos: ~6000
+`product_conflict`/min sostenidos hasta terminar, con autorización, los 10
+backends `authenticator` (17:18:50 último error). Efecto de negocio: 1 cliente
+sintético (sin duplicados de la escritura original).
+
+**P0 Storage — FAIL reproducido** (`evidence/hosted-storage-revocation-baseline-20261019.json`):
+55 comprobaciones, 19 PASS, 36 FAIL, **36 leaks**. Antes de revocar: owner A
+200 con bytes correctos; viewer A, miembro A+B, owner B, anónimo, URL pública y
+firma por ajenos → 400. Tras suspender la membresía del owner (17:21:49):
+mismo JWT + misma URL → 200 con los bytes privados en las 36 lecturas durante
+90 s por `/object/authenticated` y `/object` (`cf-cache-status: HIT`,
+`cache-control: no-cache`). Firma con el JWT revocado → 400; login nuevo → 400.
+Dato adicional: la primera lectura con un JWT recién emitido ya fue HIT, por lo
+que el borde guarda los bytes con independencia del token y sólo la decisión de
+admisión parece depender del token. Duración total de la ventana no medida (≥ 90 s).
+
+Estado final: membresía restaurada a `active`, 10/10 cuentas baneadas, 0
+sesiones, 0 refresh tokens vivos, 0 backends colgados, 86 migraciones.
