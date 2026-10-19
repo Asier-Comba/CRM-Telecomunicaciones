@@ -1,0 +1,768 @@
+{
+  "schema": "oier.billing-proposal-context.v1",
+  "source": "888ecaae57e9021ca0cb25d4da0657c1f6ac9b40",
+  "runner_base": "24c2aee9ea0e179f52e8b1123271844d8bcb1b4a",
+  "scope": "REAL_COMPONENT_CONTROLLED_HTTP_NO_AUTH_DB_NO_HOSTED_NO_WRITES",
+  "stats": {
+    "startTime": "2026-10-19T21:48:22.762Z",
+    "duration": 168198.451,
+    "expected": 3,
+    "skipped": 0,
+    "unexpected": 12,
+    "flaky": 0
+  },
+  "exit": 1,
+  "retries": 0,
+  "lint": "PASS_OWN_CONFIG_AND_NEW_SPEC",
+  "typecheck": "PASS_TSC_NOEMIT_INCREMENTAL_FALSE",
+  "build": "NOT_RUN_NO_APPLICATION_CHANGE",
+  "bank_sha256": {
+    "tools/oier_billing_qa/browser.config.ts": "c87883764bdfd5965e3aaf7f401c0ba2f00718b2eb00fe7bb725ed6eabdd0360",
+    "tools/oier_billing_qa/proposal-context.spec.ts": "4289b74ed2a53b958e508d2f43605a69b7290714fb4e576f6965cffc3f8a69ad"
+  },
+  "tests": [
+    {
+      "name": "held proposal still opens when customer context is unchanged",
+      "project": "controlled-http-390",
+      "status": "passed",
+      "duration_ms": 1731,
+      "observations": [
+        {
+          "name": "observed-proposals",
+          "value": [
+            {
+              "source": "text",
+              "draft": {
+                "customer_id": "10000000-0000-4000-8000-000000000001",
+                "issue_on": "2026-10-19",
+                "due_on": null,
+                "series": "A",
+                "currency": "EUR",
+                "lines": [
+                  {
+                    "description": "soporte",
+                    "quantity_milli": 1000,
+                    "unit_price_minor": 30000,
+                    "discount_bps": 0,
+                    "tax_bps": 2100,
+                    "withholding_bps": 0
+                  }
+                ],
+                "notes": null,
+                "contract_id": null,
+                "service_id": null,
+                "opportunity_id": null
+              }
+            }
+          ]
+        }
+      ],
+      "errors": []
+    },
+    {
+      "name": "old proposal is retired after customer switch",
+      "project": "controlled-http-390",
+      "status": "failed",
+      "duration_ms": 5765,
+      "observations": [
+        {
+          "name": "context-and-proposals",
+          "value": {
+            "selected": "10000000-0000-4000-8000-000000000003",
+            "proposals": [
+              {
+                "source": "text",
+                "draft": {
+                  "customer_id": "10000000-0000-4000-8000-000000000001",
+                  "issue_on": "2026-10-19",
+                  "due_on": null,
+                  "series": "A",
+                  "currency": "EUR",
+                  "lines": [
+                    {
+                      "description": "soporte",
+                      "quantity_milli": 1000,
+                      "unit_price_minor": 30000,
+                      "discount_bps": 0,
+                      "tax_bps": 2100,
+                      "withholding_bps": 0
+                    }
+                  ],
+                  "notes": null,
+                  "contract_id": null,
+                  "service_id": null,
+                  "opportunity_id": null
+                }
+              }
+            ],
+            "editorCustomer": "10000000-0000-4000-8000-000000000001"
+          }
+        }
+      ],
+      "errors": [
+        "Error: expect(locator).toHaveCount(expected) failed\n\nLocator:  getByLabel('Cliente de factura', { exact: true })\nExpected: 0\nReceived: 1\nTimeout:  4000ms\n\nCall log:\n  - Expect \"soft toHaveCount\" with timeout 4000ms\n  - waiting for getByLabel('Cliente de factura', { exact: true })\n    12 × locator resolved to 1 element\n       - unexpected value \"1\"\n\n\n  61 |   await r.completeOld()\n  62 |   await info.attach('context-and-proposals',{body:JSON.stringify({selected:target,proposals:r.proposals,editorCustomer:await page.getByLabel('Cliente de factura',{exact:true}).inputValue().catch(()=>null)}),contentType:'application/json'})\n> 63 |   await expect.soft(page.getByLabel('Cliente de factura',{exact:true})).toHaveCount(0)\n     |                                                                         ^\n  64 |   expect(r.commands).toEqual([]);expect(r.pageErrors).toEqual([])\n  65 |  }finally{await r.close()}\n  66 | })\n    at [OWN_CHECKOUT]\\tools\\oier_billing_qa\\proposal-context.spec.ts:63:73"
+      ]
+    },
+    {
+      "name": "old proposal is retired after customer removal",
+      "project": "controlled-http-390",
+      "status": "failed",
+      "duration_ms": 5605,
+      "observations": [
+        {
+          "name": "context-and-proposals",
+          "value": {
+            "selected": "",
+            "proposals": [
+              {
+                "source": "text",
+                "draft": {
+                  "customer_id": "10000000-0000-4000-8000-000000000001",
+                  "issue_on": "2026-10-19",
+                  "due_on": null,
+                  "series": "A",
+                  "currency": "EUR",
+                  "lines": [
+                    {
+                      "description": "soporte",
+                      "quantity_milli": 1000,
+                      "unit_price_minor": 30000,
+                      "discount_bps": 0,
+                      "tax_bps": 2100,
+                      "withholding_bps": 0
+                    }
+                  ],
+                  "notes": null,
+                  "contract_id": null,
+                  "service_id": null,
+                  "opportunity_id": null
+                }
+              }
+            ],
+            "editorCustomer": "10000000-0000-4000-8000-000000000001"
+          }
+        }
+      ],
+      "errors": [
+        "Error: expect(locator).toHaveCount(expected) failed\n\nLocator:  getByLabel('Cliente de factura', { exact: true })\nExpected: 0\nReceived: 1\nTimeout:  4000ms\n\nCall log:\n  - Expect \"soft toHaveCount\" with timeout 4000ms\n  - waiting for getByLabel('Cliente de factura', { exact: true })\n    12 × locator resolved to 1 element\n       - unexpected value \"1\"\n\n\n  61 |   await r.completeOld()\n  62 |   await info.attach('context-and-proposals',{body:JSON.stringify({selected:target,proposals:r.proposals,editorCustomer:await page.getByLabel('Cliente de factura',{exact:true}).inputValue().catch(()=>null)}),contentType:'application/json'})\n> 63 |   await expect.soft(page.getByLabel('Cliente de factura',{exact:true})).toHaveCount(0)\n     |                                                                         ^\n  64 |   expect(r.commands).toEqual([]);expect(r.pageErrors).toEqual([])\n  65 |  }finally{await r.close()}\n  66 | })\n    at [OWN_CHECKOUT]\\tools\\oier_billing_qa\\proposal-context.spec.ts:63:73"
+      ]
+    },
+    {
+      "name": "failure from old customer does not contaminate a newer accepted proposal",
+      "project": "controlled-http-390",
+      "status": "failed",
+      "duration_ms": 6289,
+      "observations": [
+        {
+          "name": "observed-proposals",
+          "value": [
+            {
+              "source": "text",
+              "draft": {
+                "customer_id": "10000000-0000-4000-8000-000000000001",
+                "issue_on": "2026-10-19",
+                "due_on": null,
+                "series": "A",
+                "currency": "EUR",
+                "lines": [
+                  {
+                    "description": "soporte",
+                    "quantity_milli": 1000,
+                    "unit_price_minor": 30000,
+                    "discount_bps": 0,
+                    "tax_bps": 2100,
+                    "withholding_bps": 0
+                  }
+                ],
+                "notes": null,
+                "contract_id": null,
+                "service_id": null,
+                "opportunity_id": null
+              }
+            },
+            {
+              "source": "text",
+              "draft": {
+                "customer_id": "10000000-0000-4000-8000-000000000003",
+                "issue_on": "2026-10-19",
+                "due_on": null,
+                "series": "A",
+                "currency": "EUR",
+                "lines": [
+                  {
+                    "description": "soporte",
+                    "quantity_milli": 1000,
+                    "unit_price_minor": 30000,
+                    "discount_bps": 0,
+                    "tax_bps": 2100,
+                    "withholding_bps": 0
+                  }
+                ],
+                "notes": null,
+                "contract_id": null,
+                "service_id": null,
+                "opportunity_id": null
+              }
+            }
+          ]
+        }
+      ],
+      "errors": [
+        "Error: expect(locator).toHaveCount(expected) failed\n\nLocator:  getByRole('alert').filter({ hasText: 'Esta función no está disponible ahora.' })\nExpected: 0\nReceived: 1\nTimeout:  4000ms\n\nCall log:\n  - Expect \"soft toHaveCount\" with timeout 4000ms\n  - waiting for getByRole('alert').filter({ hasText: 'Esta función no está disponible ahora.' })\n    12 × locator resolved to 1 element\n       - unexpected value \"1\"\n\n\n  74 |   await expect(page.getByRole('alert').filter({hasText:'Esta función no está disponible ahora.'})).toHaveCount(0)\n  75 |   await r.completeOld()\n> 76 |   await expect.soft(page.getByRole('alert').filter({hasText:'Esta función no está disponible ahora.'})).toHaveCount(0)\n     |                                                                                                         ^\n  77 |   await expect(page.getByLabel('Cliente de factura',{exact:true})).toHaveValue(b)\n  78 |   expect(r.commands).toEqual([]);expect(r.pageErrors).toEqual([])\n  79 |   await info.attach('observed-proposals',{body:JSON.stringify(r.proposals),contentType:'application/json'})\n    at [OWN_CHECKOUT]\\tools\\oier_billing_qa\\proposal-context.spec.ts:76:105"
+      ]
+    },
+    {
+      "name": "original comma concept opens an editable support proposal",
+      "project": "controlled-http-390",
+      "status": "failed",
+      "duration_ms": 5632,
+      "observations": [
+        {
+          "name": "observed-proposals",
+          "value": []
+        }
+      ],
+      "errors": [
+        "Error: expect(locator).toHaveValue(expected) failed\n\nLocator: getByLabel('Concepto 1', { exact: true })\nExpected: \"soporte\"\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"soft toHaveValue\" with timeout 4000ms\n  - waiting for getByLabel('Concepto 1', { exact: true })\n\n\n  85 |   await r.generate(`Factura para ${clients[0].name} de 300 euros por soporte, vencimiento en 15 días`)\n  86 |   r.release()\n> 87 |   await expect.soft(page.getByLabel('Concepto 1',{exact:true})).toHaveValue('soporte')\n     |                                                                 ^\n  88 |   await info.attach('observed-proposals',{body:JSON.stringify(r.proposals),contentType:'application/json'})\n  89 |   expect(r.commands).toEqual([]);expect(r.pageErrors).toEqual([])\n  90 |  }finally{await r.close()}\n    at [OWN_CHECKOUT]\\tools\\oier_billing_qa\\proposal-context.spec.ts:87:65"
+      ]
+    },
+    {
+      "name": "held proposal still opens when customer context is unchanged",
+      "project": "controlled-http-768",
+      "status": "passed",
+      "duration_ms": 1284,
+      "observations": [
+        {
+          "name": "observed-proposals",
+          "value": [
+            {
+              "source": "text",
+              "draft": {
+                "customer_id": "10000000-0000-4000-8000-000000000001",
+                "issue_on": "2026-10-19",
+                "due_on": null,
+                "series": "A",
+                "currency": "EUR",
+                "lines": [
+                  {
+                    "description": "soporte",
+                    "quantity_milli": 1000,
+                    "unit_price_minor": 30000,
+                    "discount_bps": 0,
+                    "tax_bps": 2100,
+                    "withholding_bps": 0
+                  }
+                ],
+                "notes": null,
+                "contract_id": null,
+                "service_id": null,
+                "opportunity_id": null
+              }
+            }
+          ]
+        }
+      ],
+      "errors": []
+    },
+    {
+      "name": "old proposal is retired after customer switch",
+      "project": "controlled-http-768",
+      "status": "failed",
+      "duration_ms": 5779,
+      "observations": [
+        {
+          "name": "context-and-proposals",
+          "value": {
+            "selected": "10000000-0000-4000-8000-000000000003",
+            "proposals": [
+              {
+                "source": "text",
+                "draft": {
+                  "customer_id": "10000000-0000-4000-8000-000000000001",
+                  "issue_on": "2026-10-19",
+                  "due_on": null,
+                  "series": "A",
+                  "currency": "EUR",
+                  "lines": [
+                    {
+                      "description": "soporte",
+                      "quantity_milli": 1000,
+                      "unit_price_minor": 30000,
+                      "discount_bps": 0,
+                      "tax_bps": 2100,
+                      "withholding_bps": 0
+                    }
+                  ],
+                  "notes": null,
+                  "contract_id": null,
+                  "service_id": null,
+                  "opportunity_id": null
+                }
+              }
+            ],
+            "editorCustomer": "10000000-0000-4000-8000-000000000001"
+          }
+        }
+      ],
+      "errors": [
+        "Error: expect(locator).toHaveCount(expected) failed\n\nLocator:  getByLabel('Cliente de factura', { exact: true })\nExpected: 0\nReceived: 1\nTimeout:  4000ms\n\nCall log:\n  - Expect \"soft toHaveCount\" with timeout 4000ms\n  - waiting for getByLabel('Cliente de factura', { exact: true })\n    12 × locator resolved to 1 element\n       - unexpected value \"1\"\n\n\n  61 |   await r.completeOld()\n  62 |   await info.attach('context-and-proposals',{body:JSON.stringify({selected:target,proposals:r.proposals,editorCustomer:await page.getByLabel('Cliente de factura',{exact:true}).inputValue().catch(()=>null)}),contentType:'application/json'})\n> 63 |   await expect.soft(page.getByLabel('Cliente de factura',{exact:true})).toHaveCount(0)\n     |                                                                         ^\n  64 |   expect(r.commands).toEqual([]);expect(r.pageErrors).toEqual([])\n  65 |  }finally{await r.close()}\n  66 | })\n    at [OWN_CHECKOUT]\\tools\\oier_billing_qa\\proposal-context.spec.ts:63:73"
+      ]
+    },
+    {
+      "name": "old proposal is retired after customer removal",
+      "project": "controlled-http-768",
+      "status": "failed",
+      "duration_ms": 5781,
+      "observations": [
+        {
+          "name": "context-and-proposals",
+          "value": {
+            "selected": "",
+            "proposals": [
+              {
+                "source": "text",
+                "draft": {
+                  "customer_id": "10000000-0000-4000-8000-000000000001",
+                  "issue_on": "2026-10-19",
+                  "due_on": null,
+                  "series": "A",
+                  "currency": "EUR",
+                  "lines": [
+                    {
+                      "description": "soporte",
+                      "quantity_milli": 1000,
+                      "unit_price_minor": 30000,
+                      "discount_bps": 0,
+                      "tax_bps": 2100,
+                      "withholding_bps": 0
+                    }
+                  ],
+                  "notes": null,
+                  "contract_id": null,
+                  "service_id": null,
+                  "opportunity_id": null
+                }
+              }
+            ],
+            "editorCustomer": "10000000-0000-4000-8000-000000000001"
+          }
+        }
+      ],
+      "errors": [
+        "Error: expect(locator).toHaveCount(expected) failed\n\nLocator:  getByLabel('Cliente de factura', { exact: true })\nExpected: 0\nReceived: 1\nTimeout:  4000ms\n\nCall log:\n  - Expect \"soft toHaveCount\" with timeout 4000ms\n  - waiting for getByLabel('Cliente de factura', { exact: true })\n    12 × locator resolved to 1 element\n       - unexpected value \"1\"\n\n\n  61 |   await r.completeOld()\n  62 |   await info.attach('context-and-proposals',{body:JSON.stringify({selected:target,proposals:r.proposals,editorCustomer:await page.getByLabel('Cliente de factura',{exact:true}).inputValue().catch(()=>null)}),contentType:'application/json'})\n> 63 |   await expect.soft(page.getByLabel('Cliente de factura',{exact:true})).toHaveCount(0)\n     |                                                                         ^\n  64 |   expect(r.commands).toEqual([]);expect(r.pageErrors).toEqual([])\n  65 |  }finally{await r.close()}\n  66 | })\n    at [OWN_CHECKOUT]\\tools\\oier_billing_qa\\proposal-context.spec.ts:63:73"
+      ]
+    },
+    {
+      "name": "failure from old customer does not contaminate a newer accepted proposal",
+      "project": "controlled-http-768",
+      "status": "failed",
+      "duration_ms": 5729,
+      "observations": [
+        {
+          "name": "observed-proposals",
+          "value": [
+            {
+              "source": "text",
+              "draft": {
+                "customer_id": "10000000-0000-4000-8000-000000000001",
+                "issue_on": "2026-10-19",
+                "due_on": null,
+                "series": "A",
+                "currency": "EUR",
+                "lines": [
+                  {
+                    "description": "soporte",
+                    "quantity_milli": 1000,
+                    "unit_price_minor": 30000,
+                    "discount_bps": 0,
+                    "tax_bps": 2100,
+                    "withholding_bps": 0
+                  }
+                ],
+                "notes": null,
+                "contract_id": null,
+                "service_id": null,
+                "opportunity_id": null
+              }
+            },
+            {
+              "source": "text",
+              "draft": {
+                "customer_id": "10000000-0000-4000-8000-000000000003",
+                "issue_on": "2026-10-19",
+                "due_on": null,
+                "series": "A",
+                "currency": "EUR",
+                "lines": [
+                  {
+                    "description": "soporte",
+                    "quantity_milli": 1000,
+                    "unit_price_minor": 30000,
+                    "discount_bps": 0,
+                    "tax_bps": 2100,
+                    "withholding_bps": 0
+                  }
+                ],
+                "notes": null,
+                "contract_id": null,
+                "service_id": null,
+                "opportunity_id": null
+              }
+            }
+          ]
+        }
+      ],
+      "errors": [
+        "Error: expect(locator).toHaveCount(expected) failed\n\nLocator:  getByRole('alert').filter({ hasText: 'Esta función no está disponible ahora.' })\nExpected: 0\nReceived: 1\nTimeout:  4000ms\n\nCall log:\n  - Expect \"soft toHaveCount\" with timeout 4000ms\n  - waiting for getByRole('alert').filter({ hasText: 'Esta función no está disponible ahora.' })\n    12 × locator resolved to 1 element\n       - unexpected value \"1\"\n\n\n  74 |   await expect(page.getByRole('alert').filter({hasText:'Esta función no está disponible ahora.'})).toHaveCount(0)\n  75 |   await r.completeOld()\n> 76 |   await expect.soft(page.getByRole('alert').filter({hasText:'Esta función no está disponible ahora.'})).toHaveCount(0)\n     |                                                                                                         ^\n  77 |   await expect(page.getByLabel('Cliente de factura',{exact:true})).toHaveValue(b)\n  78 |   expect(r.commands).toEqual([]);expect(r.pageErrors).toEqual([])\n  79 |   await info.attach('observed-proposals',{body:JSON.stringify(r.proposals),contentType:'application/json'})\n    at [OWN_CHECKOUT]\\tools\\oier_billing_qa\\proposal-context.spec.ts:76:105"
+      ]
+    },
+    {
+      "name": "original comma concept opens an editable support proposal",
+      "project": "controlled-http-768",
+      "status": "failed",
+      "duration_ms": 5372,
+      "observations": [
+        {
+          "name": "observed-proposals",
+          "value": []
+        }
+      ],
+      "errors": [
+        "Error: expect(locator).toHaveValue(expected) failed\n\nLocator: getByLabel('Concepto 1', { exact: true })\nExpected: \"soporte\"\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"soft toHaveValue\" with timeout 4000ms\n  - waiting for getByLabel('Concepto 1', { exact: true })\n\n\n  85 |   await r.generate(`Factura para ${clients[0].name} de 300 euros por soporte, vencimiento en 15 días`)\n  86 |   r.release()\n> 87 |   await expect.soft(page.getByLabel('Concepto 1',{exact:true})).toHaveValue('soporte')\n     |                                                                 ^\n  88 |   await info.attach('observed-proposals',{body:JSON.stringify(r.proposals),contentType:'application/json'})\n  89 |   expect(r.commands).toEqual([]);expect(r.pageErrors).toEqual([])\n  90 |  }finally{await r.close()}\n    at [OWN_CHECKOUT]\\tools\\oier_billing_qa\\proposal-context.spec.ts:87:65"
+      ]
+    },
+    {
+      "name": "held proposal still opens when customer context is unchanged",
+      "project": "controlled-http-1440",
+      "status": "passed",
+      "duration_ms": 1019,
+      "observations": [
+        {
+          "name": "observed-proposals",
+          "value": [
+            {
+              "source": "text",
+              "draft": {
+                "customer_id": "10000000-0000-4000-8000-000000000001",
+                "issue_on": "2026-10-19",
+                "due_on": null,
+                "series": "A",
+                "currency": "EUR",
+                "lines": [
+                  {
+                    "description": "soporte",
+                    "quantity_milli": 1000,
+                    "unit_price_minor": 30000,
+                    "discount_bps": 0,
+                    "tax_bps": 2100,
+                    "withholding_bps": 0
+                  }
+                ],
+                "notes": null,
+                "contract_id": null,
+                "service_id": null,
+                "opportunity_id": null
+              }
+            }
+          ]
+        }
+      ],
+      "errors": []
+    },
+    {
+      "name": "old proposal is retired after customer switch",
+      "project": "controlled-http-1440",
+      "status": "failed",
+      "duration_ms": 5488,
+      "observations": [
+        {
+          "name": "context-and-proposals",
+          "value": {
+            "selected": "10000000-0000-4000-8000-000000000003",
+            "proposals": [
+              {
+                "source": "text",
+                "draft": {
+                  "customer_id": "10000000-0000-4000-8000-000000000001",
+                  "issue_on": "2026-10-19",
+                  "due_on": null,
+                  "series": "A",
+                  "currency": "EUR",
+                  "lines": [
+                    {
+                      "description": "soporte",
+                      "quantity_milli": 1000,
+                      "unit_price_minor": 30000,
+                      "discount_bps": 0,
+                      "tax_bps": 2100,
+                      "withholding_bps": 0
+                    }
+                  ],
+                  "notes": null,
+                  "contract_id": null,
+                  "service_id": null,
+                  "opportunity_id": null
+                }
+              }
+            ],
+            "editorCustomer": "10000000-0000-4000-8000-000000000001"
+          }
+        }
+      ],
+      "errors": [
+        "Error: expect(locator).toHaveCount(expected) failed\n\nLocator:  getByLabel('Cliente de factura', { exact: true })\nExpected: 0\nReceived: 1\nTimeout:  4000ms\n\nCall log:\n  - Expect \"soft toHaveCount\" with timeout 4000ms\n  - waiting for getByLabel('Cliente de factura', { exact: true })\n    12 × locator resolved to 1 element\n       - unexpected value \"1\"\n\n\n  61 |   await r.completeOld()\n  62 |   await info.attach('context-and-proposals',{body:JSON.stringify({selected:target,proposals:r.proposals,editorCustomer:await page.getByLabel('Cliente de factura',{exact:true}).inputValue().catch(()=>null)}),contentType:'application/json'})\n> 63 |   await expect.soft(page.getByLabel('Cliente de factura',{exact:true})).toHaveCount(0)\n     |                                                                         ^\n  64 |   expect(r.commands).toEqual([]);expect(r.pageErrors).toEqual([])\n  65 |  }finally{await r.close()}\n  66 | })\n    at [OWN_CHECKOUT]\\tools\\oier_billing_qa\\proposal-context.spec.ts:63:73"
+      ]
+    },
+    {
+      "name": "old proposal is retired after customer removal",
+      "project": "controlled-http-1440",
+      "status": "failed",
+      "duration_ms": 5769,
+      "observations": [
+        {
+          "name": "context-and-proposals",
+          "value": {
+            "selected": "",
+            "proposals": [
+              {
+                "source": "text",
+                "draft": {
+                  "customer_id": "10000000-0000-4000-8000-000000000001",
+                  "issue_on": "2026-10-19",
+                  "due_on": null,
+                  "series": "A",
+                  "currency": "EUR",
+                  "lines": [
+                    {
+                      "description": "soporte",
+                      "quantity_milli": 1000,
+                      "unit_price_minor": 30000,
+                      "discount_bps": 0,
+                      "tax_bps": 2100,
+                      "withholding_bps": 0
+                    }
+                  ],
+                  "notes": null,
+                  "contract_id": null,
+                  "service_id": null,
+                  "opportunity_id": null
+                }
+              }
+            ],
+            "editorCustomer": "10000000-0000-4000-8000-000000000001"
+          }
+        }
+      ],
+      "errors": [
+        "Error: expect(locator).toHaveCount(expected) failed\n\nLocator:  getByLabel('Cliente de factura', { exact: true })\nExpected: 0\nReceived: 1\nTimeout:  4000ms\n\nCall log:\n  - Expect \"soft toHaveCount\" with timeout 4000ms\n  - waiting for getByLabel('Cliente de factura', { exact: true })\n    12 × locator resolved to 1 element\n       - unexpected value \"1\"\n\n\n  61 |   await r.completeOld()\n  62 |   await info.attach('context-and-proposals',{body:JSON.stringify({selected:target,proposals:r.proposals,editorCustomer:await page.getByLabel('Cliente de factura',{exact:true}).inputValue().catch(()=>null)}),contentType:'application/json'})\n> 63 |   await expect.soft(page.getByLabel('Cliente de factura',{exact:true})).toHaveCount(0)\n     |                                                                         ^\n  64 |   expect(r.commands).toEqual([]);expect(r.pageErrors).toEqual([])\n  65 |  }finally{await r.close()}\n  66 | })\n    at [OWN_CHECKOUT]\\tools\\oier_billing_qa\\proposal-context.spec.ts:63:73"
+      ]
+    },
+    {
+      "name": "failure from old customer does not contaminate a newer accepted proposal",
+      "project": "controlled-http-1440",
+      "status": "failed",
+      "duration_ms": 6067,
+      "observations": [
+        {
+          "name": "observed-proposals",
+          "value": [
+            {
+              "source": "text",
+              "draft": {
+                "customer_id": "10000000-0000-4000-8000-000000000001",
+                "issue_on": "2026-10-19",
+                "due_on": null,
+                "series": "A",
+                "currency": "EUR",
+                "lines": [
+                  {
+                    "description": "soporte",
+                    "quantity_milli": 1000,
+                    "unit_price_minor": 30000,
+                    "discount_bps": 0,
+                    "tax_bps": 2100,
+                    "withholding_bps": 0
+                  }
+                ],
+                "notes": null,
+                "contract_id": null,
+                "service_id": null,
+                "opportunity_id": null
+              }
+            },
+            {
+              "source": "text",
+              "draft": {
+                "customer_id": "10000000-0000-4000-8000-000000000003",
+                "issue_on": "2026-10-19",
+                "due_on": null,
+                "series": "A",
+                "currency": "EUR",
+                "lines": [
+                  {
+                    "description": "soporte",
+                    "quantity_milli": 1000,
+                    "unit_price_minor": 30000,
+                    "discount_bps": 0,
+                    "tax_bps": 2100,
+                    "withholding_bps": 0
+                  }
+                ],
+                "notes": null,
+                "contract_id": null,
+                "service_id": null,
+                "opportunity_id": null
+              }
+            }
+          ]
+        }
+      ],
+      "errors": [
+        "Error: expect(locator).toHaveCount(expected) failed\n\nLocator:  getByRole('alert').filter({ hasText: 'Esta función no está disponible ahora.' })\nExpected: 0\nReceived: 1\nTimeout:  4000ms\n\nCall log:\n  - Expect \"soft toHaveCount\" with timeout 4000ms\n  - waiting for getByRole('alert').filter({ hasText: 'Esta función no está disponible ahora.' })\n    12 × locator resolved to 1 element\n       - unexpected value \"1\"\n\n\n  74 |   await expect(page.getByRole('alert').filter({hasText:'Esta función no está disponible ahora.'})).toHaveCount(0)\n  75 |   await r.completeOld()\n> 76 |   await expect.soft(page.getByRole('alert').filter({hasText:'Esta función no está disponible ahora.'})).toHaveCount(0)\n     |                                                                                                         ^\n  77 |   await expect(page.getByLabel('Cliente de factura',{exact:true})).toHaveValue(b)\n  78 |   expect(r.commands).toEqual([]);expect(r.pageErrors).toEqual([])\n  79 |   await info.attach('observed-proposals',{body:JSON.stringify(r.proposals),contentType:'application/json'})\n    at [OWN_CHECKOUT]\\tools\\oier_billing_qa\\proposal-context.spec.ts:76:105"
+      ]
+    },
+    {
+      "name": "original comma concept opens an editable support proposal",
+      "project": "controlled-http-1440",
+      "status": "failed",
+      "duration_ms": 5487,
+      "observations": [
+        {
+          "name": "observed-proposals",
+          "value": []
+        }
+      ],
+      "errors": [
+        "Error: expect(locator).toHaveValue(expected) failed\n\nLocator: getByLabel('Concepto 1', { exact: true })\nExpected: \"soporte\"\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"soft toHaveValue\" with timeout 4000ms\n  - waiting for getByLabel('Concepto 1', { exact: true })\n\n\n  85 |   await r.generate(`Factura para ${clients[0].name} de 300 euros por soporte, vencimiento en 15 días`)\n  86 |   r.release()\n> 87 |   await expect.soft(page.getByLabel('Concepto 1',{exact:true})).toHaveValue('soporte')\n     |                                                                 ^\n  88 |   await info.attach('observed-proposals',{body:JSON.stringify(r.proposals),contentType:'application/json'})\n  89 |   expect(r.commands).toEqual([]);expect(r.pageErrors).toEqual([])\n  90 |  }finally{await r.close()}\n    at [OWN_CHECKOUT]\\tools\\oier_billing_qa\\proposal-context.spec.ts:87:65"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "file": "stale-error-1440.png",
+      "bytes": 112903,
+      "sha256": "112b9159e311e5ac998951b1528a3910d872e9ef8c2acc4225561aada8f94665"
+    },
+    {
+      "file": "stale-error-1440.zip",
+      "bytes": 943207,
+      "sha256": "5f24597ea0c989612d975cace52be5728a132f1e99a3f48c7b9418fe0532500f"
+    },
+    {
+      "file": "stale-error-390.png",
+      "bytes": 36581,
+      "sha256": "8e48894fecdc160cad45a2823262623854f7d4278410676148549033ff059144"
+    },
+    {
+      "file": "stale-error-390.zip",
+      "bytes": 975139,
+      "sha256": "bb64121fcfe9f588be49e7cbd675f1f3251e096282dcc26495878de78ca3530d"
+    },
+    {
+      "file": "stale-error-768.png",
+      "bytes": 87634,
+      "sha256": "42440ded1c4d0a338745197b1b20f854e722b83c0b21c45376c24a7156d0c4b5"
+    },
+    {
+      "file": "stale-error-768.zip",
+      "bytes": 1468629,
+      "sha256": "13076a5e830766a5ed4387f0aca5de042234d31aa6b8dd81a10f6ec2ab87d49f"
+    },
+    {
+      "file": "customer-switch-1440.png",
+      "bytes": 111904,
+      "sha256": "6024465cf1ded788be50a28a87dc542dbd8360958a1e4acb0015dd564724cc41"
+    },
+    {
+      "file": "customer-switch-1440.zip",
+      "bytes": 782146,
+      "sha256": "dcb7dfc956868ea7cf9f3ec8e6baf7e535cb18090b65453f1c9565b7113b1e88"
+    },
+    {
+      "file": "customer-switch-390.png",
+      "bytes": 36654,
+      "sha256": "9e34a9962ca4ca17b4f8f5f3b4f3948b46f9fc6cfb31083210923ed1f05a0557"
+    },
+    {
+      "file": "customer-switch-390.zip",
+      "bytes": 849861,
+      "sha256": "c115d604ef2e9d30f2685add5963a43088241df11124d6982d77f1515c53ebb3"
+    },
+    {
+      "file": "customer-switch-768.png",
+      "bytes": 86269,
+      "sha256": "d6b346e4014ec61d02f40c2e5cd4358e3727fc11a06bb9c2bef3001e22b3d1e4"
+    },
+    {
+      "file": "customer-switch-768.zip",
+      "bytes": 1196436,
+      "sha256": "aa432582dc3627b94a357dd92e2e933a9112e9e8c991d46b3ad8dcfe14539f89"
+    },
+    {
+      "file": "customer-removal-1440.png",
+      "bytes": 100879,
+      "sha256": "7f95bbb92efaf6df9023be6b78cf06b96b93f35891a223a2dbd9abacd0c7c408"
+    },
+    {
+      "file": "customer-removal-1440.zip",
+      "bytes": 738717,
+      "sha256": "15c2dfab151ca07f47415d6f1774e6043485b4e54c2e1cc7f4d7233fc8aa5f66"
+    },
+    {
+      "file": "customer-removal-390.png",
+      "bytes": 36654,
+      "sha256": "9e34a9962ca4ca17b4f8f5f3b4f3948b46f9fc6cfb31083210923ed1f05a0557"
+    },
+    {
+      "file": "customer-removal-390.zip",
+      "bytes": 883635,
+      "sha256": "c9c578415617aeb222d27b91f592a83bdb6d37d8c059d161db301e8f5dda180f"
+    },
+    {
+      "file": "customer-removal-768.png",
+      "bytes": 78580,
+      "sha256": "58162bdf8197ecd84957dab0b3af708c44eb838237cbfcc3a2cc63ee2b83b99f"
+    },
+    {
+      "file": "customer-removal-768.zip",
+      "bytes": 1071357,
+      "sha256": "2aeee79955895d57ff09fa07893da54f889922437c39dc6e528230d1f03f9835"
+    },
+    {
+      "file": "comma-concept-1440.png",
+      "bytes": 62878,
+      "sha256": "00ac2289e9e1115a281c4268ba849fd15045d091a5806412b248ff50a02ef869"
+    },
+    {
+      "file": "comma-concept-1440.zip",
+      "bytes": 545226,
+      "sha256": "6585d2decbd296bd9b9352b03451e7d7338ba992c36d4faa4563f48bac0c947a"
+    },
+    {
+      "file": "comma-concept-390.png",
+      "bytes": 43382,
+      "sha256": "91d12c94d78aafbbd9448cc5befb81c9c4ae6a30b64f41d6510989e7e3731158"
+    },
+    {
+      "file": "comma-concept-390.zip",
+      "bytes": 684437,
+      "sha256": "3895d806ff44318673576a05bfc7888bf8db6bb25a0b15703bf432bc8ec898db"
+    },
+    {
+      "file": "comma-concept-768.png",
+      "bytes": 59473,
+      "sha256": "ef5e223b030939311cdd77a513043afa3d71c814b78a425a22ab9952c69d401a"
+    },
+    {
+      "file": "comma-concept-768.zip",
+      "bytes": 892825,
+      "sha256": "34171fe4922a87ba6e4baee6014cededb06b19c66aba44495f38666eb59271c6"
+    }
+  ],
+  "trace_network_review": {
+    "loopback_urls": 72,
+    "all_loopback": true
+  },
+  "no_tenant_leak_claim": "Two customers in one synthetic workspace, no real data or RLS exercised",
+  "release": "NOT_ACCEPTED"
+}
