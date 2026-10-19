@@ -1,0 +1,309 @@
+{
+  "schema": "oier.billing-browser-acceptance.v1",
+  "source": "888ecaae57e9021ca0cb25d4da0657c1f6ac9b40",
+  "runner_base": "d9f59fc025222792762efb01d43d25a7ddc480a5",
+  "scope": "REAL_COMPONENT_BROWSER_CONTROLLED_HTTP_SPEECH_STUB_NOT_NETLIFY_NOT_AUTH_DB_NOT_REAL_VOICE",
+  "stats": {
+    "startTime": "2026-10-19T21:42:28.554Z",
+    "duration": 140675.276,
+    "expected": 27,
+    "skipped": 0,
+    "unexpected": 3,
+    "flaky": 0
+  },
+  "exit": 1,
+  "test_retries": 0,
+  "lint": "PASS_OWN_TWO_TS_FILES",
+  "typecheck": "PASS_TSC_NOEMIT_INCREMENTAL_FALSE",
+  "application_build": "NOT_RUN_NO_APPLICATION_CHANGE",
+  "source_pins_sha256LF": {
+    "src/features/billing/parse.ts": "b10e6534dc872ea4a7a1a3f0b3bff456f09b7bc9ff095eb9575a57bf46fe7bb4",
+    "src/features/billing/PromptBuilder.tsx": "ce5fe29b94524e1113976e2a8162db702be0c3f58170d57a72004fa034115b7b",
+    "src/features/billing/IntegratedBilling.tsx": "c5ce322a15c293b87e6e232abc41bbd4688d9fcb8d569718ae235c4dd094fb98",
+    "tests/e2e-preview/fixtures/billing-focus-server.cjs": "9466c4a6ad877a44f260f4f1fb860d06269089bd441418e41c303b35de9a2958",
+    "tests/e2e-preview/fixtures/billing-focus-provider.ts": "8a15b99b23bee70d576da38b5a219119082454f8df7983a969b70e9c5f0aff59",
+    "tests/e2e-preview/fixtures/billing-focus-loader.cjs": "0c340669722aedaef9ec964057ed9e7cbb1192690dc0348cba23759698a0d7b6",
+    "tests/e2e-preview/fixtures/billing-focus-entry.tsx": "164734c9200250fbeff909ab3b583fd86c20e49fb25a32ba0dfad83e5023b8b3"
+  },
+  "bank_files_sha256": {
+    "tools/oier_billing_qa/browser.config.ts": "b7cf76695a49a6ae7a0d03f89447226d184ac07600c5d3cdaf480aaa642412b0",
+    "tools/oier_billing_qa/prompt-interaction.spec.ts": "b4f1d338ef1c2b93cbef16f2c2926186cfaaf58074f0e821c9b1ef158ab94629"
+  },
+  "tests": [
+    {
+      "name": "empty prompt does not propose or write",
+      "project": "controlled-http-390",
+      "status": "passed",
+      "duration_ms": 2509,
+      "errors": []
+    },
+    {
+      "name": "unsupported speech keeps text fallback usable and opens editable reviewed proposal",
+      "project": "controlled-http-390",
+      "status": "passed",
+      "duration_ms": 1724,
+      "errors": []
+    },
+    {
+      "name": "controlled dictation uses Spanish and waits until stopped before proposing",
+      "project": "controlled-http-390",
+      "status": "passed",
+      "duration_ms": 1250,
+      "errors": []
+    },
+    {
+      "name": "interim transcripts replace one another and editing changes provenance to text",
+      "project": "controlled-http-390",
+      "status": "passed",
+      "duration_ms": 1313,
+      "errors": []
+    },
+    {
+      "name": "controlled speech error retains text fallback without proposing",
+      "project": "controlled-http-390",
+      "status": "passed",
+      "duration_ms": 1273,
+      "errors": []
+    },
+    {
+      "name": "leaving the customer aborts recognition and retires transcript handlers",
+      "project": "controlled-http-390",
+      "status": "passed",
+      "duration_ms": 1228,
+      "errors": []
+    },
+    {
+      "name": "owner phrase preserves complete concept and fifteen-day due date in editable proposal",
+      "project": "controlled-http-390",
+      "status": "failed",
+      "duration_ms": 9566,
+      "errors": [
+        "Error: expect(locator).toHaveValue(expected) failed\n\nLocator:  getByRole('textbox', { name: 'Concepto 1', exact: true })\nExpected: \"instalación de fibra\"\nReceived: \"instalación\"\nTimeout:  4000ms\n\nCall log:\n  - Expect \"soft toHaveValue\" with timeout 4000ms\n  - waiting for getByRole('textbox', { name: 'Concepto 1', exact: true })\n    12 × locator resolved to <input maxlength=\"300\" value=\"instalación\" aria-label=\"Concepto 1\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-1 w-full\"/>\n       - unexpected value \"instalación\"\n\n\n  139 |  const draft=r.proposals()[0].input.draft as BillingDraftV1,due=new Date(`${draft.issue_on}T00:00:00Z`)\n  140 |  due.setUTCDate(due.getUTCDate()+15)\n> 141 |  await expect.soft(page.getByRole('textbox',{name:'Concepto 1',exact:true})).toHaveValue('instalación de fibra')\n      |                                                                              ^\n  142 |  await expect.soft(page.getByLabel('Vencimiento de factura',{exact:true})).toHaveValue(due.toISOString().slice(0,10))\n  143 |  expect(draft.lines[0].unit_price_minor).toBe(30000);expect(draft.lines[0].tax_bps).toBe(2100)\n  144 |  r.assertNoCommands()\n    at [OWN_CHECKOUT]\\tools\\oier_billing_qa\\prompt-interaction.spec.ts:141:78",
+        "Error: expect(locator).toHaveValue(expected) failed\n\nLocator:  getByLabel('Vencimiento de factura', { exact: true })\nExpected: \"2026-11-03\"\nReceived: \"\"\nTimeout:  4000ms\n\nCall log:\n  - Expect \"soft toHaveValue\" with timeout 4000ms\n  - waiting for getByLabel('Vencimiento de factura', { exact: true })\n    12 × locator resolved to <input value=\"\" type=\"date\" aria-label=\"Vencimiento de factura\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-1 w-full\"/>\n       - unexpected value \"\"\n\n\n  140 |  due.setUTCDate(due.getUTCDate()+15)\n  141 |  await expect.soft(page.getByRole('textbox',{name:'Concepto 1',exact:true})).toHaveValue('instalación de fibra')\n> 142 |  await expect.soft(page.getByLabel('Vencimiento de factura',{exact:true})).toHaveValue(due.toISOString().slice(0,10))\n      |                                                                            ^\n  143 |  expect(draft.lines[0].unit_price_minor).toBe(30000);expect(draft.lines[0].tax_bps).toBe(2100)\n  144 |  r.assertNoCommands()\n  145 | })\n    at [OWN_CHECKOUT]\\tools\\oier_billing_qa\\prompt-interaction.spec.ts:142:76"
+      ]
+    },
+    {
+      "name": "denied proposal failure is explained without opening editor or writing",
+      "project": "controlled-http-390",
+      "status": "passed",
+      "duration_ms": 1389,
+      "errors": []
+    },
+    {
+      "name": "malformed proposal failure is explained without opening editor or writing",
+      "project": "controlled-http-390",
+      "status": "passed",
+      "duration_ms": 1062,
+      "errors": []
+    },
+    {
+      "name": "network proposal failure is explained without opening editor or writing",
+      "project": "controlled-http-390",
+      "status": "passed",
+      "duration_ms": 1186,
+      "errors": []
+    },
+    {
+      "name": "empty prompt does not propose or write",
+      "project": "controlled-http-768",
+      "status": "passed",
+      "duration_ms": 857,
+      "errors": []
+    },
+    {
+      "name": "unsupported speech keeps text fallback usable and opens editable reviewed proposal",
+      "project": "controlled-http-768",
+      "status": "passed",
+      "duration_ms": 1319,
+      "errors": []
+    },
+    {
+      "name": "controlled dictation uses Spanish and waits until stopped before proposing",
+      "project": "controlled-http-768",
+      "status": "passed",
+      "duration_ms": 1278,
+      "errors": []
+    },
+    {
+      "name": "interim transcripts replace one another and editing changes provenance to text",
+      "project": "controlled-http-768",
+      "status": "passed",
+      "duration_ms": 1614,
+      "errors": []
+    },
+    {
+      "name": "controlled speech error retains text fallback without proposing",
+      "project": "controlled-http-768",
+      "status": "passed",
+      "duration_ms": 1506,
+      "errors": []
+    },
+    {
+      "name": "leaving the customer aborts recognition and retires transcript handlers",
+      "project": "controlled-http-768",
+      "status": "passed",
+      "duration_ms": 866,
+      "errors": []
+    },
+    {
+      "name": "owner phrase preserves complete concept and fifteen-day due date in editable proposal",
+      "project": "controlled-http-768",
+      "status": "failed",
+      "duration_ms": 9583,
+      "errors": [
+        "Error: expect(locator).toHaveValue(expected) failed\n\nLocator:  getByRole('textbox', { name: 'Concepto 1', exact: true })\nExpected: \"instalación de fibra\"\nReceived: \"instalación\"\nTimeout:  4000ms\n\nCall log:\n  - Expect \"soft toHaveValue\" with timeout 4000ms\n  - waiting for getByRole('textbox', { name: 'Concepto 1', exact: true })\n    12 × locator resolved to <input maxlength=\"300\" value=\"instalación\" aria-label=\"Concepto 1\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-1 w-full\"/>\n       - unexpected value \"instalación\"\n\n\n  139 |  const draft=r.proposals()[0].input.draft as BillingDraftV1,due=new Date(`${draft.issue_on}T00:00:00Z`)\n  140 |  due.setUTCDate(due.getUTCDate()+15)\n> 141 |  await expect.soft(page.getByRole('textbox',{name:'Concepto 1',exact:true})).toHaveValue('instalación de fibra')\n      |                                                                              ^\n  142 |  await expect.soft(page.getByLabel('Vencimiento de factura',{exact:true})).toHaveValue(due.toISOString().slice(0,10))\n  143 |  expect(draft.lines[0].unit_price_minor).toBe(30000);expect(draft.lines[0].tax_bps).toBe(2100)\n  144 |  r.assertNoCommands()\n    at [OWN_CHECKOUT]\\tools\\oier_billing_qa\\prompt-interaction.spec.ts:141:78",
+        "Error: expect(locator).toHaveValue(expected) failed\n\nLocator:  getByLabel('Vencimiento de factura', { exact: true })\nExpected: \"2026-11-03\"\nReceived: \"\"\nTimeout:  4000ms\n\nCall log:\n  - Expect \"soft toHaveValue\" with timeout 4000ms\n  - waiting for getByLabel('Vencimiento de factura', { exact: true })\n    12 × locator resolved to <input value=\"\" type=\"date\" aria-label=\"Vencimiento de factura\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-1 w-full\"/>\n       - unexpected value \"\"\n\n\n  140 |  due.setUTCDate(due.getUTCDate()+15)\n  141 |  await expect.soft(page.getByRole('textbox',{name:'Concepto 1',exact:true})).toHaveValue('instalación de fibra')\n> 142 |  await expect.soft(page.getByLabel('Vencimiento de factura',{exact:true})).toHaveValue(due.toISOString().slice(0,10))\n      |                                                                            ^\n  143 |  expect(draft.lines[0].unit_price_minor).toBe(30000);expect(draft.lines[0].tax_bps).toBe(2100)\n  144 |  r.assertNoCommands()\n  145 | })\n    at [OWN_CHECKOUT]\\tools\\oier_billing_qa\\prompt-interaction.spec.ts:142:76"
+      ]
+    },
+    {
+      "name": "denied proposal failure is explained without opening editor or writing",
+      "project": "controlled-http-768",
+      "status": "passed",
+      "duration_ms": 2899,
+      "errors": []
+    },
+    {
+      "name": "malformed proposal failure is explained without opening editor or writing",
+      "project": "controlled-http-768",
+      "status": "passed",
+      "duration_ms": 1453,
+      "errors": []
+    },
+    {
+      "name": "network proposal failure is explained without opening editor or writing",
+      "project": "controlled-http-768",
+      "status": "passed",
+      "duration_ms": 1896,
+      "errors": []
+    },
+    {
+      "name": "empty prompt does not propose or write",
+      "project": "controlled-http-1440",
+      "status": "passed",
+      "duration_ms": 1097,
+      "errors": []
+    },
+    {
+      "name": "unsupported speech keeps text fallback usable and opens editable reviewed proposal",
+      "project": "controlled-http-1440",
+      "status": "passed",
+      "duration_ms": 1652,
+      "errors": []
+    },
+    {
+      "name": "controlled dictation uses Spanish and waits until stopped before proposing",
+      "project": "controlled-http-1440",
+      "status": "passed",
+      "duration_ms": 1621,
+      "errors": []
+    },
+    {
+      "name": "interim transcripts replace one another and editing changes provenance to text",
+      "project": "controlled-http-1440",
+      "status": "passed",
+      "duration_ms": 1707,
+      "errors": []
+    },
+    {
+      "name": "controlled speech error retains text fallback without proposing",
+      "project": "controlled-http-1440",
+      "status": "passed",
+      "duration_ms": 1681,
+      "errors": []
+    },
+    {
+      "name": "leaving the customer aborts recognition and retires transcript handlers",
+      "project": "controlled-http-1440",
+      "status": "passed",
+      "duration_ms": 1165,
+      "errors": []
+    },
+    {
+      "name": "owner phrase preserves complete concept and fifteen-day due date in editable proposal",
+      "project": "controlled-http-1440",
+      "status": "failed",
+      "duration_ms": 10200,
+      "errors": [
+        "Error: expect(locator).toHaveValue(expected) failed\n\nLocator:  getByRole('textbox', { name: 'Concepto 1', exact: true })\nExpected: \"instalación de fibra\"\nReceived: \"instalación\"\nTimeout:  4000ms\n\nCall log:\n  - Expect \"soft toHaveValue\" with timeout 4000ms\n  - waiting for getByRole('textbox', { name: 'Concepto 1', exact: true })\n    12 × locator resolved to <input maxlength=\"300\" value=\"instalación\" aria-label=\"Concepto 1\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-1 w-full\"/>\n       - unexpected value \"instalación\"\n\n\n  139 |  const draft=r.proposals()[0].input.draft as BillingDraftV1,due=new Date(`${draft.issue_on}T00:00:00Z`)\n  140 |  due.setUTCDate(due.getUTCDate()+15)\n> 141 |  await expect.soft(page.getByRole('textbox',{name:'Concepto 1',exact:true})).toHaveValue('instalación de fibra')\n      |                                                                              ^\n  142 |  await expect.soft(page.getByLabel('Vencimiento de factura',{exact:true})).toHaveValue(due.toISOString().slice(0,10))\n  143 |  expect(draft.lines[0].unit_price_minor).toBe(30000);expect(draft.lines[0].tax_bps).toBe(2100)\n  144 |  r.assertNoCommands()\n    at [OWN_CHECKOUT]\\tools\\oier_billing_qa\\prompt-interaction.spec.ts:141:78",
+        "Error: expect(locator).toHaveValue(expected) failed\n\nLocator:  getByLabel('Vencimiento de factura', { exact: true })\nExpected: \"2026-11-03\"\nReceived: \"\"\nTimeout:  4000ms\n\nCall log:\n  - Expect \"soft toHaveValue\" with timeout 4000ms\n  - waiting for getByLabel('Vencimiento de factura', { exact: true })\n    11 × locator resolved to <input value=\"\" type=\"date\" aria-label=\"Vencimiento de factura\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-1 w-full\"/>\n       - unexpected value \"\"\n\n\n  140 |  due.setUTCDate(due.getUTCDate()+15)\n  141 |  await expect.soft(page.getByRole('textbox',{name:'Concepto 1',exact:true})).toHaveValue('instalación de fibra')\n> 142 |  await expect.soft(page.getByLabel('Vencimiento de factura',{exact:true})).toHaveValue(due.toISOString().slice(0,10))\n      |                                                                            ^\n  143 |  expect(draft.lines[0].unit_price_minor).toBe(30000);expect(draft.lines[0].tax_bps).toBe(2100)\n  144 |  r.assertNoCommands()\n  145 | })\n    at [OWN_CHECKOUT]\\tools\\oier_billing_qa\\prompt-interaction.spec.ts:142:76"
+      ]
+    },
+    {
+      "name": "denied proposal failure is explained without opening editor or writing",
+      "project": "controlled-http-1440",
+      "status": "passed",
+      "duration_ms": 1240,
+      "errors": []
+    },
+    {
+      "name": "malformed proposal failure is explained without opening editor or writing",
+      "project": "controlled-http-1440",
+      "status": "passed",
+      "duration_ms": 873,
+      "errors": []
+    },
+    {
+      "name": "network proposal failure is explained without opening editor or writing",
+      "project": "controlled-http-1440",
+      "status": "passed",
+      "duration_ms": 1089,
+      "errors": []
+    }
+  ],
+  "evidence": [
+    {
+      "file": "owner-failure-1440.png",
+      "bytes": 113706,
+      "sha256": "f65aba60b97c63d28f1c347c800e8ee0c34a1134cb707b638e302fb3bb9958a1"
+    },
+    {
+      "file": "owner-failure-1440.zip",
+      "bytes": 642869,
+      "sha256": "9da2ea17252614eaca967a711455599346646a8960675b01ae9403ff645340ad"
+    },
+    {
+      "file": "owner-failure-390.png",
+      "bytes": 36654,
+      "sha256": "9e34a9962ca4ca17b4f8f5f3b4f3948b46f9fc6cfb31083210923ed1f05a0557"
+    },
+    {
+      "file": "owner-failure-390.zip",
+      "bytes": 743891,
+      "sha256": "ee2ec722048445c96d51417a23f0f1ace8583711b284c66157aeab08b8a9cb13"
+    },
+    {
+      "file": "owner-failure-768.png",
+      "bytes": 87174,
+      "sha256": "786a38676f866f041834e7d193531edffff431b5f6317db4bd611d2bf85e0e7e"
+    },
+    {
+      "file": "owner-failure-768.zip",
+      "bytes": 1019912,
+      "sha256": "1f5c05ed57b82b70a003daa802f6a4e0a36b57e13d2ac8609b2cd98dd166592e"
+    },
+    {
+      "file": "text-fallback-1440.png",
+      "bytes": 111063,
+      "sha256": "e60f5286131684d0a04dc9e4bfae677fac610d2d9bc82b95affb3989b9330c79"
+    },
+    {
+      "file": "text-fallback-390.png",
+      "bytes": 36648,
+      "sha256": "10f8323ff5937039fe8c68bc0fd177dd13b554e0d945d981a7847a49cbb7b58d"
+    },
+    {
+      "file": "text-fallback-768.png",
+      "bytes": 85940,
+      "sha256": "c88703a07caabf921c1673a0f7076cc8ed32d29dd05479d4a481fcfbf46e0fa2"
+    }
+  ],
+  "failed_trace_network_review": {
+    "unique_loopback_urls": 18,
+    "all_failed_trace_requests_loopback": true
+  },
+  "visual_review": "Initial drawer viewport viewed at390/768/1440; mobile concepts/footer below fold NOT_VISUALLY_ACCEPTED; relation403 is deliberately-denied fixture read, not a hosted defect",
+  "release": "NOT_ACCEPTED",
+  "live_model": "NOT_RUN",
+  "real_voice": "NOT_RUN",
+  "cloud_persistence": "NOT_RUN"
+}
