@@ -8,7 +8,7 @@ El cuerpo declara propuesta revisable/sin guardar, valida alcance e input y reca
 
 ## Propuesta concreta para Asier
 
-[parser-minimal.patch](../../../..//tools/oier_billing_qa/candidates/parser-minimal.patch) prepara cuatro sustituciones de líneas enparse.ts: reconocer únicamente «quince» además del formato numérico existente; conservar conectores del concepto y detenerlo ante cláusulas fiscales, importe o puntuación. No crea otro motor ni interpreta lenguaje abierto como un modelo semántico. No cambia clientes, importes, IVA, contratos, servicios, permisos o efectos.
+[parser-minimal.patch](../../../tools/oier_billing_qa/candidates/parser-minimal.patch) prepara cuatro sustituciones de líneas enparse.ts: reconocer únicamente «quince» además del formato numérico existente; conservar conectores del concepto y detenerlo ante cláusulas fiscales, importe o puntuación. No crea otro motor ni interpreta lenguaje abierto como un modelo semántico. No cambia clientes, importes, IVA, contratos, servicios, permisos o efectos.
 
 **NO APLICADO; pruebas funcionales del cambioNOT_RUN.** [Metadatos y huellas](evidence/parser-candidate.json). `git apply --check tools/oier_billing_qa/candidates/parser-minimal.patch` termina0 sobre la base fijada; sólo acredita aplicabilidad mecánica. Sourceparse.ts continúa byteequivalenteLF a888ecaae y los fallos originales permanecen abiertos.
 

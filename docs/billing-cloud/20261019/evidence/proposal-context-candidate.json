@@ -1,0 +1,25 @@
+{
+  "scope": "PREPARED_DIFF_ONLY_NOT_APPLIED_NOT_FUNCTIONALLY_TESTED",
+  "source": "888ecaae57e9021ca0cb25d4da0657c1f6ac9b40",
+  "target": "src/features/billing/IntegratedBilling.tsx",
+  "source_sha256LF": "c5ce322a15c293b87e6e232abc41bbd4688d9fcb8d569718ae235c4dd094fb98",
+  "proposed_sha256LF": "1b8752fc7cc602282c27924c623e8e9a6b46b230878812f451b033f66fd330cd",
+  "patch_sha256": "6570e4c83478ab0aeddac68464d11644043b0e42400772c78f221d42b6e8f6a5",
+  "both_candidate_patches_apply_check_exit": 0,
+  "check_stdout": "",
+  "check_stderr": "",
+  "candidate_TSX_syntax_exit": 0,
+  "candidate_TSX_parse_diagnostics": [],
+  "source_files_unchanged": true,
+  "candidate_typecheck_and_functional_tests": "NOT_RUN_WAIT_EXACT_ASIER_DELEGATION",
+  "after_delegation_required": [
+    "unit04 positive unchanged-customer and three stale-response negatives all viewports",
+    "unit03 text/audio/error/cleanup bank",
+    "billing regression including uncertain receipt and context reads"
+  ],
+  "review_limits": [
+    "effect cleanup timing needs browser regression",
+    "does not define precedence for explicitly named client conflicting with selected customer",
+    "does not authorize cloud flags or writes"
+  ]
+}
