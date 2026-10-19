@@ -3,6 +3,7 @@ on:
   workflow_dispatch:
   pull_request:
     paths:
+      - 'docs/master/platform/W5_STAGING_ACTIVATION_20261019.txt'
       - '.github/workflows/supabase-local.yml'
       - 'scripts/platform/**'
       - 'infra/platform/**'

@@ -1,0 +1,55 @@
+HANDOFF PARA CLAUDE — ASIER W5 P0 — 19/10/2026
+ESTADO: BLOQUEADO ANTES DE APLICACIÓN CLOUD. NO COMPLETE. MIGRACIONES CLOUD APLICADAS: 0.
+
+CONEXIONES Y DESTINO
+GitHub MCP operativo como Asier-Comba, con acceso a Asier-Comba/CRM-Telecomunicaciones.
+Supabase MCP operativo: organización CRM TELECOM, ID oiwyvaihoxfamgieaeno; único proyecto devuelto crm-telecom-staging, ID zgwotxnyqzfuzcnmgvtn, eu-west-2, ACTIVE_HEALTHY, PostgreSQL17.11.0.003. Acceso de Oier/Asier fue declarado por el usuario; sus MFA/permisos individuales no fueron auditados por una API de miembros.
+Lecturas reales finales de staging: 0 tablas/rutinas públicas de aplicación, usuarios/identidades/sesiones Auth, buckets/objetos, historial de migraciones. Funciones Edge vacías en comprobación inicial. SSL=on, SCRAM-SHA-256, row_security=on; anon/authenticated sin login/superuser/BYPASSRLS. service_role y postgres tienen BYPASSRLS esperado. pgaudit.log=none. Advisor security sin lints en esquema vacío; no es aceptación de esquema futuro. SSL=on no acredita enforcementSSL/red.
+No se consultó ni se usó resellpro; no producción/main ni valores secretos. Se publica una rama propia y PR draft con este checkpoint y dos filtros adicionales para ejecutar los workflows existentes. No cloud DDL/DML, usuarios ni configuración modificados.
+
+LECTURAS Y FUENTES
+PR38: 60acdc5d6a2ae41ff3d751724582ade0c0762788, 85 migraciones.
+PR150 candidata: 32862fafbdf35c1c33b84a88ef1e7710cdac9388, árbol b17ac710f7eb4597d594ae66c0170353aecfb89e, 86 migraciones.
+CI ejecutó acdf8310d4b6b777f3b98f04222019b130b4d679: árbol b17ac710f7eb4597d594ae66c0170353aecfb89e comprobado por Git API. No se atribuye un PASS de un árbol distinto.
+PR153: 7f6626e32a609eb22ffdd8052c9cc59e60d98453, 85 migraciones, aceptación Supabase fallida; no se consume. Las ramas posteriores W2-X y sus PASS conservan su alcance; no sustituyen ese HEAD.
+Issue67 y sus528 comentarios recuperados. Leídos AGENTS, docs/master/11_HANDOFFS, SYSTEM_STATE, estados W1-W5 y handoffs de seguridad W1-W3, W5_HANDOFF, RELEASE_STAGING, PLATFORM_ENVIRONMENT_CONTRACT, ONE_DAY_ACTIVATION y documentos de cierre85/86, composición y manifiestos. Varios estados están fechados en septiembre y no sustituyen la CI/PR posterior. No existen archivos literales MASTER/STATUS/DECISIONS en los tres árboles identificados; referencia exacta pedida al usuario y pendiente. No afirmar requisito3 totalmente satisfecho.
+
+85/86 RESUELTO POR OBJETOS
+Los85 blobs dePR38 están intactos enPR150. Única extensión20261008010000_align_provider_rpc_execution_grants.sql, Git20bfa6da1b1a0235f3e3ebc1311524f3d32f5d14, SHA256700d2dea9db5351cb97a0256461e67e93d399d9c0b8320bbd2e8b96ed4f6da9b. La unión correcta para staging es86. No editar, omitir, duplicar o contar por aproximación. El manifiesto de cierre canónico y el comprobador de composición admiten esa unión.
+
+PRUEBAS NUEVAS EJECUTADAS EN ESTA SESIÓN
+Pruebas locales realizadas en checkout aislado de32862fa antes de cambios documentales. Rama posterior propia w5/staging-activation-preflight-20261019: sólo este checkpoint y dos filtros de path de workflows, sin cambiar src, SQL, tests ni harness. Node22.20.0 (contrato del proyecto pide24), PGlite0.5.8/PostgreSQL18.3 WASM; no proceso Postgres nativo ni Supabase HTTP local.
+1. onboarding.mjs: exit0, aplicación86 y6 grupos de onboarding/idempotencia/suspensión/membresía eliminada/rollback/multiworkspace PASS.
+2. domain.mjs: exit0, aplicación86, fixtures de dominio/RLS/RPC/roles/revocación/negativos, comandos e invariantes PASS; restore embebido con datos sintéticos, filas/outbox/lectura autorizada y denegación extranjera PASS. Snapshot74,538,496bytes, SHA256f8488be0b322e1fea79b318601bd6f30076874a80bd214528c7006bd8752544a. No es backup lógico nativo/offsite.
+3. assistant.mjs: exit0,86migraciones y manifest de privilegios/atomicidad/RLS PASS.
+4. owned-consumer-migration-closure.test.mjs:6/6PASS, incluye85/86, duplicado, modificación/sustitución, extras/ausencias y LF/CRLF. composition.mjs PASS,655paths producto+4infra,86migraciones.
+5. Ensayo adicional con defaults ACL observados del cloud:86SQL exactos capturados por loader;90tablas públicas todas RLS, sin permisos de datos anon ni TRUNCATE authenticated;319funciones públicas con firmas/security/grants exactos;2buckets privados. PASS; motorPGlite18.3; DB en memoria cerrada.
+Estos resultados no son Auth real, Storage HTTP, cloud17 ni reinicio de proceso nativo.
+
+CI REAL EXISTENTE VERIFICADA EL19/10; EJECUTADA14/10, MISMO ÁRBOL
+Supabase38549218518/job115802778325 SUCCESS. Informe seguro extraído del log final del productor, sin persistir raw logs:86migraciones/4042backend(3815+227)/107UI, Auth/JWT/PostgREST/RPC/Storage/cross_tenant/revocation PASS; teardownPASS; PostgreSQL15.19,CLI2.119.0; remote_stagingNOT_TESTED.
+Recovery38549218384/job115802783544 SUCCESS:86/4042,319RPC,19objetos bytes+metadata,2reconstrucciones,16comprobacionesactor/sesión,34denegacionesRPC y11controlesnegativosPASS; login/aislamiento/revocación yteardownPASS. Auth scope users/identities locales, sin sesiones; offsite yhostedAuthNOT_PROVEN. Duración42s no implicaRTO.
+ArtefactoSupabase11887745499 digestSHA2568bfd38c50e35b670751cbbc511801c6ff1aa1453290f62eefb2a96199db398b8; Recovery11885659365 digestSHA2568211b893c7c14aebab0324b77b3ac3f7487bedb12a69802dba6d5364d8ee4453. Digest declarado porGitHub, no se descargó/verificó elZIP. Sí se leyó yparseó elJSON seguro final de sus jobs.
+CI38549218460 FAILURE global: nativeDB,embedded,previewdesktop181/mobile181/unión362,migraciones/baseline/secretsPASS;qualityFAIL,DependencyReview/CriticalPlaywrightSKIPPED. Enterprise38549218384 FAILURE global:reconstruction/container/authmail/proxyPASS,contractsENV_INVENTORY_DRIFTFAIL yscansvendorFAIL. History38549218509FAIL. No sewaivean ni seheredanPASSglobales. Los5HIGH yhallazgosdehistorial/vendorexistentes siguen abiertos; no se inspeccionaron valores secretos.
+
+BLOQUEOS Y PLAN
+Docker local no disponible: ambos pipes no existen; Docker Desktop no dejó motor activo; servicio com.docker.service detenido; Start-Service denegado por permisos. No se simularon variablesCI ni se relajó el harness. Se prepara ejecución nueva del stack real en los runners Linux de GitHub existentes; resultados PENDING hasta terminalidad.
+Alternativas MCP intentadas a solicitud del usuario: rama desechable rechazada por PaymentRequiredException, requiere Pro (cotización0.01344USD/h); proyecto separado cotizado0USD/mes rechazado por límite gratuito de un administrador. No se creó ningún recurso ni se pausó/borró/actualizó otro proyecto. La identidad mencionada por el error de cupo no se reproduce en este handoff público.
+El navegador de Supabase redirige a sign-in; inventario Auth/URL/MFA/rate limits/proveedores/DataAPI/SSL obligatorio/red/PITR incompleto. MCP de SQL no expone esa configuración y no se piden secretos.
+MASTER/STATUS/DECISIONS exactos pendientes. Revisión independiente y autorización concreta delplan pendientes. La región está observada, no aprobada como residencia empresarial.
+Restricción «no secretos»: migración20261003132000 genera32bytes DBprivados enproduct_command_key; ninguna clave existente fueleída/rotada. Se requiere aclarar si la generación interna debootstrap queda permitida.
+W5_CLOUD_APPLICATION_PLAN_20261019.txt detalla las86llamadasMCP secuenciales, mapa de versionesoriginales→MCP, preflight inmutable, stop ante fallo, efectos persistentes y comprobaciones hospedadas. Nunca retargetear run-stack.mjs/recovery alcloud: sonCI_ONLY/loopback. No dbresetlinked/drop/secretfetch/worker/IA/mail externo.
+
+SIGUIENTES TRES TAREAS PARA CLAUDE
+1. Resolver referenciasdocumentales, inventario de seguridad hospedado yrunnerDockerLinux/Node24; mantener todos los fallos y alcances originales.
+2. Revisar las86huellas y el plan, aclarar generación interna declave y obtener autorización exacta paraeste proyecto/SHA. Sólo entonces aplicar86, registrando cadaresultado y sinreset remoto.
+3. Ejecutar pruebas reales hospedadas deAuth/RLS/roles/Storage/empresasA-B/negativos/persistencia con datos sintéticos ycanal autorizado sin secretos enchat; publicar inventario final,CI yHANDOFF. No COMPLETE sinestaspruebas. Producción/release/IAwrites siguen desautorizados.
+
+ENLACES
+https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/38
+https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/150
+https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/153
+https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67
+https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/38549218518
+https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/38549218384
+https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/38549218460
