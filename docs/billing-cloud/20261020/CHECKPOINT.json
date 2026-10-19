@@ -1,64 +1,47 @@
 {
-  "unit": "08",
+  "unit": "14",
   "authorization_comment": 6278415584,
-  "claim": 6278546047,
-  "source_commit": "6002039db9e6a8ce1a5d20fbd551acb1c30ab376",
+  "claim": 6279406251,
+  "source_commit": "9e3ed4f6331d8756a9fbe6274631297a939af75e",
   "source_blobs": {
-    "src/features/billing/parse.ts": "058fa105ea95af5f41a51f514392e22d96ae6a32",
-    "src/features/billing/IntegratedBilling.tsx": "8410de7c37a3f541178ac79c35e4f5ca0715ae61"
+    "src/features/billing/IntegratedBilling.tsx": "4ddfe7ecb33c303f97a8b0c8d8bbd7568974276c",
+    "src/features/billing/PromptBuilder.tsx": "f7c5db2b0d3c8e06d4b0d58c9d3fe131a91f8aea",
+    "src/features/billing/parse.ts": "4dc0eb10f7801ca7d50e9cd0ec948eb462f95d21"
   },
   "upstream_pr": 156,
   "upstream_sha": "888ecaae57e9021ca0cb25d4da0657c1f6ac9b40",
   "branch": "oier/billing-parser-proposal-fixes-20261020",
   "checks": {
-    "lint": 0,
-    "billing_bootstrap": {
+    "visual": "REVIEWED_IDENTITY_WARNING_390_1440_ONLY",
+    "billing_bootstrap": 53,
+    "source": "9e3ed4f6331d8756a9fbe6274631297a939af75e",
+    "build_exit": 0,
+    "scope": "Actual product/repository/validators, loopback HTTP synthetic data, simulated speech; hosted AuthDB/cloud persistence/real voice/live model NOT_RUN",
+    "windows_checkout": "NOT_RUN_THIS_SOURCE_PRIOR7b54_AND_F519_RESULTS_KEPT_AT_OWN_SHA",
+    "concepts": 10,
+    "browser_composed": {
       "failed": 0,
-      "passed": 53
+      "skipped": 0,
+      "passed": 99
     },
-    "context_corrected_diagnostic_attempt02": {
-      "passed": 15,
+    "browser_existing": {
       "failed": 0,
-      "widths": [
-        390,
-        768,
-        1440
-      ],
-      "assertions": "Unchanged; evaluateAll only replaces blocking evidence read"
-    },
-    "prompt_browser": {
-      "passed": 30,
-      "failed": 0,
-      "widths": [
-        390,
-        768,
-        1440
-      ]
-    },
-    "build": 0,
-    "typescript": 0,
-    "parser": {
-      "failed": 0,
-      "passed": 24
-    },
-    "context_original_attempt01": {
-      "passed": 9,
-      "failed": 6,
-      "cause": "Diagnostic inputValue on intentionally absent editor consumed test timeout before absence assertion. Preserved original artifacts."
-    },
-    "existing_billing_browser": {
-      "failed": 0,
+      "skipped": 0,
       "passed": 88
-    }
+    },
+    "lint_exit": 0,
+    "browser_unique": 187,
+    "parser": 24,
+    "typescript_exit": 0
   },
   "evidence": "EVIDENCE_MANIFEST.json",
   "scope": "Actual product with synthetic input and controlled loopback HTTP / simulated speech; not hosted Auth/DB or real voice",
   "integration": "ASIER_ACK_REQUIRED",
   "next": {
-    "task": "FIRST refresh local cleanliness, PR160 head, issue67 CLAIM/ACK and run39337759538/39337759614. Do not duplicate or cancel active checks. If terminal, preserve every outcome, verify this qualified recovery source/code blobs, fast-forward existing PR160 branch to recovery head (no force), verify remote SHA and run fresh own remote controls. Never inherit PASS or merge without exact Asier ACK.",
-    "independent_followup": "Evaluate explicitly named customer versus selected customer conflict with a causal bank before changing behavior; NOT_RUN, no acceptance claimed.",
-    "security": "W4 owns independent security review and findings triage; five HIGH visible, IA writes OFF, release NOT_ACCEPTED.",
-    "cloud": "W5 owns Edge Access, exact deploy/source and authorized synthetic cohort/window/roles/actions/cleanup; no bypass, migration reset or resellpro."
+    "cloud": "W5 owns Edge Access/deploy provenance/authorized QA cohort; no bypass, reset, migrations or resellpro.",
+    "independent": "UNIT15 Cartera coherent readback causal bank in exclusive new checkout from888; do not duplicate billing changes.",
+    "release": "NOT_ACCEPTED",
+    "task": "Refresh PR160 Supabase39337759538. No push while active or cancel. Once terminal preserve outcome and fast-forward existing PR160 branch to qualified recovery head; fresh own remote checks, no inherited PASS, no merge without exact Asier ACK."
   },
   "netlify": "EDGE_ACCESS_BLOCKED_W5_ASSIGNED_NO_BYPASS",
   "supabase": "87_MIGRATIONS_NO_RESET_REAPPLY_OR_MUTATION",
@@ -87,30 +70,24 @@
     "regression": "88PASS"
   },
   "remote_checks": {
-    "Supabase": {
-      "run": 39337759538,
-      "status": "IN_PROGRESS",
-      "scope": "Disposable real-local Auth/PostgREST/Storage; not hosted staging87"
-    },
     "source": "f519e60236f88a031f2625e382114b72e8a95030",
-    "latest_unit13": "Published only in isolated recovery alias until current PR runs terminal",
     "W4": {
+      "raw_published": false,
+      "historical_findings": 23,
       "run": 39337759548,
-      "count": 23,
-      "status": "BLOCKED_FINDINGS",
-      "exceptions": 0,
-      "raw_published": false
+      "conclusion": "failure"
     },
     "CI": {
-      "windows_launcher": "SUCCESS_JOB118351422191",
-      "audit": "HIGH5_EXIT1",
+      "dependency_HIGH": 5,
+      "status": "completed",
+      "windows": "SUCCESS",
       "run": 39337759614,
-      "history_secret_scan": "FAIL",
-      "application_tests": "620plus825_FAIL0",
-      "status": "IN_PROGRESS_WITH_KNOWN_FAILURES"
+      "conclusion": "failure"
     },
-    "PR160": "DRAFT_HEAD_F519",
-    "inherit_pass": false
+    "supabase": {
+      "status": "in_progress",
+      "run": 39337759538
+    }
   },
   "completed_unit10": {
     "build": 0,
@@ -159,7 +136,7 @@
     "total_unique_browser": 163,
     "red_source": "ea0f7f0010ab10b39e2fae221880e523d123e30a"
   },
-  "current_measured_product_source": "7b54d09dad42cfeff92ea9a00cc1e73be620e42c",
+  "current_measured_product_source": "9e3ed4f6331d8756a9fbe6274631297a939af75e",
   "artifacts": {
     "bundle": "evidence/artifacts-v1.zip",
     "hashes": "EVIDENCE_MANIFEST.json",
@@ -189,8 +166,64 @@
     "windows_full_checkout": "PASS_SOURCE7B54_PATH_SPACES_CORE_LONGPATHS_FALSE"
   },
   "local_active_work": {
-    "status": "NO_LONG_RUNNING_LOCAL_PROCESS",
-    "next_remote_checks": "Already running on F519; latest UNIT13 recovery not synchronized over them",
-    "product_checks_complete": true
+    "independent": "UNIT15 CLAIM6279498568 RED running in own checkout crm-oier-commercial-20261020; no source edit yet",
+    "billing": "NONE_CONTROLS_FINISHED"
+  },
+  "initial_unit08_source": "6002039db9e6a8ce1a5d20fbd551acb1c30ab376",
+  "initial_unit08_checks": {
+    "lint": 0,
+    "billing_bootstrap": {
+      "failed": 0,
+      "passed": 53
+    },
+    "context_corrected_diagnostic_attempt02": {
+      "passed": 15,
+      "failed": 0,
+      "widths": [
+        390,
+        768,
+        1440
+      ],
+      "assertions": "Unchanged; evaluateAll only replaces blocking evidence read"
+    },
+    "prompt_browser": {
+      "passed": 30,
+      "failed": 0,
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    "build": 0,
+    "typescript": 0,
+    "parser": {
+      "failed": 0,
+      "passed": 24
+    },
+    "context_original_attempt01": {
+      "passed": 9,
+      "failed": 6,
+      "cause": "Diagnostic inputValue on intentionally absent editor consumed test timeout before absence assertion. Preserved original artifacts."
+    },
+    "existing_billing_browser": {
+      "failed": 0,
+      "passed": 88
+    }
+  },
+  "completed_unit14": {
+    "source": "9e3ed4f6331d8756a9fbe6274631297a939af75e",
+    "red": {
+      "source": "663cb4f0aed65eb08622c7ced9256537883e2d29",
+      "failed": 6,
+      "passed": 6,
+      "preserved": true
+    },
+    "cause": "Parser received only selected customer, so shared name token silently matched selection even when text named another authorized result. Pass full authorized search results and require parsed identity equals selected identity before RPC.",
+    "no_commercial_command_in_new_bank": true,
+    "archive": "unit14-artifacts.zip",
+    "claim": 6279406251,
+    "positive": "12 identity cases in composed99: mismatch/ambiguity no proposal/editor; correct selected name and corrected selection usable at390/768/1440",
+    "archive_verified_entries": 151
   }
 }

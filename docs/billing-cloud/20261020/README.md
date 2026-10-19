@@ -24,3 +24,5 @@ The new reports identify their exact measured source. Browser tests use real pro
 Release remains `NOT_ACCEPTED`, commercial AI writes `OFF`, live model `NOT_RUN`; W4 independent review, five HIGH findings and Storage P0 remain open. F736 and CASE_NOTE_CURSOR are not claimed corrected.
 
 See `CHECKPOINT.json` for final results, active work and recovery instructions.
+
+Unidad14: fuente comercial9e3ed4f. Se conservan6FAIL originales de cliente nombrado distinto/ambiguo. En la revisión:187casos únicos de navegador(99+88),24parser,10concepto,53lógica y lint/TypeScript/build exit0. El parser recibe todos los resultados de búsqueda ya autorizados; una identidad distinta o ambigua requiere corregir la selección/texto antes de invoice.propose. Visual revisada en advertencias390/1440, no aceptación global. Evidencia raw y151entradas ZIP verificadas; sin heredar Windows/Supabase de otros SHAs. PR160 continúaF519 mientras Supabase39337759538 esté activo; recuperación por alias propio, integración requiere ACK de Asier. Continúa UNIT15 Cartera en otra rama exclusiva sin duplicar facturación.

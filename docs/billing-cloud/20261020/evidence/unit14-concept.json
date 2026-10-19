@@ -1,0 +1,83 @@
+{
+  "source": "9e3ed4f6331d8756a9fbe6274631297a939af75e",
+  "pins": {
+    "src/features/billing/parse.ts": "57b3fec968778616a6d5750ff6e6fb684037441dd580362df1a1ba18ebc250a8",
+    "src/features/billing/model.ts": "b0c22f26e6c7ccd5bdcad3519a780ec69f0b5636abddddd6833db8c147114c94",
+    "src/lib/invoicing/calc.ts": "990541cb4113ef367d2ede003e735730a753ac9e8e7aeb8606508e3fa060fc8a"
+  },
+  "scope": "Actual parser, synthetic input only; no network",
+  "cases": [
+    {
+      "text": "Factura por 300 euros",
+      "expected": null,
+      "actual": null,
+      "missingConcept": true,
+      "pass": true
+    },
+    {
+      "text": "Factura de 300 euros",
+      "expected": null,
+      "actual": null,
+      "missingConcept": true,
+      "pass": true
+    },
+    {
+      "text": "Factura por 300 euros por soporte",
+      "expected": "soporte",
+      "actual": "soporte",
+      "missingConcept": false,
+      "pass": true
+    },
+    {
+      "text": "Factura de 300 euros por instalación de fibra",
+      "expected": "instalación de fibra",
+      "actual": "instalación de fibra",
+      "missingConcept": false,
+      "pass": true
+    },
+    {
+      "text": "Factura por 300 euros + IVA por soporte",
+      "expected": "soporte",
+      "actual": "soporte",
+      "missingConcept": false,
+      "pass": true
+    },
+    {
+      "text": "Factura por -300 euros",
+      "expected": null,
+      "actual": null,
+      "missingConcept": true,
+      "pass": true
+    },
+    {
+      "text": "Factura por instalación de fibra de 300 euros",
+      "expected": "instalación de fibra",
+      "actual": "instalación de fibra",
+      "missingConcept": false,
+      "pass": true
+    },
+    {
+      "text": "Factura por soporte, vencimiento en 15 días",
+      "expected": "soporte",
+      "actual": "soporte",
+      "missingConcept": false,
+      "pass": true
+    },
+    {
+      "text": "Factura por mantenimiento y soporte de 300 euros",
+      "expected": "mantenimiento y soporte",
+      "actual": "mantenimiento y soporte",
+      "missingConcept": false,
+      "pass": true
+    },
+    {
+      "text": "Factura por 24 horas de soporte de 300 euros",
+      "expected": "24 horas de soporte",
+      "actual": "24 horas de soporte",
+      "missingConcept": false,
+      "pass": true
+    }
+  ],
+  "passed": 10,
+  "failed": 0
+}

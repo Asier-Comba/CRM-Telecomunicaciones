@@ -1,0 +1,115 @@
+
+Running 99 tests using 1 worker
+
+
+
+(node:16416) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1/99] [controlled-http-390] › tools\oier_billing_qa\customer-identity.spec.ts:9:106 › invoice identity different_name never silently substitutes the selected customer
+[2/99] [controlled-http-390] › tools\oier_billing_qa\customer-identity.spec.ts:9:106 › invoice identity ambiguous_name never silently substitutes the selected customer
+[3/99] [controlled-http-390] › tools\oier_billing_qa\customer-identity.spec.ts:9:106 › invoice identity selected_name never silently substitutes the selected customer
+[4/99] [controlled-http-390] › tools\oier_billing_qa\customer-identity.spec.ts:9:106 › invoice identity corrected_selection never silently substitutes the selected customer
+[5/99] [controlled-http-390] › tools\oier_billing_qa\customer-prompt-context.spec.ts:42:5 › changing customer clears the previous written invoice intent
+[6/99] [controlled-http-390] › tools\oier_billing_qa\customer-prompt-context.spec.ts:51:5 › changing customer aborts dictation and retires the old transcript handler
+[7/99] [controlled-http-390] › tools\oier_billing_qa\customer-prompt-context.spec.ts:64:5 › a fresh written intent for the new customer still opens its own proposal
+[8/99] [controlled-http-390] › tools\oier_billing_qa\prompt-interaction.spec.ts:74:5 › empty prompt does not propose or write
+[9/99] [controlled-http-390] › tools\oier_billing_qa\prompt-interaction.spec.ts:79:5 › unsupported speech keeps text fallback usable and opens editable reviewed proposal
+[10/99] [controlled-http-390] › tools\oier_billing_qa\prompt-interaction.spec.ts:90:5 › controlled dictation uses Spanish and waits until stopped before proposing
+[11/99] [controlled-http-390] › tools\oier_billing_qa\prompt-interaction.spec.ts:106:5 › interim transcripts replace one another and editing changes provenance to text
+[12/99] [controlled-http-390] › tools\oier_billing_qa\prompt-interaction.spec.ts:116:5 › controlled speech error retains text fallback without proposing
+[13/99] [controlled-http-390] › tools\oier_billing_qa\prompt-interaction.spec.ts:125:5 › leaving the customer aborts recognition and retires transcript handlers
+[14/99] [controlled-http-390] › tools\oier_billing_qa\prompt-interaction.spec.ts:135:5 › owner phrase preserves complete concept and fifteen-day due date in editable proposal
+[15/99] [controlled-http-390] › tools\oier_billing_qa\prompt-interaction.spec.ts:146:65 › denied proposal failure is explained without opening editor or writing
+[16/99] [controlled-http-390] › tools\oier_billing_qa\prompt-interaction.spec.ts:146:65 › malformed proposal failure is explained without opening editor or writing
+[17/99] [controlled-http-390] › tools\oier_billing_qa\prompt-interaction.spec.ts:146:65 › network proposal failure is explained without opening editor or writing
+[18/99] [controlled-http-390] › tools\oier_billing_qa\proposal-context.spec.ts:43:5 › held proposal still opens when customer context is unchanged
+[19/99] [controlled-http-390] › tools\oier_billing_qa\proposal-context.spec.ts:55:32 › old proposal is retired after customer switch
+[20/99] [controlled-http-390] › tools\oier_billing_qa\proposal-context.spec.ts:55:32 › old proposal is retired after customer removal
+[21/99] [controlled-http-390] › tools\oier_billing_qa\proposal-context.spec.ts:69:5 › failure from old customer does not contaminate a newer accepted proposal
+[22/99] [controlled-http-390] › tools\oier_billing_qa\proposal-context.spec.ts:84:5 › original comma concept opens an editable support proposal
+[23/99] [controlled-http-390] › tools\oier_billing_qa\proposal-dialog-context.spec.ts:8:44 › pending proposal cannot replace the issuer dialog; fresh intent remains usable
+[24/99] [controlled-http-390] › tools\oier_billing_qa\proposal-dialog-context.spec.ts:8:44 › pending proposal cannot replace the customer dialog; fresh intent remains usable
+[25/99] [controlled-http-390] › tools\oier_billing_qa\proposal-dialog-context.spec.ts:8:44 › pending proposal cannot replace the summary dialog; fresh intent remains usable
+[26/99] [controlled-http-390] › tools\oier_billing_qa\proposal-dialog-context.spec.ts:8:44 › pending proposal cannot replace the payment dialog; fresh intent remains usable
+[27/99] [controlled-http-390] › tools\oier_billing_qa\proposal-intent.spec.ts:40:5 › a late proposal cannot reopen a manually closed draft
+[28/99] [controlled-http-390] › tools\oier_billing_qa\proposal-intent.spec.ts:52:5 › an old proposal error cannot contaminate a new manual draft
+[29/99] [controlled-http-390] › tools\oier_billing_qa\proposal-intent.spec.ts:63:5 › a late proposal cannot replace the invoice opened afterwards
+[30/99] [controlled-http-390] › tools\oier_billing_qa\speech-fallback.spec.ts:9:98 › written fallback survives speech constructor and retains text provenance
+[31/99] [controlled-http-390] › tools\oier_billing_qa\speech-fallback.spec.ts:9:98 › written fallback survives speech start and retains text provenance
+[32/99] [controlled-http-390] › tools\oier_billing_qa\speech-fallback.spec.ts:9:98 › written fallback survives speech error_without_words and retains text provenance
+[33/99] [controlled-http-390] › tools\oier_billing_qa\speech-fallback.spec.ts:9:98 › written fallback survives speech end_without_words and retains text provenance
+
+(node:19128) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[34/99] [controlled-http-768] › tools\oier_billing_qa\customer-identity.spec.ts:9:106 › invoice identity different_name never silently substitutes the selected customer
+[35/99] [controlled-http-768] › tools\oier_billing_qa\customer-identity.spec.ts:9:106 › invoice identity ambiguous_name never silently substitutes the selected customer
+[36/99] [controlled-http-768] › tools\oier_billing_qa\customer-identity.spec.ts:9:106 › invoice identity selected_name never silently substitutes the selected customer
+[37/99] [controlled-http-768] › tools\oier_billing_qa\customer-identity.spec.ts:9:106 › invoice identity corrected_selection never silently substitutes the selected customer
+[38/99] [controlled-http-768] › tools\oier_billing_qa\customer-prompt-context.spec.ts:42:5 › changing customer clears the previous written invoice intent
+[39/99] [controlled-http-768] › tools\oier_billing_qa\customer-prompt-context.spec.ts:51:5 › changing customer aborts dictation and retires the old transcript handler
+[40/99] [controlled-http-768] › tools\oier_billing_qa\customer-prompt-context.spec.ts:64:5 › a fresh written intent for the new customer still opens its own proposal
+[41/99] [controlled-http-768] › tools\oier_billing_qa\prompt-interaction.spec.ts:74:5 › empty prompt does not propose or write
+[42/99] [controlled-http-768] › tools\oier_billing_qa\prompt-interaction.spec.ts:79:5 › unsupported speech keeps text fallback usable and opens editable reviewed proposal
+[43/99] [controlled-http-768] › tools\oier_billing_qa\prompt-interaction.spec.ts:90:5 › controlled dictation uses Spanish and waits until stopped before proposing
+[44/99] [controlled-http-768] › tools\oier_billing_qa\prompt-interaction.spec.ts:106:5 › interim transcripts replace one another and editing changes provenance to text
+[45/99] [controlled-http-768] › tools\oier_billing_qa\prompt-interaction.spec.ts:116:5 › controlled speech error retains text fallback without proposing
+[46/99] [controlled-http-768] › tools\oier_billing_qa\prompt-interaction.spec.ts:125:5 › leaving the customer aborts recognition and retires transcript handlers
+[47/99] [controlled-http-768] › tools\oier_billing_qa\prompt-interaction.spec.ts:135:5 › owner phrase preserves complete concept and fifteen-day due date in editable proposal
+[48/99] [controlled-http-768] › tools\oier_billing_qa\prompt-interaction.spec.ts:146:65 › denied proposal failure is explained without opening editor or writing
+[49/99] [controlled-http-768] › tools\oier_billing_qa\prompt-interaction.spec.ts:146:65 › malformed proposal failure is explained without opening editor or writing
+[50/99] [controlled-http-768] › tools\oier_billing_qa\prompt-interaction.spec.ts:146:65 › network proposal failure is explained without opening editor or writing
+[51/99] [controlled-http-768] › tools\oier_billing_qa\proposal-context.spec.ts:43:5 › held proposal still opens when customer context is unchanged
+[52/99] [controlled-http-768] › tools\oier_billing_qa\proposal-context.spec.ts:55:32 › old proposal is retired after customer switch
+[53/99] [controlled-http-768] › tools\oier_billing_qa\proposal-context.spec.ts:55:32 › old proposal is retired after customer removal
+[54/99] [controlled-http-768] › tools\oier_billing_qa\proposal-context.spec.ts:69:5 › failure from old customer does not contaminate a newer accepted proposal
+[55/99] [controlled-http-768] › tools\oier_billing_qa\proposal-context.spec.ts:84:5 › original comma concept opens an editable support proposal
+[56/99] [controlled-http-768] › tools\oier_billing_qa\proposal-dialog-context.spec.ts:8:44 › pending proposal cannot replace the issuer dialog; fresh intent remains usable
+[57/99] [controlled-http-768] › tools\oier_billing_qa\proposal-dialog-context.spec.ts:8:44 › pending proposal cannot replace the customer dialog; fresh intent remains usable
+[58/99] [controlled-http-768] › tools\oier_billing_qa\proposal-dialog-context.spec.ts:8:44 › pending proposal cannot replace the summary dialog; fresh intent remains usable
+[59/99] [controlled-http-768] › tools\oier_billing_qa\proposal-dialog-context.spec.ts:8:44 › pending proposal cannot replace the payment dialog; fresh intent remains usable
+[60/99] [controlled-http-768] › tools\oier_billing_qa\proposal-intent.spec.ts:40:5 › a late proposal cannot reopen a manually closed draft
+[61/99] [controlled-http-768] › tools\oier_billing_qa\proposal-intent.spec.ts:52:5 › an old proposal error cannot contaminate a new manual draft
+[62/99] [controlled-http-768] › tools\oier_billing_qa\proposal-intent.spec.ts:63:5 › a late proposal cannot replace the invoice opened afterwards
+[63/99] [controlled-http-768] › tools\oier_billing_qa\speech-fallback.spec.ts:9:98 › written fallback survives speech constructor and retains text provenance
+[64/99] [controlled-http-768] › tools\oier_billing_qa\speech-fallback.spec.ts:9:98 › written fallback survives speech start and retains text provenance
+[65/99] [controlled-http-768] › tools\oier_billing_qa\speech-fallback.spec.ts:9:98 › written fallback survives speech error_without_words and retains text provenance
+[66/99] [controlled-http-768] › tools\oier_billing_qa\speech-fallback.spec.ts:9:98 › written fallback survives speech end_without_words and retains text provenance
+
+(node:24308) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[67/99] [controlled-http-1440] › tools\oier_billing_qa\customer-identity.spec.ts:9:106 › invoice identity different_name never silently substitutes the selected customer
+[68/99] [controlled-http-1440] › tools\oier_billing_qa\customer-identity.spec.ts:9:106 › invoice identity ambiguous_name never silently substitutes the selected customer
+[69/99] [controlled-http-1440] › tools\oier_billing_qa\customer-identity.spec.ts:9:106 › invoice identity selected_name never silently substitutes the selected customer
+[70/99] [controlled-http-1440] › tools\oier_billing_qa\customer-identity.spec.ts:9:106 › invoice identity corrected_selection never silently substitutes the selected customer
+[71/99] [controlled-http-1440] › tools\oier_billing_qa\customer-prompt-context.spec.ts:42:5 › changing customer clears the previous written invoice intent
+[72/99] [controlled-http-1440] › tools\oier_billing_qa\customer-prompt-context.spec.ts:51:5 › changing customer aborts dictation and retires the old transcript handler
+[73/99] [controlled-http-1440] › tools\oier_billing_qa\customer-prompt-context.spec.ts:64:5 › a fresh written intent for the new customer still opens its own proposal
+[74/99] [controlled-http-1440] › tools\oier_billing_qa\prompt-interaction.spec.ts:74:5 › empty prompt does not propose or write
+[75/99] [controlled-http-1440] › tools\oier_billing_qa\prompt-interaction.spec.ts:79:5 › unsupported speech keeps text fallback usable and opens editable reviewed proposal
+[76/99] [controlled-http-1440] › tools\oier_billing_qa\prompt-interaction.spec.ts:90:5 › controlled dictation uses Spanish and waits until stopped before proposing
+[77/99] [controlled-http-1440] › tools\oier_billing_qa\prompt-interaction.spec.ts:106:5 › interim transcripts replace one another and editing changes provenance to text
+[78/99] [controlled-http-1440] › tools\oier_billing_qa\prompt-interaction.spec.ts:116:5 › controlled speech error retains text fallback without proposing
+[79/99] [controlled-http-1440] › tools\oier_billing_qa\prompt-interaction.spec.ts:125:5 › leaving the customer aborts recognition and retires transcript handlers
+[80/99] [controlled-http-1440] › tools\oier_billing_qa\prompt-interaction.spec.ts:135:5 › owner phrase preserves complete concept and fifteen-day due date in editable proposal
+[81/99] [controlled-http-1440] › tools\oier_billing_qa\prompt-interaction.spec.ts:146:65 › denied proposal failure is explained without opening editor or writing
+[82/99] [controlled-http-1440] › tools\oier_billing_qa\prompt-interaction.spec.ts:146:65 › malformed proposal failure is explained without opening editor or writing
+[83/99] [controlled-http-1440] › tools\oier_billing_qa\prompt-interaction.spec.ts:146:65 › network proposal failure is explained without opening editor or writing
+[84/99] [controlled-http-1440] › tools\oier_billing_qa\proposal-context.spec.ts:43:5 › held proposal still opens when customer context is unchanged
+[85/99] [controlled-http-1440] › tools\oier_billing_qa\proposal-context.spec.ts:55:32 › old proposal is retired after customer switch
+[86/99] [controlled-http-1440] › tools\oier_billing_qa\proposal-context.spec.ts:55:32 › old proposal is retired after customer removal
+[87/99] [controlled-http-1440] › tools\oier_billing_qa\proposal-context.spec.ts:69:5 › failure from old customer does not contaminate a newer accepted proposal
+[88/99] [controlled-http-1440] › tools\oier_billing_qa\proposal-context.spec.ts:84:5 › original comma concept opens an editable support proposal
+[89/99] [controlled-http-1440] › tools\oier_billing_qa\proposal-dialog-context.spec.ts:8:44 › pending proposal cannot replace the issuer dialog; fresh intent remains usable
+[90/99] [controlled-http-1440] › tools\oier_billing_qa\proposal-dialog-context.spec.ts:8:44 › pending proposal cannot replace the customer dialog; fresh intent remains usable
+[91/99] [controlled-http-1440] › tools\oier_billing_qa\proposal-dialog-context.spec.ts:8:44 › pending proposal cannot replace the summary dialog; fresh intent remains usable
+[92/99] [controlled-http-1440] › tools\oier_billing_qa\proposal-dialog-context.spec.ts:8:44 › pending proposal cannot replace the payment dialog; fresh intent remains usable
+[93/99] [controlled-http-1440] › tools\oier_billing_qa\proposal-intent.spec.ts:40:5 › a late proposal cannot reopen a manually closed draft
+[94/99] [controlled-http-1440] › tools\oier_billing_qa\proposal-intent.spec.ts:52:5 › an old proposal error cannot contaminate a new manual draft
+[95/99] [controlled-http-1440] › tools\oier_billing_qa\proposal-intent.spec.ts:63:5 › a late proposal cannot replace the invoice opened afterwards
+[96/99] [controlled-http-1440] › tools\oier_billing_qa\speech-fallback.spec.ts:9:98 › written fallback survives speech constructor and retains text provenance
+[97/99] [controlled-http-1440] › tools\oier_billing_qa\speech-fallback.spec.ts:9:98 › written fallback survives speech start and retains text provenance
+[98/99] [controlled-http-1440] › tools\oier_billing_qa\speech-fallback.spec.ts:9:98 › written fallback survives speech error_without_words and retains text provenance
+[99/99] [controlled-http-1440] › tools\oier_billing_qa\speech-fallback.spec.ts:9:98 › written fallback survives speech end_without_words and retains text provenance
+  99 passed (3.4m)

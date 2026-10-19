@@ -1,0 +1,846 @@
+{
+  "schema": "oier.billing-parser-acceptance.v1",
+  "scope": "REAL_PRODUCT_PARSER_SYNTHETIC_INPUT_ONLY",
+  "sourceCommit": "9e3ed4f6331d8756a9fbe6274631297a939af75e",
+  "sourceTree": "6a9818c86a563da130377ab21c4b87cf179ead55",
+  "runnerHead": "9e3ed4f6331d8756a9fbe6274631297a939af75e",
+  "node": "v24.12.0",
+  "pins": {
+    "src/features/billing/parse.ts": {
+      "gitBlob": "4dc0eb10f7801ca7d50e9cd0ec948eb462f95d21",
+      "sha256LF": "57b3fec968778616a6d5750ff6e6fb684037441dd580362df1a1ba18ebc250a8"
+    },
+    "src/features/billing/model.ts": {
+      "gitBlob": "f43cf40e0929e8b35f938e082d4cff79e5d8714e",
+      "sha256LF": "b0c22f26e6c7ccd5bdcad3519a780ec69f0b5636abddddd6833db8c147114c94"
+    },
+    "src/lib/invoicing/calc.ts": {
+      "gitBlob": "dd5ab8627facd95ea6ee907afe92655569c7451b",
+      "sha256LF": "990541cb4113ef367d2ede003e735730a753ac9e8e7aeb8606508e3fa060fc8a"
+    }
+  },
+  "evaluatedAt": "2026-10-19T23:16:18.722Z",
+  "acceptance": "PASS_PARSER_ONLY",
+  "summary": {
+    "scenarios": 10,
+    "checks": 24,
+    "passed": 24,
+    "failed": 0
+  },
+  "unmeasured": {
+    "browser": "NOT_RUN",
+    "realVoice": "NOT_RUN",
+    "serverProposal": "NOT_RUN",
+    "realCustomerLookup": "NOT_RUN",
+    "cloudPersistence": "NOT_RUN",
+    "release": "NOT_ACCEPTED"
+  },
+  "cases": [
+    {
+      "id": "mandatory-owner-phrase",
+      "text": "Hazme una factura para Bilbao Telecom Demo SL de 300 euros más el 21% de IVA por instalación de fibra, con vencimiento en quince días",
+      "asOf": "2026-10-19",
+      "inputClients": [
+        {
+          "id": "10000000-0000-4000-8000-000000000001",
+          "name": "Bilbao Telecom Demo SL"
+        },
+        {
+          "id": "10000000-0000-4000-8000-000000000002",
+          "name": "Bilbao Redes Demo SL"
+        }
+      ],
+      "result": {
+        "draft": {
+          "clientId": "10000000-0000-4000-8000-000000000001",
+          "contractId": null,
+          "serviceId": null,
+          "opportunityId": null,
+          "series": "A",
+          "issueDate": "2026-10-19",
+          "dueDate": "2026-11-03",
+          "currency": "EUR",
+          "exchangeRateToEur": null,
+          "exchangeRateSource": "Manual",
+          "exchangeRateDate": null,
+          "notes": "",
+          "internalNotes": "",
+          "items": [
+            {
+              "description": "instalación de fibra",
+              "quantity": 1,
+              "unitPrice": 300,
+              "discountRate": 0,
+              "taxRate": 21,
+              "withholdingRate": 0,
+              "sortOrder": 0
+            }
+          ]
+        },
+        "confidence": 100,
+        "warnings": [],
+        "missingFields": [],
+        "detected": {
+          "clientName": "Bilbao Telecom Demo SL",
+          "concept": "instalación de fibra",
+          "amount": 300,
+          "taxRate": 21,
+          "withholdingRate": 0,
+          "discountRate": 0,
+          "dueDate": "2026-11-03",
+          "series": null
+        }
+      },
+      "totals": {
+        "subtotal": 300,
+        "taxTotal": 63,
+        "withholdingTotal": 0,
+        "total": 363
+      },
+      "checks": [
+        {
+          "name": "authorized-input-client",
+          "expected": "10000000-0000-4000-8000-000000000001",
+          "actual": "10000000-0000-4000-8000-000000000001",
+          "status": "PASS"
+        },
+        {
+          "name": "explicit-issue-date",
+          "expected": "2026-10-19",
+          "actual": "2026-10-19",
+          "status": "PASS"
+        },
+        {
+          "name": "base",
+          "expected": 300,
+          "actual": 300,
+          "status": "PASS"
+        },
+        {
+          "name": "IVA",
+          "expected": 63,
+          "actual": 63,
+          "status": "PASS"
+        },
+        {
+          "name": "total",
+          "expected": 363,
+          "actual": 363,
+          "status": "PASS"
+        },
+        {
+          "name": "complete-concept",
+          "expected": "instalación de fibra",
+          "actual": "instalación de fibra",
+          "status": "PASS"
+        },
+        {
+          "name": "spoken-fifteen-days",
+          "expected": "2026-11-03",
+          "actual": "2026-11-03",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "id": "numeric-due-control",
+      "text": "Factura para Bilbao Telecom Demo SL de 300 euros por soporte, vencimiento en 15 días",
+      "asOf": "2026-10-19",
+      "inputClients": [
+        {
+          "id": "10000000-0000-4000-8000-000000000001",
+          "name": "Bilbao Telecom Demo SL"
+        },
+        {
+          "id": "10000000-0000-4000-8000-000000000002",
+          "name": "Bilbao Redes Demo SL"
+        }
+      ],
+      "result": {
+        "draft": {
+          "clientId": "10000000-0000-4000-8000-000000000001",
+          "contractId": null,
+          "serviceId": null,
+          "opportunityId": null,
+          "series": "A",
+          "issueDate": "2026-10-19",
+          "dueDate": "2026-11-03",
+          "currency": "EUR",
+          "exchangeRateToEur": null,
+          "exchangeRateSource": "Manual",
+          "exchangeRateDate": null,
+          "notes": "",
+          "internalNotes": "",
+          "items": [
+            {
+              "description": "soporte",
+              "quantity": 1,
+              "unitPrice": 300,
+              "discountRate": 0,
+              "taxRate": 21,
+              "withholdingRate": 0,
+              "sortOrder": 0
+            }
+          ]
+        },
+        "confidence": 100,
+        "warnings": [],
+        "missingFields": [],
+        "detected": {
+          "clientName": "Bilbao Telecom Demo SL",
+          "concept": "soporte",
+          "amount": 300,
+          "taxRate": 21,
+          "withholdingRate": 0,
+          "discountRate": 0,
+          "dueDate": "2026-11-03",
+          "series": null
+        }
+      },
+      "totals": {
+        "subtotal": 300,
+        "taxTotal": 63,
+        "withholdingTotal": 0,
+        "total": 363
+      },
+      "checks": [
+        {
+          "name": "numeric-fifteen-days",
+          "expected": "2026-11-03",
+          "actual": "2026-11-03",
+          "status": "PASS"
+        },
+        {
+          "name": "simple-concept",
+          "expected": "soporte",
+          "actual": "soporte",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "id": "month-end-control",
+      "text": "Factura para Bilbao Telecom Demo SL de 300 euros por soporte, a fin de mes",
+      "asOf": "2026-10-19",
+      "inputClients": [
+        {
+          "id": "10000000-0000-4000-8000-000000000001",
+          "name": "Bilbao Telecom Demo SL"
+        },
+        {
+          "id": "10000000-0000-4000-8000-000000000002",
+          "name": "Bilbao Redes Demo SL"
+        }
+      ],
+      "result": {
+        "draft": {
+          "clientId": "10000000-0000-4000-8000-000000000001",
+          "contractId": null,
+          "serviceId": null,
+          "opportunityId": null,
+          "series": "A",
+          "issueDate": "2026-10-19",
+          "dueDate": "2026-10-31",
+          "currency": "EUR",
+          "exchangeRateToEur": null,
+          "exchangeRateSource": "Manual",
+          "exchangeRateDate": null,
+          "notes": "",
+          "internalNotes": "",
+          "items": [
+            {
+              "description": "soporte",
+              "quantity": 1,
+              "unitPrice": 300,
+              "discountRate": 0,
+              "taxRate": 21,
+              "withholdingRate": 0,
+              "sortOrder": 0
+            }
+          ]
+        },
+        "confidence": 100,
+        "warnings": [],
+        "missingFields": [],
+        "detected": {
+          "clientName": "Bilbao Telecom Demo SL",
+          "concept": "soporte",
+          "amount": 300,
+          "taxRate": 21,
+          "withholdingRate": 0,
+          "discountRate": 0,
+          "dueDate": "2026-10-31",
+          "series": null
+        }
+      },
+      "totals": {
+        "subtotal": 300,
+        "taxTotal": 63,
+        "withholdingTotal": 0,
+        "total": 363
+      },
+      "checks": [
+        {
+          "name": "end-of-month",
+          "expected": "2026-10-31",
+          "actual": "2026-10-31",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "id": "unknown-client",
+      "text": "Factura para Cliente Inexistente XYZ de 300 euros por soporte",
+      "asOf": "2026-10-19",
+      "inputClients": [
+        {
+          "id": "10000000-0000-4000-8000-000000000001",
+          "name": "Bilbao Telecom Demo SL"
+        },
+        {
+          "id": "10000000-0000-4000-8000-000000000002",
+          "name": "Bilbao Redes Demo SL"
+        }
+      ],
+      "result": {
+        "draft": {
+          "clientId": null,
+          "contractId": null,
+          "serviceId": null,
+          "opportunityId": null,
+          "series": "A",
+          "issueDate": "2026-10-19",
+          "dueDate": null,
+          "currency": "EUR",
+          "exchangeRateToEur": null,
+          "exchangeRateSource": "Manual",
+          "exchangeRateDate": null,
+          "notes": "",
+          "internalNotes": "",
+          "items": [
+            {
+              "description": "soporte",
+              "quantity": 1,
+              "unitPrice": 300,
+              "discountRate": 0,
+              "taxRate": 21,
+              "withholdingRate": 0,
+              "sortOrder": 0
+            }
+          ]
+        },
+        "confidence": 60,
+        "warnings": [],
+        "missingFields": [
+          "cliente"
+        ],
+        "detected": {
+          "clientName": null,
+          "concept": "soporte",
+          "amount": 300,
+          "taxRate": 21,
+          "withholdingRate": 0,
+          "discountRate": 0,
+          "dueDate": null,
+          "series": null
+        }
+      },
+      "totals": {
+        "subtotal": 300,
+        "taxTotal": 63,
+        "withholdingTotal": 0,
+        "total": 363
+      },
+      "checks": [
+        {
+          "name": "no-invented-client-id",
+          "expected": null,
+          "actual": null,
+          "status": "PASS"
+        },
+        {
+          "name": "client-review-required",
+          "expected": true,
+          "actual": true,
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "id": "ambiguous-client",
+      "text": "Factura para Bilbao de 300 euros por soporte",
+      "asOf": "2026-10-19",
+      "inputClients": [
+        {
+          "id": "10000000-0000-4000-8000-000000000001",
+          "name": "Bilbao Telecom Demo SL"
+        },
+        {
+          "id": "10000000-0000-4000-8000-000000000002",
+          "name": "Bilbao Redes Demo SL"
+        }
+      ],
+      "result": {
+        "draft": {
+          "clientId": null,
+          "contractId": null,
+          "serviceId": null,
+          "opportunityId": null,
+          "series": "A",
+          "issueDate": "2026-10-19",
+          "dueDate": null,
+          "currency": "EUR",
+          "exchangeRateToEur": null,
+          "exchangeRateSource": "Manual",
+          "exchangeRateDate": null,
+          "notes": "",
+          "internalNotes": "",
+          "items": [
+            {
+              "description": "soporte",
+              "quantity": 1,
+              "unitPrice": 300,
+              "discountRate": 0,
+              "taxRate": 21,
+              "withholdingRate": 0,
+              "sortOrder": 0
+            }
+          ]
+        },
+        "confidence": 60,
+        "warnings": [
+          "Varios clientes coinciden (Bilbao Telecom Demo SL, Bilbao Redes Demo SL). Elige uno."
+        ],
+        "missingFields": [
+          "cliente"
+        ],
+        "detected": {
+          "clientName": null,
+          "concept": "soporte",
+          "amount": 300,
+          "taxRate": 21,
+          "withholdingRate": 0,
+          "discountRate": 0,
+          "dueDate": null,
+          "series": null,
+          "ambiguousClients": [
+            "Bilbao Telecom Demo SL",
+            "Bilbao Redes Demo SL"
+          ]
+        }
+      },
+      "totals": {
+        "subtotal": 300,
+        "taxTotal": 63,
+        "withholdingTotal": 0,
+        "total": 363
+      },
+      "checks": [
+        {
+          "name": "no-silent-client-choice",
+          "expected": null,
+          "actual": null,
+          "status": "PASS"
+        },
+        {
+          "name": "both-candidates",
+          "expected": [
+            "Bilbao Telecom Demo SL",
+            "Bilbao Redes Demo SL"
+          ],
+          "actual": [
+            "Bilbao Telecom Demo SL",
+            "Bilbao Redes Demo SL"
+          ],
+          "status": "PASS"
+        },
+        {
+          "name": "client-review-required",
+          "expected": true,
+          "actual": true,
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "id": "missing-amount",
+      "text": "Factura para Bilbao Telecom Demo SL por soporte",
+      "asOf": "2026-10-19",
+      "inputClients": [
+        {
+          "id": "10000000-0000-4000-8000-000000000001",
+          "name": "Bilbao Telecom Demo SL"
+        },
+        {
+          "id": "10000000-0000-4000-8000-000000000002",
+          "name": "Bilbao Redes Demo SL"
+        }
+      ],
+      "result": {
+        "draft": {
+          "clientId": "10000000-0000-4000-8000-000000000001",
+          "contractId": null,
+          "serviceId": null,
+          "opportunityId": null,
+          "series": "A",
+          "issueDate": "2026-10-19",
+          "dueDate": null,
+          "currency": "EUR",
+          "exchangeRateToEur": null,
+          "exchangeRateSource": "Manual",
+          "exchangeRateDate": null,
+          "notes": "",
+          "internalNotes": "",
+          "items": [
+            {
+              "description": "soporte",
+              "quantity": 1,
+              "unitPrice": 0,
+              "discountRate": 0,
+              "taxRate": 21,
+              "withholdingRate": 0,
+              "sortOrder": 0
+            }
+          ]
+        },
+        "confidence": 60,
+        "warnings": [],
+        "missingFields": [
+          "importe"
+        ],
+        "detected": {
+          "clientName": "Bilbao Telecom Demo SL",
+          "concept": "soporte",
+          "amount": null,
+          "taxRate": 21,
+          "withholdingRate": 0,
+          "discountRate": 0,
+          "dueDate": null,
+          "series": null
+        }
+      },
+      "totals": {
+        "subtotal": 0,
+        "taxTotal": 0,
+        "withholdingTotal": 0,
+        "total": 0
+      },
+      "checks": [
+        {
+          "name": "amount-not-invented",
+          "expected": null,
+          "actual": null,
+          "status": "PASS"
+        },
+        {
+          "name": "amount-review-required",
+          "expected": true,
+          "actual": true,
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "id": "IVA-included",
+      "text": "Factura para Bilbao Telecom Demo SL de 363 euros IVA incluido al 21% por soporte",
+      "asOf": "2026-10-19",
+      "inputClients": [
+        {
+          "id": "10000000-0000-4000-8000-000000000001",
+          "name": "Bilbao Telecom Demo SL"
+        },
+        {
+          "id": "10000000-0000-4000-8000-000000000002",
+          "name": "Bilbao Redes Demo SL"
+        }
+      ],
+      "result": {
+        "draft": {
+          "clientId": "10000000-0000-4000-8000-000000000001",
+          "contractId": null,
+          "serviceId": null,
+          "opportunityId": null,
+          "series": "A",
+          "issueDate": "2026-10-19",
+          "dueDate": null,
+          "currency": "EUR",
+          "exchangeRateToEur": null,
+          "exchangeRateSource": "Manual",
+          "exchangeRateDate": null,
+          "notes": "",
+          "internalNotes": "",
+          "items": [
+            {
+              "description": "soporte",
+              "quantity": 1,
+              "unitPrice": 300,
+              "discountRate": 0,
+              "taxRate": 21,
+              "withholdingRate": 0,
+              "sortOrder": 0
+            }
+          ]
+        },
+        "confidence": 90,
+        "warnings": [
+          "IVA incluido: la base se ha calculado como 300 (revísala)."
+        ],
+        "missingFields": [],
+        "detected": {
+          "clientName": "Bilbao Telecom Demo SL",
+          "concept": "soporte",
+          "amount": 363,
+          "taxRate": 21,
+          "withholdingRate": 0,
+          "discountRate": 0,
+          "dueDate": null,
+          "series": null
+        }
+      },
+      "totals": {
+        "subtotal": 300,
+        "taxTotal": 63,
+        "withholdingTotal": 0,
+        "total": 363
+      },
+      "checks": [
+        {
+          "name": "net-base",
+          "expected": 300,
+          "actual": 300,
+          "status": "PASS"
+        },
+        {
+          "name": "gross-total",
+          "expected": 363,
+          "actual": 363,
+          "status": "PASS"
+        },
+        {
+          "name": "review-warning",
+          "expected": true,
+          "actual": true,
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "id": "negative-amount",
+      "text": "Factura para Bilbao Telecom Demo SL de -300 euros por soporte",
+      "asOf": "2026-10-19",
+      "inputClients": [
+        {
+          "id": "10000000-0000-4000-8000-000000000001",
+          "name": "Bilbao Telecom Demo SL"
+        },
+        {
+          "id": "10000000-0000-4000-8000-000000000002",
+          "name": "Bilbao Redes Demo SL"
+        }
+      ],
+      "result": {
+        "draft": {
+          "clientId": "10000000-0000-4000-8000-000000000001",
+          "contractId": null,
+          "serviceId": null,
+          "opportunityId": null,
+          "series": "A",
+          "issueDate": "2026-10-19",
+          "dueDate": null,
+          "currency": "EUR",
+          "exchangeRateToEur": null,
+          "exchangeRateSource": "Manual",
+          "exchangeRateDate": null,
+          "notes": "",
+          "internalNotes": "",
+          "items": [
+            {
+              "description": "soporte",
+              "quantity": 1,
+              "unitPrice": 0,
+              "discountRate": 0,
+              "taxRate": 21,
+              "withholdingRate": 0,
+              "sortOrder": 0
+            }
+          ]
+        },
+        "confidence": 60,
+        "warnings": [],
+        "missingFields": [
+          "importe"
+        ],
+        "detected": {
+          "clientName": "Bilbao Telecom Demo SL",
+          "concept": "soporte",
+          "amount": null,
+          "taxRate": 21,
+          "withholdingRate": 0,
+          "discountRate": 0,
+          "dueDate": null,
+          "series": null
+        }
+      },
+      "totals": {
+        "subtotal": 0,
+        "taxTotal": 0,
+        "withholdingTotal": 0,
+        "total": 0
+      },
+      "checks": [
+        {
+          "name": "reject-negative",
+          "expected": true,
+          "actual": true,
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "id": "spanish-number",
+      "text": "Factura para Bilbao Telecom Demo SL de 1.234,56 euros por soporte",
+      "asOf": "2026-10-19",
+      "inputClients": [
+        {
+          "id": "10000000-0000-4000-8000-000000000001",
+          "name": "Bilbao Telecom Demo SL"
+        },
+        {
+          "id": "10000000-0000-4000-8000-000000000002",
+          "name": "Bilbao Redes Demo SL"
+        }
+      ],
+      "result": {
+        "draft": {
+          "clientId": "10000000-0000-4000-8000-000000000001",
+          "contractId": null,
+          "serviceId": null,
+          "opportunityId": null,
+          "series": "A",
+          "issueDate": "2026-10-19",
+          "dueDate": null,
+          "currency": "EUR",
+          "exchangeRateToEur": null,
+          "exchangeRateSource": "Manual",
+          "exchangeRateDate": null,
+          "notes": "",
+          "internalNotes": "",
+          "items": [
+            {
+              "description": "soporte",
+              "quantity": 1,
+              "unitPrice": 1234.56,
+              "discountRate": 0,
+              "taxRate": 21,
+              "withholdingRate": 0,
+              "sortOrder": 0
+            }
+          ]
+        },
+        "confidence": 90,
+        "warnings": [],
+        "missingFields": [],
+        "detected": {
+          "clientName": "Bilbao Telecom Demo SL",
+          "concept": "soporte",
+          "amount": 1234.56,
+          "taxRate": 21,
+          "withholdingRate": 0,
+          "discountRate": 0,
+          "dueDate": null,
+          "series": null
+        }
+      },
+      "totals": {
+        "subtotal": 1234.56,
+        "taxTotal": 259.26,
+        "withholdingTotal": 0,
+        "total": 1493.82
+      },
+      "checks": [
+        {
+          "name": "Spanish-decimals",
+          "expected": 1234.56,
+          "actual": 1234.56,
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "id": "foreign-currency",
+      "text": "Factura para Bilbao Telecom Demo SL de 300 USD por soporte",
+      "asOf": "2026-10-19",
+      "inputClients": [
+        {
+          "id": "10000000-0000-4000-8000-000000000001",
+          "name": "Bilbao Telecom Demo SL"
+        },
+        {
+          "id": "10000000-0000-4000-8000-000000000002",
+          "name": "Bilbao Redes Demo SL"
+        }
+      ],
+      "result": {
+        "draft": {
+          "clientId": "10000000-0000-4000-8000-000000000001",
+          "contractId": null,
+          "serviceId": null,
+          "opportunityId": null,
+          "series": "A",
+          "issueDate": "2026-10-19",
+          "dueDate": null,
+          "currency": "USD",
+          "exchangeRateToEur": null,
+          "exchangeRateSource": "Manual",
+          "exchangeRateDate": null,
+          "notes": "",
+          "internalNotes": "",
+          "items": [
+            {
+              "description": "soporte",
+              "quantity": 1,
+              "unitPrice": 300,
+              "discountRate": 0,
+              "taxRate": 21,
+              "withholdingRate": 0,
+              "sortOrder": 0
+            }
+          ]
+        },
+        "confidence": 90,
+        "warnings": [],
+        "missingFields": [],
+        "detected": {
+          "clientName": "Bilbao Telecom Demo SL",
+          "concept": "soporte",
+          "amount": 300,
+          "taxRate": 21,
+          "withholdingRate": 0,
+          "discountRate": 0,
+          "dueDate": null,
+          "series": null
+        }
+      },
+      "totals": {
+        "subtotal": 300,
+        "taxTotal": 63,
+        "withholdingTotal": 0,
+        "total": 363
+      },
+      "checks": [
+        {
+          "name": "currency",
+          "expected": "USD",
+          "actual": "USD",
+          "status": "PASS"
+        },
+        {
+          "name": "no-fabricated-FX",
+          "expected": null,
+          "actual": null,
+          "status": "PASS"
+        }
+      ]
+    }
+  ]
+}
