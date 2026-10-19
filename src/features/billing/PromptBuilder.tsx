@@ -59,9 +59,14 @@ export function PromptBuilder({
       setMessage('Dictado no disponible. Puedes escribir o pegar el texto.')
       return
     }
-    const speech = new Ctor(),
-      base = text ? `${text} ` : ''
-    setSource('audio')
+    let speech: Speech
+    try {
+      speech = new Ctor()
+    } catch {
+      setMessage('No se pudo iniciar el dictado.')
+      return
+    }
+    const base = text ? `${text} ` : ''
     speech.lang = 'es-ES'
     speech.continuous = false
     speech.interimResults = true
@@ -70,6 +75,7 @@ export function PromptBuilder({
       for (let i = 0; i < e.results.length; i++)
         next += e.results[i][0]?.transcript ?? ''
       setText((base + next).slice(0, 2000))
+      if (next.trim()) setSource('audio')
     }
     speech.onend = () => setListening(false)
     speech.onerror = () => {
@@ -82,6 +88,10 @@ export function PromptBuilder({
       setListening(true)
       setMessage('')
     } catch {
+      speech.onresult = null
+      speech.onend = null
+      speech.onerror = null
+      rec.current = null
       setMessage('No se pudo iniciar el dictado.')
     }
   }
