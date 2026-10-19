@@ -2,9 +2,11 @@
 
 ## Integration checkpoint — 2026-10-19
 
-Candidate product source: `349549f820a8b5857f1180a7b2fec2f35005e056`, tree `6e5bbf01f7dde14007240843fb2280bfdd96f1d4`, branch `codex/product-integration-20261019`, draft PR #156 against W5/PR155. No accepted release source and no main merge.
+Candidate product source: `111d2dbe9eb4dfb386c9e364c5f5e78ffd991ffd`, tree `3a499a9625cb202b7f007d0f95b08a5e7165eb10`, branch `codex/product-integration-20261019`, draft PR #156 against W5/PR155. No accepted release source and no main merge.
 
 Eight bounded units integrate case-note focus, contact recovery/state, billing command/receipt recovery, fiscal retry visibility, and customer save/archive/restore recovery. Own verification on349549f:89 browser checks with controlled HTTP, lint, types and build66 PASS. Hosted Auth/DB and complete requirement acceptance are not established by those checks. [Latest handoff](../integration/HANDOFF_20261019.md) and [unit08 evidence](../integration/UNIT_08_CUSTOMER_STATE_20261019.md) distinguish exact sources and preserved failures; issue #67 records later CI.
+
+Unit09 adds SIM replacement-inventory read recovery: own111d has24 controlled-HTTP browser checks, targeted lint, types/build66 PASS; no write authorization claim. Prior5332 CLI has4042backend/112UI/teardownPASS in disposable local Supabase before workflow cancellation; that workflow remainsCANCELLED. [Unit09](../integration/UNIT_09_SIM_READ_RECOVERY_20261019.md) and [CLI evidence](../integration/CI_5332_CLI_RESULT_20261019.md) preserve the distinction. No inherited PASS on the current source.
 
 Cowork reports staging schema86 and a private preview at https://crm-telecom-staging-preview.netlify.app on olderc597+Netlify configuration, product flagsOFF and synthetic accounts disabled. This is not an integrated hosted acceptance. Storage/HTTP findings, application activation policy/cohort, applicable CI failures and independent W4 review remain blocking. Business AI writes remainOFF; no live model spending. No cloud mutation from this branch and no change to resellpro.
 
