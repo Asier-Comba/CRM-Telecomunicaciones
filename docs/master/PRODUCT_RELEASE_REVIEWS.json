@@ -826,7 +826,7 @@
         "IMPLEMENTED": "PARTIAL",
         "PROVEN_BACKEND": "NOT_RECONCILED",
         "CONSUMED_UI": "PARTIAL",
-        "BROWSER_ACCEPTED": "NOT_RECONCILED",
+        "BROWSER_ACCEPTED": "PARTIAL",
         "VISUAL_ACCEPTED": "PARTIAL",
         "SECURITY_ACCEPTED": "NOT_RECONCILED"
       },
@@ -860,6 +860,34 @@
           "paths": [
             "docs/master/W2X_DOCUMENT_CONTRACT_SELECTION_20261014.md",
             "tests/e2e-preview/document-contract-selection.spec.ts"
+          ]
+        },
+        {
+          "source_sha": "5e364a786015d5b627ed2ba1dff7158e136189b4",
+          "kind": "SOURCE",
+          "scope": "PARTIAL_ROW_CONTROLLED_HTTP",
+          "stage": "BROWSER_ACCEPTED",
+          "positive": "Source111own24PASS41.4s:12newService-targetreturn_success/return_denied/initial_retry/pending_next3907681440,12contract-selectionlabels/page/operator_denied/contracts_denied rerunonsame111. Returnsafter403viafreshfirstquery,nocursor/loadingguards,selectororalertfocus after measuredreturn/retry. Bodyfocusguard isstaticimplementation;chosencontrolnegativeNOT_RUN_IN111. Explicitservicedestination1/21 orcontract2/21 drivesdocument.list;notautomaticselection. Inputsstrictactualrepository/parsers;no newprimitives/commands/uploads/deletes.",
+          "negative": "Parent110causal3FAIL1PASS58.8s390:twoPreviousdisabledcases,initialretryBODY,pendingpositive. Oldscreenshotstates preservedinobservations.stages. HTTP403notphysicalAuthDB/Storage/RLS/membership/roleacceptance. No allCustomer360destinations/contenttransfers/Next/a11y/touch/W4. Originalprimary27b retained,notretroPASSon27b. Chosencontrolwhileheldwasnotphysicallytested111,no105/106inheritance.",
+          "execution": "5E364A7_OWN24_PASS41.4S_BUILD66_LINT0ERRORS3WARN_SCAN_QUEUE_PUBLISHED;12NEW_RECOVERY12CONTRACT_CONTEXT;AUTH_DB_MODEL_NOT_RUN_API0",
+          "paths": [
+            "src/features/customers/CustomerDocuments.tsx",
+            "tests/e2e-preview/customer-documents-read-recovery.spec.ts",
+            "tests/e2e-preview/document-contract-selection.spec.ts",
+            "docs/master/W2X_CUSTOMER_DOCUMENTS_READ_RECOVERY_20261019.md"
+          ]
+        },
+        {
+          "source_sha": "5e364a786015d5b627ed2ba1dff7158e136189b4",
+          "kind": "VISUAL",
+          "scope": "PARTIAL_ROW",
+          "stage": "VISUAL_ACCEPTED",
+          "positive": "12primarysource111recoveryframes viewedbeforepublication plus12same-executioncontractframes viewedasunit112complement,noruntimerepeat.24originalhashes revalidatedinreviewdoc;selectedservice/contractemptydocumentpaneloralert.",
+          "negative": "Contractdeniedimageafterretry,notinitial403frame. Serviceintermediate/focusbeforeselection/targetkeys andnativeoptionfulltextDOM;not20recordsvisual,noteachphase. Mobile390documentpanelfooterpartlybelowviewport. No alltargets/roles/touch/Next/a11y/Storage/securityacceptance. Metadata112notruntimeor24PASSinheritance.",
+          "execution": "5E364A7_PRIMARY12_PLUS_CONTRACT_COMPLEMENT12_ACTUALLY_VIEWED_RAW_SHA256_NO_TEST_RERUN_METADATA_NOT_RUN",
+          "paths": [
+            "docs/master/W2X_CUSTOMER_DOCUMENTS_READ_RECOVERY_20261019.md",
+            "docs/master/W2X_CUSTOMER_DOCUMENTS_RECOVERY_REVIEW_20261019.md"
           ]
         }
       ]
