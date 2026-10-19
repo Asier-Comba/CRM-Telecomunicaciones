@@ -41,7 +41,7 @@
     "cloud": "W5 owns Edge Access/deploy provenance/authorized QA cohort; no bypass, reset, migrations or resellpro.",
     "independent": "UNIT15 Cartera coherent readback causal bank in exclusive new checkout from888; do not duplicate billing changes.",
     "release": "NOT_ACCEPTED",
-    "task": "Qualified UNIT14 recovery source can now fast-forward existing PR160 after fresh API no-active-check verification. Preserve terminal F519 outcomes. New own CI/Supabase/W4 required on published head; do not cancel or merge without exact Asier ACK."
+    "task": "PR160 product unchanged and current runs terminal. Do not repeat greens without code/failure reason. Exact Asier review/ACK remains required for integration. This recovery adds provenance only; no PR push needed to rerun identical product. Continue own commercial work PR161."
   },
   "netlify": "EDGE_ACCESS_BLOCKED_W5_ASSIGNED_NO_BYPASS",
   "supabase": "87_MIGRATIONS_NO_RESET_REAPPLY_OR_MUTATION",
@@ -70,27 +70,31 @@
     "regression": "88PASS"
   },
   "remote_checks": {
-    "source": "f519e60236f88a031f2625e382114b72e8a95030",
-    "W4": {
-      "raw_published": false,
-      "historical_findings": 23,
-      "run": 39337759548,
-      "conclusion": "failure"
-    },
+    "same_tree_API_verified": true,
+    "workflow_conclusion": "success",
+    "UI_check_names": 113,
+    "head_tree": "eae46bb19cbb3099ad6409b8d53a46297270558c",
+    "W4": "INDEPENDENT_FAILURE_NO_APPROVAL",
+    "actual_tested_merge_sha": "ac4aaa2bde64187fd8f02166b28d8c8560da8843",
+    "provenance": "See immutable remote-provenance.json for each actual tested SHA, including earlier1b9 forF519. Never assign PASS to another SHA.",
+    "PR160_head": "8fca4c8bfb921fd61ab02310999716ffaf9023cf",
+    "environment": "LOCAL_SUPABASE_DOCKER",
+    "remote_staging": "NOT_TESTED",
+    "tested_merge_tree": "eae46bb19cbb3099ad6409b8d53a46297270558c",
+    "supabase_run": 39341211568,
     "CI": {
-      "dependency_HIGH": 5,
-      "status": "completed",
-      "windows": "SUCCESS",
-      "run": 39337759614,
+      "windows_launcher": "success",
+      "run": 39341211547,
+      "desktop_preview": "success",
+      "mobile_preview": "success",
+      "failed_jobs": [
+        "Secret scan",
+        "Lint/types/tests/build: fiveHIGH"
+      ],
       "conclusion": "failure"
     },
-    "supabase": {
-      "conclusion": "success",
-      "status": "completed",
-      "run": 39337759538,
-      "scope": "Disposable actual local Auth/PostgREST/Storage only onF519; never inherited to9e3ed4f or hosted staging"
-    },
-    "all_f519_runs_terminal": true
+    "UI_passed_names": 113,
+    "backend_checks": 4042
   },
   "completed_unit10": {
     "build": 0,
@@ -228,5 +232,28 @@
     "claim": 6279406251,
     "positive": "12 identity cases in composed99: mismatch/ambiguity no proposal/editor; correct selected name and corrected selection usable at390/768/1440",
     "archive_verified_entries": 151
+  },
+  "historical_remote_check_notes": {
+    "source": "f519e60236f88a031f2625e382114b72e8a95030",
+    "W4": {
+      "raw_published": false,
+      "historical_findings": 23,
+      "run": 39337759548,
+      "conclusion": "failure"
+    },
+    "CI": {
+      "dependency_HIGH": 5,
+      "status": "completed",
+      "windows": "SUCCESS",
+      "run": 39337759614,
+      "conclusion": "failure"
+    },
+    "supabase": {
+      "conclusion": "success",
+      "status": "completed",
+      "run": 39337759538,
+      "scope": "Disposable actual local Auth/PostgREST/Storage only onF519; never inherited to9e3ed4f or hosted staging"
+    },
+    "all_f519_runs_terminal": true
   }
 }

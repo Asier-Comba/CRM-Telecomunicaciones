@@ -1,0 +1,47 @@
+{
+  "rule": "Actual Supabase test SHAs are merge1b9 and mergeac4, respectively. No PASS is assigned to another SHA. API-confirmed tree equality with the corresponding PR head is separate provenance evidence.",
+  "remote_staging": "NOT_TESTED",
+  "release": "NOT_ACCEPTED",
+  "tested_sources": [
+    {
+      "tested_merge_tree": "3b1fb0b4b179a8ec7bd4832f8541a9fbfdac276f",
+      "artifact_sha": "1b9bc73022936cfe60642ef5970aa7db4f545474",
+      "result": "PASS",
+      "ui_passed_count": 113,
+      "remote_staging": "NOT_TESTED",
+      "checks": 4042,
+      "workflow_head": "f519e60236f88a031f2625e382114b72e8a95030",
+      "ui_count": 113,
+      "run": 39337759538,
+      "head_tree": "3b1fb0b4b179a8ec7bd4832f8541a9fbfdac276f",
+      "same_tree": true
+    },
+    {
+      "workflow_run": 39341211568,
+      "workflow_head": "8fca4c8bfb921fd61ab02310999716ffaf9023cf",
+      "artifact_sha": "ac4aaa2bde64187fd8f02166b28d8c8560da8843",
+      "environment": "LOCAL_SUPABASE_DOCKER",
+      "result": "PASS",
+      "checks": 4042,
+      "w2_product_ui": "PASS",
+      "w1_backend_checks": 3815,
+      "w2_backend_takeover_checks": 227,
+      "cross_tenant": "PASS",
+      "teardown": "PASS",
+      "remote_staging": "NOT_TESTED",
+      "w2_product_ui_checks_count": 113,
+      "w2_product_ui_passed_checks_count": 113,
+      "head_tree": "eae46bb19cbb3099ad6409b8d53a46297270558c",
+      "tested_merge_tree": "eae46bb19cbb3099ad6409b8d53a46297270558c",
+      "same_tree": true,
+      "merge_parents": [
+        "888ecaae57e9021ca0cb25d4da0657c1f6ac9b40",
+        "8fca4c8bfb921fd61ab02310999716ffaf9023cf"
+      ],
+      "current_pr_merge_sha": "ac4aaa2bde64187fd8f02166b28d8c8560da8843",
+      "provenance": "Workflow head8f; actual checked-out/tested mergeac4. Do not label actual Supabase test SHA8f or inherit PASS between commits. Tree equality recorded separately."
+    }
+  ],
+  "AI_commercial_writes": "OFF",
+  "recorded_utc": "2026-10-19T23:56:14.8391730Z"
+}
