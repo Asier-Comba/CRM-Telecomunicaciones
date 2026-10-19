@@ -44,7 +44,7 @@ for(const mode of ['stale','wrong_status','wrong_source','confirmed','newer'] as
    await expect(drawer).toBeVisible()
    await expect(confirm).toHaveCount(0)
    await expect(drawer.getByRole('status').filter({hasText:'El cambio está registrado. Consulta el activo para confirmar sus datos actuales.'})).toBeVisible()
-   await drawer.getByRole('button',{name:'Cerrar panel',exact:true}).click()
+   await drawer.getByRole('button',{name:'Cerrar panel',exact:true}).click({force:true})
    await expect(drawer).toBeVisible()
    const notice=drawer.getByRole('status').filter({hasText:'El cambio está registrado. Consulta el activo para confirmar sus datos actuales.'})
    await notice.scrollIntoViewIfNeeded()

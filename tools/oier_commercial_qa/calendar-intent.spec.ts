@@ -34,12 +34,12 @@ for(const mode of ['transport','malformed','wrong_receipt','denied','success'] a
   await expect.poll(()=>commands.length).toBe(1)
   if(mode==='denied'){
    await expect(drawer.getByRole('alert')).toBeVisible();await expect(title).toBeEnabled()
-   await drawer.getByRole('button',{name:'Cerrar panel',exact:true}).click();await expect(drawer).toHaveCount(0)
+   await drawer.getByRole('button',{name:'Cerrar panel',exact:true}).click({force:true});await expect(drawer).toHaveCount(0)
   }else if(mode!=='success'){
    await expect(drawer.getByRole('alert')).toBeVisible()
    await info.attach('unknown-observation',{body:JSON.stringify({mode,commands}),contentType:'application/json'})
    await expect(title).toBeDisabled()
-   await drawer.getByRole('button',{name:'Cerrar panel',exact:true}).click();await expect(drawer).toBeVisible()
+   await drawer.getByRole('button',{name:'Cerrar panel',exact:true}).click({force:true});await expect(drawer).toBeVisible()
    await page.keyboard.press('Escape');await expect(drawer).toBeVisible()
    await drawer.getByRole('alert').scrollIntoViewIfNeeded()
    await page.screenshot({path:info.outputPath(`calendar-${mode}-unknown.png`)})

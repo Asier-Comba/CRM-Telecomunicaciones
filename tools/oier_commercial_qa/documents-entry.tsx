@@ -1,0 +1,4 @@
+import {createRoot} from 'react-dom/client'
+import {IntegratedDocuments} from '../../src/features/documents/IntegratedDocuments'
+import {PipelineFixtureProvider} from '../../tests/e2e-preview/fixtures/pipeline-current-provider'
+createRoot(document.getElementById('app')!).render(<PipelineFixtureProvider><IntegratedDocuments customerId="10000000-0000-4000-8000-000000000001"/></PipelineFixtureProvider>)
