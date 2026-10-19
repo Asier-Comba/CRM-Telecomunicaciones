@@ -46,6 +46,10 @@ for(const mode of ['stale','wrong_status','wrong_source','confirmed','newer'] as
    await expect(drawer.getByRole('status').filter({hasText:'El cambio está registrado. Consulta el activo para confirmar sus datos actuales.'})).toBeVisible()
    await drawer.getByRole('button',{name:'Cerrar panel',exact:true}).click()
    await expect(drawer).toBeVisible()
+   const notice=drawer.getByRole('status').filter({hasText:'El cambio está registrado. Consulta el activo para confirmar sus datos actuales.'})
+   await notice.scrollIntoViewIfNeeded()
+   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBe(true)
+   await page.screenshot({path:info.outputPath(`portfolio-${mode}-registered.png`)})
    corrected=true
    await drawer.getByRole('button',{name:'Consultar el cambio registrado',exact:true}).click()
    await expect.poll(()=>readbacks).toBe(2)
