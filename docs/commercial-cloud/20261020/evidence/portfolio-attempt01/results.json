@@ -1,0 +1,1079 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--config",
+      "tools/oier_commercial_qa/portfolio.config.ts"
+    ],
+    "configFile": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio.config.ts",
+    "rootDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-commercial-20261020/tools/oier_commercial_qa",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-commercial-20261020/portfolio-attempt01/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "controlled-http-390",
+        "name": "controlled-http-390",
+        "testDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-commercial-20261020/tools/oier_commercial_qa",
+        "testIgnore": [],
+        "testMatch": [
+          "portfolio-readback.spec.ts"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-commercial-20261020/portfolio-attempt01/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "controlled-http-768",
+        "name": "controlled-http-768",
+        "testDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-commercial-20261020/tools/oier_commercial_qa",
+        "testIgnore": [],
+        "testMatch": [
+          "portfolio-readback.spec.ts"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-commercial-20261020/portfolio-attempt01/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "controlled-http-1440",
+        "name": "controlled-http-1440",
+        "testDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-commercial-20261020/tools/oier_commercial_qa",
+        "testIgnore": [],
+        "testMatch": [
+          "portfolio-readback.spec.ts"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "line",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-attempt01\\results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.61.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "portfolio-readback.spec.ts",
+      "file": "portfolio-readback.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "portfolio confirmed command requires coherent stale readback",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5486,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('dialog', { name: 'Contrato: Contrato', exact: true })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Contrato: Contrato', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('dialog', { name: 'Contrato: Contrato', exact: true })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Contrato: Contrato', exact: true })\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-readback.spec.ts:44:25",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-readback.spec.ts",
+                      "column": 25,
+                      "line": 44
+                    },
+                    "snippet": "  42 |    await expect.poll(async()=>await drawer.count()===0||await drawer.getByRole('button',{name:'Consultar el cambio registrado',exact:true}).count()>0).toBe(true)\n  43 |    await info.attach('readback-observation',{body:JSON.stringify({mode,commands,readbacks,drawerCount:await drawer.count()}),contentType:'application/json'})\n> 44 |    await expect(drawer).toBeVisible()\n     |                         ^\n  45 |    await expect(confirm).toHaveCount(0)\n  46 |    await expect(drawer.getByRole('status').filter({hasText:'El cambio está registrado. Consulta el activo para confirmar sus datos actuales.'})).toBeVisible()\n  47 |    await drawer.getByRole('button',{name:'Cerrar panel',exact:true}).click()"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-readback.spec.ts",
+                        "column": 25,
+                        "line": 44
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('dialog', { name: 'Contrato: Contrato', exact: true })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Contrato: Contrato', exact: true })\u001b[22m\n\n\n  42 |    await expect.poll(async()=>await drawer.count()===0||await drawer.getByRole('button',{name:'Consultar el cambio registrado',exact:true}).count()>0).toBe(true)\n  43 |    await info.attach('readback-observation',{body:JSON.stringify({mode,commands,readbacks,drawerCount:await drawer.count()}),contentType:'application/json'})\n> 44 |    await expect(drawer).toBeVisible()\n     |                         ^\n  45 |    await expect(confirm).toHaveCount(0)\n  46 |    await expect(drawer.getByRole('status').filter({hasText:'El cambio está registrado. Consulta el activo para confirmar sus datos actuales.'})).toBeVisible()\n  47 |    await drawer.getByRole('button',{name:'Cerrar panel',exact:true}).click()\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-readback.spec.ts:44:25"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:20:42.753Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "readback-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoic3RhbGUiLCJjb21tYW5kcyI6W3sib3BlcmF0aW9uIjoiY29udHJhY3QuYWN0aXZhdGUiLCJpbnB1dCI6eyJjb21tYW5kX2lkIjoiN2M4YWZlZDMtMTNmYy00MjY5LWFjNzYtMmMxZmFkM2FlMjhjIiwiaWQiOiI2MDAwMDAwMC0wMDAwLTQwMDAtODAwMC0wMDAwMDAwMDAwMDEiLCJleHBlY3RlZF92ZXJzaW9uIjoxLCJzaWduZWRfZGF0ZSI6IjIwMjYtMTAtMDEifX1dLCJyZWFkYmFja3MiOjEsImRyYXdlckNvdW50IjowfQ=="
+                    },
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-attempt01\\artifacts\\portfolio-readback-portfol-097c9-res-coherent-stale-readback-controlled-http-390\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-attempt01\\artifacts\\portfolio-readback-portfol-097c9-res-coherent-stale-readback-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-attempt01\\artifacts\\portfolio-readback-portfol-097c9-res-coherent-stale-readback-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-attempt01\\artifacts\\portfolio-readback-portfol-097c9-res-coherent-stale-readback-controlled-http-390\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-readback.spec.ts",
+                    "column": 25,
+                    "line": 44
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "203f76a17c5026208e8e-0169a24e41350461ca52",
+          "file": "portfolio-readback.spec.ts",
+          "line": 9,
+          "column": 92
+        },
+        {
+          "title": "portfolio confirmed command requires coherent wrong_status readback",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5015,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('dialog', { name: 'Contrato: Contrato', exact: true })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Contrato: Contrato', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('dialog', { name: 'Contrato: Contrato', exact: true })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Contrato: Contrato', exact: true })\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-readback.spec.ts:44:25",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-readback.spec.ts",
+                      "column": 25,
+                      "line": 44
+                    },
+                    "snippet": "  42 |    await expect.poll(async()=>await drawer.count()===0||await drawer.getByRole('button',{name:'Consultar el cambio registrado',exact:true}).count()>0).toBe(true)\n  43 |    await info.attach('readback-observation',{body:JSON.stringify({mode,commands,readbacks,drawerCount:await drawer.count()}),contentType:'application/json'})\n> 44 |    await expect(drawer).toBeVisible()\n     |                         ^\n  45 |    await expect(confirm).toHaveCount(0)\n  46 |    await expect(drawer.getByRole('status').filter({hasText:'El cambio está registrado. Consulta el activo para confirmar sus datos actuales.'})).toBeVisible()\n  47 |    await drawer.getByRole('button',{name:'Cerrar panel',exact:true}).click()"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-readback.spec.ts",
+                        "column": 25,
+                        "line": 44
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('dialog', { name: 'Contrato: Contrato', exact: true })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Contrato: Contrato', exact: true })\u001b[22m\n\n\n  42 |    await expect.poll(async()=>await drawer.count()===0||await drawer.getByRole('button',{name:'Consultar el cambio registrado',exact:true}).count()>0).toBe(true)\n  43 |    await info.attach('readback-observation',{body:JSON.stringify({mode,commands,readbacks,drawerCount:await drawer.count()}),contentType:'application/json'})\n> 44 |    await expect(drawer).toBeVisible()\n     |                         ^\n  45 |    await expect(confirm).toHaveCount(0)\n  46 |    await expect(drawer.getByRole('status').filter({hasText:'El cambio está registrado. Consulta el activo para confirmar sus datos actuales.'})).toBeVisible()\n  47 |    await drawer.getByRole('button',{name:'Cerrar panel',exact:true}).click()\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-readback.spec.ts:44:25"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:20:55.658Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "readback-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoid3Jvbmdfc3RhdHVzIiwiY29tbWFuZHMiOlt7Im9wZXJhdGlvbiI6ImNvbnRyYWN0LmFjdGl2YXRlIiwiaW5wdXQiOnsiY29tbWFuZF9pZCI6ImQ5MmMyMGZhLTc0ODEtNDc2OS1hM2JiLTA2NzVjZDU3ODdkMCIsImlkIjoiNjAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiZXhwZWN0ZWRfdmVyc2lvbiI6MSwic2lnbmVkX2RhdGUiOiIyMDI2LTEwLTAxIn19XSwicmVhZGJhY2tzIjoxLCJkcmF3ZXJDb3VudCI6MH0="
+                    },
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-attempt01\\artifacts\\portfolio-readback-portfol-779ff-erent-wrong-status-readback-controlled-http-390\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-attempt01\\artifacts\\portfolio-readback-portfol-779ff-erent-wrong-status-readback-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-attempt01\\artifacts\\portfolio-readback-portfol-779ff-erent-wrong-status-readback-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-attempt01\\artifacts\\portfolio-readback-portfol-779ff-erent-wrong-status-readback-controlled-http-390\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-readback.spec.ts",
+                    "column": 25,
+                    "line": 44
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "203f76a17c5026208e8e-d2e9108ffbaf0ca2ef4b",
+          "file": "portfolio-readback.spec.ts",
+          "line": 9,
+          "column": 92
+        },
+        {
+          "title": "portfolio confirmed command requires coherent wrong_source readback",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5021,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('dialog', { name: 'Contrato: Contrato', exact: true })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Contrato: Contrato', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('dialog', { name: 'Contrato: Contrato', exact: true })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Contrato: Contrato', exact: true })\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-readback.spec.ts:44:25",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-readback.spec.ts",
+                      "column": 25,
+                      "line": 44
+                    },
+                    "snippet": "  42 |    await expect.poll(async()=>await drawer.count()===0||await drawer.getByRole('button',{name:'Consultar el cambio registrado',exact:true}).count()>0).toBe(true)\n  43 |    await info.attach('readback-observation',{body:JSON.stringify({mode,commands,readbacks,drawerCount:await drawer.count()}),contentType:'application/json'})\n> 44 |    await expect(drawer).toBeVisible()\n     |                         ^\n  45 |    await expect(confirm).toHaveCount(0)\n  46 |    await expect(drawer.getByRole('status').filter({hasText:'El cambio está registrado. Consulta el activo para confirmar sus datos actuales.'})).toBeVisible()\n  47 |    await drawer.getByRole('button',{name:'Cerrar panel',exact:true}).click()"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-readback.spec.ts",
+                        "column": 25,
+                        "line": 44
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('dialog', { name: 'Contrato: Contrato', exact: true })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Contrato: Contrato', exact: true })\u001b[22m\n\n\n  42 |    await expect.poll(async()=>await drawer.count()===0||await drawer.getByRole('button',{name:'Consultar el cambio registrado',exact:true}).count()>0).toBe(true)\n  43 |    await info.attach('readback-observation',{body:JSON.stringify({mode,commands,readbacks,drawerCount:await drawer.count()}),contentType:'application/json'})\n> 44 |    await expect(drawer).toBeVisible()\n     |                         ^\n  45 |    await expect(confirm).toHaveCount(0)\n  46 |    await expect(drawer.getByRole('status').filter({hasText:'El cambio está registrado. Consulta el activo para confirmar sus datos actuales.'})).toBeVisible()\n  47 |    await drawer.getByRole('button',{name:'Cerrar panel',exact:true}).click()\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-readback.spec.ts:44:25"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:21:07.602Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "readback-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoid3Jvbmdfc291cmNlIiwiY29tbWFuZHMiOlt7Im9wZXJhdGlvbiI6ImNvbnRyYWN0LmFjdGl2YXRlIiwiaW5wdXQiOnsiY29tbWFuZF9pZCI6ImU0NTE3ZWMyLTFkOTUtNGM2Mi05Nzc5LTc0YTVhZjUwOTZmNCIsImlkIjoiNjAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiZXhwZWN0ZWRfdmVyc2lvbiI6MSwic2lnbmVkX2RhdGUiOiIyMDI2LTEwLTAxIn19XSwicmVhZGJhY2tzIjoxLCJkcmF3ZXJDb3VudCI6MH0="
+                    },
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-attempt01\\artifacts\\portfolio-readback-portfol-357b3-erent-wrong-source-readback-controlled-http-390\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-attempt01\\artifacts\\portfolio-readback-portfol-357b3-erent-wrong-source-readback-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-attempt01\\artifacts\\portfolio-readback-portfol-357b3-erent-wrong-source-readback-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-attempt01\\artifacts\\portfolio-readback-portfol-357b3-erent-wrong-source-readback-controlled-http-390\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-readback.spec.ts",
+                    "column": 25,
+                    "line": 44
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "203f76a17c5026208e8e-74add61763023ccb6aa1",
+          "file": "portfolio-readback.spec.ts",
+          "line": 9,
+          "column": 92
+        },
+        {
+          "title": "portfolio confirmed command requires coherent confirmed readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 960,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:21:19.570Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "203f76a17c5026208e8e-81436ae11a973ae0d830",
+          "file": "portfolio-readback.spec.ts",
+          "line": 9,
+          "column": 92
+        },
+        {
+          "title": "portfolio confirmed command requires coherent newer readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 861,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:21:26.110Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "203f76a17c5026208e8e-63e012aed6c109933c44",
+          "file": "portfolio-readback.spec.ts",
+          "line": 9,
+          "column": 92
+        },
+        {
+          "title": "portfolio confirmed command requires coherent stale readback",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5098,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('dialog', { name: 'Contrato: Contrato', exact: true })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Contrato: Contrato', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('dialog', { name: 'Contrato: Contrato', exact: true })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Contrato: Contrato', exact: true })\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-readback.spec.ts:44:25",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-readback.spec.ts",
+                      "column": 25,
+                      "line": 44
+                    },
+                    "snippet": "  42 |    await expect.poll(async()=>await drawer.count()===0||await drawer.getByRole('button',{name:'Consultar el cambio registrado',exact:true}).count()>0).toBe(true)\n  43 |    await info.attach('readback-observation',{body:JSON.stringify({mode,commands,readbacks,drawerCount:await drawer.count()}),contentType:'application/json'})\n> 44 |    await expect(drawer).toBeVisible()\n     |                         ^\n  45 |    await expect(confirm).toHaveCount(0)\n  46 |    await expect(drawer.getByRole('status').filter({hasText:'El cambio está registrado. Consulta el activo para confirmar sus datos actuales.'})).toBeVisible()\n  47 |    await drawer.getByRole('button',{name:'Cerrar panel',exact:true}).click()"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-readback.spec.ts",
+                        "column": 25,
+                        "line": 44
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('dialog', { name: 'Contrato: Contrato', exact: true })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Contrato: Contrato', exact: true })\u001b[22m\n\n\n  42 |    await expect.poll(async()=>await drawer.count()===0||await drawer.getByRole('button',{name:'Consultar el cambio registrado',exact:true}).count()>0).toBe(true)\n  43 |    await info.attach('readback-observation',{body:JSON.stringify({mode,commands,readbacks,drawerCount:await drawer.count()}),contentType:'application/json'})\n> 44 |    await expect(drawer).toBeVisible()\n     |                         ^\n  45 |    await expect(confirm).toHaveCount(0)\n  46 |    await expect(drawer.getByRole('status').filter({hasText:'El cambio está registrado. Consulta el activo para confirmar sus datos actuales.'})).toBeVisible()\n  47 |    await drawer.getByRole('button',{name:'Cerrar panel',exact:true}).click()\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-readback.spec.ts:44:25"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:21:28.008Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "readback-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoic3RhbGUiLCJjb21tYW5kcyI6W3sib3BlcmF0aW9uIjoiY29udHJhY3QuYWN0aXZhdGUiLCJpbnB1dCI6eyJjb21tYW5kX2lkIjoiZjlkZGMxZWItYjIyYi00NzhjLTg0NGYtODAzMzJjOGNmYTQ0IiwiaWQiOiI2MDAwMDAwMC0wMDAwLTQwMDAtODAwMC0wMDAwMDAwMDAwMDEiLCJleHBlY3RlZF92ZXJzaW9uIjoxLCJzaWduZWRfZGF0ZSI6IjIwMjYtMTAtMDEifX1dLCJyZWFkYmFja3MiOjEsImRyYXdlckNvdW50IjowfQ=="
+                    },
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-attempt01\\artifacts\\portfolio-readback-portfol-097c9-res-coherent-stale-readback-controlled-http-768\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-attempt01\\artifacts\\portfolio-readback-portfol-097c9-res-coherent-stale-readback-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-attempt01\\artifacts\\portfolio-readback-portfol-097c9-res-coherent-stale-readback-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-attempt01\\artifacts\\portfolio-readback-portfol-097c9-res-coherent-stale-readback-controlled-http-768\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-readback.spec.ts",
+                    "column": 25,
+                    "line": 44
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "203f76a17c5026208e8e-9573bd037a7b1cadc8d9",
+          "file": "portfolio-readback.spec.ts",
+          "line": 9,
+          "column": 92
+        },
+        {
+          "title": "portfolio confirmed command requires coherent wrong_status readback",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5015,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('dialog', { name: 'Contrato: Contrato', exact: true })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Contrato: Contrato', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('dialog', { name: 'Contrato: Contrato', exact: true })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Contrato: Contrato', exact: true })\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-readback.spec.ts:44:25",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-readback.spec.ts",
+                      "column": 25,
+                      "line": 44
+                    },
+                    "snippet": "  42 |    await expect.poll(async()=>await drawer.count()===0||await drawer.getByRole('button',{name:'Consultar el cambio registrado',exact:true}).count()>0).toBe(true)\n  43 |    await info.attach('readback-observation',{body:JSON.stringify({mode,commands,readbacks,drawerCount:await drawer.count()}),contentType:'application/json'})\n> 44 |    await expect(drawer).toBeVisible()\n     |                         ^\n  45 |    await expect(confirm).toHaveCount(0)\n  46 |    await expect(drawer.getByRole('status').filter({hasText:'El cambio está registrado. Consulta el activo para confirmar sus datos actuales.'})).toBeVisible()\n  47 |    await drawer.getByRole('button',{name:'Cerrar panel',exact:true}).click()"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-readback.spec.ts",
+                        "column": 25,
+                        "line": 44
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('dialog', { name: 'Contrato: Contrato', exact: true })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Contrato: Contrato', exact: true })\u001b[22m\n\n\n  42 |    await expect.poll(async()=>await drawer.count()===0||await drawer.getByRole('button',{name:'Consultar el cambio registrado',exact:true}).count()>0).toBe(true)\n  43 |    await info.attach('readback-observation',{body:JSON.stringify({mode,commands,readbacks,drawerCount:await drawer.count()}),contentType:'application/json'})\n> 44 |    await expect(drawer).toBeVisible()\n     |                         ^\n  45 |    await expect(confirm).toHaveCount(0)\n  46 |    await expect(drawer.getByRole('status').filter({hasText:'El cambio está registrado. Consulta el activo para confirmar sus datos actuales.'})).toBeVisible()\n  47 |    await drawer.getByRole('button',{name:'Cerrar panel',exact:true}).click()\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-readback.spec.ts:44:25"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:21:39.655Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "readback-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoid3Jvbmdfc3RhdHVzIiwiY29tbWFuZHMiOlt7Im9wZXJhdGlvbiI6ImNvbnRyYWN0LmFjdGl2YXRlIiwiaW5wdXQiOnsiY29tbWFuZF9pZCI6ImYzN2RjMmIyLTRlMGMtNGM0OS04ZjM4LTBjNmI1MzViZmUzNiIsImlkIjoiNjAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiZXhwZWN0ZWRfdmVyc2lvbiI6MSwic2lnbmVkX2RhdGUiOiIyMDI2LTEwLTAxIn19XSwicmVhZGJhY2tzIjoxLCJkcmF3ZXJDb3VudCI6MH0="
+                    },
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-attempt01\\artifacts\\portfolio-readback-portfol-779ff-erent-wrong-status-readback-controlled-http-768\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-attempt01\\artifacts\\portfolio-readback-portfol-779ff-erent-wrong-status-readback-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-attempt01\\artifacts\\portfolio-readback-portfol-779ff-erent-wrong-status-readback-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-attempt01\\artifacts\\portfolio-readback-portfol-779ff-erent-wrong-status-readback-controlled-http-768\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-readback.spec.ts",
+                    "column": 25,
+                    "line": 44
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "203f76a17c5026208e8e-336b0f7ec77849d924f4",
+          "file": "portfolio-readback.spec.ts",
+          "line": 9,
+          "column": 92
+        },
+        {
+          "title": "portfolio confirmed command requires coherent wrong_source readback",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5132,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('dialog', { name: 'Contrato: Contrato', exact: true })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Contrato: Contrato', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('dialog', { name: 'Contrato: Contrato', exact: true })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Contrato: Contrato', exact: true })\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-readback.spec.ts:44:25",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-readback.spec.ts",
+                      "column": 25,
+                      "line": 44
+                    },
+                    "snippet": "  42 |    await expect.poll(async()=>await drawer.count()===0||await drawer.getByRole('button',{name:'Consultar el cambio registrado',exact:true}).count()>0).toBe(true)\n  43 |    await info.attach('readback-observation',{body:JSON.stringify({mode,commands,readbacks,drawerCount:await drawer.count()}),contentType:'application/json'})\n> 44 |    await expect(drawer).toBeVisible()\n     |                         ^\n  45 |    await expect(confirm).toHaveCount(0)\n  46 |    await expect(drawer.getByRole('status').filter({hasText:'El cambio está registrado. Consulta el activo para confirmar sus datos actuales.'})).toBeVisible()\n  47 |    await drawer.getByRole('button',{name:'Cerrar panel',exact:true}).click()"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-readback.spec.ts",
+                        "column": 25,
+                        "line": 44
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('dialog', { name: 'Contrato: Contrato', exact: true })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Contrato: Contrato', exact: true })\u001b[22m\n\n\n  42 |    await expect.poll(async()=>await drawer.count()===0||await drawer.getByRole('button',{name:'Consultar el cambio registrado',exact:true}).count()>0).toBe(true)\n  43 |    await info.attach('readback-observation',{body:JSON.stringify({mode,commands,readbacks,drawerCount:await drawer.count()}),contentType:'application/json'})\n> 44 |    await expect(drawer).toBeVisible()\n     |                         ^\n  45 |    await expect(confirm).toHaveCount(0)\n  46 |    await expect(drawer.getByRole('status').filter({hasText:'El cambio está registrado. Consulta el activo para confirmar sus datos actuales.'})).toBeVisible()\n  47 |    await drawer.getByRole('button',{name:'Cerrar panel',exact:true}).click()\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-readback.spec.ts:44:25"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:21:52.070Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "readback-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoid3Jvbmdfc291cmNlIiwiY29tbWFuZHMiOlt7Im9wZXJhdGlvbiI6ImNvbnRyYWN0LmFjdGl2YXRlIiwiaW5wdXQiOnsiY29tbWFuZF9pZCI6ImYwZmJjYTI3LTdmOTEtNGUzMy05NDE0LWFkYzdjNTMxNjQwZSIsImlkIjoiNjAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiZXhwZWN0ZWRfdmVyc2lvbiI6MSwic2lnbmVkX2RhdGUiOiIyMDI2LTEwLTAxIn19XSwicmVhZGJhY2tzIjoxLCJkcmF3ZXJDb3VudCI6MH0="
+                    },
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-attempt01\\artifacts\\portfolio-readback-portfol-357b3-erent-wrong-source-readback-controlled-http-768\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-attempt01\\artifacts\\portfolio-readback-portfol-357b3-erent-wrong-source-readback-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-attempt01\\artifacts\\portfolio-readback-portfol-357b3-erent-wrong-source-readback-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-attempt01\\artifacts\\portfolio-readback-portfol-357b3-erent-wrong-source-readback-controlled-http-768\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-readback.spec.ts",
+                    "column": 25,
+                    "line": 44
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "203f76a17c5026208e8e-ab649f930980f2663546",
+          "file": "portfolio-readback.spec.ts",
+          "line": 9,
+          "column": 92
+        },
+        {
+          "title": "portfolio confirmed command requires coherent confirmed readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 7,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 916,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:22:05.588Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "203f76a17c5026208e8e-5e8341f4047395b9c730",
+          "file": "portfolio-readback.spec.ts",
+          "line": 9,
+          "column": 92
+        },
+        {
+          "title": "portfolio confirmed command requires coherent newer readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 7,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 894,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:22:12.209Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "203f76a17c5026208e8e-31d9dd59012c347cd53e",
+          "file": "portfolio-readback.spec.ts",
+          "line": 9,
+          "column": 92
+        },
+        {
+          "title": "portfolio confirmed command requires coherent stale readback",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 8,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5134,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('dialog', { name: 'Contrato: Contrato', exact: true })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Contrato: Contrato', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('dialog', { name: 'Contrato: Contrato', exact: true })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Contrato: Contrato', exact: true })\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-readback.spec.ts:44:25",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-readback.spec.ts",
+                      "column": 25,
+                      "line": 44
+                    },
+                    "snippet": "  42 |    await expect.poll(async()=>await drawer.count()===0||await drawer.getByRole('button',{name:'Consultar el cambio registrado',exact:true}).count()>0).toBe(true)\n  43 |    await info.attach('readback-observation',{body:JSON.stringify({mode,commands,readbacks,drawerCount:await drawer.count()}),contentType:'application/json'})\n> 44 |    await expect(drawer).toBeVisible()\n     |                         ^\n  45 |    await expect(confirm).toHaveCount(0)\n  46 |    await expect(drawer.getByRole('status').filter({hasText:'El cambio está registrado. Consulta el activo para confirmar sus datos actuales.'})).toBeVisible()\n  47 |    await drawer.getByRole('button',{name:'Cerrar panel',exact:true}).click()"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-readback.spec.ts",
+                        "column": 25,
+                        "line": 44
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('dialog', { name: 'Contrato: Contrato', exact: true })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Contrato: Contrato', exact: true })\u001b[22m\n\n\n  42 |    await expect.poll(async()=>await drawer.count()===0||await drawer.getByRole('button',{name:'Consultar el cambio registrado',exact:true}).count()>0).toBe(true)\n  43 |    await info.attach('readback-observation',{body:JSON.stringify({mode,commands,readbacks,drawerCount:await drawer.count()}),contentType:'application/json'})\n> 44 |    await expect(drawer).toBeVisible()\n     |                         ^\n  45 |    await expect(confirm).toHaveCount(0)\n  46 |    await expect(drawer.getByRole('status').filter({hasText:'El cambio está registrado. Consulta el activo para confirmar sus datos actuales.'})).toBeVisible()\n  47 |    await drawer.getByRole('button',{name:'Cerrar panel',exact:true}).click()\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-readback.spec.ts:44:25"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:22:14.059Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "readback-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoic3RhbGUiLCJjb21tYW5kcyI6W3sib3BlcmF0aW9uIjoiY29udHJhY3QuYWN0aXZhdGUiLCJpbnB1dCI6eyJjb21tYW5kX2lkIjoiNTI2Yjc0ZGUtMmRhMC00MjVkLTg3OTMtYWFjODU1ZTk1NjczIiwiaWQiOiI2MDAwMDAwMC0wMDAwLTQwMDAtODAwMC0wMDAwMDAwMDAwMDEiLCJleHBlY3RlZF92ZXJzaW9uIjoxLCJzaWduZWRfZGF0ZSI6IjIwMjYtMTAtMDEifX1dLCJyZWFkYmFja3MiOjEsImRyYXdlckNvdW50IjowfQ=="
+                    },
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-attempt01\\artifacts\\portfolio-readback-portfol-097c9-res-coherent-stale-readback-controlled-http-1440\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-attempt01\\artifacts\\portfolio-readback-portfol-097c9-res-coherent-stale-readback-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-attempt01\\artifacts\\portfolio-readback-portfol-097c9-res-coherent-stale-readback-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-attempt01\\artifacts\\portfolio-readback-portfol-097c9-res-coherent-stale-readback-controlled-http-1440\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-readback.spec.ts",
+                    "column": 25,
+                    "line": 44
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "203f76a17c5026208e8e-dd6535655f4fb842a3fa",
+          "file": "portfolio-readback.spec.ts",
+          "line": 9,
+          "column": 92
+        },
+        {
+          "title": "portfolio confirmed command requires coherent wrong_status readback",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5136,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('dialog', { name: 'Contrato: Contrato', exact: true })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Contrato: Contrato', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('dialog', { name: 'Contrato: Contrato', exact: true })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Contrato: Contrato', exact: true })\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-readback.spec.ts:44:25",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-readback.spec.ts",
+                      "column": 25,
+                      "line": 44
+                    },
+                    "snippet": "  42 |    await expect.poll(async()=>await drawer.count()===0||await drawer.getByRole('button',{name:'Consultar el cambio registrado',exact:true}).count()>0).toBe(true)\n  43 |    await info.attach('readback-observation',{body:JSON.stringify({mode,commands,readbacks,drawerCount:await drawer.count()}),contentType:'application/json'})\n> 44 |    await expect(drawer).toBeVisible()\n     |                         ^\n  45 |    await expect(confirm).toHaveCount(0)\n  46 |    await expect(drawer.getByRole('status').filter({hasText:'El cambio está registrado. Consulta el activo para confirmar sus datos actuales.'})).toBeVisible()\n  47 |    await drawer.getByRole('button',{name:'Cerrar panel',exact:true}).click()"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-readback.spec.ts",
+                        "column": 25,
+                        "line": 44
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('dialog', { name: 'Contrato: Contrato', exact: true })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Contrato: Contrato', exact: true })\u001b[22m\n\n\n  42 |    await expect.poll(async()=>await drawer.count()===0||await drawer.getByRole('button',{name:'Consultar el cambio registrado',exact:true}).count()>0).toBe(true)\n  43 |    await info.attach('readback-observation',{body:JSON.stringify({mode,commands,readbacks,drawerCount:await drawer.count()}),contentType:'application/json'})\n> 44 |    await expect(drawer).toBeVisible()\n     |                         ^\n  45 |    await expect(confirm).toHaveCount(0)\n  46 |    await expect(drawer.getByRole('status').filter({hasText:'El cambio está registrado. Consulta el activo para confirmar sus datos actuales.'})).toBeVisible()\n  47 |    await drawer.getByRole('button',{name:'Cerrar panel',exact:true}).click()\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-readback.spec.ts:44:25"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:22:24.971Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "readback-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoid3Jvbmdfc3RhdHVzIiwiY29tbWFuZHMiOlt7Im9wZXJhdGlvbiI6ImNvbnRyYWN0LmFjdGl2YXRlIiwiaW5wdXQiOnsiY29tbWFuZF9pZCI6IjU4ZjI4ZjhhLTQyNTctNGQ1MC05OTc0LTJmNmZkNzJmYWM5ZSIsImlkIjoiNjAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiZXhwZWN0ZWRfdmVyc2lvbiI6MSwic2lnbmVkX2RhdGUiOiIyMDI2LTEwLTAxIn19XSwicmVhZGJhY2tzIjoxLCJkcmF3ZXJDb3VudCI6MH0="
+                    },
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-attempt01\\artifacts\\portfolio-readback-portfol-779ff-erent-wrong-status-readback-controlled-http-1440\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-attempt01\\artifacts\\portfolio-readback-portfol-779ff-erent-wrong-status-readback-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-attempt01\\artifacts\\portfolio-readback-portfol-779ff-erent-wrong-status-readback-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-attempt01\\artifacts\\portfolio-readback-portfol-779ff-erent-wrong-status-readback-controlled-http-1440\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-readback.spec.ts",
+                    "column": 25,
+                    "line": 44
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "203f76a17c5026208e8e-74cd95192ccfe48fae99",
+          "file": "portfolio-readback.spec.ts",
+          "line": 9,
+          "column": 92
+        },
+        {
+          "title": "portfolio confirmed command requires coherent wrong_source readback",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 10,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5221,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('dialog', { name: 'Contrato: Contrato', exact: true })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Contrato: Contrato', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('dialog', { name: 'Contrato: Contrato', exact: true })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Contrato: Contrato', exact: true })\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-readback.spec.ts:44:25",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-readback.spec.ts",
+                      "column": 25,
+                      "line": 44
+                    },
+                    "snippet": "  42 |    await expect.poll(async()=>await drawer.count()===0||await drawer.getByRole('button',{name:'Consultar el cambio registrado',exact:true}).count()>0).toBe(true)\n  43 |    await info.attach('readback-observation',{body:JSON.stringify({mode,commands,readbacks,drawerCount:await drawer.count()}),contentType:'application/json'})\n> 44 |    await expect(drawer).toBeVisible()\n     |                         ^\n  45 |    await expect(confirm).toHaveCount(0)\n  46 |    await expect(drawer.getByRole('status').filter({hasText:'El cambio está registrado. Consulta el activo para confirmar sus datos actuales.'})).toBeVisible()\n  47 |    await drawer.getByRole('button',{name:'Cerrar panel',exact:true}).click()"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-readback.spec.ts",
+                        "column": 25,
+                        "line": 44
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('dialog', { name: 'Contrato: Contrato', exact: true })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Contrato: Contrato', exact: true })\u001b[22m\n\n\n  42 |    await expect.poll(async()=>await drawer.count()===0||await drawer.getByRole('button',{name:'Consultar el cambio registrado',exact:true}).count()>0).toBe(true)\n  43 |    await info.attach('readback-observation',{body:JSON.stringify({mode,commands,readbacks,drawerCount:await drawer.count()}),contentType:'application/json'})\n> 44 |    await expect(drawer).toBeVisible()\n     |                         ^\n  45 |    await expect(confirm).toHaveCount(0)\n  46 |    await expect(drawer.getByRole('status').filter({hasText:'El cambio está registrado. Consulta el activo para confirmar sus datos actuales.'})).toBeVisible()\n  47 |    await drawer.getByRole('button',{name:'Cerrar panel',exact:true}).click()\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-readback.spec.ts:44:25"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:22:37.358Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "readback-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoid3Jvbmdfc291cmNlIiwiY29tbWFuZHMiOlt7Im9wZXJhdGlvbiI6ImNvbnRyYWN0LmFjdGl2YXRlIiwiaW5wdXQiOnsiY29tbWFuZF9pZCI6IjA0YjBkNzI4LTgwMmYtNDQxNy1hYWU3LThhZWJjNzQxMGE2MiIsImlkIjoiNjAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiZXhwZWN0ZWRfdmVyc2lvbiI6MSwic2lnbmVkX2RhdGUiOiIyMDI2LTEwLTAxIn19XSwicmVhZGJhY2tzIjoxLCJkcmF3ZXJDb3VudCI6MH0="
+                    },
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-attempt01\\artifacts\\portfolio-readback-portfol-357b3-erent-wrong-source-readback-controlled-http-1440\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-attempt01\\artifacts\\portfolio-readback-portfol-357b3-erent-wrong-source-readback-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-attempt01\\artifacts\\portfolio-readback-portfol-357b3-erent-wrong-source-readback-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-attempt01\\artifacts\\portfolio-readback-portfol-357b3-erent-wrong-source-readback-controlled-http-1440\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-readback.spec.ts",
+                    "column": 25,
+                    "line": 44
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "203f76a17c5026208e8e-0df33fbc57a6518ed5bf",
+          "file": "portfolio-readback.spec.ts",
+          "line": 9,
+          "column": 92
+        },
+        {
+          "title": "portfolio confirmed command requires coherent confirmed readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 11,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1051,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:22:51.235Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "203f76a17c5026208e8e-ae7f6f1cbf8d83673c0c",
+          "file": "portfolio-readback.spec.ts",
+          "line": 9,
+          "column": 92
+        },
+        {
+          "title": "portfolio confirmed command requires coherent newer readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 11,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 875,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:22:58.517Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "203f76a17c5026208e8e-04968ef2cdd81c34c83b",
+          "file": "portfolio-readback.spec.ts",
+          "line": 9,
+          "column": 92
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-19T23:20:42.146Z",
+    "duration": 137763.07200000001,
+    "expected": 6,
+    "skipped": 0,
+    "unexpected": 9,
+    "flaky": 0
+  }
+}
