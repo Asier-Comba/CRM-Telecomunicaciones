@@ -18,12 +18,12 @@ do $$declare w uuid:='b7000000-0000-4000-8000-000000000001';v jsonb;r jsonb;c uu
  r:=public.portfolio_v1_contract_create_manual(w,v);c:=(r->>'id')::uuid;
  perform pg_temp.p_assert(r=public.portfolio_v1_contract_create_manual(w,v)and r->>'version'='1'and r->>'source'='manual');
  insert into p_saved values('contract.create_manual',v,c);
- perform pg_temp.p_deny(format('select public.portfolio_v1_contract_create_manual(%L,%L)',w,(v||'{"start_date":"2026-01-02"}')::text),'40001');
+ perform pg_temp.p_deny(format('select public.portfolio_v1_contract_create_manual(%L,%L)',w,(v||'{"start_date":"2026-01-02"}')::text),'PT409');
  perform pg_temp.p_deny(format('select public.portfolio_v1_contract_create_manual(%L,%L)',w,(v||jsonb_build_object('command_id',gen_random_uuid(),'source','import'))::text),'22023');
  perform pg_temp.p_deny(format('select public.portfolio_v1_contract_create_manual(%L,%L)',w,(v||jsonb_build_object('command_id',gen_random_uuid(),'start_date','2026-02-30'))::text),'22023');
  perform pg_temp.p_deny(format('select public.portfolio_v1_contract_create_manual(%L,%L)',w,(v||jsonb_build_object('command_id',gen_random_uuid(),'customer_id','c7000000-0000-4000-8000-000000000002'))::text),'P0002');
  r:=public.portfolio_v1_contract_update_allowed_metadata(w,jsonb_build_object('command_id',gen_random_uuid(),'id',c,'expected_version',1,'assigned_user_id','a7000000-0000-4000-8000-000000000001'));perform pg_temp.p_assert(r->>'version'='2');
- perform pg_temp.p_deny(format('select public.portfolio_v1_contract_activate(%L,%L)',w,jsonb_build_object('command_id',gen_random_uuid(),'id',c,'expected_version',1,'signed_date','2025-12-31')::text),'40001');
+ perform pg_temp.p_deny(format('select public.portfolio_v1_contract_activate(%L,%L)',w,jsonb_build_object('command_id',gen_random_uuid(),'id',c,'expected_version',1,'signed_date','2025-12-31')::text),'PT409');
  perform public.portfolio_v1_contract_activate(w,jsonb_build_object('command_id',gen_random_uuid(),'id',c,'expected_version',2,'signed_date','2025-12-31'));
  v:=jsonb_build_object('command_id',gen_random_uuid(),'contract_id',c,'service_kind','mobile','display_name','Manual Service');r:=public.portfolio_v1_service_create_manual(w,v);s:=(r->>'id')::uuid;
  perform pg_temp.p_assert(r=public.portfolio_v1_service_create_manual(w,v)and r->>'source'='manual');insert into p_saved values('service.create_manual',v,s);

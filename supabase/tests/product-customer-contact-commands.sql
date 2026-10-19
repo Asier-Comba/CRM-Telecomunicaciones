@@ -33,7 +33,7 @@ begin
  perform pg_temp.product_assert(receipt=public.product_v1_customer_create(wa,input));
 
  perform pg_temp.product_assert(receipt->>'version'='1' and receipt->>'operation'='customer.create' and not receipt ? 'email' and not receipt ? 'workspace_id');
- perform pg_temp.product_denied(format('select public.product_v1_customer_create(%L,%L)',wa,(input||'{"legal_name":"Changed"}')::text),'40001');
+ perform pg_temp.product_denied(format('select public.product_v1_customer_create(%L,%L)',wa,(input||'{"legal_name":"Changed"}')::text),'PT409');
  perform pg_temp.product_denied(format('select public.product_v1_customer_create(%L,%L)',wb,input::text),'42501');
  perform pg_temp.product_denied(format('select public.product_v1_customer_create(%L,%L)',wa,(input||'{"actor_id":"61000000-0000-4000-8000-000000000002"}')::text),'22023');
  perform pg_temp.product_denied(format('select public.product_v1_customer_create(%L,%L)',wa,(input||'{"command_id":"bad"}')::text),'22023');
@@ -42,7 +42,7 @@ begin
  receipt:=public.product_v1_customer_update(wa,v);
  perform pg_temp.product_assert(receipt->>'version'='2');
  perform pg_temp.product_assert(receipt=public.product_v1_customer_update(wa,v));
- perform pg_temp.product_denied(format('select public.product_v1_customer_update(%L,%L)',wa,(v||'{"command_id":"63000000-0000-4000-8000-000000000003"}')::text),'40001');
+ perform pg_temp.product_denied(format('select public.product_v1_customer_update(%L,%L)',wa,(v||'{"command_id":"63000000-0000-4000-8000-000000000003"}')::text),'PT409');
  perform pg_temp.product_denied(format('select public.product_v1_customer_update(%L,%L)',wa,(v||'{"command_id":"63000000-0000-4000-8000-000000000003","id":"62000000-0000-4000-8000-000000000002"}')::text),'P0002');
  v:=jsonb_build_object('command_id','63000000-0000-4000-8000-000000000004','customer_id',customer,'display_name','Synthetic Contact','email','contact@example.invalid','is_primary',true);
  receipt:=public.product_v1_contact_create(wa,v);contact:=(receipt->>'id')::uuid;
@@ -53,7 +53,7 @@ begin
  perform pg_temp.product_denied(format('select public.product_v1_contact_create(%L,%L)',wa,(v||'{"command_id":"63000000-0000-4000-8000-000000000009","customer_id":"62000000-0000-4000-8000-000000000002"}')::text),'P0002');
  -- Primary promotion increments the demoted contact's version too.
  v:=jsonb_build_object('command_id','63000000-0000-4000-8000-000000000006','id',contact,'expected_version',1,'phone',null);
- perform pg_temp.product_denied(format('select public.product_v1_contact_update(%L,%L)',wa,v::text),'40001');
+ perform pg_temp.product_denied(format('select public.product_v1_contact_update(%L,%L)',wa,v::text),'PT409');
  receipt:=public.product_v1_contact_update(wa,v||'{"expected_version":2}');
  perform pg_temp.product_assert(receipt->>'version'='3');
  receipt:=public.product_v1_contact_archive(wa,jsonb_build_object('command_id','63000000-0000-4000-8000-000000000007','id',contact,'expected_version',3));

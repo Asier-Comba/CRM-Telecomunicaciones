@@ -23,19 +23,19 @@ do $$declare
 begin
  i:=jsonb_build_object('id',c,'title','Seguimiento sintético');r:=public.assistant_thread_v2(w,'thread.create',i);
  perform pg_temp.assert_a(r=public.assistant_thread_v2(w,'thread.create',i) and r->'record'->>'version'='1');
- perform pg_temp.deny_a(format('select public.assistant_thread_v2(%L,%L,%L)',w,'thread.create',(i||'{"title":"Cambió"}')::text),'40001');
+ perform pg_temp.deny_a(format('select public.assistant_thread_v2(%L,%L,%L)',w,'thread.create',(i||'{"title":"Cambió"}')::text),'PT409');
  perform pg_temp.deny_a(format('select public.assistant_thread_v2(%L,%L,%L)',w,'thread.list','{"workspace_id":"forged"}'),'22023');
  perform pg_temp.assert_a(public.assistant_thread_v2(w,'thread.list','{}')->'items'->0->>'id'=c::text);
  i:=jsonb_build_object('id',c,'turn_id',t,'text','¿Qué tareas tengo hoy?');r:=public.assistant_thread_v2(w,'turn.start',i);
  perform pg_temp.assert_a(r->>'replay'='false' and public.assistant_thread_v2(w,'turn.start',i)->>'replay'='true');
- perform pg_temp.deny_a(format('select public.assistant_thread_v2(%L,%L,%L)',w,'turn.start',(i||'{"text":"Cambió"}')::text),'40001');
+ perform pg_temp.deny_a(format('select public.assistant_thread_v2(%L,%L,%L)',w,'turn.start',(i||'{"text":"Cambió"}')::text),'PT409');
  perform pg_temp.deny_a(format('select public.assistant_thread_v2(%L,%L,%L)',w,'turn.start',(i||jsonb_build_object('turn_id',gen_random_uuid()))::text),'23505');
  -- Message constraint failure rolls back the prior transition in the same RPC.
  perform pg_temp.deny_a(format('select public.assistant_thread_v2(%L,%L,%L)',w,'turn.finish',jsonb_build_object('id',c,'turn_id',t,'status','completed','answer',repeat('x',8001))::text),'23514');
  -- The subsequent successful completion proves invalid insertion rolled back closure.
  r:=public.assistant_thread_v2(w,'turn.finish',jsonb_build_object('id',c,'turn_id',t,'status','completed','answer','Consulta autorizada terminada; recuperar datos para actualizarlos.'));
  perform pg_temp.assert_a(r->>'status'='completed');
- perform pg_temp.deny_a(format('select public.assistant_thread_v2(%L,%L,%L)',w,'turn.finish',jsonb_build_object('id',c,'turn_id',t,'status','cancelled')::text),'40001');
+ perform pg_temp.deny_a(format('select public.assistant_thread_v2(%L,%L,%L)',w,'turn.finish',jsonb_build_object('id',c,'turn_id',t,'status','cancelled')::text),'PT409');
  perform pg_temp.deny_a(format('update public.assistant_turns_v2 set status=%L,finished_at=null where id=%L','running',t),'42501');
  r:=public.assistant_thread_v2(w,'message.page',jsonb_build_object('id',c,'limit',1));
  perform pg_temp.assert_a(r->>'historical'='true' and r->'items'->0->>'role'='user' and r->>'next_sequence' is not null);
@@ -48,7 +48,7 @@ select pg_temp.deny_a($q$select public.assistant_thread_v2('92000000-0000-4000-8
 select pg_temp.deny_a($q$select public.assistant_thread_v2('92000000-0000-4000-8000-000000000002','thread.list','{}')$q$,'42501');
 select set_config('request.jwt.claim.sub','91000000-0000-4000-8000-000000000001',true);
 select public.assistant_thread_v2('92000000-0000-4000-8000-000000000001','thread.rename','{"id":"93000000-0000-4000-8000-000000000001","expected_version":1,"title":"Renombrada"}');
-select pg_temp.deny_a($q$select public.assistant_thread_v2('92000000-0000-4000-8000-000000000001','thread.archive','{"id":"93000000-0000-4000-8000-000000000001","expected_version":1}')$q$,'40001');
+select pg_temp.deny_a($q$select public.assistant_thread_v2('92000000-0000-4000-8000-000000000001','thread.archive','{"id":"93000000-0000-4000-8000-000000000001","expected_version":1}')$q$,'PT409');
 select public.assistant_thread_v2('92000000-0000-4000-8000-000000000001','turn.start','{"id":"93000000-0000-4000-8000-000000000001","turn_id":"94000000-0000-4000-8000-000000000002","text":"Lectura interrumpida por revocación"}');
 reset role;
 -- Exact lease arithmetic is invariant on native clocks with microsecond precision.
@@ -60,7 +60,7 @@ select pg_temp.deny_a($q$select public.assistant_thread_v2('92000000-0000-4000-8
 reset role;
 update public.workspace_members set status='active' where user_id='91000000-0000-4000-8000-000000000001';
 set local role authenticated;
-select pg_temp.deny_a($q$select public.assistant_thread_v2('92000000-0000-4000-8000-000000000001','turn.finish','{"id":"93000000-0000-4000-8000-000000000001","turn_id":"94000000-0000-4000-8000-000000000002","status":"completed","answer":"Vieja lectura"}')$q$,'40001');
+select pg_temp.deny_a($q$select public.assistant_thread_v2('92000000-0000-4000-8000-000000000001','turn.finish','{"id":"93000000-0000-4000-8000-000000000001","turn_id":"94000000-0000-4000-8000-000000000002","status":"completed","answer":"Vieja lectura"}')$q$,'PT409');
 select public.assistant_thread_v2('92000000-0000-4000-8000-000000000001','turn.finish','{"id":"93000000-0000-4000-8000-000000000001","turn_id":"94000000-0000-4000-8000-000000000002","status":"cancelled"}');
 select public.assistant_thread_v2('92000000-0000-4000-8000-000000000001','turn.start','{"id":"93000000-0000-4000-8000-000000000001","turn_id":"94000000-0000-4000-8000-000000000003","text":"Lectura antes del archivo"}');
 select public.assistant_thread_v2('92000000-0000-4000-8000-000000000001','thread.archive','{"id":"93000000-0000-4000-8000-000000000001","expected_version":2}');

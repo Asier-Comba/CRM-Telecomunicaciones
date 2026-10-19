@@ -9,7 +9,7 @@ export interface DocumentContentPortV1 extends ProductUserPortV1{
  download(path:string):Promise<Uint8Array|null>
 }
 const fail=(error:ProductErrorV1)=>({ok:false as const,error})
-const dbError=(code?:string):ProductErrorV1=>code==='42501'?'access_denied':code==='P0002'?'not_found':['40001','23505'].includes(code??'')?'conflict':['22023','22P02','23514'].includes(code??'')?'validation':'internal_safe'
+const dbError=(code?:string):ProductErrorV1=>code==='42501'?'access_denied':code==='P0002'?'not_found':['40001','PT409','23505'].includes(code??'')?'conflict':['22023','22P02','23514'].includes(code??'')?'validation':'internal_safe'
 export class DocumentContentServiceV1{
  readonly #port:DocumentContentPortV1
  constructor(port:DocumentContentPortV1){this.#port=port}

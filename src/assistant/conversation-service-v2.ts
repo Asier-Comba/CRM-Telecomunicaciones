@@ -20,7 +20,7 @@ export class ConversationServiceV2 {
       const result = await boundedAwaitV2(() => this.port.invoke(scope.workspaceId, operation, input))
       const fresh = await boundedAwaitV2(() => this.port.authority())
       if (!fresh || ['actorId', 'workspaceId', 'scopeEpoch', 'role'].some(k => fresh[k as keyof ReadAuthorityV2] !== scope[k as keyof ReadAuthorityV2])) return { ok: false, error: 'access_changed' }
-      if (result.error) return { ok: false, error: result.error.code === '42501' ? 'access_denied' : ['40001', '23505'].includes(result.error.code ?? '') ? 'conflict' : ['22023', '22P02', '23514'].includes(result.error.code ?? '') ? 'validation' : 'unavailable' }
+      if (result.error) return { ok: false, error: result.error.code === '42501' ? 'access_denied' : ['40001','PT409', '23505'].includes(result.error.code ?? '') ? 'conflict' : ['22023', '22P02', '23514'].includes(result.error.code ?? '') ? 'validation' : 'unavailable' }
       const data = parseConversationResultV2(operation, input, result.data)
       return data ? { ok: true, data } : { ok: false, error: 'unavailable' }
     } catch { return { ok: false, error: 'unavailable' } }

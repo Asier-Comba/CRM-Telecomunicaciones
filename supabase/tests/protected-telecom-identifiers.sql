@@ -11,12 +11,12 @@ do $$declare w uuid:=md5('density.workspace.1')::uuid;l uuid:=md5('density.line.
  perform pg_temp.assert_i(public.identifier_v1_query(w,'identifier.get',jsonb_build_object('id',id))->'record'->>'masked_display'='••••123');
  perform pg_temp.assert_i(public.identifier_v1_query(w,'identifier.list',jsonb_build_object('entity_kind','line','entity_id',l))->'items'->0->>'id'=id::text);
  perform pg_temp.assert_i(public.sensitive_v1_get(w,jsonb_build_object('entity_kind','telecom_identifier','entity_id',id,'fields',jsonb_build_array('canonical_value')))->'values'->>'canonical_value'='+12025550123');
- perform pg_temp.deny_i(format('select public.identifier_v1_command(%L,%L,%L)',w,'identifier.create_manual',(i||jsonb_build_object('command_id',gen_random_uuid()))::text),'40001');
+ perform pg_temp.deny_i(format('select public.identifier_v1_command(%L,%L,%L)',w,'identifier.create_manual',(i||jsonb_build_object('command_id',gen_random_uuid()))::text),'PT409');
  perform pg_temp.deny_i(format('select public.identifier_v1_command(%L,%L,%L)',w,'identifier.create_manual',(i||jsonb_build_object('command_id',gen_random_uuid(),'canonical_value','2025550123'))::text),'22023');
  perform pg_temp.deny_i(format('select public.identifier_v1_command(%L,%L,%L)',w,'identifier.create_manual',(i||jsonb_build_object('command_id',gen_random_uuid(),'entity_id',md5('density.line.2.1.1.1')::uuid))::text),'P0002');
  i:=jsonb_build_object('command_id',md5('tel5.identifier.command.2')::uuid,'id',id,'expected_version',1);
  r:=public.identifier_v1_command(w,'identifier.retire',i);perform pg_temp.assert_i(r->>'version'='2'and r->>'status'='retired'and r=public.identifier_v1_command(w,'identifier.retire',i));
- perform pg_temp.deny_i(format('select public.identifier_v1_command(%L,%L,%L)',w,'identifier.retire',(i||jsonb_build_object('command_id',gen_random_uuid()))::text),'40001');
+ perform pg_temp.deny_i(format('select public.identifier_v1_command(%L,%L,%L)',w,'identifier.retire',(i||jsonb_build_object('command_id',gen_random_uuid()))::text),'PT409');
  -- Reassignment creates another row and preserves the prior retired identity.
  perform public.identifier_v1_command(w,'identifier.create_manual',jsonb_build_object('command_id',gen_random_uuid(),'entity_kind','line','entity_id',l,'identifier_kind','msisdn','canonical_value','+12025550124'));
  perform pg_temp.assert_i(jsonb_array_length(public.identifier_v1_query(w,'identifier.list',jsonb_build_object('entity_kind','line','entity_id',l))->'items')=2);

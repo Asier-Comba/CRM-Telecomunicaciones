@@ -17,7 +17,7 @@ export async function portfolioAcceptance({rpc,sql,check,http,users,wa,wb,ca,url
   const update=kind==='contract'?'update_allowed_metadata':'update_label'
   const extra=kind==='contract'?{assigned_user_id:null}:{display_name:'Human Label'}
   const changes=await Promise.all(Array.from({length:20},()=>invoke(kind+'.'+update,{command_id:randomUUID(),id,expected_version:1,...extra})))
-  check(changes.filter(r=>r.status===200).length===1&&changes.filter(r=>r.status===500&&r.json.code==='40001').length===19,'portfolio_'+kind+'_20_CAS_one_winner')
+  check(changes.filter(r=>r.status===200).length===1&&changes.filter(r=>r.status===500&&r.json.code==='PT409').length===19,'portfolio_'+kind+'_20_CAS_one_winner')
   check(Number(sql(`select count(*)from public.product_audit_events where entity_id='${id}'`))===2,'portfolio_'+kind+'_two_total_audits')
   return id
  }
@@ -25,7 +25,7 @@ export async function portfolioAcceptance({rpc,sql,check,http,users,wa,wb,ca,url
   const r=await rpc('portfolio_v1_contract_create_manual',{p_workspace_id:wa,p_input:command},token);check(r.status===401||r.status===403,'portfolio_anonymous_RPC_closed')
  }
  const c=await createRace('contract',command)
- const changed=await invoke('contract.create_manual',{...command,start_date:'2026-01-02'});check(changed.status===500&&changed.json.code==='40001','portfolio_changed_replay_conflict')
+ const changed=await invoke('contract.create_manual',{...command,start_date:'2026-01-02'});check(changed.status===409&&changed.json.code==='PT409','portfolio_changed_replay_conflict')
  check((await invoke('contract.activate',{command_id:randomUUID(),id:c,expected_version:2,signed_date:'2025-12-31'})).status===200,'portfolio_contract_activate')
  const s=await createRace('service',{command_id:randomUUID(),contract_id:c,service_kind:'mobile',display_name:'Synthetic Service'})
  const l=await createRace('line',{command_id:randomUUID(),service_id:s,display_name:'Synthetic Line'})
@@ -84,7 +84,7 @@ export async function portfolioDeadlineAcceptance({rpc,sql,check,http,users,wa,w
   check(creates.every(r=>r.status===200&&JSON.stringify(r.json)===JSON.stringify(creates[0].json)),'deadline_'+op+'_20_replays')
   const id=creates[0].json.id;saved.push([op,input])
   const edits=await Promise.all(Array.from({length:20},()=>invoke(update,{command_id:randomUUID(),id,expected_version:1,...fields})))
-  check(edits.filter(r=>r.status===200).length===1&&edits.filter(r=>r.status===500&&r.json.code==='40001').length===19,'deadline_'+op+'_20_CAS')
+  check(edits.filter(r=>r.status===200).length===1&&edits.filter(r=>r.status===500&&r.json.code==='PT409').length===19,'deadline_'+op+'_20_CAS')
   check(Number(sql(`select count(*)from public.product_audit_events where entity_id='${id}'`))===2,'deadline_'+op+'_two_audits')
   return id
  }

@@ -20,13 +20,13 @@ do $$declare w uuid:='92000000-0000-4000-8000-000000000001';r jsonb;inp jsonb;pa
  inp:=jsonb_build_object('command_id',gen_random_uuid(),'email','synthetic-invite@example.invalid','role','member');
  r:=public.team_v1_member_invite_intent(w,inp);perform pg_temp.assert_t(r=public.team_v1_member_invite_intent(w,inp)and r->>'status'='pending'and not r?'email');
  insert into team_fixture values((r->>'id')::uuid,1);
- perform pg_temp.deny_t(format('select public.team_v1_member_invite_intent(%L,%L)',w,(inp||'{"email":"changed@example.invalid"}')::text),'40001');
+ perform pg_temp.deny_t(format('select public.team_v1_member_invite_intent(%L,%L)',w,(inp||'{"email":"changed@example.invalid"}')::text),'PT409');
  perform pg_temp.deny_t(format('select public.team_v1_member_invite_intent(%L,%L)',w,(inp||jsonb_build_object('command_id',gen_random_uuid()))::text),'23505');
  perform pg_temp.deny_t(format('select public.team_v1_member_role_change(%L,%L)',w,jsonb_build_object('command_id',gen_random_uuid(),'id','93000000-0000-4000-8000-000000000001','expected_version',1,'role','member')::text),'42501');
  perform pg_temp.deny_t(format('select public.team_v1_member_role_change(%L,%L)',w,jsonb_build_object('command_id',gen_random_uuid(),'id','93000000-0000-4000-8000-000000000005','expected_version',1,'role','member')::text),'P0002');
  inp:=jsonb_build_object('command_id',gen_random_uuid(),'id','93000000-0000-4000-8000-000000000004','expected_version',1,'role','member');
  r:=public.team_v1_member_role_change(w,inp);perform pg_temp.assert_t(r->>'version'='2'and r=public.team_v1_member_role_change(w,inp));
- perform pg_temp.deny_t(format('select public.team_v1_member_role_change(%L,%L)',w,(inp||jsonb_build_object('command_id',gen_random_uuid(),'role','viewer'))::text),'40001');
+ perform pg_temp.deny_t(format('select public.team_v1_member_role_change(%L,%L)',w,(inp||jsonb_build_object('command_id',gen_random_uuid(),'role','viewer'))::text),'PT409');
 end$$;
 select set_config('request.jwt.claim.sub','91000000-0000-4000-8000-000000000002',true);
 do $$declare w uuid:='92000000-0000-4000-8000-000000000001';begin

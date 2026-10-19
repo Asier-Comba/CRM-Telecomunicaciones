@@ -8,6 +8,12 @@ test('local integration requires every opt-in and canonical loopback URLs',()=>{
  for(const key of ['PRODUCT_LOCAL_INTEGRATION','PRODUCT_LOCAL_SYNTHETIC','PRODUCT_V1_ENABLED'])assert.equal(integratedLocalAllowed({...env,[key]:undefined}),false)
  for(const patch of [{NODE_ENV:'production'},{NEXT_PUBLIC_SUPABASE_URL:'https://remote.supabase.co'},{PRODUCT_V1_ORIGIN:'http://localhost:3108/path'},{NEXT_PUBLIC_SUPABASE_URL:'http://localhost.attacker.invalid:54321'},{PRODUCT_V1_ORIGIN:'http://user:password@localhost:3108'}])assert.equal(integratedLocalAllowed({...env,...patch}),false)
 })
+const hosted={ NODE_ENV:'production', PLATFORM_TARGET:'STAGING',PRODUCT_V1_ENABLED:'true',NEXT_PUBLIC_SUPABASE_URL:'https://project.supabase.co',PRODUCT_V1_ORIGIN:'https://preview.example.test' }
+test('hosted staging requires explicit STAGING target, product opt-in and exact HTTPS origins',()=>{
+ assert.equal(integratedLocalAllowed(hosted),true)
+ for(const key of ['PLATFORM_TARGET','PRODUCT_V1_ENABLED','NEXT_PUBLIC_SUPABASE_URL','PRODUCT_V1_ORIGIN'])assert.equal(integratedLocalAllowed({...hosted,[key]:undefined}),false)
+ for(const patch of [{PLATFORM_TARGET:'PROD'},{PLATFORM_TARGET:'staging'},{PRODUCT_V1_ENABLED:'1'},{PRODUCT_LOCAL_INTEGRATION:'true'},{NEXT_PUBLIC_SUPABASE_URL:'http://project.supabase.co'},{NEXT_PUBLIC_SUPABASE_URL:'https://project.supabase.co.attacker.invalid'},{NEXT_PUBLIC_SUPABASE_URL:'https://project.supabase.co/rest'},{PRODUCT_V1_ORIGIN:'http://preview.example.test'},{PRODUCT_V1_ORIGIN:'https://preview.example.test/app'},{PRODUCT_V1_ORIGIN:'https://user:pw@preview.example.test'}])assert.equal(integratedLocalAllowed({...hosted,...patch}),false,JSON.stringify(patch))
+})
 test('a timeout retry preserves exact command_id and payload; new intent has a fresh ID',async()=>{
  const calls=[];let attempt=0
  const repository=new IntegratedLocalProductRepository(async(path,init)=>{

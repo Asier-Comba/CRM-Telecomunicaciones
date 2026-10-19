@@ -44,7 +44,7 @@ try{
  const inputs=Array.from({length:20},()=>({...base,command_id:randomUUID()}))
  const results=await Promise.all(inputs.map(input=>docker([...args,'--set=VERBOSITY=sqlstate'],auth(statement(rpcName,input,op)))))
  assert.equal(results.filter(r=>r.code===0).length,1,'commercial resource CAS must have one winner')
- assert.equal(results.filter(r=>r.code!==0&&/40001/.test(r.err)).length,19,'all commercial resource CAS losers must be conflicts')
+ assert.equal(results.filter(r=>r.code!==0&&/PT409/.test(r.err)).length,19,'all commercial resource CAS losers must be conflicts')
  const ix=results.findIndex(r=>r.code===0);return{input:inputs[ix],receipt:JSON.parse(results[ix].out.trim()),op,rpcName}
  }
  const installation=await run('service.installation_set',{service_id:service.id,expected_service_version:1,expected_details_version:0,site_label:'Synthetic Native Site',installation_contact_id:null,activation_target_on:'2026-10-20'})

@@ -7,7 +7,7 @@ import type {DocumentContentServiceV1}from './document-content-service-v1'
 import {isClosedObjectV1 as plain,isUuidV1 as uuid}from './product-work-runtime-v1.ts'
 import {parseBillingArtifactInputV1,parseBillingArtifactReceiptV1,parseBillingArtifactReferenceV1,renderFrozenInvoicePdfV1,billingArtifactChildCommandV1}from './billing-artifact-runtime-v1.ts'
 const fail=(error:ProductErrorV1)=>({ok:false as const,error})
-const dbError=(code?:string):ProductErrorV1=>code==='42501'?'access_denied':code==='P0002'?'not_found':['40001','23505'].includes(code??'')?'conflict':['22023','22P02','23514'].includes(code??'')?'validation':'internal_safe'
+const dbError=(code?:string):ProductErrorV1=>code==='42501'?'access_denied':code==='P0002'?'not_found':['40001','PT409','23505'].includes(code??'')?'conflict':['22023','22P02','23514'].includes(code??'')?'validation':'internal_safe'
 export class BillingArtifactServiceV1{
  readonly #port:ProductUserPortV1;readonly #content:DocumentContentServiceV1;readonly #billing:BillingServiceV1;readonly #docs:DocumentServiceV1
  constructor(port:ProductUserPortV1,content:DocumentContentServiceV1){this.#port=port;this.#content=content;this.#billing=new BillingServiceV1(port);this.#docs=new DocumentServiceV1(port)}
