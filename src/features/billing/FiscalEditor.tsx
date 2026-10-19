@@ -86,7 +86,7 @@ export function FiscalEditor({
         </fieldset>
         {error ? <p role="alert" className="text-sm text-red-700">{safeMessage(error)}</p> : null}
         <div className="flex flex-col gap-2 border-t border-slate-200 pt-4 sm:flex-row sm:justify-end">
-          <button className={primary} disabled={busy || conflict || requiresReload}>
+          <button className={`${primary} scroll-my-4`} disabled={busy || conflict || requiresReload}>
             {busy ? 'Guardando…' : uncertain ? 'Reintentar la misma acción' : 'Guardar datos fiscales'}
           </button>
           {(conflict || requiresReload) ? (
