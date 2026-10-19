@@ -1,0 +1,695 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--config",
+      "tools/oier_billing_qa/customer.config.ts"
+    ],
+    "configFile": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\customer.config.ts",
+    "rootDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-billing-fixes-20261020/tools/oier_billing_qa",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-billing-fixes-20261020/customer-attempt01/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "controlled-http-390",
+        "name": "controlled-http-390",
+        "testDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-billing-fixes-20261020/tools/oier_billing_qa",
+        "testIgnore": [],
+        "testMatch": [
+          "customer-prompt-context.spec.ts"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-billing-fixes-20261020/customer-attempt01/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "controlled-http-768",
+        "name": "controlled-http-768",
+        "testDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-billing-fixes-20261020/tools/oier_billing_qa",
+        "testIgnore": [],
+        "testMatch": [
+          "customer-prompt-context.spec.ts"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-billing-fixes-20261020/customer-attempt01/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "controlled-http-1440",
+        "name": "controlled-http-1440",
+        "testDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-billing-fixes-20261020/tools/oier_billing_qa",
+        "testIgnore": [],
+        "testMatch": [
+          "customer-prompt-context.spec.ts"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "line",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\customer-attempt01\\results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.61.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "customer-prompt-context.spec.ts",
+      "file": "customer-prompt-context.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "changing customer clears the previous written invoice intent",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5790,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveValue\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('textbox', { name: 'Descripción de la factura', exact: true })\nExpected: \u001b[32m\"\"\u001b[39m\nReceived: \u001b[31m\"Factura para Bilbao Telecom Demo SL de 300 euros por soporte\"\u001b[39m\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveValue\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Descripción de la factura', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <textarea rows=\"3\" maxlength=\"2000\" aria-label=\"Descripción de la factura\" placeholder=\"Factura a Bilbao Industrial Demo SL por servicio de conectividad de 1.200 euros + IVA, vencimiento en 15 días\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 w-full\">Factura para Bilbao Telecom Demo SL de 300 euros …</textarea>\u001b[22m\n\u001b[2m       - unexpected value \"Factura para Bilbao Telecom Demo SL de 300 euros por soporte\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveValue\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('textbox', { name: 'Descripción de la factura', exact: true })\nExpected: \u001b[32m\"\"\u001b[39m\nReceived: \u001b[31m\"Factura para Bilbao Telecom Demo SL de 300 euros por soporte\"\u001b[39m\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveValue\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Descripción de la factura', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <textarea rows=\"3\" maxlength=\"2000\" aria-label=\"Descripción de la factura\" placeholder=\"Factura a Bilbao Industrial Demo SL por servicio de conectividad de 1.200 euros + IVA, vencimiento en 15 días\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 w-full\">Factura para Bilbao Telecom Demo SL de 300 euros …</textarea>\u001b[22m\n\u001b[2m       - unexpected value \"Factura para Bilbao Telecom Demo SL de 300 euros por soporte\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\customer-prompt-context.spec.ts:46:89",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\customer-prompt-context.spec.ts",
+                      "column": 89,
+                      "line": 46
+                    },
+                    "snippet": "  44 |  try{\n  45 |   await page.getByRole('combobox',{name:'Cliente para facturación',exact:true}).selectOption(b)\n> 46 |   await expect(page.getByRole('textbox',{name:'Descripción de la factura',exact:true})).toHaveValue('')\n     |                                                                                         ^\n  47 |   await expect(page.getByRole('button',{name:'Generar propuesta',exact:true})).toBeDisabled()\n  48 |   expect(r.proposals).toEqual([]);r.assertNoEffects();await page.screenshot({path:info.outputPath('new-customer-empty-intent.png')})\n  49 |  }finally{await r.close()}"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\customer-prompt-context.spec.ts",
+                        "column": 89,
+                        "line": 46
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveValue\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('textbox', { name: 'Descripción de la factura', exact: true })\nExpected: \u001b[32m\"\"\u001b[39m\nReceived: \u001b[31m\"Factura para Bilbao Telecom Demo SL de 300 euros por soporte\"\u001b[39m\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveValue\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Descripción de la factura', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <textarea rows=\"3\" maxlength=\"2000\" aria-label=\"Descripción de la factura\" placeholder=\"Factura a Bilbao Industrial Demo SL por servicio de conectividad de 1.200 euros + IVA, vencimiento en 15 días\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 w-full\">Factura para Bilbao Telecom Demo SL de 300 euros …</textarea>\u001b[22m\n\u001b[2m       - unexpected value \"Factura para Bilbao Telecom Demo SL de 300 euros por soporte\"\u001b[22m\n\n\n  44 |  try{\n  45 |   await page.getByRole('combobox',{name:'Cliente para facturación',exact:true}).selectOption(b)\n> 46 |   await expect(page.getByRole('textbox',{name:'Descripción de la factura',exact:true})).toHaveValue('')\n     |                                                                                         ^\n  47 |   await expect(page.getByRole('button',{name:'Generar propuesta',exact:true})).toBeDisabled()\n  48 |   expect(r.proposals).toEqual([]);r.assertNoEffects();await page.screenshot({path:info.outputPath('new-customer-empty-intent.png')})\n  49 |  }finally{await r.close()}\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\customer-prompt-context.spec.ts:46:89"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:40:50.687Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\customer-attempt01\\artifacts\\customer-prompt-context-ch-f214d-ious-written-invoice-intent-controlled-http-390\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\customer-attempt01\\artifacts\\customer-prompt-context-ch-f214d-ious-written-invoice-intent-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\customer-attempt01\\artifacts\\customer-prompt-context-ch-f214d-ious-written-invoice-intent-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\customer-attempt01\\artifacts\\customer-prompt-context-ch-f214d-ious-written-invoice-intent-controlled-http-390\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\customer-prompt-context.spec.ts",
+                    "column": 89,
+                    "line": 46
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "c56e746871a37052984d-0c6f3ae7e90aa83c58a6",
+          "file": "customer-prompt-context.spec.ts",
+          "line": 42,
+          "column": 5
+        },
+        {
+          "title": "changing customer aborts dictation and retires the old transcript handler",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5994,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveAttribute\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('html')\nExpected: \u001b[32m\"true\"\u001b[39m\nReceived: \u001b[31m\"\"\u001b[39m\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveAttribute\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for locator('html')\u001b[22m\n\u001b[2m    12 × locator resolved to <html>…</html>\u001b[22m\n\u001b[2m       - unexpected value \"null\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveAttribute\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('html')\nExpected: \u001b[32m\"true\"\u001b[39m\nReceived: \u001b[31m\"\"\u001b[39m\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveAttribute\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for locator('html')\u001b[22m\n\u001b[2m    12 × locator resolved to <html>…</html>\u001b[22m\n\u001b[2m       - unexpected value \"null\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\customer-prompt-context.spec.ts:57:38",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\customer-prompt-context.spec.ts",
+                      "column": 38,
+                      "line": 57
+                    },
+                    "snippet": "  55 |   await expect(page.getByRole('button',{name:'Detener dictado',exact:true})).toBeVisible()\n  56 |   await page.getByRole('combobox',{name:'Cliente para facturación',exact:true}).selectOption(b)\n> 57 |   await expect(page.locator('html')).toHaveAttribute('data-old-speech-aborted','true')\n     |                                      ^\n  58 |   await page.evaluate(()=>document.dispatchEvent(new CustomEvent('oier:old-speech')))\n  59 |   await expect(page.getByRole('textbox',{name:'Descripción de la factura',exact:true})).toHaveValue('')\n  60 |   await expect(page.getByRole('button',{name:'Dictar',exact:true})).toBeVisible()"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\customer-prompt-context.spec.ts",
+                        "column": 38,
+                        "line": 57
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveAttribute\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('html')\nExpected: \u001b[32m\"true\"\u001b[39m\nReceived: \u001b[31m\"\"\u001b[39m\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveAttribute\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for locator('html')\u001b[22m\n\u001b[2m    12 × locator resolved to <html>…</html>\u001b[22m\n\u001b[2m       - unexpected value \"null\"\u001b[22m\n\n\n  55 |   await expect(page.getByRole('button',{name:'Detener dictado',exact:true})).toBeVisible()\n  56 |   await page.getByRole('combobox',{name:'Cliente para facturación',exact:true}).selectOption(b)\n> 57 |   await expect(page.locator('html')).toHaveAttribute('data-old-speech-aborted','true')\n     |                                      ^\n  58 |   await page.evaluate(()=>document.dispatchEvent(new CustomEvent('oier:old-speech')))\n  59 |   await expect(page.getByRole('textbox',{name:'Descripción de la factura',exact:true})).toHaveValue('')\n  60 |   await expect(page.getByRole('button',{name:'Dictar',exact:true})).toBeVisible()\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\customer-prompt-context.spec.ts:57:38"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:41:09.004Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\customer-attempt01\\artifacts\\customer-prompt-context-ch-91520--the-old-transcript-handler-controlled-http-390\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\customer-attempt01\\artifacts\\customer-prompt-context-ch-91520--the-old-transcript-handler-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\customer-attempt01\\artifacts\\customer-prompt-context-ch-91520--the-old-transcript-handler-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\customer-attempt01\\artifacts\\customer-prompt-context-ch-91520--the-old-transcript-handler-controlled-http-390\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\customer-prompt-context.spec.ts",
+                    "column": 38,
+                    "line": 57
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "c56e746871a37052984d-c54fa66c5e6b3f8708ca",
+          "file": "customer-prompt-context.spec.ts",
+          "line": 51,
+          "column": 5
+        },
+        {
+          "title": "a fresh written intent for the new customer still opens its own proposal",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1981,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:41:27.612Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c56e746871a37052984d-4bb6dea6c787c3ed7840",
+          "file": "customer-prompt-context.spec.ts",
+          "line": 64,
+          "column": 5
+        },
+        {
+          "title": "changing customer clears the previous written invoice intent",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 6654,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveValue\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('textbox', { name: 'Descripción de la factura', exact: true })\nExpected: \u001b[32m\"\"\u001b[39m\nReceived: \u001b[31m\"Factura para Bilbao Telecom Demo SL de 300 euros por soporte\"\u001b[39m\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveValue\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Descripción de la factura', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <textarea rows=\"3\" maxlength=\"2000\" aria-label=\"Descripción de la factura\" placeholder=\"Factura a Bilbao Industrial Demo SL por servicio de conectividad de 1.200 euros + IVA, vencimiento en 15 días\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 w-full\">Factura para Bilbao Telecom Demo SL de 300 euros …</textarea>\u001b[22m\n\u001b[2m       - unexpected value \"Factura para Bilbao Telecom Demo SL de 300 euros por soporte\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveValue\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('textbox', { name: 'Descripción de la factura', exact: true })\nExpected: \u001b[32m\"\"\u001b[39m\nReceived: \u001b[31m\"Factura para Bilbao Telecom Demo SL de 300 euros por soporte\"\u001b[39m\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveValue\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Descripción de la factura', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <textarea rows=\"3\" maxlength=\"2000\" aria-label=\"Descripción de la factura\" placeholder=\"Factura a Bilbao Industrial Demo SL por servicio de conectividad de 1.200 euros + IVA, vencimiento en 15 días\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 w-full\">Factura para Bilbao Telecom Demo SL de 300 euros …</textarea>\u001b[22m\n\u001b[2m       - unexpected value \"Factura para Bilbao Telecom Demo SL de 300 euros por soporte\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\customer-prompt-context.spec.ts:46:89",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\customer-prompt-context.spec.ts",
+                      "column": 89,
+                      "line": 46
+                    },
+                    "snippet": "  44 |  try{\n  45 |   await page.getByRole('combobox',{name:'Cliente para facturación',exact:true}).selectOption(b)\n> 46 |   await expect(page.getByRole('textbox',{name:'Descripción de la factura',exact:true})).toHaveValue('')\n     |                                                                                         ^\n  47 |   await expect(page.getByRole('button',{name:'Generar propuesta',exact:true})).toBeDisabled()\n  48 |   expect(r.proposals).toEqual([]);r.assertNoEffects();await page.screenshot({path:info.outputPath('new-customer-empty-intent.png')})\n  49 |  }finally{await r.close()}"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\customer-prompt-context.spec.ts",
+                        "column": 89,
+                        "line": 46
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveValue\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('textbox', { name: 'Descripción de la factura', exact: true })\nExpected: \u001b[32m\"\"\u001b[39m\nReceived: \u001b[31m\"Factura para Bilbao Telecom Demo SL de 300 euros por soporte\"\u001b[39m\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveValue\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Descripción de la factura', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <textarea rows=\"3\" maxlength=\"2000\" aria-label=\"Descripción de la factura\" placeholder=\"Factura a Bilbao Industrial Demo SL por servicio de conectividad de 1.200 euros + IVA, vencimiento en 15 días\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 w-full\">Factura para Bilbao Telecom Demo SL de 300 euros …</textarea>\u001b[22m\n\u001b[2m       - unexpected value \"Factura para Bilbao Telecom Demo SL de 300 euros por soporte\"\u001b[22m\n\n\n  44 |  try{\n  45 |   await page.getByRole('combobox',{name:'Cliente para facturación',exact:true}).selectOption(b)\n> 46 |   await expect(page.getByRole('textbox',{name:'Descripción de la factura',exact:true})).toHaveValue('')\n     |                                                                                         ^\n  47 |   await expect(page.getByRole('button',{name:'Generar propuesta',exact:true})).toBeDisabled()\n  48 |   expect(r.proposals).toEqual([]);r.assertNoEffects();await page.screenshot({path:info.outputPath('new-customer-empty-intent.png')})\n  49 |  }finally{await r.close()}\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\customer-prompt-context.spec.ts:46:89"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:41:44.385Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\customer-attempt01\\artifacts\\customer-prompt-context-ch-f214d-ious-written-invoice-intent-controlled-http-768\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\customer-attempt01\\artifacts\\customer-prompt-context-ch-f214d-ious-written-invoice-intent-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\customer-attempt01\\artifacts\\customer-prompt-context-ch-f214d-ious-written-invoice-intent-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\customer-attempt01\\artifacts\\customer-prompt-context-ch-f214d-ious-written-invoice-intent-controlled-http-768\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\customer-prompt-context.spec.ts",
+                    "column": 89,
+                    "line": 46
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "c56e746871a37052984d-258673ec4de0fe735c12",
+          "file": "customer-prompt-context.spec.ts",
+          "line": 42,
+          "column": 5
+        },
+        {
+          "title": "changing customer aborts dictation and retires the old transcript handler",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5722,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveAttribute\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('html')\nExpected: \u001b[32m\"true\"\u001b[39m\nReceived: \u001b[31m\"\"\u001b[39m\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveAttribute\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for locator('html')\u001b[22m\n\u001b[2m    11 × locator resolved to <html>…</html>\u001b[22m\n\u001b[2m       - unexpected value \"null\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveAttribute\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('html')\nExpected: \u001b[32m\"true\"\u001b[39m\nReceived: \u001b[31m\"\"\u001b[39m\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveAttribute\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for locator('html')\u001b[22m\n\u001b[2m    11 × locator resolved to <html>…</html>\u001b[22m\n\u001b[2m       - unexpected value \"null\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\customer-prompt-context.spec.ts:57:38",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\customer-prompt-context.spec.ts",
+                      "column": 38,
+                      "line": 57
+                    },
+                    "snippet": "  55 |   await expect(page.getByRole('button',{name:'Detener dictado',exact:true})).toBeVisible()\n  56 |   await page.getByRole('combobox',{name:'Cliente para facturación',exact:true}).selectOption(b)\n> 57 |   await expect(page.locator('html')).toHaveAttribute('data-old-speech-aborted','true')\n     |                                      ^\n  58 |   await page.evaluate(()=>document.dispatchEvent(new CustomEvent('oier:old-speech')))\n  59 |   await expect(page.getByRole('textbox',{name:'Descripción de la factura',exact:true})).toHaveValue('')\n  60 |   await expect(page.getByRole('button',{name:'Dictar',exact:true})).toBeVisible()"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\customer-prompt-context.spec.ts",
+                        "column": 38,
+                        "line": 57
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveAttribute\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('html')\nExpected: \u001b[32m\"true\"\u001b[39m\nReceived: \u001b[31m\"\"\u001b[39m\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveAttribute\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for locator('html')\u001b[22m\n\u001b[2m    11 × locator resolved to <html>…</html>\u001b[22m\n\u001b[2m       - unexpected value \"null\"\u001b[22m\n\n\n  55 |   await expect(page.getByRole('button',{name:'Detener dictado',exact:true})).toBeVisible()\n  56 |   await page.getByRole('combobox',{name:'Cliente para facturación',exact:true}).selectOption(b)\n> 57 |   await expect(page.locator('html')).toHaveAttribute('data-old-speech-aborted','true')\n     |                                      ^\n  58 |   await page.evaluate(()=>document.dispatchEvent(new CustomEvent('oier:old-speech')))\n  59 |   await expect(page.getByRole('textbox',{name:'Descripción de la factura',exact:true})).toHaveValue('')\n  60 |   await expect(page.getByRole('button',{name:'Dictar',exact:true})).toBeVisible()\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\customer-prompt-context.spec.ts:57:38"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:42:09.227Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\customer-attempt01\\artifacts\\customer-prompt-context-ch-91520--the-old-transcript-handler-controlled-http-768\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\customer-attempt01\\artifacts\\customer-prompt-context-ch-91520--the-old-transcript-handler-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\customer-attempt01\\artifacts\\customer-prompt-context-ch-91520--the-old-transcript-handler-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\customer-attempt01\\artifacts\\customer-prompt-context-ch-91520--the-old-transcript-handler-controlled-http-768\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\customer-prompt-context.spec.ts",
+                    "column": 38,
+                    "line": 57
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "c56e746871a37052984d-76a032ba159744b241f8",
+          "file": "customer-prompt-context.spec.ts",
+          "line": 51,
+          "column": 5
+        },
+        {
+          "title": "a fresh written intent for the new customer still opens its own proposal",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1591,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:42:28.403Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c56e746871a37052984d-c6df7f9202aa69e6a9fe",
+          "file": "customer-prompt-context.spec.ts",
+          "line": 64,
+          "column": 5
+        },
+        {
+          "title": "changing customer clears the previous written invoice intent",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5619,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveValue\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('textbox', { name: 'Descripción de la factura', exact: true })\nExpected: \u001b[32m\"\"\u001b[39m\nReceived: \u001b[31m\"Factura para Bilbao Telecom Demo SL de 300 euros por soporte\"\u001b[39m\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveValue\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Descripción de la factura', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <textarea rows=\"3\" maxlength=\"2000\" aria-label=\"Descripción de la factura\" placeholder=\"Factura a Bilbao Industrial Demo SL por servicio de conectividad de 1.200 euros + IVA, vencimiento en 15 días\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 w-full\">Factura para Bilbao Telecom Demo SL de 300 euros …</textarea>\u001b[22m\n\u001b[2m       - unexpected value \"Factura para Bilbao Telecom Demo SL de 300 euros por soporte\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveValue\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('textbox', { name: 'Descripción de la factura', exact: true })\nExpected: \u001b[32m\"\"\u001b[39m\nReceived: \u001b[31m\"Factura para Bilbao Telecom Demo SL de 300 euros por soporte\"\u001b[39m\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveValue\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Descripción de la factura', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <textarea rows=\"3\" maxlength=\"2000\" aria-label=\"Descripción de la factura\" placeholder=\"Factura a Bilbao Industrial Demo SL por servicio de conectividad de 1.200 euros + IVA, vencimiento en 15 días\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 w-full\">Factura para Bilbao Telecom Demo SL de 300 euros …</textarea>\u001b[22m\n\u001b[2m       - unexpected value \"Factura para Bilbao Telecom Demo SL de 300 euros por soporte\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\customer-prompt-context.spec.ts:46:89",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\customer-prompt-context.spec.ts",
+                      "column": 89,
+                      "line": 46
+                    },
+                    "snippet": "  44 |  try{\n  45 |   await page.getByRole('combobox',{name:'Cliente para facturación',exact:true}).selectOption(b)\n> 46 |   await expect(page.getByRole('textbox',{name:'Descripción de la factura',exact:true})).toHaveValue('')\n     |                                                                                         ^\n  47 |   await expect(page.getByRole('button',{name:'Generar propuesta',exact:true})).toBeDisabled()\n  48 |   expect(r.proposals).toEqual([]);r.assertNoEffects();await page.screenshot({path:info.outputPath('new-customer-empty-intent.png')})\n  49 |  }finally{await r.close()}"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\customer-prompt-context.spec.ts",
+                        "column": 89,
+                        "line": 46
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveValue\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('textbox', { name: 'Descripción de la factura', exact: true })\nExpected: \u001b[32m\"\"\u001b[39m\nReceived: \u001b[31m\"Factura para Bilbao Telecom Demo SL de 300 euros por soporte\"\u001b[39m\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveValue\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Descripción de la factura', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <textarea rows=\"3\" maxlength=\"2000\" aria-label=\"Descripción de la factura\" placeholder=\"Factura a Bilbao Industrial Demo SL por servicio de conectividad de 1.200 euros + IVA, vencimiento en 15 días\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 w-full\">Factura para Bilbao Telecom Demo SL de 300 euros …</textarea>\u001b[22m\n\u001b[2m       - unexpected value \"Factura para Bilbao Telecom Demo SL de 300 euros por soporte\"\u001b[22m\n\n\n  44 |  try{\n  45 |   await page.getByRole('combobox',{name:'Cliente para facturación',exact:true}).selectOption(b)\n> 46 |   await expect(page.getByRole('textbox',{name:'Descripción de la factura',exact:true})).toHaveValue('')\n     |                                                                                         ^\n  47 |   await expect(page.getByRole('button',{name:'Generar propuesta',exact:true})).toBeDisabled()\n  48 |   expect(r.proposals).toEqual([]);r.assertNoEffects();await page.screenshot({path:info.outputPath('new-customer-empty-intent.png')})\n  49 |  }finally{await r.close()}\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\customer-prompt-context.spec.ts:46:89"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:42:40.526Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\customer-attempt01\\artifacts\\customer-prompt-context-ch-f214d-ious-written-invoice-intent-controlled-http-1440\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\customer-attempt01\\artifacts\\customer-prompt-context-ch-f214d-ious-written-invoice-intent-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\customer-attempt01\\artifacts\\customer-prompt-context-ch-f214d-ious-written-invoice-intent-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\customer-attempt01\\artifacts\\customer-prompt-context-ch-f214d-ious-written-invoice-intent-controlled-http-1440\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\customer-prompt-context.spec.ts",
+                    "column": 89,
+                    "line": 46
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "c56e746871a37052984d-258f47d632ac362fcb3c",
+          "file": "customer-prompt-context.spec.ts",
+          "line": 42,
+          "column": 5
+        },
+        {
+          "title": "changing customer aborts dictation and retires the old transcript handler",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 7,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5352,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveAttribute\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('html')\nExpected: \u001b[32m\"true\"\u001b[39m\nReceived: \u001b[31m\"\"\u001b[39m\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveAttribute\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for locator('html')\u001b[22m\n\u001b[2m    12 × locator resolved to <html>…</html>\u001b[22m\n\u001b[2m       - unexpected value \"null\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveAttribute\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('html')\nExpected: \u001b[32m\"true\"\u001b[39m\nReceived: \u001b[31m\"\"\u001b[39m\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveAttribute\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for locator('html')\u001b[22m\n\u001b[2m    12 × locator resolved to <html>…</html>\u001b[22m\n\u001b[2m       - unexpected value \"null\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\customer-prompt-context.spec.ts:57:38",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\customer-prompt-context.spec.ts",
+                      "column": 38,
+                      "line": 57
+                    },
+                    "snippet": "  55 |   await expect(page.getByRole('button',{name:'Detener dictado',exact:true})).toBeVisible()\n  56 |   await page.getByRole('combobox',{name:'Cliente para facturación',exact:true}).selectOption(b)\n> 57 |   await expect(page.locator('html')).toHaveAttribute('data-old-speech-aborted','true')\n     |                                      ^\n  58 |   await page.evaluate(()=>document.dispatchEvent(new CustomEvent('oier:old-speech')))\n  59 |   await expect(page.getByRole('textbox',{name:'Descripción de la factura',exact:true})).toHaveValue('')\n  60 |   await expect(page.getByRole('button',{name:'Dictar',exact:true})).toBeVisible()"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\customer-prompt-context.spec.ts",
+                        "column": 38,
+                        "line": 57
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveAttribute\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('html')\nExpected: \u001b[32m\"true\"\u001b[39m\nReceived: \u001b[31m\"\"\u001b[39m\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveAttribute\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for locator('html')\u001b[22m\n\u001b[2m    12 × locator resolved to <html>…</html>\u001b[22m\n\u001b[2m       - unexpected value \"null\"\u001b[22m\n\n\n  55 |   await expect(page.getByRole('button',{name:'Detener dictado',exact:true})).toBeVisible()\n  56 |   await page.getByRole('combobox',{name:'Cliente para facturación',exact:true}).selectOption(b)\n> 57 |   await expect(page.locator('html')).toHaveAttribute('data-old-speech-aborted','true')\n     |                                      ^\n  58 |   await page.evaluate(()=>document.dispatchEvent(new CustomEvent('oier:old-speech')))\n  59 |   await expect(page.getByRole('textbox',{name:'Descripción de la factura',exact:true})).toHaveValue('')\n  60 |   await expect(page.getByRole('button',{name:'Dictar',exact:true})).toBeVisible()\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\customer-prompt-context.spec.ts:57:38"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:42:56.668Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\customer-attempt01\\artifacts\\customer-prompt-context-ch-91520--the-old-transcript-handler-controlled-http-1440\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\customer-attempt01\\artifacts\\customer-prompt-context-ch-91520--the-old-transcript-handler-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\customer-attempt01\\artifacts\\customer-prompt-context-ch-91520--the-old-transcript-handler-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\customer-attempt01\\artifacts\\customer-prompt-context-ch-91520--the-old-transcript-handler-controlled-http-1440\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\customer-prompt-context.spec.ts",
+                    "column": 38,
+                    "line": 57
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "c56e746871a37052984d-0b78768839190fd0b3f0",
+          "file": "customer-prompt-context.spec.ts",
+          "line": 51,
+          "column": 5
+        },
+        {
+          "title": "a fresh written intent for the new customer still opens its own proposal",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 8,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1440,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:43:10.517Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c56e746871a37052984d-7c0a9e1dbff9a50d0092",
+          "file": "customer-prompt-context.spec.ts",
+          "line": 64,
+          "column": 5
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-19T22:40:49.405Z",
+    "duration": 150894.862,
+    "expected": 3,
+    "skipped": 0,
+    "unexpected": 6,
+    "flaky": 0
+  }
+}

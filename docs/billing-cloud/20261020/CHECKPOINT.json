@@ -55,10 +55,10 @@
   "scope": "Actual product with synthetic input and controlled loopback HTTP / simulated speech; not hosted Auth/DB or real voice",
   "integration": "ASIER_ACK_REQUIRED",
   "next": {
-    "unit": "11",
-    "claim": 6278875224,
-    "status": "ORIGINAL_10_PHRASES_4PASS_6FAIL_SOURCE_B7_PRESERVED",
-    "task": "Skip monetary prefixes when extracting concept, seek later explicit concept, preserve legitimate numeric descriptions; own source checks and original banks."
+    "unit": "12",
+    "status": "RED_3PASS6FAIL_AT_390_768_1440_SOURCE_EA",
+    "claim": 6278946894,
+    "task": "Key existing PromptBuilder by customer to retire written intent and existing speech handlers. No shared contract or permission change."
   },
   "netlify": "EDGE_ACCESS_BLOCKED_W5_ASSIGNED_NO_BYPASS",
   "supabase": "87_MIGRATIONS_NO_RESET_REAPPLY_OR_MUTATION",
@@ -108,5 +108,18 @@
     "typescript": 0,
     "parser": "24PASS",
     "total_unique_browser": 154
+  },
+  "completed_unit11": {
+    "claim": 6278875224,
+    "bootstrap": "53PASS",
+    "lint": 0,
+    "typescript": 0,
+    "build": 0,
+    "composed_browser": "66PASS",
+    "original_parser": "24PASS",
+    "scope": "SYNTHETIC_INPUT_AND_CONTROLLED_HTTP_ONLY",
+    "existing_billing_browser": "88PASS",
+    "source_commit": "ea0f7f0010ab10b39e2fae221880e523d123e30a",
+    "new_concept_bank": "4PASS6FAIL_TO_10PASS"
   }
 }
