@@ -1,0 +1,43 @@
+{
+  "source": "9fb7bb51e513cca756277995a2d45ab8ecc26c56",
+  "tree": "c0c9afeacb1867c28c843a09c9012e562955087a",
+  "browser": {
+    "passed": 43,
+    "scope": "CONTROLLED_HTTP_NOT_AUTH_DB"
+  },
+  "causal": {
+    "failed": 3,
+    "width": 390
+  },
+  "lint": "PASS",
+  "typecheck": "PASS",
+  "build": "PASS66",
+  "hosted": "NOT_RUN",
+  "release_ready": false,
+  "records": [
+    {
+      "name": "billing-before.log",
+      "sha256": "208647734fda60cd10ee69c5b69581834ba21e8d654d0a6c3529eb2da05ffba8"
+    },
+    {
+      "name": "billing-after.log",
+      "sha256": "f89017fed55fe3ea2870aa33c32084ca7f07e2126cd24618cfb26c0982464985"
+    },
+    {
+      "name": "unit4-lint.log",
+      "sha256": "dda21574b74ba6a9edea377d67b00a3846ea8ae6ee11171eb3102a4a59f30d98"
+    },
+    {
+      "name": "unit4-types.log",
+      "sha256": "09698db0dd661e366e31bb0aa12a64958690641809896ed8445717ab71ea6759"
+    },
+    {
+      "name": "unit4-build.log",
+      "sha256": "d8bddee41a5c492b65ec4d2e3f5bee8517949da9121e4318c43fb9fb7ef7da63"
+    },
+    {
+      "name": "hosted-gate-proof.log",
+      "sha256": "739723d252ab6792aedd839f713df6576537deb1e3347290ecfc2e9def5f9a64"
+    }
+  ]
+}
