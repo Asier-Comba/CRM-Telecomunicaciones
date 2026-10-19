@@ -59,7 +59,9 @@ for(const target of [b,''])test(`old proposal is retired after customer ${target
   await page.getByRole('combobox',{name:'Cliente para facturación',exact:true}).selectOption(target)
   await expect(page.getByRole('combobox',{name:'Cliente para facturación',exact:true})).toHaveValue(target)
   await r.completeOld()
-  await info.attach('context-and-proposals',{body:JSON.stringify({selected:target,proposals:r.proposals,editorCustomer:await page.getByLabel('Cliente de factura',{exact:true}).inputValue().catch(()=>null)}),contentType:'application/json'})
+  // Evidence must not auto-wait for the editor whose absence is asserted next.
+  const editorCustomer=await page.getByLabel('Cliente de factura',{exact:true}).evaluateAll(elements=>elements.length===1?(elements[0] as HTMLSelectElement).value:null)
+  await info.attach('context-and-proposals',{body:JSON.stringify({selected:target,proposals:r.proposals,editorCustomer}),contentType:'application/json'})
   await expect.soft(page.getByLabel('Cliente de factura',{exact:true})).toHaveCount(0)
   expect(r.commands).toEqual([]);expect(r.pageErrors).toEqual([])
  }finally{await r.close()}

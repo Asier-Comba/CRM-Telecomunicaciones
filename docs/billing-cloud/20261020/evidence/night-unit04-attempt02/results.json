@@ -1,0 +1,719 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--config",
+      "tools/oier_billing_qa/browser.config.ts"
+    ],
+    "configFile": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\browser.config.ts",
+    "rootDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-billing-fixes-20261020/tools/oier_billing_qa",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-billing-fixes-20261020/night-unit04-attempt02/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "controlled-http-390",
+        "name": "controlled-http-390",
+        "testDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-billing-fixes-20261020/tools/oier_billing_qa",
+        "testIgnore": [],
+        "testMatch": [
+          "proposal-context.spec.ts"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-billing-fixes-20261020/night-unit04-attempt02/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "controlled-http-768",
+        "name": "controlled-http-768",
+        "testDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-billing-fixes-20261020/tools/oier_billing_qa",
+        "testIgnore": [],
+        "testMatch": [
+          "proposal-context.spec.ts"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-billing-fixes-20261020/night-unit04-attempt02/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "controlled-http-1440",
+        "name": "controlled-http-1440",
+        "testDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-billing-fixes-20261020/tools/oier_billing_qa",
+        "testIgnore": [],
+        "testMatch": [
+          "proposal-context.spec.ts"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "line",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\night-unit04-attempt02\\results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.61.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "proposal-context.spec.ts",
+      "file": "proposal-context.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "held proposal still opens when customer context is unchanged",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1185,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:24:34.472Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "observed-proposals",
+                      "contentType": "application/json",
+                      "body": "W3sic291cmNlIjoidGV4dCIsImRyYWZ0Ijp7ImN1c3RvbWVyX2lkIjoiMTAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiaXNzdWVfb24iOiIyMDI2LTEwLTIwIiwiZHVlX29uIjpudWxsLCJzZXJpZXMiOiJBIiwiY3VycmVuY3kiOiJFVVIiLCJsaW5lcyI6W3siZGVzY3JpcHRpb24iOiJzb3BvcnRlIiwicXVhbnRpdHlfbWlsbGkiOjEwMDAsInVuaXRfcHJpY2VfbWlub3IiOjMwMDAwLCJkaXNjb3VudF9icHMiOjAsInRheF9icHMiOjIxMDAsIndpdGhob2xkaW5nX2JwcyI6MH1dLCJub3RlcyI6bnVsbCwiY29udHJhY3RfaWQiOm51bGwsInNlcnZpY2VfaWQiOm51bGwsIm9wcG9ydHVuaXR5X2lkIjpudWxsfX1d"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5736f8ba29ccf0151c3b-4b5a61dfc7afbe89d4de",
+          "file": "proposal-context.spec.ts",
+          "line": 43,
+          "column": 5
+        },
+        {
+          "title": "old proposal is retired after customer switch",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1137,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:24:40.450Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "context-and-proposals",
+                      "contentType": "application/json",
+                      "body": "eyJzZWxlY3RlZCI6IjEwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMyIsInByb3Bvc2FscyI6W3sic291cmNlIjoidGV4dCIsImRyYWZ0Ijp7ImN1c3RvbWVyX2lkIjoiMTAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiaXNzdWVfb24iOiIyMDI2LTEwLTIwIiwiZHVlX29uIjpudWxsLCJzZXJpZXMiOiJBIiwiY3VycmVuY3kiOiJFVVIiLCJsaW5lcyI6W3siZGVzY3JpcHRpb24iOiJzb3BvcnRlIiwicXVhbnRpdHlfbWlsbGkiOjEwMDAsInVuaXRfcHJpY2VfbWlub3IiOjMwMDAwLCJkaXNjb3VudF9icHMiOjAsInRheF9icHMiOjIxMDAsIndpdGhob2xkaW5nX2JwcyI6MH1dLCJub3RlcyI6bnVsbCwiY29udHJhY3RfaWQiOm51bGwsInNlcnZpY2VfaWQiOm51bGwsIm9wcG9ydHVuaXR5X2lkIjpudWxsfX1dLCJlZGl0b3JDdXN0b21lciI6bnVsbH0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5736f8ba29ccf0151c3b-d17a728de3a479eba458",
+          "file": "proposal-context.spec.ts",
+          "line": 55,
+          "column": 32
+        },
+        {
+          "title": "old proposal is retired after customer removal",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1353,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:24:41.625Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "context-and-proposals",
+                      "contentType": "application/json",
+                      "body": "eyJzZWxlY3RlZCI6IiIsInByb3Bvc2FscyI6W3sic291cmNlIjoidGV4dCIsImRyYWZ0Ijp7ImN1c3RvbWVyX2lkIjoiMTAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiaXNzdWVfb24iOiIyMDI2LTEwLTIwIiwiZHVlX29uIjpudWxsLCJzZXJpZXMiOiJBIiwiY3VycmVuY3kiOiJFVVIiLCJsaW5lcyI6W3siZGVzY3JpcHRpb24iOiJzb3BvcnRlIiwicXVhbnRpdHlfbWlsbGkiOjEwMDAsInVuaXRfcHJpY2VfbWlub3IiOjMwMDAwLCJkaXNjb3VudF9icHMiOjAsInRheF9icHMiOjIxMDAsIndpdGhob2xkaW5nX2JwcyI6MH1dLCJub3RlcyI6bnVsbCwiY29udHJhY3RfaWQiOm51bGwsInNlcnZpY2VfaWQiOm51bGwsIm9wcG9ydHVuaXR5X2lkIjpudWxsfX1dLCJlZGl0b3JDdXN0b21lciI6bnVsbH0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5736f8ba29ccf0151c3b-4909cc9d21f375f6cb05",
+          "file": "proposal-context.spec.ts",
+          "line": 55,
+          "column": 32
+        },
+        {
+          "title": "failure from old customer does not contaminate a newer accepted proposal",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1278,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:24:43.014Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "observed-proposals",
+                      "contentType": "application/json",
+                      "body": "W3sic291cmNlIjoidGV4dCIsImRyYWZ0Ijp7ImN1c3RvbWVyX2lkIjoiMTAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiaXNzdWVfb24iOiIyMDI2LTEwLTIwIiwiZHVlX29uIjpudWxsLCJzZXJpZXMiOiJBIiwiY3VycmVuY3kiOiJFVVIiLCJsaW5lcyI6W3siZGVzY3JpcHRpb24iOiJzb3BvcnRlIiwicXVhbnRpdHlfbWlsbGkiOjEwMDAsInVuaXRfcHJpY2VfbWlub3IiOjMwMDAwLCJkaXNjb3VudF9icHMiOjAsInRheF9icHMiOjIxMDAsIndpdGhob2xkaW5nX2JwcyI6MH1dLCJub3RlcyI6bnVsbCwiY29udHJhY3RfaWQiOm51bGwsInNlcnZpY2VfaWQiOm51bGwsIm9wcG9ydHVuaXR5X2lkIjpudWxsfX0seyJzb3VyY2UiOiJ0ZXh0IiwiZHJhZnQiOnsiY3VzdG9tZXJfaWQiOiIxMDAwMDAwMC0wMDAwLTQwMDAtODAwMC0wMDAwMDAwMDAwMDMiLCJpc3N1ZV9vbiI6IjIwMjYtMTAtMjAiLCJkdWVfb24iOm51bGwsInNlcmllcyI6IkEiLCJjdXJyZW5jeSI6IkVVUiIsImxpbmVzIjpbeyJkZXNjcmlwdGlvbiI6InNvcG9ydGUiLCJxdWFudGl0eV9taWxsaSI6MTAwMCwidW5pdF9wcmljZV9taW5vciI6MzAwMDAsImRpc2NvdW50X2JwcyI6MCwidGF4X2JwcyI6MjEwMCwid2l0aGhvbGRpbmdfYnBzIjowfV0sIm5vdGVzIjpudWxsLCJjb250cmFjdF9pZCI6bnVsbCwic2VydmljZV9pZCI6bnVsbCwib3Bwb3J0dW5pdHlfaWQiOm51bGx9fV0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5736f8ba29ccf0151c3b-1b7aa5726387a6292ba1",
+          "file": "proposal-context.spec.ts",
+          "line": 69,
+          "column": 5
+        },
+        {
+          "title": "original comma concept opens an editable support proposal",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 991,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:24:44.324Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "observed-proposals",
+                      "contentType": "application/json",
+                      "body": "W3sic291cmNlIjoidGV4dCIsImRyYWZ0Ijp7ImN1c3RvbWVyX2lkIjoiMTAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiaXNzdWVfb24iOiIyMDI2LTEwLTIwIiwiZHVlX29uIjoiMjAyNi0xMS0wNCIsInNlcmllcyI6IkEiLCJjdXJyZW5jeSI6IkVVUiIsImxpbmVzIjpbeyJkZXNjcmlwdGlvbiI6InNvcG9ydGUiLCJxdWFudGl0eV9taWxsaSI6MTAwMCwidW5pdF9wcmljZV9taW5vciI6MzAwMDAsImRpc2NvdW50X2JwcyI6MCwidGF4X2JwcyI6MjEwMCwid2l0aGhvbGRpbmdfYnBzIjowfV0sIm5vdGVzIjpudWxsLCJjb250cmFjdF9pZCI6bnVsbCwic2VydmljZV9pZCI6bnVsbCwib3Bwb3J0dW5pdHlfaWQiOm51bGx9fV0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5736f8ba29ccf0151c3b-20e24b4ebf182acc0e30",
+          "file": "proposal-context.spec.ts",
+          "line": 84,
+          "column": 5
+        },
+        {
+          "title": "held proposal still opens when customer context is unchanged",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1240,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:24:46.425Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "observed-proposals",
+                      "contentType": "application/json",
+                      "body": "W3sic291cmNlIjoidGV4dCIsImRyYWZ0Ijp7ImN1c3RvbWVyX2lkIjoiMTAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiaXNzdWVfb24iOiIyMDI2LTEwLTIwIiwiZHVlX29uIjpudWxsLCJzZXJpZXMiOiJBIiwiY3VycmVuY3kiOiJFVVIiLCJsaW5lcyI6W3siZGVzY3JpcHRpb24iOiJzb3BvcnRlIiwicXVhbnRpdHlfbWlsbGkiOjEwMDAsInVuaXRfcHJpY2VfbWlub3IiOjMwMDAwLCJkaXNjb3VudF9icHMiOjAsInRheF9icHMiOjIxMDAsIndpdGhob2xkaW5nX2JwcyI6MH1dLCJub3RlcyI6bnVsbCwiY29udHJhY3RfaWQiOm51bGwsInNlcnZpY2VfaWQiOm51bGwsIm9wcG9ydHVuaXR5X2lkIjpudWxsfX1d"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5736f8ba29ccf0151c3b-0d6464f783509a577259",
+          "file": "proposal-context.spec.ts",
+          "line": 43,
+          "column": 5
+        },
+        {
+          "title": "old proposal is retired after customer switch",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1132,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:24:52.450Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "context-and-proposals",
+                      "contentType": "application/json",
+                      "body": "eyJzZWxlY3RlZCI6IjEwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMyIsInByb3Bvc2FscyI6W3sic291cmNlIjoidGV4dCIsImRyYWZ0Ijp7ImN1c3RvbWVyX2lkIjoiMTAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiaXNzdWVfb24iOiIyMDI2LTEwLTIwIiwiZHVlX29uIjpudWxsLCJzZXJpZXMiOiJBIiwiY3VycmVuY3kiOiJFVVIiLCJsaW5lcyI6W3siZGVzY3JpcHRpb24iOiJzb3BvcnRlIiwicXVhbnRpdHlfbWlsbGkiOjEwMDAsInVuaXRfcHJpY2VfbWlub3IiOjMwMDAwLCJkaXNjb3VudF9icHMiOjAsInRheF9icHMiOjIxMDAsIndpdGhob2xkaW5nX2JwcyI6MH1dLCJub3RlcyI6bnVsbCwiY29udHJhY3RfaWQiOm51bGwsInNlcnZpY2VfaWQiOm51bGwsIm9wcG9ydHVuaXR5X2lkIjpudWxsfX1dLCJlZGl0b3JDdXN0b21lciI6bnVsbH0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5736f8ba29ccf0151c3b-258256852af4deec36e7",
+          "file": "proposal-context.spec.ts",
+          "line": 55,
+          "column": 32
+        },
+        {
+          "title": "old proposal is retired after customer removal",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1212,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:24:53.617Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "context-and-proposals",
+                      "contentType": "application/json",
+                      "body": "eyJzZWxlY3RlZCI6IiIsInByb3Bvc2FscyI6W3sic291cmNlIjoidGV4dCIsImRyYWZ0Ijp7ImN1c3RvbWVyX2lkIjoiMTAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiaXNzdWVfb24iOiIyMDI2LTEwLTIwIiwiZHVlX29uIjpudWxsLCJzZXJpZXMiOiJBIiwiY3VycmVuY3kiOiJFVVIiLCJsaW5lcyI6W3siZGVzY3JpcHRpb24iOiJzb3BvcnRlIiwicXVhbnRpdHlfbWlsbGkiOjEwMDAsInVuaXRfcHJpY2VfbWlub3IiOjMwMDAwLCJkaXNjb3VudF9icHMiOjAsInRheF9icHMiOjIxMDAsIndpdGhob2xkaW5nX2JwcyI6MH1dLCJub3RlcyI6bnVsbCwiY29udHJhY3RfaWQiOm51bGwsInNlcnZpY2VfaWQiOm51bGwsIm9wcG9ydHVuaXR5X2lkIjpudWxsfX1dLCJlZGl0b3JDdXN0b21lciI6bnVsbH0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5736f8ba29ccf0151c3b-ea97e5d4684581aae431",
+          "file": "proposal-context.spec.ts",
+          "line": 55,
+          "column": 32
+        },
+        {
+          "title": "failure from old customer does not contaminate a newer accepted proposal",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1503,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:24:54.861Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "observed-proposals",
+                      "contentType": "application/json",
+                      "body": "W3sic291cmNlIjoidGV4dCIsImRyYWZ0Ijp7ImN1c3RvbWVyX2lkIjoiMTAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiaXNzdWVfb24iOiIyMDI2LTEwLTIwIiwiZHVlX29uIjpudWxsLCJzZXJpZXMiOiJBIiwiY3VycmVuY3kiOiJFVVIiLCJsaW5lcyI6W3siZGVzY3JpcHRpb24iOiJzb3BvcnRlIiwicXVhbnRpdHlfbWlsbGkiOjEwMDAsInVuaXRfcHJpY2VfbWlub3IiOjMwMDAwLCJkaXNjb3VudF9icHMiOjAsInRheF9icHMiOjIxMDAsIndpdGhob2xkaW5nX2JwcyI6MH1dLCJub3RlcyI6bnVsbCwiY29udHJhY3RfaWQiOm51bGwsInNlcnZpY2VfaWQiOm51bGwsIm9wcG9ydHVuaXR5X2lkIjpudWxsfX0seyJzb3VyY2UiOiJ0ZXh0IiwiZHJhZnQiOnsiY3VzdG9tZXJfaWQiOiIxMDAwMDAwMC0wMDAwLTQwMDAtODAwMC0wMDAwMDAwMDAwMDMiLCJpc3N1ZV9vbiI6IjIwMjYtMTAtMjAiLCJkdWVfb24iOm51bGwsInNlcmllcyI6IkEiLCJjdXJyZW5jeSI6IkVVUiIsImxpbmVzIjpbeyJkZXNjcmlwdGlvbiI6InNvcG9ydGUiLCJxdWFudGl0eV9taWxsaSI6MTAwMCwidW5pdF9wcmljZV9taW5vciI6MzAwMDAsImRpc2NvdW50X2JwcyI6MCwidGF4X2JwcyI6MjEwMCwid2l0aGhvbGRpbmdfYnBzIjowfV0sIm5vdGVzIjpudWxsLCJjb250cmFjdF9pZCI6bnVsbCwic2VydmljZV9pZCI6bnVsbCwib3Bwb3J0dW5pdHlfaWQiOm51bGx9fV0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5736f8ba29ccf0151c3b-6c66e4430727c4966064",
+          "file": "proposal-context.spec.ts",
+          "line": 69,
+          "column": 5
+        },
+        {
+          "title": "original comma concept opens an editable support proposal",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1071,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:24:56.390Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "observed-proposals",
+                      "contentType": "application/json",
+                      "body": "W3sic291cmNlIjoidGV4dCIsImRyYWZ0Ijp7ImN1c3RvbWVyX2lkIjoiMTAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiaXNzdWVfb24iOiIyMDI2LTEwLTIwIiwiZHVlX29uIjoiMjAyNi0xMS0wNCIsInNlcmllcyI6IkEiLCJjdXJyZW5jeSI6IkVVUiIsImxpbmVzIjpbeyJkZXNjcmlwdGlvbiI6InNvcG9ydGUiLCJxdWFudGl0eV9taWxsaSI6MTAwMCwidW5pdF9wcmljZV9taW5vciI6MzAwMDAsImRpc2NvdW50X2JwcyI6MCwidGF4X2JwcyI6MjEwMCwid2l0aGhvbGRpbmdfYnBzIjowfV0sIm5vdGVzIjpudWxsLCJjb250cmFjdF9pZCI6bnVsbCwic2VydmljZV9pZCI6bnVsbCwib3Bwb3J0dW5pdHlfaWQiOm51bGx9fV0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5736f8ba29ccf0151c3b-519fb4af26f6a028e42a",
+          "file": "proposal-context.spec.ts",
+          "line": 84,
+          "column": 5
+        },
+        {
+          "title": "held proposal still opens when customer context is unchanged",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1253,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:24:58.553Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "observed-proposals",
+                      "contentType": "application/json",
+                      "body": "W3sic291cmNlIjoidGV4dCIsImRyYWZ0Ijp7ImN1c3RvbWVyX2lkIjoiMTAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiaXNzdWVfb24iOiIyMDI2LTEwLTIwIiwiZHVlX29uIjpudWxsLCJzZXJpZXMiOiJBIiwiY3VycmVuY3kiOiJFVVIiLCJsaW5lcyI6W3siZGVzY3JpcHRpb24iOiJzb3BvcnRlIiwicXVhbnRpdHlfbWlsbGkiOjEwMDAsInVuaXRfcHJpY2VfbWlub3IiOjMwMDAwLCJkaXNjb3VudF9icHMiOjAsInRheF9icHMiOjIxMDAsIndpdGhob2xkaW5nX2JwcyI6MH1dLCJub3RlcyI6bnVsbCwiY29udHJhY3RfaWQiOm51bGwsInNlcnZpY2VfaWQiOm51bGwsIm9wcG9ydHVuaXR5X2lkIjpudWxsfX1d"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5736f8ba29ccf0151c3b-6c6253e226ed40c1ac5a",
+          "file": "proposal-context.spec.ts",
+          "line": 43,
+          "column": 5
+        },
+        {
+          "title": "old proposal is retired after customer switch",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1170,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:25:04.211Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "context-and-proposals",
+                      "contentType": "application/json",
+                      "body": "eyJzZWxlY3RlZCI6IjEwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMyIsInByb3Bvc2FscyI6W3sic291cmNlIjoidGV4dCIsImRyYWZ0Ijp7ImN1c3RvbWVyX2lkIjoiMTAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiaXNzdWVfb24iOiIyMDI2LTEwLTIwIiwiZHVlX29uIjpudWxsLCJzZXJpZXMiOiJBIiwiY3VycmVuY3kiOiJFVVIiLCJsaW5lcyI6W3siZGVzY3JpcHRpb24iOiJzb3BvcnRlIiwicXVhbnRpdHlfbWlsbGkiOjEwMDAsInVuaXRfcHJpY2VfbWlub3IiOjMwMDAwLCJkaXNjb3VudF9icHMiOjAsInRheF9icHMiOjIxMDAsIndpdGhob2xkaW5nX2JwcyI6MH1dLCJub3RlcyI6bnVsbCwiY29udHJhY3RfaWQiOm51bGwsInNlcnZpY2VfaWQiOm51bGwsIm9wcG9ydHVuaXR5X2lkIjpudWxsfX1dLCJlZGl0b3JDdXN0b21lciI6bnVsbH0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5736f8ba29ccf0151c3b-cd9a2512e823dded834a",
+          "file": "proposal-context.spec.ts",
+          "line": 55,
+          "column": 32
+        },
+        {
+          "title": "old proposal is retired after customer removal",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1422,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:25:05.447Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "context-and-proposals",
+                      "contentType": "application/json",
+                      "body": "eyJzZWxlY3RlZCI6IiIsInByb3Bvc2FscyI6W3sic291cmNlIjoidGV4dCIsImRyYWZ0Ijp7ImN1c3RvbWVyX2lkIjoiMTAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiaXNzdWVfb24iOiIyMDI2LTEwLTIwIiwiZHVlX29uIjpudWxsLCJzZXJpZXMiOiJBIiwiY3VycmVuY3kiOiJFVVIiLCJsaW5lcyI6W3siZGVzY3JpcHRpb24iOiJzb3BvcnRlIiwicXVhbnRpdHlfbWlsbGkiOjEwMDAsInVuaXRfcHJpY2VfbWlub3IiOjMwMDAwLCJkaXNjb3VudF9icHMiOjAsInRheF9icHMiOjIxMDAsIndpdGhob2xkaW5nX2JwcyI6MH1dLCJub3RlcyI6bnVsbCwiY29udHJhY3RfaWQiOm51bGwsInNlcnZpY2VfaWQiOm51bGwsIm9wcG9ydHVuaXR5X2lkIjpudWxsfX1dLCJlZGl0b3JDdXN0b21lciI6bnVsbH0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5736f8ba29ccf0151c3b-06707169bcd25122b06b",
+          "file": "proposal-context.spec.ts",
+          "line": 55,
+          "column": 32
+        },
+        {
+          "title": "failure from old customer does not contaminate a newer accepted proposal",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1319,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:25:06.902Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "observed-proposals",
+                      "contentType": "application/json",
+                      "body": "W3sic291cmNlIjoidGV4dCIsImRyYWZ0Ijp7ImN1c3RvbWVyX2lkIjoiMTAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiaXNzdWVfb24iOiIyMDI2LTEwLTIwIiwiZHVlX29uIjpudWxsLCJzZXJpZXMiOiJBIiwiY3VycmVuY3kiOiJFVVIiLCJsaW5lcyI6W3siZGVzY3JpcHRpb24iOiJzb3BvcnRlIiwicXVhbnRpdHlfbWlsbGkiOjEwMDAsInVuaXRfcHJpY2VfbWlub3IiOjMwMDAwLCJkaXNjb3VudF9icHMiOjAsInRheF9icHMiOjIxMDAsIndpdGhob2xkaW5nX2JwcyI6MH1dLCJub3RlcyI6bnVsbCwiY29udHJhY3RfaWQiOm51bGwsInNlcnZpY2VfaWQiOm51bGwsIm9wcG9ydHVuaXR5X2lkIjpudWxsfX0seyJzb3VyY2UiOiJ0ZXh0IiwiZHJhZnQiOnsiY3VzdG9tZXJfaWQiOiIxMDAwMDAwMC0wMDAwLTQwMDAtODAwMC0wMDAwMDAwMDAwMDMiLCJpc3N1ZV9vbiI6IjIwMjYtMTAtMjAiLCJkdWVfb24iOm51bGwsInNlcmllcyI6IkEiLCJjdXJyZW5jeSI6IkVVUiIsImxpbmVzIjpbeyJkZXNjcmlwdGlvbiI6InNvcG9ydGUiLCJxdWFudGl0eV9taWxsaSI6MTAwMCwidW5pdF9wcmljZV9taW5vciI6MzAwMDAsImRpc2NvdW50X2JwcyI6MCwidGF4X2JwcyI6MjEwMCwid2l0aGhvbGRpbmdfYnBzIjowfV0sIm5vdGVzIjpudWxsLCJjb250cmFjdF9pZCI6bnVsbCwic2VydmljZV9pZCI6bnVsbCwib3Bwb3J0dW5pdHlfaWQiOm51bGx9fV0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5736f8ba29ccf0151c3b-315ace7b95b27e8537a2",
+          "file": "proposal-context.spec.ts",
+          "line": 69,
+          "column": 5
+        },
+        {
+          "title": "original comma concept opens an editable support proposal",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1121,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:25:08.246Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "observed-proposals",
+                      "contentType": "application/json",
+                      "body": "W3sic291cmNlIjoidGV4dCIsImRyYWZ0Ijp7ImN1c3RvbWVyX2lkIjoiMTAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiaXNzdWVfb24iOiIyMDI2LTEwLTIwIiwiZHVlX29uIjoiMjAyNi0xMS0wNCIsInNlcmllcyI6IkEiLCJjdXJyZW5jeSI6IkVVUiIsImxpbmVzIjpbeyJkZXNjcmlwdGlvbiI6InNvcG9ydGUiLCJxdWFudGl0eV9taWxsaSI6MTAwMCwidW5pdF9wcmljZV9taW5vciI6MzAwMDAsImRpc2NvdW50X2JwcyI6MCwidGF4X2JwcyI6MjEwMCwid2l0aGhvbGRpbmdfYnBzIjowfV0sIm5vdGVzIjpudWxsLCJjb250cmFjdF9pZCI6bnVsbCwic2VydmljZV9pZCI6bnVsbCwib3Bwb3J0dW5pdHlfaWQiOm51bGx9fV0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5736f8ba29ccf0151c3b-5585b80da37dbad55670",
+          "file": "proposal-context.spec.ts",
+          "line": 84,
+          "column": 5
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-19T22:24:33.639Z",
+    "duration": 36215.878,
+    "expected": 15,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

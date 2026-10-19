@@ -1,0 +1,983 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--config",
+      "tools/oier_billing_qa/browser.config.ts"
+    ],
+    "configFile": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\browser.config.ts",
+    "rootDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-billing-fixes-20261020/tools/oier_billing_qa",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-billing-fixes-20261020/night-unit04-attempt01/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "controlled-http-390",
+        "name": "controlled-http-390",
+        "testDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-billing-fixes-20261020/tools/oier_billing_qa",
+        "testIgnore": [],
+        "testMatch": [
+          "proposal-context.spec.ts"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-billing-fixes-20261020/night-unit04-attempt01/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "controlled-http-768",
+        "name": "controlled-http-768",
+        "testDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-billing-fixes-20261020/tools/oier_billing_qa",
+        "testIgnore": [],
+        "testMatch": [
+          "proposal-context.spec.ts"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-billing-fixes-20261020/night-unit04-attempt01/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "controlled-http-1440",
+        "name": "controlled-http-1440",
+        "testDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-billing-fixes-20261020/tools/oier_billing_qa",
+        "testIgnore": [],
+        "testMatch": [
+          "proposal-context.spec.ts"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "line",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\night-unit04-attempt01\\results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.61.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "proposal-context.spec.ts",
+      "file": "proposal-context.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "held proposal still opens when customer context is unchanged",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3316,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:18:14.948Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "observed-proposals",
+                      "contentType": "application/json",
+                      "body": "W3sic291cmNlIjoidGV4dCIsImRyYWZ0Ijp7ImN1c3RvbWVyX2lkIjoiMTAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiaXNzdWVfb24iOiIyMDI2LTEwLTIwIiwiZHVlX29uIjpudWxsLCJzZXJpZXMiOiJBIiwiY3VycmVuY3kiOiJFVVIiLCJsaW5lcyI6W3siZGVzY3JpcHRpb24iOiJzb3BvcnRlIiwicXVhbnRpdHlfbWlsbGkiOjEwMDAsInVuaXRfcHJpY2VfbWlub3IiOjMwMDAwLCJkaXNjb3VudF9icHMiOjAsInRheF9icHMiOjIxMDAsIndpdGhob2xkaW5nX2JwcyI6MH1dLCJub3RlcyI6bnVsbCwiY29udHJhY3RfaWQiOm51bGwsInNlcnZpY2VfaWQiOm51bGwsIm9wcG9ydHVuaXR5X2lkIjpudWxsfX1d"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5736f8ba29ccf0151c3b-4b5a61dfc7afbe89d4de",
+          "file": "proposal-context.spec.ts",
+          "line": 43,
+          "column": 5
+        },
+        {
+          "title": "old proposal is retired after customer switch",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "timedOut",
+                  "duration": 45409,
+                  "error": {
+                    "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m",
+                    "stack": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+                  },
+                  "errors": [
+                    {
+                      "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+                    },
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-context.spec.ts",
+                        "column": 73,
+                        "line": 63
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByLabel('Cliente de factura', { exact: true })\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31mundefined\u001b[39m\n\n\n  61 |   await r.completeOld()\n  62 |   await info.attach('context-and-proposals',{body:JSON.stringify({selected:target,proposals:r.proposals,editorCustomer:await page.getByLabel('Cliente de factura',{exact:true}).inputValue().catch(()=>null)}),contentType:'application/json'})\n> 63 |   await expect.soft(page.getByLabel('Cliente de factura',{exact:true})).toHaveCount(0)\n     |                                                                         ^\n  64 |   expect(r.commands).toEqual([]);expect(r.pageErrors).toEqual([])\n  65 |  }finally{await r.close()}\n  66 | })\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-context.spec.ts:63:73"
+                    },
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-context.spec.ts",
+                        "column": 139,
+                        "line": 41
+                      },
+                      "message": "Error: page.unrouteAll: Target page, context or browser has been closed\n\n  39 |  async function generate(text:string){await page.getByRole('textbox',{name:'Descripción de la factura',exact:true}).fill(text);await page.getByRole('button',{name:'Generar propuesta',exact:true}).click()}\n  40 |  async function completeOld(){release();await expect.poll(()=>done).toBe(true);await page.evaluate(()=>new Promise<void>(resolve=>requestAnimationFrame(()=>requestAnimationFrame(()=>resolve()))))}\n> 41 |  return {generate,release,completeOld,commands,proposals,pageErrors,waitHeld:()=>expect.poll(()=>held).toBe(true),async close(){release();await page.unrouteAll({behavior:'wait'})}}\n     |                                                                                                                                           ^\n  42 | }\n  43 | test('held proposal still opens when customer context is unchanged',async({page},info)=>{\n  44 |  const r=await scenario(page)\n    at Object.close (C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-context.spec.ts:41:139)\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-context.spec.ts:65:11"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:18:31.283Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\night-unit04-attempt01\\artifacts\\proposal-context-old-propo-17cfd-tired-after-customer-switch-controlled-http-390\\test-failed-1.png"
+                    },
+                    {
+                      "name": "context-and-proposals",
+                      "contentType": "application/json",
+                      "body": "eyJzZWxlY3RlZCI6IjEwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMyIsInByb3Bvc2FscyI6W3sic291cmNlIjoidGV4dCIsImRyYWZ0Ijp7ImN1c3RvbWVyX2lkIjoiMTAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiaXNzdWVfb24iOiIyMDI2LTEwLTIwIiwiZHVlX29uIjpudWxsLCJzZXJpZXMiOiJBIiwiY3VycmVuY3kiOiJFVVIiLCJsaW5lcyI6W3siZGVzY3JpcHRpb24iOiJzb3BvcnRlIiwicXVhbnRpdHlfbWlsbGkiOjEwMDAsInVuaXRfcHJpY2VfbWlub3IiOjMwMDAwLCJkaXNjb3VudF9icHMiOjAsInRheF9icHMiOjIxMDAsIndpdGhob2xkaW5nX2JwcyI6MH1dLCJub3RlcyI6bnVsbCwiY29udHJhY3RfaWQiOm51bGwsInNlcnZpY2VfaWQiOm51bGwsIm9wcG9ydHVuaXR5X2lkIjpudWxsfX1dLCJlZGl0b3JDdXN0b21lciI6bnVsbH0="
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\night-unit04-attempt01\\artifacts\\proposal-context-old-propo-17cfd-tired-after-customer-switch-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\night-unit04-attempt01\\artifacts\\proposal-context-old-propo-17cfd-tired-after-customer-switch-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\night-unit04-attempt01\\artifacts\\proposal-context-old-propo-17cfd-tired-after-customer-switch-controlled-http-390\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "5736f8ba29ccf0151c3b-d17a728de3a479eba458",
+          "file": "proposal-context.spec.ts",
+          "line": 55,
+          "column": 32
+        },
+        {
+          "title": "old proposal is retired after customer removal",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "timedOut",
+                  "duration": 45418,
+                  "error": {
+                    "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m",
+                    "stack": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+                  },
+                  "errors": [
+                    {
+                      "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+                    },
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-context.spec.ts",
+                        "column": 73,
+                        "line": 63
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByLabel('Cliente de factura', { exact: true })\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31mundefined\u001b[39m\n\n\n  61 |   await r.completeOld()\n  62 |   await info.attach('context-and-proposals',{body:JSON.stringify({selected:target,proposals:r.proposals,editorCustomer:await page.getByLabel('Cliente de factura',{exact:true}).inputValue().catch(()=>null)}),contentType:'application/json'})\n> 63 |   await expect.soft(page.getByLabel('Cliente de factura',{exact:true})).toHaveCount(0)\n     |                                                                         ^\n  64 |   expect(r.commands).toEqual([]);expect(r.pageErrors).toEqual([])\n  65 |  }finally{await r.close()}\n  66 | })\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-context.spec.ts:63:73"
+                    },
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-context.spec.ts",
+                        "column": 139,
+                        "line": 41
+                      },
+                      "message": "Error: page.unrouteAll: Target page, context or browser has been closed\n\n  39 |  async function generate(text:string){await page.getByRole('textbox',{name:'Descripción de la factura',exact:true}).fill(text);await page.getByRole('button',{name:'Generar propuesta',exact:true}).click()}\n  40 |  async function completeOld(){release();await expect.poll(()=>done).toBe(true);await page.evaluate(()=>new Promise<void>(resolve=>requestAnimationFrame(()=>requestAnimationFrame(()=>resolve()))))}\n> 41 |  return {generate,release,completeOld,commands,proposals,pageErrors,waitHeld:()=>expect.poll(()=>held).toBe(true),async close(){release();await page.unrouteAll({behavior:'wait'})}}\n     |                                                                                                                                           ^\n  42 | }\n  43 | test('held proposal still opens when customer context is unchanged',async({page},info)=>{\n  44 |  const r=await scenario(page)\n    at Object.close (C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-context.spec.ts:41:139)\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-context.spec.ts:65:11"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:19:18.390Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\night-unit04-attempt01\\artifacts\\proposal-context-old-propo-26c4f-ired-after-customer-removal-controlled-http-390\\test-failed-1.png"
+                    },
+                    {
+                      "name": "context-and-proposals",
+                      "contentType": "application/json",
+                      "body": "eyJzZWxlY3RlZCI6IiIsInByb3Bvc2FscyI6W3sic291cmNlIjoidGV4dCIsImRyYWZ0Ijp7ImN1c3RvbWVyX2lkIjoiMTAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiaXNzdWVfb24iOiIyMDI2LTEwLTIwIiwiZHVlX29uIjpudWxsLCJzZXJpZXMiOiJBIiwiY3VycmVuY3kiOiJFVVIiLCJsaW5lcyI6W3siZGVzY3JpcHRpb24iOiJzb3BvcnRlIiwicXVhbnRpdHlfbWlsbGkiOjEwMDAsInVuaXRfcHJpY2VfbWlub3IiOjMwMDAwLCJkaXNjb3VudF9icHMiOjAsInRheF9icHMiOjIxMDAsIndpdGhob2xkaW5nX2JwcyI6MH1dLCJub3RlcyI6bnVsbCwiY29udHJhY3RfaWQiOm51bGwsInNlcnZpY2VfaWQiOm51bGwsIm9wcG9ydHVuaXR5X2lkIjpudWxsfX1dLCJlZGl0b3JDdXN0b21lciI6bnVsbH0="
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\night-unit04-attempt01\\artifacts\\proposal-context-old-propo-26c4f-ired-after-customer-removal-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\night-unit04-attempt01\\artifacts\\proposal-context-old-propo-26c4f-ired-after-customer-removal-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\night-unit04-attempt01\\artifacts\\proposal-context-old-propo-26c4f-ired-after-customer-removal-controlled-http-390\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "5736f8ba29ccf0151c3b-4909cc9d21f375f6cb05",
+          "file": "proposal-context.spec.ts",
+          "line": 55,
+          "column": 32
+        },
+        {
+          "title": "failure from old customer does not contaminate a newer accepted proposal",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1704,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:20:12.688Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "observed-proposals",
+                      "contentType": "application/json",
+                      "body": "W3sic291cmNlIjoidGV4dCIsImRyYWZ0Ijp7ImN1c3RvbWVyX2lkIjoiMTAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiaXNzdWVfb24iOiIyMDI2LTEwLTIwIiwiZHVlX29uIjpudWxsLCJzZXJpZXMiOiJBIiwiY3VycmVuY3kiOiJFVVIiLCJsaW5lcyI6W3siZGVzY3JpcHRpb24iOiJzb3BvcnRlIiwicXVhbnRpdHlfbWlsbGkiOjEwMDAsInVuaXRfcHJpY2VfbWlub3IiOjMwMDAwLCJkaXNjb3VudF9icHMiOjAsInRheF9icHMiOjIxMDAsIndpdGhob2xkaW5nX2JwcyI6MH1dLCJub3RlcyI6bnVsbCwiY29udHJhY3RfaWQiOm51bGwsInNlcnZpY2VfaWQiOm51bGwsIm9wcG9ydHVuaXR5X2lkIjpudWxsfX0seyJzb3VyY2UiOiJ0ZXh0IiwiZHJhZnQiOnsiY3VzdG9tZXJfaWQiOiIxMDAwMDAwMC0wMDAwLTQwMDAtODAwMC0wMDAwMDAwMDAwMDMiLCJpc3N1ZV9vbiI6IjIwMjYtMTAtMjAiLCJkdWVfb24iOm51bGwsInNlcmllcyI6IkEiLCJjdXJyZW5jeSI6IkVVUiIsImxpbmVzIjpbeyJkZXNjcmlwdGlvbiI6InNvcG9ydGUiLCJxdWFudGl0eV9taWxsaSI6MTAwMCwidW5pdF9wcmljZV9taW5vciI6MzAwMDAsImRpc2NvdW50X2JwcyI6MCwidGF4X2JwcyI6MjEwMCwid2l0aGhvbGRpbmdfYnBzIjowfV0sIm5vdGVzIjpudWxsLCJjb250cmFjdF9pZCI6bnVsbCwic2VydmljZV9pZCI6bnVsbCwib3Bwb3J0dW5pdHlfaWQiOm51bGx9fV0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5736f8ba29ccf0151c3b-1b7aa5726387a6292ba1",
+          "file": "proposal-context.spec.ts",
+          "line": 67,
+          "column": 5
+        },
+        {
+          "title": "original comma concept opens an editable support proposal",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1199,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:20:20.894Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "observed-proposals",
+                      "contentType": "application/json",
+                      "body": "W3sic291cmNlIjoidGV4dCIsImRyYWZ0Ijp7ImN1c3RvbWVyX2lkIjoiMTAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiaXNzdWVfb24iOiIyMDI2LTEwLTIwIiwiZHVlX29uIjoiMjAyNi0xMS0wNCIsInNlcmllcyI6IkEiLCJjdXJyZW5jeSI6IkVVUiIsImxpbmVzIjpbeyJkZXNjcmlwdGlvbiI6InNvcG9ydGUiLCJxdWFudGl0eV9taWxsaSI6MTAwMCwidW5pdF9wcmljZV9taW5vciI6MzAwMDAsImRpc2NvdW50X2JwcyI6MCwidGF4X2JwcyI6MjEwMCwid2l0aGhvbGRpbmdfYnBzIjowfV0sIm5vdGVzIjpudWxsLCJjb250cmFjdF9pZCI6bnVsbCwic2VydmljZV9pZCI6bnVsbCwib3Bwb3J0dW5pdHlfaWQiOm51bGx9fV0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5736f8ba29ccf0151c3b-20e24b4ebf182acc0e30",
+          "file": "proposal-context.spec.ts",
+          "line": 82,
+          "column": 5
+        },
+        {
+          "title": "held proposal still opens when customer context is unchanged",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1491,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:20:23.102Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "observed-proposals",
+                      "contentType": "application/json",
+                      "body": "W3sic291cmNlIjoidGV4dCIsImRyYWZ0Ijp7ImN1c3RvbWVyX2lkIjoiMTAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiaXNzdWVfb24iOiIyMDI2LTEwLTIwIiwiZHVlX29uIjpudWxsLCJzZXJpZXMiOiJBIiwiY3VycmVuY3kiOiJFVVIiLCJsaW5lcyI6W3siZGVzY3JpcHRpb24iOiJzb3BvcnRlIiwicXVhbnRpdHlfbWlsbGkiOjEwMDAsInVuaXRfcHJpY2VfbWlub3IiOjMwMDAwLCJkaXNjb3VudF9icHMiOjAsInRheF9icHMiOjIxMDAsIndpdGhob2xkaW5nX2JwcyI6MH1dLCJub3RlcyI6bnVsbCwiY29udHJhY3RfaWQiOm51bGwsInNlcnZpY2VfaWQiOm51bGwsIm9wcG9ydHVuaXR5X2lkIjpudWxsfX1d"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5736f8ba29ccf0151c3b-0d6464f783509a577259",
+          "file": "proposal-context.spec.ts",
+          "line": 43,
+          "column": 5
+        },
+        {
+          "title": "old proposal is retired after customer switch",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "timedOut",
+                  "duration": 45460,
+                  "error": {
+                    "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m",
+                    "stack": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+                  },
+                  "errors": [
+                    {
+                      "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+                    },
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-context.spec.ts",
+                        "column": 73,
+                        "line": 63
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByLabel('Cliente de factura', { exact: true })\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31mundefined\u001b[39m\n\n\n  61 |   await r.completeOld()\n  62 |   await info.attach('context-and-proposals',{body:JSON.stringify({selected:target,proposals:r.proposals,editorCustomer:await page.getByLabel('Cliente de factura',{exact:true}).inputValue().catch(()=>null)}),contentType:'application/json'})\n> 63 |   await expect.soft(page.getByLabel('Cliente de factura',{exact:true})).toHaveCount(0)\n     |                                                                         ^\n  64 |   expect(r.commands).toEqual([]);expect(r.pageErrors).toEqual([])\n  65 |  }finally{await r.close()}\n  66 | })\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-context.spec.ts:63:73"
+                    },
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-context.spec.ts",
+                        "column": 139,
+                        "line": 41
+                      },
+                      "message": "Error: page.unrouteAll: Target page, context or browser has been closed\n\n  39 |  async function generate(text:string){await page.getByRole('textbox',{name:'Descripción de la factura',exact:true}).fill(text);await page.getByRole('button',{name:'Generar propuesta',exact:true}).click()}\n  40 |  async function completeOld(){release();await expect.poll(()=>done).toBe(true);await page.evaluate(()=>new Promise<void>(resolve=>requestAnimationFrame(()=>requestAnimationFrame(()=>resolve()))))}\n> 41 |  return {generate,release,completeOld,commands,proposals,pageErrors,waitHeld:()=>expect.poll(()=>held).toBe(true),async close(){release();await page.unrouteAll({behavior:'wait'})}}\n     |                                                                                                                                           ^\n  42 | }\n  43 | test('held proposal still opens when customer context is unchanged',async({page},info)=>{\n  44 |  const r=await scenario(page)\n    at Object.close (C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-context.spec.ts:41:139)\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-context.spec.ts:65:11"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:20:32.518Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\night-unit04-attempt01\\artifacts\\proposal-context-old-propo-17cfd-tired-after-customer-switch-controlled-http-768\\test-failed-1.png"
+                    },
+                    {
+                      "name": "context-and-proposals",
+                      "contentType": "application/json",
+                      "body": "eyJzZWxlY3RlZCI6IjEwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMyIsInByb3Bvc2FscyI6W3sic291cmNlIjoidGV4dCIsImRyYWZ0Ijp7ImN1c3RvbWVyX2lkIjoiMTAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiaXNzdWVfb24iOiIyMDI2LTEwLTIwIiwiZHVlX29uIjpudWxsLCJzZXJpZXMiOiJBIiwiY3VycmVuY3kiOiJFVVIiLCJsaW5lcyI6W3siZGVzY3JpcHRpb24iOiJzb3BvcnRlIiwicXVhbnRpdHlfbWlsbGkiOjEwMDAsInVuaXRfcHJpY2VfbWlub3IiOjMwMDAwLCJkaXNjb3VudF9icHMiOjAsInRheF9icHMiOjIxMDAsIndpdGhob2xkaW5nX2JwcyI6MH1dLCJub3RlcyI6bnVsbCwiY29udHJhY3RfaWQiOm51bGwsInNlcnZpY2VfaWQiOm51bGwsIm9wcG9ydHVuaXR5X2lkIjpudWxsfX1dLCJlZGl0b3JDdXN0b21lciI6bnVsbH0="
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\night-unit04-attempt01\\artifacts\\proposal-context-old-propo-17cfd-tired-after-customer-switch-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\night-unit04-attempt01\\artifacts\\proposal-context-old-propo-17cfd-tired-after-customer-switch-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\night-unit04-attempt01\\artifacts\\proposal-context-old-propo-17cfd-tired-after-customer-switch-controlled-http-768\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "5736f8ba29ccf0151c3b-258256852af4deec36e7",
+          "file": "proposal-context.spec.ts",
+          "line": 55,
+          "column": 32
+        },
+        {
+          "title": "old proposal is retired after customer removal",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "timedOut",
+                  "duration": 45333,
+                  "error": {
+                    "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m",
+                    "stack": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+                  },
+                  "errors": [
+                    {
+                      "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+                    },
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-context.spec.ts",
+                        "column": 73,
+                        "line": 63
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByLabel('Cliente de factura', { exact: true })\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31mundefined\u001b[39m\n\n\n  61 |   await r.completeOld()\n  62 |   await info.attach('context-and-proposals',{body:JSON.stringify({selected:target,proposals:r.proposals,editorCustomer:await page.getByLabel('Cliente de factura',{exact:true}).inputValue().catch(()=>null)}),contentType:'application/json'})\n> 63 |   await expect.soft(page.getByLabel('Cliente de factura',{exact:true})).toHaveCount(0)\n     |                                                                         ^\n  64 |   expect(r.commands).toEqual([]);expect(r.pageErrors).toEqual([])\n  65 |  }finally{await r.close()}\n  66 | })\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-context.spec.ts:63:73"
+                    },
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-context.spec.ts",
+                        "column": 139,
+                        "line": 41
+                      },
+                      "message": "Error: page.unrouteAll: Target page, context or browser has been closed\n\n  39 |  async function generate(text:string){await page.getByRole('textbox',{name:'Descripción de la factura',exact:true}).fill(text);await page.getByRole('button',{name:'Generar propuesta',exact:true}).click()}\n  40 |  async function completeOld(){release();await expect.poll(()=>done).toBe(true);await page.evaluate(()=>new Promise<void>(resolve=>requestAnimationFrame(()=>requestAnimationFrame(()=>resolve()))))}\n> 41 |  return {generate,release,completeOld,commands,proposals,pageErrors,waitHeld:()=>expect.poll(()=>held).toBe(true),async close(){release();await page.unrouteAll({behavior:'wait'})}}\n     |                                                                                                                                           ^\n  42 | }\n  43 | test('held proposal still opens when customer context is unchanged',async({page},info)=>{\n  44 |  const r=await scenario(page)\n    at Object.close (C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-context.spec.ts:41:139)\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-context.spec.ts:65:11"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:21:19.150Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\night-unit04-attempt01\\artifacts\\proposal-context-old-propo-26c4f-ired-after-customer-removal-controlled-http-768\\test-failed-1.png"
+                    },
+                    {
+                      "name": "context-and-proposals",
+                      "contentType": "application/json",
+                      "body": "eyJzZWxlY3RlZCI6IiIsInByb3Bvc2FscyI6W3sic291cmNlIjoidGV4dCIsImRyYWZ0Ijp7ImN1c3RvbWVyX2lkIjoiMTAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiaXNzdWVfb24iOiIyMDI2LTEwLTIwIiwiZHVlX29uIjpudWxsLCJzZXJpZXMiOiJBIiwiY3VycmVuY3kiOiJFVVIiLCJsaW5lcyI6W3siZGVzY3JpcHRpb24iOiJzb3BvcnRlIiwicXVhbnRpdHlfbWlsbGkiOjEwMDAsInVuaXRfcHJpY2VfbWlub3IiOjMwMDAwLCJkaXNjb3VudF9icHMiOjAsInRheF9icHMiOjIxMDAsIndpdGhob2xkaW5nX2JwcyI6MH1dLCJub3RlcyI6bnVsbCwiY29udHJhY3RfaWQiOm51bGwsInNlcnZpY2VfaWQiOm51bGwsIm9wcG9ydHVuaXR5X2lkIjpudWxsfX1dLCJlZGl0b3JDdXN0b21lciI6bnVsbH0="
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\night-unit04-attempt01\\artifacts\\proposal-context-old-propo-26c4f-ired-after-customer-removal-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\night-unit04-attempt01\\artifacts\\proposal-context-old-propo-26c4f-ired-after-customer-removal-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\night-unit04-attempt01\\artifacts\\proposal-context-old-propo-26c4f-ired-after-customer-removal-controlled-http-768\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "5736f8ba29ccf0151c3b-ea97e5d4684581aae431",
+          "file": "proposal-context.spec.ts",
+          "line": 55,
+          "column": 32
+        },
+        {
+          "title": "failure from old customer does not contaminate a newer accepted proposal",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1554,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:22:10.477Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "observed-proposals",
+                      "contentType": "application/json",
+                      "body": "W3sic291cmNlIjoidGV4dCIsImRyYWZ0Ijp7ImN1c3RvbWVyX2lkIjoiMTAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiaXNzdWVfb24iOiIyMDI2LTEwLTIwIiwiZHVlX29uIjpudWxsLCJzZXJpZXMiOiJBIiwiY3VycmVuY3kiOiJFVVIiLCJsaW5lcyI6W3siZGVzY3JpcHRpb24iOiJzb3BvcnRlIiwicXVhbnRpdHlfbWlsbGkiOjEwMDAsInVuaXRfcHJpY2VfbWlub3IiOjMwMDAwLCJkaXNjb3VudF9icHMiOjAsInRheF9icHMiOjIxMDAsIndpdGhob2xkaW5nX2JwcyI6MH1dLCJub3RlcyI6bnVsbCwiY29udHJhY3RfaWQiOm51bGwsInNlcnZpY2VfaWQiOm51bGwsIm9wcG9ydHVuaXR5X2lkIjpudWxsfX0seyJzb3VyY2UiOiJ0ZXh0IiwiZHJhZnQiOnsiY3VzdG9tZXJfaWQiOiIxMDAwMDAwMC0wMDAwLTQwMDAtODAwMC0wMDAwMDAwMDAwMDMiLCJpc3N1ZV9vbiI6IjIwMjYtMTAtMjAiLCJkdWVfb24iOm51bGwsInNlcmllcyI6IkEiLCJjdXJyZW5jeSI6IkVVUiIsImxpbmVzIjpbeyJkZXNjcmlwdGlvbiI6InNvcG9ydGUiLCJxdWFudGl0eV9taWxsaSI6MTAwMCwidW5pdF9wcmljZV9taW5vciI6MzAwMDAsImRpc2NvdW50X2JwcyI6MCwidGF4X2JwcyI6MjEwMCwid2l0aGhvbGRpbmdfYnBzIjowfV0sIm5vdGVzIjpudWxsLCJjb250cmFjdF9pZCI6bnVsbCwic2VydmljZV9pZCI6bnVsbCwib3Bwb3J0dW5pdHlfaWQiOm51bGx9fV0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5736f8ba29ccf0151c3b-6c66e4430727c4966064",
+          "file": "proposal-context.spec.ts",
+          "line": 67,
+          "column": 5
+        },
+        {
+          "title": "original comma concept opens an editable support proposal",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 994,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:22:17.574Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "observed-proposals",
+                      "contentType": "application/json",
+                      "body": "W3sic291cmNlIjoidGV4dCIsImRyYWZ0Ijp7ImN1c3RvbWVyX2lkIjoiMTAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiaXNzdWVfb24iOiIyMDI2LTEwLTIwIiwiZHVlX29uIjoiMjAyNi0xMS0wNCIsInNlcmllcyI6IkEiLCJjdXJyZW5jeSI6IkVVUiIsImxpbmVzIjpbeyJkZXNjcmlwdGlvbiI6InNvcG9ydGUiLCJxdWFudGl0eV9taWxsaSI6MTAwMCwidW5pdF9wcmljZV9taW5vciI6MzAwMDAsImRpc2NvdW50X2JwcyI6MCwidGF4X2JwcyI6MjEwMCwid2l0aGhvbGRpbmdfYnBzIjowfV0sIm5vdGVzIjpudWxsLCJjb250cmFjdF9pZCI6bnVsbCwic2VydmljZV9pZCI6bnVsbCwib3Bwb3J0dW5pdHlfaWQiOm51bGx9fV0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5736f8ba29ccf0151c3b-519fb4af26f6a028e42a",
+          "file": "proposal-context.spec.ts",
+          "line": 82,
+          "column": 5
+        },
+        {
+          "title": "held proposal still opens when customer context is unchanged",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1303,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:22:19.604Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "observed-proposals",
+                      "contentType": "application/json",
+                      "body": "W3sic291cmNlIjoidGV4dCIsImRyYWZ0Ijp7ImN1c3RvbWVyX2lkIjoiMTAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiaXNzdWVfb24iOiIyMDI2LTEwLTIwIiwiZHVlX29uIjpudWxsLCJzZXJpZXMiOiJBIiwiY3VycmVuY3kiOiJFVVIiLCJsaW5lcyI6W3siZGVzY3JpcHRpb24iOiJzb3BvcnRlIiwicXVhbnRpdHlfbWlsbGkiOjEwMDAsInVuaXRfcHJpY2VfbWlub3IiOjMwMDAwLCJkaXNjb3VudF9icHMiOjAsInRheF9icHMiOjIxMDAsIndpdGhob2xkaW5nX2JwcyI6MH1dLCJub3RlcyI6bnVsbCwiY29udHJhY3RfaWQiOm51bGwsInNlcnZpY2VfaWQiOm51bGwsIm9wcG9ydHVuaXR5X2lkIjpudWxsfX1d"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5736f8ba29ccf0151c3b-6c6253e226ed40c1ac5a",
+          "file": "proposal-context.spec.ts",
+          "line": 43,
+          "column": 5
+        },
+        {
+          "title": "old proposal is retired after customer switch",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "timedOut",
+                  "duration": 45520,
+                  "error": {
+                    "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m",
+                    "stack": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+                  },
+                  "errors": [
+                    {
+                      "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+                    },
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-context.spec.ts",
+                        "column": 73,
+                        "line": 63
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByLabel('Cliente de factura', { exact: true })\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31mundefined\u001b[39m\n\n\n  61 |   await r.completeOld()\n  62 |   await info.attach('context-and-proposals',{body:JSON.stringify({selected:target,proposals:r.proposals,editorCustomer:await page.getByLabel('Cliente de factura',{exact:true}).inputValue().catch(()=>null)}),contentType:'application/json'})\n> 63 |   await expect.soft(page.getByLabel('Cliente de factura',{exact:true})).toHaveCount(0)\n     |                                                                         ^\n  64 |   expect(r.commands).toEqual([]);expect(r.pageErrors).toEqual([])\n  65 |  }finally{await r.close()}\n  66 | })\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-context.spec.ts:63:73"
+                    },
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-context.spec.ts",
+                        "column": 139,
+                        "line": 41
+                      },
+                      "message": "Error: page.unrouteAll: Target page, context or browser has been closed\n\n  39 |  async function generate(text:string){await page.getByRole('textbox',{name:'Descripción de la factura',exact:true}).fill(text);await page.getByRole('button',{name:'Generar propuesta',exact:true}).click()}\n  40 |  async function completeOld(){release();await expect.poll(()=>done).toBe(true);await page.evaluate(()=>new Promise<void>(resolve=>requestAnimationFrame(()=>requestAnimationFrame(()=>resolve()))))}\n> 41 |  return {generate,release,completeOld,commands,proposals,pageErrors,waitHeld:()=>expect.poll(()=>held).toBe(true),async close(){release();await page.unrouteAll({behavior:'wait'})}}\n     |                                                                                                                                           ^\n  42 | }\n  43 | test('held proposal still opens when customer context is unchanged',async({page},info)=>{\n  44 |  const r=await scenario(page)\n    at Object.close (C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-context.spec.ts:41:139)\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-context.spec.ts:65:11"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:22:25.840Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\night-unit04-attempt01\\artifacts\\proposal-context-old-propo-17cfd-tired-after-customer-switch-controlled-http-1440\\test-failed-1.png"
+                    },
+                    {
+                      "name": "context-and-proposals",
+                      "contentType": "application/json",
+                      "body": "eyJzZWxlY3RlZCI6IjEwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMyIsInByb3Bvc2FscyI6W3sic291cmNlIjoidGV4dCIsImRyYWZ0Ijp7ImN1c3RvbWVyX2lkIjoiMTAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiaXNzdWVfb24iOiIyMDI2LTEwLTIwIiwiZHVlX29uIjpudWxsLCJzZXJpZXMiOiJBIiwiY3VycmVuY3kiOiJFVVIiLCJsaW5lcyI6W3siZGVzY3JpcHRpb24iOiJzb3BvcnRlIiwicXVhbnRpdHlfbWlsbGkiOjEwMDAsInVuaXRfcHJpY2VfbWlub3IiOjMwMDAwLCJkaXNjb3VudF9icHMiOjAsInRheF9icHMiOjIxMDAsIndpdGhob2xkaW5nX2JwcyI6MH1dLCJub3RlcyI6bnVsbCwiY29udHJhY3RfaWQiOm51bGwsInNlcnZpY2VfaWQiOm51bGwsIm9wcG9ydHVuaXR5X2lkIjpudWxsfX1dLCJlZGl0b3JDdXN0b21lciI6bnVsbH0="
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\night-unit04-attempt01\\artifacts\\proposal-context-old-propo-17cfd-tired-after-customer-switch-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\night-unit04-attempt01\\artifacts\\proposal-context-old-propo-17cfd-tired-after-customer-switch-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\night-unit04-attempt01\\artifacts\\proposal-context-old-propo-17cfd-tired-after-customer-switch-controlled-http-1440\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "5736f8ba29ccf0151c3b-cd9a2512e823dded834a",
+          "file": "proposal-context.spec.ts",
+          "line": 55,
+          "column": 32
+        },
+        {
+          "title": "old proposal is retired after customer removal",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 7,
+                  "parallelIndex": 0,
+                  "status": "timedOut",
+                  "duration": 45414,
+                  "error": {
+                    "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m",
+                    "stack": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+                  },
+                  "errors": [
+                    {
+                      "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+                    },
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-context.spec.ts",
+                        "column": 73,
+                        "line": 63
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByLabel('Cliente de factura', { exact: true })\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31mundefined\u001b[39m\n\n\n  61 |   await r.completeOld()\n  62 |   await info.attach('context-and-proposals',{body:JSON.stringify({selected:target,proposals:r.proposals,editorCustomer:await page.getByLabel('Cliente de factura',{exact:true}).inputValue().catch(()=>null)}),contentType:'application/json'})\n> 63 |   await expect.soft(page.getByLabel('Cliente de factura',{exact:true})).toHaveCount(0)\n     |                                                                         ^\n  64 |   expect(r.commands).toEqual([]);expect(r.pageErrors).toEqual([])\n  65 |  }finally{await r.close()}\n  66 | })\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-context.spec.ts:63:73"
+                    },
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-context.spec.ts",
+                        "column": 139,
+                        "line": 41
+                      },
+                      "message": "Error: page.unrouteAll: Target page, context or browser has been closed\n\n  39 |  async function generate(text:string){await page.getByRole('textbox',{name:'Descripción de la factura',exact:true}).fill(text);await page.getByRole('button',{name:'Generar propuesta',exact:true}).click()}\n  40 |  async function completeOld(){release();await expect.poll(()=>done).toBe(true);await page.evaluate(()=>new Promise<void>(resolve=>requestAnimationFrame(()=>requestAnimationFrame(()=>resolve()))))}\n> 41 |  return {generate,release,completeOld,commands,proposals,pageErrors,waitHeld:()=>expect.poll(()=>held).toBe(true),async close(){release();await page.unrouteAll({behavior:'wait'})}}\n     |                                                                                                                                           ^\n  42 | }\n  43 | test('held proposal still opens when customer context is unchanged',async({page},info)=>{\n  44 |  const r=await scenario(page)\n    at Object.close (C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-context.spec.ts:41:139)\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-context.spec.ts:65:11"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:23:12.953Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\night-unit04-attempt01\\artifacts\\proposal-context-old-propo-26c4f-ired-after-customer-removal-controlled-http-1440\\test-failed-1.png"
+                    },
+                    {
+                      "name": "context-and-proposals",
+                      "contentType": "application/json",
+                      "body": "eyJzZWxlY3RlZCI6IiIsInByb3Bvc2FscyI6W3sic291cmNlIjoidGV4dCIsImRyYWZ0Ijp7ImN1c3RvbWVyX2lkIjoiMTAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiaXNzdWVfb24iOiIyMDI2LTEwLTIwIiwiZHVlX29uIjpudWxsLCJzZXJpZXMiOiJBIiwiY3VycmVuY3kiOiJFVVIiLCJsaW5lcyI6W3siZGVzY3JpcHRpb24iOiJzb3BvcnRlIiwicXVhbnRpdHlfbWlsbGkiOjEwMDAsInVuaXRfcHJpY2VfbWlub3IiOjMwMDAwLCJkaXNjb3VudF9icHMiOjAsInRheF9icHMiOjIxMDAsIndpdGhob2xkaW5nX2JwcyI6MH1dLCJub3RlcyI6bnVsbCwiY29udHJhY3RfaWQiOm51bGwsInNlcnZpY2VfaWQiOm51bGwsIm9wcG9ydHVuaXR5X2lkIjpudWxsfX1dLCJlZGl0b3JDdXN0b21lciI6bnVsbH0="
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\night-unit04-attempt01\\artifacts\\proposal-context-old-propo-26c4f-ired-after-customer-removal-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\night-unit04-attempt01\\artifacts\\proposal-context-old-propo-26c4f-ired-after-customer-removal-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\night-unit04-attempt01\\artifacts\\proposal-context-old-propo-26c4f-ired-after-customer-removal-controlled-http-1440\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "5736f8ba29ccf0151c3b-06707169bcd25122b06b",
+          "file": "proposal-context.spec.ts",
+          "line": 55,
+          "column": 32
+        },
+        {
+          "title": "failure from old customer does not contaminate a newer accepted proposal",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 8,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2014,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:24:08.690Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "observed-proposals",
+                      "contentType": "application/json",
+                      "body": "W3sic291cmNlIjoidGV4dCIsImRyYWZ0Ijp7ImN1c3RvbWVyX2lkIjoiMTAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiaXNzdWVfb24iOiIyMDI2LTEwLTIwIiwiZHVlX29uIjpudWxsLCJzZXJpZXMiOiJBIiwiY3VycmVuY3kiOiJFVVIiLCJsaW5lcyI6W3siZGVzY3JpcHRpb24iOiJzb3BvcnRlIiwicXVhbnRpdHlfbWlsbGkiOjEwMDAsInVuaXRfcHJpY2VfbWlub3IiOjMwMDAwLCJkaXNjb3VudF9icHMiOjAsInRheF9icHMiOjIxMDAsIndpdGhob2xkaW5nX2JwcyI6MH1dLCJub3RlcyI6bnVsbCwiY29udHJhY3RfaWQiOm51bGwsInNlcnZpY2VfaWQiOm51bGwsIm9wcG9ydHVuaXR5X2lkIjpudWxsfX0seyJzb3VyY2UiOiJ0ZXh0IiwiZHJhZnQiOnsiY3VzdG9tZXJfaWQiOiIxMDAwMDAwMC0wMDAwLTQwMDAtODAwMC0wMDAwMDAwMDAwMDMiLCJpc3N1ZV9vbiI6IjIwMjYtMTAtMjAiLCJkdWVfb24iOm51bGwsInNlcmllcyI6IkEiLCJjdXJyZW5jeSI6IkVVUiIsImxpbmVzIjpbeyJkZXNjcmlwdGlvbiI6InNvcG9ydGUiLCJxdWFudGl0eV9taWxsaSI6MTAwMCwidW5pdF9wcmljZV9taW5vciI6MzAwMDAsImRpc2NvdW50X2JwcyI6MCwidGF4X2JwcyI6MjEwMCwid2l0aGhvbGRpbmdfYnBzIjowfV0sIm5vdGVzIjpudWxsLCJjb250cmFjdF9pZCI6bnVsbCwic2VydmljZV9pZCI6bnVsbCwib3Bwb3J0dW5pdHlfaWQiOm51bGx9fV0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5736f8ba29ccf0151c3b-315ace7b95b27e8537a2",
+          "file": "proposal-context.spec.ts",
+          "line": 67,
+          "column": 5
+        },
+        {
+          "title": "original comma concept opens an editable support proposal",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 8,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 972,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:24:17.507Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "observed-proposals",
+                      "contentType": "application/json",
+                      "body": "W3sic291cmNlIjoidGV4dCIsImRyYWZ0Ijp7ImN1c3RvbWVyX2lkIjoiMTAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiaXNzdWVfb24iOiIyMDI2LTEwLTIwIiwiZHVlX29uIjoiMjAyNi0xMS0wNCIsInNlcmllcyI6IkEiLCJjdXJyZW5jeSI6IkVVUiIsImxpbmVzIjpbeyJkZXNjcmlwdGlvbiI6InNvcG9ydGUiLCJxdWFudGl0eV9taWxsaSI6MTAwMCwidW5pdF9wcmljZV9taW5vciI6MzAwMDAsImRpc2NvdW50X2JwcyI6MCwidGF4X2JwcyI6MjEwMCwid2l0aGhvbGRpbmdfYnBzIjowfV0sIm5vdGVzIjpudWxsLCJjb250cmFjdF9pZCI6bnVsbCwic2VydmljZV9pZCI6bnVsbCwib3Bwb3J0dW5pdHlfaWQiOm51bGx9fV0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5736f8ba29ccf0151c3b-5585b80da37dbad55670",
+          "file": "proposal-context.spec.ts",
+          "line": 82,
+          "column": 5
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-19T22:18:12.490Z",
+    "duration": 366473.642,
+    "expected": 9,
+    "skipped": 0,
+    "unexpected": 6,
+    "flaky": 0
+  }
+}

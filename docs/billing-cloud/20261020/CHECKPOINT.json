@@ -1,0 +1,74 @@
+{
+  "unit": "08",
+  "authorization_comment": 6278415584,
+  "claim": 6278546047,
+  "source_commit": "6002039db9e6a8ce1a5d20fbd551acb1c30ab376",
+  "source_blobs": {
+    "src/features/billing/parse.ts": "058fa105ea95af5f41a51f514392e22d96ae6a32",
+    "src/features/billing/IntegratedBilling.tsx": "8410de7c37a3f541178ac79c35e4f5ca0715ae61"
+  },
+  "upstream_pr": 156,
+  "upstream_sha": "888ecaae57e9021ca0cb25d4da0657c1f6ac9b40",
+  "branch": "oier/billing-parser-proposal-fixes-20261020",
+  "checks": {
+    "lint": 0,
+    "billing_bootstrap": {
+      "failed": 0,
+      "passed": 53
+    },
+    "context_corrected_diagnostic_attempt02": {
+      "passed": 15,
+      "failed": 0,
+      "widths": [
+        390,
+        768,
+        1440
+      ],
+      "assertions": "Unchanged; evaluateAll only replaces blocking evidence read"
+    },
+    "prompt_browser": {
+      "passed": 30,
+      "failed": 0,
+      "widths": [
+        390,
+        768,
+        1440
+      ]
+    },
+    "build": 0,
+    "typescript": 0,
+    "parser": {
+      "failed": 0,
+      "passed": 24
+    },
+    "context_original_attempt01": {
+      "passed": 9,
+      "failed": 6,
+      "cause": "Diagnostic inputValue on intentionally absent editor consumed test timeout before absence assertion. Preserved original artifacts."
+    },
+    "existing_billing_browser": {
+      "failed": 0,
+      "passed": 88
+    }
+  },
+  "evidence": "EVIDENCE_MANIFEST.json",
+  "scope": "Actual product with synthetic input and controlled loopback HTTP / simulated speech; not hosted Auth/DB or real voice",
+  "integration": "ASIER_ACK_REQUIRED",
+  "next": {
+    "claim": 6278663656,
+    "source": "6002039db9e6a8ce1a5d20fbd551acb1c30ab376",
+    "bank": "tools/oier_billing_qa/proposal-intent.spec.ts in own checkout, to publish with next unit",
+    "task": "Retire pending proposal when new manual draft or invoice selection supersedes it. Preserve RED, test own new SHA; publish only after active remote checks finish.",
+    "status": "RED_REPRODUCED_9FAIL_3RACES_AT_3_WIDTHS_NOT_YET_FIXED",
+    "unit": "09"
+  },
+  "netlify": "EDGE_ACCESS_BLOCKED_W5_ASSIGNED_NO_BYPASS",
+  "supabase": "87_MIGRATIONS_NO_RESET_REAPPLY_OR_MUTATION",
+  "release": "NOT_ACCEPTED",
+  "AI_commercial_writes": "OFF",
+  "live_model": "NOT_RUN",
+  "W4": "INDEPENDENT_PENDING",
+  "HIGH": "FIVE_OPEN",
+  "StorageP0": "OPEN",
+  "historical_failures": "F736 and CASE_NOTE_CURSOR preserved"
+}
