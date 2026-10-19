@@ -52,5 +52,33 @@ export async function customer360CollectionsBrowser({page,origin,id,sql,wa,users
    }).catch(()=>null)}
    throw error
   }
+  })
+ await check('customer360_contact_lost_receipt_keeps_intent_and_single_persisted_effect',async()=>{
+  const label='W2-X Synthetic Contact Lost Receipt',bodies=[],previous=page.viewportSize()
+  let lost=true
+  const observe=async route=>{
+   const q=route.request().postDataJSON();if(q.operation!=='contact.create')return route.continue()
+   bodies.push(JSON.stringify(q))
+   if(lost){lost=false;const result=await route.fetch();if(result.status()!==200)throw Error('CONTACT_EFFECT_NOT_COMMITTED');return route.abort('failed')}
+   return route.continue()
+  }
+  const contactResponse=()=>page.waitForResponse(r=>{try{const q=r.request().postDataJSON();return r.request().method()==='POST'&&q.operation==='contact.list'&&q.input.customer_id===id}catch{return false}})
+  await page.route('**/api/product/v1/commands',observe)
+  try{
+   if(report)report.w2_ui_action_step='contact_uncertain:open';const initial=contactResponse();await page.goto(origin+'/clients/'+id);if((await initial).status()!==200)throw Error('CONTACT_INITIAL_READ_FAILED');await page.getByRole('tab',{name:'Contactos',exact:true}).click();await page.getByRole('button',{name:'Añadir contacto',exact:true}).click()
+   const drawer=page.getByRole('dialog',{name:'Añadir contacto',exact:true})
+   await drawer.getByLabel('Nombre del contacto',{exact:true}).fill(label);await drawer.getByRole('button',{name:'Guardar contacto',exact:true}).click()
+   await expect(drawer.getByRole('alert')).toHaveText('No se pudo confirmar el resultado. Reintenta la misma acción para comprobarlo.')
+   await expect(drawer.getByRole('button',{name:'Cerrar panel',exact:true})).toBeDisabled();await page.keyboard.press('Escape');await expect(drawer).toBeVisible();await expect(drawer.getByLabel('Nombre del contacto',{exact:true})).toBeDisabled()
+   for(const width of [390,768,1440]){await page.setViewportSize({width,height:960});await page.screenshot({path:resolve(screenshotDir,'contact-uncertain-'+width+'.png'),fullPage:true});if(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1))throw Error('CONTACT_UNCERTAIN_OVERFLOW')}
+   if(report)report.w2_ui_action_step='contact_uncertain:confirm';let pending=contactResponse();await drawer.getByRole('button',{name:'Reintentar la misma acción',exact:true}).click();await expect(drawer).toHaveCount(0)
+   const response=await pending;if(response.status()!==200)throw Error('CONTACT_CONFIRMED_READ_FAILED')
+   if(bodies.length!==2||bodies[0]!==bodies[1])throw Error('CONTACT_REPLAY_CHANGED')
+   const command=JSON.parse(bodies[0]).input.command_id;if(!/^[0-9a-f-]{36}$/.test(command))throw Error('CONTACT_COMMAND_INVALID')
+   if(sql(`select count(*) from public.contacts where workspace_id='${wa}' and customer_id='${id}' and display_name='${label}'`)!=='1'||sql(`select count(*) from public.product_commands where workspace_id='${wa}' and command_id='${command}' and operation='contact.create'`)!=='1'||sql(`select count(*) from public.product_audit_events where workspace_id='${wa}' and command_id='${command}' and operation='contact.create'`)!=='1')throw Error('CONTACT_EFFECT_LEDGER_AUDIT_NOT_SINGLE')
+   if(report)report.w2_ui_action_step='contact_uncertain:ordinary_read'
+   for(let n=0;n<3&&!await page.getByRole('heading',{name:label,exact:true}).count();n++){pending=contactResponse();await page.getByRole('button',{name:'Siguiente página de contactos',exact:true}).click();if((await pending).status()!==200)throw Error('CONTACT_NEXT_READ_FAILED')}
+   await expect(page.getByRole('heading',{name:label,exact:true})).toBeVisible()
+  }finally{await page.unroute('**/api/product/v1/commands',observe);await page.setViewportSize(previous)}
  })
 }
