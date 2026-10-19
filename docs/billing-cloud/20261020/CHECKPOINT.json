@@ -55,11 +55,10 @@
   "scope": "Actual product with synthetic input and controlled loopback HTTP / simulated speech; not hosted Auth/DB or real voice",
   "integration": "ASIER_ACK_REQUIRED",
   "next": {
-    "status": "SPEECH_FAILURE_CAUSAL_RED_BANK_RUNNING_NO_PRODUCT_CHANGE_YET",
-    "claim": 6278810858,
-    "session": 87269,
-    "unit": "10",
-    "task": "Protect written fallback and text provenance when dictation cannot start or produces no words; preserve original failure bank then implement minimal own change."
+    "unit": "11",
+    "claim": 6278875224,
+    "status": "ORIGINAL_10_PHRASES_4PASS_6FAIL_SOURCE_B7_PRESERVED",
+    "task": "Skip monetary prefixes when extracting concept, seek later explicit concept, preserve legitimate numeric descriptions; own source checks and original banks."
   },
   "netlify": "EDGE_ACCESS_BLOCKED_W5_ASSIGNED_NO_BYPASS",
   "supabase": "87_MIGRATIONS_NO_RESET_REAPPLY_OR_MUTATION",
@@ -93,5 +92,21 @@
     "source": "2e5318cff28f59d172224fefba7125b61216277c",
     "CI": "RUNNING_WITH_FAILURES_RECORDED",
     "Supabase": "RUNNING"
+  },
+  "completed_unit10": {
+    "build": 0,
+    "source_commit": "b7e61643411fb6c104b632f0fcd0658208cc950c",
+    "bootstrap": "53PASS",
+    "voice": "CONTROLLED_STUB_ONLY_NOT_REAL_MICROPHONE",
+    "red": "12FAIL_EXIT1",
+    "claim": 6278810858,
+    "speech_causal": "12PASS",
+    "existing_billing_browser": "88PASS",
+    "composed_browser": "66PASS_INCLUDES_THE_12_SPEECH_CASES_DO_NOT_DOUBLE_COUNT",
+    "model": "NOT_RUN",
+    "lint": 0,
+    "typescript": 0,
+    "parser": "24PASS",
+    "total_unique_browser": 154
   }
 }
