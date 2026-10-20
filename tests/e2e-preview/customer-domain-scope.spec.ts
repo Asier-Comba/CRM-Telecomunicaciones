@@ -45,6 +45,13 @@ for(const width of [390,768,1440])for(const denied of [false,true])test(`custome
   const previous=page.getByRole('button',{name:'Página anterior de Servicios',exact:true})
   await previous.focus();await page.keyboard.press('Enter')
   await expect(page.getByText('Página 1 · 20 registros',{exact:true})).toBeFocused()
+  if(!denied){
+   gate=true;await next.focus();await page.keyboard.press('Enter')
+   await expect.poll(()=>held.length).toBe(2)
+   const filter=page.getByLabel('Estado de Servicios',{exact:true});await filter.focus()
+   await reply(held[1],1,{customer_id:id(1,1),after_id:id(5,120),limit:20,sort:'id_asc'})
+   await expect(indicator).toBeVisible();await expect(filter).toBeFocused()
+  }
   expect(commands).toEqual([]);expect(errors).toEqual([])
  }finally{for(const route of held)await route.abort().catch(()=>{});await page.close();await fixture.close()}
 })
