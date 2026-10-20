@@ -1,6 +1,6 @@
 {
   "unit": "DEMO-STATUS-15",
-  "authorization": "f7d04fdf-7272-4821-96f2-cee908b94b67",
+  "authorization": "456b1519-bca7-4cb2-a25e-66067f725627",
   "kind": "DOCUMENTARY_RECOVERY_NOT_APPLICATION_SOURCE",
   "master": {
     "head": "a9e977adf90b1e83cded23fb54aefc696839d014",
@@ -304,7 +304,12 @@
     "live_model": "NOT_RUN",
     "release": "NOT_ACCEPTED"
   },
-  "next": "Await exact deliveries for these three units; no new independent reproduced defect is queued. Do not repeat green tests, create redundant branches/runners or infer ACK by silence.",
+  "next": [
+    "ASIER_EXPLICIT_SELECTIVE_ACK_AND_NEW_COMPOSITION_FOR_SCOPED_REGRESSION",
+    "ASIER_W5_AGREED_FRESH_DISPOSABLE_RESOURCE_AND_CASE_FOR_CAUSAL_EMISSION",
+    "W5_PRIVATE_ACCESS_PROPOSAL_AND_CORE162_MANIFEST_WINDOW",
+    "ASIER_TELECOM_SCOPE_EFFECTIVE_PRICE_VERSION_THEN_SEPARATE_W5_WINDOW"
+  ],
   "portfolio12_real_local": {
     "contract": "oier.portfolio12.real-local-qualified.v1",
     "run": 39451803219,
@@ -483,7 +488,7 @@
     "voice_model": "NOT_RUN",
     "release": "NOT_ACCEPTED"
   },
-  "latest_handoff": 6298471469,
+  "latest_handoff": 6299659409,
   "independent_review174": {
     "PR174_comment": 6295862020,
     "hosted": "NOT_RUN",
@@ -513,8 +518,8 @@
     "service_pricing": "DO_NOT_INFER_SERVICE_VERSION_INHERITANCE_FROM_CONTRACT"
   },
   "current_priority": {
-    "unit": "OIER_CUSTOMER_PAGING22_PUBLISHED",
-    "status": "OWN22_CLOSED_WAIT_EXACT_REVIEW_ACCESS_AND_SCOPE",
+    "unit": "OIER_ACCEPTANCE23_CONSOLIDATED_REVIEW",
+    "status": "OWN23_DOCUMENTED_WAIT_EXTERNAL_SELECTION_RESOURCE_WINDOW",
     "observation": {
       "source": "1cc02065",
       "parent": "4bfddd3aa3b7936fe4a61522f8fa11c65dfd9ccd",
@@ -705,7 +710,7 @@
     "live_model": "NOT_RUN",
     "issue10": "OPEN",
     "release": "NOT_ACCEPTED",
-    "next": "Await exact deliveries for these three units; no new independent reproduced defect is queued. Do not repeat green tests, create redundant branches/runners or infer ACK by silence.",
+    "next": "Use closure23 for current decisions; previous unit evidence remains source-bound and preserved.",
     "documentary_ref": "ac6169425868c9a2e85c1284d9c13ff274a3aa4f",
     "checkpoint_handoff": 6297287682,
     "independent_review18": {
@@ -840,13 +845,7 @@
       "lint_types_build": "PASS_OWN_DEFAULT44",
       "claim": 6297132282
     },
-    "owner_order": {
-      "authorization": "C:/Users/oier.dunabeitia/.codex/attachments/7f16f11c-b2ab-4ce3-aa8f-c2bf8d182152/Texto pegado.txt",
-      "source": "b9e1eefeea3342b40bdd9584747e9e7ff47bf1cd",
-      "status": "PRIORITY_BILLING_CAUSAL_REVIEW_AND_COMMERCIAL_BUGS",
-      "coordination": 6297013276,
-      "ACK": 6297113409
-    },
+    "owner_order": "456b1519-bca7-4cb2-a25e-66067f725627",
     "last_local_build21": {
       "source": "146a5433f28fd22eda0fb96373ffef3b5f2bf5c7",
       "workspace": "work/crm-oier-review175-20261020",
@@ -1105,5 +1104,146 @@
     "quality": "PASS_OWN_LINT_DEFAULT_BUILD_TYPES44",
     "integration": "PENDING_SELECTIVE_REVIEW",
     "source": "d5922d843cac660f6bc954875a289267c5299f2b"
-  }
+  },
+  "closure23": {
+    "unit": "OIER_ACCEPTANCE23_CONSOLIDATED_REVIEW",
+    "authorization": "456b1519-bca7-4cb2-a25e-66067f725627",
+    "coordination": 6299379216,
+    "handoff": 6299659409,
+    "kind": "DOCUMENTARY_NO_NEW_PRODUCT_OR_TEST_RUN",
+    "base": "b9e1eefeea3342b40bdd9584747e9e7ff47bf1cd",
+    "candidate_tree": "6012a6c409733f60282d0ca997d414dd31a11394",
+    "own_code_head": "825e5575ec8bf7a331b2ec953c25ed32520d986f",
+    "files": [
+      {
+        "unit": "CONCEPT21",
+        "path": "src/features/billing/parse.ts",
+        "base_blob": "4dc0eb10f7801ca7d50e9cd0ec948eb462f95d21",
+        "expected_blob": "649d9f49ee4c43f1d43e4c7b7af72cb6b1990474",
+        "content_source": "146a5433f28fd22eda0fb96373ffef3b5f2bf5c7"
+      },
+      {
+        "unit": "CONCEPT21",
+        "path": "tools/oier_billing_qa/prompt-interaction.spec.ts",
+        "base_blob": "c87f66aed3a08d55f44f84651f648b7e5c881804",
+        "expected_blob": "4b01920872329c2e88034b5df3684f6ae18fec56",
+        "content_source": "146a5433f28fd22eda0fb96373ffef3b5f2bf5c7"
+      },
+      {
+        "unit": "CONCEPT21",
+        "path": "tools/oier_billing_qa/concept-acceptance.mjs",
+        "base_blob": "d503c3764bda4f97fda1d9961f7423961bba8882",
+        "expected_blob": "97bb9be12d6fe2e8653ee7de0c663d64f8ccebac",
+        "content_source": "146a5433f28fd22eda0fb96373ffef3b5f2bf5c7"
+      },
+      {
+        "unit": "PAGING22",
+        "path": "src/features/customers/CustomerDomainPages.tsx",
+        "base_blob": "ee933541614c40a02c15d73d9031fe998b47c2b8",
+        "expected_blob": "c74443ba1f810a99f7535576ad2c3c74f76638da",
+        "content_source": "d5922d843cac660f6bc954875a289267c5299f2b"
+      },
+      {
+        "unit": "PAGING22",
+        "path": "tests/e2e-preview/customer-domain-scope.spec.ts",
+        "base_blob": "e0604dec884fd30c88536c096c36902611123b4b",
+        "expected_blob": "7aefc6e5f6fe100cab9e8a791cf50447c6eca1fa",
+        "content_source": "d5922d843cac660f6bc954875a289267c5299f2b"
+      }
+    ],
+    "selective_commits": {
+      "concept21": [
+        "7aa8e869fc652f14eee95722c4b804eb97d5b918",
+        "146a5433f28fd22eda0fb96373ffef3b5f2bf5c7"
+      ],
+      "paging22": [
+        "6ca6f42cb58470d12699c4adf32e1b636cf7106f",
+        "d5922d843cac660f6bc954875a289267c5299f2b"
+      ]
+    },
+    "caller20": "3e7f43c043c7f95bd552a7155ffcd14835fb3f4e",
+    "caller20_dependency": false,
+    "compatibility": "PREVIOUS_OWN_TEMP_INDEX_TEXTUAL_CHECKS_ONLY_NOT_INTEGRATION_OR_SEMANTIC_ACCEPTANCE",
+    "new_product_tests": "NOT_RUN_NO_APPLICATION_CHANGE_OR_NEW_FAILURE",
+    "new_cloud_writes": false,
+    "physical_replay": false,
+    "remote_runs": [
+      {
+        "id": 39458746839,
+        "name": "W2 delivered grants86 native compatibility",
+        "status": "completed",
+        "conclusion": "failure"
+      },
+      {
+        "id": 39458746960,
+        "name": "W5 enterprise platform acceptance",
+        "status": "completed",
+        "conclusion": "failure"
+      },
+      {
+        "id": 39458747653,
+        "name": "Supabase local acceptance",
+        "status": "completed",
+        "conclusion": "failure"
+      },
+      {
+        "id": 39458746623,
+        "name": "W4 all-ref secret audit",
+        "status": "completed",
+        "conclusion": "failure"
+      },
+      {
+        "id": 39458746743,
+        "name": "W5 native resource",
+        "status": "completed",
+        "conclusion": "failure"
+      },
+      {
+        "id": 39458746804,
+        "name": "W2 owned resource business consumer",
+        "status": "completed",
+        "conclusion": "failure"
+      },
+      {
+        "id": 39458746793,
+        "name": "W5 native profile87 compatibility",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 39458746702,
+        "name": "CI",
+        "status": "completed",
+        "conclusion": "failure"
+      }
+    ],
+    "candidate_selection": "NOT_DELIVERED",
+    "hosted": {
+      "source": "a9e977adf90b1e83cded23fb54aefc696839d014",
+      "deploy": "6ad78f6c810c781fba4f5880",
+      "attribution": "LAST_W5_REPORT_NOT_FRESH_PROVIDER_INSPECTION",
+      "own_authenticated": "NOT_RUN"
+    },
+    "original175": {
+      "run": 39458747653,
+      "job": 118752349311,
+      "safe_artifact": 12282737717,
+      "screenshot_artifact": 12282682770,
+      "checkout": "5f1eb783d737479abafc78d48e61dd05b72156ad",
+      "tree": "6012a6c409733f60282d0ca997d414dd31a11394",
+      "phase": "billing_invalid_receipt:invoice.issue:first_effect",
+      "cause": "UNKNOWN",
+      "effect": "UNKNOWN",
+      "request": 6296545586
+    },
+    "next": [
+      "ASIER_EXPLICIT_SELECTIVE_ACK_AND_NEW_COMPOSITION_FOR_SCOPED_REGRESSION",
+      "ASIER_W5_AGREED_FRESH_DISPOSABLE_RESOURCE_AND_CASE_FOR_CAUSAL_EMISSION",
+      "W5_PRIVATE_ACCESS_PROPOSAL_AND_CORE162_MANIFEST_WINDOW",
+      "ASIER_TELECOM_SCOPE_EFFECTIVE_PRICE_VERSION_THEN_SEPARATE_W5_WINDOW"
+    ],
+    "stop_condition": "KNOWN_PENDING_UNITS_REQUIRE_EXTERNAL_DECISIONS_NO_INVENTED_ACTIVITY",
+    "release": "NOT_ACCEPTED"
+  },
+  "prior_fields_are_historical_unless_current_closure23": true
 }
