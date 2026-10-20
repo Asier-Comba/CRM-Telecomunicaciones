@@ -41,3 +41,5 @@ La comparación de transporte con IntegratedLocalProductRepository conserva un f
 ## Cambio de situación cloud
 
 W5 reporta el recorrido alojado en deploy6ad75c93ac4914f9005f4767/aplicacióne42, corroborado parcialmente por lectura DB de W0. No es ejecución de este runner. Solo A está documentado: B admitido con tenant propio y acceso normal de tester independiente siguen pendientes. Nunca adjuntar una sesión compartida del propietario. Ver [estado vivo](../../docs/commercial-cloud/DEMO_READINESS.md). El negativo fuera de cohorte es independiente de los negativos A/B y no está incluido como PASS en este banco.
+
+Compatibilidad de presentación QA08: se aceptan únicamente las etiquetas exactas Guardar borrador local (candidata3b80/e42) y Guardar borrador (propuestaUX07). La acción sigue requiriendo un único botón visible, revisión explícita y receipt draft sin número. Esta compatibilidad no aprueba la propuesta, no cambia la fuente del manifest ni prueba el selector con Auth alojado.

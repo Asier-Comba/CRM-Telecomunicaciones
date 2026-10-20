@@ -40,7 +40,7 @@ Ninguna fila convierte el CRM en DEMO_ACCEPTED. Existe un recorrido cloud report
 - PROBADA_LOCALMENTE histórica: aplicaciónOier49bc357browserHTTPcontrolado/96logic y QA31f9 con14controles del arnés. No reasignar esos resultados a otro SHA/deploy.
 - OBSERVADA_DIRECTAMENTE:18imágenes existentes del artefacto12262346907 revisadas, no18tests nuevos; Customer360desktop y responsables390 aún cargaban. Siguiente captura requiere cargado o error autoritativo; las originales se conservan. Una foto no demuestra bloqueo permanente.
 - FALLIDA: CI3b80 global655/656bootstrap, perfil85/86rechaza87; cincoHIGH visibles. Nativo falla por cuota antes del checkout: SHA/pruebas no medidos; cero reruns Oier. W4/all-ref y otros workflows conservan sus fallos.
-- PENDIENTE: perfil87a1ab802092ba38c7aca2dfea451922a3dcfa05c4 ya publicado,13/13locales W5; falta ejecución física y revisión. No otro loader ni copia del recurso nativo.
+- OBSERVADA_DIRECTAMENTE / PROBADA_LOCALMENTE en CI desechable: perfil87a1ab802092ba38c7aca2dfea451922a3dcfa05c4, workflow39425772055/job118637826429 SUCCESS. Log original contrastado:13controlesPASS y registro completion_primitive PASS con87migraciones, ledger/audit/baseline preservados, freshAdmittedConnection, positiveEffectCount1, reinicio independiente y teardownPASS. full23 y verifiedAbsence NOT_RUN; no aceptación de durabilidad completa, recurso o seguridad. Revisión/adopción integrador pendientes, perfiles85/86 siguen estrictos. No otro loader/copia/reintento.
 - PENDIENTE: workflow/configNetlify7c publicados, no ejecución operacional acreditada. W0 señala fail-open si falta testperfil87 y workflow ausente en default: W5 debe proponer cierre obligatorio e incorporación revisada, no edición directa de default.
 
 ## Ventana independiente: dependencia exacta
@@ -73,3 +73,11 @@ Guion privado condicionado: acceso/versión → cliente previo/nuevo y recuperac
 Historial y evidencias originales permanecen en [353eb86](https://github.com/Asier-Comba/CRM-Telecomunicaciones/blob/353eb862cf7af41f2028cc07a32f004bb0c33e3f/docs/commercial-cloud/DEMO_READINESS.md) y sus checkpoints02/03/04/manifiesto342archivos. Ese historial conserva estados anteriores; no son instrucciones vigentes contradictorias ni motivo para importar producto de nuevo.
 
 QA05: [resultado exacto](20261020/DEMO_QA05.json) sobre fuente695a07213eddbab40543b5760beb3613e94d2729. Las pruebas se ejecutaron de nuevo por cambio de base/composición; no son resultado alojado ni prueba del selector con Auth. Build no repetido porque no cambia aplicación. WARN de Node sobre tipos/módulos conservados; no se cambian dependencias para silenciarlos.
+
+## Actualización QA08 y CI propio de PR162
+
+Fuente13aa9ce46d25c1b4c02ac3cfb516ceae6adbcc5f adapta sólo el locator de guardado: acepta exactamente Guardar borrador o Guardar borrador local para la transición revisadaUX07, sin relajar revisión, unicidad del botón, receipt, identidad, totales o límite de comandos.14controles localesPASS, lint dirigido/types0. El selector real alojado continúaNOT_RUN; no atribuirle esos14controles. No build repetido por cambio exclusivo del arnés.
+
+Los workflows de entrega12adb terminaron, sin cancelar/publicar encima: CI39425616256 FAIL; job118637297152655/656bootstrap, únicoOWNED_CONSUMER_MIGRATION_CLOSURE_REJECTED y5HIGH. W4all-ref39425616434/118637297764FAIL en reachable-history. Jobs con success/skipped se conservan separados y no se convierten en aceptación cloud; no se atribuyen resultados nuevos a13aa por herencia. PropuestaNetlify#165 tiene ahora07f97a33 reportadoW0, no prueba de ejecución de deploy automático. No perseguir HEADs como si fueran acuerdos de integración.
+
+RevisiónOier del deltaEdge#163: entrega9abe438f, banco original35PASS sobre e42 y10controles adicionales con compilador Next/control de runtime sobre507f1cbe. Configuración ausente/incorrecta, origen/proyecto/cohorte/revocación cerrados sólo en entorno controlado. Ver evidencia publicada en la rama exclusiva de revisión y comentario6291348454; no seguridad independiente/Netlify/Deno/AuthDB.
