@@ -35,6 +35,8 @@ test('explicit price publication returns the same immutable version and reviewed
  await dialog.getByLabel('Alta o instalación',{exact:true}).fill('0,00')
  await dialog.getByRole('button',{name:'Revisar versión',exact:true}).click()
  expect(commands).toEqual([])
+ await expect(dialog.getByText('Cuota mensual: 29,95 EUR · Alta: 0,00 EUR',{exact:true})).toBeVisible()
+ await page.screenshot({path:info.outputPath('reviewed-version-before-publication.png')})
  await dialog.getByRole('button',{name:'Confirmar publicación',exact:true}).click()
  await expect(dialog.getByRole('status')).toContainText('Versión publicada y recuperada')
  expect(commands).toHaveLength(1);expect(effects.size).toBe(1)
