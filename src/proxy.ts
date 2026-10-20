@@ -23,6 +23,9 @@ export async function proxy(request: NextRequest) {
   const policy = readStagingAdmissionV1(process.env)
   if (policy.status === 'invalid') return unavailable(request)
   if (policy.status === 'enabled' && request.nextUrl.origin !== policy.origin) return unavailable(request)
+  if (policy.status === 'disabled' &&
+      ['staging', 'production'].includes(process.env.APP_ENV ?? '') &&
+      !publicPaths.has(request.nextUrl.pathname)) return unavailable(request)
 
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL
   const key = (process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY)

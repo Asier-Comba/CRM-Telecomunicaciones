@@ -102,6 +102,16 @@ function proxyFixture(outcome,environment=env){
 const request=(path,headers={})=>new next.NextRequest(admission.stagingAppOriginV1+path,{headers})
 function assertPrivate(response){assert.equal(response.headers.get('cache-control'),'no-store');assert.equal(response.headers.get('pragma'),'no-cache');assert.equal(response.headers.get('expires'),'0')}
 
+for(const APP_ENV of ['staging','production'])for(const flag of [undefined,'false'])test(`declared ${APP_ENV} refuses protected pages and APIs while admission is ${flag}`,async()=>{
+ const f=proxyFixture({data:{user:registered(actor)},error:null},{...env,APP_ENV,PRODUCT_STAGING_INTEGRATION:flag})
+ for(const path of ['/clients','/api/product/v1/commands','/api/foreign/file.png']){
+  const response=await f.proxy(request(path));assert.equal(response.status,503);assertPrivate(response)
+  if(path.startsWith('/api/'))assert.deepEqual(await response.json(),{ok:false,error:'unavailable'})
+ }
+ for(const path of ['/login','/reset-password','/auth/callback','/auth/signout','/api/health/live','/api/health/ready'])assert.equal((await f.proxy(request(path))).headers.get('x-middleware-next'),'1')
+ assert.equal(f.calls.length,0)
+})
+
 for(const [name,configuration]of [['local',{NODE_ENV:'development',APP_ENV:'test',NEXT_PUBLIC_SUPABASE_URL:'http://127.0.0.1:54321',NEXT_PUBLIC_SUPABASE_ANON_KEY:'synthetic-only'}],['staging',env]])test('proxy preserves the exact existing assistant no-store response contract in '+name,async()=>{
  const f=proxyFixture({data:{user:registered(actor)},error:null},configuration)
  const response=await f.proxy(request('/api/assistant/v2/threads'))
