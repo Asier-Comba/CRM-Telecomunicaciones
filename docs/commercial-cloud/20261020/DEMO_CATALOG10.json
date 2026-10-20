@@ -1,0 +1,154 @@
+{
+  "voice": "NOT_RUN",
+  "model": "NOT_RUN",
+  "attempts": [
+    {
+      "pass": 0,
+      "fail": 3,
+      "raw_retained": "OWN_WORK_DIRECTORY_IMMUTABLE_ATTEMPT",
+      "sha256": "e6f2f1dd10204fcd5d8e1e509fbe18ed5284cc93ffe37b0f23a735e2651daec0",
+      "skipped": 0,
+      "number": 1,
+      "flaky": 0
+    },
+    {
+      "pass": 0,
+      "fail": 3,
+      "raw_retained": "OWN_WORK_DIRECTORY_IMMUTABLE_ATTEMPT",
+      "sha256": "afd9e2af9dc796280985e3687037246507f17355e064ef56c678090f783bd04f",
+      "skipped": 0,
+      "number": 2,
+      "flaky": 0
+    },
+    {
+      "pass": 3,
+      "fail": 3,
+      "raw_retained": "OWN_WORK_DIRECTORY_IMMUTABLE_ATTEMPT",
+      "sha256": "07e8dc7f8bfefdcb953214600348b9cba4b675c0347788a863cb27e170b93118",
+      "skipped": 0,
+      "number": 3,
+      "flaky": 0
+    },
+    {
+      "pass": 33,
+      "fail": 0,
+      "raw_retained": "OWN_WORK_DIRECTORY_IMMUTABLE_ATTEMPT",
+      "sha256": "4f78d7272fbc83f8cbde6d9f927eccc15e1931cf938bfe578a7f5783df496553",
+      "skipped": 0,
+      "number": 4,
+      "flaky": 0
+    },
+    {
+      "pass": 48,
+      "fail": 0,
+      "raw_retained": "OWN_WORK_DIRECTORY_IMMUTABLE_ATTEMPT",
+      "sha256": "1b840b98b3fef1728da1138a523f28cfcbca862b3c8622a8b2ec0262dcb8c11f",
+      "skipped": 0,
+      "number": 5,
+      "flaky": 0
+    }
+  ],
+  "logs": [
+    {
+      "sha256": "2632bc172c2856c43b677aa89a8c2af869e09a2d63fcc8539683d0dad27ba07d",
+      "retained": "OWN_ORIGINAL_WORK_RECOVERY",
+      "name": "demo-catalog10-baseline-original.txt",
+      "bytes": 11993
+    },
+    {
+      "sha256": "97b2c2f7ad4aec3afa5c9fa64ffd1a01b5668ff740d7f541f06f29c7f2ad66fd",
+      "retained": "OWN_ORIGINAL_WORK_RECOVERY",
+      "name": "demo-catalog10-positive-attempt02.txt",
+      "bytes": 11135
+    },
+    {
+      "sha256": "ca16599a3867b72b54f6b0ea9c11cb82e7006b3624a43c855b866b59687a5a60",
+      "retained": "OWN_ORIGINAL_WORK_RECOVERY",
+      "name": "demo-catalog10-attempt03-original.txt",
+      "bytes": 12248
+    },
+    {
+      "sha256": "e02e15912ac33caa266165e97f7881719c7ddd8f54c8465cd16a94dc2e66a87f",
+      "retained": "OWN_ORIGINAL_WORK_RECOVERY",
+      "name": "demo-catalog10-attempt04-original.txt",
+      "bytes": 6299
+    },
+    {
+      "sha256": "2d9f79471076a38050a949e6bc3059e0a7f285c19095081c694bcc362ead5c22",
+      "retained": "OWN_ORIGINAL_WORK_RECOVERY",
+      "name": "demo-catalog10-final-attempt05.txt",
+      "bytes": 8506
+    },
+    {
+      "sha256": "9a7da9ac2ae02e39ad9bc8d289b928f1ae7c16abe45dd1fecf326b38e73247bf",
+      "retained": "OWN_ORIGINAL_WORK_RECOVERY",
+      "name": "demo-catalog10-types-fe3c.txt",
+      "bytes": 274
+    },
+    {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "retained": "OWN_ORIGINAL_WORK_RECOVERY",
+      "name": "demo-catalog10-lint-f433.txt",
+      "bytes": 0
+    },
+    {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "retained": "OWN_ORIGINAL_WORK_RECOVERY",
+      "name": "demo-catalog10-types-f433.txt",
+      "bytes": 0
+    },
+    {
+      "sha256": "4bce0ef9870683e705f6eceded1dd850e6070558e52f81ab857fcb65c4dd3394",
+      "retained": "OWN_ORIGINAL_WORK_RECOVERY",
+      "name": "demo-catalog10-build-f433.txt",
+      "bytes": 2987
+    },
+    {
+      "sha256": "6b448bd95afdd384b7007723eda2b8262aaed5c690f0f7e86196f327242c3d4b",
+      "retained": "OWN_ORIGINAL_WORK_RECOVERY",
+      "name": "demo-catalog10-regression-original.txt",
+      "bytes": 2765
+    },
+    {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "retained": "OWN_ORIGINAL_WORK_RECOVERY",
+      "name": "demo-catalog10-final-lint.txt",
+      "bytes": 0
+    },
+    {
+      "sha256": "56e4cf961e3e4af0e8546ed0ec75dd2c69b3b89a1860b97216e9134f0ee6e117",
+      "retained": "OWN_ORIGINAL_WORK_RECOVERY",
+      "name": "demo-catalog10-final-build.txt",
+      "bytes": 2986
+    }
+  ],
+  "final": {
+    "pages": 44,
+    "existing_regressions": 15,
+    "retries": 0,
+    "widths": [
+      390,
+      768,
+      1440
+    ],
+    "build_exit": 0,
+    "lint_exit": 0,
+    "browser_pass": 48,
+    "visual_reviewed": 6,
+    "skips": 0,
+    "flaky": 0,
+    "browser_fail": 0,
+    "typescript": "PASS_IN_DEFAULT_BUILD",
+    "new_controls": 33
+  },
+  "integrator_refreshed": "c0e906fe0f78f7d2e32476a05ffb9f52980f1a99",
+  "source": "7c0a17b055828ff23a623b318f09fd1f229fe766",
+  "base": "3b80c50d13bc0a9a52f6662de46a1e8b9581c62b",
+  "unit": "DEMO-CATALOG-10",
+  "AuthDB": "NOT_RUN",
+  "classification": "PROBADA_LOCALMENTE",
+  "cloud": "NOT_RUN",
+  "scope": "SIMPLE_SERVICE_PRICE_PUBLICATION_NOT_COMPLETE_BUNDLE_EDITOR",
+  "release": "NOT_ACCEPTED",
+  "contract": "catalog.v1_UNCHANGED"
+}
