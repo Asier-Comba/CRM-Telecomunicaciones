@@ -44,3 +44,26 @@ test('explicit price publication returns the same immutable version and reviewed
  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBe(true)
  await page.screenshot({path:info.outputPath('published-version.png')})
 })
+
+test('a failed parent read before any command remains recoverable without an uncertain publication',async({page})=>{
+ let reads=0,commands=0
+ await page.route('**/api/**',async route=>{
+  const q=route.request().postDataJSON();let data:unknown
+  if(q.operation==='plan.list')data={contract_version:'telecom.collections.v1',operation:q.operation,items:[plan],next_id:null}
+  else if(q.operation==='plan.get'){
+   reads++
+   if(reads===1){await route.fulfill({json:{ok:true,data:{invalid:'CONTROLLED_READ_FAILURE_NOT_A_WRITE'}}});return}
+   data={contract_version:'telecom.collections.v1',operation:q.operation,record:plan}
+  }else if(q.operation==='operator.list')data={contract_version:'telecom.collections.v1',operation:q.operation,items:[],next_id:null}
+  else{if(q.operation==='plan_version.create')commands++;await route.fulfill({status:403,json:{ok:false,error:'access_denied'}});return}
+  await route.fulfill({json:{ok:true,data}})
+ })
+ await page.goto(fixture.url+'/?qa_catalog=1');await page.getByRole('tab',{name:'Tarifas',exact:true}).click()
+ await page.locator(`article[data-catalog-id="${planId}"]`).getByRole('button',{name:'Publicar nueva versión',exact:true}).click()
+ const dialog=page.getByRole('dialog',{name:'Nueva versión de '+plan.display_name,exact:true})
+ await expect(dialog.getByRole('alert')).toBeVisible()
+ await dialog.getByRole('button',{name:'Reintentar lectura de tarifa',exact:true}).click()
+ await expect(dialog.getByLabel('Vigencia desde',{exact:true})).toBeVisible()
+ expect(reads).toBe(2);expect(commands).toBe(0)
+ await dialog.getByRole('button',{name:'Cerrar panel',exact:true}).click();await expect(dialog).toHaveCount(0)
+})

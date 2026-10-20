@@ -17,8 +17,8 @@ type Props={plan:PlanRowV1;onClose:()=>void;onPublished:(id:string)=>void}
 function minor(value:string){
  const parts=value.trim().replace(',','.').split('.')
  if(!/^(0|[1-9][0-9]*)$/.test(parts[0])||parts.length>2||parts[1]!==undefined&&!/^[0-9]{1,2}$/.test(parts[1]))throw new ProductUiError('validation')
- const amount=BigInt(parts[0])*100n+BigInt((parts[1]??'').padEnd(2,'0'))
- if(amount>9223372036854775807n)throw new ProductUiError('validation')
+ const amount=BigInt(parts[0])*BigInt(100)+BigInt((parts[1]??'').padEnd(2,'0'))
+ if(amount>BigInt('9223372036854775807'))throw new ProductUiError('validation')
  return amount.toString()
 }
 
@@ -96,7 +96,7 @@ function ScopedVersionCreate({plan:initialPlan,onClose,onPublished}:Props){
    {verified?<button className={primary} onClick={()=>onPublished(recorded.receipt.id)}>Ver condiciones publicadas</button>:<button className={primary} disabled={busy} onClick={()=>void reread()}>Recuperar versión registrada</button>}
   </div>:<form className="space-y-4" onSubmit={e=>{e.preventDefault();prepare()}}>
    <fieldset disabled={locked} className="space-y-3">
-    <div className="grid gap-3 sm:grid-cols-2"><label className="block text-sm">Vigencia desde<input type="date" required min="1900-01-01" max="2199-12-31" className={control+' mt-1 w-full'} value={from} onChange={e=>setFrom(e.target.value)}/></label><label className="block text-sm">Vigencia hasta<input type="date" min={from||'1900-01-01'} max="2199-12-31" className={control+' mt-1 w-full'} value={until} onChange={e=>setUntil(e.target.value)}/><span className="text-xs text-slate-500">Opcional. Ambos extremos se incluyen.</span></label></div>
+    <div className="grid gap-3 sm:grid-cols-2"><label className="block text-sm">Vigencia desde<input type="date" required min="1900-01-01" max="2199-12-31" className={control+' mt-1 w-full'} value={from} onChange={e=>setFrom(e.target.value)}/></label><div><label className="block text-sm">Vigencia hasta<input type="date" aria-describedby="catalog-version-until-help" min={from||'1900-01-01'} max="2199-12-31" className={control+' mt-1 w-full'} value={until} onChange={e=>setUntil(e.target.value)}/></label><p id="catalog-version-until-help" className="text-xs text-slate-500">Opcional. Ambos extremos se incluyen.</p></div></div>
     <label className="block text-sm">Divisa<select className={control+' mt-1 w-full'} value={currency} onChange={e=>setCurrency(e.target.value)}>{['EUR','USD','GBP'].map(v=><option key={v}>{v}</option>)}</select></label>
     <div className="grid gap-3 sm:grid-cols-2"><label className="block text-sm">Cuota mensual<input inputMode="decimal" required maxLength={22} className={control+' mt-1 w-full'} value={monthly} onChange={e=>setMonthly(e.target.value)}/></label><label className="block text-sm">Alta o instalación<input inputMode="decimal" required maxLength={22} className={control+' mt-1 w-full'} value={setup} onChange={e=>setSetup(e.target.value)}/></label></div>
    </fieldset>
