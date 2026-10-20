@@ -60,6 +60,25 @@ authoritative readback and B's own positive before cross-tenant denials.
 Both exact draft labels are supported for the pending UX proposal. Hosted run,
 voice and independent DB read remain NOT_RUN; no browser/session was attached.
 
+## Unit19: truthful dashboard scope and loading
+
+Read the actual dashboard RPC predicates: personal counts use assignee/owner;
+services/lines/plans follow the assigned contract, while workspace reads remain
+owner/admin-only. Owner/admin now start with the already-authorized workspace
+view; member/viewer retain personal scope. The screen explains unassigned clients,
+legitimate personal zeros, snapshot states versus period flows and the agenda window.
+Changing scope/period or refreshing clears previous figures while the next read
+is pending. No SQL, role, count, aggregate, fixture data or permission was changed.
+
+Own qualified baseline before03:5FAIL/1PASS at390 (default selection, missing
+zero/scope explanations). After02:18/18 controls PASS in390/768/1440, no retries,
+skips/flaky;5 dashboard contract regressions, targeted lint, types/build PASS.
+Actual ProductProvider/component/repository with controlled HTTP, not hosted AuthDB.
+Loaded mobile/desktop captures visually reviewed. Earlier before01/02 and after01
+are preserved: copied fixture provider alias and missing query-string routing made
+the role cases unqualified. After01 had12FAIL/6PASS; no clean result is inferred.
+The fixture was repaired before qualified before03/after02; expectations unchanged.
+
 ## Work in order
 
 Review/adopt exact W5 profile87; classify its successful physical completion
