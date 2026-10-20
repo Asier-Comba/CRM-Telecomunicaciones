@@ -2,6 +2,14 @@
 
 ## Nocturnal continuation — 2026-10-21, units32–34
 
+38 corrects catalog OBSERVER paging (not UI): own1PASS/2FAIL→6PASS, code307e123e.
+[Failure and scope](../integration/UNIT_38_CATALOG_OBSERVER_20261021.md).
+285 CI completed5SUCCESS/4FAIL: Supabase87/4042/114UI+2TIMEOUT/teardownPASS,
+preview766 and bootstrap672/assistant827PASS. Catalog target-first-page assumption
+reproduced separately; native cause still not fully proven. Portfolio1440 startup
+before_effect/0Authrequests/5scripts200, causeUNKNOWN; W5 diagnostic request open.
+Final successor needs own exactCI; original emission39458747653UNKNOWN, never replayed.
+
 37 now selects Oier31 explicit-refresh fixe2966be4 after36; own3FAIL→22PASS,
 targetedlint/typesPASS. [Refresh evidence](../integration/UNIT_37_BILLING_REFRESH_20261021.md).
 30/31 decisions delivered to Oier; final successor source/tree and its own CI
