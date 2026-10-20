@@ -1,9 +1,11 @@
 import {readFileSync,mkdirSync,writeFileSync,openSync,closeSync} from 'node:fs'
 import {resolve} from 'node:path'
+import {fileURLToPath} from 'node:url'
 import {preflight,origin,projectRef} from './preflight.mjs'
 import {hostedFlow} from './flow.mjs'
 
 const report={contract:'oier.hosted-qa.safe.v1',result:'NOT_RUN',phase:'PREFLIGHT',completed:[],cloudDatabaseIndependentRead:'NOT_RUN',voiceReal:'NOT_RUN',speechStub:'NOT_USED',modelLive:'NOT_RUN',release:'NOT_ACCEPTED',observedMutations:null}
+async function main(){
 let manifest
 try{manifest=JSON.parse(readFileSync(process.env.OIER_CLOUD_QA_MANIFEST,'utf8'))}catch{/* No paths or private input content in evidence. */}
 const gate=preflight(manifest)
@@ -11,11 +13,12 @@ report.preflight=gate
 if(!gate.ok||!process.argv.includes('--run')){
  console.log(JSON.stringify(report,null,2));process.exitCode=gate.ok?0:2
 }else{
- const directory=resolve(process.cwd(),'../oier-cloud-qa-private',manifest.windowId)
+ const repository=resolve(fileURLToPath(new URL('../..',import.meta.url)))
+ const directory=resolve(repository,'../oier-cloud-qa-private',manifest.windowId)
  mkdirSync(directory,{recursive:true})
  // Existing state means REVIEW/RESUME, never another automatic customer/draft creation.
  let lock
- try{lock=openSync(resolve(directory,'run.lock'),'wx');closeSync(lock)}catch{report.preflight={ok:false,codes:['EXISTING_WINDOW_RUN_REQUIRES_REVIEW']};console.log(JSON.stringify(report,null,2));process.exitCode=2}
+ try{lock=openSync(resolve(directory,'run.lock'),'wx');closeSync(lock)}catch(error){report.preflight={ok:false,codes:[error.code==='EEXIST'?'EXISTING_WINDOW_RUN_REQUIRES_REVIEW':'PRIVATE_JOURNAL_LOCK_UNAVAILABLE']};console.log(JSON.stringify(report,null,2));process.exitCode=2}
  if(lock!==undefined){
   const journal={windowId:manifest.windowId,candidateSha:manifest.candidateSha,customerId:null,invoiceId:null,lastDispatch:null}
   const save=()=>writeFileSync(resolve(directory,'private-progress.json'),JSON.stringify(journal,null,2))
@@ -48,3 +51,5 @@ if(!gate.ok||!process.argv.includes('--run')){
   console.log(JSON.stringify(report,null,2));process.exitCode=report.result.startsWith('HOSTED_UI_API_FLOW_PASS')?0:1
  }
 }
+}
+try{await main()}catch{report.result='FAIL';report.failure='RUNNER_LOCAL_PRECONDITION_FAILED_NO_RAW_ERROR';console.log(JSON.stringify(report,null,2));process.exitCode=1}

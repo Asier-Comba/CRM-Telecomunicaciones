@@ -16,7 +16,12 @@ export async function hostedFlow(page,manifest,env,journal,saveJournal,report){
    if(request.isNavigationRequest())report.edgeAccess='REDIRECTED_TO_NETLIFY_ACCESS_NOT_BYPASSED'
    if(request.method()!=='GET'){forbidden=true;await route.abort();return}
   }
-  if(url.origin===authOrigin&&!url.pathname.startsWith('/auth/v1/')&&!(request.method()==='GET'&&(url.pathname.startsWith('/rest/v1/')||url.pathname.startsWith('/storage/v1/')))){forbidden=true;await route.abort();return}
+  if(url.origin===authOrigin){
+   const p=url.pathname,m=request.method(),auth=['/auth/v1/token','/auth/v1/logout'].includes(p)&&m==='POST'||p==='/auth/v1/user'&&m==='GET'
+   const directRead=['GET','HEAD'].includes(m)&&(p.startsWith('/rest/v1/')||p.startsWith('/storage/v1/'))
+   const cors=m==='OPTIONS'&&(p.startsWith('/auth/v1/')||p.startsWith('/rest/v1/')||p.startsWith('/storage/v1/'))
+   if(!auth&&!directRead&&!cors){forbidden=true;await route.abort();return}
+  }
   if(url.origin===origin&&url.pathname.startsWith('/api/')&&request.method()==='POST'){
    const q=body(request),op=q?.operation
    const read=typeof op==='string'&&(/(?:\.|_)(get|list|count|summary|stages|search|editor|editors)$/.test(op)||['invoice.financial_summary','invoice.propose'].includes(op))
@@ -38,9 +43,8 @@ export async function hostedFlow(page,manifest,env,journal,saveJournal,report){
   // Filling errors are never emitted by the runner; no credential-bearing artifacts are enabled.
   await page.getByLabel('Email',{exact:true}).fill(env[`OIER_CLOUD_QA_${who}_EMAIL`])
   await page.getByLabel('Contraseña',{exact:true}).fill(env[`OIER_CLOUD_QA_${who}_PASSWORD`])
-  const response=page.waitForResponse(r=>new URL(r.url()).origin===authOrigin&&new URL(r.url()).pathname==='/auth/v1/token'&&r.request().method()==='POST')
-  await page.getByRole('button',{name:'Iniciar sesión',exact:true}).click()
-  const auth=await response,identity=await auth.json();authenticated=auth.ok()
+  const [auth]=await Promise.all([page.waitForResponse(r=>new URL(r.url()).origin===authOrigin&&new URL(r.url()).pathname==='/auth/v1/token'&&r.request().method()==='POST'),page.getByRole('button',{name:'Iniciar sesión',exact:true}).click()])
+  const identity=await auth.json();authenticated=auth.ok()
   invariant(auth.ok()&&identity.user?.id===manifest[`actor${who}`].id)
   await page.waitForURL(u=>u.origin===origin&&u.pathname!=='/login')
  }
@@ -66,9 +70,8 @@ export async function hostedFlow(page,manifest,env,journal,saveJournal,report){
   await phase('A_CUSTOMER_CREATE_AND_READ',async()=>{
    await page.goto(origin+'/clients');await page.getByRole('button',{name:'Nuevo cliente',exact:true}).click()
    await page.getByLabel('Razón social',{exact:true}).fill(customerName)
-   const pending=page.waitForResponse(r=>isResponse(r,'customer.create'))
-   await page.getByRole('button',{name:'Guardar cliente',exact:true}).click()
-   const response=await pending,data=await response.json(),request=body(response.request())
+   const [response]=await Promise.all([page.waitForResponse(r=>isResponse(r,'customer.create')),page.getByRole('button',{name:'Guardar cliente',exact:true}).click()])
+   const data=await response.json(),request=body(response.request())
    invariant(response.ok()&&data.ok===true&&data.receipt?.operation==='customer.create'&&data.receipt.command_id===request.input.command_id&&data.receipt.status==='active'&&uuid.test(data.receipt.id))
    journal.customerId=data.receipt.id;journal.customerReceipt={id:data.receipt.id,version:data.receipt.version,commandId:data.receipt.command_id};saveJournal()
    await page.getByRole('heading',{name:customerName,exact:true}).waitFor()
@@ -78,20 +81,23 @@ export async function hostedFlow(page,manifest,env,journal,saveJournal,report){
   await phase('A_TEXT_PROPOSAL_NO_IMPLICIT_WRITE',async()=>{
    await page.goto(origin+'/facturacion?customer='+journal.customerId)
    await page.getByRole('textbox',{name:'Descripción de la factura',exact:true}).fill(prompt)
-   await page.getByRole('button',{name:'Generar propuesta',exact:true}).click()
+   const madridDay=()=>new Intl.DateTimeFormat('sv-SE',{timeZone:'Europe/Madrid'}).format(new Date()),before=madridDay()
+   const [proposalResponse]=await Promise.all([page.waitForResponse(r=>isResponse(r,'invoice.propose')),page.getByRole('button',{name:'Generar propuesta',exact:true}).click()])
+   const proposal=await proposalResponse.json()
+   invariant(proposalResponse.ok()&&body(proposalResponse.request()).input.source==='text'&&proposal.data?.source==='text'&&proposal.data.requires_review===true&&proposal.data.saved===false)
    await page.getByLabel('Concepto 1',{exact:true}).waitFor()
+   invariant(await page.getByLabel('Cliente de factura',{exact:true}).inputValue()===journal.customerId)
    invariant(await page.getByLabel('Concepto 1',{exact:true}).inputValue()==='instalación de fibra')
    invariant(Number(await page.getByLabel('Precio 1',{exact:true}).inputValue())===300&&Number(await page.getByLabel('IVA % 1',{exact:true}).inputValue())===21)
    invariant(Number(await page.getByLabel('Cantidad 1',{exact:true}).inputValue())===1&&Number(await page.getByLabel('Descuento % 1',{exact:true}).inputValue())===0&&Number(await page.getByLabel('IRPF % 1',{exact:true}).inputValue())===0)
-   issue=await page.getByLabel('Fecha de emisión',{exact:true}).inputValue();due=new Date(Date.parse(issue+'T12:00:00Z')+15*86400000).toISOString().slice(0,10)
+   issue=await page.getByLabel('Fecha de emisión',{exact:true}).inputValue();invariant([before,madridDay()].includes(issue));due=new Date(Date.parse(issue+'T12:00:00Z')+15*86400000).toISOString().slice(0,10)
    invariant(await page.getByLabel('Vencimiento de factura',{exact:true}).inputValue()===due)
    invariant(!mutations.some(v=>v.operation==='invoice.create_draft'))
   })
   await phase('A_EXPLICIT_REVIEW_DRAFT_RECEIPT',async()=>{
    await page.getByRole('checkbox',{name:/He revisado cliente, conceptos, importes, impuestos y fechas/}).check()
-   const pending=page.waitForResponse(r=>isResponse(r,'invoice.create_draft'))
-   await page.getByRole('button',{name:'Guardar borrador local',exact:true}).click()
-   const response=await pending,data=await response.json(),request=body(response.request()),receipt=data.receipt
+   const [response]=await Promise.all([page.waitForResponse(r=>isResponse(r,'invoice.create_draft')),page.getByRole('button',{name:'Guardar borrador local',exact:true}).click()])
+   const data=await response.json(),request=body(response.request()),receipt=data.receipt
    invariant(response.ok()&&data.ok===true&&receipt?.operation==='invoice.create_draft'&&receipt.command_id===request.input.command_id&&receipt.status==='draft'&&receipt.number===null&&uuid.test(receipt.id))
    journal.invoiceId=receipt.id;journal.invoiceReceipt={id:receipt.id,version:receipt.version,commandId:receipt.command_id};saveJournal()
   })
