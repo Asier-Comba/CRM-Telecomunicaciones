@@ -1549,16 +1549,53 @@
   },
   "current_Asier_source": "285348a66f4cacdbcfb6d018caaa2effbb2df54e",
   "next_unit": {
-    "unit": "OIER_BILLING_REFRESH31",
-    "status": "CLAIMED_NOT_STARTED",
-    "claim": 6303154547,
-    "branch": "codex/oier-billing-refresh31-20261020",
-    "checkout": "work/crm-oier-invoice-series30-20261020",
-    "base": "11769380081d7248dc913efc636c5a3ee97b8a5e",
-    "scope": "Explicit list refresh recovery after negative then positive read; existing financial bank at3widths; only fix if reproduced",
-    "source_frozen_PR178": "11769380081d7248dc913efc636c5a3ee97b8a5e",
-    "Asier_voice_claim35": 6303021307,
+    "unit": "EXACT_SOURCE_TERMINAL_CONTROLS_AND_CONSUMER_HANDOFF",
+    "status": "WAIT_EXISTING_REMOTE_RUNS_DO_NOT_DUPLICATE",
+    "own_pr178": "11769380081d7248dc913efc636c5a3ee97b8a5e",
+    "own_runs": [
+      39507982016,
+      39507981959,
+      39507981816
+    ],
+    "own_terminal_known": {
+      "39507981816": "FAIL"
+    },
+    "Asier175": "285348a66f4cacdbcfb6d018caaa2effbb2df54e",
+    "Asier_claims": {
+      "35": 6303021307,
+      "36": 6303189755
+    },
+    "next": "Refresh these exact runs/issue67 once at resume. Inspect original terminal artifact source/tree and any new failure; do not rerun or inherit80d3. Oier31 ready for selective Asier integration after30 and their frozen-source controls. Choose another concrete unclaimed commercial defect if newly reproduced. CORE162 only after legitimate own window and exact deploy package.",
+    "frozen_sources": [
+      "11769380081d7248dc913efc636c5a3ee97b8a5e",
+      "285348a66f4cacdbcfb6d018caaa2effbb2df54e"
+    ],
+    "code_workspace_branch": "codex/oier-billing-refresh31-20261020",
+    "code_workspace_head": "189afe216599feeef863b82e05955c394c44b71b",
     "budget_eur": 0,
     "release": "NOT_ACCEPTED"
+  },
+  "billing_refresh31": {
+    "unit": "OIER_BILLING_REFRESH31",
+    "status": "PUBLISHED_TESTED_HANDOFF_NO_DUPLICATE_PR",
+    "claim": 6303154547,
+    "handoff": 6303247337,
+    "source": "189afe216599feeef863b82e05955c394c44b71b",
+    "runtime_code_sha": "f1a7262f02c1c26a7002d5b03b29eaeea48bd8b9",
+    "tests_sha": "3afde2772d7042f682f5bb4a5a812ac89b9e283f",
+    "branch": "codex/oier-billing-refresh31-20261020",
+    "workspace": "work/crm-oier-invoice-series30-20261020",
+    "browser_pass": 25,
+    "new_cases": 3,
+    "regressions": 22,
+    "lint": 0,
+    "typecheck": 0,
+    "build": 0,
+    "static_pages": 44,
+    "visual": "Six before/after captures directly reviewed; component scope only",
+    "auth_db": "NOT_RUN",
+    "cloud": "NOT_RUN",
+    "release": "NOT_ACCEPTED",
+    "Asier_reserved_claim": 6303189755
   }
 }
