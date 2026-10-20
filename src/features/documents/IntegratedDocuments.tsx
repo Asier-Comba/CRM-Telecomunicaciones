@@ -12,7 +12,11 @@ import { ProductUiError, safeMessage } from '@/features/product/integration/repo
 import { PreviewNotice, control, primary, Drawer, Status } from '@/features/product/ui'
 import type { DocumentListV1, DocumentMetadataV1, DocumentReceiptV1, DocumentTargetKindV1 } from '@/lib/contracts/document-v1'
 import type { GlobalSearchV1 } from '@/lib/contracts/product-dashboard-v2'
-export function IntegratedDocuments({customerId:initialCustomerId,contentEnabled=false,maintenanceEnabled=false,initialTarget}:{customerId?:string;contentEnabled?:boolean;maintenanceEnabled?:boolean;initialTarget?:{kind:DocumentTargetKindV1;id:string;label:string}}){
+type IntegratedDocumentsProps={customerId?:string;contentEnabled?:boolean;maintenanceEnabled?:boolean;initialTarget?:{kind:DocumentTargetKindV1;id:string;label:string}}
+export function IntegratedDocuments(props:IntegratedDocumentsProps){
+  return <ScopedIntegratedDocuments key={JSON.stringify([props.customerId??null,props.initialTarget?.kind??null,props.initialTarget?.id??null])} {...props}/>
+}
+function ScopedIntegratedDocuments({customerId:initialCustomerId,contentEnabled=false,maintenanceEnabled=false,initialTarget}:IntegratedDocumentsProps){
   const {repository,role,actorId,workspaceId}=useProduct(),authorized=role==='owner'||role==='admin'
   const [customerId,setCustomerId]=useState(initialCustomerId??''),[target,setTarget]=useState<{kind:DocumentTargetKindV1;id:string;label:string}|null>(initialTarget??(initialCustomerId?{kind:'customer',id:initialCustomerId,label:'Empresa seleccionada'}:null)),[cursors,setCursors]=useState<string[]>([]),[revision,setRevision]=useState(0),[loading,setLoading]=useState(false),[query,setQuery]=useState(''),[results,setResults]=useState<GlobalSearchV1|null>(null),[data,setData]=useState<DocumentListV1|null>(null),[status,setStatus]=useState<'active'|'archived'>('active')
   const [error,setError]=useState(''),[message,setMessage]=useState(''),[busy,setBusy]=useState(false),[confirm,setConfirm]=useState<DocumentMetadataV1|null>(null)
