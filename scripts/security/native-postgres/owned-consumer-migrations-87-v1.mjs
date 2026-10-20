@@ -42,3 +42,22 @@ export function loadOwnedConsumerProfile87V1(root){
       ownerExtensionSha256:base.owner_extension.sha256,forwardSha256:Object.freeze(profile.forward.map(row=>row.sha256))})
   }catch{throw fail()}
 }
+
+/** Historical 86 scope on a profile87 checkout, for the 85/86 callers. The
+ * whole directory must first be exactly profile87; then ONLY the 86 pinned
+ * base blobs (canonical85 + owner extension, same hashes as the 86 manifest)
+ * are returned, so those callers keep proving their own historical scope
+ * instead of being pointed at 87. A non-87 directory gets the strict grants86
+ * loader unchanged; anything else is rejected. */
+export function loadOwnedConsumerHistorical86V1(root,loadGrants86){
+  let p87
+  try{p87=loadOwnedConsumerProfile87V1(root)}catch{return loadGrants86(root)}
+  try{
+    const pins=new Map([...base.canonical,base.owner_extension].map(row=>[row.name,row.sha256]))
+    const entries=p87.migrations.filter(m=>pins.has(m.name))
+    if(entries.length!==86||pins.size!==86||entries.some(m=>hash(Buffer.from(m.sql,'utf8'))!==pins.get(m.name)))throw fail()
+    if(p87.migrations.filter(m=>!pins.has(m.name)).map(m=>m.name).join()!==profile.forward.map(row=>row.name).join())throw fail()
+    return Object.freeze({contract:base.contract,closure:'historical_86_from_profile_87',migrations:Object.freeze(entries),count:86,
+      ownerExtensionSha256:base.owner_extension.sha256,excludedForward:Object.freeze(profile.forward.map(row=>row.name))})
+  }catch{throw fail()}
+}

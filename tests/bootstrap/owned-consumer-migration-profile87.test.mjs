@@ -5,7 +5,7 @@ import {dirname,join,resolve} from 'node:path'
 import {fileURLToPath,pathToFileURL} from 'node:url'
 import test from 'node:test'
 import {loadOwnedConsumerMigrationsV1,loadOwnedConsumerGrants86V1} from '../../scripts/security/native-postgres/owned-consumer-migrations-v1.mjs'
-import {loadOwnedConsumerProfile87V1} from '../../scripts/security/native-postgres/owned-consumer-migrations-87-v1.mjs'
+import {loadOwnedConsumerProfile87V1,loadOwnedConsumerHistorical86V1} from '../../scripts/security/native-postgres/owned-consumer-migrations-87-v1.mjs'
 
 const root=new URL('../../',import.meta.url)
 const base=JSON.parse(readFileSync(new URL('scripts/security/native-postgres/owned-consumer-migrations-v1.json',root),'utf8'))
@@ -83,4 +83,32 @@ test('CRLF checkout maps to the identical pinned LF SQL, any other byte change i
 test('profile87 rejects non-file roots',()=>{
   assert.throws(()=>loadOwnedConsumerProfile87V1('.'),rejected)
   assert.throws(()=>loadOwnedConsumerProfile87V1(new URL('https://example.invalid/')),rejected)
+})
+
+test('historical 86 scope on the actual 87 checkout applies exactly the owner-directory86 SQL and never the forward migration',t=>{
+  const h=loadOwnedConsumerHistorical86V1(root,loadOwnedConsumerGrants86V1)
+  assert.equal(h.count,86);assert.equal(h.closure,'historical_86_from_profile_87')
+  assert.ok(!h.migrations.some(m=>m.name===forward.name));assert.deepEqual(h.excludedForward,[forward.name])
+  assert.ok(Object.isFrozen(h)&&Object.isFrozen(h.migrations))
+  const p86=files(t,{forwardFile:false})
+  assert.deepEqual(h.migrations,loadOwnedConsumerMigrationsV1(p86.root).migrations)
+})
+
+test('historical 86 scope delegates a non-87 directory to the unchanged strict grants86 loader',t=>{
+  const p86=files(t,{forwardFile:false}),p85=files(t,{extension:false,forwardFile:false})
+  assert.deepEqual(loadOwnedConsumerHistorical86V1(p86.root,loadOwnedConsumerGrants86V1),loadOwnedConsumerGrants86V1(p86.root))
+  const c85=loadOwnedConsumerHistorical86V1(p85.root,loadOwnedConsumerGrants86V1)
+  assert.equal(c85.closure,'delivered_grants_86');assert.equal(c85.count,86)
+})
+
+test('historical 86 scope rejects modified, missing or extra SQL instead of degrading to a subset',t=>{
+  const closure=/OWNED_CONSUMER_MIGRATION_CLOSURE_REJECTED/
+  const a=files(t);writeFileSync(join(a.migrationDir,forward.name),readFileSync(join(a.migrationDir,forward.name),'utf8')+'\n-- changed\n')
+  assert.throws(()=>loadOwnedConsumerHistorical86V1(a.root,loadOwnedConsumerGrants86V1),closure)
+  const b=files(t);writeFileSync(join(b.migrationDir,'20261021000000_unowned.sql'),'select 1;')
+  assert.throws(()=>loadOwnedConsumerHistorical86V1(b.root,loadOwnedConsumerGrants86V1),closure)
+  const c=files(t);rmSync(join(c.migrationDir,base.canonical[0].name))
+  assert.throws(()=>loadOwnedConsumerHistorical86V1(c.root,loadOwnedConsumerGrants86V1),closure)
+  const d=files(t),first=base.canonical[0].name;writeFileSync(join(d.migrationDir,first),readFileSync(join(d.migrationDir,first),'utf8')+'\n-- changed\n')
+  assert.throws(()=>loadOwnedConsumerHistorical86V1(d.root,loadOwnedConsumerGrants86V1),closure)
 })
