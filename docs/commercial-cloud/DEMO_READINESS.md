@@ -1,13 +1,13 @@
 # DEMO_READINESS — CRM Telecom
 
-Documento vivo único, actualizado 20/10/2026 según orden0533bd7f y coordinación6290919979. **DEMO_NOT_READY; release NOT_ACCEPTED.** Meta: demostración privada repetible la semana del26/10. No autorización de producción.
+Documento vivo único, actualizado 20/10/2026 tras unidadesQA05/Edge06/UX07/QA08/A11Y09/Catalog10/Caller11, orden0533bd7f y coordinación6290919979. **DEMO_NOT_READY; release NOT_ACCEPTED.** Meta: demostración privada repetible la semana del26/10. No autorización de producción.
 
 ## Fuentes y procedencia vigentes
 
 | Objeto | Identidad | Clasificación y límite |
 |---|---|---|
 | Integración Asier PR156 | 3b80c50d13bc0a9a52f6662de46a1e8b9581c62b, árbol a8dc2e8d878aef2d0b5eaadbe30ba9dfd9241722 | OBSERVADA_DIRECTAMENTE por Git; designada por Asier6290399103 para preparar demo, sin release |
-| Aplicación comunicada desplegada | e42cfd59615a284bf26a758c4078c299bed39290 | REPORTADA_POR_OTRO_AGENTE: W5; base3b80 más delta de admisión Edge, pendiente ACK del integrador |
+| Aplicación comunicada desplegada | e42cfd59615a284bf26a758c4078c299bed39290 | REPORTADA_POR_OTRO_AGENTE: W5; base3b80 más delta de admisión Edge, ACK técnicoAsier6291756248 e incorporación enc0e906fe; no aceptación independiente |
 | Configuración de build | 7c2a276ebfc260998fe1dcf3f92598338cc1226f | Código publicado OBSERVADO_DIRECTAMENTE; uso del netlify.toml REPORTADO por W5; digest/ejecución automática PENDIENTES |
 | Deploy | 6ad75c93ac4914f9005f4767 | REPORTADO_POR_OTRO_AGENTE en W5 d5b5a09ac29591e522927afa94c3d3053189c354, docs/w5/CLOUD_HANDOFF.md §10 |
 | Destino | https://crm-telecom-staging-preview.netlify.app/ ; site3d75b8b6-701d-4021-8c0e-fec141dbef6f | Acceso normal privado independiente PENDIENTE; ninguna sesión del propietario compartida |
@@ -26,7 +26,7 @@ La revisión de los objetos Git confirma que e42 modifica solo admisión y su te
 | Texto fibra300EUR+IVA21%+15días → propuesta → borrador | PROBADA_EN_CLOUD por W5, REPORTADA_POR_OTRO_AGENTE | Oier: revisión explícita de propuesta editable; un borrador sin emisión; UI/API tras recarga |
 | Persistencia de ejemplo W5 | REPORTADA_POR_OTRO_AGENTE: W0 corroboró por lectura DB draft/EUR/30000/6300/36300/una línea/sin emisión | Oier: no atribuirse la lecturaW0; registrar por separado UI/API propio y lecturaDB autorizada de sus IDs |
 | Aislamiento A/B | PENDIENTE en este deploy; runner NOT_RUN | W5: B preexistente admitido, tenant distinto y owner/admin con cliente/factura propios; Oier: positivo propio B antes de negativos A |
-| Usuario fuera de cohorte | PENDIENTE, control separado de aislamiento | W5/Asier: identidad/ventana de negativo autorizadas; no habilitarla para forzar pruebas |
+| Usuario fuera de cohorte | PROBADA_EN_CLOUD porW5, REPORTADA_POR_OTRO_AGENTE en6291579424; OierNOT_RUN | Repetición independiente autorizada; no habilitar cuenta ni confundir403porcohorte con aislamientoRLS |
 | Voz real | PENDIENTE / NOT_RUN; botón presente reportado | Recurso real de micrófono autorizado, transcripción/corrección/cancelación/error y texto alternativo; sin stub, guardado o emisión automática |
 | PDF/documentos privados | PENDIENTE / excluidos por StorageP0 | W5 + revisor independiente asignado; Storagev2/88 propuesta, no permiso para aplicar |
 | Resto de módulos/asistente | Aceptación alojada individual PENDIENTE | Mantener matriz canónica y dependencias, IA comercial writesOFF, modelo vivoNOT_RUN |
@@ -55,9 +55,9 @@ Comprobación única de alcance de esta conexión Supabase20/10: projects=[]; no
 
 | Tarea | Responsable | Fuente / dependencia | Siguiente evidencia | Estado |
 |---|---|---|---|---|
-| QA pequeño consumible | Oier → revisiónAsier | base3b80; PR161 histórico intacto | Fuente695a:14controles localesPASS, lint dirigido/types0; preflightNOT_RUN/exit2; PR DRAFT pendiente de revisión | PUBLICADO_PARA_REVISION |
+| QA pequeño consumible | Oier → revisiónAsier | PR162dcb4,ejecutable13aa; PR161histórico intacto |14controles localesPASS,lint/types0; Authcloud propioNOT_RUN; adopciónAsier porSHA | PUBLICADO_PARA_REVISION |
 | Admisión Edge | Asier revisa propuestaW5e42 | Contrato compartido, no editar en paralelo | Negativos configuración/APP_ENV/origen/proyecto/cohorte/revocación; luego ACK explícito | PENDIENTE |
-| Textos «Integración/base local» en hosted | PropuestaOier → Asier | Transporte integrated_local también hospeda | Copia fiel al transporte; no afirmar persistencia por cambiar una etiqueta | PENDIENTE |
+| Textos y callers de facturación | PropuestaOier → Asier | PR167c38,app7e19/callerse89 |51regresiones app;3FAIL→3PASS callers locales. OriginalSupabase103/11FAIL conservado; nuevoSHA en controles propios | PENDIENTE_ACEPTACION_REAL_LOCAL |
 | Dashboard «Mi actividad» con ceros | Asier/Oier | Alcance/asignación real; workspace soloowner/admin | Explicitar filtro y selección autorizada; no inventar cifras ni ampliar permisos | PENDIENTE |
 | Capturas Customer360 completas | Asier | próxima fuente pertinente | Estado cargado/error antes de capturar; conservar fotos de carga | PENDIENTE |
 | Seguridad independiente | Propietarios asignan revisor disponible | No presumir agenteW4 activo | Responsable y alcance exactos; job automático no sustituye revisión | PENDIENTE |
@@ -81,3 +81,36 @@ Fuente13aa9ce46d25c1b4c02ac3cfb516ceae6adbcc5f adapta sólo el locator de guarda
 Los workflows de entrega12adb terminaron, sin cancelar/publicar encima: CI39425616256 FAIL; job118637297152655/656bootstrap, únicoOWNED_CONSUMER_MIGRATION_CLOSURE_REJECTED y5HIGH. W4all-ref39425616434/118637297764FAIL en reachable-history. Jobs con success/skipped se conservan separados y no se convierten en aceptación cloud; no se atribuyen resultados nuevos a13aa por herencia. PropuestaNetlify#165 tiene ahora07f97a33 reportadoW0, no prueba de ejecución de deploy automático. No perseguir HEADs como si fueran acuerdos de integración.
 
 RevisiónOier del deltaEdge#163: entrega9abe438f, banco original35PASS sobre e42 y10controles adicionales con compilador Next/control de runtime sobre507f1cbe. Configuración ausente/incorrecta, origen/proyecto/cohorte/revocación cerrados sólo en entorno controlado. Ver evidencia publicada en la rama exclusiva de revisión y comentario6291348454; no seguridad independiente/Netlify/Deno/AuthDB.
+
+## Checkpoint de entregas independientes — sesión20/10
+
+Referencia integradora actual observada: PR156c0e906fe0f78f7d2e32476a05ffb9f52980f1a99; ACKtécnicoEdge#163 y adopción del controlNextOier9abe según6291756248. Es otra fuente frente a3b80 y e42desplegado; sus checks tienen su resultado propio. Supabase39429051262 estaba en curso al refrescar; no heredar4042/114. Asier conserva dashboard e incorporación de perfil/QA. No editar su rama ni sus entradas activas.
+
+| Propuesta propia | Fuente funcional / entrega | Evidencia propia y siguiente aceptación |
+|---|---|---|
+| [QA162](https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/162) |13aa9ce46d25c1b4c02ac3cfb516ceae6adbcc5f / dcb4b222baa79141757c8372fc8a25c7e7540190 |14controles de arnés,lint/types0; CI/W4globalFAIL conservados, no acceso cloud |
+| [Textos+callers167](https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/167) |App7e1919d6;callerse89b2358 / c38bcf7b110d473925a793a36cb5869a7a3fcce9 |App51HTTPcontrolado/build44;callers3FAIL→3PASS ydeltaexactoseisarchivos. NuevoSupabase39433000499pendiente, no aceptación inferida |
+| [Login168](https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/168) |ae09372ee6b6b7e1e6c6738226a35a5645a3a69b /04b33fcfd6ea9727ac9c46cbac781570c7ea3e82 |LabelContraseña y recuperación separados: HTMLcompilado3FAIL→3PASS,lint/buildTypes44; sinJS/Auth/visualhospedada |
+| [Catálogo169](https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/169) |7c0a17b055828ff23a623b318f09fd1f229fe766 /6d9f7437426e636600a1c5dbd18a9d1d68656b92 |Publicación de precios de versión simple porcontratoexistente;48componentes/HTTPcontrolado,lint/buildTypes44,6capturas. SinAuthDBhospedado; faltaadopción/deploy/aceptaciónpropia |
+
+No sumar filas/contextos. Referencias originales porSHA en sus PR/checkpoints; esta referencia documental no recibe PASS funcional por herencia. PreservarPR161353 y revisiónEdge9abe; no nuevas PR de integración masiva. Catálogo conserva bundles/entitlements avanzados y selección de versión vendida en contratos como aceptación pendiente; no se elimina backlog.
+
+### Fallo físico nuevo de167 conservado
+
+Supabase39428058443/job118645549627FAIL, artifactseguro12267369351: checkout3f16a254ba419e03f4f8a5d4b0b409336b023fd1, padres3b80+a873, árbol2dfb26437bde461bbaa18c91f4e5043665886041 idénticoa873. Backend4042,UI103PASS/11FAIL,teardownPASS. Detalles segurosTIMEOUT: causa completa no acreditada. El control causal propio demuestra incompatibilidad de etiquetas antiguas en seis callers, corregida sin cambiar ninguna otra instrucción/aserción/SQL/timeout. No demuestra que los11TIMEOUT estén reparados; exigir ejecución real-local del nuevoSHA y conservar cualquier fallo distinto. Sin reruns/cancelaciones ni cambio de imagen/permisos para fabricar verde.
+
+### Novedades reportadasW5 y fronteras
+
+6291579424 informa denegación fuera de cohorte para usuario de la misma empresa y owner de otra empresa; no aporta un positivoB admitido en su tenant antes de pedirA. Es control de admisión reportado, no aislamiento multiempresa demostrado porOier. El mapa de módulos que cargan contraSupabase y altaUIde operador/tarifa también es evidencia ajena; no aceptación individual completa de todas lasfunciones.
+
+W5reporta portapapeles tras altas y falta de aviso de cuenta no admitida. Fuente3b80/e42 ya contiene toaststaging_access_denied; sólo se localizaron dos writeText ensrc, ambos tras botones explícitos. Se solicitó aW5 paso/botón/ruta/source/deploy y distinción entre acciónCRM/operadordepruebas en6291722854. No duplicar toast, eliminar controles o fingir causalidad sin reproducción.
+
+ConfiguraciónNetlifypropuesta#165actual07f97a336bf0d3a0f9617a42b0803224e503d45e verificada: mantiene warning cuando falta testperfil87. Continúa sin gatefail-closed aceptable ni ejecuciónworkflowmanual acreditada; no instalar/endefault/desplegar desdeOier. W5/integrador conservan la petición ya existente6290936439, no se repite ni se autoaprueba.
+
+### Decisiones agrupadas y continuación
+
+Solicitudúnica6291203581 sigue pendiente: ventanaQAexclusiva con accesoNetlify normal independiente, deploy/app/config exactos y A/Bpreexistentes admitidos/roles/tenants/fixtures privados, límites, limpieza y recuperación. No compartir sesión del propietario, crearB o cambiar cohorte. Esta conexión Supabase sólo mostróprojects=[] en la comprobaciónúnica; noSQLrepetido y noDBcaída. Reautorización específica o evidencia saneada porW5, sin forzar grants.
+
+Propietarios: asignar revisor de seguridad independiente disponible; W4job≠persona/revisión. Asier: integrar selectivamente las propuestas acordadas, preservarCaller11 y resolverdashboard/capturascargadas en su ámbito. W5: fuente/deploy/config/ventana y su operación cloud. Voz sólo con recurso/micrófono real autorizado; modelo es ámbitoW3 y mantiene condiciones previas de presupuesto/control. No activar flags o incurrir en gasto.
+
+Siguiente control propio en curso: Supabase39433000499 sobrePR167c38, junto aCI39433000551 yW5enterprise39433000849; W439433000737FAIL ya observado. Ningún resultado pendiente esPASS. No mover eseHEAD mientrasejecuta. Este checkpoint se publica en referencia propia de recuperación documental, sin otraPR ni alterar candidatos/checks activos.
