@@ -304,7 +304,7 @@
     "live_model": "NOT_RUN",
     "release": "NOT_ACCEPTED"
   },
-  "next": "Asier decides exact caller20 delta and isolated concept21 tests7aa+fix146, supplies agreed composition/resource for causal invoice.issue check. Original175effect/cause UNKNOWN, no blind replay. Agree telecom16 conditions and effective service price; W5 quote/private actors/fixtures/window/cleanup remain required. No known independently reproducible new defect is queued; do not repeat green tests or generate redundant branches/reports.",
+  "next": "Await exact deliveries for these three units; no new independent reproduced defect is queued. Do not repeat green tests, create redundant branches/runners or infer ACK by silence.",
   "portfolio12_real_local": {
     "contract": "oier.portfolio12.real-local-qualified.v1",
     "run": 39451803219,
@@ -483,7 +483,7 @@
     "voice_model": "NOT_RUN",
     "release": "NOT_ACCEPTED"
   },
-  "latest_handoff": 6297287682,
+  "latest_handoff": 6298471469,
   "independent_review174": {
     "PR174_comment": 6295862020,
     "hosted": "NOT_RUN",
@@ -513,8 +513,8 @@
     "service_pricing": "DO_NOT_INFER_SERVICE_VERSION_INHERITANCE_FROM_CONTRACT"
   },
   "current_priority": {
-    "unit": "OIER_BILLING_CONCEPT21_PUBLISHED",
-    "status": "CONCEPT21_PUBLISHED_WAIT_EXACT_ASIER_REVIEW_AND_W5_ACCESS",
+    "unit": "OIER_CUSTOMER_PAGING22_PUBLISHED",
+    "status": "OWN22_CLOSED_WAIT_EXACT_REVIEW_ACCESS_AND_SCOPE",
     "observation": {
       "source": "1cc02065",
       "parent": "4bfddd3aa3b7936fe4a61522f8fa11c65dfd9ccd",
@@ -705,9 +705,9 @@
     "live_model": "NOT_RUN",
     "issue10": "OPEN",
     "release": "NOT_ACCEPTED",
-    "next": "Asier decides exact caller20 delta and isolated concept21 tests7aa+fix146, supplies agreed composition/resource for causal invoice.issue check. Original175effect/cause UNKNOWN, no blind replay. Agree telecom16 conditions and effective service price; W5 quote/private actors/fixtures/window/cleanup remain required. No known independently reproducible new defect is queued; do not repeat green tests or generate redundant branches/reports.",
-    "documentary_ref": "d10af60a173e0812373fdc0f4af0c513a96f9c75",
-    "checkpoint_handoff": 6296783216,
+    "next": "Await exact deliveries for these three units; no new independent reproduced defect is queued. Do not repeat green tests, create redundant branches/runners or infer ACK by silence.",
+    "documentary_ref": "ac6169425868c9a2e85c1284d9c13ff274a3aa4f",
+    "checkpoint_handoff": 6297287682,
     "independent_review18": {
       "lint_types_build": "PASS_OWN_DEFAULT44",
       "handoff": 6296624375,
@@ -854,7 +854,43 @@
       "log": "work/billing-concept21-build.log",
       "application_unchanged_after_build": true
     },
-    "own_local_test": "NONE_RUNNING_ALL_21_SESSIONS_COMPLETED"
+    "own_local_test": "NONE_RUNNING_ALL_21_SESSIONS_COMPLETED",
+    "customer_paging22": {
+      "unit": "OIER_CUSTOMER_PAGING22",
+      "after_pass": 9,
+      "tests": "6ca6f42cb58470d12699c4adf32e1b636cf7106f",
+      "claim": 6298317033,
+      "hosted": "NOT_RUN",
+      "PR175_comment": 6298471154,
+      "before_fail": 6,
+      "handoff": 6298471469,
+      "release": "NOT_ACCEPTED",
+      "published_ref": "825e5575ec8bf7a331b2ec953c25ed32520d986f",
+      "quality": "PASS_OWN_LINT_DEFAULT_BUILD_TYPES44",
+      "integration": "PENDING_SELECTIVE_REVIEW",
+      "source": "d5922d843cac660f6bc954875a289267c5299f2b"
+    },
+    "supabase_connector22": {
+      "operation": "list_projects",
+      "result": "EMPTY_PROJECT_LIST",
+      "target": "zgwotxnyqzfuzcnmgvtn",
+      "target_visible": false,
+      "SQL_executed": false,
+      "scope": "CONNECTOR_VISIBILITY_ONLY_NOT_BACKEND_HEALTH_OR_AUTH_RLS_TEST",
+      "cloud_writes": false,
+      "permissions_changed": false
+    },
+    "local22": {
+      "source": "d5922d843cac660f6bc954875a289267c5299f2b",
+      "build": "PASS_OWN_DEFAULT44_TYPES",
+      "log": "work/customer-paging22-build.log",
+      "no_local_test_running": true
+    },
+    "next_three": [
+      "Asier selectively reviews21/caller20/22 and publishes agreed composition; original invoice effect/cause UNKNOWN, no blind replay",
+      "W5 exact private quote for owner approval and independent CORE162 context/actors/fixtures/exclusive window/cleanup; no purchase or protection change",
+      "Asier chooses telecom16scope and serviceprice/version semantics; W5 fixtures/window/cleanup before chain"
+    ]
   },
   "current_candidate": {
     "pr": 175,
@@ -1054,5 +1090,20 @@
     "handoff": 6297287682,
     "lint_types_build": "PASS_OWN_DEFAULT44",
     "claim": 6297132282
+  },
+  "customer_paging22": {
+    "unit": "OIER_CUSTOMER_PAGING22",
+    "after_pass": 9,
+    "tests": "6ca6f42cb58470d12699c4adf32e1b636cf7106f",
+    "claim": 6298317033,
+    "hosted": "NOT_RUN",
+    "PR175_comment": 6298471154,
+    "before_fail": 6,
+    "handoff": 6298471469,
+    "release": "NOT_ACCEPTED",
+    "published_ref": "825e5575ec8bf7a331b2ec953c25ed32520d986f",
+    "quality": "PASS_OWN_LINT_DEFAULT_BUILD_TYPES44",
+    "integration": "PENDING_SELECTIVE_REVIEW",
+    "source": "d5922d843cac660f6bc954875a289267c5299f2b"
   }
 }

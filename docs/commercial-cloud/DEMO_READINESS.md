@@ -2,6 +2,12 @@
 
 Estado vigente20/10/2026, ordenf7d04fdf y W06294187656. **DEMO_NOT_READY; releaseNOT_ACCEPTED.** Objetivo: demo privada repetible la semana26/10; no producción. Este corte sustituye las lecturas de estado anteriores. El historial íntegro permanece en Git, incluido [checkpoint153a04e2](https://github.com/Asier-Comba/CRM-Telecomunicaciones/blob/153a04e2e0f0dbfa38d2bb3ac0df6e38c3b4a82b/docs/commercial-cloud/DEMO_READINESS.md).
 
+## Customer360: corrección22 preparada para integración
+
+Orden19830c9c y coordinación6297630755. Al paginar Servicios con teclado, éxito o403 devolvían el foco a BODY: seis fallos causales conservados. Tests6ca6f42c y fixd5922d84 restauran foco en página/error, permiten reintento y respetan el foco elegido en otro control.9/9 controles propios, lint global/build/TypeScript44PASS; HTTP controlado, sin comandos o prueba AuthDB/cloud. Lectura/efecto/cursor sin cambios, aplicación textual limpia a175/b9e en índice propio. No rama/runner/PR redundante.
+
+[Código y evidencia](https://github.com/Asier-Comba/CRM-Telecomunicaciones/blob/825e5575ec8bf7a331b2ec953c25ed32520d986f/docs/commercial-cloud/20261020/CUSTOMER_PAGING22.md), handoff6298471469. **IMPLEMENTED/LOCAL_TESTED; selección Asier y HOSTED pendientes.** Conector Oier Supabase sigue con lista de proyectos vacía, sin SQL o cambio de permisos: no indica caída del backend. No nueva respuesta a21/caller20/accesoW5; emisión original175UNKNOWN no repetida. Próximas tres unidades condicionadas: selección/composición Asier, CORE162 con contexto/ventana/fixtures, telecom con alcance/condiciones/limpieza acordados. Sin nuevos defectos independientes reproducidos en cola o pruebas locales en curso; no repetir verdes ni fabricar actividad.
+
 ## Corrección comercial21 preparada para integración
 
 Nueva orden del propietario7f16f11c y coordinación6297013276. Defecto demostrado: «conectividad 600 Mbps» se convertía en «conectividad» al generar la propuesta revisable. Tests7aa8e869 y fix146a5433 publicados en la rama Oier existente, evidencia **d720d08905e3600a96b4f02a7d4d9671d4326a12**, handoff6297287682. Tres fallos UI y cinco del parser originales conservados; después39 UI,16 conceptos y24 comprobaciones del parser PASS, lint global y build/TypeScript44 propios PASS. Sólo cambia el límite numérico del concepto; dinero/SQL/contratos/permisos/proveedor intactos. Aplicación textual limpia a b9e en índice temporal propio, sin tocar fuente Asier.
