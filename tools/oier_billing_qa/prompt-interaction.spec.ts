@@ -157,6 +157,9 @@ test('failed recognition abort preserves manual correction and keeps explicit st
  await page.getByRole('button',{name:'Generar propuesta',exact:true}).click()
  expect(r.proposals()).toHaveLength(1);expect(r.proposals()[0].input.source).toBe('text')
  r.assertNoCommands();expect(r.pageErrors).toEqual([])
+  await page.getByRole('combobox',{name:'Cliente para facturación',exact:true}).selectOption('')
+  await expect(area).toHaveCount(0)
+  expect(r.pageErrors).toEqual([])
 })
 test('leaving the customer aborts recognition and retires transcript handlers',async({page})=>{
  const r=await mount(page)
