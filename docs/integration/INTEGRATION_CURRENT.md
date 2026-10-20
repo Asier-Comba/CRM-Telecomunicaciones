@@ -79,6 +79,23 @@ are preserved: copied fixture provider alias and missing query-string routing ma
 the role cases unqualified. After01 had12FAIL/6PASS; no clean result is inferred.
 The fixture was repaired before qualified before03/after02; expectations unchanged.
 
+## Unit20: integrated billing presentation
+
+Selectively adopted PR167 `a8735b55bf61717526bf247739db41c55244c136`:
+three product blobs and three exact QA locators. The integrated repository remains
+the actual server API transport in both disposable local and staging contexts.
+Its notice no longer claims a local database or saved changes before a receipt;
+integrated drafts have neutral labels, while in-memory demo drafts retain local
+labels and their no-persistence warning. Success messages remain after validated
+receipts/readback. Parser local/no-generative-AI description is unchanged.
+
+Own causal label check1FAIL before, then51/51 relevant browser regressions PASS
+in390/768/1440 with zero retries/skips/flaky. Targeted lint/types PASS. HTTP and
+Speech are controlled; real dictation, hosted AuthDB and independent acceptance
+are NOT_RUN. Production rebuild is deferred to the next composed login checkpoint;
+no earlier build is assigned to this change. Runner162's exact old/new label
+compatibility was already adopted before this presentation change.
+
 ## Work in order
 
 Review/adopt exact W5 profile87; classify its successful physical completion
