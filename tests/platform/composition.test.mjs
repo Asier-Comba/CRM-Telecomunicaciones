@@ -26,6 +26,15 @@ test('HEAD may only add later migrations and must keep every composed blob', () 
   assert.throws(() => checkForwardMigrations(composed, {...composed, 'supabase/migrations/20260101120000_backdated.sql': '3'}), /FORWARD_ONLY_MIGRATION_DRIFT/)
   assert.throws(() => checkForwardMigrations(composed, {...composed, 'supabase/migrations/20260102000000_b2.sql': '3'}), /FORWARD_ONLY_MIGRATION_DRIFT/)
 })
+test('two later additions with the same version are rejected like the union rejects them (OIER26)', () => {
+  const a = 'supabase/migrations/20260101000000_a.sql', b = 'supabase/migrations/20260102000000_b.sql'
+  const x = 'supabase/migrations/20260103000000_x.sql', y = 'supabase/migrations/20260103000000_y.sql', z = 'supabase/migrations/20260104000000_z.sql'
+  const composed = {[a]: '1', [b]: '2'}
+  assert.throws(() => checkForwardMigrations(composed, {...composed, [x]: '3', [y]: '4'}), /MIGRATION_VERSION_COLLISION/)
+  assert.throws(() => checkForwardMigrations(composed, {...composed, [x]: '3', [y]: '4', [z]: '5'}), /MIGRATION_VERSION_COLLISION/)
+  assert.throws(() => unionMigrations({[x]: '3'}, {[y]: '4'}), /MIGRATION_VERSION_COLLISION/)
+  assert.deepEqual(checkForwardMigrations(composed, {...composed, [x]: '3', [z]: '5'}), ['20260103000000_x.sql', '20260104000000_z.sql'])
+})
 test('the composition proof is bound to one recorded full commit', () => {
   assert.match(sources.composed, /^[0-9a-f]{40}$/)
   assert.ok(![sources.platform, sources.product].includes(sources.composed))

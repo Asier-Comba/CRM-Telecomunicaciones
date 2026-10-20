@@ -28,14 +28,16 @@ export function unionMigrations(platform, product) {
   if (new Set(Object.keys(union).map(name => name.split('/').at(-1).slice(0, 14))).size !== Object.keys(union).length) throw new Error('MIGRATION_VERSION_COLLISION')
   return {shared: shared.length, platform_only: Object.keys(platform).filter(name => !(name in product)).sort(), product_only: Object.keys(product).filter(name => !(name in platform)).sort(), union}
 }
-/** Every composed migration keeps its exact blob at HEAD, none is removed, and
- * every addition sorts after the last composed version. */
+/** Every composed migration keeps its exact blob at HEAD, none is removed,
+ * every addition sorts after the last composed version, and every version is
+ * unique across the whole HEAD set (same rule as unionMigrations). */
 export function checkForwardMigrations(composed, head) {
   const version = path => path.split('/').at(-1).slice(0, 14)
   const last = Object.keys(composed).map(version).sort().at(-1)
   if (Object.entries(composed).some(([path, blob]) => head[path] !== blob)) throw new Error('FORWARD_ONLY_MIGRATION_DRIFT')
   const added = Object.keys(head).filter(path => !(path in composed)).sort()
   if (added.some(path => !(version(path) > last))) throw new Error('FORWARD_ONLY_MIGRATION_DRIFT')
+  if (new Set(Object.keys(head).map(version)).size !== Object.keys(head).length) throw new Error('MIGRATION_VERSION_COLLISION')
   return added.map(path => path.split('/').at(-1))
 }
 export function checkComposition(expected, actual) {
