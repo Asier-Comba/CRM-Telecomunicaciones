@@ -75,6 +75,7 @@ reviewed SHA and recorded below.
 | 2026-10-19 | `6ad6693262c82905fcf6bc40` | `2f1b6dd7` + toml | #159 hosted mode (retired) | 401 | not run |
 | 2026-10-20 | `6ad75304f4d30466aa878e8c` | `3b80c50d` + toml | integrator admission | 401 | blocked: 503 on Netlify Edge |
 | 2026-10-20 | `6ad75c93ac4914f9005f4767` | `e42cfd59` + toml | integrator admission + NODE_ENV fix | 401 | PASS: login, client, text invoice draft; negatives out of cohort |
+| 2026-10-20 | `6ad78f6c810c781fba4f5880` | `a9e977ad` (exact tree, own toml) | integrator admission, cohort of 3 | 401 | PASS: A/B window (positive A and B; B→A read/modify denied; suspended, out-of-cohort, anonymous denied; no leaks) |
 
 Effective build of `6ad75c93` (from its Netlify log): Node 24.22.0, npm
 11.19.1, `@netlify/build` 37.4.3, Next 16.3.8. The adapter version was not
