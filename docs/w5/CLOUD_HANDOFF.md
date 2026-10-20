@@ -129,3 +129,27 @@ Defectos observados para el integrador:
 Observaciones UX para el integrador: la página de login no muestra mensaje para `error=staging_access_denied`; el aviso "Integración local" aparece en staging.
 
 Siguiente unidad W5: contrato manual, servicio y línea para "Bilbao Telecom Demo" por la UI, con escritura + recarga por módulo (pendiente: la ventana del navegador estaba minimizada). Para el integrador: pantalla de alta de versión de tarifa; el sitio escribe en el portapapeles del usuario al confirmar altas.
+
+## 11. Ventana QA A/B multiempresa sobre el deploy `6ad78f6c` (20/10/2026, ~16:00–16:17 UTC)
+
+| Campo | Valor |
+|---|---|
+| Deploy ID | `6ad78f6c810c781fba4f5880` |
+| Fuente / árbol | `a9e977adf90b1e83cded23fb54aefc696839d014` / `ac48598bffd8a528919f63f2bcad1d07365c775d` (byte a byte, su propio `netlify.toml`) |
+| Admisión | Estricta del integrador, cohorte de 3 cuentas sintéticas existentes: owner A, owner B, admin A suspendido (UUIDs solo en Netlify, `uuid_csv` válido) |
+| Cuentas | Solo `@example.invalid`; contraseñas de un solo uso generadas en local, nunca en GitHub; al cerrar: rebaneadas, contraseña aleatoria y sesiones borradas |
+
+| # | Prueba | Resultado | Evidencia |
+|---|---|---|---|
+| 1 | Positivo A (owner A) | PASS | Lectura de su cliente y de su borrador de factura: 200 |
+| 2 | Positivo B (owner B) | PASS | Alta de cliente "Donostia Fibra Demo SL" en la empresa B: 200 con recibo; relectura 200 |
+| 3 | B lee cliente de A | PASS | 404 `not_found`, cuerpo sin datos; la página directa del cliente de A no muestra su nombre |
+| 4 | B lee factura de A | PASS | 404 `not_found`, sin datos |
+| 5 | B modifica cliente de A | PASS | 404 `not_found`; Supabase: cliente de A sigue en versión 1, 1 evento de auditoría, 0 filas alteradas |
+| 6 | Miembro suspendido de A (en cohorte) | PASS | Login real confirmado en Supabase; lectura de cliente y factura de A, modificación y alta: todas 403 `access_denied`; 0 filas creadas |
+| 7 | Fuera de cohorte (viewer de A) | PASS | Login real confirmado; APIs 403 `access_denied`; páginas → `/login?error=staging_access_denied`. **No prueba aislamiento multiempresa** (eso lo prueban 3–5) |
+| 8 | Anónimo en el CRM (sesión Netlify, sin sesión CRM) | PASS | APIs 401 `access_denied`; páginas redirigen a login |
+| 9 | Anónimo en Netlify | PASS | 401 en 7 rutas del sitio y 3 del permalink del deploy |
+| 10 | Fuga en errores | PASS | Todas las denegaciones devuelven solo `{ok:false,error:<código>}`; sin nombres, ids ajenos, SQL ni trazas |
+
+Límites: pruebas por API del mismo origen y lectura de páginas, no recorrido visual completo de B (la ventana del navegador no pintaba). Oier no puede repetirla de forma independiente: en el plan Free de Netlify un proyecto privado solo lo ve el owner del equipo (decisión de coste del propietario). Tras la ventana solo queda habilitada la cuenta owner A para la demo del propietario.
