@@ -37,7 +37,7 @@ test('financial totals from the previous refresh disappear until the current res
 async function seriesFixture(page:Page){
  const fixture=await startBillingFocusFixture(),queries:Record<string,unknown>[]=[],financial:Record<string,unknown>[]=[],commands:string[]=[],errors:string[]=[]
  const id=(n:number)=>`10000000-0000-4000-8000-${String(n).padStart(12,'0')}`
- let holdA=false,waiting=false,release!:()=>void,settled!:()=>void
+ let holdA=false,waiting=false,failList=false,release!:()=>void,settled!:()=>void
  const held=new Promise<void>(resolve=>release=resolve),done=new Promise<void>(resolve=>settled=resolve)
  const summary=Object.fromEntries(['currency','customer_id','due_on','id','issue_on','number','overdue','series','status','totals','version'].map(key=>[key,fixture.invoice[key as keyof typeof fixture.invoice]]))
  page.on('pageerror',error=>errors.push(error.message))
@@ -52,6 +52,7 @@ async function seriesFixture(page:Page){
   if(operation==='invoice.financial_summary'){financial.push(input);return route.continue()}
   if(operation!=='invoice.list')return route.continue()
   queries.push(input)
+  if(failList){failList=false;return route.fulfill({status:403,json:{ok:false,error:'access_denied'}})}
   if(input.series==='DENY')return route.fulfill({status:403,json:{ok:false,error:'access_denied'}})
   const delayed=holdA&&input.series==='A';if(delayed){waiting=true;await held}
   const series=input.series??'ALL',row=series==='B'?21:series==='A'?(input.after_id?61:11):31,paged=series==='A'&&!input.after_id
@@ -60,9 +61,25 @@ async function seriesFixture(page:Page){
   await route.fulfill({json:{ok:true,data:{contract_version:'billing.v1',operation,items,next_id:paged?id(60):null}}})
   if(delayed)settled()
  })
- return {fixture,queries,financial,commands,errors,id,holdA(){holdA=true},waiting:()=>waiting,release,done,async close(){release();fixture.releaseList();fixture.releasePdf();await page.unrouteAll({behavior:'wait'});await fixture.close()}}
+ return {fixture,queries,financial,commands,errors,id,holdA(){holdA=true},failNextList(){failList=true},waiting:()=>waiting,release,done,async close(){release();fixture.releaseList();fixture.releasePdf();await page.unrouteAll({behavior:'wait'});await fixture.close()}}
 }
 for(const width of [390,768,1440]){
+ test(`billing explicit list refresh recovers after refused read at ${width}`,async({page},info)=>{
+  const r=await seriesFixture(page)
+  try{
+   await page.setViewportSize({width,height:960});await page.goto(r.fixture.url)
+   const row=page.locator(`tr[data-invoice-id="${r.id(31)}"]`),refresh=page.getByRole('button',{name:'Actualizar facturas',exact:true})
+   await expect(row).toBeVisible();r.failNextList();await refresh.click()
+   await expect(page.getByRole('alert')).toHaveText('No tienes permiso para esta acción.')
+   await expect(row).toHaveCount(0)
+   await page.screenshot({path:info.outputPath('billing-refresh-refused-'+width+'.png')})
+   await refresh.click();await expect(row).toBeVisible()
+   await expect(page.getByRole('alert')).toHaveCount(0)
+   await expect(page.getByText('Consultando resumen financiero actualizado…',{exact:true})).toHaveCount(0)
+   await refresh.scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath('billing-refresh-recovered-'+width+'.png')})
+   expect(r.queries).toHaveLength(3);expect(r.commands).toEqual([]);expect(r.errors).toEqual([])
+  }finally{await r.close()}
+ })
  test(`billing series selection retains server cursor and ignores old filter response at ${width}`,async({page},info)=>{
   const r=await seriesFixture(page)
   try{
