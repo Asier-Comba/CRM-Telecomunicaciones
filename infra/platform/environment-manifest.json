@@ -125,35 +125,6 @@
       "required_when": null
     },
     {
-      "name": "AI_PROVIDER",
-      "type": "string",
-      "secret": false,
-      "target": [
-        "LOCAL",
-        "DEV",
-        "STAGING",
-        "PROD"
-      ],
-      "required": {
-        "LOCAL": false,
-        "DEV": false,
-        "STAGING": false,
-        "PROD": false
-      },
-      "owner": "W5",
-      "consumer": [
-        "src/lib/server/ai-provider-v2.ts"
-      ],
-      "validation_rule": "string",
-      "description": "Configuration binding for AI_PROVIDER; presence does not prove provider readiness.",
-      "rotation_expectation": "Review on release/config change.",
-      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
-      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
-      "provider": "application",
-      "destination": "environment-specific configuration",
-      "required_when": null
-    },
-    {
       "name": "ALLOW_PRODUCTION_TESTS",
       "type": "string",
       "secret": false,
@@ -201,6 +172,9 @@
       "owner": "W5",
       "consumer": [
         "docs/master/contracts/product-environment.json",
+        "src/features/product/integration/mode.ts",
+        "src/lib/server/product-staging-admission-v1.ts",
+        "src/proxy.ts",
         "scripts/platform/durable-native-fixture.mjs"
       ],
       "validation_rule": "app_environment",
@@ -2475,6 +2449,7 @@
         "src/app/api/health/ready/route.ts",
         "src/features/product/integration/mode.ts",
         "src/lib/integrations.ts",
+        "src/lib/server/product-staging-admission-v1.ts",
         "src/lib/server/supabase-user.ts",
         "src/lib/supabase-admin.ts",
         "src/lib/supabase.ts",
@@ -2552,6 +2527,7 @@
         "src/lib/server/document-scanner-v1.ts",
         "src/lib/server/import-staging-disposable-v1.ts",
         "src/lib/server/product-environment-v1.ts",
+        "src/lib/server/product-staging-admission-v1.ts",
         "src/lib/supabase-queries.ts",
         "src/lib/telecom-preview/access.ts",
         "src/lib/vertical-queries.ts",
@@ -2559,7 +2535,8 @@
         "src/lib/workspace-templates.ts",
         "scripts/platform/config.mjs",
         "scripts/platform/durable-native-fixture.mjs",
-        "scripts/platform/lib.mjs"
+        "scripts/platform/lib.mjs",
+        "scripts/assistant/eval-budget-ledger-v1.mjs"
       ],
       "validation_rule": "node_mode",
       "description": "Framework/test execution mode; test adapters deny production",
@@ -2651,7 +2628,7 @@
         "src/lib/agents/nowlabs-main-agent.ts",
         "src/lib/agents/planner/shadow-hook.ts",
         "src/lib/agents/whatsapp-agent.ts",
-        "src/lib/server/ai-provider-v2.ts"
+        "scripts/assistant/eval-live-v2.ts"
       ],
       "validation_rule": "private_reference_or_key",
       "description": "Existing future AI provider placeholder; no registration/live execution",
@@ -2712,7 +2689,7 @@
       "consumer": [
         "src/lib/agents/whatsapp-agent.ts",
         "src/lib/config-status.ts",
-        "src/lib/server/ai-provider-v2.ts"
+        "scripts/assistant/eval-live-v2.ts"
       ],
       "validation_rule": "string",
       "description": "Configuration binding for OPENAI_MODEL; presence does not prove provider readiness.",
@@ -2741,7 +2718,7 @@
       },
       "owner": "W3",
       "consumer": [
-        "src/lib/server/ai-provider-v2.ts"
+        "scripts/assistant/eval-live-v2.ts"
       ],
       "validation_rule": "string",
       "description": "Configuration binding for OPENAI_PROJECT_ID; presence does not prove provider readiness.",
@@ -3113,6 +3090,7 @@
       "consumer": [
         "src/app/(saas)/layout.tsx",
         "src/features/product/integration/mode.ts",
+        "src/lib/server/product-staging-admission-v1.ts",
         "src/lib/telecom-preview/access.ts"
       ],
       "validation_rule": "boolean",
@@ -3142,7 +3120,8 @@
       },
       "owner": "W5",
       "consumer": [
-        "src/features/product/integration/mode.ts"
+        "src/features/product/integration/mode.ts",
+        "src/lib/server/product-staging-admission-v1.ts"
       ],
       "validation_rule": "boolean",
       "description": "Configuration binding for PRODUCT_LOCAL_SYNTHETIC; presence does not prove provider readiness.",
@@ -3152,6 +3131,65 @@
       "provider": "application",
       "destination": "environment-specific configuration",
       "required_when": null
+    },
+    {
+      "name": "PRODUCT_STAGING_INTEGRATION",
+      "type": "boolean",
+      "secret": false,
+      "target": [
+        "STAGING"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json",
+        "src/lib/server/product-environment-v1.ts",
+        "src/lib/server/product-staging-admission-v1.ts",
+        "scripts/platform/config.mjs"
+      ],
+      "validation_rule": "boolean",
+      "description": "Explicit inactive-by-default staging application admission; requires independent security review before enabling",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "product",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
+      "name": "PRODUCT_STAGING_USER_IDS",
+      "type": "uuid_csv",
+      "secret": true,
+      "target": [
+        "STAGING"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json",
+        "src/lib/server/product-staging-admission-v1.ts"
+      ],
+      "validation_rule": "uuid_csv",
+      "description": "Private synthetic Auth user cohort, 1..64 unique canonical UUIDs; server only, no values in public evidence",
+      "rotation_expectation": "Rotate on compromise and company policy; scoped per environment.",
+      "revocation_expectation": "Company-approved provider-specific revoke and old-credential denial; no automatic live revocation.",
+      "health_test_reference": "tests/platform/monitor.test.mjs rotation simulation; accepted provider-specific live test still required.",
+      "provider": "product",
+      "destination": "environment-specific secret store",
+      "required_when": {
+        "name": "PRODUCT_STAGING_INTEGRATION",
+        "equals": "true"
+      }
     },
     {
       "name": "PRODUCT_V1_ENABLED",
@@ -3208,6 +3246,7 @@
         "src/app/api/telecom/reads/v1/route.ts",
         "src/app/api/telecom/services/v1/route.ts",
         "src/features/product/integration/mode.ts",
+        "src/lib/server/product-staging-admission-v1.ts",
         "scripts/platform/config.mjs"
       ],
       "validation_rule": "boolean",
@@ -3277,6 +3316,7 @@
         "src/app/api/telecom/services/v1/route.ts",
         "src/features/product/integration/mode.ts",
         "src/lib/server/product-http-v1.ts",
+        "src/lib/server/product-staging-admission-v1.ts",
         "scripts/platform/company-state.mjs",
         "scripts/platform/config.mjs"
       ],
@@ -4232,6 +4272,11 @@
       "name": "20261011090000_assistant_verified_completed_reconciliation.sql",
       "version": "20261011090000",
       "sha256": "17159132d207ea2f10bba3597d93e29b3cd900c696f2dbbef581be639fc30f18"
+    },
+    {
+      "name": "20261020100000_business_conflict_non_retryable.sql",
+      "version": "20261020100000",
+      "sha256": "5cb2704c505a82426b583f129be6a24d384b129ec4fd66d878dec91ea7524245"
     }
   ]
 }
