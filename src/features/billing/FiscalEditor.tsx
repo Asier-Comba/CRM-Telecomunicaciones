@@ -33,10 +33,11 @@ const sections: readonly { legend: string; fields: readonly FiscalField[] }[] = 
 ]
 
 export function FiscalEditor({
-  kind, configuration, busy, error, requiresReload, onReload, onSave, onClose,
+  kind, configuration, busy, pendingUncertain = false, error, requiresReload, onReload, onSave, onClose,
 }: {
   kind: 'issuer' | 'customer'
   configuration: Configuration
+  pendingUncertain?: boolean
   busy: boolean
   error: unknown
   requiresReload: boolean
@@ -49,10 +50,11 @@ export function FiscalEditor({
     (kind === 'issuer' ? configuration.issuer?.profile : configuration.customer?.profile)
       ?? { legal_name: '', tax_id: '', address: '', postal_code: '', city: '', region: '', country: 'ES' },
   )
-  const uncertain = error instanceof ProductUiError && error.code === 'transport_uncertain'
+  const uncertain = pendingUncertain || error instanceof ProductUiError && error.code === 'transport_uncertain'
   const conflict = error instanceof ProductUiError && error.code === 'conflict'
   return (
-    <Drawer title={kind === 'issuer' ? 'Datos fiscales del emisor' : 'Datos fiscales del cliente'} onClose={onClose}>
+    <Drawer title={kind === 'issuer' ? 'Datos fiscales del emisor' : 'Datos fiscales del cliente'} onClose={onClose} closeDisabled={busy || uncertain}>
+      {uncertain && <p role="status" className="mb-4 rounded-lg bg-amber-50 p-3 text-sm text-amber-900">El resultado está pendiente de confirmar. Reintenta la misma acción antes de cerrar.</p>}
       <form onSubmit={event => { event.preventDefault(); onSave(profile) }} className="space-y-5">
         <p className="text-sm leading-relaxed text-slate-500">Revisa la identidad y la dirección antes de guardar.</p>
         <fieldset disabled={busy || uncertain || conflict || requiresReload} className="space-y-5">
@@ -84,7 +86,7 @@ export function FiscalEditor({
         </fieldset>
         {error ? <p role="alert" className="text-sm text-red-700">{safeMessage(error)}</p> : null}
         <div className="flex flex-col gap-2 border-t border-slate-200 pt-4 sm:flex-row sm:justify-end">
-          <button className={primary} disabled={busy || conflict || requiresReload}>
+          <button className={`${primary} scroll-my-4`} disabled={busy || conflict || requiresReload}>
             {busy ? 'Guardando…' : uncertain ? 'Reintentar la misma acción' : 'Guardar datos fiscales'}
           </button>
           {(conflict || requiresReload) ? (

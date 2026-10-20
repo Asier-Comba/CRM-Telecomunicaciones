@@ -12,7 +12,7 @@ export const primary =
   'inline-flex items-center justify-center gap-2 rounded-lg bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:cursor-not-allowed disabled:opacity-45'
 export function PreviewNotice() {
   const { repository } = useProduct()
-  if (repository.mode === 'integrated_local') return <div className="rounded-lg border border-amber-100 bg-amber-50 px-3 py-2 text-xs text-amber-900"><strong>Integración local</strong> · Datos sintéticos de prueba · Cambios guardados en la base local</div>
+  if (repository.mode === 'integrated_local') return <div className="rounded-lg border border-amber-100 bg-amber-50 px-3 py-2 text-xs text-amber-900"><strong>Integración de prueba</strong> · Datos sintéticos · Los cambios requieren confirmación del servidor</div>
   return (
     <div className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-indigo-100 bg-indigo-50/60 px-3 py-2 text-xs text-indigo-800">
       <span>
@@ -251,10 +251,12 @@ export function Drawer({
   title,
   children,
   onClose,
+  closeDisabled = false,
 }: {
   title: string
   children: ReactNode
   onClose: () => void
+  closeDisabled?: boolean
 }) {
   const ref = useRef<HTMLDialogElement>(null),
     id = useId()
@@ -269,9 +271,9 @@ export function Drawer({
     <dialog
       ref={ref}
       aria-labelledby={id}
-      onCancel={(e) => { e.preventDefault(); onClose() }}
+      onCancel={(e) => { e.preventDefault(); if (!closeDisabled) onClose() }}
       onClick={(e) => {
-        if (e.target === e.currentTarget) onClose()
+        if (e.target === e.currentTarget && !closeDisabled) onClose()
       }}
       className="fixed inset-y-0 left-auto right-0 m-0 h-dvh max-h-none w-[min(36rem,100vw)] max-w-none border-l border-slate-200 bg-white p-0 shadow-2xl backdrop:bg-slate-950/35"
     >
@@ -279,7 +281,7 @@ export function Drawer({
         <h2 id={id} className="text-lg font-bold text-slate-900">
           {title}
         </h2>
-        <button onClick={onClose} aria-label="Cerrar panel" className={control}>
+        <button onClick={onClose} disabled={closeDisabled} aria-label="Cerrar panel" className={control}>
           <X className="h-4 w-4" />
         </button>
       </header>

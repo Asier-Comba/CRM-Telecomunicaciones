@@ -1,0 +1,44 @@
+{
+  "source": "111d2dbe9eb4dfb386c9e364c5f5e78ffd991ffd",
+  "tree": "3a499a9625cb202b7f007d0f95b08a5e7165eb10",
+  "integrated": "dbcdb15b221518117078f6b73d446d8b33643c0c",
+  "causal": {
+    "failed": 6,
+    "passed": 0,
+    "width": 390
+  },
+  "browser": {
+    "passed": 24,
+    "failed": 0,
+    "scope": "CONTROLLED_HTTP_NOT_AUTH_DB_NO_WRITES",
+    "recovery": 18,
+    "resource_scope": 6
+  },
+  "lint": "TARGETED_PASS_NOT_GLOBAL",
+  "typecheck": "PASS",
+  "build": "PASS66",
+  "hosted": "NOT_RUN",
+  "release_ready": false,
+  "records": [
+    {
+      "name": "sim9-before.log",
+      "sha256": "492e1383b9f27bdc5b58b5a72fff17e5ca754928be8d58190a0529000702b796"
+    },
+    {
+      "name": "sim9-after.log",
+      "sha256": "83c99da90423f1b1a94a3b4d157524f568837621c3ee81b98d91dab039aa0f79"
+    },
+    {
+      "name": "unit9-lint-targeted.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "unit9-types.log",
+      "sha256": "09698db0dd661e366e31bb0aa12a64958690641809896ed8445717ab71ea6759"
+    },
+    {
+      "name": "unit9-build.log",
+      "sha256": "8486cdc9c17fc848a0bb123554184cc95ae7b8d68fa1d1e507883c61e195c5ce"
+    }
+  ]
+}

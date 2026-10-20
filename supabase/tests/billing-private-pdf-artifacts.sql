@@ -36,12 +36,12 @@ do $$declare w uuid:='82000000-0000-4000-8000-000000000001';inp jsonb;r jsonb;be
  update billing_fixture set receipt=r;
  perform pg_temp.assert_b(r=public.billing_artifact_v1_replay(w,inp));
  perform pg_temp.assert_b(r=public.billing_artifact_v1_attach(w,inp||'{"document_id":"84000000-0000-4000-8000-000000000001"}'));
- perform pg_temp.deny_b(format('select public.billing_artifact_v1_replay(%L,%L)',w,(inp||'{"expected_artifact_version":1}')::text),'40001');
+ perform pg_temp.deny_b(format('select public.billing_artifact_v1_replay(%L,%L)',w,(inp||'{"expected_artifact_version":1}')::text),'PT409');
  perform public.billing_v1_invoice_mark_paid(w,jsonb_build_object('command_id',gen_random_uuid(),'id',inp->>'id','expected_version',2));
  perform pg_temp.assert_b(r=public.billing_artifact_v1_replay(w,inp));
  perform pg_temp.assert_b(public.billing_artifact_v1_get(w,jsonb_build_object('id',inp->>'id'))->>'version'='1');
  perform pg_temp.assert_b(public.billing_artifact_v1_get(w,'{"id":"83000000-0000-4000-8000-000000000002"}')is null);
- perform pg_temp.deny_b(format('select public.billing_artifact_v1_attach(%L,%L)',w,(inp||jsonb_build_object('command_id',gen_random_uuid(),'expected_version',3,'document_id','84000000-0000-4000-8000-000000000002'))::text),'40001');
+ perform pg_temp.deny_b(format('select public.billing_artifact_v1_attach(%L,%L)',w,(inp||jsonb_build_object('command_id',gen_random_uuid(),'expected_version',3,'document_id','84000000-0000-4000-8000-000000000002'))::text),'PT409');
 end$$;
 reset role;
 select pg_temp.assert_b((select status='stored_candidate'from public.billing_private_pdf_jobs where invoice_id=(select id from billing_fixture)));

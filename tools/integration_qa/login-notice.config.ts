@@ -1,0 +1,6 @@
+import {defineConfig} from '@playwright/test'
+import {resolve} from 'node:path'
+const attempt=process.env.CRM_LOGIN_NOTICE_ATTEMPT
+if(!attempt||!/^login-notice-(before|after)\d{2}$/.test(attempt))throw Error('Unique login notice attempt required')
+const output=resolve(__dirname,'../../../qa-unit24',attempt)
+export default defineConfig({testDir:resolve(__dirname,'../../tests/e2e-preview'),testMatch:'login-access-notice.spec.ts',workers:1,retries:0,timeout:45000,expect:{timeout:4000},outputDir:resolve(output,'artifacts'),reporter:[['line'],['json',{outputFile:resolve(output,'results.json')}]],use:{baseURL:'http://127.0.0.1:52424',browserName:'chromium',timezoneId:'Europe/Madrid',screenshot:'only-on-failure',trace:'retain-on-failure'},projects:[390,768,1440].map(width=>({name:`actual-next-${width}`,use:{viewport:{width,height:960}}})),webServer:{cwd:resolve(__dirname,'../..'),command:`"${process.execPath}" scripts/preview-dev.mjs`,env:{PREVIEW_PORT:'52424',APP_ENV:'test',PRODUCT_STAGING_INTEGRATION:'false',PRODUCT_STAGING_USER_IDS:'',PRODUCT_V1_ENABLED:'false',PRODUCT_LOCAL_INTEGRATION:'false',PRODUCT_LOCAL_SYNTHETIC:'false'},url:'http://127.0.0.1:52424/login',reuseExistingServer:false,timeout:120000}})

@@ -24,7 +24,7 @@ export async function billingAcceptance({rpc,check,users,wa,wb,ca,url,anon,appUr
  check(beforeDeniedIssue.status===200&&afterDeniedIssue.status===200&&JSON.stringify(beforeDeniedIssue.json)===JSON.stringify(afterDeniedIssue.json),'billing_actual_issue_denial_preserves_draft_snapshot')
  const issued=await invoke('invoice_issue',issueInput);check(issued.status===200&&issued.json.number.sequence===1,'billing_actual_atomic_issue')
  check(JSON.stringify((await invoke('invoice_issue',issueInput)).json)===JSON.stringify(issued.json),'billing_actual_issue_replay')
- const conflict=await invoke('invoice_issue',{...issueInput,command_id:randomUUID()});check(conflict.status>=400&&conflict.json.code==='40001','billing_actual_issue_cas')
+ const conflict=await invoke('invoice_issue',{...issueInput,command_id:randomUUID()});check(conflict.status>=400&&conflict.json.code==='PT409','billing_actual_issue_cas')
  const record=await invoke('invoice_get',{id:draft.json.id});check(record.status===200&&record.json.invoice.totals.total_minor===152&&record.json.invoice.issuer.tax_id==='SYNTHETIC-NOT-VALID','billing_actual_get_snapshot_money')
  check((await invoke('invoice_trash',{command_id:randomUUID(),id:draft.json.id,expected_version:2})).status>=400,'billing_actual_issued_not_trashed')
  check((await invoke('invoice_mark_paid',{command_id:randomUUID(),id:draft.json.id,expected_version:2})).json.status==='paid','billing_actual_paid')

@@ -41,7 +41,7 @@ exports.startCatalogResourceFixture = async function startCatalogResourceFixture
  const server=createServer((request,response)=>{
   if(request.url==='/component.js'){response.writeHead(200,{'Content-Type':'text/javascript; charset=utf-8'});response.end(compiled.js);return}
   if(request.url==='/styles.css'){response.writeHead(200,{'Content-Type':'text/css; charset=utf-8'});response.end(compiled.css);return}
-  if(request.url.split('?')[0]!=='/'){response.writeHead(404);response.end();return}
+  if(!['/','/catalog'].includes(request.url.split('?')[0])){response.writeHead(404);response.end();return}
   response.writeHead(200,{'Content-Type':'text/html; charset=utf-8'});response.end('<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="/styles.css"><style>body{font-family:Arial,sans-serif}.fixture-header{height:64px;background:white}#main-content{height:calc(100vh - 64px);overflow:auto;padding:24px;overflow-anchor:none}#app{max-width:1200px;margin:auto}</style><header class="fixture-header">CRM synthetic catalog resource fixture</header><main id="main-content"><div id="app"></div></main><script src="/component.js"></script>')
  })
  await new Promise(accept=>server.listen(0,'127.0.0.1',accept))

@@ -49,7 +49,7 @@ begin
  perform public.billing_v1_issuer_set(w,jsonb_build_object('command_id',gen_random_uuid(),'expected_version',1,'profile',p||'{"legal_name":"New Synthetic Name"}','currency','EUR','default_series','A'));
  perform pg_temp.assert_b(public.billing_v1_invoice_get(w,jsonb_build_object('id',id))->'invoice'->'issuer'->>'legal_name'='Synthetic Fiscal');
 
- perform pg_temp.deny_b(format('select public.billing_v1_invoice_issue(%L,%L)',w,(issue||jsonb_build_object('command_id',gen_random_uuid()))::text),'40001');
+ perform pg_temp.deny_b(format('select public.billing_v1_invoice_issue(%L,%L)',w,(issue||jsonb_build_object('command_id',gen_random_uuid()))::text),'PT409');
  perform pg_temp.deny_b(format('select public.billing_v1_invoice_update_draft(%L,%L)',w,((inp-'customer_id')||jsonb_build_object('command_id',gen_random_uuid(),'id',id,'expected_version',2))::text),'22023');
  perform pg_temp.deny_b(format('select public.billing_v1_invoice_trash(%L,%L)',w,jsonb_build_object('command_id',gen_random_uuid(),'id',id,'expected_version',2)::text),'22023');
  receipt:=public.billing_v1_invoice_mark_paid(w,jsonb_build_object('command_id',gen_random_uuid(),'id',id,'expected_version',2));

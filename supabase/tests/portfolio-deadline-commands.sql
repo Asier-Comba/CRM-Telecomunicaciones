@@ -13,12 +13,12 @@ set local role authenticated;select set_config('request.jwt.claim.sub','a8000000
 do $$declare w uuid:='b8000000-0000-4000-8000-000000000001';c uuid:='e8000000-0000-4000-8000-000000000001';v jsonb;r jsonb;id uuid;id2 uuid;p uuid;begin
  v:=jsonb_build_object('command_id',gen_random_uuid(),'contract_id',c,'target_on','2027-01-01','opens_on','2026-12-01','closes_on','2027-01-31');
  r:=public.portfolio_v1_contract_record_renewal(w,v);id:=(r->>'id')::uuid;perform pg_temp.d_assert(r=public.portfolio_v1_contract_record_renewal(w,v)and r->>'status'='open');insert into d_saved values('contract.record_renewal',v,id);
- perform pg_temp.d_deny(format('select public.portfolio_v1_contract_record_renewal(%L,%L)',w,(v||'{"target_on":"2027-01-02"}')::text),'40001');
+ perform pg_temp.d_deny(format('select public.portfolio_v1_contract_record_renewal(%L,%L)',w,(v||'{"target_on":"2027-01-02"}')::text),'PT409');
  perform pg_temp.d_deny(format('select public.portfolio_v1_contract_record_renewal(%L,%L)',w,(v||jsonb_build_object('command_id',gen_random_uuid(),'target_on','2027-01-02'))::text),'23P01');
  perform pg_temp.d_deny(format('select public.portfolio_v1_contract_record_renewal(%L,%L)',w,(v||jsonb_build_object('command_id',gen_random_uuid(),'opens_on',null))::text),'22023');
  perform pg_temp.d_deny(format('select public.portfolio_v1_contract_record_renewal(%L,%L)',w,(v||jsonb_build_object('command_id',gen_random_uuid(),'contract_id','e8000000-0000-4000-8000-000000000002'))::text),'42501');
  v:=jsonb_build_object('command_id',gen_random_uuid(),'id',id,'expected_version',1,'target_on','2027-02-01','opens_on','2027-02-01','closes_on','2027-02-28');r:=public.portfolio_v1_renewal_update(w,v);perform pg_temp.d_assert(r->>'version'='2'and r=public.portfolio_v1_renewal_update(w,v));
- perform pg_temp.d_deny(format('select public.portfolio_v1_renewal_update(%L,%L)',w,(v||jsonb_build_object('command_id',gen_random_uuid()))::text),'40001');
+ perform pg_temp.d_deny(format('select public.portfolio_v1_renewal_update(%L,%L)',w,(v||jsonb_build_object('command_id',gen_random_uuid()))::text),'PT409');
  r:=public.portfolio_v1_renewal_resolve(w,jsonb_build_object('command_id',gen_random_uuid(),'id',id,'expected_version',2,'reason_code','human_resolved'));perform pg_temp.d_assert(r->>'status'='completed');
  perform pg_temp.d_deny(format('select public.portfolio_v1_renewal_update(%L,%L)',w,(v||jsonb_build_object('command_id',gen_random_uuid(),'expected_version',3))::text),'22023');
  r:=public.portfolio_v1_contract_record_renewal(w,jsonb_build_object('command_id',gen_random_uuid(),'contract_id',c,'target_on','2027-04-01','opens_on',null,'closes_on',null));id2:=(r->>'id')::uuid;

@@ -81,6 +81,7 @@ export default function LoginPage() {
   const [authTransition, setAuthTransition] = useState(false)
   const [transitionStep, setTransitionStep] = useState(0)
   const [formSubmitted, setFormSubmitted] = useState(false)
+  const [restrictedAccessNotice, setRestrictedAccessNotice] = useState(false)
 
   const formErrors = useMemo(() => validateAuthFields(mode, { email, password }), [email, mode, password])
   const formCanSubmit = Object.keys(formErrors).length === 0
@@ -116,6 +117,11 @@ export default function LoginPage() {
       toast.error('Tu usuario aún no tiene acceso a un workspace', {
         description: `Tu cuenta existe, pero no está asignada a ningún workspace. Contacta con el equipo técnico (${BRAND.supportName}) para que te den acceso.`,
       })
+      window.history.replaceState(null, '', '/login')
+    }
+
+    if (error === 'staging_access_denied') {
+      queueMicrotask(() => setRestrictedAccessNotice(true))
       window.history.replaceState(null, '', '/login')
     }
 
@@ -325,6 +331,13 @@ export default function LoginPage() {
                 : 'Te enviaremos un enlace seguro a tu email corporativo.'}
             </p>
 
+            {restrictedAccessNotice && (
+              <div role="alert" aria-label="Acceso restringido al entorno" className="mt-5 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-950">
+                <p className="font-semibold">Esta cuenta no tiene acceso a este entorno de prueba</p>
+                <p className="mt-1 leading-6">Inicia sesión con una cuenta autorizada o consulta con el responsable.</p>
+              </div>
+            )}
+
             <form onSubmit={handleAuth} aria-busy={!formReady} className="mt-8 space-y-4">
               <label className="block">
                 <span className="mb-2 block text-xs font-semibold tracking-wide text-gray-700">Email</span>
@@ -353,9 +366,9 @@ export default function LoginPage() {
               </label>
 
               {mode !== 'forgot' && (
-                <label className="block">
+                <div className="block">
                   <div className="mb-2 flex items-center justify-between">
-                    <span className="text-xs font-semibold tracking-wide text-gray-700">Contraseña</span>
+                    <label htmlFor="login-password" className="text-xs font-semibold tracking-wide text-gray-700">Contraseña</label>
                     <button
                       type="button"
                       disabled={!formReady}
@@ -368,6 +381,7 @@ export default function LoginPage() {
                   <div className="relative">
                     <KeyRound className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
                     <input
+                      id="login-password"
                       type="password"
                       disabled={!formReady}
                       value={password}
@@ -383,7 +397,7 @@ export default function LoginPage() {
                   {showErrors && formErrors.password && (
                     <span className="mt-1.5 block text-[11px] font-medium text-red-600">{formErrors.password}</span>
                   )}
-                </label>
+                </div>
               )}
 
               <Button

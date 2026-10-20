@@ -10,7 +10,7 @@ export class BillingServiceV1 {
   const input=parseBillingInputV1(op,value);if(input===null)return {ok:false as const,error:'validation' as const}
   try{const context=await this.port.resolve();if(context===null||!['owner','admin'].includes(context.role))return {ok:false as const,error:'access_denied' as const}
    const response=await this.port.rpc(BILLING_RPC_V1[op],{p_workspace_id:context.workspaceId,p_input:input})
-   if(response.error)return {ok:false as const,error:response.error.code==='42501'?'access_denied' as const:response.error.code==='P0002'?'not_found' as const:['40001','23505'].includes(response.error.code??'')?'conflict' as const:['22023','22007','22008','22P02','23514','23503'].includes(response.error.code??'')?'validation' as const:'internal_safe' as const}
+   if(response.error)return {ok:false as const,error:response.error.code==='42501'?'access_denied' as const:response.error.code==='P0002'?'not_found' as const:['40001','PT409','23505'].includes(response.error.code??'')?'conflict' as const:['22023','22007','22008','22P02','23514','23503'].includes(response.error.code??'')?'validation' as const:'internal_safe' as const}
    const receipt=parseBillingReceiptV1(op,input,response.data);return receipt===null?{ok:false as const,error:'internal_safe' as const}:{ok:true as const,receipt}
   }catch{return {ok:false as const,error:'internal_safe' as const}}
  }

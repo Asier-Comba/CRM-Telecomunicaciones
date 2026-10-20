@@ -568,6 +568,41 @@
       "provider_class": "crm_mail",
       "runtime_status": "reserved_future",
       "required_when": null
+    },
+    {
+      "name": "PRODUCT_STAGING_INTEGRATION",
+      "scope": "server_configuration",
+      "required": {
+        "LOCALDEV": false,
+        "TEST": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "secret": false,
+      "validator": "boolean",
+      "purpose": "Explicit inactive-by-default staging application admission; requires independent security review before enabling",
+      "provider_class": "product",
+      "runtime_status": "implemented",
+      "required_when": null
+    },
+    {
+      "name": "PRODUCT_STAGING_USER_IDS",
+      "scope": "server_configuration",
+      "required": {
+        "LOCALDEV": false,
+        "TEST": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "secret": true,
+      "validator": "uuid_csv",
+      "purpose": "Private synthetic Auth user cohort, 1..64 unique canonical UUIDs; server only, no values in public evidence",
+      "provider_class": "product",
+      "runtime_status": "implemented",
+      "required_when": {
+        "name": "PRODUCT_STAGING_INTEGRATION",
+        "equals": "true"
+      }
     }
   ],
   "configuration_artifacts": [

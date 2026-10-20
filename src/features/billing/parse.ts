@@ -106,9 +106,9 @@ function parseDiscount(n: string): number {
 function parseDue(n: string, issueDate: string): string | null {
   const m =
     n.match(
-      /(?:vencimiento|venc\.?|pago)\s*(?:a|en|de)?\s*(\d{1,3})\s*d[ií]as/,
-    ) || n.match(/\ba\s+(\d{1,3})\s+d[ií]as\b/)
-  if (m) return addDaysIso(issueDate, Number(m[1]))
+      /(?:vencimiento|venc\.?|pago)\s*(?:a|en|de)?\s*(\d{1,3}|quince)\s*d[ií]as/,
+    ) || n.match(/\ba\s+(\d{1,3}|quince)\s+d[ií]as\b/)
+  if (m) return addDaysIso(issueDate, m[1] === 'quince' ? 15 : Number(m[1]))
   if (/\b(final|fin)\s+de\s+mes\b/.test(n)) return endOfMonthIso(issueDate)
   return null
 }
@@ -117,12 +117,16 @@ function parseSeries(n: string): string | null {
   return m ? m[1].toUpperCase() : null
 }
 function parseConcept(text: string): string | null {
-  const m = text.match(
-    /\b(?:por|concepto|factura de|factura por)\s+([^,.;]+?)(?:\s+(?:con|por|de|y|,|\.|;|iva|irpf|vencimiento|descuento|serie|\+|\b\d)|$)/i,
-  )
-  if (m) {
+  for (const prefix of text.matchAll(/\b(?:por|concepto|factura de|factura por)\s+/gi)) {
+    const tail = text.slice(prefix.index + prefix[0].length)
+    // A monetary clause is not a service description. A later "por" may name it.
+    if (/^[+-]?\d+(?:[.\s]\d{3})*(?:[.,]\d+)?\s*(?:€|eur(?:os)?\b|usd\b|d[oó]lares\b|gbp\b|libras\b)/i.test(tail)) continue
+    const m = tail.match(
+      /^([^,.;]+?)(?:[,.;]|\s+(?:(?:con|y)\s+)?(?:iva|irpf|vencimiento|descuento|serie)\b|\s+(?:de|por)\s+\d|\s+(?:\+|\d)|$)/i,
+    )
+    if (!m) continue
     const c = m[1].trim().replace(/\s+/g, ' ')
-    if (c.length > 2) return c
+    if (c.length > 2 && !/^[+-]?\d[\d.,\s]*$/.test(c)) return c
   }
   return null
 }

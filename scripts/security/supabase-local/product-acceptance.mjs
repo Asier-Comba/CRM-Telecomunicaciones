@@ -8,11 +8,11 @@ export async function productAcceptance({rpc,sql,check,http,users,wa,wb,ca,url,a
  const first=await invoke('task_create',base);check(first.status===200 && first.json?.version===1,'product_member_task_create')
  check(JSON.stringify((await invoke('task_create',base)).json)===JSON.stringify(first.json),'product_task_replay')
  const changed=await invoke('task_create',{...base,title:'Changed'})
- check(changed.status===500 && changed.json?.code==='40001','product_changed_input_conflict')
+ check(changed.status===409 && changed.json?.code==='PT409','product_changed_input_conflict')
  const update={command_id:randomUUID(),id:first.json.id,expected_version:1,title:'Real JWT Synthetic edit'}
  check((await invoke('task_update',update)).json?.version===2,'product_task_update')
  const stale=await invoke('task_update',{...update,command_id:randomUUID()})
- check(stale.status===500 && stale.json?.code==='40001','product_stale_conflict')
+ check(stale.status===409 && stale.json?.code==='PT409','product_stale_conflict')
  for(const u of [users.ownerA,users.adminA,users.memberA]) {
   const customer=await invoke('customer_create',{command_id:randomUUID(),account_kind:'legal_entity',legal_name:'Real JWT Synthetic '+u.role},u)
   check(customer.status===200 && customer.json?.version===1,'product_customer_role_'+u.role)

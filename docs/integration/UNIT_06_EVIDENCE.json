@@ -1,0 +1,69 @@
+{
+  "source": "4163d5c214830dca7f66d28f6304fa98ebebbf4f",
+  "tree": "65bab6c1dc1ffdd377369145bb65f03e00d8505c",
+  "causal": {
+    "failed_before": 2,
+    "passed_after": 2,
+    "scope": "REAL_COMPONENT_CONTROLLED_HTTP_NOT_AUTH_DB"
+  },
+  "regression": {
+    "passed": 87,
+    "failed": 1,
+    "invocations": [
+      {
+        "passed": 80,
+        "failed": 1,
+        "total": 81
+      },
+      {
+        "passed": 7,
+        "failed": 0,
+        "total": 7
+      }
+    ],
+    "failure": "billing invoice.trash invalid receipt recovery at1440: second POST pending; complete cause UNKNOWN"
+  },
+  "lint": "PASS",
+  "typecheck": "PASS",
+  "build": "PASS66",
+  "supabase_after": "NOT_RUN",
+  "release_ready": false,
+  "records": [
+    {
+      "name": "billing-transition.log",
+      "sha256": "334532020f367d6ca4019ba7df6836329735091fd8f2b148a5551a1e391575ce"
+    },
+    {
+      "name": "billing-transition-valid.log",
+      "sha256": "46de0c0e9e087d7e8871578681189881eef9472d754ce76fec639c30634b75a2"
+    },
+    {
+      "name": "billing-scroll-before.log",
+      "sha256": "63dd5f3f2886a739107859acb4606da54f23393fd7f76fda59e88810fdd6bea7"
+    },
+    {
+      "name": "billing-scroll-after.log",
+      "sha256": "6faadc1ae2ccbe3ea01735df67e256500878bd897bd51c27f94b401588a96d2d"
+    },
+    {
+      "name": "billing6-after.log",
+      "sha256": "74d8f341dd34d63ffe6da3c2c40d525c3a8f8cf8fb66073cafd75a12757d4c50"
+    },
+    {
+      "name": "billing6-complement.log",
+      "sha256": "6376344600fdc5856a0b566508ed990cb3a1d300ec374609b012a5be923076b9"
+    },
+    {
+      "name": "unit6-lint.log",
+      "sha256": "dda21574b74ba6a9edea377d67b00a3846ea8ae6ee11171eb3102a4a59f30d98"
+    },
+    {
+      "name": "unit6-types.log",
+      "sha256": "09698db0dd661e366e31bb0aa12a64958690641809896ed8445717ab71ea6759"
+    },
+    {
+      "name": "unit6-build.log",
+      "sha256": "86617d43b68a1e480867571c6e62602d4c4b956740c992a3ae9b05e558976f29"
+    }
+  ]
+}

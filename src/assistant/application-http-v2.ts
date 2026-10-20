@@ -1,7 +1,7 @@
-import { integratedLocalAllowed } from '../features/product/integration/mode.ts'
+import { integratedProductAllowed } from '../features/product/integration/mode.ts'
 import { isClosedObjectV1 } from '../lib/server/product-work-runtime-v1.ts'
 export const ASSISTANT_HTTP_HEADERS_V2 = Object.freeze({ 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' })
-export function assistantLocalAllowedV2(env: NodeJS.ProcessEnv = process.env): boolean { return env.AI_PRODUCT_V2_ENABLED === 'true' && integratedLocalAllowed(env) }
+export function assistantLocalAllowedV2(env: NodeJS.ProcessEnv = process.env): boolean { return env.AI_PRODUCT_V2_ENABLED === 'true' && integratedProductAllowed(env) }
 export function assistantReplyV2(error: string, status: number): Response { return Response.json({ ok: false, error }, { status, headers: ASSISTANT_HTTP_HEADERS_V2 }) }
 /** Bounded, strict same-origin envelope. Explicit loopback deployment gate is
  * separate. Slow bodies expire and hostile cancellation promises aren't awaited. */

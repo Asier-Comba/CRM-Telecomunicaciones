@@ -24,7 +24,7 @@ do $$declare w uuid:='92000000-0000-4000-8000-000000000001';o jsonb;p jsonb;v js
  perform pg_temp.assert_cat(jsonb_array_length(public.telecom_collection_v1_query(w,'plan_version.list',jsonb_build_object('plan_id',p->>'id','service_kind','fiber','valid_on','2026-11-05'))->'items')=1);
  perform pg_temp.deny_cat(format('select public.portfolio_v1_service_create_manual(%L,%L)',w,jsonb_build_object('command_id',gen_random_uuid(),'contract_id',contract->>'id','plan_version_id',v->>'id','service_kind','data_connectivity','display_name','Synthetic Invalid Base')::text),'23514');
 
- perform pg_temp.deny_cat(format('select public.catalog_v1_command(%L,%L,%L)',w,'plan_version.create',(i||jsonb_build_object('command_id',gen_random_uuid(),'expected_version',3))::text),'40001');
+ perform pg_temp.deny_cat(format('select public.catalog_v1_command(%L,%L,%L)',w,'plan_version.create',(i||jsonb_build_object('command_id',gen_random_uuid(),'expected_version',3))::text),'PT409');
  perform pg_temp.deny_cat(format('select public.catalog_v1_command(%L,%L,%L)',w,'plan_version.create',(i||jsonb_build_object('command_id',gen_random_uuid(),'expected_version',3,'entitlements','[{"code":"arbitrary","component_position":null,"integer_value":"1","boolean_value":null,"text_value":null}]'::jsonb))::text),'22023');
  p:=public.catalog_v1_command(w,'plan.change_status',jsonb_build_object('command_id',gen_random_uuid(),'id',p->>'id','expected_version',3,'status','retired'));perform pg_temp.assert_cat(p->>'version'='4'and p->>'status'='retired');
  perform pg_temp.assert_cat(public.telecom_collection_v1_query(w,'operator.get',jsonb_build_object('id',o->>'id'))->'record'->>'version'='4');
