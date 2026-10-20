@@ -20,7 +20,9 @@ checkpoint siguiente de docs/TOML requiere su propia CI y no está desplegado po
    prestaciones/bundles no forman parte del nuevo editor simple. Mantener estados
    individuales en la matriz y preservar requisitos no aceptados.
 
-Hallazgos visibles pendientes de reproducción: toast cohorte/portapapeles reportados;
-el código existente no autoriza atribuirles causa. Seguridad independiente asignada,
+El aviso de cohorte ya tiene reproducción/fix local en seguimiento24: esperar que
+termine100bf antes de publicar la revisión siguiente y exigir su CI/QA alojada.
+El portapapeles reportado sigue pendiente de reproducción, sin causa inferida.
+Seguridad independiente asignada,
 Storage166/88, cinco HIGH, historia y gates aplicables permanecen bloqueos concretos.
 No producción, main, SQL hospedado, resellpro, costes, sesiones compartidas o IA writes.

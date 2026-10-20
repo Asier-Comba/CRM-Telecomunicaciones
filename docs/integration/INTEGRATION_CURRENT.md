@@ -162,6 +162,22 @@ attributed. These selector controls do not prove all eleven causes repaired.
 The next physical candidate run must verify the complete integration and new
 catalog check; expect a collected UI inventory, never a predeclared PASS count.
 
+## Unit24 follow-up: restricted-access notice
+
+After freezing100bf, a read-only actual Next observation reproduced the W5 login
+symptom locally at390/1440: HTTP200, password enabled, query consumed, no JS errors,
+but no notice/toast visible. This identifies missing feedback, not the hosted Auth
+cause. A persistent alert now handles only the known staging_access_denied reason;
+it never renders arbitrary query text or changes Auth/SDK/admission/roles/cookies.
+Qualified before02:1FAIL. After01:9/9 actual Next cases PASS at390/768/1440 for
+notice, ordinary login and unknown-query non-reflection; no credentials or writes.
+Targeted lint and fresh production build/types44PASS; screenshots inspected.
+The initial custom observer failed automatic server shutdown: its verified own
+PID21308 tree was manually closed and port63042 verified free, not teardownPASS.
+The first new test config used a wrong cwd (MODULE_NOT_FOUND), retained unqualified;
+the repaired before02/after01 kept expectations/timeouts. After01 port52424 free.
+This follow-up is queued behind the active100bf CI; no push/cancellation while active.
+
 ## Work in order
 
 Wait the exact candidate's CI, including the new ordinary catalog publication.

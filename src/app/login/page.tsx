@@ -81,6 +81,7 @@ export default function LoginPage() {
   const [authTransition, setAuthTransition] = useState(false)
   const [transitionStep, setTransitionStep] = useState(0)
   const [formSubmitted, setFormSubmitted] = useState(false)
+  const [restrictedAccessNotice, setRestrictedAccessNotice] = useState(false)
 
   const formErrors = useMemo(() => validateAuthFields(mode, { email, password }), [email, mode, password])
   const formCanSubmit = Object.keys(formErrors).length === 0
@@ -120,9 +121,7 @@ export default function LoginPage() {
     }
 
     if (error === 'staging_access_denied') {
-      toast.error('Esta cuenta no tiene acceso a este entorno de prueba', {
-        description: 'Inicia sesión con una cuenta autorizada o consulta con el responsable.',
-      })
+      queueMicrotask(() => setRestrictedAccessNotice(true))
       window.history.replaceState(null, '', '/login')
     }
 
@@ -331,6 +330,13 @@ export default function LoginPage() {
                 ? 'Introduce tus credenciales para acceder al CRM interno.'
                 : 'Te enviaremos un enlace seguro a tu email corporativo.'}
             </p>
+
+            {restrictedAccessNotice && (
+              <div role="alert" aria-label="Acceso restringido al entorno" className="mt-5 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-950">
+                <p className="font-semibold">Esta cuenta no tiene acceso a este entorno de prueba</p>
+                <p className="mt-1 leading-6">Inicia sesión con una cuenta autorizada o consulta con el responsable.</p>
+              </div>
+            )}
 
             <form onSubmit={handleAuth} aria-busy={!formReady} className="mt-8 space-y-4">
               <label className="block">

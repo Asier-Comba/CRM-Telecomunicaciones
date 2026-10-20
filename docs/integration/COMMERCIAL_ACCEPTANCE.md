@@ -30,11 +30,13 @@ Catálogo simple publica precios mensuales, fechas y un componente base explíci
 no inventa prestaciones, bundles, activación de proveedor o cambios a contratos
 vendidos. El nuevo test de persistencia real-local todavía requiere su CI.
 
-Defectos no inferidos: W5 informa ausencia de aviso de cohorte/portapapeles al
-confirmar. El toast ya existe; las llamadas clipboard encontradas corresponden
-a botones explícitos. Se requiere paso/ruta/source/deploy saneados antes de
-atribuir causa o añadir comportamiento. La etiqueta de contraseña sí tenía
-defecto reproducido3FAIL→3PASS en HTML compilado, sin probar Auth.
+Seguimiento24: el aviso de cohorte ausente se reprodujo en Next local hidratado,
+con query consumida e input habilitado. Aviso persistente fijo:1FAIL→9PASS en tres
+tamaños, sin Auth, credenciales o cambios de admisión; despliegue/QA independiente
+pendientes. No se atribuye a Netlify una causa no observada. El reporte de
+portapapeles sigue sin causa acreditada; las llamadas encontradas son botones
+explícitos, se requiere paso/ruta/source/deploy saneados. La etiqueta de contraseña
+tenía además3FAIL→3PASS en HTML compilado, tampoco una prueba de Auth.
 
 Cinco HIGH actuales, escaneo histórico, Storage, plataforma/CI aplicables,
 backups y revisor independiente siguen abiertos. No DEMO_ACCEPTED ni producción.
