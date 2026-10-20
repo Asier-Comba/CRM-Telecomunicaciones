@@ -3,7 +3,7 @@ import assert from 'node:assert/strict'
 import childProcess from 'node:child_process'
 import { existsSync } from 'node:fs'
 import { createDurableNativeFixtureV1 } from '../../scripts/platform/durable-native-fixture.mjs'
-import { NATIVE_POSTGRES_OFFICIAL_IMAGE } from '../../scripts/security/native-postgres/expected-image.mjs'
+import { NATIVE_POSTGRES_OFFICIAL_IMAGE, NATIVE_POSTGRES_OFFICIAL_FALLBACK_IMAGE } from '../../scripts/security/native-postgres/expected-image.mjs'
 import { openPersistentNativeFixtureSessionV1 } from '../../scripts/security/native-postgres/persistent-fixture-session.mjs'
 import { nativeResourceQueryFailureCategory } from '../../scripts/platform/native-resource-query-error.mjs'
 
@@ -34,7 +34,14 @@ function engine(t, options = {}) {
     state.config = args[1]
     const a = args.slice(4); state.calls.push(a)
     if (a[0] === 'info') return 'linux\n'
-    if (a[0] === 'pull') { if (state.pullFailure) throw Object.assign(Error(privateMarker), state.pullError ?? {}); assert.equal(a.at(-1), NATIVE_POSTGRES_OFFICIAL_IMAGE); assert.ok(a.includes('--quiet')); return '' }
+    if (a[0] === 'pull') {
+      const image = a.at(-1); (state.pulls ??= []).push(image)
+      assert.ok([NATIVE_POSTGRES_OFFICIAL_IMAGE, NATIVE_POSTGRES_OFFICIAL_FALLBACK_IMAGE].includes(image)); assert.ok(a.includes('--quiet'))
+      const byImage = state.pullErrorByImage?.[image]
+      if (byImage) throw Object.assign(Error(privateMarker), byImage)
+      if (state.pullFailure) throw Object.assign(Error(privateMarker), state.pullError ?? {})
+      return ''
+    }
     if (a[0] === 'volume') {
       if (a[1] === 'create') {
         const labels = Object.fromEntries(a.flatMap((v, i) => v === '--label' ? [a[i + 1].split('=')] : []))
@@ -214,6 +221,37 @@ test('pull diagnostics expose only fixed categories and discard all provider tex
     await assert.rejects(createDurableNativeFixtureV1(), closedError('IMAGE_PULL_' + code))
     assert.equal(s.mutations.length, 0); assert.ok(!existsSync(s.config))
   }
+})
+test('a rate-limited first publisher falls back to the same pinned index from the second publisher', async t => {
+  const s = engine(t, { pullErrorByImage: { [NATIVE_POSTGRES_OFFICIAL_IMAGE]: { stderr: 'toomanyrequests: Data limit exceeded ' + privateMarker } } })
+  const f = await createDurableNativeFixtureV1()
+  try {
+    assert.deepEqual(s.pulls, [NATIVE_POSTGRES_OFFICIAL_IMAGE, NATIVE_POSTGRES_OFFICIAL_FALLBACK_IMAGE])
+    assert.equal(s.container.Config.Image, NATIVE_POSTGRES_OFFICIAL_FALLBACK_IMAGE)
+    assert.equal(NATIVE_POSTGRES_OFFICIAL_FALLBACK_IMAGE.split('@')[1], NATIVE_POSTGRES_OFFICIAL_IMAGE.split('@')[1])
+  } finally { await f.close() }
+  assert.equal(s.container, null); assert.equal(s.volume, null)
+})
+test('only a rate limit moves to the second publisher; other pull failures stop at the first', async t => {
+  for (const [detail, code] of [
+    [{ stderr: Buffer.from('x509: ' + privateMarker) }, 'TLS_FAILED'],
+    [{ stderr: 'unauthorized ' + privateMarker }, 'AUTH_UNAVAILABLE'],
+    [{ stderr: 'manifest unknown ' + privateMarker }, 'REFERENCE_UNAVAILABLE'],
+    [{ stderr: 'connection reset ' + privateMarker }, 'NETWORK_UNAVAILABLE'],
+    [{ code: 'ETIMEDOUT' }, 'TIMEOUT'],
+  ]) {
+    await t.test(code, async t => {
+      const s = engine(t, { pullErrorByImage: { [NATIVE_POSTGRES_OFFICIAL_IMAGE]: detail } })
+      await assert.rejects(createDurableNativeFixtureV1(), closedError('IMAGE_PULL_' + code))
+      assert.deepEqual(s.pulls, [NATIVE_POSTGRES_OFFICIAL_IMAGE]); assert.equal(s.mutations.length, 0); assert.ok(!existsSync(s.config))
+    })
+  }
+})
+test('both publishers rate-limited stays a closed RATE_LIMITED failure with no resource', async t => {
+  const limited = { stderr: 'toomanyrequests: ' + privateMarker }
+  const s = engine(t, { pullErrorByImage: { [NATIVE_POSTGRES_OFFICIAL_IMAGE]: limited, [NATIVE_POSTGRES_OFFICIAL_FALLBACK_IMAGE]: limited } })
+  await assert.rejects(createDurableNativeFixtureV1(), closedError('IMAGE_PULL_RATE_LIMITED'))
+  assert.deepEqual(s.pulls, [NATIVE_POSTGRES_OFFICIAL_IMAGE, NATIVE_POSTGRES_OFFICIAL_FALLBACK_IMAGE]); assert.equal(s.mutations.length, 0)
 })
 test('close refuses a shared volume instead of forcing removal and can retry safely', async t => {
   const s = engine(t), f = await createDurableNativeFixtureV1()
