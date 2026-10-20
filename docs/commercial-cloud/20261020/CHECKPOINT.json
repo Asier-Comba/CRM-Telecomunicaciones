@@ -11,19 +11,20 @@
   "base": "888ecaae57e9021ca0cb25d4da0657c1f6ac9b40",
   "remote_checks": {
     "PR161": {
-      "current34_remote": "NOT_RUN_NO_INHERITANCE",
-      "physical_safe": "evidence/unit18-27da-physical-safe.json",
+      "head": "137e48028736f92c88c73822d2fc2ffe99d8f853",
+      "active": "REFRESH_BEFORE_ANY_PR_PUSH",
+      "native_retry_requests": 0,
+      "current9513_remote": "NOT_RUN_NO_INHERITANCE",
       "runs": [
-        39341696719,
-        39341696625,
-        39341696669
+        39345324855,
+        39345324892,
+        39345324832
       ],
-      "Supabase_context": "SUCCESS_ACTUAL_MERGE_cb148dc9b985b0f864577ebb3ed28692bb6433a3_TREE_b94020cf504045be2b3b5709d74582148cac7d04_SAME_TREE_AS27da",
-      "W4": "FAIL_INDEPENDENT_NO_APPROVAL",
-      "native_postgres": "FAIL_QUOTA_BEFORE_TESTS;0MANUAL_RETRY",
-      "CI": "FAIL_NATIVE_IMAGE_QUOTA_AND_FIVE_HIGH",
-      "head": "27da91d671b342f52ce4cd12be070a4da846b02e",
-      "all_terminal": true
+      "CI_observed_failures": [
+        "fiveHIGH",
+        "Secret scan own README fingerprint; W4 request",
+        "NativePostgres pinned image quota before tests"
+      ]
     },
     "PR160": {
       "runs": [
@@ -39,23 +40,24 @@
   "integration": "DRAFT_ASIER_EXACT_ACK_REQUIRED",
   "branch": "oier/portfolio-receipt-readback-20261020",
   "next": {
-    "cloud": "W5 owns Edge Access/exact deploy/cohort/window/roles/actions/cleanup and identical native image cache; no bypass,87migrations untouched. Live model NOT_RUN.",
-    "publish": "Fresh verify all27da runs terminal and PR161 head unchanged, fast-forward same ownPR161 to qualified recovery delivery. Verify API/lsremote; new own CI/Supabase/W4 results required. Never force/cancel or merge without Asier ACK.",
-    "independent": "Before new unit refresh issue67 CLAIM/ACK. Reproduce PortfolioCreate confirmed receipt/read failure close and invalid-receipt intent handling using existing resource fixture; NOT_RUN, no claimed correction."
+    "publish": "Qualified own recovery alias only while PR161137 runs active. Preserve each outcome and actual tested merge SHA. After terminal, fast-forward existing PR161 and measure new remote controls; exact Asier ACK before integration.",
+    "cloud": "W4 owns review, W5 EdgeAccess/exact pinned image cache/cohort/deploy/window.87migrations untouched, model/liveCloud NOT_RUN.",
+    "independent": "Reproduce quick action Nuevo contrato manual opening service creation instead of contract; NOT_RUN/hypothesis only. Fresh CLAIM and causal/positive bank before any fix. No source/acceptance promotion by analogy."
   },
-  "unit": 18,
-  "claim": 6279823476,
+  "unit": 19,
+  "claim": 6280095769,
   "scope": "Actual product/repository/validators, synthetic loopback HTTP; real voice/model/hostedAuthDB/staging persistence NOT_RUN",
   "StorageP0": "OPEN",
   "source_blobs": {
-    "src/features/calendar/IntegratedCalendar.tsx": "c8f8c19fa818d5a31a9e2551fa08e1aa9c2e28ed",
     "src/features/portfolio/IntegratedPortfolio.tsx": "ea68fac2f53b9608930574c08e56f85623205796",
-    "src/features/documents/IntegratedDocuments.tsx": "de0d0cdd2b697a508a9cb7858816a44a31c6a543",
-    "src/features/cases/Cases.tsx": "f98b587953af0abb50d6e41a246e58a6610be302"
+    "src/features/documents/IntegratedDocuments.tsx": "510ab2115690a8a552c226e1f52a984c391bfb36",
+    "src/features/portfolio/PortfolioCreate.tsx": "161bac47a027821111a09680d40551a010b4185e",
+    "src/features/cases/Cases.tsx": "f98b587953af0abb50d6e41a246e58a6610be302",
+    "src/features/calendar/IntegratedCalendar.tsx": "c8f8c19fa818d5a31a9e2551fa08e1aa9c2e28ed"
   },
   "release": "NOT_ACCEPTED",
   "W4": "INDEPENDENT",
-  "source": "34c50c5c9dba31587b2eeb5d77515d252c4afe1a",
+  "source": "9513ddded0ad07f7afb1477a6c4b0da12692f400",
   "delivery": "DOCS_ONLY_COMMIT_CONTAINS_MEASURED_CODE_UNCHANGED",
   "baseline": {
     "source": "27da91d671b342f52ce4cd12be070a4da846b02e",
@@ -80,47 +82,56 @@
       "fixture_failed": 3,
       "passed": 12,
       "fixture_attempt": "documents-attempt01"
+    },
+    "portfolio_create": {
+      "attempt": "portfolio-create-attempt01",
+      "failed": 9,
+      "same_as888": true,
+      "portfolio_create_blob": "8c84a6ac36d2cff1aa6803d2046be9baaa01eb02",
+      "cause": "Malformed/foreign receipt discarded pending creation and enabled editing; confirmed receipt + failed read allowed closing and losing recorded recovery.",
+      "passed": 6,
+      "source": "1a7bf3499232d3ef58c2493a410c329fe9f33786"
     }
   },
   "checks": {
     "quality": {
       "lint": 0,
+      "source": "9513ddded0ad07f7afb1477a6c4b0da12692f400",
       "build": 0,
-      "bootstrap": 0,
       "typescript": 0,
-      "source": "34c50c5c9dba31587b2eeb5d77515d252c4afe1a"
-    },
-    "visual": "SELECTED_DOCUMENT_RESTORE_UNKNOWN390_AND_CALENDAR_UNKNOWN768_REVIEWED; role/escape/replay/overflow across3907681440 in ownbank, no blanket product/cloud acceptance",
-    "bootstrap": {
-      "exact_suite_paths_verified_before_invocation": true,
-      "passed": 70,
-      "failed": 0
+      "bootstrap": 0
     },
     "browser_composed": {
-      "startTime": "2026-10-19T23:52:54.392Z",
-      "duration": 214632.33200000002,
-      "expected": 78,
+      "startTime": "2026-10-20T00:09:24.681Z",
+      "duration": 244223.713,
+      "expected": 93,
       "skipped": 0,
       "unexpected": 0,
       "flaky": 0
     },
-    "source": "34c50c5c9dba31587b2eeb5d77515d252c4afe1a",
-    "browser_unique": 111,
+    "visual": "SELECTED_SERVICE_CREATE_REGISTERED_READ_REFUSAL390_AND_DOCUMENT_UNKNOWN1440_REVIEWED; no blanket product/cloud acceptance",
+    "bootstrap": {
+      "passed": 70,
+      "failed": 0
+    },
+    "browser_unique": 126,
     "browser_existing_regression": {
-      "startTime": "2026-10-19T23:52:54.342Z",
-      "duration": 85141.273,
+      "startTime": "2026-10-20T00:09:24.61Z",
+      "duration": 89790.621,
       "expected": 33,
       "skipped": 0,
       "unexpected": 0,
       "flaky": 0
-    }
+    },
+    "source": "9513ddded0ad07f7afb1477a6c4b0da12692f400"
   },
   "claims": {
     "unit15": 6279498568,
     "unit17": 6279655169,
     "unit16": 6279611113,
     "unit18_QA_only": 6279823476,
-    "unit18": 6279823476
+    "unit18": 6279823476,
+    "unit19": 6280095769
   },
   "completed_unit15": {
     "integration": "DRAFT_ASIER_EXACT_ACK_REQUIRED",
@@ -176,7 +187,10 @@
     "documents-attempt01": "2b1_FIXTURE_PACKAGE_RESOLUTION_3FAIL27NOT_RUN_NOT_CAUSAL",
     "documents-attempt02": "2b1_CAUSAL_18FAIL12PASS",
     "composed-attempt03": "34c50c5_78PASS",
-    "regression-attempt03": "34c50c5_33PASS_INCLUDES12ISOLATED_METADATA_PRESENTATION_TESTS"
+    "regression-attempt03": "34c50c5_33PASS_INCLUDES12ISOLATED_METADATA_PRESENTATION_TESTS",
+    "portfolio-create-attempt01": "1a7bf34_CAUSAL_9FAIL6PASS",
+    "composed-attempt04": "9513ddd_93PASS",
+    "regression-attempt04": "9513ddd_33PASS_INCLUDES12ISOLATED_METADATA_PRESENTATION_TESTS"
   },
   "cloud": "W5 Edge Access/deploy/cohort/window/roles/actions/cleanup; no bypass;87migrations untouched, no resellpro",
   "changes": {
@@ -184,7 +198,9 @@
     "cases": "Store actual confirmed receipt and validate id/version/state/source/resolution/cancellation before accepting refreshed detail. Both dialog and outside recovery pass receipt; no repeated command.",
     "calendar": "Keep reviewed immutable intent for transport loss/internal_safe response; lock form and logical close until exact retry. Explicit pendingUncertain state satisfies React rules.",
     "documents": "Retain immutable archive/restore intent after lost transport, malformed response or foreign command receipt. Block native confirmation cancel/X/Escape and replay exactly same command; authoritative refusal/normal success remain usable. Metadata only, no content/download/cleanup.",
-    "drawer_feedback": "Reuse existing closeDisabled for Calendar and Portfolio Editor. Calendar uncertain-result copy/banner; banks retain all assertions and force a close attempt even on disabled button, no timeout/retry/assertion relaxation."
+    "drawer_feedback": "Reuse existing closeDisabled for Calendar and Portfolio Editor. Calendar uncertain-result copy/banner; banks retain all assertions and force a close attempt even on disabled button, no timeout/retry/assertion relaxation.",
+    "portfolio_create": "Keep exact pending creation for transport/internal_safe response; explicit pending state, native close/fields locked. Confirmed receipt retained until callback read succeeds; query retry does not issue another creation. Individual acceptance only owner manual service path in IntegratedPortfolio; other consumers not automatically accepted.",
+    "documents_feedback": "Unknown metadata mutation explicitly says result unconfirmed rather than completed-action failure; authority refusal keeps canonical safe message."
   },
   "AI_commercial_writes": "OFF",
   "completed_unit17": {
@@ -223,5 +239,56 @@
     },
     "source": "2b1a70fd24decd38b09d40c397f205aa8265690d",
     "handoff": 6279920546
+  },
+  "completed_unit18": {
+    "checks": {
+      "quality": {
+        "lint": 0,
+        "build": 0,
+        "bootstrap": 0,
+        "typescript": 0,
+        "source": "34c50c5c9dba31587b2eeb5d77515d252c4afe1a"
+      },
+      "visual": "SELECTED_DOCUMENT_RESTORE_UNKNOWN390_AND_CALENDAR_UNKNOWN768_REVIEWED; role/escape/replay/overflow across3907681440 in ownbank, no blanket product/cloud acceptance",
+      "bootstrap": {
+        "exact_suite_paths_verified_before_invocation": true,
+        "passed": 70,
+        "failed": 0
+      },
+      "browser_composed": {
+        "startTime": "2026-10-19T23:52:54.392Z",
+        "duration": 214632.33200000002,
+        "expected": 78,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "source": "34c50c5c9dba31587b2eeb5d77515d252c4afe1a",
+      "browser_unique": 111,
+      "browser_existing_regression": {
+        "startTime": "2026-10-19T23:52:54.342Z",
+        "duration": 85141.273,
+        "expected": 33,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      }
+    },
+    "handoff": 6280082584,
+    "delivery": "137e48028736f92c88c73822d2fc2ffe99d8f853",
+    "source": "34c50c5c9dba31587b2eeb5d77515d252c4afe1a"
+  },
+  "security_followup": {
+    "raw_values_published": false,
+    "fingerprint": "137e48028736f92c88c73822d2fc2ffe99d8f853:docs/commercial-cloud/20261020/README.md:generic-api-key:11",
+    "line": 11,
+    "classification": "PENDING_INDEPENDENT_REVIEW_OWN_PROVENANCE_TEXT",
+    "workflow_head": "137e48028736f92c88c73822d2fc2ffe99d8f853",
+    "rule": "generic-api-key",
+    "history_or_exceptions_changed": false,
+    "path": "docs/commercial-cloud/20261020/README.md",
+    "job": 118376410918,
+    "note": "Current prose reformatted for clarity, historical finding remains; no security approval inferred.",
+    "W4_request": 6280242810
   }
 }
