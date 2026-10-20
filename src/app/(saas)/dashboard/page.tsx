@@ -1,7 +1,7 @@
 import { PageHeader } from '@/components/PageHeader'
 import { syntheticPreviewAllowed } from '@/lib/telecom-preview/access'
 import { Dashboard } from '@/features/dashboard/Dashboard'
-import { integratedLocalAllowed } from '@/features/product/integration/mode'
+import { integratedProductAllowed } from '@/features/product/integration/mode'
 import { IntegratedDashboard } from '@/features/dashboard/IntegratedDashboard'
 import { customerRows, calendarEntries } from '@/features/product/projections'
 import {
@@ -13,7 +13,7 @@ import {
   PREVIEW_AS_OF,
 } from '@/lib/telecom-preview/data'
 export default function DashboardPage() {
-  if (integratedLocalAllowed()) return <IntegratedDashboard />
+  if (integratedProductAllowed()) return <IntegratedDashboard />
   if (!syntheticPreviewAllowed())
     return (
       <PageHeader

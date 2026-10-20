@@ -1,4 +1,5 @@
 import {customerStateReceiptBrowser} from './product-customer-state-receipt-browser.mjs'
+import {stagingIdentityAcceptance} from './product-staging-identity-acceptance.mjs'
 import {synchronizeLocalShellRoute} from './local-shell-route-arrival.mjs'
 import {calendarDate} from '../../../src/features/product/model.ts'
 import {importCurrentRowsBrowser} from './product-import-current-rows-browser.mjs'
@@ -41,7 +42,7 @@ import {parseTelecomCollectionResultV1} from '../../../src/lib/server/telecom-co
 export async function productBrowserAcceptance({ users, wa, ca, sql, url, anon, report, maintenanceCredentials }) {
   if (process.env.GITHUB_ACTIONS !== 'true' || url !== 'http://127.0.0.1:54321') throw Error('W2_UI_LOCAL_CI_ONLY')
   const origin='http://127.0.0.1:3109'
-  const server=spawn(process.execPath,['node_modules/next/dist/bin/next','dev','--webpack','--hostname','127.0.0.1','--port','3109'],{stdio:['ignore','pipe','pipe'],env:{...process.env,NODE_ENV:'development',PRODUCT_LOCAL_INTEGRATION:'true',PRODUCT_LOCAL_SYNTHETIC:'true',PRODUCT_V1_ENABLED:'true',PRODUCT_DOCUMENT_CONTENT_ENABLED:'true',PRODUCT_DOCUMENT_MAINTENANCE_ENABLED:'true',PRODUCT_DOCUMENT_SCAN_REQUIRED:'false',PRODUCT_DOCUMENT_VERIFY_KEY_ID:maintenanceCredentials.id,PRODUCT_DOCUMENT_VERIFY_KEY_HEX:maintenanceCredentials.key,PRODUCT_V1_ORIGIN:origin,NEXT_PUBLIC_SUPABASE_URL:url,NEXT_PUBLIC_SUPABASE_ANON_KEY:anon,NEXT_PUBLIC_ENABLE_DEMO_DATA:'false',NEXT_PUBLIC_FORCE_OFFLINE_DEV:'false',NEXT_TELEMETRY_DISABLED:'1'}})
+  const server=spawn(process.execPath,['node_modules/next/dist/bin/next','dev','--webpack','--hostname','127.0.0.1','--port','3109'],{stdio:['ignore','pipe','pipe'],env:{...process.env,NODE_ENV:'development',APP_ENV:'test',PRODUCT_STAGING_INTEGRATION:'false',PRODUCT_LOCAL_INTEGRATION:'true',PRODUCT_LOCAL_SYNTHETIC:'true',PRODUCT_V1_ENABLED:'true',PRODUCT_DOCUMENT_CONTENT_ENABLED:'true',PRODUCT_DOCUMENT_MAINTENANCE_ENABLED:'true',PRODUCT_DOCUMENT_SCAN_REQUIRED:'false',PRODUCT_DOCUMENT_VERIFY_KEY_ID:maintenanceCredentials.id,PRODUCT_DOCUMENT_VERIFY_KEY_HEX:maintenanceCredentials.key,PRODUCT_V1_ORIGIN:origin,NEXT_PUBLIC_SUPABASE_URL:url,NEXT_PUBLIC_SUPABASE_ANON_KEY:anon,NEXT_PUBLIC_ENABLE_DEMO_DATA:'false',NEXT_PUBLIC_FORCE_OFFLINE_DEV:'false',NEXT_TELEMETRY_DISABLED:'1'}})
   observeNextDiagnostics(server,report)
   server.on('exit',(code,signal)=>{if(report)report.w2_ui_server_exit={code,signal:signal??null}})
   let browser, context, page; const checks=[],failures=[]
@@ -135,6 +136,7 @@ export async function productBrowserAcceptance({ users, wa, ca, sql, url, anon, 
         if(report)report.w2_login_stage='SUBMIT_LOGIN';await page.getByRole('button',{name:'Iniciar sesión',exact:true}).click();if(report)report.w2_login_stage='WAIT_DASHBOARD';await page.waitForURL('**/dashboard');if(report)report.w2_login_stage='PASS'
       }finally{releaseHydration();await page.unrouteAll({behavior:'wait'})}
     })
+    await check('staging_admission_local_auth_identity',()=>stagingIdentityAcceptance({users,url,anon,report}))
     // Compile and prove the existing authorized detail before measuring a newly created customer.
     // A response must match the loaded DOM; failure is its own browser group, never ignored/retried.
     await check('existing_customer_detail_authorized',async()=>{

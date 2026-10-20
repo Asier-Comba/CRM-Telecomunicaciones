@@ -119,6 +119,13 @@ export default function LoginPage() {
       window.history.replaceState(null, '', '/login')
     }
 
+    if (error === 'staging_access_denied') {
+      toast.error('Esta cuenta no tiene acceso a este entorno de prueba', {
+        description: 'Inicia sesión con una cuenta autorizada o consulta con el responsable.',
+      })
+      window.history.replaceState(null, '', '/login')
+    }
+
     if (error === 'access_check') {
       toast.error('No se pudo comprobar tu acceso al workspace', {
         description: `Hubo un problema de permisos o conexión al validar tu cuenta. Avisa al equipo técnico (${BRAND.supportName}) para revisar permisos/RLS.`,

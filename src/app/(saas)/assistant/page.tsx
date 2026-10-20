@@ -2,7 +2,7 @@ import { PageHeader } from '@/components/PageHeader'
 import { syntheticPreviewAllowed } from '@/lib/telecom-preview/access'
 import { customerPreview } from '@/lib/telecom-preview/data'
 import { Assistant } from '@/features/assistant/Assistant'
-import { integratedLocalAllowed } from '@/features/product/integration/mode'
+import { integratedProductAllowed } from '@/features/product/integration/mode'
 import { validAiEntityReference } from '@/features/assistant/w3-ui-contract'
 import { assistantLocalAllowedV2 } from '@/assistant/application-http-v2'
 export default async function AssistantPage({
@@ -10,7 +10,7 @@ export default async function AssistantPage({
 }: {
   searchParams: Promise<{ customer?: string; intent?: string }>
 }) {
-  if(integratedLocalAllowed()){
+  if(integratedProductAllowed()){
     const input=await searchParams,reference={kind:'customer',id:input.customer}
     return <Assistant context={null} selectedReferences={validAiEntityReference(reference)?[reference]:[]} invoiceIntent={input.intent==='invoice'} persistedHistory={assistantLocalAllowedV2()}/>
   }

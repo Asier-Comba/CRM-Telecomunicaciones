@@ -17,11 +17,13 @@ export function isSupabaseConfigured() {
 // making it readable server-side via createServerClient. The old createClient stored
 // sessions only in localStorage — invisible to Route Handlers.
 export function getSupabaseBrowserClient() {
+  if (typeof window === 'undefined') return null
   if (!isSupabaseConfigured()) return null
   if (!browserClient) {
     browserClient = createBrowserClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       getSupabasePublicKey()!,
+      { cookieOptions: { secure: window.location.protocol === 'https:' } },
     )
   }
   return browserClient

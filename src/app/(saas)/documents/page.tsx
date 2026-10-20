@@ -2,9 +2,9 @@ import { PageHeader } from '@/components/PageHeader'
 import { syntheticPreviewAllowed } from '@/lib/telecom-preview/access'
 import { Documents } from '@/features/documents/Documents'
 import { IntegratedDocuments } from '@/features/documents/IntegratedDocuments'
-import { integratedLocalAllowed } from '@/features/product/integration/mode'
+import { integratedProductAllowed } from '@/features/product/integration/mode'
 export default async function DocumentsPage({searchParams}:{searchParams:Promise<{customer?:string}>}) {
-  if(integratedLocalAllowed()){
+  if(integratedProductAllowed()){
     const {customer}=await searchParams
     return <IntegratedDocuments maintenanceEnabled={process.env.PRODUCT_DOCUMENT_MAINTENANCE_ENABLED==='true'} contentEnabled={process.env.PRODUCT_DOCUMENT_CONTENT_ENABLED==='true'} customerId={typeof customer==='string'&&/^[0-9a-f-]{36}$/i.test(customer)?customer:undefined}/>
   }

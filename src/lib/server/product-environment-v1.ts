@@ -1,3 +1,4 @@
+import { parseStagingUserIdsV1, readStagingAdmissionV1 } from './product-staging-admission-v1.ts'
 export type ProductEnvironmentV1='LOCALDEV'|'TEST'|'STAGING'|'PROD'
 export type ProductEnvironmentEntryV1=Readonly<{name:string;scope:string;secret:boolean;validator:string;runtime_status:string;required:Readonly<Record<ProductEnvironmentV1,boolean>>;required_when:Readonly<{name:string;equals:string}>|null}>
 export type ProductEnvironmentManifestV1=Readonly<{manifest_version:string;values_included:boolean;entries:readonly ProductEnvironmentEntryV1[];alternative_required_groups:readonly Readonly<{names:readonly string[];minimum_present:number}>[]}>
@@ -7,6 +8,7 @@ function valid(kind:string,value:string,phase:ProductEnvironmentV1){
  if(kind==='boolean')return['true','false'].includes(value)
  if(kind==='hex32')return/^[0-9a-f]{64}$/i.test(value)
  if(kind==='uuid')return/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value)
+ if(kind==='uuid_csv')return parseStagingUserIdsV1(value)!==null
  if(kind==='node_mode')return['production','development','test'].includes(value)
  if(kind==='app_environment')return['local','test','staging','production'].includes(value)
  if(kind==='disposable_adapter')return value==='disposable-local'&&phase==='TEST'
@@ -39,6 +41,7 @@ export function validateProductEnvironmentV1(manifest:ProductEnvironmentManifest
  const key=!!env.PRODUCT_DOCUMENT_VERIFY_KEY_HEX,id=!!env.PRODUCT_DOCUMENT_VERIFY_KEY_ID
  if(key!==id)errors.push({name:'PRODUCT_DOCUMENT_VERIFY_KEY_ID_AND_KEY_HEX',code:'incomplete_pair'})
  if(env.IMPORT_STAGING_ADAPTER==='disposable-local'&&env.NODE_ENV!=='test')errors.push({name:'NODE_ENV',code:'disposable_requires_test_process'})
+ if(env.PRODUCT_STAGING_INTEGRATION==='true'&&(phase!=='STAGING'||readStagingAdmissionV1(env).status!=='enabled'))errors.push({name:'PRODUCT_STAGING_INTEGRATION',code:'invalid_staging_admission'})
  return{status:errors.length?'invalid'as const:'valid'as const,environment:phase,errors,provider_connections_verified:false as const,production_mail_verified:false as const,production_import_verified:false as const}
 }
 export function mailProductionReadinessV1(){
