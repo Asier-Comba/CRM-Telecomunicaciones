@@ -39,6 +39,8 @@ for(const mode of ['stale','wrong_status','wrong_source','exact','newer'] as con
    await info.attach('confirmed-readback-observation',{body:JSON.stringify({mode,commands,readbacks,reviewCount:await review.count(),retryCount:await retry.count()}),contentType:'application/json'})
    await expect(retry).toBeEnabled();await expect(review).toBeDisabled();await expect(confirm).toHaveCount(0)
    await expect(page.getByRole('status').filter({hasText:'Cambio registrado. Reintentar solo actualiza la lectura.'})).toBeVisible()
+   await page.locator('#main-content').evaluate(el=>{el.scrollTop=0})
+   await page.screenshot({path:info.outputPath(`sim-${mode}-registered-context.png`)})
    await retry.scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath(`sim-${mode}-registered.png`)})
    corrected=true;await retry.click()
   }
