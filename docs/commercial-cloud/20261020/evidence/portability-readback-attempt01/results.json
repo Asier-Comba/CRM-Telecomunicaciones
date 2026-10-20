@@ -1,0 +1,917 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "-c",
+      "tools/oier_commercial_qa/portability-readback.config.ts"
+    ],
+    "configFile": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portability-readback.config.ts",
+    "rootDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-commercial-20261020/tools/oier_commercial_qa",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-commercial-20261020/portability-readback-attempt01/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "controlled-http-390",
+        "name": "controlled-http-390",
+        "testDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-commercial-20261020/tools/oier_commercial_qa",
+        "testIgnore": [],
+        "testMatch": [
+          "portability-readback.spec.ts"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-commercial-20261020/portability-readback-attempt01/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "controlled-http-768",
+        "name": "controlled-http-768",
+        "testDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-commercial-20261020/tools/oier_commercial_qa",
+        "testIgnore": [],
+        "testMatch": [
+          "portability-readback.spec.ts"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-commercial-20261020/portability-readback-attempt01/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "controlled-http-1440",
+        "name": "controlled-http-1440",
+        "testDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-commercial-20261020/tools/oier_commercial_qa",
+        "testIgnore": [],
+        "testMatch": [
+          "portability-readback.spec.ts"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "line",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portability-readback-attempt01\\results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.61.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "portability-readback.spec.ts",
+      "file": "portability-readback.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "portability cancellation keeps coherent stale readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1645,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:16:09.582Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "confirmed-readback-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoic3RhbGUiLCJjb21tYW5kcyI6W3sib3BlcmF0aW9uIjoicG9ydGFiaWxpdHkudHJhbnNpdGlvbiIsImlucHV0Ijp7ImNvbW1hbmRfaWQiOiI0NDhiZTkyYy1hMDUwLTRmYjUtOWJjMy1jMWIyYzhmNWI4NGMiLCJpZCI6IjQwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMSIsImV4cGVjdGVkX3ZlcnNpb24iOjEsInN0YXR1cyI6ImNhbmNlbGxlZCIsImVmZmVjdGl2ZV9vbiI6IjIwMjYtMTAtMjAiLCJyZWFzb25fY29kZSI6ImN1c3RvbWVyX3dpdGhkcmV3IiwiZXZpZGVuY2Vfc291cmNlIjoibWFudWFsIn19XSwicmVhZGJhY2tzIjoxLCJyZXZpZXdDb3VudCI6MSwicmV0cnlDb3VudCI6MX0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "fe07b6753804de15fa24-40eff15c65a34bebd397",
+          "file": "portability-readback.spec.ts",
+          "line": 8,
+          "column": 88
+        },
+        {
+          "title": "portability cancellation keeps coherent wrong_status readback",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5155,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeEnabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Actualizar lectura', exact: true })\nExpected: enabled\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeEnabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Actualizar lectura', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeEnabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Actualizar lectura', exact: true })\nExpected: enabled\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeEnabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Actualizar lectura', exact: true })\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portability-readback.spec.ts:48:24",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portability-readback.spec.ts",
+                      "column": 24,
+                      "line": 48
+                    },
+                    "snippet": "  46 |    const retry=page.getByRole('button',{name:'Actualizar lectura',exact:true})\n  47 |    await info.attach('confirmed-readback-observation',{body:JSON.stringify({mode,commands,readbacks,reviewCount:await review.count(),retryCount:await retry.count()}),contentType:'application/json'})\n> 48 |    await expect(retry).toBeEnabled();await expect(review).toBeDisabled();await expect(confirm).toHaveCount(0)\n     |                        ^\n  49 |    await expect(page.getByRole('status').filter({hasText:'Cambio registrado. Reintentar solo actualiza la lectura.'})).toBeVisible()\n  50 |    await retry.scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath(`portability-${mode}-registered.png`)})\n  51 |    corrected=true;await retry.click()"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portability-readback.spec.ts",
+                        "column": 24,
+                        "line": 48
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeEnabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Actualizar lectura', exact: true })\nExpected: enabled\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeEnabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Actualizar lectura', exact: true })\u001b[22m\n\n\n  46 |    const retry=page.getByRole('button',{name:'Actualizar lectura',exact:true})\n  47 |    await info.attach('confirmed-readback-observation',{body:JSON.stringify({mode,commands,readbacks,reviewCount:await review.count(),retryCount:await retry.count()}),contentType:'application/json'})\n> 48 |    await expect(retry).toBeEnabled();await expect(review).toBeDisabled();await expect(confirm).toHaveCount(0)\n     |                        ^\n  49 |    await expect(page.getByRole('status').filter({hasText:'Cambio registrado. Reintentar solo actualiza la lectura.'})).toBeVisible()\n  50 |    await retry.scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath(`portability-${mode}-registered.png`)})\n  51 |    corrected=true;await retry.click()\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portability-readback.spec.ts:48:24"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:16:17.676Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "confirmed-readback-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoid3Jvbmdfc3RhdHVzIiwiY29tbWFuZHMiOlt7Im9wZXJhdGlvbiI6InBvcnRhYmlsaXR5LnRyYW5zaXRpb24iLCJpbnB1dCI6eyJjb21tYW5kX2lkIjoiMTc5YmRlNmYtNDVjOC00NGZmLWI0YjYtOWIzMWVmOGMwZmI3IiwiaWQiOiI0MDAwMDAwMC0wMDAwLTQwMDAtODAwMC0wMDAwMDAwMDAwMDEiLCJleHBlY3RlZF92ZXJzaW9uIjoxLCJzdGF0dXMiOiJjYW5jZWxsZWQiLCJlZmZlY3RpdmVfb24iOiIyMDI2LTEwLTIwIiwicmVhc29uX2NvZGUiOiJjdXN0b21lcl93aXRoZHJldyIsImV2aWRlbmNlX3NvdXJjZSI6Im1hbnVhbCJ9fV0sInJlYWRiYWNrcyI6MSwicmV2aWV3Q291bnQiOjEsInJldHJ5Q291bnQiOjB9"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portability-readback-attempt01\\artifacts\\portability-readback-porta-d7943-erent-wrong-status-readback-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portability-readback-attempt01\\artifacts\\portability-readback-porta-d7943-erent-wrong-status-readback-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portability-readback-attempt01\\artifacts\\portability-readback-porta-d7943-erent-wrong-status-readback-controlled-http-390\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portability-readback.spec.ts",
+                    "column": 24,
+                    "line": 48
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "fe07b6753804de15fa24-3df782ce47bb35dd63b2",
+          "file": "portability-readback.spec.ts",
+          "line": 8,
+          "column": 88
+        },
+        {
+          "title": "portability cancellation keeps coherent wrong_source readback",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5212,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeEnabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Actualizar lectura', exact: true })\nExpected: enabled\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeEnabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Actualizar lectura', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeEnabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Actualizar lectura', exact: true })\nExpected: enabled\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeEnabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Actualizar lectura', exact: true })\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portability-readback.spec.ts:48:24",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portability-readback.spec.ts",
+                      "column": 24,
+                      "line": 48
+                    },
+                    "snippet": "  46 |    const retry=page.getByRole('button',{name:'Actualizar lectura',exact:true})\n  47 |    await info.attach('confirmed-readback-observation',{body:JSON.stringify({mode,commands,readbacks,reviewCount:await review.count(),retryCount:await retry.count()}),contentType:'application/json'})\n> 48 |    await expect(retry).toBeEnabled();await expect(review).toBeDisabled();await expect(confirm).toHaveCount(0)\n     |                        ^\n  49 |    await expect(page.getByRole('status').filter({hasText:'Cambio registrado. Reintentar solo actualiza la lectura.'})).toBeVisible()\n  50 |    await retry.scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath(`portability-${mode}-registered.png`)})\n  51 |    corrected=true;await retry.click()"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portability-readback.spec.ts",
+                        "column": 24,
+                        "line": 48
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeEnabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Actualizar lectura', exact: true })\nExpected: enabled\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeEnabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Actualizar lectura', exact: true })\u001b[22m\n\n\n  46 |    const retry=page.getByRole('button',{name:'Actualizar lectura',exact:true})\n  47 |    await info.attach('confirmed-readback-observation',{body:JSON.stringify({mode,commands,readbacks,reviewCount:await review.count(),retryCount:await retry.count()}),contentType:'application/json'})\n> 48 |    await expect(retry).toBeEnabled();await expect(review).toBeDisabled();await expect(confirm).toHaveCount(0)\n     |                        ^\n  49 |    await expect(page.getByRole('status').filter({hasText:'Cambio registrado. Reintentar solo actualiza la lectura.'})).toBeVisible()\n  50 |    await retry.scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath(`portability-${mode}-registered.png`)})\n  51 |    corrected=true;await retry.click()\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portability-readback.spec.ts:48:24"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:16:24.174Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "confirmed-readback-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoid3Jvbmdfc291cmNlIiwiY29tbWFuZHMiOlt7Im9wZXJhdGlvbiI6InBvcnRhYmlsaXR5LnRyYW5zaXRpb24iLCJpbnB1dCI6eyJjb21tYW5kX2lkIjoiNmIyNWViZmQtYTAyMi00ZTU0LWFkMmQtYWZmMjIyNWFhM2ZiIiwiaWQiOiI0MDAwMDAwMC0wMDAwLTQwMDAtODAwMC0wMDAwMDAwMDAwMDEiLCJleHBlY3RlZF92ZXJzaW9uIjoxLCJzdGF0dXMiOiJjYW5jZWxsZWQiLCJlZmZlY3RpdmVfb24iOiIyMDI2LTEwLTIwIiwicmVhc29uX2NvZGUiOiJjdXN0b21lcl93aXRoZHJldyIsImV2aWRlbmNlX3NvdXJjZSI6Im1hbnVhbCJ9fV0sInJlYWRiYWNrcyI6MSwicmV2aWV3Q291bnQiOjEsInJldHJ5Q291bnQiOjF9"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portability-readback-attempt01\\artifacts\\portability-readback-porta-89457-erent-wrong-source-readback-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portability-readback-attempt01\\artifacts\\portability-readback-porta-89457-erent-wrong-source-readback-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portability-readback-attempt01\\artifacts\\portability-readback-porta-89457-erent-wrong-source-readback-controlled-http-390\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portability-readback.spec.ts",
+                    "column": 24,
+                    "line": 48
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "fe07b6753804de15fa24-6fd87422f426cbf66aca",
+          "file": "portability-readback.spec.ts",
+          "line": 8,
+          "column": 88
+        },
+        {
+          "title": "portability cancellation keeps coherent exact readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1267,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:16:36.190Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "fe07b6753804de15fa24-af7288a15da903bd5796",
+          "file": "portability-readback.spec.ts",
+          "line": 8,
+          "column": 88
+        },
+        {
+          "title": "portability cancellation keeps coherent newer readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1106,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:16:42.940Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "fe07b6753804de15fa24-075e91e24de180326756",
+          "file": "portability-readback.spec.ts",
+          "line": 8,
+          "column": 88
+        },
+        {
+          "title": "portability cancellation keeps coherent stale readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1500,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:16:45.223Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "confirmed-readback-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoic3RhbGUiLCJjb21tYW5kcyI6W3sib3BlcmF0aW9uIjoicG9ydGFiaWxpdHkudHJhbnNpdGlvbiIsImlucHV0Ijp7ImNvbW1hbmRfaWQiOiI5ZDczOGUxNi1kYmY4LTQ2MjMtYjBmNy03ZjNkMDA3ZDZlYTciLCJpZCI6IjQwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMSIsImV4cGVjdGVkX3ZlcnNpb24iOjEsInN0YXR1cyI6ImNhbmNlbGxlZCIsImVmZmVjdGl2ZV9vbiI6IjIwMjYtMTAtMjAiLCJyZWFzb25fY29kZSI6ImN1c3RvbWVyX3dpdGhkcmV3IiwiZXZpZGVuY2Vfc291cmNlIjoibWFudWFsIn19XSwicmVhZGJhY2tzIjoxLCJyZXZpZXdDb3VudCI6MSwicmV0cnlDb3VudCI6MX0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "fe07b6753804de15fa24-edf3c0d7a69f37db070a",
+          "file": "portability-readback.spec.ts",
+          "line": 8,
+          "column": 88
+        },
+        {
+          "title": "portability cancellation keeps coherent wrong_status readback",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5242,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeEnabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Actualizar lectura', exact: true })\nExpected: enabled\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeEnabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Actualizar lectura', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeEnabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Actualizar lectura', exact: true })\nExpected: enabled\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeEnabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Actualizar lectura', exact: true })\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portability-readback.spec.ts:48:24",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portability-readback.spec.ts",
+                      "column": 24,
+                      "line": 48
+                    },
+                    "snippet": "  46 |    const retry=page.getByRole('button',{name:'Actualizar lectura',exact:true})\n  47 |    await info.attach('confirmed-readback-observation',{body:JSON.stringify({mode,commands,readbacks,reviewCount:await review.count(),retryCount:await retry.count()}),contentType:'application/json'})\n> 48 |    await expect(retry).toBeEnabled();await expect(review).toBeDisabled();await expect(confirm).toHaveCount(0)\n     |                        ^\n  49 |    await expect(page.getByRole('status').filter({hasText:'Cambio registrado. Reintentar solo actualiza la lectura.'})).toBeVisible()\n  50 |    await retry.scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath(`portability-${mode}-registered.png`)})\n  51 |    corrected=true;await retry.click()"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portability-readback.spec.ts",
+                        "column": 24,
+                        "line": 48
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeEnabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Actualizar lectura', exact: true })\nExpected: enabled\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeEnabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Actualizar lectura', exact: true })\u001b[22m\n\n\n  46 |    const retry=page.getByRole('button',{name:'Actualizar lectura',exact:true})\n  47 |    await info.attach('confirmed-readback-observation',{body:JSON.stringify({mode,commands,readbacks,reviewCount:await review.count(),retryCount:await retry.count()}),contentType:'application/json'})\n> 48 |    await expect(retry).toBeEnabled();await expect(review).toBeDisabled();await expect(confirm).toHaveCount(0)\n     |                        ^\n  49 |    await expect(page.getByRole('status').filter({hasText:'Cambio registrado. Reintentar solo actualiza la lectura.'})).toBeVisible()\n  50 |    await retry.scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath(`portability-${mode}-registered.png`)})\n  51 |    corrected=true;await retry.click()\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portability-readback.spec.ts:48:24"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:16:51.896Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "confirmed-readback-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoid3Jvbmdfc3RhdHVzIiwiY29tbWFuZHMiOlt7Im9wZXJhdGlvbiI6InBvcnRhYmlsaXR5LnRyYW5zaXRpb24iLCJpbnB1dCI6eyJjb21tYW5kX2lkIjoiMTZhMmFkMjAtM2IzNC00OGZlLWI4ZTQtMGVkMWY3MWNjZTVlIiwiaWQiOiI0MDAwMDAwMC0wMDAwLTQwMDAtODAwMC0wMDAwMDAwMDAwMDEiLCJleHBlY3RlZF92ZXJzaW9uIjoxLCJzdGF0dXMiOiJjYW5jZWxsZWQiLCJlZmZlY3RpdmVfb24iOiIyMDI2LTEwLTIwIiwicmVhc29uX2NvZGUiOiJjdXN0b21lcl93aXRoZHJldyIsImV2aWRlbmNlX3NvdXJjZSI6Im1hbnVhbCJ9fV0sInJlYWRiYWNrcyI6MSwicmV2aWV3Q291bnQiOjEsInJldHJ5Q291bnQiOjB9"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portability-readback-attempt01\\artifacts\\portability-readback-porta-d7943-erent-wrong-status-readback-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portability-readback-attempt01\\artifacts\\portability-readback-porta-d7943-erent-wrong-status-readback-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portability-readback-attempt01\\artifacts\\portability-readback-porta-d7943-erent-wrong-status-readback-controlled-http-768\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portability-readback.spec.ts",
+                    "column": 24,
+                    "line": 48
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "fe07b6753804de15fa24-0bf9acde1cd09386c2fd",
+          "file": "portability-readback.spec.ts",
+          "line": 8,
+          "column": 88
+        },
+        {
+          "title": "portability cancellation keeps coherent wrong_source readback",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5331,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeEnabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Actualizar lectura', exact: true })\nExpected: enabled\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeEnabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Actualizar lectura', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeEnabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Actualizar lectura', exact: true })\nExpected: enabled\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeEnabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Actualizar lectura', exact: true })\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portability-readback.spec.ts:48:24",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portability-readback.spec.ts",
+                      "column": 24,
+                      "line": 48
+                    },
+                    "snippet": "  46 |    const retry=page.getByRole('button',{name:'Actualizar lectura',exact:true})\n  47 |    await info.attach('confirmed-readback-observation',{body:JSON.stringify({mode,commands,readbacks,reviewCount:await review.count(),retryCount:await retry.count()}),contentType:'application/json'})\n> 48 |    await expect(retry).toBeEnabled();await expect(review).toBeDisabled();await expect(confirm).toHaveCount(0)\n     |                        ^\n  49 |    await expect(page.getByRole('status').filter({hasText:'Cambio registrado. Reintentar solo actualiza la lectura.'})).toBeVisible()\n  50 |    await retry.scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath(`portability-${mode}-registered.png`)})\n  51 |    corrected=true;await retry.click()"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portability-readback.spec.ts",
+                        "column": 24,
+                        "line": 48
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeEnabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Actualizar lectura', exact: true })\nExpected: enabled\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeEnabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Actualizar lectura', exact: true })\u001b[22m\n\n\n  46 |    const retry=page.getByRole('button',{name:'Actualizar lectura',exact:true})\n  47 |    await info.attach('confirmed-readback-observation',{body:JSON.stringify({mode,commands,readbacks,reviewCount:await review.count(),retryCount:await retry.count()}),contentType:'application/json'})\n> 48 |    await expect(retry).toBeEnabled();await expect(review).toBeDisabled();await expect(confirm).toHaveCount(0)\n     |                        ^\n  49 |    await expect(page.getByRole('status').filter({hasText:'Cambio registrado. Reintentar solo actualiza la lectura.'})).toBeVisible()\n  50 |    await retry.scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath(`portability-${mode}-registered.png`)})\n  51 |    corrected=true;await retry.click()\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portability-readback.spec.ts:48:24"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:16:58.345Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "confirmed-readback-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoid3Jvbmdfc291cmNlIiwiY29tbWFuZHMiOlt7Im9wZXJhdGlvbiI6InBvcnRhYmlsaXR5LnRyYW5zaXRpb24iLCJpbnB1dCI6eyJjb21tYW5kX2lkIjoiZjkyNjRmNTktOTM1YS00ZjYxLWIwYWUtMGI5ZGMyZjY4YjlkIiwiaWQiOiI0MDAwMDAwMC0wMDAwLTQwMDAtODAwMC0wMDAwMDAwMDAwMDEiLCJleHBlY3RlZF92ZXJzaW9uIjoxLCJzdGF0dXMiOiJjYW5jZWxsZWQiLCJlZmZlY3RpdmVfb24iOiIyMDI2LTEwLTIwIiwicmVhc29uX2NvZGUiOiJjdXN0b21lcl93aXRoZHJldyIsImV2aWRlbmNlX3NvdXJjZSI6Im1hbnVhbCJ9fV0sInJlYWRiYWNrcyI6MSwicmV2aWV3Q291bnQiOjEsInJldHJ5Q291bnQiOjB9"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portability-readback-attempt01\\artifacts\\portability-readback-porta-89457-erent-wrong-source-readback-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portability-readback-attempt01\\artifacts\\portability-readback-porta-89457-erent-wrong-source-readback-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portability-readback-attempt01\\artifacts\\portability-readback-porta-89457-erent-wrong-source-readback-controlled-http-768\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portability-readback.spec.ts",
+                    "column": 24,
+                    "line": 48
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "fe07b6753804de15fa24-bf1781e5e2bc0bfa6fde",
+          "file": "portability-readback.spec.ts",
+          "line": 8,
+          "column": 88
+        },
+        {
+          "title": "portability cancellation keeps coherent exact readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1184,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:17:10.544Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "fe07b6753804de15fa24-cc4fa976168ba662249a",
+          "file": "portability-readback.spec.ts",
+          "line": 8,
+          "column": 88
+        },
+        {
+          "title": "portability cancellation keeps coherent newer readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1089,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:17:16.748Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "fe07b6753804de15fa24-c4642aea3f9d8a67fe83",
+          "file": "portability-readback.spec.ts",
+          "line": 8,
+          "column": 88
+        },
+        {
+          "title": "portability cancellation keeps coherent stale readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1644,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:17:18.908Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "confirmed-readback-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoic3RhbGUiLCJjb21tYW5kcyI6W3sib3BlcmF0aW9uIjoicG9ydGFiaWxpdHkudHJhbnNpdGlvbiIsImlucHV0Ijp7ImNvbW1hbmRfaWQiOiJmY2VjOWZmNy0zNDVhLTRkZTItYmMwNy1kYzRmMWVlMGQ0NmYiLCJpZCI6IjQwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMSIsImV4cGVjdGVkX3ZlcnNpb24iOjEsInN0YXR1cyI6ImNhbmNlbGxlZCIsImVmZmVjdGl2ZV9vbiI6IjIwMjYtMTAtMjAiLCJyZWFzb25fY29kZSI6ImN1c3RvbWVyX3dpdGhkcmV3IiwiZXZpZGVuY2Vfc291cmNlIjoibWFudWFsIn19XSwicmVhZGJhY2tzIjoxLCJyZXZpZXdDb3VudCI6MSwicmV0cnlDb3VudCI6MX0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "fe07b6753804de15fa24-cc1c2e85e3f0e140d3e7",
+          "file": "portability-readback.spec.ts",
+          "line": 8,
+          "column": 88
+        },
+        {
+          "title": "portability cancellation keeps coherent wrong_status readback",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5287,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeEnabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Actualizar lectura', exact: true })\nExpected: enabled\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeEnabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Actualizar lectura', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeEnabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Actualizar lectura', exact: true })\nExpected: enabled\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeEnabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Actualizar lectura', exact: true })\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portability-readback.spec.ts:48:24",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portability-readback.spec.ts",
+                      "column": 24,
+                      "line": 48
+                    },
+                    "snippet": "  46 |    const retry=page.getByRole('button',{name:'Actualizar lectura',exact:true})\n  47 |    await info.attach('confirmed-readback-observation',{body:JSON.stringify({mode,commands,readbacks,reviewCount:await review.count(),retryCount:await retry.count()}),contentType:'application/json'})\n> 48 |    await expect(retry).toBeEnabled();await expect(review).toBeDisabled();await expect(confirm).toHaveCount(0)\n     |                        ^\n  49 |    await expect(page.getByRole('status').filter({hasText:'Cambio registrado. Reintentar solo actualiza la lectura.'})).toBeVisible()\n  50 |    await retry.scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath(`portability-${mode}-registered.png`)})\n  51 |    corrected=true;await retry.click()"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portability-readback.spec.ts",
+                        "column": 24,
+                        "line": 48
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeEnabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Actualizar lectura', exact: true })\nExpected: enabled\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeEnabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Actualizar lectura', exact: true })\u001b[22m\n\n\n  46 |    const retry=page.getByRole('button',{name:'Actualizar lectura',exact:true})\n  47 |    await info.attach('confirmed-readback-observation',{body:JSON.stringify({mode,commands,readbacks,reviewCount:await review.count(),retryCount:await retry.count()}),contentType:'application/json'})\n> 48 |    await expect(retry).toBeEnabled();await expect(review).toBeDisabled();await expect(confirm).toHaveCount(0)\n     |                        ^\n  49 |    await expect(page.getByRole('status').filter({hasText:'Cambio registrado. Reintentar solo actualiza la lectura.'})).toBeVisible()\n  50 |    await retry.scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath(`portability-${mode}-registered.png`)})\n  51 |    corrected=true;await retry.click()\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portability-readback.spec.ts:48:24"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:17:25.553Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "confirmed-readback-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoid3Jvbmdfc3RhdHVzIiwiY29tbWFuZHMiOlt7Im9wZXJhdGlvbiI6InBvcnRhYmlsaXR5LnRyYW5zaXRpb24iLCJpbnB1dCI6eyJjb21tYW5kX2lkIjoiZWMyNjdiMGUtOGYxYS00NDc0LThiMTEtYjM0ZDgzYzcxZTViIiwiaWQiOiI0MDAwMDAwMC0wMDAwLTQwMDAtODAwMC0wMDAwMDAwMDAwMDEiLCJleHBlY3RlZF92ZXJzaW9uIjoxLCJzdGF0dXMiOiJjYW5jZWxsZWQiLCJlZmZlY3RpdmVfb24iOiIyMDI2LTEwLTIwIiwicmVhc29uX2NvZGUiOiJjdXN0b21lcl93aXRoZHJldyIsImV2aWRlbmNlX3NvdXJjZSI6Im1hbnVhbCJ9fV0sInJlYWRiYWNrcyI6MSwicmV2aWV3Q291bnQiOjEsInJldHJ5Q291bnQiOjB9"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portability-readback-attempt01\\artifacts\\portability-readback-porta-d7943-erent-wrong-status-readback-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portability-readback-attempt01\\artifacts\\portability-readback-porta-d7943-erent-wrong-status-readback-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portability-readback-attempt01\\artifacts\\portability-readback-porta-d7943-erent-wrong-status-readback-controlled-http-1440\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portability-readback.spec.ts",
+                    "column": 24,
+                    "line": 48
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "fe07b6753804de15fa24-9ef1963119321fd01332",
+          "file": "portability-readback.spec.ts",
+          "line": 8,
+          "column": 88
+        },
+        {
+          "title": "portability cancellation keeps coherent wrong_source readback",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 7,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5229,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeEnabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Actualizar lectura', exact: true })\nExpected: enabled\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeEnabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Actualizar lectura', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeEnabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Actualizar lectura', exact: true })\nExpected: enabled\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeEnabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Actualizar lectura', exact: true })\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portability-readback.spec.ts:48:24",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portability-readback.spec.ts",
+                      "column": 24,
+                      "line": 48
+                    },
+                    "snippet": "  46 |    const retry=page.getByRole('button',{name:'Actualizar lectura',exact:true})\n  47 |    await info.attach('confirmed-readback-observation',{body:JSON.stringify({mode,commands,readbacks,reviewCount:await review.count(),retryCount:await retry.count()}),contentType:'application/json'})\n> 48 |    await expect(retry).toBeEnabled();await expect(review).toBeDisabled();await expect(confirm).toHaveCount(0)\n     |                        ^\n  49 |    await expect(page.getByRole('status').filter({hasText:'Cambio registrado. Reintentar solo actualiza la lectura.'})).toBeVisible()\n  50 |    await retry.scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath(`portability-${mode}-registered.png`)})\n  51 |    corrected=true;await retry.click()"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portability-readback.spec.ts",
+                        "column": 24,
+                        "line": 48
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeEnabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Actualizar lectura', exact: true })\nExpected: enabled\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeEnabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Actualizar lectura', exact: true })\u001b[22m\n\n\n  46 |    const retry=page.getByRole('button',{name:'Actualizar lectura',exact:true})\n  47 |    await info.attach('confirmed-readback-observation',{body:JSON.stringify({mode,commands,readbacks,reviewCount:await review.count(),retryCount:await retry.count()}),contentType:'application/json'})\n> 48 |    await expect(retry).toBeEnabled();await expect(review).toBeDisabled();await expect(confirm).toHaveCount(0)\n     |                        ^\n  49 |    await expect(page.getByRole('status').filter({hasText:'Cambio registrado. Reintentar solo actualiza la lectura.'})).toBeVisible()\n  50 |    await retry.scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath(`portability-${mode}-registered.png`)})\n  51 |    corrected=true;await retry.click()\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portability-readback.spec.ts:48:24"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:17:32.104Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "confirmed-readback-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoid3Jvbmdfc291cmNlIiwiY29tbWFuZHMiOlt7Im9wZXJhdGlvbiI6InBvcnRhYmlsaXR5LnRyYW5zaXRpb24iLCJpbnB1dCI6eyJjb21tYW5kX2lkIjoiNmQ0M2U5NWQtMGIwNC00YTE3LTgwZGUtZDE0MzFmYzQ5ZTc4IiwiaWQiOiI0MDAwMDAwMC0wMDAwLTQwMDAtODAwMC0wMDAwMDAwMDAwMDEiLCJleHBlY3RlZF92ZXJzaW9uIjoxLCJzdGF0dXMiOiJjYW5jZWxsZWQiLCJlZmZlY3RpdmVfb24iOiIyMDI2LTEwLTIwIiwicmVhc29uX2NvZGUiOiJjdXN0b21lcl93aXRoZHJldyIsImV2aWRlbmNlX3NvdXJjZSI6Im1hbnVhbCJ9fV0sInJlYWRiYWNrcyI6MSwicmV2aWV3Q291bnQiOjEsInJldHJ5Q291bnQiOjB9"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portability-readback-attempt01\\artifacts\\portability-readback-porta-89457-erent-wrong-source-readback-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portability-readback-attempt01\\artifacts\\portability-readback-porta-89457-erent-wrong-source-readback-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portability-readback-attempt01\\artifacts\\portability-readback-porta-89457-erent-wrong-source-readback-controlled-http-1440\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portability-readback.spec.ts",
+                    "column": 24,
+                    "line": 48
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "fe07b6753804de15fa24-ad04c31573ded5a0420a",
+          "file": "portability-readback.spec.ts",
+          "line": 8,
+          "column": 88
+        },
+        {
+          "title": "portability cancellation keeps coherent exact readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 8,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1221,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:17:44.211Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "fe07b6753804de15fa24-0514104d1730eb165225",
+          "file": "portability-readback.spec.ts",
+          "line": 8,
+          "column": 88
+        },
+        {
+          "title": "portability cancellation keeps coherent newer readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 8,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1105,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:17:50.420Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "fe07b6753804de15fa24-14337693bdb3d3fbc438",
+          "file": "portability-readback.spec.ts",
+          "line": 8,
+          "column": 88
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-20T07:16:08.943Z",
+    "duration": 103044.193,
+    "expected": 9,
+    "skipped": 0,
+    "unexpected": 6,
+    "flaky": 0
+  }
+}

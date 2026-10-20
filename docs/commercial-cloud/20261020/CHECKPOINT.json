@@ -24,7 +24,7 @@
     "PR161": {
       "head": "2b31aa215d4c1738856d4aff153f4b462f573fa4",
       "manual_retry": 0,
-      "active": "REFRESH_BEFORE_ANY_PR_PUSH",
+      "active": "ALL_2B31_RUNS_TERMINAL_BEFORE_NEXT_PUSH",
       "native_quota": "a32_BEFORE_TESTS;0MANUAL_RETRY",
       "security": "5HIGH_W4_INDEPENDENT",
       "prior_a32": {
@@ -35,7 +35,20 @@
         "result": "FAIL101UI_PASS12FAIL",
         "cause": "UNKNOWN"
       },
-      "current0ed": "NOT_RUN_NO_INHERITANCE"
+      "current0ed": "NOT_RUN_NO_INHERITANCE",
+      "current2b31": {
+        "W4": "FAIL_INDEPENDENT_REVIEW",
+        "hosted": "NOT_TESTED",
+        "run": 39396286757,
+        "Supabase": "PASS4042BACKEND113UI_LOCAL_DOCKER",
+        "head": "2b31aa215d4c1738856d4aff153f4b462f573fa4",
+        "actual_tested_sha": "4004ac52a172769595c742bee0281bda8062b937",
+        "CI": "FAIL5HIGH_AND_SCAN",
+        "no_causal_fix_of_old_failures": true,
+        "tree_equal": true,
+        "native": "PASS11BOOTSTRAP_MIGRATION_TENANT_RESTORE_THIS_MERGE_PIN_ONLY"
+      },
+      "current541": "NOT_RUN_NO_INHERITANCE_NEW_PR_PUSH_REQUIRES_OWN_RUNS"
     },
     "PR160": {
       "runs": [
@@ -51,28 +64,29 @@
   "integration": "DRAFT_ASIER_EXACT_ACK_REQUIRED",
   "branch": "oier/portfolio-receipt-readback-20261020",
   "next": {
-    "independent": "Inspect PortabilityDetail receipt/read refresh with original causalbank before consumer correction, after fresh CLAIM. Also consider scoped last-read context copy for confirmed pending SIM view; do not edit ReviewedCommand/sharedcontracts without authority. No primitiveW5 or realoperator calls.",
-    "publish": "Same recovery alias while PR2b31controls active. Refresh run/head before anylater normalfast-forward of existingPR; no cancel/force/duplicate, newremote controls required, exactAsierACK forintegration.",
-    "security": "5HIGH,W4scanreview,W5EdgeAccess/cache,oldquotas/F736/137preserved; writesOFF,issue10OPEN,releaseNOT_ACCEPTED.",
-    "integration": "REQUEST6287148538 body/server/client correlation on exacta32source remains; no SSR/native-submit fix inferred from passiveobserver. Keep original fixture failures separate from causal product findings."
+    "publish": "Refresh GitHub before existing PR161 fast-forward; no active runs/cancel/force. Exact Asier ACK required for integration.",
+    "integration": "REQUEST6287148538 exact a32 body/server/client correlation remains causeUNKNOWN; positive2b31 does not prove causal correction.",
+    "independent": "Unit28 CLAIM6287866840: causal OpportunityEditor creation intent/close recovery bank using existing pipeline fixture; original failures before minimal consumer fix. Prepared bank outside checkout until27 finishes.",
+    "security": "5HIGH, independentW4, W5EdgeAccess/cache, historical quotas/F736/137 preserved; writesOFF issue10OPEN releaseNOT_ACCEPTED"
   },
-  "unit": 26,
-  "claim": 6286944295,
+  "unit": 27,
+  "claim": 6287600009,
   "scope": "Actual product/repository/validators, synthetic loopback HTTP; real voice/model/hostedAuthDB/staging persistence NOT_RUN",
   "StorageP0": "OPEN",
   "source_blobs": {
-    "src/features/documents/IntegratedDocuments.tsx": "3cbef04ad8c7621c1838aaa5f060e259b2323978",
-    "src/features/portfolio/PortfolioCreate.tsx": "214e6b7366d1f742586999263c9c55c2c11e14bc",
-    "src/features/cases/Cases.tsx": "f98b587953af0abb50d6e41a246e58a6610be302",
     "src/features/portfolio/IntegratedPortfolio.tsx": "42d84eda2f9596742a0c8f6a2b03dc1a2046be32",
-    "src/features/calendar/IntegratedCalendar.tsx": "c8f8c19fa818d5a31a9e2551fa08e1aa9c2e28ed",
-    "src/features/inbox/IntegratedInbox.tsx": "c1a89dbfcc81d8d12461a7379598343c4edf88a7",
     "src/features/catalog/IntegratedCatalog.tsx": "5222c823f4a646b01c7a03c7da20e2450759c119",
-    "src/features/sims/Sims.tsx": "60ed29a157404f7500b81016b4b99ceaf20b615e"
+    "src/features/calendar/IntegratedCalendar.tsx": "c8f8c19fa818d5a31a9e2551fa08e1aa9c2e28ed",
+    "src/features/sims/Sims.tsx": "6470b0214bcf0f57ab582855bd5b0943b86312a1",
+    "src/features/documents/IntegratedDocuments.tsx": "3cbef04ad8c7621c1838aaa5f060e259b2323978",
+    "src/features/portabilities/Portabilities.tsx": "26e6a7313003fa40a363f9bfcae0819bfb9a233d",
+    "src/features/inbox/IntegratedInbox.tsx": "c1a89dbfcc81d8d12461a7379598343c4edf88a7",
+    "src/features/cases/Cases.tsx": "f98b587953af0abb50d6e41a246e58a6610be302",
+    "src/features/portfolio/PortfolioCreate.tsx": "214e6b7366d1f742586999263c9c55c2c11e14bc"
   },
   "release": "NOT_ACCEPTED",
   "W4": "INDEPENDENT",
-  "source": "0edc07decb7a6ea806652a851fa2afb8654ed147",
+  "source": "5415fe9b69fc2c4f3fbb68a22f4c7d692ca1ea1b",
   "delivery": "DOCS_ONLY_COMMIT_CONTAINS_MEASURED_CODE_UNCHANGED",
   "baseline": {
     "source": "27da91d671b342f52ce4cd12be070a4da846b02e",
@@ -151,46 +165,51 @@
       "stale_read": "ALREADY_LOCKED_POSITIVE_NOT_NEW_CAUSAL_FAILURE",
       "cause": "Same-version incompatible state/source replaced editor and discarded confirmed recovery",
       "passed": 9
+    },
+    "portability_readback": {
+      "attempt": "portability-readback-attempt01",
+      "failed": 6,
+      "cause": "Same-version wrong status/source replaced editor and discarded confirmed receipt recovery. Old read was already safely locked; not a new defect.",
+      "source": "3483fea22ab9b5a0ea963285820d071eca61adab",
+      "passed": 9
     }
   },
   "checks": {
-    "source_binding": "evidence/unit26-source-binding.json",
+    "browser_unique": 312,
+    "acceptance": "INDIVIDUAL_MANUAL_PORTABILITY_TRANSITION_CANCELLED_NO_LINE_EFFECT; other operations not promoted",
+    "visual": "390 SIM and Portability previous-read headers plus Portability recovery footer reviewed; existing generic error remains, no global UX/security acceptance",
+    "source": "5415fe9b69fc2c4f3fbb68a22f4c7d692ca1ea1b",
+    "scope": "Actual components/repository/closed DTOs, synthetic controlledHTTP; hosted AuthDB/live model/operator NOT_RUN",
+    "browser_composed": {
+      "startTime": "2026-10-20T07:26:57.743Z",
+      "duration": 440309.053,
+      "expected": 219,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "bootstrap": {
+      "failed": 0,
+      "passed": 96
+    },
     "protected_primitive": "UNCHANGED_BLOB_EQUALS888",
+    "source_binding": "evidence/unit27-source-binding.json",
+    "quality": {
+      "typescript": 0,
+      "logic": 0,
+      "build": 0,
+      "lint": 0,
+      "preflight": "oier-commercial-20261020-unit27-preflight.json",
+      "source": "5415fe9b69fc2c4f3fbb68a22f4c7d692ca1ea1b"
+    },
     "browser_existing_regression": {
-      "startTime": "2026-10-20T06:56:10.804Z",
-      "duration": 186558.494,
+      "startTime": "2026-10-20T07:26:57.619Z",
+      "duration": 181375.19199999998,
       "expected": 93,
       "skipped": 0,
       "unexpected": 0,
       "flaky": 0
-    },
-    "quality": {
-      "typescript_stage": "PREFLIGHT_BEFORE_BROWSER;BUILD_ALSO_TYPECHECKS",
-      "protected_primitive": "UNCHANGED_VERIFIED",
-      "source": "0edc07decb7a6ea806652a851fa2afb8654ed147",
-      "build": 0,
-      "lint": 0,
-      "typescript": 0,
-      "typescript_source": "0edc07decb7a6ea806652a851fa2afb8654ed147",
-      "bootstrap": 0
-    },
-    "acceptance": "INDIVIDUAL_MANUAL_PREPARED_SIM_CANCEL_NO_LINE_ICCID_EID; no activation/replacement/provider promotion",
-    "source": "0edc07decb7a6ea806652a851fa2afb8654ed147",
-    "visual": "REGISTERED_QUERY_PENDING390_AND_COHERENT_CANCELLED390_REVIEWED; existing generic refresh error retained by unchanged primitive, no blanket UX/security acceptance",
-    "bootstrap": {
-      "failed": 0,
-      "passed": 90
-    },
-    "scope": "Actual component/repository/closedDTOs, synthetic controlledHTTP; hostedAuthDB/live model/operator NOT_RUN",
-    "browser_composed": {
-      "startTime": "2026-10-20T06:56:10.724Z",
-      "duration": 412232.77099999995,
-      "expected": 204,
-      "skipped": 0,
-      "unexpected": 0,
-      "flaky": 0
-    },
-    "browser_unique": 297
+    }
   },
   "claims": {
     "unit15": 6279498568,
@@ -288,7 +307,10 @@
     "catalog-plan-attempt01": "QA9e82fe9_ON_UNCHANGED_APPLICATION486_15PASS;NO243GLOBAL_PASS_ASSIGNMENT_TO_QA_SHA",
     "sim-readback-attempt01": "5d49583_CAUSAL_6FAIL9PASS",
     "composed-attempt12": "0edc07d_204PASS_INCLUDES_PLAN15_FRESH_ON_THIS_SOURCE",
-    "regression-attempt11": "0edc07d_93PASS_INCLUDES_SIM_REPLACEMENT_READ18_AND_RESOURCE_SCOPE6"
+    "regression-attempt11": "0edc07d_93PASS_INCLUDES_SIM_REPLACEMENT_READ18_AND_RESOURCE_SCOPE6",
+    "portability-readback-attempt01": "3483fea_CAUSAL_6FAIL9PASS",
+    "composed-attempt13": "5415fe9_219PASS",
+    "regression-attempt12": "5415fe9_93PASS"
   },
   "cloud": "W5 Edge Access/deploy/cohort/window/roles/actions/cleanup; no bypass;87migrations untouched, no resellpro",
   "changes": {
@@ -304,7 +326,8 @@
     "inbox_intent": "Retain exact reviewed command after transport/internal_safe response; locked original note or new conversation, truthful unknown-result copy and existing Drawer closeDisabled. Positive refusal and success preserved. Individual acceptance ONLY add internal note and create conversation; not all Inbox operations. No external send.",
     "inbox_receipt_readback": "Before clearing intent/draft or success notice, require non-read-marker conversation version >= receipt; equal version requires matching status. Retain confirmed receipt and perform query-only recovery when incompatible. Read-marker operations retain existing separate read_version behavior; exact and later legitimate state remain usable. Individual acceptance confirmed add-note and positive markers, not all Inbox or security acceptance.",
     "catalog_create": "Only CatalogCreate: retain pending intent for transport/internal_safe, derive uncertainty from error state, reuse Drawer closeDisabled and clarify result unknown. Existing catalog UI test resource gains opt-in IntegratedCatalog entry; default VersionTerms verified by existing3cases, resource not duplicated. Backend/contracts/OperatorDetail/VersionTerms unchanged.",
-    "sim_receipt_readback": "Consumer Sims only: retain typed validatedSimReceipt, supply to localrefresh callback, reject older/incompatible sameversion id/status/source before setCore/editor replacement. Query-only recovery, no repeatedcommand. ReviewedCommand/backend/identifiers/W5 untouched. No independent acceptance of all SIM operations."
+    "sim_receipt_readback": "Consumer Sims only: retain typed validatedSimReceipt, supply to localrefresh callback, reject older/incompatible sameversion id/status/source before setCore/editor replacement. Query-only recovery, no repeatedcommand. ReviewedCommand/backend/identifiers/W5 untouched. No independent acceptance of all SIM operations.",
+    "portability_readback": "Retain typed receipt and reject incompatible current read before replacing core. Reuse unchanged ReviewedCommand. Consumer-only previous-read captions for SIM/Portability; query retry issues no new cancellation."
   },
   "AI_commercial_writes": "OFF",
   "completed_unit17": {
@@ -644,7 +667,7 @@
       }
     }
   },
-  "qa_source": "0edc07decb7a6ea806652a851fa2afb8654ed147",
+  "qa_source": "5415fe9b69fc2c4f3fbb68a22f4c7d692ca1ea1b",
   "individual_acceptance": {
     "unit25": {
       "operation": "plan.create",
@@ -699,5 +722,49 @@
     "qa_source": "9e82fe970bd64252448c5e15f0e94bba748874d1",
     "source": "486e854b2be6e5364867c0a7a08e3496291069ef",
     "handoff": 6287018635
+  },
+  "completed_unit26": {
+    "delivery": "b49a2fc2e9df946843bbe339c4952c2f620eecf2",
+    "handoff": 6287570306,
+    "source": "0edc07decb7a6ea806652a851fa2afb8654ed147",
+    "checks": {
+      "source_binding": "evidence/unit26-source-binding.json",
+      "protected_primitive": "UNCHANGED_BLOB_EQUALS888",
+      "browser_existing_regression": {
+        "startTime": "2026-10-20T06:56:10.804Z",
+        "duration": 186558.494,
+        "expected": 93,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "quality": {
+        "typescript_stage": "PREFLIGHT_BEFORE_BROWSER;BUILD_ALSO_TYPECHECKS",
+        "protected_primitive": "UNCHANGED_VERIFIED",
+        "source": "0edc07decb7a6ea806652a851fa2afb8654ed147",
+        "build": 0,
+        "lint": 0,
+        "typescript": 0,
+        "typescript_source": "0edc07decb7a6ea806652a851fa2afb8654ed147",
+        "bootstrap": 0
+      },
+      "acceptance": "INDIVIDUAL_MANUAL_PREPARED_SIM_CANCEL_NO_LINE_ICCID_EID; no activation/replacement/provider promotion",
+      "source": "0edc07decb7a6ea806652a851fa2afb8654ed147",
+      "visual": "REGISTERED_QUERY_PENDING390_AND_COHERENT_CANCELLED390_REVIEWED; existing generic refresh error retained by unchanged primitive, no blanket UX/security acceptance",
+      "bootstrap": {
+        "failed": 0,
+        "passed": 90
+      },
+      "scope": "Actual component/repository/closedDTOs, synthetic controlledHTTP; hostedAuthDB/live model/operator NOT_RUN",
+      "browser_composed": {
+        "startTime": "2026-10-20T06:56:10.724Z",
+        "duration": 412232.77099999995,
+        "expected": 204,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "browser_unique": 297
+    }
   }
 }
