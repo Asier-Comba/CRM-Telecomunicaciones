@@ -40,6 +40,42 @@
       "pr": 173,
       "handoff": 6295413528,
       "head": "5f00ab8bf2f1f9cc93ec9a8f88d5a9aaa3842e1e"
+    },
+    {
+      "source": "1cc02065",
+      "parent": "4bfddd3aa3b7936fe4a61522f8fa11c65dfd9ccd",
+      "release": "NOT_ACCEPTED",
+      "original_cause": "UNKNOWN",
+      "pr": 172,
+      "unit": "OIER_OBSERVATION17",
+      "head": "92397a543f2f1013c47914a0e57c414ed144d9aa",
+      "handoff": 6296205990,
+      "new_checks": [
+        {
+          "id": 39460320957,
+          "name": "Supabase local acceptance",
+          "status": "in_progress",
+          "conclusion": null
+        },
+        {
+          "id": 39460320953,
+          "name": "CI",
+          "status": "in_progress",
+          "conclusion": null
+        },
+        {
+          "id": 39460320830,
+          "name": "W5 enterprise platform acceptance",
+          "status": "completed",
+          "conclusion": "failure"
+        },
+        {
+          "id": 39460320567,
+          "name": "W4 all-ref secret audit",
+          "status": "completed",
+          "conclusion": "failure"
+        }
+      ]
     }
   ],
   "ci_bindings": [
@@ -268,7 +304,7 @@
     "live_model": "NOT_RUN",
     "release": "NOT_ACCEPTED"
   },
-  "next": "Close existing exact-source own CI using safe artifacts when terminal, without rerun/push. Review/integration by Asier only. CORE162 only after W5 independent private access/A-B window and fixtures; no owner session or mutation expansion.",
+  "next": "Read new923 terminal controls and exact artifacts/source/tree without rerun. W5 verifies owning team and exact monthly quote for two users; no purchase/protection/permission changes. Coordinate scoped legitimate owner-hosted QA; independently inspect useful product evidence without claiming hosted execution or editing owner sources.",
   "portfolio12_real_local": {
     "contract": "oier.portfolio12.real-local-qualified.v1",
     "run": 39451803219,
@@ -447,7 +483,7 @@
     "voice_model": "NOT_RUN",
     "release": "NOT_ACCEPTED"
   },
-  "latest_handoff": 6295672911,
+  "latest_handoff": 6296205990,
   "independent_review174": {
     "PR174_comment": 6295862020,
     "hosted": "NOT_RUN",
@@ -475,5 +511,279 @@
     "required": "EXACT_OWNER_W5_ACK_PRIVATE_WINDOW_FIXTURES_CLEANUP",
     "contract_validation": "SCHEMA_EXAMPLES_ONLY_NO_RUNTIME_DISPATCH",
     "service_pricing": "DO_NOT_INFER_SERVICE_VERSION_INHERITANCE_FROM_CONTRACT"
+  },
+  "current_priority": {
+    "unit": "OIER_OBSERVATION17",
+    "status": "PUBLISHED_OWN_CI_AND_SUPABASE_IN_PROGRESS",
+    "observation": {
+      "source": "1cc02065",
+      "parent": "4bfddd3aa3b7936fe4a61522f8fa11c65dfd9ccd",
+      "release": "NOT_ACCEPTED",
+      "original_cause": "UNKNOWN",
+      "pr": 172,
+      "unit": "OIER_OBSERVATION17",
+      "head": "92397a543f2f1013c47914a0e57c414ed144d9aa",
+      "handoff": 6296205990,
+      "new_checks": [
+        {
+          "id": 39460320957,
+          "name": "Supabase local acceptance",
+          "status": "in_progress",
+          "conclusion": null
+        },
+        {
+          "id": 39460320953,
+          "name": "CI",
+          "status": "in_progress",
+          "conclusion": null
+        },
+        {
+          "id": 39460320830,
+          "name": "W5 enterprise platform acceptance",
+          "status": "completed",
+          "conclusion": "failure"
+        },
+        {
+          "id": 39460320567,
+          "name": "W4 all-ref secret audit",
+          "status": "completed",
+          "conclusion": "failure"
+        }
+      ]
+    },
+    "candidate": {
+      "pr": 175,
+      "source": "b9e1eefeea3342b40bdd9584747e9e7ff47bf1cd",
+      "tree": "6012a6c409733f60282d0ca997d414dd31a11394",
+      "delivery": 6295970548,
+      "attribution": "ASIER_DESIGNATED_REPORTED_LOCAL_CONTROLS_NOT_OWN_OR_HOSTED",
+      "platform_failures_request": 6296031051,
+      "ownership": "ASIER_NO_OIER_SOURCE_WRITES"
+    },
+    "private_access_proposal": {
+      "request": 6296238416,
+      "protection_change": false,
+      "next": "W5_VERIFY_TEAM_PLAN_EXACT_MONTHLY_TOTAL_AND_INCLUDED_USERS_FOR_OWNER_APPROVAL",
+      "purchase": false,
+      "users": [
+        "Oier",
+        "Asier"
+      ],
+      "priority": "P0_MAX",
+      "instruction": "OWNER_AUTHORIZES_PRIVATE_ACCESS_COST_PROPOSAL_ONLY"
+    },
+    "cloud": {
+      "source": "a9e977adf90b1e83cded23fb54aefc696839d014",
+      "deploy": "6ad78f6c810c781fba4f5880",
+      "delivery": 6295242000,
+      "attribution": "W5_REPORTED",
+      "AB_report": 6295591477,
+      "AB_users_after_window": "REVOKED_NOT_REUSABLE",
+      "independent_Oier": "NOT_RUN",
+      "anonymous_Oier_dashboard": 401,
+      "adapter": "NOT_RECORDED"
+    },
+    "physical172_original": {
+      "run": 39453448961,
+      "checkout": "0c5ce385ce8e4c7201900d089057ba7a249a578e",
+      "tree": "f69510ba12f0229b74435253ee2518ae49ccbb38",
+      "head": "4bfddd3aa3b7936fe4a61522f8fa11c65dfd9ccd",
+      "head_tree_equal": true,
+      "backend": 4042,
+      "migrations": 87,
+      "ui_pass": 111,
+      "ui_timeout": 4,
+      "cause": "UNKNOWN",
+      "teardown": "PASS"
+    },
+    "physical173": {
+      "environment": "LOCAL_SUPABASE_DOCKER_NOT_HOSTED",
+      "migrations": 87,
+      "backend_w1": 3815,
+      "backend_w2": 227,
+      "voice_model": "NOT_RUN",
+      "business_ai_writes": "OFF",
+      "release": "NOT_ACCEPTED",
+      "run": 39454896864,
+      "job": 118739067980,
+      "artifact": 12281647490,
+      "source": "a332bb0642a2766e47275657769fbc8ad52d6453",
+      "tree": "0697aaacd182d7987ee6d67b6685895177d9bf81",
+      "head": "5f00ab8bf2f1f9cc93ec9a8f88d5a9aaa3842e1e",
+      "head_tree_equal": true,
+      "original_zip_sha256": "df435489dd42ee5928c1880ac3b7c3e1bae07ae0cc78e5997984f78457132ee4",
+      "ui_observed": 115,
+      "ui_unique": 115,
+      "failed_list_present": false,
+      "failed_list": null,
+      "auth": "PASS_LOCAL_AUTH_IDENTITY_ONLY_NOT_HOSTED_ROUTING",
+      "auth_cleanup": "PASS_LOCAL_SESSIONS_ONLY",
+      "server": {
+        "code": 0,
+        "signal": null
+      },
+      "teardown": "PASS",
+      "other_source_failure_cases": [
+        {
+          "check": "sim_deactivate_cancel_identifier_retire_and_immutable_line_history",
+          "passed_here": true
+        },
+        {
+          "check": "portability_viewer_masked_terminal_detail_no_commands_three_widths",
+          "passed_here": true
+        },
+        {
+          "check": "sim_viewer_masked_detail_no_lifecycle_writes_three_widths",
+          "passed_here": true
+        },
+        {
+          "check": "case_viewer_current_normal_detail_no_notes_or_writes_three_widths",
+          "passed_here": true
+        }
+      ],
+      "qualification": "OWN_POSITIVES_NOT_CAUSAL_REPAIR_OR_PASS_INHERITANCE_FOR_172_OR_175"
+    },
+    "integration": "ASIER175_ADOPTED_ORIGINAL172_173_AND174_REVIEW_NOT_NEW_CALLERS17",
+    "review174": {
+      "PR174_comment": 6295862020,
+      "hosted": "NOT_RUN",
+      "unit": "OIER_REVIEW174_15",
+      "release": "NOT_ACCEPTED",
+      "handoff": 6295862372,
+      "published_ref": "c27e87db630a42d5161a30b08624497136bdf263",
+      "own_tests": 12,
+      "own_lint_types": "PASS",
+      "source": "2de857051e9e84aad5e1a1bd088afcee98ba717c",
+      "finding": "NO_ACTIONABLE_FINDING_IN_SCOPED_DELTA"
+    },
+    "telecom16": {
+      "handoff": 6295975508,
+      "unit": "OIER_TELECOM_SCOPE16_PROPOSAL",
+      "documentary_ref": "f6ff80217746eae4982b6409291935710ae30f83",
+      "release": "NOT_ACCEPTED",
+      "claim": 6295919214,
+      "core_mutations_unchanged": 2,
+      "proposed_separate_max": 3,
+      "scope_status": "PROPOSAL_ONLY_DISPATCH_NOT_AUTHORIZED",
+      "dispatch": false,
+      "alternative175_operations": [
+        "customer.update",
+        "plan_version.create",
+        "contract.create_manual",
+        "service.create_manual"
+      ],
+      "agreement": "REQUIRED_SCOPE16_THREE_CREATES_DIFFERS_FROM_ASIER_FOUR_OPERATIONS",
+      "target": "REFRESH_SOURCE_DEPLOY_BEFORE_ANY_EXECUTION"
+    },
+    "core162": {
+      "mutations": 2,
+      "operations": [
+        "customer.create",
+        "invoice.create_draft"
+      ],
+      "dispatch": "NOT_RUN_PRIVATE_CONTEXT_WINDOW_ACTORS_FIXTURES_CLEANUP_REQUIRED"
+    },
+    "original_causes": [
+      "100bf portfolio390 UNKNOWN",
+      "F736 UNKNOWN",
+      "CASE_NOTE_CURSOR UNKNOWN",
+      "172 four timeouts UNKNOWN"
+    ],
+    "stale_local_build": {
+      "source": "853d30cd936b888ccfeedd8981a3d5773185f7dc",
+      "workspace": "work/crm-oier-demo-copy-20261020",
+      "not_current923_or175": true
+    },
+    "checks_policy": "NO_PUSH_OVER_ACTIVE_NO_CANCEL_NO_RERUN_NO_INHERITED_PASS",
+    "five_HIGH": "OPEN",
+    "storage": "OFF_UNACCEPTED",
+    "business_ai_writes": "OFF",
+    "real_voice": "NOT_RUN",
+    "live_model": "NOT_RUN",
+    "issue10": "OPEN",
+    "release": "NOT_ACCEPTED",
+    "next": "Read new923 terminal controls and exact artifacts/source/tree without rerun. W5 verifies owning team and exact monthly quote for two users; no purchase/protection/permission changes. Coordinate scoped legitimate owner-hosted QA; independently inspect useful product evidence without claiming hosted execution or editing owner sources."
+  },
+  "current_candidate": {
+    "pr": 175,
+    "source": "b9e1eefeea3342b40bdd9584747e9e7ff47bf1cd",
+    "tree": "6012a6c409733f60282d0ca997d414dd31a11394",
+    "delivery": 6295970548,
+    "attribution": "ASIER_DESIGNATED_REPORTED_LOCAL_CONTROLS_NOT_OWN_OR_HOSTED",
+    "platform_failures_request": 6296031051,
+    "ownership": "ASIER_NO_OIER_SOURCE_WRITES"
+  },
+  "snapshot_kind": "UPDATED_DOCUMENTARY_RECOVERY_NOT_APPLICATION_SOURCE",
+  "qualified173": {
+    "environment": "LOCAL_SUPABASE_DOCKER_NOT_HOSTED",
+    "migrations": 87,
+    "backend_w1": 3815,
+    "backend_w2": 227,
+    "voice_model": "NOT_RUN",
+    "business_ai_writes": "OFF",
+    "release": "NOT_ACCEPTED",
+    "run": 39454896864,
+    "job": 118739067980,
+    "artifact": 12281647490,
+    "source": "a332bb0642a2766e47275657769fbc8ad52d6453",
+    "tree": "0697aaacd182d7987ee6d67b6685895177d9bf81",
+    "head": "5f00ab8bf2f1f9cc93ec9a8f88d5a9aaa3842e1e",
+    "head_tree_equal": true,
+    "original_zip_sha256": "df435489dd42ee5928c1880ac3b7c3e1bae07ae0cc78e5997984f78457132ee4",
+    "ui_observed": 115,
+    "ui_unique": 115,
+    "failed_list_present": false,
+    "failed_list": null,
+    "auth": "PASS_LOCAL_AUTH_IDENTITY_ONLY_NOT_HOSTED_ROUTING",
+    "auth_cleanup": "PASS_LOCAL_SESSIONS_ONLY",
+    "server": {
+      "code": 0,
+      "signal": null
+    },
+    "teardown": "PASS",
+    "other_source_failure_cases": [
+      {
+        "check": "sim_deactivate_cancel_identifier_retire_and_immutable_line_history",
+        "passed_here": true
+      },
+      {
+        "check": "portability_viewer_masked_terminal_detail_no_commands_three_widths",
+        "passed_here": true
+      },
+      {
+        "check": "sim_viewer_masked_detail_no_lifecycle_writes_three_widths",
+        "passed_here": true
+      },
+      {
+        "check": "case_viewer_current_normal_detail_no_notes_or_writes_three_widths",
+        "passed_here": true
+      }
+    ],
+    "qualification": "OWN_POSITIVES_NOT_CAUSAL_REPAIR_OR_PASS_INHERITANCE_FOR_172_OR_175"
+  },
+  "qualified172_original": {
+    "run": 39453448961,
+    "checkout": "0c5ce385ce8e4c7201900d089057ba7a249a578e",
+    "tree": "f69510ba12f0229b74435253ee2518ae49ccbb38",
+    "head": "4bfddd3aa3b7936fe4a61522f8fa11c65dfd9ccd",
+    "head_tree_equal": true,
+    "backend": 4042,
+    "migrations": 87,
+    "ui_pass": 111,
+    "ui_timeout": 4,
+    "cause": "UNKNOWN",
+    "teardown": "PASS"
+  },
+  "private_access_proposal": {
+    "request": 6296238416,
+    "protection_change": false,
+    "next": "W5_VERIFY_TEAM_PLAN_EXACT_MONTHLY_TOTAL_AND_INCLUDED_USERS_FOR_OWNER_APPROVAL",
+    "purchase": false,
+    "users": [
+      "Oier",
+      "Asier"
+    ],
+    "priority": "P0_MAX",
+    "instruction": "OWNER_AUTHORIZES_PRIVATE_ACCESS_COST_PROPOSAL_ONLY"
   }
 }
