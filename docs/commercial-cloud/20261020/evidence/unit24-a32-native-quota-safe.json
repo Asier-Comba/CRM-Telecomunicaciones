@@ -1,0 +1,47 @@
+{
+  "same_SHA_pin_positive": "NOT_AVAILABLE_NATIVE_TESTS_NOT_STARTED",
+  "job": 118520588121,
+  "previous_f2_positive": "DIFFERENT_SHA_NOT_A_POSITIVE_FOR_A32_RETRY",
+  "pin": "public.ecr.aws/docker/library/postgres@sha256:ca0bd484cb98bf4b24eb1010e73fb3fcbd6714d240fbc1a10eea5b7dbecb641d",
+  "workflow_head": "a32cacc0ebc9cfb0ea9f100b4b9b9f1a13ba4474",
+  "new_request": "NOT_DUPLICATED_KNOWN_RESOURCE_BLOCKER",
+  "release": "NOT_ACCEPTED",
+  "steps": [
+    {
+      "name": "Set up job",
+      "conclusion": "success"
+    },
+    {
+      "name": "Initialize containers",
+      "conclusion": "failure"
+    },
+    {
+      "name": "Checkout",
+      "conclusion": "skipped"
+    },
+    {
+      "name": "Isolated native migration, tenant and restore drill",
+      "conclusion": "skipped"
+    },
+    {
+      "name": "Retain synthetic density query plans",
+      "conclusion": "success"
+    },
+    {
+      "name": "Stop containers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Complete job",
+      "conclusion": "success"
+    }
+  ],
+  "cause": "Docker daemon toomanyrequests: Data limit exceeded",
+  "manual_retries_requested": 0,
+  "run": 39390500329,
+  "runner_internal_pull_attempts": 3,
+  "conclusion": "failure",
+  "actual_tested_sha": null,
+  "prior_W5_request": 6279686354,
+  "stage": "IMAGE_PULL_BEFORE_NATIVE_TESTS"
+}

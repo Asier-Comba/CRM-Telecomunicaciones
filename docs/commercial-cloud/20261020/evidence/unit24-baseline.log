@@ -1,0 +1,278 @@
+
+Running 15 tests using 1 worker
+
+
+
+(node:25656) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1/15] [controlled-http-390] › tools\oier_commercial_qa\catalog-create-intent.spec.ts:7:93 › catalog operator creation preserves reviewed intent after transport
+[2/15] [controlled-http-390] › tools\oier_commercial_qa\catalog-create-intent.spec.ts:7:93 › catalog operator creation preserves reviewed intent after malformed
+  1) [controlled-http-390] › tools\oier_commercial_qa\catalog-create-intent.spec.ts:7:93 › catalog operator creation preserves reviewed intent after malformed 
+
+    Error: expect(locator).toBeEnabled() failed
+
+    Locator: getByRole('dialog', { name: 'Nuevo operador', exact: true }).getByRole('button', { name: 'Comprobar la misma alta', exact: true })
+    Expected: enabled
+    Timeout: 4000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeEnabled" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Nuevo operador', exact: true }).getByRole('button', { name: 'Comprobar la misma alta', exact: true })
+
+
+      35 |   if(['transport','malformed','wrong_receipt'].includes(mode)){
+      36 |    const retry=dialog.getByRole('button',{name:'Comprobar la misma alta',exact:true})
+    > 37 |    await expect(retry).toBeEnabled();await expect(field).toBeDisabled();await expect(field).toHaveValue(name)
+         |                        ^
+      38 |    await expect(dialog.getByRole('textbox',{name:'Código de alta de catálogo',exact:true})).toHaveValue(code)
+      39 |    await dialog.getByRole('button',{name:'Cerrar panel',exact:true}).click({force:true});await expect(dialog).toBeVisible()
+      40 |    await page.keyboard.press('Escape');await expect(dialog).toBeVisible()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\catalog-create-intent.spec.ts:37:24
+
+    Error Context: ..\oier-commercial-20261020\catalog-create-attempt01\artifacts\catalog-create-intent-cata-7f9f9-ewed-intent-after-malformed-controlled-http-390\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\catalog-create-attempt01\artifacts\catalog-create-intent-cata-7f9f9-ewed-intent-after-malformed-controlled-http-390\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\catalog-create-attempt01\artifacts\catalog-create-intent-cata-7f9f9-ewed-intent-after-malformed-controlled-http-390\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\catalog-create-attempt01\artifacts\catalog-create-intent-cata-7f9f9-ewed-intent-after-malformed-controlled-http-390\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:13452) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[3/15] [controlled-http-390] › tools\oier_commercial_qa\catalog-create-intent.spec.ts:7:93 › catalog operator creation preserves reviewed intent after wrong_receipt
+  2) [controlled-http-390] › tools\oier_commercial_qa\catalog-create-intent.spec.ts:7:93 › catalog operator creation preserves reviewed intent after wrong_receipt 
+
+    Error: expect(locator).toBeEnabled() failed
+
+    Locator: getByRole('dialog', { name: 'Nuevo operador', exact: true }).getByRole('button', { name: 'Comprobar la misma alta', exact: true })
+    Expected: enabled
+    Timeout: 4000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeEnabled" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Nuevo operador', exact: true }).getByRole('button', { name: 'Comprobar la misma alta', exact: true })
+
+
+      35 |   if(['transport','malformed','wrong_receipt'].includes(mode)){
+      36 |    const retry=dialog.getByRole('button',{name:'Comprobar la misma alta',exact:true})
+    > 37 |    await expect(retry).toBeEnabled();await expect(field).toBeDisabled();await expect(field).toHaveValue(name)
+         |                        ^
+      38 |    await expect(dialog.getByRole('textbox',{name:'Código de alta de catálogo',exact:true})).toHaveValue(code)
+      39 |    await dialog.getByRole('button',{name:'Cerrar panel',exact:true}).click({force:true});await expect(dialog).toBeVisible()
+      40 |    await page.keyboard.press('Escape');await expect(dialog).toBeVisible()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\catalog-create-intent.spec.ts:37:24
+
+    Error Context: ..\oier-commercial-20261020\catalog-create-attempt01\artifacts\catalog-create-intent-cata-3afca--intent-after-wrong-receipt-controlled-http-390\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\catalog-create-attempt01\artifacts\catalog-create-intent-cata-3afca--intent-after-wrong-receipt-controlled-http-390\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\catalog-create-attempt01\artifacts\catalog-create-intent-cata-3afca--intent-after-wrong-receipt-controlled-http-390\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\catalog-create-attempt01\artifacts\catalog-create-intent-cata-3afca--intent-after-wrong-receipt-controlled-http-390\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:24524) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[4/15] [controlled-http-390] › tools\oier_commercial_qa\catalog-create-intent.spec.ts:7:93 › catalog operator creation preserves reviewed intent after denied
+[5/15] [controlled-http-390] › tools\oier_commercial_qa\catalog-create-intent.spec.ts:7:93 › catalog operator creation preserves reviewed intent after success
+
+(node:7744) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[6/15] [controlled-http-768] › tools\oier_commercial_qa\catalog-create-intent.spec.ts:7:93 › catalog operator creation preserves reviewed intent after transport
+[7/15] [controlled-http-768] › tools\oier_commercial_qa\catalog-create-intent.spec.ts:7:93 › catalog operator creation preserves reviewed intent after malformed
+  3) [controlled-http-768] › tools\oier_commercial_qa\catalog-create-intent.spec.ts:7:93 › catalog operator creation preserves reviewed intent after malformed 
+
+    Error: expect(locator).toBeEnabled() failed
+
+    Locator: getByRole('dialog', { name: 'Nuevo operador', exact: true }).getByRole('button', { name: 'Comprobar la misma alta', exact: true })
+    Expected: enabled
+    Timeout: 4000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeEnabled" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Nuevo operador', exact: true }).getByRole('button', { name: 'Comprobar la misma alta', exact: true })
+
+
+      35 |   if(['transport','malformed','wrong_receipt'].includes(mode)){
+      36 |    const retry=dialog.getByRole('button',{name:'Comprobar la misma alta',exact:true})
+    > 37 |    await expect(retry).toBeEnabled();await expect(field).toBeDisabled();await expect(field).toHaveValue(name)
+         |                        ^
+      38 |    await expect(dialog.getByRole('textbox',{name:'Código de alta de catálogo',exact:true})).toHaveValue(code)
+      39 |    await dialog.getByRole('button',{name:'Cerrar panel',exact:true}).click({force:true});await expect(dialog).toBeVisible()
+      40 |    await page.keyboard.press('Escape');await expect(dialog).toBeVisible()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\catalog-create-intent.spec.ts:37:24
+
+    Error Context: ..\oier-commercial-20261020\catalog-create-attempt01\artifacts\catalog-create-intent-cata-7f9f9-ewed-intent-after-malformed-controlled-http-768\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\catalog-create-attempt01\artifacts\catalog-create-intent-cata-7f9f9-ewed-intent-after-malformed-controlled-http-768\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\catalog-create-attempt01\artifacts\catalog-create-intent-cata-7f9f9-ewed-intent-after-malformed-controlled-http-768\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\catalog-create-attempt01\artifacts\catalog-create-intent-cata-7f9f9-ewed-intent-after-malformed-controlled-http-768\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+(node:27216) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[8/15] [controlled-http-768] › tools\oier_commercial_qa\catalog-create-intent.spec.ts:7:93 › catalog operator creation preserves reviewed intent after wrong_receipt
+  4) [controlled-http-768] › tools\oier_commercial_qa\catalog-create-intent.spec.ts:7:93 › catalog operator creation preserves reviewed intent after wrong_receipt 
+
+    Error: expect(locator).toBeEnabled() failed
+
+    Locator: getByRole('dialog', { name: 'Nuevo operador', exact: true }).getByRole('button', { name: 'Comprobar la misma alta', exact: true })
+    Expected: enabled
+    Timeout: 4000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeEnabled" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Nuevo operador', exact: true }).getByRole('button', { name: 'Comprobar la misma alta', exact: true })
+
+
+      35 |   if(['transport','malformed','wrong_receipt'].includes(mode)){
+      36 |    const retry=dialog.getByRole('button',{name:'Comprobar la misma alta',exact:true})
+    > 37 |    await expect(retry).toBeEnabled();await expect(field).toBeDisabled();await expect(field).toHaveValue(name)
+         |                        ^
+      38 |    await expect(dialog.getByRole('textbox',{name:'Código de alta de catálogo',exact:true})).toHaveValue(code)
+      39 |    await dialog.getByRole('button',{name:'Cerrar panel',exact:true}).click({force:true});await expect(dialog).toBeVisible()
+      40 |    await page.keyboard.press('Escape');await expect(dialog).toBeVisible()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\catalog-create-intent.spec.ts:37:24
+
+    Error Context: ..\oier-commercial-20261020\catalog-create-attempt01\artifacts\catalog-create-intent-cata-3afca--intent-after-wrong-receipt-controlled-http-768\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\catalog-create-attempt01\artifacts\catalog-create-intent-cata-3afca--intent-after-wrong-receipt-controlled-http-768\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\catalog-create-attempt01\artifacts\catalog-create-intent-cata-3afca--intent-after-wrong-receipt-controlled-http-768\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\catalog-create-attempt01\artifacts\catalog-create-intent-cata-3afca--intent-after-wrong-receipt-controlled-http-768\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:15624) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+
+(Use `node --trace-warnings ...` to show where the warning was created)
+[9/15] [controlled-http-768] › tools\oier_commercial_qa\catalog-create-intent.spec.ts:7:93 › catalog operator creation preserves reviewed intent after denied
+[10/15] [controlled-http-768] › tools\oier_commercial_qa\catalog-create-intent.spec.ts:7:93 › catalog operator creation preserves reviewed intent after success
+
+
+(node:25508) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[11/15] [controlled-http-1440] › tools\oier_commercial_qa\catalog-create-intent.spec.ts:7:93 › catalog operator creation preserves reviewed intent after transport
+[12/15] [controlled-http-1440] › tools\oier_commercial_qa\catalog-create-intent.spec.ts:7:93 › catalog operator creation preserves reviewed intent after malformed
+  5) [controlled-http-1440] › tools\oier_commercial_qa\catalog-create-intent.spec.ts:7:93 › catalog operator creation preserves reviewed intent after malformed 
+
+    Error: expect(locator).toBeEnabled() failed
+
+    Locator: getByRole('dialog', { name: 'Nuevo operador', exact: true }).getByRole('button', { name: 'Comprobar la misma alta', exact: true })
+    Expected: enabled
+    Timeout: 4000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeEnabled" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Nuevo operador', exact: true }).getByRole('button', { name: 'Comprobar la misma alta', exact: true })
+
+
+      35 |   if(['transport','malformed','wrong_receipt'].includes(mode)){
+      36 |    const retry=dialog.getByRole('button',{name:'Comprobar la misma alta',exact:true})
+    > 37 |    await expect(retry).toBeEnabled();await expect(field).toBeDisabled();await expect(field).toHaveValue(name)
+         |                        ^
+      38 |    await expect(dialog.getByRole('textbox',{name:'Código de alta de catálogo',exact:true})).toHaveValue(code)
+      39 |    await dialog.getByRole('button',{name:'Cerrar panel',exact:true}).click({force:true});await expect(dialog).toBeVisible()
+      40 |    await page.keyboard.press('Escape');await expect(dialog).toBeVisible()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\catalog-create-intent.spec.ts:37:24
+
+    Error Context: ..\oier-commercial-20261020\catalog-create-attempt01\artifacts\catalog-create-intent-cata-7f9f9-ewed-intent-after-malformed-controlled-http-1440\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\catalog-create-attempt01\artifacts\catalog-create-intent-cata-7f9f9-ewed-intent-after-malformed-controlled-http-1440\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\catalog-create-attempt01\artifacts\catalog-create-intent-cata-7f9f9-ewed-intent-after-malformed-controlled-http-1440\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\catalog-create-attempt01\artifacts\catalog-create-intent-cata-7f9f9-ewed-intent-after-malformed-controlled-http-1440\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(node:25832) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[13/15] [controlled-http-1440] › tools\oier_commercial_qa\catalog-create-intent.spec.ts:7:93 › catalog operator creation preserves reviewed intent after wrong_receipt
+  6) [controlled-http-1440] › tools\oier_commercial_qa\catalog-create-intent.spec.ts:7:93 › catalog operator creation preserves reviewed intent after wrong_receipt 
+
+    Error: expect(locator).toBeEnabled() failed
+
+    Locator: getByRole('dialog', { name: 'Nuevo operador', exact: true }).getByRole('button', { name: 'Comprobar la misma alta', exact: true })
+    Expected: enabled
+    Timeout: 4000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeEnabled" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Nuevo operador', exact: true }).getByRole('button', { name: 'Comprobar la misma alta', exact: true })
+
+
+      35 |   if(['transport','malformed','wrong_receipt'].includes(mode)){
+      36 |    const retry=dialog.getByRole('button',{name:'Comprobar la misma alta',exact:true})
+    > 37 |    await expect(retry).toBeEnabled();await expect(field).toBeDisabled();await expect(field).toHaveValue(name)
+         |                        ^
+      38 |    await expect(dialog.getByRole('textbox',{name:'Código de alta de catálogo',exact:true})).toHaveValue(code)
+      39 |    await dialog.getByRole('button',{name:'Cerrar panel',exact:true}).click({force:true});await expect(dialog).toBeVisible()
+      40 |    await page.keyboard.press('Escape');await expect(dialog).toBeVisible()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\catalog-create-intent.spec.ts:37:24
+
+    Error Context: ..\oier-commercial-20261020\catalog-create-attempt01\artifacts\catalog-create-intent-cata-3afca--intent-after-wrong-receipt-controlled-http-1440\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\catalog-create-attempt01\artifacts\catalog-create-intent-cata-3afca--intent-after-wrong-receipt-controlled-http-1440\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\catalog-create-attempt01\artifacts\catalog-create-intent-cata-3afca--intent-after-wrong-receipt-controlled-http-1440\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\catalog-create-attempt01\artifacts\catalog-create-intent-cata-3afca--intent-after-wrong-receipt-controlled-http-1440\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:27488) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[14/15] [controlled-http-1440] › tools\oier_commercial_qa\catalog-create-intent.spec.ts:7:93 › catalog operator creation preserves reviewed intent after denied
+[15/15] [controlled-http-1440] › tools\oier_commercial_qa\catalog-create-intent.spec.ts:7:93 › catalog operator creation preserves reviewed intent after success
+  6 failed
+    [controlled-http-390] › tools\oier_commercial_qa\catalog-create-intent.spec.ts:7:93 › catalog operator creation preserves reviewed intent after malformed 
+    [controlled-http-390] › tools\oier_commercial_qa\catalog-create-intent.spec.ts:7:93 › catalog operator creation preserves reviewed intent after wrong_receipt 
+    [controlled-http-768] › tools\oier_commercial_qa\catalog-create-intent.spec.ts:7:93 › catalog operator creation preserves reviewed intent after malformed 
+    [controlled-http-768] › tools\oier_commercial_qa\catalog-create-intent.spec.ts:7:93 › catalog operator creation preserves reviewed intent after wrong_receipt 
+    [controlled-http-1440] › tools\oier_commercial_qa\catalog-create-intent.spec.ts:7:93 › catalog operator creation preserves reviewed intent after malformed 
+    [controlled-http-1440] › tools\oier_commercial_qa\catalog-create-intent.spec.ts:7:93 › catalog operator creation preserves reviewed intent after wrong_receipt 
+  9 passed (1.6m)

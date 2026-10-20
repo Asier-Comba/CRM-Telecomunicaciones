@@ -7,31 +7,33 @@
     "historic": "F736 and CASE_NOTE_CURSOR retained, no causal correction attributed.",
     "documents_fixture": "Original3FAIL27NOT_RUN and original harness kept separate from18causalFAIL. Baseline source files retained verbatim as .txt to avoid execution/typechecking.",
     "remote137": "Supabase39345324892 FAIL at tested merge419693a5,112UI passed1layout:portfolio:390:dialog_visible TIMEOUT. Drawer visible in original failure screenshot; full causal explanation unknown. Not F736; assertions/timeouts unchanged,0manual reruns.",
-    "unit22_interruption": "Original attempt08 log/artifacts plus INTERRUPTED.json retained; no final counts invented. Clock gap01:00to05:55UTC; no continuous execution claimed. Same-source attempt09 complete141PASS. Interrupted checkpoint24c remains in Git history."
+    "unit22_interruption": "Original attempt08 log/artifacts plus INTERRUPTED.json retained; no final counts invented. Clock gap01:00to05:55UTC; no continuous execution claimed. Same-source attempt09 complete141PASS. Interrupted checkpoint24c remains in Git history.",
+    "quota_a32": "NativePostgres118520588121 Docker toomanyrequests:Data limit exceeded,3runnerinternalpulls before tests;0manual retry. Exact pin verified, marker unit22; knownW5request not duplicated. No test/restore acceptance inferred."
   },
   "HIGH": "FIVE_OPEN",
   "base": "888ecaae57e9021ca0cb25d4da0657c1f6ac9b40",
   "remote_checks": {
     "PR161": {
-      "manual_retry": 0,
+      "prior_f2_provenance": "evidence/unit22-remote-f2-supabase-safe.json",
+      "active": "SUPABASE_LAST_OBSERVED_IN_PROGRESS_REFRESH_BEFORE_ANY_PR_PUSH",
+      "W4": "FAIL_INDEPENDENT",
+      "CI": "FAIL_5HIGH_SECRETSCAN_NATIVE_IMAGE_QUOTA",
       "head": "a32cacc0ebc9cfb0ea9f100b4b9b9f1a13ba4474",
-      "current_ad0": "NOT_RUN_NO_INHERITANCE",
-      "previous_f2": {
-        "safes": [
-          "evidence/unit22-remote-f2-supabase-safe.json",
-          "evidence/unit22-remote-f2-native-safe.json"
-        ],
-        "Native": "PASS_ONLY_THAT_CONTEXT",
-        "Supabase": "PASS_ONLY_THAT_MERGE",
-        "actual_tested_merge": "33ef80afd2e9d0c6a404fa650db8dbf0254aa4f3"
+      "current486": "NOT_RUN_NO_INHERITANCE",
+      "Native": {
+        "result": "FAIL_PULL_BEFORE_TESTS",
+        "actual_tested_sha": null,
+        "safe": "evidence/unit24-a32-native-quota-safe.json",
+        "manual_retry": 0,
+        "same_pin": true,
+        "previousf2": "DIFFERENT_SHA_NOT_POSITIVE_CONTROL_FOR_A32_RETRY",
+        "job": 118520588121
       },
-      "security": "5HIGH_OPEN_AND_INDEPENDENT_W4_SCAN_REVIEW",
       "runs": [
         39390500329,
         39390500305,
         39390500351
-      ],
-      "active": "REFRESH_BEFORE_ANY_PR_PUSH"
+      ]
     },
     "PR160": {
       "runs": [
@@ -47,12 +49,12 @@
   "integration": "DRAFT_ASIER_EXACT_ACK_REQUIRED",
   "branch": "oier/portfolio-receipt-readback-20261020",
   "next": {
-    "publish": "Same recovery alias while PRa32checks active; no cancellation or duplicate PR. Refresh actual runs and SHA before any later fast-forward of existingPR161. ACKexactAsier still required for integration.",
-    "security": "W4 independent review,5HIGH, W5EdgeAccess/cache, all old quota attempts/failures preserved,0manual retries;writesOFF/releaseNOT_ACCEPTED.",
-    "independent": "UNIT24 CLAIM6286430656: QA work/oier-catalog-unit24-qa outside checkout, NOT_STARTED. Copy optional QA entry mode into existing catalog-resource fixture only after unit23publication. Baseline15operator-create cases before minimal CatalogCreate edit; use closed data envelope, no W5duplication."
+    "security": "W4 independent review,5HIGH,W5EdgeAccess/cache, oldquota and137timeout kept;0manual retries,writesOFF,releaseNOT_ACCEPTED.",
+    "independent": "UNIT25 CLAIM6286688145: QA work/oier-catalog-unit25-qa outsidecheckout. After unit24published, verify plan.create caller individually (operator_id,service_kind,frozenreview,filteredreturn,no price-version publication). No invented causal red if shared source alreadyworks. Bind product486 and QAsha separately; no routine repeat of green application checks without source change.",
+    "publish": "Use same recovery alias while PRa32Supabase active; no cancellation or duplicate PR. Refresh run/head before any later fast-forward; newremote controls and exactAsierACK before integration."
   },
-  "unit": 23,
-  "claim": 6280777069,
+  "unit": 24,
+  "claim": 6286430656,
   "scope": "Actual product/repository/validators, synthetic loopback HTTP; real voice/model/hostedAuthDB/staging persistence NOT_RUN",
   "StorageP0": "OPEN",
   "source_blobs": {
@@ -61,11 +63,12 @@
     "src/features/cases/Cases.tsx": "f98b587953af0abb50d6e41a246e58a6610be302",
     "src/features/portfolio/IntegratedPortfolio.tsx": "42d84eda2f9596742a0c8f6a2b03dc1a2046be32",
     "src/features/calendar/IntegratedCalendar.tsx": "c8f8c19fa818d5a31a9e2551fa08e1aa9c2e28ed",
-    "src/features/inbox/IntegratedInbox.tsx": "c1a89dbfcc81d8d12461a7379598343c4edf88a7"
+    "src/features/inbox/IntegratedInbox.tsx": "c1a89dbfcc81d8d12461a7379598343c4edf88a7",
+    "src/features/catalog/IntegratedCatalog.tsx": "5222c823f4a646b01c7a03c7da20e2450759c119"
   },
   "release": "NOT_ACCEPTED",
   "W4": "INDEPENDENT",
-  "source": "ad0ac6a24d8df759bc7f743e0cb483b88018f84b",
+  "source": "486e854b2be6e5364867c0a7a08e3496291069ef",
   "delivery": "DOCS_ONLY_COMMIT_CONTAINS_MEASURED_CODE_UNCHANGED",
   "baseline": {
     "source": "27da91d671b342f52ce4cd12be070a4da846b02e",
@@ -128,44 +131,49 @@
       "source": "a1d373c4a9963abab4811912aa947ac0933edd4e",
       "attempt": "inbox-readback-attempt01",
       "cause": "Confirmed note receipt followed by older thread or incompatible same-version status accepted; draft/receipt cleared and success announced."
+    },
+    "catalog_create": {
+      "source": "cc491b8d960ef08bcfa0881a2f2bac29c7418673",
+      "passed": 9,
+      "cause": "Malformed JSON/foreign receipt cleared pending and allowed abandoning reviewed creation; transport/denial/success positives retained.",
+      "catalog_blob_equals888": true,
+      "failed": 6,
+      "attempt": "catalog-create-attempt01"
     }
   },
   "checks": {
-    "browser_composed": {
-      "startTime": "2026-10-20T06:05:02.998Z",
-      "duration": 342964.73799999995,
-      "expected": 159,
-      "skipped": 0,
-      "unexpected": 0,
-      "flaky": 0
-    },
-    "quality": {
-      "source": "ad0ac6a24d8df759bc7f743e0cb483b88018f84b",
-      "typescript": 0,
-      "lint": 0,
-      "build": 0,
-      "bootstrap": 0
-    },
-    "browser_existing_regression": {
-      "startTime": "2026-10-20T06:05:02.868Z",
-      "duration": 144868.235,
-      "expected": 66,
-      "skipped": 0,
-      "unexpected": 0,
-      "flaky": 0
-    },
-    "source": "ad0ac6a24d8df759bc7f743e0cb483b88018f84b",
     "bootstrap": {
-      "passed": 74,
+      "passed": 81,
       "failed": 0
     },
-    "visual_execution_report": "evidence/inbox-readback-attempt02/results.json",
-    "visual_product_blobs": "UNCHANGED_FROM_AD0",
-    "visual": "Full registered-receipt/query-pending notice390 reviewed, original clipped viewport kept; separate3visual executions not3newunique cases",
-    "hosted_AuthDB": "NOT_RUN",
-    "visual_QA_source": "bc50336748a7d8a81f87f00d6b0be0a8ffb02f36",
-    "model": "NOT_RUN",
-    "browser_unique": 225
+    "scope": "Actual components/repository/closed DTOs with synthetic controlledHTTP; hostedAuthDB,provider effects,live model NOT_RUN",
+    "quality": {
+      "build": 0,
+      "lint": 0,
+      "bootstrap": 0,
+      "typescript": 0,
+      "source": "486e854b2be6e5364867c0a7a08e3496291069ef"
+    },
+    "acceptance": "INDIVIDUAL_OPERATOR_CREATE_ONLY; plan caller pending independent bank",
+    "browser_unique": 243,
+    "visual": "OPERATOR_CREATE_UNCONFIRMED390_REVIEWED; original fields/unknownnotice/retry visible, same identity cases3907681440",
+    "source": "486e854b2be6e5364867c0a7a08e3496291069ef",
+    "browser_composed": {
+      "startTime": "2026-10-20T06:19:20.076Z",
+      "duration": 369867.544,
+      "expected": 174,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "browser_existing_regression": {
+      "startTime": "2026-10-20T06:19:20.061Z",
+      "duration": 157563.211,
+      "expected": 69,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    }
   },
   "claims": {
     "unit15": 6279498568,
@@ -177,7 +185,8 @@
     "unit20": 6280298692,
     "unit21": 6280593593,
     "unit22": 6280644922,
-    "unit23": 6280777069
+    "unit23": 6280777069,
+    "unit24": 6286430656
   },
   "completed_unit15": {
     "integration": "DRAFT_ASIER_EXACT_ACK_REQUIRED",
@@ -253,7 +262,10 @@
     "inbox-readback-attempt01": "a1d373c_CAUSAL_6FAIL12PASS",
     "composed-attempt10": "ad0ac6a_159PASS",
     "regression-attempt09": "ad0ac6a_66PASS",
-    "inbox-readback-attempt02": "bc50336_QA_SCREENSHOT_ONLY_ON_AD0_PRODUCT_3PASS_NOT_NEW_UNIQUE"
+    "inbox-readback-attempt02": "bc50336_QA_SCREENSHOT_ONLY_ON_AD0_PRODUCT_3PASS_NOT_NEW_UNIQUE",
+    "catalog-create-attempt01": "cc491b8_CAUSAL_6FAIL9PASS",
+    "composed-attempt11": "486e854_174PASS",
+    "regression-attempt10": "486e854_69PASS_INCLUDES_EXISTING3VERSIONTERMS_DEFAULT_MODE"
   },
   "cloud": "W5 Edge Access/deploy/cohort/window/roles/actions/cleanup; no bypass;87migrations untouched, no resellpro",
   "changes": {
@@ -267,7 +279,8 @@
     "contract_shortcut": "Existing New manual contract action explicitly selects contract-only frontend mode, reuses existing contract fields/validators and existing save label. Generic manual selection and service/other creation entry points retained; no new HTTP contract, screen or authority.",
     "document_context": "Reuse scoped identity wrapper pattern: retire state and pending reads on supplied customer/target-kind/id change; same identity preserves filter/search despite fresh inline object. Existing keyed CustomerDocuments untouched; global DocumentsPage source reviewed, hosted navigation/AuthDB NOT_RUN.",
     "inbox_intent": "Retain exact reviewed command after transport/internal_safe response; locked original note or new conversation, truthful unknown-result copy and existing Drawer closeDisabled. Positive refusal and success preserved. Individual acceptance ONLY add internal note and create conversation; not all Inbox operations. No external send.",
-    "inbox_receipt_readback": "Before clearing intent/draft or success notice, require non-read-marker conversation version >= receipt; equal version requires matching status. Retain confirmed receipt and perform query-only recovery when incompatible. Read-marker operations retain existing separate read_version behavior; exact and later legitimate state remain usable. Individual acceptance confirmed add-note and positive markers, not all Inbox or security acceptance."
+    "inbox_receipt_readback": "Before clearing intent/draft or success notice, require non-read-marker conversation version >= receipt; equal version requires matching status. Retain confirmed receipt and perform query-only recovery when incompatible. Read-marker operations retain existing separate read_version behavior; exact and later legitimate state remain usable. Individual acceptance confirmed add-note and positive markers, not all Inbox or security acceptance.",
+    "catalog_create": "Only CatalogCreate: retain pending intent for transport/internal_safe, derive uncertainty from error state, reuse Drawer closeDisabled and clarify result unknown. Existing catalog UI test resource gains opt-in IntegratedCatalog entry; default VersionTerms verified by existing3cases, resource not duplicated. Backend/contracts/OperatorDetail/VersionTerms unchanged."
   },
   "AI_commercial_writes": "OFF",
   "completed_unit17": {
@@ -525,5 +538,47 @@
     "handoff": 6286343813,
     "source": "815d0e1c840cc6fb150f1c9130fce93bdded47a6",
     "delivery": "a32cacc0ebc9cfb0ea9f100b4b9b9f1a13ba4474"
+  },
+  "completed_unit23": {
+    "checks": {
+      "browser_composed": {
+        "startTime": "2026-10-20T06:05:02.998Z",
+        "duration": 342964.73799999995,
+        "expected": 159,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "quality": {
+        "source": "ad0ac6a24d8df759bc7f743e0cb483b88018f84b",
+        "typescript": 0,
+        "lint": 0,
+        "build": 0,
+        "bootstrap": 0
+      },
+      "browser_existing_regression": {
+        "startTime": "2026-10-20T06:05:02.868Z",
+        "duration": 144868.235,
+        "expected": 66,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "source": "ad0ac6a24d8df759bc7f743e0cb483b88018f84b",
+      "bootstrap": {
+        "passed": 74,
+        "failed": 0
+      },
+      "visual_execution_report": "evidence/inbox-readback-attempt02/results.json",
+      "visual_product_blobs": "UNCHANGED_FROM_AD0",
+      "visual": "Full registered-receipt/query-pending notice390 reviewed, original clipped viewport kept; separate3visual executions not3newunique cases",
+      "hosted_AuthDB": "NOT_RUN",
+      "visual_QA_source": "bc50336748a7d8a81f87f00d6b0be0a8ffb02f36",
+      "model": "NOT_RUN",
+      "browser_unique": 225
+    },
+    "source": "ad0ac6a24d8df759bc7f743e0cb483b88018f84b",
+    "delivery": "a2b550507c983d422fd5f060bd919a38edca01d3",
+    "handoff": 6286592320
   }
 }
