@@ -1,5 +1,21 @@
 # CRM Telecom — system state
 
+## Nocturnal continuation — 2026-10-21, units32–34
+
+PR175 same integration branch. Oier177 exact tests/fix selected5715a024/3d658fdd:
+own3FAIL→42PASS. Stop-refusal34 independently reproduced3FAIL→45PASS full billing
+regression; product31661d07. Four reviewed W5 deltas adopted21a92356/e2592c54/
+d7fabf22/b9fc810f:122PASS/1physicalSKIP, composition/inventory123/87/verifyPASS.
+Historical composition does not bind current src; historical86 is not87 acceptance.
+Global lint/defaultbuild44PASS. Exact final source/tree/types/CI in issue67.
+[Handoff](../integration/NIGHT_32_34_20261021.md),
+[module evidence](../integration/COMMERCIAL_MODULE_STATE_20261021.md).
+Previous8ee Supabase39492445322 did pass87/4042/116UI and threecreates/SQLobservation;
+its checks are not inherited. Original39458747653 cause/effectUNKNOWN, never replayed.
+Budget0EUR definitive, Pro rejected. W5 owns hosted delivery/access; Oier independent
+QA. Voice realNOT_RUN, hosted successorNOT_RUN, IAwritesOFF, RELEASE_NOT_ACCEPTED.
+
+
 ## Sprint continuation — 2026-10-20, units29/30
 
 PR175 reuses its integration branch: Oier21/22 exact selections accepted and
