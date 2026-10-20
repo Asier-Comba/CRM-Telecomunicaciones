@@ -1,6 +1,6 @@
 # W5 Cloud — handoff único (actualizado 20/10/2026)
 
-**RELEASE NOT_ACCEPTED. HITO A (demo interna) NO alcanzado todavía. Producción OFF.**
+**RELEASE NOT_ACCEPTED. HITO A: recorrido núcleo HOSTED_TESTED el 20/10 (ver §10); faltan voz real, negativos de cohorte y revisión W4. Producción OFF.**
 
 Indicadores: IMPLEMENTED · INTEGRATED · LOCAL_TESTED · HOSTED_TESTED · BLOCKED · NOT_VERIFIED · ACCEPTED.
 Una prueba local nunca se presenta como HOSTED_TESTED.
@@ -85,3 +85,32 @@ No verificado en la nube por W5 (requiere login E2E). Ver PR156/#160/#161 y QA d
 ## 9. Próxima unidad W5
 
 Con la admisión aprobada: desplegar el SHA candidato del integrador por el workflow, crear la cohorte sintética y ejecutar el recorrido NETLIFY → LOGIN → CLIENTE → FACTURA (borrador) → RECARGA → RECUPERACIÓN, registrando deploy ID, SHA, usuario sintético, API y recibos.
+
+## 10. Demo alojada (20/10/2026, ~12:20–12:27 UTC) — autorizada por el propietario
+
+| Campo | Valor |
+|---|---|
+| URL | https://crm-telecom-staging-preview.netlify.app |
+| Deploy ID | `6ad75c93ac4914f9005f4767` |
+| Fuente | `e42cfd59615a284bf26a758c4078c299bed39290` = integrador `3b80c50d` + corrección W5 de `NODE_ENV` en la admisión (rama `w5/edge-admission-node-env-v1`), más `netlify.toml` de `w5/netlify-reproducible-v1`; 1.867 ficheros verificados byte a byte |
+| Admisión | Estricta del integrador: `APP_ENV=staging`, `PRODUCT_STAGING_INTEGRATION=true`, cohorte de **una** cuenta sintética existente. Modo de #159 retirado |
+| Acceso anónimo | 401 en 7 rutas |
+| Usuario | owner sintético de la empresa "W5 P0 Synthetic A" (`@example.invalid`) |
+
+| Paso | Resultado | Evidencia |
+|---|---|---|
+| Netlify → login CRM | PASS | Edge Access superado con la cuenta propietaria; "Sesión iniciada" por Supabase Auth |
+| Dashboard | PASS | Vista integrada servida desde Supabase |
+| Listado de clientes | PASS | 11 clientes leídos del servidor (igual que la base) |
+| Crear cliente "Bilbao Telecom Demo SL" | PASS | Supabase: fila versión 1, 1 recibo, 1 evento de auditoría |
+| Recargar → Customer360 | PASS | Cliente recuperado del servidor |
+| Factura por texto | PASS | Base 300,00 €, IVA 63,00 €, total 363,00 €, concepto "instalación de fibra", vencimiento +15 días, cliente resuelto, sin emisión |
+| Guardar borrador | PASS | Supabase: `billing_invoices` `draft`, sin número reservado, 30000/6300/36300 céntimos, 1 línea, sin duplicado |
+| Recargar → borrador recuperado | PASS | Lista: "Borrador A · 2026-10-20 · 363,00 €" |
+| Dictado por voz | NOT_VERIFIED | Botón presente; micrófono real no probado |
+| Negativos (otra empresa, fuera de cohorte) | NOT_RUN en esta demo | Cubiertos en sondas anteriores, no sobre este deploy |
+
+Defectos observados para el integrador:
+1. **Admisión en Netlify Edge** (corregido en `e42cfd59`, pendiente de ACK): el proxy corre como función Edge (Deno); su `process.env` no contiene `NODE_ENV` y Netlify no permite definirlo, así que la admisión era `invalid` y el sitio respondía 503 incluso en `/login`.
+2. Textos de UI: el aviso "Integración local · … base local" aparece también en staging.
+3. Dashboard muestra 0 en todo con el filtro "Mi actividad" aunque hay 11 clientes (filtro por defecto confuso para una demo).
