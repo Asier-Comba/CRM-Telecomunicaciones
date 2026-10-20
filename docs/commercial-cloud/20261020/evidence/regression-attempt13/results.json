@@ -1,0 +1,3750 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--config",
+      "tools/oier_commercial_qa/regression.config.ts"
+    ],
+    "configFile": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\regression.config.ts",
+    "rootDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-commercial-20261020/tests/e2e-preview",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-commercial-20261020/regression-attempt13/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "controlled-http-existing-commercial",
+        "name": "controlled-http-existing-commercial",
+        "testDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-commercial-20261020/tests/e2e-preview",
+        "testIgnore": [],
+        "testMatch": [
+          "portfolio-selection-race.spec.ts",
+          "portfolio-reference-close.spec.ts",
+          "case-note-pagination.spec.ts",
+          "calendar-selection-scope.spec.ts",
+          "calendar-agenda-focus.spec.ts",
+          "document-current-selection.spec.ts",
+          "document-preview-lifetime.spec.ts",
+          "inbox-contact-pagination.spec.ts",
+          "inbox-draft-context.spec.ts",
+          "inbox-readable-labels.spec.ts",
+          "catalog-resource-scope.spec.ts",
+          "sim-replacement-read-recovery.spec.ts",
+          "telecom-resource-scope.spec.ts",
+          "pipeline-current-query.spec.ts",
+          "pipeline-catalog-recovery.spec.ts"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "line",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\regression-attempt13\\results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.61.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "calendar-agenda-focus.spec.ts",
+      "file": "calendar-agenda-focus.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "calendar agenda stays primary and filters remain usable at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 10471,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:41:46.071Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "calendar-agenda-initial-390",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\regression-attempt13\\artifacts\\calendar-agenda-focus-cale-a2e44-ilters-remain-usable-at-390-controlled-http-existing-commercial\\attachments\\calendar-agenda-initial-390-ada4d6fa84ba2ad733207b3dddada0f08561ba83.png"
+                    },
+                    {
+                      "name": "calendar-agenda-focus-390",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\regression-attempt13\\artifacts\\calendar-agenda-focus-cale-a2e44-ilters-remain-usable-at-390-controlled-http-existing-commercial\\attachments\\calendar-agenda-focus-390-a09a626b9ab115dec57ba19e16fe9d5c349bfd41.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "29ffa7a96311c8539975-51843b3794ceccb6091b",
+          "file": "calendar-agenda-focus.spec.ts",
+          "line": 4,
+          "column": 39
+        },
+        {
+          "title": "calendar agenda stays primary and filters remain usable at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2346,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:41:57.366Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "calendar-agenda-initial-768",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\regression-attempt13\\artifacts\\calendar-agenda-focus-cale-3e456-ilters-remain-usable-at-768-controlled-http-existing-commercial\\attachments\\calendar-agenda-initial-768-6f2d469f6fd97628bf93ae720489b16c1df5d40f.png"
+                    },
+                    {
+                      "name": "calendar-agenda-focus-768",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\regression-attempt13\\artifacts\\calendar-agenda-focus-cale-3e456-ilters-remain-usable-at-768-controlled-http-existing-commercial\\attachments\\calendar-agenda-focus-768-0005076bccf00d5106b5a8111b386af12b44bff0.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "29ffa7a96311c8539975-7dab450ab465a9edb49e",
+          "file": "calendar-agenda-focus.spec.ts",
+          "line": 4,
+          "column": 39
+        },
+        {
+          "title": "calendar agenda stays primary and filters remain usable at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1741,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:41:59.759Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "calendar-agenda-initial-1440",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\regression-attempt13\\artifacts\\calendar-agenda-focus-cale-0cb8d-lters-remain-usable-at-1440-controlled-http-existing-commercial\\attachments\\calendar-agenda-initial-1440-1febb0035e7307ed23080bdc9835a2320e87b59b.png"
+                    },
+                    {
+                      "name": "calendar-agenda-focus-1440",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\regression-attempt13\\artifacts\\calendar-agenda-focus-cale-0cb8d-lters-remain-usable-at-1440-controlled-http-existing-commercial\\attachments\\calendar-agenda-focus-1440-2513468f053902b950f487f69b8a2d798a3d9800.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "29ffa7a96311c8539975-3da26f3a76ec5b5afbdc",
+          "file": "calendar-agenda-focus.spec.ts",
+          "line": 4,
+          "column": 39
+        }
+      ]
+    },
+    {
+      "title": "calendar-selection-scope.spec.ts",
+      "file": "calendar-selection-scope.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "calendar selection late_success keeps the latest task at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 12014,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:42:01.592Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3386c5637c7be854c2c5-8e669f8ce61ac6af413c",
+          "file": "calendar-selection-scope.spec.ts",
+          "line": 5,
+          "column": 107
+        },
+        {
+          "title": "calendar selection late_success keeps the latest task at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1942,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:42:13.646Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3386c5637c7be854c2c5-d1ff2941f3df0ce81740",
+          "file": "calendar-selection-scope.spec.ts",
+          "line": 5,
+          "column": 107
+        },
+        {
+          "title": "calendar selection late_success keeps the latest task at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1302,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:42:15.642Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3386c5637c7be854c2c5-46051680959b66a19706",
+          "file": "calendar-selection-scope.spec.ts",
+          "line": 5,
+          "column": 107
+        },
+        {
+          "title": "calendar selection late_refusal keeps the latest task at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1515,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:42:16.977Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3386c5637c7be854c2c5-01bf743834130d468f5e",
+          "file": "calendar-selection-scope.spec.ts",
+          "line": 5,
+          "column": 107
+        },
+        {
+          "title": "calendar selection late_refusal keeps the latest task at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1286,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:42:18.527Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3386c5637c7be854c2c5-49049c8cb9895cf10823",
+          "file": "calendar-selection-scope.spec.ts",
+          "line": 5,
+          "column": 107
+        },
+        {
+          "title": "calendar selection late_refusal keeps the latest task at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1404,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:42:19.849Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3386c5637c7be854c2c5-f565a903c896f2605b1f",
+          "file": "calendar-selection-scope.spec.ts",
+          "line": 5,
+          "column": 107
+        },
+        {
+          "title": "calendar selection current_refusal keeps the latest task at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1504,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:42:21.296Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3386c5637c7be854c2c5-900d7e36d6dff3be76f9",
+          "file": "calendar-selection-scope.spec.ts",
+          "line": 5,
+          "column": 107
+        },
+        {
+          "title": "calendar selection current_refusal keeps the latest task at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1379,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:42:22.831Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3386c5637c7be854c2c5-222674a42c51ed53c797",
+          "file": "calendar-selection-scope.spec.ts",
+          "line": 5,
+          "column": 107
+        },
+        {
+          "title": "calendar selection current_refusal keeps the latest task at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1859,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:42:24.242Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3386c5637c7be854c2c5-b1671ea73f58a42d3c88",
+          "file": "calendar-selection-scope.spec.ts",
+          "line": 5,
+          "column": 107
+        }
+      ]
+    },
+    {
+      "title": "case-note-pagination.spec.ts",
+      "file": "case-note-pagination.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "private note cursor keeps keyboard focus and removes refused content at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 11813,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:42:26.175Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "929ec9bad845b6df977b-364db5c93e6bf5dcf819",
+          "file": "case-note-pagination.spec.ts",
+          "line": 10,
+          "column": 39
+        },
+        {
+          "title": "private note cursor keeps keyboard focus and removes refused content at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2342,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:42:38.043Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "929ec9bad845b6df977b-48ab9a2b15420dcd6ad6",
+          "file": "case-note-pagination.spec.ts",
+          "line": 10,
+          "column": 39
+        },
+        {
+          "title": "private note cursor keeps keyboard focus and removes refused content at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1998,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:42:40.441Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "929ec9bad845b6df977b-1a73ba6e6626d174d347",
+          "file": "case-note-pagination.spec.ts",
+          "line": 10,
+          "column": 39
+        }
+      ]
+    },
+    {
+      "title": "catalog-resource-scope.spec.ts",
+      "file": "catalog-resource-scope.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "catalog conditions retire previous prices during version change at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 8078,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:42:42.495Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "54a1f85daab33a42f74c-bc51c26e8a0aac6c2472",
+          "file": "catalog-resource-scope.spec.ts",
+          "line": 7,
+          "column": 39
+        },
+        {
+          "title": "catalog conditions retire previous prices during version change at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1675,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:42:50.608Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "54a1f85daab33a42f74c-571b79d6a3ba202f3717",
+          "file": "catalog-resource-scope.spec.ts",
+          "line": 7,
+          "column": 39
+        },
+        {
+          "title": "catalog conditions retire previous prices during version change at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1759,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:42:52.347Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "54a1f85daab33a42f74c-685462e25d18332021d1",
+          "file": "catalog-resource-scope.spec.ts",
+          "line": 7,
+          "column": 39
+        }
+      ]
+    },
+    {
+      "title": "document-current-selection.spec.ts",
+      "file": "document-current-selection.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "document metadata keeps current selection on latest_success",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 974,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:42:54.172Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a039e762f9db1044320f-12f2c2bee3fb5e15ad29",
+          "file": "document-current-selection.spec.ts",
+          "line": 39,
+          "column": 6
+        },
+        {
+          "title": "document metadata keeps current selection on late_error",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 883,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:42:55.178Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a039e762f9db1044320f-62825e5b4a21805cf423",
+          "file": "document-current-selection.spec.ts",
+          "line": 39,
+          "column": 6
+        },
+        {
+          "title": "document metadata keeps current selection on closed",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1185,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:42:56.107Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a039e762f9db1044320f-a513089e2cbc43af2dd3",
+          "file": "document-current-selection.spec.ts",
+          "line": 39,
+          "column": 6
+        },
+        {
+          "title": "document metadata keeps current selection on target_changed",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1006,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:42:57.341Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a039e762f9db1044320f-9524f743a485898ff20f",
+          "file": "document-current-selection.spec.ts",
+          "line": 39,
+          "column": 6
+        },
+        {
+          "title": "document metadata keeps current selection on role_revoked",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 857,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:42:58.392Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a039e762f9db1044320f-0dc6df4c23a485aeb556",
+          "file": "document-current-selection.spec.ts",
+          "line": 39,
+          "column": 6
+        },
+        {
+          "title": "document metadata keeps current selection on unmounted",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 928,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:42:59.289Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a039e762f9db1044320f-dc6e7d9f95ea28d4f66d",
+          "file": "document-current-selection.spec.ts",
+          "line": 39,
+          "column": 6
+        },
+        {
+          "title": "document metadata keeps current selection on refresh_success",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1074,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:43:00.272Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a039e762f9db1044320f-371ae1d4be9da0e60693",
+          "file": "document-current-selection.spec.ts",
+          "line": 39,
+          "column": 6
+        },
+        {
+          "title": "document metadata keeps current selection on refresh_failure",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 982,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:43:01.410Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a039e762f9db1044320f-0b3ac98aa6ded4e4233e",
+          "file": "document-current-selection.spec.ts",
+          "line": 39,
+          "column": 6
+        },
+        {
+          "title": "document metadata keeps current selection on loaded_replace_success",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 943,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:43:02.460Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a039e762f9db1044320f-665bcd20c9bc093be394",
+          "file": "document-current-selection.spec.ts",
+          "line": 39,
+          "column": 6
+        },
+        {
+          "title": "document metadata keeps current selection on loaded_replace_failure",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1027,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:43:03.461Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a039e762f9db1044320f-9a15aba84177cb4d6944",
+          "file": "document-current-selection.spec.ts",
+          "line": 39,
+          "column": 6
+        },
+        {
+          "title": "document metadata keeps current selection on refresh_access_denied",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 973,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:43:04.533Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a039e762f9db1044320f-993d76b225938ba69a12",
+          "file": "document-current-selection.spec.ts",
+          "line": 39,
+          "column": 6
+        },
+        {
+          "title": "document metadata keeps current selection on refresh_not_found",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 843,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:43:05.546Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a039e762f9db1044320f-4e8af321d21356436f4c",
+          "file": "document-current-selection.spec.ts",
+          "line": 39,
+          "column": 6
+        }
+      ]
+    },
+    {
+      "title": "document-preview-lifetime.spec.ts",
+      "file": "document-preview-lifetime.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "private image lifetime late_unmount",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 725,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:43:06.438Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "cc76632cbe4fa0425088-0291ac7ad20a82150b07",
+          "file": "document-preview-lifetime.spec.ts",
+          "line": 31,
+          "column": 6
+        },
+        {
+          "title": "private image lifetime late_workspace",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 758,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:43:07.214Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "cc76632cbe4fa0425088-5c4e57f4c5893570a002",
+          "file": "document-preview-lifetime.spec.ts",
+          "line": 31,
+          "column": 6
+        },
+        {
+          "title": "private image lifetime visible_workspace",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 943,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:43:08.035Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "cc76632cbe4fa0425088-8b286faca87957024646",
+          "file": "document-preview-lifetime.spec.ts",
+          "line": 31,
+          "column": 6
+        },
+        {
+          "title": "private image lifetime control_close",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 754,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:43:09.020Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "cc76632cbe4fa0425088-c581cf1b30975d94721d",
+          "file": "document-preview-lifetime.spec.ts",
+          "line": 31,
+          "column": 6
+        },
+        {
+          "title": "private image lifetime late_ticket",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 612,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:43:09.819Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "cc76632cbe4fa0425088-e547c14beaa83a78ff30",
+          "file": "document-preview-lifetime.spec.ts",
+          "line": 31,
+          "column": 6
+        },
+        {
+          "title": "private image lifetime command_uncertain",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 870,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:43:10.474Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "cc76632cbe4fa0425088-ada595e4228ce0331b46",
+          "file": "document-preview-lifetime.spec.ts",
+          "line": 31,
+          "column": 6
+        },
+        {
+          "title": "private image lifetime download_uncertain",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 914,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:43:11.379Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "cc76632cbe4fa0425088-d6b7558f837a37e05815",
+          "file": "document-preview-lifetime.spec.ts",
+          "line": 31,
+          "column": 6
+        },
+        {
+          "title": "private image lifetime reload_revoke",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1147,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:43:12.332Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "cc76632cbe4fa0425088-701ffb0c44dd3f94fa28",
+          "file": "document-preview-lifetime.spec.ts",
+          "line": 31,
+          "column": 6
+        }
+      ]
+    },
+    {
+      "title": "inbox-contact-pagination.spec.ts",
+      "file": "inbox-contact-pagination.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "inbox contact pagination late_refusal at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7929,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:43:13.571Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "869f14502cedc98ebe26-546a96aca0142465e685",
+          "file": "inbox-contact-pagination.spec.ts",
+          "line": 11,
+          "column": 140
+        },
+        {
+          "title": "inbox contact pagination late_refusal at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1656,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:43:21.563Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "869f14502cedc98ebe26-cec79c361de4d8c57a4a",
+          "file": "inbox-contact-pagination.spec.ts",
+          "line": 11,
+          "column": 140
+        },
+        {
+          "title": "inbox contact pagination late_refusal at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1777,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:43:23.269Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "869f14502cedc98ebe26-60eb6cd0632b316a8204",
+          "file": "inbox-contact-pagination.spec.ts",
+          "line": 11,
+          "column": 140
+        },
+        {
+          "title": "inbox contact pagination same_customer_return at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1470,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:43:25.090Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "869f14502cedc98ebe26-141b5d19acf4704e5904",
+          "file": "inbox-contact-pagination.spec.ts",
+          "line": 11,
+          "column": 140
+        },
+        {
+          "title": "inbox contact pagination same_customer_return at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1884,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:43:26.587Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "869f14502cedc98ebe26-419515a865fa41a83bd3",
+          "file": "inbox-contact-pagination.spec.ts",
+          "line": 11,
+          "column": 140
+        },
+        {
+          "title": "inbox contact pagination same_customer_return at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2420,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:43:28.515Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "869f14502cedc98ebe26-9fd5505020027410524e",
+          "file": "inbox-contact-pagination.spec.ts",
+          "line": 11,
+          "column": 140
+        },
+        {
+          "title": "inbox contact pagination one_pending_page at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1531,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:43:30.990Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "869f14502cedc98ebe26-d5f02a15d96d461ff5e7",
+          "file": "inbox-contact-pagination.spec.ts",
+          "line": 11,
+          "column": 140
+        },
+        {
+          "title": "inbox contact pagination one_pending_page at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1417,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:43:32.558Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "869f14502cedc98ebe26-fd0e8c162a0fa76d17f1",
+          "file": "inbox-contact-pagination.spec.ts",
+          "line": 11,
+          "column": 140
+        },
+        {
+          "title": "inbox contact pagination one_pending_page at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1466,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:43:34.005Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "869f14502cedc98ebe26-5c96eb2cbb807afc0165",
+          "file": "inbox-contact-pagination.spec.ts",
+          "line": 11,
+          "column": 140
+        },
+        {
+          "title": "inbox contact pagination current_refusal_retry at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1413,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:43:35.499Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "869f14502cedc98ebe26-9709fb540a7b9975dac8",
+          "file": "inbox-contact-pagination.spec.ts",
+          "line": 11,
+          "column": 140
+        },
+        {
+          "title": "inbox contact pagination current_refusal_retry at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1941,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:43:36.946Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "869f14502cedc98ebe26-16b247c3fd2e72af7bbb",
+          "file": "inbox-contact-pagination.spec.ts",
+          "line": 11,
+          "column": 140
+        },
+        {
+          "title": "inbox contact pagination current_refusal_retry at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1959,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:43:38.929Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "869f14502cedc98ebe26-e4bea0833dc9813f51f1",
+          "file": "inbox-contact-pagination.spec.ts",
+          "line": 11,
+          "column": 140
+        }
+      ]
+    },
+    {
+      "title": "inbox-draft-context.spec.ts",
+      "file": "inbox-draft-context.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "inbox draft context cancel_empty at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1292,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:43:40.966Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "89f52e34f28a78f5b440-5d189c8d98ab6301bc1d",
+          "file": "inbox-draft-context.spec.ts",
+          "line": 6,
+          "column": 102
+        },
+        {
+          "title": "inbox draft context cancel_empty at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1312,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:43:42.304Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "89f52e34f28a78f5b440-8d408e4f6bd9895bd09b",
+          "file": "inbox-draft-context.spec.ts",
+          "line": 6,
+          "column": 102
+        },
+        {
+          "title": "inbox draft context cancel_empty at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1418,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:43:43.655Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "89f52e34f28a78f5b440-7f540f142498a9208fae",
+          "file": "inbox-draft-context.spec.ts",
+          "line": 6,
+          "column": 102
+        },
+        {
+          "title": "inbox draft context cancel_typed at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1308,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:43:45.108Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "89f52e34f28a78f5b440-6cb119d0ac5724074e11",
+          "file": "inbox-draft-context.spec.ts",
+          "line": 6,
+          "column": 102
+        },
+        {
+          "title": "inbox draft context cancel_typed at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1356,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:43:46.464Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "89f52e34f28a78f5b440-7c33bca89bf050488308",
+          "file": "inbox-draft-context.spec.ts",
+          "line": 6,
+          "column": 102
+        },
+        {
+          "title": "inbox draft context cancel_typed at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1464,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:43:47.865Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "89f52e34f28a78f5b440-9380a258c5640dc4396f",
+          "file": "inbox-draft-context.spec.ts",
+          "line": 6,
+          "column": 102
+        },
+        {
+          "title": "inbox draft context commit_new at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1038,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:43:49.372Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "89f52e34f28a78f5b440-854b4ebf50525f622984",
+          "file": "inbox-draft-context.spec.ts",
+          "line": 6,
+          "column": 102
+        },
+        {
+          "title": "inbox draft context commit_new at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1185,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:43:50.442Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "89f52e34f28a78f5b440-1f1f590ba458022bbbb0",
+          "file": "inbox-draft-context.spec.ts",
+          "line": 6,
+          "column": 102
+        },
+        {
+          "title": "inbox draft context commit_new at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1572,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:43:51.652Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "89f52e34f28a78f5b440-cc6d11c5cdd9a7bbc37d",
+          "file": "inbox-draft-context.spec.ts",
+          "line": 6,
+          "column": 102
+        }
+      ]
+    },
+    {
+      "title": "inbox-readable-labels.spec.ts",
+      "file": "inbox-readable-labels.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "inbox readable labels names at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1080,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:43:53.285Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "efebf9925a26f15f0647-f7062a23a7efe0f73819",
+          "file": "inbox-readable-labels.spec.ts",
+          "line": 4,
+          "column": 73
+        },
+        {
+          "title": "inbox readable labels names at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1037,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:43:54.402Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "efebf9925a26f15f0647-0fcb28d527fdb6f2428e",
+          "file": "inbox-readable-labels.spec.ts",
+          "line": 4,
+          "column": 73
+        },
+        {
+          "title": "inbox readable labels refusal at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 896,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:43:55.473Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "efebf9925a26f15f0647-5d137e76830fe657c32e",
+          "file": "inbox-readable-labels.spec.ts",
+          "line": 4,
+          "column": 73
+        },
+        {
+          "title": "inbox readable labels refusal at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1356,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:43:56.405Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "efebf9925a26f15f0647-4726315a969b826fd83c",
+          "file": "inbox-readable-labels.spec.ts",
+          "line": 4,
+          "column": 73
+        }
+      ]
+    },
+    {
+      "title": "pipeline-catalog-recovery.spec.ts",
+      "file": "pipeline-catalog-recovery.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "pipeline recovers failed stage catalogue without losing search or scope at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 9846,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:43:57.842Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "catalog-recovered-390",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\regression-attempt13\\artifacts\\pipeline-catalog-recovery--c8252-sing-search-or-scope-at-390-controlled-http-existing-commercial\\attachments\\catalog-recovered-390-a09368fb8343bf54de4cd0d694402630d8175871.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "89210e5b46be6dd4d273-e7bfe337b2c95afcf649",
+          "file": "pipeline-catalog-recovery.spec.ts",
+          "line": 7,
+          "column": 39
+        },
+        {
+          "title": "pipeline recovers failed stage catalogue without losing search or scope at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1669,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:44:07.730Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "catalog-recovered-768",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\regression-attempt13\\artifacts\\pipeline-catalog-recovery--18251-sing-search-or-scope-at-768-controlled-http-existing-commercial\\attachments\\catalog-recovered-768-e32951835e9e2f16cafe46d36733a6534f3a9973.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "89210e5b46be6dd4d273-d9ea88e7ce59617d41fb",
+          "file": "pipeline-catalog-recovery.spec.ts",
+          "line": 7,
+          "column": 39
+        },
+        {
+          "title": "pipeline recovers failed stage catalogue without losing search or scope at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1995,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:44:09.438Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "catalog-recovered-1440",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\regression-attempt13\\artifacts\\pipeline-catalog-recovery--6664c-ing-search-or-scope-at-1440-controlled-http-existing-commercial\\attachments\\catalog-recovered-1440-fe479a1a3543a80a43c619cf95935ed2bb2a34f2.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "89210e5b46be6dd4d273-389969f61b55b4454be5",
+          "file": "pipeline-catalog-recovery.spec.ts",
+          "line": 7,
+          "column": 39
+        }
+      ]
+    },
+    {
+      "title": "pipeline-current-query.spec.ts",
+      "file": "pipeline-current-query.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "pipeline occupied stage is reachable before eleven empty stages at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2156,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:44:11.495Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "2d9e0d51af19bef3d1d5-0d8e4c31e83cc418d8eb",
+          "file": "pipeline-current-query.spec.ts",
+          "line": 10,
+          "column": 39
+        },
+        {
+          "title": "pipeline occupied stage is reachable before eleven empty stages at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1773,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:44:13.692Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "2d9e0d51af19bef3d1d5-ae6ab75fac63a9f1f407",
+          "file": "pipeline-current-query.spec.ts",
+          "line": 10,
+          "column": 39
+        },
+        {
+          "title": "pipeline occupied stage is reachable before eleven empty stages at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2124,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:44:15.506Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "2d9e0d51af19bef3d1d5-e73e3248f83bc428b487",
+          "file": "pipeline-current-query.spec.ts",
+          "line": 10,
+          "column": 39
+        },
+        {
+          "title": "pipeline keeps only the current query after delayed search/detail/error at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3821,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:44:17.661Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "pipeline-current-query-390",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\regression-attempt13\\artifacts\\pipeline-current-query-pip-acc40--search-detail-error-at-390-controlled-http-existing-commercial\\attachments\\pipeline-current-query-390-a69d7e82522ac1eaedf1cf8b0c0af4c37971089b.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "2d9e0d51af19bef3d1d5-129c1267c788ccffcfbb",
+          "file": "pipeline-current-query.spec.ts",
+          "line": 54,
+          "column": 39
+        },
+        {
+          "title": "pipeline keeps only the current query after delayed search/detail/error at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4041,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:44:21.521Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "pipeline-current-query-768",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\regression-attempt13\\artifacts\\pipeline-current-query-pip-31e4c--search-detail-error-at-768-controlled-http-existing-commercial\\attachments\\pipeline-current-query-768-3874c4638d4dba9beac87c369c78c75a2e5fe5c8.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "2d9e0d51af19bef3d1d5-aacd4f366ddf060f1a5f",
+          "file": "pipeline-current-query.spec.ts",
+          "line": 54,
+          "column": 39
+        },
+        {
+          "title": "pipeline keeps only the current query after delayed search/detail/error at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3835,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:44:25.619Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "pipeline-current-query-1440",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\regression-attempt13\\artifacts\\pipeline-current-query-pip-e1ce7-search-detail-error-at-1440-controlled-http-existing-commercial\\attachments\\pipeline-current-query-1440-898371eff21b798828edc89a3968558e048367af.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "2d9e0d51af19bef3d1d5-b37c1f0fa9309fb43541",
+          "file": "pipeline-current-query.spec.ts",
+          "line": 54,
+          "column": 39
+        }
+      ]
+    },
+    {
+      "title": "portfolio-reference-close.spec.ts",
+      "file": "portfolio-reference-close.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "a closed portfolio reference stays closed across an unchanged parent context at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 9133,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:44:29.524Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "696f9203e76b1308d406-780d1a875edaffb4f059",
+          "file": "portfolio-reference-close.spec.ts",
+          "line": 8,
+          "column": 39
+        },
+        {
+          "title": "a closed portfolio reference stays closed across an unchanged parent context at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1472,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:44:38.705Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "696f9203e76b1308d406-5ad68f6368c3d64f6519",
+          "file": "portfolio-reference-close.spec.ts",
+          "line": 8,
+          "column": 39
+        },
+        {
+          "title": "a closed portfolio reference stays closed across an unchanged parent context at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1437,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:44:40.223Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "696f9203e76b1308d406-52020309fdf730dfa9f8",
+          "file": "portfolio-reference-close.spec.ts",
+          "line": 8,
+          "column": 39
+        }
+      ]
+    },
+    {
+      "title": "portfolio-selection-race.spec.ts",
+      "file": "portfolio-selection-race.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "portfolio last requested asset survives a late earlier read at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1384,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:44:41.723Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7003889d8e0c06c3c907-93ef3d6e3524ea8f87d0",
+          "file": "portfolio-selection-race.spec.ts",
+          "line": 12,
+          "column": 39
+        },
+        {
+          "title": "portfolio last requested asset survives a late earlier read at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1524,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:44:43.148Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7003889d8e0c06c3c907-933bf24ac3ed5f29ac05",
+          "file": "portfolio-selection-race.spec.ts",
+          "line": 12,
+          "column": 39
+        },
+        {
+          "title": "portfolio last requested asset survives a late earlier read at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1608,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:44:44.711Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7003889d8e0c06c3c907-4a388583aa15e5265f65",
+          "file": "portfolio-selection-race.spec.ts",
+          "line": 12,
+          "column": 39
+        }
+      ]
+    },
+    {
+      "title": "sim-replacement-read-recovery.spec.ts",
+      "file": "sim-replacement-read-recovery.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "SIM replacement first page transport recovery at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7600,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:44:46.381Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c1b2b4a035997419c980-cd977b56e294b2d502be",
+          "file": "sim-replacement-read-recovery.spec.ts",
+          "line": 6,
+          "column": 149
+        },
+        {
+          "title": "SIM replacement first page transport recovery at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1696,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:44:54.006Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c1b2b4a035997419c980-762584039ad0c507333d",
+          "file": "sim-replacement-read-recovery.spec.ts",
+          "line": 6,
+          "column": 149
+        },
+        {
+          "title": "SIM replacement first page transport recovery at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1489,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:44:55.732Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c1b2b4a035997419c980-3c19d6d0b163026d520a",
+          "file": "sim-replacement-read-recovery.spec.ts",
+          "line": 6,
+          "column": 149
+        },
+        {
+          "title": "SIM replacement first page server recovery at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1390,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:44:57.255Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c1b2b4a035997419c980-05b77b326795f93d200c",
+          "file": "sim-replacement-read-recovery.spec.ts",
+          "line": 6,
+          "column": 149
+        },
+        {
+          "title": "SIM replacement first page server recovery at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1467,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:44:58.688Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c1b2b4a035997419c980-3daee385c2e384bdc2e8",
+          "file": "sim-replacement-read-recovery.spec.ts",
+          "line": 6,
+          "column": 149
+        },
+        {
+          "title": "SIM replacement first page server recovery at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1341,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:45:00.242Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c1b2b4a035997419c980-a6be595ece3725e16767",
+          "file": "sim-replacement-read-recovery.spec.ts",
+          "line": 6,
+          "column": 149
+        },
+        {
+          "title": "SIM replacement first page denied recovery at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1203,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:45:01.657Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c1b2b4a035997419c980-82e72fc3af5953608aeb",
+          "file": "sim-replacement-read-recovery.spec.ts",
+          "line": 6,
+          "column": 149
+        },
+        {
+          "title": "SIM replacement first page denied recovery at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1134,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:45:02.892Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c1b2b4a035997419c980-87a4f44f79df4ee9cca1",
+          "file": "sim-replacement-read-recovery.spec.ts",
+          "line": 6,
+          "column": 149
+        },
+        {
+          "title": "SIM replacement first page denied recovery at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1418,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:45:04.071Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c1b2b4a035997419c980-569ede89f7900a648c4a",
+          "file": "sim-replacement-read-recovery.spec.ts",
+          "line": 6,
+          "column": 149
+        },
+        {
+          "title": "SIM replacement second page transport recovery at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1662,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:45:05.530Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c1b2b4a035997419c980-f9cfb38d052d97041080",
+          "file": "sim-replacement-read-recovery.spec.ts",
+          "line": 6,
+          "column": 149
+        },
+        {
+          "title": "SIM replacement second page transport recovery at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1417,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:45:07.233Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c1b2b4a035997419c980-e9523084d87d9c379f6c",
+          "file": "sim-replacement-read-recovery.spec.ts",
+          "line": 6,
+          "column": 149
+        },
+        {
+          "title": "SIM replacement second page transport recovery at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1422,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:45:08.686Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c1b2b4a035997419c980-77f7139fe1b41a0fd651",
+          "file": "sim-replacement-read-recovery.spec.ts",
+          "line": 6,
+          "column": 149
+        },
+        {
+          "title": "SIM replacement second page server recovery at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1547,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:45:10.151Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c1b2b4a035997419c980-f1befed9b629ada1ce88",
+          "file": "sim-replacement-read-recovery.spec.ts",
+          "line": 6,
+          "column": 149
+        },
+        {
+          "title": "SIM replacement second page server recovery at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1590,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:45:11.750Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c1b2b4a035997419c980-0fb9388a3d36cc395481",
+          "file": "sim-replacement-read-recovery.spec.ts",
+          "line": 6,
+          "column": 149
+        },
+        {
+          "title": "SIM replacement second page server recovery at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1767,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:45:13.384Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c1b2b4a035997419c980-b66cb1c2eac63ac581b2",
+          "file": "sim-replacement-read-recovery.spec.ts",
+          "line": 6,
+          "column": 149
+        },
+        {
+          "title": "SIM replacement second page denied recovery at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1371,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:45:15.198Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c1b2b4a035997419c980-170df74cb3f8c61c8753",
+          "file": "sim-replacement-read-recovery.spec.ts",
+          "line": 6,
+          "column": 149
+        },
+        {
+          "title": "SIM replacement second page denied recovery at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1288,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:45:16.614Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c1b2b4a035997419c980-d2d2054576daeb7342bd",
+          "file": "sim-replacement-read-recovery.spec.ts",
+          "line": 6,
+          "column": 149
+        },
+        {
+          "title": "SIM replacement second page denied recovery at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1389,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:45:17.945Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c1b2b4a035997419c980-291c3a060cda36331d6c",
+          "file": "sim-replacement-read-recovery.spec.ts",
+          "line": 6,
+          "column": 149
+        }
+      ]
+    },
+    {
+      "title": "telecom-resource-scope.spec.ts",
+      "file": "telecom-resource-scope.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "telecom case discards old resource and equal-version editor at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1497,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:45:19.394Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "23e09319045a6f205df2-0405165f108d84384124",
+          "file": "telecom-resource-scope.spec.ts",
+          "line": 9,
+          "column": 72
+        },
+        {
+          "title": "telecom case discards old resource and equal-version editor at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1525,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:45:20.921Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "23e09319045a6f205df2-6472764f213a5c18865d",
+          "file": "telecom-resource-scope.spec.ts",
+          "line": 9,
+          "column": 72
+        },
+        {
+          "title": "telecom case discards old resource and equal-version editor at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1435,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:45:22.493Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "23e09319045a6f205df2-bfcfda7e2029be629b7b",
+          "file": "telecom-resource-scope.spec.ts",
+          "line": 9,
+          "column": 72
+        },
+        {
+          "title": "telecom sim discards old resource and equal-version editor at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1307,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:45:23.964Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "23e09319045a6f205df2-b6d219dd8fb48c089e94",
+          "file": "telecom-resource-scope.spec.ts",
+          "line": 9,
+          "column": 72
+        },
+        {
+          "title": "telecom sim discards old resource and equal-version editor at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1623,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:45:25.309Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "23e09319045a6f205df2-66bda10c78949fdcc0fe",
+          "file": "telecom-resource-scope.spec.ts",
+          "line": 9,
+          "column": 72
+        },
+        {
+          "title": "telecom sim discards old resource and equal-version editor at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1465,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:45:26.969Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "23e09319045a6f205df2-ea6f01be471aeb95e691",
+          "file": "telecom-resource-scope.spec.ts",
+          "line": 9,
+          "column": 72
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-20T07:41:44.965Z",
+    "duration": 225727.71099999998,
+    "expected": 102,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

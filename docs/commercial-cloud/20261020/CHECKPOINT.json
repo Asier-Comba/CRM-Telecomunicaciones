@@ -22,9 +22,9 @@
   "base": "888ecaae57e9021ca0cb25d4da0657c1f6ac9b40",
   "remote_checks": {
     "PR161": {
-      "head": "2b31aa215d4c1738856d4aff153f4b462f573fa4",
+      "head": "fb24c7f55a17ccb9a2fc49b1f928c39b96a27720",
       "manual_retry": 0,
-      "active": "ALL_2B31_RUNS_TERMINAL_BEFORE_NEXT_PUSH",
+      "active": "FB24_OWN_RUNS_REFRESH_BEFORE_PR_PUSH_KEEP_UNTIL_TERMINAL",
       "native_quota": "a32_BEFORE_TESTS;0MANUAL_RETRY",
       "security": "5HIGH_W4_INDEPENDENT",
       "prior_a32": {
@@ -48,7 +48,26 @@
         "tree_equal": true,
         "native": "PASS11BOOTSTRAP_MIGRATION_TENANT_RESTORE_THIS_MERGE_PIN_ONLY"
       },
-      "current541": "NOT_RUN_NO_INHERITANCE_NEW_PR_PUSH_REQUIRES_OWN_RUNS"
+      "current541": "NOT_RUN_NO_INHERITANCE_NEW_PR_PUSH_REQUIRES_OWN_RUNS",
+      "current_e5e": "NOT_RUN_NO_INHERITANCE_FROM_FB24_OR_2B31",
+      "fb24_native": {
+        "trees_equal": true,
+        "actual_tested_sha": "05f70c595d17da450ed5cb570df3e7dfa00c8c45",
+        "CI": "FIVE_HIGH_AND_SECRET_SCAN_FAILURE",
+        "bootstrap_failed": 0,
+        "head": "fb24c7f55a17ccb9a2fc49b1f928c39b96a27720",
+        "W4": "INDEPENDENT_REVIEW",
+        "job": 118558010647,
+        "bootstrap_tests": 11,
+        "head_tree": "6876efbdd2eee8b954085453c856b9696e378758",
+        "run": 39401791493,
+        "image": "public.ecr.aws/docker/library/postgres@sha256:ca0bd484cb98bf4b24eb1010e73fb3fcbd6714d240fbc1a10eea5b7dbecb641d",
+        "manual_reruns_requested": 0,
+        "actual_tree": "6876efbdd2eee8b954085453c856b9696e378758",
+        "native_migration_tenant_restore_step": "SUCCESS",
+        "bootstrap_passed": 11,
+        "scope": "THIS_MERGE_AND_PIN_ONLY_NOT_OTHER_SHA_QUOTA_RETRY_FULL23_W5_CACHE_OR_HOSTED_RESTORE_APPROVAL"
+      }
     },
     "PR160": {
       "runs": [
@@ -64,29 +83,30 @@
   "integration": "DRAFT_ASIER_EXACT_ACK_REQUIRED",
   "branch": "oier/portfolio-receipt-readback-20261020",
   "next": {
-    "publish": "Refresh GitHub before existing PR161 fast-forward; no active runs/cancel/force. Exact Asier ACK required for integration.",
-    "integration": "REQUEST6287148538 exact a32 body/server/client correlation remains causeUNKNOWN; positive2b31 does not prove causal correction.",
-    "independent": "Unit28 CLAIM6287866840: causal OpportunityEditor creation intent/close recovery bank using existing pipeline fixture; original failures before minimal consumer fix. Prepared bank outside checkout until27 finishes.",
-    "security": "5HIGH, independentW4, W5EdgeAccess/cache, historical quotas/F736/137 preserved; writesOFF issue10OPEN releaseNOT_ACCEPTED"
+    "causal": "REQUEST6287148538 remains causeUNKNOWN; 2b31 green not a causal correction of prior failure",
+    "security": "5HIGH, independentW4/scan/P0Storage, W5EdgeAccess/cache, historical quota/F736/137/a32 preserved; writesOFF issue10OPEN releaseNOT_ACCEPTED",
+    "independent": "CLAIM6288083277 unit29: original opportunity.archive confirmation cancel/X/Escape bank via existing pipeline fixture. Prepare outside active checkout, execute only after28 publication; do not inherit creation acceptance.",
+    "publish": "Recovery alias while PRfb24 checks active; no cancel/force/push above active checks. Integration requires exact Asier ACK."
   },
-  "unit": 27,
-  "claim": 6287600009,
+  "unit": 28,
+  "claim": 6287866840,
   "scope": "Actual product/repository/validators, synthetic loopback HTTP; real voice/model/hostedAuthDB/staging persistence NOT_RUN",
   "StorageP0": "OPEN",
   "source_blobs": {
-    "src/features/portfolio/IntegratedPortfolio.tsx": "42d84eda2f9596742a0c8f6a2b03dc1a2046be32",
-    "src/features/catalog/IntegratedCatalog.tsx": "5222c823f4a646b01c7a03c7da20e2450759c119",
+    "src/features/cases/Cases.tsx": "f98b587953af0abb50d6e41a246e58a6610be302",
     "src/features/calendar/IntegratedCalendar.tsx": "c8f8c19fa818d5a31a9e2551fa08e1aa9c2e28ed",
-    "src/features/sims/Sims.tsx": "6470b0214bcf0f57ab582855bd5b0943b86312a1",
+    "src/features/inbox/IntegratedInbox.tsx": "c1a89dbfcc81d8d12461a7379598343c4edf88a7",
     "src/features/documents/IntegratedDocuments.tsx": "3cbef04ad8c7621c1838aaa5f060e259b2323978",
     "src/features/portabilities/Portabilities.tsx": "26e6a7313003fa40a363f9bfcae0819bfb9a233d",
-    "src/features/inbox/IntegratedInbox.tsx": "c1a89dbfcc81d8d12461a7379598343c4edf88a7",
-    "src/features/cases/Cases.tsx": "f98b587953af0abb50d6e41a246e58a6610be302",
-    "src/features/portfolio/PortfolioCreate.tsx": "214e6b7366d1f742586999263c9c55c2c11e14bc"
+    "src/features/sims/Sims.tsx": "6470b0214bcf0f57ab582855bd5b0943b86312a1",
+    "src/features/portfolio/IntegratedPortfolio.tsx": "42d84eda2f9596742a0c8f6a2b03dc1a2046be32",
+    "src/features/opportunities/IntegratedOpportunities.tsx": "50aca4d1de2af92f56491a9b97ec0ea0ba83b905",
+    "src/features/portfolio/PortfolioCreate.tsx": "214e6b7366d1f742586999263c9c55c2c11e14bc",
+    "src/features/catalog/IntegratedCatalog.tsx": "5222c823f4a646b01c7a03c7da20e2450759c119"
   },
   "release": "NOT_ACCEPTED",
   "W4": "INDEPENDENT",
-  "source": "5415fe9b69fc2c4f3fbb68a22f4c7d692ca1ea1b",
+  "source": "e5e3cf02e65b7cdaadb2ec1c5c5e568a250225e3",
   "delivery": "DOCS_ONLY_COMMIT_CONTAINS_MEASURED_CODE_UNCHANGED",
   "baseline": {
     "source": "27da91d671b342f52ce4cd12be070a4da846b02e",
@@ -172,44 +192,52 @@
       "cause": "Same-version wrong status/source replaced editor and discarded confirmed receipt recovery. Old read was already safely locked; not a new defect.",
       "source": "3483fea22ab9b5a0ea963285820d071eca61adab",
       "passed": 9
+    },
+    "opportunity_create": {
+      "attempt": "opportunity-intent-attempt01",
+      "opportunity_blob_equals888": true,
+      "failed": 12,
+      "passed": 6,
+      "cause": "Malformed/foreign receipt enabled editing and cleared intent; transport loss or confirmed receipt plus read failure allowed editor close. Authoritative refusal/success positive.",
+      "source": "7db9150e34ebfdfb5946ea55a05b3bad502144dd"
     }
   },
   "checks": {
-    "browser_unique": 312,
-    "acceptance": "INDIVIDUAL_MANUAL_PORTABILITY_TRANSITION_CANCELLED_NO_LINE_EFFECT; other operations not promoted",
-    "visual": "390 SIM and Portability previous-read headers plus Portability recovery footer reviewed; existing generic error remains, no global UX/security acceptance",
-    "source": "5415fe9b69fc2c4f3fbb68a22f4c7d692ca1ea1b",
-    "scope": "Actual components/repository/closed DTOs, synthetic controlledHTTP; hosted AuthDB/live model/operator NOT_RUN",
     "browser_composed": {
-      "startTime": "2026-10-20T07:26:57.743Z",
-      "duration": 440309.053,
-      "expected": 219,
+      "startTime": "2026-10-20T07:41:44.993Z",
+      "duration": 509798.751,
+      "expected": 237,
       "skipped": 0,
       "unexpected": 0,
       "flaky": 0
     },
+    "scope": "Actual UI/repository/DTOs with synthetic controlledHTTP; no hostedAuthDB/provider/model acceptance",
+    "source_binding": "evidence/unit28-source-binding.json",
+    "acceptance": "INDIVIDUAL_OPPORTUNITY_CREATE_ONLY",
+    "browser_unique": 339,
     "bootstrap": {
       "failed": 0,
       "passed": 96
     },
-    "protected_primitive": "UNCHANGED_BLOB_EQUALS888",
-    "source_binding": "evidence/unit27-source-binding.json",
-    "quality": {
-      "typescript": 0,
-      "logic": 0,
-      "build": 0,
-      "lint": 0,
-      "preflight": "oier-commercial-20261020-unit27-preflight.json",
-      "source": "5415fe9b69fc2c4f3fbb68a22f4c7d692ca1ea1b"
-    },
     "browser_existing_regression": {
-      "startTime": "2026-10-20T07:26:57.619Z",
-      "duration": 181375.19199999998,
-      "expected": 93,
+      "startTime": "2026-10-20T07:41:44.965Z",
+      "duration": 225727.71099999998,
+      "expected": 102,
       "skipped": 0,
       "unexpected": 0,
       "flaky": 0
-    }
+    },
+    "source": "e5e3cf02e65b7cdaadb2ec1c5c5e568a250225e3",
+    "quality": {
+      "source": "e5e3cf02e65b7cdaadb2ec1c5c5e568a250225e3",
+      "logic": 0,
+      "lint": 0,
+      "build": 0,
+      "typescript": 0,
+      "preflight": "oier-commercial-20261020-unit28-preflight.json"
+    },
+    "visual": "390 malformed result and confirmed-receipt/read-failure recovery reviewed; fields, client, amount, date, retry retained",
+    "protected_primitives": "ALL3_UNCHANGED_BLOBS_EQUALS888"
   },
   "claims": {
     "unit15": 6279498568,
@@ -310,7 +338,10 @@
     "regression-attempt11": "0edc07d_93PASS_INCLUDES_SIM_REPLACEMENT_READ18_AND_RESOURCE_SCOPE6",
     "portability-readback-attempt01": "3483fea_CAUSAL_6FAIL9PASS",
     "composed-attempt13": "5415fe9_219PASS",
-    "regression-attempt12": "5415fe9_93PASS"
+    "regression-attempt12": "5415fe9_93PASS",
+    "opportunity-intent-attempt01": "7db9150_CAUSAL12FAIL6PASS_APPLICATION_OPPORTUNITIES_UNCHANGED888",
+    "composed-attempt14": "e5e3cf0_237PASS",
+    "regression-attempt13": "e5e3cf0_102PASS_INCLUDES_PIPELINE_QUERY6_CATALOG3"
   },
   "cloud": "W5 Edge Access/deploy/cohort/window/roles/actions/cleanup; no bypass;87migrations untouched, no resellpro",
   "changes": {
@@ -327,7 +358,8 @@
     "inbox_receipt_readback": "Before clearing intent/draft or success notice, require non-read-marker conversation version >= receipt; equal version requires matching status. Retain confirmed receipt and perform query-only recovery when incompatible. Read-marker operations retain existing separate read_version behavior; exact and later legitimate state remain usable. Individual acceptance confirmed add-note and positive markers, not all Inbox or security acceptance.",
     "catalog_create": "Only CatalogCreate: retain pending intent for transport/internal_safe, derive uncertainty from error state, reuse Drawer closeDisabled and clarify result unknown. Existing catalog UI test resource gains opt-in IntegratedCatalog entry; default VersionTerms verified by existing3cases, resource not duplicated. Backend/contracts/OperatorDetail/VersionTerms unchanged.",
     "sim_receipt_readback": "Consumer Sims only: retain typed validatedSimReceipt, supply to localrefresh callback, reject older/incompatible sameversion id/status/source before setCore/editor replacement. Query-only recovery, no repeatedcommand. ReviewedCommand/backend/identifiers/W5 untouched. No independent acceptance of all SIM operations.",
-    "portability_readback": "Retain typed receipt and reject incompatible current read before replacing core. Reuse unchanged ReviewedCommand. Consumer-only previous-read captions for SIM/Portability; query retry issues no new cancellation."
+    "portability_readback": "Retain typed receipt and reject incompatible current read before replacing core. Reuse unchanged ReviewedCommand. Consumer-only previous-read captions for SIM/Portability; query retry issues no new cancellation.",
+    "opportunity_create": "Keep frozen pending intent after transport/internal_safe result; block Drawer close while uncertain or confirmed read recovery remains; truthful result-unconfirmed feedback. Existing shared primitives unchanged."
   },
   "AI_commercial_writes": "OFF",
   "completed_unit17": {
@@ -667,7 +699,7 @@
       }
     }
   },
-  "qa_source": "5415fe9b69fc2c4f3fbb68a22f4c7d692ca1ea1b",
+  "qa_source": "e5e3cf02e65b7cdaadb2ec1c5c5e568a250225e3",
   "individual_acceptance": {
     "unit25": {
       "operation": "plan.create",
@@ -687,6 +719,24 @@
         "security/release acceptance"
       ],
       "caller": "Operator list -> operator detail -> new plan -> frozen review -> filtered plan catalog"
+    },
+    "unit28": {
+      "verified": [
+        "client,title,amount,currency,date,next action retained",
+        "same command and input after uncertain result",
+        "close button and Escape do not lose recovery",
+        "confirmed receipt retries read without write",
+        "authoritative refusal and normal success"
+      ],
+      "operation": "opportunity.create",
+      "not_verified": [
+        "other opportunity mutations",
+        "real AuthDB idempotence",
+        "hosted staging",
+        "live model",
+        "provider",
+        "security/release acceptance"
+      ]
     }
   },
   "completed_unit25": {
@@ -766,5 +816,47 @@
       },
       "browser_unique": 297
     }
+  },
+  "completed_unit27": {
+    "delivery": "fb24c7f55a17ccb9a2fc49b1f928c39b96a27720",
+    "source": "5415fe9b69fc2c4f3fbb68a22f4c7d692ca1ea1b",
+    "checks": {
+      "browser_unique": 312,
+      "acceptance": "INDIVIDUAL_MANUAL_PORTABILITY_TRANSITION_CANCELLED_NO_LINE_EFFECT; other operations not promoted",
+      "visual": "390 SIM and Portability previous-read headers plus Portability recovery footer reviewed; existing generic error remains, no global UX/security acceptance",
+      "source": "5415fe9b69fc2c4f3fbb68a22f4c7d692ca1ea1b",
+      "scope": "Actual components/repository/closed DTOs, synthetic controlledHTTP; hosted AuthDB/live model/operator NOT_RUN",
+      "browser_composed": {
+        "startTime": "2026-10-20T07:26:57.743Z",
+        "duration": 440309.053,
+        "expected": 219,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "bootstrap": {
+        "failed": 0,
+        "passed": 96
+      },
+      "protected_primitive": "UNCHANGED_BLOB_EQUALS888",
+      "source_binding": "evidence/unit27-source-binding.json",
+      "quality": {
+        "typescript": 0,
+        "logic": 0,
+        "build": 0,
+        "lint": 0,
+        "preflight": "oier-commercial-20261020-unit27-preflight.json",
+        "source": "5415fe9b69fc2c4f3fbb68a22f4c7d692ca1ea1b"
+      },
+      "browser_existing_regression": {
+        "startTime": "2026-10-20T07:26:57.619Z",
+        "duration": 181375.19199999998,
+        "expected": 93,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      }
+    },
+    "handoff": 6287982430
   }
 }
