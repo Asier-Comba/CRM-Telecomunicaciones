@@ -1,0 +1,97 @@
+{
+  "new_real_local_acceptance": "PENDING_NEW_SOURCE_CI",
+  "native_files": 6,
+  "classification": "PROBADA_LOCALMENTE",
+  "release": "NOT_ACCEPTED",
+  "application_unchanged": true,
+  "build": "NOT_RERUN_NO_APP_CHANGE",
+  "after": {
+    "fail": 0,
+    "widths": [
+      390,
+      768,
+      1440
+    ],
+    "pass": 3,
+    "commands": 0,
+    "scope": "ACTUAL_NATIVE_LOCATOR_LITERALS_CONTROLLED_COMPONENT_HTTP"
+  },
+  "native_delta": "EXACT_LABEL_ONLY",
+  "lint": 0,
+  "syntax": 6,
+  "application_source": "7e1919d6b6e365ee068b01187d9a25c4619f6712",
+  "cloud": "NOT_RUN",
+  "source": "e89b2358e063719c5bf59c745699177a15673a5c",
+  "typescript": 0,
+  "before": {
+    "fail": 3,
+    "source": "4c64aa8d4d4f2621fbf4409f2cdc588bea5cba40",
+    "pass": 0
+  },
+  "unit": "DEMO-CALLER-11",
+  "prior_remote": {
+    "run": 39428058443,
+    "job": 118645549627,
+    "artifact": 12267369351,
+    "cause": "SAFE_REPORT_TIMEOUT_ONLY_FULL_CAUSE_NOT_PROVEN",
+    "head_tree_equal": true,
+    "teardown": "PASS",
+    "ui_fail": 11,
+    "ui_pass": 103,
+    "result": "FAIL",
+    "tree": "2dfb26437bde461bbaa18c91f4e5043665886041",
+    "backend": 4042,
+    "failed_checks": [
+      "billing_fiscal_draft_issue_pdf_paid",
+      "billing_reverse_payment_trash_restore",
+      "billing_financial_currency_comparison_scoped_period",
+      "billing_issuer_and_text_proposal_requires_review",
+      "billing_fiscal_commit_survives_storage_failure_and_private_retry",
+      "billing_exact_lines_discount_tax_withholding_fx_review_and_replay",
+      "billing_lost_receipt_seven_commands_same_intent_single_persisted_effect",
+      "billing_invalid_receipt_seven_commands_same_intent_single_persisted_effect",
+      "invoice_minimized_summary_actual_reader_and_mobile",
+      "desktop_tablet_mobile_layouts",
+      "critical_dialogs_desktop_tablet_mobile"
+    ],
+    "source": "3f16a254ba419e03f4f8a5d4b0b409336b023fd1"
+  },
+  "logs": [
+    {
+      "bytes": 17371,
+      "name": "demo-caller11-baseline-original.txt",
+      "retained": "OWN_WORK_ORIGINAL",
+      "sha256": "b817fbb8923e716afa0234dfa297085fc421f21fb8010a4a386a27e7d2849b2e"
+    },
+    {
+      "bytes": 1113,
+      "name": "demo-caller11-fixed-original.txt",
+      "retained": "OWN_WORK_ORIGINAL",
+      "sha256": "ca0fc290eb16861e3fbbe264bae6ec3847107919c2cb7dc35b74eae60a4f857a"
+    },
+    {
+      "bytes": 0,
+      "name": "demo-caller11-lint-fixed.txt",
+      "retained": "OWN_WORK_ORIGINAL",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "name": "demo-caller11-types-fixed.txt",
+      "retained": "OWN_WORK_ORIGINAL",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 19085,
+      "name": "ux07-supabase-failed-original-safe.zip",
+      "retained": "OWN_WORK_ORIGINAL",
+      "sha256": "f32caa03dcb2f2397237cacef999eff30ba7575d20b97a71beff40bd202e4d9a"
+    },
+    {
+      "bytes": 562418,
+      "name": "ux07-supabase-failed-original-safe.json",
+      "retained": "OWN_WORK_ORIGINAL",
+      "sha256": "e098c06261ce79bfb0eb60c15a24eb303792f4af30cf7ee871d96589e981e3d0"
+    }
+  ]
+}

@@ -29,9 +29,9 @@ export async function billingCurrentMadridDayBrowser({ page, origin, customerId,
         }
       }, instant)
       await current.goto(origin + '/facturacion?customer=' + customerId)
-      await expect(button('Nuevo borrador local')).toBeEnabled()
+      await expect(button('Nuevo borrador')).toBeEnabled()
       const customerName = await field('Cliente para facturación').locator('option:checked').innerText()
-      await button('Nuevo borrador local').click()
+      await button('Nuevo borrador').click()
       await expect(field('Fecha de emisión')).toHaveValue(expected)
       await button('Cerrar panel').click()
 

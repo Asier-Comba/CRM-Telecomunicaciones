@@ -12,7 +12,7 @@ export const primary =
   'inline-flex items-center justify-center gap-2 rounded-lg bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:cursor-not-allowed disabled:opacity-45'
 export function PreviewNotice() {
   const { repository } = useProduct()
-  if (repository.mode === 'integrated_local') return <div className="rounded-lg border border-amber-100 bg-amber-50 px-3 py-2 text-xs text-amber-900"><strong>Integración local</strong> · Datos sintéticos de prueba · Cambios guardados en la base local</div>
+  if (repository.mode === 'integrated_local') return <div className="rounded-lg border border-amber-100 bg-amber-50 px-3 py-2 text-xs text-amber-900"><strong>Integración de prueba</strong> · Datos sintéticos · Los cambios requieren confirmación del servidor</div>
   return (
     <div className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-indigo-100 bg-indigo-50/60 px-3 py-2 text-xs text-indigo-800">
       <span>

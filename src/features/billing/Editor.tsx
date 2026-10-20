@@ -151,9 +151,9 @@ export function InvoiceEditor({
     setTimeout(() => URL.revokeObjectURL(url), 1000)
   }
   return (
-    <Drawer title="Revisar borrador local" onClose={onClose}>
+    <Drawer title={integrated ? "Revisar borrador" : "Revisar borrador local"} onClose={onClose}>
       <p className="rounded-lg bg-amber-50 p-3 text-xs leading-5 text-amber-800">
-        {integrated ? 'Datos sintéticos locales. Los importes son una vista previa; el servidor recalcula y guarda el borrador sin reservar número. La emisión requiere una confirmación posterior.' : 'Solo datos de prueba. No se persiste en el servidor y no reserva número fiscal. Los borradores de esta sesión se pierden al salir del módulo.'}
+        {integrated ? 'Datos sintéticos de prueba. Los importes son una vista previa; el servidor recalcula y guarda el borrador sin reservar número. La emisión requiere una confirmación posterior.' : 'Solo datos de prueba. No se persiste en el servidor y no reserva número fiscal. Los borradores de esta sesión se pierden al salir del módulo.'}
       </p>
       {serverError && <p role="alert" className="text-sm text-red-700">{serverError}</p>}
       {onRetry && <button type="button" className={primary} onClick={onRetry}>Reintentar la misma acción</button>}
@@ -455,7 +455,7 @@ export function InvoiceEditor({
           disabled={!reviewed}
           onClick={save}
         >
-          Guardar borrador local
+          {integrated ? "Guardar borrador" : "Guardar borrador local"}
         </button>
         <button type="button" className={control} disabled={integrated} onClick={pdf}>
           <Download className="mr-1 inline h-4 w-4" />
