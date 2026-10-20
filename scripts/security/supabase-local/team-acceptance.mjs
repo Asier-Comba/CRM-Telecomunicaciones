@@ -16,7 +16,7 @@ export async function teamAcceptance({rpc,sql,check,http,users,wa,wb,url,anon,ap
  const owner=roster.json.items.find(m=>m.user_id===users.ownerA.id)
  check((await invoke('suspend',{command_id:randomUUID(),id:owner.id,expected_version:owner.version})).status===403,'team_actual_owner_preserved')
  const changes=await Promise.all(Array.from({length:20},()=>invoke('role_change',{command_id:randomUUID(),id:target.id,expected_version:target.version,role:'viewer'})))
- check(changes.filter(r=>r.status===200).length===1&&changes.filter(r=>r.status===500&&r.json.code==='PT409').length===19,'team_actual_20_roster_CAS')
+ check(changes.filter(r=>r.status===200).length===1&&changes.filter(r=>r.status===409&&r.json.code==='PT409').length===19,'team_actual_20_roster_CAS')
  check((await invoke('role_change',{command_id:randomUUID(),id:target.id,expected_version:target.version+1,role:'member'})).status===200,'team_actual_restore_commercial_role')
  const commercial={command_id:randomUUID(),account_kind:'legal_entity',legal_name:'Team synthetic revocation control'}
  const command=(input)=>rpc('product_v1_customer_create',{p_workspace_id:wa,p_input:input},users.memberA.token)

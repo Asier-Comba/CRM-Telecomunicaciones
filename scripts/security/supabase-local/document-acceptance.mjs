@@ -12,7 +12,7 @@ export async function documentAcceptance({rpc,sql,check,http,users,wa,wb,ca,url,
  check((await invoke('get_metadata',{id},users.ownerB,wb)).json===null,'document_actual_foreign_id_hidden')
  check((await http('/storage/v1/object/authenticated/telecom-documents/'+path,users.ownerA.token)).status===200,'document_actual_pre_archive_bytes_allowed')
  const edits=await Promise.all(Array.from({length:20},()=>invoke('archive',{command_id:randomUUID(),id,expected_version:1})))
- check(edits.filter(r=>r.status===200).length===1&&edits.filter(r=>r.status===500&&r.json.code==='PT409').length===19,'document_actual20_CAS_archive')
+ check(edits.filter(r=>r.status===200).length===1&&edits.filter(r=>r.status===409&&r.json.code==='PT409').length===19,'document_actual20_CAS_archive')
  check(Number(sql(`select count(*)from public.product_audit_events where entity_id='${id}'`))===1,'document_actual_one_archive_audit')
  const archived=await http('/storage/v1/object/authenticated/telecom-documents/'+path,users.ownerA.token);check([400,403,404].includes(archived.status),'document_actual_archive_blocks_object_bytes')
  const restore={command_id:randomUUID(),id,expected_version:2},replays=await Promise.all(Array.from({length:20},()=>invoke('restore',restore)))
