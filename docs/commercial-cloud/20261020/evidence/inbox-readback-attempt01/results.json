@@ -1,0 +1,1001 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "-c",
+      "tools/oier_commercial_qa/inbox-readback.config.ts"
+    ],
+    "configFile": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-readback.config.ts",
+    "rootDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-commercial-20261020/tools/oier_commercial_qa",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-commercial-20261020/inbox-readback-attempt01/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "controlled-http-390",
+        "name": "controlled-http-390",
+        "testDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-commercial-20261020/tools/oier_commercial_qa",
+        "testIgnore": [],
+        "testMatch": [
+          "inbox-readback.spec.ts"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-commercial-20261020/inbox-readback-attempt01/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "controlled-http-768",
+        "name": "controlled-http-768",
+        "testDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-commercial-20261020/tools/oier_commercial_qa",
+        "testIgnore": [],
+        "testMatch": [
+          "inbox-readback.spec.ts"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-commercial-20261020/inbox-readback-attempt01/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "controlled-http-1440",
+        "name": "controlled-http-1440",
+        "testDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-commercial-20261020/tools/oier_commercial_qa",
+        "testIgnore": [],
+        "testMatch": [
+          "inbox-readback.spec.ts"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "line",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\inbox-readback-attempt01\\results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.61.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "inbox-readback.spec.ts",
+      "file": "inbox-readback.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "inbox confirmed receipt requires coherent stale readback",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 4820,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeEnabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Comprobar la misma acción', exact: true })\nExpected: enabled\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeEnabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Comprobar la misma acción', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeEnabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Comprobar la misma acción', exact: true })\nExpected: enabled\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeEnabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Comprobar la misma acción', exact: true })\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-readback.spec.ts:38:24",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-readback.spec.ts",
+                      "column": 24,
+                      "line": 38
+                    },
+                    "snippet": "  36 |    await info.attach('readback-observation',{body:JSON.stringify({mode,commands,readbacks}),contentType:'application/json'})\n  37 |    const retry=page.getByRole('button',{name:'Comprobar la misma acción',exact:true})\n> 38 |    await expect(retry).toBeEnabled();await expect(field).toBeDisabled();await expect(field).toHaveValue(body)\n     |                        ^\n  39 |    await expect(page.getByRole('status').filter({hasText:'Cambio guardado. La conversación se ha actualizado.'})).toHaveCount(0)\n  40 |    await page.screenshot({path:info.outputPath(`inbox-${mode}-registered.png`)})\n  41 |    corrected=true;await retry.click()"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-readback.spec.ts",
+                        "column": 24,
+                        "line": 38
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeEnabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Comprobar la misma acción', exact: true })\nExpected: enabled\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeEnabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Comprobar la misma acción', exact: true })\u001b[22m\n\n\n  36 |    await info.attach('readback-observation',{body:JSON.stringify({mode,commands,readbacks}),contentType:'application/json'})\n  37 |    const retry=page.getByRole('button',{name:'Comprobar la misma acción',exact:true})\n> 38 |    await expect(retry).toBeEnabled();await expect(field).toBeDisabled();await expect(field).toHaveValue(body)\n     |                        ^\n  39 |    await expect(page.getByRole('status').filter({hasText:'Cambio guardado. La conversación se ha actualizado.'})).toHaveCount(0)\n  40 |    await page.screenshot({path:info.outputPath(`inbox-${mode}-registered.png`)})\n  41 |    corrected=true;await retry.click()\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-readback.spec.ts:38:24"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T06:02:48.758Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "readback-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoic3RhbGUiLCJjb21tYW5kcyI6W3sib3BlcmF0aW9uIjoibWVzc2FnZS5hZGRfaW50ZXJuYWxfbm90ZSIsImlucHV0Ijp7ImNvbW1hbmRfaWQiOiJmYmE5NTRhOC0wNzM1LTRkNDQtYTc3NS02NDVmYWMxOGZlNjEiLCJpZCI6IjEwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMSIsImV4cGVjdGVkX3ZlcnNpb24iOjEsImJvZHkiOiJOb3RhIHNpbnTDqXRpY2EgcGVuZGllbnRlIGRlIGNvbnN1bHRhIGNvaGVyZW50ZSJ9fV0sInJlYWRiYWNrcyI6MX0="
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\inbox-readback-attempt01\\artifacts\\inbox-readback-inbox-confi-a1485-res-coherent-stale-readback-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\inbox-readback-attempt01\\artifacts\\inbox-readback-inbox-confi-a1485-res-coherent-stale-readback-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\inbox-readback-attempt01\\artifacts\\inbox-readback-inbox-confi-a1485-res-coherent-stale-readback-controlled-http-390\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-readback.spec.ts",
+                    "column": 24,
+                    "line": 38
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "5511968be3cb63a357d1-ad807502eb553361f26d",
+          "file": "inbox-readback.spec.ts",
+          "line": 7,
+          "column": 99
+        },
+        {
+          "title": "inbox confirmed receipt requires coherent wrong_status readback",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 4784,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeEnabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Comprobar la misma acción', exact: true })\nExpected: enabled\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeEnabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Comprobar la misma acción', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeEnabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Comprobar la misma acción', exact: true })\nExpected: enabled\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeEnabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Comprobar la misma acción', exact: true })\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-readback.spec.ts:38:24",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-readback.spec.ts",
+                      "column": 24,
+                      "line": 38
+                    },
+                    "snippet": "  36 |    await info.attach('readback-observation',{body:JSON.stringify({mode,commands,readbacks}),contentType:'application/json'})\n  37 |    const retry=page.getByRole('button',{name:'Comprobar la misma acción',exact:true})\n> 38 |    await expect(retry).toBeEnabled();await expect(field).toBeDisabled();await expect(field).toHaveValue(body)\n     |                        ^\n  39 |    await expect(page.getByRole('status').filter({hasText:'Cambio guardado. La conversación se ha actualizado.'})).toHaveCount(0)\n  40 |    await page.screenshot({path:info.outputPath(`inbox-${mode}-registered.png`)})\n  41 |    corrected=true;await retry.click()"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-readback.spec.ts",
+                        "column": 24,
+                        "line": 38
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeEnabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Comprobar la misma acción', exact: true })\nExpected: enabled\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeEnabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Comprobar la misma acción', exact: true })\u001b[22m\n\n\n  36 |    await info.attach('readback-observation',{body:JSON.stringify({mode,commands,readbacks}),contentType:'application/json'})\n  37 |    const retry=page.getByRole('button',{name:'Comprobar la misma acción',exact:true})\n> 38 |    await expect(retry).toBeEnabled();await expect(field).toBeDisabled();await expect(field).toHaveValue(body)\n     |                        ^\n  39 |    await expect(page.getByRole('status').filter({hasText:'Cambio guardado. La conversación se ha actualizado.'})).toHaveCount(0)\n  40 |    await page.screenshot({path:info.outputPath(`inbox-${mode}-registered.png`)})\n  41 |    corrected=true;await retry.click()\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-readback.spec.ts:38:24"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T06:02:59.179Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "readback-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoid3Jvbmdfc3RhdHVzIiwiY29tbWFuZHMiOlt7Im9wZXJhdGlvbiI6Im1lc3NhZ2UuYWRkX2ludGVybmFsX25vdGUiLCJpbnB1dCI6eyJjb21tYW5kX2lkIjoiYjJiYmUxNjctODlkYS00ZGEwLWE2ZDYtYzI5MzgwYTBhMzgwIiwiaWQiOiIxMDAwMDAwMC0wMDAwLTQwMDAtODAwMC0wMDAwMDAwMDAwMDEiLCJleHBlY3RlZF92ZXJzaW9uIjoxLCJib2R5IjoiTm90YSBzaW50w6l0aWNhIHBlbmRpZW50ZSBkZSBjb25zdWx0YSBjb2hlcmVudGUifX1dLCJyZWFkYmFja3MiOjF9"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\inbox-readback-attempt01\\artifacts\\inbox-readback-inbox-confi-952fd-erent-wrong-status-readback-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\inbox-readback-attempt01\\artifacts\\inbox-readback-inbox-confi-952fd-erent-wrong-status-readback-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\inbox-readback-attempt01\\artifacts\\inbox-readback-inbox-confi-952fd-erent-wrong-status-readback-controlled-http-390\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-readback.spec.ts",
+                    "column": 24,
+                    "line": 38
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "5511968be3cb63a357d1-9809d495da1b8c85290c",
+          "file": "inbox-readback.spec.ts",
+          "line": 7,
+          "column": 99
+        },
+        {
+          "title": "inbox confirmed receipt requires coherent exact readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1010,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T06:03:08.589Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5511968be3cb63a357d1-4345180d33464c34ee21",
+          "file": "inbox-readback.spec.ts",
+          "line": 7,
+          "column": 99
+        },
+        {
+          "title": "inbox confirmed receipt requires coherent newer readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 808,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T06:03:14.619Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5511968be3cb63a357d1-e904b2b9b102533b1119",
+          "file": "inbox-readback.spec.ts",
+          "line": 7,
+          "column": 99
+        },
+        {
+          "title": "inbox confirmed receipt requires coherent mark_read readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 689,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T06:03:15.461Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5511968be3cb63a357d1-334dead9ffff9cbd6110",
+          "file": "inbox-readback.spec.ts",
+          "line": 7,
+          "column": 99
+        },
+        {
+          "title": "inbox confirmed receipt requires coherent mark_unread readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 786,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T06:03:16.186Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5511968be3cb63a357d1-623049433162210dc860",
+          "file": "inbox-readback.spec.ts",
+          "line": 7,
+          "column": 99
+        },
+        {
+          "title": "inbox confirmed receipt requires coherent stale readback",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5003,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeEnabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Comprobar la misma acción', exact: true })\nExpected: enabled\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeEnabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Comprobar la misma acción', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeEnabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Comprobar la misma acción', exact: true })\nExpected: enabled\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeEnabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Comprobar la misma acción', exact: true })\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-readback.spec.ts:38:24",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-readback.spec.ts",
+                      "column": 24,
+                      "line": 38
+                    },
+                    "snippet": "  36 |    await info.attach('readback-observation',{body:JSON.stringify({mode,commands,readbacks}),contentType:'application/json'})\n  37 |    const retry=page.getByRole('button',{name:'Comprobar la misma acción',exact:true})\n> 38 |    await expect(retry).toBeEnabled();await expect(field).toBeDisabled();await expect(field).toHaveValue(body)\n     |                        ^\n  39 |    await expect(page.getByRole('status').filter({hasText:'Cambio guardado. La conversación se ha actualizado.'})).toHaveCount(0)\n  40 |    await page.screenshot({path:info.outputPath(`inbox-${mode}-registered.png`)})\n  41 |    corrected=true;await retry.click()"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-readback.spec.ts",
+                        "column": 24,
+                        "line": 38
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeEnabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Comprobar la misma acción', exact: true })\nExpected: enabled\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeEnabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Comprobar la misma acción', exact: true })\u001b[22m\n\n\n  36 |    await info.attach('readback-observation',{body:JSON.stringify({mode,commands,readbacks}),contentType:'application/json'})\n  37 |    const retry=page.getByRole('button',{name:'Comprobar la misma acción',exact:true})\n> 38 |    await expect(retry).toBeEnabled();await expect(field).toBeDisabled();await expect(field).toHaveValue(body)\n     |                        ^\n  39 |    await expect(page.getByRole('status').filter({hasText:'Cambio guardado. La conversación se ha actualizado.'})).toHaveCount(0)\n  40 |    await page.screenshot({path:info.outputPath(`inbox-${mode}-registered.png`)})\n  41 |    corrected=true;await retry.click()\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-readback.spec.ts:38:24"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T06:03:18.110Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "readback-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoic3RhbGUiLCJjb21tYW5kcyI6W3sib3BlcmF0aW9uIjoibWVzc2FnZS5hZGRfaW50ZXJuYWxfbm90ZSIsImlucHV0Ijp7ImNvbW1hbmRfaWQiOiJiYWI1Y2MxNy03MWMxLTRhZDAtODAxOC1jZTdkNTYzNDFjMmEiLCJpZCI6IjEwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMSIsImV4cGVjdGVkX3ZlcnNpb24iOjEsImJvZHkiOiJOb3RhIHNpbnTDqXRpY2EgcGVuZGllbnRlIGRlIGNvbnN1bHRhIGNvaGVyZW50ZSJ9fV0sInJlYWRiYWNrcyI6MX0="
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\inbox-readback-attempt01\\artifacts\\inbox-readback-inbox-confi-a1485-res-coherent-stale-readback-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\inbox-readback-attempt01\\artifacts\\inbox-readback-inbox-confi-a1485-res-coherent-stale-readback-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\inbox-readback-attempt01\\artifacts\\inbox-readback-inbox-confi-a1485-res-coherent-stale-readback-controlled-http-768\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-readback.spec.ts",
+                    "column": 24,
+                    "line": 38
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "5511968be3cb63a357d1-ea02206f3d80f55da316",
+          "file": "inbox-readback.spec.ts",
+          "line": 7,
+          "column": 99
+        },
+        {
+          "title": "inbox confirmed receipt requires coherent wrong_status readback",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 4838,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeEnabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Comprobar la misma acción', exact: true })\nExpected: enabled\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeEnabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Comprobar la misma acción', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeEnabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Comprobar la misma acción', exact: true })\nExpected: enabled\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeEnabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Comprobar la misma acción', exact: true })\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-readback.spec.ts:38:24",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-readback.spec.ts",
+                      "column": 24,
+                      "line": 38
+                    },
+                    "snippet": "  36 |    await info.attach('readback-observation',{body:JSON.stringify({mode,commands,readbacks}),contentType:'application/json'})\n  37 |    const retry=page.getByRole('button',{name:'Comprobar la misma acción',exact:true})\n> 38 |    await expect(retry).toBeEnabled();await expect(field).toBeDisabled();await expect(field).toHaveValue(body)\n     |                        ^\n  39 |    await expect(page.getByRole('status').filter({hasText:'Cambio guardado. La conversación se ha actualizado.'})).toHaveCount(0)\n  40 |    await page.screenshot({path:info.outputPath(`inbox-${mode}-registered.png`)})\n  41 |    corrected=true;await retry.click()"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-readback.spec.ts",
+                        "column": 24,
+                        "line": 38
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeEnabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Comprobar la misma acción', exact: true })\nExpected: enabled\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeEnabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Comprobar la misma acción', exact: true })\u001b[22m\n\n\n  36 |    await info.attach('readback-observation',{body:JSON.stringify({mode,commands,readbacks}),contentType:'application/json'})\n  37 |    const retry=page.getByRole('button',{name:'Comprobar la misma acción',exact:true})\n> 38 |    await expect(retry).toBeEnabled();await expect(field).toBeDisabled();await expect(field).toHaveValue(body)\n     |                        ^\n  39 |    await expect(page.getByRole('status').filter({hasText:'Cambio guardado. La conversación se ha actualizado.'})).toHaveCount(0)\n  40 |    await page.screenshot({path:info.outputPath(`inbox-${mode}-registered.png`)})\n  41 |    corrected=true;await retry.click()\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-readback.spec.ts:38:24"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T06:03:29.318Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "readback-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoid3Jvbmdfc3RhdHVzIiwiY29tbWFuZHMiOlt7Im9wZXJhdGlvbiI6Im1lc3NhZ2UuYWRkX2ludGVybmFsX25vdGUiLCJpbnB1dCI6eyJjb21tYW5kX2lkIjoiMzRlZDdkZDgtZTEzMC00ZTdhLTliNDAtZTM2ZDBmZDE5M2IzIiwiaWQiOiIxMDAwMDAwMC0wMDAwLTQwMDAtODAwMC0wMDAwMDAwMDAwMDEiLCJleHBlY3RlZF92ZXJzaW9uIjoxLCJib2R5IjoiTm90YSBzaW50w6l0aWNhIHBlbmRpZW50ZSBkZSBjb25zdWx0YSBjb2hlcmVudGUifX1dLCJyZWFkYmFja3MiOjF9"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\inbox-readback-attempt01\\artifacts\\inbox-readback-inbox-confi-952fd-erent-wrong-status-readback-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\inbox-readback-attempt01\\artifacts\\inbox-readback-inbox-confi-952fd-erent-wrong-status-readback-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\inbox-readback-attempt01\\artifacts\\inbox-readback-inbox-confi-952fd-erent-wrong-status-readback-controlled-http-768\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-readback.spec.ts",
+                    "column": 24,
+                    "line": 38
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "5511968be3cb63a357d1-9c957089871838e20d53",
+          "file": "inbox-readback.spec.ts",
+          "line": 7,
+          "column": 99
+        },
+        {
+          "title": "inbox confirmed receipt requires coherent exact readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 819,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T06:03:39.672Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5511968be3cb63a357d1-13b53fa7a9f02e105d5f",
+          "file": "inbox-readback.spec.ts",
+          "line": 7,
+          "column": 99
+        },
+        {
+          "title": "inbox confirmed receipt requires coherent newer readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 758,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T06:03:45.344Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5511968be3cb63a357d1-c56e67334b978a2c8224",
+          "file": "inbox-readback.spec.ts",
+          "line": 7,
+          "column": 99
+        },
+        {
+          "title": "inbox confirmed receipt requires coherent mark_read readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 729,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T06:03:46.146Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5511968be3cb63a357d1-3ae5ff5b6611b5547f11",
+          "file": "inbox-readback.spec.ts",
+          "line": 7,
+          "column": 99
+        },
+        {
+          "title": "inbox confirmed receipt requires coherent mark_unread readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 773,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T06:03:46.903Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5511968be3cb63a357d1-137fd201e91c731b15d8",
+          "file": "inbox-readback.spec.ts",
+          "line": 7,
+          "column": 99
+        },
+        {
+          "title": "inbox confirmed receipt requires coherent stale readback",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 4837,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeEnabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Comprobar la misma acción', exact: true })\nExpected: enabled\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeEnabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Comprobar la misma acción', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeEnabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Comprobar la misma acción', exact: true })\nExpected: enabled\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeEnabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Comprobar la misma acción', exact: true })\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-readback.spec.ts:38:24",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-readback.spec.ts",
+                      "column": 24,
+                      "line": 38
+                    },
+                    "snippet": "  36 |    await info.attach('readback-observation',{body:JSON.stringify({mode,commands,readbacks}),contentType:'application/json'})\n  37 |    const retry=page.getByRole('button',{name:'Comprobar la misma acción',exact:true})\n> 38 |    await expect(retry).toBeEnabled();await expect(field).toBeDisabled();await expect(field).toHaveValue(body)\n     |                        ^\n  39 |    await expect(page.getByRole('status').filter({hasText:'Cambio guardado. La conversación se ha actualizado.'})).toHaveCount(0)\n  40 |    await page.screenshot({path:info.outputPath(`inbox-${mode}-registered.png`)})\n  41 |    corrected=true;await retry.click()"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-readback.spec.ts",
+                        "column": 24,
+                        "line": 38
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeEnabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Comprobar la misma acción', exact: true })\nExpected: enabled\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeEnabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Comprobar la misma acción', exact: true })\u001b[22m\n\n\n  36 |    await info.attach('readback-observation',{body:JSON.stringify({mode,commands,readbacks}),contentType:'application/json'})\n  37 |    const retry=page.getByRole('button',{name:'Comprobar la misma acción',exact:true})\n> 38 |    await expect(retry).toBeEnabled();await expect(field).toBeDisabled();await expect(field).toHaveValue(body)\n     |                        ^\n  39 |    await expect(page.getByRole('status').filter({hasText:'Cambio guardado. La conversación se ha actualizado.'})).toHaveCount(0)\n  40 |    await page.screenshot({path:info.outputPath(`inbox-${mode}-registered.png`)})\n  41 |    corrected=true;await retry.click()\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-readback.spec.ts:38:24"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T06:03:48.692Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "readback-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoic3RhbGUiLCJjb21tYW5kcyI6W3sib3BlcmF0aW9uIjoibWVzc2FnZS5hZGRfaW50ZXJuYWxfbm90ZSIsImlucHV0Ijp7ImNvbW1hbmRfaWQiOiI3OGRmOTUzYy0zNGNhLTQyOTgtYmFhYS02NWM4NDFlYTQxZDEiLCJpZCI6IjEwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMSIsImV4cGVjdGVkX3ZlcnNpb24iOjEsImJvZHkiOiJOb3RhIHNpbnTDqXRpY2EgcGVuZGllbnRlIGRlIGNvbnN1bHRhIGNvaGVyZW50ZSJ9fV0sInJlYWRiYWNrcyI6MX0="
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\inbox-readback-attempt01\\artifacts\\inbox-readback-inbox-confi-a1485-res-coherent-stale-readback-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\inbox-readback-attempt01\\artifacts\\inbox-readback-inbox-confi-a1485-res-coherent-stale-readback-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\inbox-readback-attempt01\\artifacts\\inbox-readback-inbox-confi-a1485-res-coherent-stale-readback-controlled-http-1440\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-readback.spec.ts",
+                    "column": 24,
+                    "line": 38
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "5511968be3cb63a357d1-0b43d3d02ff9be819017",
+          "file": "inbox-readback.spec.ts",
+          "line": 7,
+          "column": 99
+        },
+        {
+          "title": "inbox confirmed receipt requires coherent wrong_status readback",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 7,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 4871,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeEnabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Comprobar la misma acción', exact: true })\nExpected: enabled\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeEnabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Comprobar la misma acción', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeEnabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Comprobar la misma acción', exact: true })\nExpected: enabled\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeEnabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Comprobar la misma acción', exact: true })\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-readback.spec.ts:38:24",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-readback.spec.ts",
+                      "column": 24,
+                      "line": 38
+                    },
+                    "snippet": "  36 |    await info.attach('readback-observation',{body:JSON.stringify({mode,commands,readbacks}),contentType:'application/json'})\n  37 |    const retry=page.getByRole('button',{name:'Comprobar la misma acción',exact:true})\n> 38 |    await expect(retry).toBeEnabled();await expect(field).toBeDisabled();await expect(field).toHaveValue(body)\n     |                        ^\n  39 |    await expect(page.getByRole('status').filter({hasText:'Cambio guardado. La conversación se ha actualizado.'})).toHaveCount(0)\n  40 |    await page.screenshot({path:info.outputPath(`inbox-${mode}-registered.png`)})\n  41 |    corrected=true;await retry.click()"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-readback.spec.ts",
+                        "column": 24,
+                        "line": 38
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeEnabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Comprobar la misma acción', exact: true })\nExpected: enabled\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeEnabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Comprobar la misma acción', exact: true })\u001b[22m\n\n\n  36 |    await info.attach('readback-observation',{body:JSON.stringify({mode,commands,readbacks}),contentType:'application/json'})\n  37 |    const retry=page.getByRole('button',{name:'Comprobar la misma acción',exact:true})\n> 38 |    await expect(retry).toBeEnabled();await expect(field).toBeDisabled();await expect(field).toHaveValue(body)\n     |                        ^\n  39 |    await expect(page.getByRole('status').filter({hasText:'Cambio guardado. La conversación se ha actualizado.'})).toHaveCount(0)\n  40 |    await page.screenshot({path:info.outputPath(`inbox-${mode}-registered.png`)})\n  41 |    corrected=true;await retry.click()\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-readback.spec.ts:38:24"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T06:03:59.380Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "readback-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoid3Jvbmdfc3RhdHVzIiwiY29tbWFuZHMiOlt7Im9wZXJhdGlvbiI6Im1lc3NhZ2UuYWRkX2ludGVybmFsX25vdGUiLCJpbnB1dCI6eyJjb21tYW5kX2lkIjoiNDI3MzM3ZmUtYjI0Yi00ZGNmLTk4ZTgtNjkwOTE0YmU5NzRlIiwiaWQiOiIxMDAwMDAwMC0wMDAwLTQwMDAtODAwMC0wMDAwMDAwMDAwMDEiLCJleHBlY3RlZF92ZXJzaW9uIjoxLCJib2R5IjoiTm90YSBzaW50w6l0aWNhIHBlbmRpZW50ZSBkZSBjb25zdWx0YSBjb2hlcmVudGUifX1dLCJyZWFkYmFja3MiOjF9"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\inbox-readback-attempt01\\artifacts\\inbox-readback-inbox-confi-952fd-erent-wrong-status-readback-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\inbox-readback-attempt01\\artifacts\\inbox-readback-inbox-confi-952fd-erent-wrong-status-readback-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\inbox-readback-attempt01\\artifacts\\inbox-readback-inbox-confi-952fd-erent-wrong-status-readback-controlled-http-1440\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-readback.spec.ts",
+                    "column": 24,
+                    "line": 38
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "5511968be3cb63a357d1-f426781fde1be916debf",
+          "file": "inbox-readback.spec.ts",
+          "line": 7,
+          "column": 99
+        },
+        {
+          "title": "inbox confirmed receipt requires coherent exact readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 8,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 923,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T06:04:10.094Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5511968be3cb63a357d1-412e63a3decf3a6a3e9f",
+          "file": "inbox-readback.spec.ts",
+          "line": 7,
+          "column": 99
+        },
+        {
+          "title": "inbox confirmed receipt requires coherent newer readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 8,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 826,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T06:04:15.343Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5511968be3cb63a357d1-3ee940c13a617f61fe76",
+          "file": "inbox-readback.spec.ts",
+          "line": 7,
+          "column": 99
+        },
+        {
+          "title": "inbox confirmed receipt requires coherent mark_read readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 8,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 771,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T06:04:16.199Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5511968be3cb63a357d1-f871c0465334118ef4b9",
+          "file": "inbox-readback.spec.ts",
+          "line": 7,
+          "column": 99
+        },
+        {
+          "title": "inbox confirmed receipt requires coherent mark_unread readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 8,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 948,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T06:04:17.009Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5511968be3cb63a357d1-b2591bd50d9d8ec97c6e",
+          "file": "inbox-readback.spec.ts",
+          "line": 7,
+          "column": 99
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-20T06:02:48.268Z",
+    "duration": 90116.36200000001,
+    "expected": 12,
+    "skipped": 0,
+    "unexpected": 6,
+    "flaky": 0
+  }
+}

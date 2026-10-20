@@ -1,0 +1,241 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "-c",
+      "tools/oier_commercial_qa/inbox-readback.config.ts",
+      "--grep",
+      "coherent stale readback"
+    ],
+    "configFile": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-readback.config.ts",
+    "rootDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-commercial-20261020/tools/oier_commercial_qa",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-commercial-20261020/inbox-readback-attempt02/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "controlled-http-390",
+        "name": "controlled-http-390",
+        "testDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-commercial-20261020/tools/oier_commercial_qa",
+        "testIgnore": [],
+        "testMatch": [
+          "inbox-readback.spec.ts"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-commercial-20261020/inbox-readback-attempt02/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "controlled-http-768",
+        "name": "controlled-http-768",
+        "testDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-commercial-20261020/tools/oier_commercial_qa",
+        "testIgnore": [],
+        "testMatch": [
+          "inbox-readback.spec.ts"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-commercial-20261020/inbox-readback-attempt02/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "controlled-http-1440",
+        "name": "controlled-http-1440",
+        "testDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-commercial-20261020/tools/oier_commercial_qa",
+        "testIgnore": [],
+        "testMatch": [
+          "inbox-readback.spec.ts"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "line",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\inbox-readback-attempt02\\results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.61.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "inbox-readback.spec.ts",
+      "file": "inbox-readback.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "inbox confirmed receipt requires coherent stale readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1832,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T06:12:37.354Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "readback-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoic3RhbGUiLCJjb21tYW5kcyI6W3sib3BlcmF0aW9uIjoibWVzc2FnZS5hZGRfaW50ZXJuYWxfbm90ZSIsImlucHV0Ijp7ImNvbW1hbmRfaWQiOiI1NjJmNzIwZC0xMjQwLTQ1YjktOTU0Mi0xMTY3NzI4MDliMTgiLCJpZCI6IjEwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMSIsImV4cGVjdGVkX3ZlcnNpb24iOjEsImJvZHkiOiJOb3RhIHNpbnTDqXRpY2EgcGVuZGllbnRlIGRlIGNvbnN1bHRhIGNvaGVyZW50ZSJ9fV0sInJlYWRiYWNrcyI6MX0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5511968be3cb63a357d1-ad807502eb553361f26d",
+          "file": "inbox-readback.spec.ts",
+          "line": 7,
+          "column": 99
+        },
+        {
+          "title": "inbox confirmed receipt requires coherent stale readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1105,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T06:12:44.776Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "readback-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoic3RhbGUiLCJjb21tYW5kcyI6W3sib3BlcmF0aW9uIjoibWVzc2FnZS5hZGRfaW50ZXJuYWxfbm90ZSIsImlucHV0Ijp7ImNvbW1hbmRfaWQiOiJiZTc5MGNmZS0yZmE2LTRkNzMtYjYzOC1lMzFhMTExNjg3NWIiLCJpZCI6IjEwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMSIsImV4cGVjdGVkX3ZlcnNpb24iOjEsImJvZHkiOiJOb3RhIHNpbnTDqXRpY2EgcGVuZGllbnRlIGRlIGNvbnN1bHRhIGNvaGVyZW50ZSJ9fV0sInJlYWRiYWNrcyI6MX0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5511968be3cb63a357d1-ea02206f3d80f55da316",
+          "file": "inbox-readback.spec.ts",
+          "line": 7,
+          "column": 99
+        },
+        {
+          "title": "inbox confirmed receipt requires coherent stale readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1139,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T06:12:51.315Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "readback-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoic3RhbGUiLCJjb21tYW5kcyI6W3sib3BlcmF0aW9uIjoibWVzc2FnZS5hZGRfaW50ZXJuYWxfbm90ZSIsImlucHV0Ijp7ImNvbW1hbmRfaWQiOiJjNDFjZGM4Ny0xYzAyLTRhZWItYjYwMS0zODZjMDBjZWQ2ZDIiLCJpZCI6IjEwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMSIsImV4cGVjdGVkX3ZlcnNpb24iOjEsImJvZHkiOiJOb3RhIHNpbnTDqXRpY2EgcGVuZGllbnRlIGRlIGNvbnN1bHRhIGNvaGVyZW50ZSJ9fV0sInJlYWRiYWNrcyI6MX0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5511968be3cb63a357d1-0b43d3d02ff9be819017",
+          "file": "inbox-readback.spec.ts",
+          "line": 7,
+          "column": 99
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-20T06:12:36.718Z",
+    "duration": 20534.427,
+    "expected": 3,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}
