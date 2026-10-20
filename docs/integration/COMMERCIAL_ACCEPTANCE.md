@@ -28,7 +28,10 @@ factura se distingue del artefacto privado almacenado bloqueado por Storage P0.
 
 Catálogo simple publica precios mensuales, fechas y un componente base explícito;
 no inventa prestaciones, bundles, activación de proveedor o cambios a contratos
-vendidos. El nuevo test de persistencia real-local todavía requiere su CI.
+vendidos. La primera CI100bf conserva113UI PASS/2TIMEOUT: el nuevo recorrido
+de catálogo no alcanzó publicación, bloqueado con panel de operador abierto;
+la búsqueda móvil de cartera falló por separado. No es aceptación de persistencia.
+La revisión del recorrido exige una nueva ejecución real-local y después cloud.
 
 Seguimiento24: el aviso de cohorte ausente se reprodujo en Next local hidratado,
 con query consumida e input habilitado. Aviso persistente fijo:1FAIL→9PASS en tres

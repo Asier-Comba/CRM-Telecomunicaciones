@@ -15,6 +15,15 @@ W5 conserva loaders/manifiestos, hosting, SQL, Storage, despliegue y rollback.
 Oier conserva ejecución QA independiente, sus bancos y reproducciones. Work
 compone únicamente en PR156 y no fusiona main ni ramas ajenas.
 
+REQUEST6293211515 concreta ENV_INVENTORY_DRIFT: flag/cohorte faltantes,
+AI_PROVIDER/OPENAI_PROJECT_ID sobrantes, consumidores y86→87. El validador W5
+no reconoce uuid_csv y acepta sintácticamente wildcard/duplicados/padding,
+mientras el parser de aplicación los rechaza. Sin bypass demostrado; W5 debe
+cerrar gramática/required_when/targets y negativos, sin regeneración ciega.
+CLAIM6293459620 acota la independencia del nuevo recorrido catálogo;
+REQUEST6293547120 entrega el fallo móvil de cartera a QA con fuente/capturas,
+sin ampliar presupuestos ni atribuir causa por sus etiquetas de carga.
+
 Solicitudes concretas pendientes: W5 cierre de165/manifiesto de entorno y entrega
 de deploy/config/build/ventana; acceso legítimo independiente y A/B admitidos;
 propietarios identifican revisor independiente disponible y alcance Auth/cohorte/

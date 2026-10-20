@@ -6,6 +6,16 @@ The exact commit/tree and latest CI are recorded in issue67 after each publicati
 
 ## Candidate summary
 
+Checkpoint100bf is now terminal, without cancellation: preview union710PASS,
+bootstrap664PASS, assistant827PASS, build/types44PASS; quality ultimately fails
+the five HIGH audit findings. Native87 fresh/restore schema, rows, RLS, scope,
+320-function privilege matrix, role calls and ACL-loss negative control PASS.
+The separate W5profile87 also PASS13 controls, completion/restart/teardown;
+full23 and verifiedAbsence remain NOT_RUN. Supabase39435611024 has87migrations,
+4042backend,113UI PASS and two TIMEOUT: mobile portfolio bounded search and the
+new catalog publication journey. Identity/session cleanup and teardown PASS,
+server exit0. This is FAIL, not115PASS. The new source requires its own CI.
+
 Product/check source `96f64699dcc76a464beced28f047d928d516ccba`,
 tree `86c6fc4338215a49ee0d15c94f3993eb82db2210`. Subsequent documentary/configuration
 checkpoint is pinned in issue67; do not infer its pending CI from these checks.
@@ -176,7 +186,24 @@ The initial custom observer failed automatic server shutdown: its verified own
 PID21308 tree was manually closed and port63042 verified free, not teardownPASS.
 The first new test config used a wrong cwd (MODULE_NOT_FOUND), retained unqualified;
 the repaired before02/after01 kept expectations/timeouts. After01 port52424 free.
-This follow-up is queued behind the active100bf CI; no push/cancellation while active.
+All100bf workflows finished before this follow-up publication; none was cancelled.
+
+## Unit25: independent catalog publication journey
+
+The failed100bf synthetic screenshot shows an operator drawer intercepting the
+next tab click. The exported journey reproduces that captured precondition with
+the actual component/repository and controlled HTTP: before02 fails at that click.
+It now starts at the ordinary /catalog route, selects its created operator and
+keeps exact receipt, immutable terms and reload/readback assertions. Fixed phases
+are logged without IDs, credentials or response bodies. No product/SQL change.
+Qualified final after04:4PASS (one journey at1440 plus three existing term-scope
+regressions at390/768/1440); TypeScript PASS. Earlier after03 runs the same helper
+three times at1440, not three-width acceptance. Initial before01 browser-path,
+after01 syntax and after02 encoding setup failures remain unqualified evidence.
+The first lint attempt referenced the test path moved into canonical preview
+collection and fails ENOENT; the final-path lint is recorded separately.
+The first100bf real-local catalog TIMEOUT and mobile portfolio TIMEOUT remain FAIL.
+Only a new exact-source physical run can qualify this helper and publication.
 
 ## Work in order
 
