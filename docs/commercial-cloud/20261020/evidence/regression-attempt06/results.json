@@ -1,0 +1,1287 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--config",
+      "tools/oier_commercial_qa/regression.config.ts"
+    ],
+    "configFile": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\regression.config.ts",
+    "rootDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-commercial-20261020/tests/e2e-preview",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-commercial-20261020/regression-attempt06/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "controlled-http-existing-commercial",
+        "name": "controlled-http-existing-commercial",
+        "testDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-commercial-20261020/tests/e2e-preview",
+        "testIgnore": [],
+        "testMatch": [
+          "portfolio-selection-race.spec.ts",
+          "portfolio-reference-close.spec.ts",
+          "case-note-pagination.spec.ts",
+          "calendar-selection-scope.spec.ts",
+          "calendar-agenda-focus.spec.ts",
+          "document-current-selection.spec.ts"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "line",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\regression-attempt06\\results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.61.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "calendar-agenda-focus.spec.ts",
+      "file": "calendar-agenda-focus.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "calendar agenda stays primary and filters remain usable at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 11627,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:31:01.551Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "calendar-agenda-initial-390",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\regression-attempt06\\artifacts\\calendar-agenda-focus-cale-a2e44-ilters-remain-usable-at-390-controlled-http-existing-commercial\\attachments\\calendar-agenda-initial-390-ba088cabb34ebde62cbfcb7e5d8c4534933e3edc.png"
+                    },
+                    {
+                      "name": "calendar-agenda-focus-390",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\regression-attempt06\\artifacts\\calendar-agenda-focus-cale-a2e44-ilters-remain-usable-at-390-controlled-http-existing-commercial\\attachments\\calendar-agenda-focus-390-5d8e932d10c0860f4515085a5aa27704654ef91d.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "29ffa7a96311c8539975-51843b3794ceccb6091b",
+          "file": "calendar-agenda-focus.spec.ts",
+          "line": 4,
+          "column": 39
+        },
+        {
+          "title": "calendar agenda stays primary and filters remain usable at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2207,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:31:13.907Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "calendar-agenda-initial-768",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\regression-attempt06\\artifacts\\calendar-agenda-focus-cale-3e456-ilters-remain-usable-at-768-controlled-http-existing-commercial\\attachments\\calendar-agenda-initial-768-0c7ea1611cdaec4c5dce4f0f2fc01f212572d3fe.png"
+                    },
+                    {
+                      "name": "calendar-agenda-focus-768",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\regression-attempt06\\artifacts\\calendar-agenda-focus-cale-3e456-ilters-remain-usable-at-768-controlled-http-existing-commercial\\attachments\\calendar-agenda-focus-768-dcdf1f53dfc0ddf79899361328d7fd2b035cbd4c.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "29ffa7a96311c8539975-7dab450ab465a9edb49e",
+          "file": "calendar-agenda-focus.spec.ts",
+          "line": 4,
+          "column": 39
+        },
+        {
+          "title": "calendar agenda stays primary and filters remain usable at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1751,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:31:16.163Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "calendar-agenda-initial-1440",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\regression-attempt06\\artifacts\\calendar-agenda-focus-cale-0cb8d-lters-remain-usable-at-1440-controlled-http-existing-commercial\\attachments\\calendar-agenda-initial-1440-36a45a09de6d24926a44d3c5e88525469b19921e.png"
+                    },
+                    {
+                      "name": "calendar-agenda-focus-1440",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\regression-attempt06\\artifacts\\calendar-agenda-focus-cale-0cb8d-lters-remain-usable-at-1440-controlled-http-existing-commercial\\attachments\\calendar-agenda-focus-1440-60f82bdb37e30f50b3c3a3a42fde6f514eee1759.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "29ffa7a96311c8539975-3da26f3a76ec5b5afbdc",
+          "file": "calendar-agenda-focus.spec.ts",
+          "line": 4,
+          "column": 39
+        }
+      ]
+    },
+    {
+      "title": "calendar-selection-scope.spec.ts",
+      "file": "calendar-selection-scope.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "calendar selection late_success keeps the latest task at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 9766,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:31:17.979Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3386c5637c7be854c2c5-8e669f8ce61ac6af413c",
+          "file": "calendar-selection-scope.spec.ts",
+          "line": 5,
+          "column": 107
+        },
+        {
+          "title": "calendar selection late_success keeps the latest task at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1977,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:31:27.783Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3386c5637c7be854c2c5-d1ff2941f3df0ce81740",
+          "file": "calendar-selection-scope.spec.ts",
+          "line": 5,
+          "column": 107
+        },
+        {
+          "title": "calendar selection late_success keeps the latest task at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1794,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:31:29.810Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3386c5637c7be854c2c5-46051680959b66a19706",
+          "file": "calendar-selection-scope.spec.ts",
+          "line": 5,
+          "column": 107
+        },
+        {
+          "title": "calendar selection late_refusal keeps the latest task at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1523,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:31:31.643Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3386c5637c7be854c2c5-01bf743834130d468f5e",
+          "file": "calendar-selection-scope.spec.ts",
+          "line": 5,
+          "column": 107
+        },
+        {
+          "title": "calendar selection late_refusal keeps the latest task at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1638,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:31:33.200Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3386c5637c7be854c2c5-49049c8cb9895cf10823",
+          "file": "calendar-selection-scope.spec.ts",
+          "line": 5,
+          "column": 107
+        },
+        {
+          "title": "calendar selection late_refusal keeps the latest task at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1658,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:31:34.878Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3386c5637c7be854c2c5-f565a903c896f2605b1f",
+          "file": "calendar-selection-scope.spec.ts",
+          "line": 5,
+          "column": 107
+        },
+        {
+          "title": "calendar selection current_refusal keeps the latest task at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1421,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:31:36.572Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3386c5637c7be854c2c5-900d7e36d6dff3be76f9",
+          "file": "calendar-selection-scope.spec.ts",
+          "line": 5,
+          "column": 107
+        },
+        {
+          "title": "calendar selection current_refusal keeps the latest task at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1518,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:31:38.023Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3386c5637c7be854c2c5-222674a42c51ed53c797",
+          "file": "calendar-selection-scope.spec.ts",
+          "line": 5,
+          "column": 107
+        },
+        {
+          "title": "calendar selection current_refusal keeps the latest task at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1830,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:31:39.575Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3386c5637c7be854c2c5-b1671ea73f58a42d3c88",
+          "file": "calendar-selection-scope.spec.ts",
+          "line": 5,
+          "column": 107
+        }
+      ]
+    },
+    {
+      "title": "case-note-pagination.spec.ts",
+      "file": "case-note-pagination.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "private note cursor keeps keyboard focus and removes refused content at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 11770,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:31:41.458Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "929ec9bad845b6df977b-364db5c93e6bf5dcf819",
+          "file": "case-note-pagination.spec.ts",
+          "line": 10,
+          "column": 39
+        },
+        {
+          "title": "private note cursor keeps keyboard focus and removes refused content at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2301,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:31:53.269Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "929ec9bad845b6df977b-48ab9a2b15420dcd6ad6",
+          "file": "case-note-pagination.spec.ts",
+          "line": 10,
+          "column": 39
+        },
+        {
+          "title": "private note cursor keeps keyboard focus and removes refused content at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2070,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:31:55.613Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "929ec9bad845b6df977b-1a73ba6e6626d174d347",
+          "file": "case-note-pagination.spec.ts",
+          "line": 10,
+          "column": 39
+        }
+      ]
+    },
+    {
+      "title": "document-current-selection.spec.ts",
+      "file": "document-current-selection.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "document metadata keeps current selection on latest_success",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1003,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:31:57.758Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a039e762f9db1044320f-12f2c2bee3fb5e15ad29",
+          "file": "document-current-selection.spec.ts",
+          "line": 39,
+          "column": 6
+        },
+        {
+          "title": "document metadata keeps current selection on late_error",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 720,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:31:58.811Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a039e762f9db1044320f-62825e5b4a21805cf423",
+          "file": "document-current-selection.spec.ts",
+          "line": 39,
+          "column": 6
+        },
+        {
+          "title": "document metadata keeps current selection on closed",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 811,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:31:59.562Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a039e762f9db1044320f-a513089e2cbc43af2dd3",
+          "file": "document-current-selection.spec.ts",
+          "line": 39,
+          "column": 6
+        },
+        {
+          "title": "document metadata keeps current selection on target_changed",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1099,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:32:00.408Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a039e762f9db1044320f-9524f743a485898ff20f",
+          "file": "document-current-selection.spec.ts",
+          "line": 39,
+          "column": 6
+        },
+        {
+          "title": "document metadata keeps current selection on role_revoked",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 668,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:32:01.549Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a039e762f9db1044320f-0dc6df4c23a485aeb556",
+          "file": "document-current-selection.spec.ts",
+          "line": 39,
+          "column": 6
+        },
+        {
+          "title": "document metadata keeps current selection on unmounted",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1345,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:32:02.266Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a039e762f9db1044320f-dc6e7d9f95ea28d4f66d",
+          "file": "document-current-selection.spec.ts",
+          "line": 39,
+          "column": 6
+        },
+        {
+          "title": "document metadata keeps current selection on refresh_success",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 788,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:32:03.664Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a039e762f9db1044320f-371ae1d4be9da0e60693",
+          "file": "document-current-selection.spec.ts",
+          "line": 39,
+          "column": 6
+        },
+        {
+          "title": "document metadata keeps current selection on refresh_failure",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 637,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:32:04.500Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a039e762f9db1044320f-0b3ac98aa6ded4e4233e",
+          "file": "document-current-selection.spec.ts",
+          "line": 39,
+          "column": 6
+        },
+        {
+          "title": "document metadata keeps current selection on loaded_replace_success",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 696,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:32:05.163Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a039e762f9db1044320f-665bcd20c9bc093be394",
+          "file": "document-current-selection.spec.ts",
+          "line": 39,
+          "column": 6
+        },
+        {
+          "title": "document metadata keeps current selection on loaded_replace_failure",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 820,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:32:05.897Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a039e762f9db1044320f-9a15aba84177cb4d6944",
+          "file": "document-current-selection.spec.ts",
+          "line": 39,
+          "column": 6
+        },
+        {
+          "title": "document metadata keeps current selection on refresh_access_denied",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 831,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:32:06.779Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a039e762f9db1044320f-993d76b225938ba69a12",
+          "file": "document-current-selection.spec.ts",
+          "line": 39,
+          "column": 6
+        },
+        {
+          "title": "document metadata keeps current selection on refresh_not_found",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 831,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:32:07.652Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a039e762f9db1044320f-4e8af321d21356436f4c",
+          "file": "document-current-selection.spec.ts",
+          "line": 39,
+          "column": 6
+        }
+      ]
+    },
+    {
+      "title": "portfolio-reference-close.spec.ts",
+      "file": "portfolio-reference-close.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "a closed portfolio reference stays closed across an unchanged parent context at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 9700,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:32:08.542Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "696f9203e76b1308d406-780d1a875edaffb4f059",
+          "file": "portfolio-reference-close.spec.ts",
+          "line": 8,
+          "column": 39
+        },
+        {
+          "title": "a closed portfolio reference stays closed across an unchanged parent context at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1466,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:32:18.269Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "696f9203e76b1308d406-5ad68f6368c3d64f6519",
+          "file": "portfolio-reference-close.spec.ts",
+          "line": 8,
+          "column": 39
+        },
+        {
+          "title": "a closed portfolio reference stays closed across an unchanged parent context at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1569,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:32:19.767Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "696f9203e76b1308d406-52020309fdf730dfa9f8",
+          "file": "portfolio-reference-close.spec.ts",
+          "line": 8,
+          "column": 39
+        }
+      ]
+    },
+    {
+      "title": "portfolio-selection-race.spec.ts",
+      "file": "portfolio-selection-race.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "portfolio last requested asset survives a late earlier read at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1120,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:32:21.386Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7003889d8e0c06c3c907-93ef3d6e3524ea8f87d0",
+          "file": "portfolio-selection-race.spec.ts",
+          "line": 12,
+          "column": 39
+        },
+        {
+          "title": "portfolio last requested asset survives a late earlier read at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1442,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:32:22.532Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7003889d8e0c06c3c907-933bf24ac3ed5f29ac05",
+          "file": "portfolio-selection-race.spec.ts",
+          "line": 12,
+          "column": 39
+        },
+        {
+          "title": "portfolio last requested asset survives a late earlier read at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-commercial",
+              "projectName": "controlled-http-existing-commercial",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1616,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:32:24.000Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7003889d8e0c06c3c907-4a388583aa15e5265f65",
+          "file": "portfolio-selection-race.spec.ts",
+          "line": 12,
+          "column": 39
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-20T00:31:00.413Z",
+    "duration": 86181.443,
+    "expected": 33,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

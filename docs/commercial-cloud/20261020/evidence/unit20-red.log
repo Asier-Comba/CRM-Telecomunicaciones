@@ -1,0 +1,152 @@
+
+Running 6 tests using 1 worker
+
+
+
+(node:2944) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1/6] [controlled-http-390] › tools\oier_commercial_qa\contract-shortcut.spec.ts:9:64 › new manual contract follows the shortcut intent
+  1) [controlled-http-390] › tools\oier_commercial_qa\contract-shortcut.spec.ts:9:64 › new manual contract follows the shortcut intent 
+
+    Error: expect(locator).toHaveValue(expected) failed
+
+    Locator:  getByRole('dialog').getByRole('combobox', { name: 'Tipo de registro', exact: true })
+    Expected: "contract"
+    Received: "service"
+    Timeout:  4000ms
+
+    Call log:
+      - Expect "toHaveValue" with timeout 4000ms
+      - waiting for getByRole('dialog').getByRole('combobox', { name: 'Tipo de registro', exact: true })
+        12 × locator resolved to <select aria-label="Tipo de registro" class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 w-full">…</select>
+           - unexpected value "service"
+
+
+      33 |   if(mode==='manual_selection')await kind.selectOption('contract')
+      34 |   await info.attach('creation-kind-observation',{body:JSON.stringify({mode,selectedKind:await kind.inputValue(),commands}),contentType:'application/json'})
+    > 35 |   await expect(kind).toHaveValue('contract')
+         |                      ^
+      36 |   await expect(drawer.getByRole('combobox',{name:'Cliente del contrato',exact:true})).toHaveValue(customer)
+      37 |   await expect(drawer.getByLabel('Nombre del nuevo activo',{exact:true})).toHaveCount(0)
+      38 |   await drawer.getByLabel('Fecha de inicio',{exact:true}).fill(created.start_date)
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\contract-shortcut.spec.ts:35:22
+
+    Error Context: ..\oier-commercial-20261020\contract-attempt01\artifacts\contract-shortcut-new-manu-e7909-follows-the-shortcut-intent-controlled-http-390\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\contract-attempt01\artifacts\contract-shortcut-new-manu-e7909-follows-the-shortcut-intent-controlled-http-390\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\contract-attempt01\artifacts\contract-shortcut-new-manu-e7909-follows-the-shortcut-intent-controlled-http-390\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\contract-attempt01\artifacts\contract-shortcut-new-manu-e7909-follows-the-shortcut-intent-controlled-http-390\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+(node:31604) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[2/6] [controlled-http-390] › tools\oier_commercial_qa\contract-shortcut.spec.ts:9:64 › new manual contract follows the manual_selection intent
+
+(node:31324) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[3/6] [controlled-http-768] › tools\oier_commercial_qa\contract-shortcut.spec.ts:9:64 › new manual contract follows the shortcut intent
+  2) [controlled-http-768] › tools\oier_commercial_qa\contract-shortcut.spec.ts:9:64 › new manual contract follows the shortcut intent 
+
+    Error: expect(locator).toHaveValue(expected) failed
+
+    Locator:  getByRole('dialog').getByRole('combobox', { name: 'Tipo de registro', exact: true })
+    Expected: "contract"
+    Received: "service"
+    Timeout:  4000ms
+
+    Call log:
+      - Expect "toHaveValue" with timeout 4000ms
+      - waiting for getByRole('dialog').getByRole('combobox', { name: 'Tipo de registro', exact: true })
+        12 × locator resolved to <select aria-label="Tipo de registro" class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 w-full">…</select>
+           - unexpected value "service"
+
+
+      33 |   if(mode==='manual_selection')await kind.selectOption('contract')
+      34 |   await info.attach('creation-kind-observation',{body:JSON.stringify({mode,selectedKind:await kind.inputValue(),commands}),contentType:'application/json'})
+    > 35 |   await expect(kind).toHaveValue('contract')
+         |                      ^
+      36 |   await expect(drawer.getByRole('combobox',{name:'Cliente del contrato',exact:true})).toHaveValue(customer)
+      37 |   await expect(drawer.getByLabel('Nombre del nuevo activo',{exact:true})).toHaveCount(0)
+      38 |   await drawer.getByLabel('Fecha de inicio',{exact:true}).fill(created.start_date)
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\contract-shortcut.spec.ts:35:22
+
+    Error Context: ..\oier-commercial-20261020\contract-attempt01\artifacts\contract-shortcut-new-manu-e7909-follows-the-shortcut-intent-controlled-http-768\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\contract-attempt01\artifacts\contract-shortcut-new-manu-e7909-follows-the-shortcut-intent-controlled-http-768\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\contract-attempt01\artifacts\contract-shortcut-new-manu-e7909-follows-the-shortcut-intent-controlled-http-768\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\contract-attempt01\artifacts\contract-shortcut-new-manu-e7909-follows-the-shortcut-intent-controlled-http-768\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+(node:32716) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[4/6] [controlled-http-768] › tools\oier_commercial_qa\contract-shortcut.spec.ts:9:64 › new manual contract follows the manual_selection intent
+(node:32812) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[5/6] [controlled-http-1440] › tools\oier_commercial_qa\contract-shortcut.spec.ts:9:64 › new manual contract follows the shortcut intent
+  3) [controlled-http-1440] › tools\oier_commercial_qa\contract-shortcut.spec.ts:9:64 › new manual contract follows the shortcut intent 
+
+    Error: expect(locator).toHaveValue(expected) failed
+
+    Locator:  getByRole('dialog').getByRole('combobox', { name: 'Tipo de registro', exact: true })
+    Expected: "contract"
+    Received: "service"
+    Timeout:  4000ms
+
+    Call log:
+      - Expect "toHaveValue" with timeout 4000ms
+      - waiting for getByRole('dialog').getByRole('combobox', { name: 'Tipo de registro', exact: true })
+        12 × locator resolved to <select aria-label="Tipo de registro" class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 w-full">…</select>
+           - unexpected value "service"
+
+
+      33 |   if(mode==='manual_selection')await kind.selectOption('contract')
+      34 |   await info.attach('creation-kind-observation',{body:JSON.stringify({mode,selectedKind:await kind.inputValue(),commands}),contentType:'application/json'})
+    > 35 |   await expect(kind).toHaveValue('contract')
+         |                      ^
+      36 |   await expect(drawer.getByRole('combobox',{name:'Cliente del contrato',exact:true})).toHaveValue(customer)
+      37 |   await expect(drawer.getByLabel('Nombre del nuevo activo',{exact:true})).toHaveCount(0)
+      38 |   await drawer.getByLabel('Fecha de inicio',{exact:true}).fill(created.start_date)
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\contract-shortcut.spec.ts:35:22
+
+    Error Context: ..\oier-commercial-20261020\contract-attempt01\artifacts\contract-shortcut-new-manu-e7909-follows-the-shortcut-intent-controlled-http-1440\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\contract-attempt01\artifacts\contract-shortcut-new-manu-e7909-follows-the-shortcut-intent-controlled-http-1440\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\contract-attempt01\artifacts\contract-shortcut-new-manu-e7909-follows-the-shortcut-intent-controlled-http-1440\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\contract-attempt01\artifacts\contract-shortcut-new-manu-e7909-follows-the-shortcut-intent-controlled-http-1440\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:30988) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[6/6] [controlled-http-1440] › tools\oier_commercial_qa\contract-shortcut.spec.ts:9:64 › new manual contract follows the manual_selection intent
+  3 failed
+    [controlled-http-390] › tools\oier_commercial_qa\contract-shortcut.spec.ts:9:64 › new manual contract follows the shortcut intent 
+    [controlled-http-768] › tools\oier_commercial_qa\contract-shortcut.spec.ts:9:64 › new manual contract follows the shortcut intent 
+    [controlled-http-1440] › tools\oier_commercial_qa\contract-shortcut.spec.ts:9:64 › new manual contract follows the shortcut intent 
+  3 passed (59.9s)

@@ -1,0 +1,476 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--config",
+      "tools/oier_commercial_qa/contract.config.ts"
+    ],
+    "configFile": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\contract.config.ts",
+    "rootDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-commercial-20261020/tools/oier_commercial_qa",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-commercial-20261020/contract-attempt01/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "controlled-http-390",
+        "name": "controlled-http-390",
+        "testDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-commercial-20261020/tools/oier_commercial_qa",
+        "testIgnore": [],
+        "testMatch": [
+          "contract-shortcut.spec.ts"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-commercial-20261020/contract-attempt01/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "controlled-http-768",
+        "name": "controlled-http-768",
+        "testDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-commercial-20261020/tools/oier_commercial_qa",
+        "testIgnore": [],
+        "testMatch": [
+          "contract-shortcut.spec.ts"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-commercial-20261020/contract-attempt01/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "controlled-http-1440",
+        "name": "controlled-http-1440",
+        "testDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-commercial-20261020/tools/oier_commercial_qa",
+        "testIgnore": [],
+        "testMatch": [
+          "contract-shortcut.spec.ts"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "line",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\contract-attempt01\\results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.61.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "contract-shortcut.spec.ts",
+      "file": "contract-shortcut.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "new manual contract follows the shortcut intent",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5008,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveValue\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog').getByRole('combobox', { name: 'Tipo de registro', exact: true })\nExpected: \u001b[32m\"contract\"\u001b[39m\nReceived: \u001b[31m\"service\"\u001b[39m\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveValue\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog').getByRole('combobox', { name: 'Tipo de registro', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <select aria-label=\"Tipo de registro\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 w-full\">…</select>\u001b[22m\n\u001b[2m       - unexpected value \"service\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveValue\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog').getByRole('combobox', { name: 'Tipo de registro', exact: true })\nExpected: \u001b[32m\"contract\"\u001b[39m\nReceived: \u001b[31m\"service\"\u001b[39m\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveValue\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog').getByRole('combobox', { name: 'Tipo de registro', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <select aria-label=\"Tipo de registro\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 w-full\">…</select>\u001b[22m\n\u001b[2m       - unexpected value \"service\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\contract-shortcut.spec.ts:35:22",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\contract-shortcut.spec.ts",
+                      "column": 22,
+                      "line": 35
+                    },
+                    "snippet": "  33 |   if(mode==='manual_selection')await kind.selectOption('contract')\n  34 |   await info.attach('creation-kind-observation',{body:JSON.stringify({mode,selectedKind:await kind.inputValue(),commands}),contentType:'application/json'})\n> 35 |   await expect(kind).toHaveValue('contract')\n     |                      ^\n  36 |   await expect(drawer.getByRole('combobox',{name:'Cliente del contrato',exact:true})).toHaveValue(customer)\n  37 |   await expect(drawer.getByLabel('Nombre del nuevo activo',{exact:true})).toHaveCount(0)\n  38 |   await drawer.getByLabel('Fecha de inicio',{exact:true}).fill(created.start_date)"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\contract-shortcut.spec.ts",
+                        "column": 22,
+                        "line": 35
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveValue\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog').getByRole('combobox', { name: 'Tipo de registro', exact: true })\nExpected: \u001b[32m\"contract\"\u001b[39m\nReceived: \u001b[31m\"service\"\u001b[39m\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveValue\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog').getByRole('combobox', { name: 'Tipo de registro', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <select aria-label=\"Tipo de registro\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 w-full\">…</select>\u001b[22m\n\u001b[2m       - unexpected value \"service\"\u001b[22m\n\n\n  33 |   if(mode==='manual_selection')await kind.selectOption('contract')\n  34 |   await info.attach('creation-kind-observation',{body:JSON.stringify({mode,selectedKind:await kind.inputValue(),commands}),contentType:'application/json'})\n> 35 |   await expect(kind).toHaveValue('contract')\n     |                      ^\n  36 |   await expect(drawer.getByRole('combobox',{name:'Cliente del contrato',exact:true})).toHaveValue(customer)\n  37 |   await expect(drawer.getByLabel('Nombre del nuevo activo',{exact:true})).toHaveCount(0)\n  38 |   await drawer.getByLabel('Fecha de inicio',{exact:true}).fill(created.start_date)\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\contract-shortcut.spec.ts:35:22"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:20:38.280Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "creation-kind-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoic2hvcnRjdXQiLCJzZWxlY3RlZEtpbmQiOiJzZXJ2aWNlIiwiY29tbWFuZHMiOltdfQ=="
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\contract-attempt01\\artifacts\\contract-shortcut-new-manu-e7909-follows-the-shortcut-intent-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\contract-attempt01\\artifacts\\contract-shortcut-new-manu-e7909-follows-the-shortcut-intent-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\contract-attempt01\\artifacts\\contract-shortcut-new-manu-e7909-follows-the-shortcut-intent-controlled-http-390\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\contract-shortcut.spec.ts",
+                    "column": 22,
+                    "line": 35
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "475224eda11e250370f3-3dde2f6f87cda254d0fd",
+          "file": "contract-shortcut.spec.ts",
+          "line": 9,
+          "column": 64
+        },
+        {
+          "title": "new manual contract follows the manual_selection intent",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1227,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:20:50.459Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "creation-kind-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoibWFudWFsX3NlbGVjdGlvbiIsInNlbGVjdGVkS2luZCI6ImNvbnRyYWN0IiwiY29tbWFuZHMiOltdfQ=="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "475224eda11e250370f3-e4338e81950c5b0fbc76",
+          "file": "contract-shortcut.spec.ts",
+          "line": 9,
+          "column": 64
+        },
+        {
+          "title": "new manual contract follows the shortcut intent",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5157,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveValue\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog').getByRole('combobox', { name: 'Tipo de registro', exact: true })\nExpected: \u001b[32m\"contract\"\u001b[39m\nReceived: \u001b[31m\"service\"\u001b[39m\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveValue\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog').getByRole('combobox', { name: 'Tipo de registro', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <select aria-label=\"Tipo de registro\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 w-full\">…</select>\u001b[22m\n\u001b[2m       - unexpected value \"service\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveValue\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog').getByRole('combobox', { name: 'Tipo de registro', exact: true })\nExpected: \u001b[32m\"contract\"\u001b[39m\nReceived: \u001b[31m\"service\"\u001b[39m\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveValue\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog').getByRole('combobox', { name: 'Tipo de registro', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <select aria-label=\"Tipo de registro\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 w-full\">…</select>\u001b[22m\n\u001b[2m       - unexpected value \"service\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\contract-shortcut.spec.ts:35:22",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\contract-shortcut.spec.ts",
+                      "column": 22,
+                      "line": 35
+                    },
+                    "snippet": "  33 |   if(mode==='manual_selection')await kind.selectOption('contract')\n  34 |   await info.attach('creation-kind-observation',{body:JSON.stringify({mode,selectedKind:await kind.inputValue(),commands}),contentType:'application/json'})\n> 35 |   await expect(kind).toHaveValue('contract')\n     |                      ^\n  36 |   await expect(drawer.getByRole('combobox',{name:'Cliente del contrato',exact:true})).toHaveValue(customer)\n  37 |   await expect(drawer.getByLabel('Nombre del nuevo activo',{exact:true})).toHaveCount(0)\n  38 |   await drawer.getByLabel('Fecha de inicio',{exact:true}).fill(created.start_date)"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\contract-shortcut.spec.ts",
+                        "column": 22,
+                        "line": 35
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveValue\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog').getByRole('combobox', { name: 'Tipo de registro', exact: true })\nExpected: \u001b[32m\"contract\"\u001b[39m\nReceived: \u001b[31m\"service\"\u001b[39m\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveValue\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog').getByRole('combobox', { name: 'Tipo de registro', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <select aria-label=\"Tipo de registro\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 w-full\">…</select>\u001b[22m\n\u001b[2m       - unexpected value \"service\"\u001b[22m\n\n\n  33 |   if(mode==='manual_selection')await kind.selectOption('contract')\n  34 |   await info.attach('creation-kind-observation',{body:JSON.stringify({mode,selectedKind:await kind.inputValue(),commands}),contentType:'application/json'})\n> 35 |   await expect(kind).toHaveValue('contract')\n     |                      ^\n  36 |   await expect(drawer.getByRole('combobox',{name:'Cliente del contrato',exact:true})).toHaveValue(customer)\n  37 |   await expect(drawer.getByLabel('Nombre del nuevo activo',{exact:true})).toHaveCount(0)\n  38 |   await drawer.getByLabel('Fecha de inicio',{exact:true}).fill(created.start_date)\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\contract-shortcut.spec.ts:35:22"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:20:58.426Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "creation-kind-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoic2hvcnRjdXQiLCJzZWxlY3RlZEtpbmQiOiJzZXJ2aWNlIiwiY29tbWFuZHMiOltdfQ=="
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\contract-attempt01\\artifacts\\contract-shortcut-new-manu-e7909-follows-the-shortcut-intent-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\contract-attempt01\\artifacts\\contract-shortcut-new-manu-e7909-follows-the-shortcut-intent-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\contract-attempt01\\artifacts\\contract-shortcut-new-manu-e7909-follows-the-shortcut-intent-controlled-http-768\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\contract-shortcut.spec.ts",
+                    "column": 22,
+                    "line": 35
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "475224eda11e250370f3-811abd221fb6268804b9",
+          "file": "contract-shortcut.spec.ts",
+          "line": 9,
+          "column": 64
+        },
+        {
+          "title": "new manual contract follows the manual_selection intent",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1253,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:21:10.358Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "creation-kind-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoibWFudWFsX3NlbGVjdGlvbiIsInNlbGVjdGVkS2luZCI6ImNvbnRyYWN0IiwiY29tbWFuZHMiOltdfQ=="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "475224eda11e250370f3-9f3479f3f992dfc690f9",
+          "file": "contract-shortcut.spec.ts",
+          "line": 9,
+          "column": 64
+        },
+        {
+          "title": "new manual contract follows the shortcut intent",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5005,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveValue\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog').getByRole('combobox', { name: 'Tipo de registro', exact: true })\nExpected: \u001b[32m\"contract\"\u001b[39m\nReceived: \u001b[31m\"service\"\u001b[39m\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveValue\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog').getByRole('combobox', { name: 'Tipo de registro', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <select aria-label=\"Tipo de registro\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 w-full\">…</select>\u001b[22m\n\u001b[2m       - unexpected value \"service\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveValue\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog').getByRole('combobox', { name: 'Tipo de registro', exact: true })\nExpected: \u001b[32m\"contract\"\u001b[39m\nReceived: \u001b[31m\"service\"\u001b[39m\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveValue\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog').getByRole('combobox', { name: 'Tipo de registro', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <select aria-label=\"Tipo de registro\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 w-full\">…</select>\u001b[22m\n\u001b[2m       - unexpected value \"service\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\contract-shortcut.spec.ts:35:22",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\contract-shortcut.spec.ts",
+                      "column": 22,
+                      "line": 35
+                    },
+                    "snippet": "  33 |   if(mode==='manual_selection')await kind.selectOption('contract')\n  34 |   await info.attach('creation-kind-observation',{body:JSON.stringify({mode,selectedKind:await kind.inputValue(),commands}),contentType:'application/json'})\n> 35 |   await expect(kind).toHaveValue('contract')\n     |                      ^\n  36 |   await expect(drawer.getByRole('combobox',{name:'Cliente del contrato',exact:true})).toHaveValue(customer)\n  37 |   await expect(drawer.getByLabel('Nombre del nuevo activo',{exact:true})).toHaveCount(0)\n  38 |   await drawer.getByLabel('Fecha de inicio',{exact:true}).fill(created.start_date)"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\contract-shortcut.spec.ts",
+                        "column": 22,
+                        "line": 35
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveValue\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog').getByRole('combobox', { name: 'Tipo de registro', exact: true })\nExpected: \u001b[32m\"contract\"\u001b[39m\nReceived: \u001b[31m\"service\"\u001b[39m\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveValue\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog').getByRole('combobox', { name: 'Tipo de registro', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <select aria-label=\"Tipo de registro\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 w-full\">…</select>\u001b[22m\n\u001b[2m       - unexpected value \"service\"\u001b[22m\n\n\n  33 |   if(mode==='manual_selection')await kind.selectOption('contract')\n  34 |   await info.attach('creation-kind-observation',{body:JSON.stringify({mode,selectedKind:await kind.inputValue(),commands}),contentType:'application/json'})\n> 35 |   await expect(kind).toHaveValue('contract')\n     |                      ^\n  36 |   await expect(drawer.getByRole('combobox',{name:'Cliente del contrato',exact:true})).toHaveValue(customer)\n  37 |   await expect(drawer.getByLabel('Nombre del nuevo activo',{exact:true})).toHaveCount(0)\n  38 |   await drawer.getByLabel('Fecha de inicio',{exact:true}).fill(created.start_date)\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\contract-shortcut.spec.ts:35:22"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:21:18.369Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "creation-kind-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoic2hvcnRjdXQiLCJzZWxlY3RlZEtpbmQiOiJzZXJ2aWNlIiwiY29tbWFuZHMiOltdfQ=="
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\contract-attempt01\\artifacts\\contract-shortcut-new-manu-e7909-follows-the-shortcut-intent-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\contract-attempt01\\artifacts\\contract-shortcut-new-manu-e7909-follows-the-shortcut-intent-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\contract-attempt01\\artifacts\\contract-shortcut-new-manu-e7909-follows-the-shortcut-intent-controlled-http-1440\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\contract-shortcut.spec.ts",
+                    "column": 22,
+                    "line": 35
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "475224eda11e250370f3-5c2b29e95e0cff9cad41",
+          "file": "contract-shortcut.spec.ts",
+          "line": 9,
+          "column": 64
+        },
+        {
+          "title": "new manual contract follows the manual_selection intent",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1388,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:21:30.177Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "creation-kind-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoibWFudWFsX3NlbGVjdGlvbiIsInNlbGVjdGVkS2luZCI6ImNvbnRyYWN0IiwiY29tbWFuZHMiOltdfQ=="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "475224eda11e250370f3-fa11ae7ca21f29aa4e92",
+          "file": "contract-shortcut.spec.ts",
+          "line": 9,
+          "column": 64
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-20T00:20:37.677Z",
+    "duration": 59902.314,
+    "expected": 3,
+    "skipped": 0,
+    "unexpected": 3,
+    "flaky": 0
+  }
+}
