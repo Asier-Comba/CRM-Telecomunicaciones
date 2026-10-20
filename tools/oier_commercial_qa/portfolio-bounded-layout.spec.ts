@@ -25,7 +25,7 @@ for(const mode of ['dense_inventory','held_labels','delayed_search','denied_sear
     if(mode==='denied_search'){await route.fulfill({status:403,json:{ok:false,error:'access_denied'}});return}
     data=mode==='invalid_search'?{contract_version:'product.v1',items:'INVALID'}:{contract_version:'product.v1',items:[{kind:'contract',id:id(1),customer_id:customer,label:'W2 UI Synthetic Contract',status:'draft'}]}
    }else if(operation==='portfolio.get')data={contract_version:'portfolio.v1',kind:'contract',record:record(1)}
-   else if(operation==='contract.list')data={contract_version:'telecom.collections.v1',operation,items:Array.from({length:20},(_,n)=>record(n+1)),next_id:null}
+   else if(operation==='contract.list')data={contract_version:'telecom.collections.v1',operation,items:Array.from({length:20},(_,n)=>{const {signed_date,...row}=record(n+1);void signed_date;return row}),next_id:null}
    else if(operation==='customer.list'){
     if(mode==='held_labels'){heldLabels.push(route);return}
     data={contract_version:'telecom.collections.v1',operation,items:[{id:customer,version:1,display_name:'W2 UI Synthetic Customer',account_kind:'legal_entity',lifecycle:'customer',status:'active',source:'manual',assigned_user_id:null}],next_id:null}
