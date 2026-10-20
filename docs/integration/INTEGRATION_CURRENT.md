@@ -16,11 +16,12 @@ full23 and verifiedAbsence remain NOT_RUN. Supabase39435611024 has87migrations,
 new catalog publication journey. Identity/session cleanup and teardown PASS,
 server exit0. This is FAIL, not115PASS. The new source requires its own CI.
 
-Product/check source `96f64699dcc76a464beced28f047d928d516ccba`,
-tree `86c6fc4338215a49ee0d15c94f3993eb82db2210`. Subsequent documentary/configuration
-checkpoint is pinned in issue67; do not infer its pending CI from these checks.
-Own composed global lint,827 assistant tests, production build/types44 pages and
-3 compiled-login semantics checks PASS. Windows bootstrap659/664PASS: five unchanged
+Current product/check source `bd0b353c76f8d10e09a82183008ad41e2da878e5`,
+tree `7b34b9e3862368997d95d10aadd24e920ff42aa8`. Units24–26 add persistent
+login feedback, an independent catalog journey and three remaining UI literals.
+The final documentary checkpoint/source and its own CI are pinned in issue67.
+Earlier96f64699/tree86c6fc43 own global lint,827 assistant tests, build/types44 and
+3 compiled-login semantics checks PASS. Its Windows bootstrap659/664PASS: five unchanged
 POSIX permission/import-fixture failures remain; strict85/86-versus87 assertion is
 now correctly closed by owner profile87 adoption, not waived.
 
@@ -210,7 +211,7 @@ Only a new exact-source physical run can qualify this helper and publication.
 Only three literals change: Sidebar says integration of a test environment and
 requires server confirmation/current permissions; customer archive confirmation
 describes the same requirement. Exact-delta comparison against dea6bfea proves
-no other product change in those two files. Existing local-only billing keeps
+no other product change in those two files; targeted lint PASS. Existing local-only billing keeps
 its truthful local labels. No new logic, permissions, transport, receipts or SQL.
 The final candidate's build and runtime regression are recorded by its own CI;
 this textual cleanup is not evidence of hosted persistence or a successful write.

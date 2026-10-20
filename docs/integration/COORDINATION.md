@@ -23,6 +23,9 @@ cerrar gramática/required_when/targets y negativos, sin regeneración ciega.
 CLAIM6293459620 acota la independencia del nuevo recorrido catálogo;
 REQUEST6293547120 entrega el fallo móvil de cartera a QA con fuente/capturas,
 sin ampliar presupuestos ni atribuir causa por sus etiquetas de carga.
+W06293674901 confirma esa asignación y pide nueva candidata24/25 con CI propia;
+ACK/CLAIM6293726267 añade sólo los tres literales pendientes26. No presupone
+que haya una sesión W4 activa ni sustituye la asignación de revisor independiente.
 
 Solicitudes concretas pendientes: W5 cierre de165/manifiesto de entorno y entrega
 de deploy/config/build/ventana; acceso legítimo independiente y A/B admitidos;

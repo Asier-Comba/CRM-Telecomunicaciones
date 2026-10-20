@@ -1,12 +1,15 @@
 # Siguiente trabajo recuperable
 
 Rama integradora `codex/product-integration-20261019`, PR156. Consultar primero
-issue67 y el HEAD remoto; el código probado localmente aquí es96f64699. El
-checkpoint siguiente de docs/TOML requiere su propia CI y no está desplegado por Work.
+issue67 y el HEAD remoto; fuente actual bd0b353c/tree7b34b9e (árbol completo
+7b34b9e3862368997d95d10aadd24e920ff42aa8). La documentación final requiere
+su propia CI y no está desplegada por Work.
 
-1. Terminar CI exacta del checkpoint: perfil87, browser union y Supabase real-local,
+1. Terminar CI exacta del nuevo checkpoint: perfil87, browser union y Supabase real-local,
    incluido `catalog_normal_price_version_publish_and_reload`. Registrar primer
    fallo real y reparar sólo la causa propia; no rerun ciego ni ampliar tiempos.
+  100bf ya terminó:113UI PASS/2TIMEOUT, teardownPASS. Catálogo tiene corrección
+  de entrada25 con reproducción; Oier recibe cartera390 según W06293674901.
 2. W5 cierra gate/reproducción165 y manifiesto; entrega source/tree/config/build/
    deploy/URL y ventana. No editar sus recursos o iniciar hosting paralelo.
 3. Oier ejecuta el runner162 ya compuesto, con A/B admitidos/fixtures propios y
@@ -20,8 +23,8 @@ checkpoint siguiente de docs/TOML requiere su propia CI y no está desplegado po
    prestaciones/bundles no forman parte del nuevo editor simple. Mantener estados
    individuales en la matriz y preservar requisitos no aceptados.
 
-El aviso de cohorte ya tiene reproducción/fix local en seguimiento24: esperar que
-termine100bf antes de publicar la revisión siguiente y exigir su CI/QA alojada.
+El aviso de cohorte tiene reproducción/fix local24;100bf terminó sin cancelación.
+Publicar seguimientos24–26 y exigir su CI propia y después QA alojada.
 El portapapeles reportado sigue pendiente de reproducción, sin causa inferida.
 Seguridad independiente asignada,
 Storage166/88, cinco HIGH, historia y gates aplicables permanecen bloqueos concretos.

@@ -2,12 +2,17 @@
 
 ## Current master integration — 2026-10-20
 
-Product/check source96f64699dcc76a464beced28f047d928d516ccba/tree86c6fc4338215a49ee0d15c94f3993eb82db2210,
+Product/check sourcebd0b353c76f8d10e09a82183008ad41e2da878e5/tree7b34b9e3862368997d95d10aadd24e920ff42aa8,
 own PR156. Edge163, explicit W5profile87, QA162, billing167/callers, login168,
 dashboard scope/loading and simple catalog169 publication are composed. Own global
 lint/827assistant/buildTypes44/staticlogin3 PASS; Windows bootstrap659/664PASS,
 five unchanged POSIX import-fixture failures. The final docs/TOML checkpoint and
-its own CI/source/tree are recorded in issue67. New catalog real-local check pending.
+its own CI/source/tree are recorded in issue67. Earlier global checks above belong
+to96f, not automatically this source.24 adds login notice9NextPASS/build44;
+25 adds catalog journey4controlledPASS/types/lint;26 changes only3UI literals.
+100bf CI terminal:710preview/664bootstrap/827assistant/build44PASS, quality FAIL
+fiveHIGH; Supabase87/4042/113UI PASS/2TIMEOUT, teardownPASS. Catalog new physical
+run and mobile portfolio QA remain pending; native87/restore/profile PASS scoped.
 
 Hosted core is already reported by W5 at deploy6ad75c93ac4914f9005f4767/app e42
 plus versioned Netlify config; W0 corroborated the synthetic draft. Independent

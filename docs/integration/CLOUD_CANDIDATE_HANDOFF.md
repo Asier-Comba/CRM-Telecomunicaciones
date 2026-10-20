@@ -1,10 +1,17 @@
 # Candidata privada para W5 — 20/10/2026
 
 Rama exclusiva `codex/product-integration-20261019`, PR156. Fuente de producto
-`96f64699dcc76a464beced28f047d928d516ccba`, árbol
-`86c6fc4338215a49ee0d15c94f3993eb82db2210`. El SHA/árbol del checkpoint final que
-añade esta documentación y netlify.toml se entrega en issue67 después del push.
+`bd0b353c76f8d10e09a82183008ad41e2da878e5`, árbol
+`7b34b9e3862368997d95d10aadd24e920ff42aa8`. Incluye aviso persistente de login,
+recorrido de catálogo independiente y los tres rótulos integrados restantes.
+El SHA/árbol del checkpoint final de documentación se entrega en issue67 tras push.
 No usar un HEAD deducido del chat o resultados de otro SHA.
+
+100bf terminó sin cancelaciones: perfil87 nativoPASS; CI compuesta conserva
+710preview/664bootstrap/827assistant/build44PASS, pero falla cinco HIGH.
+Supabase87/4042backend/113UI PASS y dos TIMEOUT distintos, incluido catálogo;
+teardownPASS. El nuevo recorrido pasa4controles HTTP locales, no Supabase/cloud.
+Esta candidata necesita su propia CI, revisión y deploy privado nuevo de W5.
 
 ## Diferencia respecto al deploy existente
 
