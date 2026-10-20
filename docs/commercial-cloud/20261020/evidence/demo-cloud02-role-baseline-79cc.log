@@ -1,0 +1,59 @@
+✔ missing manifest and missing explicit approval cannot dispatch (1.0824ms)
+✔ production/other projects and mismatched SHA are refused (1.0678ms)
+✔ expired window, same tenant, real-address domain and remote browser are refused (0.355ms)
+✔ complete synthetic input is only readiness, never deployment/owner/cloud proof (0.6978ms)
+✔ missing roles, A viewer and missing/distinct baseline customer are refused before writes (0.2442ms)
+✖ A billing member cannot pass a window requiring draft creation (0.726ms)
+✖ B billing viewer cannot be mistaken for a positive tenant control (0.21ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 5
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 149.5293
+
+✖ failing tests:
+
+test at tools\oier_cloud_qa\preflight.test.mjs:23:1
+✖ A billing member cannot pass a window requiring draft creation (0.726ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at TestContext.<anonymous> (file:///C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-commercial-20261020/tools/oier_cloud_qa/preflight.test.mjs:23:124)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tools\oier_cloud_qa\preflight.test.mjs:24:1
+✖ B billing viewer cannot be mistaken for a positive tenant control (0.21ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at TestContext.<anonymous> (file:///C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-commercial-20261020/tools/oier_cloud_qa/preflight.test.mjs:24:127)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

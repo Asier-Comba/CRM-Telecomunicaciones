@@ -1,0 +1,42 @@
+{
+  "unit": "DEMO-CLOUD-02",
+  "claim": 6289917270,
+  "qa_source": "49a032cfb0f82c850f8fec4f9ae3c150d6394699",
+  "application_unchanged_from": "49bc242c849a019b4b85fd3da1b3a8c9a45ca179",
+  "guards": 12,
+  "guard_failures": 0,
+  "lint_exit": 0,
+  "typescript_exit": 0,
+  "preflight_exit": 2,
+  "preflight": "NOT_RUN_MANIFEST_MISSING_BEFORE_ATTACH_OR_DISPATCH",
+  "hosted": "NOT_RUN",
+  "voice_real": "NOT_RUN",
+  "DB_independent": "NOT_RUN",
+  "model": "NOT_RUN",
+  "build": "NOT_RERUN_NO_APPLICATION_CHANGE",
+  "prior_357_96": "BOUND_TO49BC_NOT_ASSIGNED_TO_NEW_QA",
+  "first_qa_source": "79cc3b9d776683a98cbe6cd2e1d5cd3f6ab73455",
+  "first_qa_quality": {
+    "typescript_exit": 0,
+    "lint_exit": 0,
+    "guards": 10
+  },
+  "causal_roles": {
+    "fail": 2,
+    "bank": "demo-cloud02-role-baseline-bank.test.mjs.txt",
+    "pass": 5,
+    "fix": "49a032cfb0f82c850f8fec4f9ae3c150d6394699",
+    "scope": "QA_PREFLIGHT_ONLY_NOT_HOSTED_PRODUCT_FAILURE",
+    "reason": "Both existing BillingServiceV1 reads and writes require owner/admin. B needs positive own billing before cross-tenant denial.",
+    "implementation": "79cc3b9d776683a98cbe6cd2e1d5cd3f6ab73455"
+  },
+  "flight_review": "Next16.3.8 app-index.js clears __next_f; consumer reads immutable JSON-literal inline frames, never eval. Existing preview HTML protocol observed separately, not Auth/cloud evidence.",
+  "candidate": "3b80c50d13bc0a9a52f6662de46a1e8b9581c62b",
+  "candidate_product": "ddf3ef26e6d50cc5bda7d3cb6515d2e8e456014d",
+  "candidate_control_owner": "Asier",
+  "cloud_mutations": 0,
+  "manual_reruns": 0,
+  "IA_writes": "OFF",
+  "release": "NOT_ACCEPTED",
+  "next": "W5 deploy/source/site/team/credits and approved private window/cohort. Continue read-only candidate contract tracing, no parallel integration."
+}
