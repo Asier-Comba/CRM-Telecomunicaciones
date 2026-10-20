@@ -142,6 +142,22 @@ test('manual correction during active dictation survives the next interim result
  r.assertNoCommands();expect(r.pageErrors).toEqual([])
  await page.screenshot({path:info.outputPath('manual-correction-reviewed.png'),fullPage:true})
 })
+
+test('failed recognition abort preserves manual correction and keeps explicit stop available',async({page})=>{
+ const r=await mount(page),area=page.getByRole('textbox',{name:'Descripción de la factura',exact:true})
+ await page.getByRole('button',{name:'Dictar',exact:true}).click();await speechEvent(page,'result',simple)
+ await page.evaluate(()=>{const w=window as unknown as {SpeechRecognition:{prototype:{abort:()=>void}}};w.SpeechRecognition.prototype.abort=()=>{throw Error('CONTROLLED_ABORT_REFUSAL')}})
+ const correction=`${simple} corregido`
+ await area.fill(correction);await speechEvent(page,'result','Transcripción posterior descartada')
+ await expect(area).toHaveValue(correction)
+ await expect(page.getByRole('status').filter({hasText:'No se pudo detener el dictado.'})).toBeVisible()
+ await expect(page.getByRole('button',{name:'Generar propuesta',exact:true})).toBeDisabled()
+ await page.getByRole('button',{name:'Detener dictado',exact:true}).click()
+ await expect(page.getByRole('button',{name:'Generar propuesta',exact:true})).toBeEnabled()
+ await page.getByRole('button',{name:'Generar propuesta',exact:true}).click()
+ expect(r.proposals()).toHaveLength(1);expect(r.proposals()[0].input.source).toBe('text')
+ r.assertNoCommands();expect(r.pageErrors).toEqual([])
+})
 test('leaving the customer aborts recognition and retires transcript handlers',async({page})=>{
  const r=await mount(page)
  await page.getByRole('button',{name:'Dictar',exact:true}).click()
