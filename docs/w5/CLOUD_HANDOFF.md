@@ -16,7 +16,6 @@
 | Seguridad | 5 HIGH = una cadena dev-only (`braces`); gitleaks 23 = 0 credenciales reales (sin ubicaciones publicadas); vendor n8n no desplegado; gosu es un BLOCKER upstream | `SECURITY_CLASSIFICATION.md` |
 | Storage 88 | Propuesta v3 en #179 (supersede a #166). SQL 87→88 compatible en CI; el flujo de PDF necesita una credencial solo-servidor: decisión pendiente. No aplicada, contenido OFF | #179 |
 | Bootstrap comercial | Matriz con estados reales; sin adaptador de correo comercial; sin backups en el plan Free | `COMMERCIAL_BOOTSTRAP.md` |
-| Bootstrap comercial | Matriz con estados reales; sin adaptador de correo comercial; sin backups en el plan Free | `COMMERCIAL_BOOTSTRAP.md` |
 | Supabase | 87 migraciones; cuentas sintéticas: solo owner A activa, el resto baneadas con 0 sesiones (verificado 20/10) | §2 |
 
 Indicadores: IMPLEMENTED · INTEGRATED · LOCAL_TESTED · HOSTED_TESTED · BLOCKED · NOT_VERIFIED · ACCEPTED.
