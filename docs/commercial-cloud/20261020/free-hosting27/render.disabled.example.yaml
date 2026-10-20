@@ -1,0 +1,55 @@
+{
+  "previews": {
+    "generation": "off"
+  },
+  "services": [
+    {
+      "type": "web",
+      "name": "crm-telecom-free-proposal-only",
+      "runtime": "node",
+      "plan": "free",
+      "region": "frankfurt",
+      "numInstances": 1,
+      "repo": "https://github.com/Asier-Comba/CRM-Telecomunicaciones",
+      "branch": "codex/oier-review8ee-20261020",
+      "autoDeployTrigger": "off",
+      "buildCommand": "test \"$HOSTING_MIGRATION_APPROVED\" = \"true\" && test \"$APPROVED_SOURCE_SHA\" = \"$(git rev-parse HEAD)\" && npm ci --include=dev && npm run build && cp -R public .next/standalone/public && mkdir -p .next/standalone/.next && cp -R .next/static .next/standalone/.next/static",
+      "startCommand": "node .next/standalone/server.js",
+      "healthCheckPath": "/api/health/live",
+      "envVars": [
+        {
+          "key": "NODE_VERSION",
+          "value": "24.12.0"
+        },
+        {
+          "key": "NODE_ENV",
+          "value": "production"
+        },
+        {
+          "key": "HOSTNAME",
+          "value": "0.0.0.0"
+        },
+        {
+          "key": "APP_ENV",
+          "value": "staging"
+        },
+        {
+          "key": "HOSTING_MIGRATION_APPROVED",
+          "value": "false"
+        },
+        {
+          "key": "APPROVED_SOURCE_SHA",
+          "value": "NOT_APPROVED"
+        },
+        {
+          "key": "PRODUCT_V1_ENABLED",
+          "value": "false"
+        },
+        {
+          "key": "PRODUCT_STAGING_INTEGRATION",
+          "value": "false"
+        }
+      ]
+    }
+  ]
+}

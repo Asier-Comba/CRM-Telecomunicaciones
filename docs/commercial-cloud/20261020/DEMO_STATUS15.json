@@ -305,10 +305,9 @@
     "release": "NOT_ACCEPTED"
   },
   "next": [
-    "W5_FORWARD_HELPER_NEGATIVE",
-    "FREE_HOSTING_COMMERCIAL_PRIVATE_RESEARCH_NO_MIGRATION",
-    "PR177_OWN_CI_AND_REVIEW",
-    "CORE162_WHEN_LEGITIMATE_WINDOW"
+    "BILLING_PARITY_BOUNDED_REFERENCE_READ",
+    "OWN_PR177_TERMINAL_CHECKS_WHEN_COMPLETE",
+    "ASIER_W5_ORIGIN_PRIVATE_BOUNDARY_BEFORE_MIGRATION"
   ],
   "portfolio12_real_local": {
     "contract": "oier.portfolio12.real-local-qualified.v1",
@@ -518,8 +517,8 @@
     "service_pricing": "DO_NOT_INFER_SERVICE_VERSION_INHERITANCE_FROM_CONTRACT"
   },
   "current_priority": {
-    "unit": "OIER_PLATFORM_REVIEW26",
-    "status": "REVIEWED_GAP_TO_W5_CONTINUE_FREE_HOSTING",
+    "unit": "OIER_FREE_HOSTING27_CLOSED",
+    "status": "REVIEWABLE_DISABLED_PROPOSAL_NO_MIGRATION",
     "observation": {
       "source": "1cc02065",
       "parent": "4bfddd3aa3b7936fe4a61522f8fa11c65dfd9ccd",
@@ -1260,7 +1259,8 @@
     "review24",
     "speech25",
     "platform26",
-    "owner_zero_budget"
+    "owner_zero_budget",
+    "free_hosting27"
   ],
   "speech25": {
     "pr": 177,
@@ -1288,5 +1288,73 @@
     "new_cards": false,
     "new_spend": false,
     "migration": "NOT_AUTHORIZED"
+  },
+  "free_hosting27": {
+    "unit": "OIER_FREE_HOSTING27",
+    "claim": 6302589143,
+    "budget_eur": 0,
+    "decision": 6302343684,
+    "source_reviewed": "8ee0b9ba61cd45072fbce75f12c6e684e3f3e6a6",
+    "proposal_branch": "codex/oier-demo-status-20261020",
+    "status": "PREPARED_FOR_REVIEW_NOT_ELIGIBLE_TO_DEPLOY",
+    "migration_authorized": false,
+    "account_created": false,
+    "card_added": false,
+    "paid_api_calls": false,
+    "current_netlify_deploy_untouched": true,
+    "candidates": {
+      "Vercel_Hobby": {
+        "commercial": "REJECTED_PERSONAL_NON_COMMERCIAL_ONLY",
+        "runtime": "NEXT_NATIVE",
+        "private_access": "NOT_EVALUATED_FURTHER_COMMERCIAL_REJECTION",
+        "decision": "NOT_ELIGIBLE"
+      },
+      "Cloudflare_Free": {
+        "commercial": "FREE_SERVICES_MARKETED_TO_BUSINESSES_NOT_INDEPENDENT_LEGAL_ACCEPTANCE",
+        "runtime": "OPENNEXT_NODE_PROXY_UNSUPPORTED_VINEXT_REQUIRES_ADAPTER_AND_AUTH_COMPATIBILITY_PROOF",
+        "private_access": "ACCESS_FREE_ONBOARDING_DOCUMENTS_PAYMENT_DETAILS_CONFLICT_NO_NEW_CARDS",
+        "limits": {
+          "daily_requests": 100000,
+          "cpu_ms": 10
+        },
+        "decision": "NOT_VALIDATED_UNDER_CURRENT_CONSTRAINTS"
+      },
+      "Render_Free": {
+        "commercial": "FREE_DOCS_FOR_TRIALS_NOT_PRODUCTION_NO_COMMERCIAL_CLEARANCE_CLAIM",
+        "runtime": "NATIVE_NODE_NEXT_STANDALONE_CANDIDATE",
+        "private_access": "PUBLIC_INGRESS_APP_ADMISSION_IS_NOT_NETLIFY_TEAM_PROTECTION",
+        "limits": {
+          "monthly_instance_hours": 750,
+          "idle_minutes": 15,
+          "memory_mb": 512
+        },
+        "decision": "DISABLED_CONFIG_PREPARED_SECURITY_ORIGIN_REVIEW_AND_TERMS_PENDING"
+      }
+    },
+    "origin_gate": "REAL_FUNCTION_CANONICAL_ENABLED_ALTERNATIVE_INVALID_NO_CONTRACT_CHANGE",
+    "required_before_any_migration": [
+      "OWNER_EXPLICIT_MIGRATION_AUTHORIZATION_NO_SPEND_NO_CARD",
+      "ASIER_EXPLICIT_VERSIONED_EXACT_ORIGIN_CONTRACT_REVIEW_NO_ARBITRARY_ORIGIN",
+      "INDEPENDENT_REVIEW_OF_APP_PRIVATE_BOUNDARY_VERSUS_EXTERNAL_TEAM_GATE",
+      "W5_EXISTING_FREE_ACCOUNT_AND_NO_PAYMENT_OR_AUTO_OVERAGE_VERIFIED",
+      "QUALIFIED_FROZEN_SHA_ALL_REQUIRED_GATES_AND_PLATFORM_REVIEW",
+      "LINUX_BUILD_ARTIFACT_RUNTIME_MEMORY_AND_AUTH_AB_REPLAY_SMOKE",
+      "SEPARATE_APPROVED_FIXTURES_WINDOW_CLEANUP_ROLLBACK_WITH_NETLIFY_UNCHANGED"
+    ],
+    "source_urls": [
+      "https://vercel.com/docs/plans/hobby",
+      "https://developers.cloudflare.com/workers/framework-guides/web-apps/nextjs/",
+      "https://developers.cloudflare.com/workers/framework-guides/web-apps/opennext/",
+      "https://opennext.js.org/cloudflare",
+      "https://developers.cloudflare.com/workers/platform/limits/",
+      "https://developers.cloudflare.com/workers/configuration/routing/workers-dev/",
+      "https://developers.cloudflare.com/learning-paths/clientless-access/initial-setup/create-zero-trust-org/",
+      "https://render.com/docs/free",
+      "https://render.com/docs/deploy-nextjs-app",
+      "https://render.com/docs/blueprint-spec"
+    ],
+    "schema_url": "https://render.com/schema/render.yaml.json",
+    "schema_sha256": "8a3fb8da6b4f55fe686fbefa790e011d3dd7895f013f355953c572a21ab6494a",
+    "release": "NOT_ACCEPTED"
   }
 }
