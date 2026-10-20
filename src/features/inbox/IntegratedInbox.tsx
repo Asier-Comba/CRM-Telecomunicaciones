@@ -34,6 +34,8 @@ export function IntegratedInbox({initialId}:{initialId?:string}){
   // Read the committed state before presenting success; a reassignment may revoke this actor's access.
   let fresh:InboxThread|null=null
   try{fresh=await repository.inboxThread({id:receipt.id,limit:20})}catch(e){if(e instanceof ProductUiError&&['access_denied','not_found'].includes(e.code)){setSelected(null);setThread(null)}else throw e}
+  // Read markers have their own read_version; commercial receipts use version.
+  if(fresh&&!['conversation.mark_read','conversation.mark_unread'].includes(next.operation)&&(fresh.conversation.version<receipt.version||fresh.conversation.version===receipt.version&&fresh.conversation.status!==receipt.status))throw new ProductUiError('internal_safe')
   intent.current=null;setUncertain(false);setDraft('');setNewBody('');setCreate(false);setMessageCursors([]);setList(null);setRevision(v=>v+1)
   if(fresh){setSelected(receipt.id);setStatus(fresh.conversation.status);setCursors([])}
   setNotice('Cambio guardado. La conversación se ha actualizado.')
