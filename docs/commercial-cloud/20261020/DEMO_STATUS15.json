@@ -1,0 +1,222 @@
+{
+  "unit": "DEMO-STATUS-15",
+  "authorization": "f7d04fdf-7272-4821-96f2-cee908b94b67",
+  "kind": "DOCUMENTARY_RECOVERY_NOT_APPLICATION_SOURCE",
+  "master": {
+    "head": "a9e977adf90b1e83cded23fb54aefc696839d014",
+    "tree": "ac48598bffd8a528919f63f2bcad1d07365c775d",
+    "product": "bd0b353c76f8d10e09a82183008ad41e2da878e5",
+    "actual_local_review": "evidence/master-a9e-local-qualified.json",
+    "hosted_attribution": "W5_6295242000",
+    "reported_deploy": "6ad78f6c810c781fba4f5880",
+    "reported_adapter": "NOT_RECORDED"
+  },
+  "deliveries": [
+    {
+      "original_timeout_reproduced": false,
+      "handoff": 6294963622,
+      "cloud_window_request": 6291203581,
+      "next": "INDEPENDENT_PORTFOLIO_PENDING_FEEDBACK",
+      "unit": "PORTFOLIO390_12_DIAGNOSIS_PUBLISHED",
+      "release": "NOT_ACCEPTED",
+      "original_cause": "UNKNOWN",
+      "pr": 170,
+      "head": "0d00e41a97d5d609b0b87b9b8f65d0c28d7a44ce"
+    },
+    {
+      "release": "NOT_ACCEPTED",
+      "pr": 172,
+      "head": "4bfddd3aa3b7936fe4a61522f8fa11c65dfd9ccd",
+      "unit": "PORTFOLIO_FEEDBACK13_PUBLISHED",
+      "source": "960d2d8c874c06c425ac90e8c9f49f88a28dff92",
+      "handoff": 6295206801,
+      "next": "BILLING_MANUAL_EDIT_DURING_DICTATION"
+    },
+    {
+      "release": "NOT_ACCEPTED",
+      "next": "CLOSE_OWN_NATIVE_CI_WITHOUT_RERUN_AND_RUN_CORE_ONLY_AFTER_PRIVATE_WINDOW",
+      "unit": "BILLING_CORRECTION14_PUBLISHED",
+      "source": "853d30cd936b888ccfeedd8981a3d5773185f7dc",
+      "pr": 173,
+      "handoff": 6295413528,
+      "head": "5f00ab8bf2f1f9cc93ec9a8f88d5a9aaa3842e1e"
+    }
+  ],
+  "ci_bindings": [
+    {
+      "parents": [
+        "a9e977adf90b1e83cded23fb54aefc696839d014",
+        "0d00e41a97d5d609b0b87b9b8f65d0c28d7a44ce"
+      ],
+      "head_tree": "aead24b06bf63904727f1fe9af9c5551c96b65b0",
+      "head_tree_equal": false,
+      "source": "c43a55ba8dc043a94df93f8f93eb115e204e7fdd",
+      "tree": "4fa2100fdbe87d02410288fb968556fb0639ed5c",
+      "head": "0d00e41a97d5d609b0b87b9b8f65d0c28d7a44ce"
+    },
+    {
+      "parents": [
+        "a9e977adf90b1e83cded23fb54aefc696839d014",
+        "4bfddd3aa3b7936fe4a61522f8fa11c65dfd9ccd"
+      ],
+      "head_tree": "f69510ba12f0229b74435253ee2518ae49ccbb38",
+      "head_tree_equal": true,
+      "source": "0c5ce385ce8e4c7201900d089057ba7a249a578e",
+      "tree": "f69510ba12f0229b74435253ee2518ae49ccbb38",
+      "head": "4bfddd3aa3b7936fe4a61522f8fa11c65dfd9ccd"
+    }
+  ],
+  "ci_observed": [
+    {
+      "head": "0d00e41a97d5d609b0b87b9b8f65d0c28d7a44ce",
+      "runs": [
+        {
+          "id": 39451803219,
+          "name": "Supabase local acceptance",
+          "status": "in_progress",
+          "conclusion": null
+        },
+        {
+          "id": 39451802799,
+          "name": "W4 all-ref secret audit",
+          "status": "completed",
+          "conclusion": "failure"
+        },
+        {
+          "id": 39451803328,
+          "name": "W5 enterprise platform acceptance",
+          "status": "completed",
+          "conclusion": "failure"
+        },
+        {
+          "id": 39451802607,
+          "name": "CI",
+          "status": "completed",
+          "conclusion": "failure"
+        }
+      ]
+    },
+    {
+      "head": "4bfddd3aa3b7936fe4a61522f8fa11c65dfd9ccd",
+      "runs": [
+        {
+          "id": 39453448961,
+          "name": "Supabase local acceptance",
+          "status": "in_progress",
+          "conclusion": null
+        },
+        {
+          "id": 39453449237,
+          "name": "W4 all-ref secret audit",
+          "status": "completed",
+          "conclusion": "failure"
+        },
+        {
+          "id": 39453449139,
+          "name": "CI",
+          "status": "completed",
+          "conclusion": "failure"
+        }
+      ]
+    },
+    {
+      "head": "5f00ab8bf2f1f9cc93ec9a8f88d5a9aaa3842e1e",
+      "runs": [
+        {
+          "id": 39454896936,
+          "name": "W4 all-ref secret audit",
+          "status": "completed",
+          "conclusion": "failure"
+        },
+        {
+          "id": 39454896937,
+          "name": "CI",
+          "status": "in_progress",
+          "conclusion": null
+        },
+        {
+          "id": 39454896864,
+          "name": "Supabase local acceptance",
+          "status": "in_progress",
+          "conclusion": null
+        }
+      ]
+    }
+  ],
+  "qualified_CI": [
+    {
+      "pr": 170,
+      "run": 39451802607,
+      "source": "c43a55ba8dc043a94df93f8f93eb115e204e7fdd",
+      "tree": "4fa2100fdbe87d02410288fb968556fb0639ed5c",
+      "quality_job": 118728263609,
+      "bootstrap": 669,
+      "assistant": 827,
+      "build": 44,
+      "lint_types": "PASS",
+      "global_result": "FAIL_5_HIGH",
+      "native_job": 118728264226,
+      "native_result": "IMAGE_QUOTA_BEFORE_CHECKOUT_NOT_PRODUCT_PROOF",
+      "preview_job": 118734064429,
+      "preview_artifact": 12277879925,
+      "preview_exact_union": 718,
+      "preview_per_project": 359,
+      "preview_scope": "SYNTHETIC_PREVIEW_ONLY_NOT_AUTH_STAGING_OR_RELEASE"
+    },
+    {
+      "pr": 172,
+      "source": "0c5ce385ce8e4c7201900d089057ba7a249a578e",
+      "tree": "f69510ba12f0229b74435253ee2518ae49ccbb38",
+      "quality_job": 118734033533,
+      "bootstrap": 664,
+      "assistant": 827,
+      "build": 44,
+      "lint_types": "PASS",
+      "quality_result": "FAIL_5_HIGH",
+      "whole_ci": "PENDING_AT_SNAPSHOT"
+    }
+  ],
+  "cloud": {
+    "core": "NOT_RUN",
+    "window_request": 6291203581,
+    "window": "NOT_DELIVERED",
+    "access": "DEDICATED_INDEPENDENT_CONTEXT_REQUIRED",
+    "mutations": 2,
+    "allowed": [
+      "customer.create",
+      "invoice.create_draft"
+    ],
+    "second_telecom_scope": "SEPARATE_OPERATIONS_LIMITS_FIXTURES_AND_APPROVAL_REQUIRED",
+    "anonymous_own_read": "HTTP_401_NO_BODY_NO_CREDENTIALS_NOT_AUTH_RLS_PROOF"
+  },
+  "matrix": {
+    "TEL_014": "LOCAL_MASTER115_POSITIVE_CLOUD_NOT_ACCEPTED",
+    "PAR_133_134": "PARTIAL_OWNER_BRANCH_PROPOSAL_ONLY",
+    "full342": "NO_PROMOTION"
+  },
+  "failures_preserved": [
+    "100bf_PORTFOLIO390_UNKNOWN",
+    "100bf_CATALOG_WRITE_STATE_UNKNOWN_CORRECTED_BY_6294158041",
+    "PORTFOLIO12_FIXTURE_ATTEMPT01_INTERRUPTED_COUNTS_UNKNOWN",
+    "FEEDBACK13_FIRST_MOBILE_STATUS_BELOW_VIEWPORT",
+    "BILLING14_ORIGINAL_MANUAL_OVERWRITE_3_FAIL",
+    "BILLING14_CLEANUP_REFUSAL_3_FAIL",
+    "F736_UNKNOWN",
+    "CASE_NOTE_CURSOR_UNKNOWN",
+    "five_HIGH",
+    "W4_history",
+    "W5_vendor_and_platform"
+  ],
+  "safety": {
+    "owner_sources_modified": false,
+    "main_default_modified": false,
+    "cloud_SQL_or_permissions_modified": false,
+    "manual_reruns": 0,
+    "checks_cancelled": false,
+    "business_ai_writes": "OFF",
+    "real_voice": "NOT_RUN",
+    "live_model": "NOT_RUN",
+    "release": "NOT_ACCEPTED"
+  },
+  "next": "Close existing exact-source own CI using safe artifacts when terminal, without rerun/push. Review/integration by Asier only. CORE162 only after W5 independent private access/A-B window and fixtures; no owner session or mutation expansion."
+}
