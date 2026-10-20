@@ -1,11 +1,26 @@
-# W5 Cloud — handoff único (actualizado 20/10/2026)
+# W5 Cloud — handoff único (actualizado 20/10/2026, noche)
 
-**RELEASE NOT_ACCEPTED. HITO A: recorrido núcleo HOSTED_TESTED el 20/10 (ver §10); faltan voz real, negativos de cohorte y revisión W4. Producción OFF.**
+**RELEASE NOT_ACCEPTED. Producción OFF. Seguridad no aprobada: falta un revisor independiente distinto del autor.**
+
+## 0. Estado actual (sustituye a §1 y §3, que quedan como historial)
+
+| Área | Estado | Dónde |
+|---|---|---|
+| Nube publicada | Deploy `6ad78f6c810c781fba4f5880` = `a9e977ad` (árbol `ac48598b`), privado, 401 anónimo | `NETLIFY_STAGING_RUNBOOK.md` (#171) |
+| Validación sobre `6ad78f6c` | A/B, suspendido, fuera de cohorte y anónimo PASS **por API y páginas, W5/propietario**. No es QA visual independiente y no se traslada a la sucesora | §11 |
+| Candidata del integrador | #175 `b9e1eefe`: **no desplegada** y sin designar como fuente de demo | #67 |
+| Plataforma de #175 | Diagnóstico de los 7 rojos publicado. Corregidos en #171 (`db454489`, autorizados por el propietario): imagen exacta con digest, 85/86 en su alcance histórico, composición ligada a `32862faf` + migraciones forward-only. Pendientes: `services:` de CI sin fallback, test del ledger de presupuesto, Supabase local (integrador) | #171, #67 |
+| Pipeline de deploy | Workflow de #171 listo. Falta: incorporarlo a la rama por defecto y crear el entorno protegido `staging` (propietario) | #171 |
+| Acceso de Oier | Bloqueado: Netlify Free solo lo ve el Owner. Propuesta Pro de 20 USD/mes + IVA a confirmar en checkout, recarga OFF | #67 comentario 6299975950 |
+| Ventana QA | Manifiesto preparado, **no abierta** | `QA_WINDOW_MANIFEST.md` |
+| Seguridad | 5 HIGH = una cadena dev-only (`braces`); gitleaks 23 = 0 credenciales reales (sin ubicaciones publicadas); vendor n8n no desplegado; gosu es un BLOCKER upstream | `SECURITY_CLASSIFICATION.md` |
+| Storage #166/88 | Propuesta, no aplicada; contenido OFF | §6 |
+| Supabase | 87 migraciones; cuentas sintéticas: solo owner A activa, el resto baneadas con 0 sesiones (verificado 20/10) | §2 |
 
 Indicadores: IMPLEMENTED · INTEGRATED · LOCAL_TESTED · HOSTED_TESTED · BLOCKED · NOT_VERIFIED · ACCEPTED.
 Una prueba local nunca se presenta como HOSTED_TESTED.
 
-## 1. GitHub (20/10, ~11:40 UTC)
+## 1. GitHub (HISTORIAL 20/10 ~11:40 UTC; estado actual en §0)
 
 | Rama / PR | HEAD | Estado |
 |---|---|---|
@@ -32,7 +47,7 @@ Una prueba local nunca se presenta como HOSTED_TESTED.
 | 61 INFO RLS sin política | 0 privilegios de tabla para `authenticated` y `anon` | Cerradas por diseño, solo vía RPC autorizadas. Sin acción |
 | 1 WARN contraseñas filtradas | Solo disponible en plan Pro | Decisión de coste del propietario. En Free: subir longitud mínima y tipos de carácter |
 
-## 3. Netlify
+## 3. Netlify (HISTORIAL; estado actual en §0)
 
 | Elemento | Valor |
 |---|---|
