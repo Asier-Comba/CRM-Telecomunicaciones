@@ -1,0 +1,73 @@
+{
+  "unit": "OIER_PLATFORM_FIX_REVIEW28",
+  "source": "a13787d1056828f0f45e083cb73f44b87b763ceb",
+  "file": "scripts/platform/composition.mjs",
+  "source_sha256": "3c27da819c73803f0032551f9f6c55191d1c85bb03b3da11e232b45142a42866",
+  "forward_function": {
+    "line": 34,
+    "sha256": "d30516777930d0aa52943df2bc30d9eb293fc8232a9bcbc40485ec6d64fd74ff"
+  },
+  "union_function": {
+    "line": 24,
+    "sha256": "68eefdd6668b691137ac2e0921d3c7096f41fbeb7c6996100cff57bd8ae7986d"
+  },
+  "execution": "EXACT_FUNCTION_TEXT_EXTRACTED_BY_AST_EXPORT_KEYWORD_ONLY_REMOVED_NO_SOURCE_MUTATION",
+  "environment": "LOCAL_NODE_PURE_FUNCTIONS_NO_GIT_INDEX_OR_WORKTREE_CHANGES_NO_DATABASE_OR_RESOURCE",
+  "input": {
+    "composed": {
+      "supabase/migrations/20260101000000_base.sql": "base"
+    },
+    "duplicate": {
+      "supabase/migrations/20260101000000_base.sql": "base",
+      "supabase/migrations/20260102000000_a.sql": "a",
+      "supabase/migrations/20260102000000_b.sql": "b"
+    }
+  },
+  "checks": {
+    "unchanged": {
+      "result": "ACCEPTED",
+      "value": []
+    },
+    "one_forward": {
+      "result": "ACCEPTED",
+      "value": [
+        "20260102000000_a.sql"
+      ]
+    },
+    "modified_base": {
+      "result": "REJECTED",
+      "code": "FORWARD_ONLY_MIGRATION_DRIFT"
+    },
+    "removed_base": {
+      "result": "REJECTED",
+      "code": "FORWARD_ONLY_MIGRATION_DRIFT"
+    },
+    "backdated": {
+      "result": "REJECTED",
+      "code": "FORWARD_ONLY_MIGRATION_DRIFT"
+    },
+    "duplicate_forward_versions": {
+      "result": "REJECTED",
+      "code": "MIGRATION_VERSION_COLLISION"
+    },
+    "duplicate_plus_later": {
+      "result": "REJECTED",
+      "code": "MIGRATION_VERSION_COLLISION"
+    },
+    "two_distinct_forward": {
+      "result": "ACCEPTED",
+      "value": [
+        "20260102000000_a.sql",
+        "20260103000000_z.sql"
+      ]
+    },
+    "same_inputs_original_union": {
+      "result": "REJECTED",
+      "code": "MIGRATION_VERSION_COLLISION"
+    }
+  },
+  "finding": "OIER26_NEGATIVE_FIXED_IN_THIS_EXACT_SOURCE_SCOPED_QA_ACK",
+  "scope": "HELPER_NEGATIVE_COVERAGE_GAP_NOT_FULL_PIPELINE_BYPASS_PROOF",
+  "security_approval": "NOT_GIVEN",
+  "release": "NOT_ACCEPTED"
+}

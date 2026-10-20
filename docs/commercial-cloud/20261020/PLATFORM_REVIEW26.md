@@ -27,3 +27,11 @@ db454489 cambia el objeto de la composición: árbol histórico32862faf debe ser
 PR171 tiene6SUCCESS/3FAIL terminales observados, distintos de PR175/8ee2SUCCESS/6FAIL. No herencia de verdes entre ramas, reintento de cuotas, cancelación, modificación de digest/tiempos/límites ni aplicación deSQL. W5 conserva ownership; Asier integra selectivamente, revisor independiente disponible decide lo que corresponda. CincoHIGH/historia/vendor/Storage/backup y RELEASE_NOT_ACCEPTED permanecen.
 
 Presupuesto definitivo0EUR/6302343684: NetlifyFree y deploy existente intactos; no Pro/tarjetas/créditos/gastos. Siguiente unidad autorizada: publicar evaluación de hosting gratuito basada en documentación oficial y límites de privacidad/runtime; ninguna migración o despliegue autorizado.
+
+## Seguimiento28 — corrección W5 revisada, ACK limitado
+
+Entrega W5/6302689889, CLAIM6302758694. Fuente nueva **a13787d1056828f0f45e083cb73f44b87b763ceb**, sólo composition.mjs y su test; sin cambio de hash/manifest/conteos. Añade unicidad global de los14dígitos sobre todas las rutas deHEAD después de los guards existentes.
+
+[Probe independiente28](platform26/fix28-validation.safe.json), ejecutado con el texto exacto de funciones de ese blob: par duplicado y par+otra alta posterior ahora rechazan MIGRATION_VERSION_COLLISION; dos versiones nuevas distintas pasan. Base/una alta pasan; cambio/borrado/backdate siguen rechazados, y la unión mantiene su negativo. Nueve entradas medidas, no nuevo resource/pipeline/DB o ejecución propia112/19. Esos bancos globales son reportados por W5 y no heredados.
+
+**ACK técnico Oier: se cierra el hallazgo26 del helper en a13787d1**, con sus negativos pertinentes. No aprobación del cambio completo de alcance histórico, adopción en175, CI de otra fuente, seguridadW4, deploy o release. Conservar la reproducción db454 como fallo original; Asier y el revisor independiente disponible conservan sus decisiones. La etiqueta srcHEAD fuera de composición sigue requiriendo controles propios del integrador y trazabilidad del SHA/artefacto.

@@ -9,7 +9,7 @@ Estado vigente 20/10/2026. Orden4561dee1; [coordinación W0/6301933535](https://
 - Safe12298385248/run39492445322/job118868853983 revisado directamente: checkout8b906a6e5483098cc713251330358a6f1d5098b4, árbol idéntico a8ee/parentsa9e+8ee.87migraciones/3815+227backend/116UI únicos, Auth y cleanup LOCALES/server0/teardownPASS. Ejecución de Asier, revisión propia Oier; no nuevo ensayo físico Oier. Fallos no enumerados=null, no cero medido.
 - Telecom de tres altas PASS en ese recurso: versión publicada preexistente,19EUR/mes+alta0, contrato/servicio/línea draft/pending/pending, mismos IDs/relaciones/versión tras recarga, command/receipt/audit únicos, sin activación.
 - LOST_REPLY e INVALID_RECEIPT de emisión observan ledger/recibo/audit0→1, factura v1→v2, coherenciaTRUE,2solicitudes con cuerpo idéntico y sin efecto adicional. Recibo backend validado antes de inyectar fallo al navegador. **Original39458747653 conserva causa/efectoUNKNOWN**, no reemitido; estos positivos no son reparación causal retrospectiva.
-- W5 PR171: **db4544893c62339e281c980b1a97e8879ad8820a**,9workflows terminales6SUCCESS/3FAIL, incluido Supabase39497308512SUCCESS. No trasladar a175. Cambio de alcance COMPOSITION_CHECK necesita revisión independiente; no edición/autoaprobación de gates W5/W4.
+- W5 PR171 HEAD observado **1239d8664511a274974397aa700a716a1e0a5ece**:5SUCCESS/1FAIL/3activos en ese corte; no cualificado por Oier. El corte anterior db454 era6SUCCESS/3FAIL, sin herencia. Revisión28 sólo cierra el hallazgo26 ena13787d1; cambio de alcance completo/revisiónW4 e integración siguen separados.
 - Último deploy reportado W5: **6ad78f6c810c781fba4f5880** = **a9e977adf90b1e83cded23fb54aefc696839d014**, no8ee. Config/adapter del nuevo deploy pendientes. No HOSTED_PASS propio ni de8ee.
 - Supabase zgwotxnyqzfuzcnmgvtn:87migraciones/90tablas públicas RLS/2buckets privados/ACTIVE_HEALTHY según W0 sólolectura. Conector Oier projects=[] era visibilidad, no backend caído. No SQL/reset/reapply88/permisos/resellpro.
 
@@ -17,7 +17,7 @@ Estado vigente 20/10/2026. Orden4561dee1; [coordinación W0/6301933535](https://
 
 [PR177 DRAFT](https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/177), fuente80d3a4f136a436e289f4bf1a4de4c8fa4c4ef653, tests964795d5/fixcec44342 desde8ee. Callback de una sesión de dictado fallida podía alterar la siguiente:3FAIL causales→42/42PASS propios, lint/TypeScript/build44estáticasPASS. Sólo retira callbacks obsoletos, sin tocar parser/API/SQL/permisos. [Evidencia](https://github.com/Asier-Comba/CRM-Telecomunicaciones/blob/80d3a4f136a436e289f4bf1a4de4c8fa4c4ef653/docs/commercial-cloud/20261020/SPEECH_ERROR25.md). SpeechStub/HTTP: no micrófono/AuthDB/cloud o modelo vivo. No integrarlo por silencio, no heredar CI8ee ni publicar encima de checks activos.
 
-[Revisión W5/26](20261020/PLATFORM_REVIEW26.md): el nuevo helper forward-only acepta dos altas posteriores con timestamp duplicado; unionMigrations las rechaza. Reproducción pura de fuente exacta, no bypass completo probado ni migraciones reales. W5 debe conservar el negativo. Otros cambios revisados con límites; no aprobación W4 o release.
+[Revisión W5/26](20261020/PLATFORM_REVIEW26.md): el nuevo helper forward-only acepta dos altas posteriores con timestamp duplicado; unionMigrations las rechaza. Reproducción pura de fuente exacta, no bypass completo probado ni migraciones reales. W5 lo corrigió ena13787d1056828f0f45e083cb73f44b87b763ceb; revisión28 con el helper exacto confirma negativos/positivos y cierra sólo ese hallazgo. No aprobación completa del alcance, W4, adopción en175 o release.
 
 ## Estado por recorrido
 
@@ -43,7 +43,7 @@ Telecom separado:3altas manuales contrato→servicio→línea desde catálogo/ve
 ## Próxima cola útil
 
 1.25cerrado enPR177, controles remotos propios pendientes; no repetir verdes ni empujar encima de checks. Revisar nuevas entregas reales antes de cambios.
-2.26revisado con negativo de duplicidad pendienteW5. Publicar evaluación coste0 con uso comercial/límites/Next.js/privacidad; sólo preparar configuración si cumple, nunca migrar automáticamente.
+2.26corregido porW5/28ACK técnico limitado; seguir integración/revisión por su fuente. Publicar evaluación coste0 con uso comercial/límites/Next.js/privacidad; sólo preparar configuración si cumple, nunca migrar automáticamente.
 3. CORE162 tras ventana real y nuevo deploy; telecom en otra ventana. Voz real sólo con navegador/micrófono consentidos; mientras tanto NOT_VERIFIED. Paridad inmobiliaria sólo lectura y funciones equivalentes, sin otra auditoría general.
 
 Guion privado de5–10min, **sólo cuando ese deploy tenga aceptación propia**: acceso/versión→dashboard/filtros→cliente360→texto300+IVA→revisión→draft→recarga mismoID/importes→catálogo/condiciones→tres altas/recarga→permisos. Omitir voz/emisión/cobro/PDF/Storage no aceptados. Hoy sólo se atribuyen al alojado los resultados API/page-read de W5; todavía no se acredita el recorrido visual independiente en esa URL.

@@ -306,8 +306,8 @@
   },
   "next": [
     "BILLING_PARITY_BOUNDED_REFERENCE_READ",
-    "OWN_PR177_TERMINAL_CHECKS_WHEN_COMPLETE",
-    "ASIER_W5_ORIGIN_PRIVATE_BOUNDARY_BEFORE_MIGRATION"
+    "OWN_PR177_TERMINAL_RESULTS",
+    "CORE162_ONLY_LEGITIMATE_PRIVATE_WINDOW"
   ],
   "portfolio12_real_local": {
     "contract": "oier.portfolio12.real-local-qualified.v1",
@@ -517,7 +517,7 @@
     "service_pricing": "DO_NOT_INFER_SERVICE_VERSION_INHERITANCE_FROM_CONTRACT"
   },
   "current_priority": {
-    "unit": "OIER_FREE_HOSTING27_CLOSED",
+    "unit": "OIER_PLATFORM_FIX_REVIEW28_CLOSED",
     "status": "REVIEWABLE_DISABLED_PROPOSAL_NO_MIGRATION",
     "observation": {
       "source": "1cc02065",
@@ -1260,7 +1260,8 @@
     "speech25",
     "platform26",
     "owner_zero_budget",
-    "free_hosting27"
+    "free_hosting27",
+    "platform28"
   ],
   "speech25": {
     "pr": 177,
@@ -1356,5 +1357,72 @@
     "schema_url": "https://render.com/schema/render.yaml.json",
     "schema_sha256": "8a3fb8da6b4f55fe686fbefa790e011d3dd7895f013f355953c572a21ab6494a",
     "release": "NOT_ACCEPTED"
+  },
+  "platform28": {
+    "source": "a13787d1056828f0f45e083cb73f44b87b763ceb",
+    "claim": 6302758694,
+    "result": "OIER26_HELPER_FINDING_CLOSED_SCOPED_QA_ACK",
+    "physical": "NOT_RUN",
+    "W4_approval": false,
+    "integration175": "NOT_PROVEN",
+    "observed_remote": {
+      "head": "1239d8664511a274974397aa700a716a1e0a5ece",
+      "runs": [
+        {
+          "id": 39505188496,
+          "name": "CI",
+          "status": "in_progress",
+          "conclusion": null
+        },
+        {
+          "id": 39505188607,
+          "name": "W5 native resource",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 39505188526,
+          "name": "W5 reviewed PDF runtime",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 39505188488,
+          "name": "W4 all-ref secret audit",
+          "status": "completed",
+          "conclusion": "failure"
+        },
+        {
+          "id": 39505188562,
+          "name": "Supabase local acceptance",
+          "status": "in_progress",
+          "conclusion": null
+        },
+        {
+          "id": 39505188554,
+          "name": "W5 enterprise platform acceptance",
+          "status": "in_progress",
+          "conclusion": null
+        },
+        {
+          "id": 39505188602,
+          "name": "W5 native profile87 compatibility",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 39505188491,
+          "name": "W2 owned resource business consumer",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 39505188703,
+          "name": "W2 delivered grants86 native compatibility",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    }
   }
 }
