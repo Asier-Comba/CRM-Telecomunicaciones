@@ -1,0 +1,86 @@
+{
+  "unit": "OIER_PORTFOLIO_FEEDBACK13",
+  "claim": 6294980728,
+  "base": "a9e977adf90b1e83cded23fb54aefc696839d014",
+  "source": "960d2d8c874c06c425ac90e8c9f49f88a28dff92",
+  "only_two_markup_insertions": true,
+  "baseline": {
+    "source": "e1a2d78a",
+    "stats": {
+      "startTime": "2026-10-20T14:47:28.378Z",
+      "duration": 37755.303,
+      "expected": 0,
+      "skipped": 0,
+      "unexpected": 3,
+      "flaky": 0
+    },
+    "first_failure": "Missing visible pending status after global.search dispatch; response deliberately held by test"
+  },
+  "intermediate": {
+    "source": "e033bec4",
+    "behavior": "9_PASS",
+    "visual_390": "STATUS_BELOW_VIEWPORT_IN_ATTEMPT03",
+    "preserved": true
+  },
+  "final_browser": {
+    "attempt": "portfolio-feedback-attempt04",
+    "stats": {
+      "startTime": "2026-10-20T14:54:00.548Z",
+      "duration": 48112.191,
+      "expected": 9,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "extra_assertion": "Pending status in actual viewport, outside busy results region"
+  },
+  "final_regression": {
+    "attempt": "portfolio-feedback-regression03",
+    "stats": {
+      "startTime": "2026-10-20T14:54:49.567Z",
+      "duration": 17941.653000000002,
+      "expected": 6,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "scope": "Existing selection races and closed-reference behavior at390/768/1440"
+  },
+  "lint": "PASS",
+  "production_build": "PASS_NEXT_DEFAULT_TURBOPACK_WITH_TYPES_44",
+  "production_build_source": "960d2d8c874c06c425ac90e8c9f49f88a28dff92",
+  "build_log_sha256": "4b2737bc32d30df2744d563f3a795da1898b8483b4269e93ca204359a97469d2",
+  "images": [
+    {
+      "file": "pending-search-390.png",
+      "sha256": "3ed4fdef2beb4c65ebb3da8c9b5642e6f339d539c6017ecf4ec6939e9bd9ccf7",
+      "source": "960d2d8c874c06c425ac90e8c9f49f88a28dff92",
+      "width": 390,
+      "scope": "ACTUAL_COMPONENT_FIXTURE_SEARCH_PANEL_PENDING_AFTER_CLICK_NOT_CLOUD",
+      "visually_reviewed": true
+    },
+    {
+      "file": "pending-search-768.png",
+      "sha256": "925b60cdc6fb0292f7d08b7f89d1b3ee70e3aaab77199030ffb3df602e9fb339",
+      "source": "960d2d8c874c06c425ac90e8c9f49f88a28dff92",
+      "width": 768,
+      "scope": "ACTUAL_COMPONENT_FIXTURE_SEARCH_PANEL_PENDING_AFTER_CLICK_NOT_CLOUD",
+      "visually_reviewed": true
+    },
+    {
+      "file": "pending-search-1440.png",
+      "sha256": "8f638ecf1628dfd50fb1d9c382b60671a39878fe1e67bf16eee3772c860cd02d",
+      "source": "960d2d8c874c06c425ac90e8c9f49f88a28dff92",
+      "width": 1440,
+      "scope": "ACTUAL_COMPONENT_FIXTURE_SEARCH_PANEL_PENDING_AFTER_CLICK_NOT_CLOUD",
+      "visually_reviewed": true
+    }
+  ],
+  "environment": "CONTROLLED_HTTP_ACTUAL_COMPONENTS_NO_AUTH_DB_CLOUD",
+  "historical_100bf_timeout": "CAUSE_UNKNOWN_NOT_CLAIMED_FIXED",
+  "hosted": "NOT_RUN",
+  "voice": "NOT_RUN",
+  "model": "NOT_RUN",
+  "business_ai_writes": "OFF",
+  "release": "NOT_ACCEPTED"
+}
