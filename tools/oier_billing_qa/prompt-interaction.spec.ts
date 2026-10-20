@@ -103,6 +103,25 @@ test('controlled dictation uses Spanish and waits until stopped before proposing
  await expect(page.getByRole('textbox',{name:'Concepto 1',exact:true})).toHaveValue('soporte')
  expect(r.proposals()[0].input.source).toBe('audio');r.assertNoCommands();expect(r.pageErrors).toEqual([])
 })
+test('refused stop explains recovery without losing text or permitting a proposal',async({page})=>{
+ const r=await mount(page),area=page.getByRole('textbox',{name:'Descripción de la factura',exact:true})
+ await page.getByRole('button',{name:'Dictar',exact:true}).click()
+ await speechEvent(page,'result',simple)
+ await page.evaluate(()=>{
+  const w=window as unknown as {SpeechRecognition:{prototype:{stop:()=>void}}},original=w.SpeechRecognition.prototype.stop
+  w.SpeechRecognition.prototype.stop=function(){w.SpeechRecognition.prototype.stop=original;throw Error('CONTROLLED_STOP_REFUSAL')}
+ })
+ await page.getByRole('button',{name:'Detener dictado',exact:true}).click()
+ await expect(page.getByRole('status').filter({hasText:'No se pudo detener el dictado.'})).toBeVisible()
+ await expect(area).toHaveValue(simple)
+ await expect(page.getByRole('button',{name:'Generar propuesta',exact:true})).toBeDisabled()
+ expect(r.proposals()).toEqual([]);r.assertNoCommands();expect(r.pageErrors).toEqual([])
+ await page.getByRole('button',{name:'Detener dictado',exact:true}).click()
+ await expect(page.getByRole('button',{name:'Dictar',exact:true})).toBeVisible()
+ await generate(page,simple)
+ expect(r.proposals()).toHaveLength(1);r.assertNoCommands();expect(r.pageErrors).toEqual([])
+})
+
 test('interim transcripts replace one another and editing changes provenance to text',async({page})=>{
  const r=await mount(page),area=page.getByRole('textbox',{name:'Descripción de la factura',exact:true})
  await area.fill('Factura para');await page.getByRole('button',{name:'Dictar',exact:true}).click()
