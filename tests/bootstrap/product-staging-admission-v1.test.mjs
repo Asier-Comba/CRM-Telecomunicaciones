@@ -75,6 +75,21 @@ test('application environment contract keeps activation reviewable and rejects p
  }
 })
 
+const localBuiltTransport={NODE_ENV:'production',NEXT_PUBLIC_SUPABASE_URL:'http://127.0.0.1:54321',PRODUCT_V1_ORIGIN:'http://127.0.0.1:3108',PRODUCT_V1_ENABLED:'true',NEXT_PUBLIC_SUPABASE_ANON_KEY:'synthetic-only'}
+test('production build mode preserves the existing loopback API transport without enabling hosted product UI',()=>{
+ assert.equal(admission.userClientBindingV1(localBuiltTransport),'local')
+ assert.equal(integratedProductAllowed(localBuiltTransport),false)
+ for(const APP_ENV of ['staging','production'])assert.equal(admission.userClientBindingV1({...localBuiltTransport,APP_ENV}),'denied')
+ assert.equal(admission.userClientBindingV1({...localBuiltTransport,NEXT_PUBLIC_SUPABASE_URL:admission.stagingSupabaseUrlV1}),'denied')
+})
+test('actual factory preserves production-build loopback transport and rejects declared hosted environments before SDK access',async()=>{
+ let constructors=0
+ const make=environment=>actual('src/lib/server/supabase-user.ts',{'next/headers':{cookies:async()=>({getAll:()=>[],set(){}})},'./product-staging-admission-v1':admission,'@supabase/ssr':{createServerClient(url){constructors++;assert.equal(url,localBuiltTransport.NEXT_PUBLIC_SUPABASE_URL);return{synthetic:true}}}},environment)
+ assert.deepEqual(await make(localBuiltTransport).createUserServerClient(),{synthetic:true})
+ for(const APP_ENV of ['staging','production'])assert.equal(await make({...localBuiltTransport,APP_ENV}).createUserServerClient(),null)
+ assert.equal(constructors,1)
+})
+
 function proxyFixture(outcome,environment=env){
  const calls=[],sdk={createServerClient(url,key,options){calls.push({url,key,options});return{auth:{async getUser(){
   options.cookies.setAll([{name:'synthetic-session',value:'synthetic-cookie',options:{path:'/',secure:options.cookieOptions?.secure??false}}],{'Cache-Control':'private, no-store','Expires':'0','Pragma':'no-cache','X-SDK-Test':'preserved'})

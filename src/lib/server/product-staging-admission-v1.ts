@@ -38,7 +38,9 @@ export function userClientBindingV1(env: Environment): 'local' | 'staging' | 'de
   const policy = readStagingAdmissionV1(env)
   if (policy.status === 'invalid') return 'denied'
   if (policy.status === 'enabled') return 'staging'
-  return env.NODE_ENV !== 'production' && env.APP_ENV !== 'production' && env.APP_ENV !== 'staging' &&
+  // next start uses production build mode even in the existing disposable loopback API drill.
+  // This SDK binding does not enable product UI; declared hosted environments stay closed.
+  return env.APP_ENV !== 'production' && env.APP_ENV !== 'staging' &&
     isCanonicalLocalSupabaseUrlV1(env.NEXT_PUBLIC_SUPABASE_URL) ? 'local' : 'denied'
 }
 
