@@ -1,0 +1,59 @@
+{
+  "prior_quota_attempts": "PRESERVED_27da_AND137_NOT_RELABELED",
+  "conclusion": "success",
+  "CI": "FAIL",
+  "run": 39349781920,
+  "pin": "public.ecr.aws/docker/library/postgres@sha256:ca0bd484cb98bf4b24eb1010e73fb3fcbd6714d240fbc1a10eea5b7dbecb641d",
+  "workflow_head": "f2d26b9178a9e866f8573aac8d2df7559150d569",
+  "W4": "INDEPENDENT",
+  "native_bootstrap": {
+    "pass": 11,
+    "fail": 0
+  },
+  "pull_result": "DOWNLOADED_SAME_PIN_IN_NEW_SOURCE_AUTOMATIC_JOB",
+  "quality_high_open": 5,
+  "cache_mechanism_acceptance": "NOT_INFERRED",
+  "manual_retries_requested": 0,
+  "job": 118390985245,
+  "actual_tested_merge": "33ef80afd2e9d0c6a404fa650db8dbf0254aa4f3",
+  "trees_equal": true,
+  "unit22_source": "815d0e1c840cc6fb150f1c9130fce93bdded47a6_NOT_THIS_REMOTE_TEST",
+  "head_tree": "35fff0880b206b04a2eccb19fd07c59adffe48f0",
+  "steps": [
+    {
+      "name": "Set up job",
+      "conclusion": "success"
+    },
+    {
+      "name": "Initialize containers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Checkout",
+      "conclusion": "success"
+    },
+    {
+      "name": "Isolated native migration, tenant and restore drill",
+      "conclusion": "success"
+    },
+    {
+      "name": "Retain synthetic density query plans",
+      "conclusion": "success"
+    },
+    {
+      "name": "Post Checkout",
+      "conclusion": "success"
+    },
+    {
+      "name": "Stop containers",
+      "conclusion": "success"
+    },
+    {
+      "name": "Complete job",
+      "conclusion": "success"
+    }
+  ],
+  "release": "NOT_ACCEPTED",
+  "tested_tree": "35fff0880b206b04a2eccb19fd07c59adffe48f0",
+  "full23": "NOT_INFERRED"
+}

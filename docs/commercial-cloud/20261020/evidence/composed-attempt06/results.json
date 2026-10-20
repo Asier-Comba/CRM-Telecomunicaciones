@@ -1,0 +1,3936 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--config",
+      "tools/oier_commercial_qa/composed.config.ts"
+    ],
+    "configFile": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\composed.config.ts",
+    "rootDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-commercial-20261020/tools/oier_commercial_qa",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-commercial-20261020/composed-attempt06/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "controlled-http-390",
+        "name": "controlled-http-390",
+        "testDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-commercial-20261020/tools/oier_commercial_qa",
+        "testIgnore": [],
+        "testMatch": [
+          "portfolio-readback.spec.ts",
+          "case-readback.spec.ts",
+          "calendar-intent.spec.ts",
+          "document-intent.spec.ts",
+          "portfolio-create-intent.spec.ts",
+          "contract-shortcut.spec.ts"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-commercial-20261020/composed-attempt06/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "controlled-http-768",
+        "name": "controlled-http-768",
+        "testDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-commercial-20261020/tools/oier_commercial_qa",
+        "testIgnore": [],
+        "testMatch": [
+          "portfolio-readback.spec.ts",
+          "case-readback.spec.ts",
+          "calendar-intent.spec.ts",
+          "document-intent.spec.ts",
+          "portfolio-create-intent.spec.ts",
+          "contract-shortcut.spec.ts"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-commercial-20261020/composed-attempt06/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "controlled-http-1440",
+        "name": "controlled-http-1440",
+        "testDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-commercial-20261020/tools/oier_commercial_qa",
+        "testIgnore": [],
+        "testMatch": [
+          "portfolio-readback.spec.ts",
+          "case-readback.spec.ts",
+          "calendar-intent.spec.ts",
+          "document-intent.spec.ts",
+          "portfolio-create-intent.spec.ts",
+          "contract-shortcut.spec.ts"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "line",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\composed-attempt06\\results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.61.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "calendar-intent.spec.ts",
+      "file": "calendar-intent.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "calendar preserves the reviewed intent after transport",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1590,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:31:01.411Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "unknown-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoidHJhbnNwb3J0IiwiY29tbWFuZHMiOlt7Im9wZXJhdGlvbiI6InRhc2sudXBkYXRlIiwiaW5wdXQiOnsiaWQiOiI1MDAwMDAwMC0wMDAwLTQwMDAtODAwMC0wMDAwMDAwMDAwMDIiLCJleHBlY3RlZF92ZXJzaW9uIjoxLCJ0aXRsZSI6IlJldmlld2VkIHRhc2sgdGl0bGUiLCJkdWVfYXQiOiIyMDI2LTEwLTEyVDA5OjAwOjAwLjAwMFoiLCJwcmlvcml0eSI6Im5vcm1hbCIsImFzc2lnbmVkX3VzZXJfaWQiOm51bGwsImNvbW1hbmRfaWQiOiJhMmI3YWU5ZC1hMGNiLTQ1ODktOGE1MC1kMDc4ZmNiODY2MzMifX1dfQ=="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4c67a63d901224719734-3d1b8ae6951001dfa579",
+          "file": "calendar-intent.spec.ts",
+          "line": 7,
+          "column": 93
+        },
+        {
+          "title": "calendar preserves the reviewed intent after malformed",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1639,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:31:13.151Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "unknown-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoibWFsZm9ybWVkIiwiY29tbWFuZHMiOlt7Im9wZXJhdGlvbiI6InRhc2sudXBkYXRlIiwiaW5wdXQiOnsiaWQiOiI1MDAwMDAwMC0wMDAwLTQwMDAtODAwMC0wMDAwMDAwMDAwMDIiLCJleHBlY3RlZF92ZXJzaW9uIjoxLCJ0aXRsZSI6IlJldmlld2VkIHRhc2sgdGl0bGUiLCJkdWVfYXQiOiIyMDI2LTEwLTEyVDA5OjAwOjAwLjAwMFoiLCJwcmlvcml0eSI6Im5vcm1hbCIsImFzc2lnbmVkX3VzZXJfaWQiOm51bGwsImNvbW1hbmRfaWQiOiI5YmExMjUzOC1lZjkwLTQzMGQtOGIyNS1iYTAwM2Y3NjljYWYifX1dfQ=="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4c67a63d901224719734-e879458d9f9bb27fc317",
+          "file": "calendar-intent.spec.ts",
+          "line": 7,
+          "column": 93
+        },
+        {
+          "title": "calendar preserves the reviewed intent after wrong_receipt",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2043,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:31:14.838Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "unknown-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoid3JvbmdfcmVjZWlwdCIsImNvbW1hbmRzIjpbeyJvcGVyYXRpb24iOiJ0YXNrLnVwZGF0ZSIsImlucHV0Ijp7ImlkIjoiNTAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAyIiwiZXhwZWN0ZWRfdmVyc2lvbiI6MSwidGl0bGUiOiJSZXZpZXdlZCB0YXNrIHRpdGxlIiwiZHVlX2F0IjoiMjAyNi0xMC0xMlQwOTowMDowMC4wMDBaIiwicHJpb3JpdHkiOiJub3JtYWwiLCJhc3NpZ25lZF91c2VyX2lkIjpudWxsLCJjb21tYW5kX2lkIjoiZWIzODVlOWItZTExZC00NWRiLWIwOTMtMTYwYjJiYjM1YTUxIn19XX0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4c67a63d901224719734-a5e2a955b4c4abe43f23",
+          "file": "calendar-intent.spec.ts",
+          "line": 7,
+          "column": 93
+        },
+        {
+          "title": "calendar preserves the reviewed intent after denied",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1238,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:31:16.933Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4c67a63d901224719734-27704d916031fe295fe6",
+          "file": "calendar-intent.spec.ts",
+          "line": 7,
+          "column": 93
+        },
+        {
+          "title": "calendar preserves the reviewed intent after success",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1245,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:31:18.242Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4c67a63d901224719734-aace869bd36aa6d3b583",
+          "file": "calendar-intent.spec.ts",
+          "line": 7,
+          "column": 93
+        },
+        {
+          "title": "calendar preserves the reviewed intent after transport",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1767,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:32:30.483Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "unknown-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoidHJhbnNwb3J0IiwiY29tbWFuZHMiOlt7Im9wZXJhdGlvbiI6InRhc2sudXBkYXRlIiwiaW5wdXQiOnsiaWQiOiI1MDAwMDAwMC0wMDAwLTQwMDAtODAwMC0wMDAwMDAwMDAwMDIiLCJleHBlY3RlZF92ZXJzaW9uIjoxLCJ0aXRsZSI6IlJldmlld2VkIHRhc2sgdGl0bGUiLCJkdWVfYXQiOiIyMDI2LTEwLTEyVDA5OjAwOjAwLjAwMFoiLCJwcmlvcml0eSI6Im5vcm1hbCIsImFzc2lnbmVkX3VzZXJfaWQiOm51bGwsImNvbW1hbmRfaWQiOiJmNWE2MjE3ZS01ZjQzLTRjMmEtOGYxNy04MjY1NzkzYTViYWMifX1dfQ=="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4c67a63d901224719734-1d3d1998260ae908d108",
+          "file": "calendar-intent.spec.ts",
+          "line": 7,
+          "column": 93
+        },
+        {
+          "title": "calendar preserves the reviewed intent after malformed",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1246,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:32:39.258Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "unknown-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoibWFsZm9ybWVkIiwiY29tbWFuZHMiOlt7Im9wZXJhdGlvbiI6InRhc2sudXBkYXRlIiwiaW5wdXQiOnsiaWQiOiI1MDAwMDAwMC0wMDAwLTQwMDAtODAwMC0wMDAwMDAwMDAwMDIiLCJleHBlY3RlZF92ZXJzaW9uIjoxLCJ0aXRsZSI6IlJldmlld2VkIHRhc2sgdGl0bGUiLCJkdWVfYXQiOiIyMDI2LTEwLTEyVDA5OjAwOjAwLjAwMFoiLCJwcmlvcml0eSI6Im5vcm1hbCIsImFzc2lnbmVkX3VzZXJfaWQiOm51bGwsImNvbW1hbmRfaWQiOiIzODI0YjEyNS0zYWM4LTRkYmUtOWJhNi0yMjE4NGYyNTQ3ZDUifX1dfQ=="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4c67a63d901224719734-f62fd6de5b2e4f4126b5",
+          "file": "calendar-intent.spec.ts",
+          "line": 7,
+          "column": 93
+        },
+        {
+          "title": "calendar preserves the reviewed intent after wrong_receipt",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1547,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:32:40.537Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "unknown-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoid3JvbmdfcmVjZWlwdCIsImNvbW1hbmRzIjpbeyJvcGVyYXRpb24iOiJ0YXNrLnVwZGF0ZSIsImlucHV0Ijp7ImlkIjoiNTAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAyIiwiZXhwZWN0ZWRfdmVyc2lvbiI6MSwidGl0bGUiOiJSZXZpZXdlZCB0YXNrIHRpdGxlIiwiZHVlX2F0IjoiMjAyNi0xMC0xMlQwOTowMDowMC4wMDBaIiwicHJpb3JpdHkiOiJub3JtYWwiLCJhc3NpZ25lZF91c2VyX2lkIjpudWxsLCJjb21tYW5kX2lkIjoiZWE0MDIxYWQtZDllNS00YjkxLThjNTgtZDRlNDAyNGE2ZDA5In19XX0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4c67a63d901224719734-a29a42df09b56aed3015",
+          "file": "calendar-intent.spec.ts",
+          "line": 7,
+          "column": 93
+        },
+        {
+          "title": "calendar preserves the reviewed intent after denied",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 965,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:32:42.129Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4c67a63d901224719734-ac64a15fdd11d20f5b03",
+          "file": "calendar-intent.spec.ts",
+          "line": 7,
+          "column": 93
+        },
+        {
+          "title": "calendar preserves the reviewed intent after success",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1513,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:32:43.127Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4c67a63d901224719734-1d74f95be80fcd2f4221",
+          "file": "calendar-intent.spec.ts",
+          "line": 7,
+          "column": 93
+        },
+        {
+          "title": "calendar preserves the reviewed intent after transport",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1546,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:33:52.599Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "unknown-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoidHJhbnNwb3J0IiwiY29tbWFuZHMiOlt7Im9wZXJhdGlvbiI6InRhc2sudXBkYXRlIiwiaW5wdXQiOnsiaWQiOiI1MDAwMDAwMC0wMDAwLTQwMDAtODAwMC0wMDAwMDAwMDAwMDIiLCJleHBlY3RlZF92ZXJzaW9uIjoxLCJ0aXRsZSI6IlJldmlld2VkIHRhc2sgdGl0bGUiLCJkdWVfYXQiOiIyMDI2LTEwLTEyVDA5OjAwOjAwLjAwMFoiLCJwcmlvcml0eSI6Im5vcm1hbCIsImFzc2lnbmVkX3VzZXJfaWQiOm51bGwsImNvbW1hbmRfaWQiOiI0YmFjYTA1Zi04YjE3LTRiODgtYTJmMC02MjM0MzY3ODAzYWIifX1dfQ=="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4c67a63d901224719734-dd4ef6e5fe812e9d8320",
+          "file": "calendar-intent.spec.ts",
+          "line": 7,
+          "column": 93
+        },
+        {
+          "title": "calendar preserves the reviewed intent after malformed",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1206,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:34:02.197Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "unknown-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoibWFsZm9ybWVkIiwiY29tbWFuZHMiOlt7Im9wZXJhdGlvbiI6InRhc2sudXBkYXRlIiwiaW5wdXQiOnsiaWQiOiI1MDAwMDAwMC0wMDAwLTQwMDAtODAwMC0wMDAwMDAwMDAwMDIiLCJleHBlY3RlZF92ZXJzaW9uIjoxLCJ0aXRsZSI6IlJldmlld2VkIHRhc2sgdGl0bGUiLCJkdWVfYXQiOiIyMDI2LTEwLTEyVDA5OjAwOjAwLjAwMFoiLCJwcmlvcml0eSI6Im5vcm1hbCIsImFzc2lnbmVkX3VzZXJfaWQiOm51bGwsImNvbW1hbmRfaWQiOiIyMGQzZTZlMy0zZmQ1LTQ0YzYtOTkxYy1hZjVhMWFjYTQ2YTEifX1dfQ=="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4c67a63d901224719734-dc4d96e948b5c3b13f64",
+          "file": "calendar-intent.spec.ts",
+          "line": 7,
+          "column": 93
+        },
+        {
+          "title": "calendar preserves the reviewed intent after wrong_receipt",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1577,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:34:03.435Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "unknown-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoid3JvbmdfcmVjZWlwdCIsImNvbW1hbmRzIjpbeyJvcGVyYXRpb24iOiJ0YXNrLnVwZGF0ZSIsImlucHV0Ijp7ImlkIjoiNTAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAyIiwiZXhwZWN0ZWRfdmVyc2lvbiI6MSwidGl0bGUiOiJSZXZpZXdlZCB0YXNrIHRpdGxlIiwiZHVlX2F0IjoiMjAyNi0xMC0xMlQwOTowMDowMC4wMDBaIiwicHJpb3JpdHkiOiJub3JtYWwiLCJhc3NpZ25lZF91c2VyX2lkIjpudWxsLCJjb21tYW5kX2lkIjoiYTBjODY4M2EtZDdkMi00ZDkxLWI4YWMtNmIwMThjYzA0OTU1In19XX0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4c67a63d901224719734-2338f3d2e99b00500804",
+          "file": "calendar-intent.spec.ts",
+          "line": 7,
+          "column": 93
+        },
+        {
+          "title": "calendar preserves the reviewed intent after denied",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1041,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:34:05.046Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4c67a63d901224719734-6d71b2c987d3b8968884",
+          "file": "calendar-intent.spec.ts",
+          "line": 7,
+          "column": 93
+        },
+        {
+          "title": "calendar preserves the reviewed intent after success",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 971,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:34:06.113Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4c67a63d901224719734-f81da0718207454fdc57",
+          "file": "calendar-intent.spec.ts",
+          "line": 7,
+          "column": 93
+        }
+      ]
+    },
+    {
+      "title": "case-readback.spec.ts",
+      "file": "case-readback.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "case resolution requires coherent stale readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2032,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:31:19.563Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "case-readback-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoic3RhbGUiLCJjb21tYW5kcyI6WyJjYXNlLnJlc29sdmUiXSwicmVhZGJhY2tzIjoxfQ=="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "2e1c4eb9650926324afd-3446c1dde83e32f3e82f",
+          "file": "case-readback.spec.ts",
+          "line": 9,
+          "column": 111
+        },
+        {
+          "title": "case resolution requires coherent wrong_status readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1925,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:31:31.174Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "case-readback-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoid3Jvbmdfc3RhdHVzIiwiY29tbWFuZHMiOlsiY2FzZS5yZXNvbHZlIl0sInJlYWRiYWNrcyI6MX0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "2e1c4eb9650926324afd-9d8e52c3c84566d7366e",
+          "file": "case-readback.spec.ts",
+          "line": 9,
+          "column": 111
+        },
+        {
+          "title": "case resolution requires coherent wrong_source readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1908,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:31:33.141Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "case-readback-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoid3Jvbmdfc291cmNlIiwiY29tbWFuZHMiOlsiY2FzZS5yZXNvbHZlIl0sInJlYWRiYWNrcyI6MX0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "2e1c4eb9650926324afd-91db90e581a52ac2845f",
+          "file": "case-readback.spec.ts",
+          "line": 9,
+          "column": 111
+        },
+        {
+          "title": "case resolution requires coherent wrong_resolution readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1749,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:31:35.091Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "case-readback-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoid3JvbmdfcmVzb2x1dGlvbiIsImNvbW1hbmRzIjpbImNhc2UucmVzb2x2ZSJdLCJyZWFkYmFja3MiOjF9"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "2e1c4eb9650926324afd-92e65bfd0882d756f109",
+          "file": "case-readback.spec.ts",
+          "line": 9,
+          "column": 111
+        },
+        {
+          "title": "case resolution requires coherent confirmed readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1256,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:31:36.888Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "2e1c4eb9650926324afd-0227c946b5a2ab288540",
+          "file": "case-readback.spec.ts",
+          "line": 9,
+          "column": 111
+        },
+        {
+          "title": "case resolution requires coherent newer readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1264,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:31:38.168Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "2e1c4eb9650926324afd-29358a1f770174f6eba0",
+          "file": "case-readback.spec.ts",
+          "line": 9,
+          "column": 111
+        },
+        {
+          "title": "case resolution requires coherent stale readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2279,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:32:44.767Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "case-readback-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoic3RhbGUiLCJjb21tYW5kcyI6WyJjYXNlLnJlc29sdmUiXSwicmVhZGJhY2tzIjoxfQ=="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "2e1c4eb9650926324afd-dee4700eb073184625e6",
+          "file": "case-readback.spec.ts",
+          "line": 9,
+          "column": 111
+        },
+        {
+          "title": "case resolution requires coherent wrong_status readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2073,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:32:54.410Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "case-readback-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoid3Jvbmdfc3RhdHVzIiwiY29tbWFuZHMiOlsiY2FzZS5yZXNvbHZlIl0sInJlYWRiYWNrcyI6MX0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "2e1c4eb9650926324afd-fc0efaaaa9e6bcf2e097",
+          "file": "case-readback.spec.ts",
+          "line": 9,
+          "column": 111
+        },
+        {
+          "title": "case resolution requires coherent wrong_source readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1840,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:32:56.529Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "case-readback-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoid3Jvbmdfc291cmNlIiwiY29tbWFuZHMiOlsiY2FzZS5yZXNvbHZlIl0sInJlYWRiYWNrcyI6MX0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "2e1c4eb9650926324afd-bc316dd8c2e97dab4ca2",
+          "file": "case-readback.spec.ts",
+          "line": 9,
+          "column": 111
+        },
+        {
+          "title": "case resolution requires coherent wrong_resolution readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1930,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:32:58.426Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "case-readback-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoid3JvbmdfcmVzb2x1dGlvbiIsImNvbW1hbmRzIjpbImNhc2UucmVzb2x2ZSJdLCJyZWFkYmFja3MiOjF9"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "2e1c4eb9650926324afd-2cb67ef20f19ce020428",
+          "file": "case-readback.spec.ts",
+          "line": 9,
+          "column": 111
+        },
+        {
+          "title": "case resolution requires coherent confirmed readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1681,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:33:00.396Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "2e1c4eb9650926324afd-b2b690bac15b281f7a9e",
+          "file": "case-readback.spec.ts",
+          "line": 9,
+          "column": 111
+        },
+        {
+          "title": "case resolution requires coherent newer readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2024,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:33:02.121Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "2e1c4eb9650926324afd-e70aab54fd3191a69cb7",
+          "file": "case-readback.spec.ts",
+          "line": 9,
+          "column": 111
+        },
+        {
+          "title": "case resolution requires coherent stale readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2458,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:34:07.170Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "case-readback-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoic3RhbGUiLCJjb21tYW5kcyI6WyJjYXNlLnJlc29sdmUiXSwicmVhZGJhY2tzIjoxfQ=="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "2e1c4eb9650926324afd-f289adbead360fe30835",
+          "file": "case-readback.spec.ts",
+          "line": 9,
+          "column": 111
+        },
+        {
+          "title": "case resolution requires coherent wrong_status readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1987,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:34:16.602Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "case-readback-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoid3Jvbmdfc3RhdHVzIiwiY29tbWFuZHMiOlsiY2FzZS5yZXNvbHZlIl0sInJlYWRiYWNrcyI6MX0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "2e1c4eb9650926324afd-a1cb949f1951df639d86",
+          "file": "case-readback.spec.ts",
+          "line": 9,
+          "column": 111
+        },
+        {
+          "title": "case resolution requires coherent wrong_source readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1987,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:34:18.641Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "case-readback-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoid3Jvbmdfc291cmNlIiwiY29tbWFuZHMiOlsiY2FzZS5yZXNvbHZlIl0sInJlYWRiYWNrcyI6MX0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "2e1c4eb9650926324afd-becd2144e132f0b01f69",
+          "file": "case-readback.spec.ts",
+          "line": 9,
+          "column": 111
+        },
+        {
+          "title": "case resolution requires coherent wrong_resolution readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2031,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:34:20.669Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "case-readback-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoid3JvbmdfcmVzb2x1dGlvbiIsImNvbW1hbmRzIjpbImNhc2UucmVzb2x2ZSJdLCJyZWFkYmFja3MiOjF9"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "2e1c4eb9650926324afd-0cc075bc350319d59e9a",
+          "file": "case-readback.spec.ts",
+          "line": 9,
+          "column": 111
+        },
+        {
+          "title": "case resolution requires coherent confirmed readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1495,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:34:22.740Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "2e1c4eb9650926324afd-98392201a421dab20361",
+          "file": "case-readback.spec.ts",
+          "line": 9,
+          "column": 111
+        },
+        {
+          "title": "case resolution requires coherent newer readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1302,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:34:24.272Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "2e1c4eb9650926324afd-fd6cc168d48a2deca75a",
+          "file": "case-readback.spec.ts",
+          "line": 9,
+          "column": 111
+        }
+      ]
+    },
+    {
+      "title": "contract-shortcut.spec.ts",
+      "file": "contract-shortcut.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "new manual contract follows the shortcut intent",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2200,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:31:39.516Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "creation-kind-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoic2hvcnRjdXQiLCJzZWxlY3RlZEtpbmQiOiJjb250cmFjdCIsImNvbW1hbmRzIjpbXX0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "475224eda11e250370f3-3dde2f6f87cda254d0fd",
+          "file": "contract-shortcut.spec.ts",
+          "line": 9,
+          "column": 64
+        },
+        {
+          "title": "new manual contract follows the manual_selection intent",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1648,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:31:49.724Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "creation-kind-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoibWFudWFsX3NlbGVjdGlvbiIsInNlbGVjdGVkS2luZCI6ImNvbnRyYWN0IiwiY29tbWFuZHMiOltdfQ=="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "475224eda11e250370f3-e4338e81950c5b0fbc76",
+          "file": "contract-shortcut.spec.ts",
+          "line": 9,
+          "column": 64
+        },
+        {
+          "title": "new manual contract follows the shortcut intent",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2080,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:33:04.240Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "creation-kind-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoic2hvcnRjdXQiLCJzZWxlY3RlZEtpbmQiOiJjb250cmFjdCIsImNvbW1hbmRzIjpbXX0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "475224eda11e250370f3-811abd221fb6268804b9",
+          "file": "contract-shortcut.spec.ts",
+          "line": 9,
+          "column": 64
+        },
+        {
+          "title": "new manual contract follows the manual_selection intent",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1549,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:33:13.861Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "creation-kind-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoibWFudWFsX3NlbGVjdGlvbiIsInNlbGVjdGVkS2luZCI6ImNvbnRyYWN0IiwiY29tbWFuZHMiOltdfQ=="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "475224eda11e250370f3-9f3479f3f992dfc690f9",
+          "file": "contract-shortcut.spec.ts",
+          "line": 9,
+          "column": 64
+        },
+        {
+          "title": "new manual contract follows the shortcut intent",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2053,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:34:25.660Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "creation-kind-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoic2hvcnRjdXQiLCJzZWxlY3RlZEtpbmQiOiJjb250cmFjdCIsImNvbW1hbmRzIjpbXX0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "475224eda11e250370f3-5c2b29e95e0cff9cad41",
+          "file": "contract-shortcut.spec.ts",
+          "line": 9,
+          "column": 64
+        },
+        {
+          "title": "new manual contract follows the manual_selection intent",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1937,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:34:33.369Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "creation-kind-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoibWFudWFsX3NlbGVjdGlvbiIsInNlbGVjdGVkS2luZCI6ImNvbnRyYWN0IiwiY29tbWFuZHMiOltdfQ=="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "475224eda11e250370f3-fa11ae7ca21f29aa4e92",
+          "file": "contract-shortcut.spec.ts",
+          "line": 9,
+          "column": 64
+        }
+      ]
+    },
+    {
+      "title": "document-intent.spec.ts",
+      "file": "document-intent.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "document archive preserves exact intent after transport",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1247,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:31:51.478Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "document-intent-observation",
+                      "contentType": "application/json",
+                      "body": "eyJvcGVyYXRpb24iOiJhcmNoaXZlIiwibW9kZSI6InRyYW5zcG9ydCIsImNvbW1hbmRzIjpbeyJvcGVyYXRpb24iOiJkb2N1bWVudC5hcmNoaXZlIiwiaW5wdXQiOnsiY29tbWFuZF9pZCI6IjAzNzIzZWQ3LTY5OGEtNDY2NS1iMWQ5LTczNjczYWZjNWEwNiIsImlkIjoiMjAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiZXhwZWN0ZWRfdmVyc2lvbiI6MX19XX0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-799a4588ea7906631548",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document archive preserves exact intent after malformed",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1485,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:31:59.716Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "document-intent-observation",
+                      "contentType": "application/json",
+                      "body": "eyJvcGVyYXRpb24iOiJhcmNoaXZlIiwibW9kZSI6Im1hbGZvcm1lZCIsImNvbW1hbmRzIjpbeyJvcGVyYXRpb24iOiJkb2N1bWVudC5hcmNoaXZlIiwiaW5wdXQiOnsiY29tbWFuZF9pZCI6IjhjMmY2MGRlLTExZmItNGMyMi1hNWE0LWU3Njk3MmM1ZjhjYSIsImlkIjoiMjAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiZXhwZWN0ZWRfdmVyc2lvbiI6MX19XX0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-5b205c3951540989af52",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document archive preserves exact intent after wrong_receipt",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1247,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:32:01.234Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "document-intent-observation",
+                      "contentType": "application/json",
+                      "body": "eyJvcGVyYXRpb24iOiJhcmNoaXZlIiwibW9kZSI6Indyb25nX3JlY2VpcHQiLCJjb21tYW5kcyI6W3sib3BlcmF0aW9uIjoiZG9jdW1lbnQuYXJjaGl2ZSIsImlucHV0Ijp7ImNvbW1hbmRfaWQiOiI2NmNlNTUzOC1iNTMyLTRkYjctODIzZi0zNTJlNjUzZTY4NzYiLCJpZCI6IjIwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMSIsImV4cGVjdGVkX3ZlcnNpb24iOjF9fV19"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-979cad086cd7d221d445",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document archive preserves exact intent after denied",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1700,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:32:02.511Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-3331621149085b221c00",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document archive preserves exact intent after success",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 757,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:32:04.239Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-1e85fa1035c4b6af6e89",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document restore preserves exact intent after transport",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1242,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:32:05.023Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "document-intent-observation",
+                      "contentType": "application/json",
+                      "body": "eyJvcGVyYXRpb24iOiJyZXN0b3JlIiwibW9kZSI6InRyYW5zcG9ydCIsImNvbW1hbmRzIjpbeyJvcGVyYXRpb24iOiJkb2N1bWVudC5yZXN0b3JlIiwiaW5wdXQiOnsiY29tbWFuZF9pZCI6IjM4M2Q2ZmE3LTU3MDUtNDkyOC1iMTRmLTliY2QyNjA5ZTBjNSIsImlkIjoiMjAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiZXhwZWN0ZWRfdmVyc2lvbiI6MX19XX0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-863b5a036574f0b323c7",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document restore preserves exact intent after malformed",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1426,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:32:06.293Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "document-intent-observation",
+                      "contentType": "application/json",
+                      "body": "eyJvcGVyYXRpb24iOiJyZXN0b3JlIiwibW9kZSI6Im1hbGZvcm1lZCIsImNvbW1hbmRzIjpbeyJvcGVyYXRpb24iOiJkb2N1bWVudC5yZXN0b3JlIiwiaW5wdXQiOnsiY29tbWFuZF9pZCI6IjUwODBiNTBkLTljZjItNDU3MC04NmJjLTUwZGQyYzMzYzVhMiIsImlkIjoiMjAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiZXhwZWN0ZWRfdmVyc2lvbiI6MX19XX0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-4feb49eed85bdd1dba52",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document restore preserves exact intent after wrong_receipt",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1396,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:32:07.745Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "document-intent-observation",
+                      "contentType": "application/json",
+                      "body": "eyJvcGVyYXRpb24iOiJyZXN0b3JlIiwibW9kZSI6Indyb25nX3JlY2VpcHQiLCJjb21tYW5kcyI6W3sib3BlcmF0aW9uIjoiZG9jdW1lbnQucmVzdG9yZSIsImlucHV0Ijp7ImNvbW1hbmRfaWQiOiI2YTAyMzlmMS0wMDE3LTQ1MWUtOWViNS1kZjFiMTBjMTI5ODMiLCJpZCI6IjIwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMSIsImV4cGVjdGVkX3ZlcnNpb24iOjF9fV19"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-abae1f72ffaf5892868e",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document restore preserves exact intent after denied",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1332,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:32:09.170Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-fa9f052d044d84d9912a",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document restore preserves exact intent after success",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1109,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:32:10.533Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-a1acb4e783eb55b06cbc",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document archive preserves exact intent after transport",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1794,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:33:15.528Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "document-intent-observation",
+                      "contentType": "application/json",
+                      "body": "eyJvcGVyYXRpb24iOiJhcmNoaXZlIiwibW9kZSI6InRyYW5zcG9ydCIsImNvbW1hbmRzIjpbeyJvcGVyYXRpb24iOiJkb2N1bWVudC5hcmNoaXZlIiwiaW5wdXQiOnsiY29tbWFuZF9pZCI6IjE0OTExYTAxLWMyY2EtNDU1Yy1iZDI2LTc0MmVmZWJjZWExOSIsImlkIjoiMjAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiZXhwZWN0ZWRfdmVyc2lvbiI6MX19XX0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-a8b5b9cc529871f07321",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document archive preserves exact intent after malformed",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1309,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:33:22.742Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "document-intent-observation",
+                      "contentType": "application/json",
+                      "body": "eyJvcGVyYXRpb24iOiJhcmNoaXZlIiwibW9kZSI6Im1hbGZvcm1lZCIsImNvbW1hbmRzIjpbeyJvcGVyYXRpb24iOiJkb2N1bWVudC5hcmNoaXZlIiwiaW5wdXQiOnsiY29tbWFuZF9pZCI6IjEyN2E5NzAwLTNiYzItNDNjZi04ZGEyLWY0MzNkYTMyYWNhYSIsImlkIjoiMjAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiZXhwZWN0ZWRfdmVyc2lvbiI6MX19XX0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-4dfffa80419a24f7ae94",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document archive preserves exact intent after wrong_receipt",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1303,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:33:24.083Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "document-intent-observation",
+                      "contentType": "application/json",
+                      "body": "eyJvcGVyYXRpb24iOiJhcmNoaXZlIiwibW9kZSI6Indyb25nX3JlY2VpcHQiLCJjb21tYW5kcyI6W3sib3BlcmF0aW9uIjoiZG9jdW1lbnQuYXJjaGl2ZSIsImlucHV0Ijp7ImNvbW1hbmRfaWQiOiIxODlkYzMyZS1jMDRmLTQ4M2QtODRhYi01ZTUxMGExN2MxYjkiLCJpZCI6IjIwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMSIsImV4cGVjdGVkX3ZlcnNpb24iOjF9fV19"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-38a67e50034d430e97ca",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document archive preserves exact intent after denied",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1072,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:33:25.422Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-4fbd5b1db156776b64ce",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document archive preserves exact intent after success",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 824,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:33:26.541Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-20abd4d6a46853fb5353",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document restore preserves exact intent after transport",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1251,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:33:27.394Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "document-intent-observation",
+                      "contentType": "application/json",
+                      "body": "eyJvcGVyYXRpb24iOiJyZXN0b3JlIiwibW9kZSI6InRyYW5zcG9ydCIsImNvbW1hbmRzIjpbeyJvcGVyYXRpb24iOiJkb2N1bWVudC5yZXN0b3JlIiwiaW5wdXQiOnsiY29tbWFuZF9pZCI6IjQ4ZjgwMTcwLWZjNzAtNDcyZC04OGQxLWJmZmIyNDhmZTk3YiIsImlkIjoiMjAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiZXhwZWN0ZWRfdmVyc2lvbiI6MX19XX0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-8aaaf9960db27d28852d",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document restore preserves exact intent after malformed",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2127,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:33:28.673Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "document-intent-observation",
+                      "contentType": "application/json",
+                      "body": "eyJvcGVyYXRpb24iOiJyZXN0b3JlIiwibW9kZSI6Im1hbGZvcm1lZCIsImNvbW1hbmRzIjpbeyJvcGVyYXRpb24iOiJkb2N1bWVudC5yZXN0b3JlIiwiaW5wdXQiOnsiY29tbWFuZF9pZCI6ImQ5ZjhiNTRlLWE5OGItNGU3ZS1iMTc5LTczOWIyZTdhZTVjZCIsImlkIjoiMjAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiZXhwZWN0ZWRfdmVyc2lvbiI6MX19XX0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-8446f3bc8d5cf37efd65",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document restore preserves exact intent after wrong_receipt",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1758,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:33:30.833Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "document-intent-observation",
+                      "contentType": "application/json",
+                      "body": "eyJvcGVyYXRpb24iOiJyZXN0b3JlIiwibW9kZSI6Indyb25nX3JlY2VpcHQiLCJjb21tYW5kcyI6W3sib3BlcmF0aW9uIjoiZG9jdW1lbnQucmVzdG9yZSIsImlucHV0Ijp7ImNvbW1hbmRfaWQiOiIyYTk2Yjc1YS0zZmE5LTQ1MGEtOTg0Mi05M2VkNzdhYzc1OGIiLCJpZCI6IjIwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMSIsImV4cGVjdGVkX3ZlcnNpb24iOjF9fV19"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-ffe7062ec2ed306d9435",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document restore preserves exact intent after denied",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1201,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:33:32.617Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-2a3dfc616670bd0daece",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document restore preserves exact intent after success",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 941,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:33:33.859Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-b931143af5eaea715c3c",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document archive preserves exact intent after transport",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2067,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:34:35.384Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "document-intent-observation",
+                      "contentType": "application/json",
+                      "body": "eyJvcGVyYXRpb24iOiJhcmNoaXZlIiwibW9kZSI6InRyYW5zcG9ydCIsImNvbW1hbmRzIjpbeyJvcGVyYXRpb24iOiJkb2N1bWVudC5hcmNoaXZlIiwiaW5wdXQiOnsiY29tbWFuZF9pZCI6IjgyYzUwOWI3LWMxM2EtNDMyOC05MzIzLWMxYTY5ZDEzYzFhOSIsImlkIjoiMjAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiZXhwZWN0ZWRfdmVyc2lvbiI6MX19XX0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-67114c7edbc5c57aab6c",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document archive preserves exact intent after malformed",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1700,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:34:42.389Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "document-intent-observation",
+                      "contentType": "application/json",
+                      "body": "eyJvcGVyYXRpb24iOiJhcmNoaXZlIiwibW9kZSI6Im1hbGZvcm1lZCIsImNvbW1hbmRzIjpbeyJvcGVyYXRpb24iOiJkb2N1bWVudC5hcmNoaXZlIiwiaW5wdXQiOnsiY29tbWFuZF9pZCI6IjU2OGU2YjMyLTVhNjEtNDkwYi1hY2E5LTlkMTQ4NDQzOWRiYyIsImlkIjoiMjAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiZXhwZWN0ZWRfdmVyc2lvbiI6MX19XX0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-e76407f7f08e488dccbd",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document archive preserves exact intent after wrong_receipt",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1528,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:34:44.126Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "document-intent-observation",
+                      "contentType": "application/json",
+                      "body": "eyJvcGVyYXRpb24iOiJhcmNoaXZlIiwibW9kZSI6Indyb25nX3JlY2VpcHQiLCJjb21tYW5kcyI6W3sib3BlcmF0aW9uIjoiZG9jdW1lbnQuYXJjaGl2ZSIsImlucHV0Ijp7ImNvbW1hbmRfaWQiOiJkMjM5N2JiYS1iNDk1LTQzOGQtOWQxNi05OTAxNjg4NmQ1ZjUiLCJpZCI6IjIwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMSIsImV4cGVjdGVkX3ZlcnNpb24iOjF9fV19"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-2572285474845d834538",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document archive preserves exact intent after denied",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1207,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:34:45.715Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-5b1da1d0b8d43437c52d",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document archive preserves exact intent after success",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 940,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:34:46.958Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-82943d4322d77cb2db66",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document restore preserves exact intent after transport",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1432,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:34:47.923Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "document-intent-observation",
+                      "contentType": "application/json",
+                      "body": "eyJvcGVyYXRpb24iOiJyZXN0b3JlIiwibW9kZSI6InRyYW5zcG9ydCIsImNvbW1hbmRzIjpbeyJvcGVyYXRpb24iOiJkb2N1bWVudC5yZXN0b3JlIiwiaW5wdXQiOnsiY29tbWFuZF9pZCI6IjllMWNiNDk3LTUwZDEtNDYxNC1iMjdjLTYxODI2ZjA4NDQwNiIsImlkIjoiMjAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiZXhwZWN0ZWRfdmVyc2lvbiI6MX19XX0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-4e35c79f45e3dd7bbc89",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document restore preserves exact intent after malformed",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1220,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:34:49.379Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "document-intent-observation",
+                      "contentType": "application/json",
+                      "body": "eyJvcGVyYXRpb24iOiJyZXN0b3JlIiwibW9kZSI6Im1hbGZvcm1lZCIsImNvbW1hbmRzIjpbeyJvcGVyYXRpb24iOiJkb2N1bWVudC5yZXN0b3JlIiwiaW5wdXQiOnsiY29tbWFuZF9pZCI6ImFiMmM2NDk5LTc3MzEtNGE5NC1hM2EzLWJhMThmMTI1NjMyNCIsImlkIjoiMjAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiZXhwZWN0ZWRfdmVyc2lvbiI6MX19XX0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-f07bed63b1b42d3127fd",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document restore preserves exact intent after wrong_receipt",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1286,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:34:50.626Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "document-intent-observation",
+                      "contentType": "application/json",
+                      "body": "eyJvcGVyYXRpb24iOiJyZXN0b3JlIiwibW9kZSI6Indyb25nX3JlY2VpcHQiLCJjb21tYW5kcyI6W3sib3BlcmF0aW9uIjoiZG9jdW1lbnQucmVzdG9yZSIsImlucHV0Ijp7ImNvbW1hbmRfaWQiOiIyNGU4ZTcxZC0xOWJlLTQ4ZTItOWI4MC0zZmI1MzgzMzMyOGQiLCJpZCI6IjIwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMSIsImV4cGVjdGVkX3ZlcnNpb24iOjF9fV19"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-21dc3897872069df31b0",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document restore preserves exact intent after denied",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 968,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:34:51.940Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-9d2156010cb2e7e6ccff",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document restore preserves exact intent after success",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 794,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:34:52.931Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-f6abef0586708d4eb419",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        }
+      ]
+    },
+    {
+      "title": "portfolio-create-intent.spec.ts",
+      "file": "portfolio-create-intent.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "manual service creation preserves intent and receipt after transport",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2050,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:32:11.716Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "creation-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoidHJhbnNwb3J0IiwiY29tbWFuZHMiOlt7Im9wZXJhdGlvbiI6InNlcnZpY2UuY3JlYXRlX21hbnVhbCIsImlucHV0Ijp7ImNvbW1hbmRfaWQiOiI3YzRhZGE2NC0yM2UxLTQyN2ItOWFiNS03OWUxNWY2Zjc4ZTciLCJjb250cmFjdF9pZCI6IjYwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMSIsInNlcnZpY2Vfa2luZCI6Im1vYmlsZSIsImRpc3BsYXlfbmFtZSI6IlJldmlld2VkIG1hbnVhbCBzZXJ2aWNlIn19XSwicmVhZHMiOjB9"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1b892ae764a84975d3ba-e10034a3b43f7615f621",
+          "file": "portfolio-create-intent.spec.ts",
+          "line": 9,
+          "column": 99
+        },
+        {
+          "title": "manual service creation preserves intent and receipt after malformed",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2056,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:32:13.837Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "creation-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoibWFsZm9ybWVkIiwiY29tbWFuZHMiOlt7Im9wZXJhdGlvbiI6InNlcnZpY2UuY3JlYXRlX21hbnVhbCIsImlucHV0Ijp7ImNvbW1hbmRfaWQiOiI1M2NjMDJjYi01NTk3LTQ1OGQtODRiYy03MWI5N2M0NzJiYTciLCJjb250cmFjdF9pZCI6IjYwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMSIsInNlcnZpY2Vfa2luZCI6Im1vYmlsZSIsImRpc3BsYXlfbmFtZSI6IlJldmlld2VkIG1hbnVhbCBzZXJ2aWNlIn19XSwicmVhZHMiOjB9"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1b892ae764a84975d3ba-0e5e67f7dc1dbd0da7ba",
+          "file": "portfolio-create-intent.spec.ts",
+          "line": 9,
+          "column": 99
+        },
+        {
+          "title": "manual service creation preserves intent and receipt after wrong_receipt",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2142,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:32:15.950Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "creation-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoid3JvbmdfcmVjZWlwdCIsImNvbW1hbmRzIjpbeyJvcGVyYXRpb24iOiJzZXJ2aWNlLmNyZWF0ZV9tYW51YWwiLCJpbnB1dCI6eyJjb21tYW5kX2lkIjoiYWI4M2NlZWYtMTk0My00MzhlLTljOGItY2RjYjYxZmYxZjI2IiwiY29udHJhY3RfaWQiOiI2MDAwMDAwMC0wMDAwLTQwMDAtODAwMC0wMDAwMDAwMDAwMDEiLCJzZXJ2aWNlX2tpbmQiOiJtb2JpbGUiLCJkaXNwbGF5X25hbWUiOiJSZXZpZXdlZCBtYW51YWwgc2VydmljZSJ9fV0sInJlYWRzIjowfQ=="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1b892ae764a84975d3ba-5157341829fdb6328465",
+          "file": "portfolio-create-intent.spec.ts",
+          "line": 9,
+          "column": 99
+        },
+        {
+          "title": "manual service creation preserves intent and receipt after read_failure",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1927,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:32:18.138Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "creation-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoicmVhZF9mYWlsdXJlIiwiY29tbWFuZHMiOlt7Im9wZXJhdGlvbiI6InNlcnZpY2UuY3JlYXRlX21hbnVhbCIsImlucHV0Ijp7ImNvbW1hbmRfaWQiOiJjMzRkZGI0NS0wZDZlLTRkM2YtYmYyYy1jOTcxMjg0N2U0OTgiLCJjb250cmFjdF9pZCI6IjYwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMSIsInNlcnZpY2Vfa2luZCI6Im1vYmlsZSIsImRpc3BsYXlfbmFtZSI6IlJldmlld2VkIG1hbnVhbCBzZXJ2aWNlIn19XSwicmVhZHMiOjF9"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1b892ae764a84975d3ba-00661fa42dcd7fb9684c",
+          "file": "portfolio-create-intent.spec.ts",
+          "line": 9,
+          "column": 99
+        },
+        {
+          "title": "manual service creation preserves intent and receipt after success",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1245,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:32:20.120Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1b892ae764a84975d3ba-1db73c6661b6ccef3b8f",
+          "file": "portfolio-create-intent.spec.ts",
+          "line": 9,
+          "column": 99
+        },
+        {
+          "title": "manual service creation preserves intent and receipt after transport",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1632,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:33:34.887Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "creation-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoidHJhbnNwb3J0IiwiY29tbWFuZHMiOlt7Im9wZXJhdGlvbiI6InNlcnZpY2UuY3JlYXRlX21hbnVhbCIsImlucHV0Ijp7ImNvbW1hbmRfaWQiOiIwZjk4ZmFmNy04NDEwLTRlMDEtOWI2My1lNzdhM2NhZmM0YzkiLCJjb250cmFjdF9pZCI6IjYwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMSIsInNlcnZpY2Vfa2luZCI6Im1vYmlsZSIsImRpc3BsYXlfbmFtZSI6IlJldmlld2VkIG1hbnVhbCBzZXJ2aWNlIn19XSwicmVhZHMiOjB9"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1b892ae764a84975d3ba-49db4168c32d44438afb",
+          "file": "portfolio-create-intent.spec.ts",
+          "line": 9,
+          "column": 99
+        },
+        {
+          "title": "manual service creation preserves intent and receipt after malformed",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1719,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:33:36.570Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "creation-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoibWFsZm9ybWVkIiwiY29tbWFuZHMiOlt7Im9wZXJhdGlvbiI6InNlcnZpY2UuY3JlYXRlX21hbnVhbCIsImlucHV0Ijp7ImNvbW1hbmRfaWQiOiI2OGEwMjhlNy01YTk1LTQ4MjgtYTczMy1mYzZmODA5MGJiNTkiLCJjb250cmFjdF9pZCI6IjYwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMSIsInNlcnZpY2Vfa2luZCI6Im1vYmlsZSIsImRpc3BsYXlfbmFtZSI6IlJldmlld2VkIG1hbnVhbCBzZXJ2aWNlIn19XSwicmVhZHMiOjB9"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1b892ae764a84975d3ba-928ce0f14da3a8914efb",
+          "file": "portfolio-create-intent.spec.ts",
+          "line": 9,
+          "column": 99
+        },
+        {
+          "title": "manual service creation preserves intent and receipt after wrong_receipt",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1800,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:33:38.321Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "creation-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoid3JvbmdfcmVjZWlwdCIsImNvbW1hbmRzIjpbeyJvcGVyYXRpb24iOiJzZXJ2aWNlLmNyZWF0ZV9tYW51YWwiLCJpbnB1dCI6eyJjb21tYW5kX2lkIjoiZTg3MjU4MDktOWExNi00ZmJmLWE0ZWItMWNiZTJjNWRkMzhiIiwiY29udHJhY3RfaWQiOiI2MDAwMDAwMC0wMDAwLTQwMDAtODAwMC0wMDAwMDAwMDAwMDEiLCJzZXJ2aWNlX2tpbmQiOiJtb2JpbGUiLCJkaXNwbGF5X25hbWUiOiJSZXZpZXdlZCBtYW51YWwgc2VydmljZSJ9fV0sInJlYWRzIjowfQ=="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1b892ae764a84975d3ba-148254fe88d5ffbd7458",
+          "file": "portfolio-create-intent.spec.ts",
+          "line": 9,
+          "column": 99
+        },
+        {
+          "title": "manual service creation preserves intent and receipt after read_failure",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1828,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:33:40.152Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "creation-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoicmVhZF9mYWlsdXJlIiwiY29tbWFuZHMiOlt7Im9wZXJhdGlvbiI6InNlcnZpY2UuY3JlYXRlX21hbnVhbCIsImlucHV0Ijp7ImNvbW1hbmRfaWQiOiI4Y2Q1MjNiZC0xNDNiLTRlMzEtOGNmNi1mY2FmZmE1ZmIxZjYiLCJjb250cmFjdF9pZCI6IjYwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMSIsInNlcnZpY2Vfa2luZCI6Im1vYmlsZSIsImRpc3BsYXlfbmFtZSI6IlJldmlld2VkIG1hbnVhbCBzZXJ2aWNlIn19XSwicmVhZHMiOjF9"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1b892ae764a84975d3ba-fbe88f11a4984d9256b0",
+          "file": "portfolio-create-intent.spec.ts",
+          "line": 9,
+          "column": 99
+        },
+        {
+          "title": "manual service creation preserves intent and receipt after success",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1450,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:33:42.012Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1b892ae764a84975d3ba-87a8d7850744eb682b31",
+          "file": "portfolio-create-intent.spec.ts",
+          "line": 9,
+          "column": 99
+        },
+        {
+          "title": "manual service creation preserves intent and receipt after transport",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1439,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:34:53.789Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "creation-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoidHJhbnNwb3J0IiwiY29tbWFuZHMiOlt7Im9wZXJhdGlvbiI6InNlcnZpY2UuY3JlYXRlX21hbnVhbCIsImlucHV0Ijp7ImNvbW1hbmRfaWQiOiI3N2JmMjY2NS03YzBmLTRhYzAtYWJiNi03Nzk1ZTJjOWNmZGMiLCJjb250cmFjdF9pZCI6IjYwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMSIsInNlcnZpY2Vfa2luZCI6Im1vYmlsZSIsImRpc3BsYXlfbmFtZSI6IlJldmlld2VkIG1hbnVhbCBzZXJ2aWNlIn19XSwicmVhZHMiOjB9"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1b892ae764a84975d3ba-f95a95fc3bab87dab460",
+          "file": "portfolio-create-intent.spec.ts",
+          "line": 9,
+          "column": 99
+        },
+        {
+          "title": "manual service creation preserves intent and receipt after malformed",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1528,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:34:55.274Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "creation-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoibWFsZm9ybWVkIiwiY29tbWFuZHMiOlt7Im9wZXJhdGlvbiI6InNlcnZpY2UuY3JlYXRlX21hbnVhbCIsImlucHV0Ijp7ImNvbW1hbmRfaWQiOiJlMjEzY2Y3NC01ZDY4LTRjOGEtOWVjYS04OTM0MTUxMjdlZDYiLCJjb250cmFjdF9pZCI6IjYwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMSIsInNlcnZpY2Vfa2luZCI6Im1vYmlsZSIsImRpc3BsYXlfbmFtZSI6IlJldmlld2VkIG1hbnVhbCBzZXJ2aWNlIn19XSwicmVhZHMiOjB9"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1b892ae764a84975d3ba-44c1c113d811ed89abea",
+          "file": "portfolio-create-intent.spec.ts",
+          "line": 9,
+          "column": 99
+        },
+        {
+          "title": "manual service creation preserves intent and receipt after wrong_receipt",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1545,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:34:56.826Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "creation-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoid3JvbmdfcmVjZWlwdCIsImNvbW1hbmRzIjpbeyJvcGVyYXRpb24iOiJzZXJ2aWNlLmNyZWF0ZV9tYW51YWwiLCJpbnB1dCI6eyJjb21tYW5kX2lkIjoiMjk2NTgzZDUtNWUxZS00YjRhLWJjYjgtMDRiMDM4MDFlYmFjIiwiY29udHJhY3RfaWQiOiI2MDAwMDAwMC0wMDAwLTQwMDAtODAwMC0wMDAwMDAwMDAwMDEiLCJzZXJ2aWNlX2tpbmQiOiJtb2JpbGUiLCJkaXNwbGF5X25hbWUiOiJSZXZpZXdlZCBtYW51YWwgc2VydmljZSJ9fV0sInJlYWRzIjowfQ=="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1b892ae764a84975d3ba-4a6e1376f952dfab9f61",
+          "file": "portfolio-create-intent.spec.ts",
+          "line": 9,
+          "column": 99
+        },
+        {
+          "title": "manual service creation preserves intent and receipt after read_failure",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1555,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:34:58.395Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "creation-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoicmVhZF9mYWlsdXJlIiwiY29tbWFuZHMiOlt7Im9wZXJhdGlvbiI6InNlcnZpY2UuY3JlYXRlX21hbnVhbCIsImlucHV0Ijp7ImNvbW1hbmRfaWQiOiI0MDEyODVmZS0wNDliLTRjNDEtODIzYS05ODZkZGY1OWIxYTIiLCJjb250cmFjdF9pZCI6IjYwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMSIsInNlcnZpY2Vfa2luZCI6Im1vYmlsZSIsImRpc3BsYXlfbmFtZSI6IlJldmlld2VkIG1hbnVhbCBzZXJ2aWNlIn19XSwicmVhZHMiOjF9"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1b892ae764a84975d3ba-842670f386a1c1efa623",
+          "file": "portfolio-create-intent.spec.ts",
+          "line": 9,
+          "column": 99
+        },
+        {
+          "title": "manual service creation preserves intent and receipt after success",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1229,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:34:59.976Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1b892ae764a84975d3ba-91ada54ea60c96e0427b",
+          "file": "portfolio-create-intent.spec.ts",
+          "line": 9,
+          "column": 99
+        }
+      ]
+    },
+    {
+      "title": "portfolio-readback.spec.ts",
+      "file": "portfolio-readback.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "portfolio confirmed command requires coherent stale readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1385,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:32:21.445Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "readback-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoic3RhbGUiLCJjb21tYW5kcyI6W3sib3BlcmF0aW9uIjoiY29udHJhY3QuYWN0aXZhdGUiLCJpbnB1dCI6eyJjb21tYW5kX2lkIjoiZGQ2MGI1ODMtMWJmMi00ZGNiLWIyYTYtYmNhYjQ1YmJiNTMzIiwiaWQiOiI2MDAwMDAwMC0wMDAwLTQwMDAtODAwMC0wMDAwMDAwMDAwMDEiLCJleHBlY3RlZF92ZXJzaW9uIjoxLCJzaWduZWRfZGF0ZSI6IjIwMjYtMTAtMDEifX1dLCJyZWFkYmFja3MiOjEsImRyYXdlckNvdW50IjoxfQ=="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "203f76a17c5026208e8e-0169a24e41350461ca52",
+          "file": "portfolio-readback.spec.ts",
+          "line": 9,
+          "column": 92
+        },
+        {
+          "title": "portfolio confirmed command requires coherent wrong_status readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1741,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:32:22.895Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "readback-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoid3Jvbmdfc3RhdHVzIiwiY29tbWFuZHMiOlt7Im9wZXJhdGlvbiI6ImNvbnRyYWN0LmFjdGl2YXRlIiwiaW5wdXQiOnsiY29tbWFuZF9pZCI6ImZiNTQ2ZjM5LTQ0MDAtNGRiMy04ZTE1LTQ2YmY1MWFhNjllYSIsImlkIjoiNjAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiZXhwZWN0ZWRfdmVyc2lvbiI6MSwic2lnbmVkX2RhdGUiOiIyMDI2LTEwLTAxIn19XSwicmVhZGJhY2tzIjoxLCJkcmF3ZXJDb3VudCI6MX0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "203f76a17c5026208e8e-d2e9108ffbaf0ca2ef4b",
+          "file": "portfolio-readback.spec.ts",
+          "line": 9,
+          "column": 92
+        },
+        {
+          "title": "portfolio confirmed command requires coherent wrong_source readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1740,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:32:24.692Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "readback-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoid3Jvbmdfc291cmNlIiwiY29tbWFuZHMiOlt7Im9wZXJhdGlvbiI6ImNvbnRyYWN0LmFjdGl2YXRlIiwiaW5wdXQiOnsiY29tbWFuZF9pZCI6IjZkMjlkNGNkLTFiNzAtNDNmNi05MTNhLTQ4YjAxZjQxNDRkNSIsImlkIjoiNjAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiZXhwZWN0ZWRfdmVyc2lvbiI6MSwic2lnbmVkX2RhdGUiOiIyMDI2LTEwLTAxIn19XSwicmVhZGJhY2tzIjoxLCJkcmF3ZXJDb3VudCI6MX0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "203f76a17c5026208e8e-74add61763023ccb6aa1",
+          "file": "portfolio-readback.spec.ts",
+          "line": 9,
+          "column": 92
+        },
+        {
+          "title": "portfolio confirmed command requires coherent confirmed readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1075,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:32:26.474Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "203f76a17c5026208e8e-81436ae11a973ae0d830",
+          "file": "portfolio-readback.spec.ts",
+          "line": 9,
+          "column": 92
+        },
+        {
+          "title": "portfolio confirmed command requires coherent newer readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1070,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:32:27.583Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "203f76a17c5026208e8e-63e012aed6c109933c44",
+          "file": "portfolio-readback.spec.ts",
+          "line": 9,
+          "column": 92
+        },
+        {
+          "title": "portfolio confirmed command requires coherent stale readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1567,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:33:43.536Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "readback-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoic3RhbGUiLCJjb21tYW5kcyI6W3sib3BlcmF0aW9uIjoiY29udHJhY3QuYWN0aXZhdGUiLCJpbnB1dCI6eyJjb21tYW5kX2lkIjoiNjQ2ZDgyNDQtMDlmZS00ODE0LWI1YWYtMGQ5NWEzZGJjZjkzIiwiaWQiOiI2MDAwMDAwMC0wMDAwLTQwMDAtODAwMC0wMDAwMDAwMDAwMDEiLCJleHBlY3RlZF92ZXJzaW9uIjoxLCJzaWduZWRfZGF0ZSI6IjIwMjYtMTAtMDEifX1dLCJyZWFkYmFja3MiOjEsImRyYXdlckNvdW50IjoxfQ=="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "203f76a17c5026208e8e-9573bd037a7b1cadc8d9",
+          "file": "portfolio-readback.spec.ts",
+          "line": 9,
+          "column": 92
+        },
+        {
+          "title": "portfolio confirmed command requires coherent wrong_status readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1671,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:33:45.156Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "readback-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoid3Jvbmdfc3RhdHVzIiwiY29tbWFuZHMiOlt7Im9wZXJhdGlvbiI6ImNvbnRyYWN0LmFjdGl2YXRlIiwiaW5wdXQiOnsiY29tbWFuZF9pZCI6ImRlYThiNjBlLTYxYWYtNDQyOC04ZjA4LTVjZTBiMTNhZjhhMCIsImlkIjoiNjAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiZXhwZWN0ZWRfdmVyc2lvbiI6MSwic2lnbmVkX2RhdGUiOiIyMDI2LTEwLTAxIn19XSwicmVhZGJhY2tzIjoxLCJkcmF3ZXJDb3VudCI6MX0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "203f76a17c5026208e8e-336b0f7ec77849d924f4",
+          "file": "portfolio-readback.spec.ts",
+          "line": 9,
+          "column": 92
+        },
+        {
+          "title": "portfolio confirmed command requires coherent wrong_source readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1635,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:33:46.856Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "readback-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoid3Jvbmdfc291cmNlIiwiY29tbWFuZHMiOlt7Im9wZXJhdGlvbiI6ImNvbnRyYWN0LmFjdGl2YXRlIiwiaW5wdXQiOnsiY29tbWFuZF9pZCI6IjdhNDBkNGYzLTAwM2ItNDc4Yy04MjgyLWM3ZjE2YmQzODZjZCIsImlkIjoiNjAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiZXhwZWN0ZWRfdmVyc2lvbiI6MSwic2lnbmVkX2RhdGUiOiIyMDI2LTEwLTAxIn19XSwicmVhZGJhY2tzIjoxLCJkcmF3ZXJDb3VudCI6MX0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "203f76a17c5026208e8e-ab649f930980f2663546",
+          "file": "portfolio-readback.spec.ts",
+          "line": 9,
+          "column": 92
+        },
+        {
+          "title": "portfolio confirmed command requires coherent confirmed readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1235,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:33:48.519Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "203f76a17c5026208e8e-5e8341f4047395b9c730",
+          "file": "portfolio-readback.spec.ts",
+          "line": 9,
+          "column": 92
+        },
+        {
+          "title": "portfolio confirmed command requires coherent newer readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1130,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:33:49.778Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "203f76a17c5026208e8e-31d9dd59012c347cd53e",
+          "file": "portfolio-readback.spec.ts",
+          "line": 9,
+          "column": 92
+        },
+        {
+          "title": "portfolio confirmed command requires coherent stale readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1619,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:35:01.266Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "readback-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoic3RhbGUiLCJjb21tYW5kcyI6W3sib3BlcmF0aW9uIjoiY29udHJhY3QuYWN0aXZhdGUiLCJpbnB1dCI6eyJjb21tYW5kX2lkIjoiZDA2ZmZmYTItNTc3NC00NDRiLTlhMjMtYWU1OGJkMjdkN2ZlIiwiaWQiOiI2MDAwMDAwMC0wMDAwLTQwMDAtODAwMC0wMDAwMDAwMDAwMDEiLCJleHBlY3RlZF92ZXJzaW9uIjoxLCJzaWduZWRfZGF0ZSI6IjIwMjYtMTAtMDEifX1dLCJyZWFkYmFja3MiOjEsImRyYXdlckNvdW50IjoxfQ=="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "203f76a17c5026208e8e-dd6535655f4fb842a3fa",
+          "file": "portfolio-readback.spec.ts",
+          "line": 9,
+          "column": 92
+        },
+        {
+          "title": "portfolio confirmed command requires coherent wrong_status readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1616,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:35:02.940Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "readback-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoid3Jvbmdfc3RhdHVzIiwiY29tbWFuZHMiOlt7Im9wZXJhdGlvbiI6ImNvbnRyYWN0LmFjdGl2YXRlIiwiaW5wdXQiOnsiY29tbWFuZF9pZCI6ImE5MDNmYjQ0LWU2ZWYtNDZiZC1iOWY0LTYyZDYyNWY5NDA4NyIsImlkIjoiNjAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiZXhwZWN0ZWRfdmVyc2lvbiI6MSwic2lnbmVkX2RhdGUiOiIyMDI2LTEwLTAxIn19XSwicmVhZGJhY2tzIjoxLCJkcmF3ZXJDb3VudCI6MX0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "203f76a17c5026208e8e-74cd95192ccfe48fae99",
+          "file": "portfolio-readback.spec.ts",
+          "line": 9,
+          "column": 92
+        },
+        {
+          "title": "portfolio confirmed command requires coherent wrong_source readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1555,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:35:04.583Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "readback-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoid3Jvbmdfc291cmNlIiwiY29tbWFuZHMiOlt7Im9wZXJhdGlvbiI6ImNvbnRyYWN0LmFjdGl2YXRlIiwiaW5wdXQiOnsiY29tbWFuZF9pZCI6ImI0OTFkZjBlLTYyNjEtNDMyYi1iNzMwLTk2M2MyNmE0ZDU4MCIsImlkIjoiNjAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiZXhwZWN0ZWRfdmVyc2lvbiI6MSwic2lnbmVkX2RhdGUiOiIyMDI2LTEwLTAxIn19XSwicmVhZGJhY2tzIjoxLCJkcmF3ZXJDb3VudCI6MX0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "203f76a17c5026208e8e-0df33fbc57a6518ed5bf",
+          "file": "portfolio-readback.spec.ts",
+          "line": 9,
+          "column": 92
+        },
+        {
+          "title": "portfolio confirmed command requires coherent confirmed readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1150,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:35:06.162Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "203f76a17c5026208e8e-ae7f6f1cbf8d83673c0c",
+          "file": "portfolio-readback.spec.ts",
+          "line": 9,
+          "column": 92
+        },
+        {
+          "title": "portfolio confirmed command requires coherent newer readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1230,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:35:07.340Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "203f76a17c5026208e8e-04968ef2cdd81c34c83b",
+          "file": "portfolio-readback.spec.ts",
+          "line": 9,
+          "column": 92
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-20T00:31:00.351Z",
+    "duration": 249240.511,
+    "expected": 99,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

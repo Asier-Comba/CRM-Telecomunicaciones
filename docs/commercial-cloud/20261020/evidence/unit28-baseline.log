@@ -1,0 +1,539 @@
+
+Running 18 tests using 1 worker
+
+
+
+(node:15936) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1/18] [controlled-http-390] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after transport
+  1) [controlled-http-390] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after transport 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('dialog', { name: 'Nueva oportunidad', exact: true })
+    Expected: visible
+    Timeout: 4000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Nueva oportunidad', exact: true })
+
+
+      49 |    await expect(dialog.getByLabel('Cierre previsto',{exact:true})).toHaveValue('2026-11-20')
+      50 |    await expect(dialog.getByRole('textbox',{name:'Próxima acción',exact:true})).toHaveValue('Revisar propuesta sintética')
+    > 51 |    await dialog.getByRole('button',{name:'Cerrar panel',exact:true}).click({force:true});await expect(dialog).toBeVisible()
+         |                                                                                                               ^
+      52 |    await page.keyboard.press('Escape');await expect(dialog).toBeVisible()
+      53 |    await expect(dialog.getByRole('combobox',{name:'Etapa comercial',exact:true})).toBeDisabled()
+      54 |    await page.screenshot({path:info.outputPath(`opportunity-${mode}-pending.png`)})
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\opportunity-intent.spec.ts:51:111
+
+    Error Context: ..\oier-commercial-20261020\opportunity-intent-attempt01\artifacts\opportunity-intent-opportu-4ca69-ozen-intent-after-transport-controlled-http-390\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\opportunity-intent-attempt01\artifacts\opportunity-intent-opportu-4ca69-ozen-intent-after-transport-controlled-http-390\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\opportunity-intent-attempt01\artifacts\opportunity-intent-opportu-4ca69-ozen-intent-after-transport-controlled-http-390\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\opportunity-intent-attempt01\artifacts\opportunity-intent-opportu-4ca69-ozen-intent-after-transport-controlled-http-390\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:29692) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[2/18] [controlled-http-390] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after malformed
+  2) [controlled-http-390] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after malformed 
+
+    Error: expect(locator).toBeDisabled() failed
+
+    Locator:  getByRole('dialog', { name: 'Nueva oportunidad', exact: true }).getByRole('textbox', { name: 'Título comercial', exact: true })
+    Expected: disabled
+    Received: enabled
+    Timeout:  4000ms
+
+    Call log:
+      - Expect "toBeDisabled" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Nueva oportunidad', exact: true }).getByRole('textbox', { name: 'Título comercial', exact: true })
+        12 × locator resolved to <input required="" maxlength="200" value="Instalación sintética con revisión comercial" class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-1 w-full"/>
+           - unexpected value "enabled"
+
+
+      45 |   if(!['success','denied'].includes(mode)){
+      46 |    await expect(dialog.getByRole('alert')).toBeVisible()
+    > 47 |    await expect(field).toBeDisabled();await expect(field).toHaveValue(title);await expect(client).toHaveValue(customer)
+         |                        ^
+      48 |    await expect(dialog.getByRole('textbox',{name:'Importe',exact:true})).toHaveValue('1250.50')
+      49 |    await expect(dialog.getByLabel('Cierre previsto',{exact:true})).toHaveValue('2026-11-20')
+      50 |    await expect(dialog.getByRole('textbox',{name:'Próxima acción',exact:true})).toHaveValue('Revisar propuesta sintética')
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\opportunity-intent.spec.ts:47:24
+
+    Error Context: ..\oier-commercial-20261020\opportunity-intent-attempt01\artifacts\opportunity-intent-opportu-b5fee-ozen-intent-after-malformed-controlled-http-390\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\opportunity-intent-attempt01\artifacts\opportunity-intent-opportu-b5fee-ozen-intent-after-malformed-controlled-http-390\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\opportunity-intent-attempt01\artifacts\opportunity-intent-opportu-b5fee-ozen-intent-after-malformed-controlled-http-390\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\opportunity-intent-attempt01\artifacts\opportunity-intent-opportu-b5fee-ozen-intent-after-malformed-controlled-http-390\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+(node:15296) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[3/18] [controlled-http-390] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after wrong_receipt
+  3) [controlled-http-390] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after wrong_receipt 
+
+    Error: expect(locator).toBeDisabled() failed
+
+    Locator:  getByRole('dialog', { name: 'Nueva oportunidad', exact: true }).getByRole('textbox', { name: 'Título comercial', exact: true })
+    Expected: disabled
+    Received: enabled
+    Timeout:  4000ms
+
+    Call log:
+      - Expect "toBeDisabled" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Nueva oportunidad', exact: true }).getByRole('textbox', { name: 'Título comercial', exact: true })
+        12 × locator resolved to <input required="" maxlength="200" value="Instalación sintética con revisión comercial" class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-1 w-full"/>
+           - unexpected value "enabled"
+
+
+      45 |   if(!['success','denied'].includes(mode)){
+      46 |    await expect(dialog.getByRole('alert')).toBeVisible()
+    > 47 |    await expect(field).toBeDisabled();await expect(field).toHaveValue(title);await expect(client).toHaveValue(customer)
+         |                        ^
+      48 |    await expect(dialog.getByRole('textbox',{name:'Importe',exact:true})).toHaveValue('1250.50')
+      49 |    await expect(dialog.getByLabel('Cierre previsto',{exact:true})).toHaveValue('2026-11-20')
+      50 |    await expect(dialog.getByRole('textbox',{name:'Próxima acción',exact:true})).toHaveValue('Revisar propuesta sintética')
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\opportunity-intent.spec.ts:47:24
+
+    Error Context: ..\oier-commercial-20261020\opportunity-intent-attempt01\artifacts\opportunity-intent-opportu-36d5c--intent-after-wrong-receipt-controlled-http-390\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\opportunity-intent-attempt01\artifacts\opportunity-intent-opportu-36d5c--intent-after-wrong-receipt-controlled-http-390\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\opportunity-intent-attempt01\artifacts\opportunity-intent-opportu-36d5c--intent-after-wrong-receipt-controlled-http-390\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\opportunity-intent-attempt01\artifacts\opportunity-intent-opportu-36d5c--intent-after-wrong-receipt-controlled-http-390\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:17920) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[4/18] [controlled-http-390] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after read_failure
+  4) [controlled-http-390] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after read_failure 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('dialog', { name: 'Nueva oportunidad', exact: true })
+    Expected: visible
+    Timeout: 4000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Nueva oportunidad', exact: true })
+
+
+      49 |    await expect(dialog.getByLabel('Cierre previsto',{exact:true})).toHaveValue('2026-11-20')
+      50 |    await expect(dialog.getByRole('textbox',{name:'Próxima acción',exact:true})).toHaveValue('Revisar propuesta sintética')
+    > 51 |    await dialog.getByRole('button',{name:'Cerrar panel',exact:true}).click({force:true});await expect(dialog).toBeVisible()
+         |                                                                                                               ^
+      52 |    await page.keyboard.press('Escape');await expect(dialog).toBeVisible()
+      53 |    await expect(dialog.getByRole('combobox',{name:'Etapa comercial',exact:true})).toBeDisabled()
+      54 |    await page.screenshot({path:info.outputPath(`opportunity-${mode}-pending.png`)})
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\opportunity-intent.spec.ts:51:111
+
+    Error Context: ..\oier-commercial-20261020\opportunity-intent-attempt01\artifacts\opportunity-intent-opportu-079c6-n-intent-after-read-failure-controlled-http-390\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\opportunity-intent-attempt01\artifacts\opportunity-intent-opportu-079c6-n-intent-after-read-failure-controlled-http-390\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\opportunity-intent-attempt01\artifacts\opportunity-intent-opportu-079c6-n-intent-after-read-failure-controlled-http-390\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\opportunity-intent-attempt01\artifacts\opportunity-intent-opportu-079c6-n-intent-after-read-failure-controlled-http-390\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+(node:24200) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[5/18] [controlled-http-390] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after denied
+[6/18] [controlled-http-390] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after success
+
+(node:3360) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[7/18] [controlled-http-768] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after transport
+  5) [controlled-http-768] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after transport 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('dialog', { name: 'Nueva oportunidad', exact: true })
+    Expected: visible
+    Timeout: 4000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Nueva oportunidad', exact: true })
+
+
+      49 |    await expect(dialog.getByLabel('Cierre previsto',{exact:true})).toHaveValue('2026-11-20')
+      50 |    await expect(dialog.getByRole('textbox',{name:'Próxima acción',exact:true})).toHaveValue('Revisar propuesta sintética')
+    > 51 |    await dialog.getByRole('button',{name:'Cerrar panel',exact:true}).click({force:true});await expect(dialog).toBeVisible()
+         |                                                                                                               ^
+      52 |    await page.keyboard.press('Escape');await expect(dialog).toBeVisible()
+      53 |    await expect(dialog.getByRole('combobox',{name:'Etapa comercial',exact:true})).toBeDisabled()
+      54 |    await page.screenshot({path:info.outputPath(`opportunity-${mode}-pending.png`)})
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\opportunity-intent.spec.ts:51:111
+
+    Error Context: ..\oier-commercial-20261020\opportunity-intent-attempt01\artifacts\opportunity-intent-opportu-4ca69-ozen-intent-after-transport-controlled-http-768\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\opportunity-intent-attempt01\artifacts\opportunity-intent-opportu-4ca69-ozen-intent-after-transport-controlled-http-768\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\opportunity-intent-attempt01\artifacts\opportunity-intent-opportu-4ca69-ozen-intent-after-transport-controlled-http-768\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\opportunity-intent-attempt01\artifacts\opportunity-intent-opportu-4ca69-ozen-intent-after-transport-controlled-http-768\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+(node:19760) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[8/18] [controlled-http-768] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after malformed
+  6) [controlled-http-768] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after malformed 
+
+    Error: expect(locator).toBeDisabled() failed
+
+    Locator:  getByRole('dialog', { name: 'Nueva oportunidad', exact: true }).getByRole('textbox', { name: 'Título comercial', exact: true })
+    Expected: disabled
+    Received: enabled
+    Timeout:  4000ms
+
+    Call log:
+      - Expect "toBeDisabled" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Nueva oportunidad', exact: true }).getByRole('textbox', { name: 'Título comercial', exact: true })
+        12 × locator resolved to <input required="" maxlength="200" value="Instalación sintética con revisión comercial" class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-1 w-full"/>
+           - unexpected value "enabled"
+
+
+      45 |   if(!['success','denied'].includes(mode)){
+      46 |    await expect(dialog.getByRole('alert')).toBeVisible()
+    > 47 |    await expect(field).toBeDisabled();await expect(field).toHaveValue(title);await expect(client).toHaveValue(customer)
+         |                        ^
+      48 |    await expect(dialog.getByRole('textbox',{name:'Importe',exact:true})).toHaveValue('1250.50')
+      49 |    await expect(dialog.getByLabel('Cierre previsto',{exact:true})).toHaveValue('2026-11-20')
+      50 |    await expect(dialog.getByRole('textbox',{name:'Próxima acción',exact:true})).toHaveValue('Revisar propuesta sintética')
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\opportunity-intent.spec.ts:47:24
+
+    Error Context: ..\oier-commercial-20261020\opportunity-intent-attempt01\artifacts\opportunity-intent-opportu-b5fee-ozen-intent-after-malformed-controlled-http-768\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\opportunity-intent-attempt01\artifacts\opportunity-intent-opportu-b5fee-ozen-intent-after-malformed-controlled-http-768\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\opportunity-intent-attempt01\artifacts\opportunity-intent-opportu-b5fee-ozen-intent-after-malformed-controlled-http-768\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\opportunity-intent-attempt01\artifacts\opportunity-intent-opportu-b5fee-ozen-intent-after-malformed-controlled-http-768\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+(node:28288) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[9/18] [controlled-http-768] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after wrong_receipt
+  7) [controlled-http-768] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after wrong_receipt 
+
+    Error: expect(locator).toBeDisabled() failed
+
+    Locator:  getByRole('dialog', { name: 'Nueva oportunidad', exact: true }).getByRole('textbox', { name: 'Título comercial', exact: true })
+    Expected: disabled
+    Received: enabled
+    Timeout:  4000ms
+
+    Call log:
+      - Expect "toBeDisabled" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Nueva oportunidad', exact: true }).getByRole('textbox', { name: 'Título comercial', exact: true })
+        12 × locator resolved to <input required="" maxlength="200" value="Instalación sintética con revisión comercial" class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-1 w-full"/>
+           - unexpected value "enabled"
+
+
+      45 |   if(!['success','denied'].includes(mode)){
+      46 |    await expect(dialog.getByRole('alert')).toBeVisible()
+    > 47 |    await expect(field).toBeDisabled();await expect(field).toHaveValue(title);await expect(client).toHaveValue(customer)
+         |                        ^
+      48 |    await expect(dialog.getByRole('textbox',{name:'Importe',exact:true})).toHaveValue('1250.50')
+      49 |    await expect(dialog.getByLabel('Cierre previsto',{exact:true})).toHaveValue('2026-11-20')
+      50 |    await expect(dialog.getByRole('textbox',{name:'Próxima acción',exact:true})).toHaveValue('Revisar propuesta sintética')
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\opportunity-intent.spec.ts:47:24
+
+    Error Context: ..\oier-commercial-20261020\opportunity-intent-attempt01\artifacts\opportunity-intent-opportu-36d5c--intent-after-wrong-receipt-controlled-http-768\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\opportunity-intent-attempt01\artifacts\opportunity-intent-opportu-36d5c--intent-after-wrong-receipt-controlled-http-768\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\opportunity-intent-attempt01\artifacts\opportunity-intent-opportu-36d5c--intent-after-wrong-receipt-controlled-http-768\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\opportunity-intent-attempt01\artifacts\opportunity-intent-opportu-36d5c--intent-after-wrong-receipt-controlled-http-768\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:2992) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[10/18] [controlled-http-768] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after read_failure
+  8) [controlled-http-768] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after read_failure 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('dialog', { name: 'Nueva oportunidad', exact: true })
+    Expected: visible
+    Timeout: 4000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Nueva oportunidad', exact: true })
+
+
+      49 |    await expect(dialog.getByLabel('Cierre previsto',{exact:true})).toHaveValue('2026-11-20')
+      50 |    await expect(dialog.getByRole('textbox',{name:'Próxima acción',exact:true})).toHaveValue('Revisar propuesta sintética')
+    > 51 |    await dialog.getByRole('button',{name:'Cerrar panel',exact:true}).click({force:true});await expect(dialog).toBeVisible()
+         |                                                                                                               ^
+      52 |    await page.keyboard.press('Escape');await expect(dialog).toBeVisible()
+      53 |    await expect(dialog.getByRole('combobox',{name:'Etapa comercial',exact:true})).toBeDisabled()
+      54 |    await page.screenshot({path:info.outputPath(`opportunity-${mode}-pending.png`)})
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\opportunity-intent.spec.ts:51:111
+
+    Error Context: ..\oier-commercial-20261020\opportunity-intent-attempt01\artifacts\opportunity-intent-opportu-079c6-n-intent-after-read-failure-controlled-http-768\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\opportunity-intent-attempt01\artifacts\opportunity-intent-opportu-079c6-n-intent-after-read-failure-controlled-http-768\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\opportunity-intent-attempt01\artifacts\opportunity-intent-opportu-079c6-n-intent-after-read-failure-controlled-http-768\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\opportunity-intent-attempt01\artifacts\opportunity-intent-opportu-079c6-n-intent-after-read-failure-controlled-http-768\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:29544) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[11/18] [controlled-http-768] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after denied
+[12/18] [controlled-http-768] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after success
+
+(node:28752) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[13/18] [controlled-http-1440] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after transport
+  9) [controlled-http-1440] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after transport 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('dialog', { name: 'Nueva oportunidad', exact: true })
+    Expected: visible
+    Timeout: 4000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Nueva oportunidad', exact: true })
+
+
+      49 |    await expect(dialog.getByLabel('Cierre previsto',{exact:true})).toHaveValue('2026-11-20')
+      50 |    await expect(dialog.getByRole('textbox',{name:'Próxima acción',exact:true})).toHaveValue('Revisar propuesta sintética')
+    > 51 |    await dialog.getByRole('button',{name:'Cerrar panel',exact:true}).click({force:true});await expect(dialog).toBeVisible()
+         |                                                                                                               ^
+      52 |    await page.keyboard.press('Escape');await expect(dialog).toBeVisible()
+      53 |    await expect(dialog.getByRole('combobox',{name:'Etapa comercial',exact:true})).toBeDisabled()
+      54 |    await page.screenshot({path:info.outputPath(`opportunity-${mode}-pending.png`)})
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\opportunity-intent.spec.ts:51:111
+
+    Error Context: ..\oier-commercial-20261020\opportunity-intent-attempt01\artifacts\opportunity-intent-opportu-4ca69-ozen-intent-after-transport-controlled-http-1440\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\opportunity-intent-attempt01\artifacts\opportunity-intent-opportu-4ca69-ozen-intent-after-transport-controlled-http-1440\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\opportunity-intent-attempt01\artifacts\opportunity-intent-opportu-4ca69-ozen-intent-after-transport-controlled-http-1440\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\opportunity-intent-attempt01\artifacts\opportunity-intent-opportu-4ca69-ozen-intent-after-transport-controlled-http-1440\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:3176) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+
+(Use `node --trace-warnings ...` to show where the warning was created)
+[14/18] [controlled-http-1440] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after malformed
+  10) [controlled-http-1440] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after malformed 
+
+    Error: expect(locator).toBeDisabled() failed
+
+    Locator:  getByRole('dialog', { name: 'Nueva oportunidad', exact: true }).getByRole('textbox', { name: 'Título comercial', exact: true })
+    Expected: disabled
+    Received: enabled
+    Timeout:  4000ms
+
+    Call log:
+      - Expect "toBeDisabled" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Nueva oportunidad', exact: true }).getByRole('textbox', { name: 'Título comercial', exact: true })
+        12 × locator resolved to <input required="" maxlength="200" value="Instalación sintética con revisión comercial" class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-1 w-full"/>
+           - unexpected value "enabled"
+
+
+      45 |   if(!['success','denied'].includes(mode)){
+      46 |    await expect(dialog.getByRole('alert')).toBeVisible()
+    > 47 |    await expect(field).toBeDisabled();await expect(field).toHaveValue(title);await expect(client).toHaveValue(customer)
+         |                        ^
+      48 |    await expect(dialog.getByRole('textbox',{name:'Importe',exact:true})).toHaveValue('1250.50')
+      49 |    await expect(dialog.getByLabel('Cierre previsto',{exact:true})).toHaveValue('2026-11-20')
+      50 |    await expect(dialog.getByRole('textbox',{name:'Próxima acción',exact:true})).toHaveValue('Revisar propuesta sintética')
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\opportunity-intent.spec.ts:47:24
+
+    Error Context: ..\oier-commercial-20261020\opportunity-intent-attempt01\artifacts\opportunity-intent-opportu-b5fee-ozen-intent-after-malformed-controlled-http-1440\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\opportunity-intent-attempt01\artifacts\opportunity-intent-opportu-b5fee-ozen-intent-after-malformed-controlled-http-1440\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\opportunity-intent-attempt01\artifacts\opportunity-intent-opportu-b5fee-ozen-intent-after-malformed-controlled-http-1440\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\opportunity-intent-attempt01\artifacts\opportunity-intent-opportu-b5fee-ozen-intent-after-malformed-controlled-http-1440\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:10816) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[15/18] [controlled-http-1440] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after wrong_receipt
+  11) [controlled-http-1440] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after wrong_receipt 
+
+    Error: expect(locator).toBeDisabled() failed
+
+    Locator:  getByRole('dialog', { name: 'Nueva oportunidad', exact: true }).getByRole('textbox', { name: 'Título comercial', exact: true })
+    Expected: disabled
+    Received: enabled
+    Timeout:  4000ms
+
+    Call log:
+      - Expect "toBeDisabled" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Nueva oportunidad', exact: true }).getByRole('textbox', { name: 'Título comercial', exact: true })
+        12 × locator resolved to <input required="" maxlength="200" value="Instalación sintética con revisión comercial" class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-1 w-full"/>
+           - unexpected value "enabled"
+
+
+      45 |   if(!['success','denied'].includes(mode)){
+      46 |    await expect(dialog.getByRole('alert')).toBeVisible()
+    > 47 |    await expect(field).toBeDisabled();await expect(field).toHaveValue(title);await expect(client).toHaveValue(customer)
+         |                        ^
+      48 |    await expect(dialog.getByRole('textbox',{name:'Importe',exact:true})).toHaveValue('1250.50')
+      49 |    await expect(dialog.getByLabel('Cierre previsto',{exact:true})).toHaveValue('2026-11-20')
+      50 |    await expect(dialog.getByRole('textbox',{name:'Próxima acción',exact:true})).toHaveValue('Revisar propuesta sintética')
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\opportunity-intent.spec.ts:47:24
+
+    Error Context: ..\oier-commercial-20261020\opportunity-intent-attempt01\artifacts\opportunity-intent-opportu-36d5c--intent-after-wrong-receipt-controlled-http-1440\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\opportunity-intent-attempt01\artifacts\opportunity-intent-opportu-36d5c--intent-after-wrong-receipt-controlled-http-1440\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\opportunity-intent-attempt01\artifacts\opportunity-intent-opportu-36d5c--intent-after-wrong-receipt-controlled-http-1440\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\opportunity-intent-attempt01\artifacts\opportunity-intent-opportu-36d5c--intent-after-wrong-receipt-controlled-http-1440\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+(node:29576) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[16/18] [controlled-http-1440] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after read_failure
+  12) [controlled-http-1440] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after read_failure 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('dialog', { name: 'Nueva oportunidad', exact: true })
+    Expected: visible
+    Timeout: 4000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Nueva oportunidad', exact: true })
+
+
+      49 |    await expect(dialog.getByLabel('Cierre previsto',{exact:true})).toHaveValue('2026-11-20')
+      50 |    await expect(dialog.getByRole('textbox',{name:'Próxima acción',exact:true})).toHaveValue('Revisar propuesta sintética')
+    > 51 |    await dialog.getByRole('button',{name:'Cerrar panel',exact:true}).click({force:true});await expect(dialog).toBeVisible()
+         |                                                                                                               ^
+      52 |    await page.keyboard.press('Escape');await expect(dialog).toBeVisible()
+      53 |    await expect(dialog.getByRole('combobox',{name:'Etapa comercial',exact:true})).toBeDisabled()
+      54 |    await page.screenshot({path:info.outputPath(`opportunity-${mode}-pending.png`)})
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\opportunity-intent.spec.ts:51:111
+
+    Error Context: ..\oier-commercial-20261020\opportunity-intent-attempt01\artifacts\opportunity-intent-opportu-079c6-n-intent-after-read-failure-controlled-http-1440\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\opportunity-intent-attempt01\artifacts\opportunity-intent-opportu-079c6-n-intent-after-read-failure-controlled-http-1440\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\opportunity-intent-attempt01\artifacts\opportunity-intent-opportu-079c6-n-intent-after-read-failure-controlled-http-1440\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\opportunity-intent-attempt01\artifacts\opportunity-intent-opportu-079c6-n-intent-after-read-failure-controlled-http-1440\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+(node:21536) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[17/18] [controlled-http-1440] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after denied
+[18/18] [controlled-http-1440] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after success
+  12 failed
+    [controlled-http-390] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after transport 
+    [controlled-http-390] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after malformed 
+    [controlled-http-390] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after wrong_receipt 
+    [controlled-http-390] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after read_failure 
+    [controlled-http-768] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after transport 
+    [controlled-http-768] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after malformed 
+    [controlled-http-768] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after wrong_receipt 
+    [controlled-http-768] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after read_failure 
+    [controlled-http-1440] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after transport 
+    [controlled-http-1440] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after malformed 
+    [controlled-http-1440] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after wrong_receipt 
+    [controlled-http-1440] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after read_failure 
+  6 passed (2.7m)

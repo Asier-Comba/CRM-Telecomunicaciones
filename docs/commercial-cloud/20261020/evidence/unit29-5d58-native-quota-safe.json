@@ -1,0 +1,23 @@
+{
+  "failure_phase": "CONTAINER_PULL_BEFORE_CHECKOUT_OR_TESTS",
+  "image": "public.ecr.aws/docker/library/postgres@sha256:ca0bd484cb98bf4b24eb1010e73fb3fcbd6714d240fbc1a10eea5b7dbecb641d",
+  "head": "5d58a56dbbe00e5eaefa6228420322d268f7c5c7",
+  "job": 118566444067,
+  "original_log": "job-118566444067.txt",
+  "release": "NOT_ACCEPTED",
+  "native_result": "NOT_RUN",
+  "manual_reruns_requested": 0,
+  "assertions_limits_image_permissions_changed": false,
+  "same_SHA_pin_positive": "NOT_FOUND",
+  "other_SHA_positive": "fb24 merge05f70c5 IS_NOT_ELIGIBLE_FOR5D58_RETRY",
+  "maximum_manual_reruns": 1,
+  "cause": "Docker toomanyrequests: Data limit exceeded",
+  "known_W5_request": 6279686354,
+  "actual_tested_sha": null,
+  "runner_internal_pull_attempts": 3,
+  "unit": 28,
+  "W5_cache": "NOT_AUTO_APPROVED",
+  "native_tests": null,
+  "retry_eligibility": "NOT_ELIGIBLE_WITHOUT_SAME_SHA_PIN_PHYSICAL_POSITIVE",
+  "run": 39404325700
+}

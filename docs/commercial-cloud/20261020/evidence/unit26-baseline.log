@@ -1,0 +1,278 @@
+
+Running 15 tests using 1 worker
+
+
+
+(node:28060) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1/15] [controlled-http-390] › tools\oier_commercial_qa\sim-readback.spec.ts:8:88 › SIM cancellation receipt keeps coherent stale readback
+[2/15] [controlled-http-390] › tools\oier_commercial_qa\sim-readback.spec.ts:8:88 › SIM cancellation receipt keeps coherent wrong_status readback
+  1) [controlled-http-390] › tools\oier_commercial_qa\sim-readback.spec.ts:8:88 › SIM cancellation receipt keeps coherent wrong_status readback 
+
+    Error: expect(locator).toBeEnabled() failed
+
+    Locator: getByRole('button', { name: 'Actualizar lectura', exact: true })
+    Expected: enabled
+    Timeout: 4000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeEnabled" with timeout 4000ms
+      - waiting for getByRole('button', { name: 'Actualizar lectura', exact: true })
+
+
+      38 |    const retry=page.getByRole('button',{name:'Actualizar lectura',exact:true})
+      39 |    await info.attach('confirmed-readback-observation',{body:JSON.stringify({mode,commands,readbacks,reviewCount:await review.count(),retryCount:await retry.count()}),contentType:'application/json'})
+    > 40 |    await expect(retry).toBeEnabled();await expect(review).toBeDisabled();await expect(confirm).toHaveCount(0)
+         |                        ^
+      41 |    await expect(page.getByRole('status').filter({hasText:'Cambio registrado. Reintentar solo actualiza la lectura.'})).toBeVisible()
+      42 |    await retry.scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath(`sim-${mode}-registered.png`)})
+      43 |    corrected=true;await retry.click()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\sim-readback.spec.ts:40:24
+
+    Error Context: ..\oier-commercial-20261020\sim-readback-attempt01\artifacts\sim-readback-SIM-cancellat-931cc-erent-wrong-status-readback-controlled-http-390\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\sim-readback-attempt01\artifacts\sim-readback-SIM-cancellat-931cc-erent-wrong-status-readback-controlled-http-390\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\sim-readback-attempt01\artifacts\sim-readback-SIM-cancellat-931cc-erent-wrong-status-readback-controlled-http-390\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\sim-readback-attempt01\artifacts\sim-readback-SIM-cancellat-931cc-erent-wrong-status-readback-controlled-http-390\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:14432) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[3/15] [controlled-http-390] › tools\oier_commercial_qa\sim-readback.spec.ts:8:88 › SIM cancellation receipt keeps coherent wrong_source readback
+  2) [controlled-http-390] › tools\oier_commercial_qa\sim-readback.spec.ts:8:88 › SIM cancellation receipt keeps coherent wrong_source readback 
+
+    Error: expect(locator).toBeEnabled() failed
+
+    Locator: getByRole('button', { name: 'Actualizar lectura', exact: true })
+    Expected: enabled
+    Timeout: 4000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeEnabled" with timeout 4000ms
+      - waiting for getByRole('button', { name: 'Actualizar lectura', exact: true })
+
+
+      38 |    const retry=page.getByRole('button',{name:'Actualizar lectura',exact:true})
+      39 |    await info.attach('confirmed-readback-observation',{body:JSON.stringify({mode,commands,readbacks,reviewCount:await review.count(),retryCount:await retry.count()}),contentType:'application/json'})
+    > 40 |    await expect(retry).toBeEnabled();await expect(review).toBeDisabled();await expect(confirm).toHaveCount(0)
+         |                        ^
+      41 |    await expect(page.getByRole('status').filter({hasText:'Cambio registrado. Reintentar solo actualiza la lectura.'})).toBeVisible()
+      42 |    await retry.scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath(`sim-${mode}-registered.png`)})
+      43 |    corrected=true;await retry.click()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\sim-readback.spec.ts:40:24
+
+    Error Context: ..\oier-commercial-20261020\sim-readback-attempt01\artifacts\sim-readback-SIM-cancellat-5e950-erent-wrong-source-readback-controlled-http-390\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\sim-readback-attempt01\artifacts\sim-readback-SIM-cancellat-5e950-erent-wrong-source-readback-controlled-http-390\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\sim-readback-attempt01\artifacts\sim-readback-SIM-cancellat-5e950-erent-wrong-source-readback-controlled-http-390\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\sim-readback-attempt01\artifacts\sim-readback-SIM-cancellat-5e950-erent-wrong-source-readback-controlled-http-390\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+(node:28272) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[4/15] [controlled-http-390] › tools\oier_commercial_qa\sim-readback.spec.ts:8:88 › SIM cancellation receipt keeps coherent exact readback
+[5/15] [controlled-http-390] › tools\oier_commercial_qa\sim-readback.spec.ts:8:88 › SIM cancellation receipt keeps coherent newer readback
+
+(node:3248) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[6/15] [controlled-http-768] › tools\oier_commercial_qa\sim-readback.spec.ts:8:88 › SIM cancellation receipt keeps coherent stale readback
+[7/15] [controlled-http-768] › tools\oier_commercial_qa\sim-readback.spec.ts:8:88 › SIM cancellation receipt keeps coherent wrong_status readback
+  3) [controlled-http-768] › tools\oier_commercial_qa\sim-readback.spec.ts:8:88 › SIM cancellation receipt keeps coherent wrong_status readback 
+
+    Error: expect(locator).toBeEnabled() failed
+
+    Locator: getByRole('button', { name: 'Actualizar lectura', exact: true })
+    Expected: enabled
+    Timeout: 4000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeEnabled" with timeout 4000ms
+      - waiting for getByRole('button', { name: 'Actualizar lectura', exact: true })
+
+
+      38 |    const retry=page.getByRole('button',{name:'Actualizar lectura',exact:true})
+      39 |    await info.attach('confirmed-readback-observation',{body:JSON.stringify({mode,commands,readbacks,reviewCount:await review.count(),retryCount:await retry.count()}),contentType:'application/json'})
+    > 40 |    await expect(retry).toBeEnabled();await expect(review).toBeDisabled();await expect(confirm).toHaveCount(0)
+         |                        ^
+      41 |    await expect(page.getByRole('status').filter({hasText:'Cambio registrado. Reintentar solo actualiza la lectura.'})).toBeVisible()
+      42 |    await retry.scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath(`sim-${mode}-registered.png`)})
+      43 |    corrected=true;await retry.click()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\sim-readback.spec.ts:40:24
+
+    Error Context: ..\oier-commercial-20261020\sim-readback-attempt01\artifacts\sim-readback-SIM-cancellat-931cc-erent-wrong-status-readback-controlled-http-768\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\sim-readback-attempt01\artifacts\sim-readback-SIM-cancellat-931cc-erent-wrong-status-readback-controlled-http-768\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\sim-readback-attempt01\artifacts\sim-readback-SIM-cancellat-931cc-erent-wrong-status-readback-controlled-http-768\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\sim-readback-attempt01\artifacts\sim-readback-SIM-cancellat-931cc-erent-wrong-status-readback-controlled-http-768\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+(node:23188) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[8/15] [controlled-http-768] › tools\oier_commercial_qa\sim-readback.spec.ts:8:88 › SIM cancellation receipt keeps coherent wrong_source readback
+  4) [controlled-http-768] › tools\oier_commercial_qa\sim-readback.spec.ts:8:88 › SIM cancellation receipt keeps coherent wrong_source readback 
+
+    Error: expect(locator).toBeEnabled() failed
+
+    Locator: getByRole('button', { name: 'Actualizar lectura', exact: true })
+    Expected: enabled
+    Timeout: 4000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeEnabled" with timeout 4000ms
+      - waiting for getByRole('button', { name: 'Actualizar lectura', exact: true })
+
+
+      38 |    const retry=page.getByRole('button',{name:'Actualizar lectura',exact:true})
+      39 |    await info.attach('confirmed-readback-observation',{body:JSON.stringify({mode,commands,readbacks,reviewCount:await review.count(),retryCount:await retry.count()}),contentType:'application/json'})
+    > 40 |    await expect(retry).toBeEnabled();await expect(review).toBeDisabled();await expect(confirm).toHaveCount(0)
+         |                        ^
+      41 |    await expect(page.getByRole('status').filter({hasText:'Cambio registrado. Reintentar solo actualiza la lectura.'})).toBeVisible()
+      42 |    await retry.scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath(`sim-${mode}-registered.png`)})
+      43 |    corrected=true;await retry.click()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\sim-readback.spec.ts:40:24
+
+    Error Context: ..\oier-commercial-20261020\sim-readback-attempt01\artifacts\sim-readback-SIM-cancellat-5e950-erent-wrong-source-readback-controlled-http-768\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\sim-readback-attempt01\artifacts\sim-readback-SIM-cancellat-5e950-erent-wrong-source-readback-controlled-http-768\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\sim-readback-attempt01\artifacts\sim-readback-SIM-cancellat-5e950-erent-wrong-source-readback-controlled-http-768\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\sim-readback-attempt01\artifacts\sim-readback-SIM-cancellat-5e950-erent-wrong-source-readback-controlled-http-768\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:28060) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[9/15] [controlled-http-768] › tools\oier_commercial_qa\sim-readback.spec.ts:8:88 › SIM cancellation receipt keeps coherent exact readback
+[10/15] [controlled-http-768] › tools\oier_commercial_qa\sim-readback.spec.ts:8:88 › SIM cancellation receipt keeps coherent newer readback
+
+(node:2404) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[11/15] [controlled-http-1440] › tools\oier_commercial_qa\sim-readback.spec.ts:8:88 › SIM cancellation receipt keeps coherent stale readback
+[12/15] [controlled-http-1440] › tools\oier_commercial_qa\sim-readback.spec.ts:8:88 › SIM cancellation receipt keeps coherent wrong_status readback
+  5) [controlled-http-1440] › tools\oier_commercial_qa\sim-readback.spec.ts:8:88 › SIM cancellation receipt keeps coherent wrong_status readback 
+
+    Error: expect(locator).toBeEnabled() failed
+
+    Locator: getByRole('button', { name: 'Actualizar lectura', exact: true })
+    Expected: enabled
+    Timeout: 4000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeEnabled" with timeout 4000ms
+      - waiting for getByRole('button', { name: 'Actualizar lectura', exact: true })
+
+
+      38 |    const retry=page.getByRole('button',{name:'Actualizar lectura',exact:true})
+      39 |    await info.attach('confirmed-readback-observation',{body:JSON.stringify({mode,commands,readbacks,reviewCount:await review.count(),retryCount:await retry.count()}),contentType:'application/json'})
+    > 40 |    await expect(retry).toBeEnabled();await expect(review).toBeDisabled();await expect(confirm).toHaveCount(0)
+         |                        ^
+      41 |    await expect(page.getByRole('status').filter({hasText:'Cambio registrado. Reintentar solo actualiza la lectura.'})).toBeVisible()
+      42 |    await retry.scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath(`sim-${mode}-registered.png`)})
+      43 |    corrected=true;await retry.click()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\sim-readback.spec.ts:40:24
+
+    Error Context: ..\oier-commercial-20261020\sim-readback-attempt01\artifacts\sim-readback-SIM-cancellat-931cc-erent-wrong-status-readback-controlled-http-1440\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\sim-readback-attempt01\artifacts\sim-readback-SIM-cancellat-931cc-erent-wrong-status-readback-controlled-http-1440\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\sim-readback-attempt01\artifacts\sim-readback-SIM-cancellat-931cc-erent-wrong-status-readback-controlled-http-1440\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\sim-readback-attempt01\artifacts\sim-readback-SIM-cancellat-931cc-erent-wrong-status-readback-controlled-http-1440\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(node:15968) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[13/15] [controlled-http-1440] › tools\oier_commercial_qa\sim-readback.spec.ts:8:88 › SIM cancellation receipt keeps coherent wrong_source readback
+  6) [controlled-http-1440] › tools\oier_commercial_qa\sim-readback.spec.ts:8:88 › SIM cancellation receipt keeps coherent wrong_source readback 
+
+    Error: expect(locator).toBeEnabled() failed
+
+    Locator: getByRole('button', { name: 'Actualizar lectura', exact: true })
+    Expected: enabled
+    Timeout: 4000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeEnabled" with timeout 4000ms
+      - waiting for getByRole('button', { name: 'Actualizar lectura', exact: true })
+
+
+      38 |    const retry=page.getByRole('button',{name:'Actualizar lectura',exact:true})
+      39 |    await info.attach('confirmed-readback-observation',{body:JSON.stringify({mode,commands,readbacks,reviewCount:await review.count(),retryCount:await retry.count()}),contentType:'application/json'})
+    > 40 |    await expect(retry).toBeEnabled();await expect(review).toBeDisabled();await expect(confirm).toHaveCount(0)
+         |                        ^
+      41 |    await expect(page.getByRole('status').filter({hasText:'Cambio registrado. Reintentar solo actualiza la lectura.'})).toBeVisible()
+      42 |    await retry.scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath(`sim-${mode}-registered.png`)})
+      43 |    corrected=true;await retry.click()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\sim-readback.spec.ts:40:24
+
+    Error Context: ..\oier-commercial-20261020\sim-readback-attempt01\artifacts\sim-readback-SIM-cancellat-5e950-erent-wrong-source-readback-controlled-http-1440\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\sim-readback-attempt01\artifacts\sim-readback-SIM-cancellat-5e950-erent-wrong-source-readback-controlled-http-1440\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\sim-readback-attempt01\artifacts\sim-readback-SIM-cancellat-5e950-erent-wrong-source-readback-controlled-http-1440\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\sim-readback-attempt01\artifacts\sim-readback-SIM-cancellat-5e950-erent-wrong-source-readback-controlled-http-1440\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:27576) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[14/15] [controlled-http-1440] › tools\oier_commercial_qa\sim-readback.spec.ts:8:88 › SIM cancellation receipt keeps coherent exact readback
+[15/15] [controlled-http-1440] › tools\oier_commercial_qa\sim-readback.spec.ts:8:88 › SIM cancellation receipt keeps coherent newer readback
+  6 failed
+    [controlled-http-390] › tools\oier_commercial_qa\sim-readback.spec.ts:8:88 › SIM cancellation receipt keeps coherent wrong_status readback 
+    [controlled-http-390] › tools\oier_commercial_qa\sim-readback.spec.ts:8:88 › SIM cancellation receipt keeps coherent wrong_source readback 
+    [controlled-http-768] › tools\oier_commercial_qa\sim-readback.spec.ts:8:88 › SIM cancellation receipt keeps coherent wrong_status readback 
+    [controlled-http-768] › tools\oier_commercial_qa\sim-readback.spec.ts:8:88 › SIM cancellation receipt keeps coherent wrong_source readback 
+    [controlled-http-1440] › tools\oier_commercial_qa\sim-readback.spec.ts:8:88 › SIM cancellation receipt keeps coherent wrong_status readback 
+    [controlled-http-1440] › tools\oier_commercial_qa\sim-readback.spec.ts:8:88 › SIM cancellation receipt keeps coherent wrong_source readback 
+  9 passed (1.5m)

@@ -1,0 +1,88 @@
+
+Running 18 tests using 1 worker
+
+
+
+(node:16996) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1/18] [controlled-http-390] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps transport intent
+  1) [controlled-http-390] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps transport intent 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: locator.click: Test timeout of 45000ms exceeded.
+    Call log:
+      - waiting for locator('[data-opportunity-id="30000000-0000-4000-8000-000000000001"]')
+
+
+      34 |   await page.getByRole('textbox',{name:'Consultar pipeline local',exact:true}).fill('Archivo sintético')
+      35 |   await page.getByRole('button',{name:'Consultar pipeline',exact:true}).click()
+    > 36 |   await page.locator(`[data-opportunity-id="${id}"]`).click()
+         |                                                       ^
+      37 |   const editor=page.getByRole('dialog',{name:'Detalle de oportunidad',exact:true}),confirm=page.getByRole('dialog',{name:'Archivar oportunidad',exact:true})
+      38 |   await editor.getByRole('button',{name:'Archivar oportunidad',exact:true}).click()
+      39 |   await confirm.getByRole('button',{name:'Confirmar',exact:true}).click()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\opportunity-archive.spec.ts:36:55
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\opportunity-archive-attempt01\artifacts\opportunity-archive-opport-e447d-tion-keeps-transport-intent-controlled-http-390\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\oier-commercial-20261020\opportunity-archive-attempt01\artifacts\opportunity-archive-opport-e447d-tion-keeps-transport-intent-controlled-http-390\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\opportunity-archive-attempt01\artifacts\opportunity-archive-opport-e447d-tion-keeps-transport-intent-controlled-http-390\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\opportunity-archive-attempt01\artifacts\opportunity-archive-opport-e447d-tion-keeps-transport-intent-controlled-http-390\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\opportunity-archive-attempt01\artifacts\opportunity-archive-opport-e447d-tion-keeps-transport-intent-controlled-http-390\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+(node:27336) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[2/18] [controlled-http-390] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps malformed intent
+  2) [controlled-http-390] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps malformed intent 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: locator.click: Test timeout of 45000ms exceeded.
+    Call log:
+      - waiting for locator('[data-opportunity-id="30000000-0000-4000-8000-000000000001"]')
+
+
+      34 |   await page.getByRole('textbox',{name:'Consultar pipeline local',exact:true}).fill('Archivo sintético')
+      35 |   await page.getByRole('button',{name:'Consultar pipeline',exact:true}).click()
+    > 36 |   await page.locator(`[data-opportunity-id="${id}"]`).click()
+         |                                                       ^
+      37 |   const editor=page.getByRole('dialog',{name:'Detalle de oportunidad',exact:true}),confirm=page.getByRole('dialog',{name:'Archivar oportunidad',exact:true})
+      38 |   await editor.getByRole('button',{name:'Archivar oportunidad',exact:true}).click()
+      39 |   await confirm.getByRole('button',{name:'Confirmar',exact:true}).click()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\opportunity-archive.spec.ts:36:55
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\opportunity-archive-attempt01\artifacts\opportunity-archive-opport-36ffa-tion-keeps-malformed-intent-controlled-http-390\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\oier-commercial-20261020\opportunity-archive-attempt01\artifacts\opportunity-archive-opport-36ffa-tion-keeps-malformed-intent-controlled-http-390\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\opportunity-archive-attempt01\artifacts\opportunity-archive-opport-36ffa-tion-keeps-malformed-intent-controlled-http-390\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\opportunity-archive-attempt01\artifacts\opportunity-archive-opport-36ffa-tion-keeps-malformed-intent-controlled-http-390\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\opportunity-archive-attempt01\artifacts\opportunity-archive-opport-36ffa-tion-keeps-malformed-intent-controlled-http-390\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:3184) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[3/18] [controlled-http-390] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps wrong_receipt intent

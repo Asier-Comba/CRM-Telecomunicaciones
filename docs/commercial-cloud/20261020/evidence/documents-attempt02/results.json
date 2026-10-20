@@ -1,0 +1,1949 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--config",
+      "work/oier-documents-unit18-qa/documents.config.cjs"
+    ],
+    "configFile": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\documents.config.cjs",
+    "rootDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-documents-unit18-qa",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-commercial-20261020/documents-attempt02/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "controlled-http-390",
+        "name": "controlled-http-390",
+        "testDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-documents-unit18-qa",
+        "testIgnore": [],
+        "testMatch": [
+          "document-intent.spec.ts"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-commercial-20261020/documents-attempt02/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "controlled-http-768",
+        "name": "controlled-http-768",
+        "testDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-documents-unit18-qa",
+        "testIgnore": [],
+        "testMatch": [
+          "document-intent.spec.ts"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-commercial-20261020/documents-attempt02/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "controlled-http-1440",
+        "name": "controlled-http-1440",
+        "testDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-documents-unit18-qa",
+        "testIgnore": [],
+        "testMatch": [
+          "document-intent.spec.ts"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "line",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt02\\results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.61.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "document-intent.spec.ts",
+      "file": "document-intent.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "document archive preserves exact intent after transport",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 4975,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <button class=\"inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5\">Cancelar</button>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <button class=\"inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5\">Cancelar</button>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts:44:75",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts",
+                      "column": 75,
+                      "line": 44
+                    },
+                    "snippet": "  42 |    await expect(confirm.getByRole('alert')).toBeVisible()\n  43 |    await info.attach('document-intent-observation',{body:JSON.stringify({operation,mode,commands}),contentType:'application/json'})\n> 44 |    await expect(confirm.getByRole('button',{name:'Cancelar',exact:true})).toBeDisabled()\n     |                                                                           ^\n  45 |    await expect(confirm.getByRole('button',{name:'Cerrar',exact:true})).toBeDisabled()\n  46 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()\n  47 |    await page.screenshot({path:info.outputPath(`document-${operation}-${mode}-unknown.png`)})"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts",
+                        "column": 75,
+                        "line": 44
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <button class=\"inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5\">Cancelar</button>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n\n  42 |    await expect(confirm.getByRole('alert')).toBeVisible()\n  43 |    await info.attach('document-intent-observation',{body:JSON.stringify({operation,mode,commands}),contentType:'application/json'})\n> 44 |    await expect(confirm.getByRole('button',{name:'Cancelar',exact:true})).toBeDisabled()\n     |                                                                           ^\n  45 |    await expect(confirm.getByRole('button',{name:'Cerrar',exact:true})).toBeDisabled()\n  46 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()\n  47 |    await page.screenshot({path:info.outputPath(`document-${operation}-${mode}-unknown.png`)})\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts:44:75"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:45:23.209Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "document-intent-observation",
+                      "contentType": "application/json",
+                      "body": "eyJvcGVyYXRpb24iOiJhcmNoaXZlIiwibW9kZSI6InRyYW5zcG9ydCIsImNvbW1hbmRzIjpbeyJvcGVyYXRpb24iOiJkb2N1bWVudC5hcmNoaXZlIiwiaW5wdXQiOnsiY29tbWFuZF9pZCI6IjYzNmU2NGU5LWUyMWQtNDU2MS1hYjg4LTQ4ZTE2YjhkNjRmZSIsImlkIjoiMjAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiZXhwZWN0ZWRfdmVyc2lvbiI6MX19XX0="
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt02\\artifacts\\document-intent-document-a-22091-xact-intent-after-transport-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt02\\artifacts\\document-intent-document-a-22091-xact-intent-after-transport-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt02\\artifacts\\document-intent-document-a-22091-xact-intent-after-transport-controlled-http-390\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts",
+                    "column": 75,
+                    "line": 44
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-799a4588ea7906631548",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document archive preserves exact intent after malformed",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5180,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <button class=\"inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5\">Cancelar</button>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <button class=\"inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5\">Cancelar</button>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts:44:75",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts",
+                      "column": 75,
+                      "line": 44
+                    },
+                    "snippet": "  42 |    await expect(confirm.getByRole('alert')).toBeVisible()\n  43 |    await info.attach('document-intent-observation',{body:JSON.stringify({operation,mode,commands}),contentType:'application/json'})\n> 44 |    await expect(confirm.getByRole('button',{name:'Cancelar',exact:true})).toBeDisabled()\n     |                                                                           ^\n  45 |    await expect(confirm.getByRole('button',{name:'Cerrar',exact:true})).toBeDisabled()\n  46 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()\n  47 |    await page.screenshot({path:info.outputPath(`document-${operation}-${mode}-unknown.png`)})"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts",
+                        "column": 75,
+                        "line": 44
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <button class=\"inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5\">Cancelar</button>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n\n  42 |    await expect(confirm.getByRole('alert')).toBeVisible()\n  43 |    await info.attach('document-intent-observation',{body:JSON.stringify({operation,mode,commands}),contentType:'application/json'})\n> 44 |    await expect(confirm.getByRole('button',{name:'Cancelar',exact:true})).toBeDisabled()\n     |                                                                           ^\n  45 |    await expect(confirm.getByRole('button',{name:'Cerrar',exact:true})).toBeDisabled()\n  46 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()\n  47 |    await page.screenshot({path:info.outputPath(`document-${operation}-${mode}-unknown.png`)})\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts:44:75"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:45:38.798Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "document-intent-observation",
+                      "contentType": "application/json",
+                      "body": "eyJvcGVyYXRpb24iOiJhcmNoaXZlIiwibW9kZSI6Im1hbGZvcm1lZCIsImNvbW1hbmRzIjpbeyJvcGVyYXRpb24iOiJkb2N1bWVudC5hcmNoaXZlIiwiaW5wdXQiOnsiY29tbWFuZF9pZCI6IjZhNzA0OGY3LWMyNzctNGQyMC1iMmZhLThkZjhkYjc0OWRmMyIsImlkIjoiMjAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiZXhwZWN0ZWRfdmVyc2lvbiI6MX19XX0="
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt02\\artifacts\\document-intent-document-a-9b25a-xact-intent-after-malformed-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt02\\artifacts\\document-intent-document-a-9b25a-xact-intent-after-malformed-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt02\\artifacts\\document-intent-document-a-9b25a-xact-intent-after-malformed-controlled-http-390\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts",
+                    "column": 75,
+                    "line": 44
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-5b205c3951540989af52",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document archive preserves exact intent after wrong_receipt",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5019,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <button class=\"inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5\">Cancelar</button>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <button class=\"inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5\">Cancelar</button>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts:44:75",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts",
+                      "column": 75,
+                      "line": 44
+                    },
+                    "snippet": "  42 |    await expect(confirm.getByRole('alert')).toBeVisible()\n  43 |    await info.attach('document-intent-observation',{body:JSON.stringify({operation,mode,commands}),contentType:'application/json'})\n> 44 |    await expect(confirm.getByRole('button',{name:'Cancelar',exact:true})).toBeDisabled()\n     |                                                                           ^\n  45 |    await expect(confirm.getByRole('button',{name:'Cerrar',exact:true})).toBeDisabled()\n  46 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()\n  47 |    await page.screenshot({path:info.outputPath(`document-${operation}-${mode}-unknown.png`)})"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts",
+                        "column": 75,
+                        "line": 44
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <button class=\"inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5\">Cancelar</button>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n\n  42 |    await expect(confirm.getByRole('alert')).toBeVisible()\n  43 |    await info.attach('document-intent-observation',{body:JSON.stringify({operation,mode,commands}),contentType:'application/json'})\n> 44 |    await expect(confirm.getByRole('button',{name:'Cancelar',exact:true})).toBeDisabled()\n     |                                                                           ^\n  45 |    await expect(confirm.getByRole('button',{name:'Cerrar',exact:true})).toBeDisabled()\n  46 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()\n  47 |    await page.screenshot({path:info.outputPath(`document-${operation}-${mode}-unknown.png`)})\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts:44:75"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:45:50.502Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "document-intent-observation",
+                      "contentType": "application/json",
+                      "body": "eyJvcGVyYXRpb24iOiJhcmNoaXZlIiwibW9kZSI6Indyb25nX3JlY2VpcHQiLCJjb21tYW5kcyI6W3sib3BlcmF0aW9uIjoiZG9jdW1lbnQuYXJjaGl2ZSIsImlucHV0Ijp7ImNvbW1hbmRfaWQiOiJkMGFlMWM0Ni03MTUwLTQ2NjAtYmM1Yy1iZTMxMjRkNWJmMjciLCJpZCI6IjIwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMSIsImV4cGVjdGVkX3ZlcnNpb24iOjF9fV19"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt02\\artifacts\\document-intent-document-a-d3c22--intent-after-wrong-receipt-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt02\\artifacts\\document-intent-document-a-d3c22--intent-after-wrong-receipt-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt02\\artifacts\\document-intent-document-a-d3c22--intent-after-wrong-receipt-controlled-http-390\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts",
+                    "column": 75,
+                    "line": 44
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-979cad086cd7d221d445",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document archive preserves exact intent after denied",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 882,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:46:03.340Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-3331621149085b221c00",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document archive preserves exact intent after success",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 676,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:46:09.151Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-1e85fa1035c4b6af6e89",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document restore preserves exact intent after transport",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 4903,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <button class=\"inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5\">Cancelar</button>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <button class=\"inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5\">Cancelar</button>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts:44:75",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts",
+                      "column": 75,
+                      "line": 44
+                    },
+                    "snippet": "  42 |    await expect(confirm.getByRole('alert')).toBeVisible()\n  43 |    await info.attach('document-intent-observation',{body:JSON.stringify({operation,mode,commands}),contentType:'application/json'})\n> 44 |    await expect(confirm.getByRole('button',{name:'Cancelar',exact:true})).toBeDisabled()\n     |                                                                           ^\n  45 |    await expect(confirm.getByRole('button',{name:'Cerrar',exact:true})).toBeDisabled()\n  46 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()\n  47 |    await page.screenshot({path:info.outputPath(`document-${operation}-${mode}-unknown.png`)})"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts",
+                        "column": 75,
+                        "line": 44
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <button class=\"inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5\">Cancelar</button>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n\n  42 |    await expect(confirm.getByRole('alert')).toBeVisible()\n  43 |    await info.attach('document-intent-observation',{body:JSON.stringify({operation,mode,commands}),contentType:'application/json'})\n> 44 |    await expect(confirm.getByRole('button',{name:'Cancelar',exact:true})).toBeDisabled()\n     |                                                                           ^\n  45 |    await expect(confirm.getByRole('button',{name:'Cerrar',exact:true})).toBeDisabled()\n  46 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()\n  47 |    await page.screenshot({path:info.outputPath(`document-${operation}-${mode}-unknown.png`)})\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts:44:75"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:46:09.879Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "document-intent-observation",
+                      "contentType": "application/json",
+                      "body": "eyJvcGVyYXRpb24iOiJyZXN0b3JlIiwibW9kZSI6InRyYW5zcG9ydCIsImNvbW1hbmRzIjpbeyJvcGVyYXRpb24iOiJkb2N1bWVudC5yZXN0b3JlIiwiaW5wdXQiOnsiY29tbWFuZF9pZCI6ImFjY2EyZWYzLTZmZTktNDI1YS04OWJmLWFmZTEwMTE0MWMwNiIsImlkIjoiMjAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiZXhwZWN0ZWRfdmVyc2lvbiI6MX19XX0="
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt02\\artifacts\\document-intent-document-r-6a91a-xact-intent-after-transport-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt02\\artifacts\\document-intent-document-r-6a91a-xact-intent-after-transport-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt02\\artifacts\\document-intent-document-r-6a91a-xact-intent-after-transport-controlled-http-390\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts",
+                    "column": 75,
+                    "line": 44
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-863b5a036574f0b323c7",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document restore preserves exact intent after malformed",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 4990,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <button class=\"inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5\">Cancelar</button>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <button class=\"inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5\">Cancelar</button>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts:44:75",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts",
+                      "column": 75,
+                      "line": 44
+                    },
+                    "snippet": "  42 |    await expect(confirm.getByRole('alert')).toBeVisible()\n  43 |    await info.attach('document-intent-observation',{body:JSON.stringify({operation,mode,commands}),contentType:'application/json'})\n> 44 |    await expect(confirm.getByRole('button',{name:'Cancelar',exact:true})).toBeDisabled()\n     |                                                                           ^\n  45 |    await expect(confirm.getByRole('button',{name:'Cerrar',exact:true})).toBeDisabled()\n  46 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()\n  47 |    await page.screenshot({path:info.outputPath(`document-${operation}-${mode}-unknown.png`)})"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts",
+                        "column": 75,
+                        "line": 44
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <button class=\"inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5\">Cancelar</button>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n\n  42 |    await expect(confirm.getByRole('alert')).toBeVisible()\n  43 |    await info.attach('document-intent-observation',{body:JSON.stringify({operation,mode,commands}),contentType:'application/json'})\n> 44 |    await expect(confirm.getByRole('button',{name:'Cancelar',exact:true})).toBeDisabled()\n     |                                                                           ^\n  45 |    await expect(confirm.getByRole('button',{name:'Cerrar',exact:true})).toBeDisabled()\n  46 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()\n  47 |    await page.screenshot({path:info.outputPath(`document-${operation}-${mode}-unknown.png`)})\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts:44:75"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:46:15.822Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "document-intent-observation",
+                      "contentType": "application/json",
+                      "body": "eyJvcGVyYXRpb24iOiJyZXN0b3JlIiwibW9kZSI6Im1hbGZvcm1lZCIsImNvbW1hbmRzIjpbeyJvcGVyYXRpb24iOiJkb2N1bWVudC5yZXN0b3JlIiwiaW5wdXQiOnsiY29tbWFuZF9pZCI6IjlkMzc5NWU0LWFjMmEtNDU1Yi05MTUxLTJkMTJmZDVjNjY0MiIsImlkIjoiMjAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiZXhwZWN0ZWRfdmVyc2lvbiI6MX19XX0="
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt02\\artifacts\\document-intent-document-r-7ec64-xact-intent-after-malformed-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt02\\artifacts\\document-intent-document-r-7ec64-xact-intent-after-malformed-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt02\\artifacts\\document-intent-document-r-7ec64-xact-intent-after-malformed-controlled-http-390\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts",
+                    "column": 75,
+                    "line": 44
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-4feb49eed85bdd1dba52",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document restore preserves exact intent after wrong_receipt",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 4901,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <button class=\"inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5\">Cancelar</button>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <button class=\"inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5\">Cancelar</button>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts:44:75",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts",
+                      "column": 75,
+                      "line": 44
+                    },
+                    "snippet": "  42 |    await expect(confirm.getByRole('alert')).toBeVisible()\n  43 |    await info.attach('document-intent-observation',{body:JSON.stringify({operation,mode,commands}),contentType:'application/json'})\n> 44 |    await expect(confirm.getByRole('button',{name:'Cancelar',exact:true})).toBeDisabled()\n     |                                                                           ^\n  45 |    await expect(confirm.getByRole('button',{name:'Cerrar',exact:true})).toBeDisabled()\n  46 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()\n  47 |    await page.screenshot({path:info.outputPath(`document-${operation}-${mode}-unknown.png`)})"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts",
+                        "column": 75,
+                        "line": 44
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <button class=\"inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5\">Cancelar</button>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n\n  42 |    await expect(confirm.getByRole('alert')).toBeVisible()\n  43 |    await info.attach('document-intent-observation',{body:JSON.stringify({operation,mode,commands}),contentType:'application/json'})\n> 44 |    await expect(confirm.getByRole('button',{name:'Cancelar',exact:true})).toBeDisabled()\n     |                                                                           ^\n  45 |    await expect(confirm.getByRole('button',{name:'Cerrar',exact:true})).toBeDisabled()\n  46 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()\n  47 |    await page.screenshot({path:info.outputPath(`document-${operation}-${mode}-unknown.png`)})\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts:44:75"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:46:25.686Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "document-intent-observation",
+                      "contentType": "application/json",
+                      "body": "eyJvcGVyYXRpb24iOiJyZXN0b3JlIiwibW9kZSI6Indyb25nX3JlY2VpcHQiLCJjb21tYW5kcyI6W3sib3BlcmF0aW9uIjoiZG9jdW1lbnQucmVzdG9yZSIsImlucHV0Ijp7ImNvbW1hbmRfaWQiOiI5N2JhOTk5MS05ZmVhLTQ3NzgtYTVlYS01NWY0ZWFjZTg2NmYiLCJpZCI6IjIwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMSIsImV4cGVjdGVkX3ZlcnNpb24iOjF9fV19"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt02\\artifacts\\document-intent-document-r-40f7b--intent-after-wrong-receipt-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt02\\artifacts\\document-intent-document-r-40f7b--intent-after-wrong-receipt-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt02\\artifacts\\document-intent-document-r-40f7b--intent-after-wrong-receipt-controlled-http-390\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts",
+                    "column": 75,
+                    "line": 44
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-abae1f72ffaf5892868e",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document restore preserves exact intent after denied",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 903,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:46:36.897Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-fa9f052d044d84d9912a",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document restore preserves exact intent after success",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 800,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:46:42.584Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-a1acb4e783eb55b06cbc",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document archive preserves exact intent after transport",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 7,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5493,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <button class=\"inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5\">Cancelar</button>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <button class=\"inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5\">Cancelar</button>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts:44:75",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts",
+                      "column": 75,
+                      "line": 44
+                    },
+                    "snippet": "  42 |    await expect(confirm.getByRole('alert')).toBeVisible()\n  43 |    await info.attach('document-intent-observation',{body:JSON.stringify({operation,mode,commands}),contentType:'application/json'})\n> 44 |    await expect(confirm.getByRole('button',{name:'Cancelar',exact:true})).toBeDisabled()\n     |                                                                           ^\n  45 |    await expect(confirm.getByRole('button',{name:'Cerrar',exact:true})).toBeDisabled()\n  46 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()\n  47 |    await page.screenshot({path:info.outputPath(`document-${operation}-${mode}-unknown.png`)})"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts",
+                        "column": 75,
+                        "line": 44
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <button class=\"inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5\">Cancelar</button>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n\n  42 |    await expect(confirm.getByRole('alert')).toBeVisible()\n  43 |    await info.attach('document-intent-observation',{body:JSON.stringify({operation,mode,commands}),contentType:'application/json'})\n> 44 |    await expect(confirm.getByRole('button',{name:'Cancelar',exact:true})).toBeDisabled()\n     |                                                                           ^\n  45 |    await expect(confirm.getByRole('button',{name:'Cerrar',exact:true})).toBeDisabled()\n  46 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()\n  47 |    await page.screenshot({path:info.outputPath(`document-${operation}-${mode}-unknown.png`)})\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts:44:75"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:46:44.444Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "document-intent-observation",
+                      "contentType": "application/json",
+                      "body": "eyJvcGVyYXRpb24iOiJhcmNoaXZlIiwibW9kZSI6InRyYW5zcG9ydCIsImNvbW1hbmRzIjpbeyJvcGVyYXRpb24iOiJkb2N1bWVudC5hcmNoaXZlIiwiaW5wdXQiOnsiY29tbWFuZF9pZCI6Ijk0ZTBmZmFjLTM4MzEtNGQ3ZC1hMzQwLWY3NGI5NTVmYzE4ZiIsImlkIjoiMjAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiZXhwZWN0ZWRfdmVyc2lvbiI6MX19XX0="
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt02\\artifacts\\document-intent-document-a-22091-xact-intent-after-transport-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt02\\artifacts\\document-intent-document-a-22091-xact-intent-after-transport-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt02\\artifacts\\document-intent-document-a-22091-xact-intent-after-transport-controlled-http-768\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts",
+                    "column": 75,
+                    "line": 44
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-a8b5b9cc529871f07321",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document archive preserves exact intent after malformed",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 8,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 4899,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <button class=\"inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5\">Cancelar</button>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <button class=\"inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5\">Cancelar</button>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts:44:75",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts",
+                      "column": 75,
+                      "line": 44
+                    },
+                    "snippet": "  42 |    await expect(confirm.getByRole('alert')).toBeVisible()\n  43 |    await info.attach('document-intent-observation',{body:JSON.stringify({operation,mode,commands}),contentType:'application/json'})\n> 44 |    await expect(confirm.getByRole('button',{name:'Cancelar',exact:true})).toBeDisabled()\n     |                                                                           ^\n  45 |    await expect(confirm.getByRole('button',{name:'Cerrar',exact:true})).toBeDisabled()\n  46 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()\n  47 |    await page.screenshot({path:info.outputPath(`document-${operation}-${mode}-unknown.png`)})"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts",
+                        "column": 75,
+                        "line": 44
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <button class=\"inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5\">Cancelar</button>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n\n  42 |    await expect(confirm.getByRole('alert')).toBeVisible()\n  43 |    await info.attach('document-intent-observation',{body:JSON.stringify({operation,mode,commands}),contentType:'application/json'})\n> 44 |    await expect(confirm.getByRole('button',{name:'Cancelar',exact:true})).toBeDisabled()\n     |                                                                           ^\n  45 |    await expect(confirm.getByRole('button',{name:'Cerrar',exact:true})).toBeDisabled()\n  46 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()\n  47 |    await page.screenshot({path:info.outputPath(`document-${operation}-${mode}-unknown.png`)})\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts:44:75"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:46:55.887Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "document-intent-observation",
+                      "contentType": "application/json",
+                      "body": "eyJvcGVyYXRpb24iOiJhcmNoaXZlIiwibW9kZSI6Im1hbGZvcm1lZCIsImNvbW1hbmRzIjpbeyJvcGVyYXRpb24iOiJkb2N1bWVudC5hcmNoaXZlIiwiaW5wdXQiOnsiY29tbWFuZF9pZCI6IjQ1NTZiMDI0LWNkMWItNDZkMi1hMWYyLWJmNmUzMzA5ZWE3YyIsImlkIjoiMjAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiZXhwZWN0ZWRfdmVyc2lvbiI6MX19XX0="
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt02\\artifacts\\document-intent-document-a-9b25a-xact-intent-after-malformed-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt02\\artifacts\\document-intent-document-a-9b25a-xact-intent-after-malformed-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt02\\artifacts\\document-intent-document-a-9b25a-xact-intent-after-malformed-controlled-http-768\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts",
+                    "column": 75,
+                    "line": 44
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-4dfffa80419a24f7ae94",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document archive preserves exact intent after wrong_receipt",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 4855,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <button class=\"inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5\">Cancelar</button>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <button class=\"inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5\">Cancelar</button>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts:44:75",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts",
+                      "column": 75,
+                      "line": 44
+                    },
+                    "snippet": "  42 |    await expect(confirm.getByRole('alert')).toBeVisible()\n  43 |    await info.attach('document-intent-observation',{body:JSON.stringify({operation,mode,commands}),contentType:'application/json'})\n> 44 |    await expect(confirm.getByRole('button',{name:'Cancelar',exact:true})).toBeDisabled()\n     |                                                                           ^\n  45 |    await expect(confirm.getByRole('button',{name:'Cerrar',exact:true})).toBeDisabled()\n  46 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()\n  47 |    await page.screenshot({path:info.outputPath(`document-${operation}-${mode}-unknown.png`)})"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts",
+                        "column": 75,
+                        "line": 44
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <button class=\"inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5\">Cancelar</button>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n\n  42 |    await expect(confirm.getByRole('alert')).toBeVisible()\n  43 |    await info.attach('document-intent-observation',{body:JSON.stringify({operation,mode,commands}),contentType:'application/json'})\n> 44 |    await expect(confirm.getByRole('button',{name:'Cancelar',exact:true})).toBeDisabled()\n     |                                                                           ^\n  45 |    await expect(confirm.getByRole('button',{name:'Cerrar',exact:true})).toBeDisabled()\n  46 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()\n  47 |    await page.screenshot({path:info.outputPath(`document-${operation}-${mode}-unknown.png`)})\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts:44:75"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:47:06.213Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "document-intent-observation",
+                      "contentType": "application/json",
+                      "body": "eyJvcGVyYXRpb24iOiJhcmNoaXZlIiwibW9kZSI6Indyb25nX3JlY2VpcHQiLCJjb21tYW5kcyI6W3sib3BlcmF0aW9uIjoiZG9jdW1lbnQuYXJjaGl2ZSIsImlucHV0Ijp7ImNvbW1hbmRfaWQiOiJmOTY3ZmM5MC01YTE2LTRjNmQtYjcyZS00ZDU0OWY3YWMzYWEiLCJpZCI6IjIwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMSIsImV4cGVjdGVkX3ZlcnNpb24iOjF9fV19"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt02\\artifacts\\document-intent-document-a-d3c22--intent-after-wrong-receipt-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt02\\artifacts\\document-intent-document-a-d3c22--intent-after-wrong-receipt-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt02\\artifacts\\document-intent-document-a-d3c22--intent-after-wrong-receipt-controlled-http-768\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts",
+                    "column": 75,
+                    "line": 44
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-38a67e50034d430e97ca",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document archive preserves exact intent after denied",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 10,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 788,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:47:16.646Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-4fbd5b1db156776b64ce",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document archive preserves exact intent after success",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 10,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 562,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:47:22.156Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-20abd4d6a46853fb5353",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document restore preserves exact intent after transport",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 10,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 4692,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <button class=\"inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5\">Cancelar</button>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <button class=\"inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5\">Cancelar</button>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts:44:75",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts",
+                      "column": 75,
+                      "line": 44
+                    },
+                    "snippet": "  42 |    await expect(confirm.getByRole('alert')).toBeVisible()\n  43 |    await info.attach('document-intent-observation',{body:JSON.stringify({operation,mode,commands}),contentType:'application/json'})\n> 44 |    await expect(confirm.getByRole('button',{name:'Cancelar',exact:true})).toBeDisabled()\n     |                                                                           ^\n  45 |    await expect(confirm.getByRole('button',{name:'Cerrar',exact:true})).toBeDisabled()\n  46 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()\n  47 |    await page.screenshot({path:info.outputPath(`document-${operation}-${mode}-unknown.png`)})"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts",
+                        "column": 75,
+                        "line": 44
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <button class=\"inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5\">Cancelar</button>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n\n  42 |    await expect(confirm.getByRole('alert')).toBeVisible()\n  43 |    await info.attach('document-intent-observation',{body:JSON.stringify({operation,mode,commands}),contentType:'application/json'})\n> 44 |    await expect(confirm.getByRole('button',{name:'Cancelar',exact:true})).toBeDisabled()\n     |                                                                           ^\n  45 |    await expect(confirm.getByRole('button',{name:'Cerrar',exact:true})).toBeDisabled()\n  46 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()\n  47 |    await page.screenshot({path:info.outputPath(`document-${operation}-${mode}-unknown.png`)})\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts:44:75"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:47:22.747Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "document-intent-observation",
+                      "contentType": "application/json",
+                      "body": "eyJvcGVyYXRpb24iOiJyZXN0b3JlIiwibW9kZSI6InRyYW5zcG9ydCIsImNvbW1hbmRzIjpbeyJvcGVyYXRpb24iOiJkb2N1bWVudC5yZXN0b3JlIiwiaW5wdXQiOnsiY29tbWFuZF9pZCI6IjRhZWRhYjhjLWU3ZmMtNGNmYS1hNTQwLWQ2M2Q3YTUyNWVjNSIsImlkIjoiMjAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiZXhwZWN0ZWRfdmVyc2lvbiI6MX19XX0="
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt02\\artifacts\\document-intent-document-r-6a91a-xact-intent-after-transport-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt02\\artifacts\\document-intent-document-r-6a91a-xact-intent-after-transport-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt02\\artifacts\\document-intent-document-r-6a91a-xact-intent-after-transport-controlled-http-768\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts",
+                    "column": 75,
+                    "line": 44
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-8aaaf9960db27d28852d",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document restore preserves exact intent after malformed",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 11,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 4864,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <button class=\"inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5\">Cancelar</button>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <button class=\"inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5\">Cancelar</button>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts:44:75",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts",
+                      "column": 75,
+                      "line": 44
+                    },
+                    "snippet": "  42 |    await expect(confirm.getByRole('alert')).toBeVisible()\n  43 |    await info.attach('document-intent-observation',{body:JSON.stringify({operation,mode,commands}),contentType:'application/json'})\n> 44 |    await expect(confirm.getByRole('button',{name:'Cancelar',exact:true})).toBeDisabled()\n     |                                                                           ^\n  45 |    await expect(confirm.getByRole('button',{name:'Cerrar',exact:true})).toBeDisabled()\n  46 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()\n  47 |    await page.screenshot({path:info.outputPath(`document-${operation}-${mode}-unknown.png`)})"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts",
+                        "column": 75,
+                        "line": 44
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <button class=\"inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5\">Cancelar</button>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n\n  42 |    await expect(confirm.getByRole('alert')).toBeVisible()\n  43 |    await info.attach('document-intent-observation',{body:JSON.stringify({operation,mode,commands}),contentType:'application/json'})\n> 44 |    await expect(confirm.getByRole('button',{name:'Cancelar',exact:true})).toBeDisabled()\n     |                                                                           ^\n  45 |    await expect(confirm.getByRole('button',{name:'Cerrar',exact:true})).toBeDisabled()\n  46 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()\n  47 |    await page.screenshot({path:info.outputPath(`document-${operation}-${mode}-unknown.png`)})\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts:44:75"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:47:28.694Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "document-intent-observation",
+                      "contentType": "application/json",
+                      "body": "eyJvcGVyYXRpb24iOiJyZXN0b3JlIiwibW9kZSI6Im1hbGZvcm1lZCIsImNvbW1hbmRzIjpbeyJvcGVyYXRpb24iOiJkb2N1bWVudC5yZXN0b3JlIiwiaW5wdXQiOnsiY29tbWFuZF9pZCI6ImQ5OGQ5NWU1LTQ0NTgtNDk3OS1hOGIyLTI4ZjE1ZWJjM2E0YyIsImlkIjoiMjAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiZXhwZWN0ZWRfdmVyc2lvbiI6MX19XX0="
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt02\\artifacts\\document-intent-document-r-7ec64-xact-intent-after-malformed-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt02\\artifacts\\document-intent-document-r-7ec64-xact-intent-after-malformed-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt02\\artifacts\\document-intent-document-r-7ec64-xact-intent-after-malformed-controlled-http-768\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts",
+                    "column": 75,
+                    "line": 44
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-8446f3bc8d5cf37efd65",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document restore preserves exact intent after wrong_receipt",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 12,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5149,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <button class=\"inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5\">Cancelar</button>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <button class=\"inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5\">Cancelar</button>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts:44:75",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts",
+                      "column": 75,
+                      "line": 44
+                    },
+                    "snippet": "  42 |    await expect(confirm.getByRole('alert')).toBeVisible()\n  43 |    await info.attach('document-intent-observation',{body:JSON.stringify({operation,mode,commands}),contentType:'application/json'})\n> 44 |    await expect(confirm.getByRole('button',{name:'Cancelar',exact:true})).toBeDisabled()\n     |                                                                           ^\n  45 |    await expect(confirm.getByRole('button',{name:'Cerrar',exact:true})).toBeDisabled()\n  46 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()\n  47 |    await page.screenshot({path:info.outputPath(`document-${operation}-${mode}-unknown.png`)})"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts",
+                        "column": 75,
+                        "line": 44
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <button class=\"inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5\">Cancelar</button>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n\n  42 |    await expect(confirm.getByRole('alert')).toBeVisible()\n  43 |    await info.attach('document-intent-observation',{body:JSON.stringify({operation,mode,commands}),contentType:'application/json'})\n> 44 |    await expect(confirm.getByRole('button',{name:'Cancelar',exact:true})).toBeDisabled()\n     |                                                                           ^\n  45 |    await expect(confirm.getByRole('button',{name:'Cerrar',exact:true})).toBeDisabled()\n  46 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()\n  47 |    await page.screenshot({path:info.outputPath(`document-${operation}-${mode}-unknown.png`)})\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts:44:75"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:47:39.208Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "document-intent-observation",
+                      "contentType": "application/json",
+                      "body": "eyJvcGVyYXRpb24iOiJyZXN0b3JlIiwibW9kZSI6Indyb25nX3JlY2VpcHQiLCJjb21tYW5kcyI6W3sib3BlcmF0aW9uIjoiZG9jdW1lbnQucmVzdG9yZSIsImlucHV0Ijp7ImNvbW1hbmRfaWQiOiI0OTk1ZmU5Zi0wYTZlLTQ5NWMtOWU3MS1mYTZjNjc0YmRkNzgiLCJpZCI6IjIwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMSIsImV4cGVjdGVkX3ZlcnNpb24iOjF9fV19"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt02\\artifacts\\document-intent-document-r-40f7b--intent-after-wrong-receipt-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt02\\artifacts\\document-intent-document-r-40f7b--intent-after-wrong-receipt-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt02\\artifacts\\document-intent-document-r-40f7b--intent-after-wrong-receipt-controlled-http-768\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts",
+                    "column": 75,
+                    "line": 44
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-ffe7062ec2ed306d9435",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document restore preserves exact intent after denied",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 13,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 974,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:47:50.710Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-2a3dfc616670bd0daece",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document restore preserves exact intent after success",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 13,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 660,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:47:56.150Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-b931143af5eaea715c3c",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document archive preserves exact intent after transport",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 14,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 4922,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <button class=\"inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5\">Cancelar</button>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <button class=\"inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5\">Cancelar</button>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts:44:75",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts",
+                      "column": 75,
+                      "line": 44
+                    },
+                    "snippet": "  42 |    await expect(confirm.getByRole('alert')).toBeVisible()\n  43 |    await info.attach('document-intent-observation',{body:JSON.stringify({operation,mode,commands}),contentType:'application/json'})\n> 44 |    await expect(confirm.getByRole('button',{name:'Cancelar',exact:true})).toBeDisabled()\n     |                                                                           ^\n  45 |    await expect(confirm.getByRole('button',{name:'Cerrar',exact:true})).toBeDisabled()\n  46 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()\n  47 |    await page.screenshot({path:info.outputPath(`document-${operation}-${mode}-unknown.png`)})"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts",
+                        "column": 75,
+                        "line": 44
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <button class=\"inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5\">Cancelar</button>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n\n  42 |    await expect(confirm.getByRole('alert')).toBeVisible()\n  43 |    await info.attach('document-intent-observation',{body:JSON.stringify({operation,mode,commands}),contentType:'application/json'})\n> 44 |    await expect(confirm.getByRole('button',{name:'Cancelar',exact:true})).toBeDisabled()\n     |                                                                           ^\n  45 |    await expect(confirm.getByRole('button',{name:'Cerrar',exact:true})).toBeDisabled()\n  46 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()\n  47 |    await page.screenshot({path:info.outputPath(`document-${operation}-${mode}-unknown.png`)})\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts:44:75"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:47:57.859Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "document-intent-observation",
+                      "contentType": "application/json",
+                      "body": "eyJvcGVyYXRpb24iOiJhcmNoaXZlIiwibW9kZSI6InRyYW5zcG9ydCIsImNvbW1hbmRzIjpbeyJvcGVyYXRpb24iOiJkb2N1bWVudC5hcmNoaXZlIiwiaW5wdXQiOnsiY29tbWFuZF9pZCI6ImRlZjBjMTM4LWFlNDYtNGEzYS1iNDk1LTI3N2I5ZDhkZjBiOSIsImlkIjoiMjAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiZXhwZWN0ZWRfdmVyc2lvbiI6MX19XX0="
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt02\\artifacts\\document-intent-document-a-22091-xact-intent-after-transport-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt02\\artifacts\\document-intent-document-a-22091-xact-intent-after-transport-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt02\\artifacts\\document-intent-document-a-22091-xact-intent-after-transport-controlled-http-1440\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts",
+                    "column": 75,
+                    "line": 44
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-67114c7edbc5c57aab6c",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document archive preserves exact intent after malformed",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 15,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 4892,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <button class=\"inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5\">Cancelar</button>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <button class=\"inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5\">Cancelar</button>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts:44:75",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts",
+                      "column": 75,
+                      "line": 44
+                    },
+                    "snippet": "  42 |    await expect(confirm.getByRole('alert')).toBeVisible()\n  43 |    await info.attach('document-intent-observation',{body:JSON.stringify({operation,mode,commands}),contentType:'application/json'})\n> 44 |    await expect(confirm.getByRole('button',{name:'Cancelar',exact:true})).toBeDisabled()\n     |                                                                           ^\n  45 |    await expect(confirm.getByRole('button',{name:'Cerrar',exact:true})).toBeDisabled()\n  46 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()\n  47 |    await page.screenshot({path:info.outputPath(`document-${operation}-${mode}-unknown.png`)})"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts",
+                        "column": 75,
+                        "line": 44
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <button class=\"inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5\">Cancelar</button>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n\n  42 |    await expect(confirm.getByRole('alert')).toBeVisible()\n  43 |    await info.attach('document-intent-observation',{body:JSON.stringify({operation,mode,commands}),contentType:'application/json'})\n> 44 |    await expect(confirm.getByRole('button',{name:'Cancelar',exact:true})).toBeDisabled()\n     |                                                                           ^\n  45 |    await expect(confirm.getByRole('button',{name:'Cerrar',exact:true})).toBeDisabled()\n  46 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()\n  47 |    await page.screenshot({path:info.outputPath(`document-${operation}-${mode}-unknown.png`)})\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts:44:75"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:48:08.634Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "document-intent-observation",
+                      "contentType": "application/json",
+                      "body": "eyJvcGVyYXRpb24iOiJhcmNoaXZlIiwibW9kZSI6Im1hbGZvcm1lZCIsImNvbW1hbmRzIjpbeyJvcGVyYXRpb24iOiJkb2N1bWVudC5hcmNoaXZlIiwiaW5wdXQiOnsiY29tbWFuZF9pZCI6IjJlNWFhZWNhLWM3ZDctNDJiNS1iOGNjLTNlZjAwNDI5Y2M3MyIsImlkIjoiMjAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiZXhwZWN0ZWRfdmVyc2lvbiI6MX19XX0="
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt02\\artifacts\\document-intent-document-a-9b25a-xact-intent-after-malformed-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt02\\artifacts\\document-intent-document-a-9b25a-xact-intent-after-malformed-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt02\\artifacts\\document-intent-document-a-9b25a-xact-intent-after-malformed-controlled-http-1440\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts",
+                    "column": 75,
+                    "line": 44
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-e76407f7f08e488dccbd",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document archive preserves exact intent after wrong_receipt",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 16,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 4928,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <button class=\"inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5\">Cancelar</button>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <button class=\"inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5\">Cancelar</button>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts:44:75",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts",
+                      "column": 75,
+                      "line": 44
+                    },
+                    "snippet": "  42 |    await expect(confirm.getByRole('alert')).toBeVisible()\n  43 |    await info.attach('document-intent-observation',{body:JSON.stringify({operation,mode,commands}),contentType:'application/json'})\n> 44 |    await expect(confirm.getByRole('button',{name:'Cancelar',exact:true})).toBeDisabled()\n     |                                                                           ^\n  45 |    await expect(confirm.getByRole('button',{name:'Cerrar',exact:true})).toBeDisabled()\n  46 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()\n  47 |    await page.screenshot({path:info.outputPath(`document-${operation}-${mode}-unknown.png`)})"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts",
+                        "column": 75,
+                        "line": 44
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <button class=\"inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5\">Cancelar</button>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n\n  42 |    await expect(confirm.getByRole('alert')).toBeVisible()\n  43 |    await info.attach('document-intent-observation',{body:JSON.stringify({operation,mode,commands}),contentType:'application/json'})\n> 44 |    await expect(confirm.getByRole('button',{name:'Cancelar',exact:true})).toBeDisabled()\n     |                                                                           ^\n  45 |    await expect(confirm.getByRole('button',{name:'Cerrar',exact:true})).toBeDisabled()\n  46 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()\n  47 |    await page.screenshot({path:info.outputPath(`document-${operation}-${mode}-unknown.png`)})\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts:44:75"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:48:19.620Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "document-intent-observation",
+                      "contentType": "application/json",
+                      "body": "eyJvcGVyYXRpb24iOiJhcmNoaXZlIiwibW9kZSI6Indyb25nX3JlY2VpcHQiLCJjb21tYW5kcyI6W3sib3BlcmF0aW9uIjoiZG9jdW1lbnQuYXJjaGl2ZSIsImlucHV0Ijp7ImNvbW1hbmRfaWQiOiJjNzgyMTYyMi1hMjJkLTRhYTItYWRhOS02MWYwOTUzMmY2OTEiLCJpZCI6IjIwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMSIsImV4cGVjdGVkX3ZlcnNpb24iOjF9fV19"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt02\\artifacts\\document-intent-document-a-d3c22--intent-after-wrong-receipt-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt02\\artifacts\\document-intent-document-a-d3c22--intent-after-wrong-receipt-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt02\\artifacts\\document-intent-document-a-d3c22--intent-after-wrong-receipt-controlled-http-1440\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts",
+                    "column": 75,
+                    "line": 44
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-2572285474845d834538",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document archive preserves exact intent after denied",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 17,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 966,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:48:30.739Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-5b1da1d0b8d43437c52d",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document archive preserves exact intent after success",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 17,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 597,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:48:36.989Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-82943d4322d77cb2db66",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document restore preserves exact intent after transport",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 17,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 4826,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <button class=\"inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5\">Cancelar</button>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <button class=\"inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5\">Cancelar</button>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts:44:75",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts",
+                      "column": 75,
+                      "line": 44
+                    },
+                    "snippet": "  42 |    await expect(confirm.getByRole('alert')).toBeVisible()\n  43 |    await info.attach('document-intent-observation',{body:JSON.stringify({operation,mode,commands}),contentType:'application/json'})\n> 44 |    await expect(confirm.getByRole('button',{name:'Cancelar',exact:true})).toBeDisabled()\n     |                                                                           ^\n  45 |    await expect(confirm.getByRole('button',{name:'Cerrar',exact:true})).toBeDisabled()\n  46 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()\n  47 |    await page.screenshot({path:info.outputPath(`document-${operation}-${mode}-unknown.png`)})"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts",
+                        "column": 75,
+                        "line": 44
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <button class=\"inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5\">Cancelar</button>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n\n  42 |    await expect(confirm.getByRole('alert')).toBeVisible()\n  43 |    await info.attach('document-intent-observation',{body:JSON.stringify({operation,mode,commands}),contentType:'application/json'})\n> 44 |    await expect(confirm.getByRole('button',{name:'Cancelar',exact:true})).toBeDisabled()\n     |                                                                           ^\n  45 |    await expect(confirm.getByRole('button',{name:'Cerrar',exact:true})).toBeDisabled()\n  46 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()\n  47 |    await page.screenshot({path:info.outputPath(`document-${operation}-${mode}-unknown.png`)})\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts:44:75"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:48:37.620Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "document-intent-observation",
+                      "contentType": "application/json",
+                      "body": "eyJvcGVyYXRpb24iOiJyZXN0b3JlIiwibW9kZSI6InRyYW5zcG9ydCIsImNvbW1hbmRzIjpbeyJvcGVyYXRpb24iOiJkb2N1bWVudC5yZXN0b3JlIiwiaW5wdXQiOnsiY29tbWFuZF9pZCI6ImM1MjJmNTQzLTQ1MDItNDc1YS1iZTA5LTg3ZTYwYjgwYTc1ZiIsImlkIjoiMjAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiZXhwZWN0ZWRfdmVyc2lvbiI6MX19XX0="
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt02\\artifacts\\document-intent-document-r-6a91a-xact-intent-after-transport-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt02\\artifacts\\document-intent-document-r-6a91a-xact-intent-after-transport-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt02\\artifacts\\document-intent-document-r-6a91a-xact-intent-after-transport-controlled-http-1440\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts",
+                    "column": 75,
+                    "line": 44
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-4e35c79f45e3dd7bbc89",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document restore preserves exact intent after malformed",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 18,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5070,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <button class=\"inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5\">Cancelar</button>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <button class=\"inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5\">Cancelar</button>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts:44:75",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts",
+                      "column": 75,
+                      "line": 44
+                    },
+                    "snippet": "  42 |    await expect(confirm.getByRole('alert')).toBeVisible()\n  43 |    await info.attach('document-intent-observation',{body:JSON.stringify({operation,mode,commands}),contentType:'application/json'})\n> 44 |    await expect(confirm.getByRole('button',{name:'Cancelar',exact:true})).toBeDisabled()\n     |                                                                           ^\n  45 |    await expect(confirm.getByRole('button',{name:'Cerrar',exact:true})).toBeDisabled()\n  46 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()\n  47 |    await page.screenshot({path:info.outputPath(`document-${operation}-${mode}-unknown.png`)})"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts",
+                        "column": 75,
+                        "line": 44
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <button class=\"inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5\">Cancelar</button>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n\n  42 |    await expect(confirm.getByRole('alert')).toBeVisible()\n  43 |    await info.attach('document-intent-observation',{body:JSON.stringify({operation,mode,commands}),contentType:'application/json'})\n> 44 |    await expect(confirm.getByRole('button',{name:'Cancelar',exact:true})).toBeDisabled()\n     |                                                                           ^\n  45 |    await expect(confirm.getByRole('button',{name:'Cerrar',exact:true})).toBeDisabled()\n  46 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()\n  47 |    await page.screenshot({path:info.outputPath(`document-${operation}-${mode}-unknown.png`)})\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts:44:75"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:48:43.588Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "document-intent-observation",
+                      "contentType": "application/json",
+                      "body": "eyJvcGVyYXRpb24iOiJyZXN0b3JlIiwibW9kZSI6Im1hbGZvcm1lZCIsImNvbW1hbmRzIjpbeyJvcGVyYXRpb24iOiJkb2N1bWVudC5yZXN0b3JlIiwiaW5wdXQiOnsiY29tbWFuZF9pZCI6IjlkMGY0ZTdkLTA4MzQtNDYyOC05NTMwLWM5ZWRlNjEyNDcyYiIsImlkIjoiMjAwMDAwMDAtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAxIiwiZXhwZWN0ZWRfdmVyc2lvbiI6MX19XX0="
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt02\\artifacts\\document-intent-document-r-7ec64-xact-intent-after-malformed-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt02\\artifacts\\document-intent-document-r-7ec64-xact-intent-after-malformed-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt02\\artifacts\\document-intent-document-r-7ec64-xact-intent-after-malformed-controlled-http-1440\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts",
+                    "column": 75,
+                    "line": 44
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-f07bed63b1b42d3127fd",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document restore preserves exact intent after wrong_receipt",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 19,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5155,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\u001b[22m\n\u001b[2m    11 × locator resolved to <button class=\"inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5\">Cancelar</button>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\u001b[22m\n\u001b[2m    11 × locator resolved to <button class=\"inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5\">Cancelar</button>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts:44:75",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts",
+                      "column": 75,
+                      "line": 44
+                    },
+                    "snippet": "  42 |    await expect(confirm.getByRole('alert')).toBeVisible()\n  43 |    await info.attach('document-intent-observation',{body:JSON.stringify({operation,mode,commands}),contentType:'application/json'})\n> 44 |    await expect(confirm.getByRole('button',{name:'Cancelar',exact:true})).toBeDisabled()\n     |                                                                           ^\n  45 |    await expect(confirm.getByRole('button',{name:'Cerrar',exact:true})).toBeDisabled()\n  46 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()\n  47 |    await page.screenshot({path:info.outputPath(`document-${operation}-${mode}-unknown.png`)})"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts",
+                        "column": 75,
+                        "line": 44
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })\u001b[22m\n\u001b[2m    11 × locator resolved to <button class=\"inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5\">Cancelar</button>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n\n  42 |    await expect(confirm.getByRole('alert')).toBeVisible()\n  43 |    await info.attach('document-intent-observation',{body:JSON.stringify({operation,mode,commands}),contentType:'application/json'})\n> 44 |    await expect(confirm.getByRole('button',{name:'Cancelar',exact:true})).toBeDisabled()\n     |                                                                           ^\n  45 |    await expect(confirm.getByRole('button',{name:'Cerrar',exact:true})).toBeDisabled()\n  46 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()\n  47 |    await page.screenshot({path:info.outputPath(`document-${operation}-${mode}-unknown.png`)})\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts:44:75"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:48:55.327Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "document-intent-observation",
+                      "contentType": "application/json",
+                      "body": "eyJvcGVyYXRpb24iOiJyZXN0b3JlIiwibW9kZSI6Indyb25nX3JlY2VpcHQiLCJjb21tYW5kcyI6W3sib3BlcmF0aW9uIjoiZG9jdW1lbnQucmVzdG9yZSIsImlucHV0Ijp7ImNvbW1hbmRfaWQiOiI1YzhjYzk0Yi1jYTlkLTQ0MzAtYTRlNS03ZWFkZWI2OTkwMDQiLCJpZCI6IjIwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMSIsImV4cGVjdGVkX3ZlcnNpb24iOjF9fV19"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt02\\artifacts\\document-intent-document-r-40f7b--intent-after-wrong-receipt-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt02\\artifacts\\document-intent-document-r-40f7b--intent-after-wrong-receipt-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt02\\artifacts\\document-intent-document-r-40f7b--intent-after-wrong-receipt-controlled-http-1440\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts",
+                    "column": 75,
+                    "line": 44
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-21dc3897872069df31b0",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document restore preserves exact intent after denied",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 20,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1111,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:49:07.746Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-9d2156010cb2e7e6ccff",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document restore preserves exact intent after success",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 20,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 748,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:49:13.823Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-f6abef0586708d4eb419",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-19T23:45:22.144Z",
+    "duration": 232868.417,
+    "expected": 12,
+    "skipped": 0,
+    "unexpected": 18,
+    "flaky": 0
+  }
+}

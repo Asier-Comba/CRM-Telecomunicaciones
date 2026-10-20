@@ -1,0 +1,1052 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--config",
+      "tools/oier_commercial_qa/portfolio-create.config.ts"
+    ],
+    "configFile": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-create.config.ts",
+    "rootDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-commercial-20261020/tools/oier_commercial_qa",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-commercial-20261020/portfolio-create-attempt01/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "controlled-http-390",
+        "name": "controlled-http-390",
+        "testDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-commercial-20261020/tools/oier_commercial_qa",
+        "testIgnore": [],
+        "testMatch": [
+          "portfolio-create-intent.spec.ts"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-commercial-20261020/portfolio-create-attempt01/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "controlled-http-768",
+        "name": "controlled-http-768",
+        "testDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-commercial-20261020/tools/oier_commercial_qa",
+        "testIgnore": [],
+        "testMatch": [
+          "portfolio-create-intent.spec.ts"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-commercial-20261020/portfolio-create-attempt01/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "controlled-http-1440",
+        "name": "controlled-http-1440",
+        "testDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-commercial-20261020/tools/oier_commercial_qa",
+        "testIgnore": [],
+        "testMatch": [
+          "portfolio-create-intent.spec.ts"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "line",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-create-attempt01\\results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.61.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "portfolio-create-intent.spec.ts",
+      "file": "portfolio-create-intent.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "manual service creation preserves intent and receipt after transport",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1658,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:06:23.669Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "creation-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoidHJhbnNwb3J0IiwiY29tbWFuZHMiOlt7Im9wZXJhdGlvbiI6InNlcnZpY2UuY3JlYXRlX21hbnVhbCIsImlucHV0Ijp7ImNvbW1hbmRfaWQiOiI2MDE5MTEyNy04ZDA0LTQ5ZjQtODE2MS01YWFlOWEwYTM1NjEiLCJjb250cmFjdF9pZCI6IjYwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMSIsInNlcnZpY2Vfa2luZCI6Im1vYmlsZSIsImRpc3BsYXlfbmFtZSI6IlJldmlld2VkIG1hbnVhbCBzZXJ2aWNlIn19XSwicmVhZHMiOjB9"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1b892ae764a84975d3ba-e10034a3b43f7615f621",
+          "file": "portfolio-create-intent.spec.ts",
+          "line": 9,
+          "column": 99
+        },
+        {
+          "title": "manual service creation preserves intent and receipt after malformed",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5103,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Registrar activo manual', exact: true }).getByLabel('Nombre del nuevo activo', { exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Registrar activo manual', exact: true }).getByLabel('Nombre del nuevo activo', { exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <input required=\"\" maxlength=\"160\" value=\"Reviewed manual service\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 w-full\"/>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Registrar activo manual', exact: true }).getByLabel('Nombre del nuevo activo', { exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Registrar activo manual', exact: true }).getByLabel('Nombre del nuevo activo', { exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <input required=\"\" maxlength=\"160\" value=\"Reviewed manual service\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 w-full\"/>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-create-intent.spec.ts:47:23",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-create-intent.spec.ts",
+                      "column": 23,
+                      "line": 47
+                    },
+                    "snippet": "  45 |    if(mode==='read_failure')await expect(drawer.getByRole('button',{name:'Consultar el alta registrada',exact:true})).toBeVisible()\n  46 |    await info.attach('creation-observation',{body:JSON.stringify({mode,commands,reads}),contentType:'application/json'})\n> 47 |    await expect(name).toBeDisabled()\n     |                       ^\n  48 |    await drawer.getByRole('button',{name:'Cerrar panel',exact:true}).click({force:true});await expect(drawer).toBeVisible()\n  49 |    await page.keyboard.press('Escape');await expect(drawer).toBeVisible()\n  50 |    await drawer.getByRole('alert').scrollIntoViewIfNeeded()"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-create-intent.spec.ts",
+                        "column": 23,
+                        "line": 47
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Registrar activo manual', exact: true }).getByLabel('Nombre del nuevo activo', { exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Registrar activo manual', exact: true }).getByLabel('Nombre del nuevo activo', { exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <input required=\"\" maxlength=\"160\" value=\"Reviewed manual service\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 w-full\"/>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n\n  45 |    if(mode==='read_failure')await expect(drawer.getByRole('button',{name:'Consultar el alta registrada',exact:true})).toBeVisible()\n  46 |    await info.attach('creation-observation',{body:JSON.stringify({mode,commands,reads}),contentType:'application/json'})\n> 47 |    await expect(name).toBeDisabled()\n     |                       ^\n  48 |    await drawer.getByRole('button',{name:'Cerrar panel',exact:true}).click({force:true});await expect(drawer).toBeVisible()\n  49 |    await page.keyboard.press('Escape');await expect(drawer).toBeVisible()\n  50 |    await drawer.getByRole('alert').scrollIntoViewIfNeeded()\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-create-intent.spec.ts:47:23"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:06:31.288Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "creation-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoibWFsZm9ybWVkIiwiY29tbWFuZHMiOlt7Im9wZXJhdGlvbiI6InNlcnZpY2UuY3JlYXRlX21hbnVhbCIsImlucHV0Ijp7ImNvbW1hbmRfaWQiOiI0YWYzYmJkNi0zMTY3LTQ4ZjMtODQ2Ni05YTNiZTU2ZGJkZjUiLCJjb250cmFjdF9pZCI6IjYwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMSIsInNlcnZpY2Vfa2luZCI6Im1vYmlsZSIsImRpc3BsYXlfbmFtZSI6IlJldmlld2VkIG1hbnVhbCBzZXJ2aWNlIn19XSwicmVhZHMiOjB9"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-create-attempt01\\artifacts\\portfolio-create-intent-ma-a1f1c-and-receipt-after-malformed-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-create-attempt01\\artifacts\\portfolio-create-intent-ma-a1f1c-and-receipt-after-malformed-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-create-attempt01\\artifacts\\portfolio-create-intent-ma-a1f1c-and-receipt-after-malformed-controlled-http-390\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-create-intent.spec.ts",
+                    "column": 23,
+                    "line": 47
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "1b892ae764a84975d3ba-0e5e67f7dc1dbd0da7ba",
+          "file": "portfolio-create-intent.spec.ts",
+          "line": 9,
+          "column": 99
+        },
+        {
+          "title": "manual service creation preserves intent and receipt after wrong_receipt",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5352,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Registrar activo manual', exact: true }).getByLabel('Nombre del nuevo activo', { exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Registrar activo manual', exact: true }).getByLabel('Nombre del nuevo activo', { exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <input required=\"\" maxlength=\"160\" value=\"Reviewed manual service\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 w-full\"/>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Registrar activo manual', exact: true }).getByLabel('Nombre del nuevo activo', { exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Registrar activo manual', exact: true }).getByLabel('Nombre del nuevo activo', { exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <input required=\"\" maxlength=\"160\" value=\"Reviewed manual service\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 w-full\"/>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-create-intent.spec.ts:47:23",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-create-intent.spec.ts",
+                      "column": 23,
+                      "line": 47
+                    },
+                    "snippet": "  45 |    if(mode==='read_failure')await expect(drawer.getByRole('button',{name:'Consultar el alta registrada',exact:true})).toBeVisible()\n  46 |    await info.attach('creation-observation',{body:JSON.stringify({mode,commands,reads}),contentType:'application/json'})\n> 47 |    await expect(name).toBeDisabled()\n     |                       ^\n  48 |    await drawer.getByRole('button',{name:'Cerrar panel',exact:true}).click({force:true});await expect(drawer).toBeVisible()\n  49 |    await page.keyboard.press('Escape');await expect(drawer).toBeVisible()\n  50 |    await drawer.getByRole('alert').scrollIntoViewIfNeeded()"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-create-intent.spec.ts",
+                        "column": 23,
+                        "line": 47
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Registrar activo manual', exact: true }).getByLabel('Nombre del nuevo activo', { exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Registrar activo manual', exact: true }).getByLabel('Nombre del nuevo activo', { exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <input required=\"\" maxlength=\"160\" value=\"Reviewed manual service\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 w-full\"/>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n\n  45 |    if(mode==='read_failure')await expect(drawer.getByRole('button',{name:'Consultar el alta registrada',exact:true})).toBeVisible()\n  46 |    await info.attach('creation-observation',{body:JSON.stringify({mode,commands,reads}),contentType:'application/json'})\n> 47 |    await expect(name).toBeDisabled()\n     |                       ^\n  48 |    await drawer.getByRole('button',{name:'Cerrar panel',exact:true}).click({force:true});await expect(drawer).toBeVisible()\n  49 |    await page.keyboard.press('Escape');await expect(drawer).toBeVisible()\n  50 |    await drawer.getByRole('alert').scrollIntoViewIfNeeded()\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-create-intent.spec.ts:47:23"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:06:37.662Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "creation-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoid3JvbmdfcmVjZWlwdCIsImNvbW1hbmRzIjpbeyJvcGVyYXRpb24iOiJzZXJ2aWNlLmNyZWF0ZV9tYW51YWwiLCJpbnB1dCI6eyJjb21tYW5kX2lkIjoiZTY5NWNiYzgtZTEzOC00ZWFkLTg0ODQtMDUwYmI2M2Q2NWVjIiwiY29udHJhY3RfaWQiOiI2MDAwMDAwMC0wMDAwLTQwMDAtODAwMC0wMDAwMDAwMDAwMDEiLCJzZXJ2aWNlX2tpbmQiOiJtb2JpbGUiLCJkaXNwbGF5X25hbWUiOiJSZXZpZXdlZCBtYW51YWwgc2VydmljZSJ9fV0sInJlYWRzIjowfQ=="
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-create-attempt01\\artifacts\\portfolio-create-intent-ma-98299-receipt-after-wrong-receipt-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-create-attempt01\\artifacts\\portfolio-create-intent-ma-98299-receipt-after-wrong-receipt-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-create-attempt01\\artifacts\\portfolio-create-intent-ma-98299-receipt-after-wrong-receipt-controlled-http-390\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-create-intent.spec.ts",
+                    "column": 23,
+                    "line": 47
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "1b892ae764a84975d3ba-5157341829fdb6328465",
+          "file": "portfolio-create-intent.spec.ts",
+          "line": 9,
+          "column": 99
+        },
+        {
+          "title": "manual service creation preserves intent and receipt after read_failure",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5143,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('dialog', { name: 'Registrar activo manual', exact: true })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Registrar activo manual', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('dialog', { name: 'Registrar activo manual', exact: true })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Registrar activo manual', exact: true })\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-create-intent.spec.ts:48:111",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-create-intent.spec.ts",
+                      "column": 111,
+                      "line": 48
+                    },
+                    "snippet": "  46 |    await info.attach('creation-observation',{body:JSON.stringify({mode,commands,reads}),contentType:'application/json'})\n  47 |    await expect(name).toBeDisabled()\n> 48 |    await drawer.getByRole('button',{name:'Cerrar panel',exact:true}).click({force:true});await expect(drawer).toBeVisible()\n     |                                                                                                               ^\n  49 |    await page.keyboard.press('Escape');await expect(drawer).toBeVisible()\n  50 |    await drawer.getByRole('alert').scrollIntoViewIfNeeded()\n  51 |    await page.screenshot({path:info.outputPath(`service-create-${mode}-pending.png`)})"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-create-intent.spec.ts",
+                        "column": 111,
+                        "line": 48
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('dialog', { name: 'Registrar activo manual', exact: true })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Registrar activo manual', exact: true })\u001b[22m\n\n\n  46 |    await info.attach('creation-observation',{body:JSON.stringify({mode,commands,reads}),contentType:'application/json'})\n  47 |    await expect(name).toBeDisabled()\n> 48 |    await drawer.getByRole('button',{name:'Cerrar panel',exact:true}).click({force:true});await expect(drawer).toBeVisible()\n     |                                                                                                               ^\n  49 |    await page.keyboard.press('Escape');await expect(drawer).toBeVisible()\n  50 |    await drawer.getByRole('alert').scrollIntoViewIfNeeded()\n  51 |    await page.screenshot({path:info.outputPath(`service-create-${mode}-pending.png`)})\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-create-intent.spec.ts:48:111"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:06:50.425Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "creation-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoicmVhZF9mYWlsdXJlIiwiY29tbWFuZHMiOlt7Im9wZXJhdGlvbiI6InNlcnZpY2UuY3JlYXRlX21hbnVhbCIsImlucHV0Ijp7ImNvbW1hbmRfaWQiOiJhY2E5M2Q4My03MmY1LTRjMDAtOThhYi01MDUxOWM5NDA0YmMiLCJjb250cmFjdF9pZCI6IjYwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMSIsInNlcnZpY2Vfa2luZCI6Im1vYmlsZSIsImRpc3BsYXlfbmFtZSI6IlJldmlld2VkIG1hbnVhbCBzZXJ2aWNlIn19XSwicmVhZHMiOjF9"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-create-attempt01\\artifacts\\portfolio-create-intent-ma-2bbcd--receipt-after-read-failure-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-create-attempt01\\artifacts\\portfolio-create-intent-ma-2bbcd--receipt-after-read-failure-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-create-attempt01\\artifacts\\portfolio-create-intent-ma-2bbcd--receipt-after-read-failure-controlled-http-390\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-create-intent.spec.ts",
+                    "column": 111,
+                    "line": 48
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "1b892ae764a84975d3ba-00661fa42dcd7fb9684c",
+          "file": "portfolio-create-intent.spec.ts",
+          "line": 9,
+          "column": 99
+        },
+        {
+          "title": "manual service creation preserves intent and receipt after success",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1121,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:07:02.276Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1b892ae764a84975d3ba-1db73c6661b6ccef3b8f",
+          "file": "portfolio-create-intent.spec.ts",
+          "line": 9,
+          "column": 99
+        },
+        {
+          "title": "manual service creation preserves intent and receipt after transport",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1655,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:07:10.049Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "creation-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoidHJhbnNwb3J0IiwiY29tbWFuZHMiOlt7Im9wZXJhdGlvbiI6InNlcnZpY2UuY3JlYXRlX21hbnVhbCIsImlucHV0Ijp7ImNvbW1hbmRfaWQiOiJmNmMyM2Q3Ni03MzQyLTQ5ZGYtOTkxNy1hNDI3OWRkZjU2MzciLCJjb250cmFjdF9pZCI6IjYwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMSIsInNlcnZpY2Vfa2luZCI6Im1vYmlsZSIsImRpc3BsYXlfbmFtZSI6IlJldmlld2VkIG1hbnVhbCBzZXJ2aWNlIn19XSwicmVhZHMiOjB9"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1b892ae764a84975d3ba-49db4168c32d44438afb",
+          "file": "portfolio-create-intent.spec.ts",
+          "line": 9,
+          "column": 99
+        },
+        {
+          "title": "manual service creation preserves intent and receipt after malformed",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5121,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Registrar activo manual', exact: true }).getByLabel('Nombre del nuevo activo', { exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Registrar activo manual', exact: true }).getByLabel('Nombre del nuevo activo', { exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <input required=\"\" maxlength=\"160\" value=\"Reviewed manual service\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 w-full\"/>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Registrar activo manual', exact: true }).getByLabel('Nombre del nuevo activo', { exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Registrar activo manual', exact: true }).getByLabel('Nombre del nuevo activo', { exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <input required=\"\" maxlength=\"160\" value=\"Reviewed manual service\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 w-full\"/>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-create-intent.spec.ts:47:23",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-create-intent.spec.ts",
+                      "column": 23,
+                      "line": 47
+                    },
+                    "snippet": "  45 |    if(mode==='read_failure')await expect(drawer.getByRole('button',{name:'Consultar el alta registrada',exact:true})).toBeVisible()\n  46 |    await info.attach('creation-observation',{body:JSON.stringify({mode,commands,reads}),contentType:'application/json'})\n> 47 |    await expect(name).toBeDisabled()\n     |                       ^\n  48 |    await drawer.getByRole('button',{name:'Cerrar panel',exact:true}).click({force:true});await expect(drawer).toBeVisible()\n  49 |    await page.keyboard.press('Escape');await expect(drawer).toBeVisible()\n  50 |    await drawer.getByRole('alert').scrollIntoViewIfNeeded()"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-create-intent.spec.ts",
+                        "column": 23,
+                        "line": 47
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Registrar activo manual', exact: true }).getByLabel('Nombre del nuevo activo', { exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Registrar activo manual', exact: true }).getByLabel('Nombre del nuevo activo', { exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <input required=\"\" maxlength=\"160\" value=\"Reviewed manual service\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 w-full\"/>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n\n  45 |    if(mode==='read_failure')await expect(drawer.getByRole('button',{name:'Consultar el alta registrada',exact:true})).toBeVisible()\n  46 |    await info.attach('creation-observation',{body:JSON.stringify({mode,commands,reads}),contentType:'application/json'})\n> 47 |    await expect(name).toBeDisabled()\n     |                       ^\n  48 |    await drawer.getByRole('button',{name:'Cerrar panel',exact:true}).click({force:true});await expect(drawer).toBeVisible()\n  49 |    await page.keyboard.press('Escape');await expect(drawer).toBeVisible()\n  50 |    await drawer.getByRole('alert').scrollIntoViewIfNeeded()\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-create-intent.spec.ts:47:23"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:07:17.933Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "creation-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoibWFsZm9ybWVkIiwiY29tbWFuZHMiOlt7Im9wZXJhdGlvbiI6InNlcnZpY2UuY3JlYXRlX21hbnVhbCIsImlucHV0Ijp7ImNvbW1hbmRfaWQiOiJhZjg5YTQ5ZS1hMTY5LTQ3OTAtYmNiZC02M2I3MWFiOWY5NjkiLCJjb250cmFjdF9pZCI6IjYwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMSIsInNlcnZpY2Vfa2luZCI6Im1vYmlsZSIsImRpc3BsYXlfbmFtZSI6IlJldmlld2VkIG1hbnVhbCBzZXJ2aWNlIn19XSwicmVhZHMiOjB9"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-create-attempt01\\artifacts\\portfolio-create-intent-ma-a1f1c-and-receipt-after-malformed-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-create-attempt01\\artifacts\\portfolio-create-intent-ma-a1f1c-and-receipt-after-malformed-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-create-attempt01\\artifacts\\portfolio-create-intent-ma-a1f1c-and-receipt-after-malformed-controlled-http-768\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-create-intent.spec.ts",
+                    "column": 23,
+                    "line": 47
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "1b892ae764a84975d3ba-928ce0f14da3a8914efb",
+          "file": "portfolio-create-intent.spec.ts",
+          "line": 9,
+          "column": 99
+        },
+        {
+          "title": "manual service creation preserves intent and receipt after wrong_receipt",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5666,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Registrar activo manual', exact: true }).getByLabel('Nombre del nuevo activo', { exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Registrar activo manual', exact: true }).getByLabel('Nombre del nuevo activo', { exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <input required=\"\" maxlength=\"160\" value=\"Reviewed manual service\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 w-full\"/>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Registrar activo manual', exact: true }).getByLabel('Nombre del nuevo activo', { exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Registrar activo manual', exact: true }).getByLabel('Nombre del nuevo activo', { exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <input required=\"\" maxlength=\"160\" value=\"Reviewed manual service\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 w-full\"/>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-create-intent.spec.ts:47:23",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-create-intent.spec.ts",
+                      "column": 23,
+                      "line": 47
+                    },
+                    "snippet": "  45 |    if(mode==='read_failure')await expect(drawer.getByRole('button',{name:'Consultar el alta registrada',exact:true})).toBeVisible()\n  46 |    await info.attach('creation-observation',{body:JSON.stringify({mode,commands,reads}),contentType:'application/json'})\n> 47 |    await expect(name).toBeDisabled()\n     |                       ^\n  48 |    await drawer.getByRole('button',{name:'Cerrar panel',exact:true}).click({force:true});await expect(drawer).toBeVisible()\n  49 |    await page.keyboard.press('Escape');await expect(drawer).toBeVisible()\n  50 |    await drawer.getByRole('alert').scrollIntoViewIfNeeded()"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-create-intent.spec.ts",
+                        "column": 23,
+                        "line": 47
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Registrar activo manual', exact: true }).getByLabel('Nombre del nuevo activo', { exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Registrar activo manual', exact: true }).getByLabel('Nombre del nuevo activo', { exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <input required=\"\" maxlength=\"160\" value=\"Reviewed manual service\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 w-full\"/>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n\n  45 |    if(mode==='read_failure')await expect(drawer.getByRole('button',{name:'Consultar el alta registrada',exact:true})).toBeVisible()\n  46 |    await info.attach('creation-observation',{body:JSON.stringify({mode,commands,reads}),contentType:'application/json'})\n> 47 |    await expect(name).toBeDisabled()\n     |                       ^\n  48 |    await drawer.getByRole('button',{name:'Cerrar panel',exact:true}).click({force:true});await expect(drawer).toBeVisible()\n  49 |    await page.keyboard.press('Escape');await expect(drawer).toBeVisible()\n  50 |    await drawer.getByRole('alert').scrollIntoViewIfNeeded()\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-create-intent.spec.ts:47:23"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:07:24.280Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "creation-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoid3JvbmdfcmVjZWlwdCIsImNvbW1hbmRzIjpbeyJvcGVyYXRpb24iOiJzZXJ2aWNlLmNyZWF0ZV9tYW51YWwiLCJpbnB1dCI6eyJjb21tYW5kX2lkIjoiMDA0ZjU3ZGMtM2UwNy00YmJkLWJjNTQtNTcxZGE5NWFhMGNmIiwiY29udHJhY3RfaWQiOiI2MDAwMDAwMC0wMDAwLTQwMDAtODAwMC0wMDAwMDAwMDAwMDEiLCJzZXJ2aWNlX2tpbmQiOiJtb2JpbGUiLCJkaXNwbGF5X25hbWUiOiJSZXZpZXdlZCBtYW51YWwgc2VydmljZSJ9fV0sInJlYWRzIjowfQ=="
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-create-attempt01\\artifacts\\portfolio-create-intent-ma-98299-receipt-after-wrong-receipt-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-create-attempt01\\artifacts\\portfolio-create-intent-ma-98299-receipt-after-wrong-receipt-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-create-attempt01\\artifacts\\portfolio-create-intent-ma-98299-receipt-after-wrong-receipt-controlled-http-768\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-create-intent.spec.ts",
+                    "column": 23,
+                    "line": 47
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "1b892ae764a84975d3ba-148254fe88d5ffbd7458",
+          "file": "portfolio-create-intent.spec.ts",
+          "line": 9,
+          "column": 99
+        },
+        {
+          "title": "manual service creation preserves intent and receipt after read_failure",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5359,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('dialog', { name: 'Registrar activo manual', exact: true })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Registrar activo manual', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('dialog', { name: 'Registrar activo manual', exact: true })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Registrar activo manual', exact: true })\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-create-intent.spec.ts:48:111",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-create-intent.spec.ts",
+                      "column": 111,
+                      "line": 48
+                    },
+                    "snippet": "  46 |    await info.attach('creation-observation',{body:JSON.stringify({mode,commands,reads}),contentType:'application/json'})\n  47 |    await expect(name).toBeDisabled()\n> 48 |    await drawer.getByRole('button',{name:'Cerrar panel',exact:true}).click({force:true});await expect(drawer).toBeVisible()\n     |                                                                                                               ^\n  49 |    await page.keyboard.press('Escape');await expect(drawer).toBeVisible()\n  50 |    await drawer.getByRole('alert').scrollIntoViewIfNeeded()\n  51 |    await page.screenshot({path:info.outputPath(`service-create-${mode}-pending.png`)})"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-create-intent.spec.ts",
+                        "column": 111,
+                        "line": 48
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('dialog', { name: 'Registrar activo manual', exact: true })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Registrar activo manual', exact: true })\u001b[22m\n\n\n  46 |    await info.attach('creation-observation',{body:JSON.stringify({mode,commands,reads}),contentType:'application/json'})\n  47 |    await expect(name).toBeDisabled()\n> 48 |    await drawer.getByRole('button',{name:'Cerrar panel',exact:true}).click({force:true});await expect(drawer).toBeVisible()\n     |                                                                                                               ^\n  49 |    await page.keyboard.press('Escape');await expect(drawer).toBeVisible()\n  50 |    await drawer.getByRole('alert').scrollIntoViewIfNeeded()\n  51 |    await page.screenshot({path:info.outputPath(`service-create-${mode}-pending.png`)})\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-create-intent.spec.ts:48:111"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:07:36.587Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "creation-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoicmVhZF9mYWlsdXJlIiwiY29tbWFuZHMiOlt7Im9wZXJhdGlvbiI6InNlcnZpY2UuY3JlYXRlX21hbnVhbCIsImlucHV0Ijp7ImNvbW1hbmRfaWQiOiIwZWU3YWViOC04YmYxLTRlOWEtOTAyZi1hYjEyMzkyYzczNGUiLCJjb250cmFjdF9pZCI6IjYwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMSIsInNlcnZpY2Vfa2luZCI6Im1vYmlsZSIsImRpc3BsYXlfbmFtZSI6IlJldmlld2VkIG1hbnVhbCBzZXJ2aWNlIn19XSwicmVhZHMiOjF9"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-create-attempt01\\artifacts\\portfolio-create-intent-ma-2bbcd--receipt-after-read-failure-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-create-attempt01\\artifacts\\portfolio-create-intent-ma-2bbcd--receipt-after-read-failure-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-create-attempt01\\artifacts\\portfolio-create-intent-ma-2bbcd--receipt-after-read-failure-controlled-http-768\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-create-intent.spec.ts",
+                    "column": 111,
+                    "line": 48
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "1b892ae764a84975d3ba-fbe88f11a4984d9256b0",
+          "file": "portfolio-create-intent.spec.ts",
+          "line": 9,
+          "column": 99
+        },
+        {
+          "title": "manual service creation preserves intent and receipt after success",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 7,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1159,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:07:48.872Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1b892ae764a84975d3ba-87a8d7850744eb682b31",
+          "file": "portfolio-create-intent.spec.ts",
+          "line": 9,
+          "column": 99
+        },
+        {
+          "title": "manual service creation preserves intent and receipt after transport",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 8,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1494,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:07:57.082Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "creation-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoidHJhbnNwb3J0IiwiY29tbWFuZHMiOlt7Im9wZXJhdGlvbiI6InNlcnZpY2UuY3JlYXRlX21hbnVhbCIsImlucHV0Ijp7ImNvbW1hbmRfaWQiOiJmNTZiNzZiOC1hMjZlLTQwYzUtODhjOS01NjExZTMxOTVmMmIiLCJjb250cmFjdF9pZCI6IjYwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMSIsInNlcnZpY2Vfa2luZCI6Im1vYmlsZSIsImRpc3BsYXlfbmFtZSI6IlJldmlld2VkIG1hbnVhbCBzZXJ2aWNlIn19XSwicmVhZHMiOjB9"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1b892ae764a84975d3ba-f95a95fc3bab87dab460",
+          "file": "portfolio-create-intent.spec.ts",
+          "line": 9,
+          "column": 99
+        },
+        {
+          "title": "manual service creation preserves intent and receipt after malformed",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 8,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 4957,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Registrar activo manual', exact: true }).getByLabel('Nombre del nuevo activo', { exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Registrar activo manual', exact: true }).getByLabel('Nombre del nuevo activo', { exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <input required=\"\" maxlength=\"160\" value=\"Reviewed manual service\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 w-full\"/>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Registrar activo manual', exact: true }).getByLabel('Nombre del nuevo activo', { exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Registrar activo manual', exact: true }).getByLabel('Nombre del nuevo activo', { exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <input required=\"\" maxlength=\"160\" value=\"Reviewed manual service\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 w-full\"/>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-create-intent.spec.ts:47:23",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-create-intent.spec.ts",
+                      "column": 23,
+                      "line": 47
+                    },
+                    "snippet": "  45 |    if(mode==='read_failure')await expect(drawer.getByRole('button',{name:'Consultar el alta registrada',exact:true})).toBeVisible()\n  46 |    await info.attach('creation-observation',{body:JSON.stringify({mode,commands,reads}),contentType:'application/json'})\n> 47 |    await expect(name).toBeDisabled()\n     |                       ^\n  48 |    await drawer.getByRole('button',{name:'Cerrar panel',exact:true}).click({force:true});await expect(drawer).toBeVisible()\n  49 |    await page.keyboard.press('Escape');await expect(drawer).toBeVisible()\n  50 |    await drawer.getByRole('alert').scrollIntoViewIfNeeded()"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-create-intent.spec.ts",
+                        "column": 23,
+                        "line": 47
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Registrar activo manual', exact: true }).getByLabel('Nombre del nuevo activo', { exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Registrar activo manual', exact: true }).getByLabel('Nombre del nuevo activo', { exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <input required=\"\" maxlength=\"160\" value=\"Reviewed manual service\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 w-full\"/>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n\n  45 |    if(mode==='read_failure')await expect(drawer.getByRole('button',{name:'Consultar el alta registrada',exact:true})).toBeVisible()\n  46 |    await info.attach('creation-observation',{body:JSON.stringify({mode,commands,reads}),contentType:'application/json'})\n> 47 |    await expect(name).toBeDisabled()\n     |                       ^\n  48 |    await drawer.getByRole('button',{name:'Cerrar panel',exact:true}).click({force:true});await expect(drawer).toBeVisible()\n  49 |    await page.keyboard.press('Escape');await expect(drawer).toBeVisible()\n  50 |    await drawer.getByRole('alert').scrollIntoViewIfNeeded()\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-create-intent.spec.ts:47:23"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:08:04.320Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "creation-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoibWFsZm9ybWVkIiwiY29tbWFuZHMiOlt7Im9wZXJhdGlvbiI6InNlcnZpY2UuY3JlYXRlX21hbnVhbCIsImlucHV0Ijp7ImNvbW1hbmRfaWQiOiI2MTc3NjE4My04OTdjLTQ2ZTgtOTgwZi00MTE2YjUzN2I5NWIiLCJjb250cmFjdF9pZCI6IjYwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMSIsInNlcnZpY2Vfa2luZCI6Im1vYmlsZSIsImRpc3BsYXlfbmFtZSI6IlJldmlld2VkIG1hbnVhbCBzZXJ2aWNlIn19XSwicmVhZHMiOjB9"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-create-attempt01\\artifacts\\portfolio-create-intent-ma-a1f1c-and-receipt-after-malformed-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-create-attempt01\\artifacts\\portfolio-create-intent-ma-a1f1c-and-receipt-after-malformed-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-create-attempt01\\artifacts\\portfolio-create-intent-ma-a1f1c-and-receipt-after-malformed-controlled-http-1440\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-create-intent.spec.ts",
+                    "column": 23,
+                    "line": 47
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "1b892ae764a84975d3ba-44c1c113d811ed89abea",
+          "file": "portfolio-create-intent.spec.ts",
+          "line": 9,
+          "column": 99
+        },
+        {
+          "title": "manual service creation preserves intent and receipt after wrong_receipt",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5211,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Registrar activo manual', exact: true }).getByLabel('Nombre del nuevo activo', { exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Registrar activo manual', exact: true }).getByLabel('Nombre del nuevo activo', { exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <input required=\"\" maxlength=\"160\" value=\"Reviewed manual service\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 w-full\"/>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Registrar activo manual', exact: true }).getByLabel('Nombre del nuevo activo', { exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Registrar activo manual', exact: true }).getByLabel('Nombre del nuevo activo', { exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <input required=\"\" maxlength=\"160\" value=\"Reviewed manual service\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 w-full\"/>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-create-intent.spec.ts:47:23",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-create-intent.spec.ts",
+                      "column": 23,
+                      "line": 47
+                    },
+                    "snippet": "  45 |    if(mode==='read_failure')await expect(drawer.getByRole('button',{name:'Consultar el alta registrada',exact:true})).toBeVisible()\n  46 |    await info.attach('creation-observation',{body:JSON.stringify({mode,commands,reads}),contentType:'application/json'})\n> 47 |    await expect(name).toBeDisabled()\n     |                       ^\n  48 |    await drawer.getByRole('button',{name:'Cerrar panel',exact:true}).click({force:true});await expect(drawer).toBeVisible()\n  49 |    await page.keyboard.press('Escape');await expect(drawer).toBeVisible()\n  50 |    await drawer.getByRole('alert').scrollIntoViewIfNeeded()"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-create-intent.spec.ts",
+                        "column": 23,
+                        "line": 47
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Registrar activo manual', exact: true }).getByLabel('Nombre del nuevo activo', { exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Registrar activo manual', exact: true }).getByLabel('Nombre del nuevo activo', { exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <input required=\"\" maxlength=\"160\" value=\"Reviewed manual service\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 w-full\"/>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n\n  45 |    if(mode==='read_failure')await expect(drawer.getByRole('button',{name:'Consultar el alta registrada',exact:true})).toBeVisible()\n  46 |    await info.attach('creation-observation',{body:JSON.stringify({mode,commands,reads}),contentType:'application/json'})\n> 47 |    await expect(name).toBeDisabled()\n     |                       ^\n  48 |    await drawer.getByRole('button',{name:'Cerrar panel',exact:true}).click({force:true});await expect(drawer).toBeVisible()\n  49 |    await page.keyboard.press('Escape');await expect(drawer).toBeVisible()\n  50 |    await drawer.getByRole('alert').scrollIntoViewIfNeeded()\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-create-intent.spec.ts:47:23"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:08:10.500Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "creation-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoid3JvbmdfcmVjZWlwdCIsImNvbW1hbmRzIjpbeyJvcGVyYXRpb24iOiJzZXJ2aWNlLmNyZWF0ZV9tYW51YWwiLCJpbnB1dCI6eyJjb21tYW5kX2lkIjoiYWNjODkwZTUtYzg5Ni00YjVhLTljY2MtNjNiYmQwNzE5ZDM3IiwiY29udHJhY3RfaWQiOiI2MDAwMDAwMC0wMDAwLTQwMDAtODAwMC0wMDAwMDAwMDAwMDEiLCJzZXJ2aWNlX2tpbmQiOiJtb2JpbGUiLCJkaXNwbGF5X25hbWUiOiJSZXZpZXdlZCBtYW51YWwgc2VydmljZSJ9fV0sInJlYWRzIjowfQ=="
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-create-attempt01\\artifacts\\portfolio-create-intent-ma-98299-receipt-after-wrong-receipt-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-create-attempt01\\artifacts\\portfolio-create-intent-ma-98299-receipt-after-wrong-receipt-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-create-attempt01\\artifacts\\portfolio-create-intent-ma-98299-receipt-after-wrong-receipt-controlled-http-1440\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-create-intent.spec.ts",
+                    "column": 23,
+                    "line": 47
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "1b892ae764a84975d3ba-4a6e1376f952dfab9f61",
+          "file": "portfolio-create-intent.spec.ts",
+          "line": 9,
+          "column": 99
+        },
+        {
+          "title": "manual service creation preserves intent and receipt after read_failure",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 10,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5169,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('dialog', { name: 'Registrar activo manual', exact: true })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Registrar activo manual', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('dialog', { name: 'Registrar activo manual', exact: true })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Registrar activo manual', exact: true })\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-create-intent.spec.ts:48:111",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-create-intent.spec.ts",
+                      "column": 111,
+                      "line": 48
+                    },
+                    "snippet": "  46 |    await info.attach('creation-observation',{body:JSON.stringify({mode,commands,reads}),contentType:'application/json'})\n  47 |    await expect(name).toBeDisabled()\n> 48 |    await drawer.getByRole('button',{name:'Cerrar panel',exact:true}).click({force:true});await expect(drawer).toBeVisible()\n     |                                                                                                               ^\n  49 |    await page.keyboard.press('Escape');await expect(drawer).toBeVisible()\n  50 |    await drawer.getByRole('alert').scrollIntoViewIfNeeded()\n  51 |    await page.screenshot({path:info.outputPath(`service-create-${mode}-pending.png`)})"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-create-intent.spec.ts",
+                        "column": 111,
+                        "line": 48
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('dialog', { name: 'Registrar activo manual', exact: true })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Registrar activo manual', exact: true })\u001b[22m\n\n\n  46 |    await info.attach('creation-observation',{body:JSON.stringify({mode,commands,reads}),contentType:'application/json'})\n  47 |    await expect(name).toBeDisabled()\n> 48 |    await drawer.getByRole('button',{name:'Cerrar panel',exact:true}).click({force:true});await expect(drawer).toBeVisible()\n     |                                                                                                               ^\n  49 |    await page.keyboard.press('Escape');await expect(drawer).toBeVisible()\n  50 |    await drawer.getByRole('alert').scrollIntoViewIfNeeded()\n  51 |    await page.screenshot({path:info.outputPath(`service-create-${mode}-pending.png`)})\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-create-intent.spec.ts:48:111"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:08:22.893Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "creation-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoicmVhZF9mYWlsdXJlIiwiY29tbWFuZHMiOlt7Im9wZXJhdGlvbiI6InNlcnZpY2UuY3JlYXRlX21hbnVhbCIsImlucHV0Ijp7ImNvbW1hbmRfaWQiOiIzM2M4MjE2NC05ZjViLTQ4NTAtYWUwZi0yOGVkMWI4MGI4OGMiLCJjb250cmFjdF9pZCI6IjYwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMSIsInNlcnZpY2Vfa2luZCI6Im1vYmlsZSIsImRpc3BsYXlfbmFtZSI6IlJldmlld2VkIG1hbnVhbCBzZXJ2aWNlIn19XSwicmVhZHMiOjF9"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-create-attempt01\\artifacts\\portfolio-create-intent-ma-2bbcd--receipt-after-read-failure-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-create-attempt01\\artifacts\\portfolio-create-intent-ma-2bbcd--receipt-after-read-failure-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\portfolio-create-attempt01\\artifacts\\portfolio-create-intent-ma-2bbcd--receipt-after-read-failure-controlled-http-1440\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\portfolio-create-intent.spec.ts",
+                    "column": 111,
+                    "line": 48
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "1b892ae764a84975d3ba-842670f386a1c1efa623",
+          "file": "portfolio-create-intent.spec.ts",
+          "line": 9,
+          "column": 99
+        },
+        {
+          "title": "manual service creation preserves intent and receipt after success",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 11,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1089,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:08:34.817Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1b892ae764a84975d3ba-91ada54ea60c96e0427b",
+          "file": "portfolio-create-intent.spec.ts",
+          "line": 9,
+          "column": 99
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-20T00:06:23.073Z",
+    "duration": 138768.596,
+    "expected": 6,
+    "skipped": 0,
+    "unexpected": 9,
+    "flaky": 0
+  }
+}

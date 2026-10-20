@@ -1,0 +1,281 @@
+
+Running 18 tests using 1 worker
+
+
+
+(node:12708) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1/18] [controlled-http-390] › tools\oier_commercial_qa\inbox-readback.spec.ts:7:99 › inbox confirmed receipt requires coherent stale readback
+  1) [controlled-http-390] › tools\oier_commercial_qa\inbox-readback.spec.ts:7:99 › inbox confirmed receipt requires coherent stale readback 
+
+    Error: expect(locator).toBeEnabled() failed
+
+    Locator: getByRole('button', { name: 'Comprobar la misma acción', exact: true })
+    Expected: enabled
+    Timeout: 4000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeEnabled" with timeout 4000ms
+      - waiting for getByRole('button', { name: 'Comprobar la misma acción', exact: true })
+
+
+      36 |    await info.attach('readback-observation',{body:JSON.stringify({mode,commands,readbacks}),contentType:'application/json'})
+      37 |    const retry=page.getByRole('button',{name:'Comprobar la misma acción',exact:true})
+    > 38 |    await expect(retry).toBeEnabled();await expect(field).toBeDisabled();await expect(field).toHaveValue(body)
+         |                        ^
+      39 |    await expect(page.getByRole('status').filter({hasText:'Cambio guardado. La conversación se ha actualizado.'})).toHaveCount(0)
+      40 |    await page.screenshot({path:info.outputPath(`inbox-${mode}-registered.png`)})
+      41 |    corrected=true;await retry.click()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\inbox-readback.spec.ts:38:24
+
+    Error Context: ..\oier-commercial-20261020\inbox-readback-attempt01\artifacts\inbox-readback-inbox-confi-a1485-res-coherent-stale-readback-controlled-http-390\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\inbox-readback-attempt01\artifacts\inbox-readback-inbox-confi-a1485-res-coherent-stale-readback-controlled-http-390\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\inbox-readback-attempt01\artifacts\inbox-readback-inbox-confi-a1485-res-coherent-stale-readback-controlled-http-390\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\inbox-readback-attempt01\artifacts\inbox-readback-inbox-confi-a1485-res-coherent-stale-readback-controlled-http-390\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:23848) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[2/18] [controlled-http-390] › tools\oier_commercial_qa\inbox-readback.spec.ts:7:99 › inbox confirmed receipt requires coherent wrong_status readback
+  2) [controlled-http-390] › tools\oier_commercial_qa\inbox-readback.spec.ts:7:99 › inbox confirmed receipt requires coherent wrong_status readback 
+
+    Error: expect(locator).toBeEnabled() failed
+
+    Locator: getByRole('button', { name: 'Comprobar la misma acción', exact: true })
+    Expected: enabled
+    Timeout: 4000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeEnabled" with timeout 4000ms
+      - waiting for getByRole('button', { name: 'Comprobar la misma acción', exact: true })
+
+
+      36 |    await info.attach('readback-observation',{body:JSON.stringify({mode,commands,readbacks}),contentType:'application/json'})
+      37 |    const retry=page.getByRole('button',{name:'Comprobar la misma acción',exact:true})
+    > 38 |    await expect(retry).toBeEnabled();await expect(field).toBeDisabled();await expect(field).toHaveValue(body)
+         |                        ^
+      39 |    await expect(page.getByRole('status').filter({hasText:'Cambio guardado. La conversación se ha actualizado.'})).toHaveCount(0)
+      40 |    await page.screenshot({path:info.outputPath(`inbox-${mode}-registered.png`)})
+      41 |    corrected=true;await retry.click()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\inbox-readback.spec.ts:38:24
+
+    Error Context: ..\oier-commercial-20261020\inbox-readback-attempt01\artifacts\inbox-readback-inbox-confi-952fd-erent-wrong-status-readback-controlled-http-390\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\inbox-readback-attempt01\artifacts\inbox-readback-inbox-confi-952fd-erent-wrong-status-readback-controlled-http-390\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\inbox-readback-attempt01\artifacts\inbox-readback-inbox-confi-952fd-erent-wrong-status-readback-controlled-http-390\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\inbox-readback-attempt01\artifacts\inbox-readback-inbox-confi-952fd-erent-wrong-status-readback-controlled-http-390\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:11144) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[3/18] [controlled-http-390] › tools\oier_commercial_qa\inbox-readback.spec.ts:7:99 › inbox confirmed receipt requires coherent exact readback
+[4/18] [controlled-http-390] › tools\oier_commercial_qa\inbox-readback.spec.ts:7:99 › inbox confirmed receipt requires coherent newer readback
+[5/18] [controlled-http-390] › tools\oier_commercial_qa\inbox-readback.spec.ts:7:99 › inbox confirmed receipt requires coherent mark_read readback
+[6/18] [controlled-http-390] › tools\oier_commercial_qa\inbox-readback.spec.ts:7:99 › inbox confirmed receipt requires coherent mark_unread readback
+
+(node:24960) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[7/18] [controlled-http-768] › tools\oier_commercial_qa\inbox-readback.spec.ts:7:99 › inbox confirmed receipt requires coherent stale readback
+  3) [controlled-http-768] › tools\oier_commercial_qa\inbox-readback.spec.ts:7:99 › inbox confirmed receipt requires coherent stale readback 
+
+    Error: expect(locator).toBeEnabled() failed
+
+    Locator: getByRole('button', { name: 'Comprobar la misma acción', exact: true })
+    Expected: enabled
+    Timeout: 4000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeEnabled" with timeout 4000ms
+      - waiting for getByRole('button', { name: 'Comprobar la misma acción', exact: true })
+
+
+      36 |    await info.attach('readback-observation',{body:JSON.stringify({mode,commands,readbacks}),contentType:'application/json'})
+      37 |    const retry=page.getByRole('button',{name:'Comprobar la misma acción',exact:true})
+    > 38 |    await expect(retry).toBeEnabled();await expect(field).toBeDisabled();await expect(field).toHaveValue(body)
+         |                        ^
+      39 |    await expect(page.getByRole('status').filter({hasText:'Cambio guardado. La conversación se ha actualizado.'})).toHaveCount(0)
+      40 |    await page.screenshot({path:info.outputPath(`inbox-${mode}-registered.png`)})
+      41 |    corrected=true;await retry.click()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\inbox-readback.spec.ts:38:24
+
+    Error Context: ..\oier-commercial-20261020\inbox-readback-attempt01\artifacts\inbox-readback-inbox-confi-a1485-res-coherent-stale-readback-controlled-http-768\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\inbox-readback-attempt01\artifacts\inbox-readback-inbox-confi-a1485-res-coherent-stale-readback-controlled-http-768\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\inbox-readback-attempt01\artifacts\inbox-readback-inbox-confi-a1485-res-coherent-stale-readback-controlled-http-768\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\inbox-readback-attempt01\artifacts\inbox-readback-inbox-confi-a1485-res-coherent-stale-readback-controlled-http-768\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(node:22056) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[8/18] [controlled-http-768] › tools\oier_commercial_qa\inbox-readback.spec.ts:7:99 › inbox confirmed receipt requires coherent wrong_status readback
+  4) [controlled-http-768] › tools\oier_commercial_qa\inbox-readback.spec.ts:7:99 › inbox confirmed receipt requires coherent wrong_status readback 
+
+    Error: expect(locator).toBeEnabled() failed
+
+    Locator: getByRole('button', { name: 'Comprobar la misma acción', exact: true })
+    Expected: enabled
+    Timeout: 4000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeEnabled" with timeout 4000ms
+      - waiting for getByRole('button', { name: 'Comprobar la misma acción', exact: true })
+
+
+      36 |    await info.attach('readback-observation',{body:JSON.stringify({mode,commands,readbacks}),contentType:'application/json'})
+      37 |    const retry=page.getByRole('button',{name:'Comprobar la misma acción',exact:true})
+    > 38 |    await expect(retry).toBeEnabled();await expect(field).toBeDisabled();await expect(field).toHaveValue(body)
+         |                        ^
+      39 |    await expect(page.getByRole('status').filter({hasText:'Cambio guardado. La conversación se ha actualizado.'})).toHaveCount(0)
+      40 |    await page.screenshot({path:info.outputPath(`inbox-${mode}-registered.png`)})
+      41 |    corrected=true;await retry.click()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\inbox-readback.spec.ts:38:24
+
+    Error Context: ..\oier-commercial-20261020\inbox-readback-attempt01\artifacts\inbox-readback-inbox-confi-952fd-erent-wrong-status-readback-controlled-http-768\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\inbox-readback-attempt01\artifacts\inbox-readback-inbox-confi-952fd-erent-wrong-status-readback-controlled-http-768\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\inbox-readback-attempt01\artifacts\inbox-readback-inbox-confi-952fd-erent-wrong-status-readback-controlled-http-768\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\inbox-readback-attempt01\artifacts\inbox-readback-inbox-confi-952fd-erent-wrong-status-readback-controlled-http-768\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(node:25824) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+
+
+(Use `node --trace-warnings ...` to show where the warning was created)
+[9/18] [controlled-http-768] › tools\oier_commercial_qa\inbox-readback.spec.ts:7:99 › inbox confirmed receipt requires coherent exact readback
+[10/18] [controlled-http-768] › tools\oier_commercial_qa\inbox-readback.spec.ts:7:99 › inbox confirmed receipt requires coherent newer readback
+[11/18] [controlled-http-768] › tools\oier_commercial_qa\inbox-readback.spec.ts:7:99 › inbox confirmed receipt requires coherent mark_read readback
+[12/18] [controlled-http-768] › tools\oier_commercial_qa\inbox-readback.spec.ts:7:99 › inbox confirmed receipt requires coherent mark_unread readback
+(node:5788) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[13/18] [controlled-http-1440] › tools\oier_commercial_qa\inbox-readback.spec.ts:7:99 › inbox confirmed receipt requires coherent stale readback
+  5) [controlled-http-1440] › tools\oier_commercial_qa\inbox-readback.spec.ts:7:99 › inbox confirmed receipt requires coherent stale readback 
+
+    Error: expect(locator).toBeEnabled() failed
+
+    Locator: getByRole('button', { name: 'Comprobar la misma acción', exact: true })
+    Expected: enabled
+    Timeout: 4000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeEnabled" with timeout 4000ms
+      - waiting for getByRole('button', { name: 'Comprobar la misma acción', exact: true })
+
+
+      36 |    await info.attach('readback-observation',{body:JSON.stringify({mode,commands,readbacks}),contentType:'application/json'})
+      37 |    const retry=page.getByRole('button',{name:'Comprobar la misma acción',exact:true})
+    > 38 |    await expect(retry).toBeEnabled();await expect(field).toBeDisabled();await expect(field).toHaveValue(body)
+         |                        ^
+      39 |    await expect(page.getByRole('status').filter({hasText:'Cambio guardado. La conversación se ha actualizado.'})).toHaveCount(0)
+      40 |    await page.screenshot({path:info.outputPath(`inbox-${mode}-registered.png`)})
+      41 |    corrected=true;await retry.click()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\inbox-readback.spec.ts:38:24
+
+    Error Context: ..\oier-commercial-20261020\inbox-readback-attempt01\artifacts\inbox-readback-inbox-confi-a1485-res-coherent-stale-readback-controlled-http-1440\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\inbox-readback-attempt01\artifacts\inbox-readback-inbox-confi-a1485-res-coherent-stale-readback-controlled-http-1440\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\inbox-readback-attempt01\artifacts\inbox-readback-inbox-confi-a1485-res-coherent-stale-readback-controlled-http-1440\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\inbox-readback-attempt01\artifacts\inbox-readback-inbox-confi-a1485-res-coherent-stale-readback-controlled-http-1440\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+(node:13144) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[14/18] [controlled-http-1440] › tools\oier_commercial_qa\inbox-readback.spec.ts:7:99 › inbox confirmed receipt requires coherent wrong_status readback
+  6) [controlled-http-1440] › tools\oier_commercial_qa\inbox-readback.spec.ts:7:99 › inbox confirmed receipt requires coherent wrong_status readback 
+
+    Error: expect(locator).toBeEnabled() failed
+
+    Locator: getByRole('button', { name: 'Comprobar la misma acción', exact: true })
+    Expected: enabled
+    Timeout: 4000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeEnabled" with timeout 4000ms
+      - waiting for getByRole('button', { name: 'Comprobar la misma acción', exact: true })
+
+
+      36 |    await info.attach('readback-observation',{body:JSON.stringify({mode,commands,readbacks}),contentType:'application/json'})
+      37 |    const retry=page.getByRole('button',{name:'Comprobar la misma acción',exact:true})
+    > 38 |    await expect(retry).toBeEnabled();await expect(field).toBeDisabled();await expect(field).toHaveValue(body)
+         |                        ^
+      39 |    await expect(page.getByRole('status').filter({hasText:'Cambio guardado. La conversación se ha actualizado.'})).toHaveCount(0)
+      40 |    await page.screenshot({path:info.outputPath(`inbox-${mode}-registered.png`)})
+      41 |    corrected=true;await retry.click()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\inbox-readback.spec.ts:38:24
+
+    Error Context: ..\oier-commercial-20261020\inbox-readback-attempt01\artifacts\inbox-readback-inbox-confi-952fd-erent-wrong-status-readback-controlled-http-1440\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\inbox-readback-attempt01\artifacts\inbox-readback-inbox-confi-952fd-erent-wrong-status-readback-controlled-http-1440\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\inbox-readback-attempt01\artifacts\inbox-readback-inbox-confi-952fd-erent-wrong-status-readback-controlled-http-1440\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\inbox-readback-attempt01\artifacts\inbox-readback-inbox-confi-952fd-erent-wrong-status-readback-controlled-http-1440\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+(node:16636) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[15/18] [controlled-http-1440] › tools\oier_commercial_qa\inbox-readback.spec.ts:7:99 › inbox confirmed receipt requires coherent exact readback
+[16/18] [controlled-http-1440] › tools\oier_commercial_qa\inbox-readback.spec.ts:7:99 › inbox confirmed receipt requires coherent newer readback
+[17/18] [controlled-http-1440] › tools\oier_commercial_qa\inbox-readback.spec.ts:7:99 › inbox confirmed receipt requires coherent mark_read readback
+[18/18] [controlled-http-1440] › tools\oier_commercial_qa\inbox-readback.spec.ts:7:99 › inbox confirmed receipt requires coherent mark_unread readback
+  6 failed
+    [controlled-http-390] › tools\oier_commercial_qa\inbox-readback.spec.ts:7:99 › inbox confirmed receipt requires coherent stale readback 
+    [controlled-http-390] › tools\oier_commercial_qa\inbox-readback.spec.ts:7:99 › inbox confirmed receipt requires coherent wrong_status readback 
+    [controlled-http-768] › tools\oier_commercial_qa\inbox-readback.spec.ts:7:99 › inbox confirmed receipt requires coherent stale readback 
+    [controlled-http-768] › tools\oier_commercial_qa\inbox-readback.spec.ts:7:99 › inbox confirmed receipt requires coherent wrong_status readback 
+    [controlled-http-1440] › tools\oier_commercial_qa\inbox-readback.spec.ts:7:99 › inbox confirmed receipt requires coherent stale readback 
+    [controlled-http-1440] › tools\oier_commercial_qa\inbox-readback.spec.ts:7:99 › inbox confirmed receipt requires coherent wrong_status readback 
+  12 passed (1.5m)

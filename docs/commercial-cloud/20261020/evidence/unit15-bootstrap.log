@@ -1,0 +1,51 @@
+✔ navigation consumes no request budget and a read before load is retained without an additional waiter (2.728ms)
+✔ only the first current matching request is retained (1.6277ms)
+✔ precommit, foreign-frame and mismatched requests cannot supply the current reference (0.3468ms)
+✔ when no early request exists the ordinary default waiter starts only when requested (0.2206ms)
+✔ a successor document invalidates the cached reference even if it has the same URL (0.8266ms)
+✔ same-document identical-URL history updates retain the first exact read and the original budget (0.2818ms)
+✔ same-document URL changes invalidate the cached reference (0.2172ms)
+✔ a failed navigation request cannot make a later same-document update look like a replacement (0.2483ms)
+✔ detached requests do not throw, publish data or evaluate private fields (0.2671ms)
+✔ finish is idempotent and refuses a later request wait (0.2963ms)
+✔ non-local, credentialed, fragment and different-path destinations are refused before listeners (0.2948ms)
+(node:27424) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-commercial-20261020/src/lib/server/portfolio-runtime-v1.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ portfolio accepts closed human inputs and rejects authority, protected identifiers and malformed dates (2.2895ms)
+✔ portfolio receipt verifies operation, command, expected version, lifecycle and provenance (0.4324ms)
+✔ portfolio editor rejects malformed lifecycle, foreign identity and sensitive extra fields (3.2713ms)
+✔ portfolio service resolves each call and maps CAS without exposing backend details (1.2638ms)
+✔ portfolio HTTP inherits exact Origin and rejects forged authority before dispatch (28.1318ms)
+✔ renewal window and permanence inputs preserve closed canonical dates and reasons (0.4332ms)
+✔ deadline receipts use entity lifecycle and CAS instead of contractual state (0.1991ms)
+✔ deadline editors validate window bounds and immutable association (0.3177ms)
+(node:32972) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-commercial-20261020/src/features/product/integration/line-context.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ line authority reads the exact customer-scoped row and both current portfolio ancestors (0.9826ms)
+✔ a neighboring line or mismatched ancestor never authorizes an association (0.7348ms)
+✔ external and terminal ancestors disable lifecycle writes; fixed voice permits portability but not SIM (0.4353ms)
+(node:32804) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-commercial-20261020/src/features/product/model.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ customer filtering composes all dimensions, folds accents and retains unknown versus zero (3.9795ms)
+✔ periods and calendar preserve Madrid day, leap dates and Monday weeks (25.1824ms)
+✔ invoice proposal retains amount, VAT, withholding, discount, due date and explicit ambiguity (5.0361ms)
+✔ invoice draft validation rejects fiscal, date, reference and numeric invalidity (0.5073ms)
+✔ local parser preserves calendar dates across DST and rejects invalid amounts (1.5753ms)
+✔ draft reference selection cannot link another customer or contract (0.3578ms)
+✔ optional AI extraction is closed, bounded and cannot authorize emission (0.5818ms)
+✔ ported generic PDF creates a real local draft without property coupling (7.4628ms)
+✔ all rebuilt modules omit legacy vocabulary and direct backend mutations (72.1115ms)
+ℹ tests 31
+ℹ suites 0
+ℹ pass 31
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 509.9783

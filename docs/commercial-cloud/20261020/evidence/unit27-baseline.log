@@ -1,0 +1,278 @@
+
+Running 15 tests using 1 worker
+
+
+(node:416) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[1/15] [controlled-http-390] › tools\oier_commercial_qa\portability-readback.spec.ts:8:88 › portability cancellation keeps coherent stale readback
+[2/15] [controlled-http-390] › tools\oier_commercial_qa\portability-readback.spec.ts:8:88 › portability cancellation keeps coherent wrong_status readback
+  1) [controlled-http-390] › tools\oier_commercial_qa\portability-readback.spec.ts:8:88 › portability cancellation keeps coherent wrong_status readback 
+
+    Error: expect(locator).toBeEnabled() failed
+
+    Locator: getByRole('button', { name: 'Actualizar lectura', exact: true })
+    Expected: enabled
+    Timeout: 4000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeEnabled" with timeout 4000ms
+      - waiting for getByRole('button', { name: 'Actualizar lectura', exact: true })
+
+
+      46 |    const retry=page.getByRole('button',{name:'Actualizar lectura',exact:true})
+      47 |    await info.attach('confirmed-readback-observation',{body:JSON.stringify({mode,commands,readbacks,reviewCount:await review.count(),retryCount:await retry.count()}),contentType:'application/json'})
+    > 48 |    await expect(retry).toBeEnabled();await expect(review).toBeDisabled();await expect(confirm).toHaveCount(0)
+         |                        ^
+      49 |    await expect(page.getByRole('status').filter({hasText:'Cambio registrado. Reintentar solo actualiza la lectura.'})).toBeVisible()
+      50 |    await retry.scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath(`portability-${mode}-registered.png`)})
+      51 |    corrected=true;await retry.click()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\portability-readback.spec.ts:48:24
+
+    Error Context: ..\oier-commercial-20261020\portability-readback-attempt01\artifacts\portability-readback-porta-d7943-erent-wrong-status-readback-controlled-http-390\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\portability-readback-attempt01\artifacts\portability-readback-porta-d7943-erent-wrong-status-readback-controlled-http-390\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\portability-readback-attempt01\artifacts\portability-readback-porta-d7943-erent-wrong-status-readback-controlled-http-390\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\portability-readback-attempt01\artifacts\portability-readback-porta-d7943-erent-wrong-status-readback-controlled-http-390\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:17864) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[3/15] [controlled-http-390] › tools\oier_commercial_qa\portability-readback.spec.ts:8:88 › portability cancellation keeps coherent wrong_source readback
+  2) [controlled-http-390] › tools\oier_commercial_qa\portability-readback.spec.ts:8:88 › portability cancellation keeps coherent wrong_source readback 
+
+    Error: expect(locator).toBeEnabled() failed
+
+    Locator: getByRole('button', { name: 'Actualizar lectura', exact: true })
+    Expected: enabled
+    Timeout: 4000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeEnabled" with timeout 4000ms
+      - waiting for getByRole('button', { name: 'Actualizar lectura', exact: true })
+
+
+      46 |    const retry=page.getByRole('button',{name:'Actualizar lectura',exact:true})
+      47 |    await info.attach('confirmed-readback-observation',{body:JSON.stringify({mode,commands,readbacks,reviewCount:await review.count(),retryCount:await retry.count()}),contentType:'application/json'})
+    > 48 |    await expect(retry).toBeEnabled();await expect(review).toBeDisabled();await expect(confirm).toHaveCount(0)
+         |                        ^
+      49 |    await expect(page.getByRole('status').filter({hasText:'Cambio registrado. Reintentar solo actualiza la lectura.'})).toBeVisible()
+      50 |    await retry.scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath(`portability-${mode}-registered.png`)})
+      51 |    corrected=true;await retry.click()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\portability-readback.spec.ts:48:24
+
+    Error Context: ..\oier-commercial-20261020\portability-readback-attempt01\artifacts\portability-readback-porta-89457-erent-wrong-source-readback-controlled-http-390\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\portability-readback-attempt01\artifacts\portability-readback-porta-89457-erent-wrong-source-readback-controlled-http-390\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\portability-readback-attempt01\artifacts\portability-readback-porta-89457-erent-wrong-source-readback-controlled-http-390\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\portability-readback-attempt01\artifacts\portability-readback-porta-89457-erent-wrong-source-readback-controlled-http-390\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+(node:22652) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[4/15] [controlled-http-390] › tools\oier_commercial_qa\portability-readback.spec.ts:8:88 › portability cancellation keeps coherent exact readback
+[5/15] [controlled-http-390] › tools\oier_commercial_qa\portability-readback.spec.ts:8:88 › portability cancellation keeps coherent newer readback
+
+(node:11952) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[6/15] [controlled-http-768] › tools\oier_commercial_qa\portability-readback.spec.ts:8:88 › portability cancellation keeps coherent stale readback
+[7/15] [controlled-http-768] › tools\oier_commercial_qa\portability-readback.spec.ts:8:88 › portability cancellation keeps coherent wrong_status readback
+  3) [controlled-http-768] › tools\oier_commercial_qa\portability-readback.spec.ts:8:88 › portability cancellation keeps coherent wrong_status readback 
+
+    Error: expect(locator).toBeEnabled() failed
+
+    Locator: getByRole('button', { name: 'Actualizar lectura', exact: true })
+    Expected: enabled
+    Timeout: 4000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeEnabled" with timeout 4000ms
+      - waiting for getByRole('button', { name: 'Actualizar lectura', exact: true })
+
+
+      46 |    const retry=page.getByRole('button',{name:'Actualizar lectura',exact:true})
+      47 |    await info.attach('confirmed-readback-observation',{body:JSON.stringify({mode,commands,readbacks,reviewCount:await review.count(),retryCount:await retry.count()}),contentType:'application/json'})
+    > 48 |    await expect(retry).toBeEnabled();await expect(review).toBeDisabled();await expect(confirm).toHaveCount(0)
+         |                        ^
+      49 |    await expect(page.getByRole('status').filter({hasText:'Cambio registrado. Reintentar solo actualiza la lectura.'})).toBeVisible()
+      50 |    await retry.scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath(`portability-${mode}-registered.png`)})
+      51 |    corrected=true;await retry.click()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\portability-readback.spec.ts:48:24
+
+    Error Context: ..\oier-commercial-20261020\portability-readback-attempt01\artifacts\portability-readback-porta-d7943-erent-wrong-status-readback-controlled-http-768\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\portability-readback-attempt01\artifacts\portability-readback-porta-d7943-erent-wrong-status-readback-controlled-http-768\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\portability-readback-attempt01\artifacts\portability-readback-porta-d7943-erent-wrong-status-readback-controlled-http-768\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\portability-readback-attempt01\artifacts\portability-readback-porta-d7943-erent-wrong-status-readback-controlled-http-768\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(node:27424) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[8/15] [controlled-http-768] › tools\oier_commercial_qa\portability-readback.spec.ts:8:88 › portability cancellation keeps coherent wrong_source readback
+  4) [controlled-http-768] › tools\oier_commercial_qa\portability-readback.spec.ts:8:88 › portability cancellation keeps coherent wrong_source readback 
+
+    Error: expect(locator).toBeEnabled() failed
+
+    Locator: getByRole('button', { name: 'Actualizar lectura', exact: true })
+    Expected: enabled
+    Timeout: 4000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeEnabled" with timeout 4000ms
+      - waiting for getByRole('button', { name: 'Actualizar lectura', exact: true })
+
+
+      46 |    const retry=page.getByRole('button',{name:'Actualizar lectura',exact:true})
+      47 |    await info.attach('confirmed-readback-observation',{body:JSON.stringify({mode,commands,readbacks,reviewCount:await review.count(),retryCount:await retry.count()}),contentType:'application/json'})
+    > 48 |    await expect(retry).toBeEnabled();await expect(review).toBeDisabled();await expect(confirm).toHaveCount(0)
+         |                        ^
+      49 |    await expect(page.getByRole('status').filter({hasText:'Cambio registrado. Reintentar solo actualiza la lectura.'})).toBeVisible()
+      50 |    await retry.scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath(`portability-${mode}-registered.png`)})
+      51 |    corrected=true;await retry.click()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\portability-readback.spec.ts:48:24
+
+    Error Context: ..\oier-commercial-20261020\portability-readback-attempt01\artifacts\portability-readback-porta-89457-erent-wrong-source-readback-controlled-http-768\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\portability-readback-attempt01\artifacts\portability-readback-porta-89457-erent-wrong-source-readback-controlled-http-768\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\portability-readback-attempt01\artifacts\portability-readback-porta-89457-erent-wrong-source-readback-controlled-http-768\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\portability-readback-attempt01\artifacts\portability-readback-porta-89457-erent-wrong-source-readback-controlled-http-768\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+(node:2612) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[9/15] [controlled-http-768] › tools\oier_commercial_qa\portability-readback.spec.ts:8:88 › portability cancellation keeps coherent exact readback
+[10/15] [controlled-http-768] › tools\oier_commercial_qa\portability-readback.spec.ts:8:88 › portability cancellation keeps coherent newer readback
+
+
+(node:17628) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[11/15] [controlled-http-1440] › tools\oier_commercial_qa\portability-readback.spec.ts:8:88 › portability cancellation keeps coherent stale readback
+[12/15] [controlled-http-1440] › tools\oier_commercial_qa\portability-readback.spec.ts:8:88 › portability cancellation keeps coherent wrong_status readback
+  5) [controlled-http-1440] › tools\oier_commercial_qa\portability-readback.spec.ts:8:88 › portability cancellation keeps coherent wrong_status readback 
+
+    Error: expect(locator).toBeEnabled() failed
+
+    Locator: getByRole('button', { name: 'Actualizar lectura', exact: true })
+    Expected: enabled
+    Timeout: 4000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeEnabled" with timeout 4000ms
+      - waiting for getByRole('button', { name: 'Actualizar lectura', exact: true })
+
+
+      46 |    const retry=page.getByRole('button',{name:'Actualizar lectura',exact:true})
+      47 |    await info.attach('confirmed-readback-observation',{body:JSON.stringify({mode,commands,readbacks,reviewCount:await review.count(),retryCount:await retry.count()}),contentType:'application/json'})
+    > 48 |    await expect(retry).toBeEnabled();await expect(review).toBeDisabled();await expect(confirm).toHaveCount(0)
+         |                        ^
+      49 |    await expect(page.getByRole('status').filter({hasText:'Cambio registrado. Reintentar solo actualiza la lectura.'})).toBeVisible()
+      50 |    await retry.scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath(`portability-${mode}-registered.png`)})
+      51 |    corrected=true;await retry.click()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\portability-readback.spec.ts:48:24
+
+    Error Context: ..\oier-commercial-20261020\portability-readback-attempt01\artifacts\portability-readback-porta-d7943-erent-wrong-status-readback-controlled-http-1440\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\portability-readback-attempt01\artifacts\portability-readback-porta-d7943-erent-wrong-status-readback-controlled-http-1440\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\portability-readback-attempt01\artifacts\portability-readback-porta-d7943-erent-wrong-status-readback-controlled-http-1440\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\portability-readback-attempt01\artifacts\portability-readback-porta-d7943-erent-wrong-status-readback-controlled-http-1440\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+(node:11904) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[13/15] [controlled-http-1440] › tools\oier_commercial_qa\portability-readback.spec.ts:8:88 › portability cancellation keeps coherent wrong_source readback
+  6) [controlled-http-1440] › tools\oier_commercial_qa\portability-readback.spec.ts:8:88 › portability cancellation keeps coherent wrong_source readback 
+
+    Error: expect(locator).toBeEnabled() failed
+
+    Locator: getByRole('button', { name: 'Actualizar lectura', exact: true })
+    Expected: enabled
+    Timeout: 4000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeEnabled" with timeout 4000ms
+      - waiting for getByRole('button', { name: 'Actualizar lectura', exact: true })
+
+
+      46 |    const retry=page.getByRole('button',{name:'Actualizar lectura',exact:true})
+      47 |    await info.attach('confirmed-readback-observation',{body:JSON.stringify({mode,commands,readbacks,reviewCount:await review.count(),retryCount:await retry.count()}),contentType:'application/json'})
+    > 48 |    await expect(retry).toBeEnabled();await expect(review).toBeDisabled();await expect(confirm).toHaveCount(0)
+         |                        ^
+      49 |    await expect(page.getByRole('status').filter({hasText:'Cambio registrado. Reintentar solo actualiza la lectura.'})).toBeVisible()
+      50 |    await retry.scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath(`portability-${mode}-registered.png`)})
+      51 |    corrected=true;await retry.click()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\portability-readback.spec.ts:48:24
+
+    Error Context: ..\oier-commercial-20261020\portability-readback-attempt01\artifacts\portability-readback-porta-89457-erent-wrong-source-readback-controlled-http-1440\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\portability-readback-attempt01\artifacts\portability-readback-porta-89457-erent-wrong-source-readback-controlled-http-1440\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\portability-readback-attempt01\artifacts\portability-readback-porta-89457-erent-wrong-source-readback-controlled-http-1440\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\portability-readback-attempt01\artifacts\portability-readback-porta-89457-erent-wrong-source-readback-controlled-http-1440\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:3696) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[14/15] [controlled-http-1440] › tools\oier_commercial_qa\portability-readback.spec.ts:8:88 › portability cancellation keeps coherent exact readback
+[15/15] [controlled-http-1440] › tools\oier_commercial_qa\portability-readback.spec.ts:8:88 › portability cancellation keeps coherent newer readback
+  6 failed
+    [controlled-http-390] › tools\oier_commercial_qa\portability-readback.spec.ts:8:88 › portability cancellation keeps coherent wrong_status readback 
+    [controlled-http-390] › tools\oier_commercial_qa\portability-readback.spec.ts:8:88 › portability cancellation keeps coherent wrong_source readback 
+    [controlled-http-768] › tools\oier_commercial_qa\portability-readback.spec.ts:8:88 › portability cancellation keeps coherent wrong_status readback 
+    [controlled-http-768] › tools\oier_commercial_qa\portability-readback.spec.ts:8:88 › portability cancellation keeps coherent wrong_source readback 
+    [controlled-http-1440] › tools\oier_commercial_qa\portability-readback.spec.ts:8:88 › portability cancellation keeps coherent wrong_status readback 
+    [controlled-http-1440] › tools\oier_commercial_qa\portability-readback.spec.ts:8:88 › portability cancellation keeps coherent wrong_source readback 
+  9 passed (1.7m)

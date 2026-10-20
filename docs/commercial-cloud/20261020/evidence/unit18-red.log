@@ -1,0 +1,143 @@
+
+Running 30 tests using 1 worker
+
+
+(node:29856) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[1/30] [controlled-http-390] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after transport
+  1) [controlled-http-390] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after transport 
+
+    Error: Cannot find package 'next' imported from C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\oier-documents-unit18-qa\documents-server.cjs
+
+       at documents-server.cjs:10
+
+       8 |  if (assets) return assets
+       9 |  assets = (async () => {
+    > 10 |   const webpackModule=await import('next/dist/compiled/webpack/webpack.js')
+         |                       ^
+      11 |   const {webpack}=webpackModule.default ?? webpackModule
+      12 |   const {compile}=await import('@tailwindcss/node'),{Scanner}=await import('@tailwindcss/oxide')
+      13 |   const output = await mkdtemp(resolve(tmpdir(), 'crm-oier-document-qa-'))
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\oier-documents-unit18-qa\documents-server.cjs:10:23
+        at build (C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\oier-documents-unit18-qa\documents-server.cjs:36:3)
+        at startDocumentFixture (C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\oier-documents-unit18-qa\documents-server.cjs:40:23)
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\oier-documents-unit18-qa\document-intent.spec.ts:5:60
+
+    Error Context: work\oier-commercial-20261020\documents-attempt01\artifacts\document-intent-document-a-22091-xact-intent-after-transport-controlled-http-390\error-context.md
+
+    Error Context: work\oier-commercial-20261020\documents-attempt01\artifacts\document-intent-document-a-22091-xact-intent-after-transport-controlled-http-390\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    work\oier-commercial-20261020\documents-attempt01\artifacts\document-intent-document-a-22091-xact-intent-after-transport-controlled-http-390\trace.zip
+    Usage:
+
+        npx playwright show-trace work\oier-commercial-20261020\documents-attempt01\artifacts\document-intent-document-a-22091-xact-intent-after-transport-controlled-http-390\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[2/30] [controlled-http-390] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after malformed
+[3/30] [controlled-http-390] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after wrong_receipt
+[4/30] [controlled-http-390] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after denied
+[5/30] [controlled-http-390] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after success
+[6/30] [controlled-http-390] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after transport
+[7/30] [controlled-http-390] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after malformed
+[8/30] [controlled-http-390] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after wrong_receipt
+[9/30] [controlled-http-390] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after denied
+[10/30] [controlled-http-390] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after success
+
+
+(node:31680) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[11/30] [controlled-http-768] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after transport
+  2) [controlled-http-768] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after transport 
+
+    Error: Cannot find package 'next' imported from C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\oier-documents-unit18-qa\documents-server.cjs
+
+       at documents-server.cjs:10
+
+       8 |  if (assets) return assets
+       9 |  assets = (async () => {
+    > 10 |   const webpackModule=await import('next/dist/compiled/webpack/webpack.js')
+         |                       ^
+      11 |   const {webpack}=webpackModule.default ?? webpackModule
+      12 |   const {compile}=await import('@tailwindcss/node'),{Scanner}=await import('@tailwindcss/oxide')
+      13 |   const output = await mkdtemp(resolve(tmpdir(), 'crm-oier-document-qa-'))
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\oier-documents-unit18-qa\documents-server.cjs:10:23
+        at build (C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\oier-documents-unit18-qa\documents-server.cjs:36:3)
+        at startDocumentFixture (C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\oier-documents-unit18-qa\documents-server.cjs:40:23)
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\oier-documents-unit18-qa\document-intent.spec.ts:5:60
+
+    Error Context: work\oier-commercial-20261020\documents-attempt01\artifacts\document-intent-document-a-22091-xact-intent-after-transport-controlled-http-768\error-context.md
+
+    Error Context: work\oier-commercial-20261020\documents-attempt01\artifacts\document-intent-document-a-22091-xact-intent-after-transport-controlled-http-768\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    work\oier-commercial-20261020\documents-attempt01\artifacts\document-intent-document-a-22091-xact-intent-after-transport-controlled-http-768\trace.zip
+    Usage:
+
+        npx playwright show-trace work\oier-commercial-20261020\documents-attempt01\artifacts\document-intent-document-a-22091-xact-intent-after-transport-controlled-http-768\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[12/30] [controlled-http-768] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after malformed
+[13/30] [controlled-http-768] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after wrong_receipt
+[14/30] [controlled-http-768] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after denied
+[15/30] [controlled-http-768] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after success
+[16/30] [controlled-http-768] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after transport
+[17/30] [controlled-http-768] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after malformed
+[18/30] [controlled-http-768] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after wrong_receipt
+[19/30] [controlled-http-768] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after denied
+[20/30] [controlled-http-768] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after success
+
+
+(node:18076) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[21/30] [controlled-http-1440] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after transport
+  3) [controlled-http-1440] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after transport 
+
+    Error: Cannot find package 'next' imported from C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\oier-documents-unit18-qa\documents-server.cjs
+
+       at documents-server.cjs:10
+
+       8 |  if (assets) return assets
+       9 |  assets = (async () => {
+    > 10 |   const webpackModule=await import('next/dist/compiled/webpack/webpack.js')
+         |                       ^
+      11 |   const {webpack}=webpackModule.default ?? webpackModule
+      12 |   const {compile}=await import('@tailwindcss/node'),{Scanner}=await import('@tailwindcss/oxide')
+      13 |   const output = await mkdtemp(resolve(tmpdir(), 'crm-oier-document-qa-'))
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\oier-documents-unit18-qa\documents-server.cjs:10:23
+        at build (C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\oier-documents-unit18-qa\documents-server.cjs:36:3)
+        at startDocumentFixture (C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\oier-documents-unit18-qa\documents-server.cjs:40:23)
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\oier-documents-unit18-qa\document-intent.spec.ts:5:60
+
+    Error Context: work\oier-commercial-20261020\documents-attempt01\artifacts\document-intent-document-a-22091-xact-intent-after-transport-controlled-http-1440\error-context.md
+
+    Error Context: work\oier-commercial-20261020\documents-attempt01\artifacts\document-intent-document-a-22091-xact-intent-after-transport-controlled-http-1440\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    work\oier-commercial-20261020\documents-attempt01\artifacts\document-intent-document-a-22091-xact-intent-after-transport-controlled-http-1440\trace.zip
+    Usage:
+
+        npx playwright show-trace work\oier-commercial-20261020\documents-attempt01\artifacts\document-intent-document-a-22091-xact-intent-after-transport-controlled-http-1440\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[22/30] [controlled-http-1440] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after malformed
+[23/30] [controlled-http-1440] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after wrong_receipt
+[24/30] [controlled-http-1440] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after denied
+[25/30] [controlled-http-1440] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after success
+[26/30] [controlled-http-1440] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after transport
+[27/30] [controlled-http-1440] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after malformed
+[28/30] [controlled-http-1440] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after wrong_receipt
+[29/30] [controlled-http-1440] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after denied
+[30/30] [controlled-http-1440] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after success
+  3 failed
+    [controlled-http-390] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after transport 
+    [controlled-http-768] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after transport 
+    [controlled-http-1440] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after transport 
+  27 did not run

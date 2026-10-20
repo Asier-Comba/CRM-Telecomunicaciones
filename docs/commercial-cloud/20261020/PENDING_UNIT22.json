@@ -1,0 +1,81 @@
+{
+  "source": "815d0e1c840cc6fb150f1c9130fce93bdded47a6",
+  "unit": 22,
+  "interruption": {
+    "attempt": "composed-attempt08",
+    "process_inventory": "NO_MATCHING_COMPOSED_CLI_OR_BROWSER_WORKER",
+    "cause": "COMPLETE_CAUSE_UNKNOWN_TOOL_SESSION_OR_PROCESS_DISAPPEARED",
+    "skipped_count": null,
+    "source": "815d0e1c840cc6fb150f1c9130fce93bdded47a6",
+    "planned_cases": 141,
+    "application_failure": "NOT_INFERRED",
+    "last_log_started_case": 136,
+    "tool_result": "write_stdin Unknown process id",
+    "completed_count": null,
+    "status": "INTERRUPTED_NO_FINAL_REPORT",
+    "recovery": "NEW_ATTEMPT09_SAME_SHA_FULL141_ONLY;66regression/74logic/qualityGREEN_NOT_RERUN",
+    "original_artifacts": "RETAINED",
+    "original_log": "oier-commercial-20261020-unit22-composed.log",
+    "failed_count": null,
+    "tool_session": 86372
+  },
+  "prior_qualified": {
+    "delivery": "3eb6b742172db3302c09661bf9975716a0b44001",
+    "source": "df7a25a21693a62ae289beee7bd977ebbb4a4aee"
+  },
+  "completed_same_source": {
+    "regression": {
+      "startTime": "2026-10-20T00:55:09.368Z",
+      "duration": 138037.077,
+      "expected": 66,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "logic": 74,
+    "quality": {
+      "source": "815d0e1c840cc6fb150f1c9130fce93bdded47a6",
+      "lint": 0,
+      "bootstrap": 0,
+      "build": 0,
+      "typescript": 0
+    }
+  },
+  "PR161": {
+    "Supabase": 39349781959,
+    "head": "f2d26b9178a9e866f8573aac8d2df7559150d569",
+    "push": "PROHIBITED_WHILE_ACTIVE"
+  },
+  "claim": 6280644922,
+  "baseline": {
+    "source": "646fb5de66545fd62bb501cc04f890836a7d728c",
+    "failed": 12,
+    "passed": 18
+  },
+  "AI_writes": "OFF",
+  "recovery": {
+    "attempt": "composed-attempt09",
+    "session": 88934,
+    "raw_log": "work/oier-commercial-20261020-unit22-composed-recovery.log",
+    "next": "Resume this attempt, check live process and report before any retry. Original08raw artifacts/log retained. Do not rerun66regressions/quality without new reason.",
+    "state": "RUNNING_NO_FINAL_RESULT",
+    "report": "work/oier-commercial-20261020/composed-attempt09/results.json"
+  },
+  "status": "COMPLETED_SEE_CHECKPOINT_UNIT22",
+  "release": "NOT_ACCEPTED",
+  "next_unit": {
+    "status": "OUTSIDE_CHECKOUT_ONLY_NOT_STARTED",
+    "claim": 6280777069,
+    "qa": "work/oier-inbox-unit23-qa"
+  },
+  "final": {
+    "source": "815d0e1c840cc6fb150f1c9130fce93bdded47a6",
+    "logic": 74,
+    "interrupted_original08": "RETAINED_NOT_PASS",
+    "full": "CHECKPOINT.json",
+    "last_observed_Supabase_state": "REFRESHED_COMPLETED_SUCCESS_F2_NOT_THIS_SOURCE",
+    "browser": 207,
+    "composed_attempt": "09",
+    "quality": "ALL0"
+  }
+}

@@ -1,0 +1,404 @@
+
+Running 18 tests using 1 worker
+
+
+
+(node:27032) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1/18] [controlled-http-390] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps transport intent
+  1) [controlled-http-390] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps transport intent 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('dialog', { name: 'Archivar oportunidad', exact: true })
+    Expected: visible
+    Timeout: 4000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Archivar oportunidad', exact: true })
+
+
+      47 |    else if(width===768)await close.click({force:true})
+      48 |    else await page.keyboard.press('Escape')
+    > 49 |    await expect(confirm).toBeVisible()
+         |                          ^
+      50 |    await cancel.click({force:true});await expect(confirm).toBeVisible()
+      51 |    await close.click({force:true});await expect(confirm).toBeVisible()
+      52 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\opportunity-archive.spec.ts:49:26
+
+    Error Context: ..\oier-commercial-20261020\opportunity-archive-attempt02\artifacts\opportunity-archive-opport-e447d-tion-keeps-transport-intent-controlled-http-390\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\opportunity-archive-attempt02\artifacts\opportunity-archive-opport-e447d-tion-keeps-transport-intent-controlled-http-390\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\opportunity-archive-attempt02\artifacts\opportunity-archive-opport-e447d-tion-keeps-transport-intent-controlled-http-390\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\opportunity-archive-attempt02\artifacts\opportunity-archive-opport-e447d-tion-keeps-transport-intent-controlled-http-390\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:17256) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[2/18] [controlled-http-390] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps malformed intent
+  2) [controlled-http-390] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps malformed intent 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('dialog', { name: 'Archivar oportunidad', exact: true })
+    Expected: visible
+    Timeout: 4000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Archivar oportunidad', exact: true })
+
+
+      47 |    else if(width===768)await close.click({force:true})
+      48 |    else await page.keyboard.press('Escape')
+    > 49 |    await expect(confirm).toBeVisible()
+         |                          ^
+      50 |    await cancel.click({force:true});await expect(confirm).toBeVisible()
+      51 |    await close.click({force:true});await expect(confirm).toBeVisible()
+      52 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\opportunity-archive.spec.ts:49:26
+
+    Error Context: ..\oier-commercial-20261020\opportunity-archive-attempt02\artifacts\opportunity-archive-opport-36ffa-tion-keeps-malformed-intent-controlled-http-390\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\opportunity-archive-attempt02\artifacts\opportunity-archive-opport-36ffa-tion-keeps-malformed-intent-controlled-http-390\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\opportunity-archive-attempt02\artifacts\opportunity-archive-opport-36ffa-tion-keeps-malformed-intent-controlled-http-390\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\opportunity-archive-attempt02\artifacts\opportunity-archive-opport-36ffa-tion-keeps-malformed-intent-controlled-http-390\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+(node:27920) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[3/18] [controlled-http-390] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps wrong_receipt intent
+  3) [controlled-http-390] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps wrong_receipt intent 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('dialog', { name: 'Archivar oportunidad', exact: true })
+    Expected: visible
+    Timeout: 4000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Archivar oportunidad', exact: true })
+
+
+      47 |    else if(width===768)await close.click({force:true})
+      48 |    else await page.keyboard.press('Escape')
+    > 49 |    await expect(confirm).toBeVisible()
+         |                          ^
+      50 |    await cancel.click({force:true});await expect(confirm).toBeVisible()
+      51 |    await close.click({force:true});await expect(confirm).toBeVisible()
+      52 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\opportunity-archive.spec.ts:49:26
+
+    Error Context: ..\oier-commercial-20261020\opportunity-archive-attempt02\artifacts\opportunity-archive-opport-a1109--keeps-wrong-receipt-intent-controlled-http-390\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\opportunity-archive-attempt02\artifacts\opportunity-archive-opport-a1109--keeps-wrong-receipt-intent-controlled-http-390\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\opportunity-archive-attempt02\artifacts\opportunity-archive-opport-a1109--keeps-wrong-receipt-intent-controlled-http-390\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\opportunity-archive-attempt02\artifacts\opportunity-archive-opport-a1109--keeps-wrong-receipt-intent-controlled-http-390\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:29204) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[4/18] [controlled-http-390] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps read_failure intent
+[5/18] [controlled-http-390] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps denied intent
+[6/18] [controlled-http-390] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps success intent
+
+
+(node:14552) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[7/18] [controlled-http-768] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps transport intent
+  4) [controlled-http-768] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps transport intent 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('dialog', { name: 'Archivar oportunidad', exact: true })
+    Expected: visible
+    Timeout: 4000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Archivar oportunidad', exact: true })
+
+
+      47 |    else if(width===768)await close.click({force:true})
+      48 |    else await page.keyboard.press('Escape')
+    > 49 |    await expect(confirm).toBeVisible()
+         |                          ^
+      50 |    await cancel.click({force:true});await expect(confirm).toBeVisible()
+      51 |    await close.click({force:true});await expect(confirm).toBeVisible()
+      52 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\opportunity-archive.spec.ts:49:26
+
+    Error Context: ..\oier-commercial-20261020\opportunity-archive-attempt02\artifacts\opportunity-archive-opport-e447d-tion-keeps-transport-intent-controlled-http-768\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\opportunity-archive-attempt02\artifacts\opportunity-archive-opport-e447d-tion-keeps-transport-intent-controlled-http-768\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\opportunity-archive-attempt02\artifacts\opportunity-archive-opport-e447d-tion-keeps-transport-intent-controlled-http-768\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\opportunity-archive-attempt02\artifacts\opportunity-archive-opport-e447d-tion-keeps-transport-intent-controlled-http-768\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+(node:28568) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[8/18] [controlled-http-768] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps malformed intent
+  5) [controlled-http-768] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps malformed intent 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('dialog', { name: 'Archivar oportunidad', exact: true })
+    Expected: visible
+    Timeout: 4000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Archivar oportunidad', exact: true })
+
+
+      47 |    else if(width===768)await close.click({force:true})
+      48 |    else await page.keyboard.press('Escape')
+    > 49 |    await expect(confirm).toBeVisible()
+         |                          ^
+      50 |    await cancel.click({force:true});await expect(confirm).toBeVisible()
+      51 |    await close.click({force:true});await expect(confirm).toBeVisible()
+      52 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\opportunity-archive.spec.ts:49:26
+
+    Error Context: ..\oier-commercial-20261020\opportunity-archive-attempt02\artifacts\opportunity-archive-opport-36ffa-tion-keeps-malformed-intent-controlled-http-768\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\opportunity-archive-attempt02\artifacts\opportunity-archive-opport-36ffa-tion-keeps-malformed-intent-controlled-http-768\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\opportunity-archive-attempt02\artifacts\opportunity-archive-opport-36ffa-tion-keeps-malformed-intent-controlled-http-768\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\opportunity-archive-attempt02\artifacts\opportunity-archive-opport-36ffa-tion-keeps-malformed-intent-controlled-http-768\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:9488) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[9/18] [controlled-http-768] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps wrong_receipt intent
+  6) [controlled-http-768] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps wrong_receipt intent 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('dialog', { name: 'Archivar oportunidad', exact: true })
+    Expected: visible
+    Timeout: 4000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Archivar oportunidad', exact: true })
+
+
+      47 |    else if(width===768)await close.click({force:true})
+      48 |    else await page.keyboard.press('Escape')
+    > 49 |    await expect(confirm).toBeVisible()
+         |                          ^
+      50 |    await cancel.click({force:true});await expect(confirm).toBeVisible()
+      51 |    await close.click({force:true});await expect(confirm).toBeVisible()
+      52 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\opportunity-archive.spec.ts:49:26
+
+    Error Context: ..\oier-commercial-20261020\opportunity-archive-attempt02\artifacts\opportunity-archive-opport-a1109--keeps-wrong-receipt-intent-controlled-http-768\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\opportunity-archive-attempt02\artifacts\opportunity-archive-opport-a1109--keeps-wrong-receipt-intent-controlled-http-768\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\opportunity-archive-attempt02\artifacts\opportunity-archive-opport-a1109--keeps-wrong-receipt-intent-controlled-http-768\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\opportunity-archive-attempt02\artifacts\opportunity-archive-opport-a1109--keeps-wrong-receipt-intent-controlled-http-768\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+(node:21404) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[10/18] [controlled-http-768] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps read_failure intent
+[11/18] [controlled-http-768] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps denied intent
+[12/18] [controlled-http-768] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps success intent
+
+
+(node:6792) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[13/18] [controlled-http-1440] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps transport intent
+  7) [controlled-http-1440] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps transport intent 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('dialog', { name: 'Archivar oportunidad', exact: true })
+    Expected: visible
+    Timeout: 4000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Archivar oportunidad', exact: true })
+
+
+      47 |    else if(width===768)await close.click({force:true})
+      48 |    else await page.keyboard.press('Escape')
+    > 49 |    await expect(confirm).toBeVisible()
+         |                          ^
+      50 |    await cancel.click({force:true});await expect(confirm).toBeVisible()
+      51 |    await close.click({force:true});await expect(confirm).toBeVisible()
+      52 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\opportunity-archive.spec.ts:49:26
+
+    Error Context: ..\oier-commercial-20261020\opportunity-archive-attempt02\artifacts\opportunity-archive-opport-e447d-tion-keeps-transport-intent-controlled-http-1440\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\opportunity-archive-attempt02\artifacts\opportunity-archive-opport-e447d-tion-keeps-transport-intent-controlled-http-1440\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\opportunity-archive-attempt02\artifacts\opportunity-archive-opport-e447d-tion-keeps-transport-intent-controlled-http-1440\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\opportunity-archive-attempt02\artifacts\opportunity-archive-opport-e447d-tion-keeps-transport-intent-controlled-http-1440\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+(node:23136) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[14/18] [controlled-http-1440] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps malformed intent
+  8) [controlled-http-1440] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps malformed intent 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('dialog', { name: 'Archivar oportunidad', exact: true })
+    Expected: visible
+    Timeout: 4000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Archivar oportunidad', exact: true })
+
+
+      47 |    else if(width===768)await close.click({force:true})
+      48 |    else await page.keyboard.press('Escape')
+    > 49 |    await expect(confirm).toBeVisible()
+         |                          ^
+      50 |    await cancel.click({force:true});await expect(confirm).toBeVisible()
+      51 |    await close.click({force:true});await expect(confirm).toBeVisible()
+      52 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\opportunity-archive.spec.ts:49:26
+
+    Error Context: ..\oier-commercial-20261020\opportunity-archive-attempt02\artifacts\opportunity-archive-opport-36ffa-tion-keeps-malformed-intent-controlled-http-1440\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\opportunity-archive-attempt02\artifacts\opportunity-archive-opport-36ffa-tion-keeps-malformed-intent-controlled-http-1440\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\opportunity-archive-attempt02\artifacts\opportunity-archive-opport-36ffa-tion-keeps-malformed-intent-controlled-http-1440\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\opportunity-archive-attempt02\artifacts\opportunity-archive-opport-36ffa-tion-keeps-malformed-intent-controlled-http-1440\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:29336) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[15/18] [controlled-http-1440] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps wrong_receipt intent
+  9) [controlled-http-1440] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps wrong_receipt intent 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('dialog', { name: 'Archivar oportunidad', exact: true })
+    Expected: visible
+    Timeout: 4000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Archivar oportunidad', exact: true })
+
+
+      47 |    else if(width===768)await close.click({force:true})
+      48 |    else await page.keyboard.press('Escape')
+    > 49 |    await expect(confirm).toBeVisible()
+         |                          ^
+      50 |    await cancel.click({force:true});await expect(confirm).toBeVisible()
+      51 |    await close.click({force:true});await expect(confirm).toBeVisible()
+      52 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\opportunity-archive.spec.ts:49:26
+
+    Error Context: ..\oier-commercial-20261020\opportunity-archive-attempt02\artifacts\opportunity-archive-opport-a1109--keeps-wrong-receipt-intent-controlled-http-1440\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\opportunity-archive-attempt02\artifacts\opportunity-archive-opport-a1109--keeps-wrong-receipt-intent-controlled-http-1440\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\opportunity-archive-attempt02\artifacts\opportunity-archive-opport-a1109--keeps-wrong-receipt-intent-controlled-http-1440\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\opportunity-archive-attempt02\artifacts\opportunity-archive-opport-a1109--keeps-wrong-receipt-intent-controlled-http-1440\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+(node:29940) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[16/18] [controlled-http-1440] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps read_failure intent
+[17/18] [controlled-http-1440] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps denied intent
+[18/18] [controlled-http-1440] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps success intent
+  9 failed
+    [controlled-http-390] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps transport intent 
+    [controlled-http-390] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps malformed intent 
+    [controlled-http-390] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps wrong_receipt intent 
+    [controlled-http-768] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps transport intent 
+    [controlled-http-768] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps malformed intent 
+    [controlled-http-768] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps wrong_receipt intent 
+    [controlled-http-1440] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps transport intent 
+    [controlled-http-1440] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps malformed intent 
+    [controlled-http-1440] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps wrong_receipt intent 
+  9 passed (2.3m)

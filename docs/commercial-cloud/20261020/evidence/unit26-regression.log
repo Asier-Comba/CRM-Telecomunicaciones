@@ -1,0 +1,101 @@
+
+Running 93 tests using 1 worker
+
+
+
+(node:17728) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1/93] [controlled-http-existing-commercial] › tests\e2e-preview\calendar-agenda-focus.spec.ts:4:39 › calendar agenda stays primary and filters remain usable at 390
+[2/93] [controlled-http-existing-commercial] › tests\e2e-preview\calendar-agenda-focus.spec.ts:4:39 › calendar agenda stays primary and filters remain usable at 768
+[3/93] [controlled-http-existing-commercial] › tests\e2e-preview\calendar-agenda-focus.spec.ts:4:39 › calendar agenda stays primary and filters remain usable at 1440
+[4/93] [controlled-http-existing-commercial] › tests\e2e-preview\calendar-selection-scope.spec.ts:5:107 › calendar selection late_success keeps the latest task at 390
+[5/93] [controlled-http-existing-commercial] › tests\e2e-preview\calendar-selection-scope.spec.ts:5:107 › calendar selection late_success keeps the latest task at 768
+[6/93] [controlled-http-existing-commercial] › tests\e2e-preview\calendar-selection-scope.spec.ts:5:107 › calendar selection late_success keeps the latest task at 1440
+[7/93] [controlled-http-existing-commercial] › tests\e2e-preview\calendar-selection-scope.spec.ts:5:107 › calendar selection late_refusal keeps the latest task at 390
+[8/93] [controlled-http-existing-commercial] › tests\e2e-preview\calendar-selection-scope.spec.ts:5:107 › calendar selection late_refusal keeps the latest task at 768
+[9/93] [controlled-http-existing-commercial] › tests\e2e-preview\calendar-selection-scope.spec.ts:5:107 › calendar selection late_refusal keeps the latest task at 1440
+[10/93] [controlled-http-existing-commercial] › tests\e2e-preview\calendar-selection-scope.spec.ts:5:107 › calendar selection current_refusal keeps the latest task at 390
+[11/93] [controlled-http-existing-commercial] › tests\e2e-preview\calendar-selection-scope.spec.ts:5:107 › calendar selection current_refusal keeps the latest task at 768
+[12/93] [controlled-http-existing-commercial] › tests\e2e-preview\calendar-selection-scope.spec.ts:5:107 › calendar selection current_refusal keeps the latest task at 1440
+[13/93] [controlled-http-existing-commercial] › tests\e2e-preview\case-note-pagination.spec.ts:10:39 › private note cursor keeps keyboard focus and removes refused content at 390
+[14/93] [controlled-http-existing-commercial] › tests\e2e-preview\case-note-pagination.spec.ts:10:39 › private note cursor keeps keyboard focus and removes refused content at 768
+[15/93] [controlled-http-existing-commercial] › tests\e2e-preview\case-note-pagination.spec.ts:10:39 › private note cursor keeps keyboard focus and removes refused content at 1440
+[16/93] [controlled-http-existing-commercial] › tests\e2e-preview\catalog-resource-scope.spec.ts:7:39 › catalog conditions retire previous prices during version change at 390
+[17/93] [controlled-http-existing-commercial] › tests\e2e-preview\catalog-resource-scope.spec.ts:7:39 › catalog conditions retire previous prices during version change at 768
+[18/93] [controlled-http-existing-commercial] › tests\e2e-preview\catalog-resource-scope.spec.ts:7:39 › catalog conditions retire previous prices during version change at 1440
+[19/93] [controlled-http-existing-commercial] › tests\e2e-preview\document-current-selection.spec.ts:39:6 › document metadata keeps current selection on latest_success
+[20/93] [controlled-http-existing-commercial] › tests\e2e-preview\document-current-selection.spec.ts:39:6 › document metadata keeps current selection on late_error
+[21/93] [controlled-http-existing-commercial] › tests\e2e-preview\document-current-selection.spec.ts:39:6 › document metadata keeps current selection on closed
+[22/93] [controlled-http-existing-commercial] › tests\e2e-preview\document-current-selection.spec.ts:39:6 › document metadata keeps current selection on target_changed
+[23/93] [controlled-http-existing-commercial] › tests\e2e-preview\document-current-selection.spec.ts:39:6 › document metadata keeps current selection on role_revoked
+[24/93] [controlled-http-existing-commercial] › tests\e2e-preview\document-current-selection.spec.ts:39:6 › document metadata keeps current selection on unmounted
+[25/93] [controlled-http-existing-commercial] › tests\e2e-preview\document-current-selection.spec.ts:39:6 › document metadata keeps current selection on refresh_success
+[26/93] [controlled-http-existing-commercial] › tests\e2e-preview\document-current-selection.spec.ts:39:6 › document metadata keeps current selection on refresh_failure
+[27/93] [controlled-http-existing-commercial] › tests\e2e-preview\document-current-selection.spec.ts:39:6 › document metadata keeps current selection on loaded_replace_success
+[28/93] [controlled-http-existing-commercial] › tests\e2e-preview\document-current-selection.spec.ts:39:6 › document metadata keeps current selection on loaded_replace_failure
+[29/93] [controlled-http-existing-commercial] › tests\e2e-preview\document-current-selection.spec.ts:39:6 › document metadata keeps current selection on refresh_access_denied
+[30/93] [controlled-http-existing-commercial] › tests\e2e-preview\document-current-selection.spec.ts:39:6 › document metadata keeps current selection on refresh_not_found
+[31/93] [controlled-http-existing-commercial] › tests\e2e-preview\document-preview-lifetime.spec.ts:31:6 › private image lifetime late_unmount
+[32/93] [controlled-http-existing-commercial] › tests\e2e-preview\document-preview-lifetime.spec.ts:31:6 › private image lifetime late_workspace
+[33/93] [controlled-http-existing-commercial] › tests\e2e-preview\document-preview-lifetime.spec.ts:31:6 › private image lifetime visible_workspace
+[34/93] [controlled-http-existing-commercial] › tests\e2e-preview\document-preview-lifetime.spec.ts:31:6 › private image lifetime control_close
+[35/93] [controlled-http-existing-commercial] › tests\e2e-preview\document-preview-lifetime.spec.ts:31:6 › private image lifetime late_ticket
+[36/93] [controlled-http-existing-commercial] › tests\e2e-preview\document-preview-lifetime.spec.ts:31:6 › private image lifetime command_uncertain
+[37/93] [controlled-http-existing-commercial] › tests\e2e-preview\document-preview-lifetime.spec.ts:31:6 › private image lifetime download_uncertain
+[38/93] [controlled-http-existing-commercial] › tests\e2e-preview\document-preview-lifetime.spec.ts:31:6 › private image lifetime reload_revoke
+[39/93] [controlled-http-existing-commercial] › tests\e2e-preview\inbox-contact-pagination.spec.ts:11:140 › inbox contact pagination late_refusal at 390
+[40/93] [controlled-http-existing-commercial] › tests\e2e-preview\inbox-contact-pagination.spec.ts:11:140 › inbox contact pagination late_refusal at 768
+[41/93] [controlled-http-existing-commercial] › tests\e2e-preview\inbox-contact-pagination.spec.ts:11:140 › inbox contact pagination late_refusal at 1440
+[42/93] [controlled-http-existing-commercial] › tests\e2e-preview\inbox-contact-pagination.spec.ts:11:140 › inbox contact pagination same_customer_return at 390
+[43/93] [controlled-http-existing-commercial] › tests\e2e-preview\inbox-contact-pagination.spec.ts:11:140 › inbox contact pagination same_customer_return at 768
+[44/93] [controlled-http-existing-commercial] › tests\e2e-preview\inbox-contact-pagination.spec.ts:11:140 › inbox contact pagination same_customer_return at 1440
+[45/93] [controlled-http-existing-commercial] › tests\e2e-preview\inbox-contact-pagination.spec.ts:11:140 › inbox contact pagination one_pending_page at 390
+[46/93] [controlled-http-existing-commercial] › tests\e2e-preview\inbox-contact-pagination.spec.ts:11:140 › inbox contact pagination one_pending_page at 768
+[47/93] [controlled-http-existing-commercial] › tests\e2e-preview\inbox-contact-pagination.spec.ts:11:140 › inbox contact pagination one_pending_page at 1440
+[48/93] [controlled-http-existing-commercial] › tests\e2e-preview\inbox-contact-pagination.spec.ts:11:140 › inbox contact pagination current_refusal_retry at 390
+[49/93] [controlled-http-existing-commercial] › tests\e2e-preview\inbox-contact-pagination.spec.ts:11:140 › inbox contact pagination current_refusal_retry at 768
+[50/93] [controlled-http-existing-commercial] › tests\e2e-preview\inbox-contact-pagination.spec.ts:11:140 › inbox contact pagination current_refusal_retry at 1440
+[51/93] [controlled-http-existing-commercial] › tests\e2e-preview\inbox-draft-context.spec.ts:6:102 › inbox draft context cancel_empty at 390
+[52/93] [controlled-http-existing-commercial] › tests\e2e-preview\inbox-draft-context.spec.ts:6:102 › inbox draft context cancel_empty at 768
+[53/93] [controlled-http-existing-commercial] › tests\e2e-preview\inbox-draft-context.spec.ts:6:102 › inbox draft context cancel_empty at 1440
+[54/93] [controlled-http-existing-commercial] › tests\e2e-preview\inbox-draft-context.spec.ts:6:102 › inbox draft context cancel_typed at 390
+[55/93] [controlled-http-existing-commercial] › tests\e2e-preview\inbox-draft-context.spec.ts:6:102 › inbox draft context cancel_typed at 768
+[56/93] [controlled-http-existing-commercial] › tests\e2e-preview\inbox-draft-context.spec.ts:6:102 › inbox draft context cancel_typed at 1440
+[57/93] [controlled-http-existing-commercial] › tests\e2e-preview\inbox-draft-context.spec.ts:6:102 › inbox draft context commit_new at 390
+[58/93] [controlled-http-existing-commercial] › tests\e2e-preview\inbox-draft-context.spec.ts:6:102 › inbox draft context commit_new at 768
+[59/93] [controlled-http-existing-commercial] › tests\e2e-preview\inbox-draft-context.spec.ts:6:102 › inbox draft context commit_new at 1440
+[60/93] [controlled-http-existing-commercial] › tests\e2e-preview\inbox-readable-labels.spec.ts:4:73 › inbox readable labels names at 390
+[61/93] [controlled-http-existing-commercial] › tests\e2e-preview\inbox-readable-labels.spec.ts:4:73 › inbox readable labels names at 1440
+[62/93] [controlled-http-existing-commercial] › tests\e2e-preview\inbox-readable-labels.spec.ts:4:73 › inbox readable labels refusal at 390
+[63/93] [controlled-http-existing-commercial] › tests\e2e-preview\inbox-readable-labels.spec.ts:4:73 › inbox readable labels refusal at 1440
+[64/93] [controlled-http-existing-commercial] › tests\e2e-preview\portfolio-reference-close.spec.ts:8:39 › a closed portfolio reference stays closed across an unchanged parent context at 390
+[65/93] [controlled-http-existing-commercial] › tests\e2e-preview\portfolio-reference-close.spec.ts:8:39 › a closed portfolio reference stays closed across an unchanged parent context at 768
+[66/93] [controlled-http-existing-commercial] › tests\e2e-preview\portfolio-reference-close.spec.ts:8:39 › a closed portfolio reference stays closed across an unchanged parent context at 1440
+[67/93] [controlled-http-existing-commercial] › tests\e2e-preview\portfolio-selection-race.spec.ts:12:39 › portfolio last requested asset survives a late earlier read at 390
+[68/93] [controlled-http-existing-commercial] › tests\e2e-preview\portfolio-selection-race.spec.ts:12:39 › portfolio last requested asset survives a late earlier read at 768
+[69/93] [controlled-http-existing-commercial] › tests\e2e-preview\portfolio-selection-race.spec.ts:12:39 › portfolio last requested asset survives a late earlier read at 1440
+[70/93] [controlled-http-existing-commercial] › tests\e2e-preview\sim-replacement-read-recovery.spec.ts:6:149 › SIM replacement first page transport recovery at 390
+[71/93] [controlled-http-existing-commercial] › tests\e2e-preview\sim-replacement-read-recovery.spec.ts:6:149 › SIM replacement first page transport recovery at 768
+[72/93] [controlled-http-existing-commercial] › tests\e2e-preview\sim-replacement-read-recovery.spec.ts:6:149 › SIM replacement first page transport recovery at 1440
+[73/93] [controlled-http-existing-commercial] › tests\e2e-preview\sim-replacement-read-recovery.spec.ts:6:149 › SIM replacement first page server recovery at 390
+[74/93] [controlled-http-existing-commercial] › tests\e2e-preview\sim-replacement-read-recovery.spec.ts:6:149 › SIM replacement first page server recovery at 768
+[75/93] [controlled-http-existing-commercial] › tests\e2e-preview\sim-replacement-read-recovery.spec.ts:6:149 › SIM replacement first page server recovery at 1440
+[76/93] [controlled-http-existing-commercial] › tests\e2e-preview\sim-replacement-read-recovery.spec.ts:6:149 › SIM replacement first page denied recovery at 390
+[77/93] [controlled-http-existing-commercial] › tests\e2e-preview\sim-replacement-read-recovery.spec.ts:6:149 › SIM replacement first page denied recovery at 768
+[78/93] [controlled-http-existing-commercial] › tests\e2e-preview\sim-replacement-read-recovery.spec.ts:6:149 › SIM replacement first page denied recovery at 1440
+[79/93] [controlled-http-existing-commercial] › tests\e2e-preview\sim-replacement-read-recovery.spec.ts:6:149 › SIM replacement second page transport recovery at 390
+[80/93] [controlled-http-existing-commercial] › tests\e2e-preview\sim-replacement-read-recovery.spec.ts:6:149 › SIM replacement second page transport recovery at 768
+[81/93] [controlled-http-existing-commercial] › tests\e2e-preview\sim-replacement-read-recovery.spec.ts:6:149 › SIM replacement second page transport recovery at 1440
+[82/93] [controlled-http-existing-commercial] › tests\e2e-preview\sim-replacement-read-recovery.spec.ts:6:149 › SIM replacement second page server recovery at 390
+[83/93] [controlled-http-existing-commercial] › tests\e2e-preview\sim-replacement-read-recovery.spec.ts:6:149 › SIM replacement second page server recovery at 768
+[84/93] [controlled-http-existing-commercial] › tests\e2e-preview\sim-replacement-read-recovery.spec.ts:6:149 › SIM replacement second page server recovery at 1440
+[85/93] [controlled-http-existing-commercial] › tests\e2e-preview\sim-replacement-read-recovery.spec.ts:6:149 › SIM replacement second page denied recovery at 390
+[86/93] [controlled-http-existing-commercial] › tests\e2e-preview\sim-replacement-read-recovery.spec.ts:6:149 › SIM replacement second page denied recovery at 768
+[87/93] [controlled-http-existing-commercial] › tests\e2e-preview\sim-replacement-read-recovery.spec.ts:6:149 › SIM replacement second page denied recovery at 1440
+[88/93] [controlled-http-existing-commercial] › tests\e2e-preview\telecom-resource-scope.spec.ts:9:72 › telecom case discards old resource and equal-version editor at 390
+[89/93] [controlled-http-existing-commercial] › tests\e2e-preview\telecom-resource-scope.spec.ts:9:72 › telecom case discards old resource and equal-version editor at 768
+[90/93] [controlled-http-existing-commercial] › tests\e2e-preview\telecom-resource-scope.spec.ts:9:72 › telecom case discards old resource and equal-version editor at 1440
+[91/93] [controlled-http-existing-commercial] › tests\e2e-preview\telecom-resource-scope.spec.ts:9:72 › telecom sim discards old resource and equal-version editor at 390
+[92/93] [controlled-http-existing-commercial] › tests\e2e-preview\telecom-resource-scope.spec.ts:9:72 › telecom sim discards old resource and equal-version editor at 768
+[93/93] [controlled-http-existing-commercial] › tests\e2e-preview\telecom-resource-scope.spec.ts:9:72 › telecom sim discards old resource and equal-version editor at 1440
+  93 passed (3.1m)

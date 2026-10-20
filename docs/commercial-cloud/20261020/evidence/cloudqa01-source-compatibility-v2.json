@@ -1,0 +1,62 @@
+{
+  "target": "145f01cc23404b77f60c959b0b066155245e9895",
+  "direct_product_file_overlap": 0,
+  "application_reference": "49bc242c849a019b4b85fd3da1b3a8c9a45ca179",
+  "release": "NOT_ACCEPTED",
+  "unit": "CLOUD-QA-01",
+  "integration_semantics": "NOT_TESTED_NOT_ADOPTED",
+  "commercial": {
+    "whitespace_control": "ERROR_UNCHANGED",
+    "correction": "Remove only extra EOF blank line in own opportunity-archive.config.ts; product unchanged",
+    "patch": "cloudqa01-commercial-source-and-qa-v2.patch",
+    "index_only_apply_check_exit": 0,
+    "sha256": "08cb7526dd3b0f8e82535931eccaa0432cda850c2ad5d1fd24d44ae75de9fb92",
+    "prior_failure": "128_NEW_BLANK_LINE_AT_EOF_OWN_QA_CONFIG_PRESERVED"
+  },
+  "cloud": "NOT_RUN",
+  "qa_source": "0c2bb3f8c95df5c130972f4846336f27872a3137",
+  "billing_original_unchanged": {
+    "target_tests": "NOT_RUN",
+    "all_files": [
+      "src/features/billing/IntegratedBilling.tsx",
+      "src/features/billing/PromptBuilder.tsx",
+      "src/features/billing/parse.ts",
+      "tools/oier_billing_qa/browser.config.ts",
+      "tools/oier_billing_qa/candidates/parser-minimal.patch",
+      "tools/oier_billing_qa/candidates/proposal-context.patch",
+      "tools/oier_billing_qa/concept-acceptance.mjs",
+      "tools/oier_billing_qa/customer-identity.spec.ts",
+      "tools/oier_billing_qa/customer-prompt-context.spec.ts",
+      "tools/oier_billing_qa/customer.config.ts",
+      "tools/oier_billing_qa/dialog.config.ts",
+      "tools/oier_billing_qa/final.config.ts",
+      "tools/oier_billing_qa/identity.config.ts",
+      "tools/oier_billing_qa/intent.config.ts",
+      "tools/oier_billing_qa/parser-acceptance.mjs",
+      "tools/oier_billing_qa/prompt-interaction.spec.ts",
+      "tools/oier_billing_qa/proposal-context.spec.ts",
+      "tools/oier_billing_qa/proposal-dialog-context.spec.ts",
+      "tools/oier_billing_qa/proposal-intent.spec.ts",
+      "tools/oier_billing_qa/regression.config.ts",
+      "tools/oier_billing_qa/speech-fallback.spec.ts",
+      "tools/oier_billing_qa/speech.config.ts"
+    ],
+    "product_files": [
+      "src/features/billing/IntegratedBilling.tsx",
+      "src/features/billing/PromptBuilder.tsx",
+      "src/features/billing/parse.ts"
+    ],
+    "name": "billing",
+    "direct_file_overlap": [],
+    "measured_source": "9e3ed4f6331d8756a9fbe6274631297a939af75e",
+    "meaning": "TEXTUAL_INDEX_APPLICABILITY_ONLY_NOT_SEMANTIC_OR_TEST_ACCEPTANCE",
+    "index_only_apply_check_exit": 0,
+    "target_adopted": false,
+    "owner_worktrees_or_branches_modified": false,
+    "patch_sha256": "aaac4b5b7779dd9adece111aa95630362707af05baa7ae9bc9d1f31580a0d78e",
+    "published_source": "8fca4c8bfb921fd61ab02310999716ffaf9023cf",
+    "patch": "cloudqa01-billing-source-and-qa.patch",
+    "target": "145f01cc23404b77f60c959b0b066155245e9895"
+  },
+  "candidate": "ASIER_TO_DESIGNATE"
+}

@@ -1,0 +1,413 @@
+
+Running 15 tests using 1 worker
+
+
+
+(node:10220) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1/15] [controlled-http-390] › tools\oier_commercial_qa\portfolio-create-intent.spec.ts:9:99 › manual service creation preserves intent and receipt after transport
+[2/15] [controlled-http-390] › tools\oier_commercial_qa\portfolio-create-intent.spec.ts:9:99 › manual service creation preserves intent and receipt after malformed
+  1) [controlled-http-390] › tools\oier_commercial_qa\portfolio-create-intent.spec.ts:9:99 › manual service creation preserves intent and receipt after malformed 
+
+    Error: expect(locator).toBeDisabled() failed
+
+    Locator:  getByRole('dialog', { name: 'Registrar activo manual', exact: true }).getByLabel('Nombre del nuevo activo', { exact: true })
+    Expected: disabled
+    Received: enabled
+    Timeout:  4000ms
+
+    Call log:
+      - Expect "toBeDisabled" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Registrar activo manual', exact: true }).getByLabel('Nombre del nuevo activo', { exact: true })
+        12 × locator resolved to <input required="" maxlength="160" value="Reviewed manual service" class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 w-full"/>
+           - unexpected value "enabled"
+
+
+      45 |    if(mode==='read_failure')await expect(drawer.getByRole('button',{name:'Consultar el alta registrada',exact:true})).toBeVisible()
+      46 |    await info.attach('creation-observation',{body:JSON.stringify({mode,commands,reads}),contentType:'application/json'})
+    > 47 |    await expect(name).toBeDisabled()
+         |                       ^
+      48 |    await drawer.getByRole('button',{name:'Cerrar panel',exact:true}).click({force:true});await expect(drawer).toBeVisible()
+      49 |    await page.keyboard.press('Escape');await expect(drawer).toBeVisible()
+      50 |    await drawer.getByRole('alert').scrollIntoViewIfNeeded()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\portfolio-create-intent.spec.ts:47:23
+
+    Error Context: ..\oier-commercial-20261020\portfolio-create-attempt01\artifacts\portfolio-create-intent-ma-a1f1c-and-receipt-after-malformed-controlled-http-390\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\portfolio-create-attempt01\artifacts\portfolio-create-intent-ma-a1f1c-and-receipt-after-malformed-controlled-http-390\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\portfolio-create-attempt01\artifacts\portfolio-create-intent-ma-a1f1c-and-receipt-after-malformed-controlled-http-390\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\portfolio-create-attempt01\artifacts\portfolio-create-intent-ma-a1f1c-and-receipt-after-malformed-controlled-http-390\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:13588) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[3/15] [controlled-http-390] › tools\oier_commercial_qa\portfolio-create-intent.spec.ts:9:99 › manual service creation preserves intent and receipt after wrong_receipt
+  2) [controlled-http-390] › tools\oier_commercial_qa\portfolio-create-intent.spec.ts:9:99 › manual service creation preserves intent and receipt after wrong_receipt 
+
+    Error: expect(locator).toBeDisabled() failed
+
+    Locator:  getByRole('dialog', { name: 'Registrar activo manual', exact: true }).getByLabel('Nombre del nuevo activo', { exact: true })
+    Expected: disabled
+    Received: enabled
+    Timeout:  4000ms
+
+    Call log:
+      - Expect "toBeDisabled" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Registrar activo manual', exact: true }).getByLabel('Nombre del nuevo activo', { exact: true })
+        12 × locator resolved to <input required="" maxlength="160" value="Reviewed manual service" class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 w-full"/>
+           - unexpected value "enabled"
+
+
+      45 |    if(mode==='read_failure')await expect(drawer.getByRole('button',{name:'Consultar el alta registrada',exact:true})).toBeVisible()
+      46 |    await info.attach('creation-observation',{body:JSON.stringify({mode,commands,reads}),contentType:'application/json'})
+    > 47 |    await expect(name).toBeDisabled()
+         |                       ^
+      48 |    await drawer.getByRole('button',{name:'Cerrar panel',exact:true}).click({force:true});await expect(drawer).toBeVisible()
+      49 |    await page.keyboard.press('Escape');await expect(drawer).toBeVisible()
+      50 |    await drawer.getByRole('alert').scrollIntoViewIfNeeded()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\portfolio-create-intent.spec.ts:47:23
+
+    Error Context: ..\oier-commercial-20261020\portfolio-create-attempt01\artifacts\portfolio-create-intent-ma-98299-receipt-after-wrong-receipt-controlled-http-390\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\portfolio-create-attempt01\artifacts\portfolio-create-intent-ma-98299-receipt-after-wrong-receipt-controlled-http-390\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\portfolio-create-attempt01\artifacts\portfolio-create-intent-ma-98299-receipt-after-wrong-receipt-controlled-http-390\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\portfolio-create-attempt01\artifacts\portfolio-create-intent-ma-98299-receipt-after-wrong-receipt-controlled-http-390\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:32024) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[4/15] [controlled-http-390] › tools\oier_commercial_qa\portfolio-create-intent.spec.ts:9:99 › manual service creation preserves intent and receipt after read_failure
+  3) [controlled-http-390] › tools\oier_commercial_qa\portfolio-create-intent.spec.ts:9:99 › manual service creation preserves intent and receipt after read_failure 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('dialog', { name: 'Registrar activo manual', exact: true })
+    Expected: visible
+    Timeout: 4000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Registrar activo manual', exact: true })
+
+
+      46 |    await info.attach('creation-observation',{body:JSON.stringify({mode,commands,reads}),contentType:'application/json'})
+      47 |    await expect(name).toBeDisabled()
+    > 48 |    await drawer.getByRole('button',{name:'Cerrar panel',exact:true}).click({force:true});await expect(drawer).toBeVisible()
+         |                                                                                                               ^
+      49 |    await page.keyboard.press('Escape');await expect(drawer).toBeVisible()
+      50 |    await drawer.getByRole('alert').scrollIntoViewIfNeeded()
+      51 |    await page.screenshot({path:info.outputPath(`service-create-${mode}-pending.png`)})
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\portfolio-create-intent.spec.ts:48:111
+
+    Error Context: ..\oier-commercial-20261020\portfolio-create-attempt01\artifacts\portfolio-create-intent-ma-2bbcd--receipt-after-read-failure-controlled-http-390\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\portfolio-create-attempt01\artifacts\portfolio-create-intent-ma-2bbcd--receipt-after-read-failure-controlled-http-390\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\portfolio-create-attempt01\artifacts\portfolio-create-intent-ma-2bbcd--receipt-after-read-failure-controlled-http-390\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\portfolio-create-attempt01\artifacts\portfolio-create-intent-ma-2bbcd--receipt-after-read-failure-controlled-http-390\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:27080) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[5/15] [controlled-http-390] › tools\oier_commercial_qa\portfolio-create-intent.spec.ts:9:99 › manual service creation preserves intent and receipt after success
+
+
+(node:5072) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[6/15] [controlled-http-768] › tools\oier_commercial_qa\portfolio-create-intent.spec.ts:9:99 › manual service creation preserves intent and receipt after transport
+[7/15] [controlled-http-768] › tools\oier_commercial_qa\portfolio-create-intent.spec.ts:9:99 › manual service creation preserves intent and receipt after malformed
+  4) [controlled-http-768] › tools\oier_commercial_qa\portfolio-create-intent.spec.ts:9:99 › manual service creation preserves intent and receipt after malformed 
+
+    Error: expect(locator).toBeDisabled() failed
+
+    Locator:  getByRole('dialog', { name: 'Registrar activo manual', exact: true }).getByLabel('Nombre del nuevo activo', { exact: true })
+    Expected: disabled
+    Received: enabled
+    Timeout:  4000ms
+
+    Call log:
+      - Expect "toBeDisabled" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Registrar activo manual', exact: true }).getByLabel('Nombre del nuevo activo', { exact: true })
+        12 × locator resolved to <input required="" maxlength="160" value="Reviewed manual service" class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 w-full"/>
+           - unexpected value "enabled"
+
+
+      45 |    if(mode==='read_failure')await expect(drawer.getByRole('button',{name:'Consultar el alta registrada',exact:true})).toBeVisible()
+      46 |    await info.attach('creation-observation',{body:JSON.stringify({mode,commands,reads}),contentType:'application/json'})
+    > 47 |    await expect(name).toBeDisabled()
+         |                       ^
+      48 |    await drawer.getByRole('button',{name:'Cerrar panel',exact:true}).click({force:true});await expect(drawer).toBeVisible()
+      49 |    await page.keyboard.press('Escape');await expect(drawer).toBeVisible()
+      50 |    await drawer.getByRole('alert').scrollIntoViewIfNeeded()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\portfolio-create-intent.spec.ts:47:23
+
+    Error Context: ..\oier-commercial-20261020\portfolio-create-attempt01\artifacts\portfolio-create-intent-ma-a1f1c-and-receipt-after-malformed-controlled-http-768\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\portfolio-create-attempt01\artifacts\portfolio-create-intent-ma-a1f1c-and-receipt-after-malformed-controlled-http-768\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\portfolio-create-attempt01\artifacts\portfolio-create-intent-ma-a1f1c-and-receipt-after-malformed-controlled-http-768\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\portfolio-create-attempt01\artifacts\portfolio-create-intent-ma-a1f1c-and-receipt-after-malformed-controlled-http-768\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+(node:1012) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[8/15] [controlled-http-768] › tools\oier_commercial_qa\portfolio-create-intent.spec.ts:9:99 › manual service creation preserves intent and receipt after wrong_receipt
+  5) [controlled-http-768] › tools\oier_commercial_qa\portfolio-create-intent.spec.ts:9:99 › manual service creation preserves intent and receipt after wrong_receipt 
+
+    Error: expect(locator).toBeDisabled() failed
+
+    Locator:  getByRole('dialog', { name: 'Registrar activo manual', exact: true }).getByLabel('Nombre del nuevo activo', { exact: true })
+    Expected: disabled
+    Received: enabled
+    Timeout:  4000ms
+
+    Call log:
+      - Expect "toBeDisabled" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Registrar activo manual', exact: true }).getByLabel('Nombre del nuevo activo', { exact: true })
+        12 × locator resolved to <input required="" maxlength="160" value="Reviewed manual service" class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 w-full"/>
+           - unexpected value "enabled"
+
+
+      45 |    if(mode==='read_failure')await expect(drawer.getByRole('button',{name:'Consultar el alta registrada',exact:true})).toBeVisible()
+      46 |    await info.attach('creation-observation',{body:JSON.stringify({mode,commands,reads}),contentType:'application/json'})
+    > 47 |    await expect(name).toBeDisabled()
+         |                       ^
+      48 |    await drawer.getByRole('button',{name:'Cerrar panel',exact:true}).click({force:true});await expect(drawer).toBeVisible()
+      49 |    await page.keyboard.press('Escape');await expect(drawer).toBeVisible()
+      50 |    await drawer.getByRole('alert').scrollIntoViewIfNeeded()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\portfolio-create-intent.spec.ts:47:23
+
+    Error Context: ..\oier-commercial-20261020\portfolio-create-attempt01\artifacts\portfolio-create-intent-ma-98299-receipt-after-wrong-receipt-controlled-http-768\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\portfolio-create-attempt01\artifacts\portfolio-create-intent-ma-98299-receipt-after-wrong-receipt-controlled-http-768\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\portfolio-create-attempt01\artifacts\portfolio-create-intent-ma-98299-receipt-after-wrong-receipt-controlled-http-768\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\portfolio-create-attempt01\artifacts\portfolio-create-intent-ma-98299-receipt-after-wrong-receipt-controlled-http-768\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:32452) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[9/15] [controlled-http-768] › tools\oier_commercial_qa\portfolio-create-intent.spec.ts:9:99 › manual service creation preserves intent and receipt after read_failure
+  6) [controlled-http-768] › tools\oier_commercial_qa\portfolio-create-intent.spec.ts:9:99 › manual service creation preserves intent and receipt after read_failure 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('dialog', { name: 'Registrar activo manual', exact: true })
+    Expected: visible
+    Timeout: 4000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Registrar activo manual', exact: true })
+
+
+      46 |    await info.attach('creation-observation',{body:JSON.stringify({mode,commands,reads}),contentType:'application/json'})
+      47 |    await expect(name).toBeDisabled()
+    > 48 |    await drawer.getByRole('button',{name:'Cerrar panel',exact:true}).click({force:true});await expect(drawer).toBeVisible()
+         |                                                                                                               ^
+      49 |    await page.keyboard.press('Escape');await expect(drawer).toBeVisible()
+      50 |    await drawer.getByRole('alert').scrollIntoViewIfNeeded()
+      51 |    await page.screenshot({path:info.outputPath(`service-create-${mode}-pending.png`)})
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\portfolio-create-intent.spec.ts:48:111
+
+    Error Context: ..\oier-commercial-20261020\portfolio-create-attempt01\artifacts\portfolio-create-intent-ma-2bbcd--receipt-after-read-failure-controlled-http-768\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\portfolio-create-attempt01\artifacts\portfolio-create-intent-ma-2bbcd--receipt-after-read-failure-controlled-http-768\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\portfolio-create-attempt01\artifacts\portfolio-create-intent-ma-2bbcd--receipt-after-read-failure-controlled-http-768\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\portfolio-create-attempt01\artifacts\portfolio-create-intent-ma-2bbcd--receipt-after-read-failure-controlled-http-768\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:9704) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[10/15] [controlled-http-768] › tools\oier_commercial_qa\portfolio-create-intent.spec.ts:9:99 › manual service creation preserves intent and receipt after success
+
+(node:4348) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[11/15] [controlled-http-1440] › tools\oier_commercial_qa\portfolio-create-intent.spec.ts:9:99 › manual service creation preserves intent and receipt after transport
+[12/15] [controlled-http-1440] › tools\oier_commercial_qa\portfolio-create-intent.spec.ts:9:99 › manual service creation preserves intent and receipt after malformed
+  7) [controlled-http-1440] › tools\oier_commercial_qa\portfolio-create-intent.spec.ts:9:99 › manual service creation preserves intent and receipt after malformed 
+
+    Error: expect(locator).toBeDisabled() failed
+
+    Locator:  getByRole('dialog', { name: 'Registrar activo manual', exact: true }).getByLabel('Nombre del nuevo activo', { exact: true })
+    Expected: disabled
+    Received: enabled
+    Timeout:  4000ms
+
+    Call log:
+      - Expect "toBeDisabled" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Registrar activo manual', exact: true }).getByLabel('Nombre del nuevo activo', { exact: true })
+        12 × locator resolved to <input required="" maxlength="160" value="Reviewed manual service" class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 w-full"/>
+           - unexpected value "enabled"
+
+
+      45 |    if(mode==='read_failure')await expect(drawer.getByRole('button',{name:'Consultar el alta registrada',exact:true})).toBeVisible()
+      46 |    await info.attach('creation-observation',{body:JSON.stringify({mode,commands,reads}),contentType:'application/json'})
+    > 47 |    await expect(name).toBeDisabled()
+         |                       ^
+      48 |    await drawer.getByRole('button',{name:'Cerrar panel',exact:true}).click({force:true});await expect(drawer).toBeVisible()
+      49 |    await page.keyboard.press('Escape');await expect(drawer).toBeVisible()
+      50 |    await drawer.getByRole('alert').scrollIntoViewIfNeeded()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\portfolio-create-intent.spec.ts:47:23
+
+    Error Context: ..\oier-commercial-20261020\portfolio-create-attempt01\artifacts\portfolio-create-intent-ma-a1f1c-and-receipt-after-malformed-controlled-http-1440\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\portfolio-create-attempt01\artifacts\portfolio-create-intent-ma-a1f1c-and-receipt-after-malformed-controlled-http-1440\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\portfolio-create-attempt01\artifacts\portfolio-create-intent-ma-a1f1c-and-receipt-after-malformed-controlled-http-1440\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\portfolio-create-attempt01\artifacts\portfolio-create-intent-ma-a1f1c-and-receipt-after-malformed-controlled-http-1440\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+(node:19124) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[13/15] [controlled-http-1440] › tools\oier_commercial_qa\portfolio-create-intent.spec.ts:9:99 › manual service creation preserves intent and receipt after wrong_receipt
+  8) [controlled-http-1440] › tools\oier_commercial_qa\portfolio-create-intent.spec.ts:9:99 › manual service creation preserves intent and receipt after wrong_receipt 
+
+    Error: expect(locator).toBeDisabled() failed
+
+    Locator:  getByRole('dialog', { name: 'Registrar activo manual', exact: true }).getByLabel('Nombre del nuevo activo', { exact: true })
+    Expected: disabled
+    Received: enabled
+    Timeout:  4000ms
+
+    Call log:
+      - Expect "toBeDisabled" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Registrar activo manual', exact: true }).getByLabel('Nombre del nuevo activo', { exact: true })
+        12 × locator resolved to <input required="" maxlength="160" value="Reviewed manual service" class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 w-full"/>
+           - unexpected value "enabled"
+
+
+      45 |    if(mode==='read_failure')await expect(drawer.getByRole('button',{name:'Consultar el alta registrada',exact:true})).toBeVisible()
+      46 |    await info.attach('creation-observation',{body:JSON.stringify({mode,commands,reads}),contentType:'application/json'})
+    > 47 |    await expect(name).toBeDisabled()
+         |                       ^
+      48 |    await drawer.getByRole('button',{name:'Cerrar panel',exact:true}).click({force:true});await expect(drawer).toBeVisible()
+      49 |    await page.keyboard.press('Escape');await expect(drawer).toBeVisible()
+      50 |    await drawer.getByRole('alert').scrollIntoViewIfNeeded()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\portfolio-create-intent.spec.ts:47:23
+
+    Error Context: ..\oier-commercial-20261020\portfolio-create-attempt01\artifacts\portfolio-create-intent-ma-98299-receipt-after-wrong-receipt-controlled-http-1440\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\portfolio-create-attempt01\artifacts\portfolio-create-intent-ma-98299-receipt-after-wrong-receipt-controlled-http-1440\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\portfolio-create-attempt01\artifacts\portfolio-create-intent-ma-98299-receipt-after-wrong-receipt-controlled-http-1440\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\portfolio-create-attempt01\artifacts\portfolio-create-intent-ma-98299-receipt-after-wrong-receipt-controlled-http-1440\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(node:17984) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[14/15] [controlled-http-1440] › tools\oier_commercial_qa\portfolio-create-intent.spec.ts:9:99 › manual service creation preserves intent and receipt after read_failure
+  9) [controlled-http-1440] › tools\oier_commercial_qa\portfolio-create-intent.spec.ts:9:99 › manual service creation preserves intent and receipt after read_failure 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('dialog', { name: 'Registrar activo manual', exact: true })
+    Expected: visible
+    Timeout: 4000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Registrar activo manual', exact: true })
+
+
+      46 |    await info.attach('creation-observation',{body:JSON.stringify({mode,commands,reads}),contentType:'application/json'})
+      47 |    await expect(name).toBeDisabled()
+    > 48 |    await drawer.getByRole('button',{name:'Cerrar panel',exact:true}).click({force:true});await expect(drawer).toBeVisible()
+         |                                                                                                               ^
+      49 |    await page.keyboard.press('Escape');await expect(drawer).toBeVisible()
+      50 |    await drawer.getByRole('alert').scrollIntoViewIfNeeded()
+      51 |    await page.screenshot({path:info.outputPath(`service-create-${mode}-pending.png`)})
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\portfolio-create-intent.spec.ts:48:111
+
+    Error Context: ..\oier-commercial-20261020\portfolio-create-attempt01\artifacts\portfolio-create-intent-ma-2bbcd--receipt-after-read-failure-controlled-http-1440\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\portfolio-create-attempt01\artifacts\portfolio-create-intent-ma-2bbcd--receipt-after-read-failure-controlled-http-1440\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\portfolio-create-attempt01\artifacts\portfolio-create-intent-ma-2bbcd--receipt-after-read-failure-controlled-http-1440\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\portfolio-create-attempt01\artifacts\portfolio-create-intent-ma-2bbcd--receipt-after-read-failure-controlled-http-1440\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(node:19620) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[15/15] [controlled-http-1440] › tools\oier_commercial_qa\portfolio-create-intent.spec.ts:9:99 › manual service creation preserves intent and receipt after success
+  9 failed
+    [controlled-http-390] › tools\oier_commercial_qa\portfolio-create-intent.spec.ts:9:99 › manual service creation preserves intent and receipt after malformed 
+    [controlled-http-390] › tools\oier_commercial_qa\portfolio-create-intent.spec.ts:9:99 › manual service creation preserves intent and receipt after wrong_receipt 
+    [controlled-http-390] › tools\oier_commercial_qa\portfolio-create-intent.spec.ts:9:99 › manual service creation preserves intent and receipt after read_failure 
+    [controlled-http-768] › tools\oier_commercial_qa\portfolio-create-intent.spec.ts:9:99 › manual service creation preserves intent and receipt after malformed 
+    [controlled-http-768] › tools\oier_commercial_qa\portfolio-create-intent.spec.ts:9:99 › manual service creation preserves intent and receipt after wrong_receipt 
+    [controlled-http-768] › tools\oier_commercial_qa\portfolio-create-intent.spec.ts:9:99 › manual service creation preserves intent and receipt after read_failure 
+    [controlled-http-1440] › tools\oier_commercial_qa\portfolio-create-intent.spec.ts:9:99 › manual service creation preserves intent and receipt after malformed 
+    [controlled-http-1440] › tools\oier_commercial_qa\portfolio-create-intent.spec.ts:9:99 › manual service creation preserves intent and receipt after wrong_receipt 
+    [controlled-http-1440] › tools\oier_commercial_qa\portfolio-create-intent.spec.ts:9:99 › manual service creation preserves intent and receipt after read_failure 
+  6 passed (2.3m)

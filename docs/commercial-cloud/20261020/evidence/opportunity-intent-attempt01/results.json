@@ -1,0 +1,1211 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--config",
+      "tools/oier_commercial_qa/opportunity-intent.config.ts"
+    ],
+    "configFile": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.config.ts",
+    "rootDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-commercial-20261020/tools/oier_commercial_qa",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-commercial-20261020/opportunity-intent-attempt01/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "controlled-http-390",
+        "name": "controlled-http-390",
+        "testDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-commercial-20261020/tools/oier_commercial_qa",
+        "testIgnore": [],
+        "testMatch": [
+          "opportunity-intent.spec.ts"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-commercial-20261020/opportunity-intent-attempt01/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "controlled-http-768",
+        "name": "controlled-http-768",
+        "testDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-commercial-20261020/tools/oier_commercial_qa",
+        "testIgnore": [],
+        "testMatch": [
+          "opportunity-intent.spec.ts"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-commercial-20261020/opportunity-intent-attempt01/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "controlled-http-1440",
+        "name": "controlled-http-1440",
+        "testDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-commercial-20261020/tools/oier_commercial_qa",
+        "testIgnore": [],
+        "testMatch": [
+          "opportunity-intent.spec.ts"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "line",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\opportunity-intent-attempt01\\results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.61.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "opportunity-intent.spec.ts",
+      "file": "opportunity-intent.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "opportunity create retains frozen intent after transport",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5512,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('dialog', { name: 'Nueva oportunidad', exact: true })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Nueva oportunidad', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('dialog', { name: 'Nueva oportunidad', exact: true })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Nueva oportunidad', exact: true })\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts:51:111",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts",
+                      "column": 111,
+                      "line": 51
+                    },
+                    "snippet": "  49 |    await expect(dialog.getByLabel('Cierre previsto',{exact:true})).toHaveValue('2026-11-20')\n  50 |    await expect(dialog.getByRole('textbox',{name:'Próxima acción',exact:true})).toHaveValue('Revisar propuesta sintética')\n> 51 |    await dialog.getByRole('button',{name:'Cerrar panel',exact:true}).click({force:true});await expect(dialog).toBeVisible()\n     |                                                                                                               ^\n  52 |    await page.keyboard.press('Escape');await expect(dialog).toBeVisible()\n  53 |    await expect(dialog.getByRole('combobox',{name:'Etapa comercial',exact:true})).toBeDisabled()\n  54 |    await page.screenshot({path:info.outputPath(`opportunity-${mode}-pending.png`)})"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts",
+                        "column": 111,
+                        "line": 51
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('dialog', { name: 'Nueva oportunidad', exact: true })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Nueva oportunidad', exact: true })\u001b[22m\n\n\n  49 |    await expect(dialog.getByLabel('Cierre previsto',{exact:true})).toHaveValue('2026-11-20')\n  50 |    await expect(dialog.getByRole('textbox',{name:'Próxima acción',exact:true})).toHaveValue('Revisar propuesta sintética')\n> 51 |    await dialog.getByRole('button',{name:'Cerrar panel',exact:true}).click({force:true});await expect(dialog).toBeVisible()\n     |                                                                                                               ^\n  52 |    await page.keyboard.press('Escape');await expect(dialog).toBeVisible()\n  53 |    await expect(dialog.getByRole('combobox',{name:'Etapa comercial',exact:true})).toBeDisabled()\n  54 |    await page.screenshot({path:info.outputPath(`opportunity-${mode}-pending.png`)})\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts:51:111"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:36:22.108Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\opportunity-intent-attempt01\\artifacts\\opportunity-intent-opportu-4ca69-ozen-intent-after-transport-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\opportunity-intent-attempt01\\artifacts\\opportunity-intent-opportu-4ca69-ozen-intent-after-transport-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\opportunity-intent-attempt01\\artifacts\\opportunity-intent-opportu-4ca69-ozen-intent-after-transport-controlled-http-390\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts",
+                    "column": 111,
+                    "line": 51
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "a29dc87c5b1d78f47998-7b294caa0c1cfc897624",
+          "file": "opportunity-intent.spec.ts",
+          "line": 8,
+          "column": 108
+        },
+        {
+          "title": "opportunity create retains frozen intent after malformed",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5604,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Nueva oportunidad', exact: true }).getByRole('textbox', { name: 'Título comercial', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Nueva oportunidad', exact: true }).getByRole('textbox', { name: 'Título comercial', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <input required=\"\" maxlength=\"200\" value=\"Instalación sintética con revisión comercial\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-1 w-full\"/>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Nueva oportunidad', exact: true }).getByRole('textbox', { name: 'Título comercial', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Nueva oportunidad', exact: true }).getByRole('textbox', { name: 'Título comercial', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <input required=\"\" maxlength=\"200\" value=\"Instalación sintética con revisión comercial\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-1 w-full\"/>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts:47:24",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts",
+                      "column": 24,
+                      "line": 47
+                    },
+                    "snippet": "  45 |   if(!['success','denied'].includes(mode)){\n  46 |    await expect(dialog.getByRole('alert')).toBeVisible()\n> 47 |    await expect(field).toBeDisabled();await expect(field).toHaveValue(title);await expect(client).toHaveValue(customer)\n     |                        ^\n  48 |    await expect(dialog.getByRole('textbox',{name:'Importe',exact:true})).toHaveValue('1250.50')\n  49 |    await expect(dialog.getByLabel('Cierre previsto',{exact:true})).toHaveValue('2026-11-20')\n  50 |    await expect(dialog.getByRole('textbox',{name:'Próxima acción',exact:true})).toHaveValue('Revisar propuesta sintética')"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts",
+                        "column": 24,
+                        "line": 47
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Nueva oportunidad', exact: true }).getByRole('textbox', { name: 'Título comercial', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Nueva oportunidad', exact: true }).getByRole('textbox', { name: 'Título comercial', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <input required=\"\" maxlength=\"200\" value=\"Instalación sintética con revisión comercial\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-1 w-full\"/>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n\n  45 |   if(!['success','denied'].includes(mode)){\n  46 |    await expect(dialog.getByRole('alert')).toBeVisible()\n> 47 |    await expect(field).toBeDisabled();await expect(field).toHaveValue(title);await expect(client).toHaveValue(customer)\n     |                        ^\n  48 |    await expect(dialog.getByRole('textbox',{name:'Importe',exact:true})).toHaveValue('1250.50')\n  49 |    await expect(dialog.getByLabel('Cierre previsto',{exact:true})).toHaveValue('2026-11-20')\n  50 |    await expect(dialog.getByRole('textbox',{name:'Próxima acción',exact:true})).toHaveValue('Revisar propuesta sintética')\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts:47:24"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:36:33.389Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\opportunity-intent-attempt01\\artifacts\\opportunity-intent-opportu-b5fee-ozen-intent-after-malformed-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\opportunity-intent-attempt01\\artifacts\\opportunity-intent-opportu-b5fee-ozen-intent-after-malformed-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\opportunity-intent-attempt01\\artifacts\\opportunity-intent-opportu-b5fee-ozen-intent-after-malformed-controlled-http-390\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts",
+                    "column": 24,
+                    "line": 47
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "a29dc87c5b1d78f47998-a3fbc34b46771feed683",
+          "file": "opportunity-intent.spec.ts",
+          "line": 8,
+          "column": 108
+        },
+        {
+          "title": "opportunity create retains frozen intent after wrong_receipt",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5417,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Nueva oportunidad', exact: true }).getByRole('textbox', { name: 'Título comercial', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Nueva oportunidad', exact: true }).getByRole('textbox', { name: 'Título comercial', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <input required=\"\" maxlength=\"200\" value=\"Instalación sintética con revisión comercial\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-1 w-full\"/>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Nueva oportunidad', exact: true }).getByRole('textbox', { name: 'Título comercial', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Nueva oportunidad', exact: true }).getByRole('textbox', { name: 'Título comercial', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <input required=\"\" maxlength=\"200\" value=\"Instalación sintética con revisión comercial\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-1 w-full\"/>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts:47:24",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts",
+                      "column": 24,
+                      "line": 47
+                    },
+                    "snippet": "  45 |   if(!['success','denied'].includes(mode)){\n  46 |    await expect(dialog.getByRole('alert')).toBeVisible()\n> 47 |    await expect(field).toBeDisabled();await expect(field).toHaveValue(title);await expect(client).toHaveValue(customer)\n     |                        ^\n  48 |    await expect(dialog.getByRole('textbox',{name:'Importe',exact:true})).toHaveValue('1250.50')\n  49 |    await expect(dialog.getByLabel('Cierre previsto',{exact:true})).toHaveValue('2026-11-20')\n  50 |    await expect(dialog.getByRole('textbox',{name:'Próxima acción',exact:true})).toHaveValue('Revisar propuesta sintética')"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts",
+                        "column": 24,
+                        "line": 47
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Nueva oportunidad', exact: true }).getByRole('textbox', { name: 'Título comercial', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Nueva oportunidad', exact: true }).getByRole('textbox', { name: 'Título comercial', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <input required=\"\" maxlength=\"200\" value=\"Instalación sintética con revisión comercial\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-1 w-full\"/>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n\n  45 |   if(!['success','denied'].includes(mode)){\n  46 |    await expect(dialog.getByRole('alert')).toBeVisible()\n> 47 |    await expect(field).toBeDisabled();await expect(field).toHaveValue(title);await expect(client).toHaveValue(customer)\n     |                        ^\n  48 |    await expect(dialog.getByRole('textbox',{name:'Importe',exact:true})).toHaveValue('1250.50')\n  49 |    await expect(dialog.getByLabel('Cierre previsto',{exact:true})).toHaveValue('2026-11-20')\n  50 |    await expect(dialog.getByRole('textbox',{name:'Próxima acción',exact:true})).toHaveValue('Revisar propuesta sintética')\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts:47:24"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:36:44.731Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\opportunity-intent-attempt01\\artifacts\\opportunity-intent-opportu-36d5c--intent-after-wrong-receipt-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\opportunity-intent-attempt01\\artifacts\\opportunity-intent-opportu-36d5c--intent-after-wrong-receipt-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\opportunity-intent-attempt01\\artifacts\\opportunity-intent-opportu-36d5c--intent-after-wrong-receipt-controlled-http-390\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts",
+                    "column": 24,
+                    "line": 47
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "a29dc87c5b1d78f47998-0b910956acd09d637d24",
+          "file": "opportunity-intent.spec.ts",
+          "line": 8,
+          "column": 108
+        },
+        {
+          "title": "opportunity create retains frozen intent after read_failure",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5684,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('dialog', { name: 'Nueva oportunidad', exact: true })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Nueva oportunidad', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('dialog', { name: 'Nueva oportunidad', exact: true })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Nueva oportunidad', exact: true })\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts:51:111",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts",
+                      "column": 111,
+                      "line": 51
+                    },
+                    "snippet": "  49 |    await expect(dialog.getByLabel('Cierre previsto',{exact:true})).toHaveValue('2026-11-20')\n  50 |    await expect(dialog.getByRole('textbox',{name:'Próxima acción',exact:true})).toHaveValue('Revisar propuesta sintética')\n> 51 |    await dialog.getByRole('button',{name:'Cerrar panel',exact:true}).click({force:true});await expect(dialog).toBeVisible()\n     |                                                                                                               ^\n  52 |    await page.keyboard.press('Escape');await expect(dialog).toBeVisible()\n  53 |    await expect(dialog.getByRole('combobox',{name:'Etapa comercial',exact:true})).toBeDisabled()\n  54 |    await page.screenshot({path:info.outputPath(`opportunity-${mode}-pending.png`)})"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts",
+                        "column": 111,
+                        "line": 51
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('dialog', { name: 'Nueva oportunidad', exact: true })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Nueva oportunidad', exact: true })\u001b[22m\n\n\n  49 |    await expect(dialog.getByLabel('Cierre previsto',{exact:true})).toHaveValue('2026-11-20')\n  50 |    await expect(dialog.getByRole('textbox',{name:'Próxima acción',exact:true})).toHaveValue('Revisar propuesta sintética')\n> 51 |    await dialog.getByRole('button',{name:'Cerrar panel',exact:true}).click({force:true});await expect(dialog).toBeVisible()\n     |                                                                                                               ^\n  52 |    await page.keyboard.press('Escape');await expect(dialog).toBeVisible()\n  53 |    await expect(dialog.getByRole('combobox',{name:'Etapa comercial',exact:true})).toBeDisabled()\n  54 |    await page.screenshot({path:info.outputPath(`opportunity-${mode}-pending.png`)})\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts:51:111"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:36:56.414Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\opportunity-intent-attempt01\\artifacts\\opportunity-intent-opportu-079c6-n-intent-after-read-failure-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\opportunity-intent-attempt01\\artifacts\\opportunity-intent-opportu-079c6-n-intent-after-read-failure-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\opportunity-intent-attempt01\\artifacts\\opportunity-intent-opportu-079c6-n-intent-after-read-failure-controlled-http-390\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts",
+                    "column": 111,
+                    "line": 51
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "a29dc87c5b1d78f47998-8ba3bd839febab52c543",
+          "file": "opportunity-intent.spec.ts",
+          "line": 8,
+          "column": 108
+        },
+        {
+          "title": "opportunity create retains frozen intent after denied",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1529,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:37:07.895Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a29dc87c5b1d78f47998-b389bbb3e2dc1b69b3cc",
+          "file": "opportunity-intent.spec.ts",
+          "line": 8,
+          "column": 108
+        },
+        {
+          "title": "opportunity create retains frozen intent after success",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1339,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:37:14.317Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a29dc87c5b1d78f47998-b844b9fc731b4458dab7",
+          "file": "opportunity-intent.spec.ts",
+          "line": 8,
+          "column": 108
+        },
+        {
+          "title": "opportunity create retains frozen intent after transport",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5739,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('dialog', { name: 'Nueva oportunidad', exact: true })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Nueva oportunidad', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('dialog', { name: 'Nueva oportunidad', exact: true })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Nueva oportunidad', exact: true })\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts:51:111",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts",
+                      "column": 111,
+                      "line": 51
+                    },
+                    "snippet": "  49 |    await expect(dialog.getByLabel('Cierre previsto',{exact:true})).toHaveValue('2026-11-20')\n  50 |    await expect(dialog.getByRole('textbox',{name:'Próxima acción',exact:true})).toHaveValue('Revisar propuesta sintética')\n> 51 |    await dialog.getByRole('button',{name:'Cerrar panel',exact:true}).click({force:true});await expect(dialog).toBeVisible()\n     |                                                                                                               ^\n  52 |    await page.keyboard.press('Escape');await expect(dialog).toBeVisible()\n  53 |    await expect(dialog.getByRole('combobox',{name:'Etapa comercial',exact:true})).toBeDisabled()\n  54 |    await page.screenshot({path:info.outputPath(`opportunity-${mode}-pending.png`)})"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts",
+                        "column": 111,
+                        "line": 51
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('dialog', { name: 'Nueva oportunidad', exact: true })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Nueva oportunidad', exact: true })\u001b[22m\n\n\n  49 |    await expect(dialog.getByLabel('Cierre previsto',{exact:true})).toHaveValue('2026-11-20')\n  50 |    await expect(dialog.getByRole('textbox',{name:'Próxima acción',exact:true})).toHaveValue('Revisar propuesta sintética')\n> 51 |    await dialog.getByRole('button',{name:'Cerrar panel',exact:true}).click({force:true});await expect(dialog).toBeVisible()\n     |                                                                                                               ^\n  52 |    await page.keyboard.press('Escape');await expect(dialog).toBeVisible()\n  53 |    await expect(dialog.getByRole('combobox',{name:'Etapa comercial',exact:true})).toBeDisabled()\n  54 |    await page.screenshot({path:info.outputPath(`opportunity-${mode}-pending.png`)})\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts:51:111"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:37:16.719Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\opportunity-intent-attempt01\\artifacts\\opportunity-intent-opportu-4ca69-ozen-intent-after-transport-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\opportunity-intent-attempt01\\artifacts\\opportunity-intent-opportu-4ca69-ozen-intent-after-transport-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\opportunity-intent-attempt01\\artifacts\\opportunity-intent-opportu-4ca69-ozen-intent-after-transport-controlled-http-768\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts",
+                    "column": 111,
+                    "line": 51
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "a29dc87c5b1d78f47998-3d7524f82f594468b43d",
+          "file": "opportunity-intent.spec.ts",
+          "line": 8,
+          "column": 108
+        },
+        {
+          "title": "opportunity create retains frozen intent after malformed",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5427,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Nueva oportunidad', exact: true }).getByRole('textbox', { name: 'Título comercial', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Nueva oportunidad', exact: true }).getByRole('textbox', { name: 'Título comercial', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <input required=\"\" maxlength=\"200\" value=\"Instalación sintética con revisión comercial\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-1 w-full\"/>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Nueva oportunidad', exact: true }).getByRole('textbox', { name: 'Título comercial', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Nueva oportunidad', exact: true }).getByRole('textbox', { name: 'Título comercial', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <input required=\"\" maxlength=\"200\" value=\"Instalación sintética con revisión comercial\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-1 w-full\"/>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts:47:24",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts",
+                      "column": 24,
+                      "line": 47
+                    },
+                    "snippet": "  45 |   if(!['success','denied'].includes(mode)){\n  46 |    await expect(dialog.getByRole('alert')).toBeVisible()\n> 47 |    await expect(field).toBeDisabled();await expect(field).toHaveValue(title);await expect(client).toHaveValue(customer)\n     |                        ^\n  48 |    await expect(dialog.getByRole('textbox',{name:'Importe',exact:true})).toHaveValue('1250.50')\n  49 |    await expect(dialog.getByLabel('Cierre previsto',{exact:true})).toHaveValue('2026-11-20')\n  50 |    await expect(dialog.getByRole('textbox',{name:'Próxima acción',exact:true})).toHaveValue('Revisar propuesta sintética')"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts",
+                        "column": 24,
+                        "line": 47
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Nueva oportunidad', exact: true }).getByRole('textbox', { name: 'Título comercial', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Nueva oportunidad', exact: true }).getByRole('textbox', { name: 'Título comercial', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <input required=\"\" maxlength=\"200\" value=\"Instalación sintética con revisión comercial\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-1 w-full\"/>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n\n  45 |   if(!['success','denied'].includes(mode)){\n  46 |    await expect(dialog.getByRole('alert')).toBeVisible()\n> 47 |    await expect(field).toBeDisabled();await expect(field).toHaveValue(title);await expect(client).toHaveValue(customer)\n     |                        ^\n  48 |    await expect(dialog.getByRole('textbox',{name:'Importe',exact:true})).toHaveValue('1250.50')\n  49 |    await expect(dialog.getByLabel('Cierre previsto',{exact:true})).toHaveValue('2026-11-20')\n  50 |    await expect(dialog.getByRole('textbox',{name:'Próxima acción',exact:true})).toHaveValue('Revisar propuesta sintética')\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts:47:24"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:37:28.225Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\opportunity-intent-attempt01\\artifacts\\opportunity-intent-opportu-b5fee-ozen-intent-after-malformed-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\opportunity-intent-attempt01\\artifacts\\opportunity-intent-opportu-b5fee-ozen-intent-after-malformed-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\opportunity-intent-attempt01\\artifacts\\opportunity-intent-opportu-b5fee-ozen-intent-after-malformed-controlled-http-768\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts",
+                    "column": 24,
+                    "line": 47
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "a29dc87c5b1d78f47998-5f55527468cffb9eaffd",
+          "file": "opportunity-intent.spec.ts",
+          "line": 8,
+          "column": 108
+        },
+        {
+          "title": "opportunity create retains frozen intent after wrong_receipt",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 7,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5522,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Nueva oportunidad', exact: true }).getByRole('textbox', { name: 'Título comercial', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Nueva oportunidad', exact: true }).getByRole('textbox', { name: 'Título comercial', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <input required=\"\" maxlength=\"200\" value=\"Instalación sintética con revisión comercial\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-1 w-full\"/>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Nueva oportunidad', exact: true }).getByRole('textbox', { name: 'Título comercial', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Nueva oportunidad', exact: true }).getByRole('textbox', { name: 'Título comercial', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <input required=\"\" maxlength=\"200\" value=\"Instalación sintética con revisión comercial\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-1 w-full\"/>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts:47:24",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts",
+                      "column": 24,
+                      "line": 47
+                    },
+                    "snippet": "  45 |   if(!['success','denied'].includes(mode)){\n  46 |    await expect(dialog.getByRole('alert')).toBeVisible()\n> 47 |    await expect(field).toBeDisabled();await expect(field).toHaveValue(title);await expect(client).toHaveValue(customer)\n     |                        ^\n  48 |    await expect(dialog.getByRole('textbox',{name:'Importe',exact:true})).toHaveValue('1250.50')\n  49 |    await expect(dialog.getByLabel('Cierre previsto',{exact:true})).toHaveValue('2026-11-20')\n  50 |    await expect(dialog.getByRole('textbox',{name:'Próxima acción',exact:true})).toHaveValue('Revisar propuesta sintética')"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts",
+                        "column": 24,
+                        "line": 47
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Nueva oportunidad', exact: true }).getByRole('textbox', { name: 'Título comercial', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Nueva oportunidad', exact: true }).getByRole('textbox', { name: 'Título comercial', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <input required=\"\" maxlength=\"200\" value=\"Instalación sintética con revisión comercial\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-1 w-full\"/>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n\n  45 |   if(!['success','denied'].includes(mode)){\n  46 |    await expect(dialog.getByRole('alert')).toBeVisible()\n> 47 |    await expect(field).toBeDisabled();await expect(field).toHaveValue(title);await expect(client).toHaveValue(customer)\n     |                        ^\n  48 |    await expect(dialog.getByRole('textbox',{name:'Importe',exact:true})).toHaveValue('1250.50')\n  49 |    await expect(dialog.getByLabel('Cierre previsto',{exact:true})).toHaveValue('2026-11-20')\n  50 |    await expect(dialog.getByRole('textbox',{name:'Próxima acción',exact:true})).toHaveValue('Revisar propuesta sintética')\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts:47:24"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:37:39.302Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\opportunity-intent-attempt01\\artifacts\\opportunity-intent-opportu-36d5c--intent-after-wrong-receipt-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\opportunity-intent-attempt01\\artifacts\\opportunity-intent-opportu-36d5c--intent-after-wrong-receipt-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\opportunity-intent-attempt01\\artifacts\\opportunity-intent-opportu-36d5c--intent-after-wrong-receipt-controlled-http-768\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts",
+                    "column": 24,
+                    "line": 47
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "a29dc87c5b1d78f47998-91f39006b2ccf99e584b",
+          "file": "opportunity-intent.spec.ts",
+          "line": 8,
+          "column": 108
+        },
+        {
+          "title": "opportunity create retains frozen intent after read_failure",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 8,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5803,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('dialog', { name: 'Nueva oportunidad', exact: true })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Nueva oportunidad', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('dialog', { name: 'Nueva oportunidad', exact: true })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Nueva oportunidad', exact: true })\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts:51:111",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts",
+                      "column": 111,
+                      "line": 51
+                    },
+                    "snippet": "  49 |    await expect(dialog.getByLabel('Cierre previsto',{exact:true})).toHaveValue('2026-11-20')\n  50 |    await expect(dialog.getByRole('textbox',{name:'Próxima acción',exact:true})).toHaveValue('Revisar propuesta sintética')\n> 51 |    await dialog.getByRole('button',{name:'Cerrar panel',exact:true}).click({force:true});await expect(dialog).toBeVisible()\n     |                                                                                                               ^\n  52 |    await page.keyboard.press('Escape');await expect(dialog).toBeVisible()\n  53 |    await expect(dialog.getByRole('combobox',{name:'Etapa comercial',exact:true})).toBeDisabled()\n  54 |    await page.screenshot({path:info.outputPath(`opportunity-${mode}-pending.png`)})"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts",
+                        "column": 111,
+                        "line": 51
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('dialog', { name: 'Nueva oportunidad', exact: true })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Nueva oportunidad', exact: true })\u001b[22m\n\n\n  49 |    await expect(dialog.getByLabel('Cierre previsto',{exact:true})).toHaveValue('2026-11-20')\n  50 |    await expect(dialog.getByRole('textbox',{name:'Próxima acción',exact:true})).toHaveValue('Revisar propuesta sintética')\n> 51 |    await dialog.getByRole('button',{name:'Cerrar panel',exact:true}).click({force:true});await expect(dialog).toBeVisible()\n     |                                                                                                               ^\n  52 |    await page.keyboard.press('Escape');await expect(dialog).toBeVisible()\n  53 |    await expect(dialog.getByRole('combobox',{name:'Etapa comercial',exact:true})).toBeDisabled()\n  54 |    await page.screenshot({path:info.outputPath(`opportunity-${mode}-pending.png`)})\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts:51:111"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:37:51.118Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\opportunity-intent-attempt01\\artifacts\\opportunity-intent-opportu-079c6-n-intent-after-read-failure-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\opportunity-intent-attempt01\\artifacts\\opportunity-intent-opportu-079c6-n-intent-after-read-failure-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\opportunity-intent-attempt01\\artifacts\\opportunity-intent-opportu-079c6-n-intent-after-read-failure-controlled-http-768\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts",
+                    "column": 111,
+                    "line": 51
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "a29dc87c5b1d78f47998-5170d4ebf3811352dcf9",
+          "file": "opportunity-intent.spec.ts",
+          "line": 8,
+          "column": 108
+        },
+        {
+          "title": "opportunity create retains frozen intent after denied",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1577,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:38:02.715Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a29dc87c5b1d78f47998-a7dd320217375bfc63be",
+          "file": "opportunity-intent.spec.ts",
+          "line": 8,
+          "column": 108
+        },
+        {
+          "title": "opportunity create retains frozen intent after success",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1263,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:38:09.127Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a29dc87c5b1d78f47998-1aa70d67c3869171dd0e",
+          "file": "opportunity-intent.spec.ts",
+          "line": 8,
+          "column": 108
+        },
+        {
+          "title": "opportunity create retains frozen intent after transport",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 10,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5555,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('dialog', { name: 'Nueva oportunidad', exact: true })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Nueva oportunidad', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('dialog', { name: 'Nueva oportunidad', exact: true })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Nueva oportunidad', exact: true })\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts:51:111",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts",
+                      "column": 111,
+                      "line": 51
+                    },
+                    "snippet": "  49 |    await expect(dialog.getByLabel('Cierre previsto',{exact:true})).toHaveValue('2026-11-20')\n  50 |    await expect(dialog.getByRole('textbox',{name:'Próxima acción',exact:true})).toHaveValue('Revisar propuesta sintética')\n> 51 |    await dialog.getByRole('button',{name:'Cerrar panel',exact:true}).click({force:true});await expect(dialog).toBeVisible()\n     |                                                                                                               ^\n  52 |    await page.keyboard.press('Escape');await expect(dialog).toBeVisible()\n  53 |    await expect(dialog.getByRole('combobox',{name:'Etapa comercial',exact:true})).toBeDisabled()\n  54 |    await page.screenshot({path:info.outputPath(`opportunity-${mode}-pending.png`)})"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts",
+                        "column": 111,
+                        "line": 51
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('dialog', { name: 'Nueva oportunidad', exact: true })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Nueva oportunidad', exact: true })\u001b[22m\n\n\n  49 |    await expect(dialog.getByLabel('Cierre previsto',{exact:true})).toHaveValue('2026-11-20')\n  50 |    await expect(dialog.getByRole('textbox',{name:'Próxima acción',exact:true})).toHaveValue('Revisar propuesta sintética')\n> 51 |    await dialog.getByRole('button',{name:'Cerrar panel',exact:true}).click({force:true});await expect(dialog).toBeVisible()\n     |                                                                                                               ^\n  52 |    await page.keyboard.press('Escape');await expect(dialog).toBeVisible()\n  53 |    await expect(dialog.getByRole('combobox',{name:'Etapa comercial',exact:true})).toBeDisabled()\n  54 |    await page.screenshot({path:info.outputPath(`opportunity-${mode}-pending.png`)})\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts:51:111"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:38:11.394Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\opportunity-intent-attempt01\\artifacts\\opportunity-intent-opportu-4ca69-ozen-intent-after-transport-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\opportunity-intent-attempt01\\artifacts\\opportunity-intent-opportu-4ca69-ozen-intent-after-transport-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\opportunity-intent-attempt01\\artifacts\\opportunity-intent-opportu-4ca69-ozen-intent-after-transport-controlled-http-1440\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts",
+                    "column": 111,
+                    "line": 51
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "a29dc87c5b1d78f47998-e74e20bd1cfb511e737e",
+          "file": "opportunity-intent.spec.ts",
+          "line": 8,
+          "column": 108
+        },
+        {
+          "title": "opportunity create retains frozen intent after malformed",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 11,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5390,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Nueva oportunidad', exact: true }).getByRole('textbox', { name: 'Título comercial', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Nueva oportunidad', exact: true }).getByRole('textbox', { name: 'Título comercial', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <input required=\"\" maxlength=\"200\" value=\"Instalación sintética con revisión comercial\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-1 w-full\"/>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Nueva oportunidad', exact: true }).getByRole('textbox', { name: 'Título comercial', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Nueva oportunidad', exact: true }).getByRole('textbox', { name: 'Título comercial', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <input required=\"\" maxlength=\"200\" value=\"Instalación sintética con revisión comercial\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-1 w-full\"/>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts:47:24",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts",
+                      "column": 24,
+                      "line": 47
+                    },
+                    "snippet": "  45 |   if(!['success','denied'].includes(mode)){\n  46 |    await expect(dialog.getByRole('alert')).toBeVisible()\n> 47 |    await expect(field).toBeDisabled();await expect(field).toHaveValue(title);await expect(client).toHaveValue(customer)\n     |                        ^\n  48 |    await expect(dialog.getByRole('textbox',{name:'Importe',exact:true})).toHaveValue('1250.50')\n  49 |    await expect(dialog.getByLabel('Cierre previsto',{exact:true})).toHaveValue('2026-11-20')\n  50 |    await expect(dialog.getByRole('textbox',{name:'Próxima acción',exact:true})).toHaveValue('Revisar propuesta sintética')"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts",
+                        "column": 24,
+                        "line": 47
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Nueva oportunidad', exact: true }).getByRole('textbox', { name: 'Título comercial', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Nueva oportunidad', exact: true }).getByRole('textbox', { name: 'Título comercial', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <input required=\"\" maxlength=\"200\" value=\"Instalación sintética con revisión comercial\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-1 w-full\"/>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n\n  45 |   if(!['success','denied'].includes(mode)){\n  46 |    await expect(dialog.getByRole('alert')).toBeVisible()\n> 47 |    await expect(field).toBeDisabled();await expect(field).toHaveValue(title);await expect(client).toHaveValue(customer)\n     |                        ^\n  48 |    await expect(dialog.getByRole('textbox',{name:'Importe',exact:true})).toHaveValue('1250.50')\n  49 |    await expect(dialog.getByLabel('Cierre previsto',{exact:true})).toHaveValue('2026-11-20')\n  50 |    await expect(dialog.getByRole('textbox',{name:'Próxima acción',exact:true})).toHaveValue('Revisar propuesta sintética')\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts:47:24"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:38:22.592Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\opportunity-intent-attempt01\\artifacts\\opportunity-intent-opportu-b5fee-ozen-intent-after-malformed-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\opportunity-intent-attempt01\\artifacts\\opportunity-intent-opportu-b5fee-ozen-intent-after-malformed-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\opportunity-intent-attempt01\\artifacts\\opportunity-intent-opportu-b5fee-ozen-intent-after-malformed-controlled-http-1440\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts",
+                    "column": 24,
+                    "line": 47
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "a29dc87c5b1d78f47998-28e23ca102ae4f603207",
+          "file": "opportunity-intent.spec.ts",
+          "line": 8,
+          "column": 108
+        },
+        {
+          "title": "opportunity create retains frozen intent after wrong_receipt",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 12,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5446,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Nueva oportunidad', exact: true }).getByRole('textbox', { name: 'Título comercial', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Nueva oportunidad', exact: true }).getByRole('textbox', { name: 'Título comercial', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <input required=\"\" maxlength=\"200\" value=\"Instalación sintética con revisión comercial\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-1 w-full\"/>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Nueva oportunidad', exact: true }).getByRole('textbox', { name: 'Título comercial', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Nueva oportunidad', exact: true }).getByRole('textbox', { name: 'Título comercial', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <input required=\"\" maxlength=\"200\" value=\"Instalación sintética con revisión comercial\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-1 w-full\"/>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts:47:24",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts",
+                      "column": 24,
+                      "line": 47
+                    },
+                    "snippet": "  45 |   if(!['success','denied'].includes(mode)){\n  46 |    await expect(dialog.getByRole('alert')).toBeVisible()\n> 47 |    await expect(field).toBeDisabled();await expect(field).toHaveValue(title);await expect(client).toHaveValue(customer)\n     |                        ^\n  48 |    await expect(dialog.getByRole('textbox',{name:'Importe',exact:true})).toHaveValue('1250.50')\n  49 |    await expect(dialog.getByLabel('Cierre previsto',{exact:true})).toHaveValue('2026-11-20')\n  50 |    await expect(dialog.getByRole('textbox',{name:'Próxima acción',exact:true})).toHaveValue('Revisar propuesta sintética')"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts",
+                        "column": 24,
+                        "line": 47
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Nueva oportunidad', exact: true }).getByRole('textbox', { name: 'Título comercial', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Nueva oportunidad', exact: true }).getByRole('textbox', { name: 'Título comercial', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <input required=\"\" maxlength=\"200\" value=\"Instalación sintética con revisión comercial\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-1 w-full\"/>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n\n  45 |   if(!['success','denied'].includes(mode)){\n  46 |    await expect(dialog.getByRole('alert')).toBeVisible()\n> 47 |    await expect(field).toBeDisabled();await expect(field).toHaveValue(title);await expect(client).toHaveValue(customer)\n     |                        ^\n  48 |    await expect(dialog.getByRole('textbox',{name:'Importe',exact:true})).toHaveValue('1250.50')\n  49 |    await expect(dialog.getByLabel('Cierre previsto',{exact:true})).toHaveValue('2026-11-20')\n  50 |    await expect(dialog.getByRole('textbox',{name:'Próxima acción',exact:true})).toHaveValue('Revisar propuesta sintética')\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts:47:24"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:38:33.936Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\opportunity-intent-attempt01\\artifacts\\opportunity-intent-opportu-36d5c--intent-after-wrong-receipt-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\opportunity-intent-attempt01\\artifacts\\opportunity-intent-opportu-36d5c--intent-after-wrong-receipt-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\opportunity-intent-attempt01\\artifacts\\opportunity-intent-opportu-36d5c--intent-after-wrong-receipt-controlled-http-1440\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts",
+                    "column": 24,
+                    "line": 47
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "a29dc87c5b1d78f47998-0869f3d9c462bac582b2",
+          "file": "opportunity-intent.spec.ts",
+          "line": 8,
+          "column": 108
+        },
+        {
+          "title": "opportunity create retains frozen intent after read_failure",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 13,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5658,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('dialog', { name: 'Nueva oportunidad', exact: true })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Nueva oportunidad', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('dialog', { name: 'Nueva oportunidad', exact: true })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Nueva oportunidad', exact: true })\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts:51:111",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts",
+                      "column": 111,
+                      "line": 51
+                    },
+                    "snippet": "  49 |    await expect(dialog.getByLabel('Cierre previsto',{exact:true})).toHaveValue('2026-11-20')\n  50 |    await expect(dialog.getByRole('textbox',{name:'Próxima acción',exact:true})).toHaveValue('Revisar propuesta sintética')\n> 51 |    await dialog.getByRole('button',{name:'Cerrar panel',exact:true}).click({force:true});await expect(dialog).toBeVisible()\n     |                                                                                                               ^\n  52 |    await page.keyboard.press('Escape');await expect(dialog).toBeVisible()\n  53 |    await expect(dialog.getByRole('combobox',{name:'Etapa comercial',exact:true})).toBeDisabled()\n  54 |    await page.screenshot({path:info.outputPath(`opportunity-${mode}-pending.png`)})"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts",
+                        "column": 111,
+                        "line": 51
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('dialog', { name: 'Nueva oportunidad', exact: true })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Nueva oportunidad', exact: true })\u001b[22m\n\n\n  49 |    await expect(dialog.getByLabel('Cierre previsto',{exact:true})).toHaveValue('2026-11-20')\n  50 |    await expect(dialog.getByRole('textbox',{name:'Próxima acción',exact:true})).toHaveValue('Revisar propuesta sintética')\n> 51 |    await dialog.getByRole('button',{name:'Cerrar panel',exact:true}).click({force:true});await expect(dialog).toBeVisible()\n     |                                                                                                               ^\n  52 |    await page.keyboard.press('Escape');await expect(dialog).toBeVisible()\n  53 |    await expect(dialog.getByRole('combobox',{name:'Etapa comercial',exact:true})).toBeDisabled()\n  54 |    await page.screenshot({path:info.outputPath(`opportunity-${mode}-pending.png`)})\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts:51:111"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:38:45.424Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\opportunity-intent-attempt01\\artifacts\\opportunity-intent-opportu-079c6-n-intent-after-read-failure-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\opportunity-intent-attempt01\\artifacts\\opportunity-intent-opportu-079c6-n-intent-after-read-failure-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\opportunity-intent-attempt01\\artifacts\\opportunity-intent-opportu-079c6-n-intent-after-read-failure-controlled-http-1440\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\opportunity-intent.spec.ts",
+                    "column": 111,
+                    "line": 51
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "a29dc87c5b1d78f47998-e453b114df4f82b77e24",
+          "file": "opportunity-intent.spec.ts",
+          "line": 8,
+          "column": 108
+        },
+        {
+          "title": "opportunity create retains frozen intent after denied",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 14,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1532,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:38:56.933Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a29dc87c5b1d78f47998-0de57375ee2d8817ebe2",
+          "file": "opportunity-intent.spec.ts",
+          "line": 8,
+          "column": 108
+        },
+        {
+          "title": "opportunity create retains frozen intent after success",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 14,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1222,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T07:39:03.152Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a29dc87c5b1d78f47998-2265411d95a2cf85b3e3",
+          "file": "opportunity-intent.spec.ts",
+          "line": 8,
+          "column": 108
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-20T07:36:21.502Z",
+    "duration": 163295.68699999998,
+    "expected": 6,
+    "skipped": 0,
+    "unexpected": 12,
+    "flaky": 0
+  }
+}

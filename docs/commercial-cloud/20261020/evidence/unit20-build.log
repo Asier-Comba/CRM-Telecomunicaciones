@@ -1,0 +1,111 @@
+
+> crm-telecomunicaciones@0.1.0 prebuild
+> node scripts/platform/build-public.mjs
+
+{"status":"PASS","errors":[],"values_included":false,"unconfigured":true}
+
+> crm-telecomunicaciones@0.1.0 build
+> next build
+
+▲ Next.js 16.3.8 (Turbopack)
+✓ Running next.config.ts took 309ms
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 18.0s
+  Running TypeScript ...
+  Finished TypeScript in 50s ...
+  Collecting page data using 11 workers ...
+  Generating static pages using 11 workers (0/66) ...
+  Generating static pages using 11 workers (16/66) 
+  Generating static pages using 11 workers (32/66) 
+  Generating static pages using 11 workers (49/66) 
+✓ Generating static pages using 11 workers (66/66) in 2.2s
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ƒ /api/assistant/read-preview
+├ ƒ /api/assistant/v2/threads
+├ ƒ /api/assistant/v2/turn
+├ ƒ /api/automations/v1
+├ ƒ /api/billing/analytics/v1
+├ ƒ /api/billing/v1/commands
+├ ƒ /api/billing/v1/pdf
+├ ƒ /api/billing/v1/private-pdf
+├ ƒ /api/billing/v1/queries
+├ ƒ /api/cases/v1
+├ ƒ /api/catalog/v1
+├ ƒ /api/document/v1/commands
+├ ƒ /api/document/v1/content/commands
+├ ƒ /api/document/v1/content/download
+├ ƒ /api/document/v1/content/upload
+├ ƒ /api/document/v1/maintenance
+├ ƒ /api/document/v1/queries
+├ ƒ /api/health/live
+├ ƒ /api/health/ready
+├ ƒ /api/identifiers/v1
+├ ƒ /api/import/v1
+├ ƒ /api/inbox/v1
+├ ƒ /api/notifications/v1
+├ ƒ /api/onboarding/workspace
+├ ƒ /api/portability/v1
+├ ƒ /api/portfolio/v1/commands
+├ ƒ /api/portfolio/v1/queries
+├ ƒ /api/product/v1/commands
+├ ƒ /api/product/v1/queries
+├ ƒ /api/provenance/v1
+├ ƒ /api/sensitive/v1
+├ ƒ /api/settings/v1
+├ ƒ /api/sims/v1
+├ ƒ /api/team/v1/commands
+├ ƒ /api/team/v1/queries
+├ ƒ /api/telecom/attention/v1
+├ ƒ /api/telecom/equipment/v1
+├ ƒ /api/telecom/external-identities/v1
+├ ƒ /api/telecom/locations/v1
+├ ƒ /api/telecom/reads/v1
+├ ƒ /api/telecom/services/v1
+├ ○ /assistant
+├ ○ /assistant/findings
+├ ○ /attention
+├ ○ /auth/callback
+├ ○ /automations
+├ ○ /billing
+├ ○ /calendar
+├ ○ /cases
+├ ƒ /cases/[id]
+├ ƒ /catalog
+├ ○ /clients
+├ ƒ /clients/[id]
+├ ○ /contracts
+├ ○ /dashboard
+├ ○ /documents
+├ ƒ /equipment
+├ ○ /facturacion
+├ ○ /inbox
+├ ○ /login
+├ ○ /onboarding
+├ ○ /opportunities
+├ ƒ /opportunities/properties/[id]
+├ ○ /portabilities
+├ ƒ /portabilities/[id]
+├ ○ /portfolio
+├ ○ /reports
+├ ○ /reset-password
+├ ○ /services
+├ ƒ /services/[id]
+├ ○ /settings
+├ ○ /sims
+└ ƒ /sims/[id]
+
+
+ƒ Proxy (Middleware)
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+
+> crm-telecomunicaciones@0.1.0 postbuild
+> node scripts/platform/clean-build-cache.mjs
+

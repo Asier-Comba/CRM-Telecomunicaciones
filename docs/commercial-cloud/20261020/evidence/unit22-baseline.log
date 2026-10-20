@@ -1,0 +1,563 @@
+
+Running 30 tests using 1 worker
+
+
+(node:32328) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[1/30] [controlled-http-390] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox note preserves reviewed intent after transport
+[2/30] [controlled-http-390] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox note preserves reviewed intent after malformed
+  1) [controlled-http-390] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox note preserves reviewed intent after malformed 
+
+    Error: expect(locator).toBeDisabled() failed
+
+    Locator:  getByRole('textbox', { name: 'Nueva nota interna', exact: true })
+    Expected: disabled
+    Received: enabled
+    Timeout:  4000ms
+
+    Call log:
+      - Expect "toBeDisabled" with timeout 4000ms
+      - waiting for getByRole('textbox', { name: 'Nueva nota interna', exact: true })
+        12 × locator resolved to <textarea maxlength="4000" aria-label="Nueva nota interna" class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-2 min-h-28 w-full resize-y">Nota interna sintética revisada</textarea>
+           - unexpected value "enabled"
+
+
+      36 |   await expect.poll(()=>commands.length).toBe(1)
+      37 |   if(['transport','malformed','wrong_receipt'].includes(mode)){
+    > 38 |    await expect(field).toBeDisabled();await expect(field).toHaveValue(body)
+         |                        ^
+      39 |    const retry=scope.getByRole('button',{name:'Comprobar la misma acción',exact:true})
+      40 |    await expect(retry).toBeEnabled()
+      41 |    await expect(page.getByRole('button',{name:'Nueva conversación',exact:true,includeHidden:true})).toBeDisabled()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\inbox-intent.spec.ts:38:24
+
+    Error Context: ..\oier-commercial-20261020\inbox-attempt01\artifacts\inbox-intent-inbox-note-pr-d9288-ewed-intent-after-malformed-controlled-http-390\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\inbox-attempt01\artifacts\inbox-intent-inbox-note-pr-d9288-ewed-intent-after-malformed-controlled-http-390\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\inbox-attempt01\artifacts\inbox-intent-inbox-note-pr-d9288-ewed-intent-after-malformed-controlled-http-390\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\inbox-attempt01\artifacts\inbox-intent-inbox-note-pr-d9288-ewed-intent-after-malformed-controlled-http-390\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:14392) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[3/30] [controlled-http-390] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox note preserves reviewed intent after wrong_receipt
+  2) [controlled-http-390] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox note preserves reviewed intent after wrong_receipt 
+
+    Error: expect(locator).toBeDisabled() failed
+
+    Locator:  getByRole('textbox', { name: 'Nueva nota interna', exact: true })
+    Expected: disabled
+    Received: enabled
+    Timeout:  4000ms
+
+    Call log:
+      - Expect "toBeDisabled" with timeout 4000ms
+      - waiting for getByRole('textbox', { name: 'Nueva nota interna', exact: true })
+        12 × locator resolved to <textarea maxlength="4000" aria-label="Nueva nota interna" class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-2 min-h-28 w-full resize-y">Nota interna sintética revisada</textarea>
+           - unexpected value "enabled"
+
+
+      36 |   await expect.poll(()=>commands.length).toBe(1)
+      37 |   if(['transport','malformed','wrong_receipt'].includes(mode)){
+    > 38 |    await expect(field).toBeDisabled();await expect(field).toHaveValue(body)
+         |                        ^
+      39 |    const retry=scope.getByRole('button',{name:'Comprobar la misma acción',exact:true})
+      40 |    await expect(retry).toBeEnabled()
+      41 |    await expect(page.getByRole('button',{name:'Nueva conversación',exact:true,includeHidden:true})).toBeDisabled()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\inbox-intent.spec.ts:38:24
+
+    Error Context: ..\oier-commercial-20261020\inbox-attempt01\artifacts\inbox-intent-inbox-note-pr-55969--intent-after-wrong-receipt-controlled-http-390\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\inbox-attempt01\artifacts\inbox-intent-inbox-note-pr-55969--intent-after-wrong-receipt-controlled-http-390\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\inbox-attempt01\artifacts\inbox-intent-inbox-note-pr-55969--intent-after-wrong-receipt-controlled-http-390\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\inbox-attempt01\artifacts\inbox-intent-inbox-note-pr-55969--intent-after-wrong-receipt-controlled-http-390\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+(node:8460) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[4/30] [controlled-http-390] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox note preserves reviewed intent after denied
+[5/30] [controlled-http-390] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox note preserves reviewed intent after success
+[6/30] [controlled-http-390] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox create preserves reviewed intent after transport
+[7/30] [controlled-http-390] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox create preserves reviewed intent after malformed
+  3) [controlled-http-390] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox create preserves reviewed intent after malformed 
+
+    Error: expect(locator).toBeDisabled() failed
+
+    Locator:  getByRole('dialog', { name: 'Nueva conversación interna', exact: true }).getByRole('textbox', { name: 'Primera nota interna', exact: true })
+    Expected: disabled
+    Received: enabled
+    Timeout:  4000ms
+
+    Call log:
+      - Expect "toBeDisabled" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Nueva conversación interna', exact: true }).getByRole('textbox', { name: 'Primera nota interna', exact: true })
+        12 × locator resolved to <textarea maxlength="4000" aria-label="Primera nota interna" class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-1 min-h-32 w-full">Nota interna sintética revisada</textarea>
+           - unexpected value "enabled"
+
+
+      36 |   await expect.poll(()=>commands.length).toBe(1)
+      37 |   if(['transport','malformed','wrong_receipt'].includes(mode)){
+    > 38 |    await expect(field).toBeDisabled();await expect(field).toHaveValue(body)
+         |                        ^
+      39 |    const retry=scope.getByRole('button',{name:'Comprobar la misma acción',exact:true})
+      40 |    await expect(retry).toBeEnabled()
+      41 |    await expect(page.getByRole('button',{name:'Nueva conversación',exact:true,includeHidden:true})).toBeDisabled()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\inbox-intent.spec.ts:38:24
+
+    Error Context: ..\oier-commercial-20261020\inbox-attempt01\artifacts\inbox-intent-inbox-create--18d71-ewed-intent-after-malformed-controlled-http-390\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\inbox-attempt01\artifacts\inbox-intent-inbox-create--18d71-ewed-intent-after-malformed-controlled-http-390\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\inbox-attempt01\artifacts\inbox-intent-inbox-create--18d71-ewed-intent-after-malformed-controlled-http-390\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\inbox-attempt01\artifacts\inbox-intent-inbox-create--18d71-ewed-intent-after-malformed-controlled-http-390\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:14108) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[8/30] [controlled-http-390] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox create preserves reviewed intent after wrong_receipt
+  4) [controlled-http-390] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox create preserves reviewed intent after wrong_receipt 
+
+    Error: expect(locator).toBeDisabled() failed
+
+    Locator:  getByRole('dialog', { name: 'Nueva conversación interna', exact: true }).getByRole('textbox', { name: 'Primera nota interna', exact: true })
+    Expected: disabled
+    Received: enabled
+    Timeout:  4000ms
+
+    Call log:
+      - Expect "toBeDisabled" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Nueva conversación interna', exact: true }).getByRole('textbox', { name: 'Primera nota interna', exact: true })
+        12 × locator resolved to <textarea maxlength="4000" aria-label="Primera nota interna" class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-1 min-h-32 w-full">Nota interna sintética revisada</textarea>
+           - unexpected value "enabled"
+
+
+      36 |   await expect.poll(()=>commands.length).toBe(1)
+      37 |   if(['transport','malformed','wrong_receipt'].includes(mode)){
+    > 38 |    await expect(field).toBeDisabled();await expect(field).toHaveValue(body)
+         |                        ^
+      39 |    const retry=scope.getByRole('button',{name:'Comprobar la misma acción',exact:true})
+      40 |    await expect(retry).toBeEnabled()
+      41 |    await expect(page.getByRole('button',{name:'Nueva conversación',exact:true,includeHidden:true})).toBeDisabled()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\inbox-intent.spec.ts:38:24
+
+    Error Context: ..\oier-commercial-20261020\inbox-attempt01\artifacts\inbox-intent-inbox-create--6c5f2--intent-after-wrong-receipt-controlled-http-390\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\inbox-attempt01\artifacts\inbox-intent-inbox-create--6c5f2--intent-after-wrong-receipt-controlled-http-390\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\inbox-attempt01\artifacts\inbox-intent-inbox-create--6c5f2--intent-after-wrong-receipt-controlled-http-390\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\inbox-attempt01\artifacts\inbox-intent-inbox-create--6c5f2--intent-after-wrong-receipt-controlled-http-390\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:27000) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[9/30] [controlled-http-390] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox create preserves reviewed intent after denied
+[10/30] [controlled-http-390] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox create preserves reviewed intent after success
+
+
+(node:31960) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[11/30] [controlled-http-768] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox note preserves reviewed intent after transport
+[12/30] [controlled-http-768] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox note preserves reviewed intent after malformed
+  5) [controlled-http-768] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox note preserves reviewed intent after malformed 
+
+    Error: expect(locator).toBeDisabled() failed
+
+    Locator:  getByRole('textbox', { name: 'Nueva nota interna', exact: true })
+    Expected: disabled
+    Received: enabled
+    Timeout:  4000ms
+
+    Call log:
+      - Expect "toBeDisabled" with timeout 4000ms
+      - waiting for getByRole('textbox', { name: 'Nueva nota interna', exact: true })
+        12 × locator resolved to <textarea maxlength="4000" aria-label="Nueva nota interna" class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-2 min-h-28 w-full resize-y">Nota interna sintética revisada</textarea>
+           - unexpected value "enabled"
+
+
+      36 |   await expect.poll(()=>commands.length).toBe(1)
+      37 |   if(['transport','malformed','wrong_receipt'].includes(mode)){
+    > 38 |    await expect(field).toBeDisabled();await expect(field).toHaveValue(body)
+         |                        ^
+      39 |    const retry=scope.getByRole('button',{name:'Comprobar la misma acción',exact:true})
+      40 |    await expect(retry).toBeEnabled()
+      41 |    await expect(page.getByRole('button',{name:'Nueva conversación',exact:true,includeHidden:true})).toBeDisabled()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\inbox-intent.spec.ts:38:24
+
+    Error Context: ..\oier-commercial-20261020\inbox-attempt01\artifacts\inbox-intent-inbox-note-pr-d9288-ewed-intent-after-malformed-controlled-http-768\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\inbox-attempt01\artifacts\inbox-intent-inbox-note-pr-d9288-ewed-intent-after-malformed-controlled-http-768\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\inbox-attempt01\artifacts\inbox-intent-inbox-note-pr-d9288-ewed-intent-after-malformed-controlled-http-768\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\inbox-attempt01\artifacts\inbox-intent-inbox-note-pr-d9288-ewed-intent-after-malformed-controlled-http-768\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:31568) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[13/30] [controlled-http-768] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox note preserves reviewed intent after wrong_receipt
+  6) [controlled-http-768] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox note preserves reviewed intent after wrong_receipt 
+
+    Error: expect(locator).toBeDisabled() failed
+
+    Locator:  getByRole('textbox', { name: 'Nueva nota interna', exact: true })
+    Expected: disabled
+    Received: enabled
+    Timeout:  4000ms
+
+    Call log:
+      - Expect "toBeDisabled" with timeout 4000ms
+      - waiting for getByRole('textbox', { name: 'Nueva nota interna', exact: true })
+        12 × locator resolved to <textarea maxlength="4000" aria-label="Nueva nota interna" class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-2 min-h-28 w-full resize-y">Nota interna sintética revisada</textarea>
+           - unexpected value "enabled"
+
+
+      36 |   await expect.poll(()=>commands.length).toBe(1)
+      37 |   if(['transport','malformed','wrong_receipt'].includes(mode)){
+    > 38 |    await expect(field).toBeDisabled();await expect(field).toHaveValue(body)
+         |                        ^
+      39 |    const retry=scope.getByRole('button',{name:'Comprobar la misma acción',exact:true})
+      40 |    await expect(retry).toBeEnabled()
+      41 |    await expect(page.getByRole('button',{name:'Nueva conversación',exact:true,includeHidden:true})).toBeDisabled()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\inbox-intent.spec.ts:38:24
+
+    Error Context: ..\oier-commercial-20261020\inbox-attempt01\artifacts\inbox-intent-inbox-note-pr-55969--intent-after-wrong-receipt-controlled-http-768\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\inbox-attempt01\artifacts\inbox-intent-inbox-note-pr-55969--intent-after-wrong-receipt-controlled-http-768\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\inbox-attempt01\artifacts\inbox-intent-inbox-note-pr-55969--intent-after-wrong-receipt-controlled-http-768\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\inbox-attempt01\artifacts\inbox-intent-inbox-note-pr-55969--intent-after-wrong-receipt-controlled-http-768\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+(node:14656) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[14/30] [controlled-http-768] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox note preserves reviewed intent after denied
+[15/30] [controlled-http-768] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox note preserves reviewed intent after success
+[16/30] [controlled-http-768] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox create preserves reviewed intent after transport
+[17/30] [controlled-http-768] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox create preserves reviewed intent after malformed
+  7) [controlled-http-768] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox create preserves reviewed intent after malformed 
+
+    Error: expect(locator).toBeDisabled() failed
+
+    Locator:  getByRole('dialog', { name: 'Nueva conversación interna', exact: true }).getByRole('textbox', { name: 'Primera nota interna', exact: true })
+    Expected: disabled
+    Received: enabled
+    Timeout:  4000ms
+
+    Call log:
+      - Expect "toBeDisabled" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Nueva conversación interna', exact: true }).getByRole('textbox', { name: 'Primera nota interna', exact: true })
+        12 × locator resolved to <textarea maxlength="4000" aria-label="Primera nota interna" class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-1 min-h-32 w-full">Nota interna sintética revisada</textarea>
+           - unexpected value "enabled"
+
+
+      36 |   await expect.poll(()=>commands.length).toBe(1)
+      37 |   if(['transport','malformed','wrong_receipt'].includes(mode)){
+    > 38 |    await expect(field).toBeDisabled();await expect(field).toHaveValue(body)
+         |                        ^
+      39 |    const retry=scope.getByRole('button',{name:'Comprobar la misma acción',exact:true})
+      40 |    await expect(retry).toBeEnabled()
+      41 |    await expect(page.getByRole('button',{name:'Nueva conversación',exact:true,includeHidden:true})).toBeDisabled()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\inbox-intent.spec.ts:38:24
+
+    Error Context: ..\oier-commercial-20261020\inbox-attempt01\artifacts\inbox-intent-inbox-create--18d71-ewed-intent-after-malformed-controlled-http-768\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\inbox-attempt01\artifacts\inbox-intent-inbox-create--18d71-ewed-intent-after-malformed-controlled-http-768\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\inbox-attempt01\artifacts\inbox-intent-inbox-create--18d71-ewed-intent-after-malformed-controlled-http-768\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\inbox-attempt01\artifacts\inbox-intent-inbox-create--18d71-ewed-intent-after-malformed-controlled-http-768\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+(node:31060) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[18/30] [controlled-http-768] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox create preserves reviewed intent after wrong_receipt
+  8) [controlled-http-768] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox create preserves reviewed intent after wrong_receipt 
+
+    Error: expect(locator).toBeDisabled() failed
+
+    Locator:  getByRole('dialog', { name: 'Nueva conversación interna', exact: true }).getByRole('textbox', { name: 'Primera nota interna', exact: true })
+    Expected: disabled
+    Received: enabled
+    Timeout:  4000ms
+
+    Call log:
+      - Expect "toBeDisabled" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Nueva conversación interna', exact: true }).getByRole('textbox', { name: 'Primera nota interna', exact: true })
+        12 × locator resolved to <textarea maxlength="4000" aria-label="Primera nota interna" class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-1 min-h-32 w-full">Nota interna sintética revisada</textarea>
+           - unexpected value "enabled"
+
+
+      36 |   await expect.poll(()=>commands.length).toBe(1)
+      37 |   if(['transport','malformed','wrong_receipt'].includes(mode)){
+    > 38 |    await expect(field).toBeDisabled();await expect(field).toHaveValue(body)
+         |                        ^
+      39 |    const retry=scope.getByRole('button',{name:'Comprobar la misma acción',exact:true})
+      40 |    await expect(retry).toBeEnabled()
+      41 |    await expect(page.getByRole('button',{name:'Nueva conversación',exact:true,includeHidden:true})).toBeDisabled()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\inbox-intent.spec.ts:38:24
+
+    Error Context: ..\oier-commercial-20261020\inbox-attempt01\artifacts\inbox-intent-inbox-create--6c5f2--intent-after-wrong-receipt-controlled-http-768\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\inbox-attempt01\artifacts\inbox-intent-inbox-create--6c5f2--intent-after-wrong-receipt-controlled-http-768\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\inbox-attempt01\artifacts\inbox-intent-inbox-create--6c5f2--intent-after-wrong-receipt-controlled-http-768\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\inbox-attempt01\artifacts\inbox-intent-inbox-create--6c5f2--intent-after-wrong-receipt-controlled-http-768\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:30572) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[19/30] [controlled-http-768] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox create preserves reviewed intent after denied
+[20/30] [controlled-http-768] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox create preserves reviewed intent after success
+
+
+(node:28896) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[21/30] [controlled-http-1440] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox note preserves reviewed intent after transport
+[22/30] [controlled-http-1440] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox note preserves reviewed intent after malformed
+  9) [controlled-http-1440] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox note preserves reviewed intent after malformed 
+
+    Error: expect(locator).toBeDisabled() failed
+
+    Locator:  getByRole('textbox', { name: 'Nueva nota interna', exact: true })
+    Expected: disabled
+    Received: enabled
+    Timeout:  4000ms
+
+    Call log:
+      - Expect "toBeDisabled" with timeout 4000ms
+      - waiting for getByRole('textbox', { name: 'Nueva nota interna', exact: true })
+        12 × locator resolved to <textarea maxlength="4000" aria-label="Nueva nota interna" class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-2 min-h-28 w-full resize-y">Nota interna sintética revisada</textarea>
+           - unexpected value "enabled"
+
+
+      36 |   await expect.poll(()=>commands.length).toBe(1)
+      37 |   if(['transport','malformed','wrong_receipt'].includes(mode)){
+    > 38 |    await expect(field).toBeDisabled();await expect(field).toHaveValue(body)
+         |                        ^
+      39 |    const retry=scope.getByRole('button',{name:'Comprobar la misma acción',exact:true})
+      40 |    await expect(retry).toBeEnabled()
+      41 |    await expect(page.getByRole('button',{name:'Nueva conversación',exact:true,includeHidden:true})).toBeDisabled()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\inbox-intent.spec.ts:38:24
+
+    Error Context: ..\oier-commercial-20261020\inbox-attempt01\artifacts\inbox-intent-inbox-note-pr-d9288-ewed-intent-after-malformed-controlled-http-1440\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\inbox-attempt01\artifacts\inbox-intent-inbox-note-pr-d9288-ewed-intent-after-malformed-controlled-http-1440\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\inbox-attempt01\artifacts\inbox-intent-inbox-note-pr-d9288-ewed-intent-after-malformed-controlled-http-1440\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\inbox-attempt01\artifacts\inbox-intent-inbox-note-pr-d9288-ewed-intent-after-malformed-controlled-http-1440\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+(node:12000) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[23/30] [controlled-http-1440] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox note preserves reviewed intent after wrong_receipt
+  10) [controlled-http-1440] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox note preserves reviewed intent after wrong_receipt 
+
+    Error: expect(locator).toBeDisabled() failed
+
+    Locator:  getByRole('textbox', { name: 'Nueva nota interna', exact: true })
+    Expected: disabled
+    Received: enabled
+    Timeout:  4000ms
+
+    Call log:
+      - Expect "toBeDisabled" with timeout 4000ms
+      - waiting for getByRole('textbox', { name: 'Nueva nota interna', exact: true })
+        12 × locator resolved to <textarea maxlength="4000" aria-label="Nueva nota interna" class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-2 min-h-28 w-full resize-y">Nota interna sintética revisada</textarea>
+           - unexpected value "enabled"
+
+
+      36 |   await expect.poll(()=>commands.length).toBe(1)
+      37 |   if(['transport','malformed','wrong_receipt'].includes(mode)){
+    > 38 |    await expect(field).toBeDisabled();await expect(field).toHaveValue(body)
+         |                        ^
+      39 |    const retry=scope.getByRole('button',{name:'Comprobar la misma acción',exact:true})
+      40 |    await expect(retry).toBeEnabled()
+      41 |    await expect(page.getByRole('button',{name:'Nueva conversación',exact:true,includeHidden:true})).toBeDisabled()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\inbox-intent.spec.ts:38:24
+
+    Error Context: ..\oier-commercial-20261020\inbox-attempt01\artifacts\inbox-intent-inbox-note-pr-55969--intent-after-wrong-receipt-controlled-http-1440\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\inbox-attempt01\artifacts\inbox-intent-inbox-note-pr-55969--intent-after-wrong-receipt-controlled-http-1440\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\inbox-attempt01\artifacts\inbox-intent-inbox-note-pr-55969--intent-after-wrong-receipt-controlled-http-1440\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\inbox-attempt01\artifacts\inbox-intent-inbox-note-pr-55969--intent-after-wrong-receipt-controlled-http-1440\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+(node:32132) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[24/30] [controlled-http-1440] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox note preserves reviewed intent after denied
+[25/30] [controlled-http-1440] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox note preserves reviewed intent after success
+[26/30] [controlled-http-1440] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox create preserves reviewed intent after transport
+[27/30] [controlled-http-1440] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox create preserves reviewed intent after malformed
+  11) [controlled-http-1440] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox create preserves reviewed intent after malformed 
+
+    Error: expect(locator).toBeDisabled() failed
+
+    Locator:  getByRole('dialog', { name: 'Nueva conversación interna', exact: true }).getByRole('textbox', { name: 'Primera nota interna', exact: true })
+    Expected: disabled
+    Received: enabled
+    Timeout:  4000ms
+
+    Call log:
+      - Expect "toBeDisabled" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Nueva conversación interna', exact: true }).getByRole('textbox', { name: 'Primera nota interna', exact: true })
+        12 × locator resolved to <textarea maxlength="4000" aria-label="Primera nota interna" class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-1 min-h-32 w-full">Nota interna sintética revisada</textarea>
+           - unexpected value "enabled"
+
+
+      36 |   await expect.poll(()=>commands.length).toBe(1)
+      37 |   if(['transport','malformed','wrong_receipt'].includes(mode)){
+    > 38 |    await expect(field).toBeDisabled();await expect(field).toHaveValue(body)
+         |                        ^
+      39 |    const retry=scope.getByRole('button',{name:'Comprobar la misma acción',exact:true})
+      40 |    await expect(retry).toBeEnabled()
+      41 |    await expect(page.getByRole('button',{name:'Nueva conversación',exact:true,includeHidden:true})).toBeDisabled()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\inbox-intent.spec.ts:38:24
+
+    Error Context: ..\oier-commercial-20261020\inbox-attempt01\artifacts\inbox-intent-inbox-create--18d71-ewed-intent-after-malformed-controlled-http-1440\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\inbox-attempt01\artifacts\inbox-intent-inbox-create--18d71-ewed-intent-after-malformed-controlled-http-1440\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\inbox-attempt01\artifacts\inbox-intent-inbox-create--18d71-ewed-intent-after-malformed-controlled-http-1440\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\inbox-attempt01\artifacts\inbox-intent-inbox-create--18d71-ewed-intent-after-malformed-controlled-http-1440\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+(node:32408) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[28/30] [controlled-http-1440] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox create preserves reviewed intent after wrong_receipt
+  12) [controlled-http-1440] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox create preserves reviewed intent after wrong_receipt 
+
+    Error: expect(locator).toBeDisabled() failed
+
+    Locator:  getByRole('dialog', { name: 'Nueva conversación interna', exact: true }).getByRole('textbox', { name: 'Primera nota interna', exact: true })
+    Expected: disabled
+    Received: enabled
+    Timeout:  4000ms
+
+    Call log:
+      - Expect "toBeDisabled" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Nueva conversación interna', exact: true }).getByRole('textbox', { name: 'Primera nota interna', exact: true })
+        12 × locator resolved to <textarea maxlength="4000" aria-label="Primera nota interna" class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-1 min-h-32 w-full">Nota interna sintética revisada</textarea>
+           - unexpected value "enabled"
+
+
+      36 |   await expect.poll(()=>commands.length).toBe(1)
+      37 |   if(['transport','malformed','wrong_receipt'].includes(mode)){
+    > 38 |    await expect(field).toBeDisabled();await expect(field).toHaveValue(body)
+         |                        ^
+      39 |    const retry=scope.getByRole('button',{name:'Comprobar la misma acción',exact:true})
+      40 |    await expect(retry).toBeEnabled()
+      41 |    await expect(page.getByRole('button',{name:'Nueva conversación',exact:true,includeHidden:true})).toBeDisabled()
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\inbox-intent.spec.ts:38:24
+
+    Error Context: ..\oier-commercial-20261020\inbox-attempt01\artifacts\inbox-intent-inbox-create--6c5f2--intent-after-wrong-receipt-controlled-http-1440\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\inbox-attempt01\artifacts\inbox-intent-inbox-create--6c5f2--intent-after-wrong-receipt-controlled-http-1440\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\inbox-attempt01\artifacts\inbox-intent-inbox-create--6c5f2--intent-after-wrong-receipt-controlled-http-1440\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\inbox-attempt01\artifacts\inbox-intent-inbox-create--6c5f2--intent-after-wrong-receipt-controlled-http-1440\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:20020) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[29/30] [controlled-http-1440] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox create preserves reviewed intent after denied
+[30/30] [controlled-http-1440] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox create preserves reviewed intent after success
+  12 failed
+    [controlled-http-390] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox note preserves reviewed intent after malformed 
+    [controlled-http-390] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox note preserves reviewed intent after wrong_receipt 
+    [controlled-http-390] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox create preserves reviewed intent after malformed 
+    [controlled-http-390] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox create preserves reviewed intent after wrong_receipt 
+    [controlled-http-768] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox note preserves reviewed intent after malformed 
+    [controlled-http-768] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox note preserves reviewed intent after wrong_receipt 
+    [controlled-http-768] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox create preserves reviewed intent after malformed 
+    [controlled-http-768] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox create preserves reviewed intent after wrong_receipt 
+    [controlled-http-1440] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox note preserves reviewed intent after malformed 
+    [controlled-http-1440] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox note preserves reviewed intent after wrong_receipt 
+    [controlled-http-1440] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox create preserves reviewed intent after malformed 
+    [controlled-http-1440] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox create preserves reviewed intent after wrong_receipt 
+  18 passed (2.8m)

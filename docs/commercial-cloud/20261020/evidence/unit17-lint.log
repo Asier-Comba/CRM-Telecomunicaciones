@@ -1,0 +1,35 @@
+
+> crm-telecomunicaciones@0.1.0 lint
+> eslint
+
+
+C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\src\features\calendar\IntegratedCalendar.tsx
+  52:86  error  Error: Cannot access refs during render
+
+React refs are values that are not needed for rendering. Refs should only be accessed outside of render, such as in event handlers or effects. Accessing a ref value (the `current` property) during render can cause your component not to update as expected (https://react.dev/reference/react/useRef).
+
+C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\src\features\calendar\IntegratedCalendar.tsx:52:86
+  50 |   const intent=useRef<{execute:()=>Promise<ProductReceiptV1>}|null>(null)
+  51 |   useEffect(()=>{if(!id)return;let active=true;void repository.work(initialKind,id).then(value=>{if(!active)return;setRecord(value);setLinkedCustomer(value.record.customer_id??'');setTitle(value.record.title);if(value.kind==='task'||value.kind==='meeting')setAssignee(value.record.assigned_user_id??'');if(value.kind==='task')setPriority(value.record.priority??'normal');if(value.kind==='task'){setStart(localInput(value.record.due_at))}else if(value.kind==='meeting'){setStart(localInput(value.record.starts_at));setEnd(localInput(value.record.ends_at))}}).catch(e=>{if(active)setError(e)});return()=>{active=false}},[repository,id,initialKind])
+> 52 |   const conflict=error instanceof ProductUiError&&error.code==='conflict',uncertain=!!intent.current&&error instanceof ProductUiError&&(error.code==='transport_uncertain'||error.code==='internal_safe')
+     |                                                                                      ^^^^^^^^^^^^^^^ Cannot access ref value during render
+  53 |   const terminal=!!record&&!['pending','in_progress','scheduled'].includes(record.record.status)
+  54 |   const locked=busy||conflict||uncertain||terminal||!canWrite||!!id&&!record
+  55 |   async function submit(action:'save'|'complete'|'cancel'|'start'|'reopen'|'no_show'){                                                                                                                               react-hooks/refs
+  52:87  error  Error: Cannot access refs during render
+
+React refs are values that are not needed for rendering. Refs should only be accessed outside of render, such as in event handlers or effects. Accessing a ref value (the `current` property) during render can cause your component not to update as expected (https://react.dev/reference/react/useRef).
+
+C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\src\features\calendar\IntegratedCalendar.tsx:52:87
+  50 |   const intent=useRef<{execute:()=>Promise<ProductReceiptV1>}|null>(null)
+  51 |   useEffect(()=>{if(!id)return;let active=true;void repository.work(initialKind,id).then(value=>{if(!active)return;setRecord(value);setLinkedCustomer(value.record.customer_id??'');setTitle(value.record.title);if(value.kind==='task'||value.kind==='meeting')setAssignee(value.record.assigned_user_id??'');if(value.kind==='task')setPriority(value.record.priority??'normal');if(value.kind==='task'){setStart(localInput(value.record.due_at))}else if(value.kind==='meeting'){setStart(localInput(value.record.starts_at));setEnd(localInput(value.record.ends_at))}}).catch(e=>{if(active)setError(e)});return()=>{active=false}},[repository,id,initialKind])
+> 52 |   const conflict=error instanceof ProductUiError&&error.code==='conflict',uncertain=!!intent.current&&error instanceof ProductUiError&&(error.code==='transport_uncertain'||error.code==='internal_safe')
+     |                                                                                       ^^^^^^^^^^^^^^ Cannot access ref value during render
+  53 |   const terminal=!!record&&!['pending','in_progress','scheduled'].includes(record.record.status)
+  54 |   const locked=busy||conflict||uncertain||terminal||!canWrite||!!id&&!record
+  55 |   async function submit(action:'save'|'complete'|'cancel'|'start'|'reopen'|'no_show'){
+
+To initialize a ref only once, check that the ref is null with the pattern `if (ref.current == null) { ref.current = ... }`  react-hooks/refs
+
+✖ 2 problems (2 errors, 0 warnings)
+
