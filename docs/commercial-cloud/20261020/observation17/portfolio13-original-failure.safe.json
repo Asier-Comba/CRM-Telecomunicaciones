@@ -1,0 +1,74 @@
+{
+  "environment": "LOCAL_SUPABASE_DOCKER_NOT_HOSTED",
+  "migrations": 87,
+  "backend_w1": 3815,
+  "backend_w2": 227,
+  "voice_model": "NOT_RUN",
+  "business_ai_writes": "OFF",
+  "release": "NOT_ACCEPTED",
+  "run": 39453448961,
+  "job": 118734032565,
+  "artifact": 12281805996,
+  "source": "0c5ce385ce8e4c7201900d089057ba7a249a578e",
+  "tree": "f69510ba12f0229b74435253ee2518ae49ccbb38",
+  "head": "4bfddd3aa3b7936fe4a61522f8fa11c65dfd9ccd",
+  "head_tree_equal": true,
+  "original_zip_sha256": "fe7a361d5760fada7fca7741327fcef3db51c930fb3a2e57d8f6b6ce4614d124",
+  "original_screenshots_artifact": 12281677547,
+  "original_screenshots_zip_sha256": "44c1560b4d0316ee0e32e61b8df316fe1c47ceec9225ac896064386364b1a253",
+  "ui_passed": 111,
+  "ui_unique": 111,
+  "failures": [
+    {
+      "check": "sim_deactivate_cancel_identifier_retire_and_immutable_line_history",
+      "action": "sim_creation:prepare",
+      "kind": "TIMEOUT"
+    },
+    {
+      "check": "portability_viewer_masked_terminal_detail_no_commands_three_widths",
+      "action": "portability_viewer_masked_terminal_detail_no_commands_three_widths",
+      "kind": "TIMEOUT"
+    },
+    {
+      "check": "sim_viewer_masked_detail_no_lifecycle_writes_three_widths",
+      "action": "sim_viewer_masked_detail_no_lifecycle_writes_three_widths",
+      "kind": "TIMEOUT"
+    },
+    {
+      "check": "case_viewer_current_normal_detail_no_notes_or_writes_three_widths",
+      "action": "case_viewer_current_normal_detail_no_notes_or_writes_three_widths",
+      "kind": "TIMEOUT"
+    }
+  ],
+  "timings": [
+    {
+      "check": "sim_deactivate_cancel_identifier_retire_and_immutable_line_history",
+      "elapsed_ms": 49564,
+      "result": "FAIL"
+    },
+    {
+      "check": "portability_viewer_masked_terminal_detail_no_commands_three_widths",
+      "elapsed_ms": 8772,
+      "result": "FAIL"
+    },
+    {
+      "check": "sim_viewer_masked_detail_no_lifecycle_writes_three_widths",
+      "elapsed_ms": 16703,
+      "result": "FAIL"
+    },
+    {
+      "check": "case_viewer_current_normal_detail_no_notes_or_writes_three_widths",
+      "elapsed_ms": 11556,
+      "result": "FAIL"
+    }
+  ],
+  "portfolio_layout_passed": true,
+  "server": {
+    "code": 0,
+    "signal": null
+  },
+  "teardown": "PASS",
+  "original_cause": "UNKNOWN",
+  "request_response_current_document": "NOT_RECORDED_FOR_THESE_FAILURES",
+  "screenshots_scope": "C360_RESUMEN_AND_VIEWER_LOADING_STATES_NOT_PROOF_OF_AUTH_DB_CAUSE_OR_INFINITE_LOADING"
+}
