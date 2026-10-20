@@ -108,6 +108,7 @@ export function PromptBuilder({
       if (rec.current === speech) {
         rec.current = null
         setListening(false)
+        setMessage('')
       }
     }
     speech.onerror = () => {
