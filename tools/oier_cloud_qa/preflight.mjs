@@ -11,13 +11,14 @@ const exact=(v,allowed)=>v&&typeof v==='object'&&!Array.isArray(v)&&Object.keys(
 export function preflight(manifest,env=process.env,now=Date.now()){
  const codes=[]
  if(!exact(manifest,keys))return{ok:false,codes:['MANIFEST_MISSING_OR_INVALID']}
- if(manifest.version!==1||manifest.origin!==origin||manifest.projectRef!==projectRef||manifest.siteId!==siteId)codes.push('TARGET_BINDING_REFUSED')
+ if(manifest.version!==2||manifest.origin!==origin||manifest.projectRef!==projectRef||manifest.siteId!==siteId)codes.push('TARGET_BINDING_REFUSED')
  if(!/^[0-9a-f]{40}$/.test(manifest.candidateSha)||manifest.deploymentSourceSha!==manifest.candidateSha||!/^[a-z0-9-]{8,80}$/.test(manifest.deployId))codes.push('DEPLOYMENT_BINDING_REQUIRED')
  if(!uuid.test(manifest.windowId)||!Number.isFinite(Date.parse(manifest.expiresAt))||Date.parse(manifest.expiresAt)<=now)codes.push('APPROVED_WINDOW_REQUIRED')
  if(manifest.dataClassification!=='synthetic'||manifest.browserBinding!=='DEDICATED_W5_APPROVED_CONTEXT')codes.push('SYNTHETIC_DEDICATED_CONTEXT_REQUIRED')
  if(!ref.test(manifest.integratorReviewRef)||!ref.test(manifest.cloudWindowRef)||!ref.test(manifest.deploymentEvidenceRef))codes.push('EXACT_OWNER_HANDOFF_REFS_REQUIRED')
  const a=manifest.actorA,b=manifest.actorB
- if(!exact(a,['id','workspaceId'])||!exact(b,['id','workspaceId','customerId','invoiceId'])||![a?.id,a?.workspaceId,b?.id,b?.workspaceId,b?.customerId,b?.invoiceId].every(v=>uuid.test(v))||a?.id===b?.id||a?.workspaceId===b?.workspaceId)codes.push('DISTINCT_SYNTHETIC_A_B_REQUIRED')
+ if(!exact(a,['id','workspaceId','role','customerId'])||!exact(b,['id','workspaceId','role','customerId','invoiceId'])||![a?.id,a?.workspaceId,a?.customerId,b?.id,b?.workspaceId,b?.customerId,b?.invoiceId].every(v=>uuid.test(v))||a?.id===b?.id||a?.workspaceId===b?.workspaceId||a?.customerId===b?.customerId)codes.push('DISTINCT_SYNTHETIC_A_B_REQUIRED')
+ if(!['owner','admin','member'].includes(a?.role)||!['owner','admin','member','viewer'].includes(b?.role))codes.push('EXPLICIT_ACTOR_ROLES_REQUIRED')
  if(env.OIER_CLOUD_QA_APPROVED_WRITES!=='true')codes.push('EXPLICIT_RUN_APPROVAL_REQUIRED')
  for(const actor of ['A','B']){
   if(!/^[^\s@]+@example\.invalid$/.test(env[`OIER_CLOUD_QA_${actor}_EMAIL`]??'')||typeof env[`OIER_CLOUD_QA_${actor}_PASSWORD`]!=='string'||env[`OIER_CLOUD_QA_${actor}_PASSWORD`].length<8)codes.push(`PRIVATE_${actor}_SIGNIN_REQUIRED`)

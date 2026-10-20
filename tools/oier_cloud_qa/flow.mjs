@@ -1,4 +1,6 @@
 import {origin,projectRef,customerName,prompt} from './preflight.mjs'
+import {matchesServerIdentity,flightFramesFromScripts} from './identity.mjs'
+import {safeResponseObservation} from './observation.mjs'
 const authOrigin=`https://${projectRef}.supabase.co`
 const invariant=(value)=>{if(!value)throw Error('HOSTED_ASSERTION_FAILED')}
 const body=request=>{try{return request.postDataJSON()}catch{return null}}
@@ -7,7 +9,22 @@ const uuid=/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]
 /** No mocks, cookies, headers, screenshots, traces, HAR, storageState or raw error output. */
 export async function hostedFlow(page,manifest,env,journal,saveJournal,report){
  let actor='A',authenticated=false,forbidden=false
- const mutations=[],phase=async(name,fn)=>{report.phase=name;invariant(Date.now()<Date.parse(manifest.expiresAt));await fn();report.completed.push(name)}
+ let lastResponse=null,firstHttpError=null
+ const observe=response=>{
+  const url=new URL(response.url())
+  if(!response.request().isNavigationRequest()&&!url.pathname.startsWith('/api/')&&!url.pathname.startsWith('/auth/v1/'))return
+  const safe=safeResponseObservation(response.url(),response.request().method(),response.status(),response.headers()['content-type'])
+  if(safe){lastResponse=safe;if(safe.http>=400&&!firstHttpError)firstHttpError=safe}
+ }
+ page.on('response',observe)
+ const mutations=[],phase=async(name,fn)=>{
+  report.phase=name;lastResponse=null;firstHttpError=null
+  try{invariant(Date.now()<Date.parse(manifest.expiresAt));await fn();report.completed.push(name)}
+  catch(error){
+   report.firstFailure??={phase:name,actor,response:firstHttpError??lastResponse,path:'SEE_REDACTED_RESPONSE_OR_PHASE',cause:'NOT_INFERRED_FROM_HTTP_ALONE',owner:name.includes('SIGNIN')?'W5_AUTH_OR_ACCESS_REVIEW':name.includes('WORKSPACE')?'ASIER_AUTH_CONTRACT_REVIEW':'OIER_REPRODUCTION_THEN_ASIER_PRODUCT_REVIEW'}
+   throw error
+  }
+ }
  const guard=async route=>{
   const request=route.request(),url=new URL(request.url())
   if(Date.now()>=Date.parse(manifest.expiresAt)&&!(url.origin===authOrigin&&url.pathname==='/auth/v1/logout')){forbidden=true;await route.abort();return}
@@ -33,6 +50,7 @@ export async function hostedFlow(page,manifest,env,journal,saveJournal,report){
     mutations.push({operation:op,commandId:q.input.command_id});journal.lastDispatch={operation:op,commandId:q.input.command_id};saveJournal()
    }
   }
+  if(url.origin===origin&&!['GET','HEAD','OPTIONS'].includes(request.method())&&!(url.pathname.startsWith('/api/')&&request.method()==='POST')){forbidden=true;await route.abort();return}
   await route.continue()
  }
  await page.route('**/*',guard)
@@ -53,6 +71,21 @@ export async function hostedFlow(page,manifest,env,journal,saveJournal,report){
   await page.getByRole('button',{name:'Cerrar sesión',exact:true}).click()
   await page.waitForURL(u=>u.origin===origin&&u.pathname==='/login');authenticated=false
  }
+ async function verifyIdentity(who){
+  // Full navigation is deliberate: login uses client navigation and may retain the login Flight buffer.
+  // Inspect only our known server provider, not arbitrary serialized user fields.
+  await page.setViewportSize({width:1440,height:960})
+  await page.goto(origin+'/dashboard')
+  invariant(new URL(page.url()).origin===origin&&new URL(page.url()).pathname==='/dashboard')
+  const expected=manifest[`actor${who}`]
+  // Next 16.3.8 clears __next_f after consumption. Read only the immutable inline
+  // server scripts and JSON.parse their literal frames; never execute a script.
+  const scripts=await page.locator('script:not([src])').allTextContents()
+  const frames=flightFramesFromScripts(scripts)
+  invariant(matchesServerIdentity(frames,expected))
+  await page.locator('header').getByText({owner:'Titular',admin:'Administrador',member:'Comercial',viewer:'Lectura'}[expected.role],{exact:true}).waitFor({state:'visible'})
+  report[`actor${who}Identity`]='SERVER_PRODUCT_PROVIDER_ACTIVE_WORKSPACE_ROLE_MATCHED'
+ }
  async function query(operation,id){
   return page.evaluate(async({operation,id})=>{
    const response=await fetch(operation==='customer.editor'?'/api/product/v1/queries':'/api/billing/v1',{method:'POST',credentials:'same-origin',cache:'no-store',headers:{'Content-Type':'application/json'},body:JSON.stringify({operation,input:{id}})})
@@ -61,12 +94,19 @@ export async function hostedFlow(page,manifest,env,journal,saveJournal,report){
    const record=operation==='customer.editor'?data.data:data.data?.invoice
    const valid=data.ok===true&&(operation==='customer.editor'?data.data?.contract_version==='product.v1':data.data?.contract_version==='billing.v1'&&data.data?.operation==='invoice.get')
    const line=record?.lines?.[0]
-   return{http:response.status,denied:false,valid,id:record?.id,customerId:record?.customer_id,version:record?.version,status:record?.status,currency:record?.currency,number:record?.number,totals:record?.totals,issue:record?.issue_on,due:record?.due_on,lineCount:record?.lines?.length,description:line?.description,quantity:line?.quantity_milli,price:line?.unit_price_minor,discount:line?.discount_bps,tax:line?.tax_bps,withholding:line?.withholding_bps}
+   return{http:response.status,denied:false,valid,id:record?.id,legalName:record?.legal_name,customerId:record?.customer_id,version:record?.version,status:record?.status,currency:record?.currency,number:record?.number,totals:record?.totals,issue:record?.issue_on,due:record?.due_on,lineCount:record?.lines?.length,description:line?.description,quantity:line?.quantity_milli,price:line?.unit_price_minor,discount:line?.discount_bps,tax:line?.tax_bps,withholding:line?.withholding_bps}
   },{operation,id})
  }
  try{
   await page.setViewportSize({width:390,height:960})
   await phase('A_ORDINARY_BROWSER_SIGNIN',()=>login('A'))
+  await phase('A_ACTIVE_WORKSPACE_AND_ROLE',()=>verifyIdentity('A'))
+  await phase('A_PREEXISTING_CUSTOMER_READ',async()=>{
+   await page.goto(origin+'/clients/'+manifest.actorA.customerId)
+   const customer=await query('customer.editor',manifest.actorA.customerId)
+   invariant(customer.valid&&customer.id===manifest.actorA.customerId)
+  })
+  await page.setViewportSize({width:390,height:960})
   await phase('A_CUSTOMER_CREATE_AND_READ',async()=>{
    await page.goto(origin+'/clients');await page.getByRole('button',{name:'Nuevo cliente',exact:true}).click()
    await page.getByLabel('Razón social',{exact:true}).fill(customerName)
@@ -75,7 +115,14 @@ export async function hostedFlow(page,manifest,env,journal,saveJournal,report){
    invariant(response.ok()&&data.ok===true&&data.receipt?.operation==='customer.create'&&data.receipt.command_id===request.input.command_id&&data.receipt.status==='active'&&uuid.test(data.receipt.id))
    journal.customerId=data.receipt.id;journal.customerReceipt={id:data.receipt.id,version:data.receipt.version,commandId:data.receipt.command_id};saveJournal()
    await page.getByRole('heading',{name:customerName,exact:true}).waitFor()
-   invariant((await query('customer.editor',journal.customerId)).id===journal.customerId)
+   const customer=await query('customer.editor',journal.customerId)
+   invariant(customer.valid&&customer.id===journal.customerId&&customer.legalName===customerName&&customer.version===journal.customerReceipt.version)
+  })
+  await phase('A_CUSTOMER_RELOAD_AND_READBACK',async()=>{
+   await page.reload()
+   await page.getByRole('heading',{name:customerName,exact:true}).waitFor()
+   const customer=await query('customer.editor',journal.customerId)
+   invariant(customer.valid&&customer.id===journal.customerId&&customer.legalName===customerName&&customer.version===journal.customerReceipt.version&&customer.status==='active')
   })
   let issue,due
   await phase('A_TEXT_PROPOSAL_NO_IMPLICIT_WRITE',async()=>{
@@ -113,6 +160,7 @@ export async function hostedFlow(page,manifest,env,journal,saveJournal,report){
   })
   await phase('A_SIGNOUT',logout)
   await phase('B_ORDINARY_BROWSER_SIGNIN',()=>login('B'))
+  await phase('B_ACTIVE_WORKSPACE_AND_ROLE',()=>verifyIdentity('B'))
   await phase('B_OWN_INVOICE_AND_CUSTOMER_POSITIVES',async()=>{
    await page.goto(origin+'/facturacion?invoice='+manifest.actorB.invoiceId)
    await page.locator(`[data-invoice-detail-id="${manifest.actorB.invoiceId}"]`).waitFor()
@@ -127,6 +175,7 @@ export async function hostedFlow(page,manifest,env,journal,saveJournal,report){
   report.observedMutations={customerCreate:1,draftCreate:1,other:0};report.sessionCleanup='ORDINARY_UI_SIGNOUT_A_B'
   report.result='HOSTED_UI_API_FLOW_PASS_DEPLOYMENT_ATTESTED_DB_INDEPENDENT_NOT_RUN'
  }finally{
+  page.off('response',observe)
   await page.unroute('**/*',guard).catch(()=>{})
   report.forbiddenRequestObserved=forbidden
   if(authenticated)report.sessionCleanup='INCOMPLETE_APPROVED_PRIVATE_PAGE_REQUIRES_REVIEW'
