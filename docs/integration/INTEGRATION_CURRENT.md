@@ -4,6 +4,32 @@ Branch: `codex/product-integration-20261019`, draft PR156. This document superse
 the current-state paragraphs of earlier checkpoints; historical evidence remains intact.
 The exact commit/tree and latest CI are recorded in issue67 after each publication.
 
+## Candidate summary
+
+Product/check source `96f64699dcc76a464beced28f047d928d516ccba`,
+tree `86c6fc4338215a49ee0d15c94f3993eb82db2210`. Subsequent documentary/configuration
+checkpoint is pinned in issue67; do not infer its pending CI from these checks.
+Own composed global lint,827 assistant tests, production build/types44 pages and
+3 compiled-login semantics checks PASS. Windows bootstrap659/664PASS: five unchanged
+POSIX permission/import-fixture failures remain; strict85/86-versus87 assertion is
+now correctly closed by owner profile87 adoption, not waived.
+
+Published Edge c0 has its own terminal CI: Supabase39429051262 PASS87migrations,
+4042backend/114UI/teardown; browser710PASS and native87 fresh/restored role/ACL
+controls PASS. Checkout85acfed35f0b2302a2ce75d614482568cee4cf72/tree b99c0231
+identical to c0 verified. Its quality656/657 fails obsolete86 assertion and five
+HIGH remain. These earlier positives do not qualify the later composition.
+
+Only W5's exact netlify.toml from07f97a33 is additionally composed (blob
+2e4fcd58a081974f3129e44a8be047bf4a672163). Its deploy workflow is withheld:
+missing mandatory87 check currently only warns, dispatcher registration is not
+demonstrated, and adapter/config/environment/artifact provenance needs W5 closure.
+Plain Next build does not prove a Netlify build or hosted acceptance.
+
+Canonical next delivery: [cloud handoff](CLOUD_CANDIDATE_HANDOFF.md),
+[commercial acceptance](COMMERCIAL_ACCEPTANCE.md), [coordination](COORDINATION.md),
+[next work](NEXT_WORK.md). Source-bound recovery20 JSON remains historical evidence.
+
 ## Unit16: Netlify Edge admission
 
 Adopted the two-file delta from PR163 `e42cfd59615a284bf26a758c4078c299bed39290`
@@ -138,11 +164,11 @@ catalog check; expect a collected UI inventory, never a predeclared PASS count.
 
 ## Work in order
 
-Review/adopt exact W5 profile87; classify its successful physical completion
-primitive separately from legacy failures and unrun full23/verifiedAbsence.
-Review W5 deploy contract; adopt QA-only PR162; review Oier UX07 proposal instead
-of duplicating it. Dashboard scope/loading is integrator-owned. W5 deploys the
-next exact candidate; Oier runs independent hosted QA in an authorized window.
+Wait the exact candidate's CI, including the new ordinary catalog publication.
+W5 closes deploy gates/provenance and deploys the reviewed exact source/config;
+Oier executes independent hosted QA in its authorized window. No old hosted or
+local positive is transferred to that deployment. Continue by actual catalogue →
+contract → service → line acceptance, rather than duplicate existing consumers.
 Storage166/88 remains proposal, affected content OFF. Independent security reviewer
 must be identified by owners. Five HIGH, applicable CI and full acceptance remain
 open. No main merge, hosted SQL, hosting mutation, production, resellpro or AI writes.

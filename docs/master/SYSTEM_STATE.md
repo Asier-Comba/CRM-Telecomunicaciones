@@ -1,5 +1,27 @@
 # CRM Telecom — system state
 
+## Current master integration — 2026-10-20
+
+Product/check source96f64699dcc76a464beced28f047d928d516ccba/tree86c6fc4338215a49ee0d15c94f3993eb82db2210,
+own PR156. Edge163, explicit W5profile87, QA162, billing167/callers, login168,
+dashboard scope/loading and simple catalog169 publication are composed. Own global
+lint/827assistant/buildTypes44/staticlogin3 PASS; Windows bootstrap659/664PASS,
+five unchanged POSIX import-fixture failures. The final docs/TOML checkpoint and
+its own CI/source/tree are recorded in issue67. New catalog real-local check pending.
+
+Hosted core is already reported by W5 at deploy6ad75c93ac4914f9005f4767/app e42
+plus versioned Netlify config; W0 corroborated the synthetic draft. Independent
+hosted A/B, voice and the new composition remain unaccepted. W5 reports outside-
+cohort negatives; these are not admitted-tenant isolation. No longer infer the
+old Netlify admission failure or absent cloud persistence as the current state.
+
+[Current integration](../integration/INTEGRATION_CURRENT.md), [cloud handoff](../integration/CLOUD_CANDIDATE_HANDOFF.md),
+[commercial acceptance](../integration/COMMERCIAL_ACCEPTANCE.md), [coordination](../integration/COORDINATION.md),
+[next work](../integration/NEXT_WORK.md) supersede current-state readings of older
+snapshots below. Storage166/88 remains proposal/contentOFF; W5 deploy/reproduction,
+environment manifest, five HIGH/history and assigned independent security review
+remain open. No main/production, cloud SQL or resellpro change; business AI writesOFF.
+
 ## Integration checkpoint — 2026-10-20
 
 Candidate product ddf3ef26e6d50cc5bda7d3cb6515d2e8e456014d/tree972ef4edfd204240598a1c7a414f015313c78ead, own branch/draftPR156; later documentary checkpoints are identified in issue67. It composes inactive staging admission/default closure, reviewed billing parser/proposals, PT409/migration87, ten commercial consumers and the exact later opportunity-archive patch. No main merge, accepted release or hosted acceptance. [Current handoff](../integration/HANDOFF_20261019.md) and [source-bound evidence](../integration/RECOVERY_20261020_EVIDENCE.json) preserve all sources and failures.
