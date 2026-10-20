@@ -18,7 +18,7 @@ export function preflight(manifest,env=process.env,now=Date.now()){
  if(!ref.test(manifest.integratorReviewRef)||!ref.test(manifest.cloudWindowRef)||!ref.test(manifest.deploymentEvidenceRef))codes.push('EXACT_OWNER_HANDOFF_REFS_REQUIRED')
  const a=manifest.actorA,b=manifest.actorB
  if(!exact(a,['id','workspaceId','role','customerId'])||!exact(b,['id','workspaceId','role','customerId','invoiceId'])||![a?.id,a?.workspaceId,a?.customerId,b?.id,b?.workspaceId,b?.customerId,b?.invoiceId].every(v=>uuid.test(v))||a?.id===b?.id||a?.workspaceId===b?.workspaceId||a?.customerId===b?.customerId)codes.push('DISTINCT_SYNTHETIC_A_B_REQUIRED')
- if(!['owner','admin','member'].includes(a?.role)||!['owner','admin','member','viewer'].includes(b?.role))codes.push('EXPLICIT_ACTOR_ROLES_REQUIRED')
+ if(!['owner','admin'].includes(a?.role)||!['owner','admin'].includes(b?.role))codes.push('EXPLICIT_ACTOR_ROLES_REQUIRED')
  if(env.OIER_CLOUD_QA_APPROVED_WRITES!=='true')codes.push('EXPLICIT_RUN_APPROVAL_REQUIRED')
  for(const actor of ['A','B']){
   if(!/^[^\s@]+@example\.invalid$/.test(env[`OIER_CLOUD_QA_${actor}_EMAIL`]??'')||typeof env[`OIER_CLOUD_QA_${actor}_PASSWORD`]!=='string'||env[`OIER_CLOUD_QA_${actor}_PASSWORD`].length<8)codes.push(`PRIVATE_${actor}_SIGNIN_REQUIRED`)
