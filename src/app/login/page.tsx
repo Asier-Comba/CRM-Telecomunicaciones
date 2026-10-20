@@ -360,9 +360,9 @@ export default function LoginPage() {
               </label>
 
               {mode !== 'forgot' && (
-                <label className="block">
+                <div className="block">
                   <div className="mb-2 flex items-center justify-between">
-                    <span className="text-xs font-semibold tracking-wide text-gray-700">Contraseña</span>
+                    <label htmlFor="login-password" className="text-xs font-semibold tracking-wide text-gray-700">Contraseña</label>
                     <button
                       type="button"
                       disabled={!formReady}
@@ -375,6 +375,7 @@ export default function LoginPage() {
                   <div className="relative">
                     <KeyRound className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
                     <input
+                      id="login-password"
                       type="password"
                       disabled={!formReady}
                       value={password}
@@ -390,7 +391,7 @@ export default function LoginPage() {
                   {showErrors && formErrors.password && (
                     <span className="mt-1.5 block text-[11px] font-medium text-red-600">{formErrors.password}</span>
                   )}
-                </label>
+                </div>
               )}
 
               <Button
