@@ -1,0 +1,191 @@
+{
+  "date": "2026-10-20",
+  "repository": "Asier-Comba/CRM-Telecomunicaciones",
+  "branch": "codex/product-integration-20261019",
+  "pull_request": 156,
+  "release": "NOT_ACCEPTED",
+  "hosted_auth_db": "NOT_TESTED",
+  "AI_business_writes": "OFF",
+  "live_model_calls": 0,
+  "unit10": {
+    "versions": [
+      "145f01cc23404b77f60c959b0b066155245e9895",
+      "474e7e281f9363ea1959ae83fe626120338e90e0",
+      "4ef29582e56f1b35b90e9905004cf2ed08522f80"
+    ],
+    "flags_set": false,
+    "cohort": "NOT_PROVIDED",
+    "contracts": [
+      "PRODUCT_STAGING_INTEGRATION",
+      "PRODUCT_STAGING_USER_IDS"
+    ],
+    "W5_manifest": "UNMODIFIED_PENDING_REGISTRATION",
+    "W4": "INDEPENDENT_REVIEW_REQUIRED",
+    "preserved_failures": [
+      "145:CHECK_ASSISTANT_HISTORY_API_NO_STORE",
+      "474:CHECK_PRODUCT_ACTUAL_NEXT_STATUS_503_UNAVAILABLE"
+    ],
+    "fix_controls_passed": 48
+  },
+  "unit11": {
+    "source": "94102c24d0d2d854f96bbe384c0abf402039232c",
+    "tree": "6a5b5c762d3aa8983cf1b5d2309b023416881f45",
+    "owner_source": "8fca4c8bfb921fd61ab02310999716ffaf9023cf",
+    "ACK": 6288602043,
+    "parser": {
+      "before_pass": 21,
+      "before_fail": 3,
+      "after_pass": 24,
+      "concept_pass": 10
+    },
+    "browser": {
+      "new": 99,
+      "regression": 88,
+      "unique": 187,
+      "fail": 0,
+      "retries": 0,
+      "skip": 0,
+      "flaky": 0
+    },
+    "quality": "globalLint/types/build44PASS",
+    "hosted": "NOT_TESTED"
+  },
+  "unit12": {
+    "source": "2f87fdc8f56fbac86660cf77ac078bd79241bfd0",
+    "tree": "6416c34d10852b86ed21eeada45ed7ba6986fc88",
+    "owner_source": "2f1b6dd7b449290aeff904f3bd13ca82f83ffecc",
+    "imported_paths": 57,
+    "excluded": [
+      "src/features/product/integration/mode.ts",
+      "tests/bootstrap/product-integration-client.test.mjs"
+    ],
+    "http_test_correction": "1f49a8347a50deb09502d63b1bcea1562a2491be",
+    "before_probe": {
+      "passed": 2,
+      "failed": 2
+    },
+    "after_probe": {
+      "passed": 4,
+      "failed": 0
+    },
+    "preserved_cli_failure": "CHECK_PRODUCT_CHANGED_INPUT_CONFLICT",
+    "actual_original_response": "NOT_RECORDED",
+    "native87_profile": "BLOCKED_OWNER85_86_CLOSURE",
+    "owner_request": 6289026792
+  },
+  "unit13": {
+    "source": "d3e06db622da2fe20299533e45d9205d8b0a00f8",
+    "tree": "4d73142c7f1ef9571c6cc40e0b5f105a027ab41b",
+    "owner_source": "5d58a56dbbe00e5eaefa6228420322d268f7c5c7",
+    "ACK": 6289164421,
+    "consumer_files": 10,
+    "causal": {
+      "contract": {
+        "failed": 1,
+        "passed": 1
+      },
+      "cases": {
+        "failed": 4,
+        "passed": 2
+      }
+    },
+    "browser": {
+      "composed": 237,
+      "regression": 102,
+      "unique": 339,
+      "fail": 0,
+      "retry": 0,
+      "skip": 0,
+      "flaky": 0
+    },
+    "logic_passed": 63,
+    "quality": "globalLint/types/build44PASS",
+    "scope": "Individual controlledHTTP operations only; no hosted/provider/idempotence acceptance"
+  },
+  "unit14": {
+    "source": "9cfc8aaf2eadd772dc1f5242684a33394e6d8fce",
+    "tree": "6b8651dbb13f4d285776c9980593cea3709dc4e1",
+    "scope": "Declared staged/production protected routes closed when admission flag absent/false; auth/health public",
+    "before_fail": 4,
+    "after_probe_pass": 4,
+    "controls_pass": 52,
+    "quality": "targetedLint/types/build44PASS",
+    "hosted": "NOT_TESTED"
+  },
+  "unit15": {
+    "source": "ddf3ef26e6d50cc5bda7d3cb6515d2e8e456014d",
+    "tree": "972ef4edfd204240598a1c7a414f015313c78ead",
+    "owner_source": "6b5d069eb24af2aaeaed7974f0778c30c33bdd53",
+    "ACK": 6289588784,
+    "patch_sha256": "95bbe1c29ce9f955ea4e97af679305f3d3e0f1c57fc3f0a04a763c14b35905fa",
+    "parent_blob": "50aca4d1de2af92f56491a9b97ec0ea0ba83b905",
+    "target_blob": "3463aa030ab05b409ec6b73d7f60b8d7b58cf030",
+    "before": {
+      "failed": 9,
+      "passed": 9
+    },
+    "after": {
+      "archive_create": 36,
+      "pipeline": 9,
+      "failed": 0,
+      "retry": 0,
+      "skip": 0,
+      "flaky": 0
+    },
+    "bootstrap": {
+      "total": 656,
+      "passed": 650,
+      "failed": 6,
+      "known_windows_posix": 5,
+      "owner_profile_87": 1
+    },
+    "assistant": {
+      "passed": 827,
+      "failed": 0,
+      "model_calls": 0
+    },
+    "quality": "targetedLint/types/build44PASS"
+  },
+  "previous_real_local_CI": {
+    "head": "1f49a8347a50deb09502d63b1bcea1562a2491be",
+    "tested_merge": "81fced3c4ca62835dcf7c322bdcc9b04570423f3",
+    "tree": "933ef74d139ce4f40abf96457739f3a21ce6a8a0",
+    "tree_equal_verified": true,
+    "run": 39410699669,
+    "job": 118587462762,
+    "workflow": "SUCCESS",
+    "cli": "PASS",
+    "migrations": 87,
+    "backend": [
+      3815,
+      227
+    ],
+    "ui_passed": 114,
+    "staging_identity": "PASS_LOCAL_AUTH_IDENTITY_ONLY_NOT_HOSTED_ROUTING",
+    "cleanup": "PASS_LOCAL_SESSIONS_ONLY",
+    "teardown": "PASS",
+    "environment": "LOCAL_SUPABASE_DOCKER",
+    "hosted": "NOT_TESTED",
+    "browser_exact_union": 710,
+    "native": {
+      "run_context_head": "1f49a8347a50deb09502d63b1bcea1562a2491be",
+      "result": "FAIL_REGISTRY_DATA_LIMIT_BEFORE_CHECKOUT",
+      "tested_sha": null,
+      "test_count": null
+    },
+    "identity_scope": "Real local GoTrue identities; allowed list changed in-memory only, no hosted routing/configuration acceptance",
+    "bootstrap": "651PASS/1FAIL of652 due owner85/86profile"
+  },
+  "critical_provenance": "Do not sum pass counts across sources or inherit previous CI to final candidate.",
+  "blockers": [
+    "Owner87 native profile and W5 environment manifest",
+    "IndependentW4/security and 5HIGH; applicableCI",
+    "P0Storage",
+    "NetlifyEdgeAccess, exactdeploy and authorized private A/Bcohort/window",
+    "Hosted full telecom/product acceptance",
+    "342requirements not fully reconciled"
+  ],
+  "main_merged": false,
+  "hosted_SQL_executed": false,
+  "resellpro_touched": false
+}

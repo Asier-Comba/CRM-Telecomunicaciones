@@ -1,5 +1,15 @@
 # CRM Telecom — system state
 
+## Integration checkpoint — 2026-10-20
+
+Candidate product ddf3ef26e6d50cc5bda7d3cb6515d2e8e456014d/tree972ef4edfd204240598a1c7a414f015313c78ead, own branch/draftPR156; later documentary checkpoints are identified in issue67. It composes inactive staging admission/default closure, reviewed billing parser/proposals, PT409/migration87, ten commercial consumers and the exact later opportunity-archive patch. No main merge, accepted release or hosted acceptance. [Current handoff](../integration/HANDOFF_20261019.md) and [source-bound evidence](../integration/RECOVERY_20261020_EVIDENCE.json) preserve all sources and failures.
+
+Own ddf3 checks:45controlled-browser/827assistant PASS, targetedlint/types/build44PASS;650/656bootstrapPASS, six failures retained(5WindowsPOSIX+owner85/86profile rejects87). Earlier d3e06 has339browser/63logic/globalqualityPASS,941 has187browser/24parser/10conceptsPASS and9cfc has52admissioncontrolsPASS; do not aggregate across SHAs. The candidate requires its own CI. Ownerprofile/manifest/workflows stay untouched; request6289026792 asks for explicit pinned87 compatibility. Native1f49 image download failed before migration, not native87PASS.
+
+Last complete real-local acceptance:1f49 tested merge81fced3c4ca62835dcf7c322bdcc9b04570423f3/tree933ef74d identical verified; Supabase39410699669SUCCESS,87migrations,4042backend,114UI, actual getUser cohort decisions/local-session cleanup andteardownPASS.710browser exactunionPASS. LOCAL_SUPABASE_DOCKER, hostedNOT_TESTED; not inherited by later13/14/15 changes. Prior failed/cancelled runs remain preserved.
+
+Cowork reports staging87/PT409 and private preview, but Netlify Edge Access/P0Storage/independentW4 and authorized cohort remain unresolved. The application flags stay OFF/unset, no real cohort values or hosted changes. No model calls/spending or business AI writes; no main merge or resellpro change. Older checkpoints below remain historical.
+
 ## Integration checkpoint — 2026-10-19
 
 Candidate product source: `111d2dbe9eb4dfb386c9e364c5f5e78ffd991ffd`, tree `3a499a9625cb202b7f007d0f95b08a5e7165eb10`, branch `codex/product-integration-20261019`, draft PR #156 against W5/PR155. No accepted release source and no main merge.
