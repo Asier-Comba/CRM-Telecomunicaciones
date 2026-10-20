@@ -70,8 +70,19 @@ log prueba intercepción del clic por dialog. Corregida sólo la inyección de r
 manteniendo las exigencias, y ejecutada después la suite final completa18PASS.
 
 Son componentes/repository/validadores reales con HTTP sintético. No persistencia
-Supabase, RLS físico, telecom alojado ni micrófono. La cadena completa alojada y
-real-local de esta unidad sigue NOT_RUN hasta entorno/fixture aplicable.
+Supabase, RLS físico, telecom alojado ni micrófono por esos controles locales.
+
+Aceptación física preparada después en a2e8612e82c0834fc38c9910538391be3687fc24,
+sólo product-contracts-consumer-browser.mjs. CLAIM6300717891. Reutiliza su cliente/
+operador/plan/versión publicados por los checks anteriores, en el recurso CI
+existente crm-telecom-local, origen3109/Supabase54321 y teardown--no-backup.
+Nuevo check separado telecom_three_manual_creates_sold_terms_reload_single_effect:
+tres creates normales por UI, recarga/colecciones/portfolio.get por entidad,
+versión/precio/estado/relaciones, una fila/ledger/recibo/audit por efecto y términos
+idénticos después. Observa que sólo salen esas tres mutaciones. El caso viewer
+existente también comprueba ausencia de creación de servicio/línea. Sintaxis/lint
+PASS; ejecución real-local de la nueva fuente PENDING en su propia CI. No otro
+backend, hosted, CORE ampliado ni modificación posterior de catálogo escondida.
 
 W5 debe entregar manifiesto: source/tree/config/deploy; ventana exclusiva y
 expiración; IDs sintéticos ya aprobados de cliente/operador/plan/version, fecha,
@@ -87,3 +98,4 @@ Esta unidad prepara el recorrido, no declara DEMO_READY ni SaaS completo.
 | Entrega | Fuente | Selección | Pruebas | Integrado |
 |---|---|---|---|---|
 | Asier30 | propuesta6300214768, sobre f315ee7a | dos componentes Portfolio; fixture comercial; service-sold-version.spec; selector de regresión | 18Chromium/15contratos/lint/tipos/build44 PASS locales | dbc904ac4981b402bb6b9fbc3bc2c08b9b09a252 |
+| Aceptación30 | CLAIM6300717891 | caller contracts existente, fixtures previos; tres creates/recarga/ledger/audit | lint/sintaxisPASS; CI física pendiente | a2e8612e82c0834fc38c9910538391be3687fc24 |

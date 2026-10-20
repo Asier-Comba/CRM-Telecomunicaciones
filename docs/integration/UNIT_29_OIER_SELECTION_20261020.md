@@ -24,6 +24,14 @@ producto, cierre6300282743. HEAD remoto verificado f315ee7a2b6fce212f8b878be84a6
 run39488102448; resultado por SHA en issue67. No desplegar esta copia como candidata
 cualificada mientras queden gates abiertos.
 
+Cierre físico29: Supabase39488102448/job118853729523 SUCCESS,87migraciones,
+4042backend,115/115UI, Auth/cookie real y teardownPASS. Ambos bancos de siete
+comandos (pérdida y recibo inválido) PASS, incluido invoice.issue. Artefacto
+seguro12295611819/capturas12295711640. Perfil8739488102350SUCCESS; los otros seis
+workflowsFAIL (CI/auditHIGH, W4allref, W5native/Enterprise, callers85/86).
+Esto acredita el run nuevo, no la causa ni el efecto originales.29 no contiene
+la nueva selección comercial30 ni la observación31; sus resultados no se heredan.
+
 ## Emisión original — conservación y límites
 
 Run39458747653/job118752349311, checkout5f1eb783d737479abafc78d48e61dd05b72156ad

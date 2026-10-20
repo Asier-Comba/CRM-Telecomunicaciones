@@ -12,6 +12,11 @@ PASS locally on dbc904ac. [Selection/evidence](../integration/UNIT_29_OIER_SELEC
 No inherited hosted acceptance, telecom physical journey NOT_RUN; W5 resource/
 fixtures/window and independent Oier access required. CORE162 remains two writes.
 SQL87/Storage/AI writes unchanged. Final remote SHA/tree and CI in issue67.
+29/f315 now has its own Supabase39488102448SUCCESS (87/4042/115UI/teardown),
+including invalid/lost receipts; original39458747653 cause/effect remain UNKNOWN.
+31 adds [read-only issue observations](../integration/UNIT_31_ISSUE_OBSERVATION_20261020.md),
+13Node/lint/syntaxPASS; physical SQL pending its own run.30 has a separate three-
+create check prepared in the existing disposable acceptance, not hosted acceptance.
 
 ## Sprint continuation — 2026-10-20, unit28
 
