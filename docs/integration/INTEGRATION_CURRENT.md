@@ -47,6 +47,19 @@ verifiedAbsence NOT_RUN. That physical result is not inherited by our compositio
 Our newly adopted workflow must run on the new source. Legacy86 workflows remain
 enabled and their strict refusal is recorded separately; no waiver or SQL delivery.
 
+## Unit18: QA-only cloud consumer
+
+PR162 advanced during review to `dcb4b222baa79141757c8372fc8a25c7e7540190`.
+Reviewed its exact two-file QA08 delta and adopted14 QA/documentation paths only.
+No commercial161 component, dependency, workflow or hosted credential imported.
+Own14 runner controls plus10 compiledEdge regressions PASS; targeted lint and
+TypeScript PASS. Missing-manifest preflight is NOT_RUN/exit2 before connection.
+The runner preserves a lock/journal per approved window, ordinary sign-in,
+server provider identity/workspace/role checks, A's two permitted mutations,
+authoritative readback and B's own positive before cross-tenant denials.
+Both exact draft labels are supported for the pending UX proposal. Hosted run,
+voice and independent DB read remain NOT_RUN; no browser/session was attached.
+
 ## Work in order
 
 Review/adopt exact W5 profile87; classify its successful physical completion
