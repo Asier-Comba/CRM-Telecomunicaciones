@@ -4,7 +4,7 @@ import type {InboxOperationV1}from '../contracts/inbox-v1'
 import {INBOX_RPC_V1,parseInboxInputV1,parseInboxReceiptV1,parseInboxListInputV1,parseInboxListResultV1,parseInboxThreadInputV1,parseInboxThreadResultV1,parseInboxUnreadV1}from './inbox-runtime-v1.ts'
 import {isClosedObjectV1 as plain}from './product-work-runtime-v1.ts'
 const fail=(error:ProductErrorV1)=>({ok:false as const,error})
-const error=(code?:string):ProductErrorV1=>code==='42501'?'access_denied':code==='P0002'?'not_found':['40001','23505'].includes(code??'')?'conflict':['22023','22P02','23514'].includes(code??'')?'validation':'internal_safe'
+const error=(code?:string):ProductErrorV1=>code==='42501'?'access_denied':code==='P0002'?'not_found':['40001','PT409','23505'].includes(code??'')?'conflict':['22023','22P02','23514'].includes(code??'')?'validation':'internal_safe'
 export class InboxServiceV1{
  readonly #port:ProductUserPortV1;constructor(p:ProductUserPortV1){this.#port=p}
  async #invoke<T>(name:string,input:unknown,parse:(v:unknown)=>T|null){try{const c=await this.#port.resolve();if(!c||!['owner','admin','member'].includes(c.role))return fail('access_denied');const r=await this.#port.rpc(name,{p_workspace_id:c.workspaceId,p_input:input});if(r.error)return fail(error(r.error.code));if(r.data===null)return fail('not_found');const data=parse(r.data);return data?{ok:true as const,data}:fail('internal_safe')}catch{return fail('internal_safe')}}

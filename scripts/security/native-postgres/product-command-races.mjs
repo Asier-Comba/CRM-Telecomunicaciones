@@ -39,12 +39,12 @@ try {
  assert.equal(await sql(`select count(*) from public.customers where legal_name='Native Race Synthetic'`),'1')
  assert.equal(await sql(`select count(*) from public.product_audit_events where command_id='${key}'`),'1')
  const conflict=await docker([...args.slice(0,-2),'-d',database,'--set=VERBOSITY=sqlstate'],create({...command,legal_name:'Changed Synthetic'}))
- assert.notEqual(conflict.code,0);assert.match(conflict.err,/40001/)
+ assert.notEqual(conflict.code,0);assert.match(conflict.err,/PT409/)
  const id=receipts[0].id
  const updates=await Promise.all(Array.from({length:20},(_,i)=>docker([...args,'--set=VERBOSITY=sqlstate'],
   `begin;set local role authenticated;set local request.jwt.claim.sub='${actor}';select public.product_v1_customer_update('${workspace}','${JSON.stringify({command_id:`72000000-0000-4000-8000-${String(i+1).padStart(12,'0')}`,id,expected_version:1,trade_name:'Synthetic CAS Race'})}'::jsonb);commit;`)))
  assert.equal(updates.filter(r=>r.code===0).length,1)
- assert.equal(updates.filter(r=>r.code!==0&&/40001/.test(r.err)).length,19)
+ assert.equal(updates.filter(r=>r.code!==0&&/PT409/.test(r.err)).length,19)
  assert.equal(await sql(`select version from public.customers where id='${id}'`),'2')
  assert.equal(await sql(`select count(*) from public.product_audit_events where entity_id='${id}'`),'2')
  // A new psql process can recover the original receipt after concurrent edits.
@@ -61,7 +61,7 @@ try {
   for(const attempt of attempts)assert.deepEqual(JSON.parse(attempt.out.trim()),result)
   const edits=await Promise.all(Array.from({length:20},(_,j)=>docker([...args,'--set=VERBOSITY=sqlstate'],invoke('update',{command_id:`76000000-0000-4000-8000-${String((i+1)*100+j).padStart(12,'0')}`,id:result.id,expected_version:1,title:`Native ${family} CAS`}))))
   assert.equal(edits.filter(r=>r.code===0).length,1,`${family} CAS winner`)
-  assert.equal(edits.filter(r=>r.code!==0&&/40001/.test(r.err)).length,19,`${family} CAS conflicts`)
+  assert.equal(edits.filter(r=>r.code!==0&&/PT409/.test(r.err)).length,19,`${family} CAS conflicts`)
   assert.equal(await sql(`select count(*) from public.product_audit_events where entity_id='${result.id}'`),'2')
   assert.deepEqual(JSON.parse(await sql(replaySql)),result)
  }
@@ -81,7 +81,7 @@ try {
  assert.equal(await sql(`select version from public.notification_centers where workspace_id='${workspace}'and user_id='${actor}'`),'2')
  const centerRace=await Promise.all(Array.from({length:20},()=>docker([...args,'--set=VERBOSITY=sqlstate'],notify('refresh',{command_id:randomUUID(),expected_version:2}))))
  assert.equal(centerRace.filter(r=>r.code===0).length,1)
- assert.equal(centerRace.filter(r=>r.code!==0&&/40001/.test(r.err)).length,19)
+ assert.equal(centerRace.filter(r=>r.code!==0&&/PT409/.test(r.err)).length,19)
  console.log('NOTIFICATION NATIVE PROCESS RACES PASS:20 refresh replays/20 event emits one effect/20 distinct center CAS one winner')
 
  const auto=(op,input)=>`begin;set local role authenticated;set local request.jwt.claim.sub='${actor}';select public.automation_v1_${op}('${workspace}','${JSON.stringify(input)}'::jsonb);commit;`
@@ -121,7 +121,7 @@ try {
  const distinctDraft=JSON.parse(await sql(billing('invoice_create_draft',{command_id:randomUUID(),...draft})))
  const competing=await Promise.all(Array.from({length:20},()=>docker([...args,'--set=VERBOSITY=sqlstate'],billing('invoice_issue',{command_id:randomUUID(),id:distinctDraft.id,expected_version:1}))))
  assert.equal(competing.filter(r=>r.code===0).length,1)
- assert.equal(competing.filter(r=>r.code!==0&&/40001/.test(r.err)).length,19)
+ assert.equal(competing.filter(r=>r.code!==0&&/PT409/.test(r.err)).length,19)
  assert.equal(await sql(`select next_sequence from public.billing_series where workspace_id='${workspace}' and series='A' and year=2026`),'23')
  familyReplays.push(billing('invoice_issue',issueCommand))
  console.log('BILLING NATIVE RACES PASS: 20 distinct simultaneous issues numbers1..20 / 20 identical issue retries one21 / 20 distinct same-draft attempts one22 and19 CAS conflicts /22 committed numbers')
@@ -140,7 +140,7 @@ try {
   const action=family==='contract'?'update_allowed_metadata':'update_label',fields=family==='contract'?{assigned_user_id:null}:{display_name:'Native Human Label'}
   const edits=await Promise.all(Array.from({length:20},()=>docker([...args,'--set=VERBOSITY=sqlstate'],portfolio(family+'.'+action,{command_id:randomUUID(),id:receipt.id,expected_version:1,...fields}))))
   assert.equal(edits.filter(r=>r.code===0).length,1,`${family} portfolio CAS winner`)
-  assert.equal(edits.filter(r=>r.code!==0&&/40001/.test(r.err)).length,19,`${family} portfolio CAS conflicts`)
+  assert.equal(edits.filter(r=>r.code!==0&&/PT409/.test(r.err)).length,19,`${family} portfolio CAS conflicts`)
   assert.equal(await sql(`select count(*)from public.product_audit_events where entity_id='${receipt.id}'`),'2')
  }
  const catalog=(op,input)=>`begin;set local role authenticated;set local request.jwt.claim.sub='${actor}';select public.catalog_v1_command('${workspace}','${op}','${JSON.stringify(input)}'::jsonb);commit;`
@@ -150,7 +150,7 @@ try {
  const commercialReplays=await Promise.all(Array.from({length:20},()=>docker(args,commercialSQL)))
  assert.ok(commercialReplays.every(r=>r.code===0),'commercial version same-key replay race');const commercialReceipt=JSON.parse(commercialReplays[0].out.trim());for(const r of commercialReplays)assert.deepEqual(JSON.parse(r.out.trim()),commercialReceipt);familyReplays.push(commercialSQL)
  const commercialVersions=await Promise.all(Array.from({length:20},()=>docker([...args,'--set=VERBOSITY=sqlstate'],catalog('plan_version.create',{...commercialInput,command_id:randomUUID(),expected_version:2,valid_from:'2027-01-01',valid_until:'2027-12-31'}))))
- assert.equal(commercialVersions.filter(r=>r.code===0).length,1);assert.equal(commercialVersions.filter(r=>r.code!==0&&/40001/.test(r.err)).length,19)
+ assert.equal(commercialVersions.filter(r=>r.code===0).length,1);assert.equal(commercialVersions.filter(r=>r.code!==0&&/PT409/.test(r.err)).length,19)
  assert.equal(await sql(`select count(*)from public.telecom_plan_versions where plan_id='${catalogPlan.id}'`),'2')
  assert.equal(await sql(`select count(*)from public.telecom_plan_version_publications where plan_version_id='${commercialReceipt.id}'`),'1')
  console.log('COMMERCIAL CATALOG NATIVE RACES PASS:20 identical publication receipts/20 distinct next versions one parent-CAS winner/immutable frozen version history/revoked replay below')
@@ -163,9 +163,9 @@ try {
  const protectedReceipt=JSON.parse(protectedReplays[0].out.trim());for(const r of protectedReplays)assert.deepEqual(JSON.parse(r.out.trim()),protectedReceipt)
  familyReplays.push(protectedSQL)
  const identifierEdits=await Promise.all(Array.from({length:20},()=>docker([...args,'--set=VERBOSITY=sqlstate'],ident('identifier.retire',{command_id:randomUUID(),id:protectedReceipt.id,expected_version:1}))))
- assert.equal(identifierEdits.filter(r=>r.code===0).length,1);assert.equal(identifierEdits.filter(r=>r.code!==0&&/40001/.test(r.err)).length,19)
+ assert.equal(identifierEdits.filter(r=>r.code===0).length,1);assert.equal(identifierEdits.filter(r=>r.code!==0&&/PT409/.test(r.err)).length,19)
  const identifierAssignments=await Promise.all(Array.from({length:20},()=>docker([...args,'--set=VERBOSITY=sqlstate'],ident('identifier.create_manual',{...protectedInput,command_id:randomUUID(),canonical_value:'+12025550124'}))))
- assert.equal(identifierAssignments.filter(r=>r.code===0).length,1);assert.equal(identifierAssignments.filter(r=>r.code!==0&&/40001/.test(r.err)).length,19)
+ assert.equal(identifierAssignments.filter(r=>r.code===0).length,1);assert.equal(identifierAssignments.filter(r=>r.code!==0&&/PT409/.test(r.err)).length,19)
  assert.equal(await sql(`select count(*)from public.telecom_identifiers where workspace_id='${workspace}'and line_id='${protectedLine.id}'`),'2')
  assert.deepEqual(JSON.parse(await sql(protectedSQL)),protectedReceipt)
  console.log('PROTECTED IDENTIFIER NATIVE RACES PASS:20 identical create receipts/20 retire CAS one winner/20 distinct assignments one winner/history retained/revoked replay below')
@@ -176,10 +176,10 @@ try {
  const donor=JSON.parse(await sql(catalog('operator.create',{command_id:randomUUID(),code:'native_port_donor',display_name:'Native Synthetic Donor'})))
  const portInput={command_id:randomUUID(),line_id:portLine.id,number_identifier_id:portNumber.id,direction:'inbound',donor_operator_id:donor.id,target_operator_id:operator,requested_on:'2026-02-01',owner_user_id:null}
  const openRaces=await Promise.all(Array.from({length:20},()=>docker([...args,'--set=VERBOSITY=sqlstate'],port('portability.create',{...portInput,command_id:randomUUID()}))))
- assert.equal(openRaces.filter(r=>r.code===0).length,1);assert.equal(openRaces.filter(r=>r.code!==0&&/40001/.test(r.err)).length,19)
+ assert.equal(openRaces.filter(r=>r.code===0).length,1);assert.equal(openRaces.filter(r=>r.code!==0&&/PT409/.test(r.err)).length,19)
  const openReceipt=JSON.parse(openRaces.find(r=>r.code===0).out.trim())
  const transitions=await Promise.all(Array.from({length:20},()=>docker([...args,'--set=VERBOSITY=sqlstate'],port('portability.transition',{command_id:randomUUID(),id:openReceipt.id,expected_version:1,status:'requested',effective_on:'2026-02-02',reason_code:null,evidence_source:'manual'}))))
- assert.equal(transitions.filter(r=>r.code===0).length,1);assert.equal(transitions.filter(r=>r.code!==0&&/40001/.test(r.err)).length,19)
+ assert.equal(transitions.filter(r=>r.code===0).length,1);assert.equal(transitions.filter(r=>r.code!==0&&/PT409/.test(r.err)).length,19)
  await sql(port('portability.transition',{command_id:randomUUID(),id:openReceipt.id,expected_version:2,status:'scheduled',effective_on:'2026-02-03',reason_code:null,evidence_source:'manual'}))
  const completionSQL=port('portability.complete',{command_id:randomUUID(),id:openReceipt.id,expected_version:3,completed_on:'2026-02-04',evidence_source:'manual',provider_outcome:'confirmed_completed',line_action:'none',expected_line_version:null})
  const completions=await Promise.all(Array.from({length:20},()=>docker(args,completionSQL)));assert.ok(completions.every(r=>r.code===0));const completionReceipt=JSON.parse(completions[0].out.trim());for(const r of completions)assert.deepEqual(JSON.parse(r.out.trim()),completionReceipt);familyReplays.push(completionSQL)
@@ -193,14 +193,14 @@ try {
  const caseInput={command_id:randomUUID(),customer_id:id,contract_id:contract,service_id:service,line_id:null,case_type:'technical',title:'Native Synthetic Case',priority:'urgent',due_on:'2000-01-01',assigned_user_id:null},caseSQL=cases('case.create',caseInput)
  const caseCreates=await Promise.all(Array.from({length:20},()=>docker(args,caseSQL)));assert.ok(caseCreates.every(r=>r.code===0));const caseReceipt=JSON.parse(caseCreates[0].out.trim());for(const r of caseCreates)assert.deepEqual(JSON.parse(r.out.trim()),caseReceipt);familyReplays.push(caseSQL)
  const caseTransitions=await Promise.all(Array.from({length:20},()=>docker([...args,'--set=VERBOSITY=sqlstate'],cases('case.change_status',{command_id:randomUUID(),id:caseReceipt.id,expected_version:1,status:'in_progress'}))))
- assert.equal(caseTransitions.filter(r=>r.code===0).length,1);assert.equal(caseTransitions.filter(r=>r.code!==0&&/40001/.test(r.err)).length,19)
+ assert.equal(caseTransitions.filter(r=>r.code===0).length,1);assert.equal(caseTransitions.filter(r=>r.code!==0&&/PT409/.test(r.err)).length,19)
  const caseNotes=await Promise.all(Array.from({length:20},()=>docker([...args,'--set=VERBOSITY=sqlstate'],cases('case.note_create',{command_id:randomUUID(),id:caseReceipt.id,expected_version:2,body:'Native synthetic private CAS note'}))))
- assert.equal(caseNotes.filter(r=>r.code===0).length,1);assert.equal(caseNotes.filter(r=>r.code!==0&&/40001/.test(r.err)).length,19)
+ assert.equal(caseNotes.filter(r=>r.code===0).length,1);assert.equal(caseNotes.filter(r=>r.code!==0&&/PT409/.test(r.err)).length,19)
  const noteSQL=cases('case.note_create',{command_id:randomUUID(),id:caseReceipt.id,expected_version:3,body:'Native synthetic private replay note'})
  const noteReplays=await Promise.all(Array.from({length:20},()=>docker(args,noteSQL)));assert.ok(noteReplays.every(r=>r.code===0));const noteReceipt=JSON.parse(noteReplays[0].out.trim());for(const r of noteReplays)assert.deepEqual(JSON.parse(r.out.trim()),noteReceipt);familyReplays.push(noteSQL)
  assert.equal(await sql(`select count(*)from public.service_case_internal_notes where case_id='${caseReceipt.id}'`),'2')
  const resolutions=await Promise.all(Array.from({length:20},()=>docker([...args,'--set=VERBOSITY=sqlstate'],cases('case.resolve',{command_id:randomUUID(),id:caseReceipt.id,expected_version:4,resolution_code:'issue_fixed'}))))
- assert.equal(resolutions.filter(r=>r.code===0).length,1);assert.equal(resolutions.filter(r=>r.code!==0&&/40001/.test(r.err)).length,19)
+ assert.equal(resolutions.filter(r=>r.code===0).length,1);assert.equal(resolutions.filter(r=>r.code!==0&&/PT409/.test(r.err)).length,19)
  assert.deepEqual(JSON.parse(await sql(noteSQL)),noteReceipt)
  console.log('SERVICE CASE NATIVE RACES PASS:20 exact creates/20statusCAS one winner/20noteCAS one winner/20exact note receipts/20resolutionCAS one winner/private append-only history/revoked replay below')
 
@@ -210,7 +210,7 @@ try {
  const simCreates=await Promise.all(Array.from({length:20},()=>docker(args,simSQL)));assert.ok(simCreates.every(r=>r.code===0));const simReceipt=JSON.parse(simCreates[0].out.trim());for(const r of simCreates)assert.deepEqual(JSON.parse(r.out.trim()),simReceipt);familyReplays.push(simSQL)
  await sql(ident('identifier.create_manual',{command_id:randomUUID(),entity_kind:'sim',entity_id:simReceipt.id,identifier_kind:'iccid',canonical_value:'8900000000000000290'}))
  const simAssignments=await Promise.all(Array.from({length:20},()=>docker([...args,'--set=VERBOSITY=sqlstate'],sims('sim.assign',{command_id:randomUUID(),id:simReceipt.id,expected_version:1,line_id:simLine.id,expected_line_version:1}))))
- assert.equal(simAssignments.filter(r=>r.code===0).length,1);assert.equal(simAssignments.filter(r=>r.code!==0&&/40001/.test(r.err)).length,19)
+ assert.equal(simAssignments.filter(r=>r.code===0).length,1);assert.equal(simAssignments.filter(r=>r.code!==0&&/PT409/.test(r.err)).length,19)
  await sql(sims('sim.activate',{command_id:randomUUID(),id:simReceipt.id,expected_version:2,expected_line_version:1,evidence_source:'manual',provider_confirmation:'confirmed_active'}))
  const replacementInputs=[],simCandidates=[]
  for(let i=0;i<20;i++){
@@ -220,12 +220,12 @@ try {
  }
  const simIdentifierInputs=simCandidates.map(candidate=>({command_id:randomUUID(),entity_kind:'sim',entity_id:candidate.id,identifier_kind:'iccid',canonical_value:'8900000000000000350'}))
  const simIdentifierRaces=await Promise.all(simIdentifierInputs.map(i=>docker([...args,'--set=VERBOSITY=sqlstate'],ident('identifier.create_manual',i))))
- assert.equal(simIdentifierRaces.filter(r=>r.code===0).length,1);assert.equal(simIdentifierRaces.filter(r=>r.code!==0&&/40001/.test(r.err)).length,19)
+ assert.equal(simIdentifierRaces.filter(r=>r.code===0).length,1);assert.equal(simIdentifierRaces.filter(r=>r.code!==0&&/PT409/.test(r.err)).length,19)
  const simIdentifierWinner=simIdentifierRaces.findIndex(r=>r.code===0),simIdentifierReceipt=JSON.parse(simIdentifierRaces[simIdentifierWinner].out.trim())
  await sql(ident('identifier.retire',{command_id:randomUUID(),id:simIdentifierReceipt.id,expected_version:1}))
  for(const[i,candidate]of simCandidates.entries())await sql(ident('identifier.create_manual',{command_id:randomUUID(),entity_kind:'sim',entity_id:candidate.id,identifier_kind:'iccid',canonical_value:'89'+String(300+i).padStart(17,'0')}))
  const simReplacements=await Promise.all(replacementInputs.map(i=>docker([...args,'--set=VERBOSITY=sqlstate'],sims('sim.replace',i))))
- assert.equal(simReplacements.filter(r=>r.code===0).length,1);assert.equal(simReplacements.filter(r=>r.code!==0&&/40001/.test(r.err)).length,19,'replacement losers must be CAS conflicts; SQLSTATEs: '+simReplacements.filter(r=>r.code!==0).map(r=>r.err.match(/ERROR:\s+([A-Z0-9]{5})/)?.[1]??'unclassified').join(','))
+ assert.equal(simReplacements.filter(r=>r.code===0).length,1);assert.equal(simReplacements.filter(r=>r.code!==0&&/PT409/.test(r.err)).length,19,'replacement losers must be CAS conflicts; SQLSTATEs: '+simReplacements.filter(r=>r.code!==0).map(r=>r.err.match(/ERROR:\s+([A-Z0-9]{5})/)?.[1]??'unclassified').join(','))
  const replacementWinner=simReplacements.findIndex(r=>r.code===0),replacementReceipt=JSON.parse(simReplacements[replacementWinner].out.trim()),replacementSQL=sims('sim.replace',replacementInputs[replacementWinner])
  const replacementReplays=await Promise.all(Array.from({length:20},()=>docker(args,replacementSQL)));assert.ok(replacementReplays.every(r=>r.code===0));for(const r of replacementReplays)assert.deepEqual(JSON.parse(r.out.trim()),replacementReceipt);familyReplays.push(replacementSQL)
  assert.equal(await sql(`select count(*)from public.telecom_sim_associations where line_id='${simLine.id}'`),'2');assert.equal(await sql(`select count(*)from public.telecom_sim_associations where line_id='${simLine.id}'and ended_at is null`),'1')
@@ -252,7 +252,7 @@ try {
   const receipt=JSON.parse(attempts[0].out.trim());for(const attempt of attempts)assert.deepEqual(JSON.parse(attempt.out.trim()),receipt)
   const edits=await Promise.all(Array.from({length:20},()=>docker([...args,'--set=VERBOSITY=sqlstate'],portfolio(update,{command_id:randomUUID(),id:receipt.id,expected_version:1,...changes}))))
   assert.equal(edits.filter(r=>r.code===0).length,1,`${family} deadline CAS winner`)
-  assert.equal(edits.filter(r=>r.code!==0&&/40001/.test(r.err)).length,19)
+  assert.equal(edits.filter(r=>r.code!==0&&/PT409/.test(r.err)).length,19)
   assert.equal(await sql(`select count(*)from public.product_audit_events where entity_id='${receipt.id}'`),'2')
  }
  console.log('PORTFOLIO DEADLINE NATIVE RACES PASS: renewal/permanence each20 identical creates +20 CAS edits; revoked replay below')
@@ -260,7 +260,7 @@ try {
  const document=randomUUID(),object=randomUUID(),documentCommand=(op,input)=>`begin;set local role authenticated;set local request.jwt.claim.sub='${actor}';select public.document_v1_${op}('${workspace}','${JSON.stringify(input)}'::jsonb);commit;`
  await sql(`insert into public.documents(id,workspace_id,customer_id,document_kind,file_name,storage_path)values('${document}','${workspace}','${id}','general','Sensitive Synthetic.pdf','${workspace}/documents/${document}/${object}')`)
  const documentArchives=await Promise.all(Array.from({length:20},()=>docker([...args,'--set=VERBOSITY=sqlstate'],documentCommand('archive',{command_id:randomUUID(),id:document,expected_version:1}))))
- assert.equal(documentArchives.filter(r=>r.code===0).length,1);assert.equal(documentArchives.filter(r=>r.code!==0&&/40001/.test(r.err)).length,19)
+ assert.equal(documentArchives.filter(r=>r.code===0).length,1);assert.equal(documentArchives.filter(r=>r.code!==0&&/PT409/.test(r.err)).length,19)
  const restore={command_id:randomUUID(),id:document,expected_version:2},restoreSql=documentCommand('restore',restore);familyReplays.push(restoreSql)
  const documentRestores=await Promise.all(Array.from({length:20},()=>docker(args,restoreSql)))
  assert.ok(documentRestores.every(r=>r.code===0));const restoredDocument=JSON.parse(documentRestores[0].out.trim());for(const attempt of documentRestores)assert.deepEqual(JSON.parse(attempt.out.trim()),restoredDocument)
@@ -275,7 +275,7 @@ try {
   const attempts=await Promise.all(Array.from({length:20},()=>docker([...args,'--set=VERBOSITY=sqlstate'],sameKey?query:contentCommand('finalize_upload',{...input,command_id:randomUUID()}))))
   assert.equal(attempts.filter(r=>r.code===0).length,sameKey?20:1)
   if(sameKey){const first=JSON.parse(attempts[0].out.trim());for(const attempt of attempts)assert.deepEqual(JSON.parse(attempt.out.trim()),first);familyReplays.push(query)}
-  else assert.equal(attempts.filter(r=>r.code!==0&&/40001/.test(r.err)).length,19)
+  else assert.equal(attempts.filter(r=>r.code!==0&&/PT409/.test(r.err)).length,19)
   assert.equal(await sql(`select version from public.documents where id='${pending.id}'`),'2')
   assert.equal(await sql(`select count(*)from public.product_audit_events where entity_id='${pending.id}'`),'2')
  }

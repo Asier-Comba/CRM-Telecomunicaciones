@@ -13,7 +13,7 @@ export async function documentContentAcceptance({rpc,sql,check,http,users,wa,wb,
  const finalize={command_id:randomUUID(),id,expected_version:1}
  check((await call('finalize_upload',finalize)).status===400,'content_missing_object_not_finalized')
  check(Number(sql(`select count(*)from public.product_commands where command_id='${finalize.command_id}'`))===0,'content_failed_finalize_no_reservation')
- check((await call('request_upload',{...input,size_bytes:input.size_bytes+1})).json.code==='40001','content_changed_intent_conflict')
+ check((await call('request_upload',{...input,size_bytes:input.size_bytes+1})).json.code==='PT409','content_changed_intent_conflict')
  check((await call('request_upload',{...input,storage_path:'arbitrary'})).status===400,'content_caller_path_denied')
  const foreignTarget=await call('request_upload',{...input,command_id:randomUUID(),target_id:cb})
  check(foreignTarget.status>=400&&foreignTarget.json?.code==='P0002','content_foreign_target_denied')
@@ -30,7 +30,7 @@ export async function documentContentAcceptance({rpc,sql,check,http,users,wa,wb,
  check(attempts.every(r=>r.status===200&&JSON.stringify(r.json)===JSON.stringify(attempts[0].json)),'content20_same_finalize_replays')
  check(attempts[0].json.status==='active'&&attempts[0].json.version===2,'content_real_object_finalized')
  check(Number(sql(`select count(*)from public.product_audit_events where entity_id='${id}'`))===2,'content_two_atomic_audits')
- check((await call('finalize_upload',{...finalize,expected_version:2})).json.code==='40001','content_changed_finalize_conflict')
+ check((await call('finalize_upload',{...finalize,expected_version:2})).json.code==='PT409','content_changed_finalize_conflict')
  const cookies=[],client=createServerClient(url,anon,{cookies:{getAll:()=>[],setAll:v=>cookies.push(...v)}})
  check(!(await client.auth.setSession({access_token:users.ownerA.token,refresh_token:users.ownerA.refresh})).error,'content_real_cookie_session')
  const cookie=cookies.map(c=>c.name+'='+c.value).join('; ')

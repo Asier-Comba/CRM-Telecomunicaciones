@@ -13,7 +13,7 @@ export interface DocumentMaintenancePortV1 extends DocumentContentPortV1{
 }
 export const DOCUMENT_MAINTENANCE_RPC_V1={'document.verify_content':'document_integrity_v1_verify','document.cleanup_claim':'document_cleanup_v1_claim','document.cleanup_finish':'document_cleanup_v1_finish','document.expired_list':'document_cleanup_v1_expired_list'}as const
 const fail=(error:ProductErrorV1)=>({ok:false as const,error})
-const err=(c?:string):ProductErrorV1=>c==='42501'?'access_denied':c==='P0002'?'not_found':['40001','23505'].includes(c??'')?'conflict':['22023','22P02','23514'].includes(c??'')?'validation':'internal_safe'
+const err=(c?:string):ProductErrorV1=>c==='42501'?'access_denied':c==='P0002'?'not_found':['40001','PT409','23505'].includes(c??'')?'conflict':['22023','22P02','23514'].includes(c??'')?'validation':'internal_safe'
 export function parseDocumentMaintenanceInputV1(op:DocumentMaintenanceOperationV1,v:unknown):DocumentMaintenanceInputV1|null{
  try{return Object.hasOwn(DOCUMENT_MAINTENANCE_RPC_V1,op)&&op!=='document.expired_list'&&plain(v)&&Object.keys(v).sort().join(',')===(op==='document.verify_content'?'command_id,expected_version,id,ticket_id':'command_id,expected_version,id')&&uuid(v.command_id)&&uuid(v.id)&&Number.isSafeInteger(v.expected_version)&&(v.expected_version as number)>0&&(v.expected_version as number)<1e15&&(op!=='document.verify_content'||uuid(v.ticket_id))?Object.freeze({...v,command_id:v.command_id.toLowerCase(),id:v.id.toLowerCase(),...(op==='document.verify_content'?{ticket_id:(v.ticket_id as string).toLowerCase()}:{})})as DocumentMaintenanceInputV1:null}catch{return null}
 }

@@ -13,7 +13,7 @@ do $$declare w uuid:='b8100000-0000-4000-8000-000000000001';i jsonb;r jsonb;begi
  i:='{"command_id":"98100000-0000-4000-8000-000000000001","target_kind":"customer","target_id":"c8100000-0000-4000-8000-000000000001","document_kind":"general","media_type":"application/pdf","size_bytes":32,"file_name":"Synthetic.pdf"}';
  r:=public.document_content_v1_request_upload(w,i);perform pg_temp.dc_assert(r->>'status'='pending'and r->>'version'='1'and not r?'storage_path'and not r?'object_ref');perform pg_temp.dc_assert(r=public.document_content_v1_request_upload(w,i));
  insert into dc_saved values((r->>'id')::uuid,i,r,jsonb_build_object('command_id','98100000-0000-4000-8000-000000000002','id',r->>'id','expected_version',1),null);
- perform pg_temp.dc_deny(format('select public.document_content_v1_request_upload(%L,%L)',w,(i||'{"size_bytes":33}')::text),'40001');
+ perform pg_temp.dc_deny(format('select public.document_content_v1_request_upload(%L,%L)',w,(i||'{"size_bytes":33}')::text),'PT409');
  perform pg_temp.dc_deny(format('select public.document_content_v1_request_upload(%L,%L)',w,(i||'{"storage_path":"arbitrary"}')::text),'22023');
  perform pg_temp.dc_deny(format('select public.document_content_v1_request_upload(%L,%L)',w,(i||jsonb_build_object('command_id',gen_random_uuid(),'target_id','c8100000-0000-4000-8000-000000000002'))::text),'P0002');
  perform pg_temp.dc_deny(format('select public.document_content_v1_finalize_upload(%L,%L)',w,(select finalize::text from dc_saved)),'22023');

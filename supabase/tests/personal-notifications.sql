@@ -9,7 +9,7 @@ set local role authenticated;
 select set_config('request.jwt.claim.sub','81000000-0000-4000-8000-000000000002',true);
 do $$declare w uuid:='82000000-0000-4000-8000-000000000001';i jsonb;r jsonb;id uuid;begin
  i:=jsonb_build_object('command_id',gen_random_uuid(),'expected_version',0);r:=public.notification_v1_refresh(w,i);perform pg_temp.assert_n(r->>'affected'='1'and r->>'version'='2'and r=public.notification_v1_refresh(w,i));
- perform pg_temp.deny_n(format('select public.notification_v1_refresh(%L,%L)',w,(i||'{"expected_version":1}'::jsonb)::text),'40001');
+ perform pg_temp.deny_n(format('select public.notification_v1_refresh(%L,%L)',w,(i||'{"expected_version":1}'::jsonb)::text),'PT409');
  perform pg_temp.assert_n(public.notification_v1_unread_count(w,'{}')->>'unread_count'='1');
  id:=(public.notification_v1_list(w,'{"limit":1}')->'items'->0->>'id')::uuid;
  perform pg_temp.assert_n(public.notification_v1_list(w,jsonb_build_object('limit',1,'after_id',id))->'items'='[]'::jsonb);

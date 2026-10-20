@@ -21,7 +21,7 @@ do $$declare w uuid:='82000000-0000-4000-8000-000000000001';id uuid:='86000000-0
  perform pg_temp.assert_b(public.importjob_v1_get(w,'{"id":"83000000-0000-4000-8000-000000000002"}')is null);
  inp:=jsonb_build_object('command_id',gen_random_uuid(),'id',id,'expected_version',1);r:=public.importjob_v1_cancel(w,inp);
  perform pg_temp.assert_b(r->>'version'='2'and r->>'status'='cancelled'and r=public.importjob_v1_cancel(w,inp));
- perform pg_temp.deny_b(format('select public.importjob_v1_cancel(%L,%L)',w,(inp||'{"expected_version":2}')::text),'40001');
+ perform pg_temp.deny_b(format('select public.importjob_v1_cancel(%L,%L)',w,(inp||'{"expected_version":2}')::text),'PT409');
  perform pg_temp.deny_b(format('select public.importjob_v1_cancel(%L,%L)',w,(inp||jsonb_build_object('command_id',gen_random_uuid(),'expected_version',2))::text),'22023');
  perform pg_temp.deny_b(format('select public.importjob_v1_list(%L,%L)',w,'{"limit":101}'),'22023');
  perform pg_temp.deny_b(format('select public.importjob_v1_get(%L,%L)',w,'{"id":"86000000-0000-4000-8000-000000000001","payload":{}}'),'22023');

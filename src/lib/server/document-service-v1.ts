@@ -3,7 +3,7 @@ import type {ProductErrorV1}from '../contracts/product-v1'
 import type {DocumentOperationV1}from '../contracts/document-v1'
 import {DOCUMENT_RPC_V1,parseDocumentInputV1,parseDocumentReceiptV1,parseDocumentGetInputV1,parseDocumentGetV1,parseDocumentListInputV1,parseDocumentListV1}from './document-runtime-v1.ts'
 const failure=(error:ProductErrorV1)=>({ok:false as const,error})
-function dbError(code?:string):ProductErrorV1{return code==='42501'?'access_denied':code==='P0002'?'not_found':['40001','23505','40P01'].includes(code??'')?'conflict':['22023','22P02','23514'].includes(code??'')?'validation':'internal_safe'}
+function dbError(code?:string):ProductErrorV1{return code==='42501'?'access_denied':code==='P0002'?'not_found':['40001','PT409','23505','40P01'].includes(code??'')?'conflict':['22023','22P02','23514'].includes(code??'')?'validation':'internal_safe'}
 export class DocumentServiceV1{
  readonly #port:ProductUserPortV1
  constructor(port:ProductUserPortV1){this.#port=port}

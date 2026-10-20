@@ -27,7 +27,7 @@ export class ProductServiceV1 {
       if (response.error !== null) {
         const code = response.error.code
         return { ok: false, error: code === '42501' ? 'access_denied' : code === 'P0002' ? 'not_found'
-          : ['40001', '23505'].includes(code ?? '') ? 'conflict'
+          : ['40001','PT409', '23505'].includes(code ?? '') ? 'conflict'
           : ['22023', '22P02', '22007', '23514', '23503'].includes(code ?? '') ? 'validation' : 'internal_safe' }
       }
       const receipt = parseProductReceiptV1(operation, input, response.data)
