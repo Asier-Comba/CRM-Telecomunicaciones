@@ -85,7 +85,14 @@ function proxyFixture(outcome,environment=env){
  return{...proxyModule,calls}
 }
 const request=(path,headers={})=>new next.NextRequest(admission.stagingAppOriginV1+path,{headers})
-function assertPrivate(response){assert.match(response.headers.get('cache-control'),/private/);assert.match(response.headers.get('cache-control'),/no-store/);assert.equal(response.headers.get('pragma'),'no-cache');assert.equal(response.headers.get('expires'),'0')}
+function assertPrivate(response){assert.equal(response.headers.get('cache-control'),'no-store');assert.equal(response.headers.get('pragma'),'no-cache');assert.equal(response.headers.get('expires'),'0')}
+
+for(const [name,configuration]of [['local',{NODE_ENV:'development',APP_ENV:'test',NEXT_PUBLIC_SUPABASE_URL:'http://127.0.0.1:54321',NEXT_PUBLIC_SUPABASE_ANON_KEY:'synthetic-only'}],['staging',env]])test('proxy preserves the exact existing assistant no-store response contract in '+name,async()=>{
+ const f=proxyFixture({data:{user:registered(actor)},error:null},configuration)
+ const response=await f.proxy(request('/api/assistant/v2/threads'))
+ assert.equal(response.headers.get('cache-control'),'no-store')
+ assert.equal(response.headers.get('pragma'),'no-cache');assert.equal(response.headers.get('expires'),'0')
+})
 
 test('actual proxy admits cohort, propagates SDK cookie/cache headers and requests Secure staging cookies',async()=>{
  const f=proxyFixture({data:{user:registered(actor)},error:null}),r=await f.proxy(request('/api/product/v1/queries'))

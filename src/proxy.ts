@@ -5,7 +5,8 @@ import { readStagingAdmissionV1, stagingIdentityAllowedV1, userClientBindingV1 }
 const publicPaths = new Set(['/login', '/reset-password', '/auth/callback', '/auth/signout', '/api/health/live', '/api/health/ready'])
 const healthPaths = new Set(['/api/health/live', '/api/health/ready'])
 function privateResponse(response: NextResponse) {
-  response.headers.set('Cache-Control', 'private, no-cache, no-store, must-revalidate, max-age=0')
+  // Match the application API contract exactly; no-store also prohibits shared caches.
+  response.headers.set('Cache-Control', 'no-store')
   response.headers.set('Pragma', 'no-cache')
   response.headers.set('Expires', '0')
   return response
