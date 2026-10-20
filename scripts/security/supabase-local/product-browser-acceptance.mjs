@@ -409,10 +409,10 @@ export async function productBrowserAcceptance({ users, wa, ca, sql, url, anon, 
     await check('equipment_viewer_normal_read_has_no_lifecycle_controls',async()=>{await page.goto(origin+'/clients/'+id);const response=page.waitForResponse(r=>{try{return r.request().postDataJSON()?.operation==='equipment.list'}catch{return false}});await page.getByRole('tab',{name:'Equipos',exact:true}).click();const r=await response;if(r.status()!==200)throw Error('EQUIPMENT_VIEWER_READ_FAILED');await expect(page.getByRole('button',{name:'Nuevo equipo',exact:true})).toHaveCount(0);const row=page.locator('[data-equipment-id]:visible').first();await expect(row).toBeVisible();await row.getByRole('button',{name:'Ver equipo',exact:true}).click();await expect(page.getByText('Consulta de solo lectura para tu rol.',{exact:true})).toBeVisible();for(const name of ['Asignar','Registrar devolución','Sustituir','Cancelar equipo'])await expect(page.getByRole('dialog').getByRole('button',{name,exact:true})).toHaveCount(0);await page.getByRole('button',{name:'Cerrar panel',exact:true}).click()})
 
     await viewerServiceConsumerBrowser({page,origin,check,serviceConsumer})
-    await viewerPortabilityConsumerBrowser({page,origin,check,portabilityConsumer,screenshotDir})
-    await viewerSimConsumerBrowser({page,origin,check,simConsumer,screenshotDir})
+    await viewerPortabilityConsumerBrowser({page,origin,check,portabilityConsumer,screenshotDir,report})
+    await viewerSimConsumerBrowser({page,origin,check,simConsumer,screenshotDir,report})
     await viewerContractsConsumerBrowser({page,origin,check,contractsConsumer,screenshotDir})
-    await viewerCaseConsumerBrowser({page,origin,check,caseConsumer,screenshotDir})
+    await viewerCaseConsumerBrowser({page,origin,check,caseConsumer,screenshotDir,report})
     await context.close();context=await browser.newContext({viewport:{width:1440,height:960}});page=await context.newPage();page.setDefaultTimeout(30000);observeTransport(page)
     sql(`update public.workspace_members set status='active',role='admin' where workspace_id='${wa}' and user_id='${users.adminA.id}';update public.profiles set workspace_id='${wa}' where id='${users.adminA.id}';`)
     await check('admin_real_login_write_and_owner_protection',()=>adminConsumerBrowser({page,origin,users,report}))

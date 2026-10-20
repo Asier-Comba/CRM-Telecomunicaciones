@@ -38,16 +38,16 @@ export async function simConsumerBrowser({page,origin,id,sql,check,screenshotDir
  })
  return{simId,replacementId,lineId,customerId:id}
 }
-export async function viewerSimConsumerBrowser({page,origin,check,simConsumer,screenshotDir}){
+export async function viewerSimConsumerBrowser({page,origin,check,simConsumer,screenshotDir,report}){
  await check('sim_viewer_masked_detail_no_lifecycle_writes_three_widths',async()=>{
   if(!simConsumer?.simId||!simConsumer.customerId)throw Error('SIM_VIEWER_FIXTURE_MISSING')
-  await page.goto(origin+'/sims/'+simConsumer.simId);await expect(page.getByRole('heading',{name:'W2 Synthetic Physical SIM',exact:true})).toBeVisible()
-  const customer=page.locator('header').getByRole('link').and(page.locator('a[href="/clients/'+simConsumer.customerId+'"]'))
+  /* OIER17_PHASE */if(report)report.w2_ui_action_step='viewer_sim:navigate';await page.goto(origin+'/sims/'+simConsumer.simId);/* OIER17_PHASE */if(report)report.w2_ui_action_step='viewer_sim:current_detail';await expect(page.getByRole('heading',{name:'W2 Synthetic Physical SIM',exact:true})).toBeVisible()
+  /* OIER17_PHASE */if(report)report.w2_ui_action_step='viewer_sim:readonly_controls';const customer=page.locator('header').getByRole('link').and(page.locator('a[href="/clients/'+simConsumer.customerId+'"]'))
   await expect(customer).toBeVisible();await expect(customer).not.toHaveText('Consultando cliente…');await expect(customer).not.toHaveText('Cliente no disponible');await expect(customer).toHaveText(/\S/)
   const detail=page.getByRole('heading',{name:'W2 Synthetic Physical SIM',exact:true}).locator('..')
   await expect(detail).toBeVisible();await expect(detail).toContainText('W2 Synthetic SIM Operator')
   for(const name of ['Gestionar identificadores de SIM/eSIM','Revisar asignación de SIM/eSIM','Revisar cancelación de SIM/eSIM','Revisar desactivación de SIM/eSIM'])await expect(page.getByRole('button',{name,exact:true})).toHaveCount(0)
-  for(const width of [1440,768,390]){await page.setViewportSize({width,height:960});await page.screenshot({path:resolve(screenshotDir,'sim-viewer-'+width+'.png'),fullPage:true});if(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1))throw Error('SIM_VIEWER_LAYOUT_OVERFLOW')}
-  await viewerCustomerSimCreationBrowser({page,origin,id:simConsumer.customerId})
+  for(const width of [1440,768,390]){/* OIER17_PHASE */if(report)report.w2_ui_action_step='viewer_sim:capture:'+width;await page.setViewportSize({width,height:960});await page.screenshot({path:resolve(screenshotDir,'sim-viewer-'+width+'.png'),fullPage:true});if(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1))throw Error('SIM_VIEWER_LAYOUT_OVERFLOW')}
+  /* OIER17_PHASE */if(report)report.w2_ui_action_step='viewer_sim:customer360_followup';await viewerCustomerSimCreationBrowser({page,origin,id:simConsumer.customerId})
  })
 }
