@@ -106,6 +106,9 @@ for(const width of [390,768,1440]){
    await filter.fill('DENY');await apply.click();await expect(page.getByRole('alert')).toHaveText('No tienes permiso para esta acción.')
    await expect(page.locator('tr[data-invoice-id]')).toHaveCount(0)
    await expect(page.getByText('No hay facturas en esta página con los filtros seleccionados.',{exact:true})).toHaveCount(0)
+   const deniedReads=r.queries.length;await apply.click()
+   await expect.poll(()=>r.queries.length).toBe(deniedReads+1)
+   await expect(page.getByRole('alert')).toHaveText('No tienes permiso para esta acción.')
    await filter.fill('A');await apply.click();await expect(page.locator(`tr[data-invoice-id="${r.id(11)}"]`)).toBeVisible();await expect(page.getByRole('alert')).toHaveCount(0)
    expect(r.commands).toEqual([]);expect(r.errors).toEqual([])
   }finally{await r.close()}
