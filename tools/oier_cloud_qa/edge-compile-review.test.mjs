@@ -19,9 +19,9 @@ function compile(text,environment){
  const defines=getDefineEnv({config:defaultConfig,dev:false,isEdgeServer:true,isClient:false,isNodeServer:false,isTurbopack:false,distDir:'.next',projectPath:process.cwd(),hasRewrites:false})
  assert.equal(defines['process.env.NODE_ENV'],'"production"')
  const {code}=transformSync(text,{filename:file,jsc:{parser:{syntax:'typescript'},target:'es2022',transform:{optimizer:{simplify:false,globals:{envs:{NODE_ENV:defines['process.env.NODE_ENV']}}}}},module:{type:'commonjs'}})
- const module={exports:{}}
- new Function('module','exports','process',code)(module,module.exports,{env:environment})
- return module.exports
+ const compiledModule={exports:{}}
+ new Function('module','exports','process',code)(compiledModule,compiledModule.exports,{env:environment})
+ return compiledModule.exports
 }
 
 test('real Next production define closes the parent failure with NODE_ENV absent from runtime env',()=>{
