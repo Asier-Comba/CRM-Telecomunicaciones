@@ -1,0 +1,244 @@
+{
+  "unit": "OIER_BILLING_REFRESH31",
+  "claim": 6303154547,
+  "base": "11769380081d7248dc913efc636c5a3ee97b8a5e",
+  "tests_sha": "3afde2772d7042f682f5bb4a5a812ac89b9e283f",
+  "runtime_code_sha": "f1a7262f02c1c26a7002d5b03b29eaeea48bd8b9",
+  "fix": "Explicit refresh retires previous error before current read; no asynchronous global error cleanup. Existing blocked guard retained.",
+  "runs": [
+    {
+      "attempt": "before",
+      "sha256": "a255cd8043dc6b7ce2531792981970550e033f6bb5b0f605dd6d7555ca07de4c",
+      "stats": {
+        "startTime": "2026-10-20T21:24:48.240Z",
+        "duration": 33991.334,
+        "expected": 0,
+        "skipped": 0,
+        "unexpected": 3,
+        "flaky": 0
+      },
+      "cases": [
+        {
+          "title": "billing explicit list refresh recovers after refused read at 390",
+          "status": "failed",
+          "error": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('alert')\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m1\u001b[39m\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('alert')\u001b[22m\n\u001b[2m    14 × locator resolved to 1 element\u001b[22m\n\u001b[2m       - unexpected value \"1\"\u001b[22m\n"
+        },
+        {
+          "title": "billing explicit list refresh recovers after refused read at 768",
+          "status": "failed",
+          "error": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('alert')\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m1\u001b[39m\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('alert')\u001b[22m\n\u001b[2m    14 × locator resolved to 1 element\u001b[22m\n\u001b[2m       - unexpected value \"1\"\u001b[22m\n"
+        },
+        {
+          "title": "billing explicit list refresh recovers after refused read at 1440",
+          "status": "failed",
+          "error": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('alert')\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m1\u001b[39m\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('alert')\u001b[22m\n\u001b[2m    14 × locator resolved to 1 element\u001b[22m\n\u001b[2m       - unexpected value \"1\"\u001b[22m\n"
+        }
+      ]
+    },
+    {
+      "attempt": "after",
+      "sha256": "6202432e96d48267ed9479200239d7f6e64295bafcd3690a02a99c71580ccabe",
+      "stats": {
+        "startTime": "2026-10-20T21:25:35.472Z",
+        "duration": 24551.714,
+        "expected": 25,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "cases": [
+        {
+          "title": "billing current selection late_success at 390",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing current selection late_refusal at 390",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing current selection initial_success at 390",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing current selection current_refusal at 390",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing current selection late_success at 768",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing current selection late_refusal at 768",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing current selection initial_success at 768",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing current selection current_refusal at 768",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing current selection late_success at 1440",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing current selection late_refusal at 1440",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing current selection initial_success at 1440",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing current selection current_refusal at 1440",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "financial totals from the previous refresh disappear until the current response arrives",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing explicit list refresh recovers after refused read at 390",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing series selection retains server cursor and ignores old filter response at 390",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing series denied query preserves error and recovers without writes at 390",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing explicit list refresh recovers after refused read at 768",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing series selection retains server cursor and ignores old filter response at 768",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing series denied query preserves error and recovers without writes at 768",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing explicit list refresh recovers after refused read at 1440",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing series selection retains server cursor and ignores old filter response at 1440",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing series denied query preserves error and recovers without writes at 1440",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "current invoice stays visible when a delayed 50-row billing list arrives at 1440",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "current invoice stays visible when a delayed 50-row billing list arrives at 768",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "current invoice stays visible when a delayed 50-row billing list arrives at 390",
+          "status": "passed",
+          "error": null
+        }
+      ]
+    }
+  ],
+  "images": [
+    {
+      "file": "billing-refresh-recovered-1440.png",
+      "sha256": "b6ae534d4a1393c55e9b94e94bfe160700135e72683d908d46f2b7eea9e75801"
+    },
+    {
+      "file": "billing-refresh-refused-1440.png",
+      "sha256": "1f25dcfb4774ec3b46fc1785aa9da7f032eb726ed0877b8955e3971f3bfc6201"
+    },
+    {
+      "file": "billing-refresh-recovered-768.png",
+      "sha256": "487fd257b10942a4682dd1cd387894fc68d73de3b6046c0253610e0bac62e81e"
+    },
+    {
+      "file": "billing-refresh-refused-768.png",
+      "sha256": "c31d0e663ca3febb597ee7996256d2e658d05eea00b7ebd9bcda5610a7efe33a"
+    },
+    {
+      "file": "billing-refresh-recovered-390.png",
+      "sha256": "72602ecf203ff2bf0ef2b5db64a3d995db399fc372096d89c1b3366d56bff12b"
+    },
+    {
+      "file": "billing-refresh-refused-390.png",
+      "sha256": "d271f74682facae60d8067ec802703196f23c254a4f32f1d404df1411207dfe7"
+    }
+  ],
+  "scope": "Controlled local HTTP with real component/repository/parser; three new width cases. Not Auth/DB, cloud, permission restoration or real voice.",
+  "workers": 1,
+  "retries": 0,
+  "timeout_ms": 180000,
+  "assertion_timeout_ms": 5000,
+  "commercial_AI_writes": "OFF",
+  "budget_eur": 0,
+  "release": "NOT_ACCEPTED",
+  "static_checks": {
+    "lint": 0,
+    "typecheck": 0,
+    "sha": "f1a7262f02c1c26a7002d5b03b29eaeea48bd8b9"
+  },
+  "build": {
+    "build": 0,
+    "sha": "f1a7262f02c1c26a7002d5b03b29eaeea48bd8b9",
+    "static_pages": 44
+  },
+  "logs": [
+    {
+      "file": "billing-refresh31-before.log",
+      "sha256": "19a6e7f9794133c10603bb0b617d5a49916d71aeb3e3490b16120ba162f6632e"
+    },
+    {
+      "file": "billing-refresh31-after.log",
+      "sha256": "533449910795fc81d5cb63e52aa344a5fba8b83d8851a82885a9d636d069f61a"
+    },
+    {
+      "file": "billing-refresh31-lint.log",
+      "sha256": "dda21574b74ba6a9edea377d67b00a3846ea8ae6ee11171eb3102a4a59f30d98"
+    },
+    {
+      "file": "billing-refresh31-types.log",
+      "sha256": "09698db0dd661e366e31bb0aa12a64958690641809896ed8445717ab71ea6759"
+    },
+    {
+      "file": "billing-refresh31-build.log",
+      "sha256": "feed16f582a924f07d56d435267276b3f7b2c04453f95661f26131419a395a54"
+    }
+  ]
+}
