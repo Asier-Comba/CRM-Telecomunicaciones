@@ -49,12 +49,12 @@
   "integration": "DRAFT_ASIER_EXACT_ACK_REQUIRED",
   "branch": "oier/portfolio-receipt-readback-20261020",
   "next": {
-    "security": "W4 independent review,5HIGH,W5EdgeAccess/cache, oldquota and137timeout kept;0manual retries,writesOFF,releaseNOT_ACCEPTED.",
-    "independent": "UNIT25 CLAIM6286688145: QA work/oier-catalog-unit25-qa outsidecheckout. After unit24published, verify plan.create caller individually (operator_id,service_kind,frozenreview,filteredreturn,no price-version publication). No invented causal red if shared source alreadyworks. Bind product486 and QAsha separately; no routine repeat of green application checks without source change.",
-    "publish": "Use same recovery alias while PRa32Supabase active; no cancellation or duplicate PR. Refresh run/head before any later fast-forward; newremote controls and exactAsierACK before integration."
+    "security": "5HIGH,W4 independent scan review,W5EdgeAccess/cache,quota markers0manual retries,137causeUNKNOWN;writesOFF,issue10OPEN,releaseNOT_ACCEPTED.",
+    "publish": "Same recovery alias while PRa32controls active; no cancellation/duplicate PR or source promotion. Refresh actualruns before anyPRadvance; ACKexactAsier for integration.",
+    "independent": "UNIT26 CLAIM6286944295: prepare sim.cancel causal bank using existing telecom-resource, prepared manual SIM without line or ICCID/EID. Prove wrong same-version state/source remount before editing Sims consumer. Keep ReviewedCommand primitive/backend/identifier sources/W4W5 untouched. Old-read safe-lock positive must not be misreported as causal failure."
   },
-  "unit": 24,
-  "claim": 6286430656,
+  "unit": 25,
+  "claim": 6286688145,
   "scope": "Actual product/repository/validators, synthetic loopback HTTP; real voice/model/hostedAuthDB/staging persistence NOT_RUN",
   "StorageP0": "OPEN",
   "source_blobs": {
@@ -142,38 +142,32 @@
     }
   },
   "checks": {
-    "bootstrap": {
-      "passed": 81,
-      "failed": 0
+    "previous_global_checks": "243BROWSER81LOGIC_BUILD0_REMAIN_BOUND_TO486_UNIT24_NOT_ASSIGNED_TO_QA9E",
+    "kind": "INDIVIDUAL_CALLER_QA_ONLY_APPLICATION_UNCHANGED",
+    "scope": "Active manual operator, owner fixture, actual UI/repository/DTOs controlled syntheticHTTP; AuthDB/provider/live model NOT_RUN",
+    "application_diff": "EMPTY_VERIFIED_SRC_PACKAGES_SCRIPTS_SUPABASE_WORKFLOWS",
+    "browser_unique": 15,
+    "qa_source": "9e82fe970bd64252448c5e15f0e94bba748874d1",
+    "visual": "MANUAL_PLAN_UNCONFIRMED390_REVIEWED_PARENT_NAME_CODE_FIBER_RETAINED",
+    "causal_failure": "NONE_OBSERVED_NO_RED_INVENTED",
+    "browser_bank": {
+      "startTime": "2026-10-20T06:29:42.607Z",
+      "duration": 45727.352,
+      "expected": 15,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
     },
-    "scope": "Actual components/repository/closed DTOs with synthetic controlledHTTP; hostedAuthDB,provider effects,live model NOT_RUN",
-    "quality": {
-      "build": 0,
+    "qa_quality": {
       "lint": 0,
-      "bootstrap": 0,
+      "build": "NOT_RERUN_UNCHANGED_APPLICATION;SEE_486_UNIT24",
+      "qa_source": "9e82fe970bd64252448c5e15f0e94bba748874d1",
+      "previous243_81": "NOT_ASSIGNED_TO_QA_SHA",
+      "application_reference": "486e854b2be6e5364867c0a7a08e3496291069ef",
       "typescript": 0,
-      "source": "486e854b2be6e5364867c0a7a08e3496291069ef"
+      "application_diff": "EMPTY_VERIFIED_BEFORE_TESTS"
     },
-    "acceptance": "INDIVIDUAL_OPERATOR_CREATE_ONLY; plan caller pending independent bank",
-    "browser_unique": 243,
-    "visual": "OPERATOR_CREATE_UNCONFIRMED390_REVIEWED; original fields/unknownnotice/retry visible, same identity cases3907681440",
-    "source": "486e854b2be6e5364867c0a7a08e3496291069ef",
-    "browser_composed": {
-      "startTime": "2026-10-20T06:19:20.076Z",
-      "duration": 369867.544,
-      "expected": 174,
-      "skipped": 0,
-      "unexpected": 0,
-      "flaky": 0
-    },
-    "browser_existing_regression": {
-      "startTime": "2026-10-20T06:19:20.061Z",
-      "duration": 157563.211,
-      "expected": 69,
-      "skipped": 0,
-      "unexpected": 0,
-      "flaky": 0
-    }
+    "application_reference": "486e854b2be6e5364867c0a7a08e3496291069ef"
   },
   "claims": {
     "unit15": 6279498568,
@@ -186,7 +180,8 @@
     "unit21": 6280593593,
     "unit22": 6280644922,
     "unit23": 6280777069,
-    "unit24": 6286430656
+    "unit24": 6286430656,
+    "unit25": 6286688145
   },
   "completed_unit15": {
     "integration": "DRAFT_ASIER_EXACT_ACK_REQUIRED",
@@ -265,7 +260,8 @@
     "inbox-readback-attempt02": "bc50336_QA_SCREENSHOT_ONLY_ON_AD0_PRODUCT_3PASS_NOT_NEW_UNIQUE",
     "catalog-create-attempt01": "cc491b8_CAUSAL_6FAIL9PASS",
     "composed-attempt11": "486e854_174PASS",
-    "regression-attempt10": "486e854_69PASS_INCLUDES_EXISTING3VERSIONTERMS_DEFAULT_MODE"
+    "regression-attempt10": "486e854_69PASS_INCLUDES_EXISTING3VERSIONTERMS_DEFAULT_MODE",
+    "catalog-plan-attempt01": "QA9e82fe9_ON_UNCHANGED_APPLICATION486_15PASS;NO243GLOBAL_PASS_ASSIGNMENT_TO_QA_SHA"
   },
   "cloud": "W5 Edge Access/deploy/cohort/window/roles/actions/cleanup; no bypass;87migrations untouched, no resellpro",
   "changes": {
@@ -580,5 +576,66 @@
     "source": "ad0ac6a24d8df759bc7f743e0cb483b88018f84b",
     "delivery": "a2b550507c983d422fd5f060bd919a38edca01d3",
     "handoff": 6286592320
+  },
+  "completed_unit24": {
+    "delivery": "2e9561e73c1a6667d65294d57df3dccef5f817e7",
+    "handoff": 6286805513,
+    "source": "486e854b2be6e5364867c0a7a08e3496291069ef",
+    "checks": {
+      "bootstrap": {
+        "passed": 81,
+        "failed": 0
+      },
+      "scope": "Actual components/repository/closed DTOs with synthetic controlledHTTP; hostedAuthDB,provider effects,live model NOT_RUN",
+      "quality": {
+        "build": 0,
+        "lint": 0,
+        "bootstrap": 0,
+        "typescript": 0,
+        "source": "486e854b2be6e5364867c0a7a08e3496291069ef"
+      },
+      "acceptance": "INDIVIDUAL_OPERATOR_CREATE_ONLY; plan caller pending independent bank",
+      "browser_unique": 243,
+      "visual": "OPERATOR_CREATE_UNCONFIRMED390_REVIEWED; original fields/unknownnotice/retry visible, same identity cases3907681440",
+      "source": "486e854b2be6e5364867c0a7a08e3496291069ef",
+      "browser_composed": {
+        "startTime": "2026-10-20T06:19:20.076Z",
+        "duration": 369867.544,
+        "expected": 174,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "browser_existing_regression": {
+        "startTime": "2026-10-20T06:19:20.061Z",
+        "duration": 157563.211,
+        "expected": 69,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      }
+    }
+  },
+  "qa_source": "9e82fe970bd64252448c5e15f0e94bba748874d1",
+  "individual_acceptance": {
+    "unit25": {
+      "operation": "plan.create",
+      "verified": [
+        "same command/input on recovery",
+        "operator_id and service_kind retained",
+        "name/code retained",
+        "authoritative denial and normal success",
+        "no operator mutations",
+        "no plan_version.create or economic publication"
+      ],
+      "not_verified": [
+        "real AuthDB idempotence",
+        "live supplier",
+        "imported/inactive operator paths",
+        "model quality",
+        "security/release acceptance"
+      ],
+      "caller": "Operator list -> operator detail -> new plan -> frozen review -> filtered plan catalog"
+    }
   }
 }
