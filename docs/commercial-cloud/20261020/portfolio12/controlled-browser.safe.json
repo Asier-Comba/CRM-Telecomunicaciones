@@ -1,0 +1,859 @@
+{
+  "source": "cba9d55fca321510e35cd12461a2f5a58d1f386f",
+  "application_base": "100bf22a903149e89b679db99a1ac3370fd13992",
+  "application_unchanged": true,
+  "environment": "ACTUAL_COMPONENTS_CONTROLLED_HTTP_NOT_AUTH_DB_OR_CLOUD",
+  "attempt": "portfolio-bounded-attempt02",
+  "stats": {
+    "startTime": "2026-10-20T14:42:00.483Z",
+    "duration": 47010.423,
+    "expected": 15,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "measurements": [
+    {
+      "case": "original bounded actions separate transport and render: dense_inventory",
+      "project": "controlled-http-390",
+      "status": "expected",
+      "observations": [
+        {
+          "w2_ui_action_step": "layout:portfolio:390:bounded_search:button_enabled",
+          "w2_portfolio_bounded_layout_observations": [
+            {
+              "contract": "w2.portfolio-bounded-layout.v1",
+              "width": 390,
+              "phase": "button_enabled",
+              "completed": true,
+              "elapsed_ms": 340,
+              "phases": [
+                {
+                  "phase": "fill",
+                  "elapsed_ms": 9
+                },
+                {
+                  "phase": "click",
+                  "elapsed_ms": 158
+                },
+                {
+                  "phase": "button_enabled",
+                  "elapsed_ms": 295
+                }
+              ],
+              "transport": {
+                "contract": "w2.portfolio-bounded-search-observation.v1",
+                "scope": "CURRENT_SYNTHETIC_MAIN_DOCUMENT_ONLY_NO_AUTHORIZATION_OR_CAUSE_CLAIM",
+                "document_changed": false,
+                "truncated": false,
+                "rows": [
+                  {
+                    "kind": "search",
+                    "status": "ok",
+                    "failed": false,
+                    "dto": "valid",
+                    "expected_reference": true,
+                    "candidates": 1
+                  },
+                  {
+                    "kind": "expected_contract",
+                    "status": "ok",
+                    "failed": false,
+                    "dto": "valid",
+                    "expected_reference": true,
+                    "candidates": null
+                  }
+                ]
+              },
+              "render_acceptance": "NOT_MEASURED_BUTTON_ENABLED_IS_NOT_RESULT_READBACK"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case": "original bounded actions separate transport and render: held_labels",
+      "project": "controlled-http-390",
+      "status": "expected",
+      "observations": [
+        {
+          "w2_ui_action_step": "layout:portfolio:390:bounded_search:button_enabled",
+          "w2_portfolio_bounded_layout_observations": [
+            {
+              "contract": "w2.portfolio-bounded-layout.v1",
+              "width": 390,
+              "phase": "button_enabled",
+              "completed": true,
+              "elapsed_ms": 226,
+              "phases": [
+                {
+                  "phase": "fill",
+                  "elapsed_ms": 3
+                },
+                {
+                  "phase": "click",
+                  "elapsed_ms": 66
+                },
+                {
+                  "phase": "button_enabled",
+                  "elapsed_ms": 183
+                }
+              ],
+              "transport": {
+                "contract": "w2.portfolio-bounded-search-observation.v1",
+                "scope": "CURRENT_SYNTHETIC_MAIN_DOCUMENT_ONLY_NO_AUTHORIZATION_OR_CAUSE_CLAIM",
+                "document_changed": false,
+                "truncated": false,
+                "rows": [
+                  {
+                    "kind": "search",
+                    "status": "ok",
+                    "failed": false,
+                    "dto": "valid",
+                    "expected_reference": true,
+                    "candidates": 1
+                  },
+                  {
+                    "kind": "expected_contract",
+                    "status": "ok",
+                    "failed": false,
+                    "dto": "valid",
+                    "expected_reference": true,
+                    "candidates": null
+                  }
+                ]
+              },
+              "render_acceptance": "NOT_MEASURED_BUTTON_ENABLED_IS_NOT_RESULT_READBACK"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case": "original bounded actions separate transport and render: delayed_search",
+      "project": "controlled-http-390",
+      "status": "expected",
+      "observations": [
+        {
+          "w2_ui_action_step": "layout:portfolio:390:bounded_search:button_enabled",
+          "w2_portfolio_bounded_layout_observations": [
+            {
+              "contract": "w2.portfolio-bounded-layout.v1",
+              "width": 390,
+              "phase": "button_enabled",
+              "completed": true,
+              "elapsed_ms": 491,
+              "phases": [
+                {
+                  "phase": "fill",
+                  "elapsed_ms": 3
+                },
+                {
+                  "phase": "click",
+                  "elapsed_ms": 81
+                },
+                {
+                  "phase": "button_enabled",
+                  "elapsed_ms": 199
+                }
+              ],
+              "transport": {
+                "contract": "w2.portfolio-bounded-search-observation.v1",
+                "scope": "CURRENT_SYNTHETIC_MAIN_DOCUMENT_ONLY_NO_AUTHORIZATION_OR_CAUSE_CLAIM",
+                "document_changed": false,
+                "truncated": false,
+                "rows": [
+                  {
+                    "kind": "search",
+                    "status": "ok",
+                    "failed": false,
+                    "dto": "valid",
+                    "expected_reference": true,
+                    "candidates": 1
+                  },
+                  {
+                    "kind": "expected_contract",
+                    "status": "ok",
+                    "failed": false,
+                    "dto": "pending",
+                    "expected_reference": null,
+                    "candidates": null
+                  }
+                ]
+              },
+              "render_acceptance": "NOT_MEASURED_BUTTON_ENABLED_IS_NOT_RESULT_READBACK"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case": "original bounded actions separate transport and render: denied_search",
+      "project": "controlled-http-390",
+      "status": "expected",
+      "observations": [
+        {
+          "w2_ui_action_step": "layout:portfolio:390:bounded_search:button_enabled",
+          "w2_portfolio_bounded_layout_observations": [
+            {
+              "contract": "w2.portfolio-bounded-layout.v1",
+              "width": 390,
+              "phase": "button_enabled",
+              "completed": true,
+              "elapsed_ms": 392,
+              "phases": [
+                {
+                  "phase": "fill",
+                  "elapsed_ms": 5
+                },
+                {
+                  "phase": "click",
+                  "elapsed_ms": 151
+                },
+                {
+                  "phase": "button_enabled",
+                  "elapsed_ms": 357
+                }
+              ],
+              "transport": {
+                "contract": "w2.portfolio-bounded-search-observation.v1",
+                "scope": "CURRENT_SYNTHETIC_MAIN_DOCUMENT_ONLY_NO_AUTHORIZATION_OR_CAUSE_CLAIM",
+                "document_changed": false,
+                "truncated": false,
+                "rows": [
+                  {
+                    "kind": "search",
+                    "status": "client_error",
+                    "failed": false,
+                    "dto": "not_observed",
+                    "expected_reference": null,
+                    "candidates": null
+                  }
+                ]
+              },
+              "render_acceptance": "NOT_MEASURED_BUTTON_ENABLED_IS_NOT_RESULT_READBACK"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case": "original bounded actions separate transport and render: invalid_search",
+      "project": "controlled-http-390",
+      "status": "expected",
+      "observations": [
+        {
+          "w2_ui_action_step": "layout:portfolio:390:bounded_search:button_enabled",
+          "w2_portfolio_bounded_layout_observations": [
+            {
+              "contract": "w2.portfolio-bounded-layout.v1",
+              "width": 390,
+              "phase": "button_enabled",
+              "completed": true,
+              "elapsed_ms": 234,
+              "phases": [
+                {
+                  "phase": "fill",
+                  "elapsed_ms": 2
+                },
+                {
+                  "phase": "click",
+                  "elapsed_ms": 56
+                },
+                {
+                  "phase": "button_enabled",
+                  "elapsed_ms": 205
+                }
+              ],
+              "transport": {
+                "contract": "w2.portfolio-bounded-search-observation.v1",
+                "scope": "CURRENT_SYNTHETIC_MAIN_DOCUMENT_ONLY_NO_AUTHORIZATION_OR_CAUSE_CLAIM",
+                "document_changed": false,
+                "truncated": false,
+                "rows": [
+                  {
+                    "kind": "search",
+                    "status": "ok",
+                    "failed": false,
+                    "dto": "invalid",
+                    "expected_reference": null,
+                    "candidates": null
+                  }
+                ]
+              },
+              "render_acceptance": "NOT_MEASURED_BUTTON_ENABLED_IS_NOT_RESULT_READBACK"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case": "original bounded actions separate transport and render: dense_inventory",
+      "project": "controlled-http-768",
+      "status": "expected",
+      "observations": [
+        {
+          "w2_ui_action_step": "layout:portfolio:768:bounded_search:button_enabled",
+          "w2_portfolio_bounded_layout_observations": [
+            {
+              "contract": "w2.portfolio-bounded-layout.v1",
+              "width": 768,
+              "phase": "button_enabled",
+              "completed": true,
+              "elapsed_ms": 427,
+              "phases": [
+                {
+                  "phase": "fill",
+                  "elapsed_ms": 13
+                },
+                {
+                  "phase": "click",
+                  "elapsed_ms": 130
+                },
+                {
+                  "phase": "button_enabled",
+                  "elapsed_ms": 355
+                }
+              ],
+              "transport": {
+                "contract": "w2.portfolio-bounded-search-observation.v1",
+                "scope": "CURRENT_SYNTHETIC_MAIN_DOCUMENT_ONLY_NO_AUTHORIZATION_OR_CAUSE_CLAIM",
+                "document_changed": false,
+                "truncated": false,
+                "rows": [
+                  {
+                    "kind": "search",
+                    "status": "ok",
+                    "failed": false,
+                    "dto": "valid",
+                    "expected_reference": true,
+                    "candidates": 1
+                  },
+                  {
+                    "kind": "expected_contract",
+                    "status": "ok",
+                    "failed": false,
+                    "dto": "valid",
+                    "expected_reference": true,
+                    "candidates": null
+                  }
+                ]
+              },
+              "render_acceptance": "NOT_MEASURED_BUTTON_ENABLED_IS_NOT_RESULT_READBACK"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case": "original bounded actions separate transport and render: held_labels",
+      "project": "controlled-http-768",
+      "status": "expected",
+      "observations": [
+        {
+          "w2_ui_action_step": "layout:portfolio:768:bounded_search:button_enabled",
+          "w2_portfolio_bounded_layout_observations": [
+            {
+              "contract": "w2.portfolio-bounded-layout.v1",
+              "width": 768,
+              "phase": "button_enabled",
+              "completed": true,
+              "elapsed_ms": 431,
+              "phases": [
+                {
+                  "phase": "fill",
+                  "elapsed_ms": 2
+                },
+                {
+                  "phase": "click",
+                  "elapsed_ms": 145
+                },
+                {
+                  "phase": "button_enabled",
+                  "elapsed_ms": 323
+                }
+              ],
+              "transport": {
+                "contract": "w2.portfolio-bounded-search-observation.v1",
+                "scope": "CURRENT_SYNTHETIC_MAIN_DOCUMENT_ONLY_NO_AUTHORIZATION_OR_CAUSE_CLAIM",
+                "document_changed": false,
+                "truncated": false,
+                "rows": [
+                  {
+                    "kind": "search",
+                    "status": "ok",
+                    "failed": false,
+                    "dto": "valid",
+                    "expected_reference": true,
+                    "candidates": 1
+                  },
+                  {
+                    "kind": "expected_contract",
+                    "status": "ok",
+                    "failed": false,
+                    "dto": "valid",
+                    "expected_reference": true,
+                    "candidates": null
+                  }
+                ]
+              },
+              "render_acceptance": "NOT_MEASURED_BUTTON_ENABLED_IS_NOT_RESULT_READBACK"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case": "original bounded actions separate transport and render: delayed_search",
+      "project": "controlled-http-768",
+      "status": "expected",
+      "observations": [
+        {
+          "w2_ui_action_step": "layout:portfolio:768:bounded_search:button_enabled",
+          "w2_portfolio_bounded_layout_observations": [
+            {
+              "contract": "w2.portfolio-bounded-layout.v1",
+              "width": 768,
+              "phase": "button_enabled",
+              "completed": true,
+              "elapsed_ms": 547,
+              "phases": [
+                {
+                  "phase": "fill",
+                  "elapsed_ms": 5
+                },
+                {
+                  "phase": "click",
+                  "elapsed_ms": 106
+                },
+                {
+                  "phase": "button_enabled",
+                  "elapsed_ms": 219
+                }
+              ],
+              "transport": {
+                "contract": "w2.portfolio-bounded-search-observation.v1",
+                "scope": "CURRENT_SYNTHETIC_MAIN_DOCUMENT_ONLY_NO_AUTHORIZATION_OR_CAUSE_CLAIM",
+                "document_changed": false,
+                "truncated": false,
+                "rows": [
+                  {
+                    "kind": "search",
+                    "status": "ok",
+                    "failed": false,
+                    "dto": "valid",
+                    "expected_reference": true,
+                    "candidates": 1
+                  },
+                  {
+                    "kind": "expected_contract",
+                    "status": "ok",
+                    "failed": false,
+                    "dto": "pending",
+                    "expected_reference": null,
+                    "candidates": null
+                  }
+                ]
+              },
+              "render_acceptance": "NOT_MEASURED_BUTTON_ENABLED_IS_NOT_RESULT_READBACK"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case": "original bounded actions separate transport and render: denied_search",
+      "project": "controlled-http-768",
+      "status": "expected",
+      "observations": [
+        {
+          "w2_ui_action_step": "layout:portfolio:768:bounded_search:button_enabled",
+          "w2_portfolio_bounded_layout_observations": [
+            {
+              "contract": "w2.portfolio-bounded-layout.v1",
+              "width": 768,
+              "phase": "button_enabled",
+              "completed": true,
+              "elapsed_ms": 259,
+              "phases": [
+                {
+                  "phase": "fill",
+                  "elapsed_ms": 2
+                },
+                {
+                  "phase": "click",
+                  "elapsed_ms": 97
+                },
+                {
+                  "phase": "button_enabled",
+                  "elapsed_ms": 232
+                }
+              ],
+              "transport": {
+                "contract": "w2.portfolio-bounded-search-observation.v1",
+                "scope": "CURRENT_SYNTHETIC_MAIN_DOCUMENT_ONLY_NO_AUTHORIZATION_OR_CAUSE_CLAIM",
+                "document_changed": false,
+                "truncated": false,
+                "rows": [
+                  {
+                    "kind": "search",
+                    "status": "client_error",
+                    "failed": false,
+                    "dto": "not_observed",
+                    "expected_reference": null,
+                    "candidates": null
+                  }
+                ]
+              },
+              "render_acceptance": "NOT_MEASURED_BUTTON_ENABLED_IS_NOT_RESULT_READBACK"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case": "original bounded actions separate transport and render: invalid_search",
+      "project": "controlled-http-768",
+      "status": "expected",
+      "observations": [
+        {
+          "w2_ui_action_step": "layout:portfolio:768:bounded_search:button_enabled",
+          "w2_portfolio_bounded_layout_observations": [
+            {
+              "contract": "w2.portfolio-bounded-layout.v1",
+              "width": 768,
+              "phase": "button_enabled",
+              "completed": true,
+              "elapsed_ms": 221,
+              "phases": [
+                {
+                  "phase": "fill",
+                  "elapsed_ms": 3
+                },
+                {
+                  "phase": "click",
+                  "elapsed_ms": 78
+                },
+                {
+                  "phase": "button_enabled",
+                  "elapsed_ms": 197
+                }
+              ],
+              "transport": {
+                "contract": "w2.portfolio-bounded-search-observation.v1",
+                "scope": "CURRENT_SYNTHETIC_MAIN_DOCUMENT_ONLY_NO_AUTHORIZATION_OR_CAUSE_CLAIM",
+                "document_changed": false,
+                "truncated": false,
+                "rows": [
+                  {
+                    "kind": "search",
+                    "status": "ok",
+                    "failed": false,
+                    "dto": "invalid",
+                    "expected_reference": null,
+                    "candidates": null
+                  }
+                ]
+              },
+              "render_acceptance": "NOT_MEASURED_BUTTON_ENABLED_IS_NOT_RESULT_READBACK"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case": "original bounded actions separate transport and render: dense_inventory",
+      "project": "controlled-http-1440",
+      "status": "expected",
+      "observations": [
+        {
+          "w2_ui_action_step": "layout:portfolio:1440:bounded_search:button_enabled",
+          "w2_portfolio_bounded_layout_observations": [
+            {
+              "contract": "w2.portfolio-bounded-layout.v1",
+              "width": 1440,
+              "phase": "button_enabled",
+              "completed": true,
+              "elapsed_ms": 267,
+              "phases": [
+                {
+                  "phase": "fill",
+                  "elapsed_ms": 9
+                },
+                {
+                  "phase": "click",
+                  "elapsed_ms": 84
+                },
+                {
+                  "phase": "button_enabled",
+                  "elapsed_ms": 218
+                }
+              ],
+              "transport": {
+                "contract": "w2.portfolio-bounded-search-observation.v1",
+                "scope": "CURRENT_SYNTHETIC_MAIN_DOCUMENT_ONLY_NO_AUTHORIZATION_OR_CAUSE_CLAIM",
+                "document_changed": false,
+                "truncated": false,
+                "rows": [
+                  {
+                    "kind": "search",
+                    "status": "ok",
+                    "failed": false,
+                    "dto": "valid",
+                    "expected_reference": true,
+                    "candidates": 1
+                  },
+                  {
+                    "kind": "expected_contract",
+                    "status": "ok",
+                    "failed": false,
+                    "dto": "valid",
+                    "expected_reference": true,
+                    "candidates": null
+                  }
+                ]
+              },
+              "render_acceptance": "NOT_MEASURED_BUTTON_ENABLED_IS_NOT_RESULT_READBACK"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case": "original bounded actions separate transport and render: held_labels",
+      "project": "controlled-http-1440",
+      "status": "expected",
+      "observations": [
+        {
+          "w2_ui_action_step": "layout:portfolio:1440:bounded_search:button_enabled",
+          "w2_portfolio_bounded_layout_observations": [
+            {
+              "contract": "w2.portfolio-bounded-layout.v1",
+              "width": 1440,
+              "phase": "button_enabled",
+              "completed": true,
+              "elapsed_ms": 220,
+              "phases": [
+                {
+                  "phase": "fill",
+                  "elapsed_ms": 2
+                },
+                {
+                  "phase": "click",
+                  "elapsed_ms": 66
+                },
+                {
+                  "phase": "button_enabled",
+                  "elapsed_ms": 178
+                }
+              ],
+              "transport": {
+                "contract": "w2.portfolio-bounded-search-observation.v1",
+                "scope": "CURRENT_SYNTHETIC_MAIN_DOCUMENT_ONLY_NO_AUTHORIZATION_OR_CAUSE_CLAIM",
+                "document_changed": false,
+                "truncated": false,
+                "rows": [
+                  {
+                    "kind": "search",
+                    "status": "ok",
+                    "failed": false,
+                    "dto": "valid",
+                    "expected_reference": true,
+                    "candidates": 1
+                  },
+                  {
+                    "kind": "expected_contract",
+                    "status": "ok",
+                    "failed": false,
+                    "dto": "valid",
+                    "expected_reference": true,
+                    "candidates": null
+                  }
+                ]
+              },
+              "render_acceptance": "NOT_MEASURED_BUTTON_ENABLED_IS_NOT_RESULT_READBACK"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case": "original bounded actions separate transport and render: delayed_search",
+      "project": "controlled-http-1440",
+      "status": "expected",
+      "observations": [
+        {
+          "w2_ui_action_step": "layout:portfolio:1440:bounded_search:button_enabled",
+          "w2_portfolio_bounded_layout_observations": [
+            {
+              "contract": "w2.portfolio-bounded-layout.v1",
+              "width": 1440,
+              "phase": "button_enabled",
+              "completed": true,
+              "elapsed_ms": 560,
+              "phases": [
+                {
+                  "phase": "fill",
+                  "elapsed_ms": 3
+                },
+                {
+                  "phase": "click",
+                  "elapsed_ms": 96
+                },
+                {
+                  "phase": "button_enabled",
+                  "elapsed_ms": 238
+                }
+              ],
+              "transport": {
+                "contract": "w2.portfolio-bounded-search-observation.v1",
+                "scope": "CURRENT_SYNTHETIC_MAIN_DOCUMENT_ONLY_NO_AUTHORIZATION_OR_CAUSE_CLAIM",
+                "document_changed": false,
+                "truncated": false,
+                "rows": [
+                  {
+                    "kind": "search",
+                    "status": "ok",
+                    "failed": false,
+                    "dto": "valid",
+                    "expected_reference": true,
+                    "candidates": 1
+                  },
+                  {
+                    "kind": "expected_contract",
+                    "status": "ok",
+                    "failed": false,
+                    "dto": "pending",
+                    "expected_reference": null,
+                    "candidates": null
+                  }
+                ]
+              },
+              "render_acceptance": "NOT_MEASURED_BUTTON_ENABLED_IS_NOT_RESULT_READBACK"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case": "original bounded actions separate transport and render: denied_search",
+      "project": "controlled-http-1440",
+      "status": "expected",
+      "observations": [
+        {
+          "w2_ui_action_step": "layout:portfolio:1440:bounded_search:button_enabled",
+          "w2_portfolio_bounded_layout_observations": [
+            {
+              "contract": "w2.portfolio-bounded-layout.v1",
+              "width": 1440,
+              "phase": "button_enabled",
+              "completed": true,
+              "elapsed_ms": 477,
+              "phases": [
+                {
+                  "phase": "fill",
+                  "elapsed_ms": 5
+                },
+                {
+                  "phase": "click",
+                  "elapsed_ms": 139
+                },
+                {
+                  "phase": "button_enabled",
+                  "elapsed_ms": 421
+                }
+              ],
+              "transport": {
+                "contract": "w2.portfolio-bounded-search-observation.v1",
+                "scope": "CURRENT_SYNTHETIC_MAIN_DOCUMENT_ONLY_NO_AUTHORIZATION_OR_CAUSE_CLAIM",
+                "document_changed": false,
+                "truncated": false,
+                "rows": [
+                  {
+                    "kind": "search",
+                    "status": "client_error",
+                    "failed": false,
+                    "dto": "not_observed",
+                    "expected_reference": null,
+                    "candidates": null
+                  }
+                ]
+              },
+              "render_acceptance": "NOT_MEASURED_BUTTON_ENABLED_IS_NOT_RESULT_READBACK"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case": "original bounded actions separate transport and render: invalid_search",
+      "project": "controlled-http-1440",
+      "status": "expected",
+      "observations": [
+        {
+          "w2_ui_action_step": "layout:portfolio:1440:bounded_search:button_enabled",
+          "w2_portfolio_bounded_layout_observations": [
+            {
+              "contract": "w2.portfolio-bounded-layout.v1",
+              "width": 1440,
+              "phase": "button_enabled",
+              "completed": true,
+              "elapsed_ms": 297,
+              "phases": [
+                {
+                  "phase": "fill",
+                  "elapsed_ms": 3
+                },
+                {
+                  "phase": "click",
+                  "elapsed_ms": 103
+                },
+                {
+                  "phase": "button_enabled",
+                  "elapsed_ms": 277
+                }
+              ],
+              "transport": {
+                "contract": "w2.portfolio-bounded-search-observation.v1",
+                "scope": "CURRENT_SYNTHETIC_MAIN_DOCUMENT_ONLY_NO_AUTHORIZATION_OR_CAUSE_CLAIM",
+                "document_changed": false,
+                "truncated": false,
+                "rows": [
+                  {
+                    "kind": "search",
+                    "status": "ok",
+                    "failed": false,
+                    "dto": "invalid",
+                    "expected_reference": null,
+                    "candidates": null
+                  }
+                ]
+              },
+              "render_acceptance": "NOT_MEASURED_BUTTON_ENABLED_IS_NOT_RESULT_READBACK"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "original_timeout_reproduced": false,
+  "causal_repair": "NOT_CLAIMED",
+  "real_local_replay": "BLOCKED_DOCKER_DESKTOP_LINUX_ENGINE_UNAVAILABLE",
+  "fixture_attempt01": {
+    "source": "8b923bc9",
+    "status": "INTERRUPTED_AFTER_FIXTURE_FAILURE",
+    "cause": "contract.list fixture included signed_date not allowed by collection DTO",
+    "product_reproduction": false,
+    "complete_counts": null
+  },
+  "node_observer_controls": {
+    "passed": 9,
+    "source_helper_unchanged_since": "8b923bc9"
+  },
+  "lint": "PASS",
+  "typescript": "PASS",
+  "native_script_syntax": "PASS",
+  "next_build": "NOT_RUN_NO_APPLICATION_CHANGE",
+  "business_ai_writes": "OFF",
+  "release": "NOT_ACCEPTED"
+}
