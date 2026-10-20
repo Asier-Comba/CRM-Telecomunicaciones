@@ -96,6 +96,33 @@ are NOT_RUN. Production rebuild is deferred to the next composed login checkpoin
 no earlier build is assigned to this change. Runner162's exact old/new label
 compatibility was already adopted before this presentation change.
 
+## Unit21: password accessibility
+
+PR168 login-only delta and compiled-HTML verifier adopted in
+`a2198b238416241078809373846cb023cc78f534`, tree de55828b83c29c8aa5ace0cbbbc7265751466d7b.
+Own real compiled baseline from1f5edbec:3FAIL; fresh a219 build/types and lint PASS,
+then3/3 static Chromium observations PASS at390/768/1440 (HTML digest
+d51bd6173a0d5c13a4a8207c2e412aad10eb781c376c8fc78545e4f98e409eea).
+The label names the password input, recovery keeps its own button name. No JS,
+network, credentials, hydration, sent recovery email or hosted Auth was exercised.
+
+## Unit22: simple tariff price publication
+
+Reviewed PR169 `6d9f7437426e636600a1c5dbd18a9d1d68656b92` against current
+catalog.v1 parsers/receipts and unchanged parent blob. Two product files plus
+owner controls are selected; no backend/SQL/permission changes. Owner/admin
+can publish an explicitly reviewed simple monthly price version, one base
+component and no invented entitlements/bundle. Fresh parent/CAS, immutable same
+command on uncertainty and receipt/readback-only recovery preserve effect identity.
+Own baseline1FAIL (missing action);48/48 directed/regression cases PASS in three
+widths,7 contract tests and targeted lint/types PASS. Loaded/review screenshots
+visually reviewed. These are controlled HTTP, not persisted AuthDB acceptance.
+Own product-catalog-browser helper adds a real-local ordinary UI publication,
+terms check and reload of its existing newly created synthetic tariff. No new
+resource, SQL or hosted execution. That extra physical check is NOT_RUN until
+the candidate's Supabase CI; its result must not be inferred from48 controls.
+Full composed build follows with caller compatibility; no old build inherited.
+
 ## Work in order
 
 Review/adopt exact W5 profile87; classify its successful physical completion
