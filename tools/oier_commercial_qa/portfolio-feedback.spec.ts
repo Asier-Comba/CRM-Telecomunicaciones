@@ -27,7 +27,7 @@ for(const mode of ['pending_to_success','pending_to_denial','retry_after_denial'
   await section.getByRole('button',{name:'Consultar cartera',exact:true}).click()
   await expect.poll(()=>held.length).toBe(1)
   await expect(section.getByRole('status').filter({hasText:'Consultando la cartera…'})).toBeVisible()
-  await expect(section).toHaveAttribute('aria-busy','true')
+  await expect(section.getByRole('region',{name:'Resultados de la consulta de cartera',exact:true})).toHaveAttribute('aria-busy','true')
   await expect(section.getByRole('button',{name:'Consultar cartera',exact:true})).toBeDisabled()
   await expect(section.getByText('Consulta un cliente o activo para ver sus resultados.',{exact:true})).toHaveCount(0)
   if(mode==='pending_to_success'){
@@ -36,7 +36,7 @@ for(const mode of ['pending_to_success','pending_to_denial','retry_after_denial'
   }else{
    await held[0].fulfill({status:403,json:{ok:false,error:'access_denied'}})
    await expect(section.getByRole('alert')).toHaveText('No tienes permiso para esta acción.')
-   await expect(section).toHaveAttribute('aria-busy','false')
+   await expect(section.getByRole('region',{name:'Resultados de la consulta de cartera',exact:true})).toHaveAttribute('aria-busy','false')
    await expect(section.getByRole('status').filter({hasText:'Consultando la cartera…'})).toHaveCount(0)
    if(mode==='retry_after_denial'){
     await section.getByRole('button',{name:'Consultar cartera',exact:true}).click()
@@ -47,7 +47,7 @@ for(const mode of ['pending_to_success','pending_to_denial','retry_after_denial'
     await expect(section.locator(`article[data-portfolio-id="${id}"]`)).toContainText('Synthetic search result')
    }
   }
-  await expect(section).toHaveAttribute('aria-busy','false')
+  await expect(section.getByRole('region',{name:'Resultados de la consulta de cartera',exact:true})).toHaveAttribute('aria-busy','false')
   await expect(section.getByRole('status').filter({hasText:'Consultando la cartera…'})).toHaveCount(0)
   await expect(section.getByRole('button',{name:'Consultar cartera',exact:true})).toBeEnabled()
   await expect(section.getByLabel('Consultar cartera local',{exact:true})).toHaveValue('Synthetic')
