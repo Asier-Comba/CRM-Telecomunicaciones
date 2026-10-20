@@ -37,6 +37,7 @@ for(const mode of ['stale','wrong_status','exact','newer','mark_read','mark_unre
    const retry=page.getByRole('button',{name:'Comprobar la misma acción',exact:true})
    await expect(retry).toBeEnabled();await expect(field).toBeDisabled();await expect(field).toHaveValue(body)
    await expect(page.getByRole('status').filter({hasText:'Cambio guardado. La conversación se ha actualizado.'})).toHaveCount(0)
+   await page.locator('#main-content').evaluate(el=>{el.scrollTop=0})
    await page.screenshot({path:info.outputPath(`inbox-${mode}-registered.png`)})
    corrected=true;await retry.click()
   }
