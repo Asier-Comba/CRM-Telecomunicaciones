@@ -71,7 +71,11 @@ export function PromptBuilder({
   }
   function dictate() {
     if (listening) {
-      rec.current?.stop()
+      try {
+        rec.current?.stop()
+      } catch {
+        setMessage('No se pudo detener el dictado. Reintenta «Detener dictado» o escribe para conservar tu corrección.')
+      }
       return
     }
     const Ctor = ctor()
