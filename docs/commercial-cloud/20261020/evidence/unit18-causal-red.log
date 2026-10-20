@@ -1,0 +1,821 @@
+
+Running 30 tests using 1 worker
+
+
+
+(node:25200) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1/30] [controlled-http-390] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after transport
+  1) [controlled-http-390] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after transport 
+
+    Error: expect(locator).toBeDisabled() failed
+
+    Locator:  getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })
+    Expected: disabled
+    Received: enabled
+    Timeout:  4000ms
+
+    Call log:
+      - Expect "toBeDisabled" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })
+        12 × locator resolved to <button class="inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5">Cancelar</button>
+           - unexpected value "enabled"
+
+
+      42 |    await expect(confirm.getByRole('alert')).toBeVisible()
+      43 |    await info.attach('document-intent-observation',{body:JSON.stringify({operation,mode,commands}),contentType:'application/json'})
+    > 44 |    await expect(confirm.getByRole('button',{name:'Cancelar',exact:true})).toBeDisabled()
+         |                                                                           ^
+      45 |    await expect(confirm.getByRole('button',{name:'Cerrar',exact:true})).toBeDisabled()
+      46 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()
+      47 |    await page.screenshot({path:info.outputPath(`document-${operation}-${mode}-unknown.png`)})
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\oier-documents-unit18-qa\document-intent.spec.ts:44:75
+
+    Error Context: work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-a-22091-xact-intent-after-transport-controlled-http-390\error-context.md
+
+    Error Context: work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-a-22091-xact-intent-after-transport-controlled-http-390\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-a-22091-xact-intent-after-transport-controlled-http-390\trace.zip
+    Usage:
+
+        npx playwright show-trace work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-a-22091-xact-intent-after-transport-controlled-http-390\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:30940) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[2/30] [controlled-http-390] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after malformed
+  2) [controlled-http-390] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after malformed 
+
+    Error: expect(locator).toBeDisabled() failed
+
+    Locator:  getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })
+    Expected: disabled
+    Received: enabled
+    Timeout:  4000ms
+
+    Call log:
+      - Expect "toBeDisabled" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })
+        12 × locator resolved to <button class="inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5">Cancelar</button>
+           - unexpected value "enabled"
+
+
+      42 |    await expect(confirm.getByRole('alert')).toBeVisible()
+      43 |    await info.attach('document-intent-observation',{body:JSON.stringify({operation,mode,commands}),contentType:'application/json'})
+    > 44 |    await expect(confirm.getByRole('button',{name:'Cancelar',exact:true})).toBeDisabled()
+         |                                                                           ^
+      45 |    await expect(confirm.getByRole('button',{name:'Cerrar',exact:true})).toBeDisabled()
+      46 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()
+      47 |    await page.screenshot({path:info.outputPath(`document-${operation}-${mode}-unknown.png`)})
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\oier-documents-unit18-qa\document-intent.spec.ts:44:75
+
+    Error Context: work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-a-9b25a-xact-intent-after-malformed-controlled-http-390\error-context.md
+
+    Error Context: work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-a-9b25a-xact-intent-after-malformed-controlled-http-390\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-a-9b25a-xact-intent-after-malformed-controlled-http-390\trace.zip
+    Usage:
+
+        npx playwright show-trace work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-a-9b25a-xact-intent-after-malformed-controlled-http-390\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:33524) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[3/30] [controlled-http-390] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after wrong_receipt
+  3) [controlled-http-390] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after wrong_receipt 
+
+    Error: expect(locator).toBeDisabled() failed
+
+    Locator:  getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })
+    Expected: disabled
+    Received: enabled
+    Timeout:  4000ms
+
+    Call log:
+      - Expect "toBeDisabled" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })
+        12 × locator resolved to <button class="inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5">Cancelar</button>
+           - unexpected value "enabled"
+
+
+      42 |    await expect(confirm.getByRole('alert')).toBeVisible()
+      43 |    await info.attach('document-intent-observation',{body:JSON.stringify({operation,mode,commands}),contentType:'application/json'})
+    > 44 |    await expect(confirm.getByRole('button',{name:'Cancelar',exact:true})).toBeDisabled()
+         |                                                                           ^
+      45 |    await expect(confirm.getByRole('button',{name:'Cerrar',exact:true})).toBeDisabled()
+      46 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()
+      47 |    await page.screenshot({path:info.outputPath(`document-${operation}-${mode}-unknown.png`)})
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\oier-documents-unit18-qa\document-intent.spec.ts:44:75
+
+    Error Context: work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-a-d3c22--intent-after-wrong-receipt-controlled-http-390\error-context.md
+
+    Error Context: work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-a-d3c22--intent-after-wrong-receipt-controlled-http-390\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-a-d3c22--intent-after-wrong-receipt-controlled-http-390\trace.zip
+    Usage:
+
+        npx playwright show-trace work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-a-d3c22--intent-after-wrong-receipt-controlled-http-390\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+(node:32284) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[4/30] [controlled-http-390] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after denied
+[5/30] [controlled-http-390] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after success
+[6/30] [controlled-http-390] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after transport
+  4) [controlled-http-390] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after transport 
+
+    Error: expect(locator).toBeDisabled() failed
+
+    Locator:  getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })
+    Expected: disabled
+    Received: enabled
+    Timeout:  4000ms
+
+    Call log:
+      - Expect "toBeDisabled" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })
+        12 × locator resolved to <button class="inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5">Cancelar</button>
+           - unexpected value "enabled"
+
+
+      42 |    await expect(confirm.getByRole('alert')).toBeVisible()
+      43 |    await info.attach('document-intent-observation',{body:JSON.stringify({operation,mode,commands}),contentType:'application/json'})
+    > 44 |    await expect(confirm.getByRole('button',{name:'Cancelar',exact:true})).toBeDisabled()
+         |                                                                           ^
+      45 |    await expect(confirm.getByRole('button',{name:'Cerrar',exact:true})).toBeDisabled()
+      46 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()
+      47 |    await page.screenshot({path:info.outputPath(`document-${operation}-${mode}-unknown.png`)})
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\oier-documents-unit18-qa\document-intent.spec.ts:44:75
+
+    Error Context: work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-r-6a91a-xact-intent-after-transport-controlled-http-390\error-context.md
+
+    Error Context: work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-r-6a91a-xact-intent-after-transport-controlled-http-390\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-r-6a91a-xact-intent-after-transport-controlled-http-390\trace.zip
+    Usage:
+
+        npx playwright show-trace work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-r-6a91a-xact-intent-after-transport-controlled-http-390\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+(node:32864) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[7/30] [controlled-http-390] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after malformed
+  5) [controlled-http-390] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after malformed 
+
+    Error: expect(locator).toBeDisabled() failed
+
+    Locator:  getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })
+    Expected: disabled
+    Received: enabled
+    Timeout:  4000ms
+
+    Call log:
+      - Expect "toBeDisabled" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })
+        12 × locator resolved to <button class="inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5">Cancelar</button>
+           - unexpected value "enabled"
+
+
+      42 |    await expect(confirm.getByRole('alert')).toBeVisible()
+      43 |    await info.attach('document-intent-observation',{body:JSON.stringify({operation,mode,commands}),contentType:'application/json'})
+    > 44 |    await expect(confirm.getByRole('button',{name:'Cancelar',exact:true})).toBeDisabled()
+         |                                                                           ^
+      45 |    await expect(confirm.getByRole('button',{name:'Cerrar',exact:true})).toBeDisabled()
+      46 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()
+      47 |    await page.screenshot({path:info.outputPath(`document-${operation}-${mode}-unknown.png`)})
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\oier-documents-unit18-qa\document-intent.spec.ts:44:75
+
+    Error Context: work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-r-7ec64-xact-intent-after-malformed-controlled-http-390\error-context.md
+
+    Error Context: work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-r-7ec64-xact-intent-after-malformed-controlled-http-390\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-r-7ec64-xact-intent-after-malformed-controlled-http-390\trace.zip
+    Usage:
+
+        npx playwright show-trace work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-r-7ec64-xact-intent-after-malformed-controlled-http-390\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+(node:31940) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[8/30] [controlled-http-390] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after wrong_receipt
+  6) [controlled-http-390] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after wrong_receipt 
+
+    Error: expect(locator).toBeDisabled() failed
+
+    Locator:  getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })
+    Expected: disabled
+    Received: enabled
+    Timeout:  4000ms
+
+    Call log:
+      - Expect "toBeDisabled" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })
+        12 × locator resolved to <button class="inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5">Cancelar</button>
+           - unexpected value "enabled"
+
+
+      42 |    await expect(confirm.getByRole('alert')).toBeVisible()
+      43 |    await info.attach('document-intent-observation',{body:JSON.stringify({operation,mode,commands}),contentType:'application/json'})
+    > 44 |    await expect(confirm.getByRole('button',{name:'Cancelar',exact:true})).toBeDisabled()
+         |                                                                           ^
+      45 |    await expect(confirm.getByRole('button',{name:'Cerrar',exact:true})).toBeDisabled()
+      46 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()
+      47 |    await page.screenshot({path:info.outputPath(`document-${operation}-${mode}-unknown.png`)})
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\oier-documents-unit18-qa\document-intent.spec.ts:44:75
+
+    Error Context: work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-r-40f7b--intent-after-wrong-receipt-controlled-http-390\error-context.md
+
+    Error Context: work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-r-40f7b--intent-after-wrong-receipt-controlled-http-390\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-r-40f7b--intent-after-wrong-receipt-controlled-http-390\trace.zip
+    Usage:
+
+        npx playwright show-trace work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-r-40f7b--intent-after-wrong-receipt-controlled-http-390\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+(node:5852) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[9/30] [controlled-http-390] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after denied
+[10/30] [controlled-http-390] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after success
+
+
+(node:27700) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[11/30] [controlled-http-768] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after transport
+  7) [controlled-http-768] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after transport 
+
+    Error: expect(locator).toBeDisabled() failed
+
+    Locator:  getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })
+    Expected: disabled
+    Received: enabled
+    Timeout:  4000ms
+
+    Call log:
+      - Expect "toBeDisabled" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })
+        12 × locator resolved to <button class="inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5">Cancelar</button>
+           - unexpected value "enabled"
+
+
+      42 |    await expect(confirm.getByRole('alert')).toBeVisible()
+      43 |    await info.attach('document-intent-observation',{body:JSON.stringify({operation,mode,commands}),contentType:'application/json'})
+    > 44 |    await expect(confirm.getByRole('button',{name:'Cancelar',exact:true})).toBeDisabled()
+         |                                                                           ^
+      45 |    await expect(confirm.getByRole('button',{name:'Cerrar',exact:true})).toBeDisabled()
+      46 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()
+      47 |    await page.screenshot({path:info.outputPath(`document-${operation}-${mode}-unknown.png`)})
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\oier-documents-unit18-qa\document-intent.spec.ts:44:75
+
+    Error Context: work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-a-22091-xact-intent-after-transport-controlled-http-768\error-context.md
+
+    Error Context: work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-a-22091-xact-intent-after-transport-controlled-http-768\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-a-22091-xact-intent-after-transport-controlled-http-768\trace.zip
+    Usage:
+
+        npx playwright show-trace work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-a-22091-xact-intent-after-transport-controlled-http-768\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+(node:28416) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[12/30] [controlled-http-768] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after malformed
+  8) [controlled-http-768] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after malformed 
+
+    Error: expect(locator).toBeDisabled() failed
+
+    Locator:  getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })
+    Expected: disabled
+    Received: enabled
+    Timeout:  4000ms
+
+    Call log:
+      - Expect "toBeDisabled" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })
+        12 × locator resolved to <button class="inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5">Cancelar</button>
+           - unexpected value "enabled"
+
+
+      42 |    await expect(confirm.getByRole('alert')).toBeVisible()
+      43 |    await info.attach('document-intent-observation',{body:JSON.stringify({operation,mode,commands}),contentType:'application/json'})
+    > 44 |    await expect(confirm.getByRole('button',{name:'Cancelar',exact:true})).toBeDisabled()
+         |                                                                           ^
+      45 |    await expect(confirm.getByRole('button',{name:'Cerrar',exact:true})).toBeDisabled()
+      46 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()
+      47 |    await page.screenshot({path:info.outputPath(`document-${operation}-${mode}-unknown.png`)})
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\oier-documents-unit18-qa\document-intent.spec.ts:44:75
+
+    Error Context: work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-a-9b25a-xact-intent-after-malformed-controlled-http-768\error-context.md
+
+    Error Context: work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-a-9b25a-xact-intent-after-malformed-controlled-http-768\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-a-9b25a-xact-intent-after-malformed-controlled-http-768\trace.zip
+    Usage:
+
+        npx playwright show-trace work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-a-9b25a-xact-intent-after-malformed-controlled-http-768\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+(node:32140) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[13/30] [controlled-http-768] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after wrong_receipt
+  9) [controlled-http-768] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after wrong_receipt 
+
+    Error: expect(locator).toBeDisabled() failed
+
+    Locator:  getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })
+    Expected: disabled
+    Received: enabled
+    Timeout:  4000ms
+
+    Call log:
+      - Expect "toBeDisabled" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })
+        12 × locator resolved to <button class="inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5">Cancelar</button>
+           - unexpected value "enabled"
+
+
+      42 |    await expect(confirm.getByRole('alert')).toBeVisible()
+      43 |    await info.attach('document-intent-observation',{body:JSON.stringify({operation,mode,commands}),contentType:'application/json'})
+    > 44 |    await expect(confirm.getByRole('button',{name:'Cancelar',exact:true})).toBeDisabled()
+         |                                                                           ^
+      45 |    await expect(confirm.getByRole('button',{name:'Cerrar',exact:true})).toBeDisabled()
+      46 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()
+      47 |    await page.screenshot({path:info.outputPath(`document-${operation}-${mode}-unknown.png`)})
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\oier-documents-unit18-qa\document-intent.spec.ts:44:75
+
+    Error Context: work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-a-d3c22--intent-after-wrong-receipt-controlled-http-768\error-context.md
+
+    Error Context: work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-a-d3c22--intent-after-wrong-receipt-controlled-http-768\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-a-d3c22--intent-after-wrong-receipt-controlled-http-768\trace.zip
+    Usage:
+
+        npx playwright show-trace work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-a-d3c22--intent-after-wrong-receipt-controlled-http-768\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(node:416) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[14/30] [controlled-http-768] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after denied
+[15/30] [controlled-http-768] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after success
+[16/30] [controlled-http-768] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after transport
+  10) [controlled-http-768] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after transport 
+
+    Error: expect(locator).toBeDisabled() failed
+
+    Locator:  getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })
+    Expected: disabled
+    Received: enabled
+    Timeout:  4000ms
+
+    Call log:
+      - Expect "toBeDisabled" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })
+        12 × locator resolved to <button class="inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5">Cancelar</button>
+           - unexpected value "enabled"
+
+
+      42 |    await expect(confirm.getByRole('alert')).toBeVisible()
+      43 |    await info.attach('document-intent-observation',{body:JSON.stringify({operation,mode,commands}),contentType:'application/json'})
+    > 44 |    await expect(confirm.getByRole('button',{name:'Cancelar',exact:true})).toBeDisabled()
+         |                                                                           ^
+      45 |    await expect(confirm.getByRole('button',{name:'Cerrar',exact:true})).toBeDisabled()
+      46 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()
+      47 |    await page.screenshot({path:info.outputPath(`document-${operation}-${mode}-unknown.png`)})
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\oier-documents-unit18-qa\document-intent.spec.ts:44:75
+
+    Error Context: work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-r-6a91a-xact-intent-after-transport-controlled-http-768\error-context.md
+
+    Error Context: work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-r-6a91a-xact-intent-after-transport-controlled-http-768\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-r-6a91a-xact-intent-after-transport-controlled-http-768\trace.zip
+    Usage:
+
+        npx playwright show-trace work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-r-6a91a-xact-intent-after-transport-controlled-http-768\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:30752) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[17/30] [controlled-http-768] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after malformed
+  11) [controlled-http-768] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after malformed 
+
+    Error: expect(locator).toBeDisabled() failed
+
+    Locator:  getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })
+    Expected: disabled
+    Received: enabled
+    Timeout:  4000ms
+
+    Call log:
+      - Expect "toBeDisabled" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })
+        12 × locator resolved to <button class="inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5">Cancelar</button>
+           - unexpected value "enabled"
+
+
+      42 |    await expect(confirm.getByRole('alert')).toBeVisible()
+      43 |    await info.attach('document-intent-observation',{body:JSON.stringify({operation,mode,commands}),contentType:'application/json'})
+    > 44 |    await expect(confirm.getByRole('button',{name:'Cancelar',exact:true})).toBeDisabled()
+         |                                                                           ^
+      45 |    await expect(confirm.getByRole('button',{name:'Cerrar',exact:true})).toBeDisabled()
+      46 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()
+      47 |    await page.screenshot({path:info.outputPath(`document-${operation}-${mode}-unknown.png`)})
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\oier-documents-unit18-qa\document-intent.spec.ts:44:75
+
+    Error Context: work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-r-7ec64-xact-intent-after-malformed-controlled-http-768\error-context.md
+
+    Error Context: work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-r-7ec64-xact-intent-after-malformed-controlled-http-768\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-r-7ec64-xact-intent-after-malformed-controlled-http-768\trace.zip
+    Usage:
+
+        npx playwright show-trace work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-r-7ec64-xact-intent-after-malformed-controlled-http-768\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+(node:29672) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[18/30] [controlled-http-768] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after wrong_receipt
+  12) [controlled-http-768] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after wrong_receipt 
+
+    Error: expect(locator).toBeDisabled() failed
+
+    Locator:  getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })
+    Expected: disabled
+    Received: enabled
+    Timeout:  4000ms
+
+    Call log:
+      - Expect "toBeDisabled" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })
+        12 × locator resolved to <button class="inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5">Cancelar</button>
+           - unexpected value "enabled"
+
+
+      42 |    await expect(confirm.getByRole('alert')).toBeVisible()
+      43 |    await info.attach('document-intent-observation',{body:JSON.stringify({operation,mode,commands}),contentType:'application/json'})
+    > 44 |    await expect(confirm.getByRole('button',{name:'Cancelar',exact:true})).toBeDisabled()
+         |                                                                           ^
+      45 |    await expect(confirm.getByRole('button',{name:'Cerrar',exact:true})).toBeDisabled()
+      46 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()
+      47 |    await page.screenshot({path:info.outputPath(`document-${operation}-${mode}-unknown.png`)})
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\oier-documents-unit18-qa\document-intent.spec.ts:44:75
+
+    Error Context: work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-r-40f7b--intent-after-wrong-receipt-controlled-http-768\error-context.md
+
+    Error Context: work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-r-40f7b--intent-after-wrong-receipt-controlled-http-768\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-r-40f7b--intent-after-wrong-receipt-controlled-http-768\trace.zip
+    Usage:
+
+        npx playwright show-trace work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-r-40f7b--intent-after-wrong-receipt-controlled-http-768\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(node:33500) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[19/30] [controlled-http-768] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after denied
+[20/30] [controlled-http-768] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after success
+(node:24288) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+
+
+(Use `node --trace-warnings ...` to show where the warning was created)
+[21/30] [controlled-http-1440] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after transport
+  13) [controlled-http-1440] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after transport 
+
+    Error: expect(locator).toBeDisabled() failed
+
+    Locator:  getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })
+    Expected: disabled
+    Received: enabled
+    Timeout:  4000ms
+
+    Call log:
+      - Expect "toBeDisabled" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })
+        12 × locator resolved to <button class="inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5">Cancelar</button>
+           - unexpected value "enabled"
+
+
+      42 |    await expect(confirm.getByRole('alert')).toBeVisible()
+      43 |    await info.attach('document-intent-observation',{body:JSON.stringify({operation,mode,commands}),contentType:'application/json'})
+    > 44 |    await expect(confirm.getByRole('button',{name:'Cancelar',exact:true})).toBeDisabled()
+         |                                                                           ^
+      45 |    await expect(confirm.getByRole('button',{name:'Cerrar',exact:true})).toBeDisabled()
+      46 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()
+      47 |    await page.screenshot({path:info.outputPath(`document-${operation}-${mode}-unknown.png`)})
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\oier-documents-unit18-qa\document-intent.spec.ts:44:75
+
+    Error Context: work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-a-22091-xact-intent-after-transport-controlled-http-1440\error-context.md
+
+    Error Context: work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-a-22091-xact-intent-after-transport-controlled-http-1440\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-a-22091-xact-intent-after-transport-controlled-http-1440\trace.zip
+    Usage:
+
+        npx playwright show-trace work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-a-22091-xact-intent-after-transport-controlled-http-1440\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+(node:22144) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[22/30] [controlled-http-1440] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after malformed
+  14) [controlled-http-1440] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after malformed 
+
+    Error: expect(locator).toBeDisabled() failed
+
+    Locator:  getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })
+    Expected: disabled
+    Received: enabled
+    Timeout:  4000ms
+
+    Call log:
+      - Expect "toBeDisabled" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })
+        12 × locator resolved to <button class="inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5">Cancelar</button>
+           - unexpected value "enabled"
+
+
+      42 |    await expect(confirm.getByRole('alert')).toBeVisible()
+      43 |    await info.attach('document-intent-observation',{body:JSON.stringify({operation,mode,commands}),contentType:'application/json'})
+    > 44 |    await expect(confirm.getByRole('button',{name:'Cancelar',exact:true})).toBeDisabled()
+         |                                                                           ^
+      45 |    await expect(confirm.getByRole('button',{name:'Cerrar',exact:true})).toBeDisabled()
+      46 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()
+      47 |    await page.screenshot({path:info.outputPath(`document-${operation}-${mode}-unknown.png`)})
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\oier-documents-unit18-qa\document-intent.spec.ts:44:75
+
+    Error Context: work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-a-9b25a-xact-intent-after-malformed-controlled-http-1440\error-context.md
+
+    Error Context: work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-a-9b25a-xact-intent-after-malformed-controlled-http-1440\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-a-9b25a-xact-intent-after-malformed-controlled-http-1440\trace.zip
+    Usage:
+
+        npx playwright show-trace work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-a-9b25a-xact-intent-after-malformed-controlled-http-1440\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:29544) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[23/30] [controlled-http-1440] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after wrong_receipt
+  15) [controlled-http-1440] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after wrong_receipt 
+
+    Error: expect(locator).toBeDisabled() failed
+
+    Locator:  getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })
+    Expected: disabled
+    Received: enabled
+    Timeout:  4000ms
+
+    Call log:
+      - Expect "toBeDisabled" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Archivar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })
+        12 × locator resolved to <button class="inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5">Cancelar</button>
+           - unexpected value "enabled"
+
+
+      42 |    await expect(confirm.getByRole('alert')).toBeVisible()
+      43 |    await info.attach('document-intent-observation',{body:JSON.stringify({operation,mode,commands}),contentType:'application/json'})
+    > 44 |    await expect(confirm.getByRole('button',{name:'Cancelar',exact:true})).toBeDisabled()
+         |                                                                           ^
+      45 |    await expect(confirm.getByRole('button',{name:'Cerrar',exact:true})).toBeDisabled()
+      46 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()
+      47 |    await page.screenshot({path:info.outputPath(`document-${operation}-${mode}-unknown.png`)})
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\oier-documents-unit18-qa\document-intent.spec.ts:44:75
+
+    Error Context: work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-a-d3c22--intent-after-wrong-receipt-controlled-http-1440\error-context.md
+
+    Error Context: work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-a-d3c22--intent-after-wrong-receipt-controlled-http-1440\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-a-d3c22--intent-after-wrong-receipt-controlled-http-1440\trace.zip
+    Usage:
+
+        npx playwright show-trace work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-a-d3c22--intent-after-wrong-receipt-controlled-http-1440\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(node:31208) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[24/30] [controlled-http-1440] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after denied
+[25/30] [controlled-http-1440] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after success
+[26/30] [controlled-http-1440] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after transport
+  16) [controlled-http-1440] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after transport 
+
+    Error: expect(locator).toBeDisabled() failed
+
+    Locator:  getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })
+    Expected: disabled
+    Received: enabled
+    Timeout:  4000ms
+
+    Call log:
+      - Expect "toBeDisabled" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })
+        12 × locator resolved to <button class="inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5">Cancelar</button>
+           - unexpected value "enabled"
+
+
+      42 |    await expect(confirm.getByRole('alert')).toBeVisible()
+      43 |    await info.attach('document-intent-observation',{body:JSON.stringify({operation,mode,commands}),contentType:'application/json'})
+    > 44 |    await expect(confirm.getByRole('button',{name:'Cancelar',exact:true})).toBeDisabled()
+         |                                                                           ^
+      45 |    await expect(confirm.getByRole('button',{name:'Cerrar',exact:true})).toBeDisabled()
+      46 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()
+      47 |    await page.screenshot({path:info.outputPath(`document-${operation}-${mode}-unknown.png`)})
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\oier-documents-unit18-qa\document-intent.spec.ts:44:75
+
+    Error Context: work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-r-6a91a-xact-intent-after-transport-controlled-http-1440\error-context.md
+
+    Error Context: work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-r-6a91a-xact-intent-after-transport-controlled-http-1440\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-r-6a91a-xact-intent-after-transport-controlled-http-1440\trace.zip
+    Usage:
+
+        npx playwright show-trace work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-r-6a91a-xact-intent-after-transport-controlled-http-1440\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+(node:30508) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[27/30] [controlled-http-1440] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after malformed
+  17) [controlled-http-1440] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after malformed 
+
+    Error: expect(locator).toBeDisabled() failed
+
+    Locator:  getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })
+    Expected: disabled
+    Received: enabled
+    Timeout:  4000ms
+
+    Call log:
+      - Expect "toBeDisabled" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })
+        12 × locator resolved to <button class="inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5">Cancelar</button>
+           - unexpected value "enabled"
+
+
+      42 |    await expect(confirm.getByRole('alert')).toBeVisible()
+      43 |    await info.attach('document-intent-observation',{body:JSON.stringify({operation,mode,commands}),contentType:'application/json'})
+    > 44 |    await expect(confirm.getByRole('button',{name:'Cancelar',exact:true})).toBeDisabled()
+         |                                                                           ^
+      45 |    await expect(confirm.getByRole('button',{name:'Cerrar',exact:true})).toBeDisabled()
+      46 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()
+      47 |    await page.screenshot({path:info.outputPath(`document-${operation}-${mode}-unknown.png`)})
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\oier-documents-unit18-qa\document-intent.spec.ts:44:75
+
+    Error Context: work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-r-7ec64-xact-intent-after-malformed-controlled-http-1440\error-context.md
+
+    Error Context: work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-r-7ec64-xact-intent-after-malformed-controlled-http-1440\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-r-7ec64-xact-intent-after-malformed-controlled-http-1440\trace.zip
+    Usage:
+
+        npx playwright show-trace work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-r-7ec64-xact-intent-after-malformed-controlled-http-1440\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:26728) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[28/30] [controlled-http-1440] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after wrong_receipt
+  18) [controlled-http-1440] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after wrong_receipt 
+
+    Error: expect(locator).toBeDisabled() failed
+
+    Locator:  getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })
+    Expected: disabled
+    Received: enabled
+    Timeout:  4000ms
+
+    Call log:
+      - Expect "toBeDisabled" with timeout 4000ms
+      - waiting for getByRole('dialog', { name: 'Restaurar documento', exact: true }).getByRole('button', { name: 'Cancelar', exact: true })
+        11 × locator resolved to <button class="inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-gray-700 border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 hover:text-gray-900 h-8 px-3 text-xs gap-1.5">Cancelar</button>
+           - unexpected value "enabled"
+
+
+      42 |    await expect(confirm.getByRole('alert')).toBeVisible()
+      43 |    await info.attach('document-intent-observation',{body:JSON.stringify({operation,mode,commands}),contentType:'application/json'})
+    > 44 |    await expect(confirm.getByRole('button',{name:'Cancelar',exact:true})).toBeDisabled()
+         |                                                                           ^
+      45 |    await expect(confirm.getByRole('button',{name:'Cerrar',exact:true})).toBeDisabled()
+      46 |    await page.keyboard.press('Escape');await expect(confirm).toBeVisible()
+      47 |    await page.screenshot({path:info.outputPath(`document-${operation}-${mode}-unknown.png`)})
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\oier-documents-unit18-qa\document-intent.spec.ts:44:75
+
+    Error Context: work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-r-40f7b--intent-after-wrong-receipt-controlled-http-1440\error-context.md
+
+    Error Context: work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-r-40f7b--intent-after-wrong-receipt-controlled-http-1440\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-r-40f7b--intent-after-wrong-receipt-controlled-http-1440\trace.zip
+    Usage:
+
+        npx playwright show-trace work\oier-commercial-20261020\documents-attempt02\artifacts\document-intent-document-r-40f7b--intent-after-wrong-receipt-controlled-http-1440\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:29648) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[29/30] [controlled-http-1440] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after denied
+[30/30] [controlled-http-1440] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after success
+  18 failed
+    [controlled-http-390] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after transport 
+    [controlled-http-390] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after malformed 
+    [controlled-http-390] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after wrong_receipt 
+    [controlled-http-390] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after transport 
+    [controlled-http-390] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after malformed 
+    [controlled-http-390] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after wrong_receipt 
+    [controlled-http-768] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after transport 
+    [controlled-http-768] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after malformed 
+    [controlled-http-768] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after wrong_receipt 
+    [controlled-http-768] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after transport 
+    [controlled-http-768] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after malformed 
+    [controlled-http-768] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after wrong_receipt 
+    [controlled-http-1440] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after transport 
+    [controlled-http-1440] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after malformed 
+    [controlled-http-1440] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after wrong_receipt 
+    [controlled-http-1440] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after transport 
+    [controlled-http-1440] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after malformed 
+    [controlled-http-1440] › work\oier-documents-unit18-qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after wrong_receipt 
+  12 passed (3.9m)

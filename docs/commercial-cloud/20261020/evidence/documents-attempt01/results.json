@@ -1,0 +1,1259 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--config",
+      "work/oier-documents-unit18-qa/documents.config.cjs"
+    ],
+    "configFile": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\documents.config.cjs",
+    "rootDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-documents-unit18-qa",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-commercial-20261020/documents-attempt01/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "controlled-http-390",
+        "name": "controlled-http-390",
+        "testDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-documents-unit18-qa",
+        "testIgnore": [],
+        "testMatch": [
+          "document-intent.spec.ts"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-commercial-20261020/documents-attempt01/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "controlled-http-768",
+        "name": "controlled-http-768",
+        "testDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-documents-unit18-qa",
+        "testIgnore": [],
+        "testMatch": [
+          "document-intent.spec.ts"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-commercial-20261020/documents-attempt01/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "controlled-http-1440",
+        "name": "controlled-http-1440",
+        "testDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-documents-unit18-qa",
+        "testIgnore": [],
+        "testMatch": [
+          "document-intent.spec.ts"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "line",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt01\\results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.61.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "document-intent.spec.ts",
+      "file": "document-intent.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "document archive preserves exact intent after transport",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 0,
+                  "error": {
+                    "message": "Error: Cannot find package 'next' imported from C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\documents-server.cjs",
+                    "stack": "Error: Cannot find package 'next' imported from C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\documents-server.cjs\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\documents-server.cjs:10:23\n    at build (C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\documents-server.cjs:36:3)\n    at startDocumentFixture (C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\documents-server.cjs:40:23)\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts:5:60",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\documents-server.cjs",
+                      "column": 23,
+                      "line": 10
+                    },
+                    "snippet": "\u001b[90m   at \u001b[39mdocuments-server.cjs:10\n\n   8 |  if (assets) return assets\n   9 |  assets = (async () => {\n> 10 |   const webpackModule=await import('next/dist/compiled/webpack/webpack.js')\n     |                       ^\n  11 |   const {webpack}=webpackModule.default ?? webpackModule\n  12 |   const {compile}=await import('@tailwindcss/node'),{Scanner}=await import('@tailwindcss/oxide')\n  13 |   const output = await mkdtemp(resolve(tmpdir(), 'crm-oier-document-qa-'))"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\documents-server.cjs",
+                        "column": 23,
+                        "line": 10
+                      },
+                      "message": "Error: Cannot find package 'next' imported from C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\documents-server.cjs\n\n   at documents-server.cjs:10\n\n   8 |  if (assets) return assets\n   9 |  assets = (async () => {\n> 10 |   const webpackModule=await import('next/dist/compiled/webpack/webpack.js')\n     |                       ^\n  11 |   const {webpack}=webpackModule.default ?? webpackModule\n  12 |   const {compile}=await import('@tailwindcss/node'),{Scanner}=await import('@tailwindcss/oxide')\n  13 |   const output = await mkdtemp(resolve(tmpdir(), 'crm-oier-document-qa-'))\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\documents-server.cjs:10:23\n    at build (C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\documents-server.cjs:36:3)\n    at startDocumentFixture (C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\documents-server.cjs:40:23)\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts:5:60"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:44:54.893Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt01\\artifacts\\document-intent-document-a-22091-xact-intent-after-transport-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt01\\artifacts\\document-intent-document-a-22091-xact-intent-after-transport-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt01\\artifacts\\document-intent-document-a-22091-xact-intent-after-transport-controlled-http-390\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\documents-server.cjs",
+                    "column": 23,
+                    "line": 10
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-799a4588ea7906631548",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document archive preserves exact intent after malformed",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": -1,
+                  "parallelIndex": -1,
+                  "status": "skipped",
+                  "duration": 0,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:44:55.054Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-5b205c3951540989af52",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document archive preserves exact intent after wrong_receipt",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": -1,
+                  "parallelIndex": -1,
+                  "status": "skipped",
+                  "duration": 0,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:44:55.054Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-979cad086cd7d221d445",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document archive preserves exact intent after denied",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": -1,
+                  "parallelIndex": -1,
+                  "status": "skipped",
+                  "duration": 0,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:44:55.054Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-3331621149085b221c00",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document archive preserves exact intent after success",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": -1,
+                  "parallelIndex": -1,
+                  "status": "skipped",
+                  "duration": 0,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:44:55.055Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-1e85fa1035c4b6af6e89",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document restore preserves exact intent after transport",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": -1,
+                  "parallelIndex": -1,
+                  "status": "skipped",
+                  "duration": 0,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:44:55.055Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-863b5a036574f0b323c7",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document restore preserves exact intent after malformed",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": -1,
+                  "parallelIndex": -1,
+                  "status": "skipped",
+                  "duration": 0,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:44:55.055Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-4feb49eed85bdd1dba52",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document restore preserves exact intent after wrong_receipt",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": -1,
+                  "parallelIndex": -1,
+                  "status": "skipped",
+                  "duration": 0,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:44:55.055Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-abae1f72ffaf5892868e",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document restore preserves exact intent after denied",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": -1,
+                  "parallelIndex": -1,
+                  "status": "skipped",
+                  "duration": 0,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:44:55.055Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-fa9f052d044d84d9912a",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document restore preserves exact intent after success",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": -1,
+                  "parallelIndex": -1,
+                  "status": "skipped",
+                  "duration": 0,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:44:55.055Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-a1acb4e783eb55b06cbc",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document archive preserves exact intent after transport",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 1,
+                  "error": {
+                    "message": "Error: Cannot find package 'next' imported from C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\documents-server.cjs",
+                    "stack": "Error: Cannot find package 'next' imported from C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\documents-server.cjs\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\documents-server.cjs:10:23\n    at build (C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\documents-server.cjs:36:3)\n    at startDocumentFixture (C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\documents-server.cjs:40:23)\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts:5:60",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\documents-server.cjs",
+                      "column": 23,
+                      "line": 10
+                    },
+                    "snippet": "\u001b[90m   at \u001b[39mdocuments-server.cjs:10\n\n   8 |  if (assets) return assets\n   9 |  assets = (async () => {\n> 10 |   const webpackModule=await import('next/dist/compiled/webpack/webpack.js')\n     |                       ^\n  11 |   const {webpack}=webpackModule.default ?? webpackModule\n  12 |   const {compile}=await import('@tailwindcss/node'),{Scanner}=await import('@tailwindcss/oxide')\n  13 |   const output = await mkdtemp(resolve(tmpdir(), 'crm-oier-document-qa-'))"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\documents-server.cjs",
+                        "column": 23,
+                        "line": 10
+                      },
+                      "message": "Error: Cannot find package 'next' imported from C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\documents-server.cjs\n\n   at documents-server.cjs:10\n\n   8 |  if (assets) return assets\n   9 |  assets = (async () => {\n> 10 |   const webpackModule=await import('next/dist/compiled/webpack/webpack.js')\n     |                       ^\n  11 |   const {webpack}=webpackModule.default ?? webpackModule\n  12 |   const {compile}=await import('@tailwindcss/node'),{Scanner}=await import('@tailwindcss/oxide')\n  13 |   const output = await mkdtemp(resolve(tmpdir(), 'crm-oier-document-qa-'))\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\documents-server.cjs:10:23\n    at build (C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\documents-server.cjs:36:3)\n    at startDocumentFixture (C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\documents-server.cjs:40:23)\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts:5:60"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:44:56.026Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt01\\artifacts\\document-intent-document-a-22091-xact-intent-after-transport-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt01\\artifacts\\document-intent-document-a-22091-xact-intent-after-transport-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt01\\artifacts\\document-intent-document-a-22091-xact-intent-after-transport-controlled-http-768\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\documents-server.cjs",
+                    "column": 23,
+                    "line": 10
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-a8b5b9cc529871f07321",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document archive preserves exact intent after malformed",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": -1,
+                  "parallelIndex": -1,
+                  "status": "skipped",
+                  "duration": 0,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:44:56.304Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-4dfffa80419a24f7ae94",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document archive preserves exact intent after wrong_receipt",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": -1,
+                  "parallelIndex": -1,
+                  "status": "skipped",
+                  "duration": 0,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:44:56.305Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-38a67e50034d430e97ca",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document archive preserves exact intent after denied",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": -1,
+                  "parallelIndex": -1,
+                  "status": "skipped",
+                  "duration": 0,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:44:56.305Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-4fbd5b1db156776b64ce",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document archive preserves exact intent after success",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": -1,
+                  "parallelIndex": -1,
+                  "status": "skipped",
+                  "duration": 0,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:44:56.305Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-20abd4d6a46853fb5353",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document restore preserves exact intent after transport",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": -1,
+                  "parallelIndex": -1,
+                  "status": "skipped",
+                  "duration": 0,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:44:56.305Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-8aaaf9960db27d28852d",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document restore preserves exact intent after malformed",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": -1,
+                  "parallelIndex": -1,
+                  "status": "skipped",
+                  "duration": 0,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:44:56.305Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-8446f3bc8d5cf37efd65",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document restore preserves exact intent after wrong_receipt",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": -1,
+                  "parallelIndex": -1,
+                  "status": "skipped",
+                  "duration": 0,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:44:56.306Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-ffe7062ec2ed306d9435",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document restore preserves exact intent after denied",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": -1,
+                  "parallelIndex": -1,
+                  "status": "skipped",
+                  "duration": 0,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:44:56.306Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-2a3dfc616670bd0daece",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document restore preserves exact intent after success",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": -1,
+                  "parallelIndex": -1,
+                  "status": "skipped",
+                  "duration": 0,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:44:56.306Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-b931143af5eaea715c3c",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document archive preserves exact intent after transport",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 0,
+                  "error": {
+                    "message": "Error: Cannot find package 'next' imported from C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\documents-server.cjs",
+                    "stack": "Error: Cannot find package 'next' imported from C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\documents-server.cjs\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\documents-server.cjs:10:23\n    at build (C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\documents-server.cjs:36:3)\n    at startDocumentFixture (C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\documents-server.cjs:40:23)\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts:5:60",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\documents-server.cjs",
+                      "column": 23,
+                      "line": 10
+                    },
+                    "snippet": "\u001b[90m   at \u001b[39mdocuments-server.cjs:10\n\n   8 |  if (assets) return assets\n   9 |  assets = (async () => {\n> 10 |   const webpackModule=await import('next/dist/compiled/webpack/webpack.js')\n     |                       ^\n  11 |   const {webpack}=webpackModule.default ?? webpackModule\n  12 |   const {compile}=await import('@tailwindcss/node'),{Scanner}=await import('@tailwindcss/oxide')\n  13 |   const output = await mkdtemp(resolve(tmpdir(), 'crm-oier-document-qa-'))"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\documents-server.cjs",
+                        "column": 23,
+                        "line": 10
+                      },
+                      "message": "Error: Cannot find package 'next' imported from C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\documents-server.cjs\n\n   at documents-server.cjs:10\n\n   8 |  if (assets) return assets\n   9 |  assets = (async () => {\n> 10 |   const webpackModule=await import('next/dist/compiled/webpack/webpack.js')\n     |                       ^\n  11 |   const {webpack}=webpackModule.default ?? webpackModule\n  12 |   const {compile}=await import('@tailwindcss/node'),{Scanner}=await import('@tailwindcss/oxide')\n  13 |   const output = await mkdtemp(resolve(tmpdir(), 'crm-oier-document-qa-'))\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\documents-server.cjs:10:23\n    at build (C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\documents-server.cjs:36:3)\n    at startDocumentFixture (C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\documents-server.cjs:40:23)\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\document-intent.spec.ts:5:60"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:44:57.389Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt01\\artifacts\\document-intent-document-a-22091-xact-intent-after-transport-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt01\\artifacts\\document-intent-document-a-22091-xact-intent-after-transport-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\documents-attempt01\\artifacts\\document-intent-document-a-22091-xact-intent-after-transport-controlled-http-1440\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-documents-unit18-qa\\documents-server.cjs",
+                    "column": 23,
+                    "line": 10
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-67114c7edbc5c57aab6c",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document archive preserves exact intent after malformed",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": -1,
+                  "parallelIndex": -1,
+                  "status": "skipped",
+                  "duration": 0,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:44:57.538Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-e76407f7f08e488dccbd",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document archive preserves exact intent after wrong_receipt",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": -1,
+                  "parallelIndex": -1,
+                  "status": "skipped",
+                  "duration": 0,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:44:57.538Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-2572285474845d834538",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document archive preserves exact intent after denied",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": -1,
+                  "parallelIndex": -1,
+                  "status": "skipped",
+                  "duration": 0,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:44:57.538Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-5b1da1d0b8d43437c52d",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document archive preserves exact intent after success",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": -1,
+                  "parallelIndex": -1,
+                  "status": "skipped",
+                  "duration": 0,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:44:57.538Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-82943d4322d77cb2db66",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document restore preserves exact intent after transport",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": -1,
+                  "parallelIndex": -1,
+                  "status": "skipped",
+                  "duration": 0,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:44:57.538Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-4e35c79f45e3dd7bbc89",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document restore preserves exact intent after malformed",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": -1,
+                  "parallelIndex": -1,
+                  "status": "skipped",
+                  "duration": 0,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:44:57.538Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-f07bed63b1b42d3127fd",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document restore preserves exact intent after wrong_receipt",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": -1,
+                  "parallelIndex": -1,
+                  "status": "skipped",
+                  "duration": 0,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:44:57.538Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-21dc3897872069df31b0",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document restore preserves exact intent after denied",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": -1,
+                  "parallelIndex": -1,
+                  "status": "skipped",
+                  "duration": 0,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:44:57.539Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-9d2156010cb2e7e6ccff",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        },
+        {
+          "title": "document restore preserves exact intent after success",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": -1,
+                  "parallelIndex": -1,
+                  "status": "skipped",
+                  "duration": 0,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T23:44:57.539Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "38cb3e78b8087f311439-f6abef0586708d4eb419",
+          "file": "document-intent.spec.ts",
+          "line": 7,
+          "column": 147
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-19T23:44:53.534Z",
+    "duration": 4052.5480000000002,
+    "expected": 0,
+    "skipped": 27,
+    "unexpected": 3,
+    "flaky": 0
+  }
+}
