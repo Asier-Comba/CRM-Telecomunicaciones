@@ -2,6 +2,11 @@
 
 ## Nocturnal continuation — 2026-10-21, units32–34
 
+36 selects Oier178 exact two-file delta60d7634f with attributed history:
+[invoice series](../integration/UNIT_36_INVOICE_SERIES_20261021.md), own3FAIL→19PASS
+controlled UI. Current source keeps35's settled stop cleanup; its own global/CI
+results are bound in issue67. Oier's next refresh31 claim remains separate.
+
 Follow-up35: [settled stop recovery](../integration/UNIT_35_SPEECH_STOP_RECOVERY_20261021.md)
 reproduces stale error3FAIL→45PASS, code64b0dfc5, targetedlint/typesPASS. Only the
 current session clears its recovered error.285348a6 is the preserved CI checkpoint;
