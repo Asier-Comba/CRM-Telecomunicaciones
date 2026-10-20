@@ -1,7 +1,32 @@
 import {expect,test,type Page} from '@playwright/test'
 import {startBillingFocusFixture} from './fixtures/billing-focus-server.cjs'
+import {readFileSync} from 'node:fs'
+import * as ts from 'typescript'
 
 // Real IntegratedBilling and parsers, inert HTTP data. Not Auth/DB evidence.
+for(const width of [390,768,1440])test(`native financial observer matches the actual period and filter scope at ${width}`,async({page})=>{
+ const fixture=await startBillingFocusFixture()
+ const file=ts.createSourceFile('acceptance.mjs',readFileSync('scripts/security/supabase-local/product-browser-acceptance.mjs','utf8'),ts.ScriptTarget.Latest,true,ts.ScriptKind.JS)
+ const labels:string[]=[]
+ const visit=(node:ts.Node)=>{
+  if(ts.isVariableDeclaration(node)&&node.name.getText(file)==='periodLabel'&&node.initializer&&ts.isVariableDeclarationList(node.parent)){
+   const date=node.parent.declarations.find(value=>value.name.getText(file)==='date')?.initializer
+   if(!date)throw Error('Native period date expression missing')
+   labels.push(`const date=${date.getText(file)};return ${node.initializer.getText(file)}`)
+  }
+  ts.forEachChild(node,visit)
+ }
+ visit(file);expect(labels).toHaveLength(1)
+ try{
+  await page.setViewportSize({width,height:960})
+  const pending=page.waitForResponse(response=>{try{return response.request().postDataJSON().operation==='invoice.financial_summary'}catch{return false}})
+  await page.goto(fixture.url);fixture.releaseList()
+  const body=await(await pending).json()
+  const expected=new Function('body',labels[0])(body) as string
+  await expect(page.getByText(expected,{exact:true})).toBeVisible()
+ }finally{fixture.releaseList();fixture.releasePdf();await fixture.close()}
+})
+
 test('financial totals from the previous refresh disappear until the current response arrives',async({page},info)=>{
  const fixture=await startBillingFocusFixture()
  let release!:()=>void,waiting=false,reads=0
