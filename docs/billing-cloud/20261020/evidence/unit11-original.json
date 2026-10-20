@@ -1,0 +1,79 @@
+{
+  "source": "b7e61643411fb6c104b632f0fcd0658208cc950c",
+  "parser_sha256LF": "e72f8d9ed55a90ece89d55e03a1b9a8bbe88e088f64b4c19deebbc7a31f2d427",
+  "scope": "Actual parser, synthetic input only; no network",
+  "cases": [
+    {
+      "text": "Factura por 300 euros",
+      "expected": null,
+      "actual": "300 euros",
+      "missingConcept": false,
+      "pass": false
+    },
+    {
+      "text": "Factura de 300 euros",
+      "expected": null,
+      "actual": "300 euros",
+      "missingConcept": false,
+      "pass": false
+    },
+    {
+      "text": "Factura por 300 euros por soporte",
+      "expected": "soporte",
+      "actual": "300 euros por soporte",
+      "missingConcept": false,
+      "pass": false
+    },
+    {
+      "text": "Factura de 300 euros por instalación de fibra",
+      "expected": "instalación de fibra",
+      "actual": "300 euros por instalación de fibra",
+      "missingConcept": false,
+      "pass": false
+    },
+    {
+      "text": "Factura por 300 euros + IVA por soporte",
+      "expected": "soporte",
+      "actual": "300 euros",
+      "missingConcept": false,
+      "pass": false
+    },
+    {
+      "text": "Factura por -300 euros",
+      "expected": null,
+      "actual": "-300 euros",
+      "missingConcept": false,
+      "pass": false
+    },
+    {
+      "text": "Factura por instalación de fibra de 300 euros",
+      "expected": "instalación de fibra",
+      "actual": "instalación de fibra",
+      "missingConcept": false,
+      "pass": true
+    },
+    {
+      "text": "Factura por soporte, vencimiento en 15 días",
+      "expected": "soporte",
+      "actual": "soporte",
+      "missingConcept": false,
+      "pass": true
+    },
+    {
+      "text": "Factura por mantenimiento y soporte de 300 euros",
+      "expected": "mantenimiento y soporte",
+      "actual": "mantenimiento y soporte",
+      "missingConcept": false,
+      "pass": true
+    },
+    {
+      "text": "Factura por 24 horas de soporte de 300 euros",
+      "expected": "24 horas de soporte",
+      "actual": "24 horas de soporte",
+      "missingConcept": false,
+      "pass": true
+    }
+  ],
+  "passed": 4,
+  "failed": 6
+}

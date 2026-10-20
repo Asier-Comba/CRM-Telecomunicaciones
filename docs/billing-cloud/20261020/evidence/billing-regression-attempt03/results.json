@@ -1,0 +1,3151 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--config",
+      "tools/oier_billing_qa/regression.config.ts"
+    ],
+    "configFile": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\regression.config.ts",
+    "rootDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-billing-fixes-20261020/tests/e2e-preview",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-billing-fixes-20261020/billing-regression-attempt03/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "controlled-http-existing-billing",
+        "name": "controlled-http-existing-billing",
+        "testDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-billing-fixes-20261020/tests/e2e-preview",
+        "testIgnore": [],
+        "testMatch": [
+          "billing-current-selection.spec.ts",
+          "billing-initial-context.spec.ts",
+          "billing-financial-refresh.spec.ts",
+          "billing-uncertain-intent.spec.ts",
+          "billing-invalid-receipt.spec.ts",
+          "billing-receipt-read-boundary.spec.ts",
+          "billing-refresh-focus.spec.ts"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "line",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\billing-regression-attempt03\\results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.61.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "billing-current-selection.spec.ts",
+      "file": "billing-current-selection.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "billing current selection late_success at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 11072,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:34:30.827Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e3144736e4ed285bb99a-aca537c30ca94f8e41b3",
+          "file": "billing-current-selection.spec.ts",
+          "line": 7,
+          "column": 6
+        },
+        {
+          "title": "billing current selection late_refusal at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1617,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:34:42.573Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e3144736e4ed285bb99a-2b528f93deedcf892d4c",
+          "file": "billing-current-selection.spec.ts",
+          "line": 7,
+          "column": 6
+        },
+        {
+          "title": "billing current selection initial_success at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1774,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:34:44.224Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e3144736e4ed285bb99a-1719e3205fc4cf33ee59",
+          "file": "billing-current-selection.spec.ts",
+          "line": 7,
+          "column": 6
+        },
+        {
+          "title": "billing current selection current_refusal at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1748,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:34:46.038Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e3144736e4ed285bb99a-b98cd68a9e2b718027e7",
+          "file": "billing-current-selection.spec.ts",
+          "line": 7,
+          "column": 6
+        },
+        {
+          "title": "billing current selection late_success at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1633,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:34:47.826Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e3144736e4ed285bb99a-8301edb33817a9de7c8c",
+          "file": "billing-current-selection.spec.ts",
+          "line": 7,
+          "column": 6
+        },
+        {
+          "title": "billing current selection late_refusal at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1603,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:34:49.504Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e3144736e4ed285bb99a-a7c7ef72ef18f983be25",
+          "file": "billing-current-selection.spec.ts",
+          "line": 7,
+          "column": 6
+        },
+        {
+          "title": "billing current selection initial_success at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1610,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:34:51.160Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e3144736e4ed285bb99a-85f9eeef30b528666c76",
+          "file": "billing-current-selection.spec.ts",
+          "line": 7,
+          "column": 6
+        },
+        {
+          "title": "billing current selection current_refusal at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1639,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:34:52.803Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e3144736e4ed285bb99a-73ace7f065e09b7b4b21",
+          "file": "billing-current-selection.spec.ts",
+          "line": 7,
+          "column": 6
+        },
+        {
+          "title": "billing current selection late_success at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1807,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:34:54.486Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e3144736e4ed285bb99a-ecece056fedb8883d79e",
+          "file": "billing-current-selection.spec.ts",
+          "line": 7,
+          "column": 6
+        },
+        {
+          "title": "billing current selection late_refusal at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1943,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:34:56.336Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e3144736e4ed285bb99a-ce1cdc44ee6ee73c9e0f",
+          "file": "billing-current-selection.spec.ts",
+          "line": 7,
+          "column": 6
+        },
+        {
+          "title": "billing current selection initial_success at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1827,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:34:58.333Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e3144736e4ed285bb99a-703130d53d6c191c3258",
+          "file": "billing-current-selection.spec.ts",
+          "line": 7,
+          "column": 6
+        },
+        {
+          "title": "billing current selection current_refusal at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1555,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:35:00.208Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e3144736e4ed285bb99a-7b7d89c27fa34cd21ff4",
+          "file": "billing-current-selection.spec.ts",
+          "line": 7,
+          "column": 6
+        }
+      ]
+    },
+    {
+      "title": "billing-financial-refresh.spec.ts",
+      "file": "billing-financial-refresh.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "financial totals from the previous refresh disappear until the current response arrives",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1634,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:35:01.828Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c3968684f2cd760ee118-5eab060e271b2be89595",
+          "file": "billing-financial-refresh.spec.ts",
+          "line": 5,
+          "column": 5
+        }
+      ]
+    },
+    {
+      "title": "billing-initial-context.spec.ts",
+      "file": "billing-initial-context.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "billing new initial invoice context ready at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1267,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:35:03.525Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b5de60d76d58c9260f58-903b7859470558e62e4c",
+          "file": "billing-initial-context.spec.ts",
+          "line": 5,
+          "column": 6
+        },
+        {
+          "title": "billing new initial invoice context denied at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1132,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:35:04.846Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b5de60d76d58c9260f58-da139bb202c642f4cbb1",
+          "file": "billing-initial-context.spec.ts",
+          "line": 5,
+          "column": 6
+        },
+        {
+          "title": "billing new initial invoice context ready at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1190,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:35:06.042Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b5de60d76d58c9260f58-0898739104814970b13f",
+          "file": "billing-initial-context.spec.ts",
+          "line": 5,
+          "column": 6
+        },
+        {
+          "title": "billing new initial invoice context denied at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1072,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:35:07.285Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b5de60d76d58c9260f58-cde79384b46c51ca9f4b",
+          "file": "billing-initial-context.spec.ts",
+          "line": 5,
+          "column": 6
+        },
+        {
+          "title": "billing new initial invoice context ready at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1241,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:35:08.396Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b5de60d76d58c9260f58-55db1993108f56430ce1",
+          "file": "billing-initial-context.spec.ts",
+          "line": 5,
+          "column": 6
+        },
+        {
+          "title": "billing new initial invoice context denied at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1209,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:35:09.667Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b5de60d76d58c9260f58-1bede4e285006e4f3c95",
+          "file": "billing-initial-context.spec.ts",
+          "line": 5,
+          "column": 6
+        }
+      ]
+    },
+    {
+      "title": "billing-invalid-receipt.spec.ts",
+      "file": "billing-invalid-receipt.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "billing invoice.issue invalid receipt recovery at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2158,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:35:10.991Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b86cafcf05b88aac2844-3c16049a84b01bec89b5",
+          "file": "billing-invalid-receipt.spec.ts",
+          "line": 14,
+          "column": 118
+        },
+        {
+          "title": "billing invoice.mark_paid invalid receipt recovery at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2090,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:35:13.200Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b86cafcf05b88aac2844-6edd2ac4a8cb25be502e",
+          "file": "billing-invalid-receipt.spec.ts",
+          "line": 14,
+          "column": 118
+        },
+        {
+          "title": "billing invoice.reverse_payment invalid receipt recovery at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1652,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:35:15.327Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b86cafcf05b88aac2844-ac88eb0851f39e7fa195",
+          "file": "billing-invalid-receipt.spec.ts",
+          "line": 14,
+          "column": 118
+        },
+        {
+          "title": "billing invoice.trash invalid receipt recovery at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2257,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:35:17.010Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b86cafcf05b88aac2844-6321f300ca6e55340c1a",
+          "file": "billing-invalid-receipt.spec.ts",
+          "line": 14,
+          "column": 118
+        },
+        {
+          "title": "billing invoice.restore invalid receipt recovery at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2912,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:35:19.309Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b86cafcf05b88aac2844-39eb7d2f7b9990b1e8aa",
+          "file": "billing-invalid-receipt.spec.ts",
+          "line": 14,
+          "column": 118
+        },
+        {
+          "title": "billing issuer.set invalid receipt recovery at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1801,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:35:22.281Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b86cafcf05b88aac2844-a063ba37b8761aec9775",
+          "file": "billing-invalid-receipt.spec.ts",
+          "line": 14,
+          "column": 118
+        },
+        {
+          "title": "billing customer_fiscal.set invalid receipt recovery at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1937,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:35:24.118Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b86cafcf05b88aac2844-8483b0546c54b9cd847d",
+          "file": "billing-invalid-receipt.spec.ts",
+          "line": 14,
+          "column": 118
+        },
+        {
+          "title": "billing invoice.issue invalid receipt recovery at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2310,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:35:26.085Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b86cafcf05b88aac2844-d56828f0149ee90255b3",
+          "file": "billing-invalid-receipt.spec.ts",
+          "line": 14,
+          "column": 118
+        },
+        {
+          "title": "billing invoice.mark_paid invalid receipt recovery at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2244,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:35:28.427Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b86cafcf05b88aac2844-e296f5862936c33a2a4b",
+          "file": "billing-invalid-receipt.spec.ts",
+          "line": 14,
+          "column": 118
+        },
+        {
+          "title": "billing invoice.reverse_payment invalid receipt recovery at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2298,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:35:30.711Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b86cafcf05b88aac2844-6774c25919f16cf2fed1",
+          "file": "billing-invalid-receipt.spec.ts",
+          "line": 14,
+          "column": 118
+        },
+        {
+          "title": "billing invoice.trash invalid receipt recovery at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2156,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:35:33.055Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b86cafcf05b88aac2844-b64c02ef733822108296",
+          "file": "billing-invalid-receipt.spec.ts",
+          "line": 14,
+          "column": 118
+        },
+        {
+          "title": "billing invoice.restore invalid receipt recovery at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2158,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:35:35.251Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b86cafcf05b88aac2844-8699bfa566bf72924b5d",
+          "file": "billing-invalid-receipt.spec.ts",
+          "line": 14,
+          "column": 118
+        },
+        {
+          "title": "billing issuer.set invalid receipt recovery at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1947,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:35:37.436Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b86cafcf05b88aac2844-04ba78eef3d6d9fb601f",
+          "file": "billing-invalid-receipt.spec.ts",
+          "line": 14,
+          "column": 118
+        },
+        {
+          "title": "billing customer_fiscal.set invalid receipt recovery at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2328,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:35:39.412Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b86cafcf05b88aac2844-35aee642f1330c866131",
+          "file": "billing-invalid-receipt.spec.ts",
+          "line": 14,
+          "column": 118
+        },
+        {
+          "title": "billing invoice.issue invalid receipt recovery at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2763,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:35:41.779Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b86cafcf05b88aac2844-1842a825832ec962b0bb",
+          "file": "billing-invalid-receipt.spec.ts",
+          "line": 14,
+          "column": 118
+        },
+        {
+          "title": "billing invoice.mark_paid invalid receipt recovery at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2601,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:35:44.580Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b86cafcf05b88aac2844-27d2a1cb1700195a2c99",
+          "file": "billing-invalid-receipt.spec.ts",
+          "line": 14,
+          "column": 118
+        },
+        {
+          "title": "billing invoice.reverse_payment invalid receipt recovery at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2797,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:35:47.213Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b86cafcf05b88aac2844-1013b52c9245e56771b0",
+          "file": "billing-invalid-receipt.spec.ts",
+          "line": 14,
+          "column": 118
+        },
+        {
+          "title": "billing invoice.trash invalid receipt recovery at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2926,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:35:50.036Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b86cafcf05b88aac2844-d1b22a64850575f2c521",
+          "file": "billing-invalid-receipt.spec.ts",
+          "line": 14,
+          "column": 118
+        },
+        {
+          "title": "billing invoice.restore invalid receipt recovery at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2812,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:35:53.003Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b86cafcf05b88aac2844-7129bf4a6ec44a1cbc3f",
+          "file": "billing-invalid-receipt.spec.ts",
+          "line": 14,
+          "column": 118
+        },
+        {
+          "title": "billing issuer.set invalid receipt recovery at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2857,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:35:55.859Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b86cafcf05b88aac2844-1b91227948d6224306ed",
+          "file": "billing-invalid-receipt.spec.ts",
+          "line": 14,
+          "column": 118
+        },
+        {
+          "title": "billing customer_fiscal.set invalid receipt recovery at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2665,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:35:58.746Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b86cafcf05b88aac2844-ff154e9644f71b646ad0",
+          "file": "billing-invalid-receipt.spec.ts",
+          "line": 14,
+          "column": 118
+        },
+        {
+          "title": "billing invoice.issue denied receipt recovery at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1766,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:36:01.442Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b86cafcf05b88aac2844-c3d594a7b908ac7425dd",
+          "file": "billing-invalid-receipt.spec.ts",
+          "line": 14,
+          "column": 118
+        },
+        {
+          "title": "billing invoice.mark_paid denied receipt recovery at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1833,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:36:03.242Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b86cafcf05b88aac2844-c06113534a079c3a9bbe",
+          "file": "billing-invalid-receipt.spec.ts",
+          "line": 14,
+          "column": 118
+        },
+        {
+          "title": "billing invoice.reverse_payment denied receipt recovery at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1927,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:36:05.105Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b86cafcf05b88aac2844-c7e60991899c1e2259f5",
+          "file": "billing-invalid-receipt.spec.ts",
+          "line": 14,
+          "column": 118
+        },
+        {
+          "title": "billing invoice.trash denied receipt recovery at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1440,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:36:07.064Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b86cafcf05b88aac2844-cad555b7197a86ddbb62",
+          "file": "billing-invalid-receipt.spec.ts",
+          "line": 14,
+          "column": 118
+        },
+        {
+          "title": "billing invoice.restore denied receipt recovery at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1420,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:36:08.536Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b86cafcf05b88aac2844-e13ac7d0ade32a13024f",
+          "file": "billing-invalid-receipt.spec.ts",
+          "line": 14,
+          "column": 118
+        },
+        {
+          "title": "billing issuer.set denied receipt recovery at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1549,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:36:09.990Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b86cafcf05b88aac2844-edd15bb1753374e46188",
+          "file": "billing-invalid-receipt.spec.ts",
+          "line": 14,
+          "column": 118
+        },
+        {
+          "title": "billing customer_fiscal.set denied receipt recovery at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1382,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:36:11.566Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b86cafcf05b88aac2844-dc8a1de0e3c09303e0a2",
+          "file": "billing-invalid-receipt.spec.ts",
+          "line": 14,
+          "column": 118
+        },
+        {
+          "title": "billing invoice.issue denied receipt recovery at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1535,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:36:12.980Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b86cafcf05b88aac2844-362dd3ab6e9f410108c7",
+          "file": "billing-invalid-receipt.spec.ts",
+          "line": 14,
+          "column": 118
+        },
+        {
+          "title": "billing invoice.mark_paid denied receipt recovery at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1606,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:36:14.542Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b86cafcf05b88aac2844-d3d2e032ac86fab12fb0",
+          "file": "billing-invalid-receipt.spec.ts",
+          "line": 14,
+          "column": 118
+        },
+        {
+          "title": "billing invoice.reverse_payment denied receipt recovery at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1633,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:36:16.189Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b86cafcf05b88aac2844-6877ea866cd0d254780f",
+          "file": "billing-invalid-receipt.spec.ts",
+          "line": 14,
+          "column": 118
+        },
+        {
+          "title": "billing invoice.trash denied receipt recovery at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1353,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:36:17.859Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b86cafcf05b88aac2844-485e2e27dcdcdf29a460",
+          "file": "billing-invalid-receipt.spec.ts",
+          "line": 14,
+          "column": 118
+        },
+        {
+          "title": "billing invoice.restore denied receipt recovery at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1489,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:36:19.240Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b86cafcf05b88aac2844-328c041e60f8ab7285d2",
+          "file": "billing-invalid-receipt.spec.ts",
+          "line": 14,
+          "column": 118
+        },
+        {
+          "title": "billing issuer.set denied receipt recovery at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1478,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:36:20.763Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b86cafcf05b88aac2844-81c57fbbe77fd89aa937",
+          "file": "billing-invalid-receipt.spec.ts",
+          "line": 14,
+          "column": 118
+        },
+        {
+          "title": "billing customer_fiscal.set denied receipt recovery at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1421,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:36:22.287Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b86cafcf05b88aac2844-88e1d2b74517fe450a79",
+          "file": "billing-invalid-receipt.spec.ts",
+          "line": 14,
+          "column": 118
+        },
+        {
+          "title": "billing invoice.issue denied receipt recovery at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1988,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:36:23.744Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b86cafcf05b88aac2844-9439880d03a3b59fa8ac",
+          "file": "billing-invalid-receipt.spec.ts",
+          "line": 14,
+          "column": 118
+        },
+        {
+          "title": "billing invoice.mark_paid denied receipt recovery at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1704,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:36:25.771Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b86cafcf05b88aac2844-b33b987b7d7d41d61ec9",
+          "file": "billing-invalid-receipt.spec.ts",
+          "line": 14,
+          "column": 118
+        },
+        {
+          "title": "billing invoice.reverse_payment denied receipt recovery at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1909,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:36:27.507Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b86cafcf05b88aac2844-b675bb718c70a5723db0",
+          "file": "billing-invalid-receipt.spec.ts",
+          "line": 14,
+          "column": 118
+        },
+        {
+          "title": "billing invoice.trash denied receipt recovery at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1827,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:36:29.456Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b86cafcf05b88aac2844-0c45753114b0ef869d36",
+          "file": "billing-invalid-receipt.spec.ts",
+          "line": 14,
+          "column": 118
+        },
+        {
+          "title": "billing invoice.restore denied receipt recovery at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1738,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:36:31.315Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b86cafcf05b88aac2844-373f2b0ba771c8adfb73",
+          "file": "billing-invalid-receipt.spec.ts",
+          "line": 14,
+          "column": 118
+        },
+        {
+          "title": "billing issuer.set denied receipt recovery at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1681,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:36:33.080Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b86cafcf05b88aac2844-8e5eaf085a3721fabdc2",
+          "file": "billing-invalid-receipt.spec.ts",
+          "line": 14,
+          "column": 118
+        },
+        {
+          "title": "billing customer_fiscal.set denied receipt recovery at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1700,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:36:34.825Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b86cafcf05b88aac2844-be92ed73ec5643db643a",
+          "file": "billing-invalid-receipt.spec.ts",
+          "line": 14,
+          "column": 118
+        }
+      ]
+    },
+    {
+      "title": "billing-receipt-read-boundary.spec.ts",
+      "file": "billing-receipt-read-boundary.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "billing verified receipt read failure retries only current invoice at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1377,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:36:36.593Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "982dc3b52db0f8682590-bda32dab17a364b08d66",
+          "file": "billing-receipt-read-boundary.spec.ts",
+          "line": 3,
+          "column": 39
+        },
+        {
+          "title": "billing verified receipt read failure retries only current invoice at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1573,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:36:38.000Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "982dc3b52db0f8682590-a4d944338e0d90d80b0c",
+          "file": "billing-receipt-read-boundary.spec.ts",
+          "line": 3,
+          "column": 39
+        },
+        {
+          "title": "billing verified receipt read failure retries only current invoice at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2145,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:36:39.629Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "982dc3b52db0f8682590-ea1d5a954f7f79bbb8f9",
+          "file": "billing-receipt-read-boundary.spec.ts",
+          "line": 3,
+          "column": 39
+        }
+      ]
+    },
+    {
+      "title": "billing-refresh-focus.spec.ts",
+      "file": "billing-refresh-focus.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "current invoice stays visible when a delayed 50-row billing list arrives at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1534,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:36:41.906Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "billing-refresh-focus-1440",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\billing-regression-attempt03\\artifacts\\billing-refresh-focus-curr-a869f-illing-list-arrives-at-1440-controlled-http-existing-billing\\attachments\\billing-refresh-focus-1440-e926ae9f64220636be0339d31847642f578e7eb6.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3b7ee50fab9541b01b00-7b3c129eba2d55af5f51",
+          "file": "billing-refresh-focus.spec.ts",
+          "line": 7,
+          "column": 6
+        },
+        {
+          "title": "current invoice stays visible when a delayed 50-row billing list arrives at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1456,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:36:43.521Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "billing-refresh-focus-768",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\billing-regression-attempt03\\artifacts\\billing-refresh-focus-curr-418b4-billing-list-arrives-at-768-controlled-http-existing-billing\\attachments\\billing-refresh-focus-768-8fb480c5c63cca0149de9320ce74a8af62d09c5c.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3b7ee50fab9541b01b00-b32852e4b741374704c3",
+          "file": "billing-refresh-focus.spec.ts",
+          "line": 7,
+          "column": 6
+        },
+        {
+          "title": "current invoice stays visible when a delayed 50-row billing list arrives at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1120,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:36:45.021Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "billing-refresh-focus-390",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\billing-regression-attempt03\\artifacts\\billing-refresh-focus-curr-aab0f-billing-list-arrives-at-390-controlled-http-existing-billing\\attachments\\billing-refresh-focus-390-9aa8889c8d80847ab16efba495bcd07741b6790b.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3b7ee50fab9541b01b00-beea1d9667055a8c38c8",
+          "file": "billing-refresh-focus.spec.ts",
+          "line": 7,
+          "column": 6
+        }
+      ]
+    },
+    {
+      "title": "billing-uncertain-intent.spec.ts",
+      "file": "billing-uncertain-intent.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "billing invoice.issue retains uncertain intent at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2055,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:36:46.196Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3ee50d40c5e0cbd6140e-be5a67e11dd547ce93e8",
+          "file": "billing-uncertain-intent.spec.ts",
+          "line": 14,
+          "column": 67
+        },
+        {
+          "title": "billing invoice.mark_paid retains uncertain intent at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1647,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:36:48.292Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3ee50d40c5e0cbd6140e-5e2258c9497a577b17d2",
+          "file": "billing-uncertain-intent.spec.ts",
+          "line": 14,
+          "column": 67
+        },
+        {
+          "title": "billing invoice.reverse_payment retains uncertain intent at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1537,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:36:49.979Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3ee50d40c5e0cbd6140e-742924b11f936275c360",
+          "file": "billing-uncertain-intent.spec.ts",
+          "line": 14,
+          "column": 67
+        },
+        {
+          "title": "billing invoice.trash retains uncertain intent at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2060,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:36:51.540Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3ee50d40c5e0cbd6140e-6fd53712001d3000ea3c",
+          "file": "billing-uncertain-intent.spec.ts",
+          "line": 14,
+          "column": 67
+        },
+        {
+          "title": "billing invoice.restore retains uncertain intent at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2143,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:36:53.635Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3ee50d40c5e0cbd6140e-4e36427663ff1267b96a",
+          "file": "billing-uncertain-intent.spec.ts",
+          "line": 14,
+          "column": 67
+        },
+        {
+          "title": "billing issuer.set retains uncertain intent at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1971,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:36:55.815Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3ee50d40c5e0cbd6140e-8bcbd5678f56e45146ef",
+          "file": "billing-uncertain-intent.spec.ts",
+          "line": 14,
+          "column": 67
+        },
+        {
+          "title": "billing customer_fiscal.set retains uncertain intent at 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2118,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:36:57.823Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3ee50d40c5e0cbd6140e-4bf3f80106b63f01301c",
+          "file": "billing-uncertain-intent.spec.ts",
+          "line": 14,
+          "column": 67
+        },
+        {
+          "title": "billing invoice.issue retains uncertain intent at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2561,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:36:59.976Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3ee50d40c5e0cbd6140e-7eb8efeaf99dd2d31b4c",
+          "file": "billing-uncertain-intent.spec.ts",
+          "line": 14,
+          "column": 67
+        },
+        {
+          "title": "billing invoice.mark_paid retains uncertain intent at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2350,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:37:02.581Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3ee50d40c5e0cbd6140e-1cdf7f1114297b578b12",
+          "file": "billing-uncertain-intent.spec.ts",
+          "line": 14,
+          "column": 67
+        },
+        {
+          "title": "billing invoice.reverse_payment retains uncertain intent at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2437,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:37:04.966Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3ee50d40c5e0cbd6140e-2c4a86f663d6636372ba",
+          "file": "billing-uncertain-intent.spec.ts",
+          "line": 14,
+          "column": 67
+        },
+        {
+          "title": "billing invoice.trash retains uncertain intent at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2182,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:37:07.432Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3ee50d40c5e0cbd6140e-77d4e9138a1a20f248fd",
+          "file": "billing-uncertain-intent.spec.ts",
+          "line": 14,
+          "column": 67
+        },
+        {
+          "title": "billing invoice.restore retains uncertain intent at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2508,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:37:09.644Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3ee50d40c5e0cbd6140e-3f232fbb9b3e5a51b2bd",
+          "file": "billing-uncertain-intent.spec.ts",
+          "line": 14,
+          "column": 67
+        },
+        {
+          "title": "billing issuer.set retains uncertain intent at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1814,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:37:12.184Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3ee50d40c5e0cbd6140e-8d74206084ad56c1ddb4",
+          "file": "billing-uncertain-intent.spec.ts",
+          "line": 14,
+          "column": 67
+        },
+        {
+          "title": "billing customer_fiscal.set retains uncertain intent at 768",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2130,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:37:14.028Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3ee50d40c5e0cbd6140e-355b1d5c2711f1dfca8f",
+          "file": "billing-uncertain-intent.spec.ts",
+          "line": 14,
+          "column": 67
+        },
+        {
+          "title": "billing invoice.issue retains uncertain intent at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2699,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:37:16.198Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3ee50d40c5e0cbd6140e-652cf6b922c1eda5c025",
+          "file": "billing-uncertain-intent.spec.ts",
+          "line": 14,
+          "column": 67
+        },
+        {
+          "title": "billing invoice.mark_paid retains uncertain intent at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2306,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:37:18.940Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3ee50d40c5e0cbd6140e-46dbbba5b727b14a253f",
+          "file": "billing-uncertain-intent.spec.ts",
+          "line": 14,
+          "column": 67
+        },
+        {
+          "title": "billing invoice.reverse_payment retains uncertain intent at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2351,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:37:21.268Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3ee50d40c5e0cbd6140e-f942f607ed6a1da6f52c",
+          "file": "billing-uncertain-intent.spec.ts",
+          "line": 14,
+          "column": 67
+        },
+        {
+          "title": "billing invoice.trash retains uncertain intent at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2282,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:37:23.645Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3ee50d40c5e0cbd6140e-b52ed9eff410b7a1d63e",
+          "file": "billing-uncertain-intent.spec.ts",
+          "line": 14,
+          "column": 67
+        },
+        {
+          "title": "billing invoice.restore retains uncertain intent at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2485,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:37:25.956Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3ee50d40c5e0cbd6140e-0ae36715deafa66a2cae",
+          "file": "billing-uncertain-intent.spec.ts",
+          "line": 14,
+          "column": 67
+        },
+        {
+          "title": "billing issuer.set retains uncertain intent at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1941,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:37:28.470Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3ee50d40c5e0cbd6140e-ed41e2a004203680e0cd",
+          "file": "billing-uncertain-intent.spec.ts",
+          "line": 14,
+          "column": 67
+        },
+        {
+          "title": "billing customer_fiscal.set retains uncertain intent at 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-existing-billing",
+              "projectName": "controlled-http-existing-billing",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2016,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:37:30.440Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3ee50d40c5e0cbd6140e-3dfb18f300201a86f569",
+          "file": "billing-uncertain-intent.spec.ts",
+          "line": 14,
+          "column": 67
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-19T22:34:29.976Z",
+    "duration": 184797.585,
+    "expected": 88,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

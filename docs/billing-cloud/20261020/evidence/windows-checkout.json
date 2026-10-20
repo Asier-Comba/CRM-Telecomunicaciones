@@ -1,0 +1,16 @@
+{
+  "original_failure": {
+    "step": "Checkout into path with spaces",
+    "job": 118342083492,
+    "source": "2e5318cff28f59d172224fefba7125b61216277c",
+    "cause": "Versioned evidence artifact paths too long",
+    "exit": 128,
+    "fixed_by": "Hash-addressed short artifact filenames; byte hashes verified, original-to-new path map retained",
+    "run": 39334979116
+  },
+  "source": "3eabefa70101da009947a8383d97a07385cf2cd2",
+  "files": 2013,
+  "cloud_ci": "NOT_YET_RERUN_NEW_SOURCE",
+  "exit": 0,
+  "scope": "Actual Windows clone into own path containing spaces, core.longpaths=false, full checkout and status clean"
+}

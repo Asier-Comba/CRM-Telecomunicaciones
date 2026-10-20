@@ -1,0 +1,830 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--config",
+      "tools/oier_billing_qa/intent.config.ts"
+    ],
+    "configFile": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\intent.config.ts",
+    "rootDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-billing-fixes-20261020/tools/oier_billing_qa",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-billing-fixes-20261020/intent-attempt01/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "controlled-http-390",
+        "name": "controlled-http-390",
+        "testDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-billing-fixes-20261020/tools/oier_billing_qa",
+        "testIgnore": [],
+        "testMatch": [
+          "proposal-intent.spec.ts"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-billing-fixes-20261020/intent-attempt01/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "controlled-http-768",
+        "name": "controlled-http-768",
+        "testDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-billing-fixes-20261020/tools/oier_billing_qa",
+        "testIgnore": [],
+        "testMatch": [
+          "proposal-intent.spec.ts"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-billing-fixes-20261020/intent-attempt01/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "controlled-http-1440",
+        "name": "controlled-http-1440",
+        "testDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-billing-fixes-20261020/tools/oier_billing_qa",
+        "testIgnore": [],
+        "testMatch": [
+          "proposal-intent.spec.ts"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "line",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\intent-attempt01\\results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.61.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "proposal-intent.spec.ts",
+      "file": "proposal-intent.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "a late proposal cannot reopen a manually closed draft",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5971,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Revisar borrador local', exact: true })\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m1\u001b[39m\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Revisar borrador local', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to 1 element\u001b[22m\n\u001b[2m       - unexpected value \"1\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Revisar borrador local', exact: true })\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m1\u001b[39m\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Revisar borrador local', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to 1 element\u001b[22m\n\u001b[2m       - unexpected value \"1\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-intent.spec.ts:48:85",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-intent.spec.ts",
+                      "column": 85,
+                      "line": 48
+                    },
+                    "snippet": "  46 |   await expect(page.getByRole('dialog',{name:'Revisar borrador local',exact:true})).toHaveCount(0)\n  47 |   await r.complete()\n> 48 |   await expect(page.getByRole('dialog',{name:'Revisar borrador local',exact:true})).toHaveCount(0)\n     |                                                                                     ^\n  49 |   r.assertNoEffects();await page.screenshot({path:info.outputPath('closed-draft-retained.png')})\n  50 |  }finally{await r.close()}\n  51 | })"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-intent.spec.ts",
+                        "column": 85,
+                        "line": 48
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Revisar borrador local', exact: true })\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m1\u001b[39m\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Revisar borrador local', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to 1 element\u001b[22m\n\u001b[2m       - unexpected value \"1\"\u001b[22m\n\n\n  46 |   await expect(page.getByRole('dialog',{name:'Revisar borrador local',exact:true})).toHaveCount(0)\n  47 |   await r.complete()\n> 48 |   await expect(page.getByRole('dialog',{name:'Revisar borrador local',exact:true})).toHaveCount(0)\n     |                                                                                     ^\n  49 |   r.assertNoEffects();await page.screenshot({path:info.outputPath('closed-draft-retained.png')})\n  50 |  }finally{await r.close()}\n  51 | })\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-intent.spec.ts:48:85"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:22:29.450Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\intent-attempt01\\artifacts\\proposal-intent-a-late-pro-8fe01-pen-a-manually-closed-draft-controlled-http-390\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\intent-attempt01\\artifacts\\proposal-intent-a-late-pro-8fe01-pen-a-manually-closed-draft-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\intent-attempt01\\artifacts\\proposal-intent-a-late-pro-8fe01-pen-a-manually-closed-draft-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\intent-attempt01\\artifacts\\proposal-intent-a-late-pro-8fe01-pen-a-manually-closed-draft-controlled-http-390\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-intent.spec.ts",
+                    "column": 85,
+                    "line": 48
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "1b13fef3ce9451792509-983cbea42059ef546179",
+          "file": "proposal-intent.spec.ts",
+          "line": 40,
+          "column": 5
+        },
+        {
+          "title": "an old proposal error cannot contaminate a new manual draft",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5623,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('alert').filter({ hasText: 'Esta función no está disponible ahora.' })\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m1\u001b[39m\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('alert').filter({ hasText: 'Esta función no está disponible ahora.' })\u001b[22m\n\u001b[2m    12 × locator resolved to 1 element\u001b[22m\n\u001b[2m       - unexpected value \"1\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('alert').filter({ hasText: 'Esta función no está disponible ahora.' })\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m1\u001b[39m\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('alert').filter({ hasText: 'Esta función no está disponible ahora.' })\u001b[22m\n\u001b[2m    12 × locator resolved to 1 element\u001b[22m\n\u001b[2m       - unexpected value \"1\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-intent.spec.ts:58:100",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-intent.spec.ts",
+                      "column": 100,
+                      "line": 58
+                    },
+                    "snippet": "  56 |   await page.getByLabel('Concepto 1',{exact:true}).fill('Cambio manual vigente')\n  57 |   await r.complete()\n> 58 |   await expect(page.getByRole('alert').filter({hasText:'Esta función no está disponible ahora.'})).toHaveCount(0)\n     |                                                                                                    ^\n  59 |   await expect(page.getByLabel('Concepto 1',{exact:true})).toHaveValue('Cambio manual vigente')\n  60 |   r.assertNoEffects();await page.getByLabel('Concepto 1',{exact:true}).scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath('manual-draft-retained.png')})\n  61 |  }finally{await r.close()}"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-intent.spec.ts",
+                        "column": 100,
+                        "line": 58
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('alert').filter({ hasText: 'Esta función no está disponible ahora.' })\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m1\u001b[39m\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('alert').filter({ hasText: 'Esta función no está disponible ahora.' })\u001b[22m\n\u001b[2m    12 × locator resolved to 1 element\u001b[22m\n\u001b[2m       - unexpected value \"1\"\u001b[22m\n\n\n  56 |   await page.getByLabel('Concepto 1',{exact:true}).fill('Cambio manual vigente')\n  57 |   await r.complete()\n> 58 |   await expect(page.getByRole('alert').filter({hasText:'Esta función no está disponible ahora.'})).toHaveCount(0)\n     |                                                                                                    ^\n  59 |   await expect(page.getByLabel('Concepto 1',{exact:true})).toHaveValue('Cambio manual vigente')\n  60 |   r.assertNoEffects();await page.getByLabel('Concepto 1',{exact:true}).scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath('manual-draft-retained.png')})\n  61 |  }finally{await r.close()}\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-intent.spec.ts:58:100"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:22:41.122Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\intent-attempt01\\artifacts\\proposal-intent-an-old-pro-63248-taminate-a-new-manual-draft-controlled-http-390\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\intent-attempt01\\artifacts\\proposal-intent-an-old-pro-63248-taminate-a-new-manual-draft-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\intent-attempt01\\artifacts\\proposal-intent-an-old-pro-63248-taminate-a-new-manual-draft-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\intent-attempt01\\artifacts\\proposal-intent-an-old-pro-63248-taminate-a-new-manual-draft-controlled-http-390\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-intent.spec.ts",
+                    "column": 100,
+                    "line": 58
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "1b13fef3ce9451792509-71431ba9c3b4f58e8e1b",
+          "file": "proposal-intent.spec.ts",
+          "line": 52,
+          "column": 5
+        },
+        {
+          "title": "a late proposal cannot replace the invoice opened afterwards",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5809,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Revisar borrador local', exact: true })\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m1\u001b[39m\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Revisar borrador local', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to 1 element\u001b[22m\n\u001b[2m       - unexpected value \"1\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Revisar borrador local', exact: true })\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m1\u001b[39m\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Revisar borrador local', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to 1 element\u001b[22m\n\u001b[2m       - unexpected value \"1\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-intent.spec.ts:70:85",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-intent.spec.ts",
+                      "column": 85,
+                      "line": 70
+                    },
+                    "snippet": "  68 |   await expect(detail).toBeVisible()\n  69 |   await r.complete()\n> 70 |   await expect(page.getByRole('dialog',{name:'Revisar borrador local',exact:true})).toHaveCount(0)\n     |                                                                                     ^\n  71 |   await expect(detail).toBeVisible()\n  72 |   r.assertNoEffects();await detail.scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath('current-invoice-retained.png')})\n  73 |  }finally{await r.close()}"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-intent.spec.ts",
+                        "column": 85,
+                        "line": 70
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Revisar borrador local', exact: true })\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m1\u001b[39m\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Revisar borrador local', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to 1 element\u001b[22m\n\u001b[2m       - unexpected value \"1\"\u001b[22m\n\n\n  68 |   await expect(detail).toBeVisible()\n  69 |   await r.complete()\n> 70 |   await expect(page.getByRole('dialog',{name:'Revisar borrador local',exact:true})).toHaveCount(0)\n     |                                                                                     ^\n  71 |   await expect(detail).toBeVisible()\n  72 |   r.assertNoEffects();await detail.scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath('current-invoice-retained.png')})\n  73 |  }finally{await r.close()}\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-intent.spec.ts:70:85"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:22:53.408Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\intent-attempt01\\artifacts\\proposal-intent-a-late-pro-778a8-e-invoice-opened-afterwards-controlled-http-390\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\intent-attempt01\\artifacts\\proposal-intent-a-late-pro-778a8-e-invoice-opened-afterwards-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\intent-attempt01\\artifacts\\proposal-intent-a-late-pro-778a8-e-invoice-opened-afterwards-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\intent-attempt01\\artifacts\\proposal-intent-a-late-pro-778a8-e-invoice-opened-afterwards-controlled-http-390\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-intent.spec.ts",
+                    "column": 85,
+                    "line": 70
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "1b13fef3ce9451792509-830d8b57d52ae27bdf86",
+          "file": "proposal-intent.spec.ts",
+          "line": 63,
+          "column": 5
+        },
+        {
+          "title": "a late proposal cannot reopen a manually closed draft",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5860,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Revisar borrador local', exact: true })\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m1\u001b[39m\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Revisar borrador local', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to 1 element\u001b[22m\n\u001b[2m       - unexpected value \"1\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Revisar borrador local', exact: true })\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m1\u001b[39m\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Revisar borrador local', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to 1 element\u001b[22m\n\u001b[2m       - unexpected value \"1\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-intent.spec.ts:48:85",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-intent.spec.ts",
+                      "column": 85,
+                      "line": 48
+                    },
+                    "snippet": "  46 |   await expect(page.getByRole('dialog',{name:'Revisar borrador local',exact:true})).toHaveCount(0)\n  47 |   await r.complete()\n> 48 |   await expect(page.getByRole('dialog',{name:'Revisar borrador local',exact:true})).toHaveCount(0)\n     |                                                                                     ^\n  49 |   r.assertNoEffects();await page.screenshot({path:info.outputPath('closed-draft-retained.png')})\n  50 |  }finally{await r.close()}\n  51 | })"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-intent.spec.ts",
+                        "column": 85,
+                        "line": 48
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Revisar borrador local', exact: true })\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m1\u001b[39m\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Revisar borrador local', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to 1 element\u001b[22m\n\u001b[2m       - unexpected value \"1\"\u001b[22m\n\n\n  46 |   await expect(page.getByRole('dialog',{name:'Revisar borrador local',exact:true})).toHaveCount(0)\n  47 |   await r.complete()\n> 48 |   await expect(page.getByRole('dialog',{name:'Revisar borrador local',exact:true})).toHaveCount(0)\n     |                                                                                     ^\n  49 |   r.assertNoEffects();await page.screenshot({path:info.outputPath('closed-draft-retained.png')})\n  50 |  }finally{await r.close()}\n  51 | })\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-intent.spec.ts:48:85"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:23:05.823Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\intent-attempt01\\artifacts\\proposal-intent-a-late-pro-8fe01-pen-a-manually-closed-draft-controlled-http-768\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\intent-attempt01\\artifacts\\proposal-intent-a-late-pro-8fe01-pen-a-manually-closed-draft-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\intent-attempt01\\artifacts\\proposal-intent-a-late-pro-8fe01-pen-a-manually-closed-draft-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\intent-attempt01\\artifacts\\proposal-intent-a-late-pro-8fe01-pen-a-manually-closed-draft-controlled-http-768\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-intent.spec.ts",
+                    "column": 85,
+                    "line": 48
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "1b13fef3ce9451792509-82affaec9955e12f54bb",
+          "file": "proposal-intent.spec.ts",
+          "line": 40,
+          "column": 5
+        },
+        {
+          "title": "an old proposal error cannot contaminate a new manual draft",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 6155,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('alert').filter({ hasText: 'Esta función no está disponible ahora.' })\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m1\u001b[39m\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('alert').filter({ hasText: 'Esta función no está disponible ahora.' })\u001b[22m\n\u001b[2m    12 × locator resolved to 1 element\u001b[22m\n\u001b[2m       - unexpected value \"1\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('alert').filter({ hasText: 'Esta función no está disponible ahora.' })\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m1\u001b[39m\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('alert').filter({ hasText: 'Esta función no está disponible ahora.' })\u001b[22m\n\u001b[2m    12 × locator resolved to 1 element\u001b[22m\n\u001b[2m       - unexpected value \"1\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-intent.spec.ts:58:100",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-intent.spec.ts",
+                      "column": 100,
+                      "line": 58
+                    },
+                    "snippet": "  56 |   await page.getByLabel('Concepto 1',{exact:true}).fill('Cambio manual vigente')\n  57 |   await r.complete()\n> 58 |   await expect(page.getByRole('alert').filter({hasText:'Esta función no está disponible ahora.'})).toHaveCount(0)\n     |                                                                                                    ^\n  59 |   await expect(page.getByLabel('Concepto 1',{exact:true})).toHaveValue('Cambio manual vigente')\n  60 |   r.assertNoEffects();await page.getByLabel('Concepto 1',{exact:true}).scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath('manual-draft-retained.png')})\n  61 |  }finally{await r.close()}"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-intent.spec.ts",
+                        "column": 100,
+                        "line": 58
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('alert').filter({ hasText: 'Esta función no está disponible ahora.' })\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m1\u001b[39m\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('alert').filter({ hasText: 'Esta función no está disponible ahora.' })\u001b[22m\n\u001b[2m    12 × locator resolved to 1 element\u001b[22m\n\u001b[2m       - unexpected value \"1\"\u001b[22m\n\n\n  56 |   await page.getByLabel('Concepto 1',{exact:true}).fill('Cambio manual vigente')\n  57 |   await r.complete()\n> 58 |   await expect(page.getByRole('alert').filter({hasText:'Esta función no está disponible ahora.'})).toHaveCount(0)\n     |                                                                                                    ^\n  59 |   await expect(page.getByLabel('Concepto 1',{exact:true})).toHaveValue('Cambio manual vigente')\n  60 |   r.assertNoEffects();await page.getByLabel('Concepto 1',{exact:true}).scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath('manual-draft-retained.png')})\n  61 |  }finally{await r.close()}\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-intent.spec.ts:58:100"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:23:20.871Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\intent-attempt01\\artifacts\\proposal-intent-an-old-pro-63248-taminate-a-new-manual-draft-controlled-http-768\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\intent-attempt01\\artifacts\\proposal-intent-an-old-pro-63248-taminate-a-new-manual-draft-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\intent-attempt01\\artifacts\\proposal-intent-an-old-pro-63248-taminate-a-new-manual-draft-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\intent-attempt01\\artifacts\\proposal-intent-an-old-pro-63248-taminate-a-new-manual-draft-controlled-http-768\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-intent.spec.ts",
+                    "column": 100,
+                    "line": 58
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "1b13fef3ce9451792509-77d0bc3a664da6216156",
+          "file": "proposal-intent.spec.ts",
+          "line": 52,
+          "column": 5
+        },
+        {
+          "title": "a late proposal cannot replace the invoice opened afterwards",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5603,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Revisar borrador local', exact: true })\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m1\u001b[39m\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Revisar borrador local', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to 1 element\u001b[22m\n\u001b[2m       - unexpected value \"1\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Revisar borrador local', exact: true })\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m1\u001b[39m\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Revisar borrador local', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to 1 element\u001b[22m\n\u001b[2m       - unexpected value \"1\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-intent.spec.ts:70:85",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-intent.spec.ts",
+                      "column": 85,
+                      "line": 70
+                    },
+                    "snippet": "  68 |   await expect(detail).toBeVisible()\n  69 |   await r.complete()\n> 70 |   await expect(page.getByRole('dialog',{name:'Revisar borrador local',exact:true})).toHaveCount(0)\n     |                                                                                     ^\n  71 |   await expect(detail).toBeVisible()\n  72 |   r.assertNoEffects();await detail.scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath('current-invoice-retained.png')})\n  73 |  }finally{await r.close()}"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-intent.spec.ts",
+                        "column": 85,
+                        "line": 70
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Revisar borrador local', exact: true })\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m1\u001b[39m\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Revisar borrador local', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to 1 element\u001b[22m\n\u001b[2m       - unexpected value \"1\"\u001b[22m\n\n\n  68 |   await expect(detail).toBeVisible()\n  69 |   await r.complete()\n> 70 |   await expect(page.getByRole('dialog',{name:'Revisar borrador local',exact:true})).toHaveCount(0)\n     |                                                                                     ^\n  71 |   await expect(detail).toBeVisible()\n  72 |   r.assertNoEffects();await detail.scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath('current-invoice-retained.png')})\n  73 |  }finally{await r.close()}\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-intent.spec.ts:70:85"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:23:36.758Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\intent-attempt01\\artifacts\\proposal-intent-a-late-pro-778a8-e-invoice-opened-afterwards-controlled-http-768\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\intent-attempt01\\artifacts\\proposal-intent-a-late-pro-778a8-e-invoice-opened-afterwards-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\intent-attempt01\\artifacts\\proposal-intent-a-late-pro-778a8-e-invoice-opened-afterwards-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\intent-attempt01\\artifacts\\proposal-intent-a-late-pro-778a8-e-invoice-opened-afterwards-controlled-http-768\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-intent.spec.ts",
+                    "column": 85,
+                    "line": 70
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "1b13fef3ce9451792509-555b2760c2c211db6bf5",
+          "file": "proposal-intent.spec.ts",
+          "line": 63,
+          "column": 5
+        },
+        {
+          "title": "a late proposal cannot reopen a manually closed draft",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5690,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Revisar borrador local', exact: true })\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m1\u001b[39m\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Revisar borrador local', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to 1 element\u001b[22m\n\u001b[2m       - unexpected value \"1\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Revisar borrador local', exact: true })\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m1\u001b[39m\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Revisar borrador local', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to 1 element\u001b[22m\n\u001b[2m       - unexpected value \"1\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-intent.spec.ts:48:85",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-intent.spec.ts",
+                      "column": 85,
+                      "line": 48
+                    },
+                    "snippet": "  46 |   await expect(page.getByRole('dialog',{name:'Revisar borrador local',exact:true})).toHaveCount(0)\n  47 |   await r.complete()\n> 48 |   await expect(page.getByRole('dialog',{name:'Revisar borrador local',exact:true})).toHaveCount(0)\n     |                                                                                     ^\n  49 |   r.assertNoEffects();await page.screenshot({path:info.outputPath('closed-draft-retained.png')})\n  50 |  }finally{await r.close()}\n  51 | })"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-intent.spec.ts",
+                        "column": 85,
+                        "line": 48
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Revisar borrador local', exact: true })\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m1\u001b[39m\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Revisar borrador local', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to 1 element\u001b[22m\n\u001b[2m       - unexpected value \"1\"\u001b[22m\n\n\n  46 |   await expect(page.getByRole('dialog',{name:'Revisar borrador local',exact:true})).toHaveCount(0)\n  47 |   await r.complete()\n> 48 |   await expect(page.getByRole('dialog',{name:'Revisar borrador local',exact:true})).toHaveCount(0)\n     |                                                                                     ^\n  49 |   r.assertNoEffects();await page.screenshot({path:info.outputPath('closed-draft-retained.png')})\n  50 |  }finally{await r.close()}\n  51 | })\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-intent.spec.ts:48:85"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:23:50.677Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\intent-attempt01\\artifacts\\proposal-intent-a-late-pro-8fe01-pen-a-manually-closed-draft-controlled-http-1440\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\intent-attempt01\\artifacts\\proposal-intent-a-late-pro-8fe01-pen-a-manually-closed-draft-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\intent-attempt01\\artifacts\\proposal-intent-a-late-pro-8fe01-pen-a-manually-closed-draft-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\intent-attempt01\\artifacts\\proposal-intent-a-late-pro-8fe01-pen-a-manually-closed-draft-controlled-http-1440\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-intent.spec.ts",
+                    "column": 85,
+                    "line": 48
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "1b13fef3ce9451792509-f9683dc0a27992729dbc",
+          "file": "proposal-intent.spec.ts",
+          "line": 40,
+          "column": 5
+        },
+        {
+          "title": "an old proposal error cannot contaminate a new manual draft",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 7,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5888,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('alert').filter({ hasText: 'Esta función no está disponible ahora.' })\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m1\u001b[39m\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('alert').filter({ hasText: 'Esta función no está disponible ahora.' })\u001b[22m\n\u001b[2m    12 × locator resolved to 1 element\u001b[22m\n\u001b[2m       - unexpected value \"1\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('alert').filter({ hasText: 'Esta función no está disponible ahora.' })\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m1\u001b[39m\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('alert').filter({ hasText: 'Esta función no está disponible ahora.' })\u001b[22m\n\u001b[2m    12 × locator resolved to 1 element\u001b[22m\n\u001b[2m       - unexpected value \"1\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-intent.spec.ts:58:100",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-intent.spec.ts",
+                      "column": 100,
+                      "line": 58
+                    },
+                    "snippet": "  56 |   await page.getByLabel('Concepto 1',{exact:true}).fill('Cambio manual vigente')\n  57 |   await r.complete()\n> 58 |   await expect(page.getByRole('alert').filter({hasText:'Esta función no está disponible ahora.'})).toHaveCount(0)\n     |                                                                                                    ^\n  59 |   await expect(page.getByLabel('Concepto 1',{exact:true})).toHaveValue('Cambio manual vigente')\n  60 |   r.assertNoEffects();await page.getByLabel('Concepto 1',{exact:true}).scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath('manual-draft-retained.png')})\n  61 |  }finally{await r.close()}"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-intent.spec.ts",
+                        "column": 100,
+                        "line": 58
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('alert').filter({ hasText: 'Esta función no está disponible ahora.' })\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m1\u001b[39m\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('alert').filter({ hasText: 'Esta función no está disponible ahora.' })\u001b[22m\n\u001b[2m    12 × locator resolved to 1 element\u001b[22m\n\u001b[2m       - unexpected value \"1\"\u001b[22m\n\n\n  56 |   await page.getByLabel('Concepto 1',{exact:true}).fill('Cambio manual vigente')\n  57 |   await r.complete()\n> 58 |   await expect(page.getByRole('alert').filter({hasText:'Esta función no está disponible ahora.'})).toHaveCount(0)\n     |                                                                                                    ^\n  59 |   await expect(page.getByLabel('Concepto 1',{exact:true})).toHaveValue('Cambio manual vigente')\n  60 |   r.assertNoEffects();await page.getByLabel('Concepto 1',{exact:true}).scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath('manual-draft-retained.png')})\n  61 |  }finally{await r.close()}\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-intent.spec.ts:58:100"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:24:03.636Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\intent-attempt01\\artifacts\\proposal-intent-an-old-pro-63248-taminate-a-new-manual-draft-controlled-http-1440\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\intent-attempt01\\artifacts\\proposal-intent-an-old-pro-63248-taminate-a-new-manual-draft-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\intent-attempt01\\artifacts\\proposal-intent-an-old-pro-63248-taminate-a-new-manual-draft-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\intent-attempt01\\artifacts\\proposal-intent-an-old-pro-63248-taminate-a-new-manual-draft-controlled-http-1440\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-intent.spec.ts",
+                    "column": 100,
+                    "line": 58
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "1b13fef3ce9451792509-a98687af78264a70047b",
+          "file": "proposal-intent.spec.ts",
+          "line": 52,
+          "column": 5
+        },
+        {
+          "title": "a late proposal cannot replace the invoice opened afterwards",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 8,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5545,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Revisar borrador local', exact: true })\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m1\u001b[39m\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Revisar borrador local', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to 1 element\u001b[22m\n\u001b[2m       - unexpected value \"1\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Revisar borrador local', exact: true })\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m1\u001b[39m\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Revisar borrador local', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to 1 element\u001b[22m\n\u001b[2m       - unexpected value \"1\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-intent.spec.ts:70:85",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-intent.spec.ts",
+                      "column": 85,
+                      "line": 70
+                    },
+                    "snippet": "  68 |   await expect(detail).toBeVisible()\n  69 |   await r.complete()\n> 70 |   await expect(page.getByRole('dialog',{name:'Revisar borrador local',exact:true})).toHaveCount(0)\n     |                                                                                     ^\n  71 |   await expect(detail).toBeVisible()\n  72 |   r.assertNoEffects();await detail.scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath('current-invoice-retained.png')})\n  73 |  }finally{await r.close()}"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-intent.spec.ts",
+                        "column": 85,
+                        "line": 70
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Revisar borrador local', exact: true })\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m1\u001b[39m\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Revisar borrador local', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to 1 element\u001b[22m\n\u001b[2m       - unexpected value \"1\"\u001b[22m\n\n\n  68 |   await expect(detail).toBeVisible()\n  69 |   await r.complete()\n> 70 |   await expect(page.getByRole('dialog',{name:'Revisar borrador local',exact:true})).toHaveCount(0)\n     |                                                                                     ^\n  71 |   await expect(detail).toBeVisible()\n  72 |   r.assertNoEffects();await detail.scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath('current-invoice-retained.png')})\n  73 |  }finally{await r.close()}\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-intent.spec.ts:70:85"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:24:14.462Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\intent-attempt01\\artifacts\\proposal-intent-a-late-pro-778a8-e-invoice-opened-afterwards-controlled-http-1440\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\intent-attempt01\\artifacts\\proposal-intent-a-late-pro-778a8-e-invoice-opened-afterwards-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\intent-attempt01\\artifacts\\proposal-intent-a-late-pro-778a8-e-invoice-opened-afterwards-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\intent-attempt01\\artifacts\\proposal-intent-a-late-pro-778a8-e-invoice-opened-afterwards-controlled-http-1440\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\proposal-intent.spec.ts",
+                    "column": 85,
+                    "line": 70
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "1b13fef3ce9451792509-cf1dd21c895be2d7bfe3",
+          "file": "proposal-intent.spec.ts",
+          "line": 63,
+          "column": 5
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-19T22:22:28.738Z",
+    "duration": 118404.544,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 9,
+    "flaky": 0
+  }
+}

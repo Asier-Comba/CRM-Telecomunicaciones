@@ -1,0 +1,1067 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--config",
+      "tools/oier_billing_qa/speech.config.ts"
+    ],
+    "configFile": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech.config.ts",
+    "rootDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-billing-fixes-20261020/tools/oier_billing_qa",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-billing-fixes-20261020/speech-attempt01/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "controlled-http-390",
+        "name": "controlled-http-390",
+        "testDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-billing-fixes-20261020/tools/oier_billing_qa",
+        "testIgnore": [],
+        "testMatch": [
+          "speech-fallback.spec.ts"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-billing-fixes-20261020/speech-attempt01/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "controlled-http-768",
+        "name": "controlled-http-768",
+        "testDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-billing-fixes-20261020/tools/oier_billing_qa",
+        "testIgnore": [],
+        "testMatch": [
+          "speech-fallback.spec.ts"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-billing-fixes-20261020/speech-attempt01/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "controlled-http-1440",
+        "name": "controlled-http-1440",
+        "testDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-billing-fixes-20261020/tools/oier_billing_qa",
+        "testIgnore": [],
+        "testMatch": [
+          "speech-fallback.spec.ts"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "line",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\speech-attempt01\\results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.61.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "speech-fallback.spec.ts",
+      "file": "speech-fallback.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "written fallback survives speech constructor and retains text provenance",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5783,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('status').filter({ hasText: 'No se pudo iniciar el dictado.' })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('status').filter({ hasText: 'No se pudo iniciar el dictado.' })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('status').filter({ hasText: 'No se pudo iniciar el dictado.' })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('status').filter({ hasText: 'No se pudo iniciar el dictado.' })\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts:41:133",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts",
+                      "column": 133,
+                      "line": 41
+                    },
+                    "snippet": "  39 |   await page.getByRole('textbox',{name:'Descripción de la factura',exact:true}).fill(text)\n  40 |   await page.getByRole('button',{name:'Dictar',exact:true}).click()\n> 41 |   if(mode==='constructor'||mode==='start')await expect(page.getByRole('status').filter({hasText:'No se pudo iniciar el dictado.'})).toBeVisible()\n     |                                                                                                                                     ^\n  42 |   if(mode==='error_without_words')await expect(page.getByRole('status').filter({hasText:'No se pudo completar el dictado.'})).toBeVisible()\n  43 |   await expect(page.getByRole('button',{name:'Dictar',exact:true})).toBeVisible()\n  44 |   await expect(page.getByRole('textbox',{name:'Descripción de la factura',exact:true})).toHaveValue(text)"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts",
+                        "column": 133,
+                        "line": 41
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('status').filter({ hasText: 'No se pudo iniciar el dictado.' })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('status').filter({ hasText: 'No se pudo iniciar el dictado.' })\u001b[22m\n\n\n  39 |   await page.getByRole('textbox',{name:'Descripción de la factura',exact:true}).fill(text)\n  40 |   await page.getByRole('button',{name:'Dictar',exact:true}).click()\n> 41 |   if(mode==='constructor'||mode==='start')await expect(page.getByRole('status').filter({hasText:'No se pudo iniciar el dictado.'})).toBeVisible()\n     |                                                                                                                                     ^\n  42 |   if(mode==='error_without_words')await expect(page.getByRole('status').filter({hasText:'No se pudo completar el dictado.'})).toBeVisible()\n  43 |   await expect(page.getByRole('button',{name:'Dictar',exact:true})).toBeVisible()\n  44 |   await expect(page.getByRole('textbox',{name:'Descripción de la factura',exact:true})).toHaveValue(text)\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts:41:133"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:31:29.003Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\speech-attempt01\\artifacts\\speech-fallback-written-fa-c2d26-and-retains-text-provenance-controlled-http-390\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\speech-attempt01\\artifacts\\speech-fallback-written-fa-c2d26-and-retains-text-provenance-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\speech-attempt01\\artifacts\\speech-fallback-written-fa-c2d26-and-retains-text-provenance-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\speech-attempt01\\artifacts\\speech-fallback-written-fa-c2d26-and-retains-text-provenance-controlled-http-390\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts",
+                    "column": 133,
+                    "line": 41
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "cb32d33d558dd360e2c4-e43de7322962b233babb",
+          "file": "speech-fallback.spec.ts",
+          "line": 9,
+          "column": 98
+        },
+        {
+          "title": "written fallback survives speech start and retains text provenance",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 1434,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 1\u001b[39m\n\n\u001b[2m  Array [\u001b[22m\n\u001b[32m-   \"text\",\u001b[39m\n\u001b[31m+   \"audio\",\u001b[39m\n\u001b[2m  ]\u001b[22m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 1\u001b[39m\n\n\u001b[2m  Array [\u001b[22m\n\u001b[32m-   \"text\",\u001b[39m\n\u001b[31m+   \"audio\",\u001b[39m\n\u001b[2m  ]\u001b[22m\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts:47:19",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts",
+                      "column": 19,
+                      "line": 47
+                    },
+                    "snippet": "  45 |   await page.getByRole('button',{name:'Generar propuesta',exact:true}).click()\n  46 |   await expect(page.getByLabel('Concepto 1',{exact:true})).toHaveValue('soporte')\n> 47 |   expect(sources).toEqual(['text']);expect(commands).toEqual([]);expect(errors).toEqual([])\n     |                   ^\n  48 |   await page.getByLabel('Concepto 1',{exact:true}).scrollIntoViewIfNeeded()\n  49 |   await page.screenshot({path:info.outputPath(`speech-${mode}-fallback.png`)})\n  50 |  }finally{await page.unrouteAll({behavior:'wait'})}"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts",
+                        "column": 19,
+                        "line": 47
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 1\u001b[39m\n\n\u001b[2m  Array [\u001b[22m\n\u001b[32m-   \"text\",\u001b[39m\n\u001b[31m+   \"audio\",\u001b[39m\n\u001b[2m  ]\u001b[22m\n\n  45 |   await page.getByRole('button',{name:'Generar propuesta',exact:true}).click()\n  46 |   await expect(page.getByLabel('Concepto 1',{exact:true})).toHaveValue('soporte')\n> 47 |   expect(sources).toEqual(['text']);expect(commands).toEqual([]);expect(errors).toEqual([])\n     |                   ^\n  48 |   await page.getByLabel('Concepto 1',{exact:true}).scrollIntoViewIfNeeded()\n  49 |   await page.screenshot({path:info.outputPath(`speech-${mode}-fallback.png`)})\n  50 |  }finally{await page.unrouteAll({behavior:'wait'})}\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts:47:19"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:31:43.923Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\speech-attempt01\\artifacts\\speech-fallback-written-fa-6458d-and-retains-text-provenance-controlled-http-390\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\speech-attempt01\\artifacts\\speech-fallback-written-fa-6458d-and-retains-text-provenance-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\speech-attempt01\\artifacts\\speech-fallback-written-fa-6458d-and-retains-text-provenance-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\speech-attempt01\\artifacts\\speech-fallback-written-fa-6458d-and-retains-text-provenance-controlled-http-390\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts",
+                    "column": 19,
+                    "line": 47
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "cb32d33d558dd360e2c4-ae93d6d7129b3a9eccd1",
+          "file": "speech-fallback.spec.ts",
+          "line": 9,
+          "column": 98
+        },
+        {
+          "title": "written fallback survives speech error_without_words and retains text provenance",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 1515,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 1\u001b[39m\n\n\u001b[2m  Array [\u001b[22m\n\u001b[32m-   \"text\",\u001b[39m\n\u001b[31m+   \"audio\",\u001b[39m\n\u001b[2m  ]\u001b[22m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 1\u001b[39m\n\n\u001b[2m  Array [\u001b[22m\n\u001b[32m-   \"text\",\u001b[39m\n\u001b[31m+   \"audio\",\u001b[39m\n\u001b[2m  ]\u001b[22m\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts:47:19",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts",
+                      "column": 19,
+                      "line": 47
+                    },
+                    "snippet": "  45 |   await page.getByRole('button',{name:'Generar propuesta',exact:true}).click()\n  46 |   await expect(page.getByLabel('Concepto 1',{exact:true})).toHaveValue('soporte')\n> 47 |   expect(sources).toEqual(['text']);expect(commands).toEqual([]);expect(errors).toEqual([])\n     |                   ^\n  48 |   await page.getByLabel('Concepto 1',{exact:true}).scrollIntoViewIfNeeded()\n  49 |   await page.screenshot({path:info.outputPath(`speech-${mode}-fallback.png`)})\n  50 |  }finally{await page.unrouteAll({behavior:'wait'})}"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts",
+                        "column": 19,
+                        "line": 47
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 1\u001b[39m\n\n\u001b[2m  Array [\u001b[22m\n\u001b[32m-   \"text\",\u001b[39m\n\u001b[31m+   \"audio\",\u001b[39m\n\u001b[2m  ]\u001b[22m\n\n  45 |   await page.getByRole('button',{name:'Generar propuesta',exact:true}).click()\n  46 |   await expect(page.getByLabel('Concepto 1',{exact:true})).toHaveValue('soporte')\n> 47 |   expect(sources).toEqual(['text']);expect(commands).toEqual([]);expect(errors).toEqual([])\n     |                   ^\n  48 |   await page.getByLabel('Concepto 1',{exact:true}).scrollIntoViewIfNeeded()\n  49 |   await page.screenshot({path:info.outputPath(`speech-${mode}-fallback.png`)})\n  50 |  }finally{await page.unrouteAll({behavior:'wait'})}\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts:47:19"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:31:51.807Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\speech-attempt01\\artifacts\\speech-fallback-written-fa-54cdb-and-retains-text-provenance-controlled-http-390\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\speech-attempt01\\artifacts\\speech-fallback-written-fa-54cdb-and-retains-text-provenance-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\speech-attempt01\\artifacts\\speech-fallback-written-fa-54cdb-and-retains-text-provenance-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\speech-attempt01\\artifacts\\speech-fallback-written-fa-54cdb-and-retains-text-provenance-controlled-http-390\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts",
+                    "column": 19,
+                    "line": 47
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "cb32d33d558dd360e2c4-891e8c36ffd7e3850b1a",
+          "file": "speech-fallback.spec.ts",
+          "line": 9,
+          "column": 98
+        },
+        {
+          "title": "written fallback survives speech end_without_words and retains text provenance",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 1649,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 1\u001b[39m\n\n\u001b[2m  Array [\u001b[22m\n\u001b[32m-   \"text\",\u001b[39m\n\u001b[31m+   \"audio\",\u001b[39m\n\u001b[2m  ]\u001b[22m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 1\u001b[39m\n\n\u001b[2m  Array [\u001b[22m\n\u001b[32m-   \"text\",\u001b[39m\n\u001b[31m+   \"audio\",\u001b[39m\n\u001b[2m  ]\u001b[22m\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts:47:19",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts",
+                      "column": 19,
+                      "line": 47
+                    },
+                    "snippet": "  45 |   await page.getByRole('button',{name:'Generar propuesta',exact:true}).click()\n  46 |   await expect(page.getByLabel('Concepto 1',{exact:true})).toHaveValue('soporte')\n> 47 |   expect(sources).toEqual(['text']);expect(commands).toEqual([]);expect(errors).toEqual([])\n     |                   ^\n  48 |   await page.getByLabel('Concepto 1',{exact:true}).scrollIntoViewIfNeeded()\n  49 |   await page.screenshot({path:info.outputPath(`speech-${mode}-fallback.png`)})\n  50 |  }finally{await page.unrouteAll({behavior:'wait'})}"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts",
+                        "column": 19,
+                        "line": 47
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 1\u001b[39m\n\n\u001b[2m  Array [\u001b[22m\n\u001b[32m-   \"text\",\u001b[39m\n\u001b[31m+   \"audio\",\u001b[39m\n\u001b[2m  ]\u001b[22m\n\n  45 |   await page.getByRole('button',{name:'Generar propuesta',exact:true}).click()\n  46 |   await expect(page.getByLabel('Concepto 1',{exact:true})).toHaveValue('soporte')\n> 47 |   expect(sources).toEqual(['text']);expect(commands).toEqual([]);expect(errors).toEqual([])\n     |                   ^\n  48 |   await page.getByLabel('Concepto 1',{exact:true}).scrollIntoViewIfNeeded()\n  49 |   await page.screenshot({path:info.outputPath(`speech-${mode}-fallback.png`)})\n  50 |  }finally{await page.unrouteAll({behavior:'wait'})}\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts:47:19"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:31:59.627Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\speech-attempt01\\artifacts\\speech-fallback-written-fa-fd6d0-and-retains-text-provenance-controlled-http-390\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\speech-attempt01\\artifacts\\speech-fallback-written-fa-fd6d0-and-retains-text-provenance-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\speech-attempt01\\artifacts\\speech-fallback-written-fa-fd6d0-and-retains-text-provenance-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\speech-attempt01\\artifacts\\speech-fallback-written-fa-fd6d0-and-retains-text-provenance-controlled-http-390\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts",
+                    "column": 19,
+                    "line": 47
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "cb32d33d558dd360e2c4-b3b67d0057ab3b100088",
+          "file": "speech-fallback.spec.ts",
+          "line": 9,
+          "column": 98
+        },
+        {
+          "title": "written fallback survives speech constructor and retains text provenance",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5094,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('status').filter({ hasText: 'No se pudo iniciar el dictado.' })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('status').filter({ hasText: 'No se pudo iniciar el dictado.' })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('status').filter({ hasText: 'No se pudo iniciar el dictado.' })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('status').filter({ hasText: 'No se pudo iniciar el dictado.' })\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts:41:133",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts",
+                      "column": 133,
+                      "line": 41
+                    },
+                    "snippet": "  39 |   await page.getByRole('textbox',{name:'Descripción de la factura',exact:true}).fill(text)\n  40 |   await page.getByRole('button',{name:'Dictar',exact:true}).click()\n> 41 |   if(mode==='constructor'||mode==='start')await expect(page.getByRole('status').filter({hasText:'No se pudo iniciar el dictado.'})).toBeVisible()\n     |                                                                                                                                     ^\n  42 |   if(mode==='error_without_words')await expect(page.getByRole('status').filter({hasText:'No se pudo completar el dictado.'})).toBeVisible()\n  43 |   await expect(page.getByRole('button',{name:'Dictar',exact:true})).toBeVisible()\n  44 |   await expect(page.getByRole('textbox',{name:'Descripción de la factura',exact:true})).toHaveValue(text)"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts",
+                        "column": 133,
+                        "line": 41
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('status').filter({ hasText: 'No se pudo iniciar el dictado.' })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('status').filter({ hasText: 'No se pudo iniciar el dictado.' })\u001b[22m\n\n\n  39 |   await page.getByRole('textbox',{name:'Descripción de la factura',exact:true}).fill(text)\n  40 |   await page.getByRole('button',{name:'Dictar',exact:true}).click()\n> 41 |   if(mode==='constructor'||mode==='start')await expect(page.getByRole('status').filter({hasText:'No se pudo iniciar el dictado.'})).toBeVisible()\n     |                                                                                                                                     ^\n  42 |   if(mode==='error_without_words')await expect(page.getByRole('status').filter({hasText:'No se pudo completar el dictado.'})).toBeVisible()\n  43 |   await expect(page.getByRole('button',{name:'Dictar',exact:true})).toBeVisible()\n  44 |   await expect(page.getByRole('textbox',{name:'Descripción de la factura',exact:true})).toHaveValue(text)\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts:41:133"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:32:08.072Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\speech-attempt01\\artifacts\\speech-fallback-written-fa-c2d26-and-retains-text-provenance-controlled-http-768\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\speech-attempt01\\artifacts\\speech-fallback-written-fa-c2d26-and-retains-text-provenance-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\speech-attempt01\\artifacts\\speech-fallback-written-fa-c2d26-and-retains-text-provenance-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\speech-attempt01\\artifacts\\speech-fallback-written-fa-c2d26-and-retains-text-provenance-controlled-http-768\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts",
+                    "column": 133,
+                    "line": 41
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "cb32d33d558dd360e2c4-e5693b216c2aeab3a88d",
+          "file": "speech-fallback.spec.ts",
+          "line": 9,
+          "column": 98
+        },
+        {
+          "title": "written fallback survives speech start and retains text provenance",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 1594,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 1\u001b[39m\n\n\u001b[2m  Array [\u001b[22m\n\u001b[32m-   \"text\",\u001b[39m\n\u001b[31m+   \"audio\",\u001b[39m\n\u001b[2m  ]\u001b[22m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 1\u001b[39m\n\n\u001b[2m  Array [\u001b[22m\n\u001b[32m-   \"text\",\u001b[39m\n\u001b[31m+   \"audio\",\u001b[39m\n\u001b[2m  ]\u001b[22m\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts:47:19",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts",
+                      "column": 19,
+                      "line": 47
+                    },
+                    "snippet": "  45 |   await page.getByRole('button',{name:'Generar propuesta',exact:true}).click()\n  46 |   await expect(page.getByLabel('Concepto 1',{exact:true})).toHaveValue('soporte')\n> 47 |   expect(sources).toEqual(['text']);expect(commands).toEqual([]);expect(errors).toEqual([])\n     |                   ^\n  48 |   await page.getByLabel('Concepto 1',{exact:true}).scrollIntoViewIfNeeded()\n  49 |   await page.screenshot({path:info.outputPath(`speech-${mode}-fallback.png`)})\n  50 |  }finally{await page.unrouteAll({behavior:'wait'})}"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts",
+                        "column": 19,
+                        "line": 47
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 1\u001b[39m\n\n\u001b[2m  Array [\u001b[22m\n\u001b[32m-   \"text\",\u001b[39m\n\u001b[31m+   \"audio\",\u001b[39m\n\u001b[2m  ]\u001b[22m\n\n  45 |   await page.getByRole('button',{name:'Generar propuesta',exact:true}).click()\n  46 |   await expect(page.getByLabel('Concepto 1',{exact:true})).toHaveValue('soporte')\n> 47 |   expect(sources).toEqual(['text']);expect(commands).toEqual([]);expect(errors).toEqual([])\n     |                   ^\n  48 |   await page.getByLabel('Concepto 1',{exact:true}).scrollIntoViewIfNeeded()\n  49 |   await page.screenshot({path:info.outputPath(`speech-${mode}-fallback.png`)})\n  50 |  }finally{await page.unrouteAll({behavior:'wait'})}\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts:47:19"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:32:21.200Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\speech-attempt01\\artifacts\\speech-fallback-written-fa-6458d-and-retains-text-provenance-controlled-http-768\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\speech-attempt01\\artifacts\\speech-fallback-written-fa-6458d-and-retains-text-provenance-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\speech-attempt01\\artifacts\\speech-fallback-written-fa-6458d-and-retains-text-provenance-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\speech-attempt01\\artifacts\\speech-fallback-written-fa-6458d-and-retains-text-provenance-controlled-http-768\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts",
+                    "column": 19,
+                    "line": 47
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "cb32d33d558dd360e2c4-94fa626800fc93599de4",
+          "file": "speech-fallback.spec.ts",
+          "line": 9,
+          "column": 98
+        },
+        {
+          "title": "written fallback survives speech error_without_words and retains text provenance",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 1596,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 1\u001b[39m\n\n\u001b[2m  Array [\u001b[22m\n\u001b[32m-   \"text\",\u001b[39m\n\u001b[31m+   \"audio\",\u001b[39m\n\u001b[2m  ]\u001b[22m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 1\u001b[39m\n\n\u001b[2m  Array [\u001b[22m\n\u001b[32m-   \"text\",\u001b[39m\n\u001b[31m+   \"audio\",\u001b[39m\n\u001b[2m  ]\u001b[22m\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts:47:19",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts",
+                      "column": 19,
+                      "line": 47
+                    },
+                    "snippet": "  45 |   await page.getByRole('button',{name:'Generar propuesta',exact:true}).click()\n  46 |   await expect(page.getByLabel('Concepto 1',{exact:true})).toHaveValue('soporte')\n> 47 |   expect(sources).toEqual(['text']);expect(commands).toEqual([]);expect(errors).toEqual([])\n     |                   ^\n  48 |   await page.getByLabel('Concepto 1',{exact:true}).scrollIntoViewIfNeeded()\n  49 |   await page.screenshot({path:info.outputPath(`speech-${mode}-fallback.png`)})\n  50 |  }finally{await page.unrouteAll({behavior:'wait'})}"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts",
+                        "column": 19,
+                        "line": 47
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 1\u001b[39m\n\n\u001b[2m  Array [\u001b[22m\n\u001b[32m-   \"text\",\u001b[39m\n\u001b[31m+   \"audio\",\u001b[39m\n\u001b[2m  ]\u001b[22m\n\n  45 |   await page.getByRole('button',{name:'Generar propuesta',exact:true}).click()\n  46 |   await expect(page.getByLabel('Concepto 1',{exact:true})).toHaveValue('soporte')\n> 47 |   expect(sources).toEqual(['text']);expect(commands).toEqual([]);expect(errors).toEqual([])\n     |                   ^\n  48 |   await page.getByLabel('Concepto 1',{exact:true}).scrollIntoViewIfNeeded()\n  49 |   await page.screenshot({path:info.outputPath(`speech-${mode}-fallback.png`)})\n  50 |  }finally{await page.unrouteAll({behavior:'wait'})}\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts:47:19"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:32:31.196Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\speech-attempt01\\artifacts\\speech-fallback-written-fa-54cdb-and-retains-text-provenance-controlled-http-768\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\speech-attempt01\\artifacts\\speech-fallback-written-fa-54cdb-and-retains-text-provenance-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\speech-attempt01\\artifacts\\speech-fallback-written-fa-54cdb-and-retains-text-provenance-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\speech-attempt01\\artifacts\\speech-fallback-written-fa-54cdb-and-retains-text-provenance-controlled-http-768\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts",
+                    "column": 19,
+                    "line": 47
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "cb32d33d558dd360e2c4-60dae601cc05a27eeaa5",
+          "file": "speech-fallback.spec.ts",
+          "line": 9,
+          "column": 98
+        },
+        {
+          "title": "written fallback survives speech end_without_words and retains text provenance",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 7,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 1297,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 1\u001b[39m\n\n\u001b[2m  Array [\u001b[22m\n\u001b[32m-   \"text\",\u001b[39m\n\u001b[31m+   \"audio\",\u001b[39m\n\u001b[2m  ]\u001b[22m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 1\u001b[39m\n\n\u001b[2m  Array [\u001b[22m\n\u001b[32m-   \"text\",\u001b[39m\n\u001b[31m+   \"audio\",\u001b[39m\n\u001b[2m  ]\u001b[22m\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts:47:19",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts",
+                      "column": 19,
+                      "line": 47
+                    },
+                    "snippet": "  45 |   await page.getByRole('button',{name:'Generar propuesta',exact:true}).click()\n  46 |   await expect(page.getByLabel('Concepto 1',{exact:true})).toHaveValue('soporte')\n> 47 |   expect(sources).toEqual(['text']);expect(commands).toEqual([]);expect(errors).toEqual([])\n     |                   ^\n  48 |   await page.getByLabel('Concepto 1',{exact:true}).scrollIntoViewIfNeeded()\n  49 |   await page.screenshot({path:info.outputPath(`speech-${mode}-fallback.png`)})\n  50 |  }finally{await page.unrouteAll({behavior:'wait'})}"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts",
+                        "column": 19,
+                        "line": 47
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 1\u001b[39m\n\n\u001b[2m  Array [\u001b[22m\n\u001b[32m-   \"text\",\u001b[39m\n\u001b[31m+   \"audio\",\u001b[39m\n\u001b[2m  ]\u001b[22m\n\n  45 |   await page.getByRole('button',{name:'Generar propuesta',exact:true}).click()\n  46 |   await expect(page.getByLabel('Concepto 1',{exact:true})).toHaveValue('soporte')\n> 47 |   expect(sources).toEqual(['text']);expect(commands).toEqual([]);expect(errors).toEqual([])\n     |                   ^\n  48 |   await page.getByLabel('Concepto 1',{exact:true}).scrollIntoViewIfNeeded()\n  49 |   await page.screenshot({path:info.outputPath(`speech-${mode}-fallback.png`)})\n  50 |  }finally{await page.unrouteAll({behavior:'wait'})}\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts:47:19"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:32:40.670Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\speech-attempt01\\artifacts\\speech-fallback-written-fa-fd6d0-and-retains-text-provenance-controlled-http-768\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\speech-attempt01\\artifacts\\speech-fallback-written-fa-fd6d0-and-retains-text-provenance-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\speech-attempt01\\artifacts\\speech-fallback-written-fa-fd6d0-and-retains-text-provenance-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\speech-attempt01\\artifacts\\speech-fallback-written-fa-fd6d0-and-retains-text-provenance-controlled-http-768\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts",
+                    "column": 19,
+                    "line": 47
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "cb32d33d558dd360e2c4-525a843e9fd58fccad80",
+          "file": "speech-fallback.spec.ts",
+          "line": 9,
+          "column": 98
+        },
+        {
+          "title": "written fallback survives speech constructor and retains text provenance",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 8,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5081,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('status').filter({ hasText: 'No se pudo iniciar el dictado.' })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('status').filter({ hasText: 'No se pudo iniciar el dictado.' })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('status').filter({ hasText: 'No se pudo iniciar el dictado.' })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('status').filter({ hasText: 'No se pudo iniciar el dictado.' })\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts:41:133",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts",
+                      "column": 133,
+                      "line": 41
+                    },
+                    "snippet": "  39 |   await page.getByRole('textbox',{name:'Descripción de la factura',exact:true}).fill(text)\n  40 |   await page.getByRole('button',{name:'Dictar',exact:true}).click()\n> 41 |   if(mode==='constructor'||mode==='start')await expect(page.getByRole('status').filter({hasText:'No se pudo iniciar el dictado.'})).toBeVisible()\n     |                                                                                                                                     ^\n  42 |   if(mode==='error_without_words')await expect(page.getByRole('status').filter({hasText:'No se pudo completar el dictado.'})).toBeVisible()\n  43 |   await expect(page.getByRole('button',{name:'Dictar',exact:true})).toBeVisible()\n  44 |   await expect(page.getByRole('textbox',{name:'Descripción de la factura',exact:true})).toHaveValue(text)"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts",
+                        "column": 133,
+                        "line": 41
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('status').filter({ hasText: 'No se pudo iniciar el dictado.' })\nExpected: visible\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('status').filter({ hasText: 'No se pudo iniciar el dictado.' })\u001b[22m\n\n\n  39 |   await page.getByRole('textbox',{name:'Descripción de la factura',exact:true}).fill(text)\n  40 |   await page.getByRole('button',{name:'Dictar',exact:true}).click()\n> 41 |   if(mode==='constructor'||mode==='start')await expect(page.getByRole('status').filter({hasText:'No se pudo iniciar el dictado.'})).toBeVisible()\n     |                                                                                                                                     ^\n  42 |   if(mode==='error_without_words')await expect(page.getByRole('status').filter({hasText:'No se pudo completar el dictado.'})).toBeVisible()\n  43 |   await expect(page.getByRole('button',{name:'Dictar',exact:true})).toBeVisible()\n  44 |   await expect(page.getByRole('textbox',{name:'Descripción de la factura',exact:true})).toHaveValue(text)\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts:41:133"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:32:48.223Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\speech-attempt01\\artifacts\\speech-fallback-written-fa-c2d26-and-retains-text-provenance-controlled-http-1440\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\speech-attempt01\\artifacts\\speech-fallback-written-fa-c2d26-and-retains-text-provenance-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\speech-attempt01\\artifacts\\speech-fallback-written-fa-c2d26-and-retains-text-provenance-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\speech-attempt01\\artifacts\\speech-fallback-written-fa-c2d26-and-retains-text-provenance-controlled-http-1440\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts",
+                    "column": 133,
+                    "line": 41
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "cb32d33d558dd360e2c4-f8c37b31bde23ba05fe2",
+          "file": "speech-fallback.spec.ts",
+          "line": 9,
+          "column": 98
+        },
+        {
+          "title": "written fallback survives speech start and retains text provenance",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 1215,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 1\u001b[39m\n\n\u001b[2m  Array [\u001b[22m\n\u001b[32m-   \"text\",\u001b[39m\n\u001b[31m+   \"audio\",\u001b[39m\n\u001b[2m  ]\u001b[22m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 1\u001b[39m\n\n\u001b[2m  Array [\u001b[22m\n\u001b[32m-   \"text\",\u001b[39m\n\u001b[31m+   \"audio\",\u001b[39m\n\u001b[2m  ]\u001b[22m\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts:47:19",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts",
+                      "column": 19,
+                      "line": 47
+                    },
+                    "snippet": "  45 |   await page.getByRole('button',{name:'Generar propuesta',exact:true}).click()\n  46 |   await expect(page.getByLabel('Concepto 1',{exact:true})).toHaveValue('soporte')\n> 47 |   expect(sources).toEqual(['text']);expect(commands).toEqual([]);expect(errors).toEqual([])\n     |                   ^\n  48 |   await page.getByLabel('Concepto 1',{exact:true}).scrollIntoViewIfNeeded()\n  49 |   await page.screenshot({path:info.outputPath(`speech-${mode}-fallback.png`)})\n  50 |  }finally{await page.unrouteAll({behavior:'wait'})}"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts",
+                        "column": 19,
+                        "line": 47
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 1\u001b[39m\n\n\u001b[2m  Array [\u001b[22m\n\u001b[32m-   \"text\",\u001b[39m\n\u001b[31m+   \"audio\",\u001b[39m\n\u001b[2m  ]\u001b[22m\n\n  45 |   await page.getByRole('button',{name:'Generar propuesta',exact:true}).click()\n  46 |   await expect(page.getByLabel('Concepto 1',{exact:true})).toHaveValue('soporte')\n> 47 |   expect(sources).toEqual(['text']);expect(commands).toEqual([]);expect(errors).toEqual([])\n     |                   ^\n  48 |   await page.getByLabel('Concepto 1',{exact:true}).scrollIntoViewIfNeeded()\n  49 |   await page.screenshot({path:info.outputPath(`speech-${mode}-fallback.png`)})\n  50 |  }finally{await page.unrouteAll({behavior:'wait'})}\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts:47:19"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:32:58.258Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\speech-attempt01\\artifacts\\speech-fallback-written-fa-6458d-and-retains-text-provenance-controlled-http-1440\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\speech-attempt01\\artifacts\\speech-fallback-written-fa-6458d-and-retains-text-provenance-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\speech-attempt01\\artifacts\\speech-fallback-written-fa-6458d-and-retains-text-provenance-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\speech-attempt01\\artifacts\\speech-fallback-written-fa-6458d-and-retains-text-provenance-controlled-http-1440\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts",
+                    "column": 19,
+                    "line": 47
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "cb32d33d558dd360e2c4-dc85b970ef05a82cf989",
+          "file": "speech-fallback.spec.ts",
+          "line": 9,
+          "column": 98
+        },
+        {
+          "title": "written fallback survives speech error_without_words and retains text provenance",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 10,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 1503,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 1\u001b[39m\n\n\u001b[2m  Array [\u001b[22m\n\u001b[32m-   \"text\",\u001b[39m\n\u001b[31m+   \"audio\",\u001b[39m\n\u001b[2m  ]\u001b[22m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 1\u001b[39m\n\n\u001b[2m  Array [\u001b[22m\n\u001b[32m-   \"text\",\u001b[39m\n\u001b[31m+   \"audio\",\u001b[39m\n\u001b[2m  ]\u001b[22m\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts:47:19",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts",
+                      "column": 19,
+                      "line": 47
+                    },
+                    "snippet": "  45 |   await page.getByRole('button',{name:'Generar propuesta',exact:true}).click()\n  46 |   await expect(page.getByLabel('Concepto 1',{exact:true})).toHaveValue('soporte')\n> 47 |   expect(sources).toEqual(['text']);expect(commands).toEqual([]);expect(errors).toEqual([])\n     |                   ^\n  48 |   await page.getByLabel('Concepto 1',{exact:true}).scrollIntoViewIfNeeded()\n  49 |   await page.screenshot({path:info.outputPath(`speech-${mode}-fallback.png`)})\n  50 |  }finally{await page.unrouteAll({behavior:'wait'})}"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts",
+                        "column": 19,
+                        "line": 47
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 1\u001b[39m\n\n\u001b[2m  Array [\u001b[22m\n\u001b[32m-   \"text\",\u001b[39m\n\u001b[31m+   \"audio\",\u001b[39m\n\u001b[2m  ]\u001b[22m\n\n  45 |   await page.getByRole('button',{name:'Generar propuesta',exact:true}).click()\n  46 |   await expect(page.getByLabel('Concepto 1',{exact:true})).toHaveValue('soporte')\n> 47 |   expect(sources).toEqual(['text']);expect(commands).toEqual([]);expect(errors).toEqual([])\n     |                   ^\n  48 |   await page.getByLabel('Concepto 1',{exact:true}).scrollIntoViewIfNeeded()\n  49 |   await page.screenshot({path:info.outputPath(`speech-${mode}-fallback.png`)})\n  50 |  }finally{await page.unrouteAll({behavior:'wait'})}\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts:47:19"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:33:05.121Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\speech-attempt01\\artifacts\\speech-fallback-written-fa-54cdb-and-retains-text-provenance-controlled-http-1440\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\speech-attempt01\\artifacts\\speech-fallback-written-fa-54cdb-and-retains-text-provenance-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\speech-attempt01\\artifacts\\speech-fallback-written-fa-54cdb-and-retains-text-provenance-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\speech-attempt01\\artifacts\\speech-fallback-written-fa-54cdb-and-retains-text-provenance-controlled-http-1440\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts",
+                    "column": 19,
+                    "line": 47
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "cb32d33d558dd360e2c4-1747109863ca5d9ea38b",
+          "file": "speech-fallback.spec.ts",
+          "line": 9,
+          "column": 98
+        },
+        {
+          "title": "written fallback survives speech end_without_words and retains text provenance",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 11,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 1595,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 1\u001b[39m\n\n\u001b[2m  Array [\u001b[22m\n\u001b[32m-   \"text\",\u001b[39m\n\u001b[31m+   \"audio\",\u001b[39m\n\u001b[2m  ]\u001b[22m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 1\u001b[39m\n\n\u001b[2m  Array [\u001b[22m\n\u001b[32m-   \"text\",\u001b[39m\n\u001b[31m+   \"audio\",\u001b[39m\n\u001b[2m  ]\u001b[22m\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts:47:19",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts",
+                      "column": 19,
+                      "line": 47
+                    },
+                    "snippet": "  45 |   await page.getByRole('button',{name:'Generar propuesta',exact:true}).click()\n  46 |   await expect(page.getByLabel('Concepto 1',{exact:true})).toHaveValue('soporte')\n> 47 |   expect(sources).toEqual(['text']);expect(commands).toEqual([]);expect(errors).toEqual([])\n     |                   ^\n  48 |   await page.getByLabel('Concepto 1',{exact:true}).scrollIntoViewIfNeeded()\n  49 |   await page.screenshot({path:info.outputPath(`speech-${mode}-fallback.png`)})\n  50 |  }finally{await page.unrouteAll({behavior:'wait'})}"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts",
+                        "column": 19,
+                        "line": 47
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 1\u001b[39m\n\n\u001b[2m  Array [\u001b[22m\n\u001b[32m-   \"text\",\u001b[39m\n\u001b[31m+   \"audio\",\u001b[39m\n\u001b[2m  ]\u001b[22m\n\n  45 |   await page.getByRole('button',{name:'Generar propuesta',exact:true}).click()\n  46 |   await expect(page.getByLabel('Concepto 1',{exact:true})).toHaveValue('soporte')\n> 47 |   expect(sources).toEqual(['text']);expect(commands).toEqual([]);expect(errors).toEqual([])\n     |                   ^\n  48 |   await page.getByLabel('Concepto 1',{exact:true}).scrollIntoViewIfNeeded()\n  49 |   await page.screenshot({path:info.outputPath(`speech-${mode}-fallback.png`)})\n  50 |  }finally{await page.unrouteAll({behavior:'wait'})}\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts:47:19"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-19T22:33:13.051Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\speech-attempt01\\artifacts\\speech-fallback-written-fa-fd6d0-and-retains-text-provenance-controlled-http-1440\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\speech-attempt01\\artifacts\\speech-fallback-written-fa-fd6d0-and-retains-text-provenance-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\speech-attempt01\\artifacts\\speech-fallback-written-fa-fd6d0-and-retains-text-provenance-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-billing-fixes-20261020\\speech-attempt01\\artifacts\\speech-fallback-written-fa-fd6d0-and-retains-text-provenance-controlled-http-1440\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-billing-fixes-20261020\\tools\\oier_billing_qa\\speech-fallback.spec.ts",
+                    "column": 19,
+                    "line": 47
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "cb32d33d558dd360e2c4-64f525991b3295e1b62e",
+          "file": "speech-fallback.spec.ts",
+          "line": 9,
+          "column": 98
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-19T22:31:28.098Z",
+    "duration": 113995.375,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 12,
+    "flaky": 0
+  }
+}
