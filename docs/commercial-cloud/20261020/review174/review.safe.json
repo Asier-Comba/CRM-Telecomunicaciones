@@ -1,0 +1,65 @@
+{
+  "unit": "OIER_REVIEW174_15",
+  "claim": 6295769444,
+  "reviewed_pr": 174,
+  "source": "2de857051e9e84aad5e1a1bd088afcee98ba717c",
+  "tree": "297dd012c292ba257d0c8627b85e5346947a8bf8",
+  "application_modified_by_Oier": false,
+  "bank_modified_by_Oier": false,
+  "environment": "ACTUAL_COMPONENTS_REPOSITORY_PARSERS_WITH_CONTROLLED_HTTP",
+  "own_bank": {
+    "attempt": "preparation-after15",
+    "stats": {
+      "startTime": "2026-10-20T15:25:27.599Z",
+      "duration": 33119.141,
+      "expected": 12,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "original_report_sha256": "a1bc86c83da0a697c3d469651d24d9a0837bc62b8aabce5223a8447767177365"
+  },
+  "own_lint": "PASS_TARGETED",
+  "own_typescript": "PASS",
+  "own_next_build": "NOT_RUN_REVIEW_ONLY_NO_APPLICATION_CHANGE",
+  "owner_build": "REPORTED_PASS44_NOT_OWN_EXECUTION",
+  "original_baseline": "1FAIL_REPORTED_BY_ASIER_NOT_REPEATED_HERE",
+  "static_review": {
+    "Drawer": "closeDisabled gates Escape/cancel, backdrop and header button",
+    "CustomerSelect": "disabled gates both input and select; existing actor/workspace/role scoping retained",
+    "preparation": "blocked/no-customer guard before starting; same Promise.all reads and explicit error/finally paths; no command added",
+    "receipts_permissions_money_SQL": "NO_DELTA",
+    "finding": "NO_ACTIONABLE_FINDING_IN_SCOPED_DELTA"
+  },
+  "coverage_limits": [
+    "Not cloud/Auth/DB",
+    "Denial case targets customer.editor; no claim of exhaustive configuration/network failure coverage",
+    "Screenshots only preparation panel with a deliberately pending read",
+    "No security, release or full module acceptance"
+  ],
+  "images": [
+    {
+      "file": "pending-preparation-390.png",
+      "sha256": "3760b4f133b02ba1ced184684d6e87b65ae01e1906b83c0115ac77f75fc27f59",
+      "width": 390,
+      "reviewed": true,
+      "scope": "PREPARATION_DRAWER_READY_WITH_INTENTIONALLY_HELD_READ_BACKGROUND_NOT_FULLY_LOADED_NOT_CLOUD"
+    },
+    {
+      "file": "pending-preparation-768.png",
+      "sha256": "efaaabaeca8f685d66d52539c821ae8201d43d4f152569fbc388b350a725ef37",
+      "width": 768,
+      "reviewed": true,
+      "scope": "PREPARATION_DRAWER_READY_WITH_INTENTIONALLY_HELD_READ_BACKGROUND_NOT_FULLY_LOADED_NOT_CLOUD"
+    },
+    {
+      "file": "pending-preparation-1440.png",
+      "sha256": "65e78386f3ea3034c09590729cbba592cad7ef976f1861c3e6883d252967f4c4",
+      "width": 1440,
+      "reviewed": true,
+      "scope": "PREPARATION_DRAWER_READY_WITH_INTENTIONALLY_HELD_READ_BACKGROUND_NOT_FULLY_LOADED_NOT_CLOUD"
+    }
+  ],
+  "business_ai_writes": "OFF",
+  "release": "NOT_ACCEPTED"
+}
