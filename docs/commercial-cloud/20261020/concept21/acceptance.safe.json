@@ -1,0 +1,274 @@
+{
+  "unit": "OIER_BILLING_CONCEPT21",
+  "claim": 6297132282,
+  "application_base": "b9e1eefeea3342b40bdd9584747e9e7ff47bf1cd",
+  "before_source": "7aa8e869fc652f14eee95722c4b804eb97d5b918",
+  "after_source": "146a5433f28fd22eda0fb96373ffef3b5f2bf5c7",
+  "before": {
+    "concept_pass": 11,
+    "concept_fail": 5,
+    "cases": [
+      {
+        "text": "Factura por conectividad 600 Mbps de 300 euros",
+        "expected": "conectividad 600 Mbps",
+        "actual": "conectividad",
+        "missingConcept": false,
+        "pass": false
+      },
+      {
+        "text": "Factura por conectividad 1 Gbps de 300 euros",
+        "expected": "conectividad 1 Gbps",
+        "actual": "conectividad",
+        "missingConcept": false,
+        "pass": false
+      },
+      {
+        "text": "Factura por soporte 24x7 de 300 euros",
+        "expected": "soporte 24x7",
+        "actual": "soporte",
+        "missingConcept": false,
+        "pass": false
+      },
+      {
+        "text": "Factura por licencias Microsoft 365 de 300 euros",
+        "expected": "licencias Microsoft 365",
+        "actual": "licencias Microsoft",
+        "missingConcept": false,
+        "pass": false
+      },
+      {
+        "text": "Factura por conectividad 600 Mbps 1.200,50 euros",
+        "expected": "conectividad 600 Mbps",
+        "actual": "conectividad",
+        "missingConcept": false,
+        "pass": false
+      }
+    ],
+    "browser": {
+      "startTime": "2026-10-20T16:34:26.704Z",
+      "duration": 40042.229,
+      "expected": 0,
+      "skipped": 0,
+      "unexpected": 3,
+      "flaky": 0
+    },
+    "report_sha256": "97109a970539a6deb92b96c7eb4414648f36d74b8c1e77b279ddcf12beeeccc8"
+  },
+  "after": {
+    "concept_pass": 16,
+    "concept_fail": 0,
+    "cases": [
+      {
+        "text": "Factura por 300 euros",
+        "expected": null,
+        "actual": null,
+        "missingConcept": true,
+        "pass": true
+      },
+      {
+        "text": "Factura de 300 euros",
+        "expected": null,
+        "actual": null,
+        "missingConcept": true,
+        "pass": true
+      },
+      {
+        "text": "Factura por 300 euros por soporte",
+        "expected": "soporte",
+        "actual": "soporte",
+        "missingConcept": false,
+        "pass": true
+      },
+      {
+        "text": "Factura de 300 euros por instalación de fibra",
+        "expected": "instalación de fibra",
+        "actual": "instalación de fibra",
+        "missingConcept": false,
+        "pass": true
+      },
+      {
+        "text": "Factura por 300 euros + IVA por soporte",
+        "expected": "soporte",
+        "actual": "soporte",
+        "missingConcept": false,
+        "pass": true
+      },
+      {
+        "text": "Factura por -300 euros",
+        "expected": null,
+        "actual": null,
+        "missingConcept": true,
+        "pass": true
+      },
+      {
+        "text": "Factura por instalación de fibra de 300 euros",
+        "expected": "instalación de fibra",
+        "actual": "instalación de fibra",
+        "missingConcept": false,
+        "pass": true
+      },
+      {
+        "text": "Factura por soporte, vencimiento en 15 días",
+        "expected": "soporte",
+        "actual": "soporte",
+        "missingConcept": false,
+        "pass": true
+      },
+      {
+        "text": "Factura por mantenimiento y soporte de 300 euros",
+        "expected": "mantenimiento y soporte",
+        "actual": "mantenimiento y soporte",
+        "missingConcept": false,
+        "pass": true
+      },
+      {
+        "text": "Factura por 24 horas de soporte de 300 euros",
+        "expected": "24 horas de soporte",
+        "actual": "24 horas de soporte",
+        "missingConcept": false,
+        "pass": true
+      },
+      {
+        "text": "Factura por conectividad 600 Mbps de 300 euros",
+        "expected": "conectividad 600 Mbps",
+        "actual": "conectividad 600 Mbps",
+        "missingConcept": false,
+        "pass": true
+      },
+      {
+        "text": "Factura por conectividad 1 Gbps de 300 euros",
+        "expected": "conectividad 1 Gbps",
+        "actual": "conectividad 1 Gbps",
+        "missingConcept": false,
+        "pass": true
+      },
+      {
+        "text": "Factura por soporte 24x7 de 300 euros",
+        "expected": "soporte 24x7",
+        "actual": "soporte 24x7",
+        "missingConcept": false,
+        "pass": true
+      },
+      {
+        "text": "Factura por licencias Microsoft 365 de 300 euros",
+        "expected": "licencias Microsoft 365",
+        "actual": "licencias Microsoft 365",
+        "missingConcept": false,
+        "pass": true
+      },
+      {
+        "text": "Factura por conectividad 600 Mbps 1.200,50 euros",
+        "expected": "conectividad 600 Mbps",
+        "actual": "conectividad 600 Mbps",
+        "missingConcept": false,
+        "pass": true
+      },
+      {
+        "text": "Factura por soporte 300 euros",
+        "expected": "soporte",
+        "actual": "soporte",
+        "missingConcept": false,
+        "pass": true
+      }
+    ],
+    "browser": {
+      "startTime": "2026-10-20T16:35:43.559Z",
+      "duration": 79355.966,
+      "expected": 39,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "report_sha256": "8dbab1e72d2686bc6c81338d6df15c6a7938390287e23fae3b5d88005ebb259b",
+    "parser_acceptance": {
+      "scenarios": 10,
+      "checks": 24,
+      "passed": 24,
+      "failed": 0
+    },
+    "pins": {
+      "src/features/billing/parse.ts": {
+        "gitBlob": "649d9f49ee4c43f1d43e4c7b7af72cb6b1990474",
+        "sha256LF": "4d5648ccb4a0bb0652e8c30fffaba2590377bf2950ab0af3ae1699477817a2b0"
+      },
+      "src/features/billing/model.ts": {
+        "gitBlob": "f43cf40e0929e8b35f938e082d4cff79e5d8714e",
+        "sha256LF": "b0c22f26e6c7ccd5bdcad3519a780ec69f0b5636abddddd6833db8c147114c94"
+      },
+      "src/lib/invoicing/calc.ts": {
+        "gitBlob": "dd5ab8627facd95ea6ee907afe92655569c7451b",
+        "sha256LF": "990541cb4113ef367d2ede003e735730a753ac9e8e7aeb8606508e3fa060fc8a"
+      }
+    }
+  },
+  "regression_scope": "EXISTING_PROMPT_BANK_PLUS_ONE_CAUSAL_CASE_PER_WIDTH_NOT_84_REPEATED",
+  "build": "PASS_OWN_DEFAULT_TURBOPACK_TYPES44_EXIT0",
+  "lint": "PASS_GLOBAL_EXIT0",
+  "integration_check": {
+    "base": "b9e1eefeea3342b40bdd9584747e9e7ff47bf1cd",
+    "source": "146a5433f28fd22eda0fb96373ffef3b5f2bf5c7",
+    "selected_commits": [
+      "7aa8e869fc652f14eee95722c4b804eb97d5b918",
+      "146a5433f28fd22eda0fb96373ffef3b5f2bf5c7"
+    ],
+    "files": [
+      "src/features/billing/parse.ts",
+      "tools/oier_billing_qa/prompt-interaction.spec.ts",
+      "tools/oier_billing_qa/concept-acceptance.mjs"
+    ],
+    "patch_sha256": "dd11941b8d0836ec28447bc4c50d2bebb0e499cf5e76e391a31b5686d8fb93c8",
+    "apply_check": "PASS_IN_OWN_TEMP_INDEX_NO_WORKTREE_BRANCH_OR_OWNER_SOURCE_CHANGED",
+    "integration": "NOT_ACK_NOT_MERGED_NOT_HOSTED",
+    "release": "NOT_ACCEPTED"
+  },
+  "source_changes": "ONLY_CONCEPT_NUMERIC_BOUNDARY_AND_TESTS_NO_AMOUNTS_TAX_DATES_DTO_SQL_PROVIDER_PERMISSIONS",
+  "visual": {
+    "widths": [
+      390,
+      768,
+      1440
+    ],
+    "scope": "Concept input and300EUR unit price visible; whole drawer not accepted. Related-link access-denied messages are controlled fixture responses, not a new reproduced product defect."
+  },
+  "physical175_original": {
+    "result": "FAIL114_UI_PLUS_ONE_TIMEOUT",
+    "cause": "UNKNOWN",
+    "effect": "UNKNOWN_NOT_RETRIED",
+    "this_fix_does_not_address_it": true
+  },
+  "real_voice": "NOT_RUN",
+  "live_model": "NOT_RUN",
+  "own_hosted": "NOT_RUN",
+  "business_ai_writes": "OFF",
+  "release": "NOT_ACCEPTED",
+  "logs": [
+    {
+      "file": "work/billing-concept21-before-browser.log",
+      "sha256": "055543a95cf42c8bb203354b3ab51e8317876c0f6f1249bd9b1fa1cd3c33d1a2"
+    },
+    {
+      "file": "work/billing-concept21-before-parser.log",
+      "sha256": "5ed8a55c3b8b1c368eae9e2b28b89ab6f4117739739309cc7e5c40c4da33972a"
+    },
+    {
+      "file": "work/billing-concept21-after-browser.log",
+      "sha256": "42e0e2e80f9fe102f4e364dcb46acfe2b30fdd94da7afbf21d58b5795f4fc8d0"
+    },
+    {
+      "file": "work/billing-concept21-after-parser.log",
+      "sha256": "cac9d686a7fc476489a58b11f7e02a8c80d4c79403dad95de191fb61c14a4f08"
+    },
+    {
+      "file": "work/billing-concept21-parser-acceptance.log",
+      "sha256": "dcc86627ab03bb69b9d5e0926a7606623e1ba2b75856df30458006a6bf8e971a"
+    },
+    {
+      "file": "work/billing-concept21-lint.log",
+      "sha256": "dda21574b74ba6a9edea377d67b00a3846ea8ae6ee11171eb3102a4a59f30d98"
+    },
+    {
+      "file": "work/billing-concept21-build.log",
+      "sha256": "1e541117533820a9709969373af5804fa4a70ed37ce9eefbb9f75a1ce2f74a1c"
+    }
+  ]
+}
