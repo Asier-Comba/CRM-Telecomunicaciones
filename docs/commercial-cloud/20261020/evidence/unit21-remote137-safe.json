@@ -1,0 +1,178 @@
+{
+  "original_screenshot": "failed-desktop_tablet_mobile_layouts.png",
+  "result": "FAIL",
+  "tested_tree": "fd95fcdec742e9c2a384a75920e0b5e1ecb0d65f",
+  "staging": "NOT_TESTED",
+  "assertions_or_timeouts_changed": false,
+  "artifact": 12231632913,
+  "release": "NOT_ACCEPTED",
+  "actual_tested_merge": "419693a5e4f43427b2f6fcfb2fac5c17a8190e84",
+  "startup": [
+    {
+      "scope": "CURRENT_MAIN_DOCUMENT_NEXT_SCRIPT_HEADERS_NOT_HYDRATION_OR_AUTHORIZATION",
+      "width": 1440,
+      "document_observed": true,
+      "document_changed": true,
+      "navigation_completed": true,
+      "document_ready": "unavailable",
+      "requests": 8,
+      "responses": 8,
+      "failures": 0,
+      "pending": 0,
+      "body_finished": 8,
+      "body_unfinished": 0,
+      "status_counts": {
+        "ok": 8,
+        "redirect": 0,
+        "client_error": 0,
+        "server_error": 0,
+        "other": 0
+      },
+      "truncated": false,
+      "page_errors": {
+        "chunk_load": 0,
+        "syntax": 0,
+        "other": 0
+      },
+      "page_errors_truncated": false
+    },
+    {
+      "scope": "CURRENT_MAIN_DOCUMENT_NEXT_SCRIPT_HEADERS_NOT_HYDRATION_OR_AUTHORIZATION",
+      "width": 768,
+      "document_observed": true,
+      "document_changed": true,
+      "navigation_completed": true,
+      "document_ready": "unavailable",
+      "requests": 8,
+      "responses": 8,
+      "failures": 0,
+      "pending": 0,
+      "body_finished": 8,
+      "body_unfinished": 0,
+      "status_counts": {
+        "ok": 8,
+        "redirect": 0,
+        "client_error": 0,
+        "server_error": 0,
+        "other": 0
+      },
+      "truncated": false,
+      "page_errors": {
+        "chunk_load": 0,
+        "syntax": 0,
+        "other": 0
+      },
+      "page_errors_truncated": false
+    },
+    {
+      "scope": "CURRENT_MAIN_DOCUMENT_NEXT_SCRIPT_HEADERS_NOT_HYDRATION_OR_AUTHORIZATION",
+      "width": 390,
+      "document_observed": true,
+      "document_changed": true,
+      "navigation_completed": true,
+      "document_ready": "unavailable",
+      "requests": 8,
+      "responses": 8,
+      "failures": 0,
+      "pending": 0,
+      "body_finished": 8,
+      "body_unfinished": 0,
+      "status_counts": {
+        "ok": 8,
+        "redirect": 0,
+        "client_error": 0,
+        "server_error": 0,
+        "other": 0
+      },
+      "truncated": false,
+      "page_errors": {
+        "chunk_load": 0,
+        "syntax": 0,
+        "other": 0
+      },
+      "page_errors_truncated": false
+    }
+  ],
+  "workflow_head": "137e48028736f92c88c73822d2fc2ffe99d8f853",
+  "access": [
+    {
+      "scope": "CURRENT_MAIN_DOCUMENT_AUTH_USER_HEADERS_NOT_AUTHORIZATION",
+      "width": 1440,
+      "document_observed": true,
+      "navigation_completed": true,
+      "gate_stage": "not_present",
+      "requests": 6,
+      "responses": 6,
+      "failures": 0,
+      "pending": 0,
+      "status_counts": {
+        "ok": 6,
+        "denied": 0,
+        "client_error": 0,
+        "server_error": 0,
+        "other": 0
+      },
+      "truncated": false
+    },
+    {
+      "scope": "CURRENT_MAIN_DOCUMENT_AUTH_USER_HEADERS_NOT_AUTHORIZATION",
+      "width": 768,
+      "document_observed": true,
+      "navigation_completed": true,
+      "gate_stage": "not_present",
+      "requests": 5,
+      "responses": 4,
+      "failures": 0,
+      "pending": 1,
+      "status_counts": {
+        "ok": 4,
+        "denied": 0,
+        "client_error": 0,
+        "server_error": 0,
+        "other": 0
+      },
+      "truncated": false
+    },
+    {
+      "scope": "CURRENT_MAIN_DOCUMENT_AUTH_USER_HEADERS_NOT_AUTHORIZATION",
+      "width": 390,
+      "document_observed": true,
+      "navigation_completed": true,
+      "gate_stage": "not_present",
+      "requests": 4,
+      "responses": 3,
+      "failures": 0,
+      "pending": 1,
+      "status_counts": {
+        "ok": 3,
+        "denied": 0,
+        "client_error": 0,
+        "server_error": 0,
+        "other": 0
+      },
+      "truncated": false
+    }
+  ],
+  "job": 118376410637,
+  "details": [
+    {
+      "check": "desktop_tablet_mobile_layouts",
+      "action": "layout:portfolio:390:dialog_visible",
+      "kind": "TIMEOUT"
+    }
+  ],
+  "cause": "UNKNOWN; current correlated HTTP200 closed DTO read completed, later dialog visibility assertion TIMEOUT. Not F736 current_request, not fixed by local green.",
+  "ui_failed": [
+    "desktop_tablet_mobile_layouts"
+  ],
+  "visual_review": "At failure screenshot, contract drawer rendered at390. No timing or root cause inferred from image.",
+  "screenshots_artifact": 12232515437,
+  "head_tree": "fd95fcdec742e9c2a384a75920e0b5e1ecb0d65f",
+  "ui_passed_count": 112,
+  "run": 39345324892,
+  "manual_retries_requested": 0,
+  "environment": "LOCAL_SUPABASE_DOCKER",
+  "teardown": "PASS",
+  "w1_backend_checks": 3815,
+  "trees_equal": true
+}

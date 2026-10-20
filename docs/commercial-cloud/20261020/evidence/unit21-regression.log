@@ -1,0 +1,49 @@
+
+Running 41 tests using 1 worker
+
+
+
+(node:5436) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1/41] [controlled-http-existing-commercial] › tests\e2e-preview\calendar-agenda-focus.spec.ts:4:39 › calendar agenda stays primary and filters remain usable at 390
+[2/41] [controlled-http-existing-commercial] › tests\e2e-preview\calendar-agenda-focus.spec.ts:4:39 › calendar agenda stays primary and filters remain usable at 768
+[3/41] [controlled-http-existing-commercial] › tests\e2e-preview\calendar-agenda-focus.spec.ts:4:39 › calendar agenda stays primary and filters remain usable at 1440
+[4/41] [controlled-http-existing-commercial] › tests\e2e-preview\calendar-selection-scope.spec.ts:5:107 › calendar selection late_success keeps the latest task at 390
+[5/41] [controlled-http-existing-commercial] › tests\e2e-preview\calendar-selection-scope.spec.ts:5:107 › calendar selection late_success keeps the latest task at 768
+[6/41] [controlled-http-existing-commercial] › tests\e2e-preview\calendar-selection-scope.spec.ts:5:107 › calendar selection late_success keeps the latest task at 1440
+[7/41] [controlled-http-existing-commercial] › tests\e2e-preview\calendar-selection-scope.spec.ts:5:107 › calendar selection late_refusal keeps the latest task at 390
+[8/41] [controlled-http-existing-commercial] › tests\e2e-preview\calendar-selection-scope.spec.ts:5:107 › calendar selection late_refusal keeps the latest task at 768
+[9/41] [controlled-http-existing-commercial] › tests\e2e-preview\calendar-selection-scope.spec.ts:5:107 › calendar selection late_refusal keeps the latest task at 1440
+[10/41] [controlled-http-existing-commercial] › tests\e2e-preview\calendar-selection-scope.spec.ts:5:107 › calendar selection current_refusal keeps the latest task at 390
+[11/41] [controlled-http-existing-commercial] › tests\e2e-preview\calendar-selection-scope.spec.ts:5:107 › calendar selection current_refusal keeps the latest task at 768
+[12/41] [controlled-http-existing-commercial] › tests\e2e-preview\calendar-selection-scope.spec.ts:5:107 › calendar selection current_refusal keeps the latest task at 1440
+[13/41] [controlled-http-existing-commercial] › tests\e2e-preview\case-note-pagination.spec.ts:10:39 › private note cursor keeps keyboard focus and removes refused content at 390
+[14/41] [controlled-http-existing-commercial] › tests\e2e-preview\case-note-pagination.spec.ts:10:39 › private note cursor keeps keyboard focus and removes refused content at 768
+[15/41] [controlled-http-existing-commercial] › tests\e2e-preview\case-note-pagination.spec.ts:10:39 › private note cursor keeps keyboard focus and removes refused content at 1440
+[16/41] [controlled-http-existing-commercial] › tests\e2e-preview\document-current-selection.spec.ts:39:6 › document metadata keeps current selection on latest_success
+[17/41] [controlled-http-existing-commercial] › tests\e2e-preview\document-current-selection.spec.ts:39:6 › document metadata keeps current selection on late_error
+[18/41] [controlled-http-existing-commercial] › tests\e2e-preview\document-current-selection.spec.ts:39:6 › document metadata keeps current selection on closed
+[19/41] [controlled-http-existing-commercial] › tests\e2e-preview\document-current-selection.spec.ts:39:6 › document metadata keeps current selection on target_changed
+[20/41] [controlled-http-existing-commercial] › tests\e2e-preview\document-current-selection.spec.ts:39:6 › document metadata keeps current selection on role_revoked
+[21/41] [controlled-http-existing-commercial] › tests\e2e-preview\document-current-selection.spec.ts:39:6 › document metadata keeps current selection on unmounted
+[22/41] [controlled-http-existing-commercial] › tests\e2e-preview\document-current-selection.spec.ts:39:6 › document metadata keeps current selection on refresh_success
+[23/41] [controlled-http-existing-commercial] › tests\e2e-preview\document-current-selection.spec.ts:39:6 › document metadata keeps current selection on refresh_failure
+[24/41] [controlled-http-existing-commercial] › tests\e2e-preview\document-current-selection.spec.ts:39:6 › document metadata keeps current selection on loaded_replace_success
+[25/41] [controlled-http-existing-commercial] › tests\e2e-preview\document-current-selection.spec.ts:39:6 › document metadata keeps current selection on loaded_replace_failure
+[26/41] [controlled-http-existing-commercial] › tests\e2e-preview\document-current-selection.spec.ts:39:6 › document metadata keeps current selection on refresh_access_denied
+[27/41] [controlled-http-existing-commercial] › tests\e2e-preview\document-current-selection.spec.ts:39:6 › document metadata keeps current selection on refresh_not_found
+[28/41] [controlled-http-existing-commercial] › tests\e2e-preview\document-preview-lifetime.spec.ts:31:6 › private image lifetime late_unmount
+[29/41] [controlled-http-existing-commercial] › tests\e2e-preview\document-preview-lifetime.spec.ts:31:6 › private image lifetime late_workspace
+[30/41] [controlled-http-existing-commercial] › tests\e2e-preview\document-preview-lifetime.spec.ts:31:6 › private image lifetime visible_workspace
+[31/41] [controlled-http-existing-commercial] › tests\e2e-preview\document-preview-lifetime.spec.ts:31:6 › private image lifetime control_close
+[32/41] [controlled-http-existing-commercial] › tests\e2e-preview\document-preview-lifetime.spec.ts:31:6 › private image lifetime late_ticket
+[33/41] [controlled-http-existing-commercial] › tests\e2e-preview\document-preview-lifetime.spec.ts:31:6 › private image lifetime command_uncertain
+[34/41] [controlled-http-existing-commercial] › tests\e2e-preview\document-preview-lifetime.spec.ts:31:6 › private image lifetime download_uncertain
+[35/41] [controlled-http-existing-commercial] › tests\e2e-preview\document-preview-lifetime.spec.ts:31:6 › private image lifetime reload_revoke
+[36/41] [controlled-http-existing-commercial] › tests\e2e-preview\portfolio-reference-close.spec.ts:8:39 › a closed portfolio reference stays closed across an unchanged parent context at 390
+[37/41] [controlled-http-existing-commercial] › tests\e2e-preview\portfolio-reference-close.spec.ts:8:39 › a closed portfolio reference stays closed across an unchanged parent context at 768
+[38/41] [controlled-http-existing-commercial] › tests\e2e-preview\portfolio-reference-close.spec.ts:8:39 › a closed portfolio reference stays closed across an unchanged parent context at 1440
+[39/41] [controlled-http-existing-commercial] › tests\e2e-preview\portfolio-selection-race.spec.ts:12:39 › portfolio last requested asset survives a late earlier read at 390
+[40/41] [controlled-http-existing-commercial] › tests\e2e-preview\portfolio-selection-race.spec.ts:12:39 › portfolio last requested asset survives a late earlier read at 768
+[41/41] [controlled-http-existing-commercial] › tests\e2e-preview\portfolio-selection-race.spec.ts:12:39 › portfolio last requested asset survives a late earlier read at 1440
+  41 passed (1.5m)

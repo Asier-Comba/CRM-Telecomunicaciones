@@ -1,0 +1,362 @@
+
+Running 12 tests using 1 worker
+
+
+
+(node:29076) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1/12] [controlled-http-390] › tools\oier_commercial_qa\document-context.spec.ts:8:73 › document context customer retires only changed identity
+  1) [controlled-http-390] › tools\oier_commercial_qa\document-context.spec.ts:8:73 › document context customer retires only changed identity 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+    Call Log:
+    - Timeout 4000ms exceeded while waiting on the predicate
+
+      37 |   }else{
+      38 |    await page.getByRole('button',{name:'Cambiar contexto documental sintético',exact:true}).click()
+    > 39 |    await expect.poll(()=>reads.some(r=>r.target_id===(mode==='target'?contract:b))).toBe(true)
+         |                                                                                     ^
+      40 |    await expect(current).toBeVisible();await expect(old).toHaveCount(0)
+      41 |    if(mode==='target')await expect(page.getByRole('heading',{name:'Contrato sintético B',exact:true})).toBeVisible()
+      42 |    if(mode==='late'){
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\document-context.spec.ts:39:85
+
+    Error Context: ..\oier-commercial-20261020\document-context-attempt01\artifacts\document-context-document--8f02f-tires-only-changed-identity-controlled-http-390\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\document-context-attempt01\artifacts\document-context-document--8f02f-tires-only-changed-identity-controlled-http-390\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\document-context-attempt01\artifacts\document-context-document--8f02f-tires-only-changed-identity-controlled-http-390\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\document-context-attempt01\artifacts\document-context-document--8f02f-tires-only-changed-identity-controlled-http-390\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:30400) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[2/12] [controlled-http-390] › tools\oier_commercial_qa\document-context.spec.ts:8:73 › document context target retires only changed identity
+  2) [controlled-http-390] › tools\oier_commercial_qa\document-context.spec.ts:8:73 › document context target retires only changed identity 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+    Call Log:
+    - Timeout 4000ms exceeded while waiting on the predicate
+
+      37 |   }else{
+      38 |    await page.getByRole('button',{name:'Cambiar contexto documental sintético',exact:true}).click()
+    > 39 |    await expect.poll(()=>reads.some(r=>r.target_id===(mode==='target'?contract:b))).toBe(true)
+         |                                                                                     ^
+      40 |    await expect(current).toBeVisible();await expect(old).toHaveCount(0)
+      41 |    if(mode==='target')await expect(page.getByRole('heading',{name:'Contrato sintético B',exact:true})).toBeVisible()
+      42 |    if(mode==='late'){
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\document-context.spec.ts:39:85
+
+    Error Context: ..\oier-commercial-20261020\document-context-attempt01\artifacts\document-context-document--b8419-tires-only-changed-identity-controlled-http-390\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\document-context-attempt01\artifacts\document-context-document--b8419-tires-only-changed-identity-controlled-http-390\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\document-context-attempt01\artifacts\document-context-document--b8419-tires-only-changed-identity-controlled-http-390\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\document-context-attempt01\artifacts\document-context-document--b8419-tires-only-changed-identity-controlled-http-390\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+(node:23848) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[3/12] [controlled-http-390] › tools\oier_commercial_qa\document-context.spec.ts:8:73 › document context late retires only changed identity
+  3) [controlled-http-390] › tools\oier_commercial_qa\document-context.spec.ts:8:73 › document context late retires only changed identity 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+    Call Log:
+    - Timeout 4000ms exceeded while waiting on the predicate
+
+      37 |   }else{
+      38 |    await page.getByRole('button',{name:'Cambiar contexto documental sintético',exact:true}).click()
+    > 39 |    await expect.poll(()=>reads.some(r=>r.target_id===(mode==='target'?contract:b))).toBe(true)
+         |                                                                                     ^
+      40 |    await expect(current).toBeVisible();await expect(old).toHaveCount(0)
+      41 |    if(mode==='target')await expect(page.getByRole('heading',{name:'Contrato sintético B',exact:true})).toBeVisible()
+      42 |    if(mode==='late'){
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\document-context.spec.ts:39:85
+
+    Error Context: ..\oier-commercial-20261020\document-context-attempt01\artifacts\document-context-document--f3d80-tires-only-changed-identity-controlled-http-390\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\document-context-attempt01\artifacts\document-context-document--f3d80-tires-only-changed-identity-controlled-http-390\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\document-context-attempt01\artifacts\document-context-document--f3d80-tires-only-changed-identity-controlled-http-390\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\document-context-attempt01\artifacts\document-context-document--f3d80-tires-only-changed-identity-controlled-http-390\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+(node:27248) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[4/12] [controlled-http-390] › tools\oier_commercial_qa\document-context.spec.ts:8:73 › document context unchanged retires only changed identity
+
+(node:31996) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[5/12] [controlled-http-768] › tools\oier_commercial_qa\document-context.spec.ts:8:73 › document context customer retires only changed identity
+  4) [controlled-http-768] › tools\oier_commercial_qa\document-context.spec.ts:8:73 › document context customer retires only changed identity 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+    Call Log:
+    - Timeout 4000ms exceeded while waiting on the predicate
+
+      37 |   }else{
+      38 |    await page.getByRole('button',{name:'Cambiar contexto documental sintético',exact:true}).click()
+    > 39 |    await expect.poll(()=>reads.some(r=>r.target_id===(mode==='target'?contract:b))).toBe(true)
+         |                                                                                     ^
+      40 |    await expect(current).toBeVisible();await expect(old).toHaveCount(0)
+      41 |    if(mode==='target')await expect(page.getByRole('heading',{name:'Contrato sintético B',exact:true})).toBeVisible()
+      42 |    if(mode==='late'){
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\document-context.spec.ts:39:85
+
+    Error Context: ..\oier-commercial-20261020\document-context-attempt01\artifacts\document-context-document--8f02f-tires-only-changed-identity-controlled-http-768\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\document-context-attempt01\artifacts\document-context-document--8f02f-tires-only-changed-identity-controlled-http-768\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\document-context-attempt01\artifacts\document-context-document--8f02f-tires-only-changed-identity-controlled-http-768\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\document-context-attempt01\artifacts\document-context-document--8f02f-tires-only-changed-identity-controlled-http-768\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:28888) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[6/12] [controlled-http-768] › tools\oier_commercial_qa\document-context.spec.ts:8:73 › document context target retires only changed identity
+  5) [controlled-http-768] › tools\oier_commercial_qa\document-context.spec.ts:8:73 › document context target retires only changed identity 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+    Call Log:
+    - Timeout 4000ms exceeded while waiting on the predicate
+
+      37 |   }else{
+      38 |    await page.getByRole('button',{name:'Cambiar contexto documental sintético',exact:true}).click()
+    > 39 |    await expect.poll(()=>reads.some(r=>r.target_id===(mode==='target'?contract:b))).toBe(true)
+         |                                                                                     ^
+      40 |    await expect(current).toBeVisible();await expect(old).toHaveCount(0)
+      41 |    if(mode==='target')await expect(page.getByRole('heading',{name:'Contrato sintético B',exact:true})).toBeVisible()
+      42 |    if(mode==='late'){
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\document-context.spec.ts:39:85
+
+    Error Context: ..\oier-commercial-20261020\document-context-attempt01\artifacts\document-context-document--b8419-tires-only-changed-identity-controlled-http-768\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\document-context-attempt01\artifacts\document-context-document--b8419-tires-only-changed-identity-controlled-http-768\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\document-context-attempt01\artifacts\document-context-document--b8419-tires-only-changed-identity-controlled-http-768\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\document-context-attempt01\artifacts\document-context-document--b8419-tires-only-changed-identity-controlled-http-768\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+(node:4256) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[7/12] [controlled-http-768] › tools\oier_commercial_qa\document-context.spec.ts:8:73 › document context late retires only changed identity
+  6) [controlled-http-768] › tools\oier_commercial_qa\document-context.spec.ts:8:73 › document context late retires only changed identity 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+    Call Log:
+    - Timeout 4000ms exceeded while waiting on the predicate
+
+      37 |   }else{
+      38 |    await page.getByRole('button',{name:'Cambiar contexto documental sintético',exact:true}).click()
+    > 39 |    await expect.poll(()=>reads.some(r=>r.target_id===(mode==='target'?contract:b))).toBe(true)
+         |                                                                                     ^
+      40 |    await expect(current).toBeVisible();await expect(old).toHaveCount(0)
+      41 |    if(mode==='target')await expect(page.getByRole('heading',{name:'Contrato sintético B',exact:true})).toBeVisible()
+      42 |    if(mode==='late'){
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\document-context.spec.ts:39:85
+
+    Error Context: ..\oier-commercial-20261020\document-context-attempt01\artifacts\document-context-document--f3d80-tires-only-changed-identity-controlled-http-768\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\document-context-attempt01\artifacts\document-context-document--f3d80-tires-only-changed-identity-controlled-http-768\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\document-context-attempt01\artifacts\document-context-document--f3d80-tires-only-changed-identity-controlled-http-768\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\document-context-attempt01\artifacts\document-context-document--f3d80-tires-only-changed-identity-controlled-http-768\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+(node:32852) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[8/12] [controlled-http-768] › tools\oier_commercial_qa\document-context.spec.ts:8:73 › document context unchanged retires only changed identity
+
+(node:4120) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[9/12] [controlled-http-1440] › tools\oier_commercial_qa\document-context.spec.ts:8:73 › document context customer retires only changed identity
+  7) [controlled-http-1440] › tools\oier_commercial_qa\document-context.spec.ts:8:73 › document context customer retires only changed identity 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+    Call Log:
+    - Timeout 4000ms exceeded while waiting on the predicate
+
+      37 |   }else{
+      38 |    await page.getByRole('button',{name:'Cambiar contexto documental sintético',exact:true}).click()
+    > 39 |    await expect.poll(()=>reads.some(r=>r.target_id===(mode==='target'?contract:b))).toBe(true)
+         |                                                                                     ^
+      40 |    await expect(current).toBeVisible();await expect(old).toHaveCount(0)
+      41 |    if(mode==='target')await expect(page.getByRole('heading',{name:'Contrato sintético B',exact:true})).toBeVisible()
+      42 |    if(mode==='late'){
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\document-context.spec.ts:39:85
+
+    Error Context: ..\oier-commercial-20261020\document-context-attempt01\artifacts\document-context-document--8f02f-tires-only-changed-identity-controlled-http-1440\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\document-context-attempt01\artifacts\document-context-document--8f02f-tires-only-changed-identity-controlled-http-1440\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\document-context-attempt01\artifacts\document-context-document--8f02f-tires-only-changed-identity-controlled-http-1440\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\document-context-attempt01\artifacts\document-context-document--8f02f-tires-only-changed-identity-controlled-http-1440\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+(node:28824) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[10/12] [controlled-http-1440] › tools\oier_commercial_qa\document-context.spec.ts:8:73 › document context target retires only changed identity
+  8) [controlled-http-1440] › tools\oier_commercial_qa\document-context.spec.ts:8:73 › document context target retires only changed identity 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+    Call Log:
+    - Timeout 4000ms exceeded while waiting on the predicate
+
+      37 |   }else{
+      38 |    await page.getByRole('button',{name:'Cambiar contexto documental sintético',exact:true}).click()
+    > 39 |    await expect.poll(()=>reads.some(r=>r.target_id===(mode==='target'?contract:b))).toBe(true)
+         |                                                                                     ^
+      40 |    await expect(current).toBeVisible();await expect(old).toHaveCount(0)
+      41 |    if(mode==='target')await expect(page.getByRole('heading',{name:'Contrato sintético B',exact:true})).toBeVisible()
+      42 |    if(mode==='late'){
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\document-context.spec.ts:39:85
+
+    Error Context: ..\oier-commercial-20261020\document-context-attempt01\artifacts\document-context-document--b8419-tires-only-changed-identity-controlled-http-1440\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\document-context-attempt01\artifacts\document-context-document--b8419-tires-only-changed-identity-controlled-http-1440\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\document-context-attempt01\artifacts\document-context-document--b8419-tires-only-changed-identity-controlled-http-1440\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\document-context-attempt01\artifacts\document-context-document--b8419-tires-only-changed-identity-controlled-http-1440\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+(node:31612) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[11/12] [controlled-http-1440] › tools\oier_commercial_qa\document-context.spec.ts:8:73 › document context late retires only changed identity
+  9) [controlled-http-1440] › tools\oier_commercial_qa\document-context.spec.ts:8:73 › document context late retires only changed identity 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+    Call Log:
+    - Timeout 4000ms exceeded while waiting on the predicate
+
+      37 |   }else{
+      38 |    await page.getByRole('button',{name:'Cambiar contexto documental sintético',exact:true}).click()
+    > 39 |    await expect.poll(()=>reads.some(r=>r.target_id===(mode==='target'?contract:b))).toBe(true)
+         |                                                                                     ^
+      40 |    await expect(current).toBeVisible();await expect(old).toHaveCount(0)
+      41 |    if(mode==='target')await expect(page.getByRole('heading',{name:'Contrato sintético B',exact:true})).toBeVisible()
+      42 |    if(mode==='late'){
+        at C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\tools\oier_commercial_qa\document-context.spec.ts:39:85
+
+    Error Context: ..\oier-commercial-20261020\document-context-attempt01\artifacts\document-context-document--f3d80-tires-only-changed-identity-controlled-http-1440\error-context.md
+
+    Error Context: ..\oier-commercial-20261020\document-context-attempt01\artifacts\document-context-document--f3d80-tires-only-changed-identity-controlled-http-1440\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\oier-commercial-20261020\document-context-attempt01\artifacts\document-context-document--f3d80-tires-only-changed-identity-controlled-http-1440\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\oier-commercial-20261020\document-context-attempt01\artifacts\document-context-document--f3d80-tires-only-changed-identity-controlled-http-1440\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+(node:32228) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[12/12] [controlled-http-1440] › tools\oier_commercial_qa\document-context.spec.ts:8:73 › document context unchanged retires only changed identity
+  9 failed
+    [controlled-http-390] › tools\oier_commercial_qa\document-context.spec.ts:8:73 › document context customer retires only changed identity 
+    [controlled-http-390] › tools\oier_commercial_qa\document-context.spec.ts:8:73 › document context target retires only changed identity 
+    [controlled-http-390] › tools\oier_commercial_qa\document-context.spec.ts:8:73 › document context late retires only changed identity 
+    [controlled-http-768] › tools\oier_commercial_qa\document-context.spec.ts:8:73 › document context customer retires only changed identity 
+    [controlled-http-768] › tools\oier_commercial_qa\document-context.spec.ts:8:73 › document context target retires only changed identity 
+    [controlled-http-768] › tools\oier_commercial_qa\document-context.spec.ts:8:73 › document context late retires only changed identity 
+    [controlled-http-1440] › tools\oier_commercial_qa\document-context.spec.ts:8:73 › document context customer retires only changed identity 
+    [controlled-http-1440] › tools\oier_commercial_qa\document-context.spec.ts:8:73 › document context target retires only changed identity 
+    [controlled-http-1440] › tools\oier_commercial_qa\document-context.spec.ts:8:73 › document context late retires only changed identity 
+  3 passed (1.9m)
