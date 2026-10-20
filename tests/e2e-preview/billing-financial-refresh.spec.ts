@@ -54,8 +54,10 @@ async function seriesFixture(page:Page){
   queries.push(input)
   if(input.series==='DENY')return route.fulfill({status:403,json:{ok:false,error:'access_denied'}})
   const delayed=holdA&&input.series==='A';if(delayed){waiting=true;await held}
-  const series=input.series??'ALL',row=series==='B'?21:series==='A'?(input.after_id?12:11):31
-  await route.fulfill({json:{ok:true,data:{contract_version:'billing.v1',operation,items:[{...summary,id:id(row),series:series==='ALL'?'A':series,number:{series:series==='ALL'?'A':series,year:2026,sequence:row}}],next_id:series==='A'&&!input.after_id?id(row):null}}})
+  const series=input.series??'ALL',row=series==='B'?21:series==='A'?(input.after_id?61:11):31,paged=series==='A'&&!input.after_id
+  // A non-null cursor is valid only after a full 50-row page in the real reader.
+  const items=Array.from({length:paged?50:1},(_,index)=>({...summary,id:id(row+index),series:series==='ALL'?'A':series,number:{series:series==='ALL'?'A':series,year:2026,sequence:row+index}}))
+  await route.fulfill({json:{ok:true,data:{contract_version:'billing.v1',operation,items,next_id:paged?id(60):null}}})
   if(delayed)settled()
  })
  return {fixture,queries,financial,commands,errors,id,holdA(){holdA=true},waiting:()=>waiting,release,done,async close(){release();fixture.releaseList();fixture.releasePdf();await page.unrouteAll({behavior:'wait'});await fixture.close()}}
@@ -76,8 +78,8 @@ for(const width of [390,768,1440]){
    await expect(page.locator(`tr[data-invoice-id="${r.id(11)}"]`)).toBeVisible()
    expect(r.queries.at(-1)).toEqual({limit:50,customer_id:r.id(1),status:'issued',series:'A'})
    await page.getByRole('button',{name:'Siguiente página de facturas',exact:true}).click()
-   await expect(page.locator(`tr[data-invoice-id="${r.id(12)}"]`)).toBeVisible()
-   expect(r.queries.at(-1)).toMatchObject({series:'A',after_id:r.id(11),customer_id:r.id(1),status:'issued'})
+   await expect(page.locator(`tr[data-invoice-id="${r.id(61)}"]`)).toBeVisible()
+   expect(r.queries.at(-1)).toMatchObject({series:'A',after_id:r.id(60),customer_id:r.id(1),status:'issued'})
    r.holdA();await page.getByRole('button',{name:'Actualizar facturas',exact:true}).click();await expect.poll(r.waiting).toBe(true)
    await filter.fill('B');await apply.click()
    const row=page.locator(`tr[data-invoice-id="${r.id(21)}"]`)
