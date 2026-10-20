@@ -1,0 +1,29 @@
+{
+  "source": "72f79ebbcf08071fdf4310673a95aef4be1a2ab4",
+  "pr_head": "100bf22a903149e89b679db99a1ac3370fd13992",
+  "checkout_tree": "f0fc942f169edc59c9536b7aec3aa21ab916302d",
+  "head_tree_equal": true,
+  "run": 39435611024,
+  "job": 118671695604,
+  "safe_artifact": 12271584906,
+  "screenshots_artifact": 12271609818,
+  "original_safe_zip_sha256": "3e0ed273462ee349c19cb50568df62153e275c00b845f8c516271e6f3a776a5f",
+  "original_screenshots_zip_sha256": "e1fd17e92e9a6dacbcc920e2e987822710948a535068a7ddfd6bcac8bd9e735c",
+  "screenshot_sha256": "d402156e4d5b1d4d5e5e2db980d13c0a4fcadd18daaa2d65289bc2c571df1dc4",
+  "failures": [
+    {
+      "check": "desktop_tablet_mobile_layouts",
+      "action": "layout:portfolio:390:bounded_search",
+      "kind": "TIMEOUT"
+    },
+    {
+      "check": "catalog_normal_price_version_publish_and_reload",
+      "action": "catalog_normal_price_version_publish_and_reload",
+      "kind": "TIMEOUT"
+    }
+  ],
+  "original_portfolio_phase": "BOUNDED_SEARCH_SUBACTION_NOT_RECORDED",
+  "original_portfolio_request_response": "NOT_RECORDED_FOR_390_IN_THIS_CHECK",
+  "full_cause": "UNKNOWN",
+  "teardown": "PASS"
+}
