@@ -1,0 +1,49 @@
+{
+  "unit": "OIER_BILLING_PARITY29",
+  "claim": 6302805975,
+  "reference": {
+    "repo": "iazticontact/crm-inmobiliario-demo",
+    "source": "ad3c06e5e6dca8e9cf0342845f670b1b48478851",
+    "tree": "af29eb5018d742c8092f9e769b493e857d85d76b",
+    "read_only": true,
+    "files": [
+      {
+        "path": "docs/PRODUCT_DECISION_BILLING_INVOICING.md",
+        "sha": "e5e367d106703272da8c710550d128b39f85b8e9"
+      },
+      {
+        "path": "src/app/(saas)/facturacion/page.tsx",
+        "sha": "1909aff9dd87bb34e6f44e66154c8c9c39e918cb"
+      },
+      {
+        "path": "src/components/invoicing/InvoiceDashboard.tsx",
+        "sha": "8ad4f48215b6fd550beb1e696a1e055824527f2b"
+      },
+      {
+        "path": "src/components/invoicing/InvoiceEditor.tsx",
+        "sha": "23941ae946ba0479eaa4819a220e76663e046da3"
+      }
+    ]
+  },
+  "telecom_source": "8ee0b9ba61cd45072fbce75f12c6e684e3f3e6a6",
+  "scope": [
+    "PAR-103",
+    "PAR-121",
+    "PAR-122",
+    "PAR-123",
+    "PAR-125"
+  ],
+  "observations": [
+    "Both editors expose line quantity/unit price/discount/tax/withholding; reference preview is not independent backend evidence.",
+    "Telecom integrated form uses scaled integer milli/minor/bps and calculateBillingV1 for preview; no new monetary defect proven in this bounded source reading.",
+    "Reference invoice page has client-side text search; Telecom exposes customer/status filters but no invoice full-text search.",
+    "Canonical invoice.list already accepts exact series/from/to but the integrated list has no series control."
+  ],
+  "next_unit": "EXPOSE_EXISTING_EXACT_SERIES_FILTER_WITH_SERVER_PAGINATION_AND_STALE_READ_TESTS",
+  "full_text_search": "REQUIRES_SEPARATE_BACKEND_CONTRACT_NOT_IMPLEMENTED_AS_LOCAL_FIRST_PAGE_SEARCH",
+  "matrix_promotion": false,
+  "tests": "NOT_RUN_READONLY_COMPARISON",
+  "copy_of_legacy_code": false,
+  "cloud": "NOT_RUN",
+  "release": "NOT_ACCEPTED"
+}
