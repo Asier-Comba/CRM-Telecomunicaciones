@@ -28,10 +28,12 @@ export async function billingUncertainBrowser({page,origin,sql,wa,customerId,scr
   try{
    const dialog=page.getByRole('dialog',{name:title,exact:true})
    report.w2_ui_action_step=(invalidReceipt?'billing_invalid_receipt:':'billing_uncertain:')+operation+':first_effect';await dialog.getByRole('button',{name:submit,exact:true}).click()
+   /* OIER20_PHASE */report.w2_ui_action_step=(invalidReceipt?'billing_invalid_receipt:':'billing_uncertain:')+operation+':first_effect:alert';
    await expect(dialog.getByRole('alert')).toContainText(invalidReceipt?'No se pudo completar la acción.':'No se pudo confirmar el resultado.')
+   /* OIER20_PHASE */report.w2_ui_action_step=(invalidReceipt?'billing_invalid_receipt:':'billing_uncertain:')+operation+':first_effect:effect_guard';
    if(committedStatus!==200||bodies.length!==1)throw Error('BILLING_UNCERTAIN_EFFECT_NOT_CONFIRMED')
    const close=dialog.getByRole('button',{name:operation.endsWith('.set')?'Cerrar panel':'Cancelar',exact:true})
-   await expect(close).toBeDisabled();await close.evaluate(b=>b.click());await page.keyboard.press('Escape');await expect(dialog).toBeVisible()
+   /* OIER20_PHASE */report.w2_ui_action_step=(invalidReceipt?'billing_invalid_receipt:':'billing_uncertain:')+operation+':first_effect:close_disabled';await expect(close).toBeDisabled();/* OIER20_PHASE */report.w2_ui_action_step=(invalidReceipt?'billing_invalid_receipt:':'billing_uncertain:')+operation+':first_effect:close_click';await close.evaluate(b=>b.click());/* OIER20_PHASE */report.w2_ui_action_step=(invalidReceipt?'billing_invalid_receipt:':'billing_uncertain:')+operation+':first_effect:escape';await page.keyboard.press('Escape');/* OIER20_PHASE */report.w2_ui_action_step=(invalidReceipt?'billing_invalid_receipt:':'billing_uncertain:')+operation+':first_effect:dialog_visible';await expect(dialog).toBeVisible()
    for(const width of [390,768,1440]){
     report.w2_ui_action_step=(invalidReceipt?'billing_invalid_receipt:':'billing_uncertain:')+operation+':review_'+width;await page.setViewportSize({width,height:960})
     const retry=dialog.getByRole('button',{name:'Reintentar la misma acción',exact:true});await retry.scrollIntoViewIfNeeded();await expect(retry).toBeInViewport({ratio:1})
