@@ -1,0 +1,522 @@
+{
+  "unit": "OIER_INVOICE_SERIES30",
+  "claim": 6302911632,
+  "base": "8ee0b9ba61cd45072fbce75f12c6e684e3f3e6a6",
+  "runtime_code_sha": "d5299a6239fd403b5204741102b3436243b04c7d",
+  "integrator_observed": "285348a66f4cacdbcfb6d018caaa2effbb2df54e",
+  "integrator_base_touched_blobs_identical": true,
+  "source_files": [
+    "src/features/billing/IntegratedBilling.tsx",
+    "tests/e2e-preview/billing-financial-refresh.spec.ts"
+  ],
+  "runs": [
+    {
+      "attempt": "before",
+      "classification": "MISSING_CONTROL_BASELINE",
+      "private_results": "work/qa-invoice-series30-before/results.json",
+      "sha256": "0898fcadb5afb17580d3e5fa85f9e6cc565e033ef67b66f8d743bb2dd10a49cb",
+      "stats": {
+        "startTime": "2026-10-20T21:10:55.748Z",
+        "duration": 34108.723,
+        "expected": 0,
+        "skipped": 0,
+        "unexpected": 3,
+        "flaky": 0
+      },
+      "cases": [
+        {
+          "title": "billing series selection retains server cursor and ignores old filter response at 390",
+          "status": "failed",
+          "error": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('textbox', { name: 'Serie exacta de factura', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Serie exacta de factura', exact: true })\u001b[22m\n"
+        },
+        {
+          "title": "billing series selection retains server cursor and ignores old filter response at 768",
+          "status": "failed",
+          "error": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('textbox', { name: 'Serie exacta de factura', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Serie exacta de factura', exact: true })\u001b[22m\n"
+        },
+        {
+          "title": "billing series selection retains server cursor and ignores old filter response at 1440",
+          "status": "failed",
+          "error": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('textbox', { name: 'Serie exacta de factura', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Serie exacta de factura', exact: true })\u001b[22m\n"
+        }
+      ]
+    },
+    {
+      "attempt": "after",
+      "classification": "FIXTURE_INVALID_NON_NULL_CURSOR_WITH_ONE_ROW",
+      "private_results": "work/qa-invoice-series30-after/results.json",
+      "sha256": "f591843224ca158535bf3356dcf84e2921e4f3665dea1231a636e33c9c397ba0",
+      "stats": {
+        "startTime": "2026-10-20T21:15:35.058Z",
+        "duration": 86255.431,
+        "expected": 16,
+        "skipped": 0,
+        "unexpected": 6,
+        "flaky": 0
+      },
+      "cases": [
+        {
+          "title": "billing current selection late_success at 390",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing current selection late_refusal at 390",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing current selection initial_success at 390",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing current selection current_refusal at 390",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing current selection late_success at 768",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing current selection late_refusal at 768",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing current selection initial_success at 768",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing current selection current_refusal at 768",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing current selection late_success at 1440",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing current selection late_refusal at 1440",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing current selection initial_success at 1440",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing current selection current_refusal at 1440",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "financial totals from the previous refresh disappear until the current response arrives",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing series selection retains server cursor and ignores old filter response at 390",
+          "status": "failed",
+          "error": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('tr[data-invoice-id=\"10000000-0000-4000-8000-000000000011\"]')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('tr[data-invoice-id=\"10000000-0000-4000-8000-000000000011\"]')\u001b[22m\n"
+        },
+        {
+          "title": "billing series denied query preserves error and recovers without writes at 390",
+          "status": "failed",
+          "error": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('tr[data-invoice-id=\"10000000-0000-4000-8000-000000000011\"]')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('tr[data-invoice-id=\"10000000-0000-4000-8000-000000000011\"]')\u001b[22m\n"
+        },
+        {
+          "title": "billing series selection retains server cursor and ignores old filter response at 768",
+          "status": "failed",
+          "error": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('tr[data-invoice-id=\"10000000-0000-4000-8000-000000000011\"]')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('tr[data-invoice-id=\"10000000-0000-4000-8000-000000000011\"]')\u001b[22m\n"
+        },
+        {
+          "title": "billing series denied query preserves error and recovers without writes at 768",
+          "status": "failed",
+          "error": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('tr[data-invoice-id=\"10000000-0000-4000-8000-000000000011\"]')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('tr[data-invoice-id=\"10000000-0000-4000-8000-000000000011\"]')\u001b[22m\n"
+        },
+        {
+          "title": "billing series selection retains server cursor and ignores old filter response at 1440",
+          "status": "failed",
+          "error": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('tr[data-invoice-id=\"10000000-0000-4000-8000-000000000011\"]')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('tr[data-invoice-id=\"10000000-0000-4000-8000-000000000011\"]')\u001b[22m\n"
+        },
+        {
+          "title": "billing series denied query preserves error and recovers without writes at 1440",
+          "status": "failed",
+          "error": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('tr[data-invoice-id=\"10000000-0000-4000-8000-000000000011\"]')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('tr[data-invoice-id=\"10000000-0000-4000-8000-000000000011\"]')\u001b[22m\n"
+        },
+        {
+          "title": "current invoice stays visible when a delayed 50-row billing list arrives at 1440",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "current invoice stays visible when a delayed 50-row billing list arrives at 768",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "current invoice stays visible when a delayed 50-row billing list arrives at 390",
+          "status": "passed",
+          "error": null
+        }
+      ]
+    },
+    {
+      "attempt": "corrected",
+      "classification": "NEW_CONTROL_HTML_PATTERN_VALIDITY_FAILURE",
+      "private_results": "work/qa-invoice-series30-corrected/results.json",
+      "sha256": "b34e34743d249bba842111f9c2b9c9a40938acbbf0d32376199585e7832764c0",
+      "stats": {
+        "startTime": "2026-10-20T21:17:21.579Z",
+        "duration": 38460.549,
+        "expected": 19,
+        "skipped": 0,
+        "unexpected": 3,
+        "flaky": 0
+      },
+      "cases": [
+        {
+          "title": "billing current selection late_success at 390",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing current selection late_refusal at 390",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing current selection initial_success at 390",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing current selection current_refusal at 390",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing current selection late_success at 768",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing current selection late_refusal at 768",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing current selection initial_success at 768",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing current selection current_refusal at 768",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing current selection late_success at 1440",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing current selection late_refusal at 1440",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing current selection initial_success at 1440",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing current selection current_refusal at 1440",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "financial totals from the previous refresh disappear until the current response arrives",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing series selection retains server cursor and ignores old filter response at 390",
+          "status": "failed",
+          "error": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mfalse\u001b[39m\nReceived: \u001b[31mtrue\u001b[39m"
+        },
+        {
+          "title": "billing series denied query preserves error and recovers without writes at 390",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing series selection retains server cursor and ignores old filter response at 768",
+          "status": "failed",
+          "error": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mfalse\u001b[39m\nReceived: \u001b[31mtrue\u001b[39m"
+        },
+        {
+          "title": "billing series denied query preserves error and recovers without writes at 768",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing series selection retains server cursor and ignores old filter response at 1440",
+          "status": "failed",
+          "error": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mfalse\u001b[39m\nReceived: \u001b[31mtrue\u001b[39m"
+        },
+        {
+          "title": "billing series denied query preserves error and recovers without writes at 1440",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "current invoice stays visible when a delayed 50-row billing list arrives at 1440",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "current invoice stays visible when a delayed 50-row billing list arrives at 768",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "current invoice stays visible when a delayed 50-row billing list arrives at 390",
+          "status": "passed",
+          "error": null
+        }
+      ]
+    },
+    {
+      "attempt": "retry-before",
+      "classification": "SAME_SERIES_RETRY_NOT_SENT_BASELINE",
+      "private_results": "work/qa-invoice-series30-retry-before/results.json",
+      "sha256": "e72eaf070e1c03e66d215b39ddfc91e09af8d6c3516b0587b8fff12e4d7ca607",
+      "stats": {
+        "startTime": "2026-10-20T21:18:27.416Z",
+        "duration": 31317.684,
+        "expected": 0,
+        "skipped": 0,
+        "unexpected": 3,
+        "flaky": 0
+      },
+      "cases": [
+        {
+          "title": "billing series denied query preserves error and recovers without writes at 390",
+          "status": "failed",
+          "error": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m3\u001b[39m\nReceived: \u001b[31m2\u001b[39m\n\nCall Log:\n- Timeout 5000ms exceeded while waiting on the predicate"
+        },
+        {
+          "title": "billing series denied query preserves error and recovers without writes at 768",
+          "status": "failed",
+          "error": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m3\u001b[39m\nReceived: \u001b[31m2\u001b[39m\n\nCall Log:\n- Timeout 5000ms exceeded while waiting on the predicate"
+        },
+        {
+          "title": "billing series denied query preserves error and recovers without writes at 1440",
+          "status": "failed",
+          "error": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m3\u001b[39m\nReceived: \u001b[31m2\u001b[39m\n\nCall Log:\n- Timeout 5000ms exceeded while waiting on the predicate"
+        }
+      ]
+    },
+    {
+      "attempt": "final",
+      "classification": "QUALIFIED_SCOPED_RUN",
+      "private_results": "work/qa-invoice-series30-final/results.json",
+      "sha256": "05caca3900a8aa932b6bdb5c646dddaa3a631242ba19dfce86f258949e822b63",
+      "stats": {
+        "startTime": "2026-10-20T21:19:19.516Z",
+        "duration": 21362.658,
+        "expected": 22,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "cases": [
+        {
+          "title": "billing current selection late_success at 390",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing current selection late_refusal at 390",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing current selection initial_success at 390",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing current selection current_refusal at 390",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing current selection late_success at 768",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing current selection late_refusal at 768",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing current selection initial_success at 768",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing current selection current_refusal at 768",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing current selection late_success at 1440",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing current selection late_refusal at 1440",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing current selection initial_success at 1440",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing current selection current_refusal at 1440",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "financial totals from the previous refresh disappear until the current response arrives",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing series selection retains server cursor and ignores old filter response at 390",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing series denied query preserves error and recovers without writes at 390",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing series selection retains server cursor and ignores old filter response at 768",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing series denied query preserves error and recovers without writes at 768",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing series selection retains server cursor and ignores old filter response at 1440",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "billing series denied query preserves error and recovers without writes at 1440",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "current invoice stays visible when a delayed 50-row billing list arrives at 1440",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "current invoice stays visible when a delayed 50-row billing list arrives at 768",
+          "status": "passed",
+          "error": null
+        },
+        {
+          "title": "current invoice stays visible when a delayed 50-row billing list arrives at 390",
+          "status": "passed",
+          "error": null
+        }
+      ]
+    }
+  ],
+  "images": [
+    {
+      "file": "invoice-series-1440.png",
+      "sha256": "e6553412c8ce98473098b770897ae800d628dbd83da8e588d0f221a1fe465a41"
+    },
+    {
+      "file": "invoice-series-loaded-1440.png",
+      "sha256": "e6553412c8ce98473098b770897ae800d628dbd83da8e588d0f221a1fe465a41"
+    },
+    {
+      "file": "invoice-series-390.png",
+      "sha256": "71728eab5b28fe6584790b130d89e3b52d1b09354feaab74ae67fab1287ea71f"
+    },
+    {
+      "file": "invoice-series-loaded-390.png",
+      "sha256": "b45023aed16fd3e123c75199ceef0eb580b6e9c550aca1b8a3eeadcf26741cb6"
+    },
+    {
+      "file": "invoice-series-768.png",
+      "sha256": "552831273bfc664fc2ebfa34cd073d872d2712b1b90d3d6e6069f299195ca454"
+    },
+    {
+      "file": "invoice-series-loaded-768.png",
+      "sha256": "552831273bfc664fc2ebfa34cd073d872d2712b1b90d3d6e6069f299195ca454"
+    }
+  ],
+  "scope": "Real component/repository/parser/Tailwind in controlled local HTTP; six added cases, sixteen prior related cases. Not Auth/DB, RLS, cloud or physical voice.",
+  "query": "Existing invoice.list.series uppercase 1-8 ASCII letters/digits/hyphen; no new backend contract",
+  "controls": {
+    "workers": 1,
+    "retries": 0,
+    "timeout_ms": 180000,
+    "assertion_timeout_ms": 5000,
+    "weakened": false
+  },
+  "budget_eur": 0,
+  "cloud_changes": false,
+  "commercial_AI_writes": "OFF",
+  "release": "NOT_ACCEPTED",
+  "static_checks": {
+    "lint": 0,
+    "typecheck": 0,
+    "sha": "d5299a6239fd403b5204741102b3436243b04c7d"
+  },
+  "build": {
+    "build": 0,
+    "sha": "d5299a6239fd403b5204741102b3436243b04c7d",
+    "static_pages": 44,
+    "environment": "Public unconfigured local build; no hosted context"
+  },
+  "logs": [
+    {
+      "file": "invoice-series30-final-browser.log",
+      "sha256": "d8c22e2bb3b4f7afe666c8d75b984f9506a81575a7210477679fc8570dac12f0"
+    },
+    {
+      "file": "invoice-series30-lint.log",
+      "sha256": "dda21574b74ba6a9edea377d67b00a3846ea8ae6ee11171eb3102a4a59f30d98"
+    },
+    {
+      "file": "invoice-series30-types.log",
+      "sha256": "09698db0dd661e366e31bb0aa12a64958690641809896ed8445717ab71ea6759"
+    },
+    {
+      "file": "invoice-series30-build.log",
+      "sha256": "d9d598de6aba9922f28a8333db055980f6acf887e5788de3038275e94fad14b6"
+    }
+  ]
+}
