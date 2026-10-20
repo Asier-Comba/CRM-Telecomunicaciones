@@ -13,6 +13,12 @@ Estado vigente 20/10/2026. Orden4561dee1; [coordinación W0/6301933535](https://
 - Último deploy reportado W5: **6ad78f6c810c781fba4f5880** = **a9e977adf90b1e83cded23fb54aefc696839d014**, no8ee. Config/adapter del nuevo deploy pendientes. No HOSTED_PASS propio ni de8ee.
 - Supabase zgwotxnyqzfuzcnmgvtn:87migraciones/90tablas públicas RLS/2buckets privados/ACTIVE_HEALTHY según W0 sólolectura. Conector Oier projects=[] era visibilidad, no backend caído. No SQL/reset/reapply88/permisos/resellpro.
 
+## Corrección independiente25 publicada
+
+[PR177 DRAFT](https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/177), fuente80d3a4f136a436e289f4bf1a4de4c8fa4c4ef653, tests964795d5/fixcec44342 desde8ee. Callback de una sesión de dictado fallida podía alterar la siguiente:3FAIL causales→42/42PASS propios, lint/TypeScript/build44estáticasPASS. Sólo retira callbacks obsoletos, sin tocar parser/API/SQL/permisos. [Evidencia](https://github.com/Asier-Comba/CRM-Telecomunicaciones/blob/80d3a4f136a436e289f4bf1a4de4c8fa4c4ef653/docs/commercial-cloud/20261020/SPEECH_ERROR25.md). SpeechStub/HTTP: no micrófono/AuthDB/cloud o modelo vivo. No integrarlo por silencio, no heredar CI8ee ni publicar encima de checks activos.
+
+[Revisión W5/26](20261020/PLATFORM_REVIEW26.md): el nuevo helper forward-only acepta dos altas posteriores con timestamp duplicado; unionMigrations las rechaza. Reproducción pura de fuente exacta, no bypass completo probado ni migraciones reales. W5 debe conservar el negativo. Otros cambios revisados con límites; no aprobación W4 o release.
+
 ## Estado por recorrido
 
 | Recorrido | Fuente revisada / desplegada reportada | Resultado y límites | Siguiente responsable |
@@ -28,7 +34,7 @@ Estado vigente 20/10/2026. Orden4561dee1; [coordinación W0/6301933535](https://
 
 ## Acceso y QA alojada
 
-[Propuesta W5 ya entregada6299975950](https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6299975950): equipo propietario asier-comba (University of Deusto), Free privado, AsierOwner. Pro20USD/mes+impuestos del checkout, miembros incluidos, recarga automáticaOFF; total final/prorrateo deben confirmarse allí. **No pedir otro presupuesto ni contratar/invitar/cambiar protección sin autorización del propietario.** Decisión de acceso solicitada al propietario; no respuesta inferida por tiempo o silencio.
+**Decisión definitiva del propietario: PRESUPUESTO0EUR**, publicada en[6302343684](https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6302343684). Pro rechazado, no compra/tarjeta/crédito/invitación o gasto; conservar NetlifyFree/site/deploy/protecciones intactos. La propuesta6299975950 ya está contestada, no pendiente de contratación. QA independiente queda pendiente por acceso, no detenido el desarrollo. Estudio gratuito Vercel/Cloudflare/Render en curso; no migrar ni desplegar o cambiar dominios sin autorización. Resultados owner-hosted se atribuyen al propietario/W5 y pueden revisarse independientemente; no compartir sesión.
 
 Ventana W5 preparada pero no abierta. Reusar **tools/oier_cloud_qa/CORE162**, manifestv2/journal/lock. Requiere nuevo deploy/source/tree/config/build/adapter/artefacto/rollback y contexto propio legítimo, A/B admitidos de empresas distintas/roles/fixtures/expiración/serialización/límites/limpieza. No cookies/sesiones prestadas o usuarios revocados. CORE conserva exactamente **customer.create + invoice.create_draft**, una cadauna;300EUR+IVA21%=363/15días, revisión humana, recibos/readback mismosIDs/draft/importes. Añadir concepto600Mbps ya integrado21 al caso pertinente sin ampliar mutaciones. Positivo B propio antes de negativas A; fuera-cohorte separado. Sin emisión/cobro/perfil fiscal/comunicaciones.
 
@@ -36,8 +42,8 @@ Telecom separado:3altas manuales contrato→servicio→línea desde catálogo/ve
 
 ## Próxima cola útil
 
-1. Defecto asíncrono concreto en Facturación PRO, si se reproduce en la fuente propia desde8ee; prueba causal antes de parche. No reabrir21/22 ni ampliar regex.
-2. Revisión independiente del alcance nuevo de171 desde QA: identidad del recurso, negativos85/86/87, composición histórica vsHEAD/migraciones. No editar tests/fixtures/cloudW5 ni autoaprobarW4.
+1.25cerrado enPR177, controles remotos propios pendientes; no repetir verdes ni empujar encima de checks. Revisar nuevas entregas reales antes de cambios.
+2.26revisado con negativo de duplicidad pendienteW5. Publicar evaluación coste0 con uso comercial/límites/Next.js/privacidad; sólo preparar configuración si cumple, nunca migrar automáticamente.
 3. CORE162 tras ventana real y nuevo deploy; telecom en otra ventana. Voz real sólo con navegador/micrófono consentidos; mientras tanto NOT_VERIFIED. Paridad inmobiliaria sólo lectura y funciones equivalentes, sin otra auditoría general.
 
 Guion privado de5–10min, **sólo cuando ese deploy tenga aceptación propia**: acceso/versión→dashboard/filtros→cliente360→texto300+IVA→revisión→draft→recarga mismoID/importes→catálogo/condiciones→tres altas/recarga→permisos. Omitir voz/emisión/cobro/PDF/Storage no aceptados. Hoy sólo se atribuyen al alojado los resultados API/page-read de W5; todavía no se acredita el recorrido visual independiente en esa URL.

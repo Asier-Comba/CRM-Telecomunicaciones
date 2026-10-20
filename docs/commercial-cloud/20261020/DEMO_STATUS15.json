@@ -305,9 +305,10 @@
     "release": "NOT_ACCEPTED"
   },
   "next": [
-    "CONCRETE_BILLING_ASYNC_EDGE",
-    "INDEPENDENT_QA_REVIEW171_SCOPE",
-    "CORE162_AFTER_PRIVATE_WINDOW"
+    "W5_FORWARD_HELPER_NEGATIVE",
+    "FREE_HOSTING_COMMERCIAL_PRIVATE_RESEARCH_NO_MIGRATION",
+    "PR177_OWN_CI_AND_REVIEW",
+    "CORE162_WHEN_LEGITIMATE_WINDOW"
   ],
   "portfolio12_real_local": {
     "contract": "oier.portfolio12.real-local-qualified.v1",
@@ -517,8 +518,8 @@
     "service_pricing": "DO_NOT_INFER_SERVICE_VERSION_INHERITANCE_FROM_CONTRACT"
   },
   "current_priority": {
-    "unit": "OIER_REVIEW8EE24_CLOSED",
-    "status": "CONTINUE_CONCRETE_PRODUCT_EDGE",
+    "unit": "OIER_PLATFORM_REVIEW26",
+    "status": "REVIEWED_GAP_TO_W5_CONTINUE_FREE_HOSTING",
     "observation": {
       "source": "1cc02065",
       "parent": "4bfddd3aa3b7936fe4a61522f8fa11c65dfd9ccd",
@@ -969,7 +970,8 @@
       "Asier"
     ],
     "priority": "P0_MAX",
-    "instruction": "OWNER_AUTHORIZES_PRIVATE_ACCESS_COST_PROPOSAL_ONLY"
+    "instruction": "OWNER_AUTHORIZES_PRIVATE_ACCESS_COST_PROPOSAL_ONLY",
+    "decision": "OWNER_REJECTED_PRO_FINAL_ZERO_BUDGET"
   },
   "independent_review175_18": {
     "lint_types_build": "PASS_OWN_DEFAULT44",
@@ -1255,6 +1257,36 @@
   },
   "authoritative_current_sections": [
     "current_candidate",
-    "review24"
-  ]
+    "review24",
+    "speech25",
+    "platform26",
+    "owner_zero_budget"
+  ],
+  "speech25": {
+    "pr": 177,
+    "source": "80d3a4f136a436e289f4bf1a4de4c8fa4c4ef653",
+    "tests": "964795d5a1eb50844ad21db19be95f2d48aa7a9a",
+    "fix": "cec4434223aae42d3758742d35d0af3a7df5c8e0",
+    "browser": 42,
+    "own_lint_types_build": "PASS",
+    "integration": "NOT_ACK_NOT_MERGED",
+    "microphone": "NOT_RUN",
+    "cloud": "NOT_RUN"
+  },
+  "platform26": {
+    "source": "db4544893c62339e281c980b1a97e8879ad8820a",
+    "finding": "FORWARD_HELPER_NEW_VERSION_COLLISION_ACCEPTED",
+    "scope": "PURE_FUNCTION_NOT_FULL_PIPELINE_BYPASS",
+    "owner": "W5",
+    "approval": "NOT_GIVEN"
+  },
+  "owner_zero_budget": {
+    "amount_eur": 0,
+    "decision": 6302343684,
+    "netlify": "KEEP_FREE_EXISTING_DEPLOY",
+    "paid_plan": "REJECTED",
+    "new_cards": false,
+    "new_spend": false,
+    "migration": "NOT_AUTHORIZED"
+  }
 }
