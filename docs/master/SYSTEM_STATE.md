@@ -2,6 +2,11 @@
 
 ## Nocturnal continuation — 2026-10-21, units32–34
 
+37 now selects Oier31 explicit-refresh fixe2966be4 after36; own3FAIL→22PASS,
+targetedlint/typesPASS. [Refresh evidence](../integration/UNIT_37_BILLING_REFRESH_20261021.md).
+30/31 decisions delivered to Oier; final successor source/tree and its own CI
+are recorded in issue67. No blanket acceptance of earlier or hosted results.
+
 36 selects Oier178 exact two-file delta60d7634f with attributed history:
 [invoice series](../integration/UNIT_36_INVOICE_SERIES_20261021.md), own3FAIL→19PASS
 controlled UI. Current source keeps35's settled stop cleanup; its own global/CI
