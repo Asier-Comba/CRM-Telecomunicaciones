@@ -1,0 +1,1619 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "-c",
+      "tools/oier_commercial_qa/inbox.config.ts"
+    ],
+    "configFile": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox.config.ts",
+    "rootDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-commercial-20261020/tools/oier_commercial_qa",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-commercial-20261020/inbox-attempt01/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "controlled-http-390",
+        "name": "controlled-http-390",
+        "testDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-commercial-20261020/tools/oier_commercial_qa",
+        "testIgnore": [],
+        "testMatch": [
+          "inbox-intent.spec.ts"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-commercial-20261020/inbox-attempt01/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "controlled-http-768",
+        "name": "controlled-http-768",
+        "testDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-commercial-20261020/tools/oier_commercial_qa",
+        "testIgnore": [],
+        "testMatch": [
+          "inbox-intent.spec.ts"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-commercial-20261020/inbox-attempt01/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "controlled-http-1440",
+        "name": "controlled-http-1440",
+        "testDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-commercial-20261020/tools/oier_commercial_qa",
+        "testIgnore": [],
+        "testMatch": [
+          "inbox-intent.spec.ts"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "line",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\inbox-attempt01\\results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.61.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "inbox-intent.spec.ts",
+      "file": "inbox-intent.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "inbox note preserves reviewed intent after transport",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1034,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:51:41.265Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "9e03347e3db3f5221fcf-2ad31e391afaeb727cf8",
+          "file": "inbox-intent.spec.ts",
+          "line": 7,
+          "column": 140
+        },
+        {
+          "title": "inbox note preserves reviewed intent after malformed",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 4726,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('textbox', { name: 'Nueva nota interna', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Nueva nota interna', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <textarea maxlength=\"4000\" aria-label=\"Nueva nota interna\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-2 min-h-28 w-full resize-y\">Nota interna sintética revisada</textarea>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('textbox', { name: 'Nueva nota interna', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Nueva nota interna', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <textarea maxlength=\"4000\" aria-label=\"Nueva nota interna\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-2 min-h-28 w-full resize-y\">Nota interna sintética revisada</textarea>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts:38:24",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts",
+                      "column": 24,
+                      "line": 38
+                    },
+                    "snippet": "  36 |   await expect.poll(()=>commands.length).toBe(1)\n  37 |   if(['transport','malformed','wrong_receipt'].includes(mode)){\n> 38 |    await expect(field).toBeDisabled();await expect(field).toHaveValue(body)\n     |                        ^\n  39 |    const retry=scope.getByRole('button',{name:'Comprobar la misma acción',exact:true})\n  40 |    await expect(retry).toBeEnabled()\n  41 |    await expect(page.getByRole('button',{name:'Nueva conversación',exact:true,includeHidden:true})).toBeDisabled()"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts",
+                        "column": 24,
+                        "line": 38
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('textbox', { name: 'Nueva nota interna', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Nueva nota interna', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <textarea maxlength=\"4000\" aria-label=\"Nueva nota interna\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-2 min-h-28 w-full resize-y\">Nota interna sintética revisada</textarea>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n\n  36 |   await expect.poll(()=>commands.length).toBe(1)\n  37 |   if(['transport','malformed','wrong_receipt'].includes(mode)){\n> 38 |    await expect(field).toBeDisabled();await expect(field).toHaveValue(body)\n     |                        ^\n  39 |    const retry=scope.getByRole('button',{name:'Comprobar la misma acción',exact:true})\n  40 |    await expect(retry).toBeEnabled()\n  41 |    await expect(page.getByRole('button',{name:'Nueva conversación',exact:true,includeHidden:true})).toBeDisabled()\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts:38:24"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:51:46.821Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\inbox-attempt01\\artifacts\\inbox-intent-inbox-note-pr-d9288-ewed-intent-after-malformed-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\inbox-attempt01\\artifacts\\inbox-intent-inbox-note-pr-d9288-ewed-intent-after-malformed-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\inbox-attempt01\\artifacts\\inbox-intent-inbox-note-pr-d9288-ewed-intent-after-malformed-controlled-http-390\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts",
+                    "column": 24,
+                    "line": 38
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "9e03347e3db3f5221fcf-cbf122c1b247984cfb96",
+          "file": "inbox-intent.spec.ts",
+          "line": 7,
+          "column": 140
+        },
+        {
+          "title": "inbox note preserves reviewed intent after wrong_receipt",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 4819,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('textbox', { name: 'Nueva nota interna', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Nueva nota interna', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <textarea maxlength=\"4000\" aria-label=\"Nueva nota interna\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-2 min-h-28 w-full resize-y\">Nota interna sintética revisada</textarea>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('textbox', { name: 'Nueva nota interna', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Nueva nota interna', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <textarea maxlength=\"4000\" aria-label=\"Nueva nota interna\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-2 min-h-28 w-full resize-y\">Nota interna sintética revisada</textarea>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts:38:24",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts",
+                      "column": 24,
+                      "line": 38
+                    },
+                    "snippet": "  36 |   await expect.poll(()=>commands.length).toBe(1)\n  37 |   if(['transport','malformed','wrong_receipt'].includes(mode)){\n> 38 |    await expect(field).toBeDisabled();await expect(field).toHaveValue(body)\n     |                        ^\n  39 |    const retry=scope.getByRole('button',{name:'Comprobar la misma acción',exact:true})\n  40 |    await expect(retry).toBeEnabled()\n  41 |    await expect(page.getByRole('button',{name:'Nueva conversación',exact:true,includeHidden:true})).toBeDisabled()"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts",
+                        "column": 24,
+                        "line": 38
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('textbox', { name: 'Nueva nota interna', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Nueva nota interna', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <textarea maxlength=\"4000\" aria-label=\"Nueva nota interna\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-2 min-h-28 w-full resize-y\">Nota interna sintética revisada</textarea>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n\n  36 |   await expect.poll(()=>commands.length).toBe(1)\n  37 |   if(['transport','malformed','wrong_receipt'].includes(mode)){\n> 38 |    await expect(field).toBeDisabled();await expect(field).toHaveValue(body)\n     |                        ^\n  39 |    const retry=scope.getByRole('button',{name:'Comprobar la misma acción',exact:true})\n  40 |    await expect(retry).toBeEnabled()\n  41 |    await expect(page.getByRole('button',{name:'Nueva conversación',exact:true,includeHidden:true})).toBeDisabled()\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts:38:24"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:51:52.844Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\inbox-attempt01\\artifacts\\inbox-intent-inbox-note-pr-55969--intent-after-wrong-receipt-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\inbox-attempt01\\artifacts\\inbox-intent-inbox-note-pr-55969--intent-after-wrong-receipt-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\inbox-attempt01\\artifacts\\inbox-intent-inbox-note-pr-55969--intent-after-wrong-receipt-controlled-http-390\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts",
+                    "column": 24,
+                    "line": 38
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "9e03347e3db3f5221fcf-83e8b111112ed94ea226",
+          "file": "inbox-intent.spec.ts",
+          "line": 7,
+          "column": 140
+        },
+        {
+          "title": "inbox note preserves reviewed intent after denied",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 925,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:52:03.403Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "9e03347e3db3f5221fcf-fc3110ea2f25e5af2a33",
+          "file": "inbox-intent.spec.ts",
+          "line": 7,
+          "column": 140
+        },
+        {
+          "title": "inbox note preserves reviewed intent after success",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 804,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:52:08.781Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "9e03347e3db3f5221fcf-6421a8ce4a2588a3067e",
+          "file": "inbox-intent.spec.ts",
+          "line": 7,
+          "column": 140
+        },
+        {
+          "title": "inbox create preserves reviewed intent after transport",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1166,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:52:09.623Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "9e03347e3db3f5221fcf-6063806e68b2a025f9f7",
+          "file": "inbox-intent.spec.ts",
+          "line": 7,
+          "column": 140
+        },
+        {
+          "title": "inbox create preserves reviewed intent after malformed",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5001,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Nueva conversación interna', exact: true }).getByRole('textbox', { name: 'Primera nota interna', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Nueva conversación interna', exact: true }).getByRole('textbox', { name: 'Primera nota interna', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <textarea maxlength=\"4000\" aria-label=\"Primera nota interna\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-1 min-h-32 w-full\">Nota interna sintética revisada</textarea>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Nueva conversación interna', exact: true }).getByRole('textbox', { name: 'Primera nota interna', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Nueva conversación interna', exact: true }).getByRole('textbox', { name: 'Primera nota interna', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <textarea maxlength=\"4000\" aria-label=\"Primera nota interna\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-1 min-h-32 w-full\">Nota interna sintética revisada</textarea>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts:38:24",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts",
+                      "column": 24,
+                      "line": 38
+                    },
+                    "snippet": "  36 |   await expect.poll(()=>commands.length).toBe(1)\n  37 |   if(['transport','malformed','wrong_receipt'].includes(mode)){\n> 38 |    await expect(field).toBeDisabled();await expect(field).toHaveValue(body)\n     |                        ^\n  39 |    const retry=scope.getByRole('button',{name:'Comprobar la misma acción',exact:true})\n  40 |    await expect(retry).toBeEnabled()\n  41 |    await expect(page.getByRole('button',{name:'Nueva conversación',exact:true,includeHidden:true})).toBeDisabled()"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts",
+                        "column": 24,
+                        "line": 38
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Nueva conversación interna', exact: true }).getByRole('textbox', { name: 'Primera nota interna', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Nueva conversación interna', exact: true }).getByRole('textbox', { name: 'Primera nota interna', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <textarea maxlength=\"4000\" aria-label=\"Primera nota interna\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-1 min-h-32 w-full\">Nota interna sintética revisada</textarea>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n\n  36 |   await expect.poll(()=>commands.length).toBe(1)\n  37 |   if(['transport','malformed','wrong_receipt'].includes(mode)){\n> 38 |    await expect(field).toBeDisabled();await expect(field).toHaveValue(body)\n     |                        ^\n  39 |    const retry=scope.getByRole('button',{name:'Comprobar la misma acción',exact:true})\n  40 |    await expect(retry).toBeEnabled()\n  41 |    await expect(page.getByRole('button',{name:'Nueva conversación',exact:true,includeHidden:true})).toBeDisabled()\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts:38:24"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:52:10.832Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\inbox-attempt01\\artifacts\\inbox-intent-inbox-create--18d71-ewed-intent-after-malformed-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\inbox-attempt01\\artifacts\\inbox-intent-inbox-create--18d71-ewed-intent-after-malformed-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\inbox-attempt01\\artifacts\\inbox-intent-inbox-create--18d71-ewed-intent-after-malformed-controlled-http-390\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts",
+                    "column": 24,
+                    "line": 38
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "9e03347e3db3f5221fcf-245f9e64f507c4b5fbc0",
+          "file": "inbox-intent.spec.ts",
+          "line": 7,
+          "column": 140
+        },
+        {
+          "title": "inbox create preserves reviewed intent after wrong_receipt",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5650,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Nueva conversación interna', exact: true }).getByRole('textbox', { name: 'Primera nota interna', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Nueva conversación interna', exact: true }).getByRole('textbox', { name: 'Primera nota interna', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <textarea maxlength=\"4000\" aria-label=\"Primera nota interna\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-1 min-h-32 w-full\">Nota interna sintética revisada</textarea>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Nueva conversación interna', exact: true }).getByRole('textbox', { name: 'Primera nota interna', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Nueva conversación interna', exact: true }).getByRole('textbox', { name: 'Primera nota interna', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <textarea maxlength=\"4000\" aria-label=\"Primera nota interna\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-1 min-h-32 w-full\">Nota interna sintética revisada</textarea>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts:38:24",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts",
+                      "column": 24,
+                      "line": 38
+                    },
+                    "snippet": "  36 |   await expect.poll(()=>commands.length).toBe(1)\n  37 |   if(['transport','malformed','wrong_receipt'].includes(mode)){\n> 38 |    await expect(field).toBeDisabled();await expect(field).toHaveValue(body)\n     |                        ^\n  39 |    const retry=scope.getByRole('button',{name:'Comprobar la misma acción',exact:true})\n  40 |    await expect(retry).toBeEnabled()\n  41 |    await expect(page.getByRole('button',{name:'Nueva conversación',exact:true,includeHidden:true})).toBeDisabled()"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts",
+                        "column": 24,
+                        "line": 38
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Nueva conversación interna', exact: true }).getByRole('textbox', { name: 'Primera nota interna', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Nueva conversación interna', exact: true }).getByRole('textbox', { name: 'Primera nota interna', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <textarea maxlength=\"4000\" aria-label=\"Primera nota interna\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-1 min-h-32 w-full\">Nota interna sintética revisada</textarea>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n\n  36 |   await expect.poll(()=>commands.length).toBe(1)\n  37 |   if(['transport','malformed','wrong_receipt'].includes(mode)){\n> 38 |    await expect(field).toBeDisabled();await expect(field).toHaveValue(body)\n     |                        ^\n  39 |    const retry=scope.getByRole('button',{name:'Comprobar la misma acción',exact:true})\n  40 |    await expect(retry).toBeEnabled()\n  41 |    await expect(page.getByRole('button',{name:'Nueva conversación',exact:true,includeHidden:true})).toBeDisabled()\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts:38:24"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:52:17.303Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\inbox-attempt01\\artifacts\\inbox-intent-inbox-create--6c5f2--intent-after-wrong-receipt-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\inbox-attempt01\\artifacts\\inbox-intent-inbox-create--6c5f2--intent-after-wrong-receipt-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\inbox-attempt01\\artifacts\\inbox-intent-inbox-create--6c5f2--intent-after-wrong-receipt-controlled-http-390\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts",
+                    "column": 24,
+                    "line": 38
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "9e03347e3db3f5221fcf-add46dc55d0aae17a60b",
+          "file": "inbox-intent.spec.ts",
+          "line": 7,
+          "column": 140
+        },
+        {
+          "title": "inbox create preserves reviewed intent after denied",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1455,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:52:28.736Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "9e03347e3db3f5221fcf-ebddd195d10dcf37b2cc",
+          "file": "inbox-intent.spec.ts",
+          "line": 7,
+          "column": 140
+        },
+        {
+          "title": "inbox create preserves reviewed intent after success",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 885,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:52:34.586Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "9e03347e3db3f5221fcf-3bcb47f2f7bd98b28251",
+          "file": "inbox-intent.spec.ts",
+          "line": 7,
+          "column": 140
+        },
+        {
+          "title": "inbox note preserves reviewed intent after transport",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1026,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:52:36.650Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "9e03347e3db3f5221fcf-063a4e327120c9e0136c",
+          "file": "inbox-intent.spec.ts",
+          "line": 7,
+          "column": 140
+        },
+        {
+          "title": "inbox note preserves reviewed intent after malformed",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 4754,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('textbox', { name: 'Nueva nota interna', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Nueva nota interna', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <textarea maxlength=\"4000\" aria-label=\"Nueva nota interna\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-2 min-h-28 w-full resize-y\">Nota interna sintética revisada</textarea>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('textbox', { name: 'Nueva nota interna', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Nueva nota interna', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <textarea maxlength=\"4000\" aria-label=\"Nueva nota interna\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-2 min-h-28 w-full resize-y\">Nota interna sintética revisada</textarea>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts:38:24",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts",
+                      "column": 24,
+                      "line": 38
+                    },
+                    "snippet": "  36 |   await expect.poll(()=>commands.length).toBe(1)\n  37 |   if(['transport','malformed','wrong_receipt'].includes(mode)){\n> 38 |    await expect(field).toBeDisabled();await expect(field).toHaveValue(body)\n     |                        ^\n  39 |    const retry=scope.getByRole('button',{name:'Comprobar la misma acción',exact:true})\n  40 |    await expect(retry).toBeEnabled()\n  41 |    await expect(page.getByRole('button',{name:'Nueva conversación',exact:true,includeHidden:true})).toBeDisabled()"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts",
+                        "column": 24,
+                        "line": 38
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('textbox', { name: 'Nueva nota interna', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Nueva nota interna', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <textarea maxlength=\"4000\" aria-label=\"Nueva nota interna\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-2 min-h-28 w-full resize-y\">Nota interna sintética revisada</textarea>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n\n  36 |   await expect.poll(()=>commands.length).toBe(1)\n  37 |   if(['transport','malformed','wrong_receipt'].includes(mode)){\n> 38 |    await expect(field).toBeDisabled();await expect(field).toHaveValue(body)\n     |                        ^\n  39 |    const retry=scope.getByRole('button',{name:'Comprobar la misma acción',exact:true})\n  40 |    await expect(retry).toBeEnabled()\n  41 |    await expect(page.getByRole('button',{name:'Nueva conversación',exact:true,includeHidden:true})).toBeDisabled()\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts:38:24"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:52:42.267Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\inbox-attempt01\\artifacts\\inbox-intent-inbox-note-pr-d9288-ewed-intent-after-malformed-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\inbox-attempt01\\artifacts\\inbox-intent-inbox-note-pr-d9288-ewed-intent-after-malformed-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\inbox-attempt01\\artifacts\\inbox-intent-inbox-note-pr-d9288-ewed-intent-after-malformed-controlled-http-768\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts",
+                    "column": 24,
+                    "line": 38
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "9e03347e3db3f5221fcf-3790de4bbf9036bf11ec",
+          "file": "inbox-intent.spec.ts",
+          "line": 7,
+          "column": 140
+        },
+        {
+          "title": "inbox note preserves reviewed intent after wrong_receipt",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 4858,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('textbox', { name: 'Nueva nota interna', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Nueva nota interna', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <textarea maxlength=\"4000\" aria-label=\"Nueva nota interna\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-2 min-h-28 w-full resize-y\">Nota interna sintética revisada</textarea>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('textbox', { name: 'Nueva nota interna', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Nueva nota interna', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <textarea maxlength=\"4000\" aria-label=\"Nueva nota interna\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-2 min-h-28 w-full resize-y\">Nota interna sintética revisada</textarea>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts:38:24",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts",
+                      "column": 24,
+                      "line": 38
+                    },
+                    "snippet": "  36 |   await expect.poll(()=>commands.length).toBe(1)\n  37 |   if(['transport','malformed','wrong_receipt'].includes(mode)){\n> 38 |    await expect(field).toBeDisabled();await expect(field).toHaveValue(body)\n     |                        ^\n  39 |    const retry=scope.getByRole('button',{name:'Comprobar la misma acción',exact:true})\n  40 |    await expect(retry).toBeEnabled()\n  41 |    await expect(page.getByRole('button',{name:'Nueva conversación',exact:true,includeHidden:true})).toBeDisabled()"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts",
+                        "column": 24,
+                        "line": 38
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('textbox', { name: 'Nueva nota interna', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Nueva nota interna', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <textarea maxlength=\"4000\" aria-label=\"Nueva nota interna\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-2 min-h-28 w-full resize-y\">Nota interna sintética revisada</textarea>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n\n  36 |   await expect.poll(()=>commands.length).toBe(1)\n  37 |   if(['transport','malformed','wrong_receipt'].includes(mode)){\n> 38 |    await expect(field).toBeDisabled();await expect(field).toHaveValue(body)\n     |                        ^\n  39 |    const retry=scope.getByRole('button',{name:'Comprobar la misma acción',exact:true})\n  40 |    await expect(retry).toBeEnabled()\n  41 |    await expect(page.getByRole('button',{name:'Nueva conversación',exact:true,includeHidden:true})).toBeDisabled()\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts:38:24"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:52:48.374Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\inbox-attempt01\\artifacts\\inbox-intent-inbox-note-pr-55969--intent-after-wrong-receipt-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\inbox-attempt01\\artifacts\\inbox-intent-inbox-note-pr-55969--intent-after-wrong-receipt-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\inbox-attempt01\\artifacts\\inbox-intent-inbox-note-pr-55969--intent-after-wrong-receipt-controlled-http-768\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts",
+                    "column": 24,
+                    "line": 38
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "9e03347e3db3f5221fcf-c8e255520c4d5d105296",
+          "file": "inbox-intent.spec.ts",
+          "line": 7,
+          "column": 140
+        },
+        {
+          "title": "inbox note preserves reviewed intent after denied",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 7,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1031,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:52:59.107Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "9e03347e3db3f5221fcf-1bdfd9095542e1a38cbf",
+          "file": "inbox-intent.spec.ts",
+          "line": 7,
+          "column": 140
+        },
+        {
+          "title": "inbox note preserves reviewed intent after success",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 7,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 751,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:53:04.592Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "9e03347e3db3f5221fcf-dea32ace4ec2a247881d",
+          "file": "inbox-intent.spec.ts",
+          "line": 7,
+          "column": 140
+        },
+        {
+          "title": "inbox create preserves reviewed intent after transport",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 7,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1208,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:53:05.374Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "9e03347e3db3f5221fcf-31ae7188d985162c3608",
+          "file": "inbox-intent.spec.ts",
+          "line": 7,
+          "column": 140
+        },
+        {
+          "title": "inbox create preserves reviewed intent after malformed",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 7,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 4868,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Nueva conversación interna', exact: true }).getByRole('textbox', { name: 'Primera nota interna', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Nueva conversación interna', exact: true }).getByRole('textbox', { name: 'Primera nota interna', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <textarea maxlength=\"4000\" aria-label=\"Primera nota interna\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-1 min-h-32 w-full\">Nota interna sintética revisada</textarea>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Nueva conversación interna', exact: true }).getByRole('textbox', { name: 'Primera nota interna', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Nueva conversación interna', exact: true }).getByRole('textbox', { name: 'Primera nota interna', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <textarea maxlength=\"4000\" aria-label=\"Primera nota interna\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-1 min-h-32 w-full\">Nota interna sintética revisada</textarea>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts:38:24",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts",
+                      "column": 24,
+                      "line": 38
+                    },
+                    "snippet": "  36 |   await expect.poll(()=>commands.length).toBe(1)\n  37 |   if(['transport','malformed','wrong_receipt'].includes(mode)){\n> 38 |    await expect(field).toBeDisabled();await expect(field).toHaveValue(body)\n     |                        ^\n  39 |    const retry=scope.getByRole('button',{name:'Comprobar la misma acción',exact:true})\n  40 |    await expect(retry).toBeEnabled()\n  41 |    await expect(page.getByRole('button',{name:'Nueva conversación',exact:true,includeHidden:true})).toBeDisabled()"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts",
+                        "column": 24,
+                        "line": 38
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Nueva conversación interna', exact: true }).getByRole('textbox', { name: 'Primera nota interna', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Nueva conversación interna', exact: true }).getByRole('textbox', { name: 'Primera nota interna', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <textarea maxlength=\"4000\" aria-label=\"Primera nota interna\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-1 min-h-32 w-full\">Nota interna sintética revisada</textarea>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n\n  36 |   await expect.poll(()=>commands.length).toBe(1)\n  37 |   if(['transport','malformed','wrong_receipt'].includes(mode)){\n> 38 |    await expect(field).toBeDisabled();await expect(field).toHaveValue(body)\n     |                        ^\n  39 |    const retry=scope.getByRole('button',{name:'Comprobar la misma acción',exact:true})\n  40 |    await expect(retry).toBeEnabled()\n  41 |    await expect(page.getByRole('button',{name:'Nueva conversación',exact:true,includeHidden:true})).toBeDisabled()\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts:38:24"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:53:06.615Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\inbox-attempt01\\artifacts\\inbox-intent-inbox-create--18d71-ewed-intent-after-malformed-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\inbox-attempt01\\artifacts\\inbox-intent-inbox-create--18d71-ewed-intent-after-malformed-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\inbox-attempt01\\artifacts\\inbox-intent-inbox-create--18d71-ewed-intent-after-malformed-controlled-http-768\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts",
+                    "column": 24,
+                    "line": 38
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "9e03347e3db3f5221fcf-2b9ab74aad2fe37df640",
+          "file": "inbox-intent.spec.ts",
+          "line": 7,
+          "column": 140
+        },
+        {
+          "title": "inbox create preserves reviewed intent after wrong_receipt",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 8,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5299,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Nueva conversación interna', exact: true }).getByRole('textbox', { name: 'Primera nota interna', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Nueva conversación interna', exact: true }).getByRole('textbox', { name: 'Primera nota interna', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <textarea maxlength=\"4000\" aria-label=\"Primera nota interna\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-1 min-h-32 w-full\">Nota interna sintética revisada</textarea>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Nueva conversación interna', exact: true }).getByRole('textbox', { name: 'Primera nota interna', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Nueva conversación interna', exact: true }).getByRole('textbox', { name: 'Primera nota interna', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <textarea maxlength=\"4000\" aria-label=\"Primera nota interna\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-1 min-h-32 w-full\">Nota interna sintética revisada</textarea>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts:38:24",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts",
+                      "column": 24,
+                      "line": 38
+                    },
+                    "snippet": "  36 |   await expect.poll(()=>commands.length).toBe(1)\n  37 |   if(['transport','malformed','wrong_receipt'].includes(mode)){\n> 38 |    await expect(field).toBeDisabled();await expect(field).toHaveValue(body)\n     |                        ^\n  39 |    const retry=scope.getByRole('button',{name:'Comprobar la misma acción',exact:true})\n  40 |    await expect(retry).toBeEnabled()\n  41 |    await expect(page.getByRole('button',{name:'Nueva conversación',exact:true,includeHidden:true})).toBeDisabled()"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts",
+                        "column": 24,
+                        "line": 38
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Nueva conversación interna', exact: true }).getByRole('textbox', { name: 'Primera nota interna', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Nueva conversación interna', exact: true }).getByRole('textbox', { name: 'Primera nota interna', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <textarea maxlength=\"4000\" aria-label=\"Primera nota interna\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-1 min-h-32 w-full\">Nota interna sintética revisada</textarea>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n\n  36 |   await expect.poll(()=>commands.length).toBe(1)\n  37 |   if(['transport','malformed','wrong_receipt'].includes(mode)){\n> 38 |    await expect(field).toBeDisabled();await expect(field).toHaveValue(body)\n     |                        ^\n  39 |    const retry=scope.getByRole('button',{name:'Comprobar la misma acción',exact:true})\n  40 |    await expect(retry).toBeEnabled()\n  41 |    await expect(page.getByRole('button',{name:'Nueva conversación',exact:true,includeHidden:true})).toBeDisabled()\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts:38:24"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:53:12.817Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\inbox-attempt01\\artifacts\\inbox-intent-inbox-create--6c5f2--intent-after-wrong-receipt-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\inbox-attempt01\\artifacts\\inbox-intent-inbox-create--6c5f2--intent-after-wrong-receipt-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\inbox-attempt01\\artifacts\\inbox-intent-inbox-create--6c5f2--intent-after-wrong-receipt-controlled-http-768\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts",
+                    "column": 24,
+                    "line": 38
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "9e03347e3db3f5221fcf-437a040400ca6ad4e2b8",
+          "file": "inbox-intent.spec.ts",
+          "line": 7,
+          "column": 140
+        },
+        {
+          "title": "inbox create preserves reviewed intent after denied",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1039,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:53:24.109Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "9e03347e3db3f5221fcf-cf285afab0c1af12f681",
+          "file": "inbox-intent.spec.ts",
+          "line": 7,
+          "column": 140
+        },
+        {
+          "title": "inbox create preserves reviewed intent after success",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 976,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:53:29.585Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "9e03347e3db3f5221fcf-fc4a1e2cb12bba18b2e8",
+          "file": "inbox-intent.spec.ts",
+          "line": 7,
+          "column": 140
+        },
+        {
+          "title": "inbox note preserves reviewed intent after transport",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 10,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1027,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:53:31.780Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "9e03347e3db3f5221fcf-baade007edfa39809759",
+          "file": "inbox-intent.spec.ts",
+          "line": 7,
+          "column": 140
+        },
+        {
+          "title": "inbox note preserves reviewed intent after malformed",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 10,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 4768,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('textbox', { name: 'Nueva nota interna', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Nueva nota interna', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <textarea maxlength=\"4000\" aria-label=\"Nueva nota interna\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-2 min-h-28 w-full resize-y\">Nota interna sintética revisada</textarea>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('textbox', { name: 'Nueva nota interna', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Nueva nota interna', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <textarea maxlength=\"4000\" aria-label=\"Nueva nota interna\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-2 min-h-28 w-full resize-y\">Nota interna sintética revisada</textarea>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts:38:24",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts",
+                      "column": 24,
+                      "line": 38
+                    },
+                    "snippet": "  36 |   await expect.poll(()=>commands.length).toBe(1)\n  37 |   if(['transport','malformed','wrong_receipt'].includes(mode)){\n> 38 |    await expect(field).toBeDisabled();await expect(field).toHaveValue(body)\n     |                        ^\n  39 |    const retry=scope.getByRole('button',{name:'Comprobar la misma acción',exact:true})\n  40 |    await expect(retry).toBeEnabled()\n  41 |    await expect(page.getByRole('button',{name:'Nueva conversación',exact:true,includeHidden:true})).toBeDisabled()"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts",
+                        "column": 24,
+                        "line": 38
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('textbox', { name: 'Nueva nota interna', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Nueva nota interna', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <textarea maxlength=\"4000\" aria-label=\"Nueva nota interna\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-2 min-h-28 w-full resize-y\">Nota interna sintética revisada</textarea>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n\n  36 |   await expect.poll(()=>commands.length).toBe(1)\n  37 |   if(['transport','malformed','wrong_receipt'].includes(mode)){\n> 38 |    await expect(field).toBeDisabled();await expect(field).toHaveValue(body)\n     |                        ^\n  39 |    const retry=scope.getByRole('button',{name:'Comprobar la misma acción',exact:true})\n  40 |    await expect(retry).toBeEnabled()\n  41 |    await expect(page.getByRole('button',{name:'Nueva conversación',exact:true,includeHidden:true})).toBeDisabled()\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts:38:24"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:53:37.369Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\inbox-attempt01\\artifacts\\inbox-intent-inbox-note-pr-d9288-ewed-intent-after-malformed-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\inbox-attempt01\\artifacts\\inbox-intent-inbox-note-pr-d9288-ewed-intent-after-malformed-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\inbox-attempt01\\artifacts\\inbox-intent-inbox-note-pr-d9288-ewed-intent-after-malformed-controlled-http-1440\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts",
+                    "column": 24,
+                    "line": 38
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "9e03347e3db3f5221fcf-b3048f95f5d14c92d3dd",
+          "file": "inbox-intent.spec.ts",
+          "line": 7,
+          "column": 140
+        },
+        {
+          "title": "inbox note preserves reviewed intent after wrong_receipt",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 11,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 4848,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('textbox', { name: 'Nueva nota interna', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Nueva nota interna', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <textarea maxlength=\"4000\" aria-label=\"Nueva nota interna\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-2 min-h-28 w-full resize-y\">Nota interna sintética revisada</textarea>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('textbox', { name: 'Nueva nota interna', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Nueva nota interna', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <textarea maxlength=\"4000\" aria-label=\"Nueva nota interna\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-2 min-h-28 w-full resize-y\">Nota interna sintética revisada</textarea>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts:38:24",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts",
+                      "column": 24,
+                      "line": 38
+                    },
+                    "snippet": "  36 |   await expect.poll(()=>commands.length).toBe(1)\n  37 |   if(['transport','malformed','wrong_receipt'].includes(mode)){\n> 38 |    await expect(field).toBeDisabled();await expect(field).toHaveValue(body)\n     |                        ^\n  39 |    const retry=scope.getByRole('button',{name:'Comprobar la misma acción',exact:true})\n  40 |    await expect(retry).toBeEnabled()\n  41 |    await expect(page.getByRole('button',{name:'Nueva conversación',exact:true,includeHidden:true})).toBeDisabled()"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts",
+                        "column": 24,
+                        "line": 38
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('textbox', { name: 'Nueva nota interna', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Nueva nota interna', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <textarea maxlength=\"4000\" aria-label=\"Nueva nota interna\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-2 min-h-28 w-full resize-y\">Nota interna sintética revisada</textarea>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n\n  36 |   await expect.poll(()=>commands.length).toBe(1)\n  37 |   if(['transport','malformed','wrong_receipt'].includes(mode)){\n> 38 |    await expect(field).toBeDisabled();await expect(field).toHaveValue(body)\n     |                        ^\n  39 |    const retry=scope.getByRole('button',{name:'Comprobar la misma acción',exact:true})\n  40 |    await expect(retry).toBeEnabled()\n  41 |    await expect(page.getByRole('button',{name:'Nueva conversación',exact:true,includeHidden:true})).toBeDisabled()\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts:38:24"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:53:43.357Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\inbox-attempt01\\artifacts\\inbox-intent-inbox-note-pr-55969--intent-after-wrong-receipt-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\inbox-attempt01\\artifacts\\inbox-intent-inbox-note-pr-55969--intent-after-wrong-receipt-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\inbox-attempt01\\artifacts\\inbox-intent-inbox-note-pr-55969--intent-after-wrong-receipt-controlled-http-1440\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts",
+                    "column": 24,
+                    "line": 38
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "9e03347e3db3f5221fcf-f66aec403139e27d9a0a",
+          "file": "inbox-intent.spec.ts",
+          "line": 7,
+          "column": 140
+        },
+        {
+          "title": "inbox note preserves reviewed intent after denied",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 12,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1063,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:53:53.676Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "9e03347e3db3f5221fcf-7eb8a9e72f126abdb076",
+          "file": "inbox-intent.spec.ts",
+          "line": 7,
+          "column": 140
+        },
+        {
+          "title": "inbox note preserves reviewed intent after success",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 12,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1025,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:53:59.409Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "9e03347e3db3f5221fcf-04887315e3a69530668b",
+          "file": "inbox-intent.spec.ts",
+          "line": 7,
+          "column": 140
+        },
+        {
+          "title": "inbox create preserves reviewed intent after transport",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 12,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1247,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:54:00.473Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "9e03347e3db3f5221fcf-1f538325ebb9650255d7",
+          "file": "inbox-intent.spec.ts",
+          "line": 7,
+          "column": 140
+        },
+        {
+          "title": "inbox create preserves reviewed intent after malformed",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 12,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5029,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Nueva conversación interna', exact: true }).getByRole('textbox', { name: 'Primera nota interna', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Nueva conversación interna', exact: true }).getByRole('textbox', { name: 'Primera nota interna', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <textarea maxlength=\"4000\" aria-label=\"Primera nota interna\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-1 min-h-32 w-full\">Nota interna sintética revisada</textarea>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Nueva conversación interna', exact: true }).getByRole('textbox', { name: 'Primera nota interna', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Nueva conversación interna', exact: true }).getByRole('textbox', { name: 'Primera nota interna', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <textarea maxlength=\"4000\" aria-label=\"Primera nota interna\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-1 min-h-32 w-full\">Nota interna sintética revisada</textarea>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts:38:24",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts",
+                      "column": 24,
+                      "line": 38
+                    },
+                    "snippet": "  36 |   await expect.poll(()=>commands.length).toBe(1)\n  37 |   if(['transport','malformed','wrong_receipt'].includes(mode)){\n> 38 |    await expect(field).toBeDisabled();await expect(field).toHaveValue(body)\n     |                        ^\n  39 |    const retry=scope.getByRole('button',{name:'Comprobar la misma acción',exact:true})\n  40 |    await expect(retry).toBeEnabled()\n  41 |    await expect(page.getByRole('button',{name:'Nueva conversación',exact:true,includeHidden:true})).toBeDisabled()"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts",
+                        "column": 24,
+                        "line": 38
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Nueva conversación interna', exact: true }).getByRole('textbox', { name: 'Primera nota interna', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Nueva conversación interna', exact: true }).getByRole('textbox', { name: 'Primera nota interna', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <textarea maxlength=\"4000\" aria-label=\"Primera nota interna\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-1 min-h-32 w-full\">Nota interna sintética revisada</textarea>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n\n  36 |   await expect.poll(()=>commands.length).toBe(1)\n  37 |   if(['transport','malformed','wrong_receipt'].includes(mode)){\n> 38 |    await expect(field).toBeDisabled();await expect(field).toHaveValue(body)\n     |                        ^\n  39 |    const retry=scope.getByRole('button',{name:'Comprobar la misma acción',exact:true})\n  40 |    await expect(retry).toBeEnabled()\n  41 |    await expect(page.getByRole('button',{name:'Nueva conversación',exact:true,includeHidden:true})).toBeDisabled()\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts:38:24"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:54:01.753Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\inbox-attempt01\\artifacts\\inbox-intent-inbox-create--18d71-ewed-intent-after-malformed-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\inbox-attempt01\\artifacts\\inbox-intent-inbox-create--18d71-ewed-intent-after-malformed-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\inbox-attempt01\\artifacts\\inbox-intent-inbox-create--18d71-ewed-intent-after-malformed-controlled-http-1440\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts",
+                    "column": 24,
+                    "line": 38
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "9e03347e3db3f5221fcf-5b6cca079e563a71f41a",
+          "file": "inbox-intent.spec.ts",
+          "line": 7,
+          "column": 140
+        },
+        {
+          "title": "inbox create preserves reviewed intent after wrong_receipt",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 13,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 4965,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Nueva conversación interna', exact: true }).getByRole('textbox', { name: 'Primera nota interna', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Nueva conversación interna', exact: true }).getByRole('textbox', { name: 'Primera nota interna', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <textarea maxlength=\"4000\" aria-label=\"Primera nota interna\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-1 min-h-32 w-full\">Nota interna sintética revisada</textarea>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Nueva conversación interna', exact: true }).getByRole('textbox', { name: 'Primera nota interna', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Nueva conversación interna', exact: true }).getByRole('textbox', { name: 'Primera nota interna', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <textarea maxlength=\"4000\" aria-label=\"Primera nota interna\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-1 min-h-32 w-full\">Nota interna sintética revisada</textarea>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts:38:24",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts",
+                      "column": 24,
+                      "line": 38
+                    },
+                    "snippet": "  36 |   await expect.poll(()=>commands.length).toBe(1)\n  37 |   if(['transport','malformed','wrong_receipt'].includes(mode)){\n> 38 |    await expect(field).toBeDisabled();await expect(field).toHaveValue(body)\n     |                        ^\n  39 |    const retry=scope.getByRole('button',{name:'Comprobar la misma acción',exact:true})\n  40 |    await expect(retry).toBeEnabled()\n  41 |    await expect(page.getByRole('button',{name:'Nueva conversación',exact:true,includeHidden:true})).toBeDisabled()"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts",
+                        "column": 24,
+                        "line": 38
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeDisabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('dialog', { name: 'Nueva conversación interna', exact: true }).getByRole('textbox', { name: 'Primera nota interna', exact: true })\nExpected: disabled\nReceived: enabled\nTimeout:  4000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeDisabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Nueva conversación interna', exact: true }).getByRole('textbox', { name: 'Primera nota interna', exact: true })\u001b[22m\n\u001b[2m    12 × locator resolved to <textarea maxlength=\"4000\" aria-label=\"Primera nota interna\" class=\"rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:opacity-50 mt-1 min-h-32 w-full\">Nota interna sintética revisada</textarea>\u001b[22m\n\u001b[2m       - unexpected value \"enabled\"\u001b[22m\n\n\n  36 |   await expect.poll(()=>commands.length).toBe(1)\n  37 |   if(['transport','malformed','wrong_receipt'].includes(mode)){\n> 38 |    await expect(field).toBeDisabled();await expect(field).toHaveValue(body)\n     |                        ^\n  39 |    const retry=scope.getByRole('button',{name:'Comprobar la misma acción',exact:true})\n  40 |    await expect(retry).toBeEnabled()\n  41 |    await expect(page.getByRole('button',{name:'Nueva conversación',exact:true,includeHidden:true})).toBeDisabled()\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts:38:24"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:54:07.966Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\inbox-attempt01\\artifacts\\inbox-intent-inbox-create--6c5f2--intent-after-wrong-receipt-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\inbox-attempt01\\artifacts\\inbox-intent-inbox-create--6c5f2--intent-after-wrong-receipt-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\inbox-attempt01\\artifacts\\inbox-intent-inbox-create--6c5f2--intent-after-wrong-receipt-controlled-http-1440\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\inbox-intent.spec.ts",
+                    "column": 24,
+                    "line": 38
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "9e03347e3db3f5221fcf-edbf4e2b175445b73b9f",
+          "file": "inbox-intent.spec.ts",
+          "line": 7,
+          "column": 140
+        },
+        {
+          "title": "inbox create preserves reviewed intent after denied",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 14,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1479,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:54:18.782Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "9e03347e3db3f5221fcf-a8cdcd469039cbf2db54",
+          "file": "inbox-intent.spec.ts",
+          "line": 7,
+          "column": 140
+        },
+        {
+          "title": "inbox create preserves reviewed intent after success",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 14,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1125,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T00:54:25.079Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "9e03347e3db3f5221fcf-23df0996564e054b00a3",
+          "file": "inbox-intent.spec.ts",
+          "line": 7,
+          "column": 140
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-20T00:51:40.661Z",
+    "duration": 166082.389,
+    "expected": 18,
+    "skipped": 0,
+    "unexpected": 12,
+    "flaky": 0
+  }
+}

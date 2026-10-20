@@ -6,23 +6,41 @@
     "case_fixture": "Own external-style command route mock confused telecom route/data envelope.13observed failure assertions before intended readback; local teardown stalled, own diagnostic interrupted, final reporter JSON absent. Explicit INTERRUPTED metadata and original bank/log/traces retained. No GitHub check cancelled.",
     "historic": "F736 and CASE_NOTE_CURSOR retained, no causal correction attributed.",
     "documents_fixture": "Original3FAIL27NOT_RUN and original harness kept separate from18causalFAIL. Baseline source files retained verbatim as .txt to avoid execution/typechecking.",
-    "remote137": "Supabase39345324892 FAIL at tested merge419693a5,112UI passed1layout:portfolio:390:dialog_visible TIMEOUT. Drawer visible in original failure screenshot; full causal explanation unknown. Not F736; assertions/timeouts unchanged,0manual reruns."
+    "remote137": "Supabase39345324892 FAIL at tested merge419693a5,112UI passed1layout:portfolio:390:dialog_visible TIMEOUT. Drawer visible in original failure screenshot; full causal explanation unknown. Not F736; assertions/timeouts unchanged,0manual reruns.",
+    "unit22_interruption": "Original attempt08 log/artifacts plus INTERRUPTED.json retained; no final counts invented. Clock gap01:00to05:55UTC; no continuous execution claimed. Same-source attempt09 complete141PASS. Interrupted checkpoint24c remains in Git history."
   },
   "HIGH": "FIVE_OPEN",
   "base": "888ecaae57e9021ca0cb25d4da0657c1f6ac9b40",
   "remote_checks": {
     "PR161": {
-      "prior137_request": 6280617375,
-      "current_df7": "NOT_RUN_NO_INHERITANCE",
-      "native_retry_requests": 0,
+      "all_terminal": "VERIFIED_BEFORE_THIS_PUBLICATION_REFRESH_BEFORE_PR_PUSH",
       "head": "f2d26b9178a9e866f8573aac8d2df7559150d569",
+      "W4": "FAIL_INDEPENDENT",
       "runs": [
         39349781959,
         39349781920,
         39349781829
       ],
-      "active": "REFRESH_BEFORE_ANY_PR_PUSH",
-      "prior137_safe": "evidence/unit21-remote137-safe.json"
+      "CI": "FAIL_5HIGH_AND_SECRET_SCAN",
+      "Native": {
+        "safe": "evidence/unit22-remote-f2-native-safe.json",
+        "cache_mechanism": "NOT_INFERRED",
+        "manual_retry": 0,
+        "result": "PASS",
+        "full23": "NOT_INFERRED",
+        "same_pin": true
+      },
+      "Supabase": {
+        "safe": "evidence/unit22-remote-f2-supabase-safe.json",
+        "actual_tested_merge": "33ef80afd2e9d0c6a404fa650db8dbf0254aa4f3",
+        "UI_passed": 113,
+        "result": "PASS",
+        "w1_checks": 3815,
+        "w2_takeover_checks": 227,
+        "staging": "NOT_TESTED"
+      },
+      "scan": "evidence/unit22-f2-scan-safe.json",
+      "current815": "NOT_RUN_NO_INHERITANCE"
     },
     "PR160": {
       "runs": [
@@ -38,12 +56,12 @@
   "integration": "DRAFT_ASIER_EXACT_ACK_REQUIRED",
   "branch": "oier/portfolio-receipt-readback-20261020",
   "next": {
-    "independent": "UNIT22 CLAIM6280644922: Inbox add internal note/create conversation unknown receipt; QA prepared outside checkout during unit21 controls. Copy QA only now controls terminal, commit causal baseline and run before minimal product edit.",
-    "publish": "Same recovery alias while f2 remote controls active; no cancellation, no PR duplicate. Refresh source/run state before any later PR161 fast-forward. Exact Asier ACK still required for integration.",
-    "security": "Keep W4 independent request6280242810,5HIGH,Native quota0manual retries,W5EdgeAccess/cache; writesOFF andreleaseNOT_ACCEPTED."
+    "security": "FiveHIGH and historical README scan require independentW4; Native quota oldattempts retained, currentf2positive does not approve W5cache/full23. EdgeAccessW5;writesOFF/releaseNOT_ACCEPTED.",
+    "publish": "After recovery push verify SHA and all f2runs terminal again; fast-forward same PR161 only, no force/cancel, new remote controls required. ACKexactAsier required before integration.",
+    "independent": "UNIT23 CLAIM6280777069, QA work/oier-inbox-unit23-qa outside checkout, NOT_STARTED. Reproduce confirmed note receipt+stale/incompatible query; positives exact/newer and markread/unread separate read_version. Baseline before product edit."
   },
-  "unit": 21,
-  "claim": 6280593593,
+  "unit": 22,
+  "claim": 6280644922,
   "scope": "Actual product/repository/validators, synthetic loopback HTTP; real voice/model/hostedAuthDB/staging persistence NOT_RUN",
   "StorageP0": "OPEN",
   "source_blobs": {
@@ -51,11 +69,12 @@
     "src/features/portfolio/PortfolioCreate.tsx": "214e6b7366d1f742586999263c9c55c2c11e14bc",
     "src/features/cases/Cases.tsx": "f98b587953af0abb50d6e41a246e58a6610be302",
     "src/features/portfolio/IntegratedPortfolio.tsx": "42d84eda2f9596742a0c8f6a2b03dc1a2046be32",
-    "src/features/calendar/IntegratedCalendar.tsx": "c8f8c19fa818d5a31a9e2551fa08e1aa9c2e28ed"
+    "src/features/calendar/IntegratedCalendar.tsx": "c8f8c19fa818d5a31a9e2551fa08e1aa9c2e28ed",
+    "src/features/inbox/IntegratedInbox.tsx": "8cbd86d774ea1d0f01be96350ada8712958e04a3"
   },
   "release": "NOT_ACCEPTED",
   "W4": "INDEPENDENT",
-  "source": "df7a25a21693a62ae289beee7bd977ebbb4a4aee",
+  "source": "815d0e1c840cc6fb150f1c9130fce93bdded47a6",
   "delivery": "DOCS_ONLY_COMMIT_CONTAINS_MEASURED_CODE_UNCHANGED",
   "baseline": {
     "source": "27da91d671b342f52ce4cd12be070a4da846b02e",
@@ -103,39 +122,49 @@
       "source": "eb4a11ae2ce33d6a1c9e2ba4bd79232adc1f2d80",
       "passed": 3,
       "attempt": "document-context-attempt01"
+    },
+    "inbox_intent": {
+      "inbox_blob_equals888": true,
+      "failed": 12,
+      "cause": "internal_safe from malformed/foreign receipt cleared intention and unlocked editable note/conversation while effect unresolved.",
+      "source": "646fb5de66545fd62bb501cc04f890836a7d728c",
+      "passed": 18,
+      "attempt": "inbox-attempt01"
     }
   },
   "checks": {
-    "source": "df7a25a21693a62ae289beee7bd977ebbb4a4aee",
-    "browser_unique": 152,
-    "quality": {
-      "bootstrap": 0,
-      "typescript": 0,
-      "lint": 0,
-      "build": 0,
-      "source": "df7a25a21693a62ae289beee7bd977ebbb4a4aee"
-    },
     "bootstrap": {
       "failed": 0,
-      "passed": 70
+      "passed": 74
+    },
+    "browser_unique": 207,
+    "browser_existing_regression": {
+      "startTime": "2026-10-20T00:55:09.368Z",
+      "duration": 138037.077,
+      "expected": 66,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
     },
     "browser_composed": {
-      "startTime": "2026-10-20T00:45:17.971Z",
-      "duration": 268435.414,
-      "expected": 111,
+      "startTime": "2026-10-20T05:54:20.009Z",
+      "duration": 293728.073,
+      "expected": 141,
       "skipped": 0,
       "unexpected": 0,
       "flaky": 0
     },
-    "browser_existing_regression": {
-      "startTime": "2026-10-20T00:45:18.08Z",
-      "duration": 90967.93500000001,
-      "expected": 41,
-      "skipped": 0,
-      "unexpected": 0,
-      "flaky": 0
+    "interrupted_attempt": "composed-attempt08_NO_FINAL_REPORT_NO_PASS",
+    "reason_recovery": "Tool session/process disappeared with clock gap; same executable source, only composition repeated;66regression and quality not repeated",
+    "quality": {
+      "source": "815d0e1c840cc6fb150f1c9130fce93bdded47a6",
+      "lint": 0,
+      "bootstrap": 0,
+      "build": 0,
+      "typescript": 0
     },
-    "visual": "DOCUMENT_TARGET_B390_REVIEWED; context identity scenarios3907681440; isolated selection12/private-image8 regressions scoped, no blanket cloud acceptance"
+    "source": "815d0e1c840cc6fb150f1c9130fce93bdded47a6",
+    "visual": "INBOX_CREATE_UNCONFIRMED390_REVIEWED; own note/create bank3907681440; presentation adapters remain scoped"
   },
   "claims": {
     "unit15": 6279498568,
@@ -145,7 +174,8 @@
     "unit18": 6279823476,
     "unit19": 6280095769,
     "unit20": 6280298692,
-    "unit21": 6280593593
+    "unit21": 6280593593,
+    "unit22": 6280644922
   },
   "completed_unit15": {
     "integration": "DRAFT_ASIER_EXACT_ACK_REQUIRED",
@@ -213,7 +243,11 @@
     "regression-attempt06": "8d18f5a_33PASS",
     "document-context-attempt01": "eb4a11a_CAUSAL_9FAIL3PASS",
     "composed-attempt07": "df7a25a_111PASS",
-    "regression-attempt07": "df7a25a_41PASS_INCLUDES12ISOLATED_METADATA_AND8PRIVATE_PREVIEW_PRESENTATION"
+    "regression-attempt07": "df7a25a_41PASS_INCLUDES12ISOLATED_METADATA_AND8PRIVATE_PREVIEW_PRESENTATION",
+    "inbox-attempt01": "646fb5d_CAUSAL_12FAIL18PASS",
+    "composed-attempt08": "815d0e1_INTERRUPTED_NO_FINAL_REPORT_COUNTS_UNKNOWN_NOT_PASS",
+    "composed-attempt09": "815d0e1_141PASS_SAME_EXECUTABLE_SOURCE_AFTER_INTERRUPTION",
+    "regression-attempt08": "815d0e1_66PASS"
   },
   "cloud": "W5 Edge Access/deploy/cohort/window/roles/actions/cleanup; no bypass;87migrations untouched, no resellpro",
   "changes": {
@@ -225,7 +259,8 @@
     "portfolio_create": "Keep exact pending creation for transport/internal_safe response; explicit pending state, native close/fields locked. Confirmed receipt retained until callback read succeeds; query retry does not issue another creation. Individual acceptance only owner manual service path in IntegratedPortfolio; other consumers not automatically accepted.",
     "documents_feedback": "Unknown metadata mutation explicitly says result unconfirmed rather than completed-action failure; authority refusal keeps canonical safe message.",
     "contract_shortcut": "Existing New manual contract action explicitly selects contract-only frontend mode, reuses existing contract fields/validators and existing save label. Generic manual selection and service/other creation entry points retained; no new HTTP contract, screen or authority.",
-    "document_context": "Reuse scoped identity wrapper pattern: retire state and pending reads on supplied customer/target-kind/id change; same identity preserves filter/search despite fresh inline object. Existing keyed CustomerDocuments untouched; global DocumentsPage source reviewed, hosted navigation/AuthDB NOT_RUN."
+    "document_context": "Reuse scoped identity wrapper pattern: retire state and pending reads on supplied customer/target-kind/id change; same identity preserves filter/search despite fresh inline object. Existing keyed CustomerDocuments untouched; global DocumentsPage source reviewed, hosted navigation/AuthDB NOT_RUN.",
+    "inbox_intent": "Retain exact reviewed command after transport/internal_safe response; locked original note or new conversation, truthful unknown-result copy and existing Drawer closeDisabled. Positive refusal and success preserved. Individual acceptance ONLY add internal note and create conversation; not all Inbox operations. No external send."
   },
   "AI_commercial_writes": "OFF",
   "completed_unit17": {
@@ -370,7 +405,7 @@
     "selector_preserved": "Guardar activo manual",
     "reason_new_checks": "Read-only compatibility review found save-label mismatch; source changed and fresh132/70quality controls ran"
   },
-  "issue10": "OPEN_READ_FROM_GITHUB_THIS_UNIT",
+  "issue10": "OPEN_FRESH_API_READ_THIS_UNIT",
   "completed_unit20": {
     "delivery": "f2d26b9178a9e866f8573aac8d2df7559150d569",
     "handoff": 6280578982,
@@ -407,5 +442,42 @@
         "passed": 70
       }
     }
+  },
+  "completed_unit21": {
+    "checks": {
+      "source": "df7a25a21693a62ae289beee7bd977ebbb4a4aee",
+      "browser_unique": 152,
+      "quality": {
+        "bootstrap": 0,
+        "typescript": 0,
+        "lint": 0,
+        "build": 0,
+        "source": "df7a25a21693a62ae289beee7bd977ebbb4a4aee"
+      },
+      "bootstrap": {
+        "failed": 0,
+        "passed": 70
+      },
+      "browser_composed": {
+        "startTime": "2026-10-20T00:45:17.971Z",
+        "duration": 268435.414,
+        "expected": 111,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "browser_existing_regression": {
+        "startTime": "2026-10-20T00:45:18.08Z",
+        "duration": 90967.93500000001,
+        "expected": 41,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "visual": "DOCUMENT_TARGET_B390_REVIEWED; context identity scenarios3907681440; isolated selection12/private-image8 regressions scoped, no blanket cloud acceptance"
+    },
+    "delivery": "3eb6b742172db3302c09661bf9975716a0b44001",
+    "source": "df7a25a21693a62ae289beee7bd977ebbb4a4aee",
+    "handoff": 6280712360
   }
 }
