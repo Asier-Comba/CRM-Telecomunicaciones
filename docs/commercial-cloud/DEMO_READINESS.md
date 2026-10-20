@@ -56,7 +56,7 @@ Comprobación única de alcance de esta conexión Supabase20/10: projects=[]; no
 | Tarea | Responsable | Fuente / dependencia | Siguiente evidencia | Estado |
 |---|---|---|---|---|
 | QA pequeño consumible | Oier → revisiónAsier | PR162dcb4,ejecutable13aa; PR161histórico intacto |14controles localesPASS,lint/types0; Authcloud propioNOT_RUN; adopciónAsier porSHA | PUBLICADO_PARA_REVISION |
-| Admisión Edge | Asier revisa propuestaW5e42 | Contrato compartido, no editar en paralelo | Negativos configuración/APP_ENV/origen/proyecto/cohorte/revocación; luego ACK explícito | PENDIENTE |
+| Admisión Edge | Asier/W5; revisión independiente pendiente | e42 adoptado técnicamente enc0,ACK6291756248 | Positivo físico localc0 y controlesNext; negativos alojados independientes pendientes | ACK_TECNICO_NO_SEGURIDAD_COMPLETA |
 | Textos y callers de facturación | PropuestaOier → Asier | PR167c38,app7e19/callerse89 |51regresiones app;3FAIL→3PASS callers locales. OriginalSupabase103/11FAIL conservado; nuevoSHA en controles propios | PENDIENTE_ACEPTACION_REAL_LOCAL |
 | Dashboard «Mi actividad» con ceros | Asier/Oier | Alcance/asignación real; workspace soloowner/admin | Explicitar filtro y selección autorizada; no inventar cifras ni ampliar permisos | PENDIENTE |
 | Capturas Customer360 completas | Asier | próxima fuente pertinente | Estado cargado/error antes de capturar; conservar fotos de carga | PENDIENTE |
@@ -84,7 +84,7 @@ RevisiónOier del deltaEdge#163: entrega9abe438f, banco original35PASS sobre e42
 
 ## Checkpoint de entregas independientes — sesión20/10
 
-Referencia integradora actual observada: PR156c0e906fe0f78f7d2e32476a05ffb9f52980f1a99; ACKtécnicoEdge#163 y adopción del controlNextOier9abe según6291756248. Es otra fuente frente a3b80 y e42desplegado; sus checks tienen su resultado propio. Supabase39429051262 estaba en curso al refrescar; no heredar4042/114. Asier conserva dashboard e incorporación de perfil/QA. No editar su rama ni sus entradas activas.
+Referencia integradora actual observada: PR156c0e906fe0f78f7d2e32476a05ffb9f52980f1a99; ACKtécnicoEdge#163 y adopción del controlNextOier9abe según6291756248. Es otra fuente frente a3b80 y e42desplegado; sus checks tienen su resultado propio. Supabase39429051262 terminóSUCCESS y fue contrastado porOier: checkout85acfed35f0b2302a2ce75d614482568cee4cf72, padresda468+c0e906fe, árbolb99c0231c5bc024986745b259af4a425f4b83dc0 idénticoaC0.87migraciones,3815+227backend y114UIobservadosúnicos,Auth/cohorte local ycleanup/teardownPASS. El artifactPASS no incluye campo de lista de fallos: conservarnull/ausencia, no inventar ese campo. LOCAL_SUPABASE_DOCKER; no heredar el verde3b80 ni inferir hosted. Evidenciaexacta:20261020/evidence/candidate-c0-local-acceptance.json. Asier conserva dashboard e incorporación de perfil/QA. No editar su rama ni sus entradas activas.
 
 | Propuesta propia | Fuente funcional / entrega | Evidencia propia y siguiente aceptación |
 |---|---|---|
@@ -114,3 +114,9 @@ Solicitudúnica6291203581 sigue pendiente: ventanaQAexclusiva con accesoNetlify 
 Propietarios: asignar revisor de seguridad independiente disponible; W4job≠persona/revisión. Asier: integrar selectivamente las propuestas acordadas, preservarCaller11 y resolverdashboard/capturascargadas en su ámbito. W5: fuente/deploy/config/ventana y su operación cloud. Voz sólo con recurso/micrófono real autorizado; modelo es ámbitoW3 y mantiene condiciones previas de presupuesto/control. No activar flags o incurrir en gasto.
 
 Siguiente control propio en curso: Supabase39433000499 sobrePR167c38, junto aCI39433000551 yW5enterprise39433000849; W439433000737FAIL ya observado. Ningún resultado pendiente esPASS. No mover eseHEAD mientrasejecuta. Este checkpoint se publica en referencia propia de recuperación documental, sin otraPR ni alterar candidatos/checks activos.
+
+### Resultado nuevo de preview de la corrección Caller11
+
+CI39433000551/job118668137199, artifact12268484864:710PASS(355desktop+355mobile), política1worker/0retries, inventarioffc5831052213540a234b604be9ab32704c91bd68822569a568805a76ef3568a. Fuente real16fdd0601200f12a115879786eb85246606151b6, padresc0e906fe+c38bcf7b, árbol115be25707eaba88b1e3e801a35c2beb183f20ce. Difiere del árbolb151dd1ae37a7caf36c7c70ddb4f6ad1e96b6bda delHEADc38; no asignar aeseHEAD unPASS que pertenece a la mezcla. EsSYNTHETIC_PREVIEW_ONLY_NOT_AUTH_STAGING_OR_RELEASE. [Bindings completos](20261020/evidence/caller11-preview-qualified.json).
+
+CIGlobal39433000551FAIL: job118662616797 conserva5HIGH/OWNED_CONSUMER_MIGRATION_CLOSURE_REJECTED. Nativo118662617141fallaenInitializecontainers con toomanyrequests antes de fuente/pruebas; noSHA probado ni conteos medidos, sin rerun solicitado o pin cambiado. W5enterprise39433000849FAIL: gatesvendor/imagen ycontractsINVENTORY_DRIFT, no relajar desdeOier. W4all-ref39433000737FAIL. Supabase39433000499sigue en curso en esta captura: no verde inferido de710, deC0, o del control3locators.
