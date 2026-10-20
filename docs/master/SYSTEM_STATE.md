@@ -2,6 +2,11 @@
 
 ## Nocturnal continuation — 2026-10-21, units32–34
 
+Follow-up35: [settled stop recovery](../integration/UNIT_35_SPEECH_STOP_RECOVERY_20261021.md)
+reproduces stale error3FAIL→45PASS, code64b0dfc5, targetedlint/typesPASS. Only the
+current session clears its recovered error.285348a6 is the preserved CI checkpoint;
+final successor source/tree and own CI are in issue67, not inherited from285.
+
 PR175 same integration branch. Oier177 exact tests/fix selected5715a024/3d658fdd:
 own3FAIL→42PASS. Stop-refusal34 independently reproduced3FAIL→45PASS full billing
 regression; product31661d07. Four reviewed W5 deltas adopted21a92356/e2592c54/
