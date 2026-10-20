@@ -26,10 +26,10 @@ test('canonical85 exact bytes and explicit delivered86 preserve frozen SQL and d
   assert.deepEqual(union.migrations.filter(row=>row.name!==manifest.owner_extension.name),canonical.migrations)
   assert.ok(Object.isFrozen(union)&&Object.isFrozen(union.migrations)&&union.migrations.every(Object.isFrozen))
 })
-test('grants86 caller admits actual checkout and both exact directory profiles without duplicate application',t=>{
-  const actual=loadOwnedConsumerMigrationsV1(root),admitted=loadOwnedConsumerGrants86V1(root)
-  assert.equal(admitted.count,86)
-  assert.equal(admitted.closure,actual.count===85?'delivered_grants_86':'owner_directory_86')
+test('grants86 caller rejects the 87 checkout and admits both exact directory profiles without duplicate application',t=>{
+  // The checkout now also carries the W5 forward migration: the strict 86 caller must
+  // reject it. Profile87 admits it explicitly (owned-consumer-migration-profile87.test.mjs).
+  assert.throws(()=>loadOwnedConsumerGrants86V1(root),/OWNED_CONSUMER_MIGRATION_CLOSURE_REJECTED/)
   const canonical=files(t),owner=files(t)
   writeFileSync(join(owner.migrationDir,manifest.owner_extension.name),fixture.sql)
   const delivered=loadOwnedConsumerGrants86V1(canonical.root),directory=loadOwnedConsumerGrants86V1(owner.root)
