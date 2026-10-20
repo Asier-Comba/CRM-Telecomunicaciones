@@ -174,3 +174,11 @@ test('browser client is never shared in server rendering and HTTPS sessions requ
  assert.equal(browser.getSupabaseBrowserClient(),browser.getSupabaseBrowserClient());assert.equal(calls.length,1);assert.equal(calls[0][2].cookieOptions.secure,true)
  const local=actual('src/lib/supabase.ts',dependencies,env,{location:{protocol:'http:'}});local.getSupabaseBrowserClient();assert.equal(calls[1][2].cookieOptions.secure,false)
 })
+
+test('NODE_ENV is only taken from the build-inlined value for the runtime process.env, never for other objects',()=>{
+ const {NODE_ENV,...withoutNodeEnv}=env
+ assert.equal(NODE_ENV,'production')
+ assert.equal(admission.readStagingAdmissionV1(withoutNodeEnv).status,'invalid')
+ assert.equal(admission.readStagingAdmissionV1({...withoutNodeEnv,NODE_ENV:'development'}).status,'invalid')
+ assert.equal(admission.readStagingAdmissionV1(env).status,'enabled')
+})

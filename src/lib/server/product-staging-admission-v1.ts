@@ -13,11 +13,19 @@ export function parseStagingUserIdsV1(value: unknown): readonly string[] | null 
   return Object.freeze(ids)
 }
 
+// Next.js inlines direct `process.env.NODE_ENV` references at build time. On Netlify
+// the proxy runs as a Deno edge function whose process.env object holds only site
+// variables, never NODE_ENV (the platform rejects it), so read the inlined value
+// when the caller passes the runtime environment itself.
+function nodeEnvOf(env: Environment): string | undefined {
+  return typeof process !== 'undefined' && env === process.env ? process.env.NODE_ENV : env.NODE_ENV
+}
+
 export function readStagingAdmissionV1(env: Environment): StagingAdmissionV1 {
   const flag = env.PRODUCT_STAGING_INTEGRATION
   if (flag === undefined || flag === 'false') return Object.freeze({ status: 'disabled' })
   const userIds = parseStagingUserIdsV1(env.PRODUCT_STAGING_USER_IDS)
-  if (flag !== 'true' || env.APP_ENV !== 'staging' || env.NODE_ENV !== 'production' ||
+  if (flag !== 'true' || env.APP_ENV !== 'staging' || nodeEnvOf(env) !== 'production' ||
       env.PRODUCT_V1_ENABLED !== 'true' || env.PRODUCT_V1_ORIGIN !== stagingAppOriginV1 ||
       env.NEXT_PUBLIC_SUPABASE_URL !== stagingSupabaseUrlV1 || !userIds ||
       [env.PRODUCT_LOCAL_INTEGRATION, env.PRODUCT_LOCAL_SYNTHETIC].some(v => v !== undefined && v !== 'false'))
