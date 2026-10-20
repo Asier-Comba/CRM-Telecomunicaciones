@@ -1,8 +1,9 @@
 {
-  "version": 12,
+  "version": 13,
   "sources": {
     "platform": "85d3a60a7b34af4aac5465f3b30130f742e49900",
-    "product": "60acdc5d6a2ae41ff3d751724582ade0c0762788"
+    "product": "60acdc5d6a2ae41ff3d751724582ade0c0762788",
+    "composed": "32862fafbdf35c1c33b84a88ef1e7710cdac9388"
   },
   "merge_base": "7ab6f56f10fc65aa7212ed5dfbdeacea8901756a",
   "status": "STATIC_COMPOSITION_CANDIDATE",
@@ -33,6 +34,14 @@
       "supabase/migrations/20261011090000_assistant_verified_completed_reconciliation.sql"
     ],
     "applied_database": "NOT_PROVEN"
+  },
+  "head": {
+    "composed_is_ancestor": true,
+    "migrations": 87,
+    "forward_migrations": [
+      "20261020100000_business_conflict_non_retryable.sql"
+    ],
+    "product_src": "INTEGRATOR_OWNED_NOT_COMPOSITION_BOUND"
   },
   "source_blobs": {
     "product_paths_preserved": 655,
