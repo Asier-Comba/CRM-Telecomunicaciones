@@ -1,0 +1,271 @@
+
+Running 255 tests using 1 worker
+
+
+
+(node:29532) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1/255] [controlled-http-390] › tools\oier_commercial_qa\calendar-intent.spec.ts:7:93 › calendar preserves the reviewed intent after transport
+[2/255] [controlled-http-390] › tools\oier_commercial_qa\calendar-intent.spec.ts:7:93 › calendar preserves the reviewed intent after malformed
+[3/255] [controlled-http-390] › tools\oier_commercial_qa\calendar-intent.spec.ts:7:93 › calendar preserves the reviewed intent after wrong_receipt
+[4/255] [controlled-http-390] › tools\oier_commercial_qa\calendar-intent.spec.ts:7:93 › calendar preserves the reviewed intent after denied
+[5/255] [controlled-http-390] › tools\oier_commercial_qa\calendar-intent.spec.ts:7:93 › calendar preserves the reviewed intent after success
+[6/255] [controlled-http-390] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent stale readback
+[7/255] [controlled-http-390] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent wrong_status readback
+[8/255] [controlled-http-390] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent wrong_source readback
+[9/255] [controlled-http-390] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent wrong_resolution readback
+[10/255] [controlled-http-390] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent confirmed readback
+[11/255] [controlled-http-390] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent newer readback
+[12/255] [controlled-http-390] › tools\oier_commercial_qa\catalog-create-intent.spec.ts:7:93 › catalog operator creation preserves reviewed intent after transport
+[13/255] [controlled-http-390] › tools\oier_commercial_qa\catalog-create-intent.spec.ts:7:93 › catalog operator creation preserves reviewed intent after malformed
+[14/255] [controlled-http-390] › tools\oier_commercial_qa\catalog-create-intent.spec.ts:7:93 › catalog operator creation preserves reviewed intent after wrong_receipt
+[15/255] [controlled-http-390] › tools\oier_commercial_qa\catalog-create-intent.spec.ts:7:93 › catalog operator creation preserves reviewed intent after denied
+[16/255] [controlled-http-390] › tools\oier_commercial_qa\catalog-create-intent.spec.ts:7:93 › catalog operator creation preserves reviewed intent after success
+[17/255] [controlled-http-390] › tools\oier_commercial_qa\catalog-plan-acceptance.spec.ts:8:93 › manual plan caller acceptance after transport
+[18/255] [controlled-http-390] › tools\oier_commercial_qa\catalog-plan-acceptance.spec.ts:8:93 › manual plan caller acceptance after malformed
+[19/255] [controlled-http-390] › tools\oier_commercial_qa\catalog-plan-acceptance.spec.ts:8:93 › manual plan caller acceptance after wrong_receipt
+[20/255] [controlled-http-390] › tools\oier_commercial_qa\catalog-plan-acceptance.spec.ts:8:93 › manual plan caller acceptance after denied
+[21/255] [controlled-http-390] › tools\oier_commercial_qa\catalog-plan-acceptance.spec.ts:8:93 › manual plan caller acceptance after success
+[22/255] [controlled-http-390] › tools\oier_commercial_qa\contract-shortcut.spec.ts:9:64 › new manual contract follows the shortcut intent
+[23/255] [controlled-http-390] › tools\oier_commercial_qa\contract-shortcut.spec.ts:9:64 › new manual contract follows the manual_selection intent
+[24/255] [controlled-http-390] › tools\oier_commercial_qa\document-context.spec.ts:8:73 › document context customer retires only changed identity
+[25/255] [controlled-http-390] › tools\oier_commercial_qa\document-context.spec.ts:8:73 › document context target retires only changed identity
+[26/255] [controlled-http-390] › tools\oier_commercial_qa\document-context.spec.ts:8:73 › document context late retires only changed identity
+[27/255] [controlled-http-390] › tools\oier_commercial_qa\document-context.spec.ts:8:73 › document context unchanged retires only changed identity
+[28/255] [controlled-http-390] › tools\oier_commercial_qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after transport
+[29/255] [controlled-http-390] › tools\oier_commercial_qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after malformed
+[30/255] [controlled-http-390] › tools\oier_commercial_qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after wrong_receipt
+[31/255] [controlled-http-390] › tools\oier_commercial_qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after denied
+[32/255] [controlled-http-390] › tools\oier_commercial_qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after success
+[33/255] [controlled-http-390] › tools\oier_commercial_qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after transport
+[34/255] [controlled-http-390] › tools\oier_commercial_qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after malformed
+[35/255] [controlled-http-390] › tools\oier_commercial_qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after wrong_receipt
+[36/255] [controlled-http-390] › tools\oier_commercial_qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after denied
+[37/255] [controlled-http-390] › tools\oier_commercial_qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after success
+[38/255] [controlled-http-390] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox note preserves reviewed intent after transport
+[39/255] [controlled-http-390] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox note preserves reviewed intent after malformed
+[40/255] [controlled-http-390] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox note preserves reviewed intent after wrong_receipt
+[41/255] [controlled-http-390] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox note preserves reviewed intent after denied
+[42/255] [controlled-http-390] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox note preserves reviewed intent after success
+[43/255] [controlled-http-390] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox create preserves reviewed intent after transport
+[44/255] [controlled-http-390] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox create preserves reviewed intent after malformed
+[45/255] [controlled-http-390] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox create preserves reviewed intent after wrong_receipt
+[46/255] [controlled-http-390] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox create preserves reviewed intent after denied
+[47/255] [controlled-http-390] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox create preserves reviewed intent after success
+[48/255] [controlled-http-390] › tools\oier_commercial_qa\inbox-readback.spec.ts:7:99 › inbox confirmed receipt requires coherent stale readback
+[49/255] [controlled-http-390] › tools\oier_commercial_qa\inbox-readback.spec.ts:7:99 › inbox confirmed receipt requires coherent wrong_status readback
+[50/255] [controlled-http-390] › tools\oier_commercial_qa\inbox-readback.spec.ts:7:99 › inbox confirmed receipt requires coherent exact readback
+[51/255] [controlled-http-390] › tools\oier_commercial_qa\inbox-readback.spec.ts:7:99 › inbox confirmed receipt requires coherent newer readback
+[52/255] [controlled-http-390] › tools\oier_commercial_qa\inbox-readback.spec.ts:7:99 › inbox confirmed receipt requires coherent mark_read readback
+[53/255] [controlled-http-390] › tools\oier_commercial_qa\inbox-readback.spec.ts:7:99 › inbox confirmed receipt requires coherent mark_unread readback
+[54/255] [controlled-http-390] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps transport intent
+[55/255] [controlled-http-390] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps malformed intent
+[56/255] [controlled-http-390] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps wrong_receipt intent
+[57/255] [controlled-http-390] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps read_failure intent
+[58/255] [controlled-http-390] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps denied intent
+[59/255] [controlled-http-390] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps success intent
+[60/255] [controlled-http-390] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after transport
+[61/255] [controlled-http-390] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after malformed
+[62/255] [controlled-http-390] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after wrong_receipt
+[63/255] [controlled-http-390] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after read_failure
+[64/255] [controlled-http-390] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after denied
+[65/255] [controlled-http-390] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after success
+[66/255] [controlled-http-390] › tools\oier_commercial_qa\portability-readback.spec.ts:8:88 › portability cancellation keeps coherent stale readback
+[67/255] [controlled-http-390] › tools\oier_commercial_qa\portability-readback.spec.ts:8:88 › portability cancellation keeps coherent wrong_status readback
+[68/255] [controlled-http-390] › tools\oier_commercial_qa\portability-readback.spec.ts:8:88 › portability cancellation keeps coherent wrong_source readback
+[69/255] [controlled-http-390] › tools\oier_commercial_qa\portability-readback.spec.ts:8:88 › portability cancellation keeps coherent exact readback
+[70/255] [controlled-http-390] › tools\oier_commercial_qa\portability-readback.spec.ts:8:88 › portability cancellation keeps coherent newer readback
+[71/255] [controlled-http-390] › tools\oier_commercial_qa\portfolio-create-intent.spec.ts:9:99 › manual service creation preserves intent and receipt after transport
+[72/255] [controlled-http-390] › tools\oier_commercial_qa\portfolio-create-intent.spec.ts:9:99 › manual service creation preserves intent and receipt after malformed
+[73/255] [controlled-http-390] › tools\oier_commercial_qa\portfolio-create-intent.spec.ts:9:99 › manual service creation preserves intent and receipt after wrong_receipt
+[74/255] [controlled-http-390] › tools\oier_commercial_qa\portfolio-create-intent.spec.ts:9:99 › manual service creation preserves intent and receipt after read_failure
+[75/255] [controlled-http-390] › tools\oier_commercial_qa\portfolio-create-intent.spec.ts:9:99 › manual service creation preserves intent and receipt after success
+[76/255] [controlled-http-390] › tools\oier_commercial_qa\portfolio-readback.spec.ts:9:92 › portfolio confirmed command requires coherent stale readback
+[77/255] [controlled-http-390] › tools\oier_commercial_qa\portfolio-readback.spec.ts:9:92 › portfolio confirmed command requires coherent wrong_status readback
+[78/255] [controlled-http-390] › tools\oier_commercial_qa\portfolio-readback.spec.ts:9:92 › portfolio confirmed command requires coherent wrong_source readback
+[79/255] [controlled-http-390] › tools\oier_commercial_qa\portfolio-readback.spec.ts:9:92 › portfolio confirmed command requires coherent confirmed readback
+[80/255] [controlled-http-390] › tools\oier_commercial_qa\portfolio-readback.spec.ts:9:92 › portfolio confirmed command requires coherent newer readback
+[81/255] [controlled-http-390] › tools\oier_commercial_qa\sim-readback.spec.ts:8:88 › SIM cancellation receipt keeps coherent stale readback
+[82/255] [controlled-http-390] › tools\oier_commercial_qa\sim-readback.spec.ts:8:88 › SIM cancellation receipt keeps coherent wrong_status readback
+[83/255] [controlled-http-390] › tools\oier_commercial_qa\sim-readback.spec.ts:8:88 › SIM cancellation receipt keeps coherent wrong_source readback
+[84/255] [controlled-http-390] › tools\oier_commercial_qa\sim-readback.spec.ts:8:88 › SIM cancellation receipt keeps coherent exact readback
+[85/255] [controlled-http-390] › tools\oier_commercial_qa\sim-readback.spec.ts:8:88 › SIM cancellation receipt keeps coherent newer readback
+
+(node:31372) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[86/255] [controlled-http-768] › tools\oier_commercial_qa\calendar-intent.spec.ts:7:93 › calendar preserves the reviewed intent after transport
+[87/255] [controlled-http-768] › tools\oier_commercial_qa\calendar-intent.spec.ts:7:93 › calendar preserves the reviewed intent after malformed
+[88/255] [controlled-http-768] › tools\oier_commercial_qa\calendar-intent.spec.ts:7:93 › calendar preserves the reviewed intent after wrong_receipt
+[89/255] [controlled-http-768] › tools\oier_commercial_qa\calendar-intent.spec.ts:7:93 › calendar preserves the reviewed intent after denied
+[90/255] [controlled-http-768] › tools\oier_commercial_qa\calendar-intent.spec.ts:7:93 › calendar preserves the reviewed intent after success
+[91/255] [controlled-http-768] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent stale readback
+[92/255] [controlled-http-768] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent wrong_status readback
+[93/255] [controlled-http-768] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent wrong_source readback
+[94/255] [controlled-http-768] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent wrong_resolution readback
+[95/255] [controlled-http-768] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent confirmed readback
+[96/255] [controlled-http-768] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent newer readback
+[97/255] [controlled-http-768] › tools\oier_commercial_qa\catalog-create-intent.spec.ts:7:93 › catalog operator creation preserves reviewed intent after transport
+[98/255] [controlled-http-768] › tools\oier_commercial_qa\catalog-create-intent.spec.ts:7:93 › catalog operator creation preserves reviewed intent after malformed
+[99/255] [controlled-http-768] › tools\oier_commercial_qa\catalog-create-intent.spec.ts:7:93 › catalog operator creation preserves reviewed intent after wrong_receipt
+[100/255] [controlled-http-768] › tools\oier_commercial_qa\catalog-create-intent.spec.ts:7:93 › catalog operator creation preserves reviewed intent after denied
+[101/255] [controlled-http-768] › tools\oier_commercial_qa\catalog-create-intent.spec.ts:7:93 › catalog operator creation preserves reviewed intent after success
+[102/255] [controlled-http-768] › tools\oier_commercial_qa\catalog-plan-acceptance.spec.ts:8:93 › manual plan caller acceptance after transport
+[103/255] [controlled-http-768] › tools\oier_commercial_qa\catalog-plan-acceptance.spec.ts:8:93 › manual plan caller acceptance after malformed
+[104/255] [controlled-http-768] › tools\oier_commercial_qa\catalog-plan-acceptance.spec.ts:8:93 › manual plan caller acceptance after wrong_receipt
+[105/255] [controlled-http-768] › tools\oier_commercial_qa\catalog-plan-acceptance.spec.ts:8:93 › manual plan caller acceptance after denied
+[106/255] [controlled-http-768] › tools\oier_commercial_qa\catalog-plan-acceptance.spec.ts:8:93 › manual plan caller acceptance after success
+[107/255] [controlled-http-768] › tools\oier_commercial_qa\contract-shortcut.spec.ts:9:64 › new manual contract follows the shortcut intent
+[108/255] [controlled-http-768] › tools\oier_commercial_qa\contract-shortcut.spec.ts:9:64 › new manual contract follows the manual_selection intent
+[109/255] [controlled-http-768] › tools\oier_commercial_qa\document-context.spec.ts:8:73 › document context customer retires only changed identity
+[110/255] [controlled-http-768] › tools\oier_commercial_qa\document-context.spec.ts:8:73 › document context target retires only changed identity
+[111/255] [controlled-http-768] › tools\oier_commercial_qa\document-context.spec.ts:8:73 › document context late retires only changed identity
+[112/255] [controlled-http-768] › tools\oier_commercial_qa\document-context.spec.ts:8:73 › document context unchanged retires only changed identity
+[113/255] [controlled-http-768] › tools\oier_commercial_qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after transport
+[114/255] [controlled-http-768] › tools\oier_commercial_qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after malformed
+[115/255] [controlled-http-768] › tools\oier_commercial_qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after wrong_receipt
+[116/255] [controlled-http-768] › tools\oier_commercial_qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after denied
+[117/255] [controlled-http-768] › tools\oier_commercial_qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after success
+[118/255] [controlled-http-768] › tools\oier_commercial_qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after transport
+[119/255] [controlled-http-768] › tools\oier_commercial_qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after malformed
+[120/255] [controlled-http-768] › tools\oier_commercial_qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after wrong_receipt
+[121/255] [controlled-http-768] › tools\oier_commercial_qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after denied
+[122/255] [controlled-http-768] › tools\oier_commercial_qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after success
+[123/255] [controlled-http-768] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox note preserves reviewed intent after transport
+[124/255] [controlled-http-768] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox note preserves reviewed intent after malformed
+[125/255] [controlled-http-768] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox note preserves reviewed intent after wrong_receipt
+[126/255] [controlled-http-768] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox note preserves reviewed intent after denied
+[127/255] [controlled-http-768] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox note preserves reviewed intent after success
+[128/255] [controlled-http-768] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox create preserves reviewed intent after transport
+[129/255] [controlled-http-768] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox create preserves reviewed intent after malformed
+[130/255] [controlled-http-768] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox create preserves reviewed intent after wrong_receipt
+[131/255] [controlled-http-768] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox create preserves reviewed intent after denied
+[132/255] [controlled-http-768] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox create preserves reviewed intent after success
+[133/255] [controlled-http-768] › tools\oier_commercial_qa\inbox-readback.spec.ts:7:99 › inbox confirmed receipt requires coherent stale readback
+[134/255] [controlled-http-768] › tools\oier_commercial_qa\inbox-readback.spec.ts:7:99 › inbox confirmed receipt requires coherent wrong_status readback
+[135/255] [controlled-http-768] › tools\oier_commercial_qa\inbox-readback.spec.ts:7:99 › inbox confirmed receipt requires coherent exact readback
+[136/255] [controlled-http-768] › tools\oier_commercial_qa\inbox-readback.spec.ts:7:99 › inbox confirmed receipt requires coherent newer readback
+[137/255] [controlled-http-768] › tools\oier_commercial_qa\inbox-readback.spec.ts:7:99 › inbox confirmed receipt requires coherent mark_read readback
+[138/255] [controlled-http-768] › tools\oier_commercial_qa\inbox-readback.spec.ts:7:99 › inbox confirmed receipt requires coherent mark_unread readback
+[139/255] [controlled-http-768] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps transport intent
+[140/255] [controlled-http-768] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps malformed intent
+[141/255] [controlled-http-768] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps wrong_receipt intent
+[142/255] [controlled-http-768] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps read_failure intent
+[143/255] [controlled-http-768] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps denied intent
+[144/255] [controlled-http-768] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps success intent
+[145/255] [controlled-http-768] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after transport
+[146/255] [controlled-http-768] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after malformed
+[147/255] [controlled-http-768] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after wrong_receipt
+[148/255] [controlled-http-768] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after read_failure
+[149/255] [controlled-http-768] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after denied
+[150/255] [controlled-http-768] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after success
+[151/255] [controlled-http-768] › tools\oier_commercial_qa\portability-readback.spec.ts:8:88 › portability cancellation keeps coherent stale readback
+[152/255] [controlled-http-768] › tools\oier_commercial_qa\portability-readback.spec.ts:8:88 › portability cancellation keeps coherent wrong_status readback
+[153/255] [controlled-http-768] › tools\oier_commercial_qa\portability-readback.spec.ts:8:88 › portability cancellation keeps coherent wrong_source readback
+[154/255] [controlled-http-768] › tools\oier_commercial_qa\portability-readback.spec.ts:8:88 › portability cancellation keeps coherent exact readback
+[155/255] [controlled-http-768] › tools\oier_commercial_qa\portability-readback.spec.ts:8:88 › portability cancellation keeps coherent newer readback
+[156/255] [controlled-http-768] › tools\oier_commercial_qa\portfolio-create-intent.spec.ts:9:99 › manual service creation preserves intent and receipt after transport
+[157/255] [controlled-http-768] › tools\oier_commercial_qa\portfolio-create-intent.spec.ts:9:99 › manual service creation preserves intent and receipt after malformed
+[158/255] [controlled-http-768] › tools\oier_commercial_qa\portfolio-create-intent.spec.ts:9:99 › manual service creation preserves intent and receipt after wrong_receipt
+[159/255] [controlled-http-768] › tools\oier_commercial_qa\portfolio-create-intent.spec.ts:9:99 › manual service creation preserves intent and receipt after read_failure
+[160/255] [controlled-http-768] › tools\oier_commercial_qa\portfolio-create-intent.spec.ts:9:99 › manual service creation preserves intent and receipt after success
+[161/255] [controlled-http-768] › tools\oier_commercial_qa\portfolio-readback.spec.ts:9:92 › portfolio confirmed command requires coherent stale readback
+[162/255] [controlled-http-768] › tools\oier_commercial_qa\portfolio-readback.spec.ts:9:92 › portfolio confirmed command requires coherent wrong_status readback
+[163/255] [controlled-http-768] › tools\oier_commercial_qa\portfolio-readback.spec.ts:9:92 › portfolio confirmed command requires coherent wrong_source readback
+[164/255] [controlled-http-768] › tools\oier_commercial_qa\portfolio-readback.spec.ts:9:92 › portfolio confirmed command requires coherent confirmed readback
+[165/255] [controlled-http-768] › tools\oier_commercial_qa\portfolio-readback.spec.ts:9:92 › portfolio confirmed command requires coherent newer readback
+[166/255] [controlled-http-768] › tools\oier_commercial_qa\sim-readback.spec.ts:8:88 › SIM cancellation receipt keeps coherent stale readback
+[167/255] [controlled-http-768] › tools\oier_commercial_qa\sim-readback.spec.ts:8:88 › SIM cancellation receipt keeps coherent wrong_status readback
+[168/255] [controlled-http-768] › tools\oier_commercial_qa\sim-readback.spec.ts:8:88 › SIM cancellation receipt keeps coherent wrong_source readback
+[169/255] [controlled-http-768] › tools\oier_commercial_qa\sim-readback.spec.ts:8:88 › SIM cancellation receipt keeps coherent exact readback
+[170/255] [controlled-http-768] › tools\oier_commercial_qa\sim-readback.spec.ts:8:88 › SIM cancellation receipt keeps coherent newer readback
+
+
+(node:18336) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[171/255] [controlled-http-1440] › tools\oier_commercial_qa\calendar-intent.spec.ts:7:93 › calendar preserves the reviewed intent after transport
+[172/255] [controlled-http-1440] › tools\oier_commercial_qa\calendar-intent.spec.ts:7:93 › calendar preserves the reviewed intent after malformed
+[173/255] [controlled-http-1440] › tools\oier_commercial_qa\calendar-intent.spec.ts:7:93 › calendar preserves the reviewed intent after wrong_receipt
+[174/255] [controlled-http-1440] › tools\oier_commercial_qa\calendar-intent.spec.ts:7:93 › calendar preserves the reviewed intent after denied
+[175/255] [controlled-http-1440] › tools\oier_commercial_qa\calendar-intent.spec.ts:7:93 › calendar preserves the reviewed intent after success
+[176/255] [controlled-http-1440] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent stale readback
+[177/255] [controlled-http-1440] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent wrong_status readback
+[178/255] [controlled-http-1440] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent wrong_source readback
+[179/255] [controlled-http-1440] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent wrong_resolution readback
+[180/255] [controlled-http-1440] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent confirmed readback
+[181/255] [controlled-http-1440] › tools\oier_commercial_qa\case-readback.spec.ts:9:111 › case resolution requires coherent newer readback
+[182/255] [controlled-http-1440] › tools\oier_commercial_qa\catalog-create-intent.spec.ts:7:93 › catalog operator creation preserves reviewed intent after transport
+[183/255] [controlled-http-1440] › tools\oier_commercial_qa\catalog-create-intent.spec.ts:7:93 › catalog operator creation preserves reviewed intent after malformed
+[184/255] [controlled-http-1440] › tools\oier_commercial_qa\catalog-create-intent.spec.ts:7:93 › catalog operator creation preserves reviewed intent after wrong_receipt
+[185/255] [controlled-http-1440] › tools\oier_commercial_qa\catalog-create-intent.spec.ts:7:93 › catalog operator creation preserves reviewed intent after denied
+[186/255] [controlled-http-1440] › tools\oier_commercial_qa\catalog-create-intent.spec.ts:7:93 › catalog operator creation preserves reviewed intent after success
+[187/255] [controlled-http-1440] › tools\oier_commercial_qa\catalog-plan-acceptance.spec.ts:8:93 › manual plan caller acceptance after transport
+[188/255] [controlled-http-1440] › tools\oier_commercial_qa\catalog-plan-acceptance.spec.ts:8:93 › manual plan caller acceptance after malformed
+[189/255] [controlled-http-1440] › tools\oier_commercial_qa\catalog-plan-acceptance.spec.ts:8:93 › manual plan caller acceptance after wrong_receipt
+[190/255] [controlled-http-1440] › tools\oier_commercial_qa\catalog-plan-acceptance.spec.ts:8:93 › manual plan caller acceptance after denied
+[191/255] [controlled-http-1440] › tools\oier_commercial_qa\catalog-plan-acceptance.spec.ts:8:93 › manual plan caller acceptance after success
+[192/255] [controlled-http-1440] › tools\oier_commercial_qa\contract-shortcut.spec.ts:9:64 › new manual contract follows the shortcut intent
+[193/255] [controlled-http-1440] › tools\oier_commercial_qa\contract-shortcut.spec.ts:9:64 › new manual contract follows the manual_selection intent
+[194/255] [controlled-http-1440] › tools\oier_commercial_qa\document-context.spec.ts:8:73 › document context customer retires only changed identity
+[195/255] [controlled-http-1440] › tools\oier_commercial_qa\document-context.spec.ts:8:73 › document context target retires only changed identity
+[196/255] [controlled-http-1440] › tools\oier_commercial_qa\document-context.spec.ts:8:73 › document context late retires only changed identity
+[197/255] [controlled-http-1440] › tools\oier_commercial_qa\document-context.spec.ts:8:73 › document context unchanged retires only changed identity
+[198/255] [controlled-http-1440] › tools\oier_commercial_qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after transport
+[199/255] [controlled-http-1440] › tools\oier_commercial_qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after malformed
+[200/255] [controlled-http-1440] › tools\oier_commercial_qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after wrong_receipt
+[201/255] [controlled-http-1440] › tools\oier_commercial_qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after denied
+[202/255] [controlled-http-1440] › tools\oier_commercial_qa\document-intent.spec.ts:7:147 › document archive preserves exact intent after success
+[203/255] [controlled-http-1440] › tools\oier_commercial_qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after transport
+[204/255] [controlled-http-1440] › tools\oier_commercial_qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after malformed
+[205/255] [controlled-http-1440] › tools\oier_commercial_qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after wrong_receipt
+[206/255] [controlled-http-1440] › tools\oier_commercial_qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after denied
+[207/255] [controlled-http-1440] › tools\oier_commercial_qa\document-intent.spec.ts:7:147 › document restore preserves exact intent after success
+[208/255] [controlled-http-1440] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox note preserves reviewed intent after transport
+[209/255] [controlled-http-1440] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox note preserves reviewed intent after malformed
+[210/255] [controlled-http-1440] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox note preserves reviewed intent after wrong_receipt
+[211/255] [controlled-http-1440] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox note preserves reviewed intent after denied
+[212/255] [controlled-http-1440] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox note preserves reviewed intent after success
+[213/255] [controlled-http-1440] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox create preserves reviewed intent after transport
+[214/255] [controlled-http-1440] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox create preserves reviewed intent after malformed
+[215/255] [controlled-http-1440] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox create preserves reviewed intent after wrong_receipt
+[216/255] [controlled-http-1440] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox create preserves reviewed intent after denied
+[217/255] [controlled-http-1440] › tools\oier_commercial_qa\inbox-intent.spec.ts:7:140 › inbox create preserves reviewed intent after success
+[218/255] [controlled-http-1440] › tools\oier_commercial_qa\inbox-readback.spec.ts:7:99 › inbox confirmed receipt requires coherent stale readback
+[219/255] [controlled-http-1440] › tools\oier_commercial_qa\inbox-readback.spec.ts:7:99 › inbox confirmed receipt requires coherent wrong_status readback
+[220/255] [controlled-http-1440] › tools\oier_commercial_qa\inbox-readback.spec.ts:7:99 › inbox confirmed receipt requires coherent exact readback
+[221/255] [controlled-http-1440] › tools\oier_commercial_qa\inbox-readback.spec.ts:7:99 › inbox confirmed receipt requires coherent newer readback
+[222/255] [controlled-http-1440] › tools\oier_commercial_qa\inbox-readback.spec.ts:7:99 › inbox confirmed receipt requires coherent mark_read readback
+[223/255] [controlled-http-1440] › tools\oier_commercial_qa\inbox-readback.spec.ts:7:99 › inbox confirmed receipt requires coherent mark_unread readback
+[224/255] [controlled-http-1440] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps transport intent
+[225/255] [controlled-http-1440] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps malformed intent
+[226/255] [controlled-http-1440] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps wrong_receipt intent
+[227/255] [controlled-http-1440] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps read_failure intent
+[228/255] [controlled-http-1440] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps denied intent
+[229/255] [controlled-http-1440] › tools\oier_commercial_qa\opportunity-archive.spec.ts:8:108 › opportunity archive confirmation keeps success intent
+[230/255] [controlled-http-1440] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after transport
+[231/255] [controlled-http-1440] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after malformed
+[232/255] [controlled-http-1440] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after wrong_receipt
+[233/255] [controlled-http-1440] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after read_failure
+[234/255] [controlled-http-1440] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after denied
+[235/255] [controlled-http-1440] › tools\oier_commercial_qa\opportunity-intent.spec.ts:8:108 › opportunity create retains frozen intent after success
+[236/255] [controlled-http-1440] › tools\oier_commercial_qa\portability-readback.spec.ts:8:88 › portability cancellation keeps coherent stale readback
+[237/255] [controlled-http-1440] › tools\oier_commercial_qa\portability-readback.spec.ts:8:88 › portability cancellation keeps coherent wrong_status readback
+[238/255] [controlled-http-1440] › tools\oier_commercial_qa\portability-readback.spec.ts:8:88 › portability cancellation keeps coherent wrong_source readback
+[239/255] [controlled-http-1440] › tools\oier_commercial_qa\portability-readback.spec.ts:8:88 › portability cancellation keeps coherent exact readback
+[240/255] [controlled-http-1440] › tools\oier_commercial_qa\portability-readback.spec.ts:8:88 › portability cancellation keeps coherent newer readback
+[241/255] [controlled-http-1440] › tools\oier_commercial_qa\portfolio-create-intent.spec.ts:9:99 › manual service creation preserves intent and receipt after transport
+[242/255] [controlled-http-1440] › tools\oier_commercial_qa\portfolio-create-intent.spec.ts:9:99 › manual service creation preserves intent and receipt after malformed
+[243/255] [controlled-http-1440] › tools\oier_commercial_qa\portfolio-create-intent.spec.ts:9:99 › manual service creation preserves intent and receipt after wrong_receipt
+[244/255] [controlled-http-1440] › tools\oier_commercial_qa\portfolio-create-intent.spec.ts:9:99 › manual service creation preserves intent and receipt after read_failure
+[245/255] [controlled-http-1440] › tools\oier_commercial_qa\portfolio-create-intent.spec.ts:9:99 › manual service creation preserves intent and receipt after success
+[246/255] [controlled-http-1440] › tools\oier_commercial_qa\portfolio-readback.spec.ts:9:92 › portfolio confirmed command requires coherent stale readback
+[247/255] [controlled-http-1440] › tools\oier_commercial_qa\portfolio-readback.spec.ts:9:92 › portfolio confirmed command requires coherent wrong_status readback
+[248/255] [controlled-http-1440] › tools\oier_commercial_qa\portfolio-readback.spec.ts:9:92 › portfolio confirmed command requires coherent wrong_source readback
+[249/255] [controlled-http-1440] › tools\oier_commercial_qa\portfolio-readback.spec.ts:9:92 › portfolio confirmed command requires coherent confirmed readback
+[250/255] [controlled-http-1440] › tools\oier_commercial_qa\portfolio-readback.spec.ts:9:92 › portfolio confirmed command requires coherent newer readback
+[251/255] [controlled-http-1440] › tools\oier_commercial_qa\sim-readback.spec.ts:8:88 › SIM cancellation receipt keeps coherent stale readback
+[252/255] [controlled-http-1440] › tools\oier_commercial_qa\sim-readback.spec.ts:8:88 › SIM cancellation receipt keeps coherent wrong_status readback
+[253/255] [controlled-http-1440] › tools\oier_commercial_qa\sim-readback.spec.ts:8:88 › SIM cancellation receipt keeps coherent wrong_source readback
+[254/255] [controlled-http-1440] › tools\oier_commercial_qa\sim-readback.spec.ts:8:88 › SIM cancellation receipt keeps coherent exact readback
+[255/255] [controlled-http-1440] › tools\oier_commercial_qa\sim-readback.spec.ts:8:88 › SIM cancellation receipt keeps coherent newer readback
+  255 passed (9.2m)

@@ -16,15 +16,51 @@
       "observer": "Search valid/expected present; expected portfolio200/dtopending atfreeze",
       "result": "FAIL_101UI_PASS12FAIL",
       "request": 6287148538
+    },
+    "unit29_fixture": {
+      "correction": "Change only synthetic query to sintética matching both labels; no limits/assertions/validator changes",
+      "original_bank": "oier-commercial-20261020-unit29-fixture-original-bank.ts",
+      "classification": "LOCAL_FIXTURE_DIAGNOSTIC_INTERRUPTED_NOT_CAUSAL",
+      "command_dispatch": "NOT_REACHED_IN_OBSERVED_FAILURES",
+      "source": "b13f744c79d8a932c516b523c84193bf352aeaca",
+      "interruption": "Ctrl-C only own local Playwright fixture after exact cause established; no GitHub checks cancelled",
+      "last_started_test": 3,
+      "original_log": "oier-commercial-20261020-unit29-baseline.log",
+      "cause": "Search query Archivo sintético is not a contiguous substring of either synthetic result label; closed global search validator correctly rejects it before work.get or archive.",
+      "reporter_final_counts": null,
+      "observed_failures": 2
+    },
+    "quota_5d58": {
+      "failure_phase": "CONTAINER_PULL_BEFORE_CHECKOUT_OR_TESTS",
+      "image": "public.ecr.aws/docker/library/postgres@sha256:ca0bd484cb98bf4b24eb1010e73fb3fcbd6714d240fbc1a10eea5b7dbecb641d",
+      "head": "5d58a56dbbe00e5eaefa6228420322d268f7c5c7",
+      "job": 118566444067,
+      "original_log": "job-118566444067.txt",
+      "release": "NOT_ACCEPTED",
+      "native_result": "NOT_RUN",
+      "manual_reruns_requested": 0,
+      "assertions_limits_image_permissions_changed": false,
+      "same_SHA_pin_positive": "NOT_FOUND",
+      "other_SHA_positive": "fb24 merge05f70c5 IS_NOT_ELIGIBLE_FOR5D58_RETRY",
+      "maximum_manual_reruns": 1,
+      "cause": "Docker toomanyrequests: Data limit exceeded",
+      "known_W5_request": 6279686354,
+      "actual_tested_sha": null,
+      "runner_internal_pull_attempts": 3,
+      "unit": 28,
+      "W5_cache": "NOT_AUTO_APPROVED",
+      "native_tests": null,
+      "retry_eligibility": "NOT_ELIGIBLE_WITHOUT_SAME_SHA_PIN_PHYSICAL_POSITIVE",
+      "run": 39404325700
     }
   },
   "HIGH": "FIVE_OPEN",
   "base": "888ecaae57e9021ca0cb25d4da0657c1f6ac9b40",
   "remote_checks": {
     "PR161": {
-      "head": "fb24c7f55a17ccb9a2fc49b1f928c39b96a27720",
+      "head": "5d58a56dbbe00e5eaefa6228420322d268f7c5c7",
       "manual_retry": 0,
-      "active": "FB24_OWN_RUNS_REFRESH_BEFORE_PR_PUSH_KEEP_UNTIL_TERMINAL",
+      "active": "5D58_OWN_RUNS_REFRESH_BEFORE_PR_PUSH_KEEP_UNTIL_TERMINAL",
       "native_quota": "a32_BEFORE_TESTS;0MANUAL_RETRY",
       "security": "5HIGH_W4_INDEPENDENT",
       "prior_a32": {
@@ -67,6 +103,50 @@
         "native_migration_tenant_restore_step": "SUCCESS",
         "bootstrap_passed": 11,
         "scope": "THIS_MERGE_AND_PIN_ONLY_NOT_OTHER_SHA_QUOTA_RETRY_FULL23_W5_CACHE_OR_HOSTED_RESTORE_APPROVAL"
+      },
+      "fb24_supabase": {
+        "ui_result": "PASS",
+        "tree": "6876efbdd2eee8b954085453c856b9696e378758",
+        "manual_reruns": 0,
+        "backend_checks": 4042,
+        "actual_tested_sha": "05f70c595d17da450ed5cb570df3e7dfa00c8c45",
+        "head": "fb24c7f55a17ccb9a2fc49b1f928c39b96a27720",
+        "ui_count": 113,
+        "causal_correction_of_a32_F736_137": "NOT_DEMONSTRATED",
+        "run": 39401791607,
+        "job": 118558010898,
+        "result": "PASS",
+        "environment": "LOCAL_SUPABASE_DOCKER",
+        "staging": "NOT_TESTED",
+        "teardown": "PASS",
+        "trees_equal": true,
+        "not_assigned_to": "e5e_OR_5d58_OR_NEW_UNIT29_SHA",
+        "release": "NOT_ACCEPTED",
+        "artifact": 12256443423
+      },
+      "current49bc": "NOT_RUN_NO_INHERITANCE_FROM_5D58_FB24_2B31",
+      "quota_5d58": {
+        "failure_phase": "CONTAINER_PULL_BEFORE_CHECKOUT_OR_TESTS",
+        "image": "public.ecr.aws/docker/library/postgres@sha256:ca0bd484cb98bf4b24eb1010e73fb3fcbd6714d240fbc1a10eea5b7dbecb641d",
+        "head": "5d58a56dbbe00e5eaefa6228420322d268f7c5c7",
+        "job": 118566444067,
+        "original_log": "job-118566444067.txt",
+        "release": "NOT_ACCEPTED",
+        "native_result": "NOT_RUN",
+        "manual_reruns_requested": 0,
+        "assertions_limits_image_permissions_changed": false,
+        "same_SHA_pin_positive": "NOT_FOUND",
+        "other_SHA_positive": "fb24 merge05f70c5 IS_NOT_ELIGIBLE_FOR5D58_RETRY",
+        "maximum_manual_reruns": 1,
+        "cause": "Docker toomanyrequests: Data limit exceeded",
+        "known_W5_request": 6279686354,
+        "actual_tested_sha": null,
+        "runner_internal_pull_attempts": 3,
+        "unit": 28,
+        "W5_cache": "NOT_AUTO_APPROVED",
+        "native_tests": null,
+        "retry_eligibility": "NOT_ELIGIBLE_WITHOUT_SAME_SHA_PIN_PHYSICAL_POSITIVE",
+        "run": 39404325700
       }
     },
     "PR160": {
@@ -83,30 +163,30 @@
   "integration": "DRAFT_ASIER_EXACT_ACK_REQUIRED",
   "branch": "oier/portfolio-receipt-readback-20261020",
   "next": {
-    "causal": "REQUEST6287148538 remains causeUNKNOWN; 2b31 green not a causal correction of prior failure",
-    "security": "5HIGH, independentW4/scan/P0Storage, W5EdgeAccess/cache, historical quota/F736/137/a32 preserved; writesOFF issue10OPEN releaseNOT_ACCEPTED",
-    "independent": "CLAIM6288083277 unit29: original opportunity.archive confirmation cancel/X/Escape bank via existing pipeline fixture. Prepare outside active checkout, execute only after28 publication; do not inherit creation acceptance.",
-    "publish": "Recovery alias while PRfb24 checks active; no cancel/force/push above active checks. Integration requires exact Asier ACK."
+    "security": "5HIGH, independentW4/scan/P0Storage, W5EdgeAccess/cache, historical quotas/F736/137/a32 preserved; writesOFF issue10OPEN releaseNOT_ACCEPTED",
+    "causal": "REQUEST6287148538 causeUNKNOWN; greenfb24/2b31 does not demonstrate causal repair",
+    "independent": "CLAIM6288377150 unit30: original pipeline change_stage uncertain receipt and same-version stage/status mismatch bank. Existing pipeline fixture; prepare outside active checkout, execute after29 publication.",
+    "publish": "Recovery alias while PR5d58 checks active; no cancellation/force/push above active checks. Exact Asier ACK for integration."
   },
-  "unit": 28,
-  "claim": 6287866840,
+  "unit": 29,
+  "claim": 6288083277,
   "scope": "Actual product/repository/validators, synthetic loopback HTTP; real voice/model/hostedAuthDB/staging persistence NOT_RUN",
   "StorageP0": "OPEN",
   "source_blobs": {
+    "src/features/opportunities/IntegratedOpportunities.tsx": "3463aa030ab05b409ec6b73d7f60b8d7b58cf030",
     "src/features/cases/Cases.tsx": "f98b587953af0abb50d6e41a246e58a6610be302",
     "src/features/calendar/IntegratedCalendar.tsx": "c8f8c19fa818d5a31a9e2551fa08e1aa9c2e28ed",
-    "src/features/inbox/IntegratedInbox.tsx": "c1a89dbfcc81d8d12461a7379598343c4edf88a7",
-    "src/features/documents/IntegratedDocuments.tsx": "3cbef04ad8c7621c1838aaa5f060e259b2323978",
-    "src/features/portabilities/Portabilities.tsx": "26e6a7313003fa40a363f9bfcae0819bfb9a233d",
-    "src/features/sims/Sims.tsx": "6470b0214bcf0f57ab582855bd5b0943b86312a1",
     "src/features/portfolio/IntegratedPortfolio.tsx": "42d84eda2f9596742a0c8f6a2b03dc1a2046be32",
-    "src/features/opportunities/IntegratedOpportunities.tsx": "50aca4d1de2af92f56491a9b97ec0ea0ba83b905",
+    "src/features/portabilities/Portabilities.tsx": "26e6a7313003fa40a363f9bfcae0819bfb9a233d",
+    "src/features/documents/IntegratedDocuments.tsx": "3cbef04ad8c7621c1838aaa5f060e259b2323978",
     "src/features/portfolio/PortfolioCreate.tsx": "214e6b7366d1f742586999263c9c55c2c11e14bc",
-    "src/features/catalog/IntegratedCatalog.tsx": "5222c823f4a646b01c7a03c7da20e2450759c119"
+    "src/features/sims/Sims.tsx": "6470b0214bcf0f57ab582855bd5b0943b86312a1",
+    "src/features/catalog/IntegratedCatalog.tsx": "5222c823f4a646b01c7a03c7da20e2450759c119",
+    "src/features/inbox/IntegratedInbox.tsx": "c1a89dbfcc81d8d12461a7379598343c4edf88a7"
   },
   "release": "NOT_ACCEPTED",
   "W4": "INDEPENDENT",
-  "source": "e5e3cf02e65b7cdaadb2ec1c5c5e568a250225e3",
+  "source": "49bc242c849a019b4b85fd3da1b3a8c9a45ca179",
   "delivery": "DOCS_ONLY_COMMIT_CONTAINS_MEASURED_CODE_UNCHANGED",
   "baseline": {
     "source": "27da91d671b342f52ce4cd12be070a4da846b02e",
@@ -200,44 +280,52 @@
       "passed": 6,
       "cause": "Malformed/foreign receipt enabled editing and cleared intent; transport loss or confirmed receipt plus read failure allowed editor close. Authoritative refusal/success positive.",
       "source": "7db9150e34ebfdfb5946ea55a05b3bad502144dd"
+    },
+    "opportunity_archive": {
+      "source": "86cf6b26e7369f500f1c54b3f5329eaf5a1e0383",
+      "fixture": "Attempt01 query mismatch rejected correctly before command, interrupted local diagnostic with final counts NULL; original bank/log/traces retained, no GitHub check cancellation",
+      "failed": 9,
+      "cause": "Unknown archive confirmation permitted Cancel/X/Escape; handler cleared immutable pending intent",
+      "attempt": "opportunity-archive-attempt02",
+      "passed": 9
     }
   },
   "checks": {
-    "browser_composed": {
-      "startTime": "2026-10-20T07:41:44.993Z",
-      "duration": 509798.751,
-      "expected": 237,
-      "skipped": 0,
-      "unexpected": 0,
-      "flaky": 0
-    },
-    "scope": "Actual UI/repository/DTOs with synthetic controlledHTTP; no hostedAuthDB/provider/model acceptance",
-    "source_binding": "evidence/unit28-source-binding.json",
-    "acceptance": "INDIVIDUAL_OPPORTUNITY_CREATE_ONLY",
-    "browser_unique": 339,
-    "bootstrap": {
-      "failed": 0,
-      "passed": 96
-    },
     "browser_existing_regression": {
-      "startTime": "2026-10-20T07:41:44.965Z",
-      "duration": 225727.71099999998,
+      "startTime": "2026-10-20T08:00:01.573Z",
+      "duration": 224374.06999999998,
       "expected": 102,
       "skipped": 0,
       "unexpected": 0,
       "flaky": 0
     },
-    "source": "e5e3cf02e65b7cdaadb2ec1c5c5e568a250225e3",
+    "protected_primitives": "ALL3_UNCHANGED_BLOBS_EQUALS888",
+    "scope": "Actual UI/repository/DTOs controlled syntheticHTTP, owner/manual fixture; no hostedAuthDB/provider/model acceptance",
     "quality": {
-      "source": "e5e3cf02e65b7cdaadb2ec1c5c5e568a250225e3",
-      "logic": 0,
-      "lint": 0,
+      "preflight": "oier-commercial-20261020-unit29-preflight.json",
       "build": 0,
       "typescript": 0,
-      "preflight": "oier-commercial-20261020-unit28-preflight.json"
+      "logic": 0,
+      "lint": 0,
+      "source": "49bc242c849a019b4b85fd3da1b3a8c9a45ca179"
     },
-    "visual": "390 malformed result and confirmed-receipt/read-failure recovery reviewed; fields, client, amount, date, retry retained",
-    "protected_primitives": "ALL3_UNCHANGED_BLOBS_EQUALS888"
+    "source": "49bc242c849a019b4b85fd3da1b3a8c9a45ca179",
+    "bootstrap": {
+      "passed": 96,
+      "failed": 0
+    },
+    "browser_unique": 357,
+    "source_binding": "evidence/unit29-source-binding.json",
+    "visual": "390_768_1440 archive pending confirmation reviewed, exact retry and coherent archived state verified",
+    "acceptance": "INDIVIDUAL_OPPORTUNITY_ARCHIVE_OPEN_MANUAL_ONLY",
+    "browser_composed": {
+      "startTime": "2026-10-20T08:00:01.561Z",
+      "duration": 551207.4759999999,
+      "expected": 255,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    }
   },
   "claims": {
     "unit15": 6279498568,
@@ -341,7 +429,11 @@
     "regression-attempt12": "5415fe9_93PASS",
     "opportunity-intent-attempt01": "7db9150_CAUSAL12FAIL6PASS_APPLICATION_OPPORTUNITIES_UNCHANGED888",
     "composed-attempt14": "e5e3cf0_237PASS",
-    "regression-attempt13": "e5e3cf0_102PASS_INCLUDES_PIPELINE_QUERY6_CATALOG3"
+    "regression-attempt13": "e5e3cf0_102PASS_INCLUDES_PIPELINE_QUERY6_CATALOG3",
+    "opportunity-archive-attempt01": "b13f744_INTERRUPTED_LOCAL_FIXTURE2OBSERVED_FAILURES_NO_FINAL_COUNTS_NOT_CAUSAL",
+    "opportunity-archive-attempt02": "86cf6b2_CAUSAL9FAIL9PASS",
+    "composed-attempt15": "49bc242_255PASS",
+    "regression-attempt14": "49bc242_102PASS"
   },
   "cloud": "W5 Edge Access/deploy/cohort/window/roles/actions/cleanup; no bypass;87migrations untouched, no resellpro",
   "changes": {
@@ -359,7 +451,8 @@
     "catalog_create": "Only CatalogCreate: retain pending intent for transport/internal_safe, derive uncertainty from error state, reuse Drawer closeDisabled and clarify result unknown. Existing catalog UI test resource gains opt-in IntegratedCatalog entry; default VersionTerms verified by existing3cases, resource not duplicated. Backend/contracts/OperatorDetail/VersionTerms unchanged.",
     "sim_receipt_readback": "Consumer Sims only: retain typed validatedSimReceipt, supply to localrefresh callback, reject older/incompatible sameversion id/status/source before setCore/editor replacement. Query-only recovery, no repeatedcommand. ReviewedCommand/backend/identifiers/W5 untouched. No independent acceptance of all SIM operations.",
     "portability_readback": "Retain typed receipt and reject incompatible current read before replacing core. Reuse unchanged ReviewedCommand. Consumer-only previous-read captions for SIM/Portability; query retry issues no new cancellation.",
-    "opportunity_create": "Keep frozen pending intent after transport/internal_safe result; block Drawer close while uncertain or confirmed read recovery remains; truthful result-unconfirmed feedback. Existing shared primitives unchanged."
+    "opportunity_create": "Keep frozen pending intent after transport/internal_safe result; block Drawer close while uncertain or confirmed read recovery remains; truthful result-unconfirmed feedback. Existing shared primitives unchanged.",
+    "opportunity_archive": "Reuse existing ConfirmDialog cancelDisabled in consumer; guard onCancel while uncertain, preserve exact archive intent; retry label and truthful pending/history copy replace misleading synthetic/local product wording. No shared primitive edits."
   },
   "AI_commercial_writes": "OFF",
   "completed_unit17": {
@@ -699,7 +792,7 @@
       }
     }
   },
-  "qa_source": "e5e3cf02e65b7cdaadb2ec1c5c5e568a250225e3",
+  "qa_source": "49bc242c849a019b4b85fd3da1b3a8c9a45ca179",
   "individual_acceptance": {
     "unit25": {
       "operation": "plan.create",
@@ -736,6 +829,23 @@
         "live model",
         "provider",
         "security/release acceptance"
+      ]
+    },
+    "unit29": {
+      "not_verified": [
+        "other opportunity mutations or initial states",
+        "real AuthDB idempotence",
+        "hosted staging",
+        "live model/provider",
+        "security/release acceptance"
+      ],
+      "operation": "opportunity.archive",
+      "verified": [
+        "Cancel/X/Escape cannot discard uncertain archive",
+        "same command/id/expected_version on replay",
+        "confirmed receipt retries only work.get",
+        "authoritative refusal permits cancel",
+        "normal success shows cancelled and no stage control"
       ]
     }
   },
@@ -858,5 +968,47 @@
       }
     },
     "handoff": 6287982430
+  },
+  "completed_unit28": {
+    "checks": {
+      "browser_composed": {
+        "startTime": "2026-10-20T07:41:44.993Z",
+        "duration": 509798.751,
+        "expected": 237,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "scope": "Actual UI/repository/DTOs with synthetic controlledHTTP; no hostedAuthDB/provider/model acceptance",
+      "source_binding": "evidence/unit28-source-binding.json",
+      "acceptance": "INDIVIDUAL_OPPORTUNITY_CREATE_ONLY",
+      "browser_unique": 339,
+      "bootstrap": {
+        "failed": 0,
+        "passed": 96
+      },
+      "browser_existing_regression": {
+        "startTime": "2026-10-20T07:41:44.965Z",
+        "duration": 225727.71099999998,
+        "expected": 102,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "source": "e5e3cf02e65b7cdaadb2ec1c5c5e568a250225e3",
+      "quality": {
+        "source": "e5e3cf02e65b7cdaadb2ec1c5c5e568a250225e3",
+        "logic": 0,
+        "lint": 0,
+        "build": 0,
+        "typescript": 0,
+        "preflight": "oier-commercial-20261020-unit28-preflight.json"
+      },
+      "visual": "390 malformed result and confirmed-receipt/read-failure recovery reviewed; fields, client, amount, date, retry retained",
+      "protected_primitives": "ALL3_UNCHANGED_BLOBS_EQUALS888"
+    },
+    "source": "e5e3cf02e65b7cdaadb2ec1c5c5e568a250225e3",
+    "delivery": "5d58a56dbbe00e5eaefa6228420322d268f7c5c7",
+    "handoff": 6288250490
   }
 }
