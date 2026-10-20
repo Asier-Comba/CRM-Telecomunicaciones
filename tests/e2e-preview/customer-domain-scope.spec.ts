@@ -4,6 +4,57 @@ const id=(prefix:number,n:number)=>`${prefix}0000000-0000-4000-8000-${String(n).
 const row=(customer:number,n:number)=>({id:id(5,customer*100+n),version:1,customer_id:id(1,customer),contract_id:id(6,customer),operator_id:id(2,1),plan_version_id:null,service_kind:'fiber',display_name:`Synthetic customer ${customer} service ${n}`,status:'active',source:'manual',activated_on:'2026-10-01',ended_on:null})
 type ListInput={customer_id:string;after_id?:string;status?:string;limit:number;sort:string}
 const reply=(route:Route,n:number,input:ListInput)=>route.fulfill({json:{ok:true,data:{contract_version:'telecom.collections.v1',operation:'service.list',items:n===1&&!input.after_id?Array.from({length:20},(_,i)=>row(n,i+1)):[row(n,input.after_id?21:1)],next_id:n===1&&!input.after_id?id(5,120):null}}})
+for(const width of [390,768,1440])for(const denied of [false,true])test(`customer paging restores keyboard location after ${denied?'denial and retry':'success'} at ${width}`,async({page},info)=>{
+ const fixture=await startCustomerDomainFixture(),held:Route[]=[],commands:string[]=[],errors:string[]=[]
+ let gate=true
+ page.on('pageerror',e=>errors.push(e.message))
+ await page.route('**/api/**',async route=>{
+  const {operation,input}=route.request().postDataJSON()
+  if(route.request().url().endsWith('/commands')){commands.push(operation);await route.fulfill({status:403,json:{ok:false,error:'access_denied'}});return}
+  if(operation==='service.list'){
+   if(input.after_id&&gate){gate=false;held.push(route);return}
+   await reply(route,1,input);return
+  }
+  if(operation==='operator.get'){await route.fulfill({json:{ok:true,data:{contract_version:'telecom.collections.v1',operation,record:{id:input.id,version:1,code:'synthetic_operator',display_name:'Synthetic operator',status:'active',source:'manual'}}}});return}
+  if(operation==='customer.list'){await route.fulfill({json:{ok:true,data:{contract_version:'telecom.collections.v1',operation,items:[{id:id(1,1),version:1,display_name:'Synthetic customer 1',account_kind:'legal_entity',lifecycle:'customer',status:'active',source:'manual',assigned_user_id:null}],next_id:null}}});return}
+  await route.fulfill({status:400,json:{ok:false,error:'validation'}})
+ })
+ try{
+  await page.setViewportSize({width,height:960});await page.goto(fixture.url)
+  const next=page.getByRole('button',{name:'Siguiente página de Servicios',exact:true})
+  await expect(next).toBeEnabled();await next.focus();await page.keyboard.press('Enter')
+  await expect.poll(()=>held.length).toBe(1)
+  await expect(page.getByRole('status')).toContainText('Cargando servicios')
+  if(denied){
+   await held[0].fulfill({status:403,json:{ok:false,error:'access_denied'}})
+   const alert=page.getByRole('alert')
+   await expect(alert).toHaveText('No tienes permiso para esta acción.')
+   await info.attach('focus-after-denial',{body:JSON.stringify(await page.evaluate(()=>({tag:document.activeElement?.tagName}))),contentType:'application/json'})
+   await expect(alert).toBeFocused()
+   await expect(page.getByText('No hay registros de servicios en esta página.',{exact:true})).toHaveCount(0)
+   await expect(next).toBeDisabled();await page.keyboard.press('Tab')
+   await expect(page.getByRole('button',{name:'Reintentar Servicios',exact:true})).toBeFocused()
+   await page.keyboard.press('Enter')
+  }else await reply(held[0],1,{customer_id:id(1,1),after_id:id(5,120),limit:20,sort:'id_asc'})
+  const indicator=page.getByText('Página 2 · 1 registros',{exact:true})
+  await expect(indicator).toBeVisible()
+  await info.attach('focus-after-page',{body:JSON.stringify(await page.evaluate(()=>({tag:document.activeElement?.tagName}))),contentType:'application/json'})
+  await expect(indicator).toBeFocused();await expect(indicator).toHaveAttribute('aria-live','polite')
+  await expect(page.getByRole('link',{name:'Synthetic customer 1 service 21',exact:true}).filter({visible:true})).toBeVisible()
+  await page.screenshot({path:info.outputPath(`customer-page-ready-${width}.png`)})
+  const previous=page.getByRole('button',{name:'Página anterior de Servicios',exact:true})
+  await previous.focus();await page.keyboard.press('Enter')
+  await expect(page.getByText('Página 1 · 20 registros',{exact:true})).toBeFocused()
+  if(!denied){
+   gate=true;await next.focus();await page.keyboard.press('Enter')
+   await expect.poll(()=>held.length).toBe(2)
+   const filter=page.getByLabel('Estado de Servicios',{exact:true});await filter.focus()
+   await reply(held[1],1,{customer_id:id(1,1),after_id:id(5,120),limit:20,sort:'id_asc'})
+   await expect(indicator).toBeVisible();await expect(filter).toBeFocused()
+  }
+  expect(commands).toEqual([]);expect(errors).toEqual([])
+ }finally{for(const route of held)await route.abort().catch(()=>{});await page.close();await fixture.close()}
+})
 for(const width of [390,768,1440])test(`customer collection retires rows cursor and filter on scope change at ${width}`,async({page},info)=>{
  const fixture=await startCustomerDomainFixture(),commands:string[]=[],errors:string[]=[],reads:ListInput[]=[],held:{route:Route;input:ListInput}[]=[],late:{route:Route;input:ListInput}[]=[]
  let holdB=true,delayA=false

@@ -182,6 +182,20 @@ test('owner phrase preserves complete concept and fifteen-day due date in editab
  expect(draft.lines[0].unit_price_minor).toBe(30000);expect(draft.lines[0].tax_bps).toBe(2100)
  r.assertNoCommands()
 })
+test('telecom speed remains complete in the editable invoice concept',async({page},info)=>{
+ const r=await mount(page),concept='conectividad 600 Mbps'
+ await generate(page,`Factura para ${label} por ${concept} de 300 euros más el 21% de IVA y vencimiento en quince días`)
+ const field=page.getByRole('textbox',{name:'Concepto 1',exact:true})
+ await expect(field).toHaveValue(concept)
+ const draft=r.proposals()[0].input.draft as BillingDraftV1
+ expect(draft.lines[0].description).toBe(concept)
+ expect(draft.lines[0].unit_price_minor).toBe(30000)
+ expect(draft.lines[0].tax_bps).toBe(2100)
+ expect(r.proposals()).toHaveLength(1);r.assertNoCommands();expect(r.pageErrors).toEqual([])
+ await expect(page.getByRole('button',{name:'Guardar borrador',exact:true})).toBeDisabled()
+ await field.scrollIntoViewIfNeeded()
+ await page.screenshot({path:info.outputPath('telecom-speed-reviewed.png')})
+})
 for(const mode of ['denied','malformed','network'] as const)test(`${mode} proposal failure is explained without opening editor or writing`,async({page},info)=>{
  const r=await mount(page,{mode});await generate(page,simple)
  await expect.poll(()=>r.proposals().length).toBe(1)
