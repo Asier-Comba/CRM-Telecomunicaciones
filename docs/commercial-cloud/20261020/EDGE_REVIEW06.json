@@ -1,0 +1,71 @@
+{
+  "compile_bank": {
+    "source": "507f1cbe5b3ea28d6c55d944e9fd10f42c8c8b1d",
+    "pass": 10,
+    "compiler": "INSTALLED_NEXT_16.3.8_SWC",
+    "fail": 0,
+    "runtime": "CONTROLLED_NOT_NETLIFY_OR_DENO"
+  },
+  "build": "NOT_RUN",
+  "classification": "PROBADA_LOCALMENTE",
+  "release": "NOT_ACCEPTED",
+  "security": "NOT_ACCEPTED_REVIEWER_PENDING",
+  "original_bank": {
+    "source": "e42cfd59615a284bf26a758c4078c299bed39290",
+    "pass": 35,
+    "fail": 0
+  },
+  "product_source": "e42cfd59615a284bf26a758c4078c299bed39290",
+  "parent": "3b80c50d13bc0a9a52f6662de46a1e8b9581c62b",
+  "hosted": "NOT_RUN",
+  "typescript": {
+    "exit": 0,
+    "source": "d69445da",
+    "rerun_507": "NOT_RUN_MJS_VARIABLE_RENAME_ONLY"
+  },
+  "unit": "EDGE-REVIEW-06",
+  "review_source": "507f1cbe5b3ea28d6c55d944e9fd10f42c8c8b1d",
+  "lint": {
+    "original": "FAIL_D694_NEXT_NO_ASSIGN_MODULE_VARIABLE",
+    "fixed_source": "507f1cbe5b3ea28d6c55d944e9fd10f42c8c8b1d",
+    "fixed_exit": 0
+  },
+  "logs": [
+    {
+      "name": "demo-edge06-original-e42.txt",
+      "retained": "OWN_LOCAL_WORK_RECOVERY",
+      "sha256": "714596dca6e9ef7753c4a5ed661ae2e71b884b25659228c2270d80d250e40d71",
+      "bytes": 4238
+    },
+    {
+      "name": "demo-edge06-compile-original.txt",
+      "retained": "OWN_LOCAL_WORK_RECOVERY",
+      "sha256": "f03956010f3a0662cd4472b607a637355f5d1333ba4a8052721cc0cae4191698",
+      "bytes": 1048
+    },
+    {
+      "name": "demo-edge06-compile-fixed.txt",
+      "retained": "OWN_LOCAL_WORK_RECOVERY",
+      "sha256": "88448a63a4622b62eb3f9636e517c4b39fc57d672b8630bb5c4e701b5690e03f",
+      "bytes": 1045
+    },
+    {
+      "name": "demo-edge06-lint-d694.txt",
+      "retained": "OWN_LOCAL_WORK_RECOVERY",
+      "sha256": "aef0c1a27d8a246ef3037199707c3c6af3df220f15172c085b1ebc22f3816c5f",
+      "bytes": 367
+    },
+    {
+      "name": "demo-edge06-lint-fixed.txt",
+      "retained": "OWN_LOCAL_WORK_RECOVERY",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "name": "demo-edge06-types-d694.txt",
+      "retained": "OWN_LOCAL_WORK_RECOVERY",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    }
+  ]
+}
