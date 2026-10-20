@@ -141,7 +141,7 @@ export async function hostedFlow(page,manifest,env,journal,saveJournal,report){
   })
   await phase('A_EXPLICIT_REVIEW_DRAFT_RECEIPT',async()=>{
    await page.getByRole('checkbox',{name:/He revisado cliente, conceptos, importes, impuestos y fechas/}).check()
-   const [response]=await Promise.all([page.waitForResponse(r=>isResponse(r,'invoice.create_draft')),page.getByRole('button',{name:'Guardar borrador local',exact:true}).click()])
+   const [response]=await Promise.all([page.waitForResponse(r=>isResponse(r,'invoice.create_draft')),page.getByRole('button',{name:/^Guardar borrador(?: local)?$/}).click()])
    const data=await response.json(),request=body(response.request()),receipt=data.receipt
    invariant(response.ok()&&data.ok===true&&receipt?.operation==='invoice.create_draft'&&receipt.command_id===request.input.command_id&&receipt.status==='draft'&&receipt.number===null&&uuid.test(receipt.id))
    journal.invoiceId=receipt.id;journal.invoiceReceipt={id:receipt.id,version:receipt.version,commandId:receipt.command_id};saveJournal()
