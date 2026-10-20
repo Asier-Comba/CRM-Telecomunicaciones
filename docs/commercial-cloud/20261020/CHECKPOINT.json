@@ -52,15 +52,74 @@
       "native_tests": null,
       "retry_eligibility": "NOT_ELIGIBLE_WITHOUT_SAME_SHA_PIN_PHYSICAL_POSITIVE",
       "run": 39404325700
+    },
+    "remote_7e24": {
+      "parents": [
+        "2f87fdc8f56fbac86660cf77ac078bd79241bfd0",
+        "7e24c05d20603e4bedf4bc45130728617248a47a"
+      ],
+      "causal_fix_claim": "NONE_NO_STATUS_REWRITE_OR_ASSERTION_CHANGE_BY_OIER",
+      "head": "7e24c05d20603e4bedf4bc45130728617248a47a",
+      "UI_counts": null,
+      "artifact": 12259341817,
+      "actual_tested_sha": "93851147f936fcef7a58cf71bb55074c60cac6aa",
+      "run": 39410601758,
+      "migration_head": "20261020100000_business_conflict_non_retryable.sql",
+      "source_assertion": "product-acceptance.mjs:11 requires changed.status===500 and changed.json.code===PT409",
+      "backend_total": null,
+      "migrations": 87,
+      "release": "NOT_ACCEPTED",
+      "later_integrator_change": "1f49a8347a50deb09502d63b1bcea1562a2491be changes four banks to HTTP409; not tested by Oier",
+      "result": "FAIL",
+      "W4": "INDEPENDENT_FAIL",
+      "hosted": "NOT_TESTED",
+      "head_tree_equal": false,
+      "head_tree": "b2e9dcfdcde65598bf1608e42c6ad9e54ee35ac8",
+      "bootstrap_failure": {
+        "profile_changed": false,
+        "run": 39410601759,
+        "error": "OWNED_CONSUMER_MIGRATION_CLOSURE_REJECTED",
+        "test": "grants86 caller admits actual checkout and both exact directory profiles without duplicate application",
+        "job": 118587135805,
+        "W5_request": 6289026792
+      },
+      "five_HIGH": "OPEN",
+      "failed_stage": "http_acceptance",
+      "UI": "NOT_REACHED",
+      "job": 118587135788,
+      "actual_tree": "9e010b8680ef0b8dea0e587b34bb833d6bd5dea5",
+      "teardown": "PASS",
+      "original_changed_rpc_response": "NOT_CAPTURED_IN_SAFE_ARTIFACT",
+      "environment": "LOCAL_SUPABASE_DOCKER",
+      "error": "CHECK_PRODUCT_CHANGED_INPUT_CONFLICT"
+    },
+    "quota_7e24": {
+      "phase": "PULL_BEFORE_CHECKOUT_TESTS",
+      "head": "7e24c05d20603e4bedf4bc45130728617248a47a",
+      "W5_cache": "NOT_APPROVED",
+      "actual_tested_sha": null,
+      "run": 39410601759,
+      "maximum_manual_reruns": 1,
+      "manual_reruns_requested": 0,
+      "same_SHA_pin_positive": "NOT_FOUND",
+      "native_test_count": null,
+      "prior_known_request": 6279686354,
+      "retry_eligibility": "NOT_ELIGIBLE",
+      "cause": "Docker toomanyrequests Data limit exceeded",
+      "runner_internal_pull_attempts": 3,
+      "image": "public.ecr.aws/docker/library/postgres@sha256:ca0bd484cb98bf4b24eb1010e73fb3fcbd6714d240fbc1a10eea5b7dbecb641d",
+      "job": 118587135847,
+      "native": "NOT_RUN",
+      "image_limits_permissions_assertions_changed": false
     }
   },
   "HIGH": "FIVE_OPEN",
   "base": "888ecaae57e9021ca0cb25d4da0657c1f6ac9b40",
   "remote_checks": {
     "PR161": {
-      "head": "5d58a56dbbe00e5eaefa6228420322d268f7c5c7",
+      "head": "7e24c05d20603e4bedf4bc45130728617248a47a",
       "manual_retry": 0,
-      "active": "ALL5D58_RUNS_TERMINAL_REFRESH_BEFORE_NEXT_PUSH",
+      "active": "CI39410601759_RUNNING_AT_CHECKPOINT;SUPABASE39410601758_FAIL;W4FAIL;KEEP_OWN_PR_HEAD",
       "native_quota": "a32_BEFORE_TESTS;0MANUAL_RETRY",
       "security": "5HIGH_W4_INDEPENDENT",
       "prior_a32": {
@@ -168,6 +227,46 @@
         "artifact": 12257032670,
         "not_assigned_to": "49bc_0c2_OR_ASIER2F87",
         "backend_checks": 4042
+      },
+      "actual_7e24_merge_failure": {
+        "parents": [
+          "2f87fdc8f56fbac86660cf77ac078bd79241bfd0",
+          "7e24c05d20603e4bedf4bc45130728617248a47a"
+        ],
+        "causal_fix_claim": "NONE_NO_STATUS_REWRITE_OR_ASSERTION_CHANGE_BY_OIER",
+        "head": "7e24c05d20603e4bedf4bc45130728617248a47a",
+        "UI_counts": null,
+        "artifact": 12259341817,
+        "actual_tested_sha": "93851147f936fcef7a58cf71bb55074c60cac6aa",
+        "run": 39410601758,
+        "migration_head": "20261020100000_business_conflict_non_retryable.sql",
+        "source_assertion": "product-acceptance.mjs:11 requires changed.status===500 and changed.json.code===PT409",
+        "backend_total": null,
+        "migrations": 87,
+        "release": "NOT_ACCEPTED",
+        "later_integrator_change": "1f49a8347a50deb09502d63b1bcea1562a2491be changes four banks to HTTP409; not tested by Oier",
+        "result": "FAIL",
+        "W4": "INDEPENDENT_FAIL",
+        "hosted": "NOT_TESTED",
+        "head_tree_equal": false,
+        "head_tree": "b2e9dcfdcde65598bf1608e42c6ad9e54ee35ac8",
+        "bootstrap_failure": {
+          "profile_changed": false,
+          "run": 39410601759,
+          "error": "OWNED_CONSUMER_MIGRATION_CLOSURE_REJECTED",
+          "test": "grants86 caller admits actual checkout and both exact directory profiles without duplicate application",
+          "job": 118587135805,
+          "W5_request": 6289026792
+        },
+        "five_HIGH": "OPEN",
+        "failed_stage": "http_acceptance",
+        "UI": "NOT_REACHED",
+        "job": 118587135788,
+        "actual_tree": "9e010b8680ef0b8dea0e587b34bb833d6bd5dea5",
+        "teardown": "PASS",
+        "original_changed_rpc_response": "NOT_CAPTURED_IN_SAFE_ARTIFACT",
+        "environment": "LOCAL_SUPABASE_DOCKER",
+        "error": "CHECK_PRODUCT_CHANGED_INPUT_CONFLICT"
       }
     },
     "PR160": {
@@ -184,7 +283,7 @@
   "integration": "DRAFT_ASIER_EXACT_ACK_REQUIRED",
   "branch": "oier/portfolio-receipt-readback-20261020",
   "next": {
-    "integration": "Asier composition2f87 includes exact three PR160 blobs, ACK 6288602043 limited. Commercial application-only patch applies textually to2f87 in own temporary index. Asier must review/choose ten source blobs and qualify resulting composition.",
+    "integration": "Asier2f87 composition reviewed read-only; PR160 three blobs identical, commercial app patch textual clean. Subsequent Asier1f49 changes HTTP expectations. Its tests are not inherited; require qualified selected SHA and exact owner ACK for commercial blobs.",
     "security": "5HIGH,scan,W4,P0 Storage,Edge Access,cohort stillopen; IA writes OFF issue10 OPEN release NOT_ACCEPTED",
     "resource": "W5 profile87 request6289026792: exact migration Git blob/LFhash correlated only, no execution or approval. Preserve strict85/86 resource; no duplication or modifications.",
     "cloud": "Hosted bank tools/oier_cloud_qa prepared; preflight NOT_RUN without private manifest/cohort/window/dedicated approved browser. No hosted dispatch performed.",
@@ -1034,7 +1133,7 @@
     "handoff": 6288250490
   },
   "current_priority": {
-    "qa_source": "0c2bb3f8c95df5c130972f4846336f27872a3137",
+    "qa_source": "b7646ca7ad6665770a64ed28f0ef2fe548c8d18b",
     "owner_order": 6288451006,
     "unit": "CLOUD-QA-01",
     "application_reference": "49bc242c849a019b4b85fd3da1b3a8c9a45ca179",
@@ -1042,6 +1141,18 @@
     "product_checks": "357_BROWSER96LOGIC_REMAIN_BOUND_TO49BC_NOT_ASSIGNED_TO_QA",
     "pipeline30": "QUEUED_NOT_STARTED",
     "cloud": "NOT_RUN",
-    "ACK": 6288616081
+    "ACK": 6288616081,
+    "qa_checks": {
+      "qa_source": "b7646ca7ad6665770a64ed28f0ef2fe548c8d18b",
+      "delta": "LOCAL_RUNNER_LOCK_FAILURE_CANNOT_DISPATCH",
+      "cloud": "NOT_RUN",
+      "missing_bindings_preflight_exit": 2,
+      "previous357_96": "BOUND_TO49BC_NOT_ASSIGNED_TO_QA_SHA",
+      "application_reference": "49bc242c849a019b4b85fd3da1b3a8c9a45ca179",
+      "typescript": 0,
+      "lint": 0,
+      "guard_tests_exit": 0,
+      "build": "NOT_RERUN_UNCHANGED_APPLICATION"
+    }
   }
 }

@@ -4,10 +4,10 @@
   "claim": 6288616081,
   "edge_access": "W5_NO_NEW_UNLOCK_EVIDENCE_NO_BYPASS",
   "application_reference": "49bc242c849a019b4b85fd3da1b3a8c9a45ca179",
-  "source": "0c2bb3f8c95df5c130972f4846336f27872a3137",
+  "source": "b7646ca7ad6665770a64ed28f0ef2fe548c8d18b",
   "checkout": "work/crm-oier-commercial-20261020",
   "consumer_ACK": 6288616081,
-  "PR161": "5d58a56dbbe00e5eaefa6228420322d268f7c5c7",
+  "PR161": "7e24c05d20603e4bedf4bc45130728617248a47a",
   "integration_owner": "Asier",
   "W5_agreed_reference": "2f1b6dd7b449290aeff904f3bd13ca82f83ffecc",
   "candidate_integrated": "PUBLISHED_ASIER2F87_QUALIFICATION_IN_PROGRESS_NOT_ACCEPTED",
@@ -30,12 +30,12 @@
   },
   "cloud_auth_cohort": "NOT_DELIVERED",
   "current_Asier_reference": "2f87fdc8f56fbac86660cf77ac078bd79241bfd0",
-  "recovery": "0acb9971d2f21f7eaf9f256c5e9000fd1feb674b",
+  "recovery": "7e24c05d20603e4bedf4bc45130728617248a47a",
   "release": "NOT_ACCEPTED",
   "priority": "OWNER_W0_6288451006",
   "voice_real": "NOT_RUN",
   "security": "5HIGH_SCAN_W4_P0_STORAGE_OPEN",
-  "status": "PREPARED_OWN_QA_CHECKS_COMPLETE_LIVE_CLOUD_NOT_RUN",
+  "status": "FINAL_QA_VALIDATED_REMOTE7E24_FAILURES_PRESERVED_WAITING_OWNER_BINDINGS",
   "sessions": {},
   "compatibility": "work/cloudqa01-source-compatibility-v2.json",
   "composition_review": "work/cloudqa01-composition-2f87-review.json",
@@ -47,15 +47,16 @@
     "ACK": 6288602043
   },
   "own_QA_quality": {
-    "qa_source": "0c2bb3f8c95df5c130972f4846336f27872a3137",
+    "qa_source": "b7646ca7ad6665770a64ed28f0ef2fe548c8d18b",
+    "delta": "LOCAL_RUNNER_LOCK_FAILURE_CANNOT_DISPATCH",
+    "cloud": "NOT_RUN",
     "missing_bindings_preflight_exit": 2,
-    "application_reference": "49bc242c849a019b4b85fd3da1b3a8c9a45ca179",
-    "guard_tests_exit": 0,
     "previous357_96": "BOUND_TO49BC_NOT_ASSIGNED_TO_QA_SHA",
+    "application_reference": "49bc242c849a019b4b85fd3da1b3a8c9a45ca179",
     "typescript": 0,
     "lint": 0,
-    "build": "NOT_RERUN_UNCHANGED_APPLICATION",
-    "cloud": "NOT_RUN"
+    "guard_tests_exit": 0,
+    "build": "NOT_RERUN_UNCHANGED_APPLICATION"
   },
   "native_profile87": {
     "resource_modified": false,
@@ -67,5 +68,79 @@
     "owner": "W5",
     "canonical_LF_sha256": "5cb2704c505a82426b583f129be6a24d384b129ec4fd66d878dec91ea7524245"
   },
-  "delivery": "DOCS_ONLY_CONTAINS_QA_AND_APPLICATION_UNCHANGED_NO_PASS_INHERITANCE"
+  "published_delivery": "7e24c05d20603e4bedf4bc45130728617248a47a",
+  "evidence_blobs_verified": 299,
+  "current_PR_base": "888ecaae57e9021ca0cb25d4da0657c1f6ac9b40",
+  "remote_runs": [
+    {
+      "id": 39410601759,
+      "name": "CI",
+      "status": "in_progress",
+      "conclusion": null,
+      "head_sha": "7e24c05d20603e4bedf4bc45130728617248a47a"
+    },
+    {
+      "id": 39410601720,
+      "name": "W4 all-ref secret audit",
+      "status": "completed",
+      "conclusion": "failure",
+      "head_sha": "7e24c05d20603e4bedf4bc45130728617248a47a"
+    },
+    {
+      "id": 39410601758,
+      "name": "Supabase local acceptance",
+      "status": "completed",
+      "conclusion": "failure",
+      "head_sha": "7e24c05d20603e4bedf4bc45130728617248a47a"
+    }
+  ],
+  "remote_source_rule": "API_BASE_SNAPSHOT_IS_NOT_SUFFICIENT;VERIFY_ACTUAL_JOB_CHECKOUT_MERGE_SHA_TREE_AND_PARENT_SHAS_BEFORE_SOURCE_BINDING",
+  "base_snapshot_vs_branch": {
+    "pull_base_snapshot": "888ecaae57e9021ca0cb25d4da0657c1f6ac9b40",
+    "merge_ref_reported": "93851147f936fcef7a58cf71bb55074c60cac6aa",
+    "branch_ref_sha": "1f49a8347a50deb09502d63b1bcea1562a2491be"
+  },
+  "remote_7e24_failure": {
+    "parents": [
+      "2f87fdc8f56fbac86660cf77ac078bd79241bfd0",
+      "7e24c05d20603e4bedf4bc45130728617248a47a"
+    ],
+    "causal_fix_claim": "NONE_NO_STATUS_REWRITE_OR_ASSERTION_CHANGE_BY_OIER",
+    "head": "7e24c05d20603e4bedf4bc45130728617248a47a",
+    "UI_counts": null,
+    "artifact": 12259341817,
+    "actual_tested_sha": "93851147f936fcef7a58cf71bb55074c60cac6aa",
+    "run": 39410601758,
+    "migration_head": "20261020100000_business_conflict_non_retryable.sql",
+    "source_assertion": "product-acceptance.mjs:11 requires changed.status===500 and changed.json.code===PT409",
+    "backend_total": null,
+    "migrations": 87,
+    "release": "NOT_ACCEPTED",
+    "later_integrator_change": "1f49a8347a50deb09502d63b1bcea1562a2491be changes four banks to HTTP409; not tested by Oier",
+    "result": "FAIL",
+    "W4": "INDEPENDENT_FAIL",
+    "hosted": "NOT_TESTED",
+    "head_tree_equal": false,
+    "head_tree": "b2e9dcfdcde65598bf1608e42c6ad9e54ee35ac8",
+    "bootstrap_failure": {
+      "profile_changed": false,
+      "run": 39410601759,
+      "error": "OWNED_CONSUMER_MIGRATION_CLOSURE_REJECTED",
+      "test": "grants86 caller admits actual checkout and both exact directory profiles without duplicate application",
+      "job": 118587135805,
+      "W5_request": 6289026792
+    },
+    "five_HIGH": "OPEN",
+    "failed_stage": "http_acceptance",
+    "UI": "NOT_REACHED",
+    "job": 118587135788,
+    "actual_tree": "9e010b8680ef0b8dea0e587b34bb833d6bd5dea5",
+    "teardown": "PASS",
+    "original_changed_rpc_response": "NOT_CAPTURED_IN_SAFE_ARTIFACT",
+    "environment": "LOCAL_SUPABASE_DOCKER",
+    "error": "CHECK_PRODUCT_CHANGED_INPUT_CONFLICT"
+  },
+  "subsequent_integrator_status_fix": "1f49a8347a50deb09502d63b1bcea1562a2491be_OWNER_CHANGE_NOT_QUALIFIED_BY_OIER",
+  "runner_lock_delta": "No dispatch if private lock creation OR close fails; actual no-bindings preflight NOT_RUN.",
+  "delivery": "FINAL_QA_AND_REMOTE_FAILURE_CHECKPOINT_NO_INHERITED_PASS"
 }

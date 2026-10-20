@@ -1,0 +1,40 @@
+{
+  "parents": [
+    "2f87fdc8f56fbac86660cf77ac078bd79241bfd0",
+    "7e24c05d20603e4bedf4bc45130728617248a47a"
+  ],
+  "causal_fix_claim": "NONE_NO_STATUS_REWRITE_OR_ASSERTION_CHANGE_BY_OIER",
+  "head": "7e24c05d20603e4bedf4bc45130728617248a47a",
+  "UI_counts": null,
+  "artifact": 12259341817,
+  "actual_tested_sha": "93851147f936fcef7a58cf71bb55074c60cac6aa",
+  "run": 39410601758,
+  "migration_head": "20261020100000_business_conflict_non_retryable.sql",
+  "source_assertion": "product-acceptance.mjs:11 requires changed.status===500 and changed.json.code===PT409",
+  "backend_total": null,
+  "migrations": 87,
+  "release": "NOT_ACCEPTED",
+  "later_integrator_change": "1f49a8347a50deb09502d63b1bcea1562a2491be changes four banks to HTTP409; not tested by Oier",
+  "result": "FAIL",
+  "W4": "INDEPENDENT_FAIL",
+  "hosted": "NOT_TESTED",
+  "head_tree_equal": false,
+  "head_tree": "b2e9dcfdcde65598bf1608e42c6ad9e54ee35ac8",
+  "bootstrap_failure": {
+    "profile_changed": false,
+    "run": 39410601759,
+    "error": "OWNED_CONSUMER_MIGRATION_CLOSURE_REJECTED",
+    "test": "grants86 caller admits actual checkout and both exact directory profiles without duplicate application",
+    "job": 118587135805,
+    "W5_request": 6289026792
+  },
+  "five_HIGH": "OPEN",
+  "failed_stage": "http_acceptance",
+  "UI": "NOT_REACHED",
+  "job": 118587135788,
+  "actual_tree": "9e010b8680ef0b8dea0e587b34bb833d6bd5dea5",
+  "teardown": "PASS",
+  "original_changed_rpc_response": "NOT_CAPTURED_IN_SAFE_ARTIFACT",
+  "environment": "LOCAL_SUPABASE_DOCKER",
+  "error": "CHECK_PRODUCT_CHANGED_INPUT_CONFLICT"
+}
