@@ -1,0 +1,1062 @@
+diff --git a/src/features/billing/IntegratedBilling.tsx b/src/features/billing/IntegratedBilling.tsx
+index 71573cc..4ddfe7e 100644
+--- a/src/features/billing/IntegratedBilling.tsx
++++ b/src/features/billing/IntegratedBilling.tsx
+@@ -33,9 +33,11 @@ function ScopedIntegratedBilling({initialInvoiceId,initialCustomerId,contentEnab
+   const [pageState,setPageState]=useState<{key:string;data:InvoicePage}|null>(null),[financialState,setFinancial]=useState<{key:string;data:Financial}|null>(null),[configuration,setConfiguration]=useState<Configuration|null>(null),[invoice,setInvoice]=useState<BillingInvoiceV1|null>(null),[edit,setEdit]=useState<InvoiceFormData|null>(null),[fiscal,setFiscal]=useState<'issuer'|'customer'|null>(null)
+   const [error,setError]=useState<unknown>(null),[message,setMessage]=useState(''),[busy,setBusy]=useState(false),[reload,setReload]=useState(0),[confirm,setConfirm]=useState<{operation:BillingOperationV1;input:BillingInputsV1[BillingOperationV1];label:string}|null>(null)
+   const [summary,setSummary]=useState<{id:string;data?:Summary;error?:string}|null>(null)
++  const [proposalWarning,setProposalWarning]=useState<{customerId:string;text:string}|null>(null)
+   const summaryRequest=useRef(0)
++  const proposalRequest=useRef(0)
+   const invoiceRequest=useRef(0),[invoiceLoading,setInvoiceLoading]=useState(false)
+-  async function readSummary(id:string){const request=++summaryRequest.current;setSummary({id});try{const result=await repository.billing('invoice.summary',{id});if(summaryRequest.current===request)setSummary({id,data:result.invoice})}catch(e){if(summaryRequest.current===request)setSummary({id,error:safeMessage(e)})}}
++  async function readSummary(id:string){proposalRequest.current++;const request=++summaryRequest.current;setSummary({id});try{const result=await repository.billing('invoice.summary',{id});if(summaryRequest.current===request)setSummary({id,data:result.invoice})}catch(e){if(summaryRequest.current===request)setSummary({id,error:safeMessage(e)})}}
+   const [paging,setPaging]=useState<{key:string;cursors:string[]}>({key:'',cursors:[]})
+   const financialQueryKey=JSON.stringify([period,reload])
+   const pageKey=JSON.stringify([customerId,status,reload]),cursors=paging.key===pageKey?paging.cursors:[],cursor=cursors.at(-1),pageQueryKey=JSON.stringify([pageKey,cursor??null]),page=pageState?.key===pageQueryKey?pageState.data:null,financial=financialState?.key===financialQueryKey?financialState.data:null
+@@ -45,10 +47,12 @@ function ScopedIntegratedBilling({initialInvoiceId,initialCustomerId,contentEnab
+   const uncertain=!registered&&pendingUncertain,conflict=!registered&&error instanceof ProductUiError&&error.code==='conflict'
+   const blocked=busy||!!registered||uncertain
+   const selectedCustomerReady=customers.some(customer=>customer.id===customerId)
++  useEffect(()=>()=>{proposalRequest.current++},[customerId,selectedCustomerReady])
+   const invalidateInvoiceRequests=useCallback(()=>{invoiceRequest.current++},[])
+   const retireInvoiceRead=useCallback(()=>{invalidateInvoiceRequests();setInvoiceLoading(false)},[invalidateInvoiceRequests])
+   const loadInvoice=useCallback(async(id:string)=>{
+     if(recorded.current||pending.current)return
++    proposalRequest.current++
+     const request=++invoiceRequest.current;setInvoice(null);setInvoiceLoading(true);setError(null)
+     try{const result=await repository.billing('invoice.get',{id});if(invoiceRequest.current===request&&!recorded.current){setInvoice(result.invoice);setError(null)}}
+     catch(e){if(invoiceRequest.current===request&&!recorded.current){setInvoice(null);setError(e)}}
+@@ -85,7 +89,7 @@ function ScopedIntegratedBilling({initialInvoiceId,initialCustomerId,contentEnab
+     catch(e){setError(e);const unknown=!!pending.current&&e instanceof ProductUiError&&(e.code==='transport_uncertain'||e.code==='internal_safe');setPendingUncertain(unknown);if(fiscal&&e instanceof ProductUiError&&e.code==='conflict')setFiscalNeedsRefresh(true);if(!unknown)pending.current=null}finally{setBusy(false)}
+   }
+   function save(form:InvoiceFormData){try{const draft=normalizedInvoice(form);if(invoice&&invoice.status==='draft'){const {customer_id:discarded,...fields}=draft;void discarded;void execute('invoice.update_draft',{...fields,command_id:crypto.randomUUID(),id:invoice.id,expected_version:invoice.version})}else void execute('invoice.create_draft',{...draft,command_id:crypto.randomUUID()})}catch(e){setError(e)}}
+-  function prepare(operation:'invoice.issue'|'invoice.mark_paid'|'invoice.reverse_payment'|'invoice.trash'|'invoice.restore',label:string){if(!invoice||blocked)return;setError(null);pending.current=null;setConfirm({operation,label,input:{command_id:crypto.randomUUID(),id:invoice.id,expected_version:invoice.version}})}
++  function prepare(operation:'invoice.issue'|'invoice.mark_paid'|'invoice.reverse_payment'|'invoice.trash'|'invoice.restore',label:string){if(!invoice||blocked)return;proposalRequest.current++;setError(null);pending.current=null;setConfirm({operation,label,input:{command_id:crypto.randomUUID(),id:invoice.id,expected_version:invoice.version}})}
+   async function pdf(){if(!invoice)return;setBusy(true);setError(null);try{const blob=await repository.invoicePdf(invoice.id),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='Factura_local_autorizada.pdf';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}catch(e){setError(e)}finally{setBusy(false)}}
+   const links:InvoiceLink[]=invoice?(['contractId','serviceId','opportunityId'] as const).flatMap(kind=>{const id={contractId:invoice.contract_id,serviceId:invoice.service_id,opportunityId:invoice.opportunity_id}[kind];return id?[{kind,id,customerId:invoice.customer_id,label:'Vínculo autorizado',...(kind==='serviceId'?{contractId:invoice.contract_id}:{})}]:[]}):[]
+   const editorCustomers=invoice&&!customers.some(c=>c.id===invoice.customer_id)?[...customers,{id:invoice.customer_id,name:'Cliente de la factura'}]:customers
+@@ -98,8 +102,8 @@ function ScopedIntegratedBilling({initialInvoiceId,initialCustomerId,contentEnab
+     {!financial&&!error&&<p role="status" className="text-sm text-slate-500">Consultando resumen financiero actualizado…</p>}
+     {financial&&<p className="text-xs text-slate-500">Resumen del espacio · corte {productDate(financial.as_of)} · {financial.from?productDate(financial.from):'Desde el inicio'} — {financial.to?productDate(financial.to):'Sin límite'}. El filtro de cliente solo limita la lista de facturas.</p>}
+     {financial?.currencies.map(c=><section key={c.currency} aria-label={`Importes financieros ${c.currency}`} className="rounded-xl border bg-white p-4"><h2 className="mb-3 font-semibold">{c.currency}</h2><Kpis items={(['issued_minor','paid_minor','outstanding_minor','overdue_minor'] as const).map(k=>({label:{issued_minor:'Facturado',paid_minor:'Cobrado',outstanding_minor:'Pendiente',overdue_minor:'Vencido'}[k],value:money(c[k],c.currency)}))}/><div className="mt-4 space-y-3" role="list" aria-label={`Comparación de importes ${c.currency}`}>{(['issued_minor','paid_minor','outstanding_minor','overdue_minor'] as const).map(k=>{const label={issued_minor:'Facturado',paid_minor:'Cobrado',outstanding_minor:'Pendiente',overdue_minor:'Vencido'}[k],maximum=Math.max(1,c.issued_minor,c.paid_minor,c.outstanding_minor,c.overdue_minor);return <div key={k} role="listitem"><div className="mb-1 flex justify-between gap-3 text-xs"><span>{label}</span><span className="font-medium">{money(c[k],c.currency)}</span></div><div className="h-2 overflow-hidden rounded bg-slate-100" aria-hidden="true"><div className="h-full rounded bg-indigo-500" style={{width:`${100*c[k]/maximum}%`}}/></div></div>})}</div><p className="mt-3 text-xs text-slate-500">Comparación dentro de {c.currency}. Vencido está incluido en Pendiente; las categorías no se suman. No se convierten divisas.</p></section>)}
+-    <section className="rounded-xl border bg-white p-4"><form onSubmit={search} className="flex flex-wrap gap-2"><input aria-label="Buscar cliente de factura" placeholder="Buscar empresa" disabled={blocked} required minLength={2} maxLength={100} className={control} value={query} onChange={e=>setQuery(e.target.value)}/><button className={control} disabled={blocked}>Buscar cliente</button></form><div className="mt-3 flex flex-wrap gap-2"><select aria-label="Cliente para facturación" disabled={blocked} className={control} value={customerId} onChange={e=>{retireInvoiceRead();setCustomerId(e.target.value);setInvoice(null);setConfiguration(null)}}><option value="">Todo el espacio</option>{customers.map(c=><option key={c.id} value={c.id}>{c.name}</option>)}</select><button className={primary} disabled={!selectedCustomerReady||blocked} onClick={()=>{retireInvoiceRead();setError(null);setInvoice(null);pending.current=null;setEdit({...blankForm(),clientId:customerId,issueDate:calendarDate(new Date().toISOString()),series:configuration?.issuer?.default_series??'A'})}}>Nuevo borrador local</button><button className={control} disabled={blocked||!configuration} onClick={()=>{setError(null);pending.current=null;setFiscal('issuer')}}>Configurar emisor</button><button className={control} disabled={!customerId||blocked||!configuration} onClick={()=>{setError(null);pending.current=null;setFiscal('customer')}}>Datos fiscales del cliente</button></div><p className="mt-2 text-xs text-slate-500">Búsqueda limitada a cinco empresas. Los vínculos se consultan para el cliente seleccionado.</p>
+-    {customerId&&selectedCustomerReady&&!registered&&<PromptBuilder asOf={calendarDate(new Date().toISOString())} customers={customers.filter(c=>c.id===customerId)} onGenerate={async (result,source)=>{retireInvoiceRead();setError(null);try{const proposal=await repository.billing('invoice.propose',{source,draft:normalizedInvoice(result.draft)});if(!proposal.requires_review||proposal.saved)throw new ProductUiError('internal_safe');setInvoice(null);setEdit(result.draft);setMessage('Propuesta validada: requiere revisión. No se ha guardado ninguna factura.')}catch(e){setError(e)}}}/>}</section>
++    <section className="rounded-xl border bg-white p-4"><form onSubmit={search} className="flex flex-wrap gap-2"><input aria-label="Buscar cliente de factura" placeholder="Buscar empresa" disabled={blocked} required minLength={2} maxLength={100} className={control} value={query} onChange={e=>setQuery(e.target.value)}/><button className={control} disabled={blocked}>Buscar cliente</button></form><div className="mt-3 flex flex-wrap gap-2"><select aria-label="Cliente para facturación" disabled={blocked} className={control} value={customerId} onChange={e=>{retireInvoiceRead();setCustomerId(e.target.value);setProposalWarning(null);setInvoice(null);setConfiguration(null)}}><option value="">Todo el espacio</option>{customers.map(c=><option key={c.id} value={c.id}>{c.name}</option>)}</select><button className={primary} disabled={!selectedCustomerReady||blocked} onClick={()=>{proposalRequest.current++;retireInvoiceRead();setError(null);setInvoice(null);pending.current=null;setEdit({...blankForm(),clientId:customerId,issueDate:calendarDate(new Date().toISOString()),series:configuration?.issuer?.default_series??'A'})}}>Nuevo borrador local</button><button className={control} disabled={blocked||!configuration} onClick={()=>{proposalRequest.current++;setError(null);pending.current=null;setFiscal('issuer')}}>Configurar emisor</button><button className={control} disabled={!customerId||blocked||!configuration} onClick={()=>{proposalRequest.current++;setError(null);pending.current=null;setFiscal('customer')}}>Datos fiscales del cliente</button></div><p className="mt-2 text-xs text-slate-500">Búsqueda limitada a cinco empresas. Los vínculos se consultan para el cliente seleccionado.</p>
++    {customerId&&selectedCustomerReady&&!registered&&<PromptBuilder key={customerId} asOf={calendarDate(new Date().toISOString())} customers={customers} onGenerate={async (result,source)=>{const request=++proposalRequest.current;retireInvoiceRead();setError(null);setProposalWarning(null);if(result.draft.clientId!==customerId){setProposalWarning({customerId,text:'El cliente del texto no coincide de forma inequívoca con el seleccionado. Revisa el nombre o selecciona el cliente correcto.'});return}try{const proposal=await repository.billing('invoice.propose',{source,draft:normalizedInvoice(result.draft)});if(request!==proposalRequest.current)return;if(!proposal.requires_review||proposal.saved)throw new ProductUiError('internal_safe');setInvoice(null);setEdit(result.draft);setMessage('Propuesta validada: requiere revisión. No se ha guardado ninguna factura.')}catch(e){if(request===proposalRequest.current)setError(e)}}}/>}{proposalWarning?.customerId===customerId&&<p role="alert" className="mt-2 text-sm text-amber-800">{proposalWarning.text}</p>}</section>
+     <section className="overflow-x-auto rounded-xl border bg-white p-4"><InvoiceRows items={page?.items??[]} disabled={blocked} onSummary={id=>void readSummary(id)} onOpen={id=>void loadInvoice(id)}/>{!page&&!error&&<p role="status" className="py-4 text-sm text-slate-500">Cargando facturas…</p>}{page&&!page.items.length&&<p className="py-4 text-sm text-slate-500">No hay facturas en esta página con los filtros seleccionados.</p>}<div className="mt-4 flex flex-wrap items-center gap-3"><button className={control} disabled={blocked||!page||!cursors.length} onClick={()=>setPaging({key:pageKey,cursors:cursors.slice(0,-1)})}>Página anterior de facturas</button><span className="text-xs text-slate-500">Página {cursors.length+1} · Hasta 50 facturas</span><button className={control} disabled={blocked||!page?.next_id} onClick={()=>{if(page?.next_id)setPaging({key:pageKey,cursors:[...cursors,page.next_id]})}}>Siguiente página de facturas</button></div></section>
+     {summary&&<Drawer title="Resumen de factura" onClose={()=>{summaryRequest.current++;setSummary(null)}}>{summary.error?<><p role="alert" className="text-red-700">{summary.error}</p><button className={control} onClick={()=>void readSummary(summary.id)}>Reintentar resumen</button></>:!summary.data?<p role="status">Consultando resumen autorizado…</p>:<div className="space-y-4"><div className="flex flex-wrap items-center justify-between gap-2"><h2 className="font-semibold">{summary.data.number?`${summary.data.number.series}/${summary.data.number.year}/${String(summary.data.number.sequence).padStart(6,'0')}`:'Borrador sin número'}</h2><Status value={summary.data.status}/></div><dl className="grid grid-cols-2 gap-4 text-sm"><div><dt className="text-slate-500">Fecha</dt><dd>{summary.data.issue_on}</dd></div><div><dt className="text-slate-500">Vencimiento</dt><dd>{summary.data.due_on??'Sin vencimiento'}</dd></div><div><dt className="text-slate-500">Total</dt><dd className="font-semibold">{money(summary.data.totals.total_minor,summary.data.currency)}</dd></div><div><dt className="text-slate-500">Situación</dt><dd>{summary.data.overdue?'Vencida':'Sin atraso publicado'}</dd></div></dl><p className="text-xs text-slate-500">Resumen actualizado sin datos fiscales ni conceptos completos.</p><button className={primary} onClick={()=>{const id=summary.id;summaryRequest.current++;setSummary(null);void loadInvoice(id)}}>Abrir detalle autorizado</button></div>}</Drawer>}
+     {edit&&<InvoiceEditor initial={edit} customers={editorCustomers} links={links} issuer={invoiceIssuerForm(invoice?.issuer??configuration?.issuer?.profile)} integrated authorizedRelations immutableCustomer={!!invoice} locked={blocked||uncertain||conflict} serverError={error?safeMessage(error):undefined} onReadRecorded={registered?()=>void refreshRegistered():undefined} readingRecorded={busy} onRetry={uncertain?()=>void runPending():undefined} onReload={conflict?async()=>{setEdit(null);pending.current=null;if(invoice)await loadInvoice(invoice.id);setMessage('Versión actual recargada. Revisa antes de volver a editar.')}:undefined} onSave={save} onClose={()=>{if(!blocked){setEdit(null);pending.current=null;setError(null)}}}/>}
+diff --git a/src/features/billing/PromptBuilder.tsx b/src/features/billing/PromptBuilder.tsx
+index 199e1b3..f7c5db2 100644
+--- a/src/features/billing/PromptBuilder.tsx
++++ b/src/features/billing/PromptBuilder.tsx
+@@ -59,9 +59,14 @@ export function PromptBuilder({
+       setMessage('Dictado no disponible. Puedes escribir o pegar el texto.')
+       return
+     }
+-    const speech = new Ctor(),
+-      base = text ? `${text} ` : ''
+-    setSource('audio')
++    let speech: Speech
++    try {
++      speech = new Ctor()
++    } catch {
++      setMessage('No se pudo iniciar el dictado.')
++      return
++    }
++    const base = text ? `${text} ` : ''
+     speech.lang = 'es-ES'
+     speech.continuous = false
+     speech.interimResults = true
+@@ -70,6 +75,7 @@ export function PromptBuilder({
+       for (let i = 0; i < e.results.length; i++)
+         next += e.results[i][0]?.transcript ?? ''
+       setText((base + next).slice(0, 2000))
++      if (next.trim()) setSource('audio')
+     }
+     speech.onend = () => setListening(false)
+     speech.onerror = () => {
+@@ -82,6 +88,10 @@ export function PromptBuilder({
+       setListening(true)
+       setMessage('')
+     } catch {
++      speech.onresult = null
++      speech.onend = null
++      speech.onerror = null
++      rec.current = null
+       setMessage('No se pudo iniciar el dictado.')
+     }
+   }
+diff --git a/src/features/billing/parse.ts b/src/features/billing/parse.ts
+index 2f7ae07..4dc0eb1 100644
+--- a/src/features/billing/parse.ts
++++ b/src/features/billing/parse.ts
+@@ -106,9 +106,9 @@ function parseDiscount(n: string): number {
+ function parseDue(n: string, issueDate: string): string | null {
+   const m =
+     n.match(
+-      /(?:vencimiento|venc\.?|pago)\s*(?:a|en|de)?\s*(\d{1,3})\s*d[ií]as/,
+-    ) || n.match(/\ba\s+(\d{1,3})\s+d[ií]as\b/)
+-  if (m) return addDaysIso(issueDate, Number(m[1]))
++      /(?:vencimiento|venc\.?|pago)\s*(?:a|en|de)?\s*(\d{1,3}|quince)\s*d[ií]as/,
++    ) || n.match(/\ba\s+(\d{1,3}|quince)\s+d[ií]as\b/)
++  if (m) return addDaysIso(issueDate, m[1] === 'quince' ? 15 : Number(m[1]))
+   if (/\b(final|fin)\s+de\s+mes\b/.test(n)) return endOfMonthIso(issueDate)
+   return null
+ }
+@@ -117,12 +117,16 @@ function parseSeries(n: string): string | null {
+   return m ? m[1].toUpperCase() : null
+ }
+ function parseConcept(text: string): string | null {
+-  const m = text.match(
+-    /\b(?:por|concepto|factura de|factura por)\s+([^,.;]+?)(?:\s+(?:con|por|de|y|,|\.|;|iva|irpf|vencimiento|descuento|serie|\+|\b\d)|$)/i,
+-  )
+-  if (m) {
++  for (const prefix of text.matchAll(/\b(?:por|concepto|factura de|factura por)\s+/gi)) {
++    const tail = text.slice(prefix.index + prefix[0].length)
++    // A monetary clause is not a service description. A later "por" may name it.
++    if (/^[+-]?\d+(?:[.\s]\d{3})*(?:[.,]\d+)?\s*(?:€|eur(?:os)?\b|usd\b|d[oó]lares\b|gbp\b|libras\b)/i.test(tail)) continue
++    const m = tail.match(
++      /^([^,.;]+?)(?:[,.;]|\s+(?:(?:con|y)\s+)?(?:iva|irpf|vencimiento|descuento|serie)\b|\s+(?:de|por)\s+\d|\s+(?:\+|\d)|$)/i,
++    )
++    if (!m) continue
+     const c = m[1].trim().replace(/\s+/g, ' ')
+-    if (c.length > 2) return c
++    if (c.length > 2 && !/^[+-]?\d[\d.,\s]*$/.test(c)) return c
+   }
+   return null
+ }
+diff --git a/tools/oier_billing_qa/browser.config.ts b/tools/oier_billing_qa/browser.config.ts
+new file mode 100644
+index 0000000..e5f93f8
+--- /dev/null
++++ b/tools/oier_billing_qa/browser.config.ts
+@@ -0,0 +1,12 @@
++import {defineConfig} from '@playwright/test'
++import {resolve} from 'node:path'
++const attempt=process.env.OIER_QA_ATTEMPT
++if(!attempt||!/^night-unit(03|04)-attempt\d{2}$/.test(attempt))throw Error('Set a NEW OIER_QA_ATTEMPT=night-unit03/04-attemptNN; retain previous attempts')
++const output=resolve(__dirname,'../../../oier-billing-fixes-20261020',attempt)
++export default defineConfig({
++ testDir:__dirname,testMatch:attempt.startsWith('night-unit04-')?'proposal-context.spec.ts':'prompt-interaction.spec.ts',workers:1,fullyParallel:false,retries:0,
++ timeout:45000,expect:{timeout:4000},outputDir:resolve(output,'artifacts'),
++ reporter:[['line'],['json',{outputFile:resolve(output,'results.json')}]],
++ use:{browserName:'chromium',timezoneId:'Europe/Madrid',screenshot:'only-on-failure',trace:'retain-on-failure'},
++ projects:[390,768,1440].map(width=>({name:`controlled-http-${width}`,use:{viewport:{width,height:960}}})),
++})
+diff --git a/tools/oier_billing_qa/candidates/parser-minimal.patch b/tools/oier_billing_qa/candidates/parser-minimal.patch
+new file mode 100644
+index 0000000..a1bd6dd
+--- /dev/null
++++ b/tools/oier_billing_qa/candidates/parser-minimal.patch
+@@ -0,0 +1,24 @@
++--- a/src/features/billing/parse.ts
+++++ b/src/features/billing/parse.ts
++@@ -106,9 +106,9 @@
++ function parseDue(n: string, issueDate: string): string | null {
++   const m =
++     n.match(
++-      /(?:vencimiento|venc\.?|pago)\s*(?:a|en|de)?\s*(\d{1,3})\s*d[ií]as/,
++-    ) || n.match(/\ba\s+(\d{1,3})\s+d[ií]as\b/)
++-  if (m) return addDaysIso(issueDate, Number(m[1]))
+++      /(?:vencimiento|venc\.?|pago)\s*(?:a|en|de)?\s*(\d{1,3}|quince)\s*d[ií]as/,
+++    ) || n.match(/\ba\s+(\d{1,3}|quince)\s+d[ií]as\b/)
+++  if (m) return addDaysIso(issueDate, m[1] === 'quince' ? 15 : Number(m[1]))
++   if (/\b(final|fin)\s+de\s+mes\b/.test(n)) return endOfMonthIso(issueDate)
++   return null
++ }
++@@ -118,7 +118,7 @@
++ }
++ function parseConcept(text: string): string | null {
++   const m = text.match(
++-    /\b(?:por|concepto|factura de|factura por)\s+([^,.;]+?)(?:\s+(?:con|por|de|y|,|\.|;|iva|irpf|vencimiento|descuento|serie|\+|\b\d)|$)/i,
+++    /\b(?:por|concepto|factura de|factura por)\s+([^,.;]+?)(?:[,.;]|\s+(?:(?:con|y)\s+)?(?:iva|irpf|vencimiento|descuento|serie)\b|\s+(?:de|por)\s+\d|\s+(?:\+|\d)|$)/i,
++   )
++   if (m) {
++     const c = m[1].trim().replace(/\s+/g, ' ')
+diff --git a/tools/oier_billing_qa/candidates/proposal-context.patch b/tools/oier_billing_qa/candidates/proposal-context.patch
+new file mode 100644
+index 0000000..3d0af2c
+--- /dev/null
++++ b/tools/oier_billing_qa/candidates/proposal-context.patch
+@@ -0,0 +1,27 @@
++--- a/src/features/billing/IntegratedBilling.tsx
+++++ b/src/features/billing/IntegratedBilling.tsx
++@@ -34,6 +34,7 @@
++   const [error,setError]=useState<unknown>(null),[message,setMessage]=useState(''),[busy,setBusy]=useState(false),[reload,setReload]=useState(0),[confirm,setConfirm]=useState<{operation:BillingOperationV1;input:BillingInputsV1[BillingOperationV1];label:string}|null>(null)
++   const [summary,setSummary]=useState<{id:string;data?:Summary;error?:string}|null>(null)
++   const summaryRequest=useRef(0)
+++  const proposalRequest=useRef(0)
++   const invoiceRequest=useRef(0),[invoiceLoading,setInvoiceLoading]=useState(false)
++   async function readSummary(id:string){const request=++summaryRequest.current;setSummary({id});try{const result=await repository.billing('invoice.summary',{id});if(summaryRequest.current===request)setSummary({id,data:result.invoice})}catch(e){if(summaryRequest.current===request)setSummary({id,error:safeMessage(e)})}}
++   const [paging,setPaging]=useState<{key:string;cursors:string[]}>({key:'',cursors:[]})
++@@ -45,6 +46,7 @@
++   const uncertain=!registered&&pendingUncertain,conflict=!registered&&error instanceof ProductUiError&&error.code==='conflict'
++   const blocked=busy||!!registered||uncertain
++   const selectedCustomerReady=customers.some(customer=>customer.id===customerId)
+++  useEffect(()=>()=>{proposalRequest.current++},[customerId,selectedCustomerReady])
++   const invalidateInvoiceRequests=useCallback(()=>{invoiceRequest.current++},[])
++   const retireInvoiceRead=useCallback(()=>{invalidateInvoiceRequests();setInvoiceLoading(false)},[invalidateInvoiceRequests])
++   const loadInvoice=useCallback(async(id:string)=>{
++@@ -99,7 +101,7 @@
++     {financial&&<p className="text-xs text-slate-500">Resumen del espacio · corte {productDate(financial.as_of)} · {financial.from?productDate(financial.from):'Desde el inicio'} — {financial.to?productDate(financial.to):'Sin límite'}. El filtro de cliente solo limita la lista de facturas.</p>}
++     {financial?.currencies.map(c=><section key={c.currency} aria-label={`Importes financieros ${c.currency}`} className="rounded-xl border bg-white p-4"><h2 className="mb-3 font-semibold">{c.currency}</h2><Kpis items={(['issued_minor','paid_minor','outstanding_minor','overdue_minor'] as const).map(k=>({label:{issued_minor:'Facturado',paid_minor:'Cobrado',outstanding_minor:'Pendiente',overdue_minor:'Vencido'}[k],value:money(c[k],c.currency)}))}/><div className="mt-4 space-y-3" role="list" aria-label={`Comparación de importes ${c.currency}`}>{(['issued_minor','paid_minor','outstanding_minor','overdue_minor'] as const).map(k=>{const label={issued_minor:'Facturado',paid_minor:'Cobrado',outstanding_minor:'Pendiente',overdue_minor:'Vencido'}[k],maximum=Math.max(1,c.issued_minor,c.paid_minor,c.outstanding_minor,c.overdue_minor);return <div key={k} role="listitem"><div className="mb-1 flex justify-between gap-3 text-xs"><span>{label}</span><span className="font-medium">{money(c[k],c.currency)}</span></div><div className="h-2 overflow-hidden rounded bg-slate-100" aria-hidden="true"><div className="h-full rounded bg-indigo-500" style={{width:`${100*c[k]/maximum}%`}}/></div></div>})}</div><p className="mt-3 text-xs text-slate-500">Comparación dentro de {c.currency}. Vencido está incluido en Pendiente; las categorías no se suman. No se convierten divisas.</p></section>)}
++     <section className="rounded-xl border bg-white p-4"><form onSubmit={search} className="flex flex-wrap gap-2"><input aria-label="Buscar cliente de factura" placeholder="Buscar empresa" disabled={blocked} required minLength={2} maxLength={100} className={control} value={query} onChange={e=>setQuery(e.target.value)}/><button className={control} disabled={blocked}>Buscar cliente</button></form><div className="mt-3 flex flex-wrap gap-2"><select aria-label="Cliente para facturación" disabled={blocked} className={control} value={customerId} onChange={e=>{retireInvoiceRead();setCustomerId(e.target.value);setInvoice(null);setConfiguration(null)}}><option value="">Todo el espacio</option>{customers.map(c=><option key={c.id} value={c.id}>{c.name}</option>)}</select><button className={primary} disabled={!selectedCustomerReady||blocked} onClick={()=>{retireInvoiceRead();setError(null);setInvoice(null);pending.current=null;setEdit({...blankForm(),clientId:customerId,issueDate:calendarDate(new Date().toISOString()),series:configuration?.issuer?.default_series??'A'})}}>Nuevo borrador local</button><button className={control} disabled={blocked||!configuration} onClick={()=>{setError(null);pending.current=null;setFiscal('issuer')}}>Configurar emisor</button><button className={control} disabled={!customerId||blocked||!configuration} onClick={()=>{setError(null);pending.current=null;setFiscal('customer')}}>Datos fiscales del cliente</button></div><p className="mt-2 text-xs text-slate-500">Búsqueda limitada a cinco empresas. Los vínculos se consultan para el cliente seleccionado.</p>
++-    {customerId&&selectedCustomerReady&&!registered&&<PromptBuilder asOf={calendarDate(new Date().toISOString())} customers={customers.filter(c=>c.id===customerId)} onGenerate={async (result,source)=>{retireInvoiceRead();setError(null);try{const proposal=await repository.billing('invoice.propose',{source,draft:normalizedInvoice(result.draft)});if(!proposal.requires_review||proposal.saved)throw new ProductUiError('internal_safe');setInvoice(null);setEdit(result.draft);setMessage('Propuesta validada: requiere revisión. No se ha guardado ninguna factura.')}catch(e){setError(e)}}}/>}</section>
+++    {customerId&&selectedCustomerReady&&!registered&&<PromptBuilder asOf={calendarDate(new Date().toISOString())} customers={customers.filter(c=>c.id===customerId)} onGenerate={async (result,source)=>{const request=++proposalRequest.current;retireInvoiceRead();setError(null);try{const proposal=await repository.billing('invoice.propose',{source,draft:normalizedInvoice(result.draft)});if(request!==proposalRequest.current)return;if(!proposal.requires_review||proposal.saved)throw new ProductUiError('internal_safe');setInvoice(null);setEdit(result.draft);setMessage('Propuesta validada: requiere revisión. No se ha guardado ninguna factura.')}catch(e){if(request===proposalRequest.current)setError(e)}}}/>}</section>
++     <section className="overflow-x-auto rounded-xl border bg-white p-4"><InvoiceRows items={page?.items??[]} disabled={blocked} onSummary={id=>void readSummary(id)} onOpen={id=>void loadInvoice(id)}/>{!page&&!error&&<p role="status" className="py-4 text-sm text-slate-500">Cargando facturas…</p>}{page&&!page.items.length&&<p className="py-4 text-sm text-slate-500">No hay facturas en esta página con los filtros seleccionados.</p>}<div className="mt-4 flex flex-wrap items-center gap-3"><button className={control} disabled={blocked||!page||!cursors.length} onClick={()=>setPaging({key:pageKey,cursors:cursors.slice(0,-1)})}>Página anterior de facturas</button><span className="text-xs text-slate-500">Página {cursors.length+1} · Hasta 50 facturas</span><button className={control} disabled={blocked||!page?.next_id} onClick={()=>{if(page?.next_id)setPaging({key:pageKey,cursors:[...cursors,page.next_id]})}}>Siguiente página de facturas</button></div></section>
++     {summary&&<Drawer title="Resumen de factura" onClose={()=>{summaryRequest.current++;setSummary(null)}}>{summary.error?<><p role="alert" className="text-red-700">{summary.error}</p><button className={control} onClick={()=>void readSummary(summary.id)}>Reintentar resumen</button></>:!summary.data?<p role="status">Consultando resumen autorizado…</p>:<div className="space-y-4"><div className="flex flex-wrap items-center justify-between gap-2"><h2 className="font-semibold">{summary.data.number?`${summary.data.number.series}/${summary.data.number.year}/${String(summary.data.number.sequence).padStart(6,'0')}`:'Borrador sin número'}</h2><Status value={summary.data.status}/></div><dl className="grid grid-cols-2 gap-4 text-sm"><div><dt className="text-slate-500">Fecha</dt><dd>{summary.data.issue_on}</dd></div><div><dt className="text-slate-500">Vencimiento</dt><dd>{summary.data.due_on??'Sin vencimiento'}</dd></div><div><dt className="text-slate-500">Total</dt><dd className="font-semibold">{money(summary.data.totals.total_minor,summary.data.currency)}</dd></div><div><dt className="text-slate-500">Situación</dt><dd>{summary.data.overdue?'Vencida':'Sin atraso publicado'}</dd></div></dl><p className="text-xs text-slate-500">Resumen actualizado sin datos fiscales ni conceptos completos.</p><button className={primary} onClick={()=>{const id=summary.id;summaryRequest.current++;setSummary(null);void loadInvoice(id)}}>Abrir detalle autorizado</button></div>}</Drawer>}
++     {edit&&<InvoiceEditor initial={edit} customers={editorCustomers} links={links} issuer={invoiceIssuerForm(invoice?.issuer??configuration?.issuer?.profile)} integrated authorizedRelations immutableCustomer={!!invoice} locked={blocked||uncertain||conflict} serverError={error?safeMessage(error):undefined} onReadRecorded={registered?()=>void refreshRegistered():undefined} readingRecorded={busy} onRetry={uncertain?()=>void runPending():undefined} onReload={conflict?async()=>{setEdit(null);pending.current=null;if(invoice)await loadInvoice(invoice.id);setMessage('Versión actual recargada. Revisa antes de volver a editar.')}:undefined} onSave={save} onClose={()=>{if(!blocked){setEdit(null);pending.current=null;setError(null)}}}/>}
+diff --git a/tools/oier_billing_qa/concept-acceptance.mjs b/tools/oier_billing_qa/concept-acceptance.mjs
+new file mode 100644
+index 0000000..d503c37
+--- /dev/null
++++ b/tools/oier_billing_qa/concept-acceptance.mjs
+@@ -0,0 +1,35 @@
++// Product parser, synthetic phrases only; no replacement parsing implementation.
++import {execFileSync} from 'node:child_process'
++import {readFileSync,writeFileSync} from 'node:fs'
++import {createHash} from 'node:crypto'
++import {fileURLToPath,pathToFileURL} from 'node:url'
++import {resolve} from 'node:path'
++const root=fileURLToPath(new URL('../../',import.meta.url)),args=process.argv.slice(2)
++if(args.length!==4||args[0]!=='--source'||!/^[a-f0-9]{40}$/.test(args[1])||args[2]!=='--output')throw Error('Use --source <exact commit> --output <new report>')
++const source=args[1],pins={}
++const hash=b=>createHash('sha256').update(b).digest('hex')
++for(const file of ['src/features/billing/parse.ts','src/features/billing/model.ts','src/lib/invoicing/calc.ts']){
++ const blob=execFileSync('git',['show',source+':'+file],{cwd:root})
++ const working=readFileSync(resolve(root,file),'utf8').replace(/\r\n/g,'\n')
++ if(hash(working)!==hash(blob))throw Error('SOURCE_MISMATCH: '+file)
++ pins[file]=hash(blob)
++}
++const {parseInvoiceText}=await import(pathToFileURL(resolve(root,'src/features/billing/parse.ts')))
++const cases=[
++ ['Factura por 300 euros',null],
++ ['Factura de 300 euros',null],
++ ['Factura por 300 euros por soporte','soporte'],
++ ['Factura de 300 euros por instalación de fibra','instalación de fibra'],
++ ['Factura por 300 euros + IVA por soporte','soporte'],
++ ['Factura por -300 euros',null],
++ ['Factura por instalación de fibra de 300 euros','instalación de fibra'],
++ ['Factura por soporte, vencimiento en 15 días','soporte'],
++ ['Factura por mantenimiento y soporte de 300 euros','mantenimiento y soporte'],
++ ['Factura por 24 horas de soporte de 300 euros','24 horas de soporte'],
++].map(([text,expected])=>{
++ const result=parseInvoiceText(text,[],'2026-10-20'),actual=result.detected.concept,missingConcept=result.missingFields.includes('concepto')
++ return{text,expected,actual,missingConcept,pass:actual===expected&&missingConcept===(expected===null)}
++})
++const report={source,pins,scope:'Actual parser, synthetic input only; no network',cases,passed:cases.filter(r=>r.pass).length,failed:cases.filter(r=>!r.pass).length}
++writeFileSync(resolve(root,args[3]),JSON.stringify(report,null,2)+'\n',{flag:'wx'})
++console.log(JSON.stringify(report,null,2));if(report.failed)process.exitCode=1
+diff --git a/tools/oier_billing_qa/customer-identity.spec.ts b/tools/oier_billing_qa/customer-identity.spec.ts
+new file mode 100644
+index 0000000..5c21aab
+--- /dev/null
++++ b/tools/oier_billing_qa/customer-identity.spec.ts
+@@ -0,0 +1,47 @@
++import {test,expect} from '@playwright/test'
++import {startBillingFocusFixture} from '../../tests/e2e-preview/fixtures/billing-focus-server.cjs'
++import {calculateBillingV1} from '../../src/lib/server/billing-runtime-v1'
++let fixture:Awaited<ReturnType<typeof startBillingFocusFixture>>
++test.beforeAll(async()=>{fixture=await startBillingFocusFixture()})
++test.afterAll(async()=>{await fixture?.close()})
++const a='10000000-0000-4000-8000-000000000001',b='10000000-0000-4000-8000-000000000003'
++const clients=[{id:a,name:'Bilbao Telecom Demo SL'},{id:b,name:'Bilbao Redes Demo SL'}]
++for(const mode of ['different_name','ambiguous_name','selected_name','corrected_selection'] as const)test(`invoice identity ${mode} never silently substitutes the selected customer`,async({page},info)=>{
++ const proposals:string[]=[],commands:string[]=[],errors:string[]=[]
++ page.on('pageerror',e=>errors.push(e.message))
++ await page.route('**/api/**',async route=>{
++  const request=route.request(),body=request.postDataJSON()
++  if(new URL(request.url()).pathname.includes('/commands')){commands.push(body.operation);await route.fulfill({status:403,json:{ok:false,error:'access_denied'}});return}
++  if(body.operation==='global.search'){await route.fulfill({json:{ok:true,data:{contract_version:'product.v1',items:clients.map(c=>({kind:'customer',id:c.id,customer_id:c.id,label:c.name,status:'active'}))}}});return}
++  if(body.operation==='invoice.list'){await route.fulfill({json:{ok:true,data:{contract_version:'billing.v1',operation:body.operation,items:[],next_id:null}}});return}
++  if(body.operation==='invoice.private_pdf_reference'){await route.fulfill({status:404,json:{ok:false,error:'not_found'}});return}
++  if(body.operation==='invoice.propose'){proposals.push(body.input.draft.customer_id);await route.fulfill({json:{ok:true,data:{contract_version:'billing.v1',operation:body.operation,source:body.input.source,draft:body.input.draft,totals:calculateBillingV1(body.input.draft.lines),requires_review:true,saved:false}}});return}
++  await route.continue()
++ })
++ try{
++  await page.goto(fixture.url)
++  await page.getByRole('textbox',{name:'Buscar cliente de factura',exact:true}).fill('Bilbao')
++  await page.getByRole('button',{name:'Buscar cliente',exact:true}).click()
++  const selection=page.getByRole('combobox',{name:'Cliente para facturación',exact:true})
++  await selection.selectOption(b)
++  if(mode==='corrected_selection')await selection.selectOption(a)
++  const name=mode==='ambiguous_name'?'Bilbao':clients[mode==='selected_name'?1:0].name
++  await page.getByRole('textbox',{name:'Descripción de la factura',exact:true}).fill(`Factura para ${name} de 300 euros por soporte`)
++  await page.getByRole('button',{name:'Generar propuesta',exact:true}).click()
++  const warning=page.getByRole('alert').filter({hasText:'El cliente del texto no coincide de forma inequívoca con el seleccionado.'})
++  if(mode==='different_name'||mode==='ambiguous_name'){
++   await expect.poll(async()=>await warning.count()>0||await page.getByLabel('Cliente de factura',{exact:true}).count()>0).toBe(true)
++   const editor=await page.getByLabel('Cliente de factura',{exact:true}).evaluateAll(elements=>elements.map(e=>(e as HTMLSelectElement).value))
++   await info.attach('identity-observation',{body:JSON.stringify({named:name,selected:await selection.inputValue(),proposals,editor}),contentType:'application/json'})
++   await expect(page.getByLabel('Cliente de factura',{exact:true})).toHaveCount(0)
++   await expect(warning).toBeVisible();expect(proposals).toEqual([])
++  }else{
++   const expected=mode==='selected_name'?b:a
++   await expect(page.getByLabel('Cliente de factura',{exact:true})).toHaveValue(expected)
++   await expect(page.getByLabel('Concepto 1',{exact:true})).toHaveValue('soporte')
++   expect(proposals).toEqual([expected]);await expect(warning).toHaveCount(0)
++  }
++  expect(commands).toEqual([]);expect(errors).toEqual([])
++  await page.screenshot({path:info.outputPath(`identity-${mode}.png`)})
++ }finally{await page.unrouteAll({behavior:'wait'})}
++})
+diff --git a/tools/oier_billing_qa/customer-prompt-context.spec.ts b/tools/oier_billing_qa/customer-prompt-context.spec.ts
+new file mode 100644
+index 0000000..0f2d44c
+--- /dev/null
++++ b/tools/oier_billing_qa/customer-prompt-context.spec.ts
+@@ -0,0 +1,74 @@
++import {test,expect,type Page} from '@playwright/test'
++import {startBillingFocusFixture} from '../../tests/e2e-preview/fixtures/billing-focus-server.cjs'
++import {calculateBillingV1} from '../../src/lib/server/billing-runtime-v1'
++let fixture:Awaited<ReturnType<typeof startBillingFocusFixture>>
++test.beforeAll(async()=>{fixture=await startBillingFocusFixture()})
++test.afterAll(async()=>{await fixture?.close()})
++const a='10000000-0000-4000-8000-000000000001',b='10000000-0000-4000-8000-000000000003'
++const clients=[{id:a,name:'Bilbao Telecom Demo SL'},{id:b,name:'Bilbao Redes Demo SL'}]
++const prompt=(i:number)=>`Factura para ${clients[i].name} de 300 euros por soporte`
++async function mount(page:Page){
++ const commands:string[]=[],errors:string[]=[],proposals:string[]=[]
++ page.on('pageerror',e=>errors.push(e.message))
++ await page.addInitScript(()=>{
++  class SpeechStub{
++   lang='';continuous=false;interimResults=false
++   onresult:((e:{results:{transcript:string}[][]})=>void)|null=null;onerror:(()=>void)|null=null;onend:(()=>void)|null=null
++   constructor(){instances.push(this)}
++   start(){}
++   stop(){this.onend?.()}
++   abort(){document.documentElement.dataset.oldSpeechAborted='true'}
++  }
++  const instances:SpeechStub[]=[]
++  Object.defineProperty(window,'SpeechRecognition',{configurable:true,value:SpeechStub})
++  document.addEventListener('oier:old-speech',()=>instances[0]?.onresult?.({results:[[{transcript:'Palabras del cliente anterior'}]]}))
++ })
++ await page.route('**/api/**',async route=>{
++  const request=route.request(),body=request.postDataJSON()
++  if(new URL(request.url()).pathname.includes('/commands')){commands.push(body.operation);await route.fulfill({status:403,json:{ok:false,error:'access_denied'}});return}
++  if(body.operation==='global.search'){await route.fulfill({json:{ok:true,data:{contract_version:'product.v1',items:clients.map(c=>({kind:'customer',id:c.id,customer_id:c.id,label:c.name,status:'active'}))}}});return}
++  if(body.operation==='invoice.list'){await route.fulfill({json:{ok:true,data:{contract_version:'billing.v1',operation:body.operation,items:[],next_id:null}}});return}
++  if(body.operation==='invoice.private_pdf_reference'){await route.fulfill({status:404,json:{ok:false,error:'not_found'}});return}
++  if(body.operation==='invoice.propose'){proposals.push(body.input.draft.customer_id);await route.fulfill({json:{ok:true,data:{contract_version:'billing.v1',operation:body.operation,source:body.input.source,draft:body.input.draft,totals:calculateBillingV1(body.input.draft.lines),requires_review:true,saved:false}}});return}
++  await route.continue()
++ })
++ await page.goto(fixture.url)
++ await page.getByRole('textbox',{name:'Buscar cliente de factura',exact:true}).fill('Bilbao')
++ await page.getByRole('button',{name:'Buscar cliente',exact:true}).click()
++ await page.getByRole('combobox',{name:'Cliente para facturación',exact:true}).selectOption(a)
++ await page.getByRole('textbox',{name:'Descripción de la factura',exact:true}).fill(prompt(0))
++ return{proposals,assertNoEffects(){expect(commands).toEqual([]);expect(errors).toEqual([])},async close(){await page.unrouteAll({behavior:'wait'})}}
++}
++test('changing customer clears the previous written invoice intent',async({page},info)=>{
++ const r=await mount(page)
++ try{
++  await page.getByRole('combobox',{name:'Cliente para facturación',exact:true}).selectOption(b)
++  await expect(page.getByRole('textbox',{name:'Descripción de la factura',exact:true})).toHaveValue('')
++  await expect(page.getByRole('button',{name:'Generar propuesta',exact:true})).toBeDisabled()
++  expect(r.proposals).toEqual([]);r.assertNoEffects();await page.screenshot({path:info.outputPath('new-customer-empty-intent.png')})
++ }finally{await r.close()}
++})
++test('changing customer aborts dictation and retires the old transcript handler',async({page},info)=>{
++ const r=await mount(page)
++ try{
++  await page.getByRole('button',{name:'Dictar',exact:true}).click()
++  await expect(page.getByRole('button',{name:'Detener dictado',exact:true})).toBeVisible()
++  await page.getByRole('combobox',{name:'Cliente para facturación',exact:true}).selectOption(b)
++  await expect(page.locator('html')).toHaveAttribute('data-old-speech-aborted','true')
++  await page.evaluate(()=>document.dispatchEvent(new CustomEvent('oier:old-speech')))
++  await expect(page.getByRole('textbox',{name:'Descripción de la factura',exact:true})).toHaveValue('')
++  await expect(page.getByRole('button',{name:'Dictar',exact:true})).toBeVisible()
++  expect(r.proposals).toEqual([]);r.assertNoEffects();await page.screenshot({path:info.outputPath('old-dictation-retired.png')})
++ }finally{await r.close()}
++})
++test('a fresh written intent for the new customer still opens its own proposal',async({page},info)=>{
++ const r=await mount(page)
++ try{
++  await page.getByRole('combobox',{name:'Cliente para facturación',exact:true}).selectOption(b)
++  await page.getByRole('textbox',{name:'Descripción de la factura',exact:true}).fill(prompt(1))
++  await page.getByRole('button',{name:'Generar propuesta',exact:true}).click()
++  await expect(page.getByLabel('Cliente de factura',{exact:true})).toHaveValue(b)
++  await expect(page.getByLabel('Concepto 1',{exact:true})).toHaveValue('soporte')
++  expect(r.proposals).toEqual([b]);r.assertNoEffects();await page.screenshot({path:info.outputPath('new-customer-proposal.png')})
++ }finally{await r.close()}
++})
+diff --git a/tools/oier_billing_qa/customer.config.ts b/tools/oier_billing_qa/customer.config.ts
+new file mode 100644
+index 0000000..40d81eb
+--- /dev/null
++++ b/tools/oier_billing_qa/customer.config.ts
+@@ -0,0 +1,6 @@
++import {defineConfig} from '@playwright/test'
++import {resolve} from 'node:path'
++const attempt=process.env.OIER_CUSTOMER_ATTEMPT
++if(!attempt||!/^customer-attempt\d{2}$/.test(attempt))throw Error('A new OIER_CUSTOMER_ATTEMPT is required')
++const output=resolve(__dirname,'../../../oier-billing-fixes-20261020',attempt)
++export default defineConfig({testDir:__dirname,testMatch:'customer-prompt-context.spec.ts',workers:1,fullyParallel:false,retries:0,timeout:45000,expect:{timeout:4000},outputDir:resolve(output,'artifacts'),reporter:[['line'],['json',{outputFile:resolve(output,'results.json')}]],use:{browserName:'chromium',timezoneId:'Europe/Madrid',screenshot:'only-on-failure',trace:'retain-on-failure'},projects:[390,768,1440].map(width=>({name:`controlled-http-${width}`,use:{viewport:{width,height:960}}}))})
+diff --git a/tools/oier_billing_qa/dialog.config.ts b/tools/oier_billing_qa/dialog.config.ts
+new file mode 100644
+index 0000000..53bd5c9
+--- /dev/null
++++ b/tools/oier_billing_qa/dialog.config.ts
+@@ -0,0 +1,6 @@
++import {defineConfig} from '@playwright/test'
++import {resolve} from 'node:path'
++const attempt=process.env.OIER_DIALOG_ATTEMPT
++if(!attempt||!/^dialog-attempt\d{2}$/.test(attempt))throw Error('A new OIER_DIALOG_ATTEMPT is required')
++const output=resolve(__dirname,'../../../oier-billing-fixes-20261020',attempt)
++export default defineConfig({testDir:__dirname,testMatch:'proposal-dialog-context.spec.ts',workers:1,fullyParallel:false,retries:0,timeout:45000,expect:{timeout:4000},outputDir:resolve(output,'artifacts'),reporter:[['line'],['json',{outputFile:resolve(output,'results.json')}]],use:{browserName:'chromium',timezoneId:'Europe/Madrid',screenshot:'only-on-failure',trace:'retain-on-failure'},projects:[390,768,1440].map(width=>({name:`controlled-http-${width}`,use:{viewport:{width,height:960}}}))})
+diff --git a/tools/oier_billing_qa/final.config.ts b/tools/oier_billing_qa/final.config.ts
+new file mode 100644
+index 0000000..3629c0c
+--- /dev/null
++++ b/tools/oier_billing_qa/final.config.ts
+@@ -0,0 +1,6 @@
++import {defineConfig} from '@playwright/test'
++import {resolve} from 'node:path'
++const attempt=process.env.OIER_FINAL_ATTEMPT
++if(!attempt||!/^final-attempt\d{2}$/.test(attempt))throw Error('A new OIER_FINAL_ATTEMPT is required')
++const output=resolve(__dirname,'../../../oier-billing-fixes-20261020',attempt)
++export default defineConfig({testDir:__dirname,testMatch:['prompt-interaction.spec.ts','proposal-context.spec.ts','proposal-intent.spec.ts','speech-fallback.spec.ts','customer-prompt-context.spec.ts','proposal-dialog-context.spec.ts','customer-identity.spec.ts'],workers:1,fullyParallel:false,retries:0,timeout:45000,expect:{timeout:4000},outputDir:resolve(output,'artifacts'),reporter:[['line'],['json',{outputFile:resolve(output,'results.json')}]],use:{browserName:'chromium',timezoneId:'Europe/Madrid',screenshot:'only-on-failure',trace:'retain-on-failure'},projects:[390,768,1440].map(width=>({name:`controlled-http-${width}`,use:{viewport:{width,height:960}}}))})
+diff --git a/tools/oier_billing_qa/identity.config.ts b/tools/oier_billing_qa/identity.config.ts
+new file mode 100644
+index 0000000..797cb6c
+--- /dev/null
++++ b/tools/oier_billing_qa/identity.config.ts
+@@ -0,0 +1,6 @@
++import {defineConfig} from '@playwright/test'
++import {resolve} from 'node:path'
++const attempt=process.env.OIER_IDENTITY_ATTEMPT
++if(!attempt||!/^identity-attempt\d{2}$/.test(attempt))throw Error('A new OIER_IDENTITY_ATTEMPT is required')
++const output=resolve(__dirname,'../../../oier-billing-fixes-20261020',attempt)
++export default defineConfig({testDir:__dirname,testMatch:'customer-identity.spec.ts',workers:1,fullyParallel:false,retries:0,timeout:45000,expect:{timeout:4000},outputDir:resolve(output,'artifacts'),reporter:[['line'],['json',{outputFile:resolve(output,'results.json')}]],use:{browserName:'chromium',timezoneId:'Europe/Madrid',screenshot:'only-on-failure',trace:'retain-on-failure'},projects:[390,768,1440].map(width=>({name:`controlled-http-${width}`,use:{viewport:{width,height:960}}}))})
+diff --git a/tools/oier_billing_qa/intent.config.ts b/tools/oier_billing_qa/intent.config.ts
+new file mode 100644
+index 0000000..026781e
+--- /dev/null
++++ b/tools/oier_billing_qa/intent.config.ts
+@@ -0,0 +1,6 @@
++import {defineConfig} from '@playwright/test'
++import {resolve} from 'node:path'
++const attempt=process.env.OIER_INTENT_ATTEMPT
++if(!attempt||!/^intent-attempt\d{2}$/.test(attempt))throw Error('A new OIER_INTENT_ATTEMPT is required')
++const output=resolve(__dirname,'../../../oier-billing-fixes-20261020',attempt)
++export default defineConfig({testDir:__dirname,testMatch:'proposal-intent.spec.ts',workers:1,fullyParallel:false,retries:0,timeout:45000,expect:{timeout:4000},outputDir:resolve(output,'artifacts'),reporter:[['line'],['json',{outputFile:resolve(output,'results.json')}]],use:{browserName:'chromium',timezoneId:'Europe/Madrid',screenshot:'only-on-failure',trace:'retain-on-failure'},projects:[390,768,1440].map(width=>({name:`controlled-http-${width}`,use:{viewport:{width,height:960}}}))})
+diff --git a/tools/oier_billing_qa/parser-acceptance.mjs b/tools/oier_billing_qa/parser-acceptance.mjs
+new file mode 100644
+index 0000000..4186027
+--- /dev/null
++++ b/tools/oier_billing_qa/parser-acceptance.mjs
+@@ -0,0 +1,108 @@
++// Owner acceptance bank. Imports the actual product parser; never substitutes a fixed parser.
++// Node 24; no packages, server, database, credentials or model calls required.
++import { execFileSync } from 'node:child_process';
++import { createHash } from 'node:crypto';
++import { readFileSync, writeFileSync } from 'node:fs';
++import { fileURLToPath, pathToFileURL } from 'node:url';
++import { resolve } from 'node:path';
++import { isDeepStrictEqual } from 'node:util';
++
++const root = fileURLToPath(new URL('../../', import.meta.url));
++const args = process.argv.slice(2);
++const options = new Map();
++for (let i = 0; i < args.length; i += 2) {
++  if (!['--source', '--output'].includes(args[i]) || !args[i + 1] || options.has(args[i]))
++    throw new Error('Usage: parser-acceptance.mjs [--source <40-hex-commit>] [--output <new-json-path>]');
++  options.set(args[i], args[i + 1]);
++}
++const source = options.get('--source') ?? '888ecaae57e9021ca0cb25d4da0657c1f6ac9b40';
++if (!/^[a-f0-9]{40}$/.test(source)) throw new Error('Exact source commit required');
++const git = (...a) => execFileSync('git', a, { cwd: root, encoding: 'utf8' }).trim();
++if (git('rev-parse', `${source}^{commit}`) !== source) throw new Error('Source commit unavailable');
++const hash = (s) => createHash('sha256').update(s).digest('hex');
++const pins = {};
++for (const path of ['src/features/billing/parse.ts', 'src/features/billing/model.ts', 'src/lib/invoicing/calc.ts']) {
++  const blob = execFileSync('git', ['show', `${source}:${path}`], { cwd: root });
++  const working = readFileSync(resolve(root, path), 'utf8').replace(/\r\n/g, '\n');
++  if (hash(working) !== hash(blob)) throw new Error(`SOURCE_MISMATCH: ${path}`);
++  pins[path] = { gitBlob: git('rev-parse', `${source}:${path}`), sha256LF: hash(blob) };
++}
++const { parseInvoiceText } = await import(pathToFileURL(resolve(root, 'src/features/billing/parse.ts')));
++const { calculateInvoiceTotals } = await import(pathToFileURL(resolve(root, 'src/lib/invoicing/calc.ts')));
++const clients = [
++  { id: '10000000-0000-4000-8000-000000000001', name: 'Bilbao Telecom Demo SL' },
++  { id: '10000000-0000-4000-8000-000000000002', name: 'Bilbao Redes Demo SL' },
++];
++const asOf = '2026-10-19';
++const cases = [];
++function run(id, text, customerList, assertions) {
++  const result = parseInvoiceText(text, customerList, asOf);
++  const totals = calculateInvoiceTotals(result.draft.items);
++  const checks = assertions.map(([name, expected, actual]) => {
++    const value = actual(result, totals);
++    return { name, expected, actual: value, status: isDeepStrictEqual(value, expected) ? 'PASS' : 'FAIL' };
++  });
++  cases.push({ id, text, asOf, inputClients: customerList, result, totals, checks });
++}
++run('mandatory-owner-phrase', 'Hazme una factura para Bilbao Telecom Demo SL de 300 euros más el 21% de IVA por instalación de fibra, con vencimiento en quince días', clients, [
++  ['authorized-input-client', clients[0].id, r => r.draft.clientId],
++  ['explicit-issue-date', asOf, r => r.draft.issueDate],
++  ['base', 300, (_, t) => t.subtotal],
++  ['IVA', 63, (_, t) => t.taxTotal],
++  ['total', 363, (_, t) => t.total],
++  ['complete-concept', 'instalación de fibra', r => r.draft.items[0].description],
++  ['spoken-fifteen-days', '2026-11-03', r => r.draft.dueDate],
++]);
++run('numeric-due-control', 'Factura para Bilbao Telecom Demo SL de 300 euros por soporte, vencimiento en 15 días', clients, [
++  ['numeric-fifteen-days', '2026-11-03', r => r.draft.dueDate],
++  ['simple-concept', 'soporte', r => r.draft.items[0].description],
++]);
++run('month-end-control', 'Factura para Bilbao Telecom Demo SL de 300 euros por soporte, a fin de mes', clients, [
++  ['end-of-month', '2026-10-31', r => r.draft.dueDate],
++]);
++run('unknown-client', 'Factura para Cliente Inexistente XYZ de 300 euros por soporte', clients, [
++  ['no-invented-client-id', null, r => r.draft.clientId],
++  ['client-review-required', true, r => r.missingFields.includes('cliente')],
++]);
++run('ambiguous-client', 'Factura para Bilbao de 300 euros por soporte', clients, [
++  ['no-silent-client-choice', null, r => r.draft.clientId],
++  ['both-candidates', clients.map(c => c.name), r => r.detected.ambiguousClients],
++  ['client-review-required', true, r => r.missingFields.includes('cliente')],
++]);
++run('missing-amount', 'Factura para Bilbao Telecom Demo SL por soporte', clients, [
++  ['amount-not-invented', null, r => r.detected.amount],
++  ['amount-review-required', true, r => r.missingFields.includes('importe')],
++]);
++run('IVA-included', 'Factura para Bilbao Telecom Demo SL de 363 euros IVA incluido al 21% por soporte', clients, [
++  ['net-base', 300, (_, t) => t.subtotal],
++  ['gross-total', 363, (_, t) => t.total],
++  ['review-warning', true, r => r.warnings.some(w => w.includes('IVA incluido'))],
++]);
++run('negative-amount', 'Factura para Bilbao Telecom Demo SL de -300 euros por soporte', clients, [
++  ['reject-negative', true, r => r.detected.amount === null && r.missingFields.includes('importe')],
++]);
++run('spanish-number', 'Factura para Bilbao Telecom Demo SL de 1.234,56 euros por soporte', clients, [
++  ['Spanish-decimals', 1234.56, r => r.detected.amount],
++]);
++run('foreign-currency', 'Factura para Bilbao Telecom Demo SL de 300 USD por soporte', clients, [
++  ['currency', 'USD', r => r.draft.currency],
++  ['no-fabricated-FX', null, r => r.draft.exchangeRateToEur],
++]);
++const checks = cases.flatMap(c => c.checks);
++const report = {
++  schema: 'oier.billing-parser-acceptance.v1',
++  scope: 'REAL_PRODUCT_PARSER_SYNTHETIC_INPUT_ONLY',
++  sourceCommit: source,
++  sourceTree: git('rev-parse', `${source}^{tree}`),
++  runnerHead: git('rev-parse', 'HEAD'),
++  node: process.version,
++  pins,
++  evaluatedAt: new Date().toISOString(),
++  acceptance: checks.every(c => c.status === 'PASS') ? 'PASS_PARSER_ONLY' : 'FAIL_PARSER_ACCEPTANCE',
++  summary: { scenarios: cases.length, checks: checks.length, passed: checks.filter(c => c.status === 'PASS').length, failed: checks.filter(c => c.status === 'FAIL').length },
++  unmeasured: { browser: 'NOT_RUN', realVoice: 'NOT_RUN', serverProposal: 'NOT_RUN', realCustomerLookup: 'NOT_RUN', cloudPersistence: 'NOT_RUN', release: 'NOT_ACCEPTED' },
++  cases,
++};
++if (options.has('--output')) writeFileSync(resolve(options.get('--output')), `${JSON.stringify(report, null, 2)}\n`, { flag: 'wx' });
++console.log(JSON.stringify({ acceptance: report.acceptance, sourceCommit: source, ...report.summary, failures: cases.flatMap(c => c.checks.filter(x => x.status === 'FAIL').map(x => ({ scenario: c.id, ...x }))) }, null, 2));
++process.exitCode = report.summary.failed ? 1 : 0;
+diff --git a/tools/oier_billing_qa/prompt-interaction.spec.ts b/tools/oier_billing_qa/prompt-interaction.spec.ts
+new file mode 100644
+index 0000000..f4728fe
+--- /dev/null
++++ b/tools/oier_billing_qa/prompt-interaction.spec.ts
+@@ -0,0 +1,154 @@
++import {test,expect,type Page} from '@playwright/test'
++import {startBillingFocusFixture} from '../../tests/e2e-preview/fixtures/billing-focus-server.cjs'
++import {calculateBillingV1} from '../../src/lib/server/billing-runtime-v1'
++import type {BillingDraftV1} from '../../src/lib/contracts/billing-v1'
++
++// Actual IntegratedBilling, PromptBuilder, parser, repository and DTO validators.
++// The pre-existing fixture supplies assets/provider. HTTP and SpeechRecognition are
++// controlled test boundaries: no Supabase, model, real microphone or persistence.
++const customer='10000000-0000-4000-8000-000000000001'
++const label='Bilbao Telecom Demo SL'
++const simple=`Factura para ${label} de 300 euros por soporte`
++type Call={operation:string;input:Record<string,unknown>}
++type ProposalMode='valid'|'denied'|'malformed'|'network'
++let fixture:Awaited<ReturnType<typeof startBillingFocusFixture>>
++test.beforeAll(async()=>{fixture=await startBillingFocusFixture()})
++test.afterAll(async()=>{await fixture?.close()})
++
++async function mount(page:Page,{speech=true,mode='valid'}:{speech?:boolean;mode?:ProposalMode}={}){
++ const calls:Call[]=[],pageErrors:string[]=[]
++ page.on('pageerror',error=>pageErrors.push(error.message))
++ await page.addInitScript(({supported})=>{
++  class SpeechStub{
++   lang='';continuous=false;interimResults=false
++   onresult:((e:{results:{transcript:string}[][]})=>void)|null=null
++   onerror:(()=>void)|null=null;onend:(()=>void)|null=null
++   constructor(){instances.push(this)}
++   start(){Object.assign(document.documentElement.dataset,{speechLang:this.lang,speechContinuous:String(this.continuous),speechInterim:String(this.interimResults)})}
++   stop(){document.documentElement.dataset.speechStopped='true';this.onend?.()}
++   abort(){document.documentElement.dataset.speechAborted='true'}
++  }
++  const instances:SpeechStub[]=[]
++  Object.defineProperty(window,'SpeechRecognition',{configurable:true,value:supported?SpeechStub:undefined})
++  Object.defineProperty(window,'webkitSpeechRecognition',{configurable:true,value:undefined})
++  document.addEventListener('oier:speech',event=>{
++   const detail=(event as CustomEvent<{kind:string;text?:string}>).detail,s=instances.at(-1)
++   if(detail.kind==='result')s?.onresult?.({results:[[{transcript:detail.text??''}]]})
++   else if(detail.kind==='error')s?.onerror?.()
++   else if(detail.kind==='end')s?.onend?.()
++  })
++ },{supported:speech})
++ await page.route('**/api/**',async route=>{
++  const request=route.request(),body=request.postDataJSON() as Call
++  calls.push(body)
++  if(new URL(request.url()).pathname.includes('/commands')){
++   await route.fulfill({status:403,json:{ok:false,error:'access_denied'}});return
++  }
++  if(body.operation==='global.search'){
++   await route.fulfill({json:{ok:true,data:{contract_version:'product.v1',items:[{kind:'customer',id:customer,customer_id:customer,label,status:'active'}]}}});return
++  }
++  if(body.operation==='invoice.list'){
++   await route.fulfill({json:{ok:true,data:{contract_version:'billing.v1',operation:body.operation,items:[],next_id:null}}});return
++  }
++  if(body.operation==='invoice.private_pdf_reference'){
++   await route.fulfill({status:404,json:{ok:false,error:'not_found'}});return
++  }
++  if(body.operation==='invoice.propose'){
++   if(mode==='network'){await route.abort('failed');return}
++   if(mode==='denied'){await route.fulfill({status:403,json:{ok:false,error:'access_denied'}});return}
++   const draft=body.input.draft as BillingDraftV1
++   await route.fulfill({json:{ok:true,data:{contract_version:'billing.v1',operation:body.operation,source:body.input.source,draft,totals:calculateBillingV1(draft.lines),requires_review:true,saved:mode==='malformed'}}});return
++  }
++  await route.continue()
++ })
++ await page.goto(fixture.url)
++ await page.getByRole('textbox',{name:'Buscar cliente de factura',exact:true}).fill('Bilbao')
++ await page.getByRole('button',{name:'Buscar cliente',exact:true}).click()
++ await page.getByRole('combobox',{name:'Cliente para facturación',exact:true}).selectOption(customer)
++ await expect(page.getByRole('textbox',{name:'Descripción de la factura',exact:true})).toBeVisible()
++ return{calls,pageErrors,proposals:()=>calls.filter(c=>c.operation==='invoice.propose'),assertNoCommands:()=>expect(calls.filter(c=>['invoice.create_draft','invoice.update_draft','invoice.issue','invoice.mark_paid'].includes(c.operation))).toEqual([])}
++}
++async function speechEvent(page:Page,kind:string,text?:string){await page.evaluate(detail=>document.dispatchEvent(new CustomEvent('oier:speech',{detail})),{kind,text})}
++async function generate(page:Page,text:string){await page.getByRole('textbox',{name:'Descripción de la factura',exact:true}).fill(text);await page.getByRole('button',{name:'Generar propuesta',exact:true}).click()}
++
++test('empty prompt does not propose or write',async({page})=>{
++ const r=await mount(page)
++ await expect(page.getByRole('button',{name:'Generar propuesta',exact:true})).toBeDisabled()
++ expect(r.proposals()).toEqual([]);r.assertNoCommands();expect(r.pageErrors).toEqual([])
++})
++test('unsupported speech keeps text fallback usable and opens editable reviewed proposal',async({page},info)=>{
++ const r=await mount(page,{speech:false})
++ await page.getByRole('button',{name:'Dictar',exact:true}).click()
++ await expect(page.getByRole('status').filter({hasText:'Dictado no disponible'})).toBeVisible()
++ await generate(page,simple)
++ await expect(page.getByRole('textbox',{name:'Concepto 1',exact:true})).toHaveValue('soporte')
++ await expect(page.getByRole('button',{name:'Guardar borrador local',exact:true})).toBeDisabled()
++ expect(r.proposals()).toHaveLength(1);expect(r.proposals()[0].input.source).toBe('text')
++ r.assertNoCommands();expect(r.pageErrors).toEqual([])
++ await page.screenshot({path:info.outputPath('editable-proposal.png'),fullPage:true})
++})
++test('controlled dictation uses Spanish and waits until stopped before proposing',async({page})=>{
++ const r=await mount(page)
++ await page.getByRole('button',{name:'Dictar',exact:true}).click()
++ await expect(page.locator('html')).toHaveAttribute('data-speech-lang','es-ES')
++ await expect(page.locator('html')).toHaveAttribute('data-speech-continuous','false')
++ await expect(page.locator('html')).toHaveAttribute('data-speech-interim','true')
++ await speechEvent(page,'result',simple)
++ await expect(page.getByRole('textbox',{name:'Descripción de la factura',exact:true})).toHaveValue(simple)
++ await expect(page.getByRole('button',{name:'Generar propuesta',exact:true})).toBeDisabled()
++ expect(r.proposals()).toEqual([])
++ await page.getByRole('button',{name:'Detener dictado',exact:true}).click()
++ await expect(page.locator('html')).toHaveAttribute('data-speech-stopped','true')
++ await page.getByRole('button',{name:'Generar propuesta',exact:true}).click()
++ await expect(page.getByRole('textbox',{name:'Concepto 1',exact:true})).toHaveValue('soporte')
++ expect(r.proposals()[0].input.source).toBe('audio');r.assertNoCommands();expect(r.pageErrors).toEqual([])
++})
++test('interim transcripts replace one another and editing changes provenance to text',async({page})=>{
++ const r=await mount(page),area=page.getByRole('textbox',{name:'Descripción de la factura',exact:true})
++ await area.fill('Factura para');await page.getByRole('button',{name:'Dictar',exact:true}).click()
++ await speechEvent(page,'result',label);await speechEvent(page,'result',`${label} de 300 euros por soporte`)
++ await expect(area).toHaveValue(simple)
++ await speechEvent(page,'end');await area.fill(`${simple} nuevo`)
++ await page.getByRole('button',{name:'Generar propuesta',exact:true}).click()
++ await expect(page.getByRole('textbox',{name:'Concepto 1',exact:true})).toHaveValue('soporte nuevo')
++ expect(r.proposals()[0].input.source).toBe('text');r.assertNoCommands();expect(r.pageErrors).toEqual([])
++})
++test('controlled speech error retains text fallback without proposing',async({page})=>{
++ const r=await mount(page)
++ await page.getByRole('button',{name:'Dictar',exact:true}).click();await speechEvent(page,'error')
++ await expect(page.getByRole('status').filter({hasText:'No se pudo completar el dictado'})).toBeVisible()
++ await expect(page.getByRole('button',{name:'Dictar',exact:true})).toBeEnabled()
++ expect(r.proposals()).toEqual([])
++ await generate(page,simple);await expect(page.getByRole('textbox',{name:'Concepto 1',exact:true})).toBeVisible()
++ r.assertNoCommands();expect(r.pageErrors).toEqual([])
++})
++test('leaving the customer aborts recognition and retires transcript handlers',async({page})=>{
++ const r=await mount(page)
++ await page.getByRole('button',{name:'Dictar',exact:true}).click()
++ await page.getByRole('combobox',{name:'Cliente para facturación',exact:true}).selectOption('')
++ await expect(page.locator('html')).toHaveAttribute('data-speech-aborted','true')
++ await speechEvent(page,'result','Unrelated late transcript')
++ await page.getByRole('combobox',{name:'Cliente para facturación',exact:true}).selectOption(customer)
++ await expect(page.getByRole('textbox',{name:'Descripción de la factura',exact:true})).toHaveValue('')
++ expect(r.proposals()).toEqual([]);r.assertNoCommands();expect(r.pageErrors).toEqual([])
++})
++test('owner phrase preserves complete concept and fifteen-day due date in editable proposal',async({page})=>{
++ const r=await mount(page)
++ await generate(page,`Factura para ${label} por instalación de fibra de 300 euros más el 21% de IVA y vencimiento en quince días`)
++ await expect(page.getByRole('textbox',{name:'Concepto 1',exact:true})).toBeVisible()
++ const draft=r.proposals()[0].input.draft as BillingDraftV1,due=new Date(`${draft.issue_on}T00:00:00Z`)
++ due.setUTCDate(due.getUTCDate()+15)
++ await expect.soft(page.getByRole('textbox',{name:'Concepto 1',exact:true})).toHaveValue('instalación de fibra')
++ await expect.soft(page.getByLabel('Vencimiento de factura',{exact:true})).toHaveValue(due.toISOString().slice(0,10))
++ expect(draft.lines[0].unit_price_minor).toBe(30000);expect(draft.lines[0].tax_bps).toBe(2100)
++ r.assertNoCommands()
++})
++for(const mode of ['denied','malformed','network'] as const)test(`${mode} proposal failure is explained without opening editor or writing`,async({page},info)=>{
++ const r=await mount(page,{mode});await generate(page,simple)
++ await expect.poll(()=>r.proposals().length).toBe(1)
++ await expect.soft(page.getByRole('textbox',{name:'Concepto 1',exact:true})).toHaveCount(0)
++ await expect.soft(page.getByRole('alert').filter({hasText:/permiso|autoriz|confirm|conexión|completar|verific|fallo|error/i})).toBeVisible()
++ r.assertNoCommands()
++ await info.attach('unhandled-errors-observed',{body:JSON.stringify(r.pageErrors),contentType:'application/json'})
++ expect.soft(r.pageErrors).toEqual([])
++})
+diff --git a/tools/oier_billing_qa/proposal-context.spec.ts b/tools/oier_billing_qa/proposal-context.spec.ts
+new file mode 100644
+index 0000000..b5d1587
+--- /dev/null
++++ b/tools/oier_billing_qa/proposal-context.spec.ts
+@@ -0,0 +1,93 @@
++import {test,expect,type Page} from '@playwright/test'
++import {startBillingFocusFixture} from '../../tests/e2e-preview/fixtures/billing-focus-server.cjs'
++import {calculateBillingV1} from '../../src/lib/server/billing-runtime-v1'
++import type {BillingProposalInputV1} from '../../src/lib/contracts/billing-v1'
++
++// Read-only controlled HTTP against the existing real component fixture.
++const a='10000000-0000-4000-8000-000000000001',b='10000000-0000-4000-8000-000000000003'
++const clients=[{id:a,name:'Bilbao Telecom Demo SL'},{id:b,name:'Bilbao Redes Demo SL'}]
++const prompt=(index:number)=>`Factura para ${clients[index].name} de 300 euros por soporte`
++let fixture:Awaited<ReturnType<typeof startBillingFocusFixture>>
++test.beforeAll(async()=>{fixture=await startBillingFocusFixture()})
++test.afterAll(async()=>{await fixture?.close()})
++async function scenario(page:Page,oldError=false){
++ let release=()=>{},held=false,done=false
++ const gate=new Promise<void>(resolve=>release=resolve),commands:string[]=[],proposals:BillingProposalInputV1[]=[]
++ const pageErrors:string[]=[];page.on('pageerror',e=>pageErrors.push(e.message))
++ await page.route('**/api/**',async route=>{
++  const body=route.request().postDataJSON()
++  if(new URL(route.request().url()).pathname.includes('/commands')){commands.push(body.operation);await route.fulfill({status:403,json:{ok:false,error:'access_denied'}});return}
++  if(body.operation==='global.search'){await route.fulfill({json:{ok:true,data:{contract_version:'product.v1',items:clients.map(c=>({kind:'customer',id:c.id,customer_id:c.id,label:c.name,status:'active'}))}}});return}
++  if(body.operation==='invoice.list'){await route.fulfill({json:{ok:true,data:{contract_version:'billing.v1',operation:body.operation,items:[],next_id:null}}});return}
++  if(body.operation==='invoice.private_pdf_reference'){await route.fulfill({status:404,json:{ok:false,error:'not_found'}});return}
++  if(body.operation==='invoice.propose'){
++   const input=body.input as BillingProposalInputV1;proposals.push(input)
++   const first=proposals.length===1
++   if(first){held=true;await gate}
++   if(first&&oldError)await route.fulfill({status:503,json:{ok:false,error:'unavailable'}})
++   else await route.fulfill({json:{ok:true,data:{contract_version:'billing.v1',operation:body.operation,source:input.source,draft:input.draft,totals:calculateBillingV1(input.draft.lines),requires_review:true,saved:false}}})
++   if(first)done=true
++   return
++  }
++  await route.continue()
++ })
++ await page.goto(fixture.url)
++ await page.getByRole('textbox',{name:'Buscar cliente de factura',exact:true}).fill('Bilbao')
++ await page.getByRole('button',{name:'Buscar cliente',exact:true}).click()
++ await page.getByRole('combobox',{name:'Cliente para facturación',exact:true}).selectOption(a)
++ await expect(page.getByRole('textbox',{name:'Descripción de la factura',exact:true})).toBeVisible()
++ async function generate(text:string){await page.getByRole('textbox',{name:'Descripción de la factura',exact:true}).fill(text);await page.getByRole('button',{name:'Generar propuesta',exact:true}).click()}
++ async function completeOld(){release();await expect.poll(()=>done).toBe(true);await page.evaluate(()=>new Promise<void>(resolve=>requestAnimationFrame(()=>requestAnimationFrame(()=>resolve()))))}
++ return {generate,release,completeOld,commands,proposals,pageErrors,waitHeld:()=>expect.poll(()=>held).toBe(true),async close(){release();await page.unrouteAll({behavior:'wait'})}}
++}
++test('held proposal still opens when customer context is unchanged',async({page},info)=>{
++ const r=await scenario(page)
++ try{
++  await r.generate(prompt(0));await r.waitHeld()
++  await expect(page.getByLabel('Cliente de factura',{exact:true})).toHaveCount(0)
++  await r.completeOld()
++  await expect(page.getByLabel('Cliente de factura',{exact:true})).toHaveValue(a)
++  await expect(page.getByLabel('Concepto 1',{exact:true})).toHaveValue('soporte')
++  expect(r.commands).toEqual([]);expect(r.pageErrors).toEqual([])
++  await info.attach('observed-proposals',{body:JSON.stringify(r.proposals),contentType:'application/json'})
++ }finally{await r.close()}
++})
++for(const target of [b,''])test(`old proposal is retired after customer ${target?'switch':'removal'}`,async({page},info)=>{
++ const r=await scenario(page)
++ try{
++  await r.generate(prompt(0));await r.waitHeld()
++  await page.getByRole('combobox',{name:'Cliente para facturación',exact:true}).selectOption(target)
++  await expect(page.getByRole('combobox',{name:'Cliente para facturación',exact:true})).toHaveValue(target)
++  await r.completeOld()
++  // Evidence must not auto-wait for the editor whose absence is asserted next.
++  const editorCustomer=await page.getByLabel('Cliente de factura',{exact:true}).evaluateAll(elements=>elements.length===1?(elements[0] as HTMLSelectElement).value:null)
++  await info.attach('context-and-proposals',{body:JSON.stringify({selected:target,proposals:r.proposals,editorCustomer}),contentType:'application/json'})
++  await expect.soft(page.getByLabel('Cliente de factura',{exact:true})).toHaveCount(0)
++  expect(r.commands).toEqual([]);expect(r.pageErrors).toEqual([])
++ }finally{await r.close()}
++})
++test('failure from old customer does not contaminate a newer accepted proposal',async({page},info)=>{
++ const r=await scenario(page,true)
++ try{
++  await r.generate(prompt(0));await r.waitHeld()
++  await page.getByRole('combobox',{name:'Cliente para facturación',exact:true}).selectOption(b)
++  await r.generate(prompt(1))
++  await expect(page.getByLabel('Cliente de factura',{exact:true})).toHaveValue(b)
++  await expect(page.getByRole('alert').filter({hasText:'Esta función no está disponible ahora.'})).toHaveCount(0)
++  await r.completeOld()
++  await expect.soft(page.getByRole('alert').filter({hasText:'Esta función no está disponible ahora.'})).toHaveCount(0)
++  await expect(page.getByLabel('Cliente de factura',{exact:true})).toHaveValue(b)
++  expect(r.commands).toEqual([]);expect(r.pageErrors).toEqual([])
++  await info.attach('observed-proposals',{body:JSON.stringify(r.proposals),contentType:'application/json'})
++ }finally{await r.close()}
++})
++test('original comma concept opens an editable support proposal',async({page},info)=>{
++ const r=await scenario(page)
++ try{
++  await r.generate(`Factura para ${clients[0].name} de 300 euros por soporte, vencimiento en 15 días`)
++  r.release()
++  await expect.soft(page.getByLabel('Concepto 1',{exact:true})).toHaveValue('soporte')
++  await info.attach('observed-proposals',{body:JSON.stringify(r.proposals),contentType:'application/json'})
++  expect(r.commands).toEqual([]);expect(r.pageErrors).toEqual([])
++ }finally{await r.close()}
++})
+diff --git a/tools/oier_billing_qa/proposal-dialog-context.spec.ts b/tools/oier_billing_qa/proposal-dialog-context.spec.ts
+new file mode 100644
+index 0000000..e6b59f9
+--- /dev/null
++++ b/tools/oier_billing_qa/proposal-dialog-context.spec.ts
+@@ -0,0 +1,60 @@
++import {test,expect} from '@playwright/test'
++import {startBillingFocusFixture} from '../../tests/e2e-preview/fixtures/billing-focus-server.cjs'
++import {calculateBillingV1} from '../../src/lib/server/billing-runtime-v1'
++let fixture:Awaited<ReturnType<typeof startBillingFocusFixture>>
++test.beforeAll(async()=>{fixture=await startBillingFocusFixture()})
++test.afterAll(async()=>{await fixture?.close()})
++const modes=[['issuer','Configurar emisor','Datos fiscales del emisor'],['customer','Datos fiscales del cliente','Datos fiscales del cliente'],['summary','Ver resumen','Resumen de factura'],['payment','Marcar como cobrada','Registrar cobro']] as const
++for(const [mode,button,title] of modes)test(`pending proposal cannot replace the ${mode} dialog; fresh intent remains usable`,async({page},info)=>{
++ const customer=fixture.invoice.customer_id,commands:string[]=[],errors:string[]=[]
++ let release=()=>{},held=false,done=false,proposals=0
++ const gate=new Promise<void>(resolve=>release=resolve)
++ page.on('pageerror',e=>errors.push(e.message))
++ await page.route('**/api/**',async route=>{
++  const request=route.request(),body=request.postDataJSON()
++  if(new URL(request.url()).pathname.includes('/commands')){commands.push(body.operation);await route.fulfill({status:403,json:{ok:false,error:'access_denied'}});return}
++  if(body.operation==='global.search'){await route.fulfill({json:{ok:true,data:{contract_version:'product.v1',items:[{kind:'customer',id:customer,customer_id:customer,label:'Bilbao Telecom Demo SL',status:'active'}]}}});return}
++  if(body.operation==='invoice.list'){
++   const invoice=Object.fromEntries(['currency','customer_id','due_on','id','issue_on','number','overdue','series','status','totals','version'].map(key=>[key,fixture.invoice[key as keyof typeof fixture.invoice]]))
++   await route.fulfill({json:{ok:true,data:{contract_version:'billing.v1',operation:body.operation,items:[invoice],next_id:null}}});return
++  }
++  if(body.operation==='invoice.private_pdf_reference'){await route.fulfill({status:404,json:{ok:false,error:'not_found'}});return}
++  if(body.operation==='invoice.propose'){
++   const first=++proposals===1
++   if(first){held=true;await gate}
++   await route.fulfill({json:{ok:true,data:{contract_version:'billing.v1',operation:body.operation,source:body.input.source,draft:body.input.draft,totals:calculateBillingV1(body.input.draft.lines),requires_review:true,saved:false}}})
++   if(first)done=true
++   return
++  }
++  // Summary refusal is deliberate: its authorized error dialog must also remain current.
++  if(body.operation==='invoice.summary'){await route.fulfill({status:403,json:{ok:false,error:'access_denied'}});return}
++  await route.continue()
++ })
++ try{
++  await page.goto(fixture.url)
++  await page.getByRole('textbox',{name:'Buscar cliente de factura',exact:true}).fill('Bilbao')
++  await page.getByRole('button',{name:'Buscar cliente',exact:true}).click()
++  await page.getByRole('combobox',{name:'Cliente para facturación',exact:true}).selectOption(customer)
++  if(mode==='payment'){
++   await page.getByRole('button',{name:'Abrir factura',exact:true}).click()
++   await expect(page.locator('section[data-invoice-detail-id]')).toBeVisible()
++  }
++  const text=page.getByRole('textbox',{name:'Descripción de la factura',exact:true})
++  await text.fill('Factura para Bilbao Telecom Demo SL de 300 euros por soporte')
++  await page.getByRole('button',{name:'Generar propuesta',exact:true}).click()
++  await expect.poll(()=>held).toBe(true)
++  await page.getByRole('button',{name:button,exact:true}).click()
++  const dialog=page.getByRole('dialog',{name:title,exact:true})
++  await expect(dialog).toBeVisible()
++  release();await expect.poll(()=>done).toBe(true)
++  await page.evaluate(()=>new Promise<void>(resolve=>requestAnimationFrame(()=>requestAnimationFrame(()=>resolve()))))
++  await expect(page.getByRole('dialog',{name:'Revisar borrador local',exact:true})).toHaveCount(0)
++  await expect(dialog).toBeVisible()
++  expect(commands).toEqual([]);expect(errors).toEqual([])
++  await page.screenshot({path:info.outputPath(`current-${mode}-dialog.png`)})
++  await page.keyboard.press('Escape');await expect(dialog).toHaveCount(0)
++  await page.getByRole('button',{name:'Generar propuesta',exact:true}).click()
++  await expect(page.getByLabel('Concepto 1',{exact:true})).toHaveValue('soporte')
++  expect(proposals).toBe(2);expect(commands).toEqual([]);expect(errors).toEqual([])
++ }finally{release();await page.unrouteAll({behavior:'wait'})}
++})
+diff --git a/tools/oier_billing_qa/proposal-intent.spec.ts b/tools/oier_billing_qa/proposal-intent.spec.ts
+new file mode 100644
+index 0000000..b997b88
+--- /dev/null
++++ b/tools/oier_billing_qa/proposal-intent.spec.ts
+@@ -0,0 +1,74 @@
++import {test,expect,type Page} from '@playwright/test'
++import {startBillingFocusFixture} from '../../tests/e2e-preview/fixtures/billing-focus-server.cjs'
++import {calculateBillingV1} from '../../src/lib/server/billing-runtime-v1'
++
++// Existing component fixture; controlled HTTP, not hosted Auth/DB or persistence.
++let fixture:Awaited<ReturnType<typeof startBillingFocusFixture>>
++test.beforeAll(async()=>{fixture=await startBillingFocusFixture()})
++test.afterAll(async()=>{await fixture?.close()})
++async function pendingProposal(page:Page,refuse=false){
++ let release=()=>{},held=false,done=false
++ const gate=new Promise<void>(resolve=>release=resolve),commands:string[]=[],errors:string[]=[]
++ const customer=fixture.invoice.customer_id
++ page.on('pageerror',e=>errors.push(e.message))
++ await page.route('**/api/**',async route=>{
++  const request=route.request(),body=request.postDataJSON()
++  if(new URL(request.url()).pathname.includes('/commands')){commands.push(body.operation);await route.fulfill({status:403,json:{ok:false,error:'access_denied'}});return}
++  if(body.operation==='global.search'){await route.fulfill({json:{ok:true,data:{contract_version:'product.v1',items:[{kind:'customer',id:customer,customer_id:customer,label:'Bilbao Telecom Demo SL',status:'active'}]}}});return}
++  if(body.operation==='invoice.list'){
++   const invoice=Object.fromEntries(['currency','customer_id','due_on','id','issue_on','number','overdue','series','status','totals','version'].map(key=>[key,fixture.invoice[key as keyof typeof fixture.invoice]]))
++   await route.fulfill({json:{ok:true,data:{contract_version:'billing.v1',operation:body.operation,items:[invoice],next_id:null}}});return
++  }
++  if(body.operation==='invoice.private_pdf_reference'){await route.fulfill({status:404,json:{ok:false,error:'not_found'}});return}
++  if(body.operation==='invoice.propose'){
++   held=true;await gate
++   if(refuse)await route.fulfill({status:503,json:{ok:false,error:'unavailable'}})
++   else await route.fulfill({json:{ok:true,data:{contract_version:'billing.v1',operation:body.operation,source:body.input.source,draft:body.input.draft,totals:calculateBillingV1(body.input.draft.lines),requires_review:true,saved:false}}})
++   done=true;return
++  }
++  await route.continue()
++ })
++ await page.goto(fixture.url)
++ await page.getByRole('textbox',{name:'Buscar cliente de factura',exact:true}).fill('Bilbao')
++ await page.getByRole('button',{name:'Buscar cliente',exact:true}).click()
++ await page.getByRole('combobox',{name:'Cliente para facturación',exact:true}).selectOption(customer)
++ await page.getByRole('textbox',{name:'Descripción de la factura',exact:true}).fill('Factura para Bilbao Telecom Demo SL de 300 euros por soporte')
++ await page.getByRole('button',{name:'Generar propuesta',exact:true}).click()
++ await expect.poll(()=>held).toBe(true)
++ return{customer,async complete(){release();await expect.poll(()=>done).toBe(true);await page.evaluate(()=>new Promise<void>(resolve=>requestAnimationFrame(()=>requestAnimationFrame(()=>resolve()))))},assertNoEffects(){expect(commands).toEqual([]);expect(errors).toEqual([])},async close(){release();await page.unrouteAll({behavior:'wait'})}}
++}
++test('a late proposal cannot reopen a manually closed draft',async({page},info)=>{
++ const r=await pendingProposal(page)
++ try{
++  await page.getByRole('button',{name:'Nuevo borrador local',exact:true}).click()
++  await expect(page.getByRole('dialog',{name:'Revisar borrador local',exact:true})).toBeVisible()
++  await page.keyboard.press('Escape')
++  await expect(page.getByRole('dialog',{name:'Revisar borrador local',exact:true})).toHaveCount(0)
++  await r.complete()
++  await expect(page.getByRole('dialog',{name:'Revisar borrador local',exact:true})).toHaveCount(0)
++  r.assertNoEffects();await page.screenshot({path:info.outputPath('closed-draft-retained.png')})
++ }finally{await r.close()}
++})
++test('an old proposal error cannot contaminate a new manual draft',async({page},info)=>{
++ const r=await pendingProposal(page,true)
++ try{
++  await page.getByRole('button',{name:'Nuevo borrador local',exact:true}).click()
++  await page.getByLabel('Concepto 1',{exact:true}).fill('Cambio manual vigente')
++  await r.complete()
++  await expect(page.getByRole('alert').filter({hasText:'Esta función no está disponible ahora.'})).toHaveCount(0)
++  await expect(page.getByLabel('Concepto 1',{exact:true})).toHaveValue('Cambio manual vigente')
++  r.assertNoEffects();await page.getByLabel('Concepto 1',{exact:true}).scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath('manual-draft-retained.png')})
++ }finally{await r.close()}
++})
++test('a late proposal cannot replace the invoice opened afterwards',async({page},info)=>{
++ const r=await pendingProposal(page)
++ try{
++  await page.getByRole('button',{name:'Abrir factura',exact:true}).click()
++  const detail=page.locator(`section[data-invoice-detail-id="${r.customer}"]`)
++  await expect(detail).toBeVisible()
++  await r.complete()
++  await expect(page.getByRole('dialog',{name:'Revisar borrador local',exact:true})).toHaveCount(0)
++  await expect(detail).toBeVisible()
++  r.assertNoEffects();await detail.scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath('current-invoice-retained.png')})
++ }finally{await r.close()}
++})
+diff --git a/tools/oier_billing_qa/regression.config.ts b/tools/oier_billing_qa/regression.config.ts
+new file mode 100644
+index 0000000..754f0ce
+--- /dev/null
++++ b/tools/oier_billing_qa/regression.config.ts
+@@ -0,0 +1,23 @@
++import {defineConfig} from '@playwright/test'
++import {resolve} from 'node:path'
++
++const attempt=process.env.OIER_REGRESSION_ATTEMPT
++if(!attempt||!/^billing-regression-attempt\d{2}$/.test(attempt))throw Error('Set a new OIER_REGRESSION_ATTEMPT; preserve earlier results')
++const output=resolve(__dirname,'../../../oier-billing-fixes-20261020',attempt)
++export default defineConfig({
++ testDir:resolve(__dirname,'../../tests/e2e-preview'),
++ testMatch:[
++  'billing-current-selection.spec.ts',
++  'billing-initial-context.spec.ts',
++  'billing-financial-refresh.spec.ts',
++  'billing-uncertain-intent.spec.ts',
++  'billing-invalid-receipt.spec.ts',
++  'billing-receipt-read-boundary.spec.ts',
++  'billing-refresh-focus.spec.ts',
++ ],
++ workers:1,fullyParallel:false,retries:0,timeout:45000,expect:{timeout:4000},
++ outputDir:resolve(output,'artifacts'),
++ reporter:[['line'],['json',{outputFile:resolve(output,'results.json')}]],
++ use:{browserName:'chromium',timezoneId:'Europe/Madrid',viewport:{width:1440,height:960},screenshot:'only-on-failure',trace:'retain-on-failure'},
++ projects:[{name:'controlled-http-existing-billing'}],
++})
+diff --git a/tools/oier_billing_qa/speech-fallback.spec.ts b/tools/oier_billing_qa/speech-fallback.spec.ts
+new file mode 100644
+index 0000000..4320f07
+--- /dev/null
++++ b/tools/oier_billing_qa/speech-fallback.spec.ts
+@@ -0,0 +1,51 @@
++import {test,expect} from '@playwright/test'
++import {startBillingFocusFixture} from '../../tests/e2e-preview/fixtures/billing-focus-server.cjs'
++import {calculateBillingV1} from '../../src/lib/server/billing-runtime-v1'
++
++// Capability fault injection into the real prompt component; no real microphone.
++let fixture:Awaited<ReturnType<typeof startBillingFocusFixture>>
++test.beforeAll(async()=>{fixture=await startBillingFocusFixture()})
++test.afterAll(async()=>{await fixture?.close()})
++for(const mode of ['constructor','start','error_without_words','end_without_words'] as const)test(`written fallback survives speech ${mode} and retains text provenance`,async({page},info)=>{
++ const customer=fixture.invoice.customer_id,commands:string[]=[],errors:string[]=[],sources:string[]=[]
++ page.on('pageerror',e=>errors.push(e.message))
++ await page.addInitScript(({mode})=>{
++  class SpeechFault{
++   lang='';continuous=false;interimResults=false
++   onresult:null|(()=>void)=null;onerror:null|(()=>void)=null;onend:null|(()=>void)=null
++   constructor(){if(mode==='constructor')throw new Error('Controlled speech constructor failure')}
++   start(){if(mode==='start')throw new Error('Controlled speech start failure');queueMicrotask(()=>mode==='error_without_words'?this.onerror?.():this.onend?.())}
++   stop(){this.onend?.()}
++   abort(){}
++  }
++  Object.defineProperty(window,'SpeechRecognition',{configurable:true,value:SpeechFault})
++  Object.defineProperty(window,'webkitSpeechRecognition',{configurable:true,value:undefined})
++ },{mode})
++ await page.route('**/api/**',async route=>{
++  const request=route.request(),body=request.postDataJSON()
++  if(new URL(request.url()).pathname.includes('/commands')){commands.push(body.operation);await route.fulfill({status:403,json:{ok:false,error:'access_denied'}});return}
++  if(body.operation==='global.search'){await route.fulfill({json:{ok:true,data:{contract_version:'product.v1',items:[{kind:'customer',id:customer,customer_id:customer,label:'Bilbao Telecom Demo SL',status:'active'}]}}});return}
++  if(body.operation==='invoice.list'){await route.fulfill({json:{ok:true,data:{contract_version:'billing.v1',operation:body.operation,items:[],next_id:null}}});return}
++  if(body.operation==='invoice.private_pdf_reference'){await route.fulfill({status:404,json:{ok:false,error:'not_found'}});return}
++  if(body.operation==='invoice.propose'){sources.push(body.input.source);await route.fulfill({json:{ok:true,data:{contract_version:'billing.v1',operation:body.operation,source:body.input.source,draft:body.input.draft,totals:calculateBillingV1(body.input.draft.lines),requires_review:true,saved:false}}});return}
++  await route.continue()
++ })
++ try{
++  await page.goto(fixture.url)
++  await page.getByRole('textbox',{name:'Buscar cliente de factura',exact:true}).fill('Bilbao')
++  await page.getByRole('button',{name:'Buscar cliente',exact:true}).click()
++  await page.getByRole('combobox',{name:'Cliente para facturación',exact:true}).selectOption(customer)
++  const text='Factura para Bilbao Telecom Demo SL de 300 euros por soporte'
++  await page.getByRole('textbox',{name:'Descripción de la factura',exact:true}).fill(text)
++  await page.getByRole('button',{name:'Dictar',exact:true}).click()
++  if(mode==='constructor'||mode==='start')await expect(page.getByRole('status').filter({hasText:'No se pudo iniciar el dictado.'})).toBeVisible()
++  if(mode==='error_without_words')await expect(page.getByRole('status').filter({hasText:'No se pudo completar el dictado.'})).toBeVisible()
++  await expect(page.getByRole('button',{name:'Dictar',exact:true})).toBeVisible()
++  await expect(page.getByRole('textbox',{name:'Descripción de la factura',exact:true})).toHaveValue(text)
++  await page.getByRole('button',{name:'Generar propuesta',exact:true}).click()
++  await expect(page.getByLabel('Concepto 1',{exact:true})).toHaveValue('soporte')
++  expect(sources).toEqual(['text']);expect(commands).toEqual([]);expect(errors).toEqual([])
++  await page.getByLabel('Concepto 1',{exact:true}).scrollIntoViewIfNeeded()
++  await page.screenshot({path:info.outputPath(`speech-${mode}-fallback.png`)})
++ }finally{await page.unrouteAll({behavior:'wait'})}
++})
+diff --git a/tools/oier_billing_qa/speech.config.ts b/tools/oier_billing_qa/speech.config.ts
+new file mode 100644
+index 0000000..257b67f
+--- /dev/null
++++ b/tools/oier_billing_qa/speech.config.ts
+@@ -0,0 +1,6 @@
++import {defineConfig} from '@playwright/test'
++import {resolve} from 'node:path'
++const attempt=process.env.OIER_SPEECH_ATTEMPT
++if(!attempt||!/^speech-attempt\d{2}$/.test(attempt))throw Error('A new OIER_SPEECH_ATTEMPT is required')
++const output=resolve(__dirname,'../../../oier-billing-fixes-20261020',attempt)
++export default defineConfig({testDir:__dirname,testMatch:'speech-fallback.spec.ts',workers:1,fullyParallel:false,retries:0,timeout:45000,expect:{timeout:4000},outputDir:resolve(output,'artifacts'),reporter:[['line'],['json',{outputFile:resolve(output,'results.json')}]],use:{browserName:'chromium',timezoneId:'Europe/Madrid',screenshot:'only-on-failure',trace:'retain-on-failure'},projects:[390,768,1440].map(width=>({name:`controlled-http-${width}`,use:{viewport:{width,height:960}}}))})

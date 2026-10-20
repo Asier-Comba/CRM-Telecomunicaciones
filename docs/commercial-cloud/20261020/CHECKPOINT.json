@@ -60,7 +60,7 @@
     "PR161": {
       "head": "5d58a56dbbe00e5eaefa6228420322d268f7c5c7",
       "manual_retry": 0,
-      "active": "5D58_OWN_RUNS_REFRESH_BEFORE_PR_PUSH_KEEP_UNTIL_TERMINAL",
+      "active": "ALL5D58_RUNS_TERMINAL_REFRESH_BEFORE_NEXT_PUSH",
       "native_quota": "a32_BEFORE_TESTS;0MANUAL_RETRY",
       "security": "5HIGH_W4_INDEPENDENT",
       "prior_a32": {
@@ -147,6 +147,27 @@
         "native_tests": null,
         "retry_eligibility": "NOT_ELIGIBLE_WITHOUT_SAME_SHA_PIN_PHYSICAL_POSITIVE",
         "run": 39404325700
+      },
+      "complete_5d58": {
+        "ui": "PASS",
+        "old_failures_causal_correction": "NOT_DEMONSTRATED",
+        "manual_reruns": 0,
+        "native": "SEPARATE_PULL_QUOTA_FAILURE_NOT_RUN_JOB118566444067",
+        "teardown": "PASS",
+        "head": "5d58a56dbbe00e5eaefa6228420322d268f7c5c7",
+        "run": 39404325688,
+        "trees_equal": true,
+        "actual_tested_sha": "9ebbe82806f234fd389750f0d3000cd0fa8ac4c1",
+        "job": 118566443560,
+        "environment": "LOCAL_SUPABASE_DOCKER",
+        "result": "PASS",
+        "staging": "NOT_TESTED",
+        "tree": "4b29415592fc5e83a768bcf728e145f4aad3aa1f",
+        "release": "NOT_ACCEPTED",
+        "ui_count": 113,
+        "artifact": 12257032670,
+        "not_assigned_to": "49bc_0c2_OR_ASIER2F87",
+        "backend_checks": 4042
       }
     },
     "PR160": {
@@ -163,10 +184,11 @@
   "integration": "DRAFT_ASIER_EXACT_ACK_REQUIRED",
   "branch": "oier/portfolio-receipt-readback-20261020",
   "next": {
-    "security": "5HIGH, independentW4/scan/P0Storage, W5EdgeAccess/cache, historical quotas/F736/137/a32 preserved; writesOFF issue10OPEN releaseNOT_ACCEPTED",
-    "causal": "REQUEST6287148538 causeUNKNOWN; greenfb24/2b31 does not demonstrate causal repair",
-    "independent": "CLAIM6288377150 unit30: original pipeline change_stage uncertain receipt and same-version stage/status mismatch bank. Existing pipeline fixture; prepare outside active checkout, execute after29 publication.",
-    "publish": "Recovery alias while PR5d58 checks active; no cancellation/force/push above active checks. Exact Asier ACK for integration."
+    "integration": "Asier composition2f87 includes exact three PR160 blobs, ACK 6288602043 limited. Commercial application-only patch applies textually to2f87 in own temporary index. Asier must review/choose ten source blobs and qualify resulting composition.",
+    "security": "5HIGH,scan,W4,P0 Storage,Edge Access,cohort stillopen; IA writes OFF issue10 OPEN release NOT_ACCEPTED",
+    "resource": "W5 profile87 request6289026792: exact migration Git blob/LFhash correlated only, no execution or approval. Preserve strict85/86 resource; no duplication or modifications.",
+    "cloud": "Hosted bank tools/oier_cloud_qa prepared; preflight NOT_RUN without private manifest/cohort/window/dedicated approved browser. No hosted dispatch performed.",
+    "queued": "Pipeline30 bank stored as.txt, schema check only; no browser or correction initiated under changedW0priority."
   },
   "unit": 29,
   "claim": 6288083277,
@@ -1010,5 +1032,16 @@
     "source": "e5e3cf02e65b7cdaadb2ec1c5c5e568a250225e3",
     "delivery": "5d58a56dbbe00e5eaefa6228420322d268f7c5c7",
     "handoff": 6288250490
+  },
+  "current_priority": {
+    "qa_source": "0c2bb3f8c95df5c130972f4846336f27872a3137",
+    "owner_order": 6288451006,
+    "unit": "CLOUD-QA-01",
+    "application_reference": "49bc242c849a019b4b85fd3da1b3a8c9a45ca179",
+    "checkpoint": "CLOUD_QA01.json",
+    "product_checks": "357_BROWSER96LOGIC_REMAIN_BOUND_TO49BC_NOT_ASSIGNED_TO_QA",
+    "pipeline30": "QUEUED_NOT_STARTED",
+    "cloud": "NOT_RUN",
+    "ACK": 6288616081
   }
 }
