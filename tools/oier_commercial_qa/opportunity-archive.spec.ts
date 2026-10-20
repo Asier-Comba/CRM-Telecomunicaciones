@@ -31,7 +31,7 @@ for(const mode of ['transport','malformed','wrong_receipt','read_failure','denie
  })
  try{
   await page.goto(fixture.url)
-  await page.getByRole('textbox',{name:'Consultar pipeline local',exact:true}).fill('Archivo sintético')
+  await page.getByRole('textbox',{name:'Consultar pipeline local',exact:true}).fill('sintética')
   await page.getByRole('button',{name:'Consultar pipeline',exact:true}).click()
   await page.locator(`[data-opportunity-id="${id}"]`).click()
   const editor=page.getByRole('dialog',{name:'Detalle de oportunidad',exact:true}),confirm=page.getByRole('dialog',{name:'Archivar oportunidad',exact:true})
