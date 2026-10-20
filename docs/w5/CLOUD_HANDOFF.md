@@ -1,4 +1,4 @@
-# W5 Cloud — handoff único (actualizado 20/10/2026, noche)
+# W5 Cloud — handoff único (actualizado 21/10/2026)
 
 **RELEASE NOT_ACCEPTED. Producción OFF. Seguridad no aprobada: falta un revisor independiente distinto del autor.**
 
@@ -8,13 +8,15 @@
 |---|---|---|
 | Nube publicada | Deploy `6ad78f6c810c781fba4f5880` = `a9e977ad` (árbol `ac48598b`), privado, 401 anónimo | `NETLIFY_STAGING_RUNBOOK.md` (#171) |
 | Validación sobre `6ad78f6c` | A/B, suspendido, fuera de cohorte y anónimo PASS **por API y páginas, W5/propietario**. No es QA visual independiente y no se traslada a la sucesora | §11 |
-| Candidata del integrador | #175 `b9e1eefe`: **no desplegada** y sin designar como fuente de demo | #67 |
-| Plataforma de #175 | Diagnóstico de los 7 rojos publicado. Corregidos en #171 (`db454489`, autorizados por el propietario): imagen exacta con digest, 85/86 en su alcance histórico, composición ligada a `32862faf` + migraciones forward-only. Pendientes: `services:` de CI sin fallback, test del ledger de presupuesto, Supabase local (integrador) | #171, #67 |
+| Candidata del integrador | #175 `8ee0b9ba` (árbol `bbf296ae`): **no desplegada** ni designada para staging | #67 |
+| Plataforma | #171 `11d44e1b` = `8ee0b9ba` + fixes W5 (imagen exacta, 85/86 históricos, composición ligada a `32862faf` con unicidad de versiones OIER26, servicio CI propio): 6 SUCCESS; 3 FAIL por hallazgos reales (audit braces, vendor, historial) | #171 |
 | Pipeline de deploy | Workflow de #171 listo. Falta: incorporarlo a la rama por defecto y crear el entorno protegido `staging` (propietario) | #171 |
-| Acceso de Oier | Bloqueado: Netlify Free solo lo ve el Owner. Propuesta Pro de 20 USD/mes + IVA a confirmar en checkout, recarga OFF | #67 comentario 6299975950 |
+| Acceso de Oier | Presupuesto 0 €: Pro rechazado. Ninguna alternativa gratuita cumple uso comercial + proxy Node de Next 16 + privacidad; se mantiene Netlify Free (solo Owner) | `FREE_HOSTING_EVALUATION.md` |
 | Ventana QA | Manifiesto preparado, **no abierta** | `QA_WINDOW_MANIFEST.md` |
 | Seguridad | 5 HIGH = una cadena dev-only (`braces`); gitleaks 23 = 0 credenciales reales (sin ubicaciones publicadas); vendor n8n no desplegado; gosu es un BLOCKER upstream | `SECURITY_CLASSIFICATION.md` |
-| Storage #166/88 | Propuesta, no aplicada; contenido OFF | §6 |
+| Storage 88 | Propuesta v3 en #179 (supersede a #166). SQL 87→88 compatible en CI; el flujo de PDF necesita una credencial solo-servidor: decisión pendiente. No aplicada, contenido OFF | #179 |
+| Bootstrap comercial | Matriz con estados reales; sin adaptador de correo comercial; sin backups en el plan Free | `COMMERCIAL_BOOTSTRAP.md` |
+| Bootstrap comercial | Matriz con estados reales; sin adaptador de correo comercial; sin backups en el plan Free | `COMMERCIAL_BOOTSTRAP.md` |
 | Supabase | 87 migraciones; cuentas sintéticas: solo owner A activa, el resto baneadas con 0 sesiones (verificado 20/10) | §2 |
 
 Indicadores: IMPLEMENTED · INTEGRATED · LOCAL_TESTED · HOSTED_TESTED · BLOCKED · NOT_VERIFIED · ACCEPTED.
