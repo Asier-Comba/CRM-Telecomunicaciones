@@ -55,7 +55,7 @@ Comprobación única de alcance de esta conexión Supabase20/10: projects=[]; no
 
 | Tarea | Responsable | Fuente / dependencia | Siguiente evidencia | Estado |
 |---|---|---|---|---|
-| QA pequeño consumible | Oier → revisiónAsier | base3b80; PR161 histórico intacto | Controles propios sobre nueva composición y PR DRAFT sin conflictos | EN_CURSO |
+| QA pequeño consumible | Oier → revisiónAsier | base3b80; PR161 histórico intacto | Fuente695a:14controles localesPASS, lint dirigido/types0; preflightNOT_RUN/exit2; PR DRAFT pendiente de revisión | PUBLICADO_PARA_REVISION |
 | Admisión Edge | Asier revisa propuestaW5e42 | Contrato compartido, no editar en paralelo | Negativos configuración/APP_ENV/origen/proyecto/cohorte/revocación; luego ACK explícito | PENDIENTE |
 | Textos «Integración/base local» en hosted | PropuestaOier → Asier | Transporte integrated_local también hospeda | Copia fiel al transporte; no afirmar persistencia por cambiar una etiqueta | PENDIENTE |
 | Dashboard «Mi actividad» con ceros | Asier/Oier | Alcance/asignación real; workspace soloowner/admin | Explicitar filtro y selección autorizada; no inventar cifras ni ampliar permisos | PENDIENTE |
@@ -71,3 +71,5 @@ Conservar alcance canónico: Clientes/Customer360 → contratos/servicios → ca
 Guion privado condicionado: acceso/versión → cliente previo/nuevo y recuperación → texto obligatorio/propuesta/revisión/borrador/recarga → Bpositivo y denegaciones → cierre de sesiones propias. Añadir voz u otro módulo únicamente con evidencia individual en ese deploy; excluir Storage/PDF no aceptados y efectos externos no autorizados.
 
 Historial y evidencias originales permanecen en [353eb86](https://github.com/Asier-Comba/CRM-Telecomunicaciones/blob/353eb862cf7af41f2028cc07a32f004bb0c33e3f/docs/commercial-cloud/DEMO_READINESS.md) y sus checkpoints02/03/04/manifiesto342archivos. Ese historial conserva estados anteriores; no son instrucciones vigentes contradictorias ni motivo para importar producto de nuevo.
+
+QA05: [resultado exacto](20261020/DEMO_QA05.json) sobre fuente695a07213eddbab40543b5760beb3613e94d2729. Las pruebas se ejecutaron de nuevo por cambio de base/composición; no son resultado alojado ni prueba del selector con Auth. Build no repetido porque no cambia aplicación. WARN de Node sobre tipos/módulos conservados; no se cambian dependencias para silenciarlos.
