@@ -18,7 +18,7 @@ if(!gate.ok||!process.argv.includes('--run')){
  mkdirSync(directory,{recursive:true})
  // Existing state means REVIEW/RESUME, never another automatic customer/draft creation.
  let lock
- try{lock=openSync(resolve(directory,'run.lock'),'wx');closeSync(lock)}catch(error){report.preflight={ok:false,codes:[error.code==='EEXIST'?'EXISTING_WINDOW_RUN_REQUIRES_REVIEW':'PRIVATE_JOURNAL_LOCK_UNAVAILABLE']};console.log(JSON.stringify(report,null,2));process.exitCode=2}
+ try{lock=openSync(resolve(directory,'run.lock'),'wx');closeSync(lock)}catch(error){lock=undefined;report.preflight={ok:false,codes:[error.code==='EEXIST'?'EXISTING_WINDOW_RUN_REQUIRES_REVIEW':'PRIVATE_JOURNAL_LOCK_UNAVAILABLE']};console.log(JSON.stringify(report,null,2));process.exitCode=2}
  if(lock!==undefined){
   const journal={windowId:manifest.windowId,candidateSha:manifest.candidateSha,customerId:null,invoiceId:null,lastDispatch:null}
   const save=()=>writeFileSync(resolve(directory,'private-progress.json'),JSON.stringify(journal,null,2))
