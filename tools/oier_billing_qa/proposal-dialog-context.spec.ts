@@ -48,7 +48,7 @@ for(const [mode,button,title] of modes)test(`pending proposal cannot replace the
   await expect(dialog).toBeVisible()
   release();await expect.poll(()=>done).toBe(true)
   await page.evaluate(()=>new Promise<void>(resolve=>requestAnimationFrame(()=>requestAnimationFrame(()=>resolve()))))
-  await expect(page.getByRole('dialog',{name:'Revisar borrador local',exact:true})).toHaveCount(0)
+  await expect(page.getByRole('dialog',{name:'Revisar borrador',exact:true})).toHaveCount(0)
   await expect(dialog).toBeVisible()
   expect(commands).toEqual([]);expect(errors).toEqual([])
   await page.screenshot({path:info.outputPath(`current-${mode}-dialog.png`)})

@@ -40,19 +40,19 @@ async function pendingProposal(page:Page,refuse=false){
 test('a late proposal cannot reopen a manually closed draft',async({page},info)=>{
  const r=await pendingProposal(page)
  try{
-  await page.getByRole('button',{name:'Nuevo borrador local',exact:true}).click()
-  await expect(page.getByRole('dialog',{name:'Revisar borrador local',exact:true})).toBeVisible()
+  await page.getByRole('button',{name:'Nuevo borrador',exact:true}).click()
+  await expect(page.getByRole('dialog',{name:'Revisar borrador',exact:true})).toBeVisible()
   await page.keyboard.press('Escape')
-  await expect(page.getByRole('dialog',{name:'Revisar borrador local',exact:true})).toHaveCount(0)
+  await expect(page.getByRole('dialog',{name:'Revisar borrador',exact:true})).toHaveCount(0)
   await r.complete()
-  await expect(page.getByRole('dialog',{name:'Revisar borrador local',exact:true})).toHaveCount(0)
+  await expect(page.getByRole('dialog',{name:'Revisar borrador',exact:true})).toHaveCount(0)
   r.assertNoEffects();await page.screenshot({path:info.outputPath('closed-draft-retained.png')})
  }finally{await r.close()}
 })
 test('an old proposal error cannot contaminate a new manual draft',async({page},info)=>{
  const r=await pendingProposal(page,true)
  try{
-  await page.getByRole('button',{name:'Nuevo borrador local',exact:true}).click()
+  await page.getByRole('button',{name:'Nuevo borrador',exact:true}).click()
   await page.getByLabel('Concepto 1',{exact:true}).fill('Cambio manual vigente')
   await r.complete()
   await expect(page.getByRole('alert').filter({hasText:'Esta función no está disponible ahora.'})).toHaveCount(0)
@@ -67,7 +67,7 @@ test('a late proposal cannot replace the invoice opened afterwards',async({page}
   const detail=page.locator(`section[data-invoice-detail-id="${r.customer}"]`)
   await expect(detail).toBeVisible()
   await r.complete()
-  await expect(page.getByRole('dialog',{name:'Revisar borrador local',exact:true})).toHaveCount(0)
+  await expect(page.getByRole('dialog',{name:'Revisar borrador',exact:true})).toHaveCount(0)
   await expect(detail).toBeVisible()
   r.assertNoEffects();await detail.scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath('current-invoice-retained.png')})
  }finally{await r.close()}

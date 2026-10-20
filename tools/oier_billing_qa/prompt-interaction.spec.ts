@@ -82,7 +82,7 @@ test('unsupported speech keeps text fallback usable and opens editable reviewed 
  await expect(page.getByRole('status').filter({hasText:'Dictado no disponible'})).toBeVisible()
  await generate(page,simple)
  await expect(page.getByRole('textbox',{name:'Concepto 1',exact:true})).toHaveValue('soporte')
- await expect(page.getByRole('button',{name:'Guardar borrador local',exact:true})).toBeDisabled()
+ await expect(page.getByRole('button',{name:'Guardar borrador',exact:true})).toBeDisabled()
  expect(r.proposals()).toHaveLength(1);expect(r.proposals()[0].input.source).toBe('text')
  r.assertNoCommands();expect(r.pageErrors).toEqual([])
  await page.screenshot({path:info.outputPath('editable-proposal.png'),fullPage:true})
