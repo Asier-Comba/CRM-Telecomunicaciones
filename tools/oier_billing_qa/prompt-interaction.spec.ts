@@ -122,6 +122,26 @@ test('controlled speech error retains text fallback without proposing',async({pa
  await generate(page,simple);await expect(page.getByRole('textbox',{name:'Concepto 1',exact:true})).toBeVisible()
  r.assertNoCommands();expect(r.pageErrors).toEqual([])
 })
+
+test('manual correction during active dictation survives the next interim result',async({page},info)=>{
+ const r=await mount(page),area=page.getByRole('textbox',{name:'Descripción de la factura',exact:true})
+ await page.getByRole('button',{name:'Dictar',exact:true}).click()
+ await speechEvent(page,'result',simple)
+ await expect(area).toHaveValue(simple)
+ const correction=`Factura para ${label} de 450 euros por instalación de fibra`
+ await area.fill(correction)
+ await speechEvent(page,'result',simple+' transcripción posterior')
+ await expect(area).toHaveValue(correction)
+ await expect(page.locator('html')).toHaveAttribute('data-speech-aborted','true')
+ await expect(page.getByRole('button',{name:'Generar propuesta',exact:true})).toBeEnabled()
+ expect(r.proposals()).toEqual([]);r.assertNoCommands()
+ await page.getByRole('button',{name:'Generar propuesta',exact:true}).click()
+ await expect(page.getByRole('textbox',{name:'Concepto 1',exact:true})).toHaveValue('instalación de fibra')
+ expect(r.proposals()).toHaveLength(1);expect(r.proposals()[0].input.source).toBe('text')
+ expect((r.proposals()[0].input.draft as BillingDraftV1).lines[0].unit_price_minor).toBe(45000)
+ r.assertNoCommands();expect(r.pageErrors).toEqual([])
+ await page.screenshot({path:info.outputPath('manual-correction-reviewed.png'),fullPage:true})
+})
 test('leaving the customer aborts recognition and retires transcript handlers',async({page})=>{
  const r=await mount(page)
  await page.getByRole('button',{name:'Dictar',exact:true}).click()
